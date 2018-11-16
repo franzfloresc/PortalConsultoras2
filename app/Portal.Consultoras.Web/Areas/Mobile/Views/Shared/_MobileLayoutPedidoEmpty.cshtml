@@ -1,5 +1,5 @@
 ﻿@using Portal.Consultoras.Common
-@using Portal.Consultoras.Web.Helpers
+@using Portal.Consultoras.Web.CustomHelpers
 
 <!DOCTYPE html>
 <html lang="es-PE">
@@ -205,193 +205,193 @@
     </script>
 
     <script type="text/javascript">
-		$(function () {
-			SetFormatDecimalPais(formatDecimalPaisMain);
+        $(function () {
+            SetFormatDecimalPais(formatDecimalPaisMain);
 
-			HandlebarsRegisterHelper();
+            HandlebarsRegisterHelper();
 
-			if (ingresoExterno == "NoSoporta") {
-				$("body").on("click", ".enlace_regresar", function (e) {
-					window.location.href = urlChatbot;
-				});
-			} else if (ingresoExterno == "Soporta") {
-				$(".enlace_regresar").hide();
-			}
+            if (ingresoExterno == "NoSoporta") {
+                $("body").on("click", ".enlace_regresar", function (e) {
+                    window.location.href = urlChatbot;
+                });
+            } else if (ingresoExterno == "Soporta") {
+                $(".enlace_regresar").hide();
+            }
 
-			$("body").on("keyup", ".ValidaNumeral", function (evt) {
-				var theEvent = evt || window.event;
-				var key = theEvent.keyCode || theEvent.which;
-				key = String.fromCharCode(key);
-				var regex = /[0-9]|\./;
-				if (!regex.test(key)) {
-					theEvent.returnValue = false;
-					if (theEvent.preventDefault) theEvent.preventDefault();
-				}
-			});
+            $("body").on("keyup", ".ValidaNumeral", function (evt) {
+                var theEvent = evt || window.event;
+                var key = theEvent.keyCode || theEvent.which;
+                key = String.fromCharCode(key);
+                var regex = /[0-9]|\./;
+                if (!regex.test(key)) {
+                    theEvent.returnValue = false;
+                    if (theEvent.preventDefault) theEvent.preventDefault();
+                }
+            });
 
-			$("body").on("keypress", ".ValidaNumeral", function (e) {
-				if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
-					return false;
-				}
-			});
+            $("body").on("keypress", ".ValidaNumeral", function (e) {
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                    return false;
+                }
+            });
 
-			$("body").on('paste', ".ValidaPasteNumeral", function (e) {
-				var $input = $(this);
-				var previousVal = $input.val();
-				var pastedValue = e.originalEvent.clipboardData.getData('text/plain').trim();
-				if (isNaN(pastedValue) === false && isInt(Number(pastedValue))) {
-					$input.val(pastedValue);
-					e.preventDefault();
-				} else {
-					$input.val(previousVal);
-					e.preventDefault();
-				};
-			});
+            $("body").on('paste', ".ValidaPasteNumeral", function (e) {
+                var $input = $(this);
+                var previousVal = $input.val();
+                var pastedValue = e.originalEvent.clipboardData.getData('text/plain').trim();
+                if (isNaN(pastedValue) === false && isInt(Number(pastedValue))) {
+                    $input.val(pastedValue);
+                    e.preventDefault();
+                } else {
+                    $input.val(previousVal);
+                    e.preventDefault();
+                };
+            });
 
-			$("body").on("click", "[data-popup-main]", function (e) {
-				if (!$(e.target).closest('[data-popup-body]').length) {
+            $("body").on("click", "[data-popup-main]", function (e) {
+                if (!$(e.target).closest('[data-popup-body]').length) {
 
-					if ($(e.target).is(':visible')) {
+                    if ($(e.target).is(':visible')) {
 
-						var functionHide = $.trim($('[data-popup-main]').attr("data-popup-function-hide"));
-						FuncionEjecutar(functionHide);
-						$(e.target).hide();
-						$('body').css({ 'overflow-y': 'scroll' });
-					}
-				}
-			});
+                        var functionHide = $.trim($('[data-popup-main]').attr("data-popup-function-hide"));
+                        FuncionEjecutar(functionHide);
+                        $(e.target).hide();
+                        $('body').css({ 'overflow-y': 'scroll' });
+                    }
+                }
+            });
 
-			$("body").on("click", "[data-popup-close]", function (e) {
-				var popupClose = $("#" + $(this).attr("data-popup-close")) || $(this).parent("[data-popup-main]");
+            $("body").on("click", "[data-popup-close]", function (e) {
+                var popupClose = $("#" + $(this).attr("data-popup-close")) || $(this).parent("[data-popup-main]");
 
-				var functionHide = $.trim($(popupClose).attr("data-popup-function-hide"));
-				FuncionEjecutar(functionHide);
-				$(popupClose).hide();
-				$('body').css({ 'overflow-y': 'scroll' });
-			});
-		});
+                var functionHide = $.trim($(popupClose).attr("data-popup-function-hide"));
+                FuncionEjecutar(functionHide);
+                $(popupClose).hide();
+                $('body').css({ 'overflow-y': 'scroll' });
+            });
+        });
 
-		function ShowLoading() {
-			$("#loading-spin").fadeIn();
-		}
+        function ShowLoading() {
+            $("#loading-spin").fadeIn();
+        }
 
-		function CloseLoading() {
-			$("#loading-spin").fadeOut("fast");
-		}
+        function CloseLoading() {
+            $("#loading-spin").fadeOut("fast");
+        }
 
-		function messageInfo(message, fnAceptar) {
-			message = $.trim(message);
-			if (message == "") {
-				return false;
-			}
+        function messageInfo(message, fnAceptar) {
+            message = $.trim(message);
+            if (message == "") {
+                return false;
+            }
 
-			$('#mensajeInformacion').html(message);
-			$('#popupInformacion').show();
-			if ($.isFunction(fnAceptar)) {
-				$('#popupInformacion .btn-aceptar').off('click');
-				$('#popupInformacion .btn-aceptar').on('click', fnAceptar);
-			}
-		}
+            $('#mensajeInformacion').html(message);
+            $('#popupInformacion').show();
+            if ($.isFunction(fnAceptar)) {
+                $('#popupInformacion .btn-aceptar').off('click');
+                $('#popupInformacion .btn-aceptar').on('click', fnAceptar);
+            }
+        }
 
-		function messageInfoBueno(message, fnAceptar) {
-			$('#mensajeInformacionSB2Bueno').html(message);
-			$('#popupInformacionSB2Bueno').show();
-			if ($.isFunction(fnAceptar)) {
-				$('#popupInformacionSB2Bueno .btn_ok_mobile').off('click');
-				$('#popupInformacionSB2Bueno .btn_ok_mobile').on('click', fnAceptar);
-			}
-		}
+        function messageInfoBueno(message, fnAceptar) {
+            $('#mensajeInformacionSB2Bueno').html(message);
+            $('#popupInformacionSB2Bueno').show();
+            if ($.isFunction(fnAceptar)) {
+                $('#popupInformacionSB2Bueno .btn_ok_mobile').off('click');
+                $('#popupInformacionSB2Bueno .btn_ok_mobile').on('click', fnAceptar);
+            }
+        }
 
-		function messageInfoMalo(message, fnAceptar) {
-			$('#mensajeInformacionSB2_Malo').html(message);
-			$('#popupInformacionSB2Malo').show();
-			if ($.isFunction(fnAceptar)) {
-				$('#popupInformacionSB2Malo .btn-aceptar').off('click');
-				$('#popupInformacionSB2Malo .btn-aceptar').on('click', fnAceptar);
-			}
-		}
+        function messageInfoMalo(message, fnAceptar) {
+            $('#mensajeInformacionSB2_Malo').html(message);
+            $('#popupInformacionSB2Malo').show();
+            if ($.isFunction(fnAceptar)) {
+                $('#popupInformacionSB2Malo .btn-aceptar').off('click');
+                $('#popupInformacionSB2Malo .btn-aceptar').on('click', fnAceptar);
+            }
+        }
 
-		function messageInfoError(message, fnAceptar) {
-			$('#mensajeInformacionSB2_Error').html(message);
-			$('#popupInformacionSB2Error').show();
-			if ($.isFunction(fnAceptar)) {
-				$('#popupInformacionSB2Error .btn-aceptar').off('click');
-				$('#popupInformacionSB2Error .btn-aceptar').on('click', fnAceptar);
-			}
-		}
+        function messageInfoError(message, fnAceptar) {
+            $('#mensajeInformacionSB2_Error').html(message);
+            $('#popupInformacionSB2Error').show();
+            if ($.isFunction(fnAceptar)) {
+                $('#popupInformacionSB2Error .btn-aceptar').off('click');
+                $('#popupInformacionSB2Error .btn-aceptar').on('click', fnAceptar);
+            }
+        }
 
-		function messageInfoValidado(message, fnAceptar) {
-			$('#mensajeInformacionvalidado').html(message);
-			$('#popupInformacionValidado').show();
-			if ($.isFunction(fnAceptar)) {
-				$('#popupInformacionValidado .btn_ok_mobile').off('click');
-				$('#popupInformacionValidado .btn_ok_mobile').on('click', fnAceptar);
-			}
-		}
+        function messageInfoValidado(message, fnAceptar) {
+            $('#mensajeInformacionvalidado').html(message);
+            $('#popupInformacionValidado').show();
+            if ($.isFunction(fnAceptar)) {
+                $('#popupInformacionValidado .btn_ok_mobile').off('click');
+                $('#popupInformacionValidado .btn_ok_mobile').on('click', fnAceptar);
+            }
+        }
 
-		function SeparadorMiles(pnumero) {
-			// Función que colocará el caracter "." como separador de miles.
+        function SeparadorMiles(pnumero) {
+            // Función que colocará el caracter "." como separador de miles.
 
-			var resultado = "";
-			var numero = pnumero.replace(/\,/g, '');
-			var nuevoNumero = "";
-			if (numero[0] == "-") nuevoNumero = numero.replace(/\./g, '').substring(1);
-			else nuevoNumero = numero.replace(/\./g, '');
+            var resultado = "";
+            var numero = pnumero.replace(/\,/g, '');
+            var nuevoNumero = "";
+            if (numero[0] == "-") nuevoNumero = numero.replace(/\./g, '').substring(1);
+            else nuevoNumero = numero.replace(/\./g, '');
 
-			if (numero.indexOf(",") >= 0) nuevoNumero = nuevoNumero.substring(0, nuevoNumero.indexOf(","));
+            if (numero.indexOf(",") >= 0) nuevoNumero = nuevoNumero.substring(0, nuevoNumero.indexOf(","));
 
-			for (var j, i = nuevoNumero.length - 1, j = 0; i >= 0; i-- , j++)
-				resultado = nuevoNumero.charAt(i) + ((j > 0) && (j % 3 == 0) ? "." : "") + resultado;
+            for (var j, i = nuevoNumero.length - 1, j = 0; i >= 0; i-- , j++)
+                resultado = nuevoNumero.charAt(i) + ((j > 0) && (j % 3 == 0) ? "." : "") + resultado;
 
-			if (numero.indexOf(",") >= 0) resultado += numero.substring(numero.indexOf(","));
+            if (numero.indexOf(",") >= 0) resultado += numero.substring(numero.indexOf(","));
 
-			if (numero[0] == "-") return "-" + resultado;
-			else return resultado;
-		}
+            if (numero[0] == "-") return "-" + resultado;
+            else return resultado;
+        }
 
-		function ReservadoOEnHorarioRestringido(mostrarAlerta) {
-			mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
-			var restringido = true;
+        function ReservadoOEnHorarioRestringido(mostrarAlerta) {
+            mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
+            var restringido = true;
 
-			$.ajaxSetup({ cache: false });
-			jQuery.ajax({
-				type: 'GET',
-				url: urlReservadoEnHorarioRestringuido,
-				dataType: 'json',
-				contentType: 'application/json; charset=utf-8',
-				async: false,
-				success: function (data) {
-					if (!checkTimeout(data)) {
-						return false;
-					}
+            $.ajaxSetup({ cache: false });
+            jQuery.ajax({
+                type: 'GET',
+                url: urlReservadoEnHorarioRestringuido,
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                async: false,
+                success: function (data) {
+                    if (!checkTimeout(data)) {
+                        return false;
+                    }
 
-					if (data.success == false) {
-						restringido = false;
-						return false;
-					}
+                    if (data.success == false) {
+                        restringido = false;
+                        return false;
+                    }
 
-					if (data.pedidoReservado) {
-						var fnRedireccionar = function () {
-							ShowLoading();
-							location.href = urlPedidoValidado
-						}
-						if (mostrarAlerta == true) {
-							CloseLoading();
-							AbrirMensaje(data.message);
-						}
-						else fnRedireccionar();
-					}
-					else if (mostrarAlerta == true) {
-						AbrirMensaje(data.message);
-					}
-				},
-				error: function (error) {
-					AbrirMensaje('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
-				}
-			});
+                    if (data.pedidoReservado) {
+                        var fnRedireccionar = function () {
+                            ShowLoading();
+                            location.href = urlPedidoValidado
+                        }
+                        if (mostrarAlerta == true) {
+                            CloseLoading();
+                            AbrirMensaje(data.message);
+                        }
+                        else fnRedireccionar();
+                    }
+                    else if (mostrarAlerta == true) {
+                        AbrirMensaje(data.message);
+                    }
+                },
+                error: function (error) {
+                    AbrirMensaje('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+                }
+            });
 
-			return restringido;
-		};
+            return restringido;
+        };
     </script>
 
     @RenderSection("scripts", required: false)

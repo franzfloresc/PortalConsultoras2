@@ -1,5 +1,5 @@
 ﻿@using Portal.Consultoras.Common
-@using Portal.Consultoras.Web.Helpers
+@using Portal.Consultoras.Web.CustomHelpers
 @using Portal.Consultoras.Web.Models
 @model MisCatalogosRevistasModel
 @section styles{
@@ -8,6 +8,7 @@
         body {
             overflow-x: hidden;
         }
+
         .full-width {
             width: 100%;
         }
@@ -101,8 +102,8 @@
         <div class="texto_catalogos_mobile">Revisa y comparte los catálogos con tus clientes</div>
         <div class="titulo_catalogo">CATÁLOGOS C-@Util.SubStr(Model.CampaniaActual, 4, 2)</div>
         <div class="content_carrusel_catalogo" id="divCatalogo">
-            <a class="previous_carrusel_catalogo" style="left:0" data-button_carrusel="carrusel"><img  id="cata_img_prev" src="@Url.Content("~/Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="-" /></a>
-            <a class="next_carrusel_catalogo" style="right:0"   data-button_carrusel="carrusel"><img id="cata_img_next" src="@Url.Content("~/Content/Images/mobile/Esika/next.png")" alt="-"  /></a>
+            <a class="previous_carrusel_catalogo" style="left:0" data-button_carrusel="carrusel"><img id="cata_img_prev" src="@Url.Content("~/Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="-" /></a>
+            <a class="next_carrusel_catalogo" style="right:0" data-button_carrusel="carrusel"><img id="cata_img_next" src="@Url.Content("~/Content/Images/mobile/Esika/next.png")" alt="-" /></a>
         </div>
 
     </div>
@@ -110,10 +111,10 @@
         @if (Model.TieneSeccionRevista)
         {
             @Html.Partial("~/Areas/Mobile/Views/Catalogo/template-carrusel-issue.cshtml",
-                    new ViewDataDictionary {
-                        { "TieneGnd", Model.TieneGND },
-                        { "CampaniaNro", @Util.SubStr(Model.CampaniaActual, 4, 2) }
-                    })
+                         new ViewDataDictionary {
+                    { "TieneGnd", Model.TieneGND },
+                    { "CampaniaNro", @Util.SubStr(Model.CampaniaActual, 4, 2) }
+                         })
         }
 
         @if (Model.TieneSeccionRD)
@@ -212,11 +213,11 @@
             <a class="content_catalogo" id="{{campania}}_{{tipoCatalogo}}" data-tipo="img" target="_blank" href="javascript:;">
                 <img src="@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")" />
             </a>
-            <a ><input type="hidden" value=""  target="_blank" href="javascript:;"/></a>
+            <a><input type="hidden" value="" target="_blank" href="javascript:;" /></a>
 
             <input id="txtUrl{{tipoCatalogo}}" type="hidden" value="" />
             <div style="max-width:440px; margin:0 auto;">
-                <a class="btn_ws" id="{{campania}}_{{tipoCatalogo}}_WS"  onclick="RedesSociales.TagManagerWS('{{comp}}','{{campania}}');"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_ws2.png")" alt="-" /></a>
+                <a class="btn_ws" id="{{campania}}_{{tipoCatalogo}}_WS" onclick="RedesSociales.TagManagerWS('{{comp}}','{{campania}}');"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_ws2.png")" alt="-" /></a>
                 <a class="btn_facebook" href="javascript:;" data-accion="face" onclick="RedesSociales.CompartirFacebook('{{comp}}','{{campania}}', this); return false;"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_facebook.png")" alt="-" /></a>
                 <a class="btn_mensaje" onclick="RedesSociales.AbrirCompartirCorreo('{{tipoCatalogo}}','{{campania}}');"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_mensaje.png")" alt="-" /></a>
             </div>
@@ -226,7 +227,7 @@
 </script>
 
 @section scripts{
-<script type="text/javascript">
+    <script type="text/javascript">
         var imgNoDisponible = '@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")';
         var imgIssuu = '@Constantes.CatalogoUrlParameters.UrlPart01' + '{img}' + '@Constantes.CatalogoUrlParameters.UrlPart02Alternativo';
         var codigoIso = '@ViewBag.CodigoISO';
@@ -245,7 +246,7 @@
         var urlDetalle = '@Url.Action("Detalle", "MisCatalogosRevistas", new { area = "" })';
         var mensajeSinConexionIssu = '@Html.Raw(Constantes.MensajesError.SinConexion_CatalogoRevistaIssu)';
         var MarcaCatalogo = '@ViewBag.MarcaCatalogo' || 0;
-</script>
+    </script>
     <script src="@Url.Content("~/Scripts/Tag/jquery.tags.input.js")"></script>
     <script src="@Url.Content("~/Scripts/Tag/jquery.tag-editor.js")"></script>
     <script src="@Url.Content("~/Scripts/Tag/jquery.caret.min.js")"></script>

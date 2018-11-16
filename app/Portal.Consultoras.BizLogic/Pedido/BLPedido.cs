@@ -118,13 +118,10 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 
                 usuario = configuracionPaisTask.Result;
                 usuario.CodigosRevistaImpresa = codigosRevistasTask.Result;
-                
-                var cuv = Util.Trim(productoBuscar.CodigoDescripcion);
 
-                Enumeradores.ValidacionProgramaNuevas num = ValidarProgramaNuevas(usuario, cuv);
-                
-                if (num.Equals(Enumeradores.ValidacionProgramaNuevas.ConsultoraNoNueva))
-                    return ProductoBuscarRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_NONUEVA);
+                //Validación de cuvs en programa nuevas
+                var num = ValidarProgramaNuevas(usuario, productoBuscar.CodigoDescripcion);
+                if (num.Equals(Enumeradores.ValidacionProgramaNuevas.ConsultoraNoNueva)) return ProductoBuscarRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_NONUEVA);
 
                 //Validación producto no existe
                 var lstProducto = _productoBusinessLogic.SelectProductoByCodigoDescripcionSearchRegionZona(
@@ -187,7 +184,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     var desactivaRevistaGana = _pedidoWebBusinessLogic.ValidarDesactivaRevistaGana(productoBuscar.PaisID,
                                                     usuario.CampaniaID,
                                                     usuario.CodigoZona);
-                    var tieneRDC = usuario.RevistaDigital.TieneRDC && usuario.RevistaDigital.EsActiva;
+                    var tieneRDC = (usuario.RevistaDigital.TieneRDC && usuario.RevistaDigital.EsActiva) || usuario.RevistaDigital.TieneRDCR;
                     if (!producto.EsExpoOferta && producto.CUVRevista.Length != 0 && desactivaRevistaGana == 0 && !tieneRDC)
                     {
                         if (WebConfig.PaisesEsika.Contains(Util.GetPaisISO(productoBuscar.PaisID))) return ProductoBuscarRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_OFERTAREVISTA_ESIKA, null, producto);
@@ -933,7 +930,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     resultadoReserva.ListPedidoObservacion.Add(new BEPedidoObservacion()
                     {
                         Caso = 8,
-                        Descripcion = Constantes.PedidoValidacion.Message[Constantes.PedidoValidacion.Code.ERROR_RESERVA_BACK_ORDER],
+                        Descripcion = Constantes.PedidoValidacion.Configuracion[Constantes.PedidoValidacion.Code.ERROR_RESERVA_BACK_ORDER].Mensaje,
                         CUV = item.CUV
                     });
                 }
@@ -1408,10 +1405,13 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
         private BEPedidoProducto ProductoBuscarRespuesta(string codigoRespuesta, string mensajeRespuesta = null, BEProducto producto = null)
         {
+            var pedidoMensajeConfig = Constantes.PedidoValidacion.Configuracion;
+            if (producto != null && pedidoMensajeConfig.ContainsKey(codigoRespuesta)) producto.PermiteAgregarPedido = pedidoMensajeConfig[codigoRespuesta].PermiteAgregarPedido;
+
             return new BEPedidoProducto()
             {
                 CodigoRespuesta = codigoRespuesta,
-                MensajeRespuesta = string.IsNullOrEmpty(mensajeRespuesta) ? Constantes.PedidoValidacion.Message[codigoRespuesta] : mensajeRespuesta,
+                MensajeRespuesta = string.IsNullOrEmpty(mensajeRespuesta) ? Constantes.PedidoValidacion.Configuracion[codigoRespuesta].Mensaje : mensajeRespuesta,
                 Producto = producto
             };
         }
@@ -1463,7 +1463,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                                     codigoRespuesta == Constantes.PedidoValidacion.Code.SUCCESS_GUARDAR ||
                                     codigoRespuesta == Constantes.PedidoValidacion.Code.SUCCESS_GUARDAR_OBS ?
                                     Constantes.PedidoValidacion.Code.SUCCESS : codigoRespuesta),
-                MensajeRespuesta = string.IsNullOrEmpty(mensajeRespuesta) ? string.Format(Constantes.PedidoValidacion.Message[codigoRespuesta], args) : mensajeRespuesta
+                MensajeRespuesta = string.IsNullOrEmpty(mensajeRespuesta) ? string.Format(Constantes.PedidoValidacion.Configuracion[codigoRespuesta].Mensaje, args) : mensajeRespuesta
             };
         }
 
@@ -2051,7 +2051,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
         {
             var lista = new Dictionary<string, string>();
 
-            var result = _tablaLogicaDatosBusinessLogic.GetTablaLogicaDatos(PaisID, Constantes.TablaLogica.NuevaDescripcionProductos);
+            var result = _tablaLogicaDatosBusinessLogic.GetList(PaisID, Constantes.TablaLogica.NuevaDescripcionProductos);
 
             foreach (var item in result)
             {
@@ -2274,7 +2274,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                                     codigoRespuesta == Constantes.PedidoValidacion.Code.SUCCESS_GUARDAR ||
                                     codigoRespuesta == Constantes.PedidoValidacion.Code.SUCCESS_GUARDAR_OBS ?
                                     Constantes.PedidoValidacion.Code.SUCCESS : codigoRespuesta),
-                MensajeRespuesta = string.IsNullOrEmpty(mensajeRespuesta) ? Constantes.PedidoValidacion.Message[codigoRespuesta] : mensajeRespuesta,
+                MensajeRespuesta = string.IsNullOrEmpty(mensajeRespuesta) ? Constantes.PedidoValidacion.Configuracion[codigoRespuesta].Mensaje : mensajeRespuesta,
                 ResultadoReserva = resultadoReserva,
             };
         }

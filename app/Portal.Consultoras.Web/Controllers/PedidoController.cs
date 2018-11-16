@@ -546,6 +546,9 @@ namespace Portal.Consultoras.Web.Controllers
         //        if (mensajeError != "") return ErrorJson(mensajeError, true);
         //    }
 
+            mensajeError = ValidarStockArmaTuPackMensaje(model.CUV, Convert.ToInt32(model.Cantidad));
+            if (mensajeError != "") return ErrorJson(mensajeError, true);
+
         //    if (esEstrategia) Session[Constantes.ConstSession.ListaEstrategia] = null;
         //    return Json(PedidoInsertarGenerico(model, false, listCuvEliminar, mensajeAviso, !string.IsNullOrEmpty(mensajeAviso)));
         //}
@@ -1492,6 +1495,7 @@ namespace Portal.Consultoras.Web.Controllers
                         mensaje = ValidarCantidadEnProgramaNuevas(CUV, Convert.ToInt32(Cantidad));
                     }
                     if (mensaje == "") mensaje = ValidarStockEstrategiaMensaje(CUV, intCantidad, TipoOferta.ToInt32Secure());
+                    if (mensaje == "") mensaje = ValidarStockArmaTuPackMensaje(CUV, intCantidad);
                     valido = mensaje == "";
                 }
 
@@ -4379,7 +4383,6 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     mensaje = svc.ValidarStockEstrategia(entidad);
                 }
-
                 mensaje = Util.Trim(mensaje);
             }
             catch (FaultException ex)
@@ -4393,7 +4396,27 @@ namespace Portal.Consultoras.Web.Controllers
 
             mensaje = mensaje == "OK" ? "" : mensaje;
             return mensaje;
+        }
+        
+        private string ValidarStockArmaTuPackMensaje(string cuv, int cantidad)
+        {
+            string mensaje = "";
+            try
+            {
+                bool estaEnLimite;
+                var cantidadActual = ObtenerPedidoWebDetalle().Where(d => d.CUV == cuv).Sum(d => d.Cantidad);
 
+                using (var sv = new ODSServiceClient())
+                {
+                    estaEnLimite = sv.CuvArmaTuPackEstaEnLimite(userData.PaisID, userData.CampaniaID, userData.CodigoZona, cuv, cantidad, cantidadActual);
+                }
+                if (estaEnLimite) mensaje = string.Format(Constantes.MensajesError.ExcedioLimiteVenta, 1);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+            return mensaje;
         }
 
         //private JsonResult AgregarProductoVC(string listaCuvTonos, string Cantidad, string OrigenPedidoWeb, string ClienteID_ = "")
