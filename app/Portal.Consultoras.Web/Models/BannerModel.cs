@@ -60,4 +60,9 @@ namespace Portal.Consultoras.Web.Models
         public int PaginaNueva { get; set; }
         public string PaginaNuevaNombre { get; set; }
     }
+    public class BETipoReporte
+    {
+        public int TipoReporteId { get; set; }
+        public string Nombre { get; set; }
+    }
 }
