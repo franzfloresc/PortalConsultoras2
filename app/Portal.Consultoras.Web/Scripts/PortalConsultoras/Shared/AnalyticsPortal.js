@@ -600,6 +600,19 @@ var AnalyticsPortalModule = (function () {
         }
     }
 
+    var marcaRedesSocialesBuscador = function (network, label) {
+        try {
+            dataLayer.push({
+                'event': _evento.socialEvent,
+                'network': network,
+                'action': 'Compartir',
+                'label': label
+            });
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
     // Fin - Analytics Buscador Miguel
 
     // Ini - Rama TiposAnalytics
@@ -819,6 +832,7 @@ var AnalyticsPortalModule = (function () {
         MarcaVerTodosLosResultadosBuscador: marcaVerTodosLosResultadosBuscador,
         MarcaBusquedaSinResultadosBuscador: marcaBusquedaSinResultadosBuscador,
         MarcaClicOpcionesFiltrarBuscador: marcaClicOpcionesFiltrarBuscador,
-        MarcaEligeTuOpcionBuscador: marcaEligeTuOpcionBuscador
+        MarcaEligeTuOpcionBuscador: marcaEligeTuOpcionBuscador,
+        MarcaRedesSocialesBuscador: marcaRedesSocialesBuscador
     }
 })();
