@@ -528,7 +528,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
             if (!resultado.Reserva || input.Email.IsNullOrEmptyTrim()) return false;
             try
             {
-                var lstLogicaDatos = new BLTablaLogicaDatos().GetTablaLogicaDatos(input.PaisID, 54).ToList();
+                var lstLogicaDatos = new BLTablaLogicaDatos().GetList(input.PaisID, 54).ToList();
                 bool activoEnvioMail = Int32.Parse(lstLogicaDatos.First().Codigo.Trim()) > 0;
                 if (!activoEnvioMail) return false;
             }

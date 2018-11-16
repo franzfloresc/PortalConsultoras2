@@ -305,6 +305,12 @@
   <wsdl:message name="IODSService_ValidarVentaExclusiva_OutputMessage">
     <wsdl:part name="parameters" element="tns:ValidarVentaExclusivaResponse" />
   </wsdl:message>
+  <wsdl:message name="IODSService_CuvArmaTuPackEstaEnLimite_InputMessage">
+    <wsdl:part name="parameters" element="tns:CuvArmaTuPackEstaEnLimite" />
+  </wsdl:message>
+  <wsdl:message name="IODSService_CuvArmaTuPackEstaEnLimite_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CuvArmaTuPackEstaEnLimiteResponse" />
+  </wsdl:message>
   <wsdl:portType name="IODSService">
     <wsdl:operation name="GetProductoComercialByListaCuv">
       <wsdl:input wsaw:Action="http://tempuri.org/IODSService/GetProductoComercialByListaCuv" message="tns:IODSService_GetProductoComercialByListaCuv_InputMessage" />
@@ -485,6 +491,10 @@
     <wsdl:operation name="ValidarVentaExclusiva">
       <wsdl:input wsaw:Action="http://tempuri.org/IODSService/ValidarVentaExclusiva" message="tns:IODSService_ValidarVentaExclusiva_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IODSService/ValidarVentaExclusivaResponse" message="tns:IODSService_ValidarVentaExclusiva_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CuvArmaTuPackEstaEnLimite">
+      <wsdl:input wsaw:Action="http://tempuri.org/IODSService/CuvArmaTuPackEstaEnLimite" message="tns:IODSService_CuvArmaTuPackEstaEnLimite_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IODSService/CuvArmaTuPackEstaEnLimiteResponse" message="tns:IODSService_CuvArmaTuPackEstaEnLimite_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IODSService" type="tns:IODSService">
@@ -894,6 +904,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="CuvArmaTuPackEstaEnLimite">
+      <soap:operation soapAction="http://tempuri.org/IODSService/CuvArmaTuPackEstaEnLimite" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="BasicHttpsBinding_IODSService" type="tns:IODSService">
     <wsp:PolicyReference URI="#BasicHttpsBinding_IODSService_policy" />
@@ -1296,6 +1315,15 @@
     </wsdl:operation>
     <wsdl:operation name="ValidarVentaExclusiva">
       <soap:operation soapAction="http://tempuri.org/IODSService/ValidarVentaExclusiva" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CuvArmaTuPackEstaEnLimite">
+      <soap:operation soapAction="http://tempuri.org/IODSService/CuvArmaTuPackEstaEnLimite" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

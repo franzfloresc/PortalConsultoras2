@@ -2276,9 +2276,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 CUV = arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.CUV].ToString().TrimEnd(),
                                 NombreProducto = arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.ProductName].ToString().TrimEnd(),
                                 Descripcion1 = arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.Description].ToString().TrimEnd(),
-                                Orden = int.Parse(arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.Order]),
-                                IdMarca = int.Parse(arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.BrandProduct])
-
+                                Orden = int.Parse(arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.Order])
                             });
                         }
                     }
