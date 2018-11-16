@@ -17,7 +17,9 @@
     padding-top:9px;
 }
 
-.layout__content__filtros + .layout__content__fichaProductos{
+.layout__content__filtros + .layout__content__fichaProductos,
+.layout__content__filtros + .layout__content__fichaProductos .layout__content__etiquetas_criteriosElegidos
+{
     width: calc(100% - 330px);
     min-width:716px;
     max-width:100%;
@@ -228,12 +230,12 @@
 
 .layout__content__etiquetas_criteriosElegidos{
     margin-top:20px;
-    margin-bottom:20px;
+    margin-bottom:0;
 }
 
 .lista__etiquetas__criteriosElegidos{
     height:auto;
-    max-width:872px;
+    max-width:793px;
     margin-bottom:0;
 }
 
@@ -253,6 +255,7 @@
     margin-bottom:10px;
     padding-left:10px;
     padding-right:10px;
+    position:relative;
 }
 
 .etiqueta__criterioElegido_descrip,
@@ -287,7 +290,7 @@
 }
 
 .enlace__limpiar__filtros{
-    display:block;
+    display:none;
     text-decoration:underline!important;
 }
 
@@ -300,7 +303,7 @@
     grid-gap:20px;
     width:100%;
     margin:0 auto;
-    padding:10px 0 10px 0;
+    padding:30px 0;
     max-width:100%;
     grid-template-columns:repeat(auto-fill, minmax(220px, 1fr));
     grid-auto-rows: auto;
@@ -595,7 +598,7 @@
     top:81px;*/
     max-width:270px;
     min-height:400px;
-    padding:25px 30px;
+    padding:25px 20px 25px 30px;
     background-color:#FFF;
     font-size:13px;
 }
@@ -1051,6 +1054,19 @@
 
     .lista__etiquetas__criteriosElegidos{
         position:absolute;
+        min-width:120px;
+    }
+
+    .etiqueta__criterioElegido_descrip{
+        margin-right:16px;
+    }
+
+    .icono__eliminar__criterioElegido{
+        width: 40px;
+        padding: 13.3px 9px 13px 22px;
+        height: 36px;
+        position: absolute;
+        right: 0;
     }
 
     /* FIN - ETIQUETAS DE CRITERIOS ELEGIDOS EN FILTROS (MOBILE) */

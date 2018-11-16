@@ -1,6 +1,6 @@
 ﻿@using Portal.Consultoras.Web.Areas.Mobile.Models
 @using System.Globalization
-@using Portal.Consultoras.Web.Helpers
+@using Portal.Consultoras.Web.CustomHelpers
 
 @model List<ClienteMobileModel>
 
@@ -50,7 +50,7 @@
         </style>
     }
     <div class="titulo_mobile">
-        @{  var mobileConfiguracion = Html.MobileAppConfiguracion();
+        @{ var mobileConfiguracion = Html.MobileAppConfiguracion();
             if (mobileConfiguracion.MostrarBotonAtras)
             {
                 <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
@@ -101,7 +101,7 @@
 
                         </div>
                     </li>
-                                        }
+                }
             </ul>
         </div>
         <div class="text-center mt-20">
@@ -148,7 +148,7 @@
                     }
                     else {
                         esAgregarCliente = true;
-                        
+
                         showClienteDetalle(null);
                     }
                 });
@@ -163,7 +163,7 @@
                     else {
                         esAgregarCliente = false;
                         var divPadre = $(this).parent("div");
-                        
+
                         showClienteDetalle(divPadre);
                     }
                 });
