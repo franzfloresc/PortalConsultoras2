@@ -1,7 +1,16 @@
-﻿@model Portal.Consultoras.Web.Models.EstrategiaPersonalizadaModel
+﻿@using Portal.Consultoras.Web.Models
+@model Portal.Consultoras.Web.Models.EstrategiaPersonalizadaModel
 
 @{
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayoutContenedor.cshtml";
+
+    var revistaDigital = ViewBag.revistaDigital ?? new RevistaDigitalShortModel();
+
+    var headerAttr = "nosuscrita";
+    if (revistaDigital.EsActiva == true)
+    {
+        headerAttr = "suscrita";
+    }
 }
 @section styles{
 
@@ -15,6 +24,7 @@
     {
         @Styles.Render("~/Bundle/Css/Mobile/Ficha-Lbel")
     }
+
 
     <style type="text/css">
         #btn_init {
@@ -34,7 +44,8 @@
     if (Model.vc_sinProducto2 == 0)
     {
 
-        <div data-seccion="@seccion.Codigo"
+        <div @headerAttr
+             data-seccion="@seccion.Codigo"
              data-campania="@seccion.CampaniaID"
              data-url="@seccion.UrlObtenerProductos"
              data-templateProducto="@seccion.TemplateProducto"

@@ -272,8 +272,7 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Mobile/Esika/revistaDigital.css",
                "~/Content/Css/Mobile/Esika/seccion-descarga-imprime.css",
                "~/Content/Css/Mobile/calc.css",
-               "~/Content/Css/Site/Esika/campania-navidenia.css",
-                "~/Content/Css/Site/MasGanadoras/banner_ofertas_masGanadoras_Esika.css"
+               "~/Content/Css/Site/Esika/campania-navidenia.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/lbel-CssSB2Mobile").Include(
@@ -720,11 +719,13 @@ namespace Portal.Consultoras.Web
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/Ficha-Esika").Include(
-                "~/Content/Css/Site/Ficha/Esika/FichaEsika.css"
+                "~/Content/Css/Site/Ficha/Esika/FichaEsika.css",
+                "~/Content/Css/Site/MasGanadoras/banner_ofertas_masGanadoras_Esika.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/Ficha-Lbel").Include(
-                "~/Content/Css/Site/Ficha/Lbel/FichaLbel.css"
+                "~/Content/Css/Site/Ficha/Lbel/FichaLbel.css",
+                "~/Content/Css/Site/MasGanadoras/banner_ofertas_masGanadoras_Lbel.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/Ficha").Include(

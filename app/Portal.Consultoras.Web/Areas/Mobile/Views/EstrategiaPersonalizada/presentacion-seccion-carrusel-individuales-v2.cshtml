@@ -1,16 +1,7 @@
 ﻿@using Portal.Consultoras.Web.Models
 @model Portal.Consultoras.Web.Models.ConfiguracionSeccionHomeModel
-@{
-    var revistaDigital = ViewBag.revistaDigital ?? new RevistaDigitalShortModel();
 
-    var headerAttr = "nosuscrita";
-    if (revistaDigital.EsActiva == true)
-    {
-        headerAttr = "suscrita";
-    }
-}
-
-<div @headerAttr 
+<div 
      class="contenedor_MasGanadoras_carrusel"
      style="background: url(@Model.ImagenFondo);background-position-x: center;background-repeat: no-repeat; background-size: cover;"
      data-plantilla="carrusel-individuales-v2">
