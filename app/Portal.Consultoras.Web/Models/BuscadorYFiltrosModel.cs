@@ -10,11 +10,13 @@ namespace Portal.Consultoras.Web.Models
     {
         public int total { get; set; }
         public IList<Productos> productos { get; set; }
-        //public IList<Filtros> filtros { get; set; }
+        //public Filtros filtros { get; set; }
     }
 
     public class Filtros
     {
+        public IList<FiltrosValores> categorias { get; set; }
+        public IList<FiltrosValores> marcas { get; set; }
     }
 
     public class Productos
@@ -43,4 +45,14 @@ namespace Portal.Consultoras.Web.Models
         public string URLBsucador { get; set; }
         public int EstrategiaID { get; set; }
     }
+
+    public class FiltrosValores
+    {
+        public string id { get; set; }
+        public string label { get; set; }
+        public int count { get; set; }
+        public bool marcado { get; set; }
+    }
+
+
 }

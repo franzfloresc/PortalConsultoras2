@@ -62,7 +62,11 @@ namespace Portal.Consultoras.Web.Controllers
             
                 indexViewModel.IconoLLuvia = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
                 indexViewModel.VariablesEstrategia = GetVariableEstrategia();
-
+                indexViewModel.vc_sinProducto = SessionManager.GetUrlVc();
+                if (indexViewModel.vc_sinProducto == 1)
+                {
+                    SessionManager.SetUrlVc(0);
+                }                
                 return View(indexViewModel);
             }
             catch (Exception ex)

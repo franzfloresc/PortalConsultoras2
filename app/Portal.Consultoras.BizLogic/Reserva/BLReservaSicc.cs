@@ -54,7 +54,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 resultado.ListaConcursosPuntajeExigido = string.Join("|", respuestaSicc.incentivos.Select(i => (i.puntajeExigido)).ToArray());
             }
 
-            var listMensajeObs = blTablaLogicaDatos.GetTablaLogicaDatosCache(input.PaisID, Constantes.TablaLogica.ProlObsCod);
+            var listMensajeObs = blTablaLogicaDatos.GetListCache(input.PaisID, Constantes.TablaLogica.ProlObsCod);
             var pedidoObservacion = CreateCabPedidoObs(input, respuestaSicc, listMensajeObs);
             if (pedidoObservacion != null) resultado.ListPedidoObservacion.Add(pedidoObservacion);
 
