@@ -228,21 +228,6 @@
     {{/each}}
 </script>
 
-<script id="js-labelCriteriosFiltros" type="text/x-handlebars-template">
-    {{#each this as |item|}}
-    <li class="row flex-row justify-content-center align-items-center etiqueta__criterioElegido" data-item="buscadorCriterios">
-        <input type="hidden" class="CriteriosFiltrosId" value="{{idFiltro}}" />
-        <input type="hidden" class="CriteriosFiltrosLabel" value="{{nombreFiltro}}" />
-        <span class="etiqueta__criterioElegido_descrip">
-            {{nombreFiltro}}
-        </span>
-        <a class="d-block enlace__eliminar__etiqueta icono__eliminar__criterioElegido" title="Eliminar etiqueta">
-            <img src="@Url.Content("~/Content/Images/cerrar-tag-icono.svg")" alt="Eliminar etiqueta" class="d-block" />
-        </a>
-    </li>
-    {{/each}}
-</script>
-
 <script id="js-FichaProductoBuscador" type="text/x-handlebars-template">
 
     {{#each this as |item|}}
