@@ -411,4 +411,14 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="RegistroEnvioCorreoSmsSolicitudPostulanteBE" nillable="true" type="tns:RegistroEnvioCorreoSmsSolicitudPostulanteBE" />
+  <xs:complexType name="ResponseBotmaker">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="dniImg1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="dniImg2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="nroDocumento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="pais" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="servImg3" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ResponseBotmaker" nillable="true" type="tns:ResponseBotmaker" />
 </xs:schema>
