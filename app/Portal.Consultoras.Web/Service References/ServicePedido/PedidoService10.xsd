@@ -543,6 +543,7 @@
       <xs:element minOccurs="0" name="TieneGND" type="xs:boolean" />
       <xs:element minOccurs="0" name="TieneHana" type="xs:int" />
       <xs:element minOccurs="0" name="TieneLoginExterno" type="xs:boolean" />
+      <xs:element minOccurs="0" name="TieneMG" type="xs:boolean" />
       <xs:element minOccurs="0" name="TieneMasVendidos" type="xs:int" />
       <xs:element minOccurs="0" name="TieneOfertaLog" type="xs:int" />
       <xs:element minOccurs="0" name="TienePagoEnLinea" type="xs:boolean" />
@@ -743,6 +744,7 @@
       <xs:element minOccurs="0" name="MensajeEstaEnRevista1" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MensajeEstaEnRevista2" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PermiteAgregarPedido" type="xs:boolean" />
       <xs:element minOccurs="0" name="PrecioCatalogo" type="xs:decimal" />
       <xs:element minOccurs="0" name="PrecioValorizado" type="xs:decimal" />
       <xs:element minOccurs="0" name="TextoBusqueda" nillable="true" type="xs:string" />

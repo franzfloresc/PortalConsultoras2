@@ -205,12 +205,6 @@
   <wsdl:message name="IPortalService_ObtenerSolicitudPostulanteApta_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerSolicitudPostulanteAptaResponse" />
   </wsdl:message>
-  <wsdl:message name="IPortalService_ObtenerSolicitudPostulanteAptaMexico_InputMessage">
-    <wsdl:part name="parameters" element="tns:ObtenerSolicitudPostulanteAptaMexico" />
-  </wsdl:message>
-  <wsdl:message name="IPortalService_ObtenerSolicitudPostulanteAptaMexico_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ObtenerSolicitudPostulanteAptaMexicoResponse" />
-  </wsdl:message>
   <wsdl:message name="IPortalService_ObtenerSolicitudPostulanteAptaByDoc_InputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerSolicitudPostulanteAptaByDoc" />
   </wsdl:message>
@@ -463,6 +457,18 @@
   <wsdl:message name="IPortalService_AgregarEventoSolicitudPostulante_OutputMessage">
     <wsdl:part name="parameters" element="tns:AgregarEventoSolicitudPostulanteResponse" />
   </wsdl:message>
+  <wsdl:message name="IPortalService_GrabarDocumentoExcepcion_InputMessage">
+    <wsdl:part name="parameters" element="tns:GrabarDocumentoExcepcion" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_GrabarDocumentoExcepcion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GrabarDocumentoExcepcionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ListarDocumentoExcepcion_InputMessage">
+    <wsdl:part name="parameters" element="tns:ListarDocumentoExcepcion" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ListarDocumentoExcepcion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ListarDocumentoExcepcionResponse" />
+  </wsdl:message>
   <wsdl:portType name="IPortalService">
     <wsdl:operation name="ObtenerParametrosUnete">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerParametrosUnete" message="tns:IPortalService_ObtenerParametrosUnete_InputMessage" />
@@ -591,10 +597,6 @@
     <wsdl:operation name="ObtenerSolicitudPostulanteApta">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudPostulanteApta" message="tns:IPortalService_ObtenerSolicitudPostulanteApta_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudPostulanteAptaResponse" message="tns:IPortalService_ObtenerSolicitudPostulanteApta_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerSolicitudPostulanteAptaMexico">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudPostulanteAptaMexico" message="tns:IPortalService_ObtenerSolicitudPostulanteAptaMexico_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudPostulanteAptaMexicoResponse" message="tns:IPortalService_ObtenerSolicitudPostulanteAptaMexico_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ObtenerSolicitudPostulanteAptaByDoc">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudPostulanteAptaByDoc" message="tns:IPortalService_ObtenerSolicitudPostulanteAptaByDoc_InputMessage" />
@@ -763,6 +765,14 @@
     <wsdl:operation name="AgregarEventoSolicitudPostulante">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/AgregarEventoSolicitudPostulante" message="tns:IPortalService_AgregarEventoSolicitudPostulante_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/AgregarEventoSolicitudPostulanteResponse" message="tns:IPortalService_AgregarEventoSolicitudPostulante_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GrabarDocumentoExcepcion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/GrabarDocumentoExcepcion" message="tns:IPortalService_GrabarDocumentoExcepcion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/GrabarDocumentoExcepcionResponse" message="tns:IPortalService_GrabarDocumentoExcepcion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ListarDocumentoExcepcion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ListarDocumentoExcepcion" message="tns:IPortalService_ListarDocumentoExcepcion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ListarDocumentoExcepcionResponse" message="tns:IPortalService_ListarDocumentoExcepcion_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IPortalService" type="tns:IPortalService">
@@ -1048,15 +1058,6 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerSolicitudPostulanteApta">
       <soap:operation soapAction="http://tempuri.org/IPortalService/ObtenerSolicitudPostulanteApta" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerSolicitudPostulanteAptaMexico">
-      <soap:operation soapAction="http://tempuri.org/IPortalService/ObtenerSolicitudPostulanteAptaMexico" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1435,6 +1436,24 @@
     </wsdl:operation>
     <wsdl:operation name="AgregarEventoSolicitudPostulante">
       <soap:operation soapAction="http://tempuri.org/IPortalService/AgregarEventoSolicitudPostulante" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GrabarDocumentoExcepcion">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/GrabarDocumentoExcepcion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListarDocumentoExcepcion">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ListarDocumentoExcepcion" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
