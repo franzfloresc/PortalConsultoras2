@@ -183,22 +183,30 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult ConsultarReporteCuvDetallado(string sidx, string sord, int page, int rows, int CampaniaID, string CUV)
         {
+            string paso = "";
             try
             {
-                bool dbdefault = HttpUtility.ParseQueryString(((System.Web.HttpRequestWrapper)Request).UrlReferrer.Query)[_dbdefault].ToBool();
+                paso += "|Inicio";
+                bool ParseQueryString = HttpUtility.ParseQueryString(((System.Web.HttpRequestWrapper)Request).UrlReferrer.Query)[_dbdefault].ToBool();
+
+                paso += "|ParseQueryString = " + ParseQueryString;
 
                 if (ModelState.IsValid)
                 {
-                    List<ReporteRevisionIncidenciasMDbAdapterModel> lst = new List<ReporteRevisionIncidenciasMDbAdapterModel>();
+                    paso += "|IsValid = True";
 
+                    List<ReporteRevisionIncidenciasMDbAdapterModel> lst = new List<ReporteRevisionIncidenciasMDbAdapterModel>();
 
                     using (var sv = new PedidoServiceClient())
                     {
+                        paso += "|PedidoServiceClient Ini";
                         var tmpReporteLst = sv.GetReporteCuvDetallado(userData.PaisID, CampaniaID, CUV).ToList();
+                        paso += "|PedidoServiceClient Fin";
                         foreach (var itemReporte in tmpReporteLst)
                         {
                             lst.Add(new ReporteRevisionIncidenciasMDbAdapterModel { BEReporteCuvDetallado = itemReporte });
                         }
+                        paso += "|PedidoServiceClient foreach";
                     }
 
                     var grid = new BEGrid
@@ -208,9 +216,12 @@ namespace Portal.Consultoras.Web.Controllers
                         SortColumn = sidx,
                         SortOrder = sord
                     };
+                    paso += "|grid";
                     IEnumerable<ReporteRevisionIncidenciasMDbAdapterModel> items = lst;
                     items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                    paso += "|Skip";
                     var pag = Util.PaginadorGenerico(grid, lst);
+                    paso += "|PaginadorGenerico";
 
                     var data = new
                     {
@@ -223,26 +234,27 @@ namespace Portal.Consultoras.Web.Controllers
                                    id = a.BEReporteCuvDetallado.CuvHijo,
                                    cell = new string[]
                                    {
-                                a.BEReporteCuvDetallado.DescripcionEstrategia,
-                                a.BEReporteCuvDetallado.CuvPadre,
-                                a.BEReporteCuvDetallado.CuvHijo,
-                                a.BEReporteCuvDetallado.CodigoEstrategia,
-                                a.BEReporteCuvDetallado.Grupo,
-                                a.BEReporteCuvDetallado.SAP,
-                                a.BEReporteCuvDetallado.MarcaEstrategia,
-                                a.BEReporteCuvDetallado.MarcaMatriz,
-                                a.BEReporteCuvDetallado.FactorCuadre.ToString(),
-                                a.BEReporteCuvDetallado.PrecioUnitario.ToString("#.#0"),
-                                a.BEReporteCuvDetallado.PrecioPublico.ToString("#.#0"),
-                                a.BEReporteCuvDetallado.Digitable.ToString(),
-                                a.BEReporteCuvDetallado.NombreProducto,
-                                a.BEReporteCuvDetallado.ImagenTipos,
-                                a.BEReporteCuvDetallado.ImagenTonos,
-                                a.BEReporteCuvDetallado.NombreBulk,
+                                        a.BEReporteCuvDetallado.DescripcionEstrategia,
+                                        a.BEReporteCuvDetallado.CuvPadre,
+                                        a.BEReporteCuvDetallado.CuvHijo,
+                                        a.BEReporteCuvDetallado.CodigoEstrategia,
+                                        a.BEReporteCuvDetallado.Grupo,
+                                        a.BEReporteCuvDetallado.SAP,
+                                        a.BEReporteCuvDetallado.MarcaEstrategia,
+                                        a.BEReporteCuvDetallado.MarcaMatriz,
+                                        a.BEReporteCuvDetallado.FactorCuadre.ToString(),
+                                        a.BEReporteCuvDetallado.PrecioUnitario.ToString("#.#0"),
+                                        a.BEReporteCuvDetallado.PrecioPublico.ToString("#.#0"),
+                                        a.BEReporteCuvDetallado.Digitable.ToString(),
+                                        a.BEReporteCuvDetallado.NombreProducto,
+                                        a.BEReporteCuvDetallado.ImagenTipos,
+                                        a.BEReporteCuvDetallado.ImagenTonos,
+                                        a.BEReporteCuvDetallado.NombreBulk,
 
                                    }
                                }
                     };
+                    paso += "|data";
                     return Json(data, JsonRequestBehavior.AllowGet);
                 }
 
@@ -253,7 +265,8 @@ namespace Portal.Consultoras.Web.Controllers
                     data = "",
                     extra = string.Join("; ", ModelState.Values
                                         .SelectMany(x => x.Errors)
-                                        .Select(x => x.ErrorMessage))
+                                        .Select(x => x.ErrorMessage)),
+                    paso
                 }, JsonRequestBehavior.AllowGet);
 
                 //return RedirectToAction("Index", "AdministrarReporteRevisionIncidencias");
@@ -267,7 +280,8 @@ namespace Portal.Consultoras.Web.Controllers
                     success = false,
                     message = "Lo sentimos no podemos procesar su solicitud.",
                     data = "",
-                    extra = ex.Message
+                    paso,
+                    Trycatch = Common.LogManager.GetMensajeError(ex)
                 }, JsonRequestBehavior.AllowGet);
                 //return RedirectToAction("Index", "AdministrarReporteRevisionIncidencias");
             }
