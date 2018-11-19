@@ -2034,15 +2034,18 @@ namespace Portal.Consultoras.Service
         public List<BEReporteCuvResumido> GetReporteCuvResumido(int paisID, int campaniaID, string cuv)
         {
             return new BLReporteRevisionIncidencias().GetReporteCuvResumido(paisID, campaniaID, cuv).ToList();
-        }
+        }
+
         public List<BEReporteCuvDetallado> GetReporteCuvDetallado(int paisID, int campaniaID, string cuv)
         {
             return new BLReporteRevisionIncidencias().GetReporteCuvDetallado(paisID, campaniaID, cuv).ToList();
-        }
+        }
+
         public List<BEReporteMovimientosPedido> GetReporteMovimientosPedido(int paisID, int campaniaID, string codigoConsultora)
         {
             return new BLReporteRevisionIncidencias().GetReporteMovimientosPedido(paisID, campaniaID, codigoConsultora).ToList();
-        }
+        }
+
         public List<BEReporteEstrategiasPorConsultora> GetReporteEstrategiasPorConsultora(int paisID, int campaniaID, string codigoConsultora, int palanca, DateTime fechaConsulta)
         {
             return new BLReporteRevisionIncidencias().GetReporteEstrategiasPorConsultora(paisID, campaniaID, codigoConsultora, palanca, fechaConsulta).ToList();
