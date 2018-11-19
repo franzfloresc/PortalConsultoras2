@@ -207,7 +207,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
             try
             {
-                if(pedidoDetalle.Producto.EstrategiaID ==  0 & pedidoDetalle.Estrategia == null)
+                if(pedidoDetalle.Producto.EstrategiaID ==  0 && pedidoDetalle.Estrategia == null)
                 {
                     pedidoDetalle.Estrategia = new BEEstrategia();
                     pedidoDetalle.Estrategia.Cantidad = Convert.ToInt32(pedidoDetalle.Cantidad);
