@@ -1,0 +1,5 @@
+1.1.WSConsultoras
+
+1.2 PortalConsultoras2
+Quitar:
+	<add key="UrlImgLateralODD" value="https://d1y60eoca8fkyl.cloudfront.net/OfertaDelDia/{0}/odd-imagen-lateral.jpg" />

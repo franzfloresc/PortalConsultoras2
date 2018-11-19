@@ -255,7 +255,9 @@ function CargarProductosShowRoom(busquedaModel) {
     var aplicarFiltrosSubCampanias = (busquedaModel == null);
     var cargarProductosShowRoomPromise = CargarProductosShowRoomPromise(busquedaModel);
 
+
     $.when(cargarProductosShowRoomPromise)
+    
         .then(function (response) {
             ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosSubCampanias, busquedaModel);
             EstablecerAccionLazyImagen("img[data-lazy-seccion-showroom]");
@@ -339,7 +341,8 @@ function CargarProductosShowRoomPromise(busquedaModel) {
     var d = $.Deferred();
     var promise = $.ajax({
         type: 'POST',
-        url: baseUrl + 'ShowRoom/CargarProductosShowRoom',
+        //url: baseUrl + 'ShowRoom/CargarProductosShowRoom',
+        url: baseUrl + 'Estrategia/SRObtenerProductos',
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(busquedaModel),
@@ -355,6 +358,15 @@ function CargarProductosShowRoomPromise(busquedaModel) {
 function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosSubCampanias, busquedaModel) {
     var objData = {};
     if (response.success) {
+        
+        response.totalOfertas = response.cantidadTotal0;
+        response.listaOfertas = Clone(response.lista || []);
+        response.listaOfertasPerdio = Clone(response.listaPerdio || []);
+        response.lista = [];
+        response.listaPerdio = [];
+        
+        AnalyticsSRListaOferta(response);
+
         if (aplicarFiltrosSubCampanias) {
             if (response.listaSubCampania !== 'undefined') {
                 if (response.listaSubCampania.length > 0) {
@@ -430,6 +442,14 @@ function CargarShowroomMobile(busquedaModel) {
 function ResolverCargarProductosShowRoomPromiseMobile(response, busquedaModel) {
     if (response.success) {
 
+        response.totalOfertas = response.cantidadTotal0;
+        response.listaOfertas = Clone(response.lista || []);
+        response.listaOfertasPerdio = Clone(response.listaPerdio || []);
+        response.lista = [];
+        response.listaPerdio = [];
+        
+        AnalyticsSRListaOferta(response);
+        
         $.each(response.listaOfertas, function (index, value) {
             value.Descripcion = IfNull(value.Descripcion, '').SubStrToMax($.trim(tipoOrigenPantalla)[0] == '1' ? 40 : 30, true);
             value.Posicion = index + 1;
@@ -520,9 +540,18 @@ function ConstruirDescripcionOferta(arrDescripcion) {
     var descripcion = "";
     if (arrDescripcion != null) {
         $.each(arrDescripcion, function (index, value) {
-
             descripcion += value.Descripcion + "<br />";
         });
     }
     return descripcion;
+}
+
+function AnalyticsSRListaOferta(response) {
+    if (response.listaOfertas.length > 0) {
+        //Hacer marcación Analytics para ShowRoom
+        if (!(typeof AnalyticsPortalModule === 'undefined')) {
+            response.listaOfertas.lista = response.listaOfertas;
+            AnalyticsPortalModule.MarcaGenericaLista(window.esShowRoom ? ConstantesModule.TipoEstrategia.SR : "", response.listaOfertas);
+        }
+    }
 }

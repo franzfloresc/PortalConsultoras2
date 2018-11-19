@@ -167,9 +167,12 @@ var YoutubeModule = (function (config) {
                     },
                     // when video ends
                     'onStateChange': function onPlayerStateChange(event) {
-                        //if (event.data == YT.PlayerState.UNSTARTED) {
-                        //    AnalyticsPortalModule.MarcarIniciarPlayVideo(ytExtra);
-                        //}
+                        var esFicha = false;
+                        if (typeof window.fichaModule !== "undefined")  //Sólo reproducir cuando esta dentro de la ficha
+                            esFicha = true;
+                        if (event.data === YT.PlayerState.UNSTARTED && esFicha) {
+                            AnalyticsPortalModule.MarcarIniciarPlayVideo(ytExtra);
+                        }
 
                         if (typeof estaSuscrita == "undefined")
                             return false;
