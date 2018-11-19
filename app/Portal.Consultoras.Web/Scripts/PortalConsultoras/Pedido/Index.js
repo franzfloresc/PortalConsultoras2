@@ -185,6 +185,7 @@ $(document).ready(function () {
         if ($(this).val().length === 5) {
             BuscarByCUV($(this).val());
         } else {
+            $("#divProductoAgotadoFinal").fadeOut(100); 
             $("#hdfCUV").val("");
             $("#divObservaciones").html("");
         }
@@ -357,14 +358,17 @@ $(document).ready(function () {
             }
         });
 
-        $("#divProductoAgotadoFinal").hide();
+        BloquearPantallaPedidoByPopupSugerido('');
+        $("#divProductoAgotadoFinal").fadeOut(100);
+
 
     });
     $("body").on("click", "[data-close='divProductoAgotadoFinal']", function () {
         InsertarDemandaTotalReemplazoSugerido(null, 0, 1, false);
         limpiarInputsPedido();
-        
-        $("#divProductoAgotadoFinal").hide();
+
+        BloquearPantallaPedidoByPopupSugerido('');
+        $("#divProductoAgotadoFinal").fadeOut(100);
         dataLayer.push({
             'event': "virtualEvent",
             'category': "Ingresa tu pedido",
@@ -1433,7 +1437,8 @@ function ObtenerProductosSugeridos(CUV) {
 
             $("#divCarruselSugerido").html("");
 
-            $("#divProductoAgotadoFinal").show();
+            BloquearPantallaPedidoByPopupSugerido('none');
+            $("#divProductoAgotadoFinal").fadeIn(230);            
 
             SetHandlebars("#js-CarruselSugerido", lista, "#divCarruselSugerido");
 
@@ -3735,5 +3740,11 @@ var PedidoProvider = function () {
         PedidoEjecutarServicioProlPromise: _pedidoEjecutarServicioProlPromise
     };
 }();
+
+function BloquearPantallaPedidoByPopupSugerido(valor) {
+    $('.pedido_ingreso_c2').css('pointer-events', valor);
+    $('.content_T_T').css('pointer-events', valor);
+    $('#divListaEstrategias').css('pointer-events', valor);
+}
 
 
