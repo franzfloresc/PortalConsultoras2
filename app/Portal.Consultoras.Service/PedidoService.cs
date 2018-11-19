@@ -2036,7 +2036,7 @@ namespace Portal.Consultoras.Service
             return new BLReporteRevisionIncidencias().GetReporteCuvResumido(paisID, campaniaID, cuv).ToList();
         }
 
-        public List<BEReporteCuvDetallado> GetReporteCuvDetallado(int paisID, int campaniaID, string cuv)
+        public IList<BEReporteCuvDetallado> GetReporteCuvDetallado(int paisID, int campaniaID, string cuv)
         {
             return new BLReporteRevisionIncidencias().GetReporteCuvDetallado(paisID, campaniaID, cuv).ToList();
         }
