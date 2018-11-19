@@ -281,17 +281,35 @@
   <wsdl:message name="IODSService_ValidaCuvElectivo_OutputMessage">
     <wsdl:part name="parameters" element="tns:ValidaCuvElectivoResponse" />
   </wsdl:message>
-  <wsdl:message name="IODSService_EsDuoPerfecto_InputMessage">
-    <wsdl:part name="parameters" element="tns:EsDuoPerfecto" />
+  <wsdl:message name="IODSService_EsCuvDuoPerfecto_InputMessage">
+    <wsdl:part name="parameters" element="tns:EsCuvDuoPerfecto" />
   </wsdl:message>
-  <wsdl:message name="IODSService_EsDuoPerfecto_OutputMessage">
-    <wsdl:part name="parameters" element="tns:EsDuoPerfectoResponse" />
+  <wsdl:message name="IODSService_EsCuvDuoPerfecto_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EsCuvDuoPerfectoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IODSService_TieneListaEstrategiaDuoPerfecto_InputMessage">
+    <wsdl:part name="parameters" element="tns:TieneListaEstrategiaDuoPerfecto" />
+  </wsdl:message>
+  <wsdl:message name="IODSService_TieneListaEstrategiaDuoPerfecto_OutputMessage">
+    <wsdl:part name="parameters" element="tns:TieneListaEstrategiaDuoPerfectoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IODSService_GetLimElectivosProgNuevas_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetLimElectivosProgNuevas" />
+  </wsdl:message>
+  <wsdl:message name="IODSService_GetLimElectivosProgNuevas_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetLimElectivosProgNuevasResponse" />
   </wsdl:message>
   <wsdl:message name="IODSService_ValidarVentaExclusiva_InputMessage">
     <wsdl:part name="parameters" element="tns:ValidarVentaExclusiva" />
   </wsdl:message>
   <wsdl:message name="IODSService_ValidarVentaExclusiva_OutputMessage">
     <wsdl:part name="parameters" element="tns:ValidarVentaExclusivaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IODSService_CuvArmaTuPackEstaEnLimite_InputMessage">
+    <wsdl:part name="parameters" element="tns:CuvArmaTuPackEstaEnLimite" />
+  </wsdl:message>
+  <wsdl:message name="IODSService_CuvArmaTuPackEstaEnLimite_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CuvArmaTuPackEstaEnLimiteResponse" />
   </wsdl:message>
   <wsdl:portType name="IODSService">
     <wsdl:operation name="GetProductoComercialByListaCuv">
@@ -458,13 +476,25 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IODSService/ValidaCuvElectivo" message="tns:IODSService_ValidaCuvElectivo_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IODSService/ValidaCuvElectivoResponse" message="tns:IODSService_ValidaCuvElectivo_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="EsDuoPerfecto">
-      <wsdl:input wsaw:Action="http://tempuri.org/IODSService/EsDuoPerfecto" message="tns:IODSService_EsDuoPerfecto_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IODSService/EsDuoPerfectoResponse" message="tns:IODSService_EsDuoPerfecto_OutputMessage" />
+    <wsdl:operation name="EsCuvDuoPerfecto">
+      <wsdl:input wsaw:Action="http://tempuri.org/IODSService/EsCuvDuoPerfecto" message="tns:IODSService_EsCuvDuoPerfecto_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IODSService/EsCuvDuoPerfectoResponse" message="tns:IODSService_EsCuvDuoPerfecto_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="TieneListaEstrategiaDuoPerfecto">
+      <wsdl:input wsaw:Action="http://tempuri.org/IODSService/TieneListaEstrategiaDuoPerfecto" message="tns:IODSService_TieneListaEstrategiaDuoPerfecto_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IODSService/TieneListaEstrategiaDuoPerfectoResponse" message="tns:IODSService_TieneListaEstrategiaDuoPerfecto_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLimElectivosProgNuevas">
+      <wsdl:input wsaw:Action="http://tempuri.org/IODSService/GetLimElectivosProgNuevas" message="tns:IODSService_GetLimElectivosProgNuevas_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IODSService/GetLimElectivosProgNuevasResponse" message="tns:IODSService_GetLimElectivosProgNuevas_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ValidarVentaExclusiva">
       <wsdl:input wsaw:Action="http://tempuri.org/IODSService/ValidarVentaExclusiva" message="tns:IODSService_ValidarVentaExclusiva_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IODSService/ValidarVentaExclusivaResponse" message="tns:IODSService_ValidarVentaExclusiva_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CuvArmaTuPackEstaEnLimite">
+      <wsdl:input wsaw:Action="http://tempuri.org/IODSService/CuvArmaTuPackEstaEnLimite" message="tns:IODSService_CuvArmaTuPackEstaEnLimite_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IODSService/CuvArmaTuPackEstaEnLimiteResponse" message="tns:IODSService_CuvArmaTuPackEstaEnLimite_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IODSService" type="tns:IODSService">
@@ -838,8 +868,26 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="EsDuoPerfecto">
-      <soap:operation soapAction="http://tempuri.org/IODSService/EsDuoPerfecto" style="document" />
+    <wsdl:operation name="EsCuvDuoPerfecto">
+      <soap:operation soapAction="http://tempuri.org/IODSService/EsCuvDuoPerfecto" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TieneListaEstrategiaDuoPerfecto">
+      <soap:operation soapAction="http://tempuri.org/IODSService/TieneListaEstrategiaDuoPerfecto" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLimElectivosProgNuevas">
+      <soap:operation soapAction="http://tempuri.org/IODSService/GetLimElectivosProgNuevas" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -849,6 +897,15 @@
     </wsdl:operation>
     <wsdl:operation name="ValidarVentaExclusiva">
       <soap:operation soapAction="http://tempuri.org/IODSService/ValidarVentaExclusiva" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CuvArmaTuPackEstaEnLimite">
+      <soap:operation soapAction="http://tempuri.org/IODSService/CuvArmaTuPackEstaEnLimite" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1229,8 +1286,26 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="EsDuoPerfecto">
-      <soap:operation soapAction="http://tempuri.org/IODSService/EsDuoPerfecto" style="document" />
+    <wsdl:operation name="EsCuvDuoPerfecto">
+      <soap:operation soapAction="http://tempuri.org/IODSService/EsCuvDuoPerfecto" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TieneListaEstrategiaDuoPerfecto">
+      <soap:operation soapAction="http://tempuri.org/IODSService/TieneListaEstrategiaDuoPerfecto" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLimElectivosProgNuevas">
+      <soap:operation soapAction="http://tempuri.org/IODSService/GetLimElectivosProgNuevas" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1240,6 +1315,15 @@
     </wsdl:operation>
     <wsdl:operation name="ValidarVentaExclusiva">
       <soap:operation soapAction="http://tempuri.org/IODSService/ValidarVentaExclusiva" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CuvArmaTuPackEstaEnLimite">
+      <soap:operation soapAction="http://tempuri.org/IODSService/CuvArmaTuPackEstaEnLimite" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

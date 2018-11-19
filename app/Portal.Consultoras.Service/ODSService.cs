@@ -1,4 +1,5 @@
 ﻿using Portal.Consultoras.BizLogic;
+using Portal.Consultoras.BizLogic.ArmaTuPack;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.ProgramaNuevas;
@@ -11,6 +12,8 @@ namespace Portal.Consultoras.Service
     public class ODSService : IODSService
     {
         private readonly IProductoBusinessLogic BLProducto;
+        private readonly IProgramaNuevasBusinessLogic BLProgramaNuevas;
+        private readonly IArmaTuPackBusinessLogic BLArmaTuPack;
         private readonly BLMensajeCUV BLMensajeCUV;
         private readonly BLConsultora BLConsultora;
         private readonly BLTipoMeta BLTipoMeta;
@@ -19,10 +22,12 @@ namespace Portal.Consultoras.Service
         public ODSService()
         {
             BLProducto = new BLProducto();
+            BLProgramaNuevas = new BLProgramaNuevas();
             BLMensajeCUV = new BLMensajeCUV();
             BLConsultora = new BLConsultora();
             BLTipoMeta = new BLTipoMeta();
             BLUbigeo = new BLUbigeo();
+            BLArmaTuPack = new BLArmaTuPack();
         }
 
         public IList<BEMensajeCUV> GetMensajesCUVsByPaisAndCampania(int CampaniaID, int paisID)
@@ -257,25 +262,36 @@ namespace Portal.Consultoras.Service
         {
             return BLProducto.GetListBrothersByCUV(paisID, codCampania, cuv);
         }
+
         #region Programa Nuevas Activo
         public Enumeradores.ValidacionProgramaNuevas ValidarBusquedaProgramaNuevas(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv)
         {
-            return BLProducto.ValidarBusquedaProgramaNuevas(paisID, campaniaID, ConsultoraID, codigoPrograma, consecutivoNueva, cuv);
+            return BLProgramaNuevas.ValidarBusquedaProgramaNuevas(paisID, campaniaID, ConsultoraID, codigoPrograma, consecutivoNueva, cuv);
         }
 
         public int ValidarCantidadMaximaProgramaNuevas(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, int cantidadEnPedido, string cuvIngresado, int cantidadIngresada)
         {
-            return BLProducto.ValidarCantidadMaximaProgramaNuevas(paisID, campaniaID, consecutivoNueva, codigoPrograma, cantidadEnPedido, cuvIngresado, cantidadIngresada);
+            return BLProgramaNuevas.ValidarCantidadMaximaProgramaNuevas(paisID, campaniaID, consecutivoNueva, codigoPrograma, cantidadEnPedido, cuvIngresado, cantidadIngresada);
         }
 
         public BERespValidarElectivos ValidaCuvElectivo(int paisID, int campaniaID, string cuvIngresado, int consecutivoNueva, string codigoPrograma, List<string> lstCuvPedido)
         {
-            return BLProducto.ValidaCuvElectivo(paisID, campaniaID, cuvIngresado, consecutivoNueva, codigoPrograma, lstCuvPedido);
+            return BLProgramaNuevas.ValidaCuvElectivo(paisID, campaniaID, cuvIngresado, consecutivoNueva, codigoPrograma, lstCuvPedido);
         }
 
-        public bool EsDuoPerfecto(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string cuv)
+        public bool EsCuvDuoPerfecto(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string cuv)
         {
-            return BLProducto.EsDuoPerfecto(paisID, campaniaID, consecutivoNueva, codigoPrograma, cuv);
+            return BLProgramaNuevas.EsCuvDuoPerfecto(paisID, campaniaID, consecutivoNueva, codigoPrograma, cuv);
+        }
+
+        public bool TieneListaEstrategiaDuoPerfecto(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, List<string> lstCuv)
+        {
+            return BLProgramaNuevas.TieneListaEstrategiaDuoPerfecto(paisID, campaniaID, consecutivoNueva, codigoPrograma, lstCuv);
+        }
+
+        public int GetLimElectivosProgNuevas(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma)
+        {
+            return BLProgramaNuevas.GetLimElectivosProgNuevas(paisID, campaniaID, consecutivoNueva, codigoPrograma);
         }
         #endregion
 
@@ -283,6 +299,13 @@ namespace Portal.Consultoras.Service
         public Enumeradores.ValidacionVentaExclusiva ValidarVentaExclusiva(int paisID, int campaniaID, string codigoConsultora, string cuv)
         {
             return BLProducto.ValidarVentaExclusiva(paisID, campaniaID, codigoConsultora, cuv);
+        }
+        #endregion
+
+        #region ArmaTuPack
+        public bool CuvArmaTuPackEstaEnLimite(int paisID, int campaniaID, string zona, string cuv, int cantidadIngresada, int cantidadActual)
+        {
+            return BLArmaTuPack.CuvEstaEnLimite(paisID, campaniaID, zona, cuv, cantidadIngresada, cantidadActual);
         }
         #endregion
     }

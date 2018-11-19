@@ -7,62 +7,72 @@
 }
 @section styles{
     @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/Ofertas")
+    @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/Ficha")
+    @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
+    {
+        @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/Ficha-Esika")
+    }
+    else
+    {
+        @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/Ficha-Lbel")
+    }
 }
 
-<div class="bc_estrategia_contenido" id="seccion-estrategia-contenido">
-
-    @foreach (var seccion in Model.EstrategiaPersonalizada.ListaSeccion)
-    {
-        <div data-seccion="@seccion.Codigo"
-             data-campania="@seccion.CampaniaID"
-             data-url="@seccion.UrlObtenerProductos"
-             data-templateProducto="@seccion.TemplateProducto"
-             data-tipoPresentacion="@seccion.TipoPresentacion"
-             data-tipoEstrategia="@seccion.TipoEstrategia"
-             data-cantidadProductos="@seccion.CantidadMostrar"
-             data-OrigenPedidoWeb="@seccion.OrigenPedido"
-             data-OrigenPedidoWeb-popup="@seccion.OrigenPedidoPopup"
-             id="@seccion.Codigo"
-             class="seccion-estrategia-contenido">
-            <div data-seccion-content="" class="seccion-content-contenedor">
-                @Html.Partial("~/Views/EstrategiaPersonalizada/presentacion-" + seccion.TemplatePresentacion + ".cshtml", seccion)
+@if (Model.vc_sinProducto == 0)
+{
+    <div class="bc_estrategia_contenido" id="seccion-estrategia-contenido">
+        @foreach (var seccion in Model.EstrategiaPersonalizada.ListaSeccion)
+        {
+            <div data-seccion="@seccion.Codigo"
+                 data-campania="@seccion.CampaniaID"
+                 data-url="@seccion.UrlObtenerProductos"
+                 data-templateProducto="@seccion.TemplateProducto"
+                 data-tipoPresentacion="@seccion.TipoPresentacion"
+                 data-tipoEstrategia="@seccion.TipoEstrategia"
+                 data-cantidadProductos="@seccion.CantidadMostrar"
+                 data-OrigenPedidoWeb="@seccion.OrigenPedido"
+                 data-OrigenPedidoWeb-popup="@seccion.OrigenPedidoPopup"
+                 id="@seccion.Codigo"
+                 class="seccion-estrategia-contenido">
+                <div data-seccion-content="" class="seccion-content-contenedor">
+                    @Html.Partial("~/Views/EstrategiaPersonalizada/presentacion-" + seccion.TemplatePresentacion + ".cshtml", seccion)
+                </div>
+                <div data-seccion-load="" class="seccion-loading-contenedor">
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    Cargando @seccion.Titulo
+                    <br />
+                    <img src="@Url.Content("~/Content/Images/Loading.gif")" alt="....." />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                </div>
             </div>
-            <div data-seccion-load="" class="seccion-loading-contenedor">
-                <br />
-                <br />
-                <br />
-                <br />
-                Cargando @seccion.Titulo
-                <br />
-                <img src="@Url.Content("~/Content/Images/Loading.gif")" alt="....." />
-                <br />
-                <br />
-                <br />
-                <br />
-            </div>
-        </div>
-    }
 
-    <div id="no-productos" class="seccion-no-productos">
-        Próximamente encontrarás aquí las mejores ofertas de la siguiente campaña que te harán ganar más y obtener más ingresos.<br />
-        ¡Vuelve pronto!
+            <div id="no-productos" class="seccion-no-productos">
+                Próximamente encontrarás aquí las mejores ofertas de la siguiente campaña que te harán ganar más y obtener más ingresos.<br />
+                ¡Vuelve pronto!
+            </div>
+        }
     </div>
-</div>
-
+}
+@if (Model.vc_sinProducto == 1)
+{
+    <div class="msj_nodisponible" id="msj_nodisponible">
+        <img src="https://s3.amazonaws.com/somosbelcorp/Virtual_Coach/Pruebas/bolso-triste.png" alt="Alternate Text" />
+        <strong class="title_msj">                Ups… la oferta ya no está disponible            </strong>
+        <p>Conoce las ofertas de esta campaña</p>
+        <div>
+            <a href="https://www.somosbelcorp.com/Ofertas" class="btn_send">IR A OFERTAS</a>
+        </div>
+    </div>
+}
 <div class="bc_clearfix"></div>
 
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
-@*@Html.Partial("~/Views/EstrategiaPersonalizada/presentacion-carrusel-previsuales-producto.cshtml")*@
-
-
-
-@*
-    DEUDA TECNICA
-    <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento" data-popup-main=""></div>
-    @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-verdetalle.cshtml")
-
-    <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_packNuevas"></div>
-    @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-packnueva.cshtml")*@
 
 @Html.Partial("~/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", Model.EstrategiaPersonalizada.MensajeProductoBloqueado)
 @if (Model.EstrategiaPersonalizada.MensajeProductoBloqueado2 != null)
@@ -81,7 +91,6 @@
     var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
     var urlOfertaDetalleProducto = '@Url.Action("Detalle", "RevistaDigital")';
     var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "Estrategia", new { area = "" })';
-    //var urlOfertaDetalleProductoLan = '@Url.Action("Detalle", "Lanzamientos")';
     var urlOfertaDetalleProductoLan = '@Url.Action("Ficha", "DetalleEstrategia")';
     var isScroll = false;
     var tipoOrigenPantalla = 1;

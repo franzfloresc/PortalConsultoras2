@@ -6,6 +6,15 @@
 @section styles{
 
     @System.Web.Optimization.Styles.Render("~/Bundle/Css/Mobile/Ofertas")
+    @System.Web.Optimization.Styles.Render("~/Bundle/Css/Mobile/Ficha")
+    @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
+    {
+        @Styles.Render("~/Bundle/Css/Mobile/Ficha-Esika")
+    }
+    else
+    {
+        @Styles.Render("~/Bundle/Css/Mobile/Ficha-Lbel")
+    }
 
     <style type="text/css">
         #btn_init {
@@ -19,37 +28,62 @@
 
 }
 
+
 @foreach (var seccion in Model.ListaSeccion)
 {
-    <div data-seccion="@seccion.Codigo"
-         data-campania="@seccion.CampaniaID"
-         data-url="@seccion.UrlObtenerProductos"
-         data-templateProducto="@seccion.TemplateProducto"
-         data-tipoPresentacion="@seccion.TipoPresentacion"
-         data-tipoEstrategia="@seccion.TipoEstrategia"
-         data-cantidadProductos="@seccion.CantidadMostrar"
-         data-OrigenPedidoWeb="@seccion.OrigenPedido"
-         data-OrigenPedidoWeb-popup="@seccion.OrigenPedidoPopup"
-         id="@seccion.Codigo">
-        <div data-seccion-content="" class="seccion-content-contenedor">
-            @Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/presentacion-" + seccion.TemplatePresentacion + ".cshtml", seccion)
+    if (Model.vc_sinProducto2 == 0)
+    {
+
+        <div data-seccion="@seccion.Codigo"
+             data-campania="@seccion.CampaniaID"
+             data-url="@seccion.UrlObtenerProductos"
+             data-templateProducto="@seccion.TemplateProducto"
+             data-tipoPresentacion="@seccion.TipoPresentacion"
+             data-tipoEstrategia="@seccion.TipoEstrategia"
+             data-cantidadProductos="@seccion.CantidadMostrar"
+             data-OrigenPedidoWeb="@seccion.OrigenPedido"
+             data-OrigenPedidoWeb-popup="@seccion.OrigenPedidoPopup"
+             id="@seccion.Codigo">
+            <div data-seccion-content="" class="seccion-content-contenedor">
+                @Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/presentacion-" + seccion.TemplatePresentacion + ".cshtml", seccion)
+            </div>
+            <div data-seccion-load="" class="seccion-loading-contenedor">
+                <br />
+                <br />
+                <br />
+                Cargando @seccion.Titulo
+                <br />
+                <img src="@Url.Content("~/Content/Images/Loading.gif")" />
+                <br />
+                <br />
+                <br />
+            </div>
         </div>
-        <div data-seccion-load="" class="seccion-loading-contenedor">
-            <br />
-            <br />
-            <br />
-            Cargando @seccion.Titulo
-            <br />
-            <img src="@Url.Content("~/Content/Images/Loading.gif")" />
-            <br />
-            <br />
-            <br />
-        </div>
-    </div>
+
+
+    }
 }
 
+@if (Model.vc_sinProducto2 == 1)
+{
+    <div class="msj_nodisponible" id="msj_nodisponible">
+
+        <img src="https://s3.amazonaws.com/somosbelcorp/Virtual_Coach/Pruebas/bolso-triste.png" alt="Alternate Text" />
+        <strong class="title_msj">                Ups… la oferta ya no está disponible            </strong>
+        <p>Conoce las ofertas de esta campaña</p>
+
+        <div>
+            <a href="https://www.somosbelcorp.com/Ofertas" class="btn_send">IR A OFERTAS</a>
+        </div>
+
+    </div>
+
+}
+
+
 @Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml", new ViewDataDictionary { { "TieneBotones", true } })
-@*@Html.Partial("~/Views/EstrategiaPersonalizada/presentacion-carrusel-previsuales-producto.cshtml")*@
+@Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-v2.cshtml", new ViewDataDictionary { { "TieneBotones", false } })
+
 @Html.Partial("~/Areas/Mobile/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", Model.MensajeProductoBloqueado)
 
 @section scripts{

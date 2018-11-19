@@ -342,7 +342,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {"Fecha Modificación", "FechaModificadaFormato"},
                 {"Codigo Usuario", "CodigoUsuario"}
             };
-            Util.ExportToExcel<BEParticipantesDemandaAnticipada>("ParticipantesDemandaAnticipadaExcel", lst.ToList(), dic);
+            Util.ExportToExcel("ParticipantesDemandaAnticipadaExcel", lst.ToList(), dic, GetExcelSecureCallback());
             return View();
         }
 

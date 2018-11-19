@@ -6,6 +6,7 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class ABCProductoController : BaseController
     {
+
         public ActionResult Index()
         {
             UrlModel url = new UrlModel

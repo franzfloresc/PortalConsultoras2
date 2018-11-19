@@ -34,7 +34,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (EsDispositivoMovil())
             {
-                // return RedirectToAction("Index", "OfertaLiquidacion", new { area = "Mobile" });
                 if (url.Length > 1)
                 {
                     sap = "&" + url[1];

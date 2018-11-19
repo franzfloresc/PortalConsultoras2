@@ -5,6 +5,7 @@ using Portal.Consultoras.Web.Models.Ofertas;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.SessionManager;
 using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -13,9 +14,7 @@ namespace Portal.Consultoras.Web.Controllers
     {
         private readonly ConfiguracionOfertasHomeProvider _confiOfertasHomeProvider;
             
-        public OfertasController() : this(new ConfiguracionOfertasHomeProvider())
-        {
-        }
+        public OfertasController() : this(new ConfiguracionOfertasHomeProvider()) { }
 
         public OfertasController(ConfiguracionOfertasHomeProvider configuracionOfertasHomeProvider):base()
         {
@@ -36,12 +35,11 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Index()
         {
-        string sap = "";
+            string sap = "";
             var url = (Request.Url.Query).Split('?');
             
             if (EsDispositivoMovil()) 
             {
-            //return RedirectToAction("Index", "Ofertas", new { area = "Mobile" });
                 if (url.Length > 1)
                 {
                     sap = "&" + url[1];
@@ -51,8 +49,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     return RedirectToAction("Index", "Ofertas", new { area = "Mobile" });
                 }
+            }
 
-}
             try
             {
                 var indexViewModel = new IndexViewModel();
@@ -61,9 +59,14 @@ namespace Portal.Consultoras.Web.Controllers
                     ListaSeccion = _confiOfertasHomeProvider.ObtenerConfiguracionSeccion(revistaDigital, IsMobile()),
                     MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(IsMobile())
                 };
+            
                 indexViewModel.IconoLLuvia = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
                 indexViewModel.VariablesEstrategia = GetVariableEstrategia();
-
+                indexViewModel.vc_sinProducto = SessionManager.GetUrlVc();
+                if (indexViewModel.vc_sinProducto == 1)
+                {
+                    SessionManager.SetUrlVc(0);
+                }                
                 return View(indexViewModel);
             }
             catch (Exception ex)
@@ -119,6 +122,8 @@ namespace Portal.Consultoras.Web.Controllers
                     SessionManager.SetTieneHv(false);
                 else if (campaniaId != userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.HerramientasVenta))
                     SessionManager.SetTieneHvX1(false);
+                else if (campaniaId == userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.MasGanadoras))
+                    SessionManager.SetTieneMg(false);
 
                 return Json(new
                 {

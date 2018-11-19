@@ -37,7 +37,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     var l = administrarEstrategiaProvider.ConsultarShowRoom(userData.CodigoISO, campaniaId);
 
-                    showRoomEvento = l.Count() > 0 ? l.FirstOrDefault() : null;
+                    showRoomEvento = l.Count > 0 ? l.FirstOrDefault() : null;
                 }
                 else
                 {
@@ -927,6 +927,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, Constantes.TipoEstrategiaCodigo.ShowRoom))
                 {
+                    model.ImagenProducto = entidad.ImagenProducto;
                     administrarEstrategiaProvider.UpdateOfertaShowRoomDetalleNew(model);
                 }
                 else

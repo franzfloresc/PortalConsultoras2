@@ -285,5 +285,7 @@ namespace Portal.Consultoras.Web.Models
         public bool EsOfertaIndependiente { get; set; }
 
         public bool MostrarPopupPrecargados { get; set; }
+
+        public string MensajeKitNuevas { get; set; }
     }
 }

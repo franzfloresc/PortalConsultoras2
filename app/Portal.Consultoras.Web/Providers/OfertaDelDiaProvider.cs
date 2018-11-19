@@ -1,4 +1,5 @@
-﻿using Portal.Consultoras.Common;
+﻿using AutoMapper;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia;
@@ -47,12 +48,12 @@ namespace Portal.Consultoras.Web.Providers
                 };
 
                 if (UsarMsPersonalizacion(model.CodigoISO, Constantes.TipoEstrategiaCodigo.OfertaDelDia))
-                {                   
+                {
                     var diaInicio = DateTime.Now.Date.Subtract(model.FechaInicioCampania.Date).Days;
-                    string pathOfertaDelDia = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerOfertasDelDia, 
-                        model.CodigoISO, 
-                        Constantes.ConfiguracionPais.OfertaDelDia, 
-                        model.CampaniaID, 
+                    string pathOfertaDelDia = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerOfertasDelDia,
+                        model.CodigoISO,
+                        Constantes.ConfiguracionPais.OfertaDelDia,
+                        model.CampaniaID,
                         model.CodigoConsultora,
                         diaInicio);
                     var taskApi = Task.Run(() => ObtenerOfertasDesdeApi(pathOfertaDelDia, model.CodigoISO));
@@ -121,6 +122,12 @@ namespace Portal.Consultoras.Web.Providers
             var imgSh = string.Format(_configuracionManager.GetConfiguracionManager("UrlImgSoloHoyODD"), codigoIso);
             var exte = imgSh.Split('.')[imgSh.Split('.').Length - 1];
             imgSh = imgSh.Substring(0, imgSh.Length - exte.Length - 1) + (cantidadOfertas > 1 ? "s" : "") + "." + exte;
+            return imgSh;
+        }
+
+        public string ObtenerUrlImagenLateral(string codigoIso)
+        {
+            var imgSh = string.Format(_configuracionManager.GetConfiguracionManager("UrlImgLateralODD"), codigoIso);
             return imgSh;
         }
 
@@ -220,6 +227,10 @@ namespace Portal.Consultoras.Web.Providers
                 oddSession.ColorFondo1 = colorFondoBanner.Codigo ?? string.Empty;
                 oddSession.ColorFondo2 = coloFondoDisplay.Codigo ?? string.Empty;
                 oddSession.ImagenSoloHoy = ObtenerUrlImagenOfertaDelDia(usuario.CodigoISO, oddSession.ListaOferta.Count);
+                if (usuario.CodigoISO != "PR" && (usuario.CampaniaID == 201817 || usuario.CampaniaID == 201818))
+                {
+                    oddSession.ImagenLateral = ObtenerUrlImagenLateral(usuario.CodigoISO);
+                }
 
                 var primeraOferta = oddSession.ListaOferta.FirstOrDefault();
                 oddSession.EstrategiaID = primeraOferta.EstrategiaID;

@@ -11,10 +11,6 @@ namespace Portal.Consultoras.Common
         private const string Path = "\\";
         private const string TempPath = "\\";
 
-        public FileManager()
-        {
-        }
-
         public static string GetContenido(string filepath)
         {
             using (StreamReader reader = new StreamReader(filepath))
@@ -30,7 +26,9 @@ namespace Portal.Consultoras.Common
                 var c = root + Path;
                 File.Delete(c + filename);
             }
-            catch (Exception) { }
+            catch (Exception) {
+                //
+            }
         }
 
         public static void DeleteImagesInFolder(string root)

@@ -16,7 +16,8 @@ $("#CUV").keyup(function () {
             flag: '0',
             FlagNueva: '0',
             FlagRecoProduc: '0',
-            FlagRecoPerfil: '0'
+            FlagRecoPerfil: '0',
+            tipoEstrategiaCodigo: TipoEstrategiaCodigoPackNuevas
         };
 
         mensajeErrorCUV = "";
@@ -61,7 +62,6 @@ $("#CUV").keyup(function () {
                     }
 
                     $("#CodigoSAP").val(data.codigoSAP)
-
                     fnObtenerImagenes($("#CodigoSAP").val(), 1)
                 } else {
                     mensajeErrorCUV = data.message;

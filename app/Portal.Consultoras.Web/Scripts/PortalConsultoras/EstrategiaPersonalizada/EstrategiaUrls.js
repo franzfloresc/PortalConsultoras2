@@ -1,16 +1,17 @@
 ﻿
 function OnClickFichaDetalle(e) {
+    
     var estoyEnLaFicha = typeof fichaModule !== "undefined"; //una forma de identificar si estoy en la ficha o no.
 
     //el objeto e debe ser establecido con target  (e.target)
     var infoCuvItem = EstrategiaAgregarModule.EstrategiaObtenerObj($(e));
 
-    //EstrategiaGuardarTemporal(infoItem);
     var codigoEstrategia = $.trim(infoCuvItem.CodigoEstrategia);
     var codigoCampania = $.trim(infoCuvItem.CampaniaID);
     var codigoCuv = $.trim(infoCuvItem.CUV2);
-    var UrlDetalle = GetPalanca(codigoEstrategia);
     var OrigenPedidoWeb = EstrategiaAgregarModule.GetOrigenPedidoWeb($(e), true);
+
+    var UrlDetalle = GetPalanca(codigoEstrategia, OrigenPedidoWeb);
 
     if (OrigenPedidoWeb == "" || OrigenPedidoWeb === "undefined" || OrigenPedidoWeb == null)
         OrigenPedidoWeb = "";
@@ -21,7 +22,6 @@ function OnClickFichaDetalle(e) {
     UrlDetalle += codigoCampania + "/" + codigoCuv + "/" + OrigenPedidoWeb;
 
     if (estoyEnLaFicha) {
-        
         AnalyticsPortalModule.MarcarClicSetProductos(infoCuvItem);
     }
 
@@ -31,6 +31,7 @@ function OnClickFichaDetalle(e) {
 }
 
 function BuscadorFichaDetalle(codigoCampania, codigoCuv, OrigenPedidoWeb, codigoEstrategia) {
+    
     var UrlDetalle = GetPalanca(codigoEstrategia);
     if (UrlDetalle == "") return false;
     UrlDetalle += codigoCampania + "/" + codigoCuv + "/" + OrigenPedidoWeb;
@@ -38,8 +39,9 @@ function BuscadorFichaDetalle(codigoCampania, codigoCuv, OrigenPedidoWeb, codigo
     return true;
 }
 
-function GetPalanca(codigoEstrategia) {
-
+function GetPalanca(codigoEstrategia, OrigenPedidoWeb) {
+    OrigenPedidoWeb = OrigenPedidoWeb || -1;
+    
     var url = isMobile() ? "/Mobile/Detalle/" : "/Detalle/";
 
     if (codigoEstrategia != null && typeof codigoEstrategia !== "undefined")
@@ -59,7 +61,19 @@ function GetPalanca(codigoEstrategia) {
                 url += ConstantesModule.CodigosPalanca.Lanzamiento + "/";
                 break;
             case ConstantesModule.ConstantesPalanca.OfertasParaMi:
-                url += ConstantesModule.CodigosPalanca.OfertaParaTi + "/";
+                {
+                    if (OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopContenedorGanadorasCarrusel ||
+                        OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopContenedorGanadorasFicha ||
+                        OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopLandingGanadorasGanadorasCarrusel ||
+                        OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopLandingGanadorasGanadorasFicha ||
+                        OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileContenedorGanadorasCarrusel ||
+                        OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileContenedorGanadorasFicha ||
+                        OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileLandingGanadorasGanadorasCarrusel ||
+                        OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileLandingGanadorasGanadorasFicha)
+                        url += ConstantesModule.CodigosPalanca.Ganadoras + "/";
+                    else
+                        url += ConstantesModule.CodigosPalanca.OfertaParaTi + "/";
+                }
                 break;
             case ConstantesModule.ConstantesPalanca.PackAltoDesembolso:
                 url += ConstantesModule.CodigosPalanca.OfertaParaTi + "/";

@@ -435,23 +435,23 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult ExportarExcelCabecera(FiltroReportePedidoDDWebModel model)
         {
             var dic = new Dictionary<string, string>{
-                { "NroRegistro", "Nro. Registro," },
-                { "FechaRegistro", "Fecha/Hora Ingreso," },
-                { "FechaReserva", "Fecha Reserva," },
-                { "CampaniaCodigo", "Año/Campaña," },
-                { "Region", "Región," },
-                { "Zona", "Zona," },
-                { "Seccion", "Sección," },
-                { "ConsultoraCodigo", "Cod. Consultora," },
-                { "ConsultoraNombre", "Nombre Consultora," },
-                { "DocumentoIdentidad", "Documento Identidad," },
-                { "ImporteTotal", "Monto Total Pedido," },
-                { "ImporteTotalConDescuento", "Monto Total Pedido con Descuento," },
-                { "ConsultoraSaldo", "Saldo," },
-                { "OrigenNombre", "Origen," },
-                { "EstadoValidacionNombre", "Validado," },
-                { "IndicadorEnviado", "Estado," },
-                { "MotivoRechazo", "Motivo de Rechazo" }
+                {"Nro. Registro", "NroRegistro"},
+                {"Fecha/Hora Ingreso", "FechaRegistro"},
+                {"Fecha Reserva", "FechaReserva"},
+                {"Año/Campaña", "CampaniaCodigo"},
+                {"Región", "Region"},
+                {"Zona", "Zona"},
+                {"Sección", "Seccion"},
+                {"Cod. Consultora", "ConsultoraCodigo"},
+                {"Nombre Consultora", "ConsultoraNombre"},
+                {"Documento Identidad", "DocumentoIdentidad"},
+                {"Monto Total Pedido", "ImporteTotal"},
+                {"Monto Total Pedido con Descuento", "ImporteTotalConDescuento"},
+                {"Saldo", "ConsultoraSaldo"},
+                {"Origen", "OrigenNombre"},
+                {"Validado", "EstadoValidacionNombre"},
+                {"Estado", "IndicadorEnviado"},
+                {"Motivo de Rechazo", "MotivoRechazo"}
             };
 
             var list = GetPedidoWebDD(model);
@@ -476,186 +476,8 @@ namespace Portal.Consultoras.Web.Controllers
                 MotivoRechazo = string.IsNullOrEmpty(a.MotivoRechazo) ? "" : a.MotivoRechazo.Replace(",", ";")
             }).ToList();
 
-            ExportToCSV("exportar", lista, dic, "DescargaCompleta", "1");
+            Util.ExportToExcel("exportar", lista, dic, "DescargaCompleta", "1", GetExcelSecureCallback());
             return new EmptyResult();
-        }
-
-        public bool ExportToExcel<V>(string filename, List<V> Source, Dictionary<string, string> columnDefinition, string cookieName, string valueName)
-        {
-            try
-            {
-                string extension = ".xlsx";
-                string originalFileName = Path.GetFileNameWithoutExtension(filename) + extension;
-
-                var wb = new XLWorkbook();
-                var ws = wb.Worksheets.Add("Hoja1");
-                var columns = new List<string>();
-                int index = 1;
-
-                foreach (KeyValuePair<string, string> keyvalue in columnDefinition)
-                {
-                    ws.Cell(1, index).Value = keyvalue.Key;
-                    index++;
-                    columns.Add(keyvalue.Value);
-                }
-                int row = 2;
-                foreach (var dataItem in (System.Collections.IEnumerable)Source)
-                {
-                    var col = 1;
-                    foreach (string column in columns)
-                    {
-                        foreach (PropertyInfo property in dataItem.GetType().GetProperties())
-                        {
-                            if (column == property.Name)
-                            {
-                                if (property.PropertyType == typeof(Nullable<bool>) || property.PropertyType == typeof(bool))
-                                {
-                                    string value = System.Web.UI.DataBinder.GetPropertyValue(dataItem, property.Name, null);
-                                    ws.Cell(row, col).Value = (string.IsNullOrEmpty(value) ? "" : (value == "True" ? "Si" : "No"));
-                                }
-                                else
-                                {
-                                    if (property.PropertyType == typeof(Nullable<DateTime>) || property.PropertyType == typeof(DateTime))
-                                        ws.Cell(row, col).Style.DateFormat.Format = "dd/MM/yyyy";
-                                    else
-                                        ws.Cell(row, col).Style.NumberFormat.Format = "@";
-
-
-                                    ws.Cell(row, col).Value = System.Web.UI.DataBinder.GetPropertyValue(dataItem, property.Name, null);
-                                }
-                                break;
-                            }
-                        }
-                        col++;
-                    }
-                    row++;
-                }
-                ws.Range(1, 1, 1, index - 1).AddToNamed("Titles");
-
-                var titlesStyle = wb.Style;
-                titlesStyle.Font.Bold = true;
-                titlesStyle.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
-                titlesStyle.Fill.BackgroundColor = XLColor.FromHtml("#669966");
-
-                wb.NamedRanges.NamedRange("Titles").Ranges.Style = titlesStyle;
-
-                var stream = new MemoryStream();
-                wb.SaveAs(stream);
-
-                HttpContext.Response.ClearHeaders();
-                HttpContext.Response.Clear();
-                if (!string.IsNullOrEmpty(cookieName) && !string.IsNullOrEmpty(valueName))
-                    HttpContext.Response.AppendCookie(new HttpCookie(cookieName, valueName));
-                HttpContext.Response.Buffer = false;
-                HttpContext.Response.AddHeader("Content-disposition", "attachment; filename=" + originalFileName);
-                HttpContext.Response.Charset = "UTF-8";
-                HttpContext.Response.Cache.SetCacheability(HttpCacheability.Private);
-                HttpContext.Response.ContentType = "application/octet-stream";
-                HttpContext.Response.BinaryWrite(stream.ToArray());
-                HttpContext.Response.Flush();
-                HttpContext.Response.End();
-                stream = null;
-
-                return true;
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return false;
-            }
-        }
-
-        public bool ExportToExcelCO<V>(string filename, List<V> Source, Dictionary<string, string> columnDefinition, string cookieName, string valueName)
-        {
-            try
-            {
-                string extension = ".xlsx";
-                string originalFileName = Path.GetFileNameWithoutExtension(filename) + extension;
-
-                var wb = new XLWorkbook();
-                var ws = wb.Worksheets.Add("Hoja1");
-                var columns = new List<string>();
-                int index = 1;
-
-                foreach (KeyValuePair<string, string> keyvalue in columnDefinition)
-                {
-                    ws.Cell(1, index).Value = keyvalue.Key;
-                    index++;
-                    columns.Add(keyvalue.Value);
-                }
-                int row = 2;
-                foreach (var dataItem in (System.Collections.IEnumerable)Source)
-                {
-                    var col = 1;
-                    foreach (string column in columns)
-                    {
-                        foreach (PropertyInfo property in dataItem.GetType().GetProperties())
-                        {
-                            if (column == property.Name)
-                            {
-                                if (property.PropertyType == typeof(Nullable<bool>) || property.PropertyType == typeof(bool))
-                                {
-                                    string value = System.Web.UI.DataBinder.GetPropertyValue(dataItem, property.Name, null);
-                                    ws.Cell(row, col).Value = (string.IsNullOrEmpty(value) ? "" : (value == "True" ? "Si" : "No"));
-                                }
-                                else
-                                {
-                                    if (property.PropertyType == typeof(Nullable<DateTime>) || property.PropertyType == typeof(DateTime))
-                                        ws.Cell(row, col).Style.DateFormat.Format = "dd/MM/yyyy";
-                                    else
-                                        ws.Cell(row, col).Style.NumberFormat.Format = "@";
-
-                                    if (col == 9 || col == 10)
-                                    {
-                                        string valorDecimal = Convert.ToDecimal(System.Web.UI.DataBinder.GetPropertyValue(dataItem, property.Name, null)).ToString("#,##0").Replace(',', '.');
-                                        ws.Cell(row, col).Value = valorDecimal;
-                                    }
-                                    else
-                                    {
-                                        ws.Cell(row, col).Value = System.Web.UI.DataBinder.GetPropertyValue(dataItem, property.Name, null);
-                                    }
-
-                                }
-                                break;
-                            }
-                        }
-                        col++;
-                    }
-                    row++;
-                }
-                ws.Range(1, 1, 1, index - 1).AddToNamed("Titles");
-
-                var titlesStyle = wb.Style;
-                titlesStyle.Font.Bold = true;
-                titlesStyle.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
-                titlesStyle.Fill.BackgroundColor = XLColor.FromHtml("#669966");
-
-                wb.NamedRanges.NamedRange("Titles").Ranges.Style = titlesStyle;
-
-                var stream = new MemoryStream();
-                wb.SaveAs(stream);
-
-                HttpContext.Response.ClearHeaders();
-                HttpContext.Response.Clear();
-                if (!string.IsNullOrEmpty(cookieName) && !string.IsNullOrEmpty(valueName))
-                    HttpContext.Response.AppendCookie(new HttpCookie(cookieName, valueName));
-                HttpContext.Response.Buffer = false;
-                HttpContext.Response.AddHeader("Content-disposition", "attachment; filename=" + originalFileName);
-                HttpContext.Response.Charset = "UTF-8";
-                HttpContext.Response.Cache.SetCacheability(HttpCacheability.Private);
-                HttpContext.Response.ContentType = "application/octet-stream";
-                HttpContext.Response.BinaryWrite(stream.ToArray());
-                HttpContext.Response.Flush();
-                HttpContext.Response.End();
-                stream = null;
-
-                return true;
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return false;
-            }
         }
 
         public bool ExportToExcelDetallePedido<V>(string filename, List<V> Source, Dictionary<string, string> columnDefinition, string cookieName, string valueName)
@@ -733,7 +555,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var stream = new MemoryStream();
                 wb.SaveAs(stream);
-
                 HttpContext.Response.ClearHeaders();
                 HttpContext.Response.Clear();
                 if (!string.IsNullOrEmpty(cookieName) && !string.IsNullOrEmpty(valueName))
@@ -920,88 +741,5 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #endregion
-
-        public bool ExportToCSV<V>(string filename, List<V> Source, Dictionary<string, string> columnDefinition, string cookieName, string valueName)
-        {
-            try
-            {
-                string extension = ".csv";
-                string originalFileName = Path.GetFileNameWithoutExtension(filename) + extension;
-
-                string nombre = originalFileName;
-                var sw = new StringWriter();
-
-                var txtBuilNombre = new StringBuilder();
-                var txtBuilCabecera = new StringBuilder();
-                foreach (KeyValuePair<string, string> keyvalue in columnDefinition)
-                {
-                    txtBuilNombre.Append(keyvalue.Key + ",");
-                    txtBuilCabecera.Append(keyvalue.Value);
-                }
-                string csv = CreateCSVTextFile(txtBuilNombre.ToString(), Source);
-                sw.WriteLine(txtBuilCabecera.ToString());
-                sw.Write(csv);
-
-                HttpContext.Response.ClearHeaders();
-                HttpContext.Response.Clear();
-                if (!string.IsNullOrEmpty(cookieName) && !string.IsNullOrEmpty(valueName))
-                    HttpContext.Response.AppendCookie(new HttpCookie(cookieName, valueName));
-                HttpContext.Response.Buffer = false;
-                HttpContext.Response.AddHeader("Content-Disposition", "attachment; filename=" + nombre);
-                var isoEncoding = Encoding.GetEncoding("iso-8859-1");
-                HttpContext.Response.Charset = isoEncoding.WebName;
-                HttpContext.Response.ContentEncoding = isoEncoding;
-                HttpContext.Response.Cache.SetCacheability(HttpCacheability.Private);
-                HttpContext.Response.ContentType = "text/csv";
-                HttpContext.Response.Write(sw);
-                HttpContext.Response.Flush();
-                HttpContext.Response.End();
-
-                return true;
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return false;
-            }
-        }
-
-        private static string CreateCSVTextFile<T>(string nombreCabecera, List<T> data)
-        {
-            PropertyInfo[] properties = typeof(T).GetProperties();
-            StringBuilder result = new StringBuilder();
-
-            foreach (var row in data)
-            {
-                var values = properties.Where(x => nombreCabecera.Contains(x.Name))
-                                       .Select(p => p.GetValue(row, null))
-                                       .Select(v => StringToCSVCell(Convert.ToString(v)));
-                var line = string.Join(",", values);
-                result.AppendLine(line);
-            }
-
-            return result.ToString();
-        }
-
-        private static string StringToCSVCell(string str)
-        {
-            bool mustQuote = (str.Contains(",") || str.Contains("\"") || str.Contains("\r") || str.Contains("\n"));
-            if (mustQuote)
-            {
-                StringBuilder sb = new StringBuilder();
-                sb.Append("\"");
-                foreach (char nextChar in str)
-                {
-                    sb.Append(nextChar);
-                    if (nextChar == '"')
-                        sb.Append("\"");
-                }
-                sb.Append("\"");
-                return sb.ToString();
-            }
-
-            return str;
-        }
-
     }
 }

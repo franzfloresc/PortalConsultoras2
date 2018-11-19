@@ -1,9 +1,10 @@
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Controllers;
-using Portal.Consultoras.Web.Helpers;
+using Portal.Consultoras.Web.CustomHelpers;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
@@ -147,20 +148,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
         }
-
-        public ActionResult DetalleOferta(int id)
-        {
-            ActionExecutingMobile();
-
-            if (!ValidarIngresoShowRoom(false)) return RedirectToAction("Index", "Bienvenida");
-
-            var modelo = ViewDetalleOferta(id);
-            
-            ViewBag.ImagenFondoProductPage = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.ImagenFondoProductPage, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
-
-            return View("DetalleOferta", modelo);
-        }
-
+        
         #region Metodos Privados
 
         private ShowRoomEventoModel OfertaShowRoom()

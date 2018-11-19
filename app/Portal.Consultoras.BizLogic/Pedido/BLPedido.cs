@@ -35,6 +35,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
         private readonly IPedidoWebSetBusinessLogic _pedidoWebSetBusinessLogic;
         private readonly ITablaLogicaDatosBusinessLogic _tablaLogicaDatosBusinessLogic;
         private readonly IOfertaProductoBusinessLogic _ofertaProductoBusinessLogic;
+        private readonly IProgramaNuevasBusinessLogic _programaNuevasBusinessLogic;
 
         public BLPedido() : this(new BLProducto(),
                                     new BLPedidoWeb(),
@@ -51,7 +52,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                                     new BLEstrategiaProducto(),
                                     new BLPedidoWebSet(),
                                     new BLTablaLogicaDatos(),
-                                    new BLOfertaProducto())
+                                    new BLOfertaProducto(),
+                                    new BLProgramaNuevas())
         { }
 
         public BLPedido(IProductoBusinessLogic productoBusinessLogic,
@@ -69,7 +71,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                             IEstrategiaProductoBusinessLogic estrategiaProductoBusinessLogic,
                             IPedidoWebSetBusinessLogic pedidoWebSetBusinessLogic,
                             ITablaLogicaDatosBusinessLogic tablaLogicaDatosBusinessLogic,
-                            IOfertaProductoBusinessLogic ofertaProductoBusinessLogic)
+                            IOfertaProductoBusinessLogic ofertaProductoBusinessLogic,
+                            IProgramaNuevasBusinessLogic programaNuevasBusinessLogic)
         {
             _productoBusinessLogic = productoBusinessLogic;
             _pedidoWebBusinessLogic = pedidoWebBusinessLogic;
@@ -87,6 +90,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             _pedidoWebSetBusinessLogic = pedidoWebSetBusinessLogic;
             _tablaLogicaDatosBusinessLogic = tablaLogicaDatosBusinessLogic;
             _ofertaProductoBusinessLogic = ofertaProductoBusinessLogic;
+            _programaNuevasBusinessLogic = programaNuevasBusinessLogic;
         }
 
         #region Publicos
@@ -101,11 +105,22 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 var usuario = productoBuscar.Usuario;
                 var configuracionPaisTask = Task.Run(() => _usuarioBusinessLogic.ConfiguracionPaisUsuario(usuario, Constantes.ConfiguracionPais.RevistaDigital));
                 var codigosRevistasTask = Task.Run(() => _usuarioBusinessLogic.ObtenerCodigoRevistaFisica(usuario.PaisID));
-
-                Task.WaitAll(configuracionPaisTask, codigosRevistasTask);
-
+                if (Constantes.Inicializacion.EnteroInicial == usuario.ConsecutivoNueva)
+                {
+                    var upUsuarioProgramaNuevaTask = Task.Run(() => _usuarioBusinessLogic.UpdUsuarioProgramaNuevas(usuario));
+                    Task.WaitAll(configuracionPaisTask, codigosRevistasTask, upUsuarioProgramaNuevaTask);
+                }
+                else
+                {
+                    Task.WaitAll(configuracionPaisTask, codigosRevistasTask);
+                }
+                
                 usuario = configuracionPaisTask.Result;
                 usuario.CodigosRevistaImpresa = codigosRevistasTask.Result;
+
+                //Validación de cuvs en programa nuevas
+                var num = ValidarProgramaNuevas(usuario, productoBuscar.CodigoDescripcion);
+                if (num.Equals(Enumeradores.ValidacionProgramaNuevas.ConsultoraNoNueva)) return ProductoBuscarRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_NONUEVA);
 
                 //Validación producto no existe
                 var lstProducto = _productoBusinessLogic.SelectProductoByCodigoDescripcionSearchRegionZona(
@@ -168,7 +183,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     var desactivaRevistaGana = _pedidoWebBusinessLogic.ValidarDesactivaRevistaGana(productoBuscar.PaisID,
                                                     usuario.CampaniaID,
                                                     usuario.CodigoZona);
-                    var tieneRDC = usuario.RevistaDigital.TieneRDC && usuario.RevistaDigital.EsActiva;
+                    var tieneRDC = (usuario.RevistaDigital.TieneRDC && usuario.RevistaDigital.EsActiva) || usuario.RevistaDigital.TieneRDCR;
                     if (!producto.EsExpoOferta && producto.CUVRevista.Length != 0 && desactivaRevistaGana == 0 && !tieneRDC)
                     {
                         if (WebConfig.PaisesEsika.Contains(Util.GetPaisISO(productoBuscar.PaisID))) return ProductoBuscarRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_OFERTAREVISTA_ESIKA, null, producto);
@@ -290,7 +305,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                 var lista = getListaNuevasDescripciones(userData.PaisID);
                 var pedidoValidado = getPedidoValidado(userData);
-                var suscritaActiva = (usuario.RevistaDigital.EsSuscrita == true && usuario.RevistaDigital.EsActiva == true);
+                var suscritaActiva = (usuario.RevistaDigital.EsSuscrita && usuario.RevistaDigital.EsActiva);
 
                 if (pedido == null) return pedido;
 
@@ -422,6 +437,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
         public BEPedidoDetalleResult Update(BEPedidoDetalle pedidoDetalle)
         {
             var mensaje = string.Empty;
+
             try
             {
                 //Informacion de usuario y palancas
@@ -458,21 +474,31 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     pedidoDetalle.PedidoDetalleID = pedidoExiste == null ? (short)0 : pedidoExiste.PedidoDetalleID;
 
                     var detallePedido = _pedidoWebDetalleBusinessLogic.GetPedidoWebSetDetalle(pedidoDetalle.PaisID, usuario.CampaniaID, usuario.ConsultoraID);
-                    detallePedido.Where(p => p.SetId == pedidoDetalle.SetID).ToList().ForEach(p => p.Cantidad = pedidoDetalle.Cantidad * p.FactorRepeticion);
+                    //detallePedido.Where(p => p.SetId == pedidoDetalle.SetID).ToList().ForEach(p => p.Cantidad = pedidoDetalle.Cantidad * p.FactorRepeticion);
+                    var xsets = detallePedido.Where(x => x.SetId != pedidoDetalle.SetID);
+                    var ncant = pedidoDetalle.Cantidad;
 
                     var set = _pedidoWebSetBusinessLogic.Obtener(pedidoDetalle.PaisID, pedidoDetalle.SetID);
                     foreach (var detalleSet in set.Detalles)
                     {
+                        var ocant = 0;
+                        if (xsets.Any())
+                        {
+                            var xset = xsets.Where(x => x.CuvProducto == detalleSet.CuvProducto);
+                            ocant = xset.Any() ? xset.Sum(x => x.Cantidad) : 0;
+                        }
 
                         var oBePedidoWebSetDetalle = new BEPedidoDetalle
                         {
                             PaisID = pedidoDetalle.PaisID,
                             PedidoID = pedidoDetalle.PedidoID,
                             PedidoDetalleID = Convert.ToInt16(detalleSet.PedidoDetalleId),
-                            Cantidad = detallePedido.Where(p => p.PedidoDetalleId == detalleSet.PedidoDetalleId).Sum(p => p.Cantidad * p.FactorRepeticion),
+                            Cantidad = (ncant * detalleSet.FactorRepeticion) + ocant,
+                            //Cantidad = detallePedido.Where(p => p.PedidoDetalleId == detalleSet.PedidoDetalleId).Sum(p => p.Cantidad * p.FactorRepeticion),
                             ClienteID = string.IsNullOrEmpty(usuario.Nombre) ? (short)0 : Convert.ToInt16(pedidoDetalle.ClienteID),
                             ClienteDescripcion = pedidoDetalle.ClienteDescripcion,
-                            ImporteTotal = detallePedido.Where(p => p.PedidoDetalleId == detalleSet.PedidoDetalleId).Sum(p => p.Cantidad * p.FactorRepeticion) * detalleSet.FactorRepeticion * detalleSet.PrecioUnidad,
+                            ImporteTotal = ((ncant * detalleSet.FactorRepeticion) + ocant) * detalleSet.PrecioUnidad,
+                            //ImporteTotal = detallePedido.Where(p => p.PedidoDetalleId == detalleSet.PedidoDetalleId).Sum(p => p.Cantidad * p.FactorRepeticion) * detalleSet.FactorRepeticion * detalleSet.PrecioUnidad,
                             Producto = new BEProducto()
                             {
                                 PrecioCatalogo = set.PrecioUnidad,
@@ -759,7 +785,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     resultadoReserva.ListPedidoObservacion.Add(new BEPedidoObservacion()
                     {
                         Caso = 8,
-                        Descripcion = Constantes.PedidoValidacion.Message[Constantes.PedidoValidacion.Code.ERROR_RESERVA_BACK_ORDER],
+                        Descripcion = Constantes.PedidoValidacion.Configuracion[Constantes.PedidoValidacion.Code.ERROR_RESERVA_BACK_ORDER].Mensaje,
                         CUV = item.CUV
                     });
                 }
@@ -903,12 +929,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 };
                 var lstDetalle = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
                 pedidoDetalle.PedidoID = pedidoID;
-                //var mensaje = EstrategiaAgregarProducto(pedidoDetalle, usuario, estrategia, lstDetalle);
-                //if(!string.IsNullOrEmpty(mensaje)) PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_STOCK_ESTRATEGIA, mensaje);
-
                 //Insertar pedido
-                pedidoDetalle.OrigenPedidoWeb = usuario.RevistaDigital.TieneRevistaDigital() ?
-                    Constantes.OrigenPedidoWeb.RevistaDigitalAppPedidoSeccion : Constantes.OrigenPedidoWeb.OfertasParaTiAppPedido;
+                //pedidoDetalle.OrigenPedidoWeb = Constantes.OrigenPedidoWeb.AppConsultoraPedidoOfertasParaTiCarrusel;
                 var codeResult = PedidoInsertar(usuario, pedidoDetalle, lstDetalle, false);
                 if (codeResult != Constantes.PedidoValidacion.Code.SUCCESS) return PedidoDetalleRespuesta(codeResult);
 
@@ -1150,7 +1172,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
         public BEPedidoDetalleResult AceptarBackOrderPedidoDetalle(BEPedidoDetalle pedidoDetalle)
         {
-            //var mensaje = string.Empty;
             try
             {
                 //Validación de Sets
@@ -1181,7 +1202,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     ConsecutivoNueva = usuario.ConsecutivoNueva
                 };
                 var pedidoID = 0;
-                //var lstDetalleApp = new List<BEPedidoDetalle>();
+
                 var lstDetalle = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
                 pedidoDetalle.PedidoID = pedidoID;
 
@@ -1239,10 +1260,13 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
         private BEPedidoProducto ProductoBuscarRespuesta(string codigoRespuesta, string mensajeRespuesta = null, BEProducto producto = null)
         {
+            var pedidoMensajeConfig = Constantes.PedidoValidacion.Configuracion;
+            if (producto != null && pedidoMensajeConfig.ContainsKey(codigoRespuesta)) producto.PermiteAgregarPedido = pedidoMensajeConfig[codigoRespuesta].PermiteAgregarPedido;
+
             return new BEPedidoProducto()
             {
                 CodigoRespuesta = codigoRespuesta,
-                MensajeRespuesta = string.IsNullOrEmpty(mensajeRespuesta) ? Constantes.PedidoValidacion.Message[codigoRespuesta] : mensajeRespuesta,
+                MensajeRespuesta = string.IsNullOrEmpty(mensajeRespuesta) ? Constantes.PedidoValidacion.Configuracion[codigoRespuesta].Mensaje : mensajeRespuesta,
                 Producto = producto
             };
         }
@@ -1269,6 +1293,19 @@ namespace Portal.Consultoras.BizLogic.Pedido
             return true;
         }
 
+        private Enumeradores.ValidacionProgramaNuevas ValidarProgramaNuevas(BEUsuario usuario, string cuv)
+        {
+            Enumeradores.ValidacionProgramaNuevas numero;
+            try
+            {
+                numero = _programaNuevasBusinessLogic.ValidarBusquedaProgramaNuevas(usuario.PaisID, usuario.CampaniaID, Convert.ToInt32(usuario.ConsultoraID), usuario.CodigoPrograma, usuario.ConsecutivoNueva, cuv);
+            }
+            catch (Exception)
+            {
+                numero = Enumeradores.ValidacionProgramaNuevas.ContinuaFlujo;
+            }
+            return numero;
+        }
         #endregion
 
         #region Insert
@@ -1281,7 +1318,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                                     codigoRespuesta == Constantes.PedidoValidacion.Code.SUCCESS_GUARDAR ||
                                     codigoRespuesta == Constantes.PedidoValidacion.Code.SUCCESS_GUARDAR_OBS ?
                                     Constantes.PedidoValidacion.Code.SUCCESS : codigoRespuesta),
-                MensajeRespuesta = string.IsNullOrEmpty(mensajeRespuesta) ? string.Format(Constantes.PedidoValidacion.Message[codigoRespuesta], args) : mensajeRespuesta
+                MensajeRespuesta = string.IsNullOrEmpty(mensajeRespuesta) ? string.Format(Constantes.PedidoValidacion.Configuracion[codigoRespuesta].Mensaje, args) : mensajeRespuesta
             };
         }
 
@@ -1577,7 +1614,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
         {
             var lista = new Dictionary<string, string>();
 
-            var result = _tablaLogicaDatosBusinessLogic.GetTablaLogicaDatos(PaisID, Constantes.TablaLogica.NuevaDescripcionProductos);
+            var result = _tablaLogicaDatosBusinessLogic.GetList(PaisID, Constantes.TablaLogica.NuevaDescripcionProductos);
 
             foreach (var item in result)
             {
@@ -1800,7 +1837,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                                     codigoRespuesta == Constantes.PedidoValidacion.Code.SUCCESS_GUARDAR ||
                                     codigoRespuesta == Constantes.PedidoValidacion.Code.SUCCESS_GUARDAR_OBS ?
                                     Constantes.PedidoValidacion.Code.SUCCESS : codigoRespuesta),
-                MensajeRespuesta = string.IsNullOrEmpty(mensajeRespuesta) ? Constantes.PedidoValidacion.Message[codigoRespuesta] : mensajeRespuesta,
+                MensajeRespuesta = string.IsNullOrEmpty(mensajeRespuesta) ? Constantes.PedidoValidacion.Configuracion[codigoRespuesta].Mensaje : mensajeRespuesta,
                 ResultadoReserva = resultadoReserva,
             };
         }
@@ -2386,7 +2423,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             usuario.RevistaDigital = taskRevistaDigital.Result.RevistaDigital;
 
             //Configuracion pais - ValidacionMontoMaximo
-            usuario.TieneValidacionMontoMaximo = usuario.TieneValidacionMontoMaximo;
+            usuario.TieneValidacionMontoMaximo = taskValidacionMontoMaximo.Result.TieneValidacionMontoMaximo;
 
             //Validacion reserva u horario restringido
             var validacionHorario = _pedidoWebBusinessLogic.ValidacionModificarPedido(usuario.PaisID,

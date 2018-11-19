@@ -2,11 +2,13 @@
     'use strict';
     var _codigoPalanca = ConstantesModule.CodigosPalanca;
     var _constantesPalanca = ConstantesModule.ConstantesPalanca;
+    var _tipoEstrategiaPalanca = ConstantesModule.TipoEstrategia;
     var _keyLocalStorage = ConstantesModule.KeysLocalStorage;
 
     var _urlObtenerEstrategia = ConstantesModule.UrlObtenerEstrategia;
     
-    var _obtenerKey = function(palanca, campania) {
+    var _obtenerKey = function (palanca, campania) {
+        
         switch (palanca) {
             case _codigoPalanca.RevistaDigital:
             case _codigoPalanca.OfertaParaTi:
@@ -18,11 +20,14 @@
                 return _keyLocalStorage.Lanzamiento + campania;
             case _codigoPalanca.HerramientasVenta:
                 return _keyLocalStorage.HerramientasVenta + campania;
+            case _codigoPalanca.Ganadoras:
+                return _keyLocalStorage.Ganadoras + campania;
+
             default:
                 return null;
         }
     }
-    var _obtenerKeyName = function(codigoPalanaca, campania) {
+    var _obtenerKeyName = function (codigoPalanaca, campania) {        
         switch (codigoPalanaca) {
             case _constantesPalanca.RevistaDigital:
             case _constantesPalanca.OfertaParaTi:
@@ -39,6 +44,32 @@
             return null;
         }
     }
+
+    var _obtenerKeyName2 = function (codigoPalanaca, campania) {
+        switch (codigoPalanaca) {
+            case _tipoEstrategiaPalanca.RD:
+            case _constantesPalanca.RevistaDigital:
+            case _constantesPalanca.OfertaParaTi:
+            case _constantesPalanca.OfertasParaMi:
+            case _constantesPalanca.PackAltoDesembolso:
+                return _keyLocalStorage.RevistaDigital;
+            case _tipoEstrategiaPalanca.GND:
+            case _constantesPalanca.GuiaDeNegocioDigitalizada:
+                return _keyLocalStorage.GuiaDeNegocio;
+            case _tipoEstrategiaPalanca.LAN:
+            case _constantesPalanca.Lanzamiento:
+                return _keyLocalStorage.Lanzamiento;
+            case _tipoEstrategiaPalanca.HV:
+            case _constantesPalanca.HerramientasVenta:
+                return _keyLocalStorage.HerramientasVenta;
+            case _tipoEstrategiaPalanca.MG:
+            case _constantesPalanca.MasGanadoras:
+                return _keyLocalStorage.Ganadoras;
+            default:
+                return null;
+        }
+    }
+
     var _promiseObternerEstrategia = function (urlEstrategia, params) {
         var dfd = $.Deferred();
 
@@ -78,7 +109,7 @@
         else return null;
     }
     
-    var _obtenerUrlEstrategia = function(palanca) {
+    var _obtenerUrlEstrategia = function (palanca) {        
         switch (palanca) {
             case _codigoPalanca.RevistaDigital:
             case _codigoPalanca.OfertasParaMi:
@@ -100,18 +131,12 @@
         var localStorageItem = {}
         localStorageItem.CampaniaID = campania;
         localStorageItem.IsLoad = false;
-        //localStorageItem.CantMostrados = 15;
-        //localStorageItem.CantTotal = 0;
-        //localStorageItem.Completo = 0;
-        //localStorageItem.ListaFiltro = [];
-        //localStorageItem.Ordenamiento = { Tipo: "" };
-        //localStorageItem.Palanca = "";
         localStorageItem.UrlCargarProductos = "";
         localStorageItem.VarListaStorage = "";
         return localStorageItem;
     }
     
-    var _cargarEstrategias = function (campania, palanca, nombreKey) {
+    var _cargarEstrategias = function (campania, palanca, nombreKey) {        
         var localStorageItem = _crearBaseEstrategiaItem(campania);
         var param = {
             CampaniaID: campania,
@@ -145,11 +170,10 @@
     }
     
     var ObtenerEstrategia = function(cuv, campania, palanca) {
-        try {
-            
+        try {            
             var nombreKey = _obtenerKey(palanca, campania);
 
-            if (IsNullOrEmpty(nombreKey)) // throw "Palanca no tiene asignado key local storage.";
+            if (IsNullOrEmpty(nombreKey))
                 return null;
 
             if (!_existeItem(nombreKey)) _cargarEstrategias(campania, palanca, nombreKey);
@@ -166,20 +190,23 @@
     
     var ActualizarCheckAgregado = function(estrategiaId, campania, codigoPalanaca, valor) {
         try {
-
-            var nombreKey = _obtenerKeyName(codigoPalanaca);
+            var nombreKey = _obtenerKeyName2(codigoPalanaca);
             var nombreKeyLocalStorage = nombreKey + campania;
             var valLocalStorage = localStorage.getItem(nombreKeyLocalStorage);
 
             if (valLocalStorage != null) {
                 var data = JSON.parse(valLocalStorage);
                 var updated;
-                if (codigoPalanaca === _constantesPalanca.Lanzamiento)
+                if (codigoPalanaca === _constantesPalanca.Lanzamiento || codigoPalanaca === _tipoEstrategiaPalanca.LAN)
                     updated = _actualizarAgregado(data.response.listaLan, estrategiaId,  valor);
                 else 
                     updated = _actualizarAgregado(data.response.lista, estrategiaId, valor);
         
                 if (updated) localStorage.setItem(nombreKeyLocalStorage, JSON.stringify(data));
+
+                if (!updated && codigoPalanaca == "007") {
+                    ActualizarCheckAgregado(estrategiaId, campania, "MG", valor);
+                }
             }
 
             if (typeof filtroCampania !== "undefined") {
@@ -253,6 +280,14 @@ function GetProductoStorage(cuv, campania, nombreKey) {
     return new Object();
 }
 
+function ActualizarLocalStoragePalancas(cuv, valor) {
+    ActualizarLocalStorageAgregado("RD", cuv, valor);
+    ActualizarLocalStorageAgregado("GND", cuv, valor);
+    ActualizarLocalStorageAgregado("HV", cuv, valor);
+    ActualizarLocalStorageAgregado("LAN", cuv, valor);
+    ActualizarLocalStorageAgregado("MG", cuv, valor);
+}
+
 function ActualizarLocalStorageAgregado(tipo, cuv, valor) {
     var ok = false;
     try {
@@ -265,17 +300,20 @@ function ActualizarLocalStorageAgregado(tipo, cuv, valor) {
 
         var listaCuv = cuv.split('|');
         var indCampania = indCampania || 0;
-        if (tipo == "rd") {
+        if (tipo == "RD") {
             var lista = "RDLista";
         }
-        else if (tipo == "gn") {
+        else if (tipo == "GND") {
             var lista = "GNDLista";
         }
-        else if (tipo == "hv") {
+        else if (tipo == "HV") {
             var lista = "HVLista";
         }
-        else if (tipo == "lan") {
+        else if (tipo == "LAN") {
             var lista = "LANLista";
+        }
+        else if (tipo == "MG") {
+            var lista = "MGLista";
         }
 
         $.each(listaCuv, function (ind, cuvItem) {
@@ -303,7 +341,6 @@ function ActualizaCuvAgregado(cuv, valor, lista, indCampania) {
                         item.IsAgregado = valor;
                     }
 
-                    //ok = true;
                     if (cuv != "todo") {
                         return false;
                     }

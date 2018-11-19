@@ -133,6 +133,12 @@ namespace Portal.Consultoras.BizLogic.OfertaPersonalizada
                             while (reader.Read()) estrategias.Add(new BEEstrategia(reader));
                         }
                         break;
+                    case Constantes.TipoEstrategiaCodigo.MasGanadoras:
+                        using (var reader = daEstrategia.GetEstrategiaRevistaDigital(entidad))
+                        {
+                            while (reader.Read()) estrategias.Add(new BEEstrategia(reader));
+                        }
+                        break;
                     default:
                         using (var reader = daEstrategia.GetEstrategiaPedido(entidad))
                         {
@@ -223,6 +229,7 @@ namespace Portal.Consultoras.BizLogic.OfertaPersonalizada
 
                 estrategia.CampaniaID = entidad.CampaniaID;
                 estrategia.ImagenURL = ConfigCdn.GetUrlFileCdn(carpetaPais, estrategia.ImagenURL);
+                estrategia.ImagenOfertaIndependiente = ConfigCdn.GetUrlFileCdn(carpetaPais, estrategia.ImagenOfertaIndependiente);
                 estrategia.Simbolo = entidad.Simbolo;
                 estrategia.TieneStockProl = true;
                 estrategia.PrecioString = Util.DecimalToStringFormat(estrategia.Precio2, codigoIso);

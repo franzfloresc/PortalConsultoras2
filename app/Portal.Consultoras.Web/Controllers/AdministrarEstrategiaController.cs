@@ -69,7 +69,7 @@ namespace Portal.Consultoras.Web.Controllers
                     TipoVistaEstrategia = TipoVistaEstrategia,
                     PaisID = userData.PaisID
                 };
-                 
+
             }
             catch (Exception ex)
             {
@@ -423,7 +423,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = true,
-                    message = "Se grabó con éxito.",
+                    message = "Se grabÃ³ con Ã©xito.",
                     extra = ""
                 });
             }
@@ -468,7 +468,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = true,
-                    message = "Se eliminó con éxito.",
+                    message = "Se eliminÃ³ con Ã©xito.",
                     extra = ""
                 });
             }
@@ -527,7 +527,7 @@ namespace Portal.Consultoras.Web.Controllers
                         new
                         {
                             success = false,
-                            message = "El tamaño de imagen excede el máximo permitido. (Ancho: 62px - Alto: 62px)."
+                            message = "El tamaÃ±o de imagen excede el mÃ¡ximo permitido. (Ancho: 62px - Alto: 62px)."
                         }, "text/html");
                 }
                 image.Dispose();
@@ -540,7 +540,7 @@ namespace Portal.Consultoras.Web.Controllers
                     "text/html");
             }
         }
-        
+
         [HttpPost]
         public JsonResult GetOfertaByCUV(string CampaniaID, string CUV2,
             string TipoEstrategiaID, string CUV1, string flag,
@@ -573,7 +573,8 @@ namespace Portal.Consultoras.Web.Controllers
                         mensaje = "OK";
                         beEstrategia = objEstrategia;
                         descripcion = beEstrategia.DescripcionCUV2;
-                        precio = beEstrategia.Precio.ToString();
+                        precio = (beEstrategia.PrecioPublico + beEstrategia.Ganancia).ToString("F2");
+                        wsprecio = beEstrategia.PrecioPublico.ToString();
                         ganancia = beEstrategia.Ganancia;
                         DescripcionMarca = beEstrategia.DescripcionMarca;
                         MarcaID = beEstrategia.MarcaID;
@@ -613,7 +614,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (tipo != 1 && resultado == 0)
                     {
-                        if (FlagRecoProduc == "1") mensaje = "El CUV2 no está asociado a ningún otro.";
+                        if (FlagRecoProduc == "1") mensaje = "El CUV2 no estÃ¡ asociado a ningÃºn otro.";
                         return Json(new
                         {
                             success = false,
@@ -642,21 +643,21 @@ namespace Portal.Consultoras.Web.Controllers
                     idMatrizComercial = beEstrategia.IdMatrizComercial.ToInt();
                     wsprecio = wspreciopack.ToString("F2");
                 }
-                    return Json(new
-                    {
-                        success = true,
-                        message = mensaje,
-                        descripcion,
-                        precio,
-                        wsprecio,
-                        codigoSAP = codigoSap,
-                        enMatrizComercial,
-                        idMatrizComercial,
-                        ganancia = ganancia.ToString("F2"),
-                        extra = "",
-                        niveles,
-                        beEstrategia
-                    }, JsonRequestBehavior.AllowGet);
+                return Json(new
+                {
+                    success = true,
+                    message = mensaje,
+                    descripcion,
+                    precio,
+                    wsprecio,
+                    codigoSAP = codigoSap,
+                    enMatrizComercial,
+                    idMatrizComercial,
+                    ganancia = ganancia.ToString("F2"),
+                    extra = "",
+                    niveles,
+                    beEstrategia
+                }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -751,9 +752,10 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult RegistrarEstrategia(RegistrarEstrategiaModel model, 
-            string _id,string _flagRecoProduc,string _flagRecoPerfil)
+        public JsonResult RegistrarEstrategia(RegistrarEstrategiaModel model,
+            string _id, string _flagRecoProduc, string _flagRecoPerfil)
         {
+            string error = "";
             try
             {
                 bool dbdefault = HttpUtility.ParseQueryString(((System.Web.HttpRequestWrapper)Request).UrlReferrer.Query)[_dbdefault].ToBool();
@@ -785,18 +787,24 @@ namespace Portal.Consultoras.Web.Controllers
                      model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada ||
                      model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.ShowRoom))
                 {
+                    error += "| region codigo_estrategia y variedad";
                     respuestaServiceCdr = EstrategiaProductoObtenerServicio(entidad);
+                    error += "| region codigo_estrategia y variedad fin - respuestaServiceCdr = " + respuestaServiceCdr;
 
                     if (respuestaServiceCdr.Any())
                     {
+                        error += "| respuestaServiceCdr.Any - TieneVariedad";
                         entidad.CodigoEstrategia = respuestaServiceCdr[0].codigo_estrategia;
                         entidad.TieneVariedad = TieneVariedad(entidad.CodigoEstrategia, entidad.CUV1);
+                        error += "| respuestaServiceCdr.Any - TieneVariedad fin = " + entidad.TieneVariedad;
                     }
                 }
 
                 #endregion
 
                 var numeroPedidosAsociados = model.NumeroPedido.Split(',').Select(int.Parse).ToList();
+                error += "| NumeroPedido.Split = " + numeroPedidosAsociados.Count;
+
                 var estrategiaDetalle = new ServicePedido.BEEstrategiaDetalle();
 
                 foreach (var item in numeroPedidosAsociados)
@@ -807,81 +815,112 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         if (entidad.CodigoTipoEstrategia != null)
                         {
+                            error += "| if CodigoTipoEstrategia != null";
                             if (entidad.CodigoTipoEstrategia.Equals(Constantes.TipoEstrategiaCodigo.Lanzamiento))
                             {
+                                error += "| if CodigoTipoEstrategia Equals Lan";
                                 estrategiaDetalle = new ServicePedido.BEEstrategiaDetalle();
                                 if (entidad.EstrategiaID != 0)
+                                {
+                                    error += "| if entidad.EstrategiaID != 0";
                                     estrategiaDetalle = sv.GetEstrategiaDetalle(entidad.PaisID, entidad.EstrategiaID);
-
+                                    error += "| if entidad.EstrategiaID != 0 fin - estrategiaDetalle = " + estrategiaDetalle;
+                                }
+                                error += "| VerficarArchivos";
                                 entidad = VerficarArchivos(entidad, estrategiaDetalle);
+                                error += "| VerficarArchivos = " + entidad;
                             }
                         }
 
                         #region Imagen Resize  
-
+                        error += "| mensajeErrorImagenResize";
                         mensajeErrorImagenResize = _renderImgProvider.ImagenesResizeProceso(model.RutaImagenCompleta, userData.CodigoISO);
+                        error += "| mensajeErrorImagenResize fin = " + mensajeErrorImagenResize;
 
                         #endregion
 
                         if (entidad.ImagenMiniaturaURL == string.Empty || entidad.ImagenMiniaturaURL == "prod_grilla_vacio.png")
                         {
+                            error += "| ImagenMiniaturaURL vacia";
                             entidad.ImagenMiniaturaURL = entidad.ImagenURL;
+                            error += "| ImagenMiniaturaURL vacia - fin = " + entidad.ImagenMiniaturaURL;
                         }
                         else
                         {
+                            error += "| ImagenMiniaturaURL";
                             entidad.ImagenMiniaturaURL = GuardarImagenMiniAmazon(model.ImagenMiniaturaURL, model.ImagenMiniaturaURLAnterior, userData.PaisID);
+                            error += "| ImagenMiniaturaURL fin = " + entidad.ImagenMiniaturaURL;
                         }
 
                         if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, entidad.CodigoTipoEstrategia, dbdefault))
                         {
                             if (entidad.EstrategiaID != 0)
                             {
+                                error += "| EditarEstrategia";
                                 administrarEstrategiaProvider.EditarEstrategia(entidad, _id, userData.CodigoISO, _flagRecoProduc, _flagRecoPerfil);
+                                error += "| EditarEstrategia fin";
                             }
                             else
                             {
+                                error += "| RegistrarEstrategia";
                                 administrarEstrategiaProvider.RegistrarEstrategia(entidad, userData.CodigoISO);
+                                error += "| RegistrarEstrategia fin";
                             }
                         }
                         else
                         {
+                            error += "| InsertarEstrategia";
                             entidad.EstrategiaID = sv.InsertarEstrategia(entidad);
+                            error += "| InsertarEstrategia Fin = " + entidad.EstrategiaID;
                         }
                     }
                 }
-
-                EstrategiaProductoInsertar(respuestaServiceCdr, entidad);
+                if (!_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, entidad.CodigoTipoEstrategia, dbdefault))
+                {
+                    error += "| EstrategiaProductoInsertar";
+                    EstrategiaProductoInsertar(respuestaServiceCdr, entidad);
+                    error += "| EstrategiaProductoInsertar fin";
+                }
 
                 if (model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertaParaTi &&
                     !string.IsNullOrEmpty(model.PrecioAnt) &&
                     model.Precio2 != model.PrecioAnt)
+                {
+                    error += "| UpdateCacheListaOfertaFinal";
                     UpdateCacheListaOfertaFinal(model.CampaniaID);
+                    error += "| UpdateCacheListaOfertaFinal fin";
+                }
 
                 return Json(new
                 {
                     success = true,
-                    message = "Se grabó con éxito la estrategia. " + mensajeErrorImagenResize,
-                    extra = ""
+                    message = "Se grabÃ³ con Ã©xito la estrategia. " + mensajeErrorImagenResize,
+                    extra = "",
+                    msjError = error
                 });
             }
             catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+                error += "| FaultException = " + ex.Message;
                 return Json(new
                 {
                     success = false,
                     message = ex.Message,
-                    extra = ""
+                    extra = "",
+                    msjError = error
                 });
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                error += "| Exception = " + ex.Message;
                 return Json(new
                 {
                     success = false,
                     message = ex.Message,
-                    extra = ""
+                    extra = "",
+                    msjError = error
                 });
             }
         }
@@ -938,8 +977,8 @@ namespace Portal.Consultoras.Web.Controllers
                     CampaniaID = Convert.ToInt32(CampaniaID),
                     TipoEstrategiaID = Convert.ToInt32(TipoEstrategiaID),
                     CUV2 = cuv2,
-                     AgregarEnMatriz=true,
-                     UsuarioRegistro = userData.CodigoConsultora
+                    AgregarEnMatriz = true,
+                    UsuarioRegistro = userData.CodigoConsultora
                 };
 
                 if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, tipoEstrategiaCodigo, dbdefault))
@@ -962,7 +1001,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(new
                     {
                         success = false,
-                        message = "El CUV2 ingresado no está configurado en la matriz comercial",
+                        message = "El CUV2 ingresado no estÃ¡ configurado en la matriz comercial",
                         extra = ""
                     }, JsonRequestBehavior.AllowGet);
 
@@ -978,7 +1017,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "Ocurrió un problema al intentar acceder al servicio, intente nuevamente.",
+                    message = "OcurriÃ³ un problema al intentar acceder al servicio, intente nuevamente.",
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -988,7 +1027,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "Ocurrió un problema al intentar acceder al servicio, intente nuevamente.",
+                    message = "OcurriÃ³ un problema al intentar acceder al servicio, intente nuevamente.",
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -996,32 +1035,121 @@ namespace Portal.Consultoras.Web.Controllers
 
         [HttpPost]
         public JsonResult GetImagesBySapCode(int paisID, string estragiaId, string cuv2, string CampaniaID,
-            string TipoEstrategiaID, int pagina)
+            string TipoEstrategiaID, int pagina, string nombreImagen)
         {
-            List<BEMatrizComercialImagen> lst;
-            var estrategia = new ServicePedido.BEEstrategia
+            string error = "";
+            try
             {
-                PaisID = paisID,
-                EstrategiaID = Convert.ToInt32(estragiaId),
-                CUV2 = cuv2,
-                CampaniaID = Convert.ToInt32(CampaniaID),
-                TipoEstrategiaID = Convert.ToInt32(TipoEstrategiaID)
-            };
+                List<BEMatrizComercialImagen> lst;
+                var estrategia = new ServicePedido.BEEstrategia
+                {
+                    PaisID = paisID,
+                    EstrategiaID = Convert.ToInt32(estragiaId),
+                    CUV2 = cuv2,
+                    CampaniaID = Convert.ToInt32(CampaniaID),
+                    TipoEstrategiaID = Convert.ToInt32(TipoEstrategiaID)
+                };
+
+                if (pagina == 1)
+                {
+                    error += "| primera pagina";
+                    GetImagenesByEstrategiaMatrizComercialImagenIsOk(estrategia, pagina, -1, nombreImagen);
+                    error += "| primera pagina fin";
+                }
+
+                // validar si existe en MatrizComercialImagen
+                using (var sv = new PedidoServiceClient())
+                {
+                    lst = sv.GetImagenesByEstrategiaMatrizComercialImagen(estrategia, pagina, 10).ToList();
+                    error += "| GetImagenesByEstrategiaMatrizComercialImagen = " + lst.Count;
+                }
+
+                return GetImagesCommonResult(lst, paisID, error);
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+                error += "| FaultException = " + ex.Message;
+                return Json(new
+                {
+                    success = false,
+                    message = "OcurriÃ³ un problema al intentar acceder al servicio, intente nuevamente.",
+                    extra = "",
+                    msjError = error
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                error += "| Exception = " + ex.Message;
+                return Json(new
+                {
+                    success = false,
+                    message = "OcurriÃ³ un problema al intentar acceder al servicio, intente nuevamente.",
+                    extra = "",
+                    msjError = error
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        private void GetImagenesByEstrategiaMatrizComercialImagenIsOk(ServicePedido.BEEstrategia estrategia, int pagina, int total, string nombreImagen)
+        {
+            nombreImagen = Util.Trim(nombreImagen);
+            if (nombreImagen == "")
+            {
+                return;
+            }
+
+            List<BEMatrizComercialImagen> lst;
 
             using (var sv = new PedidoServiceClient())
             {
-                lst = sv.GetImagenesByEstrategiaMatrizComercialImagen(estrategia, pagina, 10).ToList();
+                lst = sv.GetImagenesByEstrategiaMatrizComercialImagen(estrategia, pagina, -1).ToList();
             }
 
-            return GetImagesCommonResult(lst, paisID);
+            bool foto = false;
+
+            foreach (var item in lst)
+            {
+                if (lst.Any(x => item.Foto.ToLower() == nombreImagen.ToLower()))
+                {
+                    foto = true;
+                    break;
+                }
+            }
+
+            if (foto)
+            {
+                return;
+            }
+
+            var entidadImagen = lst[0];
+
+            var entity = new BEMatrizComercialImagen
+            {
+                IdMatrizComercial = entidadImagen.IdMatrizComercial,
+                PaisID = userData.PaisID,
+                UsuarioRegistro = userData.CodigoConsultora,
+                UsuarioModificacion = userData.CodigoConsultora,
+                NemoTecnico = null, // NemoTecnico apagado
+                DescripcionComercial = null,  // NemoTecnico apagado,
+                Foto = nombreImagen
+            };
+
+            using (PedidoServiceClient sv = new PedidoServiceClient())
+            {
+                entity.IdMatrizComercialImagen = sv.InsMatrizComercialImagen(entity);
+            }
         }
 
-        private JsonResult GetImagesCommonResult(List<BEMatrizComercialImagen> lst, int paisID)
+        private JsonResult GetImagesCommonResult(List<BEMatrizComercialImagen> lst, int paisID, string error)
         {
             var totalRegistros = lst.Any() ? lst[0].TotalRegistros : 0;
+            error += "| GetImagesCommonResult - totalRegistros = " + totalRegistros;
             var data = MapImages(lst, paisID);
+            error += "| GetImagesCommonResult - MapImages = " + data.Count;
 
-            return Json(new { imagenes = data, totalRegistros = totalRegistros });
+            return Json(new { imagenes = data, totalRegistros = totalRegistros, msjError = error });
         }
 
         private List<MatrizComercialImagen> MapImages(List<BEMatrizComercialImagen> lst, int paisID)
@@ -1062,7 +1190,7 @@ namespace Portal.Consultoras.Web.Controllers
             var carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
 
             if (lst.Count > 0)
-            {                
+            {
                 lst.Update(x => x.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenURL));
                 lst.Update(x => x.Simbolo = userData.Simbolo);
             }
@@ -1108,7 +1236,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = true,
-                    message = "Se deshabilitó la estrategia correctamente.",
+                    message = "Se deshabilitÃ³ la estrategia correctamente.",
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -1118,7 +1246,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "Ocurrió un problema al intentar acceder al servicio, intente nuevamente.",
+                    message = "OcurriÃ³ un problema al intentar acceder al servicio, intente nuevamente.",
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -1128,7 +1256,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "Ocurrió un problema al intentar acceder al servicio, intente nuevamente.",
+                    message = "OcurriÃ³ un problema al intentar acceder al servicio, intente nuevamente.",
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -1171,7 +1299,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "Ocurrió un problema al intentar acceder al servicio, intente nuevamente.",
+                    message = "OcurriÃ³ un problema al intentar acceder al servicio, intente nuevamente.",
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -1181,7 +1309,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "Ocurrió un problema al intentar acceder al servicio, intente nuevamente.",
+                    message = "OcurriÃ³ un problema al intentar acceder al servicio, intente nuevamente.",
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -1233,7 +1361,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     success = true,
                     message = resultado > 0
-                        ? "No se activaron algunas estrategias por no contar con los requisitos de límite de venta o imagen"
+                        ? "No se activaron algunas estrategias por no contar con los requisitos de lÃ­mite de venta o imagen"
                         : "Se actualizaron las estrategias correctamente.",
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
@@ -1244,7 +1372,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "Ocurrió un problema al intentar acceder al servicio, intente nuevamente.",
+                    message = "OcurriÃ³ un problema al intentar acceder al servicio, intente nuevamente.",
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -1254,7 +1382,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "Ocurrió un problema al intentar acceder al servicio, intente nuevamente.",
+                    message = "OcurriÃ³ un problema al intentar acceder al servicio, intente nuevamente.",
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -1351,6 +1479,7 @@ namespace Portal.Consultoras.Web.Controllers
             catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+
                 return Json(new
                 {
                     success = false,
@@ -1369,7 +1498,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-        
+
         public static byte[] ReadFully(Stream input)
         {
             var buffer = new byte[16 * 1024];
@@ -1548,7 +1677,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(new
                     {
                         success = false,
-                        message = "No se envió el codigo de programa",
+                        message = "No se enviÃ³ el codigo de programa",
                         data = lst
                     }, JsonRequestBehavior.AllowGet);
                 }
@@ -1579,7 +1708,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "Ocurrió un problema al intentar obtener los datos",
+                    message = "OcurriÃ³ un problema al intentar obtener los datos",
                     data = lst
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -1602,7 +1731,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = resultado,
-                    message = resultado ? "Se grabó con éxito los datos." : "Ocurrió un problema al intentar registrar los datos"
+                    message = resultado ? "Se grabÃ³ con ï¿½xito los datos." : "OcurriÃ³ un problema al intentar registrar los datos"
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -1612,7 +1741,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "Ocurrió un problema al intentar registrar los datos"
+                    message = "OcurriÃ³ un problema al intentar registrar los datos"
                 }, JsonRequestBehavior.AllowGet);
             }
         }
@@ -1667,7 +1796,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = result,
-                    extra = result ? ConfigS3.GetUrlFileS3(carpetaPais, newfilename) : "Ocurrió un problema al intentar registrar los datos"
+                    extra = result ? ConfigS3.GetUrlFileS3(carpetaPais, newfilename) : "OcurriÃ³ un problema al intentar registrar los datos"
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -1839,11 +1968,11 @@ namespace Portal.Consultoras.Web.Controllers
             {
 
                 if (model.Documento == null || model.Documento.ContentLength <= 0)
-                    throw new ArgumentException("El archivo esta vacío.");
+                    throw new ArgumentException("El archivo esta vacÃ­o.");
                 if (model.Documento.ContentLength > 4 * 1024 * 1024)
                     throw new ArgumentException("El archivo es demasiado extenso para ser procesado.");
                 if (!model.Documento.FileName.EndsWith(".csv"))
-                    throw new ArgumentException("El archivo no tiene la extensión correcta.");
+                    throw new ArgumentException("El archivo no tiene la extensiÃ³n correcta.");
 
                 var sd = new StreamReader(model.Documento.InputStream, Encoding.Default);
                 bool dbdefault = HttpUtility.ParseQueryString(((System.Web.HttpRequestWrapper)Request).UrlReferrer.Query)[_dbdefault].ToBool();
@@ -1854,12 +1983,12 @@ namespace Portal.Consultoras.Web.Controllers
                     var arraySplitHeader = readLine.Split(',');
 
                     if (arraySplitHeader.Length < 2)
-                        throw new ArgumentException("Verificar los títulos de las columnas del archivo, deben ser 'cuv, descripcion'.");
+                        throw new ArgumentException("Verificar los tÃ­tulos de las columnas del archivo, deben ser 'cuv, descripcion'.");
 
                     if (!arraySplitHeader[0].Trim().ToLower().Equals("cuv") ||
                     !arraySplitHeader[1].Trim().ToLower().Equals("descripcion"))
                     {
-                        throw new ArgumentException("Verificar los títulos de las columnas del archivo, deben ser 'cuv, descripcion'.");
+                        throw new ArgumentException("Verificar los tÃ­tulos de las columnas del archivo, deben ser 'cuv, descripcion'.");
                     }
                 }
 
@@ -1894,10 +2023,10 @@ namespace Portal.Consultoras.Web.Controllers
                 else
                 {
                     using (var svc = new SACServiceClient())
-                	{
-                    beDescripcionEstrategias = svc.ActualizarDescripcionEstrategia(model.Pais.ToInt(),
-                        model.CampaniaId.ToInt(), model.TipoEstrategia.ToInt(), fileContent.ToArray()).ToList();
-                	}
+                    {
+                        beDescripcionEstrategias = svc.ActualizarDescripcionEstrategia(model.Pais.ToInt(),
+                            model.CampaniaId.ToInt(), model.TipoEstrategia.ToInt(), fileContent.ToArray()).ToList();
+                    }
                     descripcionEstrategiaModels =
                         Mapper.Map<List<BEDescripcionEstrategia>, List<DescripcionEstrategiaModel>>(
                             beDescripcionEstrategias);
@@ -1954,8 +2083,8 @@ namespace Portal.Consultoras.Web.Controllers
                 bool dbdefault = HttpUtility.ParseQueryString(((System.Web.HttpRequestWrapper)Request).UrlReferrer.Query)[_dbdefault].ToBool();
 
                 string readLine = streamReader.ReadLine();
-                if (model.Documento == null || model.Documento.ContentLength <= 0) throw new ArgumentException("El archivo esta vacío.");
-                if (!model.Documento.FileName.EndsWith(".csv")) throw new ArgumentException("El archivo no tiene la extensión correcta.");
+                if (model.Documento == null || model.Documento.ContentLength <= 0) throw new ArgumentException("El archivo esta vacÃ­o.");
+                if (!model.Documento.FileName.EndsWith(".csv")) throw new ArgumentException("El archivo no tiene la extensiÃ³n correcta.");
                 if (model.Documento.ContentLength > 4 * 1024 * 1024) throw new ArgumentException("El archivo es demasiado extenso para ser procesado.");
 
                 if (readLine != null)
@@ -1965,7 +2094,7 @@ namespace Portal.Consultoras.Web.Controllers
                     bool errorColumn = false;
                     if (arrayHeader.Length != cantidadColumnas)
                     {
-                        throw new ArgumentException("Los títulos de las columnas no son los correctos.");
+                        throw new ArgumentException("Los tÃ­tulos de las columnas no son los correctos.");
                     }
                     if (!arrayHeader[(int)Constantes.ColumnsSetStrategyShowroom.Position.CUV].ToLower().Equals(Constantes.ColumnsSetStrategyShowroom.CUV))
                     {
@@ -1999,7 +2128,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     if (errorColumn)
                     {
-                        throw new ArgumentException(string.Format("Verificar los títulos de las columnas del archivo. <br /> Referencia: La observación se encontró en la columna '{0}'", columnObservation));
+                        throw new ArgumentException(string.Format("Verificar los tÃ­tulos de las columnas del archivo. <br /> Referencia: La observaciÃ³n se encontrÃ³ en la columna '{0}'", columnObservation));
                     }
                     do
                     {
@@ -2010,7 +2139,7 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             if (arrayRows.Length != cantidadColumnas)
                             {
-                                throw new ArgumentException(string.Format("Verificar la información del archivo (datos incompletos). <br /> Referencia: La observación se encontró en el CUV '{0}'", arrayRows[(int)Constantes.ColumnsSetStrategyShowroom.Position.CUV].ToString().TrimEnd()));
+                                throw new ArgumentException(string.Format("Verificar la informaciÃ³n del archivo (datos incompletos). <br /> Referencia: La observaciÃ³n se encontrÃ³ en el CUV '{0}'", arrayRows[(int)Constantes.ColumnsSetStrategyShowroom.Position.CUV].ToString().TrimEnd()));
                             }
                             line++;
                             strategyEntityList.Add(new ServicePedido.BEEstrategia
@@ -2054,7 +2183,6 @@ namespace Portal.Consultoras.Web.Controllers
                             var result = administrarEstrategiaProvider.UploadFileSetStrategyShowroom(estrategia, strategyEntityList, model.TipoEstrategiaCodigo);
 
                             numberRecords[0] = result;
-                            numberRecords[1] = 0;
                         }
                         else
                         {
@@ -2063,8 +2191,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     return Json(new
                     {
-                        listActualizado = numberRecords[0],
-                        listInsertado = numberRecords[1]
+                        listActualizado = numberRecords[0]
                     });
 
                 }
@@ -2073,7 +2200,7 @@ namespace Portal.Consultoras.Web.Controllers
             catch (FormatException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, string.Format("{0} <br /> Referencia: La observación se encontró en la registro '{1}'", ex.Message, line));
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, string.Format("{0} <br /> Referencia: La observaciÃ³n se encontrÃ³ en la registro '{1}'", ex.Message, line));
             }
             catch (Exception ex)
             {
@@ -2085,7 +2212,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public ActionResult UploadFileProductStrategyShowroom(DescripcionMasivoModel model)
         {
-            int cantidadColumnas = 5;
+            int cantidadColumnas = 4;
             int[] numberRecords = null;
             int line = 0;
             try
@@ -2095,8 +2222,8 @@ namespace Portal.Consultoras.Web.Controllers
                 bool dbdefault = HttpUtility.ParseQueryString(((System.Web.HttpRequestWrapper)Request).UrlReferrer.Query)[_dbdefault].ToBool();
 
                 string readLine = streamReader.ReadLine();
-                if (model.Documento == null || model.Documento.ContentLength <= 0) throw new ArgumentException("El archivo esta vacío.");
-                if (!model.Documento.FileName.EndsWith(".csv")) throw new ArgumentException("El archivo no tiene la extensión correcta.");
+                if (model.Documento == null || model.Documento.ContentLength <= 0) throw new ArgumentException("El archivo esta vacÃ­o.");
+                if (!model.Documento.FileName.EndsWith(".csv")) throw new ArgumentException("El archivo no tiene la extensiÃ³n correcta.");
                 if (model.Documento.ContentLength > 4 * 1024 * 1024) throw new ArgumentException("El archivo es demasiado extenso para ser procesado.");
                 if (readLine != null)
                 {
@@ -2105,7 +2232,7 @@ namespace Portal.Consultoras.Web.Controllers
                     bool errorColumn = false;
                     if (arrayHeader.Length != cantidadColumnas)
                     {
-                        throw new ArgumentException("Los títulos de las columnas no son los correctos.");
+                        throw new ArgumentException("Los tÃ­tulos de las columnas no son los correctos.");
                     }
                     if (!arrayHeader[(int)Constantes.ColumnsProductStrategyShowroom.Position.CUV].ToLower().Equals(Constantes.ColumnsProductStrategyShowroom.CUV))
                     {
@@ -2127,14 +2254,9 @@ namespace Portal.Consultoras.Web.Controllers
                         columnObservation = Constantes.ColumnsProductStrategyShowroom.Description;
                         errorColumn = true;
                     }
-                    if (!arrayHeader[(int)Constantes.ColumnsProductStrategyShowroom.Position.BrandProduct].ToLower().Equals(Constantes.ColumnsProductStrategyShowroom.BrandProduct))
-                    {
-                        columnObservation = Constantes.ColumnsProductStrategyShowroom.BrandProduct;
-                        errorColumn = true;
-                    }
                     if (errorColumn)
                     {
-                        throw new ArgumentException(string.Format("Verificar los títulos de las columnas del archivo. <br /> Referencia: La observación se encontró en la columna '{0}'", columnObservation));
+                        throw new ArgumentException(string.Format("Verificar los tÃ­tulos de las columnas del archivo. <br /> Referencia: La observaciÃ³n se encontrÃ³ en la columna '{0}'", columnObservation));
                     }
                     do
                     {
@@ -2146,19 +2268,15 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             if (arrayRows.Length != cantidadColumnas)
                             {
-                                throw new ArgumentException(string.Format("Verificar la información del archivo (datos incompletos). <br /> Referencia: La observación se encontró en el CUV '{0}'", arrayRows[(int)Constantes.ColumnsSetStrategyShowroom.Position.CUV].ToString().TrimEnd()));
+                                throw new ArgumentException(string.Format("Verificar la informaciÃ³n del archivo (datos incompletos). <br /> Referencia: La observaciÃ³n se encontrÃ³ en el CUV '{0}'", arrayRows[(int)Constantes.ColumnsSetStrategyShowroom.Position.CUV].ToString().TrimEnd()));
                             }
                             if (arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.ProductName].ToString().TrimEnd().Length == 0)
                             {
-                                throw new ArgumentException(string.Format("El valor del campo 'Nombre de Producto' es obligatorio. <br /> Referencia: La observación se encontró en el CUV '{0}'", arrayRows[(int)Constantes.ColumnsSetStrategyShowroom.Position.CUV].ToString().TrimEnd()));
+                                throw new ArgumentException(string.Format("El valor del campo 'Nombre de Producto' es obligatorio. <br /> Referencia: La observaciÃ³n se encontrÃ³ en el CUV '{0}'", arrayRows[(int)Constantes.ColumnsSetStrategyShowroom.Position.CUV].ToString().TrimEnd()));
                             }
                             if (!int.TryParse(arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.Order], out evalResult))
                             {
-                                throw new ArgumentException(string.Format("El valor del campo 'posición' no es númerico. <br /> Referencia: La observación se encontró en el CUV '{0}'", arrayRows[(int)Constantes.ColumnsSetStrategyShowroom.Position.CUV].ToString().TrimEnd()));
-                            }
-                            if (!int.TryParse(arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.BrandProduct], out evalResult))
-                            {
-                                throw new ArgumentException(string.Format("El valor del campo 'Marca de producto' no es númerico. <br /> Referencia: La observación se encontró en el CUV '{0}'", arrayRows[(int)Constantes.ColumnsSetStrategyShowroom.Position.CUV].ToString().TrimEnd()));
+                                throw new ArgumentException(string.Format("El valor del campo 'posiciÃ³n' no es nÃºmerico. <br /> Referencia: La observaciÃ³n se encontrÃ³ en el CUV '{0}'", arrayRows[(int)Constantes.ColumnsSetStrategyShowroom.Position.CUV].ToString().TrimEnd()));
                             }
                             line++;
                             strategyEntityList.Add(new ServicePedido.BEEstrategiaProducto
@@ -2166,9 +2284,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 CUV = arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.CUV].ToString().TrimEnd(),
                                 NombreProducto = arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.ProductName].ToString().TrimEnd(),
                                 Descripcion1 = arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.Description].ToString().TrimEnd(),
-                                Orden = int.Parse(arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.Order]),
-                                IdMarca = int.Parse(arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.BrandProduct])
-                                
+                                Orden = int.Parse(arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.Order])
                             });
                         }
                     }
@@ -2185,8 +2301,7 @@ namespace Portal.Consultoras.Web.Controllers
                                  new XElement("CUV", strategy.CUV),
                                  new XElement("NombreProducto", strategy.NombreProducto),
                                  new XElement("Descripcion1", strategy.Descripcion1),
-                                 new XElement("Orden", strategy.Orden),
-                                 new XElement("IdMarca", strategy.IdMarca)
+                                 new XElement("Orden", strategy.Orden)
                                ));
                     using (var service = new PedidoServiceClient())
                     {
@@ -2225,7 +2340,7 @@ namespace Portal.Consultoras.Web.Controllers
             catch (FormatException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, string.Format("{0} <br /> Referencia: La observación se encontró en la registro '{1}'", ex.Message, line));
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, string.Format("{0} <br /> Referencia: La observaciÃ³n se encontrÃ³ en la registro '{1}'", ex.Message, line));
             }
             catch (Exception ex)
             {
@@ -2258,11 +2373,11 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 if (model.Documento == null || model.Documento.ContentLength <= 0)
-                    throw new ArgumentException("El archivo esta vacío.");
+                    throw new ArgumentException("El archivo esta vacÃ­o.");
                 if (model.Documento.ContentLength > 4 * 1024 * 1024)
                     throw new ArgumentException("El archivo es demasiado extenso para ser procesado.");
                 if (!model.Documento.FileName.EndsWith(".csv"))
-                    throw new ArgumentException("El archivo no tiene la extensión correcta.");
+                    throw new ArgumentException("El archivo no tiene la extensiÃ³n correcta.");
 
                 var sd = new StreamReader(model.Documento.InputStream, Encoding.Default);
 
@@ -2272,7 +2387,7 @@ namespace Portal.Consultoras.Web.Controllers
                     var arraySplitHeader = readLine.Split(',');
                     if (!arraySplitHeader[0].ToLower().Equals("cuv"))
                     {
-                        throw new ArgumentException("Verificar los títulos de las columnas del archivo.");
+                        throw new ArgumentException("Verificar los tÃ­tulos de las columnas del archivo.");
                     }
                 }
 

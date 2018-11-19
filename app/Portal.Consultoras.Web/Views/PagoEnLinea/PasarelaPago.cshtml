@@ -1,5 +1,5 @@
 ﻿@using Portal.Consultoras.Common;
-@using Portal.Consultoras.Web.Helpers
+@using Portal.Consultoras.Web.CustomHelpers
 @using Portal.Consultoras.Web.Models.PagoEnLinea;
 @model PaymentInfo
 
@@ -95,7 +95,7 @@
                     {
                         <div class="grupo_campo_formulario_pasarela_pago">
                             <label class="nom_campo_formulario_pasarela_pago w-100">*Fecha de nacimiento :</label>
-                            @Html.TextBoxFor(m => m.Birthdate, new { @class = "campo_formulario_pasarela_pago w-100" , placeholder = "dd/mm/aaaa", required = "true", data_val_date = Constantes.MvcErrorMessages.DateErrorMessage })
+                            @Html.TextBoxFor(m => m.Birthdate, new { @class = "campo_formulario_pasarela_pago w-100", placeholder = "dd/mm/aaaa", required = "true", data_val_date = Constantes.MvcErrorMessages.DateErrorMessage })
                             @Html.PagoValidationMessageFor(m => m.Birthdate)
                         </div>
                     }
@@ -128,5 +128,5 @@
     @{
         Html.RenderPartial("PagoEnLinea/_PayuDeviceScript", (string)ViewBag.DeviceSessionId);
     }
-    <script src="@Url.Content("~/Scripts/PortalConsultoras/PagoEnLinea/PasarelaPago.js")?v=3"></script>
+    <script src="@Url.Content("~/Scripts/PortalConsultoras/PagoEnLinea/PasarelaPago.js")?v=4"></script>
 }

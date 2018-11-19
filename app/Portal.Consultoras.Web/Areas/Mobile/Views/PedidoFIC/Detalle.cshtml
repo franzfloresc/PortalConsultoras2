@@ -1,7 +1,7 @@
 ﻿@using Portal.Consultoras.Common
 @using Portal.Consultoras.Web.Areas.Mobile.Models
 @using Portal.Consultoras.Web.Models
-@using Portal.Consultoras.Web.Helpers
+@using Portal.Consultoras.Web.CustomHelpers
 
 @model PedidoDetalleMobileModel
 @{
@@ -28,10 +28,10 @@
         <div class="contenedor_detalle_pedidoIngresado">
             <div class="contenedor_resumenPedido">
                 @{ var mobileConfiguracion = Html.MobileAppConfiguracion();
-        if (mobileConfiguracion.MostrarBotonAtras)
-        {
-            <a href="@Request.UrlReferrer" class="enlace_regresar detalleP" title="Regresar"></a>
-}
+                    if (mobileConfiguracion.MostrarBotonAtras)
+                    {
+                        <a href="@Request.UrlReferrer" class="enlace_regresar detalleP" title="Regresar"></a>
+                    }
                 }
                 <h2 class="nombre_campania_pedido">
                     MI PEDIDO FIC
@@ -142,7 +142,7 @@
     </div>
     <div class="montos_resumen">
         <span><b data-cantidadproducto="">{{this.TotalProductos}}</b>&nbsp;&nbsp;UNIDADES</span>
-        <span><b>{{SimboloMoneda}}&nbsp;&nbsp;</b><b data-pedidocondescuento="">{{FormatoTotalConDescuento}}</b></span>     
+        <span><b>{{SimboloMoneda}}&nbsp;&nbsp;</b><b data-pedidocondescuento="">{{FormatoTotalConDescuento}}</b></span>
     </div>
 
     <div class="detalle_pedido_ingresado">
@@ -168,8 +168,8 @@
                         <span>CLIENTE ONLINE</span>
                         {{else}}
 
-                        {{#iff OrigenPedidoWeb '==' '@Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinal'}}
-                        {{else if_eq OrigenPedidoWeb '@Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal'}}
+                        {{#iff OrigenPedidoWeb '==' '@Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalCarrusel'}}
+                        {{else if_eq OrigenPedidoWeb '@Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalCarrusel'}}
                         {{else iff detalle.ConfiguracionOfertaID '==' @Constantes.TipoOferta.Liquidacion}}
                         <br />
                         <span>Oferta Liquidación</span>
@@ -211,25 +211,11 @@
                     {{/iff}}
                 </div>
 
-                {{#if detalle.EsKitNueva}}
-                <div class="icono_kitNuevas">
-                    <a href="javascript:;" title="Ver Info Kit Nuevas">
-                        <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")" alt="Ver Info Kit Nuevas" />
-                    </a>
-                    <div class="tooltip_kitNuevas">
-                        <span class="icono_notaDemanda" style="display:inline-block;"></span>
-                        <span class="texto_tooltipKitNuevas">
-                            Este Kit se agrega automáticamente sólo en tu primer pedido.
-                        </span>
-                    </div>
-                </div>
-                {{else}}
                 <div class="icono_eliminar_item_pedido">
                     <a href="javascript:;" title="Eliminar" onclick="EliminarPedidoEvento(event)" data-pedidodetalleid="{{detalle.PedidoDetalleID}}">
                         <img src="@Url.Content("~/Content/Images/Esika/tacho-copy.png")" alt="Eliminar" />
                     </a>
                 </div>
-                {{/if}}
             </div>
             <div style="display: none;">
                 <input type="hidden" id="PrecioUnidad_{{detalle.PedidoDetalleID}}" name="PrecioUnidad_{{detalle.PedidoDetalleID}}" value="{{detalle.PrecioUnidad}}">
@@ -345,7 +331,7 @@
 
         <div class="montos_resumen">
             <span><b data-cantidadproducto="">{{TotalProductos}}</b>&nbsp;&nbsp;UNIDADES</span>
-            <span><b>{{SimboloMoneda}}&nbsp;&nbsp;</b><b data-pedidocondescuento="">{{FormatoTotalConDescuento}}</b></span>           
+            <span><b>{{SimboloMoneda}}&nbsp;&nbsp;</b><b data-pedidocondescuento="">{{FormatoTotalConDescuento}}</b></span>
         </div>
     </div>
 
@@ -636,7 +622,7 @@
         var ofertaLiquidacion = '@Constantes.ConfiguracionOferta.Liquidacion';
         var ofertaShowRoom = '@Constantes.ConfiguracionOferta.ShowRoom';
         var ofertaAccesorizate = '@Constantes.ConfiguracionOferta.Accesorizate';
-        
+
         var urlEjecutarServicioPROL = '@Url.Action("AdministradorPedido", "PedidoFIC", new {area = "Mobile"})';
         var urlPedidoValidado = '@Url.Action("Validado", "Pedido", new {area = "Mobile"})';
         var urlHorarioRestringido = '@Url.Action("EnHorarioRestringido", "Pedido", new {area = ""})';
@@ -685,7 +671,7 @@
         var ofertaFinalEstado = '@ViewBag.OfertaFinalEstado';
         var ofertaFinalAlgoritmo = '@ViewBag.OfertaFinalAlgoritmo';
         var nombreConsultora = '@ViewBag.NombreConsultora';
-        var MobilePedidoOfertaFinal = @Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal;
+        var MobilePedidoOfertaFinal = @Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalCarrusel;
     </script>
 
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/PedidoFIC/Detalle.js")"></script>

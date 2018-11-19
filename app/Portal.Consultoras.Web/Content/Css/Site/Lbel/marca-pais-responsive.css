@@ -2,6 +2,103 @@
 
 /* HEADER */
 
+/* HEADER MARCA PAÍS NAVIDEÑO */
+
+.layout__header--navidenio .layout__container:before{
+    display: block;
+    content: "";
+    position: absolute;
+    width: 84px;
+    height: 60px;
+    top: 0;
+    left: 0;
+    background: url(/Content/Images/Lbel/copos-nieve.png);
+    background-repeat: no-repeat;
+    background-position: -93px -31px;
+    background-size: 170px;
+}
+
+.layout__header--navidenio .header__marca__pais img{
+    height:21px;
+}
+
+@media screen and (min-width:992px) and (max-width:1204px){
+
+    .layout__header--navidenio .layout__container:before{
+        background-position: -66px -31px;
+        background-size: 134px;
+    }
+
+    .layout__header--navidenio .header__marca__pais img {
+        height: 19px;
+    }
+
+}
+
+@media screen and (max-width:991px){
+
+    .layout__header--navidenio .layout__container{
+        justify-content:flex-start!important;
+    }
+
+    .layout__header--navidenio .layout__container:before{
+        display:none;
+    }
+
+    .layout__header--navidenio .header__marca__pais{
+        width:105px;
+        text-align:left!important;
+        padding-left:4px;
+    }
+
+    .layout__header--navidenio .header__marca__pais:after{
+        display: block;
+        content: "";
+        width: 84px;
+        height: 60px;
+        position: absolute;
+        top: -21px;
+        right: -53px;
+        z-index:-1;
+        background-image: url(/Content/Images/Lbel/copos-nieve.png);
+        background-repeat: no-repeat;
+        background-position: 19px -77px;
+        background-size: 164px;
+    }
+
+    .layout__header--navidenio .header__marca__pais picture{
+        margin-top:-2px;
+    }
+
+    .layout__header--navidenio .header__marca__pais img{
+        height:17px;
+    }
+
+    /*.layout__header--navidenio .header__marca__pais img {
+        right: 1px;
+        height: 30px;
+        margin-top: -4px;
+        padding-left: 17px;
+    }*/
+
+    .layout__header--navidenio .header__menu--lateralDerecho{
+        flex-grow:1!important;
+    }
+
+    .layout__header--navidenio .menu__lista{
+        justify-content:flex-end!important;
+    }
+
+    .layout__header--navidenio .menu__item--lateralDerechoIcono:first-child,
+    .layout__header--navidenio .menu__item--lateralDerechoIcono:nth-child(2)
+    {
+        margin-right:13px!important;
+    }
+
+}
+
+/* FIN - HEADER MARCA PAÍS NAVIDEÑO */
+
 .header__marca__pais img {
     width: auto;
     height: 19px;
@@ -29,7 +126,7 @@
     background-color: #FFF;
     background-image:url(/Content/Images/Lbel/pestana_lbel.png);
     top: -3px;
-    left: 9.4%;
+    left: 15.7%;
     background-size: cover;
 }
 
@@ -49,6 +146,14 @@
 
     .header__marca__pais picture {
         height: auto;
+    }
+
+}
+
+@media screen and (min-width:992px) and (max-width:1204px){
+
+    .header__marca__pais {
+        width: 155px;
     }
 
 }

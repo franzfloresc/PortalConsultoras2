@@ -904,6 +904,9 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         string GetCuvKitNuevas(BEConsultoraProgramaNuevas consultoraNuevas, BEConfiguracionProgramaNuevas confProgNuevas);
 
+        [OperationContract]
+        string GetMensajeKitNuevas(string codigoISO, bool esConsultoraNueva, int consecutivoNueva);
+
         #endregion
 
         [OperationContract]
@@ -922,7 +925,7 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEPedidoWeb> GetPedidosIngresadoFacturadoWebMobile(int paisID, int consultoraID, int campaniaID, int clienteID, int top, string codigoConsultora);
 
         [OperationContract]
-        List<BEPedidoWeb> GetPedidosIngresadoFacturadoApp(int paisID, int consultoraID, int campaniaID, string codigoConsultora, int usuarioPrueba, string consultoraAsociada, int top);
+        List<BEPedidoWeb> GetPedidosIngresadoFacturadoApp(int paisID, int consultoraID, int campaniaID, string codigoConsultora, int usuarioPrueba, string consultoraAsociada, int top, bool mostrarPaqueteDocumentario);
 
         [OperationContract]
         List<BEMensajeMetaConsultora> GetMensajeMetaConsultora(int paisID, BEMensajeMetaConsultora entidad);
@@ -1231,6 +1234,16 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         int ObtenerPagoEnLineaNumeroOrden(int paisId);
+
+        [OperationContract]
+        BEPagoEnLinea ObtenerPagoEnLineaConfiguracion(int paisId, long consultoraId, string codigoUsuario);
+
+        [OperationContract]
+        BEPagoEnLineaVisa ObtenerPagoEnLineaVisaConfiguracion(int paisId, string codigoConsutora);
+
+        [OperationContract]
+        BERespuestaServicio RegistrarPagoEnLineaVisa(BEUsuario usuario, BEPagoEnLineaVisa pagoEnLineaVisa);
+
         #endregion
 
         [OperationContract]

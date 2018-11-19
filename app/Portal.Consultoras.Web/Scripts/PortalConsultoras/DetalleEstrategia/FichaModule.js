@@ -29,10 +29,10 @@ var FichaModule = (function (config) {
     var _primeraMarca = "";
     var _ultimaMarca = "";
     var _esMultimarca = false;
+    var _estrategia = {};
 
     var _config = {
         palanca: config.palanca || "",
-        //origen: config.origen || "",
         tieneSession: config.tieneSession || "",
         campania: config.campania || "",
         cuv: config.cuv || "",
@@ -51,9 +51,6 @@ var FichaModule = (function (config) {
         dataClicked: "[data-clicked]",
         dataChange: "[data-change]",
         dataSelected: "[data-select-area]",
-        //idPlantillaProductoLanding: "#producto-landing-template",
-        //divCarruselSetsProductosRelacionados: "#divFichaCarruselProducto",
-        //divSetsProductosRelacionados: "#set_relacionados",
         footerPage: ".footer-page",
         estrategiaBreadcrumb: "#estrategia-breadcrumb",
         marca: "#marca"
@@ -61,25 +58,14 @@ var FichaModule = (function (config) {
 
     var _atributos = {
         dataEstrategia: "data-estrategia",
-        //dataClicked: "[data-clicked]",
-        //dataChange: "[data-change]",
-        //dataSelected: "[data-select-area]"
     };
 
     var _seccionesFichaProducto = {
         SeccionIzquierdo: "#dvSeccionIzquierdo",
-        //EtiquetaLanzamientos: "#EtiquetaLanzamientos",
         ImagenDeFondo: "#ImagenDeFondo",
-        //DescripcionAdicional: "#DescripcionAdicional",
         ContenidoProducto: "#ContenidoProducto",
-        //CarruselProducto: "#divFichaCarrusel",
-        //EtiquetaOdd: "#EtiquetaOdd",
-        //SloganLanzamientos: "#SloganLanzamientos",
-        //ContenedoFotoReferencial: "#contenedor_foto_referencial",
         ContenedoFichaEtiquetas: "#contenedor_ficha_etiquetas",
         Contenedor_redes_sociales: "#Contenedor_redes_sociales",
-        //EtiquetaPackNuevas: "#EtiquetaPackNuevas"
-        //SloganPackNuevas: "#SloganPackNuevas",
         ImagenProducto: "#FichaImagenProducto",
         dvContenedorAgregar: "#dvContenedorAgregar"
     };
@@ -138,10 +124,10 @@ var FichaModule = (function (config) {
     };
 
     var _ocultarTabs = function () {
+        
         var estrategia = _localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
 
         $(_seccionesFichaProducto.ContenidoProducto).hide();
-        //
         $(_tabsFichaProducto.detalleProducto).hide();
         $(_tabsFichaProducto.detallePack).hide();
         $(_tabsFichaProducto.tipsVenta).hide();
@@ -324,7 +310,7 @@ var FichaModule = (function (config) {
             estrategia.Hermanos = [];
             estrategia.EsMultimarca = false;
         }
-        //
+
         estrategia.esCampaniaSiguiente = estrategia.CampaniaID !== _obtenerCampaniaActual();
         $.each(estrategia.Hermanos, function (idx, hermano) {
             hermano = estrategia.Hermanos[idx];
@@ -363,7 +349,7 @@ var FichaModule = (function (config) {
 
     var _getEstrategia = function () {
         var estrategia;
-
+        console.log(_config);
         if (_config.tieneSession === "True") {
             estrategia = JSON.parse($(_elementos.idDataEstrategia).attr(_atributos.dataEstrategia));
         }
@@ -462,27 +448,6 @@ var FichaModule = (function (config) {
         $(proImg).css("height", "auto");
         $(proImg).css("width", "auto");
 
-
-        //if (proM > proObjH) {
-        //    $(proImg).css("max-height", proObjH + "px !important");
-        //    $(proImg).css("height", "auto");
-        //    $(proImg).css("width", "auto");
-        //}
-        //else {
-        //    proObjH = 0;
-        //}
-
-        //// medida segun ancho
-        //proObj = $(_seccionesFichaProducto.SeccionIzquierdo);
-        //proM = proImg.innerWidth();
-        //var proObjW = proObj.innerWidth();
-        //if (proM > proObjW) {
-        //    $(proImg).css("width", proObjW + "px");
-        //    if (proObjH == 0) {
-        //        $(proImg).css("height", "auto");
-        //    }
-        //}
-
         setTimeout(_resizeBotonAgregar(), 1000);
     };
 
@@ -573,9 +538,12 @@ var FichaModule = (function (config) {
     };
 
     var _construirSeccionEstrategia = function () {
-        var estrategia = _getEstrategia();
 
+        _estrategia = _getEstrategia();
+        var estrategia = _estrategia;
+        
         if (estrategia == null) {
+            console.log('location', 1);
             window.location = baseUrl + (isMobile() ? "Mobile/" : "") + "Ofertas";
             return false;
         }
@@ -619,10 +587,6 @@ var FichaModule = (function (config) {
             SetHandlebars("#ofertadeldia-template-style", estrategia, "#styleRelojOdd");
         }
 
-        //$(_seccionesFichaProducto.ContenedoFotoReferencial).hide();
-        //if (estrategia.Hermanos.length > 0)
-        //    $(_seccionesFichaProducto.ContenedoFotoReferencial).show();
-
         if (!isMobile()) {
             _validarSiEsAgregado(estrategia);
         }
@@ -631,13 +595,17 @@ var FichaModule = (function (config) {
         _construirSeccionDetalleFichas(estrategia);
 
         // Se realiza la marcación en analytics de la información de la ficha de un producto.
-        //var tipoMoneda = AnalyticsPortalModule.FcVerificarTipoMoneda(variablesPortal.SimboloMoneda);
-        //AnalyticsPortalModule.MarcarVerFichaProducto(tipoMoneda, estrategia.DescripcionCompleta.trim(), estrategia.CUV2.trim(), estrategia.PrecioVenta, estrategia.DescripcionMarca, null, estrategia.CodigoVariante, _config.palanca);
+        var tipoMoneda = AnalyticsPortalModule.FcVerificarTipoMoneda(variablesPortal.SimboloMoneda);
+        AnalyticsPortalModule.MarcarVerFichaProducto(tipoMoneda, estrategia.DescripcionCompleta.trim(), estrategia.CUV2.trim(), estrategia.PrecioVenta, estrategia.DescripcionMarca, null, estrategia.CodigoVariante, _config.palanca);
         return true;
     };
 
-    function Inicializar() {
+    function getEstrategia()
+    {
+        return _estrategia || _getEstrategia();
+    }
 
+    function Inicializar() { 
         _localStorageModule = LocalStorageModule();
         _construirSeccionEstrategia();
         _ocultarSecciones();
@@ -649,7 +617,8 @@ var FichaModule = (function (config) {
     }
 
     return {
-        Inicializar: Inicializar
+        Inicializar: Inicializar,
+        GetEstrategia: getEstrategia
     };
 });
 
