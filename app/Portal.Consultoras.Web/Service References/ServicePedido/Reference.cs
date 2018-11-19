@@ -9116,6 +9116,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private bool MostrarBuscadorField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool MostrarFiltrosBuscadorField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool MostrarOpcionesOrdenamientoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -9205,6 +9208,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.MostrarBuscadorField.Equals(value) != true)) {
                     this.MostrarBuscadorField = value;
                     this.RaisePropertyChanged("MostrarBuscador");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool MostrarFiltrosBuscador {
+            get {
+                return this.MostrarFiltrosBuscadorField;
+            }
+            set {
+                if ((this.MostrarFiltrosBuscadorField.Equals(value) != true)) {
+                    this.MostrarFiltrosBuscadorField = value;
+                    this.RaisePropertyChanged("MostrarFiltrosBuscador");
                 }
             }
         }
@@ -14197,6 +14213,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CUVField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int ClienteIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CodigoRespuestaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -14209,6 +14231,32 @@ namespace Portal.Consultoras.Web.ServicePedido {
             }
             set {
                 this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CUV {
+            get {
+                return this.CUVField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CUVField, value) != true)) {
+                    this.CUVField = value;
+                    this.RaisePropertyChanged("CUV");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ClienteID {
+            get {
+                return this.ClienteIDField;
+            }
+            set {
+                if ((this.ClienteIDField.Equals(value) != true)) {
+                    this.ClienteIDField = value;
+                    this.RaisePropertyChanged("ClienteID");
+                }
             }
         }
         
@@ -18723,6 +18771,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string NumeroTarjetaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string OrigenField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string OrigenTarjetaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -19061,6 +19112,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.NumeroTarjetaField, value) != true)) {
                     this.NumeroTarjetaField = value;
                     this.RaisePropertyChanged("NumeroTarjeta");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Origen {
+            get {
+                return this.OrigenField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.OrigenField, value) != true)) {
+                    this.OrigenField = value;
+                    this.RaisePropertyChanged("Origen");
                 }
             }
         }
@@ -21022,6 +21086,8 @@ namespace Portal.Consultoras.Web.ServicePedido {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServicePedido.BEConfiguracionPedido))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServicePedido.BEPedidoBarra))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServicePedido.BEPedidoReservaResult))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServicePedido.BEPedidoDetalle[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleResult[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServicePedido.BEPedidoWebSetDetalle[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServicePedido.BEPedidoWebSetDetalle))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServicePedido.BEPedidoWebSet))]
@@ -41827,6 +41893,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsertProductoBuscador", ReplyAction="http://tempuri.org/IPedidoService/InsertProductoBuscadorResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleResult> InsertProductoBuscadorAsync(Portal.Consultoras.Web.ServicePedido.BEPedidoDetalle pedidoDetalle);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsertPedidoDetalleMasivo", ReplyAction="http://tempuri.org/IPedidoService/InsertPedidoDetalleMasivoResponse")]
+        Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleResult[] InsertPedidoDetalleMasivo(Portal.Consultoras.Web.ServicePedido.BEPedidoDetalle[] lstPedidoDetalle);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsertPedidoDetalleMasivo", ReplyAction="http://tempuri.org/IPedidoService/InsertPedidoDetalleMasivoResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleResult[]> InsertPedidoDetalleMasivoAsync(Portal.Consultoras.Web.ServicePedido.BEPedidoDetalle[] lstPedidoDetalle);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsertPagoEnLineaResultadoLog", ReplyAction="http://tempuri.org/IPedidoService/InsertPagoEnLineaResultadoLogResponse")]
         int InsertPagoEnLineaResultadoLog(int paisId, Portal.Consultoras.Web.ServicePedido.BEPagoEnLineaResultadoLog entidad);
         
@@ -44413,6 +44485,14 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleResult> InsertProductoBuscadorAsync(Portal.Consultoras.Web.ServicePedido.BEPedidoDetalle pedidoDetalle) {
             return base.Channel.InsertProductoBuscadorAsync(pedidoDetalle);
+        }
+        
+        public Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleResult[] InsertPedidoDetalleMasivo(Portal.Consultoras.Web.ServicePedido.BEPedidoDetalle[] lstPedidoDetalle) {
+            return base.Channel.InsertPedidoDetalleMasivo(lstPedidoDetalle);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleResult[]> InsertPedidoDetalleMasivoAsync(Portal.Consultoras.Web.ServicePedido.BEPedidoDetalle[] lstPedidoDetalle) {
+            return base.Channel.InsertPedidoDetalleMasivoAsync(lstPedidoDetalle);
         }
         
         public int InsertPagoEnLineaResultadoLog(int paisId, Portal.Consultoras.Web.ServicePedido.BEPagoEnLineaResultadoLog entidad) {

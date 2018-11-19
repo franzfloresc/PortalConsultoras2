@@ -5071,6 +5071,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private bool MostrarBuscadorField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool MostrarFiltrosBuscadorField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool MostrarOpcionesOrdenamientoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -5160,6 +5163,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.MostrarBuscadorField.Equals(value) != true)) {
                     this.MostrarBuscadorField = value;
                     this.RaisePropertyChanged("MostrarBuscador");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool MostrarFiltrosBuscador {
+            get {
+                return this.MostrarFiltrosBuscadorField;
+            }
+            set {
+                if ((this.MostrarFiltrosBuscadorField.Equals(value) != true)) {
+                    this.MostrarFiltrosBuscadorField = value;
+                    this.RaisePropertyChanged("MostrarFiltrosBuscador");
                 }
             }
         }
