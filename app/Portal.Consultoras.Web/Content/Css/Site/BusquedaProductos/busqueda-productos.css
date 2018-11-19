@@ -1054,7 +1054,7 @@
 
     .lista__etiquetas__criteriosElegidos{
         position:absolute;
-        min-width:120px;
+        min-width:250px;
     }
 
     .etiqueta__criterioElegido_descrip{
@@ -1074,7 +1074,7 @@
     /* VISTA PRECARGA AL ACTUALIZARSE LOS FILTROS (MOBILE) */
 
     .layout__precarga--actualizacionFiltros{
-        width:90%;
+        width:100%;
         top:0;
         left:auto;
         right:0;

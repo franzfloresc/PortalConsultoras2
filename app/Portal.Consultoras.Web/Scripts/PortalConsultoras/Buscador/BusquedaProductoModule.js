@@ -225,7 +225,7 @@
             var anchoContenedorEtiquetasActualizadoMobile = _elementos.contenedorEtiquetas.outerWidth() - AnchoEtiquetaCriterioEliminadoMobile;
             _elementos.contenedorEtiquetas.css('width', anchoContenedorEtiquetasActualizadoMobile);
         },
-        AgregarEtiquetaFiltroSeleccionado: function (texto, id) {
+        AgregarEtiquetaFiltroSeleccionado: function (id, texto) {
             if (_config.isMobile) {
                 _elementos.contenedorEtiquetas = $('.layout__content__etiquetas__criteriosElegidosMobile').find('.lista__etiquetas__criteriosElegidos');
                 $('.layout__content__etiquetas__criteriosElegidosMobile').slideDown(100);
@@ -354,6 +354,8 @@
             _config.categoria = filtroCategoria;
             _config.marca = filtroMarca;
             _config.precio = filtroPrecio;
+
+            $(_elementos.preCargaFiltros).css('width', 90 + '%');
 
             _funciones.CargarProductos();
         }
@@ -593,7 +595,7 @@
             };
 
             var _localStorage = _funciones.devuelveNombreLocalStorage(idFiltro);
-            var element = $('#' + idFiltro);
+            var element = $('#' + idFiltro + '[type="checkbox"]');
 
             if (element.is(':checked')) {
                 filtroCriterio = _funciones.quitarFiltroMarcado(idFiltro, _localStorage);
@@ -605,7 +607,7 @@
                 element.remove();
             } else {
                 filtroCriterio = _funciones.marcarFiltro(idFiltro, _localStorage, filtroSeleccionado);
-                _funciones.AgregarEtiquetaFiltroSeleccionado(nombreFiltro, idFiltro);
+                _funciones.AgregarEtiquetaFiltroSeleccionado(idFiltro, nombreFiltro);
                 if (_config.isMobile) {
                     _funciones.AnchoContenedorEtiquetasCriteriosElegidosMobile();
                 }
