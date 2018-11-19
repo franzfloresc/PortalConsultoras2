@@ -291,6 +291,49 @@ function alertEMail_msg(message, titulo) {
     $('#alertEMailDialogMensajes').dialog('open');
 }
 
+function ObtenerPedidoID()
+{
+    $("#txtCUVDescripcion").val("");
+    var CampaniaId = $.trim($("#ddlCampania").val()) || 0;
+    if (CampaniaId <= 0 || CUV.length < 5) return false;
+    var item = {
+        CampaniaID: CampaniaId,
+    };
+
+    waitingDialog();
+    jQuery.ajax({
+        type: 'POST',
+        url: baseUrl + 'MisReclamos/ObtenerPedidoID',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(item),
+        cache: false,
+        success: function (data) {
+            closeWaitingDialog();
+            if (!checkTimeout(data))
+                return false;
+
+            if (data.success == false) {
+                alert_msg(data.message);
+                return false;
+            }
+            data.detalle = data.detalle || new Array();
+
+            if (data.detalle.length <= 0) {
+                $("#divMotivo").html("");
+                alert_msg("Producto no disponible para atención por este medio, comunícate con el <span class='enlace_chat belcorpChat'><a>Chat en Línea</a></span>.");
+            } else {
+                if (data.detalle.length > 1) PopupPedido(data.detalle);
+                else AsignarCUV(data.detalle[0]);
+            }
+        },
+        error: function (data, error) {
+            closeWaitingDialog();
+            checkTimeout(data);
+        }
+    });
+}
+
 function BuscarCUV(CUV) {
     CUV = $.trim(CUV) || $.trim($("#txtCUV").val());
     var CampaniaId = $.trim($("#ddlCampania").val()) || 0;

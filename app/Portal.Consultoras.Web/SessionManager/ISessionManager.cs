@@ -325,6 +325,10 @@ namespace Portal.Consultoras.Web.SessionManager
 
         List<CampaniaModel> GetCDRCampanias();
 
+        void SetCDRPedidos(List<CampaniaModel> val);
+
+        List<CampaniaModel> GetCDRPedidos();
+
         void SetListaCDRDetalle(CDRWebModel val);
 
         CDRWebModel GetListaCDRDetalle();

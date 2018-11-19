@@ -76,6 +76,7 @@ namespace Portal.Consultoras.Web.Controllers
             return View(model);
         }
 
+        #region Reclamo
         public ActionResult Reclamo(int pedidoId = 0)
         {
             var model = new MisReclamosModel
@@ -128,6 +129,17 @@ namespace Portal.Consultoras.Web.Controllers
 
             return View(model);
         }
+
+        public JsonResult ObtenerPedidoID(int CampaniaID)
+        {
+            return null;
+        }
+
+        public JsonResult ObtenerListaCuv(int pedidoID)
+        {
+            return null;
+        }
+        #endregion
 
         private List<BEPedidoWeb> CargarPedidoCUV(MisReclamosModel model)
         {
