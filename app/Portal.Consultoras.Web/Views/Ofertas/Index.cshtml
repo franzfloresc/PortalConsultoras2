@@ -4,6 +4,14 @@
 
 @{
     Layout = "~/Views/Shared/_MainLayoutContenedor.cshtml";
+
+    var revistaDigital = ViewBag.revistaDigital ?? new RevistaDigitalShortModel();
+
+    var headerAttr = "nosuscrita";
+    if (revistaDigital.EsActiva == true)
+    {
+        headerAttr = "suscrita";
+    }
 }
 @section styles{
     @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/Ofertas")
@@ -23,7 +31,8 @@
     <div class="bc_estrategia_contenido" id="seccion-estrategia-contenido">
         @foreach (var seccion in Model.EstrategiaPersonalizada.ListaSeccion)
         {
-            <div data-seccion="@seccion.Codigo"
+            <div @headerAttr 
+                 data-seccion="@seccion.Codigo"
                  data-campania="@seccion.CampaniaID"
                  data-url="@seccion.UrlObtenerProductos"
                  data-templateProducto="@seccion.TemplateProducto"
