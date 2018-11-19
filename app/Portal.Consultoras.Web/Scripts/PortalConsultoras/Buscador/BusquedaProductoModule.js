@@ -235,7 +235,7 @@
             }
 
             var etiquetaFiltroSeleccionadoHtml =
-                '<li class="row flex-row justify-content-center align-items-center etiqueta__criterioElegido" id="' + id + '" data-item="buscadorCriterios">'
+                '<li class="row flex-row justify-content-center align-items-center etiqueta__criterioElegido" id="criterio' + id + '" data-item="buscadorCriterios">'
                 + '<input type="hidden" class="CriteriosFiltrosId" value="' + id + '" />'
                 + '<input type="hidden" class="CriteriosFiltrosLabel" value="' + texto + '" />'
                 + '<span class="etiqueta__criterioElegido_descrip">'
@@ -595,16 +595,17 @@
             };
 
             var _localStorage = _funciones.devuelveNombreLocalStorage(idFiltro);
-            var element = $('#' + idFiltro + '[type="checkbox"]');
+            var element = $('#' + idFiltro);
+            var criterio = $('#criterio' + idFiltro);
 
             if (element.is(':checked')) {
                 filtroCriterio = _funciones.quitarFiltroMarcado(idFiltro, _localStorage);
-                element.fadeOut(70);
+                criterio.fadeOut(70);
                 if (_config.isMobile) {
-                    var capturarAnchoEtiquetaPorEliminarMobile = element.outerWidth() + 10;
+                    var capturarAnchoEtiquetaPorEliminarMobile = criterio.outerWidth() + 10;
                     _funciones.ActualizarAnchoContenedorEtiquetasCriteriosElegidosMobile(capturarAnchoEtiquetaPorEliminarMobile);
                 }
-                element.remove();
+                criterio.remove();
             } else {
                 filtroCriterio = _funciones.marcarFiltro(idFiltro, _localStorage, filtroSeleccionado);
                 _funciones.AgregarEtiquetaFiltroSeleccionado(idFiltro, nombreFiltro);
