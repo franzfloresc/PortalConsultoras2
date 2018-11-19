@@ -6,6 +6,8 @@
     Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 
+<link href="@Url.Content("~/Content/Css/Site/bootstrap/bootstrap-chosen.css")" rel="stylesheet" />
+
 <div class="fondo_f9f9f9">
     <div class="content_belcorp">
         <div class="fondo_negro_lateral"></div>
@@ -31,22 +33,39 @@
     <div class="content_general_reclamos" id="divProcesoReclamo">
         <div style="display: block;">
             <div class="content_pasos">
+                <div class="content_pasos_linea"></div>
                 <div class="paso_reclamo paso_active_reclamo" id="Selector1" data-paso="1"><span><img src="@Url.Content("~/Content/Images/Esika/cdr_paso1_activo.png")" /></span></div>
                 <div class="paso_reclamo" id="Selector2" data-paso="2"><span><img src="@Url.Content("~/Content/Images/Esika/cdr_paso2.png")" /></span></div>
                 <div class="paso_reclamo" id="Selector3" data-paso="3"><span><img src="@Url.Content("~/Content/Images/Esika/cdr_paso3.png")" /></span></div>
             </div>
-            <div class="content_pasos_linea"></div>
             <div class="content_reclamo" id="Paso1">
-                <div>
+                <div class="text-center">
                     <div class="subtitulo_reclamo">¿Con qué producto has tenido el inconveniente?</div>
-                    <div>
+                    <div class="text-center">
                         @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.ListaCampania, "CampaniaID", "NombreCorto", Model.CampaniaID), new { id = "ddlCampania", @class = "select_reclamo", @required = "required" })
                         <input type="hidden" id="txtPedidoID" value="@Model.PedidoID" />
                         <input type="hidden" id="txtNumeroPedido" value="@Model.NumeroPedido" />
                         <input type="hidden" id="txtPrecioUnidad" />
                         <input type="hidden" id="hdImporteTotalPedido" />
                         <input type="text" placeholder="Código" class="codigo_reclamo ValidaNumeral ValidaPasteNumeral valid" id="txtCUV" />
-                        <input type="text" placeholder="Descripción del producto" class="descripcion_reclamo" id="txtCUVDescripcion" readonly="readonly" />
+                        <select class="elige_num_pedido" id="numPedido" name="numPedido" required="required">
+                            <option value="0">Elige un pedido</option>
+                            <option value="Nº 1801878344 - 22/10/18">Nº 1801878344 - 22/10/18</option>
+                            <option value="Nº 1801878344 - 22/09/18">Nº 1801878255 - 22/09/18</option>
+                        </select>
+                        <select class="chosen-select descripcion_reclamo" data-placeholder="¿Qué código o Descripción del producto tiene?" id="txtCUVDescripcion" name="txtCUVDescripcion" required="required">
+                            <option value=""></option>
+                            <option value="ES PRO DELINEADOR EN LÁPIZ CEJAS 1.1G NATURAL">ES PRO ESMATE 6 EN 1 10ML ARENA ELEGANT</option>
+                            <option value="ES PRO DELINEADOR EN LÁPIZ CEJAS 1.1G NATURAL">ES PRO DELINEADOR EN LÁPIZ CEJAS 1.1G NATURAL</option>
+                            <option value="ES PRO DELINEADOR EN LÁPIZ CEJAS 1.1G NATURAL">ES PRO ESMALTE 6 EN 1 10ML CENIZO SAVANNA</option>
+                            <option value="ES PRO DELINEADOR EN LÁPIZ CEJAS 1.1G NATURAL">ES PRO ESMATE 6 EN 1 10ML ARENA ELEGANT</option>
+                            <option value="ES PRO DELINEADOR EN LÁPIZ CEJAS 1.1G NATURAL">ES PRO DELINEADOR EN LÁPIZ CEJAS 1.1G NATURAL</option>
+                            <option value="ES PRO DELINEADOR EN LÁPIZ CEJAS 1.1G NATURAL">ES PRO ESMALTE 6 EN 1 10ML CENIZO SAVANNA</option>
+                            <option value="ES PRO DELINEADOR EN LÁPIZ CEJAS 1.1G NATURAL">ES PRO ESMATE 6 EN 1 10ML ARENA ELEGANT</option>
+                            <option value="ES PRO DELINEADOR EN LÁPIZ CEJAS 1.1G NATURAL">ES PRO DELINEADOR EN LÁPIZ CEJAS 1.1G NATURAL</option>
+                            <option value="ES PRO DELINEADOR EN LÁPIZ CEJAS 1.1G NATURAL">ES PRO ESMALTE 6 EN 1 10ML CENIZO SAVANNA</option>
+                        </select>
+                        @*<input type="text" placeholder="Descripción del producto" class="descripcion_reclamo" id="txtCUVDescripcion" readonly="readonly" />*@
                         <div class="rango_reclamo" data-cantidad-contenedor="">
                             <input type="text" name="Cantidad" id="txtCantidad" data-input="cantidad" value="1" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid" onfocus="SeleccionarContenido(this) ">
                             <div class="liquidacion_rango_right_pedido">
@@ -453,16 +472,17 @@
 @section scripts{
 
     <script type="text/javascript">
-    var imgCheck = '@Url.Content("~/Content/Images/Esika/paso_realizado.png")';
-    var imgPasos = '@Url.Content("~/Content/Images/Esika/{0}.png")';
-    var urlRegresar = '@Url.Action("Index", "MisReclamos")';
-    var urlRegresarReclamo = '@Url.Action("Reclamo", "MisReclamos")';
+        var imgCheck = '@Url.Content("~/Content/Images/Esika/paso_realizado.png")';
+        var imgPasos = '@Url.Content("~/Content/Images/Esika/{0}.png")';
+        var urlRegresar = '@Url.Action("Index", "MisReclamos")';
+        var urlRegresarReclamo = '@Url.Action("Reclamo", "MisReclamos")';
 
-    var mensajeGestionCdrInhabilitada = '@Html.Raw(Model.MensajeGestionCdrInhabilitada)';
-    var mensajeCdrFueraDeFechaCompleto = '@Html.Raw(Constantes.CdrWebMensajes.FueraDeFecha + " " + Constantes.CdrWebMensajes.ContactateChatEnLinea)';
+        var mensajeGestionCdrInhabilitada = '@Html.Raw(Model.MensajeGestionCdrInhabilitada)';
+        var mensajeCdrFueraDeFechaCompleto = '@Html.Raw(Constantes.CdrWebMensajes.FueraDeFecha + " " + Constantes.CdrWebMensajes.ContactateChatEnLinea)';
 
-    var OrigenCDR = false;
+        var OrigenCDR = false;
     </script>
+    <script src="@Url.Content("~/Scripts/chosen.jquery.js")"></script>
     <script src="@Url.Content("~/Scripts/PortalConsultoras/MisReclamos/Reclamo.js")"></script>
     <script src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js")"></script>
 }
