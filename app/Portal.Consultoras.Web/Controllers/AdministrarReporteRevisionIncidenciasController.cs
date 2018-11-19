@@ -187,9 +187,9 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 paso += "|Inicio";
-                bool ParseQueryString = HttpUtility.ParseQueryString(((System.Web.HttpRequestWrapper)Request).UrlReferrer.Query)[_dbdefault].ToBool();
+                //bool ParseQueryString = HttpUtility.ParseQueryString(((System.Web.HttpRequestWrapper)Request).UrlReferrer.Query)[_dbdefault].ToBool();
 
-                paso += "|ParseQueryString = " + ParseQueryString;
+                //paso += "|ParseQueryString = " + ParseQueryString;
 
                 if (ModelState.IsValid)
                 {
