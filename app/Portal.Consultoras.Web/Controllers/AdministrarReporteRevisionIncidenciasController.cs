@@ -1,31 +1,16 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.CustomHelpers;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.Models.Estrategia;
 using Portal.Consultoras.Web.Models.ReporteRevisionIncidencias;
 using Portal.Consultoras.Web.Providers;
-using Portal.Consultoras.Web.ServiceGestionWebPROL;
-using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
-using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
-using Portal.Consultoras.Web.ServiceSAC;
-using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.IO;
 using System.Linq;
-using System.Net;
-using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
-using System.Xml.Linq;
-using BEConfiguracionPaisDatos = Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -133,8 +118,7 @@ namespace Portal.Consultoras.Web.Controllers
             return lista;
         }
 
-        public ActionResult ConsultarReporteCuvResumido(string sidx, string sord, int page, int rows, int CampaniaID,
-           string CUV)
+        public ActionResult ConsultarReporteCuvResumido(string sidx, string sord, int page, int rows, int CampaniaID, string CUV)
         {
             try
             {
@@ -197,8 +181,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public ActionResult ConsultarReporteCuvDetallado(string sidx, string sord, int page, int rows, int CampaniaID,
-           string CUV)
+        public ActionResult ConsultarReporteCuvDetallado(string sidx, string sord, int page, int rows, int CampaniaID, string CUV)
         {
             try
             {
@@ -262,12 +245,12 @@ namespace Portal.Consultoras.Web.Controllers
                     };
                     return Json(data, JsonRequestBehavior.AllowGet);
                 }
-                return RedirectToAction("Index", "AdministrarReporteRevisionIncidenciasController");
+                return RedirectToAction("Index", "AdministrarReporteRevisionIncidencias");
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return RedirectToAction("Index", "AdministrarReporteRevisionIncidenciasController");
+                return RedirectToAction("Index", "AdministrarReporteRevisionIncidencias");
             }
         }
 
