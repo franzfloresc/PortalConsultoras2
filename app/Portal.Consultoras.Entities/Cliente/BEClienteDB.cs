@@ -73,16 +73,19 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public string CodigoRespuesta { get; set; }
+
+        private string mensajeRespuesta;
         [DataMember]
         public string MensajeRespuesta
         {
             get
             {
-                return (string.IsNullOrEmpty(CodigoRespuesta) ? string.Empty : Constantes.ClienteValidacion.Message[CodigoRespuesta]);
+                mensajeRespuesta = string.Empty;
+                if (string.IsNullOrEmpty(CodigoRespuesta))
+                    mensajeRespuesta = Constantes.ClienteValidacion.Message[CodigoRespuesta];
+                return mensajeRespuesta;
             }
-            set {
-                //
-            }
+            set { mensajeRespuesta = value; }
         }
         [DataMember]
         public bool Insertado { get; set; }
