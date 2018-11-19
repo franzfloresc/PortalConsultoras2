@@ -1,6 +1,6 @@
 ﻿@using Portal.Consultoras.Web.Models
 @using System.Web.Optimization
-@model Portal.Consultoras.Web.Models.Ofertas.IndexViewModel
+@model Portal.Consultoras.Web.Models.EstrategiaPersonalizadaModel
 
 @{
     Layout = "~/Views/Shared/_MainLayoutContenedor.cshtml";
@@ -26,10 +26,10 @@
     }
 }
 
-@if (Model.vc_sinProducto == 0)
+@if (Model.Vc_SinProducto == 0)
 {
     <div class="bc_estrategia_contenido" id="seccion-estrategia-contenido">
-        @foreach (var seccion in Model.EstrategiaPersonalizada.ListaSeccion)
+        @foreach (var seccion in Model.ListaSeccion)
         {
             <div @headerAttr 
                  data-seccion="@seccion.Codigo"
@@ -68,7 +68,7 @@
         }
     </div>
 }
-@if (Model.vc_sinProducto == 1)
+@if (Model.Vc_SinProducto == 1)
 {
     <div class="msj_nodisponible" id="msj_nodisponible">
         <img src="https://s3.amazonaws.com/somosbelcorp/Virtual_Coach/Pruebas/bolso-triste.png" alt="Alternate Text" />
@@ -83,10 +83,10 @@
 
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
 
-@Html.Partial("~/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", Model.EstrategiaPersonalizada.MensajeProductoBloqueado)
-@if (Model.EstrategiaPersonalizada.MensajeProductoBloqueado2 != null)
+@Html.Partial("~/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", Model.MensajeProductoBloqueado)
+@if (Model.MensajeProductoBloqueado2 != null)
 {
-    @Html.Partial("~/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", Model.EstrategiaPersonalizada.MensajeProductoBloqueado2)
+    @Html.Partial("~/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", Model.MensajeProductoBloqueado2)
 }
 
 <div class="flecha_scroll">

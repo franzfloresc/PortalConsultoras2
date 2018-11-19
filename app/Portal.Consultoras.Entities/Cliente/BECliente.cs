@@ -77,21 +77,20 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string Celular { get; set; }
 
+        private short tieneTelefono = 0;
         [DataMember]
         public short TieneTelefono
         {
             get
             {
-                short resultado = 0;
+                short tieneTelefono = 0;
 
                 if (!string.IsNullOrEmpty(Telefono) || !string.IsNullOrEmpty(Celular))
-                    resultado = 1;
+                    tieneTelefono = 1;
 
-                return resultado;
+                return tieneTelefono;
             }
-            set {
-                //
-            }
+            set { tieneTelefono = value; }
         }
 
         [DataMember]
