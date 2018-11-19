@@ -743,7 +743,7 @@ namespace Portal.Consultoras.BizLogic
                 var result = false;
                 using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
                 {
-                    result = daPedidoWebDetalle.InsertPedidoWebSet(Campaniaid, PedidoID, CantidadSet, CuvSet, ConsultoraId, CodigoUsuario, CuvsStringList, EstrategiaId);
+                    result = daPedidoWebDetalle.InsertPedidoWebSet(Campaniaid, PedidoID, CantidadSet, CuvSet, ConsultoraId, CodigoUsuario, CuvsStringList, EstrategiaId, 0);
 
                     var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
                     {
@@ -776,27 +776,10 @@ namespace Portal.Consultoras.BizLogic
         }
 
         public bool InsertPedidoWebSetTransaction(int paisID, int Campaniaid, int PedidoID, int CantidadSet, string CuvSet, long ConsultoraId, string CodigoUsuario,
-            string CuvsStringList, int EstrategiaId, string nombreConsultora, string codigoPrograma, int numeroPedido)
+            string CuvsStringList, int EstrategiaId, int ClienteID)
         {
             var daPedidoWebDetalle = new DAPedidoWebDetalle(paisID);
-            var result = daPedidoWebDetalle.InsertPedidoWebSet(Campaniaid, PedidoID, CantidadSet, CuvSet, ConsultoraId, CodigoUsuario, CuvsStringList, EstrategiaId);
-
-            //var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
-            //{
-            //    PaisId = paisID,
-            //    CampaniaId = Campaniaid,
-            //    ConsultoraId = ConsultoraId,
-            //    Consultora = nombreConsultora,
-            //    EsBpt = false,   //no se usa
-            //    CodigoPrograma = codigoPrograma,
-            //    NumeroPedido = numeroPedido,
-            //    AgruparSet = true
-            //};
-
-            //var listaDetalle = GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros);
-            //var importeTotal = listaDetalle.Sum(p => p.ImporteTotal);
-
-            //daPedidoWebDetalle.UpdateImporteTotalPedidoWeb(Campaniaid, ConsultoraId, importeTotal);
+            var result = daPedidoWebDetalle.InsertPedidoWebSet(Campaniaid, PedidoID, CantidadSet, CuvSet, ConsultoraId, CodigoUsuario, CuvsStringList, EstrategiaId, ClienteID);
 
             return result;
         }

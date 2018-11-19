@@ -1956,7 +1956,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                                     //    formatoPedidoWebSet = cuvlist;
 
                                     _pedidoWebDetalleBusinessLogic.InsertPedidoWebSetTransaction(usuario.PaisID, usuario.CampaniaID, pedidoWebDetalles[0].PedidoID, estrategia.Cantidad, estrategia.CUV2
-                                            , usuario.ConsultoraID, string.Empty, cuvlist, estrategia.EstrategiaID, usuario.Nombre, usuario.CodigoPrograma, usuario.ConsecutivoNueva);
+                                            , usuario.ConsultoraID, string.Empty, cuvlist, estrategia.EstrategiaID, pedidoDetalle.ClienteID);
                                 }
                             }break;
 
