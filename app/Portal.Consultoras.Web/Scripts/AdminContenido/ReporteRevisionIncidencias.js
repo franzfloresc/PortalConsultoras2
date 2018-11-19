@@ -561,7 +561,7 @@
             altRows: true,
             altclass: "jQGridAltRowClass",
             loadComplete: function (data) {
-                data.rows = data.rows || {};
+                data.rows = data.rows || [];
                 if (data.rows.length > 0) {
                     for (var i = 0; i < data.rows.length; i++) {
                         if (data.rows[i].cell[10] == "1") {
