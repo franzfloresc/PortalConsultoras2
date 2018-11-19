@@ -40,7 +40,7 @@ namespace Portal.Consultoras.Web.Providers
             var userData = _sessionManager.GetUserData();
             var pathBuscador = string.Format(Constantes.RutaBuscadorService.UrlBuscador,
                 userData.CodigoISO,
-                "201816",//userData.CampaniaID,
+                userData.CampaniaID,
                 Origen
             );
 
