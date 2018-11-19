@@ -10,7 +10,7 @@
 <main class="row flex-row ml-0 mr-0 mx-auto layout__content layout__content--vistaResultadosBusqueda">
     @if (ViewBag.FlagFiltrosBuscador)
     {
-    <!-- SECCIÓN FILTROS -->
+        <!-- SECCIÓN FILTROS -->
         <div class="col-12 pl-0 pr-0 background__filtros__mobile"></div>
         <!-- ESTA SECCIÓN APARECE CADA VEZ QUE SE HAGA CLICK EN ALGÚN FILTRO Y SE ACTUALICE LA PÁGINA DE RESULTADOS SEGÚN LO SELECCIONADO -->
         <div class="col-12 pl-0 pr-0 layout__precarga layout__precarga--actualizacionFiltros">
@@ -79,9 +79,7 @@
                 </div>
                 <!-- SECCIÓN ETIQUETAS DE CRITERIOS ELEGIDOS EN LOS FILTROS (MOBILE) -->
                 <div class="row flex-row align-items-baseline ml-0 mr-0 mostrarEnMobile layout__content__etiquetas__criteriosElegidos layout__content__etiquetas__criteriosElegidosMobile" style="display:none;">
-                    <ul class="row flex-row ml-0 lista__etiquetas__criteriosElegidos criteriosBuscadorMobile">
-
-                    </ul>
+                    <ul class="row flex-row ml-0 lista__etiquetas__criteriosElegidos criteriosBuscadorMobile"></ul>
                 </div>
                 <!-- FIN - SECCIÓN ETIQUETAS DE CRITERIOS ELEGIDOS EN LOS FILTROS (MOBILE) -->
                 <div class="col-12 pl-0 pr-0 filtros__subtitulo mostrarEnDesktop">
@@ -124,7 +122,7 @@
                 </div>
             </div>
         </section>
-    <!-- FIN - SECCIÓN DE FILTROS -->
+        <!-- FIN - SECCIÓN DE FILTROS -->
     }
     <!-- SECCIÓN FICHA DE PRODUCTOS -->
     <section class="row flex-row justify-content-lg-between justify-content-xl-between align-self-start ml-0 mr-0 mx-auto layout__content__fichaProductos">
@@ -140,13 +138,16 @@
         {
             <section class="col-12 col-lg-6 col-xl-6 lista__opciones__ordenamiento__y__filtrar">
                 <div class="row flex-row justify-content-between justify-content-lg-end justify-content-xl-end ml-0 mr-0">
-                    <div class="row flex-row align-items-center ml-0 mr-0 col-6 col-lg-11 col-xl-11 pl-0 pr-0 lista__opcion__wrapper lista__opcion__wrapper--filtrar mostrarEnMobile">
-                        <div id="opcionFiltrar" class="col-12 pl-0 pr-0 opcion__filtrar">
-                            <a class="col-12 col-lg-4 col-xl-4 pl-0 d-inline-block text-center opcion__filtrar__link" title="Filtrar">
-                                Filtrar
-                            </a>
+                    @if (ViewBag.FlagFiltrosBuscador)
+                    {
+                        <div class="row flex-row align-items-center ml-0 mr-0 col-6 col-lg-11 col-xl-11 pl-0 pr-0 lista__opcion__wrapper lista__opcion__wrapper--filtrar mostrarEnMobile">
+                            <div id="opcionFiltrar" class="col-12 pl-0 pr-0 opcion__filtrar">
+                                <a class="col-12 col-lg-4 col-xl-4 pl-0 d-inline-block text-center opcion__filtrar__link" title="Filtrar">
+                                    Filtrar
+                                </a>
+                            </div>
                         </div>
-                    </div>
+                    }
                     <div class="row flex-row align-items-center ml-0 mr-0 col-12 col-lg-11 col-xl-11 pl-0 pr-0 lista__opcion__wrapper lista__opcion__wrapper--ordenar">
                         <div class="col-12 pl-0 pr-0 opcion__ordenamiento text-lg-right text-xl-right">
                             <label class="col-12 col-lg-4 col-xl-4 pl-0 d-inline-block text-center text-lg-right text-xl-right opcion__ordenamiento__label">
@@ -192,8 +193,7 @@
         }
         <!-- SECCIÓN ETIQUETAS DE CRITERIOS ELEGIDOS EN LOS FILTROS (DESKTOP) -->
         <section class="row flex-row align-items-baseline ml-0 mr-0 mx-auto w-100 mostrarEnDesktop layout__content__etiquetas__criteriosElegidos layout__content__etiquetas__criteriosElegidosDesktop" style="display: none">
-            <ul class="row flex-row ml-0 lista__etiquetas__criteriosElegidos criteriosBuscadorDesktop">
-                </ul>
+            <ul class="row flex-row ml-0 lista__etiquetas__criteriosElegidos criteriosBuscadorDesktop"></ul>
             <a title="Limpiar filtros" class="text-right enlace__limpiar__filtros">
                 Limpiar filtros
             </a>
