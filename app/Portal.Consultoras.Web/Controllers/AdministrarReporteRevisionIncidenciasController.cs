@@ -245,12 +245,31 @@ namespace Portal.Consultoras.Web.Controllers
                     };
                     return Json(data, JsonRequestBehavior.AllowGet);
                 }
-                return RedirectToAction("Index", "AdministrarReporteRevisionIncidencias");
+
+                return Json(new
+                {
+                    success = false,
+                    message = "Algun campo requerido no ha sido ingresado",
+                    data = "",
+                    extra = string.Join("; ", ModelState.Values
+                                        .SelectMany(x => x.Errors)
+                                        .Select(x => x.ErrorMessage))
+                });
+
+                //return RedirectToAction("Index", "AdministrarReporteRevisionIncidencias");
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return RedirectToAction("Index", "AdministrarReporteRevisionIncidencias");
+
+                return Json(new
+                {
+                    success = false,
+                    message = "Lo sentimos no podemos procesar su solicitud.",
+                    data = "",
+                    extra = ex.Message
+                });
+                //return RedirectToAction("Index", "AdministrarReporteRevisionIncidencias");
             }
         }
 
