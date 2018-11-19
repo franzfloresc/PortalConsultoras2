@@ -203,7 +203,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
         public BEPedidoDetalleResult Insert(BEPedidoDetalle pedidoDetalle)
         {
-            var mensaje = string.Empty;
+            //var mensaje = string.Empty;
 
             try
             {
@@ -213,9 +213,9 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     pedidoDetalle.Estrategia.Cantidad = Convert.ToInt32(pedidoDetalle.Cantidad);
                     pedidoDetalle.Estrategia.LimiteVenta = pedidoDetalle.LimiteVenta == 0 ? 99 : pedidoDetalle.LimiteVenta;
                     pedidoDetalle.Estrategia.DescripcionCUV2 = Util.Trim(pedidoDetalle.Producto.DescripcionProducto);
-                    pedidoDetalle.Estrategia.FlagNueva = Convert.ToInt32(pedidoDetalle.Producto.FlagNueva);
+                    pedidoDetalle.Estrategia.FlagNueva = string.IsNullOrEmpty(pedidoDetalle.Producto.FlagNueva) ? 0 : Convert.ToInt32(pedidoDetalle.Producto.FlagNueva);
                     pedidoDetalle.Estrategia.Precio2 = pedidoDetalle.Producto.PrecioCatalogo;
-                    pedidoDetalle.Estrategia.TipoEstrategiaID = Convert.ToInt32(pedidoDetalle.Producto.TipoEstrategiaID);
+                    pedidoDetalle.Estrategia.TipoEstrategiaID = string.IsNullOrEmpty(pedidoDetalle.Producto.TipoEstrategiaID)? 0 : Convert.ToInt32(pedidoDetalle.Producto.TipoEstrategiaID);
                     pedidoDetalle.Estrategia.IndicadorMontoMinimo = pedidoDetalle.Producto.IndicadorMontoMinimo;
                     pedidoDetalle.Estrategia.CUV2 = pedidoDetalle.Producto.CUV;
                     pedidoDetalle.Estrategia.MarcaID = pedidoDetalle.Producto.MarcaID;
