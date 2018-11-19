@@ -26,16 +26,19 @@ namespace Portal.Consultoras.Entities
         public string Apellidos { get; set; }
         [DataMember]
         public string Nombres { get; set; }
+
+        private string nombreCompleto = string.Empty;
         [DataMember]
         public string NombreCompleto
         {
             get
             {
-                return string.Format("{0} {1}", (Nombres == null ? string.Empty : Nombres), (Apellidos == null ? string.Empty : Apellidos)).Trim();
+                var nombres = Nombres ?? string.Empty;
+                var apellidos = Apellidos ?? string.Empty;
+                nombreCompleto = string.Format("{0} {1}", nombres, apellidos).Trim();
+                return nombreCompleto;
             }
-            set {
-                //
-            }
+            set { nombreCompleto = value; }
         }
         [DataMember]
         public string Alias { get; set; }
