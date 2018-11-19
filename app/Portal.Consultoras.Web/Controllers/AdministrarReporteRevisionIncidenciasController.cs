@@ -254,7 +254,7 @@ namespace Portal.Consultoras.Web.Controllers
                     extra = string.Join("; ", ModelState.Values
                                         .SelectMany(x => x.Errors)
                                         .Select(x => x.ErrorMessage))
-                });
+                }, JsonRequestBehavior.AllowGet);
 
                 //return RedirectToAction("Index", "AdministrarReporteRevisionIncidencias");
             }
@@ -268,7 +268,7 @@ namespace Portal.Consultoras.Web.Controllers
                     message = "Lo sentimos no podemos procesar su solicitud.",
                     data = "",
                     extra = ex.Message
-                });
+                }, JsonRequestBehavior.AllowGet);
                 //return RedirectToAction("Index", "AdministrarReporteRevisionIncidencias");
             }
         }
