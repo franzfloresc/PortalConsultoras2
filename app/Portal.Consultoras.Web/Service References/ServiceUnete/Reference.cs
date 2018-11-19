@@ -109,6 +109,9 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
         TipoDevolucion = 36,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        TipoApiWhastApp = 37,
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -12688,10 +12691,10 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         System.Threading.Tasks.Task<bool> ObtenerSolicitudPostulantePorCorreoAsync(string codigoISO, string correoElectronico);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/VerificarExisteCelular", ReplyAction="http://tempuri.org/IPortalService/VerificarExisteCelularResponse")]
-        Portal.Consultoras.Web.ServiceUnete.ExisteCelularBE VerificarExisteCelular(string codigoISO, string numeroCelular);
+        Portal.Consultoras.Web.ServiceUnete.ExisteCelularBE VerificarExisteCelular(string codigoISO, string numeroCelular, string tipoDocumento, string numeroDocumento);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/VerificarExisteCelular", ReplyAction="http://tempuri.org/IPortalService/VerificarExisteCelularResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.ExisteCelularBE> VerificarExisteCelularAsync(string codigoISO, string numeroCelular);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.ExisteCelularBE> VerificarExisteCelularAsync(string codigoISO, string numeroCelular, string tipoDocumento, string numeroDocumento);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ValidarCelularExisteConId", ReplyAction="http://tempuri.org/IPortalService/ValidarCelularExisteConIdResponse")]
         Portal.Consultoras.Web.ServiceUnete.ExisteCelularBE ValidarCelularExisteConId(string CodigoISO, string Celular, int SolicitudPostulanteId);
@@ -13267,12 +13270,12 @@ namespace Portal.Consultoras.Web.ServiceUnete {
             return base.Channel.ObtenerSolicitudPostulantePorCorreoAsync(codigoISO, correoElectronico);
         }
         
-        public Portal.Consultoras.Web.ServiceUnete.ExisteCelularBE VerificarExisteCelular(string codigoISO, string numeroCelular) {
-            return base.Channel.VerificarExisteCelular(codigoISO, numeroCelular);
+        public Portal.Consultoras.Web.ServiceUnete.ExisteCelularBE VerificarExisteCelular(string codigoISO, string numeroCelular, string tipoDocumento, string numeroDocumento) {
+            return base.Channel.VerificarExisteCelular(codigoISO, numeroCelular, tipoDocumento, numeroDocumento);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.ExisteCelularBE> VerificarExisteCelularAsync(string codigoISO, string numeroCelular) {
-            return base.Channel.VerificarExisteCelularAsync(codigoISO, numeroCelular);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.ExisteCelularBE> VerificarExisteCelularAsync(string codigoISO, string numeroCelular, string tipoDocumento, string numeroDocumento) {
+            return base.Channel.VerificarExisteCelularAsync(codigoISO, numeroCelular, tipoDocumento, numeroDocumento);
         }
         
         public Portal.Consultoras.Web.ServiceUnete.ExisteCelularBE ValidarCelularExisteConId(string CodigoISO, string Celular, int SolicitudPostulanteId) {
