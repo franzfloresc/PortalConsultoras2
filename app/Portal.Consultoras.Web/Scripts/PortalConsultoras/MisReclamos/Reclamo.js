@@ -8,6 +8,12 @@ var codigoSsic = "";
 var tipoDespacho = false;
 
 $(document).ready(function () {
+
+    $('.chosen-select').chosen();
+    $('.chosen-select-deselect').chosen({ allow_single_deselect: true });
+
+    $('.chosen-search-input').attr('placeholder', 'Buscar código o descripción');
+
     $("#ddlCampania").on("change", function () {
         $("#txtPedidoID").val(0);
         $("#txtNumeroPedido").val(0);
