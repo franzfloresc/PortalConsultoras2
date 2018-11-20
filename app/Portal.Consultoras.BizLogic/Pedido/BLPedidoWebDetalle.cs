@@ -251,7 +251,8 @@ namespace Portal.Consultoras.BizLogic
             var daPedidoWeb = new DAPedidoWeb(pedidowebdetalle.PaisID);
             var daPedidoWebDetalle = new DAPedidoWebDetalle(pedidowebdetalle.PaisID);
 
-            daPedidoWebDetalle.UpdPedidoWebDetalle(pedidowebdetalle);
+            daPedidoWebDetalle.UpdPedidoWebDetalle(pedidowebdetalle); 
+            
 
             switch (pedidowebdetalle.TipoOfertaSisID)
             {
@@ -830,15 +831,17 @@ namespace Portal.Consultoras.BizLogic
                 return false;
             }
         }
+         
 
-        public bool UpdCantidadPedidoWebSetTransaction (int paisId, int setId, int cantidad)
+        public bool UpdatePedidoWebSetTransaction(BEPedidoDetalle pedidowebdetalle, int paisId, int setId, int cantidad)
         {
                 var result = false;
 
                 DAPedidoWebDetalle daPedidoWebDetalle = new DAPedidoWebDetalle(paisId);
                 result = daPedidoWebDetalle.UpdCantidadPedidoWebSet(setId, cantidad);
+                daPedidoWebDetalle.UpdPedidoWebSetCliente(pedidowebdetalle);
 
-                return result;
+               return result;
         }
 
         public List<BEPedidoWebSetDetalle> GetPedidoWebSetDetalle(int paisID, int campania, long consultoraId)

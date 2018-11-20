@@ -1,5 +1,6 @@
 ﻿using OpenSource.Library.DataAccess;
 using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.Pedido;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -205,6 +206,20 @@ namespace Portal.Consultoras.Data
 
             return result;
         }
+
+        public int UpdPedidoWebSetCliente(BEPedidoDetalle pedidowebdetalle)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdPedidoWebSetCliente"); 
+            Context.Database.AddInParameter(command, "@PedidoID", DbType.Int32, pedidowebdetalle.PedidoID); 
+            Context.Database.AddInParameter(command, "@ClienteID", DbType.Int16, pedidowebdetalle.ClienteID == 0 ? (short?)null : pedidowebdetalle.ClienteID);
+            Context.Database.AddInParameter(command, "@CodigoUsuarioModificacion", DbType.String, pedidowebdetalle.Usuario!=null? pedidowebdetalle.Usuario.CodigoUsuario:string.Empty ); // pedidowebdetalle.CodigoUsuarioModificacion);           
+            Context.Database.AddInParameter(command, "@SetId", DbType.Int32, pedidowebdetalle.SetID);
+            int result = Context.ExecuteNonQuery(command);
+
+            return result;
+        }
+
+        
 
         public int UpdListBackOrderPedidoWebDetalle(int campaniaID, int pedidoID, List<BEPedidoWebDetalle> listPedidoWebDetalle)
         {

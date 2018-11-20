@@ -22,32 +22,20 @@ namespace Portal.Consultoras.BizLogic.Pedido
             return set;
         }
 
-        public bool EliminarTransaction(int paisId, int id, BEPedidoWebDetalleParametros bePedidoWebDetalleParametros)
+        public bool EliminarTransaction(int paisId, int id, long ConsultoraId)
         {
 
             try
-            {
-                if (bePedidoWebDetalleParametros == null)
-                {
-                    return false;
-                }
-
+            {                 
                 var da = new DAPedidoWebSet(paisId);
                 var result = da.Eliminar(id);
-
-                var blPedidoWebDetalle = new BLPedidoWebDetalle();
-                var daPedidoWebDetalle = new DAPedidoWebDetalle(paisId);
-                var listaDetalle = blPedidoWebDetalle.GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros);
-                var importeTotal = listaDetalle.Sum(p => p.ImporteTotal);
-
-                daPedidoWebDetalle.UpdateImporteTotalPedidoWeb(bePedidoWebDetalleParametros.CampaniaId, bePedidoWebDetalleParametros.ConsultoraId, importeTotal);
 
                 return result > 0;
 
             }
             catch (Exception ex)
             {
-                LogManager.SaveLog(ex, bePedidoWebDetalleParametros.ConsultoraId, paisId);
+                LogManager.SaveLog(ex, ConsultoraId, paisId);
                 return false;
             }
         }
