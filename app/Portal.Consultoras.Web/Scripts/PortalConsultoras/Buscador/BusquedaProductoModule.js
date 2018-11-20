@@ -355,7 +355,9 @@
             _config.marca = filtroMarca;
             _config.precio = filtroPrecio;
 
-            $(_elementos.preCargaFiltros).css('width', 90 + '%');
+            if (_config.isMobile) {
+                $(_elementos.preCargaFiltros).css('width', 90 + '%');
+            }
 
             _funciones.CargarProductos();
         }
