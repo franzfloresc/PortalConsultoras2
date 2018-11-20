@@ -428,12 +428,17 @@
 
             _funciones.CargarProductos();
         },
-        DropDownOrdenar: function () {
+        DropDownOrdenar: function (e) {
+            e.preventDefault();
             var dpw_ordenar = document.getElementById('dpw-ordenar');
             dpw_ordenar.classList.toggle(_modificador.itemDropDowndesplegado);
 
             var ul_ordenar = document.getElementById('ul-ordenar');
-            ul_ordenar.classList.toggle('d-none');
+            if (ul_ordenar.classList.contains('d-none')) {
+                ul_ordenar.classList.remove('d-none');
+            } else {
+                ul_ordenar.classList.add('d-none');
+            }
         },
         DropDownCerrar: function (evt) {
 

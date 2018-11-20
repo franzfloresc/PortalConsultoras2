@@ -1244,6 +1244,8 @@
         font-weight:400;
         border-radius:0;
         z-index:5;
+        position:absolute;
+        top:0;
     }
 
     .opcion__ordenamiento__dropdown--desplegado:before{
