@@ -79,8 +79,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 return Json(new
                 {
-                    success = false,
-                    ex
+                    success = false
                 }, JsonRequestBehavior.AllowGet);
             }
 
