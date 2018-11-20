@@ -228,7 +228,7 @@ function CargarDetallePedido(page, rows) {
 
                 $.each(data.ListaCliente, function (index, value) {
                     if (value.ClienteID == -1) {
-                        htmlCliente += '<option value="-1">Cliente</option>';
+                        htmlCliente += '<option value="-1">Cliente/option>';
                     } else {
                         htmlCliente += '<option value="' + value.ClienteID + '">' + value.Nombre + '</option>';
                     }

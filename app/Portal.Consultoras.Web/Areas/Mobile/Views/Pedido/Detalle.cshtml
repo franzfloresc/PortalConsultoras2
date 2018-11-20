@@ -10,6 +10,7 @@
 }
 
 <link href="@Url.Content("~/Content/Css/Site/slick-pedido.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/Css/Mobile/Pedido/PedidoGrilla.css")" rel="stylesheet" />
 
 
 <input type="hidden" id="hdEsFacturacion" value="@Model.EsFacturacion.ToString()" />
@@ -102,13 +103,13 @@
         <div class="titulo_compartir"><b>IMPORTANTE</b></div>
         <div class="mensaje_alerta" id="modal-prol-contenido"></div>
         <div id="modal-prol-botoneAceptar">
-            <a href="javascript:;" onclick="$('#popup-observaciones-prol').hide();" class="btn_ok_mobile"><b>OK</b></a>
+            <a href="javascript:;" onclick="closeDialogObservacionesProl()" class="btn_ok_mobile"><b>OK</b></a>
         </div>
     </div>
 </div>
 <div id="popup-eliminar-mensaje" class="MensajeAlertaMobile" style="display:none;">
     <div class="content_mensajeAlerta">
-        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popup-eliminar-item').hide();">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popup-eliminar-mensaje').hide();">
             <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
         </a>
         <hr class="clear">
@@ -129,12 +130,16 @@
         <hr class="clear">
         <div class="icono_alerta exclamacion_icono_mobile"></div>
         <div class="titulo_compartir"><b>IMPORTANTE</b></div>
-        <div class="mensaje_alerta">¿Deseas eliminar el pedido completo?.</div>
-        <a href="javascript:;" onclick="EliminarPedidoTotalSi();" class="btn_ok_mobile"><b>OK</b></a>
+        <div class="mensaje_alerta">¿Deseas eliminar el pedido completo?</div>
+
+        <div style="text-align: center; margin-top: 18px;">
+            <input id="btnEliminarPedidoCompletoNo" type="button" value="No, gracias" onclick="EliminarPedidoTotalNo()" class="input_modifica_horizontal_cancelar" style="width: 100px; margin-left: 0;" />
+            <input id="btnEliminarPedidoCompletoSi" type="button" value="SÍ, ELIMINAR" onclick="EliminarPedidoTotalSi()" class="input_modifica_horizontal" style="width: 100px; margin-left: 20px;" />
+        </div>
     </div>
 </div>
 
-<div id="popup-eliminar-item" class="MensajeAlertaMobile" style="display:none;">
+@*<div id="popup-eliminar-item" class="MensajeAlertaMobile" style="display:none;">
     <div class="content_mensajeAlerta">
         <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popup-eliminar-item').hide();">
             <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
@@ -143,10 +148,10 @@
         <div class="icono_alerta exclamacion_icono_mobile"></div>
         <div class="titulo_compartir"><b>IMPORTANTE</b></div>
         <div class="mensaje_alerta">¿Estás segura que quieres eliminar el producto?</div>
-        <div id="mensaleAvisoRegalo" class="mensaje_alerta">Recuerda que tienes un premio ganado, si eliminas este producto podrías perderlo. ¿Deseas continuar?</div>
+        <div id="mensaleAvisoRegalo" class="mensaje_alerta">Si eliminas este producto podrías perder el premio que ganaste ¿Quieres eliminar este producto?</div>
         <a href="javascript:;" onclick="ConfirmaEliminarPedido();" class="btn_ok_mobile"><b>OK</b></a>
     </div>
-</div>
+</div>*@
 <div id="MensajeLograste" class="MensajeAlertaMobile" style="display:none;">
     <div class="content_mensajeAlerta">
         <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#MensajeLograste').hide();">
@@ -194,7 +199,7 @@
 
 <script id="template-Detalle" type="text/x-handlebars-template">
     <div class="textos_resumen">
-        <span id="lblProductosResumen">HE AGREGADO :</span>
+        <span id="lblProductosResumen">HAS AGREGADO :</span>
         <span id="lblTotalResumen">
             MONTO TOTAL :
         </span>
@@ -291,21 +296,6 @@
         <div class="contenedor_items_pedido">
             <div class="bloque_descripcion_items_ingresados">
                 <div class="descripcion_item_pedido">
-                    <span class="mensaje_tipoProd">
-                        {{#iff detalle.TipoPedido '==' 'M'}}
-                        <br />
-                        <span>App móvil</span>
-                        {{/iff}}
-
-                        {{#IsNullOrEmpty detalle.DescripcionOferta '!='}}
-                        <br />
-                        {{#iff (UpperCase DescripcionOferta) 'Contains' 'OFERTA PARA TI'}}
-                        {{else}}
-                        <label for="{{detalle.DescripcionOferta}}">{{Replace (Replace detalle.DescripcionOferta '[' '') ']' ''}}</label>
-                        {{/iff}}
-                        {{/IsNullOrEmpty}}
-
-                    </span>
                     <span class="cod_prod">
                         {{#if detalle.EstadoSimplificacionCuv}}
                         {{#if detalle.IndicadorOfertaCUV}}
@@ -320,6 +310,20 @@
                         <span class="texto_rojo">*</span>
                         {{/iff}}
                         <span>{{Split detalle.DescripcionProd '|' 0}}</span>
+                    </span>
+                    <span class="mensaje_tipoProd">
+                        {{#iff detalle.TipoPedido '==' 'M'}}
+                        <br />
+                        <span>App móvil</span>
+                        {{/iff}}
+
+                        {{#IsNullOrEmpty detalle.DescripcionOferta '!='}}
+                        <br />
+                        {{#iff (UpperCase DescripcionOferta) 'Contains' 'OFERTA PARA TI'}}
+                        {{else}}
+                        <label for="{{detalle.DescripcionOferta}}">{{Replace (Replace detalle.DescripcionOferta '[' '') ']' ''}}</label>
+                        {{/iff}}
+                        {{/IsNullOrEmpty}}
                     </span>
                     {{#iff detalle.EsKitNueva '==' false}}
                     <span class="nom_cliente">Cliente: {{detalle.Nombre}}</span>
@@ -341,7 +345,11 @@
                 {{else}}
 
                 <div class="icono_eliminar_item_pedido">
-                    <a href="javascript:;" title="Eliminar" onclick="EliminarPedidoEvento(event)" data-pedidodetalleid="{{detalle.PedidoDetalleID}}" data-setid="{{detalle.SetID}}">
+                    <a href="javascript:;" 
+                       title="Eliminar" 
+                       onclick="tooltipDelete('{{PedidoDetalleID}}', '{{SetID}}');" 
+                       data-pedidodetalleid="{{detalle.PedidoDetalleID}}" 
+                       data-setid="{{detalle.SetID}}">
                         <img src="@Url.Content("~/Content/Images/Esika/tacho-copy.png")" alt="Eliminar" />
                     </a>
                 </div>
@@ -406,16 +414,42 @@
                 </div>
             </div>
 
-            {{#IsNullOrEmpty detalle.Mensaje '!='}}
-            <div class="notificacion_productoAgotado">
-                <small>
-                    {{#iff detalle.TipoObservacion '!=' 0}}
-                    {{{Replace detalle.Mensaje '¿Deseas aceptar el reemplazo?' ''}}}
-                    {{else}}
-                    {{detalle.Mensaje}}
-                    {{/iff}}
-                </small>
+            <div style="display:none" class="popover bottom" id="tlpDelete_{{PedidoDetalleID}}_{{SetID}}">
+                <div class="arrow"></div>
+                <p data-mensaje-eliminar="directo">¿Quieres eliminar este producto?</p>
+                <p data-mensaje-eliminar="regalo">Si eliminas este producto podrías perder el premio que ganaste ¿Quieres eliminar este producto?</p>
+                <div class="button-popover">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <button class="boton-secundario" onclick="btnSalirTlpDelete('{{PedidoDetalleID}}','{{SetID}}');">No Gracias</button>
+                        </div>
+                        <div class="col-xs-6 text-right">
+                            <button class="boton-primario default-background" 
+                                    onclick="EliminarPedidoEvento(event)" 
+                                    data-pedidodetalleid="{{detalle.PedidoDetalleID}}" 
+                                    data-setid="{{detalle.SetID}}">SÍ, ELIMINAR</button>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+            {{#IsNullOrEmpty detalle.Mensaje '!='}}
+                @*<div class="notificacion_productoAgotado">
+                    <small>
+                        {{#iff detalle.TipoObservacion '!=' 0}}
+                        {{{Replace detalle.Mensaje '¿Deseas aceptar el reemplazo?' ''}}}
+                        {{else}}
+                        {{detalle.Mensaje}}
+                        {{/iff}}
+                    </small>
+                </div>*@
+                <div class="popover bottom" id="tlpObservaciones">
+                    <div class="arrow"></div>
+                    <ul class="list-tooltip">
+                        <li class="icon-alert"><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt=""></li>
+                        <li>Este producto tiene observaciones. <button style="display: block;line-height: 19px;" class="boton-secundario" onclick="tooltipObservaciones('{{Mensaje}}');">Ver detalles</button></li>
+                    </ul>
+                </div>
             {{/IsNullOrEmpty}}
             {{#if EsBackOrder}}
             {{#if AceptoBackOrder}}
@@ -435,10 +469,51 @@
         {{/each}}
     </div>
 
+    <!--PopUp pedido Observacion-->
+    @*<button type="button" class="" data-toggle="modal" data-target="#observacionPedido">
+            modal observaciones
+        </button>*@
+    <div class="modal fade" id="observacionPedido" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <button type="button" class="close_observacionPedido" data-dismiss="modal" aria-label="Close">
+                    <img src="/Content/Images/mobile/Esika/close-button.svg" alt="">
+                </button>
+
+                <div class="header_observaciones_alerta">
+                    <ul>
+                        <li class="alert-observaciones"><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt=""></li>
+                        <li><h3>OBSERVACIONES DEL PRODUCTO</h3></li>
+                    </ul>
+                    <div class="text-center">
+                        <p>Debes tener en cuenta que tu pedido ha sido<br /> reservado pero:</p>
+                    </div>
+                    <div class="descripcion_observaciones_alerta" id="desc_obs_alert">
+                        @*<ul>
+                                <li>
+                                    El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
+                                    Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
+                                </li>
+                                <li>
+                                    El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
+                                    Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
+                                </li>
+                                <li>
+                                    El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
+                                    Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
+                                </li>
+                            </ul>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--FinPopUp pedido Observacion-->
+
     <div class="separador"></div>
     <div style="margin-left: -28px;">
         <div class="textos_resumen">
-            <span style="margin-left:30px;">HE AGREGADO :</span>
+            <span style="margin-left:30px;">HAS AGREGADO :</span>
             <span>
                 <div class="info_validado">
                     <img src="/Content/Images/Esika/info-copy.png" />
@@ -822,8 +897,8 @@
                         <input type="tel" value="1" size="2" maxlength="2" id="txtCantidadFichaOPT" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
                         <a class="cantidad_mas_home" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                     </div>
-                        <a class="btn_agregar_ficha_producto agregarOfertaFinalVerDetalle" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalFicha" href="javascript:;" data-popup-verdetalle="{{id}}"
-                           onclick="of_google_analytics_addtocar('mobile','detail',{{ID}},'{{TipoMeta}}')">AGRÉGALO</a>
+                    <a class="btn_agregar_ficha_producto agregarOfertaFinalVerDetalle" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalFicha" href="javascript:;" data-popup-verdetalle="{{id}}"
+                       onclick="of_google_analytics_addtocar('mobile','detail',{{ID}},'{{TipoMeta}}')">AGRÉGALO</a>
                     <hr class="clear">
                 </div>
             </div>

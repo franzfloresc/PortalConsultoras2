@@ -26,16 +26,19 @@ namespace Portal.Consultoras.Entities
         public string Apellidos { get; set; }
         [DataMember]
         public string Nombres { get; set; }
+
+        private string nombreCompleto = string.Empty;
         [DataMember]
         public string NombreCompleto
         {
             get
             {
-                return string.Format("{0} {1}", (Nombres == null ? string.Empty : Nombres), (Apellidos == null ? string.Empty : Apellidos)).Trim();
+                var nombres = Nombres ?? string.Empty;
+                var apellidos = Apellidos ?? string.Empty;
+                nombreCompleto = string.Format("{0} {1}", nombres, apellidos).Trim();
+                return nombreCompleto;
             }
-            set {
-                //
-            }
+            set { nombreCompleto = value; }
         }
         [DataMember]
         public string Alias { get; set; }
@@ -70,16 +73,19 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public string CodigoRespuesta { get; set; }
+
+        private string mensajeRespuesta;
         [DataMember]
         public string MensajeRespuesta
         {
             get
             {
-                return (string.IsNullOrEmpty(CodigoRespuesta) ? string.Empty : Constantes.ClienteValidacion.Message[CodigoRespuesta]);
+                mensajeRespuesta = string.Empty;
+                if (string.IsNullOrEmpty(CodigoRespuesta))
+                    mensajeRespuesta = Constantes.ClienteValidacion.Message[CodigoRespuesta];
+                return mensajeRespuesta;
             }
-            set {
-                //
-            }
+            set { mensajeRespuesta = value; }
         }
         [DataMember]
         public bool Insertado { get; set; }
