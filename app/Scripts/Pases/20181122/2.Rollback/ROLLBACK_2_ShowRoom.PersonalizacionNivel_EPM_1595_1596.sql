@@ -1,4 +1,4 @@
-use BelcorpBolivia;
+﻿use BelcorpBolivia;
 go
 
 begin
