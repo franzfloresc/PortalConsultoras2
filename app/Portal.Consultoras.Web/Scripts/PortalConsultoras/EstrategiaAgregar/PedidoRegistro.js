@@ -11,6 +11,44 @@ var PedidoRegistroModule = function () {
         urlAgregarCuvBanner: "PedidoRegistro/InsertarPedidoCuvBanner",
     }
 
+    var _validaMensajeCantidad = function (cantidad, inputCantidad) {
+        cantidad = cantidad || "";
+
+        var esMobile = isMobile();
+        var txtMensaje = "";
+        //"La cantidad ingresada debe ser mayor que 0, verifique."
+        //"La cantidad ingresada debe ser un número mayor que cero, verifique"
+        //"La cantidad ingresada debe ser mayor que cero, verifique"
+
+
+        //!$.isNumeric(cantidad)
+        if (!isInt(cantidad)) {
+            txtMensaje = "Ingrese un valor numérico.";
+        }
+        else if (parseInt(cantidad, 10) <= 0) {
+            txtMensaje = "La cantidad debe ser mayor a cero.";
+        }
+
+        if (txtMensaje == "") {
+            return false;
+        }
+
+        //alert_msg(txtMensaje)
+        if (esMobile) {
+            messageInfo(txtMensaje);
+        }
+        else {
+            AbrirMensaje(txtMensaje, "LO SENTIMOS");
+            CerrarLoad();
+        }
+
+        if (typeof inputCantidad != "undefined") {
+            inputCantidad.val(1);
+        }
+
+        return true;
+    };
+
     /* Ini - Region BannerPedido */
     var _insertarPedidoCuvBanner = function (CUVpedido, CantCUVpedido) {
         var item = {
@@ -136,65 +174,64 @@ var PedidoRegistroModule = function () {
         var DescripcionCategoria = $(contenedor).find(".DescripcionCategoria")[0].value;
         var DescripcionEstrategia = $(contenedor).find(".DescripcionEstrategia")[0].value;
 
-        if (Cantidad == "" || Cantidad == 0) {
-            AbrirMensaje("La cantidad ingresada debe ser mayor que 0, verifique.", "LO SENTIMOS");
-            $('.liquidacion_rango_cantidad_pedido').val(1);
+        if (_validaMensajeCantidad(Cantidad, $('.liquidacion_rango_cantidad_pedido'))) {
             return false;
-        } else {
-            $($(xthis).parent().parent().find(".ValidaNumeralOfertaAnterior")).val(Cantidad);
-            var Item = {
-                MarcaID: MarcaID,
-                Cantidad: Cantidad,
-                PrecioUnidad: PrecioUnidad,
-                CUV: CUV,
-                ConfiguracionOfertaID: ConfiguracionOfertaID,
-                TipoEstrategiaID: ConstantesModule.ConfiguracionOferta.Liquidacion,
-                DescripcionProd: DescripcionProd
-            };
-            waitingDialog({});
-            $.ajaxSetup({
-                cache: false
-            });
-
-            jQuery.ajax({
-                type: 'POST',
-                url: baseUrl + urlAgregarUnico,
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify(Item),
-                async: true,
-                success: function (data) {
-                    if (!checkTimeout(data)) {
-                        closeWaitingDialog();
-                        return false;
-                    }
-
-                    if (data.success != true) {
-                        messageInfoError(data.message);
-                        closeWaitingDialog();
-                        return false;
-                    }
-
-                    $(xthis).attr('disabled', true);
-
-                    $(xthis).parent().parent().parent().parent().find(".ValidaNumeralOferta").attr('disabled', true);
-                    $(div).css('display', 'block');
-
-                    $(lblStock).text(parseInt(Stock - Cantidad));
-                    $(HiddenStock).val(parseInt(Stock - Cantidad));
-                    $(txtCantidad).val(1);
-                    InfoCommerceGoogle(parseFloat(Cantidad * PrecioUnidad).toFixed(2), CUV, DescripcionProd, DescripcionCategoria, PrecioUnidad, Cantidad, DescripcionMarca, DescripcionEstrategia, 1);
-                    CargarResumenCampaniaHeader(true);
-                    TrackingJetloreAdd(Cantidad, $("#hdCampaniaCodigo").val(), CUV);
-                    $('#divVistaPrevia').dialog('close');
-
-                    closeWaitingDialog();
-                },
-                error: function (data, error) {
-                    closeWaitingDialog();
-                }
-            });
         }
+
+        $($(xthis).parent().parent().find(".ValidaNumeralOfertaAnterior")).val(Cantidad);
+        var Item = {
+            MarcaID: MarcaID,
+            Cantidad: Cantidad,
+            PrecioUnidad: PrecioUnidad,
+            CUV: CUV,
+            ConfiguracionOfertaID: ConfiguracionOfertaID,
+            TipoEstrategiaID: ConstantesModule.ConfiguracionOferta.Liquidacion,
+            DescripcionProd: DescripcionProd
+        };
+        waitingDialog();
+        $.ajaxSetup({
+            cache: false
+        });
+
+        jQuery.ajax({
+            type: 'POST',
+            url: baseUrl + urlAgregarUnico,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(Item),
+            async: true,
+            success: function (data) {
+                if (!checkTimeout(data)) {
+                    closeWaitingDialog();
+                    return false;
+                }
+
+                if (data.success != true) {
+                    messageInfoError(data.message);
+                    closeWaitingDialog();
+                    return false;
+                }
+
+                $(xthis).attr('disabled', true);
+
+                $(xthis).parent().parent().parent().parent().find(".ValidaNumeralOferta").attr('disabled', true);
+                $(div).css('display', 'block');
+
+                $(lblStock).text(parseInt(Stock - Cantidad));
+                $(HiddenStock).val(parseInt(Stock - Cantidad));
+                $(txtCantidad).val(1);
+                InfoCommerceGoogle(parseFloat(Cantidad * PrecioUnidad).toFixed(2), CUV, DescripcionProd, DescripcionCategoria, PrecioUnidad, Cantidad, DescripcionMarca, DescripcionEstrategia, 1);
+                CargarResumenCampaniaHeader(true);
+                TrackingJetloreAdd(Cantidad, $("#hdCampaniaCodigo").val(), CUV);
+                $('#divVistaPrevia').dialog('close');
+
+                closeWaitingDialog();
+            },
+            error: function (data, error) {
+                closeWaitingDialog();
+            }
+        });
+
     };
 
     var RegistrarProductoOferta = function (e) {
@@ -241,84 +278,81 @@ var PedidoRegistroModule = function () {
 
         console.log('origenPedidoLiquidaciones', origenPedidoLiquidaciones);
 
-        if (Cantidad == "" || Cantidad == 0) {
-            AbrirMensaje("La cantidad ingresada debe ser mayor que 0, verifique.", "LO SENTIMOS");
-            $('.liquidacion_rango_cantidad_pedido').val(1);
+        if (_validaMensajeCantidad(Cantidad, $('.liquidacion_rango_cantidad_pedido'))) {
             return false;
         }
-        else {
-            $($(this).parent().parent().find(".ValidaNumeralOfertaAnterior")).val(Cantidad);
-            var Item = {
-                MarcaID: MarcaID,
-                Cantidad: Cantidad,
-                PrecioUnidad: PrecioUnidad,
-                CUV: CUV,
-                ConfiguracionOfertaID: ConfiguracionOfertaID,
-                OrigenPedidoWeb: origenPedidoLiquidaciones,
-                TipoEstrategiaID: ConstantesModule.ConfiguracionOferta.Liquidacion,
-                DescripcionProd: DescripcionProd
-            };
 
-            AbrirLoad();
-            $.ajaxSetup({
-                cache: false
-            });
+        $($(this).parent().parent().find(".ValidaNumeralOfertaAnterior")).val(Cantidad);
+        var Item = {
+            MarcaID: MarcaID,
+            Cantidad: Cantidad,
+            PrecioUnidad: PrecioUnidad,
+            CUV: CUV,
+            ConfiguracionOfertaID: ConfiguracionOfertaID,
+            OrigenPedidoWeb: origenPedidoLiquidaciones,
+            TipoEstrategiaID: ConstantesModule.ConfiguracionOferta.Liquidacion,
+            DescripcionProd: DescripcionProd
+        };
 
-            jQuery.ajax({
-                type: 'POST',
-                url: baseUrl + urlAgregarUnico,
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify(Item),
-                async: true,
-                success: function (data) {
-                    if (!checkTimeout(data)) {
-                        CerrarLoad();
-                        modelLiquidacionOfertas = undefined;
-                        return false;
-                    }
+        AbrirLoad();
+        $.ajaxSetup({
+            cache: false
+        });
 
-                    if (data.success != true) {
-                        messageInfoError(data.message);
-                        CerrarLoad();
-                        modelLiquidacionOfertas = undefined;
-                        return false;
-                    }
-
-                    $(this).attr('disabled', true);
-                    $(this).parent().parent().parent().parent().find(".ValidaNumeralOferta").attr('disabled', true);
-                    $(div).css('display', 'block');
-                    $(lblStock).text(parseInt(Stock - Cantidad));
-                    $(HiddenStock).val(parseInt(Stock - Cantidad));
-                    $(txtCantidad).val(1);
-                    InfoCommerceGoogle(parseFloat(Cantidad * PrecioUnidad).toFixed(2), CUV, DescripcionProd, DescripcionCategoria, PrecioUnidad, Cantidad, DescripcionMarca, DescripcionEstrategia, posicion);
-
-                    if (!isMobile()) {
-                        CargarResumenCampaniaHeader(true);
-                        TrackingJetloreAdd(Cantidad, $("#hdCampaniaCodigo").val(), CUV);
-
-                        ActualizarGanancia(data.DataBarra);
-                    }
-
-                    if (modelLiquidacionOfertas) {
-                        labelAgregadoLiquidacion.html('Agregado');
-
-                        if (isPagina('pedido')) {
-                            CargarDetallePedido();
-                        }
-                    }
-
+        jQuery.ajax({
+            type: 'POST',
+            url: baseUrl + urlAgregarUnico,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(Item),
+            async: true,
+            success: function (data) {
+                if (!checkTimeout(data)) {
                     CerrarLoad();
-
                     modelLiquidacionOfertas = undefined;
-                    labelAgregadoLiquidacion = undefined;
-                },
-                error: function (data, error) {
-                    CerrarLoad();
+                    return false;
                 }
-            });
 
-        }
+                if (data.success != true) {
+                    messageInfoError(data.message);
+                    CerrarLoad();
+                    modelLiquidacionOfertas = undefined;
+                    return false;
+                }
+
+                $(this).attr('disabled', true);
+                $(this).parent().parent().parent().parent().find(".ValidaNumeralOferta").attr('disabled', true);
+                $(div).css('display', 'block');
+                $(lblStock).text(parseInt(Stock - Cantidad));
+                $(HiddenStock).val(parseInt(Stock - Cantidad));
+                $(txtCantidad).val(1);
+                InfoCommerceGoogle(parseFloat(Cantidad * PrecioUnidad).toFixed(2), CUV, DescripcionProd, DescripcionCategoria, PrecioUnidad, Cantidad, DescripcionMarca, DescripcionEstrategia, posicion);
+
+                if (!isMobile()) {
+                    CargarResumenCampaniaHeader(true);
+                    TrackingJetloreAdd(Cantidad, $("#hdCampaniaCodigo").val(), CUV);
+
+                    ActualizarGanancia(data.DataBarra);
+                }
+
+                if (modelLiquidacionOfertas) {
+                    labelAgregadoLiquidacion.html('Agregado');
+
+                    if (isPagina('pedido')) {
+                        CargarDetallePedido();
+                    }
+                }
+
+                CerrarLoad();
+
+                modelLiquidacionOfertas = undefined;
+                labelAgregadoLiquidacion = undefined;
+            },
+            error: function (data, error) {
+                CerrarLoad();
+            }
+        });
+
     };
 
     var AgregarProductoOfertaLiquidacionMobile = function (article) {
@@ -335,89 +369,83 @@ var PedidoRegistroModule = function () {
         var posicionEstrategia = $(article).find(".posicionEstrategia").val();
         var Stock = $(article).find(".claseStock")[0].innerText;
 
-        if (cantidad == "" || cantidad == 0) {
-            messageInfo("La cantidad ingresada debe ser mayor que 0, verifique.");
-        } else {
-            ShowLoading();
-
-            $.ajaxSetup({ cache: false });
-            var Item = {
-                MarcaID: MarcaID,
-                Cantidad: cantidad,
-                PrecioUnidad: PrecioUnidad,
-                CUV: CUV,
-                ConfiguracionOfertaID: ConfiguracionOfertaID,
-                OrigenPedidoWeb: MobileLiquidacion,
-                TipoEstrategiaID: ConstantesModule.ConfiguracionOferta.Liquidacion,
-                DescripcionProd: DescripcionProd
-            };
-
-            jQuery.ajax({
-                type: 'POST',
-                url: baseUrl + urlAgregarUnico,
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify(Item),
-                async: true,
-                success: function (response) {
-                    CloseLoading();
-                    if (checkTimeout(response)) {
-                        if (response.success == true) {
-                            $("#divMensajeProductoAgregado").show();
-                            $(divProductoAgregado).css('display', 'block');
-
-                            var stockRestante = parseInt(Stock) - parseInt(cantidad);
-                            if (stockRestante < 1) {
-                                $(article).find(".resta").attr('disabled', 'disabled');
-                                $(article).find(".suma").attr('disabled', 'disabled');
-                                $(article).find(".txtCantidad").attr('disabled', 'disabled');
-                                $(article).find(".btnAgregarOfertaProducto").attr('disabled', 'disabled');
-
-                                $(article).find(".claseStock").text("0");
-                                $(article).find(".txtCantidad").val("0");
-                            } else {
-                                $(article).find(".claseStock").text(stockRestante);
-                                $(article).find(".txtCantidad").val("1");
-                            }
-
-                            InfoCommerceGoogle(parseFloat(cantidad * PrecioUnidad).toFixed(2), CUV, DescripcionProd, DescripcionCategoria, PrecioUnidad, cantidad, DescripcionMarca, DescripcionEstrategia, posicionEstrategia);
-
-                            CargarCantidadProductosPedidos();
-
-                            TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), CUV);
-
-                            setTimeout(function () {
-                                $("#divMensajeProductoAgregado").fadeOut();
-                            }, 2000);
-                        }
-                        else messageInfoError(response.message);
-                    }
-                },
-                error: function (response, error) {
-                    if (checkTimeout(response)) {
-                        CloseLoading();
-                    }
-                }
-            });
-
+        if (_validaMensajeCantidad(cantidad)) {
+            return false;
         }
+
+        ShowLoading();
+
+        $.ajaxSetup({ cache: false });
+        var Item = {
+            MarcaID: MarcaID,
+            Cantidad: cantidad,
+            PrecioUnidad: PrecioUnidad,
+            CUV: CUV,
+            ConfiguracionOfertaID: ConfiguracionOfertaID,
+            OrigenPedidoWeb: MobileLiquidacion,
+            TipoEstrategiaID: ConstantesModule.ConfiguracionOferta.Liquidacion,
+            DescripcionProd: DescripcionProd
+        };
+
+        jQuery.ajax({
+            type: 'POST',
+            url: baseUrl + urlAgregarUnico,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(Item),
+            async: true,
+            success: function (response) {
+                CloseLoading();
+                if (checkTimeout(response)) {
+                    if (response.success == true) {
+                        $("#divMensajeProductoAgregado").show();
+                        $(divProductoAgregado).css('display', 'block');
+
+                        var stockRestante = parseInt(Stock) - parseInt(cantidad);
+                        if (stockRestante < 1) {
+                            $(article).find(".resta").attr('disabled', 'disabled');
+                            $(article).find(".suma").attr('disabled', 'disabled');
+                            $(article).find(".txtCantidad").attr('disabled', 'disabled');
+                            $(article).find(".btnAgregarOfertaProducto").attr('disabled', 'disabled');
+
+                            $(article).find(".claseStock").text("0");
+                            $(article).find(".txtCantidad").val("0");
+                        } else {
+                            $(article).find(".claseStock").text(stockRestante);
+                            $(article).find(".txtCantidad").val("1");
+                        }
+
+                        InfoCommerceGoogle(parseFloat(cantidad * PrecioUnidad).toFixed(2), CUV, DescripcionProd, DescripcionCategoria, PrecioUnidad, cantidad, DescripcionMarca, DescripcionEstrategia, posicionEstrategia);
+
+                        CargarCantidadProductosPedidos();
+
+                        TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), CUV);
+
+                        setTimeout(function () {
+                            $("#divMensajeProductoAgregado").fadeOut();
+                        }, 2000);
+                    }
+                    else messageInfoError(response.message);
+                }
+            },
+            error: function (response, error) {
+                if (checkTimeout(response)) {
+                    CloseLoading();
+                }
+            }
+        });
+
     };
 
     var AgregarProductoLiquidacionBienvenida = function (contenedor) {
         var inputCantidad = $(contenedor).find("[data-input='cantidad']");
         var inputCantidadValor = inputCantidad.val();
-        if (!$.isNumeric(inputCantidadValor)) {
-            AbrirMensaje("Ingrese un valor numérico.");
-            inputCantidad.val(1);
-            return false;
-        }
-        if (parseInt(inputCantidadValor) <= 0) {
-            AbrirMensaje("La cantidad debe ser mayor a cero.");
-            inputCantidad.val(1);
+        if (_validaMensajeCantidad(inputCantidadValor, inputCantidad)) {
             return false;
         }
 
-        waitingDialog({});
+        waitingDialog();
+
         var item = {
             Cantidad: inputCantidadValor,
             MarcaID: $(contenedor).find("#MarcaID").val(),
@@ -580,17 +608,7 @@ var PedidoRegistroModule = function () {
             var CantidadesAgregadas = model.CantidadesAgregadas;
             var EstrategiaID = model.EstrategiaID;
 
-            if (!isInt(cantidad)) {
-                AbrirMensaje("La cantidad ingresada debe ser un número mayor que cero, verifique");
-                $(".rango_cantidad_pedido").val(1);
-                CerrarLoad();
-                return false;
-            }
-
-            if (cantidad <= 0) {
-                AbrirMensaje("La cantidad ingresada debe ser mayor que cero, verifique");
-                $(".rango_cantidad_pedido").val(1);
-                CerrarLoad();
+            if (_validaMensajeCantidad(cantidad, $(".rango_cantidad_pedido"))) {
                 return false;
             }
 
@@ -682,11 +700,7 @@ var PedidoRegistroModule = function () {
                 ConfiguracionOfertaID: objDivPadre.find(".hdOfertaFinalConfiguracionOfertaID").val()
             }
 
-            var message = !isInt(model.Cantidad) ? 'La cantidad ingresada debe ser un número mayor que cero, verifique' :
-                model.Cantidad <= 0 ? 'La cantidad ingresada debe ser mayor que cero, verifique' : '';
-            if (message != '') {
-                alert_msg(message);
-                objCantidad.val(1);
+            if (_validaMensajeCantidad(model.Cantidad, objCantidad)) {
                 CloseLoadingOF();
                 return false;
             }
@@ -812,7 +826,7 @@ var PedidoRegistroModule = function () {
         var retorno = {};
         jQuery.ajax({
             type: "POST",
-            url: baseUrl + "Pedido/" + url,
+            url: baseUrl + _url.urlAgregarUnico,
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(model),
@@ -1000,7 +1014,7 @@ var PedidoRegistroModule = function () {
     };
 
     var AgregarProductoListadoPasePedido = function () {
- 
+
         var CUV = $("#txtCUV").val();
         $("#hdCuvRecomendado").val(CUV);
         $("#btnAgregar").attr("disabled", "disabled");
