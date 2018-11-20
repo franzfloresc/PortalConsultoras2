@@ -40,9 +40,9 @@ namespace Portal.Consultoras.BizLogic
 
             int nroCampanias = new BLZonificacion().GetPaisNumeroCampaniasByPaisID(paisId);
             BLTablaLogicaDatos oBlTablaLogicaDatos = new BLTablaLogicaDatos();
-            List<BETablaLogicaDatos> tablaRetirada = oBlTablaLogicaDatos.GetTablaLogicaDatos(paisId, 12);
-            List<BETablaLogicaDatos> tablaReingresada = oBlTablaLogicaDatos.GetTablaLogicaDatos(paisId, 18);
-            List<BETablaLogicaDatos> tablaEgresada = oBlTablaLogicaDatos.GetTablaLogicaDatos(paisId, 19);
+            List<BETablaLogicaDatos> tablaRetirada = oBlTablaLogicaDatos.GetList(paisId, 12);
+            List<BETablaLogicaDatos> tablaReingresada = oBlTablaLogicaDatos.GetList(paisId, 18);
+            List<BETablaLogicaDatos> tablaEgresada = oBlTablaLogicaDatos.GetList(paisId, 19);
 
             using (IDataReader reader = oDaConsultora.GetConsultorasPorTerritorio(paisId, codigoRegion, codigoZona, codigoSeccion, codigoTerritorio))
             {
@@ -127,9 +127,9 @@ namespace Portal.Consultoras.BizLogic
         {
             int nroCampanias = new BLZonificacion().GetPaisNumeroCampaniasByPaisID(paisID);
             BLTablaLogicaDatos oBlTablaLogicaDatos = new BLTablaLogicaDatos();
-            List<BETablaLogicaDatos> tablaRetirada = oBlTablaLogicaDatos.GetTablaLogicaDatos(paisID, 12);
-            List<BETablaLogicaDatos> tablaReingresada = oBlTablaLogicaDatos.GetTablaLogicaDatos(paisID, 18);
-            List<BETablaLogicaDatos> tablaEgresada = oBlTablaLogicaDatos.GetTablaLogicaDatos(paisID, 19);
+            List<BETablaLogicaDatos> tablaRetirada = oBlTablaLogicaDatos.GetList(paisID, 12);
+            List<BETablaLogicaDatos> tablaReingresada = oBlTablaLogicaDatos.GetList(paisID, 18);
+            List<BETablaLogicaDatos> tablaEgresada = oBlTablaLogicaDatos.GetList(paisID, 19);
 
             foreach (BEConsultoraCatalogo consultoraCatalogo in consultorasCatalogos)
             {

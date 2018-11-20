@@ -3,7 +3,7 @@ using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceCDR;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
-using Portal.Consultoras.Web.Helpers;
+using Portal.Consultoras.Web.CustomHelpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
