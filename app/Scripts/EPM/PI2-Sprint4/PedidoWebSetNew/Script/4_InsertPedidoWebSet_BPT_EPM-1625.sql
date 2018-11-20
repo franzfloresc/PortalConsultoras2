@@ -7,6 +7,7 @@
 	, @CuvSet varchar(20)
 	, @ConsultoraId bigint
 	, @CodigoUsuario varchar(25)
+	, @ClienteID int
 	, @EstrategiaID int
 	, @CuvsStringList xml
 	)
@@ -72,7 +73,7 @@
 		WHERE cuvset = @CuvSet
 		AND consultoraid = @ConsultoraId
 		AND Campania = @campaniaid
-		AND ISNULL(ClienteID,0) = 0)
+		AND ISNULL(ClienteID,0) = @ClienteID)
 		)
 	  BEGIN
 		INSERT INTO @SetParecidosIdList (SetId)
@@ -82,7 +83,7 @@
 		  WHERE cuvset = @CuvSet
 		  AND consultoraid = @ConsultoraId
 		  AND Campania = @campaniaid
-		  AND ISNULL(ClienteID,0) = 0)
+		  AND ISNULL(ClienteID,0) = @ClienteID)
 	  END
 
 	  SELECT @CantidadItemsaAgregar = count(0) FROM @CuvsAgregar
@@ -141,12 +142,13 @@
 		  --, [TipoEstrategiaId]
 		  , [Campania]
 		  , [ConsultoraID]
+		  . [ClienteID]
 		  , [OrdenPedido]
 		  , [CodigoUsuarioCreacion]
 		  , [CodigoUsuarioModificacion]
 		  , [FechaCreacion]
 		  , [FechaModificacion])
-			VALUES (@PedidoID, @CuvSet, @EstrategiaID, @CantidadSet, @Precio2, @Precio2 * @CantidadSet, @Campaniaid, @ConsultoraId, @OrdenSet, @CodigoUsuario, NULL, SYSDATETIME(), NULL)
+			VALUES (@PedidoID, @CuvSet, @EstrategiaID, @CantidadSet, @Precio2, @Precio2 * @CantidadSet, @Campaniaid, @ConsultoraId, @ClienteID, @OrdenSet, @CodigoUsuario, NULL, SYSDATETIME(), NULL)
 
 		  SET @NuevoSetID = @@IDENTITY
 
@@ -168,9 +170,9 @@
 			  ca.cantidad
 			  * @CantidadSet,
 			  (select top 1 pwd.PedidoDetalleID from pedidowebdetalle pwd where pwd.cuv = ca.cuv
-			  and pwd.CampaniaID = @CampaniaID and pwd.pedidoid = @PedidoID),
+			  and pwd.CampaniaID = @CampaniaID and pwd.pedidoid = @PedidoID and ISNULL(pwd.ClienteID,0) = @ClienteID),
 			  (select top 1 pwd.PrecioUnidad from pedidowebdetalle pwd where pwd.cuv = ca.cuv
-			  and pwd.CampaniaID = @CampaniaID and pwd.pedidoid = @PedidoID),
+			  and pwd.CampaniaID = @CampaniaID and pwd.pedidoid = @PedidoID and ISNULL(pwd.ClienteID,0) = @ClienteID),
 			  ep.EstrategiaProductoId,
 			  ca.Digitable,
 			  ca.Grupo
