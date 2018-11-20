@@ -389,7 +389,9 @@
             setTimeout(function () {
                 etiquetaCriterioPorEliminar.remove();
                 if (_elementos.contenedorEtiquetas.find('.etiqueta__criterioElegido').length == 0) {
-                    _elementos.contenedorEtiquetas.next().fadeOut(70);
+                    if (!(_config.isMobile)) {
+                        _elementos.contenedorEtiquetas.next().fadeOut(70);
+                    }
                     _elementos.contenedorEtiquetas.css('width', '');
                     _elementos.contenedorEtiquetas.parent().delay(70);
                     _elementos.contenedorEtiquetas.parent().slideUp(80);
@@ -607,7 +609,17 @@
                     var capturarAnchoEtiquetaPorEliminarMobile = criterio.outerWidth() + 10;
                     _funciones.ActualizarAnchoContenedorEtiquetasCriteriosElegidosMobile(capturarAnchoEtiquetaPorEliminarMobile);
                 }
-                criterio.remove();
+                setTimeout(function () {
+                    criterio.remove();
+                    if (_elementos.contenedorEtiquetas.find('.etiqueta__criterioElegido').length == 0) {
+                        if (!(_config.isMobile)) {
+                            _elementos.contenedorEtiquetas.next().fadeOut(70);
+                        }
+                        _elementos.contenedorEtiquetas.css('width', '');
+                        _elementos.contenedorEtiquetas.parent().delay(70);
+                        _elementos.contenedorEtiquetas.parent().slideUp(80);
+                    }
+                }, 100);
             } else {
                 filtroCriterio = _funciones.marcarFiltro(idFiltro, _localStorage, filtroSeleccionado);
                 _funciones.AgregarEtiquetaFiltroSeleccionado(idFiltro, nombreFiltro);
