@@ -1005,11 +1005,14 @@
     .lista__opciones__ordenamiento__y__filtrar{
         margin-top:17px;
         padding-top:5px;
-        padding-bottom:2px;
         padding-left:10px;
         padding-right:10px;
         padding-bottom:3px;
         background-color:#f5f5f5;
+    }
+
+    .lista__opciones__ordenamiento__y__filtrar > div{
+        height:48px;
     }
 
     .lista__opcion__wrapper--filtrar + .lista__opcion__wrapper--ordenar{
@@ -1027,7 +1030,14 @@
     .opcion__filtrar
     {
         position:relative;
+    }
+
+    .opcion__ordenamiento{
         height:100%;
+    }
+
+    .opcion__filtrar{
+        height:45px;
     }
 
     .opcion__ordenamiento__label,
@@ -1050,9 +1060,9 @@
         height: 45px;
         line-height:45px;
         text-transform: uppercase;
-        position: absolute;
+        position: relative;
         margin: auto;
-        top: -3px;
+        top:0;
         bottom: 0;
         left: 0;
         right: 0;
