@@ -351,6 +351,7 @@
             var filtroMarca = _funciones.validarFiltrosMarcados('mar');
             var filtroPrecio = _funciones.validarFiltrosMarcados('pre');
 
+            _config.numeroPaginaActual = 0;
             _config.categoria = filtroCategoria;
             _config.marca = filtroMarca;
             _config.precio = filtroPrecio;
@@ -420,9 +421,10 @@
                 }
             }, 100);
 
-            _config.categoria = [];
-            _config.marca = [];
-            _config.precio = [];
+            _config.categoria = null;
+            _config.marca = null;
+            _config.precio = null;
+            _config.numeroPaginaActual = 0;
 
             set_local_storage([], _config.localStorageCriterio);
 
