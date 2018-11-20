@@ -293,6 +293,7 @@ namespace Portal.Consultoras.Web.Providers
                     PaisID = userData.PaisID,
                     ConsultoraID = userData.ConsultoraID,
                     CodigoUsuario = userData.CodigoUsuario,
+                    CodigoConsultora = userData.CodigoConsultora,
                     EMail = userData.EMail,
                     DocumentoIdentidad = userData.DocumentoIdentidad,
                     CampaniaID = userData.CampaniaID,
