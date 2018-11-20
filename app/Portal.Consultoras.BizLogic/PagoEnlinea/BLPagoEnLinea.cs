@@ -364,7 +364,6 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
             bePagoEnLinea.MensajeError = respuestaVisa.PaymentDescription ?? string.Empty;
             bePagoEnLinea.IdGuidTransaccion = respuestaVisa.TransactionUUID ?? string.Empty;
             bePagoEnLinea.IdGuidExternoTransaccion = respuestaVisa.ExternalTransactionId ?? string.Empty;
-            bePagoEnLinea.MerchantId = respuestaVisa.MerchantId ?? string.Empty;
             bePagoEnLinea.IdTokenUsuario = respuestaVisa.UserTokenId ?? string.Empty;
             bePagoEnLinea.AliasNameTarjeta = respuestaVisa.AliasNameTarjeta ?? string.Empty;
                        
@@ -399,6 +398,11 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
 
             bePagoEnLinea.UsuarioCreacion = usuario.CodigoUsuario;
             bePagoEnLinea.Origen = respuestaVisa.Origen;
+
+            if (bePagoEnLinea.CodigoError == Constantes.PagoEnLineaPasarelaVisa.Code.CodigoError_Success && bePagoEnLinea.CodigoAccion == Constantes.PagoEnLineaPasarelaVisa.Code.CodigoAccion_Success)
+                bePagoEnLinea.MerchantId = respuestaVisa.MerchantId ?? string.Empty;
+            else
+                bePagoEnLinea.MerchantId = string.Empty;
 
             return bePagoEnLinea;
         }
