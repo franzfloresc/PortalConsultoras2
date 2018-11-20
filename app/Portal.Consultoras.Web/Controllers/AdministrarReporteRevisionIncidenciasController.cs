@@ -183,30 +183,22 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult ConsultarReporteCuvDetallado(string sidx, string sord, int page, int rows, int CampaniaID, string CUV)
         {
-            string paso = "";
             try
             {
-                paso += "|Inicio";
                 //bool ParseQueryString = HttpUtility.ParseQueryString(((System.Web.HttpRequestWrapper)Request).UrlReferrer.Query)[_dbdefault].ToBool();
-
-                //paso += "|ParseQueryString = " + ParseQueryString;
-
+                
                 if (ModelState.IsValid)
                 {
-                    paso += "|IsValid = True";
-
                     List<ReporteRevisionIncidenciasMDbAdapterModel> lst = new List<ReporteRevisionIncidenciasMDbAdapterModel>();
 
                     using (var sv = new PedidoServiceClient())
                     {
-                        paso += "|PedidoServiceClient Ini";
                         var tmpReporteLst = sv.GetReporteCuvDetallado(userData.PaisID, CampaniaID, CUV).ToList();
-                        paso += "|PedidoServiceClient Fin";
+
                         foreach (var itemReporte in tmpReporteLst)
                         {
                             lst.Add(new ReporteRevisionIncidenciasMDbAdapterModel { BEReporteCuvDetallado = itemReporte });
                         }
-                        paso += "|PedidoServiceClient foreach";
                     }
 
                     var grid = new BEGrid
@@ -216,13 +208,12 @@ namespace Portal.Consultoras.Web.Controllers
                         SortColumn = sidx,
                         SortOrder = sord
                     };
-                    paso += "|grid";
+
                     IEnumerable<ReporteRevisionIncidenciasMDbAdapterModel> items = lst;
                     items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-                    paso += "|Skip";
-                    var pag = Util.PaginadorGenerico(grid, lst);
-                    paso += "|PaginadorGenerico";
 
+                    var pag = Util.PaginadorGenerico(grid, lst);
+                    
                     var data = new
                     {
                         total = pag.PageCount,
@@ -254,7 +245,7 @@ namespace Portal.Consultoras.Web.Controllers
                                    }
                                }
                     };
-                    paso += "|data";
+
                     return Json(data, JsonRequestBehavior.AllowGet);
                 }
 
@@ -265,8 +256,7 @@ namespace Portal.Consultoras.Web.Controllers
                     data = "",
                     extra = string.Join("; ", ModelState.Values
                                         .SelectMany(x => x.Errors)
-                                        .Select(x => x.ErrorMessage)),
-                    paso
+                                        .Select(x => x.ErrorMessage))
                 }, JsonRequestBehavior.AllowGet);
 
                 //return RedirectToAction("Index", "AdministrarReporteRevisionIncidencias");
@@ -280,7 +270,6 @@ namespace Portal.Consultoras.Web.Controllers
                     success = false,
                     message = "Lo sentimos no podemos procesar su solicitud.",
                     data = "",
-                    paso,
                     Trycatch = Common.LogManager.GetMensajeError(ex)
                 }, JsonRequestBehavior.AllowGet);
                 //return RedirectToAction("Index", "AdministrarReporteRevisionIncidencias");
