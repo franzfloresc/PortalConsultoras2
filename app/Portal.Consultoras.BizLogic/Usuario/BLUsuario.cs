@@ -2882,7 +2882,8 @@ namespace Portal.Consultoras.BizLogic
             {
                 try
                 {
-                    BEEnviarSms oCredencial = GetCredencialesSmsCache(paisID);
+                    //BEEnviarSms oCredencial = GetCredencialesSmsCache(paisID);
+                    BEEnviarSms oCredencial = GetCredencialesSmsCache(Constantes.PaisID.Peru); //PRUEBA
                     string codGenerado = Common.Util.GenerarCodigoRandom();
                     oCredencial.Mensaje = string.Format(
                         tipoMensaje == Constantes.EnviarSMS.CredencialesProvedoresSMS.Bolivia.MENSAJE_OPTIN
@@ -2901,7 +2902,8 @@ namespace Portal.Consultoras.BizLogic
                         CampaniaID = oUsu.campaniaID,
                         NroCelular = oUsu.Celular,
                         Mensaje = oCredencial.Mensaje,
-                        CodigoIso = oUsu.CodigoIso,
+                        //CodigoIso = oUsu.CodigoIso,
+                        CodigoIso = Constantes.CodigosISOPais.Peru, //PRUEBA
                         EsMobile = oUsu.EsMobile,
                         RequestUrl = oCredencial.RequestUrl,
                         RecursoApi = oCredencial.RecursoApi
