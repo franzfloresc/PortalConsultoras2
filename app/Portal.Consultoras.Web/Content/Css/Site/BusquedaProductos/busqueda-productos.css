@@ -1120,6 +1120,8 @@
         font-weight:400;
         border-radius:0;
         z-index:5;
+        position:absolute;
+        top:0;
     }
 
     .opcion__ordenamiento__dropdown--desplegado:before{
@@ -1452,7 +1454,7 @@
     }
 
     .ficha__producto__descrip__nom{
-        min-height:57px;
+        height:57px;
     }
 
     .btn__elegir__opcion--fichaProducto{
