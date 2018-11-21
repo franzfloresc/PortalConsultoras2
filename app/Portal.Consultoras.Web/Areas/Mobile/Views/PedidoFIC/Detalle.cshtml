@@ -9,9 +9,11 @@
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
 }
 
-<link href="@Url.Content("~/Content/Css/Site/slick-pedido.css")" rel="stylesheet" />
-<link href="@Url.Content("~/Content/Css/Mobile/Pedido/PedidoGrilla.css")" rel="stylesheet" />
-
+@section styles
+{
+    <link href="@Url.Content("~/Content/Css/Site/slick-pedido.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Css/Mobile/Pedido/PedidoGrilla.css")" rel="stylesheet" />
+}
 
 <input type="hidden" id="hdEsFacturacion" value="@Model.EsFacturacion.ToString()" />
 <input type="hidden" id="hdOfertaFinal" value="@Model.OfertaFinal" />

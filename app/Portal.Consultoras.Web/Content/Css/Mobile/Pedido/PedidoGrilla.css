@@ -299,20 +299,53 @@
     -webkit-box-shadow: 0 6px 15px 2px rgba(0,0,0, .31);
 }
 
-.contenedor_cantidadProductos div .campo_cantidadProductos input {
-    width: 100%;
-    border: 0;
-    background: #fff;
-    text-align: center;
-    color: #000;
-    font-size: 13px;
-    font-weight: bold;
+.contenedor_cantidadProductos {
+    display: block;
+    margin-bottom: 30px;
 }
 
-    .contenedor_cantidadProductos div .campo_cantidadProductos input[value] {
-        color: #000;
+    .contenedor_cantidadProductos .textoCantidad {
+        display: block;
+        text-align: center;
+        font-size: 11px;
+        margin-bottom: 6px;
     }
 
+
+.contenedor_cantidadProductos div {
+    text-align: center;
+    margin-left: 3px;
+}
+
+.contenedor_cantidadProductos div .campo_cantidadProductos {
+    width: 50%;
+}
+
+    .contenedor_cantidadProductos div .campo_cantidadProductos input {
+        width: 100%;
+        border: 0;
+        background: #fff;
+        text-align: center;
+        color: #000;
+        font-size: 13px;
+        font-weight: bold;
+    }
+
+        .contenedor_cantidadProductos div .campo_cantidadProductos input[value] {
+            color: #000;
+        }
+
+    .contenedor_cantidadProductos div span, .contenedor_cantidadProductos div .campo_cantidadProductos {
+        border: 1px solid #b0b0b0;
+        background: #fff;
+        height: 45px;
+        vertical-align: top;
+        line-height: 45px;
+        margin-left: -1px;
+        float: left;
+        overflow: hidden;
+        border-radius: 4px;
+    }
 
     .tooltip_noOlvidesGuardarTuPedido:before, .tooltip_noOlvidesGuardarTuPedido:after {
         top: 100%;
@@ -350,27 +383,6 @@
         color: #000;
     }
 
-.contenedor_cantidadProductos div .campo_cantidadProductos {
-    width: 50%;
-}
-
-
-.contenedor_cantidadProductos div {
-    text-align: center;
-    margin-left: 3px;
-}
-
-    .contenedor_cantidadProductos div span, .contenedor_cantidadProductos div .campo_cantidadProductos {
-        border: 1px solid #b0b0b0;
-        background: #fff;
-        height: 45px;
-        vertical-align: top;
-        line-height: 45px;
-        margin-left: -1px;
-        float: left;
-        overflow: hidden;
-        border-radius: 4px;
-    }
 
 .cod_prod {
     font-size: 14px !important;

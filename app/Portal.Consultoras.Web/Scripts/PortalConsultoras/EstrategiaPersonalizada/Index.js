@@ -333,7 +333,7 @@ function SeccionMostrarProductos(data) {
             $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeIn();
 
             $("#" + data.Seccion.Codigo).find("[data-productos-info] [data-productos-total]").html(data.CantidadProductos);
-            $("#" + data.Seccion.Codigo).find("[data-productos-info]").fadeIn();
+            $("#" + data.Seccion.Codigo).find(sElementos.contadorProductos).fadeIn();
 
         } else {
             $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeOut();
@@ -387,6 +387,8 @@ function SeccionMostrarProductos(data) {
             var cantidadTotal = 0;
             var cantidadAMostrar = parseInt($("#" + data.Seccion.Codigo).find("[data-productos-info] [data-productos-mostrar]").html());
 
+            console.log('cantidadTotal-0', cantidadAMostrar, data);
+
             if (data.Seccion.Codigo === CONS_CODIGO_SECCION.SR) {
                 cantidadTotal = data.cantidadTotal0;
             }
@@ -397,20 +399,25 @@ function SeccionMostrarProductos(data) {
             if (cantidadTotal <= cantidadAMostrar) {
                 //if (data.cantidadTotal <= cantidadAMostrar) {
                 $("#" + data.Seccion.Codigo).find("[data-productos-info] [data-productos-mostrar]").html(cantidadTotal);
-                if (data.Seccion.Codigo === CONS_CODIGO_SECCION.MG || data.Seccion.Codigo === CONS_CODIGO_SECCION.SR || data.Seccion.Codigo === CONS_CODIGO_SECCION.RD) {
+                if (data.Seccion.Codigo === CONS_CODIGO_SECCION.MG
+                    || data.Seccion.Codigo === CONS_CODIGO_SECCION.SR
+                    || data.Seccion.Codigo === CONS_CODIGO_SECCION.RD) {
                     $("#" + data.Seccion.Codigo).find(sElementos.verMas).remove();
                     $("#" + data.Seccion.Codigo).find(sElementos.contadorProductos).remove();
                 }
             }
             else {
-                if (data.Seccion.Codigo === CONS_CODIGO_SECCION.MG || data.Seccion.Codigo === CONS_CODIGO_SECCION.SR || data.Seccion.Codigo === CONS_CODIGO_SECCION.RD) {
+                if (data.Seccion.Codigo === CONS_CODIGO_SECCION.MG
+                    || data.Seccion.Codigo === CONS_CODIGO_SECCION.SR
+                    || data.Seccion.Codigo === CONS_CODIGO_SECCION.RD) {
+                    $("#" + data.Seccion.Codigo).find(sElementos.verMas).show();
                     if (data.objBannerCajaProducto != undefined) {
                         data.lista.push(data.objBannerCajaProducto);
                     }
                 }
             }
             $("#" + data.Seccion.Codigo).find("[data-productos-info] [data-productos-total]").html(cantidadTotal);
-            $("#" + data.Seccion.Codigo).find("[data-productos-info]").fadeIn();
+            $("#" + data.Seccion.Codigo).find(sElementos.contadorProductos).fadeIn();
         }
         else {
             $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeOut();
@@ -472,7 +479,7 @@ function RenderCarruselIndividuales(divProd) {
         prevArrow: '<a class="arrow-prev" data-direccionflecha="Anterior" onclick="AnalyticsPortalModule.MarcaClicFlechaBanner(this)"><img src="' + baseUrl + 'Content/Images/sliders/previous_ofertas.svg")" alt="" /></a>',
         nextArrow: '<a class="arrow-next" data-direccionflecha="Siguiente" onclick="AnalyticsPortalModule.MarcaClicFlechaBanner(this)"><img src="' + baseUrl + 'Content/Images/sliders/next_ofertas.svg")" alt="" /></a>'
     }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
-
+        
         VerificarClick(slick, currentSlide, nextSlide, "previsuales");
     }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
 
@@ -578,7 +585,6 @@ function RenderCarruselSimple(divProd, cc) {
 
 function ShowOrHide_Arrows(event, slick, currentSlide) {
     console.log('ShowOrHide_Arrows', event, slick, currentSlide);
-
     var objPrevArrow = $(event.target).find('.prevArrow')[0];
     var objNextArrow = $(event.target).find('.nextArrow')[0];
     var objVisorSlick = $(event.target).find('.slick-list')[0];
@@ -598,7 +604,7 @@ function ShowOrHide_Arrows(event, slick, currentSlide) {
         } while (item < slick.slideCount);
 
         if (anchoFalta > $(slick.$list).width()) {
-            var currentSlideback = $(slick.$list).attr('data-currentSlide') || "";
+            var currentSlideback = $(slick.$list).attr('data-currentSlide') || $(slick.$list).attr('data-currentslide') || "";
             if (currentSlideback == currentSlide) {
                 slick.options.slidesToShow = isMobile() ? 1 : 2;
                 slick.setPosition();
@@ -625,6 +631,30 @@ function ShowOrHide_Arrows(event, slick, currentSlide) {
     }
 
     $(slick.$list).attr('data-currentSlide', currentSlide);
+
+}
+//Función para marcar los productos en el carrusel de una palanca (en este caso Mas Ganadoras - MG)
+
+function MarcarProductos_Arrows(event, slick, currentSlide, seccionName) {
+    
+    if (seccionName === ConstantesModule.TipoEstrategia.MG) {
+        var pos = isMobile() ? 1 : 2;
+        var slideToMark = currentSlide + pos;
+        var item = $(event.target).find('[data-slick-index]')[slideToMark];
+        var data = $($(item).find("[data-estrategia]")[0]).data("estrategia");
+        data = data || "";
+        if (data !== "") {
+            data.lista = Array(data);
+            if (typeof AnalyticsPortalModule !== "undefined") {
+                AnalyticsPortalModule.MarcaGenericaLista(seccionName, data);
+            }
+        }
+    }
+
+          
+    //if (anchoFalta > $(slick.$list).width()) {
+    //var currentSlideback = $(slick.$list).attr('data-currentSlide') || $(slick.$list).attr('data-currentslide') || "";  
+    //$(slick.$list).attr('data-currentSlide', currentSlide);
 
 }
 //Función que llama la la funcion de marcacion analytics cuando se visualiza el ultimo botón dorado de "ver más"
@@ -660,11 +690,13 @@ function RenderCarruselSimpleV2(divProd, cc, vw) {
         nextArrow: '<a  class="nextArrow" style="display: block;right: 0;margin-right: -5%; text-align: right; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_black_compra.png")" alt="" /></a>'
     }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
         //VerificarClick(slick, currentSlide, nextSlide, "normal");
+        
         VerificarClick(slick, currentSlide, nextSlide, "normal", seccionName);
     }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
         console.log(cc);
         if (!cc) {
             ShowOrHide_Arrows(event, slick, currentSlide);
+            MarcarProductos_Arrows(event, slick, currentSlide, seccionName);
         }
         EstablecerLazyCarruselAfterChange(divProd.find(sElementos.listadoProductos));
     });

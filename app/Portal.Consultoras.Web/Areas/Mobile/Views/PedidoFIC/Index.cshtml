@@ -10,6 +10,11 @@
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
     var mobileConfiguracion = Html.MobileAppConfiguracion();
 }
+@section styles
+{
+    <link href="@Url.Content("~/Content/Css/Mobile/Pedido/PedidoGrilla.css")" rel="stylesheet" />
+}
+
 <div class="wrapper_resumen_mobile sin_padding">
     @if (!mobileConfiguracion.EsAppMobile)
     {

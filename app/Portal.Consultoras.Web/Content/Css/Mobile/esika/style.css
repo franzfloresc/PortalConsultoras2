@@ -4620,20 +4620,6 @@ body {
     color: #000;
 }
 
-.contenedor_cantidadProductos {
-    display: block;
-    margin-bottom: 30px;
-}
-
-    .contenedor_cantidadProductos .textoCantidad {
-        display: block;
-        text-align: center;
-        font-size: 11px;
-        margin-bottom: 6px;
-    }
-
-
-
 .signo_menos, .signo_mas {
     width: 25%;
 }
