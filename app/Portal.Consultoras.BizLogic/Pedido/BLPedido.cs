@@ -1261,7 +1261,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 {
                     CodigoRespuesta = productoResult.CodigoRespuesta,
                     MensajeRespuesta = productoResult.MensajeRespuesta,
-                    Producto = productoResult.Producto,
+                    Producto = productoResult.Producto ?? pedidoDetalle.Producto,
                     ClienteID = pedidoDetalle.ClienteID
                 };
             })).ToArray();
