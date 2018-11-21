@@ -142,7 +142,7 @@
 		  --, [TipoEstrategiaId]
 		  , [Campania]
 		  , [ConsultoraID]
-		  . [ClienteID]
+		  , [ClienteID]
 		  , [OrdenPedido]
 		  , [CodigoUsuarioCreacion]
 		  , [CodigoUsuarioModificacion]
@@ -170,9 +170,9 @@
 			  ca.cantidad
 			  * @CantidadSet,
 			  (select top 1 pwd.PedidoDetalleID from pedidowebdetalle pwd where pwd.cuv = ca.cuv
-			  and pwd.CampaniaID = @CampaniaID and pwd.pedidoid = @PedidoID and ISNULL(pwd.ClienteID,0) = @ClienteID),
+			  and pwd.CampaniaID = @CampaniaID and pwd.pedidoid = @PedidoID and ISNULL(pwd.ClienteID,0) = @ClienteID and ca.Digitable = 1),
 			  (select top 1 pwd.PrecioUnidad from pedidowebdetalle pwd where pwd.cuv = ca.cuv
-			  and pwd.CampaniaID = @CampaniaID and pwd.pedidoid = @PedidoID and ISNULL(pwd.ClienteID,0) = @ClienteID),
+			  and pwd.CampaniaID = @CampaniaID and pwd.pedidoid = @PedidoID and ISNULL(pwd.ClienteID,0) = @ClienteID and ca.Digitable = 1),
 			  ep.EstrategiaProductoId,
 			  ca.Digitable,
 			  ca.Grupo
