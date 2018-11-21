@@ -407,7 +407,8 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 daPedidoWeb.UpdateMontosPedidoWeb(pedidoWeb);
                 if (resultado.Reserva)
                 {
-                    if (listDetalleObservacion.Any()) daPedidoWebDetalle.UpdListPedidoWebDetalleObsPROL(listDetalleObservacion);
+                    daPedidoWebDetalle.CleanObsPROLByPedido(input.CampaniaID, input.PedidoID);
+                    if (listDetalleObservacion.Any()) daPedidoWebDetalle.UpdListObsPROL(listDetalleObservacion);
                     daPedidoWeb.UpdPedidoWebReserva(pedidoWeb, gananciaEstimada);
                 }
                 else if (input.ValidacionAbierta && resultado.ResultadoReservaEnum == Enumeradores.ResultadoReserva.NoReservadoMontoMinimo)
