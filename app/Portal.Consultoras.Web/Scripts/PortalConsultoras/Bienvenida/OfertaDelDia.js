@@ -345,10 +345,8 @@ var OfertaDelDiaModule = function () {
                     }
                 }
                 else {
-                    //$("#banner-odd .izquierda_img img").attr("src", _data.ImagenFondo1);
-                    //$("#banner-odd .derecha_img img").attr("src", _data.ImagenFondo1);
-                    $("#banner-odd .izquierda_img img").attr("src", _data.ImagenLateral);
-                    $("#banner-odd .derecha_img img").attr("src", _data.ImagenLateral);
+                    $("#banner-odd .izquierda_img img").attr("src", _data.ImagenFondo1);
+                    $("#banner-odd .derecha_img img").attr("src", _data.ImagenFondo1);
                     $(contenedorOfertas).css("background-color", _data.ColorFondo1);
                 }
 

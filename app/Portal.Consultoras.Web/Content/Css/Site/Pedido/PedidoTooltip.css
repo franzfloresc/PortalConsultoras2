@@ -1,0 +1,222 @@
+﻿/* Tooltips */
+.popover {
+    display: block;
+    position: relative;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    background-color: #ebebeb;
+    box-shadow: 0 2px 3px 1px #ebebeb;
+    font-size: 14px;
+    border-radius: 4px;
+    margin-left: 15px;
+    max-width: 100%;
+    margin-bottom: 21px;
+    padding: 15px;
+    width: 98%;
+}
+
+    .popover.top {
+        margin-top: -10px;
+    }
+
+    .popover.right {
+        margin-left: 10px;
+    }
+
+
+    .popover.left {
+        margin-left: -10px;
+    }
+
+.popover-content {
+    padding: 9px 14px;
+}
+
+.popover > .arrow,
+.popover > .arrow:after {
+    position: absolute;
+    display: block;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+    z-index: 2;
+}
+
+.popover > .arrow {
+    border-width: 0px;
+}
+
+    .popover > .arrow:after {
+        border-width: 10px;
+        content: "";
+    }
+
+.popover.top > .arrow {
+    left: 50%;
+    margin-left: -11px;
+    border-bottom-width: 0;
+    border-top-color: #999999;
+    border-top-color: rgba(0, 0, 0, 0.25);
+    bottom: -11px;
+}
+
+    .popover.top > .arrow:after {
+        content: " ";
+        bottom: 1px;
+        margin-left: -10px;
+        border-bottom-width: 0;
+        border-top-color: #ffffff;
+        z-index: 2;
+    }
+
+.popover.right > .arrow {
+    top: 50%;
+    left: -11px;
+    margin-top: -11px;
+    border-left-width: 0;
+    border-right-color: #999999;
+    border-right-color: rgba(0, 0, 0, 0.25);
+}
+
+    .popover.right > .arrow:after {
+        content: " ";
+        left: 1px;
+        bottom: -10px;
+        border-left-width: 0;
+        border-right-color: #ffffff;
+    }
+
+.popover.bottom > .arrow {
+    left: 12%;
+    margin-left: -11px;
+    border-top-width: 0;
+    border-bottom-color: #ebebeb;
+    border-bottom-color: #ebebeb;
+    top: -11px;
+}
+
+    .popover.bottom > .arrow:after {
+        content: " ";
+        top: 1px;
+        margin-left: -10px;
+        border-top-width: 0;
+        border-bottom-color: #ebebeb;
+    }
+
+.popover.left > .arrow {
+    top: 50%;
+    right: -11px;
+    margin-top: -11px;
+    border-right-width: 0;
+    border-left-color: #999999;
+    border-left-color: rgba(0, 0, 0, 0.25);
+}
+
+    .popover.left > .arrow:after {
+        content: " ";
+        right: 1px;
+        border-right-width: 0;
+        border-left-color: #ffffff;
+        bottom: -10px;
+    }
+
+.tooltip_agregar_desabilitado, .tooltip_limite_pedidos {
+    top: -75px;
+    width: 292px;
+    right: 0;
+}
+
+.tooltip_agregar_desabilitado {
+    margin-right: 0px;
+}
+
+.tooltip_limite_pedidos {
+    margin-left: 0px;
+}
+
+    .tooltip_limite_pedidos > .arrow {
+        left: 23% !important;
+    }
+
+.popover > .arrow {
+    border-top-color: rgba(0,0,0,.18) !important;
+}
+
+.popover-content {
+    padding: 17px 10px;
+}
+
+.list-inline {
+    margin-bottom: 0px;
+}
+
+    .list-inline li {
+        vertical-align: middle;
+        display: inline-block;
+    }
+
+.tooltip_agregado {
+    width: 292px;
+    max-width: 292px;
+    color: #000;
+    text-align: center;
+    margin-right: 0;
+    top: 66px;
+    right: 135px;
+    font-weight: bold;
+}
+
+    .tooltip_agregado > .arrow {
+        left: 93% !important;
+    }
+
+.list-tooltip {
+    margin: 0px;
+    padding: 0px;
+}
+
+    .list-tooltip li:first-child {
+        width: 67%;
+    }
+
+    .list-tooltip li {
+        display: inline-block;
+        margin-right: 18px;
+        vertical-align: middle;
+    }
+
+        .list-tooltip li:last-child {
+            margin-right: 0px;
+        }
+
+.boton-secundario button {
+    padding: 0px;
+    font-weight: bold;
+    font-size: 13px;
+    border: none;
+    background: none;
+    text-decoration: underline;
+}
+
+.boton-primaria button {
+    border-radius: 4px;
+    color: #fff;
+    line-height: normal;
+    text-transform: uppercase;
+    padding: 14px 23px;
+    border: none;
+    letter-spacing: 0.5px;
+    font-weight: bold;
+}
+
+.icon-alert img{
+    width: 19px;
+    display: block; 
+}
+
+.icon-alert {
+    margin-right: 7px !important;
+}
+

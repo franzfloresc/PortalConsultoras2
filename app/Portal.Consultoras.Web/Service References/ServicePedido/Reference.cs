@@ -14216,6 +14216,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string CUVField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int ClienteIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CodigoRespuestaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -14240,6 +14243,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.CUVField, value) != true)) {
                     this.CUVField = value;
                     this.RaisePropertyChanged("CUV");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ClienteID {
+            get {
+                return this.ClienteIDField;
+            }
+            set {
+                if ((this.ClienteIDField.Equals(value) != true)) {
+                    this.ClienteIDField = value;
+                    this.RaisePropertyChanged("ClienteID");
                 }
             }
         }

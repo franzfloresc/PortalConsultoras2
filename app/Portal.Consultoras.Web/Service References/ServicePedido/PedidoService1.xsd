@@ -128,6 +128,8 @@
   <xs:element name="BEPedidoDetalle" nillable="true" type="tns:BEPedidoDetalle" />
   <xs:complexType name="BEPedidoDetalleResult">
     <xs:sequence>
+      <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ClienteID" type="xs:int" />
       <xs:element minOccurs="0" name="CodigoRespuesta" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MensajeRespuesta" nillable="true" type="xs:string" />
     </xs:sequence>
@@ -154,6 +156,18 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEPedidoReservaResult" nillable="true" type="tns:BEPedidoReservaResult" />
+  <xs:complexType name="ArrayOfBEPedidoDetalle">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEPedidoDetalle" nillable="true" type="tns:BEPedidoDetalle" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEPedidoDetalle" nillable="true" type="tns:ArrayOfBEPedidoDetalle" />
+  <xs:complexType name="ArrayOfBEPedidoDetalleResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEPedidoDetalleResult" nillable="true" type="tns:BEPedidoDetalleResult" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEPedidoDetalleResult" nillable="true" type="tns:ArrayOfBEPedidoDetalleResult" />
   <xs:complexType name="ArrayOfBEPedidoWebSetDetalle">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="BEPedidoWebSetDetalle" nillable="true" type="tns:BEPedidoWebSetDetalle" />

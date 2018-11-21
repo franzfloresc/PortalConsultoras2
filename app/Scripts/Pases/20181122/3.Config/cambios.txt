@@ -1,0 +1,8 @@
+1.1.WSConsultoras
+Modificar:
+	<add key="PaisesMicroservicioPersonalizacion" value="PE,CL,CR,CO" />
+	<add key="EstrategiaDisponibleMicroservicioPersonalizacion" value="101,009,007,008,030,001,010" />
+
+1.2 PortalConsultoras2
+Quitar:
+	<add key="UrlImgLateralODD" value="https://d1y60eoca8fkyl.cloudfront.net/OfertaDelDia/{0}/odd-imagen-lateral.jpg" />
