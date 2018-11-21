@@ -168,10 +168,11 @@ namespace Portal.Consultoras.BizLogic.OfertaPersonalizada
                 esFacturacion = fechaHoy >= entidad.FechaInicioFacturacion.Date;
             }
 
-            var listaCuvPrecio0 = new List<string>();
+            var listaSinPrecio2 = new List<string>();
+            var listaSinStock = new List<BEEstrategia>();
 
-            if (esFacturacion)
-            {
+            //if (esFacturacion)
+            //{
                 var listaTieneStock = new List<Lista>();
                 try
                 {
@@ -199,23 +200,29 @@ namespace Portal.Consultoras.BizLogic.OfertaPersonalizada
                         if (estrategia.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.OfertaParaTi)
                             add = listaTieneStock.Any(p => p.Codsap.ToString() == estrategia.CodigoProducto && p.estado == 1);
 
-                        if (!add) return;
+                        //if (!add) return;
+                        if (!add)
+                        {
+                            estrategia.TieneStock = false;
+                            listaSinStock.Add(estrategia);
+                            return;
+                        }
 
                         estrategiasResult.Add(estrategia);
                     }
                     else
                     {
-                        listaCuvPrecio0.Add(estrategia.CUV2);
+                        listaSinPrecio2.Add(estrategia.CUV2);
                     }
                 });
-            }
-            else estrategiasResult.AddRange(lista.Where(e => e.Precio2 > 0));
+            //}
+            //else estrategiasResult.AddRange(lista.Where(e => e.Precio2 > 0));
 
-            if (listaCuvPrecio0.Any())
+            if (listaSinPrecio2.Any())
             {
                 try
                 {
-                    string logPrecio0 = string.Format("Log Precios0 => Fecha:{0} /Palanca:{1} /CodCampania:{2} /CUV(s):{3}", DateTime.Now, entidad.CodigoTipoEstrategia, entidad.CampaniaID, string.Join("|", listaCuvPrecio0));
+                    string logPrecio0 = string.Format("Log Precios0 => Fecha:{0} /Palanca:{1} /CodCampania:{2} /CUV(s):{3}", DateTime.Now, entidad.CodigoTipoEstrategia, entidad.CampaniaID, string.Join("|", listaSinPrecio2));
                     LogManager.SaveLog(new Exception(logPrecio0), "", entidad.PaisID);
                 }
                 catch (Exception ex) { throw ex; }
@@ -236,6 +243,11 @@ namespace Portal.Consultoras.BizLogic.OfertaPersonalizada
                 estrategia.GananciaString = Util.DecimalToStringFormat(estrategia.Ganancia, codigoIso);
                 estrategia.CodigoEstrategia = Util.Trim(estrategia.CodigoEstrategia);
             });
+
+            if (listaSinStock.Any())
+            {
+                estrategiasResult.AddRange(listaSinStock);
+            }
 
             return estrategiasResult;
         }

@@ -298,6 +298,8 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string FotoProductoMedium { get; set; }
 
+        [DataMember]
+        public bool TieneStock { get; set; }
 
         public BEEstrategia()
         { }
@@ -414,6 +416,8 @@ namespace Portal.Consultoras.Entities
             ImgFichaMobile = row.ToString("ImgFichaMobile");
             EstrategiaDetalle = new BEEstrategiaDetalle(row);
             TipoEstrategia = new BETipoEstrategia(row);
+
+            TieneStock = row.ToBoolean("TieneStock");
         }
     }
 
