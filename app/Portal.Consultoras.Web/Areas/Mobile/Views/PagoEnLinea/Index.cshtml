@@ -6,6 +6,7 @@
     ViewBag.Title = "Pago En Línea";
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
     var metodoPago = Model.MetodoPagoSeleccionado;
+    metodoPago.MontoMinimoPago = metodoPago.MontoMinimoPago.HasValue ? metodoPago.MontoMinimoPago.Value : (decimal)0.5;
 }
 
 @section styles{
