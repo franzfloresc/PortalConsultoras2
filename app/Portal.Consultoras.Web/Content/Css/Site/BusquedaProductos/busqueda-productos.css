@@ -1538,6 +1538,18 @@
   
 }
 
+@media screen and (max-width:365px){
+
+    /* FICHAS DE PRODUCTOS MOBILE */
+
+    .ficha__producto__descrip__nom{
+        min-height:57px;
+    }
+
+    /* FIN - FICHAS DE PRODUCTOS MOBILE */
+
+}
+
 @media screen and (min-width:351px) and (max-width:391px){
 
     /* FICHAS DE PRODUCTOS MOBILE */
@@ -1575,10 +1587,6 @@
 
     .fichas__productos__wrapper {
         grid-template-columns: repeat(auto-fill, minmax(145px, 1fr));
-    }
-
-    .ficha__producto__descrip__nom{
-        height:57px;
     }
 
     .btn__elegir__opcion--fichaProducto{
