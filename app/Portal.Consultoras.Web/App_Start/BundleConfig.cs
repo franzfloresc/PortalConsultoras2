@@ -763,11 +763,13 @@ namespace Portal.Consultoras.Web
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/Ficha-Esika").Include(
-                "~/Content/Css/Mobile/Ficha/Esika/FichaEsika.css"
+                "~/Content/Css/Mobile/Ficha/Esika/FichaEsika.css",
+                "~/Content/Css/Site/MasGanadoras/banner_ofertas_masGanadoras_Esika.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/Ficha-Lbel").Include(
-                "~/Content/Css/Mobile/Ficha/Lbel/FichaLbel.css"
+                "~/Content/Css/Mobile/Ficha/Lbel/FichaLbel.css",
+                "~/Content/Css/Site/MasGanadoras/banner_ofertas_masGanadoras_Esika.css"
             ));
 
             #endregion
