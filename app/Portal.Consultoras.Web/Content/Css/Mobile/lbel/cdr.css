@@ -293,13 +293,17 @@
         width: 276px;
         height: 45px;
         border: solid 1px #b5b5b5;
-        color: #888;
         padding-left: 15px;
         margin-bottom: 28px;
         -webkit-appearance: none;
     }
 
+    .formulario_inscripcion_cdr input[type='text']{
+        color:#808080;
+    }
+
     .formulario_inscripcion_cdr select {
+        color:#000;
         background: url('/Content/Images/mobile/dropdown-arrow.png');
         background-repeat: no-repeat;
         background-position: 95.5% center;
