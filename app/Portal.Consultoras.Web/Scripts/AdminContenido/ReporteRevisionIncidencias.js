@@ -211,15 +211,17 @@
             $("#txtFechaConsulta").removeAttr("disabled");
             $("#txtConsultora").removeAttr("disabled");
             $("#CUV").removeAttr("disabled");
+            $(".ui-datepicker-trigger").show();
 
             if (tipoConsulta == "1" || tipoConsulta == "2") {
-                $("#ddlTipoEstrategia").attr("disabled", "disabled");
-                $("#txtFechaConsulta").attr("disabled", "disabled");
-                $("#txtConsultora").attr("disabled", "disabled");
-
                 $("#txtFechaConsulta").val("");
                 $("#txtConsultora").val("");
                 $("#ddlTipoEstrategia").val("")
+
+                $("#ddlTipoEstrategia").attr("disabled", "disabled");
+                $("#txtFechaConsulta").attr("disabled", "disabled");
+                $("#txtConsultora").attr("disabled", "disabled");  
+                $(".ui-datepicker-trigger").hide();
             }
 
             if (tipoConsulta == "3") {
@@ -229,13 +231,14 @@
             }
 
             if (tipoConsulta == "4") {
-                $("#CUV").attr("disabled", "disabled");
-                $("#ddlTipoEstrategia").attr("disabled", "disabled");
-                $("#txtFechaConsulta").attr("disabled", "disabled");
-
                 $("#CUV").val("");
                 $("#txtFechaConsulta").val("");
                 $("#ddlTipoEstrategia").val("")
+
+                $("#CUV").attr("disabled", "disabled");
+                $("#ddlTipoEstrategia").attr("disabled", "disabled");
+                $("#txtFechaConsulta").attr("disabled", "disabled");
+                $(".ui-datepicker-trigger").hide();
             }
         },
     }
@@ -263,13 +266,12 @@
             datatype: "json",
             postData: ({
                 CampaniaID: $("#ddlCampania").val(),
-                TipoEstrategiaID: $("#ddlTipoEstrategia").val(),
                 CUV: $("#CUV").val()
             }),
             mtype: "GET",
             contentType: "application/json; charset=utf-8",
             colNames: [
-                "Cuv", "SAP", "Descripcion", "Palanca", "Imagen", "Activo", "Digitable", "Precio"
+                "Cuv", "SAP", "Descripcion", "Palanca", "Imagen", "Palanca Activa", "Digitable", "Precio"
             ],
             colModel: [
                 {
@@ -313,12 +315,13 @@
                     editable: true,
                     resizable: false,
                     sortable: true,
-                    align: "center"
+                    align: "center",
+                    formatter: _showImagenCuv
                 },
                 {
                     name: "Activo",
                     index: "Activo",
-                    width: 50,
+                    width: 100,
                     align: "center",
                     resizable: false,
                     hidden: false,
@@ -377,8 +380,18 @@
                         }
                     }
                 }
+            },
+            loadError: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR, textStatus, errorThrown);
             }
         });
+    }
+
+    var _showImagenCuv = function (cellvalue, options, rowObject) {
+        var nombreImagen = rowObject[4];
+        var rutaImagen = variablesPortal.ImgUrlBase + nombreImagen;
+        var edit = "&nbsp;<a href='" + rutaImagen + "' target='_blank'>" + nombreImagen + "</a>";
+        return edit;
     }
 
     var _fnCuvDetallado = function () {
@@ -388,14 +401,14 @@
             datatype: "json",
             postData: ({
                 CampaniaID: $("#ddlCampania").val(),
-                TipoEstrategiaID: $("#ddlTipoEstrategia").val(),
                 CUV: $("#CUV").val()
             }),
             mtype: "GET",
             contentType: "application/json; charset=utf-8",
             colNames: [
-                "Estrategia","Padre", "Hijo", "Tipo", "Grupo", "SAP", "Marca Est.", "Marca Mtz.", "F.C",
-                "Pre. Uni.", "Pre. Pub.", "Digitable", "Nombre", "Img Tipos", "Img Tonos", "N. Bulk"
+                "Estrategia", "Padre", "Hijo", "Tipo", "Grupo", "SAP", "Marca Est.", "Marca Mtz.", "F.C",
+                "Pre. Uni.", "Pre. Pub.", "Digitable", "Nombre", "Img Tipos", "Img Tonos", "N. Bulk", "F.Repet.",
+                "RutaImagenTipos", "RutaImagenTonos"
             ],
             colModel: [
                 {
@@ -514,7 +527,8 @@
                     editable: false,
                     resizable: false,
                     sortable: false,
-                    align: "center"
+                    align: "center",
+                    formatter: _showImagenTipos
                 },
                 {
                     name: "ImagenTonos",
@@ -523,7 +537,8 @@
                     editable: false,
                     resizable: false,
                     sortable: false,
-                    align: "center"
+                    align: "center",
+                    formatter: _showImagenTonos
                 },
                 {
                     name: "NombreBulk",
@@ -532,6 +547,34 @@
                     align: "center",
                     resizable: false,
                     hidden: false,
+                    sortable: false
+                },
+                {
+                    name: "FactorRepeticion",
+                    index: "FactorRepeticion",
+                    width: 70,
+                    align: "center",
+                    resizable: false,
+                    hidden: false,
+                    sortable: false
+                },
+                {
+                    name: "RutaImagenTipos",
+                    index: "RutaImagenTipos",
+                    width: 70,
+                    align: "center",
+                    resizable: false,
+                    hidden: true,
+                    sortable: false
+                }
+                ,
+                {
+                    name: "RutaImagenTonos",
+                    index: "RutaImagenTonos",
+                    width: 70,
+                    align: "center",
+                    resizable: false,
+                    hidden: true,
                     sortable: false
                 }
             ],
@@ -562,15 +605,26 @@
             altclass: "jQGridAltRowClass",
             loadComplete: function (data) {
 
-                if (data.rows.length > 0) {
-                    for (var i = 0; i < data.rows.length; i++) {
-                        if (data.rows[i].cell[10] == "1") {
-                            $("#list").jqGrid("setSelection", data.rows[i].id, true);
-                        }
-                    }
-                }
+            },
+            loadError: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR, textStatus, errorThrown);
             }
+
         });
+    }
+
+    var _showImagenTipos = function (cellvalue, options, rowObject) {
+        var nombreImagen = rowObject[13];
+        var rutaImagen = rowObject[17];
+        var edit = "&nbsp;<a href='" + rutaImagen + "' target='_blank'>" + nombreImagen + "</a>";
+        return edit;
+    }
+
+    var _showImagenTonos = function (cellvalue, options, rowObject) {
+        var nombreImagen = rowObject[14];
+        var rutaImagen = rowObject[18];
+        var edit = "&nbsp;<a href='" + rutaImagen + "' target='_blank'>" + nombreImagen + "</a>";
+        return edit;
     }
 
     var _fnEstrategiasConsultora = function () {
@@ -648,6 +702,9 @@
                         }
                     }
                 }
+            },
+            loadError: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR, textStatus, errorThrown);
             }
         });
     }
@@ -742,6 +799,9 @@
                         }
                     }
                 }
+            },
+            loadError: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR, textStatus, errorThrown);
             }
         });
     }
@@ -750,7 +810,7 @@
         $("#divSeccionProductos").show();
         $("#list").jqGrid("GridUnload");
         var tipoConsulta = $("#ddlTipo").val();
-        
+
         if (tipoConsulta == "0") return;
 
         if (tipoConsulta == "1") {

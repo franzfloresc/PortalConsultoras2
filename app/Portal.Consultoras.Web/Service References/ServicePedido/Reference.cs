@@ -29019,6 +29019,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string CodigoEstrategiaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoMarcaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CuvHijoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -29032,6 +29035,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int FactorCuadreField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int FactorRepeticionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string GrupoField;
@@ -29061,6 +29067,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private decimal PrecioUnitarioField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RutaImagenTiposField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RutaImagenTonosField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string SAPField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
@@ -29082,6 +29094,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.CodigoEstrategiaField, value) != true)) {
                     this.CodigoEstrategiaField = value;
                     this.RaisePropertyChanged("CodigoEstrategia");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoMarca {
+            get {
+                return this.CodigoMarcaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoMarcaField, value) != true)) {
+                    this.CodigoMarcaField = value;
+                    this.RaisePropertyChanged("CodigoMarca");
                 }
             }
         }
@@ -29147,6 +29172,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.FactorCuadreField.Equals(value) != true)) {
                     this.FactorCuadreField = value;
                     this.RaisePropertyChanged("FactorCuadre");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int FactorRepeticion {
+            get {
+                return this.FactorRepeticionField;
+            }
+            set {
+                if ((this.FactorRepeticionField.Equals(value) != true)) {
+                    this.FactorRepeticionField = value;
+                    this.RaisePropertyChanged("FactorRepeticion");
                 }
             }
         }
@@ -29264,6 +29302,32 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.PrecioUnitarioField.Equals(value) != true)) {
                     this.PrecioUnitarioField = value;
                     this.RaisePropertyChanged("PrecioUnitario");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string RutaImagenTipos {
+            get {
+                return this.RutaImagenTiposField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RutaImagenTiposField, value) != true)) {
+                    this.RutaImagenTiposField = value;
+                    this.RaisePropertyChanged("RutaImagenTipos");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string RutaImagenTonos {
+            get {
+                return this.RutaImagenTonosField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RutaImagenTonosField, value) != true)) {
+                    this.RutaImagenTonosField = value;
+                    this.RaisePropertyChanged("RutaImagenTonos");
                 }
             }
         }
