@@ -5,6 +5,7 @@
 @{
     ViewBag.Title = "Pago en Línea";
     var metodoPago = Model.MetodoPagoSeleccionado;
+    metodoPago.MontoMinimoPago = metodoPago.MontoMinimoPago ?? (decimal)0.5;
 }
 
 @section styles{
