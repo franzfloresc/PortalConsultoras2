@@ -14615,6 +14615,7 @@ a {
     position: relative;
     z-index: 600;
     margin-bottom: 6px;
+    top:-8px;
 }
 
 /*.regalo_tippingPoint + .monto_maximo{
@@ -14623,7 +14624,7 @@ a {
 
 .microEfecto_regaloPendienteEleccion{
     display:none;
-    top:-3px;
+    top:-10px;
     left:5px;
 }
 
