@@ -27,6 +27,11 @@ $(document).ready(function () {
         BuscarCUV('');
     });
 
+    $("#txtCUVDescripcion").on("change", function () {
+        debugger
+        AsignarCUV();
+    });
+
     //$("#txtCUV").on('keyup', function (evt) {
     //    cuvKeyUp = true;
     //    EvaluarCUV();
@@ -357,7 +362,7 @@ function ListarPedidoID()
 }
 
 function BuscarCUV(CUV) {
-    CUV = $.trim(CUV) || $.trim($("#txtCUV").val());
+    //CUV = $.trim(CUV) || $.trim($("#txtCUV").val());
     var CampaniaId = $.trim($("#ddlCampania").val()) || 0;
     //if (CampaniaId <= 0 || CUV.length < 5) return false;
 
@@ -366,8 +371,8 @@ function BuscarCUV(CUV) {
     var item = {
         CampaniaID: CampaniaId,
         PedidoID: PedidoId,
-        CDRWebID: $("#CDRWebID").val(),
-        CUV: CUV
+        CDRWebID: $("#CDRWebID").val()
+        //CUV: CUV
     };
 
     waitingDialog();
@@ -500,6 +505,9 @@ function PopupPedidoSeleccionar(obj) {
 }
 
 function AsignarCUV(pedido) {
+    debugger
+    var _cuv = $.trim($("#txtCUVDescripcion").val());
+
     pedido = pedido || new Object();
 
     $("#divMotivo").html("");
