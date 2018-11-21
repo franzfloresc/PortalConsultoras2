@@ -359,6 +359,7 @@ function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosS
     var objData = {};
     if (response.success) {
         
+        console.log('cantidadTotal-0', response);
         response.totalOfertas = response.cantidadTotal0;
         response.listaOfertas = Clone(response.lista || []);
         response.listaOfertasPerdio = Clone(response.listaPerdio || []);
@@ -442,6 +443,7 @@ function CargarShowroomMobile(busquedaModel) {
 function ResolverCargarProductosShowRoomPromiseMobile(response, busquedaModel) {
     if (response.success) {
 
+        console.log('cantidadTotal-0', response);
         response.totalOfertas = response.cantidadTotal0;
         response.listaOfertas = Clone(response.lista || []);
         response.listaOfertasPerdio = Clone(response.listaPerdio || []);
