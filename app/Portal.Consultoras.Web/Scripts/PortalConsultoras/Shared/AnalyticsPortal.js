@@ -468,6 +468,7 @@ var AnalyticsPortalModule = (function () {
                 case "Landing GND": !esFicha ? contenedor = _texto.contenedor : contenedor = contenedorFicha; break;
                 case "Landing Herramientas de Venta": !esFicha ? contenedor = _texto.contenedor : contenedor = contenedorFicha; break;
                 case "Landing Liquidación": !esFicha ? contenedor = _texto.contenedor : contenedor = contenedorFicha; break;
+                case "Landing Ganadoras": !esFicha ? contenedor = _texto.contenedorMasGanadoras : contenedor = contenedorFicha; break;
                 case "Buscador": contenedor = "Buscador"; break;
 
             }

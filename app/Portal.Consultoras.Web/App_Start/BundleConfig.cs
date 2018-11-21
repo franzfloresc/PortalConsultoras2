@@ -174,11 +174,11 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Shared/ConstantesModule.js",
                 "~/Scripts/PortalConsultoras/Shared/AnalyticsPortal.js"
             ));
-            
+
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mixto/BusquedaProducto").Include(
                 "~/Scripts/PortalConsultoras/Buscador/BusquedaProductoModule.js"
             ));
-            
+
             bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/Fuzemodal").Include(
                 "~/Scripts/fuzemodal-1.3/fuzemodal-1.3.css"
             ));
@@ -586,14 +586,20 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/Pedido").Include(
                 "~/Content/Css/Mobile/RevistaDigital/Bienvenido-Pedido-Catalogo.css",
-                "~/Content/Css/Mobile/ProductoListado/CajaProducto.css"
+                "~/Content/Css/Mobile/ProductoListado/CajaProducto.css",
+                "~/Content/Css/Mobile/Pedido/PedidoGrilla.css"
+            ));
+
+            bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/PedidoDetalle").Include(
+                "~/Content/Css/Site/slick-pedido.css",
+                "~/Content/Css/Mobile/Pedido/PedidoGrilla.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/Catalogo").Include(
                 "~/Content/Css/Mobile/jquery.tag-editor.css",
                 "~/Content/Css/Mobile/RevistaDigital/Bienvenido-Pedido-Catalogo.css"
             ));
-            
+
 
             #region RevistaDigital
 
@@ -639,7 +645,7 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/Landing/producto.landing.css",
                 "~/Content/Css/Site/ProductoListado/CajaProducto.css"
             ));
-            
+
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mobile/RevistaDigital-Informativa").Include(
                 "~/Scripts/implements/youtube.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
@@ -700,7 +706,7 @@ namespace Portal.Consultoras.Web
             ));
 
             #endregion
-            
+
             #region DetalleEstrategia
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mixto/EstrategiaAgregar").Include(
