@@ -29725,6 +29725,8 @@ h1#penmostreo .campana {
 .select_reclamo,
 .elige_num_pedido,
 .codigo_reclamo,
+.contenedor_descripcion_reclamo,
+.descripcion_reclamo,
 .descripcion_reclamo + .chosen-container,
 .rango_reclamo,
 .rango_reclamo .liquidacion_rango_cantidad_pedido,
@@ -29737,6 +29739,7 @@ h1#penmostreo .campana {
 .select_reclamo,
 .elige_num_pedido,
 .codigo_reclamo,
+.descripcion_reclamo,
 .descripcion_reclamo + .chosen-container,
 .rango_reclamo
 {
@@ -29753,6 +29756,7 @@ h1#penmostreo .campana {
 
 .select_reclamo,
 .elige_num_pedido,
+.descripcion_reclamo,
 .descripcion_reclamo + .chosen-container .chosen-single
 {
     -moz-appearance:none;
@@ -29774,7 +29778,28 @@ h1#penmostreo .campana {
     width:74px;
 }
 
-.descripcion_reclamo + .chosen-container{
+.contenedor_descripcion_reclamo{
+    position:relative;
+    margin-right:22px;
+}
+
+.descripcion_reclamo_fake_placeholder{
+    display: block;
+    width: 100%;
+    margin: auto 0;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 20px;
+    height: 47px;
+    line-height: 44px;
+    font-size: 16px;
+}
+
+.contenedor_descripcion_reclamo,
+.descripcion_reclamo,
+.descripcion_reclamo + .chosen-container
+{
     width:493px!important;
     padding:0;
     text-align:left;
@@ -29802,7 +29827,9 @@ h1#penmostreo .campana {
     box-shadow: none!important;
 }
 
-.descripcion_reclamo + .chosen-container .chosen-single.chosen-default{
+.descripcion_reclamo_fake_placeholder,
+.descripcion_reclamo + .chosen-container .chosen-single.chosen-default
+{
     color:#808080!important;
 }
 

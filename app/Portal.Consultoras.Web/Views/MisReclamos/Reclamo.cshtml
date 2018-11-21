@@ -50,8 +50,10 @@
                         <input type="text" placeholder="Código" class="codigo_reclamo ValidaNumeral ValidaPasteNumeral valid" id="txtCUV" />
                         <select class="elige_num_pedido" id="ddlnumPedido" name="numPedido" required="required" style="display:none;">
                         </select>
-                        <select class="chosen-select descripcion_reclamo" data-placeholder="¿Qué código o Descripción del producto tiene?" id="txtCUVDescripcion" name="txtCUVDescripcion" required="required">
-                        </select>
+                        <div class="contenedor_descripcion_reclamo">
+                            <select class="chosen-select descripcion_reclamo" data-placeholder="¿Qué código o Descripción del producto tiene?" id="txtCUVDescripcion" name="txtCUVDescripcion" required="required"></select>
+                            <span class="descripcion_reclamo_fake_placeholder">¿Qué código o Descripción del producto tiene?</span>
+                        </div>
                         @*<input type="text" placeholder="Descripción del producto" class="descripcion_reclamo" id="txtCUVDescripcion" readonly="readonly" />*@
                         <div class="rango_reclamo" data-cantidad-contenedor="">
                             <input type="text" name="Cantidad" id="txtCantidad" data-input="cantidad" value="1" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid" onfocus="SeleccionarContenido(this) ">
