@@ -1,11 +1,7 @@
 ﻿using Portal.Consultoras.Common;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Entities
 {
@@ -24,6 +20,8 @@ namespace Portal.Consultoras.Entities
         public DateTime FechaCreate { get; set; }
         [DataMember]
         public bool ActiveMontoTooltip { get; set; }
+        [DataMember]
+        public bool ActiveCuponElectivo { get; set; }
         [DataMember]
         public bool Active { get; set; }
 
@@ -44,6 +42,7 @@ namespace Portal.Consultoras.Entities
             ActiveMontoTooltip = row.ToBoolean("ActiveTooltipMonto");
             Active = row.ToBoolean("Active");
             FechaCreate = row.ToDateTime("FechaCreate");
+            ActiveCuponElectivo = row.ToBoolean("IND_CUPO_ELEC");
         }
     }
 }

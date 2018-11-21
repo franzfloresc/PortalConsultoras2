@@ -344,6 +344,24 @@
   <wsdl:message name="IPedidoService_ObtenerPagoEnLineaNumeroOrden_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerPagoEnLineaNumeroOrdenResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerPagoEnLineaConfiguracion_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerPagoEnLineaConfiguracion" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerPagoEnLineaConfiguracion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerPagoEnLineaConfiguracionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerPagoEnLineaVisaConfiguracion_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerPagoEnLineaVisaConfiguracion" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerPagoEnLineaVisaConfiguracion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerPagoEnLineaVisaConfiguracionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_RegistrarPagoEnLineaVisa_InputMessage">
+    <wsdl:part name="parameters" element="tns:RegistrarPagoEnLineaVisa" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_RegistrarPagoEnLineaVisa_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RegistrarPagoEnLineaVisaResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_InsertPedidoWebSet_InputMessage">
     <wsdl:part name="parameters" element="tns:InsertPedidoWebSet" />
   </wsdl:message>
@@ -415,6 +433,12 @@
   </wsdl:message>
   <wsdl:message name="IPedidoService_GetEstrategiaPremiosTippingPoint_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetEstrategiaPremiosTippingPointResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetEstrategiaPremiosElectivos_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetEstrategiaPremiosElectivos" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetEstrategiaPremiosElectivos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetEstrategiaPremiosElectivosResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_GetActivarPremioNuevas_InputMessage">
     <wsdl:part name="parameters" element="tns:GetActivarPremioNuevas" />
@@ -2675,6 +2699,18 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaNumeroOrden" message="tns:IPedidoService_ObtenerPagoEnLineaNumeroOrden_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaNumeroOrdenResponse" message="tns:IPedidoService_ObtenerPagoEnLineaNumeroOrden_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="ObtenerPagoEnLineaConfiguracion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaConfiguracion" message="tns:IPedidoService_ObtenerPagoEnLineaConfiguracion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaConfiguracionResponse" message="tns:IPedidoService_ObtenerPagoEnLineaConfiguracion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPagoEnLineaVisaConfiguracion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaVisaConfiguracion" message="tns:IPedidoService_ObtenerPagoEnLineaVisaConfiguracion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaVisaConfiguracionResponse" message="tns:IPedidoService_ObtenerPagoEnLineaVisaConfiguracion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarPagoEnLineaVisa">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/RegistrarPagoEnLineaVisa" message="tns:IPedidoService_RegistrarPagoEnLineaVisa_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/RegistrarPagoEnLineaVisaResponse" message="tns:IPedidoService_RegistrarPagoEnLineaVisa_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="InsertPedidoWebSet">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertPedidoWebSet" message="tns:IPedidoService_InsertPedidoWebSet_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsertPedidoWebSetResponse" message="tns:IPedidoService_InsertPedidoWebSet_OutputMessage" />
@@ -2722,6 +2758,10 @@
     <wsdl:operation name="GetEstrategiaPremiosTippingPoint">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetEstrategiaPremiosTippingPoint" message="tns:IPedidoService_GetEstrategiaPremiosTippingPoint_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetEstrategiaPremiosTippingPointResponse" message="tns:IPedidoService_GetEstrategiaPremiosTippingPoint_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEstrategiaPremiosElectivos">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetEstrategiaPremiosElectivos" message="tns:IPedidoService_GetEstrategiaPremiosElectivos_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetEstrategiaPremiosElectivosResponse" message="tns:IPedidoService_GetEstrategiaPremiosElectivos_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetActivarPremioNuevas">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetActivarPremioNuevas" message="tns:IPedidoService_GetActivarPremioNuevas_InputMessage" />
@@ -4548,6 +4588,33 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ObtenerPagoEnLineaConfiguracion">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaConfiguracion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPagoEnLineaVisaConfiguracion">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaVisaConfiguracion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarPagoEnLineaVisa">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/RegistrarPagoEnLineaVisa" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="InsertPedidoWebSet">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertPedidoWebSet" style="document" />
       <wsdl:input>
@@ -4649,6 +4716,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetEstrategiaPremiosTippingPoint">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetEstrategiaPremiosTippingPoint" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEstrategiaPremiosElectivos">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetEstrategiaPremiosElectivos" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -8197,6 +8273,33 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ObtenerPagoEnLineaConfiguracion">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaConfiguracion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPagoEnLineaVisaConfiguracion">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaVisaConfiguracion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarPagoEnLineaVisa">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/RegistrarPagoEnLineaVisa" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="InsertPedidoWebSet">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertPedidoWebSet" style="document" />
       <wsdl:input>
@@ -8298,6 +8401,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetEstrategiaPremiosTippingPoint">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetEstrategiaPremiosTippingPoint" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEstrategiaPremiosElectivos">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetEstrategiaPremiosElectivos" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

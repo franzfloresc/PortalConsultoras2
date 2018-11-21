@@ -546,6 +546,7 @@
     <Compile Include="Models\PagoEnLinea\DataToken.cs" />
     <Compile Include="Models\PagoEnLinea\PagoEnLineaModel.cs" />
     <Compile Include="Models\PagoEnLinea\PagoVisaModel.cs" />
+    <Compile Include="Models\PremioElectivoModel.cs" />
     <Compile Include="Models\ProductoComentarioModel.cs" />
     <Compile Include="Models\CompartirRedesSocialesModel.cs" />
     <Compile Include="Models\ComunModel.cs" />

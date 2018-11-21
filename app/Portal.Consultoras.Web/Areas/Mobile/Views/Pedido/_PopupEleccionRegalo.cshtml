@@ -8,78 +8,12 @@
         </div>
         <h2 class="titulo_popup_eleccion_regalo_programaNuevas">
             <span class="mensaje_titulo_popup_eleccion_regalo">¡Puedes elegir tu regalo del Programa de Nuevas ahora!</span>
-            <span>Será tuyo si pasas S/250.00</span>
+            <span>Será tuyo si pasas <span id="montoPremioMeta"></span></span>
         </h2>
     </div>
     <div class="popup_eleccion_regalo_programaNuevas_contenido w-100">
         <div class="opciones_regalo_programaNuevas_wrapper w-100">
             <div id="carouselOpcionesRegalo" class="opciones_regalo_carousel_programaNuevas slider center">
-                <div class="opcion_regalo_carousel_programaNuevas">
-                    <div class="img_regalo_carousel">
-                        <img src="https://d1y60eoca8fkyl.cloudfront.net/Matriz/PE/PE_20008801020181042835_pnrknkwpyd.png" alt="" />
-                    </div>
-                    <div class="marca_producto text-uppercase">
-                        Ésika
-                    </div>
-                    <div class="descrip_regalo_carousel">
-                        Expression 50 ml
-                    </div>
-                    <button class="btn_elegir_regalo text-uppercase">
-                        Elegir
-                    </button>
-                    <div class="mensaje_regalo_elegido">
-                        <span class="icono_check_regalo_elegido">
-                            <img src="@Url.Content("~/Content/Images/check_regalo_elegido.svg")" alt="" />
-                        </span>
-                        <span class="texto_regalo_elegido text-uppercase">
-                            Regalo Elegido
-                        </span>
-                    </div>
-                </div>
-                <div class="opcion_regalo_carousel_programaNuevas">
-                    <div class="img_regalo_carousel">
-                        <img src="https://d1y60eoca8fkyl.cloudfront.net/Matriz/PE/PE_20008801020181042835_pnrknkwpyd.png" alt="" />
-                    </div>
-                    <div class="marca_producto text-uppercase">
-                        Ésika
-                    </div>
-                    <div class="descrip_regalo_carousel">
-                        Expression 50 ml
-                    </div>
-                    <button class="btn_elegir_regalo text-uppercase">
-                        Elegir
-                    </button>
-                    <div class="mensaje_regalo_elegido">
-                        <span class="icono_check_regalo_elegido">
-                            <img src="@Url.Content("~/Content/Images/check_regalo_elegido.svg")" alt="" />
-                        </span>
-                        <span class="texto_regalo_elegido text-uppercase">
-                            Regalo Elegido
-                        </span>
-                    </div>
-                </div>
-                <div class="opcion_regalo_carousel_programaNuevas">
-                    <div class="img_regalo_carousel">
-                        <img src="https://d1y60eoca8fkyl.cloudfront.net/Matriz/PE/PE_20008801020181042835_pnrknkwpyd.png" alt="" />
-                    </div>
-                    <div class="marca_producto text-uppercase">
-                        Ésika
-                    </div>
-                    <div class="descrip_regalo_carousel">
-                        Expression 50 ml
-                    </div>
-                    <button class="btn_elegir_regalo text-uppercase">
-                        Elegir
-                    </button>
-                    <div class="mensaje_regalo_elegido">
-                        <span class="icono_check_regalo_elegido">
-                            <img src="@Url.Content("~/Content/Images/check_regalo_elegido.svg")" alt="" />
-                        </span>
-                        <span class="texto_regalo_elegido text-uppercase">
-                            Regalo Elegido
-                        </span>
-                    </div>
-                </div>
             </div>
             <a class="enlace_elegir_otro_regalo" title="Elegir otro regalo">
                 Cambiar Producto
@@ -90,3 +24,29 @@
         </a>
     </div>
 </div>
+<script id="premios-electivos-template" type="text/x-handlebars-template">
+    {{#each lista}}
+    <div class="opcion_regalo_carousel_programaNuevas" data-item-cuv="{{CUV2}}">
+        <div class="img_regalo_carousel">
+            <img src="{{ImagenURL}}" alt="" />
+        </div>
+        <div class="marca_producto text-uppercase">
+            Esika @*{{DescripcionMarca}}*@
+        </div>
+        <div class="descrip_regalo_carousel">
+            {{DescripcionResumen}}
+        </div>
+        <button class="btn_elegir_regalo text-uppercase">
+            Elegir
+        </button>
+        <div class="mensaje_regalo_elegido">
+            <span class="icono_check_regalo_elegido">
+                <img src="@Url.Content("~/Content/Images/check_regalo_elegido.svg")" alt="" />
+            </span>
+            <span class="texto_regalo_elegido text-uppercase">
+                Regalo Elegido
+            </span>
+        </div>
+    </div>
+    {{/each}}
+</script>

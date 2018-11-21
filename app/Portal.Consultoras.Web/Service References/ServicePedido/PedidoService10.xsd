@@ -545,6 +545,7 @@
       <xs:element minOccurs="0" name="TieneLoginExterno" type="xs:boolean" />
       <xs:element minOccurs="0" name="TieneMasVendidos" type="xs:int" />
       <xs:element minOccurs="0" name="TieneOfertaLog" type="xs:int" />
+      <xs:element minOccurs="0" name="TienePagoEnLinea" type="xs:boolean" />
       <xs:element minOccurs="0" name="TieneValidacionMontoMaximo" type="xs:boolean" />
       <xs:element minOccurs="0" name="TipoOferta2" type="xs:int" />
       <xs:element minOccurs="0" name="TipoUsuario" type="xs:short" />
@@ -583,6 +584,7 @@
       <xs:element minOccurs="0" name="IndicadorConsultoraDummy" type="xs:boolean" />
       <xs:element minOccurs="0" name="MostrarBotonVerTodosBuscador" type="xs:boolean" />
       <xs:element minOccurs="0" name="MostrarBuscador" type="xs:boolean" />
+      <xs:element minOccurs="0" name="MostrarOpcionesOrdenamiento" type="xs:boolean" />
       <xs:element minOccurs="0" name="TotalResultadosBuscador" type="xs:short" />
     </xs:sequence>
   </xs:complexType>
@@ -967,6 +969,7 @@
           <xs:element minOccurs="0" name="CodigoTipoEstrategia" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="ColorFondo" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="ConsultoraID" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CuponElectivoDefault" type="xs:boolean" />
           <xs:element minOccurs="0" name="DescripcionCUV2" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="DescripcionCategoria" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="DescripcionCortaCUV2" nillable="true" type="xs:string" />
@@ -1129,6 +1132,15 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfBEProducto" nillable="true" type="tns:ArrayOfBEProducto" />
+  <xs:complexType name="BERespuestaServicio">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Data" nillable="true" type="xs:anyType" />
+      <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Succcess" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BERespuestaServicio" nillable="true" type="tns:BERespuestaServicio" />
   <xs:complexType name="BEPedidoWebDetalleParametros">
     <xs:sequence>
       <xs:element minOccurs="0" name="AgruparSet" type="xs:boolean" />
@@ -1186,6 +1198,7 @@
   <xs:complexType name="BEActivarPremioNuevas">
     <xs:sequence>
       <xs:element minOccurs="0" name="Active" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ActiveCuponElectivo" type="xs:boolean" />
       <xs:element minOccurs="0" name="ActiveMontoTooltip" type="xs:boolean" />
       <xs:element minOccurs="0" name="ActiveTooltip" type="xs:boolean" />
       <xs:element minOccurs="0" name="AnioCampana" type="xs:int" />

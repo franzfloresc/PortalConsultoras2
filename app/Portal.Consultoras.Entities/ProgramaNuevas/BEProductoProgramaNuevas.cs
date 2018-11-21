@@ -35,6 +35,10 @@ namespace Portal.Consultoras.Entities.ProgramaNuevas
         public decimal PrecioUnitario { get; set; }
         [DataMember]
         public int NumeroCampanasVigentes { get; set; }
+        [DataMember]
+        public bool EsCuponElectivo { get; set; }
+        [DataMember]
+        public bool EsCuponElectivoDefault { get; set; }
 
         public BEProductoProgramaNuevas(IDataRecord row)
         {
@@ -49,6 +53,8 @@ namespace Portal.Consultoras.Entities.ProgramaNuevas
             IndicadorCuponIndependiente = row.ToBoolean("IndicadorCuponIndependiente");
             PrecioUnitario = row.ToDecimal("PrecioUnitario");
             NumeroCampanasVigentes = row.ToInt32("NumeroCampanasVigentes");
+            EsCuponElectivo = row.ToBoolean("IND_CUPO_ELEC");
+            EsCuponElectivoDefault = row.ToBoolean("INC_CUPO_ELEC_DEFA");
         }
     }
 }

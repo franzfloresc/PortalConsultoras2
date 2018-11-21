@@ -3,6 +3,7 @@ var listaMensajeMeta = listaMensajeMeta || new Array();
 var dataBarra = dataBarra || new Object();
 var belcorp = belcorp || {};
 var mtoLogroBarra = 0;
+var premioSelected = false;
 belcorp.barra = belcorp.barra || {};
 belcorp.barra.settings = belcorp.barra.settings || {};
 belcorp.barra.settings = {
@@ -563,6 +564,7 @@ function MostrarBarra(datax, destino) {
     $("#divBarra #divBarraMensajeLogrado .mensaje_barra").html(objMsg.Titulo.replace("#porcentaje", valPor).replace("#valor", valorMonto));
 
     if (belcorp.barra.settings.isMobile && tp > 0) {
+        $('#montoPremioMeta').html(variablesPortal.SimboloMoneda + " " + dataBarra.TippingPointStr);
         cargarMontoBanderasMobile(dataBarra);
 
         $('#divBarra .monto_minimo').show();
@@ -646,19 +648,7 @@ function MostrarBarra(datax, destino) {
     return true;
 }
 
-$('.btn_elegir_regalo').click(function () {
-    seleccionRegaloProgramaNuevas($(this));
-});
-
-$('.enlace_elegir_otro_regalo').click(function (e) {
-    e.preventDefault();
-    cambiarEleccionRegaloProgramaNuevas();
-});
-
-//if ($('.monto_maximo').css('display') == 'none') {
-//    $('.tipo_montos_y_regalo_tippingPoint').find('.w-100').css('justify-content', 'flex-end');
-//    $('.monto_minimo').css('margin-right', '51px');
-//}
+cargarPremiosElectivos();
 
 function cargarMontoBanderasMobile(barra) {
     $('#divMontoMinimo').html(variablesPortal.SimboloMoneda + ' ' + barra.MontoMinimoStr);
@@ -672,15 +662,94 @@ function cargarMontoBanderasMobile(barra) {
         divMontoTp.hide();
     }
 }
+
 function cargarPopupEleccionRegalo() {
+    $('#popupEleccionRegalo').fadeIn(200);
     setTimeout(function () {
-        $('#popupEleccionRegalo').fadeIn(200);
         armarCarouselRegalosDisponiblesProgramasNuevas();
+        
     }, 150);
 }
 
+function getPremioElectivos() {
+    var dfd = jQuery.Deferred();
+
+    jQuery.ajax({
+        type: "POST",
+        url: baseUrl + "Pedido/CargarPremiosElectivos",
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        async: true,
+        cache: false,    
+        success: function(data) {
+            dfd.resolve(data);
+        },
+        error: function(data, error) {
+            dfd.reject(data, error);
+        }
+    });
+
+    return dfd.promise();
+}
+
+function cargarPremiosElectivos() {
+    var data = {
+        lista: [
+            {
+            CUV2: '95494',
+            ImagenURL: 'https://d1y60eoca8fkyl.cloudfront.net/Matriz/PE/PE_20008801020181042835_pnrknkwpyd.png',
+            DescripcionMarca: 'Esika',
+            DescripcionCortada: 'Expression 50 ml',
+            Selected: false
+        },
+            {
+                CUV2: '95495',
+                ImagenURL: 'https://d1y60eoca8fkyl.cloudfront.net/Matriz/PE/PE_20008801020181042835_pnrknkwpyd.png',
+                DescripcionMarca: 'Esika',
+                DescripcionCortada: 'Expression 65 ml',
+                Selected: false
+            },
+            {
+                CUV2: '95496',
+                ImagenURL: 'https://d1y60eoca8fkyl.cloudfront.net/Matriz/PE/PE_20008801020181042835_pnrknkwpyd.png',
+                DescripcionMarca: 'Esika',
+                DescripcionCortada: 'Expression 44 ml',
+                Selected: true
+            }]
+    };
+    getPremioElectivos().done(function (response) {
+        var data = {
+            lista: response
+        };
+
+        console.log(data);
+        SetHandlebars("#premios-electivos-template", data, '#carouselOpcionesRegalo');
+        loadCarruselPremiosEvents();
+    });
+}
+
+function loadCarruselPremiosEvents() {
+    $('.btn_elegir_regalo').click(function () {
+        if (premioSelected) {
+            return;
+        }
+        seleccionRegaloProgramaNuevas($(this));
+    });
+
+    $('.enlace_elegir_otro_regalo').click(function (e) {
+        e.preventDefault();
+        cambiarEleccionRegaloProgramaNuevas();
+    });
+}
+
 function armarCarouselRegalosDisponiblesProgramasNuevas() {
-    $('#carouselOpcionesRegalo').slick({
+    var carrusel = $('#carouselOpcionesRegalo');
+
+    if (carrusel[0].slick) {
+        return;
+    }
+
+    carrusel.slick({
         infinite: true,
         slidesToShow: 1,
         slidesToScroll: 1,
@@ -702,7 +771,8 @@ function seleccionRegaloProgramaNuevas(regaloProgramaNuevas) {
         $('.mensaje_titulo_popup_eleccion_regalo').fadeIn(200);
         $('.enlace_elegir_otro_regalo').fadeIn(100);
         $('.enlace_elegir_otro_regalo').css('display', 'block');
-    }, 150);    
+    }, 150);
+    premioSelected = true;
 }
 
 function cambiarEleccionRegaloProgramaNuevas() {
@@ -715,6 +785,7 @@ function cambiarEleccionRegaloProgramaNuevas() {
         $('.btn_elegir_regalo').fadeIn(150);
         $('.enlace_elegir_otro_regalo').fadeOut(100);
     }, 150);
+    premioSelected = false;
 }
 
 function showPopupNivelSuperado(barra, prevLogro) {

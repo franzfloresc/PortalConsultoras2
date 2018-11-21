@@ -4487,6 +4487,15 @@ namespace Portal.Consultoras.Web.Controllers
 
         #endregion
 
+        public JsonResult CargarPremiosElectivos()
+        {
+            var tippingPoint = _programaNuevasProvider.GetConfiguracion();
+
+            var result = _programaNuevasProvider.GetPremiosElectivos(tippingPoint.CodigoPrograma);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
         public JsonResult EsPedidoDetalleElecMultiple(string cuv)
         {

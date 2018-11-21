@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
-using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Helpers;
