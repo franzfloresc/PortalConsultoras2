@@ -390,7 +390,8 @@ function BuscarCUV(CUV) {
 
             if (data.detalle == null) return false;
 
-            if (data.detalle.length > 1) { 
+            if (data.detalle.length > 1) {
+                $('.descripcion_reclamo_fake_placeholder').hide();
                 $('#txtCUVDescripcion').append($('<option></option>').val("").html(""));
                 $(data.detalle).each(function (index, item) {
                     $('#txtCUVDescripcion').append($('<option></option>').val(item.CUV).html(item.CUV + " - " + item.DescripcionProd));
