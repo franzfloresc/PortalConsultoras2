@@ -177,6 +177,7 @@ $(document).ready(function () {
     });
 
     $("body").on("click", ".div-carousel-rd-prev, .div-carousel-rd-next", function () {
+        
         clickedSlider = 1;
         CallAnalitycsClickArrow();
     });
@@ -656,7 +657,7 @@ function RDDetalleVolver(campaniaId) {
     window.location = urlVolver + "#LAN";
 }
 
-function CheckClickCarrousel(action, source, seccionName) {
+function CheckClickCarrousel(action, source, seccionName, opcion) {
     
     if (action === "next") {
         sliderWay = 1;
@@ -667,10 +668,11 @@ function CheckClickCarrousel(action, source, seccionName) {
     if (source === "normal") {
         clickedSlider = 1;
     }
-    CallAnalitycsClickArrow(seccionName);
+    opcion = opcion || "";
+    CallAnalitycsClickArrow(seccionName, opcion);
 }
 
-function CallAnalitycsClickArrow(seccionName) {
+function CallAnalitycsClickArrow(seccionName, opcion) {
     
     if (sliderWay !== 0 && clickedSlider !== 0) {
         if (seccionName === "MG") {
