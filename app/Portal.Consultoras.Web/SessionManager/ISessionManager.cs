@@ -223,6 +223,10 @@ namespace Portal.Consultoras.Web.SessionManager
 
         void SetDetallesPedidoSetAgrupado(List<BEPedidoWebDetalle> detallesPedidoWeb);
 
+        void SetUrlVc(int id);
+
+        int GetUrlVc();
+
         void SetMiAcademia(int id);
 
         int GetMiAcademia();
@@ -470,7 +474,7 @@ namespace Portal.Consultoras.Web.SessionManager
         List<List<BEEstadoServicio>> GetListaRango();
 
         BEUsuarioDatos GetDatosUsuario();
-
+        
         IMasGanadoras MasGanadoras { get;  }
         bool GetMostrarBannerNuevas();
 

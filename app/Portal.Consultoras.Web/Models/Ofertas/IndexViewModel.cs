@@ -11,5 +11,7 @@ namespace Portal.Consultoras.Web.Models.Ofertas
         public EstrategiaPersonalizadaModel EstrategiaPersonalizada { get; set; }
         public string IconoLLuvia { get; set; }
         public VariablesGeneralEstrategiaModel VariablesEstrategia { get; set; }
+        public int vc_sinProducto{ get; set; }
+
     }
 }

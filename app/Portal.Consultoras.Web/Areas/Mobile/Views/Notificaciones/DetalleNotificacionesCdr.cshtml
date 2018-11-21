@@ -1,4 +1,4 @@
-﻿@using Portal.Consultoras.Web.Helpers
+﻿@using Portal.Consultoras.Web.CustomHelpers
 @using Portal.Consultoras.Common
 @model Portal.Consultoras.Web.Models.CDRWebModel
 
@@ -20,7 +20,7 @@
 }
 
 <div class="titulo_mobile">
-    @{  var mobileConfiguracion = Html.MobileAppConfiguracion();
+    @{ var mobileConfiguracion = Html.MobileAppConfiguracion();
         if (mobileConfiguracion.MostrarBotonAtras)
         {
             <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
@@ -141,10 +141,10 @@
 
                     <div class="detalle_cdr_solucion">
                         @if ((new List<string> {
-                                        Constantes.CodigoOperacionCDR.Canje,
-                                        Constantes.CodigoOperacionCDR.Devolucion,
-                                        Constantes.CodigoOperacionCDR.Faltante,
-                                        Constantes.CodigoOperacionCDR.FaltanteAbono }
+                                                Constantes.CodigoOperacionCDR.Canje,
+                                                Constantes.CodigoOperacionCDR.Devolucion,
+                                                Constantes.CodigoOperacionCDR.Faltante,
+                                                Constantes.CodigoOperacionCDR.FaltanteAbono }
                             ).Contains(item.CodigoOperacion))
                         {
                             <span class="detalle_cdr_solucion_titulo color_marca tipografia_lato_bold">
