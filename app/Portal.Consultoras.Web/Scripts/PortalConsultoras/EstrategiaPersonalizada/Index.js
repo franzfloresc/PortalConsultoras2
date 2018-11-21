@@ -333,7 +333,7 @@ function SeccionMostrarProductos(data) {
             $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeIn();
 
             $("#" + data.Seccion.Codigo).find("[data-productos-info] [data-productos-total]").html(data.CantidadProductos);
-            $("#" + data.Seccion.Codigo).find("[data-productos-info]").fadeIn();
+            $("#" + data.Seccion.Codigo).find(sElementos.contadorProductos).fadeIn();
 
         } else {
             $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeOut();
@@ -387,6 +387,8 @@ function SeccionMostrarProductos(data) {
             var cantidadTotal = 0;
             var cantidadAMostrar = parseInt($("#" + data.Seccion.Codigo).find("[data-productos-info] [data-productos-mostrar]").html());
 
+            console.log('cantidadTotal-0', cantidadAMostrar, data);
+
             if (data.Seccion.Codigo === CONS_CODIGO_SECCION.SR) {
                 cantidadTotal = data.cantidadTotal0;
             }
@@ -397,20 +399,25 @@ function SeccionMostrarProductos(data) {
             if (cantidadTotal <= cantidadAMostrar) {
                 //if (data.cantidadTotal <= cantidadAMostrar) {
                 $("#" + data.Seccion.Codigo).find("[data-productos-info] [data-productos-mostrar]").html(cantidadTotal);
-                if (data.Seccion.Codigo === CONS_CODIGO_SECCION.MG || data.Seccion.Codigo === CONS_CODIGO_SECCION.SR || data.Seccion.Codigo === CONS_CODIGO_SECCION.RD) {
+                if (data.Seccion.Codigo === CONS_CODIGO_SECCION.MG
+                    || data.Seccion.Codigo === CONS_CODIGO_SECCION.SR
+                    || data.Seccion.Codigo === CONS_CODIGO_SECCION.RD) {
                     $("#" + data.Seccion.Codigo).find(sElementos.verMas).remove();
                     $("#" + data.Seccion.Codigo).find(sElementos.contadorProductos).remove();
                 }
             }
             else {
-                if (data.Seccion.Codigo === CONS_CODIGO_SECCION.MG || data.Seccion.Codigo === CONS_CODIGO_SECCION.SR || data.Seccion.Codigo === CONS_CODIGO_SECCION.RD) {
+                if (data.Seccion.Codigo === CONS_CODIGO_SECCION.MG
+                    || data.Seccion.Codigo === CONS_CODIGO_SECCION.SR
+                    || data.Seccion.Codigo === CONS_CODIGO_SECCION.RD) {
+                    $("#" + data.Seccion.Codigo).find(sElementos.verMas).show();
                     if (data.objBannerCajaProducto != undefined) {
                         data.lista.push(data.objBannerCajaProducto);
                     }
                 }
             }
             $("#" + data.Seccion.Codigo).find("[data-productos-info] [data-productos-total]").html(cantidadTotal);
-            $("#" + data.Seccion.Codigo).find("[data-productos-info]").fadeIn();
+            $("#" + data.Seccion.Codigo).find(sElementos.contadorProductos).fadeIn();
         }
         else {
             $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeOut();
