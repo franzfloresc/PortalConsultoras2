@@ -355,6 +355,7 @@ namespace Portal.Consultoras.Common
             public const string PROL_CalculoMontosProl = "PROL_CalculoMontosProl";
 
             //  CDR
+            public const string CDRProductoFacturado = "CDRProductoFacturado";
             public const string CDRCampanias = "CDRCampanias";
             public const string CDRMotivoOperacion = "CDRMotivoOperacion";
             public const string CDRPedidosFacturado = "CDRPedidosFacturado";

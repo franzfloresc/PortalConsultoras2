@@ -130,9 +130,49 @@ namespace Portal.Consultoras.Web.Controllers
             return View(model);
         }
 
-        public JsonResult ObtenerPedidoID(int CampaniaID)
+        public JsonResult ObtenerListaPedidoID(int CampaniaID)
         {
-            return null;
+            var listaNroPedidos = new List<CampaniaModel>();
+            string mensaje = "No se ha encontrado su número de pedido, vuelva a intentarlo otra vez seleccionando la campaña.";
+            try
+            {
+                var listaPedidoFacturados = SessionManager.GetCDRPedidoFacturado();
+                listaPedidoFacturados = listaPedidoFacturados.Where(a => a.CampaniaID == CampaniaID).ToList();
+
+                var NroPedidos = new CampaniaModel();
+
+                if (listaPedidoFacturados.Count > 0)
+                {
+                    mensaje = "";
+                    foreach (var item in listaPedidoFacturados)
+                    {
+                        NroPedidos = new CampaniaModel
+                        {
+                            NumeroPedido = item.NumeroPedido,
+                            strNumeroPedido = "N° " + item.NumeroPedido + " - " + item.FechaFacturado,
+                            PedidoID = item.PedidoID                            
+                        };
+                        listaNroPedidos.Add(NroPedidos);
+                    }
+                }                               
+
+                return Json(new
+                {
+                    success = true,
+                    message = mensaje,
+                    datos = listaNroPedidos
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = mensaje,
+                    datos = listaNroPedidos,
+                }, JsonRequestBehavior.AllowGet);
+            }
+
         }
 
         public JsonResult ObtenerListaCuv(int pedidoID)
@@ -224,11 +264,12 @@ namespace Portal.Consultoras.Web.Controllers
 
         private bool TieneDetalleFueraFecha(BECDRWeb cdrWeb, MisReclamosModel model)
         {
-            var operacionValidaList = _cdrProvider.CargarMotivoOperacionPorDias(model, userData.FechaActualPais.Date, userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
-            return cdrWeb.CDRWebDetalle.Any(detalle =>
-            {
-                return !operacionValidaList.Any(operacion => operacion.CodigoOperacion == detalle.CodigoOperacion);
-            });
+            //var operacionValidaList = _cdrProvider.CargarMotivoOperacionPorDias(model, userData.FechaActualPais.Date, userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
+            //return cdrWeb.CDRWebDetalle.Any(detalle =>
+            //{
+            //    return !operacionValidaList.Any(operacion => operacion.CodigoOperacion == detalle.CodigoOperacion);
+            //});
+            return false;
         }
 
         private bool ValidarRegistro(MisReclamosModel model, out string mensajeError)
@@ -273,13 +314,14 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult BuscarCUV(MisReclamosModel model)
         {
-            var listaPedidoFacturados = CargarPedidoCUV(model);
+            var listaPedidoFacturados = SessionManager.GetCDRPedidoFacturado();
+            var listaCuv = listaPedidoFacturados.Where(a => a.CampaniaID == model.CampaniaID && a.PedidoID == model.PedidoID).FirstOrDefault() ?? new BEPedidoWeb();
 
             return Json(new
             {
                 success = true,
                 message = "",
-                detalle = listaPedidoFacturados
+                detalle = listaCuv.olstBEPedidoWebDetalle
             }, JsonRequestBehavior.AllowGet);
         }
 

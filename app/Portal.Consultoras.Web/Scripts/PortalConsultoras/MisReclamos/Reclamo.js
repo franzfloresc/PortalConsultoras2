@@ -9,21 +9,28 @@ var tipoDespacho = false;
 
 $(document).ready(function () {
 
-    $('.chosen-select').chosen();
-    $('.chosen-select-deselect').chosen({ allow_single_deselect: true });
+    //$('.chosen-select').chosen();
+    //$('.chosen-select-deselect').chosen({ allow_single_deselect: true });
 
-    $('.chosen-search-input').attr('placeholder', 'Buscar código o descripción');
+    //$('.chosen-search-input').attr('placeholder', 'Buscar código o descripción');
 
     $("#ddlCampania").on("change", function () {
         $("#txtPedidoID").val(0);
         $("#txtNumeroPedido").val(0);
-        BuscarCUV();
+        ListarPedidoID();
+        //BuscarCUV();
+    });
+    
+    $("#ddlnumPedido").on("change", function () {
+        cuvKeyUp = true;
+        $("#txtPedidoID").val($.trim($("#ddlnumPedido").val()));
+        BuscarCUV('');
     });
 
-    $("#txtCUV").on('keyup', function (evt) {
-        cuvKeyUp = true;
-        EvaluarCUV();
-    });
+    //$("#txtCUV").on('keyup', function (evt) {
+    //    cuvKeyUp = true;
+    //    EvaluarCUV();
+    //});
     $("#txtCUV2").on('keyup', function (evt) {
         cuv2KeyUp = true;
         EvaluarCUV2();
@@ -269,7 +276,7 @@ function EvaluarCUV() {
 
     $("#txtCantidad").attr("disabled", "disabled");
     $("#txtCantidad").attr("data-maxvalue", "0");
-    $("#txtCUVDescripcion").val("");
+    //$("#txtCUVDescripcion").val("");
 
     if (cuvPrevVal.length == 5) {
         BuscarCUV(cuvPrevVal);
@@ -297,19 +304,21 @@ function alertEMail_msg(message, titulo) {
     $('#alertEMailDialogMensajes').dialog('open');
 }
 
-function ObtenerPedidoID()
+function ListarPedidoID()
 {
+    $("#txtPedidoID").val("");
+    $("#txtNumeroPedido").val("");
+    $("#ddlnumPedido").html("");
     $("#txtCUVDescripcion").val("");
-    var CampaniaId = $.trim($("#ddlCampania").val()) || 0;
-    if (CampaniaId <= 0 || CUV.length < 5) return false;
+    var CampaniaId = $.trim($("#ddlCampania").val());
+
     var item = {
         CampaniaID: CampaniaId,
     };
-
     waitingDialog();
     jQuery.ajax({
         type: 'POST',
-        url: baseUrl + 'MisReclamos/ObtenerPedidoID',
+        url: baseUrl + 'MisReclamos/ObtenerListaPedidoID',
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(item),
@@ -323,14 +332,21 @@ function ObtenerPedidoID()
                 alert_msg(data.message);
                 return false;
             }
-            data.detalle = data.detalle || new Array();
 
-            if (data.detalle.length <= 0) {
-                $("#divMotivo").html("");
-                alert_msg("Producto no disponible para atención por este medio, comunícate con el <span class='enlace_chat belcorpChat'><a>Chat en Línea</a></span>.");
-            } else {
-                if (data.detalle.length > 1) PopupPedido(data.detalle);
-                else AsignarCUV(data.detalle[0]);
+            $('#ddlnumPedido').hide();
+            if (data.datos.length == 1) {
+                $("#txtPedidoID").val(data.datos[0].PedidoID);
+                $("#txtNumeroPedido").val(data.datos[0].NumeroPedido);
+            }
+            else if (data.datos.length > 1) {
+                $('#ddlnumPedido').append($('<option></option>').val(0).html("Elige un pedido"));
+                $(data.datos).each(function (index, item) {
+                    $('#ddlnumPedido').append($('<option></option>').val(item.PedidoID).html(item.strNumeroPedido));
+                });
+                $('#ddlnumPedido').show();
+            }
+            else {
+                alert_msg(data.message)
             }
         },
         error: function (data, error) {
@@ -343,7 +359,7 @@ function ObtenerPedidoID()
 function BuscarCUV(CUV) {
     CUV = $.trim(CUV) || $.trim($("#txtCUV").val());
     var CampaniaId = $.trim($("#ddlCampania").val()) || 0;
-    if (CampaniaId <= 0 || CUV.length < 5) return false;
+    //if (CampaniaId <= 0 || CUV.length < 5) return false;
 
     var PedidoId = $.trim($("#txtPedidoID").val()) || 0;
 
@@ -371,15 +387,29 @@ function BuscarCUV(CUV) {
                 alert_msg(data.message);
                 return false;
             }
-            data.detalle = data.detalle || new Array();
 
-            if (data.detalle.length <= 0) {
-                $("#divMotivo").html("");
-                alert_msg("Producto no disponible para atención por este medio, comunícate con el <span class='enlace_chat belcorpChat'><a>Chat en Línea</a></span>.");
-            } else {
-                if (data.detalle.length > 1) PopupPedido(data.detalle);
-                else AsignarCUV(data.detalle[0]);
+            if (data.detalle == null) return false;
+
+            if (data.detalle.length > 1) { 
+                $('#txtCUVDescripcion').append($('<option></option>').val("").html(""));
+                $(data.detalle).each(function (index, item) {
+                    $('#txtCUVDescripcion').append($('<option></option>').val(item.CUV).html(item.CUV + " - " + item.DescripcionProd));
+                });   
+                $('.chosen-select').chosen();
+                $('.chosen-select-deselect').chosen({ allow_single_deselect: true });
+
+                $('.chosen-search-input').attr('placeholder', 'Buscar código o descripción');
             }
+
+            //data.detalle = data.detalle || new Array();
+
+            //if (data.detalle.length <= 0) {
+            //    $("#divMotivo").html("");
+            //    alert_msg("Producto no disponible para atención por este medio, comunícate con el <span class='enlace_chat belcorpChat'><a>Chat en Línea</a></span>.");
+            //} else {
+            //    if (data.detalle.length > 1) PopupPedido(data.detalle);
+            //    else AsignarCUV(data.detalle[0]);
+            //}
         },
         error: function (data, error) {
             closeWaitingDialog();
