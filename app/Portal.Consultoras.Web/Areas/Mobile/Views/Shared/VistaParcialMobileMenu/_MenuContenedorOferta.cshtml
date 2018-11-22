@@ -38,7 +38,8 @@
                                    role="menu" 
                                    region="Lateral" 
                                    parent="Contenedor - @menuActivo.NombreOrigenPantalla" 
-                                   title="@menuhijo.DesktopSubTituloMenu">
+                                    @menuhijo.DesktopSubTituloMenu !=""?title="@menuhijo.DesktopSubTituloMenu":title="@menuhijo.DesktopTituloMenu">
+
 
                                     @if (!string.IsNullOrEmpty(menuhijo.DesktopLogoMenu))
                                     {
