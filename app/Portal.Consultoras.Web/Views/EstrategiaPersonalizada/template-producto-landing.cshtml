@@ -130,55 +130,60 @@
                                     {{#iff TipoAccionAgregar '>' @Constantes.TipoAccionAgregar.SinBoton}}
                                     <div>
                                         {{#iff TipoAccionAgregar '==' '@Constantes.TipoAccionAgregar.AgregaloPackNuevas'}}
-                                            <div class="texto_elige_tono"></div>
-                                            <div class="clear"></div>
-                                            <div class="liquidacion_rango_home">
-                                                <input type="text" value="1" size="2" maxlength="2" data-input='cantidad' disabled="disabled"
-                                                       class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
-                                                       style="width: 62px!important;border-right:1px solid #CCCCCC !important;opacity:0.5;" />
-                                            </div>
-                                            <a href="javascript:;" class="boton_Agregalo_home js-no-popup {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}"
-                                               onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, true, 1); ">
-                                                AGR&Eacute;GALO
-                                            </a>
+                                        <div class="texto_elige_tono"></div>
+                                        <div class="clear"></div>
+                                        <div class="liquidacion_rango_home">
+                                            <input type="text" value="1" size="2" maxlength="2" data-input='cantidad' disabled="disabled"
+                                                   class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
+                                                   style="width: 62px!important;border-right:1px solid #CCCCCC !important;opacity:0.5;" />
+                                        </div>
+                                        <a href="javascript:;" class="boton_Agregalo_home js-no-popup {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}"
+                                           onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, true, 1); ">
+                                            AGR&Eacute;GALO
+                                        </a>
                                         {{/iff}}
                                         {{#iff TipoAccionAgregar '==' '@Constantes.TipoAccionAgregar.AgregaloNormal'}}
                                             <div class="texto_elige_tono"></div>
                                             <div class="clear"></div>
                                             <div class="liquidacion_rango_home js-no-popup" data-cantidad-contenedor="">
-                                                <input type="text" value="1" size="2" maxlength="2" data-input='cantidad'
-                                                       class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup {{ClaseBloqueada}}"
-                                                       {{#iff ClaseBloqueada '!=' ''}} disbled="disable" {{/iff}} />
-                                                <div class="liquidacion_rango_right_pedido js-no-popup">
-                            	                    <a href="javascript:;" class="mas js-no-popup" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" data-bloqueada="{{ClaseBloqueada}}">
-                                	                    <img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt="" />
-                           	                     </a>
-                            	                    <a href="javascript:;" class="menos js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" data-bloqueada="{{ClaseBloqueada}}">
-                                	                    <img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt="" />
-                            	                    </a>
-                                                </div>
+                                                {{#iff TieneStock}}
+                                                    <input type="text" value="1" size="2" maxlength="2" data-input='cantidad'
+                                                    class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup {{ClaseBloqueada}}"
+                                                    {{#iff ClaseBloqueada '!=' ''}} disbled="disable" {{/iff}} />
+
+                                                    <div class="liquidacion_rango_right_pedido js-no-popup">
+                                                        <a href="javascript:;" class="mas js-no-popup" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" data-bloqueada="{{ClaseBloqueada}}">
+                                                            <img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt="" />
+                                                        </a>
+                                                        <a href="javascript:;" class="menos js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" data-bloqueada="{{ClaseBloqueada}}">
+                                                            <img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt="" />
+                                                        </a>
+                                                    </div>
+                                                {{/iff}}
                                             </div>
-                                            <a href="javascript:;" class="boton_Agregalo_home js-no-popup {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}"
-                                               onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event); ">
-                                                AGR&Eacute;GALO
-                                            </a>
+                                            {{#iff TieneStock}}
+                                                <a href="javascript:;" class="boton_Agregalo_home js-no-popup {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}"
+                                                   onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event); ">
+                                                    AGR&Eacute;GALO
+                                                </a>
+                                            {{/iff}}
                                         {{/iff}}
                                         {{#iff TipoAccionAgregar '==' '@Constantes.TipoAccionAgregar.EligeOpcion'}}
-                                            <div {{#iff ClaseBloqueada '==' ''}} onclick="javascript:OnClickFichaDetalle(event.target);" {{/iff}}>
-                                                <div class="texto_elige_tono"></div>
-                                                <div class="clear"></div>
-                                                <a class="btn_elige_tono js-no-popup {{ClaseBloqueada}}" data-item-tag="eligetuopcion">
-                                                    <div><img src="/Content/Images/mobile/Esika/click-ico.svg">ELIGE TU OPCIÓN</div>
-                                                </a>
-                                            </div>
-                                        {{/iff}}
-                                        {{#iff TipoAccionAgregar '==' '@Constantes.TipoAccionAgregar.LoQuieres'}}
+                                        <div {{#iff ClaseBloqueada '==' ''}} onclick="javascript:OnClickFichaDetalle(event.target);" {{/iff}}>
                                             <div class="texto_elige_tono"></div>
                                             <div class="clear"></div>
-                                            <a href="javascript:;" class="btn_elige_tono js-no-popup" data-bloqueada="{{ClaseBloqueada}}"
-                                               onclick="javascript:VerPopupExpGanaMas(); ">
-                                                ¿LO QUIERES?
+                                            <a class="btn_elige_tono js-no-popup {{ClaseBloqueada}}" data-item-tag="eligetuopcion">
+                                                <div><img src="/Content/Images/mobile/Esika/click-ico.svg">ELIGE TU OPCIÓN</div>
                                             </a>
+                                        </div>
+                                        {{/iff}}
+                                        {{#iff TipoAccionAgregar '==' '@Constantes.TipoAccionAgregar.LoQuieres'}}
+                                        <div class="texto_elige_tono"></div>
+                                        <div class="clear"></div>
+                                        <a href="javascript:;" class="btn_elige_tono js-no-popup" data-bloqueada="{{ClaseBloqueada}}"
+                                           onclick="javascript:VerPopupExpGanaMas(); ">
+                                            ¿LO QUIERES?
+                                        </a>
                                         {{/iff}}
                                     </div>
                                     <div class="clear"></div>
