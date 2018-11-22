@@ -406,6 +406,58 @@
     FINALIZA Y ENVÍA TU SOLICITUD
 </button>
 
+<div class="buscar_producto_cdr_popup d-block w-100" style="display:none;">
+    <div class="buscar_producto_cdr_cabecera_popup">
+        <div class="buscar_producto_cdr_titulo_popup text-center">
+            <h2 class="text-uppercase">Buscar producto</h2>
+            <a href="" title="enlace_cerrar_popup_buscar_producto_cdr"></a>
+        </div>
+    </div>
+    <div class="buscar_producto_cdr_contenido_popup text-center">
+        <div class="busqueda_codigo_o_descripcion_wrapper d-block">
+            <input type="text" value="" class="campo_busqueda_codigo_o_descripcion_producto" placeholder="Escribe el código o descripción" />
+            <ul class="lista_coincidencias_busqueda_productos d-block text-left">
+                <li class="coincidencia_busqueda_producto d-block text-uppercase">
+                    <div>00000</div>
+                    <div>ES CC DESMAQUILLADOR BIF...</div>
+                </li>
+                <li class="coincidencia_busqueda_producto coincidencia_busqueda_producto_inactivo d-block text-uppercase">
+                    <div>00000</div>
+                    <div>ES CC DESMAQUILLADOR BIF...</div>
+                </li>
+                <li class="coincidencia_busqueda_producto d-block text-uppercase">
+                    <div>00000</div>
+                    <div>ES CC DESMAQUILLADOR BIF...</div>
+                </li>
+                <li class="coincidencia_busqueda_producto d-block text-uppercase">
+                    <div>00000</div>
+                    <div>ES CC DESMAQUILLADOR BIF...</div>
+                </li>
+                <li class="coincidencia_busqueda_producto coincidencia_busqueda_producto_inactivo d-block text-uppercase">
+                    <div>00000</div>
+                    <div>ES CC DESMAQUILLADOR BIF...</div>
+                </li>
+                <li class="coincidencia_busqueda_producto d-block text-uppercase">
+                    <div>00000</div>
+                    <div>ES CC DESMAQUILLADOR BIF...</div>
+                </li>
+                <li class="coincidencia_busqueda_producto coincidencia_busqueda_producto_inactivo d-block text-uppercase">
+                    <div>00000</div>
+                    <div>ES CC DESMAQUILLADOR BIF...</div>
+                </li>
+                <li class="coincidencia_busqueda_producto d-block text-uppercase">
+                    <div>00000</div>
+                    <div>ES CC DESMAQUILLADOR BIF...</div>
+                </li>
+                <li class="coincidencia_busqueda_producto d-block text-uppercase">
+                    <div>00000</div>
+                    <div>ES CC DESMAQUILLADOR BIF...</div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
 <script id="template-pedido" type="text/x-handlebars-template">
     {{#each this as |item|}}
     <a class="pedido_a_seleccionar" data-pedido-id="{{item.PedidoID}}" id="{{item.PedidoID}}" onclick="misReclamosRegistro.Funciones.PopupPedidoSeleccionar(this);">
@@ -592,6 +644,7 @@
         if (flagAppMobile == 0) mensajeCdrFueraDeFechaCompleto = mensajeCdrFueraDeFechaCompleto + " " + mensajeChatEnLinea;
 
         var OrigenCDR = true;
+
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/MisReclamos/Reclamo.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js")"></script>
