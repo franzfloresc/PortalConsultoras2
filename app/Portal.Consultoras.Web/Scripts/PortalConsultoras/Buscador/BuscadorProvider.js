@@ -10,13 +10,13 @@
         if (checkTimeout(data)) AbrirMensaje(data.message);
     }
     
-    var _registrarAnalytics = function (model, textoBusqueda) {
-        try {
-            AnalyticsPortalModule.MarcaAnadirCarritoBuscador(model, "Desplegable", textoBusqueda);
-        } catch (e) {
+    //var _registrarAnalytics = function (model, textoBusqueda) {
+    //    try {
+    //        AnalyticsPortalModule.MarcaAnadirCarritoBuscador(model, "Desplegable", textoBusqueda);
+    //    } catch (e) {
 
-        }
-    };
+    //    }
+    //};
 
     var RegistroLiquidacion = function (model, cantidad, producto, textoBusqueda) {
         if (ReservadoOEnHorarioRestringido())
@@ -104,6 +104,7 @@
 
                                 CerrarLoad();
                                 //_registrarAnalytics(model, textoBusqueda);
+                                console.log(model);
                                 if (!(typeof AnalyticsPortalModule === 'undefined'))
                                     AnalyticsPortalModule.MarcaAnadirCarritoBuscador(model, 'Resultados', $('#TextoBusqueda').html());
 
@@ -217,6 +218,7 @@
                     CargarResumenCampaniaHeader();
                     CerrarLoad();
 
+                    console.log(modelFinal);
                     if (!(typeof AnalyticsPortalModule === 'undefined'))
                         AnalyticsPortalModule.MarcaAnadirCarritoBuscador(modelFinal, 'Resultados', $('#TextoBusqueda').html());
 

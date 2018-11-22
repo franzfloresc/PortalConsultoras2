@@ -450,6 +450,9 @@ var AnalyticsPortalModule = (function () {
                 'Cantidad': estrategia.Cantidad
             };
 
+
+            console.log(model);
+
             var valorBuscar = localStorage.getItem('valorBuscador');
             switch (pagina.Pagina) {
                 case "Buscador":
