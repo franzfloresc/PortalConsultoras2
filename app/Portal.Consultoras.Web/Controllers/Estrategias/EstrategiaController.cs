@@ -176,6 +176,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 
                 List<EstrategiaPersonalizadaProductoModel> listModel;
                 List<EstrategiaPersonalizadaProductoModel> listPerdio;
+
                 var listaSubCampania = new List<EstrategiaPersonalizadaProductoModel>();
                 int cantidadTotal0 = 0;
                 if (tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.SRObtenerProductos)

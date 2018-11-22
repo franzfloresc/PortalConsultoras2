@@ -148,8 +148,8 @@
                                             <div class="liquidacion_rango_home js-no-popup" data-cantidad-contenedor="">
                                                 {{#iff TieneStock}}
                                                     <input type="text" value="1" size="2" maxlength="2" data-input='cantidad'
-                                                    class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup {{ClaseBloqueada}}"
-                                                    {{#iff ClaseBloqueada '!=' ''}} disbled="disable" {{/iff}} />
+                                                       class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup {{ClaseBloqueada}}"
+                                                       {{#iff ClaseBloqueada '!=' ''}} disbled="disable" {{/iff}} />
 
                                                     <div class="liquidacion_rango_right_pedido js-no-popup">
                                                         <a href="javascript:;" class="mas js-no-popup" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" data-bloqueada="{{ClaseBloqueada}}">
@@ -159,12 +159,30 @@
                                                             <img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt="" />
                                                         </a>
                                                     </div>
+                                                {{else}}
+                                                    <input type="text" value="1" size="2" maxlength="2" data-input='cantidad' style="pointer-events: none;"
+                                                       class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup {{ClaseBloqueada}}"
+                                                       {{#iff ClaseBloqueada '!=' ''}} disbled="disable" {{/iff}} />
+
+                                                    <div class="liquidacion_rango_right_pedido js-no-popup">
+                                                        <a href="javascript:;" class="mas js-no-popup" style="pointer-events: none;" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" data-bloqueada="{{ClaseBloqueada}}">
+                                                            <img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt="" />
+                                                        </a>
+                                                        <a href="javascript:;" class="menos js-no-popup" style="pointer-events: none;" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" data-bloqueada="{{ClaseBloqueada}}">
+                                                            <img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt="" />
+                                                        </a>
+                                                    </div>
                                                 {{/iff}}
                                             </div>
                                             {{#iff TieneStock}}
                                                 <a href="javascript:;" class="boton_Agregalo_home js-no-popup {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}"
                                                    onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event); ">
                                                     AGR&Eacute;GALO
+                                                </a>
+                                            {{else}}
+                                                <a href="javascript:;" class="boton_Agregalo_home js-no-popup {{ClaseBloqueada}}" style="pointer-events: none;" data-bloqueada="{{ClaseBloqueada}}"
+                                                   onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event); ">
+                                                    AGOTADO
                                                 </a>
                                             {{/iff}}
                                         {{/iff}}
