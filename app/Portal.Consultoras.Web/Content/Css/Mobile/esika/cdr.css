@@ -1224,6 +1224,7 @@
 
 .buscar_producto_cdr_titulo_popup{
     height:100%;
+    position:relative;
 }
 
 .buscar_producto_cdr_titulo_popup h2{
@@ -1234,6 +1235,22 @@
     font-weight:700;
     font-size:15px;
     letter-spacing:0.5px;
+}
+
+.enlace_cerrar_popup_buscar_producto_cdr{
+    display: block;
+    position: absolute;
+    margin: auto 0;
+    width: 18px;
+    height: 21px;
+    top: -2px;
+    bottom: 0;
+    right: 21px;
+}
+
+.enlace_cerrar_popup_buscar_producto_cdr img{
+    width:100%;
+    height:auto;
 }
 
 .buscar_producto_cdr_contenido_popup{
@@ -1250,13 +1267,17 @@
     font-size:15px;
     color:#000;
     height:47px;
+    background-color:#FFF;
+    background-image:url(../../../Images/icono_lupa_gris.svg);
+    background-repeat:no-repeat;
+    background-position:95% center;
 }
 
 .lista_coincidencias_busqueda_productos{
-    margin-top: 20px;
+    margin-top: 34px;
     list-style-type: none;
     height: 331px;
-    padding-right:10px;
+    padding-right: 10px;
     overflow: auto;
 }
 

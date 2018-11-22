@@ -450,7 +450,7 @@ $(document).ready(function () {
                 $(me.Variables.campoBusquedaCuvDescripcionCdr).keyup(function () {
                     var valorInputBusquedaCuvDescripcion = $(this).val().toLowerCase();
                     $("#ListaCoincidenciasBusquedaProductosCdr li").filter(function () {
-                        $(this).toggle($(this).attr('data-value').toLowerCase().indexOf(valorInputBusquedaCuvDescripcion) > -1)
+                        $(this).toggle($(this).attr('data-value').toLowerCase().indexOf(valorInputBusquedaCuvDescripcion) > -1);
                     });
                 });
             }

@@ -410,7 +410,9 @@
     <div class="buscar_producto_cdr_cabecera_popup">
         <div class="buscar_producto_cdr_titulo_popup text-center">
             <h2 class="text-uppercase">Buscar producto</h2>
-            <a href="" title="enlace_cerrar_popup_buscar_producto_cdr"></a>
+            <a href="javascript:;" onclick="javascript: $('#PopupBusquedaCuvDescripcionProductoCdr').fadeOut(200); $('#PopupBusquedaCuvDescripcionProductoCdr').scrollTop(0);" title="Cerrar" class="enlace_cerrar_popup_buscar_producto_cdr">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+            </a>
         </div>
     </div>
     <div class="buscar_producto_cdr_contenido_popup text-center">
@@ -429,9 +431,9 @@
                     <div>00003</div>
                     <div>ES PRO DELINEADOR EN LAPI...</div>
                 </li>
-                <li class="coincidencia_busqueda_producto d-block text-uppercase" data-value="00000 - ES CC DESMAQUILLADOR BIF">
+                <li class="coincidencia_busqueda_producto coincidencia_busqueda_producto_inactivo d-block text-uppercase" data-value="00000 - ES CC DESMAQUILLADOR BLINK">
                     <div>00000</div>
-                    <div>ES CC DESMAQUILLADOR BIF...</div>
+                    <div>ES CC DESMAQUILLADOR BLI...</div>
                 </li>
                 <li class="coincidencia_busqueda_producto coincidencia_busqueda_producto_inactivo d-block text-uppercase" data-value="00000 - ES CC DESMAQUILLADOR BIF">
                     <div>00000</div>
