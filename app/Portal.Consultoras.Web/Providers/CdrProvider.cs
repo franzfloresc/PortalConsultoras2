@@ -301,12 +301,12 @@ namespace Portal.Consultoras.Web.Providers
             if (CumpleRangoCampaniaCDR(paisId, campaniaId, consultoraId) == 0) return Constantes.CdrWebMensajes.SinPedidosDisponibles;
 
             var diasFaltantes = Util.GetDiasFaltantesFacturacion(fechaInicioCampania, zonaHoraria);
-            //if (diasFaltantes == 0) return Constantes.CdrWebMensajes.FueraDeFecha;
+            if (diasFaltantes == 0) return Constantes.CdrWebMensajes.FueraDeFecha;
 
             var cdrDiasAntesFacturacion = 0;
             var cdrWebDatos = ObtenerCdrWebDatosByCodigo(Constantes.CdrWebDatos.DiasAntesFacturacion, paisId);
             if (cdrWebDatos != null) int.TryParse(cdrWebDatos.Valor, out cdrDiasAntesFacturacion);
-            //if (diasFaltantes <= cdrDiasAntesFacturacion) return Constantes.CdrWebMensajes.FueraDeFecha;
+            if (diasFaltantes <= cdrDiasAntesFacturacion) return Constantes.CdrWebMensajes.FueraDeFecha;
 
             return string.Empty;
         }

@@ -298,12 +298,12 @@ namespace Portal.Consultoras.Web.Controllers
 
         private bool TieneDetalleFueraFecha(BECDRWeb cdrWeb, MisReclamosModel model)
         {
-            //var operacionValidaList = _cdrProvider.CargarMotivoOperacionPorDias(model, userData.FechaActualPais.Date, userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
-            //return cdrWeb.CDRWebDetalle.Any(detalle =>
-            //{
-            //    return !operacionValidaList.Any(operacion => operacion.CodigoOperacion == detalle.CodigoOperacion);
-            //});
-            return false;
+            var operacionValidaList = _cdrProvider.CargarMotivoOperacionPorDias(model, userData.FechaActualPais.Date, userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
+            return cdrWeb.CDRWebDetalle.Any(detalle =>
+            {
+                return !operacionValidaList.Any(operacion => operacion.CodigoOperacion == detalle.CodigoOperacion);
+            });
+            //return false;
         }
 
         private bool ValidarRegistro(MisReclamosModel model, out string mensajeError)
