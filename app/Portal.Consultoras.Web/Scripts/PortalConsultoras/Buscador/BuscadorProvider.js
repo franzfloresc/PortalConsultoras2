@@ -10,13 +10,13 @@
         if (checkTimeout(data)) AbrirMensaje(data.message);
     }
     
-    var _registrarAnalytics = function (model, textoBusqueda) {
-        try {
-            AnalyticsPortalModule.MarcaAnadirCarritoBuscador(model, "Desplegable", textoBusqueda);
-        } catch (e) {
+    //var _registrarAnalytics = function (model, textoBusqueda) {
+    //    try {
+    //        AnalyticsPortalModule.MarcaAnadirCarritoBuscador(model, "Desplegable", textoBusqueda);
+    //    } catch (e) {
 
-        }
-    };
+    //    }
+    //};
 
     var RegistroLiquidacion = function (model, cantidad, producto, textoBusqueda) {
         if (ReservadoOEnHorarioRestringido())
@@ -103,7 +103,11 @@
                                     CargarResumenCampaniaHeader();
 
                                 CerrarLoad();
-                                _registrarAnalytics(model, textoBusqueda);
+                                //_registrarAnalytics(model, textoBusqueda);
+                                console.log(model);
+                                if (!(typeof AnalyticsPortalModule === 'undefined'))
+                                    AnalyticsPortalModule.MarcaAnadirCarritoBuscador(model, 'Resultados', $('#TextoBusqueda').html());
+
                             },
                             error: function (data, error) {
                                 CerrarLoad();
@@ -213,11 +217,16 @@
                     microefectoPedidoGuardado();
                     CargarResumenCampaniaHeader();
                     CerrarLoad();
+
+                    console.log(modelFinal);
+                    if (!(typeof AnalyticsPortalModule === 'undefined'))
+                        AnalyticsPortalModule.MarcaAnadirCarritoBuscador(modelFinal, 'Resultados', $('#TextoBusqueda').html());
+
                     TrackingJetloreAdd(modelFinal.Cantidad, $("#hdCampaniaCodigo").val(), modelFinal.CUV);
                     agregado.html('<span class="text-uppercase text-bold d-inline-block">Agregado</span>');
                     var totalAgregado = parseInt(cantidad) + parseInt(CantidadesAgregadas);
                     $(divPadre).find(".hdBuscadorCantidadesAgregadas").val(totalAgregado);
-                    _registrarAnalytics(model, textoBusqueda);
+                    //_registrarAnalytics(model, textoBusqueda);
                     return true;
                 },
                 error: function(data, error) {

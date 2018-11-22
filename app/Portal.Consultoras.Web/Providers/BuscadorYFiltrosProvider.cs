@@ -110,6 +110,7 @@ namespace Portal.Consultoras.Web.Providers
                 item.Agregado = labelAgregado;
                 item.Stock = !item.Stock;
                 item.DescripcionCompleta = item.Descripcion;
+                item.SimboloMoneda = userData.Simbolo;
             }
 
             return resultado;

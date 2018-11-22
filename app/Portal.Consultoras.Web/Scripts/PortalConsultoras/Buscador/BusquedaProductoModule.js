@@ -481,6 +481,9 @@
 
             var textoOrdenamiento = $(this).attr('title');
 
+            if (!(typeof AnalyticsPortalModule === 'undefined'))
+                AnalyticsPortalModule.MarcaClicOpcionesFiltrarBuscador(textoOrdenamiento);
+
             var modelo = _funciones.ConstruirModeloBusqueda();
             _provider.BusquedaProductoPromise(modelo)
                 .done(function (data) {
@@ -493,8 +496,9 @@
                     _funciones.cerrarCargafiltros();
                 });
 
-            $('.ul-seleccionado').html(textoOrdenamiento);
+            $('.ul-seleccionado').html(textoOrdenamiento);       
 
+         
         },
         MostrarFiltrosMobile: function (e) {
             e.preventDefault();
@@ -575,6 +579,7 @@
             var codigoCampania = model.CampaniaID;
             var codigoCuv = model.CUV;
             var origenPedidoWeb = model.OrigenPedidoWeb;
+            var descripcionProducto = model.DescripcionCompleta;
 
             var codigo = ['030', '005', '001', '007', '008', '009', '010', '011'];
 
@@ -584,6 +589,12 @@
                 UrlDetalle += codigoCampania + "/" + codigoCuv + "/" + origenPedidoWeb;
                 //console.log(UrlDetalle);
                 window.location = UrlDetalle;
+                //virtualEvent('Resultados de Búsqueda', 'Elige tu opción', descripcionProducto + ' - ' + _config.textoBusqueda);
+
+                if (!(typeof AnalyticsPortalModule === 'undefined'))
+                    AnalyticsPortalModule.MarcaEligeTuOpcionBuscador(descripcionProducto + ' - ' + _config.textoBusqueda);
+
+
                 return true;
             }
         },

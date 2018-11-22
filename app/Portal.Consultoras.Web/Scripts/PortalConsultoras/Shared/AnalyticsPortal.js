@@ -450,6 +450,9 @@ var AnalyticsPortalModule = (function () {
                 'Cantidad': estrategia.Cantidad
             };
 
+
+            console.log(model);
+
             var valorBuscar = localStorage.getItem('valorBuscador');
             switch (pagina.Pagina) {
                 case "Buscador":
@@ -546,9 +549,75 @@ var AnalyticsPortalModule = (function () {
                 'label': busqueda
             });
         } catch (e) {
-
+            console.error(e);
         }
     }
+
+    var marcaVerTodosLosResultadosBuscador = function (busqueda) {
+        try {
+            dataLayer.push({
+                'event': _evento.virtualEvent,
+                'category': 'Buscador SB',
+                'action': 'Ver todos los resultados',
+                'label': busqueda
+            });
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    var marcaBusquedaSinResultadosBuscador = function (busqueda) {
+        try {
+            dataLayer.push({
+                'event': _evento.virtualEvent,
+                'category': 'Buscador SB',
+                'action': 'Búsqueda - sin Resultados',
+                'label': busqueda
+            });
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    var marcaClicOpcionesFiltrarBuscador = function (busqueda) {
+        try {
+            dataLayer.push({
+                'event': _evento.virtualEvent,
+                'category': 'Resultados de Búsqueda',
+                'action': 'Ordenar Por',
+                'label': busqueda
+            });
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    var marcaEligeTuOpcionBuscador = function (busqueda) {
+        try {
+            dataLayer.push({
+                'event': _evento.virtualEvent,
+                'category': 'Resultados de Búsqueda',
+                'action': 'Elige tu opción',
+                'label': busqueda
+            });
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    var marcaRedesSocialesBuscador = function (network, label) {
+        try {
+            dataLayer.push({
+                'event': _evento.socialEvent,
+                'network': network,
+                'action': 'Compartir',
+                'label': label
+            });
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
     // Fin - Analytics Buscador Miguel
 
     // Ini - Rama TiposAnalytics
@@ -762,7 +831,13 @@ var AnalyticsPortalModule = (function () {
         MarcaBarraBusquedaMobile: marcaBarraBusquedaMobile,
         MarcaAnadirCarritoBuscador: marcaAnadirCarritoBuscador,
         MarcaSeleccionarContenidoBusqueda: marcaSeleccionarContenidoBusqueda,
-        MarcaAnadirCarritoGenerico: marcaAnadirCarritoGenerico
+        MarcaAnadirCarritoGenerico: marcaAnadirCarritoGenerico,
         // Fin - Analytics Buscador Miguel
+
+        MarcaVerTodosLosResultadosBuscador: marcaVerTodosLosResultadosBuscador,
+        MarcaBusquedaSinResultadosBuscador: marcaBusquedaSinResultadosBuscador,
+        MarcaClicOpcionesFiltrarBuscador: marcaClicOpcionesFiltrarBuscador,
+        MarcaEligeTuOpcionBuscador: marcaEligeTuOpcionBuscador,
+        MarcaRedesSocialesBuscador: marcaRedesSocialesBuscador
     }
 })();
