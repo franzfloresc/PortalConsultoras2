@@ -14958,6 +14958,7 @@ a {
 .icono_regalo_popup_meta_regalo,
 .icono_regalo_popup_meta_regalo img
 {
+    position:relative;
     width:60px;
     height:auto;
 }
