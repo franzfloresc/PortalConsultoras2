@@ -984,3 +984,10 @@ ul.breadcumbs li a::before {
 
 
   
+.imagen_fondo_detalle {
+    height: 315px;
+    width: 100%;
+    display: block;
+    position: absolute;
+}
+
