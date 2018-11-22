@@ -103,10 +103,20 @@
                                 if (!isMobile()) CargarResumenCampaniaHeader();
 
                                 CerrarLoad();
-                                //_registrarAnalytics(model, textoBusqueda);
-                                //console.log(model);
+                                
+
+                                var modelCarrito = {
+                                    'DescripcionCompleta': model.DescripcionProd,
+                                    'CUV': model.CUV,
+                                    'Precio': model.PrecioUnidad,
+                                    'DescripcionMarca': model.CUV,
+                                    'CodigoTipoEstrategia': model.EstrategiaID,
+                                    'MarcaId': model.MarcaID,
+                                    'Cantidad': model.Cantidad
+                                };
+                                                            
                                 if (!(typeof AnalyticsPortalModule === 'undefined'))
-                                    AnalyticsPortalModule.MarcaAnadirCarritoBuscador(model, 'Resultados', $('#TextoBusqueda').html());
+                                    AnalyticsPortalModule.MarcaAnadirCarritoBuscador(modelCarrito, 'Resultados', $('#TextoBusqueda').html());
 
                             },
                             error: function (data, error) {
@@ -217,11 +227,23 @@
 
                     microefectoPedidoGuardado();
                     if (!isMobile()) CargarResumenCampaniaHeader();
+
+                    console.log(textoBusqueda);
+
                     CerrarLoad();
 
-                    //console.log(modelFinal);
+                    var modelCarrito = {
+                        'DescripcionCompleta': modelFinal.DescripcionProd,
+                        'CUV': modelFinal.CUV,
+                        'Precio': modelFinal.PrecioUnidad,
+                        'DescripcionMarca': modelFinal.CUV,
+                        'CodigoTipoEstrategia': modelFinal.EstrategiaID,
+                        'MarcaId': modelFinal.MarcaID,
+                        'Cantidad': modelFinal.Cantidad
+                    };
+                    
                     if (!(typeof AnalyticsPortalModule === 'undefined'))
-                        AnalyticsPortalModule.MarcaAnadirCarritoBuscador(modelFinal, 'Resultados', $('#TextoBusqueda').html());
+                        AnalyticsPortalModule.MarcaAnadirCarritoBuscador(modelCarrito, 'Resultados', textoBusqueda);
 
                     TrackingJetloreAdd(modelFinal.Cantidad, $("#hdCampaniaCodigo").val(), modelFinal.CUV);
                     agregado.html('<span class="text-uppercase text-bold d-inline-block">Agregado</span>');
