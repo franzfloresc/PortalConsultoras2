@@ -1,7 +1,7 @@
 ﻿	USE [BelcorpPeru_BPT]
 	GO
 
-	ALTER PROCEDURE [dbo].[InsertPedidoWebSet] (@Campaniaid int
+	ALTER PROCEDURE [dbo].[InsertPedidoWebSet2] (@Campaniaid int
 	, @PedidoID int
 	, @CantidadSet int
 	, @CuvSet varchar(20)
