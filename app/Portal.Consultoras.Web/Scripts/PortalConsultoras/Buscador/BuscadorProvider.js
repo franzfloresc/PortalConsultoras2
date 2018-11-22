@@ -9,7 +9,7 @@
         CerrarLoad();
         if (checkTimeout(data)) AbrirMensaje(data.message);
     }
-    
+
     //var _registrarAnalytics = function (model, textoBusqueda) {
     //    try {
     //        AnalyticsPortalModule.MarcaAnadirCarritoBuscador(model, "Desplegable", textoBusqueda);
@@ -100,7 +100,7 @@
 
                                 microefectoPedidoGuardado();
 
-                                    CargarResumenCampaniaHeader();
+                                if (!isMobile()) CargarResumenCampaniaHeader();
 
                                 CerrarLoad();
                                 //_registrarAnalytics(model, textoBusqueda);
@@ -120,13 +120,13 @@
         });
     }
 
-    var RegistroProductoBuscador = function(divPadre, textoBusqueda) {
+    var RegistroProductoBuscador = function (divPadre, textoBusqueda) {
 
         var model = JSON.parse($(divPadre).find(".hdBuscadorJSON").val());
         var cantidad = $(divPadre).find("[data-input='cantidad']").val();
         var agregado = $(divPadre).find(".etiqueta_buscador_producto");
         model.Cantidad = cantidad;
-        
+
         if (model.TipoPersonalizacion == "LIQ") {
             RegistroLiquidacion(model, cantidad, agregado, textoBusqueda);
         } else {
@@ -192,7 +192,7 @@
                 contentType: "application/json; charset=utf-8",
                 data: JSON.stringify(modelFinal),
                 async: true,
-                success: function(data) {
+                success: function (data) {
                     if (!checkTimeout(data)) {
                         CerrarLoad();
                         return false;
@@ -215,7 +215,7 @@
                         }
                     }
                     microefectoPedidoGuardado();
-                    CargarResumenCampaniaHeader();
+                    if (!isMobile()) CargarResumenCampaniaHeader();
                     CerrarLoad();
 
                     console.log(modelFinal);
@@ -229,7 +229,7 @@
                     //_registrarAnalytics(model, textoBusqueda);
                     return true;
                 },
-                error: function(data, error) {
+                error: function (data, error) {
                     _ajaxError(data);
                     return false;
                 }
@@ -237,7 +237,7 @@
         }
     };
 
- 
+
 
     return {
         RegistroProductoBuscador: RegistroProductoBuscador
