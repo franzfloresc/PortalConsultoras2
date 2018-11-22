@@ -103,6 +103,7 @@
     <Compile Include="BLCupon.cs" />
     <Compile Include="BLOpcionesVerificacion.cs" />
     <Compile Include="BLPremiosProgramaNuevas.cs" />
+    <Compile Include="BLReporteRevisionIncidencias.cs" />
     <Compile Include="Cache\BLCache.cs" />
     <Compile Include="Cliente\BLClienteDB.cs" />
     <Compile Include="Cliente\IClienteBusinessLogic.cs" />
