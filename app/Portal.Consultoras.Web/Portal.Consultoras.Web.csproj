@@ -693,6 +693,7 @@
     <Compile Include="Models\ProveedorDespachoCobranzaModel.cs" />
     <Compile Include="Models\RechazoModel.cs" />
     <Compile Include="Models\OfertaFinalRegaloModel.cs" />
+    <Compile Include="Models\Recomendaciones\RecomendacionesModel.cs" />
     <Compile Include="Models\RegionModel.cs" />
     <Compile Include="Models\RegistrarEstrategiaModel.cs" />
     <Compile Include="Models\ReporteConsolidadoModel.cs" />
@@ -802,6 +803,7 @@
     <Compile Include="Providers\PaqueteDocumentarioProvider.cs" />
     <Compile Include="Providers\PedidoSetProvider.cs" />
     <Compile Include="Providers\PedidoWebProvider.cs" />
+    <Compile Include="Providers\RecomendacionesProvider.cs" />
     <Compile Include="Providers\RenderImgProvider.cs" />
     <Compile Include="Providers\RevistaDigitalProvider.cs" />
     <Compile Include="Providers\ShowRoomProvider.cs" />
