@@ -309,7 +309,15 @@ namespace Portal.Consultoras.Data
             return string.Empty;
         }
 
-        public void UpdListPedidoWebDetalleObsPROL(List<BEPedidoWebDetalle> listPedidoWebDetalle)
+        public void CleanObsPROLByPedido(int campaniaID, int pedidoID)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.CleanPedidoWebDetalleObsPROLByPedido");
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
+            Context.Database.AddInParameter(command, "@PedidoID", DbType.Int32, pedidoID);
+            Context.ExecuteNonQuery(command);
+        }
+
+        public void UpdListObsPROL(List<BEPedidoWebDetalle> listPedidoWebDetalle)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdListPedidoWebDetalleObsPROL");
 

@@ -1,31 +1,16 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.CustomHelpers;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.Models.Estrategia;
 using Portal.Consultoras.Web.Models.ReporteRevisionIncidencias;
 using Portal.Consultoras.Web.Providers;
-using Portal.Consultoras.Web.ServiceGestionWebPROL;
-using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
-using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
-using Portal.Consultoras.Web.ServiceSAC;
-using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.IO;
 using System.Linq;
-using System.Net;
-using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
-using System.Xml.Linq;
-using BEConfiguracionPaisDatos = Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -133,8 +118,7 @@ namespace Portal.Consultoras.Web.Controllers
             return lista;
         }
 
-        public ActionResult ConsultarReporteCuvResumido(string sidx, string sord, int page, int rows, int CampaniaID,
-           string CUV)
+        public ActionResult ConsultarReporteCuvResumido(string sidx, string sord, int page, int rows, int CampaniaID, string CUV)
         {
             try
             {
@@ -175,14 +159,14 @@ namespace Portal.Consultoras.Web.Controllers
                                    id = a.BEReporteCuvResumido.Cuv,
                                    cell = new string[]
                                    {
-                                a.BEReporteCuvResumido.Cuv,
-                                a.BEReporteCuvResumido.SAP,
-                                a.BEReporteCuvResumido.DescripcionProd,
-                                a.BEReporteCuvResumido.Palanca,
-                                a.BEReporteCuvResumido.imagenURL,
-                                a.BEReporteCuvResumido.Activo,
-                                a.BEReporteCuvResumido.PuedeDigitarse,
-                                a.BEReporteCuvResumido.PrecioSet.ToString("#.#0")
+                                        a.BEReporteCuvResumido.Cuv,
+                                        a.BEReporteCuvResumido.SAP,
+                                        a.BEReporteCuvResumido.DescripcionProd,
+                                        a.BEReporteCuvResumido.Palanca,
+                                        a.BEReporteCuvResumido.imagenURL,
+                                        a.BEReporteCuvResumido.Activo,
+                                        a.BEReporteCuvResumido.PuedeDigitarse,
+                                        a.BEReporteCuvResumido.PrecioSet.ToString("#.#0")
                                    }
                                }
                     };
@@ -197,21 +181,20 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public ActionResult ConsultarReporteCuvDetallado(string sidx, string sord, int page, int rows, int CampaniaID,
-           string CUV)
+        public ActionResult ConsultarReporteCuvDetallado(string sidx, string sord, int page, int rows, int CampaniaID, string CUV)
         {
             try
             {
-                bool dbdefault = HttpUtility.ParseQueryString(((System.Web.HttpRequestWrapper)Request).UrlReferrer.Query)[_dbdefault].ToBool();
-
+                //bool ParseQueryString = HttpUtility.ParseQueryString(((System.Web.HttpRequestWrapper)Request).UrlReferrer.Query)[_dbdefault].ToBool();
+                
                 if (ModelState.IsValid)
                 {
                     List<ReporteRevisionIncidenciasMDbAdapterModel> lst = new List<ReporteRevisionIncidenciasMDbAdapterModel>();
 
-
                     using (var sv = new PedidoServiceClient())
                     {
                         var tmpReporteLst = sv.GetReporteCuvDetallado(userData.PaisID, CampaniaID, CUV).ToList();
+
                         foreach (var itemReporte in tmpReporteLst)
                         {
                             lst.Add(new ReporteRevisionIncidenciasMDbAdapterModel { BEReporteCuvDetallado = itemReporte });
@@ -225,11 +208,13 @@ namespace Portal.Consultoras.Web.Controllers
                         SortColumn = sidx,
                         SortOrder = sord
                     };
+
                     IEnumerable<ReporteRevisionIncidenciasMDbAdapterModel> items = lst;
                     items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-                    var pag = Util.PaginadorGenerico(grid, lst);
 
-                    var codigoISOPais = SessionManager.GetUserData().CodigoISO;
+                    var pag = Util.PaginadorGenerico(grid, lst);
+                    
+                    var codigoISOPais = userData.CodigoISO;
 
                     var data = new
                     {
@@ -242,36 +227,56 @@ namespace Portal.Consultoras.Web.Controllers
                                    id = a.BEReporteCuvDetallado.CuvHijo,
                                    cell = new string[]
                                    {
-                                a.BEReporteCuvDetallado.DescripcionEstrategia,
-                                a.BEReporteCuvDetallado.CuvPadre,
-                                a.BEReporteCuvDetallado.CuvHijo,
-                                a.BEReporteCuvDetallado.CodigoEstrategia,
-                                a.BEReporteCuvDetallado.Grupo,
-                                a.BEReporteCuvDetallado.SAP,
-                                a.BEReporteCuvDetallado.MarcaEstrategia,
-                                a.BEReporteCuvDetallado.MarcaMatriz,
-                                a.BEReporteCuvDetallado.FactorCuadre.ToString(),
-                                a.BEReporteCuvDetallado.PrecioUnitario.ToString("#.#0"),
-                                a.BEReporteCuvDetallado.PrecioPublico.ToString("#.#0"),
-                                a.BEReporteCuvDetallado.Digitable.ToString(),
-                                a.BEReporteCuvDetallado.NombreProducto,
-                                a.BEReporteCuvDetallado.ImagenTipos,
-                                a.BEReporteCuvDetallado.ImagenTonos,
-                                a.BEReporteCuvDetallado.NombreBulk,
-                                a.BEReporteCuvDetallado.FactorRepeticion.ToString(),
-                                a.BEReporteCuvDetallado.RutaImagenTipos = string.Format(_configuracionManagerProvider.GetRutaImagenesAppCatalogo(), codigoISOPais, CampaniaID, a.BEReporteCuvDetallado.CodigoMarca, a.BEReporteCuvDetallado.ImagenTipos),
-                                a.BEReporteCuvDetallado.RutaImagenTonos = string.Format(_configuracionManagerProvider.GetRutaImagenesAppCatalogoBulk(), codigoISOPais, CampaniaID, a.BEReporteCuvDetallado.CodigoMarca, a.BEReporteCuvDetallado.ImagenTonos)
+                                        a.BEReporteCuvDetallado.DescripcionEstrategia,
+                                        a.BEReporteCuvDetallado.CuvPadre,
+                                        a.BEReporteCuvDetallado.CuvHijo,
+                                        a.BEReporteCuvDetallado.CodigoEstrategia,
+                                        a.BEReporteCuvDetallado.Grupo,
+                                        a.BEReporteCuvDetallado.SAP,
+                                        a.BEReporteCuvDetallado.MarcaEstrategia,
+                                        a.BEReporteCuvDetallado.MarcaMatriz,
+                                        a.BEReporteCuvDetallado.FactorCuadre.ToString(),
+                                        a.BEReporteCuvDetallado.PrecioUnitario.ToString("#.#0"),
+                                        a.BEReporteCuvDetallado.PrecioPublico.ToString("#.#0"),
+                                        a.BEReporteCuvDetallado.Digitable.ToString(),
+                                        a.BEReporteCuvDetallado.NombreProducto,
+                                        a.BEReporteCuvDetallado.ImagenTipos,
+                                        a.BEReporteCuvDetallado.ImagenTonos,
+                                        a.BEReporteCuvDetallado.NombreBulk,
+                                        a.BEReporteCuvDetallado.FactorRepeticion.ToString(),
+                                        a.BEReporteCuvDetallado.RutaImagenTipos = string.Format(_configuracionManagerProvider.GetRutaImagenesAppCatalogo(), codigoISOPais, CampaniaID, a.BEReporteCuvDetallado.CodigoMarca, a.BEReporteCuvDetallado.ImagenTipos),
+                                        a.BEReporteCuvDetallado.RutaImagenTonos = string.Format(_configuracionManagerProvider.GetRutaImagenesAppCatalogoBulk(), codigoISOPais, CampaniaID, a.BEReporteCuvDetallado.CodigoMarca, a.BEReporteCuvDetallado.ImagenTonos)
                                    }
                                }
                     };
+
                     return Json(data, JsonRequestBehavior.AllowGet);
                 }
-                return RedirectToAction("Index", "AdministrarReporteRevisionIncidenciasController");
+
+                return Json(new
+                {
+                    success = false,
+                    message = "Algun campo requerido no ha sido ingresado",
+                    data = "",
+                    extra = string.Join("; ", ModelState.Values
+                                        .SelectMany(x => x.Errors)
+                                        .Select(x => x.ErrorMessage))
+                }, JsonRequestBehavior.AllowGet);
+
+                //return RedirectToAction("Index", "AdministrarReporteRevisionIncidencias");
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return RedirectToAction("Index", "AdministrarReporteRevisionIncidenciasController");
+
+                return Json(new
+                {
+                    success = false,
+                    message = "Lo sentimos no podemos procesar su solicitud.",
+                    data = "",
+                    Trycatch = Common.LogManager.GetMensajeError(ex)
+                }, JsonRequestBehavior.AllowGet);
+                //return RedirectToAction("Index", "AdministrarReporteRevisionIncidencias");
             }
         }
 

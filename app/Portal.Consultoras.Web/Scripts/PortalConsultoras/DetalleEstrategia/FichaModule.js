@@ -263,7 +263,7 @@ var FichaModule = (function (config) {
                 }
                 else {
                     console.log(data);
-                    dfd.reject(data, error);
+                    dfd.reject(data);
                 }
             },
             error: function (data, error) {

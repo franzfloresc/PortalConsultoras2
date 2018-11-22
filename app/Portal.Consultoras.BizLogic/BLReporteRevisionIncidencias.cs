@@ -27,19 +27,26 @@ namespace Portal.Consultoras.BizLogic
 
         public IList<BEReporteCuvDetallado> GetReporteCuvDetallado(int paisID, int campaniaID, string cuv)
         {
-            var reporteValidaciones = new List<BEReporteCuvDetallado>();
-            var daReporteValidacion = new DAReporteRevisionIncidencias(paisID);
-
-            using (IDataReader reader = daReporteValidacion.GetReporteCuvDetallado(campaniaID, cuv))
+            try
             {
-                while (reader.Read())
-                {
-                    var reporteValidacion = new BEReporteCuvDetallado(reader);
-                    reporteValidaciones.Add(reporteValidacion);
-                }
-            }
+                var reporteValidaciones = new List<BEReporteCuvDetallado>();
+                var daReporteValidacion = new DAReporteRevisionIncidencias(paisID);
 
-            return reporteValidaciones;
+                using (IDataReader reader = daReporteValidacion.GetReporteCuvDetallado(campaniaID, cuv))
+                {
+                    while (reader.Read())
+                    {
+                        var reporteValidacion = new BEReporteCuvDetallado(reader);
+                        reporteValidaciones.Add(reporteValidacion);
+                    }
+                }
+
+                return reporteValidaciones;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(Common.LogManager.GetMensajeError(ex));
+            }
         }
 
         public IList<BEReporteMovimientosPedido> GetReporteMovimientosPedido(int paisID, int campaniaID, string codigoConsultora)
