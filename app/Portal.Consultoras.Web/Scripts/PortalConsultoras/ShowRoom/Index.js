@@ -71,7 +71,8 @@ $(document).ready(function () {
         buttons:
         {
             "Aceptar": function () {
-                $(this).dialog('close');
+                HideDialog("DialogMensajesBanner");
+                //$(this).dialog('close');
             }
         }
     });
@@ -86,8 +87,10 @@ $(document).ready(function () {
     });
 
     $("#btnCerrarSet").click(function () {
-        $("#divMensajeProductoAgregado").dialog('close');
-        $("#DialogSetDetalle").dialog("close");
+        //$("#divMensajeProductoAgregado").dialog('close');
+        //$("#DialogSetDetalle").dialog("close");
+        HideDialog("divMensajeProductoAgregado");
+        HideDialog("DialogSetDetalle");
 
         dataLayer.push({
             'event': 'virtualEvent',

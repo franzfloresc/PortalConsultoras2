@@ -410,13 +410,14 @@ var AnalyticsPortalModule = (function () {
 
     var getPalancaByOrigenPedido = function (codigoOrigenPedido) {
         try {
+            codigoOrigenPedido = codigoOrigenPedido || "";
             var codigoPalanca = codigoOrigenPedido.toString().substring(3, 5);
             var seccion = _constantes.origenpedidoWeb.find(function (element) {
                 return element.CodigoPalanca == codigoPalanca;
             });
             return seccion != undefined ? seccion.Palanca : _texto.notavaliable;
         } catch (e) {
-            console.log(_texto.excepcion + e);
+            console.log('getPalancaByOrigenPedido = ' + _texto.excepcion + e);
         }
     };
 
