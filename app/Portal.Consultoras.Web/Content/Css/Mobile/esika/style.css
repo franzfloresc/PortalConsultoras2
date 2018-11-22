@@ -14747,6 +14747,7 @@ a {
 .icono_regalo_popup_programaNuevas,
 .icono_regalo_popup_programaNuevas img
 {
+    position:relative;
     width:40px;
     height:auto;
 }
