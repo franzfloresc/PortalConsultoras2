@@ -310,23 +310,29 @@ namespace Portal.Consultoras.Web.Providers
 
                 if (!PaisTieneShowRoom(model.CodigoISO)) return;
 
-                if (UsarMsPersonalizacion(Constantes.TipoEstrategiaCodigo.ShowRoom))
+                if (UsarMsPersonalizacion(model.CodigoISO, Constantes.TipoEstrategiaCodigo.ShowRoom))
                 {
-                    var lstResult = Task.Run(() => ApiEventoPersonalizacion(model));
-                    Task.WhenAll(lstResult);
-                    configEstrategiaSR.BeShowRoom = ObtieneEventoModel(lstResult.Result);
-                    configEstrategiaSR.ListaPersonalizacionConsultora = ObtienePersonalizacionesModel(lstResult.Result);
+                    if (model.CampaniaID != 0)
+                    {
+                        var lstResult = Task.Run(() => ApiEventoPersonalizacion(model));
+                        Task.WhenAll(lstResult);
+                        configEstrategiaSR.BeShowRoom = ObtieneEventoModel(lstResult.Result);
+                        configEstrategiaSR.ListaPersonalizacionConsultora = ObtienePersonalizacionesModel(lstResult.Result);
+
+                        configEstrategiaSR.BeShowRoomConsultora = GetShowRoomConsultora(model);
+                        configEstrategiaSR.ListaNivel = GetShowRoomNivel(model);
+                        configEstrategiaSR.ShowRoomNivelId = ObtenerNivelId(configEstrategiaSR.ListaNivel);
+                    }
                 }
                 else
                 {
                     configEstrategiaSR.BeShowRoom = GetShowRoomEventoByCampaniaId(model);
                     configEstrategiaSR.ListaPersonalizacionConsultora = GetShowRoomPersonalizacion(model);
-                }
 
-                configEstrategiaSR.BeShowRoomConsultora = GetShowRoomConsultora(model);
-                configEstrategiaSR.ListaNivel = GetShowRoomNivel(model);
-                configEstrategiaSR.ShowRoomNivelId = ObtenerNivelId(configEstrategiaSR.ListaNivel);
-
+                    configEstrategiaSR.BeShowRoomConsultora = GetShowRoomConsultora(model);
+                    configEstrategiaSR.ListaNivel = GetShowRoomNivel(model);
+                    configEstrategiaSR.ShowRoomNivelId = ObtenerNivelId(configEstrategiaSR.ListaNivel);
+                }              
 
                 if (configEstrategiaSR.BeShowRoom != null &&
                     configEstrategiaSR.BeShowRoom.Estado == SHOWROOM_ESTADO_ACTIVO)
