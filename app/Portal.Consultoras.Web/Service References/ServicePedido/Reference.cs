@@ -6303,6 +6303,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private bool TieneLoginExternoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool TieneMGField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int TieneMasVendidosField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -8855,6 +8858,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.TieneLoginExternoField.Equals(value) != true)) {
                     this.TieneLoginExternoField = value;
                     this.RaisePropertyChanged("TieneLoginExterno");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool TieneMG {
+            get {
+                return this.TieneMGField;
+            }
+            set {
+                if ((this.TieneMGField.Equals(value) != true)) {
+                    this.TieneMGField = value;
+                    this.RaisePropertyChanged("TieneMG");
                 }
             }
         }
@@ -13382,6 +13398,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string NombreField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool PermiteAgregarPedidoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal PrecioCatalogoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -13842,6 +13861,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.NombreField, value) != true)) {
                     this.NombreField = value;
                     this.RaisePropertyChanged("Nombre");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool PermiteAgregarPedido {
+            get {
+                return this.PermiteAgregarPedidoField;
+            }
+            set {
+                if ((this.PermiteAgregarPedidoField.Equals(value) != true)) {
+                    this.PermiteAgregarPedidoField = value;
+                    this.RaisePropertyChanged("PermiteAgregarPedido");
                 }
             }
         }
@@ -42894,10 +42926,10 @@ namespace Portal.Consultoras.Web.ServicePedido {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWeb[]> GetPedidosIngresadoFacturadoWebMobileAsync(int paisID, int consultoraID, int campaniaID, int clienteID, int top, string codigoConsultora);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetPedidosIngresadoFacturadoApp", ReplyAction="http://tempuri.org/IPedidoService/GetPedidosIngresadoFacturadoAppResponse")]
-        Portal.Consultoras.Web.ServicePedido.BEPedidoWeb[] GetPedidosIngresadoFacturadoApp(int paisID, int consultoraID, int campaniaID, string codigoConsultora, int usuarioPrueba, string consultoraAsociada, int top);
+        Portal.Consultoras.Web.ServicePedido.BEPedidoWeb[] GetPedidosIngresadoFacturadoApp(int paisID, int consultoraID, int campaniaID, string codigoConsultora, int usuarioPrueba, string consultoraAsociada, int top, bool mostrarPaqueteDocumentario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetPedidosIngresadoFacturadoApp", ReplyAction="http://tempuri.org/IPedidoService/GetPedidosIngresadoFacturadoAppResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWeb[]> GetPedidosIngresadoFacturadoAppAsync(int paisID, int consultoraID, int campaniaID, string codigoConsultora, int usuarioPrueba, string consultoraAsociada, int top);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWeb[]> GetPedidosIngresadoFacturadoAppAsync(int paisID, int consultoraID, int campaniaID, string codigoConsultora, int usuarioPrueba, string consultoraAsociada, int top, bool mostrarPaqueteDocumentario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetMensajeMetaConsultora", ReplyAction="http://tempuri.org/IPedidoService/GetMensajeMetaConsultoraResponse")]
         Portal.Consultoras.Web.ServicePedido.BEMensajeMetaConsultora[] GetMensajeMetaConsultora(int paisID, Portal.Consultoras.Web.ServicePedido.BEMensajeMetaConsultora entidad);
@@ -45635,12 +45667,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.GetPedidosIngresadoFacturadoWebMobileAsync(paisID, consultoraID, campaniaID, clienteID, top, codigoConsultora);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEPedidoWeb[] GetPedidosIngresadoFacturadoApp(int paisID, int consultoraID, int campaniaID, string codigoConsultora, int usuarioPrueba, string consultoraAsociada, int top) {
-            return base.Channel.GetPedidosIngresadoFacturadoApp(paisID, consultoraID, campaniaID, codigoConsultora, usuarioPrueba, consultoraAsociada, top);
+        public Portal.Consultoras.Web.ServicePedido.BEPedidoWeb[] GetPedidosIngresadoFacturadoApp(int paisID, int consultoraID, int campaniaID, string codigoConsultora, int usuarioPrueba, string consultoraAsociada, int top, bool mostrarPaqueteDocumentario) {
+            return base.Channel.GetPedidosIngresadoFacturadoApp(paisID, consultoraID, campaniaID, codigoConsultora, usuarioPrueba, consultoraAsociada, top, mostrarPaqueteDocumentario);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWeb[]> GetPedidosIngresadoFacturadoAppAsync(int paisID, int consultoraID, int campaniaID, string codigoConsultora, int usuarioPrueba, string consultoraAsociada, int top) {
-            return base.Channel.GetPedidosIngresadoFacturadoAppAsync(paisID, consultoraID, campaniaID, codigoConsultora, usuarioPrueba, consultoraAsociada, top);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWeb[]> GetPedidosIngresadoFacturadoAppAsync(int paisID, int consultoraID, int campaniaID, string codigoConsultora, int usuarioPrueba, string consultoraAsociada, int top, bool mostrarPaqueteDocumentario) {
+            return base.Channel.GetPedidosIngresadoFacturadoAppAsync(paisID, consultoraID, campaniaID, codigoConsultora, usuarioPrueba, consultoraAsociada, top, mostrarPaqueteDocumentario);
         }
         
         public Portal.Consultoras.Web.ServicePedido.BEMensajeMetaConsultora[] GetMensajeMetaConsultora(int paisID, Portal.Consultoras.Web.ServicePedido.BEMensajeMetaConsultora entidad) {

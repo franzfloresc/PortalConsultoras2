@@ -1629,6 +1629,7 @@
         <xs:element minOccurs="0" name="usuarioPrueba" type="xs:int" />
         <xs:element minOccurs="0" name="consultoraAsociada" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="top" type="xs:int" />
+        <xs:element minOccurs="0" name="mostrarPaqueteDocumentario" type="xs:boolean" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
