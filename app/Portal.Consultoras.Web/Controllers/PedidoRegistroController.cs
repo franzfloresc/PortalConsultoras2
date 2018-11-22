@@ -417,19 +417,12 @@ namespace Portal.Consultoras.Web.Controllers
             var pedidoAgrupado = listaPedidoWebDetalleAgrupado.FirstOrDefault(x => x.CUV == CUV) ?? new BEPedidoWebDetalle();
             var pedidoEliminado = new BEPedidoWebDetalle();
 
-            if (setId > 0)
-            {
-                var set = _pedidoSetProvider.ObtenerPorId(userData.PaisID, setId);
-                pedidoEliminado = listaPedidoWebDetalle.FirstOrDefault(x => x.CUV == set.Detalles.FirstOrDefault().CUV);
-            }
-            else
+            if (setId == 0)
             {
                 pedidoEliminado = listaPedidoWebDetalle.FirstOrDefault(x => x.CUV == CUV);
-            }
-
-            if (pedidoEliminado == null)
-                return new Tuple<bool, JsonResult>(false, ErrorJson(Constantes.MensajesError.DeletePedido_CuvNoExiste)).Item2;
-
+                if (pedidoEliminado == null)
+                    return new Tuple<bool, JsonResult>(false, ErrorJson(Constantes.MensajesError.DeletePedido_CuvNoExiste)).Item2;
+            } 
 
             var result = await _pedidoWebProvider.EliminarPedidoDetalle(pedidoDetalle);
 
