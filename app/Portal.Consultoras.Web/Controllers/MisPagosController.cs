@@ -565,7 +565,8 @@ namespace Portal.Consultoras.Web.Controllers
             lista[6] = userData.PaisID.ToString();
             lista[7] = vSimbolo;
             Util.ExportToPdfWebPages(this, "Percepciones.pdf", "PercepcionDetalle", Util.EncriptarQueryString(lista));
-            return View();
+
+            return new  EmptyResult();
         }
 
         public ActionResult DetallePercepcion()
