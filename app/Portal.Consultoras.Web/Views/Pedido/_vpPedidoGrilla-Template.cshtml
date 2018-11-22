@@ -76,9 +76,9 @@
         <div class="celda_cantidad_pedidos">
             <div data-SetID="{{SetID}}"></div>
             {{#if EsKitNueva}}
-            <div class="texto_pedidos" style="text-align:center; margin: 0;padding:0;">{{Cantidad}}</div>
+            <div class="texto_pedidos texto_cantidad_pedidos">{{Cantidad}}</div>
             {{else if FlagNueva}}
-            <div class="texto_pedidos texto_cantidad_pedidos" style="text-align:center; margin: 0;padding:0;">{{Cantidad}}</div>
+            <div class="texto_pedidos texto_cantidad_pedidos">{{Cantidad}}</div>
             {{else}}
             <div class="liquidacion_rango_wrapper_pedido cantidad_detalle_focus" data-cantidad-contenedor="">
                 <input type="text" value="{{Cantidad}}" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral txtLPCant"

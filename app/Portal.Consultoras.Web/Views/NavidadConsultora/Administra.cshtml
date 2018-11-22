@@ -220,7 +220,8 @@
         });
 
         $("#cancelarFile").click(function () {
-            $('#popFormImagen').dialog("close");
+            HideDialog("popFormImagen");
+            //$('#popFormImagen').dialog("close");
             $('#verImagen').attr('src', '@Url.Content("~/Content/Images/prod_grilla_vacio.png")');
             $("#tipoImagen").val('');
             $('#ImagenActualizar').val("");
@@ -256,7 +257,8 @@
                 var tipoMantenimiento = $('#tipoMantenimiento').val();
                 var ImagenId = $('#ImagenId').val();
                 var ImagenActualizar = $('#ImagenActualizar').val();
-                $('#popFormImagen').dialog("close");
+                HideDialog("popFormImagen");
+                //$('#popFormImagen').dialog("close");
                 GuardarImagen(PaisId, CampaniaID, tipoMantenimiento, ImagenId, ImagenActualizar);
                 $('#ImagenActualizar').val("");
             } else if ($('#verImagen').attr("src") == '@Url.Content("~/Content/Images/prod_grilla_vacio.png")') {
@@ -268,7 +270,8 @@
             } else if ($("#ddlPaisImg").val() == "" || $("#ddlCampaniaImg").val() == "") {
                 alert("Debe seleccionar país y campaña");
             } else if ($('#ImagenActualizar').val() == "") {
-                $('#popFormImagen').dialog("close");
+                HideDialog("popFormImagen");
+                //$('#popFormImagen').dialog("close");
             }
         });
 

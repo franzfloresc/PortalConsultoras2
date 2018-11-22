@@ -70,7 +70,8 @@ $(document).ready(function () {
                 window.location.href = "Login";
             }
 
-            $('#alertDialogMensajes').dialog('close');
+            HideDialog("alertDialogMensajes");
+            //$('#alertDialogMensajes').dialog('close');
         }
     });
 
@@ -165,7 +166,12 @@ $(document).ready(function () {
         closeOnEscape: true,
         width: 400,
         draggable: true,
-        buttons: { "Aceptar": function () { $(this).dialog('close'); } }
+        buttons: {
+            "Aceptar": function () {
+                HideDialog("alertDialogMensajes");
+                //$(this).dialog('close');
+            }
+        }
     });
 
     $('#ModalFeDeErratas').dialog({
@@ -201,7 +207,8 @@ $(document).ready(function () {
         buttons:
             {
                 "Aceptar": function () {
-                    $(this).dialog('close');
+                    HideDialog("DialogMensajesCom");
+                    //$(this).dialog('close');
                 }
             }
     });
@@ -215,7 +222,8 @@ $(document).ready(function () {
         draggable: true,
         title: "",
         close: function (event, ui) {
-            $(this).dialog('close');
+            HideDialog("divMensajeConfirmacion");
+            //$(this).dialog('close');
         }
     });
 
@@ -228,7 +236,8 @@ $(document).ready(function () {
         draggable: true,
         title: "",
         close: function (event, ui) {
-            $(this).dialog('close');
+            HideDialog("divMensajeConfDuoPerfecto");
+            //$(this).dialog('close');
         }
     });
 
