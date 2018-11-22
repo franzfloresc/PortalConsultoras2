@@ -1089,6 +1089,7 @@ namespace Portal.Consultoras.Web.Providers
                 prodModel.TienePaginaProductoMob = estrategia.PuedeVerDetalleMob;
                 prodModel.Ganancia = estrategia.Ganancia;
                 prodModel.GananciaString = estrategia.GananciaString;
+                prodModel.TieneStock = estrategia.TieneStock;
 
                 prodModel.TipoAccionAgregar = TipoAccionAgregar(
                     estrategia.TieneVariedad,
