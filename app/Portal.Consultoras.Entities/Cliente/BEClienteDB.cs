@@ -81,8 +81,7 @@ namespace Portal.Consultoras.Entities
             get
             {
                 mensajeRespuesta = string.Empty;
-                if (string.IsNullOrEmpty(CodigoRespuesta))
-                    mensajeRespuesta = Constantes.ClienteValidacion.Message[CodigoRespuesta];
+                if (!string.IsNullOrEmpty(CodigoRespuesta)) mensajeRespuesta = Constantes.ClienteValidacion.Message[CodigoRespuesta];
                 return mensajeRespuesta;
             }
             set { mensajeRespuesta = value; }
