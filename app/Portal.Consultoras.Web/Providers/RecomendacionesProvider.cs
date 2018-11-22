@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Recomendaciones;
@@ -9,10 +10,12 @@ namespace Portal.Consultoras.Web.Providers
     public class RecomendacionesProvider : BuscadorBaseProvider
     {
         protected ISessionManager _sessionManager;
+        protected RecomendacionesConfiguracionModel _recomendacionesConfiguracion;
 
         public RecomendacionesProvider()
         {
             _sessionManager = SessionManager.SessionManager.Instance;
+            _recomendacionesConfiguracion = _sessionManager.GetRecomendacionesConfig();
         }
 
         public async Task<RecomendacionesModel> ObtenerRecomendaciones(string cuv, string codigoProducto)
@@ -27,6 +30,16 @@ namespace Portal.Consultoras.Web.Providers
 
             var jsonConsultar = GenerarJsonParaConsulta(userData, revistaDigital, cuv, codigoProducto);
             return await PostAsync<RecomendacionesModel>(pathBuscador, jsonConsultar);
+        }
+
+        public bool ValidarRecomendacionActivo()
+        {
+            return (from item 
+                    in _recomendacionesConfiguracion.ConfiguracionPaisDatos
+                    where item.Codigo == Constantes.CodigoConfiguracionRecomendaciones.ActivarRecomendaciones
+                    select item.Valor1)
+                .FirstOrDefault()
+                .ToBool();
         }
 
         private dynamic GenerarJsonParaConsulta(UsuarioModel usuarioModel, RevistaDigitalModel revistaDigital, string cuv, string codigoProducto)
@@ -51,6 +64,7 @@ namespace Portal.Consultoras.Web.Providers
                 }
             };
         }
+        
 
     }
 }

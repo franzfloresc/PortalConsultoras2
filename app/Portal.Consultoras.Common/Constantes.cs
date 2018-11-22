@@ -432,7 +432,8 @@ namespace Portal.Consultoras.Common
 
 
             public const string JwtApiSomosBelcorp = "JwtApiSomosBelcorp";
-
+            public const string RecomendacionesConfig = "RecomendacionesConfiguracion";
+            public const string BuscadorYFiltrosConfig = "BuscadorYFiltros";
         }
 
         public static class ConfiguracionManager
@@ -1603,6 +1604,7 @@ namespace Portal.Consultoras.Common
             public const string ProgramaNuevas = "PN";
             public const string ElecMultiple = "DP";
             public const string MasGanadoras = "MG";
+            public const string Recomendaciones = "RECOMDS";
         }
 
 
@@ -3083,6 +3085,15 @@ namespace Portal.Consultoras.Common
             public const string TotalProductosPaginaResultado = "TotalProductosPaginaResultado";
             public const string TotalCaracteresDescPaginaResultado = "TotalCaracteresDescPaginaResultado";
             public const string FlagFiltrosBuscador = "FlagFiltrosBuscador";
+        }
+        
+        public static class CodigoConfiguracionRecomendaciones
+        {
+            public const string ActivarRecomendaciones = "ActivarRecomendaciones";
+            public const string MaximoResultados = "MaximoResultados";
+            public const string MinimoResultados = "MinimoResultados";
+            public const string CaracteresDescripcion = "CaracteresDescripcion";
+            public const string CodigoCatalogo = "CodigoCatalogo";
         }
 
         public static class RutaBuscadorService

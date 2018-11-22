@@ -13,6 +13,7 @@ using Portal.Consultoras.Web.SessionManager.OfertaDelDia;
 using Portal.Consultoras.Web.SessionManager.ShowRoom;
 using System;
 using System.Collections.Generic;
+using Portal.Consultoras.Web.Models.Recomendaciones;
 
 namespace Portal.Consultoras.Web.SessionManager
 {
@@ -263,7 +264,11 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetBuscadorYFiltros(BuscadorYFiltrosConfiguracionModel buscadorYFiltrosModel);
 
         BuscadorYFiltrosConfiguracionModel GetBuscadorYFiltros();
-        
+
+        void SetRecomendacionesConfig(RecomendacionesConfiguracionModel recomendacionesConfiguracionModel);
+
+        RecomendacionesConfiguracionModel GetRecomendacionesConfig();
+
         void SetOcultarBannerApp(dynamic val);
 
         dynamic GetOcultarBannerApp();

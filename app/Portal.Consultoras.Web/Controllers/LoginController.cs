@@ -26,6 +26,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
+using Portal.Consultoras.Web.Models.Recomendaciones;
 using BEConfiguracionPaisDatos = Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -1869,6 +1870,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var listaConfiPaisModel = new List<ConfiguracionPaisModel>();
                 var buscadorYFiltrosModel = new BuscadorYFiltrosConfiguracionModel();
                 var masGanadorasModel = new MasGanadorasModel();
+                var recomendacionesConfiguacionModel = new RecomendacionesConfiguracionModel();
                 
                 if (configuracionesPaisModels.Any())
                 {
@@ -1953,6 +1955,11 @@ namespace Portal.Consultoras.Web.Controllers
                                 masGanadorasModel.TieneMG = c.Estado;
                                 masGanadorasModel = ConfiguracionPaisDatosMasGanadoras(masGanadorasModel, configuracionPaisDatos);
                                 break;
+                            case Constantes.ConfiguracionPais.Recomendaciones:
+                                recomendacionesConfiguacionModel =
+                                    ConfiguracionPaisRecomendaciones(recomendacionesConfiguacionModel,
+                                        configuracionPaisDatos);
+                                break;
                         }
 
                         listaConfiPaisModel.Add(c);
@@ -1970,6 +1977,7 @@ namespace Portal.Consultoras.Web.Controllers
                     sessionManager.SetOfertaFinalModel(ofertaFinalModel);
                     sessionManager.SetHerramientasVenta(herramientasVentaModel);
                     sessionManager.SetBuscadorYFiltros(buscadorYFiltrosModel);
+                    sessionManager.SetRecomendacionesConfig(recomendacionesConfiguacionModel);
                     sessionManager.MasGanadoras.SetModel(masGanadorasModel);
                 }
 
@@ -2100,6 +2108,12 @@ namespace Portal.Consultoras.Web.Controllers
         {
             buscadorYFiltrosModel.ConfiguracionPaisDatos = Mapper.Map<List<ConfiguracionPaisDatosModel>>(listaDatos) ?? new List<ConfiguracionPaisDatosModel>();
             return buscadorYFiltrosModel;
+        }
+
+        public virtual RecomendacionesConfiguracionModel ConfiguracionPaisRecomendaciones(RecomendacionesConfiguracionModel recomendacionesConfiguracionModel, List<BEConfiguracionPaisDatos> listaDatos)
+        {
+            recomendacionesConfiguracionModel.ConfiguracionPaisDatos = Mapper.Map<List<ConfiguracionPaisDatosModel>>(listaDatos) ?? new List<ConfiguracionPaisDatosModel>();
+            return recomendacionesConfiguracionModel;
         }
 
         public virtual RevistaDigitalModel ConfiguracionPaisDatosRevistaDigitalIntriga(RevistaDigitalModel revistaDigital, List<BEConfiguracionPaisDatos> listaDatos, string paisIso)

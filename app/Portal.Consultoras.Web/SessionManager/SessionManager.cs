@@ -15,6 +15,7 @@ using Portal.Consultoras.Web.SessionManager.ShowRoom;
 using System;
 using System.Collections.Generic;
 using System.Web;
+using Portal.Consultoras.Web.Models.Recomendaciones;
 
 namespace Portal.Consultoras.Web.SessionManager
 {
@@ -1282,14 +1283,25 @@ namespace Portal.Consultoras.Web.SessionManager
 
         public void SetBuscadorYFiltros(BuscadorYFiltrosConfiguracionModel buscadorYFiltrosModel)
         {
-            HttpContext.Current.Session["BuscadorYFiltros"] = buscadorYFiltrosModel;
+            HttpContext.Current.Session[Constantes.ConstSession.BuscadorYFiltrosConfig] = buscadorYFiltrosModel;
         }
 
         public BuscadorYFiltrosConfiguracionModel GetBuscadorYFiltros()
         {
-            return ((BuscadorYFiltrosConfiguracionModel)HttpContext.Current.Session["BuscadorYFiltros"]) ?? new BuscadorYFiltrosConfiguracionModel();
+            return (BuscadorYFiltrosConfiguracionModel)HttpContext.Current.Session[Constantes.ConstSession.BuscadorYFiltrosConfig] ?? new BuscadorYFiltrosConfiguracionModel();
         }
 
+        public void SetRecomendacionesConfig(RecomendacionesConfiguracionModel recomendacionesConfiguracionModel)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.RecomendacionesConfig] = recomendacionesConfiguracionModel;
+        }
+
+        public RecomendacionesConfiguracionModel GetRecomendacionesConfig()
+        {
+            return (RecomendacionesConfiguracionModel)HttpContext.Current.Session[Constantes.ConstSession.RecomendacionesConfig] ?? new RecomendacionesConfiguracionModel();
+        }
+        
+        
         public BEUsuarioDatos GetDatosUsuario() {
             return ((BEUsuarioDatos)HttpContext.Current.Session["DatosUsuario"]);
         }

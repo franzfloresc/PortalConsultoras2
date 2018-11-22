@@ -18,6 +18,9 @@ namespace Portal.Consultoras.Web.Controllers
 
         public async Task<JsonResult> ObtenerProductos(string cuv, string codigoProducto)
         {
+            if (!_recomendacionesProvider.ValidarRecomendacionActivo())
+                return Json(new RecomendacionesModel(), JsonRequestBehavior.AllowGet);
+            
             RecomendacionesModel recomendacionesModel;
             try
             {
