@@ -59,15 +59,15 @@ $(document).ready(function () {
     });
 
     $('body').on('keypress', 'input[attrKey="PreValidarCUV"]', function (event) {
-        
+
         if (event.keyCode == 13) {
-            
+
             if ($("#btnAgregar")[0].disabled == false) {
                 AgregarProductoListado();
             }
         }
     })
- 
+
 
     $("body").click(function (e) {
         if (!$(e.target).closest(".ui-dialog").length) {
@@ -137,14 +137,14 @@ $(document).ready(function () {
     $("#txtDescripcionProd").keyup(function (evt) {
         $("#divObservaciones").html("");
         $("#txtCantidad").removeAttr("disabled");
-        document.getElementById('divObservacionesDescripProd').style.display = "none";  
+        document.getElementById('divObservacionesDescripProd').style.display = "none";
     });
     $("#txtDescripcionProd").autocomplete({
         source: baseUrl + "Pedido/AutocompleteByProductoDescripcion",
         minLength: 4,
         select: function (event, ui) {
             if (ui.item.CUV == "0") return false;
-            
+
             $("#txtDescripcionProd")[0].item = ui.item;
             $("#txtDescripcionProd").val(ui.item.Descripcion);
             $("#hdTipoOfertaSisID").val(ui.item.TipoOfertaSisID);
@@ -164,11 +164,11 @@ $(document).ready(function () {
         if (item.Descripcion == "Sin Resultados") {
             document.getElementById('divObservacionesDescripProd').style.display = "inline-block";
             return $("<li></li>");
-        }else
-        return $("<li></li>")
-            .data("item.autocomplete", item)
-            .append("<a>" + item.Descripcion + "</a>")
-            .appendTo(ul);
+        } else
+            return $("<li></li>")
+                .data("item.autocomplete", item)
+                .append("<a>" + item.Descripcion + "</a>")
+                .appendTo(ul);
     };
 
     $("#txtCUV").keyup(function (evt) {
@@ -206,11 +206,11 @@ $(document).ready(function () {
 
         }
     }).data("autocomplete")._renderItem = function (ul, item) {
-        if (isNaN(item.CUV)==true) {
+        if (isNaN(item.CUV) == true) {
             document.getElementById('divObservaciones').style.display = 'block';
             $("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'><span class='icono_advertencia_notificacion'></span>El producto solicitado no existe</div></div>");
             return $("<li></li>");
-        }else
+        } else
             return $("<li></li>")
                 .data("item.autocomplete", item)
                 .append("<a>" + item.CUV + "</a>")
@@ -280,14 +280,14 @@ $(document).ready(function () {
     });
     $("body").on("click", ".agregarSugerido", function () {
         AbrirSplash();
-        
+
         var divPadre = $(this).parents("[data-item='producto']").eq(0);
         var cuv = $(divPadre).find(".hdSugeridoCuv").val();
         var cantidad = $(divPadre).find("[data-input='cantidad']").val();
         var tipoOfertaSisID = $(divPadre).find(".hdSugeridoTipoOfertaSisID").val();
         var configuracionOfertaID = $(divPadre).find(".hdSugeridoConfiguracionOfertaID").val();
         var indicadorMontoMinimo = $(divPadre).find(".hdSugeridoIndicadorMontoMinimo").val();
-       
+
         var marcaID = $(divPadre).find(".hdSugeridoMarcaID").val();
         var precioUnidad = $(divPadre).find(".hdSugeridoPrecioUnidad").val();
         var descripcionProd = $(divPadre).find(".hdSugeridoDescripcionProd").val();
@@ -296,7 +296,7 @@ $(document).ready(function () {
         var OrigenPedidoWeb = DesktopPedidoSugerido;
         var posicion = $(divPadre).find(".hdPosicionSugerido").val();
         var tipoEstrategiaId = $(divPadre).find(".hdTipoEstrategiaID").val();
-        
+
         if (!isInt(cantidad)) {
             AbrirMensaje("La cantidad ingresada debe ser un número mayor que cero, verifique");
             $(".liquidacion_rango_cantidad_pedido").val(1);
@@ -363,7 +363,7 @@ $(document).ready(function () {
     $("body").on("click", "[data-close='divProductoAgotadoFinal']", function () {
         InsertarDemandaTotalReemplazoSugerido(null, 0, 1, false);
         limpiarInputsPedido();
-        
+
         $("#divProductoAgotadoFinal").hide();
         dataLayer.push({
             'event': "virtualEvent",
@@ -373,7 +373,7 @@ $(document).ready(function () {
         });
     });
     $("#frmInsertPedido").on("submit", function () {
-        
+
         if (!$(this).valid()) {
             AbrirMensaje("Argumentos no validos");
             return false;
@@ -457,18 +457,18 @@ $(document).ready(function () {
     $("#producto-faltante-busqueda-cuv, #producto-faltante-busqueda-descripcion").on("keypress", function (e) {
         if (e.which == 13) CargarProductoAgotados(0);
     });
-   
+
     $("#ddlCategoriaProductoAgotado, #ddlCatalogoRevistaProductoAgotado").on("change", function (e) {
         CargarProductoAgotados(0);
     });
-   
+
     $(document).on("click", "#idImagenCerrar", function (e) { $(this).parent().hide(); });
 
     CrearDialogs();
     MostrarBarra();
     CargarDetallePedido();
     CargarCarouselEstrategias();
-    CargarAutocomplete();  
+    CargarAutocomplete();
     CargarDialogMesajePostulantePedido();
     EstablecerAccionLazyImagen("img[data-lazy-seccion-banner-pedido]");
 
@@ -495,7 +495,8 @@ $(document).ready(function () {
     });
 
     $('.close_buttom_alerta').click(function () {
-        $('#observaciones_alerta').dialog('close');
+        HideDialog("observaciones_alerta");
+        //$('#observaciones_alerta').dialog('close');
         return false;
     });
 
@@ -676,8 +677,9 @@ function CrearDialogs() {
             $("body").addClass("overflow_hidden");
         },
         close: function (event, ui) {
-            $(this).dialog("close");
-            $("body").removeClass("overflow_hidden");
+            HideDialog("divConfirmEliminarTotal");
+            //$(this).dialog("close");
+            //$("body").removeClass("overflow_hidden");
         },
         create: function (event, ui) {
             $("#divConfirmEliminarTotal").parent().addClass("pop_up_eliminar");
@@ -685,7 +687,8 @@ function CrearDialogs() {
     });
 
     $('.close_buttom_alerta_alerta').click(function () {
-        $('#divConfirmEliminarTotal').dialog('close');
+        HideDialog("divConfirmEliminarTotal");
+        //$('#divConfirmEliminarTotal').dialog('close');
         return false;
     });
 
@@ -700,12 +703,17 @@ function CrearDialogs() {
     //        $(this).dialog("close");
     //    }
     //});
+
     $("#divObservacionesPROL").dialog({
         autoOpen: false,
         resizable: false,
         modal: true,
         closeOnEscape: true,
-        draggable: true
+        draggable: true,
+        width: 600,
+        close: function (event, ui) {
+            HideDialog("divObservacionesPROL");
+        }
     });
 
     $("#divConfirmValidarPROL").dialog({
@@ -716,7 +724,8 @@ function CrearDialogs() {
         width: 550,
         draggable: true,
         close: function (event, ui) {
-            $(this).dialog("close");
+            HideDialog("divConfirmValidarPROL");
+            //$(this).dialog("close");
         }
     });
 
@@ -854,13 +863,12 @@ function ValidarStockEstrategia() {
 
 function InsertarProducto(form) {
 
-	var flag = $("#hdfEsBusquedaSR").val();
+    var flag = $("#hdfEsBusquedaSR").val();
 
-	if (flag == "true")
-	{
-		form.url = baseUrl + "Pedido/PedidoAgregarProducto";
-		form.data.EstrategiaID = $("#hdfEstrategiaId").val();
-	}
+    if (flag == "true") {
+        form.url = baseUrl + "Pedido/PedidoAgregarProducto";
+        form.data.EstrategiaID = $("#hdfEstrategiaId").val();
+    }
 
     $.ajax({
         url: form.url,
@@ -915,7 +923,7 @@ function InsertarProducto(form) {
                         });
                     }
                 }
-                
+
                 PedidoOnSuccess();
                 CerrarSplash();
             }
@@ -1115,8 +1123,7 @@ function ValidarCUV() {
             $("#btnAgregar").attr("disabled", "disabled");
         }
     } else {
-        if ($("#txtCUV").val().length !== 5)
-        {
+        if ($("#txtCUV").val().length !== 5) {
             $("#txtCantidad").val("");
             $("#hdfCUV").val("");
             $("#hdfDescripcionProd").val("");
@@ -1126,7 +1133,7 @@ function ValidarCUV() {
             $("#txtPrecioR").val("");
             $("#hdfPrecioUnidad").val("");
         }
-        
+
     }
 }
 
@@ -1135,7 +1142,7 @@ function ValidarDescripcion() {
         if ($("#txtDescripcionProd").val() != $("#hdfDescripcionProd").val()) {
             $("#divMensaje").text("Ud. debe seleccionar un producto válido.");
             $("#btnAgregar").attr("disabled", "disabled");
-        } 
+        }
     } else {
         $("#txtCantidad").val("");
         $("#hdfCUV").val("");
@@ -1147,7 +1154,7 @@ function ValidarDescripcion() {
 }
 
 function PreValidarCUV(event) {
-    
+
     event = event || window.event;
 
     if (event.keyCode == 13) {
@@ -1345,7 +1352,7 @@ function CerrarSplash() {
     closeWaitingDialog();
 }
 
-function BuscarByCUV(CUV) { 
+function BuscarByCUV(CUV) {
     CUV = $.trim(CUV);
     if (CUV === $("#hdfCUV").val()) return false;
 
@@ -1518,8 +1525,8 @@ function ObtenerProductosSugeridos(CUV) {
                 } else if (accion == "next") {
                     var posicionUltimoActivo = $($("#divCarruselSugerido").find(".slick-active").slice(-1)[0]).find(".hdPosicionSugerido").val();
                     posicionEstrategia = arrayProductosSugeridos.length == posicionUltimoActivo ? 0 : posicionUltimoActivo;
-                     recomendado = arrayProductosSugeridos[posicionEstrategia];
-                     arraySugerido = [];
+                    recomendado = arrayProductosSugeridos[posicionEstrategia];
+                    arraySugerido = [];
 
                     var impresionSugerido = {
                         'name': recomendado.Descripcion,
@@ -1607,48 +1614,47 @@ function CambiarCliente(elem) {
 }
 
 function ObservacionesProducto(item) {
-    
-	$("#hdfEsBusquedaSR").val(false);
-	$("#hdfEstrategiaId").val(0);
-	if (item.EstrategiaID > 0)
-	{
-		$("#hdfEsBusquedaSR").val(true);
-		$("#hdfEstrategiaId").val(item.EstrategiaID);
-		$("#btnAgregar").removeAttr("disabled");
-	}
-	if (item.TipoOfertaSisID != "1707") {
-		if (item.TieneStock == true) {
-			if (item.TieneSugerido != 0) {
-				$("#divObservaciones").html("");
 
-				$("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'><span class='icono_advertencia_notificacion'></span>Lo sentimos, este producto está agotado.</div></div>");
+    $("#hdfEsBusquedaSR").val(false);
+    $("#hdfEstrategiaId").val(0);
+    if (item.EstrategiaID > 0) {
+        $("#hdfEsBusquedaSR").val(true);
+        $("#hdfEstrategiaId").val(item.EstrategiaID);
+        $("#btnAgregar").removeAttr("disabled");
+    }
+    if (item.TipoOfertaSisID != "1707") {
+        if (item.TieneStock == true) {
+            if (item.TieneSugerido != 0) {
+                $("#divObservaciones").html("");
 
-				$("#btnAgregar").attr("disabled", "disabled");
-				ObtenerProductosSugeridos(item.CUV);
-			} else {
-				$("#divObservaciones").html("");
-				if (item.EsExpoOferta == true) {
-					$("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>Producto de ExpoOferta.</div></div>");
-				}
-				if (item.CUVRevista.length != 0 && item.DesactivaRevistaGana == 0) {
-					if (!item.TieneRDC)
-						$("#divObservaciones").html("<div id='divProdRevista' class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>" + mensajeCUVOfertaEspecial + "</div></div>");
-				}
-				if (!IsNullOrEmpty(item.MensajeCUV)) AbrirMensaje(item.MensajeCUV, "IMPORTANTE");
+                $("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'><span class='icono_advertencia_notificacion'></span>Lo sentimos, este producto está agotado.</div></div>");
 
-				$("#btnAgregar").removeAttr("disabled");
-			}
-		} else {
+                $("#btnAgregar").attr("disabled", "disabled");
+                ObtenerProductosSugeridos(item.CUV);
+            } else {
+                $("#divObservaciones").html("");
+                if (item.EsExpoOferta == true) {
+                    $("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>Producto de ExpoOferta.</div></div>");
+                }
+                if (item.CUVRevista.length != 0 && item.DesactivaRevistaGana == 0) {
+                    if (!item.TieneRDC)
+                        $("#divObservaciones").html("<div id='divProdRevista' class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>" + mensajeCUVOfertaEspecial + "</div></div>");
+                }
+                if (!IsNullOrEmpty(item.MensajeCUV)) AbrirMensaje(item.MensajeCUV, "IMPORTANTE");
 
-			$("#divObservaciones").html("<div id='divProdRevista' class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>Lo sentimos, este producto está agotado.</div></div>");
-			$("#btnAgregar").attr("disabled", "disabled");
-			if (item.TieneSugerido != 0)
-				ObtenerProductosSugeridos(item.CUV);
-			else {
-				IngresoFAD(item);
-			}
-		}
-	}
+                $("#btnAgregar").removeAttr("disabled");
+            }
+        } else {
+
+            $("#divObservaciones").html("<div id='divProdRevista' class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>Lo sentimos, este producto está agotado.</div></div>");
+            $("#btnAgregar").attr("disabled", "disabled");
+            if (item.TieneSugerido != 0)
+                ObtenerProductosSugeridos(item.CUV);
+            else {
+                IngresoFAD(item);
+            }
+        }
+    }
 
     $("#txtCUV").val(item.CUV);
     $("#hdfCUV").val(item.CUV);
@@ -1721,7 +1727,7 @@ function IngresoFAD(producto) {
         async: true,
         success: function (data) {
             if (checkTimeout(data)) {
-                
+
             }
         },
         error: function (data, error) { }
@@ -1908,7 +1914,7 @@ function ValidDeleteElectivoNuevas(cuv, enRangoProgNuevas, fnDelete) {
             if (!response.esElecMultiple) fnDelete(false);
             else messageConfirmacionDuoPerfecto(response.message, function () { fnDelete(true); });
         })
-        .fail(function() { alert_msg(mensajeSinConexionGenerico); });
+        .fail(function () { alert_msg(mensajeSinConexionGenerico); });
 }
 
 //function ContinuarEliminacion() {
@@ -1983,7 +1989,7 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
             microefectoPedidoGuardado();
             TrackingJetloreRemove(cantidad, $("#hdCampaniaCodigo").val(), cuv);
 
-            
+
             AnalyticsPortalModule.MarcarRemoveFromCart(data, cantidad);
 
             CerrarSplash();
@@ -1995,7 +2001,7 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
                 var localStorageModule = new LocalStorageModule();
                 localStorageModule.ActualizarCheckAgregado($.trim(data.data.EstrategiaId), campaniaId, data.data.TipoEstrategiaCodigo, false);
             }
-            
+
             ActualizarLocalStoragePalancas(data.data.CUV, false);
         },
         error: function (data, error) {
@@ -2062,13 +2068,14 @@ function MostrarEliminarPedidoTotal() {
 }
 
 function EliminarPedidoTotalSi() {
-    
+
     EliminarPedidoTotalNo();
     EliminarPedido();
 }
 
 function EliminarPedidoTotalNo() {
-    $("#divConfirmEliminarTotal").dialog("close");
+    HideDialog("divConfirmEliminarTotal");
+    //$("#divConfirmEliminarTotal").dialog("close");
 }
 
 function ActualizarModeloPaginar(ClienteID) {
@@ -2155,13 +2162,13 @@ function EjecutarServicioPROL() {
                 return;
             }
             //Marcación Analytics
-            arrayProductosGuardadoExito = response; 
+            arrayProductosGuardadoExito = response;
             AnalyticsPortalModule.MarcarGuardaTuPedido();
 
             if (RespuestaEjecutarServicioPROL(response.data)) return;
             MostrarMensajeProl(response, function () { return CumpleOfertaFinalMostrar(response); });
         })
-        .fail(function(data, error) {
+        .fail(function (data, error) {
             CerrarSplash();
             MostrarPopupErrorReserva(mensajeSinConexionReserva, true);
         });
@@ -2193,7 +2200,7 @@ function EjecutarServicioPROLSinOfertaFinal() {
 }
 
 function RespuestaEjecutarServicioPROL(data, inicio) {
-    
+
     if (data.ErrorProl) {
         MostrarPopupErrorReserva(data.ListaObservacionesProl[0].Descripcion, data.AvisoProl);
         return true;
@@ -2216,7 +2223,7 @@ function RespuestaEjecutarServicioPROL(data, inicio) {
         }
 
     }
-    
+
     CargarDetallePedido();
     AlmacenarRespuestaReservaEnHidden(data);
     ActualizarObjMontosTotales(data);
@@ -2229,7 +2236,7 @@ function CrearPopupObservaciones(data, inicio) {
     var html = "<ul>";
     var msgDefault = "<li>Tu pedido tiene observaciones, por favor revísalo.</li>";
     var msgDefaultCont = 0;
-    
+
     if (data.ListaObservacionesProl.length == 0) html += msgDefault;
     else {
         $.each(data.ListaObservacionesProl, function (index, item) {
@@ -2272,7 +2279,7 @@ function ActualizarObjMontosTotales(data) {
                 <span class="display: inline-block;">DESCUENTO</span><span class="icon-advertencia"></span>:\
             </p>\
             <p class="monto_montodescuento">MONTO DESCUENTO :</p>'
-        ).show();               
+        ).show();
 
         $("#divMontosEscalaDescuento").html(
             '<p class="monto_descuento">\
@@ -2385,7 +2392,8 @@ function EliminarPedido() {
 }
 
 function EjecutarPROL2() {
-    $("#divConfirmValidarPROL").dialog("close");
+    HideDialog("divConfirmValidarPROL");
+    //$("#divConfirmValidarPROL").dialog("close");
     EjecutarPROL();
 }
 
@@ -2436,7 +2444,8 @@ function CancelarObsInformativas() {
             success: function (data) {
                 if (checkTimeout(data)) {
                     if (data.success == true) {
-                        $("#divObservacionesPROL").dialog("close");
+                        HideDialog("divObservacionesPROL");
+                        //$("#divObservacionesPROL").dialog("close");
                         CerrarSplash();
                     } else {
                         CerrarSplash();
@@ -2452,7 +2461,8 @@ function CancelarObsInformativas() {
             }
         });
     } else {
-        $("#divObservacionesPROL").dialog("close");
+        HideDialog("divObservacionesPROL");
+        //$("#divObservacionesPROL").dialog("close");
     }
 }
 
@@ -2745,7 +2755,7 @@ function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfe
 
     PrecioUnidad = $(rowElement).find(".hdfLPPrecioU").val();
     if (TipoOfertaSisID == constConfiguracionOfertaLiquidacion) {
-         PROL = $("#hdValidarPROL").val();
+        PROL = $("#hdValidarPROL").val();
 
         $.ajaxSetup({
             cache: false
@@ -2897,11 +2907,11 @@ function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfe
         });
     } else {
         if (TipoOfertaSisID == constConfiguracionOfertaShowRoom) {
-             PROL = $("#hdValidarPROL").val();
+            PROL = $("#hdValidarPROL").val();
 
             $.ajaxSetup({
                 cache: false
-             });
+            });
 
             CliID = $(rowElement).find(".hdfLPCli").val();
             CliDes = $(rowElement).find(".txtLPCli").val();
@@ -3292,7 +3302,8 @@ function AgregarProducto(url, model, divDialog, cerrarSplash, asyncX) {
             $("#hdErrorInsertarProducto").val(data.errorInsertarProducto);
 
             if (divDialog != "") {
-                $("#" + divDialog).dialog("close");
+                HideDialog(divDialog);
+                //$("#" + divDialog).dialog("close");
             }
 
             if (model != null && model != undefined)
@@ -3333,10 +3344,10 @@ function CargarProductoAgotados(identificador) {
 
     var data =
     {
-        cuv         : $("#producto-faltante-busqueda-cuv").val(),
-        descripcion : $("#producto-faltante-busqueda-descripcion").val(), 
-        categoria   : $("#ddlCategoriaProductoAgotado").val() == null ? "" : $("#ddlCategoriaProductoAgotado").val(),
-        revista     : $("#ddlCatalogoRevistaProductoAgotado").val() == "" ? "" : $("#ddlCatalogoRevistaProductoAgotado option:selected").text() 
+        cuv: $("#producto-faltante-busqueda-cuv").val(),
+        descripcion: $("#producto-faltante-busqueda-descripcion").val(),
+        categoria: $("#ddlCategoriaProductoAgotado").val() == null ? "" : $("#ddlCategoriaProductoAgotado").val(),
+        revista: $("#ddlCatalogoRevistaProductoAgotado").val() == "" ? "" : $("#ddlCatalogoRevistaProductoAgotado option:selected").text()
     };
 
     AbrirSplash();
@@ -3352,11 +3363,11 @@ function CargarProductoAgotados(identificador) {
             CerrarSplash();
             if (response.result) {
                 SetHandlebars("#productos-faltantes-template", response.data, "#tblProductosFaltantes");
-             
+
                 if (response.data.Detalle.length == 0)
-                    $("#tblProductosFaltantes table").find("#tfoot").removeClass("hidden"); 
+                    $("#tblProductosFaltantes table").find("#tfoot").removeClass("hidden");
                 else
-                    $("#tblProductosFaltantes table").find("#tfoot").addClass("hidden"); 
+                    $("#tblProductosFaltantes table").find("#tfoot").addClass("hidden");
 
                 $("#divProductoAgotado").show();
             }
@@ -3366,8 +3377,7 @@ function CargarProductoAgotados(identificador) {
     });
 }
 
-function CargarFiltrosProductoAgotados()
-{
+function CargarFiltrosProductoAgotados() {
     $("#ddlCategoriaProductoAgotado").find("option").remove();
     $("#ddlCatalogoRevistaProductoAgotado").find("option").remove();
 
@@ -3429,7 +3439,7 @@ function MostrarDetalleGanancia() {
 }
 
 function AnalyticsBannersInferiores(obj) {
-    
+
     var option = obj.id || 0
     if (option === 0) return;
     var strLabel = "";
@@ -3631,16 +3641,17 @@ function ProcesarActualizacionMostrarContenedorCupon() {
     }
 }
 function closeDialogObservacionesProl() {
-    
+
     var notExitoFromProl = $('#divMensajeObservacionesPROL').data('prop-NotExito');
 
     if (!notExitoFromProl)
         if (!(typeof AnalyticsPortalModule === 'undefined'))
             AnalyticsPortalModule.MarcaGuardarPedidoExito(arrayProductosGuardadoExito);
 
-        
-        $('#divObservacionesPROL').dialog('close');
-        
+
+    HideDialog("divObservacionesPROL");
+    //$('#divObservacionesPROL').dialog('close');
+
 }
 
 function ArmarPopupObsReserva(titulo, mensaje) {
@@ -3658,8 +3669,9 @@ function MostrarPopupErrorReserva(mensajePedido, esAviso) {
 }
 
 function ShowPopupObservacionesReserva() {
+    console.log('divObservacionesPROL');
     showDialog("divObservacionesPROL");
-    $("#divObservacionesPROL").css("width", "600px").parent().css("left", "372px");
+    //$("#divObservacionesPROL").css("width", "600px").parent().css("left", "372px");
 }
 
 function RedirigirPedidoValidado() {
@@ -3711,7 +3723,7 @@ function InsertarDemandaTotalReemplazoSugerido(cuvSugerido, precio, cantidad, es
 
 var PedidoProvider = function () {
     "use strict";
-    var _pedidoEjecutarServicioProlPromise = function() {
+    var _pedidoEjecutarServicioProlPromise = function () {
         var dfd = jQuery.Deferred();
 
         jQuery.ajax({
