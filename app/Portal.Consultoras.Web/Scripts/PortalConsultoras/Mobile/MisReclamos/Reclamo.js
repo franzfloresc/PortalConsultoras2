@@ -108,7 +108,8 @@ $(document).ready(function () {
             enlace_quiero_ver_otra_alternativa: ".enlace_quiero_ver_otra_alternativa",
             footer_page: ".footer-page",
             wrpMobile: "#wrpMobile",
-            pb120: "pb-120"
+            pb120: "pb-120",
+            campoBusquedaCuvDescripcionCdr: '#CampoBusquedaCuvDescripcion'
         };
 
         me.Eventos = {
@@ -444,7 +445,14 @@ $(document).ready(function () {
                     $(me.Variables.Registro4).hide();
                     $(me.Variables.btnAceptarSolucion).hide();
                     $(me.Variables.Registro3).show();
-                })
+                });
+
+                $(me.Variables.campoBusquedaCuvDescripcionCdr).keyup(function () {
+                    var valorInputBusquedaCuvDescripcion = $(this).val().toLowerCase();
+                    $("#ListaCoincidenciasBusquedaProductosCdr li").filter(function () {
+                        $(this).toggle($(this).attr('data-value').toLowerCase().indexOf(valorInputBusquedaCuvDescripcion) > -1);
+                    });
+                });
             }
         };
 

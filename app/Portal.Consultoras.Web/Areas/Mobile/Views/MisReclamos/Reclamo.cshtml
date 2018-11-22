@@ -108,6 +108,11 @@
         <div class="campos_registro_solicitud_cdr Registro1">
             <div class="formulario_inscripcion_cdr">
                 @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.ListaCampania, "CampaniaID", "NombreCorto", Model.CampaniaID), new { id = "ddlCampania", @class = "select_reclamo", @required = "required" })
+                <select class="elige_num_pedido" id="ddlnumPedido" name="numPedido" required="required">
+                    <option selected="selected" value="0">Elige un pedido</option>
+                    <option value="Nº 1801878344">Nº 1801878344</option>
+                    <option value="Nº 1801878344">Nº 1801878344</option>
+                </select>
                 <input id="cuvmobile" class="tipografia_lato tipografia_lato_regular ValidaNumeral ValidaPasteNumeral valid" type="text" value="" placeholder="Código del producto" />
                 <div class="content_eligeTuPedido" id="divPopupPedido" style="display:none;">
                     <div class="titulo_eligeTuPedido tipografia_lato_bold">ELIGE UN PEDIDO</div>
@@ -401,6 +406,60 @@
     FINALIZA Y ENVÍA TU SOLICITUD
 </button>
 
+<div id="PopupBusquedaCuvDescripcionProductoCdr" class="buscar_producto_cdr_popup d-block w-100" style="display:none;">
+    <div class="buscar_producto_cdr_cabecera_popup">
+        <div class="buscar_producto_cdr_titulo_popup text-center">
+            <h2 class="text-uppercase">Buscar producto</h2>
+            <a href="javascript:;" onclick="javascript: $('#PopupBusquedaCuvDescripcionProductoCdr').fadeOut(200); $('#PopupBusquedaCuvDescripcionProductoCdr').scrollTop(0);" title="Cerrar" class="enlace_cerrar_popup_buscar_producto_cdr">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+            </a>
+        </div>
+    </div>
+    <div class="buscar_producto_cdr_contenido_popup text-center">
+        <div class="busqueda_codigo_o_descripcion_wrapper d-block">
+            <input type="text" value="" id="CampoBusquedaCuvDescripcion" class="campo_busqueda_codigo_o_descripcion_producto" placeholder="Escribe el código o descripción" />
+            <ul id="ListaCoincidenciasBusquedaProductosCdr" class="lista_coincidencias_busqueda_productos d-block text-left">
+                <li class="coincidencia_busqueda_producto d-block text-uppercase" data-value="00000 - ES CC DESMAQUILLADOR BIF">
+                    <div>00000</div>
+                    <div>ES CC DESMAQUILLADOR BIF...</div>
+                </li>
+                <li class="coincidencia_busqueda_producto coincidencia_busqueda_producto_inactivo d-block text-uppercase"  data-value="00000 - ES CC DESMAQUILLADOR BLINK">
+                    <div>00000</div>
+                    <div>ES CC DESMAQUILLADOR BLI...</div>
+                </li>
+                <li class="coincidencia_busqueda_producto d-block text-uppercase" data-value="00003 - ES PRO DELINEADOR EN LAPIZ">
+                    <div>00003</div>
+                    <div>ES PRO DELINEADOR EN LAPI...</div>
+                </li>
+                <li class="coincidencia_busqueda_producto coincidencia_busqueda_producto_inactivo d-block text-uppercase" data-value="00000 - ES CC DESMAQUILLADOR BLINK">
+                    <div>00000</div>
+                    <div>ES CC DESMAQUILLADOR BLI...</div>
+                </li>
+                <li class="coincidencia_busqueda_producto coincidencia_busqueda_producto_inactivo d-block text-uppercase" data-value="00000 - ES CC DESMAQUILLADOR BIF">
+                    <div>00000</div>
+                    <div>ES CC DESMAQUILLADOR BIF...</div>
+                </li>
+                <li class="coincidencia_busqueda_producto d-block text-uppercase" data-value="00000 - ES CC DESMAQUILLADOR BIF">
+                    <div>00000</div>
+                    <div>ES CC DESMAQUILLADOR BIF...</div>
+                </li>
+                <li class="coincidencia_busqueda_producto coincidencia_busqueda_producto_inactivo d-block text-uppercase" data-value="00000 - ES CC DESMAQUILLADOR BIF">
+                    <div>00000</div>
+                    <div>ES CC DESMAQUILLADOR BIF...</div>
+                </li>
+                <li class="coincidencia_busqueda_producto d-block text-uppercase" data-value="00000 - ES CC DESMAQUILLADOR BIF">
+                    <div>00000</div>
+                    <div>ES CC DESMAQUILLADOR BIF...</div>
+                </li>
+                <li class="coincidencia_busqueda_producto d-block text-uppercase" data-value="00000 - ES CC DESMAQUILLADOR BIF">
+                    <div>00000</div>
+                    <div>ES CC DESMAQUILLADOR BIF...</div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
 <script id="template-pedido" type="text/x-handlebars-template">
     {{#each this as |item|}}
     <a class="pedido_a_seleccionar" data-pedido-id="{{item.PedidoID}}" id="{{item.PedidoID}}" onclick="misReclamosRegistro.Funciones.PopupPedidoSeleccionar(this);">
@@ -587,6 +646,7 @@
         if (flagAppMobile == 0) mensajeCdrFueraDeFechaCompleto = mensajeCdrFueraDeFechaCompleto + " " + mensajeChatEnLinea;
 
         var OrigenCDR = true;
+
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/MisReclamos/Reclamo.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js")"></script>
