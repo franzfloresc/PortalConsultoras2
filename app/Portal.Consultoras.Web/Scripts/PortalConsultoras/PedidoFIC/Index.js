@@ -149,10 +149,12 @@ $(document).ready(function () {
     });
     $('#btnAgregarOferfaFIC').click(function () {
         GuardarOfertaFICenPedido();
-        $('#divOfertaFIC').dialog('close');
+        HideDialog("divOfertaFIC");
+        //$('#divOfertaFIC').dialog('close');
     });
     $('#btnCancelarOferfaFIC').click(function () {
-        $('#divOfertaFIC').dialog('close');
+        HideDialog("divOfertaFIC");
+        //$('#divOfertaFIC').dialog('close');
     });
 
     CrearDialogs();
@@ -170,7 +172,8 @@ function CrearDialogs() {
         draggable: true,
         title: "",
         close: function (event, ui) {
-            $(this).dialog('close');
+            HideDialog("divConfirmEliminarTotal");
+            //$(this).dialog('close');
         }
     });
 
@@ -759,7 +762,8 @@ function EliminarPedidoTotalSi() {
     EliminarPedido();
 }
 function EliminarPedidoTotalNo() {
-    $('#divConfirmEliminarTotal').dialog('close');
+    HideDialog("divConfirmEliminarTotal");
+    //$('#divConfirmEliminarTotal').dialog('close');
 }
 
 function EliminarPedido() {

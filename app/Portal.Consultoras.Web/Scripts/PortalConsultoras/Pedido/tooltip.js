@@ -60,5 +60,6 @@ function btnSalirTlpObservaciones() {
         $("#observacionPedido").modal("close");
     }
 
-    $("#tlpObservaciones").dialog("close");
+    HideDialog("tlpObservaciones");
+    //$("#tlpObservaciones").dialog("close");
 }

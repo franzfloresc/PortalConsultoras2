@@ -375,7 +375,8 @@
                     _GuardarDatos(this);
                 },
                 'Salir': function () {
-                    $(this).dialog('close');
+                    HideDialog(_elemento.DialogRegistro);
+                    //$(this).dialog('close');
                 }
             }
         });
