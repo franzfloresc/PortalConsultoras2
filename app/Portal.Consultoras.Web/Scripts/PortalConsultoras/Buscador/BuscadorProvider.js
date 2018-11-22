@@ -104,7 +104,7 @@
 
                                 CerrarLoad();
                                 //_registrarAnalytics(model, textoBusqueda);
-                                console.log(model);
+                                //console.log(model);
                                 if (!(typeof AnalyticsPortalModule === 'undefined'))
                                     AnalyticsPortalModule.MarcaAnadirCarritoBuscador(model, 'Resultados', $('#TextoBusqueda').html());
 
@@ -214,11 +214,12 @@
                             MostrarBarra(data);
                         }
                     }
+
                     microefectoPedidoGuardado();
                     CargarResumenCampaniaHeader();
                     CerrarLoad();
 
-                    console.log(modelFinal);
+                    //console.log(modelFinal);
                     if (!(typeof AnalyticsPortalModule === 'undefined'))
                         AnalyticsPortalModule.MarcaAnadirCarritoBuscador(modelFinal, 'Resultados', $('#TextoBusqueda').html());
 

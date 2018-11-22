@@ -323,7 +323,7 @@ var BuscadorModule = (function () {
 
             var codigo = ["030", "005", "001", "007", "008", "009", "010", "011"];
 
-            console.log(codigoEstrategia);
+            //console.log(codigoEstrategia);
 
             if (codigo.indexOf(codigoEstrategia) >= 0) {
                 var UrlDetalle = GetPalanca(codigoEstrategia);
