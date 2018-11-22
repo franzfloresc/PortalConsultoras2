@@ -175,9 +175,43 @@ namespace Portal.Consultoras.Web.Controllers
 
         }
 
-        public JsonResult ObtenerListaCuv(int pedidoID)
+        public JsonResult BuscarCUV(MisReclamosModel model)
         {
-            return null;
+            var listaPedidoFacturados = SessionManager.GetCDRPedidoFacturado();
+            var listaCuv = listaPedidoFacturados.Where(a => a.CampaniaID == model.CampaniaID && a.PedidoID == model.PedidoID).FirstOrDefault() ?? new BEPedidoWeb();
+
+            return Json(new
+            {
+                success = true,
+                message = "",
+                detalle = listaCuv.olstBEPedidoWebDetalle
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult ObtenerDatosCuv(int CampaniaID, int PedidoID)
+        {
+            var DatosCuv = new List<BEPedidoWeb>();
+            try
+            {
+                var listaPedidoFacturados = SessionManager.GetCDRPedidoFacturado();
+                DatosCuv = listaPedidoFacturados.Where(a => a.CampaniaID == CampaniaID && a.PedidoID == PedidoID).ToList();
+
+                return Json(new
+                {
+                    success = true,
+                    message = "",
+                    datos = DatosCuv
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "No se ha podido obtener información del CUV, intentelo nuevamente.",
+                    datos = DatosCuv
+                }, JsonRequestBehavior.AllowGet);
+            }
         }
         #endregion
 
@@ -312,18 +346,7 @@ namespace Portal.Consultoras.Web.Controllers
             return cantidad >= 0;
         }
 
-        public JsonResult BuscarCUV(MisReclamosModel model)
-        {
-            var listaPedidoFacturados = SessionManager.GetCDRPedidoFacturado();
-            var listaCuv = listaPedidoFacturados.Where(a => a.CampaniaID == model.CampaniaID && a.PedidoID == model.PedidoID).FirstOrDefault() ?? new BEPedidoWeb();
 
-            return Json(new
-            {
-                success = true,
-                message = "",
-                detalle = listaCuv.olstBEPedidoWebDetalle
-            }, JsonRequestBehavior.AllowGet);
-        }
 
         public JsonResult BuscarCuvCambiar(MisReclamosModel model)
         {

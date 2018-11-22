@@ -28,8 +28,7 @@ $(document).ready(function () {
     });
 
     $("#txtCUVDescripcion").on("change", function () {
-        debugger
-        AsignarCUV();
+        ObtenerDatosCuv();
     });
 
     //$("#txtCUV").on('keyup', function (evt) {
@@ -505,9 +504,42 @@ function PopupPedidoSeleccionar(obj) {
     AsignarCUV(pedido);
 }
 
-function AsignarCUV(pedido) {
-    debugger
-    var _cuv = $.trim($("#txtCUVDescripcion").val());
+function ObtenerDatosCuv() {
+    waitingDialog();
+
+    var item = {
+        CampaniaID: $.trim($("#ddlCampania").val()),
+        PedidoID: $("#txtPedidoID").val()
+    };
+
+    jQuery.ajax({
+        type: 'POST',
+        url: baseUrl + 'MisReclamos/ObtenerDatosCuv',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(item),
+        async: true,
+        cache: false,
+        success: function (data) {
+            closeWaitingDialog();
+            if (!checkTimeout(data))
+                return false;
+
+            if (data.success == false) {
+                alert_msg(data.message);
+                return false;
+            }
+            AsignarCUV(data.datos[0]);
+
+            SetHandlebars("#template-motivo", data.detalle, "#divMotivo");
+        },
+        error: function (data, error) {
+            closeWaitingDialog();
+        }
+    });
+}
+
+function AsignarCUV(pedido) { 
 
     pedido = pedido || new Object();
 
@@ -517,7 +549,7 @@ function AsignarCUV(pedido) {
         alert_msg("Lo sentimos, ya cuentas con una solicitud web para este pedido. Por favor, contáctate con nuestro <span>Chat en Línea</span>.");
     } else {
         pedido.olstBEPedidoWebDetalle = pedido.olstBEPedidoWebDetalle || new Array();
-        var detalle = pedido.olstBEPedidoWebDetalle.Find("CUV", $("#txtCUV").val() || "");
+        var detalle = pedido.olstBEPedidoWebDetalle.Find("CUV", $.trim($("#txtCUVDescripcion").val()) || "");
         var data = detalle.length > 0 ? detalle[0] : new Object();
         $("#txtCantidad").removeAttr("disabled");
         $("#txtCantidad").attr("data-maxvalue", data.Cantidad);
