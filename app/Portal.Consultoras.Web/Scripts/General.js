@@ -770,7 +770,6 @@ function IsValidUrl(value) {
 function isMobile() {
     var isUrlMobile = $.trim(location.href.replace("#", "/") + "/").toLowerCase().indexOf("/mobile/") > 0 ||
         $.trim(location.href).toLowerCase().indexOf("/g/") > 0;
-    if (!isUrlMobile) isUrlMobile = (window.matchMedia("(max-width:991px)").matches);
     return isUrlMobile;
 }
 

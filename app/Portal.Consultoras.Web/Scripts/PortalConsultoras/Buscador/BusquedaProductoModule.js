@@ -565,7 +565,7 @@
         },
         RegistrarProducto: function (e) {
             e.preventDefault();
-            _funciones.abrirCargaFiltros();
+            AbrirLoad();
             var divPadre = $(this).parents("[data-item='BuscadorFichasProductos']").eq(0);
             BuscadorProvider.RegistroProductoBuscador(divPadre);
         },
