@@ -18,18 +18,18 @@ namespace Portal.Consultoras.Web.Controllers
 
         public async Task<JsonResult> BusquedaProductos(BuscadorModel model)
         {
-            BuscadorYFiltrosModel ProductosModel;
+            BuscadorYFiltrosModel productosModel;
             try
             {
-                var resultBuscador = await BuscadorYFiltrosProvider.GetBuscador(model);
-                ProductosModel = await BuscadorYFiltrosProvider.ValidacionProductoAgregado(resultBuscador, SessionManager.GetDetallesPedido(), userData, revistaDigital, model.IsMobile, model.IsHome);
+                productosModel = await BuscadorYFiltrosProvider.GetBuscador(model);
+                productosModel.productos = BuscadorYFiltrosProvider.ValidacionProductoAgregado(productosModel.productos, SessionManager.GetDetallesPedido(), userData, revistaDigital, model.IsMobile, model.IsHome);
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                ProductosModel = new BuscadorYFiltrosModel();
+                productosModel = new BuscadorYFiltrosModel();
             }
-            return Json(ProductosModel, JsonRequestBehavior.AllowGet);
+            return Json(productosModel, JsonRequestBehavior.AllowGet);
         }
     }
 }

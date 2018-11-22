@@ -1,10 +1,14 @@
 ﻿using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServicePedido;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -52,6 +56,39 @@ namespace Portal.Consultoras.Web.Providers
             var dataObject = JsonConvert.DeserializeObject<T>(httpContent);
 
             return dataObject;
+        }
+
+        public string ObtenerOrigen()
+        {
+            return Util.EsDispositivoMovil() ? "sb-mobile" : "sb-desktop";
+        }
+
+        public IList<Productos> ValidacionProductoAgregado(IList<Productos> productos, List<BEPedidoWebDetalle> pedidos, UsuarioModel userData, RevistaDigitalModel revistaDigital, bool IsMobile, bool IsHome)
+        {
+            var suscripcionActiva = revistaDigital.EsSuscrita && revistaDigital.EsActiva;
+            if (!productos.Any()) return new List<Productos>();
+
+            foreach (var item in productos)
+            {
+                var pedidoAgregado = pedidos.Where(x => x.CUV == item.CUV).ToList();
+                var labelAgregado = "";
+
+                if (pedidoAgregado.Any())
+                {
+                    labelAgregado = "Agregado";
+                }
+
+                item.CampaniaID = userData.CampaniaID;
+                item.PrecioString = Util.DecimalToStringFormat(item.Precio.ToDecimal(), userData.CodigoISO, userData.Simbolo);
+                item.ValorizadoString = Util.DecimalToStringFormat(item.Valorizado.ToDecimal(), userData.CodigoISO, userData.Simbolo);
+                item.DescripcionEstrategia = Util.obtenerNuevaDescripcionProducto(userData.NuevasDescripcionesBuscador, suscripcionActiva, item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaId, 0, true);
+                item.OrigenPedidoWeb = Util.obtenerCodigoOrigenWeb(item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaId, IsMobile, IsHome);
+                item.Agregado = labelAgregado;
+                item.Stock = !item.Stock;
+                item.DescripcionCompleta = item.Descripcion;
+            }
+
+            return productos;
         }
     }
 }

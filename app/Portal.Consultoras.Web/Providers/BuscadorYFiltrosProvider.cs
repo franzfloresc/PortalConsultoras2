@@ -13,11 +13,6 @@ namespace Portal.Consultoras.Web.Providers
     {
         protected ISessionManager _sessionManager;
 
-        private string Origen
-        {
-            get { return Util.EsDispositivoMovil() ? "sb-mobile" : "sb-desktop"; }
-        }
-
         public BuscadorYFiltrosProvider()
         {
             _sessionManager = SessionManager.SessionManager.Instance;
@@ -29,7 +24,7 @@ namespace Portal.Consultoras.Web.Providers
                 usuario.CodigoISO,
                 usuario.CampaniaID,
                 usuario.CodigoConsultora,
-                Origen);
+                ObtenerOrigen());
 
             return await ObtenerPersonalizaciones(pathPersonalziacion);
         }
@@ -41,7 +36,7 @@ namespace Portal.Consultoras.Web.Providers
             var pathBuscador = string.Format(Constantes.RutaBuscadorService.UrlBuscador,
                 userData.CodigoISO,
                 userData.CampaniaID,
-                Origen
+                ObtenerOrigen()
             );
 
             var parametros = GetJsonPostBuscador(userData, buscadorModel, revistaDigital);
@@ -86,33 +81,6 @@ namespace Portal.Consultoras.Web.Providers
             };
         }
 
-        public async Task<BuscadorYFiltrosModel> ValidacionProductoAgregado(BuscadorYFiltrosModel resultado, List<BEPedidoWebDetalle> pedidos, UsuarioModel userData, RevistaDigitalModel revistaDigital, bool IsMobile,bool IsHome)
-        {
-            var labelAgregado = "";
-            var suscripcionActiva = revistaDigital.EsSuscrita && revistaDigital.EsActiva;
-            if (resultado.total == 0) return new BuscadorYFiltrosModel();
-
-            foreach (var item in resultado.productos)
-            {
-                var pedidoAgregado = pedidos.Where(x => x.CUV == item.CUV).ToList();
-                labelAgregado = "";
-
-                if (pedidoAgregado.Any())
-                {
-                    labelAgregado = "Agregado";
-                }
-
-                item.CampaniaID = userData.CampaniaID;
-                item.PrecioString = Util.DecimalToStringFormat(item.Precio.ToDecimal(), userData.CodigoISO, userData.Simbolo);
-                item.ValorizadoString = Util.DecimalToStringFormat(item.Valorizado.ToDecimal(), userData.CodigoISO, userData.Simbolo);
-                item.DescripcionEstrategia = Util.obtenerNuevaDescripcionProducto(userData.NuevasDescripcionesBuscador, suscripcionActiva, item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaId, 0, true);
-                item.OrigenPedidoWeb = Util.obtenerCodigoOrigenWeb(item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaId, IsMobile,IsHome);
-                item.Agregado = labelAgregado;
-                item.Stock = !item.Stock;
-                item.DescripcionCompleta = item.Descripcion;
-            }
-
-            return resultado;
-        }
+        
     }
 }

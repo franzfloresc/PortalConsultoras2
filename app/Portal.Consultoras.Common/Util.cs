@@ -3906,6 +3906,7 @@ namespace Portal.Consultoras.Common
             }
             catch
             {
+                // ignored
             }
 
             return result;
