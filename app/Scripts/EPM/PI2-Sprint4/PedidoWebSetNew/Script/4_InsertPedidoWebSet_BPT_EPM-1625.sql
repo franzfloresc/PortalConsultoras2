@@ -34,6 +34,8 @@
 	  DECLARE @OrdenSet int
 	  DECLARE @CantidadItemsaAgregar int
 	  ------------------------------------------
+	  IF(@ClienteID = 0)
+		SET @ClienteID = NULL
 
 	  IF (@PedidoID = 0)
 	  BEGIN
@@ -73,7 +75,7 @@
 		WHERE cuvset = @CuvSet
 		AND consultoraid = @ConsultoraId
 		AND Campania = @campaniaid
-		AND ISNULL(ClienteID,0) = @ClienteID)
+		AND ISNULL(ClienteID,0) = ISNULL(@ClienteID,0))
 		)
 	  BEGIN
 		INSERT INTO @SetParecidosIdList (SetId)
@@ -83,7 +85,7 @@
 		  WHERE cuvset = @CuvSet
 		  AND consultoraid = @ConsultoraId
 		  AND Campania = @campaniaid
-		  AND ISNULL(ClienteID,0) = @ClienteID)
+		  AND ISNULL(ClienteID,0) = ISNULL(@ClienteID,0))
 	  END
 
 	  SELECT @CantidadItemsaAgregar = count(0) FROM @CuvsAgregar
@@ -170,14 +172,14 @@
 			  ca.cantidad
 			  * @CantidadSet,
 			  (select top 1 pwd.PedidoDetalleID from pedidowebdetalle pwd where pwd.cuv = ca.cuv
-			  and pwd.CampaniaID = @CampaniaID and pwd.pedidoid = @PedidoID and ISNULL(pwd.ClienteID,0) = @ClienteID and ca.Digitable = 1),
+			  and pwd.CampaniaID = @CampaniaID and pwd.pedidoid = @PedidoID and ISNULL(pwd.ClienteID,0) = ISNULL(@ClienteID,0) and ca.Digitable = 1),
 			  (select top 1 pwd.PrecioUnidad from pedidowebdetalle pwd where pwd.cuv = ca.cuv
-			  and pwd.CampaniaID = @CampaniaID and pwd.pedidoid = @PedidoID and ISNULL(pwd.ClienteID,0) = @ClienteID and ca.Digitable = 1),
+			  and pwd.CampaniaID = @CampaniaID and pwd.pedidoid = @PedidoID and ISNULL(pwd.ClienteID,0) = ISNULL(@ClienteID,0) and ca.Digitable = 1),
 			  ep.EstrategiaProductoId,
 			  ca.Digitable,
 			  ca.Grupo
 			FROM @CuvsAgregar ca
-			INNER JOIN estrategiaproducto ep ON ca.cuv = ep.cuv
+			LEFT JOIN estrategiaproducto ep ON ca.cuv = ep.cuv
 			AND ep.Campania = @CampaniaID
 			AND ep.CUV2 = @CuvSet
 			AND ep.EstrategiaID = @EstrategiaID
