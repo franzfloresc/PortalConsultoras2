@@ -572,14 +572,14 @@ function MostrarBarra(datax, destino) {
         $('#montoPremioMeta').html(variablesPortal.SimboloMoneda + " " + dataBarra.TippingPointStr);
         cargarMontoBanderasMobile(dataBarra);
 
-
-         //OG
+        //OG
         //$('#divBarra .monto_minimo').show();
         //if (vLogro >= tp || (!tpRegaloMobileShow && vLogro > mn)) {
         //    $('#divBarra .monto_maximo').show();
         //} else {
         //    $('#divBarra .monto_maximo').hide();
         //}
+
     } else {
         //$('#divBarra .monto_minimo').hide();
         //$('#divBarra .monto_maximo').hide();
