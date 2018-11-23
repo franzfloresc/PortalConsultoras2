@@ -142,7 +142,14 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
-        public List<PremioElectivoModel> GetPremiosElectivos(string codigoPrograma)
+        public List<PremioElectivoModel> GetPremioElectivosTippingPoint()
+        {
+            var tippingPoint = GetConfiguracion();
+
+            return GetCuponesElectivos(tippingPoint.CodigoPrograma);
+        }
+
+        public List<PremioElectivoModel> GetCuponesElectivos(string codigoPrograma)
         {
             try
             {

@@ -294,9 +294,11 @@
             <div class="bloque_descripcion_items_ingresados">
                 <div class="descripcion_item_pedido">
                     <span class="mensaje_tipoProd">
+                        {{#if detalle.CuponElectivo }}
                         <!-- Si producto es el regalo escogido del Programa Nuevas -->
-                        <span class="text-uppercase" style="display:none;">Regalo Programa Nuevas</span>
+                        <span class="text-uppercase">Regalo Programa Nuevas</span>
                         <!-- Fin - Si producto es el regalo escogido del Programa Nuevas -->
+                        {{/if}}
                         {{#iff detalle.TipoPedido '==' 'M'}}
                         <br />
                         <span>App móvil</span>
@@ -328,17 +330,21 @@
                     {{#iff detalle.EsKitNueva '==' false}}
                     <span class="nom_cliente">Cliente: {{detalle.Nombre}}</span>
                     {{/iff}}
+                    {{#if detalle.CuponElectivo }}
                     <!-- Si producto es regalo escogido del Programa Nuevas -->
-                    <span class="tooltip_informativo_condicion_regalo_programaNuevas" style="display:none;">Sólo si llegas a tu monto</span>
+                    <span class="tooltip_informativo_condicion_regalo_programaNuevas">Sólo si llegas a tu monto</span>
                     <!-- Fin - Si producto es regalo escogido del Programa Nuevas -->
+                    {{/if}}
                 </div>
+                {{#if detalle.CuponElectivo }}
                 <!-- Icono Editar Regalo -->
-                <div class="icono_cambiar_regalo_programaNuevas" style="display:none;">
+                <div class="icono_cambiar_regalo_programaNuevas">
                     <a href="javascript:;" title="Cambiar regalo" onclick="javascript: cargarPopupEleccionRegalo();">
                         <img src="@Url.Content("~/Content/Images/icono_editar.svg")" alt="Cambiar regalo" />
                     </a>
                 </div>
                 <!-- Fin - Icono Editar Regalo -->
+                {{/if}}
                 {{#if detalle.EsKitNueva}}
                 <div class="icono_kitNuevas">
                     <a href="javascript:;" title="Ver Info Kit Nuevas">
@@ -352,13 +358,13 @@
                     </div>
                 </div>
                 {{else}}
-
+                {{#unless detalle.CuponElectivo }}
                 <div class="icono_eliminar_item_pedido">
                     <a href="javascript:;" title="Eliminar" onclick="EliminarPedidoEvento(event)" data-pedidodetalleid="{{detalle.PedidoDetalleID}}" data-setid="{{detalle.SetID}}">
                         <img src="@Url.Content("~/Content/Images/Esika/tacho-copy.png")" alt="Eliminar" />
                     </a>
                 </div>
-
+                {{/unless}}
                 {{/if}}
             </div>
             <div class="bloque_cantidades_precios_items_ingresados">
@@ -377,6 +383,17 @@
                                    readonly="readonly"
                                    autocomplete="off">
                             {{else iff detalle.TipoEstrategiaID '==' 1}}
+                            <input type="tel"
+                                   class="ValidaNumeral ValidaPasteNumeral Cantidad"
+                                   maxlength="2"
+                                   name="Cantidad_{{detalle.PedidoDetalleID}}"
+                                   value="{{detalle.Cantidad}}"
+                                   data-pedidodetalleid="{{detalle.PedidoDetalleID}}"
+                                   data-setId="{{detalle.SetID}}"
+                                   data-cantidad-input="-"
+                                   readonly="readonly"
+                                   autocomplete="off">
+                            {{else iff detalle.CuponElectivo}}
                             <input type="tel"
                                    class="ValidaNumeral ValidaPasteNumeral Cantidad"
                                    maxlength="2"
@@ -891,6 +908,7 @@
         var viewBagPaisID = '@Model.PaisID';
         var viewBagNombrePais = '@ViewBag.NombrePais';
         var urlPedidoInsert = '@Url.Action("PedidoInsertar", "Pedido", new {area = ""})';
+        var urlGuardarPremioElectivo = '@Url.Action("GuardarPremioElectivo", "Pedido", new {area = ""})';
 
         var origenPagina = 2;
         var cuvOfertaProl = '@ViewBag.CUVOfertaProl';
@@ -938,4 +956,5 @@
         </script>
     }
     <script type="text/javascript" src="@Url.Content("~/Scripts/nieve.js")?v=1"></script>
+
 }

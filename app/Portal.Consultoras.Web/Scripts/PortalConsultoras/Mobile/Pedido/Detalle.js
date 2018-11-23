@@ -103,6 +103,7 @@ function CargarPedido(firstLoad) {
                 return false;
             }
 
+            console.log(data);
             SetHandlebars("#template-Detalle", data.data, '#divProductosDetalle');
             belcorp.mobile.pedido.setDetalles(data.data.ListaDetalleModel);
             MostrarBarra(data);
