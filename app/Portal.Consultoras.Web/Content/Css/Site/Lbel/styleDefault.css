@@ -11,3 +11,6 @@
     background-color:  #613c87;
 }
 
+.default-border-hover:hover {
+    border-color: #613c87 !important;
+}

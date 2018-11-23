@@ -1074,6 +1074,19 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEReporteValidacion> GetReporteValidacion(int paisID, int campaniaID, int tipoEstrategia);
+
+        [OperationContract]
+        List<BEReporteCuvResumido> GetReporteCuvResumido(int paisID, int campaniaID, string cuv);
+
+        [OperationContract]
+        IList<BEReporteCuvDetallado> GetReporteCuvDetallado(int paisID, int campaniaID, string cuv);
+
+        [OperationContract]
+        List<BEReporteMovimientosPedido> GetReporteMovimientosPedido(int paisID, int campaniaID, string codigoConsultora);
+
+        [OperationContract]
+        List<BEReporteEstrategiasPorConsultora> GetReporteEstrategiasPorConsultora(int paisID, int campaniaID, string codigoConsultora, int palanca, DateTime fechaConsulta);
+
         #endregion
 
         #region Incentivos
@@ -1192,6 +1205,8 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEProducto> GetProductoSugerido(BEPedidoProductoBuscar productoBuscar);
         [OperationContract]
         BEPedidoDetalleResult InsertProductoBuscador(BEPedidoDetalle pedidoDetalle);
+        [OperationContract]
+        List<BEPedidoDetalleResult> InsertPedidoDetalleMasivo(List<BEPedidoDetalle> lstPedidoDetalle);
         #endregion
 
         #region Pago en Linea

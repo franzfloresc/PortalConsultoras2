@@ -213,7 +213,8 @@ function IniDialogs() {
             },
             "Salir": function () {
                 $("#ddlTipoEstrategia").val($("#hdEstrategiaIDConsulta").val());
-                $(this).dialog("close");
+                HideDialog("DialogMantenimientoPalanca");
+                //$(this).dialog("close");
             }
         }
     });
@@ -401,7 +402,8 @@ function IniDialogs() {
 
             },
             "Salir": function () {
-                $(this).dialog("close");
+                HideDialog("DialogMantenimientoOfertasHome");
+                //$(this).dialog("close");
             }
         }
     });

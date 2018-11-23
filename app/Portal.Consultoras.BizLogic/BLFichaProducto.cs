@@ -72,12 +72,11 @@ namespace Portal.Consultoras.BizLogic
                 });
             }
             else fichasProductosResult.AddRange(fichasProductos);
-
-            var carpetaPais = Globals.UrlMatriz + "/" + codigoIso;
+            
             fichasProductosResult.ForEach(ficha =>
             {
                 ficha.CampaniaID = entidad.CampaniaID;
-                ficha.ImagenURL = ConfigCdn.GetUrlFileCdn(carpetaPais, ficha.ImagenURL);
+                ficha.ImagenURL = ConfigCdn.GetUrlFileCdnMatriz(codigoIso, ficha.ImagenURL);
                 ficha.Simbolo = entidad.Simbolo;
                 ficha.TieneStockProl = true;
                 ficha.PrecioString = Util.DecimalToStringFormat(ficha.Precio2, codigoIso);

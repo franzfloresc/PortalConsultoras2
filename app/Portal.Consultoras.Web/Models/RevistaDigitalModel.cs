@@ -16,6 +16,7 @@ namespace Portal.Consultoras.Web.Models
 
             BloquearRevistaImpresaGeneral = null;
             NoVolverMostrar = true;
+            TieneLanding = true;
         }
 
         public int ConfiguracionPaisID { get; set; }
@@ -145,7 +146,7 @@ namespace Portal.Consultoras.Web.Models
         {
             return TieneRDC;
         }
+
+        public bool TieneLanding { get; set; }
     }
-
-
 }
