@@ -293,8 +293,7 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Mobile/Lbel/revistaDigital.css",
                "~/Content/Css/Mobile/Lbel/seccion-descarga-imprime.css",
                "~/Content/Css/Mobile/calc.css",
-               "~/Content/Css/Site/Lbel/campania-navidenia.css",
-                "~/Content/Css/Site/MasGanadoras/banner_ofertas_masGanadoras_Lbel.css"
+               "~/Content/Css/Site/Lbel/campania-navidenia.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/CssBienvenida").Include(
@@ -769,7 +768,7 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/Ficha-Lbel").Include(
                 "~/Content/Css/Mobile/Ficha/Lbel/FichaLbel.css",
-                "~/Content/Css/Site/MasGanadoras/banner_ofertas_masGanadoras_Esika.css"
+                "~/Content/Css/Site/MasGanadoras/banner_ofertas_masGanadoras_Lbel.css"
             ));
 
             #endregion
