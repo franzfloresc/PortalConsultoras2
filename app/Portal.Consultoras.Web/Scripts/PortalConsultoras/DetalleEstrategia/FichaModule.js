@@ -124,6 +124,7 @@ var FichaModule = (function (config) {
     };
 
     var _ocultarTabs = function () {
+        
         var estrategia = _localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
 
         $(_seccionesFichaProducto.ContenidoProducto).hide();
@@ -262,7 +263,7 @@ var FichaModule = (function (config) {
                 }
                 else {
                     console.log(data);
-                    dfd.reject(data, error);
+                    dfd.reject(data);
                 }
             },
             error: function (data, error) {

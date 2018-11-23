@@ -373,7 +373,7 @@ namespace Portal.Consultoras.BizLogic
         private bool GetFlagVentaExclusiva(int paisID)
         {
             var blTablaLogicaDatos = new BLTablaLogicaDatos();
-            var lstTabla = blTablaLogicaDatos.GetTablaLogicaDatosCache(paisID, Constantes.ProgNuevas.EncenderValidacion.TablaLogicaID);
+            var lstTabla = blTablaLogicaDatos.GetListCache(paisID, Constantes.ProgNuevas.EncenderValidacion.TablaLogicaID);
             if (lstTabla.Count == 0) return false;
             if (lstTabla.Where(a => a.Codigo == Constantes.VentaExclusiva.EncenderValidacion.FlagActivar).Select(b => b.Valor).FirstOrDefault() == "1") return true;
             return false;

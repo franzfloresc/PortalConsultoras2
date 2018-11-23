@@ -578,6 +578,20 @@ namespace Portal.Consultoras.Web.SessionManager
             return (PedidoWebClientePrincipalMobilModel)HttpContext.Current.Session[Constantes.ConstSession.PedidosFacturados];
         }
 
+        public void SetUrlVc(int id)
+        {
+            HttpContext.Current.Session["esUrlVc"] = id;
+        }
+
+        public int GetUrlVc()
+        {
+            if (HttpContext.Current.Session["esUrlVc"] != null)
+
+                return (int)HttpContext.Current.Session["esUrlVc"];
+            else
+                return 0;
+        }
+
         public void SetMiAcademia(int id)
         {
             HttpContext.Current.Session["MiAcademia"] = id;
@@ -1282,6 +1296,7 @@ namespace Portal.Consultoras.Web.SessionManager
         
         bool ISessionManager.GetMostrarBannerNuevas() { return (bool)(HttpContext.Current.Session["MostrarBannerNuevas"] ?? false); }
         void ISessionManager.SetMostrarBannerNuevas(bool mostrarBannerNuevas) { HttpContext.Current.Session["MostrarBannerNuevas"] = mostrarBannerNuevas; }
+        
         public void SetJwtApiSomosBelcorp(string token)
         {
             HttpContext.Current.Session[Constantes.ConstSession.JwtApiSomosBelcorp] = token;

@@ -764,10 +764,16 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         private bool TieneLoginExternoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool TieneMGField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int TieneMasVendidosField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int TieneOfertaLogField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool TienePagoEnLineaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool TieneValidacionMontoMaximoField;
@@ -3318,6 +3324,19 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool TieneMG {
+            get {
+                return this.TieneMGField;
+            }
+            set {
+                if ((this.TieneMGField.Equals(value) != true)) {
+                    this.TieneMGField = value;
+                    this.RaisePropertyChanged("TieneMG");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public int TieneMasVendidos {
             get {
                 return this.TieneMasVendidosField;
@@ -3339,6 +3358,19 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
                 if ((this.TieneOfertaLogField.Equals(value) != true)) {
                     this.TieneOfertaLogField = value;
                     this.RaisePropertyChanged("TieneOfertaLog");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool TienePagoEnLinea {
+            get {
+                return this.TienePagoEnLineaField;
+            }
+            set {
+                if ((this.TienePagoEnLineaField.Equals(value) != true)) {
+                    this.TienePagoEnLineaField = value;
+                    this.RaisePropertyChanged("TienePagoEnLinea");
                 }
             }
         }
@@ -3732,6 +3764,9 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         private bool MostrarBuscadorField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool MostrarOpcionesOrdenamientoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private short TotalResultadosBuscadorField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
@@ -3818,6 +3853,19 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
                 if ((this.MostrarBuscadorField.Equals(value) != true)) {
                     this.MostrarBuscadorField = value;
                     this.RaisePropertyChanged("MostrarBuscador");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool MostrarOpcionesOrdenamiento {
+            get {
+                return this.MostrarOpcionesOrdenamientoField;
+            }
+            set {
+                if ((this.MostrarOpcionesOrdenamientoField.Equals(value) != true)) {
+                    this.MostrarOpcionesOrdenamientoField = value;
+                    this.RaisePropertyChanged("MostrarOpcionesOrdenamiento");
                 }
             }
         }

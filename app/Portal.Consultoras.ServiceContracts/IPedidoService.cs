@@ -925,7 +925,7 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEPedidoWeb> GetPedidosIngresadoFacturadoWebMobile(int paisID, int consultoraID, int campaniaID, int clienteID, int top, string codigoConsultora);
 
         [OperationContract]
-        List<BEPedidoWeb> GetPedidosIngresadoFacturadoApp(int paisID, int consultoraID, int campaniaID, string codigoConsultora, int usuarioPrueba, string consultoraAsociada, int top);
+        List<BEPedidoWeb> GetPedidosIngresadoFacturadoApp(int paisID, int consultoraID, int campaniaID, string codigoConsultora, int usuarioPrueba, string consultoraAsociada, int top, bool mostrarPaqueteDocumentario);
 
         [OperationContract]
         List<BEMensajeMetaConsultora> GetMensajeMetaConsultora(int paisID, BEMensajeMetaConsultora entidad);
@@ -1074,6 +1074,19 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEReporteValidacion> GetReporteValidacion(int paisID, int campaniaID, int tipoEstrategia);
+
+        [OperationContract]
+        List<BEReporteCuvResumido> GetReporteCuvResumido(int paisID, int campaniaID, string cuv);
+
+        [OperationContract]
+        IList<BEReporteCuvDetallado> GetReporteCuvDetallado(int paisID, int campaniaID, string cuv);
+
+        [OperationContract]
+        List<BEReporteMovimientosPedido> GetReporteMovimientosPedido(int paisID, int campaniaID, string codigoConsultora);
+
+        [OperationContract]
+        List<BEReporteEstrategiasPorConsultora> GetReporteEstrategiasPorConsultora(int paisID, int campaniaID, string codigoConsultora, int palanca, DateTime fechaConsulta);
+
         #endregion
 
         #region Incentivos

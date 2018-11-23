@@ -7,7 +7,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
-using Portal.Consultoras.Web.Helpers;
+using Portal.Consultoras.Web.CustomHelpers;
 using Portal.Consultoras.Web.Infraestructure.Excel;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
@@ -1203,6 +1203,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.NovedadBuscador = userData.NovedadBuscador;
             ViewBag.MostrarBotonVerTodos = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.MostrarBotonVerTodos).ToBool();
             ViewBag.AplicarLogicaCantidadBotonVerTodos = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.AplicarLogicaCantidadBotonVerTodos).ToBool();
+            ViewBag.FlagFiltrosBuscador = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.FlagFiltrosBuscador).ToBool();
         }
 
         #endregion

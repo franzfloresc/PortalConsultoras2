@@ -1,6 +1,6 @@
 ﻿@using Portal.Consultoras.Common
 @using Portal.Consultoras.Web.Areas.Mobile.Models
-@using Portal.Consultoras.Web.Helpers
+@using Portal.Consultoras.Web.CustomHelpers
 
 @model EstadoCuentaMobilModel
 @{
@@ -18,7 +18,7 @@ else
 }
 
 <div class="titulo_mobile nombre_vista">
-    @{  var mobileConfiguracion = Html.MobileAppConfiguracion();
+    @{ var mobileConfiguracion = Html.MobileAppConfiguracion();
         if (mobileConfiguracion.MostrarBotonAtras)
         {
             <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
@@ -30,7 +30,7 @@ else
 <div class="fondo_f2f2f2" style="border-bottom:0; background:white;">
     <div class="pestana_esika"></div>
     <div class="pestana_lbel"></div>
-</div>   
+</div>
 
 <div class="vista_estado_de_cuenta">
 
@@ -46,12 +46,14 @@ else
             <span>Vencimiento :</span>
             <span>@Model.FechaVencimiento</span>
         </div>
-
-        @if (Model.TienePagoEnLinea)
+        
+        @if (Model.TienePagoEnLinea && Model.MostrarPagoEnLinea)
         {
-            <a href="@Url.Action("Index", "PagoEnLinea")" class="btn_paga_en_linea_con_credito_visa">
-                Paga en línea con visa
-            </a>
+        <a href="@Url.Action("Index", "PagoEnLinea")" class="btn_paga_en_linea_con_credito_visa">
+            @(ViewBag.PaisId == Constantes.PaisID.Mexico
+                                            ? Constantes.MensajePago.MensajeMx  
+                                            : Constantes.MensajePago.MensajeGeneral )
+        </a>
         }
     </div>
 
@@ -64,7 +66,7 @@ else
         <p class="info_horarios_efectivos_pagos mb-32">
             Los pagos realizados después de las 10 p.m podrás verlos al día siguiente.
         </p>
-    }    
+    }
 
     <div class="contenedor_detalle_movimientos_estado_de_cuenta">
         <div class="titulo_movimientos_estado_cuenta">
@@ -88,20 +90,20 @@ else
                     tipoMovimiento = "Pedido";
                     estiloGris = "fila_gris_detalle_movimiento";
                 }
-                
+
                 <div class="fila_grilla_detalle_movimiento @estiloGris">
                     <div class="col_grilla_detalle_movimientos fecha_movimiento_estado_de_cuenta">
                         @item.FechaVencimientoFormatDiaMes
                     </div>
                     <div class="col_grilla_detalle_movimientos descripcion_movimiento_estado_de_cuenta">
-                    
-                    <div class="tipo_movimiento">
-                        @tipoMovimiento
-                    </div>
-                        
-                    <div class="descripcion_tipo_movimiento">
-                        @item.Glosa
-                    </div>
+
+                        <div class="tipo_movimiento">
+                            @tipoMovimiento
+                        </div>
+
+                        <div class="descripcion_tipo_movimiento">
+                            @item.Glosa
+                        </div>
                     </div>
                     <div class="col_grilla_detalle_movimientos monto_movimiento_estado_de_cuenta">
                         <span class="tipo_moneda_pais">@signo @Model.Simbolo</span>

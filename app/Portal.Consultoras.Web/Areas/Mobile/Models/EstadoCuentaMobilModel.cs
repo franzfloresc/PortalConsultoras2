@@ -17,5 +17,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public EstadoCuentaModel UltimoMovimiento { get; set; }
 
         public bool TienePagoEnLinea { get; set; }
+        public bool MostrarPagoEnLinea { get; set; }  
     }
 }
