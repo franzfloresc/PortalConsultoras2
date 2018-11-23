@@ -521,8 +521,12 @@ function MostrarBarra(datax, destino) {
 
    // console.log(wLogro);
     if (belcorp.barra.settings.isMobile) {
-        wLogro = CalculoLlenadoBarra();
-        CalculoPosicionMinimoMaximo();
+        if (dataBarra.MontoMaximo!= 0 && dataBarra.MontoMaximo != "" && dataBarra.MontoMaximo != null && dataBarra.MontoMaximo.toString().substring(0, 4)=="9999" ) {
+            wLogro = CalculoLlenadoBarra();
+            CalculoPosicionMinimoMaximo();
+        }
+        
+        
 
     }
     $("#divBarra #divBarraEspacioLimite").css("width", wLimite);
@@ -568,7 +572,8 @@ function MostrarBarra(datax, destino) {
         $('#montoPremioMeta').html(variablesPortal.SimboloMoneda + " " + dataBarra.TippingPointStr);
         cargarMontoBanderasMobile(dataBarra);
 
-        // OG
+
+         //OG
         //$('#divBarra .monto_minimo').show();
         //if (vLogro >= tp || (!tpRegaloMobileShow && vLogro > mn)) {
         //    $('#divBarra .monto_maximo').show();
@@ -576,8 +581,8 @@ function MostrarBarra(datax, destino) {
         //    $('#divBarra .monto_maximo').hide();
         //}
     } else {
-        $('#divBarra .monto_minimo').hide();
-        $('#divBarra .monto_maximo').hide();
+        //$('#divBarra .monto_minimo').hide();
+        //$('#divBarra .monto_maximo').hide();
     }
 
     if (tpRegaloMobileShow) {
@@ -662,6 +667,7 @@ function cargarMontoBanderasMobile(barra) {
         divMontoTp.show();
     } else {
         divMontoTp.hide();
+        $('#lineaPosicionRegalo').hide();
     }
 }
 
@@ -863,6 +869,7 @@ function CalculoLlenadoBarra() {
             return (AvancePorcentaje) + '%';
         }        
     }
+
 }
 
 
@@ -916,6 +923,10 @@ function CalculoPosicionMinimoMaximo() {
                 document.getElementById('lineaPosicionMontoMaximo').style.right = "";
                 document.getElementById('MontoMaximoBloque').style.right = "-14px";
                 document.getElementById('MontoMaximoBloque').style.display = "block";
+
+                document.getElementById('divtippingPoint').style.left = "-20px";
+                
+
             }
         }
         else {
@@ -927,10 +938,13 @@ function CalculoPosicionMinimoMaximo() {
                 //document.getElementById('MontoMinimoBloque').style.left = (PosicionMontoMinimo - 13) + '%';
 
                 document.getElementById('lineaPosicionMontoMinimo').style.left = "auto";
+                document.getElementById('lineaPosicionMontoMinimo').style.display = "block";
                 //document.getElementById('lineaPosicionMontoMinimo').style.right = "0px";
 
                 document.getElementById('MontoMinimoBloque').style.left = "";
                 document.getElementById('MontoMinimoBloque').style.right = '-14px';
+                document.getElementById('MontoMinimoBloque').style.display = 'block';
+
                 document.getElementById('lineaPosicionRegalo').style.display = 'None';
 
                 document.getElementById('lineaPosicionMontoMaximo').style.display = 'None';
@@ -941,6 +955,7 @@ function CalculoPosicionMinimoMaximo() {
 
                 document.getElementById('lineaPosicionMontoMinimo').style.left = (PosicionMontoMinimo) + '%';
                 document.getElementById('lineaPosicionMontoMinimo').style.display = 'block';
+
                 document.getElementById('MontoMinimoBloque').style.right = "";
                 document.getElementById('MontoMinimoBloque').style.display = 'block';
                 if (window.innerWidth > 1200) {
