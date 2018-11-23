@@ -562,7 +562,7 @@ function ImgUrlRender(imgOriginal, tipo) {
 function showDialog(dialogId) {
     $("#" + dialogId).dialog("open");
     $("#ui-datepicker-div").css("z-index", "9999");
-    $("body").css("overflow", "hidden");
+    //$("body").css("overflow", "hidden");
     //$("body").removeClass("overflow_hidden");
     console.log(dialogId);
     setTimeout(function () {
