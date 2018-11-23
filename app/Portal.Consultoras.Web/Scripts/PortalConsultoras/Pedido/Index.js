@@ -3675,7 +3675,7 @@ function MostrarPopupErrorReserva(mensajePedido, esAviso) {
 
 function ShowPopupObservacionesReserva() {
     console.log('divObservacionesPROL');
-    showDialog("divObservacionesPROL");
+    showDialogSinScroll("divObservacionesPROL");
     //$("#divObservacionesPROL").css("width", "600px").parent().css("left", "372px");
 }
 
