@@ -227,7 +227,7 @@ $(document).ready(function () {
         cerrar_banner_sub_campanias = true;
     }
 
-    if (tieneCompraXCompra == "True" && itemsCompraXCompra > 0 && closeBannerCompraPorCompra == "False") {
+    if (tieneCompraXCompra == "True" && closeBannerCompraPorCompra == "False") {
         ver_compraxcompra = true;
     }
     if (ver_subcamapania == false && ver_compraxcompra == false) {
