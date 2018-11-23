@@ -559,10 +559,18 @@ function ImgUrlRender(imgOriginal, tipo) {
     return urlRender;
 }
 
-function showDialog(dialogId) {
-    $("#" + dialogId).dialog("open");
-    $("#ui-datepicker-div").css("z-index", "9999");
+function showDialogSinScroll(dialogId) {
     $("body").css("overflow", "hidden");
+    showDialog(dialogId);
+    return false;
+}
+
+function showDialog(dialogId) {
+    dialogId = (dialogId || "").trim();
+    dialogId = dialogId[0] == "#" ? dialogId : ("#" + dialogId);
+    $(dialogId).dialog("open");
+    $("#ui-datepicker-div").css("z-index", "9999");
+    //$("body").css("overflow", "hidden");
     //$("body").removeClass("overflow_hidden");
     console.log(dialogId);
     setTimeout(function () {
