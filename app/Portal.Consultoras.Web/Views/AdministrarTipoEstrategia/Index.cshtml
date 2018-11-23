@@ -570,7 +570,8 @@
 
                 },
                 "Cancelar": function () {
-                    $(this).dialog('close');
+                    HideDialog("DialogAdministracionTipoEstrategia");
+                    //$(this).dialog('close');
                 }
             }
         });
@@ -594,7 +595,8 @@
                     $("#txtCodigoOferta").focus();
                 },
                 "Salir": function () {
-                    $(this).dialog('close');
+                    HideDialog("DialogAdministracionNuevaOferta");
+                    //$(this).dialog('close');
                 }
             }
         });
