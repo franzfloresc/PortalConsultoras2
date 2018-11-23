@@ -381,7 +381,7 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteNonQuery(command);
         }
 
-        public bool InsertPedidoWebSet(int Campaniaid, int PedidoID, int CantidadSet, string CuvSet, long ConsultoraId, string CodigoUsuario, string CuvsStringList,int EstrategiaId, int ClienteID)
+        public bool InsertPedidoWebSet(int Campaniaid, int PedidoID, int CantidadSet, string CuvSet, long ConsultoraId, string CodigoUsuario, string CuvsStringList,int EstrategiaId, int ClienteID, int TipoEstrategiaID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsertPedidoWebSet2");
             Context.Database.AddInParameter(command, "@Campaniaid", DbType.Int32, Campaniaid);
@@ -393,6 +393,7 @@ namespace Portal.Consultoras.Data
             
             Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int64, ConsultoraId);
             Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.String, CodigoUsuario);
+            Context.Database.AddInParameter(command, "@TipoEstrategiaID", DbType.Int32, TipoEstrategiaID);
             Context.Database.AddInParameter(command, "@CuvsStringList", DbType.Xml, CuvsStringList);
             return Convert.ToInt32(Context.ExecuteScalar(command)) > 0;
         }

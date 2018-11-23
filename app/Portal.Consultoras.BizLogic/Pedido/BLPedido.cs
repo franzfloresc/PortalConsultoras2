@@ -1914,11 +1914,9 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     {
                         case Constantes.PedidoAccion.INSERT:
                             {
-                                if (estrategia.EstrategiaID > 0)
-                                {
-                                    _pedidoWebDetalleBusinessLogic.InsertPedidoWebSetTransaction(usuario.PaisID, usuario.CampaniaID, pedidoWebDetalles[0].PedidoID, estrategia.Cantidad, estrategia.CUV2
-                                            , usuario.ConsultoraID, string.Empty, cuvlist, estrategia.EstrategiaID, pedidoDetalle.ClienteID);
-                                }
+                                _pedidoWebDetalleBusinessLogic.InsertPedidoWebSetTransaction(usuario.PaisID, usuario.CampaniaID, pedidoWebDetalles[0].PedidoID, estrategia.Cantidad, estrategia.CUV2
+                                        , usuario.ConsultoraID, string.Empty, cuvlist, estrategia.EstrategiaID, pedidoDetalle.ClienteID, pedidoWebDetalles[0].TipoEstrategiaID);
+                                
                             }
                             break;
                         case Constantes.PedidoAccion.UPDATE:
