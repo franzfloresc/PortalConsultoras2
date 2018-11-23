@@ -576,8 +576,12 @@ function showDialog(dialogId) {
 }
 
 function HideDialog(dialogId) {
+    dialogId = (dialogId || "").trim();
     console.log(dialogId);
-    $("#" + dialogId).dialog("close");
+    if (dialogId != "") {
+        dialogId = dialogId[0] == "#" ? dialogId : ("#" + dialogId);
+        $(dialogId).dialog("close");
+    }
     $("body").css("overflow", "auto");
 
     return false;
