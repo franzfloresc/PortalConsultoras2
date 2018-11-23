@@ -5,7 +5,8 @@ var belcorp = belcorp || {};
 var mtoLogroBarra = 0;
 var tpElectivos = {
     premioSelected: null,
-    premios : []
+    premios : [],
+    loadPremios: false
 };
 
 belcorp.barra = belcorp.barra || {};
@@ -27,6 +28,7 @@ function MostrarBarra(datax, destino) {
     dataBarra = data;
 
     ActualizarGanancia(dataBarra);
+    initCarruselPremios(dataBarra);
 
     dataBarra.ListaEscalaDescuento = dataBarra.ListaEscalaDescuento || new Array();
     if (dataBarra.ListaEscalaDescuento.length > 0) {
@@ -631,12 +633,6 @@ function MostrarBarra(datax, destino) {
     return true;
 }
 
-if (dataBarra.TippingPointBarra.ActiveCuponElectivo) {
-    cargarPremiosElectivos();
-} else {
-    $('#hrefIconoRegalo').attr('href', '#');
-}
-
 function cargarMontoBanderasMobile(barra) {
     $('#divMontoMinimo').html(variablesPortal.SimboloMoneda + ' ' + barra.MontoMinimoStr);
     $('#divMontoMaximo').html(variablesPortal.SimboloMoneda + ' ' + barra.MontoMaximoStr);
@@ -651,11 +647,21 @@ function cargarMontoBanderasMobile(barra) {
     }
 }
 
+function initCarruselPremios(barra) {
+    if (tpElectivos.loadPremios) {
+        return;
+    }
+
+    if (barra.TippingPointBarra && barra.TippingPointBarra.ActiveCuponElectivo) {
+        tpElectivos.loadPremios = true;
+        cargarPremiosElectivos();
+        $('#hrefIconoRegalo').click(cargarPopupEleccionRegalo);
+    }
+}
 function cargarPopupEleccionRegalo() {
     $('#popupEleccionRegalo').fadeIn(200);
     setTimeout(function () {
-        armarCarouselRegalosDisponiblesProgramasNuevas();
-        
+        armarCarouselRegalos();
     }, 150);
 }
 
@@ -761,7 +767,7 @@ function loadCarruselPremiosEvents() {
     });
 }
 
-function armarCarouselRegalosDisponiblesProgramasNuevas() {
+function armarCarouselRegalos() {
     var carrusel = $('#carouselOpcionesRegalo');
 
     if (carrusel[0].slick) {
@@ -770,6 +776,7 @@ function armarCarouselRegalosDisponiblesProgramasNuevas() {
 
     carrusel.slick({
         infinite: true,
+        lazyLoad: 'ondemand',
         slidesToShow: 1,
         slidesToScroll: 1,
         autoplay: false,
@@ -858,7 +865,12 @@ function showPopupNivelSuperado(barra, prevLogro) {
 
         var superaRegalo = tippingPoint <= mtoLogroBarra && tippingPoint > prevLogro;
         if (superaRegalo) {
-            AbrirPopup('#popupPremio');
+            
+            var idPopup = '#popupPremio';
+            var dvPremio = $(idPopup);
+            dvPremio.find('.sub-premio-elect').css('display', tpElectivos.premioSelected ? 'none': 'block');
+            dvPremio.find('.btn_escoger_o_cambiar_regalo').html(tpElectivos.premioSelected ? 'CAMBIAR PRODUCTO': '¡Escoger ahora!');
+            AbrirPopup(idPopup);
             mostrarLluvia();
         }
     } else {

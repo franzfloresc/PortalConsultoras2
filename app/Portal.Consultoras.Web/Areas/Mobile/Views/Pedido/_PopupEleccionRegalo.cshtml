@@ -28,7 +28,7 @@
     {{#each lista}}
     <div class="opcion_regalo_carousel_programaNuevas" data-cuv="{{CUV2}}">
         <div class="img_regalo_carousel">
-            <img src="{{ImagenURL}}" alt="" />
+            <img data-lazy="{{ImagenURL}}" alt="{{DescripcionResumen}}" />
         </div>
         <div class="marca_producto text-uppercase">
             Esika @*{{DescripcionMarca}}*@
@@ -41,7 +41,7 @@
         </button>
         <div class="mensaje_regalo_elegido">
             <span class="icono_check_regalo_elegido">
-                <img src="@Url.Content("~/Content/Images/check_regalo_elegido.svg")" alt="" />
+                <img src="@Url.Content("~/Content/Images/check_regalo_elegido.svg")" alt="marca regalo elegido" />
             </span>
             <span class="texto_regalo_elegido text-uppercase">
                 Regalo Elegido
