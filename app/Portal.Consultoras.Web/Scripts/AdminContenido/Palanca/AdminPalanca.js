@@ -155,7 +155,12 @@ function IniDialogs() {
         close: function () { },
         draggable: false,
         title: "Configurar Contenedor Menú",
-        open: function (event, ui) { $(".ui-dialog-titlebar-close", ui.dialog).hide(); },
+        open: function (event, ui) {
+            (".ui-dialog-titlebar-close", ui.dialog).hide();
+        },
+        close: function () {
+            HideDialog("DialogMantenimientoPalanca");
+        },
         buttons:
         {
             "Guardar": function () {
@@ -225,11 +230,12 @@ function IniDialogs() {
         modal: true,
         closeOnEscape: true,
         width: 830,
-        close: function() {
-            $('div[id^="collorpicker_"]').hide();
-        },
         draggable: false,
         title: "Configurar Contenedor Home",
+        close: function () {
+            $('div[id^="collorpicker_"]').hide();
+            HideDialog("DialogMantenimientoOfertasHome");
+        },
         open: function(event, ui) {
             $(".ui-dialog-titlebar-close", ui.dialog).hide();
             $("#colorpickerHolder").ColorPicker({ flat: true });
