@@ -14515,7 +14515,7 @@ span.icon-advertencia {
     font-size:15px;
     padding-top:13px;
     padding-left:1px;
-    margin-bottom:5px;
+    margin-bottom:18px;
     text-align:left;
 }
 
@@ -14602,6 +14602,7 @@ span.icon-advertencia {
 .icono_regalo_popup_programaNuevas,
 .icono_regalo_popup_programaNuevas img
 {
+    position:relative;
     width:40px;
     height:auto;
 }
@@ -14812,6 +14813,7 @@ span.icon-advertencia {
 .icono_regalo_popup_meta_regalo,
 .icono_regalo_popup_meta_regalo img
 {
+    position:relative;
     width:60px;
     height:auto;
 }

@@ -181,6 +181,20 @@ namespace Portal.Consultoras.Web.Controllers
                     model.MontoEscala = pedidoWeb.MontoEscala;
                     model.TotalConDescuento = model.Total - model.MontoDescuento;
 
+                    SessionManager.SetMontosProl(
+                       new List<ObjMontosProl>
+                       {
+                           new ObjMontosProl
+                           {
+                               AhorroCatalogo = model.MontoAhorroCatalogo.ToString(),
+                               AhorroRevista = model.MontoAhorroRevista.ToString(),
+                               MontoTotalDescuento = model.MontoDescuento.ToString(),
+                               MontoEscala = model.MontoEscala.ToString()
+                           }
+                       }
+                   );
+
+
                     model.ListaParametriaOfertaFinal = GetParametriaOfertaFinal(SessionManager.GetOfertaFinalModel().Algoritmo);
                 }
                 else
