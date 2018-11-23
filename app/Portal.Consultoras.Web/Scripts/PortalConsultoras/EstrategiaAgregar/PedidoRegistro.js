@@ -1378,3 +1378,160 @@ var PedidoRegistroModule = function () {
     }
 }();
 
+
+
+
+function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi, setId, enRangoProgNuevas) {
+    var rowElement = $(event.target).closest(".contenido_ingresoPedido");
+    var txtLPCant = $(rowElement).find(".txtLPCant");
+    var txtLPTempCant = $(rowElement).find(".txtLPTempCant");
+
+    AbrirSplash();
+    var CantidadAnti, PROL, CliID, CliDes, Cantidad, DesProd, Flag, StockNuevo, PrecioUnidad;
+    if (HorarioRestringido()) {
+        CantidadAnti = $(txtLPTempCant).val();
+        $(txtLPCant).val(CantidadAnti);
+        CerrarSplash();
+        return false;
+    }
+
+    var cant = $(txtLPCant).val();
+    var cantAnti = $(txtLPTempCant).val();
+
+    if (cant == cantAnti) {
+        CerrarSplash();
+        return false;
+    }
+
+    if (cant == "" || cant == "0") {
+        AbrirMensaje("Ingrese una cantidad mayor que cero.");
+        $(txtLPCant).val(cantAnti);
+        CerrarSplash();
+        return false;
+    }
+
+    if (isNaN(cant)) {
+        CerrarSplash();
+        return false;
+    }
+
+    var val = ValidarUpdate(PedidoDetalleID, FlagValidacion, rowElement);
+    if (!val) {
+        CerrarSplash();
+        return false;
+    }
+
+    var CliID = $(rowElement).find(".hdfLPCli").val();
+    var CliDes = $(rowElement).find(".txtLPCli").val();
+    var Cantidad = $(txtLPCant).val();
+    var CantidadAnti = $(txtLPTempCant).val();
+    var DesProd = $(rowElement).find(".lblLPDesProd").html();
+    var ClienteID_ = $("#ddlClientes").val();
+    var PrecioUnidad = $(rowElement).find(".hdfLPPrecioU").val();
+    if (CliDes.length == 0) { CliID = 0; }
+
+    var StockNuevo = parseInt(Cantidad) - parseInt(CantidadAnti);
+
+    var Unidad = $(rowElement).find(".hdfLPPrecioU").val();
+    var Total = DecimalToStringFormat(parseFloat(Cantidad * Unidad));
+    $(rowElement).find(".lblLPImpTotal").html(Total);
+    $(rowElement).find(".lblLPImpTotalMinimo").html(Total);
+
+    var item = {
+        CampaniaID: CampaniaID,
+        PedidoID: PedidoID,
+        PedidoDetalleID: PedidoDetalleID,
+        ClienteID: CliID,
+        Cantidad: Cantidad,
+        PrecioUnidad: PrecioUnidad,
+        Stock: StockNuevo,
+        Nombre: CliDes,
+        DescripcionProd: DesProd,
+        ClienteID_: ClienteID_,
+        SetId: setId,
+        TipoOfertaSisID: TipoOfertaSisID || 0,
+        TipoEstrategiaID: TipoOfertaSisID || 0,
+        CUV: CUV,
+        enRangoProgNuevas: enRangoProgNuevas
+    };
+
+    //AbrirSplash();
+    jQuery.ajax({
+        type: "POST",
+        url: baseUrl + "PedidoRegistro/UpdateTransaction",
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(item),
+        async: true,
+        success: function (data) {
+            CerrarSplash();
+
+            if (!checkTimeout(data))
+                return false;
+
+            if (data.success != true) {
+                $(txtLPCant).val(cantAnti);
+                var errorCliente = data.errorCliente || false;
+                if (!errorCliente) {
+                    messageInfoError(data.message);
+                }
+                else {
+                    messageInfoError(data.message, null, function () {
+                        showClienteDetalle(currentClienteEdit, function (cliente) {
+                            currentInputClienteID.val(cliente.ClienteID);
+                            currentInputClienteNombre.val(cliente.Nombre);
+                            currentInputEdit.val(cliente.Nombre);
+
+                            currentInputEdit.blur();
+                        }, function () {
+                            if (currentInputEdit != null) currentInputEdit.focus();
+                        });
+                    });
+                }
+                return false;
+            }
+
+            if ($(rowElement).find(".txtLPCli").val().length == 0) {
+                $(rowElement).find(".hdfLPCliDes").val($("#hdfNomConsultora").val());
+                $(rowElement).find(".txtLPCli").val($("#hdfNomConsultora").val());
+            }
+
+            $(txtLPTempCant).val($(txtLPCant).val());
+            $(rowElement).find(".hdfLPCliIni").val($(rowElement).find(".hdfLPCli").val());
+
+            var nomCli = $("#ddlClientes option:selected").text();
+            var monto = data.Total_Cliente;
+
+            $(".pMontoCliente").css("display", "none");
+
+            if (data.ClienteID_ != "-1") {
+                $(".pMontoCliente").css("display", "block");
+                $("#spnNombreCliente").html(nomCli + " :");
+                $("#spnTotalCliente").html(variablesPortal.SimboloMoneda + monto);
+            }
+
+            $("#hdfTotal").val(data.Total);
+            $("#spPedidoWebAcumulado").text(variablesPortal.SimboloMoneda + " " + data.TotalFormato);
+
+            var totalUnidades = parseInt($("#pCantidadProductosPedido").html());
+            totalUnidades = totalUnidades - parseInt(CantidadAnti) + parseInt(Cantidad);
+            $("#pCantidadProductosPedido").html(totalUnidades);
+
+            MostrarBarra(data);
+            if (data.modificoBackOrder) {
+                showDialog("divBackOrderModificado");
+            }
+
+            CargarDetallePedido();
+
+            var diferenciaCantidades = parseInt(Cantidad) - parseInt(CantidadAnti);
+            if (diferenciaCantidades > 0)
+                TrackingJetloreAdd(diferenciaCantidades.toString(), $("#hdCampaniaCodigo").val(), CUV);
+            else if (diferenciaCantidades < 0)
+                TrackingJetloreRemove((diferenciaCantidades * -1).toString(), $("#hdCampaniaCodigo").val(), CUV);
+        },
+        error: function (data, error) {
+            CerrarSplash();
+        }
+    });
+}
