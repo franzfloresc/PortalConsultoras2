@@ -532,7 +532,7 @@ function MostrarBarra(datax, destino) {
 
    // console.log(wLogro);
     if (belcorp.barra.settings.isMobile) {
-        if (dataBarra.MontoMaximo!= 0 && dataBarra.MontoMaximo != "" && dataBarra.MontoMaximo != null && dataBarra.MontoMaximo.toString().substring(0, 4)=="9999" ) {
+        if (dataBarra.MontoMaximo!= 0 && dataBarra.MontoMaximo != "" && dataBarra.MontoMaximo != null && dataBarra.MontoMaximo.toString().substring(0, 4)!="9999" ) {
             wLogro = CalculoLlenadoBarra();
             CalculoPosicionMinimoMaximo();
         }
