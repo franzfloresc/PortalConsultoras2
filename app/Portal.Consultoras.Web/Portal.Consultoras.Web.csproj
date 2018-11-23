@@ -693,6 +693,7 @@
     <Compile Include="Models\ProveedorDespachoCobranzaModel.cs" />
     <Compile Include="Models\RechazoModel.cs" />
     <Compile Include="Models\OfertaFinalRegaloModel.cs" />
+    <Compile Include="Models\Recomendaciones\RecomendacionesConfiguracionModel.cs" />
     <Compile Include="Models\Recomendaciones\RecomendacionesModel.cs" />
     <Compile Include="Models\RegionModel.cs" />
     <Compile Include="Models\RegistrarEstrategiaModel.cs" />
@@ -4071,6 +4072,7 @@
     <Content Include="Scripts\PortalConsultoras\Pedido\barra.js" />
     <Content Include="Scripts\PortalConsultoras\Pedido\ConsultoraOnline.js" />
     <Content Include="Scripts\PortalConsultoras\Pedido\ofertafinal.js" />
+    <Content Include="Scripts\PortalConsultoras\Recomendaciones\RecomendacionesModule.js" />
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-ConfirmarDatos.js" />
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-Landing.js" />
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-SeccionDorada.js" />
