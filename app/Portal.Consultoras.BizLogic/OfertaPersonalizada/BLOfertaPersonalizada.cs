@@ -176,7 +176,7 @@ namespace Portal.Consultoras.BizLogic.OfertaPersonalizada
                 var listaTieneStock = new List<Lista>();
                 try
                 {
-                    var codigoSap = string.Join("|", lista.Where(e => !string.IsNullOrEmpty(e.CodigoProducto)).Select(e => e.CodigoProducto));
+                    var codigoSap = string.Join("|", lista.Where(e => !string.IsNullOrEmpty(e.CodigoProducto) && e.TieneStock).Select(e => e.CodigoProducto));
                     if (!string.IsNullOrEmpty(codigoSap))
                     {
                         using (var sv = new wsConsulta())
