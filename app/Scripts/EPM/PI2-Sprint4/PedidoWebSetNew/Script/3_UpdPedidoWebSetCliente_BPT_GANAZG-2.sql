@@ -1,3 +1,6 @@
+﻿USE [BelcorpPeru_BPT]
+GO
+
 CREATE PROCEDURE [dbo].[UpdPedidoWebSetCliente] @PedidoID INT
 	,@ClienteID SMALLINT
 	,@CodigoUsuarioModificacion VARCHAR(25) = NULL
