@@ -2442,8 +2442,8 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPedidoWebDetalle> lstPedidoWebDetalle;
             using (var sv = new PedidoServiceClient())
             {
-                lstPedidoWebDetalle = sv.SelectByPedidoValidado(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.NombreConsultora).ToList();
-            }
+              lstPedidoWebDetalle = _pedidoWebProvider.ObtenerPedidoWebSetDetalleAgrupado(EsOpt(), false);
+             }
 
             var model = new PedidoDetalleModel
             {
@@ -2610,7 +2610,10 @@ namespace Portal.Consultoras.Web.Controllers
                 List<BEPedidoWebDetalle> lstPedidoWebDetalle;
                 using (var sv = new PedidoServiceClient())
                 {
-                    lstPedidoWebDetalle = sv.SelectByPedidoValidado(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.NombreConsultora).ToList();
+                    lstPedidoWebDetalle = _pedidoWebProvider.ObtenerPedidoWebSetDetalleAgrupado(EsOpt(), false);
+                    lstPedidoWebDetalle.ForEach(x => {
+                        x.DescripcionOferta = string.Empty;
+                    });
                 }
 
                 var totalPedido = lstPedidoWebDetalle.Where(p => p.PedidoDetalleIDPadre == 0).Sum(p => p.ImporteTotal);
@@ -2630,23 +2633,8 @@ namespace Portal.Consultoras.Web.Controllers
                 var pedidoWeb = ObtenerPedidoWeb();
 
                 int result = 0;
-
-                using (var sv = new PedidoServiceClient())
-                {
-                    DateTime? fechaInicioSetAgrupado = sv.ObtenerFechaInicioSets(userData.PaisID);
-                    if (fechaInicioSetAgrupado.HasValue)
-                        result = DateTime.Compare(fechaInicioSetAgrupado.Value.Date, pedidoWeb.FechaRegistro.Date);
-                }
-
-                if (result >= 0)
-                {
-                    pedidoModelo.ListaDetalle = PedidoJerarquico(lstPedidoWebDetalle);
-                }
-                else
-                {
-                    pedidoModelo.ListaDetalle = lstPedidoWebDetalle;
-                }
-
+                
+               pedidoModelo.ListaDetalle = lstPedidoWebDetalle;
 
                 var pedidoWebDetalleModel = Mapper.Map<List<BEPedidoWebDetalle>, List<PedidoWebDetalleModel>>(pedidoModelo.ListaDetalle);
                 pedidoWebDetalleModel.ForEach(p => p.CodigoIso = userData.CodigoISO);
