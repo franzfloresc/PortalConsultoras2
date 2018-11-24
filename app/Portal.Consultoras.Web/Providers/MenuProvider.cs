@@ -220,7 +220,7 @@ namespace Portal.Consultoras.Web.Providers
             if (!tieneRevistaDigital)
             {
                 urlImagen = _configuracionManager.GetDefaultGifMenuOfertas();
-                urlImagen = ConfigCdn.GetUrlFileCdn(Globals.UrlMatriz + "/" + codigoIso, urlImagen);
+                urlImagen = ConfigCdn.GetUrlFileCdnMatriz(codigoIso, urlImagen);
                 if (tieneEventoFestivoData)
                 {
                     urlImagen = _eventoFestivo.EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.GIF_MENU_OFERTAS, urlImagen);
@@ -230,7 +230,7 @@ namespace Portal.Consultoras.Web.Providers
             if (tieneRevistaDigital && !revistaDigital.EsSuscrita)
             {
                 urlImagen = revistaDigital.LogoMenuOfertasNoActiva;
-                urlImagen = ConfigCdn.GetUrlFileCdn(Globals.UrlMatriz + "/" + codigoIso, urlImagen);
+                urlImagen = ConfigCdn.GetUrlFileCdnMatriz(codigoIso, urlImagen);
                 if (tieneEventoFestivoData)
                 {
                     urlImagen = _eventoFestivo.EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.GIF_MENU_OFERTAS_BPT_GANA_MAS, urlImagen);
@@ -241,7 +241,7 @@ namespace Portal.Consultoras.Web.Providers
             if (tieneRevistaDigital && revistaDigital.EsSuscrita)
             {
                 urlImagen = revistaDigital.LogoMenuOfertasActiva;
-                urlImagen = ConfigCdn.GetUrlFileCdn(Globals.UrlMatriz + "/" + codigoIso, urlImagen);
+                urlImagen = ConfigCdn.GetUrlFileCdnMatriz(codigoIso, urlImagen);
                 if (tieneEventoFestivoData)
                 {
                     urlImagen = _eventoFestivo.EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.GIF_MENU_OFERTAS_BPT_CLUB_GANA_MAS, urlImagen);
@@ -251,7 +251,7 @@ namespace Portal.Consultoras.Web.Providers
             if (revistaDigital.TieneRDI)
             {
                 urlImagen = revistaDigital.LogoMenuOfertasNoActiva;
-                urlImagen = ConfigCdn.GetUrlFileCdn(Globals.UrlMatriz + "/" + codigoIso, urlImagen);
+                urlImagen = ConfigCdn.GetUrlFileCdnMatriz(codigoIso, urlImagen);
                 if (tieneEventoFestivoData)
                 {
                     urlImagen = _eventoFestivo.EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.GIF_MENU_OFERTAS_BPT_GANA_MAS, urlImagen);
@@ -483,6 +483,9 @@ namespace Portal.Consultoras.Web.Providers
         public bool FindInMenu<T>(List<PermisoModel> menuWeb, Predicate<PermisoModel> predicate, Converter<PermisoModel, T> select, out T result)
         {
             result = default(T);
+            if (menuWeb == null)
+                return false;
+
             foreach (var item in menuWeb)
             {
                 if (predicate(item))
@@ -498,6 +501,9 @@ namespace Portal.Consultoras.Web.Providers
         public bool FindInMenu<T>(List<MenuMobileModel> menuWeb, Predicate<MenuMobileModel> predicate, Converter<MenuMobileModel, T> select, out T result)
         {
             result = default(T);
+            if (menuWeb == null)
+                return false;
+
             foreach (var item in menuWeb)
             {
                 if (predicate(item))
@@ -505,7 +511,7 @@ namespace Portal.Consultoras.Web.Providers
                     result = select(item);
                     return true;
                 }
-                if (FindInMenu(item.SubMenu.ToList(), predicate, select, out result)) return true;
+                if (FindInMenu((item.SubMenu ?? new List<MenuMobileModel>()).ToList(), predicate, select, out result)) return true;
             }
             return false;
         }

@@ -32,12 +32,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 {
                     var listaPedido = ObtenerPedidoWebDetalle();
                     var lst = _vcFichaProductoProvider.ConsultarFichaProductoPorCuv(listaPedido, cuv, campanaId);
-                    var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
                     producto = _vcFichaProductoProvider.FichaProductoFormatearModelo(lst, listaPedido).SingleOrDefault();
                     producto = _vcFichaProductoProvider.FichaProductoHermanos(producto, listaPedido, userData.CampaniaID);
                     if (producto != null)
                     {
-                        producto.FotoProducto01 = ConfigCdn.GetUrlFileCdn(carpetaPais, producto.FotoProducto01);
+                        producto.FotoProducto01 = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, producto.FotoProducto01);
                         SessionManager.SetFichaProductoTemporal(producto);
                     }
                 }

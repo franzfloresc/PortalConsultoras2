@@ -3,6 +3,7 @@
 var urlPasarelaPago = urlPasarelaPago || '';
 var rutaGuardarDatosPago = rutaGuardarDatosPago || '';
 var tipoOrigenPantalla = tipoOrigenPantalla || 0;
+var montoMinimoPago = montoMinimoPago || 0.5;
 
 $(document).ready(function () {
     'use strict';
@@ -172,8 +173,8 @@ $(document).ready(function () {
 
                 var montoDeuda = $.trim($("#hdMontoDeuda").val());
 
-                if ($.trim(montoDeuda) == "" || parseFloat(montoDeuda).toFixed(2) < 0.50) {
-                    AbrirMensaje("El monto a pagar debe ser mayor o igual a 0.50");
+                if ($.trim(montoDeuda) == "" || parseFloat(montoDeuda).toFixed(2) < montoMinimoPago) {
+                    AbrirMensaje("El monto a pagar debe ser mayor o igual a " + montoMinimoPago);
                     return false;
                 }
                 
@@ -187,8 +188,8 @@ $(document).ready(function () {
 
                 var montoDeuda = $.trim($("#txtMontoParcial").val());
 
-                if ($.trim(montoDeuda) == "" || parseFloat(montoDeuda).toFixed(2) < 0.50) {
-                    AbrirMensaje("El monto a pagar debe ser mayor o igual a 0.50");
+                if ($.trim(montoDeuda) == "" || parseFloat(montoDeuda).toFixed(2) < montoMinimoPago) {
+                    AbrirMensaje("El monto a pagar debe ser mayor o igual a " + montoMinimoPago);
                     return false;
                 }
 

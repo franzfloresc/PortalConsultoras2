@@ -4,12 +4,16 @@
     border-radius: 4px;
     padding: 20px 8.5px;
     width: 145px;
-    height: 286px;
+    height: 282px;
     text-align: center;
     display: flex !important;
     align-items: center;
     margin-left: 0 !important;
-    margin-right: 0 !important;
+    margin-right: 20px !important;
+}
+
+.contenedor_carrusel .slick-list {
+    padding: 0px 0 !important;
 }
 
 .contenido_ofertas p {
@@ -27,4 +31,12 @@
     border: 1px solid #fff;
     border-radius: 4px;
     margin: 0 auto;
+}
+
+    .contenido_ofertas a.dorado {
+        background-color: #c39934;
+    }
+
+.carousel-mas-ganadoras {
+    margin-top: 18px;
 }
