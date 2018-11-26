@@ -13,6 +13,10 @@ namespace Portal.Consultoras.Entities.Pedido
         [DataMember]
         public string MensajeAviso { get; set; }
         [DataMember]
+        public string CUV { get; set; }
+        [DataMember]
+        public int ClienteID { get; set; }
+        [DataMember]
         public string TituloMensaje { get; set; }
         [DataMember]
         public List<string> ListCuvEliminar { get; set; }

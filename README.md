@@ -1,7 +1,9 @@
 # Portal Consultoras SB2
 
-PI2-EPM-Sprint3_PedidoEstructura
-origin/PI2-EPM-Sprint2_HomologarAgregarPedido
+PI2-EPM-Sprint3-Pase22112018
 
-EPM-1603, EPM-1626
-- Homologar el agregar de SB con el del app
+Ramas:
++ PI2-EPM-Sprint3-PedidoExp 
++ PI2-EPM-Sprint3_HomeContenedor 
++ PI2-EPM-Sprint3_GanadorasAnalytics 
++ PI2-EPM-AnalyticsOfertas

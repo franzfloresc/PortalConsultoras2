@@ -71,7 +71,8 @@ var ConstantesModule = (function () {
         HV: "HV",
         GND: "GN",
         LAN: "LAN",
-        MG: "MG"
+        MG: "MG",
+        SR: "SR"
     }
 
     var _urlObtenerEstrategia = {

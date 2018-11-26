@@ -609,7 +609,7 @@ namespace Portal.Consultoras.BizLogic
 
             using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
             {
-                if (olstPedidoWebDetalle != null) daPedidoWebDetalle.UpdListPedidoWebDetalleObsPROL(olstPedidoWebDetalle);
+                if (olstPedidoWebDetalle != null) daPedidoWebDetalle.UpdListObsPROL(olstPedidoWebDetalle);
 
                 daPedidoWeb.UpdPedidoWebByEstado(CampaniaID, PedidoID, EstadoPedido, false, CodigoUsuario, MontoTotalProl, DescuentoProl);
                 oTransactionScope.Complete();
@@ -699,8 +699,9 @@ namespace Portal.Consultoras.BizLogic
                     oTransactionScope.Complete();
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.SaveLog(ex, ConsultoraID, PaisID);
                 success = false;
             }
 
@@ -770,6 +771,7 @@ namespace Portal.Consultoras.BizLogic
             }
             catch (Exception ex)
             {
+                LogManager.SaveLog(ex, ConsultoraId, paisID);
                 return false;
             }
 

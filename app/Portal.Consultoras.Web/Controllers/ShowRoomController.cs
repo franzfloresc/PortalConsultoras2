@@ -71,7 +71,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var mostrarPopupIntriga = !mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
 
                 if (mostrarPopupIntriga) return RedirectToAction("Intriga", "ShowRoom");
-                if (!ValidarIngresoShowRoom(false)) return RedirectToAction("Index", "Bienvenida");
+                if (!_showRoomProvider.ValidarIngresoShowRoom(false)) return RedirectToAction("Index", "Bienvenida");
 
                 if (!string.IsNullOrEmpty(query))
                 {
@@ -257,6 +257,7 @@ namespace Portal.Consultoras.Web.Controllers
         
         #endregion
 
+        /*
         [HttpPost]
         public JsonResult CargarProductosShowRoom(BusquedaProductoModel model)
         {
@@ -323,7 +324,9 @@ namespace Portal.Consultoras.Web.Controllers
                 return ErrorJson(Constantes.MensajesError.CargarProductosShowRoom);
             }
         }
+        */
 
+        /*
         [HttpPost]
         public JsonResult CargarProductosShowRoomOferta(BusquedaProductoModel model)
         {
@@ -363,6 +366,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return ErrorJson(Constantes.MensajesError.CargarProductosShowRoom);
             }
         }
+        */
 
         [HttpPost]
         public JsonResult GetDataShowRoomIntriga()

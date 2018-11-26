@@ -76,6 +76,8 @@ namespace Portal.Consultoras.Entities.PagoEnLinea
         public string FechaTransaccionFormat { get; set; }
         [DataMember]
         public string FechaTransaccionHoraFormat { get; set; }
+        [DataMember]
+        public string Origen { get; set; }
 
         public BEPagoEnLineaResultadoLogReporte(IDataRecord row)
         {
@@ -105,6 +107,7 @@ namespace Portal.Consultoras.Entities.PagoEnLinea
             CodigoError = row.ToString("CodigoError");
             MensajeError = row.ToString("MensajeError");
             FechaTransaccion = row.ToDateTime("FechaTransaccion");
+            Origen = row.ToString("Origen");
         }
     }
 }

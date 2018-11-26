@@ -142,8 +142,7 @@ namespace Portal.Consultoras.Web.Providers
 
         private string GetUrlTippingPoint(string noImagen)
         {
-            string urlExtension = string.Format("{0}/{1}", configuracionManager.GetConfiguracionManager(ConfigurationManager.AppSettings["Matriz"] ?? ""), userData.CodigoISO ?? "");
-            string url = ConfigCdn.GetUrlFileCdn(urlExtension, noImagen ?? "");
+            string url = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, noImagen ?? "");
             return url;
         }
     }

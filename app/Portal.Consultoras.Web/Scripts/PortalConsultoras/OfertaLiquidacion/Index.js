@@ -203,6 +203,7 @@ $(document).ready(function () {
 
     //                            $(this).parent().parent().parent().parent().find(".ValidaNumeralOferta").attr('disabled', true);
     //                            $(div).css('display', 'block');
+                                    //$('#divVistaPrevia').dialog('close');
 
     //                            $(lblStock).text(parseInt(Stock - Cantidad));
     //                            $(HiddenStock).val(parseInt(Stock - Cantidad));
@@ -577,7 +578,8 @@ function IniDialog() {
         buttons:
             {
                 "Aceptar": function () {
-                    $(this).dialog('close');
+                    HideDialog("DialogMensajesBanner");
+                    //$(this).dialog('close');
                 }
             }
     });

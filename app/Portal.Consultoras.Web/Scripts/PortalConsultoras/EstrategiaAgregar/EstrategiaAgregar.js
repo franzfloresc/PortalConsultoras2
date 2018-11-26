@@ -225,7 +225,7 @@ var EstrategiaAgregarModule = (function () {
     };
 
     var estrategiaAgregar = function (event, popup, limite, esFicha) {
-
+        
         popup = popup || false;
         limite = limite || 0;
 
@@ -380,8 +380,6 @@ var EstrategiaAgregarModule = (function () {
                 sessionStorage.setItem('cuvPack', cuv);
             }
             
-
-         
             var tipoOrigenEstrategiaAux = 0;
             if (typeof tipoOrigenEstrategia != "undefined") {
                 tipoOrigenEstrategiaAux = tipoOrigenEstrategia || 0;
