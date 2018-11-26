@@ -42,7 +42,8 @@ function CrearDialogs() {
         buttons:
         {
             "Aceptar": function () {
-                $(this).dialog('close');
+                HideDialog("DialogMensajes");
+                //$(this).dialog('close');
             }
         }
     });

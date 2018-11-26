@@ -149,10 +149,12 @@ $(document).ready(function () {
     });
     $('#btnAgregarOferfaFIC').click(function () {
         GuardarOfertaFICenPedido();
-        $('#divOfertaFIC').dialog('close');
+        HideDialog("divOfertaFIC");
+        //$('#divOfertaFIC').dialog('close');
     });
     $('#btnCancelarOferfaFIC').click(function () {
-        $('#divOfertaFIC').dialog('close');
+        HideDialog("divOfertaFIC");
+        //$('#divOfertaFIC').dialog('close');
     });
 
     CrearDialogs();
@@ -170,7 +172,8 @@ function CrearDialogs() {
         draggable: true,
         title: "",
         close: function (event, ui) {
-            $(this).dialog('close');
+            HideDialog("divConfirmEliminarTotal");
+            //$(this).dialog('close');
         }
     });
 
@@ -228,7 +231,7 @@ function CargarDetallePedido(page, rows) {
 
                 $.each(data.ListaCliente, function (index, value) {
                     if (value.ClienteID == -1) {
-                        htmlCliente += '<option value="-1">Cliente</option>';
+                        htmlCliente += '<option value="-1">Cliente/option>';
                     } else {
                         htmlCliente += '<option value="' + value.ClienteID + '">' + value.Nombre + '</option>';
                     }
@@ -759,7 +762,8 @@ function EliminarPedidoTotalSi() {
     EliminarPedido();
 }
 function EliminarPedidoTotalNo() {
-    $('#divConfirmEliminarTotal').dialog('close');
+    HideDialog("divConfirmEliminarTotal");
+    //$('#divConfirmEliminarTotal').dialog('close');
 }
 
 function EliminarPedido() {

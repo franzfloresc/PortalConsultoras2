@@ -34,6 +34,13 @@ namespace Portal.Consultoras.Common
 
             return URL_S3 + "/" + BUCKET_NAME + "/" + root + carpeta + fileName;
         }
+        
+        public static string GetUrlFileS3Matriz(string isoPais, string fileName)
+        {
+            var carpetaPais = string.Format("{0}/{1}", Globals.UrlMatriz, isoPais);
+
+            return GetUrlFileS3(carpetaPais, fileName);
+        }
 
         public static string GetUrlS3(string carpetaPais)
         {

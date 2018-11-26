@@ -383,7 +383,7 @@ jQuery(document).ready(function () {
                 return new Handlebars.SafeString(simbMon);
             });
 
-            Handlebars.registerHelper('Multiplicar', function (a,b) {
+            Handlebars.registerHelper('Multiplicar', function (a, b) {
                 //var array = (JSON.parse(obj) instanceof Array) ? JSON.parse(obj) : [obj];
                 //var resultado = 1;
                 //$.each(array, function (index, value) {
@@ -559,14 +559,39 @@ function ImgUrlRender(imgOriginal, tipo) {
     return urlRender;
 }
 
+function showDialogSinScroll(dialogId) {
+    $("body").css("overflow", "hidden");
+    showDialog(dialogId);
+    return false;
+}
+
 function showDialog(dialogId) {
-    $("#" + dialogId).dialog("open");
+    dialogId = (dialogId || "").trim();
+    dialogId = dialogId[0] == "#" ? dialogId : ("#" + dialogId);
+    $(dialogId).dialog("open");
     $("#ui-datepicker-div").css("z-index", "9999");
+    //$("body").css("overflow", "hidden");
+    //$("body").removeClass("overflow_hidden");
+    console.log(dialogId);
+    setTimeout(function () {
+        var h = $(document).innerHeight();
+        console.log(h);
+        $(".ui-widget-overlay").css("height", "auto");
+        $(".ui-widget-overlay").css("height", h);
+    }, 1000);
+
     return false;
 }
 
 function HideDialog(dialogId) {
-    $("#" + dialogId).dialog("close");
+    dialogId = (dialogId || "").trim();
+    console.log(dialogId);
+    if (dialogId != "") {
+        dialogId = dialogId[0] == "#" ? dialogId : ("#" + dialogId);
+        $(dialogId).dialog("close");
+    }
+    $("body").css("overflow", "auto");
+
     return false;
 }
 
@@ -639,7 +664,10 @@ function waitingDialog(waiting) {
 }
 
 function closeWaitingDialog() {
-    try { $("#loadingScreen").dialog('close'); }
+    try {
+        HideDialog("loadingScreen");
+        //$("#loadingScreen").dialog('close');
+    }
     catch (err) {
     }
 
@@ -706,18 +734,20 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
             $('#alertDialogMensajes .terminos_title_2').html(titulo);
             $('#alertDialogMensajes .pop_pedido_mensaje').html(mensaje);
             $('#alertDialogMensajes').dialog('open');
-            $('body,html').css('overflow', 'hidden'); 
+            $('body,html').css('overflow', 'hidden');
 
             $('.ui-dialog .ui-button').off('click');
             $('.ui-dialog .ui-icon-closethick').off('click');
 
             $('.ui-dialog .ui-button').on('click', function () {
-                $('#alertDialogMensajes').dialog('close');
+                HideDialog("alertDialogMensajes");
+                //$('#alertDialogMensajes').dialog('close');
                 if ($.isFunction(fnAceptar)) fnAceptar();
             });
 
             $('.ui-dialog .ui-icon-closethick').on('click', function () {
-                $('#alertDialogMensajes').dialog('close');
+                HideDialog("alertDialogMensajes");
+                //$('#alertDialogMensajes').dialog('close');
                 if ($.isFunction(fnAceptar)) fnAceptar();
             });
 
@@ -1138,8 +1168,8 @@ function InsertarLogDymnamo(pantallaOpcion, opcionAccion, esMobile, extra) {
             url: baseUrl + 'Comun/InsertarLogDymnamo',
             //url: urlLogDynamo + "Api/LogUsabilidad",
             dataType: "json",
-            data:{
-                'Aplicacion':     userData.aplicacion,
+            data: {
+                'Aplicacion': userData.aplicacion,
                 'PantallaOpcion': pantallaOpcion,
                 'OpcionAccion': opcionAccion,
                 'Extra': ToDictionary(extra)
@@ -1161,9 +1191,9 @@ function ToDictionary(dic) {
             if (dic[i].hasOwnProperty('key') && dic[i].hasOwnProperty('value'))
                 data[dic[i].key] = dic[i].value;
         }
-          
+
     }
-   
+
     return data;
 }
 
@@ -1908,7 +1938,7 @@ function get_local_storage(key) {
 
 function limpiar_local_storage() {
 
-    
+
     if (typeof (Storage) !== 'undefined') {
         var itemSBTokenPais = localStorage.getItem('SBTokenPais');
         var itemSBTokenPedido = localStorage.getItem('SBTokenPedido');
@@ -1974,15 +2004,15 @@ var registerEvent = function (eventName) {
     var self = this;
     self[eventName] = self[eventName] || {};
     self[eventName].callBacks = self[eventName].callBacks || [];
-    self[eventName].subscribe = self[eventName].subscribe || function(cb) {
+    self[eventName].subscribe = self[eventName].subscribe || function (cb) {
         if (!!cb && typeof cb == "function") {
             self[eventName].callBacks.push(cb);
             return;
         }
     };
 
-    self[eventName].emit = self[eventName].emit || function(args) {
-        self[eventName].callBacks.forEach(function(cb) {
+    self[eventName].emit = self[eventName].emit || function (args) {
+        self[eventName].callBacks.forEach(function (cb) {
             cb.call(undefined, args);
         });
     };
@@ -1998,7 +2028,7 @@ var registerEvent = function (eventName) {
 
     self.applyChanges = self.applyChanges || function (event, args) {
         if (self[event]) {
-            self[event].callBacks.forEach(function(cb) {
+            self[event].callBacks.forEach(function (cb) {
                 cb.call(undefined, args);
             });
         }
