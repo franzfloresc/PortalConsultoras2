@@ -1171,7 +1171,7 @@ namespace Portal.Consultoras.Web.Controllers
         //    try
         //    {
         //        if (ReservadoEnHorarioRestringido(out message)) return ErrorJson(message, true);
-                listaMarcaciones = ObtenerPedidoWebDetalle() ?? new List<BEPedidoWebDetalle>();
+        //          listaMarcaciones = ObtenerPedidoWebDetalle() ?? new List<BEPedidoWebDetalle>();
         //        var usuario = Mapper.Map<ServicePedido.BEUsuario>(userData);
         //        var listaPedidoWebDetalle = ObtenerPedidoWebDetalle();
         //        //BEPedidoDetalle
