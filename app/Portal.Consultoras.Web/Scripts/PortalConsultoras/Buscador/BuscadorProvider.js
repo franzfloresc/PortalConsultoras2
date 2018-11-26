@@ -102,8 +102,10 @@
 
                                 if (!isMobile()) CargarResumenCampaniaHeader();
 
+                                console.log(textoBusqueda);
+
                                 CerrarLoad();
-                                
+
 
                                 var modelCarrito = {
                                     'DescripcionCompleta': model.DescripcionProd,
@@ -114,9 +116,11 @@
                                     'MarcaId': model.MarcaID,
                                     'Cantidad': model.Cantidad
                                 };
-                                                            
+
+                                var _textoBusqueda = localStorage.getItem('valorBuscador');
+
                                 if (!(typeof AnalyticsPortalModule === 'undefined'))
-                                    AnalyticsPortalModule.MarcaAnadirCarritoBuscador(modelCarrito, 'Resultados', $('#TextoBusqueda').html());
+                                    AnalyticsPortalModule.MarcaAnadirCarritoBuscador(modelCarrito, 'Resultados', _textoBusqueda);
 
                             },
                             error: function (data, error) {
@@ -241,9 +245,11 @@
                         'MarcaId': modelFinal.MarcaID,
                         'Cantidad': modelFinal.Cantidad
                     };
-                    
+
+                    var _textoBusqueda = localStorage.getItem('valorBuscador');
+
                     if (!(typeof AnalyticsPortalModule === 'undefined'))
-                        AnalyticsPortalModule.MarcaAnadirCarritoBuscador(modelCarrito, 'Resultados', textoBusqueda);
+                        AnalyticsPortalModule.MarcaAnadirCarritoBuscador(modelCarrito, 'Resultados', _textoBusqueda);
 
                     TrackingJetloreAdd(modelFinal.Cantidad, $("#hdCampaniaCodigo").val(), modelFinal.CUV);
                     agregado.html('<span class="text-uppercase text-bold d-inline-block">Agregado</span>');

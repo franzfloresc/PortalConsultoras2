@@ -180,6 +180,8 @@ var BuscadorModule = (function () {
 
             var valorBusqueda = $(this).val();
 
+            localStorage.setItem('valorBuscador', valorBusqueda);
+
             if (valorBusqueda.length >= _config.caracteresBuscador) {
                 _funciones.CampoDeBusquedaConCaracteres($("#CampoBuscadorProductos"));
                 if (_config.contadorBusqueda === 0) {
@@ -349,7 +351,8 @@ var BuscadorModule = (function () {
 
             if (!(typeof AnalyticsPortalModule === 'undefined'))
                 AnalyticsPortalModule.MarcaVerTodosLosResultadosBuscador(valorBusqueda);
-            
+
+            localStorage.setItem('valorBuscador', valorBusqueda);
             
             window.location.href = url;
         },
