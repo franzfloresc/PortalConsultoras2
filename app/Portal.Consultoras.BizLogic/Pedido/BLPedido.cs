@@ -1757,8 +1757,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 DescripcionProd = pedidoDetalle.Producto.Descripcion,
                 ImporteTotal = pedidoDetalle.ImporteTotal,
                 Nombre = pedidoDetalle.ClienteID == 0 ? usuario.Nombre : pedidoDetalle.ClienteDescripcion,
-                Flag = 2
-
+                Flag = 2,
+                IPUsuario = pedidoDetalle.IPUsuario,
             };
 
             var result = AdministradorPedido(usuario, pedidoDetalle, obePedidoWebDetalle, lstDetalle, Constantes.PedidoAccion.UPDATE);
