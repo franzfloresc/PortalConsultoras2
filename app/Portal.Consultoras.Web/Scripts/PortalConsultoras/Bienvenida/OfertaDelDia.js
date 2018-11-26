@@ -68,7 +68,7 @@ var OfertaDelDiaModule = function () {
     var props = {
         UrlActual: window.location.href.toLowerCase(),
         UrlValidarStockEstrategia: "Pedido/ValidarStockEstrategia",
-        UrlAgregarProducto: "Pedido/AgregarProductoZE",
+        //UrlAgregarProducto: "Pedido/AgregarProductoZE",
         TipoOrigenPantallaODD: TipoOrigenPantallaODD,
         OrigenDesktopODD: OrigenDesktopODD //para Analytics
     };

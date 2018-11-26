@@ -356,7 +356,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             List<BEPedidoWebDetalle> lstPedidoWebDetalle;
             using (var sv = new PedidoServiceClient())
             {
-                lstPedidoWebDetalle = sv.SelectByPedidoValidado(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.NombreConsultora).ToList();
+                lstPedidoWebDetalle = _pedidoWebProvider.ObtenerPedidoWebSetDetalleAgrupado(EsOpt(), false);              
             }
 
             BEPedidoWeb bePedidoWebByCampania = ObtenerPedidoWeb();

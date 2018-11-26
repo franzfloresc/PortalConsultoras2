@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -277,5 +278,70 @@ namespace Portal.Consultoras.Web.Providers
             return descripcion;
         }
 
+        public BEPedidoDetalleResult InsertPedidoDetalle(BEPedidoDetalle pedidoDetalle)
+        {
+            BEPedidoDetalleResult pedidoDetalleResult;
+            using (var pedidoServiceClient = new PedidoServiceClient())
+            {
+                pedidoDetalleResult = pedidoServiceClient.InsertPedidoDetalle(pedidoDetalle);
+            }
+
+            return pedidoDetalleResult;
+        }
+
+        public BEPedidoDetalleResult UpdatePedidoDetalle(BEPedidoDetalle pedidoDetalle)
+        {
+            BEPedidoDetalleResult pedidoDetalleResult;
+            using (var pedidoServiceClient = new PedidoServiceClient())
+            {
+                pedidoDetalleResult = pedidoServiceClient.UpdatePedidoDetalle(pedidoDetalle);
+            }
+
+            return pedidoDetalleResult;
+        }
+
+        public async Task<BEPedidoDetalleResult> EliminarPedidoDetalle(BEPedidoDetalle pedidoDetalle)
+        {
+            BEPedidoDetalleResult pedidoDetalleResult;
+            using (var pedidoServiceClient = new PedidoServiceClient())
+            {
+                pedidoDetalleResult = await pedidoServiceClient.DeletePedidoAsync(pedidoDetalle);
+            }
+
+            return pedidoDetalleResult;
+        }
+
+        public bool EsHoraReserva(UsuarioModel usuario, DateTime fechaHora)
+        {
+            if (!usuario.DiaPROL)
+                return false;
+
+            var horaNow = new TimeSpan(fechaHora.Hour, fechaHora.Minute, 0);
+            var esHorarioReserva = (fechaHora < usuario.FechaInicioCampania) ?
+                (horaNow > usuario.HoraInicioPreReserva && horaNow < usuario.HoraFinPreReserva) :
+                (horaNow > usuario.HoraInicioReserva && horaNow < usuario.HoraFinReserva);
+
+            if (!esHorarioReserva)
+                return false;
+
+            if (usuario.CodigoISO != Constantes.CodigosISOPais.Peru)
+                return (BuildFechaNoHabil(usuario) == 0);
+
+            return true;
+        }
+
+        private int BuildFechaNoHabil(UsuarioModel usuario)
+        {
+            var result = 0;
+            if (usuario != null && usuario.RolID != 0)
+            {
+                using (var sv = new PedidoServiceClient())
+                {
+                    result = sv.GetFechaNoHabilFacturacion(usuario.PaisID, usuario.CodigoZona, DateTime.Today);
+                }
+            }
+
+            return result;
+        }
     }
 }

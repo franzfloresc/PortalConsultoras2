@@ -304,7 +304,7 @@ var BuscadorModule = (function () {
             var divPadre = $(this).parents("[data-item='ProductoBuscador']").eq(0);
             var textoBusqueda = $(_elementos.campoBuscadorProductos).val();
             _funciones.LlamarAnalyticsSeleccionarContenido(textoBusqueda);
-            BuscadorProvider.RegistroProductoBuscador(divPadre, textoBusqueda);
+            PedidoRegistroModule.RegistroProductoBuscador(divPadre, textoBusqueda);
         },
         RedireccionarAFichaDeFotoYDescripcion: function (e) {
             e.preventDefault();

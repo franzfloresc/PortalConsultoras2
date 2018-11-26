@@ -43,7 +43,7 @@
     <div class="clear"></div>
 
     <div class="pedido_ingreso_c2">
-        <form id="frmInsertPedido" action="@Url.Action("PedidoInsertar", "Pedido")" method="post" role="form">
+        <form id="frmInsertPedido" action="@Url.Action("PedidoAgregarProductoTransaction", "Pedido")" method="post" role="form">
             <input type="hidden" id="hdfDescripcionCategoria" />
             <input type="hidden" id="hdfDescripcionEstrategia" />
             <input type="hidden" id="hdfDescripcionMarca" />
@@ -1636,7 +1636,7 @@
                        readonly="readOnly" onkeydown="return false;" style="width:90%; padding:4px;" />
                 {{else}}
                 <input type="text" name="{{Nombre}}" value="{{Nombre}}" maxlength="50" class="classClienteNombre ValidaAlfanumerico txtLPCli"
-                       onblur="BlurF(event, '{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '2', '{{CUV}}', '{{EsBackOrder}}', '{{SetID}}')" style="width: 90%; padding: 4px;"
+                   onblur="BlurF(event, '{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '2', '{{CUV}}', '{{SetID}}')" style="width: 90%; padding: 4px;"
                        datapedido="{{PedidoDetalleID}}" />
                 {{/if_eq}}
                 {{/if}}

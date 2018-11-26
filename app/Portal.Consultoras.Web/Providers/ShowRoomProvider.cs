@@ -508,12 +508,10 @@ namespace Portal.Consultoras.Web.Providers
             var configEstrategiaSR = _sessionManager.GetEstrategiaSR();
             if (!configEstrategiaSR.CargoEntidadesShowRoom)
                 return false;
-
             var resultado = false;
             var esShowRoom = _sessionManager.GetEsShowRoom();
             var mostrarShowRoomProductos = _sessionManager.GetMostrarShowRoomProductos();
             var mostrarShowRoomProductosExpiro = _sessionManager.GetMostrarShowRoomProductosExpiro();
-
             if (esIntriga)
             {
                 resultado = esShowRoom && !mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
@@ -522,7 +520,6 @@ namespace Portal.Consultoras.Web.Providers
             {
                 resultado = esShowRoom && mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
             }
-
             return resultado;
         }
 
