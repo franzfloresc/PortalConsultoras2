@@ -15,7 +15,8 @@
         buttons:
         {
             "Aceptar": function () {
-                $(this).dialog('close');
+                HideDialog("DialogMensajes");
+                //$(this).dialog('close');
             }
         }
     });
@@ -29,7 +30,8 @@
         draggable: true,
         title: "",
         close: function (event, ui) {
-            $(this).dialog('close');
+            HideDialog("divConfirmValidarPROL");
+            //$(this).dialog('close');
         }
     });
 
@@ -85,7 +87,8 @@ function MostrarMensaje(message) {
 }
 
 function CerrarDialogo(dialog) {
-    $('#' + dialog).dialog('close');
+    HideDialog(dialog);
+    //$('#' + dialog).dialog('close');
 }
 
 function ConfirmarModificar() {

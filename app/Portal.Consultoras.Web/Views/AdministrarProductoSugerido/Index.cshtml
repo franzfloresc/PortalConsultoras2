@@ -326,7 +326,8 @@
                         RegistrarProductoSugerido();
                     },
                     "Cancelar": function () {
-                        $(this).dialog('close');
+                        HideDialog("DialogRegistroProductoSugerido");
+                        //$(this).dialog('close');
                     }
                 }
         });
@@ -350,7 +351,8 @@
                             });
                         }
                         isVistaPreviaOpened = false;
-                        $(this).dialog('close');
+                        HideDialog("divVistaPrevia");
+                        //$(this).dialog('close');
                     }
                 }
         });

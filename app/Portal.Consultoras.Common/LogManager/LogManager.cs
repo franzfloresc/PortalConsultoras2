@@ -163,7 +163,7 @@ namespace Portal.Consultoras.Common
                         innerException = innerException.InnerException;
                     }
                 }
-                
+
                 var data = new
                 {
                     Aplicacion = Constantes.LogDynamoDB.AplicacionPortalConsultoras,
@@ -217,13 +217,13 @@ namespace Portal.Consultoras.Common
 
         private static void RegistrarElastic(LogError logError)
         {
-            var urlApi = ConfigurationManager.AppSettings.Get("UrlLogElastic");
-
-            if (string.IsNullOrEmpty(urlApi)) return;
-
             var dataString = string.Empty;
             try
             {
+                var urlApi = ConfigurationManager.AppSettings.Get("UrlLogElastic");
+
+                if (string.IsNullOrEmpty(urlApi)) return;
+
                 var urlRequest = string.Empty;
                 var browserRequest = string.Empty;
                 RouteValueDictionary routeValues = null;
@@ -248,9 +248,9 @@ namespace Portal.Consultoras.Common
                 if (logError.Origen.Equals("Servidor"))
                 {
                     application = "WebService";
-                    
+
                     StackTrace st = new StackTrace(logError.Exception, true);
-                    StackFrame frame = st.GetFrame(st.FrameCount - 1); 
+                    StackFrame frame = st.GetFrame(st.FrameCount - 1);
                     className = frame.GetMethod().DeclaringType.Name;
                     methodName = frame.GetMethod().Name;
                 }
@@ -267,7 +267,7 @@ namespace Portal.Consultoras.Common
                         methodName = "";
                     }
                     application = "Web";
-                }                
+                }
 
                 var data = new
                 {
@@ -285,7 +285,7 @@ namespace Portal.Consultoras.Common
                     Url = urlRequest,
                     Navigator = browserRequest,
                     Trace = "LogManager"
-                };                
+                };
 
                 using (HttpClient httpClient = new HttpClient())
                 {
@@ -318,7 +318,6 @@ namespace Portal.Consultoras.Common
             string indexName = pattern + DateTime.Now.ToString("yyyy.MM.dd");
             return endpoint + indexName + "/LogEvent";
         }
-
 
         public static string GetMensajeError(Exception ex)
         {
