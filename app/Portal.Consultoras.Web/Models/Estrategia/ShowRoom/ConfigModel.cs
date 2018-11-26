@@ -22,5 +22,6 @@ namespace Portal.Consultoras.Web.Models.Estrategia.ShowRoom
         public List<ShowRoomPersonalizacionModel> ListaPersonalizacionConsultora { get; set; }
         public List<ShowRoomCategoriaModel> ListaCategoria { get; set; }
         public bool BloqueoProductoDigital { get; set; }
+        public IList<ConfiguracionPaisDatosModel> ConfiguracionPaisDatos { get; set; }
     }
 }

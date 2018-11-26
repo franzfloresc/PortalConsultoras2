@@ -1,4 +1,4 @@
-using Portal.Consultoras.Entities;
+﻿using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.ProgramaNuevas;
 using Portal.Consultoras.Entities.Cupon;
 using Portal.Consultoras.Entities.Estrategia;
