@@ -12,5 +12,6 @@ namespace Portal.Consultoras.Web.SessionManager.ShowRoom
         List<EstrategiaPersonalizadaProductoModel> Ofertas { get; set; }
         List<EstrategiaPersonalizadaProductoModel> OfertasSubCampania { get; set; }
         List<EstrategiaPersonalizadaProductoModel> OfertasPerdio { get; set; }
+        bool TieneLanding { get; set; }
     }
 }

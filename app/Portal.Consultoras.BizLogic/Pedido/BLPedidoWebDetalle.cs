@@ -516,7 +516,7 @@ namespace Portal.Consultoras.BizLogic
         {
             var daPedidoWeb = new DAPedidoWeb(usuario.PaisID);
             var daPedidoWebDetalle = new DAPedidoWebDetalle(usuario.PaisID);
-            var blReserva= new BLReserva();
+            var blReserva = new BLReserva();
 
             TransactionOptions oTransactionOptions = new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted };
             try
@@ -526,7 +526,7 @@ namespace Portal.Consultoras.BizLogic
                     daPedidoWebDetalle.DelPedidoWebDetalleMasivo(usuario.CampaniaID, pedidoId);
                     daPedidoWeb.UpdPedidoWebByEstadoConTotalesMasivo(usuario.CampaniaID, pedidoId, 201, false, 0, 0, usuario.CodigoUsuario);
                     daPedidoWeb.DelIndicadorPedidoAutenticoCompleto(new BEIndicadorPedidoAutentico { PedidoID = pedidoId, CampaniaID = usuario.CampaniaID });
-                    
+
                     oTransactionScope.Complete();
                 }
             }
@@ -557,8 +557,9 @@ namespace Portal.Consultoras.BizLogic
                     oTransactionScope.Complete();
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.SaveLog(ex, ConsultoraID, PaisID);
                 success = false;
             }
 
@@ -589,7 +590,7 @@ namespace Portal.Consultoras.BizLogic
             }
         }
 
-        public bool InsertPedidoWebSet(int paisID, int Campaniaid, int PedidoID, int CantidadSet, string CuvSet, long ConsultoraId, string CodigoUsuario, 
+        public bool InsertPedidoWebSet(int paisID, int Campaniaid, int PedidoID, int CantidadSet, string CuvSet, long ConsultoraId, string CodigoUsuario,
             string CuvsStringList, int EstrategiaId, string nombreConsultora, string codigoPrograma, int numeroPedido)
         {
             var daPedidoWebDetalle = new DAPedidoWebDetalle(paisID);
@@ -622,16 +623,16 @@ namespace Portal.Consultoras.BizLogic
                     daPedidoWebDetalle.UpdateImporteTotalPedidoWeb(Campaniaid, ConsultoraId, importeTotal);
 
                     oTransactionScope.Complete();
-                }                
+                }
 
                 return result;
             }
             catch (Exception ex)
             {
+                LogManager.SaveLog(ex, ConsultoraId, paisID);
                 return false;
             }
 
-            
         }
 
         public bool UpdCantidadPedidoWebSet(int paisId, int setId, int cantidad, BEPedidoWebDetalleParametros bePedidoWebDetalleParametros)
@@ -661,7 +662,7 @@ namespace Portal.Consultoras.BizLogic
             {
                 LogManager.SaveLog(ex, "", paisId);
                 return false;
-            }            
+            }
         }
 
         public List<BEPedidoWebSetDetalle> GetPedidoWebSetDetalle(int paisID, int campania, long consultoraId)
@@ -680,12 +681,12 @@ namespace Portal.Consultoras.BizLogic
                 {
                     if (DataRecord.HasColumn(reader, "SetID") && (DataRecord.HasColumn(reader, "CUV")))
                     {
-                        listaBePedidoWebDetalle.Add(new BEPedidoWebDetalle() { CUV= Convert.ToString(reader["CUV"]), SetID= Convert.ToInt32(reader["SetID"]) });                 
+                        listaBePedidoWebDetalle.Add(new BEPedidoWebDetalle() { CUV = Convert.ToString(reader["CUV"]), SetID = Convert.ToInt32(reader["SetID"]) });
                     }
                 }
-            return listaBePedidoWebDetalle;             
+            return listaBePedidoWebDetalle;
         }
-      
+
 
     }
 }
