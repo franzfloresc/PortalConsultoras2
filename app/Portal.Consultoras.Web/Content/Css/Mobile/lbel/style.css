@@ -14185,16 +14185,17 @@ span.icon-advertencia {
 }
 
 .tooltip_informativo_condicion_regalo_programaNuevas{
-    display:block;
-    position:relative;
-    width:164px;
-    height:48px;
-    line-height:48px;
-    font-size:13px;
-    background-color:#f8f8f8;
-    color:#000;
-    text-align:center!important;
-    margin-top:8px;
+    display: block;
+    position: relative;
+    width: 164px;
+    height: 48px;
+    line-height: 48px;
+    font-size: 13px!important;
+    background-color: #f8f8f8;
+    color: #000;
+    text-align: center!important;
+    margin-top: 8px;
+    text-transform: unset!important;
 }
 
 .tooltip_informativo_condicion_regalo_programaNuevas:before{
