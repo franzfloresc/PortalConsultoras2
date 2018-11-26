@@ -592,8 +592,12 @@ namespace Portal.Consultoras.Web.Controllers
                     result = Constantes.OrigenPedidoWeb.MobileLandingGanadorasGanadorasFicha;
                      break;
 
-               
-              
+                #endregion
+
+                #region ODD
+                case Constantes.OrigenPedidoWeb.DesktopHomeOfertaDelDiaBannerSuperior:
+                    result = Constantes.OrigenPedidoWeb.DesktopHomeOfertaDelDiaFicha;
+                    break;
                 #endregion
             }
 

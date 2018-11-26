@@ -799,6 +799,8 @@ namespace Portal.Consultoras.Common
             public const int MobileContenedorLanzamientosFicha = 2080202; // Esta en duro en rdAnalyticsModule
             public const int AppConsultoraContenedorLanzamientosFicha = 4080202;
             public const int DesktopHomeOfertaDelDiaBannerSuperior = 1010306; // Esta en duro en ConstantesModule
+            public const int DesktopHomeOfertaDelDiaFicha = 1010302;
+
             public const int DesktopContenedorOfertaDelDiaCarrusel = 1080301;
             public const int DesktopContenedorOfertaDelDiaFicha = 1080302;
             public const int DesktopContenedorOfertaDelDiaCarruselVerMas = 1080305;
