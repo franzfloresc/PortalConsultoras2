@@ -1156,7 +1156,8 @@ namespace Portal.Consultoras.Web.Controllers
                         pedidoEliminado.DescripcionOferta,
                         pedidoEliminado.TipoEstrategiaID,
                         pedidoAgrupado.EstrategiaId,
-                        pedidoAgrupado.TipoEstrategiaCodigo
+                        pedidoAgrupado.TipoEstrategiaCodigo,
+                        OrigenPedidoWeb = pedidoEliminado.OrigenPedidoWeb
                     },
                     cantidadTotalProductos = olstPedidoWebDetalle.Sum(x => x.Cantidad)
                 }));
@@ -1207,6 +1208,7 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult DeleteAll()
         {
             string message;
+            List<BEPedidoWebDetalle> listaMarcaciones;
             try
             {
                 if (ReservadoEnHorarioRestringido(out message)) return ErrorJson(message, true);
@@ -1235,7 +1237,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     _pedidoSetProvider.EliminarSet(userData.PaisID, setId, bePedidoWebDetalleParametros);
                 }
-
+                listaMarcaciones = ObtenerPedidoWebDetalle() ?? new List<BEPedidoWebDetalle>();
                 SessionManager.SetPedidoWeb(null);
                 SessionManager.SetDetallesPedido(null);
                 SessionManager.SetDetallesPedidoSetAgrupado(null);
@@ -1248,7 +1250,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return ErrorJson(Constantes.MensajesError.Pedido_DeleteAll, true);
             }
 
-            return Json(new { success = true, DataBarra = GetDataBarra() }, JsonRequestBehavior.AllowGet);
+            return Json(new { success = true, DataBarra = GetDataBarra(), ListaMarcaciones = listaMarcaciones }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -3376,8 +3378,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (lst.Any())
             {
                 marca = Util.GetDescripcionMarca(string.IsNullOrEmpty(lst[0].MarcaID) ? 0 : Convert.ToInt32(lst[0].MarcaID));
-                var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                lst.Update(x => x.ImagenProducto = ConfigCdn.GetUrlFileCdn(carpetaPais, x.ImagenProducto));
+                lst.Update(x => x.ImagenProducto = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, x.ImagenProducto));
 
                 if (lst.Count > 1)
                 {
@@ -3564,11 +3565,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var model = new PedidoSb2Model
-                {
-                    CodigoIso = userData.CodigoISO,
-                    EstadoSimplificacionCuv = userData.EstadoSimplificacionCUV
-                };
                 var listaDetalle = GetPedidoWebDetalle(mobil);
 
                 if (mobil)
@@ -3579,6 +3575,11 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var total = listaDetalle.Sum(p => p.ImporteTotal);
 
+                var model = new PedidoSb2Model
+                {
+                    CodigoIso = userData.CodigoISO,
+                    EstadoSimplificacionCuv = userData.EstadoSimplificacionCUV
+                };
                 model.ListaCliente = ListarClienteSegunPedido("", listaDetalle);
 
                 listaDetalle = listaDetalle.Where(p => p.ClienteID == clienteId || clienteId == -1).ToList();
@@ -3636,7 +3637,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 return Json(new
                 {
-                    success = false,
+                    success = true,
                     message = "OK",
                     data = model,
                     dataBarra = GetDataBarra(true, false, true)
@@ -4421,10 +4422,9 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.FiltrarEstrategiaPedido(entidad).ToList();
             }
-
-            var carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+            
             var estrategia = lst.Count > 0 ? lst[0] : new ServicePedido.BEEstrategia();
-            estrategia.ImagenURL = ConfigCdn.GetUrlFileCdn(carpetapais, estrategia.ImagenURL);
+            estrategia.ImagenURL = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, estrategia.ImagenURL);
             estrategia.Simbolo = userData.Simbolo;
 
             return estrategia;

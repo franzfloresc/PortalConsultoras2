@@ -449,8 +449,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
         }
 
-        
-
         public JsonResult AceptarContrato(bool checkAceptar, string origenAceptacion)
         {
             try
@@ -570,24 +568,23 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
-
-
-        private List<BEPopupPais> ObtenerListaPopupsDesdeServicio()
-        {
-            var listaPopUps = new List<BEPopupPais>();
-            try
-            {
-                using (var sac = new SACServiceClient())
-                {
-                    listaPopUps = sac.ObtenerOrdenPopUpMostrar(userData.PaisID).ToList();
-                }
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-            }
-            return listaPopUps;
-        }
+        
+        //private List<BEPopupPais> ObtenerListaPopupsDesdeServicio()
+        //{
+        //    var listaPopUps = new List<BEPopupPais>();
+        //    try
+        //    {
+        //        using (var sac = new SACServiceClient())
+        //        {
+        //            listaPopUps = sac.ObtenerOrdenPopUpMostrar(userData.PaisID).ToList();
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+        //    }
+        //    return listaPopUps;
+        //}
 
     }
 }
