@@ -56,9 +56,14 @@ BEGIN
 		e.EsSubCampania				,
 		e.OfertaShowRoomID			,
 		e.Niveles					,
-		c.INC_CUPO_ELEC_DEFA
+		c.INC_CUPO_ELEC_DEFA		,
+		m.Descripcion AS DescripcionMarca
 	FROM ods.CuponesProgramaNuevas c With(nolock)
-	inner join Estrategia e on c.CodigoCupon = e.CUV2 and c.CodigoPrograma = e.CodigoPrograma 
+	inner join dbo.Estrategia e  With(nolock) on c.CodigoCupon = e.CUV2 and c.CodigoPrograma = e.CodigoPrograma
+	LEFT JOIN ods.Campania ca with(nolock) ON @CampaniaID = ca.Codigo
+	LEFT join ods.ProductoComercial pc with(nolock) ON ca.CampaniaID = pc.CampaniaID AND e.CUV2 = pc.CUV
+	LEFT JOIN dbo.Marca m WITH (NOLOCK) ON pc.MarcaId = m.MarcaId
+
 	where e.activo = 1
 		and isnull(c.Campana,'') != ''
 		and c.CodigoPrograma = @CodigoPrograma 
