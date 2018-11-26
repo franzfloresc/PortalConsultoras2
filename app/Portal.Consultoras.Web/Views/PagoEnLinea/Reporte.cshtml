@@ -218,7 +218,7 @@
             colNames: ['Campaña', 'Nombre de Comercio', 'Id de Pago', 'Nro. de Pago', 'Consultora', 'Fecha de Pago', 'Hora de Pago', 'Codigo de Cliente',
                 'Identificación de Cliente', 'Canal', 'Ciclo', 'Total Pagado', 'Comisión', 'IVA',
                 'Total a Consignar', 'Ticket ID', 'Region', 'Zona', 'Origen Tarjeta',
-                'Número de Tarjeta', 'Número de Operación', 'Descripcion de Transacción', 'Estado Transacción', 'Fecha de Proceso', 'Hora de Proceso'],
+                'Número de Tarjeta', 'Número de Operación', 'Descripcion de Transacción', 'Estado Transacción', 'Fecha de Proceso', 'Hora de Proceso', 'Origen'],
             colModel: [
                 { name: 'CampaniaId', index: 'CampaniaId', width: 10, editable: true, resizable: false },
                 { name: 'NombreComercio', index: 'NombreComercio', width: 15, editable: true, resizable: false },
@@ -244,7 +244,8 @@
                 { name: 'MensajeError', index: 'MensajeError', width: 50, editable: true, resizable: false },
                 { name: 'CodigoError', index: 'CodigoError', width: 15, editable: true, resizable: false, align: 'center' },
                 { name: 'FechaCreacionFormat', index: 'FechaCreacionFormat', width: 15, editable: true, resizable: false, align: 'center' },
-                { name: 'FechaCreacionHoraFormat', index: 'FechaCreacionHoraFormat', width: 15, editable: true, resizable: false, align: 'center' }
+                { name: 'FechaCreacionHoraFormat', index: 'FechaCreacionHoraFormat', width: 15, editable: true, resizable: false, align: 'center' },
+                { name: 'Origen', index: 'Origen', width: 25, editable: true, resizable: false },
             ],
             jsonReader:
                 {

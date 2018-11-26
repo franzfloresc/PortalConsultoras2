@@ -661,6 +661,7 @@
       <xs:sequence>
         <xs:element minOccurs="0" name="codigoISO" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="correoElectronico" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="numeroDocumento" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

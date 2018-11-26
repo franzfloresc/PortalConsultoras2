@@ -1240,6 +1240,64 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_INTERNO, ex.Message);
             }
         }
+
+        public List<BEPedidoDetalleResult> InsertMasivo(List<BEPedidoDetalle> lstPedidoDetalle)
+        {
+            var tasksBuscar = lstPedidoDetalle.Select(pedidoDetalle => Task.Run(() =>
+            {
+                var productoBuscar = new BEPedidoProductoBuscar()
+                {
+                    PaisID = pedidoDetalle.PaisID,
+                    CodigoDescripcion = pedidoDetalle.Producto.CUV,
+                    Criterio = 1,
+                    RowCount = 5,
+                    ValidarOpt = true,
+                    Usuario = pedidoDetalle.Usuario
+                };
+
+                var productoResult = GetCUV(productoBuscar);
+
+                return new
+                {
+                    CodigoRespuesta = productoResult.CodigoRespuesta,
+                    MensajeRespuesta = productoResult.MensajeRespuesta,
+                    Producto = productoResult.Producto ?? pedidoDetalle.Producto,
+                    ClienteID = pedidoDetalle.ClienteID
+                };
+            })).ToArray();
+
+            Task.WaitAll(tasksBuscar);
+
+            var lstResultBuscar = tasksBuscar.Select(x => x.Result);
+
+            var lstResultInsertar = lstResultBuscar.Where(x => x.Producto.PermiteAgregarPedido == true).Select(y =>
+            {
+                var pedidoDetalle = lstPedidoDetalle.Where(z => z.ClienteID == y.ClienteID && z.Producto.CUV == y.Producto.CUV).FirstOrDefault();
+                pedidoDetalle.Producto = y.Producto;
+                var result = Insert(pedidoDetalle);
+                result.CUV = pedidoDetalle.Producto.CUV;
+                result.ClienteID = pedidoDetalle.ClienteID;
+                return result;
+            });
+
+            return lstResultBuscar.Select(x =>
+            {
+                if (x.Producto.PermiteAgregarPedido)
+                {
+                    return lstResultInsertar.Where(y => y.ClienteID == x.ClienteID && y.CUV == x.Producto.CUV).FirstOrDefault();
+                }
+                else
+                {
+                    return new BEPedidoDetalleResult()
+                    {
+                        CodigoRespuesta = x.CodigoRespuesta,
+                        MensajeRespuesta = x.MensajeRespuesta,
+                        CUV = x.Producto.CUV,
+                        ClienteID = x.ClienteID
+                    };
+                }
+            }).ToList();
+        }
         #endregion
 
         #region GetCUV

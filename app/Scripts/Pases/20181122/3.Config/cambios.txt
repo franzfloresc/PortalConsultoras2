@@ -1,5 +1,29 @@
 1.1.WSConsultoras
+Modificar:
+	<add key="PaisesMicroservicioPersonalizacion" value="PE,CL,CR,CO" />
+	<add key="EstrategiaDisponibleMicroservicioPersonalizacion" value="101,009,007,008,030,001,010" />
 
 1.2 PortalConsultoras2
+Agregar:
+	<add key="Catalogo_Marca_Piloto_EC201901" value="Cyzone" />
+    <add key="Catalogo_Piloto_Grupos_Cyzone_EC201901" value="ESCrdr1, ESCrdr2 " />
+    <add key="Catalogo_Piloto_Zonas_Cyzone_EC201901_ESCrdr1" value="1806,1815,1827,2019,2102" />
+    <add key="Catalogo_Piloto_Zonas_Cyzone_EC201901_ESCrdr2" value="1612,2011,2111,2115,2214" />
+    
+    <add key="Catalogo_Marca_Piloto_EC201818" value="Lbel" />
+	<add key="Catalogo_Piloto_Grupos_Lbel_EC201818" value="ESCrdr" />
+	<add key="Catalogo_Piloto_Zonas_Lbel_EC201818_ESCrdr" value="1620,1805,1817,2105,2109" />
+	
 Quitar:
 	<add key="UrlImgLateralODD" value="https://d1y60eoca8fkyl.cloudfront.net/OfertaDelDia/{0}/odd-imagen-lateral.jpg" />
+
+1.3 PortalConsultoras2
+Agregar:
+	<add key="Catalogo_Marca_Piloto_EC201901" value="Cyzone" />
+    <add key="Catalogo_Piloto_Grupos_Cyzone_EC201901" value="ESCrdr1, ESCrdr2 " />
+    <add key="Catalogo_Piloto_Zonas_Cyzone_EC201901_ESCrdr1" value="1806,1815,1827,2019,2102" />
+    <add key="Catalogo_Piloto_Zonas_Cyzone_EC201901_ESCrdr2" value="1612,2011,2111,2115,2214" />
+    
+    <add key="Catalogo_Marca_Piloto_EC201818" value="Lbel" />
+	<add key="Catalogo_Piloto_Grupos_Lbel_EC201818" value="ESCrdr" />
+	<add key="Catalogo_Piloto_Zonas_Lbel_EC201818_ESCrdr" value="1620,1805,1817,2105,2109" />

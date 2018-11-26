@@ -922,36 +922,37 @@
     </div>
 </div>
 <div class="contenedor_popup_productosSugeridos1" id="divProductoAgotadoFinal" style="display:none;">
-    <div class="popup_productosSugeridos" style="height:456px;">
-        <div class="mensaje_noExisteProducto">
-            <div class="btn_cerrar_productosSugeridos">
-            </div>
-            <h1>LO SENTIMOS, SE AGOTÓ EL PRODUCTO</h1>
-        </div>
-        <div>
-            <div class="contenedor_productosSugeridos">
-                <div>
-                    <h5>PRUEBA REEMPLAZARLO CON ALGUNO DE ÉSTOS</h5>
+    <div class="popup_productosSugeridos_wrapper">
+        <div class="popup_productosSugeridos" style="height:456px;">
+            <div class="mensaje_noExisteProducto">
+                <div class="btn_cerrar_productosSugeridos">
                 </div>
-                <div data-close="divProductoAgotadoFinal">
-                    <h5>NO, GRACIAS</h5>
-                    <span class="btn_cerrar_opcionNoGracias">
-                        <a href="#">
-                            <img src="@Url.Content("~/Content/Images/cerrar_04.png")" alt="Alternate Text" />
-                        </a>
-                    </span>
-                </div>
-                <div class="clear"></div>
+                <h1>LO SENTIMOS, SE AGOTÓ EL PRODUCTO</h1>
             </div>
-            <div style=" margin-left:27px; margin-right:27px; position:relative; bottom:19px;">
-                <div class="slider center" id="divCarruselSugerido" style="float:left;height:auto;">
+            <div>
+                <div class="contenedor_productosSugeridos">
+                    <div>
+                        <h5>PRUEBA REEMPLAZARLO CON ALGUNO DE ÉSTOS</h5>
+                    </div>
+                    <div class="cerrar_popup_productoSugerido" data-close="divProductoAgotadoFinal">
+                        <h5>NO, GRACIAS</h5>
+                        <span class="btn_cerrar_opcionNoGracias">
+                            <a href="#">
+                                <img src="@Url.Content("~/Content/Images/cerrar_04.png")" alt="Alternate Text" />
+                            </a>
+                        </span>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div style="margin-left:27px; margin-right:27px; position:relative; bottom:19px;">
+                    <div class="slider center" id="divCarruselSugerido" style="float:left;height:auto;">
+                    </div>
+                    <div class="clear"></div>
                 </div>
                 <div class="clear"></div>
             </div>
             <div class="clear"></div>
         </div>
-
-        <div class="clear"></div>
     </div>
 </div>
 <div class="contenedor_popup_ofertaFinal center_text" id="divOfertaFinal" data-popup-main="" data-popup-function-hide="PopupOfertaFinalCerrar">
