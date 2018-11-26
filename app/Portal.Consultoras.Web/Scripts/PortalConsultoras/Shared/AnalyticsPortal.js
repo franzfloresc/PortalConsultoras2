@@ -543,6 +543,7 @@ var AnalyticsPortalModule = (function () {
                 _pagina = "Landing";
 
             var valorBuscar = localStorage.getItem('valorBuscador');
+
             switch (_pagina) {
                 case "Buscador":
                 case "Landing Buscador":
@@ -649,6 +650,7 @@ var AnalyticsPortalModule = (function () {
 
     var marcaVerTodosLosResultadosBuscador = function (busqueda) {
         try {
+            
             dataLayer.push({
                 'event': _evento.virtualEvent,
                 'category': 'Buscador SB',
@@ -2553,7 +2555,7 @@ var AnalyticsPortalModule = (function () {
         MarcaBusquedaSinResultadosBuscador: marcaBusquedaSinResultadosBuscador,
         MarcaClicOpcionesFiltrarBuscador: marcaClicOpcionesFiltrarBuscador,
         MarcaEligeTuOpcionBuscador: marcaEligeTuOpcionBuscador,
-        MarcaRedesSocialesBuscador: marcaRedesSocialesBuscador
+        MarcaRedesSocialesBuscador: marcaRedesSocialesBuscador,
         // Ini - Analytics Home 1 
         MarcaGanaOfertas: marcaGanaOfertas,
         MarcaVerOfertasHome: marcaVerOfertasHome,
