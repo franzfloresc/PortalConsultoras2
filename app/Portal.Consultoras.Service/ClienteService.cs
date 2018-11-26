@@ -163,7 +163,7 @@ namespace Portal.Consultoras.Service
         }
 
         #region ClienteDB
-        public List<BEClienteDB> SaveDB(int paisID, List<BEClienteDB> clientes)
+        public IList<BEClienteDB> SaveDB(int paisID, List<BEClienteDB> clientes)
         {
             return BLCliente.SaveDB(paisID, clientes);
         }

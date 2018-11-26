@@ -1,16 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
 using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.SessionManager;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -212,7 +209,7 @@ namespace Portal.Consultoras.Web.Providers
 
                 if (!string.IsNullOrEmpty(beEstrategiaProducto.ImagenProducto))
                 {
-                    componenteModel.Imagen = ConfigCdn.GetUrlFileCdn(Globals.UrlMatriz + "/" + _paisISO, beEstrategiaProducto.ImagenProducto);
+                    componenteModel.Imagen = ConfigCdn.GetUrlFileCdnMatriz(_paisISO, beEstrategiaProducto.ImagenProducto);
                 }
 
                 componenteModel.NombreBulk = Util.Trim(componenteModel.NombreBulk);

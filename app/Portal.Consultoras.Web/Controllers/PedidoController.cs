@@ -327,26 +327,12 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (!SessionManager.GetEsShowRoom() && SessionManager.GetEsShowRoom().ToString() == "1")
             {
-                List<ShowRoomPersonalizacionModel> listaPersonalizacion = new List<ShowRoomPersonalizacionModel>();
-
-                if (_showRoomProvider.UsarMsPersonalizacion(userData.CodigoISO, Constantes.TipoEstrategiaCodigo.ShowRoom))
-                {
-                    UsuarioModel usurioModel = new UsuarioModel
-                    {
-                        CodigoISO = userData.CodigoISO,
-                        CampaniaID = userData.CampaniaID
-                    };
-                    listaPersonalizacion = _showRoomProvider.GetShowRoomPersonalizacion(usurioModel);
-                    listaPersonalizacion.ForEach(item => item.Valor = item.TipoAtributo == "IMAGEN" ? ConfigCdn.GetUrlFileCdn(Globals.UrlMatriz + "/" + userData.CodigoISO, item.Valor) : item.Valor);
-                }
-                else
-                {
-                    listaPersonalizacion = SessionManager.GetEstrategiaSR().ListaPersonalizacionConsultora;
-                }
-
-                ViewBag.ImagenFondoOFRegalo = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(listaPersonalizacion, "ImagenFondoOfertaFinalRegalo", "Desktop");
-                ViewBag.Titulo1OFRegalo = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(listaPersonalizacion, "Titulo1OfertaFinalRegalo", "Desktop");
+                ViewBag.ImagenFondoOFRegalo =
+                    _showRoomProvider.ObtenerValorPersonalizacionShowRoom("ImagenFondoOfertaFinalRegalo", "Desktop");
+                ViewBag.Titulo1OFRegalo =
+                    _showRoomProvider.ObtenerValorPersonalizacionShowRoom("Titulo1OfertaFinalRegalo", "Desktop");
             }
+
             model.MensajeKitNuevas = _programaNuevasProvider.GetMensajeKit();
 
             return View("Index", model);
@@ -559,6 +545,9 @@ namespace Portal.Consultoras.Web.Controllers
                 mensajeError = ValidarCantidadEnProgramaNuevas(model.CUV, Convert.ToInt32(model.Cantidad));
                 if (mensajeError != "") return ErrorJson(mensajeError, true);
             }
+
+            mensajeError = ValidarStockArmaTuPackMensaje(model.CUV, Convert.ToInt32(model.Cantidad));
+            if (mensajeError != "") return ErrorJson(mensajeError, true);
 
             if (esEstrategia) Session[Constantes.ConstSession.ListaEstrategia] = null;
             return Json(PedidoInsertarGenerico(model, false, listCuvEliminar, mensajeAviso, !string.IsNullOrEmpty(mensajeAviso)));
@@ -1131,7 +1120,8 @@ namespace Portal.Consultoras.Web.Controllers
                         pedidoEliminado.DescripcionOferta,
                         pedidoEliminado.TipoEstrategiaID,
                         pedidoAgrupado.EstrategiaId,
-                        pedidoAgrupado.TipoEstrategiaCodigo
+                        pedidoAgrupado.TipoEstrategiaCodigo,
+                        OrigenPedidoWeb = pedidoEliminado.OrigenPedidoWeb
                     },
                     cantidadTotalProductos = olstPedidoWebDetalle.Sum(x => x.Cantidad)
                 }));
@@ -1182,6 +1172,7 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult DeleteAll()
         {
             string message;
+            List<BEPedidoWebDetalle> listaMarcaciones;
             try
             {
                 if (ReservadoEnHorarioRestringido(out message)) return ErrorJson(message, true);
@@ -1210,7 +1201,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     _pedidoSetProvider.EliminarSet(userData.PaisID, setId, bePedidoWebDetalleParametros);
                 }
-
+                listaMarcaciones = ObtenerPedidoWebDetalle() ?? new List<BEPedidoWebDetalle>();
                 SessionManager.SetPedidoWeb(null);
                 SessionManager.SetDetallesPedido(null);
                 SessionManager.SetDetallesPedidoSetAgrupado(null);
@@ -1223,7 +1214,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return ErrorJson(Constantes.MensajesError.Pedido_DeleteAll, true);
             }
 
-            return Json(new { success = true, DataBarra = GetDataBarra() }, JsonRequestBehavior.AllowGet);
+            return Json(new { success = true, DataBarra = GetDataBarra(), ListaMarcaciones = listaMarcaciones }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -1522,6 +1513,7 @@ namespace Portal.Consultoras.Web.Controllers
                         mensaje = ValidarCantidadEnProgramaNuevas(CUV, Convert.ToInt32(Cantidad));
                     }
                     if (mensaje == "") mensaje = ValidarStockEstrategiaMensaje(CUV, intCantidad, TipoOferta.ToInt32Secure());
+                    if (mensaje == "") mensaje = ValidarStockArmaTuPackMensaje(CUV, intCantidad);
                     valido = mensaje == "";
                 }
 
@@ -3350,8 +3342,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (lst.Any())
             {
                 marca = Util.GetDescripcionMarca(string.IsNullOrEmpty(lst[0].MarcaID) ? 0 : Convert.ToInt32(lst[0].MarcaID));
-                var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                lst.Update(x => x.ImagenProducto = ConfigCdn.GetUrlFileCdn(carpetaPais, x.ImagenProducto));
+                lst.Update(x => x.ImagenProducto = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, x.ImagenProducto));
 
                 if (lst.Count > 1)
                 {
@@ -3538,11 +3529,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var model = new PedidoSb2Model
-                {
-                    CodigoIso = userData.CodigoISO,
-                    EstadoSimplificacionCuv = userData.EstadoSimplificacionCUV
-                };
                 var listaDetalle = ObtenerPedidoWebSetDetalleAgrupado() ?? new List<BEPedidoWebDetalle>();
 
                 if (mobil)
@@ -3579,6 +3565,11 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var total = listaDetalle.Sum(p => p.ImporteTotal);
 
+                var model = new PedidoSb2Model
+                {
+                    CodigoIso = userData.CodigoISO,
+                    EstadoSimplificacionCuv = userData.EstadoSimplificacionCUV
+                };
                 model.ListaCliente = ListarClienteSegunPedido("", listaDetalle);
 
                 listaDetalle = listaDetalle.Where(p => p.ClienteID == clienteId || clienteId == -1).ToList();
@@ -3631,7 +3622,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 return Json(new
                 {
-                    success = false,
+                    success = true,
                     message = "OK",
                     data = model,
                     dataBarra = GetDataBarra(true, false, true)
@@ -4380,10 +4371,9 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.FiltrarEstrategiaPedido(entidad).ToList();
             }
-
-            var carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+            
             var estrategia = lst.Count > 0 ? lst[0] : new ServicePedido.BEEstrategia();
-            estrategia.ImagenURL = ConfigCdn.GetUrlFileCdn(carpetapais, estrategia.ImagenURL);
+            estrategia.ImagenURL = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, estrategia.ImagenURL);
             estrategia.Simbolo = userData.Simbolo;
 
             return estrategia;
@@ -4409,7 +4399,6 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     mensaje = svc.ValidarStockEstrategia(entidad);
                 }
-
                 mensaje = Util.Trim(mensaje);
             }
             catch (FaultException ex)
@@ -4423,7 +4412,27 @@ namespace Portal.Consultoras.Web.Controllers
 
             mensaje = mensaje == "OK" ? "" : mensaje;
             return mensaje;
+        }
+        
+        private string ValidarStockArmaTuPackMensaje(string cuv, int cantidad)
+        {
+            string mensaje = "";
+            try
+            {
+                bool estaEnLimite;
+                var cantidadActual = ObtenerPedidoWebDetalle().Where(d => d.CUV == cuv).Sum(d => d.Cantidad);
 
+                using (var sv = new ODSServiceClient())
+                {
+                    estaEnLimite = sv.CuvArmaTuPackEstaEnLimite(userData.PaisID, userData.CampaniaID, userData.CodigoZona, cuv, cantidad, cantidadActual);
+                }
+                if (estaEnLimite) mensaje = string.Format(Constantes.MensajesError.ExcedioLimiteVenta, 1);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+            return mensaje;
         }
 
         private JsonResult AgregarProductoVC(string listaCuvTonos, string Cantidad, string OrigenPedidoWeb, string ClienteID_ = "")
@@ -4526,8 +4535,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return ErrorJson(Constantes.MensajesError.ErrorGenerico);
             }
         }
-
-
+        
         private Enumeradores.ValidacionProgramaNuevas ValidarProgramaNuevas(string cuv)
         {
             Enumeradores.ValidacionProgramaNuevas numero;

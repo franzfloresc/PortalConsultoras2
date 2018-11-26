@@ -86,7 +86,8 @@ var actualizarMatrizCampaniaModule = (function () {
             buttons:
             {
                 "Cerrar": function () {
-                    $(this).dialog('close');
+                    HideDialog(_elements.divVistaPrevia);
+                    //$(this).dialog('close');
                 }
             }
         });

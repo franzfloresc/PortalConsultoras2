@@ -107,28 +107,24 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public bool ValidarIngresoShowRoom(bool esIntriga)
-        {
-            if (!configEstrategiaSR.CargoEntidadesShowRoom)
-                return false;
-
-            var resultado = false;
-            var esShowRoom = SessionManager.GetEsShowRoom();
-            var mostrarShowRoomProductos = SessionManager.GetMostrarShowRoomProductos();
-            var mostrarShowRoomProductosExpiro = SessionManager.GetMostrarShowRoomProductosExpiro();
-
-            if (esIntriga)
-            {
-                resultado = esShowRoom && !mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
-            }
-
-            if (!esIntriga)
-            {
-                resultado = esShowRoom && mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
-            }
-
-            return resultado;
-        }
+        //public bool ValidarIngresoShowRoom(bool esIntriga)
+        //{
+        //    if (!configEstrategiaSR.CargoEntidadesShowRoom)
+        //        return false;
+        //    var resultado = false;
+        //    var esShowRoom = SessionManager.GetEsShowRoom();
+        //    var mostrarShowRoomProductos = SessionManager.GetMostrarShowRoomProductos();
+        //    var mostrarShowRoomProductosExpiro = SessionManager.GetMostrarShowRoomProductosExpiro();
+        //    if (esIntriga)
+        //    {
+        //        resultado = esShowRoom && !mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
+        //    }
+        //    if (!esIntriga)
+        //    {
+        //        resultado = esShowRoom && mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
+        //    }
+        //    return resultado;
+        //}
 
         public ShowRoomEventoModel CargarValoresModel()
         {
@@ -140,7 +136,12 @@ namespace Portal.Consultoras.Web.Controllers
                 showRoomEventoModel.Simbolo = userData.Simbolo;
                 showRoomEventoModel.CodigoIso = userData.CodigoISO;
 
-                var listaShowRoomOfertas = _ofertaPersonalizadaProvider.ObtenerListaProductoShowRoom(userData, userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 1);
+                var listaShowRoomOfertas = _ofertaPersonalizadaProvider.ObtenerListaProductoShowRoom(
+                    userData,
+                    userData.CampaniaID,
+                    userData.CodigoConsultora,
+                    userData.EsDiasFacturacion,
+                    1);
                 showRoomEventoModel.TieneOfertasAMostrar = listaShowRoomOfertas.Any();
 
                 showRoomEventoModel.ListaCategoria = configEstrategiaSR.ListaCategoria;
@@ -149,50 +150,80 @@ namespace Portal.Consultoras.Web.Controllers
                     showRoomEventoModel.PrecioMinFiltro = listaShowRoomOfertas.Min(p => p.Precio2);
                     showRoomEventoModel.PrecioMaxFiltro = listaShowRoomOfertas.Max(p => p.Precio2);
                 }
-                showRoomEventoModel.FiltersBySorting = _tablaLogicaProvider.ObtenerConfiguracion(userData.PaisID, Constantes.TablaLogica.OrdenamientoShowRoom);
+
+                showRoomEventoModel.FiltersBySorting = _tablaLogicaProvider.ObtenerConfiguracion(
+                    userData.PaisID,
+                    Constantes.TablaLogica.OrdenamientoShowRoom);
 
                 var tipoAplicacion = Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop;
                 if (GetIsMobileDevice()) tipoAplicacion = Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile;
-
-                List<ShowRoomPersonalizacionModel> listaPersonalizacion = new List<ShowRoomPersonalizacionModel>();
-
-                if (_showRoomProvider.UsarMsPersonalizacion(userData.CodigoISO, Constantes.TipoEstrategiaCodigo.ShowRoom))
-                {
-                    UsuarioModel model = new UsuarioModel
-                    {
-                        CodigoISO = userData.CodigoISO,
-                        CampaniaID = userData.CampaniaID
-                    };
-                    listaPersonalizacion= _showRoomProvider.GetShowRoomPersonalizacion(model);
-                    listaPersonalizacion.ForEach(item => item.Valor = item.TipoAtributo == "IMAGEN" ? ConfigCdn.GetUrlFileCdn(Globals.UrlMatriz + "/" + model.CodigoISO, item.Valor) : item.Valor);
-                }
-                else
-                {
-                    listaPersonalizacion = SessionManager.GetEstrategiaSR().ListaPersonalizacionConsultora;
-                }
-
-                showRoomEventoModel.UrlTerminosCondiciones = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(listaPersonalizacion, Constantes.ShowRoomPersonalizacion.Mobile.UrlTerminosCondiciones, tipoAplicacion);
-                showRoomEventoModel.TextoCondicionCompraCpc = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(listaPersonalizacion, Constantes.ShowRoomPersonalizacion.Mobile.TextoCondicionCompraCpc, tipoAplicacion);
-                showRoomEventoModel.TextoDescripcionLegalCpc = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(listaPersonalizacion, Constantes.ShowRoomPersonalizacion.Mobile.TextoDescripcionLegalCpc, tipoAplicacion);
+                showRoomEventoModel.UrlTerminosCondiciones = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(
+                    Constantes.ShowRoomPersonalizacion.Mobile.UrlTerminosCondiciones,
+                    tipoAplicacion);
+                showRoomEventoModel.TextoCondicionCompraCpc = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(
+                    Constantes.ShowRoomPersonalizacion.Mobile.TextoCondicionCompraCpc,
+                    tipoAplicacion);
+                showRoomEventoModel.TextoDescripcionLegalCpc = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(
+                    Constantes.ShowRoomPersonalizacion.Mobile.TextoDescripcionLegalCpc,
+                    tipoAplicacion);
                 if (GetIsMobileDevice())
                 {
-                    showRoomEventoModel.TextoInicialOfertaSubCampania = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(listaPersonalizacion, Constantes.ShowRoomPersonalizacion.Mobile.TextoInicialOfertaSubCampania, tipoAplicacion);
-                    showRoomEventoModel.ColorTextoInicialOfertaSubCampania = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(listaPersonalizacion, Constantes.ShowRoomPersonalizacion.Mobile.ColorTextoInicialOfertaSubCampania, tipoAplicacion);
-                    showRoomEventoModel.TextoTituloOfertaSubCampania = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(listaPersonalizacion, Constantes.ShowRoomPersonalizacion.Mobile.TextoTituloOfertaSubCampania, tipoAplicacion);
-                    showRoomEventoModel.ColorTextoTituloOfertaSubCampania = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(listaPersonalizacion, Constantes.ShowRoomPersonalizacion.Mobile.ColorTextoTituloOfertaSubCampania, tipoAplicacion);
-                    showRoomEventoModel.ColorFondoTituloOfertaSubCampania = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(listaPersonalizacion, Constantes.ShowRoomPersonalizacion.Mobile.ColorFondoTituloOfertaSubCampania, tipoAplicacion);
+                    showRoomEventoModel.TextoInicialOfertaSubCampania =
+                        _showRoomProvider.ObtenerValorPersonalizacionShowRoom(
+                            Constantes.ShowRoomPersonalizacion.Mobile.TextoInicialOfertaSubCampania,
+                            tipoAplicacion);
+                    showRoomEventoModel.ColorTextoInicialOfertaSubCampania =
+                        _showRoomProvider.ObtenerValorPersonalizacionShowRoom(
+                            Constantes.ShowRoomPersonalizacion.Mobile.ColorTextoInicialOfertaSubCampania,
+                            tipoAplicacion);
+                    showRoomEventoModel.TextoTituloOfertaSubCampania =
+                        _showRoomProvider.ObtenerValorPersonalizacionShowRoom(
+                            Constantes.ShowRoomPersonalizacion.Mobile.TextoTituloOfertaSubCampania,
+                            tipoAplicacion);
+                    showRoomEventoModel.ColorTextoTituloOfertaSubCampania =
+                        _showRoomProvider.ObtenerValorPersonalizacionShowRoom(
+                            Constantes.ShowRoomPersonalizacion.Mobile.ColorTextoTituloOfertaSubCampania,
+                            tipoAplicacion);
+                    showRoomEventoModel.ColorFondoTituloOfertaSubCampania =
+                        _showRoomProvider.ObtenerValorPersonalizacionShowRoom(
+                            Constantes.ShowRoomPersonalizacion.Mobile.ColorFondoTituloOfertaSubCampania,
+                            tipoAplicacion);
                 }
                 else
                 {
-                    showRoomEventoModel.TextoInicialOfertaSubCampania = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(listaPersonalizacion, Constantes.ShowRoomPersonalizacion.Desktop.TextoInicialOfertaSubCampania, tipoAplicacion);
-                    showRoomEventoModel.ColorTextoInicialOfertaSubCampania = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(listaPersonalizacion, Constantes.ShowRoomPersonalizacion.Desktop.ColorTextoInicialOfertaSubCampania, tipoAplicacion);
-                    showRoomEventoModel.TextoTituloOfertaSubCampania = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(listaPersonalizacion, Constantes.ShowRoomPersonalizacion.Desktop.TextoTituloOfertaSubCampania, tipoAplicacion);
-                    showRoomEventoModel.ColorTextoTituloOfertaSubCampania = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(listaPersonalizacion, Constantes.ShowRoomPersonalizacion.Desktop.ColorTextoTituloOfertaSubCampania, tipoAplicacion);
-                    showRoomEventoModel.ColorFondoTituloOfertaSubCampania = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(listaPersonalizacion, Constantes.ShowRoomPersonalizacion.Desktop.ColorFondoTituloOfertaSubCampania, tipoAplicacion);
+                    showRoomEventoModel.TextoInicialOfertaSubCampania =
+                        _showRoomProvider.ObtenerValorPersonalizacionShowRoom(
+                            Constantes.ShowRoomPersonalizacion.Desktop.TextoInicialOfertaSubCampania,
+                            tipoAplicacion);
+                    showRoomEventoModel.ColorTextoInicialOfertaSubCampania =
+                        _showRoomProvider.ObtenerValorPersonalizacionShowRoom(
+                            Constantes.ShowRoomPersonalizacion.Desktop.ColorTextoInicialOfertaSubCampania,
+                            tipoAplicacion);
+                    showRoomEventoModel.TextoTituloOfertaSubCampania =
+                        _showRoomProvider.ObtenerValorPersonalizacionShowRoom(
+                            Constantes.ShowRoomPersonalizacion.Desktop.TextoTituloOfertaSubCampania,
+                            tipoAplicacion);
+                    showRoomEventoModel.ColorTextoTituloOfertaSubCampania =
+                        _showRoomProvider.ObtenerValorPersonalizacionShowRoom(
+                            Constantes.ShowRoomPersonalizacion.Desktop.ColorTextoTituloOfertaSubCampania,
+                            tipoAplicacion);
+                    showRoomEventoModel.ColorFondoTituloOfertaSubCampania =
+                        _showRoomProvider.ObtenerValorPersonalizacionShowRoom(
+                            Constantes.ShowRoomPersonalizacion.Desktop.ColorFondoTituloOfertaSubCampania,
+                            tipoAplicacion);
 
-                    showRoomEventoModel.ImagenFondoTituloOfertaSubCampania = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(listaPersonalizacion, Constantes.ShowRoomPersonalizacion.Desktop.ImagenFondoTituloOfertaSubCampania, tipoAplicacion);
-                    showRoomEventoModel.ColorFondoContenidoOfertaSubCampania = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(listaPersonalizacion, Constantes.ShowRoomPersonalizacion.Desktop.ColorFondoContenidoOfertaSubCampania, tipoAplicacion);
-                    showRoomEventoModel.TextoBotonVerMasOfertaSubCampania = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(listaPersonalizacion, Constantes.ShowRoomPersonalizacion.Desktop.TextoBotonVerMasOfertaSubCampania, tipoAplicacion);
+                    showRoomEventoModel.ImagenFondoTituloOfertaSubCampania =
+                        _showRoomProvider.ObtenerValorPersonalizacionShowRoom(
+                            Constantes.ShowRoomPersonalizacion.Desktop.ImagenFondoTituloOfertaSubCampania,
+                            tipoAplicacion);
+                    showRoomEventoModel.ColorFondoContenidoOfertaSubCampania =
+                        _showRoomProvider.ObtenerValorPersonalizacionShowRoom(
+                            Constantes.ShowRoomPersonalizacion.Desktop.ColorFondoContenidoOfertaSubCampania,
+                            tipoAplicacion);
+                    showRoomEventoModel.TextoBotonVerMasOfertaSubCampania =
+                        _showRoomProvider.ObtenerValorPersonalizacionShowRoom(
+                            Constantes.ShowRoomPersonalizacion.Desktop.TextoBotonVerMasOfertaSubCampania,
+                            tipoAplicacion);
                 }
             }
             catch (FaultException ex)

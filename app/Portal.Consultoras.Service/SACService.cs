@@ -760,7 +760,7 @@ namespace Portal.Consultoras.Service
         #region Tabla Logica Datos
         public List<BETablaLogicaDatos> GetTablaLogicaDatos(int paisID, Int16 TablaLogicaID)
         {
-            return BLTablaLogicaDatos.GetTablaLogicaDatos(paisID, TablaLogicaID);
+            return BLTablaLogicaDatos.GetList(paisID, TablaLogicaID);
         }
         #endregion
 

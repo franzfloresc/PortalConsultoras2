@@ -255,7 +255,12 @@ namespace Portal.Consultoras.Web.Providers
                 configEstrategiaSR.BeShowRoom = null;
                 configEstrategiaSR.CargoEntidadesShowRoom = false;
 
-                if (!PaisTieneShowRoom(model.CodigoISO)) return;
+                if (!PaisTieneShowRoom(model.CodigoISO))
+                {
+                    configEstrategiaSR.ConfiguracionPaisDatos = new List<ConfiguracionPaisDatosModel>();
+                    _sessionManager.SetEstrategiaSR(configEstrategiaSR);
+                    return;
+                }
 
                 configEstrategiaSR.BeShowRoom = GetShowRoomEventoByCampaniaId(model);
                 configEstrategiaSR.BeShowRoomConsultora = GetShowRoomConsultora(model);
@@ -275,7 +280,7 @@ namespace Portal.Consultoras.Web.Providers
                 {
                     _sessionManager.SetEsShowRoom("1");
 
-                    configEstrategiaSR.BloqueoProductoDigital = ObtenerBloquedoProductoDigital(model);
+                    //configEstrategiaSR.BloqueoProductoDigital = ObtenerBloquedoProductoDigital(model);
 
                     var fechaHoy = model.FechaHoy;
 
@@ -286,7 +291,10 @@ namespace Portal.Consultoras.Web.Providers
                     }
 
                     if (fechaHoy > model.FechaInicioCampania.AddDays(configEstrategiaSR.BeShowRoom.DiasDespues).Date)
+                    {
                         _sessionManager.SetMostrarShowRoomProductosExpiro("1");
+                        configEstrategiaSR.ConfiguracionPaisDatos = new List<ConfiguracionPaisDatosModel>();
+                    }
                 }
 
                 configEstrategiaSR.CargoEntidadesShowRoom = true;
@@ -295,6 +303,7 @@ namespace Portal.Consultoras.Web.Providers
             {
                 Common.LogManager.SaveLog(ex, model.CodigoConsultora, model.CodigoISO);
                 configEstrategiaSR.CargoEntidadesShowRoom = false;
+                configEstrategiaSR.ConfiguracionPaisDatos = new List<ConfiguracionPaisDatosModel>();
             }
 
             _sessionManager.SetEstrategiaSR(configEstrategiaSR);
@@ -419,18 +428,19 @@ namespace Portal.Consultoras.Web.Providers
                              p.PersonalizacionId == item.PersonalizacionId);
 
                     if (personalizacionNivel == null) continue;
+
                     item.PersonalizacionNivelId = personalizacionNivel.PersonalizacionNivelId;
                     item.Valor = personalizacionNivel.Valor;
 
                     if (item.TipoAtributo != "IMAGEN") continue;
+
                     if (string.IsNullOrEmpty(item.Valor))
                     {
                         item.Valor = string.Empty;
                         continue;
                     }
-
-                    var carpetaPais = Globals.UrlMatriz + "/" + model.CodigoISO;
-                    item.Valor = ConfigCdn.GetUrlFileCdn(carpetaPais, item.Valor);
+                
+                    item.Valor = ConfigCdn.GetUrlFileCdnMatriz(model.CodigoISO, item.Valor);
                 }
             }
         }
@@ -441,62 +451,79 @@ namespace Portal.Consultoras.Web.Providers
             return showRoomNivelPais.NivelId;
         }
 
-        public string ObtenerValorPersonalizacionShowRoom(List<ShowRoomPersonalizacionModel> listaPersonalizacion, string codigoAtributo, string tipoAplicacion)
+        public string ObtenerValorPersonalizacionShowRoom(string codigoAtributo, string tipoAplicacion)
         {
-            if (listaPersonalizacion == null)
+            var configEstrategiaSR = _sessionManager.GetEstrategiaSR();
+            if (configEstrategiaSR.ListaPersonalizacionConsultora == null)
                 return string.Empty;
 
-            var model = listaPersonalizacion.FirstOrDefault(p => p.Atributo == codigoAtributo && p.TipoAplicacion == tipoAplicacion);
+            var model = configEstrategiaSR.ListaPersonalizacionConsultora.FirstOrDefault(p => p.Atributo == codigoAtributo && p.TipoAplicacion == tipoAplicacion);
 
             return model == null
-                ? string.Empty
-                : model.Valor;
+                       ? string.Empty
+                       : model.Valor;
         }
 
-        private bool ObtenerBloquedoProductoDigital(UsuarioModel usuarioModel)
+        //private bool ObtenerBloquedoProductoDigital(UsuarioModel usuarioModel)
+        //{
+        //    ServiceUsuario.BEConfiguracionPaisDatos entidadConfig;
+        //    bool result = false;
+        //    try
+        //    {
+        //        var ConfigPaisSR = _sessionManager.GetConfiguracionesPaisModel().FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPais.ShowRoom); 
+        //        var entidad = new ServiceUsuario.BEConfiguracionPaisDatos
+        //        {
+        //            PaisID = usuarioModel.PaisID,
+        //            CampaniaID = usuarioModel.CampaniaID,
+        //            ConfiguracionPaisID = ConfigPaisSR.ConfiguracionPaisID,
+        //            ConfiguracionPais = new ServiceUsuario.BEConfiguracionPais
+        //            {
+        //                Codigo = Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital,
+        //                Detalle = new ServiceUsuario.BEConfiguracionPaisDetalle
+        //                {
+        //                    CodigoConsultora = usuarioModel.CodigoConsultora,
+        //                    CodigoRegion = usuarioModel.CodigorRegion,
+        //                    CodigoZona = usuarioModel.CodigoZona,
+        //                    CodigoSeccion = usuarioModel.SeccionAnalytics
+        //                }
+        //            }
+        //        };
+        //        using (var sv = new ServiceUsuario.UsuarioServiceClient())
+        //        {
+        //            var lst =  sv.GetConfiguracionPaisDatos(entidad);
+        //            entidadConfig = lst.FirstOrDefault();
+        //        }
+        //        if (entidadConfig != null) result = entidadConfig.Valor1 == "1"; 
+        //    }
+        //    catch (Exception ex )
+        //    {
+        //        _logManager.LogErrorWebServicesBusWrap(ex, usuarioModel.CodigoUsuario, usuarioModel.PaisID.ToString(),
+        //            "ShowRoomProvider.ObtenerBloquedoProductoDigital");
+        //    }
+        //    return result;
+        //}
+
+        public bool ValidarIngresoShowRoom(bool esIntriga)
         {
-            ServiceUsuario.BEConfiguracionPaisDatos entidadConfig;
-            bool result = false;
-            
-            try
+            var configEstrategiaSR = _sessionManager.GetEstrategiaSR();
+            if (!configEstrategiaSR.CargoEntidadesShowRoom)
+                return false;
+
+            var resultado = false;
+            var esShowRoom = _sessionManager.GetEsShowRoom();
+            var mostrarShowRoomProductos = _sessionManager.GetMostrarShowRoomProductos();
+            var mostrarShowRoomProductosExpiro = _sessionManager.GetMostrarShowRoomProductosExpiro();
+
+            if (esIntriga)
             {
-
-                var ConfigPaisSR = _sessionManager.GetConfiguracionesPaisModel().FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPais.ShowRoom); 
-
-                var entidad = new ServiceUsuario.BEConfiguracionPaisDatos
-                {
-                    PaisID = usuarioModel.PaisID,
-                    CampaniaID = usuarioModel.CampaniaID,
-                    ConfiguracionPaisID = ConfigPaisSR.ConfiguracionPaisID,
-                    ConfiguracionPais = new ServiceUsuario.BEConfiguracionPais
-                    {
-                        Codigo = Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital,
-                        Detalle = new ServiceUsuario.BEConfiguracionPaisDetalle
-                        {
-                            CodigoConsultora = usuarioModel.CodigoConsultora,
-                            CodigoRegion = usuarioModel.CodigorRegion,
-                            CodigoZona = usuarioModel.CodigoZona,
-                            CodigoSeccion = usuarioModel.SeccionAnalytics
-                        }
-                    }
-                };
-
-                using (var sv = new ServiceUsuario.UsuarioServiceClient())
-                {
-                    var lst =  sv.GetConfiguracionPaisDatos(entidad);
-                    entidadConfig = lst.FirstOrDefault();
-                }
-
-                if (entidadConfig != null) result = entidadConfig.Valor1 == "1"; 
-               
+                resultado = esShowRoom && !mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
             }
-            catch (Exception ex )
+            else
             {
-                _logManager.LogErrorWebServicesBusWrap(ex, usuarioModel.CodigoUsuario, usuarioModel.PaisID.ToString(),
-                    "ShowRoomProvider.ObtenerBloquedoProductoDigital");
+                resultado = esShowRoom && mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
             }
 
-            return result;
+            return resultado;
         }
 
         public static async Task<ShowRoomEventoModel> ObtenerEventoShowroomDesdeApi(string path, string codigoISO)

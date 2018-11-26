@@ -1,6 +1,6 @@
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Controllers;
-using Portal.Consultoras.Web.Helpers;
+using Portal.Consultoras.Web.CustomHelpers;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using System;
@@ -153,13 +153,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private ShowRoomEventoModel OfertaShowRoom()
         {
-            if (!ValidarIngresoShowRoom(false))
-            {
-                return null;
-            }
-
             try
             {
+                if (!_showRoomProvider.ValidarIngresoShowRoom(false))
+                {
+                    return null;
+                }
+
                 var showRoomEventoModel = CargarValoresModel();
 
                 if (configEstrategiaSR.ListaPersonalizacionConsultora != null)
