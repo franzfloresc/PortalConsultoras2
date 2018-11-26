@@ -4072,6 +4072,7 @@
     <Content Include="Scripts\PortalConsultoras\Pedido\barra.js" />
     <Content Include="Scripts\PortalConsultoras\Pedido\ConsultoraOnline.js" />
     <Content Include="Scripts\PortalConsultoras\Pedido\ofertafinal.js" />
+    <Content Include="Scripts\PortalConsultoras\Recomendaciones\RecomendacionesModule.js" />
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-ConfirmarDatos.js" />
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-Landing.js" />
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-SeccionDorada.js" />
