@@ -28,7 +28,9 @@ function MostrarBarra(datax, destino) {
     dataBarra = data;
 
     ActualizarGanancia(dataBarra);
-    initCarruselPremios(dataBarra);
+    if (destino == '2') {
+        initCarruselPremios(dataBarra);
+    }
 
     dataBarra.ListaEscalaDescuento = dataBarra.ListaEscalaDescuento || new Array();
     if (dataBarra.ListaEscalaDescuento.length > 0) {
@@ -183,13 +185,14 @@ function MostrarBarra(datax, destino) {
     }
     mtoLogroBarra = vLogro;
 
-    //if (belcorp.barra.settings.isMobile &&
-    //    tp > 0 && tp >= vLogro &&
-    //    dataBarra.TippingPointBarra.ActiveCuponElectivo &&
-    //    !tpElectivos.premioSelected) {
+    if (belcorp.barra.settings.isMobile &&
+        tp > 0 && vLogro >= tp &&
+        dataBarra.TippingPointBarra &&
+        dataBarra.TippingPointBarra.ActiveCuponElectivo &&
+        !tpElectivos.premioSelected) {
 
-    //    agregarPremioDefault();
-    //}
+        agregarPremioDefault();
+    }
 
     listaLimite = listaLimite || new Array();
     if (listaLimite.length == 0)
@@ -585,17 +588,6 @@ function MostrarBarra(datax, destino) {
         $('#montoPremioMeta').html(variablesPortal.SimboloMoneda + " " + dataBarra.TippingPointStr);
         cargarMontoBanderasMobile(dataBarra);
 
-        //OG
-        //$('#divBarra .monto_minimo').show();
-        //if (vLogro >= tp || (!tpRegaloMobileShow && vLogro > mn)) {
-        //    $('#divBarra .monto_maximo').show();
-        //} else {
-        //    $('#divBarra .monto_maximo').hide();
-        //}
-
-    } else {
-        //$('#divBarra .monto_minimo').hide();
-        //$('#divBarra .monto_maximo').hide();
     }
 
     if (tpRegaloMobileShow) {
@@ -659,10 +651,46 @@ function initCarruselPremios(barra) {
     }
 }
 function cargarPopupEleccionRegalo() {
+    checkPremioSelected();
     $('#popupEleccionRegalo').fadeIn(200);
     setTimeout(function () {
         armarCarouselRegalos();
     }, 150);
+}
+
+function checkPremioSelected() {
+    if (tpElectivos.premioSelected || !document.getElementById('divContenidoDetalle')) {
+        return;
+    }
+    var details = belcorp.mobile.pedido.getDetalles();
+    var detail = getCuponElectivoInDetails(details);
+    if (!detail) {
+        return;
+    }
+    var premio = getPremioByCuv(detail.CUV);
+    if (!premio) {
+        return;
+    }
+    tpElectivos.premioSelected = premio;
+    var element = getElementPremiosByCuv($('#carouselOpcionesRegalo'), tpElectivos.premioSelected.CUV2);
+    if (element) {
+        markPremioSelected(element.find('.btn_elegir_regalo'));
+    }
+}
+
+function getCuponElectivoInDetails(details) {
+
+    var len = details.length;
+
+    for (var i = 0; i < len; i++) {
+        var item = details[i];
+
+        if (item.CuponElectivo) {
+            return item;
+        }
+    }
+
+    return null;
 }
 
 function getPremioElectivos() {
@@ -717,11 +745,11 @@ function agregarPremioDefault() {
             return;
         }
 
-        //tpElectivos.premioSelected = premio;
-        //var element = getElementPremiosByCuv($('#carouselOpcionesRegalo'), tpElectivos.premioSelected.CUV2);
-        //if (element) {
-        //    markPremioSelected(element);
-        //}
+        tpElectivos.premioSelected = premio;
+        var element = getElementPremiosByCuv($('#carouselOpcionesRegalo'), tpElectivos.premioSelected.CUV2);
+        if (element) {
+            markPremioSelected(element.find('.btn_elegir_regalo'));
+        }
     });
 }
 
@@ -794,20 +822,17 @@ function seleccionRegaloProgramaNuevas(regaloProgramaNuevas) {
     if (!premio) {
         return;
     }
-    
-    tpElectivos.premioSelected = premio;
-    markPremioSelected(regaloProgramaNuevas);
 
     AgregarPremio(premio)
         .then(function(data) {
-            console.log('Response after Add pedido then 2:');
+            console.log('Response after add pedido then 2:');
             console.log(data);
             if (!data) {
                 return;
             }
 
-            //tpElectivos.premioSelected = premio;
-            //markPremioSelected(regaloProgramaNuevas);
+            tpElectivos.premioSelected = premio;
+            markPremioSelected(regaloProgramaNuevas);
         });
 }
 
@@ -872,6 +897,10 @@ function showPopupNivelSuperado(barra, prevLogro) {
             dvPremio.find('.btn_escoger_o_cambiar_regalo').html(tpElectivos.premioSelected ? 'CAMBIAR PRODUCTO': '¡Escoger ahora!');
             AbrirPopup(idPopup);
             mostrarLluvia();
+            
+            if (!tpElectivos.premioSelected) {
+                agregarPremioDefault();
+            }
         }
     } else {
         showPopupEscalaSiguiente(barra, prevLogro);
@@ -973,7 +1002,9 @@ function InsertarPremio(model) {
 
         CloseLoading();
 
-        CargarPedido();
+        if (typeof CargarPedido === "function") { 
+            CargarPedido();
+        }
 
         return data;
     });
