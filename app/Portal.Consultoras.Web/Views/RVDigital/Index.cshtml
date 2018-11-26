@@ -31,7 +31,8 @@
                 width: '600px',
                 buttons: {
                     "Confirmar": function () {
-                        $(this).dialog("close");
+                        HideDialog("dialog");
+                        //$(this).dialog("close");
                         waitingDialog({});
                         jQuery.ajax({
                             type: 'POST',
@@ -55,7 +56,8 @@
                         }); 
                     },
                     "Cancelar": function () {
-                        $(this).dialog("close");
+                        HideDialog("dialog");
+                        //$(this).dialog("close");
                     }
                 }
             });

@@ -9,9 +9,10 @@
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
 }
 
-<link href="@Url.Content("~/Content/Css/Site/slick-pedido.css")" rel="stylesheet" />
-<link href="@Url.Content("~/Content/Css/Mobile/Pedido/PedidoGrilla.css")" rel="stylesheet" />
-
+@section styles
+{
+    @Styles.Render("~/Bundle/Css/Mobile/PedidoDetalle")
+}
 
 <input type="hidden" id="hdEsFacturacion" value="@Model.EsFacturacion.ToString()" />
 <input type="hidden" id="hdOfertaFinal" value="@Model.OfertaFinal" />
@@ -140,18 +141,18 @@
 </div>
 
 @*<div id="popup-eliminar-item" class="MensajeAlertaMobile" style="display:none;">
-    <div class="content_mensajeAlerta">
-        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popup-eliminar-item').hide();">
-            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
-        </a>
-        <hr class="clear">
-        <div class="icono_alerta exclamacion_icono_mobile"></div>
-        <div class="titulo_compartir"><b>IMPORTANTE</b></div>
-        <div class="mensaje_alerta">¿Estás segura que quieres eliminar el producto?</div>
-        <div id="mensaleAvisoRegalo" class="mensaje_alerta">Si eliminas este producto podrías perder el premio que ganaste ¿Quieres eliminar este producto?</div>
-        <a href="javascript:;" onclick="ConfirmaEliminarPedido();" class="btn_ok_mobile"><b>OK</b></a>
-    </div>
-</div>*@
+        <div class="content_mensajeAlerta">
+            <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popup-eliminar-item').hide();">
+                <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+            </a>
+            <hr class="clear">
+            <div class="icono_alerta exclamacion_icono_mobile"></div>
+            <div class="titulo_compartir"><b>IMPORTANTE</b></div>
+            <div class="mensaje_alerta">¿Estás segura que quieres eliminar el producto?</div>
+            <div id="mensaleAvisoRegalo" class="mensaje_alerta">Si eliminas este producto podrías perder el premio que ganaste ¿Quieres eliminar este producto?</div>
+            <a href="javascript:;" onclick="ConfirmaEliminarPedido();" class="btn_ok_mobile"><b>OK</b></a>
+        </div>
+    </div>*@
 <div id="MensajeLograste" class="MensajeAlertaMobile" style="display:none;">
     <div class="content_mensajeAlerta">
         <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#MensajeLograste').hide();">
@@ -345,10 +346,10 @@
                 {{else}}
 
                 <div class="icono_eliminar_item_pedido">
-                    <a href="javascript:;" 
-                       title="Eliminar" 
-                       onclick="tooltipDelete('{{PedidoDetalleID}}', '{{SetID}}');" 
-                       data-pedidodetalleid="{{detalle.PedidoDetalleID}}" 
+                    <a href="javascript:;"
+                       title="Eliminar"
+                       onclick="tooltipDelete('{{PedidoDetalleID}}', '{{SetID}}');"
+                       data-pedidodetalleid="{{detalle.PedidoDetalleID}}"
                        data-setid="{{detalle.SetID}}">
                         <img src="@Url.Content("~/Content/Images/Esika/tacho-copy.png")" alt="Eliminar" />
                     </a>
@@ -424,17 +425,19 @@
                             <button class="boton-secundario" onclick="btnSalirTlpDelete('{{PedidoDetalleID}}','{{SetID}}');">No Gracias</button>
                         </div>
                         <div class="col-xs-6 text-right">
-                            <button class="boton-primario default-background" 
-                                    onclick="EliminarPedidoEvento(event)" 
-                                    data-pedidodetalleid="{{detalle.PedidoDetalleID}}" 
-                                    data-setid="{{detalle.SetID}}">SÍ, ELIMINAR</button>
+                            <button class="boton-primario default-background"
+                                    onclick="EliminarPedidoEvento(event)"
+                                    data-pedidodetalleid="{{detalle.PedidoDetalleID}}"
+                                    data-setid="{{detalle.SetID}}">
+                                SÍ, ELIMINAR
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
 
             {{#IsNullOrEmpty detalle.Mensaje '!='}}
-                @*<div class="notificacion_productoAgotado">
+            @*<div class="notificacion_productoAgotado">
                     <small>
                         {{#iff detalle.TipoObservacion '!=' 0}}
                         {{{Replace detalle.Mensaje '¿Deseas aceptar el reemplazo?' ''}}}
@@ -443,13 +446,13 @@
                         {{/iff}}
                     </small>
                 </div>*@
-                <div class="popover bottom" id="tlpObservaciones">
-                    <div class="arrow"></div>
-                    <ul class="list-tooltip">
-                        <li class="icon-alert"><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt=""></li>
-                        <li>Este producto tiene observaciones. <button style="display: block;line-height: 19px;" class="boton-secundario" onclick="tooltipObservaciones('{{Mensaje}}');">Ver detalles</button></li>
-                    </ul>
-                </div>
+            <div class="popover bottom" id="tlpObservaciones">
+                <div class="arrow"></div>
+                <ul class="list-tooltip">
+                    <li class="icon-alert"><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt=""></li>
+                    <li>Este producto tiene observaciones. <button style="display: block;line-height: 19px;" class="boton-secundario" onclick="tooltipObservaciones('{{Mensaje}}');">Ver detalles</button></li>
+                </ul>
+            </div>
             {{/IsNullOrEmpty}}
             {{#if EsBackOrder}}
             {{#if AceptoBackOrder}}

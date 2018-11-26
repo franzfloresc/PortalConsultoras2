@@ -71,7 +71,8 @@ $(document).ready(function () {
         buttons:
         {
             "Aceptar": function () {
-                $(this).dialog('close');
+                HideDialog("DialogMensajesBanner");
+                //$(this).dialog('close');
             }
         }
     });
@@ -86,8 +87,10 @@ $(document).ready(function () {
     });
 
     $("#btnCerrarSet").click(function () {
-        $("#divMensajeProductoAgregado").dialog('close');
-        $("#DialogSetDetalle").dialog("close");
+        //$("#divMensajeProductoAgregado").dialog('close');
+        //$("#DialogSetDetalle").dialog("close");
+        HideDialog("divMensajeProductoAgregado");
+        HideDialog("DialogSetDetalle");
 
         dataLayer.push({
             'event': 'virtualEvent',
@@ -224,7 +227,7 @@ $(document).ready(function () {
         cerrar_banner_sub_campanias = true;
     }
 
-    if (tieneCompraXCompra == "True" && itemsCompraXCompra > 0 && closeBannerCompraPorCompra == "False") {
+    if (tieneCompraXCompra == "True" && closeBannerCompraPorCompra == "False") {
         ver_compraxcompra = true;
     }
     if (ver_subcamapania == false && ver_compraxcompra == false) {

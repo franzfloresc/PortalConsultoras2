@@ -652,7 +652,8 @@ function CrearDialogs() {
         draggable: true,
         title: "",
         close: function (event, ui) {
-            $(this).dialog('close');
+            HideDialog("divConfirmarCUVBanner");
+            //$(this).dialog('close');
         }
     });
 }
@@ -1259,6 +1260,7 @@ function EnlaceBanner(URL, TrackText, TipoAccion, CUVpedido, CantCUVpedido, Id, 
 //function AgregarCUVBannerPedidoNo() {
 //    $('#divConfirmarCUVBanner').dialog('close');
 //}
+    //$('#divConfirmarCUVBanner').dialog('close');
 
 //function InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido) {
 //    var item = {
@@ -2250,7 +2252,8 @@ function CrearPopupComunicado() {
             }
         },
         close: function (event, ui) {
-            $('#divComunicado').dialog('close');
+            HideDialog("divComunicado");
+            //$('#divComunicado').dialog('close');
         }
     });
 }
@@ -2268,7 +2271,8 @@ function AceptarComunicado() {
         contentType: 'application/json',
         success: function (data) {
             if (checkTimeout(data)) {
-                $('#divComunicado').dialog('close');
+                HideDialog("divComunicado");
+                //$('#divComunicado').dialog('close');
                 closeWaitingDialog();
             }
         },
@@ -2374,10 +2378,12 @@ function scrollWin() {
     }, 500);
 }
 function cerrarSueniosNavidad() {
-    $('#idSueniosNavidad').dialog('close');
+    HideDialog("idSueniosNavidad");
+    //$('#idSueniosNavidad').dialog('close');
 }
 function cerrarSuenioConfirmacion() {
-    $('#divSuenioConfirmacion').dialog('close');
+    HideDialog("divSuenioConfirmacion");
+    //$('#divSuenioConfirmacion').dialog('close');
 }
 function AgregarSuenio() {
     var descSuenio = $("#txtSuenioNavidad").val();
@@ -2388,7 +2394,8 @@ function AgregarSuenio() {
     }
 
     var params = { descripcion: descSuenio };
-    $('#idSueniosNavidad').dialog('close');
+    HideDialog("idSueniosNavidad");
+    //$('#idSueniosNavidad').dialog('close');
     waitingDialog({});
     $.ajax({
         type: "POST",

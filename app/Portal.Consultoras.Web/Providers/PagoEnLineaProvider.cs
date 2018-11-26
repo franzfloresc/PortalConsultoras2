@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Common.PagoEnLinea;
 using Portal.Consultoras.Web.Models;
@@ -173,7 +174,7 @@ namespace Portal.Consultoras.Web.Providers
 
             string json = JsonHelper.JsonSerializer<DataToken>(datatoken);
 
-            ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
+            ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;            
             HttpWebRequest requestSesion;
             requestSesion = WebRequest.Create(urlCreateSessionTokenAPI) as HttpWebRequest;
             requestSesion.Method = "POST";
@@ -285,53 +286,71 @@ namespace Portal.Consultoras.Web.Providers
                 var respuestaAutorizacion = GenerarAutorizacionBotonPagos(sessionToken, merchantId, transactionToken, accessKeyId, secretAccessKey);
                 var respuestaVisa = JsonHelper.JsonDeserialize<RespuestaAutorizacionVisa>(respuestaAutorizacion);
 
-                BEPagoEnLineaResultadoLog bePagoEnLinea = GenerarEntidadPagoEnLineaLog(respuestaVisa, userData);
+                var bePagoEnLinea = GenerarEntidadPagoEnLineaVisa(respuestaVisa, model);
 
-                bePagoEnLinea.Origen = (model.EsMobile ? Constantes.PagoEnLineaOrigen.OrigeMobile : Constantes.PagoEnLineaOrigen.OrigenDesktop);
+                var bEUsuario = new BEUsuario()
+                {
+                    PaisID = userData.PaisID,
+                    ConsultoraID = userData.ConsultoraID,
+                    CodigoUsuario = userData.CodigoUsuario,
+                    CodigoConsultora = userData.CodigoConsultora,
+                    EMail = userData.EMail,
+                    DocumentoIdentidad = userData.DocumentoIdentidad,
+                    CampaniaID = userData.CampaniaID,
+                    FechaLimPago = userData.FechaLimPago,
+                    Simbolo = userData.Simbolo,
+                    Nombre = userData.NombreConsultora,
+                    PrimerNombre = userData.PrimerNombre,
+                    PrimerApellido = userData.PrimerApellido,
+                };
 
-                bePagoEnLinea.MontoPago = model.MontoDeuda;
-                bePagoEnLinea.MontoGastosAdministrativos = model.MontoGastosAdministrativos;
+                BERespuestaServicio result = null;
 
-                int pagoEnLineaResultadoLogId = 0;
                 using (PedidoServiceClient ps = new PedidoServiceClient())
                 {
-                    pagoEnLineaResultadoLogId = ps.InsertPagoEnLineaResultadoLog(userData.PaisID, bePagoEnLinea);
+                    result = ps.RegistrarPagoEnLineaVisa(bEUsuario, bePagoEnLinea);
                 }
 
                 // Requerido en pago rechazado.
-                model.NumeroOperacion = bePagoEnLinea.NumeroOrdenTienda;
-                model.FechaCreacion = bePagoEnLinea.FechaTransaccion;
-                model.DescripcionCodigoAccion = bePagoEnLinea.DescripcionCodigoAccion;
+                if (bePagoEnLinea.Data != null) {                    
+                    model.NumeroOperacion = bePagoEnLinea.Data.NUMORDEN;
+                    model.FechaCreacion = string.IsNullOrEmpty(bePagoEnLinea.Data.FECHAYHORA_TX) ? DateTime.Now : Convert.ToDateTime(bePagoEnLinea.Data.FECHAYHORA_TX);
+                    model.DescripcionCodigoAccion = bePagoEnLinea.Data.DSC_COD_ACCION;
+                }
 
-                if (bePagoEnLinea.CodigoError == "0" && bePagoEnLinea.CodigoAccion == "000")
+                dynamic jsonObject = null;
+                if (result.Data != null)
                 {
-                    model.PagoEnLineaResultadoLogId = pagoEnLineaResultadoLogId;
+                    jsonObject = JsonConvert.DeserializeObject<dynamic>((string)result.Data);
+                    int pagoEnLineaResultadoLogId = 0;
+                    model.PagoEnLineaResultadoLogId = int.TryParse((string)jsonObject.PagoEnLineaResultadoLogId, out pagoEnLineaResultadoLogId) ? pagoEnLineaResultadoLogId : model.PagoEnLineaResultadoLogId;
+                }
+
+                if (bePagoEnLinea.PaymentStatus == Constantes.PagoEnLineaPasarelaVisa.Code.CodigoError_Success &&
+                    bePagoEnLinea.Data.CODACCION == Constantes.PagoEnLineaPasarelaVisa.Code.CodigoAccion_Success)
+                {
                     model.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
                     model.PrimerApellido = userData.PrimerApellido;
-                    model.TarjetaEnmascarada = bePagoEnLinea.NumeroTarjeta;
+                    model.TarjetaEnmascarada = (bePagoEnLinea.Data != null ? bePagoEnLinea.Data.PAN : "");
                     model.FechaVencimiento = userData.FechaLimPago;
                     model.SaldoPendiente = decimal.Round(userData.MontoDeuda - model.MontoDeuda, 2);
-
-                    using (PedidoServiceClient ps = new PedidoServiceClient())
-                    {
-                        ps.UpdateMontoDeudaConsultora(userData.PaisID, userData.CodigoConsultora, model.SaldoPendiente);
-                    }
 
                     var listaConfiguracion = _tablaLogica.ObtenerParametrosTablaLogica(userData.PaisID, Constantes.TablaLogica.ValoresPagoEnLinea, true);
                     var mensajeExitoso = _tablaLogica.ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.MensajeInformacionPagoExitoso);
 
-                    model.MensajeInformacionPagoExitoso = mensajeExitoso;
-
-                    userData.MontoDeuda = model.SaldoPendiente;
-                    sessionManager.SetUserData(userData);
-
-                    if (!string.IsNullOrEmpty(userData.EMail))
+                    if (result.Code == Constantes.PagoEnLineaRespuestaServicio.Code.SUCCESS)
                     {
-                        NotificarViaEmail(model, userData);
+                        model.MensajeInformacionPagoExitoso = mensajeExitoso;
+                        if (jsonObject != null) {
+                            decimal saldoPendiente = 0;
+                            userData.MontoDeuda = decimal.TryParse((string)jsonObject.SaldoPendiente, out saldoPendiente) ? saldoPendiente : userData.MontoDeuda;
+                        }
+                        sessionManager.SetUserData(userData);
                     }
 
                     resultado = true;
                 }
+                
             }
             catch (FaultException ex)
             {
@@ -412,58 +431,62 @@ namespace Portal.Consultoras.Web.Providers
             return respuestaAutorizacion;
         }
 
-        private BEPagoEnLineaResultadoLog GenerarEntidadPagoEnLineaLog(RespuestaAutorizacionVisa respuestaVisa, UsuarioModel usuario)
+        private BEPagoEnLineaVisa GenerarEntidadPagoEnLineaVisa(RespuestaAutorizacionVisa respuestaVisa, PagoEnLineaModel model)
         {
-            BEPagoEnLineaResultadoLog bePagoEnLinea = new BEPagoEnLineaResultadoLog();
+            BEPagoEnLineaVisa bePagoEnLinea = new BEPagoEnLineaVisa();
 
-            bePagoEnLinea.ConsultoraId = usuario.ConsultoraID;
-            bePagoEnLinea.CodigoConsultora = usuario.CodigoConsultora;
-            bePagoEnLinea.NumeroDocumento = usuario.DocumentoIdentidad;
-            bePagoEnLinea.CampaniaId = usuario.CampaniaID;
-            bePagoEnLinea.FechaVencimiento = usuario.FechaLimPago;
-            bePagoEnLinea.TipoTarjeta = "VISA";
-            bePagoEnLinea.CodigoError = respuestaVisa.errorCode ?? "";
-            bePagoEnLinea.MensajeError = respuestaVisa.errorMessage ?? "";
-            bePagoEnLinea.IdGuidTransaccion = respuestaVisa.transactionUUID ?? "";
-            bePagoEnLinea.IdGuidExternoTransaccion = respuestaVisa.externalTransactionId ?? "";
-            bePagoEnLinea.MerchantId = respuestaVisa.merchantId ?? "";
-            bePagoEnLinea.IdTokenUsuario = respuestaVisa.userTokenId ?? "";
+            bePagoEnLinea.PaymentStatus = respuestaVisa.errorCode ?? "";
+            bePagoEnLinea.PaymentDescription = respuestaVisa.errorMessage ?? "";
+            bePagoEnLinea.TransactionDateTime = respuestaVisa.transactionDateTime;
+            bePagoEnLinea.MontoDeudaConGastos = model.MontoDeudaConGastos;
+            bePagoEnLinea.MontoGastosAdministrativos = model.MontoGastosAdministrativos;
+            bePagoEnLinea.MontoPago = model.MontoDeuda;
             bePagoEnLinea.AliasNameTarjeta = respuestaVisa.aliasName ?? "";
+            bePagoEnLinea.TransactionUUID = respuestaVisa.transactionUUID ?? "";
+            bePagoEnLinea.ExternalTransactionId = respuestaVisa.externalTransactionId ?? "";
+            bePagoEnLinea.UserTokenId = respuestaVisa.userTokenId ?? "";
 
-            var fechaTransaccion = string.IsNullOrEmpty(respuestaVisa.data.FECHAYHORA_TX) ? DateTime.MinValue.ToString() : respuestaVisa.data.FECHAYHORA_TX;
-            bePagoEnLinea.FechaTransaccion = Convert.ToDateTime(fechaTransaccion);
-            if (bePagoEnLinea.FechaTransaccion == DateTime.MinValue)
-                bePagoEnLinea.FechaTransaccion = DateTime.Now;
+            bePagoEnLinea.MerchantId = model.PagoVisaModel.MerchantId;
+            bePagoEnLinea.Origen = (model.EsMobile ? Constantes.PagoEnLineaOrigen.OrigeMobile : Constantes.PagoEnLineaOrigen.OrigenDesktop);
 
-            bePagoEnLinea.ResultadoValidacionCVV2 = respuestaVisa.data.RES_CVV2 ?? "";
-            bePagoEnLinea.CsiMensaje = respuestaVisa.data.CSIMENSAJE ?? "";
-            bePagoEnLinea.IdUnicoTransaccion = respuestaVisa.data.ID_UNICO ?? "";
-            bePagoEnLinea.Etiqueta = respuestaVisa.data.ETICKET ?? "";
-            bePagoEnLinea.RespuestaSistemAntifraude = respuestaVisa.data.DECISIONCS ?? "";
-            bePagoEnLinea.CsiPorcentajeDescuento = Convert.ToDecimal(respuestaVisa.data.CSIPORCENTAJEDESCUENTO ?? "0");
-            bePagoEnLinea.NumeroCuota = respuestaVisa.data.NROCUOTA ?? "";
-            bePagoEnLinea.TokenTarjetaGuardada = respuestaVisa.data.cardTokenUUID ?? "";
-            bePagoEnLinea.CsiImporteComercio = Convert.ToDecimal(respuestaVisa.data.CSIIMPORTECOMERCIO ?? "0");
-            bePagoEnLinea.CsiCodigoPrograma = respuestaVisa.data.CSICODIGOPROGRAMA ?? "";
-            bePagoEnLinea.DescripcionIndicadorComercioElectronico = respuestaVisa.data.DSC_ECI ?? "";
-            bePagoEnLinea.IndicadorComercioElectronico = respuestaVisa.data.ECI ?? "";
-            bePagoEnLinea.DescripcionCodigoAccion = respuestaVisa.data.DSC_COD_ACCION ?? "";
-            bePagoEnLinea.NombreBancoEmisor = respuestaVisa.data.NOM_EMISOR ?? "";
-            bePagoEnLinea.ImporteCuota = Convert.ToDecimal(respuestaVisa.data.IMPCUOTAAPROX ?? "0");
-            bePagoEnLinea.CsiTipoCobro = respuestaVisa.data.CSITIPOCOBRO ?? "";
-            bePagoEnLinea.NumeroReferencia = respuestaVisa.data.NUMREFERENCIA ?? "";
-            bePagoEnLinea.Respuesta = respuestaVisa.data.RESPUESTA ?? "";
-            bePagoEnLinea.NumeroOrdenTienda = respuestaVisa.data.NUMORDEN ?? "";
-            bePagoEnLinea.CodigoAccion = respuestaVisa.data.CODACCION ?? "";
-            bePagoEnLinea.ImporteAutorizado = Convert.ToDecimal(respuestaVisa.data.IMP_AUTORIZADO ?? "0");
-            bePagoEnLinea.CodigoAutorizacion = respuestaVisa.data.COD_AUTORIZA ?? "";
-            bePagoEnLinea.CodigoTienda = respuestaVisa.data.CODTIENDA ?? "";
-            bePagoEnLinea.NumeroTarjeta = respuestaVisa.data.PAN ?? "";
-            bePagoEnLinea.OrigenTarjeta = respuestaVisa.data.ORI_TARJETA ?? "";
-            bePagoEnLinea.UsuarioCreacion = usuario.CodigoUsuario;
+            if (respuestaVisa.data != null)
+            {
+                bePagoEnLinea.Data = new BEPagoEnLineaVisaData();
 
+                bePagoEnLinea.TransactionId = respuestaVisa.data.ID_UNICO ?? "";
+
+                bePagoEnLinea.Data.FECHAYHORA_TX = respuestaVisa.data.FECHAYHORA_TX ?? "";
+                bePagoEnLinea.Data.RES_CVV2 = respuestaVisa.data.RES_CVV2 ?? "";
+                bePagoEnLinea.Data.CSIMENSAJE = respuestaVisa.data.CSIMENSAJE ?? "";
+                bePagoEnLinea.Data.ID_UNICO = respuestaVisa.data.ID_UNICO ?? "";
+                bePagoEnLinea.Data.USERTOKENUUID = respuestaVisa.data.userTokenUUID ?? "";
+                bePagoEnLinea.Data.ETICKET = respuestaVisa.data.ETICKET ?? "";
+                bePagoEnLinea.Data.DECISIONCS = respuestaVisa.data.DECISIONCS ?? "";
+                bePagoEnLinea.Data.CSIPORCENTAJEDESCUENTO = respuestaVisa.data.CSIPORCENTAJEDESCUENTO ?? "";
+                bePagoEnLinea.Data.NROCUOTA = respuestaVisa.data.NROCUOTA ?? "";
+                bePagoEnLinea.Data.CARDTOKENUUID = respuestaVisa.data.cardTokenUUID ?? "";
+                bePagoEnLinea.Data.CSIIMPORTECOMERCIO = respuestaVisa.data.CSIIMPORTECOMERCIO ?? "";
+                bePagoEnLinea.Data.CSICODIGOPROGRAMA = respuestaVisa.data.CSICODIGOPROGRAMA ?? "";
+                bePagoEnLinea.Data.DSC_ECI = respuestaVisa.data.DSC_ECI ?? "";
+                bePagoEnLinea.Data.ECI = respuestaVisa.data.ECI ?? "";
+                bePagoEnLinea.Data.DSC_COD_ACCION = respuestaVisa.data.DSC_COD_ACCION ?? "";
+                bePagoEnLinea.Data.NOM_EMISOR = respuestaVisa.data.NOM_EMISOR ?? "";
+                bePagoEnLinea.Data.IMPCUOTAAPROX = respuestaVisa.data.IMPCUOTAAPROX ?? "";
+                bePagoEnLinea.Data.CSITIPOCOBRO = respuestaVisa.data.CSITIPOCOBRO ?? "";
+                bePagoEnLinea.Data.NUMREFERENCIA = respuestaVisa.data.NUMREFERENCIA ?? "";
+                bePagoEnLinea.Data.RESPUESTA = respuestaVisa.data.RESPUESTA ?? "";
+                bePagoEnLinea.Data.NUMORDEN = respuestaVisa.data.NUMORDEN ?? "";
+                bePagoEnLinea.Data.CODACCION = respuestaVisa.data.CODACCION ?? "";
+                bePagoEnLinea.Data.IMP_AUTORIZADO = respuestaVisa.data.IMP_AUTORIZADO ?? "";
+                bePagoEnLinea.Data.COD_AUTORIZA = respuestaVisa.data.COD_AUTORIZA ?? "";
+                bePagoEnLinea.Data.CODTIENDA = respuestaVisa.data.CODTIENDA ?? "";
+                bePagoEnLinea.Data.PAN = respuestaVisa.data.PAN ?? "";
+                bePagoEnLinea.Data.REVIEWTRANSACTION = JsonHelper.JsonSerializer(respuestaVisa.data.reviewTransaction) ?? "";
+                bePagoEnLinea.Data.ORI_TARJETA = respuestaVisa.data.ORI_TARJETA ?? "";
+            }
+            
             return bePagoEnLinea;
-        }
+        }        
 
         private string ObtenerTemplatePagoEnLinea(PagoEnLineaModel model, bool esLbel, int paisId)
         {

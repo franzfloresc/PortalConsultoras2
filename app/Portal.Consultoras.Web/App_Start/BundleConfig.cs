@@ -175,11 +175,11 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/PedidoRegistro.js",
                 "~/Scripts/PortalConsultoras/Shared/AnalyticsPortal.js"
             ));
-            
+
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mixto/BusquedaProducto").Include(
                 "~/Scripts/PortalConsultoras/Buscador/BusquedaProductoModule.js"
             ));
-            
+
             bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/Fuzemodal").Include(
                 "~/Scripts/fuzemodal-1.3/fuzemodal-1.3.css"
             ));
@@ -276,8 +276,7 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Mobile/Esika/revistaDigital.css",
                "~/Content/Css/Mobile/Esika/seccion-descarga-imprime.css",
                "~/Content/Css/Mobile/calc.css",
-               "~/Content/Css/Site/Esika/campania-navidenia.css",
-                "~/Content/Css/Site/MasGanadoras/banner_ofertas_masGanadoras_Esika.css"
+               "~/Content/Css/Site/Esika/campania-navidenia.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/lbel-CssSB2Mobile").Include(
@@ -295,8 +294,7 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Mobile/Lbel/revistaDigital.css",
                "~/Content/Css/Mobile/Lbel/seccion-descarga-imprime.css",
                "~/Content/Css/Mobile/calc.css",
-               "~/Content/Css/Site/Lbel/campania-navidenia.css",
-                "~/Content/Css/Site/MasGanadoras/banner_ofertas_masGanadoras_Lbel.css"
+               "~/Content/Css/Site/Lbel/campania-navidenia.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/CssBienvenida").Include(
@@ -595,14 +593,20 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/Pedido").Include(
                 "~/Content/Css/Mobile/RevistaDigital/Bienvenido-Pedido-Catalogo.css",
-                "~/Content/Css/Mobile/ProductoListado/CajaProducto.css"
+                "~/Content/Css/Mobile/ProductoListado/CajaProducto.css",
+                "~/Content/Css/Mobile/Pedido/PedidoGrilla.css"
+            ));
+
+            bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/PedidoDetalle").Include(
+                "~/Content/Css/Site/slick-pedido.css",
+                "~/Content/Css/Mobile/Pedido/PedidoGrilla.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/Catalogo").Include(
                 "~/Content/Css/Mobile/jquery.tag-editor.css",
                 "~/Content/Css/Mobile/RevistaDigital/Bienvenido-Pedido-Catalogo.css"
             ));
-            
+
 
             #region RevistaDigital
 
@@ -648,7 +652,7 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/Landing/producto.landing.css",
                 "~/Content/Css/Site/ProductoListado/CajaProducto.css"
             ));
-            
+
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mobile/RevistaDigital-Informativa").Include(
                 "~/Scripts/implements/youtube.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
@@ -709,7 +713,7 @@ namespace Portal.Consultoras.Web
             ));
 
             #endregion
-            
+
             #region DetalleEstrategia
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mixto/EstrategiaAgregar").Include(
@@ -747,11 +751,13 @@ namespace Portal.Consultoras.Web
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/Ficha-Esika").Include(
-                "~/Content/Css/Site/Ficha/Esika/FichaEsika.css"
+                "~/Content/Css/Site/Ficha/Esika/FichaEsika.css",
+                "~/Content/Css/Site/MasGanadoras/banner_ofertas_masGanadoras_Esika.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/Ficha-Lbel").Include(
-                "~/Content/Css/Site/Ficha/Lbel/FichaLbel.css"
+                "~/Content/Css/Site/Ficha/Lbel/FichaLbel.css",
+                "~/Content/Css/Site/MasGanadoras/banner_ofertas_masGanadoras_Lbel.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/Ficha").Include(
@@ -764,11 +770,13 @@ namespace Portal.Consultoras.Web
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/Ficha-Esika").Include(
-                "~/Content/Css/Mobile/Ficha/Esika/FichaEsika.css"
+                "~/Content/Css/Mobile/Ficha/Esika/FichaEsika.css",
+                "~/Content/Css/Site/MasGanadoras/banner_ofertas_masGanadoras_Esika.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/Ficha-Lbel").Include(
-                "~/Content/Css/Mobile/Ficha/Lbel/FichaLbel.css"
+                "~/Content/Css/Mobile/Ficha/Lbel/FichaLbel.css",
+                "~/Content/Css/Site/MasGanadoras/banner_ofertas_masGanadoras_Lbel.css"
             ));
 
             #endregion

@@ -3511,11 +3511,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var model = new PedidoSb2Model
-                {
-                    CodigoIso = userData.CodigoISO,
-                    EstadoSimplificacionCuv = userData.EstadoSimplificacionCUV
-                };
                 var listaDetalle = ObtenerPedidoWebSetDetalleAgrupado() ?? new List<BEPedidoWebDetalle>();
 
                 if (mobil)
@@ -3552,6 +3547,11 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var total = listaDetalle.Sum(p => p.ImporteTotal);
 
+                var model = new PedidoSb2Model
+                {
+                    CodigoIso = userData.CodigoISO,
+                    EstadoSimplificacionCuv = userData.EstadoSimplificacionCUV
+                };
                 model.ListaCliente = ListarClienteSegunPedido("", listaDetalle);
 
                 listaDetalle = listaDetalle.Where(p => p.ClienteID == clienteId || clienteId == -1).ToList();
@@ -3604,7 +3604,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 return Json(new
                 {
-                    success = false,
+                    success = true,
                     message = "OK",
                     data = model,
                     dataBarra = GetDataBarra(true, false, true)

@@ -181,7 +181,7 @@ function RedireccionarContenedorComprar(origenWeb, codigo) {
         rdAnalyticsModule.Access(origenWeb);
     
     if (!(typeof AnalyticsPortalModule === 'undefined'))
-        AnalyticsPortalModule.MarcaVerOfertas(origenPedidoWebEstrategia);
+        AnalyticsPortalModule.MarcaVerOfertas(origenWeb);
 
     codigo = $.trim(codigo);
     window.location = (isMobile() ? "/Mobile" : "") + "/Ofertas" + (codigo !== "" ? "#" + codigo : "");

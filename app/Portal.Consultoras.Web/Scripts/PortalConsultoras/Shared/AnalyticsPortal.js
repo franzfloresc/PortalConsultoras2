@@ -410,13 +410,14 @@ var AnalyticsPortalModule = (function () {
 
     var getPalancaByOrigenPedido = function (codigoOrigenPedido) {
         try {
+            codigoOrigenPedido = codigoOrigenPedido || "";
             var codigoPalanca = codigoOrigenPedido.toString().substring(3, 5);
             var seccion = _constantes.origenpedidoWeb.find(function (element) {
                 return element.CodigoPalanca == codigoPalanca;
             });
             return seccion != undefined ? seccion.Palanca : _texto.notavaliable;
         } catch (e) {
-            console.log(_texto.excepcion + e);
+            console.log('getPalancaByOrigenPedido = ' + _texto.excepcion + e);
         }
     };
 
@@ -468,6 +469,7 @@ var AnalyticsPortalModule = (function () {
                 case "Landing GND": !esFicha ? contenedor = _texto.contenedor : contenedor = contenedorFicha; break;
                 case "Landing Herramientas de Venta": !esFicha ? contenedor = _texto.contenedor : contenedor = contenedorFicha; break;
                 case "Landing Liquidación": !esFicha ? contenedor = _texto.contenedor : contenedor = contenedorFicha; break;
+                case "Landing Ganadoras": !esFicha ? contenedor = _texto.contenedorMasGanadoras : contenedor = contenedorFicha; break;
                 case "Buscador": contenedor = "Buscador"; break;
 
             }

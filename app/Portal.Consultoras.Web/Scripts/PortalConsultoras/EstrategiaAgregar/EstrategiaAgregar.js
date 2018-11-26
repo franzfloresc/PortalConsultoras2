@@ -223,7 +223,7 @@ var EstrategiaAgregarModule = (function () {
     };
 
     var estrategiaAgregar = function (event, popup, limite, esFicha) {
-
+        
         popup = popup || false;
         limite = limite || 0;
 

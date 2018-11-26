@@ -485,6 +485,7 @@ namespace Portal.Consultoras.Web.Controllers
                             a.CodigoError ?? string.Empty,
                             a.FechaCreacionFormat ?? string.Empty,
                             a.FechaCreacionHoraFormat ?? string.Empty,
+                            a.Origen ?? string.Empty
                                }
                            }
                 };
@@ -549,7 +550,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {"Descripcion de Transacción", "MensajeError"},
                 {"Estado Transacción", "CodigoError"},
                 {"Fecha de Proceso","FechaCreacionFormat" },
-                {"Hora de Proceso","FechaCreacionHoraFormat" }
+                {"Hora de Proceso","FechaCreacionHoraFormat" },
+                {"Origen","Origen" }
             };
 
             Util.ExportToExcel("ReportePagoEnLineaExcel", lst.ToList(), dic, GetExcelSecureCallback());

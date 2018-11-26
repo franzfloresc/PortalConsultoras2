@@ -4608,40 +4608,8 @@ body {
     color: #000;
 }
 
-.contenedor_cantidadProductos {
-    display: block;
-    margin-bottom: 30px;
-}
-
-    .contenedor_cantidadProductos .textoCantidad {
-        display: block;
-        text-align: center;
-        font-size: 11px;
-        margin-bottom: 6px;
-    }
-
-    .contenedor_cantidadProductos div {
-        text-align: center;
-        margin-left: 3px;
-    }
-
-        .contenedor_cantidadProductos div span, .contenedor_cantidadProductos div .campo_cantidadProductos {
-            border: 1px solid #b0b0b0;
-            background: #fff;
-            height: 45px;
-            vertical-align: top;
-            line-height: 45px;
-            margin-left: -1px;
-            float: left;
-            overflow: hidden;
-        }
-
 .signo_menos, .signo_mas {
     width: 25%;
-}
-
-.contenedor_cantidadProductos div .campo_cantidadProductos {
-    width: 50%;
 }
 
 .contenedor_seleccionCliente {
