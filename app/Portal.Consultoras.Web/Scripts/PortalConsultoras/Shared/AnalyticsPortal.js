@@ -517,6 +517,11 @@ var AnalyticsPortalModule = (function () {
             var pagina = _constantes.paginas.find(function (element) {
                 return element.CodigoPagina == codigoPagina;
             });
+            
+            if (pagina == undefined){
+                return false;
+            }
+
             //Marcar analytics cuando es Ganadoras en ficha y 
             var estoyEnLaFicha = typeof fichaModule !== "undefined";
             if (estrategia.CodigoPalanca === _codigoSeccion.MG && estoyEnLaFicha) {
@@ -527,6 +532,10 @@ var AnalyticsPortalModule = (function () {
             var seccion = _constantes.secciones.find(function (element) {
                 return element.CodigoSeccion == codigoSeccion;
             });
+            
+            if (seccion == undefined){
+                return false;
+            }
 
             var model = {
                 'DescripcionCompleta': estrategia.DescripcionCompleta,
@@ -894,11 +903,16 @@ var AnalyticsPortalModule = (function () {
             return element.CodigoPagina == codigoPagina;
         });
 
+        if (pagina == undefined) {
+            return false;
+        }
+
         var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(codigoOrigenPedido);
 
         var _pagina = pagina.Pagina;
         if (pagina.Pagina.includes("Landing"))
             _pagina = "Landing";
+
         try {
             switch (_pagina) {
 
