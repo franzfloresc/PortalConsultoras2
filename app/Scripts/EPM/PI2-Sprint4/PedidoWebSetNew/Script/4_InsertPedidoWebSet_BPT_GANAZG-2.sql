@@ -1,4 +1,4 @@
-﻿USE [BelcorpPeru_BPT]
+﻿USE [BelcorpPeru_GANA]
 GO
 
 ALTER PROCEDURE [dbo].[InsertPedidoWebSet2] (@Campaniaid int
@@ -37,6 +37,10 @@ BEGIN
 	IF(@EstrategiaID = 0)
 	BEGIN
 	SELECT @EstrategiaID = ISNULL(EstrategiaID,0), @Precio2 = Precio2 FROM Estrategia WHERE CUV2 = @CuvSet AND CampaniaID = @Campaniaid AND TipoEstrategiaId = @TipoEstrategiaId
+	END
+	ELSE
+	BEGIN
+	SELECT @Precio2 = Precio2 FROM Estrategia WHERE EstrategiaID = @EstrategiaID
 	END
 
 	IF(@EstrategiaID <> 0)
@@ -173,9 +177,10 @@ BEGIN
 				ca.cantidad
 				* @CantidadSet,
 				(select top 1 pwd.PedidoDetalleID from pedidowebdetalle pwd where pwd.cuv = ca.cuv
-				and pwd.CampaniaID = @CampaniaID and pwd.pedidoid = @PedidoID and ISNULL(pwd.ClienteID,0) = ISNULL(@ClienteID,0) and ca.Digitable = 1),
-				(select top 1 pwd.PrecioUnidad from pedidowebdetalle pwd where pwd.cuv = ca.cuv
-				and pwd.CampaniaID = @CampaniaID and pwd.pedidoid = @PedidoID and ISNULL(pwd.ClienteID,0) = ISNULL(@ClienteID,0) and ca.Digitable = 1),
+				and pwd.CampaniaID = @CampaniaID and pwd.pedidoid = @PedidoID and ISNULL(pwd.ClienteID,0) = ISNULL(@ClienteID,0)),
+				--(select top 1 pwd.PrecioUnidad from pedidowebdetalle pwd where pwd.cuv = ca.cuv
+				--and pwd.CampaniaID = @CampaniaID and pwd.pedidoid = @PedidoID and ISNULL(pwd.ClienteID,0) = ISNULL(@ClienteID,0)),
+				ep.Precio,
 				ep.EstrategiaProductoId,
 				ca.Digitable,
 				ca.Grupo

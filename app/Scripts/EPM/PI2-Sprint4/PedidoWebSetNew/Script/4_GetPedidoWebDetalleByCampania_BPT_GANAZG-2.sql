@@ -1,4 +1,4 @@
-﻿USE BelcorpPeru_BPT
+﻿USE [BelcorpPeru_GANA]
 GO
 
 ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByCampania2] @CampaniaID INT
@@ -8,8 +8,8 @@ ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByCampania2] @CampaniaID INT
 	,@AgruparSet BIT = 0
 AS
 BEGIN
-	DECLARE @FechaRegistroPedido DATE
-	DECLARE @FechaInicioSetAgrupado DATE
+	--DECLARE @FechaRegistroPedido DATE
+	--DECLARE @FechaInicioSetAgrupado DATE
 
 	--SET @FechaInicioSetAgrupado = (
 	--		SELECT datefromparts(valor1, valor2, valor3)
