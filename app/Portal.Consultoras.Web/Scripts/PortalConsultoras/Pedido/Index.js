@@ -378,9 +378,9 @@ $(document).ready(function () {
             AbrirMensaje("Argumentos no validos");
             return false;
         }
-        if (HorarioRestringido()) {
-            return false;
-        }
+        //if (HorarioRestringido()) {
+        //    return false;
+        //}
 
         var cantidad = $.trim($("#txtCantidad").val());
         if (cantidad == "" || cantidad[0] == "-") {
@@ -396,7 +396,7 @@ $(document).ready(function () {
             return false;
         }
 
-        AbrirSplash();
+        //AbrirSplash();
 
         var cuv = $("#txtCUV").val();
         var esKit = $("#divListadoPedido").find("input[data-kit='True']") || $("#divListadoPedido").find("input[data-kit='true']") || [];
@@ -409,9 +409,9 @@ $(document).ready(function () {
             }
         }
 
-        var validarEstrategia = ValidarStockEstrategia();
+        //var validarEstrategia = ValidarStockEstrategia();
 
-        if (validarEstrategia.success) {
+        //if (validarEstrategia.success) {
             var flagNueva = $.trim($("#hdFlagNueva").val());
             if (flagNueva == "0" || flagNueva == "") {
                 var form = FuncionesGenerales.GetDataForm(this);
@@ -429,11 +429,11 @@ $(document).ready(function () {
 
             ProcesarActualizacionMostrarContenedorCupon();
             $("#btnAgregar").removeAttr("disabled");
-        } else {
-            CerrarSplash();
-            AbrirMensaje(validarEstrategia.message);
-            $("#btnAgregar").removeAttr("disabled");
-        }
+        //} else {
+        //    CerrarSplash();
+        //    AbrirMensaje(validarEstrategia.message);
+        //    $("#btnAgregar").removeAttr("disabled");
+        //}
 
         return false;
     });

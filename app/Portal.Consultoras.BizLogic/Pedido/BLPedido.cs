@@ -15,6 +15,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Transactions;
+using Portal.Consultoras.BizLogic.ArmaTuPack;
 
 namespace Portal.Consultoras.BizLogic.Pedido
 {
@@ -37,6 +38,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
         private readonly ITablaLogicaDatosBusinessLogic _tablaLogicaDatosBusinessLogic;
         private readonly IOfertaProductoBusinessLogic _ofertaProductoBusinessLogic;
         private readonly IProgramaNuevasBusinessLogic _programaNuevasBusinessLogic;
+        private readonly IArmaTuPackBusinessLogic _BLArmaTuPack;
 
         public BLPedido() : this(new BLProducto(),
                                     new BLPedidoWeb(),
@@ -54,7 +56,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                                     new BLPedidoWebSet(),
                                     new BLTablaLogicaDatos(),
                                     new BLOfertaProducto(),
-                                    new BLProgramaNuevas())
+                                    new BLProgramaNuevas(),
+                                    new BLArmaTuPack())
         { }
 
         public BLPedido(IProductoBusinessLogic productoBusinessLogic,
@@ -73,7 +76,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                             IPedidoWebSetBusinessLogic pedidoWebSetBusinessLogic,
                             ITablaLogicaDatosBusinessLogic tablaLogicaDatosBusinessLogic,
                             IOfertaProductoBusinessLogic ofertaProductoBusinessLogic,
-                            IProgramaNuevasBusinessLogic programaNuevasBusinessLogic)
+                            IProgramaNuevasBusinessLogic programaNuevasBusinessLogic,
+                            IArmaTuPackBusinessLogic BLArmaTuPack)
         {
             _productoBusinessLogic = productoBusinessLogic;
             _pedidoWebBusinessLogic = pedidoWebBusinessLogic;
@@ -92,6 +96,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             _tablaLogicaDatosBusinessLogic = tablaLogicaDatosBusinessLogic;
             _ofertaProductoBusinessLogic = ofertaProductoBusinessLogic;
             _programaNuevasBusinessLogic = programaNuevasBusinessLogic;
+            _BLArmaTuPack = BLArmaTuPack;
         }
 
         #region Publicos
@@ -1499,7 +1504,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             return mensaje == string.Empty || resultado;
         }
 
-        private string ValidarStockEstrategia(BEUsuario usuario, BEPedidoWebDetalle pedidoWebDetalle)
+        private string ValidarStockEstrategia(BEUsuario usuario, BEPedidoWebDetalle pedidoWebDetalle, List<BEPedidoWebDetalle> lstDetalle)
         {
             var mensaje = string.Empty;
 
@@ -1516,6 +1521,15 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 }
             };
             mensaje = ValidarStockEstrategiaMensaje(usuario, pedidoAuxiliar);
+
+            if (mensaje == "") {
+
+                var estaEnLimite = false;
+                var cantidadActual = lstDetalle.Where(d => d.CUV == pedidoWebDetalle.CUV).Sum(d => d.Cantidad);
+
+                estaEnLimite = _BLArmaTuPack.CuvEstaEnLimite(usuario.PaisID, usuario.CampaniaID, usuario.CodigoZona, pedidoWebDetalle.CUV, pedidoWebDetalle.Cantidad, cantidadActual);
+                if (estaEnLimite) mensaje = string.Format(Constantes.MensajesError.ExcedioLimiteVenta, 1);
+            }
 
             return mensaje;
         }
@@ -3163,9 +3177,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             {
                 var tempPedidowebdetallesGroup = pedidowebdetalles.GroupBy(x => new { x.CUV, x.ClienteID }).Select(y => new BEPedidoWebDetalle
                 {
-                    ClienteID = y.First().ClienteID,
-                    PedidoDetalleID = y.First().PedidoDetalleID,
-                    SetID = y.First().SetID,
+                    CUV = y.First().CUV,
                     PaisID = y.First().PaisID,
                     TipoEstrategiaID = y.First().TipoEstrategiaID,
                     Cantidad = y.Sum(c => c.Cantidad)
@@ -3173,7 +3185,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                 foreach (var pedidowebdetalle in tempPedidowebdetallesGroup)
                 {
-                    var message = ValidarStockEstrategia(usuario, pedidowebdetalle);
+                    var message = ValidarStockEstrategia(usuario, pedidowebdetalle, lstDetalle);
                     if (!String.IsNullOrEmpty(message)) return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_STOCK_ESTRATEGIA, message);
                 }
             }
