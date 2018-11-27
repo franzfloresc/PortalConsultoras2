@@ -232,7 +232,7 @@ var BuscadorModule = (function () {
 
                             if (!(typeof AnalyticsPortalModule === 'undefined'))
                                 AnalyticsPortalModule.MarcaBusquedaSinResultadosBuscador(valorBusqueda);
-                                                        
+
                         } else {
 
                             $.each(r.productos, function (index, item) {
@@ -327,6 +327,13 @@ var BuscadorModule = (function () {
 
             //console.log(codigoEstrategia);
 
+            
+
+            if (textoBusqueda != "")
+                localStorage.setItem('valorBuscador', textoBusqueda);
+
+            
+
             if (codigo.indexOf(codigoEstrategia) >= 0) {
                 var UrlDetalle = GetPalanca(codigoEstrategia);
                 if (UrlDetalle === "") return false;
@@ -337,12 +344,12 @@ var BuscadorModule = (function () {
                 if (!(typeof AnalyticsPortalModule === 'undefined'))
                     AnalyticsPortalModule.MarcaEligeTuOpcionBuscador(descripcionProducto + ' - ' + $(_elementos.campoBuscadorProductos).val());
 
-               
+
                 //virtualEvent('Resultados de Búsqueda', 'Elige tu opción', descripcionProducto + ' - ' + $(_elementos.campoBuscadorProductos).val());
                 return true;
             }
 
-            
+
 
         },
         ClickVerTodos: function () {
@@ -353,7 +360,7 @@ var BuscadorModule = (function () {
                 AnalyticsPortalModule.MarcaVerTodosLosResultadosBuscador(valorBusqueda);
 
             localStorage.setItem('valorBuscador', valorBusqueda);
-            
+
             window.location.href = url;
         },
         RedireccionarMenuPrincipal: function (e) {
