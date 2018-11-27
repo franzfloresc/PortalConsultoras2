@@ -29679,8 +29679,10 @@ div.motivoRechazo textarea {
 .select_reclamo,
 .elige_num_pedido,
 .codigo_reclamo,
+.contenedor_descripcion_reclamo,
 .descripcion_reclamo,
 .descripcion_reclamo + .chosen-container,
+.precio_reclamo,
 .rango_reclamo,
 .rango_reclamo .liquidacion_rango_cantidad_pedido,
 .rango_reclamo .liquidacion_rango_right_pedido
@@ -29694,6 +29696,7 @@ div.motivoRechazo textarea {
 .codigo_reclamo,
 .descripcion_reclamo,
 .descripcion_reclamo + .chosen-container,
+.precio_reclamo,
 .rango_reclamo
 {
     border: 1px solid #808080;
@@ -29727,7 +29730,7 @@ div.motivoRechazo textarea {
 }
 
 .codigo_reclamo{
-    width:74px;
+    width:120px;
 }
 
 .codigo_reclamo_paso1_cdr{
@@ -29736,6 +29739,7 @@ div.motivoRechazo textarea {
 
 .contenedor_descripcion_reclamo{
     position:relative;
+    margin-right:22px;
 }
 
 .descripcion_reclamo_fake_placeholder{
@@ -29756,8 +29760,13 @@ div.motivoRechazo textarea {
 .descripcion_reclamo + .chosen-container
 {
     width:493px!important;
-    padding:0;
     text-align:left;
+}
+
+.descripcion_reclamo + .chosen-container,
+.descripcion_reclamo + .chosen-container .chosen-single
+{
+    padding:0;
 }
 
 .descripcion_reclamo + .chosen-container-active.chosen-with-drop .chosen-single,
@@ -29979,6 +29988,7 @@ div.motivoRechazo textarea {
     color: white;
     background: #613c87;
     line-height: 45px;
+    cursor:pointer;
 }
 
 .paso_active_reclamo {
@@ -30089,23 +30099,14 @@ div.motivoRechazo textarea {
 .texto_reclamo {
     font-family: 'Lato';
     font-size: 15px;
-    line-height: 30px;
+    line-height: 27px;
     margin-top: 10px;
     text-align: center;
-    margin-bottom: 10px;
+    margin-bottom: 22px;
 }
 
 .precio_reclamo {
     width: 166px;
-    height: 45px;
-    border: 1px solid #cccccc;
-    font-family: 'Lato';
-    font-size: 15px;
-    color: #b5b5b5;
-    line-height: 45px;
-    padding: 10px;
-    margin-right: 10px;
-    float: left;
 }
 
 .total_precio_reclamo {
