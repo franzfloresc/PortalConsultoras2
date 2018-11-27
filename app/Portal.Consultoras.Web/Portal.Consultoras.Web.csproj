@@ -345,6 +345,7 @@
     <Compile Include="Models\Estrategia\ShowRoom\ConfigModel.cs" />
     <Compile Include="Models\Estrategia\ShowRoom\IBannerInferiorConfiguracion.cs" />
     <Compile Include="Models\Estrategia\ShowRoom\ShowRoomEventoModelo.cs" />
+    <Compile Include="Models\Estrategia\ShowRoom\WaEventoConsultora.cs" />
     <Compile Include="Models\Estrategia\VariablesGeneralEstrategiaModel.cs" />
     <Compile Include="Models\Estrategia\ShowRoom\ShowRoomEventoConsultoraModel.cs" />
     <Compile Include="Models\Estrategia\ShowRoom\ShowRoomNivelModel.cs" />
