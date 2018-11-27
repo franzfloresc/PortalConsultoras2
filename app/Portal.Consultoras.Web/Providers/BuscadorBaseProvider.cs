@@ -9,11 +9,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.SessionManager;
 
 namespace Portal.Consultoras.Web.Providers
 {
     public class BuscadorBaseProvider
     {
+        protected ISessionManager _sessionManager;
         private const string contentType = "application/json";
         private static readonly HttpClient httpClientBuscador = new HttpClient();
 
@@ -90,6 +92,36 @@ namespace Portal.Consultoras.Web.Providers
             }
 
             return productos;
+        }
+
+        public async Task<string> GetPersonalizacion(UsuarioModel usuario)
+        {
+            var pathPersonalziacion = string.Format(Constantes.RutaBuscadorService.UrlPersonalizacion,
+                usuario.CodigoISO,
+                usuario.CampaniaID,
+                usuario.CodigoConsultora,
+                ObtenerOrigen());
+
+            return await ObtenerPersonalizaciones(pathPersonalziacion);
+        }
+
+        public async Task<string> GetPersonalizacion(UsuarioModel usuario, bool validarIndicadorConsultoraDummy, bool persistInSession)
+        {
+            string result = "";
+            if (validarIndicadorConsultoraDummy)
+            {
+                if (usuario.IndicadorConsultoraDummy != 0 && _sessionManager.GetPersonalizacionDummy() == null)
+                {
+                    result = await GetPersonalizacion(usuario);
+                    if(persistInSession)
+                        _sessionManager.SetPersonalizacionDummy(result ?? "");
+                }
+            }
+            else
+            {
+                result = await GetPersonalizacion(usuario);
+            }
+            return result;
         }
     }
 }

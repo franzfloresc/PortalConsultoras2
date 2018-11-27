@@ -9,7 +9,7 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class BuscadorController : BaseController
     {
-        private readonly BuscadorYFiltrosProvider BuscadorYFiltrosProvider = new BuscadorYFiltrosProvider();
+        private readonly BuscadorYFiltrosProvider _buscadorYFiltrosProvider = new BuscadorYFiltrosProvider();
 
         public ActionResult Index()
         {
@@ -21,8 +21,9 @@ namespace Portal.Consultoras.Web.Controllers
             BuscadorYFiltrosModel productosModel;
             try
             {
-                productosModel = await BuscadorYFiltrosProvider.GetBuscador(model);
-                productosModel.productos = BuscadorYFiltrosProvider.ValidacionProductoAgregado(productosModel.productos, SessionManager.GetDetallesPedido(), userData, revistaDigital, model.IsMobile, model.IsHome);
+                await _buscadorYFiltrosProvider.GetPersonalizacion(userData, true, true);
+                productosModel = await _buscadorYFiltrosProvider.GetBuscador(model);
+                productosModel.productos = _buscadorYFiltrosProvider.ValidacionProductoAgregado(productosModel.productos, SessionManager.GetDetallesPedido(), userData, revistaDigital, model.IsMobile, model.IsHome);
             }
             catch (Exception ex)
             {
@@ -30,6 +31,25 @@ namespace Portal.Consultoras.Web.Controllers
                 productosModel = new BuscadorYFiltrosModel();
             }
             return Json(productosModel, JsonRequestBehavior.AllowGet);
+        }
+
+        private async Task<string> GetPersonalizaiones(UsuarioModel usuarioModel)
+        {
+            if (usuarioModel.IndicadorConsultoraDummy == 0) return "";
+            var resultado = "";
+
+            try
+            {
+                resultado = await _buscadorYFiltrosProvider.GetPersonalizacion(usuarioModel);
+            }
+            catch (Exception ex)
+            {
+                logManager.LogErrorWebServicesBusWrap(ex, usuarioModel.CodigoUsuario, usuarioModel.PaisID.ToString(), "LoginController.GetPersonalizaiones");
+                return "";
+            }
+
+
+            return resultado;
         }
     }
 }

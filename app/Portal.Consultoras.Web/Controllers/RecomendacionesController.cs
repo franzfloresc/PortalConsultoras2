@@ -24,6 +24,7 @@ namespace Portal.Consultoras.Web.Controllers
             RecomendacionesModel recomendacionesModel;
             try
             {
+                await _recomendacionesProvider.GetPersonalizacion(userData, true, true);
                 recomendacionesModel = await _recomendacionesProvider.ObtenerRecomendaciones(cuv, codigoProducto);
                 recomendacionesModel.Productos = _recomendacionesProvider.ValidacionProductoAgregado(recomendacionesModel.Productos, SessionManager.GetDetallesPedido(), userData, revistaDigital, false, false);
             }

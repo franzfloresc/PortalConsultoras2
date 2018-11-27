@@ -9,7 +9,6 @@ namespace Portal.Consultoras.Web.Providers
 {
     public class RecomendacionesProvider : BuscadorBaseProvider
     {
-        protected ISessionManager _sessionManager;
         protected RecomendacionesConfiguracionModel _recomendacionesConfiguracion;
 
         public RecomendacionesProvider()
@@ -51,7 +50,7 @@ namespace Portal.Consultoras.Web.Providers
                 codigoZona = usuarioModel.CodigoZona,
                 cuv,
                 codigoProducto,
-                personalizaciones = usuarioModel.PersonalizacionesDummy,
+                personalizaciones = _sessionManager.GetPersonalizacionDummy(),
                 configuracion = new
                 {
                     sociaEmpresaria = usuarioModel.Lider.ToString(),

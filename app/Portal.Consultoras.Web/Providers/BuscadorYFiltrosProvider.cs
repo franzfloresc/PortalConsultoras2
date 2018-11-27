@@ -11,24 +11,10 @@ namespace Portal.Consultoras.Web.Providers
 {
     public class BuscadorYFiltrosProvider : BuscadorBaseProvider
     {
-        protected ISessionManager _sessionManager;
-
         public BuscadorYFiltrosProvider()
         {
             _sessionManager = SessionManager.SessionManager.Instance;
         }
-
-        public async Task<string> GetPersonalizacion(UsuarioModel usuario)
-        {
-            var pathPersonalziacion = string.Format(Constantes.RutaBuscadorService.UrlPersonalizacion,
-                usuario.CodigoISO,
-                usuario.CampaniaID,
-                usuario.CodigoConsultora,
-                ObtenerOrigen());
-
-            return await ObtenerPersonalizaciones(pathPersonalziacion);
-        }
-
         public async Task<BuscadorYFiltrosModel> GetBuscador(BuscadorModel buscadorModel)
         {
             var revistaDigital = _sessionManager.GetRevistaDigital();
@@ -51,7 +37,7 @@ namespace Portal.Consultoras.Web.Providers
                 codigoConsultora = usuarioModel.CodigoConsultora,
                 codigoZona = usuarioModel.CodigoZona,
                 textoBusqueda = buscadorModel.TextoBusqueda,
-                personalizaciones = usuarioModel.PersonalizacionesDummy,
+                personalizaciones = _sessionManager.GetPersonalizacionDummy(),
                 configuracion = new
                 {
                     sociaEmpresaria = usuarioModel.Lider.ToString(),

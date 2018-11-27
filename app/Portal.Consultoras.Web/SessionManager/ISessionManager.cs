@@ -488,5 +488,8 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetJwtApiSomosBelcorp(string token);
         
         string GetJwtApiSomosBelcorp();
+
+        void SetPersonalizacionDummy(string personalizacion);
+        string GetPersonalizacionDummy();
     }
 }

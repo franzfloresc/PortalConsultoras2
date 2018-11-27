@@ -1313,9 +1313,21 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             HttpContext.Current.Session[Constantes.ConstSession.JwtApiSomosBelcorp] = token;
         }
-         string ISessionManager.GetJwtApiSomosBelcorp()
+        string ISessionManager.GetJwtApiSomosBelcorp()
         {
             return (string)HttpContext.Current.Session[Constantes.ConstSession.JwtApiSomosBelcorp] ;
         }
+
+        public void SetPersonalizacionDummy(string personalizacion)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.PersonalizacionDummy] = personalizacion;
+        }
+
+        public string GetPersonalizacionDummy()
+        {
+            var result = HttpContext.Current.Session[Constantes.ConstSession.PersonalizacionDummy] as string;
+            return result;
+        }
+
     }
 }
