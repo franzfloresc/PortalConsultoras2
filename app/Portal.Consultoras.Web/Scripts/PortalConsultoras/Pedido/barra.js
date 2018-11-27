@@ -535,7 +535,6 @@ function MostrarBarra(datax, destino) {
         }
     }
 
-   // console.log(wLogro);
     if (belcorp.barra.settings.isMobile) {
         if (dataBarra.MontoMaximo!= 0 && dataBarra.MontoMaximo != "" && dataBarra.MontoMaximo != null && dataBarra.MontoMaximo.toString().substring(0, 4)!="9999" ) {
             wLogro = CalculoLlenadoBarra();
@@ -650,6 +649,7 @@ function initCarruselPremios(barra) {
         $('#hrefIconoRegalo').click(cargarPopupEleccionRegalo);
     }
 }
+
 function cargarPopupEleccionRegalo() {
     checkPremioSelected();
     $('#popupEleccionRegalo').fadeIn(200);
@@ -672,10 +672,7 @@ function checkPremioSelected() {
         return;
     }
     tpElectivos.premioSelected = premio;
-    var element = getElementPremiosByCuv($('#carouselOpcionesRegalo'), tpElectivos.premioSelected.CUV2);
-    if (element) {
-        markPremioSelected(element.find('.btn_elegir_regalo'));
-    }
+    selectPremioDivByCuv(tpElectivos.premioSelected.CUV2);
 }
 
 function getCuponElectivoInDetails(details) {
@@ -718,7 +715,6 @@ function cargarPremiosElectivos() {
     getPremioElectivos().then(function (response) {
         tpElectivos.premioSelected = response.selected;
 
-        console.log(response);
         tpElectivos.premios = response.lista;
         SetHandlebars("#premios-electivos-template", response, '#carouselOpcionesRegalo');
         loadCarruselPremiosEvents();
@@ -727,10 +723,7 @@ function cargarPremiosElectivos() {
             $('#divBarra .contenedor_circulos').show();
             return;
         }
-        var element = getElementPremiosByCuv($('#carouselOpcionesRegalo'), tpElectivos.premioSelected.CUV2);
-        if (element) {
-            markPremioSelected(element.find('.btn_elegir_regalo'));
-        }
+        selectPremioDivByCuv(tpElectivos.premioSelected.CUV2);
     });
 }
 
@@ -746,10 +739,7 @@ function agregarPremioDefault() {
         }
 
         tpElectivos.premioSelected = premio;
-        var element = getElementPremiosByCuv($('#carouselOpcionesRegalo'), tpElectivos.premioSelected.CUV2);
-        if (element) {
-            markPremioSelected(element.find('.btn_elegir_regalo'));
-        }
+        selectPremioDivByCuv(tpElectivos.premioSelected.CUV2);
     });
 }
 
@@ -825,25 +815,26 @@ function seleccionRegaloProgramaNuevas(regaloProgramaNuevas) {
 
     AgregarPremio(premio)
         .then(function(data) {
-            console.log('Response after add pedido then 2:');
-            console.log(data);
             if (!data) {
                 return;
             }
 
             tpElectivos.premioSelected = premio;
-            markPremioSelected(regaloProgramaNuevas);
+            //selectPremioDivByCuv(tpElectivos.premioSelected.CUV2);
+            markPremioSelected(regaloProgramaNuevas.parents('.opcion_regalo_carousel_programaNuevas'));
         });
 }
 
-function markPremioSelected(regaloProgramaNuevas) {
-    regaloProgramaNuevas.parents('.opcion_regalo_carousel_programaNuevas').addClass('opcion_regalo_carousel_elegido');
-    regaloProgramaNuevas.fadeOut(100);
-    $('.mensaje_titulo_popup_eleccion_regalo').fadeOut(200);
+function markPremioSelected(premioDiv) {
+    var btn = premioDiv.find('.btn_elegir_regalo');
+    var msgRegaloDiv = $('.mensaje_titulo_popup_eleccion_regalo');
+    premioDiv.addClass('opcion_regalo_carousel_elegido');
+    btn.fadeOut(100);
+    msgRegaloDiv.fadeOut(200);
     setTimeout(function () {
-        regaloProgramaNuevas.next().fadeIn(150);
-        $('.mensaje_titulo_popup_eleccion_regalo').html('¡Ya elegiste tu regalo!');
-        $('.mensaje_titulo_popup_eleccion_regalo').fadeIn(200);
+        btn.next().fadeIn(150);
+        msgRegaloDiv.html('¡Ya elegiste tu regalo!');
+        msgRegaloDiv.fadeIn(200);
         $('.enlace_elegir_otro_regalo').fadeIn(100);
         $('.enlace_elegir_otro_regalo').css('display', 'block');
     }, 150);
@@ -875,6 +866,13 @@ function cambiarEleccionRegaloProgramaNuevas() {
     }, 150);
     tpElectivos.premioSelected = null;
     $('#divBarra .contenedor_circulos').show();
+}
+
+function selectPremioDivByCuv(cuv) {
+    var element = getElementPremiosByCuv($('#carouselOpcionesRegalo'), cuv);
+    if (element) {
+        markPremioSelected(element);
+    }
 }
 
 function showPopupNivelSuperado(barra, prevLogro) {
