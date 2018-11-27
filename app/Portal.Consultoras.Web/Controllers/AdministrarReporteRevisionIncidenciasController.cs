@@ -159,25 +159,25 @@ namespace Portal.Consultoras.Web.Controllers
                                    id = a.BEReporteCuvResumido.Cuv,
                                    cell = new string[]
                                    {
-                                a.BEReporteCuvResumido.Cuv,
-                                a.BEReporteCuvResumido.SAP,
-                                a.BEReporteCuvResumido.DescripcionProd,
-                                a.BEReporteCuvResumido.Palanca,
-                                a.BEReporteCuvResumido.imagenURL,
-                                a.BEReporteCuvResumido.Activo,
-                                a.BEReporteCuvResumido.PuedeDigitarse,
-                                a.BEReporteCuvResumido.PrecioSet.ToString("#.#0")
+                                        a.BEReporteCuvResumido.Cuv,
+                                        a.BEReporteCuvResumido.SAP,
+                                        a.BEReporteCuvResumido.DescripcionProd,
+                                        a.BEReporteCuvResumido.Palanca,
+                                        a.BEReporteCuvResumido.imagenURL,
+                                        a.BEReporteCuvResumido.Activo,
+                                        a.BEReporteCuvResumido.PuedeDigitarse,
+                                        a.BEReporteCuvResumido.PrecioSet.ToString("#.#0")
                                    }
                                }
                     };
                     return Json(data, JsonRequestBehavior.AllowGet);
                 }
-                return RedirectToAction("Index", "AdministrarReporteRevisionIncidenciasController");
+                throw new Exception(ModelState.ToString());
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return RedirectToAction("Index", "AdministrarReporteRevisionIncidenciasController");
+                return ErrorJson(ex.Message, true);
             }
         }
 
@@ -186,7 +186,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 //bool ParseQueryString = HttpUtility.ParseQueryString(((System.Web.HttpRequestWrapper)Request).UrlReferrer.Query)[_dbdefault].ToBool();
-                
+
                 if (ModelState.IsValid)
                 {
                     List<ReporteRevisionIncidenciasMDbAdapterModel> lst = new List<ReporteRevisionIncidenciasMDbAdapterModel>();
@@ -213,7 +213,9 @@ namespace Portal.Consultoras.Web.Controllers
                     items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
                     var pag = Util.PaginadorGenerico(grid, lst);
-                    
+
+                    var codigoISOPais = userData.CodigoISO;
+
                     var data = new
                     {
                         total = pag.PageCount,
@@ -241,7 +243,9 @@ namespace Portal.Consultoras.Web.Controllers
                                         a.BEReporteCuvDetallado.ImagenTipos,
                                         a.BEReporteCuvDetallado.ImagenTonos,
                                         a.BEReporteCuvDetallado.NombreBulk,
-
+                                        a.BEReporteCuvDetallado.FactorRepeticion.ToString(),
+                                        a.BEReporteCuvDetallado.RutaImagenTipos = string.Format(_configuracionManagerProvider.GetRutaImagenesAppCatalogo(), codigoISOPais, CampaniaID, DevolverInicialMarca(a.BEReporteCuvDetallado.CodigoMarca), a.BEReporteCuvDetallado.ImagenTipos),
+                                        a.BEReporteCuvDetallado.RutaImagenTonos = string.Format(_configuracionManagerProvider.GetRutaImagenesAppCatalogoBulk(), codigoISOPais, CampaniaID, DevolverInicialMarca(a.BEReporteCuvDetallado.CodigoMarca), a.BEReporteCuvDetallado.ImagenTonos)
                                    }
                                }
                     };
@@ -259,7 +263,6 @@ namespace Portal.Consultoras.Web.Controllers
                                         .Select(x => x.ErrorMessage))
                 }, JsonRequestBehavior.AllowGet);
 
-                //return RedirectToAction("Index", "AdministrarReporteRevisionIncidencias");
             }
             catch (Exception ex)
             {
@@ -272,8 +275,18 @@ namespace Portal.Consultoras.Web.Controllers
                     data = "",
                     Trycatch = Common.LogManager.GetMensajeError(ex)
                 }, JsonRequestBehavior.AllowGet);
-                //return RedirectToAction("Index", "AdministrarReporteRevisionIncidencias");
             }
+        }
+
+        private string DevolverInicialMarca(string idMarca)
+        {
+            var idMarcaInt = 0;
+            if (!string.IsNullOrEmpty(idMarca)) idMarcaInt = Convert.ToInt32(idMarca);
+            var codigoMarca = string.Empty;
+            if (idMarcaInt == Constantes.Marca.LBel) codigoMarca = "L";
+            if (idMarcaInt == Constantes.Marca.Esika) codigoMarca = "E";
+            if (idMarcaInt == Constantes.Marca.Cyzone) codigoMarca = "C";
+            return codigoMarca;
         }
 
         public ActionResult ConsultarReporteEstrategiasConsultora(string sidx, string sord, int page, int rows, int CampaniaID,
