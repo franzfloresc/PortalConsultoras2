@@ -1,4 +1,4 @@
-﻿USE [BelcorpPeru_BPT]
+﻿USE [BelcorpPeru_GANA]
 GO
 
 PRINT 'DROP COLUMNS'
@@ -27,6 +27,11 @@ IF EXISTS (
 	AND C.NAME = 'CantidadOriginal'
 	)
 BEGIN
+	DECLARE @ConstraintName nvarchar(200)
+	SELECT @ConstraintName = Name FROM SYS.DEFAULT_CONSTRAINTS 
+	WHERE PARENT_OBJECT_ID = OBJECT_ID('PedidoWebSetDetalle') AND PARENT_COLUMN_ID = (SELECT column_id FROM sys.columns WHERE NAME = N'CantidadOriginal' AND object_id = OBJECT_ID(N'PedidoWebSetDetalle'))
+	
+	EXEC('ALTER TABLE PedidoWebSetDetalle DROP CONSTRAINT ' + @ConstraintName)
 	ALTER TABLE [dbo].[PedidoWebSetDetalle] DROP COLUMN CantidadOriginal
 END
 GO

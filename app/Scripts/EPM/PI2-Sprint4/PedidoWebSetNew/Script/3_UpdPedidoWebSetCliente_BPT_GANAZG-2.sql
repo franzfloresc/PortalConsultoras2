@@ -1,4 +1,4 @@
-﻿USE [BelcorpPeru_BPT]
+﻿USE [BelcorpPeru_GANA]
 GO
 
 CREATE PROCEDURE [dbo].[UpdPedidoWebSetCliente] @PedidoID INT

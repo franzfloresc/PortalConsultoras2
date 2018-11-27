@@ -1,4 +1,4 @@
-﻿USE [BelcorpPeru_BPT]
+﻿USE [BelcorpPeru_GANA]
 GO
 
 ALTER PROCEDURE PedidoWebSet_Eliminar 

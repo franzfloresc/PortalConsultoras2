@@ -28,6 +28,7 @@ IF NOT EXISTS (
 	)
 BEGIN
 	ALTER TABLE [dbo].[PedidoWebSetDetalle] ADD CantidadOriginal INT
+	ALTER TABLE [dbo].[PedidoWebSetDetalle] ADD  DEFAULT ((1)) FOR [CantidadOriginal]
 END
 GO
 
