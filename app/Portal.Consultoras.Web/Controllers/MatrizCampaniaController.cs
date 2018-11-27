@@ -174,8 +174,7 @@ namespace Portal.Consultoras.Web.Controllers
                     var producto = productos.LastOrDefault();
                     if (producto != null && !string.IsNullOrEmpty(producto.RegaloImagenUrl))
                     {
-                        string carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                        productos.LastOrDefault().RegaloImagenUrl = ConfigCdn.GetUrlFileCdn(carpetaPais, producto.RegaloImagenUrl);
+                        productos.LastOrDefault().RegaloImagenUrl = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, producto.RegaloImagenUrl);
 
 
                     }

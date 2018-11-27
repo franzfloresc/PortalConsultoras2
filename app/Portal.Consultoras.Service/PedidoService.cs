@@ -2401,6 +2401,11 @@ namespace Portal.Consultoras.Service
         {
             return _pedidoBusinessLogic.InsertProductoBuscador(pedidoDetalle);
         }
+
+        public List<BEPedidoDetalleResult> InsertPedidoDetalleMasivo(List<BEPedidoDetalle> lstPedidoDetalle)
+        {
+            return _pedidoBusinessLogic.InsertMasivo(lstPedidoDetalle);
+        }
         #endregion
 
         public void DescargaPedidosCliente(int paisID, int nroLote, string codigoUsuario)

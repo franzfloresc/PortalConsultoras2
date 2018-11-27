@@ -69,13 +69,17 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult Mantener(ClienteModel model)
         {
+            string mensajePaso = string.Empty;
+
             List<BEClienteDB> clientes = new List<BEClienteDB>();
             List<BEClienteContactoDB> contactos = new List<BEClienteContactoDB>();
 
             try
             {
+                mensajePaso = "|inicio";
                 if (!string.IsNullOrEmpty(model.Celular))
                 {
+                    mensajePaso += "|validacion celular";
                     contactos.Add(new BEClienteContactoDB()
                     {
                         ClienteID = model.ClienteID,
@@ -87,6 +91,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (!string.IsNullOrEmpty(model.Telefono))
                 {
+                    mensajePaso += "|validacion telefono";
                     contactos.Add(new BEClienteContactoDB()
                     {
                         ClienteID = model.ClienteID,
@@ -98,6 +103,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (!string.IsNullOrEmpty(model.eMail))
                 {
+                    mensajePaso += "|validacion email";
                     contactos.Add(new BEClienteContactoDB()
                     {
                         ClienteID = model.ClienteID,
@@ -107,6 +113,7 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
+                mensajePaso += "|clientes.Add(new BEClienteDB()";
                 clientes.Add(new BEClienteDB()
                 {
                     CodigoCliente = model.CodigoCliente,
@@ -122,10 +129,13 @@ namespace Portal.Consultoras.Web.Controllers
                 List<BEClienteDB> response;
                 using (var sv = new ClienteServiceClient())
                 {
+                    mensajePaso += "|dentro de using (var sv = new ClienteServiceClient())";
                     response = sv.SaveDB(userData.PaisID, clientes.ToArray()).ToList();
+                    mensajePaso += "|SaveDB = " + response.Count;
                 }
 
                 var itemResponse = response.First();
+                mensajePaso += "| CodigoRespuesta = " + itemResponse.CodigoRespuesta;
 
                 if (itemResponse.CodigoRespuesta == Constantes.ClienteValidacion.Code.SUCCESS)
                 {
@@ -133,7 +143,8 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         success = true,
                         message = (itemResponse.Insertado ? "Se registró con éxito tu cliente." : "Se actualizó con éxito tu cliente."),
-                        extra = string.Format("{0}|{1}", itemResponse.CodigoCliente, itemResponse.ClienteID)
+                        extra = string.Format("{0}|{1}", itemResponse.CodigoCliente, itemResponse.ClienteID),
+                        mensajePaso
                     });
                 }
                 else
@@ -142,28 +153,32 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         success = false,
                         message = itemResponse.MensajeRespuesta,
-                        extra = ""
+                        mensajePaso
                     });
                 }
             }
             catch (FaultException ex)
             {
+                mensajePaso += "|catch FaultException";
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
                     message = ex.Message,
-                    extra = ""
+                    mensajePaso,
+                    Trycatch = Common.LogManager.GetMensajeError(ex)
                 });
             }
             catch (Exception ex)
             {
+                mensajePaso += "|catch exception";
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
                     message = ex.Message,
-                    extra = ""
+                    mensajePaso,
+                    Trycatch = Common.LogManager.GetMensajeError(ex)
                 });
             }
         }

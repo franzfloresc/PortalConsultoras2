@@ -213,7 +213,7 @@ namespace Portal.Consultoras.Web.Controllers
                     items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
                     var pag = Util.PaginadorGenerico(grid, lst);
-
+                    
                     var codigoISOPais = userData.CodigoISO;
 
                     var data = new

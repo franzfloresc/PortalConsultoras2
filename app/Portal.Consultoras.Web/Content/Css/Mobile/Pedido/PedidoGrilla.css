@@ -1,0 +1,553 @@
+﻿
+.btn_guardarPedido {
+    display: none;
+}
+
+
+.contenedor_carrusel_home .slick-list {
+    padding-bottom: 25px;
+    margin: 0;
+}
+
+.nombre_campania_pedido, .titulo_detalle {
+    display: block;
+    font-weight: 700;
+    font-size: 16px;
+    text-align: center;
+    color: #000;
+    font-family: 'Lato';
+    letter-spacing: .3px;
+}
+
+.nombre_campania_pedido {
+    margin: 0 0 21px 0;
+}
+
+
+.detalle_pedido_ingresado {
+    display: block;
+}
+
+.titulo_detalle {
+    border-top: 2px solid #bababa;
+    border-bottom: 2px solid #bababa;
+    height: 38px;
+    line-height: 32px;
+}
+
+.contenedor_items_pedido {
+    display: block;
+    text-align: left;
+    border-bottom: 2px solid #bababa;
+}
+
+.separador {
+    display: block;
+    height: 11px;
+    margin-bottom: 10px;
+}
+
+.bloque_descripcion_items_ingresados, .bloque_cantidades_precios_items_ingresados {
+    display: block;
+}
+
+.bloque_descripcion_items_ingresados {
+    margin-bottom: 8px;
+    margin-top: 20px;
+}
+
+.bloque_cantidades_precios_items_ingresados {
+    margin-bottom: 20px;
+}
+
+.descripcion_item_pedido, .icono_eliminar_item_pedido, .icono_kitNuevas {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.descripcion_item_pedido {
+    width: 90%;
+}
+
+    .descripcion_item_pedido span {
+        display: block;
+        text-align: left;
+        margin-bottom: 2px;
+        font-weight: bold;
+        font-size: 15px;
+        text-transform: uppercase;
+    }
+
+.mensaje_tipoProd {
+    font-size: 13px !important;
+    font-weight: bold !important;
+    line-height: 6px;
+    margin-bottom: 2px !important;
+    letter-spacing: 0.5px;
+    color: #808080;
+}
+
+.cod_prod, .desc_prod, .nom_cliente {
+    font-size: 14.5px;
+    font-weight: 500;
+    color: #000;
+}
+
+.nom_cliente {
+    color: #808080;
+    font-size: 12px !important;
+    line-height: normal;
+}
+
+.icono_eliminar_item_pedido {
+    width: 8%;
+    text-align: right;
+    margin-top: 11px;
+    cursor: pointer;
+}
+
+.icono_kitNuevas {
+    position: relative;
+    width: 8%;
+    text-align: right;
+    margin-top: 14px;
+    cursor: pointer;
+}
+
+.tooltip_kitNuevas {
+    position: absolute;
+    top: 169%;
+    right: -16%;
+    display: none;
+    text-align: center;
+    width: 292px;
+    height: auto;
+    padding: 15px;
+    background: #fff;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    box-shadow: 0 1px 18px 1px rgba(0,0,0,.31);
+    -moz-box-shadow: 0 1px 18px 1px rgba(0,0,0,.31);
+    -o-box-shadow: 0 1px 18px 1px rgba(0,0,0,.31);
+    -ms-box-shadow: 0 1px 18px 1px rgba(0,0,0,.31);
+    -webkit-box-shadow: 0 1px 18px 1px rgba(0,0,0,.31);
+}
+
+    .tooltip_kitNuevas:after, .tooltip_kitNuevas:before {
+        bottom: 100%;
+        left: 95%;
+        border: solid transparent;
+        content: ' ';
+        height: 0;
+        width: 0;
+        position: absolute;
+    }
+
+    .tooltip_kitNuevas:after {
+        border-bottom-color: #fff;
+        border-width: 9px;
+        margin-left: -9px;
+    }
+
+    .tooltip_kitNuevas:before {
+        border-bottom-color: #ddd;
+        border-width: 10px;
+        margin-left: -10px;
+    }
+
+.texto_tooltipKitNuevas {
+    display: inline-block;
+    vertical-align: top;
+    color: #000;
+    font-family: 'Lato';
+    font-size: 13px;
+    max-width: 213px;
+    text-align: left;
+}
+
+.bloque_cantidades_precios_items_ingresados .contenedor_cantidadProductos, .precios_item {
+    display: inline-block;
+    vertical-align: middle;
+    margin-bottom: 0;
+}
+
+.bloque_cantidades_precios_items_ingresados .contenedor_cantidadProductos {
+    width: 52%;
+}
+
+    .bloque_cantidades_precios_items_ingresados .contenedor_cantidadProductos div .signo_menos, .bloque_cantidades_precios_items_ingresados .contenedor_cantidadProductos div .signo_mas {
+        width: 31%;
+    }
+
+    .bloque_cantidades_precios_items_ingresados .contenedor_cantidadProductos div .campo_cantidadProductos {
+        width: 38%;
+        max-width: 55.56px;
+    }
+
+.precios_item {
+    width: 46%;
+}
+
+    .precios_item span {
+        display: block;
+        text-align: right;
+        font-weight: 500;
+    }
+
+.precio_normal_pedido {
+    font-size: 11px;
+    color: #666;
+    margin-bottom: 3px;
+}
+
+.precio_oferta_pedido {
+    font-size: 15px;
+}
+
+    .precio_oferta_pedido span:nth-child(2) {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+.icono_advertencia_notificacion {
+    position: relative;
+    display: inline-block !important;
+    vertical-align: middle;
+    width: 20px;
+    height: 20px;
+    top: 1px;
+    left: -2px;
+    background: url('/Content/Images/Esika/icono-admiracion.png') no-repeat center center;
+}
+
+.notificacion_productoAgotado {
+    background: #fee5e7;
+    min-height: 73px;
+    position: relative;
+    bottom: -2px;
+    z-index: 2;
+    padding: 18px 20px 15px 20px;
+    color: #d20000;
+}
+
+    .notificacion_productoAgotado:before {
+        bottom: 100%;
+        left: 23%;
+        border: solid transparent;
+        content: ' ';
+        height: 0;
+        width: 0;
+        position: absolute;
+        border-bottom-color: #fee5e7;
+        border-width: 10px;
+    }
+
+    .notificacion_productoAgotado span {
+        color: #e81c36;
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+.mensajes_adicionales_ingresoPedido {
+    margin-top: 20px;
+    padding-top: 20px;
+    padding-bottom: 26px;
+    border-top: 2px solid #bababa;
+    text-align: center;
+}
+
+.detalle_mensajeAdicional {
+    display: inline-block;
+    text-align: left;
+    width: 84%;
+    vertical-align: top;
+    font-size: 11px;
+    margin-left: 4px;
+    color: #7f7f7f;
+    font-weight: 400;
+}
+
+.mensaje_eliminarPedido {
+    display: block;
+    text-align: center;
+    font-size: 11px;
+    font-weight: 400;
+    color: #000;
+    margin-top: 25px;
+    margin-bottom: 30px;
+}
+
+    .mensaje_eliminarPedido a {
+        font-weight: 700;
+    }
+
+.tooltip_noOlvidesGuardarTuPedido {
+    position: relative;
+    margin: 0 auto 54px auto;
+    border: 1px solid #e7e1e1;
+    padding: 18px 15px;
+    width: 203.3px;
+    height: auto;
+    border-radius: 4px;
+    background: #fff;
+    font-family: 'Lato';
+    text-align: center;
+    box-shadow: 0 6px 15px 2px rgba(0,0,0, .31);
+    -moz-box-shadow: 0 6px 15px 2px rgba(0,0,0, .31);
+    -o-box-shadow: 0 6px 15px 2px rgba(0,0,0, .31);
+    -ms-box-shadow: 0 6px 15px 2px rgba(0,0,0, .31);
+    -webkit-box-shadow: 0 6px 15px 2px rgba(0,0,0, .31);
+}
+
+.contenedor_cantidadProductos {
+    display: block;
+    margin-bottom: 30px;
+}
+
+    .contenedor_cantidadProductos .textoCantidad {
+        display: block;
+        text-align: center;
+        font-size: 11px;
+        margin-bottom: 6px;
+    }
+
+
+.contenedor_cantidadProductos div {
+    text-align: center;
+    margin-left: 3px;
+}
+
+.contenedor_cantidadProductos div .campo_cantidadProductos {
+    width: 50%;
+}
+
+    .contenedor_cantidadProductos div .campo_cantidadProductos input {
+        width: 100%;
+        border: 0;
+        background: #fff;
+        text-align: center;
+        color: #000;
+        font-size: 13px;
+        font-weight: bold;
+    }
+
+        .contenedor_cantidadProductos div .campo_cantidadProductos input[value] {
+            color: #000;
+        }
+
+    .contenedor_cantidadProductos div span, .contenedor_cantidadProductos div .campo_cantidadProductos {
+        border: 1px solid #b0b0b0;
+        background: #fff;
+        height: 45px;
+        vertical-align: top;
+        line-height: 45px;
+        margin-left: -1px;
+        float: left;
+        overflow: hidden;
+        border-radius: 4px;
+    }
+
+    .tooltip_noOlvidesGuardarTuPedido:before, .tooltip_noOlvidesGuardarTuPedido:after {
+        top: 100%;
+        left: 50%;
+        border: solid transparent;
+        content: '';
+        height: 0;
+        width: 0;
+        position: absolute;
+    }
+
+    .tooltip_noOlvidesGuardarTuPedido:before {
+        border-top-color: #e7e1e1;
+        border-width: 17px;
+        margin-left: -17px;
+    }
+
+    .tooltip_noOlvidesGuardarTuPedido:after {
+        border-top-color: #fff;
+        border-width: 16px;
+        margin-left: -16px;
+    }
+
+    .tooltip_noOlvidesGuardarTuPedido h2 {
+        display: block;
+        font-size: 16px;
+        font-weight: 700;
+        margin: 0 0 7px 0;
+    }
+
+    .tooltip_noOlvidesGuardarTuPedido span {
+        display: block;
+        font-size: 13px;
+        font-weight: 700;
+        color: #000;
+    }
+
+
+.cod_prod {
+    font-size: 14px !important;
+    line-height: normal;
+}
+
+.popover {
+    display: block;
+    position: relative;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    background-color: #ebebeb;
+    box-shadow: 0 2px 3px 1px #ebebeb;
+    font-size: 14px;
+    border:none;
+    border-radius: 4px;
+    max-width: 100%;
+    margin-bottom: 21px !important;
+    width: 100%;
+    margin: 0;
+    padding: 15px;
+}
+
+    .popover.bottom > .arrow::after {
+        border-bottom-color: #ebebeb;
+    }
+
+    .boton-secundario {
+        padding: 0px;
+        font-weight: bold;
+        font-size: 13px;
+        border: none;
+        background: none;
+        text-decoration: underline;
+        line-height: 43px;
+    }
+
+    .boton-primario {
+        border-radius: 4px;
+        color: #fff;
+        line-height: normal;
+        text-transform: uppercase;
+        padding: 13px;
+        border: none;
+        letter-spacing: 0.5px;
+        font-weight: bold;
+    }
+
+    .popover.bottom > .arrow {
+        border-bottom-color: rgba(0,0,0,0);
+    }
+
+.list-tooltip {
+    margin: 0px;
+    padding: 0px;
+}
+
+    .list-tooltip li {
+        display: inline-block;
+        vertical-align: middle;
+        padding-right: 10px;
+    }
+
+.icon-alert img {
+    width: 22px;
+    display: block;
+}
+
+
+
+#observacionPedido {
+    padding-right: 0px !important;
+}
+
+    #observacionPedido .modal-dialog {
+        margin: 0px !important;
+    }
+
+        #observacionPedido .modal-dialog .modal-content {
+            border: none !important;
+        }
+
+.close_observacionPedido{
+    background-color: #fff;
+    position: absolute;
+    top: 25px;
+    right: 15px;
+}
+
+.header_observaciones_alerta ul {
+    text-align:center;
+}
+
+.header_observaciones_alerta li {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+    .header_observaciones_alerta li h3 {
+        font-size: 15px;
+        font-weight: bold;
+        margin: 0 auto;
+        padding-left: 7px;
+    }
+
+.icon_alerta{
+    width: 23px;
+    height: auto;
+}
+
+.header_observaciones_alerta{
+    padding: 70px 15px 0px 15px;
+}
+
+.header_observaciones_alerta .text-center p{
+    font-size: 15px;
+    line-height: normal;
+}
+
+#observacionPedido .modal-dialog{
+    height: 100%;
+}
+
+#observacionPedido .modal-content {
+    height: 100%;
+}
+
+.descripcion_observaciones_alerta {
+    margin-top: 20px;
+    max-height: 330px;
+    overflow: auto;
+}
+
+.descripcion_observaciones_alerta ul {
+    text-align: left;
+    padding-left: 15px
+}
+
+    .descripcion_observaciones_alerta ul li {
+        font-size: 13px;
+        line-height: normal;
+        margin-bottom: 18px;
+        display: list-item;
+    }
+
+.input_modifica_horizontal {
+    text-transform: uppercase;
+    width: 115px !important;
+    height: 45px;
+    letter-spacing: .5px;
+    color: white;
+    font-size: 13px;
+    border-radius: 4px;
+    background-color: #e81c36;
+    border: none;
+    font-weight: bold;
+}
+
+.input_modifica_horizontal_cancelar {
+    height: 45px;
+    color: #000;
+    background: none;
+    font-size: 13px;
+    font-weight: bold;
+    border: none;
+    text-decoration: underline;
+}

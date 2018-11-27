@@ -1205,6 +1205,8 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEProducto> GetProductoSugerido(BEPedidoProductoBuscar productoBuscar);
         [OperationContract]
         BEPedidoDetalleResult InsertProductoBuscador(BEPedidoDetalle pedidoDetalle);
+        [OperationContract]
+        List<BEPedidoDetalleResult> InsertPedidoDetalleMasivo(List<BEPedidoDetalle> lstPedidoDetalle);
         #endregion
 
         #region Pago en Linea
