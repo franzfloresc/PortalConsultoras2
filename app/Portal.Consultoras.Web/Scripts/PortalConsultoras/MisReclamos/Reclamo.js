@@ -67,9 +67,9 @@ $(document).ready(function () {
         }
     });
 
-    $('#divOperacion').on("click", ".btn_solución_reclamo", function () {
+    $('#divOperacion').on("click", ".btn_solucion_reclamo", function () {
 
-        $(".btn_solución_reclamo").attr("data-check", "0");
+        $(".btn_solucion_reclamo").attr("data-check", "0");
         var id = $.trim($(this).attr("id"));
         if (id == "") {
             return false;
@@ -881,7 +881,7 @@ function DetalleGuardar() {
         NumeroPedido: $("#txtNumeroPedido").val() || 0,
         CampaniaID: $("#ddlCampania").val() || 0,
         Motivo: $(".reclamo_motivo_select[data-check='1']").attr("id"),
-        Operacion: $(".btn_solución_reclamo[data-check='1']").attr("id"),
+        Operacion: $(".btn_solucion_reclamo[data-check='1']").attr("id"),
         CUV: $.trim($("#ddlCuv").val()),//$("#txtCUV").val(),
         Cantidad: $("#txtCantidad").val(),
         CUV2: $("#txtCUV2").val(),

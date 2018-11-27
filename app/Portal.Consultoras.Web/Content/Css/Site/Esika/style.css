@@ -29829,7 +29829,7 @@ div.motivoRechazo textarea {
     position: absolute;
     top: 0;
     bottom: 0;
-    left: 20px;
+    left: 21px;
     height: 47px;
     line-height: 44px;
     font-size: 16px;
@@ -30053,6 +30053,7 @@ div.motivoRechazo textarea {
     background: #e81c36;
     line-height: 45px;
     float: left;
+    cursor:pointer;
 }
 
 .btn_si_stock_cdr {
@@ -30124,16 +30125,16 @@ div.motivoRechazo textarea {
     .reclamo_motivo_select:hover {
         color: #e81c36;
         background: url('https://cdn1-prd.somosbelcorp.com/ImagenesPortal/Iconos/selector_reclamo_esika.png') no-repeat;
-        background-position: 20px 14px;
+        background-position: 20px 17px;
     }
 
 .reclamo_motivo_select_click {
     color: #e81c36;
     background: url('https://cdn1-prd.somosbelcorp.com/ImagenesPortal/Iconos/selector_reclamo_esika.png') no-repeat;
-    background-position: 20px 14px;
+    background-position: 20px 17px;
 }
 
-.btn_solución_reclamo {
+.btn_solucion_reclamo {
     float: left;
     width: 270px;
     height: 45px;
@@ -30145,13 +30146,14 @@ div.motivoRechazo textarea {
     text-align: center;
     margin-right: 36px;
     margin-bottom: 10px;
+    cursor:pointer;
 }
 
-    .btn_solución_reclamo:last-child {
+    .btn_solucion_reclamo:last-child {
         margin-right: 0;
     }
 
-    .btn_solución_reclamo:hover {
+    .btn_solucion_reclamo:hover {
         background: black;
         color: white;
     }
