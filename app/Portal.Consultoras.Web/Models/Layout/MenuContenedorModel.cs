@@ -64,6 +64,12 @@ namespace Portal.Consultoras.Web.Models.Layout
                     case Constantes.OrigenPantallaWeb.DMasGanadoras:
                     case Constantes.OrigenPantallaWeb.MMasGanadoras:
                         return "Mas Ganadoras";
+                    case Constantes.OrigenPantallaWeb.DDuoPerfecto:
+                    case Constantes.OrigenPantallaWeb.MDuoPerfecto:
+                        return "Duo Perfecto";
+                    case Constantes.OrigenPantallaWeb.DPacksNuevas:
+                    case Constantes.OrigenPantallaWeb.MPacksNuevas:
+                        return "Packs de Nuevas";
                     default: return "";
                 }
             }

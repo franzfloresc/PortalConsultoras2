@@ -149,7 +149,20 @@ namespace Portal.Consultoras.Web.Providers
                     break;
                 case Constantes.UrlMenuContenedor.ProgramaNuevas:
                 case Constantes.UrlMenuContenedor.ProgramaNuevasIndex:
-                    menuActivo.Codigo =  limiteElectivos > 1 ? Constantes.ConfiguracionPais.ElecMultiple : Constantes.ConfiguracionPais.ProgramaNuevas;
+                    if(limiteElectivos > 1)
+                    {
+                        menuActivo.Codigo = Constantes.ConfiguracionPais.ElecMultiple;
+                        menuActivo.OrigenPantalla = esMobile
+                        ? Constantes.OrigenPantallaWeb.MDuoPerfecto
+                        : Constantes.OrigenPantallaWeb.DDuoPerfecto;
+                    }
+                    else
+                    {
+                        menuActivo.Codigo= Constantes.ConfiguracionPais.ProgramaNuevas;
+                        menuActivo.OrigenPantalla = esMobile
+                        ? Constantes.OrigenPantallaWeb.MPacksNuevas
+                        : Constantes.OrigenPantallaWeb.DPacksNuevas;
+                    }
                     break;
                 case Constantes.UrlMenuContenedor.DetalleMasGanadoras:
                     menuActivo.MostrarMenuFlotante = false;
