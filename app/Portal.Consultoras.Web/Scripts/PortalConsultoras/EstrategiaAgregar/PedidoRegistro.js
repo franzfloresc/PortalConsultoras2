@@ -703,6 +703,7 @@ var PedidoRegistroModule = function () {
     };
 
     var _agregarOfertaFinal = function (model) {
+        debugger;
         if (reservaResponse.data.Reserva && !agregoOfertaFinal) {
             if (!DesvalidarPedido()) return false;
         }
@@ -812,7 +813,7 @@ var PedidoRegistroModule = function () {
         var retorno = {};
         jQuery.ajax({
             type: "POST",
-            url: baseUrl + "Pedido/" + url,
+            url: baseUrl + "PedidoRegistro/" + url,
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(model),
