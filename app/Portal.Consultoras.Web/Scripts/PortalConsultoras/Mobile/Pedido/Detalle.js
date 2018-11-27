@@ -167,7 +167,7 @@ function UpdateLiquidacionEvento(evento) {
     if (cantidad == cantidadAnterior) {
         return false;
     }
-    
+
     UpdateLiquidacionSegunTipoOfertaSis(obj, targetRow);
 }
 
@@ -213,6 +213,7 @@ function UpdateLiquidacionSegunTipoOfertaSis(obj, elementRow) {
 
         var CantidadSoli = Cantidad;
         if (obj.TipoOfertaSisID) CantidadSoli = (Cantidad - cantidadAnterior);
+        obj.Stock = CantidadSoli;
 
         var param = ({
             CUV: obj.CUV,
@@ -731,6 +732,7 @@ function HorarioRestringido(mostrarAlerta) {
     return horarioRestringido;
 }
 function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, EsBackOrder, detalleObj, elementRow) {
+
     var cantidadElement = $(elementRow).find(".Cantidad");
     var CliID = detalleObj.ClienteID;
     var CliDes = detalleObj.Nombre;
@@ -773,13 +775,16 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, EsBa
         DescripcionProd: DesProd,
         ClienteID_: "-1",
         CUV: CUV,
-        EsBackOrder: EsBackOrder
+        EsBackOrder: EsBackOrder,
+        TipoOfertaSisID: detalleObj.TipoOfertaSisID,
+        Stock: detalleObj.Stock
     };
 
     PedidoUpdate(item, null, detalleObj, elementRow);
 }
 
 function PedidoUpdate(item, PROL, detalleObj, elementRow) {
+
     var cantidadElement = $(elementRow).find(".Cantidad");
     var Cantidad = $(cantidadElement).val();
     var CantidadAnti = detalleObj.CantidadTemporal;
