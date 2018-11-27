@@ -301,9 +301,7 @@
                 <div class="descripcion_item_pedido">
                     <span class="mensaje_tipoProd">
                         {{#if detalle.CuponElectivo }}
-                        <!-- Si producto es el regalo escogido del Programa Nuevas -->
                         <span class="text-uppercase">Regalo Programa Nuevas</span>
-                        <!-- Fin - Si producto es el regalo escogido del Programa Nuevas -->
                         {{/if}}
                     </span>
                     <span class="cod_prod">
@@ -321,6 +319,7 @@
                         {{/iff}}
                         <span>{{Split detalle.DescripcionProd '|' 0}}</span>
                     </span>
+                    {{#unless detalle.CuponElectivo }}
                     <span class="mensaje_tipoProd">
                         {{#iff detalle.TipoPedido '==' 'M'}}
                         <br />
@@ -335,23 +334,20 @@
                         {{/iff}}
                         {{/IsNullOrEmpty}}
                     </span>
+                    {{/unless}}
                     {{#iff detalle.EsKitNueva '==' false}}
                     <span class="nom_cliente">Cliente: {{detalle.Nombre}}</span>
                     {{/iff}}
                     {{#if detalle.CuponElectivo }}
-                    <!-- Si producto es regalo escogido del Programa Nuevas -->
                     <span class="tooltip_informativo_condicion_regalo_programaNuevas">Sólo si llegas a tu monto</span>
-                    <!-- Fin - Si producto es regalo escogido del Programa Nuevas -->
                     {{/if}}
                 </div>
                 {{#if detalle.CuponElectivo }}
-                <!-- Icono Editar Regalo -->
                 <div class="icono_cambiar_regalo_programaNuevas">
                     <a href="javascript:;" title="Cambiar regalo" onclick="javascript: cargarPopupEleccionRegalo();">
                         <img src="@Url.Content("~/Content/Images/icono_editar.svg")" alt="Cambiar regalo" />
                     </a>
                 </div>
-                <!-- Fin - Icono Editar Regalo -->
                 {{/if}}
                 {{#if detalle.EsKitNueva}}
                 <div class="icono_kitNuevas">
