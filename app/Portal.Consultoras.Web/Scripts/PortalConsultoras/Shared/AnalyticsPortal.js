@@ -786,7 +786,8 @@ var AnalyticsPortalModule = (function () {
 
     }
 
-    var marcaGenericaLista = function (seccion, data, limit) {
+    var marcaGenericaLista = function (seccion, data) {
+        
         try {
 
             seccion = seccion.replace("Lista", "");
@@ -861,6 +862,7 @@ var AnalyticsPortalModule = (function () {
     }
 
     var marcaPromotionViewOferta = function (codigoSeccion, data) {
+        
         try {
             if (_constantes.isTest)
                 alert("Marcación promotion view.");
@@ -1268,7 +1270,7 @@ var AnalyticsPortalModule = (function () {
             if (_constantes.isTest)
                 alert("Marcación promotion view.");
             var promotions = AnalyticsPortalModule.AutoMapperV2(codigoSeccion, data);
-            if (promotions.length == 0)
+            if (promotions.length === 0)
                 return false;
             dataLayer.push({
                 'event': _evento.promotionView,
@@ -1315,7 +1317,7 @@ var AnalyticsPortalModule = (function () {
                 var element = {
                     'id': item.CUV2,
                     'name': AnalyticsPortalModule.GetPalancaByOrigenPedido(codigo) + " - " + item.DescripcionCompleta + " - " + "Ver producto",
-                    'position': fnObtenerContenedor(),
+                    'position': fnObtenerContenedor() + " - " + (index + 1),
                     'creative': "Banner"
                 };
                 collection.push(element);

@@ -245,17 +245,20 @@ function SeccionMostrarProductos(data) {
     if (htmlSeccion.length !== 1) {
         return false;
     }
-
+    
     //Marcación Analytics
     if (data.Seccion.Codigo === CONS_CODIGO_SECCION.LAN) {
         if (varContenedor.CargoLan) {
+            var pos = 0;
+            var arry = new Array();
             $.each(data.listaLan, function (key, value) {
                 if (value.TipoEstrategiaDetalle.FlagIndividual) {
-                    var dateItem = new Array(value);
-                    AnalyticsPortalModule.MarcaGenericaLista(data.Seccion.Codigo, dateItem);
-                    return false;
+                    //var dateItem = new Array(value);
+                    arry.push(value);
+                    //return false;
                 }
             });
+            AnalyticsPortalModule.MarcaGenericaLista(data.Seccion.Codigo, arry);
         }
         //get the first
     }
