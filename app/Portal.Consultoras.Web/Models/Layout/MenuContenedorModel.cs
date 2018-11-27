@@ -43,7 +43,7 @@ namespace Portal.Consultoras.Web.Models.Layout
                     case Constantes.OrigenPantallaWeb.MRevistaDigital:
                     case Constantes.OrigenPantallaWeb.DRevistaDigitalRevisar:
                     case Constantes.OrigenPantallaWeb.MRevistaDigitalRevisar:
-                        return "Ofertas para mí";
+                        return "Ofertas para ti";
                     case Constantes.OrigenPantallaWeb.DShowRoom:
                     case Constantes.OrigenPantallaWeb.MShowRoom:
                     case Constantes.OrigenPantallaWeb.DShowRoomIntriga:
@@ -61,6 +61,9 @@ namespace Portal.Consultoras.Web.Models.Layout
                     case Constantes.OrigenPantallaWeb.DHerramientaVenta:
                     case Constantes.OrigenPantallaWeb.MHerramientaVenta:
                         return "Herramientas de Venta";
+                    case Constantes.OrigenPantallaWeb.DMasGanadoras:
+                    case Constantes.OrigenPantallaWeb.MMasGanadoras:
+                        return "Mas Ganadoras";
                     default: return "";
                 }
             }

@@ -155,10 +155,11 @@ namespace Portal.Consultoras.Web.Providers
                     menuActivo.MostrarMenuFlotante = false;
                     break;
                 case Constantes.UrlMenuContenedor.MasGanadorasIndex:
-                    menuActivo.Codigo = Constantes.ConfiguracionPais.MasGanadoras;
-                    break;
                 case Constantes.UrlMenuContenedor.MasGanadoras:
                     menuActivo.Codigo = Constantes.ConfiguracionPais.MasGanadoras;
+                    menuActivo.OrigenPantalla = esMobile
+                        ? Constantes.OrigenPantallaWeb.MMasGanadoras
+                        : Constantes.OrigenPantallaWeb.DMasGanadoras;
                     break;
             }
 

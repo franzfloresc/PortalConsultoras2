@@ -599,6 +599,7 @@ namespace Portal.Consultoras.Common
             // E: Landing ShowRoom          F: Landing ShowRoom Intriga
             // G: Revista Digital Info      H: Revista Digital Detalle
             // I: Guia de Negocio           J: Herramiento de venta
+            // K: Mas Ganadoras           
 
             // Tercer Dígito -- Sección dentro de la Pantalla
             // 0: Principal                 1: OPT
@@ -623,6 +624,8 @@ namespace Portal.Consultoras.Common
             public const string MGuiaNegocio = "2I0";
             public const string DHerramientaVenta = "1J0";
             public const string MHerramientaVenta = "2J0";
+            public const string DMasGanadoras = "1K0";
+            public const string MMasGanadoras = "2K0";
         }
 
         /// <summary>
