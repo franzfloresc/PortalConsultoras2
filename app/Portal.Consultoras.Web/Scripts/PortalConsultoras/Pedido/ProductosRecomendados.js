@@ -31,7 +31,9 @@
     };
     var _eventos = {
         OcultarProductosRecomendados: function (e) {
-            e.preventDefaul();
+            e.preventDefault();
+            var seccionProductosRecomendados = $(this).parents('.productos_recomendados_wrapper');
+            seccionProductosRecomendados.slideUp(200);
         }
     };
     //Public functions

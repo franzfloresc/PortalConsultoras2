@@ -11,6 +11,11 @@
 .productos_recomendados_wrapper{
     font-family:'Lato', sans-serif;
     margin-bottom:61px;
+    flex-wrap:wrap;
+}
+
+.productos_recomendados_wrapper.d-none{
+    display:none!important;
 }
 
 .productos_recomendados_titulo{
@@ -23,18 +28,23 @@
 .productos_recomendados_titulo,
 .producto_recomendado_nombre,
 .producto_recomendado_rango_cantidad input,
-.btn_producto_recomendado_agregalo
+.btn_producto_recomendado_agregalo,
+.cerrar_seccion_productos_recomendados
 {
-    font-weight:bold;
+    font-weight:bold!important;
 }
 
+.productos_recomendados_wrapper,
 .productos_recomendados_carrusel,
+.productos_recomendados_carrusel.slick-slider,
 .productos_recomendados_carrusel .slick-track,
 .producto_recomendado,
+.producto_recomendado.slick-slide,
 .producto_recomendado_rango_cantidad,
-.producto_recomendado_acciones_wrapper
+.producto_recomendado_acciones_wrapper,
+.ocultar_productos_recomendados_wrapper
 {
-    display:flex!important;
+    display:flex;
     flex-direction:row;
     align-items:center;
 }
@@ -48,6 +58,11 @@
 
 .productos_recomendados_carrusel{
     justify-content:flex-start;
+    margin-bottom:20px;
+}
+
+.productos_recomendados_carrusel.slick-slider{
+    margin-top:0;
 }
 
 .productos_recomendados_controles_carrusel{
@@ -136,7 +151,9 @@
     text-decoration:line-through;
 }
 
-.producto_recomendado_precio_oferta{
+.producto_recomendado_precio_oferta,
+.cerrar_seccion_productos_recomendados
+{
     font-size:14px;
 }
 
@@ -203,6 +220,19 @@
     font-size:12px!important;
     letter-spacing:0.7px;
     margin-top:7px;
+}
+
+.ocultar_productos_recomendados_wrapper{
+    justify-content:flex-end;
+}
+
+.cerrar_seccion_productos_recomendados,
+.cerrar_seccion_productos_recomendados:hover
+{
+    flex: 0 0 180px;
+    letter-spacing:0.25px;
+    text-decoration:underline;
+    color:#808080;
 }
 
 /* FIN - RECOMENDACIONES PRODUCTOS */
