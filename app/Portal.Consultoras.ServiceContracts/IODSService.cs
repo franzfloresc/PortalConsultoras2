@@ -185,5 +185,10 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         BERespValidarLimiteVenta CuvTieneLimiteVenta(int paisID, int campaniaID, string region, string zona, string cuv, int cantidadIngresada, int cantidadActual);
         #endregion
+        
+        #region ArmaTuPack
+        [OperationContract]
+        bool CuvArmaTuPackEstaEnLimite(int paisID, int campaniaID, string zona, string cuv, int cantidadIngresada, int cantidadActual);
+        #endregion
     }
 }

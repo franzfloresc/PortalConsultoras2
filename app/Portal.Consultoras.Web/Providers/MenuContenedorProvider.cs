@@ -312,8 +312,8 @@ namespace Portal.Consultoras.Web.Providers
 
             menuContenedor = new List<ConfiguracionPaisModel>();
             configuracionesPais = configuracionesPais.Where(c => c.TienePerfil).ToList();
-            var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-            var paisCarpeta = _configuracionManagerProvider.GetPaisesEsikaFromConfig().Contains(userData.CodigoISO) ? "Esika" : "Lbel";
+            var isoPais = userData.CodigoISO;
+            var paisCarpeta = _configuracionManagerProvider.GetPaisesEsikaFromConfig().Contains(isoPais) ? "Esika" : "Lbel";
             var esElecMultiple = _programaNuevasProvider.GetLimElectivos() > 1;
             List<ServiceOferta.BEEstrategia> listProgNuevas = null;
 
@@ -322,17 +322,17 @@ namespace Portal.Consultoras.Web.Providers
                 var config = confiModel;
                 config.Codigo = Util.Trim(config.Codigo).ToUpper();
                 config.CampaniaId = userData.CampaniaID;
-                config.DesktopFondoBanner = ConfigCdn.GetUrlFileCdn(carpetaPais, config.DesktopFondoBanner);
-                config.DesktopLogoBanner = ConfigCdn.GetUrlFileCdn(carpetaPais, config.DesktopLogoBanner);
-                config.MobileFondoBanner = ConfigCdn.GetUrlFileCdn(carpetaPais, config.MobileFondoBanner);
-                config.MobileLogoBanner = ConfigCdn.GetUrlFileCdn(carpetaPais, config.MobileLogoBanner);
+                config.DesktopFondoBanner = ConfigCdn.GetUrlFileCdnMatriz(isoPais, config.DesktopFondoBanner);
+                config.DesktopLogoBanner = ConfigCdn.GetUrlFileCdnMatriz(isoPais, config.DesktopLogoBanner);
+                config.MobileFondoBanner = ConfigCdn.GetUrlFileCdnMatriz(isoPais, config.MobileFondoBanner);
+                config.MobileLogoBanner = ConfigCdn.GetUrlFileCdnMatriz(isoPais, config.MobileLogoBanner);
 
                 if (revistaDigital.TieneRDI)
                 {
-                    config.DesktopFondoBanner = ConfigCdn.GetUrlFileRDCdn(userData.CodigoISO, revistaDigital.BannerOfertasNoActivaNoSuscrita);
+                    config.DesktopFondoBanner = ConfigCdn.GetUrlFileRDCdn(isoPais, revistaDigital.BannerOfertasNoActivaNoSuscrita);
                     config.DesktopLogoBanner = revistaDigital.DLogoComercialFondoNoActiva;
                     config.MobileFondoBanner = string.Empty;
-                    config.MobileLogoBanner = ConfigCdn.GetUrlFileRDCdn(userData.CodigoISO, revistaDigital.MLogoComercialFondoNoActiva);
+                    config.MobileLogoBanner = ConfigCdn.GetUrlFileRDCdn(isoPais, revistaDigital.MLogoComercialFondoNoActiva);
                 }
                 if (revistaDigital.TieneRevistaDigital())
                 {

@@ -1,4 +1,5 @@
 ﻿using Portal.Consultoras.BizLogic;
+using Portal.Consultoras.BizLogic.ArmaTuPack;
 using Portal.Consultoras.BizLogic.LimiteVenta;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities;
@@ -14,6 +15,7 @@ namespace Portal.Consultoras.Service
     {
         private readonly IProductoBusinessLogic BLProducto;
         private readonly IProgramaNuevasBusinessLogic BLProgramaNuevas;
+        private readonly IArmaTuPackBusinessLogic BLArmaTuPack;
         private readonly ILimiteVentaBusinessLogic BLLimiteVenta;
         private readonly BLMensajeCUV BLMensajeCUV;
         private readonly BLConsultora BLConsultora;
@@ -29,6 +31,7 @@ namespace Portal.Consultoras.Service
             BLConsultora = new BLConsultora();
             BLTipoMeta = new BLTipoMeta();
             BLUbigeo = new BLUbigeo();
+            BLArmaTuPack = new BLArmaTuPack();
         }
 
         public IList<BEMensajeCUV> GetMensajesCUVsByPaisAndCampania(int CampaniaID, int paisID)
@@ -263,6 +266,7 @@ namespace Portal.Consultoras.Service
         {
             return BLProducto.GetListBrothersByCUV(paisID, codCampania, cuv);
         }
+
         #region Programa Nuevas Activo
         public Enumeradores.ValidacionProgramaNuevas ValidarBusquedaProgramaNuevas(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv)
         {
@@ -302,11 +306,19 @@ namespace Portal.Consultoras.Service
         }
         #endregion
 
+        #region ArmaTuPack
+        public bool CuvArmaTuPackEstaEnLimite(int paisID, int campaniaID, string zona, string cuv, int cantidadIngresada, int cantidadActual)
+        {
+            return BLArmaTuPack.CuvEstaEnLimite(paisID, campaniaID, zona, cuv, cantidadIngresada, cantidadActual);
+        }
+        #endregion
+        
         #region LimiteVenta
         public BERespValidarLimiteVenta CuvTieneLimiteVenta(int paisID, int campaniaID, string region, string zona, string cuv, int cantidadIngresada, int cantidadActual)
         {
             return BLLimiteVenta.CuvTieneLimiteVenta(paisID, campaniaID, region, zona, cuv, cantidadIngresada, cantidadActual);
         }
         #endregion
+
     }
 }

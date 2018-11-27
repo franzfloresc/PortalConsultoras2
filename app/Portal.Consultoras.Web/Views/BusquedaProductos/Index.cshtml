@@ -7,8 +7,111 @@
 
 <link href="@Url.Content("~/Content/Css/Site/BusquedaProductos/busqueda-productos.css")" rel="stylesheet" />
 
-<main class="row flex-row ml-0 mr-0 layout__content">
-    <section class="row flex-row justify-content-lg-between justify-content-xl-between align-self-start ml-0 mr-0 w-100 mx-auto layout__content__wrapper">
+<main class="row flex-row ml-0 mr-0 mx-auto layout__content layout__content--vistaResultadosBusqueda">
+    @if (ViewBag.FlagFiltrosBuscador)
+    {
+        <!-- SECCIÓN FILTROS -->
+        <div class="col-12 pl-0 pr-0 background__filtros__mobile"></div>
+        <div class="col-12 pl-0 pr-0 layout__precarga layout__precarga--actualizacionFiltros">
+            <div class="row flex-column justify-content-center align-items-center ml-0 mr-0 layout__precarga__componentes">
+                <div class="d-block precarga__spinner__wrapper precarga__spinner__wrapper--actualizacionFiltros">
+                    <svg viewBox="0 0 120 120" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="precarga__spinner">
+                        <symbol id="s--circle">
+                            <circle r="9" cx="15" cy="15"></circle>
+                        </symbol>
+                        <g class="spinner__circulos">
+                            <g class="spinner__circulo">
+                                <use xlink:href="#s--circle" class="u--circle" />
+                            </g>
+                            <g class="spinner__circulo">
+                                <use xlink:href="#s--circle" class="u--circle" />
+                            </g>
+                            <g class="spinner__circulo">
+                                <use xlink:href="#s--circle" class="u--circle" />
+                            </g>
+                            <g class="spinner__circulo">
+                                <use xlink:href="#s--circle" class="u--circle" />
+                            </g>
+                            <g class="spinner__circulo">
+                                <use xlink:href="#s--circle" class="u--circle" />
+                            </g>
+                            <g class="spinner__circulo">
+                                <use xlink:href="#s--circle" class="u--circle" />
+                            </g>
+                            <g class="spinner__circulo">
+                                <use xlink:href="#s--circle" class="u--circle" />
+                            </g>
+                            <g class="spinner__circulo">
+                                <use xlink:href="#s--circle" class="u--circle" />
+                            </g>
+                            <g class="spinner__circulo">
+                                <use xlink:href="#s--circle" class="u--circle" />
+                            </g>
+                            <g class="spinner__circulo">
+                                <use xlink:href="#s--circle" class="u--circle" />
+                            </g>
+                            <g class="spinner__circulo">
+                                <use xlink:href="#s--circle" class="u--circle" />
+                            </g>
+                            <g class="spinner__circulo">
+                                <use xlink:href="#s--circle" class="u--circle" />
+                            </g>
+                        </g>
+                    </svg>
+                </div>
+                <p class="d-block mx-auto text-center text-bold precarga__texto">
+                    Estamos buscando<br />las mejores ofertas para ti 🙂
+                </p>
+            </div>
+        </div>
+        <section class="row flex-row justify-content-center align-items-stretch ml-0 mr-0 layout__content__filtros">
+            <div class="col-12 pl-0 pr-0 filtros__wrapper">
+                <div class="row flex-row justify-content-between align-items-center ml-0 mr-0 filtros_subtitulo mostrarEnMobile">
+                    <div class="col-9 col-lg-12 col-xl-12 pl-0 pr-0">
+                        <h3 class="col-12 pl-0 pr-0 text-bold text-uppercase">Filtra tus ofertas</h3>
+                        <div class="col-12 pl-0 pr-0 text-bold">14 resultados</div>
+                    </div>
+                    <a id="cerrarFiltros" class="d-inline-block filtros__enlace__cerrar mostrarEnMobile">
+                        <img src="@Url.Content("~/Content/Images/cerrar-filtros.svg")" alt="" />
+                    </a>
+                </div>
+                <div class="col-12 pl-0 pr-0 filtros__subtitulo mostrarEnDesktop">
+                    Filtrar por:
+                </div>
+                <ul class="row flex-row ml-0 mr-0 filtros__lista">
+                    <li class="col-12 pl-0 pr-0 filtro__tipo">
+                        <div class="row flex-row justify-content-between align-items-center ml-0 mr-0 filtro__tipo__titulo filtro__tipo__titulo--mostrarContenido">
+                            <div class="col-10 pl-0 pr-0">Categorías</div>
+                            <div class="d-inline-block filtro__tipo__titulo__icono__despliegue"></div>
+                        </div>
+                        <ul class="row flex-row ml-0 mr-0 filtro__tipo__items" id="filtrosCategorias"></ul>
+                    </li>
+                    <li class="col-12 pl-0 pr-0 filtro__tipo">
+                        <div class="row flex-row justify-content-between align-items-center ml-0 mr-0 filtro__tipo__titulo filtro__tipo__titulo--mostrarContenido">
+                            <div class="col-10 pl-0 pr-0">Marcas</div>
+                            <div class="d-inline-block filtro__tipo__titulo__icono__despliegue"></div>
+                        </div>
+                        <ul class="row flex-row ml-0 mr-0 filtro__tipo__items" id="filtrosMarcas"></ul>
+                    </li>
+                </ul>
+                <div class="row flex-row justify-content-between align-items-center ml-0 mr-0 mostrarEnMobile filtro__btn__mobile__wrapper">
+                    <div class="col-6 pl-0">
+                        <button class="col-12 pl-0 pr-0 text-uppercase filtro__btn filtro__btn--limpiar">
+                            Limpiar
+                        </button>
+                    </div>
+                    <div class="col-6 pl-0 pr-0">
+                        <button class="col-12 pl-0 pr-0 text-uppercase filtro__btn filtro__btn--aplicar">
+                            Aplicar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- FIN - SECCIÓN DE FILTROS -->
+    }
+    <!-- SECCIÓN FICHA DE PRODUCTOS -->
+    <section class="row flex-row justify-content-lg-between justify-content-xl-between align-self-start ml-0 mr-0 mx-auto layout__content__fichaProductos">
         <section class="col-12 col-lg-6 col-xl-6 busqueda__productos__encontrados__wrapper">
             <h1 class="col-12 pl-0 pr-0 busqueda__productos__titulo">
                 Resultados de la búsqueda
@@ -17,63 +120,95 @@
                 <span id="TotalProductos" class="busqueda__num__productos__encontrados">0</span>  resultados para: <span id="TextoBusqueda" class="busqueda__nom__filtro text-bold">@Model.TextoBusqueda</span>
             </p>
         </section>
-        @if (Model.MostrarOpcionesOrdenamiento)
+        @if (Model.MostrarOpcionesOrdenamiento || ViewBag.FlagFiltrosBuscador)
         {
-            <section class="col-12 col-lg-6 col-xl-6 lista__opciones_ordenamiento">
-                <div class="row flex-row justify-content-end ml-0 mr-0">
-                    <div class="col-12 col-lg-11 col-xl-11 pl-0 pr-0 opcion_ordenamiento text-lg-right text-xl-right">
-                        <label class="col-12 col-lg-3 col-xl-3 pl-0 d-inline-block text-center text-lg-right text-xl-right opcion__ordenamiento__label">Ordenar</label>
-                        <!-- AL AGREGAR EL EVENTO CLICK POR JS PARA MOSTRAR EL LISTADO DE OPCIONES AGREGAR ESTA CLASE opcion__ordenamiento__dropdown--desplegado -->
-                        <div id="dpw-ordenar" class="col-12 col-lg-6 col-xl-6 pl-0 pr-0 d-inline-block opcion__ordenamiento__dropdown text-left">
-                            <span class="col-11 opcion__ordenamiento__dropdown__seleccionada mostrarEnDesktop ul-seleccionado">Recomendación</span>
-                            <span class="col pl-0 pr-0 opcion__ordenamiento__dropdown__icono mostrarEnDesktop">
-                                <img src="@Url.Content("~/Content/Images/ordenar-flecha-icono.svg")" alt="" />
-                            </span>
+            <section class="col-12 col-lg-6 col-xl-6 lista__opciones__ordenamiento__y__filtrar">
+                <div class="row flex-row justify-content-between justify-content-lg-end justify-content-xl-end ml-0 mr-0">
+                    @if (ViewBag.FlagFiltrosBuscador)
+                    {
+                        <div class="row flex-row ml-0 mr-0 col-6 col-lg-11 col-xl-11 pl-0 pr-0 lista__opcion__wrapper lista__opcion__wrapper--filtrar mostrarEnMobile">
+                            <div id="opcionFiltrar" class="col-12 pl-0 pr-0 opcion__filtrar">
+                                <a class="col-12 col-lg-4 col-xl-4 pl-0 d-inline-block text-center opcion__filtrar__link" title="Filtrar">
+                                    Filtrar
+                                </a>
+                            </div>
                         </div>
-                        <!-- FIN - AL AGREGAR EL EVENTO CLICK POR JS PARA MOSTRAR EL LISTADO DE OPCIONES AGREGAR ESTA CLASE opcion__ordenamiento__dropdown--desplegado -->
-                    </div>
-                    <ul id="ul-ordenar" class="col-9 col-md-10 col-lg-6 col-xl-6 pl-0 pr-0 opcion__ordenamiento__dropdown__lista d-none">
+                    }
 
-
-                        @for (int i = 0; i < Model.ListaOrdenamiento.Count; i++)
-                        {
-                            if (i == 0)
+                    @if (Model.MostrarOpcionesOrdenamiento)
+                    {
+                        <div class="row flex-row ml-0 mr-0 col-12 col-lg-11 col-xl-11 pl-0 pr-0 lista__opcion__wrapper lista__opcion__wrapper--ordenar">
+                            <div class="col-12 pl-0 pr-0 opcion__ordenamiento text-lg-right text-xl-right">
+                                <label class="col-12 col-lg-4 col-xl-4 pl-0 d-inline-block text-center text-lg-right text-xl-right opcion__ordenamiento__label">
+                                    Ordenar
+                                </label>
+                                <!-- AL AGREGAR EL EVENTO CLICK POR JS PARA MOSTRAR EL LISTADO DE OPCIONES AGREGAR ESTA CLASE opcion__ordenamiento__dropdown--desplegado -->
+                                <div id="dpw-ordenar" class="col-12 col-lg-6 col-xl-6 pl-0 pr-0 d-inline-block opcion__ordenamiento__dropdown text-left">
+                                    <span class="col-11 opcion__ordenamiento__dropdown__seleccionada mostrarEnDesktop ul-seleccionado">Recomendación</span>
+                                    <span class="col pl-0 pr-0 opcion__ordenamiento__dropdown__icono mostrarEnDesktop">
+                                        <img src="@Url.Content("~/Content/Images/ordenar-flecha-icono.svg")" alt="" />
+                                    </span>
+                                </div>
+                                <!-- FIN - AL AGREGAR EL EVENTO CLICK POR JS PARA MOSTRAR EL LISTADO DE OPCIONES AGREGAR ESTA CLASE opcion__ordenamiento__dropdown--desplegado -->
+                            </div>
+                        </div>
+                        <ul id="ul-ordenar" class="col-9 col-md-10 col-lg-6 col-xl-6 pl-0 pr-0 opcion__ordenamiento__dropdown__lista d-none">
+                            @for (int i = 0; i < Model.ListaOrdenamiento.Count; i++)
                             {
-                                <li class="col-12 pl-0 pr-0 opcion__ordenamiento__dropdown__item d-block"
-                                    data-value=" @Model.ListaOrdenamiento.ToList()[i].Value" title="@Model.ListaOrdenamiento.ToList()[i].Key">
-                                    <a class="col-12 d-block opcion__ordenamiento__dropdown__link opcion__ordenamiento__dropdown__link--seleccionada"
-                                       title="@Model.ListaOrdenamiento.ToList()[i].Key">
-                                        @Model.ListaOrdenamiento.ToList()[i].Key
-                                    </a>
-                                </li>
+                                if (i == 0)
+                                {
+                                    <li class="col-12 pl-0 pr-0 opcion__ordenamiento__dropdown__item d-block"
+                                        data-value=" @Model.ListaOrdenamiento.ToList()[i].Value " title="@Model.ListaOrdenamiento.ToList()[i].Key">
+                                        <a class="col-12 d-block opcion__ordenamiento__dropdown__link opcion__ordenamiento__dropdown__link--seleccionada"
+                                           title="@Model.ListaOrdenamiento.ToList()[i].Key">
+                                            @Model.ListaOrdenamiento.ToList()[i].Key
+                                        </a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class="col-12 pl-0 pr-0 opcion__ordenamiento__dropdown__item d-block"
+                                        data-value=" @Model.ListaOrdenamiento.ToList()[i].Value " title="@Model.ListaOrdenamiento.ToList()[i].Key">
+                                        <a class="col-12 d-block opcion__ordenamiento__dropdown__link"
+                                           title="@Model.ListaOrdenamiento.ToList()[i].Key">
+                                            @Model.ListaOrdenamiento.ToList()[i].Key
+                                        </a>
+                                    </li>
+                                }
                             }
-                            else
-                            {
-                                <li class="col-12 pl-0 pr-0 opcion__ordenamiento__dropdown__item d-block"
-                                    data-value=" @Model.ListaOrdenamiento.ToList()[i].Value" title="@Model.ListaOrdenamiento.ToList()[i].Key">
-                                    <a class="col-12 d-block opcion__ordenamiento__dropdown__link"
-                                       title="@Model.ListaOrdenamiento.ToList()[i].Key">
-                                        @Model.ListaOrdenamiento.ToList()[i].Key
-                                    </a>
-                                </li>
-                            }
-                        }
-
-                    </ul>
+                        </ul>
+                    }
                 </div>
             </section>
         }
         <section class="col-12 fichas__productos__wrapper text-center" id="FichasProductosBuscador"></section>
     </section>
+    <!-- FIN - SECCIÓN FICHA DE PRODUCTOS -->
 </main>
 @section scripts{
     <script type="text/javascript">
-    var textoBusqueda = '@Model.TextoBusqueda';
-    var totalProductosPagina = '@Model.TotalProductosPagina';
-    var totalCaracteresDescripcion = '@Model.TotalCaracteresDescripcion';
+        var textoBusqueda = '@Model.TextoBusqueda';
+        var totalProductosPagina = '@Model.TotalProductosPagina';
+        var totalCaracteresDescripcion = '@Model.TotalCaracteresDescripcion';
     </script>
     <script src="@Url.Content("~/Scripts/PortalConsultoras/Buscador/BusquedaProductoModule.js")"></script>
 }
+
+<script id="js-fichaFiltros" type="text/x-handlebars-template">
+    {{#each this as |item|}}
+    <li class="col-12 pl-0 pr-0 filtro__item" data-item="BuscadorFiltros">
+        <input type="hidden" class="BuscadorFiltroLabel" value="{{label}}" />
+        <input type="hidden" class="BuscadorFiltroID" value="{{id}}" />
+        <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields buscadorFiltrosSeleccionar">
+            <input id="{{id}}" type="checkbox" class="filtro__item__checkbox buscadorFiltrosChecked" {{#if marcado}} checked {{/if}} /> <!--checked-->
+            <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="{{id}}">
+                <span class="d-inline-block filtro__item__checkbox"></span>
+                <span class="d-inline-block">{{label}} ({{count}})</span>
+            </label>
+        </div>
+    </li>
+    {{/each}}
+</script>
 
 <script id="js-FichaProductoBuscador" type="text/x-handlebars-template">
 
@@ -83,10 +218,10 @@
         <input type="hidden" class="hdBuscadorJSON" value="{{JSON2string item}}" />
 
         <div class="row flex-row justify-content-center ml-0 mr-0">
-            <figure class="col-12 ficha__producto__imagen text-center redireccionarFicha">
+            <figure class="col-12 ficha__producto__imagen text-center">
                 <img data-src="{{Imagen}}" data-src-error="@Url.Content("~/Content/Images/oferta-sin-imagen.svg")" class="lazy" />
             </figure>
-            <div class="col-12 pl-0 pr-0 ficha__producto__descrip d-block mx-auto text-left redireccionarFicha">
+            <div class="col-12 pl-0 pr-0 ficha__producto__descrip d-block mx-auto text-left">
                 <div class="col-12 pl-0 pr-0 ficha__producto__descrip__marca__pais text-uppercase">
                     {{DescripcionEstrategia}}
                 </div>
@@ -157,3 +292,182 @@
     </article>
     {{/each}}
 </script>
+
+@*
+
+    <li class="col-12 pl-0 pr-0 filtro__tipo">
+        <div class="row flex-row justify-content-between align-items-center ml-0 mr-0 filtro__tipo__titulo filtro__tipo__titulo--mostrarContenido">
+            <div class="col-10 pl-0 pr-0">Precios</div>
+            <div class="d-inline-block filtro__tipo__titulo__icono__despliegue"></div>
+        </div>
+        <ul class="row flex-row ml-0 mr-0 filtro__tipo__items" id="filtrosPrecios">
+            <li class="col-12 pl-0 pr-0 filtro__item">
+                <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields">
+                    <input id="filtroPrimeraOpcionPrecio" type="checkbox" class="filtro__item__checkbox" />
+                    <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="filtroPrimeraOpcionPrecio">
+                        <span class="d-inline-block filtro__item__checkbox"></span>
+                        <span class="d-inline-block">Menos de S/ 50</span>
+                    </label>
+                </div>
+            </li>
+            <li class="col-12 pl-0 pr-0 filtro__item">
+                <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields">
+                    <input id="filtroSegundaOpcionPrecio" type="checkbox" class="filtro__item__checkbox" />
+                    <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="filtroSegundaOpcionPrecio">
+                        <span class="d-inline-block filtro__item__checkbox"></span>
+                        <span class="d-inline-block">De S/ 50 a S/ 100</span>
+                    </label>
+                </div>
+            </li>
+            <li class="col-12 pl-0 pr-0 filtro__item">
+                <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields">
+                    <input id="filtroTerceraOpcionPrecio" type="checkbox" class="filtro__item__checkbox" />
+                    <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="filtroTerceraOpcionPrecio">
+                        <span class="d-inline-block filtro__item__checkbox"></span>
+                        <span class="d-inline-block">De S/ 100 a S/ 200</span>
+                    </label>
+                </div>
+            </li>
+        </ul>
+    </li>
+    <li class="col-12 pl-0 pr-0 filtro__tipo">
+        <div class="row flex-row justify-content-between align-items-center ml-0 mr-0 filtro__tipo__titulo filtro__tipo__titulo--mostrarContenido">
+            <div class="col-10 pl-0 pr-0">Género</div>
+            <div class="d-inline-block filtro__tipo__titulo__icono__despliegue"></div>
+        </div>
+        <ul class="row flex-row ml-0 mr-0 filtro__tipo__items" id="filtrosGenero">
+            <li class="col-12 pl-0 pr-0 filtro__item">
+                <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields">
+                    <input id="filtroParaElla" type="checkbox" class="filtro__item__checkbox" />
+                    <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="filtroParaElla">
+                        <span class="d-inline-block filtro__item__checkbox"></span>
+                        <span class="d-inline-block">Para ella</span>
+                    </label>
+                </div>
+            </li>
+            <li class="col-12 pl-0 pr-0 filtro__item">
+                <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields">
+                    <input id="filtroParaEl" type="checkbox" class="filtro__item__checkbox" />
+                    <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="filtroParaEl">
+                        <span class="d-inline-block filtro__item__checkbox"></span>
+                        <span class="d-inline-block">Para él</span>
+                    </label>
+                </div>
+            </li>
+        </ul>
+    </li>
+    <li class="col-12 pl-0 pr-0 filtro__tipo">
+        <div class="row flex-row justify-content-between align-items-center ml-0 mr-0 filtro__tipo__titulo filtro__tipo__titulo--mostrarContenido">
+            <div class="col-10 pl-0 pr-0">Cantidad</div>
+            <div class="d-inline-block filtro__tipo__titulo__icono__despliegue"></div>
+        </div>
+        <ul class="row flex-row ml-0 mr-0 filtro__tipo__items" id="filtrosCantidad">
+            <li class="col-12 pl-0 pr-0 filtro__item">
+                <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields">
+                    <input id="filtroCantidadUnitarias" type="checkbox" class="filtro__item__checkbox" />
+                    <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="filtroCantidadUnitarias">
+                        <span class="d-inline-block filtro__item__checkbox"></span>
+                        <span class="d-inline-block">Unitarias</span>
+                    </label>
+                </div>
+            </li>
+            <li class="col-12 pl-0 pr-0 filtro__item">
+                <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields">
+                    <input id="filtroCantidadPacks" type="checkbox" class="filtro__item__checkbox" />
+                    <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="filtroCantidadPacks">
+                        <span class="d-inline-block filtro__item__checkbox"></span>
+                        <span class="d-inline-block">Packs</span>
+                    </label>
+                </div>
+            </li>
+        </ul>
+    </li>
+    <li class="col-12 pl-0 pr-0 filtro__tipo">
+        <div class="row flex-row justify-content-between align-items-center ml-0 mr-0 filtro__tipo__titulo filtro__tipo__titulo--mostrarContenido">
+            <div class="col-10 pl-0 pr-0">Secciones</div>
+            <div class="d-inline-block filtro__tipo__titulo__icono__despliegue"></div>
+        </div>
+        <ul class="row flex-row ml-0 mr-0 filtro__tipo__items" id="filtrosSecciones">
+            <li class="col-12 pl-0 pr-0 filtro__item">
+                <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields">
+                    <input id="filtroOfertasEspeciales" type="checkbox" class="filtro__item__checkbox" />
+                    <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="filtroOfertasEspeciales">
+                        <span class="d-inline-block filtro__item__checkbox"></span>
+                        <span class="d-inline-block">Ofertas Especiales</span>
+                    </label>
+                </div>
+            </li>
+            <li class="col-12 pl-0 pr-0 filtro__item">
+                <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields">
+                    <input id="filtroLosMasVendidos" type="checkbox" class="filtro__item__checkbox" />
+                    <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="filtroLosMasVendidos">
+                        <span class="d-inline-block filtro__item__checkbox"></span>
+                        <span class="d-inline-block">Los más vendidos</span>
+                    </label>
+                </div>
+            </li>
+            <li class="col-12 pl-0 pr-0 filtro__item">
+                <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields">
+                    <input id="filtroLoNuevo" type="checkbox" class="filtro__item__checkbox" />
+                    <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="filtroLoNuevo">
+                        <span class="d-inline-block filtro__item__checkbox"></span>
+                        <span class="d-inline-block">Lo Nuevo ¡Nuevo!</span>
+                    </label>
+                </div>
+            </li>
+            <li class="col-12 pl-0 pr-0 filtro__item">
+                <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields">
+                    <input id="filtroOfertasParaTi" type="checkbox" class="filtro__item__checkbox" />
+                    <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="filtroOfertasParaTi">
+                        <span class="d-inline-block filtro__item__checkbox"></span>
+                        <span class="d-inline-block">Ofertas para ti</span>
+                    </label>
+                </div>
+            </li>
+            <li class="col-12 pl-0 pr-0 filtro__item">
+                <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields">
+                    <input id="filtroSoloHoy" type="checkbox" class="filtro__item__checkbox" />
+                    <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="filtroSoloHoy">
+                        <span class="d-inline-block filtro__item__checkbox"></span>
+                        <span class="d-inline-block">¡Sólo Hoy!</span>
+                    </label>
+                </div>
+            </li>
+            <li class="col-12 pl-0 pr-0 filtro__item">
+                <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields">
+                    <input id="filtroGuiaNegocioDigital" type="checkbox" class="filtro__item__checkbox" />
+                    <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="filtroGuiaNegocioDigital">
+                        <span class="d-inline-block filtro__item__checkbox"></span>
+                        <span class="d-inline-block">Guía de Negocio Digital</span>
+                    </label>
+                </div>
+            </li>
+            <li class="col-12 pl-0 pr-0 filtro__item">
+                <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields">
+                    <input id="filtroCatalogo" type="checkbox" class="filtro__item__checkbox" />
+                    <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="filtroCatalogo">
+                        <span class="d-inline-block filtro__item__checkbox"></span>
+                        <span class="d-inline-block">Catálogo</span>
+                    </label>
+                </div>
+            </li>
+            <li class="col-12 pl-0 pr-0 filtro__item">
+                <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields">
+                    <input id="filtroDemostradoresHerramientasVenta" type="checkbox" class="filtro__item__checkbox" />
+                    <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="filtroDemostradoresHerramientasVenta">
+                        <span class="d-inline-block filtro__item__checkbox"></span>
+                        <span class="d-inline-block">Demostradores y<br />Herramientas de venta</span>
+                    </label>
+                </div>
+            </li>
+            <li class="col-12 pl-0 pr-0 filtro__item">
+                <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields">
+                    <input id="filtroLiquidaciones" type="checkbox" class="filtro__item__checkbox" />
+                    <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="filtroLiquidaciones">
+                        <span class="d-inline-block filtro__item__checkbox"></span>
+                        <span class="d-inline-block">Expofertas /<br />Liquidaciones</span>
+                    </label>
+                </div>
+            </li>
+        </ul>
+    </li>*@

@@ -194,6 +194,7 @@
     <Compile Include="DAProductoSugerido.cs" />
     <Compile Include="DAProveedorDespachoCobranza.cs" />
     <Compile Include="DAReporteIntegradoWebDD.cs" />
+    <Compile Include="DAReporteRevisionIncidencias.cs" />
     <Compile Include="DAReporteValidacion.cs" />
     <Compile Include="DAResumenCampania.cs" />
     <Compile Include="DARol.cs" />

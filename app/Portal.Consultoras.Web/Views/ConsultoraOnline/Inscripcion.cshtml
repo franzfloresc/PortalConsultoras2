@@ -1,5 +1,5 @@
 ﻿@model Portal.Consultoras.Web.Models.ClienteContactaConsultoraModel
-@using Portal.Consultoras.Web.CustomHelpers;
+@using Portal.Consultoras.Web.CustomHelpers
 @{
     ViewBag.Title = "Inscripcion";
 }
@@ -102,11 +102,11 @@
             if (EmailConsultoraTomado !=="True") alert_msg('@ViewBag.EmailConsultoraTomado');
             $("#footer").css("position", "fixed");
 
-           
+
         });
 
 
- 
+
 
         function AceptarAfiliacion() {
             var remember = document.getElementById('termcond');

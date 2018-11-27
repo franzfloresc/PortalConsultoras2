@@ -119,6 +119,9 @@ namespace Portal.Consultoras.Web.ServiceODS {
         private string NombreField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool PermiteAgregarPedidoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal PrecioCatalogoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -579,6 +582,19 @@ namespace Portal.Consultoras.Web.ServiceODS {
                 if ((object.ReferenceEquals(this.NombreField, value) != true)) {
                     this.NombreField = value;
                     this.RaisePropertyChanged("Nombre");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool PermiteAgregarPedido {
+            get {
+                return this.PermiteAgregarPedidoField;
+            }
+            set {
+                if ((this.PermiteAgregarPedidoField.Equals(value) != true)) {
+                    this.PermiteAgregarPedidoField = value;
+                    this.RaisePropertyChanged("PermiteAgregarPedido");
                 }
             }
         }
@@ -3795,6 +3811,12 @@ namespace Portal.Consultoras.Web.ServiceODS {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/CuvTieneLimiteVenta", ReplyAction="http://tempuri.org/IODSService/CuvTieneLimiteVentaResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceODS.BERespValidarLimiteVenta> CuvTieneLimiteVentaAsync(int paisID, int campaniaID, string region, string zona, string cuv, int cantidadIngresada, int cantidadActual);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/CuvArmaTuPackEstaEnLimite", ReplyAction="http://tempuri.org/IODSService/CuvArmaTuPackEstaEnLimiteResponse")]
+        bool CuvArmaTuPackEstaEnLimite(int paisID, int campaniaID, string zona, string cuv, int cantidadIngresada, int cantidadActual);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/CuvArmaTuPackEstaEnLimite", ReplyAction="http://tempuri.org/IODSService/CuvArmaTuPackEstaEnLimiteResponse")]
+        System.Threading.Tasks.Task<bool> CuvArmaTuPackEstaEnLimiteAsync(int paisID, int campaniaID, string zona, string cuv, int cantidadIngresada, int cantidadActual);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -4190,6 +4212,14 @@ namespace Portal.Consultoras.Web.ServiceODS {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceODS.BERespValidarLimiteVenta> CuvTieneLimiteVentaAsync(int paisID, int campaniaID, string region, string zona, string cuv, int cantidadIngresada, int cantidadActual) {
             return base.Channel.CuvTieneLimiteVentaAsync(paisID, campaniaID, region, zona, cuv, cantidadIngresada, cantidadActual);
+        }
+        
+        public bool CuvArmaTuPackEstaEnLimite(int paisID, int campaniaID, string zona, string cuv, int cantidadIngresada, int cantidadActual) {
+            return base.Channel.CuvArmaTuPackEstaEnLimite(paisID, campaniaID, zona, cuv, cantidadIngresada, cantidadActual);
+        }
+        
+        public System.Threading.Tasks.Task<bool> CuvArmaTuPackEstaEnLimiteAsync(int paisID, int campaniaID, string zona, string cuv, int cantidadIngresada, int cantidadActual) {
+            return base.Channel.CuvArmaTuPackEstaEnLimiteAsync(paisID, campaniaID, zona, cuv, cantidadIngresada, cantidadActual);
         }
     }
 }
