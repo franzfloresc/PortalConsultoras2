@@ -29693,8 +29693,11 @@ h1#penmostreo .campana {
 }
 
 .codigo_reclamo{
-    display:none;
     width:74px;
+}
+
+.codigo_reclamo_paso1_cdr{
+    display:none;
 }
 
 .contenedor_descripcion_reclamo{
@@ -29986,7 +29989,7 @@ h1#penmostreo .campana {
     font-size: 14px;
     padding-left: 50px;
     background: url('https://cdn1-prd.somosbelcorp.com/ImagenesPortal/Iconos/selector_reclamo.png') no-repeat;
-    background-position: 20px 14px;
+    background-position: 20px 17px;
     border-bottom: 1px solid #d1d1d1;
     cursor: pointer;
     float: left;
