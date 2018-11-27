@@ -434,7 +434,6 @@ namespace Portal.Consultoras.Common
             public const string JwtApiSomosBelcorp = "JwtApiSomosBelcorp";
             public const string RecomendacionesConfig = "RecomendacionesConfiguracion";
             public const string BuscadorYFiltrosConfig = "BuscadorYFiltros";
-            public const string PersonalizacionDummy = "PersonalizacionDummy";
         }
 
         public static class ConfiguracionManager

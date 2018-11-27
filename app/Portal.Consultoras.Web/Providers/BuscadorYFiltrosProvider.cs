@@ -37,7 +37,7 @@ namespace Portal.Consultoras.Web.Providers
                 codigoConsultora = usuarioModel.CodigoConsultora,
                 codigoZona = usuarioModel.CodigoZona,
                 textoBusqueda = buscadorModel.TextoBusqueda,
-                personalizaciones = _sessionManager.GetPersonalizacionDummy(),
+                personalizaciones = _sessionManager.GetBuscadorYFiltrosConfig()?.PersonalizacionDummy,
                 configuracion = new
                 {
                     sociaEmpresaria = usuarioModel.Lider.ToString(),

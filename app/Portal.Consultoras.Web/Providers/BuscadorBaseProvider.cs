@@ -110,11 +110,16 @@ namespace Portal.Consultoras.Web.Providers
             string result = "";
             if (validarIndicadorConsultoraDummy)
             {
-                if (usuario.IndicadorConsultoraDummy != 0 && _sessionManager.GetPersonalizacionDummy() == null)
+                var configBuscador = _sessionManager.GetBuscadorYFiltrosConfig();
+
+                if (configBuscador != null && configBuscador.IndicadorConsultoraDummy != 0 && configBuscador.PersonalizacionDummy == null)
                 {
                     result = await GetPersonalizacion(usuario);
-                    if(persistInSession)
-                        _sessionManager.SetPersonalizacionDummy(result ?? "");
+                    if (persistInSession)
+                    {
+                        configBuscador.PersonalizacionDummy = result ?? "";
+                        _sessionManager.SetBuscadorYFiltrosConfig(configBuscador);
+                    }
                 }
             }
             else
@@ -123,5 +128,6 @@ namespace Portal.Consultoras.Web.Providers
             }
             return result;
         }
+        
     }
 }

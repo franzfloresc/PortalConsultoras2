@@ -1281,12 +1281,12 @@ namespace Portal.Consultoras.Web.SessionManager
             return (List<List<BEEstadoServicio>>)val;
         }
 
-        public void SetBuscadorYFiltros(BuscadorYFiltrosConfiguracionModel buscadorYFiltrosModel)
+        public void SetBuscadorYFiltrosConfig(BuscadorYFiltrosConfiguracionModel buscadorYFiltrosModel)
         {
             HttpContext.Current.Session[Constantes.ConstSession.BuscadorYFiltrosConfig] = buscadorYFiltrosModel;
         }
 
-        public BuscadorYFiltrosConfiguracionModel GetBuscadorYFiltros()
+        public BuscadorYFiltrosConfiguracionModel GetBuscadorYFiltrosConfig()
         {
             return (BuscadorYFiltrosConfiguracionModel)HttpContext.Current.Session[Constantes.ConstSession.BuscadorYFiltrosConfig] ?? new BuscadorYFiltrosConfiguracionModel();
         }
@@ -1317,17 +1317,5 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return (string)HttpContext.Current.Session[Constantes.ConstSession.JwtApiSomosBelcorp] ;
         }
-
-        public void SetPersonalizacionDummy(string personalizacion)
-        {
-            HttpContext.Current.Session[Constantes.ConstSession.PersonalizacionDummy] = personalizacion;
-        }
-
-        public string GetPersonalizacionDummy()
-        {
-            var result = HttpContext.Current.Session[Constantes.ConstSession.PersonalizacionDummy] as string;
-            return result;
-        }
-
     }
 }

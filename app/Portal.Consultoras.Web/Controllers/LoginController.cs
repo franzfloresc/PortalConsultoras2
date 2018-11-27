@@ -1954,7 +1954,7 @@ namespace Portal.Consultoras.Web.Controllers
                     sessionManager.SetConfiguracionesPaisModel(listaConfiPaisModel);
                     sessionManager.SetOfertaFinalModel(ofertaFinalModel);
                     sessionManager.SetHerramientasVenta(herramientasVentaModel);
-                    sessionManager.SetBuscadorYFiltros(buscadorYFiltrosModel);
+                    sessionManager.SetBuscadorYFiltrosConfig(buscadorYFiltrosModel);
                     sessionManager.SetRecomendacionesConfig(recomendacionesConfiguacionModel);
                     sessionManager.MasGanadoras.SetModel(masGanadorasModel);
                 }
