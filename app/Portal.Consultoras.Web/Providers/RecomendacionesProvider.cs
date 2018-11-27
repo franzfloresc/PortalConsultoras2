@@ -44,13 +44,18 @@ namespace Portal.Consultoras.Web.Providers
         private dynamic GenerarJsonParaConsulta(UsuarioModel usuarioModel, RevistaDigitalModel revistaDigital, string cuv, string codigoProducto)
         {
             var suscripcion = (revistaDigital.EsSuscrita && revistaDigital.EsActiva);
+            var personalizaciones = "";
+            var buscadorConfig = _sessionManager.GetBuscadorYFiltrosConfig();
+            if (buscadorConfig != null)
+                personalizaciones = buscadorConfig.PersonalizacionDummy ?? "";
+            
             return new
             {
                 codigoConsultora = usuarioModel.CodigoConsultora,
                 codigoZona = usuarioModel.CodigoZona,
                 cuv,
                 codigoProducto,
-                personalizaciones = _sessionManager.GetBuscadorYFiltrosConfig()?.PersonalizacionDummy ?? "",
+                personalizaciones = personalizaciones,
                 configuracion = new
                 {
                     sociaEmpresaria = usuarioModel.Lider.ToString(),

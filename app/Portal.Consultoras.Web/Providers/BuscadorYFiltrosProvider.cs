@@ -32,12 +32,17 @@ namespace Portal.Consultoras.Web.Providers
         private dynamic GetJsonPostBuscador(UsuarioModel usuarioModel, BuscadorModel buscadorModel, RevistaDigitalModel revistaDigital)
         {
             var suscripcion = (revistaDigital.EsSuscrita && revistaDigital.EsActiva);
+            var presonalizaciones = "";
+            var configBuscador = _sessionManager.GetBuscadorYFiltrosConfig();
+            if (configBuscador != null)
+                presonalizaciones = configBuscador.PersonalizacionDummy;
+
             return new
             {
                 codigoConsultora = usuarioModel.CodigoConsultora,
                 codigoZona = usuarioModel.CodigoZona,
                 textoBusqueda = buscadorModel.TextoBusqueda,
-                personalizaciones = _sessionManager.GetBuscadorYFiltrosConfig()?.PersonalizacionDummy,
+                personalizaciones = presonalizaciones,
                 configuracion = new
                 {
                     sociaEmpresaria = usuarioModel.Lider.ToString(),
