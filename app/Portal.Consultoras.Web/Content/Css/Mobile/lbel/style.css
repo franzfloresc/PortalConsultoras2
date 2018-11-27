@@ -3780,7 +3780,7 @@ table > thead > tr > th {
 
 #divProductoMantenedor {
     width: 100%;
-    margin: 0 auto;
+    margin: 0 auto 60px auto;
 }
 
 .content_foto {
@@ -14004,6 +14004,10 @@ span.icon-advertencia {
 
 /* PROGRAMA NUEVAS - ELIGE TU REGALO */
 
+.quitarPaddingSuperior{
+    padding-top:0;
+}
+
 .tipo_montos_y_regalo_tippingPoint{
     justify-content:flex-end;
     position:relative;
@@ -14149,7 +14153,7 @@ span.icon-advertencia {
 }
 
 .contenedor_barra_mobile{
-    margin-bottom:38px;
+    margin-bottom:13px;
 }
 
 .agrega_barra,
