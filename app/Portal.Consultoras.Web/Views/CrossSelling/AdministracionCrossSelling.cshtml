@@ -410,6 +410,9 @@
             width: 800,
             draggable: true,
             title: "Registro/Edición Productos Complementarios",
+            close: function () {
+                HideDialog("DialogRegistroEdicionProductosRecomendado");
+            },
             buttons:
             {
                 "Guardar": function () {
@@ -425,7 +428,8 @@
                     }
                 },
                 "Cancelar": function () {
-                    $(this).dialog('close');
+                    HideDialog("DialogRegistroEdicionProductosRecomendado");
+                    //$(this).dialog('close');
                 }
             }
         });

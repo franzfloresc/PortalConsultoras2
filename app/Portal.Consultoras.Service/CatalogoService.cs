@@ -26,7 +26,7 @@ namespace Portal.Consultoras.Service
             bool parametroEsDocumento = paisesCodigoDocumento.Contains(PaisISO.ToUpper());
 
             int tipoFiltroUbigeo;
-            var listTablaLogicaDatos = new BLTablaLogicaDatos().GetTablaLogicaDatos(paisId, 66);
+            var listTablaLogicaDatos = new BLTablaLogicaDatos().GetList(paisId, 66);
             BETablaLogicaDatos filtroUbigeo = listTablaLogicaDatos.Find(x => x.TablaLogicaDatosID == 6601);
             int.TryParse(filtroUbigeo.Codigo, out tipoFiltroUbigeo);
 
@@ -55,13 +55,13 @@ namespace Portal.Consultoras.Service
             if (marcaId == 0) throw new Exception("El Servicio no recibió el parámetro marcaID correcto");
 
             int idPais = GetPaisID(codigoPais);
-            List<BETablaLogicaDatos> vListaTablaLogicaDatos = new BLTablaLogicaDatos().GetTablaLogicaDatos(idPais, 58);
+            List<BETablaLogicaDatos> vListaTablaLogicaDatos = new BLTablaLogicaDatos().GetList(idPais, 58);
             BETablaLogicaDatos longitudUbigeo = vListaTablaLogicaDatos.Find(x => x.TablaLogicaDatosID == 5801);
             if (longitudUbigeo != null)
             {
                 int limiteInferior;
                 int.TryParse(longitudUbigeo.Codigo, out limiteInferior);
-                vListaTablaLogicaDatos = new BLTablaLogicaDatos().GetTablaLogicaDatos(idPais, 67);
+                vListaTablaLogicaDatos = new BLTablaLogicaDatos().GetList(idPais, 67);
                 BETablaLogicaDatos configFactorUbigeo = vListaTablaLogicaDatos.Find(x => x.TablaLogicaDatosID == 6701);
                 int factorUbigeo;
                 int.TryParse(configFactorUbigeo.Codigo, out factorUbigeo);
@@ -70,7 +70,7 @@ namespace Portal.Consultoras.Service
                 if (codigoUbigeo.Length < limiteInferior) throw new Exception(mensajeValidacion);
             }
             int tipoFiltroUbigeo;
-            vListaTablaLogicaDatos = new BLTablaLogicaDatos().GetTablaLogicaDatos(idPais, 66);
+            vListaTablaLogicaDatos = new BLTablaLogicaDatos().GetList(idPais, 66);
             BETablaLogicaDatos filtroUbigeo = vListaTablaLogicaDatos.Find(x => x.TablaLogicaDatosID == 6601);
             int.TryParse(filtroUbigeo.Codigo, out tipoFiltroUbigeo);
 
@@ -92,7 +92,7 @@ namespace Portal.Consultoras.Service
             int idPais = GetPaisID(codigoPais);
 
             int tipoFiltroUbigeo;
-            List<BETablaLogicaDatos> vListaTablaLogicaDatos = new BLTablaLogicaDatos().GetTablaLogicaDatos(idPais, 66);
+            List<BETablaLogicaDatos> vListaTablaLogicaDatos = new BLTablaLogicaDatos().GetList(idPais, 66);
             BETablaLogicaDatos filtroUbigeo = vListaTablaLogicaDatos.Find(x => x.TablaLogicaDatosID == 6601);
             int.TryParse(filtroUbigeo.Codigo, out tipoFiltroUbigeo);
 
@@ -104,13 +104,13 @@ namespace Portal.Consultoras.Service
             }
             else
             {
-                vListaTablaLogicaDatos = new BLTablaLogicaDatos().GetTablaLogicaDatos(idPais, 58);
+                vListaTablaLogicaDatos = new BLTablaLogicaDatos().GetList(idPais, 58);
                 BETablaLogicaDatos longitudUbigeo = vListaTablaLogicaDatos.Find(x => x.TablaLogicaDatosID == 5801);
                 if (longitudUbigeo != null)
                 {
                     int limiteInferior;
                     int.TryParse(longitudUbigeo.Codigo, out limiteInferior);
-                    vListaTablaLogicaDatos = new BLTablaLogicaDatos().GetTablaLogicaDatos(idPais, 67);
+                    vListaTablaLogicaDatos = new BLTablaLogicaDatos().GetList(idPais, 67);
                     BETablaLogicaDatos configFactorUbigeo = vListaTablaLogicaDatos.Find(x => x.TablaLogicaDatosID == 6701);
                     int factorUbigeo;
                     int.TryParse(configFactorUbigeo.Codigo, out factorUbigeo);

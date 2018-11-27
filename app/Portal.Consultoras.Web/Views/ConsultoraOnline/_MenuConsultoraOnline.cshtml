@@ -1,12 +1,13 @@
-﻿@using Portal.Consultoras.Web.CustomHelpers;
+﻿@using Portal.Consultoras.Web.CustomHelpers
 @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/Fuzemodal")
 
 <nav class="menu_consultora">
     <ul>
-        <li class="@Html.IsSelected(actions: "Index", controllers: "ConsultoraOnline")">@Html.ActionLink("CONSULTORA ONLINE", "Index", "ConsultoraOnline")</li>       
+        <li class="@Html.IsSelected(actions: "Index", controllers: "ConsultoraOnline")">@Html.ActionLink("CONSULTORA ONLINE", "Index", "ConsultoraOnline")</li>
     </ul>
     <div class="field100_co">
-        <button id="btnDesactivar" type="button" class="boton_linea_morado float_rigth">DESACTIVAR</button></div>
+        <button id="btnDesactivar" type="button" class="boton_linea_morado float_rigth">DESACTIVAR</button>
+    </div>
 </nav>
 
 <div id="modal_desactivar_consultora" class="fuzemodal tsm ie8" style="display:none">
@@ -18,39 +19,39 @@
     </div>
 
     <div class="fuzemodal_content">
-        
-        <br/>
+
+        <br />
         Si desactivas Consultora Online, los clientes no podrán encontrarte
-		en la lista de consultoras. Puedes volver en cualquier momento.
+        en la lista de consultoras. Puedes volver en cualquier momento.
         <br /><br />
-        <p class="margin_bottom_10">Cuéntanos por qué te vas</p>        
+        <p class="margin_bottom_10">Cuéntanos por qué te vas</p>
         <div>
             <form id="frmDesafiliacion">
-            <input type="radio" value="1" id="cb6" name="checkbox">
-            <label for="cb6">Lo clientes no desean esperar tanto tiempo para el pedido.</label>
-            
-            <input type="radio" value="2" id="cb7" name="checkbox">
-            <label for="cb7">No me llegan pedidos.</label>
-            
-            <input type="radio" value="3" id="cb8" name="checkbox">
-            <label for="cb8">No me genera ingresos.</label>
-            
-            <input type="radio" value="4" id="cb9" name="checkbox">
-            <label for="cb9">Por diferencia en precios de web y campaña.</label>
-            
-            <input type="radio" value="5" id="cb10" name="checkbox">
-            <label for="cb10">Volveré. Sólo me estoy tomando un descanso.</label>
-            
-            <input type="radio" value="6" id="cb11" name="checkbox">
-            <label for="cb11">Otros</label>
+                <input type="radio" value="1" id="cb6" name="checkbox">
+                <label for="cb6">Lo clientes no desean esperar tanto tiempo para el pedido.</label>
+
+                <input type="radio" value="2" id="cb7" name="checkbox">
+                <label for="cb7">No me llegan pedidos.</label>
+
+                <input type="radio" value="3" id="cb8" name="checkbox">
+                <label for="cb8">No me genera ingresos.</label>
+
+                <input type="radio" value="4" id="cb9" name="checkbox">
+                <label for="cb9">Por diferencia en precios de web y campaña.</label>
+
+                <input type="radio" value="5" id="cb10" name="checkbox">
+                <label for="cb10">Volveré. Sólo me estoy tomando un descanso.</label>
+
+                <input type="radio" value="6" id="cb11" name="checkbox">
+                <label for="cb11">Otros</label>
             </form>
         </div>
-                
-        <div class="fuzemodal_buttons clear_co">                
+
+        <div class="fuzemodal_buttons clear_co">
             <button id="btnCancelarDesactivar" class="boton_morado_2 display_inline_block" type="button" onclick="desa();">DESACTIVAR</button>
             <button id="btnDesactivarModal" class="boton_linea_morado_2 display_inline_block " type="button" onclick="$('#modal_desactivar_consultora').fuzemodal('close');">CANCELAR</button>
         </div>
-        
-        
+
+
     </div>
 </div>

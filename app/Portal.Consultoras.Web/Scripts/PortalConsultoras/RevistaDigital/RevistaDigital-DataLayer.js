@@ -66,7 +66,7 @@ var rdAnalyticsModule = (function () {
     _text = {
         noDisponible: "NO DISPONIBLE",
         estandar: "Estándar",
-        epm: "Ésika para mí",
+        epm: "Ganá más",
         exception: "Exception on analytics RD",
         comprarCampania: "Comprar campaña ",
         verCampania: "Ver campaña ",
@@ -104,8 +104,9 @@ var rdAnalyticsModule = (function () {
         verMas: "Ver más ofertas",
         verTodas: "Ver todas mis ofertas",
         clickBoton: "Click Botón",
+        clickEnBoton: "Click en botón",
         clickCancelar: "Click Link Cancelar Suscripción",
-        cancelarInscripcion: "Cancelar inscripción",
+        cancelarInscripcion: "Cancelar tu subscripción aquí",
         suscripcionExitosa: "Suscripción Exitosa",
         whatsapp: "Enviar por Whatsapp",
         inicioVideo: "Iniciar video",
@@ -145,7 +146,8 @@ var rdAnalyticsModule = (function () {
             return _text.anterior;
         }
     }
-    var _virtualEventPush = function(category, action, label) {
+    var _virtualEventPush = function (category, action, label) {
+        
         dataLayer.push({
             "event": _event.virtual,
             "category": category,
@@ -498,7 +500,7 @@ var rdAnalyticsModule = (function () {
     }
 
     function CancelarSuscripcion() {
-        _virtualEventPush(_text.epm, _action.cancelarInscripcion, _text.notAvailable);
+        _virtualEventPush(_text.epm, _action.clickEnBoton, _action.cancelarInscripcion);
     }
 
     function ContendorSection(titulo) {
