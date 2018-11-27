@@ -192,21 +192,20 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #region Lógica de Popups
 
-                ValidaPopUpPaisModel popUpPaisModel = new ValidaPopUpPaisModel() {
+                ValidaPopUpPaisModel popUpPaisModel = new ValidaPopUpPaisModel()
+                {
                     ShowPopupMisDatos = model.ShowPopupMisDatos,
-                    ValidaDatosActualizados  = model.ValidaDatosActualizados,
-                    ValidaSegmento  = model.ValidaSegmento,
+                    ValidaDatosActualizados = model.ValidaDatosActualizados,
+                    ValidaSegmento = model.ValidaSegmento,
                     ValidaTiempoVentana = model.ValidaTiempoVentana
                 };
 
                 //model.TipoPopUpMostrar = ObtenerTipoPopUpMostrar(model);
                 model.TipoPopUpMostrar = _bienvenidaProvider.ObtenerTipoPopUpMostrar(EsDispositivoMovil(), popUpPaisModel);
-                if (model.TipoPopUpMostrar == Constantes.TipoPopUp.VideoIntroductorio)
+                if (model.TipoPopUpMostrar == Constantes.TipoPopUp.VideoIntroductorio 
+                    && (userData.VioTutorialDesktop == 0) && (userData.VioTutorialSalvavidas == 0))
                 {
-                    if ((userData.VioTutorialDesktop == 0) && (userData.VioTutorialSalvavidas == 0))
-                    {
-                        ViewBag.MostrarUbicacionTutorial = 0;
-                    }
+                    ViewBag.MostrarUbicacionTutorial = 0;
                 }
 
                 model.TieneFacturacionElectronica = GetDatosFacturacionElectronica(userData.PaisID, Constantes.FacturacionElectronica.TablaLogicaID, Constantes.FacturacionElectronica.FlagActivacion) == "1";
@@ -738,32 +737,32 @@ namespace Portal.Consultoras.Web.Controllers
         //    }
         //}
 
-        private void UpdateUsuarioTutorial(int tipo)
-        {
-            int retorno;
-            using (var sv = new UsuarioServiceClient())
-            {
-                retorno = sv.UpdateUsuarioTutoriales(userData.PaisID, userData.CodigoUsuario, tipo);
-            }
+        //private void UpdateUsuarioTutorial(int tipo)
+        //{
+        //    int retorno;
+        //    using (var sv = new UsuarioServiceClient())
+        //    {
+        //        retorno = sv.UpdateUsuarioTutoriales(userData.PaisID, userData.CodigoUsuario, tipo);
+        //    }
 
-            switch (tipo)
-            {
-                case Constantes.TipoTutorial.Video:
-                    userData.VioVideoModelo = retorno;
-                    break;
-                case Constantes.TipoTutorial.Desktop:
-                    userData.VioTutorialDesktop = retorno;
-                    break;
-                case Constantes.TipoTutorial.Salvavidas:
-                    userData.VioTutorialSalvavidas = retorno;
-                    break;
-                case Constantes.TipoTutorial.Mobile:
-                    userData.VioTutorialModelo = retorno;
-                    break;
-            }
+        //    switch (tipo)
+        //    {
+        //        case Constantes.TipoTutorial.Video:
+        //            userData.VioVideoModelo = retorno;
+        //            break;
+        //        case Constantes.TipoTutorial.Desktop:
+        //            userData.VioTutorialDesktop = retorno;
+        //            break;
+        //        case Constantes.TipoTutorial.Salvavidas:
+        //            userData.VioTutorialSalvavidas = retorno;
+        //            break;
+        //        case Constantes.TipoTutorial.Mobile:
+        //            userData.VioTutorialModelo = retorno;
+        //            break;
+        //    }
 
-            SessionManager.SetUserData(userData);
-        }
+        //    SessionManager.SetUserData(userData);
+        //}
 
         public JsonResult AceptarContrato(bool checkAceptar, string origenAceptacion, string AppVersion)
         {
@@ -2005,7 +2004,7 @@ namespace Portal.Consultoras.Web.Controllers
             var comunicadoVisualizado = 0;
             var comunicado = new BEComunicado();
 
-            var tempComunicados = _comunicadoProvider.ObtenerComunicadoPorConsultora(userData,EsDispositivoMovil());
+            var tempComunicados = _comunicadoProvider.ObtenerComunicadoPorConsultora(userData, EsDispositivoMovil());
 
             if (tempComunicados != null && tempComunicados.Count > 0)
             {
@@ -2385,8 +2384,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                BEMensajeToolTip obj = new BEMensajeToolTip();
-                string mensaje = string.Empty;
+                BEMensajeToolTip obj;
 
                 using (var sv = new UsuarioServiceClient())
                     obj = sv.GetActualizacionEmailySms(userData.PaisID, userData.CodigoUsuario);
@@ -2402,16 +2400,16 @@ namespace Portal.Consultoras.Web.Controllers
 
                 string nuevoDatoCelular = !string.IsNullOrEmpty(obj.MensajeCelular) ? obj.oDatosPerfil.Where(a => a.TipoEnvio == "SMS" && a.Estado == "P").Select(b => b.DatoNuevo).FirstOrDefault() : "";
                 string nuevoDatoEmail = !string.IsNullOrEmpty(obj.MensajeEmail) ? obj.oDatosPerfil.Where(a => a.TipoEnvio == "Email" && a.Estado == "P").Select(b => b.DatoNuevo).FirstOrDefault() : "";
-                nuevoDatoCelular = nuevoDatoCelular == null ? "" : nuevoDatoCelular;
-                nuevoDatoEmail = nuevoDatoEmail == null ? "" : nuevoDatoEmail;
+                nuevoDatoCelular = nuevoDatoCelular ?? "";
+                nuevoDatoEmail = nuevoDatoEmail ?? "";
 
-                if (nuevoDatoCelular == "") if (!obj.oDatosPerfil.Any(a => a.TipoEnvio == "SMS" && a.Estado == "A")) pendiente = "c";
-                if (nuevoDatoEmail == "") if (!obj.oDatosPerfil.Any(a => a.TipoEnvio == "Email" && a.Estado == "A")) pendiente = "e";
+                if (nuevoDatoCelular == "" && !obj.oDatosPerfil.Any(a => a.TipoEnvio == "SMS" && a.Estado == "A")) pendiente = "c";
+                if (nuevoDatoEmail == "" && !obj.oDatosPerfil.Any(a => a.TipoEnvio == "Email" && a.Estado == "A")) pendiente = "e";
 
-                bool menSms = pendiente == "c" ? true : false;
-                if (!menSms) menSms = nuevoDatoCelular != "" ? true : false;
-                bool menEmail = pendiente == "e" ? true : false;
-                if (!menEmail) menEmail = nuevoDatoEmail != "" ? true : false;
+                bool menSms = pendiente == "c";
+                if (!menSms) menSms = nuevoDatoCelular != "";
+                bool menEmail = pendiente == "e";
+                if (!menEmail) menEmail = nuevoDatoEmail != "";
 
                 switch (tieneMensajes)
                 {

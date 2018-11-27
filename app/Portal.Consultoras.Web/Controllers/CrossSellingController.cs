@@ -217,8 +217,7 @@ namespace Portal.Consultoras.Web.Controllers
                 
                 if (lst != null && lst.Count > 0)
                 {
-                    var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                    lst.Update(x => x.ImagenProducto = ConfigCdn.GetUrlFileCdn(carpetaPais, x.ImagenProducto));
+                    lst.Update(x => x.ImagenProducto = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, x.ImagenProducto));
                 }                                            
 
                 string iso = Util.GetPaisISO(PaisID);

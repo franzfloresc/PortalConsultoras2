@@ -39,7 +39,7 @@
                     @if (Model.VerMas)
                     {
                         <div class="ir">
-                            <a class="@vermasClass" href="javascript: menuModule.sectionClick('@Model.UrlLandig', '@Model.TituloBtnAnalytics')">VER MÁS OFERTAS</a>
+                            <a class="@vermasClass" onclick="javascript: menuModule.sectionClick('@Model.UrlLandig', '@Model.TituloBtnAnalytics',this);">VER MÁS OFERTAS</a>
                         </div>
                     }
                     <div class="parche_clear"></div>
