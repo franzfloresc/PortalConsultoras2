@@ -1887,7 +1887,16 @@ var AnalyticsPortalModule = (function () {
             var impressions = [];
             $.each(data, function (index) {
                 var item = data[index];
-                var impression = { "id": item.CUV2, "name": item.DescripcionCompleta, "price": item.PrecioVenta, "brand": item.DescripcionMarca, "category": _texto.notavaliable, "variant": _texto.estandar, "list": contenedor + _constantes.campania + item.CampaniaID, "position": item.Posicion };
+                var impression = {
+                    "id": item.CUV2,
+                    "name": item.DescripcionCompleta,
+                    "price": item.PrecioVenta,
+                    "brand": item.DescripcionMarca,
+                    "category": _texto.notavaliable,
+                    "variant": _texto.estandar,
+                    "list": contenedor + _constantes.campania + item.CampaniaID,
+                    "position": item.Posicion
+                };
                 impressions.push(impression);
             });
 
