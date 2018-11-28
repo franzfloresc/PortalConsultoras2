@@ -22,7 +22,7 @@ namespace Portal.Consultoras.Web.Providers
         {
             var revistaDigital = _sessionManager.GetRevistaDigital();
             var userData = _sessionManager.GetUserData();
-            var pathBuscador = string.Format(Constantes.RutaBuscadorService.UrlBuscador,
+            var pathBuscador = string.Format(Constantes.RutaBuscadorService.UrlRecomendaciones,
                 userData.CodigoISO,
                 userData.CampaniaID,
                 ObtenerOrigen()
@@ -34,12 +34,12 @@ namespace Portal.Consultoras.Web.Providers
 
         public bool ValidarRecomendacionActivo()
         {
-            return (from item 
+            var value = (from item 
                     in _recomendacionesConfiguracion.ConfiguracionPaisDatos
                     where item.Codigo == Constantes.CodigoConfiguracionRecomendaciones.ActivarRecomendaciones
                     select item.Valor1)
-                .FirstOrDefault()
-                .ToBool();
+                .FirstOrDefault();
+            return !value.IsNullOrEmptyTrim() && value == "1";
         }
 
         private dynamic GenerarJsonParaConsulta(UsuarioModel usuarioModel, RevistaDigitalModel revistaDigital, string cuv, string codigoProducto)

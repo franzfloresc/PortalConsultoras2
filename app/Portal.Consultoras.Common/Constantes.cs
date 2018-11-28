@@ -3103,6 +3103,8 @@ namespace Portal.Consultoras.Common
 
             //Personalizacion/{CodigoISO}/{CampaniaID}/{CodigoConsultora}/{Origen}
             public const string UrlPersonalizacion = "Personalizacion/{0}/{1}/{2}/{3}";
+
+            public const string UrlRecomendaciones = "Recomendaciones/{0}/{1}/{2}";
         }
 
         public static class ActualizacionDatosValidacion

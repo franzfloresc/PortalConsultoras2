@@ -1921,12 +1921,12 @@ namespace Portal.Consultoras.Web.Controllers
                                 herramientasVentaModel = ConfiguracionPaisHerramientasVenta(herramientasVentaModel, configuracionPaisDatos);
                                 break;
                             case Constantes.ConfiguracionPais.BuscadorYFiltros:
-                                usuarioModel.IndicadorConsultoraDummy = 0;
+                                buscadorYFiltrosModel.IndicadorConsultoraDummy = 0;
                                 buscadorYFiltrosModel = ConfiguracionPaisBuscadorYFiltro(buscadorYFiltrosModel, configuracionPaisDatos);
                                 var listaDummy = configuracionPaisDatos.Where(n => n.Codigo == Constantes.TipoConfiguracionBuscador.ConsultoraDummy).ToList();
                                 if (listaDummy.Any())
                                 {
-                                    usuarioModel.IndicadorConsultoraDummy = listaDummy[0].Valor1.ToInt();
+                                    buscadorYFiltrosModel.IndicadorConsultoraDummy = listaDummy[0].Valor1.ToInt();
                                 }
                                 break;
                             case Constantes.ConfiguracionPais.MasGanadoras:
