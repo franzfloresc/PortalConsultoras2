@@ -33,23 +33,5 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(productosModel, JsonRequestBehavior.AllowGet);
         }
 
-        private async Task<string> GetPersonalizaiones(UsuarioModel usuarioModel)
-        {
-            if (usuarioModel.IndicadorConsultoraDummy == 0) return "";
-            var resultado = "";
-
-            try
-            {
-                resultado = await _buscadorYFiltrosProvider.GetPersonalizacion(usuarioModel);
-            }
-            catch (Exception ex)
-            {
-                logManager.LogErrorWebServicesBusWrap(ex, usuarioModel.CodigoUsuario, usuarioModel.PaisID.ToString(), "LoginController.GetPersonalizaiones");
-                return "";
-            }
-
-
-            return resultado;
-        }
     }
 }

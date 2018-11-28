@@ -35,7 +35,7 @@ namespace Portal.Consultoras.Web.Providers
             var presonalizaciones = "";
             var configBuscador = _sessionManager.GetBuscadorYFiltrosConfig();
             if (configBuscador != null)
-                presonalizaciones = configBuscador.PersonalizacionDummy;
+                presonalizaciones = configBuscador.PersonalizacionDummy ?? "";
 
             return new
             {
