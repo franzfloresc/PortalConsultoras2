@@ -312,6 +312,13 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.OfertaFinalEstado = ofertaFinal.Estado;
                 ViewBag.OfertaFinalAlgoritmo = ofertaFinal.Algoritmo;
                 ViewBag.UrlFranjaNegra = _eventoFestivoProvider.GetUrlFranjaNegra();
+
+                ViewBag.ActivarRecomendaciones = SessionManager
+                                                .GetRecomendacionesConfig()
+                                                .ConfiguracionPaisDatos
+                                                .FirstOrDefault(a=>a.Codigo.Equals(Constantes.CodigoConfiguracionRecomendaciones.ActivarRecomendaciones))
+                                                .Valor1;
+
             }
             catch (FaultException ex)
             {
