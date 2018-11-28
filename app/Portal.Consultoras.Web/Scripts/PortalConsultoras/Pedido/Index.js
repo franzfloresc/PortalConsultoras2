@@ -158,6 +158,8 @@ $(document).ready(function () {
                 BuscarByCUV(ui.item.CUV);
             }
 
+            CargarProductosRecomendados(ui.item);
+
             event.preventDefault();
         }
     }).data("autocomplete")._renderItem = function (ul, item) {
@@ -201,6 +203,8 @@ $(document).ready(function () {
                 $("#hdTipoEstrategiaID").val(ui.item.TipoEstrategiaID);
                 cuvEsProgNuevas = ui.item.EsProgNuevas;
                 ObservacionesProducto(ui.item);
+
+                CargarProductosRecomendados(ui.item);
             }
             event.preventDefault();
             return false;
@@ -1392,20 +1396,11 @@ function BuscarByCUV(CUV) {
                     $("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>" + data[0].ObservacionCUV + "</div></div>");
                 }
 
-                if (activarRecomendaciones == 1) {
-                    if ((data[0].CodigoCatalago == 9 || data[0].CodigoCatalago == 10 || data[0].CodigoCatalago == 13) &&
-                        (data[0].EstrategiaIDSicc == 2001)) {
+                CargarProductosRecomendados(data[0]);
 
-                        var ocultar_recomendados = get_local_storage('ocultar_productos_recomendados');
-                        if (!ocultar_recomendados) {
-                            ProductoRecomendadoModule.ObtenerProductos(data[0].CUV, data[0].CodigoProducto);
-                        }
-                    }
-
-                } else {
-                    $("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'><span class='icono_advertencia_notificacion'></span>" + data[0].CUV + "</div></div>");
-                    if (data[0].TieneSugerido != 0) ObtenerProductosSugeridos(CUV);
-                }
+            } else {
+                $("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'><span class='icono_advertencia_notificacion'></span>" + data[0].CUV + "</div></div>");
+                if (data[0].TieneSugerido != 0) ObtenerProductosSugeridos(CUV);
             }
         },
         error: function (data, error) {
@@ -3769,6 +3764,22 @@ function BloquearPantallaPedidoByPopupSugerido(valor) {
     $('.pedido_ingreso_c2').css('pointer-events', valor);
     $('.content_T_T').css('pointer-events', valor);
     $('#divListaEstrategias').css('pointer-events', valor);
+}
+
+function CargarProductosRecomendados(item) {
+
+    if (activarRecomendaciones == 1) {
+        if ((item.CodigoCatalago == 9 || item.CodigoCatalago == 10 || item.CodigoCatalago == 13) &&
+            (item.EstrategiaIDSicc == 2001)) {
+
+            var ocultar_recomendados = get_local_storage('ocultar_productos_recomendados');
+
+            if (!ocultar_recomendados) {
+                ProductoRecomendadoModule.ObtenerProductos(item.CUV, item.CodigoProducto);
+            }
+        }
+    }
+
 }
 
 
