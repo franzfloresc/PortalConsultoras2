@@ -460,8 +460,8 @@ var AnalyticsPortalModule = (function () {
 
             var contenedorFicha = esCarrusel ? _texto.contenedorDetalleSets : _texto.contenedorDetalle;
             switch (pagina.Pagina) {
-                case "Home": !esFicha ? contenedor = "Contenedor - Home" : contenedor = contenedorFicha; break;
-                case "Contenedor": !esFicha ? contenedor = "Contenedor - Home" : contenedor = contenedorFicha; break;
+                case "Home": !esFicha ? contenedor = "Contenedor - Inicio" : contenedor = contenedorFicha; break;
+                case "Contenedor": !esFicha ? contenedor = "Contenedor - Inicio" : contenedor = contenedorFicha; break;
                 case "Landing Ofertas Para Ti": !esFicha ? contenedor = _texto.contenedor : contenedor = contenedorFicha; break;
                 case "Pedido": contenedor = "Carrito de compras"; break;
                 case "Otras": contenedor = !esFicha ? _texto.contenedor : contenedor = contenedorFicha; break;
@@ -1609,9 +1609,9 @@ var AnalyticsPortalModule = (function () {
             var producto = data;
             var list = "";
             //Si es carrusel de la ficha
-            if (esCarrusel && seccion.CodigoPalanca !== _constantes.origenpedidoWeb[codigoPalanca].CodigoPalanca)
+            if (esCarrusel && seccion.CodigoPalanca !== _constantes.origenpedidoWeb[parseInt(codigoPalanca)].CodigoPalanca)
                 list = contenedor + " - " + _constantes.campania + producto.CampaniaID;
-            else if (seccion.CodigoPalanca === _constantes.origenpedidoWeb[codigoPalanca].CodigoPalanca)
+            else if (seccion.CodigoPalanca === _constantes.origenpedidoWeb[parseInt(codigoPalanca)].CodigoPalanca)
                 list = contenedor + " - " + palanca;
             else
                 list = contenedor + " - " + palanca + " - " + _constantes.campania + producto.CampaniaID;
