@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
@@ -7,11 +8,11 @@ using Portal.Consultoras.Web.SessionManager;
 
 namespace Portal.Consultoras.Web.Providers
 {
-    public class RecomendacionesProvider : BuscadorBaseProvider
+    public class ProductoRecomendadoProvider : BuscadorBaseProvider
     {
         protected RecomendacionesConfiguracionModel _recomendacionesConfiguracion;
 
-        public RecomendacionesProvider()
+        public ProductoRecomendadoProvider()
         {
             _sessionManager = SessionManager.SessionManager.Instance;
             _recomendacionesConfiguracion = _sessionManager.GetRecomendacionesConfig();
@@ -51,6 +52,7 @@ namespace Portal.Consultoras.Web.Providers
                 cuv,
                 codigoProducto,
                 personalizaciones = _sessionManager.GetBuscadorYFiltrosConfig()?.PersonalizacionDummy ?? "",
+                cantidadProductos = ObtenerCantidadProductosMax(),
                 configuracion = new
                 {
                     sociaEmpresaria = usuarioModel.Lider.ToString(),
@@ -63,7 +65,17 @@ namespace Portal.Consultoras.Web.Providers
                 }
             };
         }
-        
 
+        private int ObtenerCantidadProductosMax()
+        {
+            var cantidadProductos = (from item
+                        in _recomendacionesConfiguracion.ConfiguracionPaisDatos
+                    where item.Codigo == Constantes.CodigoConfiguracionRecomendaciones.MaximoResultados
+                    select item.Valor1)
+                .FirstOrDefault();
+            
+            int x;
+            return int.TryParse(cantidadProductos, out x) ? x : 6;
+        }
     }
 }
