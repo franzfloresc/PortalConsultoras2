@@ -1338,21 +1338,19 @@ function BuscarByCUV(CUV) {
                 }
 
                 if (activarRecomendaciones == 1) {
-
                     if ((data[0].CodigoCatalago == 9 || data[0].CodigoCatalago == 10 || data[0].CodigoCatalago == 13) &&
                         (data[0].EstrategiaIDSicc == 2001)) {
+
                         var ocultar_recomendados = get_local_storage('ocultar_productos_recomendados');
                         if (!ocultar_recomendados) {
                             ProductoRecomendadoModule.ObtenerProductos(data[0].CUV, data[0].CodigoProducto);
                         }
                     }
 
+                } else {
+                    $("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'><span class='icono_advertencia_notificacion'></span>" + data[0].CUV + "</div></div>");
+                    if (data[0].TieneSugerido != 0) ObtenerProductosSugeridos(CUV);
                 }
-
-
-            } else {
-                $("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'><span class='icono_advertencia_notificacion'></span>" + data[0].CUV + "</div></div>");
-                if (data[0].TieneSugerido != 0) ObtenerProductosSugeridos(CUV);
             }
         },
         error: function (data, error) {
