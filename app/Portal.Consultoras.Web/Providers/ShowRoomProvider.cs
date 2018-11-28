@@ -358,10 +358,10 @@ namespace Portal.Consultoras.Web.Providers
                 if (model.CampaniaID != 0)
                 {
                     configEstrategiaSR.BeShowRoomConsultora = GetShowRoomConsultora(model);
-                    configEstrategiaSR.ListaNivel = GetShowRoomNivel(model);
-                    configEstrategiaSR.ShowRoomNivelId = ObtenerNivelId(configEstrategiaSR.ListaNivel);
                 }
 
+                configEstrategiaSR.ListaNivel = GetShowRoomNivel(model);
+                configEstrategiaSR.ShowRoomNivelId = ObtenerNivelId(configEstrategiaSR.ListaNivel);
 
                 if (configEstrategiaSR.BeShowRoom != null
                     && configEstrategiaSR.BeShowRoom.Estado == SHOWROOM_ESTADO_ACTIVO)
