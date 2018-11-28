@@ -91,11 +91,6 @@ namespace Portal.Consultoras.Web.Providers
                     menuActivo.OrigenPantalla = esMobile ? Constantes.OrigenPantallaWeb.MShowRoom : Constantes.OrigenPantallaWeb.DShowRoom;
 
                     break;
-
-                case Constantes.UrlMenuContenedor.OfertaDelDia:
-                case Constantes.UrlMenuContenedor.OfertaDelDiaIndex:
-                    menuActivo.Codigo = Constantes.ConfiguracionPais.OfertaDelDia;
-                    break;
                 case Constantes.UrlMenuContenedor.GuiaDeNegocio:
                 case Constantes.UrlMenuContenedor.GuiaDeNegocioIndex:
                     menuActivo.Codigo = Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada;

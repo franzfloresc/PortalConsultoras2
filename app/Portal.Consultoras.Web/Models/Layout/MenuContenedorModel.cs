@@ -38,7 +38,7 @@ namespace Portal.Consultoras.Web.Models.Layout
                     case Constantes.OrigenPantallaWeb.MContenedorHome:
                     case Constantes.OrigenPantallaWeb.DContenedorHomeRevisar:
                     case Constantes.OrigenPantallaWeb.MContenedorHomeRevisar:
-                        return "Home";
+                        return "Inicio";
                     case Constantes.OrigenPantallaWeb.DRevistaDigital:
                     case Constantes.OrigenPantallaWeb.MRevistaDigital:
                     case Constantes.OrigenPantallaWeb.DRevistaDigitalRevisar:
