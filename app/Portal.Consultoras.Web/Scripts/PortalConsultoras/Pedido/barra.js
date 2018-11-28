@@ -816,7 +816,6 @@ function seleccionRegaloProgramaNuevas(regaloProgramaNuevas) {
             }
 
             tpElectivos.premioSelected = premio;
-            //selectPremioDivByCuv(tpElectivos.premioSelected.CUV2);
             markPremioSelected(regaloProgramaNuevas.parents('.opcion_regalo_carousel_programaNuevas'));
         });
 }
@@ -854,8 +853,8 @@ function cambiarEleccionRegaloProgramaNuevas(nuevoRegaloElegido) {
     $('.mensaje_regalo_elegido').fadeOut(200);
     setTimeout(function () {
         $('.btn_elegir_regalo').fadeIn(150);
-        $('.mensaje_titulo_popup_eleccion_regalo').html('¡Puedes elegir tu regalo del Programa de Nuevas ahora!');
-        $('.mensaje_titulo_popup_eleccion_regalo').fadeIn(200);
+        //$('.mensaje_titulo_popup_eleccion_regalo').html('¡Puedes elegir tu regalo del Programa de Nuevas ahora!');
+        //$('.mensaje_titulo_popup_eleccion_regalo').fadeIn(200);
         nuevoRegaloElegido.parents('.opcion_regalo_carousel_programaNuevas').addClass('opcion_regalo_carousel_elegido');
         nuevoRegaloElegido.fadeOut(50);
         nuevoRegaloElegido.next().fadeIn(150);
@@ -911,10 +910,10 @@ function showPopupEscalaSiguiente(dataBarra, prevLogro) {
         var escala = dataBarra.ListaEscalaDescuento[i];
         if (total >= escala.MontoDesde && total < escala.MontoHasta) {
             if (escala.MontoDesde > prevLogro) {
-                var content = '#porcentaje% Dscto.';
+                var content = '#porcentaje% de dscto!';
                 content = content.replace('#porcentaje', escala.PorDescuento);
-                $('#popupDescuento .porcentaje').html(content);
-                AbrirPopup('#popupPremio');
+                $('#popupEscalaDescuento .porcentaje').html(content);
+                AbrirPopup('#popupEscalaDescuento');
                 mostrarLluvia();
 
                 return true;

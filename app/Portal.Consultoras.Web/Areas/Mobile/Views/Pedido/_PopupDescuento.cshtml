@@ -1,6 +1,6 @@
-﻿<div id="popupTreintaCincoPorCientoDescuento" class="popup_treinta_y_cinco_descuento w-100 text-center">
+﻿<div id="popupEscalaDescuento" class="lluvia_container popup_treinta_y_cinco_descuento w-100 text-center"  style="display:none;">
     <div class="popup_treinta_y_cinco_descuento_header w-100">
-        <a class="icono_cerrar_popup_treinta_y_cinco_descuento" title="Cerrar" href="javascript:;" onclick="javascript: CerrarPopup('#popupTreintaCincoPorCientoDescuento');">
+        <a class="icono_cerrar_popup_treinta_y_cinco_descuento" title="Cerrar" href="javascript:;" onclick="javascript: ocultarLluvia();CerrarPopup('#popupEscalaDescuento');">
             <img src="@Url.Content("~/Content/Images/btn_cerrar_popup_color_negro.svg")" alt="Cerrar" />
         </a>
     </div>
@@ -12,9 +12,7 @@
             <span>
                 ¡Felicidades! Llegaste al
             </span>
-            <span>
-                30% de dscto!
-            </span>
+            <span class="porcentaje"></span>
         </h2>
     </div>
 </div>
