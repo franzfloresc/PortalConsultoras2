@@ -593,7 +593,7 @@ function MostrarBarra(datax, destino) {
         $('#hrefIconoRegalo').show();
 
         if (vLogro < tp) {
-            valorMonto = DecimalToStringFormat(tp - vLogro);
+            valorMonto = variablesPortal.SimboloMoneda + " " + DecimalToStringFormat(tp - vLogro);
         }
     } else {
         $('#hrefIconoRegalo').hide();
@@ -773,9 +773,9 @@ function getElementPremiosByCuv(container, cuv) {
 
 function loadCarruselPremiosEvents() {
     $('.btn_elegir_regalo').click(function () {
-        if (tpElectivos.premioSelected) {
-            return;
-        }
+        //if (tpElectivos.premioSelected) {
+        //    return;
+        //}
         cambiarEleccionRegaloProgramaNuevas($(this));
         seleccionRegaloProgramaNuevas($(this));
     });
