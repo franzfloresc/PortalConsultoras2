@@ -1401,11 +1401,11 @@ function BuscarByCUV(CUV) {
                             ProductoRecomendadoModule.ObtenerProductos(data[0].CUV, data[0].CodigoProducto);
                         }
                     }
-                }
 
-            } else {
-                $("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'><span class='icono_advertencia_notificacion'></span>" + data[0].CUV + "</div></div>");
-                if (data[0].TieneSugerido != 0) ObtenerProductosSugeridos(CUV);
+                } else {
+                    $("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'><span class='icono_advertencia_notificacion'></span>" + data[0].CUV + "</div></div>");
+                    if (data[0].TieneSugerido != 0) ObtenerProductosSugeridos(CUV);
+                }
             }
         },
         error: function (data, error) {
@@ -3360,12 +3360,12 @@ function CargarProductoAgotados(identificador) {
         CargarFiltrosProductoAgotados();
 
     var data =
-    {
-        cuv: $("#producto-faltante-busqueda-cuv").val(),
-        descripcion: $("#producto-faltante-busqueda-descripcion").val(),
-        categoria: $("#ddlCategoriaProductoAgotado").val() == null ? "" : $("#ddlCategoriaProductoAgotado").val(),
-        revista: $("#ddlCatalogoRevistaProductoAgotado").val() == "" ? "" : $("#ddlCatalogoRevistaProductoAgotado option:selected").text()
-    };
+        {
+            cuv: $("#producto-faltante-busqueda-cuv").val(),
+            descripcion: $("#producto-faltante-busqueda-descripcion").val(),
+            categoria: $("#ddlCategoriaProductoAgotado").val() == null ? "" : $("#ddlCategoriaProductoAgotado").val(),
+            revista: $("#ddlCatalogoRevistaProductoAgotado").val() == "" ? "" : $("#ddlCatalogoRevistaProductoAgotado option:selected").text()
+        };
 
     AbrirSplash();
     jQuery.ajax({
