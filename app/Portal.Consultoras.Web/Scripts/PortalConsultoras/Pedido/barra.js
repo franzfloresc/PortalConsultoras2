@@ -776,12 +776,8 @@ function loadCarruselPremiosEvents() {
         if (tpElectivos.premioSelected) {
             return;
         }
+        cambiarEleccionRegaloProgramaNuevas($(this));
         seleccionRegaloProgramaNuevas($(this));
-    });
-
-    $('.enlace_elegir_otro_regalo').click(function (e) {
-        e.preventDefault();
-        cambiarEleccionRegaloProgramaNuevas();
     });
 }
 
@@ -835,8 +831,6 @@ function markPremioSelected(premioDiv) {
         btn.next().fadeIn(150);
         msgRegaloDiv.html('¡Ya elegiste tu regalo!');
         msgRegaloDiv.fadeIn(200);
-        $('.enlace_elegir_otro_regalo').fadeIn(100);
-        $('.enlace_elegir_otro_regalo').css('display', 'block');
     }, 150);
     $('#divBarra .contenedor_circulos').hide();
 }
@@ -854,15 +848,17 @@ function getPremioByCuv(cuv) {
     return null;
 }
 
-function cambiarEleccionRegaloProgramaNuevas() {
+function cambiarEleccionRegaloProgramaNuevas(nuevoRegaloElegido) {
     $('.opcion_regalo_carousel_programaNuevas').removeClass('opcion_regalo_carousel_elegido');
     $('.mensaje_titulo_popup_eleccion_regalo').fadeOut(200);
-    $('.mensaje_regalo_elegido').fadeOut(150);
+    $('.mensaje_regalo_elegido').fadeOut(200);
     setTimeout(function () {
+        $('.btn_elegir_regalo').fadeIn(150);
         $('.mensaje_titulo_popup_eleccion_regalo').html('¡Puedes elegir tu regalo del Programa de Nuevas ahora!');
         $('.mensaje_titulo_popup_eleccion_regalo').fadeIn(200);
-        $('.btn_elegir_regalo').fadeIn(150);
-        $('.enlace_elegir_otro_regalo').fadeOut(100);
+        nuevoRegaloElegido.parents('.opcion_regalo_carousel_programaNuevas').addClass('opcion_regalo_carousel_elegido');
+        nuevoRegaloElegido.fadeOut(50);
+        nuevoRegaloElegido.next().fadeIn(150);
     }, 150);
     tpElectivos.premioSelected = null;
     $('#divBarra .contenedor_circulos').show();
