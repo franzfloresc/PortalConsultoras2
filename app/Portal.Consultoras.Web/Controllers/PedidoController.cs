@@ -1763,7 +1763,9 @@ namespace Portal.Consultoras.Web.Controllers
                     EsOfertaIndependiente = estrategia.EsOfertaIndependiente,
                     TieneRDC = tieneRdc,
                     EstrategiaID = producto.EstrategiaID,
-                    EsProgNuevas = esProgNuevas
+                    EsProgNuevas = esProgNuevas,
+                    CodigoCatalago = producto.CodigoCatalogo,
+                    EstrategiaIDSicc = producto.EstrategiaIDSicc
                 });
             }
             catch (Exception ex)
