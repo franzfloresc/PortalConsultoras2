@@ -827,6 +827,11 @@ function isInt(n) {
     var isn = patron.test(n);
     return isn;
 }
+function isZero(n) {
+    var patron = /^0+$/;
+    var isn = patron.test(n);
+    return isn;
+}
 
 function checkTimeout(data) {
     var thereIsStillTime = true;

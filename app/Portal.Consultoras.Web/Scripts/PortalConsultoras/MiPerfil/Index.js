@@ -191,11 +191,14 @@ function actualizarDatos() {
     }
 
     if (txtCelularMD != "") {
-        if (isNaN(txtCelularMD)) {
+        if (!isInt(txtCelularMD)) {
             alert('El formato del celular no es correcto');
             return false;
         }
-
+        if (isZero(txtCelularMD)) {
+            alert('El formato del celular no es correcto');
+            return false;
+        }
         if (txtCelularMD.length != hdn_CaracterMaximo) {
             alert('El formato del celular no es correcto');
             return false;
@@ -221,8 +224,12 @@ function actualizarDatos() {
     }
 
     if (txtTelefonoMD != "") {
-        if (isNaN(txtTelefonoMD)) {
+        if (!isInt(txtTelefonoMD)) {
             alert('El formato de teléfono no es correcto');
+            return false;
+        }
+        if (isZero(txtTelefonoMD)) {
+            alert('El formato del teléfono no es correcto');
             return false;
         }
 
@@ -230,7 +237,6 @@ function actualizarDatos() {
             alert('El número de teléfono debe tener como mínimo ' + hdn_CaracterMinimo + ' números.');
             return false;
         }
-
         if (txtTelefonoMD.length > hdn_CaracterMaximo) {
             alert('El número de teléfono debe tener como máximo ' + hdn_CaracterMaximo + ' números.');
             return false;
@@ -238,7 +244,11 @@ function actualizarDatos() {
     }
 
     if (txtTelefonoTrabajoMD != "") {
-        if (isNaN(txtTelefonoTrabajoMD)) {
+        if (!isInt(txtTelefonoTrabajoMD)) {
+            alert('El formato de número adicional no es correcto');
+            return false;
+        }
+        if (isZero(txtTelefonoTrabajoMD)) {
             alert('El formato de número adicional no es correcto');
             return false;
         }
@@ -247,7 +257,6 @@ function actualizarDatos() {
             alert('El número adicional debe tener como mínimo ' + hdn_CaracterMinimo + ' números.');
             return false;
         }
-
         if (txtTelefonoTrabajoMD.length > hdn_CaracterMaximo) {
             alert('El número adicional debe tener como máximo ' + hdn_CaracterMaximo + ' números.');
             return false;
