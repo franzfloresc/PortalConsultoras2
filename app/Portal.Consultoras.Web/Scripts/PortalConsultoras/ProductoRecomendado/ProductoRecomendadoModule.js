@@ -22,6 +22,9 @@
                 cache: false,
                 success: function(data) {
                     dfd.resolve(data);
+                    
+                    if (!(typeof AnalyticsPortalModule === 'undefined'))
+                        AnalyticsPortalModule.MarcaProductImpressionRecomendaciones(data);
                 },
                 error: function(data, error) {
                     dfd.reject(data, error);
@@ -71,8 +74,14 @@
                     $('.previous').hide();
                 }
 
+                if (!(typeof AnalyticsPortalModule === 'undefined'))
+                    AnalyticsPortalModule.MarcaRecomendacionesFlechaAnterior();
+
             }).on('afterChange', function(event, slick, currentSlide) {
                 //$('.previous').hide();
+                //marcaRecomendacionesFlechaSiguiente
+                if (!(typeof AnalyticsPortalModule === 'undefined'))
+                    AnalyticsPortalModule.MarcaRecomendacionesFlechaSiguiente();
             });
         },
         ObtenerProductos: function (cuv, codigoProducto) {
@@ -99,6 +108,8 @@
             e.preventDefault();
             var seccionProductosRecomendados = $(this).parents('.productos_recomendados_wrapper');
             seccionProductosRecomendados.slideUp(200);
+            if (!(typeof AnalyticsPortalModule === 'undefined'))
+                AnalyticsPortalModule.MarcaOcultarRecomendaciones();
         }
     };
     
