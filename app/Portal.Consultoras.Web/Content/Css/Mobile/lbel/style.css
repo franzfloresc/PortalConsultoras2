@@ -14092,7 +14092,9 @@ span.icon-advertencia {
     background-color:#642f80;
 }
 
-.icono_regalo{
+.icono_regalo,
+.icono_celebracion
+{
     position: absolute;
     z-index: 10;
     font-size:11px;
@@ -14221,7 +14223,8 @@ span.icon-advertencia {
 /* POPUP ELIGE TU REGALO DEL PROGRAMA NUEVAS */
 
 .popup_eleccion_regalo_programaNuevas,
-.popup_meta_regalo_programaNuevas
+.popup_meta_regalo_programaNuevas,
+.popup_treinta_y_cinco_descuento
 {
     padding-top:41px;
     padding-bottom:33px;
@@ -14234,12 +14237,16 @@ span.icon-advertencia {
     z-index: 2000;
 }
 
-.popup_eleccion_regalo_programaNuevas_header{
+.popup_eleccion_regalo_programaNuevas_header,
+.popup_treinta_y_cinco_descuento_header
+{
     height:155px;
 }
 
 .icono_regalo_popup_programaNuevas,
 .icono_regalo_popup_meta_regalo,
+.icono_celebracion_popup_descuento,
+.icono_cerrar_popup_treinta_y_cinco_descuento,
 .titulo_popup_eleccion_regalo_programaNuevas,
 .opciones_regalo_carousel_programaNuevas,
 .enlace_elegir_otro_regalo
@@ -14248,7 +14255,11 @@ span.icon-advertencia {
 }
 
 .icono_regalo_popup_programaNuevas,
-.icono_regalo_popup_programaNuevas img
+.icono_regalo_popup_programaNuevas img,
+.icono_celebracion_popup_descuento,
+.icono_celebracion_popup_descuento img,
+.icono_cerrar_popup_treinta_y_cinco_descuento,
+.icono_cerrar_popup_treinta_y_cinco_descuento img
 {
     position:relative;
     width:40px;
@@ -14256,7 +14267,8 @@ span.icon-advertencia {
 }
 
 .titulo_popup_eleccion_regalo_programaNuevas,
-.titulo_popup_meta_regalo_programaNuevas
+.titulo_popup_meta_regalo_programaNuevas,
+.titulo_popup_treinta_y_cinco_descuento
 {
     margin-left:auto;
     margin-right:auto;
@@ -14267,7 +14279,8 @@ span.icon-advertencia {
 }
 
 .titulo_popup_eleccion_regalo_programaNuevas span,
-.titulo_popup_meta_regalo_programaNuevas span
+.titulo_popup_meta_regalo_programaNuevas span,
+.titulo_popup_treinta_y_cinco_descuento span
 {
     font-family: 'Lato', sans-serif;
     letter-spacing:0.2px;
@@ -14279,14 +14292,16 @@ span.icon-advertencia {
 
 .mensaje_titulo_popup_eleccion_regalo,
 .mensaje_titulo_popup_regalo_elegido,
-.titulo_popup_meta_regalo_programaNuevas span:first-child
+.titulo_popup_meta_regalo_programaNuevas span:first-child,
+.titulo_popup_treinta_y_cinco_descuento span:first-child
 {
     font-size:20px;
     font-weight:bold;
 }
 
 .titulo_popup_eleccion_regalo_programaNuevas span:last-child,
-.titulo_popup_meta_regalo_programaNuevas span:last-child
+.titulo_popup_meta_regalo_programaNuevas span:last-child,
+.titulo_popup_treinta_y_cinco_descuento span:last-child
 {
     display:block;
     font-size:18px;
@@ -14402,7 +14417,9 @@ span.icon-advertencia {
     border-radius:4px;
 }
 
-.icono_cerrar_popup_eleccion_regalo_programaNuevas{
+.icono_cerrar_popup_eleccion_regalo_programaNuevas,
+.icono_cerrar_popup_treinta_y_cinco_descuento
+{
     position: absolute;
     top: 15px;
     right: 11px;
@@ -14411,7 +14428,8 @@ span.icon-advertencia {
 }
 
 .icono_cerrar_popup_eleccion_regalo_programaNuevas img,
-.icono_check_regalo_elegido img
+.icono_check_regalo_elegido img,
+.icono_cerrar_popup_treinta_y_cinco_descuento img
 {
     width:100%;
     height:auto;
@@ -14459,23 +14477,31 @@ span.icon-advertencia {
 /* POPUP FELICITACIONES META REGALO */
 
 .icono_regalo_popup_meta_regalo,
-.icono_regalo_popup_meta_regalo img
+.icono_regalo_popup_meta_regalo img,
+.icono_celebracion_popup_descuento,
+.icono_celebracion_popup_descuento img
 {
     position:relative;
     width:60px;
     height:auto;
 }
 
-.icono_regalo_popup_meta_regalo {
+.icono_regalo_popup_meta_regalo,
+.icono_celebracion_popup_descuento
+{
     margin-bottom: 33px;
 }
 
-.titulo_popup_meta_regalo_programaNuevas span:first-child{
+.titulo_popup_meta_regalo_programaNuevas span:first-child,
+.titulo_popup_treinta_y_cinco_descuento span:first-child
+{
     line-height:10px;
     text-transform:uppercase;
 }
 
-.titulo_popup_meta_regalo_programaNuevas span:last-child{
+.titulo_popup_meta_regalo_programaNuevas span:last-child,
+.titulo_popup_treinta_y_cinco_descuento span:last-child
+{
     margin-top:21px;
     line-height:25px;
 }
@@ -14486,7 +14512,9 @@ span.icon-advertencia {
     max-width: 330px;
 }
 
-.popup_meta_regalo_programaNuevas .popup_meta_regalo_programaNuevas_contenido{
+.popup_meta_regalo_programaNuevas .popup_meta_regalo_programaNuevas_contenido,
+.popup_treinta_y_cinco_descuento .popup_treinta_y_cinco_descuento_contenido
+{
     position:absolute;
     margin:0 auto;
     top:128px;
@@ -14559,5 +14587,28 @@ span.icon-advertencia {
 }
 
 /* FIN - POPUP LÍMITE DE LÍNEA DE CRÉDITO */
+
+/* POPUP LLEGASTE AL 30% DE DESCUENTO */
+
+.titulo_popup_treinta_y_cinco_descuento span:first-child{
+    font-size:15px;
+}
+
+.titulo_popup_treinta_y_cinco_descuento span:last-child{
+    margin-top:12px;
+    font-size:30px;
+}
+
+.icono_celebracion_popup_descuento{
+    padding-left:7px;
+    margin-top:31px;
+    margin-bottom:12px;
+}
+
+.icono_celebracion_popup_descuento img{
+    width:65px;
+}
+
+/* FIN - POPUP LLEGASTE AL 30% DE DESCUENTO */
 
 /* FIN - PROGRAMA NUEVAS - ELIGE TU REGALO */
