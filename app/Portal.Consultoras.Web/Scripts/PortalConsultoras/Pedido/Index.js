@@ -183,6 +183,7 @@ $(document).ready(function () {
         $("#txtPrecioR").val("");
         $("#hdfPrecioUnidad").val("");
         document.getElementById('divObservacionesDescripProd').style.display = 'none';
+        ProductoRecomendadoModule.OcultarProductosRecomendados();
 
         if ($(this).val().length === 5) {
             BuscarByCUV($(this).val());
