@@ -497,7 +497,7 @@ function ConfigurarFnEliminarProducto(CampaniaID, PedidoID, PedidoDetalleID, Tip
         ShowLoading();
         jQuery.ajax({
             type: 'POST',
-            url: urlPedidoDelete,
+            url: baseUrl + "PedidoRegistro/DeleteTransaction",
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(param),
