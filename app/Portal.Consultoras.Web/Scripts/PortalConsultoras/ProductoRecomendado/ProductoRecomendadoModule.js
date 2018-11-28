@@ -3,7 +3,8 @@
     var _elementos = {
         noMostrarProductosRecomendados: '.cerrar_seccion_productos_recomendados',
         divProducto: "#divProductosRecomendados",
-        templateProducto: "#producto-recomendado-template"
+        templateProducto: "#producto-recomendado-template",
+        botonAgregar: ".btn_producto_recomendado_agregalo"
     };
     var _config = {
         isMobile: window.matchMedia("(max-width:991px)").matches
@@ -33,6 +34,7 @@
     var _funciones = { //Funciones privadas
         InicializarEventos: function () {
             $(document).on("click", _elementos.noMostrarProductosRecomendados, _eventos.OcultarProductosRecomendados);
+            $(document).on("click", _elementos.botonAgregar, _eventos.AgregarProductoRecomendado);
         },
        
         ArmarCarruselProductosRecomendados: function () {
@@ -101,6 +103,21 @@
             var seccionProductosRecomendados = $(this).parents('.productos_recomendados_wrapper');
             seccionProductosRecomendados.slideUp(200);
             set_local_storage(true, 'ocultar_productos_recomendados');
+        },
+
+        AgregarProductoRecomendado: function (e) {
+            e.preventDefault();
+            AbrirLoad();
+            var divPadre = $(this).parents("[data-item='ProductoRecomendadoBuscador']").eq(0);
+            var textoBusqueda = $(_elementos.campoBuscadorProductos).val();
+            
+            BuscadorProvider.RegistroProductoBuscador(divPadre);
+
+            //- Ocultando y limpiando
+            var seccionProductosRecomendados = $(this).parents('.productos_recomendados_wrapper');
+            seccionProductosRecomendados.slideUp(200);
+
+
         }
     };
     
