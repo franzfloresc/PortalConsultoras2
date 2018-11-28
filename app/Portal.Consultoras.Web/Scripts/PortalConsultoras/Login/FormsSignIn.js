@@ -810,11 +810,13 @@ function login2() {
                 var datos = response.data;
                 $('#popupAsociarUsuarioExt').hide()
                 MostrarPopupPin(datos);
+                limpiar_local_storage();
                 closeWaitingDialog();
 
             } else if (response.success) {
                 if (response.redirectTo !== "") {
                     analytics.invocarEventoPixel("FacebookLoginLogin");
+                    limpiar_local_storage();
                     document.location.href = response.redirectTo;
                 }
             }
