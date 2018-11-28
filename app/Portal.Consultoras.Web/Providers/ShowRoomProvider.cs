@@ -254,7 +254,7 @@ namespace Portal.Consultoras.Web.Providers
         private ShowRoomEventoModel ObtieneEventoModel(List<dynamic> lstResponse)
         {
             ShowRoomEventoModel modelo = new ShowRoomEventoModel();
-            if (lstResponse is null)
+            if (lstResponse == null)
             {
                 return modelo;
             }
@@ -288,7 +288,7 @@ namespace Portal.Consultoras.Web.Providers
         private List<ShowRoomPersonalizacionModel> ObtienePersonalizacionesModel(List<dynamic> lstResponse)
         {
             List<ShowRoomPersonalizacionModel> personalizaciones = new List<ShowRoomPersonalizacionModel>();
-            if (lstResponse is null)
+            if (lstResponse == null)
             {
                 return personalizaciones;
             }
