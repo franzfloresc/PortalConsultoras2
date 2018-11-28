@@ -485,7 +485,6 @@ namespace Portal.Consultoras.Web.Controllers
                             a.CodigoError ?? string.Empty,
                             a.FechaCreacionFormat ?? string.Empty,
                             a.FechaCreacionHoraFormat ?? string.Empty,
-                            a.Origen ?? string.Empty
                                }
                            }
                 };
