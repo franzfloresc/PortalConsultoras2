@@ -1664,7 +1664,10 @@ namespace Portal.Consultoras.Web.Controllers
                 FlagNueva = prod.FlagNueva,
                 TipoEstrategiaID = prod.TipoEstrategiaID,
                 TieneRDC = tieneRdc,
-                EsOfertaIndependiente = prod.EsOfertaIndependiente
+                EsOfertaIndependiente = prod.EsOfertaIndependiente,
+                CodigoProducto = prod.CodigoProducto,
+                CodigoCatalago = prod.CodigoCatalogo,
+                EstrategiaIDSicc = prod.EstrategiaIDSicc
             }));
 
             return productosModel;
