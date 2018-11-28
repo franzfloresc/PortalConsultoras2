@@ -249,16 +249,14 @@ function SeccionMostrarProductos(data) {
     //Marcación Analytics
     if (data.Seccion.Codigo === CONS_CODIGO_SECCION.LAN) {
         if (varContenedor.CargoLan) {
-            var pos = 0;
-            var arry = new Array();
+            
             $.each(data.listaLan, function (key, value) {
                 if (value.TipoEstrategiaDetalle.FlagIndividual) {
-                    //var dateItem = new Array(value);
-                    arry.push(value);
-                    //return false;
+                    var dateItem = new Array(value);        
+                    AnalyticsPortalModule.MarcaGenericaLista(data.Seccion.Codigo, dateItem, 0);
+                    return false;
                 }
             });
-            AnalyticsPortalModule.MarcaGenericaLista(data.Seccion.Codigo, arry);
         }
         //get the first
     }
@@ -482,9 +480,12 @@ function RenderCarruselIndividuales(divProd) {
         prevArrow: '<a class="arrow-prev" data-direccionflecha="Anterior" onclick="AnalyticsPortalModule.MarcaClicFlechaBanner(this)"><img src="' + baseUrl + 'Content/Images/sliders/previous_ofertas.svg")" alt="" /></a>',
         nextArrow: '<a class="arrow-next" data-direccionflecha="Siguiente" onclick="AnalyticsPortalModule.MarcaClicFlechaBanner(this)"><img src="' + baseUrl + 'Content/Images/sliders/next_ofertas.svg")" alt="" /></a>'
     }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
-        
         VerificarClick(slick, currentSlide, nextSlide, "previsuales");
     }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
+        var data = $(slick.$slides.find("[data-estrategia]")[currentSlide]).data("estrategia");
+        var dateItem = new Array(data);
+        //Analytics
+        AnalyticsPortalModule.MarcaGenericaLista(data.CodigoPalanca, dateItem, currentSlide);
 
         EstablecerLazyCarruselAfterChange(divProd.find(sElementos.listadoProductos));
         $(sElementos.listadoProductos + " .slick-active [data-acortartxt] p").removeClass("Acortar2Renglones3puntos");
