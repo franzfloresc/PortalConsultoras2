@@ -82,6 +82,7 @@
             };
             _provider.RecomendacionesPromise(modelo)
                 .done(function (data) {
+                    $(_elementos.divProducto).html("");
                     SetHandlebars(_elementos.templateProducto, data.Productos, _elementos.divProducto);
                     if (data.Total > 3) {
                          _funciones.ArmarCarruselProductosRecomendados();

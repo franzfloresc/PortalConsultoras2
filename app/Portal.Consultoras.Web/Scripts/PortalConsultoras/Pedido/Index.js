@@ -1341,7 +1341,7 @@ function BuscarByCUV(CUV) {
 
                 if ((data[0].CodigoCatalago == 9 || data[0].CodigoCatalago == 10 || data[0].CodigoCatalago == 13) &&
                     (data[0].EstrategiaIDSicc == 2001)) {
-                    console.log("llamar function recomendados");
+                    ProductoRecomendadoModule.ObtenerProductos(data[0].CUV, data[0].CodigoProducto);
                 }
 
             } else {
