@@ -603,7 +603,9 @@ namespace Portal.Consultoras.BizLogic.Pedido
                                 CUV = detalleSet.CuvProducto,
                                 TipoOfertaSisID = detalleSet.TipoOfertaSisId,
                                 Descripcion = pedidoDetalle.Producto.Descripcion
-                            }
+                            },
+                            IPUsuario = pedidoDetalle.IPUsuario,
+                            Identifier = pedidoDetalle.Identifier
                         };
                         lstDetalleApp.Add(oBePedidoWebSetDetalle);
                     }
@@ -1707,7 +1709,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 PedidoID = obePedidoWebDetalle.PedidoID,
                 CampaniaID = obePedidoWebDetalle.CampaniaID,
                 PedidoDetalleID = obePedidoWebDetalle.PedidoDetalleID,
-                IndicadorIPUsuario = obePedidoWebDetalle.IPUsuario,
+                IndicadorIPUsuario = pedidoDetalle.IPUsuario,
                 IndicadorFingerprint = string.Empty,
                 IndicadorToken = string.IsNullOrEmpty(pedidoDetalle.Identifier) ? string.Empty : AESAlgorithm.Encrypt(pedidoDetalle.Identifier)
             };
@@ -1917,7 +1919,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                                 PedidoID = obePedidoWebDetalle.PedidoID,
                                 CampaniaID = obePedidoWebDetalle.CampaniaID,
                                 PedidoDetalleID = obePedidoWebDetalle.PedidoDetalleID,
-                                IndicadorIPUsuario = obePedidoWebDetalle.IPUsuario,
+                                IndicadorIPUsuario = pedidoDetalle.IPUsuario,
                                 IndicadorFingerprint = string.Empty,
                                 IndicadorToken = string.IsNullOrEmpty(pedidoDetalle.Identifier) ? string.Empty : AESAlgorithm.Encrypt(pedidoDetalle.Identifier)
                             };
