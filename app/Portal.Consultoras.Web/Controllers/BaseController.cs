@@ -165,7 +165,7 @@ namespace Portal.Consultoras.Web.Controllers
                 guiaNegocio = SessionManager.GetGuiaNegocio();
                 estrategiaODD = SessionManager.OfertaDelDia.Estrategia;
                 configEstrategiaSR = SessionManager.GetEstrategiaSR() ?? new ConfigModel();
-                buscadorYFiltro = SessionManager.GetBuscadorYFiltros();
+                buscadorYFiltro = SessionManager.GetBuscadorYFiltrosConfig();
 
                 if (!configEstrategiaSR.CargoEntidadesShowRoom)
                 {

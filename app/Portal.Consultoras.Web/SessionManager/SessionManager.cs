@@ -1281,12 +1281,12 @@ namespace Portal.Consultoras.Web.SessionManager
             return (List<List<BEEstadoServicio>>)val;
         }
 
-        public void SetBuscadorYFiltros(BuscadorYFiltrosConfiguracionModel buscadorYFiltrosModel)
+        public void SetBuscadorYFiltrosConfig(BuscadorYFiltrosConfiguracionModel buscadorYFiltrosModel)
         {
             HttpContext.Current.Session[Constantes.ConstSession.BuscadorYFiltrosConfig] = buscadorYFiltrosModel;
         }
 
-        public BuscadorYFiltrosConfiguracionModel GetBuscadorYFiltros()
+        public BuscadorYFiltrosConfiguracionModel GetBuscadorYFiltrosConfig()
         {
             return (BuscadorYFiltrosConfiguracionModel)HttpContext.Current.Session[Constantes.ConstSession.BuscadorYFiltrosConfig] ?? new BuscadorYFiltrosConfiguracionModel();
         }
@@ -1313,7 +1313,7 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             HttpContext.Current.Session[Constantes.ConstSession.JwtApiSomosBelcorp] = token;
         }
-         string ISessionManager.GetJwtApiSomosBelcorp()
+        string ISessionManager.GetJwtApiSomosBelcorp()
         {
             return (string)HttpContext.Current.Session[Constantes.ConstSession.JwtApiSomosBelcorp] ;
         }

@@ -10,6 +10,7 @@
 @section styles{
     @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/Site-CssPedido")
 }
+
 <div class="franja_negra" style="background: #000 url(@ViewBag.UrlFranjaNegra) no-repeat center bottom;"></div>
 <div class="envolvente_pop_up">
     <div class="pop_pedido" id="pop_liquidacion" style="display: none;">
@@ -127,7 +128,8 @@
 		</form>
     </div>
     <div class="clear"></div>
-
+    <div class="productos_recomendados_wrapper" id="divProductosRecomendados"></div>
+    @Html.Partial("~/Views/ProductoRecomendado/_template_producto.cshtml")
     <div class="caja_pedidos">
         <div data-barra-width="">
             <div id="divBarra">
@@ -2093,5 +2095,4 @@
         <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Pedido/ConsultoraOnline.js")"></script>
     }
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/FichaProducto/Index.js")"></script>
-
 } 

@@ -261,9 +261,9 @@ namespace Portal.Consultoras.Web.SessionManager
         int GetLimElectivosProgNuevas();
         void SetLimElectivosProgNuevas(int limElectivos);
 
-        void SetBuscadorYFiltros(BuscadorYFiltrosConfiguracionModel buscadorYFiltrosModel);
+        void SetBuscadorYFiltrosConfig(BuscadorYFiltrosConfiguracionModel buscadorYFiltrosModel);
 
-        BuscadorYFiltrosConfiguracionModel GetBuscadorYFiltros();
+        BuscadorYFiltrosConfiguracionModel GetBuscadorYFiltrosConfig();
 
         void SetRecomendacionesConfig(RecomendacionesConfiguracionModel recomendacionesConfiguracionModel);
 
@@ -488,5 +488,6 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetJwtApiSomosBelcorp(string token);
         
         string GetJwtApiSomosBelcorp();
+
     }
 }

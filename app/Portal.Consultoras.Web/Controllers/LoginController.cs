@@ -1301,13 +1301,11 @@ namespace Portal.Consultoras.Web.Controllers
                         var fechaPromesaTask = Task.Run(() => GetFechaPromesaEntrega(usuario));
                         var linkPaisTask = Task.Run(() => GetLinksPorPais(usuario.PaisID));
                         var usuarioComunidadTask = Task.Run(() => EsUsuarioComunidad(usuario));
-                        var personalizacionesTask = Task.Run(() => GetPersonalizaiones(usuarioModel));
 
-                        Task.WaitAll(flexiPagoTask, notificacionTask, fechaPromesaTask, linkPaisTask, usuarioComunidadTask, personalizacionesTask);
+                        Task.WaitAll(flexiPagoTask, notificacionTask, fechaPromesaTask, linkPaisTask, usuarioComunidadTask);
 
                         usuarioModel.IndicadorPermisoFlexipago = flexiPagoTask.Result;
                         usuarioModel.TieneNotificaciones = notificacionTask.Result;
-                        usuarioModel.PersonalizacionesDummy = personalizacionesTask.Result;
 
                         var fechaPromesa = fechaPromesaTask.Result;
                         if (!string.IsNullOrEmpty(fechaPromesa))
@@ -1501,27 +1499,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return result != null;
-        }
-
-        private async Task<string> GetPersonalizaiones(UsuarioModel usuarioModel)
-        {
-            if (usuarioModel.IndicadorConsultoraDummy == 0) return "";
-            var resultado = "";
-
-            try
-            {
-                BuscadorYFiltrosProvider personalizacion = new BuscadorYFiltrosProvider();
-                resultado = await personalizacion.GetPersonalizacion(usuarioModel);
-            }
-            catch (Exception ex)
-            {
-                logManager.LogErrorWebServicesBusWrap(ex, usuarioModel.CodigoUsuario, usuarioModel.PaisID.ToString(), "LoginController.GetPersonalizaiones");
-                return "";
-            }
-
-
-            return resultado;
-        }
+        }        
 
         private async Task<ServiceUsuario.BEUsuario> ActualizarDatosHana(UsuarioModel model)
         {
@@ -1976,7 +1954,7 @@ namespace Portal.Consultoras.Web.Controllers
                     sessionManager.SetConfiguracionesPaisModel(listaConfiPaisModel);
                     sessionManager.SetOfertaFinalModel(ofertaFinalModel);
                     sessionManager.SetHerramientasVenta(herramientasVentaModel);
-                    sessionManager.SetBuscadorYFiltros(buscadorYFiltrosModel);
+                    sessionManager.SetBuscadorYFiltrosConfig(buscadorYFiltrosModel);
                     sessionManager.SetRecomendacionesConfig(recomendacionesConfiguacionModel);
                     sessionManager.MasGanadoras.SetModel(masGanadorasModel);
                 }

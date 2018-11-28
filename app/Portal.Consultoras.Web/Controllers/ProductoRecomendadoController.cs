@@ -6,9 +6,9 @@ using Portal.Consultoras.Web.Providers;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class RecomendacionesController : BaseController
+    public class ProductoRecomendadoController : BaseController
     {
-        private readonly RecomendacionesProvider _recomendacionesProvider = new RecomendacionesProvider();
+        private readonly ProductoRecomendadoProvider _productoRecomendadoProvider = new ProductoRecomendadoProvider();
 
         // GET: Recomendaciones
         public ActionResult Index()
@@ -18,14 +18,15 @@ namespace Portal.Consultoras.Web.Controllers
 
         public async Task<JsonResult> ObtenerProductos(string cuv, string codigoProducto)
         {
-            if (!_recomendacionesProvider.ValidarRecomendacionActivo())
+            if (!_productoRecomendadoProvider.ValidarRecomendacionActivo())
                 return Json(new RecomendacionesModel(), JsonRequestBehavior.AllowGet);
             
             RecomendacionesModel recomendacionesModel;
             try
             {
-                recomendacionesModel = await _recomendacionesProvider.ObtenerRecomendaciones(cuv, codigoProducto);
-                recomendacionesModel.Productos = _recomendacionesProvider.ValidacionProductoAgregado(recomendacionesModel.Productos, SessionManager.GetDetallesPedido(), userData, revistaDigital, false, false);
+                await _productoRecomendadoProvider.GetPersonalizacion(userData, true, true);
+                recomendacionesModel = await _productoRecomendadoProvider.ObtenerRecomendaciones(cuv, codigoProducto);
+                recomendacionesModel.Productos = _productoRecomendadoProvider.ValidacionProductoAgregado(recomendacionesModel.Productos, SessionManager.GetDetallesPedido(), userData, revistaDigital, false, false);
             }
             catch (Exception ex)
             {
