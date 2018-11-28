@@ -1392,9 +1392,15 @@ function BuscarByCUV(CUV) {
                     $("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>" + data[0].ObservacionCUV + "</div></div>");
                 }
 
-                if ((data[0].CodigoCatalago == 9 || data[0].CodigoCatalago == 10 || data[0].CodigoCatalago == 13) &&
-                    (data[0].EstrategiaIDSicc == 2001)) {
-                    ProductoRecomendadoModule.ObtenerProductos(data[0].CUV, data[0].CodigoProducto);
+                if (activarRecomendaciones == 1) {
+                    if ((data[0].CodigoCatalago == 9 || data[0].CodigoCatalago == 10 || data[0].CodigoCatalago == 13) &&
+                        (data[0].EstrategiaIDSicc == 2001)) {
+
+                        var ocultar_recomendados = get_local_storage('ocultar_productos_recomendados');
+                        if (!ocultar_recomendados) {
+                            ProductoRecomendadoModule.ObtenerProductos(data[0].CUV, data[0].CodigoProducto);
+                        }
+                    }
                 }
 
             } else {

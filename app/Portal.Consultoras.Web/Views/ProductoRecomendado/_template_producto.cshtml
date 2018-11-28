@@ -1,54 +1,56 @@
 ﻿
 <script id="producto-recomendado-template" type="text/x-handlebars-template">
-<h3 class="productos_recomendados_titulo d-block">Ofertas relacionadas :</h3>
-<div class="productos_recomendados_carrusel_wrapper w-100">
-    <ul id="carouselProductosRecomendados" class="productos_recomendados_carrusel">
+    <h3 class="productos_recomendados_titulo d-block">Ofertas relacionadas :</h3>
+    <div class="productos_recomendados_carrusel_wrapper w-100">
+        <ul id="carouselProductosRecomendados" class="productos_recomendados_carrusel">
         {{#each this as |item|}}
-        <li class="producto_recomendado">
-            <input type="hidden" class="hdBuscadorJSON" value="{{JSON2string item}}" />
-            <div class="producto_recomendado_imagen">
-                <img data-src="{{Imagen}}" alt="" data-src-error="@Url.Content("~/Content/Images/oferta-sin-imagen.svg")"/>
-            </div>
-            <div class="producto_recomendado_info">
-                <div class="producto_recomendado_marca text-uppercase">
-                    {{MarcaId}}
+            <li class="producto_recomendado">
+                <input type="hidden" class="hdBuscadorJSON" value="{{JSON2string item}}" />
+                <div class="producto_recomendado_info_wrapper">
+                    <div class="producto_recomendado_imagen">
+                        <img data-src="{{Imagen}}" alt="" data-src-error="@Url.Content("~/Content/Images/oferta-sin-imagen.svg")" />
+                    </div>
+                    <div class="producto_recomendado_info">
+                        <div class="producto_recomendado_marca text-uppercase">
+                            {{MarcaId}}
+                        </div>
+                        <div class="producto_recomendado_nombre">
+                            {{Descripcion}}
+                        </div>
+                        <div class="producto_recomendado_precio_normal">
+                            {{ValorizadoString}}
+                        </div>
+                        <div class="producto_recomendado_precio_oferta">
+                            {{PrecioString}}
+                        </div>
+                        <div class="producto_recomendado_tipo_oferta_personalizacion text-uppercase">
+                            {{DescripcionEstrategia}}
+                        </div>
+                    </div>
                 </div>
-                <div class="producto_recomendado_nombre">
-                    {{Descripcion}}
+                <div class="producto_recomendado_acciones_wrapper">
+                    <div class="producto_recomendado_rango_cantidad js-no-popup">
+                        <a class="menos d-block js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event);">
+                            <img class="d-block js-no-popup" src="/Content/Images/menos.svg" alt="">
+                        </a>
+                        <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="d-block text-center text-bold ValidaNumeral ValidaPasteNumeral js-no-popup">
+                        <a class="mas d-block js-no-popup" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event);">
+                            <img class="d-block js-no-popup" src="/Content/Images/mas.svg" alt="">
+                        </a>
+                    </div>
+                    <div class="producto_recomendado_btn_wrapper">
+                        <a class="boton_Agregalo_home btn_producto_recomendado_agregalo d-block text-center text-uppercase">
+                            Agrégalo
+                        </a>
+                    </div>
                 </div>
-                <div class="producto_recomendado_precio_normal">
-                        {{ValorizadoString}}
-                </div>
-                <div class="producto_recomendado_precio_oferta">
-                    {{PrecioString}}
-                </div>
-                <div class="producto_recomendado_tipo_oferta_personalizacion text-uppercase">
-                    {{DescripcionEstrategia}}
-                </div>
-            </div>
-            <div class="producto_recomendado_acciones_wrapper">
-                <div class="producto_recomendado_rango_cantidad js-no-popup">
-                    <a class="menos d-block js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event);">
-                        <img class="d-block js-no-popup" src="/Content/Images/menos.svg" alt="">
-                    </a>
-                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="d-block text-center text-bold ValidaNumeral ValidaPasteNumeral js-no-popup">
-                    <a class="mas d-block js-no-popup" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event);">
-                        <img class="d-block js-no-popup" src="/Content/Images/mas.svg" alt="">
-                    </a>
-                </div>
-                <div class="producto_recomendado_btn_wrapper">
-                    <a class="boton_Agregalo_home btn_producto_recomendado_agregalo d-block text-center text-uppercase">
-                        Agrégalo
-                    </a>
-                </div>
-            </div>
-        </li>
-        {{/each}}
-    </ul>
-    <div class="ocultar_productos_recomendados_wrapper">
-        <a title="No ver ofertas por ahora" class="cerrar_seccion_productos_recomendados d-block">
-            No ver ofertas por ahora
-        </a>
+            </li>
+            {{/each}}
+        </ul>
+        <div class="ocultar_productos_recomendados_wrapper">
+            <a title="No ver ofertas por ahora" class="cerrar_seccion_productos_recomendados d-block">
+                No ver ofertas por ahora
+            </a>
+        </div>
     </div>
-</div>
 </script>

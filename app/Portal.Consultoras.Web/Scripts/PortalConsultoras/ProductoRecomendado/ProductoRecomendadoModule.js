@@ -55,23 +55,24 @@
                 //centerMode: true,
                 centerPadding: '0px',
                 lazyLoad: 'ondemand',
-                slidesToShow: 3,
+                slidesToShow: _config.isMobile ? 1 : 3,
                 slidesToScroll: 1,
                 autoplay: false,
                 speed: 300,
-                prevArrow: '<a class="productos_recomendados_controles_carrusel previous js-slick-prev-h"><img src="/Content/Images/arrow_left.svg")" alt="" /></a>',
-                nextArrow: '<a class="productos_recomendados_controles_carrusel next js-slick-next-h"><img src="/Content/Images/arrow_right.svg")" alt="" /></a>'
+                variableWidth: _config.isMobile ? true : false,
+                prevArrow: _config.isMobile ? '' : '<a class="productos_recomendados_controles_carrusel previous js-slick-prev-h"><img src="/Content/Images/arrow_left.svg")" alt="" /></a>',
+                nextArrow: _config.isMobile ? '' : '<a class="productos_recomendados_controles_carrusel next js-slick-next-h"><img src="/Content/Images/arrow_right.svg")" alt="" /></a>'
             }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
 
                 if (nextSlide == slick.slideCount - 3) {
-                    $('.next').hide();
-                    $('.previous').show();
+                    $('.next').fadeOut(100);
+                    $('.previous').fadeIn(100);
                 } else if (nextSlide != slick.slideCount - 3 && nextSlide != 0) {
-                    $('.next').show();
-                    $('.previous').show();
+                    $('.next').fadeIn(100);
+                    $('.previous').fadeIn(100);
                 } else if (currentSlide == 0 || nextSlide == 0) {
-                    $('.next').show();
-                    $('.previous').hide();
+                    $('.next').fadeIn(100);
+                    $('.previous').fadeOut(100);
                 }
 
                 if (!(typeof AnalyticsPortalModule === 'undefined'))
@@ -108,6 +109,7 @@
             e.preventDefault();
             var seccionProductosRecomendados = $(this).parents('.productos_recomendados_wrapper');
             seccionProductosRecomendados.slideUp(200);
+            set_local_storage(true, 'ocultar_productos_recomendados');
             if (!(typeof AnalyticsPortalModule === 'undefined'))
                 AnalyticsPortalModule.MarcaOcultarRecomendaciones();
         }
