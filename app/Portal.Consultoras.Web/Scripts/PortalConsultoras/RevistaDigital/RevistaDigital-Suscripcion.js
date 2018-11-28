@@ -130,6 +130,7 @@ function RDSuscripcionPromise() {
 }
 
 function RDDesuscripcion() {
+    
     AbrirLoad();
     rdAnalyticsModule.CancelarSuscripcion();
     $.ajax({
@@ -174,9 +175,13 @@ function MostrarTerminos() {
 }
 
 function RedireccionarContenedorComprar(origenWeb, codigo) {
+    
     origenWeb = $.trim(origenWeb);
     if (origenWeb !== "")
         rdAnalyticsModule.Access(origenWeb);
+    
+    if (!(typeof AnalyticsPortalModule === 'undefined'))
+        AnalyticsPortalModule.MarcaVerOfertas(origenWeb);
 
     codigo = $.trim(codigo);
     window.location = (isMobile() ? "/Mobile" : "") + "/Ofertas" + (codigo !== "" ? "#" + codigo : "");

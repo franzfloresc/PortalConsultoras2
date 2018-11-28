@@ -10,15 +10,7 @@
         if (checkTimeout(data)) AbrirMensaje(data.message);
     }
     
-    //var _registrarAnalytics = function (model, textoBusqueda) {
-    //    try {
-    //        AnalyticsPortalModule.MarcaAnadirCarritoBuscador(model, "Desplegable", textoBusqueda);
-    //    } catch (e) {
-
-    //    }
-    //};
-
-    var RegistroLiquidacion = function (model, cantidad, producto, textoBusqueda) {
+    var RegistroLiquidacion = function (model, cantidad, producto) {
         if (ReservadoOEnHorarioRestringido())
             return false;
         model.Cantidad = cantidad;
@@ -103,8 +95,7 @@
                                     CargarResumenCampaniaHeader();
 
                                 CerrarLoad();
-                                //_registrarAnalytics(model, textoBusqueda);
-                                console.log(model);
+                                
                                 if (!(typeof AnalyticsPortalModule === 'undefined'))
                                     AnalyticsPortalModule.MarcaAnadirCarritoBuscador(model, 'Resultados', $('#TextoBusqueda').html());
 
@@ -120,7 +111,7 @@
         });
     }
 
-    var RegistroProductoBuscador = function(divPadre, textoBusqueda) {
+    var RegistroProductoBuscador = function(divPadre) {
 
         var model = JSON.parse($(divPadre).find(".hdBuscadorJSON").val());
         var cantidad = $(divPadre).find("[data-input='cantidad']").val();
@@ -128,7 +119,7 @@
         model.Cantidad = cantidad;
         
         if (model.TipoPersonalizacion == "LIQ") {
-            RegistroLiquidacion(model, cantidad, agregado, textoBusqueda);
+            RegistroLiquidacion(model, cantidad, agregado);
         } else {
             var cuv = model.CUV;
             var tipoOfertaSisID = model.TipoPersonalizacion == "CAT" ? 0 : model.TipoEstrategiaId;
@@ -218,7 +209,6 @@
                     CargarResumenCampaniaHeader();
                     CerrarLoad();
 
-                    console.log(modelFinal);
                     if (!(typeof AnalyticsPortalModule === 'undefined'))
                         AnalyticsPortalModule.MarcaAnadirCarritoBuscador(modelFinal, 'Resultados', $('#TextoBusqueda').html());
 
@@ -226,7 +216,6 @@
                     agregado.html('<span class="text-uppercase text-bold d-inline-block">Agregado</span>');
                     var totalAgregado = parseInt(cantidad) + parseInt(CantidadesAgregadas);
                     $(divPadre).find(".hdBuscadorCantidadesAgregadas").val(totalAgregado);
-                    //_registrarAnalytics(model, textoBusqueda);
                     return true;
                 },
                 error: function(data, error) {
