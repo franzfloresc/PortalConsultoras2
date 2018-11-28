@@ -168,7 +168,20 @@ namespace Portal.Consultoras.Web.Providers
                         DescripcionEstrategia = d.DescripcionTipoEstrategia,                    
                         CodigoSAP = string.IsNullOrEmpty(d.CodigoSap) ? d.CodigoProducto : d.CodigoSap,
                         Zona = d.Zona,
-                        EsSubCampania = d.EsSubCampania.HasValue ? (d.EsSubCampania.Value ? 1 : 0) : 0
+                        EsSubCampania = d.EsSubCampania.HasValue ? (d.EsSubCampania.Value ? 1 : 0) : 0,
+                        //Lan
+                        FlagIndividual = d.FlagIndividual,
+                        Slogan = d.Slogan,
+                        ImgHomeDesktop = d.ImgHomeDesktop,
+                        ImgHomeMobile = d.ImgHomeMobile,
+                        ImgFondoDesktop = d.ImgFondoDesktop,
+                        ImgFondoMobile = d.ImgFondoMobile,
+                        ImgFichaDesktop = d.ImgFichaDesktop,
+                        ImgFichaFondoDesktop = d.ImgFichaFondoDesktop,
+                        ImgFichaMobile = d.ImgFichaMobile,
+                        ImgFichaFondoMobile = d.ImgFichaFondoMobile,
+                        UrlVideoDesktop = d.UrlVideoDesktop,
+                        UrlVideoMobile = d.UrlVideoMobile
                     }
 
                 }).ToList();
@@ -335,7 +348,20 @@ namespace Portal.Consultoras.Web.Providers
                 PrecioPublico = (float)entidad.PrecioPublico,
                 Zona = entidad.Zona,
                 EsSubCampania = entidad.EsSubCampania == 1,
-                ImagenMiniatura = entidad.ImagenMiniaturaURL ?? string.Empty
+                ImagenMiniatura = entidad.ImagenMiniaturaURL ?? string.Empty,
+                //Lan
+                FlagIndividual = entidad.FlagIndividual,
+                Slogan = entidad.Slogan,
+                ImgHomeDesktop = entidad.ImgHomeDesktop,
+                ImgHomeMobile = entidad.ImgHomeMobile,
+                ImgFondoDesktop = entidad.ImgFondoDesktop,
+                ImgFondoMobile = entidad.ImgFondoMobile,
+                ImgFichaDesktop = entidad.ImgFichaDesktop,
+                ImgFichaFondoDesktop = entidad.ImgFichaFondoDesktop,
+                ImgFichaMobile = entidad.ImgFichaMobile,
+                ImgFichaFondoMobile = entidad.ImgFichaFondoMobile,
+                UrlVideoDesktop = entidad.UrlVideoDesktop,
+                UrlVideoMobile = entidad.UrlVideoMobile
             };
             return waModel;
         }
@@ -842,6 +868,27 @@ namespace Portal.Consultoras.Web.Providers
             List<ServicePedido.BEReporteValidacion> listaReporte = (respuesta.Result != null) ? JsonConvert.DeserializeObject<List<ServicePedido.BEReporteValidacion>>(respuesta.Result.ToString()) : new List<ServicePedido.BEReporteValidacion>();
 
             return listaReporte;
+        }
+
+        public ServicePedido.BEEstrategiaDetalle ObtenerEstrategiaDetalle(ServicePedido.BEEstrategia entidad)
+        {
+            ServicePedido.BEEstrategiaDetalle estrategiaDetalle = new ServicePedido.BEEstrategiaDetalle()
+            {
+                FlagIndividual = entidad.FlagIndividual,
+                Slogan = entidad.Slogan,
+                ImgHomeDesktop = entidad.ImgHomeDesktop,
+                ImgHomeMobile = entidad.ImgHomeMobile,
+                ImgFondoDesktop = entidad.ImgFondoDesktop,
+                ImgFondoMobile = entidad.ImgFondoMobile,
+                ImgFichaDesktop = entidad.ImgFichaDesktop,
+                ImgFichaFondoDesktop = entidad.ImgFichaFondoDesktop,
+                ImgFichaMobile = entidad.ImgFichaMobile,
+                ImgFichaFondoMobile = entidad.ImgFichaFondoMobile,
+                UrlVideoDesktop = entidad.UrlVideoDesktop,
+                UrlVideoMobile = entidad.UrlVideoMobile
+            };
+
+            return estrategiaDetalle;
         }
     }
 }

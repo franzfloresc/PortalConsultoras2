@@ -70,6 +70,9 @@ namespace Portal.Consultoras.Web.Controllers
                     PaisID = userData.PaisID
                 };
 
+                //Enviar listado de palancas c/microservicios y si el país está configurado para ser evaluados en grilla.
+                ViewBag.MsEstrategias = WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion;
+                ViewBag.MsPaises = WebConfig.PaisesMicroservicioPersonalizacion;
             }
             catch (Exception ex)
             {
@@ -817,12 +820,27 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 error.Append("| if CodigoTipoEstrategia Equals Lan");
                                 estrategiaDetalle = new ServicePedido.BEEstrategiaDetalle();
+
                                 if (entidad.EstrategiaID != 0)
                                 {
-                                    error.Append("| if entidad.EstrategiaID != 0");
-                                    estrategiaDetalle = sv.GetEstrategiaDetalle(entidad.PaisID, entidad.EstrategiaID);
-                                    error.Append("| if entidad.EstrategiaID != 0 fin");
+                                    if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, entidad.CodigoTipoEstrategia, dbdefault))
+                                    {
+                                        List<EstrategiaMDbAdapterModel> lst = new List<EstrategiaMDbAdapterModel>();
+                                        lst.AddRange(administrarEstrategiaProvider.FiltrarEstrategia(_id, userData.CodigoISO).ToList());
+                                        if(lst.Count > 0)
+                                        {
+                                            var entidadMongo = lst[0].BEEstrategia;
+                                            estrategiaDetalle = administrarEstrategiaProvider.ObtenerEstrategiaDetalle(entidadMongo);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        error.Append("| if entidad.EstrategiaID != 0");
+                                        estrategiaDetalle = sv.GetEstrategiaDetalle(entidad.PaisID, entidad.EstrategiaID);
+                                        error.Append("| if entidad.EstrategiaID != 0 fin");
+                                    }
                                 }
+
                                 error.Append("| VerficarArchivos");
                                 entidad = VerficarArchivos(entidad, estrategiaDetalle);
                                 error.Append("| VerficarArchivos fin");

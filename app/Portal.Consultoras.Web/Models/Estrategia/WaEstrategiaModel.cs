@@ -53,5 +53,19 @@ namespace Portal.Consultoras.Web.Models.Estrategia
         public DateTime FechaModificacion { get; set; }
 
         public bool? EsSubCampania { get; set; }
+
+        //Lan
+        public bool FlagIndividual { get; set; }
+        public string Slogan { get; set; }
+        public string ImgHomeDesktop { get; set; }
+        public string ImgHomeMobile { get; set; }
+        public string ImgFondoDesktop { get; set; }
+        public string ImgFondoMobile { get; set; }
+        public string ImgFichaDesktop { get; set; }
+        public string ImgFichaFondoDesktop { get; set; }
+        public string ImgFichaMobile { get; set; }
+        public string ImgFichaFondoMobile { get; set; }
+        public string UrlVideoDesktop { get; set; }
+        public string UrlVideoMobile { get; set; }
     }
 }

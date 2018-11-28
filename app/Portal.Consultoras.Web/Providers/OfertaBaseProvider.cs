@@ -78,9 +78,23 @@ namespace Portal.Consultoras.Web.Providers
                         TieneVariedad = Convert.ToBoolean(item.tieneVariedad) ? 1 : 0,
                         TipoEstrategiaID = Convert.ToInt32(item.tipoEstrategiaId),
                         TipoEstrategiaImagenMostrar = 6,
-                        EsSubCampania = Convert.ToBoolean(item.esSubCampania ) ? 1 : 0,
+                        EsSubCampania = Convert.ToBoolean(item.esSubCampania) ? 1 : 0,
+                        //Lan
+                        FlagIndividual = Convert.ToBoolean(item.flagIndividual ?? false),
+                        Slogan = item.slogan,
+                        ImgHomeDesktop = item.imgHomeDesktop,
+                        ImgHomeMobile = item.imgHomeMobile,
+                        ImgFondoDesktop = item.imgFondoDesktop,
+                        ImgFondoMobile = item.imgFondoMobile,
+                        ImgFichaDesktop = item.imgFichaDesktop,
+                        ImgFichaFondoDesktop = item.imgFichaFondoDesktop,
+                        ImgFichaMobile = item.imgFichaMobile,
+                        ImgFichaFondoMobile = item.imgFichaFondoMobile,
+                        UrlVideoDesktop = item.urlVideoDesktop,
+                        UrlVideoMobile = item.urlVideoMobile,
                     };
                     estrategia.TipoEstrategia = new ServiceOferta.BETipoEstrategia { Codigo = item.codigoTipoEstrategia };
+
                     if (estrategia.Precio2 > 0)
                     {
                         var compoponentes = new List<ServiceOferta.BEEstrategiaProducto>();
