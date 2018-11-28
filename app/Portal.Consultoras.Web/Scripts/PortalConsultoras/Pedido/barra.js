@@ -651,6 +651,7 @@ function cambiarEleccionRegaloProgramaNuevas(nuevoRegaloElegido) {
     $('.mensaje_titulo_popup_eleccion_regalo').fadeOut(200);
     $('.mensaje_regalo_elegido').fadeOut(150);
     setTimeout(function () {
+        $('.btn_elegir_regalo').fadeIn(150);
         $('.mensaje_titulo_popup_eleccion_regalo').html('¡Puedes elegir tu regalo del Programa de Nuevas ahora!');
         $('.mensaje_titulo_popup_eleccion_regalo').fadeIn(200);
         nuevoRegaloElegido.parents('.opcion_regalo_carousel_programaNuevas').addClass('opcion_regalo_carousel_elegido');

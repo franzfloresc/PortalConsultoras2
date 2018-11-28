@@ -36141,7 +36141,7 @@ h1#penmostreo .campana {
     display:inline-block;
     vertical-align:top;
     float:none;
-    min-height:315px;
+    height:315px;
     padding-top:0!important;
     padding-bottom:25px!important;
 }
