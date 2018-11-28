@@ -1245,7 +1245,7 @@ var PedidoRegistroModule = function () {
         //            _insertarProductoPasePedidoMobile();
         //            return true;
         //        }
-                }
+        //        }
         //    },
         //    error: function (data, error) {
         //        CloseLoading();
