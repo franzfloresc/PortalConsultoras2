@@ -577,11 +577,7 @@ function MostrarBarra(datax, destino) {
 
 $('.btn_elegir_regalo').click(function () {
     seleccionRegaloProgramaNuevas($(this));
-});
-
-$('.enlace_elegir_otro_regalo').click(function (e) {
-    e.preventDefault();
-    cambiarEleccionRegaloProgramaNuevas();
+    cambiarEleccionRegaloProgramaNuevas($(this));
 });
 
 if ($('.monto_maximo').css('display') == 'none') {
@@ -640,12 +636,10 @@ function seleccionRegaloProgramaNuevas(regaloProgramaNuevas) {
         regaloProgramaNuevas.next().fadeIn(150);
         $('.mensaje_titulo_popup_eleccion_regalo').html('¡Ya elegiste tu regalo!');
         $('.mensaje_titulo_popup_eleccion_regalo').fadeIn(200);
-        $('.enlace_elegir_otro_regalo').fadeIn(100);
-        $('.enlace_elegir_otro_regalo').css('display', 'block');
     }, 150);    
 }
 
-function cambiarEleccionRegaloProgramaNuevas() {
+function cambiarEleccionRegaloProgramaNuevas(nuevoRegaloElegido) {
     if (window.matchMedia('(min-width:1000px)').matches) {
         if ($('.opcion_regalo_carousel_programaNuevas').is('.opcion_regalo_inactivo')) {
             $('.opcion_regalo_carousel_programaNuevas').removeClass('opcion_regalo_inactivo');
@@ -659,7 +653,8 @@ function cambiarEleccionRegaloProgramaNuevas() {
     setTimeout(function () {
         $('.mensaje_titulo_popup_eleccion_regalo').html('¡Puedes elegir tu regalo del Programa de Nuevas ahora!');
         $('.mensaje_titulo_popup_eleccion_regalo').fadeIn(200);
-        $('.btn_elegir_regalo').fadeIn(150);
-        $('.enlace_elegir_otro_regalo').fadeOut(100);
+        nuevoRegaloElegido.parents('.opcion_regalo_carousel_programaNuevas').addClass('opcion_regalo_carousel_elegido');
+        nuevoRegaloElegido.fadeOut(50);
+        nuevoRegaloElegido.next().fadeIn(150);
     }, 150);
 }
