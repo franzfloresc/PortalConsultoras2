@@ -83,8 +83,13 @@
             };
             _provider.RecomendacionesPromise(modelo)
                 .done(function (data) {
-                    SetHandlebars(_elementos.templateProducto, data.productos, _elementos.divProducto);                    
-                    _funciones.ArmarCarruselProductosRecomendados();
+                    $(_elementos.divProducto).html("");
+                    SetHandlebars(_elementos.templateProducto, data.Productos, _elementos.divProducto);
+                    if (data.Total > 3) {
+                         _funciones.ArmarCarruselProductosRecomendados();
+                    }
+                   
+                    $(_elementos.divProducto).show();
                 }).fail(function (data, error) {
 
                 });
@@ -104,7 +109,7 @@
     }
     function Inicializar() {
         _funciones.InicializarEventos();
-        //_funciones.ArmarCarruselProductosRecomendados();
+       // _funciones.ArmarCarruselProductosRecomendados();
     }
 
     return {
