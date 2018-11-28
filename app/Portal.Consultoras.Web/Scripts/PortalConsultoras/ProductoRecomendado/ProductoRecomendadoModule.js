@@ -99,6 +99,7 @@
             e.preventDefault();
             var seccionProductosRecomendados = $(this).parents('.productos_recomendados_wrapper');
             seccionProductosRecomendados.slideUp(200);
+            set_local_storage(true, 'ocultar_productos_recomendados');
         }
     };
     
