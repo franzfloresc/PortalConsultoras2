@@ -103,7 +103,8 @@
                     $('#frmCargarDescripcion').submit();
                 },
                 "Cancelar": function () {
-                    $(this).dialog('close');
+                    HideDialog("DialogCargarDescProducto");
+                    //$(this).dialog('close');
                 }
             }
         });
@@ -144,7 +145,8 @@
         if (checkTimeout(responseText)) {
             $("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
             alert(responseText);
-            $('#DialogCargarDescProducto').dialog('close');
+            HideDialog("DialogCargarDescProducto");
+            //$('#DialogCargarDescProducto').dialog('close');
         }
     }
 
@@ -223,7 +225,10 @@
             title: "Actualización de Matriz",
             buttons:
             {
-                "Cerrar": function () { $(this).dialog('close'); }
+                "Cerrar": function () {
+                    HideDialog("matriz-comercial-dialog");
+                    //$(this).dialog('close');
+                }
             }
         });
     }
@@ -250,7 +255,7 @@
                 </div>
                 <div class="titG">Código SAP:</div>
                 <div class="selectA borde_redondeado">
-                    <input type="text" id="txtCodigoSAP"/>
+                    <input type="text" id="txtCodigoSAP" />
                 </div>
                 <div class="input_search">
                     <a href="#" id="lnkAdmDescripcion">
@@ -290,7 +295,7 @@
                 </div>
                 <div class="selectA borde_redondeado">
                     <input type="file" id="flDescProd" name="flDescProd" />
-                </div>                
+                </div>
             </div>
             <div class="div-3">
                 <div class="titC">

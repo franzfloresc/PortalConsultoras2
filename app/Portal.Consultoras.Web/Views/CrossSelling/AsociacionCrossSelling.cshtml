@@ -275,6 +275,7 @@
                 if (TipoCros == 1) {
                     jQuery("#list_Segmentacion").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
                 }
+                HideDialog("DialogAsociarProductosRecomendado");
             },
             buttons:
             {
@@ -302,7 +303,8 @@
                     }
                 },
                 "Cancelar": function () {
-                    $(this).dialog('close');
+                    HideDialog("DialogAsociarProductosRecomendado");
+                    //$(this).dialog('close');
                 }
             }
         });

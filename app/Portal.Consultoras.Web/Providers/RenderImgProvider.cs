@@ -45,14 +45,12 @@ namespace Portal.Consultoras.Web.Providers
                 {
                     string soloImagen = Path.GetFileNameWithoutExtension(rutaImagen);
                     string soloExtension = Path.GetExtension(rutaImagen);
-
-                    var carpetaPais = Globals.UrlMatriz + "/" + codigoIso;
-
+                    
                     var extensionNombreImagenSmall = Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall;
                     var extensionNombreImagenMedium = Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium;
 
-                    rutaImagenSmall = ConfigS3.GetUrlFileS3(carpetaPais, soloImagen + extensionNombreImagenSmall + soloExtension);
-                    rutaImagenMedium = ConfigS3.GetUrlFileS3(carpetaPais, soloImagen + extensionNombreImagenMedium + soloExtension);
+                    rutaImagenSmall = ConfigS3.GetUrlFileS3Matriz(codigoIso, soloImagen + extensionNombreImagenSmall + soloExtension);
+                    rutaImagenMedium = ConfigS3.GetUrlFileS3Matriz(codigoIso, soloImagen + extensionNombreImagenMedium + soloExtension);
                 }
                 else
                 {
