@@ -531,7 +531,7 @@ var AnalyticsPortalModule = (function () {
             var model = {
                 'DescripcionCompleta': estrategia.DescripcionCompleta,
                 'CUV': estrategia.CUV2,
-                'Precio': estrategia.PrecioVenta,
+                'Precio': estrategia.Precio2,
                 'DescripcionMarca': estrategia.CUV2,
                 'CodigoTipoEstrategia': estrategia.CodigoEstrategia,
                 'MarcaId': estrategia.MarcaID,
@@ -539,21 +539,26 @@ var AnalyticsPortalModule = (function () {
             };
 
             var _pagina = pagina.Pagina;
+            var valorBuscar = localStorage.getItem('valorBuscador');
+
+            if (_pagina === "Landing Buscador") {
+                AnalyticsPortalModule.MarcaAnadirCarritoBuscador(model, "Ficha de producto", valorBuscar);
+            }
+
             if (pagina.Pagina.includes("Landing"))
                 _pagina = "Landing";
 
-            var valorBuscar = localStorage.getItem('valorBuscador');
             switch (_pagina) {
                 case "Buscador":
                 case "Landing Buscador":
                     AnalyticsPortalModule.MarcaAnadirCarritoBuscador(model, "Ficha de producto", valorBuscar);
                     break;
                 case "Home": seccion.Seccion == "Banner Superior" ? AnalyticsPortalModule.MarcaAnadirCarritoHomeBanner(null, codigoOrigenPedido, estrategia) : AnalyticsPortalModule.MarcaAnadirCarritoHome(null, codigoOrigenPedido, estrategia); break;
-                    // Inicio Analytics Oferta Miguel
+                // Inicio Analytics Oferta Miguel
                 case "Contenedor": AnalyticsPortalModule.MarcaAnadirCarrito(event, codigoOrigenPedido, estrategia); break;
                 case "Landing": AnalyticsPortalModule.MarcaAnadirCarrito(event, codigoOrigenPedido, estrategia); break;
                 case "Pedido": AnalyticsPortalModule.MarcaAnadirCarrito(event, codigoOrigenPedido, estrategia); break;
-                    // Fin Analytics Oferta Miguel
+                // Fin Analytics Oferta Miguel
             }
 
         } catch (e) {
@@ -643,11 +648,76 @@ var AnalyticsPortalModule = (function () {
                 'label': busqueda
             });
         } catch (e) {
-
+            console.error(e);
         }
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////
+    var marcaVerTodosLosResultadosBuscador = function (busqueda) {
+        try {
+
+            dataLayer.push({
+                'event': _evento.virtualEvent,
+                'category': 'Buscador SB',
+                'action': 'Ver todos los resultados',
+                'label': busqueda
+            });
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    var marcaBusquedaSinResultadosBuscador = function (busqueda) {
+        try {
+            dataLayer.push({
+                'event': _evento.virtualEvent,
+                'category': 'Buscador SB',
+                'action': 'Búsqueda - sin Resultados',
+                'label': busqueda
+            });
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    var marcaClicOpcionesFiltrarBuscador = function (busqueda) {
+        try {
+            dataLayer.push({
+                'event': _evento.virtualEvent,
+                'category': 'Resultados de Búsqueda',
+                'action': 'Ordenar Por',
+                'label': busqueda
+            });
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    var marcaEligeTuOpcionBuscador = function (busqueda) {
+        try {
+            dataLayer.push({
+                'event': _evento.virtualEvent,
+                'category': 'Resultados de Búsqueda',
+                'action': 'Elige tu opción',
+                'label': busqueda
+            });
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    var marcaRedesSocialesBuscador = function (network, label) {
+        try {
+            dataLayer.push({
+                'event': _evento.socialEvent,
+                'network': network,
+                'action': 'Compartir',
+                'label': label
+            });
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
     // Fin - Analytics Buscador Miguel
     ////////////////////////////////////////////////////////////////////////////////////////
 
@@ -797,7 +867,7 @@ var AnalyticsPortalModule = (function () {
             switch (seccion) {
                 case _codigoSeccion.HOME: AnalyticsPortalModule.MarcaProductImpressionHome(seccion, data, limit); break;
                 case _codigoSeccion.HOMEOFERTA: AnalyticsPortalModule.MarcaPromotionViewOferta(seccion, data); break;
-                    // Inicio Analytics Ofertas  
+                // Inicio Analytics Ofertas  
                 case _codigoSeccion.LAN: AnalyticsPortalModule.MarcaPromotionViewBanner(seccion, data); break;
                 case _codigoSeccion.HV: esLanding ? AnalyticsPortalModule.MarcaProductImpression(seccion, data) : AnalyticsPortalModule.MarcaProductImpressionLanding(seccion, data); break;
                 case _codigoSeccion.RD: esLanding ? AnalyticsPortalModule.MarcaProductImpression(seccion, data) : AnalyticsPortalModule.MarcaProductImpressionLanding(seccion, data); break;
@@ -807,7 +877,7 @@ var AnalyticsPortalModule = (function () {
                 case _codigoSeccion.GND: esLanding ? AnalyticsPortalModule.MarcaProductImpression(seccion, data) : AnalyticsPortalModule.MarcaProductImpressionLanding(seccion, data); break;
                 case _codigoSeccion.MG: esLanding ? AnalyticsPortalModule.MarcaProductImpression(seccion, data) : AnalyticsPortalModule.MarcaProductImpressionLanding(seccion, data); break;
 
-                    // Fin Analytics Ofertas Miguel
+                // Fin Analytics Ofertas Miguel
             }
         } catch (e) {
 
@@ -2485,6 +2555,11 @@ var AnalyticsPortalModule = (function () {
         MarcaAnadirCarritoGenerico: marcaAnadirCarritoGenerico,
         // Fin - Analytics Buscador Miguel
 
+        MarcaVerTodosLosResultadosBuscador: marcaVerTodosLosResultadosBuscador,
+        MarcaBusquedaSinResultadosBuscador: marcaBusquedaSinResultadosBuscador,
+        MarcaClicOpcionesFiltrarBuscador: marcaClicOpcionesFiltrarBuscador,
+        MarcaEligeTuOpcionBuscador: marcaEligeTuOpcionBuscador,
+        MarcaRedesSocialesBuscador: marcaRedesSocialesBuscador,
         // Ini - Analytics Home 1 
         MarcaGanaOfertas: marcaGanaOfertas,
         MarcaVerOfertasHome: marcaVerOfertasHome,
