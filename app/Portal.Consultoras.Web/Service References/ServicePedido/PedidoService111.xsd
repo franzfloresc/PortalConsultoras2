@@ -103,7 +103,6 @@
       <xs:element minOccurs="0" name="NumeroDocumento" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NumeroOrdenTienda" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NumeroTarjeta" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Origen" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="OrigenTarjeta" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PagoEnLineaResultadoLogId" type="xs:int" />
       <xs:element minOccurs="0" name="PrimerApellido" nillable="true" type="xs:string" />

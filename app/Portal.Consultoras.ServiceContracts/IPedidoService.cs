@@ -658,8 +658,8 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         int ValidarCUVsRecomendados(BEEstrategia entidad);
 
-        [OperationContract]
-        List<BEEstrategia> FiltrarEstrategiaPedido(BEEstrategia entidad);
+        //[OperationContract]
+        //List<BEEstrategia> FiltrarEstrategiaPedido(BEEstrategia entidad);
 
         [OperationContract]
         string ValidarStockEstrategia(BEEstrategia entidad);

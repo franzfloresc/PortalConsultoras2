@@ -1166,40 +1166,42 @@ namespace Portal.Consultoras.Web.Controllers
             return data;
         }
 
-        [HttpPost]
-        public JsonResult FiltrarEstrategiaPedido(string EstrategiaID, int FlagNueva = 0)
-        {
-            List<ServicePedido.BEEstrategia> lst;
+        //[HttpPost]
+        //public JsonResult FiltrarEstrategiaPedido(string EstrategiaID, int FlagNueva = 0)
+        //{
+        //    List<ServicePedido.BEEstrategia> lst;
 
-            var entidad = new ServicePedido.BEEstrategia
-            {
-                PaisID = userData.PaisID,
-                EstrategiaID = Convert.ToInt32(EstrategiaID),
-                FlagNueva = FlagNueva
-            };
+        //    var entidad = new ServicePedido.BEEstrategia
+        //    {
+        //        PaisID = userData.PaisID,
+        //        EstrategiaID = Convert.ToInt32(EstrategiaID),
+        //        FlagNueva = FlagNueva
+        //    };
 
-            using (var sv = new PedidoServiceClient())
-            {
-                lst = sv.FiltrarEstrategiaPedido(entidad).ToList();
-            }
-            
-            if (lst.Count > 0)
-            {
-                lst.Update(x => x.ImagenURL = ConfigS3.GetUrlFileS3Matriz(userData.CodigoISO, x.ImagenURL));
-                lst.Update(x => x.Simbolo = userData.Simbolo);
-            }
-            ViewBag.ProductoDestacadoDetalle = lst[0];
-            return Json(new
-            {
-                data = lst[0],
-                precio = (userData.PaisID == 4)
-                    ? lst[0].Precio.ToString("#,##0").Replace(',', '.')
-                    : lst[0].Precio.ToString("#,##0.00"),
-                precio2 = (userData.PaisID == 4)
-                    ? lst[0].Precio2.ToString("#,##0").Replace(',', '.')
-                    : lst[0].Precio2.ToString("#,##0.00")
-            }, JsonRequestBehavior.AllowGet);
-        }
+        //    using (var sv = new PedidoServiceClient())
+        //    {
+        //        lst = sv.FiltrarEstrategiaPedido(entidad).ToList();
+        //    }
+
+        //    var carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+
+        //    if (lst.Count > 0)
+        //    {
+        //        lst.Update(x => x.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenURL));
+        //        lst.Update(x => x.Simbolo = userData.Simbolo);
+        //    }
+        //    ViewBag.ProductoDestacadoDetalle = lst[0];
+        //    return Json(new
+        //    {
+        //        data = lst[0],
+        //        precio = (userData.PaisID == 4)
+        //            ? lst[0].Precio.ToString("#,##0").Replace(',', '.')
+        //            : lst[0].Precio.ToString("#,##0.00"),
+        //        precio2 = (userData.PaisID == 4)
+        //            ? lst[0].Precio2.ToString("#,##0").Replace(',', '.')
+        //            : lst[0].Precio2.ToString("#,##0.00")
+        //    }, JsonRequestBehavior.AllowGet);
+        //}
 
         [HttpPost]
         public JsonResult DeshabilitarEstrategia(string EstrategiaID, string idMongoVal, string tipoEstrategiaCodigo)
