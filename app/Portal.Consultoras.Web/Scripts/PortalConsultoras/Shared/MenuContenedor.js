@@ -204,7 +204,7 @@ var menuModule = (function () {
         }
     }
     function menuClick(e, url) {
-    
+        
         var objHtmlEvent = $(e);
         var esAncla = objHtmlEvent.data(tagIsAnchor);
         var codigo = objHtmlEvent.data("codigo") || "";
@@ -252,7 +252,11 @@ var menuModule = (function () {
                 $(elementos.claseimgNoSeleccionado).hide();
                 _animateScrollTo(elementos.html, menuHeight);
             }
-
+            
+            //var campania = $(element).data("campania") || "";
+            if (typeof AnalyticsPortalModule !== "undefined") {
+                AnalyticsPortalModule.ClickTabGanadoras(codigo);
+            }
             if (window.location.pathname.toLowerCase() === url.toLowerCase()) return;
 
             window.location = window.location.origin + url;
@@ -282,17 +286,34 @@ var menuModule = (function () {
             });
         }
     }
-    function sectionClick(url, titulo) {
+    function sectionClick(url, titulo, e) {
+        
+        var OrigenPedidoWeb = EstrategiaAgregarModule.GetOrigenPedidoWeb($(e), false);
         titulo = titulo || "";
-        if (typeof rdAnalyticsModule !== "undefined") {
-            rdAnalyticsModule.ContendorSection(titulo);
-        }
+        url = url || "";
+        //if (typeof rdAnalyticsModule !== "undefined") {
+        //    rdAnalyticsModule.ContendorSection(titulo);
+        //}
         if (_var.Mobile) {
             if (url.indexOf(ConstantesModule.CodigosPalanca.Ganadoras) > 0)
                 if (url.indexOf("Mobile") < 0)
                     url = "/Mobile" + url;
         }
-        window.location.href = url;
+        
+        if (typeof AnalyticsPortalModule !== "undefined") {
+            OrigenPedidoWeb = OrigenPedidoWeb || "";
+            if (url.indexOf(ConstantesModule.CodigosPalanca.Ganadoras) > 0) {
+                if (titulo === "BotonVerMas")
+                    AnalyticsPortalModule.MarcarClickMasOfertasMG(url, OrigenPedidoWeb);
+                if (titulo === "BannerMG") {
+                    AnalyticsPortalModule.MarcarClickMasOfertasPromotionClickMG();
+                    AnalyticsPortalModule.MarcarClickMasOfertasBannerMG(url);
+                }   
+            } else
+                AnalyticsPortalModule.MarcaClicVerMasOfertas(url, OrigenPedidoWeb);
+        }
+            
+        //window.location.href = url;
     }
     function tabResize() {
 

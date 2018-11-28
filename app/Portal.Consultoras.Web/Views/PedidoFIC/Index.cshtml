@@ -62,12 +62,12 @@
 
             <div class="pedido_ingreso_datos campo_codigo">
                 <br />
-                <input type="text" name="CUV" id="txtCUV" onblur="ValidarCUV();" maxlength="5" class="ValidaNumeral" placeholder="Código" />
+                <input type="text" name="CUV" id="txtCUV" onblur="ValidarCUV();" maxlength="5" class="ValidaNumeral default-border-hover" placeholder="Código" />
             </div>
 
             <div class="pedido_ingreso_datos campo_descripcion_producto">
                 <br />
-                <input type="text" name="DescripcionProd" id="txtDescripcionProd" maxlength="250" onblur="ValidarDescripcion();" class="ValidaAlfanumerico"
+                <input type="text" name="DescripcionProd" id="txtDescripcionProd" maxlength="250" onblur="ValidarDescripcion();" class="ValidaAlfanumerico default-border-hover"
                        @*onkeyup="PreValidarCUV(event);"*@ 
                         attrKey="PreValidarCUV"
                        placeholder="Descripción producto" />
@@ -75,13 +75,14 @@
 
             <div class="pedido_ingreso_datos campo_precio">
                 <br />
-                <input id="txtPrecioR" disabled="disabled" class="preciounitario" placeholder="Precio" />
+                <input id="txtPrecioR" disabled="disabled" class="preciounitario default-border-hover" placeholder="Precio" />
             </div>
 
             <div class="pedido_ingreso_datos campo_cantidad">
                 <br />
                 <div class="liquidacion_rango_wrapper_pedido" data-cantidad-contenedor="">
-                    <input type="text" name="Cantidad" id="txtCantidad" data-input="cantidad" value="1" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
+                    <input type="text" name="Cantidad" id="txtCantidad" data-input="cantidad" value="1" maxlength="2" 
+                           class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral default-border-hover"
                            @*onkeypress="PreValidarCUV(event);"*@ 
                             attrKey="PreValidarCUV"
                            onfocus="SeleccionarContenido(this)" />
@@ -95,14 +96,14 @@
             <div class="pedido_ingreso_datos campo_cliente">
                 <br />
                 <input type="text" name="ClienteDescripcion" id="txtClienteDescripcion" onblur="ValidarCliente();" onkeydown="ValidarClienteFocus(event);"
-                       maxlength="50" class="ValidaAlfanumerico" placeholder="Cliente (Opcional)" />
+                       maxlength="50" class="ValidaAlfanumerico default-border-hover" placeholder="Cliente (Opcional)" />
                 <span class="pedido_ingreso_datos_icono_mas">+</span>
                 <a class="pedidos_cliente" onclick="AbrirModalCliente();">
                     AGREGAR NUEVO CLIENTE
                 </a>
             </div>
             <input type="hidden" id="hdFlagNueva" />
-            <input id="btnAgregar" type="submit" value="AGREGAR" disabled="disabled" onkeydown="Tabular()" class="pedido_agregado" />
+            <input id="btnAgregar" type="submit" value="AGREGAR" disabled="disabled" onkeydown="Tabular()" class="pedido_agregado default-background" />
         </form>
     </div>
     <div class="clear"></div>
@@ -127,7 +128,7 @@
                     <span>Subtotal</span>
                 </div>
                 <div class="texto_encabezado_pedidos clienteFic">
-                    <select id="ddlClientes" onchange="CambiarCliente(this)"><option value="-1">Cliente</option><option value="2">KRISTELL ALMAZAN HERNANDEZ</option><option value="0">JULIA HERNANDEZ BASTIDA</option></select>
+                    <select id="ddlClientes" onchange="CambiarCliente(this)"><option value="-1">Para mí</option><option value="2">KRISTELL ALMAZAN HERNANDEZ</option><option value="0">JULIA HERNANDEZ BASTIDA</option></select>
                 </div>
                 <div class="texto_encabezado_pedidos acciones_fic"></div>
             </div>
@@ -142,7 +143,7 @@
                 <div class="bloque_montosPedido">
                     <div class="caja_montos">
                         <div class="caja_montos_textos">
-                            <p class="monto_con_descuento pMontoCliente" style="display: none;">
+                            <p class="monto_con_descuento pMontoCliente default-color" style="display: none;">
                                 <span id="spnNombreCliente"></span>
                             </p>
                             <div class="monto_total">
@@ -150,7 +151,7 @@
                             </div>
                         </div>
                         <div class="caja_montos_cantidades">
-                            <p class="monto_con_descuento pMontoCliente" style="display: none;">
+                            <p class="monto_con_descuento pMontoCliente default-color" style="display: none;">
                                 <span id="spnTotalCliente"></span>
                             </p>
                             <p class="monto_total">
@@ -164,12 +165,12 @@
                 </div>
                 <div class="contenedor_btnGuardarPedido">
 
-                    <div class="tooltip_importanteGuardarPedido">
+                    <div class="tooltip_importanteGuardarPedido  default-color">
                         Haz click aquí cuando<br>hayas finalizado
                         <span>Podrás optar por un pedido sorpresa a un super precio</span>
                     </div>
                     <div class="boton_guardarPedido">
-                        <input type="button" id="btnValidarPROL" value="Guarda tu pedido" style="text-transform: uppercase;" class="info_copy">
+                        <input type="button" id="btnValidarPROL" value="Guarda tu pedido" style="text-transform: uppercase;" class="info_copy default-background-color">
                     </div>
                 </div>
 
@@ -185,7 +186,7 @@
         <div class="contenedor_eliminacion_pedido">
             <p class="texto_eliminar_pedido">
                 <span class="texto_pedido_completo">
-                    Para eliminar el pedido completo <a href="javascript:;" class="link_eliminar_pedido" title="Haz click aquí" onclick="MostrarEliminarPedidoTotal();">haz click aquí</a>
+                    Para eliminar el pedido completo <a href="javascript:;" class="link_eliminar_pedido default-color" title="Haz click aquí" onclick="MostrarEliminarPedidoTotal();">haz click aquí</a>
                 </span>
             </p>
             <div class="clear"></div>
@@ -244,7 +245,7 @@
     <ul class="paginador_notificaciones" data-paginacion="block">
 
         <li class="productos_agregados_usuario">
-            He agregado
+            Has agregado
             <span class="cantidad_productos_agregados"><b id="bPedidoPaginarRegistrosTotal" data-paginacion='recordCount'>{{RegistrosTotal}}</b></span>
             &nbsp;productos
         </li>
