@@ -192,7 +192,7 @@ namespace Portal.Consultoras.Web.Providers
             var estrategiasResult = new List<ServiceOferta.BEEstrategia>();
             var listaSinStock = new List<ServiceOferta.BEEstrategia>();
             var listaTieneStock = new List<Lista>();
-
+             
             try
             {
                 var codigoSap = string.Join("|", estrategias.Where(e => !string.IsNullOrEmpty(e.CodigoProducto) && e.TieneStock).Select(e => e.CodigoProducto));
