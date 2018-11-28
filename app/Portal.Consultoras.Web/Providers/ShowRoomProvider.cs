@@ -360,8 +360,10 @@ namespace Portal.Consultoras.Web.Providers
                     configEstrategiaSR.BeShowRoomConsultora = GetShowRoomConsultora(model);
                 }
 
+
                 configEstrategiaSR.ListaNivel = GetShowRoomNivel(model);
                 configEstrategiaSR.ShowRoomNivelId = ObtenerNivelId(configEstrategiaSR.ListaNivel);
+
 
                 if (configEstrategiaSR.BeShowRoom != null
                     && configEstrategiaSR.BeShowRoom.Estado == SHOWROOM_ESTADO_ACTIVO)
