@@ -565,9 +565,10 @@
         },
         RegistrarProducto: function (e) {
             e.preventDefault();
-            _funciones.abrirCargaFiltros();
+            AbrirLoad();
             var divPadre = $(this).parents("[data-item='BuscadorFichasProductos']").eq(0);
-            BuscadorProvider.RegistroProductoBuscador(divPadre);
+            var textoBusqueda = $('#TextoBusqueda').html();
+            BuscadorProvider.RegistroProductoBuscador(divPadre, textoBusqueda);
         },
         RedireccionarAFichaDeFotoYDescripcion: function (e) {
             e.preventDefault();
@@ -582,6 +583,8 @@
             var descripcionProducto = model.DescripcionCompleta;
 
             var codigo = ['030', '005', '001', '007', '008', '009', '010', '011'];
+
+            localStorage.setItem('valorBuscador', _config.textoBusqueda);
 
             if (codigo.indexOf(codigoEstrategia) >= 0) {
                 var UrlDetalle = GetPalanca(codigoEstrategia);

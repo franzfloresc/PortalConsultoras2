@@ -180,6 +180,8 @@ var BuscadorModule = (function () {
 
             var valorBusqueda = $(this).val();
 
+            localStorage.setItem('valorBuscador', valorBusqueda);
+
             if (valorBusqueda.length >= _config.caracteresBuscador) {
                 _funciones.CampoDeBusquedaConCaracteres($("#CampoBuscadorProductos"));
                 if (_config.contadorBusqueda === 0) {
@@ -230,7 +232,7 @@ var BuscadorModule = (function () {
 
                             if (!(typeof AnalyticsPortalModule === 'undefined'))
                                 AnalyticsPortalModule.MarcaBusquedaSinResultadosBuscador(valorBusqueda);
-                                                        
+
                         } else {
 
                             $.each(r.productos, function (index, item) {
@@ -323,7 +325,14 @@ var BuscadorModule = (function () {
 
             var codigo = ["030", "005", "001", "007", "008", "009", "010", "011"];
 
-            console.log(codigoEstrategia);
+            //console.log(codigoEstrategia);
+
+            
+
+            if (textoBusqueda != "")
+                localStorage.setItem('valorBuscador', textoBusqueda);
+
+            
 
             if (codigo.indexOf(codigoEstrategia) >= 0) {
                 var UrlDetalle = GetPalanca(codigoEstrategia);
@@ -335,12 +344,12 @@ var BuscadorModule = (function () {
                 if (!(typeof AnalyticsPortalModule === 'undefined'))
                     AnalyticsPortalModule.MarcaEligeTuOpcionBuscador(descripcionProducto + ' - ' + $(_elementos.campoBuscadorProductos).val());
 
-               
+
                 //virtualEvent('Resultados de Búsqueda', 'Elige tu opción', descripcionProducto + ' - ' + $(_elementos.campoBuscadorProductos).val());
                 return true;
             }
 
-            
+
 
         },
         ClickVerTodos: function () {
@@ -349,8 +358,9 @@ var BuscadorModule = (function () {
 
             if (!(typeof AnalyticsPortalModule === 'undefined'))
                 AnalyticsPortalModule.MarcaVerTodosLosResultadosBuscador(valorBusqueda);
-            
-            
+
+            localStorage.setItem('valorBuscador', valorBusqueda);
+
             window.location.href = url;
         },
         RedireccionarMenuPrincipal: function (e) {
