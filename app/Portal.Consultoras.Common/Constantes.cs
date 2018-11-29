@@ -2597,8 +2597,9 @@ namespace Portal.Consultoras.Common
             public const string ColorBotonPagarPasarelaPago = "10";
             public const string MensajeInformacionPagoExitoso = "11";
             public const string MontoMinimoPago = "13";
+            public const string UrlAutorizacionPagoApp = "14";
+            public const string UrlTerminosUsoApp = "15";
 
-            public const string NextCounterURL_Pattern = "{0}%s/nextCounter";
             public const string Recurrence = "FALSE";
             public const string RecurrenceAmount = "0.00";
 
@@ -2639,6 +2640,9 @@ namespace Portal.Consultoras.Common
             public const string AccountId = "PayuAccountId";
             public const string Endpoint = "PayuEndpoint";
             public const string Test = "PayuTest";
+            public const string PorcentajeGastosAdministrativos = "07";
+            public const string MontoMinimoPago = "08";
+
         }
 
         public static class PagoEnLineaCampos
@@ -3050,6 +3054,13 @@ namespace Portal.Consultoras.Common
                     });
                 }
             }
+        }
+
+        public static class Formatos {
+
+            public const string Fecha = "dd/MM/yyyy";
+            public const string FechaHora = "dd/MM/yyyy HH:mm";
+
         }
 
     }
