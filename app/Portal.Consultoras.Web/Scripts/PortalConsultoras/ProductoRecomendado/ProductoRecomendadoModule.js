@@ -88,6 +88,33 @@
                     AnalyticsPortalModule.MarcaRecomendacionesFlechaSiguiente();
             });
         },
+        ArmarCarruselProductosRecomendadosMobile: function () {
+            var carrusel = $('#carouselProductosRecomendados');
+
+            if (carrusel[0].slick) {
+                return;
+            }
+            carrusel.slick({
+                infinite: false,
+                //centerMode: true,
+                centerPadding: '0px',
+                lazyLoad: 'ondemand',
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                autoplay: false,
+                speed: 300,
+                variableWidth: true,
+                prevArrow: '',
+                nextArrow: '' 
+            }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
+                if (!(typeof AnalyticsPortalModule === 'undefined'))
+                    AnalyticsPortalModule.MarcaRecomendacionesFlechaAnterior();
+            }).on('afterChange', function (event, slick, currentSlide) {
+                if (!(typeof AnalyticsPortalModule === 'undefined'))
+                    AnalyticsPortalModule.MarcaRecomendacionesFlechaSiguiente();
+            });
+        },
+
         ObtenerProductos: function (cuv, codigoProducto) {
             var modelo = {
                 cuv: cuv,
@@ -98,10 +125,13 @@
                     $(_elementos.divProducto).html("");
                     if (data.Total !== 0) {
                         SetHandlebars(_elementos.templateProducto, data.Productos, _elementos.divProducto);
-                        if (data.Total > 3) {
-                             _funciones.ArmarCarruselProductosRecomendados();
+                        if (_config.isMobile) {
+                            _funciones.ArmarCarruselProductosRecomendadosMobile();
+                        } else {
+                            if (data.Total > 3) {
+                                _funciones.ArmarCarruselProductosRecomendados();
+                            }
                         }
-
                         _eventos.MostrarProductosRecomendados();
                     }
                     
