@@ -575,10 +575,9 @@ function ArmarCarouselEstrategias(data) {
     TagManagerCarruselInicio(data.Lista);
 }
 
-
 function TagManagerCarruselInicio(arrayItems) {
     arrayItems = arrayItems || new Array();
-    var pagina = isHome() ? "Home" : "Pedido";
+    var pagina = isHome() ? "Home" : "Carrito de Compras";
     var cantidadRecomendados = $('#divListadoEstrategia').find(".slick-active").length;
     var arrayEstrategia = [];
     for (var i = 0; i < cantidadRecomendados; i++) {
@@ -588,52 +587,54 @@ function TagManagerCarruselInicio(arrayItems) {
             'id': recomendado.CUV2,
             'price': $.trim(recomendado.Precio2),
             'brand': recomendado.DescripcionMarca,
-            'category': 'NO DISPONIBLE',
-            'variant': recomendado.DescripcionEstrategia,
-            'list': 'Ofertas para ti – ' + pagina,
+            'category': AnalyticsPortalModule.Texto.Notavaliable,
+            'variant': AnalyticsPortalModule.Texto.Estandar,
+            'list': AnalyticsPortalModule.Texto.List(false, pagina, "Gana+"),
             'position': recomendado.Posicion
         };
 
         arrayEstrategia.push(impresionRecomendado);
     }
-    var add = false;
 
-    if (arrayEstrategia.length > 0) {
-        add = true;
-        if (!isMobile()) {
-            add = false;
-            var sentListEstrategia = false;
-            if (typeof (Storage) !== 'undefined') {
-                var nunX = isHome() ? "1" : "2";
-                var sle = localStorage.getItem('sentListEstrategia' + nunX);
-                if (sle !== null && sle === '1') {
-                    sentListEstrategia = true;
-                }
-                else {
-                    localStorage.setItem('sentListEstrategia' + nunX, '1');
-                }
-            }
+    AnalyticsPortalModule.MarImpresionSetProductos(arrayEstrategia);
 
-            if (!sentListEstrategia) {
-                add = true;
-            }
-        }
-    }
+    //var add = false;
 
-    if (add) {
-        dataLayer.push({
-            'event': 'productImpression',
-            'ecommerce': {
-                'impressions': arrayEstrategia
-            }
-        });
-    }
+    //if (arrayEstrategia.length > 0) {
+    //    add = true;
+    //    if (!isMobile()) {
+    //        add = false;
+    //        var sentListEstrategia = false;
+    //        if (typeof (Storage) !== 'undefined') {
+    //            var nunX = isHome() ? "1" : "2";
+    //            var sle = localStorage.getItem('sentListEstrategia' + nunX);
+    //            if (sle !== null && sle === '1') {
+    //                sentListEstrategia = true;
+    //            }
+    //            else {
+    //                localStorage.setItem('sentListEstrategia' + nunX, '1');
+    //            }
+    //        }
+
+    //        if (!sentListEstrategia) {
+    //            add = true;
+    //        }
+    //    }
+    //}
+
+    //if (add) {
+    //    dataLayer.push({
+    //        'event': 'productImpression',
+    //        'ecommerce': {
+    //            'impressions': arrayEstrategia
+    //        }
+    //    });
+    //}
 }
 
 function EstrategiaCarouselOn(event, slick, currentSlide, nextSlide) {
-    var posicionEstrategia, recomendado, arrayEstrategia;
-    var origen = tipoOrigenEstrategia == 1 ? "Home" : tipoOrigenEstrategia == 11 ? "Pedido" :
-        tipoOrigenEstrategia == 2 ? "MobileHome" : tipoOrigenEstrategia == 21 ? "MobilePedido" : "";
+    console.log(event, slick, currentSlide, nextSlide);
+
     var accion;
     if (nextSlide == 0 && currentSlide + 1 == arrayOfertasParaTi.length) {
         accion = "next";
@@ -645,61 +646,51 @@ function EstrategiaCarouselOn(event, slick, currentSlide, nextSlide) {
         accion = "prev";
     }
 
+    var posicionEstrategia = 0
+    var paramlabel = "";
+    var arrayEstrategia = [];
+
+
     if (accion == "prev") {
         var posicionPrimerActivo = $($("#divListadoEstrategia").find(".slick-active")[0]).find(".PosicionEstrategia").val();
         posicionEstrategia = posicionPrimerActivo == 1 ? arrayOfertasParaTi.length - 1 : posicionPrimerActivo - 2;
-        recomendado = arrayOfertasParaTi[posicionEstrategia];
-        arrayEstrategia = [];
-        arrayEstrategia.push({
-            'name': recomendado.DescripcionCompleta,
-            'id': recomendado.CUV2,
-            'price': $.trim(recomendado.Precio2),
-            'brand': recomendado.DescripcionMarcaEstrategiaAgregarProducto,
-            'category': "NO DISPONIBLE",
-            'variant': recomendado.DescripcionEstrategia,
-            'list': "Ofertas para ti - " + origen,
-            'position': recomendado.Posicion
-        });
 
-        dataLayer.push({
-            'event': "productImpression",
-            'ecommerce': {
-                'impressions': arrayEstrategia
-            }
-        });
-        dataLayer.push({
-            'event': "virtualEvent",
-            'category': origen,
-            'action': "Ofertas para ti",
-            'label': "Ver anterior"
-        });
-    } else if (accion == "next") {
+        paramlabel = "Ver anterior";
+
+    } else {
         var posicionUltimoActivo = $($("#divListadoEstrategia").find(".slick-active").slice(-1)[0]).find(".PosicionEstrategia").val();
         posicionEstrategia = arrayOfertasParaTi.length == posicionUltimoActivo ? 0 : posicionUltimoActivo;
-        recomendado = arrayOfertasParaTi[posicionEstrategia];
-        arrayEstrategia = [];
-        arrayEstrategia.push({
-            'name': recomendado.DescripcionCompleta,
-            'id': recomendado.CUV2,
-            'price': $.trim(recomendado.Precio2),
-            'brand': recomendado.DescripcionMarca,
-            'category': "NO DISPONIBLE",
-            'variant': recomendado.DescripcionEstrategia,
-            'list': "Ofertas para ti - " + origen,
-            'position': recomendado.Posicion
-        });
 
-        dataLayer.push({
-            'event': "productImpression",
-            'ecommerce': {
-                'impressions': arrayEstrategia
-            }
-        });
-        dataLayer.push({
-            'event': "virtualEvent",
-            'category': origen,
-            'action': "Ofertas para ti",
-            'label': "Ver siguiente"
-        });
+        paramlabel = "Ver siguiente";
     }
+
+    var pagina = isHome() ? "Home" : "Carrito de Compras";
+
+    var recomendado = arrayOfertasParaTi[posicionEstrategia];
+    arrayEstrategia.push({
+        'name': recomendado.DescripcionCompleta,
+        'id': recomendado.CUV2,
+        'price': recomendado.PrecioVenta,
+        'brand': recomendado.DescripcionMarca,
+        'category': AnalyticsPortalModule.Texto.Notavaliable,
+        'variant': AnalyticsPortalModule.Texto.Estandar,
+        'list': AnalyticsPortalModule.Texto.List(false, pagina, "Gana+"),
+        'position': recomendado.Posicion
+    });
+    
+    AnalyticsPortalModule.MarImpresionSetProductos(arrayEstrategia);
+
+    //dataLayer.push({
+    //    'event': "productImpression",
+    //    'ecommerce': {
+    //        'impressions': arrayEstrategia
+    //    }
+    //});
+
+    dataLayer.push({
+        'event': "virtualEvent",
+        'category': pagina,
+        'action': "Ofertas para ti",
+        'label': paramlabel
+    });
 }
