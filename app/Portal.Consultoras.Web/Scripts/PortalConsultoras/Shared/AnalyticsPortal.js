@@ -160,6 +160,7 @@ var AnalyticsPortalModule = (function () {
     /*
         Retorna el Campo list' para las maraciones segun patron
         (Contenedor - )? [pagina] - [Palanca]
+        Lo ideal es generar el texto segun el Origen Pedido web
     */
     var getParametroList = function (contenedor, pagina, palanca) {
         var separador = " - ";
@@ -2594,7 +2595,7 @@ var AnalyticsPortalModule = (function () {
         AutoMapper: autoMapper,
         AutoMapperV2: autoMapperV2,
         MarcaClicBanner: marcaClicBanner,
-        //MarcaClicVerMasOfertas: marcaClicVerMasOfertas,  // se utiliza solo como privado
+        MarcaClicVerMasOfertas: marcaClicVerMasOfertas,
         //MarcaProductImpression: marcaProductImpression,  // se utiliza solo como privado
         //MarcaProductImpressionLanding: marcaProductImpressionLanding,  // se utiliza solo como privado
         //MarcaProductImpressionCart: marcaProductImpressionCart, // no se utiliza
