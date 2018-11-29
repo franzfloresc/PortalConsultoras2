@@ -756,6 +756,7 @@
         var dataBarra = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(ViewBag.DataBarra).ToString().Replace("'", @"\'"))');
         var listaMensajeMeta = dataBarra == null ? null : dataBarra.ListaMensajeMeta;
         var urlInsertarDemandaTotalReemplazoSugerido = '@Url.Action("InsertarDemandaTotalReemplazoSugerido", "Pedido", new { area = "" })';
+        var activarRecomendaciones = '@ViewBag.ActivarRecomendaciones';
     </script>
 
     @if (mobileConfiguracion.EsAppMobile)
