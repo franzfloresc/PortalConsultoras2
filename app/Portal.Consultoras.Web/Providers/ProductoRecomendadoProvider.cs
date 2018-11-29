@@ -42,6 +42,21 @@ namespace Portal.Consultoras.Web.Providers
             return !value.IsNullOrEmptyTrim() && value == "1";
         }
 
+        private int ObtenerCantidadMinima()
+        {
+            var value = (from item
+                        in _recomendacionesConfiguracion.ConfiguracionPaisDatos
+                    where item.Codigo == Constantes.CodigoConfiguracionRecomendaciones.MinimoResultados
+                    select item.Valor1)
+                .FirstOrDefault();
+            int x;
+            return int.TryParse(value, out x) ? x : 1;
+        }
+        public bool ValidarCantidadMinima(RecomendacionesModel recomendacionesModel)
+        {
+            return recomendacionesModel.Productos.Any() && recomendacionesModel.Productos.Count >= ObtenerCantidadMinima();
+        }
+        
         private dynamic GenerarJsonParaConsulta(UsuarioModel usuarioModel, RevistaDigitalModel revistaDigital, string cuv, string codigoProducto)
         {
             var suscripcion = (revistaDigital.EsSuscrita && revistaDigital.EsActiva);
@@ -56,7 +71,7 @@ namespace Portal.Consultoras.Web.Providers
                 codigoZona = usuarioModel.CodigoZona,
                 cuv,
                 codigoProducto,
-                personalizaciones = personalizaciones,
+                personalizaciones,
                 cantidadProductos = ObtenerCantidadProductosMax(),
                 configuracion = new
                 {

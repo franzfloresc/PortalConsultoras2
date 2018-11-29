@@ -55,6 +55,42 @@
 
     <div class="contenedor_producto">
         <div class="content_320 ingresoPedidom">
+            <div class="producto_por_agregar_wrapper">
+                <div class="producto_por_agregar">
+                    <div class="producto_por_agregar_info_wrapper">
+                        <div class="producto_por_agregar_imagen">
+                            <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CR/201818/E/productos/CR_200050017.jpg" alt="" />
+                        </div>
+                        <div class="producto_por_agregar_info">
+                            <div class="producto_por_agregar_nombre">
+                                Kalos Sport
+                            </div>
+                            <div class="producto_por_agregar_precio_normal">
+                                S/ 125.00
+                            </div>
+                            <div class="producto_por_agregar_precio_oferta">
+                                S/ 49.90
+                            </div>
+                        </div>
+                    </div>
+                    <div class="producto_por_agregar_acciones_wrapper">
+                        <div class="producto_por_agregar_rango_cantidad js-no-popup">
+                            <a class="menos d-block js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event);">
+                                <img class="d-block js-no-popup" src="/Content/Images/menos.svg" alt="">
+                            </a>
+                            <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="d-block text-center text-bold ValidaNumeral ValidaPasteNumeral js-no-popup">
+                            <a class="mas d-block js-no-popup" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event);">
+                                <img class="d-block js-no-popup" src="/Content/Images/mas.svg" alt="">
+                            </a>
+                        </div>
+                        <div class="producto_por_agregar_btn_wrapper">
+                            <a class="boton_Agregalo_home btn_producto_por_agregar d-block text-center text-uppercase">
+                                Agrégalo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="productos_recomendados_wrapper" id="divProductosRecomendados">
                 <h3 class="productos_recomendados_titulo d-block">Ofertas relacionadas :</h3>
                 <div class="productos_recomendados_carrusel_wrapper w-100">
@@ -353,7 +389,7 @@
             <div id="divResumenPedido">
                 <div class="contenedor_resumenPedido montosIngresoPedido">
                     <div class="textos_resumen">
-                        <span id="lblProductosResumen" style="margin-left: 30px;">HE AGREGADO :</span>
+                        <span id="lblProductosResumen" style="margin-left: 30px;">HAS AGREGADO :</span>
                         <span id="lblTotalResumen">
 
                             <div class="info_validado">

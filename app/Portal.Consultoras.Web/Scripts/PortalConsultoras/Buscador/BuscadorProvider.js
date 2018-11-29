@@ -104,14 +104,28 @@
 
                                 microefectoPedidoGuardado();
 
-                                    CargarResumenCampaniaHeader();
+                                if (!isMobile()) CargarResumenCampaniaHeader();
+
+                                console.log(textoBusqueda);
 
                                 CerrarLoad();
 
                                 limpiarRecomendados();
                                 
+                                var modelCarrito = {
+                                    'DescripcionCompleta': model.DescripcionProd,
+                                    'CUV': model.CUV,
+                                    'Precio': model.PrecioUnidad,
+                                    'DescripcionMarca': model.CUV,
+                                    'CodigoTipoEstrategia': model.EstrategiaID,
+                                    'MarcaId': model.MarcaID,
+                                    'Cantidad': model.Cantidad
+                                };
+
+                                var _textoBusqueda = localStorage.getItem('valorBuscador');
+
                                 if (!(typeof AnalyticsPortalModule === 'undefined'))
-                                    AnalyticsPortalModule.MarcaAnadirCarritoBuscador(model, 'Resultados', $('#TextoBusqueda').html());
+                                    AnalyticsPortalModule.MarcaAnadirCarritoBuscador(modelCarrito, 'Resultados', _textoBusqueda);
 
                             },
                             error: function (data, error) {
@@ -131,9 +145,9 @@
         var cantidad = $(divPadre).find("[data-input='cantidad']").val();
         var agregado = $(divPadre).find(".etiqueta_buscador_producto");
         model.Cantidad = cantidad;
-        
+
         if (model.TipoPersonalizacion == "LIQ") {
-            RegistroLiquidacion(model, cantidad, agregado);
+            RegistroLiquidacion(model, cantidad, agregado, textoBusqueda);
         } else {
             var cuv = model.CUV;
             var tipoOfertaSisID = model.TipoPersonalizacion == "CAT" ? 0 : model.TipoEstrategiaId;
@@ -197,7 +211,7 @@
                 contentType: "application/json; charset=utf-8",
                 data: JSON.stringify(modelFinal),
                 async: true,
-                success: function(data) {
+                success: function (data) {
                     if (!checkTimeout(data)) {
                         CerrarLoad();
                         return false;
@@ -219,12 +233,26 @@
                             MostrarBarra(data);
                         }
                     }
+
                     microefectoPedidoGuardado();
-                    CargarResumenCampaniaHeader();
+                    if (!isMobile()) CargarResumenCampaniaHeader();
+
                     CerrarLoad();
                     limpiarRecomendados();
+                    var modelCarrito = {
+                        'DescripcionCompleta': modelFinal.DescripcionProd,
+                        'CUV': modelFinal.CUV,
+                        'Precio': modelFinal.PrecioUnidad,
+                        'DescripcionMarca': modelFinal.CUV,
+                        'CodigoTipoEstrategia': modelFinal.EstrategiaID,
+                        'MarcaId': modelFinal.MarcaID,
+                        'Cantidad': modelFinal.Cantidad
+                    };
+
+                    var _textoBusqueda = localStorage.getItem('valorBuscador');
+
                     if (!(typeof AnalyticsPortalModule === 'undefined'))
-                        AnalyticsPortalModule.MarcaAnadirCarritoBuscador(modelFinal, 'Resultados', $('#TextoBusqueda').html());
+                        AnalyticsPortalModule.MarcaAnadirCarritoBuscador(modelCarrito, 'Resultados', _textoBusqueda);
 
                     TrackingJetloreAdd(modelFinal.Cantidad, $("#hdCampaniaCodigo").val(), modelFinal.CUV);
                     agregado.html('<span class="text-uppercase text-bold d-inline-block">Agregado</span>');
@@ -232,7 +260,7 @@
                     $(divPadre).find(".hdBuscadorCantidadesAgregadas").val(totalAgregado);
                     return true;
                 },
-                error: function(data, error) {
+                error: function (data, error) {
                     _ajaxError(data);
                     return false;
                 }
@@ -240,7 +268,7 @@
         }
     };
 
- 
+
 
     return {
         RegistroProductoBuscador: RegistroProductoBuscador

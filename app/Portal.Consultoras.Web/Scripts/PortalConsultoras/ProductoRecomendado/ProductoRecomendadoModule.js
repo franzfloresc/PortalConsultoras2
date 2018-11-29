@@ -24,6 +24,9 @@
                 cache: false,
                 success: function(data) {
                     dfd.resolve(data);
+                    
+                    if (!(typeof AnalyticsPortalModule === 'undefined'))
+                        AnalyticsPortalModule.MarcaProductImpressionRecomendaciones(data);
                 },
                 error: function(data, error) {
                     dfd.reject(data, error);
@@ -75,8 +78,14 @@
                     $('.previous').fadeOut(100);
                 }
 
+                if (!(typeof AnalyticsPortalModule === 'undefined'))
+                    AnalyticsPortalModule.MarcaRecomendacionesFlechaAnterior();
+
             }).on('afterChange', function(event, slick, currentSlide) {
                 //$('.previous').hide();
+                //marcaRecomendacionesFlechaSiguiente
+                if (!(typeof AnalyticsPortalModule === 'undefined'))
+                    AnalyticsPortalModule.MarcaRecomendacionesFlechaSiguiente();
             });
         },
         ObtenerProductos: function (cuv, codigoProducto) {
@@ -87,23 +96,33 @@
             _provider.RecomendacionesPromise(modelo)
                 .done(function (data) {
                     $(_elementos.divProducto).html("");
-                    SetHandlebars(_elementos.templateProducto, data.Productos, _elementos.divProducto);
-                    if (data.Total > 3) {
-                         _funciones.ArmarCarruselProductosRecomendados();
+                    if (data.Total !== 0) {
+                        SetHandlebars(_elementos.templateProducto, data.Productos, _elementos.divProducto);
+                        if (data.Total > 3) {
+                             _funciones.ArmarCarruselProductosRecomendados();
+                        }
+
+                        _eventos.MostrarProductosRecomendados();
                     }
-                   
-                    $(_elementos.divProducto).show();
+                    
                 }).fail(function (data, error) {
 
                 });
         },
+        OcultarSeccionRecomendados: function(e) {
+            $(_elementos.divProducto).slideUp(200);
+        }
     };
     var _eventos = {
         OcultarProductosRecomendados: function (e) {
             e.preventDefault();
-            var seccionProductosRecomendados = $(this).parents('.productos_recomendados_wrapper');
-            seccionProductosRecomendados.slideUp(200);
+            $(_elementos.divProducto).slideUp(200);
             set_local_storage(true, 'ocultar_productos_recomendados');
+            if (!(typeof AnalyticsPortalModule === 'undefined'))
+                AnalyticsPortalModule.MarcaOcultarRecomendaciones();
+        },
+        MostrarProductosRecomendados: function (e) {
+            $(_elementos.divProducto).slideDown(200);
         },
 
         AgregarProductoRecomendado: function (e) {
@@ -123,10 +142,14 @@
         _funciones.InicializarEventos();
        // _funciones.ArmarCarruselProductosRecomendados();
     }
+    function OcultarProductosRecomendados() {
+        _funciones.OcultarSeccionRecomendados();
+    }
 
     return {
         Inicializar: Inicializar,
-        ObtenerProductos: ObtenerProductos
+        ObtenerProductos: ObtenerProductos,
+        OcultarProductosRecomendados: OcultarProductosRecomendados
     };
 })();
 
