@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Models.Recomendaciones
 {
+    [Serializable]
     public class RecomendacionesModel
     {
         public int Total { get; set; }
