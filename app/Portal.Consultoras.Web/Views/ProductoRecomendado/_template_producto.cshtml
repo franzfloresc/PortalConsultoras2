@@ -4,11 +4,11 @@
     <div class="productos_recomendados_carrusel_wrapper w-100">
         <ul id="carouselProductosRecomendados" class="productos_recomendados_carrusel">
         {{#each this as |item|}}
-            <li class="producto_recomendado">
-                <input type="hidden" class="hdBuscadorJSON" value="{{JSON2string item}}" />
+            <li class="producto_recomendado" data-item="ProductoRecomendadoBuscador">
+                <input type="hidden" class="hdRecomendadoJSON" value="{{JSON2string item}}" />
                 <div class="producto_recomendado_info_wrapper">
                     <div class="producto_recomendado_imagen">
-                        <img data-src="{{Imagen}}" alt="" data-src-error="@Url.Content("~/Content/Images/oferta-sin-imagen.svg")" />
+                        <img src="{{Imagen}}" onerror="this.onerror=null;this.src='@Url.Content("~/Content/Images/oferta-sin-imagen.jpg")'" />
                     </div>
                     <div class="producto_recomendado_info">
                         <div class="producto_recomendado_marca text-uppercase">

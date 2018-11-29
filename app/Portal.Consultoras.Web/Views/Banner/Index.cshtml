@@ -570,7 +570,8 @@
                     });
                 },
                 "Cancelar": function () {
-                    $(this).dialog('close');
+                    HideDialog("DialogPreviewBanPrincipalSB2");
+                    //$(this).dialog('close');
                 }
             }
         });
@@ -647,7 +648,8 @@
                     });
                 },
                 "Cancelar": function () {
-                    $(this).dialog('close');
+                    HideDialog("DialogPreviewBanPrincipal");
+                    //$(this).dialog('close');
                 }
             }
         });
@@ -723,7 +725,8 @@
                     });
                 },
                 "Cancelar": function () {
-                    $(this).dialog('close');
+                    HideDialog("DialogPreviewBanBaja");
+                    //$(this).dialog('close');
                 }
             }
         });
@@ -1205,7 +1208,8 @@
         });
 
         $('#btnCancelarCargaBanner').live('click', function () {
-            $('#DialogCargarBanner').dialog('close')
+            HideDialog("DialogCargarBanner");
+            //$('#DialogCargarBanner').dialog('close')
         });
 
         $('#btnGuardar').live('click', function () {
@@ -1232,7 +1236,8 @@
         if (checkTimeout(responseText)) {
             $("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
             alert_msg(responseText);
-            $('#DialogCargarArchivo').dialog('close');
+            HideDialog("DialogCargarArchivo");
+            //$('#DialogCargarArchivo').dialog('close');
         }
     }
 
@@ -1245,7 +1250,8 @@
                 $("#" + idSubGrid).setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
 
             alert_msg(responseText);
-            $('#DialogCargarBanner').dialog('close');
+            HideDialog("DialogCargarBanner");
+            //$('#DialogCargarBanner').dialog('close');
         }
     }
 
@@ -1821,7 +1827,8 @@
                     $('#frmCargarGrupoBanner').submit();
                 },
                 "Cancelar": function () {
-                    $(this).dialog('close');
+                    HideDialog("DialogCargarArchivo");
+                    //$(this).dialog('close');
                 }
             }
         });
@@ -1842,7 +1849,8 @@
                     $('#frmCargarBanner').submit();
                 },
                 "Cancelar": function () {
-                    $(this).dialog('close');
+                    HideDialog("DialogCargarBanner");
+                    //$(this).dialog('close');
                 }
             }
         });
@@ -1861,7 +1869,8 @@
                     fnEliminarBanner(DltBannerID);
                 },
                 "Cancelar": function () {
-                    $(this).dialog('close');
+                    HideDialog("DialogEliminarBanner");
+                    //$(this).dialog('close');
                 }
             }
         });
@@ -1880,7 +1889,8 @@
                     GuardarInformacionBannerSegmentoZona();
                 },
                 "Cancelar": function () {
-                    $(this).dialog('close');
+                    HideDialog("DialogSegZonaBanner");
+                    //$(this).dialog('close');
                 }
             }
         });
@@ -1896,7 +1906,8 @@
             buttons:
             {
                 "Aceptar": function () {
-                    $(this).dialog('close');
+                    HideDialog("DialogMensajesBanner");
+                    //$(this).dialog('close');
                 }
             }
         });
@@ -2019,7 +2030,8 @@
                         alert_msg('Error al realizar proceso, intentelo mas tarde.');
                     }
 
-                    $('#DialogEliminarBanner').dialog('close');
+                    HideDialog("DialogEliminarBanner");
+                    //$('#DialogEliminarBanner').dialog('close');
                 }
             }
         });

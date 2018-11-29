@@ -220,16 +220,15 @@ namespace Portal.Consultoras.BizLogic.OfertaPersonalizada
                 }
                 catch (Exception ex) { throw ex; }
             }
-
-            var carpetaPais = Globals.UrlMatriz + "/" + codigoIso;
+            
             estrategiasResult.ForEach(estrategia =>
             {
                 if (estrategia.Precio <= estrategia.Precio2)
                     estrategia.Precio = Convert.ToDecimal(0.0);
 
                 estrategia.CampaniaID = entidad.CampaniaID;
-                estrategia.ImagenURL = ConfigCdn.GetUrlFileCdn(carpetaPais, estrategia.ImagenURL);
-                estrategia.ImagenOfertaIndependiente = ConfigCdn.GetUrlFileCdn(carpetaPais, estrategia.ImagenOfertaIndependiente);
+                estrategia.ImagenURL = ConfigCdn.GetUrlFileCdnMatriz(codigoIso, estrategia.ImagenURL);
+                estrategia.ImagenOfertaIndependiente = ConfigCdn.GetUrlFileCdnMatriz(codigoIso, estrategia.ImagenOfertaIndependiente);
                 estrategia.Simbolo = entidad.Simbolo;
                 estrategia.TieneStockProl = true;
                 estrategia.PrecioString = Util.DecimalToStringFormat(estrategia.Precio2, codigoIso);
