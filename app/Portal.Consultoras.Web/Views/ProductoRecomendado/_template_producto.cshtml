@@ -13,7 +13,15 @@
                         </div>
                         <div class="producto_recomendado_info">
                             <div class="producto_recomendado_marca text-uppercase">
-                                {{MarcaId}}
+                                {{#if_eq MarcaId '1'}}
+                                L'Bel
+                                {{else if_eq MarcaId '2'}}
+                                Ésika
+                                {{else if_eq MarcaId '3'}}
+                                Cyzone
+                                {{else}}
+                                Ésika
+                                {{/if_eq}}
                             </div>
                             <div class="producto_recomendado_nombre">
                                 {{Descripcion}}
