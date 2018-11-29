@@ -531,7 +531,7 @@ var AnalyticsPortalModule = (function () {
             var model = {
                 'DescripcionCompleta': estrategia.DescripcionCompleta,
                 'CUV': estrategia.CUV2,
-                'Precio': estrategia.PrecioVenta,
+                'Precio': estrategia.Precio2,
                 'DescripcionMarca': estrategia.CUV2,
                 'CodigoTipoEstrategia': estrategia.CodigoEstrategia,
                 'MarcaId': estrategia.MarcaID,
@@ -539,10 +539,15 @@ var AnalyticsPortalModule = (function () {
             };
 
             var _pagina = pagina.Pagina;
+            var valorBuscar = localStorage.getItem('valorBuscador');
+
+            if (_pagina === "Landing Buscador") {
+                AnalyticsPortalModule.MarcaAnadirCarritoBuscador(model, "Ficha de producto", valorBuscar);
+            }
+
             if (pagina.Pagina.includes("Landing"))
                 _pagina = "Landing";
 
-            var valorBuscar = localStorage.getItem('valorBuscador');
             switch (_pagina) {
                 case "Buscador":
                 case "Landing Buscador":
@@ -649,6 +654,7 @@ var AnalyticsPortalModule = (function () {
 
     var marcaVerTodosLosResultadosBuscador = function (busqueda) {
         try {
+
             dataLayer.push({
                 'event': _evento.virtualEvent,
                 'category': 'Buscador SB',

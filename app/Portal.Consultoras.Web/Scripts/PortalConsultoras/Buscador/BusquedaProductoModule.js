@@ -34,7 +34,8 @@
         criteriosBuscadorMobile: '.criteriosBuscadorMobile',
         criteriosBuscadorDesktop: '.criteriosBuscadorDesktop',
         mostrarLayoutCriterios: '.layout__content__etiquetas__criteriosElegidos',
-        etiquetaCriterioElegido: '.icono__eliminar__criterioElegido'
+        etiquetaCriterioElegido: '.icono__eliminar__criterioElegido',
+        valueJSON: ".valueJSON"
     };
     var _modificador = {
         itemDropDowndesplegado: "opcion__ordenamiento__dropdown--desplegado",
@@ -565,9 +566,9 @@
         },
         RegistrarProducto: function (e) {
             e.preventDefault();
-            _funciones.abrirCargaFiltros();
+            AbrirLoad();
             var divPadre = $(this).parents("[data-item='BuscadorFichasProductos']").eq(0);
-            BuscadorProvider.RegistroProductoBuscador(divPadre);
+            BuscadorProvider.RegistroProductoBuscador(divPadre, _elementos.valueJSON);            
         },
         RedireccionarAFichaDeFotoYDescripcion: function (e) {
             e.preventDefault();
@@ -582,6 +583,8 @@
             var descripcionProducto = model.DescripcionCompleta;
 
             var codigo = ['030', '005', '001', '007', '008', '009', '010', '011'];
+
+            localStorage.setItem('valorBuscador', _config.textoBusqueda);
 
             if (codigo.indexOf(codigoEstrategia) >= 0) {
                 var UrlDetalle = GetPalanca(codigoEstrategia);
