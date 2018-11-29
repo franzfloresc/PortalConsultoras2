@@ -10,6 +10,18 @@
         if (checkTimeout(data)) AbrirMensaje(data.message);
     }
 
+    var limpiarRecomendados = function () {
+        var seccionProductosRecomendados = $('.productos_recomendados_wrapper');
+        seccionProductosRecomendados.slideUp(200);
+
+        $("#txtDescripcionProd").val("");
+        $("#hdfDescripcionProd").val("");
+        $("#txtPrecioR").val("");
+        $("#txtCantidad").val("");
+        $("#divMensaje").text("");
+        $("#txtCUV").focus();
+    }
+    
     var RegistroLiquidacion = function (model, cantidad, producto) {
         if (ReservadoOEnHorarioRestringido())
             return false;
@@ -97,6 +109,8 @@
                                 console.log(textoBusqueda);
 
                                 CerrarLoad();
+
+                                limpiarRecomendados();
                                 
                                 var modelCarrito = {
                                     'DescripcionCompleta': model.DescripcionProd,
@@ -125,9 +139,9 @@
         });
     }
 
-    var RegistroProductoBuscador = function (divPadre, textoBusqueda) {
+    var RegistroProductoBuscador = function(divPadre, valueJSON) {
 
-        var model = JSON.parse($(divPadre).find(".hdBuscadorJSON").val());
+        var model = JSON.parse($(divPadre).find(valueJSON).val());
         var cantidad = $(divPadre).find("[data-input='cantidad']").val();
         var agregado = $(divPadre).find(".etiqueta_buscador_producto");
         model.Cantidad = cantidad;
@@ -224,7 +238,7 @@
                     if (!isMobile()) CargarResumenCampaniaHeader();
 
                     CerrarLoad();
-
+                    limpiarRecomendados();
                     var modelCarrito = {
                         'DescripcionCompleta': modelFinal.DescripcionProd,
                         'CUV': modelFinal.CUV,

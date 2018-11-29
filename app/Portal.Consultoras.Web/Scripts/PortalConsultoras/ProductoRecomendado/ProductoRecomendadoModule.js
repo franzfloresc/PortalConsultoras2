@@ -4,7 +4,8 @@
         noMostrarProductosRecomendados: '.cerrar_seccion_productos_recomendados',
         divProducto: "#divProductosRecomendados",
         templateProducto: "#producto-recomendado-template",
-        botonAgregar: ".btn_producto_recomendado_agregalo"
+        botonAgregar: ".btn_producto_recomendado_agregalo",
+        valueJSON: ".hdRecomendadoJSON"
     };
     var _config = {
         isMobile: window.matchMedia("(max-width:991px)").matches
@@ -128,15 +129,8 @@
             e.preventDefault();
             AbrirLoad();
             var divPadre = $(this).parents("[data-item='ProductoRecomendadoBuscador']").eq(0);
-            var textoBusqueda = $(_elementos.campoBuscadorProductos).val();
-            
-            BuscadorProvider.RegistroProductoBuscador(divPadre);
 
-            //- Ocultando y limpiando
-            var seccionProductosRecomendados = $(this).parents('.productos_recomendados_wrapper');
-            seccionProductosRecomendados.slideUp(200);
-
-
+            BuscadorProvider.RegistroProductoBuscador(divPadre, _elementos.valueJSON);
         }
     };
     
