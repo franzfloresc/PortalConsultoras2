@@ -1042,8 +1042,6 @@ function RegistrarDemandaTotalReemplazoSugerido(cuvSugerido, precio, cantidad, e
 
 function CargarProductosRecomendados(item) {
 
-    console.log(item);
-
     if (activarRecomendaciones == 1) {
         if ((item.CodigoCatalago == 9 || item.CodigoCatalago == 10 || item.CodigoCatalago == 13) &&
             (item.EstrategiaIDSicc == 2001)) {
