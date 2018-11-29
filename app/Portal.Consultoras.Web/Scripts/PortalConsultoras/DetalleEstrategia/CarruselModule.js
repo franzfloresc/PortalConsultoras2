@@ -171,13 +171,14 @@
                 if (response) {
                     if (response.success) {
                         data.lista = response.data;
-                        if (!(typeof AnalyticsPortalModule === 'undefined'))
-                            AnalyticsPortalModule.MarcaVisualizarOtrosProductos(response.data);
                     }
                 }
 
             });
         }
+
+        if (!(typeof AnalyticsPortalModule === 'undefined'))
+            AnalyticsPortalModule.MarcaGenericaLista("Ficha", data);
 
         if (data.lista.length > 0) {
             _variable.cantidadProdCarrusel = data.lista.length;
@@ -419,7 +420,7 @@ function ArmarCarouselEstrategias(data) {
     if (tipoOrigenEstrategia == 1) {
         var cantProCarrusel = 4;
         var esVariableWidth = true;
-        
+
         $("#divListaEstrategias").show();
 
         EstablecerLazyCarrusel("#divListadoEstrategia");
