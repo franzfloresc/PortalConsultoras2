@@ -50,7 +50,8 @@ var BuscadorModule = (function () {
         agregarProducto: ".agregarProductoBuscador",
         redireccionarFicha: ".redireccionarFicha",
         botonVerTodos: "#BotonVerTodosResultados",
-        logoPaginaResponsive: '.logoPaginaResponsive'
+        logoPaginaResponsive: '.logoPaginaResponsive',
+        valueJSON: ".hdBuscadorJSON"
     };
     var _config = {
         isMobile: window.matchMedia("(max-width:991px)").matches,
@@ -308,7 +309,7 @@ var BuscadorModule = (function () {
             var divPadre = $(this).parents("[data-item='ProductoBuscador']").eq(0);
             var textoBusqueda = $(_elementos.campoBuscadorProductos).val();
             _funciones.LlamarAnalyticsSeleccionarContenido(textoBusqueda);
-            BuscadorProvider.RegistroProductoBuscador(divPadre);
+            BuscadorProvider.RegistroProductoBuscador(divPadre, _elementos.valueJSON);
         },
         RedireccionarAFichaDeFotoYDescripcion: function (e) {
             e.preventDefault();

@@ -34,7 +34,8 @@
         criteriosBuscadorMobile: '.criteriosBuscadorMobile',
         criteriosBuscadorDesktop: '.criteriosBuscadorDesktop',
         mostrarLayoutCriterios: '.layout__content__etiquetas__criteriosElegidos',
-        etiquetaCriterioElegido: '.icono__eliminar__criterioElegido'
+        etiquetaCriterioElegido: '.icono__eliminar__criterioElegido',
+        valueJSON: ".valueJSON"
     };
     var _modificador = {
         itemDropDowndesplegado: "opcion__ordenamiento__dropdown--desplegado",
@@ -567,7 +568,7 @@
             e.preventDefault();
             _funciones.abrirCargaFiltros();
             var divPadre = $(this).parents("[data-item='BuscadorFichasProductos']").eq(0);
-            BuscadorProvider.RegistroProductoBuscador(divPadre);
+            BuscadorProvider.RegistroProductoBuscador(divPadre, _elementos.valueJSON);
         },
         RedireccionarAFichaDeFotoYDescripcion: function (e) {
             e.preventDefault();
