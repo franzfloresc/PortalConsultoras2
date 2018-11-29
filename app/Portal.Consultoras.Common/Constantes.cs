@@ -893,6 +893,11 @@ namespace Portal.Consultoras.Common
             public const int MobileContenedorLanzamientosCarrusel = 2080201; // Esta en duro en rdAnalyticsModule
 
             #endregion
+
+            #region Producto Recomendado
+            public const int DesktopPedidoProductoRecomendadoCarrusel = 1021501;
+            public const int MobilePedidoProductoRecomendadoCarrusel = 2021501;
+            #endregion
         }
 
         public static class TipoTutorial

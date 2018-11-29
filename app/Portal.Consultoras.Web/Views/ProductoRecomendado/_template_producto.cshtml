@@ -9,11 +9,19 @@
                     <input type="hidden" class="hdRecomendadoJSON" value="{{JSON2string item}}" />
                     <div class="producto_recomendado_info_wrapper">
                         <div class="producto_recomendado_imagen">
-                            <img src="{{Imagen}}" onerror="this.onerror=null;this.src='@Url.Content("~/Content/Images/oferta-sin-imagen.jpg")'" />
+                        <img src="{{Imagen}}" onerror="this.onerror=null;this.src='@Url.Content("~/Content/Images/imagen_prod_no_disponible.jpg")'" />
                         </div>
                         <div class="producto_recomendado_info">
                             <div class="producto_recomendado_marca text-uppercase">
-                                {{MarcaId}}
+                                {{#if_eq MarcaId '1'}}
+                                L'Bel
+                                {{else if_eq MarcaId '2'}}
+                                Ésika
+                                {{else if_eq MarcaId '3'}}
+                                Cyzone
+                                {{else}}
+                                Ésika
+                                {{/if_eq}}
                             </div>
                             <div class="producto_recomendado_nombre">
                                 {{Descripcion}}
@@ -30,7 +38,7 @@
                         </div>
                     </div>
                     <div class="producto_recomendado_acciones_wrapper">
-                        <div class="producto_recomendado_rango_cantidad js-no-popup">
+                    <div class="producto_recomendado_rango_cantidad js-no-popup" data-cantidad-contenedor="">
                             <a class="menos d-block js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event);">
                                 <img class="d-block js-no-popup" src="/Content/Images/menos.svg" alt="">
                             </a>

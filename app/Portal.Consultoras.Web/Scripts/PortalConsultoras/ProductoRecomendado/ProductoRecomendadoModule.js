@@ -4,7 +4,8 @@
         noMostrarProductosRecomendados: '.cerrar_seccion_productos_recomendados',
         divProducto: "#divProductosRecomendados",
         templateProducto: "#producto-recomendado-template",
-        botonAgregar: ".btn_producto_recomendado_agregalo"
+        botonAgregar: ".btn_producto_recomendado_agregalo",
+        valueJSON: ".hdRecomendadoJSON"
     };
     var _config = {
         isMobile: window.matchMedia("(max-width:991px)").matches
@@ -95,12 +96,15 @@
             _provider.RecomendacionesPromise(modelo)
                 .done(function (data) {
                     $(_elementos.divProducto).html("");
-                    SetHandlebars(_elementos.templateProducto, data.Productos, _elementos.divProducto);
-                    if (data.Total > 3) {
-                         _funciones.ArmarCarruselProductosRecomendados();
-                    }
+                    if (data.Total !== 0) {
+                        SetHandlebars(_elementos.templateProducto, data.Productos, _elementos.divProducto);
+                        if (data.Total > 3) {
+                             _funciones.ArmarCarruselProductosRecomendados();
+                        }
 
-                    _eventos.MostrarProductosRecomendados();
+                        _eventos.MostrarProductosRecomendados();
+                    }
+                    
                 }).fail(function (data, error) {
 
                 });
@@ -125,15 +129,8 @@
             e.preventDefault();
             AbrirLoad();
             var divPadre = $(this).parents("[data-item='ProductoRecomendadoBuscador']").eq(0);
-            var textoBusqueda = $(_elementos.campoBuscadorProductos).val();
-            
-            BuscadorProvider.RegistroProductoBuscador(divPadre);
 
-            //- Ocultando y limpiando
-            var seccionProductosRecomendados = $(this).parents('.productos_recomendados_wrapper');
-            seccionProductosRecomendados.slideUp(200);
-
-
+            BuscadorProvider.RegistroProductoBuscador(divPadre, _elementos.valueJSON);
         }
     };
     
