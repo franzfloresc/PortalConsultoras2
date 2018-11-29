@@ -26460,13 +26460,13 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool ActiveField;
+        private bool ActiveMontoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool ActiveCuponElectivoField;
+        private bool ActivePremioAutoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool ActiveMontoTooltipField;
+        private bool ActivePremioElectivoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool ActiveTooltipField;
@@ -26494,40 +26494,40 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool Active {
+        public bool ActiveMonto {
             get {
-                return this.ActiveField;
+                return this.ActiveMontoField;
             }
             set {
-                if ((this.ActiveField.Equals(value) != true)) {
-                    this.ActiveField = value;
-                    this.RaisePropertyChanged("Active");
+                if ((this.ActiveMontoField.Equals(value) != true)) {
+                    this.ActiveMontoField = value;
+                    this.RaisePropertyChanged("ActiveMonto");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool ActiveCuponElectivo {
+        public bool ActivePremioAuto {
             get {
-                return this.ActiveCuponElectivoField;
+                return this.ActivePremioAutoField;
             }
             set {
-                if ((this.ActiveCuponElectivoField.Equals(value) != true)) {
-                    this.ActiveCuponElectivoField = value;
-                    this.RaisePropertyChanged("ActiveCuponElectivo");
+                if ((this.ActivePremioAutoField.Equals(value) != true)) {
+                    this.ActivePremioAutoField = value;
+                    this.RaisePropertyChanged("ActivePremioAuto");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool ActiveMontoTooltip {
+        public bool ActivePremioElectivo {
             get {
-                return this.ActiveMontoTooltipField;
+                return this.ActivePremioElectivoField;
             }
             set {
-                if ((this.ActiveMontoTooltipField.Equals(value) != true)) {
-                    this.ActiveMontoTooltipField = value;
-                    this.RaisePropertyChanged("ActiveMontoTooltip");
+                if ((this.ActivePremioElectivoField.Equals(value) != true)) {
+                    this.ActivePremioElectivoField = value;
+                    this.RaisePropertyChanged("ActivePremioElectivo");
                 }
             }
         }

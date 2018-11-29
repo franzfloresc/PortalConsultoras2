@@ -105,7 +105,7 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
-        public BarraTippingPoint GetTippingPoint(string TippingPointStr, string codigoPrograma)
+        public BarraTippingPoint GetTippingPoint(string codigoPrograma)
         {
             string nivel = Convert.ToString(userData.ConsecutivoNueva + 1).PadLeft(2, '0');
             try
@@ -122,7 +122,6 @@ namespace Portal.Consultoras.Web.Providers
                 }
 
                 var tippingPoint = Mapper.Map<BarraTippingPoint>(beActive);
-                tippingPoint.TippingPointMontoStr = TippingPointStr;
                 if (tippingPoint.ActiveTooltip)
                 {
                     if (estrategia != null)

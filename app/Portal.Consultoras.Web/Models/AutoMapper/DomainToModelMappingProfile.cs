@@ -657,8 +657,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.ActiveTooltip, f => f.Ignore())
                 .ForMember(t => t.ActiveMonto, f => f.Ignore())
                 .ForMember(t => t.Active, f => f.Ignore())
-                .ForMember(t => t.LinkURL, f => f.Ignore())
-                .ForMember(t => t.TippingPointMontoStr, f => f.Ignore());
+                .ForMember(t => t.LinkURL, f => f.Ignore());
 
             Mapper.CreateMap<EstrategiaComponenteModel, ServicePedido.BEEstrategiaProducto>()
                .ForMember(t => t.CUV, f => f.MapFrom(c => c.Cuv))

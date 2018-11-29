@@ -18,7 +18,6 @@
         public bool ActiveMonto { get; set; }
         public bool ActiveCuponElectivo { get; set; }
         public bool Active { get; set; }
-        public string TippingPointMontoStr { get; set; }
 
 
         public BarraTippingPoint()

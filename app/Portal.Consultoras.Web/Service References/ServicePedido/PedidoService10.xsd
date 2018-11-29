@@ -1213,9 +1213,9 @@
   <xs:element name="BEReporteValidacionSRComponentes" nillable="true" type="tns:BEReporteValidacionSRComponentes" />
   <xs:complexType name="BEActivarPremioNuevas">
     <xs:sequence>
-      <xs:element minOccurs="0" name="Active" type="xs:boolean" />
-      <xs:element minOccurs="0" name="ActiveCuponElectivo" type="xs:boolean" />
-      <xs:element minOccurs="0" name="ActiveMontoTooltip" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ActiveMonto" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ActivePremioAuto" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ActivePremioElectivo" type="xs:boolean" />
       <xs:element minOccurs="0" name="ActiveTooltip" type="xs:boolean" />
       <xs:element minOccurs="0" name="AnioCampana" type="xs:int" />
       <xs:element minOccurs="0" name="CodigoPrograma" nillable="true" type="xs:string" />

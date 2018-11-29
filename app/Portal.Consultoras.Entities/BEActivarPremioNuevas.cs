@@ -15,15 +15,15 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string Nivel { get; set; }
         [DataMember]
+        public bool ActivePremioAuto { get; set; }
+        [DataMember]
+        public bool ActivePremioElectivo { get; set; }
+        [DataMember]
+        public bool ActiveMonto { get; set; }
+        [DataMember]
         public bool ActiveTooltip { get; set; }
         [DataMember]
         public DateTime FechaCreate { get; set; }
-        [DataMember]
-        public bool ActiveMontoTooltip { get; set; }
-        [DataMember]
-        public bool ActiveCuponElectivo { get; set; }
-        [DataMember]
-        public bool Active { get; set; }
 
         public BEActivarPremioNuevas()
         {
@@ -38,11 +38,11 @@ namespace Portal.Consultoras.Entities
             CodigoPrograma = row.ToString("CodigoPrograma");
             AnioCampana = row.ToInt32("AnoCampana");
             Nivel = row.ToString("Nivel");
+            ActivePremioAuto = row.ToBoolean("Active");
+            ActivePremioElectivo = row.ToBoolean("IND_CUPO_ELEC");
             ActiveTooltip = row.ToBoolean("ActiveTooltip");
-            ActiveMontoTooltip = row.ToBoolean("ActiveTooltipMonto");
-            Active = row.ToBoolean("Active");
+            ActiveMonto = row.ToBoolean("ActiveTooltipMonto");
             FechaCreate = row.ToDateTime("FechaCreate");
-            ActiveCuponElectivo = row.ToBoolean("IND_CUPO_ELEC");
         }
     }
 }
