@@ -693,7 +693,7 @@ function AgregarProductoListado() {
     var CUV = $('#hdfCUV').val();
     $("#hdCuvRecomendado").val(CUV);
     $("#btnAgregarProducto").attr("disabled", "disabled");
-    $("#btnAgregarProducto").hide();
+    //$("#btnAgregarProducto").hide();
     
     var Cantidad = $("#txtCantidad").val();
     var param = ({

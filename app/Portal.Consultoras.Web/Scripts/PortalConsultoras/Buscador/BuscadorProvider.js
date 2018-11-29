@@ -20,9 +20,15 @@
         $("#txtCantidad").val("");
         $("#divMensaje").text("");
         $("#txtCUV").focus();
+
+        if (isMobile()) {
+            PedidoOnSuccess();
+            $("#divProductoMantenedor").hide();
+            $("#divResumenPedido").show();
+        }
     }
-    
-    var RegistroLiquidacion = function (model, cantidad, producto) {
+
+    var RegistroLiquidacion = function (model, cantidad, producto, recomendado) {
         if (ReservadoOEnHorarioRestringido())
             return false;
         model.Cantidad = cantidad;
@@ -106,12 +112,12 @@
 
                                 if (!isMobile()) CargarResumenCampaniaHeader();
 
-                                console.log(textoBusqueda);
+                                if (isMobile() && isPagina('Pedido')) CargarCantidadProductosPedidos(true);
 
                                 CerrarLoad();
 
                                 limpiarRecomendados();
-                                
+
                                 var modelCarrito = {
                                     'DescripcionCompleta': model.DescripcionProd,
                                     'CUV': model.CUV,
@@ -139,7 +145,7 @@
         });
     }
 
-    var RegistroProductoBuscador = function(divPadre, valueJSON) {
+    var RegistroProductoBuscador = function (divPadre, valueJSON) {
 
         var model = JSON.parse($(divPadre).find(valueJSON).val());
         var cantidad = $(divPadre).find("[data-input='cantidad']").val();
@@ -147,7 +153,7 @@
         model.Cantidad = cantidad;
 
         if (model.TipoPersonalizacion == "LIQ") {
-            RegistroLiquidacion(model, cantidad, agregado, textoBusqueda);
+            RegistroLiquidacion(model, cantidad, agregado);
         } else {
             var cuv = model.CUV;
             var tipoOfertaSisID = model.TipoPersonalizacion == "CAT" ? 0 : model.TipoEstrategiaId;
@@ -235,7 +241,12 @@
                     }
 
                     microefectoPedidoGuardado();
+
                     if (!isMobile()) CargarResumenCampaniaHeader();
+
+                    if (isMobile() && isPagina('Pedido')) CargarCantidadProductosPedidos(true);
+
+                    console.log(isPagina('Pedido'));
 
                     CerrarLoad();
                     limpiarRecomendados();
@@ -255,7 +266,9 @@
                         AnalyticsPortalModule.MarcaAnadirCarritoBuscador(modelCarrito, 'Resultados', _textoBusqueda);
 
                     TrackingJetloreAdd(modelFinal.Cantidad, $("#hdCampaniaCodigo").val(), modelFinal.CUV);
+
                     agregado.html('<span class="text-uppercase text-bold d-inline-block">Agregado</span>');
+
                     var totalAgregado = parseInt(cantidad) + parseInt(CantidadesAgregadas);
                     $(divPadre).find(".hdBuscadorCantidadesAgregadas").val(totalAgregado);
                     return true;
