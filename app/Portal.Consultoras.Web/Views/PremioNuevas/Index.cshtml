@@ -1,0 +1,81 @@
+﻿@model Portal.Consultoras.Web.Models.PremioNuevaModel
+
+@if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.hdnPaisISO))
+{
+    <link href="@Url.Content("~/Content/Css/Site/Esika/gestorContenido.css")" rel="stylesheet" type="text/css" />
+}
+else
+{
+    <link href="@Url.Content("~/Content/Css/Site/Lbel/gestorContenido.css")" rel="stylesheet" type="text/css" />
+}
+<script type="text/javascript">
+
+    var UrlGrid =          '@Url.Action("ListarPremiosPaginado")';
+    var UrlCRUD =          '@Url.Action("Movimientos")';
+    var UrlOperacionPremio =  '@Url.Action("OperacionPremio")';
+    var rutaImagenEdit =   '@Url.Content("~/Content/Images/Edit.png")';
+    var rutaImagenDelete = '@Url.Content("~/Content/Images/Delete.png")';
+</script>
+
+
+<div id="Listado">
+
+    <input type="hidden" id="hdTipoCronograma" />
+
+    <div class="wrap_cab">
+        <div class="filtros2">
+            <div class="elements">
+                <div class="div-2">
+                    <h1>Configuración Premios Nueva</h1>
+                </div>
+                <div class="div-3">
+                    <div class="titB">Campaña:</div>
+                    <div class="selectA">
+                        @Html.DropDownListFor(model => model.AnoCampanaIni, new SelectList(Model.DropDownListCampania, "CampaniaID", "NombreCorto"), "-- Seleccionar --", new { id = "ddlCampania" })
+                    </div>
+                    <div class="titB">Programa:</div>
+                    <div class="selectA">
+                        @Html.TextBoxFor(model => model.CodigoPrograma, new { maxlength = 3, id = "txtPrograma"})
+                    </div>
+
+                </div>
+                <div class="div-3">
+                    <div class="titB">Nivel:</div>
+                    <div class="selectA">
+                        @Html.DropDownListFor(model => model.Nivel, new SelectList(Model.DropDownListNivel, "Nivel", "NombreCorto"), "-- Seleccionar --", new { id = "ddlNivel" })
+                    </div>
+                    <div class="titB">Premio Activo:</div>
+                    <div class="selectA">
+                        @Html.DropDownListFor(model => model.Active, new SelectList(Model.DropDownListEstado, "Active", "NombreCorto"), "-- Seleccionar --", new { id = "ddlEstado" })
+                    </div>
+
+                </div>
+                <br />
+                <div class="div-3">
+                    <div class="titG"></div>
+                    <input type="button" id="btnBuscar" value="Buscar" />
+                    <input type="button" id="btnNuevo" value="Nuevo" />
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="wrap">
+        <div class="container clearfix">
+            <div class="border-wrapper">
+                <table id="list"></table>
+                <div id="pager"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<div id="divAgregar">
+
+</div>
+<div id="loadingScreen"></div>
+
+<script src="@Url.Content(string.Format("~/Scripts/AdminContenido/PremioNueva/Index.js?ver{0}", DateTime.Now.Ticks.ToString()))" type="text/javascript"></script>

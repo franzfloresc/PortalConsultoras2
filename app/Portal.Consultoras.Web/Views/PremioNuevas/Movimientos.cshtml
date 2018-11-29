@@ -1,0 +1,79 @@
+﻿@model Portal.Consultoras.Web.Models.PremioNuevaModel
+<style>
+    .column {
+        float: left;
+        width: 25%;
+    }
+
+    /* Clear floats after the columns */
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+</style>
+<form action="" method="post" id="frmPremio">
+    <div class="Content_modal">
+
+        <div class="div-3">
+            <div class="titG"><span class="required">(*)</span>Programa:</div>
+            <div class="selectA" style="width:150px">
+                @Html.TextBoxFor(model => model.CodigoPrograma, new { id = "CodigoPrograma", maxlength = "3" })
+            </div>
+            <div class="titG"><span class="required">(*)</span>Nivel:</div>
+            <div class="selectA" style="width:150px;">
+                @Html.DropDownListFor(model => model.Nivel, new SelectList(Model.DropDownListNivel, "Nivel", "NombreCorto"), "-- Seleccionar --", new { id = "Nivel" })
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG"><span class="required">(*)</span>Campaña inicio:</div>
+            <div class="selectA" style="width:150px">
+                @Html.DropDownListFor(model => model.AnoCampanaIni, new SelectList(Model.DropDownListCampania, "CampaniaID", "NombreCorto"), "-- Seleccionar --", new { id = "AnoCampanaIni" })
+
+            </div>
+            <div class="titG"><span class="required">(*)</span>Campaña fin:</div>
+            <div class="selectA" style="width:150px">
+                @Html.DropDownListFor(model => model.AnoCampanaFin, new SelectList(Model.DropDownListCampania, "CampaniaID", "NombreCorto"), "-- Seleccionar --", new { id = "AnoCampanaFin" })
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="column">
+
+                <div>
+                    Activar Oferta Tooltip @Html.CheckBoxFor(model => model.ActiveTooltip)
+                </div>
+            </div>
+            <div class="column">
+
+                <div>
+                    Activar Monto @Html.CheckBoxFor(model => model.ActiveTooltipMonto)
+                </div>
+            </div>
+            <div class="column">
+
+                <div>
+                    Premio Electivo @Html.CheckBoxFor(model => model.Ind_Cupo_Elec)
+                </div>
+            </div>
+            <div class="column">
+
+                <div>
+                    Premio Activo @Html.CheckBoxFor(model => model.Active)
+                </div>
+            </div>
+        </div>
+        @Html.HiddenFor(model => model.Operacion)
+        @Html.HiddenFor(model => model.IdActivarPremioNuevas)
+    </div>
+    <br />
+    <div class="div-3">
+        <div class="EstrategiaRequerido"><span class="required">(*)</span>Campos obligatorios</div>
+        <div class="EstrategiaBotones">
+            <input type="button" id="btnGuardar" value="GUARDAR" />
+            <input type="button" id="btnCancelar" value="CANCELAR" class="EstrategiaBotonSecundario" />
+        </div>
+    </div>
+</form>
+<script src="@Url.Content(string.Format("~/Scripts/AdminContenido/PremioNueva/Movimientos.js?ver{0}", DateTime.Now.Ticks.ToString()))" type="text/javascript"></script>

@@ -308,5 +308,20 @@ namespace Portal.Consultoras.Service
             return BLArmaTuPack.CuvEstaEnLimite(paisID, campaniaID, zona, cuv, cantidadIngresada, cantidadActual);
         }
         #endregion
+
+
+        public List<BEPremioNuevas> ListarPremioNuevasPaginado(BEPremioNuevas premio)
+        {
+            return BLProgramaNuevas.ListarPremioNuevasPaginado(premio);
+        }
+
+        public BEPremioNuevas Insertar(BEPremioNuevas premio)
+        {
+            return BLProgramaNuevas.Insertar(premio);
+        }
+        public BEPremioNuevas Editar(BEPremioNuevas premio)
+        {
+            return BLProgramaNuevas.Editar(premio);
+        }
     }
 }

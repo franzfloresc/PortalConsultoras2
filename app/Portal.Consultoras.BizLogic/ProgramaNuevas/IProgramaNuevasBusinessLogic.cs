@@ -14,5 +14,9 @@ namespace Portal.Consultoras.BizLogic
         bool EsCuvDuoPerfecto(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string cuv);
         bool TieneListaEstrategiaDuoPerfecto(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, List<string> lstCuv);
         int GetLimElectivosProgNuevas(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma);
+
+        List<BEPremioNuevas> ListarPremioNuevasPaginado(BEPremioNuevas premio);
+        BEPremioNuevas Editar(BEPremioNuevas premio);
+        BEPremioNuevas Insertar(BEPremioNuevas premio);
     }
 }
