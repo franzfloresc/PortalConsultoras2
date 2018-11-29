@@ -796,7 +796,7 @@ var AnalyticsPortalModule = (function () {
             // Fin Analytics Ofertas 
 
             switch (seccion) {
-                case _codigoSeccion.HOME: AnalyticsPortalModule.MarcaProductImpressionHome(seccion, data, limit); break;
+                case _codigoSeccion.HOME: AnalyticsPortalModule.MarcaProductImpressionHome(seccion, data, pos); break;
                 case _codigoSeccion.HOMEOFERTA: AnalyticsPortalModule.MarcaPromotionViewOferta(seccion, data); break;
                     // Inicio Analytics Ofertas  
                 case _codigoSeccion.LAN: AnalyticsPortalModule.MarcaPromotionViewBanner(seccion, data, pos); break;
