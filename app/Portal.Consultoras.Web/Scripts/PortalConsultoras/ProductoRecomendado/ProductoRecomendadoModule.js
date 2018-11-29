@@ -105,6 +105,9 @@
 
                 });
         },
+        OcultarSeccionRecomendados: function(e) {
+            $(_elementos.divProducto).slideUp(200);
+        }
     };
     var _eventos = {
         OcultarProductosRecomendados: function (e) {
@@ -115,7 +118,6 @@
                 AnalyticsPortalModule.MarcaOcultarRecomendaciones();
         },
         MostrarProductosRecomendados: function (e) {
-            e.preventDefault();
             $(_elementos.divProducto).slideDown(200);
         },
 
@@ -144,7 +146,7 @@
        // _funciones.ArmarCarruselProductosRecomendados();
     }
     function OcultarProductosRecomendados() {
-        _eventos.OcultarProductosRecomendados();
+        _funciones.OcultarSeccionRecomendados();
     }
 
     return {
