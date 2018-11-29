@@ -792,7 +792,7 @@ function PedidoUpdate(item, PROL, detalleObj, elementRow) {
 
     jQuery.ajax({
         type: 'POST',
-        url: urlPedidoUpdate,
+        url: baseUrl + "PedidoRegistro/UpdateTransaction",
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(item),
