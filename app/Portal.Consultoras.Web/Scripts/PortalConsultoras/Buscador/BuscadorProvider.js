@@ -11,7 +11,7 @@
     }
 
     var limpiarRecomendados = function () {
-        var seccionProductosRecomendados = $('.productos_recomendados_wrapper');
+        var seccionProductosRecomendados = $('.divProductosRecomendados');
         seccionProductosRecomendados.slideUp(200);
 
         $("#txtDescripcionProd").val("");
@@ -22,7 +22,7 @@
         $("#txtCUV").focus();
 
         if (isMobile()) {
-            PedidoOnSuccess();
+            if (isPagina('Pedido')) PedidoOnSuccess();
             $("#divProductoMantenedor").hide();
             $("#divResumenPedido").show();
         }
@@ -112,7 +112,7 @@
 
                                 if (!isMobile()) CargarResumenCampaniaHeader();
 
-                                if (isMobile() && isPagina('Pedido')) CargarCantidadProductosPedidos(true);
+                                if (isMobile() && isPagina('Pedido')) ActualizarGanancia(data.DataBarra);
 
                                 CerrarLoad();
 
@@ -244,9 +244,7 @@
 
                     if (!isMobile()) CargarResumenCampaniaHeader();
 
-                    if (isMobile() && isPagina('Pedido')) CargarCantidadProductosPedidos(true);
-
-                    console.log(isPagina('Pedido'));
+                    if (isMobile() && isPagina('Pedido')) ActualizarGanancia(data.DataBarra);
 
                     CerrarLoad();
                     limpiarRecomendados();

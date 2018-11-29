@@ -35,7 +35,7 @@
         criteriosBuscadorDesktop: '.criteriosBuscadorDesktop',
         mostrarLayoutCriterios: '.layout__content__etiquetas__criteriosElegidos',
         etiquetaCriterioElegido: '.icono__eliminar__criterioElegido',
-        valueJSON: ".valueJSON"
+        valueJSON: ".hdBuscadorJSON"
     };
     var _modificador = {
         itemDropDowndesplegado: "opcion__ordenamiento__dropdown--desplegado",

@@ -868,6 +868,9 @@ function InsertarProducto() {
 
             if (belcorp.pedido.applyChanges)
                 belcorp.pedido.applyChanges("onProductoAgregado", data);
+
+            var seccionProductosRecomendados = $('.divProductosRecomendados');
+            seccionProductosRecomendados.slideUp(200);
         },
         error: function (data, error) {
             CloseLoading();
