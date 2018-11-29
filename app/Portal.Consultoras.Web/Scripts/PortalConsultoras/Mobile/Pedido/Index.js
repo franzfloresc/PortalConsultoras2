@@ -7,6 +7,7 @@ var mensajeParametrizableCuv = '';
 var cuvbuscado = "";
 var precioCuvBuscado = "";
 var cuvEsProgNuevas = false;
+var productoEcontrado;
 
 var belcorp = belcorp || {};
 belcorp.pedido = belcorp.pedido || {};
@@ -391,6 +392,7 @@ function ValidarPermiso(obj) {
 }
 
 function BuscarByCUV(cuv) {
+
     if (cuv == $('#hdfCUV').val()) {
         if (productoSugerido) {
             if (productoAgotado) MostrarMensaje("mensajeCUVAgotado");
@@ -400,6 +402,7 @@ function BuscarByCUV(cuv) {
             if (!IsNullOrEmpty(mensajeParametrizableCuv)) MostrarMensaje("mensajeParametrizableCUV", mensajeParametrizableCuv);
             $("#divProductoMantenedor").show();
             $("#btnAgregarProducto").show();
+            CargarProductosRecomendados(productoEcontrado);
         }
         return false;
     }
@@ -427,6 +430,7 @@ function BuscarByCUV(cuv) {
 
             $("#txtCantidad").removeAttr("disabled");
             var item = data[0];
+            productoEcontrado = data[0];
             precioCuvBuscado = item.PrecioCatalogo;
 
             if (item.MarcaID == 0) {
@@ -448,7 +452,7 @@ function BuscarByCUV(cuv) {
             CloseLoading();
             ObservacionesProducto(item);
 
-            CargarProductosRecomendados(item);
+            CargarProductosRecomendados(productoEcontrado);
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
