@@ -553,6 +553,8 @@ function AnalyticsSRListaOferta(response) {
         //Hacer marcación Analytics para ShowRoom
         if (!(typeof AnalyticsPortalModule === 'undefined')) {
             response.listaOfertas.lista = response.listaOfertas;
+
+            console.log('AnalyticsSRListaOferta', window.esShowRoom ? ConstantesModule.TipoEstrategia.SR : "", response.listaOfertas);
             AnalyticsPortalModule.MarcaGenericaLista(window.esShowRoom ? ConstantesModule.TipoEstrategia.SR : "", response.listaOfertas);
         }
     }

@@ -252,7 +252,8 @@ function SeccionMostrarProductos(data) {
             $.each(data.listaLan, function (key, value) {
                 if (value.TipoEstrategiaDetalle.FlagIndividual) {
                     var dateItem = new Array(value);
-                    AnalyticsPortalModule.MarcaGenericaLista(data.Seccion.Codigo, dateItem);
+                    console.log('SeccionMostrarProductos LAN', data.Seccion.Codigo, dateItem);
+                    AnalyticsPortalModule.MarcaGenericaLista(data.Seccion.Codigo, dateItem); // CONS_CODIGO_SECCION.LAN
                     return false;
                 }
             });
@@ -262,13 +263,8 @@ function SeccionMostrarProductos(data) {
     //Marcación Analytics Más GANADORAS
     if (data.Seccion.Codigo === CONS_CODIGO_SECCION.MG) {
         if (varContenedor.CargoMg) {
-            //$.each(data.lista, function (key, value) {
-            //        var dateItem = new Array(value);
-            //        AnalyticsPortalModule.MarcaGenericaLista(data.Seccion.Codigo, dateItem);
-            //        return false;
-            //});
-            //var dateItem = new Array(value);
-            AnalyticsPortalModule.MarcaGenericaLista(data.Seccion.Codigo, data);
+            console.log('SeccionMostrarProductos MG', data.Seccion.Codigo, dateItem);
+            AnalyticsPortalModule.MarcaGenericaLista(data.Seccion.Codigo, data);// CONS_CODIGO_SECCION.MG
         }
         //get the first
     }
@@ -637,7 +633,7 @@ function ShowOrHide_Arrows(event, slick, currentSlide) {
 
 function MarcarProductos_Arrows(event, slick, currentSlide, seccionName) {
     
-    if (seccionName === ConstantesModule.TipoEstrategia.MG) {
+    //if (seccionName === ConstantesModule.TipoEstrategia.MG) {
         var pos = isMobile() ? 1 : 2;
         var slideToMark = currentSlide + pos;
         var item = $(event.target).find('[data-slick-index]')[slideToMark];
@@ -646,10 +642,11 @@ function MarcarProductos_Arrows(event, slick, currentSlide, seccionName) {
         if (data !== "") {
             data.lista = Array(data);
             if (typeof AnalyticsPortalModule !== "undefined") {
+                console.log('MarcarProductos_Arrows', seccionName, data);
                 AnalyticsPortalModule.MarcaGenericaLista(seccionName, data);
             }
         }
-    }
+    //}
 
           
     //if (anchoFalta > $(slick.$list).width()) {
