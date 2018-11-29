@@ -188,7 +188,7 @@ function MostrarBarra(datax, destino) {
     if (belcorp.barra.settings.isMobile &&
         tp > 0 && vLogro >= tp &&
         dataBarra.TippingPointBarra &&
-        dataBarra.TippingPointBarra.ActiveCuponElectivo &&
+        dataBarra.TippingPointBarra.ActivePremioElectivo &&
         !tpElectivos.premioSelected) {
 
         agregarPremioDefault();
@@ -643,7 +643,7 @@ function initCarruselPremios(barra) {
         return;
     }
 
-    if (barra.TippingPointBarra && barra.TippingPointBarra.ActiveCuponElectivo) {
+    if (barra.TippingPointBarra && barra.TippingPointBarra.ActivePremioElectivo) {
         tpElectivos.loadPremios = true;
         cargarPremiosElectivos();
         $('#hrefIconoRegalo').click(cargarPopupEleccionRegalo);

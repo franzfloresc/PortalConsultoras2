@@ -112,16 +112,27 @@ namespace Portal.Consultoras.Web.Providers
             {
                 BEActivarPremioNuevas beActive;
                 BEEstrategia estrategia = null;
+                List<PremioElectivoModel> listPremioElectivo = null;
 
                 using (var sv = new PedidoServiceClient())
                 {
                     beActive = sv.GetActivarPremioNuevas(userData.PaisID, codigoPrograma, userData.CampaniaID, nivel);
-                    if (beActive == null || !beActive.Active) return new BarraTippingPoint();
+                    if(beActive == null) return new BarraTippingPoint();
 
-                    if (beActive.ActiveTooltip) estrategia = sv.GetEstrategiaPremiosTippingPoint(userData.PaisID, codigoPrograma, userData.CampaniaID, nivel);
+                    if (beActive.ActivePremioAuto)
+                    {
+                        estrategia = GetPremioAutomatico(codigoPrograma, nivel);
+                        beActive.ActivePremioAuto = estrategia != null;
+                    }
+                    if (beActive.ActivePremioElectivo)
+                    {
+                        listPremioElectivo = GetListPremioElectivo();
+                        beActive.ActivePremioElectivo = listPremioElectivo != null && listPremioElectivo.Any();
+                    }
                 }
-
                 var tippingPoint = Mapper.Map<BarraTippingPoint>(beActive);
+                if(!tippingPoint.Active) return new BarraTippingPoint();
+
                 if (tippingPoint.ActiveTooltip)
                 {
                     if (estrategia != null)
@@ -141,13 +152,20 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
-        public List<PremioElectivoModel> GetPremioElectivosTippingPoint()
+        public BEEstrategia GetPremioAutomatico(string codigoPrograma, string nivel)
+        {
+            using (var sv = new PedidoServiceClient())
+            {
+                return sv.GetEstrategiaPremiosTippingPoint(userData.PaisID, codigoPrograma, userData.CampaniaID, nivel);
+            }
+        }
+
+        public List<PremioElectivoModel> GetListPremioElectivo()
         {
             var tippingPoint = GetConfiguracion();
 
             return GetCuponesElectivos(tippingPoint.CodigoPrograma);
         }
-
         public List<PremioElectivoModel> GetCuponesElectivos(string codigoPrograma)
         {
             try

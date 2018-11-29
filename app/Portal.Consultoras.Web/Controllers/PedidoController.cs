@@ -569,7 +569,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult GuardarPremioElectivo(PedidoCrudModel model)
         {
-            var result = _programaNuevasProvider.GetPremioElectivosTippingPoint();
+            var result = _programaNuevasProvider.GetListPremioElectivo();
 
             var details = GetPedidoWebDetalle(IsMobile());
 
@@ -3587,7 +3587,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var pedidoWebDetalleModel = Mapper.Map<List<BEPedidoWebDetalle>, List<PedidoWebDetalleModel>>(listaDetalle);
 
-                var premiosElectivos = _programaNuevasProvider.GetPremioElectivosTippingPoint();
+                var premiosElectivos = _programaNuevasProvider.GetListPremioElectivo();
                 pedidoWebDetalleModel.ForEach(p =>
                 {
                     p.Simbolo = userData.Simbolo;
@@ -4563,7 +4563,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult CargarPremiosElectivos()
         {
-            var premios = _programaNuevasProvider.GetPremioElectivosTippingPoint();
+            var premios = _programaNuevasProvider.GetListPremioElectivo();
 
             var details = GetPedidoWebDetalle(IsMobile());
 

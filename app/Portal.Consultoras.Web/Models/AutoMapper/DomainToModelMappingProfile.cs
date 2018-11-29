@@ -651,8 +651,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<BEPagoEnLineaTipoPasarela, PagoEnLineaTipoPasarelaModel>();
             Mapper.CreateMap<BEPagoEnLineaPasarelaCampos, PagoEnLineaPasarelaCamposModel>();
 
-            Mapper.CreateMap<BEActivarPremioNuevas, BarraTippingPoint>()
-                .ForMember(t => t.ActiveMonto, f => f.MapFrom(c => c.ActiveMontoTooltip));
+            Mapper.CreateMap<BEActivarPremioNuevas, BarraTippingPoint>();
             Mapper.CreateMap<ServicePedido.BEEstrategia, BarraTippingPoint>()
                 .ForMember(t => t.ActiveTooltip, f => f.Ignore())
                 .ForMember(t => t.ActiveMonto, f => f.Ignore())

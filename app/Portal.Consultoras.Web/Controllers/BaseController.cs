@@ -569,15 +569,12 @@ namespace Portal.Consultoras.Web.Controllers
                 #region Tipping Point
 
                 objR.TippingPointStr = "";
-                if (userData.MontoMaximo > 0)
+                var tippingPoint = _programaNuevasProvider.GetConfiguracion();
+                if (tippingPoint.IndExigVent == "1")
                 {
-                    var tippingPoint = _programaNuevasProvider.GetConfiguracion();
-                    if (tippingPoint.IndExigVent == "1")
-                    {
-                        objR.TippingPoint = tippingPoint.MontoVentaExigido;
-                        objR.TippingPointStr = Util.DecimalToStringFormat(objR.TippingPoint, userData.CodigoISO);
-                        if (objR.TippingPoint > 0) objR.TippingPointBarra = _programaNuevasProvider.GetTippingPoint(tippingPoint.CodigoPrograma);
-                    }
+                    objR.TippingPoint = tippingPoint.MontoVentaExigido;
+                    objR.TippingPointStr = Util.DecimalToStringFormat(objR.TippingPoint, userData.CodigoISO);
+                    if (objR.TippingPoint > 0) objR.TippingPointBarra = _programaNuevasProvider.GetTippingPoint(tippingPoint.CodigoPrograma);
                 }
                 if (objR.MontoMaximo > 0) { }
 
