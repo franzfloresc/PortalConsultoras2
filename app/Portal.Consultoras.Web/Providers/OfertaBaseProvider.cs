@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
 using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.ServicePROLConsultas;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -29,6 +29,7 @@ namespace Portal.Consultoras.Web.Providers
         public static async Task<List<ServiceOferta.BEEstrategia>> ObtenerOfertasDesdeApi(string path, string codigoISO)
         {
             var estrategias = new List<ServiceOferta.BEEstrategia>();
+            var estrategiasResult = new List<ServiceOferta.BEEstrategia>();
             var httpResponse = await httpClient.GetAsync(path);
 
             if (!httpResponse.IsSuccessStatusCode)
@@ -43,7 +44,8 @@ namespace Portal.Consultoras.Web.Providers
             }
 
             var list = JsonConvert.DeserializeObject<List<dynamic>>(jsonString) ?? new List<dynamic>();
-            var listaCuvPrecio0 = new List<string>();
+            var listaSinPrecio2 = new List<string>();
+            var listaSinStock = new List<ServiceOferta.BEEstrategia>();
             string codTipoEstrategia = "", codCampania = "";
 
             foreach (var item in list)
@@ -112,7 +114,7 @@ namespace Portal.Consultoras.Web.Providers
                     }
                     else
                     {
-                        listaCuvPrecio0.Add(estrategia.CUV2);
+                        listaSinPrecio2.Add(estrategia.CUV2);
                         codTipoEstrategia = estrategia.CodigoTipoEstrategia;
                         codCampania = estrategia.CampaniaID.ToString();
                     }
@@ -123,13 +125,55 @@ namespace Portal.Consultoras.Web.Providers
                 }
             }
 
-            if (listaCuvPrecio0.Any())
+            var listaTieneStock = new List<Lista>();
+            try
             {
-                string logPrecio0 = string.Format("Log Precios0 => Fecha:{0} /Palanca:{1} /CodCampania:{2} /CUV(s):{3} /Referencia:{4}", DateTime.Now, codTipoEstrategia, codCampania, string.Join("|", listaCuvPrecio0), path);
+                var codigoSap = string.Join("|", estrategias.Where(e => !string.IsNullOrEmpty(e.CodigoProducto) && e.TieneStock).Select(e => e.CodigoProducto));
+                if (!string.IsNullOrEmpty(codigoSap))
+                {
+                    using (var sv = new wsConsulta())
+                    {
+                        sv.Url = ConfigurationManager.AppSettings["RutaServicePROLConsultas"];
+                        listaTieneStock = sv.ConsultaStock(codigoSap, codigoISO).ToList();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Common.LogManager.SaveLog(ex, "", codigoISO);
+                listaTieneStock = new List<Lista>();
+            }
+
+            estrategias.ForEach(estrategia =>
+            {
+                var add = true;
+                if (estrategia.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.OfertaParaTi)
+                    add = listaTieneStock.Any(p => p.Codsap.ToString() == estrategia.CodigoProducto && p.estado == 1);
+
+                if (!add)
+                {
+                    estrategia.TieneStock = false;
+                    listaSinStock.Add(estrategia);
+                    return;
+                }
+
+                estrategiasResult.Add(estrategia);
+                
+            });
+
+            if (listaSinPrecio2.Any())
+            {
+                string logPrecio0 = string.Format("Log Precios0 => Fecha:{0} /Palanca:{1} /CodCampania:{2} /CUV(s):{3} /Referencia:{4}", DateTime.Now, codTipoEstrategia, codCampania, string.Join("|", listaSinPrecio2), path);
                 Common.LogManager.SaveLog(new Exception(logPrecio0), "", codigoISO);
             }
 
-            return estrategias;
+            // agregar al final los CUV que no tienen stock
+            if (listaSinStock.Any())
+            {
+                estrategiasResult.AddRange(listaSinStock);
+            }
+
+            return estrategiasResult;
         }
 
         public string ObtenerDescripcionOferta(string descripcionCuv2)

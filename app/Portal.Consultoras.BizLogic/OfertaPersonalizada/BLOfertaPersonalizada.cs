@@ -244,6 +244,7 @@ namespace Portal.Consultoras.BizLogic.OfertaPersonalizada
                 estrategia.CodigoEstrategia = Util.Trim(estrategia.CodigoEstrategia);
             });
 
+            // agregar al final los CUV que no tienen stock
             if (listaSinStock.Any())
             {
                 estrategiasResult.AddRange(listaSinStock);
