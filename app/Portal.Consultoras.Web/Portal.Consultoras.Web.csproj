@@ -1454,6 +1454,7 @@
     <Content Include="Content\Images\cerrar-filtros.svg" />
     <Content Include="Content\Images\banco_bbva.png" />
     <Content Include="Content\Images\banco_bcp.png" />
+    <Content Include="Content\Images\cerrar-tag-icono.svg" />
     <Content Include="Content\Images\check-agregado-icono.svg" />
     <Content Include="Content\Images\check-icono.svg" />
     <Content Include="Content\Images\checkbox-filtros.svg" />
@@ -3980,7 +3981,6 @@
     <Content Include="Scripts\PortalConsultoras\Bienvenida\OfertaDelDia.js" />
     <Content Include="Scripts\PortalConsultoras\Bienvenida\Estrategia.js" />
     <Content Include="Scripts\PortalConsultoras\Bienvenida\PopusJS.js" />
-    <Content Include="Scripts\PortalConsultoras\Buscador\buscadorLayout.js" />
     <Content Include="Scripts\PortalConsultoras\Buscador\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Buscador\BuscadorModule.js" />
     <Content Include="Scripts\PortalConsultoras\Buscador\BuscadorProvider.js" />

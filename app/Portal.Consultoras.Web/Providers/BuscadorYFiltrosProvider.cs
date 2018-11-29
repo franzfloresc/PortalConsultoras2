@@ -79,8 +79,9 @@ namespace Portal.Consultoras.Web.Providers
                 },
                 filtro = new
                 {
-                    categoria = buscadorModel.Filtro.categoria == null ? "" : buscadorModel.Filtro.categoria,
-                    marca = buscadorModel.Filtro.marca == null ? "" : buscadorModel.Filtro.marca
+                    categoria = buscadorModel.Filtro.categoria,
+                    marca = buscadorModel.Filtro.marca,
+                    precio = buscadorModel.Filtro.precio 
                 }
             };
         }
@@ -109,6 +110,7 @@ namespace Portal.Consultoras.Web.Providers
                 item.Agregado = labelAgregado;
                 item.Stock = !item.Stock;
                 item.DescripcionCompleta = item.Descripcion;
+                item.SimboloMoneda = userData.Simbolo;
             }
 
             return resultado;

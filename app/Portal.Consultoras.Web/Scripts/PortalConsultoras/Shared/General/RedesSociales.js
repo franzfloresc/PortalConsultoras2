@@ -110,11 +110,22 @@
             var top = (screen.height / 2) - (popHeight / 2);
             var url = "http://www.facebook.com/sharer/sharer.php?u=" + ruta;
             window.open(url, 'Facebook', "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left + ",top=" + top + "");
+
+            if (!(typeof AnalyticsPortalModule === 'undefined'))
+                AnalyticsPortalModule.MarcaRedesSocialesBuscador('Facebook', url);
+
+
         } else if (tipoRedes == "WA") {
             if (texto != "")
                 texto = texto + " - ";
             $("#HiddenRedesSocialesWA").attr("href", 'javascript:window.location=RedesSociales.CompartirTexto("' + texto + ruta + '")');
             $("#HiddenRedesSocialesWA")[0].click();
+
+            if (!(typeof AnalyticsPortalModule === 'undefined'))
+                AnalyticsPortalModule.MarcaRedesSocialesBuscador('Whatsapp', ruta);
+
+
+
         }
 
      
