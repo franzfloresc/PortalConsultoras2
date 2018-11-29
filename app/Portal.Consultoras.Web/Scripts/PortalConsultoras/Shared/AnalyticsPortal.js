@@ -799,7 +799,7 @@ var AnalyticsPortalModule = (function () {
                 case _codigoSeccion.HOME: AnalyticsPortalModule.MarcaProductImpressionHome(seccion, data, pos); break;
                 case _codigoSeccion.HOMEOFERTA: AnalyticsPortalModule.MarcaPromotionViewOferta(seccion, data); break;
                     // Inicio Analytics Ofertas  
-                case _codigoSeccion.LAN: AnalyticsPortalModule.MarcaPromotionViewBanner(seccion, data, pos); break;
+                case _codigoSeccion.LAN: _marcaPromotionViewBanner(seccion, data, pos); break;
                 case _codigoSeccion.HV: esLanding ? AnalyticsPortalModule.MarcaProductImpression(seccion, data) : AnalyticsPortalModule.MarcaProductImpressionLanding(seccion, data); break;
                 case _codigoSeccion.RD: esLanding ? AnalyticsPortalModule.MarcaProductImpression(seccion, data) : AnalyticsPortalModule.MarcaProductImpressionLanding(seccion, data); break;
                 case _codigoSeccion.ODD: esLanding ? AnalyticsPortalModule.MarcaProductImpression(seccion, data) : AnalyticsPortalModule.MarcaProductImpressionLanding(seccion, data); break;
@@ -1265,11 +1265,11 @@ var AnalyticsPortalModule = (function () {
     * Nombre Archivo Desktop: Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-Landing.js
     * Linea de Código Desktop: 256
  */
-    var marcaPromotionViewBanner = function (codigoSeccion, data, pos) {
+    var _marcaPromotionViewBanner = function (codigoSeccion, data, pos) {
         try {
             if (_constantes.isTest)
                 alert("Marcación promotion view.");
-            var promotions = AnalyticsPortalModule.AutoMapperV2(codigoSeccion, data, pos);
+            var promotions = _AutoMapperV2(codigoSeccion, data, pos);
             if (promotions.length === 0)
                 return false;
             dataLayer.push({
@@ -1307,7 +1307,7 @@ var AnalyticsPortalModule = (function () {
     };
 
     //Add by JNIZAMA
-    var autoMapperV2 = function (codigoSeccion, data, pos) {
+    var _autoMapperV2 = function (codigoSeccion, data, pos) {
         var collection = [];
 
         if (codigoSeccion == _codigoSeccion.LAN) {
@@ -1318,7 +1318,7 @@ var AnalyticsPortalModule = (function () {
                 var element = {
                     'id': item.CUV2,
                     'name': AnalyticsPortalModule.GetPalancaByOrigenPedido(codigo) + " - " + item.DescripcionCompleta + " - " + "Ver producto",
-                    'position': fnObtenerContenedor() + " - " + (pos + 1),
+                    'position': fnObtenerContenedor() + (pos != undefined ? (" - " + (pos + 1)) : ""),
                     'creative': "Banner"
                 };
                 collection.push(element);
@@ -2517,9 +2517,9 @@ var AnalyticsPortalModule = (function () {
 
         // Ini - Analytics Ofertas  
         MarcaClicFlechaBanner: marcaClicFlechaBanner,
-        MarcaPromotionViewBanner: marcaPromotionViewBanner,
+        //MarcaPromotionViewBanner: marcaPromotionViewBanner, // se utiliza solo como privado
         AutoMapper: autoMapper,
-        AutoMapperV2: autoMapperV2,
+        //AutoMapperV2: autoMapperV2, // se utiliza solo como privado
         MarcaClicBanner: marcaClicBanner,
         MarcaClicVerMasOfertas: marcaClicVerMasOfertas,
         MarcaProductImpression: marcaProductImpression,
