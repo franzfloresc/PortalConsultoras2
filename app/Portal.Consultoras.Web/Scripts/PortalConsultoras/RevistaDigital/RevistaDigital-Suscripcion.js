@@ -201,7 +201,7 @@ function LimpiarLocalStorage() {
         var itemSBTokenPedido = localStorage.getItem('SBTokenPedido');
         var itemChatEConnected = localStorage.getItem('connected');
         var itemChatEConfigParams = localStorage.getItem('ConfigParams');
-
+        var itemSurvicateStorage = localStorage.getItem('SurvicateStorage');
         localStorage.clear();
 
         if (typeof (itemSBTokenPais) !== 'undefined' && itemSBTokenPais !== null) {
@@ -218,6 +218,9 @@ function LimpiarLocalStorage() {
 
         if (typeof (itemChatEConfigParams) !== 'undefined' && itemChatEConfigParams !== null) {
             localStorage.setItem('ConfigParams', itemChatEConfigParams);
+        }
+        if (typeof (itemSurvicateStorage) !== 'undefined' && itemSurvicateStorage !== null) {
+            localStorage.setItem('SurvicateStorage', itemSurvicateStorage);
         }
     }
 };
