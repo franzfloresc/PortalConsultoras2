@@ -3593,7 +3593,8 @@ namespace Portal.Consultoras.Web.Controllers
                     p.Simbolo = userData.Simbolo;
                     p.CodigoIso = userData.CodigoISO;
                     p.DescripcionCortadaProd = Util.SubStrCortarNombre(p.DescripcionProd, 73);
-                    p.CuponElectivo = premiosElectivos.Any(c => c.CUV2 == p.CUV);
+                    p.PremioElectivo = premiosElectivos.Any(c => c.CUV2 == p.CUV);
+                    p.LockPremioElectivo = p.PremioElectivo && string.IsNullOrEmpty(p.Mensaje);
                 });
 
                 model.ListaDetalleModel = pedidoWebDetalleModel;

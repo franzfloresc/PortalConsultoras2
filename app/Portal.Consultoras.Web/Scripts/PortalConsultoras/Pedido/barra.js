@@ -676,13 +676,12 @@ function checkPremioSelected() {
 }
 
 function getCuponElectivoInDetails(details) {
-
     var len = details.length;
 
     for (var i = 0; i < len; i++) {
         var item = details[i];
 
-        if (item.CuponElectivo) {
+        if (item.PremioElectivo) {
             return item;
         }
     }

@@ -300,7 +300,7 @@
             <div class="bloque_descripcion_items_ingresados">
                 <div class="descripcion_item_pedido">
                     <span class="mensaje_tipoProd">
-                        {{#if detalle.CuponElectivo }}
+                        {{#if detalle.PremioElectivo }}
                         <span class="text-uppercase">Regalo Programa Nuevas</span>
                         {{/if}}
                     </span>
@@ -319,7 +319,7 @@
                         {{/iff}}
                         <span>{{Split detalle.DescripcionProd '|' 0}}</span>
                     </span>
-                    {{#unless detalle.CuponElectivo }}
+                    {{#unless detalle.PremioElectivo }}
                     <span class="mensaje_tipoProd">
                         {{#iff detalle.TipoPedido '==' 'M'}}
                         <br />
@@ -338,17 +338,11 @@
                     {{#iff detalle.EsKitNueva '==' false}}
                     <span class="nom_cliente">Cliente: {{detalle.Nombre}}</span>
                     {{/iff}}
-                    {{#if detalle.CuponElectivo }}
+                    {{#if detalle.PremioElectivo }}
                     <span class="tooltip_informativo_condicion_regalo_programaNuevas">Sólo si llegas a tu monto</span>
                     {{/if}}
                 </div>
-                {{#if detalle.CuponElectivo }}
-                <div class="icono_cambiar_regalo_programaNuevas">
-                    <a href="javascript:;" title="Cambiar regalo" onclick="javascript: cargarPopupEleccionRegalo();">
-                        <img src="@Url.Content("~/Content/Images/icono_editar.svg")" alt="Cambiar regalo" />
-                    </a>
-                </div>
-                {{/if}}
+
                 {{#if detalle.EsKitNueva}}
                 <div class="icono_kitNuevas">
                     <a href="javascript:;" title="Ver Info Kit Nuevas">
@@ -361,8 +355,13 @@
                         </span>
                     </div>
                 </div>
+                {{else iff detalle.LockPremioElectivo}}
+                <div class="icono_cambiar_regalo_programaNuevas">
+                    <a href="javascript:;" title="Cambiar regalo" onclick="javascript: cargarPopupEleccionRegalo();">
+                        <img src="@Url.Content("~/Content/Images/icono_editar.svg")" alt="Cambiar regalo" />
+                    </a>
+                </div>
                 {{else}}
-                {{#unless detalle.CuponElectivo }}
                 <div class="icono_eliminar_item_pedido">
                     <a href="javascript:;"
                        title="Eliminar"
@@ -372,7 +371,6 @@
                         <img src="@Url.Content("~/Content/Images/Esika/tacho-copy.png")" alt="Eliminar" />
                     </a>
                 </div>
-                {{/unless}}
                 {{/if}}
             </div>
             <div class="bloque_cantidades_precios_items_ingresados">
@@ -401,7 +399,7 @@
                                    data-cantidad-input="-"
                                    readonly="readonly"
                                    autocomplete="off">
-                            {{else iff detalle.CuponElectivo}}
+                            {{else iff detalle.PremioElectivo}}
                             <input type="tel"
                                    class="ValidaNumeral ValidaPasteNumeral Cantidad"
                                    maxlength="2"
