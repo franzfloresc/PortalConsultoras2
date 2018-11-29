@@ -163,9 +163,10 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
             var listaConfiguracionPasarelaVisa = ObtenerPagoEnLineaTipoPasarelaByCodigoPlataforma(paisId, Constantes.PagoEnLineaMetodoPago.PasarelaVisa);
 
             var porcentajeGastosAdministrativosString = ObtenerValoresTipoPasarela(listaConfiguracionPasarelaVisa, Constantes.PagoEnLineaMetodoPago.PasarelaVisa, Constantes.PagoEnLineaPasarelaVisa.PorcentajeGastosAdministrativos);
-            decimal porcentajeGastosAdministrativos;
-            metodoPago.PorcentajeGastosAdministrativos = decimal.TryParse(porcentajeGastosAdministrativosString, NumberStyles.Any, provider, out porcentajeGastosAdministrativos) ? porcentajeGastosAdministrativos : 0;
-            metodoPago.PagoEnLineaGastosLabel = paisId == Constantes.PaisID.Mexico ? Constantes.PagoEnLineaMensajes.GastosLabelMx : Constantes.PagoEnLineaMensajes.GastosLabelPe;
+            decimal porcentajeGastosAdministrativos = 0;
+            decimal.TryParse(porcentajeGastosAdministrativosString, NumberStyles.Any, provider, out porcentajeGastosAdministrativos);
+            metodoPago.PorcentajeGastosAdministrativos = porcentajeGastosAdministrativos;
+            metodoPago.PagoEnLineaGastosLabel = Constantes.PagoEnLineaMensajes.GastosLabel.ContainsKey(paisId) ? Constantes.PagoEnLineaMensajes.GastosLabel[paisId] : "";
 
             var montoMinimoPagoString = ObtenerValoresTipoPasarela(listaConfiguracionPasarelaVisa, Constantes.PagoEnLineaMetodoPago.PasarelaVisa, Constantes.PagoEnLineaPasarelaVisa.MontoMinimoPago);
             decimal montoMinimoPago;

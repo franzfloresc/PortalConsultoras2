@@ -2672,10 +2672,26 @@ namespace Portal.Consultoras.Common
 
         public static class PagoEnLineaMensajes
         {
+            private static Dictionary<int, string> _GastosLabel;
+
             public const string CargoplataformaPe = "Cargo plataforma online";
             public const string CargoplataformaMx = "Comisión por transacción";
+
             public const string GastosLabelPe = "Gastos Adm.";
             public const string GastosLabelMx = "Cargo comisión por transacción";
+
+            public static Dictionary<int, string> GastosLabel
+            {
+                get
+                {
+                    return _GastosLabel ?? (_GastosLabel = new Dictionary<int, string>
+                    {
+                        {PaisID.Peru, GastosLabelPe},
+                        {PaisID.Mexico, GastosLabelMx},
+                    });
+                }
+            }
+
         }
 
         public static class MensajePago
