@@ -179,5 +179,10 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         Enumeradores.ValidacionVentaExclusiva ValidarVentaExclusiva(int paisID, int campaniaID, string codigoConsultora, string cuv);
         #endregion
+        
+        #region ArmaTuPack
+        [OperationContract]
+        bool CuvArmaTuPackEstaEnLimite(int paisID, int campaniaID, string zona, string cuv, int cantidadIngresada, int cantidadActual);
+        #endregion
     }
 }

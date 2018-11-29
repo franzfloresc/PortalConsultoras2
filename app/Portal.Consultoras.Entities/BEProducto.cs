@@ -123,6 +123,9 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string CodigoEstrategia { get; set; }
 
+        [DataMember]
+        public bool PermiteAgregarPedido { get; set; }
+
         public BEProducto(IDataRecord row)
         {
             CUV = row.ToString("CUV");

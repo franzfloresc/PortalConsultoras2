@@ -916,7 +916,7 @@ header {
         width: 100%;
     }
 
-.pedido_section3 {
+/*.pedido_section3 {
     float: left;
     margin-top: 40px;
     display: table !important;
@@ -1034,13 +1034,13 @@ header {
     .pedido_section3 .little-message {
         font-size: 10px;
         margin: 0;
-    }
+    }*/
 
 .margin_10 {
     margin-top: 10px;
 }
 
-.subtitle_p {
+/*.subtitle_p {
     letter-spacing: 0;
     margin-top: 5px;
     font-size: 12px;
@@ -1049,7 +1049,7 @@ header {
     font-family: 'lato';
     color: black;
     text-align: left;
-}
+}*/
 
 .estrateg_imagen {
     margin-top: 33px;
@@ -1313,7 +1313,7 @@ header {
         background: black;
     }
 /*ESTILO PARA PEDIDOS*/
-.pedido_left {
+/*.pedido_left {
     float: left;
 }
 
@@ -1497,8 +1497,9 @@ header {
     .pedidos_cliente:hover {
         text-decoration: underline;
     }
+    */
 /* CAJA PEDIDOS */
-.franja_negra {
+/*.franja_negra {
     position: absolute;
     width: 100%;
     height: 206px;
@@ -2017,9 +2018,9 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     margin: 0;
     padding: 0;
     margin-bottom: 5px;
-}
-
-.info_copy {
+}*/
+/*tool tip => info sobre el icono*/
+/*.info_copy {
     float: left;
     margin-right: 7px;
     height: 22px;
@@ -2164,8 +2165,9 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
             margin: 0;
             float: none;
         }
-
-.boton_guardarPedido input[type='submit'], .boton_guardarPedido input[type='button'] {
+*/
+/* fin tool tip => info sobre el icono*/
+/*.boton_guardarPedido input[type='submit'], .boton_guardarPedido input[type='button'] {
     display: block;
     font-family: 'Lato';
     width: 218px;
@@ -2764,7 +2766,11 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
 
     .link_eliminar_pedido:hover {
         text-decoration: underline;
-    }
+    }*/
+
+.menos {
+    padding-top: 4px;
+}
 /* BANNERS INFERIORES */
 .contenedor_banners {
     width: 100%;
@@ -3743,7 +3749,18 @@ a.subir_carousel, a.bajar_carousel {
             letter-spacing: .2px;
             color: #26201d;
         }
+
 /* POPUP PRODUCTOS SUGERIDOS */
+
+.contenedor_popup_productosSugeridos1{
+    width: 100%;
+    height: 102.4%;
+    position: absolute;
+    top: -60px;
+    z-index: 10001;
+    background-color:rgba(0,0,0,0.8);
+}
+
 .flecha_izquierda_carousel_productosSugeridos, .flecha_derecha_carousel_productosSugeridos {
     display: inline-block;
     vertical-align: middle;
@@ -3795,11 +3812,24 @@ a.subir_carousel, a.bajar_carousel {
         left: 29%;
     }
 
+.popup_productosSugeridos_wrapper{
+    display: block;
+    width: 100%;
+    max-width: 1169px;
+    height: 100%;
+    margin: 0 auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+}
+
 .popup_productosSugeridos {
     display: block;
     position: absolute;
-    top: 8.5%;
-    left: 13.1%;
+    /*top: 8.5%;*/
+    top:233px;
+    /*left: 13.1%;*/
+    left:87.5px;
     right: 0;
     bottom: 0;
     background: #fff;
@@ -3894,6 +3924,10 @@ a.subir_carousel, a.bajar_carousel {
     color: #000;
     font-weight: bold !important;
     text-align: left;
+}
+
+.cerrar_popup_productoSugerido{
+    cursor:pointer;
 }
 
 .contenedor_productosSugeridos div:nth-child(2) h5 {
@@ -5797,9 +5831,9 @@ a.subir_carousel, a.bajar_carousel {
     z-index: 1000;
 }
 /*POP UP GENERALES*/
-.terminos_content_contrato .div-3 {
+/*.terminos_content_contrato .div-3 {
     text-align: center;
-}
+}*/
 /*-------------------------------------------*/
 .boton_right_ayuda {
     float: right;
@@ -5938,7 +5972,7 @@ a.subir_carousel, a.bajar_carousel {
     padding-right: 2px;
 }
 
-.liquidacion_rango_left_pedido {
+/*.liquidacion_rango_left_pedido {
     width: 23px;
     height: 33px;
     border: 1px solid #cccccc;
@@ -5946,7 +5980,7 @@ a.subir_carousel, a.bajar_carousel {
     padding-top: 8px;
     text-align: center;
     margin-bottom: 10px;
-}
+}*/
 
 .liquidacion_rango_right_pedido {
     width: 23px;
@@ -7938,23 +7972,23 @@ ul.tabs {
     padding: 20px 0 20px 0;
 }
 
-.terminos_content_contrato {
+/*.terminos_content_contrato {
     overflow: auto;
     margin: 0 auto;
     text-align: left;
     background: #fff;
     margin: 0 0 0 0;
     padding: 0 0 2px 0;
-}
+}*/
 
 .terminos_content_2 {
     width: 1000px;
     margin: 0 auto;
 }
 
-.terminos_content_3 {
+/*.terminos_content_3 {
     margin: 0 auto;
-}
+}*/
 
 .terminos {
     height: 320px;
@@ -7989,7 +8023,7 @@ ul.tabs {
     letter-spacing: .5px;
 }
 
-.terminos_title_Contrato {
+/*.terminos_title_Contrato {
     width: 380px;
     margin: 0 auto;
     text-align: left;
@@ -7997,7 +8031,7 @@ ul.tabs {
     font-family: 'Arial';
     color: #6c217f;
     font-weight: bold !Important;
-}
+}*/
 
 .terminos span {
     padding: 0 0 15px 0;
@@ -8083,7 +8117,7 @@ ul.tabs {
     position: relative;
 }
 
-.elements_percepcion {
+/*.elements_percepcion {
     width: 900px;
     height: auto;
     overflow: hidden;
@@ -8091,7 +8125,7 @@ ul.tabs {
     margin: 0 auto 7px auto;
     padding: 5px 0 0 0;
     position: relative;
-}
+}*/
 
 .img {
     width: 580px;
@@ -27657,17 +27691,17 @@ div.motivoRechazo textarea {
         border-left: 1px solid #d4d4d4;
     }
 
-#penmostreo {
+/*#penmostreo {
     cursor: pointer;
 }
 
 #pedmostreo {
     cursor: pointer;
-}
+}*/
 
-h1#penmostreo .campana {
+/*h1#penmostreo .campana {
     margin-top: 10px;
-}
+}*/
 
 .margen-sup {
     margin-bottom: 30px;

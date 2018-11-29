@@ -181,6 +181,7 @@
                     if (response.success) {
                         if (response.redirectTo !== "") {
                             analytics.invocarEventoPixel("FacebookLoginValidExternalUser");
+                            limpiar_local_storage();
                             document.location.href = response.redirectTo;
                         }
                     }

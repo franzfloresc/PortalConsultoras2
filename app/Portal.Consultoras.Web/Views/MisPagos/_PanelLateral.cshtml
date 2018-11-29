@@ -7,7 +7,7 @@
         Mi deuda actual es:
         <div class="deuda_home" id="spanDeuda">@Model.Simbolo <span>@Model.MontoPagar</span></div>
         <span id="der_fechaVencimiento">Vencimiento: @Model.FechaVencimiento</span>
-        @if (Model.TienePagoEnLinea)
+        @if (Model.TienePagoEnLinea && Model.MostrarPagoEnLinea)
         {
             <div style="padding-left:20px; padding-right: 20px;">
                 <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Paga en línea"

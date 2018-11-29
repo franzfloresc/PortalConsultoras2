@@ -1,24 +1,24 @@
 ﻿@using System.Globalization
-
 @using Portal.Consultoras.Web.Areas.Mobile.Models
-@using Portal.Consultoras.Web.Areas.Mobile.Helpers
+@using Portal.Consultoras.Web.CustomHelpers
 @model ClienteMobileModel
 
 <style>
-    #divValidationSummary{
-        color:red
-    }
-    .clienteMensajeEditar {
-        display: table;
-        padding-left:20px;
-        padding-right:20px;
+    #divValidationSummary {
+        color: red
     }
 
-    .clienteMensajeEditar span {
-        vertical-align: middle;
-        display: table-cell;
-        padding-right: 5px;
+    .clienteMensajeEditar {
+        display: table;
+        padding-left: 20px;
+        padding-right: 20px;
     }
+
+        .clienteMensajeEditar span {
+            vertical-align: middle;
+            display: table-cell;
+            padding-right: 5px;
+        }
 </style>
 
 <div class="btn_cerrar_agregarUnidades">
@@ -28,7 +28,7 @@
     </a>
 </div>
 @if (Model.ClienteID == 0)
-{ 
+{
     <h6>AGREGAR <b>CLIENTE</b></h6>
 }
 else
@@ -39,7 +39,7 @@ else
 <form id="frmAgregarCliente">
     @Html.HiddenFor(model => model.ClienteID)
     @Html.HiddenFor(model => model.CodigoCliente)
-    
+
     <div class="form-group">
         @Html.TextBoxFor(model => model.NombreCliente, new { placeholder = "Nombres", maxlength = "100", @class = "", autocomplete = "off" })
         @Html.ValidationMessageFor(model => model.NombreCliente)
@@ -71,7 +71,7 @@ else
     <div id="divValidationSummary"></div>
 </form>
 
-    <script type="text/javascript">
+<script type="text/javascript">
         $.validator.unobtrusive.parse("#frmAgregarCliente");
 
         $(".input-number").keypress(function (e) {
@@ -151,4 +151,4 @@ else
         function CloseAgregarCliente() {
             $("#divAgregarCliente").modal("hide");
         }
-    </script>
+</script>

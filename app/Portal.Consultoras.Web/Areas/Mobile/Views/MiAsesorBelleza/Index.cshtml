@@ -1,6 +1,6 @@
 ﻿@using Portal.Consultoras.Common
 @using Portal.Consultoras.Web.Areas.Mobile.Models
-@using Portal.Consultoras.Web.Helpers
+@using Portal.Consultoras.Web.CustomHelpers
 @model MiAsesorBellezaModel
 
 @{
@@ -11,7 +11,7 @@
 }
 
 <div class="titulo_mobile titulo_asesorBelleza">
-    @{  var mobileConfiguracion = Html.MobileAppConfiguracion();
+    @{ var mobileConfiguracion = Html.MobileAppConfiguracion();
         if (mobileConfiguracion.MostrarBotonAtras)
         {
             <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
@@ -58,7 +58,7 @@
 <div class="wrapper_resumen_mobile">
     @if (Model.OrdenEsika != 0)
     {
-        <div class="tab_contenido_asesorBelleza" data-tag-html="Esika" @if (Model.OrdenEsika != 1) { <text> style="display:none;" </text>  }>
+        <div class="tab_contenido_asesorBelleza" data-tag-html="Esika" @if (Model.OrdenEsika != 1) { <text> style="display:none;" </text> }>
             <a href="http://www.esika.com/coach-de-belleza/maquillador-virtual/" target="_blank">
                 <div class="asesor_belleza_contenido">
                     <div class="asesor_belleza_img">
@@ -97,7 +97,7 @@
 
     @if (Model.OrdenLbel != 0)
     {
-        <div class="tab_contenido_asesorBelleza" data-tag-html="Lbel" @if (Model.OrdenLbel != 1) { <text> style="display:none;" </text>   }>
+        <div class="tab_contenido_asesorBelleza" data-tag-html="Lbel" @if (Model.OrdenLbel != 1) { <text> style="display:none;" </text> }>
             <a href="http://www.lbel.com/pe/asesor-de-bases-y-polvos/" target="_blank">
                 <div class="asesor_belleza_contenido">
                     <div class="asesor_belleza_img">
@@ -135,7 +135,7 @@
     }
     @if (Model.OrdenCyzone != 0)
     {
-        <div class="tab_contenido_asesorBelleza" data-tag-html="Cyzone" @if (Model.OrdenCyzone != 1) { <text> style="display:none;" </text>   }>
+        <div class="tab_contenido_asesorBelleza" data-tag-html="Cyzone" @if (Model.OrdenCyzone != 1) { <text> style="display:none;" </text> }>
             <a href="http://www.cyzone.com/pe/maquillador-virtual" target="_blank">
                 <div class="asesor_belleza_contenido">
                     <div class="asesor_belleza_img">

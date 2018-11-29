@@ -103,6 +103,7 @@
     <Compile Include="BLCupon.cs" />
     <Compile Include="BLOpcionesVerificacion.cs" />
     <Compile Include="BLPremiosProgramaNuevas.cs" />
+    <Compile Include="BLReporteRevisionIncidencias.cs" />
     <Compile Include="Cache\BLCache.cs" />
     <Compile Include="Cliente\BLClienteDB.cs" />
     <Compile Include="Cliente\IClienteBusinessLogic.cs" />
@@ -143,6 +144,8 @@
     <Compile Include="Producto\BLOfertaProducto.cs" />
     <Compile Include="Producto\IBuscadorBusinessLogic.cs" />
     <Compile Include="Producto\IOfertaProductoBusinessLogic.cs" />
+    <Compile Include="ArmaTuPack\BLArmaTuPack.cs" />
+    <Compile Include="ArmaTuPack\IArmaTuPackBusinessLogic.cs" />
     <Compile Include="ProgramaNuevas\BLProgramaNuevas.cs" />
     <Compile Include="ProgramaNuevas\IProgramaNuevasBusinessLogic.cs" />
     <Compile Include="ProgramaNuevas\IConsultorasProgramaNuevasBusinessLogic.cs" />

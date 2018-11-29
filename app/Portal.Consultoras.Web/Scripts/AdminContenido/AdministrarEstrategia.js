@@ -2660,7 +2660,8 @@
                 },
                 "Salir": function () {
                     $("#ddlTipoEstrategia").val($("#hdEstrategiaIDConsulta").val());
-                    $(this).dialog("close");
+                    HideDialog("DialogAdministracionEstrategia");
+                    //$(this).dialog("close");
                 }
             }
         });
@@ -2694,10 +2695,12 @@
                     }
                     $("#hdZonas").val(zonas);
                     _toastHelper.success("Se agregaron las zonas seleccionadas.");
-                    $(this).dialog("close");
+                    HideDialog("DialogZona");
+                    //$(this).dialog("close");
                 },
                 "Salir": function () {
-                    $(this).dialog("close");
+                    HideDialog("DialogZona");
+                    //$(this).dialog("close");
                 }
             }
         });
@@ -2727,7 +2730,9 @@
                         });
                     }
                     _variables.isVistaPreviaOpened = false;
-                    $(this).dialog("close");
+
+                    HideDialog("divVistaPrevia");
+                    //$(this).dialog("close");
                 }
             }
         });
@@ -2832,7 +2837,8 @@
                     });
                 },
                 "Salir": function () {
-                    $(this).dialog("close");
+                    HideDialog("DialogEditarTallaColor");
+                    //$(this).dialog("close");
                 }
             }
         });
@@ -2911,7 +2917,8 @@
                     }
                 },
                 "Cancelar": function () {
-                    $(this).dialog("close");
+                    HideDialog("DialogDatosShowRoom");
+                    //$(this).dialog("close");
                 }
             }
         });
@@ -2949,7 +2956,8 @@
                     return false;
                 },
                 "Cancelar": function () {
-                    $(this).dialog("close");
+                    HideDialog("DialogPersonalizacionDetalle");
+                    //$(this).dialog("close");
                 }
             }
         });
@@ -2995,7 +3003,8 @@
                     return false;
                 },
                 "Cancelar": function () {
-                    $(this).dialog("close");
+                    HideDialog("DialogRegistroOfertaShowRoomDetalleEditar");
+                    //$(this).dialog("close");
                 }
             }
         });
