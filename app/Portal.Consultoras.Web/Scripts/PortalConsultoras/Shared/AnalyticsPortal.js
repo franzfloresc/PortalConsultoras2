@@ -1269,7 +1269,7 @@ var AnalyticsPortalModule = (function () {
         try {
             if (_constantes.isTest)
                 alert("Marcación promotion view.");
-            var promotions = _AutoMapperV2(codigoSeccion, data, pos);
+            var promotions = _autoMapperV2(codigoSeccion, data, pos);
             if (promotions.length === 0)
                 return false;
             dataLayer.push({
