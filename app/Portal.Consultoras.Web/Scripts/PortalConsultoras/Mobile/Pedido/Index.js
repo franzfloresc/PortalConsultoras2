@@ -137,7 +137,8 @@ $(document).ready(function () {
         $("#divResumenPedido").hide();
         $("#btnAgregarProducto").hide();
         $('#PopSugerido').hide();
-
+        ProductoRecomendadoModule.OcultarProductosRecomendados();
+        
         if (codigo == "") {
             if (typeof tieneOPT !== 'undefined' && tieneOPT) {
                 VisibleEstrategias(true);
@@ -1037,14 +1038,13 @@ function RegistrarDemandaTotalReemplazoSugerido(cuvSugerido, precio, cantidad, e
 
 function CargarProductosRecomendados(item) {
 
-    console.log("activarRecomendaciones: ", activarRecomendaciones)
     console.log(item);
 
     if (activarRecomendaciones == 1) {
         if ((item.CodigoCatalago == 9 || item.CodigoCatalago == 10 || item.CodigoCatalago == 13) &&
             (item.EstrategiaIDSicc == 2001)) {
 
-            console.log("mostrar recomendados");
+            ProductoRecomendadoModule.ObtenerProductos(item.CUV, item.CodigoProducto);
         }
     }
 }
