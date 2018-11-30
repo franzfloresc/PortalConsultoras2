@@ -55,6 +55,7 @@ function TagManagerClickAgregarProductoLiquidacion(item) {
         }
     });
 }
+
 //function TagManagerCarruselLiquidacionesPrevia() {
 //    var posicionEstrategia = $($('#divCarruselLiquidaciones').find(".slick-active")).find('#Posicion').val() - 2;
 //    var recomendado = arrayLiquidaciones[posicionEstrategia];

@@ -263,8 +263,8 @@ function SeccionMostrarProductos(data) {
         if (varContenedor.CargoLan) {
             $.each(data.listaLan, function (key, value) {
                 if (value.TipoEstrategiaDetalle.FlagIndividual) {
+                    console.log('SeccionMostrarProductos LAN', data.Seccion.Codigo, value);
                     var dateItem = new Array(value);
-                    console.log('SeccionMostrarProductos LAN', data.Seccion.Codigo, dateItem);
                     AnalyticsPortalModule.MarcaGenericaLista(data.Seccion.Codigo, dateItem); // CONS_CODIGO_SECCION.LAN
                     return false;
                 }
@@ -742,6 +742,7 @@ function marcaAnalyticsViewVerMas() {
 //    else return "next.png";
 //}
 
+// Metodo para virtualEvent 
 function VerificarClick(slick, currentSlide, nextSlide, source, seccionName) {
     console.log(slick, currentSlide, nextSlide, source, seccionName);
     //if (typeof CheckClickCarrousel !== "undefined" && typeof CheckClickCarrousel === "function") {
@@ -784,8 +785,5 @@ function CallAnalitycsClickArrow(seccionName, opcion, sliderWay, clickedSlider) 
                 rdAnalyticsModule.ClickArrowLan(sliderWay);
             }
         }
-
-        sliderWay = 0;
-        clickedSlider = 0;
     }
 }
