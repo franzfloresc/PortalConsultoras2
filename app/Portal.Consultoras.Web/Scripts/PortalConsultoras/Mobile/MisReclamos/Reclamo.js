@@ -987,7 +987,6 @@ $(document).ready(function () {
             },
 
             ValidarPaso1: function () {
-                debugger
                 var ok = true;
                 ok = $.trim($(me.Variables.hdPedidoID).val()) > 0 ? ok : false;
                 ok = $(me.Variables.ComboCampania).val() > 0 ? ok : false;
@@ -1010,7 +1009,7 @@ $(document).ready(function () {
 
                 var item = {
                     PedidoID: $(me.Variables.hdPedidoID).val(),
-                    CUV: $(me.Variables.txtCuvMobile).val(),
+                    CUV: $(me.Variables.hdCuvCodigo).val(),
                     Cantidad: $.trim($(me.Variables.txtCantidad1).val()),
                     Motivo: $(".lista_opciones_motivo_cdr input[name='motivo-cdr']:checked").attr("id"),
                     CampaniaID: $(me.Variables.ComboCampania).val()

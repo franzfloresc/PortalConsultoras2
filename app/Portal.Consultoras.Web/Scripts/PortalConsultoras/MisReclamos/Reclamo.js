@@ -17,6 +17,12 @@ $(document).ready(function () {
     $("#ddlCampania").on("change", function () {
         $("#txtPedidoID").val(0);
         $("#txtNumeroPedido").val(0);
+        if ($("#ddlCampania").val() == 0)
+        {
+            $("#ddlnumPedido").html("");
+            $("#ddlnumPedido").hide();     
+            return false;
+        }
         ListarPedidoID();
         //BuscarCUV();
     });
