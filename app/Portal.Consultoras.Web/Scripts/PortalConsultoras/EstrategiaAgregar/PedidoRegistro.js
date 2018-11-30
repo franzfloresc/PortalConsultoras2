@@ -207,7 +207,8 @@ var PedidoRegistroModule = function () {
             PrecioUnidad: PrecioUnidad,
             CUV: CUV,
             ConfiguracionOfertaID: ConfiguracionOfertaID,
-            TipoEstrategiaID: ConstantesModule.ConfiguracionOferta.Liquidacion,
+            //TipoEstrategiaID: ConstantesModule.ConfiguracionOferta.Liquidacion,
+            TipoOfertaSisID: ConstantesModule.ConfiguracionOferta.Liquidacion,
             DescripcionProd: DescripcionProd
         };
         waitingDialog();
@@ -312,7 +313,8 @@ var PedidoRegistroModule = function () {
             CUV: CUV,
             ConfiguracionOfertaID: ConfiguracionOfertaID,
             OrigenPedidoWeb: origenPedidoLiquidaciones,
-            TipoEstrategiaID: ConstantesModule.ConfiguracionOferta.Liquidacion,
+            //TipoEstrategiaID: ConstantesModule.ConfiguracionOferta.Liquidacion,
+            TipoOfertaSisID: ConstantesModule.ConfiguracionOferta.Liquidacion,
             DescripcionProd: DescripcionProd
         };
 
@@ -403,7 +405,8 @@ var PedidoRegistroModule = function () {
             CUV: CUV,
             ConfiguracionOfertaID: ConfiguracionOfertaID,
             OrigenPedidoWeb: MobileLiquidacion,
-            TipoEstrategiaID: ConstantesModule.ConfiguracionOferta.Liquidacion,
+            //TipoEstrategiaID: ConstantesModule.ConfiguracionOferta.Liquidacion,
+            TipoOfertaSisID: ConstantesModule.ConfiguracionOferta.Liquidacion,
             DescripcionProd: DescripcionProd
         };
 
@@ -485,7 +488,8 @@ var PedidoRegistroModule = function () {
             imagenProducto: $(contenedor).find("#ImagenProducto").val(),
             Posicion: $(contenedor).find("#Posicion").val(),
             OrigenPedidoWeb: DesktopHomeLiquidacion,
-            TipoEstrategiaID: ConstantesModule.ConfiguracionOferta.Liquidacion
+            //TipoEstrategiaID: ConstantesModule.ConfiguracionOferta.Liquidacion,
+            TipoOfertaSisID: ConstantesModule.ConfiguracionOferta.Liquidacion,
         };
         $.ajaxSetup({
             cache: false

@@ -158,7 +158,6 @@ namespace Portal.Consultoras.Web.Controllers
                 BEPedidoDetalle pedidoDetalle = new BEPedidoDetalle();
                 pedidoDetalle.Producto = new ServicePedido.BEProducto();
                 model.CuvTonos = Util.Trim(model.CuvTonos);
-                if (model.EstrategiaID <= 0) model.TipoEstrategiaID = 0;
 
                 #region SesiónExpirada
                 if (userData == null)
