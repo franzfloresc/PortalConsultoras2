@@ -1079,22 +1079,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.TipoUsuario = userData.TipoUsuario;
             ViewBag.MensajePedidoDesktop = userData.MensajePedidoDesktop;
             ViewBag.MensajePedidoMobile = userData.MensajePedidoMobile;
-
-            #region RegaloPN
-            try
-            {
-                ViewBag.ConsultoraTieneRegaloPN = false;
-                if (userData.ConsultoraRegaloProgramaNuevas != null)
-                {
-                    ViewBag.ConsultoraTieneRegaloPN = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                Common.LogManager.SaveLog(ex, userData.CodigoConsultora, userData.CodigoISO);
-            }
-
-            #endregion
+            ViewBag.ConsultoraTieneRegaloPN = (userData.ConsultoraRegaloProgramaNuevas != null);
 
             #region EventoFestivo
 
