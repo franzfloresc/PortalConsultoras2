@@ -15,8 +15,8 @@
         {
 
             <div class="op-menu-horizontal">
-                <ul class="subnavegador" 
-                    data-es-suscrita="@ViewBag.EsSuscrita.ToString().ToLower()" 
+                <ul class="subnavegador"
+                    data-es-suscrita="@ViewBag.EsSuscrita.ToString().ToLower()"
                     data-es-activa="@ViewBag.EsActiva.ToString().ToLower()">
 
                     @foreach (var menuhijo in menuList)
@@ -32,7 +32,7 @@
                             claseActivo = claseActivo + " activado-grande";
                         }
 
-                        <li data-campania="@menuhijo.CampaniaId" 
+                        <li data-campania="@menuhijo.CampaniaId"
                             data-activo="1"
                             data-codigo="@menuhijo.Codigo"
                             data-es-ancla="@menuhijo.EsAncla"
@@ -40,37 +40,37 @@
 
                             @if (!string.IsNullOrEmpty(menuhijo.DesktopLogoMenu))
                             {
-                                <a href="javascript:void(0);" 
+                                <a href="javascript:void(0);"
                                    class="gana_mas_horizontal @claseActivo"
-                                   role="menu" 
-                                   region="Lateral" 
-                                   parent="@tagContenedor - @menuActivo.NombreOrigenPantalla" 
+                                   role="menu"
+                                   region="Lateral"
+                                   parent="@tagContenedor - @menuActivo.NombreOrigenPantalla"
                                    title="@menuhijo.DesktopSubTituloMenu">
-                                     
+
                                     @if (menuhijo.Codigo == menuActivo.Codigo)
                                     {
-                                        <img class="imgSeleccionado" 
-                                             src="@menuhijo.DesktopLogoMenu" 
-                                             role="menu" 
-                                             region="Lateral" 
-                                             parent="@tagContenedor - @menuActivo.NombreOrigenPantalla" 
-                                             title="@menuhijo.DesktopSubTituloMenu" 
+                                        <img class="imgSeleccionado"
+                                             src="@menuhijo.DesktopLogoMenu"
+                                             role="menu"
+                                             region="Lateral"
+                                             parent="@tagContenedor - @menuActivo.NombreOrigenPantalla"
+                                             title="@menuhijo.DesktopSubTituloMenu"
                                              alt="" />
-                                        <img class="imgNoSeleccionado ocultar" 
-                                             src="@menuhijo.DesktopLogoMenuNoActivo" 
-                                             role="menu" 
-                                             region="Lateral" 
-                                             parent="@tagContenedor - @menuActivo.NombreOrigenPantalla" 
-                                             title="@menuhijo.DesktopSubTituloMenu" 
+                                        <img class="imgNoSeleccionado ocultar"
+                                             src="@menuhijo.DesktopLogoMenuNoActivo"
+                                             role="menu"
+                                             region="Lateral"
+                                             parent="@tagContenedor - @menuActivo.NombreOrigenPantalla"
+                                             title="@menuhijo.DesktopSubTituloMenu"
                                              alt="" />
                                     }
                                     else
                                     {
-                                        <img src="@menuhijo.DesktopLogoMenuNoActivo" 
-                                             role="menu" 
-                                             region="Lateral" 
-                                             parent="@tagContenedor - @menuActivo.NombreOrigenPantalla" 
-                                             title="@menuhijo.DesktopSubTituloMenu" 
+                                        <img src="@menuhijo.DesktopLogoMenuNoActivo"
+                                             role="menu"
+                                             region="Lateral"
+                                             parent="@tagContenedor - @menuActivo.NombreOrigenPantalla"
+                                             title="@menuhijo.DesktopSubTituloMenu"
                                              alt="" />
                                     }
                                 </a>
@@ -78,7 +78,13 @@
                             }
                             @if (!string.IsNullOrEmpty(menuhijo.DesktopTituloMenu))
                             {
-                                <a href="javascript:void(0);" class="@claseActivo">@menuhijo.DesktopTituloMenu</a>
+
+                                <a href="javascript:void(0);" 
+                                   class="@claseActivo" 
+                                   role="menu"
+                                   region="Lateral" 
+                                   parent="@tagContenedor - @menuActivo.NombreOrigenPantalla"
+                                   title="@menuhijo.DesktopTituloMenu">@menuhijo.DesktopTituloMenu</a>
                             }
 
                         </li>

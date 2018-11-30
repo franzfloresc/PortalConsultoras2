@@ -1,4 +1,5 @@
-﻿using Portal.Consultoras.Common;
+﻿using Newtonsoft.Json;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Data.PagoEnLinea;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.PagoEnLinea;
@@ -15,7 +16,8 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
     {
         private readonly ITablaLogicaDatosBusinessLogic _tablaLogicaDatosBusinessLogic;
 
-        public BLPagoEnLinea() : this(new BLTablaLogicaDatos()) {
+        public BLPagoEnLinea() : this(new BLTablaLogicaDatos())
+        {
 
         }
 
@@ -136,7 +138,28 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
                 }
             }
 
+            CargarConfiguracion_MedioPagoDetalle(paisId, lista);
+
             return lista;
+        }
+
+        private void CargarConfiguracion_MedioPagoDetalle(int paisId, List<BEPagoEnLineaMedioPagoDetalle> pagoEnLineaMedioPagoDetalles) {
+            var provider = new NumberFormatInfo() { NumberDecimalSeparator = "." };
+
+            var metodoPagoVisa = pagoEnLineaMedioPagoDetalles.Where(e => e.TipoPasarelaCodigoPlataforma == Constantes.PagoEnLineaMetodoPago.PasarelaVisa && e.TipoTarjeta == Constantes.PagoEnLineaTipoTarjeta.Credito && e.Estado).FirstOrDefault();
+            if (metodoPagoVisa != null)
+            {                
+                var listaConfiguracionPasarelaVisa = ObtenerPagoEnLineaTipoPasarelaByCodigoPlataforma(paisId, Constantes.PagoEnLineaMetodoPago.PasarelaVisa);
+                
+                var porcentajeGastosAdministrativosString = ObtenerValoresTipoPasarela(listaConfiguracionPasarelaVisa, Constantes.PagoEnLineaMetodoPago.PasarelaVisa, Constantes.PagoEnLineaPasarelaVisa.PorcentajeGastosAdministrativos);
+                decimal porcentajeGastosAdministrativos;
+                metodoPagoVisa.PorcentajeGastosAdministrativos = decimal.TryParse(porcentajeGastosAdministrativosString, NumberStyles.Any, provider, out porcentajeGastosAdministrativos) ? porcentajeGastosAdministrativos : 0;
+                metodoPagoVisa.PagoEnLineaGastosLabel = paisId == Constantes.PaisID.Mexico ? Constantes.PagoEnLineaMensajes.GastosLabelMx : Constantes.PagoEnLineaMensajes.GastosLabelPe;
+
+                var montoMinimoPagoString = ObtenerValoresTipoPasarela(listaConfiguracionPasarelaVisa, Constantes.PagoEnLineaMetodoPago.PasarelaVisa, Constantes.PagoEnLineaPasarelaVisa.MontoMinimoPago);
+                decimal montoMinimoPago;
+                if (decimal.TryParse(montoMinimoPagoString, NumberStyles.Any, provider, out montoMinimoPago)) metodoPagoVisa.MontoMinimoPago = montoMinimoPago;
+            }
         }
 
         public List<BEPagoEnLineaTipoPasarela> ObtenerPagoEnLineaTipoPasarelaByCodigoPlataforma(int paisId, string codigoPlataforma)
@@ -166,7 +189,7 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
                 {
                     lista.Add(new BEPagoEnLineaPasarelaCampos(reader));
                 }
-            }
+            } 
 
             return lista;
         }
@@ -187,13 +210,14 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
                 .MapToCollection<BEPagoEnLineaBanco>();
         }
 
-        private decimal ObtenerDeuda(int paisId, long consultoraId, string codigoUsuario) {
+        private decimal ObtenerDeuda(int paisId, long consultoraId, string codigoUsuario)
+        {
             return new BLResumenCampania().GetMontoDeuda(paisId, 0, (int)consultoraId, codigoUsuario, true);
         }
 
-        public BEPagoEnLinea ObtenerPagoEnLineaConfiguracion(int paisId, long consultoraId, string codigoUsuario) {
+        public BEPagoEnLinea ObtenerPagoEnLineaConfiguracion(int paisId, long consultoraId, string codigoUsuario)
+        {
             var result = new BEPagoEnLinea();
-            List<BEPagoEnLineaTipoPasarela> listaConfiguracionPasarelaVisa = null;
             List<BETablaLogicaDatos> listaConfiguracion = null;
 
             var listaMetodoPagoTask = Task.Run(() => result.ListaMetodoPago = ObtenerPagoEnLineaMedioPagoDetalle(paisId));
@@ -201,24 +225,10 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
             var listaTipoPagoTask = Task.Run(() => result.ListaTipoPago = ObtenerPagoEnLineaTipoPago(paisId));
             var montoDeudaTask = Task.Run(() => result.MontoDeuda = ObtenerDeuda(paisId, consultoraId, codigoUsuario));
             var listaBancoTask = Task.Run(() => result.ListaBanco = ObtenerPagoEnLineaBancos(paisId) ?? new List<BEPagoEnLineaBanco>());
-            var listaConfiguracionVisaTask = Task.Run(() => listaConfiguracionPasarelaVisa = ObtenerPagoEnLineaTipoPasarelaByCodigoPlataforma(paisId, Constantes.PagoEnLineaMetodoPago.PasarelaVisa));
             var listaConfiguracionTask = Task.Run(() => listaConfiguracion = _tablaLogicaDatosBusinessLogic.GetListCache(paisId, Constantes.TablaLogica.ValoresPagoEnLinea));
 
-            Task.WaitAll(listaMetodoPagoTask, listaMedioPagoTask, listaTipoPagoTask, montoDeudaTask, listaBancoTask, listaConfiguracionTask, listaConfiguracionVisaTask);
-
-            var metodoPagoVisa = result.ListaMetodoPago.Where(e => e.TipoPasarelaCodigoPlataforma == Constantes.PagoEnLineaMetodoPago.PasarelaVisa && e.TipoTarjeta == Constantes.PagoEnLineaTipoTarjeta.Credito && e.Estado).FirstOrDefault();
-            if (metodoPagoVisa != null) {
-                var provider = new NumberFormatInfo() { NumberDecimalSeparator = "." };
-
-                var porcentajeGastosAdministrativosString = ObtenerValoresTipoPasarela(listaConfiguracionPasarelaVisa, Constantes.PagoEnLineaMetodoPago.PasarelaVisa, Constantes.PagoEnLineaPasarelaVisa.PorcentajeGastosAdministrativos);
-                decimal porcentajeGastosAdministrativos;
-                metodoPagoVisa.PorcentajeGastosAdministrativos = decimal.TryParse(porcentajeGastosAdministrativosString, NumberStyles.Any, provider, out porcentajeGastosAdministrativos) ? porcentajeGastosAdministrativos : 0;
-                metodoPagoVisa.PagoEnLineaGastosLabel = paisId == Constantes.PaisID.Mexico ? Constantes.PagoEnLineaMensajes.GastosLabelMx : Constantes.PagoEnLineaMensajes.GastosLabelPe;
-
-                var montoMinimoPagoString = ObtenerValoresTipoPasarela(listaConfiguracionPasarelaVisa, Constantes.PagoEnLineaMetodoPago.PasarelaVisa, Constantes.PagoEnLineaPasarelaVisa.MontoMinimoPago);
-                decimal montoMinimoPago;
-                if (decimal.TryParse(montoMinimoPagoString, NumberStyles.Any, provider, out montoMinimoPago)) metodoPagoVisa.MontoMinimoPago = montoMinimoPago;                
-            }
+            Task.WaitAll(listaMetodoPagoTask, listaMedioPagoTask, listaTipoPagoTask, montoDeudaTask, listaBancoTask, listaConfiguracionTask);
+            
             if (listaConfiguracion != null) {
                 var enableExternalApp_String = listaConfiguracion.Where(e => e.TablaLogicaDatosID == Constantes.TablaLogicaDato.PagoEnLinea.Habilitar_App_PBI_ExternalApp).Select(e => e.Valor).FirstOrDefault();
                 if(enableExternalApp_String != "1")  result.ListaBanco.ForEach( e => e.URIExternalApp = null );
@@ -238,22 +248,23 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
         }
 
         public BEPagoEnLineaVisa ObtenerPagoEnLineaVisaConfiguracion(int paisId, string codigoConsutora)
-        {           
+        {
             List<BEPagoEnLineaTipoPasarela> listaConfiguracionPasarelaVisa = null;
             var pasarela = Constantes.PagoEnLineaMetodoPago.PasarelaVisa;
             var result = new BEPagoEnLineaVisa();
 
-            var listaConfiguracionVisaTask = Task.Run(() => listaConfiguracionPasarelaVisa= ObtenerPagoEnLineaTipoPasarelaByCodigoPlataforma(paisId, pasarela));
+            var listaConfiguracionVisaTask = Task.Run(() => listaConfiguracionPasarelaVisa = ObtenerPagoEnLineaTipoPasarelaByCodigoPlataforma(paisId, pasarela));
             var obtenerTokenTarjetaGuardadaTask = Task.Run(() => result.TokenTarjetaGuardada = ObtenerTokenTarjetaGuardadaByConsultora(paisId, codigoConsutora));
 
             Task.WaitAll(listaConfiguracionVisaTask, obtenerTokenTarjetaGuardadaTask);
 
             result.SessionToken = Guid.NewGuid().ToString().ToUpper();
-            if (listaConfiguracionPasarelaVisa != null) {
+            if (listaConfiguracionPasarelaVisa != null)
+            {
                 result.EndPointURL = ObtenerValoresTipoPasarela(listaConfiguracionPasarelaVisa, pasarela, Constantes.PagoEnLineaPasarelaVisa.UrlAutorizacionBotonPago);
                 result.MerchantId = ObtenerValoresTipoPasarela(listaConfiguracionPasarelaVisa, pasarela, Constantes.PagoEnLineaPasarelaVisa.MerchantId);
                 result.AccessKeyId = ObtenerValoresTipoPasarela(listaConfiguracionPasarelaVisa, pasarela, Constantes.PagoEnLineaPasarelaVisa.AccessKeyId);
-                result.SecretAccessKey = ObtenerValoresTipoPasarela(listaConfiguracionPasarelaVisa, pasarela, Constantes.PagoEnLineaPasarelaVisa.SecretAccessKey);                
+                result.SecretAccessKey = ObtenerValoresTipoPasarela(listaConfiguracionPasarelaVisa, pasarela, Constantes.PagoEnLineaPasarelaVisa.SecretAccessKey);
                 result.NextCounterURL = ObtenerValoresTipoPasarela(listaConfiguracionPasarelaVisa, pasarela, Constantes.PagoEnLineaPasarelaVisa.UrlGenerarNumeroPedido);
                 if (!string.IsNullOrEmpty(result.NextCounterURL))
                     result.NextCounterURL = string.Format(Constantes.PagoEnLineaPasarelaVisa.NextCounterURL_Pattern, result.NextCounterURL);
@@ -266,14 +277,15 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
             return result;
         }
 
-        private  string ObtenerValoresTipoPasarela(List<BEPagoEnLineaTipoPasarela> lista, string codigoPlataforma, string codigo)
+        private string ObtenerValoresTipoPasarela(List<BEPagoEnLineaTipoPasarela> lista, string codigoPlataforma, string codigo)
         {
             return lista.Where(p => p.CodigoPlataforma == codigoPlataforma && p.Codigo == codigo)
                         .Select(p => p.Valor).FirstOrDefault() ?? string.Empty;
         }
 
-        public BERespuestaServicio RegistrarPagoEnLineaVisa(BEUsuario usuario, BEPagoEnLineaVisa pagoEnLineaVisa) {
-            
+        public BERespuestaServicio RegistrarPagoEnLineaVisa(BEUsuario usuario, BEPagoEnLineaVisa pagoEnLineaVisa)
+        {
+
             //Guardar el Log de Pago en Linea
             var bePagoEnLinea = GenerarEntidadPagoEnLineaLog(usuario, pagoEnLineaVisa);
             var accionLog = InsertPagoEnLineaResultadoLog(usuario.PaisID, bePagoEnLinea);
@@ -294,13 +306,14 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
                     NotificarViaEmail(usuario, pagoEnLineaVisa, bePagoEnLinea, saldoPendiente, mensajeExitoso);
                 }
 
-                return PagoEnLineaRespuestaServicio(Constantes.PagoEnLineaRespuestaServicio.Code.SUCCESS, saldoPendiente: saldoPendiente);
+                return PagoEnLineaRespuestaServicio(Constantes.PagoEnLineaRespuestaServicio.Code.SUCCESS, saldoPendiente: saldoPendiente, pagoEnLineaResultadoLogId: bePagoEnLinea.PagoEnLineaResultadoLogId);
             }
 
-            return PagoEnLineaRespuestaServicio(Constantes.PagoEnLineaRespuestaServicio.Code.SUCCESS_YA_AGREGADO);
+            return PagoEnLineaRespuestaServicio(Constantes.PagoEnLineaRespuestaServicio.Code.SUCCESS_YA_AGREGADO, pagoEnLineaResultadoLogId: bePagoEnLinea.PagoEnLineaResultadoLogId);
         }
 
-        private void NotificarViaEmail(BEUsuario usuario, BEPagoEnLineaVisa pagoEnLineaVisa, BEPagoEnLineaResultadoLog bePagoEnLinea, decimal saldoPendiente, string mensajeExitoso) {
+        private void NotificarViaEmail(BEUsuario usuario, BEPagoEnLineaVisa pagoEnLineaVisa, BEPagoEnLineaResultadoLog bePagoEnLinea, decimal saldoPendiente, string mensajeExitoso)
+        {
             try
             {
                 var template = ObtenerTemplatePagoEnLinea(usuario, pagoEnLineaVisa, bePagoEnLinea, saldoPendiente, mensajeExitoso);
@@ -351,11 +364,10 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
             bePagoEnLinea.MensajeError = respuestaVisa.PaymentDescription ?? string.Empty;
             bePagoEnLinea.IdGuidTransaccion = respuestaVisa.TransactionUUID ?? string.Empty;
             bePagoEnLinea.IdGuidExternoTransaccion = respuestaVisa.ExternalTransactionId ?? string.Empty;
-            bePagoEnLinea.MerchantId = respuestaVisa.MerchantId ?? string.Empty;
             bePagoEnLinea.IdTokenUsuario = respuestaVisa.UserTokenId ?? string.Empty;
             bePagoEnLinea.AliasNameTarjeta = respuestaVisa.AliasNameTarjeta ?? string.Empty;
-            
-            bePagoEnLinea.FechaTransaccion = string.IsNullOrEmpty(respuestaVisa.Data.FECHAYHORA_TX) ? DateTime.Now  : Convert.ToDateTime(respuestaVisa.Data.FECHAYHORA_TX);
+                       
+            bePagoEnLinea.FechaTransaccion = Util.ParseDate(respuestaVisa.Data.FECHAYHORA_TX, "dd/MM/yyyy HH:mm") ?? DateTime.Now;
             bePagoEnLinea.ResultadoValidacionCVV2 = respuestaVisa.Data.RES_CVV2 ?? string.Empty;
             bePagoEnLinea.CsiMensaje = respuestaVisa.Data.CSIMENSAJE ?? string.Empty;
             bePagoEnLinea.IdUnicoTransaccion = respuestaVisa.Data.ID_UNICO ?? string.Empty;
@@ -387,10 +399,15 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
             bePagoEnLinea.UsuarioCreacion = usuario.CodigoUsuario;
             bePagoEnLinea.Origen = respuestaVisa.Origen;
 
+            if (bePagoEnLinea.CodigoError == Constantes.PagoEnLineaPasarelaVisa.Code.CodigoError_Success && bePagoEnLinea.CodigoAccion == Constantes.PagoEnLineaPasarelaVisa.Code.CodigoAccion_Success)
+                bePagoEnLinea.MerchantId = respuestaVisa.MerchantId ?? string.Empty;
+            else
+                bePagoEnLinea.MerchantId = string.Empty;
+
             return bePagoEnLinea;
         }
 
-        private BERespuestaServicio PagoEnLineaRespuestaServicio(string code, string message = null, decimal? saldoPendiente = null)
+        private BERespuestaServicio PagoEnLineaRespuestaServicio(string code, string message = null, int? pagoEnLineaResultadoLogId = null, decimal? saldoPendiente = null)
         {
             if (string.IsNullOrEmpty(message))
             {
@@ -402,7 +419,7 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
             {
                 Code = code,
                 Message = message,
-                Data = saldoPendiente
+                Data = JsonConvert.SerializeObject(new { PagoEnLineaResultadoLogId = pagoEnLineaResultadoLogId, SaldoPendiente = saldoPendiente })
             };
         }
 

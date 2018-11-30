@@ -61,7 +61,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     listaCampania = new List<CampaniaModel>(),
                     listaPaises = DropDowListPaises(),
-                    ListaTipoEstrategia = DropDowListTipoEstrategia(TipoVistaEstrategia),
+                    ListaTipoEstrategia = DropDowListTipoEstrategia(),
                     ListaEtiquetas = DropDowListEtiqueta(),
                     UrlS3 = urlS3,
                     habilitarNemotecnico = habilitarNemotecnico == "1",
@@ -141,14 +141,13 @@ namespace Portal.Consultoras.Web.Controllers
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
         }
 
-        private IEnumerable<TipoEstrategiaModel> DropDowListTipoEstrategia(int TipoVistaEstrategia)
+        private IEnumerable<TipoEstrategiaModel> DropDowListTipoEstrategia()
         {
             var lst = _tipoEstrategiaProvider.GetTipoEstrategias(userData.PaisID);
 
             if (lst != null && lst.Count > 0)
             {
-                var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                lst.Update(x => x.ImagenEstrategia = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenEstrategia));
+                lst.Update(x => x.ImagenEstrategia = ConfigS3.GetUrlFileS3Matriz(userData.CodigoISO, x.ImagenEstrategia));
 
                 var lista = (from a in lst
                              where a.FlagActivo == 1
@@ -255,10 +254,8 @@ namespace Portal.Consultoras.Web.Controllers
                         lst = new List<EstrategiaMDbAdapterModel>();
                     }
 
-                    var carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-
                     if (lst.Count > 0)
-                        lst.Update(x => x.BEEstrategia.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.BEEstrategia.ImagenURL));
+                        lst.Update(x => x.BEEstrategia.ImagenURL = ConfigS3.GetUrlFileS3Matriz(userData.CodigoISO, x.BEEstrategia.ImagenURL));
 
                     var grid = new BEGrid
                     {
@@ -553,10 +550,10 @@ namespace Portal.Consultoras.Web.Controllers
                 decimal wspreciopack, ganancia = 0;
                 string niveles = "";
                 string codigoSap = "";
-                string DescripcionMarca = "";
-                int MarcaID = 0;
+                //string DescripcionMarca = "";
+                //int MarcaID = 0;
                 int enMatrizComercial = 0;
-                int IdMatrizComercial = 0;
+                //int IdMatrizComercial = 0;
                 string wsprecio = "";
                 int idMatrizComercial = 0;
                 ServicePedido.BEEstrategia beEstrategia = null;
@@ -576,11 +573,11 @@ namespace Portal.Consultoras.Web.Controllers
                         precio = (beEstrategia.PrecioPublico + beEstrategia.Ganancia).ToString("F2");
                         wsprecio = beEstrategia.PrecioPublico.ToString();
                         ganancia = beEstrategia.Ganancia;
-                        DescripcionMarca = beEstrategia.DescripcionMarca;
-                        MarcaID = beEstrategia.MarcaID;
+                        //DescripcionMarca = beEstrategia.DescripcionMarca;
+                        //MarcaID = beEstrategia.MarcaID;
                         codigoSap = beEstrategia.CodigoSAP;
                         enMatrizComercial = beEstrategia.EnMatrizComercial.ToInt();
-                        IdMatrizComercial = beEstrategia.IdMatrizComercial.ToInt();
+                        //IdMatrizComercial = beEstrategia.IdMatrizComercial.ToInt();
                     }
                 }
                 else
@@ -755,7 +752,7 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult RegistrarEstrategia(RegistrarEstrategiaModel model,
             string _id, string _flagRecoProduc, string _flagRecoPerfil)
         {
-            string error = "";
+            var error = new StringBuilder();
             try
             {
                 bool dbdefault = HttpUtility.ParseQueryString(((System.Web.HttpRequestWrapper)Request).UrlReferrer.Query)[_dbdefault].ToBool();
@@ -787,25 +784,25 @@ namespace Portal.Consultoras.Web.Controllers
                      model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada ||
                      model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.ShowRoom))
                 {
-                    error += "| region codigo_estrategia y variedad";
+                    error.Append("| region codigo_estrategia y variedad");
                     respuestaServiceCdr = EstrategiaProductoObtenerServicio(entidad);
-                    error += "| region codigo_estrategia y variedad fin - respuestaServiceCdr = " + respuestaServiceCdr;
+                    error.Append("| region codigo_estrategia y variedad fin - respuestaServiceCdr = " + respuestaServiceCdr.Count);
 
                     if (respuestaServiceCdr.Any())
                     {
-                        error += "| respuestaServiceCdr.Any - TieneVariedad";
+                        error.Append("| respuestaServiceCdr.Any - TieneVariedad");
                         entidad.CodigoEstrategia = respuestaServiceCdr[0].codigo_estrategia;
                         entidad.TieneVariedad = TieneVariedad(entidad.CodigoEstrategia, entidad.CUV1);
-                        error += "| respuestaServiceCdr.Any - TieneVariedad fin = " + entidad.TieneVariedad;
+                        error.Append("| respuestaServiceCdr.Any - TieneVariedad fin = " + entidad.TieneVariedad);
                     }
                 }
 
                 #endregion
 
                 var numeroPedidosAsociados = model.NumeroPedido.Split(',').Select(int.Parse).ToList();
-                error += "| NumeroPedido.Split = " + numeroPedidosAsociados.Count;
+                error.Append("| NumeroPedido.Split = " + numeroPedidosAsociados.Count);
 
-                var estrategiaDetalle = new ServicePedido.BEEstrategiaDetalle();
+                ServicePedido.BEEstrategiaDetalle estrategiaDetalle;
 
                 foreach (var item in numeroPedidosAsociados)
                 {
@@ -815,80 +812,80 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         if (entidad.CodigoTipoEstrategia != null)
                         {
-                            error += "| if CodigoTipoEstrategia != null";
+                            error.Append("| if CodigoTipoEstrategia != null");
                             if (entidad.CodigoTipoEstrategia.Equals(Constantes.TipoEstrategiaCodigo.Lanzamiento))
                             {
-                                error += "| if CodigoTipoEstrategia Equals Lan";
+                                error.Append("| if CodigoTipoEstrategia Equals Lan");
                                 estrategiaDetalle = new ServicePedido.BEEstrategiaDetalle();
                                 if (entidad.EstrategiaID != 0)
                                 {
-                                    error += "| if entidad.EstrategiaID != 0";
+                                    error.Append("| if entidad.EstrategiaID != 0");
                                     estrategiaDetalle = sv.GetEstrategiaDetalle(entidad.PaisID, entidad.EstrategiaID);
-                                    error += "| if entidad.EstrategiaID != 0 fin - estrategiaDetalle = " + estrategiaDetalle;
+                                    error.Append("| if entidad.EstrategiaID != 0 fin");
                                 }
-                                error += "| VerficarArchivos";
+                                error.Append("| VerficarArchivos");
                                 entidad = VerficarArchivos(entidad, estrategiaDetalle);
-                                error += "| VerficarArchivos = " + entidad;
+                                error.Append("| VerficarArchivos fin");
                             }
                         }
 
                         #region Imagen Resize  
-                        error += "| mensajeErrorImagenResize";
+                        error.Append("| mensajeErrorImagenResize");
                         mensajeErrorImagenResize = _renderImgProvider.ImagenesResizeProceso(model.RutaImagenCompleta, userData.CodigoISO);
-                        error += "| mensajeErrorImagenResize fin = " + mensajeErrorImagenResize;
+                        error.Append("| mensajeErrorImagenResize fin = " + mensajeErrorImagenResize);
 
                         #endregion
 
                         if (entidad.ImagenMiniaturaURL == string.Empty || entidad.ImagenMiniaturaURL == "prod_grilla_vacio.png")
                         {
-                            error += "| ImagenMiniaturaURL vacia";
+                            error.Append("| ImagenMiniaturaURL vacia");
                             entidad.ImagenMiniaturaURL = entidad.ImagenURL;
-                            error += "| ImagenMiniaturaURL vacia - fin = " + entidad.ImagenMiniaturaURL;
+                            error.Append("| ImagenMiniaturaURL vacia - fin = " + entidad.ImagenMiniaturaURL);
                         }
                         else
                         {
-                            error += "| ImagenMiniaturaURL";
+                            error.Append("| ImagenMiniaturaURL");
                             entidad.ImagenMiniaturaURL = GuardarImagenMiniAmazon(model.ImagenMiniaturaURL, model.ImagenMiniaturaURLAnterior, userData.PaisID);
-                            error += "| ImagenMiniaturaURL fin = " + entidad.ImagenMiniaturaURL;
+                            error.Append("| ImagenMiniaturaURL fin = " + entidad.ImagenMiniaturaURL);
                         }
 
                         if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, entidad.CodigoTipoEstrategia, dbdefault))
                         {
                             if (entidad.EstrategiaID != 0)
                             {
-                                error += "| EditarEstrategia";
+                                error.Append("| EditarEstrategia");
                                 administrarEstrategiaProvider.EditarEstrategia(entidad, _id, userData.CodigoISO, _flagRecoProduc, _flagRecoPerfil);
-                                error += "| EditarEstrategia fin";
+                                error.Append("| EditarEstrategia fin");
                             }
                             else
                             {
-                                error += "| RegistrarEstrategia";
+                                error.Append("| RegistrarEstrategia");
                                 administrarEstrategiaProvider.RegistrarEstrategia(entidad, userData.CodigoISO);
-                                error += "| RegistrarEstrategia fin";
+                                error.Append("| RegistrarEstrategia fin");
                             }
                         }
                         else
                         {
-                            error += "| InsertarEstrategia";
+                            error.Append("| InsertarEstrategia");
                             entidad.EstrategiaID = sv.InsertarEstrategia(entidad);
-                            error += "| InsertarEstrategia Fin = " + entidad.EstrategiaID;
+                            error.Append("| InsertarEstrategia Fin = EstrategiaID = " + entidad.EstrategiaID);
                         }
                     }
                 }
                 if (!_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, entidad.CodigoTipoEstrategia, dbdefault))
                 {
-                    error += "| EstrategiaProductoInsertar";
+                    error.Append("| EstrategiaProductoInsertar");
                     EstrategiaProductoInsertar(respuestaServiceCdr, entidad);
-                    error += "| EstrategiaProductoInsertar fin";
+                    error.Append("| EstrategiaProductoInsertar fin");
                 }
 
                 if (model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertaParaTi &&
                     !string.IsNullOrEmpty(model.PrecioAnt) &&
                     model.Precio2 != model.PrecioAnt)
                 {
-                    error += "| UpdateCacheListaOfertaFinal";
+                    error.Append("| UpdateCacheListaOfertaFinal");
                     UpdateCacheListaOfertaFinal(model.CampaniaID);
-                    error += "| UpdateCacheListaOfertaFinal fin";
+                    error.Append("| UpdateCacheListaOfertaFinal fin");
                 }
 
                 return Json(new
@@ -902,7 +899,7 @@ namespace Portal.Consultoras.Web.Controllers
             catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
-                error += "| FaultException = " + ex.Message;
+                error.Append("| FaultException = " + ex.Message);
                 return Json(new
                 {
                     success = false,
@@ -914,7 +911,7 @@ namespace Portal.Consultoras.Web.Controllers
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                error += "| Exception = " + ex.Message;
+                error.Append("| Exception = " + ex.Message);
                 return Json(new
                 {
                     success = false,
@@ -1006,8 +1003,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }, JsonRequestBehavior.AllowGet);
 
                 entidad = lst[0].BEEstrategia;
-                string carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                entidad.ImagenMiniaturaURL = ConfigS3.GetUrlFileS3(carpetapais, entidad.ImagenMiniaturaURL);
+                entidad.ImagenMiniaturaURL = ConfigS3.GetUrlFileS3Matriz(userData.CodigoISO, entidad.ImagenMiniaturaURL);
 
                 return Json(entidad, JsonRequestBehavior.AllowGet);
             }
@@ -1053,7 +1049,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (pagina == 1)
                 {
                     error += "| primera pagina";
-                    GetImagenesByEstrategiaMatrizComercialImagenIsOk(estrategia, pagina, -1, nombreImagen);
+                    GetImagenesByEstrategiaMatrizComercialImagenIsOk(estrategia, pagina, nombreImagen);
                     error += "| primera pagina fin";
                 }
 
@@ -1092,7 +1088,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private void GetImagenesByEstrategiaMatrizComercialImagenIsOk(ServicePedido.BEEstrategia estrategia, int pagina, int total, string nombreImagen)
+        private void GetImagenesByEstrategiaMatrizComercialImagenIsOk(ServicePedido.BEEstrategia estrategia, int pagina, string nombreImagen)
         {
             nombreImagen = Util.Trim(nombreImagen);
             if (nombreImagen == "")
@@ -1186,12 +1182,10 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.FiltrarEstrategiaPedido(entidad).ToList();
             }
-
-            var carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-
+            
             if (lst.Count > 0)
             {
-                lst.Update(x => x.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenURL));
+                lst.Update(x => x.ImagenURL = ConfigS3.GetUrlFileS3Matriz(userData.CodigoISO, x.ImagenURL));
                 lst.Update(x => x.Simbolo = userData.Simbolo);
             }
             ViewBag.ProductoDestacadoDetalle = lst[0];
@@ -1619,9 +1613,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     lst = sv.GetEstrategias(entidad).ToList();
                 }
-
-                var carpetapais = string.Format("{0}/{1}", Globals.UrlMatriz, userData.CodigoISO);
-                lst.Update(x => x.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenURL));
+                
+                lst.Update(x => x.ImagenURL = ConfigS3.GetUrlFileS3Matriz(userData.CodigoISO, x.ImagenURL));
 
                 var grid = new BEGrid()
                 {
@@ -1914,9 +1907,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     lst = sv.GetEstrategias(entidad).ToList();
                 }
-
-                var carpetapais = string.Format("{0}/{1}", Globals.UrlMatriz, userData.CodigoISO);
-                lst.Update(x => x.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenURL));
+                
+                lst.Update(x => x.ImagenURL = ConfigS3.GetUrlFileS3Matriz(userData.CodigoISO, x.ImagenURL));
 
                 var grid = new BEGrid()
                 {

@@ -130,6 +130,7 @@ function RDSuscripcionPromise() {
 }
 
 function RDDesuscripcion() {
+    
     AbrirLoad();
     rdAnalyticsModule.CancelarSuscripcion();
     $.ajax({
@@ -174,9 +175,13 @@ function MostrarTerminos() {
 }
 
 function RedireccionarContenedorComprar(origenWeb, codigo) {
+    
     origenWeb = $.trim(origenWeb);
     if (origenWeb !== "")
         rdAnalyticsModule.Access(origenWeb);
+    
+    if (!(typeof AnalyticsPortalModule === 'undefined'))
+        AnalyticsPortalModule.MarcaVerOfertas(origenWeb);
 
     codigo = $.trim(codigo);
     window.location = (isMobile() ? "/Mobile" : "") + "/Ofertas" + (codigo !== "" ? "#" + codigo : "");
@@ -196,7 +201,7 @@ function LimpiarLocalStorage() {
         var itemSBTokenPedido = localStorage.getItem('SBTokenPedido');
         var itemChatEConnected = localStorage.getItem('connected');
         var itemChatEConfigParams = localStorage.getItem('ConfigParams');
-
+        var itemSurvicateStorage = localStorage.getItem('SurvicateStorage');
         localStorage.clear();
 
         if (typeof (itemSBTokenPais) !== 'undefined' && itemSBTokenPais !== null) {
@@ -213,6 +218,9 @@ function LimpiarLocalStorage() {
 
         if (typeof (itemChatEConfigParams) !== 'undefined' && itemChatEConfigParams !== null) {
             localStorage.setItem('ConfigParams', itemChatEConfigParams);
+        }
+        if (typeof (itemSurvicateStorage) !== 'undefined' && itemSurvicateStorage !== null) {
+            localStorage.setItem('SurvicateStorage', itemSurvicateStorage);
         }
     }
 };

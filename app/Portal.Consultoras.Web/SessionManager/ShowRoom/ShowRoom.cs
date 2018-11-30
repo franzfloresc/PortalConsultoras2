@@ -8,6 +8,11 @@ namespace Portal.Consultoras.Web.SessionManager.ShowRoom
 {
     public class ShowRoom : IShowRoom
     {
+        public ShowRoom()
+        {
+            TieneLanding = true;
+        }
+
         public IBannerInferiorConfiguracion BannerInferiorConfiguracion
         {
             get
@@ -32,10 +37,11 @@ namespace Portal.Consultoras.Web.SessionManager.ShowRoom
             }
         }
 
-        public List<EstrategiaPersonalizadaProductoModel> Ofertas {
+        public List<EstrategiaPersonalizadaProductoModel> Ofertas
+        {
             get
             {
-                return (List<EstrategiaPersonalizadaProductoModel>) HttpContext.Current.Session[Constantes.ConstSession.ListaShowRoomOfertas];
+                return (List<EstrategiaPersonalizadaProductoModel>)HttpContext.Current.Session[Constantes.ConstSession.ListaShowRoomOfertas];
             }
             set
             {
@@ -67,5 +73,6 @@ namespace Portal.Consultoras.Web.SessionManager.ShowRoom
             }
         }
 
+        public bool TieneLanding { get; set; }
     }
 }
