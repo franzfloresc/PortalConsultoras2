@@ -333,6 +333,9 @@
     };
 });
 
+////////////////////////////////////////////////////////////////////
+//// Ini - Home y Pedido
+////////////////////////////////////////////////////////////////////
 function ArmarCarouselEstrategias(data) {
     $("#divListaEstrategias").hide();
     $(".js-slick-prev").remove();
@@ -677,7 +680,7 @@ function EstrategiaCarouselOn(event, slick, currentSlide, nextSlide) {
         'list': AnalyticsPortalModule.Texto.List(false, pagina, "Gana+"),
         'position': recomendado.Posicion
     });
-    
+
     AnalyticsPortalModule.MarImpresionSetProductos(arrayEstrategia);
 
     //dataLayer.push({
@@ -694,3 +697,147 @@ function EstrategiaCarouselOn(event, slick, currentSlide, nextSlide) {
         'label': paramlabel
     });
 }
+
+////////////////////////////////////////////////////////////////////
+//// Fin - Home y Pedido
+////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////
+//// Ini - Home Liquidacion
+////////////////////////////////////////////////////////////////////
+function ArmarCarouselLiquidaciones(data) {
+
+    arrayLiquidaciones = data;
+    var htmlDiv = SetHandlebars("#liquidacion-template", data);
+    if ($.trim(htmlDiv).length > 0) {
+        htmlDiv += [
+            '<div data-banner="1">',
+            '<div class="content_item_carrusel background_vermas">',
+            '<input type="hidden" id="Posicion" value="' + (data.length + 1) + '"/>',
+            '<div class="producto_img_home">',
+            '</div>',
+            '<div class="producto_nombre_descripcion">',
+            '<p class="nombre_producto">',
+            '</p>',
+            '<div class="producto_precio" style="margin-bottom: -8px;">',
+            '<span class="producto_precio_oferta"></span>',
+            '</div>',
+            '<a href="' + baseUrl + 'OfertaLiquidacion/OfertasLiquidacion" class="boton_Agregalo_home no_accionar" style="width:100%;">',
+            'VER MÁS',
+            '</a>',
+            '</div>',
+            '</div>',
+            '</div>'
+        ].join("\n");
+    }
+    $('#divCarruselLiquidaciones').empty().html(htmlDiv);
+
+    EstablecerLazyCarrusel('#divCarruselLiquidaciones');
+
+    $('#divCarruselLiquidaciones').slick({
+        lazyLoad: 'ondemand',
+        infinite: false,
+        vertical: false,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: false,
+        speed: 260,
+        prevArrow: '<a class="previous_ofertas js-slick-prev-liq"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
+        nextArrow: '<a class="previous_ofertas js-slick-next-liq" style="right: 0;display: block;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>'
+    }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
+
+        var accion = nextSlide > currentSlide ? 'next' : 'prev';
+
+        var itemsLength = $('#divCarruselLiquidaciones').find('.slick-slide').length;
+        var indexActive = $($('#divCarruselLiquidaciones').find('.slick-active')).attr('data-slick-index');
+
+
+        if (accion == 'prev') {
+            if (Number(indexActive) - 1 == 0) {
+                $('.js-slick-prev-liq').hide();
+                $('.js-slick-next-liq').show();
+            } else {
+                $('.js-slick-next-liq').show();
+            }
+        }
+        else {
+            if (Number(indexActive) + 1 == Number(itemsLength) - 1) {
+                $('.js-slick-next-liq').hide();
+                $('.js-slick-prev-liq').show();
+            } else {
+                $('.js-slick-prev-liq').show();
+            }
+        }
+
+        var posicionEstrategia = $($('#divCarruselLiquidaciones').find(".slick-active")).find('#Posicion').val();
+        var arrayEstrategia;
+        if (accion == 'prev') {
+
+            posicionEstrategia = posicionEstrategia - 2;
+
+            TagManagerCarruselNavegar(posicionEstrategia, 'Ver anterior');
+
+        } else {
+
+            if (posicionEstrategia != arrayLiquidaciones.length) {
+
+                TagManagerCarruselNavegar(posicionEstrategia, 'Ver siguiente');
+
+            } else {
+                dataLayer.push({
+                    'event': 'virtualEvent',
+                    'category': 'Home',
+                    'action': 'Liquidacion Web',
+                    'label': 'Ver más'
+                });
+            }
+        }
+    });
+
+    TagManagerCarruselLiquidacionesInicio(data);
+
+    $(".js-slick-prev-liq").insertBefore('#divCarruselLiquidaciones').hide();
+    $(".js-slick-next-liq").insertAfter('#divCarruselLiquidaciones');
+}
+
+function TagManagerCarruselNavegar(posicionEstrategia, direccion) {
+
+    var recomendado = arrayLiquidaciones[posicionEstrategia] || {};
+
+    if (recomendado.PrecioOferta != null || recomendado.PrecioOferta != undefined) {
+
+        var impresionRecomendado = {
+            'name': recomendado.DescripcionCompleta,
+            'id': recomendado.CUV,
+            'price': recomendado.PrecioOferta.toString(),
+            'brand': recomendado.DescripcionMarca,
+            'category': AnalyticsPortalModule.Texto.Notavaliable,
+            'variant': AnalyticsPortalModule.Texto.Estandar,
+            'list': AnalyticsPortalModule.Texto.List(false, 'Home', "Liquidación Web"), //'Liquidación Web - Home',
+            'position': recomendado.Posicion
+        };
+
+        var arrayEstrategia = new Array();
+        arrayEstrategia.push(impresionRecomendado);
+
+        AnalyticsPortalModule.MarImpresionSetProductos(arrayEstrategia);
+
+        //dataLayer.push({
+        //    'event': 'productImpression',
+        //    'ecommerce': {
+        //        'impressions': arrayEstrategia
+        //    }
+        //});
+
+        dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'Home',
+            'action': 'Liquidacion Web',
+            'label': direccion
+        });
+    }
+}
+
+////////////////////////////////////////////////////////////////////
+//// Fin - Home Liquidacion
+////////////////////////////////////////////////////////////////////
