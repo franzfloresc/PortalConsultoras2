@@ -71,7 +71,7 @@
             <span class="texto_pedidos_ofertas">
                 {{#unless  CuponElectivo}}
                 <label for="{{DescripcionOferta}}">{{DescripcionOferta}}</label>
-                {{/unless }}
+                {{/unless}}
             </span>
 
             <div id="tooltipDescPro" class="tooltipPedido">
@@ -136,7 +136,8 @@
             <input type="hidden" name="hdfLPCli{{PedidoDetalleID}}" value="{{ClienteID}}" class="classClienteID hdfLPCli" />
             <input type="hidden" name="hdfLPCliDes{{PedidoDetalleID}}" value="{{Nombre}}" class="classClienteID hdfLPCliDes" />
             <input type="hidden" name="hdfTest" value="{{Nombre}}" class="classClienteID hdfLPCliDes" />
-
+            
+            {{#unless CuponElectivo}}
             {{#if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Nueva'}}
             <input type="text" name="{{Nombre}}" value="{{Nombre}}" maxlength="50" class="classClienteNombre ValidaAlfanumerico txtLPCli"
                    readonly="readOnly" onkeydown="return false;" style="width:90%; padding:4px;" />
@@ -145,6 +146,7 @@
                    onblur="BlurF(event, '{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '2', '{{CUV}}', '{{EsBackOrder}}', '{{SetID}}')" style="width: 90%; padding: 4px;"
                    datapedido="{{PedidoDetalleID}}" />
             {{/if_eq}}
+            {{/unless}}
             {{/if}}
         </div>
         <div class="texto_pedidos celda_iconos_acciones">
