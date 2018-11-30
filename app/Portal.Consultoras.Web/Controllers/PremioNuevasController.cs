@@ -81,6 +81,8 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpGet]
         public ActionResult Movimientos(PremioNuevaModel Premios)
         {
+            if (!Request.IsAjaxRequest())
+               return RedirectToActionPermanent("Index");
             Premios.DropDownListCampania = CargarCampania();
             Premios.DropDownListNivel = CargarNivel();
             Premios.DropDownListEstado = CargarEstado();

@@ -36,32 +36,18 @@
                 @Html.DropDownListFor(model => model.AnoCampanaFin, new SelectList(Model.DropDownListCampania, "CampaniaID", "NombreCorto"), "-- Seleccionar --", new { id = "AnoCampanaFin" })
             </div>
         </div>
-
-
-        <div class="row">
-            <div class="column">
-
-                <div>
-                    Activar Oferta Tooltip @Html.CheckBoxFor(model => model.ActiveTooltip)
-                </div>
+        <div class="EstrategiaTablaHeader">
+            <div>
+                Activar Oferta Tooltip @Html.CheckBoxFor(model => model.ActiveTooltip)
             </div>
-            <div class="column">
-
-                <div>
-                    Activar Monto @Html.CheckBoxFor(model => model.ActiveTooltipMonto)
-                </div>
+            <div >
+                Activar Monto @Html.CheckBoxFor(model => model.ActiveTooltipMonto)
             </div>
-            <div class="column">
-
-                <div>
-                    Premio Electivo @Html.CheckBoxFor(model => model.Ind_Cupo_Elec)
-                </div>
+            <div >
+                Premio Electivo @Html.CheckBoxFor(model => model.Ind_Cupo_Elec)
             </div>
-            <div class="column">
-
-                <div>
-                    Premio Activo @Html.CheckBoxFor(model => model.Active)
-                </div>
+            <div >
+                Premio Activo @Html.CheckBoxFor(model => model.Active)
             </div>
         </div>
         @Html.HiddenFor(model => model.Operacion)
