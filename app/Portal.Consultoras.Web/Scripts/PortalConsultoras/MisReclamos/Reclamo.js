@@ -15,8 +15,9 @@ $(document).ready(function () {
     //$('.chosen-search-input').attr('placeholder', 'Buscar código o descripción');
 
     $("#ddlCampania").on("change", function () {
-        if ($("#ddlCampania").val() == 0){
-            $("#divMotivo").html("");
+        $("#txtCantidad").val("1");
+        $("#divMotivo").html("");
+        if ($("#ddlCampania").val() == 0){            
             $("#ddlnumPedido").html("");
             $("#ddlnumPedido").hide();
             $("#ddlCuv").html("");
@@ -31,6 +32,7 @@ $(document).ready(function () {
     
     $("#ddlnumPedido").on("change", function () {
         $("#divMotivo").html("");
+        $("#txtCantidad").val("1");
         if ($("#ddlnumPedido").val() == 0) {            
             $("#ddlCuv").html("");
             $('.chosen-select').chosen();

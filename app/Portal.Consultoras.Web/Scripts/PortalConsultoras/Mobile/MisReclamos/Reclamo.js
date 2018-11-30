@@ -260,19 +260,25 @@ $(document).ready(function () {
                 });
 
                 $(me.Variables.ComboCampania).on("change", function () {
+                    $(me.Variables.txtCantidad1).val("1");
+                    if ($(me.Variables.ComboCampania).val() == 0){                        
+                        $(me.Variables.ddlnumPedido).hide();
+                        $(me.Variables.DescripcionCuv).hide();
+                        $(me.Variables.txtCuvMobile).show();
+                        return false;
+                    }
                     $(me.Variables.hdPedidoID).val(0);
                     $(me.Variables.hdNumeroPedido).val(0);
                     me.Funciones.ObtenerPedidosID();
                 });
 
-                //$(me.Variables.txtCuvMobile).on('keyup', function (evt) {
-                    
-                //    cuvKeyUp = true;
-                //    //me.Funciones.EvaluarCUV();
-                //    me.Funciones.BuscarCUV();
-                //});
-
                 $(me.Variables.ddlnumPedido).on('change', function () {
+                    $(me.Variables.txtCantidad1).val("1");
+                    if ($(me.Variables.ddlnumPedido).val() == 0) {
+                        $(me.Variables.DescripcionCuv).hide();
+                        $(me.Variables.txtCuvMobile).show();
+                        return false;
+                    }
                     $(me.Variables.hdPedidoID).val($.trim($(me.Variables.ddlnumPedido).val()));
                     $(me.Variables.DescripcionCuv).hide();
                     $(me.Variables.txtCuvMobile).show();
@@ -280,8 +286,6 @@ $(document).ready(function () {
                 });
 
                 $(me.Variables.txtCuvMobile).click(function (e) {
-                    //me.Funciones.EvaluarCUV();
-                    //me.Funciones.BuscarCUV();
                     $(me.Variables.PopupBusquedaCuvDescripcionProductoCdr).show();
                 });
 
