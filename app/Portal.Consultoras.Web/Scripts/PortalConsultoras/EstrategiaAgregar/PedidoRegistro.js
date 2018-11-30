@@ -595,10 +595,32 @@ var PedidoRegistroModule = function () {
 
                 microefectoPedidoGuardado();
 
-                CargarResumenCampaniaHeader();
+                //CargarResumenCampaniaHeader();
+
+                //CerrarLoad();
+                //_registrarAnalytics(model, textoBusqueda);
+                if (!isMobile()) CargarResumenCampaniaHeader();
+
+                console.log(textoBusqueda);
 
                 CerrarLoad();
-                _registrarAnalytics(model, textoBusqueda);
+
+                var modelCarrito = {
+                    'DescripcionCompleta': model.DescripcionProd,
+                    'CUV': model.CUV,
+                    'Precio': model.PrecioUnidad,
+                    'DescripcionMarca': model.CUV,
+                    'CodigoTipoEstrategia': model.EstrategiaID,
+                    'MarcaId': model.MarcaID,
+                    'Cantidad': model.Cantidad
+                };
+
+                var _textoBusqueda = localStorage.getItem('valorBuscador');
+
+                //if (!(typeof AnalyticsPortalModule === 'undefined'))
+                    //AnalyticsPortalModule.MarcaAnadirCarritoBuscador(modelCarrito, 'Resultados', _textoBusqueda);
+                    _registrarAnalytics(modelCarrito, _textoBusqueda);
+
             },
             error: function (data, error) {
                 CerrarLoad();
@@ -686,13 +708,43 @@ var PedidoRegistroModule = function () {
                         }
                     }
                     microefectoPedidoGuardado();
-                    CargarResumenCampaniaHeader();
+                    //CargarResumenCampaniaHeader();
+                    //CerrarLoad();
+                    //TrackingJetloreAdd(modelFinal.Cantidad, $("#hdCampaniaCodigo").val(), modelFinal.CUV);
+                    //agregado.html('<span class="text-uppercase text-bold d-inline-block">Agregado</span>');
+                    //var totalAgregado = parseInt(cantidad) + parseInt(CantidadesAgregadas);
+                    //$(divPadre).find(".hdBuscadorCantidadesAgregadas").val(totalAgregado);
+                    //_registrarAnalytics(model, textoBusqueda);
+                    //return true;
+
+                    if (!isMobile()) CargarResumenCampaniaHeader();
+
+                    console.log(textoBusqueda);
+
                     CerrarLoad();
+
+                    var modelCarrito = {
+                        'DescripcionCompleta': modelFinal.DescripcionProd,
+                        'CUV': modelFinal.CUV,
+                        'Precio': modelFinal.PrecioUnidad,
+                        'DescripcionMarca': modelFinal.CUV,
+                        'CodigoTipoEstrategia': modelFinal.EstrategiaID,
+                        'MarcaId': modelFinal.MarcaID,
+                        'Cantidad': modelFinal.Cantidad
+                    };
+
+                    var _textoBusqueda = localStorage.getItem('valorBuscador');
+
+                    //if (!(typeof AnalyticsPortalModule === 'undefined'))
+                        //AnalyticsPortalModule.MarcaAnadirCarritoBuscador(modelCarrito, 'Resultados', _textoBusqueda);
+                    _registrarAnalytics(modelCarrito, _textoBusqueda);
+
                     TrackingJetloreAdd(modelFinal.Cantidad, $("#hdCampaniaCodigo").val(), modelFinal.CUV);
                     agregado.html('<span class="text-uppercase text-bold d-inline-block">Agregado</span>');
                     var totalAgregado = parseInt(cantidad) + parseInt(CantidadesAgregadas);
                     $(divPadre).find(".hdBuscadorCantidadesAgregadas").val(totalAgregado);
-                    _registrarAnalytics(model, textoBusqueda);
+                    //_registrarAnalytics(model, textoBusqueda);
+
                     return true;
                 },
                 error: function (data, error) {
