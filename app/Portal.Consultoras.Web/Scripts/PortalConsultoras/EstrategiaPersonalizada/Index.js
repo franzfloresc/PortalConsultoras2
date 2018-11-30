@@ -302,12 +302,12 @@ function SeccionMostrarProductos(data) {
     data.lista = data.lista || [];
 
     //Marcación Analytics Más GANADORAS
-    if (data.Seccion.Codigo === CONS_CODIGO_SECCION.MG) {
-        if (varContenedor.CargoMg) {
-            console.log('SeccionMostrarProductos MG', data.Seccion.Codigo, data);
-            AnalyticsPortalModule.MarcaGenericaLista(data.Seccion.Codigo, data);// CONS_CODIGO_SECCION.MG
-        }
-    }
+    //if (data.Seccion.Codigo === CONS_CODIGO_SECCION.MG) {
+    //    if (varContenedor.CargoMg) {
+    //        console.log('SeccionMostrarProductos - MarcaGenericaLista', data.Seccion.Codigo, data);
+    //        AnalyticsPortalModule.MarcaGenericaLista(data.Seccion.Codigo, data);
+    //    }
+    //}
 
     if (data.Seccion.Codigo === CONS_CODIGO_SECCION.LAN) {
         var tieneIndividual = false;
@@ -452,7 +452,7 @@ function SeccionMostrarProductos(data) {
     }
 
     if (data.Seccion.TipoPresentacion == CONS_TIPO_PRESENTACION.CarruselSimple) {
-        RenderCarruselSimple(htmlSeccion, CarruselCiclico);
+        RenderCarruselSimple(htmlSeccion, data, CarruselCiclico);
     }
         //else if (data.Seccion.TipoPresentacion == CONS_TIPO_PRESENTACION.CarruselPrevisuales) {
         //    if (isMobile()) {
@@ -466,10 +466,28 @@ function SeccionMostrarProductos(data) {
         RenderCarruselIndividuales(htmlSeccion);
     }
     else if (data.Seccion.TipoPresentacion == CONS_TIPO_PRESENTACION.carruselIndividualesv2) {
-        RenderCarruselSimpleV2(htmlSeccion, CarruselCiclico, true);
+        RenderCarruselSimpleV2(htmlSeccion, data, CarruselCiclico);
     }
 }
 
+function UpdateSessionState(codigo, campaniaId) {
+    var param = {
+        codigo: codigo,
+        campaniaId: campaniaId,
+    }
+
+    $.ajax({
+        type: "POST",
+        url: baseUrl + "Ofertas/ActualizarSession",
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(param),
+        success: function (data) { },
+        error: function (error, x) { }
+    });
+}
+
+// Ini - Render Carrusel
 function RenderCarruselIndividuales(divProd) {
 
     if (typeof divProd == "undefined")
@@ -563,90 +581,84 @@ function RenderCarruselIndividuales(divProd) {
 //    });
 //}
 
-function RenderCarruselSimple(divProd, cc) {
+function RenderCarruselSimple(divProd, data, cc) {
 
     if (typeof divProd == "undefined")
         return false;
 
-    EstablecerLazyCarrusel(divProd.find(sElementos.listadoProductos));
+    var seccionName = data.Seccion.Codigo;
 
+    EstablecerLazyCarrusel(divProd.find(sElementos.listadoProductos));
+    var esMobile = isMobile();
+    var slidesToShow = esMobile ? 1 : 3;
     divProd.find(sElementos.listadoProductos + ".slick-initialized").slick("unslick");
     divProd.find(sElementos.listadoProductos).not(".slick-initialized").slick({
         lazyLoad: "ondemand",
         infinite: cc == undefined ? true : cc,
         vertical: false,
-        slidesToShow: isMobile() ? 1 : 3,
+        slidesToShow: slidesToShow,
         slidesToScroll: 1,
         autoplay: false,
-        variableWidth: !isMobile(),
+        variableWidth: !esMobile,
         speed: 260,
         prevArrow: '<a  class="prevArrow" style="display: block;left: 0;margin-left: -5%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_black_compra.png")" alt="" /></a>',
         nextArrow: '<a  class="nextArrow" style="display: block;right: 0;margin-right: -5%; text-align: right; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_black_compra.png")" alt="" /></a>'
     }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
         VerificarClick(slick, currentSlide, nextSlide, "normal");
+    }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
+        AnalyticsCarouselAfterChange(event, slick, currentSlide, seccionName);
     });
 
     divProd.find(sElementos.listadoProductos).css("overflow-y", "visible");
 
+    console.log('RenderCarruselSimple', data.Seccion.Codigo, data);
+    AnalyticsPortalModule.MarcaGenericaLista(data.Seccion.Codigo, data, slidesToShow);
+
 }
 
-function RenderCarruselSimpleV2(divProd, cc, vw) {
+function RenderCarruselSimpleV2(divProd, data, cc) {
     if (typeof divProd == "undefined")
         return false;
 
-    var seccionName = divProd.data("seccion") || "";
-    vw = vw || true;
+    var seccionName = data.Seccion.Codigo;
 
     divProd.find(sElementos.listadoProductos).attr("class", "contenedor_carrusel");
 
     EstablecerLazyCarrusel(divProd.find(sElementos.listadoProductos));
     var esMobile = isMobile();
+    var slidesToShow = esMobile ? 2 : 3;
     divProd.find(sElementos.listadoProductos + ".slick-initialized").slick("unslick");
     divProd.find(sElementos.listadoProductos).not(".slick-initialized").slick({
         lazyLoad: "ondemand",
         infinite: cc == undefined ? true : cc,
         vertical: false,
-        slidesToShow: esMobile ? 2 : 3,
+        slidesToShow: slidesToShow,
         slidesToScroll: 1,
         autoplay: false,
-        variableWidth: vw,
-        speed: 300,
+        variableWidth: true,
+        speed: 260,
         arrows: !esMobile,
-        prevArrow: '<a  class="prevArrow" style="display: block;left: 0;margin-left: -5%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_black_compra.png")" alt="" /></a>',
-        nextArrow: '<a  class="nextArrow" style="display: block;right: 0;margin-right: -5%; text-align: right; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_black_compra.png")" alt="" /></a>'
+        prevArrow: '<a class="prevArrow" style="display: block;left: 0;margin-left: -5%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_black_compra.png")" alt="" /></a>',
+        nextArrow: '<a class="nextArrow" style="display: block;right: 0;margin-right: -5%; text-align: right; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_black_compra.png")" alt="" /></a>'
     }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
         VerificarClick(slick, currentSlide, nextSlide, "normal", seccionName);
     }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
         console.log(cc);
         if (!cc) {
             ShowOrHide_Arrows(event, slick, currentSlide);
-            MarcarProductos_Arrows(event, slick, currentSlide, seccionName);
         }
+        AnalyticsCarouselAfterChange(event, slick, currentSlide, seccionName);
+        //MarcarProductos_Arrows(event, slick, currentSlide, seccionName);
     });
 
     divProd.find(sElementos.listadoProductos).css("overflow-y", "visible");
 
-
     if (!cc) {
         $('.prevArrow').hide();
     }
-}
 
-function UpdateSessionState(codigo, campaniaId) {
-    var param = {
-        codigo: codigo,
-        campaniaId: campaniaId,
-    }
-
-    $.ajax({
-        type: "POST",
-        url: baseUrl + "Ofertas/ActualizarSession",
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        data: JSON.stringify(param),
-        success: function (data) { },
-        error: function (error, x) { }
-    });
+    console.log('RenderCarruselSimpleV2', data.Seccion.Codigo, data);
+    AnalyticsPortalModule.MarcaGenericaLista(data.Seccion.Codigo, data, slidesToShow);
 }
 
 function ShowOrHide_Arrows(event, slick, currentSlide) {
@@ -700,25 +712,32 @@ function ShowOrHide_Arrows(event, slick, currentSlide) {
 
 }
 
-//Función para marcar los productos en el carrusel de una palanca (en este caso Mas Ganadoras - MG)
-function MarcarProductos_Arrows(event, slick, currentSlide, seccionName) {
+// Fin - Render Carrusel
 
+
+// Ini - Render Carrusel Analytics
+
+//Función para marcar los productos en el carrusel de una palanca (en este caso Mas Ganadoras - MG)
+function AnalyticsCarouselAfterChange(event, slick, currentSlide, seccionName) {
+    console.log('AnalyticsCarouselAfterChange', event, slick, currentSlide, seccionName);
     //if (seccionName === ConstantesModule.TipoEstrategia.MG) {
     var pos = isMobile() ? 1 : 2;
     var slideToMark = currentSlide + pos;
-    var item = $(event.target).find('[data-slick-index]')[slideToMark];
-    var data = $($(item).find("[data-estrategia]")[0]).data("estrategia");
-    data = data || "";
-    if (data !== "") {
-        data.lista = Array(data);
+    var item = slick.$slider[slideToMark];
+    //var item = (event.target).find('[data-slick-index]')[slideToMark];
+    console.log('AnalyticsCarouselAfterChange',slideToMark, item);
+    var estrategia = $($(item).find("[data-estrategia]")[0]).data("estrategia");
+    estrategia = estrategia || "";
+    if (estrategia !== "") {
+        var obj = {
+            lista: Array(data)
+        };
         if (typeof AnalyticsPortalModule !== "undefined") {
-            console.log('MarcarProductos_Arrows', seccionName, data);
-            AnalyticsPortalModule.MarcaGenericaLista(seccionName, data);
+            console.log('AnalyticsCarouselAfterChange - MarcaGenericaLista', seccionName, obj);
+            AnalyticsPortalModule.MarcaGenericaLista(seccionName, obj, 1);
         }
     }
     //}
-
-
     //if (anchoFalta > $(slick.$list).width()) {
     //var currentSlideback = $(slick.$list).attr('data-currentSlide') || $(slick.$list).attr('data-currentslide') || "";  
     //$(slick.$list).attr('data-currentSlide', currentSlide);
@@ -742,7 +761,9 @@ function marcaAnalyticsViewVerMas() {
 //    else return "next.png";
 //}
 
-// Metodo para virtualEvent 
+// Fin - Render Carrusel Analytics
+
+// Ini - Metodo para virtualEvent 
 function VerificarClick(slick, currentSlide, nextSlide, source, seccionName) {
     console.log(slick, currentSlide, nextSlide, source, seccionName);
     //if (typeof CheckClickCarrousel !== "undefined" && typeof CheckClickCarrousel === "function") {
@@ -756,7 +777,7 @@ function VerificarClick(slick, currentSlide, nextSlide, source, seccionName) {
     //}
 }
 
-function CheckClickCarrousel(action, source, seccionName, opcion) {
+function CheckClickCarrousel(action, source, seccionName) {
     var sliderWay = 0;
     if (action === "next") {
         sliderWay = 1;
@@ -769,12 +790,11 @@ function CheckClickCarrousel(action, source, seccionName, opcion) {
         clickedSlider = 1;
     }
 
-    CallAnalitycsClickArrow(seccionName, opcion, sliderWay, clickedSlider);
+    CallAnalitycsClickArrow(seccionName, sliderWay, clickedSlider);
 }
 
-function CallAnalitycsClickArrow(seccionName, opcion, sliderWay, clickedSlider) {
+function CallAnalitycsClickArrow(seccionName, sliderWay, clickedSlider) {
 
-    opcion = opcion || "";
     if (sliderWay !== 0 && clickedSlider !== 0) {
         if (seccionName === "MG") {
             if (typeof AnalyticsPortalModule !== "undefined") {
@@ -787,3 +807,5 @@ function CallAnalitycsClickArrow(seccionName, opcion, sliderWay, clickedSlider) 
         }
     }
 }
+
+// Fin - Metodo para virtualEvent 

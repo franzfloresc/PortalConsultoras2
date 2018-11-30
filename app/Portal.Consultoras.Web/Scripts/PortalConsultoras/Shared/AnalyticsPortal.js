@@ -360,8 +360,8 @@ var AnalyticsPortalModule = (function () {
         }
 
     }
-    
-    var _marcarProductImpresionSegunLista = function (codigoSeccion, data) {
+
+    var _marcarProductImpresionSegunLista = function (codigoSeccion, data, limite) {
         try {
             if (_constantes.isTest)
                 alert("Marcación product impression.");
@@ -381,15 +381,18 @@ var AnalyticsPortalModule = (function () {
 
             if (codigoSeccion == _codigoSeccion.Ficha) {
                 cantidadMostrar = lista.length;
-                contenedor = "Contenedor - Detalle de Producto - Ver más Sets";
+                palanca = "Detalle de Producto - Ver más Sets";
             }
             else if (esHomeContenedor) {
 
                 var campania = lista[0].CampaniaID;
 
-                cantidadMostrar = listaSeccion[codigoSeccion + "-" + campania] == undefined
-                ? lista.length
-                : listaSeccion[codigoSeccion + "-" + campania].CantidadProductos;
+                cantidadMostrar = limite ? limite
+                    : lista.length == 1
+                        ? lista.length
+                        : listaSeccion[codigoSeccion + "-" + campania] == undefined
+                            ? lista.length
+                            : listaSeccion[codigoSeccion + "-" + campania].CantidadProductos;
 
                 palanca = codigoSeccion == "ODD"
                     ? AnalyticsPortalModule.GetPalancaBySeccion(codigoSeccion)
@@ -406,13 +409,11 @@ var AnalyticsPortalModule = (function () {
             }
 
             var parametroList = contenedor
-                + (palanca != "" ? " - " + palanca : "")
-                + (" - " + _constantes.campania);
+                + (palanca != "" ? " - " + palanca : "");
 
             var impressions = [];
             $.each(lista, function (index) {
-                if (index < cantidadMostrar)
-                {
+                if (index < cantidadMostrar) {
                     var item = lista[index];
                     var impression = {
                         'name': item.DescripcionCompleta,
@@ -430,7 +431,7 @@ var AnalyticsPortalModule = (function () {
             });
 
             marcarImpresionSetProductos(impressions);
-            
+
         } catch (e) {
             console.log("marcarProductImpresionSegunLista" + _texto.excepcion + e);
         }
@@ -879,7 +880,7 @@ var AnalyticsPortalModule = (function () {
 
     }
 
-    var marcaGenericaLista = function (seccion, data) {
+    var marcaGenericaLista = function (seccion, data, limite) {
         try {
 
             seccion = seccion.replace("Lista", "");
@@ -892,15 +893,15 @@ var AnalyticsPortalModule = (function () {
                 //case _codigoSeccion.HOMEOFERTA: AnalyticsPortalModule.MarcaPromotionViewOferta(seccion, data); break; // no se utiliza
                 // Inicio Analytics Ofertas  
                 case _codigoSeccion.LAN: AnalyticsPortalModule.MarcaPromotionViewBanner(seccion, data); break;
-                case _codigoSeccion.HV: _marcarProductImpresionSegunLista(seccion, data); break;
-                case _codigoSeccion.RD: _marcarProductImpresionSegunLista(seccion, data); break;
-                case _codigoSeccion.SR: _marcarProductImpresionSegunLista(seccion, data); break;
-                case _codigoSeccion.MG: _marcarProductImpresionSegunLista(seccion, data); break;
-                case _codigoSeccion.ODD: _marcarProductImpresionSegunLista(seccion, data); break;
-                case _codigoSeccion.GND: _marcarProductImpresionSegunLista(seccion, data); break;
+                case _codigoSeccion.HV: _marcarProductImpresionSegunLista(seccion, data, limite); break;
+                case _codigoSeccion.RD: _marcarProductImpresionSegunLista(seccion, data, limite); break;
+                case _codigoSeccion.SR: _marcarProductImpresionSegunLista(seccion, data, limite); break;
+                case _codigoSeccion.MG: _marcarProductImpresionSegunLista(seccion, data, limite); break;
+                case _codigoSeccion.ODD: _marcarProductImpresionSegunLista(seccion, data, limite); break;
+                case _codigoSeccion.GND: _marcarProductImpresionSegunLista(seccion, data, limite); break;
                 case _codigoSeccion.Ficha: _marcarProductImpresionSegunLista(seccion, data); break;
-                //case _codigoSeccion.CART: AnalyticsPortalModule.MarcaProductImpressionCart(seccion, data); break;
-                // Fin Analytics Ofertas Miguel
+                    //case _codigoSeccion.CART: AnalyticsPortalModule.MarcaProductImpressionCart(seccion, data); break;
+                    // Fin Analytics Ofertas Miguel
             }
         } catch (e) {
             console.log('marcaGenericaLista - ' + _texto.excepcion + e, e);
