@@ -3035,7 +3035,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
             #region UnidadesPermitidas
             estrategia.Cantidad = pedidoDetalle.Cantidad;
-            if (estrategia.TipoEstrategiaID == Constantes.ConfiguracionOferta.Liquidacion)
+            if (pedidoDetalle.Producto.TipoOfertaSisID == Constantes.ConfiguracionOferta.Liquidacion)
             {
                 var entidad = new BEOfertaProducto
                 {
