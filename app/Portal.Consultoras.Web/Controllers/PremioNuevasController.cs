@@ -17,6 +17,7 @@ namespace Portal.Consultoras.Web.Controllers
     public class PremioNuevasController : BaseController
     {
         // GET: PremioNuevas
+        [Authorize]
         [OutputCache(Duration = 3600, VaryByParam = "none")]
         [HttpGet]
         public ActionResult Index()
@@ -24,8 +25,9 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.hdnPaisISO = userData.CodigoISO;
             return View(PremioNuevaModel);
         }
-        //[OutputCache(Duration = 500, VaryByParam = "sidx;sord;page;rows;CodigoPrograma;AnoCampanaIni;Nivel;Active", Location = OutputCacheLocation.Client)]
+  
         [HttpGet]
+        [Authorize]
         public ActionResult ListarPremiosPaginado(string sidx, string sord, int page, int rows,string CodigoPrograma , int? AnoCampanaIni, string Nivel, bool? Active)
         {
 
@@ -79,47 +81,53 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpGet]
         public ActionResult Movimientos(PremioNuevaModel Premios)
         {
-            if (!Request.IsAjaxRequest())
-                return RedirectToActionPermanent("Index");
             Premios.DropDownListCampania = CargarCampania();
             Premios.DropDownListNivel = CargarNivel();
             Premios.DropDownListEstado = CargarEstado();
             return PartialView(Premios);
         }
         [HttpPost]
+        [Authorize]
         public ActionResult OperacionPremio(PremioNuevaModel Premios)
         {
-            
+            BEPremioNuevas Result = null;
+            bool success = false;
+            string message = string.Empty;
             try
             {
                 Premios.PaisID = userData.PaisID;
                 Premios.CodigoUsuario = userData.CodigoUsuario;
                 BEPremioNuevas model = Mapper.Map<PremioNuevaModel, BEPremioNuevas>(Premios);
-                BEPremioNuevas Result = null;
-                using (var sv = new ODSServiceClient())
+                if (ModelState.IsValid)
                 {
-                    if (Premios.Operacion == 0)
-                        Result = sv.Insertar(model);
+                    using (var sv = new ODSServiceClient())
+                    {
+                        if (Premios.Operacion == 0)
+                            Result = sv.Insertar(model);
+                        else
+                            Result = sv.Editar(model);
+                    }
+                    if (Result.OperacionResultado == 1)
+                        message = "Las fechas no se pueden traslapar, dentro de  una misma config. programa + nivel + valor electivo";
                     else
-                        Result = sv.Editar(model);
-                   
+                    {
+                        message = "Se grabó con �xito los datos.";
+                        success = true;
+                    }
+              
                 }
-                return Json(new
-                {
-                    success = Result.OperacionResultado == 0 ? true : false,
-                    message = Result.OperacionResultado == 0 ? "Se grabó con �xito los datos." : "Las fechas no se pueden traslapar, dentro de  una config. programa + nivel + valor electivo"
-                });
             }
             catch (Exception ex)
             {
+                message = "Ocurrió un problema al intentar registrar los datos";
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-
-                return Json(new
-                {
-                    success = false,
-                    message = "Ocurrió un problema al intentar registrar los datos"
-                });
             }
+
+            return Json(new
+            {
+                success,
+                message
+            });
         }
      
         #endregion
