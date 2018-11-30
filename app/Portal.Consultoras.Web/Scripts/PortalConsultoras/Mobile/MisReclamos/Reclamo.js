@@ -1000,7 +1000,7 @@ $(document).ready(function () {
                     return false;
                 }
 
-                if (!($.trim($(me.Variables.txtCantidad1).val()) > 0 && $.trim($(me.Variables.txtCantidad1).val()) <= $.trim($(me.Variables.txtCantidad1).attr("data-maxvalue")))) {
+                if (!(parseInt($(me.Variables.txtCantidad1).val()) > 0 && parseInt($(me.Variables.txtCantidad1).val()) <= parseInt($(me.Variables.txtCantidad1).attr("data-maxvalue")))) {
                     messageInfoValidado("Lamentablemente la cantidad ingresada supera a la cantidad facturada en tu pedido (" +
                         $.trim($(me.Variables.txtCantidad1).attr("data-maxvalue")) + ")");
                     me.Funciones.RegresarRegistro1();
