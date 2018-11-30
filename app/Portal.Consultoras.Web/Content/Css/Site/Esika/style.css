@@ -29804,7 +29804,7 @@ div.motivoRechazo textarea {
 .elige_num_pedido
 {
     width: 271px;
-    background-image:url(../../../Images/flecha-campo-select.svg);
+    background-image:url(/Content/Images/flecha-campo-select.svg);
     background-repeat:no-repeat;
     background-position:95.8% center;
 }
