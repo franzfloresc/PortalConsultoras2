@@ -256,19 +256,19 @@ $(document).ready(function () {
     });
 });
 
-function CUVCambio() {
-    var cuvVal = $.trim($("#ddlCuv").val());//$("#txtCUV").val();
-    if (cuvVal == null) cuvVal = '';
-    if (cuvVal.length > 5) {
-        cuvVal = cuvVal.substr(0, 5);
-        $("#ddlCuv").val(cuvVal);
-        //$("#txtCUV").val(cuvVal);
-    }
+//function CUVCambio() {
+//    var cuvVal = $.trim($("#ddlCuv").val());//$("#txtCUV").val();
+//    if (cuvVal == null) cuvVal = '';
+//    if (cuvVal.length > 5) {
+//        cuvVal = cuvVal.substr(0, 5);
+//        $("#ddlCuv").val(cuvVal);
+//        //$("#txtCUV").val(cuvVal);
+//    }
 
-    var cambio = (cuvVal != cuvPrevVal);
-    cuvPrevVal = cuvVal;
-    return cambio;
-}
+//    var cambio = (cuvVal != cuvPrevVal);
+//    cuvPrevVal = cuvVal;
+//    return cambio;
+//}
 
 function CUV2Cambio() {
     var cuv2Val = $("#txtCUV2").val();
@@ -330,7 +330,7 @@ function ListarPedidoID()
     waitingDialog();
     jQuery.ajax({
         type: 'POST',
-        url: baseUrl + 'MisReclamos/ObtenerListaPedidoID',
+        url: baseUrl + 'MisReclamos/ObtenerNumeroPedidos',
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(item),

@@ -130,7 +130,7 @@ namespace Portal.Consultoras.Web.Controllers
             return View(model);
         }
 
-        public JsonResult ObtenerListaPedidoID(int CampaniaID)
+        public JsonResult ObtenerNumeroPedidos(int CampaniaID)
         {
             var listaNroPedidos = new List<CampaniaModel>();
             string mensaje = "No se ha encontrado su número de pedido, vuelva a intentarlo otra vez seleccionando la campaña.";

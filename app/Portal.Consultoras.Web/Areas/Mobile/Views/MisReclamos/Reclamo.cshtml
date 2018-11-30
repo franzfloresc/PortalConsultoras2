@@ -109,23 +109,24 @@
         <div class="campos_registro_solicitud_cdr Registro1">
             <div class="formulario_inscripcion_cdr">
                 @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.ListaCampania, "CampaniaID", "NombreCorto", Model.CampaniaID), new { id = "ddlCampania", @class = "select_reclamo", @required = "required" })
-                <select class="elige_num_pedido" id="ddlnumPedido" name="numPedido" required="required">
-                    <option selected="selected" value="0">Elige un pedido</option>
+                <select class="elige_num_pedido" id="ddlnumPedido" name="numPedido" required="required" style="display:none;">
+                    @*<option selected="selected" value="0">Elige un pedido</option>
                     <option value="Nº 1801878344">Nº 1801878344</option>
-                    <option value="Nº 1801878344">Nº 1801878344</option>
+                    <option value="Nº 1801878344">Nº 1801878344</option>*@
                 </select>
-                <input id="cuvmobile" class="tipografia_lato tipografia_lato_regular ValidaNumeral ValidaPasteNumeral valid" type="text" value="" placeholder="Código del producto" />
-                <div class="content_eligeTuPedido" id="divPopupPedido" style="display:none;">
+                <input id="txtNumPedido" type="text" style="display:none;"/>
+                <input id="cuvmobile" class="tipografia_lato tipografia_lato_regular ValidaNumeral ValidaPasteNumeral valid" type="text" value="" placeholder="Código o Descripción del producto"/>
+                @*<div class="content_eligeTuPedido" id="divPopupPedido" style="display:none;">
                     <div class="titulo_eligeTuPedido tipografia_lato_bold">ELIGE UN PEDIDO</div>
                     <div class="selecciona_tuPedido tipografia_lato_regular">Selecciona el pedido en el cual deseas aplicar la solicitud :</div>
                     <div id="divPedido" class="lista_pedidos_para_seleccionar">
 
                     </div>
-                </div>
+                </div>*@
 
-                <div id="DescripcionCuv" class="producto_cdr" style="font-size:13px; display:none;">
-                    <span id="txtCuv" class="codigo_producto_cdr tipografia_lato_bold">00411</span>
-                    - <span id="txtDescripcionCuv" class="nom_producto_cdr tipografia_lato_bold">Berrylicious shampoo rojo 375ml</span>
+                <div id="DescripcionCuv" class="producto_cdr" style="font-size:13px;display:none">
+                    <span id="txtCuv" class="codigo_producto_cdr tipografia_lato_bold"></span>
+                    - <span id="txtDescripcionCuv" class="nom_producto_cdr tipografia_lato_bold"></span>
                     <a id="aCambiarProducto" class="enlace_cambiar_producto tipografia_lato_regular" title="Cambiar producto">MODIFICAR PRODUCTO</a>
                 </div>
                 <div class="contenedor_cantidadProductos contenedor_campo_cantidad_productos">
@@ -158,6 +159,7 @@
             <input type="hidden" id="hdImporteTotalPedido" />
             <input type="hidden" id="hdCdrWebDatos_Ssic" />
             <input type="hidden" id="hdCuvPrecio2" />
+            <input type="hidden" id="hdCuvCodigo"/>
         </div>
         <div class="pregunta_inconveniente_producto tipografia_lato tipografia_lato_bold Registro2" style="display:none;">
             ¿Cuál fue el inconveniente?
@@ -420,7 +422,7 @@
         <div class="busqueda_codigo_o_descripcion_wrapper d-block">
             <input type="text" value="" id="CampoBusquedaCuvDescripcion" class="campo_busqueda_codigo_o_descripcion_producto" placeholder="Escribe el código o descripción" />
             <ul id="ListaCoincidenciasBusquedaProductosCdr" class="lista_coincidencias_busqueda_productos d-block text-left">
-                <li class="coincidencia_busqueda_producto d-block text-uppercase" data-value="00000 - ES CC DESMAQUILLADOR BIF">
+                @*<li class="coincidencia_busqueda_producto d-block text-uppercase" data-value="00000 - ES CC DESMAQUILLADOR BIF">
                     <div>00000</div>
                     <div>ES CC DESMAQUILLADOR BIF...</div>
                 </li>
@@ -455,7 +457,7 @@
                 <li class="coincidencia_busqueda_producto d-block text-uppercase" data-value="00000 - ES CC DESMAQUILLADOR BIF">
                     <div>00000</div>
                     <div>ES CC DESMAQUILLADOR BIF...</div>
-                </li>
+                </li>*@
             </ul>
         </div>
     </div>
@@ -638,6 +640,8 @@
         var UrlBuscarParametria = '@Url.Action("BuscarParametria", "MisReclamos", new { area = "" })';
         var UrlValidaTelefono = '@Url.Action("ValidadTelefonoConsultora", "MisReclamos", new { area = "" })';
         var UrlDetalleEliminar = '@Url.Action("DetalleEliminar", "MisReclamos", new { area = "" })';
+        var UrlObtenerListarNumPedido = '@Url.Action("ObtenerNumeroPedidos", "Misreclamos", new { area = ""})';
+        var UrlObtenerDatosCuv = '@Url.Action("ObtenerDatosCuv", "Misreclamos", new { area = ""})';
 
         var mensajeGestionCdrInhabilitada = '@Html.Raw(Model.MensajeGestionCdrInhabilitada)';
         var mensajeCdrFueraDeFechaCompleto = '@Html.Raw(Constantes.CdrWebMensajes.FueraDeFecha)';
