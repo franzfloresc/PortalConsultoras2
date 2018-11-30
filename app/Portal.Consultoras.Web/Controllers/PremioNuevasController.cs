@@ -10,6 +10,7 @@ using Portal.Consultoras.Web.ServiceZonificacion;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Common;
+using System.Web.UI;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -23,7 +24,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.hdnPaisISO = userData.CodigoISO;
             return View(PremioNuevaModel);
         }
-        [OutputCache(Duration = 500, VaryByParam = "sidx;sord;page;rows;CodigoPrograma;AnoCampanaIni;Nivel;Active")]
+        //[OutputCache(Duration = 500, VaryByParam = "sidx;sord;page;rows;CodigoPrograma;AnoCampanaIni;Nivel;Active", Location = OutputCacheLocation.Client)]
         [HttpGet]
         public ActionResult ListarPremiosPaginado(string sidx, string sord, int page, int rows,string CodigoPrograma , int? AnoCampanaIni, string Nivel, bool? Active)
         {
