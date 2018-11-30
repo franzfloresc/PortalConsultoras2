@@ -1,6 +1,6 @@
 ﻿
 <script id="producto-recomendado-template" type="text/x-handlebars-template">
-    <div class="productos_recomendados_wrapper">
+    <div class="productos_recomendados_wrapper divProductosRecomendados">
         <h3 class="productos_recomendados_titulo d-block">Ofertas relacionadas :</h3>
         <div class="productos_recomendados_carrusel_wrapper w-100">
             <ul id="carouselProductosRecomendados" class="productos_recomendados_carrusel">
@@ -9,7 +9,7 @@
                     <input type="hidden" class="hdRecomendadoJSON" value="{{JSON2string item}}" />
                     <div class="producto_recomendado_info_wrapper">
                         <div class="producto_recomendado_imagen">
-                        <img src="{{Imagen}}" onerror="this.onerror=null;this.src='@Url.Content("~/Content/Images/imagen_prod_no_disponible.jpg")'" />
+                            <img src="{{Imagen}}" onerror="this.onerror=null;this.src='@Url.Content("~/Content/Images/imagen_prod_no_disponible.jpg")'" />
                         </div>
                         <div class="producto_recomendado_info">
                             <div class="producto_recomendado_marca text-uppercase">
@@ -38,7 +38,7 @@
                         </div>
                     </div>
                     <div class="producto_recomendado_acciones_wrapper">
-                    <div class="producto_recomendado_rango_cantidad js-no-popup" data-cantidad-contenedor="">
+                        <div class="producto_recomendado_rango_cantidad js-no-popup" data-cantidad-contenedor="">
                             <a class="menos d-block js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event);">
                                 <img class="d-block js-no-popup" src="/Content/Images/menos.svg" alt="">
                             </a>
@@ -53,9 +53,13 @@
                             </a>
                         </div>
                     </div>
-                    <div class="agregado product-add">
-                        AGREGADO
-                        <div class="icono"></div>
+                    <div class="etiqueta_buscador_producto">
+                        {{#if_eq Agregado 'Agregado'}}
+                        <div class="agregado product-add">
+                            AGREGADO
+                            <div class="icono"></div>
+                        </div>
+                        {{/if_eq}}
                     </div>
                 </li>
                 {{/each}}

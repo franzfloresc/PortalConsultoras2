@@ -118,7 +118,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js",
                 "~/Scripts/PortalConsultoras/Shared/AnalyticsPortal.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
-                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js"
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js",
+                "~/Scripts/PortalConsultoras/Buscador/BuscadorProvider.js"
             ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mobile/MobileLayoutContenedor").Include(

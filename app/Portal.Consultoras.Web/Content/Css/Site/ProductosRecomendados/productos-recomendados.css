@@ -353,11 +353,15 @@
         padding: 13px 18px 19px 18px;
         flex-wrap:wrap;
         flex: 0 0 234px;
-        min-height:220.9px;
+        min-height:229.9px;
+    }
+
+    .producto_por_agregar_nombre{
+        line-height:20px;
     }
 
     .producto_recomendado .agregado{
-        bottom:10.5px;
+        bottom:9.5px;
     }
 
     .producto_por_agregar_rango_cantidad,

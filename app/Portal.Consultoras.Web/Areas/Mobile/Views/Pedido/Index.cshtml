@@ -87,7 +87,7 @@
                         </div>
                     </div>
                     <div class="producto_por_agregar_acciones_wrapper">
-                        <div class="producto_por_agregar_rango_cantidad js-no-popup">
+                        <div class="producto_por_agregar_rango_cantidad js-no-popup" data-cantidad-contenedor="">
                             <a class="menos d-block js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event);">
                                 <img class="d-block js-no-popup" src="/Content/Images/menos.svg" alt="">
                             </a>
@@ -97,14 +97,14 @@
                             </a>
                         </div>
                         <div class="producto_por_agregar_btn_wrapper">
-                            <a class="boton_Agregalo_home btn_producto_por_agregar d-block text-center text-uppercase">
+                            <a class="boton_Agregalo_home btn_producto_por_agregar d-block text-center text-uppercase" id="btnAgregarProducto">
                                 Agrégalo
                             </a>
                         </div>
                     </div>
                 </div>
             </div>
-            <div id="divProductosRecomendados"></div>
+            <div id="divProductosRecomendados" class="divProductosRecomendados"></div>
             @Html.Partial("~/Views/ProductoRecomendado/_template_producto.cshtml")
             @*<div >
                 <div>
