@@ -740,7 +740,6 @@ var PedidoRegistroModule = function () {
     };
 
     var _agregarOfertaFinal = function (model) {
-        debugger;
         if (reservaResponse.data.Reserva && !agregoOfertaFinal) {
             if (!DesvalidarPedido()) return false;
         }

@@ -339,6 +339,8 @@ $(document).ready(function () {
                                 microefectoPedidoGuardado();
                                 CargarResumenCampaniaHeader();
                                 CerrarLoad();
+
+                                console.log(model);
                                 if (!(typeof AnalyticsPortalModule === 'undefined'))
                                     AnalyticsPortalModule.MarcaAnadirCarritoBuscador(model, OrigenPedidoWeb, $("#CampoBuscadorProductos").val());
                               
