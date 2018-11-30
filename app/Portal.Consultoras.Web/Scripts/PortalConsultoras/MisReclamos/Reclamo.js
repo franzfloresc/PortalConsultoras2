@@ -15,19 +15,28 @@ $(document).ready(function () {
     //$('.chosen-search-input').attr('placeholder', 'Buscar código o descripción');
 
     $("#ddlCampania").on("change", function () {
-        $("#txtPedidoID").val(0);
-        $("#txtNumeroPedido").val(0);
-        if ($("#ddlCampania").val() == 0)
-        {
+        if ($("#ddlCampania").val() == 0){
+            $("#divMotivo").html("");
             $("#ddlnumPedido").html("");
-            $("#ddlnumPedido").hide();     
+            $("#ddlnumPedido").hide();
+            $("#ddlCuv").html("");
+            $('.chosen-select').chosen();
+            $(".chosen-select").val('').trigger("chosen:updated");           
             return false;
         }
+        $("#txtPedidoID").val(0);
+        $("#txtNumeroPedido").val(0);
         ListarPedidoID();
-        //BuscarCUV();
     });
     
-    $("#ddlnumPedido").on("change", function () {        
+    $("#ddlnumPedido").on("change", function () {
+        $("#divMotivo").html("");
+        if ($("#ddlnumPedido").val() == 0) {            
+            $("#ddlCuv").html("");
+            $('.chosen-select').chosen();
+            $(".chosen-select").val('').trigger("chosen:updated"); 
+            return false;
+        } 
         $("#txtPedidoID").val($.trim($("#ddlnumPedido").val()));
         BuscarCUV();
     });
@@ -636,7 +645,7 @@ function ValidarPaso1() {
         return false;
     }
 
-    if (!($.trim($("#txtCantidad").val()) > 0 && $.trim($("#txtCantidad").val()) <= $.trim($("#txtCantidad").attr("data-maxvalue")))) {
+    if (!(parseInt($("#txtCantidad").val()) > 0 && parseInt($("#txtCantidad").val()) <= parseInt($("#txtCantidad").attr("data-maxvalue")))) {
         alert_msg("Lamentablemente la cantidad ingresada supera a la cantidad facturada en tu pedido (" +
             $.trim($("#txtCantidad").attr("data-maxvalue")) + ")");
         return false;
