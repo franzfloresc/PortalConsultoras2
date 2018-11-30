@@ -7,9 +7,9 @@ var indCampania = indCampania || 0;
 var isDetalle = false;
 var esPrimeraCarga = true;
 var cantTotalMostrar = 0;
-var clickedSlider = 0;
+//var clickedSlider = 0;
 var revistaDigital = revistaDigital || {};
-var sliderWay = 0;
+//var sliderWay = 0;
 
 var sProps = {
     UrlRevistaDigitalInformacion: baseUrl + 'revistadigital/Informacion',
@@ -175,12 +175,6 @@ $(document).ready(function () {
     $("body").on("click", ".btn-volver-fix-detalle span", function (e) {
         window.location = urlRetorno;
     });
-
-    $("body").on("click", ".div-carousel-rd-prev, .div-carousel-rd-next", function () {
-        
-        clickedSlider = 1;
-        CallAnalitycsClickArrow();
-    });
 });
 
 function FlechaScrollDown(idCamapania) {
@@ -224,15 +218,15 @@ function RDMostrarPosicion() {
 
 }
 
-function GetArrowNamePrev() {
-    if (isMobile()) return "previous_mob.png";
-    else return "previous.png";
-}
+//function GetArrowNamePrev() {
+//    if (isMobile()) return "previous_mob.png";
+//    else return "previous.png";
+//}
 
-function GetArrowNameNext() {
-    if (isMobile()) return "next_mob.png";
-    else return "next.png";
-}
+//function GetArrowNameNext() {
+//    if (isMobile()) return "next_mob.png";
+//    else return "next.png";
+//}
 
 function OfertaArmarEstrategias(response, busquedaModel) {
     //console.log('OfertaArmarEstrategias', response, busquedaModel);
@@ -657,36 +651,36 @@ function RDDetalleVolver(campaniaId) {
     window.location = urlVolver + "#LAN";
 }
 
-function CheckClickCarrousel(action, source, seccionName, opcion) {
+//function CheckClickCarrousel(action, source, seccionName, opcion) {
     
-    if (action === "next") {
-        sliderWay = 1;
-    } else if (action === "prev") {
-        sliderWay = 2;
-    }
+//    if (action === "next") {
+//        sliderWay = 1;
+//    } else if (action === "prev") {
+//        sliderWay = 2;
+//    }
 
-    if (source === "normal") {
-        clickedSlider = 1;
-    }
-    opcion = opcion || "";
-    CallAnalitycsClickArrow(seccionName, opcion);
-}
+//    if (source === "normal") {
+//        clickedSlider = 1;
+//    }
+//    opcion = opcion || "";
+//    CallAnalitycsClickArrow(seccionName, opcion);
+//}
 
-function CallAnalitycsClickArrow(seccionName, opcion) {
+//function CallAnalitycsClickArrow(seccionName, opcion) {
     
-    if (sliderWay !== 0 && clickedSlider !== 0) {
-        if (seccionName === "MG") {
-            if (typeof AnalyticsPortalModule !== "undefined") {
-                AnalyticsPortalModule.ClickArrowMG(sliderWay);
-            }
-        } else {
-            if (typeof rdAnalyticsModule !== "undefined") {
-                rdAnalyticsModule.ClickArrowLan(sliderWay);
-            }
-        }
+//    if (sliderWay !== 0 && clickedSlider !== 0) {
+//        if (seccionName === "MG") {
+//            if (typeof AnalyticsPortalModule !== "undefined") {
+//                AnalyticsPortalModule.ClickArrowMG(sliderWay);
+//            }
+//        } else {
+//            if (typeof rdAnalyticsModule !== "undefined") {
+//                rdAnalyticsModule.ClickArrowLan(sliderWay);
+//            }
+//        }
         
-        sliderWay = 0;
-        clickedSlider = 0;
-    }
-}
+//        sliderWay = 0;
+//        clickedSlider = 0;
+//    }
+//}
 

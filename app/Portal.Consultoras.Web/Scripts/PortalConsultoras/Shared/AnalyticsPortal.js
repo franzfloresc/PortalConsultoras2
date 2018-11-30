@@ -32,7 +32,6 @@ var AnalyticsPortalModule = (function () {
         seleccionTonoCombo: "Selección Tono - ComboBox",
         seleccionTonoCuadro: "Selección Tono - Cuadrados",
         migajaPan: "Breadcrumb",
-        contenedorfichaProducto: "Contenedor - Ficha de producto",
         // Ini - Analytics Buscador Miguel
         notavaliable: "(not avaliable)",
         // Fin - Analytics Buscador Miguel
@@ -40,10 +39,12 @@ var AnalyticsPortalModule = (function () {
         eligetuopcion: "eligetuopcion",
         verdetalle: "verdetalle",
         contenedor: "Contenedor",
+        contenedorHome: "Contenedor - Home",
         contenedorDetalle: "Contenedor - Detalle de Producto",
         contenedorDetalleSets: "Contenedor - Detalle de Producto - Ver más Sets",
         contenedorRevisar: "Contenedor - Revisar",
         contenedorMasGanadoras: "Más Ganadoras",
+        contenedorfichaProducto: "Contenedor - Ficha de producto",
         CarritoCompras: "Carrito de compras",
         siguiente: "Ver siguiente",
         anterior: "Ver anterior"
@@ -146,10 +147,10 @@ var AnalyticsPortalModule = (function () {
         codigoPais: !(typeof userData === 'undefined') ? userData.pais : "",
         // Fin - Analytics Buscador Miguel
         // Ini - Analytics Ofertas
-        contenedorHome: "Contenedor - Home",
+        //contenedorHome: "Contenedor - Home",
         campania: "Campaña ",
         IdBannerGanadorasVerMas: "000123",
-        TextoGanadoras: "Ganadoras"
+        //TextoGanadoras: "Ganadoras"
         // Fin - Analytics Ofertas
     };
 
@@ -367,22 +368,22 @@ var AnalyticsPortalModule = (function () {
 
             var lista = data.lista;
 
-            var esNoLanding = typeof listaSeccion === 'undefined' ? false : true;
+            var esHomeContenedor = typeof listaSeccion === 'undefined' ? false : true;
 
-            var element = esNoLanding
+            var element = esHomeContenedor
                 ? $("[data-seccion=" + codigoSeccion + "]")
                 : $("#RDListado");
 
             var codigo = element.data("origenpedidoweb");
             var cantidadMostrar = 0;
             var palanca = "";
-            var contenedor = "";
+            var contenedor = _texto.contenedor;
 
             if (codigoSeccion == _codigoSeccion.Ficha) {
                 cantidadMostrar = lista.length;
                 contenedor = "Contenedor - Detalle de Producto - Ver más Sets";
             }
-            else if (esNoLanding) {
+            else if (esHomeContenedor) {
 
                 var campania = lista[0].CampaniaID;
 
@@ -394,7 +395,7 @@ var AnalyticsPortalModule = (function () {
                     ? AnalyticsPortalModule.GetPalancaBySeccion(codigoSeccion)
                     : AnalyticsPortalModule.GetPalancaByOrigenPedido(codigo);
 
-                var contenedor = fnObtenerContenedor();
+                //var contenedor = fnObtenerContenedor();
             }
             else {
                 cantidadMostrar = lista.length;
@@ -402,8 +403,6 @@ var AnalyticsPortalModule = (function () {
                 palanca = codigoSeccion == "ODD" || codigoSeccion == "SR"
                     ? AnalyticsPortalModule.GetPalancaBySeccion(codigoSeccion)
                     : AnalyticsPortalModule.GetPalancaByOrigenPedido(codigo);
-
-                contenedor = _texto.contenedor;
             }
 
             var parametroList = contenedor
@@ -1421,7 +1420,7 @@ var AnalyticsPortalModule = (function () {
         var contenedor = "";
 
         switch (window.controllerName) {
-            case "ofertas": contenedor = esRevisar ? _texto.contenedorRevisar : _constantes.contenedorHome; break;
+            case "ofertas": contenedor = esRevisar ? _texto.contenedorRevisar : _texto.contenedorHome; break;
             case "pedido": contenedor = _texto.contenedorRevisar; break;
             case "masganadoras": contenedor = _texto.contenedorMasGanadoras; break;
             default: contenedor = _texto.contenedor; break;
@@ -1449,7 +1448,7 @@ var AnalyticsPortalModule = (function () {
                             {
                                 'id': estrategia.CUV2,
                                 'name': AnalyticsPortalModule.GetPalancaByOrigenPedido(codigoOrigenWeb) + " - " + estrategia.DescripcionCompleta + " - " + "Ver producto",
-                                'position': _constantes.contenedor || _constantes.contenedorHome,
+                                'position': _texto.contenedor || _texto.contenedorHome,
                                 'creative': 'Banner'
                             }]
                     }
