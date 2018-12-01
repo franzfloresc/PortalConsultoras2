@@ -228,59 +228,72 @@ namespace Portal.Consultoras.BizLogic
         /// <returns></returns>
         public List<BEClienteDB> SaveDB(int paisID, List<BEClienteDB> clientes)
         {
+            long consultoraId = 0;
+
             var blClienteDb = new BLClienteDB();
             var daCliente = new DACliente(paisID);
 
             foreach (var cliente in clientes)
             {
-                cliente.PaisID = paisID;
-
-                if (cliente.Estado == Constantes.ClienteEstado.Activo)
+                try
                 {
-                    cliente.CodigoRespuesta = this.ValidarAtributo(cliente);
+                    cliente.CodigoRespuesta = "";
+                    consultoraId = cliente.ConsultoraID;
+                    cliente.PaisID = paisID;
 
-                    if (cliente.CodigoRespuesta != Constantes.ClienteValidacion.Code.SUCCESS) continue;
+                    if (cliente.Estado == Constantes.ClienteEstado.Activo)
+                    {
+                        cliente.CodigoRespuesta = this.ValidarAtributo(cliente);
 
-                    var lstTelefonos = this.ObtenerTelefonos(cliente);
+                        if (cliente.CodigoRespuesta != Constantes.ClienteValidacion.Code.SUCCESS) continue;
 
-                    var lstClienteConsultora = this.SelectByConsultora(paisID, cliente.ConsultoraID).ToList();
+                        var lstTelefonos = this.ObtenerTelefonos(cliente);
 
-                    var clienteTaskBd = Task.Run(() => this.ObtenerCodigoCliente(cliente, blClienteDb, lstTelefonos));
-                    var clienteTaskSb = Task.Run(() => this.ObtenerClienteID(cliente, lstClienteConsultora, lstTelefonos));
+                        var lstClienteConsultora = this.SelectByConsultora(paisID, cliente.ConsultoraID).ToList();
 
-                    Task.WaitAll(clienteTaskBd, clienteTaskSb);
+                        var clienteTaskBd = Task.Run(() => this.ObtenerCodigoCliente(cliente, blClienteDb, lstTelefonos));
+                        var clienteTaskSb = Task.Run(() => this.ObtenerClienteID(cliente, lstClienteConsultora, lstTelefonos));
 
-                    cliente.CodigoCliente = clienteTaskBd.Result;
-                    cliente.ClienteID = clienteTaskSb.Result;
+                        Task.WaitAll(clienteTaskBd, clienteTaskSb);
 
-                    cliente.CodigoRespuesta = this.ValidarConsultora(cliente, lstClienteConsultora);
-                    if (cliente.CodigoRespuesta != Constantes.ClienteValidacion.Code.SUCCESS) continue;
+                        cliente.CodigoCliente = clienteTaskBd.Result;
+                        cliente.ClienteID = clienteTaskSb.Result;
 
-                    cliente.CodigoRespuesta = this.GrabarDB(cliente, blClienteDb);
-                    if (cliente.CodigoRespuesta != Constantes.ClienteValidacion.Code.SUCCESS) continue;
+                        cliente.CodigoRespuesta = this.ValidarConsultora(cliente, lstClienteConsultora);
+                        if (cliente.CodigoRespuesta != Constantes.ClienteValidacion.Code.SUCCESS) continue;
 
-                    cliente.CodigoRespuesta = this.GrabarSB(cliente, daCliente);
-                    if (cliente.CodigoRespuesta != Constantes.ClienteValidacion.Code.SUCCESS) continue;
+                        cliente.CodigoRespuesta = this.GrabarDB(cliente, blClienteDb);
+                        if (cliente.CodigoRespuesta != Constantes.ClienteValidacion.Code.SUCCESS) continue;
 
-                    var movimientosTask = Task.Run(() => _movimientoBusinessLogic.Procesar(paisID, cliente));
-                    var recordatoriosTask = Task.Run(() => _recordatorioBusinessLogic.Procesar(paisID, cliente));
-                    var notasTask = Task.Run(() => _notasBusinessLogic.Procesar(paisID, cliente));
+                        cliente.CodigoRespuesta = this.GrabarSB(cliente, daCliente);
+                        if (cliente.CodigoRespuesta != Constantes.ClienteValidacion.Code.SUCCESS) continue;
 
-                    Task.WaitAll(movimientosTask, recordatoriosTask, notasTask);
+                        var movimientosTask = Task.Run(() => _movimientoBusinessLogic.Procesar(paisID, cliente));
+                        var recordatoriosTask = Task.Run(() => _recordatorioBusinessLogic.Procesar(paisID, cliente));
+                        var notasTask = Task.Run(() => _notasBusinessLogic.Procesar(paisID, cliente));
+
+                        Task.WaitAll(movimientosTask, recordatoriosTask, notasTask);
+                    }
+                    else
+                    {
+                        var clienteTaskTel = Task.Run(() => this.ObtenerTelefonos(cliente));
+                        var clienteTaskList = Task.Run(() => this.SelectByConsultora(cliente.PaisID, cliente.ConsultoraID));
+
+                        Task.WaitAll(clienteTaskTel, clienteTaskList);
+
+                        var lstTelefonos = clienteTaskTel.Result;
+                        var lstClienteConsultora = clienteTaskList.Result.ToList();
+
+                        cliente.ClienteID = this.ObtenerClienteID(cliente, lstClienteConsultora, lstTelefonos);
+
+                        cliente.CodigoRespuesta = this.EliminarSB(cliente, daCliente);
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    var clienteTaskTel = Task.Run(() => this.ObtenerTelefonos(cliente));
-                    var clienteTaskList = Task.Run(() => this.SelectByConsultora(cliente.PaisID, cliente.ConsultoraID));
-
-                    Task.WaitAll(clienteTaskTel, clienteTaskList);
-
-                    var lstTelefonos = clienteTaskTel.Result;
-                    var lstClienteConsultora = clienteTaskList.Result.ToList();
-
-                    cliente.ClienteID = this.ObtenerClienteID(cliente, lstClienteConsultora, lstTelefonos);
-
-                    cliente.CodigoRespuesta = this.EliminarSB(cliente, daCliente);
+                    cliente.CodigoRespuesta = Constantes.ClienteValidacion.Code.ErrorGeneral;
+                    LogManager.SaveLog(ex, consultoraId, paisID);
+                    throw new Exception(Common.LogManager.GetMensajeError(ex));
                 }
             }
 
@@ -322,33 +335,33 @@ namespace Portal.Consultoras.BizLogic
 
                 //CONSULTA FINAL
                 clientes = (from tblConsultoraCliente in lstConsultoraCliente
-                                join tblCliente in lstCliente
-                                 on tblConsultoraCliente.CodigoCliente equals tblCliente.CodigoCliente
-                                join tblClienteDetalle in lstClienteDetalle
-                                on tblConsultoraCliente.ClienteID equals tblClienteDetalle.ClienteID
-                                select new BEClienteDB
-                                {
-                                    ConsultoraID = tblConsultoraCliente.ConsultoraID,
-                                    CodigoCliente = tblConsultoraCliente.CodigoCliente,
-                                    ClienteID = tblConsultoraCliente.ClienteID,
-                                    Apellidos = tblConsultoraCliente.ApellidoCliente,
-                                    Nombres = tblConsultoraCliente.NombreCliente,
-                                    Alias = tblCliente.Alias,
-                                    Foto = tblCliente.Foto,
-                                    FechaNacimiento = tblCliente.FechaNacimiento,
-                                    Sexo = tblCliente.Sexo,
-                                    Documento = tblCliente.Documento,
-                                    Origen = tblCliente.Origen,
-                                    Favorito = tblConsultoraCliente.Favorito,
-                                    TipoContactoFavorito = tblConsultoraCliente.TipoContactoFavorito,
-                                    Saldo = tblClienteDetalle.Saldo,
-                                    CantidadProductos = tblClienteDetalle.CantidadProductos,
-                                    MontoPedido = tblClienteDetalle.MontoPedido,
-                                    CantidadPedido = tblClienteDetalle.CantidadPedido,
-                                    Contactos = tblConsultoraCliente.Contactos,
-                                    Recordatorios = recordatorios.Where(r => r.ClienteId == tblConsultoraCliente.ClienteID).ToList(),
-                                    Notas = notas.Data.Where(r => r.ClienteId == tblConsultoraCliente.ClienteID).ToList()
-                                }).OrderBy(x => x.NombreCompleto).ToList();
+                            join tblCliente in lstCliente
+                             on tblConsultoraCliente.CodigoCliente equals tblCliente.CodigoCliente
+                            join tblClienteDetalle in lstClienteDetalle
+                            on tblConsultoraCliente.ClienteID equals tblClienteDetalle.ClienteID
+                            select new BEClienteDB
+                            {
+                                ConsultoraID = tblConsultoraCliente.ConsultoraID,
+                                CodigoCliente = tblConsultoraCliente.CodigoCliente,
+                                ClienteID = tblConsultoraCliente.ClienteID,
+                                Apellidos = tblConsultoraCliente.ApellidoCliente,
+                                Nombres = tblConsultoraCliente.NombreCliente,
+                                Alias = tblCliente.Alias,
+                                Foto = tblCliente.Foto,
+                                FechaNacimiento = tblCliente.FechaNacimiento,
+                                Sexo = tblCliente.Sexo,
+                                Documento = tblCliente.Documento,
+                                Origen = tblCliente.Origen,
+                                Favorito = tblConsultoraCliente.Favorito,
+                                TipoContactoFavorito = tblConsultoraCliente.TipoContactoFavorito,
+                                Saldo = tblClienteDetalle.Saldo,
+                                CantidadProductos = tblClienteDetalle.CantidadProductos,
+                                MontoPedido = tblClienteDetalle.MontoPedido,
+                                CantidadPedido = tblClienteDetalle.CantidadPedido,
+                                Contactos = tblConsultoraCliente.Contactos,
+                                Recordatorios = recordatorios.Where(r => r.ClienteId == tblConsultoraCliente.ClienteID).ToList(),
+                                Notas = notas.Data.Where(r => r.ClienteId == tblConsultoraCliente.ClienteID).ToList()
+                            }).OrderBy(x => x.NombreCompleto).ToList();
             }
             catch (Exception ex)
             {

@@ -30,20 +30,44 @@
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Incentivo" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Estrategia" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ReservaProl" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd9" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.PagoEnLinea" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd10" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd11" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ProgramaNuevas" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ProgramaNuevas" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Incentivo" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Estrategia" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd9" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ReservaProl" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd10" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.PagoEnLinea" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd11" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd12" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cupon" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd13" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd14" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
     </xsd:schema>
   </wsdl:types>
+  <wsdl:message name="IPedidoService_GetReporteEstrategiasPorConsultora_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetReporteEstrategiasPorConsultora" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetReporteEstrategiasPorConsultora_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetReporteEstrategiasPorConsultoraResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerConcursosXConsultora_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerConcursosXConsultora" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerConcursosXConsultora_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerConcursosXConsultoraResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ActualizarInsertarPuntosConcurso_InputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarInsertarPuntosConcurso" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ActualizarInsertarPuntosConcurso_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarInsertarPuntosConcursoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerPuntosXConsultoraConcurso_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerPuntosXConsultoraConcurso" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerPuntosXConsultoraConcurso_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerPuntosXConsultoraConcursoResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_ListConcursosVigentes_InputMessage">
     <wsdl:part name="parameters" element="tns:ListConcursosVigentes" />
   </wsdl:message>
@@ -266,6 +290,12 @@
   <wsdl:message name="IPedidoService_InsertProductoBuscador_OutputMessage">
     <wsdl:part name="parameters" element="tns:InsertProductoBuscadorResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoService_InsertPedidoDetalleMasivo_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertPedidoDetalleMasivo" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_InsertPedidoDetalleMasivo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertPedidoDetalleMasivoResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_InsertPagoEnLineaResultadoLog_InputMessage">
     <wsdl:part name="parameters" element="tns:InsertPagoEnLineaResultadoLog" />
   </wsdl:message>
@@ -343,6 +373,24 @@
   </wsdl:message>
   <wsdl:message name="IPedidoService_ObtenerPagoEnLineaNumeroOrden_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerPagoEnLineaNumeroOrdenResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerPagoEnLineaConfiguracion_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerPagoEnLineaConfiguracion" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerPagoEnLineaConfiguracion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerPagoEnLineaConfiguracionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerPagoEnLineaVisaConfiguracion_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerPagoEnLineaVisaConfiguracion" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerPagoEnLineaVisaConfiguracion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerPagoEnLineaVisaConfiguracionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_RegistrarPagoEnLineaVisa_InputMessage">
+    <wsdl:part name="parameters" element="tns:RegistrarPagoEnLineaVisa" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_RegistrarPagoEnLineaVisa_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RegistrarPagoEnLineaVisaResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_InsertPedidoWebSet_InputMessage">
     <wsdl:part name="parameters" element="tns:InsertPedidoWebSet" />
@@ -926,23 +974,23 @@
   <wsdl:message name="IPedidoService_GetReporteValidacion_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetReporteValidacionResponse" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_ObtenerConcursosXConsultora_InputMessage">
-    <wsdl:part name="parameters" element="tns:ObtenerConcursosXConsultora" />
+  <wsdl:message name="IPedidoService_GetReporteCuvResumido_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetReporteCuvResumido" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_ObtenerConcursosXConsultora_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ObtenerConcursosXConsultoraResponse" />
+  <wsdl:message name="IPedidoService_GetReporteCuvResumido_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetReporteCuvResumidoResponse" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_ActualizarInsertarPuntosConcurso_InputMessage">
-    <wsdl:part name="parameters" element="tns:ActualizarInsertarPuntosConcurso" />
+  <wsdl:message name="IPedidoService_GetReporteCuvDetallado_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetReporteCuvDetallado" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_ActualizarInsertarPuntosConcurso_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ActualizarInsertarPuntosConcursoResponse" />
+  <wsdl:message name="IPedidoService_GetReporteCuvDetallado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetReporteCuvDetalladoResponse" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_ObtenerPuntosXConsultoraConcurso_InputMessage">
-    <wsdl:part name="parameters" element="tns:ObtenerPuntosXConsultoraConcurso" />
+  <wsdl:message name="IPedidoService_GetReporteMovimientosPedido_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetReporteMovimientosPedido" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_ObtenerPuntosXConsultoraConcurso_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ObtenerPuntosXConsultoraConcursoResponse" />
+  <wsdl:message name="IPedidoService_GetReporteMovimientosPedido_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetReporteMovimientosPedidoResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_HabilitaPedidoMultipleInformacionConsultoras_InputMessage">
     <wsdl:part name="parameters" element="tns:HabilitaPedidoMultipleInformacionConsultoras" />
@@ -2475,6 +2523,22 @@
     <wsdl:part name="parameters" element="tns:GetCUVAsociadoByFilterResponse" />
   </wsdl:message>
   <wsdl:portType name="IPedidoService">
+    <wsdl:operation name="GetReporteEstrategiasPorConsultora">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetReporteEstrategiasPorConsultora" message="tns:IPedidoService_GetReporteEstrategiasPorConsultora_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetReporteEstrategiasPorConsultoraResponse" message="tns:IPedidoService_GetReporteEstrategiasPorConsultora_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerConcursosXConsultora">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerConcursosXConsultora" message="tns:IPedidoService_ObtenerConcursosXConsultora_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerConcursosXConsultoraResponse" message="tns:IPedidoService_ObtenerConcursosXConsultora_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarInsertarPuntosConcurso">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ActualizarInsertarPuntosConcurso" message="tns:IPedidoService_ActualizarInsertarPuntosConcurso_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ActualizarInsertarPuntosConcursoResponse" message="tns:IPedidoService_ActualizarInsertarPuntosConcurso_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPuntosXConsultoraConcurso">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPuntosXConsultoraConcurso" message="tns:IPedidoService_ObtenerPuntosXConsultoraConcurso_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPuntosXConsultoraConcursoResponse" message="tns:IPedidoService_ObtenerPuntosXConsultoraConcurso_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="ListConcursosVigentes">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ListConcursosVigentes" message="tns:IPedidoService_ListConcursosVigentes_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ListConcursosVigentesResponse" message="tns:IPedidoService_ListConcursosVigentes_OutputMessage" />
@@ -2623,6 +2687,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertProductoBuscador" message="tns:IPedidoService_InsertProductoBuscador_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsertProductoBuscadorResponse" message="tns:IPedidoService_InsertProductoBuscador_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="InsertPedidoDetalleMasivo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertPedidoDetalleMasivo" message="tns:IPedidoService_InsertPedidoDetalleMasivo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsertPedidoDetalleMasivoResponse" message="tns:IPedidoService_InsertPedidoDetalleMasivo_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="InsertPagoEnLineaResultadoLog">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertPagoEnLineaResultadoLog" message="tns:IPedidoService_InsertPagoEnLineaResultadoLog_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsertPagoEnLineaResultadoLogResponse" message="tns:IPedidoService_InsertPagoEnLineaResultadoLog_OutputMessage" />
@@ -2674,6 +2742,18 @@
     <wsdl:operation name="ObtenerPagoEnLineaNumeroOrden">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaNumeroOrden" message="tns:IPedidoService_ObtenerPagoEnLineaNumeroOrden_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaNumeroOrdenResponse" message="tns:IPedidoService_ObtenerPagoEnLineaNumeroOrden_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPagoEnLineaConfiguracion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaConfiguracion" message="tns:IPedidoService_ObtenerPagoEnLineaConfiguracion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaConfiguracionResponse" message="tns:IPedidoService_ObtenerPagoEnLineaConfiguracion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPagoEnLineaVisaConfiguracion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaVisaConfiguracion" message="tns:IPedidoService_ObtenerPagoEnLineaVisaConfiguracion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaVisaConfiguracionResponse" message="tns:IPedidoService_ObtenerPagoEnLineaVisaConfiguracion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarPagoEnLineaVisa">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/RegistrarPagoEnLineaVisa" message="tns:IPedidoService_RegistrarPagoEnLineaVisa_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/RegistrarPagoEnLineaVisaResponse" message="tns:IPedidoService_RegistrarPagoEnLineaVisa_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="InsertPedidoWebSet">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertPedidoWebSet" message="tns:IPedidoService_InsertPedidoWebSet_InputMessage" />
@@ -3063,17 +3143,17 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetReporteValidacion" message="tns:IPedidoService_GetReporteValidacion_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetReporteValidacionResponse" message="tns:IPedidoService_GetReporteValidacion_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="ObtenerConcursosXConsultora">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerConcursosXConsultora" message="tns:IPedidoService_ObtenerConcursosXConsultora_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerConcursosXConsultoraResponse" message="tns:IPedidoService_ObtenerConcursosXConsultora_OutputMessage" />
+    <wsdl:operation name="GetReporteCuvResumido">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetReporteCuvResumido" message="tns:IPedidoService_GetReporteCuvResumido_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetReporteCuvResumidoResponse" message="tns:IPedidoService_GetReporteCuvResumido_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="ActualizarInsertarPuntosConcurso">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ActualizarInsertarPuntosConcurso" message="tns:IPedidoService_ActualizarInsertarPuntosConcurso_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ActualizarInsertarPuntosConcursoResponse" message="tns:IPedidoService_ActualizarInsertarPuntosConcurso_OutputMessage" />
+    <wsdl:operation name="GetReporteCuvDetallado">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetReporteCuvDetallado" message="tns:IPedidoService_GetReporteCuvDetallado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetReporteCuvDetalladoResponse" message="tns:IPedidoService_GetReporteCuvDetallado_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="ObtenerPuntosXConsultoraConcurso">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPuntosXConsultoraConcurso" message="tns:IPedidoService_ObtenerPuntosXConsultoraConcurso_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPuntosXConsultoraConcursoResponse" message="tns:IPedidoService_ObtenerPuntosXConsultoraConcurso_OutputMessage" />
+    <wsdl:operation name="GetReporteMovimientosPedido">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetReporteMovimientosPedido" message="tns:IPedidoService_GetReporteMovimientosPedido_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetReporteMovimientosPedidoResponse" message="tns:IPedidoService_GetReporteMovimientosPedido_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="HabilitaPedidoMultipleInformacionConsultoras">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/HabilitaPedidoMultipleInformacionConsultoras" message="tns:IPedidoService_HabilitaPedidoMultipleInformacionConsultoras_InputMessage" />
@@ -4098,6 +4178,42 @@
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IPedidoService" type="tns:IPedidoService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetReporteEstrategiasPorConsultora">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetReporteEstrategiasPorConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerConcursosXConsultora">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerConcursosXConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarInsertarPuntosConcurso">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ActualizarInsertarPuntosConcurso" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPuntosXConsultoraConcurso">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerPuntosXConsultoraConcurso" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ListConcursosVigentes">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/ListConcursosVigentes" style="document" />
       <wsdl:input>
@@ -4431,6 +4547,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="InsertPedidoDetalleMasivo">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertPedidoDetalleMasivo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="InsertPagoEnLineaResultadoLog">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertPagoEnLineaResultadoLog" style="document" />
       <wsdl:input>
@@ -4541,6 +4666,33 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerPagoEnLineaNumeroOrden">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaNumeroOrden" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPagoEnLineaConfiguracion">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaConfiguracion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPagoEnLineaVisaConfiguracion">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaVisaConfiguracion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarPagoEnLineaVisa">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/RegistrarPagoEnLineaVisa" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -5421,8 +5573,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ObtenerConcursosXConsultora">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerConcursosXConsultora" style="document" />
+    <wsdl:operation name="GetReporteCuvResumido">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetReporteCuvResumido" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -5430,8 +5582,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ActualizarInsertarPuntosConcurso">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/ActualizarInsertarPuntosConcurso" style="document" />
+    <wsdl:operation name="GetReporteCuvDetallado">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetReporteCuvDetallado" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -5439,8 +5591,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ObtenerPuntosXConsultoraConcurso">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerPuntosXConsultoraConcurso" style="document" />
+    <wsdl:operation name="GetReporteMovimientosPedido">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetReporteMovimientosPedido" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -7747,6 +7899,42 @@
   <wsdl:binding name="BasicHttpsBinding_IPedidoService" type="tns:IPedidoService">
     <wsp:PolicyReference URI="#BasicHttpsBinding_IPedidoService_policy" />
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetReporteEstrategiasPorConsultora">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetReporteEstrategiasPorConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerConcursosXConsultora">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerConcursosXConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarInsertarPuntosConcurso">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ActualizarInsertarPuntosConcurso" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPuntosXConsultoraConcurso">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerPuntosXConsultoraConcurso" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ListConcursosVigentes">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/ListConcursosVigentes" style="document" />
       <wsdl:input>
@@ -8080,6 +8268,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="InsertPedidoDetalleMasivo">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertPedidoDetalleMasivo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="InsertPagoEnLineaResultadoLog">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertPagoEnLineaResultadoLog" style="document" />
       <wsdl:input>
@@ -8190,6 +8387,33 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerPagoEnLineaNumeroOrden">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaNumeroOrden" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPagoEnLineaConfiguracion">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaConfiguracion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPagoEnLineaVisaConfiguracion">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaVisaConfiguracion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarPagoEnLineaVisa">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/RegistrarPagoEnLineaVisa" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -9070,8 +9294,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ObtenerConcursosXConsultora">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerConcursosXConsultora" style="document" />
+    <wsdl:operation name="GetReporteCuvResumido">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetReporteCuvResumido" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -9079,8 +9303,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ActualizarInsertarPuntosConcurso">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/ActualizarInsertarPuntosConcurso" style="document" />
+    <wsdl:operation name="GetReporteCuvDetallado">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetReporteCuvDetallado" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -9088,8 +9312,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ObtenerPuntosXConsultoraConcurso">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerPuntosXConsultoraConcurso" style="document" />
+    <wsdl:operation name="GetReporteMovimientosPedido">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetReporteMovimientosPedido" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

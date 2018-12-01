@@ -432,7 +432,8 @@
             buttons:
             {
                 "Salir": function () {
-                    $(this).dialog("close");
+                    HideDialog("DialogGrillaCuv1");
+                    //$(this).dialog("close");
                 }
             }
         });
@@ -448,7 +449,8 @@
             buttons:
             {
                 "Salir": function () {
-                    $(this).dialog("close");
+                    HideDialog("DialogGrillaCuv2");
+                    //$(this).dialog("close");
                 }
             }
         });

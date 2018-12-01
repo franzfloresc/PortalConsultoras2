@@ -47,7 +47,9 @@
         urlUploadFileProductStrategyShowroom: config.urlUploadFileProductStrategyShowroom,
         urlCargarArbolRegionesZonas: config.urlCargarArbolRegionesZonas,
         rutastylejstree: config.rutastylejstree,
-        urlUploadBloqueoCuv: config.urlUploadBloqueoCuv
+        urlUploadBloqueoCuv: config.urlUploadBloqueoCuv,
+        microserviciosEstrategias: config.microserviciosEstrategias,
+        microserviciosPaises: config.microserviciosPaises
     };
      
     var _variables = {
@@ -2660,7 +2662,8 @@
                 },
                 "Salir": function () {
                     $("#ddlTipoEstrategia").val($("#hdEstrategiaIDConsulta").val());
-                    $(this).dialog("close");
+                    HideDialog("DialogAdministracionEstrategia");
+                    //$(this).dialog("close");
                 }
             }
         });
@@ -2694,10 +2697,12 @@
                     }
                     $("#hdZonas").val(zonas);
                     _toastHelper.success("Se agregaron las zonas seleccionadas.");
-                    $(this).dialog("close");
+                    HideDialog("DialogZona");
+                    //$(this).dialog("close");
                 },
                 "Salir": function () {
-                    $(this).dialog("close");
+                    HideDialog("DialogZona");
+                    //$(this).dialog("close");
                 }
             }
         });
@@ -2727,7 +2732,9 @@
                         });
                     }
                     _variables.isVistaPreviaOpened = false;
-                    $(this).dialog("close");
+
+                    HideDialog("divVistaPrevia");
+                    //$(this).dialog("close");
                 }
             }
         });
@@ -2832,7 +2839,8 @@
                     });
                 },
                 "Salir": function () {
-                    $(this).dialog("close");
+                    HideDialog("DialogEditarTallaColor");
+                    //$(this).dialog("close");
                 }
             }
         });
@@ -2911,7 +2919,8 @@
                     }
                 },
                 "Cancelar": function () {
-                    $(this).dialog("close");
+                    HideDialog("DialogDatosShowRoom");
+                    //$(this).dialog("close");
                 }
             }
         });
@@ -2949,7 +2958,8 @@
                     return false;
                 },
                 "Cancelar": function () {
-                    $(this).dialog("close");
+                    HideDialog("DialogPersonalizacionDetalle");
+                    //$(this).dialog("close");
                 }
             }
         });
@@ -2995,7 +3005,8 @@
                     return false;
                 },
                 "Cancelar": function () {
-                    $(this).dialog("close");
+                    HideDialog("DialogRegistroOfertaShowRoomDetalleEditar");
+                    //$(this).dialog("close");
                 }
             }
         });
@@ -3152,12 +3163,13 @@
 
             var estrategiasSeleccionadas = new Array();
             var estrategiasNoSeleccionadas = new Array();
+            var paisHabilitadoMS = (_config.microserviciosPaises.indexOf(variablesPortal.PaisISO) > -1);
 
             var estrategiasSeleccionadasIds = jQuery("#list").jqGrid("getGridParam", "selarrrow");
             var rows = jQuery("#list").jqGrid('getRowData');
             for (i = 0; i < rows.length; i++) {
                 var row = rows[i];
-                if (row.CodigoTipoEstrategia === "009" || row.CodigoTipoEstrategia === "007" || row.CodigoTipoEstrategia === "008" || row.CodigoTipoEstrategia === '030') {
+                if (paisHabilitadoMS && _config.microserviciosEstrategias.indexOf(row.CodigoTipoEstrategia) > -1) {
                     if (!estrategiasSeleccionadasIds.includes(row.EstrategiaID)) {
                         estrategiasNoSeleccionadas.push(row._id);
                     }
