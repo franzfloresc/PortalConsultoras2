@@ -159,6 +159,9 @@
             e.preventDefault();
             AbrirLoad();
             var divPadre = $(this).parents("[data-item='ProductoRecomendadoBuscador']").eq(0);
+                                  
+            if (!(typeof AnalyticsPortalModule === 'undefined'))
+                AnalyticsPortalModule.MarcaAnadirCarritoRecomendaciones(divPadre, _elementos.valueJSON);
 
             BuscadorProvider.RegistroProductoBuscador(divPadre, _elementos.valueJSON);
         }

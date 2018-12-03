@@ -543,6 +543,7 @@ var AnalyticsPortalModule = (function () {
 
             if (_pagina === "Landing Buscador") {
                 AnalyticsPortalModule.MarcaAnadirCarritoBuscador(model, "Ficha de producto", valorBuscar);
+                return;
             }
 
             if (pagina.Pagina.includes("Landing"))
@@ -629,6 +630,37 @@ var AnalyticsPortalModule = (function () {
                             'brand': _getMarca(model.MarcaId),
                             'category': _texto.notavaliable,
                             'variant': campoBuscar,
+                            'quantity': model.Cantidad
+                        }]
+                    }
+                }
+            });
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    var marcaAnadirCarritoRecomendaciones = function (divPadre, valueJSON) {
+        try {
+            var model = JSON.parse($(divPadre).find(valueJSON).val());
+            var cantidad = $(divPadre).find("[data-input='cantidad']").val();
+            var agregado = $(divPadre).find(".etiqueta_buscador_producto");
+            model.Cantidad = cantidad;
+
+            var lista = "Pedido - Ofertas Relacionadas";
+            dataLayer.push({
+                'event': _evento.addToCart,
+                'ecommerce': {
+                    'currencyCode': AnalyticsPortalModule.GetCurrencyCodes(_constantes.codigoPais),
+                    'add': {
+                        'actionField': { 'list': lista },
+                        'products': [{
+                            'name': model.DescripcionCompleta,
+                            'id': model.CUV,
+                            'price': parseFloat(model.Precio).toFixed(2).toString(),
+                            'brand': _getMarca(model.MarcaId),
+                            'category': _texto.notavaliable,
+                            'variant': _texto.estandar,
                             'quantity': model.Cantidad
                         }]
                     }
@@ -2713,6 +2745,7 @@ var AnalyticsPortalModule = (function () {
         MarcaProductImpressionRecomendaciones: marcaProductImpressionRecomendaciones,
         MarcaRecomendacionesFlechaSiguiente: marcaRecomendacionesFlechaSiguiente,
         MarcaRecomendacionesFlechaAnterior: marcaRecomendacionesFlechaAnterior,
-        MarcaOcultarRecomendaciones: marcaOcultarRecomendaciones
+        MarcaOcultarRecomendaciones: marcaOcultarRecomendaciones,
+        MarcaAnadirCarritoRecomendaciones: marcaAnadirCarritoRecomendaciones
     }
 })();
