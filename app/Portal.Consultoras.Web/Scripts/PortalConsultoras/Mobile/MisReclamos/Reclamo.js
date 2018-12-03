@@ -263,6 +263,7 @@ $(document).ready(function () {
                     $(me.Variables.txtCantidad1).val("1");
                     if ($(me.Variables.ComboCampania).val() == 0){                        
                         $(me.Variables.ddlnumPedido).hide();
+
                         $(me.Variables.DescripcionCuv).hide();
                         $(me.Variables.txtCuvMobile).show();
                         return false;
@@ -290,7 +291,6 @@ $(document).ready(function () {
                 });
 
                 $(me.Variables.ListaCoincidenciasBusquedaProductosCdr).on('click', '.coincidencia_busqueda_producto', function (e) {
-                    
                     var _cuv = $.trim($(this).attr("data-codigo"));
                     var _descripcionCuv = $.trim($(this).attr("data-descr"));
                     me.Funciones.CuvSeleccionado(_cuv, _descripcionCuv);
@@ -384,6 +384,11 @@ $(document).ready(function () {
                     $(me.Variables.txtCuvMobile2).val("");
                     $(me.Variables.txtPrecioCuv2).html("");
                     $(me.Variables.txtCantidad2).val("1");
+                    $(me.Variables.ComboCampania).val(0);
+                    $(me.Variables.txtNumPedido).val("");
+                    $(me.Variables.txtNumPedido).hide();
+                    $(me.Variables.ddlnumPedido).val(0);
+                    $(me.Variables.ddlnumPedido).hide();
 
                     $(me.Variables.DescripcionCuv).hide();
                     $(me.Variables.txtCuvMobile).fadeIn();
@@ -530,11 +535,13 @@ $(document).ready(function () {
                             messageInfoValidado(data.message);
                             return false;
                         }
-
-                        if(data.datos.length == 1) {
+                        
+                        if (data.datos.length == 1) {                            
                             $(me.Variables.ddlnumPedido).hide();
-                            $(me.Variables.txtNumPedido).val(data.datos[0].PedidoID);
+                            $(me.Variables.hdPedidoID).val(data.datos[0].PedidoID);
+                            $(me.Variables.txtNumPedido).val("N° " + data.datos[0].NumeroPedido);
                             $(me.Variables.txtNumPedido).show();
+                            me.Funciones.BuscarCUV();
                             //$("#txtPedidoID").val(data.datos[0].PedidoID);
                             //$("#txtNumeroPedido").val(data.datos[0].NumeroPedido);
                             //BuscarCUV();
@@ -698,7 +705,7 @@ $(document).ready(function () {
       //          });
                 
                 var CampaniaId = $.trim($(me.Variables.ComboCampania).val()) || 0;
-                var PedidoId = $.trim($(me.Variables.ddlnumPedido).val()) || 0;
+                var PedidoId = $.trim($(me.Variables.hdPedidoID).val()) || 0;
 
                 var item = {
                     CampaniaID: CampaniaId,
@@ -1018,7 +1025,7 @@ $(document).ready(function () {
                     Motivo: $(".lista_opciones_motivo_cdr input[name='motivo-cdr']:checked").attr("id"),
                     CampaniaID: $(me.Variables.ComboCampania).val()
                 };
-
+                
                 jQuery.ajax({
                     type: 'POST',
                     url: UrlValidarPaso1,
