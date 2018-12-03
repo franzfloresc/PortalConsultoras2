@@ -222,13 +222,12 @@
             var estrategia = $($(item).find("[data-estrategia]")[0]).data("estrategia") || "";
             if (estrategia !== "") {
                 var obj = {
-                    lista: Array(data)
+                    lista: Array(estrategia)
                 };
                 console.log('_marcar AnalyticsAfter Change - MarcaGenericaLista', seccionName, obj);
                 AnalyticsPortalModule.MarcaGenericaLista(seccionName, obj, 1);
             }
         }
-
     }
 
     ////////////////////////////////////////////////////////////////////

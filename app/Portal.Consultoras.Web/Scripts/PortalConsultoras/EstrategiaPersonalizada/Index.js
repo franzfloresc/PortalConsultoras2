@@ -729,7 +729,7 @@ function AnalyticsCarouselAfterChange(event, slick, currentSlide, seccionName) {
     estrategia = estrategia || "";
     if (estrategia !== "") {
         var obj = {
-            lista: Array(data)
+            lista: Array(estrategia)
         };
         if (typeof AnalyticsPortalModule !== "undefined") {
             console.log('Analytics CarouselAfter Change - MarcaGenericaLista', seccionName, obj);
