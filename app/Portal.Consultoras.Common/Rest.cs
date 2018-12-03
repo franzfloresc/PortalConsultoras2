@@ -3,6 +3,7 @@ using System;
 using System.Configuration;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Web;
 
 namespace Portal.Consultoras.Common
 {
@@ -20,12 +21,19 @@ namespace Portal.Consultoras.Common
         {
             try
             {
+                string Token = string.Empty;
+                if (HttpContext.Current != null && HttpContext.Current.Request != null)
+                {
+             
+                    Token = (string)HttpContext.Current.Session[Constantes.ConstSession.JwtApiSomosBelcorp] ?? "";
+                }
                 var responseBody = string.Empty;
 
                 using (var client = new HttpClient())
                 {
                     client.BaseAddress = new Uri(_serviceUrl);
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(_mediaType));
+                    client.DefaultRequestHeaders.Add("Authorization", string.Format("Bearer {0}", Token));
+                    //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(_mediaType));
 
                     var response = client.GetAsync(path).Result;
 
