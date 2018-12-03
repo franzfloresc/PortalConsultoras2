@@ -173,7 +173,8 @@ $(document).ready(function () {
                 .appendTo(ul);
     };
 
-    $("#txtCUV").keyup(function (evt) {
+    $("#txtCUV").keyup(function (evt) {        
+
         $("#txtCantidad").removeAttr("disabled");
         $("#txtCantidad").val("");
         $("#hdfDescripcionProd").val("");
@@ -183,17 +184,17 @@ $(document).ready(function () {
         $("#txtPrecioR").val("");
         $("#hdfPrecioUnidad").val("");
         document.getElementById('divObservacionesDescripProd').style.display = 'none';
-        
+        ProductoRecomendadoModule.OcultarProductosRecomendados();
 
         if ($(this).val().length === 5) {
             BuscarByCUV($(this).val());
         } else {
             $("#divProductoAgotadoFinal").fadeOut(100); 
             $("#hdfCUV").val("");
-            $("#divObservaciones").html("");
-            ProductoRecomendadoModule.OcultarProductosRecomendados();
+            $("#divObservaciones").html("");            
         }
     });
+
     $("#txtCUV").autocomplete({
         source: baseUrl + "Pedido/AutocompleteByProductoCUV",
         minLength: 4,
@@ -285,6 +286,7 @@ $(document).ready(function () {
         $(rowElement).find("input.liquidacion_rango_cantidad_pedido").select();
         $("#txtCUV").focus();
     });
+
     $("body").on("click", ".agregarSugerido", function () {
         AbrirSplash();
 
