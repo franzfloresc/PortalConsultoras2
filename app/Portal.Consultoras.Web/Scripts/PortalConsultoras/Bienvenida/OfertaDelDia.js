@@ -455,36 +455,36 @@ var OfertaDelDiaModule = function () {
         return listaOfertasConClases;
     };
 
-    var odd_mobile_procesar_evento_before_change = function (event, slick, currentSlide, nextSlide, list) {
-        if (currentSlide != nextSlide) {
-            var accion = "";
-            var index = 0;
+    //var odd_mobile_procesar_evento_before_change = function (event, slick, currentSlide, nextSlide, list) {
+    //    if (currentSlide != nextSlide) {
+    //        var accion = "";
+    //        var index = 0;
 
-            if (nextSlide == 0 && currentSlide + 1 == list.length) {
-                accion = "next";
-            } else if (currentSlide == 0 && nextSlide + 1 == list.length) {
-                accion = "prev";
-            } else if (nextSlide > currentSlide) {
-                accion = "next";
-            } else {
-                accion = "prev";
-            }
+    //        if (nextSlide == 0 && currentSlide + 1 == list.length) {
+    //            accion = "next";
+    //        } else if (currentSlide == 0 && nextSlide + 1 == list.length) {
+    //            accion = "prev";
+    //        } else if (nextSlide > currentSlide) {
+    //            accion = "next";
+    //        } else {
+    //            accion = "prev";
+    //        }
 
-            if (accion == "prev") {
-                index = nextSlide;
-            }
-            if (accion == "next") {
-                index = nextSlide;
-            }
-            if (index >= list.length) {
-                index = index - list.length;
-            }
+    //        if (accion == "prev") {
+    //            index = nextSlide;
+    //        }
+    //        if (accion == "next") {
+    //            index = nextSlide;
+    //        }
+    //        if (index >= list.length) {
+    //            index = index - list.length;
+    //        }
 
-            return index;
-        }
-        else
-            return -1;
-    }
+    //        return index;
+    //    }
+    //    else
+    //        return -1;
+    //}
 
     var CargarODDMobile = function () {
         MostrarRelojOfertaDelDia($(".clock").data("total-seconds"));
