@@ -913,6 +913,10 @@
         padding-right:0;
     }
 
+    layout__content--vistaResultadosBusqueda{
+        overflow:hidden;
+    }
+
     .layout__content__fichaProductos{
         padding-top:0;
     }
@@ -1246,6 +1250,7 @@
         z-index:5;
         position:absolute;
         top:0;
+        right:0;
     }
 
     .opcion__ordenamiento__dropdown--desplegado:before{
