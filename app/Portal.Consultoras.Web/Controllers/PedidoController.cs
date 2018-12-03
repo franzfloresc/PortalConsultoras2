@@ -545,6 +545,11 @@ namespace Portal.Consultoras.Web.Controllers
                 mensajeError = ValidarCantidadEnProgramaNuevas(model.CUV, Convert.ToInt32(model.Cantidad));
                 if (mensajeError != "") return ErrorJson(mensajeError, true);
             }
+            else
+            {
+                mensajeError = ValidarStockLimiteVenta(model.CUV, Convert.ToInt32(model.Cantidad));
+                if (mensajeError != "") return ErrorJson(mensajeError, true);
+            }
 
             mensajeError = ValidarStockArmaTuPackMensaje(model.CUV, Convert.ToInt32(model.Cantidad));
             if (mensajeError != "") return ErrorJson(mensajeError, true);
@@ -1136,7 +1141,7 @@ namespace Portal.Consultoras.Web.Controllers
         private bool ValidarEsAgregado(BEPedidoWebDetalle pedidoAgrupado)
         {
             var listaPedidoWebDetalleAgrupado = ObtenerPedidoWebSetDetalleAgrupado();
-            return listaPedidoWebDetalleAgrupado.Count(x => x.EstrategiaId == pedidoAgrupado.EstrategiaId) > 0;
+            return listaPedidoWebDetalleAgrupado.Any(x => x.EstrategiaId == pedidoAgrupado.EstrategiaId);
         }
 
         private string GetObservacionesProlPorCuv(string cuv)
@@ -1512,6 +1517,8 @@ namespace Portal.Consultoras.Web.Controllers
                         CrearLogProgNuevas("ProgNuevas: ValidarStockEstrategia", CUV);
                         mensaje = ValidarCantidadEnProgramaNuevas(CUV, Convert.ToInt32(Cantidad));
                     }
+                    else mensaje = ValidarStockLimiteVenta(CUV, intCantidad);
+
                     if (mensaje == "") mensaje = ValidarStockEstrategiaMensaje(CUV, intCantidad, TipoOferta.ToInt32Secure());
                     if (mensaje == "") mensaje = ValidarStockArmaTuPackMensaje(CUV, intCantidad);
                     valido = mensaje == "";
@@ -4435,6 +4442,28 @@ namespace Portal.Consultoras.Web.Controllers
             return mensaje;
         }
 
+        private string ValidarStockLimiteVenta(string cuv, int cantidad)
+        {
+            string mensaje = "";
+
+            try
+            {
+                BERespValidarLimiteVenta respValidar;
+                var cantidadActual = ObtenerPedidoWebDetalle().Where(d => d.CUV == cuv).Sum(d => d.Cantidad);
+                
+                using (var sv = new ODSServiceClient())
+                {
+                    respValidar = sv.CuvTieneLimiteVenta(userData.PaisID, userData.CampaniaID, userData.CodigorRegion, userData.CodigoZona, cuv, cantidad, cantidadActual);
+                }
+                if (respValidar.TieneLimite) mensaje = string.Format(Constantes.MensajesError.ExcedioLimiteVenta, respValidar.UnidadesMaximas);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+            return mensaje;
+        }
+
         private JsonResult AgregarProductoVC(string listaCuvTonos, string Cantidad, string OrigenPedidoWeb, string ClienteID_ = "")
         {
             try
@@ -4562,7 +4591,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 valor = svc.ValidarCantidadMaximaProgramaNuevas(userData.PaisID, userData.CampaniaID, userData.ConsecutivoNueva, userData.CodigoPrograma, cantidadPedido, cuvingresado, cantidadIngresada);
             }
-            if (valor != 0) return string.Format(Constantes.ProgNuevas.Mensaje.ExcedeLimiteUnidades, valor);
+            if (valor != 0) return string.Format(Constantes.MensajesError.ExcedioLimiteVenta, valor);
 
             return "";
         }
