@@ -212,19 +212,16 @@
     //// Ini - Analytic Carrusel
     ////////////////////////////////////////////////////////////////////
     var _marcarAnalyticsAfterChange = function (event, slick, currentSlide, seccionName) {
-        console.log('_marcar AnalyticsAfter Change', event, slick, currentSlide, seccionName);
         if (typeof AnalyticsPortalModule !== "undefined") {
             //var pos = isMobile() ? 1 : 2;
             var pos = $(_elementos.divCarruselProducto).find(".slick-active").length;
             var slideToMark = currentSlide + pos;
             var item = slick.$slides[slideToMark];
-            console.log('_marcar AnalyticsAfter Change', slideToMark, item);
             var estrategia = $($(item).find("[data-estrategia]")[0]).data("estrategia") || "";
             if (estrategia !== "") {
                 var obj = {
                     lista: Array(estrategia)
                 };
-                console.log('_marcar AnalyticsAfter Change - MarcaGenericaLista', seccionName, obj);
                 AnalyticsPortalModule.MarcaGenericaLista(seccionName, obj, 1);
             }
         }

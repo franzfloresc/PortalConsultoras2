@@ -718,21 +718,17 @@ function ShowOrHide_Arrows(event, slick, currentSlide) {
 // Ini - Render Carrusel Analytics
 
 //Función para marcar los productos en el carrusel de una palanca (en este caso Mas Ganadoras - MG)
+// Este metodo es igual al de Carrusel Module _marcarAnalyticsAfterChange
 function AnalyticsCarouselAfterChange(event, slick, currentSlide, seccionName) {
-    console.log('AnalyticsCarouselAfterChange', event, slick, currentSlide, seccionName);
-    var pos = isMobile() ? 1 : 2;
-    var slideToMark = currentSlide + pos;
-    var item = slick.$slides[slideToMark];
-    //var item = (event.target).find('[data-slick-index]')[slideToMark];
-    console.log('AnalyticsCarouselAfterChange',slideToMark, item);
-    var estrategia = $($(item).find("[data-estrategia]")[0]).data("estrategia");
-    estrategia = estrategia || "";
-    if (estrategia !== "") {
-        var obj = {
-            lista: Array(estrategia)
-        };
-        if (typeof AnalyticsPortalModule !== "undefined") {
-            console.log('Analytics CarouselAfter Change - MarcaGenericaLista', seccionName, obj);
+    if (typeof AnalyticsPortalModule !== "undefined") {
+        var pos = isMobile() ? 1 : 2;
+        var slideToMark = currentSlide + pos;
+        var item = slick.$slides[slideToMark];
+        var estrategia = $($(item).find("[data-estrategia]")[0]).data("estrategia") || "";
+        if (estrategia !== "") {
+            var obj = {
+                lista: Array(estrategia)
+            };
             AnalyticsPortalModule.MarcaGenericaLista(seccionName, obj, 1);
         }
     }
