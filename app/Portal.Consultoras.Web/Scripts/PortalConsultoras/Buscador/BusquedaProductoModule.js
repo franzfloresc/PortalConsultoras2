@@ -358,7 +358,7 @@
             _config.precio = filtroPrecio;
 
             if (_config.isMobile) {
-                $(_elementos.preCargaFiltros).css('width', 90 + '%');
+                $(_elementos.preCargaFiltros).css({'width': 90 + '%', 'max-width': '280px'});
             }
 
             _funciones.CargarProductos();
@@ -527,6 +527,7 @@
             }, 150);
             if (_config.isMobile) {
                 $(_elementos.filtroBtnMobileWrapper).removeClass('filtro__btn__mobile__wrapper--fixed');
+                $(_elementos.preCargaFiltros).css({ 'width': '', 'max-width': '' });
             }
             $(_elementos.backgroundAlMostrarFiltrosMobile).fadeOut(100);
             setTimeout(function () {
