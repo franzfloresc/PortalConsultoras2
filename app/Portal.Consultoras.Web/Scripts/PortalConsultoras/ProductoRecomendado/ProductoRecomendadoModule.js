@@ -11,7 +11,7 @@
         isMobile: window.matchMedia("(max-width:991px)").matches
     };
     var _provider = {
-        RecomendacionesPromise: function(params) {
+        RecomendacionesPromise: function (params) {
             var dfd = jQuery.Deferred();
 
             jQuery.ajax({
@@ -22,13 +22,12 @@
                 data: JSON.stringify(params),
                 async: true,
                 cache: false,
-                success: function(data) {
+                success: function (data) {
                     dfd.resolve(data);
-                    
                     if (!(typeof AnalyticsPortalModule === 'undefined'))
-                        AnalyticsPortalModule.MarcaProductImpressionRecomendaciones(data);
+                        AnalyticsPortalModule.MarcaProductImpressionRecomendaciones(data, _config.isMobile,0);
                 },
-                error: function(data, error) {
+                error: function (data, error) {
                     dfd.reject(data, error);
                 }
             });
@@ -40,7 +39,7 @@
             $(document).on("click", _elementos.noMostrarProductosRecomendados, _eventos.OcultarProductosRecomendados);
             $(document).on("click", _elementos.botonAgregar, _eventos.AgregarProductoRecomendado);
         },
-       
+
         ArmarCarruselProductosRecomendados: function () {
             var carrusel = $('#carouselProductosRecomendados');
 
@@ -79,13 +78,15 @@
                 }
 
                 if (!(typeof AnalyticsPortalModule === 'undefined'))
-                    AnalyticsPortalModule.MarcaRecomendacionesFlechaAnterior();
-
-            }).on('afterChange', function(event, slick, currentSlide) {
-                //$('.previous').hide();
-                //marcaRecomendacionesFlechaSiguiente
-                if (!(typeof AnalyticsPortalModule === 'undefined'))
                     AnalyticsPortalModule.MarcaRecomendacionesFlechaSiguiente();
+
+                if (!(typeof AnalyticsPortalModule === 'undefined'))
+                    AnalyticsPortalModule.MarcaProductImpressionRecomendaciones(data, _config.isMobile, nextSlide);
+
+            }).on('afterChange', function (event, slick, currentSlide) {
+               
+                if (!(typeof AnalyticsPortalModule === 'undefined'))
+                    AnalyticsPortalModule.MarcaRecomendacionesFlechaAnterior();
             });
         },
         ArmarCarruselProductosRecomendadosMobile: function () {
@@ -105,11 +106,20 @@
                 speed: 300,
                 variableWidth: true,
                 prevArrow: '',
-                nextArrow: '' 
+                nextArrow: ''
             }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
+                
+                nextSlide == slick.slideCount - 2;
+
                 if (!(typeof AnalyticsPortalModule === 'undefined'))
                     AnalyticsPortalModule.MarcaRecomendacionesFlechaAnterior();
+
+                if (!(typeof AnalyticsPortalModule === 'undefined'))
+                    AnalyticsPortalModule.MarcaProductImpressionRecomendaciones(data, _config.isMobile, nextSlide);
+
             }).on('afterChange', function (event, slick, currentSlide) {
+
+                
                 if (!(typeof AnalyticsPortalModule === 'undefined'))
                     AnalyticsPortalModule.MarcaRecomendacionesFlechaSiguiente();
             });
@@ -134,12 +144,12 @@
                         }
                         _eventos.MostrarProductosRecomendados();
                     }
-                    
+
                 }).fail(function (data, error) {
 
                 });
         },
-        OcultarSeccionRecomendados: function(e) {
+        OcultarSeccionRecomendados: function (e) {
             $(_elementos.divProducto).slideUp(200);
         }
     };
@@ -159,21 +169,21 @@
             e.preventDefault();
             AbrirLoad();
             var divPadre = $(this).parents("[data-item='ProductoRecomendadoBuscador']").eq(0);
-                                  
+
             if (!(typeof AnalyticsPortalModule === 'undefined'))
                 AnalyticsPortalModule.MarcaAnadirCarritoRecomendaciones(divPadre, _elementos.valueJSON);
 
             BuscadorProvider.RegistroProductoBuscador(divPadre, _elementos.valueJSON);
         }
     };
-    
+
     //Public functions
     function ObtenerProductos(cuv, codigoProducto) {
         _funciones.ObtenerProductos(cuv, codigoProducto);
     }
     function Inicializar() {
         _funciones.InicializarEventos();
-       // _funciones.ArmarCarruselProductosRecomendados();
+        // _funciones.ArmarCarruselProductosRecomendados();
     }
     function OcultarProductosRecomendados() {
         _funciones.OcultarSeccionRecomendados();

@@ -2547,19 +2547,22 @@ var AnalyticsPortalModule = (function () {
     // Inicio - Analytics Buscador
     ////////////////////////////////////////////////////////////////////////////////////////
 
-    var marcaProductImpressionRecomendaciones = function (data) {
+    var marcaProductImpressionRecomendaciones = function (data, isMobile, next) {
         try {
+
+            var cantidadMostrar = isMobile ? 2 : 3;
+
+            console.log(cantidadMostrar);
 
             var lista = data.Productos;
 
-            var cantidadMostrar = data.Total;
-            var contenedor = _texto.contenedor;
-
             var impressions = [];
-            $.each(lista, function (index) {
-                if (index == cantidadMostrar)
-                    return false;
-                var item = lista[index];
+
+            if (next > 0) {
+
+                cantidadMostrar = cantidadMostrar + next;
+                               
+                var item = lista[cantidadMostrar];
                 var impression = {
                     //'id': item.CUV
                     'name': item.DescripcionCompleta,
@@ -2572,7 +2575,28 @@ var AnalyticsPortalModule = (function () {
                     'position': index + 1
                 };
                 impressions.push(impression);
-            });
+
+            }
+            else {
+                $.each(lista, function (index) {
+                    if (index == cantidadMostrar)
+                        return false;
+                    var item = lista[index];
+                    var impression = {
+                        //'id': item.CUV
+                        'name': item.DescripcionCompleta,
+                        'id': item.CUV,
+                        'price': parseFloat(item.Precio).toFixed(2).toString(),
+                        'brand': _getMarca(item.MarcaId),
+                        'category': _texto.notavaliable,
+                        'variant': _texto.estandar,
+                        'list': 'Pedido - Ofertas Relacionadas',
+                        'position': index + 1
+                    };
+                    impressions.push(impression);
+                });
+            }
+
 
             dataLayer.push({
                 'event': _evento.productImpression,
