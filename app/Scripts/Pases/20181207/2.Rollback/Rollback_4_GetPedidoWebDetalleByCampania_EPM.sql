@@ -1,10 +1,9 @@
 ﻿GO
 USE BelcorpPeru
 GO
-GO
 
 ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByCampania]
-	 @CampaniaID INT
+	@CampaniaID INT
 	,@ConsultoraID BIGINT
 	,@CodigoPrograma VARCHAR(15) = NULL
 	,@NumeroPedido INT = 0
@@ -222,13 +221,9 @@ BEGIN
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
 
-		IF @CodigoPrograma IS NOT NULL
-		BEGIN
-			DELETE
-			FROM @Estrategia2
-			WHERE ISNULL(CodigoPrograma, '') <> ''
-				AND Numeropedido <> @NumeroPedido
-		END
+		DELETE
+		FROM @Estrategia2
+		WHERE ISNULL(CodigoPrograma, '') <> '' AND Numeropedido <> @NumeroPedido
 
 		SELECT *
 		FROM (
@@ -571,13 +566,9 @@ BEGIN
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
 
-		IF @CodigoPrograma IS NOT NULL
-		BEGIN
-			DELETE
-			FROM @Estrategia
-			WHERE ISNULL(CodigoPrograma, '') <> ''
-				AND Numeropedido <> @NumeroPedido
-		END
+		DELETE
+		FROM @Estrategia
+		WHERE ISNULL(CodigoPrograma, '') <> '' AND Numeropedido <> @NumeroPedido
 
 		SELECT PWD.CampaniaID
 			,PWD.PedidoID
@@ -632,15 +623,13 @@ BEGIN
 			,PWD.PedidoDetalleID DESC
 	END
 END
-go
 
 GO
 USE BelcorpMexico
 GO
-GO
 
 ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByCampania]
-	 @CampaniaID INT
+	@CampaniaID INT
 	,@ConsultoraID BIGINT
 	,@CodigoPrograma VARCHAR(15) = NULL
 	,@NumeroPedido INT = 0
@@ -858,13 +847,9 @@ BEGIN
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
 
-		IF @CodigoPrograma IS NOT NULL
-		BEGIN
-			DELETE
-			FROM @Estrategia2
-			WHERE ISNULL(CodigoPrograma, '') <> ''
-				AND Numeropedido <> @NumeroPedido
-		END
+		DELETE
+		FROM @Estrategia2
+		WHERE ISNULL(CodigoPrograma, '') <> '' AND Numeropedido <> @NumeroPedido
 
 		SELECT *
 		FROM (
@@ -1207,13 +1192,9 @@ BEGIN
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
 
-		IF @CodigoPrograma IS NOT NULL
-		BEGIN
-			DELETE
-			FROM @Estrategia
-			WHERE ISNULL(CodigoPrograma, '') <> ''
-				AND Numeropedido <> @NumeroPedido
-		END
+		DELETE
+		FROM @Estrategia
+		WHERE ISNULL(CodigoPrograma, '') <> '' AND Numeropedido <> @NumeroPedido
 
 		SELECT PWD.CampaniaID
 			,PWD.PedidoID
@@ -1268,15 +1249,13 @@ BEGIN
 			,PWD.PedidoDetalleID DESC
 	END
 END
-go
 
 GO
 USE BelcorpColombia
 GO
-GO
 
 ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByCampania]
-	 @CampaniaID INT
+	@CampaniaID INT
 	,@ConsultoraID BIGINT
 	,@CodigoPrograma VARCHAR(15) = NULL
 	,@NumeroPedido INT = 0
@@ -1494,13 +1473,9 @@ BEGIN
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
 
-		IF @CodigoPrograma IS NOT NULL
-		BEGIN
-			DELETE
-			FROM @Estrategia2
-			WHERE ISNULL(CodigoPrograma, '') <> ''
-				AND Numeropedido <> @NumeroPedido
-		END
+		DELETE
+		FROM @Estrategia2
+		WHERE ISNULL(CodigoPrograma, '') <> '' AND Numeropedido <> @NumeroPedido
 
 		SELECT *
 		FROM (
@@ -1843,13 +1818,9 @@ BEGIN
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
 
-		IF @CodigoPrograma IS NOT NULL
-		BEGIN
-			DELETE
-			FROM @Estrategia
-			WHERE ISNULL(CodigoPrograma, '') <> ''
-				AND Numeropedido <> @NumeroPedido
-		END
+		DELETE
+		FROM @Estrategia
+		WHERE ISNULL(CodigoPrograma, '') <> '' AND Numeropedido <> @NumeroPedido
 
 		SELECT PWD.CampaniaID
 			,PWD.PedidoID
@@ -1904,15 +1875,13 @@ BEGIN
 			,PWD.PedidoDetalleID DESC
 	END
 END
-go
 
 GO
 USE BelcorpSalvador
 GO
-GO
 
 ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByCampania]
-	 @CampaniaID INT
+	@CampaniaID INT
 	,@ConsultoraID BIGINT
 	,@CodigoPrograma VARCHAR(15) = NULL
 	,@NumeroPedido INT = 0
@@ -2130,13 +2099,9 @@ BEGIN
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
 
-		IF @CodigoPrograma IS NOT NULL
-		BEGIN
-			DELETE
-			FROM @Estrategia2
-			WHERE ISNULL(CodigoPrograma, '') <> ''
-				AND Numeropedido <> @NumeroPedido
-		END
+		DELETE
+		FROM @Estrategia2
+		WHERE ISNULL(CodigoPrograma, '') <> '' AND Numeropedido <> @NumeroPedido
 
 		SELECT *
 		FROM (
@@ -2479,13 +2444,9 @@ BEGIN
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
 
-		IF @CodigoPrograma IS NOT NULL
-		BEGIN
-			DELETE
-			FROM @Estrategia
-			WHERE ISNULL(CodigoPrograma, '') <> ''
-				AND Numeropedido <> @NumeroPedido
-		END
+		DELETE
+		FROM @Estrategia
+		WHERE ISNULL(CodigoPrograma, '') <> '' AND Numeropedido <> @NumeroPedido
 
 		SELECT PWD.CampaniaID
 			,PWD.PedidoID
@@ -2540,15 +2501,13 @@ BEGIN
 			,PWD.PedidoDetalleID DESC
 	END
 END
-go
 
 GO
 USE BelcorpPuertoRico
 GO
-GO
 
 ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByCampania]
-	 @CampaniaID INT
+	@CampaniaID INT
 	,@ConsultoraID BIGINT
 	,@CodigoPrograma VARCHAR(15) = NULL
 	,@NumeroPedido INT = 0
@@ -2766,13 +2725,9 @@ BEGIN
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
 
-		IF @CodigoPrograma IS NOT NULL
-		BEGIN
-			DELETE
-			FROM @Estrategia2
-			WHERE ISNULL(CodigoPrograma, '') <> ''
-				AND Numeropedido <> @NumeroPedido
-		END
+		DELETE
+		FROM @Estrategia2
+		WHERE ISNULL(CodigoPrograma, '') <> '' AND Numeropedido <> @NumeroPedido
 
 		SELECT *
 		FROM (
@@ -3115,13 +3070,9 @@ BEGIN
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
 
-		IF @CodigoPrograma IS NOT NULL
-		BEGIN
-			DELETE
-			FROM @Estrategia
-			WHERE ISNULL(CodigoPrograma, '') <> ''
-				AND Numeropedido <> @NumeroPedido
-		END
+		DELETE
+		FROM @Estrategia
+		WHERE ISNULL(CodigoPrograma, '') <> '' AND Numeropedido <> @NumeroPedido
 
 		SELECT PWD.CampaniaID
 			,PWD.PedidoID
@@ -3176,15 +3127,13 @@ BEGIN
 			,PWD.PedidoDetalleID DESC
 	END
 END
-go
 
 GO
 USE BelcorpPanama
 GO
-GO
 
 ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByCampania]
-	 @CampaniaID INT
+	@CampaniaID INT
 	,@ConsultoraID BIGINT
 	,@CodigoPrograma VARCHAR(15) = NULL
 	,@NumeroPedido INT = 0
@@ -3402,13 +3351,9 @@ BEGIN
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
 
-		IF @CodigoPrograma IS NOT NULL
-		BEGIN
-			DELETE
-			FROM @Estrategia2
-			WHERE ISNULL(CodigoPrograma, '') <> ''
-				AND Numeropedido <> @NumeroPedido
-		END
+		DELETE
+		FROM @Estrategia2
+		WHERE ISNULL(CodigoPrograma, '') <> '' AND Numeropedido <> @NumeroPedido
 
 		SELECT *
 		FROM (
@@ -3751,13 +3696,9 @@ BEGIN
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
 
-		IF @CodigoPrograma IS NOT NULL
-		BEGIN
-			DELETE
-			FROM @Estrategia
-			WHERE ISNULL(CodigoPrograma, '') <> ''
-				AND Numeropedido <> @NumeroPedido
-		END
+		DELETE
+		FROM @Estrategia
+		WHERE ISNULL(CodigoPrograma, '') <> '' AND Numeropedido <> @NumeroPedido
 
 		SELECT PWD.CampaniaID
 			,PWD.PedidoID
@@ -3812,15 +3753,13 @@ BEGIN
 			,PWD.PedidoDetalleID DESC
 	END
 END
-go
 
 GO
 USE BelcorpGuatemala
 GO
-GO
 
 ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByCampania]
-	 @CampaniaID INT
+	@CampaniaID INT
 	,@ConsultoraID BIGINT
 	,@CodigoPrograma VARCHAR(15) = NULL
 	,@NumeroPedido INT = 0
@@ -4038,13 +3977,9 @@ BEGIN
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
 
-		IF @CodigoPrograma IS NOT NULL
-		BEGIN
-			DELETE
-			FROM @Estrategia2
-			WHERE ISNULL(CodigoPrograma, '') <> ''
-				AND Numeropedido <> @NumeroPedido
-		END
+		DELETE
+		FROM @Estrategia2
+		WHERE ISNULL(CodigoPrograma, '') <> '' AND Numeropedido <> @NumeroPedido
 
 		SELECT *
 		FROM (
@@ -4387,13 +4322,9 @@ BEGIN
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
 
-		IF @CodigoPrograma IS NOT NULL
-		BEGIN
-			DELETE
-			FROM @Estrategia
-			WHERE ISNULL(CodigoPrograma, '') <> ''
-				AND Numeropedido <> @NumeroPedido
-		END
+		DELETE
+		FROM @Estrategia
+		WHERE ISNULL(CodigoPrograma, '') <> '' AND Numeropedido <> @NumeroPedido
 
 		SELECT PWD.CampaniaID
 			,PWD.PedidoID
@@ -4448,15 +4379,13 @@ BEGIN
 			,PWD.PedidoDetalleID DESC
 	END
 END
-go
 
 GO
 USE BelcorpEcuador
 GO
-GO
 
 ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByCampania]
-	 @CampaniaID INT
+	@CampaniaID INT
 	,@ConsultoraID BIGINT
 	,@CodigoPrograma VARCHAR(15) = NULL
 	,@NumeroPedido INT = 0
@@ -4674,13 +4603,9 @@ BEGIN
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
 
-		IF @CodigoPrograma IS NOT NULL
-		BEGIN
-			DELETE
-			FROM @Estrategia2
-			WHERE ISNULL(CodigoPrograma, '') <> ''
-				AND Numeropedido <> @NumeroPedido
-		END
+		DELETE
+		FROM @Estrategia2
+		WHERE ISNULL(CodigoPrograma, '') <> '' AND Numeropedido <> @NumeroPedido
 
 		SELECT *
 		FROM (
@@ -5023,13 +4948,9 @@ BEGIN
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
 
-		IF @CodigoPrograma IS NOT NULL
-		BEGIN
-			DELETE
-			FROM @Estrategia
-			WHERE ISNULL(CodigoPrograma, '') <> ''
-				AND Numeropedido <> @NumeroPedido
-		END
+		DELETE
+		FROM @Estrategia
+		WHERE ISNULL(CodigoPrograma, '') <> '' AND Numeropedido <> @NumeroPedido
 
 		SELECT PWD.CampaniaID
 			,PWD.PedidoID
@@ -5084,15 +5005,13 @@ BEGIN
 			,PWD.PedidoDetalleID DESC
 	END
 END
-go
 
 GO
 USE BelcorpDominicana
 GO
-GO
 
 ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByCampania]
-	 @CampaniaID INT
+	@CampaniaID INT
 	,@ConsultoraID BIGINT
 	,@CodigoPrograma VARCHAR(15) = NULL
 	,@NumeroPedido INT = 0
@@ -5310,13 +5229,9 @@ BEGIN
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
 
-		IF @CodigoPrograma IS NOT NULL
-		BEGIN
-			DELETE
-			FROM @Estrategia2
-			WHERE ISNULL(CodigoPrograma, '') <> ''
-				AND Numeropedido <> @NumeroPedido
-		END
+		DELETE
+		FROM @Estrategia2
+		WHERE ISNULL(CodigoPrograma, '') <> '' AND Numeropedido <> @NumeroPedido
 
 		SELECT *
 		FROM (
@@ -5659,13 +5574,9 @@ BEGIN
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
 
-		IF @CodigoPrograma IS NOT NULL
-		BEGIN
-			DELETE
-			FROM @Estrategia
-			WHERE ISNULL(CodigoPrograma, '') <> ''
-				AND Numeropedido <> @NumeroPedido
-		END
+		DELETE
+		FROM @Estrategia
+		WHERE ISNULL(CodigoPrograma, '') <> '' AND Numeropedido <> @NumeroPedido
 
 		SELECT PWD.CampaniaID
 			,PWD.PedidoID
@@ -5720,15 +5631,13 @@ BEGIN
 			,PWD.PedidoDetalleID DESC
 	END
 END
-go
 
 GO
 USE BelcorpCostaRica
 GO
-GO
 
 ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByCampania]
-	 @CampaniaID INT
+	@CampaniaID INT
 	,@ConsultoraID BIGINT
 	,@CodigoPrograma VARCHAR(15) = NULL
 	,@NumeroPedido INT = 0
@@ -5946,13 +5855,9 @@ BEGIN
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
 
-		IF @CodigoPrograma IS NOT NULL
-		BEGIN
-			DELETE
-			FROM @Estrategia2
-			WHERE ISNULL(CodigoPrograma, '') <> ''
-				AND Numeropedido <> @NumeroPedido
-		END
+		DELETE
+		FROM @Estrategia2
+		WHERE ISNULL(CodigoPrograma, '') <> '' AND Numeropedido <> @NumeroPedido
 
 		SELECT *
 		FROM (
@@ -6295,13 +6200,9 @@ BEGIN
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
 
-		IF @CodigoPrograma IS NOT NULL
-		BEGIN
-			DELETE
-			FROM @Estrategia
-			WHERE ISNULL(CodigoPrograma, '') <> ''
-				AND Numeropedido <> @NumeroPedido
-		END
+		DELETE
+		FROM @Estrategia
+		WHERE ISNULL(CodigoPrograma, '') <> '' AND Numeropedido <> @NumeroPedido
 
 		SELECT PWD.CampaniaID
 			,PWD.PedidoID
@@ -6356,15 +6257,13 @@ BEGIN
 			,PWD.PedidoDetalleID DESC
 	END
 END
-go
 
 GO
 USE BelcorpChile
 GO
-GO
 
 ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByCampania]
-	 @CampaniaID INT
+	@CampaniaID INT
 	,@ConsultoraID BIGINT
 	,@CodigoPrograma VARCHAR(15) = NULL
 	,@NumeroPedido INT = 0
@@ -6582,13 +6481,9 @@ BEGIN
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
 
-		IF @CodigoPrograma IS NOT NULL
-		BEGIN
-			DELETE
-			FROM @Estrategia2
-			WHERE ISNULL(CodigoPrograma, '') <> ''
-				AND Numeropedido <> @NumeroPedido
-		END
+		DELETE
+		FROM @Estrategia2
+		WHERE ISNULL(CodigoPrograma, '') <> '' AND Numeropedido <> @NumeroPedido
 
 		SELECT *
 		FROM (
@@ -6931,13 +6826,9 @@ BEGIN
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
 
-		IF @CodigoPrograma IS NOT NULL
-		BEGIN
-			DELETE
-			FROM @Estrategia
-			WHERE ISNULL(CodigoPrograma, '') <> ''
-				AND Numeropedido <> @NumeroPedido
-		END
+		DELETE
+		FROM @Estrategia
+		WHERE ISNULL(CodigoPrograma, '') <> '' AND Numeropedido <> @NumeroPedido
 
 		SELECT PWD.CampaniaID
 			,PWD.PedidoID
@@ -6992,15 +6883,13 @@ BEGIN
 			,PWD.PedidoDetalleID DESC
 	END
 END
-go
 
 GO
 USE BelcorpBolivia
 GO
-GO
 
 ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByCampania]
-	 @CampaniaID INT
+	@CampaniaID INT
 	,@ConsultoraID BIGINT
 	,@CodigoPrograma VARCHAR(15) = NULL
 	,@NumeroPedido INT = 0
@@ -7218,13 +7107,9 @@ BEGIN
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
 
-		IF @CodigoPrograma IS NOT NULL
-		BEGIN
-			DELETE
-			FROM @Estrategia2
-			WHERE ISNULL(CodigoPrograma, '') <> ''
-				AND Numeropedido <> @NumeroPedido
-		END
+		DELETE
+		FROM @Estrategia2
+		WHERE ISNULL(CodigoPrograma, '') <> '' AND Numeropedido <> @NumeroPedido
 
 		SELECT *
 		FROM (
@@ -7567,13 +7452,9 @@ BEGIN
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
 
-		IF @CodigoPrograma IS NOT NULL
-		BEGIN
-			DELETE
-			FROM @Estrategia
-			WHERE ISNULL(CodigoPrograma, '') <> ''
-				AND Numeropedido <> @NumeroPedido
-		END
+		DELETE
+		FROM @Estrategia
+		WHERE ISNULL(CodigoPrograma, '') <> '' AND Numeropedido <> @NumeroPedido
 
 		SELECT PWD.CampaniaID
 			,PWD.PedidoID
@@ -7628,6 +7509,5 @@ BEGIN
 			,PWD.PedidoDetalleID DESC
 	END
 END
-go
 
 GO
