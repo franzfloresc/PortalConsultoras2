@@ -3,7 +3,7 @@ USE BelcorpPeru
 GO
 
 ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByCampania]
-	 @CampaniaID INT
+	@CampaniaID INT
 	,@ConsultoraID BIGINT
 	,@CodigoPrograma VARCHAR(15) = NULL
 	,@NumeroPedido INT = 0
@@ -189,7 +189,7 @@ BEGIN
 			AND E.CUV2 = PWD.CUV
 			AND E.Activo = 1
 			AND PWD.CodigoTipoEstrategia NOT IN (
-				'001','030','008','007','005','010','009'
+				'001','030','008','007','005','010'
 				)
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
@@ -216,18 +216,14 @@ BEGIN
 			AND EP.CUV = PWD.CUV
 			AND EP.CUV2 != PWD.CUV
 			AND PWD.CodigoTipoEstrategia NOT IN (
-				'001','030','008','007','005','010','009'
+				'001','030','008','007','005','010'
 				)
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
 
-		IF @CodigoPrograma IS NOT NULL
-		BEGIN
-			DELETE
-			FROM @Estrategia2
-			WHERE ISNULL(CodigoPrograma, '') <> ''
-				AND Numeropedido <> @NumeroPedido
-		END
+		DELETE
+		FROM @Estrategia2
+		WHERE ISNULL(CodigoPrograma, '') <> '' AND Numeropedido <> @NumeroPedido
 
 		SELECT *
 		FROM (
@@ -282,7 +278,7 @@ BEGIN
 			LEFT JOIN @Estrategia2 EST ON EST.CUV2 = PWD.CUV
 				AND PWD.TipoEstrategiaID = EST.TipoEstrategiaID
 			WHERE PWD.CodigoTipoEstrategia NOT IN (
-					'001','030','008','007','005','010','009'
+					'001','030','008','007','005','010'
 					)
 
 			UNION
@@ -345,7 +341,7 @@ BEGIN
 			WHERE PWS.Campania = @CampaniaID
 				AND PWS.ConsultoraID = @ConsultoraID
 				AND PWD.CodigoTipoEstrategia IN (
-					'001','030','008','007','005','010','009'
+					'001','030','008','007','005','010'
 					)
 			GROUP BY PWS.Campania
 				,PWS.PedidoID
@@ -570,13 +566,9 @@ BEGIN
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
 
-		IF @CodigoPrograma IS NOT NULL
-		BEGIN
-			DELETE
-			FROM @Estrategia
-			WHERE ISNULL(CodigoPrograma, '') <> ''
-				AND Numeropedido <> @NumeroPedido
-		END
+		DELETE
+		FROM @Estrategia
+		WHERE ISNULL(CodigoPrograma, '') <> '' AND Numeropedido <> @NumeroPedido
 
 		SELECT PWD.CampaniaID
 			,PWD.PedidoID
@@ -631,14 +623,13 @@ BEGIN
 			,PWD.PedidoDetalleID DESC
 	END
 END
-
 
 GO
 USE BelcorpMexico
 GO
 
 ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByCampania]
-	 @CampaniaID INT
+	@CampaniaID INT
 	,@ConsultoraID BIGINT
 	,@CodigoPrograma VARCHAR(15) = NULL
 	,@NumeroPedido INT = 0
@@ -824,7 +815,7 @@ BEGIN
 			AND E.CUV2 = PWD.CUV
 			AND E.Activo = 1
 			AND PWD.CodigoTipoEstrategia NOT IN (
-				'001','030','008','007','005','010','009'
+				'001','030','008','007','005','010'
 				)
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
@@ -851,18 +842,14 @@ BEGIN
 			AND EP.CUV = PWD.CUV
 			AND EP.CUV2 != PWD.CUV
 			AND PWD.CodigoTipoEstrategia NOT IN (
-				'001','030','008','007','005','010','009'
+				'001','030','008','007','005','010'
 				)
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
 
-		IF @CodigoPrograma IS NOT NULL
-		BEGIN
-			DELETE
-			FROM @Estrategia2
-			WHERE ISNULL(CodigoPrograma, '') <> ''
-				AND Numeropedido <> @NumeroPedido
-		END
+		DELETE
+		FROM @Estrategia2
+		WHERE ISNULL(CodigoPrograma, '') <> '' AND Numeropedido <> @NumeroPedido
 
 		SELECT *
 		FROM (
@@ -917,7 +904,7 @@ BEGIN
 			LEFT JOIN @Estrategia2 EST ON EST.CUV2 = PWD.CUV
 				AND PWD.TipoEstrategiaID = EST.TipoEstrategiaID
 			WHERE PWD.CodigoTipoEstrategia NOT IN (
-					'001','030','008','007','005','010','009'
+					'001','030','008','007','005','010'
 					)
 
 			UNION
@@ -980,7 +967,7 @@ BEGIN
 			WHERE PWS.Campania = @CampaniaID
 				AND PWS.ConsultoraID = @ConsultoraID
 				AND PWD.CodigoTipoEstrategia IN (
-					'001','030','008','007','005','010','009'
+					'001','030','008','007','005','010'
 					)
 			GROUP BY PWS.Campania
 				,PWS.PedidoID
@@ -1205,13 +1192,9 @@ BEGIN
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
 
-		IF @CodigoPrograma IS NOT NULL
-		BEGIN
-			DELETE
-			FROM @Estrategia
-			WHERE ISNULL(CodigoPrograma, '') <> ''
-				AND Numeropedido <> @NumeroPedido
-		END
+		DELETE
+		FROM @Estrategia
+		WHERE ISNULL(CodigoPrograma, '') <> '' AND Numeropedido <> @NumeroPedido
 
 		SELECT PWD.CampaniaID
 			,PWD.PedidoID
@@ -1266,14 +1249,13 @@ BEGIN
 			,PWD.PedidoDetalleID DESC
 	END
 END
-
 
 GO
 USE BelcorpColombia
 GO
 
 ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByCampania]
-	 @CampaniaID INT
+	@CampaniaID INT
 	,@ConsultoraID BIGINT
 	,@CodigoPrograma VARCHAR(15) = NULL
 	,@NumeroPedido INT = 0
@@ -1459,7 +1441,7 @@ BEGIN
 			AND E.CUV2 = PWD.CUV
 			AND E.Activo = 1
 			AND PWD.CodigoTipoEstrategia NOT IN (
-				'001','030','008','007','005','010','009'
+				'001','030','008','007','005','010'
 				)
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
@@ -1486,18 +1468,14 @@ BEGIN
 			AND EP.CUV = PWD.CUV
 			AND EP.CUV2 != PWD.CUV
 			AND PWD.CodigoTipoEstrategia NOT IN (
-				'001','030','008','007','005','010','009'
+				'001','030','008','007','005','010'
 				)
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
 
-		IF @CodigoPrograma IS NOT NULL
-		BEGIN
-			DELETE
-			FROM @Estrategia2
-			WHERE ISNULL(CodigoPrograma, '') <> ''
-				AND Numeropedido <> @NumeroPedido
-		END
+		DELETE
+		FROM @Estrategia2
+		WHERE ISNULL(CodigoPrograma, '') <> '' AND Numeropedido <> @NumeroPedido
 
 		SELECT *
 		FROM (
@@ -1552,7 +1530,7 @@ BEGIN
 			LEFT JOIN @Estrategia2 EST ON EST.CUV2 = PWD.CUV
 				AND PWD.TipoEstrategiaID = EST.TipoEstrategiaID
 			WHERE PWD.CodigoTipoEstrategia NOT IN (
-					'001','030','008','007','005','010','009'
+					'001','030','008','007','005','010'
 					)
 
 			UNION
@@ -1615,7 +1593,7 @@ BEGIN
 			WHERE PWS.Campania = @CampaniaID
 				AND PWS.ConsultoraID = @ConsultoraID
 				AND PWD.CodigoTipoEstrategia IN (
-					'001','030','008','007','005','010','009'
+					'001','030','008','007','005','010'
 					)
 			GROUP BY PWS.Campania
 				,PWS.PedidoID
@@ -1840,13 +1818,9 @@ BEGIN
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
 
-		IF @CodigoPrograma IS NOT NULL
-		BEGIN
-			DELETE
-			FROM @Estrategia
-			WHERE ISNULL(CodigoPrograma, '') <> ''
-				AND Numeropedido <> @NumeroPedido
-		END
+		DELETE
+		FROM @Estrategia
+		WHERE ISNULL(CodigoPrograma, '') <> '' AND Numeropedido <> @NumeroPedido
 
 		SELECT PWD.CampaniaID
 			,PWD.PedidoID
@@ -1901,14 +1875,13 @@ BEGIN
 			,PWD.PedidoDetalleID DESC
 	END
 END
-
 
 GO
 USE BelcorpSalvador
 GO
 
 ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByCampania]
-	 @CampaniaID INT
+	@CampaniaID INT
 	,@ConsultoraID BIGINT
 	,@CodigoPrograma VARCHAR(15) = NULL
 	,@NumeroPedido INT = 0
@@ -2094,7 +2067,7 @@ BEGIN
 			AND E.CUV2 = PWD.CUV
 			AND E.Activo = 1
 			AND PWD.CodigoTipoEstrategia NOT IN (
-				'001','030','008','007','005','010','009'
+				'001','030','008','007','005','010'
 				)
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
@@ -2121,18 +2094,14 @@ BEGIN
 			AND EP.CUV = PWD.CUV
 			AND EP.CUV2 != PWD.CUV
 			AND PWD.CodigoTipoEstrategia NOT IN (
-				'001','030','008','007','005','010','009'
+				'001','030','008','007','005','010'
 				)
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
 
-		IF @CodigoPrograma IS NOT NULL
-		BEGIN
-			DELETE
-			FROM @Estrategia2
-			WHERE ISNULL(CodigoPrograma, '') <> ''
-				AND Numeropedido <> @NumeroPedido
-		END
+		DELETE
+		FROM @Estrategia2
+		WHERE ISNULL(CodigoPrograma, '') <> '' AND Numeropedido <> @NumeroPedido
 
 		SELECT *
 		FROM (
@@ -2187,7 +2156,7 @@ BEGIN
 			LEFT JOIN @Estrategia2 EST ON EST.CUV2 = PWD.CUV
 				AND PWD.TipoEstrategiaID = EST.TipoEstrategiaID
 			WHERE PWD.CodigoTipoEstrategia NOT IN (
-					'001','030','008','007','005','010','009'
+					'001','030','008','007','005','010'
 					)
 
 			UNION
@@ -2250,7 +2219,7 @@ BEGIN
 			WHERE PWS.Campania = @CampaniaID
 				AND PWS.ConsultoraID = @ConsultoraID
 				AND PWD.CodigoTipoEstrategia IN (
-					'001','030','008','007','005','010','009'
+					'001','030','008','007','005','010'
 					)
 			GROUP BY PWS.Campania
 				,PWS.PedidoID
@@ -2475,13 +2444,9 @@ BEGIN
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
 
-		IF @CodigoPrograma IS NOT NULL
-		BEGIN
-			DELETE
-			FROM @Estrategia
-			WHERE ISNULL(CodigoPrograma, '') <> ''
-				AND Numeropedido <> @NumeroPedido
-		END
+		DELETE
+		FROM @Estrategia
+		WHERE ISNULL(CodigoPrograma, '') <> '' AND Numeropedido <> @NumeroPedido
 
 		SELECT PWD.CampaniaID
 			,PWD.PedidoID
@@ -2536,14 +2501,13 @@ BEGIN
 			,PWD.PedidoDetalleID DESC
 	END
 END
-
 
 GO
 USE BelcorpPuertoRico
 GO
 
 ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByCampania]
-	 @CampaniaID INT
+	@CampaniaID INT
 	,@ConsultoraID BIGINT
 	,@CodigoPrograma VARCHAR(15) = NULL
 	,@NumeroPedido INT = 0
@@ -2729,7 +2693,7 @@ BEGIN
 			AND E.CUV2 = PWD.CUV
 			AND E.Activo = 1
 			AND PWD.CodigoTipoEstrategia NOT IN (
-				'001','030','008','007','005','010','009'
+				'001','030','008','007','005','010'
 				)
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
@@ -2756,18 +2720,14 @@ BEGIN
 			AND EP.CUV = PWD.CUV
 			AND EP.CUV2 != PWD.CUV
 			AND PWD.CodigoTipoEstrategia NOT IN (
-				'001','030','008','007','005','010','009'
+				'001','030','008','007','005','010'
 				)
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
 
-		IF @CodigoPrograma IS NOT NULL
-		BEGIN
-			DELETE
-			FROM @Estrategia2
-			WHERE ISNULL(CodigoPrograma, '') <> ''
-				AND Numeropedido <> @NumeroPedido
-		END
+		DELETE
+		FROM @Estrategia2
+		WHERE ISNULL(CodigoPrograma, '') <> '' AND Numeropedido <> @NumeroPedido
 
 		SELECT *
 		FROM (
@@ -2822,7 +2782,7 @@ BEGIN
 			LEFT JOIN @Estrategia2 EST ON EST.CUV2 = PWD.CUV
 				AND PWD.TipoEstrategiaID = EST.TipoEstrategiaID
 			WHERE PWD.CodigoTipoEstrategia NOT IN (
-					'001','030','008','007','005','010','009'
+					'001','030','008','007','005','010'
 					)
 
 			UNION
@@ -2885,7 +2845,7 @@ BEGIN
 			WHERE PWS.Campania = @CampaniaID
 				AND PWS.ConsultoraID = @ConsultoraID
 				AND PWD.CodigoTipoEstrategia IN (
-					'001','030','008','007','005','010','009'
+					'001','030','008','007','005','010'
 					)
 			GROUP BY PWS.Campania
 				,PWS.PedidoID
@@ -3110,13 +3070,9 @@ BEGIN
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
 
-		IF @CodigoPrograma IS NOT NULL
-		BEGIN
-			DELETE
-			FROM @Estrategia
-			WHERE ISNULL(CodigoPrograma, '') <> ''
-				AND Numeropedido <> @NumeroPedido
-		END
+		DELETE
+		FROM @Estrategia
+		WHERE ISNULL(CodigoPrograma, '') <> '' AND Numeropedido <> @NumeroPedido
 
 		SELECT PWD.CampaniaID
 			,PWD.PedidoID
@@ -3171,14 +3127,13 @@ BEGIN
 			,PWD.PedidoDetalleID DESC
 	END
 END
-
 
 GO
 USE BelcorpPanama
 GO
 
 ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByCampania]
-	 @CampaniaID INT
+	@CampaniaID INT
 	,@ConsultoraID BIGINT
 	,@CodigoPrograma VARCHAR(15) = NULL
 	,@NumeroPedido INT = 0
@@ -3364,7 +3319,7 @@ BEGIN
 			AND E.CUV2 = PWD.CUV
 			AND E.Activo = 1
 			AND PWD.CodigoTipoEstrategia NOT IN (
-				'001','030','008','007','005','010','009'
+				'001','030','008','007','005','010'
 				)
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
@@ -3391,18 +3346,14 @@ BEGIN
 			AND EP.CUV = PWD.CUV
 			AND EP.CUV2 != PWD.CUV
 			AND PWD.CodigoTipoEstrategia NOT IN (
-				'001','030','008','007','005','010','009'
+				'001','030','008','007','005','010'
 				)
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
 
-		IF @CodigoPrograma IS NOT NULL
-		BEGIN
-			DELETE
-			FROM @Estrategia2
-			WHERE ISNULL(CodigoPrograma, '') <> ''
-				AND Numeropedido <> @NumeroPedido
-		END
+		DELETE
+		FROM @Estrategia2
+		WHERE ISNULL(CodigoPrograma, '') <> '' AND Numeropedido <> @NumeroPedido
 
 		SELECT *
 		FROM (
@@ -3457,7 +3408,7 @@ BEGIN
 			LEFT JOIN @Estrategia2 EST ON EST.CUV2 = PWD.CUV
 				AND PWD.TipoEstrategiaID = EST.TipoEstrategiaID
 			WHERE PWD.CodigoTipoEstrategia NOT IN (
-					'001','030','008','007','005','010','009'
+					'001','030','008','007','005','010'
 					)
 
 			UNION
@@ -3520,7 +3471,7 @@ BEGIN
 			WHERE PWS.Campania = @CampaniaID
 				AND PWS.ConsultoraID = @ConsultoraID
 				AND PWD.CodigoTipoEstrategia IN (
-					'001','030','008','007','005','010','009'
+					'001','030','008','007','005','010'
 					)
 			GROUP BY PWS.Campania
 				,PWS.PedidoID
@@ -3745,13 +3696,9 @@ BEGIN
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
 
-		IF @CodigoPrograma IS NOT NULL
-		BEGIN
-			DELETE
-			FROM @Estrategia
-			WHERE ISNULL(CodigoPrograma, '') <> ''
-				AND Numeropedido <> @NumeroPedido
-		END
+		DELETE
+		FROM @Estrategia
+		WHERE ISNULL(CodigoPrograma, '') <> '' AND Numeropedido <> @NumeroPedido
 
 		SELECT PWD.CampaniaID
 			,PWD.PedidoID
@@ -3806,14 +3753,13 @@ BEGIN
 			,PWD.PedidoDetalleID DESC
 	END
 END
-
 
 GO
 USE BelcorpGuatemala
 GO
 
 ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByCampania]
-	 @CampaniaID INT
+	@CampaniaID INT
 	,@ConsultoraID BIGINT
 	,@CodigoPrograma VARCHAR(15) = NULL
 	,@NumeroPedido INT = 0
@@ -3999,7 +3945,7 @@ BEGIN
 			AND E.CUV2 = PWD.CUV
 			AND E.Activo = 1
 			AND PWD.CodigoTipoEstrategia NOT IN (
-				'001','030','008','007','005','010','009'
+				'001','030','008','007','005','010'
 				)
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
@@ -4026,18 +3972,14 @@ BEGIN
 			AND EP.CUV = PWD.CUV
 			AND EP.CUV2 != PWD.CUV
 			AND PWD.CodigoTipoEstrategia NOT IN (
-				'001','030','008','007','005','010','009'
+				'001','030','008','007','005','010'
 				)
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
 
-		IF @CodigoPrograma IS NOT NULL
-		BEGIN
-			DELETE
-			FROM @Estrategia2
-			WHERE ISNULL(CodigoPrograma, '') <> ''
-				AND Numeropedido <> @NumeroPedido
-		END
+		DELETE
+		FROM @Estrategia2
+		WHERE ISNULL(CodigoPrograma, '') <> '' AND Numeropedido <> @NumeroPedido
 
 		SELECT *
 		FROM (
@@ -4092,7 +4034,7 @@ BEGIN
 			LEFT JOIN @Estrategia2 EST ON EST.CUV2 = PWD.CUV
 				AND PWD.TipoEstrategiaID = EST.TipoEstrategiaID
 			WHERE PWD.CodigoTipoEstrategia NOT IN (
-					'001','030','008','007','005','010','009'
+					'001','030','008','007','005','010'
 					)
 
 			UNION
@@ -4155,7 +4097,7 @@ BEGIN
 			WHERE PWS.Campania = @CampaniaID
 				AND PWS.ConsultoraID = @ConsultoraID
 				AND PWD.CodigoTipoEstrategia IN (
-					'001','030','008','007','005','010','009'
+					'001','030','008','007','005','010'
 					)
 			GROUP BY PWS.Campania
 				,PWS.PedidoID
@@ -4380,13 +4322,9 @@ BEGIN
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
 
-		IF @CodigoPrograma IS NOT NULL
-		BEGIN
-			DELETE
-			FROM @Estrategia
-			WHERE ISNULL(CodigoPrograma, '') <> ''
-				AND Numeropedido <> @NumeroPedido
-		END
+		DELETE
+		FROM @Estrategia
+		WHERE ISNULL(CodigoPrograma, '') <> '' AND Numeropedido <> @NumeroPedido
 
 		SELECT PWD.CampaniaID
 			,PWD.PedidoID
@@ -4441,14 +4379,13 @@ BEGIN
 			,PWD.PedidoDetalleID DESC
 	END
 END
-
 
 GO
 USE BelcorpEcuador
 GO
 
 ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByCampania]
-	 @CampaniaID INT
+	@CampaniaID INT
 	,@ConsultoraID BIGINT
 	,@CodigoPrograma VARCHAR(15) = NULL
 	,@NumeroPedido INT = 0
@@ -4634,7 +4571,7 @@ BEGIN
 			AND E.CUV2 = PWD.CUV
 			AND E.Activo = 1
 			AND PWD.CodigoTipoEstrategia NOT IN (
-				'001','030','008','007','005','010','009'
+				'001','030','008','007','005','010'
 				)
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
@@ -4661,18 +4598,14 @@ BEGIN
 			AND EP.CUV = PWD.CUV
 			AND EP.CUV2 != PWD.CUV
 			AND PWD.CodigoTipoEstrategia NOT IN (
-				'001','030','008','007','005','010','009'
+				'001','030','008','007','005','010'
 				)
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
 
-		IF @CodigoPrograma IS NOT NULL
-		BEGIN
-			DELETE
-			FROM @Estrategia2
-			WHERE ISNULL(CodigoPrograma, '') <> ''
-				AND Numeropedido <> @NumeroPedido
-		END
+		DELETE
+		FROM @Estrategia2
+		WHERE ISNULL(CodigoPrograma, '') <> '' AND Numeropedido <> @NumeroPedido
 
 		SELECT *
 		FROM (
@@ -4727,7 +4660,7 @@ BEGIN
 			LEFT JOIN @Estrategia2 EST ON EST.CUV2 = PWD.CUV
 				AND PWD.TipoEstrategiaID = EST.TipoEstrategiaID
 			WHERE PWD.CodigoTipoEstrategia NOT IN (
-					'001','030','008','007','005','010','009'
+					'001','030','008','007','005','010'
 					)
 
 			UNION
@@ -4790,7 +4723,7 @@ BEGIN
 			WHERE PWS.Campania = @CampaniaID
 				AND PWS.ConsultoraID = @ConsultoraID
 				AND PWD.CodigoTipoEstrategia IN (
-					'001','030','008','007','005','010','009'
+					'001','030','008','007','005','010'
 					)
 			GROUP BY PWS.Campania
 				,PWS.PedidoID
@@ -5015,13 +4948,9 @@ BEGIN
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
 
-		IF @CodigoPrograma IS NOT NULL
-		BEGIN
-			DELETE
-			FROM @Estrategia
-			WHERE ISNULL(CodigoPrograma, '') <> ''
-				AND Numeropedido <> @NumeroPedido
-		END
+		DELETE
+		FROM @Estrategia
+		WHERE ISNULL(CodigoPrograma, '') <> '' AND Numeropedido <> @NumeroPedido
 
 		SELECT PWD.CampaniaID
 			,PWD.PedidoID
@@ -5076,14 +5005,13 @@ BEGIN
 			,PWD.PedidoDetalleID DESC
 	END
 END
-
 
 GO
 USE BelcorpDominicana
 GO
 
 ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByCampania]
-	 @CampaniaID INT
+	@CampaniaID INT
 	,@ConsultoraID BIGINT
 	,@CodigoPrograma VARCHAR(15) = NULL
 	,@NumeroPedido INT = 0
@@ -5269,7 +5197,7 @@ BEGIN
 			AND E.CUV2 = PWD.CUV
 			AND E.Activo = 1
 			AND PWD.CodigoTipoEstrategia NOT IN (
-				'001','030','008','007','005','010','009'
+				'001','030','008','007','005','010'
 				)
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
@@ -5296,18 +5224,14 @@ BEGIN
 			AND EP.CUV = PWD.CUV
 			AND EP.CUV2 != PWD.CUV
 			AND PWD.CodigoTipoEstrategia NOT IN (
-				'001','030','008','007','005','010','009'
+				'001','030','008','007','005','010'
 				)
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
 
-		IF @CodigoPrograma IS NOT NULL
-		BEGIN
-			DELETE
-			FROM @Estrategia2
-			WHERE ISNULL(CodigoPrograma, '') <> ''
-				AND Numeropedido <> @NumeroPedido
-		END
+		DELETE
+		FROM @Estrategia2
+		WHERE ISNULL(CodigoPrograma, '') <> '' AND Numeropedido <> @NumeroPedido
 
 		SELECT *
 		FROM (
@@ -5362,7 +5286,7 @@ BEGIN
 			LEFT JOIN @Estrategia2 EST ON EST.CUV2 = PWD.CUV
 				AND PWD.TipoEstrategiaID = EST.TipoEstrategiaID
 			WHERE PWD.CodigoTipoEstrategia NOT IN (
-					'001','030','008','007','005','010','009'
+					'001','030','008','007','005','010'
 					)
 
 			UNION
@@ -5425,7 +5349,7 @@ BEGIN
 			WHERE PWS.Campania = @CampaniaID
 				AND PWS.ConsultoraID = @ConsultoraID
 				AND PWD.CodigoTipoEstrategia IN (
-					'001','030','008','007','005','010','009'
+					'001','030','008','007','005','010'
 					)
 			GROUP BY PWS.Campania
 				,PWS.PedidoID
@@ -5650,13 +5574,9 @@ BEGIN
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
 
-		IF @CodigoPrograma IS NOT NULL
-		BEGIN
-			DELETE
-			FROM @Estrategia
-			WHERE ISNULL(CodigoPrograma, '') <> ''
-				AND Numeropedido <> @NumeroPedido
-		END
+		DELETE
+		FROM @Estrategia
+		WHERE ISNULL(CodigoPrograma, '') <> '' AND Numeropedido <> @NumeroPedido
 
 		SELECT PWD.CampaniaID
 			,PWD.PedidoID
@@ -5711,14 +5631,13 @@ BEGIN
 			,PWD.PedidoDetalleID DESC
 	END
 END
-
 
 GO
 USE BelcorpCostaRica
 GO
 
 ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByCampania]
-	 @CampaniaID INT
+	@CampaniaID INT
 	,@ConsultoraID BIGINT
 	,@CodigoPrograma VARCHAR(15) = NULL
 	,@NumeroPedido INT = 0
@@ -5904,7 +5823,7 @@ BEGIN
 			AND E.CUV2 = PWD.CUV
 			AND E.Activo = 1
 			AND PWD.CodigoTipoEstrategia NOT IN (
-				'001','030','008','007','005','010','009'
+				'001','030','008','007','005','010'
 				)
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
@@ -5931,18 +5850,14 @@ BEGIN
 			AND EP.CUV = PWD.CUV
 			AND EP.CUV2 != PWD.CUV
 			AND PWD.CodigoTipoEstrategia NOT IN (
-				'001','030','008','007','005','010','009'
+				'001','030','008','007','005','010'
 				)
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
 
-		IF @CodigoPrograma IS NOT NULL
-		BEGIN
-			DELETE
-			FROM @Estrategia2
-			WHERE ISNULL(CodigoPrograma, '') <> ''
-				AND Numeropedido <> @NumeroPedido
-		END
+		DELETE
+		FROM @Estrategia2
+		WHERE ISNULL(CodigoPrograma, '') <> '' AND Numeropedido <> @NumeroPedido
 
 		SELECT *
 		FROM (
@@ -5997,7 +5912,7 @@ BEGIN
 			LEFT JOIN @Estrategia2 EST ON EST.CUV2 = PWD.CUV
 				AND PWD.TipoEstrategiaID = EST.TipoEstrategiaID
 			WHERE PWD.CodigoTipoEstrategia NOT IN (
-					'001','030','008','007','005','010','009'
+					'001','030','008','007','005','010'
 					)
 
 			UNION
@@ -6060,7 +5975,7 @@ BEGIN
 			WHERE PWS.Campania = @CampaniaID
 				AND PWS.ConsultoraID = @ConsultoraID
 				AND PWD.CodigoTipoEstrategia IN (
-					'001','030','008','007','005','010','009'
+					'001','030','008','007','005','010'
 					)
 			GROUP BY PWS.Campania
 				,PWS.PedidoID
@@ -6285,13 +6200,9 @@ BEGIN
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
 
-		IF @CodigoPrograma IS NOT NULL
-		BEGIN
-			DELETE
-			FROM @Estrategia
-			WHERE ISNULL(CodigoPrograma, '') <> ''
-				AND Numeropedido <> @NumeroPedido
-		END
+		DELETE
+		FROM @Estrategia
+		WHERE ISNULL(CodigoPrograma, '') <> '' AND Numeropedido <> @NumeroPedido
 
 		SELECT PWD.CampaniaID
 			,PWD.PedidoID
@@ -6346,14 +6257,13 @@ BEGIN
 			,PWD.PedidoDetalleID DESC
 	END
 END
-
 
 GO
 USE BelcorpChile
 GO
 
 ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByCampania]
-	 @CampaniaID INT
+	@CampaniaID INT
 	,@ConsultoraID BIGINT
 	,@CodigoPrograma VARCHAR(15) = NULL
 	,@NumeroPedido INT = 0
@@ -6539,7 +6449,7 @@ BEGIN
 			AND E.CUV2 = PWD.CUV
 			AND E.Activo = 1
 			AND PWD.CodigoTipoEstrategia NOT IN (
-				'001','030','008','007','005','010','009'
+				'001','030','008','007','005','010'
 				)
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
@@ -6566,18 +6476,14 @@ BEGIN
 			AND EP.CUV = PWD.CUV
 			AND EP.CUV2 != PWD.CUV
 			AND PWD.CodigoTipoEstrategia NOT IN (
-				'001','030','008','007','005','010','009'
+				'001','030','008','007','005','010'
 				)
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
 
-		IF @CodigoPrograma IS NOT NULL
-		BEGIN
-			DELETE
-			FROM @Estrategia2
-			WHERE ISNULL(CodigoPrograma, '') <> ''
-				AND Numeropedido <> @NumeroPedido
-		END
+		DELETE
+		FROM @Estrategia2
+		WHERE ISNULL(CodigoPrograma, '') <> '' AND Numeropedido <> @NumeroPedido
 
 		SELECT *
 		FROM (
@@ -6632,7 +6538,7 @@ BEGIN
 			LEFT JOIN @Estrategia2 EST ON EST.CUV2 = PWD.CUV
 				AND PWD.TipoEstrategiaID = EST.TipoEstrategiaID
 			WHERE PWD.CodigoTipoEstrategia NOT IN (
-					'001','030','008','007','005','010','009'
+					'001','030','008','007','005','010'
 					)
 
 			UNION
@@ -6695,7 +6601,7 @@ BEGIN
 			WHERE PWS.Campania = @CampaniaID
 				AND PWS.ConsultoraID = @ConsultoraID
 				AND PWD.CodigoTipoEstrategia IN (
-					'001','030','008','007','005','010','009'
+					'001','030','008','007','005','010'
 					)
 			GROUP BY PWS.Campania
 				,PWS.PedidoID
@@ -6920,13 +6826,9 @@ BEGIN
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
 
-		IF @CodigoPrograma IS NOT NULL
-		BEGIN
-			DELETE
-			FROM @Estrategia
-			WHERE ISNULL(CodigoPrograma, '') <> ''
-				AND Numeropedido <> @NumeroPedido
-		END
+		DELETE
+		FROM @Estrategia
+		WHERE ISNULL(CodigoPrograma, '') <> '' AND Numeropedido <> @NumeroPedido
 
 		SELECT PWD.CampaniaID
 			,PWD.PedidoID
@@ -6981,14 +6883,13 @@ BEGIN
 			,PWD.PedidoDetalleID DESC
 	END
 END
-
 
 GO
 USE BelcorpBolivia
 GO
 
 ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByCampania]
-	 @CampaniaID INT
+	@CampaniaID INT
 	,@ConsultoraID BIGINT
 	,@CodigoPrograma VARCHAR(15) = NULL
 	,@NumeroPedido INT = 0
@@ -7174,7 +7075,7 @@ BEGIN
 			AND E.CUV2 = PWD.CUV
 			AND E.Activo = 1
 			AND PWD.CodigoTipoEstrategia NOT IN (
-				'001','030','008','007','005','010','009'
+				'001','030','008','007','005','010'
 				)
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
@@ -7201,18 +7102,14 @@ BEGIN
 			AND EP.CUV = PWD.CUV
 			AND EP.CUV2 != PWD.CUV
 			AND PWD.CodigoTipoEstrategia NOT IN (
-				'001','030','008','007','005','010','009'
+				'001','030','008','007','005','010'
 				)
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
 
-		IF @CodigoPrograma IS NOT NULL
-		BEGIN
-			DELETE
-			FROM @Estrategia2
-			WHERE ISNULL(CodigoPrograma, '') <> ''
-				AND Numeropedido <> @NumeroPedido
-		END
+		DELETE
+		FROM @Estrategia2
+		WHERE ISNULL(CodigoPrograma, '') <> '' AND Numeropedido <> @NumeroPedido
 
 		SELECT *
 		FROM (
@@ -7267,7 +7164,7 @@ BEGIN
 			LEFT JOIN @Estrategia2 EST ON EST.CUV2 = PWD.CUV
 				AND PWD.TipoEstrategiaID = EST.TipoEstrategiaID
 			WHERE PWD.CodigoTipoEstrategia NOT IN (
-					'001','030','008','007','005','010','009'
+					'001','030','008','007','005','010'
 					)
 
 			UNION
@@ -7330,7 +7227,7 @@ BEGIN
 			WHERE PWS.Campania = @CampaniaID
 				AND PWS.ConsultoraID = @ConsultoraID
 				AND PWD.CodigoTipoEstrategia IN (
-					'001','030','008','007','005','010','009'
+					'001','030','008','007','005','010'
 					)
 			GROUP BY PWS.Campania
 				,PWS.PedidoID
@@ -7555,13 +7452,9 @@ BEGIN
 		LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 		WHERE TE.FlagActivo = 1
 
-		IF @CodigoPrograma IS NOT NULL
-		BEGIN
-			DELETE
-			FROM @Estrategia
-			WHERE ISNULL(CodigoPrograma, '') <> ''
-				AND Numeropedido <> @NumeroPedido
-		END
+		DELETE
+		FROM @Estrategia
+		WHERE ISNULL(CodigoPrograma, '') <> '' AND Numeropedido <> @NumeroPedido
 
 		SELECT PWD.CampaniaID
 			,PWD.PedidoID
@@ -7616,6 +7509,5 @@ BEGIN
 			,PWD.PedidoDetalleID DESC
 	END
 END
-
 
 GO
