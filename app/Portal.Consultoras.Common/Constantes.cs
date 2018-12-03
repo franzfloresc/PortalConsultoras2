@@ -599,6 +599,8 @@ namespace Portal.Consultoras.Common
             // E: Landing ShowRoom          F: Landing ShowRoom Intriga
             // G: Revista Digital Info      H: Revista Digital Detalle
             // I: Guia de Negocio           J: Herramiento de venta
+            // K: Mas Ganadoras             L: Duo perfecto
+            // M: Packs de nuevas
 
             // Tercer Dígito -- Sección dentro de la Pantalla
             // 0: Principal                 1: OPT
@@ -623,6 +625,12 @@ namespace Portal.Consultoras.Common
             public const string MGuiaNegocio = "2I0";
             public const string DHerramientaVenta = "1J0";
             public const string MHerramientaVenta = "2J0";
+            public const string DMasGanadoras = "1K0";
+            public const string MMasGanadoras = "2K0";
+            public const string DDuoPerfecto = "1L0";
+            public const string MDuoPerfecto = "2L0";
+            public const string DPacksNuevas = "1M0";
+            public const string MPacksNuevas = "2M0";
         }
 
         /// <summary>
@@ -799,6 +807,8 @@ namespace Portal.Consultoras.Common
             public const int MobileContenedorLanzamientosFicha = 2080202; // Esta en duro en rdAnalyticsModule
             public const int AppConsultoraContenedorLanzamientosFicha = 4080202;
             public const int DesktopHomeOfertaDelDiaBannerSuperior = 1010306; // Esta en duro en ConstantesModule
+            public const int DesktopHomeOfertaDelDiaFicha = 1010302;
+
             public const int DesktopContenedorOfertaDelDiaCarrusel = 1080301;
             public const int DesktopContenedorOfertaDelDiaFicha = 1080302;
             public const int DesktopContenedorOfertaDelDiaCarruselVerMas = 1080305;

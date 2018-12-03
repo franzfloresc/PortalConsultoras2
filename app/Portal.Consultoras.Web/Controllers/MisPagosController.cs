@@ -27,18 +27,16 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region Acciones
 
-         public ActionResult Index(string pestanhaInicial)
+        public ActionResult Index(string pestanhaInicial)
         {
-            string sap="";
-            var url = (Request.Url.Query).Split('?');
 
             if (EsDispositivoMovil())
             {
+                var url = (Request.Url.Query).Split('?');
                 if (url.Length > 1 && url[1].Contains("sap"))
                 {
-                    sap = "&" + url[1];
-                   return RedirectToAction("Index", "EstadoCuenta", new { area = "Mobile", sap });
-
+                    string sap = "&" + url[1];
+                    return RedirectToAction("Index", "EstadoCuenta", new { area = "Mobile", sap });
                 }
                 else
                 {
@@ -658,12 +656,12 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             string iso = userData.CodigoISO;
-            
+
             if (lst.Any())
             {
                 var carpetaPais = Globals.UrlLugaresPago + "/" + iso;
                 lst.Update(x => x.ArchivoLogo = ConfigCdn.GetUrlFileCdn(carpetaPais, x.ArchivoLogo));
-            }                
+            }
 
             var lugaresPagoModel = new LugaresPagoModel()
             {
