@@ -1,4 +1,4 @@
-USE BelcorpBolivia
+﻿USE BelcorpBolivia
 GO
 if exists (select 1 from sys.synonyms where name = N'GestionStock' AND schema_id = schema_id(N'ods'))
 begin
