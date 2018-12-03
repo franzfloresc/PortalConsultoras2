@@ -138,6 +138,7 @@
     flex:0 0 45%;
     min-width:101px;
     min-height:92px;
+    position:relative;
 }
 
 .productos_recomendados_controles_carrusel img,
@@ -146,6 +147,17 @@
 {
     width:100%;
     height:auto;
+}
+
+.producto_por_agregar_imagen img,
+.producto_recomendado_imagen img
+{
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left:0;
+    right:0;
 }
 
 .producto_por_agregar_info,
@@ -314,9 +326,6 @@
     .producto_por_agregar_wrapper,
     .productos_recomendados_wrapper
     {
-        margin-left:-15px;
-        margin-right:-15px;
-        margin-bottom:27px;
         padding-top:23px;
         padding-bottom:13px;
     }
@@ -324,6 +333,7 @@
     .producto_por_agregar_wrapper{
         padding-left:28px;
         padding-right:28px;
+        margin-bottom:27px!important;
     }
 
     .producto_por_agregar{
@@ -332,8 +342,11 @@
     }
 
     .productos_recomendados_wrapper{
+        margin-left:-24px;
+        margin-right:-24px;
+        margin-bottom:-34px;
         background-color:#f5f5f5;
-        padding-left:15px;
+        padding-left:24px;
     }
 
     .productos_recomendados_titulo{
