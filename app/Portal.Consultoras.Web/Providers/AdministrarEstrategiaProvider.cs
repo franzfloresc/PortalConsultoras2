@@ -594,7 +594,20 @@ namespace Portal.Consultoras.Web.Providers
 
             var respuesta = JsonConvert.DeserializeObject<GenericResponse>(content);
 
-            return Convert.ToInt32(respuesta.Result);
+            List<DescripcionEstrategiaModel> descripcionList = new List<DescripcionEstrategiaModel>();
+            if (respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
+            {
+                List<Dictionary<string, object>> resultDictionary = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(respuesta.Result.ToString());
+
+                descripcionList.AddRange(resultDictionary.Select(item => new DescripcionEstrategiaModel
+                {
+                    Cuv = item["cuv"].ToString(),
+                    Descripcion = item["descripcion"].ToString(),
+                    Estado = (bool)item["estado"] ? 1 : 0
+                }));
+            }
+
+            return descripcionList.FindAll(x => x.Estado == 1).Count;
         }
 
         public int UploadFileProductStrategyShowroom(ServicePedido.BEEstrategiaMasiva m, List<ServicePedido.BEEstrategiaProducto> l, string TipoEstrategiaCodigo)

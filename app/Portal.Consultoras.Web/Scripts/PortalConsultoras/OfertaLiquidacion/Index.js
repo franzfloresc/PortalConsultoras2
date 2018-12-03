@@ -206,7 +206,8 @@ $(document).ready(function () {
                                     InfoCommerceGoogle(parseFloat(Cantidad * PrecioUnidad).toFixed(2), CUV, DescripcionProd, DescripcionCategoria, PrecioUnidad, Cantidad, DescripcionMarca, DescripcionEstrategia, 1);
                                     CargarResumenCampaniaHeader(true);
                                     TrackingJetloreAdd(Cantidad, $("#hdCampaniaCodigo").val(), CUV);
-                                    $('#divVistaPrevia').dialog('close');
+                                    HideDialog("divVistaPrevia");
+                                    //$('#divVistaPrevia').dialog('close');
 
                                     closeWaitingDialog();
                                 },
@@ -573,7 +574,8 @@ function IniDialog() {
         buttons:
             {
                 "Aceptar": function () {
-                    $(this).dialog('close');
+                    HideDialog("DialogMensajesBanner");
+                    //$(this).dialog('close');
                 }
             }
     });
