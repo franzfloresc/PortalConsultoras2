@@ -1380,6 +1380,7 @@ var AnalyticsPortalModule = (function () {
 * Linea de Código Desktop: 56
 */
     var marcaClicBanner = function (data) {
+        var pos = indexPosCarruselLan || 0;
         try {
             if (_constantes.isTest)
                 alert("Marcación clic banner.");
@@ -1393,7 +1394,7 @@ var AnalyticsPortalModule = (function () {
                             {
                                 'id': estrategia.CUV2,
                                 'name': AnalyticsPortalModule.GetPalancaByOrigenPedido(codigoOrigenWeb) + " - " + estrategia.DescripcionCompleta + " - " + "Ver producto",
-                                'position': _constantes.contenedor || _constantes.contenedorHome,
+                                'position': _constantes.contenedor || _constantes.contenedorHome + " - " + (pos + 1),
                                 'creative': 'Banner'
                             }]
                     }

@@ -34,6 +34,7 @@ var CONS_CODIGO_SECCION = {
 var listaSeccion = {};
 
 var timer;
+var indexPosCarruselLan = 0;
 
 var varContenedor = {
     CargoRevista: false,
@@ -460,7 +461,7 @@ function SeccionMostrarProductos(data) {
 }
 
 function RenderCarruselIndividuales(divProd, data) {
-
+    
     if (typeof divProd == "undefined")
         return false;
 
@@ -485,6 +486,7 @@ function RenderCarruselIndividuales(divProd, data) {
         var data = $(slick.$slides.find("[data-estrategia]")[currentSlide]).data("estrategia");
         var dateItem = new Array(data);
         console.log('RenderCarruselIndividuales', dateItem);
+        indexPosCarruselLan = currentSlide;
         //Analytics
         AnalyticsPortalModule.MarcaGenericaLista(data.CodigoPalanca, dateItem, currentSlide);
 
