@@ -82,24 +82,54 @@ namespace Portal.Consultoras.Web.Providers
                     };
                     estrategia.TipoEstrategia = new ServiceOferta.BETipoEstrategia { Codigo = item.codigoTipoEstrategia };
 
-                    if (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento)
+                    if (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento && item.estrategiaDetalle != null)
                     {
-                        estrategia.EstrategiaDetalle = new ServiceOferta.BEEstrategiaDetalle
+                        estrategia.EstrategiaDetalle = new ServiceOferta.BEEstrategiaDetalle();
+
+                        foreach (var itemED in item.estrategiaDetalle)
                         {
-                            EstrategiaID = estrategia.EstrategiaID,
-                            FlagIndividual = Convert.ToBoolean(item.flagIndividual ?? false),
-                            Slogan = item.slogan,
-                            ImgHomeDesktop = item.imgHomeDesktop,
-                            ImgHomeMobile = item.imgHomeMobile,
-                            ImgFondoDesktop = item.imgFondoDesktop,
-                            ImgFondoMobile = item.imgFondoMobile,
-                            ImgFichaDesktop = item.imgFichaDesktop,
-                            ImgFichaFondoDesktop = item.imgFichaFondoDesktop,
-                            ImgFichaMobile = item.imgFichaMobile,
-                            ImgFichaFondoMobile = item.imgFichaFondoMobile,
-                            UrlVideoDesktop = item.urlVideoDesktop,
-                            UrlVideoMobile = item.urlVideoMobile,
-                        };
+                            if (itemED.tablaLogicaDatosID == null) continue;
+
+                            switch (Convert.ToInt32(itemED.tablaLogicaDatosID))
+                            {
+                                case Constantes.EstrategiaDetalleCamposID.FlagIndividual:
+                                    estrategia.EstrategiaDetalle.FlagIndividual = (itemED.valor == "1" ? true : false);
+                                    break;
+                                case Constantes.EstrategiaDetalleCamposID.ImgFichaDesktop:
+                                    estrategia.EstrategiaDetalle.ImgFichaDesktop = itemED.valor;
+                                    break;
+                                case Constantes.EstrategiaDetalleCamposID.ImgFichaFondoDesktop:
+                                    estrategia.EstrategiaDetalle.ImgFichaFondoDesktop = itemED.valor;
+                                    break;
+                                case Constantes.EstrategiaDetalleCamposID.ImgFichaFondoMobile:
+                                    estrategia.EstrategiaDetalle.ImgFichaFondoMobile = itemED.valor;
+                                    break;
+                                case Constantes.EstrategiaDetalleCamposID.ImgFichaMobile:
+                                    estrategia.EstrategiaDetalle.ImgFichaMobile = itemED.valor;
+                                    break;
+                                case Constantes.EstrategiaDetalleCamposID.ImgFondoDesktop:
+                                    estrategia.EstrategiaDetalle.ImgFondoDesktop = itemED.valor;
+                                    break;
+                                case Constantes.EstrategiaDetalleCamposID.ImgFondoMobile:
+                                    estrategia.EstrategiaDetalle.ImgFondoMobile = itemED.valor;
+                                    break;
+                                case Constantes.EstrategiaDetalleCamposID.ImgHomeDesktop:
+                                    estrategia.EstrategiaDetalle.ImgHomeDesktop = itemED.valor;
+                                    break;
+                                case Constantes.EstrategiaDetalleCamposID.ImgHomeMobile:
+                                    estrategia.EstrategiaDetalle.ImgHomeMobile = itemED.valor;
+                                    break;
+                                case Constantes.EstrategiaDetalleCamposID.Slogan:
+                                    estrategia.EstrategiaDetalle.Slogan = itemED.valor;
+                                    break;
+                                case Constantes.EstrategiaDetalleCamposID.UrlVideoDesktop:
+                                    estrategia.EstrategiaDetalle.UrlVideoDesktop = itemED.valor;
+                                    break;
+                                case Constantes.EstrategiaDetalleCamposID.UrlVideoMobile:
+                                    estrategia.EstrategiaDetalle.UrlVideoMobile = itemED.valor;
+                                    break;
+                            }
+                        }
                     }
 
                     if (estrategia.Precio2 > 0)
