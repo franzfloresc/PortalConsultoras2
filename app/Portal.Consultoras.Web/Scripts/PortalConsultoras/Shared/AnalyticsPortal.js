@@ -89,11 +89,11 @@ var AnalyticsPortalModule = (function () {
             { "CountryCode": "SV", "Code": "SVC" }
         ],
         seccionesPalanca: [
-            { "CodigoSeccion": "LAN", "Palanca": "Lo Nuevo" },
-            { "CodigoSeccion": "RD", "Palanca": "Revista  Digital" },
-            { "CodigoSeccion": "HV", "Palanca": "Herramientas de Ventas" },
-            { "CodigoSeccion": "ODD", "Palanca": "Ofertas del día" },
-            { "CodigoSeccion": "SR", "Palanca": "ShowRoom" }
+            // { "CodigoSeccion": "LAN", "Palanca": "Lo Nuevo" },
+            //{ "CodigoSeccion": "RD", "Palanca": "Revista  Digital" },
+            //{ "CodigoSeccion": "HV", "Palanca": "Herramientas de Ventas" },
+            { "CodigoSeccion": "ODD", "Palanca": "Oferta Del Día" },
+            { "CodigoSeccion": "SR", "Palanca": "Showroom" }
         ],
         origenpedidoWeb: [
             { "CodigoPalanca": "00", "Palanca": "Ofertas Para Ti" },
@@ -395,7 +395,7 @@ var AnalyticsPortalModule = (function () {
                             : listaSeccion[codigoSeccion + "-" + campania].CantidadProductos;
 
                 palanca = codigoSeccion == "ODD"
-                    ? AnalyticsPortalModule.GetPalancaBySeccion(codigoSeccion)
+                    ? _getPalancaBySeccion(codigoSeccion)
                     : AnalyticsPortalModule.GetPalancaByOrigenPedido(codigo);
 
                 //var contenedor = fnObtenerContenedor();
@@ -404,7 +404,7 @@ var AnalyticsPortalModule = (function () {
                 cantidadMostrar = lista.length;
 
                 palanca = codigoSeccion == "ODD" || codigoSeccion == "SR"
-                    ? AnalyticsPortalModule.GetPalancaBySeccion(codigoSeccion)
+                    ? _getPalancaBySeccion(codigoSeccion)
                     : AnalyticsPortalModule.GetPalancaByOrigenPedido(codigo);
             }
 
@@ -492,7 +492,7 @@ var AnalyticsPortalModule = (function () {
         }
     };
 
-    var getPalancaBySeccion = function (codigoSeccion) {
+    var _getPalancaBySeccion = function (codigoSeccion) {
         try {
 
             var seccion = _constantes.seccionesPalanca.find(function (element) {
@@ -899,9 +899,9 @@ var AnalyticsPortalModule = (function () {
                 case _codigoSeccion.MG: _marcarProductImpresionSegunLista(seccion, data, limite); break;
                 case _codigoSeccion.ODD: _marcarProductImpresionSegunLista(seccion, data, limite); break;
                 case _codigoSeccion.GND: _marcarProductImpresionSegunLista(seccion, data, limite); break;
-                case _codigoSeccion.Ficha: _marcarProductImpresionSegunLista(seccion, data); break;
-                    //case _codigoSeccion.CART: AnalyticsPortalModule.MarcaProductImpressionCart(seccion, data); break;
-                    // Fin Analytics Ofertas Miguel
+                case _codigoSeccion.Ficha: _marcarProductImpresionSegunLista(seccion, data, limite); break;
+                //case _codigoSeccion.CART: AnalyticsPortalModule.MarcaProductImpressionCart(seccion, data); break;
+                // Fin Analytics Ofertas Miguel
             }
         } catch (e) {
             console.log('marcaGenericaLista - ' + _texto.excepcion + e, e);
@@ -1724,7 +1724,10 @@ var AnalyticsPortalModule = (function () {
             var contenedor = fnObtenerContenedor();
             var codigoSeccion = $(data).closest("div:has(.seccion-content-contenedor)").data("seccion");
             var codigoorigen = $(data).parents("[data-OrigenPedidoWeb]").data("origenpedidoweb");
-            var palanca = codigoSeccion == "ODD" ? AnalyticsPortalModule.GetPalancaBySeccion(codigoSeccion) : AnalyticsPortalModule.GetPalancaByOrigenPedido(codigoorigen);
+            var palanca = codigoSeccion == "ODD"
+                ? _getPalancaBySeccion(codigoSeccion)
+                : AnalyticsPortalModule.GetPalancaByOrigenPedido(codigoorigen);
+
             var text = $(data).data("item-tag");
             var eq = text == _texto.verdetalle ? ":eq(2)" : ":eq(4)";
             var item = $(data).parents(eq).find("div [data-estrategia]").data("estrategia");
@@ -2541,7 +2544,7 @@ var AnalyticsPortalModule = (function () {
         // Ini - Analytics Buscador Miguel
         MarcaBarraBusqueda: marcaBarraBusqueda,
         GetCurrencyCodes: getCurrencyCodes,
-        GetPalancaBySeccion: getPalancaBySeccion,
+        //GetPalancaBySeccion: getPalancaBySeccion, // se utiliza solo como privado
         GetPalancaByOrigenPedido: getPalancaByOrigenPedido,
         GetSeccionHomeByOrigenPedido: getSeccionHomeByOrigenPedido,
         GetContenedorByOrigenPedido: getContenedorByOrigenPedido,

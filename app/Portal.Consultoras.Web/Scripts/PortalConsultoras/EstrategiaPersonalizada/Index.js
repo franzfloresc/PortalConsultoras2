@@ -642,12 +642,12 @@ function RenderCarruselSimpleV2(divProd, data, cc) {
         nextArrow: '<a class="nextArrow" style="display: block;right: 0;margin-right: -5%; text-align: right; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_black_compra.png")" alt="" /></a>'
     }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
         VerificarClick(slick, currentSlide, nextSlide, "normal", seccionName);
+        AnalyticsCarouselAfterChange(event, slick, currentSlide, seccionName);
     }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
         console.log(cc);
         if (!cc) {
             ShowOrHide_Arrows(event, slick, currentSlide);
         }
-        AnalyticsCarouselAfterChange(event, slick, currentSlide, seccionName);
         //MarcarProductos_Arrows(event, slick, currentSlide, seccionName);
     });
 
@@ -720,10 +720,9 @@ function ShowOrHide_Arrows(event, slick, currentSlide) {
 //Función para marcar los productos en el carrusel de una palanca (en este caso Mas Ganadoras - MG)
 function AnalyticsCarouselAfterChange(event, slick, currentSlide, seccionName) {
     console.log('AnalyticsCarouselAfterChange', event, slick, currentSlide, seccionName);
-    //if (seccionName === ConstantesModule.TipoEstrategia.MG) {
     var pos = isMobile() ? 1 : 2;
     var slideToMark = currentSlide + pos;
-    var item = slick.$slider[slideToMark];
+    var item = slick.$slides[slideToMark];
     //var item = (event.target).find('[data-slick-index]')[slideToMark];
     console.log('AnalyticsCarouselAfterChange',slideToMark, item);
     var estrategia = $($(item).find("[data-estrategia]")[0]).data("estrategia");
@@ -733,15 +732,10 @@ function AnalyticsCarouselAfterChange(event, slick, currentSlide, seccionName) {
             lista: Array(data)
         };
         if (typeof AnalyticsPortalModule !== "undefined") {
-            console.log('AnalyticsCarouselAfterChange - MarcaGenericaLista', seccionName, obj);
+            console.log('Analytics CarouselAfter Change - MarcaGenericaLista', seccionName, obj);
             AnalyticsPortalModule.MarcaGenericaLista(seccionName, obj, 1);
         }
     }
-    //}
-    //if (anchoFalta > $(slick.$list).width()) {
-    //var currentSlideback = $(slick.$list).attr('data-currentSlide') || $(slick.$list).attr('data-currentslide') || "";  
-    //$(slick.$list).attr('data-currentSlide', currentSlide);
-
 }
 
 //Función que llama la la funcion de marcacion analytics cuando se visualiza el ultimo botón dorado de "ver más"
@@ -808,4 +802,4 @@ function CallAnalitycsClickArrow(seccionName, sliderWay, clickedSlider) {
     }
 }
 
-// Fin - Metodo para virtualEvent 
+// Fin - Metodo para virtualEvent
