@@ -3463,6 +3463,67 @@ namespace Portal.Consultoras.Web.ServiceODS {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BERespValidarLimiteVenta", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.LimiteVenta")]
+    [System.SerializableAttribute()]
+    public partial class BERespValidarLimiteVenta : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool TieneLimiteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int UnidadesMaximasField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool TieneLimite {
+            get {
+                return this.TieneLimiteField;
+            }
+            set {
+                if ((this.TieneLimiteField.Equals(value) != true)) {
+                    this.TieneLimiteField = value;
+                    this.RaisePropertyChanged("TieneLimite");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int UnidadesMaximas {
+            get {
+                return this.UnidadesMaximasField;
+            }
+            set {
+                if ((this.UnidadesMaximasField.Equals(value) != true)) {
+                    this.UnidadesMaximasField = value;
+                    this.RaisePropertyChanged("UnidadesMaximas");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceODS.IODSService")]
     public interface IODSService {
@@ -3744,6 +3805,12 @@ namespace Portal.Consultoras.Web.ServiceODS {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/ValidarVentaExclusiva", ReplyAction="http://tempuri.org/IODSService/ValidarVentaExclusivaResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Common.Enumeradores.ValidacionVentaExclusiva> ValidarVentaExclusivaAsync(int paisID, int campaniaID, string codigoConsultora, string cuv);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/CuvTieneLimiteVenta", ReplyAction="http://tempuri.org/IODSService/CuvTieneLimiteVentaResponse")]
+        Portal.Consultoras.Web.ServiceODS.BERespValidarLimiteVenta CuvTieneLimiteVenta(int paisID, int campaniaID, string region, string zona, string cuv, int cantidadIngresada, int cantidadActual);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/CuvTieneLimiteVenta", ReplyAction="http://tempuri.org/IODSService/CuvTieneLimiteVentaResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceODS.BERespValidarLimiteVenta> CuvTieneLimiteVentaAsync(int paisID, int campaniaID, string region, string zona, string cuv, int cantidadIngresada, int cantidadActual);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/CuvArmaTuPackEstaEnLimite", ReplyAction="http://tempuri.org/IODSService/CuvArmaTuPackEstaEnLimiteResponse")]
         bool CuvArmaTuPackEstaEnLimite(int paisID, int campaniaID, string zona, string cuv, int cantidadIngresada, int cantidadActual);
@@ -4137,6 +4204,14 @@ namespace Portal.Consultoras.Web.ServiceODS {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Common.Enumeradores.ValidacionVentaExclusiva> ValidarVentaExclusivaAsync(int paisID, int campaniaID, string codigoConsultora, string cuv) {
             return base.Channel.ValidarVentaExclusivaAsync(paisID, campaniaID, codigoConsultora, cuv);
+        }
+        
+        public Portal.Consultoras.Web.ServiceODS.BERespValidarLimiteVenta CuvTieneLimiteVenta(int paisID, int campaniaID, string region, string zona, string cuv, int cantidadIngresada, int cantidadActual) {
+            return base.Channel.CuvTieneLimiteVenta(paisID, campaniaID, region, zona, cuv, cantidadIngresada, cantidadActual);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceODS.BERespValidarLimiteVenta> CuvTieneLimiteVentaAsync(int paisID, int campaniaID, string region, string zona, string cuv, int cantidadIngresada, int cantidadActual) {
+            return base.Channel.CuvTieneLimiteVentaAsync(paisID, campaniaID, region, zona, cuv, cantidadIngresada, cantidadActual);
         }
         
         public bool CuvArmaTuPackEstaEnLimite(int paisID, int campaniaID, string zona, string cuv, int cantidadIngresada, int cantidadActual) {

@@ -20423,6 +20423,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string SessionTokenField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TerminosUsoURLField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string TokenTarjetaGuardadaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -20690,6 +20693,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.SessionTokenField, value) != true)) {
                     this.SessionTokenField = value;
                     this.RaisePropertyChanged("SessionToken");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TerminosUsoURL {
+            get {
+                return this.TerminosUsoURLField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TerminosUsoURLField, value) != true)) {
+                    this.TerminosUsoURLField = value;
+                    this.RaisePropertyChanged("TerminosUsoURL");
                 }
             }
         }

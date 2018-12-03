@@ -47,26 +47,24 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Index(bool lanzarTabConsultoraOnline = false, string cuv = "", int campana = 0)
         {
-            string sap = "";
-            var url = (Request.Url.Query).Split('?');
-
-            if (EsDispositivoMovil())
-            {
-                if (url.Length > 1 && url[1].Contains("sap"))
-                {
-                    sap = "&" + url[1];
-                    return RedirectToAction("Index", "Pedido", new { area = "Mobile", sap });
-                }
-                else
-                {
-                    return RedirectToAction("Index", "Pedido", new { area = "Mobile" });
-                }
-            }
-
             var model = new PedidoSb2Model();
 
             try
             {
+                if (EsDispositivoMovil())
+                {
+                    var url = (Request.Url.Query).Split('?');
+                    if (url.Length > 1 && url[1].Contains("sap"))
+                    {
+                        string sap = "&" + url[1];
+                        return RedirectToAction("Index", "Pedido", new { area = "Mobile", sap });
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Pedido", new { area = "Mobile" });
+                    }
+                }
+
                 model.EsPais = GetMarcaPorCodigoIso(userData.CodigoISO);
                 model.CodigoIso = userData.CodigoISO;
 
@@ -369,19 +367,18 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (Request.Browser.IsMobileDevice)
+                if (EsDispositivoMovil())
                 {
-                    string sap = "";
                     var url = (Request.Url.Query).Split('?');
 
                     if (url.Length > 1 && url[1].Contains("sap"))
                     {
-                        sap = "&" + url[1].Remove(0, 22);
-                        return RedirectToAction("virtualCoach", new RouteValueDictionary(new { controller = "Pedido", area = "Mobile", param = param, sap }));
+                        string sap = "&" + url[1].Remove(0, 22);
+                        return RedirectToAction("virtualCoach", new RouteValueDictionary(new { controller = "Pedido", area = "Mobile", param, sap }));
                     }
                     else
                     {
-                        return RedirectToAction("virtualCoach", new RouteValueDictionary(new { controller = "Pedido", area = "Mobile", param = param }));
+                        return RedirectToAction("virtualCoach", new RouteValueDictionary(new { controller = "Pedido", area = "Mobile", param }));
                     }
 
                 }
@@ -545,6 +542,11 @@ namespace Portal.Consultoras.Web.Controllers
                 mensajeError = ValidarCantidadEnProgramaNuevas(model.CUV, Convert.ToInt32(model.Cantidad));
                 if (mensajeError != "") return ErrorJson(mensajeError, true);
             }
+            else
+            {
+                mensajeError = ValidarStockLimiteVenta(model.CUV, Convert.ToInt32(model.Cantidad));
+                if (mensajeError != "") return ErrorJson(mensajeError, true);
+            }
 
             mensajeError = ValidarStockArmaTuPackMensaje(model.CUV, Convert.ToInt32(model.Cantidad));
             if (mensajeError != "") return ErrorJson(mensajeError, true);
@@ -558,7 +560,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var objValidad = InsertarMensajeValidarDatos(model.ClienteID);
-                if(objValidad == null && !esKitNuevaAuto) objValidad = InsertarValidarKitInicio(model.CUV);
+                if (objValidad == null && !esKitNuevaAuto) objValidad = InsertarValidarKitInicio(model.CUV);
                 if (objValidad != null) return objValidad;
 
                 #region Administrador Pedido
@@ -606,7 +608,7 @@ namespace Portal.Consultoras.Web.Controllers
                 pedidoWebDetalleModel.Simbolo = userData.Simbolo;
                 pedidoWebDetalleModel.EstadoSimplificacionCuv = userData.EstadoSimplificacionCUV;
                 pedidoWebDetalleModel.ClienteID_ = model.ClienteID_;
-                pedidoWebDetalleModel.CodigoIso = userData.CodigoISO;                
+                pedidoWebDetalleModel.CodigoIso = userData.CodigoISO;
                 UpdatePedidoDetalleModelFromPedidoActual(pedidoWebDetalleModel, lstPedidoWebDetalle);
                 #endregion
 
@@ -1136,7 +1138,7 @@ namespace Portal.Consultoras.Web.Controllers
         private bool ValidarEsAgregado(BEPedidoWebDetalle pedidoAgrupado)
         {
             var listaPedidoWebDetalleAgrupado = ObtenerPedidoWebSetDetalleAgrupado();
-            return listaPedidoWebDetalleAgrupado.Count(x => x.EstrategiaId == pedidoAgrupado.EstrategiaId) > 0;
+            return listaPedidoWebDetalleAgrupado.Any(x => x.EstrategiaId == pedidoAgrupado.EstrategiaId);
         }
 
         private string GetObservacionesProlPorCuv(string cuv)
@@ -1512,6 +1514,8 @@ namespace Portal.Consultoras.Web.Controllers
                         CrearLogProgNuevas("ProgNuevas: ValidarStockEstrategia", CUV);
                         mensaje = ValidarCantidadEnProgramaNuevas(CUV, Convert.ToInt32(Cantidad));
                     }
+                    else mensaje = ValidarStockLimiteVenta(CUV, intCantidad);
+
                     if (mensaje == "") mensaje = ValidarStockEstrategiaMensaje(CUV, intCantidad, TipoOferta.ToInt32Secure());
                     if (mensaje == "") mensaje = ValidarStockArmaTuPackMensaje(CUV, intCantidad);
                     valido = mensaje == "";
@@ -4116,7 +4120,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
             #endregion
-            
+
             mensaje = ValidarStockEstrategiaMensaje(model.CUV, model.Cantidad.ToInt(), model.TipoEstrategiaID);
 
             if (mensaje != "")
@@ -4371,7 +4375,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.FiltrarEstrategiaPedido(entidad).ToList();
             }
-            
+
             var estrategia = lst.Count > 0 ? lst[0] : new ServicePedido.BEEstrategia();
             estrategia.ImagenURL = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, estrategia.ImagenURL);
             estrategia.Simbolo = userData.Simbolo;
@@ -4413,7 +4417,7 @@ namespace Portal.Consultoras.Web.Controllers
             mensaje = mensaje == "OK" ? "" : mensaje;
             return mensaje;
         }
-        
+
         private string ValidarStockArmaTuPackMensaje(string cuv, int cantidad)
         {
             string mensaje = "";
@@ -4427,6 +4431,28 @@ namespace Portal.Consultoras.Web.Controllers
                     estaEnLimite = sv.CuvArmaTuPackEstaEnLimite(userData.PaisID, userData.CampaniaID, userData.CodigoZona, cuv, cantidad, cantidadActual);
                 }
                 if (estaEnLimite) mensaje = string.Format(Constantes.MensajesError.ExcedioLimiteVenta, 1);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+            return mensaje;
+        }
+
+        private string ValidarStockLimiteVenta(string cuv, int cantidad)
+        {
+            string mensaje = "";
+
+            try
+            {
+                BERespValidarLimiteVenta respValidar;
+                var cantidadActual = ObtenerPedidoWebDetalle().Where(d => d.CUV == cuv).Sum(d => d.Cantidad);
+                
+                using (var sv = new ODSServiceClient())
+                {
+                    respValidar = sv.CuvTieneLimiteVenta(userData.PaisID, userData.CampaniaID, userData.CodigorRegion, userData.CodigoZona, cuv, cantidad, cantidadActual);
+                }
+                if (respValidar.TieneLimite) mensaje = string.Format(Constantes.MensajesError.ExcedioLimiteVenta, respValidar.UnidadesMaximas);
             }
             catch (Exception ex)
             {
@@ -4521,7 +4547,8 @@ namespace Portal.Consultoras.Web.Controllers
                     esElecMultiple = svc.EsCuvDuoPerfecto(userData.PaisID, userData.CampaniaID, userData.ConsecutivoNueva, userData.CodigoPrograma, cuv);
                 }
 
-                return Json(new {
+                return Json(new
+                {
                     success = true,
                     esElecMultiple = esElecMultiple,
                     message = esElecMultiple ?
@@ -4535,7 +4562,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return ErrorJson(Constantes.MensajesError.ErrorGenerico);
             }
         }
-        
+
         private Enumeradores.ValidacionProgramaNuevas ValidarProgramaNuevas(string cuv)
         {
             Enumeradores.ValidacionProgramaNuevas numero;
@@ -4562,7 +4589,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 valor = svc.ValidarCantidadMaximaProgramaNuevas(userData.PaisID, userData.CampaniaID, userData.ConsecutivoNueva, userData.CodigoPrograma, cantidadPedido, cuvingresado, cantidadIngresada);
             }
-            if (valor != 0) return string.Format(Constantes.ProgNuevas.Mensaje.ExcedeLimiteUnidades, valor);
+            if (valor != 0) return string.Format(Constantes.MensajesError.ExcedioLimiteVenta, valor);
 
             return "";
         }
@@ -4645,12 +4672,12 @@ namespace Portal.Consultoras.Web.Controllers
 
         private void CrearLogProgNuevas(string message, string cuv)
         {
-            if(WebConfig.Ambiente != "QA") return;
+            if (WebConfig.Ambiente != "QA") return;
 
             var listConsultoraRegistro = new List<string> { "006926193", "043862731", "011971059", "030320840", "003706273", "009118330", "020466782", "011930654", "011410731", "035515321" };
             if (!listConsultoraRegistro.Contains(userData.CodigoConsultora)) return;
-            
-            var exTrace =string.Format("ISO:{0};Consultora{1};Cuv:{2}", userData.CodigoISO, userData.CodigoConsultora, cuv);
+
+            var exTrace = string.Format("ISO:{0};Consultora{1};Cuv:{2}", userData.CodigoISO, userData.CodigoConsultora, cuv);
             LogManager.LogManager.LogErrorWebServicesBus(new CustomTraceException(message, exTrace), userData.CodigoConsultora, userData.CodigoISO);
         }
     }
