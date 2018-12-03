@@ -12,15 +12,16 @@ AS
 BEGIN
 	declare @limMax int = -1;
 
-	select top 1 @limMax = Valor_LM
-	from ods.GESTION_STOCK
+	select top 1 @limMax = Valor
+	from ods.GestionStock with(nolock)
 	where
-		Cod_Periodo = @Campania and Cod_Venta = @Cuv and
-		Cod_Region is null and Cod_Zona is null
+		CodPeriodo = @Campania and CodVenta = @Cuv and
+		CodRegion is null and CodZona is null
 
 	return @limMax;
 END
 GO
+/*end*/
 
 USE BelcorpChile
 GO
@@ -36,15 +37,16 @@ AS
 BEGIN
 	declare @limMax int = -1;
 
-	select top 1 @limMax = Valor_LM
-	from ods.GESTION_STOCK
+	select top 1 @limMax = Valor
+	from ods.GestionStock with(nolock)
 	where
-		Cod_Periodo = @Campania and Cod_Venta = @Cuv and
-		Cod_Region is null and Cod_Zona is null
+		CodPeriodo = @Campania and CodVenta = @Cuv and
+		CodRegion is null and CodZona is null
 
 	return @limMax;
 END
 GO
+/*end*/
 
 USE BelcorpColombia
 GO
@@ -60,15 +62,16 @@ AS
 BEGIN
 	declare @limMax int = -1;
 
-	select top 1 @limMax = Valor_LM
-	from ods.GESTION_STOCK
+	select top 1 @limMax = Valor
+	from ods.GestionStock with(nolock)
 	where
-		Cod_Periodo = @Campania and Cod_Venta = @Cuv and
-		Cod_Region is null and Cod_Zona is null
+		CodPeriodo = @Campania and CodVenta = @Cuv and
+		CodRegion is null and CodZona is null
 
 	return @limMax;
 END
 GO
+/*end*/
 
 USE BelcorpCostaRica
 GO
@@ -84,15 +87,16 @@ AS
 BEGIN
 	declare @limMax int = -1;
 
-	select top 1 @limMax = Valor_LM
-	from ods.GESTION_STOCK
+	select top 1 @limMax = Valor
+	from ods.GestionStock with(nolock)
 	where
-		Cod_Periodo = @Campania and Cod_Venta = @Cuv and
-		Cod_Region is null and Cod_Zona is null
+		CodPeriodo = @Campania and CodVenta = @Cuv and
+		CodRegion is null and CodZona is null
 
 	return @limMax;
 END
 GO
+/*end*/
 
 USE BelcorpDominicana
 GO
@@ -108,15 +112,16 @@ AS
 BEGIN
 	declare @limMax int = -1;
 
-	select top 1 @limMax = Valor_LM
-	from ods.GESTION_STOCK
+	select top 1 @limMax = Valor
+	from ods.GestionStock with(nolock)
 	where
-		Cod_Periodo = @Campania and Cod_Venta = @Cuv and
-		Cod_Region is null and Cod_Zona is null
+		CodPeriodo = @Campania and CodVenta = @Cuv and
+		CodRegion is null and CodZona is null
 
 	return @limMax;
 END
 GO
+/*end*/
 
 USE BelcorpEcuador
 GO
@@ -132,15 +137,16 @@ AS
 BEGIN
 	declare @limMax int = -1;
 
-	select top 1 @limMax = Valor_LM
-	from ods.GESTION_STOCK
+	select top 1 @limMax = Valor
+	from ods.GestionStock with(nolock)
 	where
-		Cod_Periodo = @Campania and Cod_Venta = @Cuv and
-		Cod_Region is null and Cod_Zona is null
+		CodPeriodo = @Campania and CodVenta = @Cuv and
+		CodRegion is null and CodZona is null
 
 	return @limMax;
 END
 GO
+/*end*/
 
 USE BelcorpGuatemala
 GO
@@ -156,15 +162,16 @@ AS
 BEGIN
 	declare @limMax int = -1;
 
-	select top 1 @limMax = Valor_LM
-	from ods.GESTION_STOCK
+	select top 1 @limMax = Valor
+	from ods.GestionStock with(nolock)
 	where
-		Cod_Periodo = @Campania and Cod_Venta = @Cuv and
-		Cod_Region is null and Cod_Zona is null
+		CodPeriodo = @Campania and CodVenta = @Cuv and
+		CodRegion is null and CodZona is null
 
 	return @limMax;
 END
 GO
+/*end*/
 
 USE BelcorpMexico
 GO
@@ -180,15 +187,16 @@ AS
 BEGIN
 	declare @limMax int = -1;
 
-	select top 1 @limMax = Valor_LM
-	from ods.GESTION_STOCK
+	select top 1 @limMax = Valor
+	from ods.GestionStock with(nolock)
 	where
-		Cod_Periodo = @Campania and Cod_Venta = @Cuv and
-		Cod_Region is null and Cod_Zona is null
+		CodPeriodo = @Campania and CodVenta = @Cuv and
+		CodRegion is null and CodZona is null
 
 	return @limMax;
 END
 GO
+/*end*/
 
 USE BelcorpPanama
 GO
@@ -204,15 +212,16 @@ AS
 BEGIN
 	declare @limMax int = -1;
 
-	select top 1 @limMax = Valor_LM
-	from ods.GESTION_STOCK
+	select top 1 @limMax = Valor
+	from ods.GestionStock with(nolock)
 	where
-		Cod_Periodo = @Campania and Cod_Venta = @Cuv and
-		Cod_Region is null and Cod_Zona is null
+		CodPeriodo = @Campania and CodVenta = @Cuv and
+		CodRegion is null and CodZona is null
 
 	return @limMax;
 END
 GO
+/*end*/
 
 USE BelcorpPeru
 GO
@@ -228,15 +237,16 @@ AS
 BEGIN
 	declare @limMax int = -1;
 
-	select top 1 @limMax = Valor_LM
-	from ods.GESTION_STOCK
+	select top 1 @limMax = Valor
+	from ods.GestionStock with(nolock)
 	where
-		Cod_Periodo = @Campania and Cod_Venta = @Cuv and
-		Cod_Region is null and Cod_Zona is null
+		CodPeriodo = @Campania and CodVenta = @Cuv and
+		CodRegion is null and CodZona is null
 
 	return @limMax;
 END
 GO
+/*end*/
 
 USE BelcorpPuertoRico
 GO
@@ -252,15 +262,16 @@ AS
 BEGIN
 	declare @limMax int = -1;
 
-	select top 1 @limMax = Valor_LM
-	from ods.GESTION_STOCK
+	select top 1 @limMax = Valor
+	from ods.GestionStock with(nolock)
 	where
-		Cod_Periodo = @Campania and Cod_Venta = @Cuv and
-		Cod_Region is null and Cod_Zona is null
+		CodPeriodo = @Campania and CodVenta = @Cuv and
+		CodRegion is null and CodZona is null
 
 	return @limMax;
 END
 GO
+/*end*/
 
 USE BelcorpSalvador
 GO
@@ -276,11 +287,11 @@ AS
 BEGIN
 	declare @limMax int = -1;
 
-	select top 1 @limMax = Valor_LM
-	from ods.GESTION_STOCK
+	select top 1 @limMax = Valor
+	from ods.GestionStock with(nolock)
 	where
-		Cod_Periodo = @Campania and Cod_Venta = @Cuv and
-		Cod_Region is null and Cod_Zona is null
+		CodPeriodo = @Campania and CodVenta = @Cuv and
+		CodRegion is null and CodZona is null
 
 	return @limMax;
 END
