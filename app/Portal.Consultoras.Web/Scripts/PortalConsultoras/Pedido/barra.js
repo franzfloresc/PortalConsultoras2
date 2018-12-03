@@ -2,6 +2,13 @@
 var listaMensajeMeta = listaMensajeMeta || new Array();
 var dataBarra = dataBarra || new Object();
 var belcorp = belcorp || {};
+var mtoLogroBarra = 0;
+var tpElectivos = {
+    premioSelected: null,
+    premios : [],
+    loadPremios: false
+};
+
 belcorp.barra = belcorp.barra || {};
 belcorp.barra.settings = belcorp.barra.settings || {};
 belcorp.barra.settings = {
@@ -21,6 +28,9 @@ function MostrarBarra(datax, destino) {
     dataBarra = data;
 
     ActualizarGanancia(dataBarra);
+    if (destino == '2') {
+        initCarruselPremios(dataBarra);
+    }
 
     dataBarra.ListaEscalaDescuento = dataBarra.ListaEscalaDescuento || new Array();
     if (dataBarra.ListaEscalaDescuento.length > 0) {
@@ -83,7 +93,7 @@ function MostrarBarra(datax, destino) {
             valorStr: data.MontoMinimoStr
         });
 
-        if (tp > 0 && dataBarra.TippingPointBarra.Active) {
+        if (tp > 0 && dataBarra.TippingPointBarra.Active) { //OG
             listaLimite.push({
                 nombre: "",
                 tipoMensaje: 'TippingPoint',
@@ -172,6 +182,16 @@ function MostrarBarra(datax, destino) {
                 MontoHastaStr: data.MontoMinimoStr
             });
         }
+    }
+    mtoLogroBarra = vLogro;
+
+    if (belcorp.barra.settings.isMobile &&
+        tp > 0 && vLogro >= tp &&
+        dataBarra.TippingPointBarra &&
+        dataBarra.TippingPointBarra.ActiveCuponElectivo &&
+        !tpElectivos.premioSelected) {
+
+        agregarPremioDefault();
     }
 
     listaLimite = listaLimite || new Array();
@@ -520,8 +540,18 @@ function MostrarBarra(datax, destino) {
         }
     }
 
+    if (belcorp.barra.settings.isMobile) {
+        if (dataBarra.MontoMaximo!= 0 && dataBarra.MontoMaximo != "" && dataBarra.MontoMaximo != null && dataBarra.MontoMaximo.toString().substring(0, 4)!="9999" ) {
+            wLogro = CalculoLlenadoBarra();
+            CalculoPosicionMinimoMaximo();
+        }
+        
+        
+
+    }
     $("#divBarra #divBarraEspacioLimite").css("width", wLimite);
     $("#divBarra #divBarraEspacioLogrado").css("width", wLogro);
+
 
     if (destino == "1") {
         return true;
@@ -535,6 +565,13 @@ function MostrarBarra(datax, destino) {
     tipoMensaje += vLogro >= vLimite ? "Supero" : "";
     if (vLogro < mn) {
         tipoMensaje = "MontoMinimo";
+    }
+
+    tipoMensaje += belcorp.barra.settings.isMobile ? 'Mobile' : '';
+
+    var tpRegaloMobileShow = tp > 0 && dataBarra.TippingPointBarra.Active && belcorp.barra.settings.isMobile;
+    if (tpRegaloMobileShow && vLogro < tp) {
+        tipoMensaje = "TippingPointMobile";
     }
 
     listaMensajeMeta = listaMensajeMeta || new Array();
@@ -551,17 +588,34 @@ function MostrarBarra(datax, destino) {
     $("#divBarra #divBarraMensajeLogrado").show();
     $("#divBarra #divBarraMensajeLogrado .mensaje_barra").html(objMsg.Titulo.replace("#porcentaje", valPor).replace("#valor", valorMonto));
 
-    
-    
-    if (sessionStorage.getItem("cuvPack") != null) {
-      $("#divBarra #divBarraMensajeLogrado .agrega_barra").html(objMsg.Mensaje.replace("#porcentaje", valPor).replace("#valor", valorMonto));    
-    }
-    else
-    $("#divBarra #divBarraMensajeLogrado .agrega_barra").html(objMsg.Mensaje.replace("#porcentaje", valPor).replace("#valor", (mt < mn ? valorMonto : valorMontoEsacalaDescuento)));
+    if (belcorp.barra.settings.isMobile && tp > 0) {
+        $('#montoPremioMeta').html(variablesPortal.SimboloMoneda + " " + dataBarra.TippingPointStr);
+        cargarMontoBanderasMobile(dataBarra);
 
-    if (belcorp.barra.settings.isMobile) {
-        $("#divBarra #divBarraMensajeLogrado .descuento_pedido").html(listaLimite[indPuntoLimite].nombreApp || listaLimite[indPuntoLimite].nombre);
     }
+
+    if (tpRegaloMobileShow) {
+        $('#hrefIconoRegalo').show();
+
+        if (vLogro < tp) {
+            valorMonto = variablesPortal.SimboloMoneda + " " + DecimalToStringFormat(tp - vLogro);
+        }
+    } else {
+        $('#hrefIconoRegalo').hide();
+    }
+
+    var divBarraMsg = $("#divBarra #divBarraMensajeLogrado .agrega_barra");
+    if (sessionStorage.getItem("cuvPack") != null || tp > 0) {
+        divBarraMsg.html(objMsg.Mensaje.replace("#porcentaje", valPor).replace("#valor", valorMonto));
+    } else {
+        divBarraMsg.html(objMsg.Mensaje.replace("#porcentaje", valPor).replace("#valor", (mt < mn ? valorMonto : valorMontoEsacalaDescuento)));
+    }
+
+    //$("#divBarra #divBarraMensajeLogrado .agrega_barra").html(objMsg.Mensaje.replace("#porcentaje", valPor).replace("#valor", valorMonto)); 
+    // OG
+    //if (belcorp.barra.settings.isMobile) {
+    //    $("#divBarra #divBarraMensajeLogrado .descuento_pedido").html(listaLimite[indPuntoLimite].nombreApp || listaLimite[indPuntoLimite].nombre);
+    //}
 
 
 
@@ -575,87 +629,489 @@ function MostrarBarra(datax, destino) {
     return true;
 }
 
-$('.btn_elegir_regalo').click(function () {
-    seleccionRegaloProgramaNuevas($(this));
-    cambiarEleccionRegaloProgramaNuevas($(this));
-});
+function cargarMontoBanderasMobile(barra) {
+    $('#divMontoMinimo').html(variablesPortal.SimboloMoneda + ' ' + barra.MontoMinimoStr);
+    $('#divMontoMaximo').html(variablesPortal.SimboloMoneda + ' ' + barra.MontoMaximoStr);
+    var divMontoTp = $('#divtippingPoint');
 
-if ($('.monto_maximo').css('display') == 'none') {
-    $('.tipo_montos_y_regalo_tippingPoint').find('.w-100').css('justify-content', 'flex-end');
-    $('.monto_minimo').css('margin-right', '51px');
+    if (barra.TippingPointBarra.ActiveMonto) {
+        divMontoTp.html(variablesPortal.SimboloMoneda + ' ' + barra.TippingPointStr);
+        divMontoTp.show();
+    } else {
+        divMontoTp.hide();
+        $('#lineaPosicionRegalo').hide();
+    }
+}
+
+function initCarruselPremios(barra) {
+    if (tpElectivos.loadPremios) {
+        return;
+    }
+
+    if (barra.TippingPointBarra && barra.TippingPointBarra.ActiveCuponElectivo) {
+        tpElectivos.loadPremios = true;
+        cargarPremiosElectivos();
+        $('#hrefIconoRegalo').click(cargarPopupEleccionRegalo);
+    }
 }
 
 function cargarPopupEleccionRegalo() {
-    $('body').css('overflow-y', 'hidden');
+    checkPremioSelected();
+    $('#popupEleccionRegalo').fadeIn(200);
     setTimeout(function () {
-        $('#popupEleccionRegalo').fadeIn(200);
-        armarCarouselRegalosDisponiblesProgramasNuevas();
-        if (window.matchMedia('(min-width:1000px)').matches) {
-            $('.btn_seguir_comprando').html('Sigue comprando para llevártelo');
-        } else {
-            $('.btn_seguir_comprando').html('Seguir comprando');
-        }
+        armarCarouselRegalos();
     }, 150);
 }
 
-function armarCarouselRegalosDisponiblesProgramasNuevas() {
-    if (window.matchMedia('(max-width:991px)').matches) {
-        $('#carouselOpcionesRegalo').slick({
-            infinite: true,
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            autoplay: false,
-            speed: 300,
-            arrows: false,
-            variableWidth: true,
-            centerMode: true
-        });
-    } else {
-        $('#carouselOpcionesRegalo').slick({
-            infinite: false,
-            slidesToShow: 4,
-            slidesToScroll: 1,
-            autoplay: false,
-            speed: 300,
-            prevArrow: '<a class="ver_anterior_regalo js-slick-prev-h"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
-            nextArrow: '<a class="ver_siguiente_regalo next js-slick-next-h"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>',
-        });
+function checkPremioSelected() {
+    if (tpElectivos.premioSelected || !document.getElementById('divContenidoDetalle')) {
+        return;
     }
+    var details = belcorp.mobile.pedido.getDetalles();
+    var detail = getCuponElectivoInDetails(details);
+    if (!detail) {
+        return;
+    }
+    var premio = getPremioByCuv(detail.CUV);
+    if (!premio) {
+        return;
+    }
+    tpElectivos.premioSelected = premio;
+    selectPremioDivByCuv(tpElectivos.premioSelected.CUV2);
+}
+
+function getCuponElectivoInDetails(details) {
+
+    var len = details.length;
+
+    for (var i = 0; i < len; i++) {
+        var item = details[i];
+
+        if (item.CuponElectivo) {
+            return item;
+        }
+    }
+
+    return null;
+}
+
+function getPremioElectivos() {
+    var dfd = jQuery.Deferred();
+
+    jQuery.ajax({
+        type: "POST",
+        url: baseUrl + "Pedido/CargarPremiosElectivos",
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        async: true,
+        cache: false,    
+        success: function(data) {
+            dfd.resolve(data);
+        },
+        error: function(data, error) {
+            dfd.reject(data, error);
+        }
+    });
+
+    return dfd.promise();
+}
+
+function cargarPremiosElectivos() {
+    getPremioElectivos().then(function (response) {
+        tpElectivos.premioSelected = response.selected;
+
+        tpElectivos.premios = response.lista;
+        SetHandlebars("#premios-electivos-template", response, '#carouselOpcionesRegalo');
+        loadCarruselPremiosEvents();
+
+        if (!tpElectivos.premioSelected) {
+            $('#divBarra .contenedor_circulos').show();
+            return;
+        }
+        selectPremioDivByCuv(tpElectivos.premioSelected.CUV2);
+    });
+}
+
+function agregarPremioDefault() {
+    var premio = getPremioDefault();
+    if (!premio) {
+        return;
+    }
+
+    AgregarPremio(premio).then(function(data) {
+        if (!data) {
+            return;
+        }
+
+        tpElectivos.premioSelected = premio;
+        selectPremioDivByCuv(tpElectivos.premioSelected.CUV2);
+    });
+}
+
+function getPremioDefault() {
+    var list = tpElectivos.premios;
+
+    for (var i = 0; i < list.length; i++) {
+        var item = list[i];
+
+        if (item.CuponElectivoDefault) {
+            return item;
+        }
+    }
+
+    return null;
+}
+
+function getElementPremiosByCuv(container, cuv) {
+    var list = container.find('.opcion_regalo_carousel_programaNuevas');
+    var len = list.length;
+    for (var i = 0; i < len; i++) {
+        var element = $(list[i]);
+        var currentCuv = element.data('cuv');
+
+        if (currentCuv == cuv) {
+            return element;
+        }
+    }
+    return null;
+}
+
+function loadCarruselPremiosEvents() {
+    $('.btn_elegir_regalo').click(function () {
+        //if (tpElectivos.premioSelected) {
+        //    return;
+        //}
+        cambiarEleccionRegaloProgramaNuevas($(this));
+        seleccionRegaloProgramaNuevas($(this));
+    });
+}
+
+function armarCarouselRegalos() {
+    var carrusel = $('#carouselOpcionesRegalo');
+
+    if (carrusel[0].slick) {
+        return;
+    }
+
+    carrusel.slick({
+        infinite: true,
+        lazyLoad: 'ondemand',
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: false,
+        speed: 300,
+        arrows: false,
+        variableWidth: true,
+        centerMode: true
+    });
 }
 
 function seleccionRegaloProgramaNuevas(regaloProgramaNuevas) {
-    if (window.matchMedia('(min-width:1000px)').matches) {
-        $('.opcion_regalo_carousel_programaNuevas').addClass('opcion_regalo_inactivo');
-        regaloProgramaNuevas.parents('.opcion_regalo_carousel_programaNuevas').removeClass('opcion_regalo_inactivo').addClass('opcion_regalo_carousel_elegido');
-    } else {
-        regaloProgramaNuevas.parents('.opcion_regalo_carousel_programaNuevas').addClass('opcion_regalo_carousel_elegido');
+    var cuv = regaloProgramaNuevas.parents('.opcion_regalo_carousel_programaNuevas').data('cuv');
+    var premio = getPremioByCuv(cuv);
+
+    if (!premio) {
+        return;
     }
-    regaloProgramaNuevas.fadeOut(100);
-    $('.mensaje_titulo_popup_eleccion_regalo').fadeOut(200);
+
+    AgregarPremio(premio)
+        .then(function(data) {
+            if (!data) {
+                return;
+            }
+
+            tpElectivos.premioSelected = premio;
+            markPremioSelected(regaloProgramaNuevas.parents('.opcion_regalo_carousel_programaNuevas'));
+        });
+}
+
+function markPremioSelected(premioDiv) {
+    var btn = premioDiv.find('.btn_elegir_regalo');
+    var msgRegaloDiv = $('.mensaje_titulo_popup_eleccion_regalo');
+    premioDiv.addClass('opcion_regalo_carousel_elegido');
+    btn.fadeOut(100);
+    msgRegaloDiv.fadeOut(200);
     setTimeout(function () {
-        regaloProgramaNuevas.next().fadeIn(150);
-        $('.mensaje_titulo_popup_eleccion_regalo').html('¡Ya elegiste tu regalo!');
-        $('.mensaje_titulo_popup_eleccion_regalo').fadeIn(200);
-    }, 150);    
+        btn.next().fadeIn(150);
+        msgRegaloDiv.html('¡Ya elegiste tu regalo!');
+        msgRegaloDiv.fadeIn(200);
+    }, 150);
+    $('#divBarra .contenedor_circulos').hide();
+}
+
+function getPremioByCuv(cuv) {
+    var cantPremios = tpElectivos.premios.length;
+    for (var i = 0; i < cantPremios; i++) {
+        var item = tpElectivos.premios[i];
+
+        if (item.CUV2 == cuv) {
+            return item;
+        }
+    }
+
+    return null;
 }
 
 function cambiarEleccionRegaloProgramaNuevas(nuevoRegaloElegido) {
-    if (window.matchMedia('(min-width:1000px)').matches) {
-        if ($('.opcion_regalo_carousel_programaNuevas').is('.opcion_regalo_inactivo')) {
-            $('.opcion_regalo_carousel_programaNuevas').removeClass('opcion_regalo_inactivo');
-        }
-        $('.opcion_regalo_carousel_programaNuevas').removeClass('opcion_regalo_carousel_elegido');
-    } else {
-        $('.opcion_regalo_carousel_programaNuevas').removeClass('opcion_regalo_carousel_elegido');
-    }
+    $('.opcion_regalo_carousel_programaNuevas').removeClass('opcion_regalo_carousel_elegido');
     $('.mensaje_titulo_popup_eleccion_regalo').fadeOut(200);
-    $('.mensaje_regalo_elegido').fadeOut(150);
+    $('.mensaje_regalo_elegido').fadeOut(200);
     setTimeout(function () {
         $('.btn_elegir_regalo').fadeIn(150);
-        $('.mensaje_titulo_popup_eleccion_regalo').html('¡Puedes elegir tu regalo del Programa de Nuevas ahora!');
-        $('.mensaje_titulo_popup_eleccion_regalo').fadeIn(200);
+        //$('.mensaje_titulo_popup_eleccion_regalo').html('¡Puedes elegir tu regalo del Programa de Nuevas ahora!');
+        //$('.mensaje_titulo_popup_eleccion_regalo').fadeIn(200);
         nuevoRegaloElegido.parents('.opcion_regalo_carousel_programaNuevas').addClass('opcion_regalo_carousel_elegido');
         nuevoRegaloElegido.fadeOut(50);
         nuevoRegaloElegido.next().fadeIn(150);
     }, 150);
+    tpElectivos.premioSelected = null;
+    $('#divBarra .contenedor_circulos').show();
+}
+
+function selectPremioDivByCuv(cuv) {
+    var element = getElementPremiosByCuv($('#carouselOpcionesRegalo'), cuv);
+    if (element) {
+        markPremioSelected(element);
+    }
+}
+
+function showPopupNivelSuperado(barra, prevLogro) {
+    if (!barra) {
+        return;
+    }    
+    var tippingPoint = barra.TippingPoint || 0;
+
+    if (tippingPoint > 0) {
+        if (!barra.TippingPointBarra.Active) {
+            return;
+        }
+
+        var superaRegalo = tippingPoint <= mtoLogroBarra && tippingPoint > prevLogro;
+        if (superaRegalo) {
+            
+            var idPopup = '#popupPremio';
+            var dvPremio = $(idPopup);
+            dvPremio.find('.sub-premio-elect').css('display', tpElectivos.premioSelected ? 'none': 'block');
+            dvPremio.find('.btn_escoger_o_cambiar_regalo').html(tpElectivos.premioSelected ? 'CAMBIAR PRODUCTO': '¡Escoger ahora!');
+            AbrirPopup(idPopup);
+            mostrarLluvia();
+            
+            if (!tpElectivos.premioSelected) {
+                agregarPremioDefault();
+            }
+        }
+    } else {
+        showPopupEscalaSiguiente(barra, prevLogro);
+    }
+}
+
+function showPopupEscalaSiguiente(dataBarra, prevLogro) {
+    if (!dataBarra || !dataBarra.ListaEscalaDescuento) return false;
+
+    var total = mtoLogroBarra;
+    var len = dataBarra.ListaEscalaDescuento.length;
+
+    for (var i = 0; i < len; i++) {
+        var escala = dataBarra.ListaEscalaDescuento[i];
+        if (total >= escala.MontoDesde && total < escala.MontoHasta) {
+            if (escala.MontoDesde > prevLogro) {
+                var content = '#porcentaje% de dscto!';
+                content = content.replace('#porcentaje', escala.PorDescuento);
+                $('#popupEscalaDescuento .porcentaje').html(content);
+                AbrirPopup('#popupEscalaDescuento');
+                mostrarLluvia();
+
+                return true;
+                
+            }
+        }
+    }
+
+    return false;
+}
+
+function CalculoLlenadoBarra() { 
+    var montoMaximo = dataBarra.MontoMaximo;
+    var montoTipipoing = dataBarra.TippingPoint;
+    var montoActual = mtoLogroBarra; // dataBarra.TotalPedido;
+    var montoMinimo = dataBarra.MontoMinimo;
+    var AvancePorcentaje = 0;
+
+    if (dataBarra.TippingPointBarra.Active == true) {
+        if (montoActual * 1 < montoTipipoing * 1) {// es menor q el TippingPoint 
+            AvancePorcentaje = (montoActual * 100) / montoTipipoing;
+            return AvancePorcentaje + '%';
+        }
+        else {
+            AvancePorcentaje = (montoActual * 100) / montoMaximo;
+            return (AvancePorcentaje) + '%';
+        }
+    } else {
+
+        if (montoActual * 1 < montoMinimo* 1) {
+            AvancePorcentaje = (montoActual * 100) / montoMinimo;
+            return AvancePorcentaje+ '%';
+        }
+        else {
+            AvancePorcentaje = (montoActual * 100) / montoMaximo;
+            return (AvancePorcentaje) + '%';
+        }        
+    }
+
+}
+
+function AgregarPremio(premio) {
+    AbrirLoad();
+    var params = {
+        //CuvTonos: $.trim(cuvs),
+        CUV: $.trim(premio.CUV2),
+        Cantidad: 1,
+        TipoEstrategiaID: premio.TipoEstrategiaID,
+        EstrategiaID: $.trim(premio.EstrategiaID),
+        //OrigenPedidoWeb: $.trim(origenPedidoWebEstrategia),
+        //TipoEstrategiaImagen: 0,
+        FlagNueva: $.trim(premio.FlagNueva)
+    };
+
+    return InsertarPremio(params);
+}
+
+function InsertarPremio(model) {   
+    
+    return jQuery.ajax({
+        type: 'POST',
+        url: urlGuardarPremioElectivo,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(model),
+        async: true,
+        cache: false
+    }).then(function (data) {
+        if (!checkTimeout(data)) {
+            CloseLoading();
+            return false;
+        }
+
+        if (data.success != true) {
+            messageInfoError(data.message);
+            CloseLoading();
+            return false;
+        }
+
+        CloseLoading();
+
+        if (typeof CargarPedido === "function") { 
+            CargarPedido();
+        }
+
+        return data;
+    });
+};
+
+function CalculoPosicionMinimoMaximo() {
+    var montoMinimo = dataBarra.MontoMinimo;
+    var montoMaximo = dataBarra.MontoMaximo;
+    var montoTipipoing = dataBarra.TippingPoint;
+    var montoActual = mtoLogroBarra; //dataBarra.TotalPedido;
+
+
+   // var anchoDispositivo = window.innerWidth;
+    var anchoBarraPorcentaje = 91.25;//%
+    var PosicionMontoMinimo = 0;
+
+    //if (montoTipipoing!="0") {
+        if (dataBarra.TippingPointBarra.Active == true) {
+            if (montoActual * 1 < montoTipipoing * 1) {
+                PosicionMontoMinimo = montoMinimo * 100 / montoTipipoing;
+                PosicionMontoTipinpoing = montoTipipoing * 100 / montoTipipoing;
+
+                document.getElementById('lineaPosicionMontoMinimo').style.display = 'block';
+                document.getElementById('MontoMinimoBloque').style.display = 'block';
+                document.getElementById('lineaPosicionMontoMinimo').style.left = (PosicionMontoMinimo) + '%';
+                document.getElementById('MontoMinimoBloque').style.left = (PosicionMontoMinimo - 8) + '%';
+
+                document.getElementById('hrefIconoRegalo').className = "icono_regalo regalo_tippingPointInicio text-center";
+                document.getElementById('hrefIconoRegalo').style.left = "";
+
+                 document.getElementById('lineaPosicionMontoMaximo').style.display = 'None';
+                document.getElementById('lineaPosicionRegalo').style.left = (PosicionMontoTipinpoing) + '%';
+                document.getElementById('lineaPosicionRegalo').style.right = "";
+                document.getElementById('MontoMaximoBloque').style.display = "none";
+            } else {
+                PosicionMontoMinimo = montoMinimo * 100 / montoMaximo;
+                PosicionMontoTipipoing = montoTipipoing * 100 / montoMaximo;
+
+                document.getElementById('hrefIconoRegalo').className = document.getElementById('hrefIconoRegalo').className.replace('regalo_tippingPointInicio', 'regalo_tippingPoint');
+
+                document.getElementById('lineaPosicionMontoMinimo').style.display = 'block';
+                document.getElementById('lineaPosicionMontoMinimo').style.left = (PosicionMontoMinimo) + '%';
+                document.getElementById('MontoMinimoBloque').style.left = (PosicionMontoMinimo - 8) + '%';
+                document.getElementById('MontoMinimoBloque').style.display = 'block';
+
+                document.getElementById('hrefIconoRegalo').style.left = (PosicionMontoTipipoing -3) + '%';
+                document.getElementById('lineaPosicionRegalo').style.left = (PosicionMontoTipipoing ) + '%';
+
+                document.getElementById('lineaPosicionMontoMaximo').style.display = 'inline-block';
+                document.getElementById('lineaPosicionMontoMaximo').style.left = "100%";//anchoBarraPorcentaje + 3 + 
+                document.getElementById('lineaPosicionMontoMaximo').style.right = "";
+                document.getElementById('MontoMaximoBloque').style.right = "-14px";
+                document.getElementById('MontoMaximoBloque').style.display = "block";
+
+                document.getElementById('divtippingPoint').style.left = "-20px";
+                
+
+            }
+        }
+        else {
+
+
+            if (montoActual * 1 < montoMinimo * 1) {
+
+                //document.getElementById('lineaPosicionMontoMinimo').style.left = (PosicionMontoMinimo - 5) + '%';
+                //document.getElementById('MontoMinimoBloque').style.left = (PosicionMontoMinimo - 13) + '%';
+
+                document.getElementById('lineaPosicionMontoMinimo').style.left = "auto";
+                document.getElementById('lineaPosicionMontoMinimo').style.display = "block";
+                //document.getElementById('lineaPosicionMontoMinimo').style.right = "0px";
+
+                document.getElementById('MontoMinimoBloque').style.left = "";
+                document.getElementById('MontoMinimoBloque').style.right = '-14px';
+                document.getElementById('MontoMinimoBloque').style.display = 'block';
+
+                document.getElementById('lineaPosicionRegalo').style.display = 'None';
+
+                document.getElementById('lineaPosicionMontoMaximo').style.display = 'None';
+                document.getElementById('MontoMaximoBloque').style.display = "None";
+
+            } else {
+                PosicionMontoMinimo = montoMinimo * 100 / montoMaximo;
+
+                document.getElementById('lineaPosicionMontoMinimo').style.left = (PosicionMontoMinimo) + '%';
+                document.getElementById('lineaPosicionMontoMinimo').style.display = 'block';
+
+                document.getElementById('MontoMinimoBloque').style.right = "";
+                document.getElementById('MontoMinimoBloque').style.display = 'block';
+                if (window.innerWidth > 1200) {
+                    document.getElementById('MontoMinimoBloque').style.left = (PosicionMontoMinimo - 2) + '%';
+                }
+                else
+                    document.getElementById('MontoMinimoBloque').style.left = (PosicionMontoMinimo - 4) + '%';
+
+                document.getElementById('lineaPosicionRegalo').style.display = 'None';
+
+                document.getElementById('lineaPosicionMontoMaximo').style.display = 'block';
+                document.getElementById('lineaPosicionMontoMaximo').style.left = "100%";
+                document.getElementById('lineaPosicionMontoMaximo').style.right = "";
+
+
+                document.getElementById('MontoMaximoBloque').style.display = "block";
+                document.getElementById('MontoMaximoBloque').style.right = "-14px";
+
+            }
+
+
+        }
+    //}
+
+   
 }

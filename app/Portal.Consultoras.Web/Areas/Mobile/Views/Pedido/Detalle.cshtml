@@ -39,8 +39,10 @@
                     MI PEDIDO
                     <span>@Model.DescripcionCampaniaActual</span>
                 </h2>
-
-                <div id="divProductosDetalle">
+                <input type="hidden" id="hdfSimbolo" value="@Model.Simbolo" />
+                <input type="hidden" id="hdfTotal" value="@Model.Total" />
+                @Html.Partial("~/Areas/Mobile/Views/Util/_barra.cshtml")
+                <div id="divProductosDetalle" class="contenedor_lista_detalle_productos">
                     <div class="text-center">
                         <img alt="Cargando..." src="@Url.Content("~/Content/images/Loading.gif")" />
                     </div>
@@ -297,6 +299,11 @@
         <div class="contenedor_items_pedido">
             <div class="bloque_descripcion_items_ingresados">
                 <div class="descripcion_item_pedido">
+                    <span class="mensaje_tipoProd">
+                        {{#if detalle.CuponElectivo }}
+                        <span class="text-uppercase">Regalo Programa Nuevas</span>
+                        {{/if}}
+                    </span>
                     <span class="cod_prod">
                         {{#if detalle.EstadoSimplificacionCuv}}
                         {{#if detalle.IndicadorOfertaCUV}}
@@ -312,6 +319,7 @@
                         {{/iff}}
                         <span>{{Split detalle.DescripcionProd '|' 0}}</span>
                     </span>
+                    {{#unless detalle.CuponElectivo }}
                     <span class="mensaje_tipoProd">
                         {{#iff detalle.TipoPedido '==' 'M'}}
                         <br />
@@ -326,11 +334,21 @@
                         {{/iff}}
                         {{/IsNullOrEmpty}}
                     </span>
+                    {{/unless}}
                     {{#iff detalle.EsKitNueva '==' false}}
                     <span class="nom_cliente">Cliente: {{detalle.Nombre}}</span>
                     {{/iff}}
+                    {{#if detalle.CuponElectivo }}
+                    <span class="tooltip_informativo_condicion_regalo_programaNuevas">Sólo si llegas a tu monto</span>
+                    {{/if}}
                 </div>
-
+                {{#if detalle.CuponElectivo }}
+                <div class="icono_cambiar_regalo_programaNuevas">
+                    <a href="javascript:;" title="Cambiar regalo" onclick="javascript: cargarPopupEleccionRegalo();">
+                        <img src="@Url.Content("~/Content/Images/icono_editar.svg")" alt="Cambiar regalo" />
+                    </a>
+                </div>
+                {{/if}}
                 {{#if detalle.EsKitNueva}}
                 <div class="icono_kitNuevas">
                     <a href="javascript:;" title="Ver Info Kit Nuevas">
@@ -344,7 +362,7 @@
                     </div>
                 </div>
                 {{else}}
-
+                {{#unless detalle.CuponElectivo }}
                 <div class="icono_eliminar_item_pedido">
                     <a href="javascript:;"
                        title="Eliminar"
@@ -354,7 +372,7 @@
                         <img src="@Url.Content("~/Content/Images/Esika/tacho-copy.png")" alt="Eliminar" />
                     </a>
                 </div>
-
+                {{/unless}}
                 {{/if}}
             </div>
             <div class="bloque_cantidades_precios_items_ingresados">
@@ -373,6 +391,17 @@
                                    readonly="readonly"
                                    autocomplete="off">
                             {{else iff detalle.TipoEstrategiaID '==' 1}}
+                            <input type="tel"
+                                   class="ValidaNumeral ValidaPasteNumeral Cantidad"
+                                   maxlength="2"
+                                   name="Cantidad_{{detalle.PedidoDetalleID}}"
+                                   value="{{detalle.Cantidad}}"
+                                   data-pedidodetalleid="{{detalle.PedidoDetalleID}}"
+                                   data-setId="{{detalle.SetID}}"
+                                   data-cantidad-input="-"
+                                   readonly="readonly"
+                                   autocomplete="off">
+                            {{else iff detalle.CuponElectivo}}
                             <input type="tel"
                                    class="ValidaNumeral ValidaPasteNumeral Cantidad"
                                    maxlength="2"
@@ -912,7 +941,9 @@
 @Html.Partial("~/Views/Shared/Cupon/popupCuponGanaMobile.cshtml")
 @Html.Partial("~/Views/Shared/Cupon/popupCuponConfirmarMobile.cshtml")
 @Html.Partial("~/Views/Shared/Cupon/popupCuponGanasteMobile.cshtml")
-
+@{ Html.RenderPartial("_PopupEleccionRegalo");}
+@{ Html.RenderPartial("_PopupPremio");}
+@{ Html.RenderPartial("_PopupDescuento");}
 @section Scripts{
 
     <script type="text/javascript">
@@ -955,6 +986,7 @@
         var viewBagPaisID = '@Model.PaisID';
         var viewBagNombrePais = '@ViewBag.NombrePais';
         var urlPedidoInsert = '@Url.Action("PedidoInsertar", "Pedido", new {area = ""})';
+        var urlGuardarPremioElectivo = '@Url.Action("GuardarPremioElectivo", "Pedido", new {area = ""})';
 
         var origenPagina = 2;
         var cuvOfertaProl = '@ViewBag.CUVOfertaProl';
@@ -976,8 +1008,21 @@
         var mensajePedidoVacio = '@Constantes.MensajesError.Reserva_SinDetalle';
         var mensajeErrorReserva = '@Constantes.MensajesError.Pedido_Reserva';
         var mensajeSinConexionReserva = '@Constantes.MensajesError.SinConexion_Reserva';
+
+        //OG
+        var dataBarra = JSON.parse('@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(@ViewBag.DataBarra))');
+        var listaMensajeMeta = dataBarra == null ? null : dataBarra.ListaMensajeMeta;
+        document.getElementsByClassName('descuento_pedido')[0].style.display = 'None';
+        var listaIconoLluvia = [
+            '@Url.Content("~/Content/Images/confetti-rombo.svg")',
+            '@Url.Content("~/Content/Images/confetti-estrella.svg")',
+            '@Url.Content("~/Content/Images/confetti-circulo.svg")',
+            '@Url.Content("~/Content/Images/confetti-ondas.svg")'
+        ];
+        var noIniciarLluvia = true;
+        //var lluviaContainerId = '#popupEscalaDescuento';
     </script>
-    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mobile/PedidoDetalle")
+    @Scripts.Render("~/Bundle/Js/Mobile/PedidoDetalle")
 
     @if (Model.MostrarPopupPrecargados)
     {
@@ -988,4 +1033,6 @@
 
         </script>
     }
+    <script type="text/javascript" src="@Url.Content("~/Scripts/nieve.js")?v=1"></script>
+
 }

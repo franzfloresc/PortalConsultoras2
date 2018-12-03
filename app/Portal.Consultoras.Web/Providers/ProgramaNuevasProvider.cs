@@ -5,7 +5,9 @@ using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.SessionManager;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -138,6 +140,46 @@ namespace Portal.Consultoras.Web.Providers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return new BarraTippingPoint();
             }
+        }
+
+        public List<PremioElectivoModel> GetPremioElectivosTippingPoint()
+        {
+            var tippingPoint = GetConfiguracion();
+
+            return GetCuponesElectivos(tippingPoint.CodigoPrograma);
+        }
+
+        public List<PremioElectivoModel> GetCuponesElectivos(string codigoPrograma)
+        {
+            try
+            {
+                BEEstrategia[] estrategias;
+
+                using (var sv = new PedidoServiceClient())
+                {
+                    estrategias = sv.GetEstrategiaPremiosElectivos(userData.PaisID, codigoPrograma, userData.CampaniaID);
+                }
+
+                if (estrategias != null)
+                {
+                    var list = Mapper.Map<BEEstrategia[], List<PremioElectivoModel>>(estrategias);
+
+                    foreach (var item in list)
+                    {
+                        if (string.IsNullOrEmpty(item.ImagenURL)) continue;
+                        
+                        item.ImagenURL = GetUrlTippingPoint(item.ImagenURL);
+                    }
+
+                    return list;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+
+            return new List<PremioElectivoModel>();
         }
 
         private string GetUrlTippingPoint(string noImagen)

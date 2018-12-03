@@ -985,6 +985,7 @@
           <xs:element minOccurs="0" name="CodigoTipoEstrategia" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="ColorFondo" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="ConsultoraID" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CuponElectivoDefault" type="xs:boolean" />
           <xs:element minOccurs="0" name="DescripcionCUV2" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="DescripcionCategoria" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="DescripcionCortaCUV2" nillable="true" type="xs:string" />
@@ -1213,6 +1214,7 @@
   <xs:complexType name="BEActivarPremioNuevas">
     <xs:sequence>
       <xs:element minOccurs="0" name="Active" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ActiveCuponElectivo" type="xs:boolean" />
       <xs:element minOccurs="0" name="ActiveMontoTooltip" type="xs:boolean" />
       <xs:element minOccurs="0" name="ActiveTooltip" type="xs:boolean" />
       <xs:element minOccurs="0" name="AnioCampana" type="xs:int" />

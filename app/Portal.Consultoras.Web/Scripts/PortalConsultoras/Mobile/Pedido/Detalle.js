@@ -106,6 +106,7 @@ function CargarPedido(firstLoad) {
 
             SetHandlebars("#template-Detalle", data.data, '#divProductosDetalle');
             belcorp.mobile.pedido.setDetalles(data.data.ListaDetalleModel);
+            MostrarBarra(data);
 
             if ($('#divContenidoDetalle').find(".icono_advertencia_notificacion").length > 0) {
                 $("#iconoAdvertenciaNotificacion").show();
@@ -511,7 +512,7 @@ function ConfigurarFnEliminarProducto(CampaniaID, PedidoID, PedidoDetalleID, Tip
                     return false;
                 }
 
-                ActualizarGanancia(data.DataBarra);
+                MostrarBarra(data);
                 CargarPedido();
                 TrackingJetloreRemove(Cantidad, $("#hdCampaniaCodigo").val(), CUV);
                 dataLayer.push({
@@ -607,7 +608,7 @@ function AceptarBackOrder(campaniaId, pedidoId, pedidoDetalleId, clienteId) {
 
             ShowLoading();
 
-            ActualizarGanancia(data.DataBarra);
+            MostrarBarra(data);
             CargarPedido();
             CloseLoading();
         },
@@ -688,7 +689,7 @@ function PedidoDetalleEliminarTodo() {
             }
 
 
-            ActualizarGanancia(data.DataBarra);
+            MostrarBarra(data);
             TrackingJetloreRemoveAll(listaDetallePedido);
 
             if (!(typeof AnalyticsPortalModule === 'undefined'))
@@ -789,7 +790,6 @@ function PedidoUpdate(item, PROL, detalleObj, elementRow) {
 
     ShowLoading();
     PROL = PROL || "0";
-
     jQuery.ajax({
         type: 'POST',
         url: urlPedidoUpdate,
@@ -807,7 +807,9 @@ function PedidoUpdate(item, PROL, detalleObj, elementRow) {
                 return false;
             }
 
-            ActualizarGanancia(data.DataBarra);
+            var prevTotal = mtoLogroBarra || 0;
+            MostrarBarra(data);
+            showPopupNivelSuperado(data.DataBarra, prevTotal);
 
             if (PROL == "0") {
                 detalleObj.CantidadTemporal = $(cantidadElement).val();
@@ -1201,8 +1203,9 @@ function InsertarProducto(model, asyncX, urlMobile) {
             CloseLoading();
 
             setTimeout(function () { }, 2000);
-
-            ActualizarGanancia(data.DataBarra);
+            var prevTotal = mtoLogroBarra || 0;
+            MostrarBarra(data);
+            showPopupNivelSuperado(data.DataBarra, prevTotal);
 
             TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);
             dataLayer.push({

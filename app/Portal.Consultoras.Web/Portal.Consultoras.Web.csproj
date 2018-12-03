@@ -544,6 +544,7 @@
     <Compile Include="Models\PagoEnLinea\DataToken.cs" />
     <Compile Include="Models\PagoEnLinea\PagoEnLineaModel.cs" />
     <Compile Include="Models\PagoEnLinea\PagoVisaModel.cs" />
+    <Compile Include="Models\PremioElectivoModel.cs" />
     <Compile Include="Models\ProductoComentarioModel.cs" />
     <Compile Include="Models\CompartirRedesSocialesModel.cs" />
     <Compile Include="Models\ComunModel.cs" />
@@ -1345,6 +1346,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Content Include="Areas\Mobile\Views\Pedido\_PopupDescuento.cshtml" />
     <Content Include="ChateaConEBA.html" />
     <Content Include="AppDeCatalogos.html" />
     <Content Include="Content\Banderas\AR.png" />
@@ -1408,6 +1410,7 @@
     <Content Include="Content\Css\Site\Ficha\SeleccionarTipo.css" />
     <Content Include="Content\Css\Site\Images\carrusel_next_blanco_dorado.png" />
     <Content Include="Content\Css\Site\Images\carrusel_prev_blanco_dorado.png" />
+    <Content Include="Content\Images\icono_party_popper.png" />
     <Content Include="Content\Css\Site\ion.rangeSlider\ion.rangeSlider.css" />
     <Content Include="Content\Css\Site\ion.rangeSlider\ion.rangeSlider.skinFlat.css" />
     <Content Include="Content\Css\Site\ion.rangeSlider\ion.rangeSlider.skinHTML5.css" />
@@ -1655,6 +1658,7 @@
     <Content Include="Content\Images\icono_noticias.svg" />
     <Content Include="Content\Images\icono_notificaciones.svg" />
     <Content Include="Content\Images\icono_notificaciones_blanco.svg" />
+    <Content Include="Content\Images\icono_popup_limite_credito.svg" />
     <Content Include="Content\Images\icono_party_popper.png" />
     <Content Include="Content\Images\icono_regalo.png" />
     <Content Include="Content\Images\icono_salvavidas.svg" />
@@ -1692,6 +1696,7 @@
     <Content Include="Content\Images\mobile\icono_menos_footer_mobile.png" />
     <Content Include="Content\Images\Lbel\logo_marca_pais_blanco.svg" />
     <Content Include="Content\Images\Lbel\RevistaDigital\ofertas-digitales-navidad-lbel.svg" />
+    <Content Include="Content\Images\mobile\icono_regalo.png" />
     <Content Include="Content\Images\mobile\img-icon\icon_bolsita_triste.png" />
     <Content Include="Content\Images\mobile\cincuenta_anios_belcorp_cabecera_mobile.png" />
     <Content Include="Content\Images\mobile\Esika\1f44d.png" />
@@ -3275,7 +3280,6 @@
     <Content Include="Content\Images\mobile\icono-cerrar-popup-inscripcion-mobile.svg" />
     <Content Include="Content\Images\mobile\icono-eliminar-cdr.png" />
     <Content Include="Content\Images\mobile\icono-menu-mobile.svg" />
-    <Content Include="Content\Images\mobile\icono_regalo.png" />
     <Content Include="Content\Images\mobile\icono_regalo_estrella.png" />
     <Content Include="Content\Images\mobile\icon_caja.png" />
     <Content Include="Content\Images\mobile\icon_casita.png" />
@@ -4460,6 +4464,7 @@
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpLoadingMobile.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileMenu\_MobileMenu.cshtml" />
     <Content Include="Areas\Mobile\Views\ProgramaNuevas\Index.cshtml" />
+    <Content Include="Areas\Mobile\Views\Pedido\_PopupEleccionRegalo.cshtml" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Areas\Mobile\Views\MasGanadoras\template-landing.cshtml" />
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-carrusel-individuales-v2.cshtml" />

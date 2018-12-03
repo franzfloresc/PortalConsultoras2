@@ -181,6 +181,20 @@ namespace Portal.Consultoras.Web.Controllers
                     model.MontoEscala = pedidoWeb.MontoEscala;
                     model.TotalConDescuento = model.Total - model.MontoDescuento;
 
+                    SessionManager.SetMontosProl(
+                       new List<ObjMontosProl>
+                       {
+                           new ObjMontosProl
+                           {
+                               AhorroCatalogo = model.MontoAhorroCatalogo.ToString(),
+                               AhorroRevista = model.MontoAhorroRevista.ToString(),
+                               MontoTotalDescuento = model.MontoDescuento.ToString(),
+                               MontoEscala = model.MontoEscala.ToString()
+                           }
+                       }
+                   );
+
+
                     model.ListaParametriaOfertaFinal = GetParametriaOfertaFinal(SessionManager.GetOfertaFinalModel().Algoritmo);
                 }
                 else
@@ -551,6 +565,28 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (esEstrategia) Session[Constantes.ConstSession.ListaEstrategia] = null;
             return Json(PedidoInsertarGenerico(model, false, listCuvEliminar, mensajeAviso, !string.IsNullOrEmpty(mensajeAviso)));
+        }
+
+        public JsonResult GuardarPremioElectivo(PedidoCrudModel model)
+        {
+            var result = _programaNuevasProvider.GetPremioElectivosTippingPoint();
+
+            var details = GetPedidoWebDetalle(IsMobile());
+
+            var selected = details.FirstOrDefault(d => result.Any(c => c.CUV2 == d.CUV));
+
+            if (selected != null)
+            {
+                var lastResult = DeletePedidoWeb(selected.CampaniaID, selected.PedidoID, selected.PedidoDetalleID, selected.TipoOfertaSisID, selected.CUV, selected.Cantidad,
+                    selected.ClienteID.ToString(), selected.EsBackOrder, selected.CUV);
+
+                if (!lastResult.Item1)
+                {
+                    return lastResult.Item2;
+                }
+            }
+
+            return PedidoInsertar(model);
         }
 
         private object PedidoInsertarGenerico(PedidoCrudModel model, bool esKitNuevaAuto, List<string> listCuvEliminar = null, string mensajeAviso = "", bool esMensajeElecMultiple = false)
@@ -3529,36 +3565,10 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var listaDetalle = ObtenerPedidoWebSetDetalleAgrupado() ?? new List<BEPedidoWebDetalle>();
+                var listaDetalle = GetPedidoWebDetalle(mobil);
 
                 if (mobil)
                 {
-                    if (listaDetalle.Count == 0)
-                    {
-                        int isInsert;
-                        using (var sv = new PedidoServiceClient())
-                        {
-                            var bePedidoWeb = new BEPedidoWeb
-                            {
-                                CampaniaID = userData.CampaniaID,
-                                ConsultoraID = userData.ConsultoraID,
-                                PaisID = userData.PaisID,
-                                IPUsuario = userData.IPUsuario,
-                                CodigoUsuarioCreacion = userData.CodigoUsuario
-                            };
-
-                            isInsert = sv.GetProductoCUVsAutomaticosToInsert(bePedidoWeb);
-                        }
-                        if (isInsert > 0)
-                        {
-                            SessionManager.SetDetallesPedido(null);
-                            SessionManager.SetDetallesPedidoSetAgrupado(null);
-                            listaDetalle = ObtenerPedidoWebDetalle();
-
-                            UpdPedidoWebMontosPROL();
-                        }
-                    }
-
                     page = 1;
                     rows = listaDetalle.Count;
                 }
@@ -3577,9 +3587,14 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var pedidoWebDetalleModel = Mapper.Map<List<BEPedidoWebDetalle>, List<PedidoWebDetalleModel>>(listaDetalle);
 
-                pedidoWebDetalleModel.ForEach(p => p.Simbolo = userData.Simbolo);
-                pedidoWebDetalleModel.ForEach(p => p.CodigoIso = userData.CodigoISO);
-                pedidoWebDetalleModel.ForEach(p => p.DescripcionCortadaProd = Util.SubStrCortarNombre(p.DescripcionProd, 73));
+                var premiosElectivos = _programaNuevasProvider.GetPremioElectivosTippingPoint();
+                pedidoWebDetalleModel.ForEach(p =>
+                {
+                    p.Simbolo = userData.Simbolo;
+                    p.CodigoIso = userData.CodigoISO;
+                    p.DescripcionCortadaProd = Util.SubStrCortarNombre(p.DescripcionProd, 73);
+                    p.CuponElectivo = premiosElectivos.Any(c => c.CUV2 == p.CUV);
+                });
 
                 model.ListaDetalleModel = pedidoWebDetalleModel;
                 model.Total = total;
@@ -3639,6 +3654,42 @@ namespace Portal.Consultoras.Web.Controllers
                     dataBarra = new BarraConsultoraModel()
                 });
             }
+        }
+
+        private List<BEPedidoWebDetalle> GetPedidoWebDetalle(bool isMobile)
+        {
+            var listaDetalle = ObtenerPedidoWebSetDetalleAgrupado() ?? new List<BEPedidoWebDetalle>();
+
+            if (isMobile)
+            {
+                if (listaDetalle.Count == 0)
+                {
+                    int isInsert;
+                    using (var sv = new PedidoServiceClient())
+                    {
+                        var bePedidoWeb = new BEPedidoWeb
+                        {
+                            CampaniaID = userData.CampaniaID,
+                            ConsultoraID = userData.ConsultoraID,
+                            PaisID = userData.PaisID,
+                            IPUsuario = userData.IPUsuario,
+                            CodigoUsuarioCreacion = userData.CodigoUsuario
+                        };
+
+                        isInsert = sv.GetProductoCUVsAutomaticosToInsert(bePedidoWeb);
+                    }
+                    if (isInsert > 0)
+                    {
+                        SessionManager.SetDetallesPedido(null);
+                        SessionManager.SetDetallesPedidoSetAgrupado(null);
+                        listaDetalle = ObtenerPedidoWebDetalle();
+
+                        UpdPedidoWebMontosPROL();
+                    }
+                }
+            }
+
+            return listaDetalle;
         }
 
         #region Parametria Oferta Final
@@ -4509,6 +4560,21 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #endregion
+
+        public JsonResult CargarPremiosElectivos()
+        {
+            var premios = _programaNuevasProvider.GetPremioElectivosTippingPoint();
+
+            var details = GetPedidoWebDetalle(IsMobile());
+
+            var selected = premios.FirstOrDefault(c => details.Any(d => c.CUV2 == d.CUV));
+
+            return Json(new
+            {
+                lista = premios,
+                selected
+            }, JsonRequestBehavior.AllowGet);
+        }
 
         [HttpPost]
         public JsonResult EsPedidoDetalleElecMultiple(string cuv)

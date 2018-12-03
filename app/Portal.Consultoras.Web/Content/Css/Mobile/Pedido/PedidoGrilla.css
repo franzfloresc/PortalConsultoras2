@@ -20,7 +20,7 @@
 }
 
 .nombre_campania_pedido {
-    margin: 0 0 21px 0;
+    margin: 7px 0 21px 0;
 }
 
 
@@ -29,10 +29,10 @@
 }
 
 .titulo_detalle {
-    border-top: 2px solid #bababa;
-    border-bottom: 2px solid #bababa;
+    border-top: 1px solid #bababa;
+    border-bottom: 1px solid #bababa;
     height: 38px;
-    line-height: 32px;
+    line-height: 33px;
 }
 
 .contenedor_items_pedido {
@@ -60,7 +60,7 @@
     margin-bottom: 20px;
 }
 
-.descripcion_item_pedido, .icono_eliminar_item_pedido, .icono_kitNuevas {
+.descripcion_item_pedido, .icono_eliminar_item_pedido, .icono_kitNuevas, .icono_cambiar_regalo_programaNuevas {
     display: inline-block;
     vertical-align: top;
 }
@@ -79,12 +79,11 @@
     }
 
 .mensaje_tipoProd {
-    font-size: 13px !important;
-    font-weight: bold !important;
+    font-size: 12px;
+    font-weight: bold;
     line-height: 6px;
-    margin-bottom: 2px !important;
-    letter-spacing: 0.5px;
-    color: #808080;
+    margin-bottom: 13px !important;
+    text-transform: uppercase;
 }
 
 .cod_prod, .desc_prod, .nom_cliente {

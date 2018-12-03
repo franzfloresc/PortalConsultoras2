@@ -152,5 +152,6 @@ namespace Portal.Consultoras.Web.Models
         public int SetID { get; set; }
         public string TipoEstrategiaCodigo { get; set; }
         public bool EnRangoProgNuevas { get; set; }
+        public bool CuponElectivo { get; set; }
     }
 }

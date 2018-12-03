@@ -1936,7 +1936,8 @@ namespace Portal.Consultoras.BizLogic
         private BEPedidoWeb ObtenerRutaPaqueteDocumentario(string codigoConsultora, string campania, string numeroPedido, string paisIso)
         {
             var errorMessage = string.Empty;
-            var url = string.Empty;
+            var url = string.Empty;
+
             try
             {
                 var input = new
@@ -1946,13 +1947,16 @@ namespace Portal.Consultoras.BizLogic
                     CodigoConsultora = codigoConsultora,
                     Campana = campania,
                     NumeroPedido = numeroPedido
-                };
+                };
+
                 var urlService = ConfigurationManager.AppSettings["WS_RV_PDF_NEW"];
                 var wrapper = ConsumirServicio<DEWrapperPDF>(input, urlService);
-                var result = (wrapper ?? new DEWrapperPDF()).GET_URLResult;
+                var result = (wrapper ?? new DEWrapperPDF()).GET_URLResult;
+
                 if (result != null)
                 {
-                    if (result.errorCode != "00000" && result.errorMessage != "OK") errorMessage = result.errorMessage;
+                    if (result.errorCode != "00000" && result.errorMessage != "OK") errorMessage = result.errorMessage;
+
                     if (string.IsNullOrEmpty(errorMessage) && result.objeto != null)
                     {
                         if (result.objeto.Count > 0) url = result.objeto[0].url;
@@ -1963,7 +1967,8 @@ namespace Portal.Consultoras.BizLogic
             {
                 LogManager.SaveLog(ex, codigoConsultora, paisIso);
                 throw new BizLogicException("No se pudo obtener la ruta de paquete documentario.", ex);
-            }
+            }
+
             return new BEPedidoWeb()
             {
                 RutaPaqueteDocumentario = url,
@@ -1975,19 +1980,25 @@ namespace Portal.Consultoras.BizLogic
         private T ConsumirServicio<T>(object input, string metodo)
         {
             var serializer = new JavaScriptSerializer();
-            var request = WebRequest.Create(metodo);
+            var request = WebRequest.Create(metodo);
+
             request.Method = "POST";
-            request.ContentType = "application/json; charset=utf-8";
-            var inputJson = serializer.Serialize(input);
+            request.ContentType = "application/json; charset=utf-8";
+
+            var inputJson = serializer.Serialize(input);
+
             using (var writer = new StreamWriter(request.GetRequestStream()))
             {
                 writer.Write(inputJson);
-            }
-            var outputJson = string.Empty;
+            }
+
+            var outputJson = string.Empty;
+
             using (StreamReader reader = new StreamReader(request.GetResponse().GetResponseStream()))
             {
                 outputJson = reader.ReadToEnd();
-            }
+            }
+
             return serializer.Deserialize<T>(outputJson);
         }
         #endregion

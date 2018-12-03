@@ -10964,6 +10964,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string ConsultoraIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool CuponElectivoDefaultField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string DescripcionCUV2Field;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -11464,6 +11467,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.ConsultoraIDField, value) != true)) {
                     this.ConsultoraIDField = value;
                     this.RaisePropertyChanged("ConsultoraID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool CuponElectivoDefault {
+            get {
+                return this.CuponElectivoDefaultField;
+            }
+            set {
+                if ((this.CuponElectivoDefaultField.Equals(value) != true)) {
+                    this.CuponElectivoDefaultField = value;
+                    this.RaisePropertyChanged("CuponElectivoDefault");
                 }
             }
         }
@@ -26447,6 +26463,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private bool ActiveField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool ActiveCuponElectivoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool ActiveMontoTooltipField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -26483,6 +26502,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.ActiveField.Equals(value) != true)) {
                     this.ActiveField = value;
                     this.RaisePropertyChanged("Active");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool ActiveCuponElectivo {
+            get {
+                return this.ActiveCuponElectivoField;
+            }
+            set {
+                if ((this.ActiveCuponElectivoField.Equals(value) != true)) {
+                    this.ActiveCuponElectivoField = value;
+                    this.RaisePropertyChanged("ActiveCuponElectivo");
                 }
             }
         }
@@ -42781,6 +42813,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetEstrategiaPremiosTippingPoint", ReplyAction="http://tempuri.org/IPedidoService/GetEstrategiaPremiosTippingPointResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEEstrategia> GetEstrategiaPremiosTippingPointAsync(int paisID, string codigoPrograma, int anioCampana, string codigoNivel);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetEstrategiaPremiosElectivos", ReplyAction="http://tempuri.org/IPedidoService/GetEstrategiaPremiosElectivosResponse")]
+        Portal.Consultoras.Web.ServicePedido.BEEstrategia[] GetEstrategiaPremiosElectivos(int paisId, string codigoPrograma, int anioCampana);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetEstrategiaPremiosElectivos", ReplyAction="http://tempuri.org/IPedidoService/GetEstrategiaPremiosElectivosResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEEstrategia[]> GetEstrategiaPremiosElectivosAsync(int paisId, string codigoPrograma, int anioCampana);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetActivarPremioNuevas", ReplyAction="http://tempuri.org/IPedidoService/GetActivarPremioNuevasResponse")]
         Portal.Consultoras.Web.ServicePedido.BEActivarPremioNuevas GetActivarPremioNuevas(int paisID, string codigoPrograma, int anioCampana, string codigoNivel);
         
@@ -45457,6 +45495,14 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEEstrategia> GetEstrategiaPremiosTippingPointAsync(int paisID, string codigoPrograma, int anioCampana, string codigoNivel) {
             return base.Channel.GetEstrategiaPremiosTippingPointAsync(paisID, codigoPrograma, anioCampana, codigoNivel);
+        }
+        
+        public Portal.Consultoras.Web.ServicePedido.BEEstrategia[] GetEstrategiaPremiosElectivos(int paisId, string codigoPrograma, int anioCampana) {
+            return base.Channel.GetEstrategiaPremiosElectivos(paisId, codigoPrograma, anioCampana);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEEstrategia[]> GetEstrategiaPremiosElectivosAsync(int paisId, string codigoPrograma, int anioCampana) {
+            return base.Channel.GetEstrategiaPremiosElectivosAsync(paisId, codigoPrograma, anioCampana);
         }
         
         public Portal.Consultoras.Web.ServicePedido.BEActivarPremioNuevas GetActivarPremioNuevas(int paisID, string codigoPrograma, int anioCampana, string codigoNivel) {

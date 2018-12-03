@@ -363,9 +363,13 @@ var EstrategiaAgregarModule = (function () {
             }
 
             if (isMobile()) {
-                ActualizarGanancia(data.DataBarra);
+              //ActualizarGanancia(data.DataBarra);
+                var prevTotal = mtoLogroBarra || 0;
+                MostrarBarra(data);  //OG
                 CargarCantidadProductosPedidos(true);
-                microefectoPedidoGuardado();
+                microefectoPedidoGuardado();                   
+                showPopupNivelSuperado(data.DataBarra, prevTotal);
+
             } else {
                 CargarResumenCampaniaHeader(true);
             }
@@ -408,6 +412,7 @@ var EstrategiaAgregarModule = (function () {
 
                 CargarDetallePedido();
                 MostrarBarra(data);
+
             } else if (tipoOrigenEstrategiaAux == 2 ||
                 tipoOrigenEstrategiaAux == 21 ||
                 tipoOrigenEstrategiaAux == 27 ||
@@ -504,13 +509,13 @@ var EstrategiaAgregarModule = (function () {
                 }
             }
             if (!IsNullOrEmpty(data.mensajeAviso)) AbrirMensaje(data.mensajeAviso, data.tituloMensaje);
-            
+              
             return false;
         })
         .fail(function (data, error) {
             CerrarLoad();
         });
-
+        
         return false;
     };
 

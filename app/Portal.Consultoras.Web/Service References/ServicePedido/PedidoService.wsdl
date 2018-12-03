@@ -464,6 +464,12 @@
   <wsdl:message name="IPedidoService_GetEstrategiaPremiosTippingPoint_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetEstrategiaPremiosTippingPointResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoService_GetEstrategiaPremiosElectivos_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetEstrategiaPremiosElectivos" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetEstrategiaPremiosElectivos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetEstrategiaPremiosElectivosResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_GetActivarPremioNuevas_InputMessage">
     <wsdl:part name="parameters" element="tns:GetActivarPremioNuevas" />
   </wsdl:message>
@@ -2803,6 +2809,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetEstrategiaPremiosTippingPoint" message="tns:IPedidoService_GetEstrategiaPremiosTippingPoint_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetEstrategiaPremiosTippingPointResponse" message="tns:IPedidoService_GetEstrategiaPremiosTippingPoint_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetEstrategiaPremiosElectivos">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetEstrategiaPremiosElectivos" message="tns:IPedidoService_GetEstrategiaPremiosElectivos_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetEstrategiaPremiosElectivosResponse" message="tns:IPedidoService_GetEstrategiaPremiosElectivos_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetActivarPremioNuevas">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetActivarPremioNuevas" message="tns:IPedidoService_GetActivarPremioNuevas_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetActivarPremioNuevasResponse" message="tns:IPedidoService_GetActivarPremioNuevas_OutputMessage" />
@@ -4801,6 +4811,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetEstrategiaPremiosTippingPoint">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetEstrategiaPremiosTippingPoint" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEstrategiaPremiosElectivos">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetEstrategiaPremiosElectivos" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -8522,6 +8541,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetEstrategiaPremiosTippingPoint">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetEstrategiaPremiosTippingPoint" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEstrategiaPremiosElectivos">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetEstrategiaPremiosElectivos" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

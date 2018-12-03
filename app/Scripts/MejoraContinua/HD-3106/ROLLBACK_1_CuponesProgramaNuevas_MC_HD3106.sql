@@ -1,0 +1,3 @@
+-- ODS
+IF COL_LENGTH('dbo.CuponesProgramaNuevas', 'IND_CUPO_ELEC') IS NOT NULL
+	ALTER TABLE dbo.CuponesProgramaNuevas DROP COLUMN IND_CUPO_ELEC, INC_CUPO_ELEC_DEFA;

@@ -1,0 +1,1 @@
+DELETE FROM MensajeMetaConsultora WHERE TipoMensaje like '%Mobile';

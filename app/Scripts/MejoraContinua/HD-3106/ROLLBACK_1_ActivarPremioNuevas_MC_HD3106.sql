@@ -1,0 +1,2 @@
+IF COL_LENGTH('dbo.ActivarPremioNuevas', 'IND_CUPO_ELEC') IS NOT NULL
+	ALTER TABLE dbo.ActivarPremioNuevas DROP COLUMN IND_CUPO_ELEC;

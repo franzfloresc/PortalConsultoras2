@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Portal.Consultoras.Web.Models
+﻿namespace Portal.Consultoras.Web.Models
 {
     public class BarraTippingPoint
     {
@@ -21,6 +16,7 @@ namespace Portal.Consultoras.Web.Models
         public string LinkURL { get; set; }
         public bool ActiveTooltip { get; set; }
         public bool ActiveMonto { get; set; }
+        public bool ActiveCuponElectivo { get; set; }
         public bool Active { get; set; }
         public string TippingPointMontoStr { get; set; }
 
