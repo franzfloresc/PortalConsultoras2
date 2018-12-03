@@ -36038,7 +36038,7 @@ div.motivoRechazo textarea {
     top: 0;
     left: 0;
     background-color: #FFF;
-    z-index: 2000;
+    z-index: 1000;
 }
 
 .popup_eleccion_regalo_programaNuevas_header,
@@ -36435,22 +36435,27 @@ div.motivoRechazo textarea {
 
 /* FIN - POPUP LÍMITE DE LÍNEA DE CRÉDITO */
 
-/* POPUP LLEGASTE AL 30% DE DESCUENTO */
+/* POPUP LLEGASTE AL 30% DE DESCUENTO */
+
 .titulo_popup_treinta_y_cinco_descuento span:first-child{
     font-size:26px;
-}
+}
+
 .titulo_popup_treinta_y_cinco_descuento span:last-child{
     margin-top:18px;
     font-size:50px;
-}
+}
+
 .icono_celebracion_popup_descuento{
     padding-left:7px;
     margin-top:31px;
     margin-bottom:20px;
-}
+}
+
 .icono_celebracion_popup_descuento img{
     width:65px;
-}
+}
+
 /* FIN - POPUP LLEGASTE AL 30% DE DESCUENTO */
 
 /* FIN - PROGRAMA NUEVAS - ELIGE TU REGALO */

@@ -385,8 +385,9 @@ var EstrategiaAgregarModule = (function () {
             }
 
             if (tipoOrigenEstrategiaAux == 1) {
-                if (typeof MostrarBarra != constantes.undefined())
+                if (typeof MostrarBarra != constantes.undefined()) {
                     MostrarBarra(data, "1");
+                }
 
                 if (estrategia.CodigoEstrategia == ConstantesModule.ConstantesPalanca.PackNuevas) {
                     if (typeof CargarCarouselEstrategias != constantes.undefined())
@@ -411,7 +412,9 @@ var EstrategiaAgregarModule = (function () {
                 HideDialog(elementosDiv.divVistaPrevia.substring(1));
 
                 CargarDetallePedido();
+                var previousTotal = mtoLogroBarra || 0;
                 MostrarBarra(data);
+                showPopupNivelSuperado(data.DataBarra, previousTotal);
 
             } else if (tipoOrigenEstrategiaAux == 2 ||
                 tipoOrigenEstrategiaAux == 21 ||

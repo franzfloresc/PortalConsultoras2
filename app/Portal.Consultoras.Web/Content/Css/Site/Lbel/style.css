@@ -35683,7 +35683,7 @@ height:30px;
     top: 0;
     left: 0;
     background-color: #FFF;
-    z-index: 2000;
+    z-index: 1000;
 }
 
 .popup_eleccion_regalo_programaNuevas_header,
@@ -36080,22 +36080,27 @@ height:30px;
 
 /* FIN - POPUP LÍMITE DE LÍNEA DE CRÉDITO */
 
-/* POPUP LLEGASTE AL 30% DE DESCUENTO */
+/* POPUP LLEGASTE AL 30% DE DESCUENTO */
+
 .titulo_popup_treinta_y_cinco_descuento span:first-child{
     font-size:15px;
-}
+}
+
 .titulo_popup_treinta_y_cinco_descuento span:last-child{
     margin-top:12px;
     font-size:30px;
-}
+}
+
 .icono_celebracion_popup_descuento{
     padding-left:7px;
     margin-top:31px;
     margin-bottom:20px;
-}
+}
+
 .icono_celebracion_popup_descuento img{
     width:65px;
-}
+}
+
 /* FIN - POPUP LLEGASTE AL 30% DE DESCUENTO */
 
 /* FIN - PROGRAMA NUEVAS - ELIGE TU REGALO */

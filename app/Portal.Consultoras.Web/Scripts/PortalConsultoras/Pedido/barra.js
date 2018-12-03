@@ -185,8 +185,7 @@ function MostrarBarra(datax, destino) {
     }
     mtoLogroBarra = vLogro;
 
-    if (belcorp.barra.settings.isMobile &&
-        tp > 0 && vLogro >= tp &&
+    if (tp > 0 && vLogro >= tp &&
         dataBarra.TippingPointBarra &&
         dataBarra.TippingPointBarra.ActiveCuponElectivo &&
         !tpElectivos.premioSelected) {
@@ -545,8 +544,6 @@ function MostrarBarra(datax, destino) {
             wLogro = CalculoLlenadoBarra();
             CalculoPosicionMinimoMaximo();
         }
-        
-        
 
     }
     $("#divBarra #divBarraEspacioLimite").css("width", wLimite);
@@ -588,10 +585,12 @@ function MostrarBarra(datax, destino) {
     $("#divBarra #divBarraMensajeLogrado").show();
     $("#divBarra #divBarraMensajeLogrado .mensaje_barra").html(objMsg.Titulo.replace("#porcentaje", valPor).replace("#valor", valorMonto));
 
-    if (belcorp.barra.settings.isMobile && tp > 0) {
+    if (tp > 0) {
         $('#montoPremioMeta').html(variablesPortal.SimboloMoneda + " " + dataBarra.TippingPointStr);
-        cargarMontoBanderasMobile(dataBarra);
 
+        if (belcorp.barra.settings.isMobile) {
+            cargarMontoBanderasMobile(dataBarra);
+        }
     }
 
     if (tpRegaloMobileShow) {
@@ -648,6 +647,10 @@ function initCarruselPremios(barra) {
         return;
     }
 
+    if (!belcorp.barra.settings.isMobile) {
+        $('.btn_seguir_comprando').html('Sigue comprando para llevártelo');
+    }
+
     if (barra.TippingPointBarra && barra.TippingPointBarra.ActiveCuponElectivo) {
         tpElectivos.loadPremios = true;
         cargarPremiosElectivos();
@@ -657,7 +660,8 @@ function initCarruselPremios(barra) {
 
 function cargarPopupEleccionRegalo() {
     checkPremioSelected();
-    $('#popupEleccionRegalo').fadeIn(200);
+    //$('#popupEleccionRegalo').fadeIn(200);
+    AbrirPopup('#popupEleccionRegalo');
     setTimeout(function () {
         armarCarouselRegalos();
     }, 150);
@@ -727,7 +731,7 @@ function cargarPremiosElectivos() {
         if (!tpElectivos.premioSelected) {
             $('#divBarra .contenedor_circulos').show();
             return;
-        }
+        } else 
         selectPremioDivByCuv(tpElectivos.premioSelected.CUV2);
     });
 }
@@ -792,18 +796,34 @@ function armarCarouselRegalos() {
     if (carrusel[0].slick) {
         return;
     }
+    var options;
 
-    carrusel.slick({
-        infinite: true,
-        lazyLoad: 'ondemand',
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        autoplay: false,
-        speed: 300,
-        arrows: false,
-        variableWidth: true,
-        centerMode: true
-    });
+    if (belcorp.barra.settings.isMobile) {
+        options = {
+            infinite: true,
+            lazyLoad: 'ondemand',
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            autoplay: false,
+            speed: 300,
+            arrows: false,
+            variableWidth: true,
+            centerMode: true
+        };
+    } else {
+        options = {
+            infinite: false,
+            lazyLoad: 'ondemand',
+            slidesToShow: 4,
+            slidesToScroll: 1,
+            autoplay: false,
+            speed: 300,
+            prevArrow: '<a class="ver_anterior_regalo js-slick-prev-h"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
+            nextArrow: '<a class="ver_siguiente_regalo next js-slick-next-h"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>',
+        };
+    }
+
+    carrusel.slick(options);
 }
 
 function seleccionRegaloProgramaNuevas(regaloProgramaNuevas) {
@@ -830,11 +850,11 @@ function markPremioSelected(premioDiv) {
     var msgRegaloDiv = $('.mensaje_titulo_popup_eleccion_regalo');
     premioDiv.addClass('opcion_regalo_carousel_elegido');
     btn.fadeOut(100);
-    msgRegaloDiv.fadeOut(200);
+    //msgRegaloDiv.fadeOut(200);
     setTimeout(function () {
         btn.next().fadeIn(150);
         msgRegaloDiv.html('¡Ya elegiste tu regalo!');
-        msgRegaloDiv.fadeIn(200);
+        //msgRegaloDiv.fadeIn(200);
     }, 150);
     $('#divBarra .contenedor_circulos').hide();
 }
@@ -854,7 +874,7 @@ function getPremioByCuv(cuv) {
 
 function cambiarEleccionRegaloProgramaNuevas(nuevoRegaloElegido) {
     $('.opcion_regalo_carousel_programaNuevas').removeClass('opcion_regalo_carousel_elegido');
-    $('.mensaje_titulo_popup_eleccion_regalo').fadeOut(200);
+    //$('.mensaje_titulo_popup_eleccion_regalo').fadeOut(200);
     $('.mensaje_regalo_elegido').fadeOut(200);
     setTimeout(function () {
         $('.btn_elegir_regalo').fadeIn(150);
@@ -888,12 +908,14 @@ function showPopupNivelSuperado(barra, prevLogro) {
 
         var superaRegalo = tippingPoint <= mtoLogroBarra && tippingPoint > prevLogro;
         if (superaRegalo) {
-            
+
             var idPopup = '#popupPremio';
             var dvPremio = $(idPopup);
             dvPremio.find('.sub-premio-elect').css('display', tpElectivos.premioSelected ? 'none': 'block');
             dvPremio.find('.btn_escoger_o_cambiar_regalo').html(tpElectivos.premioSelected ? 'CAMBIAR PRODUCTO': '¡Escoger ahora!');
             AbrirPopup(idPopup);
+
+            setContainerLluvia(idPopup);
             mostrarLluvia();
             
             if (!tpElectivos.premioSelected) {
@@ -915,10 +937,12 @@ function showPopupEscalaSiguiente(dataBarra, prevLogro) {
         var escala = dataBarra.ListaEscalaDescuento[i];
         if (total >= escala.MontoDesde && total < escala.MontoHasta) {
             if (escala.MontoDesde > prevLogro) {
-                var content = '#porcentaje% de dscto!';
-                content = content.replace('#porcentaje', escala.PorDescuento);
-                $('#popupEscalaDescuento .porcentaje').html(content);
-                AbrirPopup('#popupEscalaDescuento');
+                var idPopup = '#popupEscalaDescuento';
+                var content = escala.PorDescuento + '% de dscto!';
+                $(idPopup + ' .porcentaje').html(content);
+                
+                AbrirPopup(idPopup);
+                setContainerLluvia(idPopup);
                 mostrarLluvia();
 
                 return true;
@@ -930,6 +954,11 @@ function showPopupEscalaSiguiente(dataBarra, prevLogro) {
     return false;
 }
 
+function setContainerLluvia(containerId) {
+    if (typeof lluviaContainerId !== 'undefined') {
+        lluviaContainerId = containerId;
+    }
+}
 function CalculoLlenadoBarra() { 
     var montoMaximo = dataBarra.MontoMaximo;
     var montoTipipoing = dataBarra.TippingPoint;
@@ -987,21 +1016,21 @@ function InsertarPremio(model) {
         async: true,
         cache: false
     }).then(function (data) {
+        CerrarLoad();
+
         if (!checkTimeout(data)) {
-            CloseLoading();
             return false;
         }
 
         if (data.success != true) {
             messageInfoError(data.message);
-            CloseLoading();
             return false;
         }
 
-        CloseLoading();
-
-        if (typeof CargarPedido === "function") { 
+        if (typeof CargarPedido === "function") {
             CargarPedido();
+        } else if (typeof CargarDetallePedido === "function") {
+            CargarDetallePedido();
         }
 
         return data;
