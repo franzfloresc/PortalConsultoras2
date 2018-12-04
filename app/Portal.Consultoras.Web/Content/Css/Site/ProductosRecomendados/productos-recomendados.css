@@ -145,19 +145,22 @@
 .producto_por_agregar_imagen img,
 .producto_recomendado_imagen img
 {
+    display:block;
     width:100%;
     height:auto;
 }
 
-.producto_por_agregar_imagen img,
-.producto_recomendado_imagen img
-{
+.producto_recomendado_imagen img{
     position: absolute;
     margin: auto;
     top: 0;
     bottom: 0;
     left:0;
     right:0;
+}
+
+.producto_por_agregar_imagen img{
+    position:relative;
 }
 
 .producto_por_agregar_info,
@@ -347,6 +350,7 @@
     }
 
     .producto_por_agregar_info{
+        padding-left:17px;
         padding-right:0;
     }
 
