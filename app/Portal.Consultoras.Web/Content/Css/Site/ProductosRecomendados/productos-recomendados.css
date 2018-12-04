@@ -102,7 +102,7 @@
     flex: 0 0 385px;
     min-height: 160.9px;
     margin-right:14px;
-    padding:14px 22px;
+    padding:14px 17px;
     border-radius: 4px;
     border: 1px solid #d8d8d8;
     -moz-box-shadow: 0 2px 4px 0 #d8d8d8;
@@ -163,9 +163,9 @@
 .producto_por_agregar_info,
 .producto_recomendado_info
 {
-    padding-left:16px;
-    padding-right:16px;
     flex:0 0 55%;
+    padding-left:13px;
+    padding-right:13px;
 }
 
 .producto_por_agregar_nombre,
@@ -202,7 +202,7 @@
 
 .producto_recomendado_nombre {
     font-size: 13px;
-    min-height:38px;
+    min-height:56px;
 }
 
 .producto_por_agregar_precio_normal{
@@ -219,6 +219,11 @@
 .cerrar_seccion_productos_recomendados
 {
     font-size:14px;
+}
+
+.producto_recomendado_precio_oferta{
+    margin-top:-5px;
+    font-weight:bold;
 }
 
 .producto_recomendado_tipo_oferta_personalizacion{
@@ -369,8 +374,17 @@
         min-height:229.9px;
     }
 
+    .producto_recomendado_info{
+        padding-left:8px;
+        padding-right:10px;
+    }
+
     .producto_por_agregar_nombre{
         line-height:20px;
+    }
+
+    .producto_recomendado_precio_oferta{
+        margin-top:0;
     }
 
     .producto_recomendado .agregado{

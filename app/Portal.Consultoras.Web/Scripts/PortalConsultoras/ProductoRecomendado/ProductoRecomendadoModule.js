@@ -62,7 +62,7 @@
                 slidesToScroll: 1,
                 autoplay: false,
                 speed: 300,
-                variableWidth: false,
+                variableWidth: true,
                 prevArrow:  '<a class="productos_recomendados_controles_carrusel previous js-slick-prev-h"><img src="/Content/Images/arrow_left.svg")" alt="" /></a>',
                 nextArrow:  '<a class="productos_recomendados_controles_carrusel next js-slick-next-h"><img src="/Content/Images/arrow_right.svg")" alt="" /></a>'
             }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
