@@ -55,7 +55,7 @@ var PedidoRegistroModule = function () {
         }
 
         data.message = data.message || 'Error al realizar proceso, inténtelo más tarde.';
-        messageInfoError(result.message);
+        messageInfoError(data.message);
         CerrarLoad();
         //CloseLoading();
         //CerrarSplash();
@@ -1114,7 +1114,7 @@ var PedidoRegistroModule = function () {
             EnRangoProgramaNuevas: cuvEsProgNuevas
         };
 
-        ShowLoading();
+        AbrirSplash();
         jQuery.ajax({
             type: "POST",
             url: baseUrl + _url.urlAgregarUnico,
@@ -1124,12 +1124,12 @@ var PedidoRegistroModule = function () {
             async: true,
             success: function (data) {
                 if (!checkTimeout(data)) {
-                    CloseLoading();
+                    CerrarSplash();
                     return false;
                 }
 
                 if (_mensajeRespuestaError(data)) {
-                    CloseLoading();
+                    CerrarSplash();
                     return false;
                 }
 
@@ -1163,10 +1163,10 @@ var PedidoRegistroModule = function () {
                         }
                     }
                 });
-                CloseLoading();
+                CerrarSplash();
             },
             error: function (data, error) {
-                CloseLoading();
+                CerrarSplash();
             }
         });
     };
