@@ -40,6 +40,7 @@ var AnalyticsPortalModule = (function () {
         eligetuopcion: "eligetuopcion",
         verdetalle: "verdetalle",
         contenedor: "Contenedor",
+        contenedorHome: "Contenedor - Home",
         contenedorDetalle: "Contenedor - Detalle de Producto",
         contenedorDetalleSets: "Contenedor - Detalle de Producto - Ver más Sets",
         contenedorRevisar: "Contenedor - Revisar",
@@ -143,7 +144,7 @@ var AnalyticsPortalModule = (function () {
         codigoPais: !(typeof userData === 'undefined') ? userData.pais : "",
         // Fin - Analytics Buscador Miguel
         // Ini - Analytics Ofertas
-        contenedorHome: "Contenedor - Home",
+        //contenedorHome: "Contenedor - Home",
         campania: "Campaña ",
         IdBannerGanadorasVerMas: "000123",
         TextoGanadoras: "Ganadoras"
@@ -1411,7 +1412,7 @@ var AnalyticsPortalModule = (function () {
 
 
         switch (window.controllerName) {
-            case "ofertas": contenedor = esRevisar ? _texto.contenedorRevisar : _constantes.contenedorHome; break;
+            case "ofertas": contenedor = esRevisar ? _texto.contenedorRevisar : _texto.contenedorHome; break;
             case "pedido": contenedor = _texto.contenedorRevisar; break;
             case "masganadoras": contenedor = _texto.contenedorMasGanadoras; break;
             default: contenedor = _texto.contenedor; break;
@@ -1457,6 +1458,7 @@ var AnalyticsPortalModule = (function () {
                 alert("Marcación clic banner.");
             var estrategia = $(data).closest("div:has(*[data-estrategia])").children("[data-estrategia]").data("estrategia");
             var codigoOrigenWeb = $(data).closest("div:has(.seccion-content-contenedor)").data("origenpedidoweb");
+            
             dataLayer.push({
                 'event': _evento.promotionClick,
                 'ecommerce': {
@@ -1465,7 +1467,7 @@ var AnalyticsPortalModule = (function () {
                             {
                                 'id': estrategia.CUV2,
                                 'name': AnalyticsPortalModule.GetPalancaByOrigenPedido(codigoOrigenWeb) + " - " + estrategia.DescripcionCompleta + " - " + "Ver producto",
-                                'position': _constantes.contenedor + " - " + (pos + 1),
+                                'position': fnObtenerContenedor() + " - " + (pos + 1),
                                 'creative': 'Banner'
                             }]
                     }
