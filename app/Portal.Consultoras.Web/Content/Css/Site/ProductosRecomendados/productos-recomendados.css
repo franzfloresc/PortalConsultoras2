@@ -206,6 +206,7 @@
 .producto_recomendado_nombre {
     font-size: 13px;
     min-height:56px;
+    line-height:17px;
 }
 
 .producto_por_agregar_precio_normal{
