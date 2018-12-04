@@ -1465,7 +1465,7 @@ var AnalyticsPortalModule = (function () {
                             {
                                 'id': estrategia.CUV2,
                                 'name': AnalyticsPortalModule.GetPalancaByOrigenPedido(codigoOrigenWeb) + " - " + estrategia.DescripcionCompleta + " - " + "Ver producto",
-                                'position': _constantes.contenedor || _constantes.contenedorHome + " - " + (pos + 1),
+                                'position': _constantes.contenedor + " - " + (pos + 1),
                                 'creative': 'Banner'
                             }]
                     }
