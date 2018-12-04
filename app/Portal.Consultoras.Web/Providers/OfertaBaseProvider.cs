@@ -100,9 +100,11 @@ namespace Portal.Consultoras.Web.Providers
                                     break;
                                 case Constantes.EstrategiaDetalleCamposID.ImgFichaFondoDesktop:
                                     estrategia.EstrategiaDetalle.ImgFichaFondoDesktop = itemED.valor;
+
                                     break;
                                 case Constantes.EstrategiaDetalleCamposID.ImgFichaFondoMobile:
                                     estrategia.EstrategiaDetalle.ImgFichaFondoMobile = itemED.valor;
+
                                     break;
                                 case Constantes.EstrategiaDetalleCamposID.ImgFichaMobile:
                                     estrategia.EstrategiaDetalle.ImgFichaMobile = itemED.valor;
