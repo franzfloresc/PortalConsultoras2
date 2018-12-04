@@ -105,7 +105,7 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
-        public BarraTippingPoint GetTippingPoint(string codigoPrograma)
+        public BarraTippingPoint GetBarraTippingPoint(string codigoPrograma)
         {
             string nivel = Convert.ToString(userData.ConsecutivoNueva + 1).PadLeft(2, '0');
             try
@@ -121,7 +121,7 @@ namespace Portal.Consultoras.Web.Providers
 
                     if (beActive.ActivePremioAuto)
                     {
-                        estrategia = GetPremioAutomatico(codigoPrograma, nivel);
+                        estrategia = sv.GetEstrategiaPremiosTippingPoint(userData.PaisID, codigoPrograma, userData.CampaniaID, nivel);
                         beActive.ActivePremioAuto = estrategia != null;
                     }
                     if (beActive.ActivePremioElectivo)
@@ -152,19 +152,10 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
-        public BEEstrategia GetPremioAutomatico(string codigoPrograma, string nivel)
-        {
-            using (var sv = new PedidoServiceClient())
-            {
-                return sv.GetEstrategiaPremiosTippingPoint(userData.PaisID, codigoPrograma, userData.CampaniaID, nivel);
-            }
-        }
-
         public List<PremioElectivoModel> GetListPremioElectivo()
         {
-            var tippingPoint = GetConfiguracion();
-
-            return GetCuponesElectivos(tippingPoint.CodigoPrograma);
+            var configuracionProgramaNuevas = GetConfiguracion();
+            return GetCuponesElectivos(configuracionProgramaNuevas.CodigoPrograma);
         }
         public List<PremioElectivoModel> GetCuponesElectivos(string codigoPrograma)
         {

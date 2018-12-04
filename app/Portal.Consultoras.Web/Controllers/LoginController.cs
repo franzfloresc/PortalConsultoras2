@@ -1639,8 +1639,7 @@ namespace Portal.Consultoras.Web.Controllers
                             if (!string.IsNullOrEmpty(dd)) entidad.DescripcionPremio = dd;
 
                             if (prodCatalogo.PrecioCatalogo > 0) entidad.PrecioCatalogo = prodCatalogo.PrecioCatalogo;
-                            if (prodCatalogo.PrecioValorizado > 0)
-                                entidad.PrecioValorizado = prodCatalogo.PrecioValorizado;
+                            if (prodCatalogo.PrecioValorizado > 0) entidad.PrecioValorizado = prodCatalogo.PrecioValorizado;
                             entidad.UrlImagenRegalo = prodCatalogo.Imagen;
                         }
                     }

@@ -567,16 +567,25 @@ namespace Portal.Consultoras.Web.Controllers
                 SetBarraConsultoraMontosTotales(objR, obj, Agrupado);
 
                 #region Tipping Point
+                
+                var configProgNuevas = _programaNuevasProvider.GetConfiguracion();
+                objR.TippingPointBarra = _programaNuevasProvider.GetBarraTippingPoint(configProgNuevas.CodigoPrograma);
 
-                objR.TippingPointStr = "";
-                var tippingPoint = _programaNuevasProvider.GetConfiguracion();
-                if (tippingPoint.IndExigVent == "1")
+                if(objR.TippingPointBarra.Active)
                 {
-                    objR.TippingPoint = tippingPoint.MontoVentaExigido;
-                    objR.TippingPointStr = Util.DecimalToStringFormat(objR.TippingPoint, userData.CodigoISO);
-                    if (objR.TippingPoint > 0) objR.TippingPointBarra = _programaNuevasProvider.GetTippingPoint(tippingPoint.CodigoPrograma);
+                    objR.TippingPointBarra.InMinimo = configProgNuevas.IndExigVent == "0" || configProgNuevas.MontoVentaExigido == 0;
+                    bool tieneEscala = objR.MontoMaximo == 0;
+
+                    if (objR.TippingPointBarra.InMinimo) objR.TippingPoint = objR.MontoMinimo;
+                    else if(tieneEscala)
+                    {
+                        objR.TippingPointBarra.ActivePremioAuto = false;
+                        objR.TippingPointBarra.ActivePremioElectivo = false;
+                    }
+                    else objR.TippingPoint = configProgNuevas.MontoVentaExigido;
                 }
-                if (objR.MontoMaximo > 0) { }
+
+                objR.TippingPointStr = Util.DecimalToStringFormat(objR.TippingPoint, userData.CodigoISO);
 
                 #endregion
 
