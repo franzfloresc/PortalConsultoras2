@@ -36,7 +36,12 @@ BEGIN
 	------------------------------------------
 	IF(@EstrategiaID = 0)
 	BEGIN
-	SELECT @EstrategiaID = ISNULL(EstrategiaID,0), @Precio2 = Precio2 FROM Estrategia WHERE CUV2 = @CuvSet AND CampaniaID = @Campaniaid AND TipoEstrategiaId = @TipoEstrategiaId
+	SELECT TOP 1 @EstrategiaID = ISNULL(EstrategiaID,0), @Precio2 = Precio2 FROM Estrategia WHERE CUV2 = @CuvSet AND TipoEstrategiaId = @TipoEstrategiaId 
+			AND @Campaniaid BETWEEN CampaniaID AND CASE 
+						WHEN ISNULL(CampaniaIDFin, 0) = 0
+							THEN CampaniaID
+						ELSE CampaniaIDFin
+						END ORDER BY EstrategiaID DESC
 	END
 	ELSE
 	BEGIN
