@@ -474,7 +474,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     pedidoDetalle.PedidoDetalleID = pedidoExiste == null ? (short)0 : pedidoExiste.PedidoDetalleID;
 
                     var detallePedido = _pedidoWebDetalleBusinessLogic.GetPedidoWebSetDetalle(pedidoDetalle.PaisID, usuario.CampaniaID, usuario.ConsultoraID);
-                    //detallePedido.Where(p => p.SetId == pedidoDetalle.SetID).ToList().ForEach(p => p.Cantidad = pedidoDetalle.Cantidad * p.FactorRepeticion);
                     var xsets = detallePedido.Where(x => x.SetId != pedidoDetalle.SetID);
                     var ncant = pedidoDetalle.Cantidad;
 
@@ -494,18 +493,18 @@ namespace Portal.Consultoras.BizLogic.Pedido
                             PedidoID = pedidoDetalle.PedidoID,
                             PedidoDetalleID = Convert.ToInt16(detalleSet.PedidoDetalleId),
                             Cantidad = (ncant * detalleSet.FactorRepeticion) + ocant,
-                            //Cantidad = detallePedido.Where(p => p.PedidoDetalleId == detalleSet.PedidoDetalleId).Sum(p => p.Cantidad * p.FactorRepeticion),
                             ClienteID = string.IsNullOrEmpty(usuario.Nombre) ? (short)0 : Convert.ToInt16(pedidoDetalle.ClienteID),
                             ClienteDescripcion = pedidoDetalle.ClienteDescripcion,
                             ImporteTotal = ((ncant * detalleSet.FactorRepeticion) + ocant) * detalleSet.PrecioUnidad,
-                            //ImporteTotal = detallePedido.Where(p => p.PedidoDetalleId == detalleSet.PedidoDetalleId).Sum(p => p.Cantidad * p.FactorRepeticion) * detalleSet.FactorRepeticion * detalleSet.PrecioUnidad,
                             Producto = new BEProducto()
                             {
                                 PrecioCatalogo = set.PrecioUnidad,
                                 CUV = detalleSet.CuvProducto,
                                 TipoOfertaSisID = detalleSet.TipoOfertaSisId,
                                 Descripcion = pedidoDetalle.Producto.Descripcion
-                            }
+                            },
+                            IPUsuario = pedidoDetalle.IPUsuario,
+                            Identifier = pedidoDetalle.Identifier
                         };
                         lstDetalleApp.Add(oBePedidoWebSetDetalle);
                     }
@@ -1578,7 +1577,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 PedidoID = obePedidoWebDetalle.PedidoID,
                 CampaniaID = obePedidoWebDetalle.CampaniaID,
                 PedidoDetalleID = obePedidoWebDetalle.PedidoDetalleID,
-                IndicadorIPUsuario = obePedidoWebDetalle.IPUsuario,
+                IndicadorIPUsuario = pedidoDetalle.IPUsuario,
                 IndicadorFingerprint = string.Empty,
                 IndicadorToken = string.IsNullOrEmpty(pedidoDetalle.Identifier) ? string.Empty : AESAlgorithm.Encrypt(pedidoDetalle.Identifier)
             };
@@ -1757,8 +1756,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 DescripcionProd = pedidoDetalle.Producto.Descripcion,
                 ImporteTotal = pedidoDetalle.ImporteTotal,
                 Nombre = pedidoDetalle.ClienteID == 0 ? usuario.Nombre : pedidoDetalle.ClienteDescripcion,
-                Flag = 2
-
+                Flag = 2,
+                IPUsuario = pedidoDetalle.IPUsuario,
             };
 
             var result = AdministradorPedido(usuario, pedidoDetalle, obePedidoWebDetalle, lstDetalle, Constantes.PedidoAccion.UPDATE);
