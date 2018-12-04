@@ -12,6 +12,7 @@
     {
         <!-- SECCIÓN FILTROS -->
         <div class="col-12 pl-0 pr-0 background__filtros__mobile"></div>
+        <!-- ESTA SECCIÓN APARECE CADA VEZ QUE SE HAGA CLICK EN ALGÚN FILTRO Y SE ACTUALICE LA PÁGINA DE RESULTADOS SEGÚN LO SELECCIONADO -->
         <div class="col-12 pl-0 pr-0 layout__precarga layout__precarga--actualizacionFiltros">
             <div class="row flex-column justify-content-center align-items-center ml-0 mr-0 layout__precarga__componentes">
                 <div class="d-block precarga__spinner__wrapper precarga__spinner__wrapper--actualizacionFiltros">
@@ -64,17 +65,23 @@
                 </p>
             </div>
         </div>
+        <!-- FIN - ESTE BLOQUE APARECE CADA VEZ QUE SE HAGA CLICK EN ALGÚN FILTRO Y SE ACTUALICE LA PÁGINA DE RESULTADOS SEGÚN LO SELECCIONADO -->
         <section class="row flex-row justify-content-center align-items-stretch ml-0 mr-0 layout__content__filtros">
             <div class="col-12 pl-0 pr-0 filtros__wrapper">
                 <div class="row flex-row justify-content-between align-items-center ml-0 mr-0 filtros_subtitulo mostrarEnMobile">
                     <div class="col-9 col-lg-12 col-xl-12 pl-0 pr-0">
                         <h3 class="col-12 pl-0 pr-0 text-bold text-uppercase">Filtra tus ofertas</h3>
-                        <div class="col-12 pl-0 pr-0 text-bold">14 resultados</div>
+                        <div class="col-12 pl-0 pr-0 text-bold cantidadProductoMobile">14 resultados</div>
                     </div>
-                    <a id="cerrarFiltros" class="d-inline-block filtros__enlace__cerrar mostrarEnMobile">
+                    <a id="cerrarFiltros" class="d-inline-block filtros__enlace__cerrar">
                         <img src="@Url.Content("~/Content/Images/cerrar-filtros.svg")" alt="" />
                     </a>
                 </div>
+                <!-- SECCIÓN ETIQUETAS DE CRITERIOS ELEGIDOS EN LOS FILTROS (MOBILE) -->
+                <div class="row flex-row align-items-baseline ml-0 mr-0 mostrarEnMobile layout__content__etiquetas__criteriosElegidos layout__content__etiquetas__criteriosElegidosMobile" style="display:none;">
+                    <ul class="row flex-row ml-0 lista__etiquetas__criteriosElegidos criteriosBuscadorMobile"></ul>
+                </div>
+                <!-- FIN - SECCIÓN ETIQUETAS DE CRITERIOS ELEGIDOS EN LOS FILTROS (MOBILE) -->
                 <div class="col-12 pl-0 pr-0 filtros__subtitulo mostrarEnDesktop">
                     Filtrar por:
                 </div>
@@ -92,6 +99,13 @@
                             <div class="d-inline-block filtro__tipo__titulo__icono__despliegue"></div>
                         </div>
                         <ul class="row flex-row ml-0 mr-0 filtro__tipo__items" id="filtrosMarcas"></ul>
+                    </li>
+                    <li class="col-12 pl-0 pr-0 filtro__tipo">
+                        <div class="row flex-row justify-content-between align-items-center ml-0 mr-0 filtro__tipo__titulo filtro__tipo__titulo--mostrarContenido">
+                            <div class="col-10 pl-0 pr-0">Precios</div>
+                            <div class="d-inline-block filtro__tipo__titulo__icono__despliegue"></div>
+                        </div>
+                        <ul class="row flex-row ml-0 mr-0 filtro__tipo__items" id="filtrosPrecios"></ul>
                     </li>
                 </ul>
                 <div class="row flex-row justify-content-between align-items-center ml-0 mr-0 mostrarEnMobile filtro__btn__mobile__wrapper">
@@ -134,7 +148,6 @@
                             </div>
                         </div>
                     }
-
                     @if (Model.MostrarOpcionesOrdenamiento)
                     {
                         <div class="row flex-row ml-0 mr-0 col-12 col-lg-11 col-xl-11 pl-0 pr-0 lista__opcion__wrapper lista__opcion__wrapper--ordenar">
@@ -181,6 +194,14 @@
                 </div>
             </section>
         }
+        <!-- SECCIÓN ETIQUETAS DE CRITERIOS ELEGIDOS EN LOS FILTROS (DESKTOP) -->
+        <section class="row flex-row align-items-baseline ml-0 mr-0 mx-auto w-100 mostrarEnDesktop layout__content__etiquetas__criteriosElegidos layout__content__etiquetas__criteriosElegidosDesktop" style="display: none">
+            <ul class="row flex-row ml-0 lista__etiquetas__criteriosElegidos criteriosBuscadorDesktop"></ul>
+            <a title="Limpiar filtros" class="text-right enlace__limpiar__filtros">
+                Limpiar filtros
+            </a>
+        </section>
+        <!-- FIN - SECCIÓN ETIQUETAS DE CRITERIOS ELEGIDOS EN LOS FILTROS (DESKTOP) -->
         <section class="col-12 fichas__productos__wrapper text-center" id="FichasProductosBuscador"></section>
     </section>
     <!-- FIN - SECCIÓN FICHA DE PRODUCTOS -->
@@ -197,13 +218,13 @@
 <script id="js-fichaFiltros" type="text/x-handlebars-template">
     {{#each this as |item|}}
     <li class="col-12 pl-0 pr-0 filtro__item" data-item="BuscadorFiltros">
-        <input type="hidden" class="BuscadorFiltroLabel" value="{{label}}" />
-        <input type="hidden" class="BuscadorFiltroID" value="{{id}}" />
+        <input type="hidden" class="BuscadorFiltroLabel" value="{{nombreFiltro}}" />
+        <input type="hidden" class="BuscadorFiltroID" value="{{idFiltro}}" />
         <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields buscadorFiltrosSeleccionar">
-            <input id="{{id}}" type="checkbox" class="filtro__item__checkbox buscadorFiltrosChecked" {{#if marcado}} checked {{/if}} /> <!--checked-->
-            <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="{{id}}">
+            <input id="{{idFiltro}}" type="checkbox" class="filtro__item__checkbox buscadorFiltrosChecked" {{#if marcado}} checked {{/if}} /> <!--checked-->
+            <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="{{idFiltro}}">
                 <span class="d-inline-block filtro__item__checkbox"></span>
-                <span class="d-inline-block">{{label}} ({{count}})</span>
+                <span class="d-inline-block">{{nombreFiltro}} ({{cantidad}})</span>
             </label>
         </div>
     </li>
