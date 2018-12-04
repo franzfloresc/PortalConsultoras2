@@ -945,7 +945,6 @@
         position:fixed;
         width:90%;
         height:100vh;
-        max-width:280px;
         overflow:auto;
         top:0;
         right:-100%;
