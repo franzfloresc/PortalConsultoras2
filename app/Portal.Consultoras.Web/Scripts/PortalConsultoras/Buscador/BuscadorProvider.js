@@ -22,9 +22,16 @@
         $("#txtCUV").focus();
 
         if (isMobile()) {
-            if (isPagina('Pedido')) PedidoOnSuccess();
-            $("#divProductoMantenedor").hide();
-            $("#divResumenPedido").show();
+            if (isPagina('Pedido')) {
+                PedidoOnSuccess();
+                if (typeof tieneOPT !== 'undefined' && tieneOPT) {
+                    VisibleEstrategias(true);
+                }
+                $("#divResumenPedido").show();
+                $("footer").show();
+                $(".footer-page").css({ "margin-bottom": "0px" });
+            }
+            //$("#divProductoMantenedor").hide();//
         }
     }
 
