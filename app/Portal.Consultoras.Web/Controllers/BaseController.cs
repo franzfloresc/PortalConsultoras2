@@ -1356,5 +1356,21 @@ namespace Portal.Consultoras.Web.Controllers
             return stream => processor.Secure(stream, password);
         }
 
+        public string ObtenerFlagActivacionRecomendaciones()
+        {
+            var configuracionPaisDatos = SessionManager.GetRecomendacionesConfig()
+                .ConfiguracionPaisDatos
+                .FirstOrDefault(a => a.Codigo.Equals(Constantes.CodigoConfiguracionRecomendaciones.ActivarRecomendaciones));
+            return configuracionPaisDatos != null ? configuracionPaisDatos.Valor1 : "0";
+        }
+
+        public int ObtenerNumeroMaximoCaracteresRecomendaciones(bool esMobile)
+        {
+            var configuracionPaisDatos = SessionManager.GetRecomendacionesConfig()
+                .ConfiguracionPaisDatos
+                .FirstOrDefault(a => a.Codigo.Equals(Constantes.CodigoConfiguracionRecomendaciones.CaracteresDescripcion));
+            if (esMobile ) return configuracionPaisDatos != null ?  configuracionPaisDatos.Valor2.ToInt() : 35;
+            return configuracionPaisDatos != null ? configuracionPaisDatos.Valor1.ToInt() : 37;
+        }
     }
 }

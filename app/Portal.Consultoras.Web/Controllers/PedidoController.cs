@@ -313,12 +313,8 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.OfertaFinalAlgoritmo = ofertaFinal.Algoritmo;
                 ViewBag.UrlFranjaNegra = _eventoFestivoProvider.GetUrlFranjaNegra();
 
-                ViewBag.ActivarRecomendaciones = SessionManager
-                                                .GetRecomendacionesConfig()
-                                                .ConfiguracionPaisDatos
-                                                .FirstOrDefault(a=>a.Codigo.Equals(Constantes.CodigoConfiguracionRecomendaciones.ActivarRecomendaciones))
-                                                .Valor1;
-
+                ViewBag.ActivarRecomendaciones = ObtenerFlagActivacionRecomendaciones();
+                ViewBag.MaxCaracteresRecomendaciones = ObtenerNumeroMaximoCaracteresRecomendaciones(false);
             }
             catch (FaultException ex)
             {

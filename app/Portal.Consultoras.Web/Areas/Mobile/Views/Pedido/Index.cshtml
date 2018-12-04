@@ -424,7 +424,7 @@
 
 @section scripts
 {
-    <script type="text/javascript">
+<script type="text/javascript">
 
         var mensajeCUVNoExiste = "Lo sentimos, el producto solicitado no existe.";
         var mensajeCUVAgotado = "Lo sentimos, este producto está agotado.";
@@ -501,7 +501,8 @@
         var listaMensajeMeta = dataBarra == null ? null : dataBarra.ListaMensajeMeta;
         var urlInsertarDemandaTotalReemplazoSugerido = '@Url.Action("InsertarDemandaTotalReemplazoSugerido", "Pedido", new { area = "" })';
         var activarRecomendaciones = '@ViewBag.ActivarRecomendaciones';
-    </script>
+        var maxCaracteresRecomendaciones = '@ViewBag.MaxCaracteresRecomendaciones';
+</script>
 
     @if (mobileConfiguracion.EsAppMobile)
     {

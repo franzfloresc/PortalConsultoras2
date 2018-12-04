@@ -8,7 +8,8 @@
         valueJSON: ".hdRecomendadoJSON"
     };
     var _config = {
-        isMobile: window.matchMedia("(max-width:991px)").matches
+        isMobile: window.matchMedia("(max-width:991px)").matches,
+        maxCaracteresRecomendaciones: maxCaracteresRecomendaciones
     };
     var _provider = {
         RecomendacionesPromise: function (params) {
@@ -57,13 +58,13 @@
                 //centerMode: true,
                 centerPadding: '0px',
                 lazyLoad: 'ondemand',
-                slidesToShow: _config.isMobile ? 1 : 3,
+                slidesToShow: 3,
                 slidesToScroll: 1,
                 autoplay: false,
                 speed: 300,
-                variableWidth: _config.isMobile ? true : false,
-                prevArrow: _config.isMobile ? '' : '<a class="productos_recomendados_controles_carrusel previous js-slick-prev-h"><img src="/Content/Images/arrow_left.svg")" alt="" /></a>',
-                nextArrow: _config.isMobile ? '' : '<a class="productos_recomendados_controles_carrusel next js-slick-next-h"><img src="/Content/Images/arrow_right.svg")" alt="" /></a>'
+                variableWidth: false,
+                prevArrow:  '<a class="productos_recomendados_controles_carrusel previous js-slick-prev-h"><img src="/Content/Images/arrow_left.svg")" alt="" /></a>',
+                nextArrow:  '<a class="productos_recomendados_controles_carrusel next js-slick-next-h"><img src="/Content/Images/arrow_right.svg")" alt="" /></a>'
             }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
 
                 if (nextSlide == slick.slideCount - 3) {
@@ -80,8 +81,8 @@
                 if (!(typeof AnalyticsPortalModule === 'undefined'))
                     AnalyticsPortalModule.MarcaRecomendacionesFlechaSiguiente();
 
-                if (!(typeof AnalyticsPortalModule === 'undefined'))
-                    AnalyticsPortalModule.MarcaProductImpressionRecomendaciones(data, _config.isMobile, nextSlide);
+                //if (!(typeof AnalyticsPortalModule === 'undefined'))
+                //    AnalyticsPortalModule.MarcaProductImpressionRecomendaciones(data, _config.isMobile, nextSlide);
 
             }).on('afterChange', function (event, slick, currentSlide) {
                
@@ -109,13 +110,13 @@
                 nextArrow: ''
             }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
                 
-                nextSlide == slick.slideCount - 2;
+                var numeroSlide = slick.slideCount - 2;
 
                 if (!(typeof AnalyticsPortalModule === 'undefined'))
                     AnalyticsPortalModule.MarcaRecomendacionesFlechaAnterior();
 
-                if (!(typeof AnalyticsPortalModule === 'undefined'))
-                    AnalyticsPortalModule.MarcaProductImpressionRecomendaciones(data, _config.isMobile, nextSlide);
+                //if (!(typeof AnalyticsPortalModule === 'undefined'))
+                    //AnalyticsPortalModule.MarcaProductImpressionRecomendaciones(data, _config.isMobile, numeroSlide);
 
             }).on('afterChange', function (event, slick, currentSlide) {
 
@@ -134,6 +135,12 @@
                 .done(function (data) {
                     $(_elementos.divProducto).html("");
                     if (data.Total !== 0) {
+                        $.each(data.Productos, function (index, item) {
+                            item.posicion = index + 1;
+                            if (item.Descripcion.length > _config.maxCaracteresRecomendaciones) {
+                                item.Descripcion = item.Descripcion.substring(0, _config.maxCaracteresRecomendaciones) + "...";
+                            }
+                        });
                         SetHandlebars(_elementos.templateProducto, data.Productos, _elementos.divProducto);
                         if (_config.isMobile) {
                             _funciones.ArmarCarruselProductosRecomendadosMobile();

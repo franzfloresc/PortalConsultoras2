@@ -118,12 +118,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             model.MostrarPopupPrecargados = (GetMostradoPopupPrecargados() == 0);
 
-            ViewBag.ActivarRecomendaciones = SessionManager
-                                                .GetRecomendacionesConfig()
-                                                .ConfiguracionPaisDatos
-                                                .FirstOrDefault(a => a.Codigo.Equals(Constantes.CodigoConfiguracionRecomendaciones.ActivarRecomendaciones))
-                                                .Valor1;
-
+            ViewBag.ActivarRecomendaciones = ObtenerFlagActivacionRecomendaciones();
+            ViewBag.MaxCaracteresRecomendaciones = ObtenerNumeroMaximoCaracteresRecomendaciones(true);
             return View("Index", model);
         }
 
