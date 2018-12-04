@@ -407,6 +407,7 @@
 @Html.Partial("~/Views/Shared/Cupon/popupCuponGanasteMobile.cshtml")
 @{ Html.RenderPartial("_PopupEleccionRegalo");}
 @{ Html.RenderPartial("_PopupPremio");}
+@{ Html.RenderPartial("_PopupDescuento");}
 
 @section scripts
 {
@@ -494,7 +495,6 @@
             '@Url.Content("~/Content/Images/confetti-ondas.svg")'
         ];
         var noIniciarLluvia = true;
-        var lluviaContainerId = '#popupPremio';
     </script>
 
     @if (mobileConfiguracion.EsAppMobile)

@@ -941,6 +941,7 @@
 @Html.Partial("~/Views/Shared/Cupon/popupCuponGanasteMobile.cshtml")
 @{ Html.RenderPartial("_PopupEleccionRegalo");}
 @{ Html.RenderPartial("_PopupPremio");}
+@{ Html.RenderPartial("_PopupDescuento");}
 @section Scripts{
 
     <script type="text/javascript">
@@ -1017,7 +1018,7 @@
             '@Url.Content("~/Content/Images/confetti-ondas.svg")'
         ];
         var noIniciarLluvia = true;
-        var lluviaContainerId = '#popupPremio';
+        //var lluviaContainerId = '#popupEscalaDescuento';
     </script>
     @Scripts.Render("~/Bundle/Js/Mobile/PedidoDetalle")
 
