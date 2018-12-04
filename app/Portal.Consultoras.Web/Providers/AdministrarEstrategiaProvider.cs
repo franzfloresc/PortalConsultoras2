@@ -953,8 +953,13 @@ namespace Portal.Consultoras.Web.Providers
 
         private static string GetValorEstrategiaDetalle(int datoID, List<WaEstrategiaDetalleModel> estrategiaDetalle)
         {
-            string result;
-            result = (estrategiaDetalle?.FirstOrDefault(x => x.TablaLogicaDatosID == datoID)?.Valor);
+            string result = null;
+            if (estrategiaDetalle != null)
+            {
+                var entidad = estrategiaDetalle.FirstOrDefault(x => x.TablaLogicaDatosID == datoID);
+                if (entidad != null)
+                    result = entidad.Valor;
+            }
             return result;
         }
     }
