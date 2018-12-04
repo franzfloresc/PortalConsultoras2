@@ -187,8 +187,6 @@ var OfertaDelDiaModule = function () {
     var odd_desktop_procesar_evento_before_change = function(event, slick, currentSlide, nextSlide) {
         if (currentSlide != nextSlide) {
             var accion = "";
-            var index = 0;
-            var impresions = [];
 
             if (nextSlide == 0 && currentSlide + 1 == array_odd.CantidadProductos) {
                 accion = "next";
@@ -200,12 +198,11 @@ var OfertaDelDiaModule = function () {
                 accion = "prev";
             }
 
-            if (accion == "prev") {
-                index = nextSlide;
-            }
+            var index = nextSlide;
             if (accion == "next") {
-                index = nextSlide + 2;
+                index += 2;
             }
+
             if (index >= array_odd.CantidadProductos) {
                 index = index - array_odd.CantidadProductos;
             }
@@ -217,17 +214,34 @@ var OfertaDelDiaModule = function () {
             var brand = $(div).find("[data-item-campos]").find(".marca-descripcion-odd").val();
             var variant = $(div).find("[data-item-campos]").find(".tipoestrategia-descripcion-odd").val();
             var position = index + 1;
-            impresions.push({
-                'name': name,
-                'id': id,
-                'price': price,
-                'brand': brand,
-                'category': "No disponible",
-                'variant': variant,
-                'list': "Oferta del día",
-                'position': position
-            });
-            dataLayer.push({ 'event': "productImpression", 'ecommerce': { 'impressions': impresions } });
+            var estrategia = {
+                DescripcionCompleta: name,
+                CUV2: id,
+                PrecioVenta: price,
+                DescripcionMarca: brand,
+                Position: position
+            };
+            var obj = {
+                lista: Array(estrategia)
+            };
+            AnalyticsPortalModule.MarcaGenericaLista("ODD", obj, obj.lista.length);
+
+            //impresions.push({
+            //    'name': name,
+            //    'id': id,
+            //    'price': price,
+            //    'brand': brand,
+            //    'category': "No disponible",
+            //    'variant': variant,
+            //    'list': "Oferta del día",
+            //    'position': position
+            //});
+            //dataLayer.push({
+            //    'event': "productImpression",
+            //    'ecommerce': {
+            //        'impressions': impresions
+            //    }
+            //});
         }
     };
 
@@ -255,13 +269,12 @@ var OfertaDelDiaModule = function () {
                 nextArrow: '<a style="display: block;right: 0;margin-right: -5%; text-align:right;  top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_compra.png")" alt="" class="icono_clase_control_color_dinamico"/></a>'
             }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
                 odd_desktop_procesar_evento_before_change(event, slick, currentSlide, nextSlide);
-            }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
-                EstablecerLazyCarruselAfterChange("#divOddCarrusel");
             });
 
             // esto debe ser automatico
             $("#divOddCarrusel .slick-track > div.slick-slide").css("min-width", "auto");
         }
+
     }
 
     var odd_desktop_google_analytics_promotion_impresion = function () {
@@ -355,6 +368,8 @@ var OfertaDelDiaModule = function () {
                 $(contenedorOfertas).show();
 
                 ConfigurarCarruselProductos(contenedorOfertas, _data.CantidadProductos);
+
+
                 if (setColorTexto !== "") {
                     $(".clase_control_color_dinamico").css("color", setColorTexto);
                     $(".clase_control_color_dinamico").css("border-color", setColorTexto);
@@ -455,36 +470,36 @@ var OfertaDelDiaModule = function () {
         return listaOfertasConClases;
     };
 
-    var odd_mobile_procesar_evento_before_change = function (event, slick, currentSlide, nextSlide, list) {
-        if (currentSlide != nextSlide) {
-            var accion = "";
-            var index = 0;
+    //var odd_mobile_procesar_evento_before_change = function (event, slick, currentSlide, nextSlide, list) {
+    //    if (currentSlide != nextSlide) {
+    //        var accion = "";
+    //        var index = 0;
 
-            if (nextSlide == 0 && currentSlide + 1 == list.length) {
-                accion = "next";
-            } else if (currentSlide == 0 && nextSlide + 1 == list.length) {
-                accion = "prev";
-            } else if (nextSlide > currentSlide) {
-                accion = "next";
-            } else {
-                accion = "prev";
-            }
+    //        if (nextSlide == 0 && currentSlide + 1 == list.length) {
+    //            accion = "next";
+    //        } else if (currentSlide == 0 && nextSlide + 1 == list.length) {
+    //            accion = "prev";
+    //        } else if (nextSlide > currentSlide) {
+    //            accion = "next";
+    //        } else {
+    //            accion = "prev";
+    //        }
 
-            if (accion == "prev") {
-                index = nextSlide;
-            }
-            if (accion == "next") {
-                index = nextSlide;
-            }
-            if (index >= list.length) {
-                index = index - list.length;
-            }
+    //        if (accion == "prev") {
+    //            index = nextSlide;
+    //        }
+    //        if (accion == "next") {
+    //            index = nextSlide;
+    //        }
+    //        if (index >= list.length) {
+    //            index = index - list.length;
+    //        }
 
-            return index;
-        }
-        else
-            return -1;
-    }
+    //        return index;
+    //    }
+    //    else
+    //        return -1;
+    //}
 
     var CargarODDMobile = function () {
         MostrarRelojOfertaDelDia($(".clock").data("total-seconds"));

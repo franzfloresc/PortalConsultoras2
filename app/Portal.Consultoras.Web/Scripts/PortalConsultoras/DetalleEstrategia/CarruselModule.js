@@ -1,4 +1,74 @@
-﻿var CarruselModule = (function (config) {
+﻿var CarruselVariable = function () {
+    var direccion = {
+        left: 'left',
+        right: 'right'
+    };
+
+    return {
+        Direccion: direccion
+    }
+}();
+
+var CarruselAyuda = function () {
+    "use strict";
+
+    var obtenerDireccionCarrusel = function (event, slick, currentSlide, nextSlide) {
+        var txtDireccion = slick.swipeDirection() || "";
+        //switch (txtDireccion){
+        //    case CarruselVariable.Direccion.left:
+        //        break;
+        //}
+        console.log('ObtenerDireccionCarrusel', event, slick, currentSlide, nextSlide, slick.currentSlide);
+        var accion = "prev";
+        var cantidadObj = slick.$slides.length;
+        if (nextSlide == 0 && currentSlide + 1 == cantidadObj) {
+            accion = "next";
+        } else if (currentSlide == 0 && nextSlide + 1 == cantidadObj) {
+            accion = "prev";
+        } else if (nextSlide > currentSlide) {
+            accion = "next";
+        }
+
+        return accion;
+    };
+
+    var obtenerCurrentSlideMostrar = function (slick, currentSlide, nextSlide) {
+        console.log('obtenerCurrentSlideMostrar - Ini ', slick, currentSlide, nextSlide);
+        var cur = nextSlide || currentSlide;
+        console.log('obtenerCurrentSlideMostrar - Fin ', slick.currentSlide, cur);
+        return cur;
+    };
+
+    var marcarAnalyticsChange = function (event, slick, currentSlide, nextSlide, seccionName) {
+
+        if (typeof AnalyticsPortalModule == "undefined") {
+            return;
+        }
+        var slideToMark = obtenerCurrentSlideMostrar(slick, currentSlide, nextSlide);
+        //var pos = isMobile() ? 1 : 2;
+        //var pos = $(_elementos.divCarruselProducto).find(".slick-active").length;
+        //var slideToMark = currentSlide + pos;
+        var item = slick.$slides[slideToMark];
+        console.log('marcarAnalyticsChange', $(item));
+        var estrategia = $($(item).find("[data-estrategia]")[0]).data("estrategia") || "";
+        console.log('marcarAnalyticsChange', estrategia);
+        if (estrategia !== "") {
+            estrategia.Position = slideToMark;
+            var obj = {
+                lista: Array(estrategia)
+            };
+            AnalyticsPortalModule.MarcaGenericaLista(seccionName, obj, 1);
+        }
+
+    }
+
+    return {
+        GetDireccionCarrusel: obtenerDireccionCarrusel,
+        GetCurrentSlideMostrar: obtenerCurrentSlideMostrar
+    };
+}();
+
+var CarruselModule = (function (config) {
     'use strict';
 
     //var setCarruselMarcacionAnalytics = []; //Elementos en el carrusel de la ficha para ser marcados cuando el usuario visualiza y rota sobre los elementos
@@ -219,6 +289,7 @@
             var item = slick.$slides[slideToMark];
             var estrategia = $($(item).find("[data-estrategia]")[0]).data("estrategia") || "";
             if (estrategia !== "") {
+                estrategia.Position = slideToMark;
                 var obj = {
                     lista: Array(estrategia)
                 };
@@ -728,8 +799,6 @@ function EstrategiaCarouselOn(event, slick, currentSlide, nextSlide) {
 
 ////////////////////////////////////////////////////////////////////
 //// Fin - Home y Pedido
-////////////////////////////////////////////////////////////////////
-
 ////////////////////////////////////////////////////////////////////
 //// Ini - Home Liquidacion
 ////////////////////////////////////////////////////////////////////

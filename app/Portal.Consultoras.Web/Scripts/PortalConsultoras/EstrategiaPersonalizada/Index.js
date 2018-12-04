@@ -503,7 +503,7 @@ function RenderCarruselIndividuales(divProd) {
         slidesToShow: 1,
         slidesToScroll: 1,
         speed: 500,
-        autoplay: true,
+        autoplay: false,
         autoplaySpeed: 6000,
         prevArrow: '<a class="arrow-prev" data-direccionflecha="Anterior" onclick="AnalyticsPortalModule.MarcaClicFlechaBanner(this)"><img src="' + baseUrl + 'Content/Images/sliders/previous_ofertas.svg")" alt="" /></a>',
         nextArrow: '<a class="arrow-next" data-direccionflecha="Siguiente" onclick="AnalyticsPortalModule.MarcaClicFlechaBanner(this)"><img src="' + baseUrl + 'Content/Images/sliders/next_ofertas.svg")" alt="" /></a>'
@@ -642,13 +642,16 @@ function RenderCarruselSimpleV2(divProd, data, cc) {
         nextArrow: '<a class="nextArrow" style="display: block;right: 0;margin-right: -5%; text-align: right; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_black_compra.png")" alt="" /></a>'
     }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
         VerificarClick(slick, currentSlide, nextSlide, "normal", seccionName);
-        AnalyticsCarouselAfterChange(event, slick, currentSlide, seccionName);
+        var dir = CarruselAyuda.GetCurrentSlideMostrar(slick, currentSlide, nextSlide);
+        console.log('beforeChange', dir);
     }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
-        console.log(cc);
+        var dir2 = CarruselAyuda.GetCurrentSlideMostrar(slick, currentSlide, nextSlide);
+        console.log('afterChange', dir2);
+
         if (!cc) {
             ShowOrHide_Arrows(event, slick, currentSlide);
         }
-        //MarcarProductos_Arrows(event, slick, currentSlide, seccionName);
+        AnalyticsCarouselAfterChange(event, slick, currentSlide, seccionName);
     });
 
     divProd.find(sElementos.listadoProductos).css("overflow-y", "visible");
@@ -662,7 +665,7 @@ function RenderCarruselSimpleV2(divProd, data, cc) {
 }
 
 function ShowOrHide_Arrows(event, slick, currentSlide) {
-    console.log('ShowOrHide_Arrows', event, slick, currentSlide);
+    
     var objPrevArrow = $(event.target).find('.prevArrow')[0];
     var objNextArrow = $(event.target).find('.nextArrow')[0];
     var objVisorSlick = $(event.target).find('.slick-list')[0];
@@ -722,14 +725,16 @@ function ShowOrHide_Arrows(event, slick, currentSlide) {
 function AnalyticsCarouselAfterChange(event, slick, currentSlide, seccionName) {
     if (typeof AnalyticsPortalModule !== "undefined") {
         var pos = isMobile() ? 1 : 2;
+        //var pos = $(_elementos.divCarruselProducto).find(".slick-active").length;
         var slideToMark = currentSlide + pos;
         var item = slick.$slides[slideToMark];
         var estrategia = $($(item).find("[data-estrategia]")[0]).data("estrategia") || "";
         if (estrategia !== "") {
+            estrategia.Position = slideToMark;
             var obj = {
                 lista: Array(estrategia)
             };
-            AnalyticsPortalModule.MarcaGenericaLista(seccionName, obj, 1);
+            AnalyticsPortalModule.MarcaGenericaLista(seccionName, obj, obj.lista.length);
         }
     }
 }
@@ -755,8 +760,6 @@ function marcaAnalyticsViewVerMas() {
 
 // Ini - Metodo para virtualEvent 
 function VerificarClick(slick, currentSlide, nextSlide, source, seccionName) {
-    console.log(slick, currentSlide, nextSlide, source, seccionName);
-    //if (typeof CheckClickCarrousel !== "undefined" && typeof CheckClickCarrousel === "function") {
     if ((currentSlide > nextSlide && (nextSlide !== 0 || currentSlide === 1))
         || (currentSlide === 0 && nextSlide === slick.slideCount - 1)) {
         CheckClickCarrousel("prev", source, seccionName);
@@ -764,7 +767,6 @@ function VerificarClick(slick, currentSlide, nextSlide, source, seccionName) {
     else {
         CheckClickCarrousel("next", source, seccionName);
     }
-    //}
 }
 
 function CheckClickCarrousel(action, source, seccionName) {
