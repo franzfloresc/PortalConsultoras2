@@ -76,6 +76,10 @@
     margin-top:0;
 }
 
+.productos_recomendados_carrusel .slick-list{
+    width:100%;
+}
+
 .productos_recomendados_controles_carrusel{
     width:12px;
     height:23px;
@@ -290,7 +294,8 @@
 .producto_recomendado_rango_cantidad input,
 .producto_recomendado_rango_cantidad .mas
 {
-    width:38px;
+    -ms-flex:0 1 33%;
+    flex:0 1 33%;
 }
 
 .producto_por_agregar_rango_cantidad .menos,
@@ -329,7 +334,7 @@
 .btn_producto_por_agregar,
 .btn_producto_recomendado_agregalo
 {
-    width:115.2px;
+    width:100%;
     font-size:12px!important;
     letter-spacing:0.7px;
     margin-top:7px;
@@ -404,9 +409,15 @@
         min-height:229.9px;
     }
 
+    .producto_recomendado_imagen,
+    .producto_recomendado_info
+    {
+        min-width:0;
+    }
+
     .producto_recomendado_info{
         padding-left:8px;
-        padding-right:9px;
+        padding-right:0px;
     }
 
     .producto_por_agregar_nombre{
@@ -421,22 +432,8 @@
         bottom:9.5px;
     }
 
-    .producto_por_agregar_rango_cantidad,
     .producto_recomendado_rango_cantidad,
     .producto_recomendado_btn_wrapper
-    {
-        flex:0;
-    }
-
-    .producto_recomendado_rango_cantidad,
-    .producto_recomendado_btn_wrapper,
-    .btn_producto_recomendado_agregalo
-    {
-        width:101px;
-    }
-
-    .producto_por_agregar_btn_wrapper,
-    .producto_por_agregar_rango_cantidad
     {
         -ms-flex:0 1 50%;
         flex:0 1 50%;
