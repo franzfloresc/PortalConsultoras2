@@ -562,7 +562,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                         if (valor != 0)
                         {
-                            return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_STOCK_ESTRATEGIA, Constantes.ProgNuevas.Mensaje.ExcedeLimiteUnidades.Replace("#n#", valor.ToString()));
+                            return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_STOCK_ESTRATEGIA, string.Format(Constantes.ProgNuevas.Mensaje.ExcedeLimiteUnidades,valor.ToString()));
                         }
                     }
                 }
@@ -1826,7 +1826,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                 if (valor != 0)
                 {
-                    mensajeObs = Constantes.ProgNuevas.Mensaje.ExcedeLimiteUnidades.Replace("#n#", valor.ToString());
+                    mensajeObs = string.Format(Constantes.ProgNuevas.Mensaje.ExcedeLimiteUnidades, valor.ToString());
                     return false;
                 }
             }
@@ -3230,7 +3230,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             }
             
             #region StockComponente
-            if (!(pedidoDetalle.Producto.TipoEstrategiaID == Constantes.ConfiguracionOferta.Liquidacion.ToString()))
+            if (!(pedidoDetalle.Producto.TipoOfertaSisID == Constantes.ConfiguracionOferta.Liquidacion))
             {
                 var tempPedidowebdetallesGroup = pedidowebdetalles.GroupBy(x => new { x.CUV, x.ClienteID }).Select(y => new BEPedidoWebDetalle
                 {
