@@ -85,12 +85,15 @@ namespace Portal.Consultoras.Web.Providers
                     if (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento && item.estrategiaDetalle != null)
                     {
                         estrategia.EstrategiaDetalle = new ServiceOferta.BEEstrategiaDetalle();
+                        int tablaLogicaDatosID;
 
                         foreach (var itemED in item.estrategiaDetalle)
                         {
                             if (itemED.tablaLogicaDatosID == null) continue;
 
-                            switch (Convert.ToInt32(itemED.tablaLogicaDatosID))
+                            tablaLogicaDatosID = Convert.ToInt32(itemED.tablaLogicaDatosID);
+
+                            switch (tablaLogicaDatosID)
                             {
                                 case Constantes.EstrategiaDetalleCamposID.FlagIndividual:
                                     estrategia.EstrategiaDetalle.FlagIndividual = (itemED.valor == "1" ? true : false);
