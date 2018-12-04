@@ -1778,12 +1778,13 @@ namespace Portal.Consultoras.BizLogic.Pedido
             return string.Format(Constantes.ProgNuevas.Mensaje.Electivo_TeFaltaPocoLimite, numFaltantes, promocionNombre);
         }
 
-        private void EliminarDetallePackNueva(List<string> listCuv, List<BEPedidoWebDetalle> lstDetalle)
+        private void EliminarDetallePackNueva(List<string> listCuv, List<BEPedidoWebDetalle> lstDetalle,BEUsuario usuario)
         {
             var packNuevas = lstDetalle.Where(x => listCuv.Contains(x.CUV)).ToList();
             foreach (var item in packNuevas)
             {
                 _pedidoWebDetalleBusinessLogic.DelPedidoWebDetalleTransaction(item);
+                _pedidoWebSetBusinessLogic.EliminarTransaction(usuario.PaisID, item.SetID, usuario.ConsultoraID);
             }
         }
 
@@ -1809,7 +1810,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         TituloMensaje = !string.IsNullOrEmpty(mensajeObs)? Constantes.ProgNuevas.Mensaje.Electivo_PromocionNombre.ToUpper() : "";
                         break;
                     case Enumeradores.ValidarCuponesElectivos.Reemplazar:
-                        EliminarDetallePackNueva(respElectivos.ListCuvEliminar.ToList(), lstDetalle);
+                        EliminarDetallePackNueva(respElectivos.ListCuvEliminar.ToList(), lstDetalle, usuario);
                         listCuvEliminar = respElectivos.ListCuvEliminar.ToList();
                         break;
                     case Enumeradores.ValidarCuponesElectivos.NoAgregarExcedioLimite:
@@ -1878,9 +1879,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                     foreach (var obePedidoWebDetalle in pedidoWebDetalles)
                     {
-                        //Obtener PedidoWebDetalle
-                        lstDetalle = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
-                        obePedidoWebDetalle.PedidoID = pedidoID;
 
                         #region ProgramaNuevas
                         if (obePedidoWebDetalle.TipoAdm.Equals(Constantes.PedidoAccion.INSERT))
@@ -1888,14 +1886,16 @@ namespace Portal.Consultoras.BizLogic.Pedido
                             if (pedidoDetalle.EnRangoProgramaNuevas)
                             {
                                 CrearLogProgNuevas("DuoPerfecto: PedidoInsertar", obePedidoWebDetalle.CUV, usuario);
-
-                                var pasoProgramaNueva = ValidarProgramaNuevas(usuario, obePedidoWebDetalle, lstDetalle, out mensajeObs, out listCuvEliminar, out TituloMensaje);
+                                var lstDetalleAgrupado = ObtenerPedidoWebSetDetalleAgrupado(usuario, out pedidoID);
+                                var pasoProgramaNueva = ValidarProgramaNuevas(usuario, obePedidoWebDetalle, lstDetalleAgrupado, out mensajeObs, out listCuvEliminar, out TituloMensaje);
                                 if (!pasoProgramaNueva) return false;
-                                if (listCuvEliminar.Any())
-                                    lstDetalle = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
                             }
                         }
                         #endregion
+
+                        //Obtener PedidoWebDetalle
+                        lstDetalle = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
+                        obePedidoWebDetalle.PedidoID = pedidoID;
 
                         if (obePedidoWebDetalle.PedidoDetalleID == 0)
                         {
