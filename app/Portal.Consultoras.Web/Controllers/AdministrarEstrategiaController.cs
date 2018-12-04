@@ -69,7 +69,6 @@ namespace Portal.Consultoras.Web.Controllers
                     TipoVistaEstrategia = TipoVistaEstrategia,
                     PaisID = userData.PaisID
                 };
-
                 //Enviar listado de palancas c/microservicios y si el país está configurado para ser evaluados en grilla.
                 ViewBag.MsEstrategias = WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion;
                 ViewBag.MsPaises = WebConfig.PaisesMicroservicioPersonalizacion;

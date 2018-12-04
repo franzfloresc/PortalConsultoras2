@@ -604,8 +604,8 @@
 
 @media screen and (max-width:991px) {
     
-    .buscador__productos{
-        display:none;
+    .buscador__productos{        
+    	display:none;
         width:100%;
         height:auto;
         margin-left: 0;
