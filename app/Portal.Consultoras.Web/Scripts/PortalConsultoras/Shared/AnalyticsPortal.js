@@ -2547,22 +2547,19 @@ var AnalyticsPortalModule = (function () {
     // Inicio - Analytics Buscador
     ////////////////////////////////////////////////////////////////////////////////////////
 
-    var marcaProductImpressionRecomendaciones = function (data, isMobile, next) {
+    var marcaProductImpressionRecomendaciones = function (data, isMobile) {
         try {
 
             var cantidadMostrar = isMobile ? 2 : 3;
-
-            console.log(cantidadMostrar);
 
             var lista = data.Productos;
 
             var impressions = [];
 
-            if (next > 0) {
-
-                cantidadMostrar = cantidadMostrar + next;
-                               
-                var item = lista[cantidadMostrar];
+            $.each(lista, function (index) {
+                if (index == cantidadMostrar)
+                    return false;
+                var item = lista[index];
                 var impression = {
                     //'id': item.CUV
                     'name': item.DescripcionCompleta,
@@ -2575,30 +2572,45 @@ var AnalyticsPortalModule = (function () {
                     'position': index + 1
                 };
                 impressions.push(impression);
-
-            }
-            else {
-                $.each(lista, function (index) {
-                    if (index == cantidadMostrar)
-                        return false;
-                    var item = lista[index];
-                    var impression = {
-                        //'id': item.CUV
-                        'name': item.DescripcionCompleta,
-                        'id': item.CUV,
-                        'price': parseFloat(item.Precio).toFixed(2).toString(),
-                        'brand': _getMarca(item.MarcaId),
-                        'category': _texto.notavaliable,
-                        'variant': _texto.estandar,
-                        'list': 'Pedido - Ofertas Relacionadas',
-                        'position': index + 1
-                    };
-                    impressions.push(impression);
-                });
-            }
-
+            });
 
             dataLayer.push({
+                'event': _evento.productImpression,
+                'ecommerce': {
+                    'currencyCode': AnalyticsPortalModule.GetCurrencyCodes(_constantes.codigoPais),
+                    'impressions': impressions
+                }
+            });
+
+
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+    }
+
+    var marcaProductImpressionViewRecomendaciones = function (data, index) {
+        try {
+
+            var lista = data.Productos;
+
+            var impressions = [];
+
+            var item = lista[index];
+            var impression = {
+                //'id': item.CUV
+                'name': item.DescripcionCompleta,
+                'id': item.CUV,
+                'price': parseFloat(item.Precio).toFixed(2).toString(),
+                'brand': _getMarca(item.MarcaId),
+                'category': _texto.notavaliable,
+                'variant': _texto.estandar,
+                'list': 'Pedido - Ofertas Relacionadas',
+                'position': index + 1
+            };
+            impressions.push(impression);
+
+
+            0dataLayer.push({
                 'event': _evento.productImpression,
                 'ecommerce': {
                     'currencyCode': AnalyticsPortalModule.GetCurrencyCodes(_constantes.codigoPais),
@@ -2767,6 +2779,7 @@ var AnalyticsPortalModule = (function () {
         // Fin - Analytics Ganadoras
 
         MarcaProductImpressionRecomendaciones: marcaProductImpressionRecomendaciones,
+        MarcaProductImpressionViewRecomendaciones: marcaProductImpressionViewRecomendaciones,
         MarcaRecomendacionesFlechaSiguiente: marcaRecomendacionesFlechaSiguiente,
         MarcaRecomendacionesFlechaAnterior: marcaRecomendacionesFlechaAnterior,
         MarcaOcultarRecomendaciones: marcaOcultarRecomendaciones,
