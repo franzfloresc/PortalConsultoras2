@@ -69,6 +69,7 @@ BEGIN
 		and c.CodigoPrograma = @CodigoPrograma 
 		and e.campaniaid <= @CampaniaID and e.campaniaidfin >= @CampaniaID 
 		and c.Campana = cast(@CampaniaID as varchar(6))
+		and c.PrecioUnitario = 0
 		and c.IND_CUPO_ELEC = 1
 
 END
