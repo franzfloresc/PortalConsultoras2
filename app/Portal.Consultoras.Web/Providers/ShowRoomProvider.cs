@@ -794,7 +794,7 @@ namespace Portal.Consultoras.Web.Providers
             };
 
             string jsonParameters = JsonConvert.SerializeObject(eventoConsultora);
-            Task<string> taskApi = Task.Run(() => RespSBMicroservicios(jsonParameters, requestUrl, "put", userData));
+            Task<string> taskApi = Task.Run(() => RespSBMicroservicios(jsonParameters, requestUrl, "put", userData, "CONFIG")); 
             Task.WhenAll(taskApi);
             string content = taskApi.Result;
 
@@ -826,7 +826,7 @@ namespace Portal.Consultoras.Web.Providers
                 codigoCampania,
                 codigoConsultora);
 
-            Task<string> taskApi = Task.Run(() => RespSBMicroservicios(string.Empty, requestUrl, "get", userData));
+            Task<string> taskApi = Task.Run(() => RespSBMicroservicios(string.Empty, requestUrl, "get", userData, "SEARCH"));
             Task.WhenAll(taskApi);
             string content = taskApi.Result;
 
@@ -838,16 +838,21 @@ namespace Portal.Consultoras.Web.Providers
             }
 
             ShowRoomEventoConsultoraModel modelo = new ShowRoomEventoConsultoraModel();
-            dynamic eventoConsultora = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(respuesta.Result.ToString());
-            modelo.EventoConsultoraID = Convert.ToInt32(eventoConsultora.eventoConsultoraId);
-            modelo.EventoID = Convert.ToInt32(eventoConsultora.eventoId);
-            modelo.CampaniaID = Convert.ToInt32(eventoConsultora.campaniaId);
-            modelo.CodigoConsultora = eventoConsultora.codigoConsultora;
-            modelo.Segmento = eventoConsultora.segmento;
-            modelo.MostrarPopup = Convert.ToBoolean(eventoConsultora.mostrarPopup);
-            modelo.MostrarPopupVenta = Convert.ToBoolean(eventoConsultora.mostrarPopupVenta);
 
-            return modelo;
+            if (respuesta.Result != null)
+            {
+                dynamic eventoConsultora = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(respuesta.Result.ToString());
+                modelo.EventoConsultoraID = Convert.ToInt32(eventoConsultora.eventoConsultoraId);
+                modelo.EventoID = Convert.ToInt32(eventoConsultora.eventoId);
+                modelo.CampaniaID = Convert.ToInt32(eventoConsultora.campaniaId);
+                modelo.CodigoConsultora = eventoConsultora.codigoConsultora;
+                modelo.Segmento = eventoConsultora.segmento;
+                modelo.MostrarPopup = Convert.ToBoolean(eventoConsultora.mostrarPopup);
+                modelo.MostrarPopupVenta = Convert.ToBoolean(eventoConsultora.mostrarPopupVenta);
+                return modelo;
+            }
+
+            return null;
         }
 
         public List<ShowRoomNivelModel> ObtenerNivelApi(string pais)
@@ -856,7 +861,7 @@ namespace Portal.Consultoras.Web.Providers
 
             string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerNivel, pais);
 
-            Task<string> taskApi = Task.Run(() => RespSBMicroservicios(string.Empty, requestUrl, "get", userData));
+            Task<string> taskApi = Task.Run(() => RespSBMicroservicios(string.Empty, requestUrl, "get", userData, "SEARCH"));
             Task.WhenAll(taskApi);
             string content = taskApi.Result;
 
@@ -896,7 +901,7 @@ namespace Portal.Consultoras.Web.Providers
                     new WaEventoConsultora { UsuarioModificacion = userData.UsuarioNombre, EventoConsultoraId = entidad.EventoConsultoraID };
 
                 string jsonParameters = JsonConvert.SerializeObject(eventoConsultora);
-                Task<string> taskApi = Task.Run(() => RespSBMicroservicios(jsonParameters, requestUrl, "put", userData));
+                Task<string> taskApi = Task.Run(() => RespSBMicroservicios(jsonParameters, requestUrl, "put", userData, "CONFIG"));
                 Task.WhenAll(taskApi);
                 string content = taskApi.Result;
 
@@ -914,11 +919,16 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
-        private static async Task<string> RespSBMicroservicios(string jsonParametros, string requestUrlParam, string responseType, UsuarioModel userData)
+        private static async Task<string> RespSBMicroservicios(string jsonParametros, string requestUrlParam, string responseType, UsuarioModel userData, string urlBase)
         {
             using (HttpClient client = new HttpClient())
             {
-                string url = WebConfig.UrlMicroservicioPersonalizacionConfig;
+                string url = string.Empty;
+                if (urlBase == "CONFIG")
+                    url = WebConfig.UrlMicroservicioPersonalizacionConfig;
+                else
+                    url = WebConfig.UrlMicroservicioPersonalizacionSearch;
+
                 client.BaseAddress = new Uri(url);
                 string jsonString = jsonParametros;
 
