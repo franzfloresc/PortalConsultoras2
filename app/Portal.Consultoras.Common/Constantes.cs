@@ -2768,6 +2768,12 @@ namespace Portal.Consultoras.Common
 
             //api/Estrategia/buscador/{pais}/{tipo}/{campania}
             public const string UrlJobBuscador = "api/Estrategia/buscador/{0}/{1}/{2}";
+
+            //api/Evento/registrarConsultora/{pais}
+            public const string UrlRegistrarEventoConsultora = "api/Evento/registrarConsultora/{0}";
+
+            //api/Evento/editarConsultora/{pais}/{tipo}
+            public const string UrlEditarEventoConsultora = "api/Evento/editarConsultora/{0}/{1}";
             #endregion
 
             #region Oferta
@@ -2783,11 +2789,8 @@ namespace Portal.Consultoras.Common
             //api/Nivel/listar/{pais}
             public const string UrlObtenerNivel = "api/Nivel/listar/{0}";
 
-            //api/Evento/registrarConsultora/{pais}/{codigoCampania}/{codigoConsultora}
-            public const string UrlRegistrarEventoConsultora = "api/Evento/registrarConsultora/{0}/{1}/{2}";
-
-            //api/Evento/editarEventoConsultora/{pais}/{tipo}
-            public const string UrlEditarEventoConsultora = "api/Evento/editarEventoConsultora/{0}/{1}";
+            //api/Evento/listarConsultora/{pais}/{campania}/{codigoConsultora}
+            public const string UrlObtenerEventoConsultora = "api/Evento/listarConsultora/{0}/{1}/{2}";
             #endregion
 
             #region Reporte
