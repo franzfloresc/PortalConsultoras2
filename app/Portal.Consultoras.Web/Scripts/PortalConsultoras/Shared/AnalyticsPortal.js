@@ -347,7 +347,7 @@ var AnalyticsPortalModule = (function () {
     var marcarImpresionSetProductos = function (arrayItems) {
 
         try {
-            console.log('marcarImpresionSetProductos Inicio', arrayItems);
+            console.log('Analytics - marcarImpresionSetProductos Inicio', arrayItems);
             var tipoMoneda = AnalyticsPortalModule.GetCurrencyCodes(_constantes.codigoPais);
             dataLayer.push({
                 'event': _evento.productImpression,
@@ -367,7 +367,7 @@ var AnalyticsPortalModule = (function () {
             if (_constantes.isTest)
                 alert("Marcación product impression.");
 
-            console.log('_marcarProductImpresionSegunLista Inicio', codigoSeccion, data, limite);
+            console.log('Analytics - _marcarProductImpresionSegunLista Inicio', codigoSeccion, data, limite);
 
             var lista = data.lista;
 

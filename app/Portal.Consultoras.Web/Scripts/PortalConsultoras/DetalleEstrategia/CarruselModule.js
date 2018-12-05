@@ -38,18 +38,41 @@ var CarruselAyuda = function () {
         console.log('obtenerCurrentSlideMostrar - Fin ', slick.currentSlide, cur);
         return cur;
     };
+    
+    var marcarAnalyticsInicio = function (idHtmlSeccion, pagina, seccion) {
+        idHtmlSeccion = idHtmlSeccion || "";
+        idHtmlSeccion = idHtmlSeccion[0] == "#" ? idHtmlSeccion : ("#" + idHtmlSeccion);
+        //var pagina = isHome() ? "Home" : "Carrito de Compras";
+        var cantidadRecomendados = $(idHtmlSeccion).find(".slick-active").length;
+        var arrayEstrategia = [];
+        for (var i = 0; i < cantidadRecomendados; i++) {
+            var recomendado = arrayItems[i];
+            var impresionRecomendado = {
+                'name': recomendado.DescripcionCompleta,
+                'id': recomendado.CUV2,
+                'price': $.trim(recomendado.Precio2),
+                'brand': recomendado.DescripcionMarca,
+                'category': AnalyticsPortalModule.Texto.Notavaliable,
+                'variant': AnalyticsPortalModule.Texto.Estandar,
+                'list': AnalyticsPortalModule.Texto.List(false, pagina, seccion),
+                'position': recomendado.Posicion
+            };
 
-    var marcarAnalyticsChange = function (event, slick, currentSlide, nextSlide, seccionName) {
+            arrayEstrategia.push(impresionRecomendado);
+        }
+
+        AnalyticsPortalModule.MarImpresionSetProductos(arrayEstrategia);
+    }
+
+    var marcarAnalyticsChange = function (event, slick, currentSlide, nextSlide, pagina, seccion) {
 
         if (typeof AnalyticsPortalModule == "undefined") {
             return;
         }
+
         var slideToMark = obtenerCurrentSlideMostrar(slick, currentSlide, nextSlide);
-        //var pos = isMobile() ? 1 : 2;
-        //var pos = $(_elementos.divCarruselProducto).find(".slick-active").length;
-        //var slideToMark = currentSlide + pos;
         var item = slick.$slides[slideToMark];
-        console.log('marcarAnalyticsChange', $(item));
+        console.log('marcarAnalyticsChange', slideToMark, $(item));
         var estrategia = $($(item).find("[data-estrategia]")[0]).data("estrategia") || "";
         console.log('marcarAnalyticsChange', estrategia);
         if (estrategia !== "") {
@@ -57,14 +80,16 @@ var CarruselAyuda = function () {
             var obj = {
                 lista: Array(estrategia)
             };
-            AnalyticsPortalModule.MarcaGenericaLista(seccionName, obj, 1);
+            AnalyticsPortalModule.MarcaGenericaLista(seccionName, obj, obj.lista.length);// home y pedido
         }
 
     }
 
     return {
         GetDireccionCarrusel: obtenerDireccionCarrusel,
-        GetCurrentSlideMostrar: obtenerCurrentSlideMostrar
+        GetCurrentSlideMostrar: obtenerCurrentSlideMostrar,
+        MarcarAnalyticsChange: marcarAnalyticsChange,
+        MarcarAnalyticsInicio: marcarAnalyticsInicio
     };
 }();
 
@@ -197,7 +222,8 @@ var CarruselModule = (function (config) {
                     }
                 ]
             }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
-                _marcarAnalyticsAfterChange(event, slick, currentSlide, _config.pantalla);
+                var seccion = ConstantesModule.OrigenPedidoWebEstructura.Seccion.CarruselVerMas;
+                CarruselAyuda.MarcarAnalyticsChange(event, slick, currentSlide, nextSlide, _config.pantalla, seccion); // Ficha
             });
         }
 
@@ -259,7 +285,7 @@ var CarruselModule = (function (config) {
             if (!(typeof AnalyticsPortalModule === 'undefined')) {
                 var cantSlickActivos = $(_elementos.divCarruselProducto).find(".slick-active").length
                     || data.lista;
-                AnalyticsPortalModule.MarcaGenericaLista(_config.pantalla, data, cantSlickActivos);
+                AnalyticsPortalModule.MarcaGenericaLista(_config.pantalla, data, cantSlickActivos);// Inicio ficha
             }
 
         }
@@ -278,28 +304,6 @@ var CarruselModule = (function (config) {
         $(_elementos.divCarruselContenedor).hide();
     }
 
-    ////////////////////////////////////////////////////////////////////
-    //// Ini - Analytic Carrusel
-    ////////////////////////////////////////////////////////////////////
-    var _marcarAnalyticsAfterChange = function (event, slick, currentSlide, seccionName) {
-        if (typeof AnalyticsPortalModule !== "undefined") {
-            //var pos = isMobile() ? 1 : 2;
-            var pos = $(_elementos.divCarruselProducto).find(".slick-active").length;
-            var slideToMark = currentSlide + pos;
-            var item = slick.$slides[slideToMark];
-            var estrategia = $($(item).find("[data-estrategia]")[0]).data("estrategia") || "";
-            if (estrategia !== "") {
-                estrategia.Position = slideToMark;
-                var obj = {
-                    lista: Array(estrategia)
-                };
-                AnalyticsPortalModule.MarcaGenericaLista(seccionName, obj, 1);
-            }
-        }
-    }
-
-    ////////////////////////////////////////////////////////////////////
-    //// Fin - Analytic Carrusel
     ////////////////////////////////////////////////////////////////////
     //// Ini - Analytic
     ////////////////////////////////////////////////////////////////////
@@ -547,7 +551,7 @@ function ArmarCarouselEstrategias(data) {
                 }
             ]
         }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
-            EstrategiaCarouselOn(event, slick, currentSlide, nextSlide);
+            MarcarAnalyticsChangePedidoHome(event, slick, currentSlide, nextSlide);
         });
     }
     else if (tipoOrigenEstrategia == 11) {
@@ -595,7 +599,7 @@ function ArmarCarouselEstrategias(data) {
             prevArrow: '<button type="button" data-role="none" class="slick-next ' + claseFlechaDoradaNext + ' "></button>',
             nextArrow: '<button type="button" data-role="none" class="slick-prev ' + claseFlechaDoradaPrev + '"></button>'
         }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
-            EstrategiaCarouselOn(event, slick, currentSlide, nextSlide);
+            MarcarAnalyticsChangePedidoHome(event, slick, currentSlide, nextSlide);
         });
 
         if (data.Lista.length > cant) {
@@ -635,7 +639,7 @@ function ArmarCarouselEstrategias(data) {
                 }
             ]
         }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
-            EstrategiaCarouselOn(event, slick, currentSlide, nextSlide);
+            MarcarAnalyticsChangePedidoHome(event, slick, currentSlide, nextSlide);
         });
     }
     else if (tipoOrigenEstrategia == 21) {
@@ -670,7 +674,7 @@ function ArmarCarouselEstrategias(data) {
                 }
             ]
         }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
-            EstrategiaCarouselOn(event, slick, currentSlide, nextSlide);
+            MarcarAnalyticsChangePedidoHome(event, slick, currentSlide, nextSlide);
         });
     }
 
@@ -679,63 +683,43 @@ function ArmarCarouselEstrategias(data) {
 
 function TagManagerCarruselInicio(arrayItems) {
     arrayItems = arrayItems || new Array();
-    var pagina = isHome() ? "Home" : "Carrito de Compras";
-    var cantidadRecomendados = $('#divListadoEstrategia').find(".slick-active").length;
-    var arrayEstrategia = [];
-    for (var i = 0; i < cantidadRecomendados; i++) {
-        var recomendado = arrayItems[i];
-        var impresionRecomendado = {
-            'name': recomendado.DescripcionCompleta,
-            'id': recomendado.CUV2,
-            'price': $.trim(recomendado.Precio2),
-            'brand': recomendado.DescripcionMarca,
-            'category': AnalyticsPortalModule.Texto.Notavaliable,
-            'variant': AnalyticsPortalModule.Texto.Estandar,
-            'list': AnalyticsPortalModule.Texto.List(false, pagina, "Gana+"),
-            'position': recomendado.Posicion
-        };
+    var pagina = isHome()
+        ? ConstantesModule.OrigenPedidoWebEstructura.Pagina.Home
+        : ConstantesModule.OrigenPedidoWebEstructura.Pagina.Pedido
+    var seccion = ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel; // "Gana+"
 
-        arrayEstrategia.push(impresionRecomendado);
-    }
+    CarruselAyuda.MarcarAnalyticsInicio("#divListadoEstrategia", pagina, seccion);
 
-    AnalyticsPortalModule.MarImpresionSetProductos(arrayEstrategia);
+    //var pagina = isHome() ? "Home" : "Carrito de Compras";
+    //var cantidadRecomendados = $('#divListadoEstrategia').find(".slick-active").length;
+    //var arrayEstrategia = [];
+    //for (var i = 0; i < cantidadRecomendados; i++) {
+    //    var recomendado = arrayItems[i];
+    //    var impresionRecomendado = {
+    //        'name': recomendado.DescripcionCompleta,
+    //        'id': recomendado.CUV2,
+    //        'price': $.trim(recomendado.Precio2),
+    //        'brand': recomendado.DescripcionMarca,
+    //        'category': AnalyticsPortalModule.Texto.Notavaliable,
+    //        'variant': AnalyticsPortalModule.Texto.Estandar,
+    //        'list': AnalyticsPortalModule.Texto.List(false, pagina, seccion),
+    //        'position': recomendado.Posicion
+    //    };
 
-    //var add = false;
-
-    //if (arrayEstrategia.length > 0) {
-    //    add = true;
-    //    if (!isMobile()) {
-    //        add = false;
-    //        var sentListEstrategia = false;
-    //        if (typeof (Storage) !== 'undefined') {
-    //            var nunX = isHome() ? "1" : "2";
-    //            var sle = localStorage.getItem('sentListEstrategia' + nunX);
-    //            if (sle !== null && sle === '1') {
-    //                sentListEstrategia = true;
-    //            }
-    //            else {
-    //                localStorage.setItem('sentListEstrategia' + nunX, '1');
-    //            }
-    //        }
-
-    //        if (!sentListEstrategia) {
-    //            add = true;
-    //        }
-    //    }
+    //    arrayEstrategia.push(impresionRecomendado);
     //}
 
-    //if (add) {
-    //    dataLayer.push({
-    //        'event': 'productImpression',
-    //        'ecommerce': {
-    //            'impressions': arrayEstrategia
-    //        }
-    //    });
-    //}
+    //AnalyticsPortalModule.MarImpresionSetProductos(arrayEstrategia);
 }
 
-function EstrategiaCarouselOn(event, slick, currentSlide, nextSlide) {
-    console.log(event, slick, currentSlide, nextSlide);
+function MarcarAnalyticsChangePedidoHome(event, slick, currentSlide, nextSlide) {
+
+    var paginaOrigen = isHome() 
+        ? ConstantesModule.OrigenPedidoWebEstructura.Pagina.Home
+        : ConstantesModule.OrigenPedidoWebEstructura.Pagina.Pedido
+    var seccion = ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel;
+
+    CarruselAyuda.MarcarAnalyticsChange(event, slick, currentSlide, nextSlide, paginaOrigen, seccion);// Home Pedido
 
     var accion;
     if (nextSlide == 0 && currentSlide + 1 == arrayOfertasParaTi.length) {
@@ -748,47 +732,39 @@ function EstrategiaCarouselOn(event, slick, currentSlide, nextSlide) {
         accion = "prev";
     }
 
-    var posicionEstrategia = 0
+    //var posicionEstrategia = 0
     var paramlabel = "";
-    var arrayEstrategia = [];
-
+    //var arrayEstrategia = [];
 
     if (accion == "prev") {
-        var posicionPrimerActivo = $($("#divListadoEstrategia").find(".slick-active")[0]).find(".PosicionEstrategia").val();
-        posicionEstrategia = posicionPrimerActivo == 1 ? arrayOfertasParaTi.length - 1 : posicionPrimerActivo - 2;
+        //var posicionPrimerActivo = $($("#divListadoEstrategia").find(".slick-active")[0]).find(".PosicionEstrategia").val();
+        //posicionEstrategia = posicionPrimerActivo == 1 ? arrayOfertasParaTi.length - 1 : posicionPrimerActivo - 2;
 
         paramlabel = "Ver anterior";
 
     } else {
-        var posicionUltimoActivo = $($("#divListadoEstrategia").find(".slick-active").slice(-1)[0]).find(".PosicionEstrategia").val();
-        posicionEstrategia = arrayOfertasParaTi.length == posicionUltimoActivo ? 0 : posicionUltimoActivo;
+        //var posicionUltimoActivo = $($("#divListadoEstrategia").find(".slick-active").slice(-1)[0]).find(".PosicionEstrategia").val();
+        //posicionEstrategia = arrayOfertasParaTi.length == posicionUltimoActivo ? 0 : posicionUltimoActivo;
 
         paramlabel = "Ver siguiente";
     }
 
     var pagina = isHome() ? "Home" : "Carrito de Compras";
 
-    var recomendado = arrayOfertasParaTi[posicionEstrategia];
-    arrayEstrategia.push({
-        'name': recomendado.DescripcionCompleta,
-        'id': recomendado.CUV2,
-        'price': recomendado.PrecioVenta,
-        'brand': recomendado.DescripcionMarca,
-        'category': AnalyticsPortalModule.Texto.Notavaliable,
-        'variant': AnalyticsPortalModule.Texto.Estandar,
-        'list': AnalyticsPortalModule.Texto.List(false, pagina, "Gana+"),
-        'position': recomendado.Posicion
-    });
-
-    AnalyticsPortalModule.MarImpresionSetProductos(arrayEstrategia);
-
-    //dataLayer.push({
-    //    'event': "productImpression",
-    //    'ecommerce': {
-    //        'impressions': arrayEstrategia
-    //    }
+    //var recomendado = arrayOfertasParaTi[posicionEstrategia];
+    //arrayEstrategia.push({
+    //    'name': recomendado.DescripcionCompleta,
+    //    'id': recomendado.CUV2,
+    //    'price': recomendado.PrecioVenta,
+    //    'brand': recomendado.DescripcionMarca,
+    //    'category': AnalyticsPortalModule.Texto.Notavaliable,
+    //    'variant': AnalyticsPortalModule.Texto.Estandar,
+    //    'list': AnalyticsPortalModule.Texto.List(false, pagina, "Gana+"),
+    //    'position': recomendado.Posicion
     //});
 
+    //AnalyticsPortalModule.MarImpresionSetProductos(arrayEstrategia);
+    
     dataLayer.push({
         'event': "virtualEvent",
         'category': pagina,
@@ -917,14 +893,7 @@ function TagManagerCarruselNavegar(posicionEstrategia, direccion) {
         var arrayEstrategia = new Array();
         arrayEstrategia.push(impresionRecomendado);
 
-        AnalyticsPortalModule.MarImpresionSetProductos(arrayEstrategia);
-
-        //dataLayer.push({
-        //    'event': 'productImpression',
-        //    'ecommerce': {
-        //        'impressions': arrayEstrategia
-        //    }
-        //});
+        AnalyticsPortalModule.MarImpresionSetProductos(arrayEstrategia); // Liquidacion Home
 
         dataLayer.push({
             'event': 'virtualEvent',

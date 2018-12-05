@@ -301,14 +301,6 @@ function SeccionMostrarProductos(data) {
 
     data.lista = data.lista || [];
 
-    //Marcación Analytics Más GANADORAS
-    //if (data.Seccion.Codigo === CONS_CODIGO_SECCION.MG) {
-    //    if (varContenedor.CargoMg) {
-    //        console.log('SeccionMostrarProductos - MarcaGenericaLista', data.Seccion.Codigo, data);
-    //        AnalyticsPortalModule.MarcaGenericaLista(data.Seccion.Codigo, data);
-    //    }
-    //}
-
     if (data.Seccion.Codigo === CONS_CODIGO_SECCION.LAN) {
         var tieneIndividual = false;
         $.each(data.listaLan, function (key, value) {
@@ -605,14 +597,13 @@ function RenderCarruselSimple(divProd, data, cc) {
         nextArrow: '<a  class="nextArrow" style="display: block;right: 0;margin-right: -5%; text-align: right; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_black_compra.png")" alt="" /></a>'
     }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
         VerificarClick(slick, currentSlide, nextSlide, "normal");
-    }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
-        AnalyticsCarouselAfterChange(event, slick, currentSlide, seccionName);
+        CarruselAyuda.MarcarAnalyticsChange(event, slick, currentSlide, nextSlide, seccionName);//RenderCarruselSimple
     });
 
     divProd.find(sElementos.listadoProductos).css("overflow-y", "visible");
 
     console.log('RenderCarruselSimple', data.Seccion.Codigo, data);
-    AnalyticsPortalModule.MarcaGenericaLista(data.Seccion.Codigo, data, slidesToShow);
+    AnalyticsPortalModule.MarcaGenericaLista(data.Seccion.Codigo, data, slidesToShow); // Inicio RenderCarruselSimple
 
 }
 
@@ -642,16 +633,11 @@ function RenderCarruselSimpleV2(divProd, data, cc) {
         nextArrow: '<a class="nextArrow" style="display: block;right: 0;margin-right: -5%; text-align: right; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_black_compra.png")" alt="" /></a>'
     }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
         VerificarClick(slick, currentSlide, nextSlide, "normal", seccionName);
-        var dir = CarruselAyuda.GetCurrentSlideMostrar(slick, currentSlide, nextSlide);
-        console.log('beforeChange', dir);
+        CarruselAyuda.MarcarAnalyticsChange(event, slick, currentSlide, nextSlide, seccionName);//RenderCarruselSimple
     }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
-        var dir2 = CarruselAyuda.GetCurrentSlideMostrar(slick, currentSlide, nextSlide);
-        console.log('afterChange', dir2);
-
         if (!cc) {
             ShowOrHide_Arrows(event, slick, currentSlide);
         }
-        AnalyticsCarouselAfterChange(event, slick, currentSlide, seccionName);
     });
 
     divProd.find(sElementos.listadoProductos).css("overflow-y", "visible");
@@ -661,7 +647,7 @@ function RenderCarruselSimpleV2(divProd, data, cc) {
     }
 
     console.log('RenderCarruselSimpleV2', data.Seccion.Codigo, data);
-    AnalyticsPortalModule.MarcaGenericaLista(data.Seccion.Codigo, data, slidesToShow);
+    AnalyticsPortalModule.MarcaGenericaLista(data.Seccion.Codigo, data, slidesToShow); // Inicio RenderCarruselSimpleV2
 }
 
 function ShowOrHide_Arrows(event, slick, currentSlide) {
@@ -719,25 +705,6 @@ function ShowOrHide_Arrows(event, slick, currentSlide) {
 
 
 // Ini - Render Carrusel Analytics
-
-//Función para marcar los productos en el carrusel de una palanca (en este caso Mas Ganadoras - MG)
-// Este metodo es igual al de Carrusel Module _marcarAnalyticsAfterChange
-function AnalyticsCarouselAfterChange(event, slick, currentSlide, seccionName) {
-    if (typeof AnalyticsPortalModule !== "undefined") {
-        var pos = isMobile() ? 1 : 2;
-        //var pos = $(_elementos.divCarruselProducto).find(".slick-active").length;
-        var slideToMark = currentSlide + pos;
-        var item = slick.$slides[slideToMark];
-        var estrategia = $($(item).find("[data-estrategia]")[0]).data("estrategia") || "";
-        if (estrategia !== "") {
-            estrategia.Position = slideToMark;
-            var obj = {
-                lista: Array(estrategia)
-            };
-            AnalyticsPortalModule.MarcaGenericaLista(seccionName, obj, obj.lista.length);
-        }
-    }
-}
 
 //Función que llama la la funcion de marcacion analytics cuando se visualiza el ultimo botón dorado de "ver más"
 function marcaAnalyticsViewVerMas() {

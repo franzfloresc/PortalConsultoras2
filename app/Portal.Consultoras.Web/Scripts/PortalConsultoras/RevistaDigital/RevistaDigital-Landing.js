@@ -255,8 +255,6 @@ function OfertaCargarProductos(busquedaModel, clear, objSeccion) {
         data: JSON.stringify(busquedaModel),
         async: true,
         success: function (response) {
-            //if (!(typeof AnalyticsPortalModule === 'undefined') && !(typeof listaSeccion === 'undefined'))
-            //    AnalyticsPortalModule.MarcaGenericaLista(busquedaModel.VarListaStorage, response);
             if (response.codigo == '005') {
                 response.listaLan = Clone(response.lista);
                 response.lista = [];

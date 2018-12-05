@@ -1576,30 +1576,30 @@ function IfNull(input, replaceNull) {
     return input == null ? replaceNull : input;
 }
 
-function odd_desktop_google_analytics_promotion_click() {
-    if ($('#divOddCarruselDetalle').length > 0 && $("#odd_simbolo_ver_ofertas").html() === "+") {
-        var id = $('#divOddCarruselDetalle').find(".estrategia-id-odd").val();
-        var name = "Oferta del día - " + $('#divOddCarruselDetalle').find(".nombre-odd").val();
-        var creative = $('#divOddCarruselDetalle').find(".nombre-odd").val() + " - " + $('#divOddCarruselDetalle').find(".cuv2-odd").val();
+//function odd_desktop_google_analytics_promotion_click() {
+//    if ($('#divOddCarruselDetalle').length > 0 && $("#odd_simbolo_ver_ofertas").html() === "+") {
+//        var id = $('#divOddCarruselDetalle').find(".estrategia-id-odd").val();
+//        var name = "Oferta del día - " + $('#divOddCarruselDetalle').find(".nombre-odd").val();
+//        var creative = $('#divOddCarruselDetalle').find(".nombre-odd").val() + " - " + $('#divOddCarruselDetalle').find(".cuv2-odd").val();
 
-        dataLayer.push({
-            'event': 'promotionClick',
-            'ecommerce': {
-                'promoClick': {
-                    'promotions': [
-                        {
-                            'id': id,
-                            'name': name,
-                            'position': 'Banner Superior Home - 1',
-                            'creative': creative
-                        }]
-                }
-            }
-        });
+//        dataLayer.push({
+//            'event': 'promotionClick',
+//            'ecommerce': {
+//                'promoClick': {
+//                    'promotions': [
+//                        {
+//                            'id': id,
+//                            'name': name,
+//                            'position': 'Banner Superior Home - 1',
+//                            'creative': creative
+//                        }]
+//                }
+//            }
+//        });
 
-        odd_desktop_google_analytics_product_impresion();
-    }
-}
+//        odd_desktop_google_analytics_product_impresion();
+//    }
+//}
 
 function odd_desktop_google_analytics_promotion_click_verofertas() {
     if ($('#divOddCarruselDetalle').length > 0 && $("#odd_simbolo_ver_ofertas").html() === "+") {
