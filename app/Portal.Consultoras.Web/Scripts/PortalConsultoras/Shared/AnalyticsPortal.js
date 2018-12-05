@@ -451,8 +451,10 @@ var AnalyticsPortalModule = (function () {
             var esFicha = typeof seccion !== "undefined" ? seccion.Seccion == "Ficha" : false;
             var esCarrusel = false;
             if (!(event == null)) {
-                var elementCarrusel = $(event.target || event).parents("[data-item]");
-                esCarrusel = elementCarrusel.hasClass("slick-slide");
+                if (codigoSeccion == '05') 
+                    //var elementCarrusel = $(event.target || event).parents("[data-item]");
+                    //esCarrusel = elementCarrusel.hasClass("slick-slide");
+                    esCarrusel = true;                
             }
             //if (estoyEnLaFicha !== "undefined")
             if (typeof window.fichaModule !== "undefined")
@@ -519,10 +521,11 @@ var AnalyticsPortalModule = (function () {
             });
             //Marcar analytics cuando es Ganadoras en ficha y 
             var estoyEnLaFicha = typeof fichaModule !== "undefined";
-            if (estrategia.CodigoPalanca === _codigoSeccion.MG && estoyEnLaFicha) {
-                AnalyticsPortalModule.ClickAddCartFicha(event, codigoOrigenPedido, estrategia);
-                return;
-            }
+            //Se comento por cambios en la marcación J.A Sprint4-AddToCarts 05/12/2018
+            //if (estrategia.CodigoPalanca === _codigoSeccion.MG && estoyEnLaFicha) {
+            //    AnalyticsPortalModule.ClickAddCartFicha(event, codigoOrigenPedido, estrategia);
+            //    return;
+            //}
             var codigoSeccion = codigoOrigenPedido.toString().substring(5, 7);
             var seccion = _constantes.secciones.find(function (element) {
                 return element.CodigoSeccion == codigoSeccion;
