@@ -1,37 +1,37 @@
 ﻿
 
-function TagManagerCarruselLiquidacionesInicio(arrayItems) {
-    var cantidadRecomendados = $('#divCarruselLiquidaciones').find(".slick-active").length;
+//function TagManagerCarruselLiquidacionesInicio(arrayItems) {
+//    var cantidadRecomendados = $('#divCarruselLiquidaciones').find(".slick-active").length;
 
-    var pagina = "Home";
-    var arrayEstrategia = [];
-    for (var i = 0; i < cantidadRecomendados; i++) {
-        var recomendado = arrayItems[i];
-        var impresionRecomendado = {
-            'name': recomendado.DescripcionCompleta,
-            'id': recomendado.CUV,
-            'price': recomendado.PrecioOferta.toString(),
-            'brand': recomendado.DescripcionMarca,
-            'category': AnalyticsPortalModule.Texto.Notavaliable,
-            'variant': AnalyticsPortalModule.Texto.Estandar,
-            'list': AnalyticsPortalModule.Texto.List(false, pagina, "Liquidación Web"),
-            'position': recomendado.Posicion
-        };
+//    var pagina = "Home";
+//    var arrayEstrategia = [];
+//    for (var i = 0; i < cantidadRecomendados; i++) {
+//        var recomendado = arrayItems[i];
+//        var impresionRecomendado = {
+//            'name': recomendado.DescripcionCompleta,
+//            'id': recomendado.CUV,
+//            'price': recomendado.PrecioOferta.toString(),
+//            'brand': recomendado.DescripcionMarca,
+//            'category': AnalyticsPortalModule.Texto.Notavaliable,
+//            'variant': AnalyticsPortalModule.Texto.Estandar,
+//            'list': AnalyticsPortalModule.Texto.List(false, pagina, "Liquidación Web"),
+//            'position': recomendado.Posicion
+//        };
 
-        arrayEstrategia.push(impresionRecomendado);
-    }
+//        arrayEstrategia.push(impresionRecomendado);
+//    }
 
-    AnalyticsPortalModule.MarImpresionSetProductos(arrayEstrategia);
+//    AnalyticsPortalModule.MarImpresionSetProductos(arrayEstrategia);
 
-    //if (arrayEstrategia.length > 0) {
-    //    dataLayer.push({
-    //        'event': 'productImpression',
-    //        'ecommerce': {
-    //            'impressions': arrayEstrategia
-    //        }
-    //    });
-    //}
-}
+//    //if (arrayEstrategia.length > 0) {
+//    //    dataLayer.push({
+//    //        'event': 'productImpression',
+//    //        'ecommerce': {
+//    //            'impressions': arrayEstrategia
+//    //        }
+//    //    });
+//    //}
+//}
 
 function TagManagerClickAgregarProductoLiquidacion(item) {
     dataLayer.push({

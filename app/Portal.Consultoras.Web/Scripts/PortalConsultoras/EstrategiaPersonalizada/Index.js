@@ -500,7 +500,6 @@ function RenderCarruselIndividuales(divProd) {
         prevArrow: '<a class="arrow-prev" data-direccionflecha="Anterior" onclick="AnalyticsPortalModule.MarcaClicFlechaBanner(this)"><img src="' + baseUrl + 'Content/Images/sliders/previous_ofertas.svg")" alt="" /></a>',
         nextArrow: '<a class="arrow-next" data-direccionflecha="Siguiente" onclick="AnalyticsPortalModule.MarcaClicFlechaBanner(this)"><img src="' + baseUrl + 'Content/Images/sliders/next_ofertas.svg")" alt="" /></a>'
     }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
-
         VerificarClick(slick, currentSlide, nextSlide, "previsuales");
     }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
         $(sElementos.listadoProductos + " .slick-active [data-acortartxt] p").removeClass("Acortar2Renglones3puntos");
@@ -596,15 +595,16 @@ function RenderCarruselSimple(divProd, data, cc) {
         prevArrow: '<a  class="prevArrow" style="display: block;left: 0;margin-left: -5%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_black_compra.png")" alt="" /></a>',
         nextArrow: '<a  class="nextArrow" style="display: block;right: 0;margin-right: -5%; text-align: right; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_black_compra.png")" alt="" /></a>'
     }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
-        VerificarClick(slick, currentSlide, nextSlide, "normal");
-        CarruselAyuda.MarcarAnalyticsChange(event, slick, currentSlide, nextSlide, seccionName);//RenderCarruselSimple
+        //VerificarClick(slick, currentSlide, nextSlide, "normal");
+
+        CarruselAyuda.MarcarAnalyticsContenedor(2, null, seccionName, slick, currentSlide, nextSlide);
     });
 
     divProd.find(sElementos.listadoProductos).css("overflow-y", "visible");
 
     console.log('RenderCarruselSimple', data.Seccion.Codigo, data);
-    AnalyticsPortalModule.MarcaGenericaLista(data.Seccion.Codigo, data, slidesToShow); // Inicio RenderCarruselSimple
-
+    CarruselAyuda.MarcarAnalyticsContenedor(1, data, seccionName, null, slidesToShow);
+    //AnalyticsPortalModule.MarcaGenericaLista(data.Seccion.Codigo, data, slidesToShow); // Inicio RenderCarruselSimple
 }
 
 function RenderCarruselSimpleV2(divProd, data, cc) {
@@ -632,8 +632,10 @@ function RenderCarruselSimpleV2(divProd, data, cc) {
         prevArrow: '<a class="prevArrow" style="display: block;left: 0;margin-left: -5%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_black_compra.png")" alt="" /></a>',
         nextArrow: '<a class="nextArrow" style="display: block;right: 0;margin-right: -5%; text-align: right; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_black_compra.png")" alt="" /></a>'
     }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
-        VerificarClick(slick, currentSlide, nextSlide, "normal", seccionName);
-        CarruselAyuda.MarcarAnalyticsChange(event, slick, currentSlide, nextSlide, seccionName);//RenderCarruselSimple
+        //VerificarClick(slick, currentSlide, nextSlide, "normal", seccionName);
+
+        CarruselAyuda.MarcarAnalyticsContenedor(2, null, seccionName, slick, currentSlide, nextSlide);
+
     }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
         if (!cc) {
             ShowOrHide_Arrows(event, slick, currentSlide);
@@ -647,11 +649,12 @@ function RenderCarruselSimpleV2(divProd, data, cc) {
     }
 
     console.log('RenderCarruselSimpleV2', data.Seccion.Codigo, data);
-    AnalyticsPortalModule.MarcaGenericaLista(data.Seccion.Codigo, data, slidesToShow); // Inicio RenderCarruselSimpleV2
+    CarruselAyuda.MarcarAnalyticsContenedor(1, data, seccionName, null, slidesToShow);
+    //AnalyticsPortalModule.MarcaGenericaLista(data.Seccion.Codigo, data, slidesToShow); // Inicio RenderCarruselSimpleV2
 }
 
 function ShowOrHide_Arrows(event, slick, currentSlide) {
-    
+
     var objPrevArrow = $(event.target).find('.prevArrow')[0];
     var objNextArrow = $(event.target).find('.nextArrow')[0];
     var objVisorSlick = $(event.target).find('.slick-list')[0];
