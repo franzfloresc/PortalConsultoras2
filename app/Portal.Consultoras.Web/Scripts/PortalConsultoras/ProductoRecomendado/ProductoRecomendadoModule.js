@@ -89,6 +89,8 @@
 
             }).on('afterChange', function (event, slick, currentSlide) {
 
+                console.log($("#carouselProductosRecomendados").find('.slick-active').last().data('slick-index'));
+
                 if (!(typeof AnalyticsPortalModule === 'undefined'))
                     AnalyticsPortalModule.MarcaRecomendacionesFlechaAnterior();
             });
