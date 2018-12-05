@@ -136,10 +136,13 @@
                                 };
 
                                 var _textoBusqueda = localStorage.getItem('valorBuscador');
+                                var _vRecomendaciones = localStorage.getItem('vRecomendaciones');
+                                
+                                if (!(typeof AnalyticsPortalModule === 'undefined') && (_vRecomendaciones === 'undefined' || _vRecomendaciones === 'null' || _vRecomendaciones === null)) {
+                                    AnalyticsPortalModule.MarcaAnadirCarritoBuscador(modelCarrito, 'Resultados', _textoBusqueda);                                    
+                                }
 
-                                if (!(typeof AnalyticsPortalModule === 'undefined'))
-                                    AnalyticsPortalModule.MarcaAnadirCarritoBuscador(modelCarrito, 'Resultados', _textoBusqueda);
-
+                                localStorage.removeItem('vRecomendaciones');
                             },
                             error: function (data, error) {
                                 CerrarLoad();
@@ -266,9 +269,12 @@
                     };
 
                     var _textoBusqueda = localStorage.getItem('valorBuscador');
+                    var _vRecomendaciones = localStorage.getItem('vRecomendaciones');
 
-                    if (!(typeof AnalyticsPortalModule === 'undefined'))
-                        AnalyticsPortalModule.MarcaAnadirCarritoBuscador(modelCarrito, 'Resultados', _textoBusqueda);
+                    if (!(typeof AnalyticsPortalModule === 'undefined') && (_vRecomendaciones === 'undefined' || _vRecomendaciones === 'null' || _vRecomendaciones === null)) {
+                        AnalyticsPortalModule.MarcaAnadirCarritoBuscador(modelCarrito, 'Resultados', _textoBusqueda);                        
+                    }
+                        
 
                     TrackingJetloreAdd(modelFinal.Cantidad, $("#hdCampaniaCodigo").val(), modelFinal.CUV);
 
@@ -276,6 +282,7 @@
 
                     var totalAgregado = parseInt(cantidad) + parseInt(CantidadesAgregadas);
                     $(divPadre).find(".hdBuscadorCantidadesAgregadas").val(totalAgregado);
+                    localStorage.removeItem('vRecomendaciones')
                     return true;
                 },
                 error: function (data, error) {
