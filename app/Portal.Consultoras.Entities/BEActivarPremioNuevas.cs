@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using System.Runtime.Serialization;
 
@@ -9,40 +10,31 @@ namespace Portal.Consultoras.Entities
     public class BEActivarPremioNuevas
     {
         [DataMember]
+        [Column("CodigoPrograma")]
         public string CodigoPrograma { get; set; }
         [DataMember]
-        public int AnioCampana { get; set; }
+        [Column("AnioCampanaIni")]
+        public int AnioCampanaIni { get; set; }
         [DataMember]
+        [Column("AnioCampanaFin")]
+        public int AnioCampanaFin { get; set; }
+        [DataMember]
+        [Column("Nivel")]
         public string Nivel { get; set; }
         [DataMember]
+        [Column("ActivePremioAuto")]
         public bool ActivePremioAuto { get; set; }
         [DataMember]
+        [Column("ActivePremioElectivo")]
         public bool ActivePremioElectivo { get; set; }
         [DataMember]
+        [Column("ActiveMonto")]
         public bool ActiveMonto { get; set; }
         [DataMember]
+        [Column("ActiveTooltip")]
         public bool ActiveTooltip { get; set; }
         [DataMember]
+        [Column("FechaCreate")]
         public DateTime FechaCreate { get; set; }
-
-        public BEActivarPremioNuevas()
-        {
-            CodigoPrograma = default(string);
-            AnioCampana = default(int);
-            Nivel = default(string);
-            FechaCreate = default(DateTime);
-        }
-
-        public BEActivarPremioNuevas(IDataRecord row)
-        {
-            CodigoPrograma = row.ToString("CodigoPrograma");
-            AnioCampana = row.ToInt32("AnoCampana");
-            Nivel = row.ToString("Nivel");
-            ActivePremioAuto = row.ToBoolean("Active");
-            ActivePremioElectivo = row.ToBoolean("IND_CUPO_ELEC");
-            ActiveTooltip = row.ToBoolean("ActiveTooltip");
-            ActiveMonto = row.ToBoolean("ActiveTooltipMonto");
-            FechaCreate = row.ToDateTime("FechaCreate");
-        }
     }
 }

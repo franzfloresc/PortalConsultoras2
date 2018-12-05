@@ -570,22 +570,7 @@ namespace Portal.Consultoras.Web.Controllers
                 
                 var configProgNuevas = _programaNuevasProvider.GetConfiguracion();
                 objR.TippingPointBarra = _programaNuevasProvider.GetBarraTippingPoint(configProgNuevas.CodigoPrograma);
-
-                if(objR.TippingPointBarra.Active)
-                {
-                    objR.TippingPointBarra.InMinimo = configProgNuevas.IndExigVent == "0" || configProgNuevas.MontoVentaExigido == 0;
-                    bool tieneEscala = objR.MontoMaximo == 0;
-
-                    if (objR.TippingPointBarra.InMinimo) objR.TippingPoint = objR.MontoMinimo;
-                    else if(tieneEscala)
-                    {
-                        objR.TippingPointBarra.ActivePremioAuto = false;
-                        objR.TippingPointBarra.ActivePremioElectivo = false;
-                    }
-                    else objR.TippingPoint = configProgNuevas.MontoVentaExigido;
-                }
-
-                objR.TippingPointStr = Util.DecimalToStringFormat(objR.TippingPoint, userData.CodigoISO);
+                _programaNuevasProvider.SetBarraConsultoraTippingPoint(objR, configProgNuevas);
 
                 #endregion
 
@@ -612,9 +597,9 @@ namespace Portal.Consultoras.Web.Controllers
                 #endregion
 
                 #region Mensajes
+
                 objR.ListaMensajeMeta = new List<BEMensajeMetaConsultora>();
-                if (inMensaje)
-                    objR.ListaMensajeMeta = GetMensajeMetaConsultora(Constantes.ConstSession.MensajeMetaConsultora, "") ?? new List<BEMensajeMetaConsultora>();
+                if (inMensaje) objR.ListaMensajeMeta = GetMensajeMetaConsultora(Constantes.ConstSession.MensajeMetaConsultora, "") ?? new List<BEMensajeMetaConsultora>();
 
                 #endregion
             }

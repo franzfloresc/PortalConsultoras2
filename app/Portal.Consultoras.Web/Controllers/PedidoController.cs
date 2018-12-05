@@ -4090,9 +4090,10 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (!userData.ConfigPremioProgNuevasOF.TienePremio) return ErrorJson("OK", true);
 
+                var configProgNuevas = _programaNuevasProvider.GetConfiguracion();
                 var model = new ConsultoraRegaloProgramaNuevasModel {
                     CodigoNivel = userData.ConfigPremioProgNuevasOF.CodigoNivel,
-                    TippingPoint = 0000000000000000000000000000
+                    TippingPoint = _programaNuevasProvider.GetTippingPointOF(configProgNuevas)
                 };
 
                 var listPremioElec = userData.ConfigPremioProgNuevasOF.ListPremioElec;

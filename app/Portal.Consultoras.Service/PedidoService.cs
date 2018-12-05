@@ -2441,8 +2441,7 @@ namespace Portal.Consultoras.Service
 
         public BEActivarPremioNuevas GetActivarPremioNuevas(int paisID, string codigoPrograma, int anioCampana, string codigoNivel)
         {
-            BEActivarPremioNuevas BEActivarPremioNuevas = _ActivarPremioNuevas.GetActivarPremioNuevas(paisID, codigoPrograma, anioCampana, codigoNivel);
-            return BEActivarPremioNuevas;
+            return _ActivarPremioNuevas.GetActivarPremioNuevas(paisID, codigoPrograma, anioCampana, codigoNivel);
         }
 
         public bool LimpiarCacheRedis(int paisID, string codigoTipoEstrategia, string campaniaID)

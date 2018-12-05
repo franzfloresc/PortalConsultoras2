@@ -68,6 +68,31 @@ namespace Portal.Consultoras.Web.Providers
                 return new BarraTippingPoint();
             }
         }
+        public void SetBarraConsultoraTippingPoint(BarraConsultoraModel barra, BEConfiguracionProgramaNuevas configProgNuevas)
+        {
+            barra.TippingPointStr = "";
+            if (!barra.TippingPointBarra.Active) return;
+            
+            barra.TippingPointBarra.InMinimo = configProgNuevas.IndExigVent == "0" || configProgNuevas.MontoVentaExigido == 0;
+            bool tieneEscala = barra.MontoMaximo == 0;
+
+            if (barra.TippingPointBarra.InMinimo) barra.TippingPoint = barra.MontoMinimo;
+            else if (tieneEscala)
+            {
+                barra.TippingPointBarra.ActivePremioAuto = false;
+                barra.TippingPointBarra.ActivePremioElectivo = false;
+            }
+            else barra.TippingPoint = configProgNuevas.MontoVentaExigido;
+
+            barra.TippingPointStr = Util.DecimalToStringFormat(barra.TippingPoint, userData.CodigoISO);
+        }
+        public decimal GetTippingPointOF(BEConfiguracionProgramaNuevas configProgNuevas)
+        {
+            var inMinimo = configProgNuevas.IndExigVent == "0" || configProgNuevas.MontoVentaExigido == 0;
+
+            if (inMinimo) return userData.MontoMinimo;
+            return configProgNuevas.MontoVentaExigido;
+        }
 
         public BEConfiguracionProgramaNuevas GetConfiguracion()
         {
