@@ -1385,6 +1385,18 @@ namespace Portal.Consultoras.BizLogic.Pedido
             }
             return numero;
         }
+
+        private Enumeradores.ValidacionVentaExclusiva ValidarVentaExclusiva(BEUsuario usuario, string cuv)
+        {
+            try
+            {
+                return _productoBusinessLogic.ValidarVentaExclusiva(usuario.PaisID, usuario.CampaniaID, usuario.CodigoConsultora, cuv);
+            }
+            catch (Exception)
+            {
+                return Enumeradores.ValidacionVentaExclusiva.ContinuaFlujo;
+            }
+        }
         #endregion
 
         #region Insert
@@ -2578,20 +2590,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
             PedidoAgregarProductoAgrupado(usuario, pedidoID, pedidoDetalle.Cantidad, cuvSet, strCuvs, estrategia.EstrategiaID);
 
             return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.SUCCESS);
-        }
-        #endregion
-
-        #region ValidarVentaExclusiva
-        private Enumeradores.ValidacionVentaExclusiva ValidarVentaExclusiva(BEUsuario usuario, string cuv)
-        {            
-            try
-            {
-                return _productoBusinessLogic.ValidarVentaExclusiva(usuario.PaisID, usuario.CampaniaID, usuario.CodigoConsultora, cuv);
-            }
-            catch (Exception)
-            {
-                return Enumeradores.ValidacionVentaExclusiva.ContinuaFlujo;
-            }
         }
         #endregion
 
