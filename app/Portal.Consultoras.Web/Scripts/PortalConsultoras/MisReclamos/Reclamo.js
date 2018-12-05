@@ -122,11 +122,14 @@ $(document).ready(function () {
             return false;
         }
 
-        //$("#txtCUV").val(""); 
-        $("#ddlnumPedido").val("0");
-        $("#ddlCuv").html("");
-        $('.chosen-select').chosen();
-        $(".chosen-select").val('').trigger("chosen:updated");        
+        if ($("ddlnumPedido").is(":visible")){
+            $("#ddlnumPedido").val("0");
+            $("#ddlCuv").html("");
+            $('.chosen-select').chosen();
+            $(".chosen-select").val('').trigger("chosen:updated"); 
+        }
+
+        //$("#txtCUV").val("");        
         $("#hdtxtCUVDescripcion").val("");
         $("#txtCantidad").val("1");
         $("#divMotivo").html('');
@@ -144,6 +147,7 @@ $(document).ready(function () {
     });
 
     $("#IrSolicitudEnviada").on("click", function () {
+        debugger
         if (mensajeGestionCdrInhabilitada != '') {
             alert_msg(mensajeGestionCdrInhabilitada);
             return false;
@@ -1157,6 +1161,7 @@ function ControlSetError(inputId, spanId, message) {
 }
 
 function SolicitudEnviar(validarCorreoVacio, validarCelularVacio) {
+    debugger
     var ok = true;
     var correo = $.trim($("#txtEmail").val());
     var celular = $.trim($("#txtTelefono").val());
