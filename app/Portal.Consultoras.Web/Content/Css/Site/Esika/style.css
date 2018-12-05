@@ -29781,7 +29781,7 @@ div.motivoRechazo textarea {
 {
     border: 1px solid #808080;
     border-radius: 4px;
-    padding: 6px 10px 10px 20px;
+    padding: 6px 10px 10px 16px;
     font-family: 'Lato', sans-serif;
     font-size:16px;
     color:#000;
@@ -29800,13 +29800,20 @@ div.motivoRechazo textarea {
     line-height:normal;
 }
 
+.select_reclamo{
+    width:261px;
+}
+
 .select_reclamo,
 .elige_num_pedido
 {
-    width: 271px;
     background-image:url(/Content/Images/flecha-campo-select.svg);
     background-repeat:no-repeat;
     background-position:95.8% center;
+}
+
+.elige_num_pedido{
+    width:271px;
 }
 
 .codigo_reclamo{
@@ -29839,7 +29846,7 @@ div.motivoRechazo textarea {
 .descripcion_reclamo,
 .descripcion_reclamo + .chosen-container
 {
-    width:493px!important;
+    width:380px!important;
     text-align:left;
 }
 
@@ -30464,7 +30471,7 @@ div.motivoRechazo textarea {
     height: 25px;
     margin: 0 auto;
     margin-top: 50px;
-    margin-bottom: 50px;
+    margin-bottom: 0;
     padding-left: 20px;
     background: url('/Content/Images/Esika/icono_solicitud.png') no-repeat;
     background-position: 0 4px;
@@ -30474,27 +30481,34 @@ div.motivoRechazo textarea {
     position: absolute;
     width: 204px;
     height: auto;
-    padding: 15px 20px 15px 20px;
+    padding: 10px 14px 10px 20px;
     right: 0;
-    top: 0;
+    top: -15px;
     -webkit-box-shadow: 0 2px 4px 0 rgba(174, 174, 174, .5);
     -moz-box-shadow: 0 2px 4px 0 rgba(174, 174, 174, .5);
     box-shadow: 0 2px 4px 0 rgba(174, 174, 174, .5);
 }
 
 .titulo_ultimo_soli {
-    font-family: 'LAto';
+    font-family: 'Lato', sans-serif;
     font-size: 18px;
     color: black;
     font-weight: 700;
     text-align: center;
-    margin-bottom: 25px;
+    margin-bottom: 12px;
 }
 
 .texto_solicitud_ultima {
     color: #888888;
-    font-family: 'LAto';
+    font-family: 'Lato', sans-serif;
     font-size: 13px;
+}
+
+.detalle_solicitudes_wrapper{
+    display:block;
+    padding-right: 5px;
+    overflow: auto;
+    max-height: 91px;
 }
 
 .content_ultima_soli {
@@ -30503,6 +30517,11 @@ div.motivoRechazo textarea {
     margin-bottom: 10px;
     overflow: hidden;
 }
+
+.content_ultima_soli:last-child{
+    border-bottom:0;
+}
+
 /*AJUSTES PACK POR NIVELES*/
 .content_carrusel_pack {
     width: 90%;
