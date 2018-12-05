@@ -1088,7 +1088,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.TipoUsuario = userData.TipoUsuario;
             ViewBag.MensajePedidoDesktop = userData.MensajePedidoDesktop;
             ViewBag.MensajePedidoMobile = userData.MensajePedidoMobile;
-            ViewBag.ConsultoraTieneRegaloPN = (userData.ConsultoraRegaloProgramaNuevas != null);
+            ViewBag.ConsultoraTieneRegaloPN = userData.ConfigPremioProgNuevasOF.TienePremio;
 
             #region EventoFestivo
 

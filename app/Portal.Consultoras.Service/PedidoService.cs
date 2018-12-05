@@ -1928,9 +1928,14 @@ namespace Portal.Consultoras.Service
             return new BLOfertaProducto().UpdMatrizComercialDescripcionComercial(entity);
         }
 
-        public BEConsultoraRegaloProgramaNuevas GetConsultoraRegaloProgramaNuevas(int paisID, int campaniaId, string codigoConsultora, int consecutivoNueva)
+        public BEConsultoraRegaloProgramaNuevas GetConsultoraRegaloProgramaNuevas(int paisID, int campaniaId, string codigoPrograma, string codigoNivel)
         {
-            return new BLConfiguracionProgramaNuevas().GetConsultoraRegaloProgramaNuevas(paisID, campaniaId, codigoConsultora, consecutivoNueva);
+            return new BLConfiguracionProgramaNuevas().GetPremioAutomatico(paisID, campaniaId, codigoPrograma, codigoNivel);
+        }
+
+        public List<BEConsultoraRegaloProgramaNuevas> GetListPremioElecProgNuevas(int paisID, int campaniaId, string codigoPrograma, string codigoNivel)
+        {
+            return new BLConfiguracionProgramaNuevas().GetListPremioElectivo(paisID, campaniaId, codigoPrograma, codigoNivel);
         }
 
         #region Cupon

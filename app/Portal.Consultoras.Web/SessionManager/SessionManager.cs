@@ -680,8 +680,10 @@ namespace Portal.Consultoras.Web.SessionManager
         void ISessionManager.SetCuvKitNuevas(string cuvKit) { HttpContext.Current.Session["CuvKitNuevas"] = cuvKit; }
         string ISessionManager.GetMensajeKitNuevas() { return (string)HttpContext.Current.Session["MensajeKitNuevas"]; }
         void ISessionManager.SetMensajeKitNuevas(string mensajeKit) { HttpContext.Current.Session["MensajeKitNuevas"] = mensajeKit; }
-        int ISessionManager.GetLimElectivosProgNuevas() { return (int)(HttpContext.Current.Session["GetLimElectivosProgNuevas"] ?? 0); }
-        void ISessionManager.SetLimElectivosProgNuevas(int limElectivos) { HttpContext.Current.Session["GetLimElectivosProgNuevas"] = limElectivos; }
+        int ISessionManager.GetLimElectivosProgNuevas() { return (int)(HttpContext.Current.Session["LimElectivosProgNuevas"] ?? 0); }
+        void ISessionManager.SetLimElectivosProgNuevas(int limElectivos) { HttpContext.Current.Session["LimElectivosProgNuevas"] = limElectivos; }
+        List<PremioElectivoModel> ISessionManager.GetListPremioElectivo() { return (List<PremioElectivoModel>)HttpContext.Current.Session["ListPremioElectivo"]; }
+        void ISessionManager.SetListPremioElectivo(List<PremioElectivoModel> listPremioElectivo) { HttpContext.Current.Session["ListPremioElectivo"] = listPremioElectivo; }
 
         // -----------------------------------
 

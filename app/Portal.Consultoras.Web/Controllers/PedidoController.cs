@@ -4088,14 +4088,32 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var f = false;
+                if (!userData.ConfigPremioProgNuevasOF.TienePremio) return ErrorJson("OK", true);
 
-                var model = userData.ConsultoraRegaloProgramaNuevas;
-                if (model != null) f = true;
+                var model = new ConsultoraRegaloProgramaNuevasModel {
+                    CodigoNivel = userData.ConfigPremioProgNuevasOF.CodigoNivel,
+                    TippingPoint = 0000000000000000000000000000
+                };
+
+                var listPremioElec = userData.ConfigPremioProgNuevasOF.ListPremioElec;
+                PremioProgNuevasOFModel premio;
+
+                if (listPremioElec != null && listPremioElec.Any())
+                {
+                    var listDetalle = ObtenerPedidoWebDetalle();
+                    premio = listPremioElec.FirstOrDefault(pe => listDetalle.Any(d => pe.Cuv == d.CUV));
+                    if (premio == null) premio = listPremioElec.First();
+                }
+                else premio = userData.ConfigPremioProgNuevasOF.PremioAuto;
+
+                model.DescripcionPremio = premio.DescripcionPremio;
+                model.UrlImagenRegalo = premio.UrlImagenRegalo;
+                model.PrecioValorizado = premio.PrecioValorizado;
+                model.PrecioValorizadoFormat = Util.DecimalToStringFormat(model.PrecioValorizado, userData.CodigoISO);
 
                 return Json(new
                 {
-                    success = f,
+                    success = model != null,
                     message = "OK",
                     data = model,
                 }, JsonRequestBehavior.AllowGet);
