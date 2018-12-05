@@ -253,7 +253,8 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
 
             Mapper.CreateMap<ServicePedido.BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>();
 
-            Mapper.CreateMap<BEConsultoraRegaloProgramaNuevas, PremioProgNuevasOFModel>();
+            Mapper.CreateMap<BEConsultoraRegaloProgramaNuevas, PremioProgNuevasOFModel>()
+                .ForMember(x => x.Cuv, t => t.MapFrom(c => c.CUVPremio));
 
             Mapper.CreateMap<BEPermiso, PermisoModel>()
                 .ForMember(t => t.EsDireccionExterior, f => f.MapFrom(c => c.UrlItem.ToLower().StartsWith("http")))
