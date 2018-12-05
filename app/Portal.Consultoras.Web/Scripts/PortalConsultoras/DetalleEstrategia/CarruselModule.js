@@ -182,7 +182,7 @@ var CarruselAyuda = function () {
 
     }
 
-    var MarcarAnalyticsContenedor = function (tipo, data, seccionName, slick, currentSlide, nextSlide) {
+    var marcarAnalyticsContenedor = function (tipo, data, seccionName, slick, currentSlide, nextSlide) {
         //tipo : 1= inicio, 2: cambio
         try {
 
@@ -199,7 +199,7 @@ var CarruselAyuda = function () {
                 marcarAnalyticsChange(slick, currentSlide, nextSlide, origen);
             }
         } catch (e) {
-            console.log('MarcarAnalyticsContenedor - ' + _texto.excepcion + e, e);
+            console.log('marcarAnalyticsContenedor - ' + _texto.excepcion + e, e);
         }
     }
 
@@ -223,7 +223,7 @@ var CarruselAyuda = function () {
                 marcarAnalyticsChange(slick, currentSlide, nextSlide, origen);
             }
         } catch (e) {
-            console.log('MarcarAnalyticsContenedor - ' + _texto.excepcion + e, e);
+            console.log('marcarAnalyticsLiquidacion - ' + _texto.excepcion + e, e);
         }
     }
 
