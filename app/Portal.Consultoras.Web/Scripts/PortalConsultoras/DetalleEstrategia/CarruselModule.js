@@ -101,6 +101,12 @@ var CarruselAyuda = function () {
                 for (var i = 0; i < cantActive; i++) {
                     var recomendado = arrayItems[i];
                     recomendado.Posicion = i;
+                    if (origen.Palanca == ConstantesModule.OrigenPedidoWebEstructura.Palanca.Liquidacion)
+                    {
+                        recomendado.CUV2 = recomendado.CUV;
+                        recomendado.PrecioVenta = recomendado.PrecioString;
+                    }
+
                     arrayEstrategia.push(recomendado);
                 }
                 var obj = {
@@ -138,15 +144,14 @@ var CarruselAyuda = function () {
                 if (origen.Palanca == ConstantesModule.OrigenPedidoWebEstructura.Palanca.Liquidacion) {
                     estrategia = _obtenerEstrategiaLiquidacion(objMostrar);
                 }
-
-                if (origen.Pagina == ConstantesModule.OrigenPedidoWebEstructura.Pagina.Contenedor) {
+                else if (origen.Pagina == ConstantesModule.OrigenPedidoWebEstructura.Pagina.Contenedor) {
                     if (origen.Palanca == ConstantesModule.OrigenPedidoWebEstructura.Palanca.OfertaDelDia) {
-                        _obtenerEstrategiaOfertaDelDia(objMostrar);
-
+                        estrategia = _obtenerEstrategiaOfertaDelDia(objMostrar);
                     }
                 }
             }
 
+            estrategia = estrategia || "";
             if (estrategia != "") {
                 estrategia.Position = objMostrar.IndexMostrar;
                 var obj = {
@@ -217,7 +222,7 @@ var CarruselAyuda = function () {
 
                 console.log('marcarAnalyticsLiquidacion', tipo, data, slick, currentSlide, nextSlide);
 
-                marcarAnalyticsInicio("", data.lista, origen, currentSlide);
+                marcarAnalyticsInicio("", data, origen, currentSlide);
             }
             else if (tipo == 2) {
                 marcarAnalyticsChange(slick, currentSlide, nextSlide, origen);
@@ -442,7 +447,7 @@ var CarruselModule = (function (config) {
             _mostrarTitulo();
             _mostrarSlicks();
 
-            _marcarAnalytics(1);
+            _marcarAnalytics(1, data);
 
         }
         _ocultarCarrusel(data);
@@ -921,3 +926,4 @@ function ArmarCarouselLiquidaciones(data) {
 ////////////////////////////////////////////////////////////////////
 //// Fin - Home Liquidacion
 ////////////////////////////////////////////////////////////////////
+
