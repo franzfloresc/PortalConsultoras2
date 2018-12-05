@@ -603,7 +603,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 htmlPercepcionTemplate = htmlPercepcionTemplate.Replace("#RAZON_SOCIAL#", BEDatosBelcorp.RazonSocial);
-                templatePercepcionPath = htmlPercepcionTemplate.Replace("#DIRECCION_CLIENTE#", BEDatosBelcorp.Direccion);
+                htmlPercepcionTemplate = htmlPercepcionTemplate.Replace("#DIRECCION_CLIENTE#", BEDatosBelcorp.Direccion);
                 htmlPercepcionTemplate = htmlPercepcionTemplate.Replace("#NOMBRE_AGENTE_PERCEPTOR#", vNombreAgentePerceptor);
                 htmlPercepcionTemplate = htmlPercepcionTemplate.Replace("#RUC_AGENTE_PERCEPTOR#", vRUCAgentePerceptor);
                 htmlPercepcionTemplate = htmlPercepcionTemplate.Replace("#FECHA_EMISION#", vFechaEmision);
