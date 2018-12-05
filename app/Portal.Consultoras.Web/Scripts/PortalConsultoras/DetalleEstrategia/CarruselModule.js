@@ -9,6 +9,8 @@
     }
 }();
 
+var _slick = null;
+
 var CarruselAyuda = function () {
     "use strict";
 
@@ -38,8 +40,45 @@ var CarruselAyuda = function () {
         console.log('obtenerCurrentSlideMostrar - Fin ', slick.currentSlide, cur);
         return cur;
     };
-    
-    var marcarAnalyticsInicio = function (idHtmlSeccion, pagina, seccion) {
+
+    var obtenerSlidesMostrar = function (slick, currentSlide, nextSlide) {
+        //'slick-current', 'slick-active'
+        var indexMostrar = nextSlide || currentSlide;
+        var indexCurrent = -1;
+        var indexActive = -1;
+        
+        $.each(slick.$slides, function (index, slide) {
+            var attrClass = $(slide).attr('class') || "";
+            if (attrClass.indexOf("slick-current")) {
+                indexCurrent = index;
+                indexActive = indexActive == -1 ? index : indexActive;
+            }
+            else if (attrClass.indexOf("slick-active")) {
+                indexActive = index;
+            }
+        });
+
+        console.log('obtenerSlidesMostrar', indexMostrar, indexCurrent, indexActive, currentSlide, nextSlide);
+
+        if (indexCurrent === 0) {
+            if (indexMostrar + 1 === slick.$slides.length) {
+                // esta dando click a la flecha izquierda, "prev";
+            }
+            else {
+                // esta dando click a la flecha izquierda, "next";
+                indexMostrar = indexCurrent + indexActive + slick.options.slidesToScroll;
+            }
+        }
+        else if (indexCurrent + 1 === slick.$slides.length) {
+            if (indexMostrar) {
+
+            }
+        }
+
+        var slideMostrar = slick.$slides[indexMostrar];
+    };
+
+    var marcarAnalyticsInicio = function (idHtmlSeccion, arrayItems, pagina, seccion) {
         idHtmlSeccion = idHtmlSeccion || "";
         idHtmlSeccion = idHtmlSeccion[0] == "#" ? idHtmlSeccion : ("#" + idHtmlSeccion);
         //var pagina = isHome() ? "Home" : "Carrito de Compras";
@@ -65,25 +104,33 @@ var CarruselAyuda = function () {
     }
 
     var marcarAnalyticsChange = function (event, slick, currentSlide, nextSlide, pagina, seccion) {
+        try {
+            _slick = slick;
+            console.log('marcarAnalyticsChange - Ini ', pagina, seccion);
 
-        if (typeof AnalyticsPortalModule == "undefined") {
-            return;
-        }
+            if (typeof AnalyticsPortalModule == "undefined") {
+                return;
+            }
+            var xx = obtenerSlidesMostrar(slick, currentSlide, nextSlide);
+            var slideToMark = obtenerCurrentSlideMostrar(slick, currentSlide, nextSlide);
+            var item = slick.$slides[slideToMark];
+            console.log('marcarAnalyticsChange', slideToMark, $(item));
+            var estrategia = $($(item).find("[data-estrategia]")[0]).data("estrategia") || "";
+            console.log('marcarAnalyticsChange', estrategia);
+            if (estrategia !== "") {
+                estrategia.Position = slideToMark;
+                var obj = {
+                    lista: Array(estrategia)
+                };
+                AnalyticsPortalModule.MarcaGenericaLista(pagina, obj, obj.lista.length);// home y pedido
+            }
 
-        var slideToMark = obtenerCurrentSlideMostrar(slick, currentSlide, nextSlide);
-        var item = slick.$slides[slideToMark];
-        console.log('marcarAnalyticsChange', slideToMark, $(item));
-        var estrategia = $($(item).find("[data-estrategia]")[0]).data("estrategia") || "";
-        console.log('marcarAnalyticsChange', estrategia);
-        if (estrategia !== "") {
-            estrategia.Position = slideToMark;
-            var obj = {
-                lista: Array(estrategia)
-            };
-            AnalyticsPortalModule.MarcaGenericaLista(seccionName, obj, obj.lista.length);// home y pedido
+        } catch (e) {
+            console.log('marcarAnalyticsChange - ' + _texto.excepcion + e, e);
         }
 
     }
+
 
     return {
         GetDireccionCarrusel: obtenerDireccionCarrusel,
@@ -688,7 +735,7 @@ function TagManagerCarruselInicio(arrayItems) {
         : ConstantesModule.OrigenPedidoWebEstructura.Pagina.Pedido
     var seccion = ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel; // "Gana+"
 
-    CarruselAyuda.MarcarAnalyticsInicio("#divListadoEstrategia", pagina, seccion);
+    CarruselAyuda.MarcarAnalyticsInicio("#divListadoEstrategia", arrayItems, pagina, seccion);
 
     //var pagina = isHome() ? "Home" : "Carrito de Compras";
     //var cantidadRecomendados = $('#divListadoEstrategia').find(".slick-active").length;
@@ -714,7 +761,7 @@ function TagManagerCarruselInicio(arrayItems) {
 
 function MarcarAnalyticsChangePedidoHome(event, slick, currentSlide, nextSlide) {
 
-    var paginaOrigen = isHome() 
+    var paginaOrigen = isHome()
         ? ConstantesModule.OrigenPedidoWebEstructura.Pagina.Home
         : ConstantesModule.OrigenPedidoWebEstructura.Pagina.Pedido
     var seccion = ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel;
@@ -764,7 +811,7 @@ function MarcarAnalyticsChangePedidoHome(event, slick, currentSlide, nextSlide) 
     //});
 
     //AnalyticsPortalModule.MarImpresionSetProductos(arrayEstrategia);
-    
+
     dataLayer.push({
         'event': "virtualEvent",
         'category': pagina,
