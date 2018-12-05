@@ -33,10 +33,11 @@ BEGIN
 	)
 	DECLARE @OrdenSet int
 	DECLARE @CantidadItemsaAgregar int
+	DECLARE @CodigoEstrategia varchar(20) = ''
 	------------------------------------------
 	IF(@EstrategiaID = 0)
 	BEGIN
-	SELECT TOP 1 @EstrategiaID = ISNULL(EstrategiaID,0), @Precio2 = Precio2 FROM Estrategia WHERE CUV2 = @CuvSet AND TipoEstrategiaId = @TipoEstrategiaId 
+	SELECT TOP 1 @EstrategiaID = ISNULL(EstrategiaID,0), @Precio2 = Precio2, @CodigoEstrategia = CodigoEstrategia FROM Estrategia WHERE CUV2 = @CuvSet AND TipoEstrategiaId = @TipoEstrategiaId 
 			AND @Campaniaid BETWEEN CampaniaID AND CASE 
 						WHEN ISNULL(CampaniaIDFin, 0) = 0
 							THEN CampaniaID
@@ -45,7 +46,7 @@ BEGIN
 	END
 	ELSE
 	BEGIN
-	SELECT @Precio2 = Precio2 FROM Estrategia WHERE EstrategiaID = @EstrategiaID
+	SELECT @Precio2 = Precio2, @CodigoEstrategia = CodigoEstrategia FROM Estrategia WHERE EstrategiaID = @EstrategiaID
 	END
 
 	IF(@EstrategiaID <> 0)
@@ -63,17 +64,34 @@ BEGIN
 		AND ConsultoraID = @ConsultoraId
 		END
 
-		INSERT INTO @CuvsAgregar (Cuv
-		, Digitable
-		, Grupo
-		, Cantidad)
-		SELECT
-		componente.value('(CUV/text())[1]','VARCHAR(20)') AS Cuv,
-		componente.value('(Digitable/text())[1]','integer') AS Digitable,
-		componente.value('(Grupo/text())[1]','integer') AS Grupo,
-		componente.value('(Cantidad/text())[1]','integer') AS Cantidad
-		FROM
-		@CuvsStringList.nodes('/ArrayOfEstrategiaComponente/EstrategiaComponente')AS TEMPTABLE(componente)
+		IF(@CodigoEstrategia = '2002')
+		BEGIN
+			INSERT INTO @CuvsAgregar (Cuv
+			, Digitable
+			, Grupo
+			, Cantidad)
+			SELECT
+			Cuv,
+			Digitable,
+			Grupo,
+			Cantidad
+			FROM
+			EstrategiaProducto WHERE EstrategiaId = @EstrategiaId
+		END
+		ELSE
+		BEGIN
+			INSERT INTO @CuvsAgregar (Cuv
+			, Digitable
+			, Grupo
+			, Cantidad)
+			SELECT
+			componente.value('(CUV/text())[1]','VARCHAR(20)') AS Cuv,
+			componente.value('(Digitable/text())[1]','integer') AS Digitable,
+			componente.value('(Grupo/text())[1]','integer') AS Grupo,
+			componente.value('(Cantidad/text())[1]','integer') AS Cantidad
+			FROM
+			@CuvsStringList.nodes('/ArrayOfEstrategiaComponente/EstrategiaComponente')AS TEMPTABLE(componente)
+		END
 
 
 		SELECT

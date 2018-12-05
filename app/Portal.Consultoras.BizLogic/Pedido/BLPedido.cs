@@ -3138,24 +3138,24 @@ namespace Portal.Consultoras.BizLogic.Pedido
             pedidoDetalle.Producto.ConfiguracionOfertaID = pedidoDetalle.Producto.ConfiguracionOfertaID > 0 ? pedidoDetalle.Producto.ConfiguracionOfertaID : pedidoDetalle.Producto.TipoOfertaSisID;
             #endregion
 
-            if (estrategia.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaFija && pedidoDetalle.Producto.CUV == string.Empty)
-            {
-                var lst = _estrategiaProductoBusinessLogic.GetEstrategiaProducto(new BEEstrategia
-                {
-                    PaisID = usuario.PaisID,
-                    EstrategiaID = pedidoDetalle.Producto.EstrategiaID,
-                });
+            //if (estrategia.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaFija && pedidoDetalle.Producto.CUV == string.Empty)
+            //{
+            //    var lst = _estrategiaProductoBusinessLogic.GetEstrategiaProducto(new BEEstrategia
+            //    {
+            //        PaisID = usuario.PaisID,
+            //        EstrategiaID = pedidoDetalle.Producto.EstrategiaID,
+            //    });
 
-                int contador = 1;
+            //    int contador = 1;
 
-                lst.ForEach(item =>
-                {
-                    pedidoDetalle.Producto.CUV = pedidoDetalle.Producto.CUV + string.Format("{0};{1};{2};;{3};{4}", item.CUV, item.IdMarca, item.Precio, item.Digitable, item.Grupo);
-                    if (contador != lst.Count)
-                        pedidoDetalle.Producto.CUV = pedidoDetalle.Producto.CUV + "|";
-                    contador++;
-                });
-            }
+            //    lst.ForEach(item =>
+            //    {
+            //        pedidoDetalle.Producto.CUV = pedidoDetalle.Producto.CUV + string.Format("{0};{1};{2};;{3};{4}", item.CUV, item.IdMarca, item.Precio, item.Digitable, item.Grupo);
+            //        if (contador != lst.Count)
+            //            pedidoDetalle.Producto.CUV = pedidoDetalle.Producto.CUV + "|";
+            //        contador++;
+            //    });
+            //}
 
             List<BEPedidoWebDetalle> pedidowebdetalles = new List<BEPedidoWebDetalle>();
 
