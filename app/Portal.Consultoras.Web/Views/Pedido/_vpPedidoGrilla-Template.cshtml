@@ -42,10 +42,10 @@
     {{else}}
     <div class="contenido_ingresoPedido mouse_encima" data-cuv="{{CUV}}">
         @*<div class="texto_pedidos celda_codigo">{{CUV}}</div>*@
-        <div class="texto_pedidos celda_producto pedidoPadreToolTip" style="position:relative">
+        <div class="texto_pedidos celda_producto pedidoPadreToolTip" style="position:relative;">
             {{#if CuponElectivo}}
             <!-- Cuando la consultora haya seleccionado un regalo se le muestra la descripción de oferta correspondiente al regalo de Programa Nuevas -->
-            <label for="Regalo Programa Nuevas">Regalo Programa Nuevas</label>
+            <label class="default-color producto_regalo_descripcion_grillaPedido" for="Regalo Programa Nuevas">Regalo Programa Nuevas</label>
             <!-- Fin - Cuando la consultora haya seleccionado un regalo se le muestra la descripción de oferta correspondiente al regalo de Programa Nuevas -->
             {{/if}}
             <span class="producto-codigo">{{CUV}}</span>
