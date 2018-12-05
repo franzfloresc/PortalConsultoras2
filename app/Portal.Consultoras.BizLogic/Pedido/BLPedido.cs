@@ -119,8 +119,32 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 usuario.CodigosRevistaImpresa = codigosRevistasTask.Result;
 
                 //Validación de cuvs en programa nuevas
+                #region ValidarProgramaNuevas
                 var num = ValidarProgramaNuevas(usuario, productoBuscar.CodigoDescripcion);
-                if (num.Equals(Enumeradores.ValidacionProgramaNuevas.ConsultoraNoNueva)) return ProductoBuscarRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_NONUEVA);
+                var esProgNuevas = false;
+                switch (num)
+                {
+                    case Enumeradores.ValidacionProgramaNuevas.ProductoNoExiste:
+                        return ProductoBuscarRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_NOEXISTE);
+                    case Enumeradores.ValidacionProgramaNuevas.ConsultoraNoNueva:
+                        return ProductoBuscarRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_NONUEVA);
+                    case Enumeradores.ValidacionProgramaNuevas.CuvNoPerteneceASuPrograma:
+                        return ProductoBuscarRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_NUEVA_NOPERTENECE_TUPROGRAMA);
+                    case Enumeradores.ValidacionProgramaNuevas.CuvPerteneceProgramaNuevas:
+                        esProgNuevas = true;
+                        break;
+                }
+                #endregion
+
+                #region Venta exclusiva
+                if (!esProgNuevas)
+                {
+                    Enumeradores.ValidacionVentaExclusiva numExclu = ValidarVentaExclusiva(usuario, productoBuscar.CodigoDescripcion);
+                    if (numExclu != Enumeradores.ValidacionVentaExclusiva.ContinuaFlujo)
+                        return ProductoBuscarRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_NOPERTENECE_VENTAEXCLUSIVA);
+                    
+                }                
+                #endregion
 
                 //Validación producto no existe
                 var lstProducto = _productoBusinessLogic.SelectProductoByCodigoDescripcionSearchRegionZona(
@@ -2556,5 +2580,20 @@ namespace Portal.Consultoras.BizLogic.Pedido
             return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.SUCCESS);
         }
         #endregion
+
+        #region ValidarVentaExclusiva
+        private Enumeradores.ValidacionVentaExclusiva ValidarVentaExclusiva(BEUsuario usuario, string cuv)
+        {            
+            try
+            {
+                return _productoBusinessLogic.ValidarVentaExclusiva(usuario.PaisID, usuario.CampaniaID, usuario.CodigoConsultora, cuv);
+            }
+            catch (Exception)
+            {
+                return Enumeradores.ValidacionVentaExclusiva.ContinuaFlujo;
+            }
+        }
+        #endregion
+
     }
 }
