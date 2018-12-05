@@ -23,15 +23,13 @@
 
         if (isMobile()) {
             if (isPagina('Pedido')) {
-                PedidoOnSuccess();
-                if (typeof tieneOPT !== 'undefined' && tieneOPT) {
-                    VisibleEstrategias(true);
-                }
+                PedidoOnSuccess()
+                VisibleEstrategias(true);
                 $("#divResumenPedido").show();
                 $("footer").show();
                 $(".footer-page").css({ "margin-bottom": "0px" });
+                $("#divProductoMantenedor").hide();//
             }
-            //$("#divProductoMantenedor").hide();//
         }
     }
 

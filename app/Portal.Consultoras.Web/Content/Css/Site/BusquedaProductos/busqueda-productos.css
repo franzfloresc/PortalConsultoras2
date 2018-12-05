@@ -913,10 +913,6 @@
         padding-right:0;
     }
 
-    .layout__content--vistaResultadosBusqueda{
-        overflow:hidden;
-    }
-
     .layout__content__fichaProductos{
         padding-top:0;
     }
@@ -936,6 +932,7 @@
         top: 0;
         background-color: rgba(0,0,0,0.4);
         z-index:2000;
+        cursor:pointer;
     }
 
     .layout__content__filtros,
@@ -1043,6 +1040,7 @@
         border:1px solid #000;
         font-weight:bold;
         letter-spacing:1px;
+        cursor:pointer;
     }
 
     .filtro__btn--limpiar{
