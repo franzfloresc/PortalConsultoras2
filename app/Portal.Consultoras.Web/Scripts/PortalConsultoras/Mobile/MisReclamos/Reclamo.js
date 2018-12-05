@@ -153,7 +153,10 @@ $(document).ready(function () {
                         return false;
                     }
 
+                    $(me.Variables.ddlnumPedido).val("0");
+                    $(me.Variables.ListaCoincidenciasBusquedaProductosCdr).html("");
                     $(me.Variables.hdCuvCodigo).val(""); //$(me.Variables.txtCuvMobile).val("");
+                    $(me.Variables.ddlnumPedido).val("0");
                     $(me.Variables.txtDescripcionCuv).html("");
                     $(me.Variables.txtCantidad1).val("1");
                     $(me.Variables.txtCuvMobile2).val("");
@@ -636,73 +639,7 @@ $(document).ready(function () {
                 return ok;
             },
 
-            //EvaluarCUV: function () {
-
-            //    if (!me.Funciones.CUVCambio()) return false;
-
-            //    $(me.Variables.txtCantidad1).attr("disabled", "disabled");
-            //    $(me.Variables.txtCantidad1).attr("data-maxvalue", "0");
-            //    $(me.Variables.txtDescripcionCuv).html("");
-
-            //    if (cuvPrevVal.length == 5) {
-            //        me.Funciones.BuscarCUV(cuvPrevVal);
-            //    }
-            //},
-
             BuscarCUV: function (CUV) {                
-      //          CUV = $.trim(CUV) || $.trim($(me.Variables.txtCuvMobile).val());
-      //          var CampaniaId = $.trim($(me.Variables.ComboCampania).val()) || 0;
-      //          if (CampaniaId <= 0 || CUV.length < 5) return false;
-
-      //          var PedidoId = $.trim($(me.Variables.hdPedidoId).val()) || 0;
-
-      //          var item = {
-      //              CampaniaID: CampaniaId,
-      //              PedidoID: PedidoId,
-      //              CDRWebID: $(me.Variables.hdCDRID).val(),
-      //              CUV: CUV
-      //          };
-
-      //          ShowLoading();
-
-      //          jQuery.ajax({
-      //              type: 'POST',
-      //              url: UrlBuscarCuv,
-      //              dataType: 'json',
-      //              contentType: 'application/json; charset=utf-8',
-      //              data: JSON.stringify(item),
-      //              cache: false,
-      //              success: function (data) {
-      //                  CloseLoading();
-      //                  if (!checkTimeout(data))
-      //                      return false;
-
-      //                  if (data.success == false) {
-      //                      messageInfoValidado(data.message);
-      //                      return false;
-      //                  }
-
-      //                  data.detalle = data.detalle || new Array();
-						//if (data.detalle.length <= 0) {
-						//	if (flagAppMobile == 0) {
-						//		messageInfoError("Producto no disponible para atención por este medio, comunícate con el <span class='enlace_chat belcorpChat'><a>Chat en Línea</a></span>.");
-						//	} else {
-						//		messageInfoError("Producto no disponible para atención por este medio.");
-						//	}
-      //                  } else {
-      //                      if (data.detalle.length > 1) {
-      //                          me.Funciones.PopupPedido(data.detalle);
-      //                      }
-      //                      else {
-      //                          me.Funciones.AsignarCUV(data.detalle[0]);
-      //                      }
-      //                  }
-      //              },
-      //              error: function (data, error) {
-      //                  CloseLoading();
-      //                  checkTimeout(data);
-      //              }
-      //          });
                 
                 var CampaniaId = $.trim($(me.Variables.ComboCampania).val()) || 0;
                 var PedidoId = $.trim($(me.Variables.hdPedidoID).val()) || 0;
@@ -738,18 +675,6 @@ $(document).ready(function () {
                             $(data.detalle).each(function (index, item) {
                                 $(me.Variables.ListaCoincidenciasBusquedaProductosCdr).append("<li class='coincidencia_busqueda_producto d-block text-uppercase' data-descr='" + item.DescripcionProd + "' data-codigo=" + item.CUV + " data-value='" + item.CUV + " - " + item.DescripcionProd + "'> <div>" + item.CUV + "</div> <div id='CuvPopup" + index + "'>" + item.DescripcionProd + "</div></li >");
                             });
-                            //$(me.Variables.PopupBusquedaCuvDescripcionProductoCdr).show();
-                            //$("#ddlCuv").html("");
-                            //$('.descripcion_reclamo_fake_placeholder').hide();
-                            //$('#ddlCuv').append($('<option></option>').val("").html(""));
-                            //$(data.detalle).each(function (index, item) {
-                            //    $('#ddlCuv').append($('<option></option>').val(item.CUV).html(item.CUV + " - " + item.DescripcionProd));
-                            //});
-
-                            //$('.chosen-select').chosen();
-                            //$(".chosen-select").val('').trigger("chosen:updated");
-                            //$('.chosen-select-deselect').chosen({ allow_single_deselect: true });
-                            //$('.chosen-search-input').attr('placeholder', 'Buscar código o descripción');
                         }
                     },
                     error: function (data, error) {
@@ -828,28 +753,8 @@ $(document).ready(function () {
                     $(me.Variables.txtPrecioUnidad).val(data.PrecioUnidad);
                     $(me.Variables.hdImporteTotalPedido).val(pedido.ImporteTotal);
                     $(me.Variables.hdCDRID).val(pedido.CDRWebID);
-
-                    ///*Seteando cuv y descripcion*/
-                    //$(me.Variables.txtCuv).html(data.CUV);
-                    //$(me.Variables.txtDescripcionCuv).html(data.DescripcionProd);
-
-                    //$(me.Variables.txtCuvMobile).hide();
-                    //$(me.Variables.DescripcionCuv).fadeIn();
                 }
             },
-
-            //CUVCambio: function () {
-            //    var cuvVal = $(me.Variables.txtCuvMobile).val();
-            //    if (cuvVal == null) cuvVal = '';
-            //    if (cuvVal.length > 5) {
-            //        cuvVal = cuvVal.substr(0, 5);
-            //        $(me.Variables.txtCuvMobile).val(cuvVal);
-            //    }
-
-            //    var cambio = (cuvVal != cuvPrevVal);
-            //    cuvPrevVal = cuvVal;
-            //    return cambio;
-            //},
 
             EvaluarCUV2: function () {
 

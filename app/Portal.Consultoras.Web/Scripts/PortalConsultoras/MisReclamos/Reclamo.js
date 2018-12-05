@@ -48,19 +48,12 @@ $(document).ready(function () {
         ObtenerDatosCuv();
     });
 
-    //$("#txtCUV").on('keyup', function (evt) {
-    //    cuvKeyUp = true;
-    //    EvaluarCUV();
-    //});
     $("#txtCUV2").on('keyup', function (evt) {
         cuv2KeyUp = true;
         EvaluarCUV2();
     });
 
     setInterval(function () {
-        //if (cuvKeyUp) cuvKeyUp = false;
-        //else EvaluarCUV();
-
         if (cuv2KeyUp) cuv2KeyUp = false;
         else EvaluarCUV2();
     }, 1000)
@@ -123,16 +116,20 @@ $(document).ready(function () {
             return false;
         }
 
-        //El if se hizo con !() para considerar posibles valores null o undefined de $('#ddlCampania').val()
+        //El if se hizo con !() para colnsiderar posibles valores null o undefined de $('#ddCampania').val()
         if (!($('#ddlCampania').val() > 0)) {
             alert_msg(mensajeCdrFueraDeFechaCompleto);
             return false;
         }
 
-        //$("#txtCUV").val("");
+        //$("#txtCUV").val(""); 
+        $("#ddlnumPedido").val("0");
         $("#ddlCuv").html("");
+        $('.chosen-select').chosen();
+        $(".chosen-select").val('').trigger("chosen:updated");        
         $("#hdtxtCUVDescripcion").val("");
         $("#txtCantidad").val("1");
+        $("#divMotivo").html('');
         $("#txtCUV2").val("");
         $("#txtCUVPrecio2").val("");
         $("#spnImporteTotal2").html("");
@@ -140,7 +137,7 @@ $(document).ready(function () {
         $("#txtCUVDescripcion2").val("");
         $("#txtCantidad2").val("1");
         CambioPaso(-100);
-        BuscarMotivo();
+        //BuscarMotivo();
 
         $("#divUltimasSolicitudes").show();
         $("#ddlCampania").attr("disabled", "disabled");
@@ -273,20 +270,6 @@ $(document).ready(function () {
     });
 });
 
-//function CUVCambio() {
-//    var cuvVal = $.trim($("#ddlCuv").val());//$("#txtCUV").val();
-//    if (cuvVal == null) cuvVal = '';
-//    if (cuvVal.length > 5) {
-//        cuvVal = cuvVal.substr(0, 5);
-//        $("#ddlCuv").val(cuvVal);
-//        //$("#txtCUV").val(cuvVal);
-//    }
-
-//    var cambio = (cuvVal != cuvPrevVal);
-//    cuvPrevVal = cuvVal;
-//    return cambio;
-//}
-
 function CUV2Cambio() {
     var cuv2Val = $("#txtCUV2").val();
     if (cuv2Val == null) cuv2Val = '';
@@ -299,18 +282,6 @@ function CUV2Cambio() {
     cuv2PrevVal = cuv2Val;
     return cambio;
 }
-
-//function EvaluarCUV() {
-//    if (!CUVCambio()) return false;
-
-//    $("#txtCantidad").attr("disabled", "disabled");
-//    $("#txtCantidad").attr("data-maxvalue", "0");
-//    $("#hdtxtCUVDescripcion").val("");
-//    
-//    if (cuvPrevVal.length == 5) {
-//        BuscarCUV(cuvPrevVal);
-//    }
-//}
 
 function EvaluarCUV2() {
 
@@ -387,9 +358,7 @@ function ListarPedidoID()
 }
 
 function BuscarCUV() {
-    //CUV = $.trim(CUV) || $.trim($("#txtCUV").val());
     var CampaniaId = $.trim($("#ddlCampania").val()) || 0;
-    //if (CampaniaId <= 0 || CUV.length < 5) return false;
 
     var PedidoId = $.trim($("#txtPedidoID").val()) || 0;
 
@@ -397,7 +366,6 @@ function BuscarCUV() {
         CampaniaID: CampaniaId,
         PedidoID: PedidoId,
         CDRWebID: $("#CDRWebID").val()
-        //CUV: CUV
     };
 
     waitingDialog();
@@ -422,27 +390,17 @@ function BuscarCUV() {
 
             if (data.detalle.length > 1) {
                 $("#ddlCuv").html("");
-                $('.descripcion_reclamo_fake_placeholder').hide();                
+                $('.descripcion_reclamo_fake_placeholder').hide();
                 $('#ddlCuv').append($('<option></option>').val("").html(""));
                 $(data.detalle).each(function (index, item) {
                     $('#ddlCuv').append($('<option></option>').val(item.CUV).html(item.CUV + " - " + item.DescripcionProd));
                 });
-                
+
                 $('.chosen-select').chosen();
                 $(".chosen-select").val('').trigger("chosen:updated");
                 $('.chosen-select-deselect').chosen({ allow_single_deselect: true });
                 $('.chosen-search-input').attr('placeholder', 'Buscar código o descripción');
             }
-
-            //data.detalle = data.detalle || new Array();
-
-            //if (data.detalle.length <= 0) {
-            //    $("#divMotivo").html("");
-            //    alert_msg("Producto no disponible para atención por este medio, comunícate con el <span class='enlace_chat belcorpChat'><a>Chat en Línea</a></span>.");
-            //} else {
-            //    if (data.detalle.length > 1) PopupPedido(data.detalle);
-            //    else AsignarCUV(data.detalle[0]);
-            //}
         },
         error: function (data, error) {
             closeWaitingDialog();
@@ -558,8 +516,6 @@ function ObtenerDatosCuv() {
                 return false;
             }
             AsignarCUV(data.datos[0]);
-
-            //SetHandlebars("#template-motivo", data.detalle, "#divMotivo");
         },
         error: function (data, error) {
             closeWaitingDialog();
@@ -1506,16 +1462,6 @@ function PreValidarCUV(event) {
         }
     }
 }
-//$("#txtCantidad2").keypress(function (event) {
-//    
-//    event = event || window.event;
-//    if (event.keyCode == 13) {
-
-//        if ($("#btnAgregar")[0].disabled == false) {
-//            AgregarProductoListado();
-//        }
-//    }
-//})
 
 $('body').on('keypress', 'input[attrKey="PreValidarCUV"]', function (event) {
 
