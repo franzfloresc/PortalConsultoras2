@@ -13,69 +13,44 @@ var _slick = null;
 
 var CarruselAyuda = function () {
     "use strict";
-
-    var obtenerDireccionCarrusel = function (event, slick, currentSlide, nextSlide) {
-        var txtDireccion = slick.swipeDirection() || "";
-        //switch (txtDireccion){
-        //    case CarruselVariable.Direccion.left:
-        //        break;
-        //}
-        console.log('ObtenerDireccionCarrusel', event, slick, currentSlide, nextSlide, slick.currentSlide);
-        var accion = "prev";
-        var cantidadObj = slick.$slides.length;
-        if (nextSlide == 0 && currentSlide + 1 == cantidadObj) {
-            accion = "next";
-        } else if (currentSlide == 0 && nextSlide + 1 == cantidadObj) {
-            accion = "prev";
-        } else if (nextSlide > currentSlide) {
-            accion = "next";
-        }
-
-        return accion;
-    };
-
-    var obtenerCurrentSlideMostrar = function (slick, currentSlide, nextSlide) {
-        console.log('obtenerCurrentSlideMostrar - Ini ', slick, currentSlide, nextSlide);
-        var cur = nextSlide || currentSlide;
-        console.log('obtenerCurrentSlideMostrar - Fin ', slick.currentSlide, cur);
-        return cur;
-    };
-
-    var obtenerSlidesMostrar = function (slick, currentSlide, nextSlide) {
-        //'slick-current', 'slick-active'
-        var indexMostrar = nextSlide || currentSlide;
-        var indexCurrent = -1;
-        var indexActive = -1;
         
-        $.each(slick.$slides, function (index, slide) {
-            var attrClass = $(slide).attr('class') || "";
-            if (attrClass.indexOf("slick-current")) {
-                indexCurrent = index;
-                indexActive = indexActive == -1 ? index : indexActive;
-            }
-            else if (attrClass.indexOf("slick-active")) {
-                indexActive = index;
-            }
-        });
+    var _obtenerSlideMostrar = function (slick, currentSlide, nextSlide) {
+        //'slick-current', 'slick-active'
+        var indexMostrar = nextSlide == undefined ? currentSlide : nextSlide;
+        var indexActive = -1;
 
-        console.log('obtenerSlidesMostrar', indexMostrar, indexCurrent, indexActive, currentSlide, nextSlide);
+        var cantActive = $(_slick.$slider).find('.slick-active').length;
+        var indexCurrent = parseInt($(_slick.$slider).find('.slick-current').attr("data-slick-index"));
 
+        console.log('_obtenerSlideMostrar', indexMostrar, indexCurrent, indexActive, currentSlide, nextSlide);
+        var direccion = "prev";
         if (indexCurrent === 0) {
-            if (indexMostrar + 1 === slick.$slides.length) {
-                // esta dando click a la flecha izquierda, "prev";
-            }
-            else {
-                // esta dando click a la flecha izquierda, "next";
-                indexMostrar = indexCurrent + indexActive + slick.options.slidesToScroll;
+            if (indexMostrar + 1 != slick.$slides.length) {
+                direccion = "next";
+                indexMostrar = indexCurrent + cantActive;
             }
         }
         else if (indexCurrent + 1 === slick.$slides.length) {
-            if (indexMostrar) {
-
+            if (indexMostrar == 0) {
+                direccion = "next";
+                indexMostrar = cantActive - 1;
+            }
+        }
+        else if (indexMostrar > indexCurrent) {
+            direccion = "next";
+            indexMostrar = indexCurrent + cantActive;
+            if (indexMostrar + 1 > slick.$slides.length) {
+                indexMostrar = indexMostrar - slick.$slides.length;
             }
         }
 
-        var slideMostrar = slick.$slides[indexMostrar];
+        var slideMostrar = $(_slick.$slider).find("[data-slick-index='" + indexMostrar + "']");
+        console.log('_obtenerSlideMostrar', direccion, indexMostrar, $(slideMostrar));
+        return {
+            Direccion: direccion,
+            IndexMostrar: indexMostrar,
+            SlideMostrar: slideMostrar
+        }
     };
 
     var marcarAnalyticsInicio = function (idHtmlSeccion, arrayItems, pagina, seccion) {
@@ -111,14 +86,14 @@ var CarruselAyuda = function () {
             if (typeof AnalyticsPortalModule == "undefined") {
                 return;
             }
-            var xx = obtenerSlidesMostrar(slick, currentSlide, nextSlide);
-            var slideToMark = obtenerCurrentSlideMostrar(slick, currentSlide, nextSlide);
-            var item = slick.$slides[slideToMark];
-            console.log('marcarAnalyticsChange', slideToMark, $(item));
+
+            var objMostrar = _obtenerSlideMostrar(slick, currentSlide, nextSlide);
+            
+            var item = objMostrar.SlideMostrar;
             var estrategia = $($(item).find("[data-estrategia]")[0]).data("estrategia") || "";
             console.log('marcarAnalyticsChange', estrategia);
             if (estrategia !== "") {
-                estrategia.Position = slideToMark;
+                estrategia.Position = objMostrar.IndexMostrar;
                 var obj = {
                     lista: Array(estrategia)
                 };
@@ -133,8 +108,6 @@ var CarruselAyuda = function () {
 
 
     return {
-        GetDireccionCarrusel: obtenerDireccionCarrusel,
-        GetCurrentSlideMostrar: obtenerCurrentSlideMostrar,
         MarcarAnalyticsChange: marcarAnalyticsChange,
         MarcarAnalyticsInicio: marcarAnalyticsInicio
     };
