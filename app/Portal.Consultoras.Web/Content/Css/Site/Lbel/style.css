@@ -25351,6 +25351,7 @@ input[type='checkbox']:checked + span:after {
     width: 28px;
     height: 31px;
     background: url(/Content/Images/icono_regalo.png) no-repeat;
+    background-size:100%;
 }
 
 .icono_celebracion{
