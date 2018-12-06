@@ -637,9 +637,10 @@ function RenderCarruselSimpleV2(divProd, data, cc) {
         CarruselAyuda.MarcarAnalyticsContenedor(2, null, seccionName, slick, currentSlide, nextSlide);
 
     }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
-        if (!cc) {
-            ShowOrHide_Arrows(event, slick, currentSlide);
-        }
+        //if (!cc) {
+        //    ShowOrHide_Arrows(event, slick, currentSlide);
+        //}
+        CarruselAyuda.MarcarAnalyticsContenedor(3, event, seccionName, slick, currentSlide);
     });
 
     divProd.find(sElementos.listadoProductos).css("overflow-y", "visible");
@@ -653,56 +654,56 @@ function RenderCarruselSimpleV2(divProd, data, cc) {
     //AnalyticsPortalModule.MarcaGenericaLista(data.Seccion.Codigo, data, slidesToShow); // Inicio RenderCarruselSimpleV2
 }
 
-function ShowOrHide_Arrows(event, slick, currentSlide) {
+//function ShowOrHide_Arrows(event, slick, currentSlide) {
 
-    var objPrevArrow = $(event.target).find('.prevArrow')[0];
-    var objNextArrow = $(event.target).find('.nextArrow')[0];
-    var objVisorSlick = $(event.target).find('.slick-list')[0];
-    var lastSlick = $(event.target).find('[data-slick-index]')[slick.slideCount - 1];
+//    var objPrevArrow = $(event.target).find('.prevArrow')[0];
+//    var objNextArrow = $(event.target).find('.nextArrow')[0];
+//    var objVisorSlick = $(event.target).find('.slick-list')[0];
+//    var lastSlick = $(event.target).find('[data-slick-index]')[slick.slideCount - 1];
 
-    if (currentSlide === 0) {
-        $(objPrevArrow).hide();
-        $(objNextArrow).show();
-    }
-    else {
+//    if (currentSlide === 0) {
+//        $(objPrevArrow).hide();
+//        $(objNextArrow).show();
+//    }
+//    else {
 
-        var item = currentSlide;
-        var anchoFalta = 0;
-        do {
-            anchoFalta += $(slick.$slides[item]).innerWidth();
-            item++;
-        } while (item < slick.slideCount);
+//        var item = currentSlide;
+//        var anchoFalta = 0;
+//        do {
+//            anchoFalta += $(slick.$slides[item]).innerWidth();
+//            item++;
+//        } while (item < slick.slideCount);
 
-        if (anchoFalta > $(slick.$list).width()) {
-            var currentSlideback = $(slick.$list).attr('data-currentSlide') || $(slick.$list).attr('data-currentslide') || "";
-            if (currentSlideback == currentSlide) {
-                slick.options.slidesToShow = isMobile() ? 1 : 2;
-                slick.setPosition();
-                slick.slickGoTo(currentSlide + 1);
-                currentSlide = currentSlide + 1;
+//        if (anchoFalta > $(slick.$list).width()) {
+//            var currentSlideback = $(slick.$list).attr('data-currentSlide') || $(slick.$list).attr('data-currentslide') || "";
+//            if (currentSlideback == currentSlide) {
+//                slick.options.slidesToShow = isMobile() ? 1 : 2;
+//                slick.setPosition();
+//                slick.slickGoTo(currentSlide + 1);
+//                currentSlide = currentSlide + 1;
 
-                $(objPrevArrow).show();
-                $(objNextArrow).hide();
-                marcaAnalyticsViewVerMas();
-            }
-            else {
-                $(objPrevArrow).show();
-                $(objNextArrow).show();
-            }
-        }
-        else {
-            var cantFinal = slick.slideCount - slick.options.slidesToShow;
-            if (cantFinal === currentSlide) {
-                $(objPrevArrow).show();
-                $(objNextArrow).hide();
-                marcaAnalyticsViewVerMas();
-            }
-        }
-    }
+//                $(objPrevArrow).show();
+//                $(objNextArrow).hide();
+//                marcaAnalyticsViewVerMas();
+//            }
+//            else {
+//                $(objPrevArrow).show();
+//                $(objNextArrow).show();
+//            }
+//        }
+//        else {
+//            var cantFinal = slick.slideCount - slick.options.slidesToShow;
+//            if (cantFinal === currentSlide) {
+//                $(objPrevArrow).show();
+//                $(objNextArrow).hide();
+//                marcaAnalyticsViewVerMas();
+//            }
+//        }
+//    }
 
-    $(slick.$list).attr('data-currentSlide', currentSlide);
+//    $(slick.$list).attr('data-currentSlide', currentSlide);
 
-}
+//}
 
 // Fin - Render Carrusel
 
@@ -710,11 +711,11 @@ function ShowOrHide_Arrows(event, slick, currentSlide) {
 // Ini - Render Carrusel Analytics
 
 //Función que llama la la funcion de marcacion analytics cuando se visualiza el ultimo botón dorado de "ver más"
-function marcaAnalyticsViewVerMas() {
-    if (typeof AnalyticsPortalModule !== "undefined") {
-        AnalyticsPortalModule.MarcaPromotionViewCarrusel();
-    }
-}
+//function marcaAnalyticsViewVerMas() {
+//    if (typeof AnalyticsPortalModule !== "undefined") {
+//        AnalyticsPortalModule.MarcaPromotionViewCarrusel();
+//    }
+//}
 
 //function GetArrowNamePrev() {
 //    if (isMobile()) return "previous_mob.png";

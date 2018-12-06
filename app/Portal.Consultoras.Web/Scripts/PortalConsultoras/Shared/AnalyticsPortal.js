@@ -225,8 +225,7 @@ var AnalyticsPortalModule = (function () {
         var seccion = __origenPedidoWebEstructura.Pagina.find(function (element) {
             return element.Codigo == origenEstructura.Pagina;
         });
-        if (seccion == undefined)
-        {
+        if (seccion == undefined) {
             var seccion = __origenPedidoWebEstructura.Pagina.find(function (element) {
                 return element.Codigo == origenEstructura.Pagina;
             });
