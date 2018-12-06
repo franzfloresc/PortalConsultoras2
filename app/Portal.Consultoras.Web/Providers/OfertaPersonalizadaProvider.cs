@@ -40,7 +40,6 @@ namespace Portal.Consultoras.Web.Providers
         protected readonly PedidoWebProvider _pedidoWeb;
         protected OfertaBaseProvider _ofertaBaseProvider;
         protected ShowRoomProvider _showRoomProvider;
-        //protected ConfigModel configEstrategiaSR;
 
         public OfertaPersonalizadaProvider() : this(Web.SessionManager.SessionManager.Instance,
             new ConfiguracionManagerProvider(),
