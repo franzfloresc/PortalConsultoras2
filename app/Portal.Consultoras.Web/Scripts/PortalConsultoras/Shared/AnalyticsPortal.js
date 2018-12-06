@@ -34,7 +34,7 @@ var AnalyticsPortalModule = (function () {
         migajaPan: "Breadcrumb",
         contenedorfichaProducto: "Contenedor - Ficha de producto",
         // Ini - Analytics Buscador Miguel
-        notavaliable: "(not avaliable)",
+        notavaliable: "(not available)",
         // Fin - Analytics Buscador Miguel
         // Ini - Analytics Ofertas (Miguel)
         eligetuopcion: "eligetuopcion",
@@ -2074,22 +2074,23 @@ var AnalyticsPortalModule = (function () {
 * Linea de Código Desktop: 
 */
     var marcaGuardarPedidoExito = function (data) {
-        var arrayEstrategiasAnalytics = [];
-        data.pedidoDetalle = data.pedidoDetalle || [];
-        $.each(data.pedidoDetalle, function (index, value) {
-            var estrategia = {
-                'name': value.name,
-                'id': value.id,
-                'price': $.trim(value.price),
-                'brand': value.brand,
-                'category': "NO DISPONIBLE",
-                'variant': value.variant == "" ? "Estándar" : value.variant,
-                'quantity': value.quantity
-            };
-            arrayEstrategiasAnalytics.push(estrategia);
-        });
-
         try {
+
+            var arrayEstrategiasAnalytics = [];
+            data.pedidoDetalle = data.pedidoDetalle || [];
+            $.each(data.pedidoDetalle, function (index, value) {
+                var estrategia = {
+                    'name': value.name,
+                    'id': value.id,
+                    'price': $.trim(value.price),
+                    'brand': value.brand,
+                    'category': _texto.notavaliable,
+                    'variant': _texto.estandar,
+                    'quantity': value.quantity
+                };
+                arrayEstrategiasAnalytics.push(estrategia);
+            });
+
             dataLayer.push({
                 'event': _evento.productCheckout,
                 'action': 'Guardar',
@@ -2103,9 +2104,8 @@ var AnalyticsPortalModule = (function () {
                 }
             });
 
-
         } catch (e) {
-            console.log(_texto.excepcion + e);
+            console.log('marcaGuardarPedidoExito - ' + _texto.excepcion + e);
         }
     }
 
