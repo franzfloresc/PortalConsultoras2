@@ -4,8 +4,7 @@
     ViewBag.Title = "Pedido FIC";
 }
 @section styles{
-    <link href="@Url.Content("~/Content/Css/Site/style-pedido.css")" rel="stylesheet" />
-
+    @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/PedidoValidado")
     <style>
         .btn_animado {
             display: none;
