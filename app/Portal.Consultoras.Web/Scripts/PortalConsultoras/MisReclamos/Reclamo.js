@@ -88,7 +88,6 @@ $(document).ready(function () {
             return false;
         }
 
-        //El if se hizo con !() para considerar posibles valores null o undefined de $('#ddlCampania').val()
         if (!($('#ddlCampania').val() > 0)) {
             alert_msg(mensajeCdrFueraDeFechaCompleto);
             return false;
@@ -231,7 +230,6 @@ $(document).ready(function () {
         buttons: {
             "Aceptar": function () {
                 HideDialog("alertEMailDialogMensajes");
-                //$(this).dialog('close');
             }
         }
     });
@@ -1363,16 +1361,6 @@ function PreValidarCUV(event) {
         }
     }
 }
-//$("#txtCantidad2").keypress(function (event) {
-//    
-//    event = event || window.event;
-//    if (event.keyCode == 13) {
-
-//        if ($("#btnAgregar")[0].disabled == false) {
-//            AgregarProductoListado();
-//        }
-//    }
-//})
 
 $('body').on('keypress', 'input[attrKey="PreValidarCUV"]', function (event) {
 

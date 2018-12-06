@@ -552,10 +552,7 @@ namespace Portal.Consultoras.Web.Controllers
                 decimal wspreciopack, ganancia = 0;
                 string niveles = "";
                 string codigoSap = "";
-                //string DescripcionMarca = "";
-                //int MarcaID = 0;
                 int enMatrizComercial = 0;
-                //int IdMatrizComercial = 0;
                 string wsprecio = "";
                 int idMatrizComercial = 0;
                 ServicePedido.BEEstrategia beEstrategia = null;
@@ -575,11 +572,8 @@ namespace Portal.Consultoras.Web.Controllers
                         precio = (beEstrategia.PrecioPublico + beEstrategia.Ganancia).ToString("F2");
                         wsprecio = beEstrategia.PrecioPublico.ToString();
                         ganancia = beEstrategia.Ganancia;
-                        //DescripcionMarca = beEstrategia.DescripcionMarca;
-                        //MarcaID = beEstrategia.MarcaID;
                         codigoSap = beEstrategia.CodigoSAP;
                         enMatrizComercial = beEstrategia.EnMatrizComercial.ToInt();
-                        //IdMatrizComercial = beEstrategia.IdMatrizComercial.ToInt();
                     }
                 }
                 else

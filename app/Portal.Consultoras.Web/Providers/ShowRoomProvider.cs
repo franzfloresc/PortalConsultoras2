@@ -377,8 +377,6 @@ namespace Portal.Consultoras.Web.Providers
                 {
                     _sessionManager.SetEsShowRoom("1");
 
-                    //configEstrategiaSR.BloqueoProductoDigital = ObtenerBloquedoProductoDigital(model);
-
                     var fechaHoy = model.FechaHoy;
 
                     if (fechaHoy >= model.FechaInicioCampania.AddDays(-configEstrategiaSR.BeShowRoom.DiasAntes).Date
@@ -560,45 +558,6 @@ namespace Portal.Consultoras.Web.Providers
                        ? string.Empty
                        : model.Valor;
         }
-
-        //private bool ObtenerBloquedoProductoDigital(UsuarioModel usuarioModel)
-        //{
-        //    ServiceUsuario.BEConfiguracionPaisDatos entidadConfig;
-        //    bool result = false;
-        //    try
-        //    {
-        //        var ConfigPaisSR = _sessionManager.GetConfiguracionesPaisModel().FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPais.ShowRoom); 
-        //        var entidad = new ServiceUsuario.BEConfiguracionPaisDatos
-        //        {
-        //            PaisID = usuarioModel.PaisID,
-        //            CampaniaID = usuarioModel.CampaniaID,
-        //            ConfiguracionPaisID = ConfigPaisSR.ConfiguracionPaisID,
-        //            ConfiguracionPais = new ServiceUsuario.BEConfiguracionPais
-        //            {
-        //                Codigo = Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital,
-        //                Detalle = new ServiceUsuario.BEConfiguracionPaisDetalle
-        //                {
-        //                    CodigoConsultora = usuarioModel.CodigoConsultora,
-        //                    CodigoRegion = usuarioModel.CodigorRegion,
-        //                    CodigoZona = usuarioModel.CodigoZona,
-        //                    CodigoSeccion = usuarioModel.SeccionAnalytics
-        //                }
-        //            }
-        //        };
-        //        using (var sv = new ServiceUsuario.UsuarioServiceClient())
-        //        {
-        //            var lst =  sv.GetConfiguracionPaisDatos(entidad);
-        //            entidadConfig = lst.FirstOrDefault();
-        //        }
-        //        if (entidadConfig != null) result = entidadConfig.Valor1 == "1"; 
-        //    }
-        //    catch (Exception ex )
-        //    {
-        //        _logManager.LogErrorWebServicesBusWrap(ex, usuarioModel.CodigoUsuario, usuarioModel.PaisID.ToString(),
-        //            "ShowRoomProvider.ObtenerBloquedoProductoDigital");
-        //    }
-        //    return result;
-        //}
 
         public bool ValidarIngresoShowRoom(bool esIntriga)
         {

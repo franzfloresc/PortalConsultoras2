@@ -325,14 +325,8 @@ var BuscadorModule = (function () {
 
             var codigo = ["030", "005", "001", "007", "008", "009", "010", "011"];
 
-            //console.log(codigoEstrategia);
-
-            
-
             if (textoBusqueda != "")
                 localStorage.setItem('valorBuscador', textoBusqueda);
-
-            
 
             if (codigo.indexOf(codigoEstrategia) >= 0) {
                 var UrlDetalle = GetPalanca(codigoEstrategia);
@@ -345,7 +339,6 @@ var BuscadorModule = (function () {
                     AnalyticsPortalModule.MarcaEligeTuOpcionBuscador(descripcionProducto + ' - ' + $(_elementos.campoBuscadorProductos).val());
 
 
-                //virtualEvent('Resultados de Búsqueda', 'Elige tu opción', descripcionProducto + ' - ' + $(_elementos.campoBuscadorProductos).val());
                 return true;
             }
 

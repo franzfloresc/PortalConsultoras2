@@ -133,7 +133,7 @@ $(document).ready(function () {
         }
         return false;
     });
-    
+
     //Este metodo será quitado porque la etiqueta verdetalle ya no existe.
     $("body").on("click", "[data-item-accion='verdetalle']", function (e) {
         var campania = $(this).parents("[data-tag-html]").attr("data-tag-html");
@@ -158,7 +158,7 @@ $(document).ready(function () {
             if (guardo) {
                 obj
                 var url = urlOfertaDetalleProducto;
-                
+
                 if (obj.CodigoEstrategia) {
                     url = urlOfertaDetalleProductoLan;
                 }
@@ -166,7 +166,7 @@ $(document).ready(function () {
                 url = url +
                     "?cuv=" + obj.CUV2 +
                     "&campaniaId=" + obj.CampaniaID;
-                
+
                 return window.location = url;
             }
         }
@@ -229,13 +229,11 @@ function RDMostrarPosicion() {
 //}
 
 function OfertaArmarEstrategias(response, busquedaModel) {
-    //console.log('OfertaArmarEstrategias', response, busquedaModel);
     response.CampaniaID = response.CampaniaID || response.campaniaId || 0;
     if (response.CampaniaID <= 0) return false;
 
     var esContenedor = (window.location.pathname.toLowerCase() + "/").indexOf("/ofertas/") >= 0;
     if (esContenedor) {
-        //console.log(2);
         OfertaArmarEstrategiasContenedor(response, busquedaModel);
         return false;
     }
@@ -276,9 +274,7 @@ function OfertaArmarEstrategias(response, busquedaModel) {
 
         filtroCampania[lsListaRD + indCampania].response.Completo = 1;
     }
-    else {
-        //console.log('filtroCampania' + indCampania + ' - ' + response.CampaniaID);
-    }
+
     // Listado de producto
     var modeloTemp = Clone(response);
     modeloTemp.lista = listaAdd || response.lista;
@@ -332,7 +328,7 @@ function OfertaArmarEstrategias(response, busquedaModel) {
     else {
         $("#divOfertaProductosPerdio").remove();
     }
-   
+
 
     ResizeBoxContnet();
     if (response.guardaEnLocalStorage === false) {
@@ -345,7 +341,7 @@ function OfertaArmarEstrategias(response, busquedaModel) {
 }
 
 function RDLocalStorageListado(key, valor, codigo) {
- 
+
     var valLocalStorage = LocalStorageListado(key, null, 1);
     if (valLocalStorage != null) {
         valLocalStorage = JSON.parse(valLocalStorage);
@@ -366,7 +362,6 @@ function RDLocalStorageListado(key, valor, codigo) {
 }
 
 function OfertaArmarEstrategiasContenedor(responseData, busquedaModel) {
-    //console.log('OfertaArmarEstrategiasContenedor', responseData, busquedaModel);
     if (busquedaModel.guardaEnLocalStorage === true) {
         RDLocalStorageListado(busquedaModel.VarListaStorage + responseData.CampaniaID, filtroCampania[busquedaModel.VarListaStorage + indCampania]);
     }
@@ -402,7 +397,6 @@ function OfertaArmarEstrategiasContenedor(responseData, busquedaModel) {
 }
 
 function OfertaArmarEstrategiasContenedorSeccion(response) {
-    //console.log('OfertaArmarEstrategiasContenedorSeccion', response);
     if (response.codigo == "LAN") {
         response.CantidadProductos = response.listaLan.length;
         SeccionMostrarProductos(response);
@@ -652,7 +646,7 @@ function RDDetalleVolver(campaniaId) {
 }
 
 //function CheckClickCarrousel(action, source, seccionName, opcion) {
-    
+
 //    if (action === "next") {
 //        sliderWay = 1;
 //    } else if (action === "prev") {
@@ -667,7 +661,7 @@ function RDDetalleVolver(campaniaId) {
 //}
 
 //function CallAnalitycsClickArrow(seccionName, opcion) {
-    
+
 //    if (sliderWay !== 0 && clickedSlider !== 0) {
 //        if (seccionName === "MG") {
 //            if (typeof AnalyticsPortalModule !== "undefined") {
@@ -678,7 +672,7 @@ function RDDetalleVolver(campaniaId) {
 //                rdAnalyticsModule.ClickArrowLan(sliderWay);
 //            }
 //        }
-        
+
 //        sliderWay = 0;
 //        clickedSlider = 0;
 //    }

@@ -4,7 +4,6 @@ Mobile      => 2: Index    | 21: Detalle Oferta
 */
 var tipoOrigenPantalla = tipoOrigenPantalla || "";
 var origenPedidoWeb = origenPedidoWeb || 0;
-//var origenPedidoWebTactica = origenPedidoWebTactica || 0;
 var origenPedidoWebCarrusel = origenPedidoWebCarrusel || 0;
 var showRoomOrigenInsertar = showRoomOrigenInsertar || 0;
 
@@ -222,13 +221,9 @@ $(document).ready(function () {
 
     $("#btn_descubre_mobile").on("click", function () {
         $('body').css({ 'overflow-y': 'hidden' });
-        // Set the effect type
         var effect = 'slide';
-        // Set the options for the effect type chosen
-        //var options = { direction: $('.mySelect').val() };
         var options = { direction: 'down' };
-        // Set the duration (default: 400 milliseconds)
-        var duration = 500; //agregarSetEspecial
+        var duration = 500;
         $('.content_display_set_suboferta').toggle(effect, options, duration);
         $('#agregarSetEspecial').slideDown();
         $("div.content_btn_agregar").find("#txtCantidad").val(1);
@@ -341,7 +336,6 @@ function CargarProductosShowRoomPromise(busquedaModel) {
     var d = $.Deferred();
     var promise = $.ajax({
         type: 'POST',
-        //url: baseUrl + 'ShowRoom/CargarProductosShowRoom',
         url: baseUrl + 'Estrategia/SRObtenerProductos',
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
