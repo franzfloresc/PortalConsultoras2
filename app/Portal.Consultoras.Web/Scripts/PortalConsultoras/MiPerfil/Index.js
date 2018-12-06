@@ -13,6 +13,7 @@ $(document).ready(function () {
                 $('body').on('click', '.enlace_agregar_num_adicional', me.Eventos.AgregarOtroNumero);
                 $('body').on('click', '.enlace_eliminar_numero_adicional', me.Eventos.EliminarNumeroAdicional);
                 $('body').on('click', '.enlace_ver_password', me.Eventos.MostrarPassword);
+                $('body').on('click', '.opcion_mi_perfil_titulo', me.Eventos.MostrarContenidoOpcionPerfil);
             },
             mostrarTelefono: function () {
                 if ($('#txtTelefonoTrabajoMD').val() != '') {
@@ -130,6 +131,16 @@ $(document).ready(function () {
                         } else {
                             $(_this).addClass('icono_ver_password_activo');
                             campoPassword.attr('type', 'text');
+                        }
+                    }
+                },
+                MostrarContenidoOpcionPerfil: function () {
+                    $(this).next().slideToggle(200);
+                    $(this).parent().toggleClass('mostrarContenido');
+                    if ($(this).parent().is('.opcion_mis_datos')) {
+                        if ($(this).next().is(':visible')) {
+                            $('.contenedor_campos_num_adicional').fadeOut(100);
+                            $('.enlace_agregar_num_adicional').fadeIn(100);
                         }
                     }
                 }

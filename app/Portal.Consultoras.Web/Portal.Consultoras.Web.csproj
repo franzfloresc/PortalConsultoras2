@@ -1408,6 +1408,9 @@
     <Content Include="Content\Css\Site\Ficha\SeleccionarTipo.css" />
     <Content Include="Content\Css\Site\Images\carrusel_next_blanco_dorado.png" />
     <Content Include="Content\Css\Site\Images\carrusel_prev_blanco_dorado.png" />
+    <Content Include="Content\Images\flecha_despliegue_opcion_mi_perfil.svg" />
+    <Content Include="Content\Images\icono_mis_datos.svg" />
+    <Content Include="Content\Images\icono_ubicacion.svg" />
     <Content Include="Content\Css\Site\ion.rangeSlider\ion.rangeSlider.css" />
     <Content Include="Content\Css\Site\ion.rangeSlider\ion.rangeSlider.skinFlat.css" />
     <Content Include="Content\Css\Site\ion.rangeSlider\ion.rangeSlider.skinHTML5.css" />
