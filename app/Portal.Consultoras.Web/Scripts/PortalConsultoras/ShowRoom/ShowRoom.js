@@ -186,7 +186,7 @@ $(document).ready(function () {
         });
 
         var divs = $(".content_pop_compra").find("[data-campos]");
-        var array_impresions_tactica_desktop =[];
+        var array_impresions_tactica_desktop = [];
 
         $(divs).each(function (index, value) {
             var existe = false;
@@ -219,7 +219,7 @@ $(document).ready(function () {
     }
     else if (tipoOrigenPantalla == 2) {
     }
-    
+
     $("#btn_descubre_mobile").on("click", function () {
         $('body').css({ 'overflow-y': 'hidden' });
         // Set the effect type
@@ -257,7 +257,7 @@ function CargarProductosShowRoom(busquedaModel) {
 
 
     $.when(cargarProductosShowRoomPromise)
-    
+
         .then(function (response) {
             ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosSubCampanias, busquedaModel);
             EstablecerAccionLazyImagen("img[data-lazy-seccion-showroom]");
@@ -358,14 +358,14 @@ function CargarProductosShowRoomPromise(busquedaModel) {
 function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosSubCampanias, busquedaModel) {
     var objData = {};
     if (response.success) {
-        
+
         console.log('cantidadTotal-0', response);
         response.totalOfertas = response.cantidadTotal0;
         response.listaOfertas = Clone(response.lista || []);
         response.listaOfertasPerdio = Clone(response.listaPerdio || []);
         response.lista = [];
         response.listaPerdio = [];
-        
+
         AnalyticsSRListaOferta(response);
 
         if (aplicarFiltrosSubCampanias) {
@@ -379,11 +379,10 @@ function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosS
                     $('#divContentSubCampania').show();
 
                     EstablecerLazyCarrusel('#contenedor-showroom-subcampanias');
-                    
+
                     if (!$(objData.lista).filter(function (a, b) {
                         return b.Hermanos.length > 0
-                    })[0])
-                    {
+                    })[0]) {
                         $('.sub_campania_info_adicional').remove();
                     }
                 }
@@ -449,9 +448,9 @@ function ResolverCargarProductosShowRoomPromiseMobile(response, busquedaModel) {
         response.listaOfertasPerdio = Clone(response.listaPerdio || []);
         response.lista = [];
         response.listaPerdio = [];
-        
+
         AnalyticsSRListaOferta(response);
-        
+
         $.each(response.listaOfertas, function (index, value) {
             value.Descripcion = IfNull(value.Descripcion, '').SubStrToMax($.trim(tipoOrigenPantalla)[0] == '1' ? 40 : 30, true);
             value.Posicion = index + 1;
@@ -482,7 +481,7 @@ function ResolverCargarProductosShowRoomPromiseMobile(response, busquedaModel) {
                 $.each(response.listaSubCampania,
                     function (i, v) { v.Descripcion = IfNull(v.Descripcion, '').SubStrToMax(30, true); });
 
-                var dataSub = new Object(); 
+                var dataSub = new Object();
                 dataSub.CantidadProductos = response.listaSubCampania.length;
                 dataSub.Lista = AsignarPosicionAListaOfertas(response.listaSubCampania);
 
@@ -549,11 +548,20 @@ function ConstruirDescripcionOferta(arrDescripcion) {
 }
 
 function AnalyticsSRListaOferta(response) {
-    if (response.listaOfertas.length > 0) {
-        //Hacer marcación Analytics para ShowRoom
-        if (!(typeof AnalyticsPortalModule === 'undefined')) {
-            response.listaOfertas.lista = response.listaOfertas;
-            AnalyticsPortalModule.MarcaGenericaLista(window.esShowRoom ? ConstantesModule.TipoEstrategia.SR : "", response.listaOfertas);
-        }
+
+    if (!(typeof AnalyticsPortalModule === 'undefined')) {
+        var origen = {
+            Pagina: ConstantesModule.OrigenPedidoWebEstructura.Pagina.LandingShowroom,
+            Palanca: ConstantesModule.OrigenPedidoWebEstructura.Palanca.Showroom,
+            Seccion: ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel
+        };
+        var obj = {
+            lista: response.listaOfertas,
+            CantidadMostrar: response.listaOfertas.length,
+            Origen: origen
+        };
+        
+        console.log('AnalyticsSRListaOferta', obj);
+        AnalyticsPortalModule.MarcaGenericaLista("", obj);
     }
 }

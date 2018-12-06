@@ -1545,14 +1545,14 @@ namespace Portal.Consultoras.Common
         {
             public static class TipoPresentacion
             {
-                public const int CarruselSimple = 1;
-                public const int SimpleCentrado = 3;
+                public const int CarruselSimple = 1;// Ejm OPT en RDI
+                public const int SimpleCentrado = 3;// Ejm HV
                 public const int Banners = 4;
                 public const int ShowRoom = 5;
                 public const int OfertaDelDia = 6;
                 public const int DescagablesNavidenos = 7;
-                public const int CarruselIndividuales = 8;
-                public const int CarruselIndividualesV2 = 9;
+                public const int CarruselIndividuales = 8; // Ejm LAN
+                public const int CarruselIndividualesV2 = 9; // Ejm GM
             }
         }
 

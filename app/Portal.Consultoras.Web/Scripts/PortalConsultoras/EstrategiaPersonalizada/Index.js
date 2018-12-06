@@ -10,7 +10,7 @@ var listaLAN = listaLAN || "LANLista";
 
 var CONS_TIPO_PRESENTACION = {
     CarruselSimple: 1,
-    CarruselPrevisuales: 2,
+    //CarruselPrevisuales: 2,
     SimpleCentrado: 3,
     Banners: 4,
     ShowRoom: 5,
@@ -45,6 +45,11 @@ var varContenedor = {
 
 $(document).ready(function () {
     SeccionRender();
+
+    //$("body").on("click", ".div-carousel-rd-prev, .div-carousel-rd-next", function () {
+    //    clickedSlider = 1;
+    //    CallAnalitycsClickArrow();
+    //});
 });
 
 function SeccionRender() {
@@ -66,6 +71,13 @@ function SeccionRender() {
     $(document).ajaxStop(function () {
         VerificarSecciones();
     });
+}
+
+function VerificarSecciones() {
+    var visibles = $(".seccion-estrategia-contenido").children(":visible").length;
+    if (visibles == 0) {
+        $("#no-productos").fadeIn();
+    }
 }
 
 function SeccionObtenerSeccion(seccion) {
@@ -260,38 +272,28 @@ function SeccionMostrarProductos(data) {
     //    }
     //    //get the first
     //}
-    //Marcación Analytics Más GANADORAS
-    if (data.Seccion.Codigo === CONS_CODIGO_SECCION.MG) {
-        if (varContenedor.CargoMg) {
-            //$.each(data.lista, function (key, value) {
-            //        var dateItem = new Array(value);
-            //        AnalyticsPortalModule.MarcaGenericaLista(data.Seccion.Codigo, dateItem);
-            //        return false;
-            //});
-            //var dateItem = new Array(value);
-            AnalyticsPortalModule.MarcaGenericaLista(data.Seccion.Codigo, data);
-        }
-        //get the first
-    }
+
     var divListadoProductos = htmlSeccion.find(sElementos.listadoProductos);
     if (divListadoProductos.length !== 1) {
         if (data.Seccion !== undefined &&
             (data.Seccion.TipoPresentacion === CONS_TIPO_PRESENTACION.Banners.toString() ||
                 data.Seccion.TipoPresentacion === CONS_TIPO_PRESENTACION.ShowRoom.toString() ||
                 data.Seccion.TipoPresentacion === CONS_TIPO_PRESENTACION.OfertaDelDia.toString())) {
+            console.log(data.Seccion.TipoPresentacion, 'loading fadeOut');
             $("#" + data.Seccion.Codigo).find(".seccion-loading-contenedor").fadeOut();
             $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
         }
         return false;
     }
 
-    data.Seccion.TemplateProducto = $.trim(data.Seccion.TemplateProducto);
-    if (data.Seccion.TemplateProducto === "") {
-        return false;
-    }
-
     if (data.Seccion === undefined)
         return false;
+
+    data.Seccion.TemplateProducto = $.trim(data.Seccion.TemplateProducto);
+    if (data.Seccion.TemplateProducto === ""
+        || data.Seccion.Codigo === undefined) {
+        return false;
+    }
 
     if (data.Seccion.Codigo != undefined) {
         $("#" + data.Seccion.Codigo).find(".seccion-loading-contenedor").fadeOut();
@@ -441,27 +443,45 @@ function SeccionMostrarProductos(data) {
         EstablecerAccionLazyImagen("img[data-lazy-seccion-revista-digital]");
     }
 
-    if (data.Seccion.TipoPresentacion == CONS_TIPO_PRESENTACION.CarruselPrevisuales) {
-        if (isMobile()) {
-            RenderCarruselSimple(htmlSeccion);
-        }
-        else {
-            RenderCarruselPrevisuales(htmlSeccion);
-        }
+    if (data.Seccion.TipoPresentacion == CONS_TIPO_PRESENTACION.CarruselSimple) {
+        RenderCarruselSimple(htmlSeccion, data, CarruselCiclico);
     }
-    else if (data.Seccion.TipoPresentacion == CONS_TIPO_PRESENTACION.CarruselSimple) {
-        RenderCarruselSimple(htmlSeccion, CarruselCiclico);
-    }
+        //else if (data.Seccion.TipoPresentacion == CONS_TIPO_PRESENTACION.CarruselPrevisuales) {
+        //    if (isMobile()) {
+        //        RenderCarruselSimple(htmlSeccion);
+        //    }
+        //    else {
+        //        RenderCarruselPrevisuales(htmlSeccion);
+        //    }
+        //}
     else if (data.Seccion.TipoPresentacion == CONS_TIPO_PRESENTACION.CarruselIndividuales) {
         RenderCarruselIndividuales(htmlSeccion, data);
     }
     else if (data.Seccion.TipoPresentacion == CONS_TIPO_PRESENTACION.carruselIndividualesv2) {
-        RenderCarruselSimpleV2(htmlSeccion, CarruselCiclico, true);
+        RenderCarruselSimpleV2(htmlSeccion, data, CarruselCiclico);
     }
 }
 
+function UpdateSessionState(codigo, campaniaId) {
+    var param = {
+        codigo: codigo,
+        campaniaId: campaniaId,
+    }
+
+    $.ajax({
+        type: "POST",
+        url: baseUrl + "Ofertas/ActualizarSession",
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(param),
+        success: function (data) { },
+        error: function (error, x) { }
+    });
+}
+
+// Ini - Render Carrusel
 function RenderCarruselIndividuales(divProd, data) {
-    
+
     if (typeof divProd == "undefined")
         return false;
 
@@ -489,8 +509,6 @@ function RenderCarruselIndividuales(divProd, data) {
         indexPosCarruselLan = currentSlide;
         //Analytics
         AnalyticsPortalModule.MarcaGenericaLista(data.CodigoPalanca, dateItem, currentSlide);
-
-        EstablecerLazyCarruselAfterChange(divProd.find(sElementos.listadoProductos));
         $(sElementos.listadoProductos + " .slick-active [data-acortartxt] p").removeClass("Acortar2Renglones3puntos");
         $(sElementos.listadoProductos + " .slick-active [data-acortartxt] p").addClass("Acortar2Renglones3puntos");
         $(sElementos.listadoProductos + " .slick-active [data-acortartxt] span").removeClass("Acortar3Renglones3puntos");
@@ -508,100 +526,152 @@ function RenderCarruselIndividuales(divProd, data) {
 
 }
 
-function RenderCarruselPrevisuales(divProd) {
+//function RenderCarruselPrevisuales(divProd) {
+//    if (typeof divProd == "undefined")
+//        return false;
+
+//    EstablecerLazyCarrusel(divProd.find(sElementos.listadoProductos));
+
+//    divProd.find(sElementos.listadoProductos + ".slick-initialized").slick("unslick");
+//    divProd.find(sElementos.listadoProductos).not(".slick-initialized").slick({
+//        lazyLoad: "ondemand",
+//        vertical: false,
+//        dots: false,
+//        infinite: true,
+//        speed: 500,
+//        slidesToShow: 1,
+//        autoplay: true,
+//        autoplaySpeed: 5000,
+//        prevArrow: '<div class="btn-set-previous div-carousel-rd-prev-fix-carousel div-carousel-rd-prev"><img src="" alt="" data-prev="" /><a class="previous_ofertas_ept js-slick-prev"><img src="'
+//            + baseUrl + "Content/Images/RevistaDigital/" + GetArrowNamePrev() + '" alt="" /></a></div>',
+//        nextArrow: '<div class="btn-set-previous div-carousel-rd-next-fix-carousel div-carousel-rd-next"><img src="" alt="" data-prev="" /><a class="previous_ofertas_ept js-slick-next"><img src="'
+//            + baseUrl + "Content/Images/RevistaDigital/" + GetArrowNameNext() + '" alt="" /></a></div>'
+
+//    }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
+//        VerificarClick(slick, currentSlide, nextSlide, "previsuales");
+
+//    }).on("afterChange", function (event, slick, currentSlide) {
+//        EstablecerLazyCarruselAfterChange(divProd.find(sElementos.listadoProductos));
+
+//        var slides = (slick || new Object()).$slides || new Array();
+//        if (slides.length == 0) {
+//            return false;
+//        }
+
+//        var prev = -1, next = slides.length;
+//        $.each(slides, function (ind, item) {
+//            var itemSel = $(item);
+//            if ($(itemSel).hasClass("slick-active")) {
+//                prev = prev < 0 ? ind : prev;
+//                next = prev < 0 ? next : ind;
+//            }
+//        });
+
+//        prev = prev == 0 ? slides.length - 1 : (prev - 1);
+//        next = next == slides.length - 1 ? 0 : (next + 1);
+
+//        var imgPrevia = $.trim($(slides[prev]).attr("data-ImgPrevia"));
+//        slick.$prevArrow.find("img[data-prev]").attr("src", imgPrevia);
+//        if (imgPrevia == "") {
+//            slick.$prevArrow.find("img[data-prev]").hide();
+//        }
+//        else {
+//            slick.$prevArrow.find("img[data-prev]").show();
+//        }
+//        imgPrevia = $.trim($(slides[next]).attr("data-ImgPrevia"));
+//        slick.$nextArrow.find("img[data-prev]").attr("src", imgPrevia);
+//        if (imgPrevia == "") {
+//            slick.$nextArrow.find("img[data-prev]").hide();
+//        }
+//        else {
+//            slick.$nextArrow.find("img[data-prev]").show();
+//        }
+//    });
+//}
+
+function RenderCarruselSimple(divProd, data, cc) {
+
     if (typeof divProd == "undefined")
         return false;
 
-    EstablecerLazyCarrusel(divProd.find(sElementos.listadoProductos));
-
-    divProd.find(sElementos.listadoProductos + ".slick-initialized").slick("unslick");
-    divProd.find(sElementos.listadoProductos).not(".slick-initialized").slick({
-        lazyLoad: "ondemand",
-        vertical: false,
-        dots: false,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 1,
-        autoplay: true,
-        autoplaySpeed: 5000,
-        prevArrow: '<div class="btn-set-previous div-carousel-rd-prev-fix-carousel div-carousel-rd-prev"><img src="" alt="" data-prev="" /><a class="previous_ofertas_ept js-slick-prev"><img src="' + baseUrl + "Content/Images/RevistaDigital/" + GetArrowNamePrev() + '" alt="" /></a></div>',
-        nextArrow: '<div class="btn-set-previous div-carousel-rd-next-fix-carousel div-carousel-rd-next"><img src="" alt="" data-prev="" /><a class="previous_ofertas_ept js-slick-next"><img src="' + baseUrl + "Content/Images/RevistaDigital/" + GetArrowNameNext() + '" alt="" /></a></div>'
-    }).on("afterChange", function (event, slick, currentSlide) {
-        EstablecerLazyCarruselAfterChange(divProd.find(sElementos.listadoProductos));
-
-        var slides = (slick || new Object()).$slides || new Array();
-        if (slides.length == 0) {
-            return false;
-        }
-
-        var prev = -1, next = slides.length;
-        $.each(slides, function (ind, item) {
-            var itemSel = $(item);
-            if ($(itemSel).hasClass("slick-active")) {
-                prev = prev < 0 ? ind : prev;
-                next = prev < 0 ? next : ind;
-            }
-        });
-
-        prev = prev == 0 ? slides.length - 1 : (prev - 1);
-        next = next == slides.length - 1 ? 0 : (next + 1);
-
-        var imgPrevia = $.trim($(slides[prev]).attr("data-ImgPrevia"));
-        slick.$prevArrow.find("img[data-prev]").attr("src", imgPrevia);
-        if (imgPrevia == "") {
-            slick.$prevArrow.find("img[data-prev]").hide();
-        }
-        else {
-            slick.$prevArrow.find("img[data-prev]").show();
-        }
-        imgPrevia = $.trim($(slides[next]).attr("data-ImgPrevia"));
-        slick.$nextArrow.find("img[data-prev]").attr("src", imgPrevia);
-        if (imgPrevia == "") {
-            slick.$nextArrow.find("img[data-prev]").hide();
-        }
-        else {
-            slick.$nextArrow.find("img[data-prev]").show();
-        }
-    }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
-        VerificarClick(slick, currentSlide, nextSlide, "previsuales");
-    });
-}
-
-function RenderCarruselSimple(divProd, cc) {
-
-
-    if (typeof divProd == "undefined")
-        return false;
-
+    var seccionName = data.Seccion.Codigo;
 
     EstablecerLazyCarrusel(divProd.find(sElementos.listadoProductos));
-
+    var esMobile = isMobile();
+    var slidesToShow = esMobile ? 1 : 3;
     divProd.find(sElementos.listadoProductos + ".slick-initialized").slick("unslick");
     divProd.find(sElementos.listadoProductos).not(".slick-initialized").slick({
         lazyLoad: "ondemand",
         infinite: cc == undefined ? true : cc,
         vertical: false,
-        slidesToShow: isMobile() ? 1 : 3,
+        slidesToShow: slidesToShow,
         slidesToScroll: 1,
         autoplay: false,
-        variableWidth: !isMobile(),
+        variableWidth: !esMobile,
         speed: 260,
         prevArrow: '<a  class="prevArrow" style="display: block;left: 0;margin-left: -5%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_black_compra.png")" alt="" /></a>',
         nextArrow: '<a  class="nextArrow" style="display: block;right: 0;margin-right: -5%; text-align: right; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_black_compra.png")" alt="" /></a>'
     }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
-        VerificarClick(slick, currentSlide, nextSlide, "normal");
-    }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
+        //VerificarClick(slick, currentSlide, nextSlide, "normal");
 
-        EstablecerLazyCarruselAfterChange(divProd.find(sElementos.listadoProductos));
-
+        CarruselAyuda.MarcarAnalyticsContenedor(2, null, seccionName, slick, currentSlide, nextSlide);
     });
 
     divProd.find(sElementos.listadoProductos).css("overflow-y", "visible");
 
+    console.log('RenderCarruselSimple', data.Seccion.Codigo, data);
+    CarruselAyuda.MarcarAnalyticsContenedor(1, data, seccionName, null, slidesToShow);
+    //AnalyticsPortalModule.MarcaGenericaLista(data.Seccion.Codigo, data, slidesToShow); // Inicio RenderCarruselSimple
+}
+
+function RenderCarruselSimpleV2(divProd, data, cc) {
+    if (typeof divProd == "undefined")
+        return false;
+
+    var seccionName = data.Seccion.Codigo;
+
+    divProd.find(sElementos.listadoProductos).attr("class", "contenedor_carrusel");
+
+    EstablecerLazyCarrusel(divProd.find(sElementos.listadoProductos));
+    var esMobile = isMobile();
+    var slidesToShow = esMobile ? 2 : 3;
+    divProd.find(sElementos.listadoProductos + ".slick-initialized").slick("unslick");
+    divProd.find(sElementos.listadoProductos).not(".slick-initialized").slick({
+        lazyLoad: "ondemand",
+        infinite: cc == undefined ? true : cc,
+        vertical: false,
+        slidesToShow: slidesToShow,
+        slidesToScroll: 1,
+        autoplay: false,
+        variableWidth: true,
+        speed: 260,
+        arrows: !esMobile,
+        prevArrow: '<a class="prevArrow" style="display: block;left: 0;margin-left: -5%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_black_compra.png")" alt="" /></a>',
+        nextArrow: '<a class="nextArrow" style="display: block;right: 0;margin-right: -5%; text-align: right; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_black_compra.png")" alt="" /></a>'
+    }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
+        //VerificarClick(slick, currentSlide, nextSlide, "normal", seccionName);
+
+        CarruselAyuda.MarcarAnalyticsContenedor(2, null, seccionName, slick, currentSlide, nextSlide);
+
+    }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
+        if (!cc) {
+            ShowOrHide_Arrows(event, slick, currentSlide);
+        }
+    });
+
+    divProd.find(sElementos.listadoProductos).css("overflow-y", "visible");
+
+    if (!cc) {
+        $('.prevArrow').hide();
+    }
+
+    console.log('RenderCarruselSimpleV2', data.Seccion.Codigo, data);
+    CarruselAyuda.MarcarAnalyticsContenedor(1, data, seccionName, null, slidesToShow);
+    //AnalyticsPortalModule.MarcaGenericaLista(data.Seccion.Codigo, data, slidesToShow); // Inicio RenderCarruselSimpleV2
 }
 
 function ShowOrHide_Arrows(event, slick, currentSlide) {
-    console.log('ShowOrHide_Arrows', event, slick, currentSlide);
+
     var objPrevArrow = $(event.target).find('.prevArrow')[0];
     var objNextArrow = $(event.target).find('.nextArrow')[0];
     var objVisorSlick = $(event.target).find('.slick-list')[0];
@@ -650,30 +720,12 @@ function ShowOrHide_Arrows(event, slick, currentSlide) {
     $(slick.$list).attr('data-currentSlide', currentSlide);
 
 }
-//Función para marcar los productos en el carrusel de una palanca (en este caso Mas Ganadoras - MG)
 
-function MarcarProductos_Arrows(event, slick, currentSlide, seccionName) {
-
-    if (seccionName === ConstantesModule.TipoEstrategia.MG) {
-        var pos = isMobile() ? 1 : 2;
-        var slideToMark = currentSlide + pos;
-        var item = $(event.target).find('[data-slick-index]')[slideToMark];
-        var data = $($(item).find("[data-estrategia]")[0]).data("estrategia");
-        data = data || "";
-        if (data !== "") {
-            data.lista = Array(data);
-            if (typeof AnalyticsPortalModule !== "undefined") {
-                AnalyticsPortalModule.MarcaGenericaLista(seccionName, data);
-            }
-        }
-    }
+// Fin - Render Carrusel
 
 
-    //if (anchoFalta > $(slick.$list).width()) {
-    //var currentSlideback = $(slick.$list).attr('data-currentSlide') || $(slick.$list).attr('data-currentslide') || "";  
-    //$(slick.$list).attr('data-currentSlide', currentSlide);
+// Ini - Render Carrusel Analytics
 
-}
 //Función que llama la la funcion de marcacion analytics cuando se visualiza el ultimo botón dorado de "ver más"
 function marcaAnalyticsViewVerMas() {
     if (typeof AnalyticsPortalModule !== "undefined") {
@@ -681,93 +733,58 @@ function marcaAnalyticsViewVerMas() {
     }
 }
 
-function RenderCarruselSimpleV2(divProd, cc, vw) {
-    var seccionName = divProd.data("seccion") || "";
-    if (typeof divProd == "undefined")
-        return false;
+//function GetArrowNamePrev() {
+//    if (isMobile()) return "previous_mob.png";
+//    else return "previous.png";
+//}
 
-    vw = vw || true;
+//function GetArrowNameNext() {
+//    if (isMobile()) return "next_mob.png";
+//    else return "next.png";
+//}
 
-    divProd.find(sElementos.listadoProductos).attr("class", "contenedor_carrusel");
+// Fin - Render Carrusel Analytics
 
-    EstablecerLazyCarrusel(divProd.find(sElementos.listadoProductos));
-    var esMobile = isMobile();
-    divProd.find(sElementos.listadoProductos + ".slick-initialized").slick("unslick");
-    divProd.find(sElementos.listadoProductos).not(".slick-initialized").slick({
-        lazyLoad: "ondemand",
-        infinite: cc == undefined ? true : cc,
-        vertical: false,
-        slidesToShow: esMobile ? 2 : 3,
-        slidesToScroll: 1,
-        autoplay: false,
-        variableWidth: vw,
-        speed: 300,
-        arrows: !esMobile,
-        prevArrow: '<a  class="prevArrow" style="display: block;left: 0;margin-left: -5%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_black_compra.png")" alt="" /></a>',
-        nextArrow: '<a  class="nextArrow" style="display: block;right: 0;margin-right: -5%; text-align: right; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_black_compra.png")" alt="" /></a>'
-    }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
-        //VerificarClick(slick, currentSlide, nextSlide, "normal");
-
-        VerificarClick(slick, currentSlide, nextSlide, "normal", seccionName);
-    }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
-        console.log(cc);
-        if (!cc) {
-            ShowOrHide_Arrows(event, slick, currentSlide);
-            MarcarProductos_Arrows(event, slick, currentSlide, seccionName);
-        }
-        EstablecerLazyCarruselAfterChange(divProd.find(sElementos.listadoProductos));
-    });
-
-    divProd.find(sElementos.listadoProductos).css("overflow-y", "visible");
-
-
-    if (!cc) {
-        $('.prevArrow').hide();
-    }
-}
-
-function GetArrowNamePrev() {
-    if (isMobile()) return "previous_mob.png";
-    else return "previous.png";
-}
-
-function GetArrowNameNext() {
-    if (isMobile()) return "next_mob.png";
-    else return "next.png";
-}
-
-function UpdateSessionState(codigo, campaniaId) {
-    var param = {
-        codigo: codigo,
-        campaniaId: campaniaId,
-    }
-
-    $.ajax({
-        type: "POST",
-        url: baseUrl + "Ofertas/ActualizarSession",
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        data: JSON.stringify(param),
-        success: function (data) { },
-        error: function (error, x) { }
-    });
-}
-
-function VerificarSecciones() {
-    var visibles = $(".seccion-estrategia-contenido").children(":visible").length;
-    if (visibles == 0) {
-        $("#no-productos").fadeIn();
-    }
-}
-
+// Ini - Metodo para virtualEvent 
 function VerificarClick(slick, currentSlide, nextSlide, source, seccionName) {
+    if ((currentSlide > nextSlide && (nextSlide !== 0 || currentSlide === 1))
+        || (currentSlide === 0 && nextSlide === slick.slideCount - 1)) {
+        CheckClickCarrousel("prev", source, seccionName);
+    }
+    else {
+        CheckClickCarrousel("next", source, seccionName);
+    }
+}
 
-    if (typeof CheckClickCarrousel !== "undefined" && typeof CheckClickCarrousel === "function") {
-        if ((currentSlide > nextSlide && (nextSlide !== 0 || currentSlide === 1)) || (currentSlide === 0 && nextSlide === slick.slideCount - 1)) {
-            CheckClickCarrousel("prev", source, seccionName);
-        }
-        else {
-            CheckClickCarrousel("next", source, seccionName);
+function CheckClickCarrousel(action, source, seccionName) {
+    var sliderWay = 0;
+    if (action === "next") {
+        sliderWay = 1;
+    } else {
+        sliderWay = 2;
+    }
+
+    var clickedSlider = 0;
+    if (source === "normal") {
+        clickedSlider = 1;
+    }
+
+    CallAnalitycsClickArrow(seccionName, sliderWay, clickedSlider);
+}
+
+function CallAnalitycsClickArrow(seccionName, sliderWay, clickedSlider) {
+
+    if (sliderWay !== 0 && clickedSlider !== 0) {
+        if (seccionName === "MG") {
+            if (typeof AnalyticsPortalModule !== "undefined") {
+                AnalyticsPortalModule.ClickArrowMG(sliderWay);
+            }
+        } else {
+            if (typeof rdAnalyticsModule !== "undefined") {
+                rdAnalyticsModule.ClickArrowLan(sliderWay);
+            }
         }
     }
 }
+
+// Fin - Metodo para virtualEvent
