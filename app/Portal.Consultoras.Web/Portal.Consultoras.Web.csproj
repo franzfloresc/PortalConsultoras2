@@ -1466,6 +1466,7 @@
     <Content Include="Content\Images\Buscador\product-iphone.png" />
     <Content Include="Content\Images\carrusel_n_blanco.png" />
     <Content Include="Content\Images\carrusel_p_blanco.png" />
+    <Content Include="Content\Images\click-icon-white.svg" />
     <Content Include="Content\Images\colorpicker\blank.gif" />
     <Content Include="Content\Images\colorpicker\colorpicker_background.png" />
     <Content Include="Content\Images\colorpicker\colorpicker_hex.png" />
