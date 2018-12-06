@@ -566,10 +566,17 @@ function MostrarBarra(datax, destino) {
         tipoMensaje = "TippingPointMobile";
     }
 
+
+    if (belcorp.barra.settings.isMobile) {//V&& tp > 0  OG
+        $('#montoPremioMeta').html(variablesPortal.SimboloMoneda + " " + dataBarra.TippingPointStr);
+        cargarMontoBanderasMobile(dataBarra);
+    }
+
     listaMensajeMeta = listaMensajeMeta || new Array();
     var objMsg = listaMensajeMeta.Find("TipoMensaje", tipoMensaje)[0] || new Object();
     objMsg.Titulo = $.trim(objMsg.Titulo);
     objMsg.Mensaje = $.trim(objMsg.Mensaje);
+
     if (objMsg.Titulo == "" && objMsg.Mensaje == "") {
         $("#divBarra #divBarraMensajeLogrado").hide();
         return false;
@@ -580,11 +587,7 @@ function MostrarBarra(datax, destino) {
     $("#divBarra #divBarraMensajeLogrado").show();
     $("#divBarra #divBarraMensajeLogrado .mensaje_barra").html(objMsg.Titulo.replace("#porcentaje", valPor).replace("#valor", valorMonto));
 
-    if (belcorp.barra.settings.isMobile && tp > 0 || ConfiguradoRegalo==true ) {
-        $('#montoPremioMeta').html(variablesPortal.SimboloMoneda + " " + dataBarra.TippingPointStr);
-        cargarMontoBanderasMobile(dataBarra);
-
-    }
+    
 
     if (tpRegaloMobileShow) {
         $('#hrefIconoRegalo').show();
@@ -963,20 +966,61 @@ function CalculoLlenadoBarra() {
     }
     else
     { /// se trata como escala de descuento
-           var escala = 0; 
-           var lista = dataBarra.ListaEscalaDescuento;          
-            for (var i = 0; i < lista.length; i++)
-            {
-                if (montoActual < dataBarra.ListaEscalaDescuento[i].MontoDesde) {
-                    escala = dataBarra.ListaEscalaDescuento[i].MontoDesde;
-                    AvancePorcentaje = CalculoPorcentajeAvance(montoActual, escala);
-                    break;
-                }
-                else if (montoActual > dataBarra.ListaEscalaDescuento[i].MontoDesde){
-                    AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoActual);
-                }  
-                
+
+        if (ConfiguradoRegalo == true) {
+            if (montoActual < montoMinimo) {
+                AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMinimo);
             }
+            else {
+
+                var escala = 0;
+                var lista = dataBarra.ListaEscalaDescuento;
+                for (var i = 0; i < lista.length; i++) {
+                    if (montoActual < dataBarra.ListaEscalaDescuento[i].MontoDesde) {
+                        escala = dataBarra.ListaEscalaDescuento[i].MontoDesde;
+                        AvancePorcentaje = CalculoPorcentajeAvance(montoActual, escala);
+                        break;
+                    }
+                    else if (montoActual > dataBarra.ListaEscalaDescuento[i].MontoDesde) {
+                        AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoActual);
+                    }
+
+                }
+
+
+            }
+
+        }
+        else {
+
+            if (montoActual < montoMinimo) {
+                AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMinimo);
+            }
+            else {
+
+
+                    var escala = 0;
+                    var lista = dataBarra.ListaEscalaDescuento;
+                    for (var i = 0; i < lista.length; i++) {
+                        if (montoActual < dataBarra.ListaEscalaDescuento[i].MontoDesde) {
+                            escala = dataBarra.ListaEscalaDescuento[i].MontoDesde;
+                            AvancePorcentaje = CalculoPorcentajeAvance(montoActual, escala);
+                            break;
+                        }
+                        else if (montoActual > dataBarra.ListaEscalaDescuento[i].MontoDesde) {
+                            AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoActual);
+                        }
+
+                    }
+
+
+            }
+
+        }
+
+
+
+           
       
     }
     return AvancePorcentaje;
@@ -1235,8 +1279,59 @@ function CalculoPosicionMinimoMaximo() {
         else {
             if (montoActual < montoMinimo) {
 
+                PosicionMontoMinimo = montoMinimo * 100 / montoMinimo;
+
+                document.getElementById('lineaPosicionMontoMinimo').style.display = 'block';
+                document.getElementById('MontoMinimoBloque').style.display = 'block';
+                document.getElementById('lineaPosicionMontoMinimo').style.left = (PosicionMontoMinimo) + '%';
+                document.getElementById('MontoMinimoBloque').style.left = '';
+                document.getElementById('MontoMinimoBloque').style.right = '-13px';
+
+                document.getElementById('lineaPosicionMontoMaximo').style.display = 'none';
+                document.getElementById('MontoMaximoBloque').style.display = 'none';
+                
+
+                
             }
             else {
+
+                document.getElementById('lineaPosicionMontoMinimo').style.display = 'block';
+                document.getElementById('MontoMinimoBloque').style.display = 'block';
+
+                document.getElementById('lineaPosicionMontoMaximo').style.display = 'block';
+                document.getElementById('lineaPosicionMontoMaximo').style.left = "";
+                document.getElementById('MontoMaximoBloque').style.display = "block";
+
+
+                    var escala = 0;
+                    var lista = dataBarra.ListaEscalaDescuento;
+                    for (var i = 0; i < lista.length; i++) {
+                        if (montoActual < dataBarra.ListaEscalaDescuento[i].MontoDesde) {
+                            //escala = dataBarra.ListaEscalaDescuento[i].MontoDesde;
+                            escala = dataBarra.ListaEscalaDescuento[i].PorDescuento;
+                            PosicionMontoMinimo = montoMinimo * 100 / dataBarra.ListaEscalaDescuento[i].MontoDesde;
+                            document.getElementById('MontoMinimoBloque').style.right = "";
+                            document.getElementById('MontoMinimoBloque').style.left = (PosicionMontoMinimo - 8) + '%';// 
+                            document.getElementById('lineaPosicionMontoMinimo').style.display = 'block';
+                            document.getElementById('lineaPosicionMontoMinimo').style.left = (PosicionMontoMinimo) + '%';
+
+                            document.getElementById('MontoMaximoBloque').innerHTML = escala + "%  DSCTO!";
+                            document.getElementById('MontoMaximoBloque').style.top = "5px";
+                            document.getElementById('lineaPosicionMontoMaximo').style.display = 'block';
+
+                            document.getElementById('hrefIconoRegalo').style.left = (PosicionMontoMinimo - 4) + '%';
+                            document.getElementById('hrefIconoRegalo').style.display = 'block';
+
+
+                            break;
+                        }
+                        else if (montoActual > dataBarra.ListaEscalaDescuento[i].MontoDesde) {
+                            document.getElementById('lineaPosicionMontoMaximo').style.display = 'None';
+                            document.getElementById('MontoMaximoBloque').innerHTML = "";
+                        }
+
+                }
+
 
             }
 
