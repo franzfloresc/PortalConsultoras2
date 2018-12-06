@@ -491,18 +491,15 @@ var AnalyticsPortalModule = (function () {
 
             if (data.Direccion != undefined) {
 
-                var paramlabel = "Ver anterior";
+                var paramlabel = "Flecha Anterior";
                 if (data.Direccion == CarruselVariable.Direccion.next) {
-                    paramlabel = "Ver siguiente";
+                    paramlabel = "Flecha Siguiente";
                 }
 
-                var palanca = _getTextoPalancaSegunOrigen(data.Origen);
-                var pagina = _getTextoPaginaSegunOrigen(data.Origen);
-                
                 dataLayer.push({
                     'event': "virtualEvent",
-                    'category': pagina,
-                    'action': palanca,
+                    'category': parametroList,
+                    'action': "Flecha de Productos",
                     'label': paramlabel
                 });
             }
