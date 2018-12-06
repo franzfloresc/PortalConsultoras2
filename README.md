@@ -6,3 +6,5 @@ Ramas:
 PI2-EPM-Sprint4-OddTipos
 PI2-EPM-Sprint4-PromotionViewLan
 PI2-EPM-Sprint4-AddToCarts
+PI2-EPM-Sprint4-AnalyticsReserva
+
