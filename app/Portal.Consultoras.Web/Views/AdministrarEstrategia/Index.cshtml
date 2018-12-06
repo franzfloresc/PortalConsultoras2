@@ -652,8 +652,13 @@
             urlUploadFileStrategyShowroom: '@Url.Action("UploadFileSetStrategyShowroom", "AdministrarEstrategia")',
             urlUploadFileProductStrategyShowroom: '@Url.Action("UploadFileProductStrategyShowroom", "AdministrarEstrategia")',
             urlCargarArbolRegionesZonas: '@Url.Action("CargarArbolRegionesZonas", "AdministrarEstrategia")',
-            rutastylejstree: '@Url.Content("~/Content/Css/jstree/apple/stylejstree.css")'
+            rutastylejstree: '@Url.Content("~/Content/Css/jstree/apple/stylejstree.css")',
             // SHOWROOM-FIN
+
+            //Configuracion Microservicios-INI
+            microserviciosEstrategias: '@ViewBag.MsEstrategias',
+            microserviciosPaises: '@ViewBag.MsPaises'
+            //Configuracion Microservicios-FIN
         });
 
         adminEstrategiaModule.Inicializar();
