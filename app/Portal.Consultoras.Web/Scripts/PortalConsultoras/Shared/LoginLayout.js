@@ -273,7 +273,8 @@ function LocalStorageLimpiar() {
         var itemSBTokenPedido = localStorage.getItem('SBTokenPedido');
         var itemChatEConnected = localStorage.getItem('connected');
         var itemChatEConfigParams = localStorage.getItem('ConfigParams');
-        var itemSurvicateStorage = localStorage.getItem('SurvicateStorage');
+        //var itemSurvicateStorage = localStorage.getItem('SurvicateStorage');
+        var itemSurvicateStorage = GetItemLocalStorageSurvicate();
         localStorage.clear();
 
         if (typeof (itemSBTokenPais) !== 'undefined' && itemSBTokenPais !== null) {
@@ -293,15 +294,27 @@ function LocalStorageLimpiar() {
         }
 
         if (typeof (itemSurvicateStorage) !== 'undefined' && itemSurvicateStorage !== null) {
-            localStorage.setItem('SurvicateStorage', itemSurvicateStorage);
+            SetItemLocalStorageSurvicate(itemSurvicateStorage);
+            //localStorage.setItem('SurvicateStorage', itemSurvicateStorage);
         }
 
     }
 
+    function GetItemLocalStorageSurvicate() {
+        var surviKeys = {};
+        for (var key in localStorage) {
+            if (key.indexOf('survi::') > -1)
+                surviKeys[key] = localStorage[key];
+        }
+        return surviKeys;
+    }
     function SetItemLocalStorageSurvicate(storage) {
-        storage = (storage == null || storage =="") ? {} : jQuery.parseJSON(storage);
-        for (var key in storage) {
-            localStorage.setItem(key, storage[key]);
+
+        if (typeof storage !== 'undefined' && typeof storage === 'object') {
+            for (var key in storage) {
+                if (storage.hasOwnProperty(key))
+                    localStorage.setItem(key, storage[key]);
+            }
         }
     }
 };
