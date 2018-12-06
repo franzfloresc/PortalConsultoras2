@@ -216,10 +216,12 @@ else
                         </fieldset>
                         <fieldset class="grupo_form_cambio_datos">
                             <div class="w-100">
-                                <input id="txtReferencia" name="txtReferencia" class="w-100" type="text" value="" />
+                                <input id="txtReferencia" name="txtReferencia" class="w-100 campo_referencia" type="text" value="" />
                                 <label for="txtReferencia" class="w-100">
                                     Referencia
                                 </label>
+                                <a class="enlace_abrir_mapa" title="Abrir Mapa">
+                                </a>
                             </div>
                         </fieldset>
                     </div>
@@ -257,15 +259,6 @@ else
                         <label for="chkAceptoContratoMD" class="checkbox_condiciones_label"></label>
                     </fieldset>
                 </div>
-                @*<div class="checkbox_condiciones">
-                    <input type="checkbox" name="chkAceptoContratoMD" id="chkAceptoContratoMD" />
-                    <label for="chkAceptoContratoMD" class="texto_terminosCondiciones">
-                        <span class="asterisco_actualizar_datos">(*)&nbsp;</span>
-                        <span>
-                            Estoy de acuerdo con los <span><a href="javascript:;" id="hrefTerminosMD" target="_blank">términos y condiciones</a></span> sobre Protección de datos personales
-                        </span>
-                    </label>
-                </div>*@
             </div>
             @if (Model.PaisID == Constantes.PaisID.Colombia)
             {

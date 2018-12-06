@@ -163,7 +163,8 @@
 .titulo_correo_pendiente_confirmacion,
 .permisos_cuenta_wrapper,
 .permisos_cuenta_titulo,
-.permisos_cuenta_opciones
+.permisos_cuenta_opciones,
+.enlace_abrir_mapa
 {
     display:block;
 }
@@ -460,10 +461,6 @@
         transition: all 0.2s ease;
     }
 
-    /*.grupo_form_cambio_datos input[disabled]{
-        background-color:#FFF;
-    }*/
-
     .grupo_form_cambio_datos input,
     .grupo_form_cambio_datos select
     {
@@ -487,6 +484,34 @@
     .grupo_form_cambio_datos select
     {
         font-weight:bold!important;
+    }
+
+    .grupo_form_cambio_datos select,
+    .enlace_abrir_mapa
+    {
+        background-repeat:no-repeat;
+        background-position:97.5% center;
+    }
+
+    .grupo_form_cambio_datos select{
+        -moz-appearance:none;
+        -webkit-appearance:none;
+        background-image:url(/Content/Images/icono_campos_select_mi_perfil.svg);
+    }
+
+    .grupo_form_cambio_datos_campo_referencia{
+        position:relative;
+    }
+
+    .enlace_abrir_mapa{
+        position: absolute;
+        margin: auto 0;
+        top: 18px;
+        bottom: 0;
+        right: 4px;
+        width: 18px;
+        height: 18px;
+        background-image:url(/Content/Images/icono_localizacion.svg);
     }
 
     .grupo_form_cambio_datos input:focus + label,
@@ -570,7 +595,11 @@
     margin-bottom:33px;
 }
 
-.permisos_cuenta_titulo{
+.permisos_cuenta_titulo,
+.checkbox_condiciones_descripcion,
+.checkbox_condiciones_descripcion a,
+.terminos_y_condiciones_wrapper ~ .datos_obligatorios
+{
     color:#808080;
 }
 
