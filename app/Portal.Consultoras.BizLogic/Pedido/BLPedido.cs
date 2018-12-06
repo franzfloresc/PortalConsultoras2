@@ -1953,7 +1953,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                                 PedidoID = obePedidoWebDetalle.PedidoID,
                                 CampaniaID = obePedidoWebDetalle.CampaniaID,
                                 PedidoDetalleID = obePedidoWebDetalle.PedidoDetalleID,
-                                IndicadorIPUsuario = obePedidoWebDetalle.IPUsuario,
+                                IndicadorIPUsuario = pedidoDetalle.IPUsuario,
                                 IndicadorFingerprint = string.Empty,
                                 IndicadorToken = string.IsNullOrEmpty(pedidoDetalle.Identifier) ? string.Empty : AESAlgorithm.Encrypt(pedidoDetalle.Identifier)
                             };
