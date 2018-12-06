@@ -922,7 +922,7 @@ function showPopupEscalaSiguiente(dataBarra, prevLogro) {
 }
 
 
-var ConfiguradoRegalo = true;
+var ConfiguradoRegalo = dataBarra.TippingPointBarra.InMinimo;
 function CalculoLlenadoBarra() {
     var TippingPointBarraActive = dataBarra.TippingPointBarra.Active;
     var montoMaximo = dataBarra.MontoMaximo;
