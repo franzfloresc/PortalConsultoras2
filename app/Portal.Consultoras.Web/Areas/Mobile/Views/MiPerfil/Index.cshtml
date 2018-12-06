@@ -78,12 +78,12 @@ else
                     </div>
                 </div>
                 @*@if (Model.NombreGerenteZonal != "" && Model.IndicadorConsultoraDigital == 0)
-                {
-                    <div class="datos_gerente_zona">
-                        <span class="w-50 text-left">Gerente de zona : </span>
-                        <span class="w-50 text-right text-bold">@Model.NombreGerenteZonal</span>
-                    </div>
-                }*@
+                    {
+                        <div class="datos_gerente_zona">
+                            <span class="w-50 text-left">Gerente de zona : </span>
+                            <span class="w-50 text-right text-bold">@Model.NombreGerenteZonal</span>
+                        </div>
+                    }*@
                 <a href="@Url.Action("CambiarContrasenia", "MiPerfil", new {area = "Mobile"})" title="Cambiar contraseña" class="enlace_cambiar_contrasenia_consultora text-center text-bold text-uppercase">
                     <span class="icono_cambio_password"></span>
                     <span class="enlace_texto">Cambiar contraseña</span>
@@ -287,8 +287,32 @@ else
         </div>
     </section>
 </div>
+<!-- POPUP MAPA -->
+<div class="fondo_popup_ubicacion_direccion_entrega">
+    <div class="popup_ubicacion_direccion_entrega">
+        <div class="popup_ubicacion_direccion_entrega_cabecera">
+            <h3 class="popup_ubicacion_direccion_entrega_titulo">
+                Verifica tu ubicación
+            </h3>
+            <p class="popup_ubicacion_direccion_texto">
+                Puedes mover el marcador y el mapa para editar tu ubicación
+            </p>
+        </div>
+        <div class="popup_ubicacion_direccion_entrega_contenido">
+            <div class="mapa_wrapper">
+                <div class="mapouter">
+                    <div class="gmap_canvas">
+                        <iframe width="100%" height="360" id="gmap_canvas" src="https://maps.google.com/maps?q=Belcorp&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+                    </div>
+                </div>
+                <button type="button" class="confirmar_ubicacion_direccion_entrega text-uppercase">
+                    Confirmar
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- FIN - POPUP MAPA -->
 
-
-@section scripts{
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/MiPerfil/Index.js")"></script>
-}
+    @section scripts{
+        <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/MiPerfil/Index.js")"></script>
+    }
