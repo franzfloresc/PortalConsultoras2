@@ -179,7 +179,7 @@ var OfertaDelDiaModule = function () {
             Palanca: ConstantesModule.OrigenPedidoWebEstructura.Palanca.OfertaDelDia,
             Seccion: ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel
         };
-        CarruselAyuda.MarcarAnalyticsInicio("#divOddCarrusel", data.ListaOferta, origen);// Home Pedido
+        CarruselAyuda.MarcarAnalyticsInicio("#divOddCarrusel", data.ListaOferta, origen, 3);// Home Pedido
     };
 
     var MostrarRelojOfertaDelDia = function (totalSegundos) {
@@ -385,7 +385,6 @@ var OfertaDelDiaModule = function () {
                 $(contenedorOfertas).show();
 
                 ConfigurarCarruselProductos(contenedorOfertas, _data.CantidadProductos);
-
 
                 if (setColorTexto !== "") {
                     $(".clase_control_color_dinamico").css("color", setColorTexto);

@@ -62,7 +62,7 @@ var CarruselAyuda = function () {
     }
 
     var _obtenerEstrategiaLiquidacion = function (objMostrar) {
-        estrategia = "";
+        var estrategia = "";
         var recomendado = arrayLiquidaciones[objMostrar.IndexMostrar] || {};
         if (recomendado.PrecioOferta != null || recomendado.PrecioOferta != undefined) {
             estrategia = {
@@ -100,14 +100,14 @@ var CarruselAyuda = function () {
                 var arrayEstrategia = [];
                 for (var i = 0; i < cantActive; i++) {
                     var recomendado = arrayItems[i];
-                    recomendado.Posicion = i;
-                    if (origen.Palanca == ConstantesModule.OrigenPedidoWebEstructura.Palanca.Liquidacion)
-                    {
-                        recomendado.CUV2 = recomendado.CUV;
-                        recomendado.PrecioVenta = recomendado.PrecioString;
+                    if (recomendado != undefined) {
+                        recomendado.Posicion = i;
+                        if (origen.Palanca == ConstantesModule.OrigenPedidoWebEstructura.Palanca.Liquidacion) {
+                            recomendado.CUV2 = recomendado.CUV;
+                            recomendado.PrecioVenta = recomendado.PrecioString;
+                        }
+                        arrayEstrategia.push(recomendado);
                     }
-
-                    arrayEstrategia.push(recomendado);
                 }
                 var obj = {
                     lista: arrayEstrategia,
@@ -368,7 +368,7 @@ var CarruselModule = (function (config) {
                         }
                     }
                 ]
-            }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
+            }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
                 _marcarAnalytics(2, null, slick, currentSlide, nextSlide);
             });
         }
@@ -852,7 +852,7 @@ function MarcarAnalyticsInicioHomePedido(arrayItems) {
         Palanca: ConstantesModule.OrigenPedidoWebEstructura.Palanca.OfertasParaTi,
         Seccion: ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel
     };
-    
+
     CarruselAyuda.MarcarAnalyticsInicio("#divListadoEstrategia", arrayItems, origen);
 }
 
@@ -918,7 +918,7 @@ function ArmarCarouselLiquidaciones(data) {
     });
 
     CarruselAyuda.MarcarAnalyticsLiquidacion(1, data, null, 1);
-    
+
     $(".js-slick-prev-liq").insertBefore('#divCarruselLiquidaciones').hide();
     $(".js-slick-next-liq").insertAfter('#divCarruselLiquidaciones');
 }
