@@ -10,5 +10,6 @@ namespace Portal.Consultoras.Web.Models
         public string ExtensionImgMedium { get; set; }
         public string ImgUrlBase { get; set; }
         public string SimboloMoneda { get; set; }
+        public string PaisISO { get; set; }
     }
 }
