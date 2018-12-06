@@ -17,7 +17,6 @@ namespace Portal.Consultoras.Web.Controllers
     public class AdministrarReporteRevisionIncidenciasController : BaseController
     {
         protected string _dbdefault = "dbdefault";
-        private const string MensajeNoHayRegistros = "No existen registros para la campaña.";
 
         protected OfertaBaseProvider _ofertaBaseProvider;
 
