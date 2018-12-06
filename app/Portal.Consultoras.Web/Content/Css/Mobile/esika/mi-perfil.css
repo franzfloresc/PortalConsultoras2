@@ -511,6 +511,7 @@
         width: 18px;
         height: 18px;
         background-image:url(/Content/Images/icono_localizacion.svg);
+        z-index:3000;
     }
 
     .grupo_form_cambio_datos input:focus + label,
