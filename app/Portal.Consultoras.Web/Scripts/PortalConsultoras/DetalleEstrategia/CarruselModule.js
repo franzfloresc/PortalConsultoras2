@@ -9,6 +9,7 @@
     }
 }();
 
+// para ayuda en consola
 var _slick = null;
 
 var CarruselAyuda = function () {
@@ -74,7 +75,7 @@ var CarruselAyuda = function () {
         }
         return estrategia;
     }
-    
+
     var marcarAnalyticsInicio = function (idHtmlSeccion, arrayItems, origen, slidesToShow) {
         try {
             console.log('marcarAnalyticsInicio - inicio', idHtmlSeccion, arrayItems, origen, slidesToShow);
@@ -139,19 +140,16 @@ var CarruselAyuda = function () {
                     Origen: origen,
                     Direccion: objMostrar.Direccion
                 };
-                
+
                 AnalyticsPortalModule.MarcaGenericaLista("", obj);//Analytics Change Generico
             }
-            else {
-                // marcacion para el banner de ver mas cuando lo ve
-                //dataLayer.push({
-                //    'event': "virtualEvent",
-                //    'category': paginaCa,
-                //    'action': "Ofertas para ti",
-                //    'label': paramlabel
-                //});
+
+            if (slick.options.infinite === false) {
+                // ocultar y mostrar flechas cuando este en el extremo
+                // esto debe estar en afterChange, luego de renderizar el ancho de imagen y caja de producto
+
             }
-                
+
 
         } catch (e) {
             console.log('marcarAnalyticsChange - ' + _texto.excepcion + e, e);
@@ -175,6 +173,9 @@ var CarruselAyuda = function () {
             else if (tipo == 2) {
                 marcarAnalyticsChange(slick, currentSlide, nextSlide, origen);
             }
+            else if (tipo == 3) {
+                mostrarFlechaCarrusel(data, slick, currentSlide, origen);
+            }
         } catch (e) {
             console.log('marcarAnalyticsContenedor - ' + _texto.excepcion + e, e);
         }
@@ -192,15 +193,83 @@ var CarruselAyuda = function () {
 
             if (tipo == 1) {
 
+                $(".js-slick-prev-liq").insertBefore('#divCarruselLiquidaciones').hide();
+                $(".js-slick-next-liq").insertAfter('#divCarruselLiquidaciones');
+
                 console.log('marcarAnalyticsLiquidacion', tipo, data, slick, currentSlide, nextSlide);
 
                 marcarAnalyticsInicio("", data, origen, currentSlide);
+
             }
             else if (tipo == 2) {
                 marcarAnalyticsChange(slick, currentSlide, nextSlide, origen);
             }
+            else if (tipo == 3) {
+                mostrarFlechaCarrusel(data, slick, currentSlide, origen);
+            }
         } catch (e) {
             console.log('marcarAnalyticsLiquidacion - ' + _texto.excepcion + e, e);
+        }
+    }
+
+    var mostrarFlechaCarrusel = function (event, slick, currentSlide, origen) {
+
+        if (slick.options.infinite !== false) {
+            return;
+        }
+
+        var objPrevArrow = slick.$prevArrow;//$(event.target).find('.prevArrow')[0];
+        var objNextArrow = slick.$nextArrow;//$(event.target).find('.nextArrow')[0];
+        var objVisorSlick = $(event.target).find('.slick-list')[0];
+        var lastSlick = $(event.target).find('[data-slick-index]')[slick.slideCount - 1];
+
+        if (currentSlide === 0) {
+            $(objPrevArrow).hide();
+            $(objNextArrow).show();
+        }
+        else {
+
+            var item = currentSlide;
+            var anchoFalta = 0;
+            do {
+                anchoFalta += $(slick.$slides[item]).innerWidth();
+                item++;
+            } while (item < slick.slideCount);
+
+            if (anchoFalta > $(slick.$list).width()) {
+                var currentSlideback = $(slick.$list).attr('data-currentSlide') || $(slick.$list).attr('data-currentslide') || "";
+                if (currentSlideback == currentSlide) {
+                    slick.options.slidesToShow = isMobile() ? 1 : 2;
+                    slick.setPosition();
+                    slick.slickGoTo(currentSlide + 1);
+                    currentSlide = currentSlide + 1;
+
+                    $(objPrevArrow).show();
+                    $(objNextArrow).hide();
+                    _marcaAnalyticsViewVerMas(origen);
+                }
+                else {
+                    $(objPrevArrow).show();
+                    $(objNextArrow).show();
+                }
+            }
+            else {
+                var cantFinal = slick.slideCount - slick.options.slidesToShow;
+                if (cantFinal === currentSlide) {
+                    $(objPrevArrow).show();
+                    $(objNextArrow).hide();
+                    _marcaAnalyticsViewVerMas(origen);
+                }
+            }
+        }
+
+        $(slick.$list).attr('data-currentSlide', currentSlide);
+    }
+
+    //Función que llama la la funcion de marcacion analytics cuando se visualiza el ultimo botón dorado de "ver más"
+    var _marcaAnalyticsViewVerMas = function (origen) {
+        if (typeof AnalyticsPortalModule !== "undefined") {
+            AnalyticsPortalModule.MarcaPromotionViewCarrusel(origen);
         }
     }
 
@@ -208,7 +277,8 @@ var CarruselAyuda = function () {
         MarcarAnalyticsChange: marcarAnalyticsChange,
         MarcarAnalyticsInicio: marcarAnalyticsInicio,
         MarcarAnalyticsContenedor: marcarAnalyticsContenedor,
-        MarcarAnalyticsLiquidacion: marcarAnalyticsLiquidacion
+        MarcarAnalyticsLiquidacion: marcarAnalyticsLiquidacion,
+        MostrarFlechaCarrusel: mostrarFlechaCarrusel
     };
 }();
 
@@ -887,12 +957,12 @@ function ArmarCarouselLiquidaciones(data) {
         nextArrow: '<a class="previous_ofertas js-slick-next-liq" style="right: 0;display: block;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>'
     }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
         CarruselAyuda.MarcarAnalyticsLiquidacion(2, null, slick, currentSlide, nextSlide);
+    }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
+        CarruselAyuda.MarcarAnalyticsLiquidacion(3, event, slick, currentSlide);
     });
 
     CarruselAyuda.MarcarAnalyticsLiquidacion(1, data, null, 1);
 
-    $(".js-slick-prev-liq").insertBefore('#divCarruselLiquidaciones').hide();
-    $(".js-slick-next-liq").insertAfter('#divCarruselLiquidaciones');
 }
 
 ////////////////////////////////////////////////////////////////////
