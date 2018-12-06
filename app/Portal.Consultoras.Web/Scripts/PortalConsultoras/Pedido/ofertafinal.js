@@ -886,8 +886,7 @@ function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simboloParam, 
                 if (nivel == '01' || nivel == '02' || nivel == '03') {
                     // CASE 1
                     msg2 = 'ALCÁNZALO CON ESTAS OFERTAS Y <b>GANA UN ' + oRegaloPN.DescripcionPremio + '*</b>';
-                    if (oRegaloPN.Valorizado > 0)
-                        msg2 += ', PUEDES VENDERLO A ' + simboloParam + ' ' + oRegaloPN.PrecioValorizadoFormat;
+                    if (oRegaloPN.PrecioValorizado > 0) msg2 += ', PUEDES VENDERLO A ' + simboloParam + ' ' + oRegaloPN.PrecioValorizadoFormat;
 
                     $('#msg-regalo-pn').html(msg2);
                     $('#msg-regalo-pn2').html(msg2);

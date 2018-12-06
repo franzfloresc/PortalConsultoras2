@@ -1228,12 +1228,12 @@ namespace Portal.Consultoras.Web.Controllers
                         #region llamadas asincronas para GPR, ODD, RegaloPN, LoginFB, EventoFestivo, IncentivosConcursos
 
                         var motivoRechazoTask = Task.Run(() => GetMotivoRechazo(usuario, usuarioModel.MontoDeuda, esAppMobile));
-                        var regaloProgramaNuevas = Task.Run(() => GetConsultoraRegaloProgramaNuevas(usuarioModel));
+                        var configPremioProgNuevasOF = Task.Run(() => GetConfigPremioProgNuevasOFModel(usuarioModel));
                         var loginExternoTask = Task.Run(() => GetListaLoginExterno(usuario));
                         var eventoFestivoTask = Task.Run(() => ConfigurarEventoFestivo(usuarioModel));
                         var incentivoConcursoTask = Task.Run(() => ConfigurarIncentivosConcursos(usuarioModel));
 
-                        Task.WaitAll(motivoRechazoTask, regaloProgramaNuevas, loginExternoTask, eventoFestivoTask, incentivoConcursoTask);
+                        Task.WaitAll(motivoRechazoTask, configPremioProgNuevasOF, loginExternoTask, eventoFestivoTask, incentivoConcursoTask);
 
                         #region GPR
 
@@ -1253,7 +1253,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                         #region RegaloPN
 
-                        usuarioModel.ConsultoraRegaloProgramaNuevas = regaloProgramaNuevas.Result;
+                        usuarioModel.ConfigPremioProgNuevasOF = configPremioProgNuevasOF.Result;
 
                         #endregion
 
@@ -1364,10 +1364,7 @@ namespace Portal.Consultoras.Web.Controllers
                     sessionManager.SetTieneHvX1(true);
                     sessionManager.SetJwtApiSomosBelcorp(usuarioModel.JwtToken);
                     sessionManager.SetTieneMg(true);
-
-
-
-
+                    
                     usuarioModel.FotoPerfil = usuario.FotoPerfil;
                     usuarioModel.FotoOriginalSinModificar = usuario.FotoOriginalSinModificar;
                     usuarioModel.DiaFacturacion = GetDiaFacturacion(usuarioModel.PaisID, usuarioModel.CampaniaID, usuarioModel.ConsultoraID, usuarioModel.ZonaID, usuarioModel.RegionID);
@@ -1600,9 +1597,9 @@ namespace Portal.Consultoras.Web.Controllers
             return gprBanner;
         }
 
-        private async Task<ConsultoraRegaloProgramaNuevasModel> GetConsultoraRegaloProgramaNuevas(UsuarioModel model)
+        private async Task<ConfigPremioProgNuevasOFModel> GetConfigPremioProgNuevasOFModel(UsuarioModel model)
         {
-            ConsultoraRegaloProgramaNuevasModel result = null;
+            var result = new ConfigPremioProgNuevasOFModel();
             pasoLog = "GetConsultoraRegaloProgramaNuevas";
 
             try
@@ -1613,45 +1610,26 @@ namespace Portal.Consultoras.Web.Controllers
                 var esDiasFacturacion = fechaHoy >= model.FechaInicioCampania.Date && fechaHoy <= model.FechaFinCampania.Date;
                 if (!esDiasFacturacion) return result;
 
-                BEConsultoraRegaloProgramaNuevas entidad;
+                var codigoNivel = "0" + (model.ConsecutivoNueva + 1);
+                BEConsultoraRegaloProgramaNuevas premioAuto;
+                List<BEConsultoraRegaloProgramaNuevas> listPremioElec;
+
                 using (var svc = new PedidoServiceClient())
                 {
-                    entidad = await svc.GetConsultoraRegaloProgramaNuevasAsync(model.PaisID, model.CampaniaID, model.CodigoConsultora, model.ConsecutivoNueva);
+                    premioAuto = await svc.GetConsultoraRegaloProgramaNuevasAsync(model.PaisID, model.CampaniaID, model.CodigoPrograma, codigoNivel);
+                    listPremioElec = (await svc.GetListPremioElecProgNuevasAsync(model.PaisID, model.CampaniaID, model.CodigoPrograma, codigoNivel)).ToList();
                 }
 
-                if (entidad != null)
+                if (premioAuto != null) result.PremioAuto = await GetPremioProgNuevasOF(model, premioAuto);
+                if (listPremioElec != null)
                 {
-                    var listaProdCatalogo = new List<Producto>();
-                    if (!string.IsNullOrEmpty(entidad.CodigoSap))
+                    result.ListPremioElec = new List<PremioProgNuevasOFModel>();
+                    foreach (var premioElec in listPremioElec)
                     {
-                        using (var svc = new ProductoServiceClient())
-                        {
-                            var lst = await svc.ObtenerProductosPorCampaniasBySapAsync(model.CodigoISO, model.CampaniaID, entidad.CodigoSap, 3);
-                            listaProdCatalogo = lst.ToList();
-                        }
+                        result.ListPremioElec.Add(await GetPremioProgNuevasOF(model, premioElec));
                     }
-
-                    if (listaProdCatalogo.Any())
-                    {
-                        var prodCatalogo = listaProdCatalogo.FirstOrDefault();
-                        if (prodCatalogo != null)
-                        {
-                            var dd = (!string.IsNullOrEmpty(prodCatalogo.NombreComercial)
-                                ? prodCatalogo.NombreComercial
-                                : prodCatalogo.DescripcionComercial);
-                            if (!string.IsNullOrEmpty(dd)) entidad.DescripcionPremio = dd;
-
-                            if (prodCatalogo.PrecioCatalogo > 0) entidad.PrecioCatalogo = prodCatalogo.PrecioCatalogo;
-                            if (prodCatalogo.PrecioValorizado > 0)
-                                entidad.PrecioValorizado = prodCatalogo.PrecioValorizado;
-                            entidad.UrlImagenRegalo = prodCatalogo.Imagen;
-                        }
-                    }
-
-                    result = Mapper.Map<BEConsultoraRegaloProgramaNuevas, ConsultoraRegaloProgramaNuevasModel>(entidad);
-                    result.CodigoIso = model.CodigoISO;
-                    result.DescripcionPremio = result.DescripcionPremio.ToUpper();
                 }
+                result.CodigoNivel = codigoNivel;
             }
             catch (Exception ex)
             {
@@ -1659,6 +1637,39 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return result;
+        }
+        
+        private async Task<PremioProgNuevasOFModel> GetPremioProgNuevasOF(UsuarioModel model, BEConsultoraRegaloProgramaNuevas premio)
+        {
+            var listaProdCatalogo = new List<Producto>();
+            if (!string.IsNullOrEmpty(premio.CodigoSap))
+            {
+                using (var svc = new ProductoServiceClient())
+                {
+                    var lst = await svc.ObtenerProductosPorCampaniasBySapAsync(model.CodigoISO, model.CampaniaID, premio.CodigoSap, 3);
+                    listaProdCatalogo = lst.ToList();
+                }
+            }
+
+            if (listaProdCatalogo.Any())
+            {
+                var prodCatalogo = listaProdCatalogo.FirstOrDefault();
+                if (prodCatalogo != null)
+                {
+                    var dd = (!string.IsNullOrEmpty(prodCatalogo.NombreComercial)
+                        ? prodCatalogo.NombreComercial
+                        : prodCatalogo.DescripcionComercial);
+                    if (!string.IsNullOrEmpty(dd)) premio.DescripcionPremio = dd;
+
+                    if (prodCatalogo.PrecioCatalogo > 0) premio.PrecioCatalogo = prodCatalogo.PrecioCatalogo;
+                    if (prodCatalogo.PrecioValorizado > 0) premio.PrecioValorizado = prodCatalogo.PrecioValorizado;
+                    premio.UrlImagenRegalo = prodCatalogo.Imagen;
+                }
+            }
+
+            var premioProgNuevasOFModel = Mapper.Map<BEConsultoraRegaloProgramaNuevas, PremioProgNuevasOFModel>(premio);
+            premioProgNuevasOFModel.DescripcionPremio = premioProgNuevasOFModel.DescripcionPremio.ToUpper();
+            return premioProgNuevasOFModel;
         }
 
         private async Task<List<UsuarioExternoModel>> GetListaLoginExterno(ServiceUsuario.BEUsuario usuario)

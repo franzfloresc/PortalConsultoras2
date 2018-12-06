@@ -569,7 +569,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult GuardarPremioElectivo(PedidoCrudModel model)
         {
-            var premios = _programaNuevasProvider.GetPremioElectivosTippingPoint();
+            var premios = _programaNuevasProvider.GetListPremioElectivo();
+
             var selected = GetPremioSelected(premios);
 
             if (selected != null)
@@ -3586,13 +3587,14 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var pedidoWebDetalleModel = Mapper.Map<List<BEPedidoWebDetalle>, List<PedidoWebDetalleModel>>(listaDetalle);
 
-                var premiosElectivos = _programaNuevasProvider.GetPremioElectivosTippingPoint();
+                var premiosElectivos = _programaNuevasProvider.GetListPremioElectivo();
                 pedidoWebDetalleModel.ForEach(p =>
                 {
                     p.Simbolo = userData.Simbolo;
                     p.CodigoIso = userData.CodigoISO;
                     p.DescripcionCortadaProd = Util.SubStrCortarNombre(p.DescripcionProd, 73);
-                    p.CuponElectivo = premiosElectivos.Any(c => c.CUV2 == p.CUV);
+                    p.PremioElectivo = premiosElectivos.Any(c => c.CUV2 == p.CUV);
+                    p.LockPremioElectivo = p.PremioElectivo && string.IsNullOrEmpty(p.Mensaje);
                 });
 
                 model.ListaDetalleModel = pedidoWebDetalleModel;
@@ -4086,14 +4088,33 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var f = false;
+                if (!userData.ConfigPremioProgNuevasOF.TienePremio) return ErrorJson("OK", true);
 
-                var model = userData.ConsultoraRegaloProgramaNuevas;
-                if (model != null) f = true;
+                var configProgNuevas = _programaNuevasProvider.GetConfiguracion();
+                var model = new ConsultoraRegaloProgramaNuevasModel {
+                    CodigoNivel = userData.ConfigPremioProgNuevasOF.CodigoNivel,
+                    TippingPoint = _programaNuevasProvider.GetTippingPointOF(configProgNuevas)
+                };
+
+                var listPremioElec = userData.ConfigPremioProgNuevasOF.ListPremioElec;
+                PremioProgNuevasOFModel premio;
+
+                if (listPremioElec != null && listPremioElec.Any())
+                {
+                    var listDetalle = ObtenerPedidoWebDetalle();
+                    premio = listPremioElec.FirstOrDefault(pe => listDetalle.Any(d => pe.Cuv == d.CUV));
+                    if (premio == null) premio = listPremioElec.First();
+                }
+                else premio = userData.ConfigPremioProgNuevasOF.PremioAuto;
+
+                model.DescripcionPremio = premio.DescripcionPremio;
+                model.UrlImagenRegalo = premio.UrlImagenRegalo;
+                model.PrecioValorizado = premio.PrecioValorizado;
+                model.PrecioValorizadoFormat = Util.DecimalToStringFormat(model.PrecioValorizado, userData.CodigoISO);
 
                 return Json(new
                 {
-                    success = f,
+                    success = model != null,
                     message = "OK",
                     data = model,
                 }, JsonRequestBehavior.AllowGet);
@@ -4573,7 +4594,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult CargarPremiosElectivos()
         {
-            var premios = _programaNuevasProvider.GetPremioElectivosTippingPoint();
+            var premios = _programaNuevasProvider.GetListPremioElectivo();
 
             var details = GetPedidoWebDetalle(IsMobile());
 

@@ -259,6 +259,8 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetMensajeKitNuevas(string mensajeKit);
         int GetLimElectivosProgNuevas();
         void SetLimElectivosProgNuevas(int limElectivos);
+        List<PremioElectivoModel> GetListPremioElectivo();
+        void SetListPremioElectivo(List<PremioElectivoModel> listPremioElectivo);
 
         void SetBuscadorYFiltros(BuscadorYFiltrosConfiguracionModel buscadorYFiltrosModel);
 
