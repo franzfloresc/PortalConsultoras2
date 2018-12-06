@@ -452,8 +452,10 @@ var AnalyticsPortalModule = (function () {
             var esFicha = typeof seccion !== "undefined" ? seccion.Seccion == "Ficha" : false;
             var esCarrusel = false;
             if (!(event == null)) {
-                var elementCarrusel = $(event.target || event).parents("[data-item]");
-                esCarrusel = elementCarrusel.hasClass("slick-slide");
+                if (codigoSeccion == '05') 
+                    //var elementCarrusel = $(event.target || event).parents("[data-item]");
+                    //esCarrusel = elementCarrusel.hasClass("slick-slide");
+                    esCarrusel = true;                
             }
             //if (estoyEnLaFicha !== "undefined")
             if (typeof window.fichaModule !== "undefined")
@@ -461,8 +463,8 @@ var AnalyticsPortalModule = (function () {
 
             var contenedorFicha = esCarrusel ? _texto.contenedorDetalleSets : _texto.contenedorDetalle;
             switch (pagina.Pagina) {
-                case "Home": !esFicha ? contenedor = "Contenedor - Home" : contenedor = contenedorFicha; break;
-                case "Contenedor": !esFicha ? contenedor = "Contenedor - Home" : contenedor = contenedorFicha; break;
+                case "Home": !esFicha ? contenedor = "Contenedor - Inicio" : contenedor = contenedorFicha; break;
+                case "Contenedor": !esFicha ? contenedor = "Contenedor - Inicio" : contenedor = contenedorFicha; break;
                 case "Landing Ofertas Para Ti": !esFicha ? contenedor = _texto.contenedor : contenedor = contenedorFicha; break;
                 case "Pedido": contenedor = "Carrito de compras"; break;
                 case "Otras": contenedor = !esFicha ? _texto.contenedor : contenedor = contenedorFicha; break;
@@ -470,7 +472,7 @@ var AnalyticsPortalModule = (function () {
                 case "Landing GND": !esFicha ? contenedor = _texto.contenedor : contenedor = contenedorFicha; break;
                 case "Landing Herramientas de Venta": !esFicha ? contenedor = _texto.contenedor : contenedor = contenedorFicha; break;
                 case "Landing Liquidación": !esFicha ? contenedor = _texto.contenedor : contenedor = contenedorFicha; break;
-                case "Landing Ganadoras": !esFicha ? contenedor = _texto.contenedorMasGanadoras : contenedor = contenedorFicha; break;
+                case "Landing Ganadoras": !esFicha ? contenedor = _texto.contenedor : contenedor = contenedorFicha; break;
                 case "Buscador": contenedor = "Buscador"; break;
 
             }
@@ -525,10 +527,11 @@ var AnalyticsPortalModule = (function () {
 
             //Marcar analytics cuando es Ganadoras en ficha y 
             var estoyEnLaFicha = typeof fichaModule !== "undefined";
-            if (estrategia.CodigoPalanca === _codigoSeccion.MG && estoyEnLaFicha) {
-                AnalyticsPortalModule.ClickAddCartFicha(event, codigoOrigenPedido, estrategia);
-                return;
-            }
+            //Se comento por cambios en la marcación J.A Sprint4-AddToCarts 05/12/2018
+            //if (estrategia.CodigoPalanca === _codigoSeccion.MG && estoyEnLaFicha) {
+            //    AnalyticsPortalModule.ClickAddCartFicha(event, codigoOrigenPedido, estrategia);
+            //    return;
+            //}
             var codigoSeccion = codigoOrigenPedido.toString().substring(5, 7);
             var seccion = _constantes.secciones.find(function (element) {
                 return element.CodigoSeccion == codigoSeccion;
@@ -1700,9 +1703,9 @@ var AnalyticsPortalModule = (function () {
             var producto = data;
             var list = "";
             //Si es carrusel de la ficha
-            if (esCarrusel && seccion.CodigoPalanca !== _constantes.origenpedidoWeb[codigoPalanca].CodigoPalanca)
+            if (esCarrusel && seccion.CodigoPalanca !== _constantes.origenpedidoWeb[parseInt(codigoPalanca)].CodigoPalanca)
                 list = contenedor + " - " + _constantes.campania + producto.CampaniaID;
-            else if (seccion.CodigoPalanca === _constantes.origenpedidoWeb[codigoPalanca].CodigoPalanca)
+            else if (seccion.CodigoPalanca === _constantes.origenpedidoWeb[parseInt(codigoPalanca)].CodigoPalanca)
                 list = contenedor + " - " + palanca;
             else
                 list = contenedor + " - " + palanca + " - " + _constantes.campania + producto.CampaniaID;
