@@ -2610,7 +2610,7 @@ var AnalyticsPortalModule = (function () {
             impressions.push(impression);
 
 
-            0dataLayer.push({
+            dataLayer.push({
                 'event': _evento.productImpression,
                 'ecommerce': {
                     'currencyCode': AnalyticsPortalModule.GetCurrencyCodes(_constantes.codigoPais),
