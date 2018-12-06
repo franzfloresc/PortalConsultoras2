@@ -35,7 +35,7 @@ namespace Portal.Consultoras.Web.Controllers
     {
         private string pasoLog;
         private int misCursos = 0;
-        private int flagMiAcademiaVideo = 0;  
+        private int flagMiAcademiaVideo = 0;
         private string urlSapParametro = "";
 
         private readonly string IP_DEFECTO = "190.187.154.154";
@@ -72,16 +72,16 @@ namespace Portal.Consultoras.Web.Controllers
         {
             MisCursos();
 
-          
+
 
             if (EsUsuarioAutenticado())
             {
                 if (misCursos > 0)
                 {
                     sessionManager.SetMiAcademia(misCursos);
-                    sessionManager.SetMiAcademiaVideo(flagMiAcademiaVideo); 
+                    sessionManager.SetMiAcademiaVideo(flagMiAcademiaVideo);
                     sessionManager.SetMiAcademiaParametro(urlSapParametro);
-                    
+
                     return RedirectToAction("Index", "MiAcademia");
                 }
 
@@ -188,12 +188,12 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     misCursos = Convert.ToInt32(MiId[0]);
                     TempData["MiAcademia"] = misCursos;
-                    
+
                     if (MiCurso[0].ToUpper() == "MIACADEMIAVIDEO")
                     {
                         flagMiAcademiaVideo = 1;
                     }
-                    
+
                     else
                     {
                         TempData["FlagAcademiaVideo"] = 0;
@@ -402,7 +402,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             pasoLog = "Login.Redireccionar";
             var usuario = await GetUserData(paisId, codigoUsuario);
-            
+
             if (usuario == null)
             {
                 if (Request.IsAjaxRequest())
@@ -425,8 +425,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (misCursos > 0)
             {
-                flagMiAcademiaVideo = Convert.ToInt32(TempData["FlagAcademiaVideo"]);  
-                sessionManager.SetMiAcademiaVideo(flagMiAcademiaVideo);  
+                flagMiAcademiaVideo = Convert.ToInt32(TempData["FlagAcademiaVideo"]);
+                sessionManager.SetMiAcademiaVideo(flagMiAcademiaVideo);
 
                 returnUrl = Url.Action("Index", "MiAcademia");
 
@@ -824,7 +824,8 @@ namespace Portal.Consultoras.Web.Controllers
                     case Constantes.IngresoExternoPagina.PedidosFIC:
                         return RedirectToUniqueRoute("PedidoFIC", "Index", null);
                     case Constantes.IngresoExternoPagina.DetalleEstrategia:
-                        if (string.IsNullOrEmpty(model.NombrePalanca)) {
+                        if (string.IsNullOrEmpty(model.NombrePalanca))
+                        {
                             model.NombrePalanca = Constantes.NombrePalanca.Palancas.Keys.Contains(model.PalancaID) ?
                                 Constantes.NombrePalanca.Palancas[model.PalancaID] : model.PalancaID;
                         }
@@ -1328,7 +1329,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                         usuarioModel.EsUsuarioComunidad = usuarioComunidadTask.Result;
 
-                       
+
 
                         #endregion
                     }
@@ -1340,8 +1341,6 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     usuarioModel.JwtToken = await Common.JwtAutentication.getWebTokenAsync(JwtContext.Instance);
 
-
-                   
                     using (var usuarioCliente = new UsuarioServiceClient())
                     {
                         var insert = usuarioCliente.ActualizarNovedadBuscadorAsync(usuarioModel.PaisID, usuarioModel.CodigoUsuario);
@@ -2140,10 +2139,10 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
 
-                 
+
                 revistaDigital.DLogoMenuInicioActiva = GetValor1WithS3(listaDatos, Constantes.ConfiguracionPaisDatos.RDI.LogoMenuRevistaDigitaIntrigaActiva, paisIso);
-                 revistaDigital.DLogoMenuInicioNoActiva = GetValor1WithS3(listaDatos, Constantes.ConfiguracionPaisDatos.RDI.LogoMenuRevistaDigitaIntrigaNoActivo, paisIso);
-                
+                revistaDigital.DLogoMenuInicioNoActiva = GetValor1WithS3(listaDatos, Constantes.ConfiguracionPaisDatos.RDI.LogoMenuRevistaDigitaIntrigaNoActivo, paisIso);
+
                 confPaisDatoTmp = listaDatos.FirstOrDefault(d =>
                     d.Codigo == Constantes.ConfiguracionPaisDatos.RDI.LogoComercialFondo);
                 if (confPaisDatoTmp != null)

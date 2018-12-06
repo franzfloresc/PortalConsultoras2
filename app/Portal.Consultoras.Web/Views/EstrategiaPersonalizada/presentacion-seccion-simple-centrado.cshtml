@@ -39,8 +39,14 @@
                 <span id="divCantProductos">Mostrando <span data-productos-mostrar="">@Model.CantidadMostrar</span> de <span data-productos-total="">@Model.CantidadProductos</span></span>
             </div>
 
-            <div class="ir" data-seccion-vermas="@Model.Codigo" style="display:@displayVerMas;">
-                <a class="@vermasClass" onclick="javascript: menuModule.sectionClick('@Model.UrlLandig', 'BotonVerMas', this);">VER MÁS OFERTAS</a>
+            <div class="ir" 
+                 data-seccion-vermas="@Model.Codigo" 
+                 style="display:@displayVerMas;">
+
+                <a class="@vermasClass" 
+                   onclick="javascript: menuModule.sectionClick('@Model.UrlLandig', 'BotonVerMas', this);">
+                    VER MÁS OFERTAS
+                </a>
             </div>
             <div class="parche_clear"></div>
         </div>
