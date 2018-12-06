@@ -188,7 +188,7 @@ function MostrarBarra(datax, destino) {
     if (belcorp.barra.settings.isMobile &&
         tp > 0 && vLogro >= tp &&
         dataBarra.TippingPointBarra &&
-        dataBarra.TippingPointBarra.ActiveCuponElectivo &&
+        dataBarra.TippingPointBarra.ActivePremioElectivo &&
         !tpElectivos.premioSelected) {
 
         agregarPremioDefault();
@@ -269,12 +269,12 @@ function MostrarBarra(datax, destino) {
             )
             .replace('{barra_monto}',
                 dataTP.ActiveMonto ?
-                '<div class="monto_meta_tippingPoint">' + variablesPortal.SimboloMoneda + dataTP.TippingPointMontoStr + '</div>' :
+                '<div class="monto_meta_tippingPoint">' + variablesPortal.SimboloMoneda + dataBarra.TippingPointStr + '</div>' :
                 ''
             )
             .replace('{barra_tooltip_descripcion}',
                 dataTP.ActiveMonto ?
-                '<div class="tooltip_producto_regalo_descripcion">Llega a <span>' + variablesPortal.SimboloMoneda + dataTP.TippingPointMontoStr + '</span><br>y llévate de regalo<br><strong>' + dataTP.DescripcionCUV2 + '</strong></div>' :
+                '<div class="tooltip_producto_regalo_descripcion">Llega a <span>' + variablesPortal.SimboloMoneda + dataBarra.TippingPointStr + '</span><br>y llévate de regalo<br><strong>' + dataTP.DescripcionCUV2 + '</strong></div>' :
                 '<div class="tooltip_producto_regalo_descripcion"><br> Llévate de regalo<br><strong>' + dataTP.DescripcionCUV2 + '</strong></div>'
             );
     }
@@ -640,7 +640,7 @@ function initCarruselPremios(barra) {
         return;
     }
 
-    if (barra.TippingPointBarra && barra.TippingPointBarra.ActiveCuponElectivo) {
+    if (barra.TippingPointBarra && barra.TippingPointBarra.ActivePremioElectivo) {
         tpElectivos.loadPremios = true;
         cargarPremiosElectivos();
         $('#hrefIconoRegalo').click(cargarPopupEleccionRegalo);
@@ -673,13 +673,12 @@ function checkPremioSelected() {
 }
 
 function getCuponElectivoInDetails(details) {
-
     var len = details.length;
 
     for (var i = 0; i < len; i++) {
         var item = details[i];
 
-        if (item.CuponElectivo) {
+        if (item.PremioElectivo) {
             return item;
         }
     }

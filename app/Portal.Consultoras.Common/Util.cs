@@ -3864,20 +3864,6 @@ namespace Portal.Consultoras.Common
             return nuevoOrigen;
         }
 
-        public static T GetOrCalcValue<T>(Func<T> fnGet, Action<T> fnSet, Predicate<T> fnIsNull, Func<T> fnCalc, Action<Exception> fnExcep, T defaultValue)
-        {
-            if (!fnIsNull(fnGet())) return fnGet();
-
-            try { fnSet(fnCalc()); }
-            catch (Exception ex)
-            {
-                fnSet(defaultValue);
-                fnExcep(ex);
-            }
-
-            return fnGet();
-        }
-
         public static T GetOrCalcValue<T>(Func<T> fnGet, Action<T> fnSet, Predicate<T> fnIsNull, Func<T> fnCalc)
         {
             T value = fnGet();

@@ -253,15 +253,8 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
 
             Mapper.CreateMap<ServicePedido.BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>();
 
-            Mapper.CreateMap<BEConsultoraRegaloProgramaNuevas, ConsultoraRegaloProgramaNuevasModel>()
-                .ForMember(t => t.CodigoNivel, f => f.MapFrom(c => c.CodigoNivel))
-                .ForMember(t => t.TippingPoint, f => f.MapFrom(c => c.TippingPoint))
-                .ForMember(t => t.CUVPremio, f => f.MapFrom(c => c.CUVPremio))
-                .ForMember(t => t.DescripcionPremio, f => f.MapFrom(c => c.DescripcionPremio))
-                .ForMember(t => t.CodigoSap, f => f.MapFrom(c => c.CodigoSap))
-                .ForMember(t => t.PrecioCatalogo, f => f.MapFrom(c => c.PrecioCatalogo))
-                .ForMember(t => t.PrecioValorizado, f => f.MapFrom(c => c.PrecioValorizado))
-                .ForMember(t => t.UrlImagenRegalo, f => f.MapFrom(c => c.UrlImagenRegalo));
+            Mapper.CreateMap<BEConsultoraRegaloProgramaNuevas, PremioProgNuevasOFModel>()
+                .ForMember(x => x.Cuv, t => t.MapFrom(c => c.CUVPremio));
 
             Mapper.CreateMap<BEPermiso, PermisoModel>()
                 .ForMember(t => t.EsDireccionExterior, f => f.MapFrom(c => c.UrlItem.ToLower().StartsWith("http")))
@@ -651,14 +644,12 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<BEPagoEnLineaTipoPasarela, PagoEnLineaTipoPasarelaModel>();
             Mapper.CreateMap<BEPagoEnLineaPasarelaCampos, PagoEnLineaPasarelaCamposModel>();
 
-            Mapper.CreateMap<BEActivarPremioNuevas, BarraTippingPoint>()
-                .ForMember(t => t.ActiveMonto, f => f.MapFrom(c => c.ActiveMontoTooltip));
+            Mapper.CreateMap<BEActivarPremioNuevas, BarraTippingPoint>();
             Mapper.CreateMap<ServicePedido.BEEstrategia, BarraTippingPoint>()
                 .ForMember(t => t.ActiveTooltip, f => f.Ignore())
                 .ForMember(t => t.ActiveMonto, f => f.Ignore())
                 .ForMember(t => t.Active, f => f.Ignore())
-                .ForMember(t => t.LinkURL, f => f.Ignore())
-                .ForMember(t => t.TippingPointMontoStr, f => f.Ignore());
+                .ForMember(t => t.LinkURL, f => f.Ignore());
 
             Mapper.CreateMap<EstrategiaComponenteModel, ServicePedido.BEEstrategiaProducto>()
                .ForMember(t => t.CUV, f => f.MapFrom(c => c.Cuv))
