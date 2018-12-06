@@ -29,16 +29,16 @@ $(document).ready(function () {
 
         $('#contenedor-showroom-subcampanias').slick('slickGoTo', 1);
     });
-    $("body").on("click", "#BajarOfertaEspecial", function() {
-            $('#PopupBannerEspecial').css('display', 'none');
-            $('div.banner_especial_showroom').css('z-index', 150);
+    $("body").on("click", "#BajarOfertaEspecial", function () {
+        $('#PopupBannerEspecial').css('display', 'none');
+        $('div.banner_especial_showroom').css('z-index', 150);
 
-            $('#content_set_especial_header').show();
-            $('#BajarOfertaEspecial').hide();
+        $('#content_set_especial_header').show();
+        $('#BajarOfertaEspecial').hide();
 
-            $('.content_set_oferta_especial').slideUp();
+        $('.content_set_oferta_especial').slideUp();
 
-        });
+    });
     var stilo;
     $("#CerrarOfertaEspecial").on("click", function () {
         $('.banner_especial_showroom').hide();
@@ -72,7 +72,6 @@ $(document).ready(function () {
         {
             "Aceptar": function () {
                 HideDialog("DialogMensajesBanner");
-                //$(this).dialog('close');
             }
         }
     });
@@ -87,8 +86,6 @@ $(document).ready(function () {
     });
 
     $("#btnCerrarSet").click(function () {
-        //$("#divMensajeProductoAgregado").dialog('close');
-        //$("#DialogSetDetalle").dialog("close");
         HideDialog("divMensajeProductoAgregado");
         HideDialog("DialogSetDetalle");
 
@@ -134,7 +131,7 @@ $(document).ready(function () {
         $(divs).each(function (index, value) {
             var existe = false;
             var id = $(value).find(".valorCuv").val();
-            $(array_impresions_tactica_desktop).each(function(ind, val) {
+            $(array_impresions_tactica_desktop).each(function (ind, val) {
                 if (val.id == id)
                     existe = true;
             });
@@ -235,7 +232,7 @@ $(document).ready(function () {
     }
     else if (ver_subcamapania == true && ver_compraxcompra == true) {
         $("#divBannerCompraPorCompra").hide();
-         stilo = $('.banner_especial_showroom').attr("style");
+        stilo = $('.banner_especial_showroom').attr("style");
         if (stilo != null) {
             stilo = stilo.replace("display:none", "display:block");
 
@@ -244,7 +241,7 @@ $(document).ready(function () {
     }
     else if (ver_subcamapania == true) {
         $("#divBannerCompraPorCompra").hide();
-         stilo = $('.banner_especial_showroom').attr("style");
+        stilo = $('.banner_especial_showroom').attr("style");
         if (stilo != null) {
             stilo = stilo.replace("display:none", "display:block");
 

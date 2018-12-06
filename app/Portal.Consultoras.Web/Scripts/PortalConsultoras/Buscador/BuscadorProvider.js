@@ -9,15 +9,7 @@
         CerrarLoad();
         if (checkTimeout(data)) AbrirMensaje(data.message);
     }
-
-    //var _registrarAnalytics = function (model, textoBusqueda) {
-    //    try {
-    //        AnalyticsPortalModule.MarcaAnadirCarritoBuscador(model, "Desplegable", textoBusqueda);
-    //    } catch (e) {
-
-    //    }
-    //};
-
+    
     var RegistroLiquidacion = function (model, cantidad, producto, textoBusqueda) {
         if (ReservadoOEnHorarioRestringido())
             return false;

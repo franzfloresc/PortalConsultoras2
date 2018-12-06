@@ -308,11 +308,6 @@
                 setCarruselMarcacionAnalytics[i][1] = 2;
             }
         }
-
-        //if (cuvsAnalytics.length > 0) {
-        //    cuvsAnalytics = JSON.stringify(cuvsAnalytics);
-        //    AnalyticsPortalModule.MarImpresionSetProductos(cuvsAnalytics);
-        //}
     }
 
     function Inicializar() {
