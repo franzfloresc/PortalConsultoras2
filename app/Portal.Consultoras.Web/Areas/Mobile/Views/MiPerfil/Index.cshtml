@@ -225,8 +225,39 @@ else
                     </div>
                 </div>
             </div>
+            <div class="permisos_cuenta_wrapper">
+                <div class="permisos_cuenta_titulo">
+                    Permisos sobre tu cuenta :
+                </div>
+                <div class="permisos_cuenta_opciones">
+                    <div class="permiso_cuenta_opcion">
+                        <div class="permiso_cuenta_opcion_descripcion text-bold">Quiero recibir mis boletas impresas</div>
+                        <fieldset class="grupo_form_permiso_cuenta">
+                            <input class="permiso_cuenta_opcion_checkbox" type="checkbox" name="chkBoletasImpresas" id="chkBoletasImpresas" />
+                            <label for="chkBoletasImpresas" class="permiso_cuenta_opcion_label"></label>
+                        </fieldset>
+                    </div>
+                    <div class="permiso_cuenta_opcion">
+                        <div class="permiso_cuenta_opcion_descripcion text-bold">Quiero que se comuniquen conmigo por WhatsApp</div>
+                        <fieldset class="grupo_form_permiso_cuenta">
+                            <input class="permiso_cuenta_opcion_checkbox" type="checkbox" name="chkComunicacionWhatsApp" id="chkComunicacionWhatsApp" />
+                            <label for="chkComunicacionWhatsApp" class="permiso_cuenta_opcion_label"></label>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
             <div class="grupo_input_actualizarMisDatos campos_actualizarDatos terminos_y_condiciones_wrapper pt-31">
-                <div class="checkbox_condiciones">
+                <div class="checkbox_condiciones_wrapper">
+                    <div class="checkbox_condiciones_descripcion">
+                        <span class="asterisco_actualizar_datos">(*)&nbsp;</span>
+                        Estoy de acuerdo con los <span><a href="javascript:;" id="hrefTerminosMD" target="_blank">términos y condiciones</a></span> sobre Protección de datos personales
+                    </div>
+                    <fieldset class="grupo_form_checkbox_condiciones">
+                        <input class="checkbox_condiciones_checkbox" type="checkbox" name="chkAceptoContratoMD" id="chkAceptoContratoMD" />
+                        <label for="chkAceptoContratoMD" class="checkbox_condiciones_label"></label>
+                    </fieldset>
+                </div>
+                @*<div class="checkbox_condiciones">
                     <input type="checkbox" name="chkAceptoContratoMD" id="chkAceptoContratoMD" />
                     <label for="chkAceptoContratoMD" class="texto_terminosCondiciones">
                         <span class="asterisco_actualizar_datos">(*)&nbsp;</span>
@@ -234,7 +265,7 @@ else
                             Estoy de acuerdo con los <span><a href="javascript:;" id="hrefTerminosMD" target="_blank">términos y condiciones</a></span> sobre Protección de datos personales
                         </span>
                     </label>
-                </div>
+                </div>*@
             </div>
             @if (Model.PaisID == Constantes.PaisID.Colombia)
             {

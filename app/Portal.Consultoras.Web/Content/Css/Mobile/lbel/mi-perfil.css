@@ -160,7 +160,10 @@
 .opciones_foto_perfil,
 .opcion_foto_perfil,
 .icono_opcion_foto_perfil img,
-.titulo_correo_pendiente_confirmacion
+.titulo_correo_pendiente_confirmacion,
+.permisos_cuenta_wrapper,
+.permisos_cuenta_titulo,
+.permisos_cuenta_opciones
 {
     display:block;
 }
@@ -218,7 +221,12 @@
 .icono_opcion_foto_perfil,
 .descrip_opcion_foto_perfil,
 .icono_mis_datos,
-.opcion_mi_perfil_titulo_texto
+.opcion_mi_perfil_titulo_texto,
+.permiso_cuenta_opcion_descripcion,
+.permiso_cuenta_opcion_label,
+.permiso_cuenta_opcion_checkbox,
+.grupo_form_permiso_cuenta,
+.grupo_form_checkbox_condiciones
 {
     display:inline-block;
     vertical-align:top;
@@ -328,6 +336,10 @@
     margin-bottom:20px;
 }
 
+.opcion_mi_perfil:last-child{
+    margin-bottom:0;
+}
+
 .opcion_mi_perfil_titulo{
     height: 60px;
     padding-top: 20px;
@@ -368,9 +380,14 @@
     transform: rotate(0deg);
 }
 
+.opcion_mi_perfil_titulo_texto,
+.permiso_cuenta_opcion_descripcion
+{
+    width:92%;
+}
+
 .opcion_mi_perfil_titulo_texto{
-    width: 93%;
-    padding-left: 15px;
+    padding-left:15px;
 }
 
 .opcion_mi_perfil_contenido{
@@ -540,6 +557,62 @@
 
 .linea_separadora{
     height:2px;
+}
+
+.permisos_cuenta_wrapper{
+    margin-top:33px;
+}
+
+.permisos_cuenta_titulo,
+.permiso_cuenta_opcion
+{
+    font-size:13px;
+    margin-bottom:33px;
+}
+
+.permisos_cuenta_titulo{
+    color:#808080;
+}
+
+.grupo_input_actualizarMisDatos .checkbox_condiciones_wrapper,
+.permiso_cuenta_opcion
+{
+    display:flex;
+    justify-content:space-between;
+}
+
+.checkbox_condiciones_checkbox,
+.permiso_cuenta_opcion_checkbox
+{
+    display:none;
+}
+
+.checkbox_condiciones_label,
+.permiso_cuenta_opcion_label
+{
+    background-color:#FFF;
+    border:1px solid #808080;
+    width:18px;
+    height:18px;
+    border-radius:4px;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    background-image:url(/Content/Images/icono_check_mi_perfil.svg);
+    background-repeat:no-repeat;
+    background-position:center;
+}
+
+.checkbox_condiciones_checkbox:checked + .checkbox_condiciones_label,
+.permiso_cuenta_opcion_checkbox:checked + .permiso_cuenta_opcion_label
+{
+    background-color:#642f80;
+    border:1px solid #642f80;
+}
+
+.grupo_input_actualizarMisDatos .checkbox_condiciones_descripcion{
+    width:89%;
 }
 
 .btn_guardar_datos_nuevos,
