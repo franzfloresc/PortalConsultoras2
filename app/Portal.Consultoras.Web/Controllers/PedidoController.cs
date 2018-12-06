@@ -3969,8 +3969,7 @@ namespace Portal.Consultoras.Web.Controllers
                     case "2":
                         using (var svc = new PedidoServiceClient())
                         {
-                            var tpa = svc.GetTokenIndicadorPedidoAutentico(userData.PaisID, userData.CodigoISO, userData.CodigorRegion, userData.CodigoZona);
-                            codigo = AESAlgorithm.Encrypt(tpa);
+                            codigo = svc.GetTokenIndicadorPedidoAutentico(userData.PaisID, userData.CodigoISO, userData.CodigorRegion, userData.CodigoZona);
                         }
                         if (!string.IsNullOrEmpty(codigo))
                         {

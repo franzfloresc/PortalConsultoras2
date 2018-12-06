@@ -2787,6 +2787,14 @@ namespace Portal.Consultoras.Common
             //api/Evento/Get/{pais}/{campania}
             public const string UrlObtenerEvento = "api/Evento/Get/{0}/{1}";
 
+            //api/Nivel/listar/{pais}
+            public const string UrlObtenerNivel = "api/Nivel/listar/{0}";
+
+            //api/Evento/registrarConsultora/{pais}/{codigoCampania}/{codigoConsultora}
+            public const string UrlRegistrarEventoConsultora = "api/Evento/registrarConsultora/{0}/{1}/{2}";
+
+            //api/Evento/editarEventoConsultora/{pais}/{tipo}
+            public const string UrlEditarEventoConsultora = "api/Evento/editarEventoConsultora/{0}/{1}";
             #endregion
 
             #region Reporte
