@@ -492,7 +492,7 @@ $(document).ready(function () {
             $("body").removeClass("overflow_hidden");
         },
         create: function (event, ui) {
-            $("#observaciones_alerta").parent().addClass("observaciones_alerta_blocks");
+            //$("#observaciones_alerta").parent().addClass("observaciones_alerta_blocks");
             //$("#observaciones_alerta").parent().css({ height: "620px !important" });
         },
 
