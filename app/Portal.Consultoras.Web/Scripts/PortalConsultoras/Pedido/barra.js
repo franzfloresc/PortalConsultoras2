@@ -566,7 +566,6 @@ function MostrarBarra(datax, destino) {
         tipoMensaje = "TippingPointMobile";
     }
 
-
     if (belcorp.barra.settings.isMobile) {//V&& tp > 0  OG
         $('#montoPremioMeta').html(variablesPortal.SimboloMoneda + " " + dataBarra.TippingPointStr);
         cargarMontoBanderasMobile(dataBarra);
