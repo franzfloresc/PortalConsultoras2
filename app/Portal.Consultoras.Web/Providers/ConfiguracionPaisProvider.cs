@@ -57,7 +57,8 @@ namespace Portal.Consultoras.Web.Providers
                 ExtensionImgSmall = Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall,
                 ExtensionImgMedium = Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium,
                 ImgUrlBase = ConfigCdn.GetUrlCdn(carpetaPais),
-                SimboloMoneda = Simbolo
+                SimboloMoneda = Simbolo,
+                PaisISO = CodigoISO
             };
 
             return baseVariablesGeneral;
