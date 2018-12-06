@@ -275,8 +275,17 @@ function OfertaCargarProductoRespuesta(response, clear, busquedaModel) {
 
     CerrarLoad();
     if (!(typeof AnalyticsPortalModule === 'undefined') && typeof listaSeccion === 'undefined') {
-        console.log('OfertaCargarProductoRespuesta', busquedaModel.VarListaStorage, response);
-        AnalyticsPortalModule.MarcaGenericaLista(busquedaModel.VarListaStorage, response);
+        var origen = {
+            CodigoPalanca: (busquedaModel.VarListaStorage || "").replace("lista", "")
+        };
+        var obj = {
+            lista: response.lista,
+            CantidadMostrar: response.lista.length,
+            Origen: origen
+        };
+
+        console.log('OfertaCargarProductoRespuesta', obj);
+        AnalyticsPortalModule.MarcaGenericaLista("", obj);
     }
 
     var divProd = $("[data-listado-campania=" + response.campaniaId + "]");

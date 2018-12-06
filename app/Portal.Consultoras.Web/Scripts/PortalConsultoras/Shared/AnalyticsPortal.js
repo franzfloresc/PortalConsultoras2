@@ -154,20 +154,114 @@ var AnalyticsPortalModule = (function () {
         // Fin - Analytics Ofertas
     };
 
+    var _origenPedidoWebEstructura = {
+        Dispositivo: [
+            { "Codigo": "1", "TextoList": "" },
+            { "Codigo": "2", "TextoList": "" }
+        ],
+        Pagina: [
+            { "Codigo": "00", "TextoList": "" },
+            { "Codigo": "01", "TextoList": "Home" },
+            { "Codigo": "02", "TextoList": "Carrito de Compras" },
+            { "Codigo": "03", "TextoList": "" },
+            { "Codigo": "04", "TextoList": "Showroom" },
+            { "Codigo": "05", "TextoList": "" },
+            { "Codigo": "06", "TextoList": "" },
+            { "Codigo": "07", "TextoList": "" },
+            { "Codigo": "08", "TextoList": "Inicio" },
+            { "Codigo": "09", "TextoList": "" },
+            { "Codigo": "10", "TextoList": "" },
+            { "Codigo": "11", "TextoList": "" }
+        ],
+        Palanca: [
+            { "Codigo": "00", "CodigoPalanca": "RD", "TextoList": "Ofertas Para Ti" },
+            { "Codigo": "01", "CodigoPalanca": "SR", "TextoList": "Showroom" },
+            { "Codigo": "02", "CodigoPalanca": "LAN", "TextoList": "" },
+            { "Codigo": "03", "CodigoPalanca": "ODD", "TextoList": "Oferta del Día" },
+            { "Codigo": "04", "CodigoPalanca": "OF", "TextoList": "" },
+            { "Codigo": "05", "CodigoPalanca": "GND", "TextoList": "GND" },
+            { "Codigo": "06", "CodigoPalanca": "", "TextoList": "Liquidaciones Web" },
+            { "Codigo": "07", "CodigoPalanca": "", "TextoList": "" },
+            { "Codigo": "08", "CodigoPalanca": "HV", "TextoList": "Herramientas de Venta" },
+            { "Codigo": "09", "CodigoPalanca": "", "TextoList": "" },
+            { "Codigo": "10", "CodigoPalanca": "", "TextoList": "" },
+            { "Codigo": "11", "CodigoPalanca": "", "TextoList": "" },
+            { "Codigo": "12", "CodigoPalanca": "", "TextoList": "" },
+            { "Codigo": "13", "CodigoPalanca": "", "TextoList": "" },
+            { "Codigo": "14", "CodigoPalanca": "MG", "TextoList": "Más Ganadoras" }
+        ],
+        Seccion: [
+            { "Codigo": "01", "TextoList": "" },
+            { "Codigo": "02", "TextoList": "Detalle de Producto" },
+            { "Codigo": "03", "TextoList": "" },
+            { "Codigo": "04", "TextoList": "" },
+            { "Codigo": "05", "TextoList": "Detalle de Producto - Ver más sets" },
+            { "Codigo": "06", "TextoList": "" },
+            { "Codigo": "07", "TextoList": "" }
+        ]
+    }
+
     ////////////////////////////////////////////////////////////////////////////////////////
     // Ini - Metodos Iniciales
     ////////////////////////////////////////////////////////////////////////////////////////
 
-    /*
-        Retorna el Campo list' para las maraciones segun patron
-        (Contenedor - )? [pagina] - [Palanca]
-        Lo ideal es generar el texto segun el Origen Pedido web
-    */
-    var getParametroList = function (contenedor, pagina, palanca) {
+    var _getTextoContenedorSegunOrigen = function (origenEstructura) {
+
+        origenEstructura.CodigoPalanca = origenEstructura.CodigoPalanca || "";
+        var contendor = origenEstructura.Pagina == ConstantesModule.OrigenPedidoWebEstructura.Pagina.Contenedor
+                        || origenEstructura.Seccion == ConstantesModule.OrigenPedidoWebEstructura.Seccion.Ficha
+                        || origenEstructura.Seccion == ConstantesModule.OrigenPedidoWebEstructura.Seccion.CarruselVerMas
+                        || origenEstructura.CodigoPalanca != "";
+
+        if (contendor) {
+            return _texto.contenedor;
+        }
+
+        return "";
+    }
+
+    var _getTextoPaginaSegunOrigen = function (origenEstructura) {
+
+        var seccion = __origenPedidoWebEstructura.Pagina.find(function (element) {
+            return element.Codigo == origenEstructura.Pagina;
+        });
+        if (seccion == undefined)
+        {
+            var seccion = __origenPedidoWebEstructura.Pagina.find(function (element) {
+                return element.Codigo == origenEstructura.Pagina;
+            });
+            return "";
+        }
+        seccion.TextoList;
+    }
+
+    var _getTextoPalancaSegunOrigen = function (origenEstructura) {
+
+        var seccion = __origenPedidoWebEstructura.Palanca.find(function (element) {
+            return element.Codigo == origenEstructura.Palanca;
+        });
+
+        if (seccion == undefined) {
+            var seccion = __origenPedidoWebEstructura.Palanca.find(function (element) {
+                return element.CodigoPalanca == origenEstructura.CodigoPalanca;
+            });
+        }
+
+        if (seccion == undefined) {
+            return "";
+        }
+
+        seccion.TextoList;
+    }
+
+    var _getParametroListSegunOrigen = function (origenEstructura) {
+
+        var contendor = _getTextoContenedorSegunOrigen(origenEstructura);
+        var pagina = _getTextoPaginaSegunOrigen(origenEstructura);
+        var palanca = _getTextoPalancaSegunOrigen(origenEstructura);
+
         var separador = " - ";
-        var texto = pagina + separador + palanca;
-        if (contenedor)
-            texto = "Contenedor" + separador + texto;
+        var texto = contendor + separador + pagina + separador + palanca;
 
         return texto;
 
@@ -187,6 +281,7 @@ var AnalyticsPortalModule = (function () {
 
         */
     }
+
 
     var marcarVerFichaProducto = function (tipoMoneda, producto, cuv, precio, marca, categoria, variante, palanca) {
         try {
@@ -344,7 +439,7 @@ var AnalyticsPortalModule = (function () {
     }
 
     //Impresiones por productos en el carrusel
-    var marcarImpresionSetProductos = function (arrayItems) {
+    var _marcarImpresionSetProductos = function (arrayItems) {
 
         try {
             console.log('Analytics - marcarImpresionSetProductos Inicio', arrayItems);
@@ -357,63 +452,22 @@ var AnalyticsPortalModule = (function () {
                 }
             });
         } catch (e) {
-            console.log("marcarImpresionSetProductos - " + _texto.exception + e);
+            console.log("_marcarImpresionSetProductos - " + _texto.exception + e);
         }
 
     }
 
-    var _marcarProductImpresionSegunLista = function (codigoSeccion, data, limite) {
+    var _marcarProductImpresionSegunLista = function (data) {
         try {
             if (_constantes.isTest)
                 alert("Marcación product impression.");
 
-            console.log('Analytics - _marcarProductImpresionSegunLista Inicio', codigoSeccion, data, limite);
+            console.log('Analytics - _marcarProductImpresionSegunLista Inicio', data);
+
+            var parametroList = _getParametroListSegunOrigen(data.Origen);
 
             var lista = data.lista;
-
-            var esHomeContenedor = typeof listaSeccion === 'undefined' ? false : true;
-
-            var element = esHomeContenedor
-                ? $("[data-seccion=" + codigoSeccion + "]")
-                : $("#RDListado");
-
-            var codigo = element.data("origenpedidoweb");
-            var cantidadMostrar = 0;
-            var palanca = "";
-            var contenedor = _texto.contenedor;
-
-            if (codigoSeccion == _codigoSeccion.Ficha) {
-                cantidadMostrar = lista.length;
-                palanca = "Detalle de Producto - Ver más Sets";
-            }
-            else if (esHomeContenedor) {
-
-                var campania = lista[0].CampaniaID;
-
-                cantidadMostrar = limite ? limite
-                    : lista.length == 1
-                        ? lista.length
-                        : listaSeccion[codigoSeccion + "-" + campania] == undefined
-                            ? lista.length
-                            : listaSeccion[codigoSeccion + "-" + campania].CantidadProductos;
-
-                palanca = codigoSeccion == "ODD"
-                    ? _getPalancaBySeccion(codigoSeccion)
-                    : AnalyticsPortalModule.GetPalancaByOrigenPedido(codigo);
-
-                //var contenedor = fnObtenerContenedor();
-            }
-            else {
-                cantidadMostrar = lista.length;
-
-                palanca = codigoSeccion == "ODD" || codigoSeccion == "SR"
-                    ? _getPalancaBySeccion(codigoSeccion)
-                    : AnalyticsPortalModule.GetPalancaByOrigenPedido(codigo);
-            }
-
-            var parametroList = contenedor
-                + (palanca != "" ? " - " + palanca : "");
-
+            var cantidadMostrar = lista.length == 1 ? 1 : data.CantidadMostrar;
             var impressions = [];
             $.each(lista, function (index) {
                 if (index < cantidadMostrar) {
@@ -425,15 +479,33 @@ var AnalyticsPortalModule = (function () {
                         'brand': item.DescripcionMarca,
                         'category': _texto.notavaliable,
                         'variant': _texto.estandar,
-                        'list': parametroList + item.CampaniaID,
-                        'position': item.Position == undefined ? index + 1 : item.position
+                        'list': parametroList,
+                        'position': (item.Position == undefined ? index : item.position) + 1
                     };
 
                     impressions.push(impression);
                 }
             });
 
-            marcarImpresionSetProductos(impressions);
+            _marcarImpresionSetProductos(impressions);
+
+            if (data.Direccion != undefined) {
+
+                var paramlabel = "Ver anterior";
+                if (data.Direccion == CarruselVariable.Direccion.next) {
+                    paramlabel = "Ver siguiente";
+                }
+
+                var palanca = _getTextoPalancaSegunOrigen(data.Origen);
+                var pagina = _getTextoPaginaSegunOrigen(data.Origen);
+                
+                dataLayer.push({
+                    'event': "virtualEvent",
+                    'category': pagina,
+                    'action': palanca,
+                    'label': paramlabel
+                });
+            }
 
         } catch (e) {
             console.log("marcarProductImpresionSegunLista" + _texto.excepcion + e);
@@ -653,11 +725,11 @@ var AnalyticsPortalModule = (function () {
                     AnalyticsPortalModule.MarcaAnadirCarritoBuscador(model, "Ficha de producto", valorBuscar);
                     break;
                 case "Home": seccion.Seccion == "Banner Superior" ? AnalyticsPortalModule.MarcaAnadirCarritoHomeBanner(null, codigoOrigenPedido, estrategia) : AnalyticsPortalModule.MarcaAnadirCarritoHome(null, codigoOrigenPedido, estrategia); break;
-                // Inicio Analytics Oferta Miguel
+                    // Inicio Analytics Oferta Miguel
                 case "Contenedor": AnalyticsPortalModule.MarcaAnadirCarrito(event, codigoOrigenPedido, estrategia); break;
                 case "Landing": AnalyticsPortalModule.MarcaAnadirCarrito(event, codigoOrigenPedido, estrategia); break;
                 case "Pedido": AnalyticsPortalModule.MarcaAnadirCarrito(event, codigoOrigenPedido, estrategia); break;
-                // Fin Analytics Oferta Miguel
+                    // Fin Analytics Oferta Miguel
             }
 
         } catch (e) {
@@ -956,8 +1028,9 @@ var AnalyticsPortalModule = (function () {
 
     var marcaGenericaLista = function (seccion, data, limite) {
         try {
-
+            // mantener la seccion para LAN, luego ponerlo dentro de data como origen
             seccion = seccion.replace("Lista", "");
+
             // Inicio Analytics Ofertas 
             //var esNoLanding = typeof listaSeccion === 'undefined' ? false : true;
             // Fin Analytics Ofertas 
@@ -967,15 +1040,10 @@ var AnalyticsPortalModule = (function () {
                 //case _codigoSeccion.HOMEOFERTA: AnalyticsPortalModule.MarcaPromotionViewOferta(seccion, data); break; // no se utiliza
                 // Inicio Analytics Ofertas  
                 case _codigoSeccion.LAN: AnalyticsPortalModule.MarcaPromotionViewBanner(seccion, data); break;
-                case _codigoSeccion.HV: _marcarProductImpresionSegunLista(seccion, data, limite); break;
-                case _codigoSeccion.RD: _marcarProductImpresionSegunLista(seccion, data, limite); break;
-                case _codigoSeccion.SR: _marcarProductImpresionSegunLista(seccion, data, limite); break;
-                case _codigoSeccion.MG: _marcarProductImpresionSegunLista(seccion, data, limite); break;
-                case _codigoSeccion.ODD: _marcarProductImpresionSegunLista(seccion, data, limite); break;
-                case _codigoSeccion.GND: _marcarProductImpresionSegunLista(seccion, data, limite); break;
-                case _codigoSeccion.Ficha: _marcarProductImpresionSegunLista(seccion, data, limite); break;
-                //case _codigoSeccion.CART: AnalyticsPortalModule.MarcaProductImpressionCart(seccion, data); break;
-                // Fin Analytics Ofertas Miguel
+                default:
+                    _marcarProductImpresionSegunLista(data); break;
+                    //case _codigoSeccion.CART: AnalyticsPortalModule.MarcaProductImpressionCart(seccion, data); break;
+                    // Fin Analytics Ofertas Miguel
             }
         } catch (e) {
             console.log('marcaGenericaLista - ' + _texto.excepcion + e, e);
@@ -2577,14 +2645,6 @@ var AnalyticsPortalModule = (function () {
     ////////////////////////////////////////////////////////////////////////////////////////
 
     return {
-        // Ini - Valores
-        Texto: {
-            Notavaliable: _texto.notavaliable,
-            Estandar: _texto.estandar,
-            List: getParametroList
-        },
-        // Ini - Valores
-
         // Ini - Metodos Iniciales
         MarcarVerFichaProducto: marcarVerFichaProducto,
         //FcVerificarTipoMoneda: fcVerificarTipoMoneda, // no se utiliza
@@ -2594,7 +2654,7 @@ var AnalyticsPortalModule = (function () {
         MarcarAgregaProductoCarro: marcarAgregaProductoCarro,
         MarcarComparteRedesSociales: marcarComparteRedesSociales,
         MarcarClicSetProductos: marcarClicSetProductos,
-        MarImpresionSetProductos: marcarImpresionSetProductos,
+        //MarImpresionSetProductos: marcarImpresionSetProductos,// se utiliza solo como privado
         MarcarFichaBreadcrumb: marcarFichaBreadcrumb,
         // Fin - Metodos Iniciales
 

@@ -91,6 +91,7 @@ var ConstantesModule = (function () {
         MobileLandingGanadorasGanadorasFicha: "2111402"
     }
 
+    // en AnaluticsPortal.js tambiar actualizar los valores
     var _origenPedidoWebEstructura = {
         Dispositivo: {
             Desktop: '1',

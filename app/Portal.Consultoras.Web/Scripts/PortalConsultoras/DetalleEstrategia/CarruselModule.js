@@ -74,22 +74,7 @@ var CarruselAyuda = function () {
         }
         return estrategia;
     }
-
-    var _obtenerEstrategiaOfertaDelDia = function (objMostrar) {
-        var div = $("#divOddCarrusel").find("[data-item-position=" + objMostrar.IndexMostrar + "]");
-        var name = $(div).find("[data-item-campos]").find(".nombre-odd").val();
-        var id = $(div).find("[data-item-campos]").find(".cuv2-odd").val();
-        var price = $(div).find("[data-item-campos]").find(".precio-odd").val();
-        var brand = $(div).find("[data-item-campos]").find(".marca-descripcion-odd").val();
-        var estrategia = {
-            DescripcionCompleta: name,
-            CUV2: id,
-            PrecioVenta: price,
-            DescripcionMarca: brand
-        };
-        return estrategia;
-    }
-
+    
     var marcarAnalyticsInicio = function (idHtmlSeccion, arrayItems, origen, slidesToShow) {
         try {
             console.log('marcarAnalyticsInicio - inicio', idHtmlSeccion, arrayItems, origen, slidesToShow);
@@ -140,14 +125,8 @@ var CarruselAyuda = function () {
             var estrategia = $($(item).find("[data-estrategia]")[0]).data("estrategia") || "";
             console.log('marcarAnalyticsChange', estrategia);
             if (estrategia === "") {
-
                 if (origen.Palanca == ConstantesModule.OrigenPedidoWebEstructura.Palanca.Liquidacion) {
                     estrategia = _obtenerEstrategiaLiquidacion(objMostrar);
-                }
-                else if (origen.Pagina == ConstantesModule.OrigenPedidoWebEstructura.Pagina.Contenedor) {
-                    if (origen.Palanca == ConstantesModule.OrigenPedidoWebEstructura.Palanca.OfertaDelDia) {
-                        estrategia = _obtenerEstrategiaOfertaDelDia(objMostrar);
-                    }
                 }
             }
 
@@ -157,29 +136,22 @@ var CarruselAyuda = function () {
                 var obj = {
                     lista: Array(estrategia),
                     CantidadMostrar: _slick.options.slidesToScroll,
-                    Origen: origen
+                    Origen: origen,
+                    Direccion: objMostrar.Direccion
                 };
-
-                //var pagina = _obtenerPantalla(origen);
-
+                
                 AnalyticsPortalModule.MarcaGenericaLista("", obj);//Analytics Change Generico
             }
-
-            //var accion = objMostrar.Direccion;
-
-            //var paramlabel = "";
-            //if (accion == CarruselVariable.Direccion.next) {
-            //    paramlabel = "Ver anterior";
-            //} else {
-            //    paramlabel = "Ver siguiente";
-            //}
-            //var paginaCa = isHome() ? "Home" : "Carrito de Compras";
-            //dataLayer.push({
-            //    'event': "virtualEvent",
-            //    'category': paginaCa,
-            //    'action': "Ofertas para ti",
-            //    'label': paramlabel
-            //});
+            else {
+                // marcacion para el banner de ver mas cuando lo ve
+                //dataLayer.push({
+                //    'event': "virtualEvent",
+                //    'category': paginaCa,
+                //    'action': "Ofertas para ti",
+                //    'label': paramlabel
+                //});
+            }
+                
 
         } catch (e) {
             console.log('marcarAnalyticsChange - ' + _texto.excepcion + e, e);
