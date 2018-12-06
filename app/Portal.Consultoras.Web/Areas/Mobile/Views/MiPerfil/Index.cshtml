@@ -206,12 +206,14 @@ else
                                 </select>
                             </div>
                         </fieldset>
-                        <fieldset class="grupo_form_cambio_datos">
+                        <fieldset class="grupo_form_cambio_datos grupo_form_cambio_datos_campo_direccion">
                             <div class="w-100">
                                 <input id="txtDireccion" name="txtDireccion" class="w-100" type="text" value="" />
                                 <label for="txtDireccion" class="w-100">
                                     Dirección <span class="asteriscos">*</span>
                                 </label>
+                                <a class="enlace_abrir_mapa" title="Abrir Mapa">
+                                </a>
                             </div>
                         </fieldset>
                         <fieldset class="grupo_form_cambio_datos">
@@ -220,8 +222,6 @@ else
                                 <label for="txtReferencia" class="w-100">
                                     Referencia
                                 </label>
-                                <a class="enlace_abrir_mapa" title="Abrir Mapa">
-                                </a>
                             </div>
                         </fieldset>
                     </div>
@@ -287,6 +287,7 @@ else
         </div>
     </section>
 </div>
+
 
 @section scripts{
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/MiPerfil/Index.js")"></script>

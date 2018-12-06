@@ -328,7 +328,7 @@
 }
 
 .opcion_mi_perfil{
-    border: 1px solid #000;
+    border: 1px solid #808080;
     padding-left: 14px;
     padding-right: 13px;
     border-radius: 4px;
@@ -370,6 +370,10 @@
     -o-transform: rotate(-90deg);
     -webkit-transform: rotate(-90deg);
     transform: rotate(-90deg);
+}
+
+.opcion_mi_perfil.mostrarContenido{
+    border:1px solid #000;
 }
 
 .opcion_mi_perfil.mostrarContenido .icono_flecha_despliegue_contenido_mi_perfil{
@@ -494,7 +498,7 @@
         background-image:url(/Content/Images/icono_campos_select_mi_perfil.svg);
     }
 
-    .grupo_form_cambio_datos_campo_referencia{
+    .grupo_form_cambio_datos_campo_direccion{
         position:relative;
     }
 
