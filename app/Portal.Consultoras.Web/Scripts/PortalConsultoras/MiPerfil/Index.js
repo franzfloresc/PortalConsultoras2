@@ -15,6 +15,8 @@ $(document).ready(function () {
                 $('body').on('click', '.enlace_ver_password', me.Eventos.MostrarPassword);
                 $('body').on('click', '.opcion_mi_perfil_titulo', me.Eventos.MostrarContenidoOpcionPerfil);
                 $('body').on('click', '.enlace_abrir_mapa', me.Eventos.AbrirPopupUbicacionDireccionEntrega);
+                $('body').on('click', '#CerrarPopupUbicacionDireccionEntrega', me.Eventos.CerrarPopupUbicacionDireccionEntrega);
+                $('body').on('click', '#btnConfirmarUbicacionDireccionEntrega', me.Eventos.ConfirmarUbicacionDireccionEntrega);
             },
             mostrarTelefono: function () {
                 if ($('#txtTelefonoTrabajoMD').val() != '') {
@@ -148,6 +150,13 @@ $(document).ready(function () {
                 AbrirPopupUbicacionDireccionEntrega: function () {
                     $('.fondo_popup_ubicacion_direccion_entrega').fadeIn(150);
                     $('.popup_ubicacion_direccion_entrega').fadeIn(150);
+                },
+                ConfirmarUbicacionDireccionEntrega: function () {
+                    me.Eventos.CerrarPopupUbicacionDireccionEntrega();
+                },
+                CerrarPopupUbicacionDireccionEntrega: function () {
+                    $('.fondo_popup_ubicacion_direccion_entrega').fadeOut(150);
+                    $('.popup_ubicacion_direccion_entrega').fadeOut(150);
                 }
             },
             me.Inicializar = function () {

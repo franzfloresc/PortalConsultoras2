@@ -291,6 +291,9 @@ else
 <div class="fondo_popup_ubicacion_direccion_entrega">
     <div class="popup_ubicacion_direccion_entrega">
         <div class="popup_ubicacion_direccion_entrega_cabecera">
+            <a id="CerrarPopupUbicacionDireccionEntrega" class="enlace_cerrar_popup_ubicacion_direccion_entrega">
+                <img src="@Url.Content("~/Content/Images/icono-cerrar-popup-inscripcion.svg")" alt="" />
+            </a>
             <h3 class="popup_ubicacion_direccion_entrega_titulo">
                 Verifica tu ubicación
             </h3>
@@ -305,7 +308,7 @@ else
                         <iframe width="100%" height="360" id="gmap_canvas" src="https://maps.google.com/maps?q=Belcorp&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
                     </div>
                 </div>
-                <button type="button" class="confirmar_ubicacion_direccion_entrega text-uppercase">
+                <button type="button" class="confirmar_ubicacion_direccion_entrega text-uppercase" id="btnConfirmarUbicacionDireccionEntrega">
                     Confirmar
                 </button>
             </div>
