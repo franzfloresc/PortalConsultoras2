@@ -14,6 +14,7 @@ $(document).ready(function () {
                 $('body').on('click', '.enlace_eliminar_numero_adicional', me.Eventos.EliminarNumeroAdicional);
                 $('body').on('click', '.enlace_ver_password', me.Eventos.MostrarPassword);
                 $('body').on('click', '.opcion_mi_perfil_titulo', me.Eventos.MostrarContenidoOpcionPerfil);
+                $('body').on('click', '.enlace_abrir_mapa', me.Eventos.AbrirPopupUbicacionDireccionEntrega);
             },
             mostrarTelefono: function () {
                 if ($('#txtTelefonoTrabajoMD').val() != '') {
@@ -143,6 +144,10 @@ $(document).ready(function () {
                             $('.enlace_agregar_num_adicional').fadeIn(100);
                         }
                     }
+                },
+                AbrirPopupUbicacionDireccionEntrega: function () {
+                    $('.fondo_popup_ubicacion_direccion_entrega').fadeIn(150);
+                    $('.popup_ubicacion_direccion_entrega').fadeIn(150);
                 }
             },
             me.Inicializar = function () {
