@@ -428,6 +428,12 @@
         font-size:13px;
     }
 
+    .grupo_form_cambio_datos_btn_guardar_wrapper{
+        margin-left: -20px;
+        margin-right: -20px;
+        margin-bottom: -18px!important;
+    }
+
     @media screen and (max-width:350px){
 
         .w-29{
@@ -667,6 +673,11 @@
     transition: all 0.3s ease;
 }
 
+    .btn_guardar_datos_nuevos{
+        font-size:16px;
+        height:60px;
+    }
+
     .btn_guardar_datos_nuevos.default-background-color:hover,
     .btn_cambiar_contrasenia:hover,
     .btn_continuar:hover,
@@ -769,6 +780,7 @@
     padding: 13px;
     top: 2px;
     right: 3px;
+    z-index:3000;
 }
 
 .enlace_cerrar_popup_ubicacion_direccion_entrega img{

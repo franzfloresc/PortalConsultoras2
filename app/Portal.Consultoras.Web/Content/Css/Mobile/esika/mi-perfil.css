@@ -423,6 +423,12 @@
         font-size:13px;
     }
 
+    .grupo_form_cambio_datos_btn_guardar_wrapper{
+        margin-left: -20px;
+        margin-right: -20px;
+        margin-bottom: -18px!important;
+    }
+
     @media screen and (max-width:350px){
 
         .w-29{
@@ -661,6 +667,11 @@
     -webkit-transition: all 0.3s ease;
     transition: all 0.3s ease;
 }
+
+    .btn_guardar_datos_nuevos{
+        font-size:16px;
+        height:60px;
+    }
 
     .btn_guardar_datos_nuevos.default-background-color:hover,
     .btn_cambiar_contrasenia:hover,

@@ -142,8 +142,10 @@ $(document).ready(function () {
                     $(this).parent().toggleClass('mostrarContenido');
                     if ($(this).parent().is('.opcion_mis_datos')) {
                         if ($(this).next().is(':visible')) {
-                            $('.contenedor_campos_num_adicional').fadeOut(100);
-                            $('.enlace_agregar_num_adicional').fadeIn(100);
+                            if ($('#txtTelefonoTrabajoMD').val() == '') {
+                                $('.contenedor_campos_num_adicional').fadeOut(100);
+                                $('.enlace_agregar_num_adicional').fadeIn(100);
+                            }
                         }
                     }
                 },
