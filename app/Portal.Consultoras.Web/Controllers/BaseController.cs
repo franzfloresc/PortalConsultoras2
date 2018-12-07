@@ -1086,6 +1086,7 @@ namespace Portal.Consultoras.Web.Controllers
                 // odd
                 ViewBag.OfertaDelDia = _ofertaDelDiaProvider.GetOfertaDelDiaConfiguracion(userData);
                 ViewBag.TieneOfertaDelDia = _ofertaDelDiaProvider.CumpleOfertaDelDia(userData, GetControllerActual());
+                ViewBag.MostrarBannerSuperiorOdd = _ofertaDelDiaProvider.MostrarBannerSuperiorOdd(userData, GetControllerActual());
             }
             catch (Exception ex)
             {

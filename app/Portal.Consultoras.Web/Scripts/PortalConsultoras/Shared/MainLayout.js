@@ -32,6 +32,7 @@ $(document).ready(function () {
     }
 
     if (tieneOfertaDelDia == "True") {
+        //debugger;
         OfertaDelDiaModule.Inicializar();
         //window.OfertaDelDia.CargarODD();
     }
