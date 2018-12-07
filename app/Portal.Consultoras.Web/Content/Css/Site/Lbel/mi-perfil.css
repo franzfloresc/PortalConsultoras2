@@ -44,6 +44,10 @@
     margin-bottom:61px!important;
 }
 
+.pt-31{
+    padding-top:31px;
+}
+
 .ml-87{
     margin-left:87px;
 }
@@ -570,16 +574,23 @@ input:focus{
 }
 
 .permisos_cuenta_titulo,
+.permiso_cuenta_opcion,
+.checkbox_condiciones_descripcion,
+.datos_obligatorios
+{
+    font-size:14px;
+}
+
+.permisos_cuenta_titulo,
 .permiso_cuenta_opcion
 {
-    font-size:13px;
     margin-bottom:33px;
 }
 
 .permisos_cuenta_titulo,
 .checkbox_condiciones_descripcion,
 .checkbox_condiciones_descripcion a,
-.terminos_y_condiciones_wrapper ~ .datos_obligatorios
+.terminos_y_condiciones_wrapper + .grupo_form_cambio_datos .datos_obligatorios
 {
     color:#808080;
 }
@@ -612,6 +623,7 @@ input.permiso_cuenta_opcion_checkbox
     background-image:url(/Content/Images/icono_check_mi_perfil.svg);
     background-repeat:no-repeat;
     background-position:center;
+    cursor:pointer!important;
 }
 
 .checkbox_condiciones_checkbox:checked + .checkbox_condiciones_label,

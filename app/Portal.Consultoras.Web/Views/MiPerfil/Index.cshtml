@@ -117,7 +117,7 @@ else
                         </div>
                         <a id="btnCambiarEmail" href="@Url.Action("ActualizarCorreo", "MiPerfil", new {area = ""})" title="Cambiar" class="enlace_cambiar_dato w-18 text-right">
                             <span class="icono_cambiar_dato"></span>
-                            <span class="enlace_texto text-bold">Cambiar</span>
+                            @*<span class="enlace_texto text-bold">Cambiar</span>*@
                         </a>
                     </fieldset>
                     <div class="tooltip_info_revision_correo toolTipCorreo" style="display:none;">
@@ -138,7 +138,7 @@ else
                         </div>
                         <a id="btnCambiarCelular" href="@Url.Action("ActualizarCelular", "MiPerfil", new {area = ""})" title="Cambiar" class="enlace_cambiar_dato w-18 text-right">
                             <span class="icono_cambiar_dato"></span>
-                            <span class="enlace_texto text-bold">Cambiar</span>
+                            @*<span class="enlace_texto text-bold">Cambiar</span>*@
                         </a>
                     </fieldset>
                     <div class="tooltip_info_revision_correo toolTipCelular" style="display:none;">
@@ -158,10 +158,10 @@ else
                             <label for="txtTelefonoMD" class="w-100">Número fijo <span class="asteriscos">*</span></label>
                         </div>
                     </fieldset>
-                    <fieldset class="grupo_form_cambio_datos mb-61">
+                    <fieldset class="grupo_form_cambio_datos">
                         <a id="btnAgregarOtroNumero" href="" title="Agregar otro número" class="enlace_agregar_num_adicional">
                             <span class="icono_agregar_num_adicional"></span>
-                            <span class="enlace_texto text-bold">Agregar otro número</span>
+                            <span class="enlace_texto text-bold text-uppercase">Agregar otro número</span>
                         </a>
                         <div class="contenedor_campos_num_adicional w-100" style="display:none;">
                             <div class="w-82">
@@ -230,14 +230,14 @@ else
             </div>
             <div class="permisos_cuenta_opciones">
                 <div class="permiso_cuenta_opcion">
-                    <div class="permiso_cuenta_opcion_descripcion text-bold">Quiero recibir mis boletas impresas</div>
+                    <div class="permiso_cuenta_opcion_descripcion">Quiero recibir mis boletas impresas</div>
                     <fieldset class="grupo_form_permiso_cuenta">
                         <input class="permiso_cuenta_opcion_checkbox" type="checkbox" name="chkBoletasImpresas" id="chkBoletasImpresas" />
                         <label for="chkBoletasImpresas" class="permiso_cuenta_opcion_label"></label>
                     </fieldset>
                 </div>
                 <div class="permiso_cuenta_opcion">
-                    <div class="permiso_cuenta_opcion_descripcion text-bold">Quiero que se comuniquen conmigo por WhatsApp</div>
+                    <div class="permiso_cuenta_opcion_descripcion">Quiero que se comuniquen conmigo por WhatsApp</div>
                     <fieldset class="grupo_form_permiso_cuenta">
                         <input class="permiso_cuenta_opcion_checkbox" type="checkbox" name="chkComunicacionWhatsApp" id="chkComunicacionWhatsApp" />
                         <label for="chkComunicacionWhatsApp" class="permiso_cuenta_opcion_label"></label>
@@ -245,8 +245,18 @@ else
                 </div>
             </div>
         </div>
-        <div class="grupo_input_actualizarMisDatos campos_actualizarDatos mt-20">
-            <div class="checkbox_condiciones">
+        <div class="grupo_input_actualizarMisDatos campos_actualizarDatos terminos_y_condiciones_wrapper pt-31">
+            <div class="checkbox_condiciones_wrapper w-100">
+                <div class="checkbox_condiciones_descripcion">
+                    <span class="asterisco_actualizar_datos">(*)&nbsp;</span>
+                    Estoy de acuerdo con los <span><a href="javascript:;" id="hrefTerminosMD" target="_blank">términos y condiciones</a></span> sobre Protección de datos personales
+                </div>
+                <fieldset class="grupo_form_checkbox_condiciones">
+                    <input class="checkbox_condiciones_checkbox" type="checkbox" name="chkAceptoContratoMD" id="chkAceptoContratoMD" />
+                    <label for="chkAceptoContratoMD" class="checkbox_condiciones_label"></label>
+                </fieldset>
+            </div>
+            @*<div class="checkbox_condiciones">
                 <input type="checkbox" name="chkAceptoContratoMD" id="chkAceptoContratoMD" />
                 <label for="chkAceptoContratoMD" class="texto_terminosCondiciones">
                     <span class="asterisco_actualizar_datos">(*)&nbsp;</span>
@@ -255,7 +265,7 @@ else
 
                     </span>
                 </label>
-            </div>
+            </div>*@
         </div>
 
         <fieldset class="grupo_form_cambio_datos">
@@ -267,7 +277,7 @@ else
                 {
                     <p>&nbsp;</p>
                     <p>
-                        Modifica tus datos comunicándote al 5948060 en Bogotá y 018000937452 a nivel nacional.
+                        &nbsp;Modifica tus datos comunicándote al 5948060 en Bogotá y 018000937452 a nivel nacional.
                     </p>
                 }
             </div>
