@@ -144,13 +144,6 @@ var CarruselAyuda = function () {
                 AnalyticsPortalModule.MarcaGenericaLista("", obj);//Analytics Change Generico
             }
 
-            if (slick.options.infinite === false) {
-                // ocultar y mostrar flechas cuando este en el extremo
-                // esto debe estar en afterChange, luego de renderizar el ancho de imagen y caja de producto
-
-            }
-
-
         } catch (e) {
             console.log('marcarAnalyticsChange - ' + _texto.excepcion + e, e);
         }
