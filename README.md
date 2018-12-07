@@ -8,5 +8,6 @@ PI2-EPM-Sprint4-PromotionViewLan
 PI2-EPM-Sprint4-AddToCarts
 PI2-EPM-Sprint4-AnalyticsReserva
 PI2-EPM-Sprint4-PromotionImpresion
+PI2-EPM-Sprint4-DeudaMejora
 
 
