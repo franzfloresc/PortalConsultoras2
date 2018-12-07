@@ -1,0 +1,280 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+    <meta http-equiv='X-UA-Compatible' content='IE=10,chrome=1' />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
+    <style type='text/css'>
+        .content_popUp {
+            width: 100%;
+            max-width: 1080px;
+            margin: 0 auto;
+            padding-top: 48px;
+            padding-bottom: 48px;
+            box-sizing: border-box;
+            font-family: 'lato';
+            position: relative;
+        }
+
+        .contenedor_bloque_datos {
+            display: block;
+            width: 100%;
+            height: auto;
+            margin-bottom: 21px;
+            position: relative;
+        }
+
+        .bloque_datos {
+            display: inline-block;
+        }
+
+        .direccion_cliente, .nombre_cliente, .documento_cliente, .fecha_emision {
+            font-size: 14px;
+        }
+
+        .direccion_cliente {
+            margin-bottom: 20px;
+        }
+
+        .datos_cliente {
+            display: inline-block;
+            width: 68%;
+            height: auto;
+            vertical-align: top;
+        }
+
+        .datos_cliente h2 {
+            margin: 0;
+            padding: 0;
+            font-family: 'Lato';
+            color: #000;
+            font-size: 14pt;
+            font-weight: bold;
+        }
+
+        .margen-izquierdo {
+            margin-left: 35px;
+        }
+
+        .datos_empresa {
+            display: inline-block;
+            width: 30%;
+            height: auto;
+            vertical-align: top;
+            text-align: right;
+            box-sizing: border-box;
+            position: relative;
+            right: -1.8%;
+        }
+
+        .comprobante_percepciones {
+            font-size: 19px;
+            font-weight: bold;
+        }
+
+        .ruc_cliente, .numero_comprobante {
+            font-size: 15px;
+        }
+
+        .linea_separadora {
+            width: 100%;
+            height: 1px;
+            background: black;
+        }
+
+        .linea_separadora_roja {
+            width: 100%;
+            height: 1px;
+            background: #e81c36;
+            position: relative;
+            z-index: 7;
+        }
+
+        .content_datos_percepciones {
+            width: 100%;
+            height: auto;
+            font-family: 'lato';
+            font-size: 10pt;
+            color: black;
+            border-bottom: 1px solid #CCC;
+        }
+
+        .datos_impresion {
+            margin-top: 20px;
+            color: #666666;
+        }
+
+        .tipo {
+            width: 11%;
+            padding-left: 0;
+            display: inline-block;
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        .serie {
+            width: 12%;
+            padding-left: 0;
+            display: inline-block;
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        .correlativo {
+            width: 12%;
+            text-align: center;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .fechaEmision {
+            width: 12%;
+            text-align: center;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .precioVenta {
+            width: 12%;
+            text-align: center;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .porcentajePercepcion {
+            width: 12%;
+            text-align: center;
+            display: inline-block;
+            vertical-align: middle;
+            position: relative;
+        }
+
+        .importePercepcion {
+            width: 12%;
+            text-align: center;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .montoTotalPercepcion {
+            width: 12%;
+            text-align: right;
+            display: inline-block;
+            vertical-align: middle;
+            position: relative;
+        }
+
+        .texto_gris_popup {
+            color: #666565;
+            font - weight: 300;
+            font-size: 14px !important;
+            line-height: 14pt;
+        }
+
+        .padding_tabla_percepcion {
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+
+        .totalTexto {
+            width: 80.5%;
+            padding-top: 25px;
+            padding-bottom: 25px;
+            text-align: right;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .totalNumero {
+            width: 15.8%;
+            padding-top: 25px;
+            padding-bottom: 25px;
+            text-align: right;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .texto_bold {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class='content_popUp'>
+        <div class='contenedor_bloque_datos'>
+            <div class='datos_cliente'>
+                <h2>#RAZON_SOCIAL#</h2>
+                <div class='direccion_cliente'>#DIRECCION_CLIENTE#</div>
+                <div class='bloque_datos'>
+                    <div class='nombre_cliente'>
+                        <span>Señor(es):</span>
+                    </div>
+                    <div class='documento_cliente'>
+                        <span>RUC/DNI:</span>
+                    </div>
+                    <div class='fecha_emision'>
+                        <span>Fecha de Emisión:</span>
+                    </div>
+                </div>
+                <div class='bloque_datos margen-izquierdo'>
+                    <div class='nombre_cliente'>
+                        <span>#NOMBRE_AGENTE_PERCEPTOR#</span>
+                    </div>
+                    <div class='documento_cliente'>
+                        <span>#RUC_AGENTE_PERCEPTOR#</span>
+                    </div>
+                    <div class='fecha_emision'>
+                        <span>#FECHA_EMISION#</span>
+                    </div>
+                </div>
+            </div>
+            <div class='datos_empresa'>
+                <div class='ruc_cliente'>
+                    <span>RUC:</span>
+                    <span>&nbsp;#RUC#</span>
+                </div>
+                <div class='comprobante_percepciones'>
+                    <span>COMPROBANTE DE PERCEPCIONES VENTA INTERNA</span>
+                </div>
+                <div class='numero_comprobante'>
+                    <span>Nro:</span>
+                    <span>&nbsp;#NUMERO_COMPROBANTE_SERIE#</span>
+                </div>
+
+            </div>
+        </div>
+        <div class='linea_separadora' style='height:2px;'></div>
+        <div class='content_datos_percepciones'>
+            <div class='tipo texto_gris_popup padding_tabla_percepcion'>Tipo</div>
+            <div class='serie texto_gris_popup padding_tabla_percepcion'>Serie</div>
+            <div class='correlativo texto_gris_popup padding_tabla_percepcion'>Correlativo</div>
+            <div class='fechaEmision texto_gris_popup padding_tabla_percepcion'>Fecha Emisión Documento</div>
+            <div class='precioVenta texto_gris_popup padding_tabla_percepcion'>Precio de Venta(S/.)</div>
+            <div class='porcentajePercepcion texto_gris_popup padding_tabla_percepcion'>Porcentaje de Percepción</div>
+            <div class='importePercepcion texto_gris_popup padding_tabla_percepcion'>Importante Percepciones(S/.)</div>
+            <div class='montoTotalPercepcion texto_gris_popup padding_tabla_percepcion'>Monto Total(S/.)</div>
+        </div>
+        <div class='linea_separadora' style='margin-top:-1px'></div>
+        <div style='max-height:419px; overflow:auto;'>
+            #DETALLE_PERCEPCION#
+        </div>
+        <div class='linea_separadora_roja' style='height:2px;'></div>
+        <div class='content_datos_percepciones'>
+            <div class='totalTexto texto_bold'>TOTAL:</div>
+            <div class='totalNumero texto_bold'>#SIMBOLO_MONEDA#&nbsp;#IMPORTE_PERCEPCION#</div>
+        </div>
+        <div class='linea_separadora' style='height:1px;'></div>
+        <div class='datos_impresion'>
+            <div class='numeroAutorizacion'>
+                <span>Nro.autorización impresión de SUNAT:&nbsp;&nbsp;</span><span>2247770011</span>
+            </div>
+            <div class='fechaAutorizacion'>
+                <span>Fecha autorización:&nbsp;&nbsp;</span><span>27/01/2011</span>
+            </div>
+            <div class='numeroSerieImpresion'>
+                <span>Serie:&nbsp;&nbsp;</span><span>001</span>&nbsp;-&nbsp;del&nbsp;<span>8000001</span>&nbsp;hasta&nbsp;-&nbsp;<span>999999999</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

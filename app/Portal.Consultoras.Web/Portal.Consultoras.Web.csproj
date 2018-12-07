@@ -501,6 +501,7 @@
     <Compile Include="Models\Estrategia\UpSellingAdminModel.cs" />
     <Compile Include="Models\Estrategia\UpSellingModel.cs" />
     <Compile Include="Models\Estrategia\UpSellingRegaloModel.cs" />
+    <Compile Include="Models\Estrategia\WaEstrategiaDetalleModel.cs" />
     <Compile Include="Models\Estrategia\WaEstrategiaModel.cs" />
     <Compile Include="Models\Estrategia\WaTipoEstrategia.cs" />
     <Compile Include="Models\GuiaNegocioModel.cs" />
@@ -3854,6 +3855,8 @@
     <Content Include="Content\Template\mailing_mensaje_express.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Template\mailing_pago_percepcion.html" />
+    <Content Include="Content\Template\mailing_pago_percepcion_detalle.html" />
     <Content Include="Content\Temporales\FolderContent.txt" />
     <Content Include="emt_chat\css\font-awesome.css" />
     <Content Include="emt_chat\css\font-awesome.min.css" />
