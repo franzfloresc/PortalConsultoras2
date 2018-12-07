@@ -36,7 +36,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
         private readonly ITablaLogicaDatosBusinessLogic _tablaLogicaDatosBusinessLogic;
         private readonly IOfertaProductoBusinessLogic _ofertaProductoBusinessLogic;
         private readonly IProgramaNuevasBusinessLogic _programaNuevasBusinessLogic;
-
+        private readonly IDireccionEntregaBusinessLogic _direccionEntregaBusinessLogic;
         public BLPedido() : this(new BLProducto(),
                                     new BLPedidoWeb(),
                                     new BLPedidoWebDetalle(),
@@ -53,7 +53,9 @@ namespace Portal.Consultoras.BizLogic.Pedido
                                     new BLPedidoWebSet(),
                                     new BLTablaLogicaDatos(),
                                     new BLOfertaProducto(),
-                                    new BLProgramaNuevas())
+                                    new BLProgramaNuevas(),
+                                    new BLDireccionEntrega()
+            )
         { }
 
         public BLPedido(IProductoBusinessLogic productoBusinessLogic,
@@ -72,7 +74,9 @@ namespace Portal.Consultoras.BizLogic.Pedido
                             IPedidoWebSetBusinessLogic pedidoWebSetBusinessLogic,
                             ITablaLogicaDatosBusinessLogic tablaLogicaDatosBusinessLogic,
                             IOfertaProductoBusinessLogic ofertaProductoBusinessLogic,
-                            IProgramaNuevasBusinessLogic programaNuevasBusinessLogic)
+                            IProgramaNuevasBusinessLogic programaNuevasBusinessLogic,
+                            IDireccionEntregaBusinessLogic direccionEntregaBusinessLogic
+            )
         {
             _productoBusinessLogic = productoBusinessLogic;
             _pedidoWebBusinessLogic = pedidoWebBusinessLogic;
@@ -91,6 +95,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             _tablaLogicaDatosBusinessLogic = tablaLogicaDatosBusinessLogic;
             _ofertaProductoBusinessLogic = ofertaProductoBusinessLogic;
             _programaNuevasBusinessLogic = programaNuevasBusinessLogic;
+            _direccionEntregaBusinessLogic = direccionEntregaBusinessLogic;
         }
 
         #region Publicos
@@ -2556,5 +2561,40 @@ namespace Portal.Consultoras.BizLogic.Pedido
             return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.SUCCESS);
         }
         #endregion
+
+        #region Direccion de entrega
+
+        public BEDireccionEntrega InsertarDireccionEntrega(BEDireccionEntrega direccion)
+        {
+            BEDireccionEntrega resultado = null;
+            try
+            {
+
+                resultado = _direccionEntregaBusinessLogic.Insertar(direccion);
+            }
+            catch (Exception ex)
+            {
+                resultado = new BEDireccionEntrega();
+                LogManager.SaveLog(ex, direccion.CodigoUsuario, direccion.PaisID);
+            }
+            return resultado;
+        }
+        public BEDireccionEntrega EditarDireccionEntrega(BEDireccionEntrega direccion)
+        {
+            BEDireccionEntrega resultado = null;
+            try
+            {
+
+                resultado = _direccionEntregaBusinessLogic.Editar(direccion);
+            }
+            catch (Exception ex)
+            {
+                resultado = new BEDireccionEntrega();
+                LogManager.SaveLog(ex, direccion.CodigoUsuario, direccion.PaisID);
+            }
+
+            return resultado;
+        }
+        #endregion
     }
-}
+} 

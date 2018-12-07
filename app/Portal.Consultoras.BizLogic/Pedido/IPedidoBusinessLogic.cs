@@ -26,5 +26,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
         void InsertOfertaFinalLog(int paisID, int campaniaID, string codigoConsultora, decimal? montoInicial, List<BEOfertaFinalConsultoraLog> listaOfertaFinalLog);
         BEPedidoDetalleResult InsertProductoBuscador(BEPedidoDetalle pedidoDetalle);
         List<BEPedidoDetalleResult> InsertMasivo(List<BEPedidoDetalle> lstPedidoDetalle);
+        BEDireccionEntrega InsertarDireccionEntrega(BEDireccionEntrega direccion);
+        BEDireccionEntrega EditarDireccionEntrega(BEDireccionEntrega direccion);
     }
 }
