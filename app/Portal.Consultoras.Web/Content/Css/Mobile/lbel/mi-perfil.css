@@ -518,11 +518,12 @@
         margin: auto 0;
         top: 18px;
         bottom: 0;
-        right: 4px;
-        width: 18px;
-        height: 18px;
-        background-image:url(/Content/Images/icono_localizacion.svg);
-        z-index:3000;
+        right: -9px;
+        width: 40px;
+        height: 40px;
+        background-position: center;
+        background-image: url(/Content/Images/icono_localizacion.svg);
+        z-index: 3000;
     }
 
     .grupo_form_cambio_datos input:focus + label,
