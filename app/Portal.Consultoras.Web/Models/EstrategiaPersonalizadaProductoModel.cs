@@ -71,6 +71,8 @@ namespace Portal.Consultoras.Web.Models
         /// 2: AGRÉGALO - Si puede alterar cantidad
         /// 3: ELIGE TU OPCIÓN
         /// 4: ¿LO QUIERES?
+        /// 5: ¿LO QUIERES? Inactivo
+        /// 11: Banner Carrusel (MG, OPT, SR)
         /// </summary>
         public int TipoAccionAgregar { get; set; }
 
