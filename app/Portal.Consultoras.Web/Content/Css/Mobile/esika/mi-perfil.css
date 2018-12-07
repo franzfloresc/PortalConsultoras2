@@ -513,11 +513,12 @@
         margin: auto 0;
         top: 18px;
         bottom: 0;
-        right: 4px;
-        width: 18px;
-        height: 18px;
-        background-image:url(/Content/Images/icono_localizacion.svg);
-        z-index:3000;
+        right: -9px;
+        width: 40px;
+        height: 40px;
+        background-position: center;
+        background-image: url(/Content/Images/icono_localizacion.svg);
+        z-index: 3000;
     }
 
     .grupo_form_cambio_datos input:focus + label,
@@ -744,11 +745,18 @@
 
 /* POPUP MAPA UBICACIÓN DIRECCIÓN ENTREGA */
 
+.fondo_popup_ubicacion_direccion_entrega,
+.popup_ubicacion_direccion_entrega_contenido,
+.popup_ubicacion_direccion_entrega_contenido .gmap_canvas,
+.confirmar_ubicacion_direccion_entrega
+{
+    width:100%;
+}
+
 .fondo_popup_ubicacion_direccion_entrega{
     display:none;
     background-color:rgba(0,0,0,0.7);
     position:fixed;
-    width:100%;
     height:100%;
     overflow:auto;
     top:0;
@@ -758,10 +766,9 @@
 
 .popup_ubicacion_direccion_entrega {
     display:none;
-    width: 90%;
     background-color: #FFF;
-    margin: 20px auto 0 auto;
-    min-height: 481px;
+    margin: 0 auto;
+    height: 100%;
 }
 
 .popup_ubicacion_direccion_entrega_cabecera {
@@ -809,8 +816,7 @@
 }
 
 .popup_ubicacion_direccion_entrega_contenido{
-    width: 100%;
-    min-height: 366px;
+    height: calc(100vh - 118px);
 }
 
 .confirmar_ubicacion_direccion_entrega {
@@ -818,13 +824,23 @@
     margin: 0 auto;
     left: 0;
     right: 0;
-    bottom: -20px;
-    width: 259px;
-    height: 45px;
+    bottom: 0;
+    height: 60px;
     background-color: #e81c36;
     color: #FFF;
-    font-size: 13.5px;
+    font-size: 16px;
+    font-weight: bold;
     letter-spacing: 0.8px;
+}
+
+.popup_ubicacion_direccion_entrega_contenido,
+.popup_ubicacion_direccion_entrega_contenido .gmap_canvas
+{
+    overflow: hidden;
+}
+
+.popup_ubicacion_direccion_entrega_contenido .gmap_canvas{
+    height: calc(100vh - 178px);
 }
 
 /* FIN - POPUP MAPA UBICACIÓN DIRECCIÓN ENTREGA */
