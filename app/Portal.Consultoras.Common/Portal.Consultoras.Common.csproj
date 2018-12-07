@@ -205,6 +205,7 @@
     <Compile Include="Reader\IStreamReader.cs" />
     <Compile Include="RegexUtilities.cs" />
     <Compile Include="Response\GenericResponse.cs" />
+    <Compile Include="Rest.cs" />
     <Compile Include="SeguridadApi\JwtAutentication.cs" />
     <Compile Include="SeguridadApi\JwtContext.cs" />
     <Compile Include="SeguridadApi\JwtModule.cs" />

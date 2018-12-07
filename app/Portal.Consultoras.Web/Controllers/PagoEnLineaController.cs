@@ -28,13 +28,12 @@ namespace Portal.Consultoras.Web.Controllers
         // GET: PagoEnLinea
         public ActionResult Index()
         {
-            string sap = "";
-            var url = (Request.Url.Query).Split('?');
             if (EsDispositivoMovil())
             {
+                var url = (Request.Url.Query).Split('?');
                 if (url.Length > 1)
                 {
-                    sap = "&" + url[1];
+                    string sap = "&" + url[1];
                     return RedirectToAction("Index", "PagoEnLinea", new { area = "Mobile", sap });
                 }
                 else
@@ -77,7 +76,7 @@ namespace Portal.Consultoras.Web.Controllers
             using (var ps = new PedidoServiceClient())
             {
                 bancos = ps.ObtenerPagoEnLineaURLPaginasBancos(userData.PaisID);
-        
+
             }
             return bancos;
         }
