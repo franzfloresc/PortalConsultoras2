@@ -14,6 +14,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Portal.Consultoras.BizLogic.LimiteVenta;
 
 namespace Portal.Consultoras.BizLogic.Pedido
 {
@@ -36,6 +37,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
         private readonly ITablaLogicaDatosBusinessLogic _tablaLogicaDatosBusinessLogic;
         private readonly IOfertaProductoBusinessLogic _ofertaProductoBusinessLogic;
         private readonly IProgramaNuevasBusinessLogic _programaNuevasBusinessLogic;
+        private readonly ILimiteVentaBusinessLogic _limiteVentaBusinessLogic;
 
         public BLPedido() : this(new BLProducto(),
                                     new BLPedidoWeb(),
@@ -53,7 +55,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                                     new BLPedidoWebSet(),
                                     new BLTablaLogicaDatos(),
                                     new BLOfertaProducto(),
-                                    new BLProgramaNuevas())
+                                    new BLProgramaNuevas(),
+                                    new BLLimiteVenta())
         { }
 
         public BLPedido(IProductoBusinessLogic productoBusinessLogic,
@@ -72,7 +75,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                             IPedidoWebSetBusinessLogic pedidoWebSetBusinessLogic,
                             ITablaLogicaDatosBusinessLogic tablaLogicaDatosBusinessLogic,
                             IOfertaProductoBusinessLogic ofertaProductoBusinessLogic,
-                            IProgramaNuevasBusinessLogic programaNuevasBusinessLogic)
+                            IProgramaNuevasBusinessLogic programaNuevasBusinessLogic,
+                            ILimiteVentaBusinessLogic limiteVentaBusinessLogic)
         {
             _productoBusinessLogic = productoBusinessLogic;
             _pedidoWebBusinessLogic = pedidoWebBusinessLogic;
@@ -91,6 +95,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             _tablaLogicaDatosBusinessLogic = tablaLogicaDatosBusinessLogic;
             _ofertaProductoBusinessLogic = ofertaProductoBusinessLogic;
             _programaNuevasBusinessLogic = programaNuevasBusinessLogic;
+            _limiteVentaBusinessLogic = limiteVentaBusinessLogic;
         }
 
         #region Publicos
@@ -268,6 +273,10 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 //Validar stock
                 var result = ValidarStockEstrategia(usuario, pedidoDetalle, lstDetalle, out mensaje);
                 if (!result) return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_STOCK_ESTRATEGIA, mensaje);
+
+                //Validar Stock limite de Venta
+                var resultStockLimite = ValidarStockLimiteVenta(usuario, pedidoDetalle, lstDetalle, out mensaje);
+                if (resultStockLimite) return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_LIMITE_VENTA, mensaje);
 
                 if (pedidoDetalle.Producto.TipoOfertaSisID == 0)
                 {
@@ -552,6 +561,10 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 //Validar stock
                 var result = ValidarStockEstrategia(usuario, pedidoDetalle, lstDetalle, out mensaje);
                 if (!result) return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_STOCK_ESTRATEGIA, mensaje);
+
+                //Validar Stock limite de Venta
+                var resultStockLimite = ValidarStockLimiteVenta(usuario, pedidoDetalle, lstDetalle.Where(x => x.PedidoDetalleID != pedidoDetalle.PedidoDetalleID).ToList(), out mensaje);
+                if (resultStockLimite) return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_LIMITE_VENTA, mensaje);
 
                 //accion actualizar
                 foreach (BEPedidoDetalle detalle in lstDetalleApp)
@@ -1688,6 +1701,15 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
             PedidoInsertar(usuario, pedidoDetalle, lstDetalle, true);
         }
+
+        private bool ValidarStockLimiteVenta(BEUsuario usuario, BEPedidoDetalle pedidoDetalle, List<BEPedidoWebDetalle> pedido, out string mensaje) {            
+            var cantidadActual = pedido.Where(d => d.CUV == pedidoDetalle.Producto.CUV).Sum(d => d.Cantidad);
+            var respValidar = _limiteVentaBusinessLogic.CuvTieneLimiteVenta(usuario.PaisID, usuario.CampaniaID, usuario.CodigorRegion, usuario.CodigoZona, pedidoDetalle.Producto.CUV, pedidoDetalle.Cantidad, cantidadActual);
+            if (respValidar.TieneLimite) mensaje = string.Format(Constantes.MensajesError.ExcedioLimiteVenta, respValidar.UnidadesMaximas);
+            else mensaje = null;
+            return respValidar.TieneLimite;
+        }
+
         #endregion  
 
         #region Get
