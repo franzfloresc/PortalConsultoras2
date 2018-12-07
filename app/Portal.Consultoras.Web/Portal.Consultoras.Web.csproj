@@ -318,8 +318,9 @@
     <Compile Include="CustomFilters\ValidateAjaxModelAttribute.cs" />
     <Compile Include="Models\CambioTipoNegocioModel.cs" />
     <Compile Include="Controllers\ReporteContratoController.cs" />
-    <Compile Include="Models\ConfigPremioProgNuevasOFModel.cs" />
-    <Compile Include="Models\PremioProgNuevasOFModel.cs" />
+    <Compile Include="Models\ProgramaNuevas\ConfigPremioProgNuevasModel.cs" />
+    <Compile Include="Models\ProgramaNuevas\PremioProgNuevasOFModel.cs" />
+    <Compile Include="Models\ProgramaNuevas\PremioProgNuevasModel.cs" />
     <Compile Include="Models\Estrategia\EstrategiaMDbAdapterModel.cs" />
     <Compile Include="Controllers\OfertaDelDiaController.cs" />
     <Compile Include="CustomHelpers\Infraestructure\Sms\ISmsConfirm.cs" />

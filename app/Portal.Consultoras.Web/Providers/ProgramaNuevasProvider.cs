@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.ProgramaNuevas;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
@@ -23,27 +25,26 @@ namespace Portal.Consultoras.Web.Providers
         
         public BarraTippingPoint GetBarraTippingPoint(string codigoPrograma)
         {
-            string nivel = Convert.ToString(userData.ConsecutivoNueva + 1).PadLeft(2, '0');
+            string nivel = userData.ConfigPremioProgNuevas.CodigoNivel;
             try
             {
                 BEActivarPremioNuevas beActive;
                 BEEstrategia estrategia = null;
-                List<PremioElectivoModel> listPremioElectivo = null;
 
                 using (var sv = new PedidoServiceClient())
                 {
                     beActive = sv.GetActivarPremioNuevas(userData.PaisID, codigoPrograma, userData.CampaniaID, nivel);
                     if (beActive == null) return new BarraTippingPoint();
-
-                    if (beActive.ActivePremioAuto)
+                    
+                    if (beActive.ActivePremioAuto) beActive.ActivePremioAuto = userData.ConfigPremioProgNuevas.PremioAuto != null;
+                    if (beActive.ActivePremioAuto && beActive.ActiveTooltip)
                     {
                         estrategia = sv.GetEstrategiaPremiosTippingPoint(userData.PaisID, codigoPrograma, userData.CampaniaID, nivel);
-                        beActive.ActivePremioAuto = estrategia != null;
                     }
                 }
                 if (beActive.ActivePremioElectivo)
                 {
-                    listPremioElectivo = GetListPremioElectivo();
+                    var listPremioElectivo = userData.ConfigPremioProgNuevas.ListPremioElec;
                     beActive.ActivePremioElectivo = listPremioElectivo != null && listPremioElectivo.Any();
                 }
 
@@ -86,7 +87,73 @@ namespace Portal.Consultoras.Web.Providers
 
             barra.TippingPointStr = Util.DecimalToStringFormat(barra.TippingPoint, userData.CodigoISO);
         }
-        public decimal GetTippingPointOF(BEConfiguracionProgramaNuevas configProgNuevas)
+
+        public ConsultoraRegaloProgramaNuevasOFModel GetConsultoraRegaloProgNuevasOF(PremioProgNuevasModel premio)
+        {
+            var configProgNuevas = GetConfiguracion();
+            var model = new ConsultoraRegaloProgramaNuevasOFModel
+            {
+                CodigoNivel = userData.ConfigPremioProgNuevas.CodigoNivel,
+                TippingPoint = GetTippingPointOF(configProgNuevas)
+            };
+
+            var premioOF = GetPremioProgNuevasOF(premio);
+            model.DescripcionPremio = premioOF.DescripcionPremio;
+            model.UrlImagenRegalo = premioOF.UrlImagenRegalo;
+            model.PrecioValorizado = premioOF.PrecioValorizado;
+            model.PrecioValorizadoFormat = Util.DecimalToStringFormat(model.PrecioValorizado, userData.CodigoISO);
+
+            return model;
+        }
+        private PremioProgNuevasOFModel GetPremioProgNuevasOF(PremioProgNuevasModel premio)
+        {
+            var dictPremioOF = sessionManager.GetDictPremioProgNuevasOF();
+            if(dictPremioOF.ContainsKey(premio.Cuv)) return dictPremioOF[premio.Cuv];
+
+            var premioOF = GetPremioProgNuevasOFFromCatalogoSap(premio);
+            dictPremioOF.Add(premio.Cuv, premioOF);
+            sessionManager.SetDictPremioProgNuevasOF(dictPremioOF);
+            return premioOF;
+        }
+        private PremioProgNuevasOFModel GetPremioProgNuevasOFFromCatalogoSap(PremioProgNuevasModel premio)
+        {
+            var premioOF = new PremioProgNuevasOFModel {
+                Cuv = premio.Cuv,
+                DescripcionPremio = premio.DescripcionPremio,
+                PrecioValorizado = premio.PrecioValorizado
+            };
+
+            try
+            {
+                Producto producto = null;
+                if (!string.IsNullOrEmpty(premio.CodigoSap))
+                {
+                    using (var svc = new ProductoServiceClient())
+                    {
+                        var lst = svc.ObtenerProductosPorCampaniasBySap(userData.CodigoISO, userData.CampaniaID, premio.CodigoSap, 3).ToList();
+                        producto = lst.FirstOrDefault();
+                    }
+                }
+                
+                if (producto != null)
+                {
+                    var dd = (!string.IsNullOrEmpty(producto.NombreComercial)
+                        ? producto.NombreComercial
+                        : producto.DescripcionComercial);
+                    if (!string.IsNullOrEmpty(dd)) premioOF.DescripcionPremio = dd;
+
+                    if (producto.PrecioValorizado > 0) premioOF.PrecioValorizado = producto.PrecioValorizado;
+                    premioOF.UrlImagenRegalo = producto.Imagen;
+                }
+                premioOF.DescripcionPremio = premioOF.DescripcionPremio.ToUpper();
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+            return premioOF;
+        }
+        private decimal GetTippingPointOF(BEConfiguracionProgramaNuevas configProgNuevas)
         {
             var inMinimo = configProgNuevas.IndExigVent == "0" || configProgNuevas.MontoVentaExigido == 0;
 

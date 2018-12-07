@@ -1073,7 +1073,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.TipoUsuario = userData.TipoUsuario;
             ViewBag.MensajePedidoDesktop = userData.MensajePedidoDesktop;
             ViewBag.MensajePedidoMobile = userData.MensajePedidoMobile;
-            ViewBag.ConsultoraTieneRegaloPN = userData.ConfigPremioProgNuevasOF.TienePremio;
+            ViewBag.ConsultoraTieneRegaloPN = userData.ConfigPremioProgNuevas.MostrarRegaloOF;
 
             #region EventoFestivo
 

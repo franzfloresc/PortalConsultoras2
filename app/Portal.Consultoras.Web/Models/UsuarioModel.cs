@@ -1,7 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
-using Portal.Consultoras.Web.ServicePedido;
-using Portal.Consultoras.Web.ServiceSAC;
+using Portal.Consultoras.Web.Models.ProgramaNuevas;
 using System;
 using System.Collections.Generic;
 
@@ -331,7 +330,7 @@ namespace Portal.Consultoras.Web.Models
         public int MensajePedidoMobile { get; set; }
 
         public ConsultoraOnlineMenuResumenModel ConsultoraOnlineMenuResumen { get; set; }
-        public ConfigPremioProgNuevasOFModel ConfigPremioProgNuevasOF { get; set; }
+        public ConfigPremioProgNuevasModel ConfigPremioProgNuevas { get; set; }
         public List<MenuMobileModel> MenuMobile { get; set; }
 
         public int OfertaFinal { get; set; }

@@ -3,6 +3,7 @@ using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Layout;
 using Portal.Consultoras.Web.Models.MisCertificados;
 using Portal.Consultoras.Web.Models.PagoEnLinea;
+using Portal.Consultoras.Web.Models.ProgramaNuevas;
 using Portal.Consultoras.Web.ServiceCDR;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
@@ -261,6 +262,8 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetLimElectivosProgNuevas(int limElectivos);
         List<PremioElectivoModel> GetListPremioElectivo();
         void SetListPremioElectivo(List<PremioElectivoModel> listPremioElectivo);
+        Dictionary<string, PremioProgNuevasOFModel> GetDictPremioProgNuevasOF();
+        void SetDictPremioProgNuevasOF(Dictionary<string, PremioProgNuevasOFModel> listPremioProgNuevasOF);
 
         void SetBuscadorYFiltros(BuscadorYFiltrosConfiguracionModel buscadorYFiltrosModel);
 

@@ -2,8 +2,11 @@
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Models.Estrategia;
+using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using Portal.Consultoras.Web.Models.MisCertificados;
+using Portal.Consultoras.Web.Models.PagoEnLinea;
 using Portal.Consultoras.Web.Models.Pedido;
+using Portal.Consultoras.Web.Models.ProgramaNuevas;
 using Portal.Consultoras.Web.ServiceCDR;
 using Portal.Consultoras.Web.ServiceContenido;
 using Portal.Consultoras.Web.ServicePedido;
@@ -11,14 +14,10 @@ using Portal.Consultoras.Web.ServicePedidoRechazado;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceSeguridad;
-using ServiceUsuario = Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
-using Portal.Consultoras.Service;
-using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using System.Linq;
-using Portal.Consultoras.Web.Models.PagoEnLinea;
 
 namespace Portal.Consultoras.Web.Models.AutoMapper
 {
@@ -253,7 +252,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
 
             Mapper.CreateMap<ServicePedido.BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>();
 
-            Mapper.CreateMap<BEConsultoraRegaloProgramaNuevas, PremioProgNuevasOFModel>()
+            Mapper.CreateMap<BEConsultoraRegaloProgramaNuevas, PremioProgNuevasModel>()
                 .ForMember(x => x.Cuv, t => t.MapFrom(c => c.CUVPremio));
 
             Mapper.CreateMap<BEPermiso, PermisoModel>()
