@@ -541,6 +541,24 @@ namespace Portal.Consultoras.Web.Controllers
                 #endregion Buscador Desktop
 
                 #region Buscador Mobile
+                case Constantes.OrigenPedidoWeb.MobileBuscadorOfertasParaTiDesplegableBuscador:
+                    result = Constantes.OrigenPedidoWeb.MobileBuscadorOfertasParaTiFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobileBuscadorShowroomDesplegableBuscador:
+                    result = Constantes.OrigenPedidoWeb.MobileBuscadorShowroomFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobileBuscadorLanzamientosDesplegableBuscador:
+                    result = Constantes.OrigenPedidoWeb.MobileBuscadorLanzamientosFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobileBuscadorOfertaDelDiaDesplegableBuscador:
+                    result = Constantes.OrigenPedidoWeb.MobileBuscadorOfertaDelDiaFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobileBuscadorGNDDesplegableBuscador:
+                    result = Constantes.OrigenPedidoWeb.MobileBuscadorGNDFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobileBuscadorHerramientasdeVentaDesplegableBuscador:
+                    result = Constantes.OrigenPedidoWeb.MobileBuscadorHerramientasdeVentaFicha;
+                    break;
                 case Constantes.OrigenPedidoWeb.MobileLandingBuscadorOfertasParaTiCarrusel:
                     result = Constantes.OrigenPedidoWeb.MobileLandingBuscadorOfertasParaTiFicha;
                     break;
@@ -573,6 +591,11 @@ namespace Portal.Consultoras.Web.Controllers
                     break;
                 case Constantes.OrigenPedidoWeb.MobileLandingGanadorasGanadorasCarrusel:
                     result = Constantes.OrigenPedidoWeb.MobileLandingGanadorasGanadorasFicha;
+                    break;
+                #endregion
+                #region ODD
+                case Constantes.OrigenPedidoWeb.DesktopHomeOfertaDelDiaBannerSuperior:
+                    result = Constantes.OrigenPedidoWeb.DesktopHomeOfertaDelDiaFicha;
                     break;
                 #endregion
             }

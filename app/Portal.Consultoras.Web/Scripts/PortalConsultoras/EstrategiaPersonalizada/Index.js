@@ -34,6 +34,7 @@ var CONS_CODIGO_SECCION = {
 var listaSeccion = {};
 
 var timer;
+var indexPosCarruselLan = 0;
 
 var varContenedor = {
     CargoRevista: false,
@@ -246,19 +247,19 @@ function SeccionMostrarProductos(data) {
         return false;
     }
 
-    //Marcación Analytics
-    if (data.Seccion.Codigo === CONS_CODIGO_SECCION.LAN) {
-        if (varContenedor.CargoLan) {
-            $.each(data.listaLan, function (key, value) {
-                if (value.TipoEstrategiaDetalle.FlagIndividual) {
-                    var dateItem = new Array(value);
-                    AnalyticsPortalModule.MarcaGenericaLista(data.Seccion.Codigo, dateItem);
-                    return false;
-                }
-            });
-        }
-        //get the first
-    }
+    ////Marcación Analytics
+    //if (data.Seccion.Codigo === CONS_CODIGO_SECCION.LAN) {
+    //    if (varContenedor.CargoLan) {
+    //        $.each(data.listaLan, function (key, value) {
+    //            if (value.TipoEstrategiaDetalle.FlagIndividual) {
+    //                var dateItem = new Array(value);
+    //                AnalyticsPortalModule.MarcaGenericaLista(data.Seccion.Codigo, dateItem, 0);
+    //                return false;
+    //            }
+    //        });
+    //    }
+    //    //get the first
+    //}
     //Marcación Analytics Más GANADORAS
     if (data.Seccion.Codigo === CONS_CODIGO_SECCION.MG) {
         if (varContenedor.CargoMg) {
@@ -411,15 +412,15 @@ function SeccionMostrarProductos(data) {
         RenderCarruselSimple(htmlSeccion, CarruselCiclico);
     }
     else if (data.Seccion.TipoPresentacion == CONS_TIPO_PRESENTACION.CarruselIndividuales) {
-        RenderCarruselIndividuales(htmlSeccion);
+        RenderCarruselIndividuales(htmlSeccion, data);
     }
     else if (data.Seccion.TipoPresentacion == CONS_TIPO_PRESENTACION.carruselIndividualesv2) {
         RenderCarruselSimpleV2(htmlSeccion, CarruselCiclico, true);
     }
 }
 
-function RenderCarruselIndividuales(divProd) {
-
+function RenderCarruselIndividuales(divProd, data) {
+    
     if (typeof divProd == "undefined")
         return false;
 
@@ -441,13 +442,30 @@ function RenderCarruselIndividuales(divProd) {
 
         VerificarClick(slick, currentSlide, nextSlide, "previsuales");
     }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
+        console.log('RenderCarruselIndividuales', event, slick, currentSlide, nextSlide);
+        var data = $(slick.$slides.find("[data-estrategia]")[currentSlide]).data("estrategia");
+        var dateItem = new Array(data);
+        console.log('RenderCarruselIndividuales', dateItem);
+        indexPosCarruselLan = currentSlide;
+        //Analytics
+        AnalyticsPortalModule.MarcaGenericaLista(data.CodigoPalanca, dateItem, currentSlide);
 
         EstablecerLazyCarruselAfterChange(divProd.find(sElementos.listadoProductos));
         $(sElementos.listadoProductos + " .slick-active [data-acortartxt] p").removeClass("Acortar2Renglones3puntos");
         $(sElementos.listadoProductos + " .slick-active [data-acortartxt] p").addClass("Acortar2Renglones3puntos");
         $(sElementos.listadoProductos + " .slick-active [data-acortartxt] span").removeClass("Acortar3Renglones3puntos");
         $(sElementos.listadoProductos + " .slick-active [data-acortartxt] span").addClass("Acortar3Renglones3puntos");
-    })
+    });
+
+    //Marcación Analytics
+    $.each(data.lista, function (key, value) {
+        if (value.TipoEstrategiaDetalle.FlagIndividual) {
+            var dateItem = new Array(value);
+            AnalyticsPortalModule.MarcaGenericaLista(data.Seccion.Codigo, dateItem, 0);
+            return false;
+        }
+    });
+
 }
 
 function RenderCarruselPrevisuales(divProd) {
@@ -644,6 +662,7 @@ function RenderCarruselSimpleV2(divProd, cc, vw) {
         prevArrow: '<a  class="prevArrow" style="display: block;left: 0;margin-left: -5%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_black_compra.png")" alt="" /></a>',
         nextArrow: '<a  class="nextArrow" style="display: block;right: 0;margin-right: -5%; text-align: right; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_black_compra.png")" alt="" /></a>'
     }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
+
         VerificarClick(slick, currentSlide, nextSlide, "normal", seccionName);
     }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
         console.log(cc);
