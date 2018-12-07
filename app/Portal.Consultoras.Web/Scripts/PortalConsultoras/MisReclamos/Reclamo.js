@@ -147,7 +147,6 @@ $(document).ready(function () {
     });
 
     $("#IrSolicitudEnviada").on("click", function () {
-        debugger
         if (mensajeGestionCdrInhabilitada != '') {
             alert_msg(mensajeGestionCdrInhabilitada);
             return false;
@@ -1161,7 +1160,6 @@ function ControlSetError(inputId, spanId, message) {
 }
 
 function SolicitudEnviar(validarCorreoVacio, validarCelularVacio) {
-    debugger
     var ok = true;
     var correo = $.trim($("#txtEmail").val());
     var celular = $.trim($("#txtTelefono").val());
