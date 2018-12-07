@@ -570,10 +570,10 @@ input:focus{
     justify-content:space-between;
 }
 
-.checkbox_condiciones_checkbox,
-.permiso_cuenta_opcion_checkbox
+input.checkbox_condiciones_checkbox,
+input.permiso_cuenta_opcion_checkbox
 {
-    display:none;
+    display:none!important;
 }
 
 .checkbox_condiciones_label,
