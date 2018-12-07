@@ -3474,19 +3474,22 @@ namespace Portal.Consultoras.Web.ServiceODS {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<bool> ActiveField;
+        private string ActiveDescField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string ActiveDescField;
+        private bool ActiveMontoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> ActivePremioAutoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool ActivePremioElectivoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool ActiveTooltipField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ActiveTooltipDescField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool ActiveTooltipMontoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ActiveTooltipMontoDescField;
@@ -3511,9 +3514,6 @@ namespace Portal.Consultoras.Web.ServiceODS {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string Ind_Cup_ElecDescField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool Ind_Cupo_ElecField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NivelField;
@@ -3550,19 +3550,6 @@ namespace Portal.Consultoras.Web.ServiceODS {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<bool> Active {
-            get {
-                return this.ActiveField;
-            }
-            set {
-                if ((this.ActiveField.Equals(value) != true)) {
-                    this.ActiveField = value;
-                    this.RaisePropertyChanged("Active");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
         public string ActiveDesc {
             get {
                 return this.ActiveDescField;
@@ -3571,6 +3558,45 @@ namespace Portal.Consultoras.Web.ServiceODS {
                 if ((object.ReferenceEquals(this.ActiveDescField, value) != true)) {
                     this.ActiveDescField = value;
                     this.RaisePropertyChanged("ActiveDesc");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool ActiveMonto {
+            get {
+                return this.ActiveMontoField;
+            }
+            set {
+                if ((this.ActiveMontoField.Equals(value) != true)) {
+                    this.ActiveMontoField = value;
+                    this.RaisePropertyChanged("ActiveMonto");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> ActivePremioAuto {
+            get {
+                return this.ActivePremioAutoField;
+            }
+            set {
+                if ((this.ActivePremioAutoField.Equals(value) != true)) {
+                    this.ActivePremioAutoField = value;
+                    this.RaisePropertyChanged("ActivePremioAuto");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool ActivePremioElectivo {
+            get {
+                return this.ActivePremioElectivoField;
+            }
+            set {
+                if ((this.ActivePremioElectivoField.Equals(value) != true)) {
+                    this.ActivePremioElectivoField = value;
+                    this.RaisePropertyChanged("ActivePremioElectivo");
                 }
             }
         }
@@ -3597,19 +3623,6 @@ namespace Portal.Consultoras.Web.ServiceODS {
                 if ((object.ReferenceEquals(this.ActiveTooltipDescField, value) != true)) {
                     this.ActiveTooltipDescField = value;
                     this.RaisePropertyChanged("ActiveTooltipDesc");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool ActiveTooltipMonto {
-            get {
-                return this.ActiveTooltipMontoField;
-            }
-            set {
-                if ((this.ActiveTooltipMontoField.Equals(value) != true)) {
-                    this.ActiveTooltipMontoField = value;
-                    this.RaisePropertyChanged("ActiveTooltipMonto");
                 }
             }
         }
@@ -3714,19 +3727,6 @@ namespace Portal.Consultoras.Web.ServiceODS {
                 if ((object.ReferenceEquals(this.Ind_Cup_ElecDescField, value) != true)) {
                     this.Ind_Cup_ElecDescField = value;
                     this.RaisePropertyChanged("Ind_Cup_ElecDesc");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool Ind_Cupo_Elec {
-            get {
-                return this.Ind_Cupo_ElecField;
-            }
-            set {
-                if ((this.Ind_Cupo_ElecField.Equals(value) != true)) {
-                    this.Ind_Cupo_ElecField = value;
-                    this.RaisePropertyChanged("Ind_Cupo_Elec");
                 }
             }
         }

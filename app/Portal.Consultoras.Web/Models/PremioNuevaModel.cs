@@ -18,9 +18,9 @@ namespace Portal.Consultoras.Web.Models
         [RegularExpression("[a-zA-Z0-9]{2}")]
         public string Nivel { get; set; }
         public bool ActiveTooltip { get; set; }
-        public bool ActiveTooltipMonto { get; set; }
-        public bool Active { get; set; }
-        public bool Ind_Cupo_Elec { get; set; }
+        public bool ActiveMonto { get; set; }
+        public bool ActivePremioAuto { get; set; }
+        public bool ActivePremioElectivo { get; set; }
         public List<CampaniaModel> DropDownListCampania { get; set; }
         public List<object> DropDownListNivel { get; set; }
         public List<object> DropDownListEstado { get; set; }

@@ -42,9 +42,9 @@ function LoadGrilla() {
             { name: 'Editar', index: 'Editar', width: 30, align: 'center', sortable: false, formatter: ShowActionsEdit },
             { name: 'Eliminar', index: 'Eliminar', width: 30, align: 'center', sortable: false, formatter: ShowActionsDelete },
             { name: 'ActiveTooltip', index: 'Precio', hidden: true },
-            { name: 'ActiveTooltipMonto', index: 'Ganancia', hidden: true },
-            { name: 'Active', index: 'TextoLibre', hidden: true },
-            { name: 'Ind_Cupo_Elec', index: 'Orden', hidden: true },
+            { name: 'ActiveMonto', index: 'ActiveMonto', hidden: true },
+            { name: 'ActivePremioAuto', index: 'ActivePremioAuto', hidden: true },
+            { name: 'ActivePremioElectivo', index: 'ActivePremioElectivo', hidden: true },
         ],
         jsonReader:
             {
@@ -85,7 +85,7 @@ function ShowActionsEdit(cellvalue, options, rowObject) {
 
 function ShowActionsDelete(cellvalue, options, rowObject) {
     var Des = "<img src='" + rutaImagenDelete + "' alt='Deshabilitar Premio' title='Deshabilitar Premio' border='0' style='cursor:pointer' /></a>";
-    if (rowObject.Active == false) Des = "";
+    if (rowObject.ActivePremioAuto == false) Des = "";
     return Des;
 }
 function RegistrarConstrains() {
@@ -166,7 +166,7 @@ function DesactivarPremio(rowId) {
 
     var rowData = $("#list").jqGrid('getRowData', rowId);
     Premio = rowData;
-    Premio.Active = 0;
+    Premio.ActivePremioAuto = 0;
     Premio['Operacion'] = 1;
 
     waitingDialog({});

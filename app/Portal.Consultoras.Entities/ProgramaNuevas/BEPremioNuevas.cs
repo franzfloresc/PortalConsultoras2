@@ -21,11 +21,11 @@ namespace Portal.Consultoras.Entities.ProgramaNuevas
         [DataMember]
         public bool ActiveTooltip { get; set; }
         [DataMember]
-        public bool ActiveTooltipMonto { get; set; }
+        public bool ActiveMonto { get; set; }
         [DataMember]
-        public bool? Active { get; set; }
+        public bool? ActivePremioAuto { get; set; }
         [DataMember]
-        public bool Ind_Cupo_Elec { get; set; }
+        public bool ActivePremioElectivo { get; set; }
         [DataMember]
         public int NumeroPagina { get; set; }
         [DataMember]

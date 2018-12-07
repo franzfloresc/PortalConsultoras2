@@ -41,13 +41,13 @@
                 Activar Oferta Tooltip @Html.CheckBoxFor(model => model.ActiveTooltip)
             </div>
             <div >
-                Activar Monto @Html.CheckBoxFor(model => model.ActiveTooltipMonto)
+                Activar Monto @Html.CheckBoxFor(model => model.ActiveMonto)
             </div>
             <div >
-                Premio Electivo @Html.CheckBoxFor(model => model.Ind_Cupo_Elec)
+                Premio Electivo @Html.CheckBoxFor(model => model.ActivePremioElectivo)
             </div>
             <div >
-                Premio Activo @Html.CheckBoxFor(model => model.Active)
+                Premio Activo @Html.CheckBoxFor(model => model.ActivePremioAuto)
             </div>
         </div>
         @Html.HiddenFor(model => model.Operacion)

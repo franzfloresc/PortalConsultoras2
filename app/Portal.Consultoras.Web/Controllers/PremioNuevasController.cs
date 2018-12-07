@@ -28,7 +28,7 @@ namespace Portal.Consultoras.Web.Controllers
   
         [HttpGet]
         [Authorize]
-        public ActionResult ListarPremiosPaginado(string sidx, string sord, int page, int rows,string CodigoPrograma , int? AnoCampanaIni, string Nivel, bool? Active)
+        public ActionResult ListarPremiosPaginado(string sidx, string sord, int page, int rows,string CodigoPrograma , int? AnoCampanaIni, string Nivel, bool? ActivePremioAuto)
         {
 
             List<BEPremioNuevas> lst;
@@ -45,7 +45,7 @@ namespace Portal.Consultoras.Web.Controllers
                         Nivel= string.IsNullOrEmpty(Nivel) ? null  : Nivel,
                         SortColumna =sidx,
                         SortDirection = sord.ToUpper(),
-                        Active = Active,
+                        ActivePremioAuto = Active,
                         PaisID = userData.PaisID,
                         CodigoUsuario = userData.CodigoUsuario,
                         NumeroPagina = page,
