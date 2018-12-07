@@ -686,8 +686,8 @@ var AnalyticsPortalModule = (function () {
             var pagina = _constantes.paginas.find(function (element) {
                 return element.CodigoPagina == codigoPagina;
             });
-            
-            if (pagina == undefined){
+
+            if (pagina == undefined) {
                 return false;
             }
 
@@ -702,8 +702,8 @@ var AnalyticsPortalModule = (function () {
             var seccion = _constantes.secciones.find(function (element) {
                 return element.CodigoSeccion == codigoSeccion;
             });
-            
-            if (seccion == undefined){
+
+            if (seccion == undefined) {
                 return false;
             }
 
@@ -1039,7 +1039,7 @@ var AnalyticsPortalModule = (function () {
     }
 
     var marcaGenericaLista = function (seccion, data, pos) {
-        
+
         try {
             // mantener la seccion para LAN, luego ponerlo dentro de data como origen
             seccion = seccion.replace("Lista", "");
@@ -1051,7 +1051,7 @@ var AnalyticsPortalModule = (function () {
             switch (seccion) {
                 //case _codigoSeccion.HOME: AnalyticsPortalModule.MarcaProductImpressionHome(data, pos); break; // no se utiliza
                 //case _codigoSeccion.HOMEOFERTA: AnalyticsPortalModule.MarcaPromotionViewOferta(seccion, data); break; // no se utiliza
-                // Inicio Analytics Ofertas  
+                    // Inicio Analytics Ofertas  
                 case _codigoSeccion.LAN: _marcaPromotionViewBanner(seccion, data, pos); break;
                 default:
                     _marcarProductImpresionSegunLista(data); break;
@@ -1480,7 +1480,7 @@ var AnalyticsPortalModule = (function () {
     */
     var marcaClicFlechaBanner = function (data) {
         try {
-            
+
             if (_constantes.isTest)
                 alert("Marcación clic flecha banner.");
             var codigoOrigenPedido = $(data).parents("[data-OrigenPedidoWeb]").data("origenpedidoweb");
@@ -1597,7 +1597,7 @@ var AnalyticsPortalModule = (function () {
                 alert("Marcación clic banner.");
             var estrategia = $(data).closest("div:has(*[data-estrategia])").children("[data-estrategia]").data("estrategia");
             var codigoOrigenWeb = $(data).closest("div:has(.seccion-content-contenedor)").data("origenpedidoweb");
-            
+
             dataLayer.push({
                 'event': _evento.promotionClick,
                 'ecommerce': {
