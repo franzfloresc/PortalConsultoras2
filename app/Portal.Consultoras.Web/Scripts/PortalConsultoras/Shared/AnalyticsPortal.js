@@ -732,7 +732,11 @@ var AnalyticsPortalModule = (function () {
                 case "Landing Buscador":
                     AnalyticsPortalModule.MarcaAnadirCarritoBuscador(model, "Ficha de producto", valorBuscar);
                     break;
-                case "Home": seccion.Seccion == "Banner Superior" ? AnalyticsPortalModule.MarcaAnadirCarritoHomeBanner(null, codigoOrigenPedido, estrategia) : AnalyticsPortalModule.MarcaAnadirCarritoHome(null, codigoOrigenPedido, estrategia); break;
+                case "Home":
+                    seccion.Seccion == "Banner Superior"
+                        ? AnalyticsPortalModule.MarcaAnadirCarritoHomeBanner(null, codigoOrigenPedido, estrategia)
+                        : AnalyticsPortalModule.MarcaAnadirCarritoHome(null, codigoOrigenPedido, estrategia);
+                    break;
                     // Inicio Analytics Oferta Miguel
                 case "Contenedor": AnalyticsPortalModule.MarcaAnadirCarrito(event, codigoOrigenPedido, estrategia); break;
                 case "Landing": AnalyticsPortalModule.MarcaAnadirCarrito(event, codigoOrigenPedido, estrategia); break;
@@ -967,7 +971,7 @@ var AnalyticsPortalModule = (function () {
             var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(codigoOrigen);
             var producto = data;
 
-            list = "Home" + " - " + "Banner Header";
+            list = "Home - Oferta del Día";
 
             dataLayer.push({
                 'event': _evento.addToCart,
@@ -999,7 +1003,7 @@ var AnalyticsPortalModule = (function () {
                 alert("Marcación clic ver ofertas.");
             dataLayer.push({
                 'event': _evento.virtualEvent,
-                'category': 'Home – Banner Header',
+                'category': 'Home - Banner Header',
                 'action': 'Ofertas ¡SOLO HOY! - Click Botón',
                 'label': 'Ver más Ofertas',
                 'eventCallback': function () {
@@ -1110,7 +1114,7 @@ var AnalyticsPortalModule = (function () {
                             {
                                 'id': cuv,
                                 'name': 'Ofertas ¡SOLO HOY!',
-                                'position': 'Home – Banner Header',
+                                'position': 'Home - Banner Header',
                                 'creative': 'Banner'
                             }]
                     }

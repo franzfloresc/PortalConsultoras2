@@ -38,7 +38,7 @@ function TagManagerClickAgregarProductoLiquidacion(item) {
         'event': 'addToCart',
         'ecommerce': {
             'add': {
-                'actionField': { 'list': 'Liquidación Web – Home' },
+                'actionField': { 'list': 'Home - Liquidaciones Web' },
                 'products': [
                     {
                         'name': item.descripcionProd,
