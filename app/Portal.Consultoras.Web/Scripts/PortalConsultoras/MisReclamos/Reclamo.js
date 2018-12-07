@@ -122,12 +122,13 @@ $(document).ready(function () {
             return false;
         }
 
-        if ($("ddlnumPedido").is(":visible")){
+        if ($("#ddlnumPedido").css('display') !== 'none') {
             $("#ddlnumPedido").val("0");
             $("#ddlCuv").html("");
-            $('.chosen-select').chosen();
-            $(".chosen-select").val('').trigger("chosen:updated"); 
         }
+
+        $('.chosen-select').chosen();
+        $(".chosen-select").val('').trigger("chosen:updated"); 
 
         //$("#txtCUV").val("");        
         $("#hdtxtCUVDescripcion").val("");

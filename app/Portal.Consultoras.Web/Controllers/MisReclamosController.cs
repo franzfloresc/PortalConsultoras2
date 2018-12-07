@@ -149,7 +149,7 @@ namespace Portal.Consultoras.Web.Controllers
                         NroPedidos = new CampaniaModel
                         {
                             NumeroPedido = item.NumeroPedido,
-                            strNumeroPedido = "N° " + item.NumeroPedido + " - " + item.FechaFacturado,
+                            strNumeroPedido = "N° " + item.NumeroPedido + " - " + item.FechaRegistro.ToString("dd/MM/yyyy"),
                             PedidoID = item.PedidoID                            
                         };
                         listaNroPedidos.Add(NroPedidos);

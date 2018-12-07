@@ -154,7 +154,7 @@ $(document).ready(function () {
                     }
 
                     $(me.Variables.ddlnumPedido).val("0");
-                    $(me.Variables.ListaCoincidenciasBusquedaProductosCdr).html("");
+                    //$(me.Variables.ListaCoincidenciasBusquedaProductosCdr).html("");
                     $(me.Variables.hdCuvCodigo).val(""); //$(me.Variables.txtCuvMobile).val("");
                     $(me.Variables.ddlnumPedido).val("0");
                     $(me.Variables.txtDescripcionCuv).html("");
@@ -543,7 +543,7 @@ $(document).ready(function () {
                             $(me.Variables.ddlnumPedido).hide();
                             $(me.Variables.hdPedidoID).val(data.datos[0].PedidoID);
                             $(me.Variables.txtNumPedido).val("N° " + data.datos[0].NumeroPedido);
-                            $(me.Variables.txtNumPedido).show();
+                            //$(me.Variables.txtNumPedido).show();
                             me.Funciones.BuscarCUV();
                             //$("#txtPedidoID").val(data.datos[0].PedidoID);
                             //$("#txtNumeroPedido").val(data.datos[0].NumeroPedido);
@@ -789,7 +789,7 @@ $(document).ready(function () {
                 if (CampaniaId <= 0 || cuv.length < 5)
                     return false;
 
-                var PedidoId = $.trim($(me.Variables.hdPedidoID)) || 0;
+                var PedidoId = $.trim($(me.Variables.hdPedidoID).val()) || 0;
 
                 var item = {
                     CampaniaID: CampaniaId,
