@@ -3063,5 +3063,21 @@ namespace Portal.Consultoras.Common
             }
         }
 
+        public static class EstrategiaDetalleCamposID
+        {
+            public const int FlagIndividual = 10212;
+            public const int Slogan = 10213;
+            public const int ImgHomeDesktop = 10210;
+            public const int ImgHomeMobile = 10211;
+            public const int ImgFondoDesktop = 10201;
+            public const int ImgFondoMobile = 10205;
+            public const int ImgFichaDesktop = 10203;
+            public const int ImgFichaFondoDesktop = 10208;
+            public const int ImgFichaMobile = 10206;
+            public const int ImgFichaFondoMobile = 10209;
+            public const int UrlVideoDesktop = 10204;
+            public const int UrlVideoMobile = 10207;
+        }
+
     }
 }
