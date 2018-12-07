@@ -29,14 +29,13 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult OfertasLiquidacion()
         {
-            string sap = "";
-            var url = (Request.Url.Query).Split('?');
 
             if (EsDispositivoMovil())
             {
+                var url = (Request.Url.Query).Split('?');
                 if (url.Length > 1)
                 {
-                    sap = "&" + url[1];
+                    string sap = "&" + url[1];
                     return RedirectToAction("Index", "OfertaLiquidacion", new { area = "Mobile", sap });
                 }
                 else
@@ -47,6 +46,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (userData.CodigoISO == Constantes.CodigosISOPais.Venezuela)
                 return RedirectToAction("Index", "Bienvenida");
+
             try
             {
                 ViewBag.CampaniaID = userData.CampaniaID.ToString();
@@ -718,7 +718,7 @@ namespace Portal.Consultoras.Web.Controllers
                     entidad.UsuarioRegistro = userData.CodigoConsultora;
 
                     #region Imagen Resize 
-                    
+
                     var rutaImagenCompleta = ConfigS3.GetUrlFileS3Matriz(userData.CodigoISO, entidad.ImagenProducto);
 
                     mensajeErrorImagenResize = _renderImgProvider.ImagenesResizeProceso(rutaImagenCompleta, userData.CodigoISO);
@@ -772,7 +772,7 @@ namespace Portal.Consultoras.Web.Controllers
                     entidad.UsuarioModificacion = userData.CodigoConsultora;
 
                     #region Imagen Resize 
-                    
+
                     var rutaImagenCompleta = ConfigS3.GetUrlFileS3Matriz(userData.CodigoISO, entidad.ImagenProducto);
 
                     mensajeErrorImagenResize = _renderImgProvider.ImagenesResizeProceso(rutaImagenCompleta, userData.CodigoISO);
