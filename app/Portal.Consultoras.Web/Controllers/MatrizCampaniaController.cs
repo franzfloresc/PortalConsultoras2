@@ -20,6 +20,9 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class MatrizCampaniaController : BaseController
     {
+        //public List<MatrizCampaniaModel> ListaCUVs;
+        //public bool isError = false;
+
         public ActionResult ActualizarMatrizCampania()
         {
             try
@@ -70,8 +73,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         }
 
-
-
         private IEnumerable<PaisModel> ObtenerPaises()
         {
             List<BEPais> paises;
@@ -100,7 +101,6 @@ namespace Portal.Consultoras.Web.Controllers
             campanias.Insert(0, new BECampania { CampaniaID = 0, Codigo = "-- Seleccionar --" });
             return campanias;
         }
-
 
         public JsonResult CargarCampania(string paisId)
         {
@@ -141,11 +141,6 @@ namespace Portal.Consultoras.Web.Controllers
                 return becampania.ToList();
             }
         }
-
-
-        public List<MatrizCampaniaModel> ListaCUVs;
-        public bool isError = false;
-
 
         [HttpPost]
         public JsonResult ConsultarDescripcion(string CUV, string IDCampania, string paisID)
@@ -249,7 +244,6 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-
 
         [HttpPost]
         public List<MatrizCampaniaModel> ConsultarDescripcionMasivo(List<MatrizCampaniaModel> productos, string IDCampania, string paisID, ref bool isError)
@@ -359,9 +353,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 System.IO.File.Delete(finalPath);
 
-                ListaCUVs = lista.ToList();
-
-                ListaCUVs = ConsultarDescripcionMasivo(lista.ToList(), campaniaId.ToString(), paisId.ToString(), ref isError);
+                //ListaCUVs = lista.ToList();
+                bool isError = false;
+                var ListaCUVs = ConsultarDescripcionMasivo(lista.ToList(), campaniaId.ToString(), paisId.ToString(), ref isError);
                 SessionManager.Seterrores(ListaCUVs);
                 if (isCorrect && lista != null && !isError)
                 {
@@ -390,7 +384,6 @@ namespace Portal.Consultoras.Web.Controllers
                 return "Verifique el contenido del Documento, posiblemente tenga errores en su contenido.";
             }
         }
-
 
         [HttpGet]
         public JsonResult ConsultarErrores(string sidx, string sord, int page, int rows, int vpaisID, int vCampaniaID)
@@ -439,7 +432,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " }, JsonRequestBehavior.AllowGet);
         }
-
 
         [HttpPost]
         public async Task<string> leerArchivoExcel(string pais, string AnioCampania)
@@ -749,7 +741,6 @@ namespace Portal.Consultoras.Web.Controllers
             return rpta;
         }
 
-
         public string InsertarProductoMasivo(int paisID, string data)
         {
 
@@ -777,8 +768,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         }
 
-
     }
-
 
 }
