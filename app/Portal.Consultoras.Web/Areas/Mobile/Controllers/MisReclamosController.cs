@@ -23,7 +23,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult Index()
         {
-            if (userData.TieneCDR == 0) return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
+            if (userData.TieneCDR == 0)
+                return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
+
             MisReclamosModel model = new MisReclamosModel();
             List<CDRWebModel> listaCdrWebModel;
             var mobileConfiguracion = this.GetUniqueSession<MobileAppConfiguracionModel>("MobileAppConfiguracion");

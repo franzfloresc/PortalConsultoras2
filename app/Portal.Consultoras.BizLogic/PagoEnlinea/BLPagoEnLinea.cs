@@ -143,7 +143,8 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
             return lista;
         }
 
-        private void CargarConfiguracion_MedioPagoDetalle(int paisId, List<BEPagoEnLineaMedioPagoDetalle> pagoEnLineaMedioPagoDetalles) {           
+        private void CargarConfiguracion_MedioPagoDetalle(int paisId, List<BEPagoEnLineaMedioPagoDetalle> pagoEnLineaMedioPagoDetalles)
+        {
             pagoEnLineaMedioPagoDetalles.ForEach(item => {
                 switch (item.TipoPasarelaCodigoPlataforma) {
                     case Constantes.PagoEnLineaMetodoPago.PasarelaVisa:
@@ -211,7 +212,7 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
                 {
                     lista.Add(new BEPagoEnLineaPasarelaCampos(reader));
                 }
-            } 
+            }
 
             return lista;
         }
@@ -250,21 +251,32 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
             var listaConfiguracionTask = Task.Run(() => listaConfiguracion = _tablaLogicaDatosBusinessLogic.GetListCache(paisId, Constantes.TablaLogica.ValoresPagoEnLinea));
 
             Task.WaitAll(listaMetodoPagoTask, listaMedioPagoTask, listaTipoPagoTask, montoDeudaTask, listaBancoTask, listaConfiguracionTask);
-            
-            if (listaConfiguracion != null) {
+
+            if (listaConfiguracion != null)
+            {
                 var enableExternalApp_String = listaConfiguracion.Where(e => e.TablaLogicaDatosID == Constantes.TablaLogicaDato.PagoEnLinea.Habilitar_App_PBI_ExternalApp).Select(e => e.Valor).FirstOrDefault();
-                if(enableExternalApp_String != "1")  result.ListaBanco.ForEach( e => e.URIExternalApp = null );
+                if (enableExternalApp_String != "1") result.ListaBanco.ForEach(e => e.URIExternalApp = null);
             }
-            if (!result.ListaBanco.Where(e => e.Estado).Any()) {
-                var pagoBancaPorInternet = result.ListaMedioPago.Where(e => e.Codigo == Constantes.PagoEnLineaPasarela.PBI && e.Estado ).FirstOrDefault();
+            if (!result.ListaBanco.Any(e => e.Estado))
+            {
+                var pagoBancaPorInternet = result.ListaMedioPago.FirstOrDefault(e => e.Codigo == Constantes.PagoEnLineaPasarela.PBI && e.Estado);
                 if (pagoBancaPorInternet != null) pagoBancaPorInternet.Estado = false;
             }
 
-            result.ListaMedioPago.Where(e => e.Estado && e.Codigo != Constantes.PagoEnLineaPasarela.PBI)
-                .All(e => {
-                        e.Estado = result.ListaMetodoPago.Any(p => p.PagoEnLineaMedioPagoId == e.PagoEnLineaMedioPagoId);
-                        return true;
-                    });
+            //result.ListaMedioPago.Where(e => e.Estado && e.Codigo != Constantes.PagoEnLineaPasarela.PBI)
+            //    .All(e =>
+            //    {
+            //        e.Estado = result.ListaMetodoPago.Any(p => p.PagoEnLineaMedioPagoId == e.PagoEnLineaMedioPagoId);
+            //        return true;
+            //    });
+
+            result.ListaMedioPago.ForEach(e =>
+            {
+                if (e.Estado && e.Codigo != Constantes.PagoEnLineaPasarela.PBI)
+                {
+                    e.Estado = result.ListaMetodoPago.Any(p => p.PagoEnLineaMedioPagoId == e.PagoEnLineaMedioPagoId);
+                }
+            });
 
             return result;
         }
@@ -292,7 +304,7 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
                 result.Recurrence = Constantes.PagoEnLineaPasarelaVisa.Recurrence;
                 result.RecurrenceAmount = Constantes.PagoEnLineaPasarelaVisa.RecurrenceAmount;
                 result.RecurrenceFrequency = string.Empty;
-                result.RecurrenceType = string.Empty;               
+                result.RecurrenceType = string.Empty;
             }
 
             return result;
@@ -387,7 +399,7 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
             bePagoEnLinea.IdGuidExternoTransaccion = respuestaVisa.ExternalTransactionId ?? string.Empty;
             bePagoEnLinea.IdTokenUsuario = respuestaVisa.UserTokenId ?? string.Empty;
             bePagoEnLinea.AliasNameTarjeta = respuestaVisa.AliasNameTarjeta ?? string.Empty;
-                       
+
             bePagoEnLinea.FechaTransaccion = Util.ParseDate(respuestaVisa.Data.FECHAYHORA_TX, "dd/MM/yyyy HH:mm") ?? DateTime.Now;
             bePagoEnLinea.ResultadoValidacionCVV2 = respuestaVisa.Data.RES_CVV2 ?? string.Empty;
             bePagoEnLinea.CsiMensaje = respuestaVisa.Data.CSIMENSAJE ?? string.Empty;

@@ -114,7 +114,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 {
                     Task.WaitAll(configuracionPaisTask, codigosRevistasTask);
                 }
-                
+
                 usuario = configuracionPaisTask.Result;
                 usuario.CodigosRevistaImpresa = codigosRevistasTask.Result;
 
@@ -159,7 +159,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                                     productoBuscar.RowCount,
                                     productoBuscar.ValidarOpt);
 
-                if(!lstProducto.Any()) return ProductoBuscarRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_NOEXISTE);
+                if (!lstProducto.Any()) return ProductoBuscarRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_NOEXISTE);
 
                 foreach (var item in lstProducto)
                 {
@@ -388,8 +388,14 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 if (usuario.DiaPROL && !EsHoraReserva(usuario, DateTime.Now.AddHours(usuario.ZonaHoraria))) return false;
 
                 usuario.EsConsultoraNueva = _usuarioBusinessLogic.EsConsultoraNueva(usuario);
-                var consultoraNuevas = new BEConsultoraProgramaNuevas { PaisID = usuario.PaisID, CampaniaID = usuario.CampaniaID, CodigoConsultora = usuario.CodigoConsultora,
-                                                            EsConsultoraNueva = usuario.EsConsultoraNueva, ConsecutivoNueva = usuario.ConsecutivoNueva };
+                var consultoraNuevas = new BEConsultoraProgramaNuevas
+                {
+                    PaisID = usuario.PaisID,
+                    CampaniaID = usuario.CampaniaID,
+                    CodigoConsultora = usuario.CodigoConsultora,
+                    EsConsultoraNueva = usuario.EsConsultoraNueva,
+                    ConsecutivoNueva = usuario.ConsecutivoNueva
+                };
                 var confProgNuevas = _configuracionProgramaNuevasBusinessLogic.Get(consultoraNuevas);
                 if (confProgNuevas.IndProgObli != "1") return false;
 
@@ -791,7 +797,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     ConsecutivoNueva = usuario.ConsecutivoNueva
                 };
 
-                if(string.IsNullOrEmpty(usuario.CodigoZona))
+                if (string.IsNullOrEmpty(usuario.CodigoZona))
                     resultadoReserva = await _reservaBusinessLogic.CargarSesionAndEjecutarReserva(usuario.CodigoISO, usuario.CampaniaID, usuario.ConsultoraID, usuario.usuarioPrueba, usuario.AceptacionConsultoraDA, true, false);
                 else
                     resultadoReserva = await _reservaBusinessLogic.EjecutarReserva(input);
@@ -874,7 +880,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 lstEstrategia = ConsultarEstrategiasHomePedido(codAgrupa, usuario);
 
                 lstEstrategia = lstEstrategia.Where(x => x.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
-                
+
                 foreach (var item in lstEstrategia)
                 {
                     item.PaisID = usuario.PaisID;
@@ -1247,7 +1253,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
         {
             try
             {
-                switch(pedidoDetalle.TipoPersonalizacion)
+                switch (pedidoDetalle.TipoPersonalizacion)
                 {
                     case Constantes.CodigoEstrategiaBuscador.Liquidacion:
                         return RegistroLiquidacion(pedidoDetalle);
@@ -1293,9 +1299,10 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
             var lstResultBuscar = tasksBuscar.Select(x => x.Result);
 
-            var lstResultInsertar = lstResultBuscar.Where(x => x.Producto.PermiteAgregarPedido == true).Select(y =>
+            var lstResultInsertar = lstResultBuscar.Where(x => x.Producto.PermiteAgregarPedido).Select(y =>
             {
-                var pedidoDetalle = lstPedidoDetalle.Where(z => z.ClienteID == y.ClienteID && z.Producto.CUV == y.Producto.CUV).FirstOrDefault();
+                var pedidoDetalle = lstPedidoDetalle.FirstOrDefault(z => z.ClienteID == y.ClienteID && z.Producto.CUV == y.Producto.CUV);
+
                 pedidoDetalle.Producto = y.Producto;
                 var result = Insert(pedidoDetalle);
                 result.CUV = pedidoDetalle.Producto.CUV;
@@ -1307,7 +1314,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             {
                 if (x.Producto.PermiteAgregarPedido)
                 {
-                    return lstResultInsertar.Where(y => y.ClienteID == x.ClienteID && y.CUV == x.Producto.CUV).FirstOrDefault();
+                    return lstResultInsertar.FirstOrDefault(y => y.ClienteID == x.ClienteID && y.CUV == x.Producto.CUV);
                 }
                 else
                 {
@@ -1811,7 +1818,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 ListaEscalaDescuento = new List<BEEscalaDescuento>(),
                 ListaMensajeMeta = new List<BEMensajeMetaConsultora>()
             };
-            objR.ListaEscalaDescuento = _escalaDescuentoBusinessLogic.GetEscalaDescuento(paisID,  campaniaID,  region,  zona) ?? new List<BEEscalaDescuento>();
+            objR.ListaEscalaDescuento = _escalaDescuentoBusinessLogic.GetEscalaDescuento(paisID, campaniaID, region, zona) ?? new List<BEEscalaDescuento>();
 
             var entity = new BEMensajeMetaConsultora() { TipoMensaje = string.Empty };
             objR.ListaMensajeMeta = _mensajeMetaConsultoraBusinessLogic.GetMensajeMetaConsultora(paisID, entity) ?? new List<BEMensajeMetaConsultora>();
@@ -2581,10 +2588,10 @@ namespace Portal.Consultoras.BizLogic.Pedido
             var strCuvs = string.Empty;
             if (ListaCuvsTemporal.Any())
             {
-                ListaCuvsTemporal.OrderByDescending(x => x).Distinct().All(x =>
+                ListaCuvsTemporal.OrderByDescending(x => x).Distinct().ToList().ForEach(x =>
                 {
                     strCuvs = strCuvs + string.Format("{0}:{1},", x, ListaCuvsTemporal.Count(a => a == x));
-                    return true;
+                    //return true;
                 });
             }
             PedidoAgregarProductoAgrupado(usuario, pedidoID, pedidoDetalle.Cantidad, cuvSet, strCuvs, estrategia.EstrategiaID);
