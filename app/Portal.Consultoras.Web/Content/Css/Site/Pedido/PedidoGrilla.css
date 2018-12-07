@@ -533,15 +533,6 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     vertical-align: top;
 }
 
-/*.mensaje_guardar_pedido {
-    display: block;
-    vertical-align: top;
-    font-family: 'Lato';
-    font-size: 16px;
-    font-weight: bold;
-    text-align: right;
-}*/
-
 .mensaje_fecha_limite_cambios {
     display: block;
     color: #000;
