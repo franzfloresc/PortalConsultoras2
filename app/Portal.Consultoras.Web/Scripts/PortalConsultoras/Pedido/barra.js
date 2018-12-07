@@ -924,7 +924,8 @@ function showPopupEscalaSiguiente(dataBarra, prevLogro) {
 }
 
 
-var ConfiguradoRegalo = dataBarra.TippingPointBarra.InMinimo;
+var ConfiguradoRegalo = true; // dataBarra.TippingPointBarra.InMinimo;
+dataBarra.TippingPoint = 210;
 function CalculoLlenadoBarra() {
     var TippingPointBarraActive = dataBarra.TippingPointBarra.Active;
     var montoMaximo = dataBarra.MontoMaximo;
@@ -1068,9 +1069,8 @@ function CalculoPosicionMinimoMaximo() {
 
                 document.getElementById('lineaPosicionMontoMaximo').style.display = 'None';
                 document.getElementById('lineaPosicionRegalo').style.left = (PosicionMontoTipinpoing) + '%';
-             document.getElementById('lineaPosicionRegalo').style.right = "";
-             document.getElementById('lineaPosicionRegalo').style.display = 'block';
-             
+                document.getElementById('lineaPosicionRegalo').style.right = "";
+                document.getElementById('lineaPosicionRegalo').style.display = 'block';             
                 document.getElementById('MontoMaximoBloque').style.display = "none";
 
             }
@@ -1091,8 +1091,6 @@ function CalculoPosicionMinimoMaximo() {
                 document.getElementById('lineaPosicionRegalo').style.left = (PosicionMontoTipipoing) + '%';
                 document.getElementById('lineaPosicionRegalo').style.display = 'block';
              
-
-
                 document.getElementById('lineaPosicionMontoMaximo').style.display = 'inline-block';
                 document.getElementById('lineaPosicionMontoMaximo').style.left = "100%";//anchoBarraPorcentaje + 3 + 
                 document.getElementById('lineaPosicionMontoMaximo').style.right = "";
