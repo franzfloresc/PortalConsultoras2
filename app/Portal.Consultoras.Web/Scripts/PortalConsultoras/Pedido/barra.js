@@ -1167,10 +1167,16 @@ function CalculoPosicionMinimoMaximo() {
             else {
                 if (montoActual < montoMinimo) {
 
+                    var PosicionMontoMinimo = montoMinimo * 100 / montoMinimo;
+
                     document.getElementById('lineaPosicionMontoMinimo').style.display = 'block';
                     document.getElementById('MontoMinimoBloque').style.display = 'block';
                     document.getElementById('lineaPosicionMontoMinimo').style.left = (PosicionMontoMinimo) + '%';
-                    document.getElementById('MontoMinimoBloque').style.left = (PosicionMontoMinimo - 8) + '%';
+                  
+                    document.getElementById('MontoMinimoBloque').style.left = '';
+                    document.getElementById('MontoMinimoBloque').style.right = '-13px';  //left = (PosicionMontoMinimo - 8) + '%';
+                    document.getElementById('MontoMaximoBloque').style.display = 'none';
+                    
 
                 }
                 else {
@@ -1181,10 +1187,13 @@ function CalculoPosicionMinimoMaximo() {
 
                     //document.getElementById('hrefIconoRegalo').className = document.getElementById('hrefIconoRegalo').className.replace('regalo_tippingPointInicio', 'regalo_tippingPoint');
 
+                    document.getElementById('MontoMinimoBloque').style.right = '';
                     document.getElementById('lineaPosicionMontoMinimo').style.display = 'block';
                     document.getElementById('lineaPosicionMontoMinimo').style.left = (PosicionMontoMinimo) + '%';
                     document.getElementById('MontoMinimoBloque').style.left = (PosicionMontoMinimo - 8) + '%';
                     document.getElementById('MontoMinimoBloque').style.display = 'block';
+
+
 
                     // document.getElementById('hrefIconoRegalo').style.left = (PosicionMontoTipipoing - 3) + '%';
                     //document.getElementById('lineaPosicionRegalo').style.left = (PosicionMontoTipipoing) + '%';
