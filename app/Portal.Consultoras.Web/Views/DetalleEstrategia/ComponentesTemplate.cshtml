@@ -30,6 +30,8 @@
             </div>
         </div>
         <div id="resumen-opciones-{{componente.Cuv}}" class="tonos_seleccionados" style="display:none;"></div>
+
+
         {{#iff FactorCuadre '==' '1'}}
         <div class="content_tonos_maquillaje" data-tono-div="{{componente.Cuv}}">
             {{#each componente.Hermanos as |variedad|}}
@@ -37,7 +39,7 @@
                 <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{variedad.IdMarca}}" />
                 <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{variedad.PrecioCatalogo}}" />
             </div>
-            <div id="fav_tono_{{variedad.Cuv}}" class="content_tono_detalle"
+            <div title="Agotado" id="fav_tono_{{variedad.Cuv}}" class="content_tono_detalle tono-agotado"
                  {{#unless ../esCampaniaSiguiente}}
                  onclick="javascript: ComponentesModule.SeleccionarPaletaOpcion(event,{{variedad.Cuv}})"
                  {{/unless}}
@@ -50,6 +52,10 @@
             {{/each}}
         </div>
         {{/iff}}
+        <ul class="list-inline" style="padding-top:15px">
+            <li><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt=""></li>
+            <li>Algunos tipos o tonos se encuentran agotados.</li>
+        </ul>
     </div>
     {{/each}}
     {{/iff}}
@@ -123,6 +129,11 @@
         </div>
 
         {{/each}}
+        <ul class="list-inline" style="padding-top:15px">
+            <li><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt="" /></li>
+            <li>Algunos tipos o tonos se encuentran agotados.</li>
+        </ul>
+
     </div>
     {{/iff}}
 </script>

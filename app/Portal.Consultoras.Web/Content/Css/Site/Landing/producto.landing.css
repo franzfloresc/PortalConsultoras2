@@ -63,3 +63,34 @@
 #divOfertaProductos{
     text-align:center !important;
 }
+
+/* Agotado */
+.boton_Agregalo_agotado {
+    display: block;
+    margin-top: 7px;
+    display: inline-block;
+    vertical-align: middle;
+    height: 45px;
+    line-height: 42px;
+    text-align: center;
+    width: 100% !important;
+    color: #b9b9b9;
+    font-weight: 700;
+    border: 1px solid #d2d2d2;
+    background-color: #e5e5e5;
+    border-radius: 4px;
+}
+
+
+.content_item_carrusel > div:nth-child(2) {
+    opacity: 0.5;
+}
+
+.producto-agotado .producto_img_home img {
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    -ms-filter: grayscale(100%);
+    -o-filter: grayscale(100%);
+    filter: grayscale(100%);
+}
+

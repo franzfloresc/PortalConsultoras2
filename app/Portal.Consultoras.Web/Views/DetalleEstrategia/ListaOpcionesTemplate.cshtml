@@ -1,13 +1,13 @@
 ﻿<script id="lista-opciones-template" type="text/x-handlebars-template">
     {{#each this.Hermanos as |componente|}}
     {{#IsNullOrEmpty componente.NombreBulk '!='}}
-    <ul class="selecion_item list-inline">
+    <ul class="selecion_item list-inline selecion_item_agotado">
         <li class="seleccion_img"><img src="{{componente.ImagenBulk}}" alt=""></li>
         <li class="seleccion_title">{{#Substr 35  componente.NombreBulk}}{{/Substr}}</li>
         {{#iff this.FactorCuadre '==' '1'}}
         {{#iff componente.cantidadSeleccionada '==' '0'}}
         <li class="seleccion_btn" id="li-eligelo-{{componente.Cuv}}">
-            <button id="btn-eligelo-{{componente.Cuv}}"
+            <button id="btn-eligelo-{{componente.Cuv}}" class="btn-eligelo-agotado"
                     {{#if ../esCampaniaSiguiente}}
                     class="disabled"
                     {{else}}
@@ -16,7 +16,8 @@
                     {{/if}}
                     {{/if}}
                     onclick="javascript: ListaOpcionesModule.SeleccionarOpcion('{{componente.Cuv}}')">
-                Elígelo
+                @*Elígelo*@
+                Agotado
             </button>
         </li>
         {{else}}
