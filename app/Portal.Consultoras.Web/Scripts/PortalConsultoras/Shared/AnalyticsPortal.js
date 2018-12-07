@@ -40,6 +40,7 @@ var AnalyticsPortalModule = (function () {
         eligetuopcion: "eligetuopcion",
         verdetalle: "verdetalle",
         contenedor: "Contenedor",
+        contenedorHome: "Contenedor - Home",
         contenedorDetalle: "Contenedor - Detalle de Producto",
         contenedorDetalleSets: "Contenedor - Detalle de Producto - Ver más Sets",
         contenedorRevisar: "Contenedor - Revisar",
@@ -143,7 +144,7 @@ var AnalyticsPortalModule = (function () {
         codigoPais: !(typeof userData === 'undefined') ? userData.pais : "",
         // Fin - Analytics Buscador Miguel
         // Ini - Analytics Ofertas
-        contenedorHome: "Contenedor - Home",
+        //contenedorHome: "Contenedor - Home",
         campania: "Campaña ",
         IdBannerGanadorasVerMas: "000123",
         TextoGanadoras: "Ganadoras"
@@ -517,6 +518,11 @@ var AnalyticsPortalModule = (function () {
             var pagina = _constantes.paginas.find(function (element) {
                 return element.CodigoPagina == codigoPagina;
             });
+
+            if (pagina == undefined) {
+                return false;
+            }
+
             //Marcar analytics cuando es Ganadoras en ficha y 
             var estoyEnLaFicha = typeof fichaModule !== "undefined";
             if (estrategia.CodigoPalanca === _codigoSeccion.MG && estoyEnLaFicha) {
@@ -527,6 +533,10 @@ var AnalyticsPortalModule = (function () {
             var seccion = _constantes.secciones.find(function (element) {
                 return element.CodigoSeccion == codigoSeccion;
             });
+
+            if (seccion == undefined) {
+                return false;
+            }
 
             var model = {
                 'DescripcionCompleta': estrategia.DescripcionCompleta,
@@ -555,11 +565,11 @@ var AnalyticsPortalModule = (function () {
                     AnalyticsPortalModule.MarcaAnadirCarritoBuscador(model, "Ficha de producto", valorBuscar);
                     break;
                 case "Home": seccion.Seccion == "Banner Superior" ? AnalyticsPortalModule.MarcaAnadirCarritoHomeBanner(null, codigoOrigenPedido, estrategia) : AnalyticsPortalModule.MarcaAnadirCarritoHome(null, codigoOrigenPedido, estrategia); break;
-                // Inicio Analytics Oferta Miguel
+                    // Inicio Analytics Oferta Miguel
                 case "Contenedor": AnalyticsPortalModule.MarcaAnadirCarrito(event, codigoOrigenPedido, estrategia); break;
                 case "Landing": AnalyticsPortalModule.MarcaAnadirCarrito(event, codigoOrigenPedido, estrategia); break;
                 case "Pedido": AnalyticsPortalModule.MarcaAnadirCarrito(event, codigoOrigenPedido, estrategia); break;
-                // Fin Analytics Oferta Miguel
+                    // Fin Analytics Oferta Miguel
             }
 
         } catch (e) {
@@ -750,6 +760,7 @@ var AnalyticsPortalModule = (function () {
         }
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////
     // Fin - Analytics Buscador Miguel
     ////////////////////////////////////////////////////////////////////////////////////////
 
@@ -888,7 +899,8 @@ var AnalyticsPortalModule = (function () {
 
     }
 
-    var marcaGenericaLista = function (seccion, data, limit) {
+    var marcaGenericaLista = function (seccion, data, pos) {
+
         try {
 
             seccion = seccion.replace("Lista", "");
@@ -897,10 +909,10 @@ var AnalyticsPortalModule = (function () {
             // Fin Analytics Ofertas 
 
             switch (seccion) {
-                case _codigoSeccion.HOME: AnalyticsPortalModule.MarcaProductImpressionHome(seccion, data, limit); break;
+                case _codigoSeccion.HOME: AnalyticsPortalModule.MarcaProductImpressionHome(seccion, data, pos); break;
                 case _codigoSeccion.HOMEOFERTA: AnalyticsPortalModule.MarcaPromotionViewOferta(seccion, data); break;
-                // Inicio Analytics Ofertas  
-                case _codigoSeccion.LAN: AnalyticsPortalModule.MarcaPromotionViewBanner(seccion, data); break;
+                    // Inicio Analytics Ofertas  
+                case _codigoSeccion.LAN: _marcaPromotionViewBanner(seccion, data, pos); break;
                 case _codigoSeccion.HV: esLanding ? AnalyticsPortalModule.MarcaProductImpression(seccion, data) : AnalyticsPortalModule.MarcaProductImpressionLanding(seccion, data); break;
                 case _codigoSeccion.RD: esLanding ? AnalyticsPortalModule.MarcaProductImpression(seccion, data) : AnalyticsPortalModule.MarcaProductImpressionLanding(seccion, data); break;
                 case _codigoSeccion.ODD: esLanding ? AnalyticsPortalModule.MarcaProductImpression(seccion, data) : AnalyticsPortalModule.MarcaProductImpressionLanding(seccion, data); break;
@@ -909,7 +921,7 @@ var AnalyticsPortalModule = (function () {
                 case _codigoSeccion.GND: esLanding ? AnalyticsPortalModule.MarcaProductImpression(seccion, data) : AnalyticsPortalModule.MarcaProductImpressionLanding(seccion, data); break;
                 case _codigoSeccion.MG: esLanding ? AnalyticsPortalModule.MarcaProductImpression(seccion, data) : AnalyticsPortalModule.MarcaProductImpressionLanding(seccion, data); break;
 
-                // Fin Analytics Ofertas Miguel
+                    // Fin Analytics Ofertas Miguel
             }
         } catch (e) {
 
@@ -963,6 +975,7 @@ var AnalyticsPortalModule = (function () {
     }
 
     var marcaPromotionViewOferta = function (codigoSeccion, data) {
+
         try {
             if (_constantes.isTest)
                 alert("Marcación promotion view.");
@@ -996,11 +1009,16 @@ var AnalyticsPortalModule = (function () {
             return element.CodigoPagina == codigoPagina;
         });
 
+        if (pagina == undefined) {
+            return false;
+        }
+
         var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(codigoOrigenPedido);
 
         var _pagina = pagina.Pagina;
         if (pagina.Pagina.includes("Landing"))
             _pagina = "Landing";
+
         try {
             switch (_pagina) {
 
@@ -1365,12 +1383,12 @@ var AnalyticsPortalModule = (function () {
     * Nombre Archivo Desktop: Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-Landing.js
     * Linea de Código Desktop: 256
  */
-    var marcaPromotionViewBanner = function (codigoSeccion, data) {
+    var _marcaPromotionViewBanner = function (codigoSeccion, data, pos) {
         try {
             if (_constantes.isTest)
                 alert("Marcación promotion view.");
-            var promotions = AnalyticsPortalModule.AutoMapperV2(codigoSeccion, data);
-            if (promotions.length == 0)
+            var promotions = _autoMapperV2(codigoSeccion, data, pos);
+            if (promotions.length === 0)
                 return false;
             dataLayer.push({
                 'event': _evento.promotionView,
@@ -1407,8 +1425,9 @@ var AnalyticsPortalModule = (function () {
     };
 
     //Add by JNIZAMA
-    var autoMapperV2 = function (codigoSeccion, data) {
+    var _autoMapperV2 = function (codigoSeccion, data, pos) {
         var collection = [];
+
         if (codigoSeccion == _codigoSeccion.LAN) {
             var element = $("[data-seccion=" + codigoSeccion + "]");
             var codigo = element.data("origenpedidoweb");
@@ -1417,7 +1436,7 @@ var AnalyticsPortalModule = (function () {
                 var element = {
                     'id': item.CUV2,
                     'name': AnalyticsPortalModule.GetPalancaByOrigenPedido(codigo) + " - " + item.DescripcionCompleta + " - " + "Ver producto",
-                    'position': fnObtenerContenedor(),
+                    'position': fnObtenerContenedor() + (pos != undefined ? (" - " + (pos + 1)) : ""),
                     'creative': "Banner"
                 };
                 collection.push(element);
@@ -1439,7 +1458,7 @@ var AnalyticsPortalModule = (function () {
 
 
         switch (window.controllerName) {
-            case "ofertas": contenedor = esRevisar ? _texto.contenedorRevisar : _constantes.contenedorHome; break;
+            case "ofertas": contenedor = esRevisar ? _texto.contenedorRevisar : _texto.contenedorHome; break;
             case "pedido": contenedor = _texto.contenedorRevisar; break;
             case "masganadoras": contenedor = _texto.contenedorMasGanadoras; break;
             default: contenedor = _texto.contenedor; break;
@@ -1479,11 +1498,13 @@ var AnalyticsPortalModule = (function () {
 * Linea de Código Desktop: 56
 */
     var marcaClicBanner = function (data) {
+        var pos = indexPosCarruselLan || 0;
         try {
             if (_constantes.isTest)
                 alert("Marcación clic banner.");
             var estrategia = $(data).closest("div:has(*[data-estrategia])").children("[data-estrategia]").data("estrategia");
             var codigoOrigenWeb = $(data).closest("div:has(.seccion-content-contenedor)").data("origenpedidoweb");
+
             dataLayer.push({
                 'event': _evento.promotionClick,
                 'ecommerce': {
@@ -1492,7 +1513,7 @@ var AnalyticsPortalModule = (function () {
                             {
                                 'id': estrategia.CUV2,
                                 'name': AnalyticsPortalModule.GetPalancaByOrigenPedido(codigoOrigenWeb) + " - " + estrategia.DescripcionCompleta + " - " + "Ver producto",
-                                'position': _constantes.contenedor || _constantes.contenedorHome,
+                                'position': fnObtenerContenedor() + " - " + (pos + 1),
                                 'creative': 'Banner'
                             }]
                     }
@@ -2547,22 +2568,19 @@ var AnalyticsPortalModule = (function () {
     // Inicio - Analytics Buscador
     ////////////////////////////////////////////////////////////////////////////////////////
 
-    var marcaProductImpressionRecomendaciones = function (data, isMobile, next) {
+    var marcaProductImpressionRecomendaciones = function (data, isMobile) {
         try {
 
             var cantidadMostrar = isMobile ? 2 : 3;
-
-            console.log(cantidadMostrar);
 
             var lista = data.Productos;
 
             var impressions = [];
 
-            if (next > 0) {
-
-                cantidadMostrar = cantidadMostrar + next;
-                               
-                var item = lista[cantidadMostrar];
+            $.each(lista, function (index) {
+                if (index == cantidadMostrar)
+                    return false;
+                var item = lista[index];
                 var impression = {
                     //'id': item.CUV
                     'name': item.DescripcionCompleta,
@@ -2575,27 +2593,42 @@ var AnalyticsPortalModule = (function () {
                     'position': index + 1
                 };
                 impressions.push(impression);
+            });
 
-            }
-            else {
-                $.each(lista, function (index) {
-                    if (index == cantidadMostrar)
-                        return false;
-                    var item = lista[index];
-                    var impression = {
-                        //'id': item.CUV
-                        'name': item.DescripcionCompleta,
-                        'id': item.CUV,
-                        'price': parseFloat(item.Precio).toFixed(2).toString(),
-                        'brand': _getMarca(item.MarcaId),
-                        'category': _texto.notavaliable,
-                        'variant': _texto.estandar,
-                        'list': 'Pedido - Ofertas Relacionadas',
-                        'position': index + 1
-                    };
-                    impressions.push(impression);
-                });
-            }
+            dataLayer.push({
+                'event': _evento.productImpression,
+                'ecommerce': {
+                    'currencyCode': AnalyticsPortalModule.GetCurrencyCodes(_constantes.codigoPais),
+                    'impressions': impressions
+                }
+            });
+
+
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+    }
+
+    var marcaProductImpressionViewRecomendaciones = function (data, index) {
+        try {
+
+            var lista = data.Productos;
+
+            var impressions = [];
+
+            var item = lista[index];
+            var impression = {
+                //'id': item.CUV
+                'name': item.DescripcionCompleta,
+                'id': item.CUV,
+                'price': parseFloat(item.Precio).toFixed(2).toString(),
+                'brand': _getMarca(item.MarcaId),
+                'category': _texto.notavaliable,
+                'variant': _texto.estandar,
+                'list': 'Pedido - Ofertas Relacionadas',
+                'position': index + 1
+            };
+            impressions.push(impression);
 
 
             dataLayer.push({
@@ -2729,9 +2762,9 @@ var AnalyticsPortalModule = (function () {
 
         // Ini - Analytics Ofertas  
         MarcaClicFlechaBanner: marcaClicFlechaBanner,
-        MarcaPromotionViewBanner: marcaPromotionViewBanner,
+        //MarcaPromotionViewBanner: marcaPromotionViewBanner, // se utiliza solo como privado
         AutoMapper: autoMapper,
-        AutoMapperV2: autoMapperV2,
+        //AutoMapperV2: autoMapperV2, // se utiliza solo como privado
         MarcaClicBanner: marcaClicBanner,
         MarcaClicVerMasOfertas: marcaClicVerMasOfertas,
         MarcaProductImpression: marcaProductImpression,
@@ -2767,6 +2800,7 @@ var AnalyticsPortalModule = (function () {
         // Fin - Analytics Ganadoras
 
         MarcaProductImpressionRecomendaciones: marcaProductImpressionRecomendaciones,
+        MarcaProductImpressionViewRecomendaciones: marcaProductImpressionViewRecomendaciones,
         MarcaRecomendacionesFlechaSiguiente: marcaRecomendacionesFlechaSiguiente,
         MarcaRecomendacionesFlechaAnterior: marcaRecomendacionesFlechaAnterior,
         MarcaOcultarRecomendaciones: marcaOcultarRecomendaciones,

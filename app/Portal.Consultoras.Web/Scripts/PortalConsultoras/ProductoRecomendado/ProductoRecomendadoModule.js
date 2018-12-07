@@ -5,7 +5,9 @@
         divProducto: "#divProductosRecomendados",
         templateProducto: "#producto-recomendado-template",
         botonAgregar: ".btn_producto_recomendado_agregalo",
-        valueJSON: ".hdRecomendadoJSON"
+        valueJSON: ".hdRecomendadoJSON",
+        next: ".next",
+        previous: ".previous"
     };
     var _config = {
         isMobile: window.matchMedia("(max-width:991px)").matches,
@@ -27,7 +29,7 @@
                     dfd.resolve(data);
                     localStorage.setItem('arrayRecomendaciones', JSON.stringify(data));
                     if (!(typeof AnalyticsPortalModule === 'undefined'))
-                        AnalyticsPortalModule.MarcaProductImpressionRecomendaciones(data, _config.isMobile, 0);
+                        AnalyticsPortalModule.MarcaProductImpressionRecomendaciones(data, _config.isMobile);
                 },
                 error: function (data, error) {
                     dfd.reject(data, error);
@@ -40,6 +42,8 @@
         InicializarEventos: function () {
             $(document).on("click", _elementos.noMostrarProductosRecomendados, _eventos.OcultarProductosRecomendados);
             $(document).on("click", _elementos.botonAgregar, _eventos.AgregarProductoRecomendado);
+            $(document).on("click", _elementos.next, _eventos.NextCarrusel);
+            $(document).on("click", _elementos.previous, _eventos.PreviousCarrusel);
         },
 
         ArmarCarruselProductosRecomendados: function () {
@@ -79,20 +83,9 @@
                     $('.previous').fadeOut(100);
                 }
 
-                if (!(typeof AnalyticsPortalModule === 'undefined'))
-                    AnalyticsPortalModule.MarcaRecomendacionesFlechaSiguiente();
-
-                var data = localStorage.getItem('arrayRecomendaciones');
-
-                //if (!(typeof AnalyticsPortalModule === 'undefined'))
-                //    AnalyticsPortalModule.MarcaProductImpressionRecomendaciones(JSON.parse(data), _config.isMobile, nextSlide);
 
             }).on('afterChange', function (event, slick, currentSlide) {
 
-                console.log($("#carouselProductosRecomendados").find('.slick-active').last().data('slick-index'));
-
-                if (!(typeof AnalyticsPortalModule === 'undefined'))
-                    AnalyticsPortalModule.MarcaRecomendacionesFlechaAnterior();
             });
         },
         ArmarCarruselProductosRecomendadosMobile: function () {
@@ -115,20 +108,17 @@
                 nextArrow: ''
             }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
 
-               
+
                 var data = localStorage.getItem('arrayRecomendaciones');
 
-                if (!(typeof AnalyticsPortalModule === 'undefined'))
-                    AnalyticsPortalModule.MarcaRecomendacionesFlechaSiguiente();
-
+              
                 //if (!(typeof AnalyticsPortalModule === 'undefined'))
                 //    AnalyticsPortalModule.MarcaProductImpressionRecomendaciones(JSON.parse(data), _config.isMobile, nextSlide);
 
             }).on('afterChange', function (event, slick, currentSlide) {
 
 
-                if (!(typeof AnalyticsPortalModule === 'undefined'))
-                    AnalyticsPortalModule.MarcaRecomendacionesFlechaAnterior();
+              
             });
         },
 
@@ -190,7 +180,29 @@
 
             BuscadorProvider.RegistroProductoBuscador(divPadre, _elementos.valueJSON);
 
-            
+
+        },
+
+        NextCarrusel: function () {
+
+            if (!(typeof AnalyticsPortalModule === 'undefined'))
+                AnalyticsPortalModule.MarcaRecomendacionesFlechaSiguiente();
+
+            var index = $("#carouselProductosRecomendados").find('.slick-active').last().data('slick-index');
+
+            var data = localStorage.getItem('arrayRecomendaciones');
+
+            //console.log(data);
+            //console.log(index);
+            console.log(AnalyticsPortalModule);
+
+            if (!(typeof AnalyticsPortalModule === 'undefined'))
+                AnalyticsPortalModule.MarcaProductImpressionViewRecomendaciones(JSON.parse(data), index);
+
+        },
+        PreviousCarrusel: function () {
+            if (!(typeof AnalyticsPortalModule === 'undefined'))
+                AnalyticsPortalModule.MarcaRecomendacionesFlechaAnterior();
         }
     };
 

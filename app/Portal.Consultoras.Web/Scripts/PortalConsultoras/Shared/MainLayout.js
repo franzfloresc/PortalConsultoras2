@@ -954,6 +954,7 @@ function RedirectIngresaTuPedido(e) {
 }
 
 function CerrarSesion() {
+    
     if (typeof (Storage) !== 'undefined') {
         var itemSBTokenPais = localStorage.getItem('SBTokenPais');
         var itemSBTokenPedido = localStorage.getItem('SBTokenPedido');
@@ -967,7 +968,8 @@ function CerrarSesion() {
         if (typeof (itemSBTokenPedido) !== 'undefined' && itemSBTokenPedido !== null) {
             localStorage.setItem('SBTokenPedido', itemSBTokenPedido);
         }
-        localStorage.setItem('SurvicateStorage', JSON.stringify(itemSBSurvicate));
+        SetItemLocalStorageSurvicate(itemSBSurvicate);
+        //localStorage.setItem('SurvicateStorage', JSON.stringify(itemSBSurvicate));
     }
 
     location.href = baseUrl + 'Login/LogOut';
@@ -975,12 +977,20 @@ function CerrarSesion() {
 
 function GetItemLocalStorageSurvicate() {
     var surviKeys = {};
-    for (var key in localStorage)
-    {
+    for (var key in localStorage) {
         if (key.indexOf('survi::') > -1)
             surviKeys[key] = localStorage[key];
     }
     return surviKeys;
+}
+function SetItemLocalStorageSurvicate(storage) {
+
+    if (typeof storage !== 'undefined' && typeof storage === 'object') {
+        for (var key in storage) {
+            if (storage.hasOwnProperty(key))
+                localStorage.setItem(key, storage[key]);
+        }
+    }
 }
 
 
