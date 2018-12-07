@@ -211,7 +211,6 @@ var menuModule = (function () {
         if (codigo.indexOf("INICIO") > -1) $('ul.subnavegador li a').attr('parent', 'Contenedor - Inicio');
     }
     function menuClick(e, url) {
-
         var objHtmlEvent = $(e);
         var esAncla = objHtmlEvent.data(tagIsAnchor);
         var codigo = objHtmlEvent.data("codigo") || "";
