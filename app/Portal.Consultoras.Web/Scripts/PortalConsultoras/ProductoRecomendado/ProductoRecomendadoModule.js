@@ -11,7 +11,7 @@
     };
     var _config = {
         isMobile: window.matchMedia("(max-width:991px)").matches,
-        maxCaracteresRecomendaciones: maxCaracteresRecomendaciones
+        maxCaracteresRecomendaciones: maxCaracteresRecomendaciones        
     };
     var _provider = {
         RecomendacionesPromise: function (params) {
