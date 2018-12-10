@@ -1,4 +1,4 @@
-﻿USE [BelcorpPeru_GANA]
+﻿USE [BelcorpPeru_BPT]
 GO
 
 PRINT 'DROP COLUMNS'
@@ -47,3 +47,101 @@ BEGIN
 END
 GO
 
+
+USE [BelcorpChile_BPT]
+GO
+
+PRINT 'DROP COLUMNS'
+
+IF EXISTS (
+	SELECT * 
+	FROM SYS.COLUMNS C
+	JOIN SYS.OBJECTS  O
+	ON C.[OBJECT_ID] = O.[OBJECT_ID]
+	WHERE  O.TYPE = 'U'
+	AND O.NAME = 'PedidoWebSet'
+	AND C.NAME = 'NombreSet'
+	)
+BEGIN
+	ALTER TABLE [dbo].[PedidoWebSet] DROP COLUMN NombreSet
+END
+GO
+
+IF EXISTS (
+	SELECT * 
+	FROM SYS.COLUMNS C
+	JOIN SYS.OBJECTS  O
+	ON C.[OBJECT_ID] = O.[OBJECT_ID]
+	WHERE  O.TYPE = 'U'
+	AND O.NAME = 'PedidoWebSet'
+	AND C.NAME = 'TipoEstrategiaId'
+	)
+BEGIN
+	ALTER TABLE [dbo].[PedidoWebSet] DROP COLUMN TipoEstrategiaId
+END
+GO
+
+PRINT 'ADD COLUMNS'
+
+IF NOT EXISTS (
+	SELECT * 
+	FROM SYS.COLUMNS C
+	JOIN SYS.OBJECTS  O
+	ON C.[OBJECT_ID] = O.[OBJECT_ID]
+	WHERE  O.TYPE = 'U'
+	AND O.NAME = 'PedidoWebSet'
+	AND C.NAME = 'ClienteID'
+	)
+BEGIN
+	ALTER TABLE [dbo].[PedidoWebSet] ADD ClienteID INT
+END
+GO
+
+USE [BelcorpCostaRica_BPT]
+GO
+
+PRINT 'DROP COLUMNS'
+
+IF EXISTS (
+	SELECT * 
+	FROM SYS.COLUMNS C
+	JOIN SYS.OBJECTS  O
+	ON C.[OBJECT_ID] = O.[OBJECT_ID]
+	WHERE  O.TYPE = 'U'
+	AND O.NAME = 'PedidoWebSet'
+	AND C.NAME = 'NombreSet'
+	)
+BEGIN
+	ALTER TABLE [dbo].[PedidoWebSet] DROP COLUMN NombreSet
+END
+GO
+
+IF EXISTS (
+	SELECT * 
+	FROM SYS.COLUMNS C
+	JOIN SYS.OBJECTS  O
+	ON C.[OBJECT_ID] = O.[OBJECT_ID]
+	WHERE  O.TYPE = 'U'
+	AND O.NAME = 'PedidoWebSet'
+	AND C.NAME = 'TipoEstrategiaId'
+	)
+BEGIN
+	ALTER TABLE [dbo].[PedidoWebSet] DROP COLUMN TipoEstrategiaId
+END
+GO
+
+PRINT 'ADD COLUMNS'
+
+IF NOT EXISTS (
+	SELECT * 
+	FROM SYS.COLUMNS C
+	JOIN SYS.OBJECTS  O
+	ON C.[OBJECT_ID] = O.[OBJECT_ID]
+	WHERE  O.TYPE = 'U'
+	AND O.NAME = 'PedidoWebSet'
+	AND C.NAME = 'ClienteID'
+	)
+BEGIN
+	ALTER TABLE [dbo].[PedidoWebSet] ADD ClienteID INT
+END
+GO
