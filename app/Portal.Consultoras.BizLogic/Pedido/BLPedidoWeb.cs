@@ -2202,7 +2202,8 @@ namespace Portal.Consultoras.BizLogic
         public string GetTokenIndicadorPedidoAutentico(int paisID, string paisISO, string codigoRegion, string codigoZona)
         {
             var daPedidoWeb = new DAPedidoWeb(paisID);
-            return daPedidoWeb.GetTokenIndicadorPedidoAutentico(paisISO, codigoRegion, codigoZona);
+            var codigo = daPedidoWeb.GetTokenIndicadorPedidoAutentico(paisISO, codigoRegion, codigoZona);
+            return AESAlgorithm.Encrypt(codigo);
         }
 
         public BEConsultoraResumen GetResumen(int paisId, int codigoConsultora, int codigoCampania)

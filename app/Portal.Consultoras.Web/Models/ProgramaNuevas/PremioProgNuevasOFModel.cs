@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Portal.Consultoras.Web.Models
+namespace Portal.Consultoras.Web.Models.ProgramaNuevas
 {
     [Serializable]
     public class PremioProgNuevasOFModel

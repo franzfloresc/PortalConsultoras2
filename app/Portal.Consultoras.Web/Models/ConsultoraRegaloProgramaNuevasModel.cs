@@ -3,7 +3,7 @@
 namespace Portal.Consultoras.Web.Models
 {
     [Serializable]
-    public class ConsultoraRegaloProgramaNuevasModel
+    public class ConsultoraRegaloProgramaNuevasOFModel
     {
         public string CodigoNivel { get; set; }
         public decimal TippingPoint { get; set; }

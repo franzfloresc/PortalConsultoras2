@@ -2,6 +2,7 @@
 using Portal.Consultoras.Common;
 using Portal.Consultoras.PublicService.Cryptography;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.ProgramaNuevas;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceCliente;
 using Portal.Consultoras.Web.ServiceContenido;
@@ -4013,8 +4014,7 @@ namespace Portal.Consultoras.Web.Controllers
                     case "2":
                         using (var svc = new PedidoServiceClient())
                         {
-                            var tpa = svc.GetTokenIndicadorPedidoAutentico(userData.PaisID, userData.CodigoISO, userData.CodigorRegion, userData.CodigoZona);
-                            codigo = AESAlgorithm.Encrypt(tpa);
+                            codigo = svc.GetTokenIndicadorPedidoAutentico(userData.PaisID, userData.CodigoISO, userData.CodigorRegion, userData.CodigoZona);
                         }
                         if (!string.IsNullOrEmpty(codigo))
                         {
@@ -4088,16 +4088,10 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (!userData.ConfigPremioProgNuevasOF.TienePremio) return ErrorJson("OK", true);
+                if (!userData.ConfigPremioProgNuevas.MostrarRegaloOF) return ErrorJson("OK", true);
 
-                var configProgNuevas = _programaNuevasProvider.GetConfiguracion();
-                var model = new ConsultoraRegaloProgramaNuevasModel {
-                    CodigoNivel = userData.ConfigPremioProgNuevasOF.CodigoNivel,
-                    TippingPoint = _programaNuevasProvider.GetTippingPointOF(configProgNuevas)
-                };
-
-                var listPremioElec = userData.ConfigPremioProgNuevasOF.ListPremioElec;
-                PremioProgNuevasOFModel premio;
+                var listPremioElec = userData.ConfigPremioProgNuevas.ListPremioElec;
+                PremioProgNuevasModel premio;
 
                 if (listPremioElec != null && listPremioElec.Any())
                 {
@@ -4105,13 +4099,9 @@ namespace Portal.Consultoras.Web.Controllers
                     premio = listPremioElec.FirstOrDefault(pe => listDetalle.Any(d => pe.Cuv == d.CUV));
                     if (premio == null) premio = listPremioElec.First();
                 }
-                else premio = userData.ConfigPremioProgNuevasOF.PremioAuto;
+                else premio = userData.ConfigPremioProgNuevas.PremioAuto;
 
-                model.DescripcionPremio = premio.DescripcionPremio;
-                model.UrlImagenRegalo = premio.UrlImagenRegalo;
-                model.PrecioValorizado = premio.PrecioValorizado;
-                model.PrecioValorizadoFormat = Util.DecimalToStringFormat(model.PrecioValorizado, userData.CodigoISO);
-
+                var model = _programaNuevasProvider.GetConsultoraRegaloProgNuevasOF(premio);
                 return Json(new
                 {
                     success = model != null,
