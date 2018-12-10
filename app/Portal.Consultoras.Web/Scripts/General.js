@@ -5,6 +5,7 @@ belcorp.settings = belcorp.settings || {}
 belcorp.settings.uniquePrefix = "/g/";
 
 jQuery(document).ready(function () {
+   
     CreateLoading();
     eventCloseDialogMensaje();
     $("header").resize(function () {
@@ -1943,11 +1944,12 @@ function get_local_storage(key) {
 
 function limpiar_local_storage() {
 
-
+    
     if (typeof (Storage) !== 'undefined') {
         var itemSBTokenPais = localStorage.getItem('SBTokenPais');
         var itemSBTokenPedido = localStorage.getItem('SBTokenPedido');
-        var itemSurvicateStorage = localStorage.getItem('SurvicateStorage');//add
+        //var itemSurvicateStorage = localStorage.getItem('SurvicateStorage');//add
+        var itemSurvicateStorage = GetItemLocalStorageSurvicate();//add
         localStorage.clear();
 
         if (typeof (itemSBTokenPais) !== 'undefined' && itemSBTokenPais !== null) {
@@ -1960,10 +1962,23 @@ function limpiar_local_storage() {
         SetItemLocalStorageSurvicate(itemSurvicateStorage);
     }
 }
+function GetItemLocalStorageSurvicate() {
+    var surviKeys = {};
+    for (var key in localStorage) {
+        if (key.indexOf('survi::') > -1)
+            surviKeys[key] = localStorage[key];
+    }
+    return surviKeys;
+}
 function SetItemLocalStorageSurvicate(storage) {
-    storage = (storage == null || storage == "") ? {} : jQuery.parseJSON(storage);
-    for (var key in storage) {
-        localStorage.setItem(key, storage[key]);
+    
+    if (typeof storage !== 'undefined' && typeof storage === 'object')
+    {
+        for (var key in storage)
+        {
+            if (storage.hasOwnProperty(key))
+                localStorage.setItem(key, storage[key]);
+        }
     }
 }
 function _validartieneMasVendidos() {
