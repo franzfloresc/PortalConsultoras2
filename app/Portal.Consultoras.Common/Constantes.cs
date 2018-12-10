@@ -2946,10 +2946,14 @@ namespace Portal.Consultoras.Common
 
         public static class RutaBuscadorService
         {
-            //Buscador/{CodigoISO}/{CampaniaID}
+            /// <summary>
+            /// Buscador/{CodigoISO}/{CampaniaID}
+            /// </summary>
             public const string UrlBuscador = "Buscador/{0}/{1}/{2}";
 
-            //Personalizacion/{CodigoISO}/{CampaniaID}/{CodigoConsultora}/{Origen}
+            /// <summary>
+            /// Personalizacion/{CodigoISO}/{CampaniaID}/{CodigoConsultora}/{Origen}
+            /// </summary>
             public const string UrlPersonalizacion = "Personalizacion/{0}/{1}/{2}/{3}";
         }
 

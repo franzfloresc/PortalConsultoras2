@@ -20,9 +20,6 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class MatrizCampaniaController : BaseController
     {
-        //public List<MatrizCampaniaModel> ListaCUVs;
-        //public bool isError = false;
-
         public ActionResult ActualizarMatrizCampania()
         {
             try

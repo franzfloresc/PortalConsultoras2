@@ -59,7 +59,6 @@ namespace Portal.Consultoras.Web.Providers
             _pedidoWeb = pedidoWebProvider;
             _ofertaBaseProvider = ofertaBaseProvider;
             _showRoomProvider = new ShowRoomProvider();
-            //configEstrategiaSR = SessionManager.GetEstrategiaSR() ?? new ConfigModel();
         }
 
         #region Metodos de Estrategia Controller
