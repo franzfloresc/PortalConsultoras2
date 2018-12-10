@@ -1363,7 +1363,6 @@ function BuscarByCUV(CUV) {
         async: true,
         cache: false,
         success: function (data) {
-            console.log(data);
             CerrarSplash();
             if (!checkTimeout(data)) {
                 return false;
