@@ -842,12 +842,37 @@ namespace Portal.Consultoras.Web.SessionManager
 
             return (FichaProductoDetalleModel)val;
         }
+
+        void ISessionManager.SetCDRPedidoFacturado(List<BEPedidoWeb> val)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.CDRProductoFacturado] = val;
+        }
+
+        List<BEPedidoWeb> ISessionManager.GetCDRPedidoFacturado()
+        {
+            var val = HttpContext.Current.Session[Constantes.ConstSession.CDRProductoFacturado];
+
+            return (List<BEPedidoWeb>)val;
+        }
+
         void ISessionManager.SetCDRCampanias(List<CampaniaModel> val)
         {
             HttpContext.Current.Session[Constantes.ConstSession.CDRCampanias] = val;
         }
 
         List<CampaniaModel> ISessionManager.GetCDRCampanias()
+        {
+            var val = HttpContext.Current.Session[Constantes.ConstSession.CDRCampanias];
+
+            return (List<CampaniaModel>)val;
+        }
+
+        void ISessionManager.SetCDRPedidoID(List<CampaniaModel> val)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.CDRCampanias] = val;
+        }
+
+        List<CampaniaModel> ISessionManager.GetCDRPedidoID()
         {
             var val = HttpContext.Current.Session[Constantes.ConstSession.CDRCampanias];
 

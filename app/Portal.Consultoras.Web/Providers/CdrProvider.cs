@@ -140,6 +140,7 @@ namespace Portal.Consultoras.Web.Providers
             }
 
             var listaPedidoFacturados = CargarPedidosFacturados(paisId, campaniaId, consultoraId, maxDias);
+            sessionManager.SetCDRPedidoFacturado(listaPedidoFacturados);
 
             var listaCampanias = new List<CampaniaModel>();
             var campania = new CampaniaModel

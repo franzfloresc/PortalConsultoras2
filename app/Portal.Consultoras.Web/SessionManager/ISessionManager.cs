@@ -326,9 +326,17 @@ namespace Portal.Consultoras.Web.SessionManager
 
         FichaProductoDetalleModel GetFichaProductoTemporal();
 
+        void SetCDRPedidoFacturado(List<BEPedidoWeb> val);
+
+        List<BEPedidoWeb> GetCDRPedidoFacturado();
+
         void SetCDRCampanias(List<CampaniaModel> val);
 
         List<CampaniaModel> GetCDRCampanias();
+
+        void SetCDRPedidoID(List<CampaniaModel> val);
+
+        List<CampaniaModel> GetCDRPedidoID();
 
         void SetListaCDRDetalle(CDRWebModel val);
 

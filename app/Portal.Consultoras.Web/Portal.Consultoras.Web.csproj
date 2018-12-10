@@ -1392,6 +1392,7 @@
     <Content Include="Content\Css\Mobile\RevistaDigital\RedimensionLandingRD.css" />
     <Content Include="Content\Css\Site\Admin\Estrategias\UpSelling.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\index.css" />
+    <Content Include="Content\Css\Site\bootstrap\bootstrap-chosen.css" />
     <Content Include="Content\Css\Site\bootstrap\bootstrap.css" />
     <Content Include="Content\Css\Site\BusquedaProductos\busqueda-productos.css" />
     <Content Include="Content\Css\Site\Contenedor\Index.css" />
@@ -1656,6 +1657,7 @@
     <Content Include="Content\Images\icono_comunidad_virtual.svg" />
     <Content Include="Content\Images\icono_esika_responde.png" />
     <Content Include="Content\Images\icono_limpiar_busqueda.svg" />
+    <Content Include="Content\Images\icono_lupa_gris.svg" />
     <Content Include="Content\Images\icono_lupa_blanco.svg" />
     <Content Include="Content\Images\icono_lupa.svg" />
     <Content Include="Content\Images\icono_noticias.svg" />
@@ -3908,6 +3910,7 @@
     <Content Include="Scripts\AdminContenido\ProductoSugerido.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\chosen.jquery.js" />
     <Content Include="Scripts\colorpicker\colorpicker.js" />
     <Content Include="Scripts\Comunidad\fuzescale-1.3.min.js" />
     <Content Include="Scripts\Comunidad\jquery.min.js" />
