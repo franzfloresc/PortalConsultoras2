@@ -33,7 +33,6 @@ namespace Portal.Consultoras.Common
                 {
                     client.BaseAddress = new Uri(_serviceUrl);
                     client.DefaultRequestHeaders.Add("Authorization", string.Format("Bearer {0}", Token));
-                    //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(_mediaType));
 
                     var response = client.GetAsync(path).Result;
 

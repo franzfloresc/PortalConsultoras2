@@ -32,9 +32,9 @@
     <script type="text/javascript">
         var baseUrl = "@Url.Content("~")";
         var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))' == "True";
-       
+
         var tipoOfertaFinalCatalogoPersonalizado = '@Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore';
-       
+
         var indicadorEnviadoDescarga = '@ViewBag.IndicadorEnviado';
         var gTipoUsuario = '@ViewBag.TipoUsuario';
         var IsoPais = '@ViewBag.CodigoISODL';
@@ -50,6 +50,7 @@
         //ODD
         var MostrarODD = '@ViewBag.MostrarODD';
         var tieneOfertaDelDia = '@ViewBag.TieneOfertaDelDia';
+        var mostrarBannerSuperiorOdd = '@ViewBag.MostrarBannerSuperiorOdd';
         // New Chat
         var emt_client_type = '@ViewBag.TipoUsuario';
         var emt_country = '@ViewBag.CodigoISODL';
@@ -131,7 +132,7 @@
         {
             @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpBloqueMensajesPedido.cshtml")
         }
-        else if (ViewBag.TieneOfertaDelDia == true)
+        else if (ViewBag.MostrarBannerSuperiorOdd == true) // TieneOfertaDelDia
         {
             <div class="bloque_oferta_dia" id="OfertaDelDia" style="display: none"></div>
         }

@@ -78,5 +78,4 @@ function btnSalirTlpObservaciones() {
     }
 
     HideDialog("tlpObservaciones");
-    //$("#tlpObservaciones").dialog("close");
 }
