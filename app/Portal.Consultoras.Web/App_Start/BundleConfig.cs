@@ -357,8 +357,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/jquery.flexslider.js",
                 "~/Scripts/jquery.rateyo.js",
                 "~/Scripts/jquery.easy-pie-chart.js",
-                "~/Scripts/jquery.custom-scrollbar.js",
-                "~/Scripts/PortalConsultoras/EstrategiaAgregar/PedidoRegistro.js"
+                "~/Scripts/jquery.custom-scrollbar.js"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/Site-CssPedido").Include(

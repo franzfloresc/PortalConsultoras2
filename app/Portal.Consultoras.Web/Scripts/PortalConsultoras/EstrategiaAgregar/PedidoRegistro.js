@@ -1,4 +1,6 @@
-﻿
+﻿var modelLiquidacionOfertas;
+var labelAgregadoLiquidacion;
+
 var PedidoRegistroModule = function () {
     'use strict';
 
@@ -1396,8 +1398,6 @@ var PedidoRegistroModule = function () {
         TestDev: testDev
     }
 }();
-
-
 
 
 function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi, setId, enRangoProgNuevas) {

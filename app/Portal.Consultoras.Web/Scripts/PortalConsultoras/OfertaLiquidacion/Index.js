@@ -1,8 +1,8 @@
 ﻿var cantidadRegistros = 12;
 var offsetRegistros = 0;
 var cargandoRegistros = false;
-var modelLiquidacionOfertas;
-var labelAgregadoLiquidacion;
+//var modelLiquidacionOfertas;
+//var labelAgregadoLiquidacion;
 
 $(document).ready(function () {
     IniDialog();
