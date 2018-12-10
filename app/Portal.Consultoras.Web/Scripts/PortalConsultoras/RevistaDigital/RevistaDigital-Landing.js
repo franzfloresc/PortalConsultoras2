@@ -246,6 +246,7 @@ function OfertaCargarProductos(busquedaModel, clear, objSeccion) {
     $.ajaxSetup({
         cache: false
     });
+    console.log('OfertaCargarProductos - ajax', busquedaModel, busquedaModel.UrlCargarProductos);
     busquedaModel.IsMobile = isMobile();
     jQuery.ajax({
         type: 'POST',
@@ -255,6 +256,7 @@ function OfertaCargarProductos(busquedaModel, clear, objSeccion) {
         data: JSON.stringify(busquedaModel),
         async: true,
         success: function (response) {
+
             if (response.codigo == '005') {
                 response.listaLan = Clone(response.lista);
                 response.lista = [];
