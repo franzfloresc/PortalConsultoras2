@@ -426,10 +426,14 @@ input:focus{
     .grupo_form_cambio_datos label{
         cursor:default;
         position:absolute;
+        width:90%;
         top:22px;
         left:0;
         font-size:14px;
         font-weight:bold;
+        height:25px;
+        background-color:rgba(255,255,255,1);
+        z-index:2;
     }
 
     .grupo_form_cambio_datos label,
@@ -453,12 +457,6 @@ input:focus{
         transition: all 0.2s ease;
     }
 
-    .grupo_form_cambio_datos label,
-    .grupo_form_cambio_datos select
-    {
-        font-weight:bold!important;
-    }
-
     .grupo_form_cambio_datos input,
     .grupo_form_cambio_datos select
     {
@@ -471,7 +469,7 @@ input:focus{
         border-right: none;
         color: #000;
         border-bottom: 1px solid #808080;
-        padding-top: 8px;
+        padding-top: 12px;
         padding-bottom: 9px;
         padding-right:40px;
         position:relative;
@@ -499,6 +497,10 @@ input:focus{
         padding-left:15px;
     }
 
+    .grupo_form_cambio_datos_campo_comuna label{
+        left:15px;
+    }
+
     .grupo_form_cambio_datos_campo_direccion,
     .grupo_form_cambio_datos_campo_direccion > div
     {
@@ -506,17 +508,23 @@ input:focus{
     }
 
     .grupo_form_cambio_datos input:focus + label,
+    .grupo_form_cambio_datos select:focus + label,
     .campo_con_datos + label
     {
         top:0;
         font-size:14px;
+        background-color:rgba(255,255,255,0);
     }
 
-    .grupo_form_cambio_datos input:focus + label{
+    .grupo_form_cambio_datos input:focus + label,
+    .grupo_form_cambio_datos select:focus + label
+    {
         color:rgba(0,0,0,1);
     }
 
-    .grupo_form_cambio_datos input:focus{
+    .grupo_form_cambio_datos input:focus,
+    .grupo_form_cambio_datos select:focus
+    {
         border-bottom:1px solid rgba(0,0,0,1);
     }
 
@@ -524,7 +532,7 @@ input:focus{
     position: absolute;
     margin: auto 0;
     top: 18px;
-    bottom: 16px;
+    bottom: 3px;
     right: -7px;
     width: 40px;
     height: 40px;

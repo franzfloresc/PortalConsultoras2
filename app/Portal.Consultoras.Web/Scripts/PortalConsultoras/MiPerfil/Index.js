@@ -9,7 +9,7 @@ $(document).ready(function () {
 
         me.Funciones = {
             InicializarEventos: function () {
-                $('body').on('blur', '.grupo_form_cambio_datos input', me.Eventos.LabelActivo);
+                $('body').on('blur', '.grupo_form_cambio_datos input, .grupo_form_cambio_datos select', me.Eventos.LabelActivo);
                 $('body').on('click', '.enlace_agregar_num_adicional', me.Eventos.AgregarOtroNumero);
                 $('body').on('click', '.enlace_eliminar_numero_adicional', me.Eventos.EliminarNumeroAdicional);
                 $('body').on('click', '.enlace_ver_password', me.Eventos.MostrarPassword);
@@ -47,9 +47,9 @@ $(document).ready(function () {
                 }
             },
             CamposFormularioConDatos: function () {
-                var camposFormulario = $('.grupo_form_cambio_datos input');
+                var camposFormulario = $('.grupo_form_cambio_datos input, .grupo_form_cambio_datos select');
                 $.map(camposFormulario, function (campoFormulario, key) {
-                    if ($(campoFormulario).val() != '') {
+                    if ($(campoFormulario).val() != 0) {
                         $(campoFormulario).addClass('campo_con_datos');
                     }
                 });
@@ -104,7 +104,7 @@ $(document).ready(function () {
             me.Eventos = {
                 LabelActivo: function () {
                     var campoDatos = $(this).val();
-                    if (campoDatos != '') {
+                    if (campoDatos != 0) {
                         $(this).addClass('campo_con_datos');
                     } else {
                         $(this).removeClass('campo_con_datos');
