@@ -569,20 +569,14 @@ namespace Portal.Consultoras.BizLogic
         }
 
 
-        public List<BEEstrategia> GetEstrategiaPremiosElectivos(int paisId, string codigoPrograma, int anioCampana)
+        public List<BEEstrategia> GetEstrategiaPremiosElectivos(int paisId, string codigoPrograma, int anioCampana, string codigoNivel)
         {
             var listaEstrategias = new List<BEEstrategia>();
             try
             {
-                BEEstrategia entidad = new BEEstrategia
-                {
-                    PaisID = paisId,
-                    CodigoPrograma = codigoPrograma,
-                    CampaniaID = anioCampana
-                };
-                var da = new DAEstrategia(entidad.PaisID);
+                var da = new DAEstrategia(paisId);
                 
-                using (IDataReader reader = da.GetPremiosElectivos(entidad))
+                using (IDataReader reader = da.GetPremiosElectivos(codigoPrograma, anioCampana, codigoNivel))
                 {
                     while (reader.Read())
                     {

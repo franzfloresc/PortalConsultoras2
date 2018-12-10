@@ -571,7 +571,6 @@ namespace Portal.Consultoras.Web.Controllers
                 var configProgNuevas = _programaNuevasProvider.GetConfiguracion();
                 objR.TippingPointBarra = _programaNuevasProvider.GetBarraTippingPoint(configProgNuevas.CodigoPrograma);
                 _programaNuevasProvider.SetBarraConsultoraTippingPoint(objR, configProgNuevas);
-
                 #endregion
 
                 #region listaEscalaDescuento

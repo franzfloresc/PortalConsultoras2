@@ -3,10 +3,12 @@ if Exists (select 1 from sys.objects where type = 'P' and name = 'GetPremiosElec
 
 GO
 
+
 CREATE PROC GetPremiosElectivos
 (
 @CampaniaID int,
-@CodigoPrograma varchar(10)
+@CodigoPrograma varchar(10),
+@CodigoNivel varchar(2)
 )
 AS
 BEGIN
@@ -66,7 +68,8 @@ BEGIN
 
 	where e.activo = 1
 		and isnull(c.Campana,'') != ''
-		and c.CodigoPrograma = @CodigoPrograma 
+		and c.CodigoPrograma = @CodigoPrograma
+		and c.CodigoNivel = @CodigoNivel
 		and e.campaniaid <= @CampaniaID and e.campaniaidfin >= @CampaniaID 
 		and c.Campana = cast(@CampaniaID as varchar(6))
 		and c.PrecioUnitario = 0

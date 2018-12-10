@@ -4287,7 +4287,7 @@ namespace Portal.Consultoras.Web.Controllers
                 #endregion
 
                 BEPedidoWebDetalle premioSelected = null;
-                var premios = _programaNuevasProvider.GetPremioElectivosTippingPoint();
+                var premios = _programaNuevasProvider.GetListPremioElectivo();
                 if (premios.Any(p => p.CUV2 == model.CUV))
                 {
                     premioSelected = GetPremioSelected(premios);
