@@ -184,7 +184,7 @@
 .contenedor_controles_odd {
     float: left;
     margin-top: 30px;
-    width: 51%;
+    width: 192px;
 }
 
 .contenedor_agregar_odd {
@@ -245,14 +245,20 @@
 .btn_elige_tu_tono_odd {
     color: #fff;
     border: solid 1px #fff;
-    float: left;
     font-size: 13px;
     height: 45px;
     letter-spacing: 1px;
     line-height: 45px;
     text-align: center;
     width: 100%;
+    border-radius: 4px;
 }
+
+    .btn_elige_tu_tono_odd img {
+        margin-right: 5px;
+        position: relative;
+        top: 4px;
+    }
 
 .btn_elige_tu_tono_odd_desactivado {
     background-color: #d8d8d8;
