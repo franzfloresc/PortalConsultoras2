@@ -31,17 +31,6 @@ IF EXISTS(SELECT 1
   END 
 go
 
-USE BelcorpVenezuela
-GO
-
-IF EXISTS(SELECT 1 
-          FROM   sys.procedures 
-          WHERE  NAME = 'usp_InsertEventoConsultora') 
-  BEGIN 
-      DROP PROCEDURE dbo.usp_inserteventoconsultora 
-  END 
-go
-
 USE BelcorpSalvador
 GO
 

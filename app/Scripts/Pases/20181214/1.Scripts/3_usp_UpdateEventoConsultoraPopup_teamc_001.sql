@@ -94,38 +94,6 @@ AS
       END 
 GO
 
-USE BelcorpVenezuela
-GO
-
-IF EXISTS(SELECT 1 
-          FROM   sys.procedures 
-          WHERE  NAME = 'usp_UpdateEventoConsultoraPopup') 
-  BEGIN 
-      DROP PROCEDURE dbo.usp_updateeventoconsultorapopup 
-  END 
-
-go 
-
-CREATE PROCEDURE Usp_updateeventoconsultorapopup @Tipo               CHAR (1), 
-                                                 @EventoConsultoraId INT 
-AS 
-    IF @Tipo = 'I' 
-      BEGIN 
-          UPDATE showroom.eventoconsultora 
-          SET    mostrarpopup = 0, 
-                 fechamodificacion = Getdate() 
-          WHERE  eventoconsultoraid = @EventoConsultoraId
-      END 
-
-    IF @Tipo = 'V' 
-      BEGIN 
-          UPDATE showroom.eventoconsultora 
-          SET    mostrarpopupventa = 0, 
-                 fechamodificacion = Getdate() 
-          WHERE  eventoconsultoraid = @EventoConsultoraId
-      END 
-GO
-
 USE BelcorpSalvador
 GO
 
