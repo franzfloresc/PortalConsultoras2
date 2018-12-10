@@ -152,7 +152,6 @@ function IniDialogs() {
         modal: true,
         closeOnEscape: true,
         width: 830,
-        close: function () { },
         draggable: false,
         title: "Configurar Contenedor Menú",
         open: function (event, ui) {
