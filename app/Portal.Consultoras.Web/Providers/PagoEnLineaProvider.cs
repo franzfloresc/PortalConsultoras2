@@ -288,21 +288,7 @@ namespace Portal.Consultoras.Web.Providers
 
                 var bePagoEnLinea = GenerarEntidadPagoEnLineaVisa(respuestaVisa, model);
 
-                var bEUsuario = new BEUsuario()
-                {
-                    PaisID = userData.PaisID,
-                    ConsultoraID = userData.ConsultoraID,
-                    CodigoUsuario = userData.CodigoUsuario,
-                    CodigoConsultora = userData.CodigoConsultora,
-                    EMail = userData.EMail,
-                    DocumentoIdentidad = userData.DocumentoIdentidad,
-                    CampaniaID = userData.CampaniaID,
-                    FechaLimPago = userData.FechaLimPago,
-                    Simbolo = userData.Simbolo,
-                    Nombre = userData.NombreConsultora,
-                    PrimerNombre = userData.PrimerNombre,
-                    PrimerApellido = userData.PrimerApellido,
-                };
+                var bEUsuario = Mapper.Map<BEUsuario>(userData);                
 
                 BERespuestaServicio result = null;
 
