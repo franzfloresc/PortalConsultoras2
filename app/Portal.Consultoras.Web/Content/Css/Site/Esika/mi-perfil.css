@@ -136,7 +136,7 @@ input:focus{
 .permisos_cuenta_wrapper,
 .permisos_cuenta_titulo,
 .permisos_cuenta_opciones,
-.enlace_abrir_mapa
+.enlace_ubicacion_actual
 {
     display:block;
 }
@@ -451,7 +451,7 @@ input:focus{
     }
 
     .grupo_form_cambio_datos select,
-    .enlace_abrir_mapa
+    .enlace_ubicacion_actual
     {
         background-repeat:no-repeat;
         background-position:98.5% center;
@@ -469,7 +469,7 @@ input:focus{
         position:relative;
     }
 
-    .enlace_abrir_mapa{
+    .enlace_ubicacion_actual{
         position: absolute;
         margin: auto 0;
         top: 18px;
@@ -482,7 +482,7 @@ input:focus{
         z-index: 3000;
     }
 
-    .mapa_wrapper{
+    .w-100.mapa_wrapper{
         margin-top:25px;
         height:250px;
     }
