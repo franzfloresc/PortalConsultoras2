@@ -222,11 +222,11 @@ var AnalyticsPortalModule = (function () {
 
     var _getTextoPaginaSegunOrigen = function (origenEstructura) {
 
-        var seccion = __origenPedidoWebEstructura.Pagina.find(function (element) {
+        var seccion = _origenPedidoWebEstructura.Pagina.find(function (element) {
             return element.Codigo == origenEstructura.Pagina;
         });
         if (seccion == undefined) {
-            var seccion = __origenPedidoWebEstructura.Pagina.find(function (element) {
+            var seccion = _origenPedidoWebEstructura.Pagina.find(function (element) {
                 return element.Codigo == origenEstructura.Pagina;
             });
             return "";
@@ -236,12 +236,12 @@ var AnalyticsPortalModule = (function () {
 
     var _getTextoPalancaSegunOrigen = function (origenEstructura) {
 
-        var seccion = __origenPedidoWebEstructura.Palanca.find(function (element) {
+        var seccion = _origenPedidoWebEstructura.Palanca.find(function (element) {
             return element.Codigo == origenEstructura.Palanca;
         });
 
         if (seccion == undefined) {
-            var seccion = __origenPedidoWebEstructura.Palanca.find(function (element) {
+            var seccion = _origenPedidoWebEstructura.Palanca.find(function (element) {
                 return element.CodigoPalanca == origenEstructura.CodigoPalanca;
             });
         }
