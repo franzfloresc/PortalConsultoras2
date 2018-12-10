@@ -214,9 +214,7 @@ namespace Portal.Consultoras.Web.Providers
             #endregion
 
             #region Variables para el formulario de pago visa
-
-            //pagoVisaModel.MerchantLogo = _tablaLogica.ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.UrlLogoPasarelaPago);
-            //pagoVisaModel.FormButtonColor = _tablaLogica.ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.ColorBotonPagarPasarelaPago);
+            
             pagoVisaModel.MerchantLogo = ObtenerValoresTipoPasarela(listaPasarelaVisa, tipoPasarelaVisa, Constantes.PagoEnLineaPasarelaVisa.UrlLogoPasarelaPago);
             pagoVisaModel.FormButtonColor = ObtenerValoresTipoPasarela(listaPasarelaVisa, tipoPasarelaVisa, Constantes.PagoEnLineaPasarelaVisa.ColorBotonPagarPasarelaPago);
             pagoVisaModel.Recurrence = "FALSE";

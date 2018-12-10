@@ -183,8 +183,6 @@ function RedirectAdministrador() {
         'event': 'pageview',
         'virtualUrl': '/Login/Administrador'
     });
-    //window.open('https://identidad.belcorp.biz/adfs/ls/?wa=wsignin1.0&wtrealm=https://sts.somosbelcorp.com/adfs/services/trust', '_self');
-    //return false;
 }
 
 function RedirectRecuperarClave() {
@@ -267,13 +265,12 @@ function storageIsSuport(storage) {
 }
 
 function LocalStorageLimpiar() {
-    
+
     if (typeof (Storage) !== 'undefined' && storageIsSuport(window.localStorage)) {
         var itemSBTokenPais = localStorage.getItem('SBTokenPais');
         var itemSBTokenPedido = localStorage.getItem('SBTokenPedido');
         var itemChatEConnected = localStorage.getItem('connected');
         var itemChatEConfigParams = localStorage.getItem('ConfigParams');
-        //var itemSurvicateStorage = localStorage.getItem('SurvicateStorage');
         var itemSurvicateStorage = GetItemLocalStorageSurvicate();
         localStorage.clear();
 
@@ -295,7 +292,6 @@ function LocalStorageLimpiar() {
 
         if (typeof (itemSurvicateStorage) !== 'undefined' && itemSurvicateStorage !== null) {
             SetItemLocalStorageSurvicate(itemSurvicateStorage);
-            //localStorage.setItem('SurvicateStorage', itemSurvicateStorage);
         }
 
     }

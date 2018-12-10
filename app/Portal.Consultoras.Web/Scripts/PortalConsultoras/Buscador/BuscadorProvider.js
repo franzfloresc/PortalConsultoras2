@@ -9,18 +9,16 @@
         CerrarLoad();
         if (checkTimeout(data)) AbrirMensaje(data.message);
     }
-
+    
     var limpiarRecomendados = function () {
         var seccionProductosRecomendados = $('.divProductosRecomendados');
         seccionProductosRecomendados.slideUp(200);
-
         $("#txtDescripcionProd").val("");
         $("#hdfDescripcionProd").val("");
         $("#txtPrecioR").val("");
         $("#txtCantidad").val("");
         $("#divMensaje").text("");
         $("#txtCUV").focus();
-
         if (isMobile()) {
             if (isPagina('Pedido')) {
                 PedidoOnSuccess()
