@@ -2805,6 +2805,12 @@ namespace Portal.Consultoras.Common
 
             //api/Estrategia/buscador/{pais}/{tipo}/{campania}
             public const string UrlJobBuscador = "api/Estrategia/buscador/{0}/{1}/{2}";
+
+            //api/Evento/registrarConsultora/{pais}
+            public const string UrlRegistrarEventoConsultora = "api/Evento/registrarConsultora/{0}";
+
+            //api/Evento/editarConsultora/{pais}/{tipo}
+            public const string UrlEditarEventoConsultora = "api/Evento/editarConsultora/{0}/{1}";
             #endregion
 
             #region Oferta
@@ -2820,11 +2826,8 @@ namespace Portal.Consultoras.Common
             //api/Nivel/listar/{pais}
             public const string UrlObtenerNivel = "api/Nivel/listar/{0}";
 
-            //api/Evento/registrarConsultora/{pais}/{codigoCampania}/{codigoConsultora}
-            public const string UrlRegistrarEventoConsultora = "api/Evento/registrarConsultora/{0}/{1}/{2}";
-
-            //api/Evento/editarEventoConsultora/{pais}/{tipo}
-            public const string UrlEditarEventoConsultora = "api/Evento/editarEventoConsultora/{0}/{1}";
+            //api/Evento/listarConsultora/{pais}/{campania}/{codigoConsultora}
+            public const string UrlObtenerEventoConsultora = "api/Evento/listarConsultora/{0}/{1}/{2}";
             #endregion
 
             #region Reporte
@@ -3108,11 +3111,25 @@ namespace Portal.Consultoras.Common
             }
         }
 
-        public static class Formatos {
+        public static class EstrategiaDetalleCamposID
+        {
+            public const int FlagIndividual = 10212;
+            public const int Slogan = 10213;
+            public const int ImgHomeDesktop = 10210;
+            public const int ImgHomeMobile = 10211;
+            public const int ImgFondoDesktop = 10201;
+            public const int ImgFondoMobile = 10205;
+            public const int ImgFichaDesktop = 10203;
+            public const int ImgFichaFondoDesktop = 10208;
+            public const int ImgFichaMobile = 10206;
+            public const int ImgFichaFondoMobile = 10209;
+            public const int UrlVideoDesktop = 10204;
+            public const int UrlVideoMobile = 10207;
+        }
 
+        public static class Formatos {
             public const string Fecha = "dd/MM/yyyy";
             public const string FechaHora = "dd/MM/yyyy HH:mm";
-
         }
 
     }
