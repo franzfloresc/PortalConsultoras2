@@ -2705,7 +2705,7 @@ var AnalyticsPortalModule = (function () {
     var marcaProductImpressionRecomendaciones = function (data, isMobile) {
         try {
 
-            var cantidadMostrar = isMobile ? 2 : 3;
+            var cantidadMostrar = isMobile ? 1 : (data.Total >= 3) ? 3 : data.Total;
 
             var lista = data.Productos;
 
@@ -2751,6 +2751,46 @@ var AnalyticsPortalModule = (function () {
             var impressions = [];
 
             var item = lista[index];
+
+            var impression = {
+                //'id': item.CUV
+                'name': item.DescripcionCompleta,
+                'id': item.CUV,
+                'price': parseFloat(item.Precio).toFixed(2).toString(),
+                'brand': _getMarca(item.MarcaId),
+                'category': _texto.notavaliable,
+                'variant': _texto.estandar,
+                'list': 'Pedido - Ofertas Relacionadas',
+                'position': index + 1
+            };
+            impressions.push(impression);
+
+
+            dataLayer.push({
+                'event': _evento.productImpression,
+                'ecommerce': {
+                    'currencyCode': AnalyticsPortalModule.GetCurrencyCodes(_constantes.codigoPais),
+                    'impressions': impressions
+                }
+            });
+
+
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+    }
+    
+    var marcaProductImpressionViewRecomendacionesMobile = function (data, index) {
+        try {
+
+            var lista = data.Productos;
+
+            var impressions = [];
+
+            index = index + 1;
+
+            var item = lista[index];
+
             var impression = {
                 //'id': item.CUV
                 'name': item.DescripcionCompleta,
@@ -2935,6 +2975,7 @@ var AnalyticsPortalModule = (function () {
 
         MarcaProductImpressionRecomendaciones: marcaProductImpressionRecomendaciones,
         MarcaProductImpressionViewRecomendaciones: marcaProductImpressionViewRecomendaciones,
+        MarcaProductImpressionViewRecomendacionesMobile: marcaProductImpressionViewRecomendacionesMobile,
         MarcaRecomendacionesFlechaSiguiente: marcaRecomendacionesFlechaSiguiente,
         MarcaRecomendacionesFlechaAnterior: marcaRecomendacionesFlechaAnterior,
         MarcaOcultarRecomendaciones: marcaOcultarRecomendaciones,
