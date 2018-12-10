@@ -152,7 +152,6 @@ function IniDialogs() {
         modal: true,
         closeOnEscape: true,
         width: 830,
-        close: function () { },
         draggable: false,
         title: "Configurar Contenedor Menú",
         open: function (event, ui) {
@@ -219,7 +218,6 @@ function IniDialogs() {
             "Salir": function () {
                 $("#ddlTipoEstrategia").val($("#hdEstrategiaIDConsulta").val());
                 HideDialog("DialogMantenimientoPalanca");
-                //$(this).dialog("close");
             }
         }
     });
@@ -236,19 +234,19 @@ function IniDialogs() {
             $('div[id^="collorpicker_"]').hide();
             HideDialog("DialogMantenimientoOfertasHome");
         },
-        open: function(event, ui) {
+        open: function (event, ui) {
             $(".ui-dialog-titlebar-close", ui.dialog).hide();
             $("#colorpickerHolder").ColorPicker({ flat: true });
             $("#DesktopColorFondo, #DesktopColorTexto, #MobileColorFondo, #MobileColorTexto").ColorPicker({
                 onSubmit: function (hsb, hex, rgb, el) {
-                        var newValue = "#" + hex;
-                        $(el).val(newValue);
-                        $(el).ColorPickerHide();
-                    },
-                    onBeforeShow: function () {
-                        $(this).ColorPickerSetColor(this.value);
-                    }
-                })
+                    var newValue = "#" + hex;
+                    $(el).val(newValue);
+                    $(el).ColorPickerHide();
+                },
+                onBeforeShow: function () {
+                    $(this).ColorPickerSetColor(this.value);
+                }
+            })
                 .bind("keyup", function () {
                     $(this).ColorPickerSetColor(this.value);
                 });
@@ -268,7 +266,7 @@ function IniDialogs() {
             if ($("#MobileColorTexto").val() === "") {
                 $("#MobileColorTexto").val("#ffffff");
             }
-            if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") !== _palanca.odd ) {
+            if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") !== _palanca.odd) {
                 $(".hide-config-image-odd").hide();
             }
         },
@@ -320,7 +318,7 @@ function IniDialogs() {
                 var mobileUsarImagenFondo = $("#MobileUsarImagenFondo").prop("checked");
 
                 var regExpColorHex = /^#+([a-fA-F0-9]{6})/;
-                if (!regExpColorHex.test(desktopColorFondo) && desktopColorFondo  !== "") {
+                if (!regExpColorHex.test(desktopColorFondo) && desktopColorFondo !== "") {
                     _toastHelper.error("El color de fondo para desktop debe tener un código hexadecimal válido.");
                     return false;
                 }
@@ -409,7 +407,6 @@ function IniDialogs() {
             },
             "Salir": function () {
                 HideDialog("DialogMantenimientoOfertasHome");
-                //$(this).dialog("close");
             }
         }
     });
@@ -423,7 +420,6 @@ function UpdateGrillaPalanca() {
         url: baseUrl + "AdministrarPalanca/ListPalanca",
         hidegrid: false,
         datatype: "json",
-        //postData: ({}),
         mtype: "GET",
         contentType: "application/json; charset=utf-8",
         multiselect: false,

@@ -1,4 +1,4 @@
-﻿var LocalStorageModule = (function() {
+﻿var LocalStorageModule = (function () {
     'use strict';
     var _codigoPalanca = ConstantesModule.CodigosPalanca;
     var _constantesPalanca = ConstantesModule.ConstantesPalanca;
@@ -6,9 +6,9 @@
     var _keyLocalStorage = ConstantesModule.KeysLocalStorage;
 
     var _urlObtenerEstrategia = ConstantesModule.UrlObtenerEstrategia;
-    
+
     var _obtenerKey = function (palanca, campania) {
-        
+
         switch (palanca) {
             case _codigoPalanca.RevistaDigital:
             case _codigoPalanca.OfertaParaTi:
@@ -27,7 +27,7 @@
                 return null;
         }
     }
-    var _obtenerKeyName = function (codigoPalanaca, campania) {        
+    var _obtenerKeyName = function (codigoPalanaca, campania) {
         switch (codigoPalanaca) {
             case _constantesPalanca.RevistaDigital:
             case _constantesPalanca.OfertaParaTi:
@@ -40,8 +40,8 @@
                 return _keyLocalStorage.Lanzamiento;
             case _constantesPalanca.HerramientasVenta:
                 return _keyLocalStorage.HerramientasVenta;
-        default:
-            return null;
+            default:
+                return null;
         }
     }
 
@@ -75,7 +75,7 @@
 
         $.ajax({
             type: "POST",
-            url:urlEstrategia,
+            url: urlEstrategia,
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(params),
@@ -91,7 +91,7 @@
 
         return dfd.promise();
     };
-    
+
     var _existeItem = function (nombreKey) {
         return localStorage.getItem(nombreKey) !== null || localStorage.hasOwnProperty(nombreKey);
     }
@@ -108,8 +108,8 @@
         if (arrayEstrategia.length > 0) return arrayEstrategia[0];
         else return null;
     }
-    
-    var _obtenerUrlEstrategia = function (palanca) {        
+
+    var _obtenerUrlEstrategia = function (palanca) {
         switch (palanca) {
             case _codigoPalanca.RevistaDigital:
             case _codigoPalanca.OfertasParaMi:
@@ -126,7 +126,7 @@
                 return null;
         }
     }
-    
+
     var _crearBaseEstrategiaItem = function (campania) {
         var localStorageItem = {}
         localStorageItem.CampaniaID = campania;
@@ -135,60 +135,72 @@
         localStorageItem.VarListaStorage = "";
         return localStorageItem;
     }
-    
-    var _cargarEstrategias = function (campania, palanca, nombreKey) {        
+
+    var _cargarEstrategias = function (campania, palanca, nombreKey) {
         var localStorageItem = _crearBaseEstrategiaItem(campania);
         var param = {
             CampaniaID: campania,
             IsMobile: isMobile()
         };
         var urlEstrategia = _obtenerUrlEstrategia(palanca);
+        var resppuesta = true;
         _promiseObternerEstrategia(urlEstrategia, param).done(function (data) {
-            localStorageItem.response = data;
-            localStorageItem.UrlCargarProductos = urlEstrategia;
-            localStorageItem.VarListaStorage = nombreKey;
-            localStorage.setItem(nombreKey, JSON.stringify(localStorageItem));
+
+            if (data.success !== true) {
+                resppuesta = false;
+            }
+            else {
+                localStorageItem.response = data;
+                localStorageItem.UrlCargarProductos = urlEstrategia;
+                localStorageItem.VarListaStorage = nombreKey;
+                localStorage.setItem(nombreKey, JSON.stringify(localStorageItem));
+            }
+
         }).fail(function (data, error) {
-            localStorageItem.response = {};
+            resppuesta = false;
         });
 
-        return true;
+        return resppuesta;
     }
 
-    var _actualizarAgregado = function(lista, estrategiaId, valor) {
+    var _actualizarAgregado = function (lista, estrategiaId, valor) {
         var updated = false;
         if (lista !== undefined) {
-            $.each(lista, function(index, estrategia) {
+            $.each(lista, function (index, estrategia) {
                 if (estrategia.EstrategiaID === parseInt(estrategiaId)) {
                     estrategia.IsAgregado = valor;
-                    updated =true;
+                    updated = true;
                     return false;
                 }
             });
-        }  
+        }
         return updated;
     }
-    
-    var ObtenerEstrategia = function(cuv, campania, palanca) {
-        try {            
+
+    var ObtenerEstrategia = function (cuv, campania, palanca) {
+        try {
             var nombreKey = _obtenerKey(palanca, campania);
 
             if (IsNullOrEmpty(nombreKey))
                 return null;
 
-            if (!_existeItem(nombreKey)) _cargarEstrategias(campania, palanca, nombreKey);
+            if (!_existeItem(nombreKey)) {
+                if (!_cargarEstrategias(campania, palanca, nombreKey)) {
+                    return null;
+                }
+            }
 
             var listaLocalStorage = JSON.parse(localStorage.getItem(nombreKey));
 
             return _buscarEstrategiaPorCuv(cuv, palanca, listaLocalStorage);
-            
+
         } catch (e) {
-           console.error("error al cargar productos de local storage : " + e);
-        } 
+            console.error("error al cargar productos de local storage : " + e);
+        }
         return null;
     }
-    
-    var ActualizarCheckAgregado = function(estrategiaId, campania, codigoPalanaca, valor) {
+
+    var ActualizarCheckAgregado = function (estrategiaId, campania, codigoPalanaca, valor) {
         try {
             var nombreKey = _obtenerKeyName2(codigoPalanaca);
             var nombreKeyLocalStorage = nombreKey + campania;
@@ -198,10 +210,10 @@
                 var data = JSON.parse(valLocalStorage);
                 var updated;
                 if (codigoPalanaca === _constantesPalanca.Lanzamiento || codigoPalanaca === _tipoEstrategiaPalanca.LAN)
-                    updated = _actualizarAgregado(data.response.listaLan, estrategiaId,  valor);
-                else 
+                    updated = _actualizarAgregado(data.response.listaLan, estrategiaId, valor);
+                else
                     updated = _actualizarAgregado(data.response.lista, estrategiaId, valor);
-        
+
                 if (updated) localStorage.setItem(nombreKeyLocalStorage, JSON.stringify(data));
 
                 if (!updated && codigoPalanaca == "007") {
@@ -217,15 +229,15 @@
                     filtroCampania[nombreKeyJs] = listaPalanca;
                 }
             }
-            
+
             return true;
         } catch (e) {
             console.error("error al cargar productos de local storage : " + e);
             return false;
         }
     }
-    
-    return{
+
+    return {
         ObtenerEstrategia: ObtenerEstrategia,
         ActualizarCheckAgregado: ActualizarCheckAgregado
     }
@@ -293,7 +305,7 @@ function ActualizarLocalStorageAgregado(tipo, cuv, valor) {
     try {
         tipo = $.trim(tipo);
         cuv = $.trim(cuv);
-        
+
         if (tipo === "" || cuv === "" || valor == undefined) {
             return false;
         }
@@ -359,9 +371,9 @@ function ActualizarLocalStorageIsAgregado(cuv, valor, lista, indCampania) {
     if (valLocalStorage != null) {
         var data = JSON.parse(valLocalStorage);
 
-        ok = actualizarIsAgregado(data.response.listaLan, cuv,  valor);
+        ok = actualizarIsAgregado(data.response.listaLan, cuv, valor);
         ok = ok || actualizarIsAgregado(data.response.lista, cuv, valor);
-        
+
         if (ok) {
             localStorage.setItem(lista + campaniaCodigo, JSON.stringify(data));
         }
@@ -394,14 +406,14 @@ function actualizarIsAgregado(lista, cuv, valor) {
     return ok
 }
 
-function RDActualizarTipoAccionAgregar(revistaDigital, key){
-    var valLocalStorage = LocalStorageListado(key,null,1);
+function RDActualizarTipoAccionAgregar(revistaDigital, key) {
+    var valLocalStorage = LocalStorageListado(key, null, 1);
     if (valLocalStorage == null)
         return false;
 
     valLocalStorage = JSON.parse(valLocalStorage);
 
-    $.each(valLocalStorage.response.listaPerdio, function(ind, item) {
+    $.each(valLocalStorage.response.listaPerdio, function (ind, item) {
         if (revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
             item.TipoAccionAgregar = 5;
         if (!revistaDigital.EsSuscrita && !revistaDigital.EsActiva)

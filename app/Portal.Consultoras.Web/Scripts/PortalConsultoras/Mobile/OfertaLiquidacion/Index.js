@@ -20,8 +20,8 @@ $(document).ready(function () {
 
     $("body").on("click", ".suma", function () {
         var article = $(this).parents("article").eq(0);
-        var cantidad = $(article).find(".txtCantidad").val();
-        var cajaTexto = $(article).find(".txtCantidad");
+        var cantidad = $(article).find("#txtCantidad").val();
+        var cajaTexto = $(article).find("#txtCantidad");
         if (cantidad == 99)
             $(cajaTexto).val(Number(99));
         else
@@ -29,8 +29,8 @@ $(document).ready(function () {
     });
     $("body").on("click", ".resta", function () {
         var article = $(this).parents("article").eq(0);
-        var cantidad = $(article).find(".txtCantidad").val();
-        var cajaTexto = $(article).find(".txtCantidad");
+        var cantidad = $(article).find("#txtCantidad").val();
+        var cajaTexto = $(article).find("#txtCantidad");
         if (cantidad == 1)
             $(cajaTexto).val(Number(1));
         else
@@ -102,7 +102,7 @@ function CargarOfertasLiquidacion() {
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
             if (checkTimeout(data)) {
-                ArmarCarouselLiquidaciones(data.lista);
+                ArmarProductoLiquidaciones(data.lista);
                 if (data.verMas == true) {
                     $('#boton_vermas').show();
                 }
@@ -122,7 +122,7 @@ function CargarOfertasLiquidacion() {
         }
     });
 }
-function ArmarCarouselLiquidaciones(data) {
+function ArmarProductoLiquidaciones(data) {
     data = EstructurarDataCarouselLiquidaciones(data);
     var htmlDiv = SetHandlebars("#OfertasLiquidacionMobile-template", data);
     $('#liquidacionMobile').append(htmlDiv);
@@ -145,7 +145,7 @@ function EstructurarDataCarouselLiquidaciones(array) {
             item.TipoTallaColor = "";
             item.TextoBotonTallaColor = "";
             item.TieneTallaColor = false;
-        };
+        }
         contadorLq++;
     });
 
@@ -234,14 +234,14 @@ function AgregarOfertaProducto(article) {
                                         if (stockRestante < 1) {
                                             $(article).find(".resta").attr('disabled', 'disabled');
                                             $(article).find(".suma").attr('disabled', 'disabled');
-                                            $(article).find(".txtCantidad").attr('disabled', 'disabled');
+                                            $(article).find("#txtCantidad").attr('disabled', 'disabled');
                                             $(article).find(".btnAgregarOfertaProducto").attr('disabled', 'disabled');
 
                                             $(article).find(".claseStock").text("0");
-                                            $(article).find(".txtCantidad").val("0");
+                                            $(article).find("#txtCantidad").val("0");
                                         } else {
                                             $(article).find(".claseStock").text(stockRestante);
-                                            $(article).find(".txtCantidad").val("1");
+                                            $(article).find("#txtCantidad").val("1");
                                         }
 
                                         InfoCommerceGoogle(parseFloat(cantidad * PrecioUnidad).toFixed(2), CUV, DescripcionProd, DescripcionCategoria, PrecioUnidad, cantidad, DescripcionMarca, DescripcionEstrategia, posicionEstrategia);

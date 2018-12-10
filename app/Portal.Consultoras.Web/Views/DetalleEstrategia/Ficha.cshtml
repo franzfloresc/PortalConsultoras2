@@ -345,7 +345,7 @@
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/EstrategiaAgregar")
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Ficha")
 
-    <script type="text/javascript">
+<script type="text/javascript">
         AbrirLoad();
 
         var fichaModule;
@@ -363,7 +363,7 @@
             });
             fichaModule.Inicializar();
 
-            if (tieneCarrusel)
+            if (tieneCarrusel == "True")
             {
                 carruselModule = CarruselModule({
                     palanca: "@Model.Palanca",
@@ -384,5 +384,5 @@
 
         })
 
-    </script>
+</script>
 }
