@@ -11,7 +11,7 @@
     };
     var _config = {
         isMobile: window.matchMedia("(max-width:991px)").matches,
-        maxCaracteresRecomendaciones: maxCaracteresRecomendaciones
+        maxCaracteresRecomendaciones: maxCaracteresRecomendaciones        
     };
     var _provider = {
         RecomendacionesPromise: function (params) {
@@ -82,6 +82,7 @@
                     $('.next').fadeIn(100);
                     $('.previous').fadeOut(100);
                 }
+                             
 
 
             }).on('afterChange', function (event, slick, currentSlide) {
@@ -110,15 +111,38 @@
 
 
                 var data = localStorage.getItem('arrayRecomendaciones');
+                var index = $("#carouselProductosRecomendados").find('.slick-active').last().data('slick-index');
 
-              
+                if (currentSlide === 0 && nextSlide === slick.$slides.length - 1) {
+                    // its going from the first slide to the last slide (backwards)
+
+                    if (!(typeof AnalyticsPortalModule === 'undefined'))
+                        AnalyticsPortalModule.MarcaRecomendacionesFlechaAnterior();
+
+                } else if (nextSlide > currentSlide || (currentSlide === (slick.$slides.length - 1) && nextSlide === 0)) {
+                    // its either going normally forwards or going from the last slide to the first
+                    
+                    if (!(typeof AnalyticsPortalModule === 'undefined'))
+                        AnalyticsPortalModule.MarcaRecomendacionesFlechaSiguiente();
+                    
+                    if (!(typeof AnalyticsPortalModule === 'undefined'))
+                        AnalyticsPortalModule.MarcaProductImpressionViewRecomendacionesMobile(JSON.parse(data), index);
+
+                } else {
+
+                    if (!(typeof AnalyticsPortalModule === 'undefined'))
+                        AnalyticsPortalModule.MarcaRecomendacionesFlechaAnterior();
+
+                }
+
+
                 //if (!(typeof AnalyticsPortalModule === 'undefined'))
                 //    AnalyticsPortalModule.MarcaProductImpressionRecomendaciones(JSON.parse(data), _config.isMobile, nextSlide);
 
             }).on('afterChange', function (event, slick, currentSlide) {
 
 
-              
+
             });
         },
 
@@ -191,10 +215,6 @@
             var index = $("#carouselProductosRecomendados").find('.slick-active').last().data('slick-index');
 
             var data = localStorage.getItem('arrayRecomendaciones');
-
-            //console.log(data);
-            //console.log(index);
-            console.log(AnalyticsPortalModule);
 
             if (!(typeof AnalyticsPortalModule === 'undefined'))
                 AnalyticsPortalModule.MarcaProductImpressionViewRecomendaciones(JSON.parse(data), index);

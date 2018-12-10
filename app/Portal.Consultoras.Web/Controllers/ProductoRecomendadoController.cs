@@ -20,17 +20,17 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (!_productoRecomendadoProvider.ValidarRecomendacionActivo())
                 return Json(new RecomendacionesModel(), JsonRequestBehavior.AllowGet);
-            
+
             RecomendacionesModel recomendacionesModel;
             try
             {
                 await _productoRecomendadoProvider.GetPersonalizacion(userData, true, true);
                 recomendacionesModel = await _productoRecomendadoProvider.ObtenerRecomendaciones(cuv, codigoProducto);
-               
+
                 if (!_productoRecomendadoProvider.ValidarCantidadMinima(recomendacionesModel))
                     return Json(new RecomendacionesModel(), JsonRequestBehavior.AllowGet);
 
-                recomendacionesModel.Productos = _productoRecomendadoProvider.ValidacionProductoAgregado(recomendacionesModel.Productos, SessionManager.GetDetallesPedido(), userData, revistaDigital, IsMobile(), false);
+                recomendacionesModel.Productos = _productoRecomendadoProvider.ValidacionProductoAgregado(recomendacionesModel.Productos, SessionManager.GetDetallesPedido(), userData, revistaDigital, IsMobile(), false, true);
             }
             catch (Exception ex)
             {
@@ -39,6 +39,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return Json(recomendacionesModel, JsonRequestBehavior.AllowGet);
         }
-        
+
     }
 }
