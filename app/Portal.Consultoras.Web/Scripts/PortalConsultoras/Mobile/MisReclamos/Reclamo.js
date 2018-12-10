@@ -290,6 +290,10 @@ $(document).ready(function () {
                 });
 
                 $(me.Variables.txtCuvMobile).click(function (e) {
+                    $(me.Variables.campoBusquedaCuvDescripcionCdr).val("");
+                    $("#ListaCoincidenciasBusquedaProductosCdr li").filter(function () {
+                        $(this).toggle($(this).attr('data-value').toLowerCase().indexOf("") > -1);
+                    });
                     $(me.Variables.PopupBusquedaCuvDescripcionProductoCdr).show();
                 });
 
@@ -471,6 +475,7 @@ $(document).ready(function () {
 
                     $(me.Variables.hdImporteTotal2).val(importeTotal);
                     $(me.Variables.txtPrecioCuv2).html(DecimalToStringFormat(importeTotal));
+                    $(me.Variables.txtCantidad2).val(cantidad);
                 });
 
                 $(me.Variables.modificarPrecioMenos).click(function (evt) {
@@ -483,6 +488,7 @@ $(document).ready(function () {
 
                     $(me.Variables.hdImporteTotal2).val(importeTotal);
                     $(me.Variables.txtPrecioCuv2).html(DecimalToStringFormat(importeTotal));
+                    $(me.Variables.txtCantidad2).val(cantidad);
                 });
 
                 $(me.Variables.enlace_quiero_ver_otra_alternativa).click(function (evt) {
