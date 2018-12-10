@@ -710,9 +710,9 @@ namespace Portal.Consultoras.Web.Controllers
         }
         protected void RegistrarLogDynamoDB(InLogUsabilidadModel Log)
         {
-            var dataString = string.Empty;
             try
             {
+                Log = Log ?? new InLogUsabilidadModel();
                 Log.Fecha = "";
                 Log.Pais = userData.CodigoISO;
                 Log.Region = userData.CodigorRegion;
@@ -731,7 +731,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO, dataString);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
         }
         protected void ActualizarDatosLogDynamoDB(MisDatosModel p_modelo, string p_origen, string p_aplicacion, string p_Accion, string p_CodigoConsultoraBuscado = "", string p_Seccion = "")

@@ -38,12 +38,12 @@ namespace Portal.Consultoras.Web.Models.Layout
                     case Constantes.OrigenPantallaWeb.MContenedorHome:
                     case Constantes.OrigenPantallaWeb.DContenedorHomeRevisar:
                     case Constantes.OrigenPantallaWeb.MContenedorHomeRevisar:
-                        return "Home";
+                        return "Inicio";
                     case Constantes.OrigenPantallaWeb.DRevistaDigital:
                     case Constantes.OrigenPantallaWeb.MRevistaDigital:
                     case Constantes.OrigenPantallaWeb.DRevistaDigitalRevisar:
                     case Constantes.OrigenPantallaWeb.MRevistaDigitalRevisar:
-                        return "Ofertas para mí";
+                        return "Ofertas para ti";
                     case Constantes.OrigenPantallaWeb.DShowRoom:
                     case Constantes.OrigenPantallaWeb.MShowRoom:
                     case Constantes.OrigenPantallaWeb.DShowRoomIntriga:
@@ -61,6 +61,15 @@ namespace Portal.Consultoras.Web.Models.Layout
                     case Constantes.OrigenPantallaWeb.DHerramientaVenta:
                     case Constantes.OrigenPantallaWeb.MHerramientaVenta:
                         return "Herramientas de Venta";
+                    case Constantes.OrigenPantallaWeb.DMasGanadoras:
+                    case Constantes.OrigenPantallaWeb.MMasGanadoras:
+                        return "Mas Ganadoras";
+                    case Constantes.OrigenPantallaWeb.DDuoPerfecto:
+                    case Constantes.OrigenPantallaWeb.MDuoPerfecto:
+                        return "Duo Perfecto";
+                    case Constantes.OrigenPantallaWeb.DPacksNuevas:
+                    case Constantes.OrigenPantallaWeb.MPacksNuevas:
+                        return "Packs de Nuevas";
                     default: return "";
                 }
             }

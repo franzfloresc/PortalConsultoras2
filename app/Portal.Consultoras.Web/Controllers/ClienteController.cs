@@ -19,22 +19,20 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Index()
         {
-            string sap = "";
-            var url = (Request.Url.Query).Split('?');
             if (EsDispositivoMovil())
             {
+                var url = (Request.Url.Query).Split('?');
                 if (url.Length > 1)
                 {
-                    sap = "&" + url[1];
+                    string sap = "&" + url[1];
                     return RedirectToAction("Index", "Cliente", new { area = "Mobile", sap });
                 }
                 else
                 {
                     return RedirectToAction("Index", "Cliente", new { area = "Mobile" });
                 }
-
             }
-            
+
             if (!UsuarioModel.HasAcces(ViewBag.Permiso, "Cliente/Index"))
                 return RedirectToAction("Index", "Bienvenida");
 
@@ -431,7 +429,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {"Celular", "msCelular"},
                 {"Correo", "mseMail"}
             };
-            
+
             ExportToExcelMisClientes("MisClientes", lst, dicCabeceras, dic);
             return new EmptyResult();
         }
