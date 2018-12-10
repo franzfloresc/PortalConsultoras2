@@ -198,6 +198,8 @@ function SeccionCargarProductos(objConsulta) {
         cache: false
     });
 
+    console.log('SeccionCargarProductos - ajax', objConsulta.Codigo, objConsulta);
+
     $.ajax({
         type: 'post',
         url: baseUrl + objConsulta.UrlObtenerProductos,

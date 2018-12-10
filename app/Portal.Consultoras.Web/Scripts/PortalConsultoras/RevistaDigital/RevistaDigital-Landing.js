@@ -246,6 +246,7 @@ function OfertaCargarProductos(busquedaModel, clear, objSeccion) {
     $.ajaxSetup({
         cache: false
     });
+    console.log('OfertaCargarProductos - ajax', busquedaModel, busquedaModel.UrlCargarProductos);
     busquedaModel.IsMobile = isMobile();
     jQuery.ajax({
         type: 'POST',
@@ -255,6 +256,7 @@ function OfertaCargarProductos(busquedaModel, clear, objSeccion) {
         data: JSON.stringify(busquedaModel),
         async: true,
         success: function (response) {
+
             if (!(typeof AnalyticsPortalModule === 'undefined') && !(typeof listaSeccion === 'undefined'))
                 AnalyticsPortalModule.MarcaGenericaLista(busquedaModel.VarListaStorage, response);
             if (response.codigo == '005') {
