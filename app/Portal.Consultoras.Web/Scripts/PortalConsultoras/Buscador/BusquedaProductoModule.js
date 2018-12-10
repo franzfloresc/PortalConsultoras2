@@ -598,13 +598,10 @@
                 var UrlDetalle = GetPalanca(codigoEstrategia);
                 if (UrlDetalle == "") return false;
                 UrlDetalle += codigoCampania + "/" + codigoCuv + "/" + origenPedidoWeb;
-                //console.log(UrlDetalle);
                 window.location = UrlDetalle;
-                //virtualEvent('Resultados de Búsqueda', 'Elige tu opción', descripcionProducto + ' - ' + _config.textoBusqueda);
 
                 if (!(typeof AnalyticsPortalModule === 'undefined'))
                     AnalyticsPortalModule.MarcaEligeTuOpcionBuscador(descripcionProducto + ' - ' + _config.textoBusqueda);
-
 
                 return true;
             }

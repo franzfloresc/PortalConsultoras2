@@ -3101,10 +3101,10 @@ function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfe
             CantidadAnti = $(txtLPTempCant).val();
             var CantidadNueva = $(txtLPCant).val();
 
-            var CantidadSoli = CantidadNueva;
-            if (TipoOfertaSisID) {
-                CantidadSoli = (CantidadNueva - CantidadAnti);
-            }
+            var CantidadSoli = (CantidadNueva - CantidadAnti);
+            //if (TipoOfertaSisID) {
+            //    CantidadSoli = (CantidadNueva - CantidadAnti);
+            //}
 
             var param = ({
                 CUV: CUV,
