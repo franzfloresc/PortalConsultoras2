@@ -590,6 +590,8 @@ function MostrarBarra(datax, destino) {
 
     if (tpRegaloMobileShow) {
         $('#hrefIconoRegalo').show();
+        $('#lineaPosicionRegalo').hide();
+        $('#divtippingPoint').hide();
 
         if (vLogro < tp) {
             valorMonto = variablesPortal.SimboloMoneda + " " + DecimalToStringFormat(tp - vLogro);
@@ -1060,10 +1062,14 @@ function CalculoPosicionMinimoMaximo() {
                 document.getElementById('lineaPosicionMontoMinimo').style.display = 'block';
                 document.getElementById('MontoMinimoBloque').style.display = 'block';
                 document.getElementById('lineaPosicionMontoMinimo').style.left = (PosicionMontoMinimo) + '%';
-                document.getElementById('MontoMinimoBloque').style.left = (PosicionMontoMinimo - 8) + '%';
+                document.getElementById('MontoMinimoBloque').style.left = ""; //(PosicionMontoMinimo - 8) + '%';
+                document.getElementById('MontoMinimoBloque').style.right = '-11px';
+
 
                 document.getElementById('hrefIconoRegalo').className = "icono_regalo regalo_tippingPointInicio text-center";
                 document.getElementById('hrefIconoRegalo').style.left = "";
+                document.getElementById('hrefIconoRegalo').style.right = '-11px';
+                
                 document.getElementById('divtippingPoint').style.left = "";
              
 
@@ -1084,8 +1090,11 @@ function CalculoPosicionMinimoMaximo() {
 
                 document.getElementById('lineaPosicionMontoMinimo').style.display = 'block';
                 document.getElementById('lineaPosicionMontoMinimo').style.left = (PosicionMontoMinimo) + '%';
+                document.getElementById('MontoMinimoBloque').style.right = '';
                 document.getElementById('MontoMinimoBloque').style.left = (PosicionMontoMinimo - 8) + '%';
                 document.getElementById('MontoMinimoBloque').style.display = 'block';
+                
+                
 
                 document.getElementById('hrefIconoRegalo').style.left = (PosicionMontoTipipoing - 3) + '%';
                 document.getElementById('lineaPosicionRegalo').style.left = (PosicionMontoTipipoing) + '%';
