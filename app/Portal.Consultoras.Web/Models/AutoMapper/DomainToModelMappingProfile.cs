@@ -657,13 +657,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                .ForMember(t => t.NombreMarca, f => f.MapFrom(c => c.DescripcionMarca));
 
             Mapper.CreateMap<ServicePedido.BEEstrategia, PremioElectivoModel>()
-                //.ForMember(t => t.CUV2, f => f.MapFrom(c => c.CUV2))
-                //.ForMember(t => t.TipoEstrategiaID, f => f.MapFrom(c => c.TipoEstrategiaID))
-                //.ForMember(t => t.EstrategiaID, f => f.MapFrom(c => c.EstrategiaID))
-                //.ForMember(t => t.FlagNueva, f => f.MapFrom(c => c.FlagNueva))
                 .ForMember(t => t.DescripcionResumen, f => f.MapFrom(c => c.DescripcionCUV2));
-            //.ForMember(t => t.DescripcionMarca, f => f.MapFrom(c => c.DescripcionMarca))
-            //.ForMember(t => t.ImagenURL, f => f.MapFrom(c => c.ImagenURL));
         }
     }
 }

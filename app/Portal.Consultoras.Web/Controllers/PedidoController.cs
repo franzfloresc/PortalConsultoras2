@@ -3662,32 +3662,30 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var listaDetalle = ObtenerPedidoWebSetDetalleAgrupado() ?? new List<BEPedidoWebDetalle>();
 
-            if (isMobile)
+            if (isMobile && listaDetalle.Count == 0)
             {
-                if (listaDetalle.Count == 0)
+                var bePedidoWeb = new BEPedidoWeb
                 {
-                    int isInsert;
-                    using (var sv = new PedidoServiceClient())
-                    {
-                        var bePedidoWeb = new BEPedidoWeb
-                        {
-                            CampaniaID = userData.CampaniaID,
-                            ConsultoraID = userData.ConsultoraID,
-                            PaisID = userData.PaisID,
-                            IPUsuario = userData.IPUsuario,
-                            CodigoUsuarioCreacion = userData.CodigoUsuario
-                        };
+                    CampaniaID = userData.CampaniaID,
+                    ConsultoraID = userData.ConsultoraID,
+                    PaisID = userData.PaisID,
+                    IPUsuario = userData.IPUsuario,
+                    CodigoUsuarioCreacion = userData.CodigoUsuario
+                };
 
-                        isInsert = sv.GetProductoCUVsAutomaticosToInsert(bePedidoWeb);
-                    }
-                    if (isInsert > 0)
-                    {
-                        SessionManager.SetDetallesPedido(null);
-                        SessionManager.SetDetallesPedidoSetAgrupado(null);
-                        listaDetalle = ObtenerPedidoWebDetalle();
+                int isInsert;
+                using (var sv = new PedidoServiceClient())
+                {
+                    isInsert = sv.GetProductoCUVsAutomaticosToInsert(bePedidoWeb);
+                }
 
-                        UpdPedidoWebMontosPROL();
-                    }
+                if (isInsert > 0)
+                {
+                    SessionManager.SetDetallesPedido(null);
+                    SessionManager.SetDetallesPedidoSetAgrupado(null);
+                    listaDetalle = ObtenerPedidoWebDetalle();
+
+                    UpdPedidoWebMontosPROL();
                 }
             }
 
