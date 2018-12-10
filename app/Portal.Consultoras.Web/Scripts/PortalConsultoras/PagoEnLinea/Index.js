@@ -20,14 +20,13 @@ $(document).ready(function () {
         },
 
         me.Funciones = {
-            InicializarEventos: function () {                
+            InicializarEventos: function () {
                 $(document).on('click', '.opcionPagoMobile', me.Eventos.MostrarDetalleTipoPago);
                 $(document).on('click', '.opcionPagoDesktop', me.Eventos.MostrarDetalleTipoPago);
                 $(document).on('click', 'a[data-tipovisualizacion]', me.Eventos.AbrirPopupTerminosYCondiciones);
                 $(document).on('click', '.cerrar_popup_terminos_y_condiciones', me.Eventos.CerrarPopupTerminosYCondiciones);
                 $(document).on('keyup', '#txtMontoParcial', me.Eventos.ObtenerMontosPagoParcial);
                 $(document).on('click', '#txtMontoParcial', me.Eventos.OnClickTxtMontoParcial);
-                //$(document).on('click', '#btnPagarVisa', me.Eventos.PagarConVisaPaso1);
                 $(document).on('click', '#divMetodoPagoVisa', me.Eventos.MarcacionMetodoPago);
                 $(document).on('click', '#btnPagoTotal', me.Eventos.PagoTotal);
                 $(document).on('click', '#btnPagoParcial', me.Eventos.PagoParcial);
@@ -36,7 +35,7 @@ $(document).ready(function () {
                 me.globals.barraActivacion.toggleClass('activado');
                 me.globals.barraActivacion.attr('data-estado', 1);
             },
-            GuardarMonto: function(montoDeuda) {
+            GuardarMonto: function (montoDeuda) {
 
                 var parametros = {
                     MontoDeuda: parseFloat(montoDeuda).toFixed(2)
@@ -66,7 +65,7 @@ $(document).ready(function () {
                     }
                 });
             },
-            IrPasarela: function() {
+            IrPasarela: function () {
                 if (pasarelaActual == metodoPagoPasarelaVisa) {
                     window.location.href = rutaPagoVisa;
 
@@ -107,7 +106,7 @@ $(document).ready(function () {
                     $(this).find('.icono_flecha_despliegue').addClass('girar180');
                 }
             },
-            OnClickTxtMontoParcial: function(e) {
+            OnClickTxtMontoParcial: function (e) {
                 var visible = $('#pnParcial').is(':visible');
                 if (visible) {
                     e.preventDefault();
@@ -119,7 +118,7 @@ $(document).ready(function () {
                     $(this).find('.icono_flecha_despliegue').addClass('girar180');
                 }
             },
-            MostrarTooltipAceptarTerminosYCondiciones: function(){
+            MostrarTooltipAceptarTerminosYCondiciones: function () {
                 if (!(me.globals.barraActivacion).is('.activado')) {
                     $('body,html').animate({
                         scrollTop: $(document).height()
@@ -134,9 +133,9 @@ $(document).ready(function () {
                 if (me.globals.barraActivacion.is('.activado')) {
                     me.globals.barraActivacion.attr('data-estado', 1);
                     $('.tooltip_terminos_y_condiciones').fadeOut();
-                    $("#divTooltipTerminosCondiciones").hide();                    
+                    $("#divTooltipTerminosCondiciones").hide();
                 } else {
-                    me.globals.barraActivacion.attr('data-estado', 0);                    
+                    me.globals.barraActivacion.attr('data-estado', 0);
                 }
             },
             AbrirPopupTerminosYCondiciones: function (e) {
@@ -161,7 +160,7 @@ $(document).ready(function () {
                 var montoParcial = parseFloat($(this).val());
                 var porcentaje = parseFloat($("#hdPorcentajeGastosAdministrativos").val());
 
-                var montoGastos = montoParcial * (porcentaje / 100);                
+                var montoGastos = montoParcial * (porcentaje / 100);
 
                 $("#spnMontoParcial").html(DecimalToStringFormat(montoParcial));
                 $("#spnMontoGastosAdministrativos").html(DecimalToStringFormat(montoGastos));
@@ -177,7 +176,7 @@ $(document).ready(function () {
                     AbrirMensaje("El monto a pagar debe ser mayor o igual a " + montoMinimoPago);
                     return false;
                 }
-                
+
                 me.Funciones.GuardarMonto(montoDeuda);
 
                 me.Funciones.IrPasarela();
@@ -198,8 +197,8 @@ $(document).ready(function () {
                     AbrirMensaje("El monto a pagar excede tu deuda, por favor ingresa otro monto");
                     return false;
                 }
-                
-                me.Funciones.GuardarMonto(montoDeuda);  
+
+                me.Funciones.GuardarMonto(montoDeuda);
 
                 me.Funciones.IrPasarela();
             },

@@ -116,7 +116,6 @@ $(document).ready(function () {
             return false;
         }
 
-        //El if se hizo con !() para colnsiderar posibles valores null o undefined de $('#ddCampania').val()
         if (!($('#ddlCampania').val() > 0)) {
             alert_msg(mensajeCdrFueraDeFechaCompleto);
             return false;
@@ -268,7 +267,6 @@ $(document).ready(function () {
         buttons: {
             "Aceptar": function () {
                 HideDialog("alertEMailDialogMensajes");
-                //$(this).dialog('close');
             }
         }
     });

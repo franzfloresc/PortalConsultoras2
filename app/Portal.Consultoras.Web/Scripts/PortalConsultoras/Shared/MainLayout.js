@@ -33,7 +33,6 @@ $(document).ready(function () {
 
     if (tieneOfertaDelDia == "True") {
         OfertaDelDiaModule.Inicializar();
-        //window.OfertaDelDia.CargarODD();
     }
 
     $(document).keyup(function (e) {
@@ -71,7 +70,6 @@ $(document).ready(function () {
             }
 
             HideDialog("alertDialogMensajes");
-            //$('#alertDialogMensajes').dialog('close');
         }
     });
 
@@ -117,7 +115,7 @@ $(document).ready(function () {
     });
 
     $("body").on("click", "[data-popup-close]", function (e) {
-        var popupClose = $("#" + $(this).attr("data-popup-close"));// || $(this).parent("[data-popup-main]");
+        var popupClose = $("#" + $(this).attr("data-popup-close"));
         popupClose = popupClose.length > 0 ? popupClose : $(this).parents("[data-popup-main]");
         popupClose = popupClose.length > 0 ? popupClose : $(this).parents("[data-popup-body]").parent();
 
@@ -169,7 +167,6 @@ $(document).ready(function () {
         buttons: {
             "Aceptar": function () {
                 HideDialog("alertDialogMensajes");
-                //$(this).dialog('close');
             }
         }
     });
@@ -208,7 +205,6 @@ $(document).ready(function () {
             {
                 "Aceptar": function () {
                     HideDialog("DialogMensajesCom");
-                    //$(this).dialog('close');
                 }
             }
     });
@@ -223,7 +219,6 @@ $(document).ready(function () {
         title: "",
         close: function (event, ui) {
             HideDialog("divMensajeConfirmacion");
-            //$(this).dialog('close');
         }
     });
 
@@ -237,7 +232,6 @@ $(document).ready(function () {
         title: "",
         close: function (event, ui) {
             HideDialog("divMensajeConfDuoPerfecto");
-            //$(this).dialog('close');
         }
     });
 
@@ -475,7 +469,7 @@ function SeparadorMiles(pnumero) {
 
     if (numero.indexOf(",") >= 0) nuevoNumero = nuevoNumero.substring(0, nuevoNumero.indexOf(","));
 
-    for (var i = nuevoNumero.length - 1, j = 0; i >= 0; i-- , j++)
+    for (var i = nuevoNumero.length - 1, j = 0; i >= 0; i--, j++)
         resultado = nuevoNumero.charAt(i) + ((j > 0) && (j % 3 == 0) ? "." : "") + resultado;
 
     if (numero.indexOf(",") >= 0) resultado += numero.substring(numero.indexOf(","));
@@ -954,11 +948,11 @@ function RedirectIngresaTuPedido(e) {
 }
 
 function CerrarSesion() {
-    
+
     if (typeof (Storage) !== 'undefined') {
         var itemSBTokenPais = localStorage.getItem('SBTokenPais');
         var itemSBTokenPedido = localStorage.getItem('SBTokenPedido');
-        var itemSBSurvicate= GetItemLocalStorageSurvicate();
+        var itemSBSurvicate = GetItemLocalStorageSurvicate();
         localStorage.clear();
 
         if (typeof (itemSBTokenPais) !== 'undefined' && itemSBTokenPais !== null) {
@@ -969,7 +963,6 @@ function CerrarSesion() {
             localStorage.setItem('SBTokenPedido', itemSBTokenPedido);
         }
         SetItemLocalStorageSurvicate(itemSBSurvicate);
-        //localStorage.setItem('SurvicateStorage', JSON.stringify(itemSBSurvicate));
     }
 
     location.href = baseUrl + 'Login/LogOut';
@@ -1153,18 +1146,6 @@ function messageConfirmacion(title, message, fnAceptar) {
     }
 }
 
-//function messageConfirmacionDuoPerfecto(message, fnAceptar) {
-//    message = $.trim(message);
-//    if (message == "") return false;
-
-//    $('#divMensajeConfDuoPerfecto .divTexto p').html(message);
-//    $('#divMensajeConfDuoPerfecto').dialog('open');
-//    if ($.isFunction(fnAceptar)) {
-//        $('#divMensajeConfDuoPerfecto .btnMensajeAceptar').off('click');
-//        $('#divMensajeConfDuoPerfecto .btnMensajeAceptar').on('click', fnAceptar);
-//    }
-//}
-
 function closeOfertaDelDia(sender) {
     var nombreProducto = $(sender)
         .parent()
@@ -1173,7 +1154,6 @@ function closeOfertaDelDia(sender) {
     $.ajax({
         type: 'GET',
         url: baseUrl + 'Pedido/CloseOfertaDelDia',
-        //async: false,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         success: function (response) {

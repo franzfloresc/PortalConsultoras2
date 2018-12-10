@@ -3993,7 +3993,6 @@
     <Content Include="Scripts\PortalConsultoras\Bienvenida\OfertaDelDia.js" />
     <Content Include="Scripts\PortalConsultoras\Bienvenida\Estrategia.js" />
     <Content Include="Scripts\PortalConsultoras\Bienvenida\PopusJS.js" />
-    <Content Include="Scripts\PortalConsultoras\Buscador\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Buscador\BuscadorModule.js" />
     <Content Include="Scripts\PortalConsultoras\Buscador\BuscadorProvider.js" />
     <Content Include="Scripts\PortalConsultoras\Buscador\BusquedaProductoModule.js" />
@@ -4033,7 +4032,6 @@
     <Content Include="Scripts\PortalConsultoras\MiPerfil\ActualizarCorreo.js" />
     <Content Include="Scripts\PortalConsultoras\MiPerfil\Base.js" />
     <Content Include="Scripts\PortalConsultoras\MiPerfil\Index.js" />
-    <Content Include="Scripts\PortalConsultoras\Mobile\Buscador\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\GuiaNegocio\GuiaNegocio-Landing.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\PedidoFIC\Detalle.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\PedidoFIC\Index.js" />

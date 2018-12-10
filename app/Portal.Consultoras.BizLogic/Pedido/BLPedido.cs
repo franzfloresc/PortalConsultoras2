@@ -932,8 +932,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 };
                 var lstDetalle = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
                 pedidoDetalle.PedidoID = pedidoID;
-                //Insertar pedido
-                //pedidoDetalle.OrigenPedidoWeb = Constantes.OrigenPedidoWeb.AppConsultoraPedidoOfertasParaTiCarrusel;
+
                 var codeResult = PedidoInsertar(usuario, pedidoDetalle, lstDetalle, false);
                 if (codeResult != Constantes.PedidoValidacion.Code.SUCCESS) return PedidoDetalleRespuesta(codeResult);
 
@@ -2555,7 +2554,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 ListaCuvsTemporal.OrderByDescending(x => x).Distinct().ToList().ForEach(x =>
                 {
                     strCuvs = strCuvs + string.Format("{0}:{1},", x, ListaCuvsTemporal.Count(a => a == x));
-                    //return true;
                 });
             }
             PedidoAgregarProductoAgrupado(usuario, pedidoID, pedidoDetalle.Cantidad, cuvSet, strCuvs, estrategia.EstrategiaID);
