@@ -755,7 +755,7 @@
 
 .fondo_popup_ubicacion_direccion_entrega,
 .popup_ubicacion_direccion_entrega_contenido,
-.popup_ubicacion_direccion_entrega_contenido .gmap_canvas,
+.mapa_wrapper,
 .confirmar_ubicacion_direccion_entrega
 {
     width:100%;
@@ -825,6 +825,7 @@
 
 .popup_ubicacion_direccion_entrega_contenido{
     height: calc(100vh - 115px);
+    overflow:hidden;
 }
 
 .confirmar_ubicacion_direccion_entrega {
@@ -841,13 +842,8 @@
     letter-spacing: 0.8px;
 }
 
-.popup_ubicacion_direccion_entrega_contenido,
-.popup_ubicacion_direccion_entrega_contenido .gmap_canvas
-{
-    overflow: hidden;
-}
-
-.popup_ubicacion_direccion_entrega_contenido .gmap_canvas{
+.mapa_wrapper{
+    overflow:initial!important;
     height: calc(100vh - 175px);
 }
 
