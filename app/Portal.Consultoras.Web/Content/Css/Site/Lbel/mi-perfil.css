@@ -374,6 +374,7 @@ input:focus{
 
 .opcion_mi_perfil.mostrarContenido{
     border:1px solid #000;
+    top:9px;
 }
 
 .opcion_mi_perfil.mostrarContenido .icono_flecha_despliegue_contenido_mi_perfil{
@@ -487,37 +488,21 @@ input:focus{
     .grupo_form_cambio_datos select{
         -moz-appearance:none;
         -webkit-appearance:none;
-        background-image:url(/Content/Images/icono_campos_select_mi_perfil.svg);
+        background-image:url(/Content/Images/Lbel/icono_campos_select_mi_perfil.svg);
+    }
+
+    .grupo_form_cambio_datos_campo_ciudad{
+        padding-right:15px;
+    }
+
+    .grupo_form_cambio_datos_campo_comuna{
+        padding-left:15px;
     }
 
     .grupo_form_cambio_datos_campo_direccion,
     .grupo_form_cambio_datos_campo_direccion > div
     {
         position:relative;
-    }
-
-    .enlace_ubicacion_actual{
-        position: absolute;
-        margin: auto 0;
-        top: 18px;
-        bottom: 16px;
-        right: -7px;
-        width: 40px;
-        height: 40px;
-        background-position: center;
-        background-image: url(/Content/Images/icono_localizacion.svg);
-        z-index: 3000;
-    }
-
-    .w-100.mapa_wrapper{
-        margin-top:25px;
-        height:250px;
-    }
-
-    .mapa_wrapper .mapouter,
-    .mapa_wrapper .gmap_canvas
-    {
-        height:100%;
     }
 
     .grupo_form_cambio_datos input:focus + label,
@@ -534,6 +519,30 @@ input:focus{
     .grupo_form_cambio_datos input:focus{
         border-bottom:1px solid rgba(0,0,0,1);
     }
+
+.enlace_ubicacion_actual{
+    position: absolute;
+    margin: auto 0;
+    top: 18px;
+    bottom: 16px;
+    right: -7px;
+    width: 40px;
+    height: 40px;
+    background-position: center;
+    background-image: url(/Content/Images/Lbel/icono_localizacion.svg);
+    z-index: 3000;
+}
+
+.w-100.mapa_wrapper{
+    margin-top:25px;
+    height:250px;
+}
+
+.mapa_wrapper .mapouter,
+.mapa_wrapper .gmap_canvas
+{
+    height:100%;
+}
 
 .terminos_y_condiciones_wrapper{
     border-top:1px solid #808080;

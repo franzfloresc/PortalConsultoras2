@@ -501,7 +501,7 @@
     .grupo_form_cambio_datos select{
         -moz-appearance:none;
         -webkit-appearance:none;
-        background-image:url(/Content/Images/icono_campos_select_mi_perfil.svg);
+        background-image:url(/Content/Images/Esika/icono_campos_select_mi_perfil.svg);
     }
 
     .grupo_form_cambio_datos_campo_direccion{
@@ -517,7 +517,7 @@
         width: 40px;
         height: 40px;
         background-position: center;
-        background-image: url(/Content/Images/icono_localizacion.svg);
+        background-image: url(/Content/Images/Esika/icono_localizacion.svg);
         z-index: 3000;
     }
 
