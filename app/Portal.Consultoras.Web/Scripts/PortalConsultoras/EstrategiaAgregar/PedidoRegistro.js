@@ -1,5 +1,9 @@
 ﻿var modelLiquidacionOfertas;
 var labelAgregadoLiquidacion;
+var agregoOfertaFinal = agregoOfertaFinal || false;
+var DesktopPedidoOfertaFinal = DesktopPedidoOfertaFinal || 0;
+var MobilePedidoOfertaFinal = MobilePedidoOfertaFinal || 0;
+//var tieneMicroefecto = false;
 
 var PedidoRegistroModule = function () {
     'use strict';
@@ -848,7 +852,7 @@ var PedidoRegistroModule = function () {
 
     var AgregarProductoPorUrl = function (url, model, divDialog, cerrarSplash, asyncX) {
         AbrirSplash();
-        tieneMicroefecto = true;
+        //tieneMicroefecto = true;
         divDialog = $.trim(divDialog);
 
         var retorno = {};
@@ -889,7 +893,7 @@ var PedidoRegistroModule = function () {
                 return true;
             },
             error: function (data, error) {
-                tieneMicroefecto = false;
+                //tieneMicroefecto = false;
                 AjaxError(data);
                 return false;
             }
@@ -1197,7 +1201,7 @@ var PedidoRegistroModule = function () {
                 if (response.success == true) {
                     $("#hdErrorInsertarProducto").val(response.errorInsertarProducto);
 
-                    tieneMicroefecto = true;
+                    //tieneMicroefecto = true;
                     MostrarBarra(response);
                     if (response.modificoBackOrder) showDialog("divBackOrderModificado");
                     CargarDetallePedido();

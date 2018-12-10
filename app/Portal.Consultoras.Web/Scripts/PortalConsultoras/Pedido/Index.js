@@ -1,5 +1,5 @@
 ﻿var animacion = true;
-var tieneMicroefecto = false;
+//var tieneMicroefecto = false;
 var contadorNext = 2;
 var positionCarrousel = 0;
 var posicionInicial = 0;
@@ -1010,37 +1010,37 @@ function ValidarStockEstrategia() {
 //    });
 //}
 
-function MostrarMicroEfecto() {
-    if (animacion) {
-        animacion = false;
-        var obj = $("#frmInsertPedido");
-        var button = $("#btnAgregar", obj);
-        var efecto = '<div class="btn_animado"><img src="' + urlImagenMicroEfecto + '" alt="" /></div>';
-        var trFirst = $("#tbobyDetallePedido tr:first-child");
+//function MostrarMicroEfecto() {
+//    if (animacion) {
+//        animacion = false;
+//        var obj = $("#frmInsertPedido");
+//        var button = $("#btnAgregar", obj);
+//        var efecto = '<div class="btn_animado"><img src="' + urlImagenMicroEfecto + '" alt="" /></div>';
+//        var trFirst = $("#tbobyDetallePedido tr:first-child");
 
-        $("body").prepend(efecto);
+//        $("body").prepend(efecto);
 
-        $(".btn_animado").css({
-            'top': button.offset().top,
-            'left': button.offset().left
-        }).show().animate({
-            'top': trFirst.offset().top,
-            'left': trFirst.offset().left + (trFirst.width() / 2),
-            'opacity': 0
-        }, 1500, "swing", function () {
-            $(this).remove();
+//        $(".btn_animado").css({
+//            'top': button.offset().top,
+//            'left': button.offset().left
+//        }).show().animate({
+//            'top': trFirst.offset().top,
+//            'left': trFirst.offset().left + (trFirst.width() / 2),
+//            'opacity': 0
+//        }, 1500, "swing", function () {
+//            $(this).remove();
 
-            trFirst.addClass("no_mostrar");
+//            trFirst.addClass("no_mostrar");
 
-            $(".no_mostrar").fadeIn();
+//            $(".no_mostrar").fadeIn();
 
-            trFirst.removeClass("no_mostrar");
+//            trFirst.removeClass("no_mostrar");
 
-            animacion = true;
-            tieneMicroefecto = false;
-        });
-    }
-}
+//            animacion = true;
+//            tieneMicroefecto = false;
+//        });
+//    }
+//}
 
 function ActualizarMontosPedido(formatoTotal, total, formatoTotalCliente) {
 

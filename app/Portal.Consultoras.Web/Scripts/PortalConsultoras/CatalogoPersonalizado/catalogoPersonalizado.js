@@ -16,7 +16,7 @@ var rangoPrecios = 0;
 var mPremax = 0.00;
 var mPremin = 0.00;
 var flagEvento = true;
-var tieneMicroefecto = false;
+//var tieneMicroefecto = false;
 $(document).ready(function () {
     $(document).on('click', '[data-btn-agregar-catalogopersonalizado]', function () {
 
