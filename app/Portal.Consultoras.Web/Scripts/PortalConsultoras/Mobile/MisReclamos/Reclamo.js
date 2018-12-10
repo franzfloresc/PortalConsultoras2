@@ -307,14 +307,15 @@ $(document).ready(function () {
                     else me.Funciones.EvaluarCUV2();
                 }, 1000)
 
-                $(me.Variables.aCambiarProducto).click(function (e) {
-
+                $(me.Variables.aCambiarProducto).click(function (e) {                    
                     $(me.Variables.DescripcionCuv).hide();
                     $(me.Variables.DescripcionCuv).hide();
+                    $(me.Variables.txtCuvMobile).show();
+                    $(me.Variables.campoBusquedaCuvDescripcionCdr).val("");
+                    $("#ListaCoincidenciasBusquedaProductosCdr li").filter(function () {
+                        $(this).toggle($(this).attr('data-value').toLowerCase().indexOf("") > -1);
+                    });
                     $(me.Variables.PopupBusquedaCuvDescripcionProductoCdr).fadeIn();
-                    
-                    //$(me.Variables.txtCuvMobile).fadeIn();
-                    //$(me.Variables.txtCuvMobile).focus();
                 });
 
                 $(me.Variables.aCambiarProducto2).click(function (e) {
@@ -670,7 +671,11 @@ $(document).ready(function () {
 
                         if (data.detalle == null) return false;
 
-                        if (data.detalle.length > 1) {                            
+                        if (data.detalle.length > 1) {                             
+                            $(me.Variables.campoBusquedaCuvDescripcionCdr).val("");
+                            $("#ListaCoincidenciasBusquedaProductosCdr li").filter(function () {
+                                $(this).toggle($(this).attr('data-value').toLowerCase().indexOf("") > -1);
+                            });
                             $(me.Variables.ListaCoincidenciasBusquedaProductosCdr).html("");
                             $(data.detalle).each(function (index, item) {
                                 $(me.Variables.ListaCoincidenciasBusquedaProductosCdr).append("<li class='coincidencia_busqueda_producto d-block text-uppercase' data-descr='" + item.DescripcionProd + "' data-codigo=" + item.CUV + " data-value='" + item.CUV + " - " + item.DescripcionProd + "'> <div>" + item.CUV + "</div> <div id='CuvPopup" + index + "'>" + item.DescripcionProd + "</div></li >");
