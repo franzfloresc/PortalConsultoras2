@@ -1,4 +1,4 @@
-USE [BelcorpPeru_BPT]
+ï»¿USE [BelcorpPeru_BPT]
 GO
 
 ALTER PROCEDURE FiltrarEstrategiaPedido  
@@ -77,7 +77,7 @@ BEGIN
 
    WHERE TD.TablaLogicaID = @TablaLogicaID    
 
-     AND CAST(TD.Codigo AS VARCHAR(10)) <= @CampaniaID -- CGI(AHAA) - MODIFICACIÓN AL BUG BUG_2015000858  
+     AND CAST(TD.Codigo AS VARCHAR(10)) <= @CampaniaID -- CGI(AHAA) - MODIFICACIÃ“N AL BUG BUG_2015000858  
 
   END      
 
@@ -241,7 +241,7 @@ BEGIN
 
    WHERE TD.TablaLogicaID = @TablaLogicaID    
 
-     AND CAST(TD.Codigo AS VARCHAR(10)) <= @CampaniaID -- CGI(AHAA) - MODIFICACIÓN AL BUG BUG_2015000858  
+     AND CAST(TD.Codigo AS VARCHAR(10)) <= @CampaniaID -- CGI(AHAA) - MODIFICACIÃ“N AL BUG BUG_2015000858  
 
   END      
 
@@ -406,7 +406,7 @@ BEGIN
 
    WHERE TD.TablaLogicaID = @TablaLogicaID    
 
-     AND CAST(TD.Codigo AS VARCHAR(10)) <= @CampaniaID -- CGI(AHAA) - MODIFICACIÓN AL BUG BUG_2015000858  
+     AND CAST(TD.Codigo AS VARCHAR(10)) <= @CampaniaID -- CGI(AHAA) - MODIFICACIÃ“N AL BUG BUG_2015000858  
 
   END      
 
