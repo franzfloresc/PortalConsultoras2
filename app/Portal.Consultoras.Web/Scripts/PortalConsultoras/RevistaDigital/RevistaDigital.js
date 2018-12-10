@@ -156,7 +156,6 @@ $(document).ready(function () {
             rdAnalyticsModule.VerDetalleLan(obj);
             var guardo = EstrategiaGuardarTemporal(obj);
             if (guardo) {
-                obj
                 var url = urlOfertaDetalleProducto;
 
                 if (obj.CodigoEstrategia) {
