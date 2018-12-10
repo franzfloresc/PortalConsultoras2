@@ -264,7 +264,6 @@ input:focus{
     height: auto;
 }
 
-.icono_camara,
 .icono_cambio_password,
 .icono_cambiar_dato,
 .icono_agregar_num_adicional,
@@ -278,13 +277,15 @@ input:focus{
 }
 
 .icono_camara{
-    width: 33.98px;
+    width: 32.98px;
     height: 33.98px;
     position: absolute;
     top: 0;
     right: 0;
     background-image: url(/Content/Images/Esika/icono_camara.svg);
+    background-position: 7px 8px;
     background-size: 59%;
+    background-repeat:no-repeat;
     z-index: 2;
 }
 
@@ -307,13 +308,13 @@ input:focus{
 }
 
 .icono_cambio_password{
-    width:13px;
-    height:16px;
-    background-image:url("/Content/Images/Lbel/icono_candado.svg");
-    background-size:100%;
-    margin-right:7px;
-    position:relative;
-    top:4px;
+    width: 13px;
+    height: 19px;
+    background-image: url(/Content/Images/Lbel/icono_candado.svg);
+    background-size: 100%;
+    margin-right: 7px;
+    position: relative;
+    top: 2px;
 }
 
 .enlace_texto:hover{
@@ -360,7 +361,7 @@ input:focus{
     margin: auto 0;
     top: 0;
     bottom: 0;
-    right: 0;
+    right: 7px;
     -moz-transition: all 0.15s ease;
     -o-transition: all 0.15s ease;
     -webkit-transition: all 0.15s ease;
@@ -383,6 +384,7 @@ input:focus{
     -o-transform: rotate(0deg);
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
+    top:6px;
 }
 
 .opcion_mi_perfil_titulo_texto,
@@ -421,6 +423,10 @@ input:focus{
 
     .grupo_form_cambio_datos:last-child{
         margin-bottom:35px;
+    }
+
+    .grupo_form_cambio_datos > div{
+        position:relative;
     }
     
     .grupo_form_cambio_datos label{
@@ -495,10 +501,6 @@ input:focus{
 
     .grupo_form_cambio_datos_campo_comuna{
         padding-left:15px;
-    }
-
-    .grupo_form_cambio_datos_campo_comuna label{
-        left:15px;
     }
 
     .grupo_form_cambio_datos_campo_direccion,
