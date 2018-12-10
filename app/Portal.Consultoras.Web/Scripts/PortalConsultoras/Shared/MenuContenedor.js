@@ -186,10 +186,12 @@ var menuModule = (function () {
             $(elementos.menu2Li).find("a").removeClass(elementos.claseActivo);
 
             if (strippedUrl.length > 1) {
-                anchorValue = $.trim(strippedUrl[1]);
+                anchorValue = $.trim(strippedUrl[1]).toUpperCase();
 
                 if (anchorValue !== "") {
                     $(elementos.html).find("[data-codigo=" + anchorValue + "]").find("a").addClass(elementos.claseActivo);
+
+                    updateParentAttribute(anchorValue);
 
                     if ($(anchorMark + anchorValue).length > 0) {
                         _animateScrollTo(anchorMark + anchorValue, menuHeight);
@@ -203,11 +205,16 @@ var menuModule = (function () {
             _moverSubMenuContenedorOfertasMobile();
         }
     }
+    function updateParentAttribute(codigo) {
+        if (codigo === "ODD") $('ul.subnavegador li a').attr('parent', 'Contenedor - ¡Solo Hoy!');
+        if (codigo === "LAN") $('ul.subnavegador li a').attr('parent', 'Contenedor - Lo Nuevo ¡Nuevo!');
+        if (codigo.indexOf("INICIO") > -1) $('ul.subnavegador li a').attr('parent', 'Contenedor - Inicio');
+    }
     function menuClick(e, url) {
-        
         var objHtmlEvent = $(e);
         var esAncla = objHtmlEvent.data(tagIsAnchor);
         var codigo = objHtmlEvent.data("codigo") || "";
+        codigo = codigo.toUpperCase();
         var currentLocation = window.location.href.toLowerCase();
         var originLocation = window.location.origin;
         var menuHeight = navbarHeight;
@@ -222,7 +229,7 @@ var menuModule = (function () {
                 _animateScrollTo(anchorMark + codigo, menuHeight);
                 if (_var.Mobile) _moverSubMenuContenedorOfertasMobile();
 
-
+                updateParentAttribute(codigo);
             } else {
                 if (currentLocation.indexOf("/revisar") > -1)
                     window.location = originLocation + "/" + (_var.Mobile ? "Mobile/" : "") + "Ofertas/Revisar#" + codigo;
@@ -240,20 +247,17 @@ var menuModule = (function () {
                 $(elementos.claseimgNoSeleccionado).show();
             }
 
-
         } else {
-             
-
             url = $.trim(url);
             url = url[0] !== "/" ? "/" + url : url;
+
             if (codigo.indexOf("INICIO") > -1) {
-                
                 $(elementos.claseimgSeleccionado).show();
                 $(elementos.claseimgNoSeleccionado).hide();
                 _animateScrollTo(elementos.html, menuHeight);
+                updateParentAttribute(codigo);
             }
-            
-            //var campania = $(element).data("campania") || "";
+
             if (typeof AnalyticsPortalModule !== "undefined") {
                 AnalyticsPortalModule.ClickTabGanadoras(codigo);
             }

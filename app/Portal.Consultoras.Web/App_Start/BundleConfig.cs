@@ -370,7 +370,7 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/Pedido/PedidoTooltip.css"
             ));
 
-
+            //Tener en cuenta : se esta usando en pedidoFic.
             bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/PedidoValidado").Include(
                 "~/Content/Css/Site/style-pedido.css",
                 "~/Content/Css/Site/Pedido/PedidoGrilla.css"
