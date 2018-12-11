@@ -599,7 +599,7 @@ function InfoCommerceGoogle(ItemTotal, CUV, DescripcionProd, Categoria, Precio, 
             'event': 'addToCart',
             'ecommerce': {
                 'add': {
-                    'actionField': { 'list': 'Liquidación Web' },
+                    'actionField': { 'list': 'Liquidaciones Web' },
                     'products': [
                         {
                             'name': DescripcionProd,
