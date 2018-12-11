@@ -227,8 +227,7 @@ $(document).ready(function () {
                 ConfirmarUbicacionDireccionEntrega: function () {
                     me.Eventos.CerrarPopupUbicacionDireccionEntrega();
                 },
-                CerrarPopupUbicacionDireccionEntrega: function (e) {
-                    e.preventDefault();
+                CerrarPopupUbicacionDireccionEntrega: function () {
                     $('.fondo_popup_ubicacion_direccion_entrega').fadeOut(150);
                     $('.popup_ubicacion_direccion_entrega').fadeOut(150);
                 }
