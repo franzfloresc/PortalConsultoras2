@@ -11,7 +11,7 @@
     };
     var _config = {
         isMobile: window.matchMedia("(max-width:991px)").matches,
-        maxCaracteresRecomendaciones: maxCaracteresRecomendaciones        
+        maxCaracteresRecomendaciones: maxCaracteresRecomendaciones
     };
     var _provider = {
         RecomendacionesPromise: function (params) {
@@ -42,13 +42,13 @@
         InicializarEventos: function () {
             $(document).on("click", _elementos.noMostrarProductosRecomendados, _eventos.OcultarProductosRecomendados);
             $(document).on("click", _elementos.botonAgregar, _eventos.AgregarProductoRecomendado);
-            $(document).on("click", _elementos.next, _eventos.NextCarrusel);
-            $(document).on("click", _elementos.previous, _eventos.PreviousCarrusel);
+            //$(document).on("click", _elementos.next, _eventos.NextCarrusel);
+            //$(document).on("click", _elementos.previous, _eventos.PreviousCarrusel);
         },
 
         ArmarCarruselProductosRecomendados: function () {
             var carrusel = $('#carouselProductosRecomendados');
-
+            var direccion = '';
             if (carrusel[0].slick) {
                 return;
             }
@@ -82,15 +82,47 @@
                     $('.next').fadeIn(100);
                     $('.previous').fadeOut(100);
                 }
-                             
 
+                if (currentSlide === 0 && nextSlide === slick.$slides.length - 1) {
+                    direccion = 'preview';
+                } else if (nextSlide > currentSlide || (currentSlide === (slick.$slides.length - 1) && nextSlide === 0)) {
+                    direccion = 'next';
+                } else {
+                    direccion = 'preview';
+                }
 
             }).on('afterChange', function (event, slick, currentSlide) {
+
+                var data = localStorage.getItem('arrayRecomendaciones');
+                var index = $("#carouselProductosRecomendados").find('.slick-active').last().data('slick-index');
+
+                if (direccion === 'next') {
+
+                    if (!(typeof AnalyticsPortalModule === 'undefined'))
+                        AnalyticsPortalModule.MarcaRecomendacionesFlechaSiguiente();
+
+                    if (!(typeof AnalyticsPortalModule === 'undefined'))
+                        AnalyticsPortalModule.MarcaProductImpressionViewRecomendaciones(JSON.parse(data), index);
+
+                }
+                else {
+
+                    if (!(typeof AnalyticsPortalModule === 'undefined'))
+                        AnalyticsPortalModule.MarcaRecomendacionesFlechaAnterior();
+
+                    index = index - 2;
+
+                    if (!(typeof AnalyticsPortalModule === 'undefined'))
+                        AnalyticsPortalModule.MarcaProductImpressionViewRecomendaciones(JSON.parse(data), index);
+
+                }
 
             });
         },
         ArmarCarruselProductosRecomendadosMobile: function () {
+
             var carrusel = $('#carouselProductosRecomendados');
+            var direccion = '';
 
             if (carrusel[0].slick) {
                 return;
@@ -109,38 +141,37 @@
                 nextArrow: ''
             }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
 
+                if (currentSlide === 0 && nextSlide === slick.$slides.length - 1) {
+                    direccion = 'preview';
+                } else if (nextSlide > currentSlide || (currentSlide === (slick.$slides.length - 1) && nextSlide === 0)) {
+                    direccion = 'next';
+                } else {
+                    direccion = 'preview';
+                }
+
+            }).on('afterChange', function (event, slick, currentSlide) {
 
                 var data = localStorage.getItem('arrayRecomendaciones');
                 var index = $("#carouselProductosRecomendados").find('.slick-active').last().data('slick-index');
 
-                if (currentSlide === 0 && nextSlide === slick.$slides.length - 1) {
-                    // its going from the first slide to the last slide (backwards)
+                if (direccion === 'next') {
 
-                    if (!(typeof AnalyticsPortalModule === 'undefined'))
-                        AnalyticsPortalModule.MarcaRecomendacionesFlechaAnterior();
-
-                } else if (nextSlide > currentSlide || (currentSlide === (slick.$slides.length - 1) && nextSlide === 0)) {
-                    // its either going normally forwards or going from the last slide to the first
-                    
                     if (!(typeof AnalyticsPortalModule === 'undefined'))
                         AnalyticsPortalModule.MarcaRecomendacionesFlechaSiguiente();
-                    
-                    if (!(typeof AnalyticsPortalModule === 'undefined'))
-                        AnalyticsPortalModule.MarcaProductImpressionViewRecomendacionesMobile(JSON.parse(data), index);
 
-                } else {
+                    if (!(typeof AnalyticsPortalModule === 'undefined'))
+                        AnalyticsPortalModule.MarcaProductImpressionViewRecomendaciones(JSON.parse(data), index);
+
+                }
+                else {
 
                     if (!(typeof AnalyticsPortalModule === 'undefined'))
                         AnalyticsPortalModule.MarcaRecomendacionesFlechaAnterior();
 
+                    if (!(typeof AnalyticsPortalModule === 'undefined'))
+                        AnalyticsPortalModule.MarcaProductImpressionViewRecomendaciones(JSON.parse(data), index);
+
                 }
-
-
-                //if (!(typeof AnalyticsPortalModule === 'undefined'))
-                //    AnalyticsPortalModule.MarcaProductImpressionRecomendaciones(JSON.parse(data), _config.isMobile, nextSlide);
-
-            }).on('afterChange', function (event, slick, currentSlide) {
-
 
 
             });
@@ -209,20 +240,29 @@
 
         NextCarrusel: function () {
 
-            if (!(typeof AnalyticsPortalModule === 'undefined'))
-                AnalyticsPortalModule.MarcaRecomendacionesFlechaSiguiente();
+            //if (!(typeof AnalyticsPortalModule === 'undefined'))
+            //    AnalyticsPortalModule.MarcaRecomendacionesFlechaSiguiente();
 
-            var index = $("#carouselProductosRecomendados").find('.slick-active').last().data('slick-index');
+            //var index = $("#carouselProductosRecomendados").find('.slick-active').last().data('slick-index');
+            //console.log(index);
 
-            var data = localStorage.getItem('arrayRecomendaciones');
+            //var data = localStorage.getItem('arrayRecomendaciones');
 
-            if (!(typeof AnalyticsPortalModule === 'undefined'))
-                AnalyticsPortalModule.MarcaProductImpressionViewRecomendaciones(JSON.parse(data), index);
+            //if (!(typeof AnalyticsPortalModule === 'undefined'))
+            //    AnalyticsPortalModule.MarcaProductImpressionViewRecomendaciones(JSON.parse(data), index);
 
         },
         PreviousCarrusel: function () {
-            if (!(typeof AnalyticsPortalModule === 'undefined'))
-                AnalyticsPortalModule.MarcaRecomendacionesFlechaAnterior();
+            //if (!(typeof AnalyticsPortalModule === 'undefined'))
+            //    AnalyticsPortalModule.MarcaRecomendacionesFlechaAnterior();
+
+            //var index = $("#carouselProductosRecomendados").find('.slick-active').last().data('slick-index');
+            //console.log(index);
+
+            //var data = localStorage.getItem('arrayRecomendaciones');
+
+            //if (!(typeof AnalyticsPortalModule === 'undefined'))
+            //    AnalyticsPortalModule.MarcaProductImpressionViewRecomendaciones(JSON.parse(data), index);
         }
     };
 

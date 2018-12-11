@@ -2752,6 +2752,8 @@ var AnalyticsPortalModule = (function () {
 
             var item = lista[index];
 
+            console.log(item);
+
             var impression = {
                 //'id': item.CUV
                 'name': item.DescripcionCompleta,
