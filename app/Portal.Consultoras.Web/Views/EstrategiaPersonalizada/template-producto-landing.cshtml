@@ -67,7 +67,11 @@
     {{else}}
     <div data-item="{{EstrategiaID}}" data-item-cuv="{{CUV2}}" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" class="{{ClaseEstrategia}}">
         <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
-        <div data-item-tag="body" class="content_item_carrusel caja-borde producto-agotado"
+        <div data-item-tag="body" {{#iff TieneStock '==' false}}
+             class="content_item_carrusel caja-borde producto-agotado"
+             {{else}}
+             class="content_item_carrusel caja-borde"
+             {{/iff}}
              {{#iff EsSubcampania '==' false}}
              {{#iff TipoAccionAgregar '!=' '@Constantes.TipoAccionAgregar.LoQuieres' }}
              style="cursor:pointer;"
