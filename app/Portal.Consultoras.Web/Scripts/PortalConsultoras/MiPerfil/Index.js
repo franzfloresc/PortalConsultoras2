@@ -9,7 +9,7 @@ $(document).ready(function () {
 
         me.Funciones = {
             InicializarEventos: function () {
-                $('body').on('blur', '.grupo_form_cambio_datos input', me.Eventos.LabelActivo);
+                $('body').on('blur', '.grupo_form_cambio_datos input, .grupo_form_cambio_datos select', me.Eventos.LabelActivo);
                 $('body').on('click', '.enlace_agregar_num_adicional', me.Eventos.AgregarOtroNumero);
                 $('body').on('click', '.enlace_eliminar_numero_adicional', me.Eventos.EliminarNumeroAdicional);
                 $('body').on('click', '.enlace_ver_password', me.Eventos.MostrarPassword);
@@ -47,9 +47,9 @@ $(document).ready(function () {
                 }
             },
             CamposFormularioConDatos: function () {
-                var camposFormulario = $('.grupo_form_cambio_datos input');
+                var camposFormulario = $('.grupo_form_cambio_datos input, .grupo_form_cambio_datos select');
                 $.map(camposFormulario, function (campoFormulario, key) {
-                    if ($(campoFormulario).val() != '') {
+                    if ($(campoFormulario).val() != 0) {
                         $(campoFormulario).addClass('campo_con_datos');
                     }
                 });
@@ -99,12 +99,82 @@ $(document).ready(function () {
                         return re.test(keyChar);
                     }
                 });
+            },
+            initAutoComplete: function () {
+                //debugger;
+                var map = new google.maps.Map($('.mapa_wrapper')[0], {
+                    center: { lat: -33.8688, lng: 151.2195 },
+                    zoom: 13,
+                    mapTypeId: 'roadmap'
+                });
+
+                // Create the search box and link it to the UI element.
+                var input = document.getElementById('txtDireccion');
+                var searchBox = new google.maps.places.SearchBox(input);
+                //map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+                // Bias the SearchBox results towards current map's viewport.
+                map.addListener('bounds_changed', function () {
+                    //debugger;
+                    searchBox.setBounds(map.getBounds());
+                });
+
+                var markers = [];
+                // Listen for the event fired when the user selects a prediction and retrieve
+                // more details for that place.
+                searchBox.addListener('places_changed', function () {
+                    //debugger;
+                    var places = searchBox.getPlaces();
+
+                    if (places.length == 0) {
+                        return;
+                    }
+
+                    // Clear out the old markers.
+                    markers.forEach(function (marker) {
+                        marker.setMap(null);
+                    });
+                    markers = [];
+
+                    // For each place, get the icon, name and location.
+                    var bounds = new google.maps.LatLngBounds();
+                    places.forEach(function (place) {
+                        debugger;
+                        if (!place.geometry) {
+                            console.log("Returned place contains no geometry");
+                            return;
+                        }
+                        var icon = {
+                            url: place.icon,
+                            size: new google.maps.Size(71, 71),
+                            origin: new google.maps.Point(0, 0),
+                            anchor: new google.maps.Point(17, 34),
+                            scaledSize: new google.maps.Size(25, 25)
+                        };
+
+                        // Create a marker for each place.
+                        markers.push(new google.maps.Marker({
+                            map: map,
+                            icon: icon,
+                            title: place.name,
+                            position: place.geometry.location
+                        }));
+
+                        if (place.geometry.viewport) {
+                            // Only geocodes have viewport.
+                            bounds.union(place.geometry.viewport);
+                        } else {
+                            bounds.extend(place.geometry.location);
+                        }
+                    });
+                    map.fitBounds(bounds);
+                });
             }
         },
             me.Eventos = {
                 LabelActivo: function () {
                     var campoDatos = $(this).val();
-                    if (campoDatos != '') {
+                    if (campoDatos != 0) {
                         $(this).addClass('campo_con_datos');
                     } else {
                         $(this).removeClass('campo_con_datos');
@@ -170,6 +240,7 @@ $(document).ready(function () {
                 me.Funciones.PuedeCambiarTelefono();
                 me.Funciones.EvitandoCopiarPegar();
                 me.Funciones.ValidacionSoloLetras();
+                google.maps.event.addDomListener(window, 'load', me.Funciones.initAutoComplete);
             }
     }
 

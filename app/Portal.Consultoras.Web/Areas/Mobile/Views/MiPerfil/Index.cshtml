@@ -194,16 +194,20 @@ else
                     <div class="opcion_mi_perfil_contenido">
                         <fieldset class="grupo_form_cambio_datos">
                             <div class="w-100">
-                                <select id="txtCiudad" class="w-100">
-                                    <option>Ciudad</option>
+                                <select id="txtCiudad" name="txtCiudad" class="w-100">
+                                    <option value="0" selected>-- Seleccione una ciudad --</option>
+                                    <option value="1">Lima</option>
                                 </select>
+                                <label for="txtCiudad">Ciudad <span class="asteriscos">*</span></label>
                             </div>
                         </fieldset>
                         <fieldset class="grupo_form_cambio_datos">
                             <div class="w-100">
-                                <select id="txtComuna" class="w-100">
-                                    <option>Comuna</option>
+                                <select id="txtComuna" name="txtComuna" class="w-100">
+                                    <option value="0" selected>-- Seleccione una comuna --</option>
+                                    <option value="1">Rímac</option>
                                 </select>
+                                <label for="txtComuna">Comuna <span class="asteriscos">*</span></label>
                             </div>
                         </fieldset>
                         <fieldset class="grupo_form_cambio_datos grupo_form_cambio_datos_campo_direccion">
@@ -305,22 +309,18 @@ else
         </div>
         <div class="popup_ubicacion_direccion_entrega_contenido">
             <div class="mapa_wrapper">
-                @*<div class="mapouter">
-                    <div class="gmap_canvas">
-                        <iframe width="100%" height="100%" id="gmap_canvas" src="https://maps.google.com/maps?q=Belcorp&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
-                    </div>
-                </div>*@
-                @*<button type="button" class="confirmar_ubicacion_direccion_entrega text-uppercase" id="btnConfirmarUbicacionDireccionEntrega">
-                    Confirmar
-                </button>*@
             </div>
+            <button type="button" class="confirmar_ubicacion_direccion_entrega text-uppercase" id="btnConfirmarUbicacionDireccionEntrega">
+                Confirmar
+            </button>
         </div>
-     
     </div>
+     
 </div>
 <!-- FIN - POPUP MAPA -->
 
 @section scripts{
     <script async defer src="https://maps.googleapis.com/maps/api/js?client=gme-cetcosa&v=weekly&callback=initAutocomplete&libraries=places"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/MiPerfil/Index.js")"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?client=gme-cetcosa&v=weekly&callback=initAutocomplete&libraries=places"></script>
 }
