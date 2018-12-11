@@ -82,9 +82,9 @@
 }
 
 
-    .producto-agotado > div:nth-child(2) {
-        opacity: 0.5;
-    }
+.producto-agotado > div:nth-child(2) {
+    opacity: 0.5;
+}
 
 .producto-agotado .producto_img_home img {
     -webkit-filter: grayscale(100%);

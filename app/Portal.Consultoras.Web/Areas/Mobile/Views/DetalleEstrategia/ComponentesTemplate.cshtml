@@ -38,7 +38,7 @@
                 <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{variedad.IdMarca}}" />
                 <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{variedad.PrecioCatalogo}}" />
             </div>
-            <div class="content_tono_detalle"
+            <div class="content_tono_detalle tono_agotado"
                  {{#unless ../esCampaniaSiguiente}}
                  onclick="javascript: ComponentesModule.SeleccionarPaletaOpcion(event,{{variedad.Cuv}});"
                  {{/unless}}
@@ -51,6 +51,11 @@
         </div>
         <hr class="clear">
         {{/iff}}
+
+        <ul class="list-inline" style="padding-top:15px">
+            <li><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt=""></li>
+            <li>Algunos tipos o tonos se encuentran agotados.</li>
+        </ul>
     </div>
     {{/each}}
     {{/iff}}
@@ -121,12 +126,18 @@
                         <div id="resumen-opciones-{{componente.Cuv}}" class="tono_selecionado" style="display:none"></div>
                         <hr class="clear">
                     </div>
+                    <ul class="list-inline" style="padding-top:15px">
+                        <li><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt=""></li>
+                        <li>Algunos tipos o tonos se encuentran agotados.</li>
+                    </ul>
                     {{/iff}}
                     <hr class="clear" />
                 </div>
             </div>
+            
             {{/each}}
         </div>
+        
     </div>
     {{/iff}}
 </script>
