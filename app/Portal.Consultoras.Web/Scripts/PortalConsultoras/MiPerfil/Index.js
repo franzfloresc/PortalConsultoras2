@@ -104,7 +104,7 @@ $(document).ready(function () {
                 //debugger;
                 var map = new google.maps.Map($('.mapa_wrapper')[0], {
                     center: { lat: -33.8688, lng: 151.2195 },
-                    zoom: 13,
+                    zoom: 17,
                     mapTypeId: 'roadmap'
                 });
 
@@ -139,7 +139,7 @@ $(document).ready(function () {
                     // For each place, get the icon, name and location.
                     var bounds = new google.maps.LatLngBounds();
                     places.forEach(function (place) {
-                        debugger;
+                        //debugger;
                         if (!place.geometry) {
                             console.log("Returned place contains no geometry");
                             return;
@@ -168,6 +168,7 @@ $(document).ready(function () {
                         }
                     });
                     map.fitBounds(bounds);
+                    map.setZoom(17);
                 });
             }
         },
