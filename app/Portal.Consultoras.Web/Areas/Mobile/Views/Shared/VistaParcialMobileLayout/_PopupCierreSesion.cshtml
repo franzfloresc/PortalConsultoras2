@@ -1,5 +1,6 @@
 ﻿<div class="popup_cierre_sesion" id="PopupCierreSesion" style="display:none;">
     <div class="popup_cierre_sesion_contenido">
+        <!-- CONTENIDO CASO INACTIVIDAD -->
         <div class="popup_cierre_sesion_icono icono_sesion_por_finalizar center-block">
         </div>
         <p class="text-center popup_cierre_sesion_mensaje">
@@ -10,8 +11,21 @@
         <button class="center-block text-center popup_cierre_sesion_btn popup_cierre_sesion_btn_continuar btn_margen_inferior_30">
             Sí, continuar.
         </button>
+        <!-- FIN - CONTENIDO CASO INACTIVIDAD -->
+        <!-- CONTENIDO CASO CERRAR NAVEGADOR O CERRAR SESIÓN -->
+        <div class="popup_cierre_sesion_icono icono_alerta_cierre_sesion center-block" style="display:none;">
+        </div>
+        <p class="text-center popup_cierre_sesion_mensaje" style="display:none;">
+            Tienes un pedido pendiente
+            <br />
+            Deseas reservarlo?
+        </p>
+        <button class="center-block text-center popup_cierre_sesion_btn popup_cierre_sesion_btn_reservar_pedido btn_margen_inferior_30" style="display:none;">
+            Reservar pedido
+        </button>
+        <!-- FIN - CONTENIDO CASO CERRAR NAVEGADOR O CERRAR SESIÓN -->
         <button class="center-block text-center popup_cierre_sesion_btn popup_cierre_sesion_btn_cerrar_sesion">
-            No, cerrar sesión
+            No, cerrar sesión.
         </button>
     </div>
 </div>

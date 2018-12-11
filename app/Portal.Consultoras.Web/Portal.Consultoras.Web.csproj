@@ -1407,6 +1407,7 @@
     <Content Include="Content\Css\Site\Ficha\SeleccionarTipo.css" />
     <Content Include="Content\Css\Site\Images\carrusel_next_blanco_dorado.png" />
     <Content Include="Content\Css\Site\Images\carrusel_prev_blanco_dorado.png" />
+    <Content Include="Content\Images\Esika\icono_alerta_cierre_sesion.svg" />
     <Content Include="Content\Images\Esika\icono_sesion_por_finalizar.svg" />
     <Content Include="Content\Css\Site\ion.rangeSlider\ion.rangeSlider.css" />
     <Content Include="Content\Css\Site\ion.rangeSlider\ion.rangeSlider.skinFlat.css" />
@@ -1662,6 +1663,7 @@
     <Content Include="Content\Images\imagen_prod_no_disponible.svg" />
     <Content Include="Content\Images\Lbel\copo-nieve.png" />
     <Content Include="Content\Images\Lbel\copos-nieve.png" />
+    <Content Include="Content\Images\Lbel\icono_alerta_cierre_sesion.svg" />
     <Content Include="Content\Images\Lbel\icono_cambiar_dato.svg" />
     <Content Include="Content\Images\Lbel\icono_candado.svg" />
     <Content Include="Content\Images\Lbel\icono_envelope.svg" />

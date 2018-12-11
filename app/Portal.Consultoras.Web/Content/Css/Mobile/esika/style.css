@@ -14090,11 +14090,20 @@ a {
     margin-bottom:33px;
 }
 
-.icono_sesion_por_finalizar{    
-    background-image:url(/Content/Images/Esika/icono_sesion_por_finalizar.svg);
+.icono_sesion_por_finalizar,
+.icono_alerta_cierre_sesion
+{
     background-position:center;
     background-repeat:no-repeat;
-    background-size:100%;    
+    background-size:100%;   
+}
+
+.icono_sesion_por_finalizar{    
+    background-image:url(/Content/Images/Esika/icono_sesion_por_finalizar.svg);
+}
+
+.icono_alerta_cierre_sesion{
+    background-image:url(/Content/Images/Esika/icono_alerta_cierre_sesion.svg);
 }
 
 .popup_cierre_sesion_mensaje{
@@ -14116,7 +14125,9 @@ a {
     border-radius:4px;
 }
 
-.popup_cierre_sesion_btn_continuar{
+.popup_cierre_sesion_btn_continuar,
+.popup_cierre_sesion_btn_reservar_pedido
+{
     background-color:#FFF;
     color:#000;
 }
