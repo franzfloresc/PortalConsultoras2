@@ -30,6 +30,9 @@ function MostrarBarra(datax, destino) {
     ActualizarGanancia(dataBarra);
     if (destino == '2') {
         initCarruselPremios(dataBarra);
+        if (datax.data && datax.data.CUV) {
+            trySetPremioElectivoByCuv(datax.data.CUV);
+        }
     }
 
     dataBarra.ListaEscalaDescuento = dataBarra.ListaEscalaDescuento || new Array();
@@ -649,7 +652,6 @@ function initCarruselPremios(barra) {
     if (barra.TippingPointBarra && barra.TippingPointBarra.ActivePremioElectivo) {
         tpElectivos.loadPremios = true;
         cargarPremiosElectivos();
-        $('#hrefIconoRegalo').click(cargarPopupEleccionRegalo);
     }
 }
 
@@ -662,20 +664,33 @@ function cargarPopupEleccionRegalo() {
 }
 
 function checkPremioSelected() {
-    if (tpElectivos.premioSelected || !document.getElementById('divContenidoDetalle')) {
+    if (!document.getElementById('divContenidoDetalle')) {
         return;
     }
+
     var details = belcorp.mobile.pedido.getDetalles();
     var detail = getCuponElectivoInDetails(details);
     if (!detail) {
+        setPremio(null);
         return;
     }
-    var premio = getPremioByCuv(detail.CUV);
+
+    trySetPremioElectivoByCuv(detail.CUV);
+}
+
+function trySetPremioElectivoByCuv(cuv) {
+    if (tpElectivos.premioSelected &&
+        tpElectivos.premioSelected.CUV2 === cuv) {
+        return;
+    }
+
+    var premio = getPremioByCuv(cuv);
     if (!premio) {
+        setPremio(null);
         return;
     }
-    tpElectivos.premioSelected = premio;
-    selectPremioDivByCuv(tpElectivos.premioSelected.CUV2);
+
+    setPremio(premio);
 }
 
 function getCuponElectivoInDetails(details) {
@@ -714,19 +729,18 @@ function getPremioElectivos() {
 }
 
 function cargarPremiosElectivos() {
-    getPremioElectivos().then(function (response) {
-        tpElectivos.premioSelected = response.selected;
+    getPremioElectivos()
+        .then(function (response) {
+            tpElectivos.premios = response.lista;
+            var premio = response.selected;
 
-        tpElectivos.premios = response.lista;
-        SetHandlebars("#premios-electivos-template", response, '#carouselOpcionesRegalo');
-        loadCarruselPremiosEvents();
+            SetHandlebars("#premios-electivos-template", response, '#carouselOpcionesRegalo');
+            loadCarruselPremiosEvents();
 
-        if (!tpElectivos.premioSelected) {
-            $('#divBarra .contenedor_circulos').show();
-            return;
-        }
-        selectPremioDivByCuv(tpElectivos.premioSelected.CUV2);
-    });
+            $('#hrefIconoRegalo').click(cargarPopupEleccionRegalo);
+
+            setPremio(premio);
+        });
 }
 
 function agregarPremioDefault() {
@@ -740,8 +754,9 @@ function agregarPremioDefault() {
             return;
         }
 
-        tpElectivos.premioSelected = premio;
-        selectPremioDivByCuv(tpElectivos.premioSelected.CUV2);
+        setPremio(premio);
+        //tpElectivos.premioSelected = premio;
+        //selectPremioDivByCuv(tpElectivos.premioSelected.CUV2);
     });
 }
 
@@ -774,13 +789,7 @@ function getElementPremiosByCuv(container, cuv) {
 }
 
 function loadCarruselPremiosEvents() {
-    $('.btn_elegir_regalo').click(function () {
-        //if (tpElectivos.premioSelected) {
-        //    return;
-        //}
-        cambiarEleccionRegaloProgramaNuevas($(this));
-        seleccionRegaloProgramaNuevas($(this));
-    });
+    $('.btn_elegir_regalo').click(seleccionRegaloProgramaNuevas);
 }
 
 function armarCarouselRegalos() {
@@ -803,7 +812,9 @@ function armarCarouselRegalos() {
     });
 }
 
-function seleccionRegaloProgramaNuevas(regaloProgramaNuevas) {
+function seleccionRegaloProgramaNuevas() {
+    var regaloProgramaNuevas = $(this);
+
     var cuv = regaloProgramaNuevas.parents('.opcion_regalo_carousel_programaNuevas').data('cuv');
     var premio = getPremioByCuv(cuv);
 
@@ -817,23 +828,22 @@ function seleccionRegaloProgramaNuevas(regaloProgramaNuevas) {
                 return;
             }
 
-            tpElectivos.premioSelected = premio;
-            markPremioSelected(regaloProgramaNuevas.parents('.opcion_regalo_carousel_programaNuevas'));
+            setPremio(premio);
+            //tpElectivos.premioSelected = premio;
+            //markPremioSelected(regaloProgramaNuevas.parents('.opcion_regalo_carousel_programaNuevas'));
         });
 }
 
 function markPremioSelected(premioDiv) {
     var btn = premioDiv.find('.btn_elegir_regalo');
-    var msgRegaloDiv = $('.mensaje_titulo_popup_eleccion_regalo');
     premioDiv.addClass('opcion_regalo_carousel_elegido');
-    btn.fadeOut(100);
-    msgRegaloDiv.fadeOut(200);
-    setTimeout(function () {
-        btn.next().fadeIn(150);
-        msgRegaloDiv.html('¡Ya elegiste tu regalo!');
-        msgRegaloDiv.fadeIn(200);
-    }, 150);
-    $('#divBarra .contenedor_circulos').hide();
+    btn.hide(100);
+    btn.next().show();
+    //setTimeout(function() {
+    //    premioDiv.addClass('opcion_regalo_carousel_elegido');
+    //    btn.fadeOut(100);
+    //    btn.next().fadeIn(150);
+    //}, 150);
 }
 
 function getPremioByCuv(cuv) {
@@ -849,27 +859,56 @@ function getPremioByCuv(cuv) {
     return null;
 }
 
-function cambiarEleccionRegaloProgramaNuevas(nuevoRegaloElegido) {
-    $('.opcion_regalo_carousel_programaNuevas').removeClass('opcion_regalo_carousel_elegido');
-    $('.mensaje_titulo_popup_eleccion_regalo').fadeOut(200);
-    $('.mensaje_regalo_elegido').fadeOut(200);
-    setTimeout(function () {
-        $('.btn_elegir_regalo').fadeIn(150);
-        //$('.mensaje_titulo_popup_eleccion_regalo').html('¡Puedes elegir tu regalo del Programa de Nuevas ahora!');
-        //$('.mensaje_titulo_popup_eleccion_regalo').fadeIn(200);
-        nuevoRegaloElegido.parents('.opcion_regalo_carousel_programaNuevas').addClass('opcion_regalo_carousel_elegido');
-        nuevoRegaloElegido.fadeOut(50);
-        nuevoRegaloElegido.next().fadeIn(150);
+function restoreDivPremios() {
+    
+    
+    setTimeout(function() {
+        var divCarrusel = $('#popupEleccionRegalo');
+        divCarrusel.find('.opcion_regalo_carousel_programaNuevas').removeClass('opcion_regalo_carousel_elegido');
+        divCarrusel.find('.mensaje_regalo_elegido').hide();
+        divCarrusel.find('.btn_elegir_regalo').show();
     }, 150);
-    tpElectivos.premioSelected = null;
-    $('#divBarra .contenedor_circulos').show();
+}
+
+function setPremio(premio) {
+    tpElectivos.premioSelected = premio;
+    restoreDivPremios();
+    updateTitlePopupRegalos(premio);
+
+    if (!premio) {
+        $('#divBarra .contenedor_circulos').show();
+
+        return;
+    }
+
+    $('#divBarra .contenedor_circulos').hide();
+    selectPremioDivByCuv(tpElectivos.premioSelected.CUV2);
+
+    //setTimeout(function() {
+
+    //}, 150);
+}
+
+function updateTitlePopupRegalos(premio) {
+    var msgRegaloDiv = $('#popupEleccionRegalo .mensaje_titulo_popup_eleccion_regalo');
+    msgRegaloDiv.fadeOut(200);
+
+    if (premio) {
+        msgRegaloDiv.html('¡Ya elegiste tu regalo!');
+    } else {
+        msgRegaloDiv.html('¡Puedes elegir tu regalo del Programa de Nuevas ahora!');
+    }
+    
+    msgRegaloDiv.fadeIn(200);
 }
 
 function selectPremioDivByCuv(cuv) {
     var element = getElementPremiosByCuv($('#carouselOpcionesRegalo'), cuv);
-    if (element) {
-        markPremioSelected(element);
+    if (!element) {
+        return;
     }
+
+    markPremioSelected(element);
 }
 
 function showPopupNivelSuperado(barra, prevLogro) {
@@ -892,10 +931,6 @@ function showPopupNivelSuperado(barra, prevLogro) {
             dvPremio.find('.btn_escoger_o_cambiar_regalo').html(tpElectivos.premioSelected ? 'CAMBIAR PRODUCTO': '¡Escoger ahora!');
             AbrirPopup(idPopup);
             mostrarLluvia();
-            
-            if (!tpElectivos.premioSelected) {
-                agregarPremioDefault();
-            }
 
             return;
         }
@@ -1121,10 +1156,10 @@ function CalculoPosicionMinimoMaximo() {
                         PosicionMontoMinimo = montoMinimo * 100 / montoTipipoing;
                         PosicionMontoTipinpoing = montoTipipoing * 100 / montoTipipoing;
 
-                        document.getElementById('lineaPosicionMontoMinimo').style.display = 'block';
-                        document.getElementById('MontoMinimoBloque').style.display = 'block';
-                        document.getElementById('lineaPosicionMontoMinimo').style.left = (PosicionMontoMinimo) + '%';
-                        document.getElementById('MontoMinimoBloque').style.left = (PosicionMontoMinimo - 8) + '%';
+                        document.getElementById('lineaPosicionMontoMinimo').style.display = 'None';
+                        document.getElementById('MontoMinimoBloque').style.display = 'None';
+                        //document.getElementById('lineaPosicionMontoMinimo').style.left = (PosicionMontoMinimo) + '%';
+                        //document.getElementById('MontoMinimoBloque').style.left = (PosicionMontoMinimo - 8) + '%';
                         //document.getElementById('MontoMinimoBloque').style.right = '-11px';
 
                         document.getElementById('hrefIconoRegalo').className = "icono_regalo regalo_tippingPointInicio text-center";
@@ -1526,5 +1561,3 @@ function InsertarPremio(model) {
         return data;
     });
 };
-
-
