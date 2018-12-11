@@ -545,7 +545,9 @@ function AnalyticsSRListaOferta(response) {
 
     if (!(typeof AnalyticsPortalModule === 'undefined')) {
         var origen = {
-            Pagina: ConstantesModule.OrigenPedidoWebEstructura.Pagina.LandingShowroom,
+            Pagina: isHome() 
+                ? ConstantesModule.OrigenPedidoWebEstructura.Pagina.Home
+                : ConstantesModule.OrigenPedidoWebEstructura.Pagina.LandingShowroom,
             Palanca: ConstantesModule.OrigenPedidoWebEstructura.Palanca.Showroom,
             Seccion: ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel
         };

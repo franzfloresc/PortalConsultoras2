@@ -225,13 +225,12 @@ var AnalyticsPortalModule = (function () {
         var seccion = _origenPedidoWebEstructura.Pagina.find(function (element) {
             return element.Codigo == origenEstructura.Pagina;
         });
+
         if (seccion == undefined) {
-            var seccion = _origenPedidoWebEstructura.Pagina.find(function (element) {
-                return element.Codigo == origenEstructura.Pagina;
-            });
             return "";
         }
-        seccion.TextoList;
+
+        seccion.TextoList || "";
     }
 
     var _getTextoPalancaSegunOrigen = function (origenEstructura) {
@@ -250,7 +249,7 @@ var AnalyticsPortalModule = (function () {
             return "";
         }
 
-        seccion.TextoList;
+        seccion.TextoList || "";
     }
 
     var _getParametroListSegunOrigen = function (origenEstructura) {
@@ -260,7 +259,14 @@ var AnalyticsPortalModule = (function () {
         var palanca = _getTextoPalancaSegunOrigen(origenEstructura);
 
         var separador = " - ";
-        var texto = contendor + separador + pagina + separador + palanca;
+        var texto = contendor;
+        texto = texto != ""
+            ? ((pagina != "" ? separador : "") + pagina)
+            : pagina;
+
+        texto = texto != ""
+            ? ((palanca != "" ? separador : "") + palanca)
+            : palanca;
 
         return texto;
     }
@@ -448,6 +454,7 @@ var AnalyticsPortalModule = (function () {
             console.log('Analytics - _marcarProductImpresionSegunLista Inicio', data);
 
             var parametroList = _getParametroListSegunOrigen(data.Origen);
+            console.log('Analytics - _marcarProductImpresionSegunLista - parametroList', parametroList);
 
             var lista = data.lista;
             var cantidadMostrar = lista.length == 1 ? 1 : data.CantidadMostrar;
@@ -602,10 +609,10 @@ var AnalyticsPortalModule = (function () {
             var esFicha = typeof seccion !== "undefined" ? seccion.Seccion == "Ficha" : false;
             var esCarrusel = false;
             if (!(event == null)) {
-                if (codigoSeccion == '05') 
+                if (codigoSeccion == '05')
                     //var elementCarrusel = $(event.target || event).parents("[data-item]");
                     //esCarrusel = elementCarrusel.hasClass("slick-slide");
-                    esCarrusel = true;                
+                    esCarrusel = true;
             }
             //if (estoyEnLaFicha !== "undefined")
             if (typeof window.fichaModule !== "undefined")
@@ -1057,6 +1064,7 @@ var AnalyticsPortalModule = (function () {
     var marcaGenericaLista = function (seccion, data, pos) {
 
         try {
+            console.log('marcaGenericaLista- ini', seccion, data, pos);
             // mantener la seccion para LAN, luego ponerlo dentro de data como origen
             seccion = seccion.replace("Lista", "");
 
@@ -1067,7 +1075,7 @@ var AnalyticsPortalModule = (function () {
             switch (seccion) {
                 //case _codigoSeccion.HOME: AnalyticsPortalModule.MarcaProductImpressionHome(data, pos); break; // no se utiliza
                 //case _codigoSeccion.HOMEOFERTA: AnalyticsPortalModule.MarcaPromotionViewOferta(seccion, data); break; // no se utiliza
-                    // Inicio Analytics Ofertas  
+                // Inicio Analytics Ofertas  
                 case _codigoSeccion.LAN: _marcaPromotionViewBanner(seccion, data, pos); break;
                 default:
                     _marcarProductImpresionSegunLista(data); break;
