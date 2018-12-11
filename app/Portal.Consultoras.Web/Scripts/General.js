@@ -614,9 +614,7 @@ function CreateLoading() {
     $("#loadingScreen").parent().find(".ui-dialog-titlebar").hide();
 }
 function eventCloseDialogMensaje() {
-    $('#alertDialogMensajes').on('dialogclose', function (event) {
-        $('body,html').css('overflow', 'scroll');
-    });
+    HideDialog("alertDialogMensajes");
 }
 function printElement(selector) {
     var element = document.querySelector(selector);
@@ -725,8 +723,7 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
         else {
             $('#alertDialogMensajes .terminos_title_2').html(titulo);
             $('#alertDialogMensajes .pop_pedido_mensaje').html(mensaje);
-            $('#alertDialogMensajes').dialog('open');
-            $('body,html').css('overflow', 'hidden');
+            showDialogSinScroll("alertDialogMensajes");
 
             $('.ui-dialog .ui-button').off('click');
             $('.ui-dialog .ui-icon-closethick').off('click');
