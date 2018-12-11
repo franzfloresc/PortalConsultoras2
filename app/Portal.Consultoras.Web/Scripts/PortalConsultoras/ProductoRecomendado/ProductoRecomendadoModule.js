@@ -112,12 +112,15 @@
 
                 var data = localStorage.getItem('arrayRecomendaciones');
                 var index = $("#carouselProductosRecomendados").find('.slick-active').last().data('slick-index');
-
+                
                 if (currentSlide === 0 && nextSlide === slick.$slides.length - 1) {
                     // its going from the first slide to the last slide (backwards)
 
                     if (!(typeof AnalyticsPortalModule === 'undefined'))
                         AnalyticsPortalModule.MarcaRecomendacionesFlechaAnterior();
+
+                    if (!(typeof AnalyticsPortalModule === 'undefined'))
+                        AnalyticsPortalModule.MarcaProductImpressionViewRecomendacionesMobile(JSON.parse(data), index);
 
                 } else if (nextSlide > currentSlide || (currentSlide === (slick.$slides.length - 1) && nextSlide === 0)) {
                     // its either going normally forwards or going from the last slide to the first
@@ -132,6 +135,9 @@
 
                     if (!(typeof AnalyticsPortalModule === 'undefined'))
                         AnalyticsPortalModule.MarcaRecomendacionesFlechaAnterior();
+
+                    if (!(typeof AnalyticsPortalModule === 'undefined'))
+                        AnalyticsPortalModule.MarcaProductImpressionViewRecomendacionesMobile(JSON.parse(data), index);
 
                 }
 
@@ -213,6 +219,7 @@
                 AnalyticsPortalModule.MarcaRecomendacionesFlechaSiguiente();
 
             var index = $("#carouselProductosRecomendados").find('.slick-active').last().data('slick-index');
+            
 
             var data = localStorage.getItem('arrayRecomendaciones');
 
@@ -223,6 +230,13 @@
         PreviousCarrusel: function () {
             if (!(typeof AnalyticsPortalModule === 'undefined'))
                 AnalyticsPortalModule.MarcaRecomendacionesFlechaAnterior();
+
+            var index = $("#carouselProductosRecomendados").find('.slick-active').last().data('slick-index');
+            
+            var data = localStorage.getItem('arrayRecomendaciones');
+
+            if (!(typeof AnalyticsPortalModule === 'undefined'))
+                AnalyticsPortalModule.MarcaProductImpressionViewRecomendaciones(JSON.parse(data), index);
         }
     };
 
