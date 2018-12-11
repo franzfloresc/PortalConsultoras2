@@ -230,7 +230,7 @@ var AnalyticsPortalModule = (function () {
             return "";
         }
 
-        seccion.TextoList || "";
+        return seccion.TextoList || "";
     }
 
     var _getTextoPalancaSegunOrigen = function (origenEstructura) {
@@ -249,7 +249,7 @@ var AnalyticsPortalModule = (function () {
             return "";
         }
 
-        seccion.TextoList || "";
+        return seccion.TextoList || "";
     }
 
     var _getParametroListSegunOrigen = function (origenEstructura) {
