@@ -7,7 +7,7 @@
         eliminarEtiquetaCriterioElegido: '.enlace__eliminar__etiqueta',
         opcionOrdenar: "#dpw-ordenar, .opcion__ordenamiento__label",
         opcionFiltrar: "#opcionFiltrar",
-        opcionCerrarFiltrosMobile: '#cerrarFiltros, .filtro__btn--aplicar',
+        opcionCerrarFiltrosMobile: '#cerrarFiltros, .filtro__btn--aplicar, .background__filtros__mobile',
         opcionLimpiarFiltros: '.filtro__btn--limpiar',
         filtroCheckbox: '.filtro__item__checkbox',
         backgroundAlMostrarFiltrosMobile: '.background__filtros__mobile',
@@ -34,7 +34,8 @@
         criteriosBuscadorMobile: '.criteriosBuscadorMobile',
         criteriosBuscadorDesktop: '.criteriosBuscadorDesktop',
         mostrarLayoutCriterios: '.layout__content__etiquetas__criteriosElegidos',
-        etiquetaCriterioElegido: '.icono__eliminar__criterioElegido'
+        etiquetaCriterioElegido: '.icono__eliminar__criterioElegido',
+        filtroBtnMobileWrapper: '.filtro__btn__mobile__wrapper'
     };
     var _modificador = {
         itemDropDowndesplegado: "opcion__ordenamiento__dropdown--desplegado",
@@ -357,7 +358,7 @@
             _config.precio = filtroPrecio;
 
             if (_config.isMobile) {
-                $(_elementos.preCargaFiltros).css('width', 90 + '%');
+                $(_elementos.preCargaFiltros).css({'width': 90 + '%', 'max-width': '280px'});
             }
 
             _funciones.CargarProductos();
@@ -510,6 +511,10 @@
             $(_elementos.seccionFiltros).animate({
                 right: 0 + '%'
             }, 150);
+            if (_config.isMobile) {
+                $(_elementos.filtroBtnMobileWrapper).delay(100);
+                $(_elementos.filtroBtnMobileWrapper).addClass('filtro__btn__mobile__wrapper--fixed');
+            }
             setTimeout(function () {
                 _funciones.AnchoContenedorEtiquetasCriteriosElegidosMobile();
             }, 150);
@@ -520,7 +525,10 @@
             $(_elementos.seccionFiltros).animate({
                 right: -100 + '%'
             }, 150);
-            $(_elementos.backgroundAlMostrarFiltrosMobile).delay(100);
+            if (_config.isMobile) {
+                $(_elementos.filtroBtnMobileWrapper).removeClass('filtro__btn__mobile__wrapper--fixed');
+                $(_elementos.preCargaFiltros).css({ 'width': '', 'max-width': '' });
+            }
             $(_elementos.backgroundAlMostrarFiltrosMobile).fadeOut(100);
             setTimeout(function () {
                 $(_elementos.layoutContent).css({ 'z-index': '2' });
