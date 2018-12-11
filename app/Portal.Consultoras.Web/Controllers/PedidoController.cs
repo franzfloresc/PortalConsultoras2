@@ -4285,12 +4285,12 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
                 #endregion
-
-                BEPedidoWebDetalle premioSelected = null;
+                
                 var premios = _programaNuevasProvider.GetListPremioElectivo();
                 if (premios.Any(p => p.CUV2 == model.CUV))
                 {
-                    premioSelected = GetPremioSelected(premios);
+                    var premioSelected = GetPremioSelected(premios);
+                    if (premioSelected != null) DeletePedido(premioSelected);
                 }
 
                 var listCuvTonos = Util.Trim(model.CuvTonos);
@@ -4298,6 +4298,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     listCuvTonos = estrategia.CUV2;
                 }
+
                 var tonos = listCuvTonos.Split('|');
                 var respuesta = new JsonResult();
                 List<string> ListaCuvsTemporal = new List<string>();
@@ -4325,10 +4326,6 @@ namespace Portal.Consultoras.Web.Controllers
                     }
 
                     PedidoAgregarProductoAgrupado(model.Cantidad.ToInt(), CuvSet, strCuvs, estrategia.EstrategiaID);
-                    if (premioSelected != null)
-                    {
-                        DeletePedido(premioSelected);
-                    }
                 }
 
                 return Json(respuesta.Data, JsonRequestBehavior.AllowGet);
