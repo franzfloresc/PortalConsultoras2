@@ -7,7 +7,7 @@ belcorp.settings.uniquePrefix = "/g/";
 jQuery(document).ready(function () {
 
     CreateLoading();
-    eventCloseDialogMensaje();
+    //eventCloseDialogMensaje();
     $("header").resize(function () {
         LayoutMenu();
     });
@@ -620,9 +620,9 @@ function CreateLoading() {
     });
     $("#loadingScreen").parent().find(".ui-dialog-titlebar").hide();
 }
-function eventCloseDialogMensaje() {
-    HideDialog("alertDialogMensajes");
-}
+//function eventCloseDialogMensaje() {
+//    HideDialog("alertDialogMensajes");
+//}
 function printElement(selector) {
     var element = document.querySelector(selector);
     if (!element) {
