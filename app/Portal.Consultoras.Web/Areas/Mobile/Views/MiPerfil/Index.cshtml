@@ -219,6 +219,7 @@ else
                                 <a class="enlace_abrir_mapa" title="Abrir Mapa">
                                 </a>
                             </div>
+                       
                         </fieldset>
                         <fieldset class="grupo_form_cambio_datos">
                             <div class="w-100">
@@ -289,6 +290,7 @@ else
                 </fieldset>
             }
         </div>
+       
     </section>
 </div>
 <!-- POPUP MAPA -->
@@ -313,10 +315,12 @@ else
             </button>
         </div>
     </div>
+     
 </div>
 <!-- FIN - POPUP MAPA -->
 
 @section scripts{
+    <script async defer src="https://maps.googleapis.com/maps/api/js?client=gme-cetcosa&v=weekly&callback=initAutocomplete&libraries=places"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/MiPerfil/Index.js")"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?client=gme-cetcosa&v=weekly&callback=initAutocomplete&libraries=places"></script>
 }
