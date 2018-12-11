@@ -153,10 +153,10 @@ $(document).ready(function () {
                         return false;
                     }
 
-                    $(me.Variables.ddlnumPedido).val("0");
-                    //$(me.Variables.ListaCoincidenciasBusquedaProductosCdr).html("");
+                    $(me.Variables.txtNumPedido).val("N° " + $(me.Variables.hdNumeroPedido).val());
+                    $(me.Variables.txtNumPedido).show();
+                    $(me.Variables.txtNumPedido).attr("readonly", "readonly");
                     $(me.Variables.hdCuvCodigo).val(""); //$(me.Variables.txtCuvMobile).val("");
-                    $(me.Variables.ddlnumPedido).val("0");
                     $(me.Variables.txtDescripcionCuv).html("");
                     $(me.Variables.txtCantidad1).val("1");
                     $(me.Variables.txtCuvMobile2).val("");
@@ -187,6 +187,7 @@ $(document).ready(function () {
                     $(me.Variables.pasotres).show();
 
                     $(me.Variables.ComboCampania).attr("disabled", "disabled");
+                    me.Funciones.BuscarCUV()
                 });
 
                 $(me.Variables.miSolicitudCDR).click(function (e) {

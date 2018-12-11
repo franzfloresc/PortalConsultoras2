@@ -124,8 +124,9 @@ $(document).ready(function () {
 
         if ($("#ddlnumPedido").css('display') !== 'none') {
             $("#ddlnumPedido").val("0");
-            $("#ddlCuv").html("");
+            $("#ddlCuv").html("");            
         }
+        
 
         $('.chosen-select').chosen();
         $(".chosen-select").val('').trigger("chosen:updated"); 
@@ -140,9 +141,11 @@ $(document).ready(function () {
         $("#hdImporteTotal2").val(0);
         $("#txtCUVDescripcion2").val("");
         $("#txtCantidad2").val("1");
-        CambioPaso(-100);
-        //BuscarMotivo();
-
+        CambioPaso(-100);        
+        $('#ddlnumPedido').append($('<option></option>').val($("#txtPedidoID").val()).html("N° " + $("#txtNumeroPedido").val()));
+        $("#ddlnumPedido").show();
+        $("#ddlnumPedido").attr("disabled", "disabled");
+        BuscarCUV();
         $("#divUltimasSolicitudes").show();
         $("#ddlCampania").attr("disabled", "disabled");
     });
