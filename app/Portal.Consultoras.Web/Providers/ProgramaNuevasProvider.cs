@@ -60,6 +60,7 @@ namespace Portal.Consultoras.Web.Providers
                     }
                     else tippingPoint.ActiveTooltip = false;
                 }
+                if (tippingPoint.ActivePremioElectivo) tippingPoint.HasListEstrategiaElectivo = GetListPremioElectivo().Any();
 
                 return tippingPoint;
             }

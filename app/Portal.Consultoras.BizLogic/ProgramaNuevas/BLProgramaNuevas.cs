@@ -47,9 +47,9 @@ namespace Portal.Consultoras.BizLogic
 
             var cuv = lstProductos.FirstOrDefault(a => a.CodigoCupon == cuvIngresado);
             if (cuv == null) return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.Agregar);
-            if (cuv.IndicadorCuponIndependiente) return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.Agregar);
+            if (!cuv.EsCuponElectivo) return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.Agregar);
 
-            List<BEProductoProgramaNuevas> lstElectivas = lstProductos.Where(a => !a.IndicadorCuponIndependiente && a.CodigoCupon != cuvIngresado).ToList();
+            List<BEProductoProgramaNuevas> lstElectivas = lstProductos.Where(a => a.EsCuponElectivo && a.CodigoCupon != cuvIngresado).ToList();
             if (lstElectivas.Count == 0) return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.Agregar);
 
             var nivelInput = new BENivelesProgramaNuevas { Campania = campaniaID.ToString(), CodigoPrograma = codigoPrograma, CodigoNivel = "0" + (consecutivoNueva + 1) };
@@ -92,7 +92,7 @@ namespace Portal.Consultoras.BizLogic
             lstCuponNuevas = FiltrarProductosNuevasByNivelyCodigoPrograma(lstCuponNuevas, consecutivoNueva, codigoPrograma);
             if (lstCuponNuevas.Count == 0) return false;
 
-            var lstElectivas = lstCuponNuevas.Where(c => !c.IndicadorCuponIndependiente).ToList();
+            var lstElectivas = lstCuponNuevas.Where(c => c.EsCuponElectivo).ToList();
             if (lstElectivas.Count <= 1) return false;
             var electivo = lstElectivas.FirstOrDefault(e => e.CodigoCupon == cuv);
             if (electivo == null) return false;
@@ -112,7 +112,7 @@ namespace Portal.Consultoras.BizLogic
             lstCuponNuevas = FiltrarProductosNuevasByNivelyCodigoPrograma(lstCuponNuevas, consecutivoNueva, codigoPrograma);
             if (lstCuponNuevas.Count == 0) return false;
 
-            var lstElectivas = lstCuponNuevas.Where(c => !c.IndicadorCuponIndependiente).ToList();
+            var lstElectivas = lstCuponNuevas.Where(c => c.EsCuponElectivo).ToList();
             if (lstElectivas.Count <= 1) return false;
             var countElecLista = lstElectivas.Count(e => lstCuv.Contains(e.CodigoCupon));
             if (countElecLista <= 1) return false;

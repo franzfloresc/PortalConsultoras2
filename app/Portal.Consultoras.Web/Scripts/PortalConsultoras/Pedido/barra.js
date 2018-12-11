@@ -1121,10 +1121,10 @@ function CalculoPosicionMinimoMaximo() {
                         PosicionMontoMinimo = montoMinimo * 100 / montoTipipoing;
                         PosicionMontoTipinpoing = montoTipipoing * 100 / montoTipipoing;
 
-                        document.getElementById('lineaPosicionMontoMinimo').style.display = 'None';
-                        document.getElementById('MontoMinimoBloque').style.display = 'None';
-                        //document.getElementById('lineaPosicionMontoMinimo').style.left = (PosicionMontoMinimo) + '%';
-                        //document.getElementById('MontoMinimoBloque').style.left = (PosicionMontoMinimo - 8) + '%';
+                        document.getElementById('lineaPosicionMontoMinimo').style.display = 'block';
+                        document.getElementById('MontoMinimoBloque').style.display = 'block';
+                        document.getElementById('lineaPosicionMontoMinimo').style.left = (PosicionMontoMinimo) + '%';
+                        document.getElementById('MontoMinimoBloque').style.left = (PosicionMontoMinimo - 8) + '%';
                         //document.getElementById('MontoMinimoBloque').style.right = '-11px';
 
                         document.getElementById('hrefIconoRegalo').className = "icono_regalo regalo_tippingPointInicio text-center";
