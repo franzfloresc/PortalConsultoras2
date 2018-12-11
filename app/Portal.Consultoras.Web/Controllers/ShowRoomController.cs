@@ -46,26 +46,26 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Index(string query)
         {
-            string sap = "";
-            var url = (Request.Url.Query).Split('?');
-            if (EsDispositivoMovil())
-            {
-                if (url.Length > 1)
-                {
-                    sap = "&" + url[1];
-                    return RedirectToAction("Index", "ShowRoom", new { area = "Mobile", sap });
-                }
-                else
-                {
-                    return RedirectToAction("Index", "ShowRoom", new { area = "Mobile" });
-                }
-
-            }
-
-            ViewBag.TerminoMostrar = 1;
 
             try
             {
+                if (EsDispositivoMovil())
+                {
+                    var url = (Request.Url.Query).Split('?');
+                    if (url.Length > 1)
+                    {
+                        string sap = "&" + url[1];
+                        return RedirectToAction("Index", "ShowRoom", new { area = "Mobile", sap });
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "ShowRoom", new { area = "Mobile" });
+                    }
+
+                }
+
+                ViewBag.TerminoMostrar = 1;
+
                 var mostrarShowRoomProductos = SessionManager.GetMostrarShowRoomProductos();
                 var mostrarShowRoomProductosExpiro = SessionManager.GetMostrarShowRoomProductosExpiro();
                 var mostrarPopupIntriga = !mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
@@ -254,7 +254,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #region Comprar desde Pagina de Oferta
-        
+
         #endregion
 
         /*

@@ -2440,5 +2440,10 @@ namespace Portal.Consultoras.Service
             return blEstrategia.LimpiarCacheRedis(paisID, codigoTipoEstrategia, campaniaID);
         }
 
+
+        //public BEDireccionEntrega InsertarDireccionEntrega(BEDireccionEntrega direccion)
+        //{
+        
+        //}
     }
 }

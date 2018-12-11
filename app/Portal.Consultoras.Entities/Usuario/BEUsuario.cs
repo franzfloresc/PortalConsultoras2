@@ -75,6 +75,7 @@ namespace Portal.Consultoras.Entities
         private string mSegmentoConstancia;
         private string mSeccionAnalytics;
         private string mDescripcionNivel;
+        private bool BoletaElectronica;
 
         [Column("ESCONSULTORALIDER")]
         public int mesConsultoraLider { get; set; }
@@ -310,6 +311,7 @@ namespace Portal.Consultoras.Entities
             EsConsultoraOficina = row.ToInt32("IndicadorConsultoraOficina") == 1;
             PromedioVenta = row.ToDouble("PromedioVenta");
             NovedadBuscador = row.ToInt32("NovedadBuscador");
+            BoletaElectronica = row.ToBoolean("BoletaElectronica");
         }
 
         [Column("ConsultoraAsociadoID")]

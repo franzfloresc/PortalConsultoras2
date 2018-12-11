@@ -116,6 +116,8 @@
     <Compile Include="Contrato\BLContratoAceptacion.cs" />
     <Compile Include="Contrato\IContratoAceptacionBusinessLogic.cs" />
     <Compile Include="Cupon\ICuponConsultoraBusinessLogic.cs" />
+    <Compile Include="Pedido\BLDireccionEntrega.cs" />
+    <Compile Include="Pedido\IDireccionEntregaBusinessLogic.cs" />
     <Compile Include="ProgramaNuevas\IConfiguracionProgramaNuevasBusinessLogic.cs" />
     <Compile Include="Estrategia\IEstrategiaBusinessLogic.cs" />
     <Compile Include="Estrategia\IEstrategiaProductoBusinessLogic.cs" />
@@ -135,6 +137,8 @@
     <Compile Include="Configuracion\BLConfiguracionPais.cs" />
     <Compile Include="BLConfiguracionPaisDetalle.cs" />
     <Compile Include="BLReporteValidacion.cs" />
+    <Compile Include="LimiteVenta\BLLimiteVenta.cs" />
+    <Compile Include="LimiteVenta\ILimiteVentaBusinessLogic.cs" />
     <Compile Include="OfertaPersonalizada\BLOfertaPersonalizada.cs" />
     <Compile Include="PagoEnlinea\IPagoEnLineaBusinessLogic.cs" />
     <Compile Include="Pedido\IEscalaDescuentoBusinessLogic.cs" />

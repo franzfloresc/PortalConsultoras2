@@ -183,7 +183,7 @@
     padding-top: 26px;
     padding-bottom: 8px;
     font-weight: 400;
-    margin-top:-26px;
+    margin-top:-9px;
 }
 
 .wrapper_content_mi_perfil,
@@ -246,7 +246,7 @@
 }
 
 .foto_consultora {
-    width: 90px;
+    width: 88px;
     height: 86px;
     position: relative;
     margin-bottom:20px;
@@ -270,7 +270,6 @@
     height: auto;
 }
 
-.icono_camara,
 .icono_cambio_password,
 .icono_cambiar_dato,
 .icono_agregar_num_adicional,
@@ -284,14 +283,16 @@
 }
 
 .icono_camara{
-    width: 30px;
-    height: 30px;
+    width: 25.43px;
+    height: 25.43px;
     position: absolute;
     top: 3px;
     right: 0;
     background-image: url(/Content/Images/Esika/icono_camara.svg);
     z-index: 2;
     background-size: 63%;
+    background-position: 5px 5px;
+    background-repeat: no-repeat;
 }
 
 .datos_codigo_y_zona{
@@ -312,10 +313,12 @@
 
 .icono_cambio_password{
     width:13px;
-    height:16px;
+    height:19px;
     background-image:url("/Content/Images/Lbel/icono_candado.svg");
     background-size:100%;
     margin-right:7px;
+    position: relative;
+    top: -2px;
 }
 
 .enlace_texto:hover{
@@ -423,9 +426,14 @@
     .grupo_form_cambio_datos label{
         cursor:default;
         position:absolute;
+        width:90%;
         top:25px;
         left:0;
         font-size:13px;
+        font-weight:bold;
+        height:25px;
+        background-color:rgba(255,255,255,1);
+        z-index:2;
     }
 
     .grupo_form_cambio_datos_btn_guardar_wrapper{
@@ -483,17 +491,11 @@
         border-right: none;
         color: #000;
         border-bottom: 1px solid #808080;
-        padding-top: 8px;
-        padding-bottom: 6px;
+        padding-top: 12px;
+        padding-bottom: 9px;
         padding-right:5px;
         position:relative;
         z-index:2;
-    }
-
-    .grupo_form_cambio_datos label,
-    .grupo_form_cambio_datos select
-    {
-        font-weight:bold!important;
     }
 
     .grupo_form_cambio_datos select,
@@ -506,7 +508,7 @@
     .grupo_form_cambio_datos select{
         -moz-appearance:none;
         -webkit-appearance:none;
-        background-image:url(/Content/Images/icono_campos_select_mi_perfil.svg);
+        background-image:url(/Content/Images/Lbel/icono_campos_select_mi_perfil.svg);
     }
 
     .grupo_form_cambio_datos_campo_diferencia{
@@ -522,22 +524,28 @@
         width: 40px;
         height: 40px;
         background-position: center;
-        background-image: url(/Content/Images/icono_localizacion.svg);
+        background-image: url(/Content/Images/Lbel/icono_localizacion.svg);
         z-index: 3000;
     }
 
     .grupo_form_cambio_datos input:focus + label,
+    .grupo_form_cambio_datos select:focus + label,
     .campo_con_datos + label
     {
         top:0;
         font-size:13px;
+        background-color:rgba(255,255,255,0);
     }
 
-    .grupo_form_cambio_datos input:focus + label{
+    .grupo_form_cambio_datos input:focus + label,
+    .grupo_form_cambio_datos select:focus + label
+    {
         color:rgba(0,0,0,1);
     }
 
-    .grupo_form_cambio_datos input:focus{
+    .grupo_form_cambio_datos input:focus,
+    .grupo_form_cambio_datos select:focus
+    {
         border-bottom:1px solid rgba(0,0,0,1);
     }
 
@@ -752,7 +760,7 @@
 
 .fondo_popup_ubicacion_direccion_entrega,
 .popup_ubicacion_direccion_entrega_contenido,
-.popup_ubicacion_direccion_entrega_contenido .gmap_canvas,
+.mapa_wrapper,
 .confirmar_ubicacion_direccion_entrega
 {
     width:100%;
@@ -821,7 +829,8 @@
 }
 
 .popup_ubicacion_direccion_entrega_contenido{
-    height: calc(100vh - 118px);
+    height: calc(100vh - 115px);
+    overflow: hidden;
 }
 
 .confirmar_ubicacion_direccion_entrega {
@@ -838,14 +847,9 @@
     letter-spacing: 0.8px;
 }
 
-.popup_ubicacion_direccion_entrega_contenido,
-.popup_ubicacion_direccion_entrega_contenido .gmap_canvas
-{
-    overflow: hidden;
-}
-
-.popup_ubicacion_direccion_entrega_contenido .gmap_canvas{
-    height: calc(100vh - 178px);
+.mapa_wrapper{
+    overflow:initial!important;
+    height: calc(100vh - 175px);
 }
 
 /* FIN - POPUP MAPA UBICACIÓN DIRECCIÓN ENTREGA */

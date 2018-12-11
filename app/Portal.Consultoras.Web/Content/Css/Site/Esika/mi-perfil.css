@@ -90,6 +90,8 @@ input:focus{
 .consultora_img,
 .nom_consultora,
 .datos_codigo_y_zona,
+.datos_codigo,
+.datos_zona,
 .datos_gerente_zona,
 .form_cambio_datos,
 .grupo_form_cambio_datos,
@@ -150,10 +152,10 @@ input:focus{
 }
 
 .datos_usuario_iniciales{
-    background-color:#F8F8F8;
-    min-height:210px;
+    background-color:#FFF;
+    height:auto;
+    margin-bottom:34px;
     padding-top:47px;
-    padding-bottom:37px;
     font-weight:400;
 }
 
@@ -176,8 +178,6 @@ input:focus{
 .w-82,
 .foto_consultora,
 .datos_consultora_mi_perfil,
-.datos_codigo,
-.datos_zona,
 .icono_cambio_password,
 .grupo_form_cambio_datos > div,
 .icono_cambiar_dato,
@@ -220,8 +220,8 @@ input:focus{
 }
 
 .foto_consultora {
-    width: 144px;
-    height: 144px;
+    width: 120px;
+    height: 115px;
     margin-right: 44px;
     position: relative;
     -moz-box-shadow: 0 5px 12px -1px rgba(0,0,0,0.15);
@@ -244,7 +244,6 @@ input:focus{
     height: auto;
 }
 
-.icono_camara,
 .icono_cambio_password,
 .icono_cambiar_dato,
 .icono_agregar_num_adicional,
@@ -258,29 +257,29 @@ input:focus{
 }
 
 .icono_camara{
-    width:40px;
-    height:40px;
-    position:absolute;
-    top:0;
-    right:0;
-    background-image:url("/Content/Images/Esika/icono_camara.svg");
-    z-index:2;
+    width: 32.98px;
+    height: 33.98px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-image: url(/Content/Images/Esika/icono_camara.svg);
+    background-position: 7px 8px;
+    background-size: 59%;
+    background-repeat:no-repeat;
+    z-index: 2;
 }
 
 .datos_consultora_mi_perfil{
     max-width: 347px;
-}
-
-.nom_consultora{
-    font-size:19px;
-    margin-bottom:15px;
+    font-size:16px;
 }
 
 .datos_codigo_y_zona{
-    margin-bottom:10px;
+    margin-bottom:16px;
 }
 
 .datos_gerente_zona{
+    display:none;
     margin-bottom:16px;
 }
 
@@ -289,11 +288,13 @@ input:focus{
 }
 
 .icono_cambio_password{
-    width:13px;
-    height:16px;
-    background-image:url("/Content/Images/Esika/icono_candado.svg");
-    background-size:100%;
-    margin-right:7px;
+    width: 13px;
+    height: 19px;
+    background-image: url("/Content/Images/Esika/icono_candado.svg");
+    background-size: 100%;
+    margin-right: 7px;
+    position: relative;
+    top: 2px;
 }
 
 .enlace_texto:hover{
@@ -340,7 +341,7 @@ input:focus{
     margin: auto 0;
     top: 0;
     bottom: 0;
-    right: 0;
+    right: 7px;
     -moz-transition: all 0.15s ease;
     -o-transition: all 0.15s ease;
     -webkit-transition: all 0.15s ease;
@@ -362,6 +363,7 @@ input:focus{
     -o-transform: rotate(0deg);
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
+    top:6px;
 }
 
 .opcion_mi_perfil_titulo_texto,
@@ -372,6 +374,13 @@ input:focus{
 
 .opcion_mi_perfil_titulo_texto{
     padding-left:15px;
+}
+
+.opcion_mi_perfil_titulo,
+.opcion_mi_perfil_contenido
+{
+    padding-left:15px;
+    padding-right:15px;
 }
 
 .opcion_mi_perfil_contenido{
@@ -394,14 +403,22 @@ input:focus{
     .grupo_form_cambio_datos:last-child{
         margin-bottom:35px;
     }
+
+    .grupo_form_cambio_datos > div{
+        position:relative;
+    }
     
     .grupo_form_cambio_datos label{
         cursor:default;
         position:absolute;
+        width:90%;
         top:22px;
         left:0;
         font-size:14px;
         font-weight:bold;
+        height:25px;
+        background-color:rgba(255,255,255,1);
+        z-index:2;
     }
 
     .grupo_form_cambio_datos label,
@@ -425,12 +442,6 @@ input:focus{
         transition: all 0.2s ease;
     }
 
-    .grupo_form_cambio_datos label,
-    .grupo_form_cambio_datos select
-    {
-        font-weight:bold!important;
-    }
-    
     .grupo_form_cambio_datos input,
     .grupo_form_cambio_datos select
     {
@@ -443,7 +454,7 @@ input:focus{
         border-right: none;
         color: #000;
         border-bottom: 1px solid #808080;
-        padding-top: 8px;
+        padding-top: 12px;
         padding-bottom: 9px;
         padding-right:40px;
         position:relative;
@@ -460,7 +471,15 @@ input:focus{
     .grupo_form_cambio_datos select{
         -moz-appearance:none;
         -webkit-appearance:none;
-        background-image:url(/Content/Images/icono_campos_select_mi_perfil.svg);
+        background-image:url(/Content/Images/Esika/icono_campos_select_mi_perfil.svg);
+    }
+
+    .grupo_form_cambio_datos_campo_ciudad{
+        padding-right:15px;
+    }
+
+    .grupo_form_cambio_datos_campo_comuna{
+        padding-left:15px;
     }
 
     .grupo_form_cambio_datos_campo_direccion,
@@ -469,44 +488,50 @@ input:focus{
         position:relative;
     }
 
-    .enlace_ubicacion_actual{
-        position: absolute;
-        margin: auto 0;
-        top: 18px;
-        bottom: 16px;
-        right: -7px;
-        width: 40px;
-        height: 40px;
-        background-position: center;
-        background-image: url(/Content/Images/icono_localizacion.svg);
-        z-index: 3000;
-    }
-
-    .w-100.mapa_wrapper{
-        margin-top:25px;
-        height:250px;
-    }
-
-    .mapa_wrapper .mapouter,
-    .mapa_wrapper .gmap_canvas
-    {
-        height:100%;
-    }
-
     .grupo_form_cambio_datos input:focus + label,
+    .grupo_form_cambio_datos select:focus + label,
     .campo_con_datos + label
     {
         top:0;
         font-size:14px;
+        background-color: rgba(255,255,255,0);
     }
 
-    .grupo_form_cambio_datos input:focus + label{
+    .grupo_form_cambio_datos input:focus + label,
+    .grupo_form_cambio_datos select:focus + label
+    {
         color:rgba(0,0,0,1);
     }
 
-    .grupo_form_cambio_datos input:focus{
+    .grupo_form_cambio_datos input:focus,
+    .grupo_form_cambio_datos select:focus
+    {
         border-bottom:1px solid rgba(0,0,0,1);
     }
+
+.enlace_ubicacion_actual{
+    position: absolute;
+    margin: auto 0;
+    top: 18px;
+    bottom: 3px;
+    right: -7px;
+    width: 40px;
+    height: 40px;
+    background-position: center;
+    background-image: url(/Content/Images/Esika/icono_localizacion.svg);
+    z-index: 3000;
+}
+
+.w-100.mapa_wrapper{
+    margin-top:25px;
+    height:250px;
+}
+
+.mapa_wrapper .mapouter,
+.mapa_wrapper .gmap_canvas
+{
+    height:100%;
+}
 
 .terminos_y_condiciones_wrapper{
     border-top:1px solid #808080;
@@ -515,6 +540,7 @@ input:focus{
 .enlace_cambiar_dato,
 .enlace_eliminar_numero_adicional
 {
+    margin-left:17px;
     margin-right:-3px;
     vertical-align:bottom;
     padding-bottom:12px;
@@ -533,6 +559,7 @@ input:focus{
     position:absolute;
     top:0;
     left:0;
+    font-size:14px;
 }
 
 .grupo_form_cambio_datos .label_num_adicional{
@@ -545,12 +572,12 @@ input:focus{
     background-image:url("/Content/Images/Esika/icono_plus.svg");
     margin-right:3px;
     position:relative;
-    top:2px;
+    top:3.5px;
 }
 
 .icono_eliminar_numero_adicional{
     width:13px;
-    height:15px;
+    height:17px;
     background-image:url("/Content/Images/icono_eliminar.svg");
     margin-right:3px;
     position:relative;

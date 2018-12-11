@@ -564,7 +564,7 @@ namespace Portal.Consultoras.BizLogic
                 lstConfiguracionPais.Add(Constantes.ConfiguracionPais.BuscadorYFiltros);
                 lstConfiguracionPais.Add(Constantes.ConfiguracionPais.PagoEnLinea);
                 lstConfiguracionPais.Add(Constantes.ConfiguracionPais.MasGanadoras);
-                var usuarioPaisTask = Task.Run(() => ConfiguracionPaisUsuario(usuario, string.Join("|", lstConfiguracionPais)));                
+                var usuarioPaisTask = Task.Run(() => ConfiguracionPaisUsuario(usuario, string.Join("|", lstConfiguracionPais)));
 
                 Task.WaitAll(
                                 terminosCondicionesTask,
@@ -644,7 +644,8 @@ namespace Portal.Consultoras.BizLogic
 
                 usuario = usuarioPaisTask.Result ?? usuario;
 
-                if(pagoEnLineaTask.Result != null){
+                if (pagoEnLineaTask.Result != null)
+                {
                     var enablePagoEnLineaApp = pagoEnLineaTask.Result.Where(e => e.TablaLogicaDatosID == Constantes.TablaLogicaDato.PagoEnLinea.Habilitar_App).Select(e => e.Valor).FirstOrDefault();
                     usuario.TienePagoEnLinea = (usuario.TienePagoEnLinea && enablePagoEnLineaApp == "1");
                 }
@@ -1815,7 +1816,8 @@ namespace Portal.Consultoras.BizLogic
                         }
                     }
                 }
-                else if (usuario.PaisID == Constantes.PaisID.Colombia ) {
+                else if (usuario.PaisID == Constantes.PaisID.Colombia)
+                {
                     this.UpdateDatos(usuario, CorreoAnterior);
                     resultado = string.Format("{0}|{1}|{2}|0", "1", "3", "- Sus datos se actualizaron correctamente");
                 }
@@ -3499,7 +3501,7 @@ namespace Portal.Consultoras.BizLogic
             mostrarBuscador = configuracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.TipoConfiguracionBuscador.MostrarOpcionesOrdenamiento);
             if (mostrarBuscador != null) buscadorYFiltrosConfiguracion.MostrarOpcionesOrdenamiento = mostrarBuscador.Valor1 == "1";
 
-            mostrarBuscador = configuracionPaisDatos.Where(x => x.Codigo == Constantes.TipoConfiguracionBuscador.FlagFiltrosBuscador).FirstOrDefault();
+            mostrarBuscador = configuracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.TipoConfiguracionBuscador.FlagFiltrosBuscador);
             if (mostrarBuscador != null) buscadorYFiltrosConfiguracion.MostrarFiltrosBuscador = mostrarBuscador.Valor1 == "1";
 
             return buscadorYFiltrosConfiguracion;

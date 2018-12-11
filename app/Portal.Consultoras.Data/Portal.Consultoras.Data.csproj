@@ -90,6 +90,7 @@
     <Compile Include="DABelcorpNoticia.cs" />
     <Compile Include="DABelcorpResponde.cs" />
     <Compile Include="DACategoria.cs" />
+    <Compile Include="DADireccionEntega.cs" />
     <Compile Include="DAHorario.cs" />
     <Compile Include="DAClienteDB.cs" />
     <Compile Include="DACalculoPROL.cs" />
@@ -224,6 +225,7 @@
     <Compile Include="Mobile\DAApp.cs" />
     <Compile Include="PagoEnLinea\DAPagoEnLinea.cs" />
     <Compile Include="Pedido\DAPedidoWebSet.cs" />
+    <Compile Include="LimiteVenta\DAGestionStock.cs" />
     <Compile Include="ProgramaNuevas\DANivelesProgramaNuevas.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RevistaDigital\DARevistaDigitalSuscripcion.cs" />
