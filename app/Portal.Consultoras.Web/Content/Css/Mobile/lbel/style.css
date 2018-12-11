@@ -13886,3 +13886,65 @@ span.icon-advertencia {
 }
 
 /* FIN - MC-HD-2936 - DÚO PERFECTO AJUSTES POPUP */
+
+/* POPUP CIERRE DE SESIÓN */
+
+.popup_cierre_sesion{
+    position:fixed;
+    width:100%;
+    height:100%;
+    background-color:#FFF;
+    padding:58px 0;
+    top:0;
+    left:0;
+    z-index:4000;
+    overflow-x:hidden;
+}
+
+.popup_cierre_sesion_icono{
+    width:60px;
+    height:60px;
+    margin-bottom:33px;
+}
+
+.icono_sesion_por_finalizar{    
+    background-image:url(/Content/Images/Lbel/icono_sesion_por_finalizar.svg);
+    background-position:center;
+    background-repeat:no-repeat;
+    background-size:100%;    
+}
+
+.popup_cierre_sesion_mensaje{
+    margin-bottom:89px;
+}
+
+.popup_cierre_sesion_mensaje,
+.popup_cierre_sesion_btn
+{
+    font-size:16px;
+}
+
+.popup_cierre_sesion_btn{
+    display:block;
+    width:100%;
+    max-width:200px;
+    height:50px;
+    border:1px solid #000;
+    border-radius:4px;
+}
+
+.popup_cierre_sesion_btn_continuar{
+    background-color:#FFF;
+    color:#000;
+}
+
+.popup_cierre_sesion_btn_cerrar_sesion{
+    background-color:#000;
+    color:#FFF;
+}
+
+.btn_margen_inferior_30{
+    margin-bottom:30px;
+}
+
+/* FIN - POPUP CIERRE DE SESIÓN */
