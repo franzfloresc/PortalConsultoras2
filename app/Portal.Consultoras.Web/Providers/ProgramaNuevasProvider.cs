@@ -243,13 +243,14 @@ namespace Portal.Consultoras.Web.Providers
         {
             var configuracionProgramaNuevas = GetConfiguracion();
             string codigoPrograma = configuracionProgramaNuevas.CodigoPrograma;
+            string nivel = userData.ConfigPremioProgNuevas.CodigoNivel;
 
             try
             {
                 BEEstrategia[] estrategias;
                 using (var sv = new PedidoServiceClient())
                 {
-                    estrategias = sv.GetEstrategiaPremiosElectivos(userData.PaisID, codigoPrograma, userData.CampaniaID);
+                    estrategias = sv.GetEstrategiaPremiosElectivos(userData.PaisID, codigoPrograma, userData.CampaniaID, nivel);
                 }
                 if(estrategias == null) return new List<PremioElectivoModel>();
                 

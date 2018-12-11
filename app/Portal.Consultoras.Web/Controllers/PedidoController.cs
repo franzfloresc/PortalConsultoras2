@@ -572,24 +572,24 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult GuardarPremioElectivo(PedidoCrudModel model)
         {
-            var result = _programaNuevasProvider.GetListPremioElectivo();
+            var premios = _programaNuevasProvider.GetListPremioElectivo();
 
-            var details = GetPedidoWebDetalle(IsMobile());
-
-            var selected = details.FirstOrDefault(d => result.Any(c => c.CUV2 == d.CUV));
+            var selected = GetPremioSelected(premios);
 
             if (selected != null)
             {
-                var lastResult = DeletePedidoWeb(selected.CampaniaID, selected.PedidoID, selected.PedidoDetalleID, selected.TipoOfertaSisID, selected.CUV, selected.Cantidad,
-                    selected.ClienteID.ToString(), selected.EsBackOrder, selected.CUV);
-
-                if (!lastResult.Item1)
-                {
-                    return lastResult.Item2;
-                }
+                DeletePedido(selected);
             }
 
             return PedidoInsertar(model);
+        }
+
+        private BEPedidoWebDetalle GetPremioSelected(List<PremioElectivoModel> result)
+        {
+            var details = GetPedidoWebDetalle(IsMobile());
+
+            var selected = details.FirstOrDefault(d => result.Any(c => c.CUV2 == d.CUV));
+            return selected;
         }
 
         private object PedidoInsertarGenerico(PedidoCrudModel model, bool esKitNuevaAuto, List<string> listCuvEliminar = null, string mensajeAviso = "", bool esMensajeElecMultiple = false)
@@ -4286,6 +4286,13 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
+                BEPedidoWebDetalle premioSelected = null;
+                var premios = _programaNuevasProvider.GetListPremioElectivo();
+                if (premios.Any(p => p.CUV2 == model.CUV))
+                {
+                    premioSelected = GetPremioSelected(premios);
+                }
+
                 var listCuvTonos = Util.Trim(model.CuvTonos);
                 if (listCuvTonos == "")
                 {
@@ -4318,6 +4325,10 @@ namespace Portal.Consultoras.Web.Controllers
                     }
 
                     PedidoAgregarProductoAgrupado(model.Cantidad.ToInt(), CuvSet, strCuvs, estrategia.EstrategiaID);
+                    if (premioSelected != null)
+                    {
+                        DeletePedido(premioSelected);
+                    }
                 }
 
                 return Json(respuesta.Data, JsonRequestBehavior.AllowGet);

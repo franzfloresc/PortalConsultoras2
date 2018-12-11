@@ -26598,7 +26598,10 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private bool ActiveTooltipField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int AnioCampanaField;
+        private int AnioCampanaFinField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int AnioCampanaIniField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CodigoProgramaField;
@@ -26672,14 +26675,27 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int AnioCampana {
+        public int AnioCampanaFin {
             get {
-                return this.AnioCampanaField;
+                return this.AnioCampanaFinField;
             }
             set {
-                if ((this.AnioCampanaField.Equals(value) != true)) {
-                    this.AnioCampanaField = value;
-                    this.RaisePropertyChanged("AnioCampana");
+                if ((this.AnioCampanaFinField.Equals(value) != true)) {
+                    this.AnioCampanaFinField = value;
+                    this.RaisePropertyChanged("AnioCampanaFin");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int AnioCampanaIni {
+            get {
+                return this.AnioCampanaIniField;
+            }
+            set {
+                if ((this.AnioCampanaIniField.Equals(value) != true)) {
+                    this.AnioCampanaIniField = value;
+                    this.RaisePropertyChanged("AnioCampanaIni");
                 }
             }
         }
@@ -42805,10 +42821,10 @@ namespace Portal.Consultoras.Web.ServicePedido {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEEstrategia> GetEstrategiaPremiosTippingPointAsync(int paisID, string codigoPrograma, int anioCampana, string codigoNivel);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetEstrategiaPremiosElectivos", ReplyAction="http://tempuri.org/IPedidoService/GetEstrategiaPremiosElectivosResponse")]
-        Portal.Consultoras.Web.ServicePedido.BEEstrategia[] GetEstrategiaPremiosElectivos(int paisId, string codigoPrograma, int anioCampana);
+        Portal.Consultoras.Web.ServicePedido.BEEstrategia[] GetEstrategiaPremiosElectivos(int paisId, string codigoPrograma, int anioCampana, string codigoNivel);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetEstrategiaPremiosElectivos", ReplyAction="http://tempuri.org/IPedidoService/GetEstrategiaPremiosElectivosResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEEstrategia[]> GetEstrategiaPremiosElectivosAsync(int paisId, string codigoPrograma, int anioCampana);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEEstrategia[]> GetEstrategiaPremiosElectivosAsync(int paisId, string codigoPrograma, int anioCampana, string codigoNivel);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetActivarPremioNuevas", ReplyAction="http://tempuri.org/IPedidoService/GetActivarPremioNuevasResponse")]
         Portal.Consultoras.Web.ServicePedido.BEActivarPremioNuevas GetActivarPremioNuevas(int paisID, string codigoPrograma, int anioCampana, string codigoNivel);
@@ -45496,12 +45512,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.GetEstrategiaPremiosTippingPointAsync(paisID, codigoPrograma, anioCampana, codigoNivel);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEEstrategia[] GetEstrategiaPremiosElectivos(int paisId, string codigoPrograma, int anioCampana) {
-            return base.Channel.GetEstrategiaPremiosElectivos(paisId, codigoPrograma, anioCampana);
+        public Portal.Consultoras.Web.ServicePedido.BEEstrategia[] GetEstrategiaPremiosElectivos(int paisId, string codigoPrograma, int anioCampana, string codigoNivel) {
+            return base.Channel.GetEstrategiaPremiosElectivos(paisId, codigoPrograma, anioCampana, codigoNivel);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEEstrategia[]> GetEstrategiaPremiosElectivosAsync(int paisId, string codigoPrograma, int anioCampana) {
-            return base.Channel.GetEstrategiaPremiosElectivosAsync(paisId, codigoPrograma, anioCampana);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEEstrategia[]> GetEstrategiaPremiosElectivosAsync(int paisId, string codigoPrograma, int anioCampana, string codigoNivel) {
+            return base.Channel.GetEstrategiaPremiosElectivosAsync(paisId, codigoPrograma, anioCampana, codigoNivel);
         }
         
         public Portal.Consultoras.Web.ServicePedido.BEActivarPremioNuevas GetActivarPremioNuevas(int paisID, string codigoPrograma, int anioCampana, string codigoNivel) {

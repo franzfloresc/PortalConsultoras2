@@ -896,8 +896,12 @@ function showPopupNivelSuperado(barra, prevLogro) {
             if (!tpElectivos.premioSelected) {
                 agregarPremioDefault();
             }
+
+            return;
         }
-    } else {
+    }
+
+    if (!TieneMontoMaximo()) {
         showPopupEscalaSiguiente(barra, prevLogro);
     }
 }
@@ -1461,10 +1465,10 @@ function CalculoPosicionMinimoMaximo() {
 
 
 function TieneMontoMaximo() {
-    if (dataBarra.MontoMaximo != 0 && dataBarra.MontoMaximo != "" && dataBarra.MontoMaximo != null && dataBarra.MontoMaximo.toString().substring(0, 4) != "9999") {
-        return true;
-    } else
-        return false;
+    return dataBarra.MontoMaximo != 0 &&
+        dataBarra.MontoMaximo != "" &&
+        dataBarra.MontoMaximo != null &&
+        dataBarra.MontoMaximo.toString().substring(0, 4) != "9999";
 }
 
 

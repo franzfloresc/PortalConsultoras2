@@ -1233,7 +1233,8 @@
       <xs:element minOccurs="0" name="ActivePremioAuto" type="xs:boolean" />
       <xs:element minOccurs="0" name="ActivePremioElectivo" type="xs:boolean" />
       <xs:element minOccurs="0" name="ActiveTooltip" type="xs:boolean" />
-      <xs:element minOccurs="0" name="AnioCampana" type="xs:int" />
+      <xs:element minOccurs="0" name="AnioCampanaFin" type="xs:int" />
+      <xs:element minOccurs="0" name="AnioCampanaIni" type="xs:int" />
       <xs:element minOccurs="0" name="CodigoPrograma" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FechaCreate" type="xs:dateTime" />
       <xs:element minOccurs="0" name="Nivel" nillable="true" type="xs:string" />

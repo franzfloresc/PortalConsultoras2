@@ -2434,9 +2434,9 @@ namespace Portal.Consultoras.Service
             return blEstrategia.GetEstrategiaPremiosTippingPoint(paisID, codigoPrograma, anioCampana, codigoNivel);
         }
 
-        public List<BEEstrategia> GetEstrategiaPremiosElectivos(int paisId, string codigoPrograma, int anioCampana)
+        public List<BEEstrategia> GetEstrategiaPremiosElectivos(int paisId, string codigoPrograma, int anioCampana, string codigoNivel)
         {
-            return blEstrategia.GetEstrategiaPremiosElectivos(paisId, codigoPrograma, anioCampana);
+            return blEstrategia.GetEstrategiaPremiosElectivos(paisId, codigoPrograma, anioCampana, codigoNivel);
         }
 
         public BEActivarPremioNuevas GetActivarPremioNuevas(int paisID, string codigoPrograma, int anioCampana, string codigoNivel)
