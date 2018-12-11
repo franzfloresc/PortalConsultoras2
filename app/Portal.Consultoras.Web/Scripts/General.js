@@ -577,14 +577,21 @@ function showDialog(dialogId) {
 }
 
 function HideDialog(dialogId) {
-    dialogId = (dialogId || "").trim();
-    console.log(dialogId);
-    if (dialogId != "") {
-        dialogId = dialogId[0] == "#" ? dialogId : ("#" + dialogId);
-        $(dialogId).dialog("close");
-    }
-    $("body").css("overflow", "auto");
+    try {
 
+        dialogId = (dialogId || "").trim();
+        console.log('HideDialog - ini - ', dialogId);
+        if (dialogId != "") {
+            dialogId = dialogId[0] == "#" ? dialogId : ("#" + dialogId);
+            console.log('HideDialog - close - ', dialogId);
+            $(dialogId).dialog("close");
+        }
+    }
+    catch (err) {
+        console.log('HideDialog - log - ', err);
+    }
+
+    $("body").css("overflow", "auto");
     return false;
 }
 
