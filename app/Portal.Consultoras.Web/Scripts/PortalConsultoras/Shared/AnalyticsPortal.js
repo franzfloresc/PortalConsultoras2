@@ -57,10 +57,7 @@ var AnalyticsPortalModule = (function () {
         HV: "HV",
         RD: "RD",
         SR: "SR",
-        //CART: "CART",
         ODD: "ODD",
-        //HOME: "HOME",
-        //HOMEOFERTA: "HOMEOFERTA",
         GND: "GND",
         MG: "MG",
         Ficha: "FICHA"
@@ -68,10 +65,6 @@ var AnalyticsPortalModule = (function () {
     // Fin - Analytics Home 1 (Miguel)
 
     var _constantes = {
-        //simboloSolPeru: "S/.",
-        //solPeru: "PEN",
-        //simboloCostaRica: "¢",
-        //MonedaCostaRica: "CR",
         // Ini - Analytics Buscador Miguel
         isTest: false,
         currencyCodes: [
@@ -89,9 +82,6 @@ var AnalyticsPortalModule = (function () {
             { "CountryCode": "SV", "Code": "SVC" }
         ],
         seccionesPalanca: [
-            // { "CodigoSeccion": "LAN", "Palanca": "Lo Nuevo" },
-            //{ "CodigoSeccion": "RD", "Palanca": "Revista  Digital" },
-            //{ "CodigoSeccion": "HV", "Palanca": "Herramientas de Ventas" },
             { "CodigoSeccion": "ODD", "Palanca": "Oferta Del Día" },
             { "CodigoSeccion": "SR", "Palanca": "Showroom" }
         ],
@@ -147,10 +137,8 @@ var AnalyticsPortalModule = (function () {
         codigoPais: !(typeof userData === 'undefined') ? userData.pais : "",
         // Fin - Analytics Buscador Miguel
         // Ini - Analytics Ofertas
-        //contenedorHome: "Contenedor - Home",
         campania: "Campaña ",
         IdBannerGanadorasVerMas: "000123",
-        //TextoGanadoras: "Ganadoras"
         // Fin - Analytics Ofertas
     };
 
@@ -296,23 +284,6 @@ var AnalyticsPortalModule = (function () {
         }
     }
 
-    //var fcVerificarTipoMoneda = function (simboloMoneda) {
-    //    tipoMoneda = "";
-    //    try {
-    //        switch (simboloMoneda) {
-    //            case _constantes.simboloSolPeru:
-    //                tipoMoneda = _constantes.solPeru;
-    //                break;
-    //            case _constantes.simboloCostaRica:
-    //                tipoMoneda = _constantes.MonedaCostaRica;
-    //                break;
-    //        }
-    //    } catch (e) {
-    //        console.log("fcVerificarTipoMoneda - " + _texto.excepcion + e);
-    //    }
-    //    return tipoMoneda;
-    //}
-
     var marcarIniciarPlayVideo = function (producto) {
         try {
             dataLayer.push({
@@ -395,8 +366,6 @@ var AnalyticsPortalModule = (function () {
 
     var marcarClicSetProductos = function (infoItem, event, origenPedidoWebEstrategia, estoyEnLaFicha) {
 
-        // var $btnAgregar = $(event.target);
-        // var origenPedidoWebEstrategia = EstrategiaAgregarModule.GetOrigenPedidoWeb($btnAgregar);
         var currencyCode = AnalyticsPortalModule.GetCurrencyCodes(_constantes.codigoPais);
         var contenedor = AnalyticsPortalModule.GetContenedorByOrigenPedido(event, origenPedidoWebEstrategia, estoyEnLaFicha);
 
@@ -610,11 +579,9 @@ var AnalyticsPortalModule = (function () {
             var esCarrusel = false;
             if (!(event == null)) {
                 if (codigoSeccion == '05')
-                    //var elementCarrusel = $(event.target || event).parents("[data-item]");
-                    //esCarrusel = elementCarrusel.hasClass("slick-slide");
                     esCarrusel = true;
             }
-            //if (estoyEnLaFicha !== "undefined")
+
             if (typeof window.fichaModule !== "undefined")
                 esFicha = true;
 
@@ -684,11 +651,7 @@ var AnalyticsPortalModule = (function () {
 
             //Marcar analytics cuando es Ganadoras en ficha y 
             var estoyEnLaFicha = typeof fichaModule !== "undefined";
-            //Se comento por cambios en la marcación J.A Sprint4-AddToCarts 05/12/2018
-            //if (estrategia.CodigoPalanca === _codigoSeccion.MG && estoyEnLaFicha) {
-            //    AnalyticsPortalModule.ClickAddCartFicha(event, codigoOrigenPedido, estrategia);
-            //    return;
-            //}
+
             var codigoSeccion = codigoOrigenPedido.toString().substring(5, 7);
             var seccion = _constantes.secciones.find(function (element) {
                 return element.CodigoSeccion == codigoSeccion;
@@ -1068,60 +1031,16 @@ var AnalyticsPortalModule = (function () {
             // mantener la seccion para LAN, luego ponerlo dentro de data como origen
             seccion = seccion.replace("Lista", "");
 
-            // Inicio Analytics Ofertas 
-            //var esNoLanding = typeof listaSeccion === 'undefined' ? false : true;
-            // Fin Analytics Ofertas 
-
             switch (seccion) {
-                //case _codigoSeccion.HOME: AnalyticsPortalModule.MarcaProductImpressionHome(data, pos); break; // no se utiliza
-                //case _codigoSeccion.HOMEOFERTA: AnalyticsPortalModule.MarcaPromotionViewOferta(seccion, data); break; // no se utiliza
-                // Inicio Analytics Ofertas  
                 case _codigoSeccion.LAN: _marcaPromotionViewBanner(seccion, data, pos); break;
                 default:
                     _marcarProductImpresionSegunLista(data); break;
-                    //case _codigoSeccion.CART: AnalyticsPortalModule.MarcaProductImpressionCart(seccion, data); break;
-                    // Fin Analytics Ofertas Miguel
             }
         } catch (e) {
             console.log('marcaGenericaLista - ' + _texto.excepcion + e, e);
         }
 
     }
-
-    // no se utiliza, utilizar marcarImpresionSetProductos
-    //var marcaProductImpressionHome = function (data, limit) {
-    //    try {
-    //        if (_constantes.isTest)
-    //            alert("Marcación product impression.");
-    //        var lista = data.lista;
-    //        var impressions = [];
-    //        $.each(lista, function (index) {
-    //            if (index == limit)
-    //                return false;
-    //            var item = lista[index];
-    //            var impression = {
-    //                'name': item.Descripcion || item.DescripcionCompleta,
-    //                'id': item.CUV || item.CUV2,
-    //                'price': item.PrecioString || item.PrecioVenta,
-    //                'brand': item.DescripcionMarca,
-    //                'category': _texto.notavaliable,
-    //                'variant': _texto.estandar,
-    //                'list': limit == 1 ? 'Home – Liquidaciones Web' : 'Home – Club GANA+',
-    //                'position': item.Posicion
-    //            };
-    //            impressions.push(impression);
-    //        });
-    //        dataLayer.push({
-    //            'event': _evento.productImpression,
-    //            'ecommerce': {
-    //                'currencyCode': AnalyticsPortalModule.GetCurrencyCodes(_constantes.codigoPais),
-    //                'impressions': impressions
-    //            }
-    //        });
-    //    } catch (e) {
-    //        console.log(_texto.excepcion + e);
-    //    }
-    //}
 
     var marcaPromotionViewOferta = function (codigoSeccion, data) {
         try {
@@ -1570,7 +1489,6 @@ var AnalyticsPortalModule = (function () {
         return collection;
     };
 
-    //Add by JNIZAMA
     var _autoMapperV2 = function (codigoSeccion, data, pos) {
         var collection = [];
 
@@ -1672,156 +1590,6 @@ var AnalyticsPortalModule = (function () {
         }
 
     }
-
-    /*
-* 1.3.2. Product Impression
-* Nombre Archivo Desktop: Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-Landing.js
-* Linea de Código Desktop: 261,262,263
-*/
-    // no se utiliza,utilizar  _marcarProductImpresionSegunLista
-    //var marcaProductImpression = function (codigoSeccion, data) {
-    //    try {
-    //        if (_constantes.isTest)
-    //            alert("Marcación product impression.");
-
-    //        var element = $("[data-seccion=" + codigoSeccion + "]");
-    //        var codigo = element.data("origenpedidoweb");
-    //        var lista = data.lista;
-    //        var campania = lista[0];
-
-    //        var cantidadMostrar = listaSeccion[codigoSeccion + "-" + campania.CampaniaID] == undefined ? lista.length : listaSeccion[codigoSeccion + "-" + campania.CampaniaID].CantidadProductos;
-    //        var contenedor = fnObtenerContenedor();
-
-
-    //        var palanca = codigoSeccion == "ODD" ? AnalyticsPortalModule.GetPalancaBySeccion(codigoSeccion) : AnalyticsPortalModule.GetPalancaByOrigenPedido(codigo);
-    //        var impressions = [];
-    //        $.each(lista, function (index) {
-    //            if (index == cantidadMostrar)
-    //                return false;
-    //            var item = lista[index];
-    //            var impression = {
-    //                'id': item.CUV2,
-    //                'name': item.DescripcionCompleta,
-    //                'price': item.PrecioVenta,
-    //                'brand': item.DescripcionMarca,
-    //                'category': _texto.notavaliable,
-    //                'variant': _texto.estandar,
-    //                'list': contenedor + " - " + palanca + " - " + _constantes.campania + campania.CampaniaID,
-    //                'position': index + 1
-    //            };
-
-    //            impressions.push(impression);
-
-    //        });
-
-    //        dataLayer.push({
-    //            'event': _evento.productImpression,
-    //            'ecommerce': {
-    //                'currencyCode': AnalyticsPortalModule.GetCurrencyCodes(_constantes.codigoPais),
-    //                'impressions': impressions
-    //            }
-    //        });
-    //    } catch (e) {
-    //        console.log(_texto.excepcion + e);
-    //    }
-
-    //}
-
-    // no se utiliza,utilizar  _marcarProductImpresionSegunLista
-    //var marcaProductImpressionLanding = function (codigoSeccion, data) {
-    //    try {
-
-    //        if (_constantes.isTest)
-    //            alert("Marcación product impression.");
-
-    //        var codigo = $("#RDListado").data("origenpedidoweb");
-    //        var lista = data.lista;
-    //        var campania = lista[0];
-
-    //        var cantidadMostrar = lista.length;
-    //        var contenedor = _texto.contenedor;
-
-
-    //        var palanca = codigoSeccion == "ODD" || codigoSeccion == "SR" ? AnalyticsPortalModule.GetPalancaBySeccion(codigoSeccion) : AnalyticsPortalModule.GetPalancaByOrigenPedido(codigo);
-    //        var impressions = [];
-    //        $.each(lista, function (index) {
-    //            if (index == cantidadMostrar)
-    //                return false;
-    //            var item = lista[index];
-    //            var impression = {
-    //                'id': item.CUV2,
-    //                'name': item.DescripcionCompleta,
-    //                'price': item.PrecioVenta,
-    //                'brand': item.DescripcionMarca,
-    //                'category': _texto.notavaliable,
-    //                'variant': _texto.estandar,
-    //                'list': contenedor + " - " + palanca + " - " + _constantes.campania + campania.CampaniaID,
-    //                'position': index + 1
-    //            };
-
-    //            impressions.push(impression);
-
-    //        });
-
-
-    //        dataLayer.push({
-    //            'event': _evento.productImpression,
-    //            'ecommerce': {
-    //                'currencyCode': AnalyticsPortalModule.GetCurrencyCodes(_constantes.codigoPais),
-    //                'impressions': impressions
-    //            }
-    //        });
-    //    } catch (e) {
-    //        console.log(_texto.excepcion + e);
-    //    }
-    //}
-
-    /*
-* 2.1.7.2. Visualizar productos
-* Nombre Archivo Desktop: 
-* Linea de Código Desktop: 
-*/
-    // no se utiliza,utilizar  _marcarProductImpresionSegunLista
-    //var marcaProductImpressionCart = function (codigoSeccion, data) {
-    //    try {
-
-    //        if (_constantes.isTest)
-    //            alert("Marcación product impression cart.");
-
-    //        if (!_constantes.esCarrito)
-    //            return;
-
-    //        var lista = data.lista;
-    //        var impressions = [];
-    //        $.each(lista, function (index) {
-    //            if (index == 4)
-    //                return false;
-    //            var item = lista[index];
-    //            var impression = {
-    //                'id': item.CUV2,
-    //                'name': item.DescripcionCompleta,
-    //                'price': item.PrecioVenta,
-    //                'brand': item.DescripcionMarca,
-    //                'category': _texto.notavaliable,
-    //                'variant': _texto.estandar,
-    //                'list': "Carrito de compras – Club Gana+",
-    //                'position': index + 1
-    //            };
-    //            impressions.push(impression);
-    //        });
-
-    //        dataLayer.push({
-    //            'event': _evento.productImpression,
-    //            'ecommerce': {
-    //                'currencyCode': AnalyticsPortalModule.GetCurrencyCodes(_constantes.codigoPais),
-    //                'impressions': impressions
-    //            }
-    //        });
-    //    } catch (e) {
-    //        console.log(_texto.excepcion + e);
-    //    }
-
-    //}
 
     /* 
     *  1.3.3. Añadir al carrito
@@ -2008,36 +1776,6 @@ var AnalyticsPortalModule = (function () {
     }
 
     /*
-     * 1.4. Catálogos de ofertas (visualizar todos los productos de una palanca)
-     * 1.4.1. Visualización de producto
-     * Nombre Archivo Desktop:  Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-Landing.js
-     * Linea de Código Desktop: 265
-  */
-    //var marcaVisualizacionProducto = function (data) {
-    //    try {
-    //        if (_constantes.isTest)
-    //            alert("marcación visualización de producto.");
-
-    //        var impressions = [];
-    //        $.each(data.lista, function (index) {
-    //            var item = data.lista[index];
-    //            var impression = { "name": item.DescripcionCompleta, "id": item.CUV2, "price": item.PrecioVenta, "brand": item.DescripcionMarca, "category": _constantes.notavaliable, "variant": _constantes.estandar, "list": _texto.contenedor, "position": index + 1 };
-    //            impressions.push(impression);
-    //        });
-
-    //        dataLayer.push({
-    //            'event': _evento.productImpression,
-    //            'ecommerce': {
-    //                'currencyCode': AnalyticsPortalModule.GetCurrencyCodes(_constantes.codigoPais),
-    //                'impressions': impressions
-    //            }
-    //        });
-    //    } catch (e) {
-    //        console.log(_texto.excepcion + e);
-    //    }
-    //}
-
-    /*
     * 1.4.4. Filtros
     * Nombre Archivo Desktop:  /Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Landing.js
     * Linea de Código Desktop: 31
@@ -2067,9 +1805,6 @@ var AnalyticsPortalModule = (function () {
 
     var marcaCompartirRedesSociales = function (tipo, url) {
         try {
-            //var location = window.location.href;
-            //var isGanadoras = location.indexOf(_constantes.TextoGanadoras) > 0;
-
             dataLayer.push({
                 'event': 'socialEvent',
                 'network': tipo == "FB" ? 'Facebook' : "Whatsapp",
@@ -2119,41 +1854,6 @@ var AnalyticsPortalModule = (function () {
             console.log(_texto.excepcion + e);
         }
     }
-
-    /*
-     * 1.5.4. Visualizar lista de otros productos
-     * Nombre Archivo Desktop: Scripts\PortalConsultoras\DetalleEstrategia\CarruselModule.js
-     * Linea de Código Desktop: 177
-  */
-    // no se utiliza,utilizar  _marcarProductImpresionSegunLista
-    //var marcaVisualizarOtrosProductos = function (data) {
-    //    try {
-    //        var contenedor = "Contenedor - Detalle de Producto - Ver más Sets - ";
-    //        var impressions = [];
-    //        $.each(data, function (index) {
-    //            var item = data[index];
-    //            var impression = {
-    //                "name": item.DescripcionCompleta,
-    //                "id": item.CUV2,
-    //                "price": item.PrecioVenta,
-    //                "brand": item.DescripcionMarca,
-    //                "category": _texto.notavaliable,
-    //                "variant": _texto.estandar,
-    //                "list": contenedor + _constantes.campania + item.CampaniaID,
-    //                "position": item.Posicion
-    //            };
-    //            impressions.push(impression);
-    //        });
-    //        dataLayer.push({
-    //            'event': _evento.productImpression,
-    //            'ecommerce': {
-    //                'currencyCode': AnalyticsPortalModule.GetCurrencyCodes(_constantes.codigoPais),
-    //                'impressions': impressions
-    //            }
-    //        });
-    //    } catch (e) {
-    //    }
-    //}
 
     var marcaVerTodoMiPedido = function (data) {
         try {
@@ -2554,7 +2254,6 @@ var AnalyticsPortalModule = (function () {
 
     function marcarClickMasOfertasMG(url, origenPedido) {
         try {
-            //var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(origenPedido);
 
             dataLayer.push({
                 'event': _evento.virtualEvent,
