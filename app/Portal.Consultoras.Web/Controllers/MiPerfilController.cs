@@ -14,6 +14,7 @@ using Portal.Consultoras.Web.Infraestructure.Validator.Phone;
 using AutoMapper;
 using System.ServiceModel;
 using Portal.Consultoras.Web.Infraestructure.Sms;
+using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -93,6 +94,20 @@ namespace Portal.Consultoras.Web.Controllers
                 bool valida;
                 Util.ObtenerIniciaNumeroCelular(userData.PaisID, out valida, out numero);
                 model.IniciaNumeroCelular = valida ? numero : -1;
+
+                var objMenu = ((List<PermisoModel>)ViewBag.Permiso).Where(p => 
+                    p.Posicion.Trim().ToLower().Equals(Constantes.MenuPosicion.Body) && 
+                    p.Codigo.Trim().ToLower().Equals(Constantes.MenuCodigo.MiPerfil.ToLower())
+                ).ToList();
+
+                model.PermisoMenu = new List<string>();
+                foreach (var item in objMenu)
+                {
+                    foreach(var subitem in item.SubMenus)
+                    {
+                        model.PermisoMenu.Add(subitem.Descripcion);
+                    }                    
+                }            
             }
 
             return View(model);
