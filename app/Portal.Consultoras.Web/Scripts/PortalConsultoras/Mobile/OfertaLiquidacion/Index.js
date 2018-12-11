@@ -323,7 +323,7 @@ function InfoCommerceGoogle(ItemTotal, CUV, DescripcionProd, Categoria, Precio, 
             'event': 'addToCart',
             'ecommerce': {
                 'add': {
-                    'actionField': { 'list': 'Liquidación Web' },
+                    'actionField': { 'list': 'Liquidaciones Web' },
                     'products': [{
                         'name': DescripcionProd,
                         'price': Precio,
@@ -339,44 +339,46 @@ function InfoCommerceGoogle(ItemTotal, CUV, DescripcionProd, Categoria, Precio, 
         })
     }
 }
-function TagManagerOfertaLiquidacion() {
-    var cadListaofertaLiquidadas = $("#hdListaProductosEnLiquidacion").val();
-    var listaofertaLiquidadas = JSON.parse(cadListaofertaLiquidadas);
-    var cantidadofertaLiquidadas = $('.panel-product').length;
 
-    var arrayEstrategia = new Array();
-    var position = 1;
-    for (var i = 0; i < cantidadofertaLiquidadas; i++) {
-        var variant = "";
-        var ofertaLiquidada = listaofertaLiquidadas[i];
-        if (ofertaLiquidada.DescripcionEstrategia == null || ofertaLiquidada.DescripcionEstrategia == "" ||
-            ofertaLiquidada.DescripcionEstrategia == "NO DISPONIBLE") {
-            variant = "Estándar";
-        } else {
-            variant = ofertaLiquidada.DescripcionEstrategia;
-        }
-        var impresionofertaLiquidada = {
+//function TagManagerOfertaLiquidacion() {
+//    var cadListaofertaLiquidadas = $("#hdListaProductosEnLiquidacion").val();
+//    var listaofertaLiquidadas = JSON.parse(cadListaofertaLiquidadas);
+//    var cantidadofertaLiquidadas = $('.panel-product').length;
 
-            'name': ofertaLiquidada.Descripcion,
-            'id': ofertaLiquidada.CUV,
-            'price': ofertaLiquidada.PrecioOferta.toString(),
-            'brand': ofertaLiquidada.DescripcionMarca,
-            'category': 'NO DISPONIBLE',
-            'variant': variant,
-            'list': 'Liquidación Web',
-            'position': position
+//    var arrayEstrategia = new Array();
+//    var position = 1;
+//    for (var i = 0; i < cantidadofertaLiquidadas; i++) {
+//        var variant = "";
+//        var ofertaLiquidada = listaofertaLiquidadas[i];
+//        if (ofertaLiquidada.DescripcionEstrategia == null || ofertaLiquidada.DescripcionEstrategia == "" ||
+//            ofertaLiquidada.DescripcionEstrategia == "NO DISPONIBLE") {
+//            variant = "Estándar";
+//        } else {
+//            variant = ofertaLiquidada.DescripcionEstrategia;
+//        }
+//        var impresionofertaLiquidada = {
 
-        };
-        position++;
-        arrayEstrategia.push(impresionofertaLiquidada);
-    }
+//            'name': ofertaLiquidada.Descripcion,
+//            'id': ofertaLiquidada.CUV,
+//            'price': ofertaLiquidada.PrecioOferta.toString(),
+//            'brand': ofertaLiquidada.DescripcionMarca,
+//            'category': 'NO DISPONIBLE',
+//            'variant': variant,
+//            'list': 'Liquidación Web',
+//            'position': position
 
-    if (arrayEstrategia.length > 0) {
-        dataLayer.push({
-            'event': 'productImpression',
-            'ecommerce': {
-                'impressions': arrayEstrategia
-            }
-        });
-    }
-}
+//        };
+//        position++;
+//        arrayEstrategia.push(impresionofertaLiquidada);
+//    }
+
+//    if (arrayEstrategia.length > 0) {
+//        dataLayer.push({
+//            'event': 'productImpression',
+//            'ecommerce': {
+//                'impressions': arrayEstrategia
+//            }
+//        });
+//    }
+//}
+
