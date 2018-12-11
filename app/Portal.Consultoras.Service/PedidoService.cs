@@ -2441,9 +2441,6 @@ namespace Portal.Consultoras.Service
         }
 
 
-        //public BEDireccionEntrega InsertarDireccionEntrega(BEDireccionEntrega direccion)
-        //{
-        
-        //}
+       
     }
 }
