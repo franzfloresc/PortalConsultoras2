@@ -263,22 +263,6 @@ var AnalyticsPortalModule = (function () {
         var texto = contendor + separador + pagina + separador + palanca;
 
         return texto;
-
-        /*
-        (Contenedor - )? [pagina] - [Palanca]
-
-        pagina: Home, Carrito de Compras, Detalle de Producto - Ver más sets, otros
-        Palanca: Gama+, ShowRoom, Liquidaciones Web, otros
-        
-        "Home - Gama+";
-        "Home - ShowRoom";
-        "Home - Liquidaciones Web";
-        
-        "Carrito de Compras - Gama+";
-
-        "Contenedor - Detalle de Producto - Ver más sets - [Palanca]"
-
-        */
     }
 
 
@@ -2751,8 +2735,6 @@ var AnalyticsPortalModule = (function () {
             var impressions = [];
 
             var item = lista[index];
-
-            console.log(item);
 
             var impression = {
                 //'id': item.CUV

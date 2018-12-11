@@ -42,8 +42,6 @@
         InicializarEventos: function () {
             $(document).on("click", _elementos.noMostrarProductosRecomendados, _eventos.OcultarProductosRecomendados);
             $(document).on("click", _elementos.botonAgregar, _eventos.AgregarProductoRecomendado);
-            //$(document).on("click", _elementos.next, _eventos.NextCarrusel);
-            //$(document).on("click", _elementos.previous, _eventos.PreviousCarrusel);
         },
 
         ArmarCarruselProductosRecomendados: function () {
@@ -236,34 +234,8 @@
             BuscadorProvider.RegistroProductoBuscador(divPadre, _elementos.valueJSON);
 
 
-        },
-
-        NextCarrusel: function () {
-
-            //if (!(typeof AnalyticsPortalModule === 'undefined'))
-            //    AnalyticsPortalModule.MarcaRecomendacionesFlechaSiguiente();
-
-            //var index = $("#carouselProductosRecomendados").find('.slick-active').last().data('slick-index');
-            //console.log(index);
-
-            //var data = localStorage.getItem('arrayRecomendaciones');
-
-            //if (!(typeof AnalyticsPortalModule === 'undefined'))
-            //    AnalyticsPortalModule.MarcaProductImpressionViewRecomendaciones(JSON.parse(data), index);
-
-        },
-        PreviousCarrusel: function () {
-            //if (!(typeof AnalyticsPortalModule === 'undefined'))
-            //    AnalyticsPortalModule.MarcaRecomendacionesFlechaAnterior();
-
-            //var index = $("#carouselProductosRecomendados").find('.slick-active').last().data('slick-index');
-            //console.log(index);
-
-            //var data = localStorage.getItem('arrayRecomendaciones');
-
-            //if (!(typeof AnalyticsPortalModule === 'undefined'))
-            //    AnalyticsPortalModule.MarcaProductImpressionViewRecomendaciones(JSON.parse(data), index);
         }
+
     };
 
     //Public functions
@@ -272,7 +244,6 @@
     }
     function Inicializar() {
         _funciones.InicializarEventos();
-        // _funciones.ArmarCarruselProductosRecomendados();
     }
     function OcultarProductosRecomendados() {
         _funciones.OcultarSeccionRecomendados();
