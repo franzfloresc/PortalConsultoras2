@@ -35572,6 +35572,76 @@ height:30px;
 
 /* POPUP CIERRE DE SESIÓN */
 
+.popup_cierre_sesion{
+    position:fixed;
+    width:100%;
+    height:100%;
+    background-color:#FFF;
+    padding:58px 0;
+    top:0;
+    left:0;
+    z-index:4000;
+    overflow-x:hidden;
+}
 
+.popup_cierre_sesion_icono{
+    width:60px;
+    height:60px;
+    margin:33px auto;
+}
+
+.icono_sesion_por_finalizar,
+.icono_alerta_cierre_sesion
+{
+    background-position:center;
+    background-repeat:no-repeat;
+    background-size:100%;   
+}
+
+.icono_sesion_por_finalizar{    
+    background-image:url(/Content/Images/Esika/icono_sesion_por_finalizar.svg);
+}
+
+.icono_alerta_cierre_sesion{
+    background-image:url(/Content/Images/Esika/icono_alerta_cierre_sesion.svg);
+}
+
+.popup_cierre_sesion_mensaje{
+    margin-bottom:89px;
+}
+
+.popup_cierre_sesion_mensaje,
+.popup_cierre_sesion_btn
+{
+    font-size:16px;
+}
+
+.popup_cierre_sesion_btn{
+    display:inline-block;
+    width:100%;
+    max-width:200px;
+    height:50px;
+    line-height:36px;
+    border:1px solid #000;
+    border-radius:4px;
+    font-family:'Lato', sans-serif;
+}
+
+.popup_cierre_sesion_btn_continuar,
+.popup_cierre_sesion_btn_reservar_pedido
+{
+    background-color:#FFF;
+    color:#000;
+    margin-right:35px;
+}
+
+.popup_cierre_sesion_btn_cerrar_sesion{
+    background-color:#000;
+    color:#FFF;
+}
+
+.btn_margen_inferior_30{
+    margin-bottom:30px;
+}
 
 /* FIN - POPUP CIERRE DE SESIÓN */
