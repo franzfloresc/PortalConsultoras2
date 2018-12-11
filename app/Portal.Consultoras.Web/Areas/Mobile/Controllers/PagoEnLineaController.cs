@@ -176,6 +176,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 PagoProvider = _pagoEnLineaProvider
             };
 
+            pago.EsMobile = true;
             var success = await provider.Pay(info, pago);
             SessionManager.SetDatosPagoVisa(null);
             SessionManager.SetListadoEstadoCuenta(null);

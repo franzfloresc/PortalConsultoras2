@@ -65,9 +65,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Binaries\ClosedXML.dll</HintPath>
     </Reference>
-    <Reference Include="Common.Logging">
-      <HintPath>..\packages\Common.Logging.2.0.0\lib\2.0\Common.Logging.dll</HintPath>
-    </Reference>
     <Reference Include="CourtesyFlush">
       <HintPath>..\Library\CourtesyFlush.dll</HintPath>
     </Reference>
@@ -318,6 +315,7 @@
     <Compile Include="CustomFilters\ValidateAjaxModelAttribute.cs" />
     <Compile Include="Models\CambioTipoNegocioModel.cs" />
     <Compile Include="Controllers\ReporteContratoController.cs" />
+    <Compile Include="Models\ConsultaCrediticiaExternaMX.cs" />
     <Compile Include="Models\Estrategia\EstrategiaMDbAdapterModel.cs" />
     <Compile Include="Controllers\OfertaDelDiaController.cs" />
     <Compile Include="CustomHelpers\Infraestructure\Sms\ISmsConfirm.cs" />
@@ -1472,6 +1470,7 @@
     <Content Include="Content\Images\Buscador\product-iphone.png" />
     <Content Include="Content\Images\carrusel_n_blanco.png" />
     <Content Include="Content\Images\carrusel_p_blanco.png" />
+    <Content Include="Content\Images\click-icon-white.svg" />
     <Content Include="Content\Images\colorpicker\blank.gif" />
     <Content Include="Content\Images\colorpicker\colorpicker_background.png" />
     <Content Include="Content\Images\colorpicker\colorpicker_hex.png" />
@@ -4586,6 +4585,9 @@
     <None Include="Service References\ServiceODS\ODSService311.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ServiceODS\ODSService312.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServiceODS\ODSService32.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -4834,7 +4836,7 @@
     <None Include="Service References\ServiceUnete\PortalService7.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService9.xsd">
+    <None Include="Service References\ServiceUnete\PortalService8.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceUsuarioExt\UsuarioWebService.wsdl" />
@@ -4925,12 +4927,6 @@
     <None Include="Service References\ValidacionCrediticia\ValidacionCrediticiaService.wsdl" />
     <None Include="Service References\ValidacionCrediticia\ValidacionCrediticiaService.xsd">
       <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ValidacionesUnete\configuration91.svcinfo" />
-    <None Include="Service References\ValidacionesUnete\configuration.svcinfo" />
-    <None Include="Service References\ValidacionesUnete\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <Content Include="Areas\Mobile\Views\Pedido\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\OfertaLiquidacion\Index.cshtml" />
@@ -5057,12 +5053,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Service References\ServiceUnete\configuration91.svcinfo" />
-    <None Include="Service References\ServiceUnete\configuration.svcinfo" />
-    <None Include="Service References\ServiceUnete\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\configuration91.svcinfo" />
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\configuration.svcinfo" />
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\Reference.svcmap">
@@ -5086,12 +5076,24 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <None Include="Service References\ServicePedido\PedidoService1.disco" />
+    <None Include="Service References\ServiceUnete\configuration91.svcinfo" />
+    <None Include="Service References\ServiceUnete\configuration.svcinfo" />
+    <None Include="Service References\ServiceUnete\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="Service References\ServicioGenerarLideres\configuration91.svcinfo" />
     <Content Include="Service References\ServicioGenerarLideres\configuration.svcinfo" />
     <Content Include="Service References\ServicioGenerarLideres\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </Content>
+    <None Include="Service References\ValidacionesUnete\configuration91.svcinfo" />
+    <None Include="Service References\ValidacionesUnete\configuration.svcinfo" />
+    <None Include="Service References\ValidacionesUnete\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="Set.aspx" />
     <Content Include="Content\Template\mailing.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -5337,10 +5339,6 @@
     <None Include="Service References\ValidacionCrediticia\ValidacionCrediticiaService4.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ValidacionesUnete\ValidacionesUnete.wsdl" />
-    <None Include="Service References\ValidacionesUnete\ValidacionesUnete.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <Content Include="Views\Shared\_LoginLayout.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Login\SesionExpirada.cshtml" />
@@ -5486,6 +5484,22 @@
     <Content Include="Views\AdministrarReporteRevisionIncidencias\Index.cshtml" />
     <Content Include="Views\Pedido\_vpPedidoGrilla.cshtml" />
     <Content Include="Views\Pedido\_vpPedidoGrilla-Template.cshtml" />
+    <None Include="Service References\ValidacionesUnete\ValidacionesUnete.wsdl" />
+    <None Include="Service References\ValidacionesUnete\ValidacionesUnete.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ValidacionesUnete\ValidacionesUnete1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ValidacionesUnete\ValidacionesUnete2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ValidacionesUnete\ValidacionesUnete3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ValidacionesUnete\ValidacionesUnete4.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -5539,18 +5553,6 @@
     <Content Include="Web References\ServiceActualizarDatosPrueba\Reference.map" />
     <Content Include="Views\ShowRoom\Intriga.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\WsGestionWeb.wsdl" />
-    <None Include="Service References\ValidacionesUnete\ValidacionesUnete1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ValidacionesUnete\ValidacionesUnete2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ValidacionesUnete\ValidacionesUnete3.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ValidacionesUnete\ValidacionesUnete4.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <Content Include="Views\Unete\GestionParametros.cshtml" />
     <Content Include="Views\Unete\_ConsultarValidacionTelefonica.cshtml" />
     <Content Include="Views\Unete\ValidacionTelefonica.cshtml" />
@@ -5567,6 +5569,10 @@
     <Content Include="Views\Unete\NivelesRiesgo.cshtml" />
     <Content Include="Views\Unete\_RechazarPostulante.cshtml" />
     <Content Include="Views\Unete\_AprobarPostulante.cshtml" />
+    <Content Include="Web References\ServiceLMS\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </Content>
     <None Include="Web References\ServiceLMS\ws_server.wsdl" />
     <None Include="Web References\ServicePROLArchivoReserva\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>

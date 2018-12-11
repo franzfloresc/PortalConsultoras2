@@ -137,6 +137,8 @@
     <Compile Include="Configuracion\BLConfiguracionPais.cs" />
     <Compile Include="BLConfiguracionPaisDetalle.cs" />
     <Compile Include="BLReporteValidacion.cs" />
+    <Compile Include="LimiteVenta\BLLimiteVenta.cs" />
+    <Compile Include="LimiteVenta\ILimiteVentaBusinessLogic.cs" />
     <Compile Include="OfertaPersonalizada\BLOfertaPersonalizada.cs" />
     <Compile Include="PagoEnlinea\IPagoEnLineaBusinessLogic.cs" />
     <Compile Include="Pedido\IEscalaDescuentoBusinessLogic.cs" />
@@ -384,9 +386,7 @@
       <LastGenOutput>PedidoInsertMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="EntregaPedido\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
