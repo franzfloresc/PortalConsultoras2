@@ -244,7 +244,6 @@ input:focus{
     height: auto;
 }
 
-.icono_camara,
 .icono_cambio_password,
 .icono_cambiar_dato,
 .icono_agregar_num_adicional,
@@ -258,13 +257,15 @@ input:focus{
 }
 
 .icono_camara{
-    width: 33.98px;
+    width: 32.98px;
     height: 33.98px;
     position: absolute;
     top: 0;
     right: 0;
     background-image: url(/Content/Images/Esika/icono_camara.svg);
+    background-position: 7px 8px;
     background-size: 59%;
+    background-repeat:no-repeat;
     z-index: 2;
 }
 
@@ -287,13 +288,13 @@ input:focus{
 }
 
 .icono_cambio_password{
-    width:13px;
-    height:16px;
-    background-image:url("/Content/Images/Esika/icono_candado.svg");
-    background-size:100%;
-    margin-right:7px;
-    position:relative;
-    top:4px;
+    width: 13px;
+    height: 19px;
+    background-image: url("/Content/Images/Esika/icono_candado.svg");
+    background-size: 100%;
+    margin-right: 7px;
+    position: relative;
+    top: 2px;
 }
 
 .enlace_texto:hover{
@@ -340,7 +341,7 @@ input:focus{
     margin: auto 0;
     top: 0;
     bottom: 0;
-    right: 0;
+    right: 7px;
     -moz-transition: all 0.15s ease;
     -o-transition: all 0.15s ease;
     -webkit-transition: all 0.15s ease;
@@ -354,7 +355,6 @@ input:focus{
 
 .opcion_mi_perfil.mostrarContenido{
     border:1px solid #000;
-    top:9px;
 }
 
 .opcion_mi_perfil.mostrarContenido .icono_flecha_despliegue_contenido_mi_perfil{
@@ -363,6 +363,7 @@ input:focus{
     -o-transform: rotate(0deg);
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
+    top:6px;
 }
 
 .opcion_mi_perfil_titulo_texto,
@@ -402,14 +403,22 @@ input:focus{
     .grupo_form_cambio_datos:last-child{
         margin-bottom:35px;
     }
+
+    .grupo_form_cambio_datos > div{
+        position:relative;
+    }
     
     .grupo_form_cambio_datos label{
         cursor:default;
         position:absolute;
+        width:90%;
         top:22px;
         left:0;
         font-size:14px;
         font-weight:bold;
+        height:25px;
+        background-color:rgba(255,255,255,1);
+        z-index:2;
     }
 
     .grupo_form_cambio_datos label,
@@ -433,12 +442,6 @@ input:focus{
         transition: all 0.2s ease;
     }
 
-    .grupo_form_cambio_datos label,
-    .grupo_form_cambio_datos select
-    {
-        font-weight:bold!important;
-    }
-    
     .grupo_form_cambio_datos input,
     .grupo_form_cambio_datos select
     {
@@ -451,7 +454,7 @@ input:focus{
         border-right: none;
         color: #000;
         border-bottom: 1px solid #808080;
-        padding-top: 8px;
+        padding-top: 12px;
         padding-bottom: 9px;
         padding-right:40px;
         position:relative;
@@ -486,17 +489,23 @@ input:focus{
     }
 
     .grupo_form_cambio_datos input:focus + label,
+    .grupo_form_cambio_datos select:focus + label,
     .campo_con_datos + label
     {
         top:0;
         font-size:14px;
+        background-color: rgba(255,255,255,0);
     }
 
-    .grupo_form_cambio_datos input:focus + label{
+    .grupo_form_cambio_datos input:focus + label,
+    .grupo_form_cambio_datos select:focus + label
+    {
         color:rgba(0,0,0,1);
     }
 
-    .grupo_form_cambio_datos input:focus{
+    .grupo_form_cambio_datos input:focus,
+    .grupo_form_cambio_datos select:focus
+    {
         border-bottom:1px solid rgba(0,0,0,1);
     }
 
@@ -504,7 +513,7 @@ input:focus{
     position: absolute;
     margin: auto 0;
     top: 18px;
-    bottom: 16px;
+    bottom: 3px;
     right: -7px;
     width: 40px;
     height: 40px;

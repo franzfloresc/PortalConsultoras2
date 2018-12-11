@@ -100,6 +100,7 @@
     <Compile Include="PagoEnLinea\BEPagoEnLinea.cs" />
     <Compile Include="PagoEnLinea\BEPagoEnLineaBanco.cs" />
     <Compile Include="PagoEnLinea\BEPagoEnLineaVisa.cs" />
+    <Compile Include="Pedido\BEDireccionEntrega.cs" />
     <Compile Include="Pedido\BEPedidoReservaResult.cs" />
     <Compile Include="Producto\BEBuscadorResponse.cs" />
     <Compile Include="ProgramaNuevas\BENivelesProgramaNuevas.cs" />

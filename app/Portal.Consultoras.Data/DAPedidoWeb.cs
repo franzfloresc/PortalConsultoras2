@@ -3,6 +3,7 @@ using System;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
+using Portal.Consultoras.Entities.Pedido;
 
 namespace Portal.Consultoras.Data
 {
@@ -949,5 +950,8 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@NroLote", DbType.Int32, nroLote);
             return Context.ExecuteReader(command);
         }
+
+    
+
     }
 }
