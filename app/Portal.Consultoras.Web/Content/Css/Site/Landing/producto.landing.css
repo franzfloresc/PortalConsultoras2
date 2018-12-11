@@ -82,7 +82,7 @@
 }
 
 
-.content_item_carrusel > div:nth-child(2) {
+.producto-agotado > div:nth-child(2) {
     opacity: 0.5;
 }
 

@@ -167,7 +167,7 @@
                     </div>
                 </div>
 
-                <div class="content_cantidad_ficha_producto" data-cantidad-contenedor="">
+                @*<div class="content_cantidad_ficha_producto" data-cantidad-contenedor="">
                     <a class="cantidad_menos_home" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
                         <span>-</span>
                     </a>
@@ -180,7 +180,12 @@
                 <a class="btn_agregar_ficha_producto @Model.ClaseBloqueada"
                    id="btnAgregalo"
                    data-bloqueada=""
-                   onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, false, 0, true); ">AGRÉGALO</a>
+                   onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, false, 0, true); ">AGRÉGALO</a>*@
+
+                <div class="boton_agotado_ficha">
+                    Agotado
+                </div>
+
                 <hr class="clear">
             </div>
         </div>
