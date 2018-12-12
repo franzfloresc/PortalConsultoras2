@@ -827,6 +827,15 @@
     overflow:hidden;
 }
 
+.confirmar_ubicacion_direccion_entrega,
+.confirmar_ubicacion_direccion_entrega[disabled]
+{
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
 .confirmar_ubicacion_direccion_entrega {
     position: absolute;
     margin: 0 auto;
@@ -836,9 +845,17 @@
     height: 60px;
     background-color: #e81c36;
     color: #FFF;
+    font-family:'Lato', sans-serif;
     font-size: 16px;
     font-weight: bold;
     letter-spacing: 0.8px;
+    cursor:pointer;
+}
+
+.confirmar_ubicacion_direccion_entrega[disabled]{
+    background-color: #d6d6d6;
+    color: #989898;
+    cursor:not-allowed;
 }
 
 .mapa_wrapper{
