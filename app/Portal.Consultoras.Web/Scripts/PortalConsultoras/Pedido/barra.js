@@ -1541,7 +1541,7 @@ function InsertarPremio(model) {
     
     return jQuery.ajax({
         type: 'POST',
-        url: urlGuardarPremioElectivo,
+        url: urlPedidoInsert,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(model),
