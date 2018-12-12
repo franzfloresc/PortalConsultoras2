@@ -2451,7 +2451,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             ViewBag.IsoPais = iso;
 
-            if (iso == "BR") iso = "00";
+            if (iso == Constantes.CodigosISOPais.Brasil) iso = "00";
             ViewBag.TituloPagina = " ÉSIKA ";
             ViewBag.IconoPagina = "/Content/Images/Esika/favicon.ico";
             ViewBag.EsPaisEsika = true;
