@@ -181,7 +181,14 @@ namespace Portal.Consultoras.BizLogic
                 return autorizado ? 1 : 0;
             }
             // Validamos si pertenece a Costa Rica, Panama, Mexico, Puerto Rico, Dominicana, Ecuador, Argentina (Paises MyLbel)
-            else if (paisID == 5 || paisID == 10 || paisID == 9 || paisID == 12 || paisID == 13 || paisID == 6 || paisID == 1 || paisID == 14)
+            else if (paisID == 5
+                || paisID == 10 
+                || paisID == 9
+                || paisID == 12 
+                || paisID == 13 
+                || paisID == 6 
+                || paisID == 1 
+                || paisID == Constantes.PaisID.Venezuela)
             {
                 // Validamos si la consultora es retirada
                 BETablaLogicaDatos restriccion = tabla_Retirada.Find(p => Convert.ToInt32(p.Codigo.Trim()) == consultoraCatalogo.IdEstadoActividad);

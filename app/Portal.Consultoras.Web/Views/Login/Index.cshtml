@@ -598,11 +598,22 @@
                     <br />
                     <br />
                     <div class="icono_correo">
-                        @if (ViewBag.PaisID == 2 || ViewBag.PaisID == 3 || ViewBag.PaisID == 4 || ViewBag.PaisID == 6 || ViewBag.PaisID == 7 || ViewBag.PaisID == 8 || ViewBag.PaisID == 11 || ViewBag.PaisID == 13 || ViewBag.PaisID == 14)
+                        @if (ViewBag.PaisID == 2 
+                            || ViewBag.PaisID == 3 
+                            || ViewBag.PaisID == 4 
+                            || ViewBag.PaisID == 6 
+                            || ViewBag.PaisID == 7 
+                            || ViewBag.PaisID == 8 
+                            || ViewBag.PaisID == 11 
+                            || ViewBag.PaisID == 13 
+                            || ViewBag.PaisID == Constantes.PaisID.Venezuela)
                         {
                             <img src="~/Content/Images/Login2/Icons/icono-envelope-esika.png" alt="Nuevo Correo" />
                         }
-                        else if (ViewBag.PaisID == 5 || ViewBag.PaisID == 9 || ViewBag.PaisID == 10 || ViewBag.PaisID == 12)
+                        else if (ViewBag.PaisID == 5 
+                            || ViewBag.PaisID == 9 
+                            || ViewBag.PaisID == 10 
+                            || ViewBag.PaisID == 12)
                         {
                             <img src="~/Content/Images/Login2/Icons/icono-envelope-lbel.png" alt="Nuevo Correo" />
                         }

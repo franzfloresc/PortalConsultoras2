@@ -1189,14 +1189,23 @@ namespace Portal.Consultoras.BizLogic
                         if (idEstadoActividad != -1)
                         {
                             // Validamos si pertenece a Peru, Bolivia, Chile, Guatemala, El Salvador, Colombia (Paises ESIKA)
-                            if (paisID == 11 || paisID == 2 || paisID == 3 || paisID == 8 || paisID == 7 || paisID == 4)
+                            if (paisID == 11 
+                                || paisID == 2 
+                                || paisID == 3 
+                                || paisID == 8 
+                                || paisID == 7 
+                                || paisID == 4)
                             {
                                 //Validamos si el estado es retirada
                                 BETablaLogicaDatos restriccion = tablaRetirada.Find(p => Convert.ToInt32(p.Codigo.Trim()) == idEstadoActividad);
                                 if (restriccion != null)
                                 {
                                     //Validamos si el pais es SICC
-                                    if (paisID == 11 || paisID == 3 || paisID == 8 || paisID == 7 || paisID == 4)
+                                    if (paisID == 11 
+                                        || paisID == 3
+                                        || paisID == 8
+                                        || paisID == 7
+                                        || paisID == 4)
                                     {
                                         //Caso Colombia
                                         if (paisID == 4)
@@ -1268,7 +1277,11 @@ namespace Portal.Consultoras.BizLogic
                                                 if (autorizaPedido == "N")
                                                 {
                                                     //Validamos si es SICC o Bolivia
-                                                    if (paisID == 11 || paisID == 3 || paisID == 8 || paisID == 7 || paisID == 2)
+                                                    if (paisID == 11 
+                                                        || paisID == 3 
+                                                        || paisID == 8 
+                                                        || paisID == 7 
+                                                        || paisID == 2)
                                                         return 2;
                                                     else
                                                         return 3;
@@ -1295,7 +1308,12 @@ namespace Portal.Consultoras.BizLogic
                                         if (autorizaPedido == "N")
                                         {
                                             //Validamos si es SICC o Bolivia
-                                            if (paisID == 11 || paisID == 3 || paisID == 8 || paisID == 7 || paisID == 2 || paisID == 4)
+                                            if (paisID == 11 
+                                                || paisID == 3 
+                                                || paisID == 8 
+                                                || paisID == 7 
+                                                || paisID == 2 
+                                                || paisID == 4)
                                                 return 2;
                                             else
                                                 return 3;
@@ -1307,14 +1325,24 @@ namespace Portal.Consultoras.BizLogic
                                 }
                             }
                             // Validamos si pertenece a Costa Rica, Panama, Mexico, Puerto Rico, Dominicana, Ecuador, Argentina (Paises MyLbel)
-                            else if (paisID == 5 || paisID == 10 || paisID == 9 || paisID == 12 || paisID == 13 || paisID == 6 || paisID == 1 || paisID == 14)
+                            else if (paisID == 5 
+                                || paisID == 10 
+                                || paisID == 9
+                                || paisID == 12 
+                                || paisID == 13 
+                                || paisID == 6 
+                                || paisID == 1 
+                                || paisID == Constantes.PaisID.Venezuela)
                             {
                                 // Validamos si la consultora es retirada
                                 BETablaLogicaDatos restriccion = tablaRetirada.Find(p => Convert.ToInt32(p.Codigo.Trim()) == idEstadoActividad);
                                 if (restriccion != null)
                                 {
                                     //Validamos si el pais es SICC
-                                    if (paisID == 5 || paisID == 10 || paisID == 6 || paisID == 14)
+                                    if (paisID == 5 
+                                        || paisID == 10 
+                                        || paisID == 6 
+                                        || paisID == Constantes.PaisID.Venezuela)
                                     {
                                         //Validamos el Autoriza Pedido
                                         if (autorizaPedido == "N")
@@ -1345,7 +1373,13 @@ namespace Portal.Consultoras.BizLogic
                                         if (autorizaPedido == "N")
                                         {
                                             //Validamos si es SICC
-                                            if (paisID == 5 || paisID == 10 || paisID == 6 || paisID == 14 || paisID == 9 || paisID == 12 || paisID == 13)
+                                            if (paisID == 5 
+                                                || paisID == 10 
+                                                || paisID == 6 
+                                                || paisID == 13
+                                                || paisID == 9 
+                                                || paisID == 12 
+                                                || paisID == Constantes.PaisID.Venezuela)
                                                 return 2;
                                             else
                                                 return 3;
@@ -1359,7 +1393,13 @@ namespace Portal.Consultoras.BizLogic
                                         if (autorizaPedido == "N")
                                         {
                                             //Validamos si es SICC
-                                            if (paisID == 5 || paisID == 10 || paisID == 6 || paisID == 14 || paisID == 9 || paisID == 12 || paisID == 13)
+                                            if (paisID == 5 
+                                                || paisID == 10 
+                                                || paisID == 6 
+                                                || paisID == 13 
+                                                || paisID == 9 
+                                                || paisID == 12 
+                                                || paisID == Constantes.PaisID.Venezuela)
                                                 return 2;
                                             else
                                                 return 3;
@@ -1430,7 +1470,12 @@ namespace Portal.Consultoras.BizLogic
             if (idEstadoActividad == -1) return 3; //Se asume para usuarios del tipo SAC
 
             // Validamos si pertenece a Peru, Bolivia, Chile, Guatemala, El Salvador, Colombia (Paises ESIKA)
-            if (paisID == 11 || paisID == 2 || paisID == 3 || paisID == 8 || paisID == 7 || paisID == 4)
+            if (paisID == 11 
+                || paisID == 2 
+                || paisID == 3 
+                || paisID == 8 
+                || paisID == 7 
+                || paisID == 4)
             {
                 //Validamos si el estado es retirada
                 BETablaLogicaDatos restriccion = tablaRetirada.Find(p => Convert.ToInt32(p.Codigo.Trim()) == idEstadoActividad);
@@ -1465,7 +1510,14 @@ namespace Portal.Consultoras.BizLogic
                 return autorizado ? 3 : 2;
             }
             // Validamos si pertenece a Costa Rica, Panama, Mexico, Puerto Rico, Dominicana, Ecuador, Argentina (Paises MyLbel)
-            else if (paisID == 5 || paisID == 10 || paisID == 9 || paisID == 12 || paisID == 13 || paisID == 6 || paisID == 1 || paisID == 14)
+            else if (paisID == 5 
+                || paisID == 10 
+                || paisID == 9 
+                || paisID == 12 
+                || paisID == 13 
+                || paisID == 6 
+                || paisID == 1 
+                || paisID == Constantes.PaisID.Venezuela)
             {
                 // Validamos si la consultora es retirada
                 BETablaLogicaDatos restriccion = tablaRetirada.Find(p => Convert.ToInt32(p.Codigo.Trim()) == idEstadoActividad);

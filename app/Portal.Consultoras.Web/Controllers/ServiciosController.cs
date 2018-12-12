@@ -1272,7 +1272,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = PaisId == 14
+                lst = PaisId == Constantes.PaisID.Venezuela
                     ? sv.GetSegmentoBanner(PaisId)
                     : sv.GetSegmentoInternoBanner(PaisId);
             }
