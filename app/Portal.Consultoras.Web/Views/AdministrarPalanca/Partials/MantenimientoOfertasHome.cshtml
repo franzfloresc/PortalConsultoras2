@@ -55,7 +55,8 @@
             </div>
 
             <div class="div-3 hide-config-image-odd">
-                <div class="titG" style="padding-bottom: 0;">Color Fondo:
+                <div class="titG" style="padding-bottom: 0;">
+                    Color Fondo:
                     <h6>(#F421E7)</h6>
                 </div>
                 <br />
@@ -84,9 +85,10 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="div-3 hide-config-image-odd">
-                <div class="titG" style="padding-bottom: 0;">Color Texto:
+                <div class="titG" style="padding-bottom: 0;">
+                    Color Texto:
                     <h6>(#F421E7)</h6>
                 </div>
                 <br />
@@ -135,7 +137,7 @@
                                  style="display: inline-block !important; margin: 5px; vertical-align: middle; height: 15px !important;" />
                 </div>
             </div>
-            
+
             <div class="div-3">
                 <div class="titG">Tipo Presentación:</div>
                 <div class="titG borde_redondeado">
@@ -170,7 +172,8 @@
             </div>
 
             <div class="div-3 hide-config-image-odd">
-                <div class="titG" style="padding-bottom: 0;">Color Fondo:
+                <div class="titG" style="padding-bottom: 0;">
+                    Color Fondo:
                     <h6>(#F421E7)</h6>
                 </div>
                 <br />
@@ -201,7 +204,8 @@
             </div>
 
             <div class="div-3 hide-config-image-odd">
-                <div class="titG" style="padding-bottom: 0;">Color Texto:
+                <div class="titG" style="padding-bottom: 0;">
+                    Color Texto:
                     <h6>(#F421E7)</h6>
                 </div>
                 <br />
@@ -248,14 +252,14 @@
                                  style="display: inline-block !important; margin: 5px; vertical-align: middle; height: 15px !important;" />
                 </div>
             </div>
-            
+
             <div class="div-3">
                 <div class="titG">Tipo Presentación:</div>
                 <div class="titG borde_redondeado">
                     @Html.DropDownListFor(model => model.MobileTipoPresentacion, new SelectList(Model.ListaTipoPresentacion, "Codigo", "Descripcion"), "-- Seleccionar --", new { id = "ddlMobileTipoPresentacionOfertas" })
                 </div>
             </div>
-            
+
             <div class="hide-configuration">
                 <div class="div-3">
                     <div class="titG">Tipo Estrategia:</div>
@@ -264,14 +268,14 @@
                 <div class="div-3">
                     <div class="borde_redondeado">
                         @foreach (var estrategia in Model.ListaTipoEstrategia)
-                {
-                    if (!string.IsNullOrEmpty(estrategia.Codigo))
-                    {
-                        bool checked1 = Model.MobileTipoEstrategia.Trim().Contains(estrategia.Codigo);
-                        <input name="mobile-tipo-estrategia" type="checkbox" value="@estrategia.Codigo" checked="@checked1" style="display: inline-block !important;height: 13px !important;">
-                        <label>@estrategia.Descripcion</label> <br />
-            }
-        }
+                        {
+                            if (!string.IsNullOrEmpty(estrategia.Codigo))
+                            {
+                                bool checked1 = Model.MobileTipoEstrategia.Trim().Contains(estrategia.Codigo);
+                                <input name="mobile-tipo-estrategia" type="checkbox" value="@estrategia.Codigo" checked="@checked1" style="display: inline-block !important;height: 13px !important;">
+                                <label>@estrategia.Descripcion</label> <br />
+                            }
+                        }
                     </div>
                 </div>
             </div>

@@ -15,6 +15,7 @@ using Portal.Consultoras.Web.SessionManager.ShowRoom;
 using System;
 using System.Collections.Generic;
 using System.Web;
+using Portal.Consultoras.Web.Models.Recomendaciones;
 
 namespace Portal.Consultoras.Web.SessionManager
 {
@@ -841,12 +842,37 @@ namespace Portal.Consultoras.Web.SessionManager
 
             return (FichaProductoDetalleModel)val;
         }
+
+        void ISessionManager.SetCDRPedidoFacturado(List<BEPedidoWeb> val)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.CDRProductoFacturado] = val;
+        }
+
+        List<BEPedidoWeb> ISessionManager.GetCDRPedidoFacturado()
+        {
+            var val = HttpContext.Current.Session[Constantes.ConstSession.CDRProductoFacturado];
+
+            return (List<BEPedidoWeb>)val;
+        }
+
         void ISessionManager.SetCDRCampanias(List<CampaniaModel> val)
         {
             HttpContext.Current.Session[Constantes.ConstSession.CDRCampanias] = val;
         }
 
         List<CampaniaModel> ISessionManager.GetCDRCampanias()
+        {
+            var val = HttpContext.Current.Session[Constantes.ConstSession.CDRCampanias];
+
+            return (List<CampaniaModel>)val;
+        }
+
+        void ISessionManager.SetCDRPedidoID(List<CampaniaModel> val)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.CDRCampanias] = val;
+        }
+
+        List<CampaniaModel> ISessionManager.GetCDRPedidoID()
         {
             var val = HttpContext.Current.Session[Constantes.ConstSession.CDRCampanias];
 
@@ -1280,16 +1306,27 @@ namespace Portal.Consultoras.Web.SessionManager
             return (List<List<BEEstadoServicio>>)val;
         }
 
-        public void SetBuscadorYFiltros(BuscadorYFiltrosConfiguracionModel buscadorYFiltrosModel)
+        public void SetBuscadorYFiltrosConfig(BuscadorYFiltrosConfiguracionModel buscadorYFiltrosModel)
         {
-            HttpContext.Current.Session["BuscadorYFiltros"] = buscadorYFiltrosModel;
+            HttpContext.Current.Session[Constantes.ConstSession.BuscadorYFiltrosConfig] = buscadorYFiltrosModel;
         }
 
-        public BuscadorYFiltrosConfiguracionModel GetBuscadorYFiltros()
+        public BuscadorYFiltrosConfiguracionModel GetBuscadorYFiltrosConfig()
         {
-            return ((BuscadorYFiltrosConfiguracionModel)HttpContext.Current.Session["BuscadorYFiltros"]) ?? new BuscadorYFiltrosConfiguracionModel();
+            return (BuscadorYFiltrosConfiguracionModel)HttpContext.Current.Session[Constantes.ConstSession.BuscadorYFiltrosConfig] ?? new BuscadorYFiltrosConfiguracionModel();
         }
 
+        public void SetRecomendacionesConfig(RecomendacionesConfiguracionModel recomendacionesConfiguracionModel)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.RecomendacionesConfig] = recomendacionesConfiguracionModel;
+        }
+
+        public RecomendacionesConfiguracionModel GetRecomendacionesConfig()
+        {
+            return (RecomendacionesConfiguracionModel)HttpContext.Current.Session[Constantes.ConstSession.RecomendacionesConfig] ?? new RecomendacionesConfiguracionModel();
+        }
+        
+        
         public BEUsuarioDatos GetDatosUsuario() {
             return ((BEUsuarioDatos)HttpContext.Current.Session["DatosUsuario"]);
         }
@@ -1301,7 +1338,7 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             HttpContext.Current.Session[Constantes.ConstSession.JwtApiSomosBelcorp] = token;
         }
-         string ISessionManager.GetJwtApiSomosBelcorp()
+        string ISessionManager.GetJwtApiSomosBelcorp()
         {
             return (string)HttpContext.Current.Session[Constantes.ConstSession.JwtApiSomosBelcorp] ;
         }

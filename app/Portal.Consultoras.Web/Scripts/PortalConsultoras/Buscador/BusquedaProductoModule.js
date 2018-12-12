@@ -35,7 +35,8 @@
         criteriosBuscadorDesktop: '.criteriosBuscadorDesktop',
         mostrarLayoutCriterios: '.layout__content__etiquetas__criteriosElegidos',
         etiquetaCriterioElegido: '.icono__eliminar__criterioElegido',
-        filtroBtnMobileWrapper: '.filtro__btn__mobile__wrapper'
+        filtroBtnMobileWrapper: '.filtro__btn__mobile__wrapper',
+        valueJSON: ".hdBuscadorJSON"
     };
     var _modificador = {
         itemDropDowndesplegado: "opcion__ordenamiento__dropdown--desplegado",
@@ -99,7 +100,6 @@
             $(document).on("click", _elementos.buscadorFiltrosSeleccionar, _eventos.FiltrosSelecionados);
             $(document).on("click", _elementos.eliminarEtiquetaCriterioElegido, _eventos.EliminarEtiquetaCriterioElegido);
             $(document).on("click", _elementos.enlaceLimpiarEtiquetasFiltros, _eventos.LimpiarEtiquetasFiltros);
-            //$(document).on("click", _elementos.etiquetaCriterioElegido, _eventos.eliminarCriterio);
         },
         ConstruirModeloBusqueda: function () {
             var modelo = {
@@ -497,9 +497,9 @@
                     _funciones.cerrarCargafiltros();
                 });
 
-            $('.ul-seleccionado').html(textoOrdenamiento);       
+            $('.ul-seleccionado').html(textoOrdenamiento);
 
-         
+
         },
         MostrarFiltrosMobile: function (e) {
             e.preventDefault();
@@ -575,8 +575,7 @@
             e.preventDefault();
             AbrirLoad();
             var divPadre = $(this).parents("[data-item='BuscadorFichasProductos']").eq(0);
-            var textoBusqueda = $('#TextoBusqueda').html();
-            BuscadorProvider.RegistroProductoBuscador(divPadre, textoBusqueda);
+            BuscadorProvider.RegistroProductoBuscador(divPadre, _elementos.valueJSON);            
         },
         RedireccionarAFichaDeFotoYDescripcion: function (e) {
             e.preventDefault();
@@ -598,13 +597,11 @@
                 var UrlDetalle = GetPalanca(codigoEstrategia);
                 if (UrlDetalle == "") return false;
                 UrlDetalle += codigoCampania + "/" + codigoCuv + "/" + origenPedidoWeb;
-                //console.log(UrlDetalle);
+
                 window.location = UrlDetalle;
-                //virtualEvent('Resultados de Búsqueda', 'Elige tu opción', descripcionProducto + ' - ' + _config.textoBusqueda);
 
                 if (!(typeof AnalyticsPortalModule === 'undefined'))
                     AnalyticsPortalModule.MarcaEligeTuOpcionBuscador(descripcionProducto + ' - ' + _config.textoBusqueda);
-
 
                 return true;
             }

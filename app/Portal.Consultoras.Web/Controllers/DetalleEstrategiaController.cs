@@ -46,8 +46,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return base.Ficha(palanca, campaniaId, cuv, origen);
-
-            //  return View();
+            
         }
 
         public JsonResult ObtenerComponentes(string estrategiaId, string cuv2, string campania, string codigoVariante, string codigoEstrategia = "", List<EstrategiaComponenteModel> lstHermanos = null)

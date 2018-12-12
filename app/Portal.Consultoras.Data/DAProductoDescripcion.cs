@@ -72,35 +72,37 @@ namespace Portal.Consultoras.Data
 
         public void UpdProductoDescripcionMasivo(int paisID, int CampaniaCodigo, IEnumerable<BEProductoDescripcion> productos, string codigoUsuario)
         {
-            //var dtCronograma = new DataTable();
-            //dtCronograma.Columns.Add("CUV", typeof(string));
-            //dtCronograma.Columns.Add("Descripcion", typeof(string));
-            //dtCronograma.Columns.Add("PrecioProducto", typeof(int));
-            //dtCronograma.Columns.Add("FactorRepeticion", typeof(string));
+            /*
+            var dtCronograma = new DataTable();
+            dtCronograma.Columns.Add("CUV", typeof(string));
+            dtCronograma.Columns.Add("Descripcion", typeof(string));
+            dtCronograma.Columns.Add("PrecioProducto", typeof(int));
+            dtCronograma.Columns.Add("FactorRepeticion", typeof(string));
 
-            //foreach (BEProductoDescripcion be in productos)
-            //{
-            //    dtCronograma.Rows.Add(be.CUV, be.Descripcion, be.PrecioProducto, be.FactorRepeticion);
-            //}
-            //dtCronograma.AcceptChanges();
+            foreach (BEProductoDescripcion be in productos)
+            {
+                dtCronograma.Rows.Add(be.CUV, be.Descripcion, be.PrecioProducto, be.FactorRepeticion);
+            }
+            dtCronograma.AcceptChanges();
 
-            //var command = new SqlCommand("dbo.InsMatrizCampaniaMasivo");
-            //command.CommandType = CommandType.StoredProcedure;
+            var command = new SqlCommand("dbo.InsMatrizCampaniaMasivo");
+            command.CommandType = CommandType.StoredProcedure;
 
-            //var parameter = new SqlParameter("@ProductoDescripcion", SqlDbType.Structured);
-            //parameter.TypeName = "dbo.MatrizCampaniaMasivaType";
-            //parameter.Value = dtCronograma;
-            //command.Parameters.Add(parameter);
+            var parameter = new SqlParameter("@ProductoDescripcion", SqlDbType.Structured);
+            parameter.TypeName = "dbo.MatrizCampaniaMasivaType";
+            parameter.Value = dtCronograma;
+            command.Parameters.Add(parameter);
 
-            //var parameter1 = new SqlParameter("@CampaniaID", SqlDbType.Int);
-            //parameter1.Value = CampaniaCodigo;
-            //command.Parameters.Add(parameter1);
+            var parameter1 = new SqlParameter("@CampaniaID", SqlDbType.Int);
+            parameter1.Value = CampaniaCodigo;
+            command.Parameters.Add(parameter1);
 
-            //var parameter2 = new SqlParameter("@CodigoUsuario", SqlDbType.VarChar);
-            //parameter2.Value = codigoUsuario.ToString();
-            //command.Parameters.Add(parameter2);
+            var parameter2 = new SqlParameter("@CodigoUsuario", SqlDbType.VarChar);
+            parameter2.Value = codigoUsuario.ToString();
+            command.Parameters.Add(parameter2);
 
-            //Context.ExecuteNonQuery(command);
+            Context.ExecuteNonQuery(command);
+            */
         }
 
 
