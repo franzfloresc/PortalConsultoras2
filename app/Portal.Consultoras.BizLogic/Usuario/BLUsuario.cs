@@ -1327,7 +1327,7 @@ namespace Portal.Consultoras.BizLogic
                             // Validamos si pertenece a Costa Rica, Panama, Mexico, Puerto Rico, Dominicana, Ecuador, Argentina (Paises MyLbel)
                             else if (paisID == 5
                                 || paisID == 1
-                                || paisID == 6
+                                || paisID == Constantes.PaisID.Ecuador
                                 || paisID == Constantes.PaisID.Mexico
                                 || paisID == Constantes.PaisID.Panama
                                 || paisID == Constantes.PaisID.PuertoRico
@@ -1340,7 +1340,7 @@ namespace Portal.Consultoras.BizLogic
                                 {
                                     //Validamos si el pais es SICC
                                     if (paisID == 5
-                                        || paisID == 6
+                                        || paisID == Constantes.PaisID.Ecuador
                                         || paisID == Constantes.PaisID.Panama
                                         || paisID == Constantes.PaisID.Venezuela)
                                     {
@@ -1374,7 +1374,7 @@ namespace Portal.Consultoras.BizLogic
                                         {
                                             //Validamos si es SICC
                                             if (paisID == 5
-                                                || paisID == 6
+                                                || paisID == Constantes.PaisID.Ecuador
                                                 || paisID == Constantes.PaisID.Mexico
                                                 || paisID == Constantes.PaisID.Panama
                                                 || paisID == Constantes.PaisID.PuertoRico
@@ -1394,7 +1394,7 @@ namespace Portal.Consultoras.BizLogic
                                         {
                                             //Validamos si es SICC
                                             if (paisID == 5
-                                                || paisID == 6
+                                                || paisID == Constantes.PaisID.Ecuador
                                                 || paisID == Constantes.PaisID.Mexico
                                                 || paisID == Constantes.PaisID.Panama
                                                 || paisID == Constantes.PaisID.PuertoRico
@@ -1512,7 +1512,7 @@ namespace Portal.Consultoras.BizLogic
             // Validamos si pertenece a Costa Rica, Panama, Mexico, Puerto Rico, Dominicana, Ecuador, Argentina (Paises MyLbel)
             else if (paisID == 5
                 || paisID == 1
-                || paisID == 6
+                || paisID == Constantes.PaisID.Ecuador
                 || paisID == Constantes.PaisID.Mexico
                 || paisID == Constantes.PaisID.Panama
                 || paisID == Constantes.PaisID.PuertoRico

@@ -188,7 +188,7 @@ namespace Portal.Consultoras.BizLogic
             // Validamos si pertenece a Costa Rica, Panama, Mexico, Puerto Rico, Dominicana, Ecuador, Argentina (Paises MyLbel)
             else if (paisID == 5
                 || paisID == 1
-                || paisID == 6
+                || paisID == Constantes.PaisID.Ecuador
                 || paisID == Constantes.PaisID.Mexico
                 || paisID == Constantes.PaisID.Panama
                 || paisID == Constantes.PaisID.PuertoRico
