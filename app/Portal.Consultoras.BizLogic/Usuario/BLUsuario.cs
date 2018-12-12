@@ -1322,7 +1322,7 @@ namespace Portal.Consultoras.BizLogic
                                 }
                             }
                             // Validamos si pertenece a Costa Rica, Panama, Mexico, Puerto Rico, Dominicana, Ecuador, Argentina (Paises MyLbel)
-                            else if (paisID == 1
+                            else if (paisID == Constantes.PaisID.Argentina
                                 || paisID == Constantes.PaisID.CostaRica
                                 || paisID == Constantes.PaisID.Ecuador
                                 || paisID == Constantes.PaisID.Mexico
@@ -1507,7 +1507,7 @@ namespace Portal.Consultoras.BizLogic
                 return autorizado ? 3 : 2;
             }
             // Validamos si pertenece a Costa Rica, Panama, Mexico, Puerto Rico, Dominicana, Ecuador, Argentina (Paises MyLbel)
-            else if (paisID == 1
+            else if (paisID == Constantes.PaisID.Argentina
                 || paisID == Constantes.PaisID.CostaRica
                 || paisID == Constantes.PaisID.Ecuador
                 || paisID == Constantes.PaisID.Mexico
