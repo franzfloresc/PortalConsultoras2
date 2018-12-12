@@ -186,8 +186,8 @@ namespace Portal.Consultoras.BizLogic
                 return autorizado ? 1 : 0;
             }
             // Validamos si pertenece a Costa Rica, Panama, Mexico, Puerto Rico, Dominicana, Ecuador, Argentina (Paises MyLbel)
-            else if (paisID == 5
-                || paisID == 1
+            else if (paisID == 1
+                || paisID == Constantes.PaisID.CostaRica
                 || paisID == Constantes.PaisID.Ecuador
                 || paisID == Constantes.PaisID.Mexico
                 || paisID == Constantes.PaisID.Panama

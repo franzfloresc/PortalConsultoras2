@@ -1325,8 +1325,8 @@ namespace Portal.Consultoras.BizLogic
                                 }
                             }
                             // Validamos si pertenece a Costa Rica, Panama, Mexico, Puerto Rico, Dominicana, Ecuador, Argentina (Paises MyLbel)
-                            else if (paisID == 5
-                                || paisID == 1
+                            else if (paisID == 1
+                                || paisID == Constantes.PaisID.CostaRica
                                 || paisID == Constantes.PaisID.Ecuador
                                 || paisID == Constantes.PaisID.Mexico
                                 || paisID == Constantes.PaisID.Panama
@@ -1339,7 +1339,7 @@ namespace Portal.Consultoras.BizLogic
                                 if (restriccion != null)
                                 {
                                     //Validamos si el pais es SICC
-                                    if (paisID == 5
+                                    if (paisID == Constantes.PaisID.CostaRica
                                         || paisID == Constantes.PaisID.Ecuador
                                         || paisID == Constantes.PaisID.Panama
                                         || paisID == Constantes.PaisID.Venezuela)
@@ -1373,7 +1373,7 @@ namespace Portal.Consultoras.BizLogic
                                         if (autorizaPedido == "N")
                                         {
                                             //Validamos si es SICC
-                                            if (paisID == 5
+                                            if (paisID == Constantes.PaisID.CostaRica
                                                 || paisID == Constantes.PaisID.Ecuador
                                                 || paisID == Constantes.PaisID.Mexico
                                                 || paisID == Constantes.PaisID.Panama
@@ -1393,7 +1393,7 @@ namespace Portal.Consultoras.BizLogic
                                         if (autorizaPedido == "N")
                                         {
                                             //Validamos si es SICC
-                                            if (paisID == 5
+                                            if (paisID == Constantes.PaisID.CostaRica
                                                 || paisID == Constantes.PaisID.Ecuador
                                                 || paisID == Constantes.PaisID.Mexico
                                                 || paisID == Constantes.PaisID.Panama
@@ -1510,8 +1510,8 @@ namespace Portal.Consultoras.BizLogic
                 return autorizado ? 3 : 2;
             }
             // Validamos si pertenece a Costa Rica, Panama, Mexico, Puerto Rico, Dominicana, Ecuador, Argentina (Paises MyLbel)
-            else if (paisID == 5
-                || paisID == 1
+            else if (paisID == 1
+                || paisID == Constantes.PaisID.CostaRica
                 || paisID == Constantes.PaisID.Ecuador
                 || paisID == Constantes.PaisID.Mexico
                 || paisID == Constantes.PaisID.Panama
