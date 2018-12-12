@@ -185,9 +185,9 @@ namespace Portal.Consultoras.BizLogic
                 || paisID == 10 
                 || paisID == 9
                 || paisID == 12 
-                || paisID == 13 
-                || paisID == 6 
                 || paisID == 1 
+                || paisID == 6 
+                || paisID == Constantes.PaisID.RepublicaDominicana
                 || paisID == Constantes.PaisID.Venezuela)
             {
                 // Validamos si la consultora es retirada

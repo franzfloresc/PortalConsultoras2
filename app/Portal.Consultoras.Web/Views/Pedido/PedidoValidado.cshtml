@@ -112,8 +112,13 @@
                     string cabezaEscala = null, pieEscala = null;
                     string lbl1Ganancia = null, lbl2Ganancia = null;
 
-                    if (Model.PaisID == 11 || Model.PaisID == 4 || Model.PaisID == 6 || Model.PaisID == 7 || Model.PaisID == 8
-                        || Model.PaisID == 12 || Model.PaisID == 13) //PE,CO,EC,GT.SV,PR,DO
+                    if (Model.PaisID == 11 
+                        || Model.PaisID == 4 
+                        || Model.PaisID == 6 
+                        || Model.PaisID == 7 
+                        || Model.PaisID == 8
+                        || Model.PaisID == 12 
+                        || Model.PaisID == Constantes.PaisID.RepublicaDominicana) //PE,CO,EC,GT.SV,PR,DO
                     {
                         cabezaEscala = "Ganancia estimada total";
                         pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocio y Otros";
