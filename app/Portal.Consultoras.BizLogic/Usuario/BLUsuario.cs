@@ -1328,9 +1328,9 @@ namespace Portal.Consultoras.BizLogic
                             else if (paisID == 5 
                                 || paisID == 10 
                                 || paisID == 9
-                                || paisID == 12 
-                                || paisID == 1 
                                 || paisID == 6 
+                                || paisID == 1 
+                                || paisID == Constantes.PaisID.PuertoRico
                                 || paisID == Constantes.PaisID.RepublicaDominicana
                                 || paisID == Constantes.PaisID.Venezuela)
                             {
@@ -1376,8 +1376,8 @@ namespace Portal.Consultoras.BizLogic
                                             if (paisID == 5 
                                                 || paisID == 10 
                                                 || paisID == 6 
-                                                || paisID == 12
-                                                || paisID == 9 
+                                                || paisID == 9
+                                                || paisID == Constantes.PaisID.PuertoRico
                                                 || paisID == Constantes.PaisID.RepublicaDominicana
                                                 || paisID == Constantes.PaisID.Venezuela)
                                                 return 2;
@@ -1396,8 +1396,8 @@ namespace Portal.Consultoras.BizLogic
                                             if (paisID == 5 
                                                 || paisID == 10 
                                                 || paisID == 6 
-                                                || paisID == 12 
                                                 || paisID == 9 
+                                                || paisID == Constantes.PaisID.PuertoRico
                                                 || paisID == Constantes.PaisID.RepublicaDominicana
                                                 || paisID == Constantes.PaisID.Venezuela)
                                                 return 2;
@@ -1513,9 +1513,9 @@ namespace Portal.Consultoras.BizLogic
             else if (paisID == 5 
                 || paisID == 10 
                 || paisID == 9 
-                || paisID == 12 
-                || paisID == 1 
                 || paisID == 6 
+                || paisID == 1 
+                || paisID == Constantes.PaisID.PuertoRico
                 || paisID == Constantes.PaisID.RepublicaDominicana
                 || paisID == Constantes.PaisID.Venezuela)
             {

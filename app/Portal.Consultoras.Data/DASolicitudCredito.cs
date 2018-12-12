@@ -22,7 +22,7 @@
             Context.Database.AddInParameter(command, "@datSysFechaCreacion", DbType.DateTime, objSolicitud.FechaCreacion);
             Context.Database.AddInParameter(command, "@intSEQProcesoOUT", DbType.Int32, objSolicitud.CodigoLote);
 
-            if (objSolicitud.PaisID == 12 || objSolicitud.PaisID == Constantes.PaisID.RepublicaDominicana)
+            if (objSolicitud.PaisID == Constantes.PaisID.PuertoRico || objSolicitud.PaisID == Constantes.PaisID.RepublicaDominicana)
             {
                 Context.Database.AddInParameter(command, "@TipoSolicitud", DbType.String, objSolicitud.TipoSolicitud);
                 Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, objSolicitud.CodigoConsultora);
@@ -191,7 +191,7 @@
             else
                 Context.Database.AddInParameter(command, "@CodigoLote", DbType.Int32, estadoSolicitud);
 
-            if (paisID == 12 || paisID == Constantes.PaisID.RepublicaDominicana)
+            if (paisID == Constantes.PaisID.PuertoRico || paisID == Constantes.PaisID.RepublicaDominicana)
             {
                 if (string.IsNullOrEmpty(TipoSolicitud))
                     Context.Database.AddInParameter(command, "@TipoSolicitud", DbType.String, DBNull.Value);
