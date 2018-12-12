@@ -1599,12 +1599,12 @@ var AnalyticsPortalModule = (function () {
 * Nombre Archivo Desktop: Scripts\PortalConsultoras\Shared\MenuContenedor.js
 * Linea de Código Desktop: 284
 */
-    var marcaClicVerMasOfertas = function (url, origenPedido) {
+    var marcaClicVerMasOfertas = function (url, origenPedido,titulo) {
         try {
             if (_constantes.isTest)
                 alert("Marcación Ver más ofertas.");
             var esRevisar = window.actionName == "revisar" ? true : false;
-            var nombreBoton = "Ver más Ofertas";
+            var nombreBoton = titulo;            
             var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(origenPedido);
             dataLayer.push({
                 'event': _evento.virtualEvent,
@@ -2511,15 +2511,15 @@ var AnalyticsPortalModule = (function () {
         }
     }
 
-    function marcarClickMasOfertasMG(url, origenPedido) {
+    function marcarClickMasOfertasMG(url, origenPedido, titulo) {
         try {
-            //var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(origenPedido);
-
+            var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(origenPedido);
+            var nombreBoton = titulo;  
             dataLayer.push({
                 'event': _evento.virtualEvent,
-                'category': fnObtenerContenedor(),
-                'action': 'Las Más Ganadoras - Clic Botón',
-                'label': 'Ver más ofertas',
+                'category': fnObtenerContenedor() + ' - ' + palanca,
+                'action': 'Clic Botón',
+                'label': nombreBoton,
                 'eventCallback': function () {
                     document.location = url;
                 }
@@ -2531,14 +2531,15 @@ var AnalyticsPortalModule = (function () {
         }
     }
 
-    function marcarClickMasOfertasBannerMG(url) {
+    function marcarClickMasOfertasBannerMG(url,origenPedido, titulo) {
         try {
-
+            var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(origenPedido);
+            var nombreBoton = titulo;  
             dataLayer.push({
                 'event': _evento.virtualEvent,
-                'category': fnObtenerContenedor(),
-                'action': 'Las Más Ganadoras - Clic Banner',
-                'label': 'Ver más',
+                'category': fnObtenerContenedor() + ' - ' + palanca,
+                'action': 'Clic Botón',
+                'label': nombreBoton,
                 'eventCallback': function () {
                     document.location = url;
                 }

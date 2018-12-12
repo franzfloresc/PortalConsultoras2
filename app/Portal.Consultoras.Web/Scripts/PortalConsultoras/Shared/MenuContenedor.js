@@ -304,13 +304,13 @@ var menuModule = (function () {
             OrigenPedidoWeb = OrigenPedidoWeb || "";
             if (url.indexOf(ConstantesModule.CodigosPalanca.Ganadoras) > 0) {
                 if (titulo === "BotonVerMas")
-                    AnalyticsPortalModule.MarcarClickMasOfertasMG(url, OrigenPedidoWeb);
+                    AnalyticsPortalModule.MarcarClickMasOfertasMG(url, OrigenPedidoWeb, e.innerText);
                 if (titulo === "BannerMG") {
                     AnalyticsPortalModule.MarcarClickMasOfertasPromotionClickMG();
-                    AnalyticsPortalModule.MarcarClickMasOfertasBannerMG(url);
+                    AnalyticsPortalModule.MarcarClickMasOfertasBannerMG(url,OrigenPedidoWeb, e.innerText);
                 }   
             } else
-                AnalyticsPortalModule.MarcaClicVerMasOfertas(url, OrigenPedidoWeb);
+                AnalyticsPortalModule.MarcaClicVerMasOfertas(url, OrigenPedidoWeb, e.innerText);
         }
             
         //window.location.href = url;
