@@ -28414,6 +28414,12 @@ div.motivoRechazo textarea {
     color: #b5b5b5;
 }
 
+.content_motivo_wrapper{
+    margin: 0 auto 15px auto;
+    width:100%;
+    max-width: 850px;
+}
+
 .content_motivo_select {
     width: 100%;
     margin-right: 10%;
