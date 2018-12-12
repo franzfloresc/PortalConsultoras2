@@ -12,7 +12,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class CUVAutomaticoController : BaseController
+    public class CUVAutomaticoController : BaseAdmController
     {
         public async Task<ActionResult> Index()
         {
@@ -51,18 +51,7 @@ namespace Portal.Consultoras.Web.Controllers
                 sv.LoadConsultoraCodigo(paisId);
             }
         }
-
-        private IEnumerable<CampaniaModel> DropDowListCampanias(int paisId)
-        {
-            IList<BECampania> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = sv.SelectCampanias(paisId);
-            }
-
-            return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
-        }
-
+        
         public JsonResult ObtenterCampanias(int PaisID)
         {
             if (PaisID == 0)
@@ -73,7 +62,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
 
-            var lst = DropDowListCampanias(PaisID);
+            var lst = _zonificacionProvider.GetCampanias(PaisID);
 
             return Json(new
             {

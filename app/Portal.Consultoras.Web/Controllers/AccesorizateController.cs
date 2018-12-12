@@ -14,7 +14,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class AccesorizateController : BaseController
+    public class AccesorizateController : BaseAdmController
     {
         #region Visualización de Pedidos Liquidación
 
@@ -390,7 +390,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ObtenterCampaniasPorPais(int PaisID)
         {
-            IEnumerable<CampaniaModel> lst = DropDowListCampanias(PaisID);
+            IEnumerable<CampaniaModel> lst = _zonificacionProvider.GetCampanias(PaisID);
             IEnumerable<ConfiguracionOfertaModel> lstConfig = DropDowListConfiguracion(PaisID);
             return Json(new
             {
@@ -413,18 +413,7 @@ namespace Portal.Consultoras.Web.Controllers
                 lista = lst
             }, JsonRequestBehavior.AllowGet);
         }
-
-        private IEnumerable<CampaniaModel> DropDowListCampanias(int paisId)
-        {
-            IList<BECampania> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = sv.SelectCampanias(paisId);
-            }
-
-            return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
-        }
-
+        
         public JsonResult ObtenerOrdenPriorizacion(int paisID, int ConfiguracionOfertaID, int CampaniaID)
         {
             int orden;

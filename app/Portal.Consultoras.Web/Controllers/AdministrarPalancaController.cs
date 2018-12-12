@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
-using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,7 +11,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class AdministrarPalancaController : BaseController
+    public class AdministrarPalancaController : BaseAdmController
     {
         private static class _accion
         {
@@ -31,7 +29,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!UsuarioModel.HasAcces(ViewBag.Permiso, "AdministrarPalanca/Index"))
                     return RedirectToAction("Index", "Bienvenida");
                 ViewBag.UrlS3 = GetUrlS3();
-                model.ListaCampanias = ListCampanias(userData.PaisID);
+                model.ListaCampanias = _zonificacionProvider.GetCampanias(userData.PaisID);
                 model.ListaConfiguracionPais = ListarConfiguracionPais();
                 return View(model);
             }
@@ -50,7 +48,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var beConfiguracionPais = sv.GetConfiguracionPais(userData.PaisID, idConfiguracionPais);
                 model = Mapper.Map<ServiceSAC.BEConfiguracionPais, AdministrarPalancaModel>(beConfiguracionPais);
             }
-            model.ListaCampanias = ListCampanias(userData.PaisID);
+            model.ListaCampanias = _zonificacionProvider.GetCampanias(userData.PaisID);
             model.ListaTipoPresentacion = ListTipoPresentacion();
             if (!string.IsNullOrEmpty(model.DesktopTituloMenu) && model.DesktopTituloMenu.Contains("|"))
             {
@@ -78,7 +76,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             model.DesktopTipoEstrategia = model.DesktopTipoEstrategia ?? "";
             model.MobileTipoEstrategia = model.MobileTipoEstrategia ?? "";
-            model.ListaCampanias = ListCampanias(userData.PaisID);
+            model.ListaCampanias = _zonificacionProvider.GetCampanias(userData.PaisID);
             model.ListaTipoPresentacion = ListTipoPresentacion();
             model.ListaConfiguracionPais = ListarConfiguracionPais();
             model.ListaTipoEstrategia = ListTipoEstrategia();
@@ -246,18 +244,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return Mapper.Map<IList<BEConfiguracionOfertasHome>, IEnumerable<AdministrarOfertasHomeModel>>(lst);
         }
-
-        private IEnumerable<CampaniaModel> ListCampanias(int paisId)
-        {
-            IList<BECampania> lst;
-            using (var sv = new ZonificacionServiceClient())
-            {
-                lst = sv.SelectCampanias(paisId);
-            }
-
-            return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
-        }
-
+        
         private IEnumerable<TipoEstrategiaModel> ListTipoEstrategia()
         {
             var lst = _tipoEstrategiaProvider.GetTipoEstrategias(userData.PaisID);
@@ -615,7 +602,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 modelo.ListaPalanca = ListarConfiguracionPais().Where(p => p.Codigo == Constantes.ConfiguracionPais.RevistaDigital);
-                modelo.ListaCampanias = ListCampanias(userData.PaisID);
+                modelo.ListaCampanias = _zonificacionProvider.GetCampanias(userData.PaisID);
                 if (entidad.Accion != _accion.Nuevo)
                 {
                     modelo.ListaCompomente = ComponenteListarService(entidad).Where(p => p.Codigo == Constantes.ConfiguracionPaisComponente.RD.PopupClubGanaMas);

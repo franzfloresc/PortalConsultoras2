@@ -12,7 +12,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class SolicitudClienteController : BaseController
+    public class SolicitudClienteController : BaseAdmController
     {
         public ActionResult Index(string Campania, string Estado, string paginacion)
         {
@@ -27,7 +27,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (!string.IsNullOrEmpty(Campania) && !string.IsNullOrEmpty(Estado))
             {
-                solicitudClienteModel.listaCampania = DropDowListCampanias(userData.PaisID);
+                solicitudClienteModel.listaCampania = _zonificacionProvider.GetCampanias(userData.PaisID);
                 solicitudClienteModel.listaEstadoSolicitudCliente = DropDowListEstado(userData.PaisID);
                 solicitudClienteModel.PaisID = userData.PaisID;
                 solicitudClienteModel.Campania = Campania;
@@ -55,17 +55,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
-        }
-
-        private IEnumerable<CampaniaModel> DropDowListCampanias(int paisId)
-        {
-            IList<BECampania> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = sv.SelectCampanias(paisId);
-            }
-
-            return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
         }
 
         private List<BEEstadoSolicitudCliente> DropDowListEstado(int paisId)
@@ -754,7 +743,7 @@ namespace Portal.Consultoras.Web.Controllers
             var solicitudClienteModel = new SolicitudClienteModel
             {
                 listaEstadoSolicitudCliente = DropDowListEstado(userData.PaisID),
-                listaCampania = DropDowListCampanias(userData.PaisID),
+                listaCampania = _zonificacionProvider.GetCampanias(userData.PaisID),
                 listaMarcas = GetDescripcionMarca()
             };
 

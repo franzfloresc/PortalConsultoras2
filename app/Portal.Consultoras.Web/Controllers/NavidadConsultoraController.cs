@@ -12,14 +12,14 @@ using System.Web.UI.WebControls;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class NavidadConsultoraController : BaseController
+    public class NavidadConsultoraController : BaseAdmController
     {
         public ActionResult Administra()
         {
             NavidadConsultoraModel modelo = new NavidadConsultoraModel
             {
                 ListaPaises = CargarListaPaises(),
-                ListaCampania = CargarListaCampanias(userData.PaisID)
+                ListaCampania = _zonificacionProvider.GetCampanias(userData.PaisID)
             };
             return View(modelo);
         }
@@ -238,17 +238,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 return Json(false, JsonRequestBehavior.AllowGet);
             }
-        }
-
-        private IEnumerable<CampaniaModel> CargarListaCampanias(int paisId)
-        {
-            IList<BECampania> lista;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lista = sv.SelectCampanias(paisId);
-            }
-
-            return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lista);
         }
 
         private IEnumerable<PaisModel> CargarListaPaises()

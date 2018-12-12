@@ -12,7 +12,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class ReportePedidoFICController : BaseController
+    public class ReportePedidoFICController : BaseAdmController
     {
         public ActionResult Index()
         {
@@ -131,16 +131,6 @@ namespace Portal.Consultoras.Web.Controllers
             return Mapper.Map<IEnumerable<PaisModel>>(lst);
         }
 
-        private IEnumerable<CampaniaModel> DropDowListCampanias(int paisId)
-        {
-            IList<BECampania> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = sv.SelectCampanias(paisId);
-            }
-            return Mapper.Map<IEnumerable<CampaniaModel>>(lst);
-        }
-
         public JsonResult GetConsultorasIds(int regionID, int zonaID, int rowCount, string busqueda)
         {
             using (ServiceODS.ODSServiceClient sv = new ServiceODS.ODSServiceClient())
@@ -199,7 +189,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (PaisID != 0)
             {
-                lst = DropDowListCampanias(PaisID);
+                lst = _zonificacionProvider.GetCampanias(PaisID);
                 lstRegiones = _baseProvider.DropDownListRegiones(PaisID).OrderBy(x => x.Codigo);
                 lstZonas = _baseProvider.DropDownListZonas(PaisID).OrderBy(x => x.Codigo);
             }

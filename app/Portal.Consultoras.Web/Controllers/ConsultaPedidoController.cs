@@ -17,7 +17,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class ConsultaPedidoController : BaseController
+    public class ConsultaPedidoController : BaseAdmController
     {
         #region Action
         public ActionResult ConsultaPedido()
@@ -196,7 +196,7 @@ namespace Portal.Consultoras.Web.Controllers
         #region Metodos
         public JsonResult ObtenterDropDownPorPais(int PaisID)
         {
-            IEnumerable<CampaniaModel> lstcampania = DropDownCampanias(PaisID);
+            IEnumerable<CampaniaModel> lstcampania = _zonificacionProvider.GetCampanias(PaisID);
             IEnumerable<ZonaModel> lstzona = DropDownZonas(PaisID);
             IEnumerable<RegionModel> lstregion = _baseProvider.DropDownListRegiones(PaisID);
 
@@ -207,17 +207,6 @@ namespace Portal.Consultoras.Web.Controllers
                 lstRegion = lstregion
 
             }, JsonRequestBehavior.AllowGet);
-        }
-
-        public IEnumerable<CampaniaModel> DropDownCampanias(int paisId)
-        {
-            IList<BECampania> lista;
-            using (ZonificacionServiceClient servicezona = new ZonificacionServiceClient())
-            {
-                lista = servicezona.SelectCampanias(paisId);
-            }
-
-            return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lista);
         }
 
         public IEnumerable<ZonaModel> DropDownZonas(int paisId)

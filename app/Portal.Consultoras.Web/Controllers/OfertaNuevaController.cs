@@ -12,7 +12,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class OfertaNuevaController : BaseController
+    public class OfertaNuevaController : BaseAdmController
     {
 
         public ActionResult OfertaNueva()
@@ -160,7 +160,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ObtenterDropDownPorPais(int PaisID)
         {
-            IEnumerable<CampaniaModel> lstcampania = DropDownCampanias(PaisID);
+            IEnumerable<CampaniaModel> lstcampania = _zonificacionProvider.GetCampanias(PaisID);
 
             return Json(new
             {
@@ -333,17 +333,6 @@ namespace Portal.Consultoras.Web.Controllers
                     extra = ""
                 });
             }
-        }
-
-        public IEnumerable<CampaniaModel> DropDownCampanias(int paisId)
-        {
-            IList<BECampania> lista;
-            using (ZonificacionServiceClient servicezona = new ZonificacionServiceClient())
-            {
-                lista = servicezona.SelectCampanias(paisId);
-            }
-
-            return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lista);
         }
 
         private IEnumerable<PaisModel> CargarDropDowListPaises()

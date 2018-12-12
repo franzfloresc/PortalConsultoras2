@@ -19,7 +19,7 @@ using System.Web.Script.Serialization;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class ReportePedidoDDWebController : BaseController
+    public class ReportePedidoDDWebController : BaseAdmController
     {
         #region Action
 
@@ -608,21 +608,7 @@ namespace Portal.Consultoras.Web.Controllers
         #endregion
 
         #region Metodos
-
-        public List<BECampania> CargarCampania()
-        {
-            var model = new ReportePedidoDDWebModel();
-
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                BECampania[] becampania = sv.SelectCampanias(userData.PaisID);
-
-                model.DropDownListCampania = becampania.ToList();
-                model.DropDownListCampania.Insert(0, new BECampania { CampaniaID = 0, Codigo = "-- Seleccionar --" });
-                return model.DropDownListCampania;
-            }
-        }
-
+        
         public List<BEZona> CargarZona()
         {
             var model = new ReportePedidoDDWebModel();
@@ -639,7 +625,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ObtenterCampaniasyZonasPorPais(int PaisID)
         {
-            IEnumerable<CampaniaModel> lst = DropDowListCampanias(PaisID);
+            IEnumerable<CampaniaModel> lst = _zonificacionProvider.GetCampanias(PaisID);
             IEnumerable<ZonaModel> lstZonas = _baseProvider.DropDownListZonas(PaisID);
             IEnumerable<RegionModel> lstRegiones = _baseProvider.DropDownListRegiones(PaisID);
 
@@ -660,17 +646,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
-        }
-
-        private IEnumerable<CampaniaModel> DropDowListCampanias(int paisId)
-        {
-            IList<BECampania> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = sv.SelectCampanias(paisId);
-            }
-
-            return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
         }
 
         private List<BEPedidoDDWeb> GetPedidoWebDD(FiltroReportePedidoDDWebModel model)

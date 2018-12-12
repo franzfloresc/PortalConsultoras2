@@ -16,7 +16,7 @@ using Portal.Consultoras.Web.Infraestructure.Validator.PagoEnLinea;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class PagoEnLineaController : BaseController
+    public class PagoEnLineaController : BaseAdmController
     {
         protected PagoEnLineaProvider _pagoEnLineaProvider;
 
@@ -239,7 +239,7 @@ namespace Portal.Consultoras.Web.Controllers
             var model = new PagoEnLineaReporteModel()
             {
                 listaPaises = DropDowListPaises(),
-                lista = DropDowListCampanias(paisId),
+                lista = _zonificacionProvider.GetCampanias(paisId),
                 listaRegiones = DropDownListRegiones(paisId),
                 listaZonas = DropDownListZonas(paisId),
                 PaisId = paisId,
@@ -569,18 +569,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
-
-        private IEnumerable<CampaniaModel> DropDowListCampanias(int paisId)
-        {
-            IList<BECampania> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = sv.SelectCampanias(paisId);
-            }
-
-            return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
-        }
-
+        
         protected IEnumerable<RegionModel> DropDownListRegiones(int paisId)
         {
             IList<BERegion> lst;

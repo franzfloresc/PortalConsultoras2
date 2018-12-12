@@ -15,7 +15,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class GestionFaltantesController : BaseController
+    public class GestionFaltantesController : BaseAdmController
     {
         #region Action
         public ActionResult GestionFaltantes()
@@ -495,7 +495,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ObtenterCampaniasPorPais(int PaisID)
         {
-            IEnumerable<CampaniaModel> lista = DropDownCampanias(PaisID);
+            PaisID = PaisID == 0 ? userData.PaisID : PaisID;
+            IEnumerable<CampaniaModel> lista = _zonificacionProvider.GetCampanias(PaisID, true);
 
             return Json(new
             {
@@ -527,19 +528,6 @@ namespace Portal.Consultoras.Web.Controllers
         #endregion
 
         #region Metodos
-        public IEnumerable<CampaniaModel> DropDownCampanias(int paisId)
-        {
-            List<BECampania> lista;
-            using (ZonificacionServiceClient servicezona = new ZonificacionServiceClient())
-            {
-                lista = paisId == 0
-                    ? servicezona.SelectCampanias(userData.PaisID).ToList()
-                    : servicezona.SelectCampanias(paisId).ToList();
-            }
-            lista.Insert(0, new BECampania() { CampaniaID = 0, Codigo = "-- Seleccionar --" });
-
-            return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lista);
-        }
 
         private IEnumerable<PaisModel> DropDowListPaises()
         {

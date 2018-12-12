@@ -16,7 +16,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class ReportePedidoCampaniaController : BaseController
+    public class ReportePedidoCampaniaController : BaseAdmController
     {
         #region Actions
         public async Task<ActionResult> Index()
@@ -124,7 +124,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ObtenterCampaniasyRegionesPorPais(int PaisID)
         {
-            IEnumerable<CampaniaModel> lst = DropDowListCampanias(PaisID);
+            IEnumerable<CampaniaModel> lst = _zonificacionProvider.GetCampanias(PaisID);
             IEnumerable<RegionModel> lstRegiones = _baseProvider.DropDownListRegiones(PaisID);
             IEnumerable<ZonaModel> lstZonas = _baseProvider.DropDownListZonas(PaisID);
 
@@ -155,17 +155,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
-        }
-
-        private IEnumerable<CampaniaModel> DropDowListCampanias(int paisId)
-        {
-            IList<BECampania> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = sv.SelectCampanias(paisId);
-            }
-
-            return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
         }
 
         public JsonResult GetConsultorasIds(int RegionID, int ZonaID, int rowCount, string vBusqueda)

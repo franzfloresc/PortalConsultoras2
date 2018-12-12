@@ -15,7 +15,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class ConsultaDatoConsultoraController : BaseController
+    public class ConsultaDatoConsultoraController : BaseAdmController
     {
         readonly PaqueteDocumentarioProvider _paqueteDocumentarioProvider;
         protected EstadoCuentaProvider _estadoCuentaProvider;
@@ -32,7 +32,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 listaPaises = DropDowListPaises(),
                 PaisID = userData.PaisID,
-                listaCampania = ObtenterCampaniasPorPais(userData.PaisID)
+                listaCampania = _zonificacionProvider.GetCampanias(userData.PaisID)
             };
             return View(model);
         }
@@ -1088,17 +1088,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
-        }
-
-        private IEnumerable<CampaniaModel> ObtenterCampaniasPorPais(int paisId)
-        {
-            List<BECampania> lista;
-            using (ZonificacionServiceClient servicezona = new ZonificacionServiceClient())
-            {
-                lista = servicezona.SelectCampanias(paisId).ToList();
-            }
-
-            return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lista);
         }
 
         public BEPager Paginador(BEGrid item, string vBusqueda, List<RVPRFModel> lst)

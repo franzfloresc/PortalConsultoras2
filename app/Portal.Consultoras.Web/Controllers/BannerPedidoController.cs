@@ -14,7 +14,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class BannerPedidoController : BaseController
+    public class BannerPedidoController : BaseAdmController
     {
         public ActionResult Index()
         {
@@ -23,7 +23,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!UsuarioModel.HasAcces(ViewBag.Permiso, "BannerPedido/Index"))
                     return RedirectToAction("Index", "Bienvenida");
 
-                IEnumerable<CampaniaModel> lstCampania = DropDowListCampanias(userData.PaisID);
+                IEnumerable<CampaniaModel> lstCampania = _zonificacionProvider.GetCampanias(userData.PaisID);
                 var administrarIncentivosModel = new AdministrarBannerPedidoModel()
                 {
                     listaPaises = DropDowListPaises(),
@@ -78,20 +78,9 @@ namespace Portal.Consultoras.Web.Controllers
 
         }
 
-        private IEnumerable<CampaniaModel> DropDowListCampanias(int paisId)
-        {
-            IList<BECampania> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = sv.SelectCampanias(paisId);
-            }
-
-            return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
-        }
-
         public JsonResult ObtenterDropDownPorPais(int PaisID)
         {
-            IEnumerable<CampaniaModel> lstcampania = DropDowListCampanias(PaisID);
+            IEnumerable<CampaniaModel> lstcampania = _zonificacionProvider.GetCampanias(PaisID);
 
             return Json(new
             {

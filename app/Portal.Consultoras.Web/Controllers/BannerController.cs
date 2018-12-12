@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Common.Reader;
+using Portal.Consultoras.Web.Infraestructure.Reader;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceContenido;
 using Portal.Consultoras.Web.ServiceSAC;
@@ -15,12 +17,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using Portal.Consultoras.Common.Reader;
-using Portal.Consultoras.Web.Infraestructure.Reader;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class BannerController : BaseController
+    public class BannerController : BaseAdmController
     {
         #region Action
 
@@ -30,7 +30,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (!UsuarioModel.HasAcces(ViewBag.Permiso, "Banner/Index"))
                     return RedirectToAction("Index", "Bienvenida");
-                model.DropDownListCampania = CargarCampania();
+                model.DropDownListCampania = _zonificacionProvider.GetCampaniasEntidad(Constantes.PaisID.Peru);
                 model.DropDownListCampania.Insert(0, new BECampania() { CampaniaID = 0, Codigo = "-- Seleccionar --" });
                 model.DropDownListTipoContenido = new List<BETipoContenido>() { new BETipoContenido { TipoContenido = 0, TipoContenidoNombre = "URL" },
                                                                                 new BETipoContenido { TipoContenido = 1, TipoContenidoNombre = "Mensaje" }};
@@ -745,16 +745,7 @@ namespace Portal.Consultoras.Web.Controllers
         #endregion
 
         #region Metodos
-
-        public List<BECampania> CargarCampania()
-        {
-            using (ZonificacionServiceClient servicezona = new ZonificacionServiceClient())
-            {
-                BECampania[] becampania = servicezona.SelectCampanias(11);
-                return becampania.ToList();
-            }
-        }
-
+        
         public string[] CrearCellArray(BEBanner obe, List<BEPais> lstPais)
         {
             List<string> lstCell = new List<string>

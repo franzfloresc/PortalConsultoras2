@@ -18,7 +18,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class MisReclamosController : BaseController
+    public class MisReclamosController : BaseAdmController
     {
         readonly CdrProvider _cdrProvider;
 
@@ -953,7 +953,7 @@ namespace Portal.Consultoras.Web.Controllers
             var cdrWebModel = new CDRWebModel()
             {
                 listaPaises = DropDowListPaises(),
-                lista = DropDowListCampanias(paisId),
+                lista = _zonificacionProvider.GetCampanias(paisId),
                 listaRegiones = _baseProvider.DropDownListRegiones(paisId),
                 listaZonas = _baseProvider.DropDownListZonas(paisId),
                 PaisID = paisId,
@@ -1331,21 +1331,10 @@ namespace Portal.Consultoras.Web.Controllers
             return htmlTemplate;
         }
 
-        private IEnumerable<CampaniaModel> DropDowListCampanias(int paisId)
-        {
-            IList<BECampania> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = sv.SelectCampanias(paisId);
-            }
-
-            return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
-        }
-
         public JsonResult ObtenterCampanias(int PaisID)
         {
             PaisID = userData.PaisID;
-            IEnumerable<CampaniaModel> lst = DropDowListCampanias(PaisID);
+            IEnumerable<CampaniaModel> lst = _zonificacionProvider.GetCampanias(PaisID);
 
             return Json(new
             {
@@ -1355,7 +1344,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ObtenterCampaniasPorPais(int PaisID)
         {
-            IEnumerable<CampaniaModel> lst = DropDowListCampanias(PaisID);
+            IEnumerable<CampaniaModel> lst = _zonificacionProvider.GetCampanias(PaisID);
             IEnumerable<ZonaModel> lstZonas = _baseProvider.DropDownListZonas(PaisID);
             IEnumerable<RegionModel> lstRegiones = _baseProvider.DropDownListRegiones(PaisID);
 

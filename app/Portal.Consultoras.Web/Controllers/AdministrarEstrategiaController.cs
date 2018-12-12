@@ -13,7 +13,6 @@ using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -29,7 +28,7 @@ using BEConfiguracionPaisDatos = Portal.Consultoras.Web.ServiceUsuario.BEConfigu
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class AdministrarEstrategiaController : BaseController
+    public class AdministrarEstrategiaController : BaseAdmController
     {
         protected RenderImgProvider _renderImgProvider;
         protected OfertaBaseProvider _ofertaBaseProvider;
@@ -124,25 +123,14 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult ObtenterCampanias(int PaisID)
         {
             PaisID = userData.PaisID;
-            var lst = DropDowListCampanias(PaisID);
+            var lst = _zonificacionProvider.GetCampanias(PaisID);
 
             return Json(new
             {
                 lista = lst
             }, JsonRequestBehavior.AllowGet);
         }
-
-        private IEnumerable<CampaniaModel> DropDowListCampanias(int PaisID)
-        {
-            IList<BECampania> lst;
-            using (var sv = new ZonificacionServiceClient())
-            {
-                lst = sv.SelectCampanias(PaisID);
-            }
-
-            return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
-        }
-
+        
         private IEnumerable<TipoEstrategiaModel> DropDowListTipoEstrategia()
         {
             var lst = _tipoEstrategiaProvider.GetTipoEstrategias(userData.PaisID);
@@ -1568,7 +1556,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 ViewBag.hdnPaisISO = userData.CodigoISO;
                 ViewBag.hdnPaisID = userData.PaisID;
-                ViewBag.ddlCampania = DropDowListCampanias(userData.PaisID);
+                ViewBag.ddlCampania = _zonificacionProvider.GetCampanias(userData.PaisID);
 
                 var tipoEstrategias = _tipoEstrategiaProvider.GetTipoEstrategias(userData.PaisID);
                 var oTipoEstrategia =
@@ -1643,7 +1631,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpGet]
         public PartialViewResult ProgramaNuevasDetalle(EstrategiaProgramaNuevasModel inModel)
         {
-            ViewBag.ddlCampania = DropDowListCampanias(userData.PaisID);
+            ViewBag.ddlCampania = _zonificacionProvider.GetCampanias(userData.PaisID);
 
             return PartialView(inModel);
         }
@@ -1863,7 +1851,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 ViewBag.hdnPaisISO = userData.CodigoISO;
                 ViewBag.hdnPaisID = userData.PaisID;
-                ViewBag.ddlCampania = DropDowListCampanias(userData.PaisID);
+                ViewBag.ddlCampania = _zonificacionProvider.GetCampanias(userData.PaisID);
 
                 var tipoEstrategias = _tipoEstrategiaProvider.GetTipoEstrategias(userData.PaisID);
                 var oTipoEstrategia =
@@ -1937,7 +1925,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpGet]
         public PartialViewResult IncentivosDetalle(EstrategiaIncentivosModel inModel)
         {
-            ViewBag.ddlCampania = DropDowListCampanias(userData.PaisID);
+            ViewBag.ddlCampania = _zonificacionProvider.GetCampanias(userData.PaisID);
             ViewBag.ddlTipoConcurso = new List<Object>()
             {
                 new {value = "X", text = "RxP"},

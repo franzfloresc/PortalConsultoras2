@@ -14,7 +14,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class GestionContenidoController : BaseController
+    public class GestionContenidoController : BaseAdmController
     {
         #region Actions
 
@@ -873,25 +873,14 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult ObtenterCampaniasPorPais(int PaisID)
         {
             PaisID = Constantes.PaisID.Peru;
-            IEnumerable<CampaniaModel> lista = DropDownCampanias(PaisID);
+            IEnumerable<CampaniaModel> lista = _zonificacionProvider.GetCampanias(PaisID);
 
             return Json(new
             {
                 lista = lista
             }, JsonRequestBehavior.AllowGet);
         }
-
-        public IEnumerable<CampaniaModel> DropDownCampanias(int paisId)
-        {
-            List<BECampania> lista;
-            using (ZonificacionServiceClient servicezona = new ZonificacionServiceClient())
-            {
-                lista = servicezona.SelectCampanias(paisId).ToList();
-            }
-
-            return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lista);
-        }
-
+        
         [HttpPost]
         public ActionResult MantenerFondo(ContenidoDatoModel form)
         {

@@ -1,9 +1,7 @@
-﻿using AutoMapper;
-using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
-using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +9,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class ParticipantesDemandaAnticipadaController : BaseController
+    public class ParticipantesDemandaAnticipadaController : BaseAdmController
     {
         public ActionResult Index()
         {
@@ -21,21 +19,10 @@ namespace Portal.Consultoras.Web.Controllers
 
             };
 
-            participantesConsultora.listaCampania = DropDowListCampanias(userData.PaisID);
+            participantesConsultora.listaCampania = _zonificacionProvider.GetCampanias(userData.PaisID);
             participantesConsultora.CodigoUsuario = userData.CodigoUsuario;
 
             return View(participantesConsultora);
-        }
-
-        private IEnumerable<CampaniaModel> DropDowListCampanias(int paisId)
-        {
-            IList<BECampania> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = sv.SelectCampanias(paisId);
-            }
-
-            return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
         }
 
         public JsonResult ObtenerConfiguracionConsultora(string sidx, string sord, int page, int rows, string vBusqueda, string CodigoCampania, string CodigoConsultora)

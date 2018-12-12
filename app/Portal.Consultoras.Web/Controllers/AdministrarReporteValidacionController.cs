@@ -11,7 +11,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class AdministrarReporteValidacionController : BaseController
+    public class AdministrarReporteValidacionController : BaseAdmController
     {
 
         protected OfertaBaseProvider _ofertaBaseProvider;
@@ -64,23 +64,12 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult ObtenerCampanias()
         {
             int paisId = userData.PaisID;
-            IEnumerable<CampaniaModel> lst = DropDowListCampanias(paisId);
+            IEnumerable<CampaniaModel> lst = _zonificacionProvider.GetCampanias(paisId);
 
             return Json(new
             {
                 lista = lst
             }, JsonRequestBehavior.AllowGet);
-        }
-
-        private IEnumerable<CampaniaModel> DropDowListCampanias(int paisId)
-        {
-            IList<BECampania> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = sv.SelectCampanias(paisId);
-            }
-
-            return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
         }
 
         private IEnumerable<TipoEstrategiaModel> DropDowListTipoEstrategia()

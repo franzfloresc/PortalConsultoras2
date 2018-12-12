@@ -15,7 +15,7 @@ using System.Web.UI.WebControls;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class OfertaFICController : BaseController
+    public class OfertaFICController : BaseAdmController
     {
         public ActionResult Index()
         {
@@ -44,20 +44,10 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ObtenterCampanias(int PaisID)
         {
-            var listCampania = PaisID == 0 ? null : DropDowListCampanias(PaisID);
+            var listCampania = PaisID == 0 ? null : _zonificacionProvider.GetCampanias(PaisID);
             return Json(new { lista = listCampania }, JsonRequestBehavior.AllowGet);
         }
-
-        private IEnumerable<CampaniaModel> DropDowListCampanias(int paisId)
-        {
-            IList<BECampania> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = sv.SelectCampanias(paisId);
-            }
-            return Mapper.Map<IEnumerable<CampaniaModel>>(lst);
-        }
-
+        
         public JsonResult FindByCUVs(int campaniaID, int paisID, string codigo, int rowCount)
         {
             List<ServiceODS.BEProductoDescripcion> lista;
