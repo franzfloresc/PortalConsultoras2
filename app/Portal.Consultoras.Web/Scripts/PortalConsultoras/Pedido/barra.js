@@ -764,8 +764,6 @@ function agregarPremioDefault() {
         }
 
         setPremio(premio);
-        //tpElectivos.premioSelected = premio;
-        //selectPremioDivByCuv(tpElectivos.premioSelected.CUV2);
     });
 }
 
@@ -783,8 +781,7 @@ function getPremioDefault() {
     return null;
 }
 
-function getElementPremiosByCuv(container, cuv) {
-    var list = container.find('.opcion_regalo_carousel_programaNuevas');
+function getElementPremiosByCuv(list, cuv) {
     var len = list.length;
     for (var i = 0; i < len; i++) {
         var element = $(list[i]);
@@ -854,21 +851,14 @@ function seleccionRegaloProgramaNuevas() {
             }
 
             setPremio(premio);
-            //tpElectivos.premioSelected = premio;
-            //markPremioSelected(regaloProgramaNuevas.parents('.opcion_regalo_carousel_programaNuevas'));
         });
 }
 
 function markPremioSelected(premioDiv) {
     var btn = premioDiv.find('.btn_elegir_regalo');
     premioDiv.addClass('opcion_regalo_carousel_elegido');
-    btn.hide(100);
-    btn.next().show();
-    //setTimeout(function() {
-    //    premioDiv.addClass('opcion_regalo_carousel_elegido');
-    //    btn.fadeOut(100);
-    //    btn.next().fadeIn(150);
-    //}, 150);
+    btn.fadeOut(100);
+    btn.next().fadeIn(150);
 }
 
 function getPremioByCuv(cuv) {
@@ -884,15 +874,15 @@ function getPremioByCuv(cuv) {
     return null;
 }
 
+function getPopupRegalos() {
+    return $('#popupEleccionRegalo');
+}
+
 function restoreDivPremios() {
-    
-    
-    setTimeout(function() {
-        var divCarrusel = $('#popupEleccionRegalo');
-        divCarrusel.find('.opcion_regalo_carousel_programaNuevas').removeClass('opcion_regalo_carousel_elegido');
-        divCarrusel.find('.mensaje_regalo_elegido').hide();
-        divCarrusel.find('.btn_elegir_regalo').show();
-    }, 150);
+    var divCarrusel = getPopupRegalos();
+    divCarrusel.find('.opcion_regalo_carousel_programaNuevas').removeClass('opcion_regalo_carousel_elegido');
+    divCarrusel.find('.mensaje_regalo_elegido').hide();
+    divCarrusel.find('.btn_elegir_regalo').show();
 }
 
 function setPremio(premio) {
@@ -908,14 +898,10 @@ function setPremio(premio) {
 
     $('#divBarra .contenedor_circulos').hide();
     selectPremioDivByCuv(tpElectivos.premioSelected.CUV2);
-
-    //setTimeout(function() {
-
-    //}, 150);
 }
 
 function updateTitlePopupRegalos(premio) {
-    var msgRegaloDiv = $('#popupEleccionRegalo .mensaje_titulo_popup_eleccion_regalo');
+    var msgRegaloDiv = getPopupRegalos().find('.mensaje_titulo_popup_eleccion_regalo');
     msgRegaloDiv.fadeOut(200);
 
     if (premio) {
@@ -927,8 +913,20 @@ function updateTitlePopupRegalos(premio) {
     msgRegaloDiv.fadeIn(200);
 }
 
+function getDivPremios() {
+    var container = $('#carouselOpcionesRegalo');
+    var slick = container[0].slick;
+    if (slick) {
+        return slick.$slides || [];
+    }
+
+    return container.find('.opcion_regalo_carousel_programaNuevas');
+}
+
 function selectPremioDivByCuv(cuv) {
-    var element = getElementPremiosByCuv($('#carouselOpcionesRegalo'), cuv);
+    var list = getDivPremios();
+
+    var element = getElementPremiosByCuv(list, cuv);
     if (!element) {
         return;
     }
@@ -1554,8 +1552,8 @@ function AgregarPremio(premio) {
         //CuvTonos: $.trim(cuvs),
         CUV: $.trim(premio.CUV2),
         Cantidad: 1,
-        TipoEstrategiaID: premio.TipoEstrategiaID,
-        EstrategiaID: $.trim(premio.EstrategiaID),
+        //TipoEstrategiaID: premio.TipoEstrategiaID,
+        //EstrategiaID: $.trim(premio.EstrategiaID),
         //OrigenPedidoWeb: $.trim(origenPedidoWebEstrategia),
         //TipoEstrategiaImagen: 0,
         FlagNueva: $.trim(premio.FlagNueva)
@@ -1568,7 +1566,7 @@ function InsertarPremio(model) {
     
     return jQuery.ajax({
         type: 'POST',
-        url: urlGuardarPremioElectivo,
+        url: urlPedidoInsert,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(model),
