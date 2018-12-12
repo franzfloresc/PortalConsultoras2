@@ -146,11 +146,11 @@ namespace Portal.Consultoras.BizLogic
 
             bool autorizado = (consultoraCatalogo.AutorizaPedido != "N" && consultoraCatalogo.EsAfiliado);
             // Validamos si pertenece a Peru, Bolivia, Chile, Guatemala, El Salvador, Colombia (Paises ESIKA)
-            if (paisID == 4 
+            if (paisID == 4
                 || paisID == 2
-                || paisID == 3 
-                || paisID == 8 
-                || paisID == 7 
+                || paisID == 3
+                || paisID == 8
+                || paisID == 7
                 || paisID == Constantes.PaisID.Peru)
             {
                 //Validamos si el estado es retirada
@@ -187,10 +187,10 @@ namespace Portal.Consultoras.BizLogic
             }
             // Validamos si pertenece a Costa Rica, Panama, Mexico, Puerto Rico, Dominicana, Ecuador, Argentina (Paises MyLbel)
             else if (paisID == 5
-                || paisID == 10 
+                || paisID == 1
                 || paisID == 9
-                || paisID == 6 
-                || paisID == 1 
+                || paisID == 6
+                || paisID == Constantes.PaisID.Panama
                 || paisID == Constantes.PaisID.PuertoRico
                 || paisID == Constantes.PaisID.RepublicaDominicana
                 || paisID == Constantes.PaisID.Venezuela)
