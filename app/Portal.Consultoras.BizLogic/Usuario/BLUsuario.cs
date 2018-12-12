@@ -1189,7 +1189,7 @@ namespace Portal.Consultoras.BizLogic
                         if (idEstadoActividad != -1)
                         {
                             // Validamos si pertenece a Peru, Bolivia, Chile, Guatemala, El Salvador, Colombia (Paises ESIKA)
-                            if (paisID == 2
+                            if (paisID == Constantes.PaisID.Bolivia
                                 || paisID == Constantes.PaisID.Chile
                                 || paisID == Constantes.PaisID.Colombia
                                 || paisID == Constantes.PaisID.ElSalvador
@@ -1220,7 +1220,7 @@ namespace Portal.Consultoras.BizLogic
                                     else
                                     {
                                         //Para bolivia (FOX) se hace la validacion del campo AutorizaPedido
-                                        if (paisID == 2)
+                                        if (paisID == Constantes.PaisID.Bolivia)
                                         {
                                             if (autorizaPedido == "N")
                                                 return 2;
@@ -1275,7 +1275,7 @@ namespace Portal.Consultoras.BizLogic
                                                 if (autorizaPedido == "N")
                                                 {
                                                     //Validamos si es SICC o Bolivia
-                                                    if (paisID == 2
+                                                    if (paisID == Constantes.PaisID.Bolivia
                                                         || paisID == Constantes.PaisID.Chile
                                                         || paisID == Constantes.PaisID.ElSalvador
                                                         || paisID == Constantes.PaisID.Guatemala
@@ -1305,7 +1305,7 @@ namespace Portal.Consultoras.BizLogic
                                         if (autorizaPedido == "N")
                                         {
                                             //Validamos si es SICC o Bolivia
-                                            if (paisID == 2
+                                            if (paisID == Constantes.PaisID.Bolivia
                                                 || paisID == Constantes.PaisID.Chile
                                                 || paisID == Constantes.PaisID.Colombia
                                                 || paisID == Constantes.PaisID.ElSalvador
@@ -1467,7 +1467,7 @@ namespace Portal.Consultoras.BizLogic
             if (idEstadoActividad == -1) return 3; //Se asume para usuarios del tipo SAC
 
             // Validamos si pertenece a Peru, Bolivia, Chile, Guatemala, El Salvador, Colombia (Paises ESIKA)
-            if (paisID == 2
+            if (paisID == Constantes.PaisID.Bolivia
                 || paisID == Constantes.PaisID.Chile
                 || paisID == Constantes.PaisID.Colombia
                 || paisID == Constantes.PaisID.ElSalvador

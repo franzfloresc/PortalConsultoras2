@@ -146,7 +146,7 @@ namespace Portal.Consultoras.BizLogic
 
             bool autorizado = (consultoraCatalogo.AutorizaPedido != "N" && consultoraCatalogo.EsAfiliado);
             // Validamos si pertenece a Peru, Bolivia, Chile, Guatemala, El Salvador, Colombia (Paises ESIKA)
-            if (paisID == 2
+            if (paisID == Constantes.PaisID.Bolivia
                 || paisID == Constantes.PaisID.Chile
                 || paisID == Constantes.PaisID.Colombia
                 || paisID == Constantes.PaisID.ElSalvador
