@@ -955,7 +955,7 @@ function showPopupNivelSuperado(barra, prevLogro) {
             dvPremio.find('.sub-premio-elect').css('display', tpElectivos.premioSelected ? 'none': 'block');
             dvPremio.find('.btn_escoger_o_cambiar_regalo').html(tpElectivos.premioSelected ? 'CAMBIAR PRODUCTO': '¡Escoger ahora!');
             AbrirPopup(idPopup);
-
+            setContainerLluvia(idPopup);
             mostrarLluvia();
 
             return;
@@ -982,6 +982,7 @@ function showPopupEscalaSiguiente(dataBarra, prevLogro) {
                 $(idPopup + ' .porcentaje').html(content);
                 
                 AbrirPopup(idPopup);
+                setContainerLluvia(idPopup);
                 mostrarLluvia();
 
                 return true;
@@ -991,6 +992,12 @@ function showPopupEscalaSiguiente(dataBarra, prevLogro) {
     }
 
     return false;
+}
+
+function setContainerLluvia(containerId) {
+    if (typeof lluviaContainerId !== 'undefined') {
+        lluviaContainerId = containerId;
+    }
 }
 
 
