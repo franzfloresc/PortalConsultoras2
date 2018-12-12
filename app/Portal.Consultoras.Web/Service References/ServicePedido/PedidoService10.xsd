@@ -5,6 +5,22 @@
   <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
   <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" />
   <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido" />
+  <xs:complexType name="ArrayOfBEReporteMovimientosPedido">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEReporteMovimientosPedido" nillable="true" type="tns:BEReporteMovimientosPedido" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEReporteMovimientosPedido" nillable="true" type="tns:ArrayOfBEReporteMovimientosPedido" />
+  <xs:complexType name="BEReporteMovimientosPedido">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Cuv" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FechaAccion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Mensaje" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Origen" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEReporteMovimientosPedido" nillable="true" type="tns:BEReporteMovimientosPedido" />
   <xs:complexType name="ArrayOfBEReporteEstrategiasPorConsultora">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="BEReporteEstrategiasPorConsultora" nillable="true" type="tns:BEReporteEstrategiasPorConsultora" />
@@ -1213,11 +1229,12 @@
   <xs:element name="BEReporteValidacionSRComponentes" nillable="true" type="tns:BEReporteValidacionSRComponentes" />
   <xs:complexType name="BEActivarPremioNuevas">
     <xs:sequence>
-      <xs:element minOccurs="0" name="Active" type="xs:boolean" />
-      <xs:element minOccurs="0" name="ActiveCuponElectivo" type="xs:boolean" />
-      <xs:element minOccurs="0" name="ActiveMontoTooltip" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ActiveMonto" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ActivePremioAuto" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ActivePremioElectivo" type="xs:boolean" />
       <xs:element minOccurs="0" name="ActiveTooltip" type="xs:boolean" />
-      <xs:element minOccurs="0" name="AnioCampana" type="xs:int" />
+      <xs:element minOccurs="0" name="AnioCampanaFin" type="xs:int" />
+      <xs:element minOccurs="0" name="AnioCampanaIni" type="xs:int" />
       <xs:element minOccurs="0" name="CodigoPrograma" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FechaCreate" type="xs:dateTime" />
       <xs:element minOccurs="0" name="Nivel" nillable="true" type="xs:string" />
@@ -1342,16 +1359,20 @@
   <xs:complexType name="BEConsultoraRegaloProgramaNuevas">
     <xs:sequence>
       <xs:element minOccurs="0" name="CUVPremio" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoNivel" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoSap" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DescripcionPremio" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PrecioCatalogo" type="xs:decimal" />
       <xs:element minOccurs="0" name="PrecioValorizado" type="xs:decimal" />
-      <xs:element minOccurs="0" name="TippingPoint" type="xs:decimal" />
       <xs:element minOccurs="0" name="UrlImagenRegalo" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEConsultoraRegaloProgramaNuevas" nillable="true" type="tns:BEConsultoraRegaloProgramaNuevas" />
+  <xs:complexType name="ArrayOfBEConsultoraRegaloProgramaNuevas">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEConsultoraRegaloProgramaNuevas" nillable="true" type="tns:BEConsultoraRegaloProgramaNuevas" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEConsultoraRegaloProgramaNuevas" nillable="true" type="tns:ArrayOfBEConsultoraRegaloProgramaNuevas" />
   <xs:complexType name="BEConsultoraResumen">
     <xs:sequence>
       <xs:element minOccurs="0" name="CantidadClientes" type="xs:int" />
@@ -1503,22 +1524,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEReporteCuvDetallado" nillable="true" type="tns:BEReporteCuvDetallado" />
-  <xs:complexType name="ArrayOfBEReporteMovimientosPedido">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEReporteMovimientosPedido" nillable="true" type="tns:BEReporteMovimientosPedido" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfBEReporteMovimientosPedido" nillable="true" type="tns:ArrayOfBEReporteMovimientosPedido" />
-  <xs:complexType name="BEReporteMovimientosPedido">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Cuv" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="FechaAccion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Mensaje" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Origen" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEReporteMovimientosPedido" nillable="true" type="tns:BEReporteMovimientosPedido" />
   <xs:complexType name="BEInformacion">
     <xs:sequence>
       <xs:element minOccurs="0" name="CodigoInformacion" type="xs:int" />

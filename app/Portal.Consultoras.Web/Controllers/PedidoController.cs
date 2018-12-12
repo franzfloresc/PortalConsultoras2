@@ -2,6 +2,7 @@
 using Portal.Consultoras.Common;
 using Portal.Consultoras.PublicService.Cryptography;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.ProgramaNuevas;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceCliente;
 using Portal.Consultoras.Web.ServiceContenido;
@@ -47,26 +48,24 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Index(bool lanzarTabConsultoraOnline = false, string cuv = "", int campana = 0)
         {
-            string sap = "";
-            var url = (Request.Url.Query).Split('?');
-
-            if (EsDispositivoMovil())
-            {
-                if (url.Length > 1 && url[1].Contains("sap"))
-                {
-                    sap = "&" + url[1];
-                    return RedirectToAction("Index", "Pedido", new { area = "Mobile", sap });
-                }
-                else
-                {
-                    return RedirectToAction("Index", "Pedido", new { area = "Mobile" });
-                }
-            }
-
             var model = new PedidoSb2Model();
 
             try
             {
+                if (EsDispositivoMovil())
+                {
+                    var url = (Request.Url.Query).Split('?');
+                    if (url.Length > 1 && url[1].Contains("sap"))
+                    {
+                        string sap = "&" + url[1];
+                        return RedirectToAction("Index", "Pedido", new { area = "Mobile", sap });
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Pedido", new { area = "Mobile" });
+                    }
+                }
+
                 model.EsPais = GetMarcaPorCodigoIso(userData.CodigoISO);
                 model.CodigoIso = userData.CodigoISO;
 
@@ -383,19 +382,18 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (Request.Browser.IsMobileDevice)
+                if (EsDispositivoMovil())
                 {
-                    string sap = "";
                     var url = (Request.Url.Query).Split('?');
 
                     if (url.Length > 1 && url[1].Contains("sap"))
                     {
-                        sap = "&" + url[1].Remove(0, 22);
-                        return RedirectToAction("virtualCoach", new RouteValueDictionary(new { controller = "Pedido", area = "Mobile", param = param, sap }));
+                        string sap = "&" + url[1].Remove(0, 22);
+                        return RedirectToAction("virtualCoach", new RouteValueDictionary(new { controller = "Pedido", area = "Mobile", param, sap }));
                     }
                     else
                     {
-                        return RedirectToAction("virtualCoach", new RouteValueDictionary(new { controller = "Pedido", area = "Mobile", param = param }));
+                        return RedirectToAction("virtualCoach", new RouteValueDictionary(new { controller = "Pedido", area = "Mobile", param }));
                     }
 
                 }
@@ -559,6 +557,11 @@ namespace Portal.Consultoras.Web.Controllers
                 mensajeError = ValidarCantidadEnProgramaNuevas(model.CUV, Convert.ToInt32(model.Cantidad));
                 if (mensajeError != "") return ErrorJson(mensajeError, true);
             }
+            else
+            {
+                mensajeError = ValidarStockLimiteVenta(model.CUV, Convert.ToInt32(model.Cantidad));
+                if (mensajeError != "") return ErrorJson(mensajeError, true);
+            }
 
             mensajeError = ValidarStockArmaTuPackMensaje(model.CUV, Convert.ToInt32(model.Cantidad));
             if (mensajeError != "") return ErrorJson(mensajeError, true);
@@ -569,24 +572,24 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult GuardarPremioElectivo(PedidoCrudModel model)
         {
-            var result = _programaNuevasProvider.GetPremioElectivosTippingPoint();
+            var premios = _programaNuevasProvider.GetListPremioElectivo();
 
-            var details = GetPedidoWebDetalle(IsMobile());
-
-            var selected = details.FirstOrDefault(d => result.Any(c => c.CUV2 == d.CUV));
+            var selected = GetPremioSelected(premios);
 
             if (selected != null)
             {
-                var lastResult = DeletePedidoWeb(selected.CampaniaID, selected.PedidoID, selected.PedidoDetalleID, selected.TipoOfertaSisID, selected.CUV, selected.Cantidad,
-                    selected.ClienteID.ToString(), selected.EsBackOrder, selected.CUV);
-
-                if (!lastResult.Item1)
-                {
-                    return lastResult.Item2;
-                }
+                DeletePedido(selected);
             }
 
             return PedidoInsertar(model);
+        }
+
+        private BEPedidoWebDetalle GetPremioSelected(List<PremioElectivoModel> result)
+        {
+            var details = GetPedidoWebDetalle(IsMobile());
+
+            var selected = details.FirstOrDefault(d => result.Any(c => c.CUV2 == d.CUV));
+            return selected;
         }
 
         private object PedidoInsertarGenerico(PedidoCrudModel model, bool esKitNuevaAuto, List<string> listCuvEliminar = null, string mensajeAviso = "", bool esMensajeElecMultiple = false)
@@ -594,7 +597,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var objValidad = InsertarMensajeValidarDatos(model.ClienteID);
-                if(objValidad == null && !esKitNuevaAuto) objValidad = InsertarValidarKitInicio(model.CUV);
+                if (objValidad == null && !esKitNuevaAuto) objValidad = InsertarValidarKitInicio(model.CUV);
                 if (objValidad != null) return objValidad;
 
                 #region Administrador Pedido
@@ -642,7 +645,7 @@ namespace Portal.Consultoras.Web.Controllers
                 pedidoWebDetalleModel.Simbolo = userData.Simbolo;
                 pedidoWebDetalleModel.EstadoSimplificacionCuv = userData.EstadoSimplificacionCUV;
                 pedidoWebDetalleModel.ClienteID_ = model.ClienteID_;
-                pedidoWebDetalleModel.CodigoIso = userData.CodigoISO;                
+                pedidoWebDetalleModel.CodigoIso = userData.CodigoISO;
                 UpdatePedidoDetalleModelFromPedidoActual(pedidoWebDetalleModel, lstPedidoWebDetalle);
                 #endregion
 
@@ -1172,7 +1175,7 @@ namespace Portal.Consultoras.Web.Controllers
         private bool ValidarEsAgregado(BEPedidoWebDetalle pedidoAgrupado)
         {
             var listaPedidoWebDetalleAgrupado = ObtenerPedidoWebSetDetalleAgrupado();
-            return listaPedidoWebDetalleAgrupado.Count(x => x.EstrategiaId == pedidoAgrupado.EstrategiaId) > 0;
+            return listaPedidoWebDetalleAgrupado.Any(x => x.EstrategiaId == pedidoAgrupado.EstrategiaId);
         }
 
         private string GetObservacionesProlPorCuv(string cuv)
@@ -1548,6 +1551,8 @@ namespace Portal.Consultoras.Web.Controllers
                         CrearLogProgNuevas("ProgNuevas: ValidarStockEstrategia", CUV);
                         mensaje = ValidarCantidadEnProgramaNuevas(CUV, Convert.ToInt32(Cantidad));
                     }
+                    else mensaje = ValidarStockLimiteVenta(CUV, intCantidad);
+
                     if (mensaje == "") mensaje = ValidarStockEstrategiaMensaje(CUV, intCantidad, TipoOferta.ToInt32Secure());
                     if (mensaje == "") mensaje = ValidarStockArmaTuPackMensaje(CUV, intCantidad);
                     valido = mensaje == "";
@@ -3587,13 +3592,14 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var pedidoWebDetalleModel = Mapper.Map<List<BEPedidoWebDetalle>, List<PedidoWebDetalleModel>>(listaDetalle);
 
-                var premiosElectivos = _programaNuevasProvider.GetPremioElectivosTippingPoint();
+                var premiosElectivos = _programaNuevasProvider.GetListPremioElectivo();
                 pedidoWebDetalleModel.ForEach(p =>
                 {
                     p.Simbolo = userData.Simbolo;
                     p.CodigoIso = userData.CodigoISO;
                     p.DescripcionCortadaProd = Util.SubStrCortarNombre(p.DescripcionProd, 73);
-                    p.CuponElectivo = premiosElectivos.Any(c => c.CUV2 == p.CUV);
+                    p.PremioElectivo = premiosElectivos.Any(c => c.CUV2 == p.CUV);
+                    p.LockPremioElectivo = p.PremioElectivo && string.IsNullOrEmpty(p.Mensaje);
                 });
 
                 model.ListaDetalleModel = pedidoWebDetalleModel;
@@ -3660,32 +3666,30 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var listaDetalle = ObtenerPedidoWebSetDetalleAgrupado() ?? new List<BEPedidoWebDetalle>();
 
-            if (isMobile)
+            if (isMobile && listaDetalle.Count == 0)
             {
-                if (listaDetalle.Count == 0)
+                var bePedidoWeb = new BEPedidoWeb
                 {
-                    int isInsert;
-                    using (var sv = new PedidoServiceClient())
-                    {
-                        var bePedidoWeb = new BEPedidoWeb
-                        {
-                            CampaniaID = userData.CampaniaID,
-                            ConsultoraID = userData.ConsultoraID,
-                            PaisID = userData.PaisID,
-                            IPUsuario = userData.IPUsuario,
-                            CodigoUsuarioCreacion = userData.CodigoUsuario
-                        };
+                    CampaniaID = userData.CampaniaID,
+                    ConsultoraID = userData.ConsultoraID,
+                    PaisID = userData.PaisID,
+                    IPUsuario = userData.IPUsuario,
+                    CodigoUsuarioCreacion = userData.CodigoUsuario
+                };
 
-                        isInsert = sv.GetProductoCUVsAutomaticosToInsert(bePedidoWeb);
-                    }
-                    if (isInsert > 0)
-                    {
-                        SessionManager.SetDetallesPedido(null);
-                        SessionManager.SetDetallesPedidoSetAgrupado(null);
-                        listaDetalle = ObtenerPedidoWebDetalle();
+                int isInsert;
+                using (var sv = new PedidoServiceClient())
+                {
+                    isInsert = sv.GetProductoCUVsAutomaticosToInsert(bePedidoWeb);
+                }
 
-                        UpdPedidoWebMontosPROL();
-                    }
+                if (isInsert > 0)
+                {
+                    SessionManager.SetDetallesPedido(null);
+                    SessionManager.SetDetallesPedidoSetAgrupado(null);
+                    listaDetalle = ObtenerPedidoWebDetalle();
+
+                    UpdPedidoWebMontosPROL();
                 }
             }
 
@@ -4012,8 +4016,7 @@ namespace Portal.Consultoras.Web.Controllers
                     case "2":
                         using (var svc = new PedidoServiceClient())
                         {
-                            var tpa = svc.GetTokenIndicadorPedidoAutentico(userData.PaisID, userData.CodigoISO, userData.CodigorRegion, userData.CodigoZona);
-                            codigo = AESAlgorithm.Encrypt(tpa);
+                            codigo = svc.GetTokenIndicadorPedidoAutentico(userData.PaisID, userData.CodigoISO, userData.CodigorRegion, userData.CodigoZona);
                         }
                         if (!string.IsNullOrEmpty(codigo))
                         {
@@ -4087,14 +4090,23 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var f = false;
+                if (!userData.ConfigPremioProgNuevas.MostrarRegaloOF) return ErrorJson("OK", true);
 
-                var model = userData.ConsultoraRegaloProgramaNuevas;
-                if (model != null) f = true;
+                var listPremioElec = userData.ConfigPremioProgNuevas.ListPremioElec;
+                PremioProgNuevasModel premio;
 
+                if (listPremioElec != null && listPremioElec.Any())
+                {
+                    var listDetalle = ObtenerPedidoWebDetalle();
+                    premio = listPremioElec.FirstOrDefault(pe => listDetalle.Any(d => pe.Cuv == d.CUV));
+                    if (premio == null) premio = listPremioElec.First();
+                }
+                else premio = userData.ConfigPremioProgNuevas.PremioAuto;
+
+                var model = _programaNuevasProvider.GetConsultoraRegaloProgNuevasOF(premio);
                 return Json(new
                 {
-                    success = f,
+                    success = model != null,
                     message = "OK",
                     data = model,
                 }, JsonRequestBehavior.AllowGet);
@@ -4167,7 +4179,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
             #endregion
-            
+
             mensaje = ValidarStockEstrategiaMensaje(model.CUV, model.Cantidad.ToInt(), model.TipoEstrategiaID);
 
             if (mensaje != "")
@@ -4273,12 +4285,20 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
                 #endregion
+                
+                var premios = _programaNuevasProvider.GetListPremioElectivo();
+                if (premios.Any(p => p.CUV2 == model.CUV))
+                {
+                    var premioSelected = GetPremioSelected(premios);
+                    if (premioSelected != null) DeletePedido(premioSelected);
+                }
 
                 var listCuvTonos = Util.Trim(model.CuvTonos);
                 if (listCuvTonos == "")
                 {
                     listCuvTonos = estrategia.CUV2;
                 }
+
                 var tonos = listCuvTonos.Split('|');
                 var respuesta = new JsonResult();
                 List<string> ListaCuvsTemporal = new List<string>();
@@ -4422,7 +4442,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.FiltrarEstrategiaPedido(entidad).ToList();
             }
-            
+
             var estrategia = lst.Count > 0 ? lst[0] : new ServicePedido.BEEstrategia();
             estrategia.ImagenURL = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, estrategia.ImagenURL);
             estrategia.Simbolo = userData.Simbolo;
@@ -4464,7 +4484,7 @@ namespace Portal.Consultoras.Web.Controllers
             mensaje = mensaje == "OK" ? "" : mensaje;
             return mensaje;
         }
-        
+
         private string ValidarStockArmaTuPackMensaje(string cuv, int cantidad)
         {
             string mensaje = "";
@@ -4478,6 +4498,28 @@ namespace Portal.Consultoras.Web.Controllers
                     estaEnLimite = sv.CuvArmaTuPackEstaEnLimite(userData.PaisID, userData.CampaniaID, userData.CodigoZona, cuv, cantidad, cantidadActual);
                 }
                 if (estaEnLimite) mensaje = string.Format(Constantes.MensajesError.ExcedioLimiteVenta, 1);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+            return mensaje;
+        }
+
+        private string ValidarStockLimiteVenta(string cuv, int cantidad)
+        {
+            string mensaje = "";
+
+            try
+            {
+                BERespValidarLimiteVenta respValidar;
+                var cantidadActual = ObtenerPedidoWebDetalle().Where(d => d.CUV == cuv).Sum(d => d.Cantidad);
+                
+                using (var sv = new ODSServiceClient())
+                {
+                    respValidar = sv.CuvTieneLimiteVenta(userData.PaisID, userData.CampaniaID, userData.CodigorRegion, userData.CodigoZona, cuv, cantidad, cantidadActual);
+                }
+                if (respValidar.TieneLimite) mensaje = string.Format(Constantes.MensajesError.ExcedioLimiteVenta, respValidar.UnidadesMaximas);
             }
             catch (Exception ex)
             {
@@ -4563,7 +4605,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult CargarPremiosElectivos()
         {
-            var premios = _programaNuevasProvider.GetPremioElectivosTippingPoint();
+            var premios = _programaNuevasProvider.GetListPremioElectivo();
 
             var details = GetPedidoWebDetalle(IsMobile());
 
@@ -4587,7 +4629,8 @@ namespace Portal.Consultoras.Web.Controllers
                     esElecMultiple = svc.EsCuvDuoPerfecto(userData.PaisID, userData.CampaniaID, userData.ConsecutivoNueva, userData.CodigoPrograma, cuv);
                 }
 
-                return Json(new {
+                return Json(new
+                {
                     success = true,
                     esElecMultiple = esElecMultiple,
                     message = esElecMultiple ?
@@ -4601,7 +4644,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return ErrorJson(Constantes.MensajesError.ErrorGenerico);
             }
         }
-        
+
         private Enumeradores.ValidacionProgramaNuevas ValidarProgramaNuevas(string cuv)
         {
             Enumeradores.ValidacionProgramaNuevas numero;
@@ -4628,7 +4671,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 valor = svc.ValidarCantidadMaximaProgramaNuevas(userData.PaisID, userData.CampaniaID, userData.ConsecutivoNueva, userData.CodigoPrograma, cantidadPedido, cuvingresado, cantidadIngresada);
             }
-            if (valor != 0) return string.Format(Constantes.ProgNuevas.Mensaje.ExcedeLimiteUnidades, valor);
+            if (valor != 0) return string.Format(Constantes.MensajesError.ExcedioLimiteVenta, valor);
 
             return "";
         }
@@ -4711,12 +4754,12 @@ namespace Portal.Consultoras.Web.Controllers
 
         private void CrearLogProgNuevas(string message, string cuv)
         {
-            if(WebConfig.Ambiente != "QA") return;
+            if (WebConfig.Ambiente != "QA") return;
 
             var listConsultoraRegistro = new List<string> { "006926193", "043862731", "011971059", "030320840", "003706273", "009118330", "020466782", "011930654", "011410731", "035515321" };
             if (!listConsultoraRegistro.Contains(userData.CodigoConsultora)) return;
-            
-            var exTrace =string.Format("ISO:{0};Consultora{1};Cuv:{2}", userData.CodigoISO, userData.CodigoConsultora, cuv);
+
+            var exTrace = string.Format("ISO:{0};Consultora{1};Cuv:{2}", userData.CodigoISO, userData.CodigoConsultora, cuv);
             LogManager.LogManager.LogErrorWebServicesBus(new CustomTraceException(message, exTrace), userData.CodigoConsultora, userData.CodigoISO);
         }
     }

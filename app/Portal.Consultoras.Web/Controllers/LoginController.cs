@@ -6,6 +6,9 @@ using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.CustomHelpers;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
+using Portal.Consultoras.Web.Models.ProgramaNuevas;
+using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceContenido;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
@@ -13,7 +16,6 @@ using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using Portal.Consultoras.Web.SessionManager;
-using Portal.Consultoras.Web.Providers;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -27,7 +29,6 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
 using BEConfiguracionPaisDatos = Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos;
-using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -35,7 +36,7 @@ namespace Portal.Consultoras.Web.Controllers
     {
         private string pasoLog;
         private int misCursos = 0;
-        private int flagMiAcademiaVideo = 0;  
+        private int flagMiAcademiaVideo = 0;
         private string urlSapParametro = "";
 
         private readonly string IP_DEFECTO = "190.187.154.154";
@@ -72,16 +73,16 @@ namespace Portal.Consultoras.Web.Controllers
         {
             MisCursos();
 
-          
+
 
             if (EsUsuarioAutenticado())
             {
                 if (misCursos > 0)
                 {
                     sessionManager.SetMiAcademia(misCursos);
-                    sessionManager.SetMiAcademiaVideo(flagMiAcademiaVideo); 
+                    sessionManager.SetMiAcademiaVideo(flagMiAcademiaVideo);
                     sessionManager.SetMiAcademiaParametro(urlSapParametro);
-                    
+
                     return RedirectToAction("Index", "MiAcademia");
                 }
 
@@ -188,12 +189,12 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     misCursos = Convert.ToInt32(MiId[0]);
                     TempData["MiAcademia"] = misCursos;
-                    
+
                     if (MiCurso[0].ToUpper() == "MIACADEMIAVIDEO")
                     {
                         flagMiAcademiaVideo = 1;
                     }
-                    
+
                     else
                     {
                         TempData["FlagAcademiaVideo"] = 0;
@@ -402,7 +403,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             pasoLog = "Login.Redireccionar";
             var usuario = await GetUserData(paisId, codigoUsuario);
-            
+
             if (usuario == null)
             {
                 if (Request.IsAjaxRequest())
@@ -425,8 +426,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (misCursos > 0)
             {
-                flagMiAcademiaVideo = Convert.ToInt32(TempData["FlagAcademiaVideo"]);  
-                sessionManager.SetMiAcademiaVideo(flagMiAcademiaVideo);  
+                flagMiAcademiaVideo = Convert.ToInt32(TempData["FlagAcademiaVideo"]);
+                sessionManager.SetMiAcademiaVideo(flagMiAcademiaVideo);
 
                 returnUrl = Url.Action("Index", "MiAcademia");
 
@@ -824,7 +825,8 @@ namespace Portal.Consultoras.Web.Controllers
                     case Constantes.IngresoExternoPagina.PedidosFIC:
                         return RedirectToUniqueRoute("PedidoFIC", "Index", null);
                     case Constantes.IngresoExternoPagina.DetalleEstrategia:
-                        if (string.IsNullOrEmpty(model.NombrePalanca)) {
+                        if (string.IsNullOrEmpty(model.NombrePalanca))
+                        {
                             model.NombrePalanca = Constantes.NombrePalanca.Palancas.Keys.Contains(model.PalancaID) ?
                                 Constantes.NombrePalanca.Palancas[model.PalancaID] : model.PalancaID;
                         }
@@ -1228,12 +1230,12 @@ namespace Portal.Consultoras.Web.Controllers
                         #region llamadas asincronas para GPR, ODD, RegaloPN, LoginFB, EventoFestivo, IncentivosConcursos
 
                         var motivoRechazoTask = Task.Run(() => GetMotivoRechazo(usuario, usuarioModel.MontoDeuda, esAppMobile));
-                        var regaloProgramaNuevas = Task.Run(() => GetConsultoraRegaloProgramaNuevas(usuarioModel));
+                        var configPremioProgNuevasOF = Task.Run(() => GetConfigPremioProgNuevasOFModel(usuarioModel));
                         var loginExternoTask = Task.Run(() => GetListaLoginExterno(usuario));
                         var eventoFestivoTask = Task.Run(() => ConfigurarEventoFestivo(usuarioModel));
                         var incentivoConcursoTask = Task.Run(() => ConfigurarIncentivosConcursos(usuarioModel));
 
-                        Task.WaitAll(motivoRechazoTask, regaloProgramaNuevas, loginExternoTask, eventoFestivoTask, incentivoConcursoTask);
+                        Task.WaitAll(motivoRechazoTask, configPremioProgNuevasOF, loginExternoTask, eventoFestivoTask, incentivoConcursoTask);
 
                         #region GPR
 
@@ -1253,7 +1255,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                         #region RegaloPN
 
-                        usuarioModel.ConsultoraRegaloProgramaNuevas = regaloProgramaNuevas.Result;
+                        usuarioModel.ConfigPremioProgNuevas = configPremioProgNuevasOF.Result;
 
                         #endregion
 
@@ -1328,7 +1330,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                         usuarioModel.EsUsuarioComunidad = usuarioComunidadTask.Result;
 
-                       
+
 
                         #endregion
                     }
@@ -1340,8 +1342,6 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     usuarioModel.JwtToken = await Common.JwtAutentication.getWebTokenAsync(JwtContext.Instance);
 
-
-                   
                     using (var usuarioCliente = new UsuarioServiceClient())
                     {
                         var insert = usuarioCliente.ActualizarNovedadBuscadorAsync(usuarioModel.PaisID, usuarioModel.CodigoUsuario);
@@ -1364,10 +1364,7 @@ namespace Portal.Consultoras.Web.Controllers
                     sessionManager.SetTieneHvX1(true);
                     sessionManager.SetJwtApiSomosBelcorp(usuarioModel.JwtToken);
                     sessionManager.SetTieneMg(true);
-
-
-
-
+                    
                     usuarioModel.FotoPerfil = usuario.FotoPerfil;
                     usuarioModel.FotoOriginalSinModificar = usuario.FotoOriginalSinModificar;
                     usuarioModel.DiaFacturacion = GetDiaFacturacion(usuarioModel.PaisID, usuarioModel.CampaniaID, usuarioModel.ConsultoraID, usuarioModel.ZonaID, usuarioModel.RegionID);
@@ -1600,58 +1597,27 @@ namespace Portal.Consultoras.Web.Controllers
             return gprBanner;
         }
 
-        private async Task<ConsultoraRegaloProgramaNuevasModel> GetConsultoraRegaloProgramaNuevas(UsuarioModel model)
+        private async Task<ConfigPremioProgNuevasModel> GetConfigPremioProgNuevasOFModel(UsuarioModel model)
         {
-            ConsultoraRegaloProgramaNuevasModel result = null;
+            var result = new ConfigPremioProgNuevasModel();
             pasoLog = "GetConsultoraRegaloProgramaNuevas";
 
             try
             {
-                if ((GetRegaloProgramaNuevasFlag() != "1")) return result;
 
-                var fechaHoy = DateTime.Now.AddHours(model.ZonaHoraria).Date;
-                var esDiasFacturacion = fechaHoy >= model.FechaInicioCampania.Date && fechaHoy <= model.FechaFinCampania.Date;
-                if (!esDiasFacturacion) return result;
+                result.CodigoNivel = "0" + (model.ConsecutivoNueva + 1);
+                BEConsultoraRegaloProgramaNuevas premioAuto;
+                List<BEConsultoraRegaloProgramaNuevas> listPremioElec;
 
-                BEConsultoraRegaloProgramaNuevas entidad;
                 using (var svc = new PedidoServiceClient())
                 {
-                    entidad = await svc.GetConsultoraRegaloProgramaNuevasAsync(model.PaisID, model.CampaniaID, model.CodigoConsultora, model.ConsecutivoNueva);
+                    premioAuto = await svc.GetConsultoraRegaloProgramaNuevasAsync(model.PaisID, model.CampaniaID, model.CodigoPrograma, result.CodigoNivel);
+                    listPremioElec = (await svc.GetListPremioElecProgNuevasAsync(model.PaisID, model.CampaniaID, model.CodigoPrograma, result.CodigoNivel)).ToList();
                 }
 
-                if (entidad != null)
-                {
-                    var listaProdCatalogo = new List<Producto>();
-                    if (!string.IsNullOrEmpty(entidad.CodigoSap))
-                    {
-                        using (var svc = new ProductoServiceClient())
-                        {
-                            var lst = await svc.ObtenerProductosPorCampaniasBySapAsync(model.CodigoISO, model.CampaniaID, entidad.CodigoSap, 3);
-                            listaProdCatalogo = lst.ToList();
-                        }
-                    }
-
-                    if (listaProdCatalogo.Any())
-                    {
-                        var prodCatalogo = listaProdCatalogo.FirstOrDefault();
-                        if (prodCatalogo != null)
-                        {
-                            var dd = (!string.IsNullOrEmpty(prodCatalogo.NombreComercial)
-                                ? prodCatalogo.NombreComercial
-                                : prodCatalogo.DescripcionComercial);
-                            if (!string.IsNullOrEmpty(dd)) entidad.DescripcionPremio = dd;
-
-                            if (prodCatalogo.PrecioCatalogo > 0) entidad.PrecioCatalogo = prodCatalogo.PrecioCatalogo;
-                            if (prodCatalogo.PrecioValorizado > 0)
-                                entidad.PrecioValorizado = prodCatalogo.PrecioValorizado;
-                            entidad.UrlImagenRegalo = prodCatalogo.Imagen;
-                        }
-                    }
-
-                    result = Mapper.Map<BEConsultoraRegaloProgramaNuevas, ConsultoraRegaloProgramaNuevasModel>(entidad);
-                    result.CodigoIso = model.CodigoISO;
-                    result.DescripcionPremio = result.DescripcionPremio.ToUpper();
-                }
+                if (premioAuto != null) result.PremioAuto = Mapper.Map<PremioProgNuevasModel>(premioAuto);
+                if (listPremioElec != null) result.ListPremioElec = Mapper.Map<List<PremioProgNuevasModel>>(listPremioElec);
+                result.MostrarRegaloOF = GetMostrarRegaloOF(result, model);                
             }
             catch (Exception ex)
             {
@@ -1659,6 +1625,50 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return result;
+        }
+
+        private bool GetMostrarRegaloOF(ConfigPremioProgNuevasModel configPremio, UsuarioModel usuarioModel)
+        {
+            if ((GetRegaloProgramaNuevasFlag() != "1")) return false;
+
+            var fechaHoy = DateTime.Now.AddHours(usuarioModel.ZonaHoraria).Date;
+            var esDiasFacturacion = fechaHoy >= usuarioModel.FechaInicioCampania.Date && fechaHoy <= usuarioModel.FechaFinCampania.Date;
+            if (!esDiasFacturacion) return false;
+
+            return configPremio.PremioAuto != null || (configPremio.ListPremioElec != null && configPremio.ListPremioElec.Any());
+        }
+
+        private async Task<PremioProgNuevasModel> GetPremioProgNuevasOF(UsuarioModel model, BEConsultoraRegaloProgramaNuevas premio)
+        {
+            var listaProdCatalogo = new List<Producto>();
+            if (!string.IsNullOrEmpty(premio.CodigoSap))
+            {
+                using (var svc = new ProductoServiceClient())
+                {
+                    var lst = await svc.ObtenerProductosPorCampaniasBySapAsync(model.CodigoISO, model.CampaniaID, premio.CodigoSap, 3);
+                    listaProdCatalogo = lst.ToList();
+                }
+            }
+
+            if (listaProdCatalogo.Any())
+            {
+                var prodCatalogo = listaProdCatalogo.FirstOrDefault();
+                if (prodCatalogo != null)
+                {
+                    var dd = (!string.IsNullOrEmpty(prodCatalogo.NombreComercial)
+                        ? prodCatalogo.NombreComercial
+                        : prodCatalogo.DescripcionComercial);
+                    if (!string.IsNullOrEmpty(dd)) premio.DescripcionPremio = dd;
+
+                    if (prodCatalogo.PrecioCatalogo > 0) premio.PrecioCatalogo = prodCatalogo.PrecioCatalogo;
+                    if (prodCatalogo.PrecioValorizado > 0) premio.PrecioValorizado = prodCatalogo.PrecioValorizado;
+                    premio.UrlImagenRegalo = prodCatalogo.Imagen;
+                }
+            }
+
+            var premioProgNuevasOFModel = Mapper.Map<BEConsultoraRegaloProgramaNuevas, PremioProgNuevasModel>(premio);
+            premioProgNuevasOFModel.DescripcionPremio = premioProgNuevasOFModel.DescripcionPremio.ToUpper();
+            return premioProgNuevasOFModel;
         }
 
         private async Task<List<UsuarioExternoModel>> GetListaLoginExterno(ServiceUsuario.BEUsuario usuario)
@@ -2140,10 +2150,10 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
 
-                 
+
                 revistaDigital.DLogoMenuInicioActiva = GetValor1WithS3(listaDatos, Constantes.ConfiguracionPaisDatos.RDI.LogoMenuRevistaDigitaIntrigaActiva, paisIso);
-                 revistaDigital.DLogoMenuInicioNoActiva = GetValor1WithS3(listaDatos, Constantes.ConfiguracionPaisDatos.RDI.LogoMenuRevistaDigitaIntrigaNoActivo, paisIso);
-                
+                revistaDigital.DLogoMenuInicioNoActiva = GetValor1WithS3(listaDatos, Constantes.ConfiguracionPaisDatos.RDI.LogoMenuRevistaDigitaIntrigaNoActivo, paisIso);
+
                 confPaisDatoTmp = listaDatos.FirstOrDefault(d =>
                     d.Codigo == Constantes.ConfiguracionPaisDatos.RDI.LogoComercialFondo);
                 if (confPaisDatoTmp != null)

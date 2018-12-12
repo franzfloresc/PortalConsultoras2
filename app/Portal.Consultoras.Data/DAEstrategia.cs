@@ -635,12 +635,13 @@ namespace Portal.Consultoras.Data
             }
         }
 
-        public IDataReader GetPremiosElectivos(BEEstrategia entidad)
+        public IDataReader GetPremiosElectivos(string codigoPrograma, int anioCampana, string codigoNivel)
         {
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPremiosElectivos"))
             {
-                Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);
-                Context.Database.AddInParameter(command, "@CodigoPrograma", DbType.String, entidad.CodigoPrograma);
+                Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, anioCampana);
+                Context.Database.AddInParameter(command, "@CodigoPrograma", DbType.String, codigoPrograma);
+                Context.Database.AddInParameter(command, "@CodigoNivel", DbType.String, codigoNivel);
 
                 return Context.ExecuteReader(command);
             }

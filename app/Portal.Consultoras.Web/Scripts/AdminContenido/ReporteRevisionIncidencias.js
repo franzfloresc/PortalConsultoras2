@@ -523,7 +523,7 @@
                 {
                     name: "ImagenTipos",
                     index: "ImagenTipos",
-                    width: 150,
+                    width: 350,
                     editable: false,
                     resizable: false,
                     sortable: false,
@@ -533,7 +533,7 @@
                 {
                     name: "ImagenTonos",
                     index: "ImagenTonos",
-                    width: 150,
+                    width: 350,
                     editable: false,
                     resizable: false,
                     sortable: false,

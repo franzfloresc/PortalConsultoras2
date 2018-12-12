@@ -1760,10 +1760,7 @@ namespace Portal.Consultoras.Web.Controllers
                     EventoConsultoraID = configEstrategiaSR.BeShowRoomConsultora.EventoConsultoraID,
                 };
 
-                using (var sac = new PedidoServiceClient())
-                {
-                    sac.UpdEventoConsultoraPopup(userData.PaisID, entidad, TipoShowRoom);
-                }
+                this._showRoomProvider.ActualizarEventoConsultora(entidad, TipoShowRoom);
 
                 if (TipoShowRoom == "I")
                 {

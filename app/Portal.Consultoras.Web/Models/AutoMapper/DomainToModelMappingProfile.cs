@@ -2,8 +2,11 @@
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Models.Estrategia;
+using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using Portal.Consultoras.Web.Models.MisCertificados;
+using Portal.Consultoras.Web.Models.PagoEnLinea;
 using Portal.Consultoras.Web.Models.Pedido;
+using Portal.Consultoras.Web.Models.ProgramaNuevas;
 using Portal.Consultoras.Web.ServiceCDR;
 using Portal.Consultoras.Web.ServiceContenido;
 using Portal.Consultoras.Web.ServicePedido;
@@ -11,14 +14,10 @@ using Portal.Consultoras.Web.ServicePedidoRechazado;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceSeguridad;
-using ServiceUsuario = Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
-using Portal.Consultoras.Service;
-using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using System.Linq;
-using Portal.Consultoras.Web.Models.PagoEnLinea;
 
 namespace Portal.Consultoras.Web.Models.AutoMapper
 {
@@ -253,15 +252,8 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
 
             Mapper.CreateMap<ServicePedido.BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>();
 
-            Mapper.CreateMap<BEConsultoraRegaloProgramaNuevas, ConsultoraRegaloProgramaNuevasModel>()
-                .ForMember(t => t.CodigoNivel, f => f.MapFrom(c => c.CodigoNivel))
-                .ForMember(t => t.TippingPoint, f => f.MapFrom(c => c.TippingPoint))
-                .ForMember(t => t.CUVPremio, f => f.MapFrom(c => c.CUVPremio))
-                .ForMember(t => t.DescripcionPremio, f => f.MapFrom(c => c.DescripcionPremio))
-                .ForMember(t => t.CodigoSap, f => f.MapFrom(c => c.CodigoSap))
-                .ForMember(t => t.PrecioCatalogo, f => f.MapFrom(c => c.PrecioCatalogo))
-                .ForMember(t => t.PrecioValorizado, f => f.MapFrom(c => c.PrecioValorizado))
-                .ForMember(t => t.UrlImagenRegalo, f => f.MapFrom(c => c.UrlImagenRegalo));
+            Mapper.CreateMap<BEConsultoraRegaloProgramaNuevas, PremioProgNuevasModel>()
+                .ForMember(x => x.Cuv, t => t.MapFrom(c => c.CUVPremio));
 
             Mapper.CreateMap<BEPermiso, PermisoModel>()
                 .ForMember(t => t.EsDireccionExterior, f => f.MapFrom(c => c.UrlItem.ToLower().StartsWith("http")))
@@ -651,14 +643,12 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<BEPagoEnLineaTipoPasarela, PagoEnLineaTipoPasarelaModel>();
             Mapper.CreateMap<BEPagoEnLineaPasarelaCampos, PagoEnLineaPasarelaCamposModel>();
 
-            Mapper.CreateMap<BEActivarPremioNuevas, BarraTippingPoint>()
-                .ForMember(t => t.ActiveMonto, f => f.MapFrom(c => c.ActiveMontoTooltip));
+            Mapper.CreateMap<BEActivarPremioNuevas, BarraTippingPoint>();
             Mapper.CreateMap<ServicePedido.BEEstrategia, BarraTippingPoint>()
                 .ForMember(t => t.ActiveTooltip, f => f.Ignore())
                 .ForMember(t => t.ActiveMonto, f => f.Ignore())
                 .ForMember(t => t.Active, f => f.Ignore())
-                .ForMember(t => t.LinkURL, f => f.Ignore())
-                .ForMember(t => t.TippingPointMontoStr, f => f.Ignore());
+                .ForMember(t => t.LinkURL, f => f.Ignore());
 
             Mapper.CreateMap<EstrategiaComponenteModel, ServicePedido.BEEstrategiaProducto>()
                .ForMember(t => t.CUV, f => f.MapFrom(c => c.Cuv))
@@ -667,13 +657,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                .ForMember(t => t.NombreMarca, f => f.MapFrom(c => c.DescripcionMarca));
 
             Mapper.CreateMap<ServicePedido.BEEstrategia, PremioElectivoModel>()
-                //.ForMember(t => t.CUV2, f => f.MapFrom(c => c.CUV2))
-                //.ForMember(t => t.TipoEstrategiaID, f => f.MapFrom(c => c.TipoEstrategiaID))
-                //.ForMember(t => t.EstrategiaID, f => f.MapFrom(c => c.EstrategiaID))
-                //.ForMember(t => t.FlagNueva, f => f.MapFrom(c => c.FlagNueva))
                 .ForMember(t => t.DescripcionResumen, f => f.MapFrom(c => c.DescripcionCUV2));
-            //.ForMember(t => t.DescripcionMarca, f => f.MapFrom(c => c.DescripcionMarca))
-            //.ForMember(t => t.ImagenURL, f => f.MapFrom(c => c.ImagenURL));
         }
     }
 }

@@ -13,7 +13,7 @@ BEGIN
 		ActiveTooltipMonto	,
 		Active				,
 		FechaCreate			,
-		IS_NULL(IND_CUPO_ELEC, 0) AS IND_CUPO_ELEC
+		isnull(IND_CUPO_ELEC, 0) AS IND_CUPO_ELEC
 	from dbo.ActivarPremioNuevas  
 	where codigoprograma= @CodigoPrograma 
 		and anocampana= @CampaniaID 

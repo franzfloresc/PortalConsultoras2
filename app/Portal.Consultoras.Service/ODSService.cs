@@ -1,7 +1,9 @@
 ﻿using Portal.Consultoras.BizLogic;
 using Portal.Consultoras.BizLogic.ArmaTuPack;
+using Portal.Consultoras.BizLogic.LimiteVenta;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.LimiteVenta;
 using Portal.Consultoras.Entities.ProgramaNuevas;
 using Portal.Consultoras.ServiceContracts;
 using System;
@@ -14,6 +16,7 @@ namespace Portal.Consultoras.Service
         private readonly IProductoBusinessLogic BLProducto;
         private readonly IProgramaNuevasBusinessLogic BLProgramaNuevas;
         private readonly IArmaTuPackBusinessLogic BLArmaTuPack;
+        private readonly ILimiteVentaBusinessLogic BLLimiteVenta;
         private readonly BLMensajeCUV BLMensajeCUV;
         private readonly BLConsultora BLConsultora;
         private readonly BLTipoMeta BLTipoMeta;
@@ -23,6 +26,7 @@ namespace Portal.Consultoras.Service
         {
             BLProducto = new BLProducto();
             BLProgramaNuevas = new BLProgramaNuevas();
+            BLLimiteVenta = new BLLimiteVenta();
             BLMensajeCUV = new BLMensajeCUV();
             BLConsultora = new BLConsultora();
             BLTipoMeta = new BLTipoMeta();
@@ -308,5 +312,13 @@ namespace Portal.Consultoras.Service
             return BLArmaTuPack.CuvEstaEnLimite(paisID, campaniaID, zona, cuv, cantidadIngresada, cantidadActual);
         }
         #endregion
+        
+        #region LimiteVenta
+        public BERespValidarLimiteVenta CuvTieneLimiteVenta(int paisID, int campaniaID, string region, string zona, string cuv, int cantidadIngresada, int cantidadActual)
+        {
+            return BLLimiteVenta.CuvTieneLimiteVenta(paisID, campaniaID, region, zona, cuv, cantidadIngresada, cantidadActual);
+        }
+        #endregion
+
     }
 }

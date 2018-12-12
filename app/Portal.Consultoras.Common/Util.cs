@@ -2170,12 +2170,10 @@ namespace Portal.Consultoras.Common
                 if (request.Url != null)
                 {
                     string baseUrl = request.Url.Scheme + "://" + request.Url.Authority + (request.ApplicationPath != null && request.ApplicationPath.Equals("/") ? "/" : (request.ApplicationPath + "/"));
-
                     baseUrl = string.Format(baseUrl + "WebPages/{0}.aspx?parametros={1}", stActionIndex, enviar);
 
                     HiQPdf.HtmlToPdf htmlToPdfConverter = new HiQPdf.HtmlToPdf();
-                    htmlToPdfConverter.SerialNumber = "zoann56qqIKnrLyvvLf74P7u/u7/7vf39/fu/f/g//zg9/f39w==";
-
+                    htmlToPdfConverter.SerialNumber = "zoann56qqIKnrLyvvLf74P7u/u7/7vf39/fu/f/g//zg9/f39w==";                                     
                     byte[] pdfBuffer = htmlToPdfConverter.ConvertUrlToMemory(baseUrl);
 
                     HttpContext.Current.Response.Clear();
@@ -2187,6 +2185,34 @@ namespace Portal.Consultoras.Common
                     HttpContext.Current.Response.BinaryWrite(pdfBuffer);
                 }
 
+                HttpContext.Current.Response.Flush();
+                HttpContext.Current.Response.End();
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public static bool ExportToPdfWebPagesPercepcion(string fileName, string contentHtml)
+        {
+            try
+            {
+
+                string extension = ".pdf";
+                string originalFileName = Path.GetFileNameWithoutExtension(fileName) + extension;
+
+                var htmlToPdf = new NReco.PdfGenerator.HtmlToPdfConverter();
+                byte[] pdfBuffer = htmlToPdf.GeneratePdf(contentHtml);
+
+                HttpContext.Current.Response.Clear();
+                HttpContext.Current.Response.Buffer = false;
+                HttpContext.Current.Response.AddHeader("Content-disposition", "attachment; filename=" + originalFileName);
+                HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+                HttpContext.Current.Response.Charset = "iso-8859-1";
+                HttpContext.Current.Response.ContentType = "text/html";
+                HttpContext.Current.Response.BinaryWrite(pdfBuffer);
                 HttpContext.Current.Response.Flush();
                 HttpContext.Current.Response.End();
             }
@@ -3862,20 +3888,6 @@ namespace Portal.Consultoras.Common
             if (string.IsNullOrEmpty(origenActual)) return origenActual;
             var nuevoOrigen = origenActual.Remove(0, 1).Insert(0, "4");
             return nuevoOrigen;
-        }
-
-        public static T GetOrCalcValue<T>(Func<T> fnGet, Action<T> fnSet, Predicate<T> fnIsNull, Func<T> fnCalc, Action<Exception> fnExcep, T defaultValue)
-        {
-            if (!fnIsNull(fnGet())) return fnGet();
-
-            try { fnSet(fnCalc()); }
-            catch (Exception ex)
-            {
-                fnSet(defaultValue);
-                fnExcep(ex);
-            }
-
-            return fnGet();
         }
 
         public static T GetOrCalcValue<T>(Func<T> fnGet, Action<T> fnSet, Predicate<T> fnIsNull, Func<T> fnCalc)
