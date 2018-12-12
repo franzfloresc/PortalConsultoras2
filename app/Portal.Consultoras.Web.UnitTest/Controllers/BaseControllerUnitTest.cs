@@ -28,25 +28,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 {
                     //_configuracionManagerProvider = new Mock<ConfiguracionManagerProvider>().Object;
                 }
-
-                //protected override List<MenuMobileModel> GetMenuMobileModel(int paisID)
-                //{
-                //    return new List<MenuMobileModel> {
-                //        new MenuMobileModel{
-                //            Codigo =  Constantes.MenuCodigo.ContenedorOfertas.ToLower(),
-                //            UrlItem = string.Empty,
-                //            UrlImagen=String.Empty,
-                //            Descripcion=string.Empty,
-                //            Posicion="Menu",
-                //            OnClickFunt=string.Empty
-                //        }
-                //    };
-                //}
-
-                //public override string GetUrlImagenMenuOfertas(UsuarioModel userData, RevistaDigitalModel revistaDigital)
-                //{
-                //    return "UrlImagenMenuOfertasMobile";
-                //}
+                
             }
 
             BaseController _controller;
@@ -112,65 +94,11 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
         [TestClass]
         public class BuildMenu : Base
         {
-            //class BaseControllerStub00 : BaseController
-            //{
-            //    protected override IList<PermisoModel> GetPermisosByRol(int paisID, int rolID)
-            //    {
-            //        return new List<PermisoModel> {
-            //        };
-            //    }
-            //}
-            //[TestMethod]
-            //public void BuildMenu_PropiedadClaseLogoSBInUserDataNoEsNula_ActualizaViewBag()
-            //{
-            //    var controller = new BaseControllerStub00(/*SessionManager.Object*/);
-            //    var userData = new UsuarioModel { ClaseLogoSB = "ClaseLogoSB" };
-            //    var revistaDigital = new RevistaDigitalModel { TieneRDC = false };
 
-            //    var menuOferta = controller.BuildMenu(userData, revistaDigital);
-
-            //    Assert.IsNotNull(menuOferta);
-            //    Assert.AreEqual(controller.ViewBag.ClaseLogoSB, "ClaseLogoSB");
-            //}
-
-            //class BaseControllerStub03 : BaseController
-            //{
-            //    public BaseControllerStub03(ISessionManager SessionManager) : base(SessionManager)
-            //    {
-
-            //    }
-
-            //    protected override IList<PermisoModel> GetPermisosByRol(int paisID, int rolID)
-            //    {
-            //        return new List<PermisoModel> {
-            //            new PermisoModel
-            //            {
-            //                PermisoID=1,
-            //                Codigo =  Constantes.MenuCodigo.ContenedorOfertas.ToLower(),
-            //                UrlItem = string.Empty,
-            //                DescripcionFormateada=string.Empty,
-            //                Posicion=string.Empty
-            //            }
-            //        };
-            //    }
-
-            //    public override string GetUrlImagenMenuOfertas(UsuarioModel userData, RevistaDigitalModel revistaDigital)
-            //    {
-            //        return "url-imagen-menu-oferta.gif";
-            //    }
-            //}
             [TestMethod]
             public void BuildMenu_TienePermisoContenedorOfertasYUrlImagenMenuOfertasNoEsNula_MenuOfertasEsSoloImagenTrueYDevuelreUrl()
             {
-                //SessionManager.Setup(x => x.GetEventoFestivoDataModel()).Returns((EventoFestivoDataModel)null);
-                //var controller = new BaseControllerStub03(SessionManager.Object);
-                //var userData = new UsuarioModel { };
-                //var revistaDigital = new RevistaDigitalModel{};
-
-                //var result = controller.BuildMenu(userData, revistaDigital).First();
-
-                //Assert.AreEqual(true, result.EsSoloImagen);
-                //Assert.IsNotNull(result.UrlImagen);
+                //
             }
 
             [TestMethod]
@@ -189,7 +117,6 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 var controller = new BaseController(SessionManager.Object, LogManager.Object);
 
                 //var result = controller.BuildMenuContenedor(userData, revistaDigital, guiaNegocio);
-
                 //Assert.IsNotNull(result);
                 //Assert.AreEqual(2, result.Count);
             }
@@ -224,7 +151,6 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 var controller = new BaseController(SessionManager.Object,LogManager.Object);
 
                 //var result = controller.BuildMenuContenedor(userData, revistaDigital, guiaNegocio).First();
-
                 //Assert.IsNotNull(result);
                 //Assert.AreEqual(Constantes.ConfiguracionPais.Inicio, result.Codigo);
                 //Assert.AreEqual(201804, result.CampaniaId);
@@ -267,7 +193,6 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 var controller = new BaseController(SessionManager.Object, LogManager.Object);
 
                 //var result = controller.BuildMenuContenedor(userData, revistaDigital, guiaNegocio).First();
-
                 //Assert.IsNotNull(result);
                 //Assert.AreEqual(Constantes.ConfiguracionPais.ShowRoom, result.Codigo);
                 //Assert.AreEqual(201804, result.CampaniaId);
@@ -308,7 +233,6 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 var controller = new BaseController(SessionManager.Object, LogManager.Object);
 
                 //var result = controller.BuildMenuContenedor(userData, revistaDigital, guiaNegocio).First();
-
                 //Assert.IsNotNull(result);
                 //Assert.AreEqual(Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada, result.Codigo);
                 //Assert.AreEqual(201804, result.CampaniaId);
@@ -350,7 +274,6 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 var controller = new BaseController(SessionManager.Object, LogManager.Object);
 
                 //var result = controller.BuildMenuContenedor(userData, revistaDigital, guiaNegocio).First();
-
                 //Assert.IsNotNull(result);
                 //Assert.AreEqual(Constantes.ConfiguracionPais.HerramientasVenta, result.Codigo);
                 //Assert.AreEqual(201804, result.CampaniaId);
@@ -463,10 +386,6 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     {
 
                     }
-                    //protected override string GetDefaultGifMenuOfertas()
-                    //{
-                    //    return "gif-por-defecto.gif";
-                    //}
                 }
                 [TestMethod]
                 public void GetUrlImagenMenuOfertas_ConsultoraNoEsikaParaMiSinEventoFestivo_TieneGifPorDefecto()
@@ -480,7 +399,6 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     };
 
                     //var url = controller.GetUrlImagenMenuOfertas(userData, revistaDigital);
-
                     //Assert.IsNotNull(url);
                     //Assert.IsTrue(url.Contains("gif-por-defecto.gif"));
                 }
@@ -503,7 +421,6 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     };
 
                     //var result = controller.GetUrlImagenMenuOfertas(userData, revistaDigital);
-
                     //Assert.IsNotNull(result);
                     //Assert.AreEqual("gana-mas.gif", result);
                 }
@@ -524,7 +441,6 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     };
 
                     //var result = controller.GetUrlImagenMenuOfertas(userData, revistaDigital);
-
                     //Assert.IsNotNull(result);
                     //Assert.AreEqual("gana-mas.gif", result);
                 }
@@ -544,7 +460,6 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     };
 
                     //var result = controller.GetUrlImagenMenuOfertas(userData, revistaDigital);
-
                     //Assert.IsNotNull(result);
                     //Assert.IsTrue(result.Contains("club-gana-mas.gif"));
                 }
@@ -564,7 +479,6 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     };
 
                     //var result = controller.GetUrlImagenMenuOfertas(userData, revistaDigital);
-
                     //Assert.IsNotNull(result);
                     //Assert.IsTrue(result.Contains("club-gana-mas.gif"));
                 }
@@ -592,7 +506,6 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     };
 
                     //var menuOferta = controller.GetUrlImagenMenuOfertas(userData, revistaDigital);
-
                     //Assert.IsNotNull(menuOferta);
                     //Assert.IsTrue(menuOferta.Contains("gana-mas.gif"));
                 }
@@ -619,7 +532,6 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     var revistaDigital = new RevistaDigitalModel { TieneRDC = false, TieneRDI = false };
 
                     //var result = controller.GetUrlImagenMenuOfertas(userData, revistaDigital);
-
                     //Assert.IsNotNull(result);
                     //Assert.IsTrue(result.Contains("evento-festivo-ofertas-no-epm.gif"));
                 }
@@ -649,7 +561,6 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     };
 
                     //var result = controller.GetUrlImagenMenuOfertas(userData, revistaDigital);
-
                     //Assert.IsNotNull(result);
                     //Assert.IsTrue(result.Contains("evento-festivo-ofertas-gana-mas.gif"));
                 }
@@ -677,7 +588,6 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     };
 
                     //var result = controller.GetUrlImagenMenuOfertas(userData, revistaDigital);
-
                     //Assert.IsNotNull(result);
                     //Assert.IsTrue(result.Contains("evento-festivo-ofertas-gana-mas.gif"));
                 }
@@ -705,7 +615,6 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     };
 
                     //var result = controller.GetUrlImagenMenuOfertas(userData, revistaDigital);
-
                     //Assert.IsNotNull(result);
                     //Assert.IsTrue(result.Contains("evento-festivo-ofertas-club-gana-mas.gif"));
                 }
@@ -732,7 +641,6 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     };
 
                     //var result = controller.GetUrlImagenMenuOfertas(userData, revistaDigital);
-
                     //Assert.IsNotNull(result);
                     //Assert.IsTrue(result.Contains("evento-festivo-ofertas-club-gana-mas.gif"));
                 }
@@ -745,20 +653,6 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     {
 
                     }
-
-                    //protected override IList<PermisoModel> GetPermisosByRol(int paisID, int rolID)
-                    //{
-                    //    return new List<PermisoModel> {
-                    //    new PermisoModel
-                    //    {
-                    //        PermisoID=1,
-                    //        Codigo =  Constantes.MenuCodigo.ContenedorOfertas.ToLower(),
-                    //        UrlItem = string.Empty,
-                    //        DescripcionFormateada=string.Empty,
-                    //        Posicion=string.Empty
-                    //    }
-                    //};
-                    //}
                 }
                 [TestMethod]
                 public void GetUrlImagenMenuOfertas_ConsultoraEsikaParaMiIntrigaConEventoFestivo_DevuelveGifEventoFestivoGanaMas()
@@ -780,7 +674,6 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     };
 
                     //var result = controller.GetUrlImagenMenuOfertas(userData, revistaDigital);
-
                     //Assert.IsNotNull(result);
                     //Assert.IsTrue(result.Contains("evento-festivo-ofertas-gana-mas.gif"));
                 }
@@ -795,7 +688,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             {
                 SessionManager.Setup(x => x.GetMenuContenedorActivo()).Returns(new MenuContenedorModel { });
                 var controller = new BaseController(SessionManager.Object,LogManager.Object);
-                RevistaDigitalModel revistaDigital = null;
+                //RevistaDigitalModel revistaDigital = null;
 
                 //var result = controller.ObtenerConfiguracionSeccion(revistaDigital);
 
@@ -820,23 +713,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 {
                     return false;
                 }
-
-                //public override List<BEConfiguracionOfertasHome> GetConfiguracionOfertasHome(int paidId, int campaniaId)
-                //{
-                //    return new List<BEConfiguracionOfertasHome>
-                //    {
-                //        new BEConfiguracionOfertasHome
-                //        {
-                //            ConfiguracionPaisID=0,
-                //            ConfiguracionPais = new BEConfiguracionPais
-                //            {
-                //                ConfiguracionPaisID =0,
-                //                Codigo = "",
-                //                Excluyente = false
-                //            },                            
-                //        }
-                //    };
-                //}
+                
             }
             [TestMethod]
             public void ObtenerConfiguracionSeccion_SeccionNoPerteneceANingunaConfiguracionPais_NoSeDevuelve()
@@ -846,7 +723,6 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 var revistaDigital = new RevistaDigitalModel { };
 
                 //var result = controller.ObtenerConfiguracionSeccion(revistaDigital);
-
                 //Assert.IsNotNull(result);
                 //Assert.AreEqual(0, result.Count);
             }
@@ -862,33 +738,6 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 {
                     return false;
                 }
-
-                //public override List<BEConfiguracionOfertasHome> GetConfiguracionOfertasHome(int paidId, int campaniaId)
-                //{
-                //    return new List<BEConfiguracionOfertasHome>
-                //    {
-                //        new BEConfiguracionOfertasHome
-                //        {
-                //            ConfiguracionPaisID=18,
-                //            ConfiguracionPais = new BEConfiguracionPais
-                //            {
-                //                ConfiguracionPaisID =18,
-                //                Codigo = "HV",
-                //                Excluyente = false
-                //            },
-                //            CampaniaID = 201801,
-                //            UrlSeccion = "HerramientasVenta/Index",
-                //            //
-                //            DesktopOrden = 9,
-                //            DesktopImagenFondo = "PE_20171045539_xfwrimsvol_Desktop.png",
-                //            DesktopTitulo = "Titulo Herramienta Venta - Desktop",
-                //            DesktopSubTitulo = "SubTitulo Herramienta Venta - Desktop",
-                //            DesktopTipoPresentacion = Constantes.ConfiguracionSeccion.TipoPresentacion.SimpleCentrado,
-                //            DesktopTipoEstrategia = Constantes.TipoEstrategiaCodigo.HerramientasVenta,
-                //            DesktopCantidadProductos = 3
-                //        }
-                //    };
-                //}
             }
             [TestMethod]
             public void ObtenerConfiguracionSeccion_SeObtieneSeccionHerramientaVentasDesktopYNoTieneConfiguracionPaisHV_SeDevuelveSeccionConfigurada()
@@ -899,7 +748,6 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 var revistaDigital = new RevistaDigitalModel { };
 
                 //var result = controller.ObtenerConfiguracionSeccion(revistaDigital).FirstOrDefault();
-
                 //Assert.IsNull(result);
             }
 
@@ -914,33 +762,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 {
                     return false;
                 }
-
-                //public override List<BEConfiguracionOfertasHome> GetConfiguracionOfertasHome(int paidId, int campaniaId)
-                //{
-                //    return new List<BEConfiguracionOfertasHome>
-                //    {
-                //        new BEConfiguracionOfertasHome
-                //        {
-                //            ConfiguracionPaisID=18,
-                //            ConfiguracionPais = new BEConfiguracionPais
-                //            {
-                //                ConfiguracionPaisID =18,
-                //                Codigo = "HV",
-                //                Excluyente = false
-                //            },
-                //            CampaniaID = 201801,
-                //            UrlSeccion = "HerramientasVenta/Index",
-                //            //
-                //            DesktopOrden = 9,
-                //            DesktopImagenFondo = "PE_20171045539_xfwrimsvol_Desktop.png",
-                //            DesktopTitulo = "Titulo Herramienta Venta - Desktop",
-                //            DesktopSubTitulo = "SubTitulo Herramienta Venta - Desktop",
-                //            DesktopTipoPresentacion = Constantes.ConfiguracionSeccion.TipoPresentacion.SimpleCentrado,
-                //            DesktopTipoEstrategia = Constantes.TipoEstrategiaCodigo.HerramientasVenta,
-                //            DesktopCantidadProductos = 3                            
-                //        }
-                //    };
-                //}
+                
             }
             [TestMethod]
             public void ObtenerConfiguracionSeccion_SeObtieneSeccionHerramientaVentasDesktopYTieneConfiguracionPaisHV_SeDevuelveSeccionConfigurada()
@@ -949,26 +771,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 SessionManager.Setup(x => x.GetConfiguracionesPaisModel()).Returns(new List<ConfiguracionPaisModel> { new ConfiguracionPaisModel { ConfiguracionPaisID =18, Codigo = "HV" } });
                 var controller = new BaseControllerStub03(SessionManager.Object, LogManager.Object);
                 var revistaDigital = new RevistaDigitalModel { };
-
-                //var result = controller.ObtenerConfiguracionSeccion(revistaDigital).FirstOrDefault();
-
-                //Assert.IsNotNull(result);
-                //Assert.AreEqual("HV", result.Codigo);
-                //Assert.AreEqual(9, result.Orden);
-                //Assert.AreEqual("PE_20171045539_xfwrimsvol_Desktop.png", result.ImagenFondo);
-                //Assert.AreEqual("Titulo Herramienta Venta - Desktop", result.Titulo);
-                //Assert.AreEqual("SubTitulo Herramienta Venta - Desktop", result.SubTitulo);
-                //Assert.AreEqual(Constantes.ConfiguracionSeccion.TipoPresentacion.SimpleCentrado, result.TipoPresentacion);
-                //Assert.AreEqual(Constantes.TipoEstrategiaCodigo.HerramientasVenta, result.TipoEstrategia);
-                //Assert.AreEqual(3, result.CantidadMostrar);
-                //Assert.AreEqual("/HerramientasVenta/Comprar", result.UrlLandig);
-                //Assert.AreEqual(true, result.VerMas);
-                ////
-                //Assert.AreEqual("Estrategia/HVObtenerProductos", result.UrlObtenerProductos);
-                //Assert.AreEqual(Constantes.OrigenPedidoWeb.HVDesktopContenedor, result.OrigenPedido);
-                ////
-                //Assert.AreEqual("seccion-simple-centrado", result.TemplatePresentacion);
-                //Assert.AreEqual("#producto-landing-template", result.TemplateProducto);
+                
             }
 
             class BaseControllerStub04 : BaseController
@@ -982,32 +785,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 {
                     return true;
                 }
-
-                //public override List<BEConfiguracionOfertasHome> GetConfiguracionOfertasHome(int paidId, int campaniaId)
-                //{
-                //    return new List<BEConfiguracionOfertasHome>
-                //    {
-                //        new BEConfiguracionOfertasHome
-                //        {
-                //            ConfiguracionPaisID=18,
-                //            ConfiguracionPais = new BEConfiguracionPais
-                //            {
-                //                ConfiguracionPaisID =18,
-                //                Codigo = "HV",
-                //                Excluyente = false
-                //            },
-                //            CampaniaID = 201801,
-                //            UrlSeccion = "HerramientaVentas/Index",                            
-                //            //
-                //            MobileOrden = 99,
-                //            MobileImagenFondo = "PE_20171045539_xfwrimsvol_Mobile.png",
-                //            MobileTitulo = "Titulo Herramienta Venta - Mobile",
-                //            MobileSubTitulo = "SubTitulo Herramienta Venta - Mobile",
-                //            MobileTipoPresentacion = Constantes.ConfiguracionSeccion.TipoPresentacion.Banners,
-                //            MobileTipoEstrategia = Constantes.TipoEstrategiaCodigo.HerramientasVenta,
-                //        }
-                //    };
-                //}
+                
             }
             [TestMethod]
             public void ObtenerConfiguracionSeccion_SeObtieneSeccionHerramientaVentasMobileYTieneConfiguracionPaisHV_SeDevuelveSeccionConfigurada()
@@ -1016,26 +794,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 SessionManager.Setup(x => x.GetConfiguracionesPaisModel()).Returns(new List<ConfiguracionPaisModel> { new ConfiguracionPaisModel { ConfiguracionPaisID = 18, Codigo = "HV" } });
                 var controller = new BaseControllerStub04(SessionManager.Object, LogManager.Object);
                 var revistaDigital = new RevistaDigitalModel { };
-
-                //var result = controller.ObtenerConfiguracionSeccion(revistaDigital).FirstOrDefault();
-
-                //Assert.IsNotNull(result);
-                //Assert.AreEqual("HV", result.Codigo);
-                //Assert.AreEqual(99, result.Orden);
-                //Assert.AreEqual("PE_20171045539_xfwrimsvol_Mobile.png", result.ImagenFondo);
-                //Assert.AreEqual("Titulo Herramienta Venta - Mobile", result.Titulo);
-                //Assert.AreEqual("SubTitulo Herramienta Venta - Mobile", result.SubTitulo);
-                //Assert.AreEqual(Constantes.ConfiguracionSeccion.TipoPresentacion.Banners, result.TipoPresentacion);
-                //Assert.AreEqual(Constantes.TipoEstrategiaCodigo.HerramientasVenta, result.TipoEstrategia);
-                //Assert.AreEqual(0, result.CantidadMostrar);
-                //Assert.AreEqual("/Mobile/HerramientasVenta/Comprar", result.UrlLandig);
-                //Assert.AreEqual(true, result.VerMas);
-                ////
-                ////Assert.AreEqual(true, string.IsNullOrEmpty(result.UrlObtenerProductos));
-                //Assert.AreEqual(0, result.OrigenPedido);
-                ////
-                //Assert.AreEqual("seccion-banner", result.TemplatePresentacion);
-                //Assert.AreEqual("", result.TemplateProducto);
+                
             }
 
             class BaseControllerStub05 : BaseController
@@ -1049,32 +808,6 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 {
                     return true;
                 }
-
-                //public override List<BEConfiguracionOfertasHome> GetConfiguracionOfertasHome(int paidId, int campaniaId)
-                //{
-                //    return new List<BEConfiguracionOfertasHome>
-                //    {
-                //        new BEConfiguracionOfertasHome
-                //        {
-                //            ConfiguracionPaisID=18,
-                //            ConfiguracionPais = new BEConfiguracionPais
-                //            {
-                //                ConfiguracionPaisID =18,
-                //                Codigo = "HV",
-                //                Excluyente = false
-                //            },
-                //            CampaniaID = 201801,
-                //            UrlSeccion = "HerramientaVentas/Index",                            
-                //            //
-                //            MobileOrden = 99,
-                //            MobileImagenFondo = "PE_20171045539_xfwrimsvol_Mobile.png",
-                //            MobileTitulo = "Titulo Herramienta Venta - Mobile",
-                //            MobileSubTitulo = "SubTitulo Herramienta Venta - Mobile",
-                //            MobileTipoPresentacion = Constantes.ConfiguracionSeccion.TipoPresentacion.Banners,
-                //            MobileTipoEstrategia = Constantes.TipoEstrategiaCodigo.HerramientasVenta,
-                //        }
-                //    };
-                //}
             }
             [TestMethod]
             public void ObtenerConfiguracionSeccion_SeObtieneSeccionHerramientaVentasMobileYNoTieneConfiguracionPaisHV_SeDevuelveSeccionConfigurada()
@@ -1085,7 +818,6 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 var revistaDigital = new RevistaDigitalModel { };
 
                 //var result = controller.ObtenerConfiguracionSeccion(revistaDigital).FirstOrDefault();
-
                 //Assert.IsNull(result);
             }
         }

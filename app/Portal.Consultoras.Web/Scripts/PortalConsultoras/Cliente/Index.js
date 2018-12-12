@@ -43,7 +43,6 @@ function CrearDialogs() {
         {
             "Aceptar": function () {
                 HideDialog("DialogMensajes");
-                //$(this).dialog('close');
             }
         }
     });

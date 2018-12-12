@@ -214,9 +214,7 @@ namespace Portal.Consultoras.Web.Providers
             #endregion
 
             #region Variables para el formulario de pago visa
-
-            //pagoVisaModel.MerchantLogo = _tablaLogica.ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.UrlLogoPasarelaPago);
-            //pagoVisaModel.FormButtonColor = _tablaLogica.ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.ColorBotonPagarPasarelaPago);
+            
             pagoVisaModel.MerchantLogo = ObtenerValoresTipoPasarela(listaPasarelaVisa, tipoPasarelaVisa, Constantes.PagoEnLineaPasarelaVisa.UrlLogoPasarelaPago);
             pagoVisaModel.FormButtonColor = ObtenerValoresTipoPasarela(listaPasarelaVisa, tipoPasarelaVisa, Constantes.PagoEnLineaPasarelaVisa.ColorBotonPagarPasarelaPago);
             pagoVisaModel.Recurrence = "FALSE";
@@ -288,21 +286,7 @@ namespace Portal.Consultoras.Web.Providers
 
                 var bePagoEnLinea = GenerarEntidadPagoEnLineaVisa(respuestaVisa, model);
 
-                var bEUsuario = new BEUsuario()
-                {
-                    PaisID = userData.PaisID,
-                    ConsultoraID = userData.ConsultoraID,
-                    CodigoUsuario = userData.CodigoUsuario,
-                    CodigoConsultora = userData.CodigoConsultora,
-                    EMail = userData.EMail,
-                    DocumentoIdentidad = userData.DocumentoIdentidad,
-                    CampaniaID = userData.CampaniaID,
-                    FechaLimPago = userData.FechaLimPago,
-                    Simbolo = userData.Simbolo,
-                    Nombre = userData.NombreConsultora,
-                    PrimerNombre = userData.PrimerNombre,
-                    PrimerApellido = userData.PrimerApellido,
-                };
+                var bEUsuario = Mapper.Map<BEUsuario>(userData);                
 
                 BERespuestaServicio result = null;
 
