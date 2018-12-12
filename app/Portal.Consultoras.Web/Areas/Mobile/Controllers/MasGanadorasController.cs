@@ -12,7 +12,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         public MasGanadorasController()
         {
         }
-        // GET: Mobile/MasGanadoras
+
         public ActionResult Index()
         {
             var sessionMg = SessionManager.MasGanadoras.GetModel();
