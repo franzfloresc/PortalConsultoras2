@@ -39,7 +39,7 @@ var AnalyticsPortalModule = (function () {
         eligetuopcion: "eligetuopcion",
         verdetalle: "verdetalle",
         contenedor: "Contenedor",
-        contenedorHome: "Contenedor - Home",
+        contenedorHome: "Contenedor - Inicio",
         contenedorDetalle: "Contenedor - Detalle de Producto",
         contenedorDetalleSets: "Contenedor - Detalle de Producto - Ver más Sets",
         contenedorRevisar: "Contenedor - Revisar",
@@ -1603,19 +1603,27 @@ var AnalyticsPortalModule = (function () {
         try {
             if (_constantes.isTest)
                 alert("Marcación Ver más ofertas.");
-
             var esRevisar = window.actionName == "revisar" ? true : false;
             var nombreBoton = "Ver más Ofertas";
             var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(origenPedido);
             dataLayer.push({
                 'event': _evento.virtualEvent,
-                'category': fnObtenerContenedor(),
-                'action': esRevisar ? 'Click Botón' + ' - ' + palanca : 'Click Botón' + ' - ' + nombreBoton,
-                'label': esRevisar ? nombreBoton : palanca,
+                'category': fnObtenerContenedor() + ' - ' + palanca,
+                'action': 'Click Botón',
+                'label': nombreBoton,
                 'eventCallback': function () {
                     document.location = url;
                 }
             });
+            //dataLayer.push({
+            //    'event': _evento.virtualEvent,
+            //    'category': fnObtenerContenedor(),
+            //    'action': esRevisar ? 'Click Botón' + ' - ' + palanca : 'Click Botón' + ' - ' + nombreBoton,
+            //    'label': esRevisar ? nombreBoton : palanca,
+            //    'eventCallback': function () {
+            //        document.location = url;
+            //    }
+            //});
 
         } catch (e) {
             document.location = url;
