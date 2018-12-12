@@ -149,8 +149,8 @@ namespace Portal.Consultoras.BizLogic
             if (paisID == 4
                 || paisID == 2
                 || paisID == 3
-                || paisID == 8
                 || paisID == 7
+                || paisID == Constantes.PaisID.Guatemala
                 || paisID == Constantes.PaisID.Peru)
             {
                 //Validamos si el estado es retirada
