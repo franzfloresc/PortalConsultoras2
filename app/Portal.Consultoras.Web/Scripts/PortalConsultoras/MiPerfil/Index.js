@@ -240,7 +240,9 @@ $(document).ready(function () {
                 me.Funciones.PuedeCambiarTelefono();
                 me.Funciones.EvitandoCopiarPegar();
                 me.Funciones.ValidacionSoloLetras();
-                google.maps.event.addDomListener(window, 'load', me.Funciones.initAutoComplete);
+                setTimeout(function() {
+                    google.maps.event.addDomListener(window, 'load', me.Funciones.initAutoComplete);
+                }, 3000);
             }
     }
 

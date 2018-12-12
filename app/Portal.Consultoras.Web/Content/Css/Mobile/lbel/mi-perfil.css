@@ -806,20 +806,44 @@
 
 .popup_ubicacion_direccion_entrega_titulo {
     margin-top: 0;
-    margin-bottom: 12px;
-    font-size:23px;
+    margin-bottom: 6px;
+    font-size:25px;
 }
 
 .popup_ubicacion_direccion_entrega_titulo,
-.popup_ubicacion_direccion_texto
+.popup_ubicacion_direccion_texto,
+.popup_ubicacion_direccion_elegida
 {
     color:#FFF;
+    letter-spacing:0.1px;
 }
 
 .popup_ubicacion_direccion_texto{
-    line-height:19px;
-    margin-bottom:0;
+    line-height: 17px;
+    margin-bottom: 19px;
+    font-weight: 300;
+    font-size: 14px;
 }
+
+.popup_ubicacion_direccion_elegida {
+    font-size: 15px;
+    color: #FFF;
+    margin-bottom: 0;
+    font-weight:600;
+}
+
+    .popup_ubicacion_direccion_elegida:before {
+        display: inline-block;
+        vertical-align: middle;
+        content: "";
+        width: 20px;
+        height: 20px;
+        margin-right: 1.5px;
+        background-image: url(/Content/Images/icono_ubicacion_blanco.svg);
+        background-repeat: no-repeat;
+        background-size: 13px;
+        background-position: center top;
+    }
 
 .popup_ubicacion_direccion_entrega_cabecera,
 .popup_ubicacion_direccion_entrega_contenido
@@ -828,7 +852,7 @@
 }
 
 .popup_ubicacion_direccion_entrega_contenido{
-    height: calc(100vh - 115px);
+    height: calc(100vh - 148px);
     overflow: hidden;
 }
 
@@ -864,7 +888,7 @@
 
 .mapa_wrapper{
     overflow:initial!important;
-    height: calc(100vh - 175px);
+    height: calc(100vh - 208px);
 }
 
 /* FIN - POPUP MAPA UBICACIÓN DIRECCIÓN ENTREGA */
