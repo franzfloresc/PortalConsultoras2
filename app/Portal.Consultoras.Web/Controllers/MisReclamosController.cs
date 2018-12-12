@@ -177,7 +177,7 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult BuscarCUV(MisReclamosModel model)
         {
             var listaPedidoFacturados = SessionManager.GetCDRPedidoFacturado();
-            var listaCuv = listaPedidoFacturados.Where(a => a.CampaniaID == model.CampaniaID && a.PedidoID == model.PedidoID).FirstOrDefault() ?? new BEPedidoWeb();
+            var listaCuv = listaPedidoFacturados.FirstOrDefault(a => a.CampaniaID == model.CampaniaID && a.PedidoID == model.PedidoID) ?? new BEPedidoWeb();
 
             return Json(new
             {
@@ -344,9 +344,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return cantidad >= 0;
         }
-
-
-
+        
         public JsonResult BuscarCuvCambiar(MisReclamosModel model)
         {
             List<ServiceODS.BEProducto> olstProducto;
