@@ -147,7 +147,7 @@ namespace Portal.Consultoras.BizLogic
             bool autorizado = (consultoraCatalogo.AutorizaPedido != "N" && consultoraCatalogo.EsAfiliado);
             // Validamos si pertenece a Peru, Bolivia, Chile, Guatemala, El Salvador, Colombia (Paises ESIKA)
             if (paisID == 2
-                || paisID == 3
+                || paisID == Constantes.PaisID.Chile
                 || paisID == Constantes.PaisID.Colombia
                 || paisID == Constantes.PaisID.ElSalvador
                 || paisID == Constantes.PaisID.Guatemala
@@ -165,7 +165,7 @@ namespace Portal.Consultoras.BizLogic
                 BETablaLogicaDatos restriccionReingreso = tabla_Reingresada.Find(p => Convert.ToInt32(p.Codigo.Trim()) == consultoraCatalogo.IdEstadoActividad);
                 if (restriccionReingreso != null)
                 {
-                    if (paisID == 3)
+                    if (paisID == Constantes.PaisID.Chile)
                     {
                         //Se valida las campañas que no ha ingresado
                         int campaniaSinIngresar = 0;

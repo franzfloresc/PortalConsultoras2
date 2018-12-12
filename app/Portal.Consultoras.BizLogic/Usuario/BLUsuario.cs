@@ -1190,7 +1190,7 @@ namespace Portal.Consultoras.BizLogic
                         {
                             // Validamos si pertenece a Peru, Bolivia, Chile, Guatemala, El Salvador, Colombia (Paises ESIKA)
                             if (paisID == 2
-                                || paisID == 3
+                                || paisID == Constantes.PaisID.Chile
                                 || paisID == Constantes.PaisID.Colombia
                                 || paisID == Constantes.PaisID.ElSalvador
                                 || paisID == Constantes.PaisID.Guatemala
@@ -1201,7 +1201,7 @@ namespace Portal.Consultoras.BizLogic
                                 if (restriccion != null)
                                 {
                                     //Validamos si el pais es SICC
-                                    if (paisID == 3
+                                    if (paisID == Constantes.PaisID.Chile
                                         || paisID == Constantes.PaisID.Colombia
                                         || paisID == Constantes.PaisID.ElSalvador
                                         || paisID == Constantes.PaisID.Guatemala
@@ -1239,7 +1239,7 @@ namespace Portal.Consultoras.BizLogic
                                     BETablaLogicaDatos restriccionReingreso = tablaReingresada.Find(p => Convert.ToInt32(p.Codigo.Trim()) == idEstadoActividad);
                                     if (restriccionReingreso != null)
                                     {
-                                        if (paisID == 3)
+                                        if (paisID == Constantes.PaisID.Chile)
                                         {
                                             //Se valida las campañas que no ha ingresado
                                             if (ultimaCampania != 0 && campaniaActual.ToString().Length == 6 && ultimaCampania.ToString().Length == 6)
@@ -1276,7 +1276,7 @@ namespace Portal.Consultoras.BizLogic
                                                 {
                                                     //Validamos si es SICC o Bolivia
                                                     if (paisID == 2
-                                                        || paisID == 3
+                                                        || paisID == Constantes.PaisID.Chile
                                                         || paisID == Constantes.PaisID.ElSalvador
                                                         || paisID == Constantes.PaisID.Guatemala
                                                         || paisID == Constantes.PaisID.Peru)
@@ -1306,7 +1306,7 @@ namespace Portal.Consultoras.BizLogic
                                         {
                                             //Validamos si es SICC o Bolivia
                                             if (paisID == 2
-                                                || paisID == 3
+                                                || paisID == Constantes.PaisID.Chile
                                                 || paisID == Constantes.PaisID.Colombia
                                                 || paisID == Constantes.PaisID.ElSalvador
                                                 || paisID == Constantes.PaisID.Guatemala
@@ -1468,7 +1468,7 @@ namespace Portal.Consultoras.BizLogic
 
             // Validamos si pertenece a Peru, Bolivia, Chile, Guatemala, El Salvador, Colombia (Paises ESIKA)
             if (paisID == 2
-                || paisID == 3
+                || paisID == Constantes.PaisID.Chile
                 || paisID == Constantes.PaisID.Colombia
                 || paisID == Constantes.PaisID.ElSalvador
                 || paisID == Constantes.PaisID.Guatemala
@@ -1486,7 +1486,7 @@ namespace Portal.Consultoras.BizLogic
                 BETablaLogicaDatos restriccionReingreso = tablaReingresada.Find(p => Convert.ToInt32(p.Codigo.Trim()) == idEstadoActividad);
                 if (restriccionReingreso != null)
                 {
-                    if (paisID == 3)
+                    if (paisID == Constantes.PaisID.Chile)
                     {
                         //Se valida las campañas que no ha ingresado
                         int campaniaSinIngresar = 0;
