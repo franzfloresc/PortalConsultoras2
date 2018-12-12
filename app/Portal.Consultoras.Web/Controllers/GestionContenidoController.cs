@@ -872,7 +872,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ObtenterCampaniasPorPais(int PaisID)
         {
-            PaisID = 11;
+            PaisID = Constantes.PaisID.Peru;
             IEnumerable<CampaniaModel> lista = DropDownCampanias(PaisID);
 
             return Json(new
