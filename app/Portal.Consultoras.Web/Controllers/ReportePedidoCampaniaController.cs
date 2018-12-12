@@ -314,7 +314,7 @@ namespace Portal.Consultoras.Web.Controllers
                                    a.CUV,
                                    a.CodigoProducto,
                                    a.UnidadesDemandadas,
-                                   (userData.PaisID == 4)? SeparadorMiles(Convert.ToDecimal(a.MontoDemandado)) : a.MontoDemandado,
+                                   (userData.PaisID == Constantes.PaisID.Colombia)? SeparadorMiles(Convert.ToDecimal(a.MontoDemandado)) : a.MontoDemandado,
                                    a.TipoOferta,
                                    a.Origen,
                                    a.FechaUltima
@@ -419,7 +419,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     else
                                         ws.Cell(row, col).Style.NumberFormat.Format = "@";
 
-                                    if (userData.PaisID == 4)
+                                    if (userData.PaisID == Constantes.PaisID.Colombia)
                                     {
                                         if (col == 6)
                                         {

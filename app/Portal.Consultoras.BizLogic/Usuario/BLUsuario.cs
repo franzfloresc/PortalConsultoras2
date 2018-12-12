@@ -1189,9 +1189,9 @@ namespace Portal.Consultoras.BizLogic
                         if (idEstadoActividad != -1)
                         {
                             // Validamos si pertenece a Peru, Bolivia, Chile, Guatemala, El Salvador, Colombia (Paises ESIKA)
-                            if (paisID == 4
-                                || paisID == 2
+                            if (paisID == 2
                                 || paisID == 3
+                                || paisID == Constantes.PaisID.Colombia
                                 || paisID == Constantes.PaisID.ElSalvador
                                 || paisID == Constantes.PaisID.Guatemala
                                 || paisID == Constantes.PaisID.Peru)
@@ -1201,14 +1201,13 @@ namespace Portal.Consultoras.BizLogic
                                 if (restriccion != null)
                                 {
                                     //Validamos si el pais es SICC
-                                    if (paisID == 4
-                                        || paisID == 3
+                                    if (paisID == 3
+                                        || paisID == Constantes.PaisID.Colombia
                                         || paisID == Constantes.PaisID.ElSalvador
                                         || paisID == Constantes.PaisID.Guatemala
                                         || paisID == Constantes.PaisID.Peru)
                                     {
-                                        //Caso Colombia
-                                        if (paisID == 4)
+                                        if (paisID == Constantes.PaisID.Colombia)
                                             return 2;
                                         else
                                         {
@@ -1269,8 +1268,7 @@ namespace Portal.Consultoras.BizLogic
                                         }
                                         else
                                         {
-                                            //Caso Colombia
-                                            if (paisID == 4)
+                                            if (paisID == Constantes.PaisID.Colombia)
                                                 return 2;
                                             else
                                             {
@@ -1293,8 +1291,7 @@ namespace Portal.Consultoras.BizLogic
                                     }
                                     else
                                     {
-                                        //Caso Colombia
-                                        if (paisID == 4)
+                                        if (paisID == Constantes.PaisID.Colombia)
                                         {
                                             //Egresada o Posible Egreso
                                             BETablaLogicaDatos restriccionEgresada = tablaEgresada.Find(p => Convert.ToInt32(p.Codigo.Trim()) == idEstadoActividad);
@@ -1308,9 +1305,9 @@ namespace Portal.Consultoras.BizLogic
                                         if (autorizaPedido == "N")
                                         {
                                             //Validamos si es SICC o Bolivia
-                                            if (paisID == 4
+                                            if (paisID == 2
                                                 || paisID == 3
-                                                || paisID == 2
+                                                || paisID == Constantes.PaisID.Colombia
                                                 || paisID == Constantes.PaisID.ElSalvador
                                                 || paisID == Constantes.PaisID.Guatemala
                                                 || paisID == Constantes.PaisID.Peru)
@@ -1470,9 +1467,9 @@ namespace Portal.Consultoras.BizLogic
             if (idEstadoActividad == -1) return 3; //Se asume para usuarios del tipo SAC
 
             // Validamos si pertenece a Peru, Bolivia, Chile, Guatemala, El Salvador, Colombia (Paises ESIKA)
-            if (paisID == 4
-                || paisID == 2
+            if (paisID == 2
                 || paisID == 3
+                || paisID == Constantes.PaisID.Colombia
                 || paisID == Constantes.PaisID.ElSalvador
                 || paisID == Constantes.PaisID.Guatemala
                 || paisID == Constantes.PaisID.Peru)
@@ -1481,7 +1478,7 @@ namespace Portal.Consultoras.BizLogic
                 BETablaLogicaDatos restriccion = tablaRetirada.Find(p => Convert.ToInt32(p.Codigo.Trim()) == idEstadoActividad);
                 if (restriccion != null)
                 {
-                    if (paisID == 4) return 2; //Caso Colombia
+                    if (paisID == Constantes.PaisID.Colombia) return 2;
                     return autorizado ? 3 : 2;
                 }
 
@@ -1499,9 +1496,9 @@ namespace Portal.Consultoras.BizLogic
                         }
                         if (campaniaSinIngresar > 0) return 2;
                     }
-                    else if (paisID == 4) return 2; //Caso Colombia
+                    else if (paisID == Constantes.PaisID.Colombia) return 2;
                 }
-                else if (paisID == 4) //Caso Colombia
+                else if (paisID == Constantes.PaisID.Colombia)
                 {
                     //Egresada o Posible Egreso
                     BETablaLogicaDatos restriccionEgresada = tablaEgresada.Find(p => Convert.ToInt32(p.Codigo.Trim()) == idEstadoActividad);

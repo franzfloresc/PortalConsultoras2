@@ -1444,7 +1444,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     var campaniaId = userData.CampaniaID;
                     var oBe = svc.GetLineaCreditoFlexipago(vPaisId, consultora, campaniaId);
-                    if (vPaisId == 4)
+                    if (vPaisId == Constantes.PaisID.Colombia)
                     {
                         ViewBag.LineaCredito = string.Format("{0:#,##0}", oBe.LineaCredito);
                         ViewBag.PedidoBase = string.Format("{0:#,##0}", oBe.PedidoBase);
@@ -1461,7 +1461,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
 
-                if (userData.PaisID == 4)
+                if (userData.PaisID == Constantes.PaisID.Colombia)
                 {
                     ViewBag.LineaCredito = "0";
                     ViewBag.PedidoBase = "0";
@@ -1478,7 +1478,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
 
-                if (userData.PaisID == 4)
+                if (userData.PaisID == Constantes.PaisID.Colombia)
                 {
                     ViewBag.LineaCredito = "0";
                     ViewBag.PedidoBase = "0";

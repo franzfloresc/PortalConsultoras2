@@ -178,7 +178,7 @@ namespace Portal.Consultoras.Web.Controllers
                     decimal montoDecimal = Convert.ToDecimal(motivoItem.Substring(motivoItem.IndexOf(':') + 1).Replace(" ", string.Empty));
 
                     motivoItem = motivoItem.Remove(motivoItem.IndexOf(':'));
-                    txtBuil.Append(string.Format("{0}: {1}", motivoItem, (userData.PaisID == 4) ? montoDecimal.ToString("#,##0").Replace(',', '.') : montoDecimal.ToString("0.00")));
+                    txtBuil.Append(string.Format("{0}: {1}", motivoItem, (userData.PaisID == Constantes.PaisID.Colombia) ? montoDecimal.ToString("#,##0").Replace(',', '.') : montoDecimal.ToString("0.00")));
                 }
             }
 
@@ -310,8 +310,8 @@ namespace Portal.Consultoras.Web.Controllers
                                    a.CUV,
                                    a.Descripcion,
                                    a.Cantidad.ToString("0.00"),
-                                   userData.Simbolo + " " + (userData.PaisID == 4 ? a.PrecioUnitario.ToString("#,##0").Replace(',','.') : a.PrecioUnitario.ToString("0.00")),
-                                   userData.Simbolo + " " + (userData.PaisID == 4 ? a.PrecioTotal.ToString("#,##0").Replace(',','.') : a.PrecioTotal.ToString("0.00"))
+                                   userData.Simbolo + " " + (userData.PaisID == Constantes.PaisID.Colombia ? a.PrecioUnitario.ToString("#,##0").Replace(',','.') : a.PrecioUnitario.ToString("0.00")),
+                                   userData.Simbolo + " " + (userData.PaisID == Constantes.PaisID.Colombia ? a.PrecioTotal.ToString("#,##0").Replace(',','.') : a.PrecioTotal.ToString("0.00"))
                                 }
                            }
                 };
@@ -520,7 +520,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     else
                                         ws.Cell(row, col).Style.NumberFormat.Format = "@";
 
-                                    if (userData.PaisID == 4)
+                                    if (userData.PaisID == Constantes.PaisID.Colombia)
                                     {
                                         if (col == 4 || col == 5)
                                         {

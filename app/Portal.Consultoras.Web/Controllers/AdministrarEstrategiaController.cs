@@ -1188,10 +1188,10 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(new
             {
                 data = lst[0],
-                precio = (userData.PaisID == 4)
+                precio = (userData.PaisID == Constantes.PaisID.Colombia)
                     ? lst[0].Precio.ToString("#,##0").Replace(',', '.')
                     : lst[0].Precio.ToString("#,##0.00"),
-                precio2 = (userData.PaisID == 4)
+                precio2 = (userData.PaisID == Constantes.PaisID.Colombia)
                     ? lst[0].Precio2.ToString("#,##0").Replace(',', '.')
                     : lst[0].Precio2.ToString("#,##0.00")
             }, JsonRequestBehavior.AllowGet);

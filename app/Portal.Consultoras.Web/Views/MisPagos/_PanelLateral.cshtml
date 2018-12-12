@@ -20,7 +20,7 @@
 
     @{
         var href = ViewBag.PaisID == 3 ? "javascript:;" :
-            ViewBag.PaisID == 4 ? "https://www.zonapagos.com/t_belstar/pagos.asp" :
+            ViewBag.PaisID == Constantes.PaisID.Colombia ? "https://www.zonapagos.com/t_belstar/pagos.asp" :
             ViewBag.PaisID == Constantes.PaisID.PuertoRico ? Url.Action("Index", "Paypal") : "";
         var onclick = ViewBag.PaisID == 3 ? "onclick='RedirectPagaEnLineaAnalytics();'" : "";
 

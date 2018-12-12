@@ -1142,12 +1142,12 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.ValidacionInteractiva = usuario.ValidacionInteractiva;
                     usuarioModel.MensajeValidacionInteractiva = usuario.MensajeValidacionInteractiva;
 
-                    usuarioModel.IndicadorPagoOnline = usuarioModel.PaisID == 4 
-                                                        || usuarioModel.PaisID == 3 
+                    usuarioModel.IndicadorPagoOnline = usuarioModel.PaisID == 3
+                                                        || usuarioModel.PaisID == Constantes.PaisID.Colombia
                                                         || usuarioModel.PaisID == Constantes.PaisID.PuertoRico
                                                         ? 1 : 0;
 
-                    usuarioModel.UrlPagoOnline = usuarioModel.PaisID == 4
+                    usuarioModel.UrlPagoOnline = usuarioModel.PaisID == Constantes.PaisID.Colombia
                         ? "https://www.zonapagos.com/pagosn2/LoginCliente"
                         : usuarioModel.PaisID == 3
                             ? "https://www.belcorpchile.cl/BotonesPagoRedireccion/PagoConsultora.aspx"

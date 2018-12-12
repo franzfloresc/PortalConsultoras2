@@ -331,10 +331,10 @@ namespace Portal.Consultoras.Web.Controllers
                             a.CodigoZona,
                             a.CodigoConsultora,
                             a.Nombres,
-                            userData.PaisID == 4
+                            userData.PaisID == Constantes.PaisID.Colombia
                                 ? a.MontoPedido.ToString("#,##0").Replace(',', '.')
                                 : a.MontoPedido.ToString("0.00"),
-                            userData.PaisID == 4
+                            userData.PaisID == Constantes.PaisID.Colombia
                                 ? a.SaldoDeuda.ToString("#,##0").Replace(',', '.')
                                 : a.SaldoDeuda.ToString("0.00"),
                             a.DescripcionBloqueo,
@@ -374,7 +374,7 @@ namespace Portal.Consultoras.Web.Controllers
                     total = pag.PageCount,
                     page = pag.CurrentPage,
                     records = pag.RecordCount,
-                    totalimporte = (userData.PaisID == 4)
+                    totalimporte = (userData.PaisID == Constantes.PaisID.Colombia)
                         ? lst.Sum(x => x.ImporteTotal).ToString("#,##0").Replace(',', '.')
                         : lst.Sum(x => x.ImporteTotal).ToString("0.00"),
                     simbolo = lst[0].Simbolo,
@@ -387,10 +387,10 @@ namespace Portal.Consultoras.Web.Controllers
                             a.CUV,
                             a.DescripcionProd,
                             a.Cantidad.ToString(),
-                            userData.PaisID == 4
+                            userData.PaisID == Constantes.PaisID.Colombia
                                 ? a.PrecioUnidad.ToString("#,##0").Replace(',', '.')
                                 : a.PrecioUnidad.ToString("0.00"),
-                            userData.PaisID == 4
+                            userData.PaisID == Constantes.PaisID.Colombia
                                 ? a.ImporteTotal.ToString("#,##0").Replace(',', '.')
                                 : a.ImporteTotal.ToString("0.00")
 
@@ -588,7 +588,7 @@ namespace Portal.Consultoras.Web.Controllers
                             else
                                 ws.Cell(row, col).Style.NumberFormat.Format = "@";
 
-                            if (userData.PaisID == 4)
+                            if (userData.PaisID == Constantes.PaisID.Colombia)
                             {
                                 if (col == 4 || col == 5)
                                 {

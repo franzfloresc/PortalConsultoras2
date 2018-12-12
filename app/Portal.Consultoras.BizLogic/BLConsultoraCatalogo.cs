@@ -146,9 +146,9 @@ namespace Portal.Consultoras.BizLogic
 
             bool autorizado = (consultoraCatalogo.AutorizaPedido != "N" && consultoraCatalogo.EsAfiliado);
             // Validamos si pertenece a Peru, Bolivia, Chile, Guatemala, El Salvador, Colombia (Paises ESIKA)
-            if (paisID == 4
-                || paisID == 2
+            if (paisID == 2
                 || paisID == 3
+                || paisID == Constantes.PaisID.Colombia
                 || paisID == Constantes.PaisID.ElSalvador
                 || paisID == Constantes.PaisID.Guatemala
                 || paisID == Constantes.PaisID.Peru)
@@ -157,7 +157,7 @@ namespace Portal.Consultoras.BizLogic
                 BETablaLogicaDatos restriccion = tabla_Retirada.Find(p => Convert.ToInt32(p.Codigo.Trim()) == consultoraCatalogo.IdEstadoActividad);
                 if (restriccion != null)
                 {
-                    if (paisID == 4) return 0; //Caso Colombia
+                    if (paisID == Constantes.PaisID.Colombia) return 0;
                     return autorizado ? 1 : 0;
                 }
 
@@ -175,9 +175,9 @@ namespace Portal.Consultoras.BizLogic
                         }
                         if (campaniaSinIngresar > 0) return 0;
                     }
-                    else if (paisID == 4) return 0; //Caso Colombia
+                    else if (paisID == Constantes.PaisID.Colombia) return 0;
                 }
-                else if (paisID == 4) //Caso Colombia
+                else if (paisID == Constantes.PaisID.Colombia)
                 {
                     //Egresada o Posible Egreso
                     BETablaLogicaDatos restriccionEgresada = tabla_Egresada.Find(p => Convert.ToInt32(p.Codigo.Trim()) == consultoraCatalogo.IdEstadoActividad);

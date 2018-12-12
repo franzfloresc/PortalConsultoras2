@@ -28,7 +28,7 @@ namespace Portal.Consultoras.Web.Controllers
             var oRVDigitalModel = new RVDigitalModel { listaCampania = _paqueteDocumentarioProvider.GetListCampaniaPaqueteDocumentario(codigoConsultora, userData.CodigoISO, out errorMessage) };
 
             ViewBag.ErrorDescripcion = errorMessage;
-            if (userData.PaisID == 4)
+            if (userData.PaisID == Constantes.PaisID.Colombia)
             {
                 ViewBag.PaisID = userData.PaisID;
                 using (var sv = new ContenidoServiceClient())
