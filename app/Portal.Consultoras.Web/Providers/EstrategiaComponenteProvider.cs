@@ -360,7 +360,7 @@ namespace Portal.Consultoras.Web.Providers
             }
             catch
             {
-                // Excepcion
+                //
             }
 
             return existe;

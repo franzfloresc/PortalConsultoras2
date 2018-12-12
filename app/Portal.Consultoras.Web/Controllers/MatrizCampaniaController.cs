@@ -350,7 +350,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 System.IO.File.Delete(finalPath);
 
-                //ListaCUVs = lista.ToList();
                 bool isError = false;
                 var ListaCUVs = ConsultarDescripcionMasivo(lista.ToList(), campaniaId.ToString(), paisId.ToString(), ref isError);
                 SessionManager.Seterrores(ListaCUVs);

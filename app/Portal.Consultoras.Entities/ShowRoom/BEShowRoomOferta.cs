@@ -39,7 +39,6 @@ namespace Portal.Consultoras.Entities.ShowRoom
         public int Stock { get; set; }
 
         [DataMember]
-        //[ViewProperty]
         [Column("ConfiguracionOfertaID")]
         public int ConfiguracionOfertaID { get; set; }
 

@@ -480,7 +480,7 @@ namespace Portal.Consultoras.BizLogic
                                .Select(grp => grp.First())
                                .ToList();
 
-            if (catalogos.Count(x => x.Descripcion == Constantes.ConstSession.DescripcionPedidoOtro) > 0)
+            if (catalogos.Any(x => x.Descripcion == Constantes.ConstSession.DescripcionPedidoOtro))
                 oLista.Add(new BECatalogoRevista_ODS { Descripcion = Constantes.ConstSession.DescripcionPedidoOtro, CodigoCatalogo = Constantes.ConstSession.CodigoPedidoOtro });
 
             return oLista;
