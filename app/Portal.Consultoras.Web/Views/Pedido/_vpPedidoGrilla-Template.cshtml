@@ -43,7 +43,7 @@
     <div class="contenido_ingresoPedido mouse_encima" data-cuv="{{CUV}}">
         @*<div class="texto_pedidos celda_codigo">{{CUV}}</div>*@
         <div class="texto_pedidos celda_producto pedidoPadreToolTip" style="position:relative;">
-            {{#if CuponElectivo}}
+            {{#if PremioElectivo}}
             <!-- Cuando la consultora haya seleccionado un regalo se le muestra la descripción de oferta correspondiente al regalo de Programa Nuevas -->
             <label class="default-color producto_regalo_descripcion_grillaPedido" for="Regalo Programa Nuevas">Regalo Programa Nuevas</label>
             <!-- Fin - Cuando la consultora haya seleccionado un regalo se le muestra la descripción de oferta correspondiente al regalo de Programa Nuevas -->
@@ -61,7 +61,7 @@
                 <label for="{{DescripcionCortadaProd}}" class="lblLPDesProd">{{Split DescripcionCortadaProd '|' 0}}</label>
             </span>
             {{/if_eq}}
-            {{#if CuponElectivo}}
+            {{#if PremioElectivo}}
             <!-- Este tooltip se muestra cuando el producto es un regalo del Programa de Nuevas -->
             <div class="tooltip_informativo_condicion_regalo_programaNuevas">
                 Sólo si llegas a tu monto
@@ -69,7 +69,7 @@
             <!-- Fin - Este tooltip se muestra cuando el producto es un regalo del Programa de Nuevas -->
             {{/if}}
             <span class="texto_pedidos_ofertas">
-                {{#unless  CuponElectivo}}
+                {{#unless  PremioElectivo}}
                 <label for="{{DescripcionOferta}}">{{DescripcionOferta}}</label>
                 {{/unless}}
             </span>
@@ -98,14 +98,14 @@
                        data-input="cantidad" data-pedido="{{PedidoDetalleID}}" data-SetID="{{SetID}}"
                        @*onkeypress="PreValidarCUV(event);"*@
                        attrKey="PreValidarCUV"
-                       {{#if CuponElectivo}}
+                       {{#if PremioElectivo}}
                        readonly="readonly"
                        {{/if}}
                        onfocus="SeleccionarContenido(this)"
                        onblur="UpdateLiquidacion(event, '{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '1', '{{Cantidad}}', '{{SetID}}', {{EnRangoProgNuevas}})" />
                 <div class="liquidacion_rango_right_pedido">
-                    <a class="mas" {{#unless CuponElectivo}}onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"{{/unless}}><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
-                    <a class="menos" {{#unless CuponElectivo}}onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"{{/unless}}><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
+                    <a class="mas" {{#unless PremioElectivo}}onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"{{/unless}}><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
+                    <a class="menos" {{#unless PremioElectivo}}onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"{{/unless}}><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
                 </div>
             </div>
             {{/if}}
@@ -137,7 +137,7 @@
             <input type="hidden" name="hdfLPCliDes{{PedidoDetalleID}}" value="{{Nombre}}" class="classClienteID hdfLPCliDes" />
             <input type="hidden" name="hdfTest" value="{{Nombre}}" class="classClienteID hdfLPCliDes" />
             
-            {{#unless CuponElectivo}}
+            {{#unless PremioElectivo}}
             {{#if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Nueva'}}
             <input type="text" name="{{Nombre}}" value="{{Nombre}}" maxlength="50" class="classClienteNombre ValidaAlfanumerico txtLPCli"
                    readonly="readOnly" onkeydown="return false;" style="width:90%; padding:4px;" />
@@ -165,7 +165,7 @@
                 {{#iff DescripcionLarga 'Contains' '\''}}
                     {{Replace DescripcionLarga '\'' ''}}
                 {{/iff}}
-                {{#if CuponElectivo}}
+                {{#if PremioElectivo}}
                 <!-- Este enlace se muestra cuando el producto es un regalo de Programa Nuevas -->
                 <a href="javascript:;" onclick="javascript: $('body').css('overflow-y', ''); $('#popupPremio').fadeOut(200); cargarPopupEleccionRegalo();"
                    style="background-image: url('@Url.Content("~/Content/Images/icono_editar.svg")'); background-repeat:no-repeat; background-size:contain; width: 19px; height: 22px; margin: 0 auto;" title="Editar regalo"></a>

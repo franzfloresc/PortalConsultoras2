@@ -573,8 +573,8 @@ function MostrarBarra(datax, destino) {
         tipoMensaje = "TippingPointMobile";
     }
 
+    $('#montoPremioMeta').html(variablesPortal.SimboloMoneda + " " + dataBarra.TippingPointStr);
     if (belcorp.barra.settings.isMobile) {//V&& tp > 0  OG
-        $('#montoPremioMeta').html(variablesPortal.SimboloMoneda + " " + dataBarra.TippingPointStr);
         cargarMontoBanderasMobile(dataBarra);
     }
 
@@ -1001,7 +1001,7 @@ function setContainerLluvia(containerId) {
 }
 
 
-var ConfiguradoRegalo =  dataBarra.TippingPointBarra.InMinimo;
+var ConfiguradoRegalo =  dataBarra.TippingPointBarra ? dataBarra.TippingPointBarra.InMinimo || 0: 0;
 dataBarra.TippingPoint = 210;
 function CalculoLlenadoBarra() {
     var TippingPointBarraActive = dataBarra.TippingPointBarra.Active;
@@ -1575,21 +1575,21 @@ function InsertarPremio(model) {
         async: true,
         cache: false
     }).then(function (data) {
+        CerrarLoad();
+
         if (!checkTimeout(data)) {
-            CloseLoading();
             return false;
         }
 
         if (data.success != true) {
             messageInfoError(data.message);
-            CloseLoading();
             return false;
         }
 
-        CloseLoading();
-
-        if (typeof CargarPedido === "function") { 
+        if (typeof CargarPedido === "function") {
             CargarPedido();
+        } else if (typeof CargarDetallePedido === "function") {
+            CargarDetallePedido();
         }
 
         return data;
