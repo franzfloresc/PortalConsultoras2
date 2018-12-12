@@ -1192,7 +1192,7 @@ namespace Portal.Consultoras.BizLogic
                             if (paisID == 4
                                 || paisID == 2
                                 || paisID == 3
-                                || paisID == 7
+                                || paisID == Constantes.PaisID.ElSalvador
                                 || paisID == Constantes.PaisID.Guatemala
                                 || paisID == Constantes.PaisID.Peru)
                             {
@@ -1203,7 +1203,7 @@ namespace Portal.Consultoras.BizLogic
                                     //Validamos si el pais es SICC
                                     if (paisID == 4
                                         || paisID == 3
-                                        || paisID == 7
+                                        || paisID == Constantes.PaisID.ElSalvador
                                         || paisID == Constantes.PaisID.Guatemala
                                         || paisID == Constantes.PaisID.Peru)
                                     {
@@ -1279,7 +1279,7 @@ namespace Portal.Consultoras.BizLogic
                                                     //Validamos si es SICC o Bolivia
                                                     if (paisID == 2
                                                         || paisID == 3
-                                                        || paisID == 7
+                                                        || paisID == Constantes.PaisID.ElSalvador
                                                         || paisID == Constantes.PaisID.Guatemala
                                                         || paisID == Constantes.PaisID.Peru)
                                                         return 2;
@@ -1311,7 +1311,7 @@ namespace Portal.Consultoras.BizLogic
                                             if (paisID == 4
                                                 || paisID == 3
                                                 || paisID == 2
-                                                || paisID == 7
+                                                || paisID == Constantes.PaisID.ElSalvador
                                                 || paisID == Constantes.PaisID.Guatemala
                                                 || paisID == Constantes.PaisID.Peru)
                                                 return 2;
@@ -1473,7 +1473,7 @@ namespace Portal.Consultoras.BizLogic
             if (paisID == 4
                 || paisID == 2
                 || paisID == 3
-                || paisID == 7
+                || paisID == Constantes.PaisID.ElSalvador
                 || paisID == Constantes.PaisID.Guatemala
                 || paisID == Constantes.PaisID.Peru)
             {
