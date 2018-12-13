@@ -599,8 +599,6 @@
 
 .layout__content__filtros{
     width:30%;
-    /*position:sticky;
-    top:81px;*/
     max-width:270px;
     min-height:400px;
     padding:25px 20px 25px 30px;
@@ -835,12 +833,6 @@
     -webkit-transform: rotate(-360deg) translate(5px, 5px) scale(0.9);
     transform: rotate(-360deg) translate(5px, 5px) scale(0.9);
 }
-
-/*.spinner__circulo {
-    fill-opacity: 0;
-    -webkit-animation-name: opacity;
-    animation-name: opacity;
-}*/
 
 @-webkit-keyframes opacity {
   3% { fill-opacity: 1; }
@@ -1310,7 +1302,6 @@
 
     .opcion__ordenamiento__dropdown__lista{
         max-width:96.5%;
-        /*max-width:96%;*/
         top: 53px;
         right:10px;
         padding-top:4px;

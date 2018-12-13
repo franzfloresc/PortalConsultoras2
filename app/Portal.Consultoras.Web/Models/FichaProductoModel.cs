@@ -69,7 +69,7 @@ namespace Portal.Consultoras.Web.Models
         public int PuedeCambiarCantidad { get; set; }
         public int PuedeAgregar { get; set; }
         public int IsMobile { get; set; }
-        
+
         public string CodigoEstrategia { get; set; }
         public List<ProductoModel> Hermanos { get; set; }
         public List<string> ListaDescripcionDetalle { get; set; }
@@ -90,7 +90,14 @@ namespace Portal.Consultoras.Web.Models
             get
             {
                 decimal precioValorizado = 0;
-                try { precioValorizado = Convert.ToDecimal(PrecioTachado); } catch { /*no log*/ }
+                try
+                {
+                    precioValorizado = Convert.ToDecimal(PrecioTachado);
+                }
+                catch
+                {
+                    //
+                }
 
                 return (precioValorizado - Precio2);
             }

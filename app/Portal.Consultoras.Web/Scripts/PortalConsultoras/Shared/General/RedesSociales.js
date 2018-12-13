@@ -3,7 +3,7 @@
     var _variables = {
         clickDataCompartir: "[data-compartir]"
     }
-    
+
     var CompartirRedesSociales = function (e) {
         var obj = $(e.target);
         var tipoRedes = $.trim($(obj).parents("[data-compartir]").attr("data-compartir"));
@@ -17,16 +17,6 @@
         var article = $(padre).find("[data-compartir-campos]").eq(0);
 
         var label = $(article).find(".rs" + tipoRedes + "Mensaje").val();
-        //if (label != "") {
-            //dataLayer.push({
-            //    'event': 'virtualEvent',
-            //    'category': 'Ofertas Showroom',
-            //    'action': 'Compartir ' + tipoRedes,
-            //    'label': label,
-            //    'value': 0
-            //});
-           
-        //}
 
         CompartirRedesSocialesInsertar(article, tipoRedes);
     }
@@ -99,7 +89,6 @@
 
         nombre = $.trim(nombre);
 
-        //CompartirRedesSocialesAnalytics(tipoRedes, ruta, nombre);
         if (!(typeof AnalyticsPortalModule === 'undefined'))
             AnalyticsPortalModule.MarcaCompartirRedesSociales(tipoRedes, ruta);
         var url = "";
@@ -128,7 +117,7 @@
 
         }
 
-     
+
     }
 
     var CompartirRedesSocialesTexto = function (texto) {
@@ -141,7 +130,7 @@
 
         texto = texto.ReplaceAll("&", "y");
 
-        return "whatsapp://send?text=" + texto; 
+        return "whatsapp://send?text=" + texto;
     }
 
     var CompartirRedesSocialesAnalytics = function (tipoRedes, ruta, nombre) {
@@ -210,18 +199,16 @@
         campaniaEmail = campania;
         $("#divCheckbox").find("[type='checkbox']").removeAttr('checked');
 
-        //$("#divCheckbox").find("[data-cat='" + tipoCatalogo + "']").find("[type='checkbox']").attr('checked', "checked"); OMG
-
         var divs = document.getElementById('divCheckbox').children;
         for (var i = 0; i < divs.length; i++) {
             var atribute = divs[i].getAttribute("data-cat");
-            if (atribute ==tipoCatalogo) {
+            if (atribute == tipoCatalogo) {
                 divs[i].firstElementChild.firstElementChild.setAttribute("checked", "checked");
-                divs[i].firstElementChild.lastElementChild.click();             
+                divs[i].firstElementChild.lastElementChild.click();
             }
         }
 
-       
+
         $('#CompartirCorreo').show();
         $('#CompartirCorreoMobile').show();
 
@@ -246,7 +233,6 @@
 
     var _bindingEvents = function () {
         $("body").on("click", "[data-compartir]", function (e) {
-            //e.preventDefault();
             e.stopImmediatePropagation();
             CompartirRedesSociales(e);
         });

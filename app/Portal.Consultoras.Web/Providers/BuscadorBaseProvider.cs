@@ -65,7 +65,14 @@ namespace Portal.Consultoras.Web.Providers
             return Util.EsDispositivoMovil() ? "sb-mobile" : "sb-desktop";
         }
 
-        public IList<Productos> ValidacionProductoAgregado(IList<Productos> productos, List<BEPedidoWebDetalle> pedidos, UsuarioModel userData, RevistaDigitalModel revistaDigital, bool IsMobile, bool IsHome)
+        public IList<Productos> ValidacionProductoAgregado(
+            IList<Productos> productos,
+            List<BEPedidoWebDetalle> pedidos,
+            UsuarioModel userData,
+            RevistaDigitalModel revistaDigital,
+            bool IsMobile,
+            bool IsHome,
+            bool IsRecommendations)
         {
             var suscripcionActiva = revistaDigital.EsSuscrita && revistaDigital.EsActiva;
             if (!productos.Any()) return new List<Productos>();
@@ -84,8 +91,10 @@ namespace Portal.Consultoras.Web.Providers
                 item.PrecioString = Util.DecimalToStringFormat(item.Precio.ToDecimal(), userData.CodigoISO, userData.Simbolo);
                 item.ValorizadoString = Util.DecimalToStringFormat(item.Valorizado.ToDecimal(), userData.CodigoISO, userData.Simbolo);
                 item.DescripcionEstrategia = Util.obtenerNuevaDescripcionProducto(userData.NuevasDescripcionesBuscador, suscripcionActiva, item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaId, 0, true);
-                //item.OrigenPedidoWeb = (IsMobile ? Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoCarrusel : Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoCarrusel).ToString();
-                item.OrigenPedidoWeb = Util.obtenerCodigoOrigenWeb(item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaId, IsMobile, IsHome);
+                item.OrigenPedidoWeb = IsRecommendations ?
+                                        (IsMobile ? Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoCarrusel : Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoCarrusel).ToString()
+                                        :
+                                        Util.obtenerCodigoOrigenWeb(item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaId, IsMobile, IsHome);
                 item.Agregado = labelAgregado;
                 item.Stock = !item.Stock;
                 item.DescripcionCompleta = item.Descripcion;
@@ -129,6 +138,6 @@ namespace Portal.Consultoras.Web.Providers
             }
             return result;
         }
-        
+
     }
 }

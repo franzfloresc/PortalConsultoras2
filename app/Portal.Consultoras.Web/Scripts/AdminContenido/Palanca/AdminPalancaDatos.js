@@ -365,7 +365,6 @@
             height: 500,
             close: function () {
                 HideDialog(_elemento.DialogRegistro);
-                //$('body').css({ 'overflow': 'auto' });
             },
             draggable: false,
             title: _texto.TituloDialogRegistro,
@@ -377,7 +376,6 @@
                 },
                 'Salir': function () {
                     HideDialog(_elemento.DialogRegistro);
-                    //$(this).dialog('close');
                 }
             }
         });
