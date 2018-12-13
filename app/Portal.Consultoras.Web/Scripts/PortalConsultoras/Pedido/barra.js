@@ -32,7 +32,7 @@ function MostrarBarra(datax, destino) {
     if (destino == '2') {
         initCarruselPremios(dataBarra);
         if (datax.data && datax.data.CUV) {
-            trySetPremioElectivoByCuv(datax.data.CUV);
+            trySetPremioElectivo(datax.data.CUV);
         }
         savePedidoDetails(datax);
     }
@@ -688,10 +688,17 @@ function checkPremioSelected() {
         return;
     }
 
-    trySetPremioElectivoByCuv(detail.CUV);
+    if (tpElectivos.premioSelected &&
+        tpElectivos.premioSelected.CUV2 == cuv) {
+        return;
+    }
+
+    var premio = getPremioByCuv(detail.CUV);
+
+    setPremio(premio);
 }
 
-function trySetPremioElectivoByCuv(cuv) {
+function trySetPremioElectivo(cuv) {
     if (tpElectivos.premioSelected &&
         tpElectivos.premioSelected.CUV2 == cuv) {
         return;
@@ -699,7 +706,6 @@ function trySetPremioElectivoByCuv(cuv) {
 
     var premio = getPremioByCuv(cuv);
     if (!premio) {
-        setPremio(null);
         return;
     }
 
