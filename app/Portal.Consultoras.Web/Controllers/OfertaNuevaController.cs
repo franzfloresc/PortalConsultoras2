@@ -2,7 +2,6 @@
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
-using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -24,7 +23,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 IEnumerable<CampaniaModel> lstCampania = new List<CampaniaModel>();
-                model.listaPaises = CargarDropDowListPaises();
+                model.listaPaises = DropDowListPaises();
                 model.listaCampania = lstCampania;
                 model.PaisNombre = userData.NombrePais;
             }
@@ -333,19 +332,6 @@ namespace Portal.Consultoras.Web.Controllers
                     extra = ""
                 });
             }
-        }
-
-        private IEnumerable<PaisModel> CargarDropDowListPaises()
-        {
-            List<BEPais> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = userData.RolID == 2
-                    ? sv.SelectPaises().ToList()
-                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
-            }
-
-            return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
 
         public JsonResult ObtenerISOPais(int paisID)

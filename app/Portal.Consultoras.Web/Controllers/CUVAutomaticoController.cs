@@ -30,20 +30,7 @@ namespace Portal.Consultoras.Web.Controllers
             };
             return View(oCuvAutomaticoModel);
         }
-
-        private IEnumerable<PaisModel> DropDowListPaises()
-        {
-            List<BEPais> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = userData.RolID == 2
-                    ? sv.SelectPaises().ToList()
-                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
-            }
-
-            return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
-        }
-
+        
         public void LoadConsultorasCache(int paisId)
         {
             using (ODSServiceClient sv = new ODSServiceClient())

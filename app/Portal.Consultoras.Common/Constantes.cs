@@ -108,6 +108,7 @@ namespace Portal.Consultoras.Common
             public const string PuertoRico = "PR";
             public const string Dominicana = "DO";
             public const string Brasil = "BR";
+            public const string EstadosUnidos = "EU";
         }
 
         public static class ConfiguracionOferta

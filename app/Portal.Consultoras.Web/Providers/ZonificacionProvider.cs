@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceZonificacion;
 
@@ -41,6 +42,35 @@ namespace Portal.Consultoras.Web.Providers
             }
 
             return lst;
+        }
+
+        public IEnumerable<PaisModel> GetPaises(int paisId, int rolId)
+        {
+            List<BEPais> lst;
+            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
+            {
+                lst = rolId == Constantes.Rol.Administrador
+                    ? sv.SelectPaises().ToList()
+                    : new List<BEPais> { sv.SelectPais(paisId) };
+            }
+            return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
+        }
+
+        public List<BEPais> GetPaisesEntidad()
+        {
+            List<BEPais> lst;
+            using (var sv = new ZonificacionServiceClient())
+            {
+                lst = sv.SelectPaises().ToList();
+            }
+            return lst;
+        }
+
+        public BEPais GetPaisEntidad(int paisId)
+        {
+            List<BEPais> lst = GetPaisesEntidad();
+            BEPais entidad = lst.FirstOrDefault(x => x.PaisID == paisId) ?? new BEPais();
+            return entidad;
         }
     }
 }

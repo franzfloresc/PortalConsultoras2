@@ -34,7 +34,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             var model = new MatrizCampaniaModel
             {
-                listaPaises = ObtenerPaises(),
+                listaPaises = DropDowListPaises(),
                 DropDownListCampania = ObtenerCampanias(),
                 DropDownListCampaniaMasiva = _zonificacionProvider.GetCampaniasEntidad(Constantes.PaisID.Peru)
             };
@@ -61,35 +61,13 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var model = new MatrizCampaniaModel
             {
-                listaPaises = ObtenerPaises(),
+                listaPaises = DropDowListPaises(),
                 DropDownListCampania = ObtenerCampanias(),
                 DropDownListCampaniaMasiva = _zonificacionProvider.GetCampaniasEntidad(Constantes.PaisID.Peru)
             };
 
             return Json(model, JsonRequestBehavior.AllowGet);
 
-        }
-
-        private IEnumerable<PaisModel> ObtenerPaises()
-        {
-            List<BEPais> paises;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                if (userData.RolID == Constantes.Rol.Administrador)
-                {
-                    paises = sv.SelectPaises().ToList();
-                }
-                else
-                {
-                    paises = new List<BEPais>
-                    {
-                        sv.SelectPais(userData.PaisID)
-                    };
-                }
-
-            }
-
-            return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(paises);
         }
 
         private List<BECampania> ObtenerCampanias()

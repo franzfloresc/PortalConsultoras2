@@ -24,8 +24,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             _pagoEnLineaProvider = new PagoEnLineaProvider();
         }
-
-        // GET: PagoEnLinea
+        
         public ActionResult Index()
         {
             if (EsDispositivoMovil())
@@ -555,19 +554,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             Util.ExportToExcel("ReportePagoEnLineaExcel", lst.ToList(), dic, GetExcelSecureCallback());
             return View();
-        }
-
-        private IEnumerable<PaisModel> DropDowListPaises()
-        {
-            List<BEPais> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = userData.RolID == 2
-                    ? sv.SelectPaises().ToList()
-                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
-            }
-
-            return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
         
         protected IEnumerable<RegionModel> DropDownListRegiones(int paisId)

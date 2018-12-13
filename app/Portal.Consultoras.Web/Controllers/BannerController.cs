@@ -154,11 +154,8 @@ namespace Portal.Consultoras.Web.Controllers
                     lstGrupoConsultora = Util.ReadXmlFile(finalPath, obeGrupoConsultora, false, ref isCorrect);
                 }
 
-                List<BEPais> lstPais;
-                using (ZonificacionServiceClient svc = new ZonificacionServiceClient())
-                {
-                    lstPais = svc.SelectPaises().OrderBy(x => x.PaisID).ToList();
-                }
+                List<BEPais> lstPais = _zonificacionProvider.GetPaisesEntidad().OrderBy(x => x.PaisID).ToList();
+
                 foreach (BEPais itemPais in lstPais)
                 {
                     lstGrupoConsultora.Where(x => x.PaisCodigo == itemPais.CodigoISO).Each(y => y.PaisID = itemPais.PaisID);
@@ -344,13 +341,8 @@ namespace Portal.Consultoras.Web.Controllers
                         lst = svc.SelectBanner(CampaniaId).ToList().FindAll(x => x.GrupoBannerID == GrupoBannerId);
                     }
 
-                    List<BEPais> lstPais;
-                    using (ZonificacionServiceClient svc = new ZonificacionServiceClient())
-                    {
-                        lstPais = svc.SelectPaises().OrderBy(x => x.PaisID).ToList();
-                    }
+                    List<BEPais> lstPais = _zonificacionProvider.GetPaisesEntidad().OrderBy(x => x.PaisID).ToList();
 
-                    
                     if (lst != null && lst.Count > 0)
                     {
                         var carpetaPais = Globals.UrlBanner;
@@ -410,8 +402,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult ObtenerCabeceraYFilaConfiguracionSubGrilla(string GrupoBannerId)
         {
-            List<BEPais> lstPais;
-
             List<string> colNames = new List<string>
             {
                 "BannerID",
@@ -534,10 +524,8 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             };
 
-            using (ZonificacionServiceClient svc = new ZonificacionServiceClient())
-            {
-                lstPais = svc.SelectPaises().OrderBy(x => x.PaisID).ToList();
-            }
+            List<BEPais> lstPais = _zonificacionProvider.GetPaisesEntidad().OrderBy(x => x.PaisID).ToList();
+
             foreach (BEPais item in lstPais)
             {
                 colNames.Add(item.CodigoISO);
@@ -880,21 +868,10 @@ namespace Portal.Consultoras.Web.Controllers
                     return "";
             }
         }
-
-        private IEnumerable<PaisModel> DropDowListPaises()
-        {
-            List<BEPais> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = sv.SelectPaises().ToList();
-            }
-
-            return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
-        }
-
+        
         public JsonResult ObtenerPaises()
         {
-            IEnumerable<PaisModel> lst = DropDowListPaises();
+            IEnumerable<PaisModel> lst = DropDowListPaises(Constantes.Rol.Administrador);
             return Json(new
             {
                 listapaises = lst

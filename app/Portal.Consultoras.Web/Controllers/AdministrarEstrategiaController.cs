@@ -10,7 +10,6 @@ using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
-using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -24,7 +23,6 @@ using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using System.Xml.Linq;
 using BEConfiguracionPaisDatos = Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos;
-
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -79,20 +77,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return View(estrategiaModel);
         }
-
-        private IEnumerable<PaisModel> DropDowListPaises()
-        {
-            List<BEPais> lst;
-            using (var sv = new ZonificacionServiceClient())
-            {
-                lst = userData.RolID == 2
-                    ? sv.SelectPaises().ToList()
-                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
-            }
-
-            return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
-        }
-
+        
         public JsonResult ObtenerPedidoAsociado(string CodigoPrograma)
         {
             IList<BEConfiguracionPackNuevas> lst;

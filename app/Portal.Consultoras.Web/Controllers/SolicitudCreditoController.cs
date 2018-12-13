@@ -70,20 +70,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return Mapper.Map<IList<BEZona>, IEnumerable<ZonaModel>>(lista);
         }
-
-        private IEnumerable<PaisModel> CargarDropDowListPaises()
-        {
-            List<BEPais> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = userData.RolID == 2
-                    ? sv.SelectPaises().ToList()
-                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
-            }
-
-            return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
-        }
-
+        
         public JsonResult ObtenterDropDownPorPais(int PaisID)
         {
             IEnumerable<ZonaModel> lstzona = DropDownZonas(PaisID);

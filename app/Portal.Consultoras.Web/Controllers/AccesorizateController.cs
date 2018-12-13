@@ -333,19 +333,7 @@ namespace Portal.Consultoras.Web.Controllers
             };
             return View(cronogramaModel);
         }
-
-        private IEnumerable<PaisModel> DropDowListPaises()
-        {
-            List<BEPais> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = userData.RolID == 2
-                    ? sv.SelectPaises().ToList()
-                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
-            }
-            return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
-        }
-
+        
         public JsonResult ObtenerDatosAdministracionCorreo(int paisID)
         {
             List<BEAdministracionOfertaProducto> lst = new List<BEAdministracionOfertaProducto>();

@@ -45,11 +45,13 @@ namespace Portal.Consultoras.Web.Controllers
         protected ISessionManager sessionManager = SessionManager.SessionManager.Instance;
         protected ILogManager logManager = LogManager.LogManager.Instance;
 
+        public readonly ZonificacionProvider _zonificacionProvider;
+
         #region Constructor
 
         public LoginController()
         {
-
+            _zonificacionProvider = new ZonificacionProvider();
         }
 
         public LoginController(ISessionManager sessionManager)
@@ -2397,11 +2399,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                using (var sv = new ZonificacionServiceClient())
-                {
-                    paises = sv.SelectPaises().ToList();
-                }
-
+                paises = _zonificacionProvider.GetPaisesEntidad();
+                
                 paises.RemoveAll(p => p.CodigoISO == Constantes.CodigosISOPais.Argentina || p.CodigoISO == Constantes.CodigosISOPais.Venezuela);
             }
             catch (Exception ex)

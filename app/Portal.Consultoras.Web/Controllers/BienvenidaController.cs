@@ -21,13 +21,15 @@ namespace Portal.Consultoras.Web.Controllers
     {
         private readonly ConfiguracionPaisDatosProvider _configuracionPaisDatosProvider;
         private readonly BienvenidaProvider _bienvenidaProvider;
-        protected Providers.TablaLogicaProvider _tablaLogica;
+        protected TablaLogicaProvider _tablaLogica;
+        public readonly ZonificacionProvider _zonificacionProvider;
 
         public BienvenidaController()
         {
             _configuracionPaisDatosProvider = new ConfiguracionPaisDatosProvider();
-            _tablaLogica = new Providers.TablaLogicaProvider();
+            _tablaLogica = new TablaLogicaProvider();
             _bienvenidaProvider = new BienvenidaProvider();
+            _zonificacionProvider = new ZonificacionProvider();
         }
 
         public BienvenidaController(ILogManager logManager)
@@ -1035,7 +1037,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 listaCampania = new List<CampaniaModel>(),
                 listaZonas = new List<ZonaModel>(),
-                listaPaises = DropDowListPaises()
+                listaPaises = _zonificacionProvider.GetPaises(userData.PaisID, userData.RolID)
             };
 
             return View(parametrizarCuvModel);
@@ -1246,18 +1248,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-
-        private IEnumerable<PaisModel> DropDowListPaises()
-        {
-            List<BEPais> lst;
-            using (var sv = new ZonificacionServiceClient())
-            {
-                lst = userData.RolID == 2 ? sv.SelectPaises().ToList() : new List<BEPais> { sv.SelectPais(userData.PaisID) };
-            }
-
-            return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
-        }
-
+        
         private int ValidarSuenioNavidad()
         {
             var entidad = new BESuenioNavidad

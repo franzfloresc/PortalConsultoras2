@@ -436,19 +436,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private IEnumerable<PaisModel> DropDowListPaises()
-        {
-            List<BEPais> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = userData.RolID == 2
-                    ? sv.SelectPaises().ToList()
-                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
-            }
-
-            return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
-        }
-
         private List<ZonaModel> ObtenerZonasActivas(int paisId, int campaniaId)
         {
             IList<BEZona> lst;

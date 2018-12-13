@@ -2,6 +2,7 @@
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.LoginChatbot;
+using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,13 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class LoginChatbotController : Controller
     {
+        public readonly ZonificacionProvider _zonificacionProvider;
+
+        public LoginChatbotController()
+        {
+            _zonificacionProvider = new ZonificacionProvider();
+        }
+
         public ActionResult Index(string t, bool webviewfallback, Enumeradores.TipoLogin tipo = Enumeradores.TipoLogin.Normal)
         {
             switch (tipo)
@@ -44,16 +52,13 @@ namespace Portal.Consultoras.Web.Controllers
 
         private IList<PaisModel> DropDowListPaises()
         {
-            string paisesInactivoskey = ConfigurationManager.AppSettings["PaisesInactivos"] ?? string.Empty;
-            var paisesInactivos = paisesInactivoskey.ToUpper().Split(';');
 
             try
             {
-                List<BEPais> lst;
-                using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-                {
-                    lst = sv.SelectPaises().ToList();
-                }
+                List<BEPais> lst = _zonificacionProvider.GetPaisesEntidad();
+                
+                string paisesInactivoskey = ConfigurationManager.AppSettings["PaisesInactivos"] ?? string.Empty;
+                var paisesInactivos = paisesInactivoskey.ToUpper().Split(';');
 
                 if (paisesInactivos.Any())
                     lst.RemoveAll(p => paisesInactivos.Contains(p.CodigoISO.ToUpper()));
@@ -66,5 +71,6 @@ namespace Portal.Consultoras.Web.Controllers
                 return new List<PaisModel>();
             }
         }
+
     }
 }

@@ -36,7 +36,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 IEnumerable<ZonaModel> lstZona = new List<ZonaModel>();
 
-                model.listaPaises = CargarDropDowListPaises();
+                model.listaPaises = DropDowListPaises();
                 model.listaCampania = lstCampania;
                 model.listaRegiones = lstRegion;
                 model.listaZonas = lstZona;
@@ -669,19 +669,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             Util.ExportToPdfWebPages(this, "PedidosBloqueoPDF.pdf", "BloqueoPedidoImp", Util.EncriptarQueryString(lista));
             return View();
-        }
-
-        private IEnumerable<PaisModel> CargarDropDowListPaises()
-        {
-            List<BEPais> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = userData.RolID == 2
-                    ? sv.SelectPaises().ToList()
-                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
-            }
-
-            return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
 
         #endregion

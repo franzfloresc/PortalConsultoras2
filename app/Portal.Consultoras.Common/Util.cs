@@ -2473,7 +2473,9 @@ namespace Portal.Consultoras.Common
                 {11, Constantes.CodigosISOPais.Peru},
                 {12, Constantes.CodigosISOPais.PuertoRico},
                 {13, Constantes.CodigosISOPais.Dominicana},
-                {14, Constantes.CodigosISOPais.Venezuela}
+                {14, Constantes.CodigosISOPais.Venezuela},
+                {15, Constantes.CodigosISOPais.Brasil },
+                {16, Constantes.CodigosISOPais.EstadosUnidos }
             };
 
             if (!listaPaises.ContainsKey(paisID))
