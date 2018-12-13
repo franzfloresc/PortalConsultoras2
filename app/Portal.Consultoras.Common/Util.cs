@@ -3847,7 +3847,6 @@ namespace Portal.Consultoras.Common
                     break;
             }
 
-            Console.WriteLine(result);
             return result;
         }
 
