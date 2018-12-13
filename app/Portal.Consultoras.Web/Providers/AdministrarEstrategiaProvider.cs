@@ -168,7 +168,20 @@ namespace Portal.Consultoras.Web.Providers
                         DescripcionEstrategia = d.DescripcionTipoEstrategia,                    
                         CodigoSAP = string.IsNullOrEmpty(d.CodigoSap) ? d.CodigoProducto : d.CodigoSap,
                         Zona = d.Zona,
-                        EsSubCampania = d.EsSubCampania.HasValue ? (d.EsSubCampania.Value ? 1 : 0) : 0
+                        EsSubCampania = d.EsSubCampania.HasValue ? (d.EsSubCampania.Value ? 1 : 0) : 0,
+                        //Lan
+                        FlagIndividual = GetValorEstrategiaDetalle(Constantes.EstrategiaDetalleCamposID.FlagIndividual, d.EstrategiaDetalle) == "1" ? true : false,
+                        Slogan = GetValorEstrategiaDetalle(Constantes.EstrategiaDetalleCamposID.Slogan, d.EstrategiaDetalle),
+                        ImgHomeDesktop = GetValorEstrategiaDetalle(Constantes.EstrategiaDetalleCamposID.ImgHomeDesktop, d.EstrategiaDetalle),
+                        ImgHomeMobile = GetValorEstrategiaDetalle(Constantes.EstrategiaDetalleCamposID.ImgHomeMobile, d.EstrategiaDetalle),
+                        ImgFondoDesktop = GetValorEstrategiaDetalle(Constantes.EstrategiaDetalleCamposID.ImgFondoDesktop, d.EstrategiaDetalle),
+                        ImgFondoMobile = GetValorEstrategiaDetalle(Constantes.EstrategiaDetalleCamposID.ImgFondoMobile, d.EstrategiaDetalle),
+                        ImgFichaDesktop = GetValorEstrategiaDetalle(Constantes.EstrategiaDetalleCamposID.ImgFichaDesktop, d.EstrategiaDetalle),
+                        ImgFichaFondoDesktop = GetValorEstrategiaDetalle(Constantes.EstrategiaDetalleCamposID.ImgFichaFondoDesktop, d.EstrategiaDetalle),
+                        ImgFichaMobile = GetValorEstrategiaDetalle(Constantes.EstrategiaDetalleCamposID.ImgFichaMobile, d.EstrategiaDetalle),
+                        ImgFichaFondoMobile = GetValorEstrategiaDetalle(Constantes.EstrategiaDetalleCamposID.ImgFichaFondoMobile, d.EstrategiaDetalle),
+                        UrlVideoDesktop = GetValorEstrategiaDetalle(Constantes.EstrategiaDetalleCamposID.UrlVideoDesktop, d.EstrategiaDetalle),
+                        UrlVideoMobile = GetValorEstrategiaDetalle(Constantes.EstrategiaDetalleCamposID.UrlVideoMobile, d.EstrategiaDetalle)
                     }
 
                 }).ToList();
@@ -337,6 +350,12 @@ namespace Portal.Consultoras.Web.Providers
                 EsSubCampania = entidad.EsSubCampania == 1,
                 ImagenMiniatura = entidad.ImagenMiniaturaURL ?? string.Empty
             };
+
+            if (waModel.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.Lanzamiento)
+            {
+                waModel.EstrategiaDetalle = FormatterEstrategiaDetalle(entidad);
+            }
+
             return waModel;
         }
 
@@ -784,8 +803,6 @@ namespace Portal.Consultoras.Web.Providers
                 nombreProducto = o.NombreProducto,
                 imagenProducto = o.ImagenProducto,
                 activo = o.Activo,
-                //usuarioCreacion = string,
-                //fechaCreacion = 2018 - 09 - 07T17 = 38 = 03.887Z,
                 usuarioModificacion = userData.CodigoUsuario,
                 fechaModificacion = DateTime.Now,
             });
@@ -842,6 +859,106 @@ namespace Portal.Consultoras.Web.Providers
             List<ServicePedido.BEReporteValidacion> listaReporte = (respuesta.Result != null) ? JsonConvert.DeserializeObject<List<ServicePedido.BEReporteValidacion>>(respuesta.Result.ToString()) : new List<ServicePedido.BEReporteValidacion>();
 
             return listaReporte;
+        }
+
+        public ServicePedido.BEEstrategiaDetalle ObtenerEstrategiaDetalle(ServicePedido.BEEstrategia entidad)
+        {
+            ServicePedido.BEEstrategiaDetalle estrategiaDetalle = new ServicePedido.BEEstrategiaDetalle()
+            {
+                EstrategiaID = entidad.EstrategiaID,
+                FlagIndividual = entidad.FlagIndividual,
+                Slogan = entidad.Slogan,
+                ImgHomeDesktop = entidad.ImgHomeDesktop,
+                ImgHomeMobile = entidad.ImgHomeMobile,
+                ImgFondoDesktop = entidad.ImgFondoDesktop,
+                ImgFondoMobile = entidad.ImgFondoMobile,
+                ImgFichaDesktop = entidad.ImgFichaDesktop,
+                ImgFichaFondoDesktop = entidad.ImgFichaFondoDesktop,
+                ImgFichaMobile = entidad.ImgFichaMobile,
+                ImgFichaFondoMobile = entidad.ImgFichaFondoMobile,
+                UrlVideoDesktop = entidad.UrlVideoDesktop,
+                UrlVideoMobile = entidad.UrlVideoMobile
+            };
+
+            return estrategiaDetalle;
+        }
+
+        private static List<WaEstrategiaDetalleModel> FormatterEstrategiaDetalle(ServicePedido.BEEstrategia entidad)
+        {
+            List <WaEstrategiaDetalleModel> estrategiaDetalle = new List<WaEstrategiaDetalleModel>();
+            estrategiaDetalle.Add(new WaEstrategiaDetalleModel()
+            {
+                TablaLogicaDatosID = Constantes.EstrategiaDetalleCamposID.FlagIndividual,
+                Valor = entidad.FlagIndividual ? "1" : "0"
+            });
+            estrategiaDetalle.Add(new WaEstrategiaDetalleModel()
+            {
+                TablaLogicaDatosID = Constantes.EstrategiaDetalleCamposID.ImgFichaDesktop,
+                Valor = entidad.ImgFichaDesktop
+            });
+            estrategiaDetalle.Add(new WaEstrategiaDetalleModel()
+            {
+                TablaLogicaDatosID = Constantes.EstrategiaDetalleCamposID.ImgFichaFondoDesktop,
+                Valor = entidad.ImgFichaFondoDesktop
+            });
+            estrategiaDetalle.Add(new WaEstrategiaDetalleModel()
+            {
+                TablaLogicaDatosID = Constantes.EstrategiaDetalleCamposID.ImgFichaFondoMobile,
+                Valor = entidad.ImgFichaFondoMobile
+            });
+            estrategiaDetalle.Add(new WaEstrategiaDetalleModel()
+            {
+                TablaLogicaDatosID = Constantes.EstrategiaDetalleCamposID.ImgFichaMobile,
+                Valor = entidad.ImgFichaMobile
+            });
+            estrategiaDetalle.Add(new WaEstrategiaDetalleModel()
+            {
+                TablaLogicaDatosID = Constantes.EstrategiaDetalleCamposID.ImgFondoDesktop,
+                Valor = entidad.ImgFondoDesktop
+            });
+            estrategiaDetalle.Add(new WaEstrategiaDetalleModel()
+            {
+                TablaLogicaDatosID = Constantes.EstrategiaDetalleCamposID.ImgFondoMobile,
+                Valor = entidad.ImgFondoMobile
+            });
+            estrategiaDetalle.Add(new WaEstrategiaDetalleModel()
+            {
+                TablaLogicaDatosID = Constantes.EstrategiaDetalleCamposID.ImgHomeDesktop,
+                Valor = entidad.ImgHomeDesktop
+            });
+            estrategiaDetalle.Add(new WaEstrategiaDetalleModel()
+            {
+                TablaLogicaDatosID = Constantes.EstrategiaDetalleCamposID.ImgHomeMobile,
+                Valor = entidad.ImgHomeMobile
+            });
+            estrategiaDetalle.Add(new WaEstrategiaDetalleModel()
+            {
+                TablaLogicaDatosID = Constantes.EstrategiaDetalleCamposID.Slogan,
+                Valor = entidad.Slogan
+            });
+            estrategiaDetalle.Add(new WaEstrategiaDetalleModel()
+            {
+                TablaLogicaDatosID = Constantes.EstrategiaDetalleCamposID.UrlVideoDesktop,
+                Valor = entidad.UrlVideoDesktop
+            });
+            estrategiaDetalle.Add(new WaEstrategiaDetalleModel()
+            {
+                TablaLogicaDatosID = Constantes.EstrategiaDetalleCamposID.UrlVideoMobile,
+                Valor = entidad.UrlVideoMobile
+            });
+            return estrategiaDetalle;
+        }
+
+        private static string GetValorEstrategiaDetalle(int datoID, List<WaEstrategiaDetalleModel> estrategiaDetalle)
+        {
+            string result = null;
+            if (estrategiaDetalle != null)
+            {
+                var entidad = estrategiaDetalle.FirstOrDefault(x => x.TablaLogicaDatosID == datoID);
+                if (entidad != null)
+                    result = entidad.Valor;
+            }
+            return result;
         }
     }
 }

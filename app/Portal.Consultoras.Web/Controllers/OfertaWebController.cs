@@ -452,7 +452,7 @@ namespace Portal.Consultoras.Web.Controllers
                                    a.PrecioOferta.ToString("#0.00"),
                                    a.Orden.ToString(),
                                    a.Stock.ToString(),
-                                   ConfigCdn.GetUrlFileCdnMatriz(iso, a.ImagenProducto), // 1664
+                                   ConfigCdn.GetUrlFileCdnMatriz(iso, a.ImagenProducto),
                                    a.CampaniaID.ToString() ,
                                    a.Stock.ToString(),
                                    a.UnidadesPermitidas.ToString(),

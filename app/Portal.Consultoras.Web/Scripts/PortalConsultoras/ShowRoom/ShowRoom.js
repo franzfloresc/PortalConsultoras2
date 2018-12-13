@@ -542,10 +542,22 @@ function ConstruirDescripcionOferta(arrDescripcion) {
 }
 
 function AnalyticsSRListaOferta(response) {
-    if (response.listaOfertas.length > 0) {
-        if (!(typeof AnalyticsPortalModule === 'undefined')) {
-            response.listaOfertas.lista = response.listaOfertas;
-            AnalyticsPortalModule.MarcaGenericaLista(window.esShowRoom ? ConstantesModule.TipoEstrategia.SR : "", response.listaOfertas);
-        }
+
+    if (!(typeof AnalyticsPortalModule === 'undefined')) {
+        var origen = {
+            Pagina: isHome() 
+                ? ConstantesModule.OrigenPedidoWebEstructura.Pagina.Home
+                : ConstantesModule.OrigenPedidoWebEstructura.Pagina.LandingShowroom,
+            Palanca: ConstantesModule.OrigenPedidoWebEstructura.Palanca.Showroom,
+            Seccion: ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel
+        };
+        var obj = {
+            lista: response.listaOfertas,
+            CantidadMostrar: response.listaOfertas.length,
+            Origen: origen
+        };
+        
+        console.log('AnalyticsSRListaOferta', obj);
+        AnalyticsPortalModule.MarcaGenericaLista("", obj);
     }
 }

@@ -10,7 +10,28 @@
         if (checkTimeout(data)) AbrirMensaje(data.message);
     }
     
-    var RegistroLiquidacion = function (model, cantidad, producto, textoBusqueda) {
+    var limpiarRecomendados = function () {
+        var seccionProductosRecomendados = $('.divProductosRecomendados');
+        seccionProductosRecomendados.slideUp(200);
+        $("#txtDescripcionProd").val("");
+        $("#hdfDescripcionProd").val("");
+        $("#txtPrecioR").val("");
+        $("#txtCantidad").val("");
+        $("#divMensaje").text("");
+        $("#txtCUV").focus();
+        if (isMobile()) {
+            if (isPagina('Pedido')) {
+                PedidoOnSuccess()
+                VisibleEstrategias(true);
+                $("#divResumenPedido").show();
+                $("footer").show();
+                $(".footer-page").css({ "margin-bottom": "0px" });
+                $("#divProductoMantenedor").hide();//
+            }
+        }
+    }
+
+    var RegistroLiquidacion = function (model, cantidad, producto, recomendado) {
         if (ReservadoOEnHorarioRestringido())
             return false;
         model.Cantidad = cantidad;
@@ -94,10 +115,11 @@
 
                                 if (!isMobile()) CargarResumenCampaniaHeader();
 
-                                console.log(textoBusqueda);
+                                if (isMobile() && isPagina('Pedido')) ActualizarGanancia(data.DataBarra);
 
                                 CerrarLoad();
 
+                                limpiarRecomendados();
 
                                 var modelCarrito = {
                                     'DescripcionCompleta': model.DescripcionProd,
@@ -110,10 +132,13 @@
                                 };
 
                                 var _textoBusqueda = localStorage.getItem('valorBuscador');
+                                var _vRecomendaciones = localStorage.getItem('vRecomendaciones');
+                                
+                                if (!(typeof AnalyticsPortalModule === 'undefined') && (_vRecomendaciones === 'undefined' || _vRecomendaciones === 'null' || _vRecomendaciones === null)) {
+                                    AnalyticsPortalModule.MarcaAnadirCarritoBuscador(modelCarrito, 'Resultados', _textoBusqueda);                                    
+                                }
 
-                                if (!(typeof AnalyticsPortalModule === 'undefined'))
-                                    AnalyticsPortalModule.MarcaAnadirCarritoBuscador(modelCarrito, 'Resultados', _textoBusqueda);
-
+                                localStorage.removeItem('vRecomendaciones');
                             },
                             error: function (data, error) {
                                 CerrarLoad();
@@ -126,15 +151,15 @@
         });
     }
 
-    var RegistroProductoBuscador = function (divPadre, textoBusqueda) {
+    var RegistroProductoBuscador = function (divPadre, valueJSON) {
 
-        var model = JSON.parse($(divPadre).find(".hdBuscadorJSON").val());
+        var model = JSON.parse($(divPadre).find(valueJSON).val());
         var cantidad = $(divPadre).find("[data-input='cantidad']").val();
         var agregado = $(divPadre).find(".etiqueta_buscador_producto");
         model.Cantidad = cantidad;
 
         if (model.TipoPersonalizacion == "LIQ") {
-            RegistroLiquidacion(model, cantidad, agregado, textoBusqueda);
+            RegistroLiquidacion(model, cantidad, agregado);
         } else {
             var cuv = model.CUV;
             var tipoOfertaSisID = model.TipoPersonalizacion == "CAT" ? 0 : model.TipoEstrategiaId;
@@ -222,12 +247,13 @@
                     }
 
                     microefectoPedidoGuardado();
+
                     if (!isMobile()) CargarResumenCampaniaHeader();
 
-                    console.log(textoBusqueda);
+                    if (isMobile() && isPagina('Pedido')) ActualizarGanancia(data.DataBarra);
 
                     CerrarLoad();
-
+                    limpiarRecomendados();
                     var modelCarrito = {
                         'DescripcionCompleta': modelFinal.DescripcionProd,
                         'CUV': modelFinal.CUV,
@@ -239,15 +265,20 @@
                     };
 
                     var _textoBusqueda = localStorage.getItem('valorBuscador');
+                    var _vRecomendaciones = localStorage.getItem('vRecomendaciones');
 
-                    if (!(typeof AnalyticsPortalModule === 'undefined'))
-                        AnalyticsPortalModule.MarcaAnadirCarritoBuscador(modelCarrito, 'Resultados', _textoBusqueda);
+                    if (!(typeof AnalyticsPortalModule === 'undefined') && (_vRecomendaciones === 'undefined' || _vRecomendaciones === 'null' || _vRecomendaciones === null)) {
+                        AnalyticsPortalModule.MarcaAnadirCarritoBuscador(modelCarrito, 'Resultados', _textoBusqueda);                        
+                    }
+                        
 
                     TrackingJetloreAdd(modelFinal.Cantidad, $("#hdCampaniaCodigo").val(), modelFinal.CUV);
+
                     agregado.html('<span class="text-uppercase text-bold d-inline-block">Agregado</span>');
+
                     var totalAgregado = parseInt(cantidad) + parseInt(CantidadesAgregadas);
                     $(divPadre).find(".hdBuscadorCantidadesAgregadas").val(totalAgregado);
-                    //_registrarAnalytics(model, textoBusqueda);
+                    localStorage.removeItem('vRecomendaciones')
                     return true;
                 },
                 error: function (data, error) {

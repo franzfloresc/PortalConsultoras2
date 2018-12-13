@@ -515,26 +515,26 @@ function AgregarTagManagerClickProducto(article, opcion) {
 
 }
 
-function AgregarTagManagerProductoAgregadoSW(CUV, nombreProducto, PrecioUnidad, cantidad, descripcionMarca, tipo) {
-    var lista = tipo == 0 ? "Ofertas Showroom" : "Ofertas Showroom popUp";
-    dataLayer.push({
-        'event': 'addToCart',
-        'ecommerce': {
-            'add': {
-                'actionField': { 'list': lista },
-                'products': [{
-                    'name': nombreProducto,
-                    'id': CUV,
-                    'price': PrecioUnidad,
-                    'brand': descripcionMarca,
-                    'variant': 'Ofertas Showroom',
-                    'category': 'NO DISPONIBLE',
-                    'quantity': cantidad
-                }]
-            }
-        }
-    });
-}
+//function AgregarTagManagerProductoAgregadoSW(CUV, nombreProducto, PrecioUnidad, cantidad, descripcionMarca, tipo) {
+//    var lista = tipo == 0 ? "Ofertas Showroom" : "Ofertas Showroom popUp";
+//    dataLayer.push({
+//        'event': 'addToCart',
+//        'ecommerce': {
+//            'add': {
+//                'actionField': { 'list': lista },
+//                'products': [{
+//                    'name': nombreProducto,
+//                    'id': CUV,
+//                    'price': PrecioUnidad,
+//                    'brand': descripcionMarca,
+//                    'variant': 'Ofertas Showroom',
+//                    'category': 'NO DISPONIBLE',
+//                    'quantity': cantidad
+//                }]
+//            }
+//        }
+//    });
+//}
 
 function compraxcompra_promotion_impression() {
     var id = $("#divBannerCompraPorCompra").data("cuv");

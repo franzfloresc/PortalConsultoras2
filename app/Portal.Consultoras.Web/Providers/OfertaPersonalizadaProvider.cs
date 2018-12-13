@@ -566,11 +566,6 @@ namespace Portal.Consultoras.Web.Providers
                 SessionManager.SetMostrarBannerNuevas(esBannerProgNuevas);
 
                 var listEstrategias = ConsultarEstrategias(esMobile, 0, codAgrupacion, true, !esBannerProgNuevas);
-                if (!listEstrategias.Any())
-                {
-                    SessionManager.SetBEEstrategia(Constantes.ConstSession.ListaEstrategia, listEstrategias);
-                    return new List<EstrategiaPedidoModel>();
-                }
 
                 bool esRevistaDigital = codAgrupacion == Constantes.TipoEstrategiaCodigo.RevistaDigital;
                 bool limitarEspacioNuevas = esBannerProgNuevas || esRevistaDigital;
@@ -605,6 +600,11 @@ namespace Portal.Consultoras.Web.Providers
         }
         public void LimitarEspacioNuevas(List<ServiceOferta.BEEstrategia> listEstrategiaFinal, List<ServiceOferta.BEEstrategia> listEstrategia, bool esRevistaDigital, bool esBannerProgNuevas)
         {
+            if (!listEstrategia.Any())
+            {
+                return;
+            }
+
             var listaPackNueva = listEstrategia.Where(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackNuevas).ToList();
             var listaRevista = GetListaRevistaCarrusel(listEstrategia, esRevistaDigital);
 
@@ -897,7 +897,7 @@ namespace Portal.Consultoras.Web.Providers
         {
             if (!listaProductoModel.Any())
                 return listaProductoModel;
-            
+
             var claseBloqueada = "btn_desactivado_general";
             listaProductoModel.ForEach(estrategia =>
             {

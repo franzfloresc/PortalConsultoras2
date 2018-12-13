@@ -13,7 +13,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class SolicitudCreditoController : BaseController
+    public class SolicitudCreditoController : BaseAdmController
     {
         public ActionResult SolicitudCredito()
         {
@@ -22,9 +22,8 @@ namespace Portal.Consultoras.Web.Controllers
             var model = new SolicitudCreditoModel();
             try
             {
-                IEnumerable<ZonaModel> lstZona = new List<ZonaModel>();
-                model.ListaPaises = CargarDropDowListPaises();
-                model.ListaZonas = lstZona;
+                model.ListaPaises = DropDowListPaises();
+                model.ListaZonas = new List<ZonaModel>();
             }
             catch (FaultException ex)
             {
@@ -44,9 +43,8 @@ namespace Portal.Consultoras.Web.Controllers
             var model = new SolicitudCreditoModel();
             try
             {
-                IEnumerable<ZonaModel> lstZona = new List<ZonaModel>();
-                model.ListaPaises = CargarDropDowListPaises();
-                model.ListaZonas = lstZona;
+                model.ListaPaises = DropDowListPaises();
+                model.ListaZonas = new List<ZonaModel>();
             }
             catch (FaultException ex)
             {

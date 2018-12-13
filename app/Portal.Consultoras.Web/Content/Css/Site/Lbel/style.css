@@ -27971,7 +27971,7 @@ div.motivoRechazo textarea {
 
 .content_pasos {
     width: 310px;
-    margin: 0 auto;
+    margin: 34px auto 60px auto;
     position: relative;
     display: flex;
     display: -webkit-flex;
@@ -27983,15 +27983,17 @@ div.motivoRechazo textarea {
 }
 
 .content_pasos_linea {
-    position: relative;
+    position: absolute;
     width: 99%;
     height: 2px;
-    z-index: 3;
+    top:0;
     left: 0;
+    right:0;
+    bottom:0;
     width: 310px;
-    margin: 0 auto;
-    margin-top: -18px;
+    margin: auto;
     background: #d1d1d1;
+    z-index:-1;
 }
 
 .paso_reclamo {
@@ -28013,7 +28015,7 @@ div.motivoRechazo textarea {
 }
 
 .content_reclamo {
-    max-width: 780px;
+    width:100%;
     margin: 0 auto;
     position: relative;
 }
@@ -28028,42 +28030,283 @@ div.motivoRechazo textarea {
     margin-top: 25px;
 }
 
-.select_reclamo {
-    width: 259px;
-    height: 45px;
-    border: 1px solid #cccccc;
-    font-family: 'Lato';
-    font-size: 15px;
-    color: #b5b5b5;
-    line-height: 45px;
-    float: left;
-    padding: 10px;
-    margin-right: 10px;
+.select_reclamo,
+.elige_num_pedido,
+.codigo_reclamo,
+.contenedor_descripcion_reclamo,
+.descripcion_reclamo,
+.descripcion_reclamo + .chosen-container,
+.precio_reclamo,
+.rango_reclamo,
+.rango_reclamo .liquidacion_rango_cantidad_pedido,
+.rango_reclamo .liquidacion_rango_right_pedido
+{
+    display:inline-block;
+    vertical-align:top;
 }
 
-.codigo_reclamo, .descripcion_reclamo {
-    width: 74px;
-    height: 45px;
-    border: 1px solid #cccccc;
-    font-family: 'Lato';
-    font-size: 15px;
-    color: #b5b5b5;
-    line-height: 45px;
-    padding: 10px;
-    margin-right: 9px;
-    float: left;
+.select_reclamo,
+.elige_num_pedido,
+.codigo_reclamo,
+.descripcion_reclamo,
+.descripcion_reclamo + .chosen-container,
+.precio_reclamo,
+.rango_reclamo
+{
+    border: 1px solid #808080;
+    border-radius: 4px;
+    padding: 6px 10px 10px 16px;
+    font-family: 'Lato', sans-serif;
+    font-size:16px;
+    color:#000;
+    margin-right:22px;
+    line-height: 47px;
+    height:47px;
 }
 
-.descripcion_reclamo {
-    width: 276px;
+.select_reclamo,
+.elige_num_pedido,
+.descripcion_reclamo,
+.descripcion_reclamo + .chosen-container .chosen-single
+{
+    -moz-appearance:none;
+    -webkit-appearance:none;
+    line-height:normal;
+}
+
+.select_reclamo{
+    width:261px;
+}
+
+.select_reclamo,
+.elige_num_pedido
+{
+    background-image:url(/Content/Images/flecha-campo-select.svg);
+    background-repeat:no-repeat;
+    background-position:95.8% center;
+}
+
+.elige_num_pedido{
+    width:271px;
+}
+
+.codigo_reclamo{
+    width:120px;
+}
+
+.codigo_reclamo_paso1_cdr{
+    display:none;
+}
+
+.contenedor_descripcion_reclamo{
+    position:relative;
+    margin-right:22px;
+}
+
+.descripcion_reclamo_fake_placeholder{
+    display: block;
+    width: 100%;
+    margin: auto 0;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 20px;
+    height: 47px;
+    line-height: 44px;
+    font-size: 16px;
+}
+
+.contenedor_descripcion_reclamo,
+.descripcion_reclamo,
+.descripcion_reclamo + .chosen-container
+{
+    width:380px!important;
+    text-align:left;
+}
+
+.descripcion_reclamo + .chosen-container,
+.descripcion_reclamo + .chosen-container .chosen-single
+{
+    padding:0;
+}
+
+.descripcion_reclamo + .chosen-container-active.chosen-with-drop .chosen-single,
+.descripcion_reclamo + .chosen-container .chosen-single
+{
+    border:none;
+}
+
+    .descripcion_reclamo + .chosen-container .chosen-single {
+        width: 100%;
+        height: 95%;
+        padding: 6px 10px 10px 20px;
+        line-height: 30px;
+    }
+
+.descripcion_reclamo + .chosen-container .chosen-single,
+.descripcion_reclamo + .chosen-container.chosen-with-drop .chosen-drop,
+.descripcion_reclamo + .chosen-container-single .chosen-search input[type="text"]
+{
+    -moz-box-shadow: none!important;
+    -webkit-box-shadow: none!important;
+    box-shadow: none!important;
+}
+
+.descripcion_reclamo_fake_placeholder,
+.descripcion_reclamo + .chosen-container .chosen-single.chosen-default
+{
+    color:#808080!important;
+}
+
+.descripcion_reclamo + .chosen-container.chosen-with-drop .chosen-drop {
+    left: -1px!important;
+    right: 0!important;
+    width: 100.5%!important;
+    top: 44px!important;
+    border:1px solid #808080!important;
+    padding:18px 21px;
+}
+
+.descripcion_reclamo + .chosen-container-single .chosen-search{
+   padding:0;
+   height:40px;
+   margin-bottom:15px;
+}
+
+.descripcion_reclamo + .chosen-container .chosen-search-input::-webkit-input-placeholder{
+    color:#000;
+}
+
+.descripcion_reclamo + .chosen-container .chosen-search-input:-moz-placeholder{
+    color:#000;
+}
+
+.descripcion_reclamo + .chosen-container .chosen-search-input::-moz-placeholder
+{
+    color:#000;
+}
+
+.descripcion_reclamo + .chosen-container .chosen-search-input:-ms-input-placeholder{
+    color:#000;
+}
+
+.descripcion_reclamo + .chosen-container .chosen-search-input[type="text"]{
+    display:block;
+    height:100%;
+    font-family:'Lato', sans-serif;
+    padding-left:18px;
+    padding-right:18px;
+    padding-top:1px;
+    border:1px solid#000;
+    background-color:#FBFBFB;
+    font-size:16px;
+    background-image:url(../../../Images/icono_lupa.svg);
+    background-repeat:no-repeat;
+    background-position:97% center;
+}
+
+.descripcion_reclamo + .chosen-container .chosen-results{
+    height:113px;
+}
+
+.descripcion_reclamo + .chosen-container .chosen-results::-webkit-scrollbar-track{
+    background-color:#E2E2E2;
+    width:6px;
+    border-radius:4px;
+}
+
+.descripcion_reclamo + .chosen-container .chosen-results::-webkit-scrollbar-thumb{
+    background-color:#B2B2B2!important;
+    width:8px!important;
+}
+
+.descripcion_reclamo + .chosen-container .active-result {
+    font-size:16px;
+    margin-bottom:8px;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.descripcion_reclamo + .chosen-container .active-result:hover{
+    background-color:#f7f7f7!important;
+}
+
+.descripcion_reclamo + .chosen-container .chosen-results .highlighted{
+    background-color:#FFF;
+}
+
+.descripcion_reclamo + .chosen-container .chosen-single,
+.descripcion_reclamo + .chosen-container .chosen-search-input[type="text"],
+.descripcion_reclamo + .chosen-container .active-result,
+.descripcion_reclamo + .chosen-container .active-result:hover,
+.descripcion_reclamo + .chosen-container .chosen-results .highlighted,
+.descripcion_reclamo + .chosen-container .no-results
+{
+    color:#000!important;
+}
+
+.descripcion_reclamo + .chosen-container .chosen-results .no-results{
+    background-color:transparent!important;
 }
 
 .rango_reclamo {
-    float: left;
-    font-family: 'lato';
-    font-size: 9.4pt;
-    font-weight: 400;
-    color: #060000;
+    width:80px;
+    margin-right:0;
+    padding:0;
+}
+
+.rango_reclamo .liquidacion_rango_cantidad_pedido{
+    width:70.5%;
+    border-top:0;
+    border-bottom:0;
+    border-left:0;
+    border-right:1px solid #808080!important;
+}
+
+.rango_reclamo .liquidacion_rango_right_pedido,
+.rango_reclamo .mas,
+.rango_reclamo .menos
+{
+    position:relative;
+    padding-top:0;
+}
+
+.rango_reclamo .liquidacion_rango_right_pedido,
+.rango_reclamo .menos
+{
+    border:0;
+}
+
+.rango_reclamo .mas,
+.rango_reclamo .menos
+{
+    margin-top:0;
+    height:22.5px;
+}
+
+.rango_reclamo .mas{
+    border-bottom:1px solid #808080;
+}
+
+.rango_reclamo .mas img,
+.rango_reclamo .menos img
+{
+    position:absolute;
+    margin:auto;
+    bottom:0;
+    right:0;
+}
+
+.rango_reclamo .mas img{
+    top:2.5px;
+    left:2px;
+}
+
+.rango_reclamo .menos img{
+    top:-2.5px;
+    left:0;
 }
 
 .btn_no_stock {
@@ -28091,6 +28334,7 @@ div.motivoRechazo textarea {
     background: #613c87;
     line-height: 45px;
     float: left;
+    cursor:pointer;
 }
 
 .btn_si_stock_cdr {
@@ -28106,6 +28350,7 @@ div.motivoRechazo textarea {
     color: white;
     background: #613c87;
     line-height: 45px;
+    cursor:pointer;
 }
 
 .paso_active_reclamo {
@@ -28132,6 +28377,12 @@ div.motivoRechazo textarea {
 .btn_si_stock:hover {
 }
 
+.content_motivo_wrapper{
+    margin: 0 auto 15px auto;
+    width:100%;
+    max-width: 850px;
+}
+
 .content_motivo_select {
     width: 100%;
     margin-right: 10%;
@@ -28150,7 +28401,7 @@ div.motivoRechazo textarea {
     font-size: 14px;
     padding-left: 50px;
     background: url('https://cdn1-prd.somosbelcorp.com/ImagenesPortal/Iconos/selector_reclamo.png') no-repeat;
-    background-position: 20px 14px;
+    background-position: 20px 17px;
     border-bottom: 1px solid #d1d1d1;
     cursor: pointer;
     float: left;
@@ -28164,16 +28415,16 @@ div.motivoRechazo textarea {
     .reclamo_motivo_select:hover {
         color: #613c87;
         background: url('https://cdn1-prd.somosbelcorp.com/ImagenesPortal/Iconos/selector_reclamo_lbel.png') no-repeat;
-        background-position: 20px 14px;
+        background-position: 20px 17px;
     }
 
 .reclamo_motivo_select_click {
     color: #613c87;
     background: url('https://cdn1-prd.somosbelcorp.com/ImagenesPortal/Iconos/selector_reclamo_lbel.png') no-repeat;
-    background-position: 20px 14px;
+    background-position: 20px 17px;
 }
 
-.btn_solución_reclamo {
+.btn_solucion_reclamo {
     float: left;
     width: 270px;
     height: 45px;
@@ -28185,13 +28436,14 @@ div.motivoRechazo textarea {
     text-align: center;
     margin-right: 36px;
     margin-bottom: 10px;
+    cursor:pointer;
 }
 
-    .btn_solución_reclamo:last-child {
+    .btn_solucion_reclamo:last-child {
         margin-right: 0;
     }
 
-    .btn_solución_reclamo:hover {
+    .btn_solucion_reclamo:hover {
         background: black;
         color: white;
     }
@@ -28216,23 +28468,14 @@ div.motivoRechazo textarea {
 .texto_reclamo {
     font-family: 'Lato';
     font-size: 15px;
-    line-height: 30px;
+    line-height: 27px;
     margin-top: 10px;
     text-align: center;
-    margin-bottom: 10px;
+    margin-bottom: 22px;
 }
 
 .precio_reclamo {
     width: 166px;
-    height: 45px;
-    border: 1px solid #cccccc;
-    font-family: 'Lato';
-    font-size: 15px;
-    color: #b5b5b5;
-    line-height: 45px;
-    padding: 10px;
-    margin-right: 10px;
-    float: left;
 }
 
 .total_precio_reclamo {
@@ -28511,7 +28754,7 @@ div.motivoRechazo textarea {
     height: 25px;
     margin: 0 auto;
     margin-top: 50px;
-    margin-bottom: 50px;
+    margin-bottom: 0;
     padding-left: 20px;
     background: url('/Content/Images/Esika/icono_solicitud.png') no-repeat;
     background-position: 0 4px;
@@ -28521,27 +28764,34 @@ div.motivoRechazo textarea {
     position: absolute;
     width: 204px;
     height: auto;
-    padding: 15px 20px 15px 20px;
+    padding: 10px 14px 10px 20px;
     right: 0;
-    top: 0;
+    top: -15px;
     -webkit-box-shadow: 0 2px 4px 0 rgba(174, 174, 174, .5);
     -moz-box-shadow: 0 2px 4px 0 rgba(174, 174, 174, .5);
     box-shadow: 0 2px 4px 0 rgba(174, 174, 174, .5);
 }
 
 .titulo_ultimo_soli {
-    font-family: 'LAto';
+    font-family: 'Lato', sans-serif;
     font-size: 18px;
     color: black;
     font-weight: 700;
     text-align: center;
-    margin-bottom: 25px;
+    margin-bottom: 8px;
 }
 
 .texto_solicitud_ultima {
     color: #888888;
-    font-family: 'LAto';
+    font-family: 'Lato', sans-serif;
     font-size: 13px;
+}
+
+.detalle_solicitudes_wrapper{
+    display:block;
+    padding-right: 5px;
+    overflow: auto;
+    max-height: 91px;
 }
 
 .content_ultima_soli {
@@ -28549,6 +28799,10 @@ div.motivoRechazo textarea {
     padding-bottom: 10px;
     margin-bottom: 10px;
     overflow: hidden;
+}
+
+.content_ultima_soli:last-child{
+    border-bottom:0;
 }
 
 .content_carrusel_pack {

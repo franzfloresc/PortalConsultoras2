@@ -7,7 +7,7 @@ belcorp.settings.uniquePrefix = "/g/";
 jQuery(document).ready(function () {
 
     CreateLoading();
-    eventCloseDialogMensaje();
+    //eventCloseDialogMensaje();
     $("header").resize(function () {
         LayoutMenu();
     });
@@ -577,14 +577,21 @@ function showDialog(dialogId) {
 }
 
 function HideDialog(dialogId) {
-    dialogId = (dialogId || "").trim();
-    console.log(dialogId);
-    if (dialogId != "") {
-        dialogId = dialogId[0] == "#" ? dialogId : ("#" + dialogId);
-        $(dialogId).dialog("close");
-    }
-    $("body").css("overflow", "auto");
+    try {
 
+        dialogId = (dialogId || "").trim();
+        console.log('HideDialog - ini - ', dialogId);
+        if (dialogId != "") {
+            dialogId = dialogId[0] == "#" ? dialogId : ("#" + dialogId);
+            console.log('HideDialog - close - ', dialogId);
+            $(dialogId).dialog("close");
+        }
+    }
+    catch (err) {
+        console.log('HideDialog - log - ', err);
+    }
+
+    $("body").css("overflow", "auto");
     return false;
 }
 
@@ -613,11 +620,9 @@ function CreateLoading() {
     });
     $("#loadingScreen").parent().find(".ui-dialog-titlebar").hide();
 }
-function eventCloseDialogMensaje() {
-    $('#alertDialogMensajes').on('dialogclose', function (event) {
-        $('body,html').css('overflow', 'scroll');
-    });
-}
+//function eventCloseDialogMensaje() {
+//    HideDialog("alertDialogMensajes");
+//}
 function printElement(selector) {
     var element = document.querySelector(selector);
     if (!element) {
@@ -725,8 +730,7 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
         else {
             $('#alertDialogMensajes .terminos_title_2').html(titulo);
             $('#alertDialogMensajes .pop_pedido_mensaje').html(mensaje);
-            $('#alertDialogMensajes').dialog('open');
-            $('body,html').css('overflow', 'hidden');
+            showDialogSinScroll("alertDialogMensajes");
 
             $('.ui-dialog .ui-button').off('click');
             $('.ui-dialog .ui-icon-closethick').off('click');
@@ -1565,30 +1569,30 @@ function IfNull(input, replaceNull) {
     return input == null ? replaceNull : input;
 }
 
-function odd_desktop_google_analytics_promotion_click() {
-    if ($('#divOddCarruselDetalle').length > 0 && $("#odd_simbolo_ver_ofertas").html() === "+") {
-        var id = $('#divOddCarruselDetalle').find(".estrategia-id-odd").val();
-        var name = "Oferta del día - " + $('#divOddCarruselDetalle').find(".nombre-odd").val();
-        var creative = $('#divOddCarruselDetalle').find(".nombre-odd").val() + " - " + $('#divOddCarruselDetalle').find(".cuv2-odd").val();
+//function odd_desktop_google_analytics_promotion_click() {
+//    if ($('#divOddCarruselDetalle').length > 0 && $("#odd_simbolo_ver_ofertas").html() === "+") {
+//        var id = $('#divOddCarruselDetalle').find(".estrategia-id-odd").val();
+//        var name = "Oferta del día - " + $('#divOddCarruselDetalle').find(".nombre-odd").val();
+//        var creative = $('#divOddCarruselDetalle').find(".nombre-odd").val() + " - " + $('#divOddCarruselDetalle').find(".cuv2-odd").val();
 
-        dataLayer.push({
-            'event': 'promotionClick',
-            'ecommerce': {
-                'promoClick': {
-                    'promotions': [
-                        {
-                            'id': id,
-                            'name': name,
-                            'position': 'Banner Superior Home - 1',
-                            'creative': creative
-                        }]
-                }
-            }
-        });
+//        dataLayer.push({
+//            'event': 'promotionClick',
+//            'ecommerce': {
+//                'promoClick': {
+//                    'promotions': [
+//                        {
+//                            'id': id,
+//                            'name': name,
+//                            'position': 'Banner Superior Home - 1',
+//                            'creative': creative
+//                        }]
+//                }
+//            }
+//        });
 
-        odd_desktop_google_analytics_product_impresion();
-    }
-}
+//        odd_desktop_google_analytics_product_impresion();
+//    }
+//}
 
 function odd_desktop_google_analytics_promotion_click_verofertas() {
     if ($('#divOddCarruselDetalle').length > 0 && $("#odd_simbolo_ver_ofertas").html() === "+") {
@@ -1613,109 +1617,109 @@ function odd_desktop_google_analytics_promotion_click_verofertas() {
             }
         });
 
-        odd_desktop_google_analytics_product_impresion();
+        //odd_desktop_google_analytics_product_impresion();
     }
 }
 
-function odd_desktop_google_analytics_product_impresion(data, NameContenedor) {
-    var carrusel = $("[data-odd-tipoventana='carrusel']");
-    var detalle = $("[data-odd-tipoventana='detalle']");
-    var listaOferta = data == undefined ? null : data;
-    var impresions = new Array();
-    var divs = new Array();
-    var div1;
-    if (carrusel.length > 0 && carrusel.is(":visible")) {
-        div1 = $(carrusel).find("[data-item-position = 0]")[0];
-        var div2 = $(carrusel).find("[data-item-position = 1]")[0];
-        var div3 = $(carrusel).find("[data-item-position = 2]")[0];
+//function odd_desktop_google_analytics_product_impresion(data, NameContenedor) {
+//    var carrusel = $("[data-odd-tipoventana='carrusel']");
+//    var detalle = $("[data-odd-tipoventana='detalle']");
+//    var listaOferta = data == undefined ? null : data;
+//    var impresions = new Array();
+//    var divs = new Array();
+//    var div1;
+//    if (carrusel.length > 0 && carrusel.is(":visible")) {
+//        div1 = $(carrusel).find("[data-item-position = 0]")[0];
+//        var div2 = $(carrusel).find("[data-item-position = 1]")[0];
+//        var div3 = $(carrusel).find("[data-item-position = 2]")[0];
 
-        if (div1 != undefined) { divs.push(div1); }
-        if (div2 != undefined) { divs.push(div2); }
-        if (div3 != undefined) { divs.push(div3); }
+//        if (div1 != undefined) { divs.push(div1); }
+//        if (div2 != undefined) { divs.push(div2); }
+//        if (div3 != undefined) { divs.push(div3); }
 
-        $(divs).each(function (index, div) {
-            impresions.push({
-                'name': $(div).find("[data-item-campos]").find(".nombre-odd").val(),
-                'id': $(div).find("[data-item-campos]").find(".cuv2-odd").val(),
-                'price': $(div).find("[data-item-campos]").find(".precio-odd").val(),
-                'brand': $(div).find("[data-item-campos]").find(".marca-descripcion-odd").val(),
-                'category': 'No disponible',
-                'variant': $(div).find("[data-item-campos]").find(".tipoestrategia-descripcion-odd").val(),
-                'list': 'Oferta del día',
-                'position': index + 1
-            });
-        });
-    }
-    if (detalle.length > 0 && detalle.is(":visible")) {
-        div1 = $(detalle).find("[data-item-position = 0]");
-        if (div1 != null) { divs.push(div1); }
-        $(divs).each(function (index, div) {
-            impresions.push({
-                'name': $(div).find("[data-item-campos]").find(".nombre-odd").val(),
-                'id': $(div).find("[data-item-campos]").find(".cuv2-odd").val(),
-                'price': $(div).find("[data-item-campos]").find(".precio-odd").val(),
-                'brand': $(div).find("[data-item-campos]").find(".marca-descripcion-odd").val(),
-                'category': 'No disponible',
-                'variant': $(div).find("[data-item-campos]").find(".tipoestrategia-descripcion-odd").val(),
-                'list': 'Oferta del día',
-                'position': index + 1
-            });
-        });
-    }
+//        $(divs).each(function (index, div) {
+//            impresions.push({
+//                'name': $(div).find("[data-item-campos]").find(".nombre-odd").val(),
+//                'id': $(div).find("[data-item-campos]").find(".cuv2-odd").val(),
+//                'price': $(div).find("[data-item-campos]").find(".precio-odd").val(),
+//                'brand': $(div).find("[data-item-campos]").find(".marca-descripcion-odd").val(),
+//                'category': 'No disponible',
+//                'variant': $(div).find("[data-item-campos]").find(".tipoestrategia-descripcion-odd").val(),
+//                'list': 'Oferta del día',
+//                'position': index + 1
+//            });
+//        });
+//    }
+//    if (detalle.length > 0 && detalle.is(":visible")) {
+//        div1 = $(detalle).find("[data-item-position = 0]");
+//        if (div1 != null) { divs.push(div1); }
+//        $(divs).each(function (index, div) {
+//            impresions.push({
+//                'name': $(div).find("[data-item-campos]").find(".nombre-odd").val(),
+//                'id': $(div).find("[data-item-campos]").find(".cuv2-odd").val(),
+//                'price': $(div).find("[data-item-campos]").find(".precio-odd").val(),
+//                'brand': $(div).find("[data-item-campos]").find(".marca-descripcion-odd").val(),
+//                'category': 'No disponible',
+//                'variant': $(div).find("[data-item-campos]").find(".tipoestrategia-descripcion-odd").val(),
+//                'list': 'Oferta del día',
+//                'position': index + 1
+//            });
+//        });
+//    }
 
-    if (listaOferta != null || listaOferta != undefined) {
-        var NameList = NameContenedor == "#OfertaDelDia" ? "Oferta del día - Banner" : NameContenedor == "#OfertasDelDiaOfertas" ? "Oferta del día - Detalle Slider" : "";
-        if (NameContenedor == "#OfertaDelDia") {
-            NameList = "Oferta del día - Banner";
+//    if (listaOferta != null || listaOferta != undefined) {
+//        var NameList = NameContenedor == "#OfertaDelDia" ? "Oferta del día - Banner" : NameContenedor == "#OfertasDelDiaOfertas" ? "Oferta del día - Detalle Slider" : "";
+//        if (NameContenedor == "#OfertaDelDia") {
+//            NameList = "Oferta del día - Banner";
 
-            impresions.push({
-                'name': listaOferta.NombreOferta,
-                'id': listaOferta.CUV2,
-                'price': listaOferta.PrecioOferta,
-                'brand': listaOferta.DescripcionMarca,
-                'category': 'No disponible',
-                'variant': listaOferta.TipoEstrategiaDescripcion,
-                'list': NameList,
-                'position': 1
-            });
-        }
-        else if (NameContenedor == "#OfertasDelDiaOfertas") {
-            NameList = "Oferta del día - Detalle Slider";
-            listaOferta.ListaOfertas = listaOferta.ListaOfertas || [];
-            if (listaOferta.ListaOfertas.length > 1) {
-                NameList = "Oferta del día - Slider Productos";
-                var lstOferta = data ? data.ListaOfertas : [];
-                $.each(lstOferta, function (index, item) {
-                    impresions.push({
-                        'name': item.NombreOferta,
-                        'id': item.CUV2,
-                        'price': item.PrecioOferta,
-                        'brand': item.DescripcionMarca,
-                        'category': 'No disponible',
-                        'variant': item.TipoEstrategiaDescripcion,
-                        'list': NameList,
-                        'position': index + 1
-                    });
-                });
-            }
+//            impresions.push({
+//                'name': listaOferta.NombreOferta,
+//                'id': listaOferta.CUV2,
+//                'price': listaOferta.PrecioOferta,
+//                'brand': listaOferta.DescripcionMarca,
+//                'category': 'No disponible',
+//                'variant': listaOferta.TipoEstrategiaDescripcion,
+//                'list': NameList,
+//                'position': 1
+//            });
+//        }
+//        else if (NameContenedor == "#OfertasDelDiaOfertas") {
+//            NameList = "Oferta del día - Detalle Slider";
+//            listaOferta.ListaOfertas = listaOferta.ListaOfertas || [];
+//            if (listaOferta.ListaOfertas.length > 1) {
+//                NameList = "Oferta del día - Slider Productos";
+//                var lstOferta = data ? data.ListaOfertas : [];
+//                $.each(lstOferta, function (index, item) {
+//                    impresions.push({
+//                        'name': item.NombreOferta,
+//                        'id': item.CUV2,
+//                        'price': item.PrecioOferta,
+//                        'brand': item.DescripcionMarca,
+//                        'category': 'No disponible',
+//                        'variant': item.TipoEstrategiaDescripcion,
+//                        'list': NameList,
+//                        'position': index + 1
+//                    });
+//                });
+//            }
 
-            impresions.push({
-                'name': listaOferta.NombreOferta,
-                'id': listaOferta.CUV2,
-                'price': listaOferta.PrecioOferta,
-                'brand': listaOferta.DescripcionMarca,
-                'category': 'No disponible',
-                'variant': listaOferta.TipoEstrategiaDescripcion,
-                'list': NameList,
-                'position': 1
-            });
-        }
-    }
+//            impresions.push({
+//                'name': listaOferta.NombreOferta,
+//                'id': listaOferta.CUV2,
+//                'price': listaOferta.PrecioOferta,
+//                'brand': listaOferta.DescripcionMarca,
+//                'category': 'No disponible',
+//                'variant': listaOferta.TipoEstrategiaDescripcion,
+//                'list': NameList,
+//                'position': 1
+//            });
+//        }
+//    }
 
-    if (impresions.length > 0) {
-        dataLayer.push({ 'event': 'productImpression', 'ecommerce': { 'impressions': impresions } });
-    }
-}
+//    if (impresions.length > 0) {
+//        dataLayer.push({ 'event': 'productImpression', 'ecommerce': { 'impressions': impresions } });
+//    }
+//}
 
 function odd_desktop_google_analytics_addtocart(tipo, element) {
     var id, name, price, marca, variant, quantity, dimension16, listname;

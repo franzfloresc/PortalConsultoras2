@@ -162,6 +162,9 @@ $(document).ready(function () {
         resizable: false,
         modal: true,
         closeOnEscape: true,
+        close: function (event, ui) {
+            HideDialog("alertDialogMensajes");
+        },
         width: 400,
         draggable: true,
         buttons: {
@@ -176,6 +179,9 @@ $(document).ready(function () {
         resizable: false,
         modal: true,
         closeOnEscape: true,
+        close: function (event, ui) {
+            HideDialog("ModalFeDeErratas");
+        },
         width: 650,
         heigth: 500,
         draggable: true,
@@ -187,6 +193,9 @@ $(document).ready(function () {
         resizable: false,
         modal: true,
         closeOnEscape: true,
+        close: function (event, ui) {
+            HideDialog("divRegistroComunidad");
+        },
         width: 760,
         heigth: 500,
         draggable: true,
@@ -198,6 +207,9 @@ $(document).ready(function () {
         resizable: false,
         modal: true,
         closeOnEscape: true,
+        close: function (event, ui) {
+            HideDialog("DialogMensajesCom");
+        },
         width: 400,
         draggable: true,
         title: "Comunidad SomosBelcorp",
@@ -629,13 +641,8 @@ function alert_msg(message, titulo, funcion) {
             "Ver Ofertas": function () { funcion(); }
         });
     }
-    $('#alertDialogMensajes').dialog('open');
-    $('body,html').css('overflow', 'hidden');
+    showDialogSinScroll("alertDialogMensajes");
 }
-
-$('#alertDialogMensajes').on('dialogclose', function (event) {
-    $('body,html').css('overflow', 'scroll');
-});
 
 function alert_msg_com(message) {
     $('#DialogMensajesCom .message_text').html(message);
@@ -1044,7 +1051,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
 
 function alert_msg_pedido(message) {
     $('#alertDialogMensajes .pop_pedido_mensaje').html(message);
-    $('#alertDialogMensajes').dialog('open');
+    showDialogSinScroll("alertDialogMensajes");
 }
 
 function animacionFlechaScroll() {

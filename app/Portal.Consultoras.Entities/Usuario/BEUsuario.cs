@@ -1237,6 +1237,8 @@ namespace Portal.Consultoras.Entities
         public bool TienePagoEnLinea { get; set; }
         [DataMember]
         public bool TieneMG { get; set; }
+        [DataMember]
+        public bool TieneChatbot { get; set; }
 
         public BEUsuario(IDataRecord row, bool Tipo, bool ValidaHorario)
         {

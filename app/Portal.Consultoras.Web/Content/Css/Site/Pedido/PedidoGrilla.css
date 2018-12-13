@@ -133,7 +133,7 @@ h1#penmostreo .campana {
 }
 
     .pedido_ingreso_datos input {
-        padding: 5px;
+        padding: 5px 5px 5px 13px;
         margin-top: 5px;
         height: 33px;
         border: 1px solid #ccc;

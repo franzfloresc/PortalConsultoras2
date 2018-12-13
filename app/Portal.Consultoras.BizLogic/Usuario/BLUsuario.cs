@@ -556,6 +556,7 @@ namespace Portal.Consultoras.BizLogic
                 var actualizaDatosConfigTask = Task.Run(() => GetOpcionesVerificacion(paisID, Constantes.OpcionesDeVerificacion.OrigenActulizarDatos));
                 var contratoAceptacionTask = Task.Run(() => GetContratoAceptacion(paisID, usuario.ConsultoraID));
                 var pagoEnLineaTask = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetListCache(paisID, Constantes.TablaLogica.ValoresPagoEnLinea));
+                var tieneChatbotTask = Task.Run(() => usuario.TieneChatbot = TieneChatbot(paisID, usuario.CodigoConsultora));
 
                 var lstConfiguracionPais = new List<string>();
                 lstConfiguracionPais.Add(Constantes.ConfiguracionPais.RevistaDigital);
@@ -582,7 +583,8 @@ namespace Portal.Consultoras.BizLogic
                                 actualizaDatosConfigTask,
                                 contratoAceptacionTask,
                                 usuarioPaisTask,
-                                pagoEnLineaTask);
+                                pagoEnLineaTask,
+                                tieneChatbotTask);
 
                 if (!Common.Util.IsUrl(usuario.FotoPerfil) && !string.IsNullOrEmpty(usuario.FotoPerfil))
                     usuario.FotoPerfil = string.Concat(ConfigCdn.GetUrlCdn(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
@@ -3639,6 +3641,10 @@ namespace Portal.Consultoras.BizLogic
             return new DAUsuario(paisId).ActualizarNovedadBuscador(codigoUsuario);
         }
 
+        private bool TieneChatbot(int paisId, string codigoConsultora)
+        {
+            return new DAUsuario(paisId).GetPermisoChatbot(codigoConsultora);
+        }
 
         #region ActualizacionDatos
         public BERespuestaServicio EnviarSmsCodigo(int paisID, string codigoUsuario, string codigoConsultora, int campaniaID, bool esMobile, string celularActual, string celularNuevo)

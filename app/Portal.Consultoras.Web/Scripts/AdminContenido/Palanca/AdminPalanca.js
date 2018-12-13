@@ -152,7 +152,6 @@ function IniDialogs() {
         modal: true,
         closeOnEscape: true,
         width: 830,
-        close: function () { },
         draggable: false,
         title: "Configurar Contenedor Menú",
         open: function (event, ui) {
@@ -339,10 +338,12 @@ function IniDialogs() {
                     return false;
                 }
 
-                if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") === _palanca.showroom) {
-                    desktopTipoPresentacion = _tipopresentacion.showroom;
-                    mobileTipoPresentacion = _tipopresentacion.banner;
-                }
+                // debe tomar el seleccionado, para el caso tipo presentacion = 9
+                //if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") === _palanca.showroom) {
+                //    desktopTipoPresentacion = _tipopresentacion.showroom;
+                //    mobileTipoPresentacion = _tipopresentacion.banner;
+                //}
+
                 if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") === _palanca.odd) {
                     desktopTipoPresentacion = _tipopresentacion.odd;
                     mobileTipoPresentacion = _tipopresentacion.odd;
