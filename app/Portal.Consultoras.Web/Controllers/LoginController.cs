@@ -46,7 +46,7 @@ namespace Portal.Consultoras.Web.Controllers
         protected ISessionManager sessionManager = SessionManager.SessionManager.Instance;
         protected ILogManager logManager = LogManager.LogManager.Instance;
 
-        public readonly ZonificacionProvider _zonificacionProvider;
+        private readonly ZonificacionProvider _zonificacionProvider;
 
         #region Constructor
 

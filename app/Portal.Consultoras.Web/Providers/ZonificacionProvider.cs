@@ -98,5 +98,20 @@ namespace Portal.Consultoras.Web.Providers
             IList<BEZona> lst = GetZonasEntidad(paisId).ToList();
             return Mapper.Map<IList<BEZona>, IEnumerable<ZonaModel>>(lst);
         }
+
+        public BEZona GetZonaById(int paisId, int zonaId)
+        {
+            BEZona[] bezona;
+            using (var sv = new ZonificacionServiceClient())
+            {
+                bezona = sv.SelectZonaById(paisId, zonaId);
+            }
+            if (bezona.Any())
+            {
+                return bezona[0];
+            }
+
+            return new BEZona();
+        }
     }
 }

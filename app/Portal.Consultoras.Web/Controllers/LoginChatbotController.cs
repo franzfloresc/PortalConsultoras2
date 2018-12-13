@@ -14,7 +14,7 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class LoginChatbotController : Controller
     {
-        public readonly ZonificacionProvider _zonificacionProvider;
+        private readonly ZonificacionProvider _zonificacionProvider;
 
         public LoginChatbotController()
         {
