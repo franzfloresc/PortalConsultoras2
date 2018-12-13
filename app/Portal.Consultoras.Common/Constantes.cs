@@ -1224,6 +1224,9 @@ namespace Portal.Consultoras.Common
             public const string SoloHoy = "SOLOHOY";
             public const string HerramientasDeVenta = "HERRAMIENTASDEVENTA";
             public const string SaberMasInscripcion = "SABERMASINSCRIPCION";
+            public const string Reclamos = "RECLAMOS";
+            public const string MetodosPagos = "METODODEPAGO";
+            public const string PagarAqui = "PAGAR";
         }
 
         public static class IngresoExternoOrigen

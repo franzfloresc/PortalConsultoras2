@@ -219,5 +219,30 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             };
             return provider.GetDeviceSessionId();
         }
+
+        public ActionResult IndexExterno(int idTipoPago)
+        {
+            var  id = idTipoPago;   // tipo de pago 1
+
+            var MetodoPago = _pagoEnLineaProvider.ObtenerListaMetodoPago();
+
+            var model = new PagoEnLineaModel
+            {
+                ListaMetodoPago = MetodoPago,
+                MetodoPagoSeleccionado = MetodoPago.FirstOrDefault(r => r.PagoEnLineaMedioPagoDetalleId == id)
+            };
+            SessionManager.SetDatosPagoVisa(model);
+
+            if (!userData.TienePagoEnLinea) return RedirectToAction("Index", "Bienvenida");
+
+            if (!_pagoEnLineaProvider.IsLoadMetodoPago(model)) return RedirectToAction("MetodoPago");
+
+            model = _pagoEnLineaProvider.ObtenerValoresPagoEnLinea(model);
+
+            ViewBag.PagoEnLineaGastosLabel = userData.PaisID == Constantes.PaisID.Mexico ? Constantes.PagoEnLineaMensajes.GastosLabelMx : Constantes.PagoEnLineaMensajes.GastosLabelPe;
+
+            return View("Index", model);
+        }
+
     }
 }
