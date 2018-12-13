@@ -6,7 +6,8 @@ var mtoLogroBarra = 0;
 var tpElectivos = {
     premioSelected: null,
     premios : [],
-    loadPremios: false
+    loadPremios: false,
+    pedidoDetails: []
 };
 
 belcorp.barra = belcorp.barra || {};
@@ -33,6 +34,7 @@ function MostrarBarra(datax, destino) {
         if (datax.data && datax.data.CUV) {
             trySetPremioElectivoByCuv(datax.data.CUV);
         }
+        savePedidoDetails(datax);
     }
 
     dataBarra.ListaEscalaDescuento = dataBarra.ListaEscalaDescuento || new Array();
@@ -648,6 +650,14 @@ function cargarMontoBanderasMobile(barra) {
     }
 }
 
+function savePedidoDetails(response) {
+    if (!response.data) {
+        return;
+    }
+
+    tpElectivos.pedidoDetails = response.data.ListaDetalleModel || [];
+}
+
 function initCarruselPremios(barra) {
     if (tpElectivos.loadPremios) {
         return;
@@ -673,14 +683,17 @@ function cargarPopupEleccionRegalo() {
 }
 
 function checkPremioSelected() {
-    if (!document.getElementById('divContenidoDetalle')) {
+    var details = tpElectivos.pedidoDetails;
+    if (!details || details.length === 0) {
         return;
     }
 
-    var details = belcorp.mobile.pedido.getDetalles();
-    var detail = getCuponElectivoInDetails(details);
+    var detail = getPremioElectivoInDetails(details);
     if (!detail) {
-        setPremio(null);
+        if (tpElectivos.premioSelected) {
+            setPremio(null);
+        }
+
         return;
     }
 
@@ -689,7 +702,7 @@ function checkPremioSelected() {
 
 function trySetPremioElectivoByCuv(cuv) {
     if (tpElectivos.premioSelected &&
-        tpElectivos.premioSelected.CUV2 === cuv) {
+        tpElectivos.premioSelected.CUV2 == cuv) {
         return;
     }
 
@@ -702,7 +715,7 @@ function trySetPremioElectivoByCuv(cuv) {
     setPremio(premio);
 }
 
-function getCuponElectivoInDetails(details) {
+function getPremioElectivoInDetails(details) {
     var len = details.length;
 
     for (var i = 0; i < len; i++) {
@@ -1562,7 +1575,13 @@ function CalculoPorcentajeAvance(montoActual, montoMaximo) {
     return (AvancePorcentaje) + '%';
 }
 
-
+function tryLoadPedidoDetalle() {
+    if (typeof CargarPedido === "function") {
+        CargarPedido();
+    } else if (typeof CargarDetallePedido === "function") {
+        CargarDetallePedido();
+    }
+}
 
 function AgregarPremio(premio) {
     AbrirLoad();
@@ -1602,11 +1621,7 @@ function InsertarPremio(model) {
             return false;
         }
 
-        if (typeof CargarPedido === "function") {
-            CargarPedido();
-        } else if (typeof CargarDetallePedido === "function") {
-            CargarDetallePedido();
-        }
+        tryLoadPedidoDetalle();
 
         return data;
     });
