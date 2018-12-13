@@ -17,7 +17,6 @@ namespace Portal.Consultoras.Web.Controllers
     public class AdministrarReporteRevisionIncidenciasController : BaseController
     {
         protected string _dbdefault = "dbdefault";
-        private const string MensajeNoHayRegistros = "No existen registros para la campaña.";
 
         protected OfertaBaseProvider _ofertaBaseProvider;
 
@@ -185,8 +184,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                //bool ParseQueryString = HttpUtility.ParseQueryString(((System.Web.HttpRequestWrapper)Request).UrlReferrer.Query)[_dbdefault].ToBool();
-                
                 if (ModelState.IsValid)
                 {
                     List<ReporteRevisionIncidenciasMDbAdapterModel> lst = new List<ReporteRevisionIncidenciasMDbAdapterModel>();
@@ -244,8 +241,8 @@ namespace Portal.Consultoras.Web.Controllers
                                         a.BEReporteCuvDetallado.ImagenTonos,
                                         a.BEReporteCuvDetallado.NombreBulk,
                                         a.BEReporteCuvDetallado.FactorRepeticion.ToString(),
-                                        a.BEReporteCuvDetallado.RutaImagenTipos = string.Format(_configuracionManagerProvider.GetRutaImagenesAppCatalogo(), codigoISOPais, CampaniaID, a.BEReporteCuvDetallado.CodigoMarca, a.BEReporteCuvDetallado.ImagenTipos),
-                                        a.BEReporteCuvDetallado.RutaImagenTonos = string.Format(_configuracionManagerProvider.GetRutaImagenesAppCatalogoBulk(), codigoISOPais, CampaniaID, a.BEReporteCuvDetallado.CodigoMarca, a.BEReporteCuvDetallado.ImagenTonos)
+                                        a.BEReporteCuvDetallado.RutaImagenTipos = string.Format(_configuracionManagerProvider.GetRutaImagenesAppCatalogo(), codigoISOPais, CampaniaID, DevolverInicialMarca(a.BEReporteCuvDetallado.CodigoMarca), a.BEReporteCuvDetallado.ImagenTipos),
+                                        a.BEReporteCuvDetallado.RutaImagenTonos = string.Format(_configuracionManagerProvider.GetRutaImagenesAppCatalogoBulk(), codigoISOPais, CampaniaID, DevolverInicialMarca(a.BEReporteCuvDetallado.CodigoMarca), a.BEReporteCuvDetallado.ImagenTonos)
                                    }
                                }
                     };
@@ -263,7 +260,6 @@ namespace Portal.Consultoras.Web.Controllers
                                         .Select(x => x.ErrorMessage))
                 }, JsonRequestBehavior.AllowGet);
 
-                //return RedirectToAction("Index", "AdministrarReporteRevisionIncidencias");
             }
             catch (Exception ex)
             {
@@ -276,8 +272,18 @@ namespace Portal.Consultoras.Web.Controllers
                     data = "",
                     Trycatch = Common.LogManager.GetMensajeError(ex)
                 }, JsonRequestBehavior.AllowGet);
-                //return RedirectToAction("Index", "AdministrarReporteRevisionIncidencias");
             }
+        }
+
+        private string DevolverInicialMarca(string idMarca)
+        {
+            var idMarcaInt = 0;
+            if (!string.IsNullOrEmpty(idMarca)) idMarcaInt = Convert.ToInt32(idMarca);
+            var codigoMarca = string.Empty;
+            if (idMarcaInt == Constantes.Marca.LBel) codigoMarca = "L";
+            if (idMarcaInt == Constantes.Marca.Esika) codigoMarca = "E";
+            if (idMarcaInt == Constantes.Marca.Cyzone) codigoMarca = "C";
+            return codigoMarca;
         }
 
         public ActionResult ConsultarReporteEstrategiasConsultora(string sidx, string sord, int page, int rows, int CampaniaID,

@@ -25,7 +25,6 @@ using System.Web.Mvc;
 using ClosedXML.Excel;
 using ConsultoraBE = Portal.Consultoras.Web.HojaInscripcionBelcorpPais.ConsultoraBE;
 using Pais = Portal.Consultoras.Common.Constantes.CodigosISOPais;
-using Portal.Consultoras.Web.CustomHelpers;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -1350,8 +1349,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 return File(workbook.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", string.Format("{0}", saveAsFileName));
             }
-         
-        }                   
+
+        }
 
         public Dictionary<string, string> GetDictionaryReporteGestionPostulantes(string CodigoISO, int Estado)
         {
@@ -1557,7 +1556,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.HTMLSACUnete = getHTMLSACUnete("ConsultarEstadoCrediticia", "&id=" + id);
             return PartialView("_ConsultarEstadoCrediticia");
         }
-
+        
         [HttpPost]
         public JsonResult ConsultarEstadoCrediticia(int id, int idEstado)
         {
@@ -1568,6 +1567,82 @@ namespace Portal.Consultoras.Web.Controllers
             }
             RegistrarLogGestionSacUnete(id.ToString(), "CONSULTA CREDITICIA", "ASIGNAR");
             return Json(actualizado, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult ConsultarBuroExterno(int id, int idEstado)
+        {
+            SolicitudPostulante solicitudPostulante = new SolicitudPostulante();
+            ConsultaCrediticiaExternaMX respuesta = new ConsultaCrediticiaExternaMX();
+
+            string urlClient = "";
+            string abreviationZona = "";
+            string codigoZona = "";
+            string fechaFormato = "";
+            string ciudad = "";
+            string calleNumero = "";
+            string[] tercieriaDireccion;
+            string respuestaBuro = "";
+
+            using (var sv = new PortalServiceClient())
+            {
+                solicitudPostulante = sv.ObtenerSolicitudPostulante(CodigoISO, id);
+
+                switch (solicitudPostulante.PaisID)
+                {
+                    //Mexico
+                    case 9:
+                        fechaFormato = solicitudPostulante.FechaNacimiento.Value.ToString("yyyy-MM-dd");
+                        var lugaresNivel1 = sv.ObtenerParametrosUnete(Constantes.CodigosISOPais.Mexico, EnumsTipoParametro.LugarNivel1, 0);
+                        if (solicitudPostulante.Direccion.Contains("|"))
+                        {
+
+                            tercieriaDireccion = solicitudPostulante.Direccion.Split('|');
+                            ciudad = tercieriaDireccion[0];
+                            calleNumero = tercieriaDireccion[2];
+                        }
+                        foreach (var item in lugaresNivel1)
+                        {
+                            if (item.Nombre.Equals(solicitudPostulante.LugarPadre))
+                            {
+                                abreviationZona = item.Descripcion;
+                            }
+                        }
+                        //CAMBIO
+                        if (!string.IsNullOrEmpty(solicitudPostulante.CodigoZona))
+                        {
+                            codigoZona = solicitudPostulante.CodigoZona;
+                        }
+                        else
+                        {
+                            codigoZona = "9999";
+                        }
+
+                        urlClient = string.Format("/api/ValidacionCrediticiaExterna/Get?codigoISO={0}&numeroDocumento={1}&apellido={2}&codZona={3}&apellidoMaterno={4}&nombres={5}&fechaNacimiento={6}&direccion={7}&delegacionMunicipio={8}&ciudad={9}&estado={10}&cp={11}&zona={12}&tarjetaDeCredito={13}&creditoHipotecario={14}&creditoAutomotriz={15}&tipoIdentificacion={16}",
+                                         Constantes.CodigosISOPais.Mexico, solicitudPostulante.NumeroDocumento, solicitudPostulante.ApellidoPaterno, codigoZona, solicitudPostulante.ApellidoMaterno, solicitudPostulante.PrimerNombre + ' ' + solicitudPostulante.SegundoNombre, fechaFormato, calleNumero, solicitudPostulante.LugarHijo, ciudad, abreviationZona, solicitudPostulante.CodigoPostal, 9999, String.Empty, String.Empty, String.Empty, solicitudPostulante.TipoDocumento);
+
+
+                        respuesta = (new Common.Rest()).GetAsync<ConsultaCrediticiaExternaMX>(urlClient);
+
+
+                        respuestaBuro = respuesta.Resultado;
+                        if (respuestaBuro.Equals("R01"))
+                        {
+                            string[] arrayReferenciaEntrega;
+
+                            arrayReferenciaEntrega = solicitudPostulante.ReferenciaEntrega.Split('|');
+                            solicitudPostulante.ReferenciaEntrega = arrayReferenciaEntrega[0] + "|" + arrayReferenciaEntrega[1] + "|" + arrayReferenciaEntrega[2] + "|" + "R01";
+                            sv.ActualizarReferenciaEntregaSAC(solicitudPostulante);
+                        }
+                        break;
+
+                    default:
+                        break;
+                }
+
+            }
+            RegistrarLogGestionSacUnete(id.ToString(), "CONSULTA BURO EXTERNO", "ASIGNAR");
+            return Json(respuestaBuro, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -1936,7 +2011,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public ActionResult CambioTipoNegocioMasivo(string CodigoIso)
         {
-            CambioTipoNegocioModel model=null;
+            CambioTipoNegocioModel model = null;
             var response = string.Empty;
             foreach (string file in Request.Files)
             {
@@ -1944,16 +2019,19 @@ namespace Portal.Consultoras.Web.Controllers
                 string[] documentos = null;
                 if (fileContent != null && fileContent.ContentLength > 0)
                 {
-                    if (Util.IsFileExtension(fileContent.FileName, Enumeradores.TypeDocExtension.Excel)) {
+                    if (Util.IsFileExtension(fileContent.FileName, Enumeradores.TypeDocExtension.Excel))
+                    {
                         string fileextension = Util.Trim(Path.GetExtension(fileContent.FileName));
-                        if (fileextension.ToLower().Equals(".xlsx") || fileextension.ToLower().Equals(".xls")) {
+                        if (fileextension.ToLower().Equals(".xlsx") || fileextension.ToLower().Equals(".xls"))
+                        {
                             string fileName = Guid.NewGuid().ToString();
                             string pathfaltante = Server.MapPath("~/Content/ArchivoCambioNegocio");
                             if (!Directory.Exists(pathfaltante)) Directory.CreateDirectory(pathfaltante);
 
                             var finalPath = Path.Combine(pathfaltante, fileName + fileextension);
                             fileContent.SaveAs(finalPath);
-                            using (var excelWorkbook = new XLWorkbook(finalPath)) {
+                            using (var excelWorkbook = new XLWorkbook(finalPath))
+                            {
                                 var workSheet = excelWorkbook.Worksheet(1);
                                 var firstRowUsed = workSheet.FirstRowUsed();
                                 var firstPossibleAddress = workSheet.Row(firstRowUsed.RowNumber()).FirstCell().Address;
@@ -1968,7 +2046,7 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                             System.IO.File.Delete(finalPath);
                         }
-                    }                    
+                    }
                     model = new CambioTipoNegocioModel
                     {
                         CodigoISO = CodigoIso,
@@ -1981,7 +2059,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return Json(response == "true", JsonRequestBehavior.AllowGet);
         }
-        
+
         public List<ReporteFuenteIngreso> GetReporteFuenteIngreso(string campaniaInicio, string campaniaFin)
         {
             var result = new List<ReporteFuenteIngreso>();
@@ -2021,7 +2099,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             ViewBag.HTMLSACUnete = getHTMLSACUnete("ExcepcionarDocumento", null);
             return View();
-        }
+        }
+
         public JsonResult GrabarDocumentoExcepcion(string numerodocumento)
         {
             int id = 0;
@@ -2030,7 +2109,9 @@ namespace Portal.Consultoras.Web.Controllers
             id = oservice.GrabarDocumentoExcepcion(CodigoISO, numerodocumento + "|" + oUsuarioModel.CodigoUsuario);
             oservice.Close();
             return Json(new { message = id.ToString() });
-        }        public string ListarDocumentoExcepcion(string numerodocumento)
+        }
+
+        public string ListarDocumentoExcepcion(string numerodocumento)
         {
             string rpta = "";
             PortalServiceClient oservice = new PortalServiceClient();
