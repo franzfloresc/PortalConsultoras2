@@ -210,6 +210,7 @@ $(document).ready(function () {
                 map.setCenter(coordenadas);
                 marker.setPosition(coordenadas);
                 map.setZoom(18); 
+                    map.setZoom(17);
             }
             
         },
@@ -268,9 +269,8 @@ $(document).ready(function () {
                 ConfirmarUbicacionDireccionEntrega: function () {
                     me.Eventos.CerrarPopupUbicacionDireccionEntrega();
                 },
-                CerrarPopupUbicacionDireccionEntrega: function (e) {
+                CerrarPopupUbicacionDireccionEntrega: function () {
                     debugger;
-                    e.preventDefault();
                     me.Funciones.ResetearMapa();
                     $('.fondo_popup_ubicacion_direccion_entrega').fadeOut(150);
                     $('.popup_ubicacion_direccion_entrega').fadeOut(150);
@@ -388,13 +388,6 @@ $(document).ready(function () {
     ConsultarActualizaEmail();
     CancelarAtualizacionEmail();
 });
-//function initAutocomplete() {
-//    debugger;
-//    var map = new google.maps.Map($('.mapa_wrapper')[0], {
-//        center: { lat: -33.8688, lng: 151.2195 },
-//        zoom: 13,
-//        mapTypeId: 'roadmap'
-//    });
  
 //    // Create the search box and link it to the UI element.
 //    var input = document.getElementById('txtDireccion');
@@ -458,12 +451,6 @@ $(document).ready(function () {
 //        map.fitBounds(bounds);
 //    });
 //}
-
-
-
-
-
-
 
 
 

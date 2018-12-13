@@ -91,145 +91,156 @@ else
 <section class="form_cambio_datos">
     <div class="wrapper_content_mi_perfil">
         <div class="opciones_mi_perfil">
-            <div class="opcion_mi_perfil opcion_mis_datos">
-                <div class="opcion_mi_perfil_titulo">
-                    <span class="icono_mis_datos">
-                        <img src="@Url.Content("~/Content/Images/icono_mis_datos.svg")" alt="Mis Datos" />
-                    </span>
-                    <span class="opcion_mi_perfil_titulo_texto text-bold text-uppercase">
-                        Mis datos
-                    </span>
-                    <span class="icono_flecha_despliegue_contenido_mi_perfil">
-                        <img src="@Url.Content("~/Content/Images/flecha_despliegue_opcion_mi_perfil.svg")" alt="" />
-                    </span>
-                </div>
-                <div class="opcion_mi_perfil_contenido">
-                    <fieldset class="grupo_form_cambio_datos">
-                        <div class="w-50">
-                            <input id="txtSobrenombreMD" name="txtSobrenombreMD" class="w-100" type="text" onkeypress="return FuncionesGenerales.ValidarSoloLetrasYNumeros(event)" value="@Model.Sobrenombre" maxlength="80" />
-                            <label for="txtSobrenombreMD" class="w-100">¿Cómo quieres que te llamemos?</label>
-                        </div>
-                    </fieldset>
-                    <fieldset class="grupo_form_cambio_datos">
-                        <div class="w-50">
-                            <input id="txtEMailMD" name="txtEMailMD" class="w-100" type="text" value="@Model.EMail" readonly />
-                            <label for="txtEMailMD" class="w-100">Correo Electrónico <span class="asteriscos">*</span></label>
-                        </div>
-                        <a id="btnCambiarEmail" href="@Url.Action("ActualizarCorreo", "MiPerfil", new {area = ""})" title="Cambiar" class="enlace_cambiar_dato text-left">
-                            <span class="icono_cambiar_dato"></span>
-                            @*<span class="enlace_texto text-bold">Cambiar</span>*@
-                        </a>
-                    </fieldset>
-                    <div class="tooltip_info_revision_correo toolTipCorreo" style="display:none;">
-                        <div class="icono_info_alerta"></div>
-                        <div class="tooltip_texto">
-                            <p>
-                                Revisa tu correo <span class="text-bold" id="EmailNuevo"></span><br />para cambiar de cuenta.
-                            </p>
-                            <a id="hrefNocambiarCorreo" class="enlace_no_cambiar_correo" title="Ya no quiero cambiar mi correo">
-                                Ya no quiero cambiar mi correo
-                            </a>
-                        </div>
+
+            @foreach (var subitem in Model.PermisoMenu)
+            {
+                if (subitem == "MIS DATOS")
+                {
+                <div class="opcion_mi_perfil opcion_mis_datos">
+                    <div class="opcion_mi_perfil_titulo">
+                        <span class="icono_mis_datos">
+                            <img src="@Url.Content("~/Content/Images/icono_mis_datos.svg")" alt="Mis Datos" />
+                        </span>
+                        <span class="opcion_mi_perfil_titulo_texto text-bold text-uppercase">
+                            Mis datos
+                        </span>
+                        <span class="icono_flecha_despliegue_contenido_mi_perfil">
+                            <img src="@Url.Content("~/Content/Images/flecha_despliegue_opcion_mi_perfil.svg")" alt="" />
+                        </span>
                     </div>
-                    <fieldset class="grupo_form_cambio_datos">
-                        <div class="w-50">
-                            <input id="txtCelularMD" name="txtCelularMD" class="w-100" type="text" value="@Model.Celular" maxlength="@Model.limiteMaximoTelef" />
-                            <label for="txtCelularMD" class="w-100">Celular <span class="asteriscos">*</span></label>
-                        </div>
-                        <a id="btnCambiarCelular" href="@Url.Action("ActualizarCelular", "MiPerfil", new {area = ""})" title="Cambiar" class="enlace_cambiar_dato text-left">
-                            <span class="icono_cambiar_dato"></span>
-                            @*<span class="enlace_texto text-bold">Cambiar</span>*@
-                        </a>
-                    </fieldset>
-                    <div class="tooltip_info_revision_correo toolTipCelular" style="display:none;">
-                        <div class="icono_info_alerta"></div>
-                        <div class="tooltip_texto">
-                            <p>
-                                Te enviamos un mensaje a tu celular <span class="text-bold" id="CelularNuevo"></span><br />para confirmar tu teléfono.
-                            </p>
-                            <a id="hrefNocambiarCelular" class="enlace_no_cambiar_correo" title="Ya no quiero cambiar mi correo">
-                                Ya no quiero cambiar mi celular
-                            </a>
-                        </div>
-                    </div>
-                    <fieldset class="grupo_form_cambio_datos">
-                        <div class="w-50">
-                            <input id="txtTelefonoMD" name="txtTelefonoMD" class="w-100" type="text" value="@Model.Telefono" maxlength="@Model.limiteMaximoTelef" />
-                            <label for="txtTelefonoMD" class="w-100">Número fijo <span class="asteriscos">*</span></label>
-                        </div>
-                    </fieldset>
-                    <fieldset class="grupo_form_cambio_datos">
-                        <a id="btnAgregarOtroNumero" href="" title="Agregar otro número" class="enlace_agregar_num_adicional">
-                            <span class="icono_agregar_num_adicional"></span>
-                            <span class="enlace_texto text-bold text-uppercase">Agregar otro número</span>
-                        </a>
-                        <div class="contenedor_campos_num_adicional w-100" style="display:none;">
-                            <div class="w-50">
-                                <input id="txtTelefonoTrabajoMD" name="txtTelefonoTrabajoMD" class="w-100" type="text" value="@Model.TelefonoTrabajo" maxlength="@Model.limiteMaximoTelef" />
-                                <label for="txtTelefonoTrabajoMD" class="label_num_adicional w-100">Número adicional</label>
+                    <div class="opcion_mi_perfil_contenido">
+                        <fieldset class="grupo_form_cambio_datos">
+                    <div class="w-50">
+                                <input id="txtSobrenombreMD" name="txtSobrenombreMD" class="w-100" type="text" onkeypress="return FuncionesGenerales.ValidarSoloLetrasYNumeros(event)" value="@Model.Sobrenombre" maxlength="80" />
+                                <label for="txtSobrenombreMD" class="w-100">¿Cómo quieres que te llamemos?</label>
                             </div>
-                            <a href="#" title="Cambiar" class="enlace_eliminar_numero_adicional text-left">
-                                <span class="icono_eliminar_numero_adicional"></span>
-                                @*<span class="enlace_texto text-bold">Eliminar</span>*@
+                        </fieldset>
+                        <fieldset class="grupo_form_cambio_datos">
+                    <div class="w-50">
+                                <input id="txtEMailMD" name="txtEMailMD" class="w-100" type="text" value="@Model.EMail" readonly />
+                                <label for="txtEMailMD" class="w-100">Correo Electrónico <span class="asteriscos">*</span></label>
+                            </div>
+                    <a id="btnCambiarEmail" href="@Url.Action("ActualizarCorreo", "MiPerfil", new {area = ""})" title="Cambiar" class="enlace_cambiar_dato text-left">
+                                <span class="icono_cambiar_dato"></span>
+                                @*<span class="enlace_texto text-bold">Cambiar</span>*@
                             </a>
+                        </fieldset>
+                        <div class="tooltip_info_revision_correo toolTipCorreo" style="display:none;">
+                            <div class="icono_info_alerta"></div>
+                            <div class="tooltip_texto">
+                                <p>
+                                    Revisa tu correo <span class="text-bold" id="EmailNuevo"></span><br />para cambiar de cuenta.
+                                </p>
+                                <a id="hrefNocambiarCorreo" class="enlace_no_cambiar_correo" title="Ya no quiero cambiar mi correo">
+                                    Ya no quiero cambiar mi correo
+                                </a>
+                            </div>
                         </div>
-                    </fieldset>
-                </div>
-            </div>
-            <div class="opcion_mi_perfil opcion_direccion_entrega">
-                <div class="opcion_mi_perfil_titulo">
-                    <span class="icono_mis_datos">
-                        <img src="@Url.Content("~/Content/Images/icono_ubicacion.svg")" alt="Dirección de entrega" />
-                    </span>
-                    <span class="opcion_mi_perfil_titulo_texto text-bold text-uppercase">
-                        Dirección de entrega
-                    </span>
-                    <span class="icono_flecha_despliegue_contenido_mi_perfil">
-                        <img src="@Url.Content("~/Content/Images/flecha_despliegue_opcion_mi_perfil.svg")" alt="" />
-                    </span>
-                </div>
-                <div class="opcion_mi_perfil_contenido">
-                    <fieldset class="grupo_form_cambio_datos grupo_form_cambio_datos_campo_ciudad w-50">
-                        <div class="w-100">
-                            <select id="txtCiudad" name="txtCiudad" class="w-100">
-                                <option value="0" selected>-- Seleccione una ciudad --</option>
-                                <option value="1">Lima</option>
-                            </select>
-                            <label for="txtCiudad">Ciudad <span class="asteriscos">*</span></label>
-                        </div>
-                    </fieldset>
-                    <fieldset class="grupo_form_cambio_datos grupo_form_cambio_datos_campo_comuna w-50">
-                        <div class="w-100">
-                            <select id="txtComuna" name="txtComuna" class="w-100">
-                                <option value="0" selected>-- Seleccione una comuna --</option>
-                                <option value="1">Rímac</option>
-                            </select>
-                            <label for="txtComuna">Comuna <span class="asteriscos">*</span></label>
-                        </div>
-                    </fieldset>
-                    <fieldset class="grupo_form_cambio_datos grupo_form_cambio_datos_campo_direccion">
-                        <div class="w-100">
-                            <input id="txtDireccion" name="txtDireccion" class="w-100" type="text" value="" />
-                            <label for="txtDireccion" class="w-100">
-                                Dirección <span class="asteriscos">*</span>
-                            </label>
-                            <a class="enlace_ubicacion_actual" title="Ubicación Actual">
+                        <fieldset class="grupo_form_cambio_datos">
+                    <div class="w-50">
+                                <input id="txtCelularMD" name="txtCelularMD" class="w-100" type="text" value="@Model.Celular" maxlength="@Model.limiteMaximoTelef" />
+                                <label for="txtCelularMD" class="w-100">Celular <span class="asteriscos">*</span></label>
+                            </div>
+                    <a id="btnCambiarCelular" href="@Url.Action("ActualizarCelular", "MiPerfil", new {area = ""})" title="Cambiar" class="enlace_cambiar_dato text-left">
+                                <span class="icono_cambiar_dato"></span>
+                                @*<span class="enlace_texto text-bold">Cambiar</span>*@
                             </a>
+                        </fieldset>
+                        <div class="tooltip_info_revision_correo toolTipCelular" style="display:none;">
+                            <div class="icono_info_alerta"></div>
+                            <div class="tooltip_texto">
+                                <p>
+                                    Te enviamos un mensaje a tu celular <span class="text-bold" id="CelularNuevo"></span><br />para confirmar tu teléfono.
+                                </p>
+                                <a id="hrefNocambiarCelular" class="enlace_no_cambiar_correo" title="Ya no quiero cambiar mi correo">
+                                    Ya no quiero cambiar mi celular
+                                </a>
+                            </div>
                         </div>
-                        <div id="SeccionMapa" class="mapa_wrapper w-100">
+                        <fieldset class="grupo_form_cambio_datos">
+                    <div class="w-50">
+                                <input id="txtTelefonoMD" name="txtTelefonoMD" class="w-100" type="text" value="@Model.Telefono" maxlength="@Model.limiteMaximoTelef" />
+                                <label for="txtTelefonoMD" class="w-100">Número fijo <span class="asteriscos">*</span></label>
+                            </div>
+                        </fieldset>
+                        <fieldset class="grupo_form_cambio_datos">
+                            <a id="btnAgregarOtroNumero" href="" title="Agregar otro número" class="enlace_agregar_num_adicional">
+                                <span class="icono_agregar_num_adicional"></span>
+                                <span class="enlace_texto text-bold text-uppercase">Agregar otro número</span>
+                            </a>
+                            <div class="contenedor_campos_num_adicional w-100" style="display:none;">
+                        <div class="w-50">
+                                    <input id="txtTelefonoTrabajoMD" name="txtTelefonoTrabajoMD" class="w-100" type="text" value="@Model.TelefonoTrabajo" maxlength="@Model.limiteMaximoTelef" />
+                                    <label for="txtTelefonoTrabajoMD" class="label_num_adicional w-100">Número adicional</label>
+                                </div>
+                        <a href="#" title="Cambiar" class="enlace_eliminar_numero_adicional text-left">
+                                    <span class="icono_eliminar_numero_adicional"></span>
+                            @*<span class="enlace_texto text-bold">Eliminar</span>*@
+                                </a>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+                }
+                else if (subitem == "DIRECCIÓN DE ENTREGA")
+                {
+                <div class="opcion_mi_perfil opcion_direccion_entrega">
+                    <div class="opcion_mi_perfil_titulo">
+                        <span class="icono_mis_datos">
+                            <img src="@Url.Content("~/Content/Images/icono_ubicacion.svg")" alt="Dirección de entrega" />
+                        </span>
+                        <span class="opcion_mi_perfil_titulo_texto text-bold text-uppercase">
+                            Dirección de entrega
+                        </span>
+                        <span class="icono_flecha_despliegue_contenido_mi_perfil">
+                            <img src="@Url.Content("~/Content/Images/flecha_despliegue_opcion_mi_perfil.svg")" alt="" />
+                        </span>
+                    </div>
+                    <div class="opcion_mi_perfil_contenido">
+                <fieldset class="grupo_form_cambio_datos grupo_form_cambio_datos_campo_ciudad w-50">
+                            <div class="w-100">
+                        <select id="txtCiudad" name="txtCiudad" class="w-100">
+                            <option value="0" selected>-- Seleccione una ciudad --</option>
+                            <option value="1">Lima</option>
+                                </select>
+                        <label for="txtCiudad">Ciudad <span class="asteriscos">*</span></label>
+                            </div>
+                        </fieldset>
+                <fieldset class="grupo_form_cambio_datos grupo_form_cambio_datos_campo_comuna w-50">
+                            <div class="w-100">
+                        <select id="txtComuna" name="txtComuna" class="w-100">
+                            <option value="0" selected>-- Seleccione una comuna --</option>
+                            <option value="1">Rímac</option>
+                                </select>
+                        <label for="txtComuna">Comuna <span class="asteriscos">*</span></label>
+                            </div>
+                        </fieldset>
+                        <fieldset class="grupo_form_cambio_datos grupo_form_cambio_datos_campo_direccion">
+                            <div class="w-100">
+                                <input id="txtDireccion" name="txtDireccion" class="w-100" type="text" value="" />
+                                <label for="txtDireccion" class="w-100">
+                                    Dirección <span class="asteriscos">*</span>
+                                </label>
+                        <a class="enlace_ubicacion_actual" title="Ubicación Actual">
+                                </a>
+                            </div>
+                            <div id="SeccionMapa" class="mapa_wrapper w-100">
                             
-                        </div>
-                    </fieldset>
-                    <fieldset class="grupo_form_cambio_datos">
-                        <div class="w-100">
-                            <input id="txtReferencia" name="txtReferencia" class="w-100 campo_referencia" type="text" value="" />
-                            <label for="txtReferencia" class="w-100">
-                                Referencia
-                            </label>
-                        </div>
-                    </fieldset>
+                            </div>
+                        </fieldset>
+                        <fieldset class="grupo_form_cambio_datos">
+                            <div class="w-100">
+                                <input id="txtReferencia" name="txtReferencia" class="w-100 campo_referencia" type="text" value="" />
+                                <label for="txtReferencia" class="w-100">
+                                    Referencia
+                                </label>
+                            </div>
+                        </fieldset>
+                    </div>
                 </div>
-            </div>
+                }
+            }
+
         </div>
         <div class="permisos_cuenta_wrapper">
             <div class="permisos_cuenta_titulo">
@@ -239,7 +250,7 @@ else
                 <div class="permiso_cuenta_opcion">
                     <div class="permiso_cuenta_opcion_descripcion">Quiero recibir mis boletas impresas</div>
                     <fieldset class="grupo_form_permiso_cuenta">
-                        <input class="permiso_cuenta_opcion_checkbox" type="checkbox" name="chkBoletasImpresas" id="chkBoletasImpresas" />
+                        <input class="permiso_cuenta_opcion_checkbox" type="checkbox" name="chkBoletasImpresas" id="chkBoletasImpresas" checked ="@Model.BoletaImpresa" />
                         <label for="chkBoletasImpresas" class="permiso_cuenta_opcion_label"></label>
                     </fieldset>
                 </div>
@@ -300,5 +311,5 @@ else
 @section scripts{
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/MiPerfil/Base.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/MiPerfil/Index.js?v=2")"></script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?client=gme-cetcosa&v=weekly&callback=initAutocomplete&libraries=places"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?client=gme-cetcosa&v=weekly&callback=initAutocomplete&libraries=places"></script>
 }

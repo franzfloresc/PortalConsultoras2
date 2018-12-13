@@ -14,6 +14,7 @@ using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using Portal.Consultoras.Web.ServiceSAC;
+using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
@@ -95,6 +96,21 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 var valida = false;
                 Util.ObtenerIniciaNumeroCelular(userData.PaisID, out valida, out numero);
                 model.IniciaNumeroCelular = valida ? numero : -1;
+
+                var objMenu = ((List<PermisoModel>)ViewBag.Permiso).Where(p =>
+                    p.Posicion.Trim().ToLower().Equals(Constantes.MenuPosicion.Body) &&
+                    p.Codigo.Trim().ToLower().Equals(Constantes.MenuCodigo.MiPerfil.ToLower())
+                ).ToList();
+
+                model.PermisoMenu = new List<string>();
+                foreach (var item in objMenu)
+                {
+                    foreach (var subitem in item.SubMenus)
+                    {
+                        model.PermisoMenu.Add(subitem.Descripcion);
+                    }
+                }
+                model.BoletaImpresa = userData.BoletaImpresa;
             }
 
             return View(model);

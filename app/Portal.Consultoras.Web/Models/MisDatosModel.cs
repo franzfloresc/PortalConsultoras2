@@ -1,4 +1,6 @@
-﻿namespace Portal.Consultoras.Web.Models
+﻿using System.Collections.Generic;
+
+namespace Portal.Consultoras.Web.Models
 {
     public class MisDatosModel
     {
@@ -36,5 +38,7 @@
         public int PaisID { get; set; }
         public int IniciaNumeroCelular { get; set; }
         public int IndicadorConsultoraDigital { get; set; }
+        public List<string> PermisoMenu { get; set; }
+        public bool BoletaImpresa { get; set; }
     }
 }
