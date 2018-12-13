@@ -141,20 +141,14 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                BEPais bepais;
-
-                using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-                {
-                    bepais = sv.SelectPais(Convert.ToInt32(model.PaisID));
-                }
-
+                var codigoIso = Util.GetPaisISO(model.PaisID);
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
                     var resultExiste = sv.ExisteUsuario(model.PaisID, model.CodigoConsultora, "");
 
                     if (resultExiste == Constantes.ValidacionExisteUsuario.Existe)
                     {
-                        var result = sv.CambiarClaveUsuario(model.PaisID, bepais.CodigoISO, model.CodigoConsultora,
+                        var result = sv.CambiarClaveUsuario(model.PaisID, codigoIso, model.CodigoConsultora,
                             model.Clave, "", userData.CodigoUsuario, EAplicacionOrigen.ActualizarClaveSAC);
 
                         if (result)

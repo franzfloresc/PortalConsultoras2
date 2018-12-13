@@ -2532,11 +2532,13 @@ namespace Portal.Consultoras.Common
                 new KeyValuePair<string, string>("7", "El Salvador"),
                 new KeyValuePair<string, string>("8", "Guatemala"),
                 new KeyValuePair<string, string>("9", "México"),
-                new KeyValuePair<string, string>("10", "Pnamá"),
+                new KeyValuePair<string, string>("10", "Panamá"),
                 new KeyValuePair<string, string>("11", "Perú"),
                 new KeyValuePair<string, string>("12", "Puerto Rico"),
                 new KeyValuePair<string, string>("13", "Republica Dominicana"),
                 new KeyValuePair<string, string>("14", "Venezuela"),
+                new KeyValuePair<string, string>("15", "Brasil"),
+                new KeyValuePair<string, string>("16", "Estados Unidos"),
             };
             string iso;
             try

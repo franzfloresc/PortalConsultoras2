@@ -114,11 +114,9 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ObtenerMatriz(int paisID, int campaniaID, string cuv)
         {
-            BEPais pais;
             int nroCampanias;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                pais = sv.SelectPais(paisID);
                 nroCampanias = sv.GetPaisNumeroCampaniasByPaisID(paisID);
             }
 
@@ -163,8 +161,9 @@ namespace Portal.Consultoras.Web.Controllers
                 Int32.TryParse(_configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.ProductoSugeridoAppCatalogosNroCampaniasAtras), out nroCampaniasAtras);
                 if (nroCampaniasAtras <= 0) nroCampaniasAtras = 3;
 
+                var codigoIso = Util.GetPaisISO(paisID);
                 string paisesCcc = _configuracionManagerProvider.GetPaisesConConsultoraOnlineFromConfig();
-                if (paisesCcc.Contains(pais.CodigoISO)) model.FotoProductoAppCatalogo = ImagenAppCatalogo(campaniaID, model.CodigoSAP, nroCampaniasAtras);
+                if (paisesCcc.Contains(codigoIso)) model.FotoProductoAppCatalogo = ImagenAppCatalogo(campaniaID, model.CodigoSAP, nroCampaniasAtras);
             }
             return Json(new { success = true, matriz = model, totalImagenes = totalImagenes }, JsonRequestBehavior.AllowGet);
         }

@@ -49,13 +49,16 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     else
                     {
+                        int paisId = Convert.ToInt32(vPaisID);
+                        bepais = new BEPais
+                        {
+                            PaisID = paisId,
+                            CodigoISO = Util.GetPaisISO(paisId),
+                            Nombre = Util.GetPaisNombre(paisId)
+                        };
+
                         if (vRegion == "" || vRegion == "-- Todas --") vRegion = "x";
                         if (vZona == "" || vZona == "-- Todas --") vZona = "x";
-
-                        using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-                        {
-                            bepais = sv.SelectPais(Convert.ToInt32(vPaisID));
-                        }
 
                         using (PedidoServiceClient sv = new PedidoServiceClient())
                         {
