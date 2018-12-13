@@ -124,7 +124,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             IEnumerable<CampaniaModel> lst = _zonificacionProvider.GetCampanias(PaisID);
             IEnumerable<RegionModel> lstRegiones = DropDownListRegiones(PaisID);
-            IEnumerable<ZonaModel> lstZonas = _baseProvider.DropDownListZonas(PaisID);
+            IEnumerable<ZonaModel> lstZonas = DropDownListZonas(PaisID);
 
             return Json(new
             {

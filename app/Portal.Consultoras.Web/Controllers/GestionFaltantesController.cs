@@ -179,11 +179,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (zonasAValidar.Length != 0)
                 {
-                    BEZona[] zonas;
-                    using (ZonificacionServiceClient srv = new ZonificacionServiceClient())
-                    {
-                        zonas = srv.SelectAllZonas(paisID);
-                    }
+                    BEZona[] zonas = _zonificacionProvider.GetZonasEntidad(paisID);
 
                     var zonasNoValidas = (from item in zonasAValidar
                                           where !(zonas.Any(z => z.Codigo == item))

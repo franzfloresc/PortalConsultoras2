@@ -556,16 +556,7 @@ namespace Portal.Consultoras.Web.Controllers
             return View();
         }
         
-        protected IEnumerable<ZonaModel> DropDownListZonas(int paisId)
-        {
-            IList<BEZona> lst;
-            using (var sv = new ZonificacionServiceClient())
-            {
-                lst = sv.SelectAllZonas(paisId);
-            }
-            return Mapper.Map<IList<BEZona>, IEnumerable<ZonaModel>>(lst);
-        }
-
+        
         private async Task<ActionResult> GetPayResult(PaymentInfo info, PagoEnLineaModel pago)
         {
             var provider = new PagoPayuProvider

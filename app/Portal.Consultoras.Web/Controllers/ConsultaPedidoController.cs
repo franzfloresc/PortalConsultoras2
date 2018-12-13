@@ -197,7 +197,7 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult ObtenterDropDownPorPais(int PaisID)
         {
             IEnumerable<CampaniaModel> lstcampania = _zonificacionProvider.GetCampanias(PaisID);
-            IEnumerable<ZonaModel> lstzona = DropDownZonas(PaisID);
+            IEnumerable<ZonaModel> lstzona = DropDownListZonas(PaisID);
             IEnumerable<RegionModel> lstregion = DropDownListRegiones(PaisID);
 
             return Json(new
@@ -208,18 +208,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             }, JsonRequestBehavior.AllowGet);
         }
-
-        public IEnumerable<ZonaModel> DropDownZonas(int paisId)
-        {
-            IList<BEZona> lista;
-            using (ZonificacionServiceClient servicezona = new ZonificacionServiceClient())
-            {
-                lista = servicezona.SelectAllZonas(paisId);
-            }
-
-            return Mapper.Map<IList<BEZona>, IEnumerable<ZonaModel>>(lista);
-        }
-
+        
         public JsonResult SelectTerritorioByCodigo(string codigo, int rowCount, int paisID)
         {
             try

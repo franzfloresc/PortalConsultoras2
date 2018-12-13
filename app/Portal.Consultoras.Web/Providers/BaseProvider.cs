@@ -54,20 +54,7 @@ namespace Portal.Consultoras.Web.Providers
 
             return ruta;
         }
-
-        #region Zonificacion
-
-        public IEnumerable<ZonaModel> DropDownListZonas(int paisId)
-        {
-            IList<BEZona> lst;
-            using (var sv = new ZonificacionServiceClient())
-            {
-                lst = sv.SelectAllZonas(paisId);
-            }
-            return Mapper.Map<IList<BEZona>, IEnumerable<ZonaModel>>(lst);
-        }
-        #endregion
-
+        
         public string GetFechaPromesa(TimeSpan horaCierre, int diasFaltantes, DateTime fechaInicioCampania, bool esMobile)
         {
             var time = DateTime.Today.Add(horaCierre);

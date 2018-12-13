@@ -82,5 +82,21 @@ namespace Portal.Consultoras.Web.Providers
             }
             return Mapper.Map<IList<BERegion>, IEnumerable<RegionModel>>(lst.OrderBy(zona => zona.Codigo).ToList());
         }
+
+        public BEZona[] GetZonasEntidad(int paisId)
+        {
+            BEZona[] zonas;
+            using (var srv = new ZonificacionServiceClient())
+            {
+                zonas = srv.SelectAllZonas(paisId);
+            }
+            return zonas;
+        }
+
+        public IEnumerable<ZonaModel> GetZonas(int paisId)
+        {
+            IList<BEZona> lst = GetZonasEntidad(paisId).ToList();
+            return Mapper.Map<IList<BEZona>, IEnumerable<ZonaModel>>(lst);
+        }
     }
 }

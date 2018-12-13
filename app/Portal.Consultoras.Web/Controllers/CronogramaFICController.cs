@@ -47,7 +47,7 @@ namespace Portal.Consultoras.Web.Controllers
             CronogramaFICModel model = new CronogramaFICModel
             {
                 listaPaises = DropDowListPaises(),
-                listaZonas = _baseProvider.DropDownListZonas(userData.PaisID),
+                listaZonas = DropDownListZonas(userData.PaisID),
                 DropDownListCampania = _zonificacionProvider.GetCampaniasEntidad(Constantes.PaisID.Peru)
             };
             return View(model);

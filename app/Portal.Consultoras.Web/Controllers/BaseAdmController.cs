@@ -34,5 +34,14 @@ namespace Portal.Consultoras.Web.Controllers
             return _zonificacionProvider.GetRegiones(paisId);
         }
 
+        public IEnumerable<ZonaModel> DropDownListZonas(int paisId)
+        {
+            if (paisId <= 0)
+            {
+                paisId = userData.PaisID;
+            }
+            return _zonificacionProvider.GetZonas(paisId);
+        }
+
     }
 }

@@ -609,24 +609,10 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region Metodos
         
-        public List<BEZona> CargarZona()
-        {
-            var model = new ReportePedidoDDWebModel();
-
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                BEZona[] bezona = sv.SelectAllZonas(userData.PaisID);
-
-                model.DropDownListZona = bezona.ToList();
-                model.DropDownListZona.Insert(0, new BEZona { ZonaID = 0, Codigo = "-- Todas --" });
-                return model.DropDownListZona;
-            }
-        }
-
         public JsonResult ObtenterCampaniasyZonasPorPais(int PaisID)
         {
             IEnumerable<CampaniaModel> lst = _zonificacionProvider.GetCampanias(PaisID);
-            IEnumerable<ZonaModel> lstZonas = _baseProvider.DropDownListZonas(PaisID);
+            IEnumerable<ZonaModel> lstZonas = DropDownListZonas(PaisID);
             IEnumerable<RegionModel> lstRegiones = DropDownListRegiones(PaisID);
 
             return Json(new

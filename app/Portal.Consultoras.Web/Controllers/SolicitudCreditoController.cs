@@ -57,21 +57,10 @@ namespace Portal.Consultoras.Web.Controllers
             return View(model);
 
         }
-
-        public IEnumerable<ZonaModel> DropDownZonas(int paisId)
-        {
-            IList<BEZona> lista;
-            using (ZonificacionServiceClient servicezona = new ZonificacionServiceClient())
-            {
-                lista = servicezona.SelectAllZonas(paisId);
-            }
-
-            return Mapper.Map<IList<BEZona>, IEnumerable<ZonaModel>>(lista);
-        }
-        
+                
         public JsonResult ObtenterDropDownPorPais(int PaisID)
         {
-            IEnumerable<ZonaModel> lstzona = DropDownZonas(PaisID);
+            IEnumerable<ZonaModel> lstzona = DropDownListZonas(PaisID);
 
             return Json(new
             {

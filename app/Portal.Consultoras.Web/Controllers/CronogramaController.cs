@@ -41,7 +41,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 listaPaises = DropDowListPaises(),
                 listaCampania = _zonificacionProvider.GetCampanias(paisId),
-                listaZonas = _baseProvider.DropDownListZonas(paisId),
+                listaZonas = DropDownListZonas(paisId),
                 PaisID = paisId,
                 CampaniaID = campaniaIdActual
             };
@@ -72,7 +72,7 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult ObtenterCampaniasPorPais(int PaisID)
         {
             IEnumerable<CampaniaModel> lst = _zonificacionProvider.GetCampanias(PaisID);
-            IEnumerable<ZonaModel> lstZonas = _baseProvider.DropDownListZonas(PaisID);
+            IEnumerable<ZonaModel> lstZonas = DropDownListZonas(PaisID);
 
             return Json(new
             {
