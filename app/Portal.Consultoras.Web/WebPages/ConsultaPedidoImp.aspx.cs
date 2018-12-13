@@ -28,7 +28,6 @@ namespace Portal.Consultoras.Web.WebPages
                 string bloqueadoddl = lst[8];
 
                 string campaniaddlVal = lst[9];
-                //string regionddlVal = "";
                 string zonaddlVal = lst[11];
                 string paisddlVal = lst[12];
                 string estadoPedidoddlVal = lst[14];
@@ -71,8 +70,6 @@ namespace Portal.Consultoras.Web.WebPages
                     };
 
                     int? regionid = null;
-                    //if (!string.IsNullOrEmpty(regionddlVal))
-                    //    regionid = int.Parse(regionddlVal);
 
                     int? territorioid = null;
                     if (!string.IsNullOrEmpty(territoriotxtId))

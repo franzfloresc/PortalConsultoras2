@@ -116,6 +116,9 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public bool ValidacionAbierta { get; set; }
 
+        [DataMember]
+        public string FechaFacturado { get; set; }
+
 
         public BEPedidoWeb() { }
 
@@ -158,6 +161,7 @@ namespace Portal.Consultoras.Entities
             VersionProl = row.ToByte("VersionProl");
             ModificaPedidoReservado = row.ToBoolean("ModificaPedidoReservado");
             ValidacionAbierta = row.ToBoolean("ValidacionAbierta");
+            FechaFacturado = row.ToString("FechaFacturado");
         }
     }
 }

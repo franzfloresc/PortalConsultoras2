@@ -207,11 +207,9 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 mockEstrategiaComponenteProvider.Setup(x => x.SessionManager).Returns(SessionManager.Object);
 
                 var jsonResult = CreateController(mockEstrategiaComponenteProvider).ObtenerComponentes("43285", "30880", "201814", Constantes.TipoEstrategiaSet.CompuestaVariable, "007");
-
-                //var componentes = JsonConvert.SerializeObject(jsonResult);
+                
                 var componentes = new JavaScriptSerializer().Serialize(jsonResult.Data);
-
-                //var data = JsonConvert.DeserializeObject<ObtenerComponentesResponse>(componentes);
+                
                 var data = new JavaScriptSerializer().Deserialize<ObtenerComponentesResponse>(componentes);
                 Assert.AreEqual(1, data.componentes.Count);
                 Assert.AreEqual(true, (data.componentes[0].FactorCuadre > 1));

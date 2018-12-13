@@ -55,7 +55,7 @@ namespace Portal.Consultoras.BizLogic.Estrategia
                     throw new NullReferenceException("UpSelling no encontrado");
 
                 var upSellingsByCampana = _upSellingDataAccess.Obtener(null, upSelling.CodigoCampana);
-                if (upSellingsByCampana.Count(us => us.CodigoCampana == upSelling.CodigoCampana && us.UpSellingId != upSelling.UpSellingId) > 0)
+                if (upSellingsByCampana.Any(us => us.CodigoCampana == upSelling.CodigoCampana && us.UpSellingId != upSelling.UpSellingId))
                     throw new ArgumentException("Esta campaña ya cuenta con Upselling asociado");
 
                 upSellingOriginal.Regalos = _upSellingDataAccess.ObtenerDetalles(upSelling.UpSellingId);
