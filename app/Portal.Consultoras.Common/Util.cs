@@ -3748,11 +3748,18 @@ namespace Portal.Consultoras.Common
             string codigoTipoEstrategia,
             int marcaId,
             bool IsMobile,
-            bool IsHome
+            bool IsHome,
+            bool IsRecommendations
             )
         {
 
             var result = "";
+
+            if (IsRecommendations)
+            {
+                result = IsMobile ? Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoCarrusel.ToString() : Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoCarrusel.ToString();
+                return result;
+            }
 
             switch (codigoEstrategia)
             {
@@ -3826,7 +3833,7 @@ namespace Portal.Consultoras.Common
 
             return result;
         }
-        
+
 
         public static string GetTipoPersonalizacionByCodigoEstrategia(string codigoEstrategia)
         {
