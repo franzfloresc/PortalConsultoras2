@@ -87,7 +87,7 @@
             <div id="flexslidertop" class="header_slider" style="overflow:hidden;">
                 <a id="btn_cerrar_oferta_mobile" class="btn_cerrar_oferta_mobile">X</a>
                 <ul class="slides">
-                    @if (ViewBag.TieneOfertaDelDia == true)
+                    @if (ViewBag.MostrarBannerSuperiorOdd == true) // TieneOfertaDelDia
                     {
                         <li style="height: 60px;">
                             @Html.Partial("~/Areas/Mobile/Views/OfertaDelDia/_OfertaDelDiaBannerTop.cshtml");
@@ -270,19 +270,19 @@
         @{
             var routeValues = HttpContext.Current.Request.RequestContext.RouteData.Values;
             string ctrl = routeValues.ContainsKey("controller") ? routeValues["controller"].ToString() : "CtrlNoRoute";
-            string acti = routeValues.ContainsKey("action") ? routeValues["action"].ToString() : "ActiNoRoute";
+                string acti = routeValues.ContainsKey("action") ? routeValues["action"].ToString() : "ActiNoRoute";
         }
         window.controllerName = '@ctrl.ToLower()';
         window.actionName     = '@acti.ToLower()';
     </script>
 
-    @if (ViewBag.TieneOfertaDelDia == true)
+    @if (ViewBag.MostrarBannerSuperiorOdd == true) // TieneOfertaDelDia
     {
         @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mobile/OfertaDelDia")
         <script type="text/javascript">
             $(document).ready(function () {
-                OfertaDelDiaModule.Inicializar();
-            });
+            OfertaDelDiaModule.Inicializar();
+        });
         </script>
     }
 

@@ -50,7 +50,8 @@ var BuscadorModule = (function () {
         agregarProducto: ".agregarProductoBuscador",
         redireccionarFicha: ".redireccionarFicha",
         botonVerTodos: "#BotonVerTodosResultados",
-        logoPaginaResponsive: '.logoPaginaResponsive'
+        logoPaginaResponsive: '.logoPaginaResponsive',
+        valueJSON: ".hdBuscadorJSON"
     };
     var _config = {
         isMobile: window.matchMedia("(max-width:991px)").matches,
@@ -310,7 +311,7 @@ var BuscadorModule = (function () {
             var divPadre = $(this).parents("[data-item='ProductoBuscador']").eq(0);
             var textoBusqueda = $(_elementos.campoBuscadorProductos).val();
             _funciones.LlamarAnalyticsSeleccionarContenido(textoBusqueda);
-            BuscadorProvider.RegistroProductoBuscador(divPadre, textoBusqueda);
+            BuscadorProvider.RegistroProductoBuscador(divPadre, _elementos.valueJSON);
         },
         RedireccionarAFichaDeFotoYDescripcion: function (e) {
             e.preventDefault();
@@ -325,14 +326,8 @@ var BuscadorModule = (function () {
 
             var codigo = ["030", "005", "001", "007", "008", "009", "010", "011"];
 
-            //console.log(codigoEstrategia);
-
-            
-
             if (textoBusqueda != "")
-                localStorage.setItem('valorBuscador', textoBusqueda);
-
-            
+                localStorage.setItem('valorBuscador', textoBusqueda);            
 
             if (codigo.indexOf(codigoEstrategia) >= 0) {
                 var UrlDetalle = GetPalanca(codigoEstrategia);
@@ -344,13 +339,8 @@ var BuscadorModule = (function () {
                 if (!(typeof AnalyticsPortalModule === 'undefined'))
                     AnalyticsPortalModule.MarcaEligeTuOpcionBuscador(descripcionProducto + ' - ' + $(_elementos.campoBuscadorProductos).val());
 
-
-                //virtualEvent('Resultados de Búsqueda', 'Elige tu opción', descripcionProducto + ' - ' + $(_elementos.campoBuscadorProductos).val());
                 return true;
             }
-
-
-
         },
         ClickVerTodos: function () {
             var valorBusqueda = $(_elementos.campoBuscadorProductos).val();

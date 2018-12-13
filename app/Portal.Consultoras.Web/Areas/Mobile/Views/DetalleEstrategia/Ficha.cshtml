@@ -332,7 +332,8 @@ else
             });
             fichaModule.Inicializar();
 
-            if (tieneCarrusel) {
+            if (tieneCarrusel == "True")
+            {
                 carruselModule = CarruselModule({
                     palanca: "@Model.Palanca",
                     campania: "@Model.Campania",

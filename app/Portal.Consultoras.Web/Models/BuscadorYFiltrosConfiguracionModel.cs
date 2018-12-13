@@ -15,5 +15,9 @@ namespace Portal.Consultoras.Web.Models
         }
 
         public IList<ConfiguracionPaisDatosModel> ConfiguracionPaisDatos { get; set; }
+
+        public int IndicadorConsultoraDummy { get; set; }
+
+        public string PersonalizacionDummy { get; set; }
     }
 }

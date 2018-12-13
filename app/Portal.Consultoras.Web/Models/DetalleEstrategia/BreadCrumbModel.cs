@@ -4,20 +4,5 @@
     {
         public string Texto { get; set; }
         public string Url { get; set; }
-
-        //public override bool Equals(object obj)
-        //{
-        //    if (obj == null) return false;
-
-        //    var breadcrumb = (BreadCrumbModel)obj;
-
-        //    return this.Texto == breadcrumb.Texto &&
-        //        this.Url == breadcrumb.Url;
-        //}
-
-        //public override int GetHashCode()
-        //{
-        //    return base.GetHashCode();
-        //}
     }
 }
