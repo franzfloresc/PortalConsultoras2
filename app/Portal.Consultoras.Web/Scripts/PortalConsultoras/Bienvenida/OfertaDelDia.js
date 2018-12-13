@@ -173,13 +173,16 @@ var OfertaDelDiaModule = function () {
 
         //odd_desktop_google_analytics_product_impresion(data, contenedorOfertas);
 
-        // marcacion inicio de mostrar productos
-        var origen = {
-            Pagina: ConstantesModule.OrigenPedidoWebEstructura.Pagina.Contenedor,
-            Palanca: ConstantesModule.OrigenPedidoWebEstructura.Palanca.OfertaDelDia,
-            Seccion: ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel
-        };
-        CarruselAyuda.MarcarAnalyticsInicio("#divOddCarrusel", data.ListaOferta, origen, 3);// Home Pedido
+        console.log('RenderOfertaDelDia');
+        if (typeof CarruselAyuda != "undefined") {
+            // marcacion inicio de mostrar productos
+            var origen = {
+                Pagina: ConstantesModule.OrigenPedidoWebEstructura.Pagina.Contenedor,
+                Palanca: ConstantesModule.OrigenPedidoWebEstructura.Palanca.OfertaDelDia,
+                Seccion: ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel
+            };
+            CarruselAyuda.MarcarAnalyticsInicio("#divOddCarrusel", data.ListaOferta, origen, 3);// contenedor
+        }
     };
 
     var MostrarRelojOfertaDelDia = function (totalSegundos) {

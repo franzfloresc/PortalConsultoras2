@@ -207,7 +207,6 @@ $(document).ready(function () {
                                     CargarResumenCampaniaHeader(true);
                                     TrackingJetloreAdd(Cantidad, $("#hdCampaniaCodigo").val(), CUV);
                                     HideDialog("divVistaPrevia");
-                                    //$('#divVistaPrevia').dialog('close');
 
                                     closeWaitingDialog();
                                 },
@@ -317,7 +316,7 @@ function RegistrarProductoOferta(e) {
                         else
                             AbrirMensaje("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted solo puede adicionar (" + Saldo + ") más, debido a que ya agregó este producto a su pedido, verifique.", "LO SENTIMOS");
                     }
-                    CerrarLoad();   
+                    CerrarLoad();
                     modelLiquidacionOfertas = undefined;
                     return false;
                 });
@@ -330,7 +329,7 @@ function RegistrarProductoOferta(e) {
                     $(Stock).val(data.Stock);
                     if (parseInt(data.Stock) < parseInt(Cantidad)) {
                         AbrirMensaje("Lamentablemente, la cantidad solicitada sobrepasa el stock actual (" + data.Stock + ") del producto, verifique.", "LO SENTIMOS");
-                        CerrarLoad();   
+                        CerrarLoad();
                         modelLiquidacionOfertas = undefined;
                         return false;
                     }
@@ -345,14 +344,14 @@ function RegistrarProductoOferta(e) {
                             async: true,
                             success: function (data) {
                                 if (!checkTimeout(data)) {
-                                    CerrarLoad();   
+                                    CerrarLoad();
                                     modelLiquidacionOfertas = undefined;
                                     return false;
                                 }
 
                                 if (data.success != true) {
                                     messageInfoError(data.message);
-                                    CerrarLoad();   
+                                    CerrarLoad();
                                     modelLiquidacionOfertas = undefined;
                                     return false;
                                 }
@@ -575,7 +574,6 @@ function IniDialog() {
             {
                 "Aceptar": function () {
                     HideDialog("DialogMensajesBanner");
-                    //$(this).dialog('close');
                 }
             }
     });
@@ -601,7 +599,7 @@ function InfoCommerceGoogle(ItemTotal, CUV, DescripcionProd, Categoria, Precio, 
             'event': 'addToCart',
             'ecommerce': {
                 'add': {
-                    'actionField': { 'list': 'Liquidación Web' },
+                    'actionField': { 'list': 'Liquidaciones Web' },
                     'products': [
                         {
                             'name': DescripcionProd,

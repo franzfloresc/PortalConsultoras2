@@ -15,22 +15,12 @@ namespace Portal.Consultoras.Web.UnitTest.Areas.Mobile.Controllers
         [TestClass]
         public class Index : Base
         {
-            public class GuiaNegocioControllerStub01: GuiaNegocioController
+            public class GuiaNegocioControllerStub01 : GuiaNegocioController
             {
-                //public override ActionResult ViewLanding()
-                //{
-                //    throw new Exception("Error Render Index");
-                //}
-
-                public GuiaNegocioControllerStub01(ILogManager logManager)  
+                public GuiaNegocioControllerStub01(ILogManager logManager)
                 {
                     this.logManager = logManager;
                 }
-
-                //public override bool GNDValidarAcceso(bool esConsultoraLider, GuiaNegocioModel guiaNegocio, RevistaDigitalModel revistaDigital)
-                //{
-                //    return true;
-                //}
             }
 
             [TestMethod]
@@ -44,9 +34,9 @@ namespace Portal.Consultoras.Web.UnitTest.Areas.Mobile.Controllers
 
                 //Assert
                 LogManager.Verify(x => x.LogErrorWebServicesBusWrap(
-                    It.Is<Exception>(e => e.Message =="Error Render Index"),
-                    It.IsAny<string>(), 
-                    It.IsAny<string>(), 
+                    It.Is<Exception>(e => e.Message == "Error Render Index"),
+                    It.IsAny<string>(),
+                    It.IsAny<string>(),
                     It.IsAny<string>()),
                     Times.Once);
                 //

@@ -556,6 +556,7 @@ namespace Portal.Consultoras.BizLogic
                 var actualizaDatosConfigTask = Task.Run(() => GetOpcionesVerificacion(paisID, Constantes.OpcionesDeVerificacion.OrigenActulizarDatos));
                 var contratoAceptacionTask = Task.Run(() => GetContratoAceptacion(paisID, usuario.ConsultoraID));
                 var pagoEnLineaTask = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetListCache(paisID, Constantes.TablaLogica.ValoresPagoEnLinea));
+                var tieneChatbotTask = Task.Run(() => usuario.TieneChatbot = TieneChatbot(paisID, usuario.CodigoConsultora));
 
                 var lstConfiguracionPais = new List<string>();
                 lstConfiguracionPais.Add(Constantes.ConfiguracionPais.RevistaDigital);
@@ -564,7 +565,7 @@ namespace Portal.Consultoras.BizLogic
                 lstConfiguracionPais.Add(Constantes.ConfiguracionPais.BuscadorYFiltros);
                 lstConfiguracionPais.Add(Constantes.ConfiguracionPais.PagoEnLinea);
                 lstConfiguracionPais.Add(Constantes.ConfiguracionPais.MasGanadoras);
-                var usuarioPaisTask = Task.Run(() => ConfiguracionPaisUsuario(usuario, string.Join("|", lstConfiguracionPais)));                
+                var usuarioPaisTask = Task.Run(() => ConfiguracionPaisUsuario(usuario, string.Join("|", lstConfiguracionPais)));
 
                 Task.WaitAll(
                                 terminosCondicionesTask,
@@ -582,7 +583,8 @@ namespace Portal.Consultoras.BizLogic
                                 actualizaDatosConfigTask,
                                 contratoAceptacionTask,
                                 usuarioPaisTask,
-                                pagoEnLineaTask);
+                                pagoEnLineaTask,
+                                tieneChatbotTask);
 
                 if (!Common.Util.IsUrl(usuario.FotoPerfil) && !string.IsNullOrEmpty(usuario.FotoPerfil))
                     usuario.FotoPerfil = string.Concat(ConfigCdn.GetUrlCdn(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
@@ -644,7 +646,8 @@ namespace Portal.Consultoras.BizLogic
 
                 usuario = usuarioPaisTask.Result ?? usuario;
 
-                if(pagoEnLineaTask.Result != null){
+                if (pagoEnLineaTask.Result != null)
+                {
                     var enablePagoEnLineaApp = pagoEnLineaTask.Result.Where(e => e.TablaLogicaDatosID == Constantes.TablaLogicaDato.PagoEnLinea.Habilitar_App).Select(e => e.Valor).FirstOrDefault();
                     usuario.TienePagoEnLinea = (usuario.TienePagoEnLinea && enablePagoEnLineaApp == "1");
                 }
@@ -1815,7 +1818,8 @@ namespace Portal.Consultoras.BizLogic
                         }
                     }
                 }
-                else if (usuario.PaisID == Constantes.PaisID.Colombia ) {
+                else if (usuario.PaisID == Constantes.PaisID.Colombia)
+                {
                     this.UpdateDatos(usuario, CorreoAnterior);
                     resultado = string.Format("{0}|{1}|{2}|0", "1", "3", "- Sus datos se actualizaron correctamente");
                 }
@@ -3499,7 +3503,7 @@ namespace Portal.Consultoras.BizLogic
             mostrarBuscador = configuracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.TipoConfiguracionBuscador.MostrarOpcionesOrdenamiento);
             if (mostrarBuscador != null) buscadorYFiltrosConfiguracion.MostrarOpcionesOrdenamiento = mostrarBuscador.Valor1 == "1";
 
-            mostrarBuscador = configuracionPaisDatos.Where(x => x.Codigo == Constantes.TipoConfiguracionBuscador.FlagFiltrosBuscador).FirstOrDefault();
+            mostrarBuscador = configuracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.TipoConfiguracionBuscador.FlagFiltrosBuscador);
             if (mostrarBuscador != null) buscadorYFiltrosConfiguracion.MostrarFiltrosBuscador = mostrarBuscador.Valor1 == "1";
 
             return buscadorYFiltrosConfiguracion;
@@ -3588,6 +3592,10 @@ namespace Portal.Consultoras.BizLogic
             return new DAUsuario(paisId).ActualizarNovedadBuscador(codigoUsuario);
         }
 
+        private bool TieneChatbot(int paisId, string codigoConsultora)
+        {
+            return new DAUsuario(paisId).GetPermisoChatbot(codigoConsultora);
+        }
 
         #region ActualizacionDatos
         public BERespuestaServicio EnviarSmsCodigo(int paisID, string codigoUsuario, string codigoConsultora, int campaniaID, bool esMobile, string celularActual, string celularNuevo)

@@ -20,8 +20,8 @@ $(document).ready(function () {
 
     $("body").on("click", ".suma", function () {
         var article = $(this).parents("article").eq(0);
-        var cantidad = $(article).find(".txtCantidad").val();
-        var cajaTexto = $(article).find(".txtCantidad");
+        var cantidad = $(article).find("#txtCantidad").val();
+        var cajaTexto = $(article).find("#txtCantidad");
         if (cantidad == 99)
             $(cajaTexto).val(Number(99));
         else
@@ -29,8 +29,8 @@ $(document).ready(function () {
     });
     $("body").on("click", ".resta", function () {
         var article = $(this).parents("article").eq(0);
-        var cantidad = $(article).find(".txtCantidad").val();
-        var cajaTexto = $(article).find(".txtCantidad");
+        var cantidad = $(article).find("#txtCantidad").val();
+        var cajaTexto = $(article).find("#txtCantidad");
         if (cantidad == 1)
             $(cajaTexto).val(Number(1));
         else
@@ -234,14 +234,14 @@ function AgregarOfertaProducto(article) {
                                         if (stockRestante < 1) {
                                             $(article).find(".resta").attr('disabled', 'disabled');
                                             $(article).find(".suma").attr('disabled', 'disabled');
-                                            $(article).find(".txtCantidad").attr('disabled', 'disabled');
+                                            $(article).find("#txtCantidad").attr('disabled', 'disabled');
                                             $(article).find(".btnAgregarOfertaProducto").attr('disabled', 'disabled');
 
                                             $(article).find(".claseStock").text("0");
-                                            $(article).find(".txtCantidad").val("0");
+                                            $(article).find("#txtCantidad").val("0");
                                         } else {
                                             $(article).find(".claseStock").text(stockRestante);
-                                            $(article).find(".txtCantidad").val("1");
+                                            $(article).find("#txtCantidad").val("1");
                                         }
 
                                         InfoCommerceGoogle(parseFloat(cantidad * PrecioUnidad).toFixed(2), CUV, DescripcionProd, DescripcionCategoria, PrecioUnidad, cantidad, DescripcionMarca, DescripcionEstrategia, posicionEstrategia);
@@ -323,7 +323,7 @@ function InfoCommerceGoogle(ItemTotal, CUV, DescripcionProd, Categoria, Precio, 
             'event': 'addToCart',
             'ecommerce': {
                 'add': {
-                    'actionField': { 'list': 'Liquidación Web' },
+                    'actionField': { 'list': 'Liquidaciones Web' },
                     'products': [{
                         'name': DescripcionProd,
                         'price': Precio,
@@ -339,44 +339,46 @@ function InfoCommerceGoogle(ItemTotal, CUV, DescripcionProd, Categoria, Precio, 
         })
     }
 }
-function TagManagerOfertaLiquidacion() {
-    var cadListaofertaLiquidadas = $("#hdListaProductosEnLiquidacion").val();
-    var listaofertaLiquidadas = JSON.parse(cadListaofertaLiquidadas);
-    var cantidadofertaLiquidadas = $('.panel-product').length;
 
-    var arrayEstrategia = new Array();
-    var position = 1;
-    for (var i = 0; i < cantidadofertaLiquidadas; i++) {
-        var variant = "";
-        var ofertaLiquidada = listaofertaLiquidadas[i];
-        if (ofertaLiquidada.DescripcionEstrategia == null || ofertaLiquidada.DescripcionEstrategia == "" ||
-            ofertaLiquidada.DescripcionEstrategia == "NO DISPONIBLE") {
-            variant = "Estándar";
-        } else {
-            variant = ofertaLiquidada.DescripcionEstrategia;
-        }
-        var impresionofertaLiquidada = {
+//function TagManagerOfertaLiquidacion() {
+//    var cadListaofertaLiquidadas = $("#hdListaProductosEnLiquidacion").val();
+//    var listaofertaLiquidadas = JSON.parse(cadListaofertaLiquidadas);
+//    var cantidadofertaLiquidadas = $('.panel-product').length;
 
-            'name': ofertaLiquidada.Descripcion,
-            'id': ofertaLiquidada.CUV,
-            'price': ofertaLiquidada.PrecioOferta.toString(),
-            'brand': ofertaLiquidada.DescripcionMarca,
-            'category': 'NO DISPONIBLE',
-            'variant': variant,
-            'list': 'Liquidación Web',
-            'position': position
+//    var arrayEstrategia = new Array();
+//    var position = 1;
+//    for (var i = 0; i < cantidadofertaLiquidadas; i++) {
+//        var variant = "";
+//        var ofertaLiquidada = listaofertaLiquidadas[i];
+//        if (ofertaLiquidada.DescripcionEstrategia == null || ofertaLiquidada.DescripcionEstrategia == "" ||
+//            ofertaLiquidada.DescripcionEstrategia == "NO DISPONIBLE") {
+//            variant = "Estándar";
+//        } else {
+//            variant = ofertaLiquidada.DescripcionEstrategia;
+//        }
+//        var impresionofertaLiquidada = {
 
-        };
-        position++;
-        arrayEstrategia.push(impresionofertaLiquidada);
-    }
+//            'name': ofertaLiquidada.Descripcion,
+//            'id': ofertaLiquidada.CUV,
+//            'price': ofertaLiquidada.PrecioOferta.toString(),
+//            'brand': ofertaLiquidada.DescripcionMarca,
+//            'category': 'NO DISPONIBLE',
+//            'variant': variant,
+//            'list': 'Liquidación Web',
+//            'position': position
 
-    if (arrayEstrategia.length > 0) {
-        dataLayer.push({
-            'event': 'productImpression',
-            'ecommerce': {
-                'impressions': arrayEstrategia
-            }
-        });
-    }
-}
+//        };
+//        position++;
+//        arrayEstrategia.push(impresionofertaLiquidada);
+//    }
+
+//    if (arrayEstrategia.length > 0) {
+//        dataLayer.push({
+//            'event': 'productImpression',
+//            'ecommerce': {
+//                'impressions': arrayEstrategia
+//            }
+//        });
+//    }
+//}
+

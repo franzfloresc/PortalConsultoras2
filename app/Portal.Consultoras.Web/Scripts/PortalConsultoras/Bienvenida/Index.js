@@ -34,7 +34,7 @@ $(document).ready(function () {
         $('div.content_datos').css('max-width', '100%');
         $('div.resumen_belcorp_cam').css('margin-left', '1.5%');
         $('div.resumen_belcorp_cam').css('margin-right', '0%');
-        if(window.matchMedia('(min-width:1221px)').matches){
+        if (window.matchMedia('(min-width:1221px)').matches) {
             $('div.socia_negocio_home').css('margin-left', '4.8%');
         } else {
             $('div.socia_negocio_home').css('margin-left', '4%');
@@ -653,7 +653,6 @@ function CrearDialogs() {
         title: "",
         close: function (event, ui) {
             HideDialog("divConfirmarCUVBanner");
-            //$(this).dialog('close');
         }
     });
 }
@@ -730,7 +729,7 @@ function CargarCarouselLiquidaciones() {
     });
 }
 //function ArmarCarouselLiquidaciones(data) {
-    
+
 //    data = EstructurarDataCarouselLiquidaciones(data.lista);
 //    arrayLiquidaciones = data;
 //    var htmlDiv = SetHandlebars("#liquidacion-template", data);
@@ -901,8 +900,8 @@ function EstructurarDataCarouselLiquidaciones(array) {
     return array;
 }
 function AgregarProductoLiquidacion(contenedor) {
-    
-  
+
+
     var inputCantidad = $(contenedor).find("[data-input='cantidad']").val();
     if (!$.isNumeric(inputCantidad)) {
         AbrirMensaje("Ingrese un valor numérico.");
@@ -917,7 +916,7 @@ function AgregarProductoLiquidacion(contenedor) {
 
     waitingDialog({});
     var item = {
-        
+
         Cantidad: $(contenedor).find("[data-input='cantidad']").val(),
         MarcaID: $(contenedor).find("#MarcaID").val(),
         PrecioUnidad: $(contenedor).find("#PrecioOferta").val(),
@@ -1263,11 +1262,9 @@ function AgregarCUVBannerPedido() {
     SetGoogleAnalyticsPromotionClick(Id, Posicion, Titulo);
 
     HideDialog("divConfirmarCUVBanner");
-    //$('#divConfirmarCUVBanner').dialog('close');
 }
 function AgregarCUVBannerPedidoNo() {
     HideDialog("divConfirmarCUVBanner");
-    //$('#divConfirmarCUVBanner').dialog('close');
 }
 
 function InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido) {
@@ -1585,8 +1582,8 @@ function ActualizarMD() {
 
     if (viewBagPaisID != 4) {
 
-        if (jQuery.trim($('#txtEMail').val()) == ""  ) {
-                      
+        if (jQuery.trim($('#txtEMail').val()) == "") {
+
             $('#txtEMailMD').focus();
             alert("Debe ingresar EMail.\n");
             return false;
@@ -2261,7 +2258,6 @@ function CrearPopupComunicado() {
         },
         close: function (event, ui) {
             HideDialog("divComunicado");
-            //$('#divComunicado').dialog('close');
         }
     });
 }
@@ -2280,7 +2276,6 @@ function AceptarComunicado() {
         success: function (data) {
             if (checkTimeout(data)) {
                 HideDialog("divComunicado");
-                //$('#divComunicado').dialog('close');
                 closeWaitingDialog();
             }
         },
@@ -2387,11 +2382,9 @@ function scrollWin() {
 }
 function cerrarSueniosNavidad() {
     HideDialog("idSueniosNavidad");
-    //$('#idSueniosNavidad').dialog('close');
 }
 function cerrarSuenioConfirmacion() {
     HideDialog("divSuenioConfirmacion");
-    //$('#divSuenioConfirmacion').dialog('close');
 }
 function AgregarSuenio() {
     var descSuenio = $("#txtSuenioNavidad").val();
@@ -2403,7 +2396,6 @@ function AgregarSuenio() {
 
     var params = { descripcion: descSuenio };
     HideDialog("idSueniosNavidad");
-    //$('#idSueniosNavidad').dialog('close');
     waitingDialog({});
     $.ajax({
         type: "POST",
@@ -3219,8 +3211,8 @@ function MostrarPopupInicial() {
         case popupAsesoraOnline:
             if (popupInicialCerrado == 0) asesoraOnlineObj.mostrar();
             break;
-        case popupActualizarCorreo: 
-            PopupMostrar('popupVerificacionCorreoElectronicoPendiente');       
+        case popupActualizarCorreo:
+            PopupMostrar('popupVerificacionCorreoElectronicoPendiente');
             break;
     }
 }
@@ -3278,7 +3270,7 @@ function ConsultarEmailPendiente() {
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(item),
         success: function (data) {
-            if (checkTimeout(data)) { 
+            if (checkTimeout(data)) {
                 if (data != '') {
                     document.getElementById('mensajeToolTip').innerHTML = data;
                     document.getElementsByClassName('tooltip_info_revision_correo')[0].style.display = 'block';

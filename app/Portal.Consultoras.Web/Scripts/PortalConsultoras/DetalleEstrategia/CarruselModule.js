@@ -144,13 +144,6 @@ var CarruselAyuda = function () {
                 AnalyticsPortalModule.MarcaGenericaLista("", obj);//Analytics Change Generico
             }
 
-            if (slick.options.infinite === false) {
-                // ocultar y mostrar flechas cuando este en el extremo
-                // esto debe estar en afterChange, luego de renderizar el ancho de imagen y caja de producto
-
-            }
-
-
         } catch (e) {
             console.log('marcarAnalyticsChange - ' + _texto.excepcion + e, e);
         }
@@ -649,7 +642,7 @@ function ArmarCarouselEstrategias(data) {
     $("#divListadoEstrategia.slick-initialized").slick("unslick");
 
     data.Lista = data.Lista || [];
-    if (data.Lista.length == 0) {
+    if (data.Lista.length == 0 && data.ListaLan.length == 0) {
         $("#divListaEstrategias").show();
         $("#divContenedorListaEstrategia").hide();
         $(".contenido_gana_mas").hide();
@@ -683,7 +676,7 @@ function ArmarCarouselEstrategias(data) {
                         $.extend(true, productoLanzamiento, data.ListaLan[0]);
                         productoLanzamiento.EsLanzamiento = true;
                         productoLanzamiento.EsBanner = false;
-                        productoLanzamiento.ClaseEstrategia = data.Lista[0].ClaseEstrategia;
+                        productoLanzamiento.ClaseEstrategia = data.Lista.length > 0 ? data.Lista[0].ClaseEstrategia : "revistadigital-landing";
 
                         if (tipoOrigenEstrategia == 1 || tipoOrigenEstrategia == 2) {
                             data.Lista.splice(0, 0, productoLanzamiento);
@@ -694,14 +687,26 @@ function ArmarCarouselEstrategias(data) {
 
             if (!revistaDigital.EsSuscrita) {
                 var bannerClubGanaMas = {};
-                $.extend(true, bannerClubGanaMas, data.Lista[0]);
+                if (data.Lista.length > 0) {
+                    $.extend(true, bannerClubGanaMas, data.Lista[0]);
+                }
                 bannerClubGanaMas.EsBanner = true;
 
                 if (tipoOrigenEstrategia == 1 || tipoOrigenEstrategia == 2) {
-                    data.Lista.splice(3, 0, bannerClubGanaMas);
+                    if (data.Lista.length > 3) {
+                        data.Lista.splice(3, 0, bannerClubGanaMas);
+                    }
+                    else {
+                        data.Lista.push(bannerClubGanaMas);
+                    }
                 }
                 else if (tipoOrigenEstrategia == 11 || tipoOrigenEstrategia == 21) {
-                    data.Lista.splice(1, 0, bannerClubGanaMas);
+                    if (data.Lista.length > 1) {
+                        data.Lista.splice(1, 0, bannerClubGanaMas);
+                    }
+                    else {
+                        data.Lista.push(bannerClubGanaMas);
+                    }
                 }
             }
         }
