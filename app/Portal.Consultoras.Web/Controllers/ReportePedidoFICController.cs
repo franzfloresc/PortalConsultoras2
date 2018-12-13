@@ -180,8 +180,8 @@ namespace Portal.Consultoras.Web.Controllers
             if (PaisID != 0)
             {
                 lst = _zonificacionProvider.GetCampanias(PaisID);
-                lstRegiones = DropDownListRegiones(PaisID);
-                lstZonas = DropDownListZonas(PaisID).OrderBy(x => x.Codigo);
+                lstRegiones = _zonificacionProvider.GetRegiones(PaisID);
+                lstZonas = _zonificacionProvider.GetZonas(PaisID).OrderBy(x => x.Codigo);
             }
 
             return Json(new

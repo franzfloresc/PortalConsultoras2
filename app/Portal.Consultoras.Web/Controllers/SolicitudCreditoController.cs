@@ -60,7 +60,7 @@ namespace Portal.Consultoras.Web.Controllers
                 
         public JsonResult ObtenterDropDownPorPais(int PaisID)
         {
-            IEnumerable<ZonaModel> lstzona = DropDownListZonas(PaisID);
+            IEnumerable<ZonaModel> lstzona = _zonificacionProvider.GetZonas(PaisID);
 
             return Json(new
             {

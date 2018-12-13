@@ -239,8 +239,8 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 listaPaises = DropDowListPaises(),
                 lista = _zonificacionProvider.GetCampanias(paisId),
-                listaRegiones = DropDownListRegiones(paisId),
-                listaZonas = DropDownListZonas(paisId),
+                listaRegiones = _zonificacionProvider.GetRegiones(paisId),
+                listaZonas = _zonificacionProvider.GetZonas(paisId),
                 PaisId = paisId,
                 CampaniaId = campaniaIdActual
             };
