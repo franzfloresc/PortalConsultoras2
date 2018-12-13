@@ -993,9 +993,16 @@ ul.breadcumbs li a::before {
 
 
 /* Agotado */
-.btn_agregalo_agotado {
+.boton_Agregalo_agotado {
+    height: 45px;
     width: 100%;
     font-weight: bold;
+    color: #B2B0B0;
+    background-color: #E5E5E5;
+    border: 1px solid #D2D2D2;
+    line-height: 45px;
+    margin-top: 7px;
+    border-radius: 4px;
 }
 
 .tono-agotado {

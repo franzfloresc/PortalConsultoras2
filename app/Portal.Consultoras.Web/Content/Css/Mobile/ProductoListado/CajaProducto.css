@@ -56,7 +56,7 @@
     opacity: .45;
 }
 
-    .producto-agotado > div:nth-child(2) .producto_img_mobile_bpt img {
+    .producto-agotado > div:nth-child(2) .producto_img_mobile_bpt img, .producto-agotado > div:nth-child(2) .producto_img_home img {
         -webkit-filter: grayscale(100%);
         -moz-filter: grayscale(100%);
         -ms-filter: grayscale(100%);
