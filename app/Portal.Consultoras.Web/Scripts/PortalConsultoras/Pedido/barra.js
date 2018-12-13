@@ -1566,18 +1566,16 @@ function InsertarPremio(model) {
         async: true,
         cache: false
     }).then(function (data) {
+        CerrarLoad();
+
         if (!checkTimeout(data)) {
-            CloseLoading();
             return false;
         }
 
         if (data.success != true) {
             messageInfoError(data.message);
-            CloseLoading();
             return false;
         }
-
-        CloseLoading();
 
         if (typeof CargarPedido === "function") { 
             CargarPedido();
