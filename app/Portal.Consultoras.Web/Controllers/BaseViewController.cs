@@ -538,6 +538,20 @@ namespace Portal.Consultoras.Web.Controllers
                 case Constantes.OrigenPedidoWeb.DesktopLandingBuscadorHerramientasDeVentaCarrusel:
                     result = Constantes.OrigenPedidoWeb.DesktopLandingBuscadorHerramientasDeVentaFicha;
                     break;
+
+                case Constantes.OrigenPedidoWeb.DesktopBuscadorGanadorasCarrusel:
+                    result = Constantes.OrigenPedidoWeb.DesktopLandingBuscadorGanadorasFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobileBuscadorGanadorasCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobileLandingBuscadorGanadorasFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopBuscadorGanadorasDesplegable:
+                    result = Constantes.OrigenPedidoWeb.DesktopBuscadorGanadorasFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobileBuscadorGanadorasDesplegable:
+                    result = Constantes.OrigenPedidoWeb.MobileBuscadorGanadorasFicha;
+                    break;
+
                 #endregion Buscador Desktop
 
                 #region Buscador Mobile
