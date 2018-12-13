@@ -16,7 +16,6 @@
         {
             "Aceptar": function () {
                 HideDialog("DialogMensajes");
-                //$(this).dialog('close');
             }
         }
     });
@@ -31,7 +30,6 @@
         title: "",
         close: function (event, ui) {
             HideDialog("divConfirmValidarPROL");
-            //$(this).dialog('close');
         }
     });
 
@@ -88,7 +86,6 @@ function MostrarMensaje(message) {
 
 function CerrarDialogo(dialog) {
     HideDialog(dialog);
-    //$('#' + dialog).dialog('close');
 }
 
 function ConfirmarModificar() {
@@ -132,7 +129,7 @@ function CerrarProductoAgotados() {
     $('#producto-faltante-busqueda-descripcion').val('');
 }
 
-function CargarProductoAgotados(identificador ) {
+function CargarProductoAgotados(identificador) {
 
     var filtro = identificador == undefined ? 0 : identificador;
 
@@ -141,10 +138,10 @@ function CargarProductoAgotados(identificador ) {
 
 
     var data = {
-        cuv             : $('#producto-faltante-busqueda-cuv').val(),
-        descripcion     : $('#producto-faltante-busqueda-descripcion').val(),
-        categoria       : $('#ddlCategoriaProductoAgotado').val() == null ? "" : $('#ddlCategoriaProductoAgotado').val(),
-        revista         : $('#ddlCatalogoRevistaProductoAgotado').val() == "" ? "" : $("#ddlCatalogoRevistaProductoAgotado option:selected").text() 
+        cuv: $('#producto-faltante-busqueda-cuv').val(),
+        descripcion: $('#producto-faltante-busqueda-descripcion').val(),
+        categoria: $('#ddlCategoriaProductoAgotado').val() == null ? "" : $('#ddlCategoriaProductoAgotado').val(),
+        revista: $('#ddlCatalogoRevistaProductoAgotado').val() == "" ? "" : $("#ddlCatalogoRevistaProductoAgotado option:selected").text()
     }
 
     waitingDialog({});
@@ -163,7 +160,7 @@ function CargarProductoAgotados(identificador ) {
                 if (response.data.Detalle.length == 0)
                     $("#tblProductosFaltantes table").find("#tfoot").removeClass("hidden");
                 else
-                    $("#tblProductosFaltantes table").find("#tfoot").addClass("hidden"); 
+                    $("#tblProductosFaltantes table").find("#tfoot").addClass("hidden");
 
                 $("#divProductoAgotado").show();
             }

@@ -25,7 +25,6 @@ namespace Portal.Consultoras.Web.Controllers
             _pagoEnLineaProvider = new PagoEnLineaProvider();
         }
 
-        // GET: PagoEnLinea
         public ActionResult Index()
         {
             if (EsDispositivoMovil())

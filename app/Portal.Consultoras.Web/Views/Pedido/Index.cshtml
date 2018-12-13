@@ -10,6 +10,7 @@
 @section styles{
     @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/Site-CssPedido")
 }
+
 <div class="franja_negra" style="background: #000 url(@ViewBag.UrlFranjaNegra) no-repeat center bottom;"></div>
 <div class="envolvente_pop_up">
     <div class="pop_pedido" id="pop_liquidacion" style="display: none;">
@@ -128,7 +129,8 @@
         </form>
     </div>
     <div class="clear"></div>
-
+    <div id="divProductosRecomendados"></div>
+    @Html.Partial("~/Views/ProductoRecomendado/_template_producto.cshtml")
     <div class="caja_pedidos">
         <div data-barra-width="">
             <div id="divBarra">
@@ -415,19 +417,21 @@
                 </div>
             </div>
             <!--Popup observaciones-->
-            <div id="observaciones_alerta" class="observaciones_alerta" style="display: none;">
-                <a class="close_buttom_alerta" href="">
-                    <img src="/Content/Images/close-icon.svg" alt="Alternate Text" />
-                </a>
-                <div class="header_observaciones_alerta">
-                    <ul>
-                        <li class="alert-observaciones"><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt=""></li>
-                        <li><h3>OBSERVACIONES DEL PRODUCTO</h3></li>
-                    </ul>
-                    <p>Debes tener en cuenta que tu pedido ha sido reservado pero:</p>
-                </div>
-                <div class="descripcion_observaciones_alerta" id="desc_obs_alerta">
-                    @*<ul>
+            <div id="observaciones_alerta" style="display: none;">
+                <div class="observaciones_alerta_blocks">
+
+                    <a class="close_buttom_alerta" href="">
+                        <img src="/Content/Images/close-icon.svg" alt="Alternate Text" />
+                    </a>
+                    <div class="header_observaciones_alerta">
+                        <ul>
+                            <li class="alert-observaciones"><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt=""></li>
+                            <li><h3>OBSERVACIONES DEL PRODUCTO</h3></li>
+                        </ul>
+                        @*<p>Debes tener en cuenta que tu pedido ha sido reservado pero:</p>*@
+                    </div>
+                    <div class="descripcion_observaciones_alerta" id="desc_obs_alerta">
+                        @*<ul>
                             <li>
                                 El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
                                 Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
@@ -442,6 +446,8 @@
                             </li>
 
                         </ul>*@
+                    </div>
+
                 </div>
             </div>
             <!-- fin Popup observaciones-->
@@ -2060,7 +2066,7 @@
 </script>
 
 @section scripts{
-    <script type="text/javascript">
+<script type="text/javascript">
         var arregloProductos;
         var cantProductosLoad = '@Model.ListaEstrategias.Count';
         var constConfiguracionOfertaLiquidacion = '@Constantes.ConfiguracionOferta.Liquidacion';
@@ -2127,6 +2133,8 @@
         var mensajeSinConexionGenerico = '@Constantes.MensajesError.SinConexion';
         var urlInsertarDemandaTotalReemplazoSugerido = '@Url.Action("InsertarDemandaTotalReemplazoSugerido", "Pedido")';
         var urlEsPedidoDetalleElecMultiple = '@Url.Action("EsPedidoDetalleElecMultiple", "Pedido")';
+        var activarRecomendaciones = '@ViewBag.ActivarRecomendaciones';
+        var maxCaracteresRecomendaciones = '@ViewBag.MaxCaracteresRecomendaciones';
         var urlGuardarPremioElectivo = '@Url.Action("GuardarPremioElectivo", "Pedido", new {area = ""})';
         var listaIconoLluvia = [
             '@Url.Content("~/Content/Images/confetti-rombo.svg")',
@@ -2135,7 +2143,7 @@
             '@Url.Content("~/Content/Images/confetti-ondas.svg")'
         ];
         var noIniciarLluvia = true;
-    </script>
+</script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/SB2-Pedido")
     @if (HttpContext.Current.Request.Browser.IsMobileDevice)
     {

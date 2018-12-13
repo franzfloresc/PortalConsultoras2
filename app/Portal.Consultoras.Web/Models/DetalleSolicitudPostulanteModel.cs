@@ -167,7 +167,7 @@ namespace Portal.Consultoras.Web.Models
         {
             get
             {
-                return RegexUtilitiesUnete.DocumentoIdentidad[this.CodigoPais];
+                return RegexUtilitiesUnete.GetDocumentoIdentidad(this.CodigoPais);
             }
         }
 
@@ -200,7 +200,7 @@ namespace Portal.Consultoras.Web.Models
         /// <summary>
         /// Documento de identidad por código de país
         /// </summary>
-        public static Dictionary<string, string> DocumentoIdentidad = new Dictionary<string, string>
+        private static Dictionary<string, string> DocumentoIdentidad = new Dictionary<string, string>
         {
             { Constantes.CodigosISOPais.Bolivia, CC },
             { Constantes.CodigosISOPais.Chile, RUT },
@@ -216,6 +216,11 @@ namespace Portal.Consultoras.Web.Models
             { Constantes.CodigosISOPais.Salvador, "" },
             { Constantes.CodigosISOPais.Venezuela, "" },
         };
+
+        public static string GetDocumentoIdentidad(string codigoPais)
+        {
+            return DocumentoIdentidad[codigoPais];
+        }
     }
 
 }

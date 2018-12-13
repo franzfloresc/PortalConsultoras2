@@ -16,6 +16,7 @@ using Portal.Consultoras.Web.SessionManager.ShowRoom;
 using System;
 using System.Collections.Generic;
 using System.Web;
+using Portal.Consultoras.Web.Models.Recomendaciones;
 
 namespace Portal.Consultoras.Web.SessionManager
 {
@@ -54,7 +55,7 @@ namespace Portal.Consultoras.Web.SessionManager
             return (TablaLogicaDatosModel)HttpContext.Current.Session[key];
         }
 
-        public void SetTablaLogicaDatos(string key,TablaLogicaDatosModel datoLogico)
+        public void SetTablaLogicaDatos(string key, TablaLogicaDatosModel datoLogico)
         {
             HttpContext.Current.Session[key] = datoLogico;
         }
@@ -69,7 +70,7 @@ namespace Portal.Consultoras.Web.SessionManager
             HttpContext.Current.Session[key] = datoLogico;
         }
         #endregion
-        
+
         #region CDR
 
         public List<BECDRWebDetalle> GetCDRWebDetalle()
@@ -81,7 +82,7 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             HttpContext.Current.Session[Constantes.ConstSession.CDRWebDetalle] = datos;
         }
-        
+
         public List<BECDRWeb> GetCdrWeb()
         {
             return (List<BECDRWeb>)HttpContext.Current.Session[Constantes.ConstSession.CDRWeb];
@@ -91,7 +92,7 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             HttpContext.Current.Session[Constantes.ConstSession.CDRWeb] = datos;
         }
-        
+
         public List<CampaniaModel> GetCdrCampanias()
         {
             return (List<CampaniaModel>)HttpContext.Current.Session[Constantes.ConstSession.CDRCampanias];
@@ -121,7 +122,7 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             HttpContext.Current.Session[Constantes.ConstSession.CDRWebDatos] = datos;
         }
-        
+
         public List<ServicePedido.BEPedidoWeb> GetCdrPedidosFacturado()
         {
             return (List<ServicePedido.BEPedidoWeb>)HttpContext.Current.Session[Constantes.ConstSession.CDRPedidosFacturado];
@@ -141,7 +142,7 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             HttpContext.Current.Session[Constantes.ConstSession.CDRDescripcion] = datos;
         }
-        
+
         public List<BECDRWebMotivoOperacion> GetCdrMotivoOperacion()
         {
             return (List<BECDRWebMotivoOperacion>)HttpContext.Current.Session[Constantes.ConstSession.CDRMotivoOperacion];
@@ -161,7 +162,8 @@ namespace Portal.Consultoras.Web.SessionManager
             }
         }
 
-        public IOfertaDelDia OfertaDelDia {
+        public IOfertaDelDia OfertaDelDia
+        {
             get
             {
                 return _ofertaDelDia;
@@ -538,7 +540,7 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return (PagoEnLineaModel)HttpContext.Current.Session[Constantes.ConstSession.DatosPagoVisa];
         }
-        
+
         void ISessionManager.SetListadoEstadoCuenta(List<EstadoCuentaModel> model)
         {
             HttpContext.Current.Session["ListadoEstadoCuenta"] = model;
@@ -558,7 +560,7 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return (Portal.Consultoras.Web.Models.Estrategia.ShowRoom.ConfigModel)HttpContext.Current.Session["ConfigEstrategiaSR"] ?? new Models.Estrategia.ShowRoom.ConfigModel();
         }
-        
+
         public void SetBEEstrategia(string key, List<ServiceOferta.BEEstrategia> data)
         {
             HttpContext.Current.Session[key] = data;
@@ -655,7 +657,7 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return (EstrategiaPersonalizadaProductoModel)HttpContext.Current.Session[Constantes.ConstSession.ProductoTemporal];
         }
-        
+
 
         public void SetPedidoValidado(bool validado)
         {
@@ -666,14 +668,14 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return Convert.ToBoolean(HttpContext.Current.Session["PedidoValidado"]);
         }
-        
+
         BEConfiguracionProgramaNuevas ISessionManager.GetConfiguracionProgNuevas()
         {
             return (BEConfiguracionProgramaNuevas)HttpContext.Current.Session["ConfiguracionProgramaNuevas"];
         }
         void ISessionManager.SetConfiguracionProgramaNuevas(BEConfiguracionProgramaNuevas configuracion)
         {
-           HttpContext.Current.Session["ConfiguracionProgramaNuevas"] = configuracion;
+            HttpContext.Current.Session["ConfiguracionProgramaNuevas"] = configuracion;
         }
         bool ISessionManager.GetProcesoKitNuevas() { return (bool)(HttpContext.Current.Session["ProcesoKitNuevas"] ?? false); }
         void ISessionManager.SetProcesoKitNuevas(bool proceso) { HttpContext.Current.Session["ProcesoKitNuevas"] = proceso; }
@@ -692,13 +694,13 @@ namespace Portal.Consultoras.Web.SessionManager
             HttpContext.Current.Session["DictPremioProgNuevasOF"] = dictPremioProgNuevasOF;
         }
 
-        // -----------------------------------
-
-        void ISessionManager.SetOcultarBannerApp(dynamic val) {
+        void ISessionManager.SetOcultarBannerApp(dynamic val)
+        {
             HttpContext.Current.Session["OcultarBannerApp"] = val;
         }
 
-        dynamic ISessionManager.GetOcultarBannerApp() {
+        dynamic ISessionManager.GetOcultarBannerApp()
+        {
             return (dynamic)(HttpContext.Current.Session["OcultarBannerApp"]);
         }
 
@@ -755,7 +757,7 @@ namespace Portal.Consultoras.Web.SessionManager
             if (val == null) { return -1; }
             return (int)val;
         }
-        
+
         void ISessionManager.SetClientesByConsultora(List<ServiceCliente.BECliente> val)
         {
             HttpContext.Current.Session[Constantes.ConstSession.ClientesByConsultora] = val;
@@ -850,12 +852,37 @@ namespace Portal.Consultoras.Web.SessionManager
 
             return (FichaProductoDetalleModel)val;
         }
+
+        void ISessionManager.SetCDRPedidoFacturado(List<BEPedidoWeb> val)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.CDRProductoFacturado] = val;
+        }
+
+        List<BEPedidoWeb> ISessionManager.GetCDRPedidoFacturado()
+        {
+            var val = HttpContext.Current.Session[Constantes.ConstSession.CDRProductoFacturado];
+
+            return (List<BEPedidoWeb>)val;
+        }
+
         void ISessionManager.SetCDRCampanias(List<CampaniaModel> val)
         {
             HttpContext.Current.Session[Constantes.ConstSession.CDRCampanias] = val;
         }
 
         List<CampaniaModel> ISessionManager.GetCDRCampanias()
+        {
+            var val = HttpContext.Current.Session[Constantes.ConstSession.CDRCampanias];
+
+            return (List<CampaniaModel>)val;
+        }
+
+        void ISessionManager.SetCDRPedidoID(List<CampaniaModel> val)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.CDRCampanias] = val;
+        }
+
+        List<CampaniaModel> ISessionManager.GetCDRPedidoID()
         {
             var val = HttpContext.Current.Session[Constantes.ConstSession.CDRCampanias];
 
@@ -941,7 +968,7 @@ namespace Portal.Consultoras.Web.SessionManager
 
         string ISessionManager.GetTokenPedidoAutentico()
         {
-            var val = HttpContext.Current.Session["TokenPedidoAutentico"];            
+            var val = HttpContext.Current.Session["TokenPedidoAutentico"];
             return (string)val;
         }
 
@@ -1289,30 +1316,42 @@ namespace Portal.Consultoras.Web.SessionManager
             return (List<List<BEEstadoServicio>>)val;
         }
 
-        public void SetBuscadorYFiltros(BuscadorYFiltrosConfiguracionModel buscadorYFiltrosModel)
+        public void SetBuscadorYFiltrosConfig(BuscadorYFiltrosConfiguracionModel buscadorYFiltrosModel)
         {
-            HttpContext.Current.Session["BuscadorYFiltros"] = buscadorYFiltrosModel;
+            HttpContext.Current.Session[Constantes.ConstSession.BuscadorYFiltrosConfig] = buscadorYFiltrosModel;
         }
 
-        public BuscadorYFiltrosConfiguracionModel GetBuscadorYFiltros()
+        public BuscadorYFiltrosConfiguracionModel GetBuscadorYFiltrosConfig()
         {
-            return ((BuscadorYFiltrosConfiguracionModel)HttpContext.Current.Session["BuscadorYFiltros"]) ?? new BuscadorYFiltrosConfiguracionModel();
+            return (BuscadorYFiltrosConfiguracionModel)HttpContext.Current.Session[Constantes.ConstSession.BuscadorYFiltrosConfig] ?? new BuscadorYFiltrosConfiguracionModel();
         }
 
-        public BEUsuarioDatos GetDatosUsuario() {
+        public void SetRecomendacionesConfig(RecomendacionesConfiguracionModel recomendacionesConfiguracionModel)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.RecomendacionesConfig] = recomendacionesConfiguracionModel;
+        }
+
+        public RecomendacionesConfiguracionModel GetRecomendacionesConfig()
+        {
+            return (RecomendacionesConfiguracionModel)HttpContext.Current.Session[Constantes.ConstSession.RecomendacionesConfig] ?? new RecomendacionesConfiguracionModel();
+        }
+
+
+        public BEUsuarioDatos GetDatosUsuario()
+        {
             return ((BEUsuarioDatos)HttpContext.Current.Session["DatosUsuario"]);
         }
-        
+
         bool ISessionManager.GetMostrarBannerNuevas() { return (bool)(HttpContext.Current.Session["MostrarBannerNuevas"] ?? false); }
         void ISessionManager.SetMostrarBannerNuevas(bool mostrarBannerNuevas) { HttpContext.Current.Session["MostrarBannerNuevas"] = mostrarBannerNuevas; }
-        
+
         public void SetJwtApiSomosBelcorp(string token)
         {
             HttpContext.Current.Session[Constantes.ConstSession.JwtApiSomosBelcorp] = token;
         }
-         string ISessionManager.GetJwtApiSomosBelcorp()
+        string ISessionManager.GetJwtApiSomosBelcorp()
         {
-            return (string)HttpContext.Current.Session[Constantes.ConstSession.JwtApiSomosBelcorp] ;
+            return (string)HttpContext.Current.Session[Constantes.ConstSession.JwtApiSomosBelcorp];
         }
     }
 }

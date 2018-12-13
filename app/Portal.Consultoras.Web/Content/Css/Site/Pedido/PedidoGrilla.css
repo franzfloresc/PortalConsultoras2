@@ -133,7 +133,7 @@ h1#penmostreo .campana {
 }
 
     .pedido_ingreso_datos input {
-        padding: 5px;
+        padding: 5px 5px 5px 13px;
         margin-top: 5px;
         height: 33px;
         border: 1px solid #ccc;
@@ -532,15 +532,6 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     margin-bottom: 7px;
     vertical-align: top;
 }
-
-/*.mensaje_guardar_pedido {
-    display: block;
-    vertical-align: top;
-    font-family: 'Lato';
-    font-size: 16px;
-    font-weight: bold;
-    text-align: right;
-}*/
 
 .mensaje_fecha_limite_cambios {
     display: block;
