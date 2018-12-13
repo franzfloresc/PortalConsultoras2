@@ -72,5 +72,15 @@ namespace Portal.Consultoras.Web.Providers
             BEPais entidad = lst.FirstOrDefault(x => x.PaisID == paisId) ?? new BEPais();
             return entidad;
         }
+
+        public IEnumerable<RegionModel> GetRegiones(int paisId)
+        {
+            IList<BERegion> lst;
+            using (var sv = new ZonificacionServiceClient())
+            {
+                lst = sv.SelectAllRegiones(paisId);
+            }
+            return Mapper.Map<IList<BERegion>, IEnumerable<RegionModel>>(lst.OrderBy(zona => zona.Codigo).ToList());
+        }
     }
 }

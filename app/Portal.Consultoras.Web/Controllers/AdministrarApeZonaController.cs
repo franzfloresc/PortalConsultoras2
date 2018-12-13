@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class AdministrarApeZonaController : BaseController
+    public class AdministrarApeZonaController : BaseAdmController
     {
         public ActionResult Index()
         {
@@ -19,7 +19,7 @@ namespace Portal.Consultoras.Web.Controllers
             var model = new AdministrarApeZonaModel();
             try
             {
-                model.Regiones = _baseProvider.DropDownListRegiones(userData.PaisID);
+                model.Regiones = DropDownListRegiones(userData.PaisID);
             }
             catch (FaultException ex)
             {

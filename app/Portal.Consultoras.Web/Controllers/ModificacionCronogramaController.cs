@@ -42,7 +42,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ObtenerRegionesPorPais(int PaisID)
         {
-            IEnumerable<RegionModel> lstRegiones = _baseProvider.DropDownListRegiones(PaisID);
+            IEnumerable<RegionModel> lstRegiones = DropDownListRegiones(PaisID);
             IEnumerable<ZonaModel> lstZonas = _baseProvider.DropDownListZonas(PaisID);
 
             return Json(new

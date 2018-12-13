@@ -556,16 +556,6 @@ namespace Portal.Consultoras.Web.Controllers
             return View();
         }
         
-        protected IEnumerable<RegionModel> DropDownListRegiones(int paisId)
-        {
-            IList<BERegion> lst;
-            using (var sv = new ZonificacionServiceClient())
-            {
-                lst = sv.SelectAllRegiones(paisId);
-            }
-            return Mapper.Map<IList<BERegion>, IEnumerable<RegionModel>>(lst.OrderBy(zona => zona.Codigo).ToList());
-        }
-
         protected IEnumerable<ZonaModel> DropDownListZonas(int paisId)
         {
             IList<BEZona> lst;

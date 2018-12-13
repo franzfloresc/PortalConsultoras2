@@ -16,13 +16,22 @@ namespace Portal.Consultoras.Web.Controllers
             _zonificacionProvider = new ZonificacionProvider();
         }
 
-        public IEnumerable<PaisModel> DropDowListPaises(int rolid = 0)
+        public IEnumerable<PaisModel> DropDowListPaises(int rolId = 0)
         {
-            if (rolid <= 0)
+            if (rolId <= 0)
             {
-                rolid = userData.RolID;
+                rolId = userData.RolID;
             }
-            return _zonificacionProvider.GetPaises(userData.PaisID, rolid);
+            return _zonificacionProvider.GetPaises(userData.PaisID, rolId);
+        }
+        
+        public IEnumerable<RegionModel> DropDownListRegiones(int paisId = 0)
+        {
+            if (paisId <= 0)
+            {
+                paisId = userData.PaisID;
+            }
+            return _zonificacionProvider.GetRegiones(paisId);
         }
 
     }

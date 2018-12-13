@@ -56,15 +56,6 @@ namespace Portal.Consultoras.Web.Providers
         }
 
         #region Zonificacion
-        public IEnumerable<RegionModel> DropDownListRegiones(int paisId)
-        {
-            IList<BERegion> lst;
-            using (var sv = new ZonificacionServiceClient())
-            {
-                lst = sv.SelectAllRegiones(paisId);
-            }
-            return Mapper.Map<IList<BERegion>, IEnumerable<RegionModel>>(lst.OrderBy(zona => zona.Codigo).ToList());
-        }
 
         public IEnumerable<ZonaModel> DropDownListZonas(int paisId)
         {
