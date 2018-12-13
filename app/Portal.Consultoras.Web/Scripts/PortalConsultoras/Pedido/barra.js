@@ -737,13 +737,31 @@ function getPremioElectivos() {
     return dfd.promise();
 }
 
+function getPremiosEstrategia(list) {
+    var len = list.length;
+    var premios = [];
+    for (var i = 0; i < len; i++) {
+        var item = list[i];
+        if (item.ImagenURL) {
+            premios.push(item);
+        }
+    }
+
+    return premios;
+}
+
 function cargarPremiosElectivos() {
     getPremioElectivos()
         .then(function (response) {
             tpElectivos.premios = response.lista;
             var premio = response.selected;
+            var premiosMostrar = getPremiosEstrategia(tpElectivos.premios);
 
-            SetHandlebars("#premios-electivos-template", response, '#carouselOpcionesRegalo');
+            if (premiosMostrar.length === 0) {
+                return;
+            }
+
+            SetHandlebars("#premios-electivos-template", { lista: premiosMostrar }, '#carouselOpcionesRegalo');
             loadCarruselPremiosEvents();
 
             $('#hrefIconoRegalo').click(cargarPopupEleccionRegalo);
@@ -1566,7 +1584,7 @@ function InsertarPremio(model) {
     
     return jQuery.ajax({
         type: 'POST',
-        url: urlPedidoInsert,
+        url: baseUrl + "Pedido/PedidoInsertar",
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(model),
