@@ -1372,6 +1372,7 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.DiaFacturacion = GetDiaFacturacion(usuarioModel.PaisID, usuarioModel.CampaniaID, usuarioModel.ConsultoraID, usuarioModel.ZonaID, usuarioModel.RegionID);
                     usuarioModel.NuevasDescripcionesBuscador = getNuevasDescripcionesBuscador(usuarioModel.PaisID);
                     usuarioModel.ListaOrdenamientoFiltrosBuscador = getListaOrdenamientoFiltrosBuscador(usuarioModel.PaisID);
+                    usuarioModel.BoletaImpresa = usuario.BoletaImpresa;
                 }
 
                 sessionManager.SetUserData(usuarioModel);

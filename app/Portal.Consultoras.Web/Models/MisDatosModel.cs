@@ -39,5 +39,6 @@ namespace Portal.Consultoras.Web.Models
         public int IniciaNumeroCelular { get; set; }
         public int IndicadorConsultoraDigital { get; set; }
         public List<string> PermisoMenu { get; set; }
+        public bool BoletaImpresa { get; set; }
     }
 }

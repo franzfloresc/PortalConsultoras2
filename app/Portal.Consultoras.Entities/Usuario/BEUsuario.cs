@@ -74,8 +74,7 @@ namespace Portal.Consultoras.Entities
         private string mdRol;
         private string mSegmentoConstancia;
         private string mSeccionAnalytics;
-        private string mDescripcionNivel;
-        private bool BoletaElectronica;
+        private string mDescripcionNivel;        
 
         [Column("ESCONSULTORALIDER")]
         public int mesConsultoraLider { get; set; }
@@ -311,7 +310,7 @@ namespace Portal.Consultoras.Entities
             EsConsultoraOficina = row.ToInt32("IndicadorConsultoraOficina") == 1;
             PromedioVenta = row.ToDouble("PromedioVenta");
             NovedadBuscador = row.ToInt32("NovedadBuscador");
-            BoletaElectronica = row.ToBoolean("BoletaElectronica");
+            BoletaImpresa = row.ToBoolean("BoletaImpresa");
         }
 
         [Column("ConsultoraAsociadoID")]
@@ -1239,6 +1238,8 @@ namespace Portal.Consultoras.Entities
         public bool TienePagoEnLinea { get; set; }
         [DataMember]
         public bool TieneMG { get; set; }
+        [DataMember]
+        public bool BoletaImpresa { get; set; }
 
         public BEUsuario(IDataRecord row, bool Tipo, bool ValidaHorario)
         {

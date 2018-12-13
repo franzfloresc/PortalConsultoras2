@@ -107,7 +107,8 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         model.PermisoMenu.Add(subitem.Descripcion);
                     }                    
-                }            
+                }
+                model.BoletaImpresa = userData.BoletaImpresa;
             }
 
             return View(model);
