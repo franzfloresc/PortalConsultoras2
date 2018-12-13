@@ -23,8 +23,11 @@ namespace Portal.Consultoras.Web.Providers
 
         public IEnumerable<CampaniaModel> GetCampanias(int paisId, bool addSeleccionar = false)
         {
-            IList<BECampania> lst = GetCampaniasEntidad(paisId, addSeleccionar);
-
+            IList<BECampania> lst = new List<BECampania>();
+            if (paisId > 0)
+            {
+                lst = GetCampaniasEntidad(paisId, addSeleccionar);
+            }
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
         }
 

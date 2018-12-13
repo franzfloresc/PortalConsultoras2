@@ -38,8 +38,8 @@ namespace Portal.Consultoras.Web.Controllers
                 sv.LoadConsultoraCodigo(paisId);
             }
         }
-        
-        public JsonResult ObtenterCampanias(int PaisID)
+
+        public JsonResult ObtenterCampaniasPorPais(int PaisID)
         {
             if (PaisID == 0)
             {
@@ -48,14 +48,11 @@ namespace Portal.Consultoras.Web.Controllers
                     lista = (IEnumerable<CampaniaModel>)null
                 }, JsonRequestBehavior.AllowGet);
             }
-
             var lst = _zonificacionProvider.GetCampanias(PaisID);
-
             return Json(new
             {
                 lista = lst
             }, JsonRequestBehavior.AllowGet);
-
         }
 
         public JsonResult FindByCUVs(int campaniaID, int paisID, string codigo, int rowCount)

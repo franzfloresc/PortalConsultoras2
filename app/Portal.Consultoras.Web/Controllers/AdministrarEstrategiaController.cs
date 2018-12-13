@@ -105,16 +105,15 @@ namespace Portal.Consultoras.Web.Controllers
             return Mapper.Map<IList<BEEtiqueta>, IEnumerable<EtiquetaModel>>(lst);
         }
 
-        public JsonResult ObtenterCampanias(int PaisID)
-        {
-            PaisID = userData.PaisID;
-            var lst = _zonificacionProvider.GetCampanias(PaisID);
-
-            return Json(new
-            {
-                lista = lst
-            }, JsonRequestBehavior.AllowGet);
-        }
+        //public JsonResult ObtenterCampanias(int PaisID)
+        //{
+        //    PaisID = userData.PaisID;
+        //    var lst = _zonificacionProvider.GetCampanias(PaisID);
+        //    return Json(new
+        //    {
+        //        lista = lst
+        //    }, JsonRequestBehavior.AllowGet);
+        //}
         
         private IEnumerable<TipoEstrategiaModel> DropDowListTipoEstrategia()
         {

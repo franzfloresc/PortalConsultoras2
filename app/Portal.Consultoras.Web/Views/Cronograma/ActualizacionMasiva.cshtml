@@ -107,7 +107,7 @@
     }
     function CargarCampania() {
         var Id = "11";
-        $.getJSON(baseUrl + 'Cronograma/ObtenterCampanias', { PaisID: Id == "" ? 0 : Id }, function (data) {
+        $.getJSON(baseUrl + 'BaseAdm/ObtenterCampaniasPorUsuario', { }, function (data) {
             if (checkTimeout(data)) {
             LimpiarDependencias(Id);
             var ddlCampania = $('#ddlCampania');

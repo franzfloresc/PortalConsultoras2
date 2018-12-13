@@ -1405,16 +1405,15 @@ namespace Portal.Consultoras.Web.Controllers
             return htmlTemplate;
         }
 
-        public JsonResult ObtenterCampanias(int PaisID)
-        {
-            PaisID = userData.PaisID;
-            IEnumerable<CampaniaModel> lst = _zonificacionProvider.GetCampanias(PaisID);
-
-            return Json(new
-            {
-                lista = lst
-            }, JsonRequestBehavior.AllowGet);
-        }
+        //public JsonResult ObtenterCampanias(int PaisID)
+        //{
+        //    PaisID = userData.PaisID;
+        //    IEnumerable<CampaniaModel> lst = _zonificacionProvider.GetCampanias(PaisID);
+        //    return Json(new
+        //    {
+        //        lista = lst
+        //    }, JsonRequestBehavior.AllowGet);
+        //}
 
         public JsonResult ObtenterCampaniasPorPais(int PaisID)
         {
