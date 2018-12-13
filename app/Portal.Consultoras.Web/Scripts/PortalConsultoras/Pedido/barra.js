@@ -698,7 +698,7 @@ function checkPremioSelected() {
     }
 
     if (tpElectivos.premioSelected &&
-        tpElectivos.premioSelected.CUV2 == cuv) {
+        tpElectivos.premioSelected.CUV2 == detail.CUV) {
         return;
     }
 
