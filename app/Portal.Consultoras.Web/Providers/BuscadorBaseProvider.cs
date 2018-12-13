@@ -84,7 +84,8 @@ namespace Portal.Consultoras.Web.Providers
                 item.PrecioString = Util.DecimalToStringFormat(item.Precio.ToDecimal(), userData.CodigoISO, userData.Simbolo);
                 item.ValorizadoString = Util.DecimalToStringFormat(item.Valorizado.ToDecimal(), userData.CodigoISO, userData.Simbolo);
                 item.DescripcionEstrategia = Util.obtenerNuevaDescripcionProducto(userData.NuevasDescripcionesBuscador, suscripcionActiva, item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaId, 0, true);
-                item.OrigenPedidoWeb = (IsMobile ? Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoCarrusel : Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoCarrusel).ToString();
+                //item.OrigenPedidoWeb = (IsMobile ? Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoCarrusel : Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoCarrusel).ToString();
+                item.OrigenPedidoWeb = Util.obtenerCodigoOrigenWeb(item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaId, IsMobile, IsHome);
                 item.Agregado = labelAgregado;
                 item.Stock = !item.Stock;
                 item.DescripcionCompleta = item.Descripcion;
