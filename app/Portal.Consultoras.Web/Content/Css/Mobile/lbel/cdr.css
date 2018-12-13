@@ -414,6 +414,7 @@
     font-size: 12px;
     text-decoration: underline;
     margin-top: 8px;
+    cursor:pointer;
 }
 
 .lista_opciones_motivo_cdr {
@@ -488,7 +489,7 @@
 .solucion_cdr {
     margin: 0 auto;
     width: 100%;
-    max-width: 276px;
+    max-width: 308px;
     height: 45px;
     border: 1px solid #000000;
     color: #000;
@@ -502,6 +503,7 @@
     -ms-transition: all .3s ease;
     -webkit-transition: all .3s ease;
     text-decoration: none;
+    border-radius:4px;
 }
 
     .solucion_cdr:last-child {
@@ -598,7 +600,7 @@
     margin: 0 auto 34px auto;
     padding: 15px 0 25px 0;
     width: 100%;
-    max-width: 276px;
+    max-width: 312px;
     border-bottom: 1px solid #000;
 }
 
@@ -615,13 +617,9 @@
     margin-bottom: 10px;
 }
 
-.content_solicitud_cdr {
-    display: block;
-    margin: 0 auto;
-    width: 100%;
-    padding: 15px 10px;
-    border-top: 1px solid #979797;
-    position: relative;
+.content_solicitud_cdr{
+    padding-top:9px;
+    padding-bottom:32px;
 }
 
 .contenedor_info_cdr {
@@ -636,7 +634,7 @@
     width: 17px;
     height: 20px;
     position: absolute;
-    top: 9px;
+    top: 17px;
     right: 5px;
 }
 
@@ -645,12 +643,46 @@
         text-decoration: none;
     }
 
+.content_solicitud_cdr,
+.eleccion_tipo_envio
+{
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    padding-left:10px;
+    padding-right:10px;
+    position: relative;
+}
+
+.eleccion_tipo_envio{
+    border-top: 1px solid #808080;
+    padding-top:21px;
+    padding-bottom:21px;
+}
+
+.tipo_envio:first-child{
+    margin-bottom:30px;
+}
+
+.tipo_envio_checkbox,
+.tipo_envio_descripcion
+{
+    display:inline-block;
+    vertical-align:top;
+}
+
+.tipo_envio_descripcion{
+    font-size:13px;
+    line-height:19px;
+}
+
 .validacion_datos {
     display: block;
     margin-bottom: 36px;
-    padding: 15px 0 2px 0;
-    border-top: 2px solid #642f80;
-    border-bottom: 2px solid #642f80;
+    padding-top:32px;
+    padding-bottom:32px;
+    border-top: 1px solid #808080;
+    border-bottom: 1px solid #642f80;
 }
 
 .validacion_seccion_titulo {
@@ -680,6 +712,7 @@
     height: 45px;
     border: 1px solid #b5b5b5;
     padding: 0 10px;
+    border-radius:4px;
 }
 
 .mb-27 {
@@ -691,24 +724,32 @@
     margin-bottom: 39px;
 }
 
-    .content_politica_devolucion input[type='checkbox'] {
+    .tipo_envio_checkbox input[type="radio"],
+    .content_politica_devolucion input[type='checkbox']
+    {
         display: none;
     }
 
-        .content_politica_devolucion input[type='checkbox'] + label span, .content_politica_devolucion a {
+        .tipo_envio_checkbox input[type="radio"] + label span,
+        .content_politica_devolucion input[type='checkbox'] + label span, .content_politica_devolucion a
+        {
             display: inline-block;
             vertical-align: middle;
         }
 
-        .content_politica_devolucion input[type='checkbox'] + label span {
+        .tipo_envio_checkbox input[type="radio"] + label span,
+        .content_politica_devolucion input[type='checkbox'] + label span
+        {
             width: 26px;
             height: 26px;
-            background: #eee url('/Content/Images/mobile/icono-acepto-politica-cdr.png');
+            border:1px solid #d8d8d8;
+            background-color: #d8d8d8;
+            background-image:url('/Content/Images/Lbel/icono_input_radio_cdr.svg');
             background-repeat: no-repeat;
-            background-position: center center;
+            background-position: center 6px;
             border-radius: 100%;
             position: relative;
-            top: -5px;
+            top: 1px;
             margin-right: 7px;
             transition: background-color .3s ease;
             -moz-transition: background-color .3s ease;
@@ -717,8 +758,12 @@
             -webkit-transition: background-color .3s ease;
         }
 
-        .content_politica_devolucion input[type='checkbox']:checked + label span {
-            background-color: #642f80;
+        .tipo_envio_checkbox input[type="radio"]:checked + label span,
+        .content_politica_devolucion input[type='checkbox']:checked + label span
+        {
+            border-color: #642f80;
+            background-color:#FFF;
+            background-position: center -19.5px;
         }
 
     .content_politica_devolucion a, .content_politica_devolucion a:hover {
@@ -729,7 +774,7 @@
 .tooltip_btn_reportar_inconveniente {
     display: block;
     width: 100%;
-    margin: 0 auto;
+    margin: 0 auto 23px auto;
     max-width: 278px;
     background: #fff;
     height: 70px;
@@ -760,6 +805,10 @@
 .texto_tooltip_reportar_inconveniente {
     display: inline-block;
     vertical-align: top;
+    width: 214px;
+    font-size: 14px;
+    color: #000;
+    text-align: left;
 }
 
 .icono_alerta_cdr {
@@ -767,13 +816,6 @@
     height: 18px;
     margin-top: 2px;
     margin-right: 8px;
-}
-
-.texto_tooltip_reportar_inconveniente {
-    width: 214px;
-    font-size: 14px;
-    color: #000;
-    text-align: left;
 }
 
 .btn_reportar_inconveniente {

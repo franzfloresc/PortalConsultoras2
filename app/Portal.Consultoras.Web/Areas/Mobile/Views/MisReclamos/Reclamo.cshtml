@@ -76,7 +76,7 @@
         </div>
 
         <div class="pregunta_inconveniente_producto tipografia_lato tipografia_lato_bold Registro1" id="divUltimasSolicitudes">
-            ¿Con qué producto has tenido inconvenientes?
+            <div class="pregunta_inconveniente_producto_titulo">¿Con qué producto has tenido inconvenientes?</div>
             <div class="mi_solicitud_cdr">
                 <div class="pestania_ver_mi_solicitud">
                     <img src="@Url.Content("~/Content/Images/mobile/pestania_ver_solicitud.svg")" alt="Ver mi solicitud">
@@ -109,8 +109,7 @@
         <div class="campos_registro_solicitud_cdr Registro1">
             <div class="formulario_inscripcion_cdr">
                 @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.ListaCampania, "CampaniaID", "NombreCorto", Model.CampaniaID), new { id = "ddlCampania", @class = "select_reclamo", @required = "required" })
-                <select class="elige_num_pedido" id="ddlnumPedido" name="numPedido" required="required" style="display:none;">
-                </select>
+                <select class="elige_num_pedido" id="ddlnumPedido" name="numPedido" required="required" style="display:none;"></select>
                 <input id="txtNumPedido" type="text" style="text-align:center;display:none;"/>
                 <input id="cuvmobile" class="tipografia_lato tipografia_lato_regular ValidaNumeral ValidaPasteNumeral valid" type="text" value="" placeholder="Código o Descripción del producto"/>
 
@@ -149,7 +148,7 @@
             <input type="hidden" id="hdImporteTotalPedido" />
             <input type="hidden" id="hdCdrWebDatos_Ssic" />
             <input type="hidden" id="hdCuvPrecio2" />
-            <input type="hidden" id="hdCuvCodigo"/>
+            <input type="hidden" id="hdCuvCodigo" />
         </div>
         <div class="pregunta_inconveniente_producto tipografia_lato tipografia_lato_bold Registro2" style="display:none;">
             ¿Cuál fue el inconveniente?
@@ -202,6 +201,7 @@
                         <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad2" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
                                data-input="cantidad" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
                         <a class="cantidad_mas_home modificarPrecioMas"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                        <div class="clear"></div>
                     </div>
                 </div>
             </div>
@@ -237,7 +237,38 @@
         </div>
         <div id="divDetallePaso3" class="AceptarSolucion UltimasSolicitudes" style="display:none;">
         </div>
-
+        <div id="EleccionTipoEnvio" class="eleccion_tipo_envio text-left">
+            <div class="tipo_envio tipo_envio_regular">
+                <div class="tipo_envio_checkbox">
+                    <input type="radio" value="" id="TipoEnvioRegular" name="TipoEnvio" />
+                    <label for="TipoEnvioRegular">
+                        <span></span>
+                    </label>
+                </div>
+                <div class="tipo_envio_descripcion">
+                    Envío <span class="text-uppercase">Regular</span> junto con tu pedido.
+                    <br />
+                    - Sin costo adicional.
+                </div>
+            </div>
+            <div class="tipo_envio tipo_envio_express">
+                <div class="tipo_envio_checkbox">
+                    <input type="radio" value="" id="TipoEnvioExpress" name="TipoEnvio" />
+                    <label for="TipoEnvioExpress">
+                        <span></span>
+                    </label>
+                </div>
+                <div class="tipo_envio_descripcion">
+                    Envío <span class="text-uppercase">Express</span> especial.
+                    <br />
+                    Tiene un costo de envío.
+                    <br />
+                    Recíbelo: <span>Lima 48 horas y provincia 72 horas</span>.
+                    <br />
+                    No aplica domingos ni feriados.
+                </div>
+            </div>
+        </div>
         <div class="validacion_datos tipografia_lato AceptarSolucion" style="display:none;">
             <div class="validacion_seccion_titulo">
                 <div class="titulo_validacion_datos tipografia_lato_bold">Valida tus datos</div>
@@ -600,9 +631,9 @@
 
         var mensajeGestionCdrInhabilitada = '@Html.Raw(Model.MensajeGestionCdrInhabilitada)';
         var mensajeCdrFueraDeFechaCompleto = '@Html.Raw(Constantes.CdrWebMensajes.FueraDeFecha)';
-		var mensajeChatEnLinea = '@Html.Raw(Constantes.CdrWebMensajes.ContactateChatEnLinea)';
+        var mensajeChatEnLinea = '@Html.Raw(Constantes.CdrWebMensajes.ContactateChatEnLinea)';
 
-		var flagAppMobile = @(!mobileConfiguracion.EsAppMobile ? 0 : 1);
+        var flagAppMobile = @(!mobileConfiguracion.EsAppMobile ? 0 : 1);
         if (flagAppMobile == 0) mensajeCdrFueraDeFechaCompleto = mensajeCdrFueraDeFechaCompleto + " " + mensajeChatEnLinea;
 
         var OrigenCDR = true;
