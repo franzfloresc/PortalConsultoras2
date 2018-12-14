@@ -3661,7 +3661,7 @@
             $.ajaxSetup({ cache: false });
             $.ajax({
                 type: "GET",
-                url: baseUrl + "BaseAdm/ObtenterCampaniasPorUsuario",
+                url: baseUrl + "BaseAdm/ObtenerCampaniasPorUsuario",
                 //data: "PaisID=" + (Id == "" ? 0 : Id),
                 cache: false,
                 dataType: "Json",

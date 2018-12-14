@@ -859,7 +859,7 @@ namespace Portal.Consultoras.Web.Controllers
             return View(contenidoDatoModel);
         }
 
-        //movido a BaseAdm/ObtenterCampaniasPeru
+        //movido a BaseAdm/ObtenerCampaniasPeru
         //public JsonResult ObtenterCampaniasPorPais(int PaisID)
         //{
         //    PaisID = Constantes.PaisID.Peru;

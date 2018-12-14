@@ -44,7 +44,7 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult ObtenterCampaniasPorUsuario()
+        public JsonResult ObtenerCampaniasPorUsuario()
         {
             var lst = _zonificacionProvider.GetCampanias(userData.PaisID);
 
@@ -54,7 +54,7 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult ObtenterCampaniasPeru()
+        public JsonResult ObtenerCampaniasPeru()
         {
             IEnumerable<CampaniaModel> lista = _zonificacionProvider.GetCampanias(Constantes.PaisID.Peru);
 
