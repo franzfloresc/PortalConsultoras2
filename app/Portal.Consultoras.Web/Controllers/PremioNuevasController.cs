@@ -45,7 +45,7 @@ namespace Portal.Consultoras.Web.Controllers
                         Nivel= string.IsNullOrEmpty(Nivel) ? null  : Nivel,
                         SortColumna =sidx,
                         SortDirection = sord.ToUpper(),
-                        ActivePremioAuto = Active,
+                        ActivePremioAuto = ActivePremioAuto,
                         PaisID = userData.PaisID,
                         CodigoUsuario = userData.CodigoUsuario,
                         NumeroPagina = page,
@@ -109,14 +109,20 @@ namespace Portal.Consultoras.Web.Controllers
                         else
                             Result = sv.Editar(model);
                     }
+
                     if (Result.OperacionResultado == 1)
-                        message = "Las fechas no se pueden traslapar, dentro de  una misma config. programa + nivel + valor electivo";
-                    else
                     {
                         message = "Se grabó con �xito los datos.";
                         success = true;
                     }
-              
+                    else if (Result.OperacionResultado == 0)
+                    {
+                        message = "Las fechas no se pueden traslapar, dentro de  una misma config. programa + nivel + valor electivo";
+                    }
+                    else
+                    {
+                        message = "Ocurrió un problema al intentar registrar los datos";
+                    }
                 }
             }
             catch (Exception ex)
@@ -151,8 +157,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var Niveles = new List<object>
             {
-                new { Active ="1" , NombreCorto="Si"},
-                new { Active ="0" , NombreCorto="No"}
+                new { ActivePremioAuto ="1" , NombreCorto="Si"},
+                new { ActivePremioAuto ="0" , NombreCorto="No"}
             };
             return Niveles;
         }

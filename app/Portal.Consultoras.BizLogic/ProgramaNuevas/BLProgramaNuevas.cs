@@ -241,12 +241,15 @@ namespace Portal.Consultoras.BizLogic
         }
         public BEPremioNuevas Editar(BEPremioNuevas premio)
         {
+            BEPremioNuevas record;
+            List<BEPremioNuevas> lrecord;
             try
             {
                 using (var reader = new DAPremioNuevas(premio.PaisID).Editar(premio))
                 {
-                    return MapUtil.MapToCollection<BEPremioNuevas>(reader, true, true).FirstOrDefault();
+                    lrecord = MapUtil.MapToCollection<BEPremioNuevas>(reader, true, true);
                 }
+                record = lrecord.Any() ? lrecord.FirstOrDefault() : new BEPremioNuevas { OperacionResultado = 3 };
             }
 
             catch (Exception ex)
@@ -255,16 +258,19 @@ namespace Portal.Consultoras.BizLogic
                 throw new BizLogicException("Error en BLProgramaNuevas.Editar", ex);
             }
 
-            
+            return record;
         }
         public BEPremioNuevas Insertar(BEPremioNuevas premio)
         {
+            BEPremioNuevas record;
+            List<BEPremioNuevas> lrecord;
             try
             {
                 using (var reader = new DAPremioNuevas(premio.PaisID).Insertar(premio))
                 {
-                    return MapUtil.MapToCollection<BEPremioNuevas>(reader, true, true).FirstOrDefault();
+                    lrecord = MapUtil.MapToCollection<BEPremioNuevas>(reader, true, true);
                 }
+                record = lrecord.Any() ? lrecord.FirstOrDefault() : new BEPremioNuevas { OperacionResultado = 3};
             }
 
             catch (Exception ex)
@@ -272,7 +278,7 @@ namespace Portal.Consultoras.BizLogic
                 LogManager.SaveLog(ex, premio.CodigoUsuario, premio.PaisID);
                 throw new BizLogicException("Error en BLProgramaNuevas.Insertar", ex);
             }
-           
+            return record;
         }
 
 

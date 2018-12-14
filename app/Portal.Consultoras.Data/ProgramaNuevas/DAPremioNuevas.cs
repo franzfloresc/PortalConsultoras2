@@ -27,7 +27,7 @@ namespace Portal.Consultoras.Data.ProgramaNuevas
                 Context.Database.AddInParameter(command, "@CodigoPrograma", DbType.String, entidad.CodigoPrograma);
                 Context.Database.AddInParameter(command, "@AnoCampana", DbType.Int32, entidad.AnoCampanaIni);
                 Context.Database.AddInParameter(command, "@Nivel", DbType.String, entidad.Nivel);
-                Context.Database.AddInParameter(command, "@Active", DbType.Boolean, entidad.ActivePremioAuto);
+                Context.Database.AddInParameter(command, "@ActivePremioAuto", DbType.Boolean, entidad.ActivePremioAuto);
 
                 return Context.ExecuteReader(command);
             }
@@ -42,9 +42,9 @@ namespace Portal.Consultoras.Data.ProgramaNuevas
                 Context.Database.AddInParameter(command, "@AnoCampaniaFin", DbType.Int32, entidad.AnoCampanaFin);
                 Context.Database.AddInParameter(command, "@Nivel", DbType.String, entidad.Nivel);
                 Context.Database.AddInParameter(command, "@ActiveTooltip", DbType.Boolean, entidad.ActiveTooltip);
-                Context.Database.AddInParameter(command, "@ActiveTooltipMonto", DbType.Boolean, entidad.ActiveMonto);
-                Context.Database.AddInParameter(command, "@Active", DbType.Boolean, entidad.ActivePremioAuto);
-                Context.Database.AddInParameter(command, "@IND_CUPO_ELEC", DbType.Boolean, entidad.ActivePremioElectivo);
+                Context.Database.AddInParameter(command, "@ActiveMonto", DbType.Boolean, entidad.ActiveMonto);
+                Context.Database.AddInParameter(command, "@ActivePremioAuto", DbType.Boolean, entidad.ActivePremioAuto);
+                Context.Database.AddInParameter(command, "@ActivePremioElectivo", DbType.Boolean, entidad.ActivePremioElectivo);
                 Context.Database.AddInParameter(command, "@IdActivarPremioNuevas", DbType.Int32, entidad.IdActivarPremioNuevas);
 
                 return Context.ExecuteReader(command);
@@ -60,9 +60,9 @@ namespace Portal.Consultoras.Data.ProgramaNuevas
                 Context.Database.AddInParameter(command, "@AnoCampaniaFin", DbType.Int32, entidad.AnoCampanaFin);
                 Context.Database.AddInParameter(command, "@Nivel", DbType.String, entidad.Nivel);
                 Context.Database.AddInParameter(command, "@ActiveTooltip", DbType.String, entidad.ActiveTooltip);
-                Context.Database.AddInParameter(command, "@ActiveTooltipMonto", DbType.Boolean, entidad.ActiveMonto);
-                Context.Database.AddInParameter(command, "@Active", DbType.Boolean, entidad.ActivePremioAuto);
-                Context.Database.AddInParameter(command, "@IND_CUPO_ELEC", DbType.Boolean, entidad.ActivePremioElectivo);
+                Context.Database.AddInParameter(command, "@ActiveMonto", DbType.Boolean, entidad.ActiveMonto);
+                Context.Database.AddInParameter(command, "@ActivePremioAuto", DbType.Boolean, entidad.ActivePremioAuto);
+                Context.Database.AddInParameter(command, "@ActivePremioElectivo", DbType.Boolean, entidad.ActivePremioElectivo);
                 return Context.ExecuteReader(command);
             }
 
