@@ -157,15 +157,15 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("Consultar");
         }
 
-        public JsonResult ObtenterDropDownPorPais(int PaisID)
-        {
-            IEnumerable<CampaniaModel> lstcampania = _zonificacionProvider.GetCampanias(PaisID);
-
-            return Json(new
-            {
-                lstCampania = lstcampania
-            }, JsonRequestBehavior.AllowGet);
-        }
+        //movido BaseAdm/ObtenerCampaniasPorPais
+        //public JsonResult ObtenterDropDownPorPais(int PaisID)
+        //{
+        //    IEnumerable<CampaniaModel> lstcampania = _zonificacionProvider.GetCampanias(PaisID);
+        //    return Json(new
+        //    {
+        //        lstCampania = lstcampania
+        //    }, JsonRequestBehavior.AllowGet);
+        //}
 
         public JsonResult ValidarOfertasNuevas(int vPaisID, string vCodigoCampania, string vCUV)
         {
