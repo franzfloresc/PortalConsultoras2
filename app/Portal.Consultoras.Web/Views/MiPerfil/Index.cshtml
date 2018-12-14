@@ -110,19 +110,19 @@ else
                         </div>
                         <div class="opcion_mi_perfil_contenido">
                             <fieldset class="grupo_form_cambio_datos">
-                                <div class="w-50">
+                                <div class="w-82">
                                     <input id="txtSobrenombreMD" name="txtSobrenombreMD" class="w-100" type="text" onkeypress="return FuncionesGenerales.ValidarSoloLetrasYNumeros(event)" value="@Model.Sobrenombre" maxlength="80" />
                                     <label for="txtSobrenombreMD" class="w-100">¿Cómo quieres que te llamemos?</label>
                                 </div>
                             </fieldset>
                             <fieldset class="grupo_form_cambio_datos">
-                                <div class="w-50">
+                                <div class="w-82">
                                     <input id="txtEMailMD" name="txtEMailMD" class="w-100" type="text" value="@Model.EMail" readonly />
                                     <label for="txtEMailMD" class="w-100">Correo Electrónico <span class="asteriscos">*</span></label>
                                 </div>
                                 <a id="btnCambiarEmail" href="@Url.Action("ActualizarCorreo", "MiPerfil", new {area = ""})" title="Cambiar" class="enlace_cambiar_dato text-left">
                                     <span class="icono_cambiar_dato"></span>
-                                    @*<span class="enlace_texto text-bold">Cambiar</span>*@
+                                    <span class="enlace_texto text-bold text-uppercase">Cambiar</span>
                                 </a>
                             </fieldset>
                             <div class="tooltip_info_revision_correo toolTipCorreo" style="display:none;">
@@ -137,13 +137,13 @@ else
                                 </div>
                             </div>
                             <fieldset class="grupo_form_cambio_datos">
-                                <div class="w-50">
+                                <div class="w-82">
                                     <input id="txtCelularMD" name="txtCelularMD" class="w-100" type="text" value="@Model.Celular" maxlength="@Model.limiteMaximoTelef" />
                                     <label for="txtCelularMD" class="w-100">Celular <span class="asteriscos">*</span></label>
                                 </div>
                                 <a id="btnCambiarCelular" href="@Url.Action("ActualizarCelular", "MiPerfil", new {area = ""})" title="Cambiar" class="enlace_cambiar_dato text-left">
                                     <span class="icono_cambiar_dato"></span>
-                                    @*<span class="enlace_texto text-bold">Cambiar</span>*@
+                                    <span class="enlace_texto text-bold text-uppercase">Cambiar</span>
                                 </a>
                             </fieldset>
                             <div class="tooltip_info_revision_correo toolTipCelular" style="display:none;">
@@ -158,7 +158,7 @@ else
                                 </div>
                             </div>
                             <fieldset class="grupo_form_cambio_datos">
-                                <div class="w-50">
+                                <div class="w-82">
                                     <input id="txtTelefonoMD" name="txtTelefonoMD" class="w-100" type="text" value="@Model.Telefono" maxlength="@Model.limiteMaximoTelef" />
                                     <label for="txtTelefonoMD" class="w-100">Número fijo <span class="asteriscos">*</span></label>
                                 </div>
@@ -169,13 +169,13 @@ else
                                     <span class="enlace_texto text-bold text-uppercase">Agregar otro número</span>
                                 </a>
                                 <div class="contenedor_campos_num_adicional w-100" style="display:none;">
-                                    <div class="w-50">
+                                    <div class="w-82">
                                         <input id="txtTelefonoTrabajoMD" name="txtTelefonoTrabajoMD" class="w-100" type="text" value="@Model.TelefonoTrabajo" maxlength="@Model.limiteMaximoTelef" />
                                         <label for="txtTelefonoTrabajoMD" class="label_num_adicional w-100">Número adicional</label>
                                     </div>
                                     <a href="#" title="Cambiar" class="enlace_eliminar_numero_adicional text-left">
                                         <span class="icono_eliminar_numero_adicional"></span>
-                                        @*<span class="enlace_texto text-bold">Eliminar</span>*@
+                                        <span class="enlace_texto text-bold text-uppercase">Eliminar</span>
                                     </a>
                                 </div>
                             </fieldset>

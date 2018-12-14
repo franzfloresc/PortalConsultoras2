@@ -57,6 +57,10 @@
     width:81%;
 }
 
+.w-85{
+    width:85%;
+}
+
 .w-100{
     width:100%!important;
 }
@@ -546,7 +550,7 @@ input:focus{
     margin-left:17px;
     margin-right:-3px;
     vertical-align:bottom;
-    padding-bottom:12px;
+    padding-bottom:7px;
     position:relative;
     z-index:3;
 }
