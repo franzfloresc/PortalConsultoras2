@@ -61,15 +61,15 @@ namespace Portal.Consultoras.Web.Controllers
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
 
-        public JsonResult ObtenerCampanias()
-        {
-            IEnumerable<CampaniaModel> lst = _zonificacionProvider.GetCampanias(userData.PaisID);
-
-            return Json(new
-            {
-                lista = lst
-            }, JsonRequestBehavior.AllowGet);
-        }
+        //movido BaseAdm/ObtenerCampaniasPorUsuario
+        //public JsonResult ObtenerCampanias()
+        //{
+        //    IEnumerable<CampaniaModel> lst = _zonificacionProvider.GetCampanias(userData.PaisID);
+        //    return Json(new
+        //    {
+        //        lista = lst
+        //    }, JsonRequestBehavior.AllowGet);
+        //}
 
         private IEnumerable<TipoEstrategiaModel> DropDowListTipoEstrategia()
         {
