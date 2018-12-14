@@ -21,12 +21,11 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (!UsuarioModel.HasAcces(ViewBag.Permiso, "BannerPedido/Index"))
                     return RedirectToAction("Index", "Bienvenida");
-
-                IEnumerable<CampaniaModel> lstCampania = _zonificacionProvider.GetCampanias(userData.PaisID);
+                
                 var administrarIncentivosModel = new AdministrarBannerPedidoModel()
                 {
                     listaPaises = DropDowListPaises(),
-                    listaCampania = lstCampania,
+                    listaCampania = _zonificacionProvider.GetCampanias(userData.PaisID),
                     listaPoscionBannerPedido = DropDowListPosicionBannerPedido()
                 };
                 return View(administrarIncentivosModel);

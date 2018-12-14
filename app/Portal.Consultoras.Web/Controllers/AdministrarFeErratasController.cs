@@ -26,12 +26,11 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (!UsuarioModel.HasAcces(ViewBag.Permiso, "AdministrarFeErratas/Index"))
                     return RedirectToAction("Index", "Bienvenida");
-
-                IEnumerable<CampaniaModel> lstCampania = _zonificacionProvider.GetCampanias(userData.PaisID);
+                
                 var administrarFeErratasModel = new AdministrarFeErratasModel()
                 {
                     listaPaises = DropDowListPaises(),
-                    listaCampania = lstCampania
+                    listaCampania = _zonificacionProvider.GetCampanias(userData.PaisID)
                 };
 
                 Session.Remove("entradas");

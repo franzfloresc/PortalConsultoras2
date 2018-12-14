@@ -70,8 +70,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ObtenerCampanias()
         {
-            int paisId = userData.PaisID;
-            IEnumerable<CampaniaModel> lst = _zonificacionProvider.GetCampanias(paisId);
+            IEnumerable<CampaniaModel> lst = _zonificacionProvider.GetCampanias(userData.PaisID);
 
             return Json(new
             {

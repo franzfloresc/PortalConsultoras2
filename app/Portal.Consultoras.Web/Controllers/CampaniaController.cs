@@ -9,8 +9,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpGet]
         public JsonResult ListarCampanias()
         {
-            var paisId = userData.PaisID;
-            IEnumerable<CampaniaModel> listaCampanias = _zonificacionProvider.GetCampanias(paisId);
+            IEnumerable<CampaniaModel> listaCampanias = _zonificacionProvider.GetCampanias(userData.PaisID);
 
             return Json(new { listaCampanias = listaCampanias }, JsonRequestBehavior.AllowGet);
         }
