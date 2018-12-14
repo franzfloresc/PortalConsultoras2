@@ -5,7 +5,7 @@ var menuModule = (function () {
         claseActivo: "activado",
         claseActivoP: "titulo-menu",
         claseimgSeleccionado: ".imgSeleccionado",
-        claseimgNoSeleccionado:".imgNoSeleccionado",
+        claseimgNoSeleccionado: ".imgNoSeleccionado",
         menu2: "[data-layout-menu2]",
         menu1: "[data-layout-menu1]",
         menu2Ul: "[data-layout-menu2] ul",
@@ -105,14 +105,14 @@ var menuModule = (function () {
             $(elementos.bcParaTiMenuActivo).find("img.default").css("display", "none");
             $(elementos.bcParaTiMenuActivo).find("img.click-menu").css("display", "inline");
         }
-         
-        
+
+
 
         if (currentLocation.indexOf("#") > -1) {
             $(elementos.claseimgSeleccionado).hide();
             $(elementos.claseimgNoSeleccionado).show();
-        }     
- 
+        }
+
     }
     function setHover() {
         $(elementos.aHover).hover(function (e) {
@@ -236,7 +236,7 @@ var menuModule = (function () {
                 else
                     window.location = originLocation + "/" + (_var.Mobile ? "Mobile/" : "") + "Ofertas#" + codigo;
             }
-            
+
             if (codigo.indexOf("INICIO") > -1) {
                 $(elementos.claseimgSeleccionado).show();
                 $(elementos.claseimgNoSeleccionado).hide();
@@ -291,19 +291,17 @@ var menuModule = (function () {
         }
     }
     function sectionClick(url, titulo, e) {
-        
+
         var OrigenPedidoWeb = EstrategiaAgregarModule.GetOrigenPedidoWeb($(e), false);
         titulo = titulo || "";
         url = url || "";
-        //if (typeof rdAnalyticsModule !== "undefined") {
-        //    rdAnalyticsModule.ContendorSection(titulo);
-        //}
+
         if (_var.Mobile) {
             if (url.indexOf(ConstantesModule.CodigosPalanca.Ganadoras) > 0)
                 if (url.indexOf("Mobile") < 0)
                     url = "/Mobile" + url;
         }
-        
+
         if (typeof AnalyticsPortalModule !== "undefined") {
             OrigenPedidoWeb = OrigenPedidoWeb || "";
             if (url.indexOf(ConstantesModule.CodigosPalanca.Ganadoras) > 0) {
@@ -312,12 +310,11 @@ var menuModule = (function () {
                 if (titulo === "BannerMG") {
                     AnalyticsPortalModule.MarcarClickMasOfertasPromotionClickMG();
                     AnalyticsPortalModule.MarcarClickMasOfertasBannerMG(url);
-                }   
+                }
             } else
                 AnalyticsPortalModule.MarcaClicVerMasOfertas(url, OrigenPedidoWeb);
         }
-            
-        //window.location.href = url;
+
     }
     function tabResize() {
 

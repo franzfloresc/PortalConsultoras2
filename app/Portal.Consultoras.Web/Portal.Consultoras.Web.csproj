@@ -232,6 +232,7 @@
     <Compile Include="Areas\Mobile\Controllers\SeguimientoPedidoController.cs" />
     <Compile Include="Areas\Mobile\Controllers\ShowRoomController.cs" />
     <Compile Include="Areas\Mobile\Controllers\TerminosYCondicionesController.cs" />
+    <Compile Include="Controllers\ProductoRecomendadoController.cs" />
     <Compile Include="CustomHelpers\StringsHelper.cs" />
     <Compile Include="Areas\Mobile\MobileAreaRegistration.cs" />
     <Compile Include="Areas\Mobile\Models\BienvenidaModel.cs" />
@@ -691,6 +692,8 @@
     <Compile Include="Models\ProveedorDespachoCobranzaModel.cs" />
     <Compile Include="Models\RechazoModel.cs" />
     <Compile Include="Models\OfertaFinalRegaloModel.cs" />
+    <Compile Include="Models\Recomendaciones\RecomendacionesConfiguracionModel.cs" />
+    <Compile Include="Models\Recomendaciones\RecomendacionesModel.cs" />
     <Compile Include="Models\RegionModel.cs" />
     <Compile Include="Models\RegistrarEstrategiaModel.cs" />
     <Compile Include="Models\ReporteConsolidadoModel.cs" />
@@ -800,6 +803,7 @@
     <Compile Include="Providers\PaqueteDocumentarioProvider.cs" />
     <Compile Include="Providers\PedidoSetProvider.cs" />
     <Compile Include="Providers\PedidoWebProvider.cs" />
+    <Compile Include="Providers\ProductoRecomendadoProvider.cs" />
     <Compile Include="Providers\RenderImgProvider.cs" />
     <Compile Include="Providers\RevistaDigitalProvider.cs" />
     <Compile Include="Providers\ShowRoomProvider.cs" />
@@ -1388,6 +1392,7 @@
     <Content Include="Content\Css\Mobile\RevistaDigital\RedimensionLandingRD.css" />
     <Content Include="Content\Css\Site\Admin\Estrategias\UpSelling.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\index.css" />
+    <Content Include="Content\Css\Site\bootstrap\bootstrap-chosen.css" />
     <Content Include="Content\Css\Site\bootstrap\bootstrap.css" />
     <Content Include="Content\Css\Site\BusquedaProductos\busqueda-productos.css" />
     <Content Include="Content\Css\Site\Contenedor\Index.css" />
@@ -1436,6 +1441,7 @@
     <Content Include="Content\Css\Site\Pedido\PedidoTooltip.css" />
     <Content Include="Content\Css\Site\ProductoListado\CajaProducto.css" />
     <Content Include="Content\Css\Site\ProductoListado\Landing.css" />
+    <Content Include="Content\Css\Site\ProductosRecomendados\productos-recomendados.css" />
     <Content Include="Content\Css\Site\RevistaDigital\Bienvenido-Pedido-Catalogo.css" />
     <Content Include="Content\Css\Site\RevistaDigital\ConfirmarDatos.css" />
     <Content Include="Content\Css\Site\RevistaDigital\Gnd-Flotante.css" />
@@ -1450,6 +1456,8 @@
     <Content Include="Content\Css\Site\Shared\menu-secundario-responsive.css" />
     <Content Include="Content\Css\Site\Shared\general.css" />
     <Content Include="Content\Css\Site\ShowRoom.css" />
+    <Content Include="Content\Images\arrow_left.svg" />
+    <Content Include="Content\Images\arrow_right.svg" />
     <Content Include="Content\Images\cerrar-filtros.svg" />
     <Content Include="Content\Images\banco_bbva.png" />
     <Content Include="Content\Images\banco_bcp.png" />
@@ -1649,6 +1657,7 @@
     <Content Include="Content\Images\icono_comunidad_virtual.svg" />
     <Content Include="Content\Images\icono_esika_responde.png" />
     <Content Include="Content\Images\icono_limpiar_busqueda.svg" />
+    <Content Include="Content\Images\icono_lupa_gris.svg" />
     <Content Include="Content\Images\icono_lupa_blanco.svg" />
     <Content Include="Content\Images\icono_lupa.svg" />
     <Content Include="Content\Images\icono_noticias.svg" />
@@ -3901,6 +3910,7 @@
     <Content Include="Scripts\AdminContenido\ProductoSugerido.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\chosen.jquery.js" />
     <Content Include="Scripts\colorpicker\colorpicker.js" />
     <Content Include="Scripts\Comunidad\fuzescale-1.3.min.js" />
     <Content Include="Scripts\Comunidad\jquery.min.js" />
@@ -3983,7 +3993,6 @@
     <Content Include="Scripts\PortalConsultoras\Bienvenida\OfertaDelDia.js" />
     <Content Include="Scripts\PortalConsultoras\Bienvenida\Estrategia.js" />
     <Content Include="Scripts\PortalConsultoras\Bienvenida\PopusJS.js" />
-    <Content Include="Scripts\PortalConsultoras\Buscador\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Buscador\BuscadorModule.js" />
     <Content Include="Scripts\PortalConsultoras\Buscador\BuscadorProvider.js" />
     <Content Include="Scripts\PortalConsultoras\Buscador\BusquedaProductoModule.js" />
@@ -4023,7 +4032,6 @@
     <Content Include="Scripts\PortalConsultoras\MiPerfil\ActualizarCorreo.js" />
     <Content Include="Scripts\PortalConsultoras\MiPerfil\Base.js" />
     <Content Include="Scripts\PortalConsultoras\MiPerfil\Index.js" />
-    <Content Include="Scripts\PortalConsultoras\Mobile\Buscador\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\GuiaNegocio\GuiaNegocio-Landing.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\PedidoFIC\Detalle.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\PedidoFIC\Index.js" />
@@ -4036,6 +4044,7 @@
     <Content Include="Scripts\PortalConsultoras\PagoEnLinea\PagoVisa.js" />
     <Content Include="Scripts\PortalConsultoras\PagoEnLinea\PasarelaPago.js" />
     <Content Include="Scripts\PortalConsultoras\Pedido\tooltip.js" />
+    <Content Include="Scripts\PortalConsultoras\ProductoRecomendado\ProductoRecomendadoModule.js" />
     <Content Include="Scripts\PortalConsultoras\ProductoComentario\ProductoComentarioAdmModule.js" />
     <Content Include="Scripts\PortalConsultoras\Cupon\CuponAdm.js" />
     <Content Include="Scripts\PortalConsultoras\Cupon\CuponAdmModule.js" />
@@ -5476,6 +5485,7 @@
     <Content Include="Views\Unete\ExcepcionarDocumento.cshtml" />
     <Content Include="Views\AdministrarReporteRevisionIncidencias\Index.cshtml" />
     <Content Include="Views\Pedido\_vpPedidoGrilla.cshtml" />
+    <Content Include="Views\ProductoRecomendado\_template_producto.cshtml" />
     <Content Include="Views\Pedido\_vpPedidoGrilla-Template.cshtml" />
     <None Include="Service References\ValidacionesUnete\ValidacionesUnete.wsdl" />
     <None Include="Service References\ValidacionesUnete\ValidacionesUnete.xsd">

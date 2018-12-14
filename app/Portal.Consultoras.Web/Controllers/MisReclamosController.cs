@@ -75,6 +75,7 @@ namespace Portal.Consultoras.Web.Controllers
             return View(model);
         }
 
+        #region Reclamo
         public ActionResult Reclamo(int pedidoId = 0)
         {
             var model = new MisReclamosModel
@@ -127,6 +128,91 @@ namespace Portal.Consultoras.Web.Controllers
 
             return View(model);
         }
+
+        public JsonResult ObtenerNumeroPedidos(int CampaniaID)
+        {
+            var listaNroPedidos = new List<CampaniaModel>();
+            string mensaje = "No se ha encontrado su número de pedido, vuelva a intentarlo otra vez seleccionando la campaña.";
+            try
+            {
+                var listaPedidoFacturados = SessionManager.GetCDRPedidoFacturado();
+                listaPedidoFacturados = listaPedidoFacturados.Where(a => a.CampaniaID == CampaniaID).ToList();
+
+                var NroPedidos = new CampaniaModel();
+
+                if (listaPedidoFacturados.Count > 0)
+                {
+                    mensaje = "";
+                    foreach (var item in listaPedidoFacturados)
+                    {
+                        NroPedidos = new CampaniaModel
+                        {
+                            NumeroPedido = item.NumeroPedido,
+                            strNumeroPedido = "N° " + item.NumeroPedido + " - " + item.FechaRegistro.ToString("dd/MM/yyyy"),
+                            PedidoID = item.PedidoID                            
+                        };
+                        listaNroPedidos.Add(NroPedidos);
+                    }
+                }                               
+
+                return Json(new
+                {
+                    success = true,
+                    message = mensaje,
+                    datos = listaNroPedidos
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = mensaje,
+                    datos = listaNroPedidos,
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+
+        public JsonResult BuscarCUV(MisReclamosModel model)
+        {
+            var listaPedidoFacturados = SessionManager.GetCDRPedidoFacturado();
+            var listaCuv = listaPedidoFacturados.FirstOrDefault(a => a.CampaniaID == model.CampaniaID && a.PedidoID == model.PedidoID) ?? new BEPedidoWeb();
+
+            return Json(new
+            {
+                success = true,
+                message = "",
+                detalle = listaCuv.olstBEPedidoWebDetalle
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult ObtenerDatosCuv(int CampaniaID, int PedidoID)
+        {
+            var DatosCuv = new List<BEPedidoWeb>();
+            try
+            {
+                var listaPedidoFacturados = SessionManager.GetCDRPedidoFacturado();
+                DatosCuv = listaPedidoFacturados.Where(a => a.CampaniaID == CampaniaID && a.PedidoID == PedidoID).ToList();
+
+                return Json(new
+                {
+                    success = true,
+                    message = "",
+                    datos = DatosCuv
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "No se ha podido obtener información del CUV, intentelo nuevamente.",
+                    datos = DatosCuv
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        #endregion
 
         private List<BEPedidoWeb> CargarPedidoCUV(MisReclamosModel model)
         {
@@ -216,6 +302,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 return !operacionValidaList.Any(operacion => operacion.CodigoOperacion == detalle.CodigoOperacion);
             });
+            //return false;
         }
 
         private bool ValidarRegistro(MisReclamosModel model, out string mensajeError)
@@ -257,19 +344,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return cantidad >= 0;
         }
-
-        public JsonResult BuscarCUV(MisReclamosModel model)
-        {
-            var listaPedidoFacturados = CargarPedidoCUV(model);
-
-            return Json(new
-            {
-                success = true,
-                message = "",
-                detalle = listaPedidoFacturados
-            }, JsonRequestBehavior.AllowGet);
-        }
-
+        
         public JsonResult BuscarCuvCambiar(MisReclamosModel model)
         {
             List<ServiceODS.BEProducto> olstProducto;

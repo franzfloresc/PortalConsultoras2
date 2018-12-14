@@ -14550,6 +14550,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string EstadoPedidoDescField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FechaFacturadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.DateTime FechaModificacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -14877,6 +14880,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.EstadoPedidoDescField, value) != true)) {
                     this.EstadoPedidoDescField = value;
                     this.RaisePropertyChanged("EstadoPedidoDesc");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FechaFacturado {
+            get {
+                return this.FechaFacturadoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FechaFacturadoField, value) != true)) {
+                    this.FechaFacturadoField = value;
+                    this.RaisePropertyChanged("FechaFacturado");
                 }
             }
         }

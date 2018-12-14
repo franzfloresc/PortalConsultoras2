@@ -123,8 +123,6 @@
     border-left: 5px solid transparent;
     border-right: 5px solid transparent;
     border-bottom: 4px solid transparent;
-    /*background-image:url(/Content/images/down_arrow.png);
-    background-position:97% center;*/
 }
 
 .menu__link--conSubmenu:after{
