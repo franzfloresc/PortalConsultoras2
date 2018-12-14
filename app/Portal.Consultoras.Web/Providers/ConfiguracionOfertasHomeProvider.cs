@@ -444,7 +444,6 @@ namespace Portal.Consultoras.Web.Providers
             if (!SessionManager.GetMostrarShowRoomProductos())
             {
                 seccion.UrlLandig = (esMobile ? "/Mobile/" : "/") + "ShowRoom/Intriga";
-                //seccion.UrlObtenerProductos = "ShowRoom/GetDataShowRoomIntriga";
 
                 if (!esMobile)
                 {
@@ -462,7 +461,6 @@ namespace Portal.Consultoras.Web.Providers
             else
             {
                 seccion.UrlLandig = (esMobile ? "/Mobile/" : "/") + "ShowRoom";
-                //seccion.UrlObtenerProductos = esMobile ? "" : "ShowRoom/CargarProductosShowRoomOferta";
                 if (!esMobile)
                 {
                     seccion.ImagenFondo = ShowRoom.ObtenerValorPersonalizacionShowRoom(

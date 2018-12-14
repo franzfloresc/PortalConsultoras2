@@ -38,7 +38,7 @@ namespace Portal.Consultoras.Common
 
             catch (Exception)
             {
-                //throw ex;
+                //
             }
 
             return JwtToken;

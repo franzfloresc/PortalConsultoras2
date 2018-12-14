@@ -44,7 +44,7 @@ namespace Portal.Consultoras.Web.Providers
                 }
                 if (beActive.ActivePremioElectivo)
                 {
-                    var listPremioElectivo = userData.ConfigPremioProgNuevas.ListPremioElec;
+                    var listPremioElectivo = GetListPremioElectivo();
                     beActive.ActivePremioElectivo = listPremioElectivo != null && listPremioElectivo.Any();
                 }
 
@@ -60,6 +60,7 @@ namespace Portal.Consultoras.Web.Providers
                     }
                     else tippingPoint.ActiveTooltip = false;
                 }
+                if (tippingPoint.ActivePremioElectivo) tippingPoint.HasListEstrategiaElectivo = GetListPremioElectivo().Any();
 
                 return tippingPoint;
             }

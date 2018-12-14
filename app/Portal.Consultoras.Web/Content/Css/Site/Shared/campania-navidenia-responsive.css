@@ -24,10 +24,6 @@
     background-color:transparent;
 }
 
-/*.layout__header--navidenio .menu__item--carrito:after{
-    background-color:transparent!important;
-}*/
-
 .layout__header--navidenio .menu__link--carrito:before{
     background-image:url('/Content/Images/icono_carrito.svg');
     background-position: 15px 14.3px;

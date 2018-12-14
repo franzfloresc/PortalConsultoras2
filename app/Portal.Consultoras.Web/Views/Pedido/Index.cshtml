@@ -10,6 +10,7 @@
 @section styles{
     @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/Site-CssPedido")
 }
+
 <div class="franja_negra" style="background: #000 url(@ViewBag.UrlFranjaNegra) no-repeat center bottom;"></div>
 <div class="envolvente_pop_up">
     <div class="pop_pedido" id="pop_liquidacion" style="display: none;">
@@ -89,7 +90,7 @@
                 <!-- FIN - MENSAJE CUANDO LA DESCRIPCIÓN DE PRODUCTO INGRESADA NO EXISTA -->
                 <br />
                 <input type="text" name="DescripcionProd" id="txtDescripcionProd" maxlength="250" onblur="ValidarDescripcion();" class="ValidaAlfanumerico default-border-hover"
-                       @*onkeyup="PreValidarCUV(event);"*@ 
+                       @*onkeyup="PreValidarCUV(event);"*@
                        attrKey="PreValidarCUV"
                        placeholder="Descripción producto" />
             </div>
@@ -102,10 +103,10 @@
             <div class="pedido_ingreso_datos campo_cantidad">
                 <br />
                 <div class="liquidacion_rango_wrapper_pedido" data-cantidad-contenedor="">
-                    <input type="text" name="Cantidad" id="txtCantidad" data-input="cantidad" value="1" maxlength="2" 
+                    <input type="text" name="Cantidad" id="txtCantidad" data-input="cantidad" value="1" maxlength="2"
                            class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral default-border-hover"
-                           @*onkeypress="PreValidarCUV(event);"*@ 
-                           onfocus="SeleccionarContenido(this)" attrKey="PreValidarCUV"/>
+                           @*onkeypress="PreValidarCUV(event);"*@
+                           onfocus="SeleccionarContenido(this)" attrKey="PreValidarCUV" />
                     <div class="liquidacion_rango_right_pedido">
                         <a class="mas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
                         <a class="menos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
@@ -128,7 +129,8 @@
         </form>
     </div>
     <div class="clear"></div>
-
+    <div id="divProductosRecomendados"></div>
+    @Html.Partial("~/Views/ProductoRecomendado/_template_producto.cshtml")
     <div class="caja_pedidos">
         <div data-barra-width="">
             <div id="divBarra">
@@ -418,19 +420,21 @@
                 </div>
             </div>
             <!--Popup observaciones-->
-            <div id="observaciones_alerta" class="observaciones_alerta" style="display: none;">
-                <a class="close_buttom_alerta" href="">
-                    <img src="/Content/Images/close-icon.svg" alt="Alternate Text" />
-                </a>
-                <div class="header_observaciones_alerta">
-                    <ul>
-                        <li class="alert-observaciones"><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt=""></li>
-                        <li><h3>OBSERVACIONES DEL PRODUCTO</h3></li>
-                    </ul>
-                    <p>Debes tener en cuenta que tu pedido ha sido reservado pero:</p>
-                </div>
-                <div class="descripcion_observaciones_alerta" id="desc_obs_alerta">
-                    @*<ul>
+            <div id="observaciones_alerta" style="display: none;">
+                <div class="observaciones_alerta_blocks">
+
+                    <a class="close_buttom_alerta" href="">
+                        <img src="/Content/Images/close-icon.svg" alt="Alternate Text" />
+                    </a>
+                    <div class="header_observaciones_alerta">
+                        <ul>
+                            <li class="alert-observaciones"><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt=""></li>
+                            <li><h3>OBSERVACIONES DEL PRODUCTO</h3></li>
+                        </ul>
+                        @*<p>Debes tener en cuenta que tu pedido ha sido reservado pero:</p>*@
+                    </div>
+                    <div class="descripcion_observaciones_alerta" id="desc_obs_alerta">
+                        @*<ul>
                             <li>
                                 El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
                                 Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
@@ -445,6 +449,8 @@
                             </li>
 
                         </ul>*@
+                    </div>
+
                 </div>
             </div>
             <!-- fin Popup observaciones-->
@@ -692,21 +698,21 @@
 </div>
 
 @*<div id="divAvisoEliminarRegaloGenerico" style="display: none;">
-    <div class="terminos_title_2">
-        IMPORTANTE
-    </div>
-    <div id="dataEliminar" data-campaniaId="" data-pedidoId="" data-pedidoDetalleId="" data-tipoOfertaSisId="" data-cuv=""
-         data-cantidad="" data-clienteId="" data-cuvReco="" data-esBackOrder=""></div>
+        <div class="terminos_title_2">
+            IMPORTANTE
+        </div>
+        <div id="dataEliminar" data-campaniaId="" data-pedidoId="" data-pedidoDetalleId="" data-tipoOfertaSisId="" data-cuv=""
+             data-cantidad="" data-clienteId="" data-cuvReco="" data-esBackOrder=""></div>
 
-    <div class="pop_pedido_mensaje">
-        ¿Estás segura que quieres eliminar el producto?<br /><br />
-        Recuerda que tienes un premio ganado, si eliminas este producto podrías perderlo.<br /> ¿Deseas continuar?
-    </div>
-    <div style="text-align: center; margin-top: 30px;">
-        <input id="btnEliminarPedidoCompletoNo" type="button" value="No" onclick="CerrarAvisoEliminarRegalo()" class="input_modifica_horizontal" style="width: 100px; margin-left: 0;" />
-        <input id="btnEliminarPedidoCompletoSi" type="button" value="Si" onclick="ContinuarEliminacion()" class="input_modifica_horizontal" style="width: 100px; margin-left: 20px;" />
-    </div>
-</div>*@
+        <div class="pop_pedido_mensaje">
+            ¿Estás segura que quieres eliminar el producto?<br /><br />
+            Recuerda que tienes un premio ganado, si eliminas este producto podrías perderlo.<br /> ¿Deseas continuar?
+        </div>
+        <div style="text-align: center; margin-top: 30px;">
+            <input id="btnEliminarPedidoCompletoNo" type="button" value="No" onclick="CerrarAvisoEliminarRegalo()" class="input_modifica_horizontal" style="width: 100px; margin-left: 0;" />
+            <input id="btnEliminarPedidoCompletoSi" type="button" value="Si" onclick="ContinuarEliminacion()" class="input_modifica_horizontal" style="width: 100px; margin-left: 20px;" />
+        </div>
+    </div>*@
 <input type="hidden" id="hdfAccionPROL" value="@Model.Prol" />
 <input type="hidden" id="hdfReserva" value="@Model.Reserva" />
 <input type="hidden" id="hdfModificaPedido" value="@Model.EsModificacion" />
@@ -1599,7 +1605,7 @@
                 {{else}}
                 <div class="liquidacion_rango_wrapper_pedido cantidad_detalle_focus" data-cantidad-contenedor="">
                     <input type="text" value="{{Cantidad}}" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral txtLPCant"
-                               data-input="cantidad" data-pedido="{{PedidoDetalleID}}" data-SetID="{{SetID}}" 
+                               data-input="cantidad" data-pedido="{{PedidoDetalleID}}" data-SetID="{{SetID}}"
                                attrKey="PreValidarCUV"
                                onfocus="SeleccionarContenido(this)"
                                onblur="UpdateLiquidacion(event, '{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '1', '{{Cantidad}}', '{{SetID}}', {{EnRangoProgNuevas}})" />
@@ -2060,7 +2066,7 @@
 </script>
 
 @section scripts{
-    <script type="text/javascript">
+<script type="text/javascript">
         var arregloProductos;
         var cantProductosLoad = '@Model.ListaEstrategias.Count';
         var constConfiguracionOfertaLiquidacion = '@Constantes.ConfiguracionOferta.Liquidacion';
@@ -2127,7 +2133,9 @@
         var mensajeSinConexionGenerico = '@Constantes.MensajesError.SinConexion';
         var urlInsertarDemandaTotalReemplazoSugerido = '@Url.Action("InsertarDemandaTotalReemplazoSugerido", "Pedido")';
         var urlEsPedidoDetalleElecMultiple = '@Url.Action("EsPedidoDetalleElecMultiple", "Pedido")';
-    </script>
+        var activarRecomendaciones = '@ViewBag.ActivarRecomendaciones';
+        var maxCaracteresRecomendaciones = '@ViewBag.MaxCaracteresRecomendaciones';
+</script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/SB2-Pedido")
     @if (HttpContext.Current.Request.Browser.IsMobileDevice)
     {
@@ -2140,5 +2148,5 @@
         <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Pedido/ConsultoraOnline.js")"></script>
     }
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/FichaProducto/Index.js")"></script>
-
-} 
+    
+}
