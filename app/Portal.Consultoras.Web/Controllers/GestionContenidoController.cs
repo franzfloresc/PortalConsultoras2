@@ -859,17 +859,17 @@ namespace Portal.Consultoras.Web.Controllers
             return View(contenidoDatoModel);
         }
 
-        public JsonResult ObtenterCampaniasPorPais(int PaisID)
-        {
-            PaisID = Constantes.PaisID.Peru;
-            IEnumerable<CampaniaModel> lista = _zonificacionProvider.GetCampanias(PaisID);
+        //movido a BaseAdm/ObtenterCampaniasPeru
+        //public JsonResult ObtenterCampaniasPorPais(int PaisID)
+        //{
+        //    PaisID = Constantes.PaisID.Peru;
+        //    IEnumerable<CampaniaModel> lista = _zonificacionProvider.GetCampanias(PaisID);
+        //    return Json(new
+        //    {
+        //        lista = lista
+        //    }, JsonRequestBehavior.AllowGet);
+        //}
 
-            return Json(new
-            {
-                lista = lista
-            }, JsonRequestBehavior.AllowGet);
-        }
-        
         [HttpPost]
         public ActionResult MantenerFondo(ContenidoDatoModel form)
         {

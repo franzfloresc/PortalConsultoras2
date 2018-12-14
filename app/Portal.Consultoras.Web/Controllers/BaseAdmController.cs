@@ -1,6 +1,6 @@
-﻿using Portal.Consultoras.Web.Models;
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Providers;
-using Portal.Consultoras.Web.ServiceZonificacion;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
@@ -32,6 +32,16 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(new
             {
                 lista = lst
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult ObtenterCampaniasPeru()
+        {
+            IEnumerable<CampaniaModel> lista = _zonificacionProvider.GetCampanias(Constantes.PaisID.Peru);
+
+            return Json(new
+            {
+                lista = lista
             }, JsonRequestBehavior.AllowGet);
         }
     }
