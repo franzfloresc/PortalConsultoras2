@@ -69,17 +69,17 @@ namespace Portal.Consultoras.Web.Controllers
             return View();
         }
 
-        public JsonResult ObtenterCampaniasPorPais(int PaisID)
-        {
-            IEnumerable<CampaniaModel> lst = _zonificacionProvider.GetCampanias(PaisID);
-            IEnumerable<ZonaModel> lstZonas = _zonificacionProvider.GetZonas(PaisID);
-
-            return Json(new
-            {
-                lista = lst,
-                listaZonas = lstZonas
-            }, JsonRequestBehavior.AllowGet);
-        }
+        //movido a BaseAdm/ObtenerCampaniasZonasPorPais
+        //public JsonResult ObtenterCampaniasPorPais(int PaisID)
+        //{
+        //    IEnumerable<CampaniaModel> lst = _zonificacionProvider.GetCampanias(PaisID);
+        //    IEnumerable<ZonaModel> lstZonas = _zonificacionProvider.GetZonas(PaisID);
+        //    return Json(new
+        //    {
+        //        lista = lst,
+        //        listaZonas = lstZonas
+        //    }, JsonRequestBehavior.AllowGet);
+        //}
 
         //public JsonResult ObtenterCampanias(int PaisID)
         //{
