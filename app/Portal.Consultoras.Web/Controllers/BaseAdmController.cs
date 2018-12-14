@@ -34,6 +34,17 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult ObtenerCampaniasNemotecnicoPorPais(int PaisID)
+        {
+            IEnumerable<CampaniaModel> lst = _zonificacionProvider.GetCampanias(PaisID);
+            string habilitarNemotecnico = _tablaLogicaProvider.ObtenerValorTablaLogica(PaisID, Constantes.TablaLogica.Plan20, Constantes.TablaLogicaDato.BusquedaNemotecnicoProductoSugerido);
+            return Json(new
+            {
+                lista = lst,
+                habilitarNemotecnico = habilitarNemotecnico == "1"
+            }, JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult ObtenerCampaniasPorPaisOUsuario(int PaisID)
         {
             PaisID = PaisID == 0 ? userData.PaisID : PaisID;

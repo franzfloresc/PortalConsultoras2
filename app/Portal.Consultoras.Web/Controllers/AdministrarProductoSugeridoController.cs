@@ -185,18 +185,18 @@ namespace Portal.Consultoras.Web.Controllers
 
             return data;
         }
-        
-        public JsonResult ObtenerCampaniasPorPais(int PaisID)
-        {
-            IEnumerable<CampaniaModel> lst = _zonificacionProvider.GetCampanias(PaisID);
-            string habilitarNemotecnico = _tablaLogicaProvider.ObtenerValorTablaLogica(PaisID, Constantes.TablaLogica.Plan20, Constantes.TablaLogicaDato.BusquedaNemotecnicoProductoSugerido);
 
-            return Json(new
-            {
-                lista = lst,
-                habilitarNemotecnico = habilitarNemotecnico == "1"
-            }, JsonRequestBehavior.AllowGet);
-        }
+        //movido BaseAdm/ObtenerCampaniasNemotecnicoPorPais
+        //public JsonResult ObtenerCampaniasPorPais(int PaisID)
+        //{
+        //    IEnumerable<CampaniaModel> lst = _zonificacionProvider.GetCampanias(PaisID);
+        //    string habilitarNemotecnico = _tablaLogicaProvider.ObtenerValorTablaLogica(PaisID, Constantes.TablaLogica.Plan20, Constantes.TablaLogicaDato.BusquedaNemotecnicoProductoSugerido);
+        //    return Json(new
+        //    {
+        //        lista = lst,
+        //        habilitarNemotecnico = habilitarNemotecnico == "1"
+        //    }, JsonRequestBehavior.AllowGet);
+        //}
 
         [HttpPost]
         public JsonResult Registrar(AdministrarProductoSugeridoModel model)
