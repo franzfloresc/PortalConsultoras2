@@ -1405,6 +1405,7 @@ namespace Portal.Consultoras.Web.Controllers
             return htmlTemplate;
         }
 
+        // no se utiliza
         //public JsonResult ObtenterCampanias(int PaisID)
         //{
         //    PaisID = userData.PaisID;
@@ -1414,20 +1415,19 @@ namespace Portal.Consultoras.Web.Controllers
         //        lista = lst
         //    }, JsonRequestBehavior.AllowGet);
         //}
-
-        public JsonResult ObtenterCampaniasPorPais(int PaisID)
-        {
-            IEnumerable<CampaniaModel> lst = _zonificacionProvider.GetCampanias(PaisID);
-            IEnumerable<ZonaModel> lstZonas = _zonificacionProvider.GetZonas(PaisID);
-            IEnumerable<RegionModel> lstRegiones = _zonificacionProvider.GetRegiones(PaisID);
-
-            return Json(new
-            {
-                lista = lst,
-                listaZonas = lstZonas,
-                listaRegiones = lstRegiones.OrderBy(x => x.Nombre)
-            }, JsonRequestBehavior.AllowGet);
-        }
+        // no se utiliza
+        //public JsonResult ObtenterCampaniasPorPais(int PaisID)
+        //{
+        //    IEnumerable<CampaniaModel> lst = _zonificacionProvider.GetCampanias(PaisID);
+        //    IEnumerable<ZonaModel> lstZonas = _zonificacionProvider.GetZonas(PaisID);
+        //    IEnumerable<RegionModel> lstRegiones = _zonificacionProvider.GetRegiones(PaisID);
+        //    return Json(new
+        //    {
+        //        lista = lst,
+        //        listaZonas = lstZonas,
+        //        listaRegiones = lstRegiones.OrderBy(x => x.Nombre)
+        //    }, JsonRequestBehavior.AllowGet);
+        //}
 
         private List<BETablaLogicaDatos> GetListMensajeCDRExpress()
         {

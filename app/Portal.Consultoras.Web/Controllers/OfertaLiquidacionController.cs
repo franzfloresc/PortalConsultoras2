@@ -498,7 +498,7 @@ namespace Portal.Consultoras.Web.Controllers
             return Mapper.Map<IList<BEConfiguracionOferta>, IEnumerable<ConfiguracionOfertaModel>>(lst);
         }
 
-        public JsonResult ObtenterCampaniasPorPais(int PaisID)
+        public JsonResult ObtenerCampaniasYConfiguracionPorPais(int PaisID)
         {
             IEnumerable<CampaniaModel> lst = _zonificacionProvider.GetCampanias(PaisID);
             IEnumerable<ConfiguracionOfertaModel> lstConfig = DropDowListConfiguracion(PaisID);
