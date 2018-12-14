@@ -443,7 +443,7 @@ input:focus{
         top:22px;
         left:0;
         font-size:14px;
-        font-weight:bold;
+        font-weight:400;
         height:25px;
         background-color:rgba(255,255,255,1);
         z-index:2;
@@ -455,7 +455,8 @@ input:focus{
     .celular_actual span:first-child,
     .grupo_form_cambio_datos select
     {
-        color:#000;
+        color:#808080;
+        letter-spacing:0.2px;
     }
 
     .grupo_form_cambio_datos label,
@@ -523,6 +524,8 @@ input:focus{
         top:0;
         font-size:14px;
         background-color:rgba(255,255,255,0);
+        color:#000;
+        font-weight:bold;
     }
 
     .grupo_form_cambio_datos input:focus + label,

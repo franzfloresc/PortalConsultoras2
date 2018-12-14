@@ -100,7 +100,7 @@ else
                 {
                     if (subitem == "MIS DATOS")
                     {
-                        <div class="opcion_mi_perfil opcion_mis_datos">
+                        <div class="opcion_mi_perfil opcion_mis_datos mostrarContenido">
                             <div class="opcion_mi_perfil_titulo">
                                 <span class="icono_mis_datos">
                                     <img src="@Url.Content("~/Content/Images/icono_mis_datos.svg")" alt="Mis Datos" />
@@ -114,15 +114,15 @@ else
                             </div>
                             <div class="opcion_mi_perfil_contenido">
                                 <fieldset class="grupo_form_cambio_datos">
-                                    <div class="w-82">
+                                    <div class="w-88">
                                         <input id="txtSobrenombreMD" name="txtSobrenombreMD" class="w-100" type="text" onkeypress="return FuncionesGenerales.ValidarSoloLetrasYNumeros(event)" value="@Model.Sobrenombre" maxlength="80" />
-                                        <label for="txtSobrenombreMD" class="w-82">¿Cómo quieres que te llamemos?</label>
+                                        <label for="txtSobrenombreMD" class="w-100">¿Cómo quieres que te llamemos?</label>
                                     </div>
                                 </fieldset>
                                 <fieldset class="grupo_form_cambio_datos">
-                                    <div class="w-82">
+                                    <div class="w-88">
                                         <input id="txtEMailMD" name="txtEMailMD" class="w-100" type="text" value="@Model.EMail" readonly />
-                                        <label for="txtEMailMD" class="w-82">Correo Electrónico <span class="asteriscos">*</span></label>
+                                        <label for="txtEMailMD" class="w-100">Correo Electrónico <span class="asteriscos">*</span></label>
                                     </div>
                                     <a href="@Url.Action("ActualizarCorreo", "MiPerfil", new { area = "Mobile" })" title="Cambiar" class="enlace_cambiar_dato w-11 text-right">
                                         <span class="icono_cambiar_dato"></span>
@@ -141,9 +141,9 @@ else
                                     </div>
                                 </fieldset>
                                 <fieldset class="grupo_form_cambio_datos">
-                                    <div class="w-82">
+                                    <div class="w-88">
                                         <input id="txtCelularMD" name="txtCelularMD" class="w-100" type="tel" value="@Model.Celular" maxlength="@Model.limiteMaximoTelef" />
-                                        <label for="txtCelularMD" class="w-82">Celular <span class="asteriscos">*</span></label>
+                                        <label for="txtCelularMD" class="w-100">Celular <span class="asteriscos">*</span></label>
                                     </div>
                                     <a id="btnCambiarCelular" href="@Url.Action("ActualizarCelular", "MiPerfil", new { area = "Mobile" })" title="Cambiar" class="enlace_cambiar_dato w-11 text-right">
                                         <span class="icono_cambiar_dato"></span>
@@ -162,9 +162,9 @@ else
                                     </div>
                                 </fieldset>
                                 <fieldset class="grupo_form_cambio_datos">
-                                    <div class="w-82">
+                                    <div class="w-88">
                                         <input id="txtTelefonoMD" name="txtTelefonoMD" class="w-100" type="tel" value="@Model.Telefono" maxlength="@Model.limiteMaximoTelef" />
-                                        <label for="txtTelefonoMD" class="w-82">Número fijo <span class="asteriscos">*</span></label>
+                                        <label for="txtTelefonoMD" class="w-100">Número fijo <span class="asteriscos">*</span></label>
                                     </div>
                                 </fieldset>
                                 <fieldset class="grupo_form_cambio_datos">
@@ -173,9 +173,9 @@ else
                                         <span class="enlace_texto text-bold text-uppercase">Agregar otro número</span>
                                     </a>
                                     <div class="contenedor_campos_num_adicional w-100" style="display:none;">
-                                        <div class="w-82">
+                                        <div class="w-88">
                                             <input id="txtTelefonoTrabajoMD" name="txtTelefonoTrabajoMD" class="w-100" type="tel" value="@Model.TelefonoTrabajo" maxlength="@Model.limiteMaximoTelef" />
-                                            <label for="txtTelefonoTrabajoMD" class="label_num_adicional w-82">Número adicional</label>
+                                            <label for="txtTelefonoTrabajoMD" class="label_num_adicional w-100">Número adicional</label>
                                         </div>
                                         <a href="#" title="Cambiar" class="enlace_eliminar_numero_adicional w-11 text-right">
                                             <span class="icono_eliminar_numero_adicional"></span>
@@ -207,7 +207,7 @@ else
                                             <option value="0" selected>-- Seleccione una ciudad --</option>
                                             <option value="1">Lima</option>
                                         </select>
-                                        <label for="txtCiudad">Ciudad <span class="asteriscos">*</span></label>
+                                        <label for="txtCiudad" class="w-90">Ciudad <span class="asteriscos">*</span></label>
                                     </div>
                                 </fieldset>
                                 <fieldset class="grupo_form_cambio_datos">
@@ -216,13 +216,13 @@ else
                                             <option value="0" selected>-- Seleccione una comuna --</option>
                                             <option value="1">Rímac</option>
                                         </select>
-                                        <label for="txtComuna">Comuna <span class="asteriscos">*</span></label>
+                                        <label for="txtComuna" class="w-90">Comuna <span class="asteriscos">*</span></label>
                                     </div>
                                 </fieldset>
                                 <fieldset class="grupo_form_cambio_datos grupo_form_cambio_datos_campo_direccion">
                                     <div class="w-100">
                                         <input id="txtDireccion" name="txtDireccion" class="w-100" type="text" value="" />
-                                        <label for="txtDireccion" class="w-100">
+                                        <label for="txtDireccion" class="w-90">
                                             Dirección <span class="asteriscos">*</span>
                                         </label>
                                         <a class="enlace_abrir_mapa" title="Abrir Mapa">
@@ -232,7 +232,7 @@ else
                                 <fieldset class="grupo_form_cambio_datos">
                                     <div class="w-100">
                                         <input id="txtReferencia" name="txtReferencia" class="w-100 campo_referencia" type="text" value="" />
-                                        <label for="txtReferencia" class="w-100">
+                                        <label for="txtReferencia" class="w-90">
                                             Referencia
                                         </label>
                                     </div>

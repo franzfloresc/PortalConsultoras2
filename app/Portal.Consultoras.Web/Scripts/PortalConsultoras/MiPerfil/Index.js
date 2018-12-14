@@ -21,7 +21,7 @@ $(document).ready(function () {
         }
         me.Funciones = {
             CrearComponentesMapa: function () {
-                debugger;
+                
                 map = new google.maps.Map($('.mapa_wrapper')[0], {
                     center: { lat: -77.0282400, lng: -12.0431800 },
                     zoom: 18,
@@ -45,7 +45,7 @@ $(document).ready(function () {
                     lat: me.Propiedades.latitudIni,
                     lng: me.Propiedades.longitudIni
                 };
-                debugger;
+                
                 if (me.Propiedades.viewport)
                     map.fitBounds(me.Propiedades.viewport);
                 map.setCenter(coordenadas);
@@ -65,7 +65,7 @@ $(document).ready(function () {
 
             },
             InicializarEventosMapa: function () {
-                debugger;
+                
                 marker.addListener('dragstart', me.Eventos.DragStart);
                 marker.addListener('dragend', me.Eventos.DragEnd);
                 searchBox.addListener('place_changed', me.Eventos.PlaceChanged);
@@ -117,13 +117,13 @@ $(document).ready(function () {
             },
             ValidacionMapa: function () {
                 $('#txtDireccion').focusout(function () {
-                    debugger;
+                    
                     if ($(this).val().length === 0) {
                         //$('.enlace_abrir_mapa')[0].disabled = true;
                     }
                 });
                 $("#txtCiudad").change(function () {
-                    debugger;
+                    
                     $('#txtDireccion').val('');
                     $('.enlace_abrir_mapa')[0].disabled = false;
                     var coordenadas = {
@@ -198,7 +198,7 @@ $(document).ready(function () {
                 map.setCenter(coordenadas);
             },
             ModoEdicion: function() {
-                debugger;
+                
                 var coordenadas = {
                     lat: -12.1145937,
                     lng: -77.00693360000002
@@ -269,7 +269,7 @@ $(document).ready(function () {
                     me.Eventos.CerrarPopupUbicacionDireccionEntrega();
                 },
                 CerrarPopupUbicacionDireccionEntrega: function () {
-                    debugger;
+                    
                     me.Funciones.ResetearMapa();
                     $('.fondo_popup_ubicacion_direccion_entrega').fadeOut(150);
                     $('.popup_ubicacion_direccion_entrega').fadeOut(150);
@@ -279,7 +279,7 @@ $(document).ready(function () {
 
                 },
                 PlaceChanged: function () {
-                    debugger;
+                    
                     var place = searchBox.getPlace();
                     if (!place.geometry) {
                         return;
@@ -310,14 +310,14 @@ $(document).ready(function () {
                     }
                 },
                 DragStart: function () {
-                    debugger;
+                    
                     //me.Propiedades.latitudIni = this.position.lat();
                     //me.Propiedades.longitudIni = this.position.lng();
                 },
                 DragEnd: function () {
                     var Latlng = { lat: this.position.lat(), lng: this.position.lng() };
                     me.Funciones.QueryGeocode({ 'location': Latlng }, function (results, status) {
-                        debugger;
+                        
                         if (status === 'OK') {
                             if (results[0]) {
                                 //var latitude = results[0].geometry.location.lat();
@@ -344,7 +344,7 @@ $(document).ready(function () {
                 }      
             },
         me.Inicializar = function () {
-                 debugger;
+                 
                 me.Funciones.InicializarEventos();
                 me.Funciones.CamposFormularioConDatos();
                 me.Funciones.mostrarTelefono();
@@ -794,7 +794,7 @@ function CancelarActualizarEmailySMS(tipoEnvio) {
 }
 
 function initMapa() {
-    debugger;
+    
     var Componente = MiPerfil;
     Componente.InicializarMapa();
    
