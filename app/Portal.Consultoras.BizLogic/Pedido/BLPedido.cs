@@ -126,7 +126,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 //Validación de cuvs en programa nuevas
                 #region ValidarProgramaNuevas
                 var num = ValidarProgramaNuevas(usuario, productoBuscar.CodigoDescripcion);
-                var esProgNuevas = false;
+                var esCuponNuevas = false;
                 switch (num)
                 {
                     case Enumeradores.ValidacionProgramaNuevas.ProductoNoExiste:
@@ -136,13 +136,13 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     case Enumeradores.ValidacionProgramaNuevas.CuvNoPerteneceASuPrograma:
                         return ProductoBuscarRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_NUEVA_NOPERTENECE_TUPROGRAMA);
                     case Enumeradores.ValidacionProgramaNuevas.CuvPerteneceProgramaNuevas:
-                        esProgNuevas = true;
+                        esCuponNuevas = true;
                         break;
                 }
                 #endregion
 
                 #region Venta exclusiva
-                if (!esProgNuevas)
+                if (!esCuponNuevas)
                 {
                     Enumeradores.ValidacionVentaExclusiva numExclu = ValidarVentaExclusiva(usuario, productoBuscar.CodigoDescripcion);
                     if (numExclu != Enumeradores.ValidacionVentaExclusiva.ContinuaFlujo)
