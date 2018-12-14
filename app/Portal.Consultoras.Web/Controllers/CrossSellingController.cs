@@ -34,14 +34,15 @@ namespace Portal.Consultoras.Web.Controllers
             return View(cronogramaModel);
         }
 
-        public JsonResult ObtenterCampaniasPorPais(int PaisID)
-        {
-            IEnumerable<CampaniaModel> lst = _zonificacionProvider.GetCampanias(PaisID);
-            return Json(new
-            {
-                lista = lst,
-            }, JsonRequestBehavior.AllowGet);
-        }
+        //movido a BaseAdm/ObtenerCampaniasPorPais
+        //public JsonResult ObtenterCampaniasPorPais(int PaisID)
+        //{
+        //    IEnumerable<CampaniaModel> lst = _zonificacionProvider.GetCampanias(PaisID);
+        //    return Json(new
+        //    {
+        //        lista = lst,
+        //    }, JsonRequestBehavior.AllowGet);
+        //}
 
         public ActionResult ConsultarConfiguracionCrossSelling(string sidx, string sord, int page, int rows, int PaisID, int CampaniaID)
         {

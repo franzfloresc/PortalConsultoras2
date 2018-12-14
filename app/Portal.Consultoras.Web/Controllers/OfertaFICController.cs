@@ -29,11 +29,12 @@ namespace Portal.Consultoras.Web.Controllers
             return View(oCuvBeneficioModel);
         }
 
-        public JsonResult ObtenterCampaniasPorPais(int PaisID)
-        {
-            var listCampania = PaisID == 0 ? null : _zonificacionProvider.GetCampanias(PaisID);
-            return Json(new { lista = listCampania }, JsonRequestBehavior.AllowGet);
-        }
+        //movido a BaseAdm/ObtenerCampaniasPorPais
+        //public JsonResult ObtenterCampaniasPorPais(int PaisID)
+        //{
+        //    var listCampania = PaisID == 0 ? null : _zonificacionProvider.GetCampanias(PaisID);
+        //    return Json(new { lista = listCampania }, JsonRequestBehavior.AllowGet);
+        //}
 
         public JsonResult FindByCUVs(int campaniaID, int paisID, string codigo, int rowCount)
         {

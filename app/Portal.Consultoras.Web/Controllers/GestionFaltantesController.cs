@@ -489,16 +489,16 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public JsonResult ObtenterCampaniasPorPais(int PaisID)
-        {
-            PaisID = PaisID == 0 ? userData.PaisID : PaisID;
-            IEnumerable<CampaniaModel> lista = _zonificacionProvider.GetCampanias(PaisID, true);
-
-            return Json(new
-            {
-                lista = lista
-            }, JsonRequestBehavior.AllowGet);
-        }
+        //movido a BaseAdm/ObtenerCampaniasPorPaisOUsuario
+        //public JsonResult ObtenterCampaniasPorPais(int PaisID)
+        //{
+        //    PaisID = PaisID == 0 ? userData.PaisID : PaisID;
+        //    IEnumerable<CampaniaModel> lista = _zonificacionProvider.GetCampanias(PaisID, true);
+        //    return Json(new
+        //    {
+        //        lista = lista
+        //    }, JsonRequestBehavior.AllowGet);
+        //}
 
         public ActionResult DescargaModelo()
         {

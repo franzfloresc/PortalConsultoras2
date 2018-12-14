@@ -39,21 +39,22 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public JsonResult ObtenterCampaniasPorPais(int PaisID)
-        {
-            if (PaisID == 0)
-            {
-                return Json(new
-                {
-                    lista = (IEnumerable<CampaniaModel>)null
-                }, JsonRequestBehavior.AllowGet);
-            }
-            var lst = _zonificacionProvider.GetCampanias(PaisID);
-            return Json(new
-            {
-                lista = lst
-            }, JsonRequestBehavior.AllowGet);
-        }
+        //movido a BaseAdm/ObtenerCampaniasPorPais
+        //public JsonResult ObtenterCampaniasPorPais(int PaisID)
+        //{
+        //    if (PaisID == 0)
+        //    {
+        //        return Json(new
+        //        {
+        //            lista = (IEnumerable<CampaniaModel>)null
+        //        }, JsonRequestBehavior.AllowGet);
+        //    }
+        //    var lst = _zonificacionProvider.GetCampanias(PaisID);
+        //    return Json(new
+        //    {
+        //        lista = lst
+        //    }, JsonRequestBehavior.AllowGet);
+        //}
 
         public JsonResult FindByCUVs(int campaniaID, int paisID, string codigo, int rowCount)
         {

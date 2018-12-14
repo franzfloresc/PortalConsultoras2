@@ -24,6 +24,25 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return _zonificacionProvider.GetPaises(userData.PaisID, rolId);
         }
+        
+        public JsonResult ObtenerCampaniasPorPais(int PaisID)
+        {
+            IEnumerable<CampaniaModel> lst = _zonificacionProvider.GetCampanias(PaisID);
+            return Json(new
+            {
+                lista = lst,
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult ObtenerCampaniasPorPaisOUsuario(int PaisID)
+        {
+            PaisID = PaisID == 0 ? userData.PaisID : PaisID;
+            IEnumerable<CampaniaModel> lst = _zonificacionProvider.GetCampanias(PaisID);
+            return Json(new
+            {
+                lista = lst,
+            }, JsonRequestBehavior.AllowGet);
+        }
 
         public JsonResult ObtenterCampaniasPorUsuario()
         {
