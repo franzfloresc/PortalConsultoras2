@@ -60,24 +60,23 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Comprar()
         {
-            string sap = "";
-            var url = (Request.Url.Query).Split('?');
-
-            if (EsDispositivoMovil())
-            {
-                if (url.Length > 1)
-                {
-                    sap = "&" + url[1];
-                    return RedirectToAction("Comprar", "RevistaDigital", new { area = "Mobile", sap });
-                }
-                else
-                {
-                    return RedirectToAction("Comprar", "RevistaDigital", new { area = "Mobile" });
-                }
-            }
 
             try
             {
+                if (EsDispositivoMovil())
+                {
+                    var url = (Request.Url.Query).Split('?');
+                    if (url.Length > 1)
+                    {
+                        string sap = "&" + url[1];
+                        return RedirectToAction("Comprar", "RevistaDigital", new { area = "Mobile", sap });
+                    }
+                    else
+                    {
+                        return RedirectToAction("Comprar", "RevistaDigital", new { area = "Mobile" });
+                    }
+                }
+
                 ViewBag.variableEstrategia = GetVariableEstrategia();
                 return RDViewLanding(1);
             }
@@ -161,6 +160,10 @@ namespace Portal.Consultoras.Web.Controllers
                         message = mensaje
                     }, JsonRequestBehavior.AllowGet);
                 }
+
+                //Guardado en log DynamoDB, sólo si se realizó correctamente la suscripción (Consulta)
+                if (revistaDigital.EstadoSuscripcion == 1)
+                    ActualizarDatosLogDynamoDB(null, "REVISTA DIGITAL|SUSCRIPCION", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Consulta", userData.CodigoConsultora, "Suscripcion");
 
                 return Json(new
                 {
@@ -325,9 +328,8 @@ namespace Portal.Consultoras.Web.Controllers
                     FondoColorMarco = _revistaDigitalProvider.GetValorDato(Constantes.ConfiguracionPaisDatos.RD.PopupFondoColorMarco, esMobile)
                 };
 
-                var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                modelo.ImagenEtiqueta = ConfigCdn.GetUrlFileCdn(carpetaPais, modelo.ImagenEtiqueta);
-                modelo.ImagenPublicidad = ConfigCdn.GetUrlFileCdn(carpetaPais, modelo.ImagenPublicidad);
+                modelo.ImagenEtiqueta = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, modelo.ImagenEtiqueta);
+                modelo.ImagenPublicidad = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, modelo.ImagenPublicidad);
 
                 var transparent = "transparent";
                 modelo.MensajeColor = Util.ColorFormato(modelo.MensajeColor, transparent);
@@ -415,6 +417,7 @@ namespace Portal.Consultoras.Web.Controllers
             usuario.PaisID = userData.PaisID;
             usuario.PrimerNombre = userData.PrimerNombre;
             usuario.CodigoISO = userData.CodigoISO;
+            usuario.CodigoUsuario = userData.CodigoUsuario;
 
             var resultado = string.Empty;
             using (ServiceUsuario.UsuarioServiceClient svr = new ServiceUsuario.UsuarioServiceClient())
@@ -425,6 +428,17 @@ namespace Portal.Consultoras.Web.Controllers
             resultado = Util.Trim(resultado);
             if (resultado.Split('|')[0] != "0")
             {
+                //Guardado en log DynamoDB (Modificacion)
+                var model = new MisDatosModel
+                {
+                    EMail = usuario.EMail,
+                    Celular = usuario.Celular,
+                    Sobrenombre = userData.Sobrenombre,
+                    Telefono = userData.Telefono,
+                    TelefonoTrabajo = userData.TelefonoTrabajo
+                };
+                ActualizarDatosLogDynamoDB(model, "REVISTA DIGITAL|SUSCRIPCION", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Modificacion");
+
                 var userDataX = userData;
                 if (usuario.EMail != correoAnterior)
                 {

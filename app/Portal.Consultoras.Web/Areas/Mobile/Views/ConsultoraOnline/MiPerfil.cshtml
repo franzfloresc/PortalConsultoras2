@@ -1,6 +1,6 @@
-﻿@using Portal.Consultoras.Web.Helpers
+﻿
 @model Portal.Consultoras.Web.Models.ClienteContactaConsultoraModel
-
+@using Portal.Consultoras.Web.CustomHelpers
 @{
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
 }
@@ -17,7 +17,7 @@
     <div class="col-xs-12">
         <ol class="breadcrumb-next upper">
             <li>
-                @{  var mobileConfiguracion = Html.MobileAppConfiguracion();
+                @{ var mobileConfiguracion = Html.MobileAppConfiguracion();
                     if (mobileConfiguracion.MostrarBotonAtras)
                     {
                         <a href="@Request.UrlReferrer"><i class="icon-angle-left"></i> Volver </a>

@@ -1,7 +1,7 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Controllers;
 using Portal.Consultoras.Web.CustomFilters;
-using Portal.Consultoras.Web.Helpers;
+using Portal.Consultoras.Web.CustomHelpers;
 using Portal.Consultoras.Web.Infraestructure;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
@@ -245,7 +245,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             if (SessionManager.GetBannerApp() == null)
             {
-                var lstComunicados = _comunicadoProvider.ObtenerComunicadoPorConsultora(userData);
+                var lstComunicados = _comunicadoProvider.ObtenerComunicadoPorConsultora(userData, EsDispositivoMovil());
                 SessionManager.SetBannerApp(lstComunicados.FirstOrDefault(x => x.Descripcion == Constantes.Comunicado.AppConsultora));
             }
 

@@ -1,107 +1,106 @@
-﻿@using Portal.Consultoras.Web.Helpers
+﻿
 @using Portal.Consultoras.Web.Areas.Mobile.Models
-
+@using Portal.Consultoras.Web.CustomHelpers
 @using System.Collections.Generic
 
 @model List<MisPedidosCampaniaModel>
 
-@{
-	var layout = ViewContext.MobileLayout();
-	Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
-	MobileAppConfiguracionModel mobileConfiguracion = Html.MobileAppConfiguracion();
-}
-<style>
-	body {
-		background: #f8f8f8;
-		margin-bottom: 65px
-	}
-</style>
+    @{
+        var layout = ViewContext.MobileLayout();
+        Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
+        MobileAppConfiguracionModel mobileConfiguracion = Html.MobileAppConfiguracion();
+    }
+    <style>
+        body {
+            background: #f8f8f8;
+            margin-bottom: 65px
+        }
+    </style>
 
-@{
-	if (!mobileConfiguracion.EsAppMobile)
-	{
-		<div class="titulo_mobile">
-			<a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
-			MIS PEDIDOS
-		</div>
-		<div class="pestana_esika"></div>
-		<div class="pestana_lbel"></div>
-	}
-	if (Model.Count == 0)
-	{
-		<div class="col-xs-12">
-			<div class="icono_alerta exclamacion_icono_mobile"></div>
-			<div class="mensaje_alerta">Hasta el momento no tienes ningún pedido.</div>
-		</div>
-	}
-	else
-	{
-		<div data-layout-menu2="" class="slick-slider-fixed-mobile">
-			<div class="bc_para_ti-menu-opciones">
-				<ul class="subnavegador" style="width: 100%; height: 45px; background: #fff;">
-					@{
-						foreach (var pedidoCampania in Model)
-						{
-							var clase = pedidoCampania.EsCampaniaMarcarda ? "slick - slide slick - current slick - active" : "slick-slide";
-							<li data-activo="1" class="@clase">
-								<div class="contenedorMenu @(pedidoCampania.EsCampaniaMarcarda ? "active": string.Empty )" data-campania="@pedidoCampania.CampaniaID">
-									@pedidoCampania.NumeroCampania   @pedidoCampania.DescripcionEstadoPedido
-								</div>
-							</li>
-						}
-					}
-				</ul>
-			</div>
-		</div>
+    @{
+        if (!mobileConfiguracion.EsAppMobile)
+        {
+            <div class="titulo_mobile">
+                <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+                MIS PEDIDOS
+            </div>
+            <div class="pestana_esika"></div>
+            <div class="pestana_lbel"></div>
+        }
+        if (Model.Count == 0)
+        {
+            <div class="col-xs-12">
+                <div class="icono_alerta exclamacion_icono_mobile"></div>
+                <div class="mensaje_alerta">Hasta el momento no tienes ningún pedido.</div>
+            </div>
+        }
+        else
+        {
+            <div data-layout-menu2="" class="slick-slider-fixed-mobile">
+                <div class="bc_para_ti-menu-opciones">
+                    <ul class="subnavegador" style="width: 100%; height: 45px; background: #fff;">
+                        @{
+                            foreach (var pedidoCampania in Model)
+                            {
+                                var clase = pedidoCampania.EsCampaniaMarcarda ? "slick - slide slick - current slick - active" : "slick-slide";
+                                <li data-activo="1" class="@clase">
+                                    <div class="contenedorMenu @(pedidoCampania.EsCampaniaMarcarda ? "active": string.Empty )" data-campania="@pedidoCampania.CampaniaID">
+                                        @pedidoCampania.NumeroCampania   @pedidoCampania.DescripcionEstadoPedido
+                                    </div>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
 
 
-		<div class="app-tabs-detail">
-			@{
-				foreach (var pedidoCampania in Model)
-				{
-					<div id="ContenedorPedido_@pedidoCampania.CampaniaID" style="@(pedidoCampania.EsCampaniaMarcarda ? string.Empty : "display:none")">
-						@(pedidoCampania.EsCampaniaActual ? Html.Action("IngresadoDetalle") : Html.Action("FacturadoDetalle", new { campaniaID = pedidoCampania.CampaniaID }))
-					</div>
-				}
-			}
-		</div>
-	}
-}
+            <div class="app-tabs-detail">
+                @{
+                    foreach (var pedidoCampania in Model)
+                    {
+                        <div id="ContenedorPedido_@pedidoCampania.CampaniaID" style="@(pedidoCampania.EsCampaniaMarcarda ? string.Empty : "display:none")">
+                            @(pedidoCampania.EsCampaniaActual ? Html.Action("IngresadoDetalle") : Html.Action("FacturadoDetalle", new { campaniaID = pedidoCampania.CampaniaID }))
+                        </div>
+                    }
+                }
+            </div>
+        }
+    }
 
-@section scripts{
-	<script type="text/javascript">
-		$(document).ready(function () {
+    @section scripts{
+        <script type="text/javascript">
+            $(document).ready(function () {
 
-			setTimeout(function() {
-				var posicionMenu = $(".contenedorMenu.active").parent("li").attr("data-slick-index");
-				$("[data-layout-menu2] ul").slick("slickGoTo", parseInt(posicionMenu));
-			}
-			, 1000);
-			
-			var CampaniaCarga = $('.contenedorMenu.active').attr("data-campania");
-			$(".app-tabs-detail").children().css("display", "none");
-			$("#ContenedorPedido_" + CampaniaCarga).css("display", "");
+                setTimeout(function () {
+                    var posicionMenu = $(".contenedorMenu.active").parent("li").attr("data-slick-index");
+                    $("[data-layout-menu2] ul").slick("slickGoTo", parseInt(posicionMenu));
+                }
+                    , 1000);
 
-			
+                var CampaniaCarga = $('.contenedorMenu.active').attr("data-campania");
+                $(".app-tabs-detail").children().css("display", "none");
+                $("#ContenedorPedido_" + CampaniaCarga).css("display", "");
 
-			$(".bc_para_ti-menu-opciones ul li").click(function () {
-				$('.contenedorMenu').removeClass("active");
-				$(".contenedorMenu", this).addClass("active");
 
-				var campaniaSeleccionada = $('.contenedorMenu',this).attr("data-campania");
-				$(".app-tabs-detail").children().css("display", "none");
-				$("#ContenedorPedido_" + campaniaSeleccionada).css("display", "");
-			});
 
-			$(".panel-heading").click(function (e) {
-				var className = $(this).parent().attr("class");
+                $(".bc_para_ti-menu-opciones ul li").click(function () {
+                    $('.contenedorMenu').removeClass("active");
+                    $(".contenedorMenu", this).addClass("active");
 
-				if (className.indexOf("active") > -1) $(this).parent().removeClass("active");
-				else $(this).parent().addClass("active");
+                    var campaniaSeleccionada = $('.contenedorMenu', this).attr("data-campania");
+                    $(".app-tabs-detail").children().css("display", "none");
+                    $("#ContenedorPedido_" + campaniaSeleccionada).css("display", "");
+                });
 
-				$(this).find(".sections-arrow img").toggleClass("app-panels-flip");
-			});
-		});
-	</script>
-}
-	 
+                $(".panel-heading").click(function (e) {
+                    var className = $(this).parent().attr("class");
+
+                    if (className.indexOf("active") > -1) $(this).parent().removeClass("active");
+                    else $(this).parent().addClass("active");
+
+                    $(this).find(".sections-arrow img").toggleClass("app-panels-flip");
+                });
+            });
+        </script>
+    }

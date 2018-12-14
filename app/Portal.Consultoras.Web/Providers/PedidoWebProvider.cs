@@ -122,12 +122,13 @@ namespace Portal.Consultoras.Web.Providers
         {
             var detallesPedidoWeb = (List<BEPedidoWebDetalle>)null;
             var userData = sessionManager.GetUserData();
-            var pedidoValidado = sessionManager.GetPedidoValidado();
-            var revistaDigital = sessionManager.GetRevistaDigital();
-            var suscripcionActiva = (revistaDigital.EsSuscrita && revistaDigital.EsActiva);
 
             try
             {
+                var pedidoValidado = sessionManager.GetPedidoValidado();
+                var revistaDigital = sessionManager.GetRevistaDigital();
+                var suscripcionActiva = (revistaDigital.EsSuscrita && revistaDigital.EsActiva);
+
                 detallesPedidoWeb = sessionManager.GetDetallesPedidoSetAgrupado();
 
                 if (detallesPedidoWeb == null || noSession)
@@ -154,9 +155,10 @@ namespace Portal.Consultoras.Web.Providers
                 foreach (var item in detallesPedidoWeb)
                 {
                     item.ClienteID = string.IsNullOrEmpty(item.Nombre) ? (short)0 : Convert.ToInt16(item.ClienteID);
-                    item.Nombre = string.IsNullOrEmpty(item.Nombre) ? userData.NombreConsultora : item.Nombre;
+                    item.Nombre = string.IsNullOrEmpty(item.Nombre) ? "Para mí" : item.Nombre;
                     item.DescripcionOferta = ObtenerDescripcionOferta(item, pedidoValidado, suscripcionActiva, userData.NuevasDescripcionesBuscador);
                 }
+
                 var observacionesProl = sessionManager.GetObservacionesProl();
                 if (observacionesProl != null && detallesPedidoWeb.Count > 0)
                 {

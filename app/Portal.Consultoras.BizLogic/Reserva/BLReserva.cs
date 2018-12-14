@@ -407,7 +407,8 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 daPedidoWeb.UpdateMontosPedidoWeb(pedidoWeb);
                 if (resultado.Reserva)
                 {
-                    if (listDetalleObservacion.Any()) daPedidoWebDetalle.UpdListPedidoWebDetalleObsPROL(listDetalleObservacion);
+                    daPedidoWebDetalle.CleanObsPROLByPedido(input.CampaniaID, input.PedidoID);
+                    if (listDetalleObservacion.Any()) daPedidoWebDetalle.UpdListObsPROL(listDetalleObservacion);
                     daPedidoWeb.UpdPedidoWebReserva(pedidoWeb, gananciaEstimada);
                 }
                 else if (input.ValidacionAbierta && resultado.ResultadoReservaEnum == Enumeradores.ResultadoReserva.NoReservadoMontoMinimo)
@@ -528,7 +529,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
             if (!resultado.Reserva || input.Email.IsNullOrEmptyTrim()) return false;
             try
             {
-                var lstLogicaDatos = new BLTablaLogicaDatos().GetTablaLogicaDatos(input.PaisID, 54).ToList();
+                var lstLogicaDatos = new BLTablaLogicaDatos().GetList(input.PaisID, 54).ToList();
                 bool activoEnvioMail = Int32.Parse(lstLogicaDatos.First().Codigo.Trim()) > 0;
                 if (!activoEnvioMail) return false;
             }

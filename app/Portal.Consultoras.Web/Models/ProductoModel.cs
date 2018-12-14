@@ -76,6 +76,8 @@ namespace Portal.Consultoras.Web.Models
         public string Volumen { get; set; }
         public int EstrategiaID { get; set; }
         public bool EsCuponNuevas { get; set; }
+        public int CodigoCatalago { get; set; }
+        public int EstrategiaIDSicc { get; set; }
         public object Clone()
         {
             return this.MemberwiseClone();

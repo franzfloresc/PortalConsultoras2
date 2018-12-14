@@ -18,5 +18,7 @@ namespace Portal.Consultoras.Entities
         public string Code { get; set; }
         [DataMember]
         public string Message { get; set; }
+        [DataMember]
+        public object Data { get; set; }
     }
 }

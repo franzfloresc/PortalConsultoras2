@@ -293,13 +293,17 @@
         width: 276px;
         height: 45px;
         border: solid 1px #b5b5b5;
-        color: #888;
         padding-left: 15px;
         margin-bottom: 28px;
         -webkit-appearance: none;
     }
 
+    .formulario_inscripcion_cdr input[type='text']{
+        color:#808080;
+    }
+
     .formulario_inscripcion_cdr select {
+        color:#000;
         background: url('/Content/Images/mobile/dropdown-arrow.png');
         background-repeat: no-repeat;
         background-position: 95.5% center;
@@ -1198,3 +1202,111 @@
 .abrir_detallemb {
     cursor: pointer;
 }
+
+/* POPUP BUSCAR PRODUCTO CDR */
+
+.buscar_producto_cdr_popup{
+    position:fixed;
+    top:0;
+    left:0;
+    background-color:#FFF;
+    height:100%;
+    z-index:2000;
+    overflow:auto;
+}
+
+.buscar_producto_cdr_cabecera_popup{
+    background-color: #000;
+    color: #FFF;
+    height: 60px;
+}
+
+.buscar_producto_cdr_titulo_popup{
+    height:100%;
+    position:relative;
+}
+
+.buscar_producto_cdr_titulo_popup h2{
+    font-family:'Lato', sans-serif;
+    margin: 0;
+    height: 100%;
+    line-height: 58px;
+    font-weight:700;
+    font-size:15px;
+    letter-spacing:0.5px;
+}
+
+.enlace_cerrar_popup_buscar_producto_cdr{
+    display: block;
+    position: absolute;
+    margin: auto 0;
+    width: 18px;
+    height: 21px;
+    top: -2px;
+    bottom: 0;
+    right: 21px;
+}
+
+.enlace_cerrar_popup_buscar_producto_cdr img{
+    width:100%;
+    height:auto;
+}
+
+.buscar_producto_cdr_contenido_popup{
+    padding:40px 37px;
+}
+
+.campo_busqueda_codigo_o_descripcion_producto
+{
+    width:100%;
+    border: 1px solid #808080;
+    border-radius: 4px;
+    padding: 6px 10px 10px 19px;
+    font-family: 'Lato', sans-serif;
+    font-size:15px;
+    color:#000;
+    height:47px;
+    background-color:#FFF;
+    background-image:url(../../../Images/icono_lupa_gris.svg);
+    background-repeat:no-repeat;
+    background-position:95% center;
+}
+
+.lista_coincidencias_busqueda_productos{
+    margin-top: 34px;
+    list-style-type: none;
+    height: 331px;
+    padding-right: 10px;
+    overflow: auto;
+}
+
+.coincidencia_busqueda_producto{
+    min-height:66px;
+    padding-top:21px;
+    padding-bottom:22px;
+    border-bottom:1px solid #D8D8D8;
+    color:#000;
+}
+
+.coincidencia_busqueda_producto:last-child{
+    border-bottom:0;
+}
+
+.coincidencia_busqueda_producto_inactivo{
+    color:#808080;
+}
+
+.coincidencia_busqueda_producto div{
+    display:inline-block;
+    vertical-align:middle;
+}
+
+.coincidencia_busqueda_producto div:first-child{
+    width:26%;
+}
+
+.coincidencia_busqueda_producto div:last-child{
+    width:72%;
+}
+
+/* FIN - POUP BUSCAR PRODUCTO CDR */

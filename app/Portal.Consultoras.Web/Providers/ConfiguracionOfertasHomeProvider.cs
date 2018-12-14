@@ -13,11 +13,17 @@ namespace Portal.Consultoras.Web.Providers
     public class ConfiguracionOfertasHomeProvider
     {
         public virtual ISessionManager SessionManager { get; private set; }
+
         public virtual ILogManager LogManager { get; private set; }
+
         public virtual ConfiguracionPaisProvider ConfiguracionPais { get; private set; }
+
         public virtual GuiaNegocioProvider GuiaNegocio { get; private set; }
+
         public virtual ShowRoomProvider ShowRoom { get; private set; }
+
         public virtual OfertaPersonalizadaProvider OfertaPersonalizada { get; private set; }
+
         public virtual ProgramaNuevasProvider ProgramaNuevas { get; private set; }
 
         private UsuarioModel userData
@@ -37,17 +43,19 @@ namespace Portal.Consultoras.Web.Providers
         }
 
         public ConfiguracionOfertasHomeProvider()
-            : this(Web.SessionManager.SessionManager.Instance,
-                    Web.LogManager.LogManager.Instance,
-                   new ConfiguracionPaisProvider(),
-                   new GuiaNegocioProvider(),
-                   new ShowRoomProvider(),
-                   new OfertaPersonalizadaProvider(),
-                   new ProgramaNuevasProvider(Web.SessionManager.SessionManager.Instance))
+            : this(
+                Web.SessionManager.SessionManager.Instance,
+                Web.LogManager.LogManager.Instance,
+                new ConfiguracionPaisProvider(),
+                new GuiaNegocioProvider(),
+                new ShowRoomProvider(),
+                new OfertaPersonalizadaProvider(),
+                new ProgramaNuevasProvider(Web.SessionManager.SessionManager.Instance))
         {
         }
 
-        public ConfiguracionOfertasHomeProvider(ISessionManager sessionManager,
+        public ConfiguracionOfertasHomeProvider(
+            ISessionManager sessionManager,
             ILogManager logManager,
             ConfiguracionPaisProvider configuracionPais,
             GuiaNegocioProvider guiaNegocio,
@@ -64,7 +72,9 @@ namespace Portal.Consultoras.Web.Providers
             ProgramaNuevas = programaNuevasProvider;
         }
 
-        public virtual List<ConfiguracionSeccionHomeModel> ObtenerConfiguracionSeccion(RevistaDigitalModel revistaDigital, bool esMobile)
+        public virtual List<ConfiguracionSeccionHomeModel> ObtenerConfiguracionSeccion(
+            RevistaDigitalModel revistaDigital,
+            bool esMobile)
         {
             var seccionesContenedorModel = new List<ConfiguracionSeccionHomeModel>();
 
@@ -108,33 +118,57 @@ namespace Portal.Consultoras.Web.Providers
                     {
                         if (!revistaDigital.TieneRevistaDigital()) continue;
 
-                        if (menuActivo.CampaniaId != userData.CampaniaID) entConf.UrlSeccion = "Revisar/" + entConf.UrlSeccion;
+                        if (menuActivo.CampaniaId != userData.CampaniaID)
+                            entConf.UrlSeccion = "Revisar/" + entConf.UrlSeccion;
                     }
 
                     #endregion
 
-                    ConfiguracionPais.RemplazarTagNombreConfiguracionOferta(ref entConf, Constantes.TagCadenaRd.Nombre1, userData.Sobrenombre);
+                    ConfiguracionPais.RemplazarTagNombreConfiguracionOferta(
+                        ref entConf,
+                        Constantes.TagCadenaRd.Nombre1,
+                        userData.Sobrenombre);
 
                     var seccion = new ConfiguracionSeccionHomeModel
                     {
                         CampaniaID = menuActivo.CampaniaId,
                         Codigo = entConf.ConfiguracionPais.Codigo ?? entConf.ConfiguracionOfertasHomeID.ToString().PadLeft(5, '0'),
-                        Orden = revistaDigital.TieneRevistaDigital() ? isMobile ? entConf.MobileOrdenBpt : entConf.DesktopOrdenBpt : isMobile ? entConf.MobileOrden : entConf.DesktopOrden,
-                        ColorFondo = isMobile ? (entConf.MobileColorFondo ?? "") : (entConf.DesktopColorFondo ?? ""),
-                        UsarImagenFondo = isMobile ? entConf.MobileUsarImagenFondo : entConf.DesktopUsarImagenFondo,
-                        ImagenFondo = isMobile ? (entConf.MobileImagenFondo ?? "") : (entConf.DesktopImagenFondo ?? ""),
-                        ColorTexto = isMobile ? entConf.MobileColorTexto ?? "" : entConf.DesktopColorTexto ?? "",
-                        Titulo = isMobile ? entConf.MobileTitulo : entConf.DesktopTitulo,
-                        SubTitulo = isMobile ? entConf.MobileSubTitulo : entConf.DesktopSubTitulo,
-                        TipoPresentacion = isMobile ? entConf.MobileTipoPresentacion : entConf.DesktopTipoPresentacion,
-                        TipoEstrategia = isMobile ? entConf.MobileTipoEstrategia : entConf.DesktopTipoEstrategia,
-                        CantidadMostrar = isMobile ? entConf.MobileCantidadProductos : entConf.DesktopCantidadProductos,
+                        Orden = revistaDigital.TieneRevistaDigital()
+                            ? isMobile ? entConf.MobileOrdenBpt : entConf.DesktopOrdenBpt
+                            : isMobile ? entConf.MobileOrden : entConf.DesktopOrden,
+                        ColorFondo = isMobile
+                            ? (entConf.MobileColorFondo ?? "")
+                            : (entConf.DesktopColorFondo ?? ""),
+                        UsarImagenFondo = isMobile 
+                            ? entConf.MobileUsarImagenFondo 
+                            : entConf.DesktopUsarImagenFondo,
+                        ImagenFondo = isMobile
+                            ? (entConf.MobileImagenFondo ?? "")
+                            : (entConf.DesktopImagenFondo ?? ""),
+                        ColorTexto = isMobile
+                            ? entConf.MobileColorTexto ?? ""
+                            : entConf.DesktopColorTexto ?? "",
+                        Titulo = isMobile 
+                            ? entConf.MobileTitulo
+                            : entConf.DesktopTitulo,
+                        SubTitulo = isMobile 
+                            ? entConf.MobileSubTitulo
+                            : entConf.DesktopSubTitulo,
+                        TipoPresentacion = isMobile
+                            ? entConf.MobileTipoPresentacion
+                            : entConf.DesktopTipoPresentacion,
+                        TipoEstrategia = isMobile
+                            ? entConf.MobileTipoEstrategia
+                            : entConf.DesktopTipoEstrategia,
+                        CantidadMostrar = isMobile
+                            ? entConf.MobileCantidadProductos
+                            : entConf.DesktopCantidadProductos,
                         UrlLandig = "/" + (isMobile ? "Mobile/" : "") + entConf.UrlSeccion,
                         VerMas = true
                     };
 
                     seccion.TituloBtnAnalytics = seccion.Titulo.Replace("'", "");
-                    seccion.ImagenFondo = ConfigCdn.GetUrlFileCdn(Globals.UrlMatriz + "/" + userData.CodigoISO, seccion.ImagenFondo);
+                    seccion.ImagenFondo = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, seccion.ImagenFondo);
 
                     #region ConfiguracionPais.Codigo
 
@@ -151,7 +185,11 @@ namespace Portal.Consultoras.Web.Providers
                         case Constantes.ConfiguracionPais.ProgramaNuevas:
                             if (esElecMultiple) continue;
 
-                            listProgNuevas = listProgNuevas ?? OfertaPersonalizada.ConsultarEstrategiasPorTipo(esMobile, Constantes.TipoEstrategiaCodigo.PackNuevas, userData.CampaniaID, false);
+                            listProgNuevas = listProgNuevas ?? OfertaPersonalizada.ConsultarEstrategiasPorTipo(
+                                                 esMobile,
+                                                 Constantes.TipoEstrategiaCodigo.PackNuevas,
+                                                 userData.CampaniaID,
+                                                 false);
                             if (!listProgNuevas.Any()) continue;
 
                             seccion.UrlObtenerProductos = "";
@@ -159,52 +197,79 @@ namespace Portal.Consultoras.Web.Providers
                         case Constantes.ConfiguracionPais.ElecMultiple:
                             if (!esElecMultiple) continue;
 
-                            listProgNuevas = listProgNuevas ?? OfertaPersonalizada.ConsultarEstrategiasPorTipo(esMobile, Constantes.TipoEstrategiaCodigo.PackNuevas, userData.CampaniaID, false);
+                            listProgNuevas = listProgNuevas ?? OfertaPersonalizada.ConsultarEstrategiasPorTipo(
+                                                 esMobile,
+                                                 Constantes.TipoEstrategiaCodigo.PackNuevas,
+                                                 userData.CampaniaID,
+                                                 false);
                             if (!listProgNuevas.Any()) continue;
 
                             seccion.UrlObtenerProductos = "";
                             break;
                         case Constantes.ConfiguracionPais.OfertasParaTi:
                             seccion.UrlObtenerProductos = "Estrategia/OPTObtenerProductos";
-                            seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.MobileContenedorOfertasParaTiCarrusel : Constantes.OrigenPedidoWeb.DesktopContenedorOfertasParaTiCarrusel;
-                            seccion.OrigenPedidoPopup = isMobile ? Constantes.OrigenPedidoWeb.MobileContenedorOfertasParaTiFicha : Constantes.OrigenPedidoWeb.DesktopContenedorOfertasParaTiFicha;
+                            seccion.OrigenPedido =
+                                isMobile
+                                    ? Constantes.OrigenPedidoWeb.MobileContenedorOfertasParaTiCarrusel
+                                    : Constantes.OrigenPedidoWeb.DesktopContenedorOfertasParaTiCarrusel;
+                            seccion.OrigenPedidoPopup =
+                                isMobile
+                                    ? Constantes.OrigenPedidoWeb.MobileContenedorOfertasParaTiFicha
+                                    : Constantes.OrigenPedidoWeb.DesktopContenedorOfertasParaTiFicha;
                             seccion.VerMas = false;
                             break;
                         case Constantes.ConfiguracionPais.Lanzamiento:
                             seccion.UrlObtenerProductos = "Estrategia/LANObtenerProductos";
-                            seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.MobileContenedorLanzamientosCarrusel : Constantes.OrigenPedidoWeb.DesktopContenedorLanzamientosCarrusel;
-                            seccion.OrigenPedidoPopup = isMobile ? Constantes.OrigenPedidoWeb.MobileContenedorLanzamientosFicha : Constantes.OrigenPedidoWeb.DesktopContenedorLanzamientosFicha;
+                            seccion.OrigenPedido =
+                                isMobile
+                                    ? Constantes.OrigenPedidoWeb.MobileContenedorLanzamientosCarrusel
+                                    : Constantes.OrigenPedidoWeb.DesktopContenedorLanzamientosCarrusel;
+                            seccion.OrigenPedidoPopup =
+                                isMobile
+                                    ? Constantes.OrigenPedidoWeb.MobileContenedorLanzamientosFicha
+                                    : Constantes.OrigenPedidoWeb.DesktopContenedorLanzamientosFicha;
                             seccion.VerMas = false;
                             break;
                         case Constantes.ConfiguracionPais.RevistaDigitalReducida:
                         case Constantes.ConfiguracionPais.RevistaDigital:
-                            seccion.UrlLandig = (isMobile ? "/Mobile/" : "/") + (menuActivo.CampaniaId > userData.CampaniaID ? "RevistaDigital/Revisar" : "RevistaDigital/Comprar");
+                            seccion.UrlLandig = (isMobile ? "/Mobile/" : "/")
+                                                + (menuActivo.CampaniaId > userData.CampaniaID
+                                                       ? "RevistaDigital/Revisar"
+                                                       : "RevistaDigital/Comprar");
                             seccion.UrlObtenerProductos = "Estrategia/RDObtenerProductos";
-                            seccion.OrigenPedido = isMobile ? 0 : Constantes.OrigenPedidoWeb.DesktopContenedorOfertasParaTiCarrusel;
-                            seccion.OrigenPedidoPopup = isMobile ? 0 : Constantes.OrigenPedidoWeb.DesktopContenedorOfertasParaTiFicha;
+                            seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.MobileContenedorOfertasParaTiCarrusel : Constantes.OrigenPedidoWeb.DesktopContenedorOfertasParaTiCarrusel;
+                            seccion.OrigenPedidoPopup = isMobile ? Constantes.OrigenPedidoWeb.MobileContenedorOfertasParaTiFicha : Constantes.OrigenPedidoWeb.DesktopContenedorOfertasParaTiFicha;
+                            seccion.VerMas = SessionManager.GetRevistaDigital().TieneLanding;
+
                             break;
                         case Constantes.ConfiguracionPais.ShowRoom:
-                            ConfiguracionSeccionShowRoom(ref seccion, isMobile);
+                            seccion = ConfiguracionSeccionShowRoom(seccion, isMobile);
                             if (seccion.UrlLandig == "")
                                 continue;
 
-                            seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.MobileContenedorShowroomCarrusel : Constantes.OrigenPedidoWeb.DesktopContenedorShowroomCarrusel;
                             break;
                         case Constantes.ConfiguracionPais.OfertaDelDia:
                             var estrategiaODD = SessionManager.OfertaDelDia.Estrategia;
                             if (!estrategiaODD.TieneOfertaDelDia)
                                 continue;
-                            seccion.OrigenPedido = isMobile ? 0 : Constantes.OrigenPedidoWeb.DesktopContenedorOfertaDelDiaCarrusel;
-                            seccion.OrigenPedidoPopup = isMobile ? 0 : Constantes.OrigenPedidoWeb.DesktopContenedorOfertaDelDiaFicha;
+                            seccion.OrigenPedido =
+                                isMobile ? 0 : Constantes.OrigenPedidoWeb.DesktopContenedorOfertaDelDiaCarrusel;
+                            seccion.OrigenPedidoPopup =
+                                isMobile ? 0 : Constantes.OrigenPedidoWeb.DesktopContenedorOfertaDelDiaFicha;
 
                             SessionManager.OfertaDelDia.Estrategia.ConfiguracionContenedor = seccion;
 
                             break;
                         case Constantes.ConfiguracionPais.HerramientasVenta:
                             seccion.UrlObtenerProductos = "Estrategia/HVObtenerProductos";
-                            seccion.UrlLandig = (isMobile ? "/Mobile/" : "/") + (menuActivo.CampaniaId > userData.CampaniaID ? "HerramientasVenta/Revisar" : "HerramientasVenta/Comprar");
-                            seccion.OrigenPedido = isMobile ? 0 : Constantes.OrigenPedidoWeb.DesktopContenedorHerramientasdeVentaCarrusel;
-                            seccion.OrigenPedidoPopup = isMobile ? 0 : Constantes.OrigenPedidoWeb.DesktopContenedorHerramientasdeVentaCarrusel;
+                            seccion.UrlLandig = (isMobile ? "/Mobile/" : "/")
+                                                + (menuActivo.CampaniaId > userData.CampaniaID
+                                                       ? "HerramientasVenta/Revisar"
+                                                       : "HerramientasVenta/Comprar");
+                            seccion.OrigenPedido =
+                                isMobile ? 0 : Constantes.OrigenPedidoWeb.DesktopContenedorHerramientasdeVentaCarrusel;
+                            seccion.OrigenPedidoPopup =
+                                isMobile ? 0 : Constantes.OrigenPedidoWeb.DesktopContenedorHerramientasdeVentaCarrusel;
                             break;
                         case Constantes.ConfiguracionPais.MasGanadoras:
                             if (!revistaDigital.EsActiva)
@@ -214,11 +279,18 @@ namespace Portal.Consultoras.Web.Providers
 
                             seccion.UrlObtenerProductos = "Estrategia/MGObtenerProductos";
                             seccion.UrlLandig = (isMobile ? "/Mobile/" : "/") + "MasGanadoras";
-                            seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.MobileContenedorGanadorasCarrusel : Constantes.OrigenPedidoWeb.DesktopContenedorGanadorasCarrusel;
-                            seccion.OrigenPedidoPopup = isMobile ? Constantes.OrigenPedidoWeb.MobileContenedorGanadorasFicha : Constantes.OrigenPedidoWeb.DesktopContenedorGanadorasFicha;
+                            seccion.OrigenPedido =
+                                isMobile
+                                    ? Constantes.OrigenPedidoWeb.MobileContenedorGanadorasCarrusel
+                                    : Constantes.OrigenPedidoWeb.DesktopContenedorGanadorasCarrusel;
+                            seccion.OrigenPedidoPopup =
+                                isMobile
+                                    ? Constantes.OrigenPedidoWeb.MobileContenedorGanadorasFicha
+                                    : Constantes.OrigenPedidoWeb.DesktopContenedorGanadorasFicha;
                             seccion.VerMas = SessionManager.MasGanadoras.GetModel().TieneLanding;
                             break;
                     }
+
                     #endregion
 
                     #region TipoPresentacion
@@ -234,7 +306,10 @@ namespace Portal.Consultoras.Web.Providers
                         case Constantes.ConfiguracionSeccion.TipoPresentacion.SimpleCentrado:
                             seccion.TemplatePresentacion = "seccion-simple-centrado";
                             seccion.TemplateProducto = "#producto-landing-template";
-                            seccion.CantidadMostrar = isMobile ? 1 : seccion.CantidadMostrar > 3 || seccion.CantidadMostrar <= 0 ? 3 : seccion.CantidadMostrar;
+                            seccion.CantidadMostrar =
+                                isMobile ? 1 :
+                                seccion.CantidadMostrar > 3 || seccion.CantidadMostrar <= 0 ? 3 :
+                                seccion.CantidadMostrar;
                             break;
                         case Constantes.ConfiguracionSeccion.TipoPresentacion.Banners:
                             seccion.TemplatePresentacion = "seccion-banner";
@@ -256,12 +331,15 @@ namespace Portal.Consultoras.Web.Providers
                             seccion.TemplateProducto = "#lanzamiento-carrusel-individual-template";
                             break;
                         case Constantes.ConfiguracionSeccion.TipoPresentacion.CarruselIndividualesV2:
-                            seccion.TemplatePresentacion = isMobile ? "seccion-carrusel-individuales-v2" : "seccion-simple-centrado";
-                            seccion.TemplateProducto = isMobile ? "#template-producto-v2" : "#producto-landing-template";
+                            seccion.TemplatePresentacion =
+                                isMobile ? "seccion-carrusel-individuales-v2" : "seccion-simple-centrado";
+                            seccion.TemplateProducto =
+                                isMobile ? "#template-producto-v2" : "#producto-landing-template";
                             break;
                     }
 
                     if (seccion.TemplatePresentacion == "") continue;
+
                     #endregion
 
                     seccionesContenedorModel.Add(seccion);
@@ -271,7 +349,11 @@ namespace Portal.Consultoras.Web.Providers
             }
             catch (Exception ex)
             {
-                LogManager.LogErrorWebServicesBusWrap(ex, userData.CodigoConsultora, userData.CodigoISO, "BaseController.ObtenerConfiguracionSeccion");
+                LogManager.LogErrorWebServicesBusWrap(
+                    ex,
+                    userData.CodigoConsultora,
+                    userData.CodigoISO,
+                    "BaseController.ObtenerConfiguracionSeccion");
             }
 
             return seccionesContenedorModel;
@@ -290,15 +372,17 @@ namespace Portal.Consultoras.Web.Providers
             return seccionesContenedor;
         }
 
-        private List<BEConfiguracionOfertasHome> GetSeccionesContenedorByCampania(List<BEConfiguracionOfertasHome> seccionesContenedor)
+        private List<BEConfiguracionOfertasHome> GetSeccionesContenedorByCampania(
+            List<BEConfiguracionOfertasHome> seccionesContenedor)
         {
             if (seccionesContenedor != null && menuActivo.CampaniaId > userData.CampaniaID)
             {
-                seccionesContenedor = seccionesContenedor.Where(entConf
-                => entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.RevistaDigital
-                || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.Lanzamiento
-                || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.InicioRD
-                || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.HerramientasVenta).ToList();
+                seccionesContenedor = seccionesContenedor.Where(
+                        entConf => entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.RevistaDigital
+                                   || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.Lanzamiento
+                                   || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.InicioRD
+                                   || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.HerramientasVenta)
+                    .ToList();
             }
 
             return seccionesContenedor;
@@ -333,63 +417,74 @@ namespace Portal.Consultoras.Web.Providers
             }
             catch (Exception ex)
             {
-                LogManager.LogErrorWebServicesBusWrap(ex, userData.CodigoConsultora, userData.CodigoISO, "OfertasController.Index");
+                LogManager.LogErrorWebServicesBusWrap(
+                    ex,
+                    userData.CodigoConsultora,
+                    userData.CodigoISO,
+                    "OfertasController.Index");
             }
 
             return configuracionesOfertasHomes;
         }
 
-        private void ConfiguracionSeccionShowRoom(ref ConfiguracionSeccionHomeModel seccion, bool esMobile)
+        private ConfiguracionSeccionHomeModel ConfiguracionSeccionShowRoom(ConfiguracionSeccionHomeModel seccion, bool esMobile)
         {
             seccion.UrlLandig = "";
 
-            if (!SessionManager.GetEsShowRoom())
-                return;
+            if (!ShowRoom.ValidarIngresoShowRoom(false))
+                return seccion;
 
-            if (SessionManager.GetMostrarShowRoomProductosExpiro())
-                return;
+            seccion.UrlObtenerProductos = "Estrategia/SRObtenerProductos";
+            seccion.OrigenPedido = esMobile ? Constantes.OrigenPedidoWeb.MobileContenedorShowroomCarrusel : Constantes.OrigenPedidoWeb.DesktopContenedorShowroomCarrusel;
+            seccion.OrigenPedidoPopup = esMobile ? Constantes.OrigenPedidoWeb.MobileContenedorShowroomFicha : Constantes.OrigenPedidoWeb.DesktopContenedorShowroomFicha;
+            seccion.VerMas = SessionManager.ShowRoom.TieneLanding;
+
+            var userData = SessionManager.GetUserData();
 
             if (!SessionManager.GetMostrarShowRoomProductos())
             {
-
                 seccion.UrlLandig = (esMobile ? "/Mobile/" : "/") + "ShowRoom/Intriga";
-                seccion.UrlObtenerProductos = "ShowRoom/GetDataShowRoomIntriga";
 
                 if (!esMobile)
                 {
-                    seccion.ImagenFondo =
-                        ShowRoom.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.ImagenFondoContenedorOfertasShowRoomIntriga,
-                                                            Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
+                    seccion.ImagenFondo = ShowRoom.ObtenerValorPersonalizacionShowRoom(
+                        Constantes.ShowRoomPersonalizacion.Desktop.ImagenFondoContenedorOfertasShowRoomIntriga,
+                        Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
                 }
                 else
                 {
-                    seccion.ImagenFondo =
-                        ShowRoom.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.ImagenBannerContenedorOfertasIntriga,
-                                                            Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
+                    seccion.ImagenFondo = ShowRoom.ObtenerValorPersonalizacionShowRoom(
+                        Constantes.ShowRoomPersonalizacion.Mobile.ImagenBannerContenedorOfertasIntriga,
+                        Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
                 }
             }
             else
             {
                 seccion.UrlLandig = (esMobile ? "/Mobile/" : "/") + "ShowRoom";
-                seccion.UrlObtenerProductos = esMobile ? "" : "ShowRoom/CargarProductosShowRoomOferta";
                 if (!esMobile)
                 {
-                    seccion.ImagenFondo =
-                        ShowRoom.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.ImagenFondoContenedorOfertasShowRoomVenta,
-                                                            Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
+                    seccion.ImagenFondo = ShowRoom.ObtenerValorPersonalizacionShowRoom(
+                        Constantes.ShowRoomPersonalizacion.Desktop.ImagenFondoContenedorOfertasShowRoomVenta,
+                        Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
                 }
                 else
                 {
-                    seccion.ImagenFondo =
-                        ShowRoom.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.ImagenBannerContenedorOfertasVenta,
-                                                            Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
+                    seccion.ImagenFondo = ShowRoom.ObtenerValorPersonalizacionShowRoom(
+                        Constantes.ShowRoomPersonalizacion.Mobile.ImagenBannerContenedorOfertasVenta,
+                        Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
                 }
 
-                var listaShowRoom = SessionManager.ShowRoom.Ofertas ?? new List<EstrategiaPersonalizadaProductoModel>();
-                seccion.CantidadProductos = listaShowRoom.Count;
-                seccion.CantidadMostrar = Math.Min(3, seccion.CantidadProductos);
-            }
-        }
 
+                if (SessionManager.ShowRoom.Ofertas != null)
+                {
+                    var listaShowRoom = SessionManager.ShowRoom.Ofertas ?? new List<EstrategiaPersonalizadaProductoModel>();
+                    seccion.CantidadProductos = listaShowRoom.Count;
+                    seccion.CantidadMostrar = Math.Min(seccion.CantidadMostrar, seccion.CantidadProductos);
+                }
+
+            }
+
+            return seccion;
+        }
     }
 }

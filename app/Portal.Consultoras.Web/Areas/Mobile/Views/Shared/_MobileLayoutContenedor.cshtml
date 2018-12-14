@@ -1,8 +1,7 @@
 ﻿@using Portal.Consultoras.Common
 @using Portal.Consultoras.Web.Models;
-@using Portal.Consultoras.Web.Areas.Mobile.Helpers
 @using Newtonsoft.Json;
-@using Portal.Consultoras.Web.Helpers
+@using Portal.Consultoras.Web.CustomHelpers
 
 @{
     ShowRoomBannerLateralModel showRoomBannerLateral = new ShowRoomBannerLateralModel();
@@ -272,7 +271,7 @@
         </script>
     }
 
-    @if (ViewBag.TieneOfertaDelDia == true)
+    @if (ViewBag.MostrarBannerSuperiorOdd == true) // TieneOfertaDelDia
     {
         @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mobile/OfertaDelDia")
         <script type="text/javascript">
@@ -584,7 +583,7 @@
         }
     }
 
-    @{Html.PlaceScripts();}
+
     @if (TempData.ContainsKey("PixelCodigoIso"))
     {
         @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Login-Header")

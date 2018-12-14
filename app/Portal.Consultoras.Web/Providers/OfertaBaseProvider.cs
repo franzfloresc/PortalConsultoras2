@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
 using System;
 using System.Collections.Generic;
@@ -25,7 +26,7 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
-        public async Task<List<ServiceOferta.BEEstrategia>> ObtenerOfertasDesdeApi(string path, string codigoISO)
+        public static async Task<List<ServiceOferta.BEEstrategia>> ObtenerOfertasDesdeApi(string path, string codigoISO)
         {
             var estrategias = new List<ServiceOferta.BEEstrategia>();
             var httpResponse = await httpClient.GetAsync(path);
@@ -60,7 +61,7 @@ namespace Portal.Consultoras.Web.Providers
                         DescripcionMarca = item.marcaDescripcion,
                         EstrategiaID = Convert.ToInt32(item.estrategiaId),
                         FlagNueva = Convert.ToBoolean(item.flagNueva) ? 1 : 0,
-                        FlagRevista = Convert.ToBoolean(item.flagRevista) ? 1 : 0,
+                        FlagRevista = item.flagRevista,
                         FotoProducto01 = item.imagenURL,
                         ImagenURL = item.imagenEstrategia,
                         IndicadorMontoMinimo = Convert.ToInt32(item.indicadorMontoMinimo),
@@ -77,8 +78,63 @@ namespace Portal.Consultoras.Web.Providers
                         TieneVariedad = Convert.ToBoolean(item.tieneVariedad) ? 1 : 0,
                         TipoEstrategiaID = Convert.ToInt32(item.tipoEstrategiaId),
                         TipoEstrategiaImagenMostrar = 6,
+                        EsSubCampania = Convert.ToBoolean(item.esSubCampania) ? 1 : 0,
                     };
                     estrategia.TipoEstrategia = new ServiceOferta.BETipoEstrategia { Codigo = item.codigoTipoEstrategia };
+
+                    if (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento && item.estrategiaDetalle != null)
+                    {
+                        estrategia.EstrategiaDetalle = new ServiceOferta.BEEstrategiaDetalle();
+                        int tablaLogicaDatosID;
+
+                        foreach (var itemED in item.estrategiaDetalle)
+                        {
+                            if (itemED.tablaLogicaDatosID == null) continue;
+
+                            tablaLogicaDatosID = Convert.ToInt32(itemED.tablaLogicaDatosID);
+
+                            switch (tablaLogicaDatosID)
+                            {
+                                case Constantes.EstrategiaDetalleCamposID.FlagIndividual:
+                                    estrategia.EstrategiaDetalle.FlagIndividual = (itemED.valor == "1" ? true : false);
+                                    break;
+                                case Constantes.EstrategiaDetalleCamposID.ImgFichaDesktop:
+                                    estrategia.EstrategiaDetalle.ImgFichaDesktop = itemED.valor;
+                                    break;
+                                case Constantes.EstrategiaDetalleCamposID.ImgFichaFondoDesktop:
+                                    estrategia.EstrategiaDetalle.ImgFichaFondoDesktop = itemED.valor;
+                                    break;
+                                case Constantes.EstrategiaDetalleCamposID.ImgFichaFondoMobile:
+                                    estrategia.EstrategiaDetalle.ImgFichaFondoMobile = itemED.valor;
+                                    break;
+                                case Constantes.EstrategiaDetalleCamposID.ImgFichaMobile:
+                                    estrategia.EstrategiaDetalle.ImgFichaMobile = itemED.valor;
+                                    break;
+                                case Constantes.EstrategiaDetalleCamposID.ImgFondoDesktop:
+                                    estrategia.EstrategiaDetalle.ImgFondoDesktop = itemED.valor;
+                                    break;
+                                case Constantes.EstrategiaDetalleCamposID.ImgFondoMobile:
+                                    estrategia.EstrategiaDetalle.ImgFondoMobile = itemED.valor;
+                                    break;
+                                case Constantes.EstrategiaDetalleCamposID.ImgHomeDesktop:
+                                    estrategia.EstrategiaDetalle.ImgHomeDesktop = itemED.valor;
+                                    break;
+                                case Constantes.EstrategiaDetalleCamposID.ImgHomeMobile:
+                                    estrategia.EstrategiaDetalle.ImgHomeMobile = itemED.valor;
+                                    break;
+                                case Constantes.EstrategiaDetalleCamposID.Slogan:
+                                    estrategia.EstrategiaDetalle.Slogan = itemED.valor;
+                                    break;
+                                case Constantes.EstrategiaDetalleCamposID.UrlVideoDesktop:
+                                    estrategia.EstrategiaDetalle.UrlVideoDesktop = itemED.valor;
+                                    break;
+                                case Constantes.EstrategiaDetalleCamposID.UrlVideoMobile:
+                                    estrategia.EstrategiaDetalle.UrlVideoMobile = itemED.valor;
+                                    break;
+                            }
+                        }
+                    }
+
                     if (estrategia.Precio2 > 0)
                     {
                         var compoponentes = new List<ServiceOferta.BEEstrategiaProducto>();
@@ -95,7 +151,10 @@ namespace Portal.Consultoras.Web.Providers
                                 Cantidad = componente.cantidad,
                                 FactorCuadre = componente.factorCuadre,
                                 IdMarca = componente.marcaId,
-                                NombreMarca = componente.nombreMarca
+                                NombreMarca = componente.nombreMarca,
+                                NombreComercial = componente.nombreComercial,
+                                Volumen = componente.volumen,
+                                NombreBulk = componente.nombreBulk
                             };
 
                             compoponentes.Add(estrategiaTono);
@@ -120,12 +179,8 @@ namespace Portal.Consultoras.Web.Providers
 
             if (listaCuvPrecio0.Any())
             {
-                try
-                {
-                    string logPrecio0 = string.Format("Log Precios0 => Fecha:{0} /Palanca:{1} /CodCampania:{2} /CUV(s):{3} /Referencia:{4}", DateTime.Now, codTipoEstrategia, codCampania, string.Join("|", listaCuvPrecio0), path);
-                    Common.LogManager.SaveLog(new Exception(logPrecio0), "", codigoISO);
-                }
-                catch (Exception ex) { throw ex; }
+                string logPrecio0 = string.Format("Log Precios0 => Fecha:{0} /Palanca:{1} /CodCampania:{2} /CUV(s):{3} /Referencia:{4}", DateTime.Now, codTipoEstrategia, codCampania, string.Join("|", listaCuvPrecio0), path);
+                Common.LogManager.SaveLog(new Exception(logPrecio0), "", codigoISO);
             }
 
             return estrategias;
@@ -168,12 +223,19 @@ namespace Portal.Consultoras.Web.Providers
             return nombreOferta;
         }
 
+
         public bool UsarMsPersonalizacion(string pais, string tipoEstrategia, bool dbDefault = false)
         {
             if (dbDefault) return false;
             bool paisHabilitado = WebConfig.PaisesMicroservicioPersonalizacion.Contains(pais);
             bool tipoEstrategiaHabilitado = WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion.Contains(tipoEstrategia);
             return paisHabilitado && tipoEstrategiaHabilitado;
+        }
+
+        public bool UsarMsPersonalizacion(string tipoEstrategia)
+        {
+            bool tipoEstrategiaHabilitado = WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion.Contains(tipoEstrategia);
+            return tipoEstrategiaHabilitado;
         }
     }
 }

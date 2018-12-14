@@ -27,20 +27,6 @@ namespace Portal.Consultoras.Web.UnitTest.Areas.Mobile.Controllers
 
             private class DetalleEstrategiaMobileController : DetalleEstrategiaController
             {
-                //public DetalleEstrategiaMobileController() : base()
-                //{
-
-                //}
-
-                //public DetalleEstrategiaMobileController(ISessionManager sesionManager) : base(sesionManager)
-                //{
-
-                //}
-
-                //public DetalleEstrategiaMobileController(ISessionManager sesionManager, ILogManager logManager) : base(sesionManager, logManager)
-                //{
-
-                //}
 
                 public DetalleEstrategiaMobileController(ISessionManager sesionManager, ILogManager logManager, OfertaPersonalizadaProvider ofertaPersonalizadaProvider, OfertaViewProvider ofertaViewProvider)
                     : base(sesionManager, logManager, ofertaPersonalizadaProvider,ofertaViewProvider)

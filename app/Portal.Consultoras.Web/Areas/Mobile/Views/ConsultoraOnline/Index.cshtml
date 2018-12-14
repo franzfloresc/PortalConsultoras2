@@ -1,34 +1,34 @@
-﻿@using Portal.Consultoras.Web.Helpers
+﻿@using Portal.Consultoras.Web.CustomHelpers
 @{
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
 }
 
 @section styles{
-<link href="@Url.Content("~/Content/Css/Mobile/esika/slick.css")" rel="stylesheet" />
-<style type="text/css">
-    body {
-        background: #FFF !important;
-        overflow-x: hidden;
-    }
+    <link href="@Url.Content("~/Content/Css/Mobile/esika/slick.css")" rel="stylesheet" />
+    <style type="text/css">
+        body {
+            background: #FFF !important;
+            overflow-x: hidden;
+        }
 
-    .justificar {
-        padding: 7px;
-        text-align: justify;
-    }
+        .justificar {
+            padding: 7px;
+            text-align: justify;
+        }
 
-    .justificarTexto {
-        padding: 7px;
-        text-align: justify;
-        margin-top: -26px;
-    }
-</style>
+        .justificarTexto {
+            padding: 7px;
+            text-align: justify;
+            margin-top: -26px;
+        }
+    </style>
 }
 <div class="titulo_mobile">
-    @{  var mobileConfiguracion = Html.MobileAppConfiguracion();
+    @{ var mobileConfiguracion = Html.MobileAppConfiguracion();
         if (mobileConfiguracion.MostrarBotonAtras)
         {
-    <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
-    } }
+            <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+        } }
     &nbsp;&nbsp;&nbsp;&nbsp;APP DE CATÁLOGOS
 </div>
 <div class="fondo_f2f2f2" style="background-color:white;">
@@ -36,12 +36,12 @@
     <div class="pestana_lbel"></div>
     @if (ViewBag.EmailConfirmado != null && ViewBag.EmailConfirmado)
     {
-    <div class="col-xs-12">
-        <div class="block-white text-center text-success">
-            <div><i class="icon-exclamation-circle icon-ulg"></i></div>
-            Tu correo @ViewBag.EmailConsultora ha sido validado.
+        <div class="col-xs-12">
+            <div class="block-white text-center text-success">
+                <div><i class="icon-exclamation-circle icon-ulg"></i></div>
+                Tu correo @ViewBag.EmailConsultora ha sido validado.
+            </div>
         </div>
-    </div>
     }
 </div>
 
@@ -256,10 +256,10 @@
     </div>
 </div>
 
-    @section scripts
+@section scripts
 {
 
-<script type="text/javascript">
+    <script type="text/javascript">
 
     var consultoraID = '@ViewBag.ConsultoraID';
     var urlDesafiliar = '@Url.Action("Desafiliar", "ConsultoraOnline", new {area = "Mobile"})';
@@ -330,5 +330,5 @@
         });
     });
 
-</script>
-    }
+    </script>
+}

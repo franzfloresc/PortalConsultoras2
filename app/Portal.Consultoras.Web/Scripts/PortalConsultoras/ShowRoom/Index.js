@@ -29,16 +29,16 @@ $(document).ready(function () {
 
         $('#contenedor-showroom-subcampanias').slick('slickGoTo', 1);
     });
-    $("body").on("click", "#BajarOfertaEspecial", function() {
-            $('#PopupBannerEspecial').css('display', 'none');
-            $('div.banner_especial_showroom').css('z-index', 150);
+    $("body").on("click", "#BajarOfertaEspecial", function () {
+        $('#PopupBannerEspecial').css('display', 'none');
+        $('div.banner_especial_showroom').css('z-index', 150);
 
-            $('#content_set_especial_header').show();
-            $('#BajarOfertaEspecial').hide();
+        $('#content_set_especial_header').show();
+        $('#BajarOfertaEspecial').hide();
 
-            $('.content_set_oferta_especial').slideUp();
+        $('.content_set_oferta_especial').slideUp();
 
-        });
+    });
     var stilo;
     $("#CerrarOfertaEspecial").on("click", function () {
         $('.banner_especial_showroom').hide();
@@ -71,7 +71,7 @@ $(document).ready(function () {
         buttons:
         {
             "Aceptar": function () {
-                $(this).dialog('close');
+                HideDialog("DialogMensajesBanner");
             }
         }
     });
@@ -86,8 +86,8 @@ $(document).ready(function () {
     });
 
     $("#btnCerrarSet").click(function () {
-        $("#divMensajeProductoAgregado").dialog('close');
-        $("#DialogSetDetalle").dialog("close");
+        HideDialog("divMensajeProductoAgregado");
+        HideDialog("DialogSetDetalle");
 
         dataLayer.push({
             'event': 'virtualEvent',
@@ -131,7 +131,7 @@ $(document).ready(function () {
         $(divs).each(function (index, value) {
             var existe = false;
             var id = $(value).find(".valorCuv").val();
-            $(array_impresions_tactica_desktop).each(function(ind, val) {
+            $(array_impresions_tactica_desktop).each(function (ind, val) {
                 if (val.id == id)
                     existe = true;
             });
@@ -224,7 +224,7 @@ $(document).ready(function () {
         cerrar_banner_sub_campanias = true;
     }
 
-    if (tieneCompraXCompra == "True" && itemsCompraXCompra > 0 && closeBannerCompraPorCompra == "False") {
+    if (tieneCompraXCompra == "True" && closeBannerCompraPorCompra == "False") {
         ver_compraxcompra = true;
     }
     if (ver_subcamapania == false && ver_compraxcompra == false) {
@@ -232,7 +232,7 @@ $(document).ready(function () {
     }
     else if (ver_subcamapania == true && ver_compraxcompra == true) {
         $("#divBannerCompraPorCompra").hide();
-         stilo = $('.banner_especial_showroom').attr("style");
+        stilo = $('.banner_especial_showroom').attr("style");
         if (stilo != null) {
             stilo = stilo.replace("display:none", "display:block");
 
@@ -241,7 +241,7 @@ $(document).ready(function () {
     }
     else if (ver_subcamapania == true) {
         $("#divBannerCompraPorCompra").hide();
-         stilo = $('.banner_especial_showroom').attr("style");
+        stilo = $('.banner_especial_showroom').attr("style");
         if (stilo != null) {
             stilo = stilo.replace("display:none", "display:block");
 
@@ -515,26 +515,26 @@ function AgregarTagManagerClickProducto(article, opcion) {
 
 }
 
-function AgregarTagManagerProductoAgregadoSW(CUV, nombreProducto, PrecioUnidad, cantidad, descripcionMarca, tipo) {
-    var lista = tipo == 0 ? "Ofertas Showroom" : "Ofertas Showroom popUp";
-    dataLayer.push({
-        'event': 'addToCart',
-        'ecommerce': {
-            'add': {
-                'actionField': { 'list': lista },
-                'products': [{
-                    'name': nombreProducto,
-                    'id': CUV,
-                    'price': PrecioUnidad,
-                    'brand': descripcionMarca,
-                    'variant': 'Ofertas Showroom',
-                    'category': 'NO DISPONIBLE',
-                    'quantity': cantidad
-                }]
-            }
-        }
-    });
-}
+//function AgregarTagManagerProductoAgregadoSW(CUV, nombreProducto, PrecioUnidad, cantidad, descripcionMarca, tipo) {
+//    var lista = tipo == 0 ? "Ofertas Showroom" : "Ofertas Showroom popUp";
+//    dataLayer.push({
+//        'event': 'addToCart',
+//        'ecommerce': {
+//            'add': {
+//                'actionField': { 'list': lista },
+//                'products': [{
+//                    'name': nombreProducto,
+//                    'id': CUV,
+//                    'price': PrecioUnidad,
+//                    'brand': descripcionMarca,
+//                    'variant': 'Ofertas Showroom',
+//                    'category': 'NO DISPONIBLE',
+//                    'quantity': cantidad
+//                }]
+//            }
+//        }
+//    });
+//}
 
 function compraxcompra_promotion_impression() {
     var id = $("#divBannerCompraPorCompra").data("cuv");

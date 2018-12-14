@@ -142,6 +142,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 string transactionToken = Request.Form["transactionToken"];
                 if (string.IsNullOrWhiteSpace(transactionToken)) return RedirectToAction("MetodoPago");
 
+                model.EsMobile = true;
                 bool pagoOk = _pagoEnLineaProvider.ProcesarPagoVisa(ref model, transactionToken);
 
                 if (pagoOk)
@@ -175,6 +176,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 PagoProvider = _pagoEnLineaProvider
             };
 
+            pago.EsMobile = true;
             var success = await provider.Pay(info, pago);
             SessionManager.SetDatosPagoVisa(null);
             SessionManager.SetListadoEstadoCuenta(null);

@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
 using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
-using Portal.Consultoras.Web.Helpers;
+using Portal.Consultoras.Web.CustomHelpers;
+using Portal.Consultoras.Web.Infraestructure.Excel;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Common;
@@ -163,7 +165,7 @@ namespace Portal.Consultoras.Web.Controllers
                 guiaNegocio = SessionManager.GetGuiaNegocio();
                 estrategiaODD = SessionManager.OfertaDelDia.Estrategia;
                 configEstrategiaSR = SessionManager.GetEstrategiaSR() ?? new ConfigModel();
-                buscadorYFiltro = SessionManager.GetBuscadorYFiltros();
+                buscadorYFiltro = SessionManager.GetBuscadorYFiltrosConfig();
 
                 if (!configEstrategiaSR.CargoEntidadesShowRoom)
                 {
@@ -734,9 +736,9 @@ namespace Portal.Consultoras.Web.Controllers
         }
         protected void RegistrarLogDynamoDB(InLogUsabilidadModel Log)
         {
-            var dataString = string.Empty;
             try
             {
+                Log = Log ?? new InLogUsabilidadModel();
                 Log.Fecha = "";
                 Log.Pais = userData.CodigoISO;
                 Log.Region = userData.CodigorRegion;
@@ -755,7 +757,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO, dataString);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
         }
         protected void ActualizarDatosLogDynamoDB(MisDatosModel p_modelo, string p_origen, string p_aplicacion, string p_Accion, string p_CodigoConsultoraBuscado = "", string p_Seccion = "")
@@ -1084,6 +1086,7 @@ namespace Portal.Consultoras.Web.Controllers
                 // odd
                 ViewBag.OfertaDelDia = _ofertaDelDiaProvider.GetOfertaDelDiaConfiguracion(userData);
                 ViewBag.TieneOfertaDelDia = _ofertaDelDiaProvider.CumpleOfertaDelDia(userData, GetControllerActual());
+                ViewBag.MostrarBannerSuperiorOdd = _ofertaDelDiaProvider.MostrarBannerSuperiorOdd(userData, GetControllerActual());
             }
             catch (Exception ex)
             {
@@ -1202,6 +1205,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.NovedadBuscador = userData.NovedadBuscador;
             ViewBag.MostrarBotonVerTodos = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.MostrarBotonVerTodos).ToBool();
             ViewBag.AplicarLogicaCantidadBotonVerTodos = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.AplicarLogicaCantidadBotonVerTodos).ToBool();
+            ViewBag.FlagFiltrosBuscador = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.FlagFiltrosBuscador).ToBool();
         }
 
         #endregion
@@ -1334,5 +1338,40 @@ namespace Portal.Consultoras.Web.Controllers
             return Tuple.Create(ResultadoValidacion, URLCaminoExisto);
         }
 
+        protected Func<Stream, MemoryStream> GetExcelSecureCallback()
+        {
+            var user = userData;
+            var processor = new ExcelProtectionProcessor
+            {
+                DataProvider = _tablaLogicaProvider,
+                PaisId = user.PaisID
+            };
+
+            if (!processor.IsRequiredProtection())
+            {
+                return null;
+            }
+
+            var password = user.CodigoUsuario.ToLower();
+
+            return stream => processor.Secure(stream, password);
+        }
+
+        public string ObtenerFlagActivacionRecomendaciones()
+        {
+            var configuracionPaisDatos = SessionManager.GetRecomendacionesConfig()
+                .ConfiguracionPaisDatos
+                .FirstOrDefault(a => a.Codigo.Equals(Constantes.CodigoConfiguracionRecomendaciones.ActivarRecomendaciones));
+            return configuracionPaisDatos != null ? configuracionPaisDatos.Valor1 : "0";
+        }
+
+        public int ObtenerNumeroMaximoCaracteresRecomendaciones(bool esMobile)
+        {
+            var configuracionPaisDatos = SessionManager.GetRecomendacionesConfig()
+                .ConfiguracionPaisDatos
+                .FirstOrDefault(a => a.Codigo.Equals(Constantes.CodigoConfiguracionRecomendaciones.CaracteresDescripcion));
+            if (esMobile ) return configuracionPaisDatos != null ?  configuracionPaisDatos.Valor2.ToInt() : 35;
+            return configuracionPaisDatos != null ? configuracionPaisDatos.Valor1.ToInt() : 37;
+        }
     }
 }

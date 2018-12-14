@@ -103,6 +103,7 @@
     <Compile Include="BLCupon.cs" />
     <Compile Include="BLOpcionesVerificacion.cs" />
     <Compile Include="BLPremiosProgramaNuevas.cs" />
+    <Compile Include="BLReporteRevisionIncidencias.cs" />
     <Compile Include="Cache\BLCache.cs" />
     <Compile Include="Cliente\BLClienteDB.cs" />
     <Compile Include="Cliente\IClienteBusinessLogic.cs" />
@@ -115,7 +116,7 @@
     <Compile Include="Contrato\BLContratoAceptacion.cs" />
     <Compile Include="Contrato\IContratoAceptacionBusinessLogic.cs" />
     <Compile Include="Cupon\ICuponConsultoraBusinessLogic.cs" />
-    <Compile Include="Estrategia\IConfiguracionProgramaNuevasBusinessLogic.cs" />
+    <Compile Include="ProgramaNuevas\IConfiguracionProgramaNuevasBusinessLogic.cs" />
     <Compile Include="Estrategia\IEstrategiaBusinessLogic.cs" />
     <Compile Include="Estrategia\IEstrategiaProductoBusinessLogic.cs" />
     <Compile Include="Estrategia\ITipoEstrategiaBusinessLogic.cs" />
@@ -134,7 +135,10 @@
     <Compile Include="Configuracion\BLConfiguracionPais.cs" />
     <Compile Include="BLConfiguracionPaisDetalle.cs" />
     <Compile Include="BLReporteValidacion.cs" />
+    <Compile Include="LimiteVenta\BLLimiteVenta.cs" />
+    <Compile Include="LimiteVenta\ILimiteVentaBusinessLogic.cs" />
     <Compile Include="OfertaPersonalizada\BLOfertaPersonalizada.cs" />
+    <Compile Include="PagoEnlinea\IPagoEnLineaBusinessLogic.cs" />
     <Compile Include="Pedido\IEscalaDescuentoBusinessLogic.cs" />
     <Compile Include="Pedido\IMensajeMetaConsultoraBusinessLogic.cs" />
     <Compile Include="Pedido\IPedidoWebDetalleBusinessLogic.cs" />
@@ -142,6 +146,8 @@
     <Compile Include="Producto\BLOfertaProducto.cs" />
     <Compile Include="Producto\IBuscadorBusinessLogic.cs" />
     <Compile Include="Producto\IOfertaProductoBusinessLogic.cs" />
+    <Compile Include="ArmaTuPack\BLArmaTuPack.cs" />
+    <Compile Include="ArmaTuPack\IArmaTuPackBusinessLogic.cs" />
     <Compile Include="ProgramaNuevas\BLProgramaNuevas.cs" />
     <Compile Include="ProgramaNuevas\IProgramaNuevasBusinessLogic.cs" />
     <Compile Include="ProgramaNuevas\IConsultorasProgramaNuevasBusinessLogic.cs" />
@@ -159,7 +165,7 @@
     <Compile Include="BLConfiguracionCampania.cs" />
     <Compile Include="BLConfiguracionParametroCarga.cs" />
     <Compile Include="BLConfiguracionPortal.cs" />
-    <Compile Include="Estrategia\BLConfiguracionProgramaNuevas.cs" />
+    <Compile Include="ProgramaNuevas\BLConfiguracionProgramaNuevas.cs" />
     <Compile Include="BLConfiguracionTipoProcesoCargaPedidos.cs" />
     <Compile Include="BLConfiguracionValidacion.cs" />
     <Compile Include="BLConfiguracionValidacionNuevoPROL.cs" />
@@ -345,6 +351,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Templates\mailing_bienvenida_coach_virtual.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\mailing_pago_en_linea.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Templates\mailing_proceso_actualizar_misdatos.html">

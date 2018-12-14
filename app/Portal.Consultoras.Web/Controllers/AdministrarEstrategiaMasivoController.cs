@@ -456,6 +456,22 @@ namespace Portal.Consultoras.Web.Controllers
             string mensajePaso = "Inicio";
             try
             {
+                if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, entidadMasivo.EstrategiaCodigo))
+                {
+                    mensajePaso += "|SiMongo";
+
+                    return Json(new
+                    {
+                        success = true,
+                        message = "Termino paso 2",
+                        continuaPaso = true,
+                        entidadMasivo.Pagina,
+                        entidadMasivo.NroLote,
+                        entidadMasivo.CantidadCuv,
+                        mensajePaso
+                    }, JsonRequestBehavior.AllowGet);
+                }
+
                 entidadMasivo.CantidadCuv = TablaLogicaObtenerCantidadCuvPagina(entidadMasivo);
                 mensajePaso += "|TablaLogicaObtenerCantidadCuvPagina = " + entidadMasivo.CantidadCuv;
                 if (entidadMasivo.CantidadCuv <= 0)
@@ -719,7 +735,7 @@ namespace Portal.Consultoras.Web.Controllers
                         lote = estado["CUVOK"].Count;
                         foreach (var item in estado["CUVOK"])
                         {
-                            if (txtBuildIdsEstrategiaOk.ToString() != "")
+                            if (txtBuildIdsEstrategiaOk.ToString() != "") 
                                 txtBuildIdsEstrategiaOk.Append(",");
                             txtBuildIdsEstrategiaOk.Append(item);
                         }
@@ -750,8 +766,8 @@ namespace Portal.Consultoras.Web.Controllers
                     message = lote > 0 ? "Se insertaron las Estrategias." : "Error al insertar las estrategias.",
                     NroLote = nroLote,
                     NroLoteRetorno = lote,
-                    mongoIdsOK = txtBuildIdsEstrategiaOk,
-                    mongoIdsERROR = txtBuildIdsEstrategiaError,
+                     mongoIdsOK = txtBuildIdsEstrategiaOk.ToString(),
+                    mongoIdsERROR = txtBuildIdsEstrategiaError.ToString(),
                     mensajePaso
                 }, JsonRequestBehavior.AllowGet);
             }

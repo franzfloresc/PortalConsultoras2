@@ -7,6 +7,7 @@ var mensajeParametrizableCuv = '';
 var cuvbuscado = "";
 var precioCuvBuscado = "";
 var cuvEsCuponNuevas = false;
+var productoEcontrado;
 
 var belcorp = belcorp || {};
 belcorp.pedido = belcorp.pedido || {};
@@ -137,7 +138,8 @@ $(document).ready(function () {
         $("#divResumenPedido").hide();
         $("#btnAgregarProducto").hide();
         $('#PopSugerido').hide();
-
+        ProductoRecomendadoModule.OcultarProductosRecomendados();
+        
         if (codigo == "") {
             if (typeof tieneOPT !== 'undefined' && tieneOPT) {
                 VisibleEstrategias(true);
@@ -399,6 +401,7 @@ function BuscarByCUV(cuv) {
             if (!IsNullOrEmpty(mensajeParametrizableCuv)) MostrarMensaje("mensajeParametrizableCUV", mensajeParametrizableCuv);
             $("#divProductoMantenedor").show();
             $("#btnAgregarProducto").show();
+            CargarProductosRecomendados(productoEcontrado);
         }
         return false;
     }
@@ -426,6 +429,7 @@ function BuscarByCUV(cuv) {
 
             $("#txtCantidad").removeAttr("disabled");
             var item = data[0];
+            productoEcontrado = data[0];
             precioCuvBuscado = item.PrecioCatalogo;
 
             if (item.MarcaID == 0) {
@@ -446,6 +450,8 @@ function BuscarByCUV(cuv) {
             
             CloseLoading();
             ObservacionesProducto(item);
+
+            CargarProductosRecomendados(productoEcontrado);
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
@@ -690,7 +696,7 @@ function AgregarProductoListado() {
     var CUV = $('#hdfCUV').val();
     $("#hdCuvRecomendado").val(CUV);
     $("#btnAgregarProducto").attr("disabled", "disabled");
-    $("#btnAgregarProducto").hide();
+    //$("#btnAgregarProducto").hide();
     
     var Cantidad = $("#txtCantidad").val();
     var param = ({
@@ -861,6 +867,9 @@ function InsertarProducto() {
 
             if (belcorp.pedido.applyChanges)
                 belcorp.pedido.applyChanges("onProductoAgregado", data);
+
+            var seccionProductosRecomendados = $('.divProductosRecomendados');
+            seccionProductosRecomendados.slideUp(200);
         },
         error: function (data, error) {
             CloseLoading();
@@ -1031,4 +1040,15 @@ function RegistrarDemandaTotalReemplazoSugerido(cuvSugerido, precio, cantidad, e
             }
         }
     });
+}
+
+function CargarProductosRecomendados(item) {
+
+    if (activarRecomendaciones == 1) {
+        if ((item.CodigoCatalago == 9 || item.CodigoCatalago == 10 || item.CodigoCatalago == 13) &&
+            (item.EstrategiaIDSicc == 2001)) {
+
+            ProductoRecomendadoModule.ObtenerProductos(item.CUV, item.CodigoProducto);
+        }
+    }
 }

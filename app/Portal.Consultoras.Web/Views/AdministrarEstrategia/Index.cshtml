@@ -36,7 +36,7 @@
 <input type="hidden" id="hdNiveles" />
 <input type="hidden" id="hdnCodigoSAP" />
 <input type="hidden" id="hdnIdMatrizComercial" />
-<input type="hidden" id="hdListaPersonalizacion"/>
+<input type="hidden" id="hdListaPersonalizacion" />
 <div class="wrap_cab_plan50">
     <div class="filtros2_plan50">
         <div class="elements_plan50">
@@ -260,7 +260,7 @@
                     - Descripción<br />
                 </span>
                 <span id="seccionFormatoArchivoSetShowroon">
-                   
+
                     - Unidades Permitidas<br />
                     - Nombre de Set<br />
                     - Tip Negocio<br />
@@ -272,7 +272,6 @@
                     - Posición<br />
                     - Nombre de Producto<br />
                     - Descripcion<br />
-					- Marca de producto<br />
                     <br><i>Separador de campos:</i> "|"
                 </span>
             </div>
@@ -495,7 +494,7 @@
                 <input type="text" id="txtDescripcionDetalle" readonly="readonly" style="background: #F9F9F0; width: 513px;" />
             </div>
         </div>
-        <div class="div-3">
+        <div class="div-3" style="display:none;">
             <div class="input_search" style="float: right; padding-right: 155px;">
                 <input type="button" value="Nuevo" id="btnNuevoDetalle" name="">
             </div>
@@ -653,8 +652,13 @@
             urlUploadFileStrategyShowroom: '@Url.Action("UploadFileSetStrategyShowroom", "AdministrarEstrategia")',
             urlUploadFileProductStrategyShowroom: '@Url.Action("UploadFileProductStrategyShowroom", "AdministrarEstrategia")',
             urlCargarArbolRegionesZonas: '@Url.Action("CargarArbolRegionesZonas", "AdministrarEstrategia")',
-            rutastylejstree: '@Url.Content("~/Content/Css/jstree/apple/stylejstree.css")'
+            rutastylejstree: '@Url.Content("~/Content/Css/jstree/apple/stylejstree.css")',
             // SHOWROOM-FIN
+
+            //Configuracion Microservicios-INI
+            microserviciosEstrategias: '@ViewBag.MsEstrategias',
+            microserviciosPaises: '@ViewBag.MsPaises'
+            //Configuracion Microservicios-FIN
         });
 
         adminEstrategiaModule.Inicializar();
