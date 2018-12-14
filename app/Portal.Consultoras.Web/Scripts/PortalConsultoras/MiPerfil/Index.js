@@ -10,7 +10,7 @@ $(document).ready(function () {
 
     vistaMiPerfil = function () {
         var me = this;
-        me.properties = {
+        me.Propiedades = {
 
             latitudIni: 0,
             longitudIni: 0,
@@ -20,7 +20,7 @@ $(document).ready(function () {
             viewport: null
         }
         me.Funciones = {
-            CrearComponentesMap: function () {
+            CrearComponentesMapa: function () {
                 debugger;
                 map = new google.maps.Map($('.mapa_wrapper')[0], {
                     center: { lat: -77.0282400, lng: -12.0431800 },
@@ -42,16 +42,16 @@ $(document).ready(function () {
             },
             ResetearMapa: function () {
                 var coordenadas = {
-                    lat: me.properties.latitudIni,
-                    lng: me.properties.longitudIni
+                    lat: me.Propiedades.latitudIni,
+                    lng: me.Propiedades.longitudIni
                 };
                 debugger;
-                if (me.properties.viewport)
-                    map.fitBounds(me.properties.viewport);
+                if (me.Propiedades.viewport)
+                    map.fitBounds(me.Propiedades.viewport);
                 map.setCenter(coordenadas);
                 marker.setPosition(coordenadas);
-                map.setZoom(18); 
-                $("#RouteDirection").html(me.properties.directionText);
+                map.setZoom(ZoonMapa); 
+                $("#RouteDirection").html(me.Propiedades.directionText);
             },
             InicializarEventos: function () {
                 $('body').on('blur', '.grupo_form_cambio_datos input, .grupo_form_cambio_datos select', me.Eventos.LabelActivo);
@@ -68,7 +68,6 @@ $(document).ready(function () {
                 debugger;
                 marker.addListener('dragstart', me.Eventos.DragStart);
                 marker.addListener('dragend', me.Eventos.DragEnd);
-                //map.addListener('bounds_changed', me.Eventos.BoundsChanged);
                 searchBox.addListener('place_changed', me.Eventos.PlaceChanged);
                
             },
@@ -133,7 +132,7 @@ $(document).ready(function () {
                     map.setCenter(coordenadas);
                     marker.setPosition(coordenadas);
                     marker.setVisible(false);
-                    map.setZoom(18); 
+                    map.setZoom(ZoonMapa); 
                 });
                 
             },
@@ -192,8 +191,8 @@ $(document).ready(function () {
             },
             ConfirmarUbicacion: function() {
                 var coordenadas = {
-                    lat: me.properties.latitudFin,
-                    lng: me.properties.LongitudFin
+                    lat: me.Propiedades.latitudFin,
+                    lng: me.Propiedades.LongitudFin
                 }
                 marker.setPosition(coordenadas);
                 map.setCenter(coordenadas);
@@ -204,13 +203,13 @@ $(document).ready(function () {
                     lat: -12.1145937,
                     lng: -77.00693360000002
                 };
-                me.properties.latitudIni = coordenadas.lat;
-                me.properties.longitudIni = coordenadas.lng;
+                me.Propiedades.latitudIni = coordenadas.lat;
+                me.Propiedades.longitudIni = coordenadas.lng;
                 $('#txtDireccion').val('377 Avenida Principal Cercado de Lima');
                 map.setCenter(coordenadas);
                 marker.setPosition(coordenadas);
-                map.setZoom(18); 
-                    map.setZoom(17);
+                map.setZoom(ZoonMapa); 
+                   
             }
             
         },
@@ -282,27 +281,23 @@ $(document).ready(function () {
                 PlaceChanged: function () {
                     debugger;
                     var place = searchBox.getPlace();
-                    $('.enlace_abrir_mapa')[0].disabled = false;
-                    debugger;
                     if (!place.geometry) {
-                       
                         return;
                     }
                     if (place.geometry.viewport) {
                         map.fitBounds(place.geometry.viewport);
                         map.setCenter(place.geometry.location);
-                        map.setZoom(18);
-                        me.properties.viewport = place.geometry.viewport;
+                        map.setZoom(ZoonMapa);
+                        me.Propiedades.viewport = place.geometry.viewport;
                     } else {
                         map.setCenter(place.geometry.location);
-                        map.setZoom(18);  
+                        map.setZoom(ZoonMapa);  
                     }
-                    me.properties.latitudIni = place.geometry.location.lat();
-                    me.properties.longitudIni = place.geometry.location.lng();
-                       
+                    $('.enlace_abrir_mapa')[0].disabled = false;
+                    me.Propiedades.latitudIni = place.geometry.location.lat();
+                    me.Propiedades.longitudIni = place.geometry.location.lng();
                     marker.setPosition(place.geometry.location);
                     marker.setVisible(true);
-
                     var address = '';
                     if (place.address_components) {
                         address = [
@@ -310,29 +305,27 @@ $(document).ready(function () {
                             (place.address_components[1] && place.address_components[1].short_name || ''),
                             (place.address_components[2] && place.address_components[2].short_name || '')
                         ].join(' ');
-                        me.properties.directionText = address;
+                        me.Propiedades.directionText = address;
                         $("#RouteDirection").html(address);
                     }
                 },
                 DragStart: function () {
                     debugger;
-                    //me.properties.latitudIni = this.position.lat();
-                    //me.properties.longitudIni = this.position.lng();
+                    //me.Propiedades.latitudIni = this.position.lat();
+                    //me.Propiedades.longitudIni = this.position.lng();
                 },
                 DragEnd: function () {
-                    debugger;
                     var Latlng = { lat: this.position.lat(), lng: this.position.lng() };
-                    
                     me.Funciones.QueryGeocode({ 'location': Latlng }, function (results, status) {
                         debugger;
                         if (status === 'OK') {
                             if (results[0]) {
                                 //var latitude = results[0].geometry.location.lat();
                                 //var longitude = results[0].geometry.location.lng();
-                                me.properties.latitudFin =  Latlng.lat;
-                                me.properties.longitudFin = Latlng.lng;
-                                //me.properties.latitudFin  = results[0].geometry.location.lat();
-                                //me.properties.longitudFin = results[0].geometry.location.lng();
+                                me.Propiedades.latitudFin =  Latlng.lat;
+                                me.Propiedades.longitudFin = Latlng.lng;
+                                //me.Propiedades.latitudFin  = results[0].geometry.location.lat();
+                                //me.Propiedades.longitudFin = results[0].geometry.location.lng();
                                 $("#RouteDirection").html(results[0].formatted_address);
                             }
                             else {
@@ -347,16 +340,11 @@ $(document).ready(function () {
                     });
             },
                 BoundsChanged: function () {
-                debugger;
                    searchBox.setBounds(map.getBounds());
-                }
-                   
-               
+                }      
             },
         me.Inicializar = function () {
-                //google.maps.event.addDomListener(window, 'load', me.Funciones.initAutoComplete);
                  debugger;
-               
                 me.Funciones.InicializarEventos();
                 me.Funciones.CamposFormularioConDatos();
                 me.Funciones.mostrarTelefono();
@@ -365,10 +353,9 @@ $(document).ready(function () {
                 me.Funciones.EvitandoCopiarPegar();
                 me.Funciones.ValidacionSoloLetras();
                 me.Funciones.ValidacionMapa();
-
         },
         me.InicializarMapa = function() {
-                me.Funciones.CrearComponentesMap();
+                me.Funciones.CrearComponentesMapa();
                 me.Funciones.InicializarEventosMapa();
                 //me.Funciones.ModoEdicion();
         }
@@ -389,68 +376,7 @@ $(document).ready(function () {
     CancelarAtualizacionEmail();
 });
  
-//    // Create the search box and link it to the UI element.
-//    var input = document.getElementById('txtDireccion');
-//    var searchBox = new google.maps.places.SearchBox(input);
-//    //map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
-//    // Bias the SearchBox results towards current map's viewport.
-//    map.addListener('bounds_changed', function () {
-//        debugger;
-//        searchBox.setBounds(map.getBounds());
-//    });
-
-//    var markers = [];
-//    // Listen for the event fired when the user selects a prediction and retrieve
-//    // more details for that place.
-//    searchBox.addListener('places_changed', function () {
-//        debugger;
-//        var places = searchBox.getPlaces();
-
-//        if (places.length == 0) {
-//            return;
-//        }
-
-//        // Clear out the old markers.
-//        markers.forEach(function (marker) {
-//            marker.setMap(null);
-//        });
-//        markers = [];
-
-//        // For each place, get the icon, name and location.
-//        var bounds = new google.maps.LatLngBounds();
-//        places.forEach(function (place) {
-//            debugger;
-//            if (!place.geometry) {
-//                console.log("Returned place contains no geometry");
-//                return;
-//            }
-//            var icon = {
-//                url: place.icon,
-//                size: new google.maps.Size(71, 71),
-//                origin: new google.maps.Point(0, 0),
-//                anchor: new google.maps.Point(17, 34),
-//                scaledSize: new google.maps.Size(25, 25)
-//            };
-
-//            // Create a marker for each place.
-//            markers.push(new google.maps.Marker({
-//                map: map,
-//                icon: icon,
-//                title: place.name,
-//                position: place.geometry.location
-//            }));
-
-//            if (place.geometry.viewport) {
-//                // Only geocodes have viewport.
-//                bounds.union(place.geometry.viewport);
-//            } else {
-//                bounds.extend(place.geometry.location);
-//            }
-//        });
-//        map.fitBounds(bounds);
-//    });
-//}
 
 
 

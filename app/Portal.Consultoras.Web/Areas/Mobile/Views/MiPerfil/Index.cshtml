@@ -319,9 +319,6 @@ else
             <p class="popup_ubicacion_direccion_elegida" id="RouteDirection">
                 Óvalo Gutiérrez, Miraflores, Perú
             </p>
-            <p class="popup_ubicacion_direccion_texto" id="RouteDirection">
-               
-            </p>
         </div>
         <div class="popup_ubicacion_direccion_entrega_contenido">
             <div class="mapa_wrapper">
@@ -336,6 +333,10 @@ else
 <!-- FIN - POPUP MAPA -->
 
 @section scripts{
+    <script>
+        var ZoonMapa = 18;
+
+    </script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?client=gme-cetcosa&v=weekly&callback=initMapa&libraries=places,directions"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/MiPerfil/Index.js")"></script>
 }
