@@ -170,26 +170,25 @@ namespace Portal.Consultoras.Web.Controllers
             Util.ExportToExcel_FIC("PedidosFICExcel", lst, dic);
             return View();
         }
-
-        public JsonResult ObtenterCampaniasyRegionesPorPais(int PaisID)
-        {
-            IEnumerable<CampaniaModel> lst = null;
-            IEnumerable<RegionModel> lstRegiones = null;
-            IEnumerable<ZonaModel> lstZonas = null;
-
-            if (PaisID != 0)
-            {
-                lst = _zonificacionProvider.GetCampanias(PaisID);
-                lstRegiones = _zonificacionProvider.GetRegiones(PaisID);
-                lstZonas = _zonificacionProvider.GetZonas(PaisID).OrderBy(x => x.Codigo);
-            }
-
-            return Json(new
-            {
-                lista = lst,
-                lstRegiones = lstRegiones,
-                listaZonas = lstZonas
-            }, JsonRequestBehavior.AllowGet);
-        }
+        
+        //movido BaseAdm/ObtenerCampaniasZonasRegionesPorPais
+        //public JsonResult ObtenterCampaniasyRegionesPorPais(int PaisID)
+        //{
+        //    IEnumerable<CampaniaModel> lst = null;
+        //    IEnumerable<RegionModel> lstRegiones = null;
+        //    IEnumerable<ZonaModel> lstZonas = null;
+        //    if (PaisID != 0)
+        //    {
+        //        lst = _zonificacionProvider.GetCampanias(PaisID);
+        //        lstRegiones = _zonificacionProvider.GetRegiones(PaisID);
+        //        lstZonas = _zonificacionProvider.GetZonas(PaisID).OrderBy(x => x.Codigo);
+        //    }
+        //    return Json(new
+        //    {
+        //        lista = lst,
+        //        lstRegiones = lstRegiones,
+        //        listaZonas = lstZonas
+        //    }, JsonRequestBehavior.AllowGet);
+        //}
     }
 }

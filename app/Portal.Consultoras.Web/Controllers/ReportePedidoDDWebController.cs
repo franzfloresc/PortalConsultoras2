@@ -608,20 +608,20 @@ namespace Portal.Consultoras.Web.Controllers
         #endregion
 
         #region Metodos
-        
-        public JsonResult ObtenterCampaniasyZonasPorPais(int PaisID)
-        {
-            IEnumerable<CampaniaModel> lst = _zonificacionProvider.GetCampanias(PaisID);
-            IEnumerable<ZonaModel> lstZonas = _zonificacionProvider.GetZonas(PaisID);
-            IEnumerable<RegionModel> lstRegiones = _zonificacionProvider.GetRegiones(PaisID);
 
-            return Json(new
-            {
-                DropDownListCampania = lst,
-                DropDownListZona = lstZonas.OrderBy(p => p.Codigo),
-                DropDownListRegion = lstRegiones.OrderBy(p => p.Codigo),
-            }, JsonRequestBehavior.AllowGet);
-        }
+        //movido BaseAdm/ObtenerCampaniasZonasRegionesPorPais
+        //public JsonResult ObtenterCampaniasyZonasPorPais(int PaisID)
+        //{
+        //    IEnumerable<CampaniaModel> lst = _zonificacionProvider.GetCampanias(PaisID);
+        //    IEnumerable<ZonaModel> lstZonas = _zonificacionProvider.GetZonas(PaisID);
+        //    IEnumerable<RegionModel> lstRegiones = _zonificacionProvider.GetRegiones(PaisID);
+        //    return Json(new
+        //    {
+        //        DropDownListCampania = lst,
+        //        DropDownListZona = lstZonas.OrderBy(p => p.Codigo),
+        //        DropDownListRegion = lstRegiones.OrderBy(p => p.Codigo),
+        //    }, JsonRequestBehavior.AllowGet);
+        //}
 
         private List<BEPedidoDDWeb> GetPedidoWebDD(FiltroReportePedidoDDWebModel model)
         {

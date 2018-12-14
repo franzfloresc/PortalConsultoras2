@@ -2,6 +2,7 @@
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Providers;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -84,6 +85,19 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lista = lst,
                 listaZonas = lstZonas
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult ObtenerCampaniasZonasRegionesPorPais(int PaisID)
+        {
+            IEnumerable<CampaniaModel> lst = _zonificacionProvider.GetCampanias(PaisID);
+            IEnumerable<ZonaModel> lstZonas = _zonificacionProvider.GetZonas(PaisID);
+            IEnumerable<RegionModel> lstRegiones = _zonificacionProvider.GetRegiones(PaisID);
+            return Json(new
+            {
+                lstCampania = lst,
+                lstZona = lstZonas.OrderBy(p => p.Codigo),
+                lstRegion = lstRegiones.OrderBy(p => p.Codigo),
             }, JsonRequestBehavior.AllowGet);
         }
     }
