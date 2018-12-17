@@ -1,17 +1,21 @@
 ﻿using Newtonsoft.Json;
 using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.SessionManager;
 
 namespace Portal.Consultoras.Web.Providers
 {
     public class BuscadorBaseProvider
     {
+        protected ISessionManager _sessionManager;
         private const string contentType = "application/json";
         private static readonly HttpClient httpClientBuscador = new HttpClient();
 
@@ -30,7 +34,7 @@ namespace Portal.Consultoras.Web.Providers
             {
                 httpClient.BaseAddress = new Uri(WebConfig.RutaServiceBuscadorAPI);
                 httpClient.DefaultRequestHeaders.Accept.Clear();
-                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(contentType));
 
                 var httpResponse = await httpClient.GetAsync(path);
 
@@ -42,10 +46,8 @@ namespace Portal.Consultoras.Web.Providers
             return personalizacion;
         }
 
-        //Llamadas Post genérica
         public async Task<T> PostAsync<T>(string url, object data) where T : class, new()
         {
-
             var dataJson = JsonConvert.SerializeObject(data);
             var stringContent = new StringContent(dataJson, Encoding.UTF8, contentType);
             var httpResponse = await httpClientBuscador.PostAsync(url, stringContent);
@@ -58,28 +60,84 @@ namespace Portal.Consultoras.Web.Providers
             return dataObject;
         }
 
-        public async Task<List<BuscadorYFiltrosModel>> ObtenerBuscadorDesdeApi(string path)
+        public string ObtenerOrigen()
         {
-            var resultados = new List<BuscadorYFiltrosModel>();
-            using (var httpClient = new HttpClient())
-            {
-                httpClient.BaseAddress = new Uri(WebConfig.RutaServiceBuscadorAPI);
-                httpClient.DefaultRequestHeaders.Accept.Clear();
-                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                var httpResponse = await httpClient.GetAsync(path);
-
-                if (!httpResponse.IsSuccessStatusCode) return resultados;
-                var jsonString = await httpResponse.Content.ReadAsStringAsync();
-
-                var list = JsonConvert.DeserializeObject<List<dynamic>>(jsonString);
-
-        
-            }
-
-            return resultados;
+            return Util.EsDispositivoMovil() ? "sb-mobile" : "sb-desktop";
         }
 
+        public IList<Productos> ValidacionProductoAgregado(
+            IList<Productos> productos,
+            List<BEPedidoWebDetalle> pedidos,
+            UsuarioModel userData,
+            RevistaDigitalModel revistaDigital,
+            bool IsMobile,
+            bool IsHome,
+            bool IsRecommendations)
+        {
+            var suscripcionActiva = revistaDigital.EsSuscrita && revistaDigital.EsActiva;
+            if (!productos.Any()) return new List<Productos>();
+
+            foreach (var item in productos)
+            {
+                var pedidoAgregado = pedidos.Where(x => x.CUV == item.CUV).ToList();
+                var labelAgregado = "";
+
+                if (pedidoAgregado.Any())
+                {
+                    labelAgregado = "Agregado";
+                }
+
+                item.CampaniaID = userData.CampaniaID;
+                item.PrecioString = Util.DecimalToStringFormat(item.Precio.ToDecimal(), userData.CodigoISO, userData.Simbolo);
+                item.ValorizadoString = Util.DecimalToStringFormat(item.Valorizado.ToDecimal(), userData.CodigoISO, userData.Simbolo);
+                item.DescripcionEstrategia = Util.obtenerNuevaDescripcionProducto(userData.NuevasDescripcionesBuscador, suscripcionActiva, item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaId, 0, true);
+                item.OrigenPedidoWeb = IsRecommendations ?
+                                        (IsMobile ? Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoCarrusel : Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoCarrusel).ToString()
+                                        :
+                                        Util.obtenerCodigoOrigenWeb(item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaId, IsMobile, IsHome);
+                item.Agregado = labelAgregado;
+                item.Stock = !item.Stock;
+                item.DescripcionCompleta = item.Descripcion;
+                item.SimboloMoneda = userData.Simbolo;
+            }
+
+            return productos;
+        }
+
+        public async Task<string> GetPersonalizacion(UsuarioModel usuario)
+        {
+            var pathPersonalziacion = string.Format(Constantes.RutaBuscadorService.UrlPersonalizacion,
+                usuario.CodigoISO,
+                usuario.CampaniaID,
+                usuario.CodigoConsultora,
+                ObtenerOrigen());
+
+            return await ObtenerPersonalizaciones(pathPersonalziacion);
+        }
+
+        public async Task<string> GetPersonalizacion(UsuarioModel usuario, bool validarIndicadorConsultoraDummy, bool persistInSession)
+        {
+            string result = "";
+            if (validarIndicadorConsultoraDummy)
+            {
+                var configBuscador = _sessionManager.GetBuscadorYFiltrosConfig();
+
+                if (configBuscador != null && configBuscador.IndicadorConsultoraDummy != 0 && configBuscador.PersonalizacionDummy == null)
+                {
+                    result = await GetPersonalizacion(usuario);
+                    if (persistInSession)
+                    {
+                        configBuscador.PersonalizacionDummy = result ?? "";
+                        _sessionManager.SetBuscadorYFiltrosConfig(configBuscador);
+                    }
+                }
+            }
+            else
+            {
+                result = await GetPersonalizacion(usuario);
+            }
+            return result;
+        }
 
     }
 }

@@ -27,6 +27,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 int cantidadEstrategiasConfiguradas;
                 int cantidadEstrategiasSinConfigurar;
+                int cantidadEstrategiasSinConfigurarImagen = 0;
                 var txtBuildOddIdsEstrategia = new StringBuilder();
                 try
                 {
@@ -50,6 +51,9 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             cantidadEstrategiasConfiguradas = svc.GetCantidadOfertasPersonalizadas(userData.PaisID, campaniaId, 1, codigoEstrategia);
                             cantidadEstrategiasSinConfigurar = svc.GetCantidadOfertasPersonalizadas(userData.PaisID, campaniaId, 2, codigoEstrategia);
+                            // Consultar cuantas imagnes si estan en la nueva tabla
+                            var estrategiasSinConfigurarLista = svc.GetOfertasPersonalizadasImagenes(userData.PaisID, campaniaId, 2, codigoEstrategia);
+                            cantidadEstrategiasSinConfigurarImagen = estrategiasSinConfigurarLista.ToList().Count;
                         }
                     }
                 }
@@ -58,6 +62,7 @@ namespace Portal.Consultoras.Web.Controllers
                     LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                     cantidadEstrategiasConfiguradas = 0;
                     cantidadEstrategiasSinConfigurar = 0;
+                    cantidadEstrategiasSinConfigurarImagen = 0;
                 }
 
                 var lst = new List<ComunModel>
@@ -87,6 +92,34 @@ namespace Portal.Consultoras.Web.Controllers
                         mongoIds = txtBuildOddIdsEstrategia.ToString()
                     }
                 };
+
+                int validarEstrategiaImagen = _tablaLogicaProvider.ObtenerValorTablaLogicaInt(userData.PaisID, Constantes.TablaLogica.CantidadCuvMasivo, Constantes.TablaLogicaDato.EstrategiaImagen_NuevoMasivo, true);
+
+                if (validarEstrategiaImagen == 1)
+                {
+                    if (cantidadEstrategiasSinConfigurarImagen == 0)
+                    {
+                        lst.Add(new ComunModel
+                        {
+                            Id = 4,
+                            Descripcion = "CUVS por configurar en Zonas de Estrategias sin Imagen precargada",
+                            Valor = "0",
+                            ValorOpcional = "3",
+                            mongoIds = ""
+                        });
+                    }
+                    else//(cantidadEstrategiasSinConfigurarImagen > 0)
+                    {
+                        lst.Add(new ComunModel
+                        {
+                            Id = 4,
+                            Descripcion = "CUVS por configurar en Zonas de Estrategias sin Imagen precargada",
+                            Valor = cantidadEstrategiasSinConfigurarImagen.ToString(),
+                            ValorOpcional = "3",
+                            mongoIds = ""
+                        });
+                    }
+                }
 
                 var grid = new BEGrid
                 {
@@ -161,13 +194,23 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     else
                     {
-                        using (var ps = new SACServiceClient())
+                        if(tipoConfigurado == 3)
                         {
-                            lst =
-                                ps.GetOfertasPersonalizadasByTipoConfigurado(userData.PaisID, campaniaId,
-                                                                             tipoConfigurado, estrategiaCodigo, 1, -1)
-                                  .ToList();
+                            using (var svc = new SACServiceClient())
+                            {
+                                lst = svc.GetOfertasPersonalizadasImagenes(userData.PaisID, campaniaId, 2, estrategiaCodigo).ToList();
+                            }
                         }
+                        else
+                        {
+                            using (var ps = new SACServiceClient())
+                            {
+                                lst =
+                                    ps.GetOfertasPersonalizadasByTipoConfigurado(userData.PaisID, campaniaId,
+                                                                                 tipoConfigurado, estrategiaCodigo, 1, -1)
+                                      .ToList();
+                            }
+                        }                       
                     }
                 }
                 catch (Exception ex)
@@ -410,20 +453,40 @@ namespace Portal.Consultoras.Web.Controllers
         #region EstrategiaTemporal Insert
         public JsonResult EstrategiaTemporalInsert(AdministrarEstrategiaMasivoModel entidadMasivo)
         {
+            string mensajePaso = "Inicio";
             try
             {
+                if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, entidadMasivo.EstrategiaCodigo))
+                {
+                    mensajePaso += "|SiMongo";
+
+                    return Json(new
+                    {
+                        success = true,
+                        message = "Termino paso 2",
+                        continuaPaso = true,
+                        entidadMasivo.Pagina,
+                        entidadMasivo.NroLote,
+                        entidadMasivo.CantidadCuv,
+                        mensajePaso
+                    }, JsonRequestBehavior.AllowGet);
+                }
+
                 entidadMasivo.CantidadCuv = TablaLogicaObtenerCantidadCuvPagina(entidadMasivo);
+                mensajePaso += "|TablaLogicaObtenerCantidadCuvPagina = " + entidadMasivo.CantidadCuv;
                 if (entidadMasivo.CantidadCuv <= 0)
                 {
                     return Json(new
                     {
                         success = false,
-                        message = "falta configurar una cantidad de Estrategias para Insertar"
+                        message = "falta configurar una cantidad de Estrategias para Insertar",
+                        mensajePaso
                     }, JsonRequestBehavior.AllowGet);
                 }
 
                 entidadMasivo.Pagina = Math.Max(entidadMasivo.Pagina, 1);
                 var cantTotalPagina = (entidadMasivo.CantTotal / entidadMasivo.CantidadCuv) + (entidadMasivo.CantTotal % entidadMasivo.CantidadCuv == 0 ? 0 : 1);
+                mensajePaso += "|cantTotalPagina < entidadMasivo.Pagina = " + (cantTotalPagina < entidadMasivo.Pagina).ToString();
                 if (cantTotalPagina < entidadMasivo.Pagina)
                 {
                     return Json(new
@@ -433,11 +496,14 @@ namespace Portal.Consultoras.Web.Controllers
                         continuaPaso = true,
                         entidadMasivo.Pagina,
                         entidadMasivo.NroLote,
-                        entidadMasivo.CantidadCuv
+                        entidadMasivo.CantidadCuv,
+                        mensajePaso
                     }, JsonRequestBehavior.AllowGet);
                 }
 
                 var nroLoteAux = MasivoEstrategiaTemporalInsertar(entidadMasivo);
+
+                mensajePaso += "|MasivoEstrategiaTemporalInsertar = " + nroLoteAux;
 
                 if (nroLoteAux <= 0)
                 {
@@ -447,13 +513,15 @@ namespace Portal.Consultoras.Web.Controllers
                         message = "No existen Estrategias para Insertar",
                         entidadMasivo.Pagina,
                         entidadMasivo.NroLote,
-                        entidadMasivo.CantidadCuv
+                        entidadMasivo.CantidadCuv,
+                        mensajePaso
                     }, JsonRequestBehavior.AllowGet);
                 }
 
                 entidadMasivo.NroLote = nroLoteAux;
 
-                var mensajeComplemento = MasivoEstrategiaTemporalExecComplemento(entidadMasivo);
+                var mensajeComplemento = MasivoEstrategiaTemporalExecComplemento(entidadMasivo, ref mensajePaso);
+                mensajePaso += "|MasivoEstrategiaTemporalExecComplemento = " + mensajeComplemento;
 
                 return Json(new
                 {
@@ -462,26 +530,31 @@ namespace Portal.Consultoras.Web.Controllers
                     messageComplemento = mensajeComplemento,
                     entidadMasivo.Pagina,
                     entidadMasivo.NroLote,
-                    entidadMasivo.CantidadCuv
+                    entidadMasivo.CantidadCuv,
+                    mensajePaso
                 }, JsonRequestBehavior.AllowGet);
 
             }
             catch (TimeoutException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                mensajePaso += "|EstrategiaTemporalInsert TimeoutException = " + ex.Message;
                 return Json(new
                 {
                     success = false,
-                    message = "Tiempo agotado de espera durante la extracion de los productos."
+                    message = "Tiempo agotado de espera durante la extracion de los productos.",
+                    mensajePaso
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                mensajePaso += "|EstrategiaTemporalInsert Exception = " + ex.Message;
                 return Json(new
                 {
                     success = false,
-                    message = "No se encontraron productos en ods.productocomercial."
+                    message = "No se encontraron productos en ods.productocomercial.",
+                    mensajePaso
                 }, JsonRequestBehavior.AllowGet);
             }
 
@@ -519,20 +592,35 @@ namespace Portal.Consultoras.Web.Controllers
             return lote;
         }
 
-        private string MasivoEstrategiaTemporalExecComplemento(AdministrarEstrategiaMasivoModel entidadMasivo)
+        private string MasivoEstrategiaTemporalExecComplemento(AdministrarEstrategiaMasivoModel entidadMasivo, ref string mensajePaso)
         {
             // este proceso esta en MasivoEstrategiaTemporalInsertar, puede salir timed out
             // se divide el proceso para evitar timed out
             string rpta = "";
             try
             {
+                mensajePaso = Util.Trim(mensajePaso);
                 bool rptaService = MasivoEstrategiaTemporalPrecio(entidadMasivo);
+                mensajePaso += "|MasivoEstrategiaTemporalPrecio = " + rptaService;
+
                 if (rptaService)
                 {
                     rptaService = MasivoEstrategiaTemporalSetDetalle(entidadMasivo);
+                    mensajePaso += "|MasivoEstrategiaTemporalSetDetalle = " + rptaService;
+
                     if (!rptaService)
                     {
                         rpta = "Error al cargar tonos.";
+                    }
+                    else
+                    {
+                        rptaService = MasivoEstrategiaTemporalSetImagen(entidadMasivo);
+                        mensajePaso += "|MasivoEstrategiaTemporalSetImagen = " + rptaService;
+
+                        if (!rptaService)
+                        {
+                            rpta = "Error al cargar imagen.";
+                        }
                     }
                 }
                 else
@@ -543,7 +631,9 @@ namespace Portal.Consultoras.Web.Controllers
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                mensajePaso += "|MasivoEstrategiaTemporalExecComplemento Exception = " + ex.Message;
             }
+
             return rpta;
         }
 
@@ -589,11 +679,39 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return rpta;
         }
+
+        private bool MasivoEstrategiaTemporalSetImagen(AdministrarEstrategiaMasivoModel entidadMasivo)
+        {
+            bool rpta = false;
+            try
+            { 
+                int validarEstrategiaImagen = _tablaLogicaProvider.ObtenerValorTablaLogicaInt(userData.PaisID, Constantes.TablaLogica.CantidadCuvMasivo, Constantes.TablaLogicaDato.EstrategiaImagen_NuevoMasivo, true);
+
+                if (validarEstrategiaImagen == 1)
+                {
+                    using (var svc = new SACServiceClient())
+                    {
+                        rpta = svc.EstrategiaTemporalActualizarSetImagen(userData.PaisID, entidadMasivo.NroLote, entidadMasivo.Pagina);
+                    }
+                }
+                else
+                {
+                    rpta = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                rpta = false;
+            }
+            return rpta;
+        }
         #endregion
 
         [HttpPost]
         public JsonResult EstrategiaOfertasPersonalizadasInsert(int campaniaId, int nroLote, string codigoEstrategia, string estrategiaMIds)
         {
+            string mensajePaso = "Inicio";
             try
             {
                 int lote = 0;
@@ -602,16 +720,22 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, codigoEstrategia))
                 {
+                    mensajePaso += "|SiMongo";
+                    mensajePaso += "|UsarMsPersonalizacion";
                     List<string> estrategiaMidsList = new List<string>();
                     estrategiaMidsList.AddRange(estrategiaMIds.Split(',').ToList());
+
+                    mensajePaso += "|estrategiaMidsList = " + estrategiaMidsList.Count;
                     if (estrategiaMidsList.Any())
                     {
-
                         var estado = administrarEstrategiaProvider.CargarEstrategia(estrategiaMidsList, userData.CodigoISO);
+
+                        mensajePaso += "|CargarEstrategia";
+
                         lote = estado["CUVOK"].Count;
                         foreach (var item in estado["CUVOK"])
                         {
-                            if (txtBuildIdsEstrategiaOk.ToString() != "")
+                            if (txtBuildIdsEstrategiaOk.ToString() != "") 
                                 txtBuildIdsEstrategiaOk.Append(",");
                             txtBuildIdsEstrategiaOk.Append(item);
                         }
@@ -625,13 +749,16 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else
                 {
+                    mensajePaso += "|NoMongo";
                     using (var svc = new SACServiceClient())
                     {
                         lote = svc.EstrategiaTemporalInsertarEstrategiaMasivo(userData.PaisID, nroLote);
+                        mensajePaso += "|EstrategiaTemporalInsertarEstrategiaMasivo NroLote = " + lote;
                     }
                 }
 
                 administrarEstrategiaProvider.JobBuscador(campaniaId.ToString(), codigoEstrategia, userData);
+                mensajePaso += "|JobBuscador";
 
                 return Json(new
                 {
@@ -639,17 +766,20 @@ namespace Portal.Consultoras.Web.Controllers
                     message = lote > 0 ? "Se insertaron las Estrategias." : "Error al insertar las estrategias.",
                     NroLote = nroLote,
                     NroLoteRetorno = lote,
-                    mongoIdsOK = txtBuildIdsEstrategiaOk,
-                    mongoIdsERROR = txtBuildIdsEstrategiaError
+                     mongoIdsOK = txtBuildIdsEstrategiaOk.ToString(),
+                    mongoIdsERROR = txtBuildIdsEstrategiaError.ToString(),
+                    mensajePaso
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                mensajePaso += "|Exception";
                 return Json(new
                 {
                     success = false,
-                    message = ex.Message
+                    message = ex.Message,
+                    mensajePaso
                 }, JsonRequestBehavior.AllowGet);
             }
         }

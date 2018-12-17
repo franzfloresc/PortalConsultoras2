@@ -40,9 +40,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (lst.Count > 0)
                 {
-                    string carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                    lst.Update(x => x.ImagenEstrategia = ConfigCdn.GetUrlFileCdn(carpetapais, x.ImagenEstrategia));
-                    lst.Update(x => x.ImagenOfertaIndependiente = ConfigCdn.GetUrlFileCdn(carpetapais, x.ImagenOfertaIndependiente));
+                    lst.Update(x => x.ImagenEstrategia = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, x.ImagenEstrategia));
+                    lst.Update(x => x.ImagenOfertaIndependiente = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, x.ImagenOfertaIndependiente));
                 }
 
                 BEGrid grid = new BEGrid
@@ -423,11 +422,11 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var failImage = false;
                 var image = Image.FromFile(path);
-                if (image.Width > 144)
+                if (image.Width > 62)
                 {
                     failImage = true;
                 }
-                if (image.Height > 32)
+                if (image.Height > 62)
                 {
                     failImage = true;
                 }

@@ -36,12 +36,20 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
+                var esMobile = IsMobile();
+
                 var modelo = new EstrategiaPersonalizadaModel
                 {
-                    ListaSeccion = _confiOfertasHomeProvider.ObtenerConfiguracionSeccion(revistaDigital, IsMobile()),
-                    MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(IsMobile())
+                    ListaSeccion = _confiOfertasHomeProvider.ObtenerConfiguracionSeccion(revistaDigital, esMobile),
+                    MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(esMobile),
+                    VariablesEstrategia = GetVariableEstrategia(),
+                    Vc_SinProducto = SessionManager.GetUrlVc()
                 };
-                ViewBag.variableEstrategia = GetVariableEstrategia();
+
+                if (modelo.Vc_SinProducto == 1)
+                {
+                    SessionManager.SetUrlVc(0);
+                }
 
                 return View(modelo);
             }
@@ -50,20 +58,21 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 logManager.LogErrorWebServicesBusWrap(ex, userData.CodigoConsultora, userData.CodigoISO, "Mobile.OfertasController.Index");
             }
 
-            return RedirectToAction("Index", "Bienvenida",new { area = "Mobile"});
+            return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
         }
 
         public ActionResult Revisar()
         {
             try
             {
+                var esMobile = IsMobile();
+
                 var modelo = new EstrategiaPersonalizadaModel
                 {
-                    ListaSeccion = _confiOfertasHomeProvider.ObtenerConfiguracionSeccion(revistaDigital, IsMobile()),
-                    MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(IsMobile())
+                    ListaSeccion = _confiOfertasHomeProvider.ObtenerConfiguracionSeccion(revistaDigital, esMobile),
+                    MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(esMobile),
+                    VariablesEstrategia = GetVariableEstrategia()
                 };
-
-                ViewBag.variableEstrategia = GetVariableEstrategia();
 
                 return View("Index", modelo);
             }

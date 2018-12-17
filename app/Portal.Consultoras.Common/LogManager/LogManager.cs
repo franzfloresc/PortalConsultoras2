@@ -134,7 +134,7 @@ namespace Portal.Consultoras.Common
                 var browserRequest = string.Empty;
                 var ctrl = string.Empty;
                 var acti = string.Empty;
-
+                string Token = string.Empty;
                 if (HttpContext.Current != null && HttpContext.Current.Request != null)
                 {
                     urlRequest = HttpContext.Current.Request.Url.ToString();
@@ -143,6 +143,7 @@ namespace Portal.Consultoras.Common
                     var routeValues = HttpContext.Current.Request.RequestContext.RouteData.Values;
                     ctrl = routeValues.ContainsKey("controller") ? routeValues["controller"].ToString() : "CtrlNoRoute";
                     acti = routeValues.ContainsKey("action") ? routeValues["action"].ToString() : "ActiNoRoute";
+                    Token = (string)HttpContext.Current.Session[Constantes.ConstSession.JwtApiSomosBelcorp] ?? "";
                 }
 
                 var exceptionMessage = string.Empty;
@@ -162,7 +163,7 @@ namespace Portal.Consultoras.Common
                         innerException = innerException.InnerException;
                     }
                 }
-                
+
                 var data = new
                 {
                     Aplicacion = Constantes.LogDynamoDB.AplicacionPortalConsultoras,
@@ -197,7 +198,8 @@ namespace Portal.Consultoras.Common
                     dataString = JsonConvert.SerializeObject(data);
 
                     HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
-
+                    //httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer { Globals.JwtToken }");
+                    httpClient.DefaultRequestHeaders.Add("Authorization", string.Format("Bearer {0}", Token));
                     HttpResponseMessage response = httpClient.PostAsync("Api/LogError", contentPost).GetAwaiter().GetResult();
 
                     var noQuitar = response.IsSuccessStatusCode;
@@ -215,13 +217,13 @@ namespace Portal.Consultoras.Common
 
         private static void RegistrarElastic(LogError logError)
         {
-            var urlApi = ConfigurationManager.AppSettings.Get("UrlLogElastic");
-
-            if (string.IsNullOrEmpty(urlApi)) return;
-
             var dataString = string.Empty;
             try
             {
+                var urlApi = ConfigurationManager.AppSettings.Get("UrlLogElastic");
+
+                if (string.IsNullOrEmpty(urlApi)) return;
+
                 var urlRequest = string.Empty;
                 var browserRequest = string.Empty;
                 RouteValueDictionary routeValues = null;
@@ -246,9 +248,9 @@ namespace Portal.Consultoras.Common
                 if (logError.Origen.Equals("Servidor"))
                 {
                     application = "WebService";
-                    
+
                     StackTrace st = new StackTrace(logError.Exception, true);
-                    StackFrame frame = st.GetFrame(st.FrameCount - 1); 
+                    StackFrame frame = st.GetFrame(st.FrameCount - 1);
                     className = frame.GetMethod().DeclaringType.Name;
                     methodName = frame.GetMethod().Name;
                 }
@@ -265,7 +267,7 @@ namespace Portal.Consultoras.Common
                         methodName = "";
                     }
                     application = "Web";
-                }                
+                }
 
                 var data = new
                 {
@@ -283,7 +285,7 @@ namespace Portal.Consultoras.Common
                     Url = urlRequest,
                     Navigator = browserRequest,
                     Trace = "LogManager"
-                };                
+                };
 
                 using (HttpClient httpClient = new HttpClient())
                 {
@@ -315,6 +317,34 @@ namespace Portal.Consultoras.Common
 
             string indexName = pattern + DateTime.Now.ToString("yyyy.MM.dd");
             return endpoint + indexName + "/LogEvent";
+        }
+
+        public static string GetMensajeError(Exception ex)
+        {
+            var exceptionMessage = "";
+            try
+            {
+                var separador = " | ";
+
+                if (ex != null)
+                {
+                    exceptionMessage += "Error message: " + ex.Message;
+                    exceptionMessage += separador + "StackTrace: " + ex.StackTrace;
+
+                    var innerException = ex.InnerException;
+                    while (innerException != null)
+                    {
+                        exceptionMessage = string.Format("{0}, InnerException: {1}", exceptionMessage, innerException.Message);
+                        innerException = innerException.InnerException;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                //
+            }
+
+            return exceptionMessage;
         }
     }
 }

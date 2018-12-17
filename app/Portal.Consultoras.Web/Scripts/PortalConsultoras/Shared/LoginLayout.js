@@ -12,15 +12,6 @@ $(document).ready(function () {
 
     // sirve para limpiar LocalStorage
     LocalStorageLimpiar();
-    /*
-    if (esPaisEsika == 'True') {
-        $('#cssStyle>link').attr('disabled', false);
-        $('#cssStyleLbel>link').attr('disabled', true);
-    }
-    if (esPaisLbel == 'True') {
-        $('#cssStyle>link').attr('disabled', true);
-        $('#cssStyleLbel>link').attr('disabled', false);
-    }*/
 
     $(".DropDown").change(function () {
         val_Usuario = false;
@@ -192,8 +183,6 @@ function RedirectAdministrador() {
         'event': 'pageview',
         'virtualUrl': '/Login/Administrador'
     });
-    //window.open('https://identidad.belcorp.biz/adfs/ls/?wa=wsignin1.0&wtrealm=https://sts.somosbelcorp.com/adfs/services/trust', '_self');
-    //return false;
 }
 
 function RedirectRecuperarClave() {
@@ -264,13 +253,6 @@ function AbrirFooter(Marca, Url) {
     return false;
 }
 
-/**
- * Problema de seguridad como: 
- * Uncaught SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.
- * @param storage {Storage}
- * return true|false {Bolean}
- * uso: storageIsSuport(window.localStorage)
- */
 function storageIsSuport(storage) {
     try {
         var key = "__some_random_value__";
@@ -283,13 +265,13 @@ function storageIsSuport(storage) {
 }
 
 function LocalStorageLimpiar() {
-    
+
     if (typeof (Storage) !== 'undefined' && storageIsSuport(window.localStorage)) {
         var itemSBTokenPais = localStorage.getItem('SBTokenPais');
         var itemSBTokenPedido = localStorage.getItem('SBTokenPedido');
-        var itemChatEConnected = localStorage.getItem('connected');//add
-        var itemChatEConfigParams = localStorage.getItem('ConfigParams');//add
-        var itemSurvicateStorage = localStorage.getItem('SurvicateStorage');//add
+        var itemChatEConnected = localStorage.getItem('connected');
+        var itemChatEConfigParams = localStorage.getItem('ConfigParams');
+        var itemSurvicateStorage = GetItemLocalStorageSurvicate();
         localStorage.clear();
 
         if (typeof (itemSBTokenPais) !== 'undefined' && itemSBTokenPais !== null) {
@@ -300,24 +282,35 @@ function LocalStorageLimpiar() {
             localStorage.setItem('SBTokenPedido', itemSBTokenPedido);
         }
 
-        if (typeof (itemChatEConnected) !== 'undefined' && itemChatEConnected !== null) {//add
+        if (typeof (itemChatEConnected) !== 'undefined' && itemChatEConnected !== null) {
             localStorage.setItem('connected', itemChatEConnected);
         }
 
-        if (typeof (itemChatEConfigParams) !== 'undefined' && itemChatEConfigParams !== null) {//add
+        if (typeof (itemChatEConfigParams) !== 'undefined' && itemChatEConfigParams !== null) {
             localStorage.setItem('ConfigParams', itemChatEConfigParams);
         }
 
-        if (typeof (itemSurvicateStorage) !== 'undefined' && itemSurvicateStorage !== null) {//add
-            localStorage.setItem('SurvicateStorage', itemSurvicateStorage);
+        if (typeof (itemSurvicateStorage) !== 'undefined' && itemSurvicateStorage !== null) {
+            SetItemLocalStorageSurvicate(itemSurvicateStorage);
         }
-        //SetItemLocalStorageSurvicate(itemSurvicateStorage);
+
     }
 
+    function GetItemLocalStorageSurvicate() {
+        var surviKeys = {};
+        for (var key in localStorage) {
+            if (key.indexOf('survi::') > -1)
+                surviKeys[key] = localStorage[key];
+        }
+        return surviKeys;
+    }
     function SetItemLocalStorageSurvicate(storage) {
-        storage = (storage == null || storage =="") ? {} : jQuery.parseJSON(storage);
-        for (var key in storage) {
-            localStorage.setItem(key, storage[key]);
+
+        if (typeof storage !== 'undefined' && typeof storage === 'object') {
+            for (var key in storage) {
+                if (storage.hasOwnProperty(key))
+                    localStorage.setItem(key, storage[key]);
+            }
         }
     }
 };

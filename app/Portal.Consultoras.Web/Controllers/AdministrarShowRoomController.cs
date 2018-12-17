@@ -37,7 +37,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     var l = administrarEstrategiaProvider.ConsultarShowRoom(userData.CodigoISO, campaniaId);
 
-                    showRoomEvento = l.Count() > 0 ? l.FirstOrDefault() : null;
+                    showRoomEvento = l.Count > 0 ? l.FirstOrDefault() : null;
                 }
                 else
                 {
@@ -54,15 +54,14 @@ namespace Portal.Consultoras.Web.Controllers
                 if (showRoomEvento != null)
                 {
                     var iso = Util.GetPaisISO(paisId);
-                    var carpetaPais = Globals.UrlMatriz + "/" + iso;
 
-                    showRoomEvento.Imagen1 = ConfigCdn.GetUrlFileCdn(carpetaPais, showRoomEvento.Imagen1);
-                    showRoomEvento.Imagen2 = ConfigCdn.GetUrlFileCdn(carpetaPais, showRoomEvento.Imagen2);
-                    showRoomEvento.ImagenCabeceraProducto = ConfigCdn.GetUrlFileCdn(carpetaPais, showRoomEvento.ImagenCabeceraProducto);
-                    showRoomEvento.ImagenVentaSetPopup = ConfigCdn.GetUrlFileCdn(carpetaPais, showRoomEvento.ImagenVentaSetPopup);
-                    showRoomEvento.ImagenVentaTagLateral = ConfigCdn.GetUrlFileCdn(carpetaPais, showRoomEvento.ImagenVentaTagLateral);
-                    showRoomEvento.ImagenPestaniaShowRoom = ConfigCdn.GetUrlFileCdn(carpetaPais, showRoomEvento.ImagenPestaniaShowRoom);
-                    showRoomEvento.ImagenPreventaDigital = ConfigCdn.GetUrlFileCdn(carpetaPais, showRoomEvento.ImagenPreventaDigital);
+                    showRoomEvento.Imagen1 = ConfigCdn.GetUrlFileCdnMatriz(iso, showRoomEvento.Imagen1);
+                    showRoomEvento.Imagen2 = ConfigCdn.GetUrlFileCdnMatriz(iso, showRoomEvento.Imagen2);
+                    showRoomEvento.ImagenCabeceraProducto = ConfigCdn.GetUrlFileCdnMatriz(iso, showRoomEvento.ImagenCabeceraProducto);
+                    showRoomEvento.ImagenVentaSetPopup = ConfigCdn.GetUrlFileCdnMatriz(iso, showRoomEvento.ImagenVentaSetPopup);
+                    showRoomEvento.ImagenVentaTagLateral = ConfigCdn.GetUrlFileCdnMatriz(iso, showRoomEvento.ImagenVentaTagLateral);
+                    showRoomEvento.ImagenPestaniaShowRoom = ConfigCdn.GetUrlFileCdnMatriz(iso, showRoomEvento.ImagenPestaniaShowRoom);
+                    showRoomEvento.ImagenPreventaDigital = ConfigCdn.GetUrlFileCdnMatriz(iso, showRoomEvento.ImagenPreventaDigital);
 
                     listaShowRoomEvento.Add(showRoomEvento);
                 }
@@ -487,7 +486,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 List<ShowRoomPersonalizacionModel> listaPersonalizacionModel = null;
                 string iso = Util.GetPaisISO(userData.PaisID);
-                var carpetaPais = Globals.UrlMatriz + "/" + iso;
 
                 if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, Constantes.TipoEstrategiaCodigo.ShowRoom))
                 {
@@ -495,7 +493,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     listaPersonalizacionModel.Where(c => c.TipoAtributo.Trim() == "IMAGEN").Update(
                          c => {
-                                c.Valor = ConfigCdn.GetUrlFileCdn(carpetaPais, c.Valor);
+                                c.Valor = ConfigCdn.GetUrlFileCdnMatriz(iso, c.Valor);
                              c.PersonalizacionNivelId = 999999;
                          });
                     listaPersonalizacionModel = listaPersonalizacionModel.OrderBy(x => x.TipoAplicacion).ThenBy(x=> x.Orden ).ToList();
@@ -526,7 +524,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                             if (item.TipoAtributo == "IMAGEN")
                             {
-                                item.Valor = ConfigCdn.GetUrlFileCdn(carpetaPais, item.Valor);
+                                item.Valor = ConfigCdn.GetUrlFileCdnMatriz(iso, item.Valor);
                             }
                         }
                         else
@@ -695,9 +693,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 BEPager pag = Util.PaginadorGenerico(grid, lst);
                 string iso = Util.GetPaisISO(userData.PaisID);
-                var carpetaPais = Globals.UrlMatriz + "/" + iso;
 
-                lst.Update(x => x.ImagenProducto = ConfigCdn.GetUrlFileCdn(carpetaPais, x.ImagenProducto));
+                lst.Update(x => x.ImagenProducto = ConfigCdn.GetUrlFileCdnMatriz(iso, x.ImagenProducto));
 
                 var data = new
                 {
@@ -927,6 +924,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, Constantes.TipoEstrategiaCodigo.ShowRoom))
                 {
+                    model.ImagenProducto = entidad.ImagenProducto;
                     administrarEstrategiaProvider.UpdateOfertaShowRoomDetalleNew(model);
                 }
                 else

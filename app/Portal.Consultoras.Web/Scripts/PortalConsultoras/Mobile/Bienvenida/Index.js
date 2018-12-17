@@ -59,6 +59,10 @@ $(document).ready(function () {
         $("#fondoPopup_aceptacionTerminosYCondicionesContrato").hide();
     }
 
+    $('.cerrarTooltip').click(function () {
+        document.getElementsByClassName('tooltip_info_revision_correo')[0].style.display = 'none';
+    });
+
     CargarCarouselEstrategias();
 
     if (tieneMasVendidos === 1) {
@@ -733,15 +737,20 @@ function VerTutorialMobile() {
 }
 
 function ConsultarEmailPendiente() {
+    var item = {
+        pagina: "1"
+    }
+
     $.ajax({
         type: 'POST',
-        url: baseUrl + 'Bienvenida/ObtenerActualizacionEmail',
+        url: baseUrl + 'Bienvenida/ObtenerActualizacionEmailSms',
         dataType: 'Text',
         contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(item),
         success: function (data) {
             if (checkTimeout(data)) {
-                if (data.split('|')[0] == '1') {
-                    document.getElementById('spnEmail').innerHTML = data.split('|')[1];
+                if (data != '') {
+                    document.getElementById('mensajeToolTip').innerHTML = data;
                     document.getElementsByClassName('tooltip_info_revision_correo')[0].style.display = 'block';
                 }
             }

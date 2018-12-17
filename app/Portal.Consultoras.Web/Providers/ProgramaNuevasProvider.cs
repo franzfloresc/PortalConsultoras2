@@ -30,6 +30,10 @@ namespace Portal.Consultoras.Web.Providers
         {
             return Util.GetOrCalcValue(sessionManager.GetCuvKitNuevas, sessionManager.SetCuvKitNuevas, (s) => s == null, CalcCuvKit);
         }
+        public string GetMensajeKit()
+        {
+            return Util.GetOrCalcValue(sessionManager.GetMensajeKitNuevas, sessionManager.SetMensajeKitNuevas, (s) => s == null, CalcMensajeKit);
+        }
         public int GetLimElectivos()
         {
             return Util.GetOrCalcValue(sessionManager.GetLimElectivosProgNuevas, sessionManager.SetLimElectivosProgNuevas, (i) => i == 0, CalcLimElectivos);
@@ -59,6 +63,21 @@ namespace Portal.Consultoras.Web.Providers
                 using (var sv = new PedidoServiceClient())
                 {
                     return sv.GetCuvKitNuevas(consultoraNuevas, GetConfiguracion()) ?? "";
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return "";
+            }
+        }
+        private string CalcMensajeKit()
+        {
+            try
+            {
+                using (var sv = new PedidoServiceClient())
+                {
+                    return sv.GetMensajeKitNuevas(userData.CodigoISO, userData.EsConsultoraNueva, userData.ConsecutivoNueva);
                 }
             }
             catch (Exception ex)
@@ -123,8 +142,7 @@ namespace Portal.Consultoras.Web.Providers
 
         private string GetUrlTippingPoint(string noImagen)
         {
-            string urlExtension = string.Format("{0}/{1}", configuracionManager.GetConfiguracionManager(ConfigurationManager.AppSettings["Matriz"] ?? ""), userData.CodigoISO ?? "");
-            string url = ConfigCdn.GetUrlFileCdn(urlExtension, noImagen ?? "");
+            string url = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, noImagen ?? "");
             return url;
         }
     }

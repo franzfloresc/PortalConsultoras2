@@ -3,7 +3,7 @@ using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceCDR;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
-using Portal.Consultoras.Web.Helpers;
+using Portal.Consultoras.Web.CustomHelpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +23,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult Index()
         {
-            if (userData.TieneCDR == 0) return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
+            if (userData.TieneCDR == 0)
+                return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
+
             MisReclamosModel model = new MisReclamosModel();
             List<CDRWebModel> listaCdrWebModel;
             var mobileConfiguracion = this.GetUniqueSession<MobileAppConfiguracionModel>("MobileAppConfiguracion");

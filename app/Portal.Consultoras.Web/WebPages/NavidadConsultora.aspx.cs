@@ -51,6 +51,7 @@ namespace Portal.Consultoras.Web.WebPages
             }
             catch
             {
+                // Excepcion
             }
 
         }

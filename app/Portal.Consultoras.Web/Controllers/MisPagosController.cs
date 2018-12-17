@@ -13,7 +13,6 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
-using System.Web.Routing;  // PPC
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -28,30 +27,16 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region Acciones
 
-         public ActionResult Index(string pestanhaInicial)
-        //  public ActionResult Index(string pestanhaInicial, string utm_source = "",string utm_medium ="",string utm_campaign = "", string utm_term = "", string utm_content = "")  //  PPC
+        public ActionResult Index(string pestanhaInicial)
         {
-            string sap="";
-            var url = (Request.Url.Query).Split('?');
-
-            //var sap-outbound-id = "";
-            //String s = String.Format("sap-outbound-id");
-            //var ID = (Request.Url.OriginalString).Split('=');
-            //var MIID = ID[1];
 
             if (EsDispositivoMovil())
             {
-                // return RedirectToAction("Index", "EstadoCuenta", new { area = "Mobile" });
-                //if url[1].Length > 0 
-                // return RedirectToAction("Index", new RouteValueDictionary(new { controller = "EstadoCuenta", area = "Mobile", sap= url[1] }));
-                // return RedirectToAction("Index", "EstadoCuenta", new { area = "Mobile", sapoutboundid = ID[1],  utm_source = utm_source, utm_medium = utm_medium, utm_campaign = utm_campaign, utm_term = utm_term, utm_content = utm_content });
-
+                var url = (Request.Url.Query).Split('?');
                 if (url.Length > 1 && url[1].Contains("sap"))
                 {
-                    //sap = HttpUtility.UrlEncode(url[1]);
-                    sap = "&" + url[1];
-                   return RedirectToAction("Index", "EstadoCuenta", new { area = "Mobile", sap });
-
+                    string sap = "&" + url[1];
+                    return RedirectToAction("Index", "EstadoCuenta", new { area = "Mobile", sap });
                 }
                 else
                 {
@@ -85,7 +70,8 @@ namespace Portal.Consultoras.Web.Controllers
                 FechaVencimiento = fechaVencimiento,
                 MontoPagar = montoPagar,
                 PestanhaInicial = pestanhaInicial ?? "",
-                TienePagoEnLinea = userData.TienePagoEnLinea
+                TienePagoEnLinea = userData.TienePagoEnLinea,
+                MostrarPagoEnLinea = userData.MontoDeuda > 0
             };
 
             List<string> pestanhaMisPagosAll = new List<string> {
@@ -568,17 +554,83 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult ExportarPDFPercepcion(string vIdComprobantePercepcion, string vRUCAgentePerceptor, string vNombreAgentePerceptor, string vNumeroComprobanteSerie, string vFechaEmision, string vImportePercepcion, string vSimbolo)
         {
-            string[] lista = new string[10];
-            lista[0] = vIdComprobantePercepcion;
-            lista[1] = vRUCAgentePerceptor;
-            lista[2] = vNombreAgentePerceptor;
-            lista[3] = vNumeroComprobanteSerie;
-            lista[4] = vFechaEmision;
-            lista[5] = vImportePercepcion;
-            lista[6] = userData.PaisID.ToString();
-            lista[7] = vSimbolo;
-            Util.ExportToPdfWebPages(this, "Percepciones.pdf", "PercepcionDetalle", Util.EncriptarQueryString(lista));
-            return View();
+            try
+            {
+                string[] lista = new string[10];
+                lista[0] = vIdComprobantePercepcion;
+                lista[1] = vRUCAgentePerceptor;
+                lista[2] = vNombreAgentePerceptor;
+                lista[3] = vNumeroComprobanteSerie;
+                lista[4] = vFechaEmision;
+                lista[5] = vImportePercepcion;
+                lista[6] = userData.PaisID.ToString();
+                lista[7] = vSimbolo;
+
+                BEDatosBelcorp BEDatosBelcorp;
+                using (SACServiceClient sv = new SACServiceClient())
+                {
+                    BEDatosBelcorp = sv.GetDatosBelcorp(userData.PaisID).ToList().First();
+                }
+
+                List<BEComprobantePercepcionDetalle> lstBEComprobantePercepcionDetalle;
+                using (ODSServiceClient sv = new ODSServiceClient())
+                {
+                    lstBEComprobantePercepcionDetalle = sv.SelectComprobantePercepcionDetalle(userData.PaisID, Convert.ToInt32(vIdComprobantePercepcion)).ToList();
+                }                
+
+                string templatePercepcionPath = AppDomain.CurrentDomain.BaseDirectory + "Content\\Template\\mailing_pago_percepcion.html";
+                string templatePercepcionDetallePath = AppDomain.CurrentDomain.BaseDirectory + "Content\\Template\\mailing_pago_percepcion_detalle.html";
+
+                string htmlPercepcionTemplate = FileManager.GetContenido(templatePercepcionPath);
+                string htmlPercepcionDetalleTemplate = FileManager.GetContenido(templatePercepcionDetallePath);
+
+                StringBuilder htmlPercepcionDetalle = new StringBuilder();
+                foreach (var det in lstBEComprobantePercepcionDetalle)
+                {
+                    var htmlClonePerpcepcionDetalle = htmlPercepcionDetalleTemplate.Clone().ToString();
+                    htmlClonePerpcepcionDetalle = htmlClonePerpcepcionDetalle.Replace("#TIPO_DOCUMENTO#", det.TipoDocumento);
+                    htmlClonePerpcepcionDetalle = htmlClonePerpcepcionDetalle.Replace("#NUMERO_DOCUMENTO_SERIE#", det.NumeroDocumentoSerie);
+                    htmlClonePerpcepcionDetalle = htmlClonePerpcepcionDetalle.Replace("#NUMERO_DOCUMENTO_CORRELATIVO#", det.NumeroDocumentoCorrelativo);
+                    htmlClonePerpcepcionDetalle = htmlClonePerpcepcionDetalle.Replace("#FECHA_EMISION_DOCUMENTO#", det.FechaEmisionDocumento.ToShortDateString());
+                    htmlClonePerpcepcionDetalle = htmlClonePerpcepcionDetalle.Replace("#MONTO#", det.Monto.ToString("N2"));
+                    htmlClonePerpcepcionDetalle = htmlClonePerpcepcionDetalle.Replace("#PORCENTAJE_PERCEPCION#", det.PorcentajePercepcion.ToString("N2"));
+                    htmlClonePerpcepcionDetalle = htmlClonePerpcepcionDetalle.Replace("#IMPORTTE_PERCEPCION#", det.ImportePercepcion.ToString("N2"));
+                    htmlClonePerpcepcionDetalle = htmlClonePerpcepcionDetalle.Replace("#MONTO_TOTAL#", det.MontoTotal.ToString("N2"));
+
+                    htmlPercepcionDetalle.Append(htmlClonePerpcepcionDetalle);
+                }
+
+                htmlPercepcionTemplate = htmlPercepcionTemplate.Replace("#RAZON_SOCIAL#", BEDatosBelcorp.RazonSocial);
+                htmlPercepcionTemplate = htmlPercepcionTemplate.Replace("#DIRECCION_CLIENTE#", BEDatosBelcorp.Direccion);
+                htmlPercepcionTemplate = htmlPercepcionTemplate.Replace("#NOMBRE_AGENTE_PERCEPTOR#", vNombreAgentePerceptor);
+                htmlPercepcionTemplate = htmlPercepcionTemplate.Replace("#RUC_AGENTE_PERCEPTOR#", vRUCAgentePerceptor);
+                htmlPercepcionTemplate = htmlPercepcionTemplate.Replace("#FECHA_EMISION#", vFechaEmision);
+                htmlPercepcionTemplate = htmlPercepcionTemplate.Replace("#RUC#", BEDatosBelcorp.RUC);
+                htmlPercepcionTemplate = htmlPercepcionTemplate.Replace("#NUMERO_COMPROBANTE_SERIE#", vNumeroComprobanteSerie);
+                htmlPercepcionTemplate = htmlPercepcionTemplate.Replace("#DETALLE_PERCEPCION#", htmlPercepcionDetalle.ToString());
+                htmlPercepcionTemplate = htmlPercepcionTemplate.Replace("#SIMBOLO_MONEDA#", vSimbolo);
+                htmlPercepcionTemplate = htmlPercepcionTemplate.Replace("#IMPORTE_PERCEPCION#", vImportePercepcion);
+
+                Util.ExportToPdfWebPagesPercepcion("Percepciones.pdf", htmlPercepcionTemplate);
+
+                return View();
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                });
+            }
         }
 
         public ActionResult DetallePercepcion()
@@ -670,12 +722,12 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             string iso = userData.CodigoISO;
-            
+
             if (lst.Any())
             {
                 var carpetaPais = Globals.UrlLugaresPago + "/" + iso;
                 lst.Update(x => x.ArchivoLogo = ConfigCdn.GetUrlFileCdn(carpetaPais, x.ArchivoLogo));
-            }                
+            }
 
             var lugaresPagoModel = new LugaresPagoModel()
             {

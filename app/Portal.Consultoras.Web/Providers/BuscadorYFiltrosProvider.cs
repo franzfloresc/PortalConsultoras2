@@ -2,55 +2,47 @@
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Buscador;
 using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.SessionManager;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Portal.Consultoras.Web.SessionManager;
-using System;
 
 namespace Portal.Consultoras.Web.Providers
 {
     public class BuscadorYFiltrosProvider : BuscadorBaseProvider
     {
-        protected ISessionManager _sessionManager;
-
         public BuscadorYFiltrosProvider()
         {
             _sessionManager = SessionManager.SessionManager.Instance;
         }
-
-        public async Task<string> GetPersonalizacion(UsuarioModel usuario)
-        {
-            var pathPersonalziacion = string.Format(Constantes.RutaBuscadorService.UrlPersonalizacion,
-                usuario.CodigoISO,
-                usuario.CampaniaID,
-                usuario.CodigoConsultora);
-
-            return await ObtenerPersonalizaciones(pathPersonalziacion); ;
-        }
-
         public async Task<BuscadorYFiltrosModel> GetBuscador(BuscadorModel buscadorModel)
         {
             var revistaDigital = _sessionManager.GetRevistaDigital();
             var userData = _sessionManager.GetUserData();
             var pathBuscador = string.Format(Constantes.RutaBuscadorService.UrlBuscador,
-                        userData.CodigoISO,
-                        userData.CampaniaID
-                );
+                userData.CodigoISO,
+                userData.CampaniaID,
+                ObtenerOrigen()
+            );
 
-            var parametros = getJsonPostBuscador(userData, buscadorModel, revistaDigital);
+            var parametros = GetJsonPostBuscador(userData, buscadorModel, revistaDigital);
             return await PostAsync<BuscadorYFiltrosModel>(pathBuscador, parametros);
         }
 
-        private dynamic getJsonPostBuscador(UsuarioModel usuarioModel, BuscadorModel buscadorModel, RevistaDigitalModel revistaDigital)
+        private dynamic GetJsonPostBuscador(UsuarioModel usuarioModel, BuscadorModel buscadorModel, RevistaDigitalModel revistaDigital)
         {
             var suscripcion = (revistaDigital.EsSuscrita && revistaDigital.EsActiva);
+            var presonalizaciones = "";
+            var configBuscador = _sessionManager.GetBuscadorYFiltrosConfig();
+            if (configBuscador != null)
+                presonalizaciones = configBuscador.PersonalizacionDummy ?? "";
+
             return new
             {
                 codigoConsultora = usuarioModel.CodigoConsultora,
                 codigoZona = usuarioModel.CodigoZona,
                 textoBusqueda = buscadorModel.TextoBusqueda,
-                personalizaciones = usuarioModel.PersonalizacionesDummy,
+                personalizaciones = presonalizaciones,
                 configuracion = new
                 {
                     sociaEmpresaria = usuarioModel.Lider.ToString(),
@@ -70,37 +62,16 @@ namespace Portal.Consultoras.Web.Providers
                 {
                     campo = buscadorModel.Orden.Campo,
                     tipo = buscadorModel.Orden.Tipo
+                },
+                filtro = new
+                {
+                    categoria = buscadorModel.Filtro.categoria,
+                    marca = buscadorModel.Filtro.marca,
+                    precio = buscadorModel.Filtro.precio 
                 }
             };
         }
 
-        public async Task<BuscadorYFiltrosModel> ValidacionProductoAgregado(BuscadorYFiltrosModel resultado, List<BEPedidoWebDetalle> pedidos, UsuarioModel userData, RevistaDigitalModel revistaDigital, bool IsMobile)
-        {
-            var labelAgregado = "";
-            var suscripcionActiva = revistaDigital.EsSuscrita && revistaDigital.EsActiva;
-            if (resultado.total == 0) return new BuscadorYFiltrosModel();
-
-            foreach (var item in resultado.productos)
-            {
-                var pedidoAgregado = pedidos.Where(x => x.CUV == item.CUV).ToList();
-                labelAgregado = "";
-
-                if (pedidoAgregado.Any())
-                {
-                    labelAgregado = "Agregado";
-                }
-
-                item.CampaniaID = userData.CampaniaID;
-                item.PrecioString = Util.DecimalToStringFormat(item.Precio.ToDecimal(), userData.CodigoISO, userData.Simbolo);
-                item.ValorizadoString = Util.DecimalToStringFormat(item.Valorizado.ToDecimal(), userData.CodigoISO, userData.Simbolo);
-                item.DescripcionEstrategia = Util.obtenerNuevaDescripcionProducto(userData.NuevasDescripcionesBuscador, suscripcionActiva, item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaId, 0, true);
-                item.OrigenPedidoWeb = Util.obtenerCodigoOrigenWeb(item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaId, IsMobile);
-                item.Agregado = labelAgregado;
-                item.Stock = !item.Stock;
-                item.DescripcionCompleta = item.Descripcion;
-            }
-
-            return resultado;
-        }
+        
     }
 }

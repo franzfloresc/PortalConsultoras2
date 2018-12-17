@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceZonificacion;
@@ -8,11 +7,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -50,10 +44,8 @@ namespace Portal.Consultoras.Web.Providers
             {
                 string soloImagen = Path.GetFileNameWithoutExtension(rutaImagen);
                 string soloExtension = Path.GetExtension(rutaImagen);
-
-                var carpetaPais = Globals.UrlMatriz + "/" + codigoIso;
-
-                ruta = ConfigCdn.GetUrlFileCdn(carpetaPais, soloImagen + rutaNombreExtension + soloExtension);
+                
+                ruta = ConfigCdn.GetUrlFileCdnMatriz(codigoIso, soloImagen + rutaNombreExtension + soloExtension);
             }
             else
             {

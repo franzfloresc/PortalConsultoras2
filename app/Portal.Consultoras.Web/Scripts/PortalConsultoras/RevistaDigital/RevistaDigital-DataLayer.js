@@ -1,29 +1,30 @@
 ﻿
 /*
  * SECCION DE MARCACIONES DE ANALYTICS PARA REVISTA DIGITAL 
- * 
+ *
+
+ Primer Dígito -- Plataforma
+ 1: Desktop                   2: Mobile
+ Segundo Dígito -- Pantalla
+ 1: Home                      2: Pedido
+ 3: Liquidacion               4: Catalogo Personalizado
+ 5: ShowRoom                  9: General
+ 6: OfertaParaTi
+ 7: RevistaDigital
+
+ Tercer Dígito -- Sección dentro de la Pantalla
+ 1: Banners                   2: Ofertas para ti
+ 3: Catalogo Personalizado    4: Liquidacion
+ 5: Producto Sugerido         6: Oferta Final
+ 7: ShowRoom                  8: Consultora Online
+ 9: Oferta del dia            0: Revista Digital
+ 1: index
+ 2: OfertaParaTi Detalle
+
+ Cuarto Dígito
+ 1. Sin popUp                 2. Con popUp 
+
  */
-
-// Primer Dígito -- Plataforma
-// 1: Desktop                   2: Mobile
-// Segundo Dígito -- Pantalla
-// 1: Home                      2: Pedido
-// 3: Liquidacion               4: Catalogo Personalizado
-// 5: ShowRoom                  9: General
-// 6: OfertaParaTi
-// 7: RevistaDigital
-
-// Tercer Dígito -- Sección dentro de la Pantalla
-// 1: Banners                   2: Ofertas para ti
-// 3: Catalogo Personalizado    4: Liquidacion
-// 5: Producto Sugerido         6: Oferta Final
-// 7: ShowRoom                  8: Consultora Online
-// 9: Oferta del dia            0: Revista Digital
-// 1: index
-// 2: OfertaParaTi Detalle
-
-// Cuarto Dígito
-// 1. Sin popUp                 2. Con popUp
 
 var rdAnalyticsModule = (function () {
     var _event = {
@@ -34,24 +35,24 @@ var rdAnalyticsModule = (function () {
         productClick: "productClick",
         socialEvent: "socialEvent"
     },
+
     _origenWeb = {
-        home: "1101",
-        homeLan: "1103",
-        catalogo: "1401",
-        pedido: "1201",
-        homeMobile: "2101",
-        homeLanMobile: "2103",
-        catalogoMobile: "2401",
-        pedidoMobile: "2201",
-        homeVerMobile: "2104",
-        homeVerMasMobile: "2105",
-        rdLan: "1721",
-        rdOferas: "1711",
-        rdDetalle: "1731",
-        rdLanMobile: "2721",
-        rdOferasMobile: "2711",
-        rdDetalleMobile: "2731"
+        home: "1101", // solo para RedireccionarContenedorComprar
+        homeLan: "1103", // solo para RedireccionarContenedorComprar
+        catalogo: "1401", // solo para RedireccionarContenedorComprar
+        pedido: "1201", // solo para RedireccionarContenedorComprar
+        homeMobile: "2101", // solo para RedireccionarContenedorComprar
+        homeLanMobile: "2103", // solo para RedireccionarContenedorComprar
+        catalogoMobile: "2401", // solo para RedireccionarContenedorComprar
+        pedidoMobile: "2201", // solo para RedireccionarContenedorComprar
+        rdLan: "1070001", // anterior "1721",
+        rdOfertas: "1070001", // anterior "1711",
+        rdDetalle: "1080202", // anterior "1731",
+        rdLanMobile: "2080201", // anterior "2721",
+        rdOfertasMobile: "2070001", // anterior "2711",
+        rdDetalleMobile: "2080202", // anterior "2731" 
     },
+
     _seccionWeb = {
         home: "Home",
         catalogo: "Catálogos y revistas",
@@ -65,7 +66,7 @@ var rdAnalyticsModule = (function () {
     _text = {
         noDisponible: "NO DISPONIBLE",
         estandar: "Estándar",
-        epm: "Ésika para mí",
+        epm: "Ganá más",
         exception: "Exception on analytics RD",
         comprarCampania: "Comprar campaña ",
         verCampania: "Ver campaña ",
@@ -103,8 +104,9 @@ var rdAnalyticsModule = (function () {
         verMas: "Ver más ofertas",
         verTodas: "Ver todas mis ofertas",
         clickBoton: "Click Botón",
+        clickEnBoton: "Click en botón",
         clickCancelar: "Click Link Cancelar Suscripción",
-        cancelarInscripcion: "Cancelar inscripción",
+        cancelarInscripcion: "Cancelar tu subscripción aquí",
         suscripcionExitosa: "Suscripción Exitosa",
         whatsapp: "Enviar por Whatsapp",
         inicioVideo: "Iniciar video",
@@ -144,7 +146,8 @@ var rdAnalyticsModule = (function () {
             return _text.anterior;
         }
     }
-    var _virtualEventPush = function(category, action, label) {
+    var _virtualEventPush = function (category, action, label) {
+        
         dataLayer.push({
             "event": _event.virtual,
             "category": category,
@@ -272,12 +275,6 @@ var rdAnalyticsModule = (function () {
                 case _origenWeb.pedidoMobile:
                     _virtualEventPush(_seccionWeb.pedidoMobile, _text.epm, _action.clickBanner);
                     break;
-                case _origenWeb.homeVerMobile:
-                    _virtualEventPush(_seccionWeb.homeMobile, _text.epm, _action.verTodas);
-                    break;
-                case _origenWeb.homeVerMasMobile:
-                    _virtualEventPush(_seccionWeb.homeMobile, _text.epm, _action.verMas);
-                    break;
             }
         } catch (e) {
             console.log(_text.exception + e);
@@ -337,11 +334,11 @@ var rdAnalyticsModule = (function () {
                     if (popup) _addToCartPush(_text.rdBannerDetPrincipal, estrategia);
                     else _addToCartPush(_text.rdBannerPrincipal, estrategia);
                     break;
-                case _origenWeb.rdOferas:
+                case _origenWeb.rdOfertas:
                     if (!popup) _addToCartPush(_text.rdMisOfertas, estrategia);
                     else _addToCartPush(_text.rdDetalleMisOfertas, estrategia);
                     break;
-                case _origenWeb.rdOferasMobile:
+                case _origenWeb.rdOfertasMobile:
                     if (!popup) _addToCartPush(_text.rdMisOfertas, estrategia);
                     else _addToCartPush(_text.rdDetalleMisOfertas, estrategia);
                     break;
@@ -359,6 +356,7 @@ var rdAnalyticsModule = (function () {
         }
     }
 
+    // se utilizaba en el popup de ver detalle, ahora es la ficha
     function VerDetalleComprar(origenWeb, estrategia) {
         try {
             var origenWebString = origenWeb.toString();
@@ -369,10 +367,10 @@ var rdAnalyticsModule = (function () {
                 case _origenWeb.rdLanMobile:
                     _productClickPush(_text.rdBannerPrincipal, estrategia);
                     break;
-                case _origenWeb.rdOferas:
+                case _origenWeb.rdOfertas:
                     _productClickPush(_text.rdMisOfertas, estrategia);
                     break;
-                case _origenWeb.rdOferasMobile:
+                case _origenWeb.rdOfertasMobile:
                     _productClickPush(_text.rdMisOfertas, estrategia);
                     break;
                 case _origenWeb.rdDetalle:
@@ -401,11 +399,11 @@ var rdAnalyticsModule = (function () {
                     if (popup) _virtualEventPush(category, _text.rdAgregarBannerDetPrincipal, label);
                     else _virtualEventPush(category, _text.rdAgregarBannerPrincipal, label);
                     break;
-                case _origenWeb.rdOferas:
+                case _origenWeb.rdOfertas:
                     if (popup) _virtualEventPush(category, _text.rdAgregarDetalleMisOfertas, label);
                     _virtualEventPush(category, _text.rdAgregarMisOfertas, label);
                     break;
-                case _origenWeb.rdOferasMobile:
+                case _origenWeb.rdOfertasMobile:
                     if (popup) _virtualEventPush(category, _text.rdAgregarDetalleMisOfertas, label);
                     _virtualEventPush(category, _text.rdAgregarMisOfertas, label);
                     break;
@@ -502,7 +500,7 @@ var rdAnalyticsModule = (function () {
     }
 
     function CancelarSuscripcion() {
-        _virtualEventPush(_text.epm, _action.cancelarInscripcion, _text.notAvailable);
+        _virtualEventPush(_text.epm, _action.clickEnBoton, _action.cancelarInscripcion);
     }
 
     function ContendorSection(titulo) {

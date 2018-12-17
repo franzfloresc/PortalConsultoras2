@@ -24,7 +24,7 @@ namespace Portal.Consultoras.BizLogic.Producto
 
             try
             {
-                var listaDescripciones = _tablaLogicaDatosBusinessLogic.GetTablaLogicaDatosCache(paisID, Constantes.TablaLogica.NuevaDescripcionProductos);
+                var listaDescripciones = _tablaLogicaDatosBusinessLogic.GetListCache(paisID, Constantes.TablaLogica.NuevaDescripcionProductos);
 
                 foreach (var item in listaDescripciones)
                 {
@@ -34,9 +34,13 @@ namespace Portal.Consultoras.BizLogic.Producto
                 lst.Update(item =>
                 {
                     item.DescripcionEstrategia = Util.obtenerNuevaDescripcionProducto(listaDescripcionesDic, suscripcionActiva, item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaID, 0, true);
-                    item.OrigenPedidoWeb = Util.obtenerCodigoOrigenWeb(item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaID, true);
+                    item.OrigenPedidoWeb = Util.obtenerCodigoOrigenWeb(item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaID, true, false);
 
-                    if (isApp) item.OrigenPedidoWeb = Util.ProcesarOrigenPedido(item.OrigenPedidoWeb, true);
+                    if (isApp)
+                    {
+                        item.OrigenPedidoWeb = Util.ProcesarOrigenPedidoApp(item.OrigenPedidoWeb);
+                        item.OrigenPedidoWebFicha = Util.ProcesarOrigenPedidoAppFicha(item.OrigenPedidoWeb);
+                    }
                 });
             }
             catch (Exception ex)

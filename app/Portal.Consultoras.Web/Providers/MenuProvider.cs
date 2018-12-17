@@ -133,24 +133,24 @@ namespace Portal.Consultoras.Web.Providers
                 {
                     if (!permiso.Mostrar)
                         continue;
-
-                    if (permiso.Descripcion.ToUpperInvariant() == "SOCIA EMPRESARIA" && permiso.IdPadre == 0
+                    var description = permiso.Descripcion.ToUpperInvariant();
+                    if (description == "SOCIA EMPRESARIA" && permiso.IdPadre == 0
                         && !(userSession.Lider == 1 && userSession.PortalLideres))
                     {
                         continue;
                     }
 
                     permiso.PageTarget = permiso.PaginaNueva ? "_blank" : "_self";
-                    permiso.ClaseSubMenu = permiso.Descripcion == "MI NEGOCIO" ? "sub_menu_home1" : "sub_menu_home2";
+                    permiso.ClaseSubMenu = description == "MI NEGOCIO" ? "sub_menu_home1" : "sub_menu_home2";
 
                     if (permiso.IdPadre == 0)
                     {
                         permiso.ClaseMenu = "";
                         permiso.ClaseMenuItem = "";
                         var urlSplit = permiso.UrlItem.Split('/');
-                        permiso.OnClickFunt = "RedirectMenu('" + (urlSplit.Length > 1 ? urlSplit[1] : "") + "', '" + (urlSplit.Length > 0 ? urlSplit[0] : "") + "' , " + Convert.ToInt32(permiso.PaginaNueva).ToString() + ", '" + permiso.Descripcion + "')";
-
-                        if (permiso.Descripcion.ToUpperInvariant() == "MI COMUNIDAD")
+                        permiso.OnClickFunt = "RedirectMenu('" + (urlSplit.Length > 1 ? urlSplit[1] : "") + "', '" + (urlSplit.Length > 0 ? urlSplit[0] : "") + "' , " + Convert.ToInt32(permiso.PaginaNueva) + ", '" + permiso.Descripcion + "')";
+                        
+                        if (description == "MI COMUNIDAD")
                         {
                             if (!userSession.EsUsuarioComunidad)
                             {
@@ -158,16 +158,21 @@ namespace Portal.Consultoras.Web.Providers
                             }
                             else
                             {
-                                permiso.OnClickFunt = "RedirectMenu('" + (urlSplit.Length > 1 ? urlSplit[1] : "") + "', '" + (urlSplit.Length > 0 ? urlSplit[0] : "") + "', '' , " + Convert.ToInt32(permiso.PaginaNueva).ToString() + " , '" + permiso.Descripcion + "')";
+                                permiso.OnClickFunt = "RedirectMenu('" + (urlSplit.Length > 1 ? urlSplit[1] : "") + "', '" + (urlSplit.Length > 0 ? urlSplit[0] : "") + "', '' , " + Convert.ToInt32(permiso.PaginaNueva) + " , '" + permiso.Descripcion + "')";
                             }
                         }
 
-                        if (permiso.Descripcion.ToUpperInvariant() == "SOCIA EMPRESARIA")
+                        if (description == "TU VOZ ONLINE")
+                        {
+                            permiso.OnClickFunt = "OpenUrl('" + permiso.UrlItem + "'," + Convert.ToInt32(permiso.PaginaNueva) + ")";
+                        }
+
+                        if (description == "SOCIA EMPRESARIA")
                         {
                             permiso.ClaseMenu = "menu_socia_empresaria";
                             if (userSession.Lider == 1 && userSession.PortalLideres)
                             {
-                                permiso.OnClickFunt = "RedirectMenu('" + permiso.UrlItem + "', '' , " + Convert.ToInt32(permiso.PaginaNueva).ToString() + " , '" + permiso.Descripcion + "')";
+                                permiso.OnClickFunt = "RedirectMenu('" + permiso.UrlItem + "', '' , " + Convert.ToInt32(permiso.PaginaNueva) + " , '" + permiso.Descripcion + "')";
                             }
                         }
 
@@ -215,7 +220,7 @@ namespace Portal.Consultoras.Web.Providers
             if (!tieneRevistaDigital)
             {
                 urlImagen = _configuracionManager.GetDefaultGifMenuOfertas();
-                urlImagen = ConfigCdn.GetUrlFileCdn(Globals.UrlMatriz + "/" + codigoIso, urlImagen);
+                urlImagen = ConfigCdn.GetUrlFileCdnMatriz(codigoIso, urlImagen);
                 if (tieneEventoFestivoData)
                 {
                     urlImagen = _eventoFestivo.EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.GIF_MENU_OFERTAS, urlImagen);
@@ -225,7 +230,7 @@ namespace Portal.Consultoras.Web.Providers
             if (tieneRevistaDigital && !revistaDigital.EsSuscrita)
             {
                 urlImagen = revistaDigital.LogoMenuOfertasNoActiva;
-                urlImagen = ConfigCdn.GetUrlFileCdn(Globals.UrlMatriz + "/" + codigoIso, urlImagen);
+                urlImagen = ConfigCdn.GetUrlFileCdnMatriz(codigoIso, urlImagen);
                 if (tieneEventoFestivoData)
                 {
                     urlImagen = _eventoFestivo.EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.GIF_MENU_OFERTAS_BPT_GANA_MAS, urlImagen);
@@ -236,7 +241,7 @@ namespace Portal.Consultoras.Web.Providers
             if (tieneRevistaDigital && revistaDigital.EsSuscrita)
             {
                 urlImagen = revistaDigital.LogoMenuOfertasActiva;
-                urlImagen = ConfigCdn.GetUrlFileCdn(Globals.UrlMatriz + "/" + codigoIso, urlImagen);
+                urlImagen = ConfigCdn.GetUrlFileCdnMatriz(codigoIso, urlImagen);
                 if (tieneEventoFestivoData)
                 {
                     urlImagen = _eventoFestivo.EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.GIF_MENU_OFERTAS_BPT_CLUB_GANA_MAS, urlImagen);
@@ -246,7 +251,7 @@ namespace Portal.Consultoras.Web.Providers
             if (revistaDigital.TieneRDI)
             {
                 urlImagen = revistaDigital.LogoMenuOfertasNoActiva;
-                urlImagen = ConfigCdn.GetUrlFileCdn(Globals.UrlMatriz + "/" + codigoIso, urlImagen);
+                urlImagen = ConfigCdn.GetUrlFileCdnMatriz(codigoIso, urlImagen);
                 if (tieneEventoFestivoData)
                 {
                     urlImagen = _eventoFestivo.EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.GIF_MENU_OFERTAS_BPT_GANA_MAS, urlImagen);
@@ -478,6 +483,9 @@ namespace Portal.Consultoras.Web.Providers
         public bool FindInMenu<T>(List<PermisoModel> menuWeb, Predicate<PermisoModel> predicate, Converter<PermisoModel, T> select, out T result)
         {
             result = default(T);
+            if (menuWeb == null)
+                return false;
+
             foreach (var item in menuWeb)
             {
                 if (predicate(item))
@@ -493,6 +501,9 @@ namespace Portal.Consultoras.Web.Providers
         public bool FindInMenu<T>(List<MenuMobileModel> menuWeb, Predicate<MenuMobileModel> predicate, Converter<MenuMobileModel, T> select, out T result)
         {
             result = default(T);
+            if (menuWeb == null)
+                return false;
+
             foreach (var item in menuWeb)
             {
                 if (predicate(item))
@@ -500,7 +511,7 @@ namespace Portal.Consultoras.Web.Providers
                     result = select(item);
                     return true;
                 }
-                if (FindInMenu(item.SubMenu.ToList(), predicate, select, out result)) return true;
+                if (FindInMenu((item.SubMenu ?? new List<MenuMobileModel>()).ToList(), predicate, select, out result)) return true;
             }
             return false;
         }

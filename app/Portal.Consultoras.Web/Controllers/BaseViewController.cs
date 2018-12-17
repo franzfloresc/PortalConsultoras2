@@ -21,13 +21,13 @@ namespace Portal.Consultoras.Web.Controllers
             _issuuProvider = new IssuuProvider();
         }
 
-        public BaseViewController(ISessionManager sesionManager) 
+        public BaseViewController(ISessionManager sesionManager)
             : base(sesionManager)
         {
 
         }
 
-        public BaseViewController(ISessionManager sesionManager, ILogManager logManager) 
+        public BaseViewController(ISessionManager sesionManager, ILogManager logManager)
             : base(sesionManager, logManager)
         {
 
@@ -47,7 +47,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult RDIndexModel()
         {
-          
+
 
             if (revistaDigital.TieneRDI)
                 return View("template-informativa-rdi");
@@ -131,7 +131,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #endregion
-        
+
         #region Guia Negocio
 
         public virtual ActionResult GNDViewLanding()
@@ -152,6 +152,30 @@ namespace Portal.Consultoras.Web.Controllers
             };
 
             return PartialView("Index", model);
+        }
+
+        #endregion
+
+        #region Las mas Ganadoras
+
+        public ActionResult MasGanadorasViewLanding()
+        {
+            var id = userData.CampaniaID;
+
+            bool esMobile = IsMobile();
+
+            var model = new RevistaDigitalLandingModel
+            {
+                CampaniaID = id,
+                IsMobile = esMobile,
+                FiltersBySorting = _ofertasViewProvider.GetFiltersBySorting(IsMobile()),
+                FiltersByBrand = _ofertasViewProvider.GetFiltersByBrand(),
+                Success = true,
+                MensajeProductoBloqueado = _ofertasViewProvider.HVMensajeProductoBloqueado(herramientasVenta, esMobile),
+                CantidadFilas = 10
+            };
+
+            return PartialView("template-landing", model);
         }
 
         #endregion
@@ -190,22 +214,29 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if( _ofertaPersonalizadaProvider == null) throw new NullReferenceException("_ofertaPersonalizadaProvider can not be null");
+                if (_ofertaPersonalizadaProvider == null)
+                    throw new NullReferenceException("_ofertaPersonalizadaProvider can not be null");
+
 
                 if (!_ofertaPersonalizadaProvider.EnviaronParametrosValidos(palanca, campaniaId, cuv))
-                    return RedirectToAction("Index", "Ofertas",new { area = IsMobile() ? "Mobile" : "" });
+                {
+                    return Redireccionar();
+                }
 
                 palanca = IdentificarPalancaRevistaDigital(palanca, campaniaId);
 
                 if (!_ofertaPersonalizadaProvider.TienePermisoPalanca(palanca))
                     return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
 
-                DetalleEstrategiaFichaModel modelo= null;
+                DetalleEstrategiaFichaModel modelo = null;
                 if (_ofertaPersonalizadaProvider.PalancasConSesion(palanca))
                 {
                     var estrategiaPresonalizada = _ofertaPersonalizadaProvider.ObtenerEstrategiaPersonalizada(userData, palanca, cuv, campaniaId);
+
                     if (estrategiaPresonalizada == null)
-                        return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
+                    {
+                        return Redireccionar();
+                    }
 
                     if (userData.CampaniaID != campaniaId) estrategiaPresonalizada.ClaseBloqueada = "btn_desactivado_general";
                     modelo = Mapper.Map<EstrategiaPersonalizadaProductoModel, DetalleEstrategiaFichaModel>(estrategiaPresonalizada);
@@ -215,6 +246,8 @@ namespace Portal.Consultoras.Web.Controllers
                         modelo.ListaDescripcionDetalle = modelo.ArrayContenidoSet;
                     }
                 }
+
+                #region Modelo
 
                 modelo = modelo ?? new DetalleEstrategiaFichaModel();
                 modelo.MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(IsMobile());
@@ -231,10 +264,13 @@ namespace Portal.Consultoras.Web.Controllers
                 modelo.TieneCarrusel = (Constantes.NombrePalanca.Lanzamiento == palanca
                         || Constantes.NombrePalanca.ShowRoom == palanca
                         || Constantes.NombrePalanca.OfertaDelDia == palanca);
-
+                modelo.OrigenAgregarCarrusel = modelo.TieneCarrusel ? GetOrigenPedidoWebDetalle(origen, modelo.TieneCarrusel) : 0;
                 modelo.TieneCompartir = !(Constantes.NombrePalanca.HerramientasVenta == palanca
                     || Constantes.NombrePalanca.PackNuevas == palanca);
 
+                #endregion
+
+                #region ODD
                 if (modelo.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.OfertaDelDia)
                 {
                     modelo.TeQuedan = _ofertaDelDiaProvider.CountdownOdd(userData).TotalSeconds;
@@ -249,6 +285,8 @@ namespace Portal.Consultoras.Web.Controllers
                     modelo.ColorFondo1 = "";
                 }
 
+                #endregion
+
                 return View(modelo);
             }
             catch (Exception ex)
@@ -257,6 +295,27 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
+        }
+
+        private ActionResult Redireccionar()
+        {
+            string sap = "";
+            var url = (Request.Url.Query).Split('?');
+            if (url.Length > 1 && url[1].Contains("sap"))
+            {
+                SessionManager.SetUrlVc(1);
+                sap = "&" + url[1].Substring(3);
+                if (EsDispositivoMovil())
+                {
+                    return RedirectToAction("Index", "Ofertas", new { area = "Mobile", sap });
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Ofertas", sap);
+                }
+            }
+            return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
+
         }
 
         private DetalleEstrategiaBreadCrumbsModel GetDetalleEstrategiaBreadCrumbs(bool tieneRevistaDigital,
@@ -268,25 +327,27 @@ namespace Portal.Consultoras.Web.Controllers
             breadCrumbs.Inicio.Texto = "Inicio";
             breadCrumbs.Ofertas.Texto = tieneRevistaDigital && revistaDigital.EsSuscrita ? "Gana +" : "Ofertas Digitales";
             breadCrumbs.Palanca.Texto = nombresPalancas.ContainsKey(palanca) ? nombresPalancas[palanca] : string.Empty;
-            
+
             try
             {
                 breadCrumbs.Inicio.Url = Url.Action("Index", new { controller = "Bienvenida", area });
-                
+
                 var actionOfertas = productoPerteneceACampaniaActual ? "Index" : "Revisar";
                 breadCrumbs.Ofertas.Url = Url.Action(actionOfertas, new { controller = "Ofertas", area });
-                
+
                 breadCrumbs.Palanca.Url = "#";
                 if (!string.IsNullOrWhiteSpace(breadCrumbs.Palanca.Texto))
                 {
                     breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "Ofertas", area });
                     if (palanca == Constantes.NombrePalanca.ShowRoom)
                         breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "ShowRoom", area });
+
                     if (palanca == Constantes.NombrePalanca.Lanzamiento)
                     {
                         var actionPalanca = productoPerteneceACampaniaActual ? "Index" : "Revisar";
-                        breadCrumbs.Palanca.Url = Url.Action(actionPalanca, new { controller = "Ofertas", area }) + "#LAN";
+                        breadCrumbs.Palanca.Url = Url.Action(actionPalanca, new { controller = "Ofertas", area }) + "#" + Constantes.ConfiguracionPais.Lanzamiento;
                     }
+
                     if (palanca == Constantes.NombrePalanca.OfertaParaTi ||
                         palanca == Constantes.NombrePalanca.OfertasParaMi ||
                         palanca == Constantes.NombrePalanca.RevistaDigital)
@@ -298,26 +359,35 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         else
                         {
-                            breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "Ofertas", area }) + "#OPT";
+                            breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "Ofertas", area }) + "#" + Constantes.ConfiguracionPais.OfertasParaTi;
                         }
                     }
                     if (palanca == Constantes.NombrePalanca.PackNuevas)
                         breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "ProgramaNuevas", area });
                     if (palanca == Constantes.NombrePalanca.OfertaDelDia)
-                        breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "Ofertas", area }) + "#ODD";
+                        breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "Ofertas", area }) + "#" + Constantes.ConfiguracionPais.OfertaDelDia;
+
                     if (palanca == Constantes.NombrePalanca.GuiaDeNegocioDigitalizada)
                         breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "GuiaNegocio", area });
+
                     if (palanca == Constantes.NombrePalanca.HerramientasVenta)
                     {
                         var actionPalanca = productoPerteneceACampaniaActual ? "Comprar" : "Revisar";
                         breadCrumbs.Palanca.Url = Url.Action(actionPalanca, new { controller = "HerramientasVenta", area });
                     }
+
+                    if (palanca == Constantes.NombrePalanca.MasGanadoras)
+                        breadCrumbs.Palanca.Url =
+                            SessionManager.MasGanadoras.GetModel().TieneLanding
+                            ? Url.Action("Index", new { controller = "MasGanadoras", area })
+                            : (Url.Action("Index", new { controller = "Ofertas", area }) + "#" + Constantes.ConfiguracionPais.MasGanadoras);
                 }
-                
+
                 breadCrumbs.Producto.Url = "#";
             }
             catch
             {
+                // Excepcion
             }
 
             return breadCrumbs;
@@ -335,12 +405,13 @@ namespace Portal.Consultoras.Web.Controllers
             NombrePalancas.Add(Constantes.NombrePalanca.OfertaDelDia, "¡Solo Hoy!");
             NombrePalancas.Add(Constantes.NombrePalanca.GuiaDeNegocioDigitalizada, "Guía De Negocio");
             NombrePalancas.Add(Constantes.NombrePalanca.HerramientasVenta, "Demostradores");
+            NombrePalancas.Add(Constantes.NombrePalanca.MasGanadoras, "Las más ganadoras");
 
-            NombrePalancas.Add(Constantes.NombrePalanca.PackNuevas, _programaNuevasProvider.GetLimElectivos() > 1 ? "Dúo Perfecto": "Programa Nuevas");
+            NombrePalancas.Add(Constantes.NombrePalanca.PackNuevas, _programaNuevasProvider.GetLimElectivos() > 1 ? "Dúo Perfecto" : "Programa Nuevas");
             return NombrePalancas;
         }
 
-        public int GetOrigenPedidoWebDetalle(string origen)
+        public int GetOrigenPedidoWebDetalle(string origen, bool tieneCarrusel = false)
         {
             origen = Util.Trim(origen);
             if (origen == "")
@@ -353,149 +424,180 @@ namespace Portal.Consultoras.Web.Controllers
 
             switch (intOrigen)
             {
-                //OPT
-                case Constantes.OrigenPedidoWeb.OfertasParaTiDesktopHome:
-                    result = Constantes.OrigenPedidoWeb.OfertasParaTiDesktopHomePopUp;
+                #region Desktop
+                case Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiCarrusel:
+                    result = Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiFicha;
                     break;
-                case Constantes.OrigenPedidoWeb.OfertasParaTiDesktopPedido:
-                    result = Constantes.OrigenPedidoWeb.OfertasParaTiDesktopPedidoPopUp;
+                case Constantes.OrigenPedidoWeb.DesktopContenedorOfertasParaTiCarrusel:
+                    result = Constantes.OrigenPedidoWeb.DesktopContenedorOfertasParaTiFicha;
                     break;
-                case Constantes.OrigenPedidoWeb.OfertasParaTiDesktopContenedor:
-                    result = Constantes.OrigenPedidoWeb.OfertasParaTiDesktopContenedorPopup;
+                case Constantes.OrigenPedidoWeb.DesktopLandingOfertasParaTiOfertasParaTiCarrusel:
+                    result = Constantes.OrigenPedidoWeb.DesktopLandingOfertasParaTiOfertasParaTiFicha;
                     break;
-                case Constantes.OrigenPedidoWeb.OfertasParaTiDesktopBuscador:
-                    result = Constantes.OrigenPedidoWeb.OfertasParaTiDesktopBuscadorFicha;
+                case Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTiCarrusel:
+                    result = Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTiFicha;
                     break;
-                //Mobile
-                case Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome:
-                    result = Constantes.OrigenPedidoWeb.OfertasParaTiMobileHomePopUp;
+                case Constantes.OrigenPedidoWeb.DesktopContenedorLanzamientosCarrusel:
+                    result = tieneCarrusel ? Constantes.OrigenPedidoWeb.DesktopContenedorLanzamientosCarruselVerMas : Constantes.OrigenPedidoWeb.DesktopContenedorLanzamientosFicha;
                     break;
-                case Constantes.OrigenPedidoWeb.OfertasParaTiMobilePedido:
-                    result = Constantes.OrigenPedidoWeb.OfertasParaTiMobilePedidoPopUp;
+                case Constantes.OrigenPedidoWeb.DesktopContenedorOfertaDelDiaCarrusel:
+                    result = tieneCarrusel ? Constantes.OrigenPedidoWeb.DesktopContenedorOfertaDelDiaCarruselVerMas : Constantes.OrigenPedidoWeb.DesktopContenedorOfertaDelDiaFicha;
                     break;
-                case Constantes.OrigenPedidoWeb.OfertasParaTiMobileContenedor:
-                    result = Constantes.OrigenPedidoWeb.OfertasParaTiMobileContenedorPopup;
+                case Constantes.OrigenPedidoWeb.DesktopHomeShowroomCarrusel:
+                    result = tieneCarrusel ? Constantes.OrigenPedidoWeb.DesktopHomeShowroomCarruselVerMas : Constantes.OrigenPedidoWeb.DesktopHomeShowroomFicha;
                     break;
-                case Constantes.OrigenPedidoWeb.OfertasParaTiMobileBuscador:
-                    result = Constantes.OrigenPedidoWeb.OfertasParaTiMobileBuscadorFicha;
+                case Constantes.OrigenPedidoWeb.DesktopContenedorShowroomCarrusel:
+                    result = tieneCarrusel ? Constantes.OrigenPedidoWeb.DesktopContenedorShowroomCarruselVerMas : Constantes.OrigenPedidoWeb.DesktopContenedorShowroomFicha;
                     break;
-                // RD
-                case Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion:
-                    result = Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomePopUp;
+                case Constantes.OrigenPedidoWeb.DesktopLandingShowroomShowroomCarrusel:
+                    result = tieneCarrusel ? Constantes.OrigenPedidoWeb.DesktopLandingShowroomShowroomCarruselVerMas : Constantes.OrigenPedidoWeb.DesktopLandingShowroomShowroomFicha;
                     break;
-                case Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion:
-                    result = Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoPopUp;
+                case Constantes.OrigenPedidoWeb.DesktopLandingGNDGNDCarrusel:
+                    result = Constantes.OrigenPedidoWeb.DesktopLandingGNDGNDFicha;
                     break;
-                case Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding:
-                    result = Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLandingPopUp;
+                case Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalCarrusel:
+                    result = Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalFicha;
                     break;
-                case Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeLanzamiento:
-                    result = Constantes.OrigenPedidoWeb.LanzamientoDesktopProductPage;
+                case Constantes.OrigenPedidoWeb.DesktopContenedorHerramientasdeVentaCarrusel:
+                    result = Constantes.OrigenPedidoWeb.DesktopContenedorHerramientasdeVentaFicha;
                     break;
-                case Constantes.OrigenPedidoWeb.RevistaDigitalDesktopContenedor:
-                    result = Constantes.OrigenPedidoWeb.RevistaDigitalDesktopContenedorPopup;
+                case Constantes.OrigenPedidoWeb.DesktopLandingHerramientasdeVentaHerramientasdeVentaCarrusel:
+                    result = Constantes.OrigenPedidoWeb.DesktopLandingHerramientasdeVentaHerramientasdeVentasFicha;
                     break;
-                //Mobile
-                case Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion:
-                    result = Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomePopUp;
+                #endregion Desktop
+                #region Mobile
+                case Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTiCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTiFicha;
                     break;
-                case Constantes.OrigenPedidoWeb.RevistaDigitalMobilePedidoSeccion:
-                    result = Constantes.OrigenPedidoWeb.RevistaDigitalMobilePedidoPopUp;
+                case Constantes.OrigenPedidoWeb.MobileContenedorOfertasParaTiCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobileContenedorOfertasParaTiFicha;
                     break;
-                case Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding:
-                    result = Constantes.OrigenPedidoWeb.RevistaDigitalMobileLandingPopUp;
+                case Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTiCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTiFicha;
                     break;
-                case Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeLanzamiento:
-                    result = Constantes.OrigenPedidoWeb.LanzamientoMobileHomePopup;
+                case Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalFicha;
                     break;
-                //LAN
-                case Constantes.OrigenPedidoWeb.LanzamientoDesktopContenedor:
-                    result = Constantes.OrigenPedidoWeb.LanzamientoDesktopContenedorPopup;
+                case Constantes.OrigenPedidoWeb.MobileLandingOfertasParaTiOfertasParaTiCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobileLandingOfertasParaTiOfertasParaTiFicha;
                     break;
-                case Constantes.OrigenPedidoWeb.LanzamientoDesktopProductPage:
-                    result = Constantes.OrigenPedidoWeb.LanzamientoDesktopProductPage;
+                case Constantes.OrigenPedidoWeb.MobileLandingHerramientasdeVentaHerramientasdeVentaCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobileLandingHerramientasdeVentaHerramientasdeVentaFicha;
                     break;
-                case Constantes.OrigenPedidoWeb.LoNuevoNuevoDesktopBuscador:
-                    result = Constantes.OrigenPedidoWeb.LoNuevoNuevoDesktopBuscadorFicha;
+                case Constantes.OrigenPedidoWeb.MobileContenedorLanzamientosCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobileContenedorLanzamientosFicha;
                     break;
-                //Mobile
-                case Constantes.OrigenPedidoWeb.LanzamientoMobileContenedor:
-                    result = Constantes.OrigenPedidoWeb.LanzamientoMobileContenedorPopup;
+                case Constantes.OrigenPedidoWeb.MobileHomeOfertaDelDiaCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobileHomeOfertaDelDiaFicha;
                     break;
-                case Constantes.OrigenPedidoWeb.LanzamientoMobileProductPage:
-                    result = Constantes.OrigenPedidoWeb.LanzamientoMobileProductPage;
+                case Constantes.OrigenPedidoWeb.MobileContenedorOfertaDelDiaCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobileContenedorOfertaDelDiaFicha;
                     break;
-                case Constantes.OrigenPedidoWeb.LoNuevoNuevoMobileBuscador:
-                    result = Constantes.OrigenPedidoWeb.LoNuevoNuevoMobileBuscadorFicha;
+                case Constantes.OrigenPedidoWeb.MobileLandingShowroomShowroomCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobileLandingShowroomShowroomFicha;
                     break;
-                //GND
-                case Constantes.OrigenPedidoWeb.GNDMobileLanding:
-                    result = Constantes.OrigenPedidoWeb.GNDMobileLandingPopup;
+
+                #endregion Mobile
+
+                #region Buscador Desktop
+
+                case Constantes.OrigenPedidoWeb.DesktopBuscadorOfertasParaTiDesplegableBuscador:
+                    result = Constantes.OrigenPedidoWeb.DesktopBuscadorOfertasParaTiFicha;
                     break;
-                case Constantes.OrigenPedidoWeb.GNDDesktopLanding:
-                    result = Constantes.OrigenPedidoWeb.GNDDesktopLandingPopUp;
+                case Constantes.OrigenPedidoWeb.DesktopBuscadorShowroomDesplegableBuscador:
+                    result = Constantes.OrigenPedidoWeb.DesktopBuscadorShowroomFicha;
                     break;
-                case Constantes.OrigenPedidoWeb.GuiaNegocioDigitalDesktopBuscador:
-                    result = Constantes.OrigenPedidoWeb.GuiaNegocioDigitalDesktopBuscadorFicha;
+                case Constantes.OrigenPedidoWeb.DesktopBuscadorLanzamientosDesplegableBuscador:
+                    result = Constantes.OrigenPedidoWeb.DesktopBuscadorLanzamientosFicha;
                     break;
-                case Constantes.OrigenPedidoWeb.GuiaNegocioDigitalMobileBuscador:
-                    result = Constantes.OrigenPedidoWeb.GuiaNegocioDigitalMobileBuscadorFicha;
+                case Constantes.OrigenPedidoWeb.DesktopBuscadorOfertaDelDiaDesplegableBuscador:
+                    result = Constantes.OrigenPedidoWeb.DesktopBuscadorOfertaDelDiaFicha;
                     break;
-                //HV
-                case Constantes.OrigenPedidoWeb.HVMobileLanding:
-                    result = Constantes.OrigenPedidoWeb.HVMobileLandingPopup;
+                case Constantes.OrigenPedidoWeb.DesktopBuscadorGNDDesplegableBuscador:
+                    result = Constantes.OrigenPedidoWeb.DesktopBuscadorGNDFicha;
                     break;
-                case Constantes.OrigenPedidoWeb.HVDesktopLanding:
-                    result = Constantes.OrigenPedidoWeb.HVDesktopLandingPopUp;
+                case Constantes.OrigenPedidoWeb.DesktopBuscadorHerramientasdeVentaDesplegableBuscador:
+                    result = Constantes.OrigenPedidoWeb.DesktopBuscadorHerramientasdeVentaFicha;
                     break;
-                case Constantes.OrigenPedidoWeb.HVDesktopContenedor:
-                    result = Constantes.OrigenPedidoWeb.HVDesktopContenedorPopup;
+
+                case Constantes.OrigenPedidoWeb.DesktopLandingBuscadorOfertasParaTiCarrusel:
+                    result = Constantes.OrigenPedidoWeb.DesktopLandingBuscadorOfertasParaTiFicha;
                     break;
-                case Constantes.OrigenPedidoWeb.HerramientaDeVentaDesktopBuscador:
-                    result = Constantes.OrigenPedidoWeb.HerramientaDeVentaDesktopBuscadorFicha;
+                case Constantes.OrigenPedidoWeb.DesktopLandingBuscadorShowroomCarrusel:
+                    result = Constantes.OrigenPedidoWeb.DesktopLandingBuscadorShowroomFicha;
                     break;
-                case Constantes.OrigenPedidoWeb.HerramientaDeVentaMobileBuscador:
-                    result = Constantes.OrigenPedidoWeb.HerramientaDeVentaMobileBuscadorFicha;
+                case Constantes.OrigenPedidoWeb.DesktopLandingBuscadorLanzamientosCarrusel:
+                    result = Constantes.OrigenPedidoWeb.DesktopLandingBuscadorLanzamientosFicha;
                     break;
-                //SR
-                case Constantes.OrigenPedidoWeb.ShowRoomDesktopHome:
-                case Constantes.OrigenPedidoWeb.ShowRoomDesktopContenedor:
-                case Constantes.OrigenPedidoWeb.ShowRoomDesktopLandingCompra:
-                case Constantes.OrigenPedidoWeb.ShowRoomDesktopLandingIntriga:
-                case Constantes.OrigenPedidoWeb.ShowRoomDesktopSubCampania:
-                    result = Constantes.OrigenPedidoWeb.ShowRoomDesktopProductPage;
+                case Constantes.OrigenPedidoWeb.DesktopLandingBuscadorOfertaDelDiaCarrusel:
+                    result = Constantes.OrigenPedidoWeb.DesktopLandingBuscadorOfertaDelDiaFicha;
                     break;
-                case Constantes.OrigenPedidoWeb.EspecialesDesktopBuscador:
-                    result = Constantes.OrigenPedidoWeb.EspecialesDesktopBuscadorFicha;
+                case Constantes.OrigenPedidoWeb.DesktopLandingBuscadorGNDCarrusel:
+                    result = Constantes.OrigenPedidoWeb.DesktopLandingBuscadorGNDFicha;
                     break;
-                //Mobile
-                case Constantes.OrigenPedidoWeb.ShowRoomMobileContenedor:
-                case Constantes.OrigenPedidoWeb.ShowRoomMobileLandingCompra:
-                case Constantes.OrigenPedidoWeb.ShowRoomMobileLandingIntriga:
-                case Constantes.OrigenPedidoWeb.ShowRoomMobileSubCampania:
-                    result = Constantes.OrigenPedidoWeb.ShowRoomMobileProductPage;
+                case Constantes.OrigenPedidoWeb.DesktopLandingBuscadorHerramientasDeVentaCarrusel:
+                    result = Constantes.OrigenPedidoWeb.DesktopLandingBuscadorHerramientasDeVentaFicha;
                     break;
-                case Constantes.OrigenPedidoWeb.EspecialesMobileBuscador:
-                    result = Constantes.OrigenPedidoWeb.EspecialesMobileBuscadorFicha;
+                #endregion Buscador Desktop
+
+                #region Buscador Mobile
+                case Constantes.OrigenPedidoWeb.MobileBuscadorOfertasParaTiDesplegableBuscador:
+                    result = Constantes.OrigenPedidoWeb.MobileBuscadorOfertasParaTiFicha;
                     break;
-                //ODD
-                case Constantes.OrigenPedidoWeb.OfertaDelDiaDesktopHomeBanner:
-                case Constantes.OrigenPedidoWeb.OfertaDelDiaDesktopPedidoBanner:
-                case Constantes.OrigenPedidoWeb.OfertaDelDiaDesktopGeneralBanner:
-                case Constantes.OrigenPedidoWeb.OfertaDelDiaDesktopContenedor:
-                    result = Constantes.OrigenPedidoWeb.OfertaDelDiaDesktopFicha;
+                case Constantes.OrigenPedidoWeb.MobileBuscadorShowroomDesplegableBuscador:
+                    result = Constantes.OrigenPedidoWeb.MobileBuscadorShowroomFicha;
                     break;
-                case Constantes.OrigenPedidoWeb.OfertaSoloHoyDesktopBuscador:
-                    result = Constantes.OrigenPedidoWeb.OfertaSoloHoyDesktopBuscadorFicha;
+                case Constantes.OrigenPedidoWeb.MobileBuscadorLanzamientosDesplegableBuscador:
+                    result = Constantes.OrigenPedidoWeb.MobileBuscadorLanzamientosFicha;
                     break;
-                //Mobile
-                case Constantes.OrigenPedidoWeb.OfertaDelDiaMobileHomeBanner:
-                case Constantes.OrigenPedidoWeb.OfertaDelDiaMobileContenedor:
-                    result = Constantes.OrigenPedidoWeb.OfertaDelDiaMobileFicha;
+                case Constantes.OrigenPedidoWeb.MobileBuscadorOfertaDelDiaDesplegableBuscador:
+                    result = Constantes.OrigenPedidoWeb.MobileBuscadorOfertaDelDiaFicha;
                     break;
-                case Constantes.OrigenPedidoWeb.OfertaSoloHoyMobileBuscador:
-                    result = Constantes.OrigenPedidoWeb.OfertaSoloHoyMobileBuscadorFicha;
+                case Constantes.OrigenPedidoWeb.MobileBuscadorGNDDesplegableBuscador:
+                    result = Constantes.OrigenPedidoWeb.MobileBuscadorGNDFicha;
                     break;
+                case Constantes.OrigenPedidoWeb.MobileBuscadorHerramientasdeVentaDesplegableBuscador:
+                    result = Constantes.OrigenPedidoWeb.MobileBuscadorHerramientasdeVentaFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobileLandingBuscadorOfertasParaTiCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobileLandingBuscadorOfertasParaTiFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobileLandingBuscadorShowroomCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobileLandingBuscadorShowroomFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobileLandingBuscadorLanzamientosCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobileLandingBuscadorLanzamientosFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobileLandingBuscadorOfertaDelDiaCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobileLandingBuscadorOfertaDelDiaFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobileLandingBuscadorGNDCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobileLandingBuscadorGNDFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobileLandingBuscadorHerramientasDeVentaCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobileLandingBuscadorHerramientasDeVentaFicha;
+                    break;
+                #endregion Buscador Mobile
+
+                #region Mas Ganadoras
+                case Constantes.OrigenPedidoWeb.DesktopContenedorGanadorasCarrusel:
+                    result = Constantes.OrigenPedidoWeb.DesktopContenedorGanadorasFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopLandingGanadorasGanadorasCarrusel:
+                    result = Constantes.OrigenPedidoWeb.DesktopLandingGanadorasGanadorasFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobileContenedorGanadorasCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobileContenedorGanadorasFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobileLandingGanadorasGanadorasCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobileLandingGanadorasGanadorasFicha;
+                    break;
+                #endregion
+                #region ODD
+                case Constantes.OrigenPedidoWeb.DesktopHomeOfertaDelDiaBannerSuperior:
+                    result = Constantes.OrigenPedidoWeb.DesktopHomeOfertaDelDiaFicha;
+                    break;
+                #endregion
             }
 
             return result;

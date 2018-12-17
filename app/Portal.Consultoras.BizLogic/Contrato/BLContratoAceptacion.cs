@@ -25,16 +25,11 @@ namespace Portal.Consultoras.BizLogic
         public List<BeReporteContrato> ReporteContratoAceptacion(int paisID, string codigoconsultora, string cedula, DateTime? fechaInicio, DateTime? FechaFin)
         {
             List<BeReporteContrato> listsBeReporteContrato = new List<BeReporteContrato>();
-
-            //if (string.IsNullOrEmpty(codigoUsuario) && fechaIngreso == DateTime.MinValue && string.IsNullOrEmpty(codigoConsultora) && string.IsNullOrEmpty(codigoZona) && campaniaID == 0)
-            //    return pedidosIngresados;
-
+            
             var daContratoAc = new DAContratoAceptacion(paisID);
 
             using (IDataReader reader = daContratoAc.ReporteContratoAceptacion(codigoconsultora, cedula, fechaInicio, FechaFin))
             {
-                var columns = ((IDataRecord)reader).GetAllNames();
-
                 while (reader.Read())
                 {
                     listsBeReporteContrato.Add(new BeReporteContrato()

@@ -30,20 +30,18 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Index(string marca = "")
         {
-            string sap = "";
-            var url = (Request.Url.Query).Split('?');
 
             if (EsDispositivoMovil())
             {
-               // return RedirectToAction("Index", "Catalogo", new { area = "Mobile", marca = marca });
+                var url = (Request.Url.Query).Split('?');
                 if (url.Length > 1 && url[1].Contains("sap"))
-                {                    
-                    sap = "&" + url[1].Remove(0, 12);
-                    return RedirectToAction("Index", "Catalogo", new { area = "Mobile", marca = marca, sap });
+                {
+                    string sap = "&" + url[1].Remove(0, 12);
+                    return RedirectToAction("Index", "Catalogo", new { area = "Mobile", marca, sap });
                 }
                 else
                 {
-                    return RedirectToAction("Index", "Catalogo", new { area = "Mobile", marca = marca });
+                    return RedirectToAction("Index", "Catalogo", new { area = "Mobile", marca });
                 }
 
             }
@@ -62,7 +60,7 @@ namespace Portal.Consultoras.Web.Controllers
             clienteModel.CodigoRevistaActual = _issuuProvider.GetRevistaCodigoIssuu(clienteModel.CampaniaActual, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
             clienteModel.CodigoRevistaAnterior = _issuuProvider.GetRevistaCodigoIssuu(clienteModel.CampaniaAnterior, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
             clienteModel.CodigoRevistaSiguiente = _issuuProvider.GetRevistaCodigoIssuu(clienteModel.CampaniaSiguiente, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
-            clienteModel.PartialSectionBpt = _configuracionPaisDatosProvider.GetPartialSectionBptModel(Constantes.OrigenPedidoWeb.DesktopCatalogo);
+            clienteModel.PartialSectionBpt = _configuracionPaisDatosProvider.GetPartialSectionBptModel(Constantes.OrigenPedidoWeb.SectionBptDesktopCatalogo);
 
             ViewBag.CodigoISO = userData.CodigoISO;
             ViewBag.EsConsultoraNueva = userData.EsConsultoraNueva;
@@ -597,6 +595,6 @@ namespace Portal.Consultoras.Web.Controllers
             return campania >= campaniaInicio;
         }
 
-      
+
     }
 }

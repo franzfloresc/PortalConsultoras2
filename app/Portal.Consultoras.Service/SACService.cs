@@ -760,7 +760,7 @@ namespace Portal.Consultoras.Service
         #region Tabla Logica Datos
         public List<BETablaLogicaDatos> GetTablaLogicaDatos(int paisID, Int16 TablaLogicaID)
         {
-            return BLTablaLogicaDatos.GetTablaLogicaDatos(paisID, TablaLogicaID);
+            return BLTablaLogicaDatos.GetList(paisID, TablaLogicaID);
         }
         #endregion
 
@@ -1564,7 +1564,12 @@ namespace Portal.Consultoras.Service
         {
             return _blAdministrarEstrategia.GetCantidadOfertasPersonalizadas(paisId, campaniaId, tipoConfigurado, codigoEstrategia);
         }
-        
+
+        public List<BEEstrategia> GetOfertasPersonalizadasImagenes(int paisId, int campaniaId, int tipoConfigurado, string codigoEstrategia)
+        {
+            return _blAdministrarEstrategia.GetOfertasPersonalizadasImagenes(paisId, campaniaId, tipoConfigurado, codigoEstrategia);
+        }
+
         public List<BEEstrategia> GetOfertasPersonalizadasByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, string estrategiaCodigo, int pagina, int cantidadCuv)
         {
             return _blAdministrarEstrategia.GetOfertasPersonalizadasByTipoConfigurado(paisId, campaniaId, tipoConfigurado, estrategiaCodigo, pagina, cantidadCuv);
@@ -1598,6 +1603,11 @@ namespace Portal.Consultoras.Service
         public bool EstrategiaTemporalActualizarSetDetalle(int paisId, int nroLote, int pagina)
         {
             return _blAdministrarEstrategia.EstrategiaTemporalActualizarSetDetalle(paisId, nroLote, pagina);
+        }
+
+        public bool EstrategiaTemporalActualizarSetImagen(int paisId, int nroLote, int pagina)
+        {
+            return _blAdministrarEstrategia.EstrategiaTemporalActualizarSetImagen(paisId, nroLote, pagina);
         }
 
         public int EstrategiaTemporalInsertarEstrategiaMasivo(int paisId, int nroLote)

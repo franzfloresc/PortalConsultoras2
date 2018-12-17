@@ -1,4 +1,5 @@
-﻿@model Portal.Consultoras.Web.Models.DetalleEstrategiaFichaModel
+﻿@using Portal.Consultoras.Common
+@model Portal.Consultoras.Web.Models.DetalleEstrategiaFichaModel
 
 @{
     Layout = "~/Views/Shared/_MainLayoutContenedor.cshtml";
@@ -11,7 +12,7 @@
         @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/Ficha-Esika")
     }
     else
-    {
+    {   
         @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/Ficha-Lbel")
     }
 }
@@ -31,13 +32,14 @@
 
             </div>
         </div>
+       
         <script id="detalle_ficha_template" type="text/x-handlebars-template">
             <div id="dvSeccionIzquierdo" class="ficha_producto">
                 <div id="dvSeccionFoto">
                     <div id="FichaImagenProducto" class="contenedor_imagen">
                         <img class="contenedor_img" src="{{ImgUrl FotoProducto01}}" alt="">
                     </div>
-                    {{#iff CodigoVariante 'ContainsArray' '[2001,2003]'}}
+                    {{#iff CodigoVariante 'ContainsArray' '[@Constantes.TipoEstrategiaSet.IndividualConTonos,@Constantes.TipoEstrategiaSet.CompuestaVariable]'}}
                     <hr class="clear">
                     <div id="contenedor_foto_referencial" class="texto_referencial">
                         <span data-texto_referencial="">* Foto Referencial</span>
@@ -120,7 +122,15 @@
                             </ul>
 
                             {{#iff Ganancia '>' 0}}
-                            <div class="ganancia">GANA <span data-ganancia="">{{SimboloMoneda}} {{GananciaString}}</span></div>
+                            <div class="ganancia">
+                                {{#iff CodigoVariante '!=' '@Constantes.TipoEstrategiaSet.CompuestaVariable'}}
+                                GANA
+                                {{/iff}}
+                                {{#iff CodigoVariante '==' '@Constantes.TipoEstrategiaSet.CompuestaVariable'}}
+                                GANA HASTA
+                                {{/iff}}
+                                <span data-ganancia="">{{SimboloMoneda}} {{GananciaString}}</span>
+                            </div>
                             {{/iff}}
                         </div>
                     </div>
@@ -319,7 +329,7 @@
                     </div>
                 </div>
                 <!--carrusel-->
-                <div class="contenedor_carrusel" data-OrigenPedidoWeb="@Model.OrigenUrl" data-OrigenPedidoWebAgregar="@Model.OrigenAgregar">
+                <div class="contenedor_carrusel" data-OrigenPedidoWeb="@Model.OrigenUrl" data-OrigenPedidoWebAgregar="@Model.OrigenAgregarCarrusel">
                     <div id="divFichaCarruselProducto" style="text-align:center;"></div>
                 </div>
             </div>
@@ -335,7 +345,7 @@
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/EstrategiaAgregar")
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Ficha")
 
-    <script type="text/javascript">
+<script type="text/javascript">
         AbrirLoad();
 
         var fichaModule;
@@ -352,11 +362,9 @@
                 urlObtenerComponentes: '@Url.Action("ObtenerComponentes", "DetalleEstrategia")'
             });
             fichaModule.Inicializar();
-            //CerrarLoad();
 
-            if (tieneCarrusel)
+            if (tieneCarrusel == "True")
             {
-                //AbrirLoad();
                 carruselModule = CarruselModule({
                     palanca: "@Model.Palanca",
                     campania: "@Model.Campania",
@@ -373,8 +381,8 @@
         });
 
         $(document).ajaxStop(function () {
-            //CerrarLoad();
+
         })
 
-    </script>
+</script>
 }

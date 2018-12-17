@@ -1,22 +1,26 @@
 ﻿@using Portal.Consultoras.Common
 @using Portal.Consultoras.Web.Areas.Mobile.Models
 @using Portal.Consultoras.Web.Models
-@using Portal.Consultoras.Web.Helpers;
+@using Portal.Consultoras.Web.CustomHelpers
 @using Newtonsoft.Json;
-
 @model PedidoMobileModel
 @{
-	var layout = ViewContext.MobilePedidoLayout();
-	ViewBag.SourcePage = 2;
-	Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
-	var mobileConfiguracion = Html.MobileAppConfiguracion();
+    var layout = ViewContext.MobilePedidoLayout();
+    ViewBag.SourcePage = 2;
+    Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
+    var mobileConfiguracion = Html.MobileAppConfiguracion();
 }
+@section styles
+{
+    <link href="@Url.Content("~/Content/Css/Mobile/Pedido/PedidoGrilla.css")" rel="stylesheet" />
+}
+
 <div class="wrapper_resumen_mobile sin_padding">
     @if (!mobileConfiguracion.EsAppMobile)
     {
         <div class="titulo_mobile agregarSombraInferior">
             <a href="@Request.UrlReferrer" class="enlace_regresar ajustePosicionFlecha" style="display:normal" title="Regresar"></a>
-            <div class="titulo_vista text-uppercase">           
+            <div class="titulo_vista text-uppercase">
                 Ingresar Pedido Fic C<span>@ViewBag.Campania</span>
                 <div class="text-lowercase">
                     <span>
@@ -29,10 +33,10 @@
 
     <div class="banner_ingresoPedido nuevaAlturaBanner" style="background: #000 url(@ViewBag.UrlFranjaNegra) no-repeat center center;">
         <div class="content_320 ingresoPedido">
-			@if (mobileConfiguracion.EsAppMobile)
-			{
-				<p class="label-white-small">INGRESAR PEDIDO FIC @ViewBag.PedidoFIC HASTA EL @ViewBag.FinFIC </p>
-			}
+            @if (mobileConfiguracion.EsAppMobile)
+            {
+                <p class="label-white-small">INGRESAR PEDIDO FIC @ViewBag.PedidoFIC HASTA EL @ViewBag.FinFIC </p>
+            }
             <form>
                 @Html.Hidden("txtClienteId", Model.ClienteId)
                 @if (ViewBag.MobileApp && Model.ClienteId > 0)
@@ -111,7 +115,7 @@
             <div id="divResumenPedido">
                 <div class="contenedor_resumenPedido montosIngresoPedido">
                     <div class="textos_resumen mb-0">
-                        <span id="lblProductosResumen" style="margin-left: 30px;">HE AGREGADO :</span>
+                        <span id="lblProductosResumen" style="margin-left: 30px;">HAS AGREGADO :</span>
                         <span id="lblTotalResumen" style="margin-left: 30px;">
                             MONTO TOTAL :
                         </span>
@@ -155,71 +159,71 @@
 <input type="hidden" id="hdTipoEstrategiaID" value="0" />
 
 <div class="MensajeAlertaMobile" id="PopSugerido" style="display:none;">
-	<div class="content_mensajeAlerta">
-		<a class="cerrar_popMobile" href="javascript:;" onclick="CancelarProductosSugeridos();">
-			<img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
-		</a>
-		<hr class="clear" />
-		<div class="icono_alerta exclamacion_icono_mobile iphone_1"></div>
-		<div class="mensaje_alerta iphone_2">
-			Se agotó este producto. Prueba <b>reemplazarlo</b>  con:
-		</div>
-		<hr class="clear" />
-		<div class="contenedor_carrusel_home" id="divCarruselSugerido">
-		</div>
-	</div>
+    <div class="content_mensajeAlerta">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="CancelarProductosSugeridos();">
+            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+        </a>
+        <hr class="clear" />
+        <div class="icono_alerta exclamacion_icono_mobile iphone_1"></div>
+        <div class="mensaje_alerta iphone_2">
+            Se agotó este producto. Prueba <b>reemplazarlo</b>  con:
+        </div>
+        <hr class="clear" />
+        <div class="contenedor_carrusel_home" id="divCarruselSugerido">
+        </div>
+    </div>
 
 
 </div>
 <div class="contenedor_fondo_popup_ganancia" id="popupGanancias" style="display:none;">
-	<div class="popup_mis_ganancias">
-		<div class="btn_cerrar_actualizarMisDatos">
-			<a href="javascript:;" title="Cerrar" class="cerrar_tutorial" onclick="return $('#popupGanancias').fadeOut(200);">
-				<img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
-				<span class="texto_btn_cerrar">CERRAR</span>
-			</a>
-		</div>
-		<div class="contenido_misGanancias" id="detalleGanancia">
-			<h6>GANANCIA ESTIMADA TOTAL</h6>
-			<div class="mis_descuentos">
-				<span class="mis_descuentos_texto">Mis descuentos</span>
-				<span class="mis_descuentos_monto">@Model.Simbolo @Model.FormatoMontoAhorroCatalogo</span>
-			</div>
-			<div class="mis_descuentos">
-				<span class="mis_descuentos_texto">Oportunidad de ahorro (Revista y otros)</span>
-				<span class="mis_descuentos_monto">@Model.Simbolo @Model.FormatoMontoAhorroRevista</span>
-			</div>
-			<div class="separador_montos_misGanancias"></div>
-			<div class="mis_descuentos">
-				<span class="monto_total_misGanancias">@Model.Simbolo @Model.GananciaFormat</span>
-			</div>
-			<div class="nota_popup_misGanancias">
-				<span>*Oportunidad de ahorro= ahorro estimado proveniente de la resta de los precios en catálogo de los productos menos el monto a pagar de los mismos.</span>
-			</div>
-		</div>
-	</div>
+    <div class="popup_mis_ganancias">
+        <div class="btn_cerrar_actualizarMisDatos">
+            <a href="javascript:;" title="Cerrar" class="cerrar_tutorial" onclick="return $('#popupGanancias').fadeOut(200);">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
+            </a>
+        </div>
+        <div class="contenido_misGanancias" id="detalleGanancia">
+            <h6>GANANCIA ESTIMADA TOTAL</h6>
+            <div class="mis_descuentos">
+                <span class="mis_descuentos_texto">Mis descuentos</span>
+                <span class="mis_descuentos_monto">@Model.Simbolo @Model.FormatoMontoAhorroCatalogo</span>
+            </div>
+            <div class="mis_descuentos">
+                <span class="mis_descuentos_texto">Oportunidad de ahorro (Revista y otros)</span>
+                <span class="mis_descuentos_monto">@Model.Simbolo @Model.FormatoMontoAhorroRevista</span>
+            </div>
+            <div class="separador_montos_misGanancias"></div>
+            <div class="mis_descuentos">
+                <span class="monto_total_misGanancias">@Model.Simbolo @Model.GananciaFormat</span>
+            </div>
+            <div class="nota_popup_misGanancias">
+                <span>*Oportunidad de ahorro= ahorro estimado proveniente de la resta de los precios en catálogo de los productos menos el monto a pagar de los mismos.</span>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="contenedor_popup_clientes modal" id="divAgregarCliente" style="display: none;">
-	<div class="popup_agregarCliente">
-		<div id="divDetalleCliente"></div>
-	</div>
+    <div class="popup_agregarCliente">
+        <div id="divDetalleCliente"></div>
+    </div>
 </div>
 <div id="popupClienteIngresado" class="MensajeAlertaMobile" style="display:none;">
-	<div class="content_mensajeAlerta">
-		<a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupClienteIngresado').hide();">
-			<img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
-		</a>
-		<hr class="clear">
-		<div class="icono_alerta exclamacion_icono_mobile"></div>
-		<div class="titulo_compartir">¡BIEN <b>HECHO!</b></div>
-		<div class="mensaje_alerta">Tu cliente fue guardado con éxito.</div>
-		<a href="javascript:;" onclick="$('#popupClienteIngresado').hide();" class="btn_ok_mobile"><b>OK</b></a>
-	</div>
+    <div class="content_mensajeAlerta">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupClienteIngresado').hide();">
+            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+        </a>
+        <hr class="clear">
+        <div class="icono_alerta exclamacion_icono_mobile"></div>
+        <div class="titulo_compartir">¡BIEN <b>HECHO!</b></div>
+        <div class="mensaje_alerta">Tu cliente fue guardado con éxito.</div>
+        <a href="javascript:;" onclick="$('#popupClienteIngresado').hide();" class="btn_ok_mobile"><b>OK</b></a>
+    </div>
 </div>
 
 @section scripts
 {
-	<script type="text/javascript">
+    <script type="text/javascript">
 
         var mensajeCUVNoExiste = "Lo sentimos, el producto solicitado no existe.";
         var mensajeCUVAgotado = "Lo sentimos, este producto está agotado.";
@@ -278,10 +282,10 @@
         var esEmailActivo = '@Model.EmailActivo';
         var viewBagCampaniaActual = '@Model.CampaniaActual';
         var tipoOrigenEstrategia = 21;
-        var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.OfertasParaTiMobilePedido;
+        var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTiCarrusel;
         var origenPedidoWebFichaProducto = @Constantes.OrigenPedidoWeb.VirtualCoachMobilePedido;
-        var MobilePedidoSugerido = @Constantes.OrigenPedidoWeb.MobilePedidoSugerido;
-        var origenPedidoWebMobilePedido = @Constantes.OrigenPedidoWeb.MobilePedido;
+        var MobilePedidoSugerido = @Constantes.OrigenPedidoWeb.MobilePedidoProductoSugeridoCarrusel;
+        var origenPedidoWebMobilePedido = @Constantes.OrigenPedidoWeb.MobilePedidoDigitado;
         var paisISO = '@ViewBag.paisISO';
         var viewBagAmbiente = '@ViewBag.Ambiente';
         var correo = '@Model.EMail';
@@ -292,26 +296,26 @@
         var VirtualCoachCampana = '@ViewBag.VirtualCoachCampana' || 0;
         var dataBarra = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(ViewBag.DataBarra).ToString().Replace("'", @"\'"))');
         var listaMensajeMeta = dataBarra == null ? null :dataBarra.ListaMensajeMeta;
-	</script>
+    </script>
 
-	@if (mobileConfiguracion.EsAppMobile)
-	{
-		<script>
-			$(document).ready(function () {
-				belcorp.estrategia.initialize();
-				belcorp.pedido.initialize();
-				belcorp.pedido.subscribe("onProductoAgregado", MostrarBarra);
-				belcorp.estrategia.subscribe("onProductoAgregado", MostrarBarra);
-			});
-		</script>
-	}
-    
-	@Scripts.Render("~/Bundle/Js/Mobile/PedidoFIC")
+    @if (mobileConfiguracion.EsAppMobile)
+    {
+        <script>
+            $(document).ready(function () {
+                belcorp.estrategia.initialize();
+                belcorp.pedido.initialize();
+                belcorp.pedido.subscribe("onProductoAgregado", MostrarBarra);
+                belcorp.estrategia.subscribe("onProductoAgregado", MostrarBarra);
+            });
+        </script>
+    }
 
-	@if (Model.MostrarPopupPrecargados)
-	{
-		<script>
+    @Scripts.Render("~/Bundle/Js/Mobile/PedidoFIC")
+
+    @if (Model.MostrarPopupPrecargados)
+    {
+        <script>
             $(document).ready(function () { messageInfoValidado('@Html.Raw(Constantes.RecuperacionPedido.Mensaje)'); });
-		</script>
-	}
+        </script>
+    }
 }

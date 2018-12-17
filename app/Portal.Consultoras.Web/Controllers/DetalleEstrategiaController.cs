@@ -28,10 +28,28 @@ namespace Portal.Consultoras.Web.Controllers
 
         public override ActionResult Ficha(string palanca, int campaniaId, string cuv, string origen)
         {
+            try
+            {
+                var url = (Request.Url.Query).Split('?');
+                if (EsDispositivoMovil()
+                    && url.Length > 1
+                    && url[1].Contains("sap")
+                    && url[1].Contains("VC"))
+                {
+                    string sap = "&" + url[1].Substring(3);
+                    return RedirectToAction("Ficha", "DetalleEstrategia", new { area = "Mobile", palanca, campaniaId, cuv, origen, sap });
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+
             return base.Ficha(palanca, campaniaId, cuv, origen);
+            
         }
 
-        public JsonResult ObtenerComponentes(string estrategiaId, string cuv2,  string campania, string codigoVariante, string codigoEstrategia = "", List<EstrategiaComponenteModel> lstHermanos = null)
+        public JsonResult ObtenerComponentes(string estrategiaId, string cuv2, string campania, string codigoVariante, string codigoEstrategia = "", List<EstrategiaComponenteModel> lstHermanos = null)
         {
             try
             {
@@ -62,8 +80,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 return Json(new
                 {
-                    success = false,
-                    ex
+                    success = false
                 }, JsonRequestBehavior.AllowGet);
             }
 

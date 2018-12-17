@@ -88,11 +88,17 @@ $(document).ready(function () {
         imgISO = $("#ddlPais").val();
         analytics.invocarAnalyticsByCodigoIso(imgISO);
 
-        if ($("#ddlPais").val() == "MX") {
+        if (imgISO == "PE" || imgISO == "CO") {
+            $("#RecuadroComunidad").hide();
+        } else {
+            $("#RecuadroComunidad").show();
+        }
+
+        if (imgISO == "MX") {
             $("#AvisoASP").show();
         } else {
             $("#AvisoASP").hide();
-        };
+        }
 
         if (imgISO == "PA") $("#footer_esika").hide();
         else $("#footer_esika").show();
@@ -652,8 +658,6 @@ $('#SubmitButton').click();
 }
 
 function AsignarHojaEstilos() {
-    //var objEstiloEsika = $('#cssStyle>link');
-    //var objEstiloLbel = $('#cssStyleLbel>link')
 
     // Segun el nuevo cambio dentro del _LoginLayout.cshtml
     // solo habra un objeto <link src="current/src/style" /> el src cambiara dinamicamente con JS
@@ -806,11 +810,13 @@ function login2() {
                 var datos = response.data;
                 $('#popupAsociarUsuarioExt').hide()
                 MostrarPopupPin(datos);
+                limpiar_local_storage();
                 closeWaitingDialog();
 
             } else if (response.success) {
                 if (response.redirectTo !== "") {
                     analytics.invocarEventoPixel("FacebookLoginLogin");
+                    limpiar_local_storage();
                     document.location.href = response.redirectTo;
                 }
             }
@@ -1132,12 +1138,6 @@ function RecuperarContrasenia() {
 
                     case 6:
                         {
-                            //if (indicadorPin == 1) {
-                            //    var tituloPopup = "VERIFICACIÓN DE <b>AUTENTICIDAD</b>"
-                            //    $("#tituloPopup").empty();
-                            //    $("#tituloPopup").append(tituloPopup);
-                            //}
-
                             $(".menPrioridad3").show();
                             $("#spnNombreConsultora").empty();
                             $("#spnNombreConsultora").append("<b>" + primerNombre + "</b>, ");
@@ -1487,10 +1487,9 @@ function MostrarPopupPin(data) {
     var strNuevas = "1,2";
     var strReactivadas = "6,7,8";
 
-    //if (strNuevas.includes(data.IdEstadoActividad))
     if (typeof strNuevas == "string" && strNuevas.indexOf(data.IdEstadoActividad) > -1)
         $("#menAutenticacionNueva").show();
-    //else if (strReactivadas.includes(data.IdEstadoActividad))
+
     else if (typeof strReactivadas == "string" && strReactivadas.indexOf(data.IdEstadoActividad) > -1)
         $("#menAutenticacionReactivada").show();
 

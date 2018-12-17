@@ -16,21 +16,21 @@ namespace Portal.Consultoras.Entities
         public bool RechazadoXdeuda { get; set; }
         [DataMember]
         public bool MostrarBannerRechazo { get; set; }
+
+        private string textovinculo = string.Empty;
         [DataMember]
         public string Textovinculo
         {
             get
             {
-                string _Textovinculo = string.Empty;
-
                 if (BannerUrl == Enumeradores.RechazoBannerUrl.Deuda)
-                    _Textovinculo = "MIRA LOS LUGARES DE PAGO";
+                    textovinculo = "MIRA LOS LUGARES DE PAGO";
                 else if (BannerUrl == Enumeradores.RechazoBannerUrl.ModificaPedido)
-                    _Textovinculo = "MODIFICA TU PEDIDO";
+                    textovinculo = "MODIFICA TU PEDIDO";
 
-                return _Textovinculo;
+                return textovinculo;
             }
-            set { }
+            set { textovinculo = value; }
         }
     }
 }

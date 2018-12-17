@@ -276,6 +276,9 @@ namespace Portal.Consultoras.Entities
         public string Niveles { get; set; }
 
         [DataMember]
+        public int MaterialGanancia { get; set; }
+
+        [DataMember]
         public int FlagRevista { get; set; }
 
         [DataMember]
@@ -334,7 +337,6 @@ namespace Portal.Consultoras.Entities
             MostrarImgOfertaIndependiente = row.ToBoolean("MostrarImgOfertaIndependiente");
             Orden = row.ToInt32("Orden");
             ID = row.ToInt32("ID");
-            //BPT-369
             FlagValidarImagen = row.ToInt32("FlagValidarImagen");
             PesoMaximoImagen = row.ToInt32("PesoMaximoImagen");
         }

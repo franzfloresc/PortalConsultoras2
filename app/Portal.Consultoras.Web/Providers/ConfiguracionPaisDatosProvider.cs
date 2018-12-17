@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.SessionManager;
 
 namespace Portal.Consultoras.Web.Providers
@@ -86,17 +87,17 @@ namespace Portal.Consultoras.Web.Providers
         {
             switch (seccion)
             {
-                case Constantes.OrigenPedidoWeb.DesktopHome:
+                case Constantes.OrigenPedidoWeb.SectionBptDesktopHome:
                     return ObtenerKeyHomePorEstado(estado, false);
-                case Constantes.OrigenPedidoWeb.DesktopPedido:
+                case Constantes.OrigenPedidoWeb.SectionBptDesktopPedido:
                     return ObtenerKeyPedidoPorEstado(estado, false);
-                case Constantes.OrigenPedidoWeb.DesktopCatalogo:
+                case Constantes.OrigenPedidoWeb.SectionBptDesktopCatalogo:
                     return ObtenerKeyCatalogoPorEstado(estado, false);
-                case Constantes.OrigenPedidoWeb.MobileHome:
+                case Constantes.OrigenPedidoWeb.SectionBptMobileHome:
                     return ObtenerKeyHomePorEstado(estado, true);
-                case Constantes.OrigenPedidoWeb.MobilePedido:
+                case Constantes.OrigenPedidoWeb.SectionBptMobilePedido:
                     return ObtenerKeyPedidoPorEstado(estado, true);
-                case Constantes.OrigenPedidoWeb.MobileCatalogo:
+                case Constantes.OrigenPedidoWeb.SectionBptMobileCatalogo:
                     return ObtenerKeyCatalogoPorEstado(estado, true);
                 default:
                     return ObtenerKeyHomePorEstado(estado, false);
@@ -195,5 +196,59 @@ namespace Portal.Consultoras.Web.Providers
                         : Constantes.ConfiguracionPaisDatos.RD.DCatalogoNoInscritaNoActiva;
             }
         }
+        
+        public string GetValorDato(IList<ConfiguracionPaisDatosModel> configuracionesPaisDatos, string codigo, bool esMobile, int valor = 1)
+        {
+            var dato = configuracionesPaisDatos.FirstOrDefault(d => d.Codigo == codigo) ?? new ConfiguracionPaisDatosModel();
+            var valorDato = "";
+            switch (valor)
+            {
+                case 0: valorDato = esMobile ? dato.Valor2 : dato.Valor1; break;
+                case 1: valorDato = dato.Valor1; break;
+                case 2: valorDato = dato.Valor2; break;
+                case 3: valorDato = dato.Valor3; break;
+                default: valorDato = dato.Valor1; break;
+            }
+            return Util.Trim(valorDato);
+        }
+
+        #region Objeto Diferente a las cajas de producto
+
+        public EstrategiaPersonalizadaProductoModel GetBannerCajaProducto(int tipoConsulta, bool esMobile)
+        {
+            IList<ConfiguracionPaisDatosModel> configuracionPaisDatos = null;
+            var modelo = new EstrategiaPersonalizadaProductoModel();
+            var userData = sessionManager.GetUserData();
+
+            if (tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.MGObtenerProductos)
+            {
+                configuracionPaisDatos = sessionManager.MasGanadoras.GetModel().ConfiguracionPaisDatos;
+                modelo.DescripcionMarca = esMobile ? "/Mobile/MasGanadoras" : "/MasGanadoras";
+            }
+            else if (tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.SRObtenerProductos)
+            {
+                configuracionPaisDatos = sessionManager.GetEstrategiaSR().ConfiguracionPaisDatos;
+                modelo.DescripcionMarca = esMobile ? "/Mobile/ShowRoom" : "/ShowRoom";
+            }
+            else if (tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.RDObtenerProductos)
+            {
+                configuracionPaisDatos = sessionManager.GetRevistaDigital().ConfiguracionPaisDatos;
+                modelo.DescripcionMarca = esMobile ? "/Mobile/RevistaDigital/Comprar" : "/RevistaDigital/Comprar";
+            }
+
+            if (tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.MGObtenerProductos || 
+                tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.SRObtenerProductos || 
+                tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.RDObtenerProductos)
+            {
+                modelo.DescripcionCompleta = GetValorDato(configuracionPaisDatos, Constantes.ConfiguracionPaisDatos.BannerCarruselTitulo, esMobile);
+                modelo.DescripcionDetalle = GetValorDato(configuracionPaisDatos, Constantes.ConfiguracionPaisDatos.BannerCarruselTextoEnlace, esMobile);
+                modelo.TipoAccionAgregar = Constantes.TipoAccionAgregar.BannerCarrusel;
+                modelo.ImagenURL = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, GetValorDato(configuracionPaisDatos, Constantes.ConfiguracionPaisDatos.BannerCarruselImagenFondo, esMobile));
+            }
+
+            return modelo;
+        }
+
+        #endregion
     }
 }

@@ -1,5 +1,5 @@
 ﻿var NuevoMasivo = (function (config) {
-    //'use strict';
+
     var _config = {
         habilitarNemotecnico: config.habilitarNemotecnico || false,
         urlConsultarOfertasPersonalizadas: config.urlConsultarOfertasPersonalizadas,
@@ -59,7 +59,7 @@
         return text;
     }
     var _showActionsVer2 = function (cellvalue, options, rowObject) {
-        
+
         var cantidad = rowObject[2];
         var tipo = rowObject[3];
 
@@ -83,7 +83,6 @@
     }
 
     var _fnGrillaEstrategias1 = function () {
-        console.log('_fnGrillaEstrategias1 Inicio', new Date());
         $("#listCargaMasiva1").jqGrid("GridUnload");
         jQuery("#listCargaMasiva1").jqGrid({
             url: _config.urlConsultarOfertasPersonalizadas,
@@ -432,7 +431,7 @@
             buttons:
             {
                 "Salir": function () {
-                    $(this).dialog("close");
+                    HideDialog("DialogGrillaCuv1");
                 }
             }
         });
@@ -448,7 +447,7 @@
             buttons:
             {
                 "Salir": function () {
-                    $(this).dialog("close");
+                    HideDialog("DialogGrillaCuv2");
                 }
             }
         });
@@ -541,11 +540,11 @@
                 tipoConfigurado: 1,
                 estrategiaId: $("#ddlTipoEstrategia").find(":selected").data("id"),
                 nroLote: _variables.NroLote,
-                codigoEstrategia:$("#ddlTipoEstrategia").find(":selected").data("codigo"),
+                codigoEstrategia: $("#ddlTipoEstrategia").find(":selected").data("codigo"),
                 estrategiaMIds: $('#precargadosdiv').text()
             };
             console.log('inicio de clickAceptarMasivo2', params, new Date());
-            
+
             waitingDialog();
 
             jQuery.ajax({
@@ -555,17 +554,15 @@
                 contentType: "application/json; charset=utf-8",
                 data: JSON.stringify(params),
                 async: true,
+                timeout: 120000, // sets timeout to 2 min
                 success: function (data) {
                     console.log('respuesta ' + _config.urlEstrategiaOfertasPersonalizadasInsert, new Date());
-                    console.log(data); 
+                    console.log(data);
                     if (data.success) {
-                        $("#precargadosdiv").html(data.mongoIdsOK);
-                        $("#cargadoserrordiv").html(data.mongoIdsERROR);
-
-                        closeWaitingDialog();
                         $("#divMasivoPaso1").hide();
                         $("#divMasivoPaso2").hide();
                         $("#divMasivoPaso3").show();
+                        closeWaitingDialog();
 
                         $("#divPaso1").removeClass("boton_redondo_admcontenido_on");
                         $("#divPaso1").addClass("boton_redondo_admcontenido_off");
@@ -575,6 +572,10 @@
 
                         $("#divPaso3").removeClass("boton_redondo_admcontenido_off");
                         $("#divPaso3").addClass("boton_redondo_admcontenido_on");
+
+                        $("#precargadosdiv").html(JSON.parse(JSON.stringify(data.mongoIdsOK)));
+                        $("#cargadoserrordiv").html(JSON.parse(JSON.stringify(data.mongoIdsERROR)));
+
                     } else {
                         _toastHelper.error(data.message);
                         _eventos.clickCancelarMasivo1();
@@ -584,8 +585,7 @@
                     _toastHelper.error(_config.MensajeErrorGeneral);
                 }
             });
-
-            console.log('ejecutando clickAceptarMasivo2 - fin'); 
+            console.log('ejecutando clickAceptarMasivo2 - fin');
         },
         clickCancelarMasivo1: function () {
             _variablesInicializar();
@@ -608,7 +608,7 @@
                 async: true,
                 success: function (data) {
 
-                    console.log('ejecutando clickAceptarMasivo2 - ajax - inicio', data); 
+                    console.log('ejecutando clickAceptarMasivo2 - ajax - inicio', data);
                     if (data.success) {
                         _variablesInicializar();
                         HideDialog("DialogNuevoMasivo");
@@ -623,7 +623,7 @@
                 }
             });
 
-            console.log('ejecutando clickCancelarMasivo2 - fin'); 
+            console.log('ejecutando clickCancelarMasivo2 - fin');
         },
         clickAceptarMasivo3: function () {
             _variablesInicializar();

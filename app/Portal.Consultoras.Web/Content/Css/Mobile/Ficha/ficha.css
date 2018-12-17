@@ -46,7 +46,6 @@ ul.breadcumbs li:last-child a {
     left: 7px;
     right: initial;
     top: 30px;
-    /*color: #000;*/
     margin-top: 5px;
     font-size: 8px;
 }
@@ -62,10 +61,6 @@ ul.breadcumbs li:last-child a {
     background-size: cover !important;
     background-position: center center !important;
 }
-
-/*.bg_imagen_producto_subir {
-    margin-top: -120px;
-}*/
 
 .imagen_producto {
     margin-bottom: 15px;
@@ -234,7 +229,6 @@ ul.breadcumbs li:last-child a {
 
 .precio li:first-child {
     padding-right: 11px;
-    /*border-right: 1px solid #cacaca;*/
 }
 
 .precio li:last-child {
@@ -285,7 +279,7 @@ ul.breadcumbs li:last-child a {
 /*Seleccionar tono*/
 
 .seleccion_tonos {
-    /*margin-bottom: 30px;*/
+
 }
 
 .tono_select_opt {
@@ -459,7 +453,6 @@ ul.breadcumbs li:last-child a {
 .tabs ul.tabs li, .tab_item {
     width: 100%;
     display: block;
-    /*border-bottom: 1px solid #ccc;*/
 }
 
 .tabs ul.tabs li:last-child {
@@ -522,7 +515,7 @@ ul.breadcumbs li:last-child a {
 }
 
 .ficha_tabs {
-    /*border-top: 1px solid #ccc;*/
+
 }
 
 .btn_agregar_ficha_producto, .content_cantidad_ficha_producto {
@@ -595,3 +588,33 @@ ul.breadcumbs li:last-child a {
     float: left;
     width: 86%;
 }
+/** Mensaje de Producto no Disponible **/
+.msj_nodisponible {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 150px 0 150px 0;
+}
+
+    .msj_nodisponible img {
+        margin: 0 0 20px;
+    }
+
+    .msj_nodisponible strong {
+        font-size: 18px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        line-height: 24px;
+        text-transform: none;
+        margin: 0 0 15px 0;
+    }
+
+    .msj_nodisponible p {
+        font-size: 16px;
+        margin: 0 0 15px 0;
+    }
+
+
+  

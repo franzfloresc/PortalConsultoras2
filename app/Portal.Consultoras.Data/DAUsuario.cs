@@ -934,10 +934,19 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@codConsultora", DbType.String, codigoUsuario);
             return Context.ExecuteScalar(command).ToString();
         }
-        public string CancelarAtualizacionEmail(string codigoUsuario)
+
+        public IDataReader GetActualizacionEmailySms(string codigoUsuario)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("GetActualizarEmailySms");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.String, codigoUsuario);
+            return Context.ExecuteReader(command);
+        }
+
+        public string CancelarAtualizacionEmail(string codigoUsuario, string tipoEnvio)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("CancelarAtualizacionEmail");
             Context.Database.AddInParameter(command, "@codConsultora", DbType.String, codigoUsuario);
+            Context.Database.AddInParameter(command, "@TipoEnvio", DbType.String, tipoEnvio);
             return Context.ExecuteScalar(command).ToString();
         }
 
@@ -977,6 +986,17 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@ValorMeta", DbType.AnsiString, valorMeta);
             
             Context.ExecuteNonQuery(command);
+        }
+
+        public bool GetPermisoChatbot(string codigoConsultora)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPermisoChatbot");
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, codigoConsultora);            
+            Context.Database.AddOutParameter(command, "@PermisoChatbot", DbType.Boolean, 4);
+
+            Context.ExecuteNonQuery(command);
+            
+            return Convert.ToBoolean(command.Parameters["@PermisoChatbot"].Value);
         }
     }
 }

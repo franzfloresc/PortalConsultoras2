@@ -55,7 +55,6 @@ namespace Portal.Consultoras.Web.Providers
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, "", codigoIso);
-                //errorMessage = Constantes.MensajesError.PaqueteDocumentario_ConsumirServicio;
             }
             return lstRVPRFModel;
         }

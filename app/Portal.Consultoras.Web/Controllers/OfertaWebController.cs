@@ -39,8 +39,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (lista != null && lista.Count > 0)
                 {
                     lista.Update(x => x.DescripcionMarca = GetDescripcionMarca(x.MarcaID));
-                    var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                    lista.Update(x => x.ImagenProducto = ConfigCdn.GetUrlFileCdn(carpetaPais, x.ImagenProducto));
+                    lista.Update(x => x.ImagenProducto = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, x.ImagenProducto));
                 }
                 ViewBag.ListaOfertasWeb = lista;
             }
@@ -319,7 +318,6 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult ObtenerImagenesByCodigoSAP(int paisID, string codigoSAP)
         {
             List<BEMatrizComercial> lst;
-            var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
             List<BEMatrizComercial> lstFinal = new List<BEMatrizComercial>();
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -327,6 +325,7 @@ namespace Portal.Consultoras.Web.Controllers
                 lst = sv.GetImagenesByCodigoSAP(paisID, codigoSAP).ToList();
             }
 
+            var isoPais = userData.CodigoISO;
             if (lst != null && lst.Count > 0)
             {
                 lstFinal.Add(new BEMatrizComercial
@@ -338,13 +337,13 @@ namespace Portal.Consultoras.Web.Controllers
                 });
 
                 if (lst[0].FotoProducto != "")
-                    lstFinal[0].FotoProducto01 = ConfigCdn.GetUrlFileCdn(carpetaPais, lst[0].FotoProducto);
+                    lstFinal[0].FotoProducto01 = ConfigCdn.GetUrlFileCdnMatriz(isoPais, lst[0].FotoProducto);
 
                 if (lst[1].FotoProducto != "")
-                    lstFinal[0].FotoProducto02 = ConfigCdn.GetUrlFileCdn(carpetaPais, lst[1].FotoProducto);
+                    lstFinal[0].FotoProducto02 = ConfigCdn.GetUrlFileCdnMatriz(isoPais, lst[1].FotoProducto);
 
                 if (lst[2].FotoProducto != "")
-                    lstFinal[0].FotoProducto03 = ConfigCdn.GetUrlFileCdn(carpetaPais, lst[2].FotoProducto);
+                    lstFinal[0].FotoProducto03 = ConfigCdn.GetUrlFileCdnMatriz(isoPais, lst[2].FotoProducto);
             }
             return Json(new
             {
@@ -385,7 +384,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 string iso = Util.GetPaisISO(PaisID);
-                var carpetaPais = Globals.UrlMatriz + "/" + iso;
 
                 BEGrid grid = new BEGrid
                 {
@@ -477,7 +475,7 @@ namespace Portal.Consultoras.Web.Controllers
                                    a.PrecioOferta.ToString("#0.00"),
                                    a.Orden.ToString(),
                                    a.Stock.ToString(),
-                                   ConfigCdn.GetUrlFileCdn(carpetaPais, a.ImagenProducto), // 1664
+                                   ConfigCdn.GetUrlFileCdnMatriz(iso, a.ImagenProducto),
                                    a.CampaniaID.ToString() ,
                                    a.Stock.ToString(),
                                    a.UnidadesPermitidas.ToString(),

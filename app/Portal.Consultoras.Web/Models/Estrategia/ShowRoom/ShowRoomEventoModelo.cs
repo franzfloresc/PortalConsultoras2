@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Models.Estrategia.ShowRoom
 {
     public class ShowRoomEventoModelo
     {
-        //[global::System.ComponentModel.BrowsableAttribute(false)]
-        //public System.Runtime.Serialization.ExtensionDataObject ExtensionData { get; set; }
-
         [System.Runtime.Serialization.DataMemberAttribute()]
         public string _id { get; set; }
 

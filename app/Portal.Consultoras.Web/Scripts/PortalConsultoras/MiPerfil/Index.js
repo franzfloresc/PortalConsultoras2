@@ -7,9 +7,6 @@ $(document).ready(function () {
     vistaMiPerfil = function () {
         var me = this;
 
-        //me.Globals = {
-
-        //},
         me.Funciones = {
             InicializarEventos: function () {
                 $('body').on('blur', '.grupo_form_cambio_datos input', me.Eventos.LabelActivo);
@@ -194,11 +191,14 @@ function actualizarDatos() {
     }
 
     if (txtCelularMD != "") {
-        if (isNaN(txtCelularMD)) {
+        if (!isInt(txtCelularMD)) {
             alert('El formato del celular no es correcto');
             return false;
         }
-
+        if (isZero(txtCelularMD)) {
+            alert('El formato del celular no es correcto');
+            return false;
+        }
         if (txtCelularMD.length != hdn_CaracterMaximo) {
             alert('El formato del celular no es correcto');
             return false;
@@ -207,7 +207,7 @@ function actualizarDatos() {
 
     if (txtCelularMD != "") {
         if (hdn_iniciaNumero > 0) {
-            if (txtCelularMD != null || txtCelularMD != "") {
+            if (txtCelularMD != null) {
                 if (hdn_iniciaNumero != txtCelularMD.charAt(0)) {
                     alert('Su número de celular debe empezar con ' + hdn_iniciaNumero + '.');
                     return false;
@@ -224,8 +224,12 @@ function actualizarDatos() {
     }
 
     if (txtTelefonoMD != "") {
-        if (isNaN(txtTelefonoMD)) {
+        if (!isInt(txtTelefonoMD)) {
             alert('El formato de teléfono no es correcto');
+            return false;
+        }
+        if (isZero(txtTelefonoMD)) {
+            alert('El formato del teléfono no es correcto');
             return false;
         }
 
@@ -233,7 +237,6 @@ function actualizarDatos() {
             alert('El número de teléfono debe tener como mínimo ' + hdn_CaracterMinimo + ' números.');
             return false;
         }
-
         if (txtTelefonoMD.length > hdn_CaracterMaximo) {
             alert('El número de teléfono debe tener como máximo ' + hdn_CaracterMaximo + ' números.');
             return false;
@@ -241,7 +244,11 @@ function actualizarDatos() {
     }
 
     if (txtTelefonoTrabajoMD != "") {
-        if (isNaN(txtTelefonoTrabajoMD)) {
+        if (!isInt(txtTelefonoTrabajoMD)) {
+            alert('El formato de número adicional no es correcto');
+            return false;
+        }
+        if (isZero(txtTelefonoTrabajoMD)) {
             alert('El formato de número adicional no es correcto');
             return false;
         }
@@ -250,7 +257,6 @@ function actualizarDatos() {
             alert('El número adicional debe tener como mínimo ' + hdn_CaracterMinimo + ' números.');
             return false;
         }
-
         if (txtTelefonoTrabajoMD.length > hdn_CaracterMaximo) {
             alert('El número adicional debe tener como máximo ' + hdn_CaracterMaximo + ' números.');
             return false;
@@ -486,17 +492,28 @@ function SubirImagen(url, image) {
 
 function ConsultarActualizaEmail() {
     var elementA = document.getElementById('hrefNocambiarCorreo');
+    var item = {
+        pagina: "2"
+    }
+
     if (elementA) {
         $.ajax({
             type: 'POST',
-            url: baseUrl + 'Bienvenida/ObtenerActualizacionEmail',
+            url: baseUrl + 'Bienvenida/ObtenerActualizacionEmailSms',
             dataType: 'Text',
             contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(item),
             success: function (data) {
                 if (checkTimeout(data)) {
-                    if (data.split('|')[0] == '1') {
-                        document.getElementsByClassName('tooltip_info_revision_correo')[0].style.display = 'block';
-                        document.getElementById('EmailNuevo').innerHTML = data.split('|')[1];
+                    if (data != "") {
+                        if (data.split('|')[1] != ""){
+                            document.getElementsByClassName('toolTipCorreo')[0].style.display = 'block';
+                            document.getElementById('EmailNuevo').innerHTML = data.split('|')[1];
+                        }
+                        if (data.split('|')[0] != "") {
+                            document.getElementsByClassName('toolTipCelular')[0].style.display = 'block';
+                            document.getElementById('CelularNuevo').innerHTML = data.split('|')[0];
+                        }
                     }
                 }
             },
@@ -509,25 +526,45 @@ function ConsultarActualizaEmail() {
 
 function CancelarAtualizacionEmail() {
     var elementA = document.getElementById('hrefNocambiarCorreo');
+    var elementB = document.getElementById('hrefNocambiarCelular');
+
     if (elementA) {
         elementA.onclick = function (e) {
             e.preventDefault();
-            $.ajax({
-                type: 'POST',
-                url: baseUrl + 'MiPerfil/CancelarAtualizacionEmail',
-                dataType: 'Text',
-                contentType: 'application/json; charset=utf-8',
-                success: function (data) {
-                    if (checkTimeout(data)) {
-                        if (data == '1') {
-                            document.getElementsByClassName('tooltip_info_revision_correo')[0].style.display = 'None';
-                        }
-                    }
-                },
-                error: function (data, error) {
-
-                }
-            });
+            CancelarActualizarEmailySMS('Email');
         }
     }
+
+    if (elementB) {
+        elementB.onclick = function (event) {
+            event.preventDefault();
+            CancelarActualizarEmailySMS('SMS');
+        }
+    }
+}
+
+function CancelarActualizarEmailySMS(tipoEnvio) {
+    var item = {
+        tipoEnvio: tipoEnvio
+    }
+    $.ajax({
+        type: 'POST',
+        url: baseUrl + 'MiPerfil/CancelarAtualizacionEmail',
+        dataType: 'Text',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(item),
+        success: function (data) {
+            if (checkTimeout(data)) {
+                if (data == '1') {
+                    if (tipoEnvio == 'Email')
+                        document.getElementsByClassName('toolTipCorreo')[0].style.display = 'None';
+                    if (tipoEnvio == 'SMS')
+                        document.getElementsByClassName('toolTipCelular')[0].style.display = 'None';
+                }
+            }
+        },
+        error: function (data, error) {
+
+        }
+    });
 }

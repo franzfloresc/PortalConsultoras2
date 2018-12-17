@@ -25,17 +25,14 @@ namespace Portal.Consultoras.Web.Controllers
             _pagoEnLineaProvider = new PagoEnLineaProvider();
         }
 
-        // GET: PagoEnLinea
         public ActionResult Index()
         {
-            string sap = "";
-            var url = (Request.Url.Query).Split('?');
             if (EsDispositivoMovil())
             {
-                //return RedirectToAction("Index", "PagoEnLinea", new { area = "Mobile" });
+                var url = (Request.Url.Query).Split('?');
                 if (url.Length > 1)
                 {
-                    sap = "&" + url[1];
+                    string sap = "&" + url[1];
                     return RedirectToAction("Index", "PagoEnLinea", new { area = "Mobile", sap });
                 }
                 else
@@ -78,7 +75,7 @@ namespace Portal.Consultoras.Web.Controllers
             using (var ps = new PedidoServiceClient())
             {
                 bancos = ps.ObtenerPagoEnLineaURLPaginasBancos(userData.PaisID);
-        
+
             }
             return bancos;
         }
@@ -486,6 +483,7 @@ namespace Portal.Consultoras.Web.Controllers
                             a.CodigoError ?? string.Empty,
                             a.FechaCreacionFormat ?? string.Empty,
                             a.FechaCreacionHoraFormat ?? string.Empty,
+                            a.Origen ?? string.Empty
                                }
                            }
                 };
@@ -550,10 +548,11 @@ namespace Portal.Consultoras.Web.Controllers
                 {"Descripcion de Transacción", "MensajeError"},
                 {"Estado Transacción", "CodigoError"},
                 {"Fecha de Proceso","FechaCreacionFormat" },
-                {"Hora de Proceso","FechaCreacionHoraFormat" }
+                {"Hora de Proceso","FechaCreacionHoraFormat" },
+                {"Origen","Origen" }
             };
 
-            Util.ExportToExcel<BEPagoEnLineaResultadoLogReporte>("ReportePagoEnLineaExcel", lst.ToList(), dic);
+            Util.ExportToExcel("ReportePagoEnLineaExcel", lst.ToList(), dic, GetExcelSecureCallback());
             return View();
         }
 

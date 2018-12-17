@@ -1,6 +1,6 @@
 ﻿@using Portal.Consultoras.Common
 @using Portal.Consultoras.Web.Areas.Mobile.Models
-@using Portal.Consultoras.Web.Areas.Mobile.Helpers
+@using Portal.Consultoras.Web.CustomHelpers
 
 @{
     var items = (List<MenuMobileModel>)ViewBag.MenuMobile;
@@ -9,7 +9,7 @@
 }
 @foreach (var item in itemsFooter)
 {
-    <a role="link" region="Footer" parent="@item.Descripcion" title="@item.Descripcion" 
+    <a role="link" region="Footer" parent="@item.Descripcion" title="@item.Descripcion"
        class="menu_footer" data-toggle="collapse" data-parent="#accordion" href="#collapse_@item.MenuMobileID">
         @item.Descripcion.ToUpper()
     </a>
@@ -25,7 +25,7 @@
                     : subitem.UrlItem.Trim().StartsWith("http") ? subitem.UrlItem : string.Format("{0}{1}", urlDomain, subitem.UrlItem);
                 if (subitem.Descripcion == "Tutorial")
                 {
-                    <a role="link" region="Footer" parent="@item.Descripcion" title="@subitem.Descripcion" 
+                    <a role="link" region="Footer" parent="@item.Descripcion" title="@subitem.Descripcion"
                        class="menu_subfooter" href="#" id="tutorialFooterMobile">@subitem.Descripcion.ToUpper()</a>
                 }
                 else
@@ -36,13 +36,13 @@
                     }
                     if (subitem.Version == "Click")
                     {
-                        <a role="button" onclick="@string.Concat("javascript:", @subitem.UrlItem ,"()" )" region="Footer" parent="@item.Descripcion" title="@subitem.Descripcion" 
-                            class="menu_subfooter">@subitem.Descripcion.ToUpper()</a>
+                        <a role="button" onclick="@string.Concat("javascript:", @subitem.UrlItem ,"()" )" region="Footer" parent="@item.Descripcion" title="@subitem.Descripcion"
+                           class="menu_subfooter">@subitem.Descripcion.ToUpper()</a>
                     }
                     else
                     {
-                        <a role="link"  region="Footer" parent="@item.Descripcion" title="@subitem.Descripcion" 
-                            class="menu_subfooter" target="@target" href="@url">@subitem.Descripcion.ToUpper()</a>
+                        <a role="link" region="Footer" parent="@item.Descripcion" title="@subitem.Descripcion"
+                           class="menu_subfooter" target="@target" href="@url">@subitem.Descripcion.ToUpper()</a>
                     }
 
                 }
@@ -50,7 +50,7 @@
         </div>
     }
 }
-<a role="link" region="Footer" parent="Ir a la versión escritorio" title="Ir a la versión escritorio" 
+<a role="link" region="Footer" parent="Ir a la versión escritorio" title="Ir a la versión escritorio"
    class="version_escritorio" href="@Url.Action("Index", "Bienvenida", new { area = ""})">Ir a la versión escritorio</a>
 <div class="content_redes">
     <div class="col-xs-2">
@@ -63,7 +63,7 @@
     </a>
     <a role="link" region="Footer" parent="Redes Sociales" title="Facebook Belcorp" class="redes_sociales" target="_blank" href="https://es-la.facebook.com/SomosBelcorpOficial">
         <img role="link" region="Footer" parent="Redes Sociales" title="Youtube Belcorp" src="@Url.Content("~/Content/Images/mobile/Esika/facebook2.png")" />
-    </a> 
+    </a>
     <hr class="clear" />
 </div>
 <hr class="clear" />

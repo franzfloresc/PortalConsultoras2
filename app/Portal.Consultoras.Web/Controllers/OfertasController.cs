@@ -1,10 +1,10 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.Models.Ofertas;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.SessionManager;
 using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -12,10 +12,10 @@ namespace Portal.Consultoras.Web.Controllers
     public class OfertasController : BaseController
     {
         private readonly ConfiguracionOfertasHomeProvider _confiOfertasHomeProvider;
-            
+
         public OfertasController() : this(new ConfiguracionOfertasHomeProvider()) { }
 
-        public OfertasController(ConfiguracionOfertasHomeProvider configuracionOfertasHomeProvider):base()
+        public OfertasController(ConfiguracionOfertasHomeProvider configuracionOfertasHomeProvider) : base()
         {
             _confiOfertasHomeProvider = configuracionOfertasHomeProvider;
         }
@@ -34,35 +34,39 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Index()
         {
-            string sap = "";
-            var url = (Request.Url.Query).Split('?');
-            
-            if (EsDispositivoMovil()) 
-            {
-            //return RedirectToAction("Index", "Ofertas", new { area = "Mobile" });
-                if (url.Length > 1)
-                {
-                    sap = "&" + url[1];
-                    return RedirectToAction("Index", "Ofertas", new { area = "Mobile", sap });
-                }
-                else
-                {
-                    return RedirectToAction("Index", "Ofertas", new { area = "Mobile" });
-                }
-            }
-
             try
             {
-                var indexViewModel = new IndexViewModel();
-                indexViewModel.EstrategiaPersonalizada = new EstrategiaPersonalizadaModel
+                if (EsDispositivoMovil())
                 {
-                    ListaSeccion = _confiOfertasHomeProvider.ObtenerConfiguracionSeccion(revistaDigital, IsMobile()),
-                    MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(IsMobile())
-                };
-                indexViewModel.IconoLLuvia = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
-                indexViewModel.VariablesEstrategia = GetVariableEstrategia();
+                    var url = (Request.Url.Query).Split('?');
+                    if (url.Length > 1)
+                    {
+                        string sap = "&" + url[1];
+                        return RedirectToAction("Index", "Ofertas", new { area = "Mobile", sap });
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Ofertas", new { area = "Mobile" });
+                    }
+                }
 
-                return View(indexViewModel);
+                var esMobile = IsMobile();
+                var modelo = new EstrategiaPersonalizadaModel
+                {
+                    ListaSeccion = _confiOfertasHomeProvider.ObtenerConfiguracionSeccion(revistaDigital, esMobile),
+                    MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(esMobile),
+
+                    IconoLLuvia = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop),
+                    VariablesEstrategia = GetVariableEstrategia(),
+                    Vc_SinProducto = SessionManager.GetUrlVc()
+                };
+
+                if (modelo.Vc_SinProducto == 1)
+                {
+                    SessionManager.SetUrlVc(0);
+                }
+
+                return View(modelo);
             }
             catch (Exception ex)
             {
@@ -76,19 +80,17 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var indexViewModel = new IndexViewModel();
                 bool esMobile = IsMobile();
-                indexViewModel.EstrategiaPersonalizada = new EstrategiaPersonalizadaModel
+
+                var modelo = new EstrategiaPersonalizadaModel
                 {
                     ListaSeccion = _confiOfertasHomeProvider.ObtenerConfiguracionSeccion(revistaDigital, esMobile),
                     MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(esMobile),
-                    MensajeProductoBloqueado2 = _ofertasViewProvider.HVMensajeProductoBloqueado(herramientasVenta, esMobile)
-
+                    MensajeProductoBloqueado2 = _ofertasViewProvider.HVMensajeProductoBloqueado(herramientasVenta, esMobile),
+                    VariablesEstrategia = GetVariableEstrategia()
                 };
 
-                indexViewModel.VariablesEstrategia = GetVariableEstrategia();
-
-                return View("Index", indexViewModel);
+                return View("Index", modelo);
             }
             catch (Exception ex)
             {
@@ -117,6 +119,8 @@ namespace Portal.Consultoras.Web.Controllers
                     SessionManager.SetTieneHv(false);
                 else if (campaniaId != userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.HerramientasVenta))
                     SessionManager.SetTieneHvX1(false);
+                else if (campaniaId == userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.MasGanadoras))
+                    SessionManager.SetTieneMg(false);
 
                 return Json(new
                 {

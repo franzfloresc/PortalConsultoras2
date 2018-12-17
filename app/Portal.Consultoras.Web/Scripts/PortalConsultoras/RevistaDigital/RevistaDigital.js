@@ -7,9 +7,9 @@ var indCampania = indCampania || 0;
 var isDetalle = false;
 var esPrimeraCarga = true;
 var cantTotalMostrar = 0;
-var clickedSlider = 0;
+//var clickedSlider = 0;
 var revistaDigital = revistaDigital || {};
-var sliderWay = 0;
+//var sliderWay = 0;
 
 var sProps = {
     UrlRevistaDigitalInformacion: baseUrl + 'revistadigital/Informacion',
@@ -133,7 +133,7 @@ $(document).ready(function () {
         }
         return false;
     });
-    
+
     //Este metodo será quitado porque la etiqueta verdetalle ya no existe.
     $("body").on("click", "[data-item-accion='verdetalle']", function (e) {
         var campania = $(this).parents("[data-tag-html]").attr("data-tag-html");
@@ -156,9 +156,8 @@ $(document).ready(function () {
             rdAnalyticsModule.VerDetalleLan(obj);
             var guardo = EstrategiaGuardarTemporal(obj);
             if (guardo) {
-                obj
                 var url = urlOfertaDetalleProducto;
-                
+
                 if (obj.CodigoEstrategia) {
                     url = urlOfertaDetalleProductoLan;
                 }
@@ -166,7 +165,7 @@ $(document).ready(function () {
                 url = url +
                     "?cuv=" + obj.CUV2 +
                     "&campaniaId=" + obj.CampaniaID;
-                
+
                 return window.location = url;
             }
         }
@@ -174,11 +173,6 @@ $(document).ready(function () {
 
     $("body").on("click", ".btn-volver-fix-detalle span", function (e) {
         window.location = urlRetorno;
-    });
-
-    $("body").on("click", ".div-carousel-rd-prev, .div-carousel-rd-next", function () {
-        clickedSlider = 1;
-        CallAnalitycsClickArrow();
     });
 });
 
@@ -223,18 +217,17 @@ function RDMostrarPosicion() {
 
 }
 
-function GetArrowNamePrev() {
-    if (isMobile()) return "previous_mob.png";
-    else return "previous.png";
-}
+//function GetArrowNamePrev() {
+//    if (isMobile()) return "previous_mob.png";
+//    else return "previous.png";
+//}
 
-function GetArrowNameNext() {
-    if (isMobile()) return "next_mob.png";
-    else return "next.png";
-}
+//function GetArrowNameNext() {
+//    if (isMobile()) return "next_mob.png";
+//    else return "next.png";
+//}
 
 function OfertaArmarEstrategias(response, busquedaModel) {
-
     response.CampaniaID = response.CampaniaID || response.campaniaId || 0;
     if (response.CampaniaID <= 0) return false;
 
@@ -280,9 +273,7 @@ function OfertaArmarEstrategias(response, busquedaModel) {
 
         filtroCampania[lsListaRD + indCampania].response.Completo = 1;
     }
-    else {
-        console.log('filtroCampania' + indCampania + ' - ' + response.CampaniaID);
-    }
+
     // Listado de producto
     var modeloTemp = Clone(response);
     modeloTemp.lista = listaAdd || response.lista;
@@ -299,7 +290,6 @@ function OfertaArmarEstrategias(response, busquedaModel) {
     if (response.Mobile) {
         $.each(modelHtml.lista, function (ind, temh) {
             temh.TipoAccionAgregarBack = Clone(temh.TipoAccionAgregar);
-            //temh.TipoAccionAgregar = 0;
         });
     }
 
@@ -337,7 +327,7 @@ function OfertaArmarEstrategias(response, busquedaModel) {
     else {
         $("#divOfertaProductosPerdio").remove();
     }
-   
+
 
     ResizeBoxContnet();
     if (response.guardaEnLocalStorage === false) {
@@ -350,7 +340,7 @@ function OfertaArmarEstrategias(response, busquedaModel) {
 }
 
 function RDLocalStorageListado(key, valor, codigo) {
- 
+
     var valLocalStorage = LocalStorageListado(key, null, 1);
     if (valLocalStorage != null) {
         valLocalStorage = JSON.parse(valLocalStorage);
@@ -377,7 +367,7 @@ function OfertaArmarEstrategiasContenedor(responseData, busquedaModel) {
 
     var response = Clone(responseData);
 
-    var listaSeccionesRD = ["HV"];
+    var listaSeccionesRD = [busquedaModel.Palanca];
 
     if (busquedaModel.VarListaStorage === "RDLista") {
         listaSeccionesRD = ["RD", "RDR"];
@@ -526,7 +516,7 @@ function ResizeBoxContnet() {
             });
         });
     } catch (e) {
-        console.log(e);
+        //console.log(e);
     }
 }
 
@@ -582,62 +572,60 @@ function RDDetalleObtener() {
     $(".ver_detalle_carrusel").remove();
 }
 
-function RenderCarrusel(divProd) {
-    if (divProd == undefined) {
-        return false;
-    }
-    divProd.find('#divCarruselLan.slick-initialized').slick('unslick');
-    divProd.find('#divCarruselLan').not('.slick-initialized').slick({
-        vertical: false,
-        dots: false,
-        infinite: true,
-        speed: 300,
-        slidesToShow: 1,
-        autoplay: true,
-        autoplaySpeed: 5000,
-        prevArrow: '<a class="previous_ofertas_ept js-slick-prev"><img src="' + baseUrl + 'Content/Images/RevistaDigital/' + GetArrowNamePrev() + '" alt="" /></a>',
-        nextArrow: '<a class="previous_ofertas_ept js-slick-next"><img src="' + baseUrl + 'Content/Images/RevistaDigital/' + GetArrowNameNext() + '" alt="" /></a>'
-    }).on('afterChange', function (event, slick, currentSlide) {
+//function RenderCarrusel(divProd) {
+//    if (divProd == undefined) {
+//        return false;
+//    }
+//    divProd.find('#divCarruselLan.slick-initialized').slick('unslick');
+//    divProd.find('#divCarruselLan').not('.slick-initialized').slick({
+//        vertical: false,
+//        dots: false,
+//        infinite: true,
+//        speed: 300,
+//        slidesToShow: 1,
+//        autoplay: true,
+//        autoplaySpeed: 5000,
+//        prevArrow: '<a class="previous_ofertas_ept js-slick-prev"><img src="' + baseUrl + 'Content/Images/RevistaDigital/' + GetArrowNamePrev() + '" alt="" /></a>',
+//        nextArrow: '<a class="previous_ofertas_ept js-slick-next"><img src="' + baseUrl + 'Content/Images/RevistaDigital/' + GetArrowNameNext() + '" alt="" /></a>'
+//    }).on('afterChange', function (event, slick, currentSlide) {
 
-        var slides = (slick || new Object()).$slides || new Array();
-        if (slides.length == 0) {
-            return false;
-        }
+//        var slides = (slick || new Object()).$slides || new Array();
+//        if (slides.length == 0) {
+//            return false;
+//        }
 
-        var prev = -1, next = slides.length;
-        $.each(slides, function (ind, item) {
-            var itemSel = $(item);
-            if ($(itemSel).hasClass("slick-active")) {
-                prev = prev < 0 ? ind : prev;
-                next = prev < 0 ? next : ind;
-            }
-        });
+//        var prev = -1, next = slides.length;
+//        $.each(slides, function (ind, item) {
+//            var itemSel = $(item);
+//            if ($(itemSel).hasClass("slick-active")) {
+//                prev = prev < 0 ? ind : prev;
+//                next = prev < 0 ? next : ind;
+//            }
+//        });
 
-        prev = prev == 0 ? slides.length - 1 : (prev - 1);
-        next = next == slides.length - 1 ? 0 : (next + 1);
+//        prev = prev == 0 ? slides.length - 1 : (prev - 1);
+//        next = next == slides.length - 1 ? 0 : (next + 1);
 
-        var imgPrevia = $.trim($(slides[prev]).attr("data-ImgPrevia"));
-        slick.$prevArrow.find("img[data-prev]").attr("src", imgPrevia);
-        if (imgPrevia == "") {
-            slick.$prevArrow.find("img[data-prev]").hide();
-        }
-        else {
-            slick.$prevArrow.find("img[data-prev]").show();
-        }
-        imgPrevia = $.trim($(slides[next]).attr("data-ImgPrevia"));
-        slick.$nextArrow.find("img[data-prev]").attr("src", imgPrevia);
-        if (imgPrevia == "") {
-            slick.$nextArrow.find("img[data-prev]").hide();
-        }
-        else {
-            slick.$nextArrow.find("img[data-prev]").show();
-        }
-    });
-}
+//        var imgPrevia = $.trim($(slides[prev]).attr("data-ImgPrevia"));
+//        slick.$prevArrow.find("img[data-prev]").attr("src", imgPrevia);
+//        if (imgPrevia == "") {
+//            slick.$prevArrow.find("img[data-prev]").hide();
+//        }
+//        else {
+//            slick.$prevArrow.find("img[data-prev]").show();
+//        }
+//        imgPrevia = $.trim($(slides[next]).attr("data-ImgPrevia"));
+//        slick.$nextArrow.find("img[data-prev]").attr("src", imgPrevia);
+//        if (imgPrevia == "") {
+//            slick.$nextArrow.find("img[data-prev]").hide();
+//        }
+//        else {
+//            slick.$nextArrow.find("img[data-prev]").show();
+//        }
+//    });
+//}
 
 function RDPageInformativa() {
-    //$('#popupDetalleCarousel_packNuevas').hide();  DEUDA TECNICA
-    //$('#popupDetalleCarousel_lanzamiento').hide(); DEUDA TECNICA
     CerrarPopup("#divMensajeBloqueada");
     $(window).scrollTop(0);
     $('ul[data-tab="tab"] li a[data-tag="0"]').click();
@@ -656,73 +644,36 @@ function RDDetalleVolver(campaniaId) {
     window.location = urlVolver + "#LAN";
 }
 
-function CheckClickCarrousel(action, source) {
-    if (action === "next") {
-        sliderWay = 1;
-    } else if (action === "prev") {
-        sliderWay = 2;
-    }
+//function CheckClickCarrousel(action, source, seccionName, opcion) {
 
-    if (source === "normal") {
-        clickedSlider = 1;
-    }
-    CallAnalitycsClickArrow();
-}
-
-function CallAnalitycsClickArrow() {
-    if (sliderWay !== 0 && clickedSlider !== 0) {
-        if (typeof rdAnalyticsModule !== "undefined") {
-            rdAnalyticsModule.ClickArrowLan(sliderWay);
-        }
-        sliderWay = 0;
-        clickedSlider = 0;
-    }
-}
-
-//$(window).on("scroll", function () {
-    
-//    if (isMobile()) {
-//        var cabecera_mobil = $('header').outerHeight(true);
-//        var tabs_mobil = $('#seccion-menu-mobile').outerHeight(true);
-//        var cont_prod_mobil = $('#divOfertaProductos').outerHeight(true);
-//        var menu_para_ti = $('.bc_para_ti-menu-opciones').outerHeight(true);
-//        var total_head_sin = menu_para_ti + cabecera_mobil;
-//        var total_head_mobil = cabecera_mobil + cont_prod_mobil;
-//        var total_sin_head = $('.contenido_zona_dorada_contenedor_desktop').outerHeight(true);
-
-//        if ($(this).scrollTop() >= total_head_mobil) {
-//            $('.contenido_zona_dorada_contenedor_desktop .logo-dorado-desktop').addClass('dorado_esconde_imagen');
-//            $('.contenido_zona_dorada_contenedor_desktop').addClass('dorado_contenedor');
-//            $('#divOfertaProductosPerdio').addClass('dorado_contenedor_prods');
-//            $('#block_inscribete').css("top", cabecera_mobil > 0 ? 105 : 45);
-//        }
-//        else {
-//            $('.contenido_zona_dorada_contenedor_desktop .logo-dorado-desktop').removeClass('dorado_esconde_imagen');
-//            $('.contenido_zona_dorada_contenedor_desktop').removeClass('dorado_contenedor');
-//            $('#divOfertaProductosPerdio').removeClass('dorado_contenedor_prods');
-//            $('#block_inscribete').css("top", 0);
-//        }
+//    if (action === "next") {
+//        sliderWay = 1;
+//    } else if (action === "prev") {
+//        sliderWay = 2;
 //    }
-//    else {
-//        var header_altura = $(".wrapper_header").outerHeight(true);
-//        var contenedor_ofertas = $("#divOfertaProductos").outerHeight(true);
-//        var total_altura_scroll = header_altura + contenedor_ofertas;
 
-//        if ($(this).scrollTop() >= total_altura_scroll) {
-//            $('.zona_dorada_contenedor_desktop').addClass('fixed_contenedor_head');
-//            $('.contenido_zona_dorada_contenedor_desktop').addClass('fixed_head');
-//            $('.contenido_zona_dorada_contenedor_desktop .fix-zona-dorada').addClass('fixed_head_cabecera');
-//            $('.divOfertaProductosPerdiofix').addClass('fixed_productos');
-//            $('footer').css("position", "relative");
-//            $('footer').css("z-index", "99");
-//        }
-//        else {
-//            $('.zona_dorada_contenedor_desktop').removeClass('fixed_contenedor_head');
-//            $('.contenido_zona_dorada_contenedor_desktop').removeClass('fixed_head');
-//            $('.contenido_zona_dorada_contenedor_desktop .fix-zona-dorada').removeClass('fixed_head_cabecera');
-//            $('.divOfertaProductosPerdiofix').removeClass('fixed_productos');
-//            $('footer').css("position", "initial");
-
-//        }
+//    if (source === "normal") {
+//        clickedSlider = 1;
 //    }
-//});
+//    opcion = opcion || "";
+//    CallAnalitycsClickArrow(seccionName, opcion);
+//}
+
+//function CallAnalitycsClickArrow(seccionName, opcion) {
+
+//    if (sliderWay !== 0 && clickedSlider !== 0) {
+//        if (seccionName === "MG") {
+//            if (typeof AnalyticsPortalModule !== "undefined") {
+//                AnalyticsPortalModule.ClickArrowMG(sliderWay);
+//            }
+//        } else {
+//            if (typeof rdAnalyticsModule !== "undefined") {
+//                rdAnalyticsModule.ClickArrowLan(sliderWay);
+//            }
+//        }
+
+//        sliderWay = 0;
+//        clickedSlider = 0;
+//    }
+//}
+

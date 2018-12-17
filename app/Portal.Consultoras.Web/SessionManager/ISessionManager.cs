@@ -8,10 +8,12 @@ using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServicesCalculosPROL;
 using Portal.Consultoras.Web.ServiceUsuario;
+using Portal.Consultoras.Web.SessionManager.MasGanadoras;
 using Portal.Consultoras.Web.SessionManager.OfertaDelDia;
 using Portal.Consultoras.Web.SessionManager.ShowRoom;
 using System;
 using System.Collections.Generic;
+using Portal.Consultoras.Web.Models.Recomendaciones;
 
 namespace Portal.Consultoras.Web.SessionManager
 {
@@ -148,6 +150,10 @@ namespace Portal.Consultoras.Web.SessionManager
 
         bool GetTieneHvX1();
 
+        void SetTieneMg(bool tiene);
+
+        bool GetTieneMg();
+
         void SetUserData(UsuarioModel usuario);
 
         UsuarioModel GetUserData();
@@ -218,6 +224,10 @@ namespace Portal.Consultoras.Web.SessionManager
 
         void SetDetallesPedidoSetAgrupado(List<BEPedidoWebDetalle> detallesPedidoWeb);
 
+        void SetUrlVc(int id);
+
+        int GetUrlVc();
+
         void SetMiAcademia(int id);
 
         int GetMiAcademia();
@@ -246,13 +256,19 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetProcesoKitNuevas(bool proceso);
         string GetCuvKitNuevas();
         void SetCuvKitNuevas(string cuvKit);
+        string GetMensajeKitNuevas();
+        void SetMensajeKitNuevas(string mensajeKit);
         int GetLimElectivosProgNuevas();
         void SetLimElectivosProgNuevas(int limElectivos);
 
-        void SetBuscadorYFiltros(BuscadorYFiltrosConfiguracionModel buscadorYFiltrosModel);
+        void SetBuscadorYFiltrosConfig(BuscadorYFiltrosConfiguracionModel buscadorYFiltrosModel);
 
-        BuscadorYFiltrosConfiguracionModel GetBuscadorYFiltros();
-        
+        BuscadorYFiltrosConfiguracionModel GetBuscadorYFiltrosConfig();
+
+        void SetRecomendacionesConfig(RecomendacionesConfiguracionModel recomendacionesConfiguracionModel);
+
+        RecomendacionesConfiguracionModel GetRecomendacionesConfig();
+
         void SetOcultarBannerApp(dynamic val);
 
         dynamic GetOcultarBannerApp();
@@ -310,9 +326,17 @@ namespace Portal.Consultoras.Web.SessionManager
 
         FichaProductoDetalleModel GetFichaProductoTemporal();
 
+        void SetCDRPedidoFacturado(List<BEPedidoWeb> val);
+
+        List<BEPedidoWeb> GetCDRPedidoFacturado();
+
         void SetCDRCampanias(List<CampaniaModel> val);
 
         List<CampaniaModel> GetCDRCampanias();
+
+        void SetCDRPedidoID(List<CampaniaModel> val);
+
+        List<CampaniaModel> GetCDRPedidoID();
 
         void SetListaCDRDetalle(CDRWebModel val);
 
@@ -462,7 +486,16 @@ namespace Portal.Consultoras.Web.SessionManager
 
         List<List<BEEstadoServicio>> GetListaRango();
 
+        BEUsuarioDatos GetDatosUsuario();
+        
+        IMasGanadoras MasGanadoras { get;  }
         bool GetMostrarBannerNuevas();
+
         void SetMostrarBannerNuevas(bool mostrarBannerNuevas);
+        
+        void SetJwtApiSomosBelcorp(string token);
+        
+        string GetJwtApiSomosBelcorp();
+
     }
 }

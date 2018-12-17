@@ -75,6 +75,13 @@ namespace Portal.Consultoras.Common
             return Math.Round(value, NumDecimales);
         }
 
+        static public Decimal ParseDecimal(object value, IFormatProvider provider)
+        {
+            Decimal number;
+            bool result = Decimal.TryParse(ParseString(value), NumberStyles.Any, provider, out number);
+            return result ? number : 0;
+        }
+
         static public String ParseString(object value)
         {
             var cadena = Convert.ToString(value);
@@ -433,10 +440,6 @@ namespace Portal.Consultoras.Common
             }
             return true;
         }
-        //public static bool EnviarMail(string strDe, string strPara, string strParaOculto, string strTitulo, string strMensaje, bool isHTML)
-        //{
-        //    return Util.EnviarMail(strDe, strPara, strParaOculto, strTitulo, strMensaje, isHTML, null, false);
-        //}
 
         public static bool EnviarMail3(string strDe, string strPara, string strTitulo, string strMensaje, bool isHTML, string strBcc, string strFile, string displayNameDe)
         {
@@ -1179,7 +1182,7 @@ namespace Portal.Consultoras.Common
         /// <param name="Source">Lista de Entidades cuyos registros van a ser exportados a excel</param>
         /// <param name="columnDefinition">Diccionario que contiene: Nombre de las columnas a mostrar[Key], Propiedad asociada a la entidad[value]</param>
         /// <returns></returns>
-        public static bool ExportToExcel<V>(string filename, List<V> Source, Dictionary<string, string> columnDefinition)
+        public static bool ExportToExcel<V>(string filename, List<V> Source, Dictionary<string, string> columnDefinition, Func<Stream, MemoryStream> onExcelRendered = null)
         {
             try
             {
@@ -1241,6 +1244,11 @@ namespace Portal.Consultoras.Common
 
                 var stream = new MemoryStream();
                 wb.SaveAs(stream);
+
+                if (onExcelRendered != null)
+                {
+                    stream = onExcelRendered(stream);
+                }
 
                 HttpContext.Current.Response.ClearHeaders();
                 HttpContext.Current.Response.Clear();
@@ -1545,7 +1553,7 @@ namespace Portal.Consultoras.Common
         /// <param name="cookieName">Nombre de la cookie que será creado en el response de la descarga</param>
         /// <param name="valueName">Valor de la cookie creado en el response de la descarga</param>
         /// <returns></returns>
-        public static bool ExportToExcel<V>(string filename, List<V> Source, Dictionary<string, string> columnDefinition, string cookieName, string valueName)
+        public static bool ExportToExcel<V>(string filename, List<V> Source, Dictionary<string, string> columnDefinition, string cookieName, string valueName, Func<Stream, MemoryStream> onExcelRendered = null)
         {
             try
             {
@@ -1607,6 +1615,11 @@ namespace Portal.Consultoras.Common
 
                 var stream = new MemoryStream();
                 wb.SaveAs(stream);
+
+                if (onExcelRendered != null)
+                {
+                    stream = onExcelRendered(stream);
+                }
 
                 HttpContext.Current.Response.ClearHeaders();
                 HttpContext.Current.Response.Clear();
@@ -1852,7 +1865,7 @@ namespace Portal.Consultoras.Common
             queryString = new TSHAK.Components.SecureQueryString(new Byte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 8 });
             for (int i = 0; i < Parametros.Length; i++)
             {
-                queryString[i.ToString()] = Parametros[i].Trim();
+                queryString[i.ToString()] = Parametros[i] != null ? Parametros[i].Trim() : null;
             }
 
             return HttpUtility.UrlEncode(queryString.ToString());
@@ -2157,12 +2170,10 @@ namespace Portal.Consultoras.Common
                 if (request.Url != null)
                 {
                     string baseUrl = request.Url.Scheme + "://" + request.Url.Authority + (request.ApplicationPath != null && request.ApplicationPath.Equals("/") ? "/" : (request.ApplicationPath + "/"));
-
                     baseUrl = string.Format(baseUrl + "WebPages/{0}.aspx?parametros={1}", stActionIndex, enviar);
 
                     HiQPdf.HtmlToPdf htmlToPdfConverter = new HiQPdf.HtmlToPdf();
-                    htmlToPdfConverter.SerialNumber = "zoann56qqIKnrLyvvLf74P7u/u7/7vf39/fu/f/g//zg9/f39w==";
-
+                    htmlToPdfConverter.SerialNumber = "zoann56qqIKnrLyvvLf74P7u/u7/7vf39/fu/f/g//zg9/f39w==";                                     
                     byte[] pdfBuffer = htmlToPdfConverter.ConvertUrlToMemory(baseUrl);
 
                     HttpContext.Current.Response.Clear();
@@ -2174,6 +2185,34 @@ namespace Portal.Consultoras.Common
                     HttpContext.Current.Response.BinaryWrite(pdfBuffer);
                 }
 
+                HttpContext.Current.Response.Flush();
+                HttpContext.Current.Response.End();
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public static bool ExportToPdfWebPagesPercepcion(string fileName, string contentHtml)
+        {
+            try
+            {
+
+                string extension = ".pdf";
+                string originalFileName = Path.GetFileNameWithoutExtension(fileName) + extension;
+
+                var htmlToPdf = new NReco.PdfGenerator.HtmlToPdfConverter();
+                byte[] pdfBuffer = htmlToPdf.GeneratePdf(contentHtml);
+
+                HttpContext.Current.Response.Clear();
+                HttpContext.Current.Response.Buffer = false;
+                HttpContext.Current.Response.AddHeader("Content-disposition", "attachment; filename=" + originalFileName);
+                HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+                HttpContext.Current.Response.Charset = "iso-8859-1";
+                HttpContext.Current.Response.ContentType = "text/html";
+                HttpContext.Current.Response.BinaryWrite(pdfBuffer);
                 HttpContext.Current.Response.Flush();
                 HttpContext.Current.Response.End();
             }
@@ -3274,9 +3313,7 @@ namespace Portal.Consultoras.Common
                 string soloImagen = Path.GetFileNameWithoutExtension(rutaImagen);
                 string soloExtension = Path.GetExtension(rutaImagen);
 
-                var carpetaPais = Globals.UrlMatriz + "/" + codigoIso;
-
-                ruta = ConfigCdn.GetUrlFileCdn(carpetaPais, soloImagen + rutaNombreExtension + soloExtension);
+                ruta = ConfigCdn.GetUrlFileCdnMatriz(codigoIso, soloImagen + rutaNombreExtension + soloExtension);
             }
             else
             {
@@ -3550,7 +3587,7 @@ namespace Portal.Consultoras.Common
 
             if (!lista.Any()) return result;
 
-            if (string.IsNullOrEmpty(tipoEstrategiaCodigo) && buscador == false)
+            if (string.IsNullOrEmpty(tipoEstrategiaCodigo) && !buscador)
             {
                 switch (codigoCatalago)
                 {
@@ -3639,7 +3676,7 @@ namespace Portal.Consultoras.Common
                 {
                     if (string.IsNullOrEmpty(descripcion))
                         result = "";
-                    else 
+                    else
                         result = (descripcion.Replace("[", "")).Replace("]", "");
                 }
 
@@ -3671,6 +3708,10 @@ namespace Portal.Consultoras.Common
                     {
                         case Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinal:
                         case Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal:
+                        case Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalCarrusel:
+                        case Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalFicha:
+                        case Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalCarrusel:
+                        case Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalFicha:
                             result = "";
                             break;
                         default:
@@ -3702,58 +3743,107 @@ namespace Portal.Consultoras.Common
             return result;
         }
 
-        //Obtener el código de origen
         public static string obtenerCodigoOrigenWeb(
-            string codigoEstrategia,
-            string codigoTipoEstrategia,
-            int marcaId,
-            //int codigoCatalago,
-            bool IsMobile)
+                string codigoEstrategia,
+                string codigoTipoEstrategia,
+                int marcaId,
+                //int codigoCatalago,
+                bool IsMobile,
+                bool IsHome)
         {
             var result = "";
 
-            switch (codigoEstrategia)
+            if (IsHome)
             {
-                case "LIQ":
-                    result = IsMobile ? Constantes.OrigenPedidoWeb.LiquidacionMobileBuscador.ToString() : Constantes.OrigenPedidoWeb.LiquidacionDesktopBuscador.ToString();
-                    break;
-                case "CAT":
-                    result = (marcaId == 1 ? (IsMobile ? Constantes.OrigenPedidoWeb.LBelMobileBuscador.ToString() : Constantes.OrigenPedidoWeb.LBelDesktopBuscador.ToString()) :
-                        (marcaId == 2 ? (IsMobile ? Constantes.OrigenPedidoWeb.EsikaMobileBuscador.ToString() : Constantes.OrigenPedidoWeb.EsikaDesktopBuscador.ToString()) :
-                        (IsMobile ? Constantes.OrigenPedidoWeb.CyzoneMobileBuscador.ToString() : Constantes.OrigenPedidoWeb.CyzoneDesktopBuscador.ToString())));
-                    break;
-                case "ODD":
-                    result = IsMobile ? Constantes.OrigenPedidoWeb.OfertaSoloHoyMobileBuscador.ToString() : Constantes.OrigenPedidoWeb.OfertaSoloHoyDesktopBuscador.ToString();
-                    break;
-                default:
-                    switch (codigoTipoEstrategia)
-                    {
-                        case Constantes.TipoEstrategiaCodigo.ShowRoom:
-                            result = IsMobile ? Constantes.OrigenPedidoWeb.EspecialesMobileBuscador.ToString() : Constantes.OrigenPedidoWeb.EspecialesDesktopBuscador.ToString();
-                            break;
-                        case Constantes.TipoEstrategiaCodigo.Lanzamiento:
-                            result = IsMobile ? Constantes.OrigenPedidoWeb.LoNuevoNuevoMobileBuscador.ToString() : Constantes.OrigenPedidoWeb.LoNuevoNuevoDesktopBuscador.ToString();
-                            break;
-                        case Constantes.TipoEstrategiaCodigo.OfertaParaTi:
-                        case Constantes.TipoEstrategiaCodigo.OfertasParaMi:
-                        case Constantes.TipoEstrategiaCodigo.PackAltoDesembolso:
-                            result = IsMobile ? Constantes.OrigenPedidoWeb.OfertasParaTiMobileBuscador.ToString() : Constantes.OrigenPedidoWeb.OfertasParaTiDesktopBuscador.ToString();
-                            break;
-                        case Constantes.TipoEstrategiaCodigo.OfertaDelDia:
-                            result = IsMobile ? Constantes.OrigenPedidoWeb.OfertaSoloHoyMobileBuscador.ToString() : Constantes.OrigenPedidoWeb.OfertaSoloHoyDesktopBuscador.ToString();
-                            break;
-                        case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
-                            result = IsMobile ? Constantes.OrigenPedidoWeb.GuiaNegocioDigitalMobileBuscador.ToString() : Constantes.OrigenPedidoWeb.GuiaNegocioDigitalDesktopBuscador.ToString();
-                            break;
-                        case Constantes.TipoEstrategiaCodigo.HerramientasVenta:
-                            result = IsMobile ? Constantes.OrigenPedidoWeb.HerramientaDeVentaMobileBuscador.ToString() : Constantes.OrigenPedidoWeb.HerramientaDeVentaDesktopBuscador.ToString();
-                            break;
-                        default:
-                            break;
-                    }
-                    break;
+                switch (codigoEstrategia)
+                {
+                    case "LIQ":
+                        result = IsMobile ? Constantes.OrigenPedidoWeb.MobileBuscadorLiquidacionDesplegableBuscador.ToString() : Constantes.OrigenPedidoWeb.DesktopBuscadorLiquidacionDesplegableBuscador.ToString();
+                        break;
+                    case "CAT":
+                        result = (marcaId == 1 ? (IsMobile ? Constantes.OrigenPedidoWeb.MobileBuscadorCatalogoLbelDesplegableBuscador.ToString() : Constantes.OrigenPedidoWeb.DesktopBuscadorCatalogoLbelDesplegableBuscador.ToString()) :
+                            (marcaId == 2 ? (IsMobile ? Constantes.OrigenPedidoWeb.MobileBuscadorCatalogoEsikaDesplegableBuscador.ToString() : Constantes.OrigenPedidoWeb.DesktopBuscadorCatalogoEsikaDesplegableBuscador.ToString()) :
+                            (IsMobile ? Constantes.OrigenPedidoWeb.MobileBuscadorCatalogoCyzoneDesplegableBuscador.ToString() : Constantes.OrigenPedidoWeb.DesktopBuscadorCatalogoCyzoneDesplegableBuscador.ToString())));
+                        break;
+                    case "ODD":
+                        result = IsMobile ? Constantes.OrigenPedidoWeb.MobileBuscadorOfertaDelDiaDesplegableBuscador.ToString() : Constantes.OrigenPedidoWeb.DesktopBuscadorOfertaDelDiaDesplegableBuscador.ToString();
+                        break;
+                    default:
+                        switch (codigoTipoEstrategia)
+                        {
+                            case Constantes.TipoEstrategiaCodigo.ShowRoom:
+                                result = IsMobile ? Constantes.OrigenPedidoWeb.MobileBuscadorShowroomDesplegableBuscador.ToString() : Constantes.OrigenPedidoWeb.DesktopBuscadorShowroomDesplegableBuscador.ToString();
+                                break;
+                            case Constantes.TipoEstrategiaCodigo.Lanzamiento:
+                                result = IsMobile ? Constantes.OrigenPedidoWeb.MobileBuscadorLanzamientosDesplegableBuscador.ToString() : Constantes.OrigenPedidoWeb.DesktopBuscadorLanzamientosDesplegableBuscador.ToString();
+                                break;
+                            case Constantes.TipoEstrategiaCodigo.OfertaParaTi:
+                            case Constantes.TipoEstrategiaCodigo.OfertasParaMi:
+                            case Constantes.TipoEstrategiaCodigo.PackAltoDesembolso:
+                                result = IsMobile ? Constantes.OrigenPedidoWeb.MobileBuscadorOfertasParaTiDesplegableBuscador.ToString() : Constantes.OrigenPedidoWeb.DesktopBuscadorOfertasParaTiDesplegableBuscador.ToString();
+                                break;
+                            case Constantes.TipoEstrategiaCodigo.OfertaDelDia:
+                                result = IsMobile ? Constantes.OrigenPedidoWeb.MobileBuscadorOfertaDelDiaDesplegableBuscador.ToString() : Constantes.OrigenPedidoWeb.DesktopBuscadorOfertaDelDiaDesplegableBuscador.ToString();
+                                break;
+                            case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
+                                result = IsMobile ? Constantes.OrigenPedidoWeb.MobileBuscadorGNDDesplegableBuscador.ToString() : Constantes.OrigenPedidoWeb.DesktopBuscadorGNDDesplegableBuscador.ToString();
+                                break;
+                            case Constantes.TipoEstrategiaCodigo.HerramientasVenta:
+                                result = IsMobile ? Constantes.OrigenPedidoWeb.MobileBuscadorHerramientasdeVentaDesplegableBuscador.ToString() : Constantes.OrigenPedidoWeb.DesktopBuscadorHerramientasdeVentaDesplegableBuscador.ToString();
+                                break;
+                            default:
+                                break;
+                        }
+                        break;
+                }
             }
-                        
+            else
+            {
+                switch (codigoEstrategia)
+                {
+                    case "LIQ":
+                        result = IsMobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorLiquidacionCarrusel.ToString() : Constantes.OrigenPedidoWeb.DesktopLandingBuscadorLiquidacionCarrusel.ToString();
+                        break;
+                    case "CAT":
+                        result = (marcaId == 1 ? (IsMobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorCatalogoLbelCarrusel.ToString() : Constantes.OrigenPedidoWeb.DesktopLandingBuscadorCatalogoLbelCarrusel.ToString()) :
+                            (marcaId == 2 ? (IsMobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorCatalogoEsikaCarrusel.ToString() : Constantes.OrigenPedidoWeb.DesktopLandingBuscadorCatalogoEsikaCarrusel.ToString()) :
+                            (IsMobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorCatalogoCyzoneCarrusel.ToString() : Constantes.OrigenPedidoWeb.DesktopLandingBuscadorCatalogoCyzoneCarrusel.ToString())));
+                        break;
+                    case "ODD":
+                        result = IsMobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorOfertaDelDiaCarrusel.ToString() : Constantes.OrigenPedidoWeb.DesktopLandingBuscadorOfertaDelDiaCarrusel.ToString();
+                        break;
+                    default:
+                        switch (codigoTipoEstrategia)
+                        {
+                            case Constantes.TipoEstrategiaCodigo.ShowRoom:
+                                result = IsMobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorShowroomCarrusel.ToString() : Constantes.OrigenPedidoWeb.DesktopLandingBuscadorShowroomCarrusel.ToString();
+                                break;
+                            case Constantes.TipoEstrategiaCodigo.Lanzamiento:
+                                result = IsMobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorLanzamientosCarrusel.ToString() : Constantes.OrigenPedidoWeb.DesktopLandingBuscadorLanzamientosCarrusel.ToString();
+                                break;
+                            case Constantes.TipoEstrategiaCodigo.OfertaParaTi:
+                            case Constantes.TipoEstrategiaCodigo.OfertasParaMi:
+                            case Constantes.TipoEstrategiaCodigo.PackAltoDesembolso:
+                                result = IsMobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorOfertasParaTiCarrusel.ToString() : Constantes.OrigenPedidoWeb.DesktopLandingBuscadorOfertasParaTiCarrusel.ToString();
+                                break;
+                            case Constantes.TipoEstrategiaCodigo.OfertaDelDia:
+                                result = IsMobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorOfertaDelDiaCarrusel.ToString() : Constantes.OrigenPedidoWeb.DesktopLandingBuscadorOfertaDelDiaCarrusel.ToString();
+                                break;
+                            case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
+                                result = IsMobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorGNDCarrusel.ToString() : Constantes.OrigenPedidoWeb.DesktopLandingBuscadorGNDCarrusel.ToString();
+                                break;
+                            case Constantes.TipoEstrategiaCodigo.HerramientasVenta:
+                                result = IsMobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorHerramientasDeVentaCarrusel.ToString() : Constantes.OrigenPedidoWeb.DesktopLandingBuscadorHerramientasDeVentaCarrusel.ToString();
+                                break;
+                            default:
+                                break;
+                        }
+                        break;
+                }
+            }
+
+           
+
             return result;
         }
 
@@ -3793,9 +3883,9 @@ namespace Portal.Consultoras.Common
             return tipoPersonalizacion;
         }
 
-        public static string ProcesarOrigenPedido(string origenActual, bool isApp)
+        public static string ProcesarOrigenPedidoApp(string origenActual)
         {
-            if (!isApp) return origenActual;
+            if (string.IsNullOrEmpty(origenActual)) return origenActual;
             var nuevoOrigen = origenActual.Remove(0, 1).Insert(0, "4");
             return nuevoOrigen;
         }
@@ -3822,6 +3912,28 @@ namespace Portal.Consultoras.Common
             value = fnCalc();
             fnSet(value);
             return value;
+        }
+        public static string ProcesarOrigenPedidoAppFicha(string origenActual)
+        {
+            if (string.IsNullOrEmpty(origenActual)) return origenActual;
+            var nuevoOrigen = origenActual.Remove(origenActual.Length - 1, 1).Insert(origenActual.Length - 1, "2");
+            return nuevoOrigen;
+        }
+
+        public static bool EsDispositivoMovil()
+        {
+            var result = false;
+
+            try
+            {
+                result = HttpContext.Current.Request.Browser.IsMobileDevice;
+            }
+            catch
+            {
+                // ignored
+            }
+
+            return result;
         }
     }
 
@@ -3890,7 +4002,7 @@ namespace Portal.Consultoras.Common
                 return default(T);
             }
         }
-        
+
 
         #region Convert
 
@@ -3902,7 +4014,10 @@ namespace Portal.Consultoras.Common
                 if (HasColumn(lector, name))
                     return Convert.ToString(lector[name]);
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                //
+            }
             return valorDefecto;
         }
 
@@ -3914,7 +4029,10 @@ namespace Portal.Consultoras.Common
                 if (HasColumn(lector, name))
                     return Convert.ToString(lector[name]).Trim();
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                //
+            }
             return default(string);
         }
 
@@ -3927,7 +4045,10 @@ namespace Portal.Consultoras.Common
                     return Convert.ToInt16(lector[name]);
 
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                //
+            }
             return valorDefecto;
         }
 
@@ -3939,7 +4060,10 @@ namespace Portal.Consultoras.Common
                 if (HasColumn(lector, name))
                     return Convert.ToInt32(lector[name]);
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                //
+            }
             return valorDefecto;
         }
 
@@ -3951,7 +4075,10 @@ namespace Portal.Consultoras.Common
                 if (HasColumn(lector, name))
                     return Convert.ToInt64(lector[name]);
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                //
+            }
             return default(Int64);
         }
 
@@ -3963,7 +4090,10 @@ namespace Portal.Consultoras.Common
                 if (HasColumn(lector, name))
                     return Convert.ToDecimal(lector[name]);
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                //
+            }
             return default(decimal);
         }
 
@@ -3975,7 +4105,10 @@ namespace Portal.Consultoras.Common
                 if (HasColumn(lector, name))
                     return Convert.ToDouble(lector[name]);
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                //
+            }
             return default(double);
         }
 
@@ -3987,7 +4120,10 @@ namespace Portal.Consultoras.Common
                 if (HasColumn(lector, name))
                     return Convert.ToByte(lector[name]);
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                //
+            }
             return default(byte);
         }
 
@@ -3999,7 +4135,10 @@ namespace Portal.Consultoras.Common
                 if (HasColumn(lector, name))
                     return Convert.ToBoolean(lector[name]);
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                //
+            }
             return valorDefecto;
         }
 
@@ -4011,7 +4150,10 @@ namespace Portal.Consultoras.Common
                 if (HasColumn(lector, name))
                     return Convert.ToDateTime(lector[name]);
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                //
+            }
             return valorDefecto;
         }
 
@@ -4023,7 +4165,10 @@ namespace Portal.Consultoras.Common
                 if (HasColumn(lector, name))
                     return Convert.ToDateTime(lector[name]);
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                //
+            }
             return valorDefecto;
         }
 
