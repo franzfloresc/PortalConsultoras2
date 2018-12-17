@@ -106,7 +106,7 @@
     }
     <!-- SECCIÓN FICHA DE PRODUCTOS -->
     <section class="row flex-row justify-content-lg-between justify-content-xl-between align-self-start ml-0 mr-0 mx-auto layout__content__fichaProductos">
-        <section class="col-12 col-lg-6 col-xl-6 busqueda__productos__encontrados__wrapper">
+        <section class="col-12 col-lg-6 col-xl-6 busqueda__productos__encontrados__wrapper pr-lg-0 pr-xl-0">
             <h1 class="col-12 pl-0 pr-0 busqueda__productos__titulo">
                 Resultados de la búsqueda
             </h1>
@@ -116,7 +116,7 @@
         </section>
         @if (Model.MostrarOpcionesOrdenamiento || ViewBag.FlagFiltrosBuscador)
         {
-            <section class="col-12 col-lg-6 col-xl-6 lista__opciones__ordenamiento__y__filtrar">
+            <section class="col-12 col-lg-6 col-xl-6 lista__opciones__ordenamiento__y__filtrar pl-lg-0 pl-xl-0">
                 <div class="row flex-row justify-content-between justify-content-lg-end justify-content-xl-end ml-0 mr-0">
                     @if (ViewBag.FlagFiltrosBuscador)
                     {

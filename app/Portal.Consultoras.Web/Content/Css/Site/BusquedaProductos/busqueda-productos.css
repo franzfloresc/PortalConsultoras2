@@ -21,7 +21,7 @@
 .layout__content__filtros + .layout__content__fichaProductos .layout__content__etiquetas__criteriosElegidos
 {
     width: calc(100% - 330px);
-    min-width:716px;
+    min-width:692px;
     max-width:100%;
 }
 
@@ -524,6 +524,7 @@
 
 .ficha__producto__etiqueta{
     margin-bottom:-14px;
+    top:3px;
 }
 
 .ficha__producto__etiqueta span{
@@ -956,8 +957,7 @@
 @media screen and (max-width:991px){
 
     .layout__content{
-        padding-left:0;
-        padding-right:0;
+        padding:15px 0 20px 0;
     }
 
     .layout__content__fichaProductos{
@@ -1195,8 +1195,8 @@
         font-size:22px;
         font-weight:normal;
         letter-spacing:normal;
-        padding-top:2px;
-        margin-bottom:10px;
+        margin-bottom:12px;
+        line-height:27px;
     }
 
     .lista__opciones__ordenamiento__y__filtrar{
@@ -1366,16 +1366,33 @@
     /* FICHAS DE PRODUCTOS MOBILE */
 
     .fichas__productos__wrapper{
-        padding:20px 10px;
+        grid-gap:15px 10px;
+        padding:15px 10px;
         max-width:none;
     }
 
     .ficha__producto{
         min-width:0;
+        padding:14px 7px 24px 7px;
+    }
+
+    .ficha__producto__descrip{
+        margin-top:10px;
+        margin-bottom:5px;
+    }
+
+    .ficha__producto__descrip__nom{
+        min-height:32px;
     }
 
     .ficha__producto__precio{
-        margin-bottom:9px;
+        margin-bottom:12px;
+    }
+
+    .ficha__producto__descrip__nom,
+    .ficha__producto__precio__normal
+    {
+        line-height:16px;
     }
 
     .ficha__producto__precio__normal{
@@ -1433,14 +1450,14 @@
 
     /* FICHAS DE PRODUCTOS MOBILE */
 
-    .fichas__productos__wrapper{
-        grid-gap:10px;
-    }
-
     .ficha__producto{
         -moz-box-shadow: 2px 4px 3px -3px #d8d8d8;
         -webkit-box-shadow: 2px 4px 3px -3px #d8d8d8;
         box-shadow: 2px 4px 3px -3px #d8d8d8;
+    }
+
+    .ficha__producto__imagen{
+        height:115px;
     }
 
     .ficha__producto--ancha .ficha__producto__agregar__producto .col-12:first-child,
@@ -1461,7 +1478,15 @@
     .ficha__producto__precio__normal,
     .ficha__producto__precio__oferta
     {
-        min-height:19px;
+        min-height:0;
+    }
+
+    .ficha__producto__precio__normal{
+        margin-bottom:5px;
+    }
+
+    .ficha__producto__precio__oferta{
+        line-height:18px;
     }
 
     .ficha__producto--delgada .ficha__producto__precio__oferta--liquidacion
@@ -1587,10 +1612,6 @@
         grid-template-columns:repeat(auto-fill, minmax(148px, 1fr));
     }
 
-    .ficha__producto{
-        padding:20px 12px;
-    }
-
     .ficha__producto--delgada .ficha__producto__precio__normal,
     .ficha__producto--delgada .ficha__producto__precio__oferta
     {
@@ -1599,28 +1620,16 @@
         max-width:100%;
     }
 
-    .ficha__producto__imagen{
-        height:120px;
-    }
-
     .ficha__producto__imagen img {
         object-fit:contain;
     }
-
-    /* FIN - FICHAS DE PRODUCTOS MOBILE */
-  
-}
-
-@media screen and (max-width:365px){
-
-    /* FICHAS DE PRODUCTOS MOBILE */
 
     .ficha__producto__descrip__nom{
         min-height:57px;
     }
 
     /* FIN - FICHAS DE PRODUCTOS MOBILE */
-
+  
 }
 
 @media screen and (min-width:351px) and (max-width:391px){
@@ -1682,10 +1691,6 @@
         width: 95%;
         text-align: left;
         margin-left: 16px;
-    }
-
-    .ficha__producto{
-        padding:20px 8px;
     }
 
     /* FIN - FICHAS DE PRODUCTOS MOBILE */
