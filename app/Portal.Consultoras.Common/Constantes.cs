@@ -2919,6 +2919,13 @@ namespace Portal.Consultoras.Common
             public const string UrlObtenerEventoConsultora = "api/Evento/listarConsultora/{0}/{1}/{2}";
             #endregion
 
+            #region Personalizacion
+            /// <summary>
+            /// api/Evento/listarConsultora/{isoPais}/{codigoConsultora}/{codigoCampania}
+            /// </summary>
+            public const string UrlObtenerPersonalizacion= "api/Personalizacion/{0}/{1}/{2}";
+            #endregion
+            
             #region Reporte
             /// <summary>
             /// api/Estrategia/ReporteValidacion/{tipo}/{campania}/{paises}

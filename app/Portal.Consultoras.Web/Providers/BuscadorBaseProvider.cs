@@ -18,32 +18,34 @@ namespace Portal.Consultoras.Web.Providers
         protected ISessionManager _sessionManager;
         private const string contentType = "application/json";
         private static readonly HttpClient httpClientBuscador = new HttpClient();
-
+        private static readonly HttpClient httpClientMicroserviceSearch = new HttpClient();
+        
         static BuscadorBaseProvider()
         {
-            if (string.IsNullOrEmpty(WebConfig.RutaServiceBuscadorAPI)) return;
+            if (!string.IsNullOrEmpty(WebConfig.RutaServiceBuscadorAPI)) SetHttpClientBuscador();
+            if (!string.IsNullOrEmpty(WebConfig.UrlMicroservicioPersonalizacionSearch)) SetHttpClientMicroserviceSearch();
+        }
+
+        private static void SetHttpClientBuscador()
+        {
             httpClientBuscador.BaseAddress = new Uri(WebConfig.RutaServiceBuscadorAPI);
             httpClientBuscador.DefaultRequestHeaders.Accept.Clear();
             httpClientBuscador.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(contentType));
         }
 
+        private static void SetHttpClientMicroserviceSearch()
+        {
+            httpClientMicroserviceSearch.BaseAddress = new Uri(WebConfig.UrlMicroservicioPersonalizacionSearch);
+            httpClientMicroserviceSearch.DefaultRequestHeaders.Accept.Clear();
+            httpClientMicroserviceSearch.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(contentType));
+        }
+        
         public async Task<string> ObtenerPersonalizaciones(string path)
         {
-            var personalizacion = "";
-            using (var httpClient = new HttpClient())
-            {
-                httpClient.BaseAddress = new Uri(WebConfig.RutaServiceBuscadorAPI);
-                httpClient.DefaultRequestHeaders.Accept.Clear();
-                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(contentType));
-
-                var httpResponse = await httpClient.GetAsync(path);
-
-                if (!httpResponse.IsSuccessStatusCode) return personalizacion;
-                var jsonString = await httpResponse.Content.ReadAsStringAsync();
-                personalizacion = JsonConvert.DeserializeObject<string>(jsonString);
-            }
-
-            return personalizacion;
+            var httpResponse = await httpClientBuscador.GetAsync(path);
+            if (!httpResponse.IsSuccessStatusCode) return "";
+            var jsonString = await httpResponse.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<string>(jsonString) ?? "";
         }
 
         public async Task<T> PostAsync<T>(string url, object data) where T : class, new()
@@ -101,7 +103,13 @@ namespace Portal.Consultoras.Web.Providers
             return productos;
         }
 
-        public async Task<string> GetPersonalizacion(UsuarioModel usuario)
+        private async Task<string> GetPersonalizacion(UsuarioModel usuario, int indicadorConsultoraDummy)
+        {
+            if (indicadorConsultoraDummy == 1) return await GetPersonalizacionES(usuario);
+            return await GetPersonalizacionMongo(usuario);
+        }
+
+        private async Task<string> GetPersonalizacionES(UsuarioModel usuario)
         {
             var pathPersonalziacion = string.Format(Constantes.RutaBuscadorService.UrlPersonalizacion,
                 usuario.CodigoISO,
@@ -112,26 +120,39 @@ namespace Portal.Consultoras.Web.Providers
             return await ObtenerPersonalizaciones(pathPersonalziacion);
         }
 
+        private async Task<string> GetPersonalizacionMongo(UsuarioModel usuario)
+        {
+            var path = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerPersonalizacion,
+                usuario.CodigoISO,
+                usuario.CodigoConsultora,
+                usuario.CampaniaID);
+
+            var httpResponse = await httpClientMicroserviceSearch.GetAsync(path);
+
+            if (!httpResponse.IsSuccessStatusCode) return "";
+
+            return await httpResponse.Content.ReadAsStringAsync();
+        }
         public async Task<string> GetPersonalizacion(UsuarioModel usuario, bool validarIndicadorConsultoraDummy, bool persistInSession)
         {
-            string result = "";
+            var result = "";
+            var configBuscador = _sessionManager.GetBuscadorYFiltrosConfig();
             if (validarIndicadorConsultoraDummy)
             {
-                var configBuscador = _sessionManager.GetBuscadorYFiltrosConfig();
-
-                if (configBuscador != null && configBuscador.IndicadorConsultoraDummy != 0 && configBuscador.PersonalizacionDummy == null)
-                {
-                    result = await GetPersonalizacion(usuario);
-                    if (persistInSession)
-                    {
-                        configBuscador.PersonalizacionDummy = result ?? "";
-                        _sessionManager.SetBuscadorYFiltrosConfig(configBuscador);
-                    }
-                }
+                if (configBuscador == null || 
+                    configBuscador.IndicadorConsultoraDummy == 0 ||
+                    configBuscador.PersonalizacionDummy != null) return result;
+                
+                result = await GetPersonalizacion(usuario, configBuscador.IndicadorConsultoraDummy);
+                
+                if (!persistInSession) return result;
+                
+                configBuscador.PersonalizacionDummy = result ?? "";
+                _sessionManager.SetBuscadorYFiltrosConfig(configBuscador);
             }
             else
             {
-                result = await GetPersonalizacion(usuario);
+                result = await GetPersonalizacion(usuario, configBuscador.IndicadorConsultoraDummy);
             }
             return result;
         }
