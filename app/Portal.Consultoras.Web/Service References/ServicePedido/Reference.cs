@@ -13204,7 +13204,7 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private int EstrategiaIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<int> EstrategiaIDSiccField;
+        private int EstrategiaIDSiccField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string FlagNuevaField;
@@ -13545,7 +13545,7 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<int> EstrategiaIDSicc {
+        public int EstrategiaIDSicc {
             get {
                 return this.EstrategiaIDSiccField;
             }
