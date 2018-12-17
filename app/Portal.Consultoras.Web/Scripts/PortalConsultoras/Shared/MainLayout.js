@@ -33,7 +33,6 @@ $(document).ready(function () {
 
     if (tieneOfertaDelDia == "True") {
         OfertaDelDiaModule.Inicializar();
-        //window.OfertaDelDia.CargarODD();
     }
 
     $(document).keyup(function (e) {
@@ -71,7 +70,6 @@ $(document).ready(function () {
             }
 
             HideDialog("alertDialogMensajes");
-            //$('#alertDialogMensajes').dialog('close');
         }
     });
 
@@ -117,7 +115,7 @@ $(document).ready(function () {
     });
 
     $("body").on("click", "[data-popup-close]", function (e) {
-        var popupClose = $("#" + $(this).attr("data-popup-close"));// || $(this).parent("[data-popup-main]");
+        var popupClose = $("#" + $(this).attr("data-popup-close"));
         popupClose = popupClose.length > 0 ? popupClose : $(this).parents("[data-popup-main]");
         popupClose = popupClose.length > 0 ? popupClose : $(this).parents("[data-popup-body]").parent();
 
@@ -164,12 +162,14 @@ $(document).ready(function () {
         resizable: false,
         modal: true,
         closeOnEscape: true,
+        close: function (event, ui) {
+            HideDialog("alertDialogMensajes");
+        },
         width: 400,
         draggable: true,
         buttons: {
             "Aceptar": function () {
                 HideDialog("alertDialogMensajes");
-                //$(this).dialog('close');
             }
         }
     });
@@ -179,6 +179,9 @@ $(document).ready(function () {
         resizable: false,
         modal: true,
         closeOnEscape: true,
+        close: function (event, ui) {
+            HideDialog("ModalFeDeErratas");
+        },
         width: 650,
         heigth: 500,
         draggable: true,
@@ -190,6 +193,9 @@ $(document).ready(function () {
         resizable: false,
         modal: true,
         closeOnEscape: true,
+        close: function (event, ui) {
+            HideDialog("divRegistroComunidad");
+        },
         width: 760,
         heigth: 500,
         draggable: true,
@@ -201,6 +207,9 @@ $(document).ready(function () {
         resizable: false,
         modal: true,
         closeOnEscape: true,
+        close: function (event, ui) {
+            HideDialog("DialogMensajesCom");
+        },
         width: 400,
         draggable: true,
         title: "Comunidad SomosBelcorp",
@@ -208,7 +217,6 @@ $(document).ready(function () {
             {
                 "Aceptar": function () {
                     HideDialog("DialogMensajesCom");
-                    //$(this).dialog('close');
                 }
             }
     });
@@ -223,7 +231,6 @@ $(document).ready(function () {
         title: "",
         close: function (event, ui) {
             HideDialog("divMensajeConfirmacion");
-            //$(this).dialog('close');
         }
     });
 
@@ -237,7 +244,6 @@ $(document).ready(function () {
         title: "",
         close: function (event, ui) {
             HideDialog("divMensajeConfDuoPerfecto");
-            //$(this).dialog('close');
         }
     });
 
@@ -475,7 +481,7 @@ function SeparadorMiles(pnumero) {
 
     if (numero.indexOf(",") >= 0) nuevoNumero = nuevoNumero.substring(0, nuevoNumero.indexOf(","));
 
-    for (var i = nuevoNumero.length - 1, j = 0; i >= 0; i-- , j++)
+    for (var i = nuevoNumero.length - 1, j = 0; i >= 0; i--, j++)
         resultado = nuevoNumero.charAt(i) + ((j > 0) && (j % 3 == 0) ? "." : "") + resultado;
 
     if (numero.indexOf(",") >= 0) resultado += numero.substring(numero.indexOf(","));
@@ -635,13 +641,8 @@ function alert_msg(message, titulo, funcion) {
             "Ver Ofertas": function () { funcion(); }
         });
     }
-    $('#alertDialogMensajes').dialog('open');
-    $('body,html').css('overflow', 'hidden');
+    showDialogSinScroll("alertDialogMensajes");
 }
-
-$('#alertDialogMensajes').on('dialogclose', function (event) {
-    $('body,html').css('overflow', 'scroll');
-});
 
 function alert_msg_com(message) {
     $('#DialogMensajesCom .message_text').html(message);
@@ -954,11 +955,11 @@ function RedirectIngresaTuPedido(e) {
 }
 
 function CerrarSesion() {
-    
+
     if (typeof (Storage) !== 'undefined') {
         var itemSBTokenPais = localStorage.getItem('SBTokenPais');
         var itemSBTokenPedido = localStorage.getItem('SBTokenPedido');
-        var itemSBSurvicate= GetItemLocalStorageSurvicate();
+        var itemSBSurvicate = GetItemLocalStorageSurvicate();
         localStorage.clear();
 
         if (typeof (itemSBTokenPais) !== 'undefined' && itemSBTokenPais !== null) {
@@ -969,7 +970,6 @@ function CerrarSesion() {
             localStorage.setItem('SBTokenPedido', itemSBTokenPedido);
         }
         SetItemLocalStorageSurvicate(itemSBSurvicate);
-        //localStorage.setItem('SurvicateStorage', JSON.stringify(itemSBSurvicate));
     }
 
     location.href = baseUrl + 'Login/LogOut';
@@ -1051,7 +1051,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
 
 function alert_msg_pedido(message) {
     $('#alertDialogMensajes .pop_pedido_mensaje').html(message);
-    $('#alertDialogMensajes').dialog('open');
+    showDialogSinScroll("alertDialogMensajes");
 }
 
 function animacionFlechaScroll() {
@@ -1153,18 +1153,6 @@ function messageConfirmacion(title, message, fnAceptar) {
     }
 }
 
-//function messageConfirmacionDuoPerfecto(message, fnAceptar) {
-//    message = $.trim(message);
-//    if (message == "") return false;
-
-//    $('#divMensajeConfDuoPerfecto .divTexto p').html(message);
-//    $('#divMensajeConfDuoPerfecto').dialog('open');
-//    if ($.isFunction(fnAceptar)) {
-//        $('#divMensajeConfDuoPerfecto .btnMensajeAceptar').off('click');
-//        $('#divMensajeConfDuoPerfecto .btnMensajeAceptar').on('click', fnAceptar);
-//    }
-//}
-
 function closeOfertaDelDia(sender) {
     var nombreProducto = $(sender)
         .parent()
@@ -1173,7 +1161,6 @@ function closeOfertaDelDia(sender) {
     $.ajax({
         type: 'GET',
         url: baseUrl + 'Pedido/CloseOfertaDelDia',
-        //async: false,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         success: function (response) {

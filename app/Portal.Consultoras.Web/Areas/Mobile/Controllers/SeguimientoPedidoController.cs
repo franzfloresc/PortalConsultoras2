@@ -116,6 +116,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                                         estadoSeguimiento.DiaMes = fechaTemp.Value.ToString("dd/MM");
                                         estadoSeguimiento.HoraMinuto = fechaTemp.Value.ToString("hh:mm tt");
                                     }
+                                    else
+                                    {
+                                        estadoSeguimiento.DiaMes = string.Empty;
+                                        estadoSeguimiento.HoraMinuto = string.Empty;
+                                    }
                                     break;
                                 case "02/01/2010":
                                     estadoSeguimiento.DiaMes = "No Entregado";

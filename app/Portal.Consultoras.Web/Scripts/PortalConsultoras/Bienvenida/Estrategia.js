@@ -29,7 +29,7 @@ function CargarCarouselEstrategias() {
             ArmarCarouselEstrategias(data);
         },
         error: function (error) {
-            $("#divListadoEstrategia").html('<div style="text-align: center;">Ocurrio un error al cargar los productos.</div>');
+            //$("#divListadoEstrategia").html('<div style="text-align: center;">Ocurrio un error al cargar los productos.</div>');
         }
     });
 }
@@ -203,331 +203,331 @@ function _pintarEstrellas(item) {
 
 }
 
-function ArmarCarouselEstrategias(data) {
-    $("#divListaEstrategias").hide();
-    $(".js-slick-prev").remove();
-    $(".js-slick-next").remove();
-    $("#divListadoEstrategia.slick-initialized").slick("unslick");
+//function ArmarCarouselEstrategias(data) {
+//    $("#divListaEstrategias").hide();
+//    $(".js-slick-prev").remove();
+//    $(".js-slick-next").remove();
+//    $("#divListadoEstrategia.slick-initialized").slick("unslick");
 
-    data.Lista = data.Lista || [];
-    if (data.Lista.length == 0) {
-        $("#divListaEstrategias").show();
-        $("#divContenedorListaEstrategia").hide();
-        $(".contenido_gana_mas").hide();
+//    data.Lista = data.Lista || [];
+//    if (data.Lista.length == 0) {
+//        $("#divListaEstrategias").show();
+//        $("#divContenedorListaEstrategia").hide();
+//        $(".contenido_gana_mas").hide();
 
-                if (isMobile()) {
-                    $(".wrapper_resumen_mobile_clubganamas .zonadecolor, .wrapper_resumen_mobile_clubganamas").css({ "height": "200px" });
-                } else {
-                    $(".contenedor_ganamas").css({ "height": "100px" });
-                    $(".sb_contenedor_ganamas_bg").css({ "height": "100px" });
-                    $(".contenedor_ganamas .sb_contenedor_ganamas").css({ "top": "-100px" });
-                }
+//                if (isMobile()) {
+//                    $(".wrapper_resumen_mobile_clubganamas .zonadecolor, .wrapper_resumen_mobile_clubganamas").css({ "height": "200px" });
+//                } else {
+//                    $(".contenedor_ganamas").css({ "height": "100px" });
+//                    $(".sb_contenedor_ganamas_bg").css({ "height": "100px" });
+//                    $(".contenedor_ganamas .sb_contenedor_ganamas").css({ "top": "-100px" });
+//                }
         
-        return false;
-    }
+//        return false;
+//    }
 
-    $.each(data.ListaLan, function (i, item) { item.Posicion = i + 1; });
-    $.each(data.Lista, function (i, item) {
-        item.EsBanner = false;
-        item.EsLanzamiento = false;
-    });
-    tieneOPT = true;
+//    $.each(data.ListaLan, function (i, item) { item.Posicion = i + 1; });
+//    $.each(data.Lista, function (i, item) {
+//        item.EsBanner = false;
+//        item.EsLanzamiento = false;
+//    });
+//    tieneOPT = true;
 
-    $("#divListaEstrategias").attr("data-OrigenPedidoWeb", data.OrigenPedidoWeb);
+//    $("#divListaEstrategias").attr("data-OrigenPedidoWeb", data.OrigenPedidoWeb);
     
-    if (revistaDigital != null) {
-        if (revistaDigital.TieneRDC) {            
-            if (data.ListaLan) {
-                if (data.ListaLan.length > 0) {
-                    if (revistaDigital.EsActiva) {
-                        var productoLanzamiento = {};
-                        $.extend(true, productoLanzamiento, data.ListaLan[0]);
-                        productoLanzamiento.EsLanzamiento = true;
-                        productoLanzamiento.EsBanner = false;
-                        productoLanzamiento.ClaseEstrategia = data.Lista[0].ClaseEstrategia;
+//    if (revistaDigital != null) {
+//        if (revistaDigital.TieneRDC) {            
+//            if (data.ListaLan) {
+//                if (data.ListaLan.length > 0) {
+//                    if (revistaDigital.EsActiva) {
+//                        var productoLanzamiento = {};
+//                        $.extend(true, productoLanzamiento, data.ListaLan[0]);
+//                        productoLanzamiento.EsLanzamiento = true;
+//                        productoLanzamiento.EsBanner = false;
+//                        productoLanzamiento.ClaseEstrategia = data.Lista[0].ClaseEstrategia;
 
-                        if (tipoOrigenEstrategia == 1 || tipoOrigenEstrategia == 2) {
-                            data.Lista.splice(0, 0, productoLanzamiento);
-                        }
-                    }
-                }
-            }
+//                        if (tipoOrigenEstrategia == 1 || tipoOrigenEstrategia == 2) {
+//                            data.Lista.splice(0, 0, productoLanzamiento);
+//                        }
+//                    }
+//                }
+//            }
 
-            if (!revistaDigital.EsSuscrita) {
-                var bannerClubGanaMas = {};
-                $.extend(true, bannerClubGanaMas, data.Lista[0]);
-                bannerClubGanaMas.EsBanner = true;
+//            if (!revistaDigital.EsSuscrita) {
+//                var bannerClubGanaMas = {};
+//                $.extend(true, bannerClubGanaMas, data.Lista[0]);
+//                bannerClubGanaMas.EsBanner = true;
 
-                if (tipoOrigenEstrategia == 1 || tipoOrigenEstrategia == 2) {
-                    data.Lista.splice(3, 0, bannerClubGanaMas);
-                }
-                else if (tipoOrigenEstrategia == 11 || tipoOrigenEstrategia == 21) {
-                    data.Lista.splice(1, 0, bannerClubGanaMas);
-                }
-            }            
-        }
-    }
+//                if (tipoOrigenEstrategia == 1 || tipoOrigenEstrategia == 2) {
+//                    data.Lista.splice(3, 0, bannerClubGanaMas);
+//                }
+//                else if (tipoOrigenEstrategia == 11 || tipoOrigenEstrategia == 21) {
+//                    data.Lista.splice(1, 0, bannerClubGanaMas);
+//                }
+//            }            
+//        }
+//    }
 
-    $.each(data.Lista, function (i, item) { item.Posicion = i + 1; });
-    arrayOfertasParaTi = data.Lista;
-    data.lista = data.Lista;
-    SetHandlebars("#producto-landing-template", data, "#divListadoEstrategia");
+//    $.each(data.Lista, function (i, item) { item.Posicion = i + 1; });
+//    arrayOfertasParaTi = data.Lista;
+//    data.lista = data.Lista;
+//    SetHandlebars("#producto-landing-template", data, "#divListadoEstrategia");
 
-    if (tipoOrigenEstrategia == 11) {
-        $("#cierreCarousel").hide();
-        $("[data-barra-width]").css("width", indicadorFlexiPago == 1 ? "68%" : "100%");
+//    if (tipoOrigenEstrategia == 11) {
+//        $("#cierreCarousel").hide();
+//        $("[data-barra-width]").css("width", indicadorFlexiPago == 1 ? "68%" : "100%");
 
-        $(".caja_pedidos").addClass("sinOfertasParaTi");
-        $(".tooltip_infoCopy").addClass("tooltip_infoCopy_expand");
-    }
+//        $(".caja_pedidos").addClass("sinOfertasParaTi");
+//        $(".tooltip_infoCopy").addClass("tooltip_infoCopy_expand");
+//    }
 
-    if ($.trim($("#divListadoEstrategia").html()).length == 0) {
-        return false;
-    }
+//    if ($.trim($("#divListadoEstrategia").html()).length == 0) {
+//        return false;
+//    }
 
-    RevisarMostrarContenedorCupon();
+//    RevisarMostrarContenedorCupon();
 
-    if (tipoOrigenEstrategia == 1) {
-        var cantProCarrusel = 4;
-        var esVariableWidth = true;
+//    if (tipoOrigenEstrategia == 1) {
+//        var cantProCarrusel = 4;
+//        var esVariableWidth = true;
 
-        //$("#divListaEstrategias #divListadoEstrategia [data-item] > div").attr("class", "content_item_carrusel caja-borde");
+//        //$("#divListaEstrategias #divListadoEstrategia [data-item] > div").attr("class", "content_item_carrusel caja-borde");
 
-        $("#divListaEstrategias").show();
+//        $("#divListaEstrategias").show();
 
-        EstablecerLazyCarrusel("#divListadoEstrategia");
+//        EstablecerLazyCarrusel("#divListadoEstrategia");
 
-        $("#divListadoEstrategia").not(".slick-initialized").slick({
-            lazyLoad: "ondemand",
-            infinite: true,
-            vertical: false,
-            slidesToShow: cantProCarrusel,
-            slidesToScroll: 1,
-            autoplay: false,
-            variableWidth: esVariableWidth,
-            speed: 260,
-            prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: 0;margin-left: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
-            nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: 0;margin-right: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>',
-            responsive: [
-                {
-                    breakpoint: 1025,
-                    settings: {
-                        slidesToShow: cantProCarrusel > 3 ? 3 : cantProCarrusel
-                    }
-                }
-            ]
-        }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
-            EstrategiaCarouselOn(event, slick, currentSlide, nextSlide);
-        }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
-            EstablecerLazyCarruselAfterChange("#divListadoEstrategia");
-        });
-    }
-    else if (tipoOrigenEstrategia == 11) {
-        $("#divListaEstrategias #divListadoEstrategia [data-item] > div").attr("class", "producto_carousel");
-        $("#divListaEstrategias #divListadoEstrategia [data-item]").css("padding-bottom", "0");
+//        $("#divListadoEstrategia").not(".slick-initialized").slick({
+//            lazyLoad: "ondemand",
+//            infinite: true,
+//            vertical: false,
+//            slidesToShow: cantProCarrusel,
+//            slidesToScroll: 1,
+//            autoplay: false,
+//            variableWidth: esVariableWidth,
+//            speed: 260,
+//            prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: 0;margin-left: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
+//            nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: 0;margin-right: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>',
+//            responsive: [
+//                {
+//                    breakpoint: 1025,
+//                    settings: {
+//                        slidesToShow: cantProCarrusel > 3 ? 3 : cantProCarrusel
+//                    }
+//                }
+//            ]
+//        }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
+//            EstrategiaCarouselOn(event, slick, currentSlide, nextSlide);
+//        }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
+//            EstablecerLazyCarruselAfterChange("#divListadoEstrategia");
+//        });
+//    }
+//    else if (tipoOrigenEstrategia == 11) {
+//        $("#divListaEstrategias #divListadoEstrategia [data-item] > div").attr("class", "producto_carousel");
+//        $("#divListaEstrategias #divListadoEstrategia [data-item]").css("padding-bottom", "0");
 
-        $("[data-barra-width]").css("width", "100%");
-        $("#divListaEstrategias").show();
-        if (indicadorFlexiPago == 1) {
-            $("#divListaEstrategias").css("margin-top", ($(".flexiPago_belcorp").outerHeight() + 50) + "px");
-        }
-        $(".caja_pedidos").removeClass("sinOfertasParaTi");
-        $(".tooltip_infoCopy").removeClass("tooltip_infoCopy_expand");
-        var hCar = $($("#divListadoEstrategia").find("[data-item]").get(0)).height();
-        var heightReference = $("#divListadoPedido").find("[data-tag='table']").height();
-        var cant = parseInt(heightReference / hCar);
-        cant = cant < 3 ? 3 : cant > 5 ? 5 : cant;
-        cant = data.CodigoEstrategia == "101" ? (data.Lista.length > 4 ? 4 : data.Lista.length) : cant;
+//        $("[data-barra-width]").css("width", "100%");
+//        $("#divListaEstrategias").show();
+//        if (indicadorFlexiPago == 1) {
+//            $("#divListaEstrategias").css("margin-top", ($(".flexiPago_belcorp").outerHeight() + 50) + "px");
+//        }
+//        $(".caja_pedidos").removeClass("sinOfertasParaTi");
+//        $(".tooltip_infoCopy").removeClass("tooltip_infoCopy_expand");
+//        var hCar = $($("#divListadoEstrategia").find("[data-item]").get(0)).height();
+//        var heightReference = $("#divListadoPedido").find("[data-tag='table']").height();
+//        var cant = parseInt(heightReference / hCar);
+//        cant = cant < 3 ? 3 : cant > 5 ? 5 : cant;
+//        cant = data.CodigoEstrategia == "101" ? (data.Lista.length > 4 ? 4 : data.Lista.length) : cant;
 
-        EstablecerLazyCarrusel("#divListadoEstrategia");
+//        EstablecerLazyCarrusel("#divListadoEstrategia");
 
-        var claseFlechaDoradaNext = "";
-        var claseFlechaDoradaPrev = "";
+//        var claseFlechaDoradaNext = "";
+//        var claseFlechaDoradaPrev = "";
 
-        if (revistaDigital) {
-            if (revistaDigital.TieneRDC) {
-                if (revistaDigital.EsSuscrita) {
-                    claseFlechaDoradaNext = "next-flecha-dorada";
-                    claseFlechaDoradaPrev = "prev-flecha-dorada";
-                }
-            }
-        }        
+//        if (revistaDigital) {
+//            if (revistaDigital.TieneRDC) {
+//                if (revistaDigital.EsSuscrita) {
+//                    claseFlechaDoradaNext = "next-flecha-dorada";
+//                    claseFlechaDoradaPrev = "prev-flecha-dorada";
+//                }
+//            }
+//        }        
 
-        $("#divListadoEstrategia").not(".slick-initialized").slick({
-            lazyLoad: "ondemand",
-            infinite: true,
-            vertical: true,
-            centerMode: false,
-            centerPadding: "0px",
-            slidesToShow: cant,
-            slidesToScroll: 1,
-            autoplay: false,
-            speed: 270,
-            pantallaPedido: false,
-            prevArrow: '<button type="button" data-role="none" class="slick-next ' + claseFlechaDoradaNext+' "></button>',
-            nextArrow: '<button type="button" data-role="none" class="slick-prev ' + claseFlechaDoradaPrev+'"></button>'
-        }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
-            EstrategiaCarouselOn(event, slick, currentSlide, nextSlide);
-        }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
-            EstablecerLazyCarruselAfterChange("#divListadoEstrategia");
-        });
+//        $("#divListadoEstrategia").not(".slick-initialized").slick({
+//            lazyLoad: "ondemand",
+//            infinite: true,
+//            vertical: true,
+//            centerMode: false,
+//            centerPadding: "0px",
+//            slidesToShow: cant,
+//            slidesToScroll: 1,
+//            autoplay: false,
+//            speed: 270,
+//            pantallaPedido: false,
+//            prevArrow: '<button type="button" data-role="none" class="slick-next ' + claseFlechaDoradaNext+' "></button>',
+//            nextArrow: '<button type="button" data-role="none" class="slick-prev ' + claseFlechaDoradaPrev+'"></button>'
+//        }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
+//            EstrategiaCarouselOn(event, slick, currentSlide, nextSlide);
+//        }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
+//            EstablecerLazyCarruselAfterChange("#divListadoEstrategia");
+//        });
 
-        if (data.Lista.length > cant) {
-            $("#cierreCarousel").show();
-        }
-        //MostrarBarra();
-    }
-    else if (tipoOrigenEstrategia == 2) {
-        $("#div-linea-OPT").show();
-        $("#divListaEstrategias").show();
+//        if (data.Lista.length > cant) {
+//            $("#cierreCarousel").show();
+//        }
+//        MostrarBarra();
+//    }
+//    else if (tipoOrigenEstrategia == 2) {
+//        $("#div-linea-OPT").show();
+//        $("#divListaEstrategias").show();
 
-        EstablecerLazyCarrusel("#divListadoEstrategia");
+//        EstablecerLazyCarrusel("#divListadoEstrategia");
 
-        $("#divListadoEstrategia").slick({
-            lazyload: "ondemand",
-            infinite: true,
-            vertical: false,
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            autoplay: false,
-            prevArrow: '<a class="previous_ofertas_mobile js-slick-prev" href="javascript:void(0);" style="margin-left:-12%; padding-top:150px; text-align:left;"><img src="' + baseUrl + 'Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="" /></a>',
-            nextArrow: '<a class="previous_ofertas_mobile js-slick-next" href="javascript:void(0);" style="margin-right:-12%; padding-top:150px; text-align:right; right:0"><img src="' + baseUrl + 'Content/Images/mobile/Esika/next.png")" alt="" /></a>',
-            arrows: false,
-            centerMode: true,
-            responsive: [
-                {
-                    breakpoint: 1200,
-                    settings: { slidesToShow: 3, slidesToScroll: 1 }
-                },
-                {
-                    breakpoint: 900,
-                    settings: { slidesToShow: 2, slidesToScroll: 1 }
-                },
-                {
-                    breakpoint: 600,
-                    settings: { slidesToShow: 1, slidesToScroll: 1 }
-                }
-            ]
-        }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
-            EstrategiaCarouselOn(event, slick, currentSlide, nextSlide);
-        }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
-            EstablecerLazyCarruselAfterChange("#divListadoEstrategia");
-        });
-    }
-    else if (tipoOrigenEstrategia == 21) {
-        $("#divListaEstrategias").show();
+//        $("#divListadoEstrategia").slick({
+//            lazyload: "ondemand",
+//            infinite: true,
+//            vertical: false,
+//            slidesToShow: 1,
+//            slidesToScroll: 1,
+//            autoplay: false,
+//            prevArrow: '<a class="previous_ofertas_mobile js-slick-prev" href="javascript:void(0);" style="margin-left:-12%; padding-top:150px; text-align:left;"><img src="' + baseUrl + 'Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="" /></a>',
+//            nextArrow: '<a class="previous_ofertas_mobile js-slick-next" href="javascript:void(0);" style="margin-right:-12%; padding-top:150px; text-align:right; right:0"><img src="' + baseUrl + 'Content/Images/mobile/Esika/next.png")" alt="" /></a>',
+//            arrows: false,
+//            centerMode: true,
+//            responsive: [
+//                {
+//                    breakpoint: 1200,
+//                    settings: { slidesToShow: 3, slidesToScroll: 1 }
+//                },
+//                {
+//                    breakpoint: 900,
+//                    settings: { slidesToShow: 2, slidesToScroll: 1 }
+//                },
+//                {
+//                    breakpoint: 600,
+//                    settings: { slidesToShow: 1, slidesToScroll: 1 }
+//                }
+//            ]
+//        }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
+//            EstrategiaCarouselOn(event, slick, currentSlide, nextSlide);
+//        }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
+//            EstablecerLazyCarruselAfterChange("#divListadoEstrategia");
+//        });
+//    }
+//    else if (tipoOrigenEstrategia == 21) {
+//        $("#divListaEstrategias").show();
 
-        EstablecerLazyCarrusel("#divListadoEstrategia");
+//        EstablecerLazyCarrusel("#divListadoEstrategia");
 
-        $("#divListadoEstrategia").slick({
-            lazyLoad: "ondemand",
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            autoplay: false,
-            dots: false,
-            prevArrow: '<a class="previous_ofertas_mobile js-slick-prev" href="javascript:void(0);" id="slick-prev" style="margin-left:-13%; padding-top:150px;"><img src="' + urlCarruselPrev + '")" alt="-"/></a>',
-            nextArrow: '<a class="previous_ofertas_mobile js-slick-next" href="javascript:void(0);" id="slick-next" style="margin-right:-7%; padding-top:150px; text-align:right; right:0;"><img src="' + urlCarruselNext + '" alt="-"/></a>',
-            infinite: true,
-            speed: 300,
-            arrows: false,
-            centerMode: true,
-            responsive: [
-                {
-                    breakpoint: 960,
-                    settings: { slidesToShow: 3, slidesToScroll: 1 }
-                },
-                {
-                    breakpoint: 680,
-                    settings: { slidesToShow: 1, slidesToScroll: 1 }
-                },
-                {
-                    breakpoint: 380,
-                    settings: { slidesToShow: 1, slidesToScroll: 1 }
-                }
-            ]
-        }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
-            EstrategiaCarouselOn(event, slick, currentSlide, nextSlide);
-        }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
-            EstablecerLazyCarruselAfterChange("#divListadoEstrategia");
-        });
-    }
+//        $("#divListadoEstrategia").slick({
+//            lazyLoad: "ondemand",
+//            slidesToShow: 1,
+//            slidesToScroll: 1,
+//            autoplay: false,
+//            dots: false,
+//            prevArrow: '<a class="previous_ofertas_mobile js-slick-prev" href="javascript:void(0);" id="slick-prev" style="margin-left:-13%; padding-top:150px;"><img src="' + urlCarruselPrev + '")" alt="-"/></a>',
+//            nextArrow: '<a class="previous_ofertas_mobile js-slick-next" href="javascript:void(0);" id="slick-next" style="margin-right:-7%; padding-top:150px; text-align:right; right:0;"><img src="' + urlCarruselNext + '" alt="-"/></a>',
+//            infinite: true,
+//            speed: 300,
+//            arrows: false,
+//            centerMode: true,
+//            responsive: [
+//                {
+//                    breakpoint: 960,
+//                    settings: { slidesToShow: 3, slidesToScroll: 1 }
+//                },
+//                {
+//                    breakpoint: 680,
+//                    settings: { slidesToShow: 1, slidesToScroll: 1 }
+//                },
+//                {
+//                    breakpoint: 380,
+//                    settings: { slidesToShow: 1, slidesToScroll: 1 }
+//                }
+//            ]
+//        }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
+//            EstrategiaCarouselOn(event, slick, currentSlide, nextSlide);
+//        }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
+//            EstablecerLazyCarruselAfterChange("#divListadoEstrategia");
+//        });
+//    }
 
-    TagManagerCarruselInicio(data.Lista);
-}
+//    TagManagerCarruselInicio(data.Lista);
+//}
 
-function EstrategiaCarouselOn(event, slick, currentSlide, nextSlide) {
-    var posicionEstrategia, recomendado, arrayEstrategia;
-    var origen = tipoOrigenEstrategia == 1 ? "Home" : tipoOrigenEstrategia == 11 ? "Pedido" :
-        tipoOrigenEstrategia == 2 ? "MobileHome" : tipoOrigenEstrategia == 21 ? "MobilePedido" : "";
-    var accion;
-    if (nextSlide == 0 && currentSlide + 1 == arrayOfertasParaTi.length) {
-        accion = "next";
-    } else if (currentSlide == 0 && nextSlide + 1 == arrayOfertasParaTi.length) {
-        accion = "prev";
-    } else if (nextSlide > currentSlide) {
-        accion = "next";
-    } else {
-        accion = "prev";
-    }
+//function EstrategiaCarouselOn(event, slick, currentSlide, nextSlide) {
+//    var posicionEstrategia, recomendado, arrayEstrategia;
+//    var origen = tipoOrigenEstrategia == 1 ? "Home" : tipoOrigenEstrategia == 11 ? "Pedido" :
+//        tipoOrigenEstrategia == 2 ? "MobileHome" : tipoOrigenEstrategia == 21 ? "MobilePedido" : "";
+//    var accion;
+//    if (nextSlide == 0 && currentSlide + 1 == arrayOfertasParaTi.length) {
+//        accion = "next";
+//    } else if (currentSlide == 0 && nextSlide + 1 == arrayOfertasParaTi.length) {
+//        accion = "prev";
+//    } else if (nextSlide > currentSlide) {
+//        accion = "next";
+//    } else {
+//        accion = "prev";
+//    }
 
-    if (accion == "prev") {
-        var posicionPrimerActivo = $($("#divListadoEstrategia").find(".slick-active")[0]).find(".PosicionEstrategia").val();
-         posicionEstrategia = posicionPrimerActivo == 1 ? arrayOfertasParaTi.length - 1 : posicionPrimerActivo - 2;
-         recomendado = arrayOfertasParaTi[posicionEstrategia];
-         arrayEstrategia = [];
-        arrayEstrategia.push({
-            'name': recomendado.DescripcionCompleta,
-            'id': recomendado.CUV2,
-            'price': $.trim(recomendado.Precio2),
-            'brand': recomendado.DescripcionMarcaEstrategiaAgregarProducto,
-            'category': "NO DISPONIBLE",
-            'variant': recomendado.DescripcionEstrategia,
-            'list': "Ofertas para ti - " + origen,
-            'position': recomendado.Posicion
-        });
+//    if (accion == "prev") {
+//        var posicionPrimerActivo = $($("#divListadoEstrategia").find(".slick-active")[0]).find(".PosicionEstrategia").val();
+//         posicionEstrategia = posicionPrimerActivo == 1 ? arrayOfertasParaTi.length - 1 : posicionPrimerActivo - 2;
+//         recomendado = arrayOfertasParaTi[posicionEstrategia];
+//         arrayEstrategia = [];
+//        arrayEstrategia.push({
+//            'name': recomendado.DescripcionCompleta,
+//            'id': recomendado.CUV2,
+//            'price': $.trim(recomendado.Precio2),
+//            'brand': recomendado.DescripcionMarcaEstrategiaAgregarProducto,
+//            'category': "NO DISPONIBLE",
+//            'variant': recomendado.DescripcionEstrategia,
+//            'list': "Ofertas para ti - " + origen,
+//            'position': recomendado.Posicion
+//        });
 
-        dataLayer.push({
-            'event': "productImpression",
-            'ecommerce': {
-                'impressions': arrayEstrategia
-            }
-        });
-        dataLayer.push({
-            'event': "virtualEvent",
-            'category': origen,
-            'action': "Ofertas para ti",
-            'label': "Ver anterior"
-        });
-    } else if (accion == "next") {
-        var posicionUltimoActivo = $($("#divListadoEstrategia").find(".slick-active").slice(-1)[0]).find(".PosicionEstrategia").val();
-         posicionEstrategia = arrayOfertasParaTi.length == posicionUltimoActivo ? 0 : posicionUltimoActivo;
-         recomendado = arrayOfertasParaTi[posicionEstrategia];
-         arrayEstrategia = [];
-         arrayEstrategia.push({
-            'name': recomendado.DescripcionCompleta,
-            'id': recomendado.CUV2,
-            'price': $.trim(recomendado.Precio2),
-            'brand': recomendado.DescripcionMarca,
-            'category': "NO DISPONIBLE",
-            'variant': recomendado.DescripcionEstrategia,
-            'list': "Ofertas para ti - " + origen,
-            'position': recomendado.Posicion
-        });
+//        dataLayer.push({
+//            'event': "productImpression",
+//            'ecommerce': {
+//                'impressions': arrayEstrategia
+//            }
+//        });
+//        dataLayer.push({
+//            'event': "virtualEvent",
+//            'category': origen,
+//            'action': "Ofertas para ti",
+//            'label': "Ver anterior"
+//        });
+//    } else if (accion == "next") {
+//        var posicionUltimoActivo = $($("#divListadoEstrategia").find(".slick-active").slice(-1)[0]).find(".PosicionEstrategia").val();
+//         posicionEstrategia = arrayOfertasParaTi.length == posicionUltimoActivo ? 0 : posicionUltimoActivo;
+//         recomendado = arrayOfertasParaTi[posicionEstrategia];
+//         arrayEstrategia = [];
+//         arrayEstrategia.push({
+//            'name': recomendado.DescripcionCompleta,
+//            'id': recomendado.CUV2,
+//            'price': $.trim(recomendado.Precio2),
+//            'brand': recomendado.DescripcionMarca,
+//            'category': "NO DISPONIBLE",
+//            'variant': recomendado.DescripcionEstrategia,
+//            'list': "Ofertas para ti - " + origen,
+//            'position': recomendado.Posicion
+//        });
 
-        dataLayer.push({
-            'event': "productImpression",
-            'ecommerce': {
-                'impressions': arrayEstrategia
-            }
-        });
-        dataLayer.push({
-            'event': "virtualEvent",
-            'category': origen,
-            'action': "Ofertas para ti",
-            'label': "Ver siguiente"
-        });
-    }
-}
+//        dataLayer.push({
+//            'event': "productImpression",
+//            'ecommerce': {
+//                'impressions': arrayEstrategia
+//            }
+//        });
+//        dataLayer.push({
+//            'event': "virtualEvent",
+//            'category': origen,
+//            'action': "Ofertas para ti",
+//            'label': "Ver siguiente"
+//        });
+//    }
+//}
 
 function EstructurarDataCarousel(array) {
     array = array || [];

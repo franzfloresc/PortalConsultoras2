@@ -14,6 +14,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Portal.Consultoras.BizLogic.LimiteVenta;
 using System.Transactions;
 using Portal.Consultoras.Common.Serializer;
 using Portal.Consultoras.BizLogic.ArmaTuPack;
@@ -40,6 +41,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
         private readonly ITablaLogicaDatosBusinessLogic _tablaLogicaDatosBusinessLogic;
         private readonly IOfertaProductoBusinessLogic _ofertaProductoBusinessLogic;
         private readonly IProgramaNuevasBusinessLogic _programaNuevasBusinessLogic;
+        private readonly ILimiteVentaBusinessLogic _limiteVentaBusinessLogic;
         private readonly IArmaTuPackBusinessLogic _BLArmaTuPack;
 
         public BLPedido() : this(new BLProducto(),
@@ -59,6 +61,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                                     new BLTablaLogicaDatos(),
                                     new BLOfertaProducto(),
                                     new BLProgramaNuevas(),
+                                    new BLLimiteVenta(),
                                     new BLArmaTuPack())
         { }
 
@@ -79,6 +82,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                             ITablaLogicaDatosBusinessLogic tablaLogicaDatosBusinessLogic,
                             IOfertaProductoBusinessLogic ofertaProductoBusinessLogic,
                             IProgramaNuevasBusinessLogic programaNuevasBusinessLogic,
+                            ILimiteVentaBusinessLogic limiteVentaBusinessLogic,
                             IArmaTuPackBusinessLogic BLArmaTuPack)
         {
             _productoBusinessLogic = productoBusinessLogic;
@@ -98,6 +102,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             _tablaLogicaDatosBusinessLogic = tablaLogicaDatosBusinessLogic;
             _ofertaProductoBusinessLogic = ofertaProductoBusinessLogic;
             _programaNuevasBusinessLogic = programaNuevasBusinessLogic;
+            _limiteVentaBusinessLogic = limiteVentaBusinessLogic;
             _BLArmaTuPack = BLArmaTuPack;
         }
 
@@ -127,8 +132,32 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 usuario.CodigosRevistaImpresa = codigosRevistasTask.Result;
 
                 //Validación de cuvs en programa nuevas
+                #region ValidarProgramaNuevas
                 var num = ValidarProgramaNuevas(usuario, productoBuscar.CodigoDescripcion);
-                if (num.Equals(Enumeradores.ValidacionProgramaNuevas.ConsultoraNoNueva)) return ProductoBuscarRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_NONUEVA);
+                var esProgNuevas = false;
+                switch (num)
+                {
+                    case Enumeradores.ValidacionProgramaNuevas.ProductoNoExiste:
+                        return ProductoBuscarRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_NOEXISTE);
+                    case Enumeradores.ValidacionProgramaNuevas.ConsultoraNoNueva:
+                        return ProductoBuscarRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_NONUEVA);
+                    case Enumeradores.ValidacionProgramaNuevas.CuvNoPerteneceASuPrograma:
+                        return ProductoBuscarRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_NUEVA_NOPERTENECE_TUPROGRAMA);
+                    case Enumeradores.ValidacionProgramaNuevas.CuvPerteneceProgramaNuevas:
+                        esProgNuevas = true;
+                        break;
+                }
+                #endregion
+
+                #region Venta exclusiva
+                if (!esProgNuevas)
+                {
+                    Enumeradores.ValidacionVentaExclusiva numExclu = ValidarVentaExclusiva(usuario, productoBuscar.CodigoDescripcion);
+                    if (numExclu != Enumeradores.ValidacionVentaExclusiva.ContinuaFlujo)
+                        return ProductoBuscarRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_NOPERTENECE_VENTAEXCLUSIVA);
+                    
+                }                
+                #endregion
 
                 //Validación producto no existe
                 var lstProducto = _productoBusinessLogic.SelectProductoByCodigoDescripcionSearchRegionZona(
@@ -263,9 +292,10 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 //var lstDetalle = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
                 //pedidoDetalle.PedidoID = pedidoID;
 
-                ////Validar stock
-                //var result = ValidarStockEstrategia(usuario, pedidoDetalle, lstDetalle, out mensaje);
-                //if (!result) return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_STOCK_ESTRATEGIA, mensaje);
+                //Validar Stock limite de Venta
+                //var resultStockLimite = ValidarStockLimiteVenta(usuario, pedidoDetalle, lstDetalle, out mensaje);
+                //if (resultStockLimite) return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_LIMITE_VENTA, mensaje);
+
 
                 //if (pedidoDetalle.Producto.TipoOfertaSisID == 0)
                 //{
@@ -511,8 +541,16 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 }
                 #endregion
 
+                #region Gestion de Stock
+                //Validar Stock limite de Venta
+                var resultStockLimite = ValidarStockLimiteVenta(usuario, pedidoDetalle, lstDetalle.Where(x => x.PedidoDetalleID != pedidoDetalle.PedidoDetalleID).ToList(), out mensaje);
+                if (resultStockLimite) return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_LIMITE_VENTA, mensaje);
+
+                #endregion
+
                 #region UnidadesPermitidas y Stock
-                if (Convert.ToInt32(pedidoDetalle.Producto.TipoEstrategiaID) == Constantes.ConfiguracionOferta.Liquidacion)
+
+                if (Convert.ToInt32(pedidoDetalle.Producto.TipoOfertaSisID) == Constantes.ConfiguracionOferta.Liquidacion)
                 {
                     var entidad = new BEOfertaProducto
                     {
@@ -1066,8 +1104,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 };
                 var lstDetalle = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
                 pedidoDetalle.PedidoID = pedidoID;
-                //Insertar pedido
-                //pedidoDetalle.OrigenPedidoWeb = Constantes.OrigenPedidoWeb.AppConsultoraPedidoOfertasParaTiCarrusel;
+
                 var codeResult = PedidoInsertar(usuario, pedidoDetalle, lstDetalle, false);
                 if (codeResult != Constantes.PedidoValidacion.Code.SUCCESS) return PedidoDetalleRespuesta(codeResult);
 
@@ -1501,6 +1538,18 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 numero = Enumeradores.ValidacionProgramaNuevas.ContinuaFlujo;
             }
             return numero;
+        }
+
+        private Enumeradores.ValidacionVentaExclusiva ValidarVentaExclusiva(BEUsuario usuario, string cuv)
+        {
+            try
+            {
+                return _productoBusinessLogic.ValidarVentaExclusiva(usuario.PaisID, usuario.CampaniaID, usuario.CodigoConsultora, cuv);
+            }
+            catch (Exception)
+            {
+                return Enumeradores.ValidacionVentaExclusiva.ContinuaFlujo;
+            }
         }
         #endregion
 
@@ -2075,6 +2124,15 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
             PedidoInsertar(usuario, pedidoDetalle, lstDetalle, true);
         }
+
+        private bool ValidarStockLimiteVenta(BEUsuario usuario, BEPedidoDetalle pedidoDetalle, List<BEPedidoWebDetalle> pedido, out string mensaje) {            
+            var cantidadActual = pedido.Where(d => d.CUV == pedidoDetalle.Producto.CUV).Sum(d => d.Cantidad);
+            var respValidar = _limiteVentaBusinessLogic.CuvTieneLimiteVenta(usuario.PaisID, usuario.CampaniaID, usuario.CodigorRegion, usuario.CodigoZona, pedidoDetalle.Producto.CUV, pedidoDetalle.Cantidad, cantidadActual);
+            if (respValidar.TieneLimite) mensaje = string.Format(Constantes.MensajesError.ExcedioLimiteVenta, respValidar.UnidadesMaximas);
+            else mensaje = null;
+            return respValidar.TieneLimite;
+        }
+
         #endregion  
 
         #region Get
@@ -2982,7 +3040,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 ListaCuvsTemporal.OrderByDescending(x => x).Distinct().ToList().ForEach(x =>
                 {
                     strCuvs = strCuvs + string.Format("{0}:{1},", x, ListaCuvsTemporal.Count(a => a == x));
-                    //return true;
                 });
             }
             PedidoAgregarProductoAgrupado(usuario, pedidoID, pedidoDetalle.Cantidad, cuvSet, strCuvs, estrategia.EstrategiaID);
@@ -2993,6 +3050,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
         private BEPedidoDetalleResult PedidoAgregarProductoTransaction(BEPedidoDetalle pedidoDetalle)
         {
             var pedidoID = 0;
+            var mensaje = string.Empty;
 
             var usuario = pedidoDetalle.Usuario;
 
@@ -3038,6 +3096,29 @@ namespace Portal.Consultoras.BizLogic.Pedido
             }
 
             var cuvSet = estrategia.CUV2;
+            #endregion
+
+            //Obtener Detalle
+            var pedidoDetalleBuscar = new BEPedidoBuscar()
+            {
+                PaisID = usuario.PaisID,
+                CampaniaID = usuario.CampaniaID,
+                ConsultoraID = usuario.ConsultoraID,
+                NombreConsultora = usuario.Nombre,
+                CodigoPrograma = usuario.CodigoPrograma,
+                ConsecutivoNueva = usuario.ConsecutivoNueva
+            };
+            var lstDetalle = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
+
+            #region Gestion de Stock
+            //Validar Stock limite de Venta
+            var pedidoDetalleStock = new BEPedidoDetalle();
+            pedidoDetalleStock.Producto = new BEProducto();
+            pedidoDetalleStock.Producto.CUV = estrategia.CUV2;
+            pedidoDetalleStock.Cantidad = pedidoDetalle.Cantidad;
+            var resultStockLimite = ValidarStockLimiteVenta(usuario, pedidoDetalleStock, lstDetalle, out mensaje);
+            if (resultStockLimite) return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_LIMITE_VENTA, mensaje);
+
             #endregion
 
             #region UnidadesPermitidas
@@ -3105,17 +3186,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             #endregion
 
             #region MontoMaximo
-            //Obtener Detalle
-            var pedidoDetalleBuscar = new BEPedidoBuscar()
-            {
-                PaisID = usuario.PaisID,
-                CampaniaID = usuario.CampaniaID,
-                ConsultoraID = usuario.ConsultoraID,
-                NombreConsultora = usuario.Nombre,
-                CodigoPrograma = usuario.CodigoPrograma,
-                ConsecutivoNueva = usuario.ConsecutivoNueva
-            };
-            var lstDetalle = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
+            
             pedidoDetalle.PedidoID = pedidoID;
 
             //Monto Máximo
@@ -3294,5 +3365,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
             return response;
         }
         #endregion
+
     }
 }

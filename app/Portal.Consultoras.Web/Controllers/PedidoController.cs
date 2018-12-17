@@ -310,6 +310,9 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.OfertaFinalEstado = ofertaFinal.Estado;
                 ViewBag.OfertaFinalAlgoritmo = ofertaFinal.Algoritmo;
                 ViewBag.UrlFranjaNegra = _eventoFestivoProvider.GetUrlFranjaNegra();
+
+                ViewBag.ActivarRecomendaciones = ObtenerFlagActivacionRecomendaciones();
+                ViewBag.MaxCaracteresRecomendaciones = ObtenerNumeroMaximoCaracteresRecomendaciones(false);
             }
             catch (FaultException ex)
             {
@@ -1640,7 +1643,10 @@ namespace Portal.Consultoras.Web.Controllers
                 FlagNueva = prod.FlagNueva,
                 TipoEstrategiaID = prod.TipoEstrategiaID,
                 TieneRDC = tieneRdc,
-                EsOfertaIndependiente = prod.EsOfertaIndependiente
+                EsOfertaIndependiente = prod.EsOfertaIndependiente,
+                CodigoProducto = prod.CodigoProducto,
+                CodigoCatalago = prod.CodigoCatalogo,
+                EstrategiaIDSicc = prod.EstrategiaIDSicc
             }));
 
             return productosModel;
@@ -1746,7 +1752,9 @@ namespace Portal.Consultoras.Web.Controllers
                     EsOfertaIndependiente = estrategia.EsOfertaIndependiente,
                     TieneRDC = tieneRdc,
                     EstrategiaID = producto.EstrategiaID,
-                    EsProgNuevas = esProgNuevas
+                    EsProgNuevas = esProgNuevas,
+                    CodigoCatalago = producto.CodigoCatalogo,
+                    EstrategiaIDSicc = producto.EstrategiaIDSicc
                 });
             }
             catch (Exception ex)

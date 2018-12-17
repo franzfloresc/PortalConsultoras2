@@ -557,6 +557,27 @@ var PedidoRegistroModule = function () {
         }
     };
 
+    var _limpiarRecomendados = function () {
+        var seccionProductosRecomendados = $('.divProductosRecomendados');
+        seccionProductosRecomendados.slideUp(200);
+        $("#txtDescripcionProd").val("");
+        $("#hdfDescripcionProd").val("");
+        $("#txtPrecioR").val("");
+        $("#txtCantidad").val("");
+        $("#divMensaje").text("");
+        $("#txtCUV").focus();
+        if (isMobile()) {
+            if (isPagina('Pedido')) {
+                PedidoOnSuccess()
+                VisibleEstrategias(true);
+                $("#divResumenPedido").show();
+                $("footer").show();
+                $(".footer-page").css({ "margin-bottom": "0px" });
+                $("#divProductoMantenedor").hide();//
+            }
+        }
+    }
+
     var _registroLiquidacion = function (model, cantidad, producto, textoBusqueda) {
 
         model.Cantidad = cantidad;
@@ -606,6 +627,8 @@ var PedidoRegistroModule = function () {
                 microefectoPedidoGuardado();
 
                 CargarResumenCampaniaHeader();
+
+                var _vRecomendaciones = localStorage.getItem('vRecomendaciones');
 
                 CerrarLoad();
                 _registrarAnalytics(model, textoBusqueda);
@@ -697,6 +720,7 @@ var PedidoRegistroModule = function () {
                     }
                     microefectoPedidoGuardado();
                     CargarResumenCampaniaHeader();
+                    _limpiarRecomendados();
                     CerrarLoad();
                     TrackingJetloreAdd(modelFinal.Cantidad, $("#hdCampaniaCodigo").val(), modelFinal.CUV);
                     agregado.html('<span class="text-uppercase text-bold d-inline-block">Agregado</span>');

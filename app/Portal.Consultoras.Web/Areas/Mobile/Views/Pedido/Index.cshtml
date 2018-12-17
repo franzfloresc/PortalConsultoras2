@@ -55,7 +55,7 @@
 
     <div class="contenedor_producto">
         <div class="content_320 ingresoPedidom">
-            <div id="divProductoMantenedor" style="display: none;">
+            <div class="producto_por_agregar_wrapper" id="divProductoMantenedor" style="display: none;">
                 <div style="display: none;">
                     <input type="hidden" id="hdfCUV" />
                     <input type="hidden" id="hdTipoOfertaSisID" />
@@ -75,11 +75,43 @@
 
                 </div>
                 <div id="divProductoObservaciones"></div>
-                <div id="divProductoInformacion">
-                    <div class="nombreProducto" id="divNombreProducto"></div>
+                <div class="producto_por_agregar"  id="divProductoInformacion">
+                    <div class="producto_por_agregar_info_wrapper">
+                        <div class="producto_por_agregar_imagen">
+                            <img src="@Url.Content("~/Content/Images/imagen_prod_no_disponible.jpg")" alt="" />
+                        </div>
+                        <div class="producto_por_agregar_info">
+                            <div class="producto_por_agregar_nombre" id="divNombreProducto"></div>
+                            <div class="producto_por_agregar_precio_normal" id="spnTextoPrecio"></div>
+                            <div class="producto_por_agregar_precio_oferta" id="spnPrecio"></div>
+                        </div>
+                    </div>
+                    <div class="producto_por_agregar_acciones_wrapper">
+                        <div class="producto_por_agregar_rango_cantidad js-no-popup" data-cantidad-contenedor="">
+                            <a class="menos d-block js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event);">
+                                <img class="d-block js-no-popup" src="/Content/Images/menos.svg" alt="">
+                            </a>
+                            <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="d-block text-center text-bold ValidaNumeral ValidaPasteNumeral js-no-popup">
+                            <a class="mas d-block js-no-popup" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event);">
+                                <img class="d-block js-no-popup" src="/Content/Images/mas.svg" alt="">
+                            </a>
+                        </div>
+                        <div class="producto_por_agregar_btn_wrapper">
+                            <a class="boton_Agregalo_home btn_producto_por_agregar d-block text-center text-uppercase" id="btnAgregarProducto">
+                                Agrégalo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="divProductosRecomendados" class="divProductosRecomendados"></div>
+            @Html.Partial("~/Views/ProductoRecomendado/_template_producto.cshtml")
+            @*<div >
+                <div>
+                    <div class="nombreProducto" ></div>
                     <div class="precioProducto">
-                        <span id="spnTextoPrecio"></span>
-                        <span class="precioOferta" id="spnPrecio"></span>
+                        <span ></span>
+                        <span class="precioOferta" ></span>
                     </div>
                     <div class="contenedor_cantidadProductos">
                         <span class="textoCantidad">CANTIDAD:</span>
@@ -97,7 +129,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>*@
             <div id="divResumenPedido">
                 <div class="contenedor_resumenPedido montosIngresoPedido">
                     <div class="textos_resumen">
@@ -219,9 +251,9 @@
         @Html.Partial("~/Areas/Mobile/Views/Pedido/_PartialSectionBpt.cshtml", Model.PartialSectionBpt)
     </div>
 
-    <div class="btn_agregarPedido">
+    @*<div class="btn_agregarPedido">
         <input type="submit" value="AGRÉGALO A TU PEDIDO" id="btnAgregarProducto" name="btnAgregarProducto" style="display:none;" />
-    </div>
+    </div>*@
 
     <div class="alert alert-success alert-full" style="display: none;" id="divMensajeProductoAgregado">
         <img src="@Url.Content("~/Content/Images/mobile/img-icon/alert-success.png")" alt="Alert" class="img-responsive" />
@@ -392,7 +424,7 @@
 
 @section scripts
 {
-    <script type="text/javascript">
+<script type="text/javascript">
 
         var mensajeCUVNoExiste = "Lo sentimos, el producto solicitado no existe.";
         var mensajeCUVAgotado = "Lo sentimos, este producto está agotado.";
@@ -468,7 +500,9 @@
         var dataBarra = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(ViewBag.DataBarra).ToString().Replace("'", @"\'"))');
         var listaMensajeMeta = dataBarra == null ? null : dataBarra.ListaMensajeMeta;
         var urlInsertarDemandaTotalReemplazoSugerido = '@Url.Action("InsertarDemandaTotalReemplazoSugerido", "Pedido", new { area = "" })';
-    </script>
+        var activarRecomendaciones = '@ViewBag.ActivarRecomendaciones';
+        var maxCaracteresRecomendaciones = '@ViewBag.MaxCaracteresRecomendaciones';
+</script>
 
     @if (mobileConfiguracion.EsAppMobile)
     {
@@ -490,4 +524,5 @@
             $(document).ready(function () { messageInfoValidado('@Html.Raw(Constantes.RecuperacionPedido.Mensaje)'); });
         </script>
     }
+    <script></script>
 }

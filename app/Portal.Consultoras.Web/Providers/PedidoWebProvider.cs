@@ -156,7 +156,6 @@ namespace Portal.Consultoras.Web.Providers
                 foreach (var item in detallesPedidoWeb)
                 {
                     item.ClienteID = string.IsNullOrEmpty(item.Nombre) ? (short)0 : Convert.ToInt16(item.ClienteID);
-                    //item.Nombre = string.IsNullOrEmpty(item.Nombre) ? userData.NombreConsultora : item.Nombre;
                     item.Nombre = string.IsNullOrEmpty(item.Nombre) ? "Para mí" : item.Nombre;
                     item.DescripcionOferta = ObtenerDescripcionOferta(item, pedidoValidado, suscripcionActiva, userData.NuevasDescripcionesBuscador);
                 }

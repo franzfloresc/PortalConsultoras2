@@ -9,12 +9,11 @@
 //        CerrarLoad();
 //        if (checkTimeout(data)) AbrirMensaje(data.message);
 //    }
-
+    
 //    var _registrarAnalytics = function (model, textoBusqueda) {
 //        try {
 //            AnalyticsPortalModule.MarcaAnadirCarritoBuscador(model, "Desplegable", textoBusqueda);
 //        } catch (e) {
-
 //        }
 //    };
 
@@ -113,7 +112,7 @@
                                 //    'MarcaId': model.MarcaID,
                                 //    'Cantidad': model.Cantidad
                                 //};
-
+                                
                                 //var _textoBusqueda = localStorage.getItem('valorBuscador');
 
                                 //if (!(typeof AnalyticsPortalModule === 'undefined'))
@@ -231,7 +230,7 @@
                     //if (!isMobile()) CargarResumenCampaniaHeader();
 
                     //console.log(textoBusqueda);
-
+                    
                     //CerrarLoad();
 
                     //var modelCarrito = {
@@ -245,6 +244,7 @@
                     //};
 
                     //var _textoBusqueda = localStorage.getItem('valorBuscador');
+                        
 
                     //if (!(typeof AnalyticsPortalModule === 'undefined'))
                     //    AnalyticsPortalModule.MarcaAnadirCarritoBuscador(modelCarrito, 'Resultados', _textoBusqueda);

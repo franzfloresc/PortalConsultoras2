@@ -80,6 +80,9 @@ namespace Portal.Consultoras.Web.ServiceODS {
         private int EstrategiaIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int EstrategiaIDSiccField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string FlagNuevaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -413,6 +416,19 @@ namespace Portal.Consultoras.Web.ServiceODS {
                 if ((this.EstrategiaIDField.Equals(value) != true)) {
                     this.EstrategiaIDField = value;
                     this.RaisePropertyChanged("EstrategiaID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int EstrategiaIDSicc {
+            get {
+                return this.EstrategiaIDSiccField;
+            }
+            set {
+                if ((this.EstrategiaIDSiccField.Equals(value) != true)) {
+                    this.EstrategiaIDSiccField = value;
+                    this.RaisePropertyChanged("EstrategiaIDSicc");
                 }
             }
         }

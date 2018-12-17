@@ -184,8 +184,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                //bool ParseQueryString = HttpUtility.ParseQueryString(((System.Web.HttpRequestWrapper)Request).UrlReferrer.Query)[_dbdefault].ToBool();
-
                 if (ModelState.IsValid)
                 {
                     List<ReporteRevisionIncidenciasMDbAdapterModel> lst = new List<ReporteRevisionIncidenciasMDbAdapterModel>();

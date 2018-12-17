@@ -33,7 +33,6 @@
         {
             "Aceptar": function () {
                 HideDialog("DialogMensajes");
-                //$(this).dialog('close');
             }
         }
     });

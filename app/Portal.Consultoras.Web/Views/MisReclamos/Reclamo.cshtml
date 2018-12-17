@@ -6,6 +6,8 @@
     Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 
+<link href="@Url.Content("~/Content/Css/Site/bootstrap/bootstrap-chosen.css")" rel="stylesheet" />
+
 <div class="fondo_f9f9f9">
     <div class="content_belcorp">
         <div class="fondo_negro_lateral"></div>
@@ -31,22 +33,27 @@
     <div class="content_general_reclamos" id="divProcesoReclamo">
         <div style="display: block;">
             <div class="content_pasos">
+                <div class="content_pasos_linea"></div>
                 <div class="paso_reclamo paso_active_reclamo" id="Selector1" data-paso="1"><span><img src="@Url.Content("~/Content/Images/Esika/cdr_paso1_activo.png")" /></span></div>
                 <div class="paso_reclamo" id="Selector2" data-paso="2"><span><img src="@Url.Content("~/Content/Images/Esika/cdr_paso2.png")" /></span></div>
                 <div class="paso_reclamo" id="Selector3" data-paso="3"><span><img src="@Url.Content("~/Content/Images/Esika/cdr_paso3.png")" /></span></div>
             </div>
-            <div class="content_pasos_linea"></div>
             <div class="content_reclamo" id="Paso1">
-                <div>
+                <div class="text-center">
                     <div class="subtitulo_reclamo">¿Con qué producto has tenido el inconveniente?</div>
-                    <div>
+                    <div class="text-center">
                         @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.ListaCampania, "CampaniaID", "NombreCorto", Model.CampaniaID), new { id = "ddlCampania", @class = "select_reclamo", @required = "required" })
                         <input type="hidden" id="txtPedidoID" value="@Model.PedidoID" />
                         <input type="hidden" id="txtNumeroPedido" value="@Model.NumeroPedido" />
                         <input type="hidden" id="txtPrecioUnidad" />
                         <input type="hidden" id="hdImporteTotalPedido" />
-                        <input type="text" placeholder="Código" class="codigo_reclamo ValidaNumeral ValidaPasteNumeral valid" id="txtCUV" />
-                        <input type="text" placeholder="Descripción del producto" class="descripcion_reclamo" id="txtCUVDescripcion" readonly="readonly" />
+                        <input type="hidden" id="hdtxtCUVDescripcion"/>
+                        <select class="elige_num_pedido" id="ddlnumPedido" name="numPedido" required="required" style="display:none;">
+                        </select>
+                        <div class="contenedor_descripcion_reclamo">
+                            <select class="chosen-select descripcion_reclamo" data-placeholder="¿Qué código o Descripción del producto tiene?" id="ddlCuv" name="txtCUVDescripcion" required="required"></select>
+                            <span class="descripcion_reclamo_fake_placeholder">¿Qué código o Descripción del producto tiene?</span>
+                        </div>
                         <div class="rango_reclamo" data-cantidad-contenedor="">
                             <input type="text" name="Cantidad" id="txtCantidad" data-input="cantidad" value="1" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid" onfocus="SeleccionarContenido(this) ">
                             <div class="liquidacion_rango_right_pedido">
@@ -60,8 +67,9 @@
                 <div>
                     <div class="subtitulo_reclamo">¿Cuál fue el inconveniente?</div>
                     <hr class="clear" />
-                    <div>
+                    <div class="content_motivo_wrapper">
                         <div class="content_motivo_select" id="divMotivo"></div>
+                        <div class="clear"></div>
                     </div>
                 </div>
                 <hr class="clear" />
@@ -87,23 +95,25 @@
                         Puedes cambiarlo por otro producto(s) cuyo monto sea mayor o igual al que reclamas (<span id="spnSimboloMonedaReclamo">S/.</span><span id="spnMontoMinimoReclamoFormato">15</span>)<br />
                         Búscalo en tus catálogos de Campaña <span id="spnNumeroCampaniaReclamo">15</span>:
                     </div>
-                    <input type="text" placeholder="Código" class="codigo_reclamo ValidaNumeral ValidaPasteNumeral valid" id="txtCUV2" />
-                    <input type="text" placeholder="Descripción del producto" id="txtCUVDescripcion2" readonly="readonly" class="descripcion_reclamo" style="width: 369px;" />
-                    <input type="text" placeholder="Precio" class="precio_reclamo" id="txtCUVPrecio2" readonly="readonly" />
-                    <input type="hidden" id="hdCuvPrecio2" />
-                    <input type="hidden" id="hdParametriaCdr" />
-                    <input type="hidden" id="hdParametriaAbsCdr" />
-                    <input type="hidden" id="hdCuvPrecio2" />
+                    <div class="text-center">
+                        <input type="text" placeholder="Código" class="codigo_reclamo ValidaNumeral ValidaPasteNumeral valid" id="txtCUV2" />
+                        <input type="text" placeholder="Descripción del producto" id="txtCUVDescripcion2" readonly="readonly" class="descripcion_reclamo" style="width: 369px;" />
+                        <input type="text" placeholder="Precio" class="precio_reclamo" id="txtCUVPrecio2" readonly="readonly" />
+                        <input type="hidden" id="hdCuvPrecio2" />
+                        <input type="hidden" id="hdParametriaCdr" />
+                        <input type="hidden" id="hdParametriaAbsCdr" />
+                        <input type="hidden" id="hdCuvPrecio2" />
 
-                    <input type="hidden" id="hdCdrWebDatos_Ssic" />
-                    <div class="rango_reclamo" data-cantidad-contenedor="">
-                        <input type="text" name="Cantidad" id="txtCantidad2" value="1" data-input="cantidad" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid"
-                               @*onkeypress=" PreValidarCUV(event); "*@
-                               attrKey="PreValidarCUV"
-                               onfocus=" SeleccionarContenido(this) ">
-                        <div class="liquidacion_rango_right_pedido">
-                            <a class="mas modificarPrecioMas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                            <a class="menos modificarPrecioMenos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                        <input type="hidden" id="hdCdrWebDatos_Ssic" />
+                        <div class="rango_reclamo" data-cantidad-contenedor="">
+                            <input type="text" name="Cantidad" id="txtCantidad2" value="1" data-input="cantidad" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid"
+                                   @*onkeypress=" PreValidarCUV(event); "*@
+                                   attrKey="PreValidarCUV"
+                                   onfocus=" SeleccionarContenido(this) ">
+                            <div class="liquidacion_rango_right_pedido">
+                                <a class="mas modificarPrecioMas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                                <a class="menos modificarPrecioMenos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                            </div>
                         </div>
                     </div>
                     <hr class="clear" />
@@ -259,10 +269,9 @@
             <div class="titulo_ultimo_soli">Mi solicitud</div>
             <div class="texto_solicitud_ultima"><span id="spnCantidadUltimasSolicitadas">3</span> productos agregados:</div>
             <br />
-            <div id="divDetalleUltimasSolicitudes">
-
+            <div id="divDetalleUltimasSolicitudes" class="detalle_solicitudes_wrapper">
             </div>
-            <a class="btn_ver_solicitudes" id="btn_ver_solicitudes" href="javascript:void(0);" onclick="CambioPaso(3)" style="width:100px;margin-top:30px;">IR AL FINAL</a>
+            <a class="btn_ver_solicitudes" id="btn_ver_solicitudes" href="javascript:void(0);" onclick="CambioPaso(3)" style="width:100px;margin-top:11px;">IR AL FINAL</a>
         </div>
 
     </div>
@@ -335,7 +344,7 @@
 </script>
 <script id="template-operacion" type="text/x-handlebars-template">
     {{#each this as |item|}}
-    <span class="btn_solución_reclamo" id="{{item.CodigoOperacion}}" data-tipo="{{item.Tipo}}">{{item.CDRTipoOperacion.DescripcionOperacion}}</span>
+    <span class="btn_solucion_reclamo" id="{{item.CodigoOperacion}}" data-tipo="{{item.Tipo}}">{{item.CDRTipoOperacion.DescripcionOperacion}}</span>
     {{/each}}
 </script>
 <script id="template-confirmacion" type="text/x-handlebars-template">
@@ -453,17 +462,18 @@
 @section scripts{
 
     <script type="text/javascript">
-    var imgCheck = '@Url.Content("~/Content/Images/Esika/paso_realizado.png")';
-    var imgPasos = '@Url.Content("~/Content/Images/Esika/{0}.png")';
-    var urlRegresar = '@Url.Action("Index", "MisReclamos")';
-    var urlRegresarReclamo = '@Url.Action("Reclamo", "MisReclamos")';
+        var imgCheck = '@Url.Content("~/Content/Images/Esika/paso_realizado.png")';
+        var imgPasos = '@Url.Content("~/Content/Images/Esika/{0}.png")';
+        var urlRegresar = '@Url.Action("Index", "MisReclamos")';
+        var urlRegresarReclamo = '@Url.Action("Reclamo", "MisReclamos")';
 
-    var mensajeGestionCdrInhabilitada = '@Html.Raw(Model.MensajeGestionCdrInhabilitada)';
-    var mensajeCdrFueraDeFechaCompleto = '@Html.Raw(Constantes.CdrWebMensajes.FueraDeFecha + " " + Constantes.CdrWebMensajes.ContactateChatEnLinea)';
+        var mensajeGestionCdrInhabilitada = '@Html.Raw(Model.MensajeGestionCdrInhabilitada)';
+        var mensajeCdrFueraDeFechaCompleto = '@Html.Raw(Constantes.CdrWebMensajes.FueraDeFecha + " " + Constantes.CdrWebMensajes.ContactateChatEnLinea)';
 
-    var OrigenCDR = false;
+        var OrigenCDR = false;
     </script>
-    <script src="@Url.Content("~/Scripts/PortalConsultoras/MisReclamos/Reclamo.js")"></script>
+    <script src="@Url.Content("~/Scripts/chosen.jquery.js")"></script>
+    <script src="@Url.Content("~/Scripts/PortalConsultoras/MisReclamos/Reclamo.js")?v2"></script>
     <script src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js")"></script>
 }
 

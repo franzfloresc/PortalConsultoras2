@@ -150,11 +150,9 @@ $(document).ready(function () {
     $('#btnAgregarOferfaFIC').click(function () {
         GuardarOfertaFICenPedido();
         HideDialog("divOfertaFIC");
-        //$('#divOfertaFIC').dialog('close');
     });
     $('#btnCancelarOferfaFIC').click(function () {
         HideDialog("divOfertaFIC");
-        //$('#divOfertaFIC').dialog('close');
     });
 
     CrearDialogs();
@@ -173,7 +171,6 @@ function CrearDialogs() {
         title: "",
         close: function (event, ui) {
             HideDialog("divConfirmEliminarTotal");
-            //$(this).dialog('close');
         }
     });
 
@@ -390,7 +387,7 @@ function ValidarDescripcion() {
     }
 }
 $('body').on('keypress', 'input[attrKey="PreValidarCUV"]', function (event) {
-    
+
     if (event.keyCode == 13) {
         if ($("#btnAgregar")[0].disabled == false) {
             AgregarProductoListado();
@@ -763,7 +760,6 @@ function EliminarPedidoTotalSi() {
 }
 function EliminarPedidoTotalNo() {
     HideDialog("divConfirmEliminarTotal");
-    //$('#divConfirmEliminarTotal').dialog('close');
 }
 
 function EliminarPedido() {
@@ -800,7 +796,7 @@ function ValidarUpdate(PedidoDetalleID, FlagValidacion) {
     var Cantidad = $('#txtLPCant' + PedidoDetalleID).val();
     var CantidadAnti = $('#txtLPTempCant' + PedidoDetalleID).val();
     var ClienteAnti = $('#hdfLPTempCliDes' + PedidoDetalleID).val();
-  
+
 
     if (FlagValidacion == "1") {
         if (CantidadAnti == Cantidad)

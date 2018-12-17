@@ -236,7 +236,8 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 {
                     success = false,
                     message = "Error al cargar los productos",
-                    data = ""
+                    data = "",
+                    ex = Common.LogManager.GetMensajeError(ex)
                 });
             }
         }

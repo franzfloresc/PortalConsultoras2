@@ -4,7 +4,6 @@ var urlPagoMonto = urlPagoMonto || "";
 var rutaGuardarDatosPago = rutaGuardarDatosPago || '';
 
 $(document).ready(function () {
-    //'use strict';
 
     var mainPL;
 
@@ -17,17 +16,14 @@ $(document).ready(function () {
             listaOpcionPagoDesktop: $(".opcionPagoDesktop")
         };
         me.Funciones = {
-            InicializarEventos: function() {
+            InicializarEventos: function () {
                 $(document).on('click', '.opcionPagoMobile', me.Eventos.MostrarDetalleTipoPago);
                 $(document).on('click', '.opcionPagoDesktop', me.Eventos.MostrarDetalleTipoPago);
-                //$(document).on('click', 'a[data-tipovisualizacion]', me.Eventos.AbrirPopupTerminosYCondiciones);
-                //$(document).on('click', '.cerrar_popup_terminos_y_condiciones', me.Eventos.CerrarPopupTerminosYCondiciones);
-                //$(document).on('click', '.enlace_ver_mas_opciones_banca_por_internet', me.Eventos.VerMasOpcionesBancaPorInternet);
             },
-            InicializarAcciones: function() {
+            InicializarAcciones: function () {
                 me.Funciones.listarBancos();
             },
-            listarBancos: function() {
+            listarBancos: function () {
                 var raiz = document.getElementById("hdfUrlRaiz").value;
                 var urlBase = window.location.protocol + '//' + window.location.host + raiz;
 
@@ -37,7 +33,7 @@ $(document).ready(function () {
                     url: urlBase + 'PagoEnLinea/ObtenerBancos',
                     dataType: "Text",
                     contentType: 'application/json; charset=utf-8',
-                    success: function(response) {
+                    success: function (response) {
                         if (response == '1') {
                             document.getElementById('divOpciones').style.display = 'block';
                             return false;
@@ -66,13 +62,13 @@ $(document).ready(function () {
                         document.getElementById('divBancaPorInternet').style.display = 'block';
                         document.getElementById('divOpciones').style.display = 'block';
                     },
-                    error: function() {
+                    error: function () {
                         alert("error");
                     }
                 });
 
             },
-            GuardarMetodoPago: function(parametros) {
+            GuardarMetodoPago: function (parametros) {
 
                 jQuery.ajax({
                     type: 'POST',
@@ -81,7 +77,7 @@ $(document).ready(function () {
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify(parametros),
                     async: true,
-                    success: function(response) {
+                    success: function (response) {
                         if (response.success) {
                             dataLayer.push({
                                 'event': 'virtualEvent',
@@ -93,7 +89,7 @@ $(document).ready(function () {
                             window.location.href = urlPagoMonto;
                         }
                     },
-                    error: function(data, error) {
+                    error: function (data, error) {
                         if (checkTimeout(data)) {
                         }
                     }
@@ -101,7 +97,7 @@ $(document).ready(function () {
             }
         };
         me.Eventos = {
-            AceptarTerminosYCondiciones: function(e) {
+            AceptarTerminosYCondiciones: function (e) {
                 me.globals.barraActivacion.toggleClass('activado');
                 if (me.globals.barraActivacion.is('.activado')) {
                     me.globals.barraActivacion.attr('data-estado', 1);
@@ -111,7 +107,7 @@ $(document).ready(function () {
                     me.globals.barraActivacion.attr('data-estado', 0);
                 }
             },
-            MostrarDetalleTipoPago: function() {
+            MostrarDetalleTipoPago: function () {
                 var elm = $(this);
                 var content = $.trim(elm.next().html());
                 if (content == '') {
@@ -135,14 +131,14 @@ $(document).ready(function () {
                     element.slideDown(200);
                 }
             },
-            VerMasOpcionesBancaPorInternet: function(e) {
+            VerMasOpcionesBancaPorInternet: function (e) {
                 e.preventDefault();
                 $(this).fadeOut(100);
                 $('.segundo_listado').delay(50);
                 $('.segundo_listado').fadeIn(100);
             }
         };
-        me.Inicializar = function() {
+        me.Inicializar = function () {
             me.Funciones.InicializarEventos();
             me.Funciones.InicializarAcciones();
         };

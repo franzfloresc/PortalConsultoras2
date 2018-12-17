@@ -653,7 +653,6 @@ function CrearDialogs() {
         title: "",
         close: function (event, ui) {
             HideDialog("divConfirmarCUVBanner");
-            //$(this).dialog('close');
         }
     });
 }
@@ -718,7 +717,8 @@ function CargarCarouselLiquidaciones() {
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
             if (checkTimeout(data)) {
-                ArmarCarouselLiquidaciones(data);
+                data.lista = EstructurarDataCarouselLiquidaciones(data.lista);
+                ArmarCarouselLiquidaciones(data.lista);
             }
         },
         error: function (data, error) {
@@ -728,155 +728,155 @@ function CargarCarouselLiquidaciones() {
         }
     });
 }
-function ArmarCarouselLiquidaciones(data) {
+//function ArmarCarouselLiquidaciones(data) {
 
-    data = EstructurarDataCarouselLiquidaciones(data.lista);
-    arrayLiquidaciones = data;
-    var htmlDiv = SetHandlebars("#liquidacion-template", data);
-    if ($.trim(htmlDiv).length > 0) {
-        htmlDiv += [
-            '<div>',
-            '<div class="content_item_carrusel background_vermas">',
-            '<input type="hidden" id="Posicion" value="' + (data.length + 1) + '"/>',
-            '<div class="producto_img_home">',
-            '</div>',
-            '<div class="producto_nombre_descripcion">',
-            '<p class="nombre_producto">',
-            '</p>',
-            '<div class="producto_precio" style="margin-bottom: -8px;">',
-            '<span class="producto_precio_oferta"></span>',
-            '</div>',
-            '<a href="' + baseUrl + 'OfertaLiquidacion/OfertasLiquidacion" class="boton_Agregalo_home no_accionar" style="width:100%;">',
-            'VER MÁS',
-            '</a>',
-            '</div>',
-            '</div>',
-            '</div>'
-        ].join("\n");
-    }
-    $('#divCarruselLiquidaciones').empty().html(htmlDiv);
+//    data = EstructurarDataCarouselLiquidaciones(data.lista);
+//    arrayLiquidaciones = data;
+//    var htmlDiv = SetHandlebars("#liquidacion-template", data);
+//    if ($.trim(htmlDiv).length > 0) {
+//        htmlDiv += [
+//            '<div>',
+//            '<div class="content_item_carrusel background_vermas">',
+//            '<input type="hidden" id="Posicion" value="' + (data.length + 1) + '"/>',
+//            '<div class="producto_img_home">',
+//            '</div>',
+//            '<div class="producto_nombre_descripcion">',
+//            '<p class="nombre_producto">',
+//            '</p>',
+//            '<div class="producto_precio" style="margin-bottom: -8px;">',
+//            '<span class="producto_precio_oferta"></span>',
+//            '</div>',
+//            '<a href="' + baseUrl + 'OfertaLiquidacion/OfertasLiquidacion" class="boton_Agregalo_home no_accionar" style="width:100%;">',
+//            'VER MÁS',
+//            '</a>',
+//            '</div>',
+//            '</div>',
+//            '</div>'
+//        ].join("\n");
+//    }
+//    $('#divCarruselLiquidaciones').empty().html(htmlDiv);
 
-    EstablecerLazyCarrusel('#divCarruselLiquidaciones');
+//    EstablecerLazyCarrusel('#divCarruselLiquidaciones');
 
-    $('#divCarruselLiquidaciones').slick({
-        lazyLoad: 'ondemand',
-        infinite: false,
-        vertical: false,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        autoplay: false,
-        speed: 260,
-        prevArrow: '<a class="previous_ofertas js-slick-prev-liq"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
-        nextArrow: '<a class="previous_ofertas js-slick-next-liq" style="right: 0;display: block;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>'
-    }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
+//    $('#divCarruselLiquidaciones').slick({
+//        lazyLoad: 'ondemand',
+//        infinite: false,
+//        vertical: false,
+//        slidesToShow: 1,
+//        slidesToScroll: 1,
+//        autoplay: false,
+//        speed: 260,
+//        prevArrow: '<a class="previous_ofertas js-slick-prev-liq"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
+//        nextArrow: '<a class="previous_ofertas js-slick-next-liq" style="right: 0;display: block;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>'
+//    }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
 
-        var accion = nextSlide > currentSlide ? 'next' : 'prev';
-        console.log('======================');
-        console.log('aquí entro');
-        console.log('======================');
-        var itemsLength = $('#divCarruselLiquidaciones').find('.slick-slide').length;
-        var indexActive = $($('#divCarruselLiquidaciones').find('.slick-active')).attr('data-slick-index');
-        var posicionEstrategia, recomendado, arrayEstrategia;
-        console.log('======================');
-        console.log('aquí entro');
-        console.log('======================');
-        if (accion == 'prev') {
-            if (Number(indexActive) - 1 == 0) {
-                $('.js-slick-prev-liq').hide();
-                $('.js-slick-next-liq').show();
-            } else {
-                $('.js-slick-next-liq').show();
-            }
+//        var accion = nextSlide > currentSlide ? 'next' : 'prev';
+//        console.log('======================');
+//        console.log('aquí entro');
+//        console.log('======================');
+//        var itemsLength = $('#divCarruselLiquidaciones').find('.slick-slide').length;
+//        var indexActive = $($('#divCarruselLiquidaciones').find('.slick-active')).attr('data-slick-index');
+//        var posicionEstrategia, recomendado, arrayEstrategia;
+//        console.log('======================');
+//        console.log('aquí entro');
+//        console.log('======================');
+//        if (accion == 'prev') {
+//            if (Number(indexActive) - 1 == 0) {
+//                $('.js-slick-prev-liq').hide();
+//                $('.js-slick-next-liq').show();
+//            } else {
+//                $('.js-slick-next-liq').show();
+//            }
 
-            posicionEstrategia = $($('#divCarruselLiquidaciones').find(".slick-active")).find('#Posicion').val() - 2;
-            recomendado = arrayLiquidaciones[posicionEstrategia] || {};
-            arrayEstrategia = new Array();
+//            posicionEstrategia = $($('#divCarruselLiquidaciones').find(".slick-active")).find('#Posicion').val() - 2;
+//            recomendado = arrayLiquidaciones[posicionEstrategia] || {};
+//            arrayEstrategia = new Array();
 
-            if (recomendado.PrecioOferta != null || recomendado.PrecioOferta != undefined) {
-                var impresionRecomendado = {
-                    'name': recomendado.DescripcionCompleta,
-                    'id': recomendado.CUV,
-                    'price': recomendado.PrecioOferta.toString(),
-                    'brand': recomendado.DescripcionMarca,
-                    'category': 'NO DISPONIBLE',
-                    'variant': recomendado.DescripcionEstrategia,
-                    'list': 'Liquidación Web - Home',
-                    'position': recomendado.Posicion
-                };
-                arrayEstrategia.push(impresionRecomendado);
-                dataLayer.push({
-                    'event': 'productImpression',
-                    'ecommerce': {
-                        'impressions': arrayEstrategia
-                    }
-                });
-                dataLayer.push({
-                    'event': 'virtualEvent',
-                    'category': 'Home',
-                    'action': 'Liquidacion Web',
-                    'label': 'Ver anterior'
-                });
-            }
+//            if (recomendado.PrecioOferta != null || recomendado.PrecioOferta != undefined) {
+//                var impresionRecomendado = {
+//                    'name': recomendado.DescripcionCompleta,
+//                    'id': recomendado.CUV,
+//                    'price': recomendado.PrecioOferta.toString(),
+//                    'brand': recomendado.DescripcionMarca,
+//                    'category': 'NO DISPONIBLE',
+//                    'variant': recomendado.DescripcionEstrategia,
+//                    'list': 'Liquidación Web - Home',
+//                    'position': recomendado.Posicion
+//                };
+//                arrayEstrategia.push(impresionRecomendado);
+//                dataLayer.push({
+//                    'event': 'productImpression',
+//                    'ecommerce': {
+//                        'impressions': arrayEstrategia
+//                    }
+//                });
+//                dataLayer.push({
+//                    'event': 'virtualEvent',
+//                    'category': 'Home',
+//                    'action': 'Liquidacion Web',
+//                    'label': 'Ver anterior'
+//                });
+//            }
 
-        } else if (accion == 'next') {
-            if (Number(indexActive) + 1 == Number(itemsLength) - 1) {
-                $('.js-slick-next-liq').hide();
-                $('.js-slick-prev-liq').show();
-            } else {
-                $('.js-slick-prev-liq').show();
-            }
+//        } else if (accion == 'next') {
+//            if (Number(indexActive) + 1 == Number(itemsLength) - 1) {
+//                $('.js-slick-next-liq').hide();
+//                $('.js-slick-prev-liq').show();
+//            } else {
+//                $('.js-slick-prev-liq').show();
+//            }
 
-            posicionEstrategia = $($('#divCarruselLiquidaciones').find(".slick-active")).find('#Posicion').val();
+//            posicionEstrategia = $($('#divCarruselLiquidaciones').find(".slick-active")).find('#Posicion').val();
 
-            if (posicionEstrategia != arrayLiquidaciones.length) {
-                recomendado = arrayLiquidaciones[posicionEstrategia] || {};
-                arrayEstrategia = new Array();
+//            if (posicionEstrategia != arrayLiquidaciones.length) {
+//                recomendado = arrayLiquidaciones[posicionEstrategia] || {};
+//                arrayEstrategia = new Array();
 
-                if (recomendado.PrecioOferta != null || recomendado.PrecioOferta != undefined) {
-                    var impresionRecomendado = {
-                        'name': recomendado.DescripcionCompleta,
-                        'id': recomendado.CUV,
-                        'price': recomendado.PrecioOferta.toString(),
-                        'brand': recomendado.DescripcionMarca,
-                        'category': 'NO DISPONIBLE',
-                        'variant': recomendado.DescripcionEstrategia,
-                        'list': 'Liquidación Web - Home',
-                        'position': recomendado.Posicion
-                    };
+//                if (recomendado.PrecioOferta != null || recomendado.PrecioOferta != undefined) {
+//                    var impresionRecomendado = {
+//                        'name': recomendado.DescripcionCompleta,
+//                        'id': recomendado.CUV,
+//                        'price': recomendado.PrecioOferta.toString(),
+//                        'brand': recomendado.DescripcionMarca,
+//                        'category': 'NO DISPONIBLE',
+//                        'variant': recomendado.DescripcionEstrategia,
+//                        'list': 'Liquidación Web - Home',
+//                        'position': recomendado.Posicion
+//                    };
 
-                    arrayEstrategia.push(impresionRecomendado);
+//                    arrayEstrategia.push(impresionRecomendado);
 
-                    dataLayer.push({
-                        'event': 'productImpression',
-                        'ecommerce': {
-                            'impressions': arrayEstrategia
-                        }
-                    });
-                    dataLayer.push({
-                        'event': 'virtualEvent',
-                        'category': 'Home',
-                        'action': 'Liquidacion Web',
-                        'label': 'Ver siguiente'
-                    });
-                }
-            } else {
-                dataLayer.push({
-                    'event': 'virtualEvent',
-                    'category': 'Home',
-                    'action': 'Liquidacion Web',
-                    'label': 'Ver más'
-                });
-            }
-        }
-    }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
-        EstablecerLazyCarruselAfterChange('#divCarruselLiquidaciones');
-    });
+//                    dataLayer.push({
+//                        'event': 'productImpression',
+//                        'ecommerce': {
+//                            'impressions': arrayEstrategia
+//                        }
+//                    });
+//                    dataLayer.push({
+//                        'event': 'virtualEvent',
+//                        'category': 'Home',
+//                        'action': 'Liquidacion Web',
+//                        'label': 'Ver siguiente'
+//                    });
+//                }
+//            } else {
+//                dataLayer.push({
+//                    'event': 'virtualEvent',
+//                    'category': 'Home',
+//                    'action': 'Liquidacion Web',
+//                    'label': 'Ver más'
+//                });
+//            }
+//        }
+//    }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
+//        EstablecerLazyCarruselAfterChange('#divCarruselLiquidaciones');
+//    });
 
-    TagManagerCarruselLiquidacionesInicio(data);
+//    TagManagerCarruselLiquidacionesInicio(data);
 
-    $(".js-slick-prev-liq").insertBefore('#divCarruselLiquidaciones').hide();
-    $(".js-slick-next-liq").insertAfter('#divCarruselLiquidaciones');
-}
+//    $(".js-slick-prev-liq").insertBefore('#divCarruselLiquidaciones').hide();
+//    $(".js-slick-next-liq").insertAfter('#divCarruselLiquidaciones');
+//}
 function EstructurarDataCarouselLiquidaciones(array) {
     $.each(array, function (i, item) {
         item.DescripcionCompleta = item.Descripcion;
@@ -1260,7 +1260,6 @@ function EnlaceBanner(URL, TrackText, TipoAccion, CUVpedido, CantCUVpedido, Id, 
 //function AgregarCUVBannerPedidoNo() {
 //    $('#divConfirmarCUVBanner').dialog('close');
 //}
-    //$('#divConfirmarCUVBanner').dialog('close');
 
 //function InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido) {
 //    var item = {
@@ -2253,7 +2252,6 @@ function CrearPopupComunicado() {
         },
         close: function (event, ui) {
             HideDialog("divComunicado");
-            //$('#divComunicado').dialog('close');
         }
     });
 }
@@ -2272,7 +2270,6 @@ function AceptarComunicado() {
         success: function (data) {
             if (checkTimeout(data)) {
                 HideDialog("divComunicado");
-                //$('#divComunicado').dialog('close');
                 closeWaitingDialog();
             }
         },
@@ -2379,11 +2376,9 @@ function scrollWin() {
 }
 function cerrarSueniosNavidad() {
     HideDialog("idSueniosNavidad");
-    //$('#idSueniosNavidad').dialog('close');
 }
 function cerrarSuenioConfirmacion() {
     HideDialog("divSuenioConfirmacion");
-    //$('#divSuenioConfirmacion').dialog('close');
 }
 function AgregarSuenio() {
     var descSuenio = $("#txtSuenioNavidad").val();
@@ -2395,7 +2390,6 @@ function AgregarSuenio() {
 
     var params = { descripcion: descSuenio };
     HideDialog("idSueniosNavidad");
-    //$('#idSueniosNavidad').dialog('close');
     waitingDialog({});
     $.ajax({
         type: "POST",

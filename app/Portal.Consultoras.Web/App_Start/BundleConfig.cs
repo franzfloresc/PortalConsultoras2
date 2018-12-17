@@ -118,7 +118,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js",
                 "~/Scripts/PortalConsultoras/Shared/AnalyticsPortal.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
-                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js"
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js",
+                "~/Scripts/PortalConsultoras/Buscador/BuscadorProvider.js"
             ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mobile/MobileLayoutContenedor").Include(
@@ -277,7 +278,8 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Mobile/Esika/revistaDigital.css",
                "~/Content/Css/Mobile/Esika/seccion-descarga-imprime.css",
                "~/Content/Css/Mobile/calc.css",
-               "~/Content/Css/Site/Esika/campania-navidenia.css"
+               "~/Content/Css/Site/Esika/campania-navidenia.css",
+               "~/Content/Css/Site/ProductosRecomendados/productos-recomendados.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/lbel-CssSB2Mobile").Include(
@@ -295,7 +297,8 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Mobile/Lbel/revistaDigital.css",
                "~/Content/Css/Mobile/Lbel/seccion-descarga-imprime.css",
                "~/Content/Css/Mobile/calc.css",
-               "~/Content/Css/Site/Lbel/campania-navidenia.css"
+               "~/Content/Css/Site/Lbel/campania-navidenia.css",
+               "~/Content/Css/Site/ProductosRecomendados/productos-recomendados.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/CssBienvenida").Include(
@@ -340,6 +343,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/implements/youtube.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/Index.js",
                 "~/Scripts/PortalConsultoras/Pedido/barra.js",
+                "~/Scripts/PortalConsultoras/DetalleEstrategia/CarruselModule.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
                 "~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js",
@@ -365,6 +369,7 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/style-pedido.css",
                 "~/Content/Css/Site/RevistaDigital/Bienvenido-Pedido-Catalogo.css",
                 "~/Content/Css/Site/ProductoListado/CajaProducto.css",
+                "~/Content/Css/Site/ProductosRecomendados/productos-recomendados.css",
                 "~/Content/Css/Site/Pedido/PedidoGrilla.css",
                 "~/Content/Css/Site/Pedido/PedidoTooltip.css"
             ));
@@ -378,6 +383,7 @@ namespace Portal.Consultoras.Web
             bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/SB2-Pedido").Include(
                 "~/Scripts/PortalConsultoras/Pedido/Index.js",
                 "~/Scripts/PortalConsultoras/Pedido/barra.js",
+                "~/Scripts/PortalConsultoras/DetalleEstrategia/CarruselModule.js",
                 "~/Scripts/PortalConsultoras/Pedido/ofertafinal.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
                 "~/Scripts/PortalConsultoras/Cupon/CuponModule.js",
@@ -389,7 +395,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js",
-                "~/Scripts/PortalConsultoras/Pedido/tooltip.js",
+                "~/Scripts/PortalConsultoras/Pedido/tooltip.js",                
+                "~/Scripts/PortalConsultoras/ProductoRecomendado/ProductoRecomendadoModule.js",
                 "~/Scripts/PortalConsultoras/Pedido/KitNuevas.js"
             ));
 
@@ -404,6 +411,7 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mobile/Bienvenida").Include(
                 "~/Scripts/implements/youtube.js",
+                "~/Scripts/PortalConsultoras/DetalleEstrategia/CarruselModule.js",
                 "~/Scripts/PortalConsultoras/EstrategiaProducto/DetalleProducto.js",
                 "~/Scripts/PortalConsultoras/Mobile/Bienvenida/Index.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
@@ -461,6 +469,7 @@ namespace Portal.Consultoras.Web
             ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mobile/Pedido").Include(
+                "~/Scripts/PortalConsultoras/DetalleEstrategia/CarruselModule.js",
                 "~/Scripts/PortalConsultoras/Mobile/Pedido/index.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js",
@@ -475,6 +484,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js",
                 "~/Scripts/PortalConsultoras/Pedido/barra.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js",
+                "~/Scripts/PortalConsultoras/ProductoRecomendado/ProductoRecomendadoModule.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/PedidoRegistro.js",
                 "~/Scripts/PortalConsultoras/Pedido/KitNuevas.js"
             ));
@@ -537,6 +547,7 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/Ofertas").Include(
                 "~/Scripts/jquery.flexslider.js",
+                "~/Scripts/PortalConsultoras/DetalleEstrategia/CarruselModule.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
                 "~/Scripts/PortalConsultoras/Shared/AnalyticsPortal.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
@@ -569,6 +580,7 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mobile/Ofertas").Include(
                 "~/Scripts/jquery.flexslider.js",
+                "~/Scripts/PortalConsultoras/DetalleEstrategia/CarruselModule.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/Index.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js",
