@@ -27,7 +27,7 @@
       <xs:element minOccurs="0" name="EsOfertaIndependiente" type="xs:boolean" />
       <xs:element minOccurs="0" name="EstaEnRevista" type="xs:boolean" />
       <xs:element minOccurs="0" name="EstrategiaID" type="xs:int" />
-      <xs:element minOccurs="0" name="EstrategiaIDSicc" type="xs:int" />
+      <xs:element minOccurs="0" name="EstrategiaIDSicc" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="FlagNueva" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImagenOferta" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImagenProducto" nillable="true" type="xs:string" />
