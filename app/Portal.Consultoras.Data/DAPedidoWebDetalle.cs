@@ -49,7 +49,7 @@ namespace Portal.Consultoras.Data
 
         public BEPedidoWebDetalle InsPedidoWebDetalle(BEPedidoWebDetalle pedidowebdetalle)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsPedidoWebDetalle_SB");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsPedidoWebDetalle_SB2");
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, pedidowebdetalle.CampaniaID);
             Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int32, pedidowebdetalle.ConsultoraID);
             Context.Database.AddInParameter(command, "@MarcaID", DbType.Byte, pedidowebdetalle.MarcaID);
@@ -189,7 +189,7 @@ namespace Portal.Consultoras.Data
 
         public int UpdPedidoWebDetalle(BEPedidoWebDetalle pedidowebdetalle)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdPedidoWebDetalle_SB");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdPedidoWebDetalle_SB2");
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, pedidowebdetalle.CampaniaID);
             Context.Database.AddInParameter(command, "@PedidoID", DbType.Int32, pedidowebdetalle.PedidoID);
             Context.Database.AddInParameter(command, "@PedidoDetalleID", DbType.Int16, pedidowebdetalle.PedidoDetalleID);
@@ -280,7 +280,7 @@ namespace Portal.Consultoras.Data
 
         public int DelPedidoWebDetalleMasivo(int CampaniaID, int PedidoID)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.DelPedidoWebDetalleMasivo_SB");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.DelPedidoWebDetalleMasivo_SB2");
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
             Context.Database.AddInParameter(command, "@PedidoID", DbType.Int32, PedidoID);
 
@@ -290,7 +290,7 @@ namespace Portal.Consultoras.Data
 
         public int DelPedidoWebDetallePackNueva(long ConsultoraID, int PedidoID)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.DelPedidoWebDetallePackNueva_SB");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.DelPedidoWebDetallePackNueva_SB2");
             Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, ConsultoraID);
             Context.Database.AddInParameter(command, "@PedidoID", DbType.Int32, PedidoID);
 
