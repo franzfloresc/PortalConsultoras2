@@ -251,7 +251,7 @@ function MostrarBarra(datax, destino) {
                 + '<div class="monto_minimo_barra">'
                     + '<div style="width:{wText}px;position: relative;" data-texto>'
                         + '<div class="{barra_tooltip_class}">'
-                            + '<a class="tippingPoint {estado}" href="javascript:;"' + (dataTP.ActivePremioElectivo ? 'onclick="javascript: cargarPopupEleccionRegalo();"' : '') + '></a>'
+                            + '<a class="tippingPoint {estado}" href="javascript:;" onclick="javascript: cargarPopupEleccionRegalo();"></a>'
                             + '{barra_monto}'
                             //+ '{barra_tooltip}'
                         + '</div>'
@@ -795,6 +795,12 @@ function cargarPremiosElectivos() {
 
             setPremio(premio);
             tpElectivos.hasPremios = true;
+
+            if (!belcorp.barra.settings.isMobile && !premio) {
+                setTimeout(function() {
+                    $('#divBarra .contenedor_circulos').show();
+                }, 2000);
+            }
         });
 }
 
