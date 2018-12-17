@@ -7,6 +7,7 @@ var tpElectivos = {
     premioSelected: null,
     premios : [],
     loadPremios: false,
+    hasPremios: false,
     pedidoDetails: []
 };
 
@@ -666,6 +667,10 @@ function initCarruselPremios(barra) {
 }
 
 function cargarPopupEleccionRegalo() {
+    if (!tpElectivos.hasPremios) {
+        return;
+    }
+
     checkPremioSelected();
     AbrirPopup('#popupEleccionRegalo');
     setTimeout(function () {
@@ -768,6 +773,7 @@ function cargarPremiosElectivos() {
             var premiosMostrar = getPremiosEstrategia(tpElectivos.premios);
 
             if (premiosMostrar.length === 0) {
+                setPremio(premio);
                 return;
             }
 
@@ -777,6 +783,7 @@ function cargarPremiosElectivos() {
             $('#hrefIconoRegalo').click(cargarPopupEleccionRegalo);
 
             setPremio(premio);
+            tpElectivos.hasPremios = true;
         });
 }
 
@@ -962,8 +969,10 @@ function showPopupNivelSuperado(barra, prevLogro) {
             
             var idPopup = '#popupPremio';
             var dvPremio = $(idPopup);
-            dvPremio.find('.sub-premio-elect').css('display', tpElectivos.premioSelected ? 'none': 'block');
-            dvPremio.find('.btn_escoger_o_cambiar_regalo').html(tpElectivos.premioSelected ? 'CAMBIAR PRODUCTO': '¡Escoger ahora!');
+            var btn = dvPremio.find('.btn_escoger_o_cambiar_regalo');
+            dvPremio.find('.sub-premio-elect').css('display', tpElectivos.premioSelected || !tpElectivos.hasPremios ? 'none': 'block');
+            btn.css('display', !tpElectivos.hasPremios ? 'none': 'block');
+            btn.html(tpElectivos.premioSelected ? 'CAMBIAR PRODUCTO': '¡Escoger ahora!');
             AbrirPopup(idPopup);
             setContainerLluvia(idPopup);
             mostrarLluvia();
