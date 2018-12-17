@@ -85,28 +85,8 @@
                 <div class="col-12 pl-0 pr-0 filtros__subtitulo mostrarEnDesktop">
                     Filtrar por:
                 </div>
-                <ul class="row flex-row ml-0 mr-0 filtros__lista">
-                    <li class="col-12 pl-0 pr-0 filtro__tipo">
-                        <div class="row flex-row justify-content-between align-items-center ml-0 mr-0 filtro__tipo__titulo filtro__tipo__titulo--mostrarContenido">
-                            <div class="col-10 pl-0 pr-0">Categorías</div>
-                            <div class="d-inline-block filtro__tipo__titulo__icono__despliegue"></div>
-                        </div>
-                        <ul class="row flex-row ml-0 mr-0 filtro__tipo__items" id="filtrosCategorias"></ul>
-                    </li>
-                    <li class="col-12 pl-0 pr-0 filtro__tipo">
-                        <div class="row flex-row justify-content-between align-items-center ml-0 mr-0 filtro__tipo__titulo filtro__tipo__titulo--mostrarContenido">
-                            <div class="col-10 pl-0 pr-0">Marcas</div>
-                            <div class="d-inline-block filtro__tipo__titulo__icono__despliegue"></div>
-                        </div>
-                        <ul class="row flex-row ml-0 mr-0 filtro__tipo__items" id="filtrosMarcas"></ul>
-                    </li>
-                    <li class="col-12 pl-0 pr-0 filtro__tipo">
-                        <div class="row flex-row justify-content-between align-items-center ml-0 mr-0 filtro__tipo__titulo filtro__tipo__titulo--mostrarContenido">
-                            <div class="col-10 pl-0 pr-0">Precios</div>
-                            <div class="d-inline-block filtro__tipo__titulo__icono__despliegue"></div>
-                        </div>
-                        <ul class="row flex-row ml-0 mr-0 filtro__tipo__items" id="filtrosPrecios"></ul>
-                    </li>
+                <ul class="row flex-row ml-0 mr-0 filtros__lista filtros__lista-handleBar">
+                    
                 </ul>
                 <div class="row flex-row justify-content-between align-items-center ml-0 mr-0 mostrarEnMobile filtro__btn__mobile__wrapper">
                     <div class="col-6 pl-0">
@@ -217,18 +197,33 @@
 
 <script id="js-fichaFiltros" type="text/x-handlebars-template">
     {{#each this as |item|}}
-    <li class="col-12 pl-0 pr-0 filtro__item" data-item="BuscadorFiltros">
-        <input type="hidden" class="BuscadorFiltroLabel" value="{{nombreFiltro}}" />
-        <input type="hidden" class="BuscadorFiltroID" value="{{idFiltro}}" />
-        <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields buscadorFiltrosSeleccionar">
-            <input id="{{idFiltro}}" type="checkbox" class="filtro__item__checkbox buscadorFiltrosChecked" {{#if marcado}} checked {{/if}} /> <!--checked-->
-            <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="{{idFiltro}}">
-                <span class="d-inline-block filtro__item__checkbox"></span>
-                <span class="d-inline-block">{{nombreFiltro}}</span>
-            </label>
+    <li class="col-12 pl-0 pr-0 filtro__tipo">
+        <div class="row flex-row justify-content-between align-items-center ml-0 mr-0 filtro__tipo__titulo filtro__tipo__titulo--mostrarContenido">
+            <div class="col-10 pl-0 pr-0">{{item.NombreGrupo}}</div>
+            <div class="d-inline-block filtro__tipo__titulo__icono__despliegue"></div>
         </div>
+        <ul class="row flex-row ml-0 mr-0 filtro__tipo__items">
+            {{#each item.Opciones as |filtro|}}
+                {{#iff filtro.cantidad '>' 0}}
+                <li class="col-12 pl-0 pr-0 filtro__item" data-item="BuscadorFiltros">
+                    <input type="hidden" class="BuscadorFiltroLabel" value="{{filtro.nombreFiltro}}" />
+                    <input type="hidden" class="BuscadorFiltroID" value="{{filtro.idFiltro}}" />
+                    <input type="hidden" class="BuscadorSeccionFiltro" value="{{item.NombreGrupo}}" />
+                    <div class="row flex-row flex-nowrap align-items-center ml-0 mr-0 filtro__item__form_fields buscadorFiltrosSeleccionar">
+                        <input id="{{filtro.idFiltro}}" type="checkbox" class="filtro__item__checkbox buscadorFiltrosChecked" {{#if filtro.marcado}} checked {{/if}} /> <!--checked-->
+                        <label class="col-11 pl-0 mb-0 filtro__item__descrip" for="{{filtro.idFiltro}}">
+                            <span class="d-inline-block filtro__item__checkbox"></span>
+                            <span class="d-inline-block">{{filtro.nombreFiltro}}</span>
+                        </label>
+                    </div>
+                </li>            
+                {{/iff}}
+            {{/each}}
+        </ul>
     </li>
     {{/each}}
+
+
 </script>
 
 <script id="js-FichaProductoBuscador" type="text/x-handlebars-template">
