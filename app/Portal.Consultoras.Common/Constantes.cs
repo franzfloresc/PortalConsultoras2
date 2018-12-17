@@ -1227,6 +1227,7 @@ namespace Portal.Consultoras.Common
             public const string Reclamos = "RECLAMOS";
             public const string MetodosPagos = "METODODEPAGO";
             public const string PagarAqui = "PAGAR";
+            public const string Ganancias = "GANANCIAS";
         }
 
         public static class IngresoExternoOrigen
