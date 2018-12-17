@@ -127,7 +127,7 @@ namespace Portal.Consultoras.Entities
         public bool PermiteAgregarPedido { get; set; }
 
         [DataMember]
-        public int? EstrategiaIDSicc { get; set; }
+        public int EstrategiaIDSicc { get; set; }
 
         public BEProducto(IDataRecord row)
         {
