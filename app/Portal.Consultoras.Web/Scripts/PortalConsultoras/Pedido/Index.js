@@ -2577,9 +2577,7 @@ function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion
     });
 }
 
-
 function UpdateCliente(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, setId, rowElement) {
-   
     var txtLPCant = $(rowElement).find(".txtLPCant");
     var txtLPTempCant = $(rowElement).find(".txtLPTempCant");
 
@@ -2619,124 +2617,6 @@ function UpdateCliente(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CU
     jQuery.ajax({
         type: "POST",
         url: baseUrl + "PedidoRegistro/UpdateTransaction",
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        data: JSON.stringify(item),
-        async: true,
-        success: function (data) {
-            CerrarSplash();
-
-            if (!checkTimeout(data))
-                return false;
-
-            if (data.success != true) {
-                var errorCliente = data.errorCliente || false;
-                if (!errorCliente) {
-                    messageInfoError(data.message);
-                }
-                else {
-                    messageInfoError(data.message, null, function () {
-                        showClienteDetalle(currentClienteEdit, function (cliente) {
-                            currentInputClienteID.val(cliente.ClienteID);
-                            currentInputClienteNombre.val(cliente.Nombre);
-                            currentInputEdit.val(cliente.Nombre);
-
-                            currentInputEdit.blur();
-                        }, function () {
-                            if (currentInputEdit != null) currentInputEdit.focus();
-                        });
-                    });
-                }
-                return false;
-            }
-
-            if ($(rowElement).find(".txtLPCli").val().length == 0) {
-                $(rowElement).find(".hdfLPCliDes").val($("#hdfNomConsultora").val());
-                $(rowElement).find(".txtLPCli").val($("#hdfNomConsultora").val());
-            }
-
-            $(txtLPTempCant).val($(txtLPCant).val());
-            $(rowElement).find(".hdfLPCliIni").val($(rowElement).find(".hdfLPCli").val());
-
-            var nomCli = $("#ddlClientes option:selected").text();
-            var monto = data.Total_Cliente;
-
-            $(".pMontoCliente").css("display", "none");
-
-            if (data.ClienteID_ != "-1") {
-                $(".pMontoCliente").css("display", "block");
-                $("#spnNombreCliente").html(nomCli + " :");
-                $("#spnTotalCliente").html(variablesPortal.SimboloMoneda + monto);
-            }
-
-            $("#hdfTotal").val(data.Total);
-            $("#spPedidoWebAcumulado").text(variablesPortal.SimboloMoneda + " " + data.TotalFormato);
-
-            var totalUnidades = parseInt($("#pCantidadProductosPedido").html());
-            totalUnidades = totalUnidades - parseInt(CantidadAnti) + parseInt(Cantidad);
-            $("#pCantidadProductosPedido").html(totalUnidades);
-
-            MostrarBarra(data);
-            if (data.modificoBackOrder) {
-                showDialog("divBackOrderModificado");
-            }
-
-            CargarDetallePedido();
-
-            var diferenciaCantidades = parseInt(Cantidad) - parseInt(CantidadAnti);
-            if (diferenciaCantidades > 0)
-                TrackingJetloreAdd(diferenciaCantidades.toString(), $("#hdCampaniaCodigo").val(), CUV);
-            else if (diferenciaCantidades < 0)
-                TrackingJetloreRemove((diferenciaCantidades * -1).toString(), $("#hdCampaniaCodigo").val(), CUV);
-        },
-        error: function (data, error) {
-            CerrarSplash();
-        }
-    });
-}
-
-
-
-function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, setId, rowElement) {
-    var txtLPCant = $(rowElement).find(".txtLPCant");
-    var txtLPTempCant = $(rowElement).find(".txtLPTempCant");
-
-    var val = ValidarUpdate(PedidoDetalleID, FlagValidacion, rowElement);
-    if (!val) return false;
-
-    var CliID = $(rowElement).find(".hdfLPCli").val();
-    var CliDes = $(rowElement).find(".txtLPCli").val();
-    var Cantidad = $(txtLPCant).val();
-    var CantidadAnti = $(txtLPTempCant).val();
-    var DesProd = $(rowElement).find(".lblLPDesProd").html();
-    var ClienteID_ = $("#ddlClientes").val();
-
-    var PrecioUnidad = $(rowElement).find(".hdfLPPrecioU").val();
-    if (CliDes.length == 0) {
-        CliID = 0;
-    }
-
-    var Unidad = $(rowElement).find(".hdfLPPrecioU").val();
-    var Total = DecimalToStringFormat(parseFloat(Cantidad * Unidad));
-    $(rowElement).find(".lblLPImpTotal").html(Total);
-    $(rowElement).find(".lblLPImpTotalMinimo").html(Total);
-    var item = {
-        CampaniaID: CampaniaID,
-        PedidoID: PedidoID,
-        PedidoDetalleID: PedidoDetalleID,
-        ClienteID: CliID,
-        Cantidad: Cantidad,
-        PrecioUnidad: PrecioUnidad,
-        Nombre: CliDes,
-        DescripcionProd: DesProd,
-        ClienteID_: ClienteID_,
-        SetId: setId
-    };
-
-    AbrirSplash();
-    jQuery.ajax({
-        type: "POST",
-        url: baseUrl + "Pedido/Update",
         dataType: "json",
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify(item),
@@ -3178,7 +3058,7 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, setI
 //            CantidadAnti = $(txtLPTempCant).val();
 //            var CantidadNueva = $(txtLPCant).val();
 
-//            var CantidadSoli = CantidadNueva;
+//            var CantidadSoli = (CantidadNueva - CantidadAnti);
 //            if (TipoOfertaSisID) {
 //                CantidadSoli = (CantidadNueva - CantidadAnti);
 //            }
@@ -3396,7 +3276,7 @@ function CambioPagina(obj) {
 //            $("#hdErrorInsertarProducto").val(data.errorInsertarProducto);
 
 //            if (divDialog != "") {
-//                $("#" + divDialog).dialog("close");
+//                HideDialog(divDialog);
 //            }
 
 //            if (model != null && model != undefined)

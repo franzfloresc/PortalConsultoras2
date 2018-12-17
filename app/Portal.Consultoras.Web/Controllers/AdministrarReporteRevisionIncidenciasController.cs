@@ -240,7 +240,7 @@ namespace Portal.Consultoras.Web.Controllers
                                         a.BEReporteCuvDetallado.ImagenTipos,
                                         a.BEReporteCuvDetallado.ImagenTonos,
                                         a.BEReporteCuvDetallado.NombreBulk,
-
+                                        a.BEReporteCuvDetallado.FactorRepeticion.ToString(),
                                         a.BEReporteCuvDetallado.RutaImagenTipos = string.Format(_configuracionManagerProvider.GetRutaImagenesAppCatalogo(), codigoISOPais, CampaniaID, DevolverInicialMarca(a.BEReporteCuvDetallado.CodigoMarca), a.BEReporteCuvDetallado.ImagenTipos),
                                         a.BEReporteCuvDetallado.RutaImagenTonos = string.Format(_configuracionManagerProvider.GetRutaImagenesAppCatalogoBulk(), codigoISOPais, CampaniaID, DevolverInicialMarca(a.BEReporteCuvDetallado.CodigoMarca), a.BEReporteCuvDetallado.ImagenTonos)
                                    }

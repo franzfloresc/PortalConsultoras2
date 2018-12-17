@@ -900,7 +900,11 @@ function EstructurarDataCarouselLiquidaciones(array) {
     return array;
 }
 //function AgregarProductoLiquidacion(contenedor) {    
+
+
 //    var inputCantidad = $(contenedor).find("[data-input='cantidad']").val();
+//    if (!$.isNumeric(inputCantidad)) {
+//        AbrirMensaje("Ingrese un valor numérico.");
 //        $(contenedor).find("#txtCantidad").val(1);
 //        return false;
 //    }
@@ -911,8 +915,10 @@ function EstructurarDataCarouselLiquidaciones(array) {
 //    }
 
 //    waitingDialog({});
-//    var item = {      
+//    var item = {  
+    
 //        Cantidad: $(contenedor).find("[data-input='cantidad']").val(),
+//        MarcaID: $(contenedor).find("#MarcaID").val(),
 //        PrecioUnidad: $(contenedor).find("#PrecioOferta").val(),
 //        CUV: $(contenedor).find("#CUV").val(),
 //        ConfiguracionOfertaID: $(contenedor).find("#ConfiguracionOfertaID").val(),
@@ -1255,10 +1261,10 @@ function EnlaceBanner(URL, TrackText, TipoAccion, CUVpedido, CantCUVpedido, Id, 
 //    InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido);
 //    SetGoogleAnalyticsPromotionClick(Id, Posicion, Titulo);
 
-//    $('#divConfirmarCUVBanner').dialog('close');
+//    HideDialog("divConfirmarCUVBanner");
 //}
 //function AgregarCUVBannerPedidoNo() {
-//    $('#divConfirmarCUVBanner').dialog('close');
+//    HideDialog("divConfirmarCUVBanner");
 //}
 
 //function InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido) {

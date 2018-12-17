@@ -768,6 +768,61 @@ namespace Portal.Consultoras.Web.Controllers
             return View(mostrarPagina());
         }
 
+        private List<BEPedidoWebDetalle> AgregarDetallePedido(PedidoSb2Model model)
+        {
+            try
+            {
+                BEPedidoDetalle pedidoDetalle = new BEPedidoDetalle();
+                pedidoDetalle.Producto = new ServicePedido.BEProducto();
+
+                pedidoDetalle.Estrategia = new ServicePedido.BEEstrategia();
+                pedidoDetalle.Estrategia.Cantidad = Convert.ToInt32(model.Cantidad);
+                pedidoDetalle.Estrategia.LimiteVenta = 99;
+                pedidoDetalle.Estrategia.DescripcionCUV2 = Util.Trim(model.DescripcionProd);
+                pedidoDetalle.Estrategia.FlagNueva = 0;
+                pedidoDetalle.Estrategia.Precio2 = model.PrecioUnidad;
+                pedidoDetalle.Estrategia.TipoEstrategiaID = 0;
+                pedidoDetalle.Estrategia.IndicadorMontoMinimo = string.IsNullOrEmpty(model.IndicadorMontoMinimo) ? 0 : Convert.ToInt32(model.IndicadorMontoMinimo);
+                pedidoDetalle.Estrategia.CUV2 = model.CUV;
+                pedidoDetalle.Estrategia.MarcaID = model.MarcaID;
+
+                pedidoDetalle.Producto.TipoOfertaSisID = model.TipoOfertaSisID;
+                pedidoDetalle.Producto.ConfiguracionOfertaID = model.ConfiguracionOfertaID;
+                pedidoDetalle.Producto.CUV = "";
+                pedidoDetalle.Producto.IndicadorMontoMinimo = string.IsNullOrEmpty(model.IndicadorMontoMinimo) ? 0 : Convert.ToInt32(model.IndicadorMontoMinimo);
+                pedidoDetalle.Producto.FlagNueva = "0";
+                pedidoDetalle.Usuario = Mapper.Map<ServicePedido.BEUsuario>(userData);
+                pedidoDetalle.Cantidad = Convert.ToInt32(model.Cantidad);
+                pedidoDetalle.PaisID = userData.PaisID;
+                pedidoDetalle.IPUsuario = GetIPCliente();
+                pedidoDetalle.OrigenPedidoWeb = ProcesarOrigenPedido(model.OrigenPedidoWeb);
+                pedidoDetalle.ClienteID = string.IsNullOrEmpty(model.ClienteID) ? (short)0 : Convert.ToInt16(model.ClienteID);
+                pedidoDetalle.Identifier = SessionManager.GetTokenPedidoAutentico() != null ? SessionManager.GetTokenPedidoAutentico().ToString() : string.Empty;
+                pedidoDetalle.EsSugerido = model.EsSugerido;
+                pedidoDetalle.EsKitNueva = model.EsKitNueva;
+                pedidoDetalle.OfertaWeb = model.OfertaWeb;
+
+                var pedidoDetalleResult = _pedidoWebProvider.InsertPedidoDetalle(pedidoDetalle);
+
+                if (pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS))
+                {
+                    SessionManager.SetPedidoWeb(null);
+                    SessionManager.SetDetallesPedido(null);
+                    SessionManager.SetDetallesPedidoSetAgrupado(null);
+
+                    return ObtenerPedidoWebDetalle();
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return new List<BEPedidoWebDetalle>();
+            }
+        }
 
         [HttpPost]
         public JsonResult CargarMisPedidos(string sidx, string sord, int page, int rows)
@@ -1510,95 +1565,52 @@ namespace Portal.Consultoras.Web.Controllers
             #endregion
         }
 
-        private List<BEPedidoWebDetalle> AgregarDetallePedido(PedidoSb2Model model)
-        {
-            try
-            {
-                //BEPedidoWebDetalle oBePedidoWebDetalle = new BEPedidoWebDetalle
-                //{
-                //    IPUsuario = userData.IPUsuario,
-                //    CampaniaID = userData.CampaniaID,
-                //    ConsultoraID = userData.ConsultoraID,
-                //    PaisID = userData.PaisID,
-                //    TipoOfertaSisID = model.TipoOfertaSisID,
-                //    ConfiguracionOfertaID = model.ConfiguracionOfertaID,
-                //    ClienteID = string.IsNullOrEmpty(model.ClienteID) ? (short)0 : Convert.ToInt16(model.ClienteID),
-                //    PedidoID = userData.PedidoID,
-                //    OfertaWeb = model.OfertaWeb,
-                //    IndicadorMontoMinimo = Convert.ToInt32(model.IndicadorMontoMinimo),
-                //    SubTipoOfertaSisID = 0,
-                //    EsSugerido = model.EsSugerido,
-                //    EsKitNueva = model.EsKitNueva,
-                //    MarcaID = Convert.ToByte(model.MarcaID),
-                //    Cantidad = Convert.ToInt32(model.Cantidad),
-                //    PrecioUnidad = model.PrecioUnidad,
-                //    CUV = model.CUV,
-                //    OrigenPedidoWeb = model.OrigenPedidoWeb,
-                //    DescripcionProd = model.DescripcionProd
-                //};
-
-                //oBePedidoWebDetalle.ImporteTotal = oBePedidoWebDetalle.Cantidad * oBePedidoWebDetalle.PrecioUnidad;
-                //oBePedidoWebDetalle.Nombre = oBePedidoWebDetalle.ClienteID == 0
-                //    ? userData.NombreConsultora
-                //    : model.ClienteDescripcion;
-
-                //bool errorServer;
-                //string tipo;
-                //List<BEPedidoWebDetalle> olstPedidoWebDetalle =
-                //    AdministradorPedido(oBePedidoWebDetalle, "I", out errorServer, out tipo);
+        //private List<BEPedidoWebDetalle> AgregarDetallePedido(PedidoSb2Model model)
+        //{
+        //    try
+        //    {
+        //        BEPedidoWebDetalle oBePedidoWebDetalle = new BEPedidoWebDetalle
+        //        {
+        //            IPUsuario = userData.IPUsuario,
+        //            CampaniaID = userData.CampaniaID,
+        //            ConsultoraID = userData.ConsultoraID,
+        //            PaisID = userData.PaisID,
+        //            TipoOfertaSisID = model.TipoOfertaSisID,
+        //            ConfiguracionOfertaID = model.ConfiguracionOfertaID,
+        //            ClienteID = string.IsNullOrEmpty(model.ClienteID) ? (short)0 : Convert.ToInt16(model.ClienteID),
+        //            PedidoID = userData.PedidoID,
+        //            OfertaWeb = model.OfertaWeb,
+        //            IndicadorMontoMinimo = Convert.ToInt32(model.IndicadorMontoMinimo),
+        //            SubTipoOfertaSisID = 0,
+        //            EsSugerido = model.EsSugerido,
+        //            EsKitNueva = model.EsKitNueva,
+        //            MarcaID = Convert.ToByte(model.MarcaID),
+        //            Cantidad = Convert.ToInt32(model.Cantidad),
+        //            PrecioUnidad = model.PrecioUnidad,
+        //            CUV = model.CUV,
+        //            OrigenPedidoWeb = model.OrigenPedidoWeb,
+        //            DescripcionProd = model.DescripcionProd
+        //        };
 
 
-                BEPedidoDetalle pedidoDetalle = new BEPedidoDetalle();
-                pedidoDetalle.Producto = new ServicePedido.BEProducto();
+        //        oBePedidoWebDetalle.ImporteTotal = oBePedidoWebDetalle.Cantidad * oBePedidoWebDetalle.PrecioUnidad;
+        //        oBePedidoWebDetalle.Nombre = oBePedidoWebDetalle.ClienteID == 0
+        //            ? userData.NombreConsultora
+        //            : model.ClienteDescripcion;
 
-                pedidoDetalle.Estrategia = new ServicePedido.BEEstrategia();
-                pedidoDetalle.Estrategia.Cantidad = Convert.ToInt32(model.Cantidad);
-                pedidoDetalle.Estrategia.LimiteVenta = 99;
-                pedidoDetalle.Estrategia.DescripcionCUV2 = Util.Trim(model.DescripcionProd);
-                pedidoDetalle.Estrategia.FlagNueva = 0;
-                pedidoDetalle.Estrategia.Precio2 = model.PrecioUnidad;
-                pedidoDetalle.Estrategia.TipoEstrategiaID = 0;
-                pedidoDetalle.Estrategia.IndicadorMontoMinimo = string.IsNullOrEmpty(model.IndicadorMontoMinimo) ? 0 : Convert.ToInt32(model.IndicadorMontoMinimo);
-                pedidoDetalle.Estrategia.CUV2 = model.CUV;
-                pedidoDetalle.Estrategia.MarcaID = model.MarcaID;
+        //        bool errorServer;
+        //        string tipo;
+        //        List<BEPedidoWebDetalle> olstPedidoWebDetalle =
+        //            AdministradorPedido(oBePedidoWebDetalle, "I", out errorServer, out tipo);
 
-                pedidoDetalle.Producto.TipoOfertaSisID = model.TipoOfertaSisID;
-                pedidoDetalle.Producto.ConfiguracionOfertaID = model.ConfiguracionOfertaID;
-                pedidoDetalle.Producto.CUV = "";
-                pedidoDetalle.Producto.IndicadorMontoMinimo = string.IsNullOrEmpty(model.IndicadorMontoMinimo) ? 0 : Convert.ToInt32(model.IndicadorMontoMinimo);
-                pedidoDetalle.Producto.FlagNueva = "0";
-                pedidoDetalle.Usuario = Mapper.Map<ServicePedido.BEUsuario>(userData);
-                pedidoDetalle.Cantidad = Convert.ToInt32(model.Cantidad);
-                pedidoDetalle.PaisID = userData.PaisID;
-                pedidoDetalle.IPUsuario = GetIPCliente();
-                pedidoDetalle.OrigenPedidoWeb = ProcesarOrigenPedido(model.OrigenPedidoWeb);
-                pedidoDetalle.ClienteID = string.IsNullOrEmpty(model.ClienteID) ? (short)0 : Convert.ToInt16(model.ClienteID);
-                pedidoDetalle.Identifier = SessionManager.GetTokenPedidoAutentico() != null ? SessionManager.GetTokenPedidoAutentico().ToString() : string.Empty;
-                pedidoDetalle.EsSugerido = model.EsSugerido;
-                pedidoDetalle.EsKitNueva = model.EsKitNueva;
-                pedidoDetalle.OfertaWeb = model.OfertaWeb;
-
-                var pedidoDetalleResult = _pedidoWebProvider.InsertPedidoDetalle(pedidoDetalle);
-
-                if (pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS))
-                {
-                    SessionManager.SetPedidoWeb(null);
-                    SessionManager.SetDetallesPedido(null);
-                    SessionManager.SetDetallesPedidoSetAgrupado(null);
-
-                    return ObtenerPedidoWebDetalle();
-                }
-                else
-                {
-                    return null;
-                }
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return new List<BEPedidoWebDetalle>();
-            }
-        }
+        //        return !errorServer ? olstPedidoWebDetalle : null;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+        //        return new List<BEPedidoWebDetalle>();
+        //    }
+        //}
 
         //private List<BEPedidoWebDetalle> AdministradorPedido(BEPedidoWebDetalle obePedidoWebDetalle, string tipoAdm,
         //    out bool errorServer, out string tipo)

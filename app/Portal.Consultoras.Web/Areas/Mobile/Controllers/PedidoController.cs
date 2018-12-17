@@ -352,11 +352,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 return RedirectToAction("Index", "Pedido", new { area = "Mobile" });
             }
 
-            List<BEPedidoWebDetalle> lstPedidoWebDetalle;
-            using (var sv = new PedidoServiceClient())
-            {
-                lstPedidoWebDetalle = _pedidoWebProvider.ObtenerPedidoWebSetDetalleAgrupado(EsOpt(), false);              
-            }
+            List<BEPedidoWebDetalle> lstPedidoWebDetalle = _pedidoWebProvider.ObtenerPedidoWebSetDetalleAgrupado(EsOpt(), false);
 
             BEPedidoWeb bePedidoWebByCampania = ObtenerPedidoWeb();
 

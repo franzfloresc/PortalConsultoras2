@@ -292,11 +292,11 @@ var EstrategiaAgregarModule = (function () {
                         if (cuv != "") {
                             cuvs = cuvs + (cuvs == "" ? "" : "|") + cuv;
                             //if (ConstantesModule.CodigoVariedad.CompuestaVariable == codigoVariante) {
-                                cuvs = cuvs + ";" + $(item).find(elementosDiv.EstrategiaHdMarcaID).val();
-                                cuvs = cuvs + ";" + $(item).find(elementosDiv.EstrategiaHdPrecioCatalogo).val();
-                                cuvs = cuvs + ";" + "";
-                                cuvs = cuvs + ";" + $(item).find(elementosDiv.Estrategia_hd_Digitable).val();
-                                cuvs = cuvs + ";" + $(item).find(elementosDiv.Estrategia_hd_Grupo).val();
+                            cuvs = cuvs + ";" + $(item).find(elementosDiv.EstrategiaHdMarcaID).val();
+                            cuvs = cuvs + ";" + $(item).find(elementosDiv.EstrategiaHdPrecioCatalogo).val();
+                            cuvs = cuvs + ";" + "";
+                            cuvs = cuvs + ";" + $(item).find(elementosDiv.Estrategia_hd_Digitable).val();
+                            cuvs = cuvs + ";" + $(item).find(elementosDiv.Estrategia_hd_Grupo).val();
                             //}
                         }
                     });
@@ -484,7 +484,7 @@ var EstrategiaAgregarModule = (function () {
                             $.each(listaCuvs,
                                 function (i, item) {
                                     if (!(item.hasAttribute('data-tono-digitable')))
-                                    var cuv = $(item).attr("data-tono-select", "");
+                                        var cuv = $(item).attr("data-tono-select", "");
                                 });
                         }
 

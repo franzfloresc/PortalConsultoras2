@@ -1642,7 +1642,7 @@
                    readonly="readOnly" onkeydown="return false;" style="width:90%; padding:4px;" />
             {{else}}
             <input type="text" name="{{Nombre}}" value="{{Nombre}}" maxlength="50" class="classClienteNombre ValidaAlfanumerico txtLPCli"
-                   onblur="BlurF(event, '{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '2', '{{CUV}}', '{{SetID}}')" style="width: 90%; padding: 4px;"
+                   onblur="BlurF(event, '{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '2', '{{CUV}}', '{{EsBackOrder}}', '{{SetID}}')" style="width: 90%; padding: 4px;"
                    datapedido="{{PedidoDetalleID}}" />
             {{/if_eq}}
             {{/if}}
@@ -1656,7 +1656,7 @@
                     <div class="tooltip_flecha_grid"></div>
                     <h6>Kit de Inicio</h6>
                     <p>Gana desde el comienzo con las mejores herramientas para tu negocio: productos ganadores, demostradores, fichas de los TOP de @(Model.EsPais) y más.</p>
-                    <p>@Model.MensajeKitNuevas</p>
+                    <p>* @Model.MensajeKitNuevas</p>
                 </div>
             </div>
             {{else}}

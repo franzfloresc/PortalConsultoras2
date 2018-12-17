@@ -1,28 +1,16 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
-using Portal.Consultoras.PublicService.Cryptography;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Providers;
-using Portal.Consultoras.Web.ServiceCliente;
-using Portal.Consultoras.Web.ServiceContenido;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
-using Portal.Consultoras.Web.ServiceSAC;
-using Portal.Consultoras.Web.ServicesCalculosPROL;
-using Portal.Consultoras.Web.ServiceUsuario;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.ServiceModel;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using System.Web;
-using System.Web.Configuration;
 using System.Web.Mvc;
-using System.Web.Routing;
-using BEPedidoWeb = Portal.Consultoras.Web.ServicePedido.BEPedidoWeb;
 using BEPedidoWebDetalle = Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -321,7 +309,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-        
+
         [HttpPost]
         public JsonResult UpdateTransaction(PedidoWebDetalleModel model)
         {
@@ -422,7 +410,7 @@ namespace Portal.Consultoras.Web.Controllers
                 pedidoEliminado = listaPedidoWebDetalle.FirstOrDefault(x => x.CUV == CUV);
                 if (pedidoEliminado == null)
                     return new Tuple<bool, JsonResult>(false, ErrorJson(Constantes.MensajesError.DeletePedido_CuvNoExiste)).Item2;
-            } 
+            }
 
             var result = await _pedidoWebProvider.EliminarPedidoDetalle(pedidoDetalle);
 
@@ -487,7 +475,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> DeleteAll()
+        public JsonResult DeleteAll()
         {
             string message;
             try
@@ -495,27 +483,43 @@ namespace Portal.Consultoras.Web.Controllers
                 if (ReservadoEnHorarioRestringido(out message)) return ErrorJson(message, true);
 
                 var usuario = Mapper.Map<ServicePedido.BEUsuario>(userData);
-                var listaPedidoWebDetalle = ObtenerPedidoWebDetalle();
-                //BEPedidoDetalle
-                BEPedidoDetalle pedidoDetalle = new BEPedidoDetalle();
-                pedidoDetalle.PedidoID = listaPedidoWebDetalle.FirstOrDefault().PedidoID;
-                pedidoDetalle.Usuario = Mapper.Map<ServicePedido.BEUsuario>(userData);
-                pedidoDetalle.PaisID = userData.PaisID;
-                pedidoDetalle.IPUsuario = GetIPCliente();
-                pedidoDetalle.Identifier = SessionManager.GetTokenPedidoAutentico() != null ? SessionManager.GetTokenPedidoAutentico().ToString() : string.Empty;
-                var olstPedidoWebDetalle2 = await _pedidoWebProvider.EliminarPedidoDetalle(pedidoDetalle);
+                using (var sv = new PedidoServiceClient())
+                {
+                    if (!sv.DelPedidoWebDetalleMasivo(usuario, userData.PedidoID)) return ErrorJson(Constantes.MensajesError.Pedido_DeleteAll, true);
+                }
+
+                var pedidoWebDetalle = ObtenerPedidoWebSetDetalleAgrupado() ?? new List<BEPedidoWebDetalle>();
+                var setIds = pedidoWebDetalle.Select(d => d.SetID);
+
+                var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
+                {
+                    PaisId = userData.PaisID,
+                    CampaniaId = userData.CampaniaID,
+                    ConsultoraId = userData.ConsultoraID,
+                    Consultora = userData.NombreConsultora,
+                    EsBpt = false,   //no se usa
+                    CodigoPrograma = userData.CodigoPrograma,
+                    NumeroPedido = userData.ConsecutivoNueva,
+                    AgruparSet = true
+                };
+                foreach (var setId in setIds)
+                {
+                    _pedidoSetProvider.EliminarSet(userData.PaisID, setId, bePedidoWebDetalleParametros);
+                }
+                List<BEPedidoWebDetalle> listaMarcaciones = ObtenerPedidoWebDetalle() ?? new List<BEPedidoWebDetalle>();
                 SessionManager.SetPedidoWeb(null);
                 SessionManager.SetDetallesPedido(null);
                 SessionManager.SetDetallesPedidoSetAgrupado(null);
                 SessionManager.SetBEEstrategia(Constantes.ConstSession.ListaEstrategia, null);
+                UpdPedidoWebMontosPROL();
+
+                return Json(new { success = true, DataBarra = GetDataBarra(), ListaMarcaciones = listaMarcaciones }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return ErrorJson(Constantes.MensajesError.Pedido_DeleteAll, true);
             }
-
-            return Json(new { success = true, DataBarra = GetDataBarra() }, JsonRequestBehavior.AllowGet);
         }
 
         private string PedidoWebTotalClienteFormato(string clienteId, List<BEPedidoWebDetalle> olstPedidoWebDetalle)
@@ -532,7 +536,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return formatoTotalCliente;
         }
-        
+
         private bool ValidarEsAgregado(BEPedidoWebDetalle pedidoAgrupado)
         {
             var listaPedidoWebDetalleAgrupado = ObtenerPedidoWebSetDetalleAgrupado();

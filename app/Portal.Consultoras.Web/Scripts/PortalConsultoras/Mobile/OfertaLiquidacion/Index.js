@@ -234,14 +234,14 @@ function EstructurarDataCarouselLiquidaciones(array) {
 //                        if (stockRestante < 1) {
 //                            $(article).find(".resta").attr('disabled', 'disabled');
 //                            $(article).find(".suma").attr('disabled', 'disabled');
-//                            $(article).find(".txtCantidad").attr('disabled', 'disabled');
+//                            $(article).find("#txtCantidad").attr('disabled', 'disabled');
 //                            $(article).find(".btnAgregarOfertaProducto").attr('disabled', 'disabled');
 
 //                            $(article).find(".claseStock").text("0");
-//                            $(article).find(".txtCantidad").val("0");
+//                            $(article).find("#txtCantidad").val("0");
 //                        } else {
 //                            $(article).find(".claseStock").text(stockRestante);
-//                            $(article).find(".txtCantidad").val("1");
+//                            $(article).find("#txtCantidad").val("1");
 //                        }
 
 //                        InfoCommerceGoogle(parseFloat(cantidad * PrecioUnidad).toFixed(2), CUV, DescripcionProd, DescripcionCategoria, PrecioUnidad, cantidad, DescripcionMarca, DescripcionEstrategia, posicionEstrategia);

@@ -736,6 +736,7 @@ function CancelarProductosSugeridos() {
 //    });
 //}
 
+// Movido a _insertarProductoPasePedidoMobile
 //function InsertarProducto() {    
 //    var esOfertaNueva = $("#hdfValorFlagNueva").val() === "1";
 //    var urlInsertar = esOfertaNueva ? urlPedidoInsertZe : urlPedidoInsert;
@@ -868,6 +869,9 @@ function CancelarProductosSugeridos() {
 
 //            if (belcorp.pedido.applyChanges)
 //                belcorp.pedido.applyChanges("onProductoAgregado", data);
+
+//            var seccionProductosRecomendados = $('.divProductosRecomendados');
+//            seccionProductosRecomendados.slideUp(200);
 //        },
 //        error: function (data, error) {
 //            CloseLoading();

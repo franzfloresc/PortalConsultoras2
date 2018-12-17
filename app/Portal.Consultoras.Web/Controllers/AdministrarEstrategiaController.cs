@@ -1194,11 +1194,9 @@ namespace Portal.Consultoras.Web.Controllers
         //        lst = sv.FiltrarEstrategiaPedido(entidad).ToList();
         //    }
 
-        //    var carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-
         //    if (lst.Count > 0)
         //    {
-        //        lst.Update(x => x.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenURL));
+        //        lst.Update(x => x.ImagenURL = ConfigS3.GetUrlFileS3Matriz(userData.CodigoISO, x.ImagenURL));
         //        lst.Update(x => x.Simbolo = userData.Simbolo);
         //    }
         //    ViewBag.ProductoDestacadoDetalle = lst[0];

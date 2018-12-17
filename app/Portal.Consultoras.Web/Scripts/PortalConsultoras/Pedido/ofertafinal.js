@@ -118,7 +118,10 @@ function CloseLoadingOF() {
 //    else add = InsertarProducto(model, false, 'PedidoInsertarOF');
 //    OpenLoadingOF();
 
-//    if (add == null) add.success = false;
+//    if (add == null) {
+//        add = {};
+//        add.success = false;
+//    }
 //    agregoOfertaFinal = true;
 //    return add;
 //}
