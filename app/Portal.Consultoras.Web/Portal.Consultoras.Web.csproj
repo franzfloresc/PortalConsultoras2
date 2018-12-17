@@ -4850,6 +4850,9 @@
     <None Include="Service References\ServiceUnete\PortalService8.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ServiceUnete\PortalService9.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServiceUsuarioExt\UsuarioWebService.wsdl" />
     <None Include="Service References\ServiceUsuarioExt\UsuarioWebService.xsd">
       <SubType>Designer</SubType>
