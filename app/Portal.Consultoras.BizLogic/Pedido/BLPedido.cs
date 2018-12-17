@@ -541,75 +541,78 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 }
                 #endregion
 
-                #region Gestion de Stock
-                //Validar Stock limite de Venta
-                var resultStockLimite = ValidarStockLimiteVenta(usuario, pedidoDetalle, lstDetalle.Where(x => x.PedidoDetalleID != pedidoDetalle.PedidoDetalleID).ToList(), out mensaje);
-                if (resultStockLimite) return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_LIMITE_VENTA, mensaje);
-
-                #endregion
-
                 #region UnidadesPermitidas y Stock
 
-                if (Convert.ToInt32(pedidoDetalle.Producto.TipoOfertaSisID) == Constantes.ConfiguracionOferta.Liquidacion)
+                if (!pedidoDetalle.EnRangoProgramaNuevas)
                 {
-                    var entidad = new BEOfertaProducto
+                    if (pedidoDetalle.Producto.TipoOfertaSisID == Constantes.ConfiguracionOferta.Liquidacion)
                     {
-                        PaisID = usuario.PaisID,
-                        CampaniaID = usuario.CampaniaID,
-                        CUV = pedidoDetalle.Producto.CUV,
-                        ConsultoraID = Convert.ToInt32(usuario.ConsultoraID)
-                    };
-
-                    var unidadesPermitidas = _ofertaProductoBusinessLogic.GetUnidadesPermitidasByCuv(usuario.PaisID, usuario.CampaniaID, pedidoDetalle.Producto.CUV);
-                    var saldo = _ofertaProductoBusinessLogic.ValidarUnidadesPermitidasEnPedido(usuario.PaisID, usuario.CampaniaID, pedidoDetalle.Producto.CUV, usuario.ConsultoraID);
-                    var cantidadPedida = _ofertaProductoBusinessLogic.CantidadPedidoByConsultora(entidad);
-                    var stock = _ofertaProductoBusinessLogic.GetStockOfertaProductoLiquidacion(usuario.PaisID, usuario.CampaniaID, pedidoDetalle.Producto.CUV);
-
-                    if (saldo < pedidoDetalle.StockNuevo)
-                    {
-                        if (saldo == unidadesPermitidas)
+                        var entidad = new BEOfertaProducto
                         {
-                            return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_UNIDAD_SOBREPASA_PERMITIDO, null, unidadesPermitidas);
-                        }
-                        else
+                            PaisID = usuario.PaisID,
+                            CampaniaID = usuario.CampaniaID,
+                            CUV = pedidoDetalle.Producto.CUV,
+                            ConsultoraID = Convert.ToInt32(usuario.ConsultoraID)
+                        };
+
+                        var unidadesPermitidas = _ofertaProductoBusinessLogic.GetUnidadesPermitidasByCuv(usuario.PaisID, usuario.CampaniaID, pedidoDetalle.Producto.CUV);
+                        var saldo = _ofertaProductoBusinessLogic.ValidarUnidadesPermitidasEnPedido(usuario.PaisID, usuario.CampaniaID, pedidoDetalle.Producto.CUV, usuario.ConsultoraID);
+                        var cantidadPedida = _ofertaProductoBusinessLogic.CantidadPedidoByConsultora(entidad);
+                        var stock = _ofertaProductoBusinessLogic.GetStockOfertaProductoLiquidacion(usuario.PaisID, usuario.CampaniaID, pedidoDetalle.Producto.CUV);
+
+                        if (saldo < pedidoDetalle.StockNuevo)
                         {
-                            if (saldo == 0)
+                            if (saldo == unidadesPermitidas)
                             {
-                                return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_UNIDAD_SINSALDO, null, unidadesPermitidas);
+                                return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_UNIDAD_SOBREPASA_PERMITIDO, null, unidadesPermitidas);
                             }
                             else
                             {
-                                return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_UNIDAD_CONSALDO, null, unidadesPermitidas, saldo);
+                                if (saldo == 0)
+                                {
+                                    return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_UNIDAD_SINSALDO, null, unidadesPermitidas);
+                                }
+                                else
+                                {
+                                    return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_UNIDAD_CONSALDO, null, unidadesPermitidas, saldo);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (stock < pedidoDetalle.StockNuevo)
+                            {
+                                return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_UNIDAD_SOBREPASA_STOCK, null, stock);
                             }
                         }
                     }
                     else
                     {
-                        if (stock < pedidoDetalle.StockNuevo)
+                        var message = ValidarStockEstrategiaMensaje(usuario, pedidoDetalle);
+                        if (!String.IsNullOrEmpty(message)) return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_STOCK_ESTRATEGIA, message);
+
+                        //ValidarCantidadEnProgramaNuevas   
+
+                        if (pedidoDetalle.EnRangoProgramaNuevas)
                         {
-                            return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_UNIDAD_SOBREPASA_STOCK, null, stock);
+                            int cantidadEnPedido = lstDetalle.Where(a => a.CUV == pedidoDetalle.Producto.CUV).Sum(b => b.Cantidad);
+                            var valor = _programaNuevasBusinessLogic.ValidarCantidadMaximaProgramaNuevas
+                                (usuario.PaisID, usuario.CampaniaID, usuario.ConsecutivoNueva, usuario.CodigoPrograma, cantidadEnPedido, pedidoDetalle.Producto.CUV, pedidoDetalle.Cantidad);
+
+                            if (valor != 0)
+                            {
+                                return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_STOCK_ESTRATEGIA, string.Format(Constantes.ProgNuevas.Mensaje.ExcedeLimiteUnidades, valor.ToString()));
+                            }
                         }
                     }
                 }
                 else
                 {
-                    var message = ValidarStockEstrategiaMensaje(usuario, pedidoDetalle);
-                    if (!String.IsNullOrEmpty(message)) return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_STOCK_ESTRATEGIA, message);
-
-                    //ValidarCantidadEnProgramaNuevas   
-
-                    if (pedidoDetalle.EnRangoProgramaNuevas)
-                    {
-                        int cantidadEnPedido = lstDetalle.Where(a => a.CUV == pedidoDetalle.Producto.CUV).Sum(b => b.Cantidad);
-                        var valor = _programaNuevasBusinessLogic.ValidarCantidadMaximaProgramaNuevas
-                            (usuario.PaisID, usuario.CampaniaID, usuario.ConsecutivoNueva, usuario.CodigoPrograma, cantidadEnPedido, pedidoDetalle.Producto.CUV, pedidoDetalle.Cantidad);
-
-                        if (valor != 0)
-                        {
-                            return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_STOCK_ESTRATEGIA, string.Format(Constantes.ProgNuevas.Mensaje.ExcedeLimiteUnidades,valor.ToString()));
-                        }
-                    }
+                    //Validar Stock limite de Venta
+                    var resultStockLimite = ValidarStockLimiteVenta(usuario, pedidoDetalle, lstDetalle.Where(x => x.PedidoDetalleID != pedidoDetalle.PedidoDetalleID).ToList(), out mensaje);
+                    if (resultStockLimite) return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_LIMITE_VENTA, mensaje);
                 }
+                
                 #endregion
 
                 if (pedidoDetalle.SetID > 0)
@@ -3110,83 +3113,87 @@ namespace Portal.Consultoras.BizLogic.Pedido
             };
             var lstDetalle = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
 
-            #region Gestion de Stock
-            //Validar Stock limite de Venta
-            var pedidoDetalleStock = new BEPedidoDetalle();
-            pedidoDetalleStock.Producto = new BEProducto();
-            pedidoDetalleStock.Producto.CUV = estrategia.CUV2;
-            pedidoDetalleStock.Cantidad = pedidoDetalle.Cantidad;
-            var resultStockLimite = ValidarStockLimiteVenta(usuario, pedidoDetalleStock, lstDetalle, out mensaje);
-            if (resultStockLimite) return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_LIMITE_VENTA, mensaje);
-
-            #endregion
-
             #region UnidadesPermitidas
-            estrategia.Cantidad = pedidoDetalle.Cantidad;
-            if (pedidoDetalle.Producto.TipoOfertaSisID == Constantes.ConfiguracionOferta.Liquidacion)
+
+            if (!pedidoDetalle.EnRangoProgramaNuevas)
             {
-                var entidad = new BEOfertaProducto
+                estrategia.Cantidad = pedidoDetalle.Cantidad;
+                if (pedidoDetalle.Producto.TipoOfertaSisID == Constantes.ConfiguracionOferta.Liquidacion)
                 {
-                    PaisID = usuario.PaisID,
-                    CampaniaID = usuario.CampaniaID,
-                    CUV = estrategia.CUV2,
-                    ConsultoraID = Convert.ToInt32(usuario.ConsultoraID)
-                };
-
-                var unidadesPermitidas = _ofertaProductoBusinessLogic.GetUnidadesPermitidasByCuv(usuario.PaisID, usuario.CampaniaID, estrategia.CUV2);
-                var saldo = _ofertaProductoBusinessLogic.ValidarUnidadesPermitidasEnPedido(usuario.PaisID, usuario.CampaniaID, estrategia.CUV2, usuario.ConsultoraID);
-                var cantidadPedida = _ofertaProductoBusinessLogic.CantidadPedidoByConsultora(entidad);
-                var stock = _ofertaProductoBusinessLogic.GetStockOfertaProductoLiquidacion(usuario.PaisID, usuario.CampaniaID, estrategia.CUV2);
-
-                if (saldo < estrategia.Cantidad)
-                {
-                    if (saldo == unidadesPermitidas)
+                    var entidad = new BEOfertaProducto
                     {
-                        return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_UNIDAD_SOBREPASA_PERMITIDO, null, unidadesPermitidas);
-                    }
-                    else
+                        PaisID = usuario.PaisID,
+                        CampaniaID = usuario.CampaniaID,
+                        CUV = estrategia.CUV2,
+                        ConsultoraID = Convert.ToInt32(usuario.ConsultoraID)
+                    };
+
+                    var unidadesPermitidas = _ofertaProductoBusinessLogic.GetUnidadesPermitidasByCuv(usuario.PaisID, usuario.CampaniaID, estrategia.CUV2);
+                    var saldo = _ofertaProductoBusinessLogic.ValidarUnidadesPermitidasEnPedido(usuario.PaisID, usuario.CampaniaID, estrategia.CUV2, usuario.ConsultoraID);
+                    var cantidadPedida = _ofertaProductoBusinessLogic.CantidadPedidoByConsultora(entidad);
+                    var stock = _ofertaProductoBusinessLogic.GetStockOfertaProductoLiquidacion(usuario.PaisID, usuario.CampaniaID, estrategia.CUV2);
+
+                    if (saldo < estrategia.Cantidad)
                     {
-                        if (saldo == 0)
+                        if (saldo == unidadesPermitidas)
                         {
-                            return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_UNIDAD_SINSALDO, null, unidadesPermitidas);
+                            return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_UNIDAD_SOBREPASA_PERMITIDO, null, unidadesPermitidas);
                         }
                         else
                         {
-                            return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_UNIDAD_CONSALDO, null, unidadesPermitidas, saldo);
+                            if (saldo == 0)
+                            {
+                                return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_UNIDAD_SINSALDO, null, unidadesPermitidas);
+                            }
+                            else
+                            {
+                                return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_UNIDAD_CONSALDO, null, unidadesPermitidas, saldo);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (stock < estrategia.Cantidad)
+                        {
+                            return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_UNIDAD_SOBREPASA_STOCK, null, stock);
                         }
                     }
                 }
                 else
                 {
-                    if (stock < estrategia.Cantidad)
+                    var lstDetalleAgrupado = ObtenerPedidoWebSetDetalleAgrupado(usuario, out pedidoID);
+                    if (lstDetalleAgrupado.Any(x => x.CUV == estrategia.CUV2))
                     {
-                        return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_UNIDAD_SOBREPASA_STOCK, null, stock);
+                        var cantidadActual = lstDetalleAgrupado.Where(x => x.CUV == estrategia.CUV2).Sum(x => x.Cantidad);
+                        if (cantidadActual + estrategia.Cantidad > estrategia.LimiteVenta)
+                        {
+                            return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_CANTIDAD_LIMITE, null, estrategia.LimiteVenta);
+                        }
+                    }
+                    else
+                    {
+                        if (estrategia.Cantidad > estrategia.LimiteVenta)
+                        {
+                            return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_CANTIDAD_LIMITE, null, estrategia.LimiteVenta);
+                        }
                     }
                 }
             }
             else
             {
-                var lstDetalleAgrupado = ObtenerPedidoWebSetDetalleAgrupado(usuario, out pedidoID);
-                if (lstDetalleAgrupado.Any(x => x.CUV == estrategia.CUV2))
-                {
-                    var cantidadActual = lstDetalleAgrupado.Where(x => x.CUV == estrategia.CUV2).Sum(x => x.Cantidad);
-                    if (cantidadActual + estrategia.Cantidad > estrategia.LimiteVenta)
-                    {
-                        return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_CANTIDAD_LIMITE, null, estrategia.LimiteVenta);
-                    }
-                }
-                else
-                {
-                    if (estrategia.Cantidad > estrategia.LimiteVenta)
-                    {
-                        return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_CANTIDAD_LIMITE, null, estrategia.LimiteVenta);
-                    }
-                }
+                //Validar Stock limite de Venta
+                var pedidoDetalleStock = new BEPedidoDetalle();
+                pedidoDetalleStock.Producto = new BEProducto();
+                pedidoDetalleStock.Producto.CUV = estrategia.CUV2;
+                pedidoDetalleStock.Cantidad = pedidoDetalle.Cantidad;
+                var resultStockLimite = ValidarStockLimiteVenta(usuario, pedidoDetalleStock, lstDetalle, out mensaje);
+                if (resultStockLimite) return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_LIMITE_VENTA, mensaje);
             }
+
             #endregion
 
             #region MontoMaximo
-            
+
             pedidoDetalle.PedidoID = pedidoID;
 
             //Monto Máximo
