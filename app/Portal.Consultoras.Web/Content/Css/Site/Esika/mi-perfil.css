@@ -57,6 +57,10 @@
     width:81%;
 }
 
+.w-85{
+    width:85%;
+}
+
 .w-100{
     width:100%!important;
 }
@@ -385,7 +389,7 @@ input:focus{
 
 .opcion_mi_perfil_contenido{
     padding-top:23px;
-    border-top: 1px solid #B5B5B5;
+    border-top: 1px solid #808080;
 }
 
     .opcion_direccion_entrega .opcion_mi_perfil_contenido{
@@ -418,7 +422,7 @@ input:focus{
         top:22px;
         left:0;
         font-size:14px;
-        font-weight:bold;
+        font-weight:400;
         height:25px;
         background-color:rgba(255,255,255,1);
         z-index:2;
@@ -430,7 +434,8 @@ input:focus{
     .celular_actual span:first-child,
     .grupo_form_cambio_datos select
     {
-        color:#000;
+        color:#808080;
+        letter-spacing:0.2px;
     }
 
     .grupo_form_cambio_datos label,
@@ -498,6 +503,8 @@ input:focus{
         top:0;
         font-size:14px;
         background-color: rgba(255,255,255,0);
+        color:#000;
+        font-weight:bold;
     }
 
     .grupo_form_cambio_datos input:focus + label,
@@ -546,7 +553,7 @@ input:focus{
     margin-left:17px;
     margin-right:-3px;
     vertical-align:bottom;
-    padding-bottom:12px;
+    padding-bottom:7px;
     position:relative;
     z-index:3;
 }

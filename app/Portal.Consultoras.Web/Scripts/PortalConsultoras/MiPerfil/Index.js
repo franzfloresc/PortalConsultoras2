@@ -24,7 +24,7 @@ $(document).ready(function () {
         }
         me.Funciones = {
             CrearComponentesMapa: function () {
-                debugger;
+                
                 map = new google.maps.Map($('.mapa_wrapper')[0], {
                     center: { lat: -77.0282400, lng: -12.0431800 },
                     zoom: 17,
@@ -50,7 +50,7 @@ $(document).ready(function () {
                     lat: me.Propiedades.latitudIni,
                     lng: me.Propiedades.longitudIni
                 };
-                debugger;
+                
                 if (me.Propiedades.viewport)
                     map.fitBounds(me.Propiedades.viewport);
                 map.setCenter(coordenadas);
@@ -70,7 +70,7 @@ $(document).ready(function () {
 
             },
             InicializarEventosMapa: function () {
-                debugger;
+                
                 marker.addListener('dragstart', me.Eventos.DragStart);
                 marker.addListener('dragend', me.Eventos.DragEnd);
                 searchBox.addListener('place_changed', me.Eventos.PlaceChanged);
@@ -122,13 +122,13 @@ $(document).ready(function () {
             },
             ValidacionMapa: function () {
                 $('#txtDireccion').focusout(function () {
-                    debugger;
+                    
                     if ($(this).val().length === 0) {
                         //$('.enlace_abrir_mapa')[0].disabled = true;
                     }
                 });
                 $("#txtCiudad").change(function () {
-                    debugger;
+                    
                     $('#txtDireccion').val('');
                     $('.enlace_abrir_mapa')[0].disabled = false;
                     var coordenadas = {
@@ -203,7 +203,7 @@ $(document).ready(function () {
                 map.setCenter(coordenadas);
             },
             ModoEdicion: function() {
-                debugger;
+                
                 var coordenadas = {
                     lat: -12.1145937,
                     lng: -77.00693360000002
@@ -278,7 +278,7 @@ $(document).ready(function () {
             },
 
                 CerrarPopupUbicacionDireccionEntrega: function () {
-                    debugger;
+                    
                     //me.Funciones.ResetearMapa();
 
                     _googleMap.Funciones.ResetearMapa();
@@ -290,7 +290,7 @@ $(document).ready(function () {
 
                 },
                 PlaceChanged: function () {
-                    debugger;
+                    
                     var place = searchBox.getPlace();
                     if (!place.geometry) {
                         return;
@@ -330,7 +330,7 @@ $(document).ready(function () {
                 DragEnd: function () {
                     var Latlng = { lat: this.position.lat(), lng: this.position.lng() };
                     me.Funciones.QueryGeocode({ latLng: Latlng}, function (results, status) {
-                        debugger;
+                        
                         if (status === 'OK') {
                             if (results[0])
                             {
@@ -373,7 +373,7 @@ $(document).ready(function () {
                 }      
             },
         me.Inicializar = function () {
-                 debugger;
+                 
                 me.Funciones.InicializarEventos();
                 me.Funciones.CamposFormularioConDatos();
                 me.Funciones.mostrarTelefono();
@@ -1038,7 +1038,7 @@ var GoogleMap = function() {
 }
 
 function initMapa() {
-    debugger;
+    
         _googleMap = new GoogleMap();
         _googleMap.InicializarMapa();
    
