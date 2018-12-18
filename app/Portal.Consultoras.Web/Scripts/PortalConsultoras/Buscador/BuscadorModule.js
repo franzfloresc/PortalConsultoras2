@@ -50,7 +50,8 @@ var BuscadorModule = (function () {
         agregarProducto: ".agregarProductoBuscador",
         redireccionarFicha: ".redireccionarFicha",
         botonVerTodos: "#BotonVerTodosResultados",
-        logoPaginaResponsive: '.logoPaginaResponsive'
+        logoPaginaResponsive: '.logoPaginaResponsive',
+        valueJSON: ".hdBuscadorJSON"
     };
     var _config = {
         isMobile: window.matchMedia("(max-width:991px)").matches,
@@ -180,6 +181,8 @@ var BuscadorModule = (function () {
 
             var valorBusqueda = $(this).val();
 
+            localStorage.setItem('valorBuscador', valorBusqueda);
+
             if (valorBusqueda.length >= _config.caracteresBuscador) {
                 _funciones.CampoDeBusquedaConCaracteres($("#CampoBuscadorProductos"));
                 if (_config.contadorBusqueda === 0) {
@@ -227,6 +230,10 @@ var BuscadorModule = (function () {
                         if (r.total == 0) {
                             $(".spinner").fadeOut(150);
                             $(".busqueda_sin_resultados").fadeIn(60);
+
+                            if (!(typeof AnalyticsPortalModule === 'undefined'))
+                                AnalyticsPortalModule.MarcaBusquedaSinResultadosBuscador(valorBusqueda);
+
                         } else {
 
                             $.each(r.productos, function (index, item) {
@@ -304,7 +311,7 @@ var BuscadorModule = (function () {
             var divPadre = $(this).parents("[data-item='ProductoBuscador']").eq(0);
             var textoBusqueda = $(_elementos.campoBuscadorProductos).val();
             _funciones.LlamarAnalyticsSeleccionarContenido(textoBusqueda);
-            BuscadorProvider.RegistroProductoBuscador(divPadre, textoBusqueda);
+            BuscadorProvider.RegistroProductoBuscador(divPadre, _elementos.valueJSON);
         },
         RedireccionarAFichaDeFotoYDescripcion: function (e) {
             e.preventDefault();
@@ -315,8 +322,12 @@ var BuscadorModule = (function () {
             var codigoCampania = $(divPadre).find(".hdBuscadorCampaniaID").val();
             var codigoCuv = $(divPadre).find(".hdBuscadorCUV").val();
             var OrigenPedidoWeb = $(divPadre).find(".hdBuscadorOrigenPedidoWeb").val();
+            var descripcionProducto = $(divPadre).find(".hdBuscadorDescripcion").val();
 
             var codigo = ["030", "005", "001", "007", "008", "009", "010", "011"];
+
+            if (textoBusqueda != "")
+                localStorage.setItem('valorBuscador', textoBusqueda);            
 
             if (codigo.indexOf(codigoEstrategia) >= 0) {
                 var UrlDetalle = GetPalanca(codigoEstrategia);
@@ -324,12 +335,22 @@ var BuscadorModule = (function () {
                 UrlDetalle += codigoCampania + "/" + codigoCuv + "/" + OrigenPedidoWeb;
                 _funciones.LlamarAnalyticsElijeUnaOpcion(UrlDetalle, textoBusqueda);
                 window.location = UrlDetalle;
+
+                if (!(typeof AnalyticsPortalModule === 'undefined'))
+                    AnalyticsPortalModule.MarcaEligeTuOpcionBuscador(descripcionProducto + ' - ' + $(_elementos.campoBuscadorProductos).val());
+
                 return true;
             }
         },
         ClickVerTodos: function () {
             var valorBusqueda = $(_elementos.campoBuscadorProductos).val();
             var url = _config.urlBusquedaProducto + "?q=" + valorBusqueda;
+
+            if (!(typeof AnalyticsPortalModule === 'undefined'))
+                AnalyticsPortalModule.MarcaVerTodosLosResultadosBuscador(valorBusqueda);
+
+            localStorage.setItem('valorBuscador', valorBusqueda);
+
             window.location.href = url;
         },
         RedireccionarMenuPrincipal: function (e) {

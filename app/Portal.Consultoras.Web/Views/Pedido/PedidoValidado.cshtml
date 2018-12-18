@@ -6,7 +6,7 @@
 }
 
 @section styles{
-    <link href="@Url.Content("~/Content/Css/Site/style-pedido.css")" rel="stylesheet" />
+    @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/PedidoValidado")
 }
 
 <div class="franja_negra pedidoReservado" style="background: #000 url(@ViewBag.UrlFranjaNegra) no-repeat center bottom;"></div>
@@ -190,7 +190,7 @@
             <hr class="clear" />
             <div class="linea_gris" style="margin-top:30px"></div>
         </div>
-        
+
         <div class="contenedor_eliminacion_pedido">
             @if (ViewBag.EsKitNueva == 1)
             {
@@ -286,7 +286,7 @@
         </div>
         <div class="contenedor_lista_productosAgotados">
             <h6>PRODUCTOS <b>AGOTADOS</b> de <b>@((string)ViewBag.Campania.ToUpper())</b></h6>
-            
+
             <div class="content_cuv">
                 <section>
                     <div class="filtroInput">
@@ -312,7 +312,7 @@
                 </section>
             </div>
 
-            <div class="tabla_productos_agotados" id="tblProductosFaltantes"  style="overflow-y:hidden;"></div>
+            <div class="tabla_productos_agotados" id="tblProductosFaltantes" style="overflow-y:hidden;"></div>
         </div>
         <div class="clear"></div>
     </div>
@@ -383,7 +383,7 @@
     <div class="content_listado_notificaciones">
         <div class="cod_venta_listado">{{CUV}}</div>
         <div class="descripcion_listado pedidoPadreToolTip descri_list" style="position:relative;">
-            
+
             <span class="texto_pedidos_ofertas">
                 <label for="{{DescripcionOferta}}">{{DescripcionOferta}}</label>
             </span>
@@ -488,6 +488,5 @@
         var correoElectronico = '@Model.eMail';
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
     </script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Pedido/Validado.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Pedido/barra.js")"></script>
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/PedidoValidado")
 }

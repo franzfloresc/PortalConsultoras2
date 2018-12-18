@@ -1,11 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
@@ -14,13 +10,6 @@ namespace Portal.Consultoras.Common
 {
     public class JwtAutentication
     {
-
-
-
-
- 
- 
-
         #region Async Metodos
 
         public static async Task<string> getWebTokenAsync(JwtContext request)
@@ -43,21 +32,19 @@ namespace Portal.Consultoras.Common
                         responseBody = await response.Content.ReadAsStringAsync();
                         JwtToken Token = JsonConvert.DeserializeObject<JwtToken>(responseBody);
                         if (Token != null) JwtToken = Token.Token;
-
-
                     }
                 }
             }
 
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                //
             }
 
             return JwtToken;
         }
-       
-     
+
+
 
     }
     #endregion

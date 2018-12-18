@@ -224,6 +224,7 @@
     <Compile Include="Mobile\DAApp.cs" />
     <Compile Include="PagoEnLinea\DAPagoEnLinea.cs" />
     <Compile Include="Pedido\DAPedidoWebSet.cs" />
+    <Compile Include="LimiteVenta\DAGestionStock.cs" />
     <Compile Include="ProgramaNuevas\DANivelesProgramaNuevas.cs" />
     <Compile Include="ProgramaNuevas\DAPremioNuevas.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

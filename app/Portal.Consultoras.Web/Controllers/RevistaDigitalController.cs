@@ -60,24 +60,23 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Comprar()
         {
-            string sap = "";
-            var url = (Request.Url.Query).Split('?');
-
-            if (EsDispositivoMovil())
-            {
-                if (url.Length > 1)
-                {
-                    sap = "&" + url[1];
-                    return RedirectToAction("Comprar", "RevistaDigital", new { area = "Mobile", sap });
-                }
-                else
-                {
-                    return RedirectToAction("Comprar", "RevistaDigital", new { area = "Mobile" });
-                }
-            }
 
             try
             {
+                if (EsDispositivoMovil())
+                {
+                    var url = (Request.Url.Query).Split('?');
+                    if (url.Length > 1)
+                    {
+                        string sap = "&" + url[1];
+                        return RedirectToAction("Comprar", "RevistaDigital", new { area = "Mobile", sap });
+                    }
+                    else
+                    {
+                        return RedirectToAction("Comprar", "RevistaDigital", new { area = "Mobile" });
+                    }
+                }
+
                 ViewBag.variableEstrategia = GetVariableEstrategia();
                 return RDViewLanding(1);
             }
@@ -329,9 +328,8 @@ namespace Portal.Consultoras.Web.Controllers
                     FondoColorMarco = _revistaDigitalProvider.GetValorDato(Constantes.ConfiguracionPaisDatos.RD.PopupFondoColorMarco, esMobile)
                 };
 
-                var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                modelo.ImagenEtiqueta = ConfigCdn.GetUrlFileCdn(carpetaPais, modelo.ImagenEtiqueta);
-                modelo.ImagenPublicidad = ConfigCdn.GetUrlFileCdn(carpetaPais, modelo.ImagenPublicidad);
+                modelo.ImagenEtiqueta = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, modelo.ImagenEtiqueta);
+                modelo.ImagenPublicidad = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, modelo.ImagenPublicidad);
 
                 var transparent = "transparent";
                 modelo.MensajeColor = Util.ColorFormato(modelo.MensajeColor, transparent);

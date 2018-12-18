@@ -22,6 +22,20 @@ registerEvent.call(opcionesEvents, "onOptionSelected");
 
 var variablesPortal = variablesPortal || {};
 
+//Función para breadcumb
+function eventBreadCumb(url, titulo) {
+
+    var codigoPalanca = fichaModule.GetEstrategia().CodigoPalanca || "";
+    if (!(typeof AnalyticsPortalModule === 'undefined')) {
+        if (codigoPalanca === ConstantesModule.TipoEstrategia.MG) {
+            AnalyticsPortalModule.ClickOnBreadcrumb(url, codigoPalanca, titulo);
+            return;
+        }
+    }
+
+    document.location = url;
+}
+
 var FichaModule = (function (config) {
     "use strict";
 
@@ -124,7 +138,7 @@ var FichaModule = (function (config) {
     };
 
     var _ocultarTabs = function () {
-        
+
         var estrategia = _localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
 
         $(_seccionesFichaProducto.ContenidoProducto).hide();
@@ -141,7 +155,7 @@ var FichaModule = (function (config) {
 
         var showTabContainer = false;
         if (_codigoPalanca.ShowRoom === _config.palanca ||
-            ConstantesModule.ConstantesPalanca.Lanzamiento === _config.palanca) {
+			ConstantesModule.ConstantesPalanca.Lanzamiento === _config.palanca) {
             showTabContainer = true;
         }
 
@@ -227,10 +241,10 @@ var FichaModule = (function (config) {
         }
 
         if (_codigoPalanca.HerramientasVenta === _config.palanca ||
-            _codigoPalanca.OfertasParaMi === _config.palanca ||
-            _codigoPalanca.OfertaParaTi === _config.palanca ||
-            _codigoPalanca.GuiaDeNegocioDigitalizada === _config.palanca ||
-            _codigoPalanca.OfertaDelDia === _config.palanca) {
+			_codigoPalanca.OfertasParaMi === _config.palanca ||
+			_codigoPalanca.OfertaParaTi === _config.palanca ||
+			_codigoPalanca.GuiaDeNegocioDigitalizada === _config.palanca ||
+			_codigoPalanca.OfertaDelDia === _config.palanca) {
             $(_seccionesFichaProducto.ContenidoProducto).hide();
         }
         else if (_codigoPalanca.Lanzamiento === _config.palanca) {
@@ -278,8 +292,8 @@ var FichaModule = (function (config) {
         var campaniaActual = 0;
         var strCampaniaActual = $(_elementos.hdCampaniaCodigo.id).val();
         if (!$(_elementos.hdCampaniaCodigo.id) ||
-            $.trim(strCampaniaActual) === "" ||
-            isNaN(strCampaniaActual)) return campaniaActual;
+			$.trim(strCampaniaActual) === "" ||
+			isNaN(strCampaniaActual)) return campaniaActual;
 
         campaniaActual = parseInt(strCampaniaActual);
 
@@ -294,8 +308,8 @@ var FichaModule = (function (config) {
                 cuv2: estrategia.CUV2,
                 campania: _config.campania,
                 codigoVariante: estrategia.CodigoVariante,
-				codigoEstrategia: estrategia.CodigoEstrategia,
-				lstHermanos: estrategia.Hermanos
+                codigoEstrategia: estrategia.CodigoEstrategia,
+                lstHermanos: estrategia.Hermanos
             };
             _promiseObternerComponentes(param).done(function (data) {
                 estrategia.Hermanos = data.componentes;
@@ -355,6 +369,9 @@ var FichaModule = (function (config) {
         }
         else {
             estrategia = _localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
+            if ((typeof estrategia === "undefined" || estrategia === null) && _config.palanca === _codigoPalanca.OfertasParaMi) {
+                estrategia = _localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _codigoPalanca.Ganadoras);
+            }
         }
 
         if (typeof estrategia !== "undefined" && estrategia !== null) {
@@ -370,7 +387,7 @@ var FichaModule = (function (config) {
 
     var _setEstrategiaBreadcrumb = function (estrategia) {
         if (typeof estrategia.DescripcionCompleta !== "undefined" &&
-            estrategia.DescripcionCompleta != null) {
+			estrategia.DescripcionCompleta != null) {
             estrategia.DescripcionCompleta = $.trim(estrategia.DescripcionCompleta);
             var palabrasEstrategiaDescripcion = estrategia.DescripcionCompleta.split(" ");
             var estrategiaBreadcrumb = palabrasEstrategiaDescripcion[0];
@@ -497,11 +514,11 @@ var FichaModule = (function (config) {
     var _crearReloj = function (estrategia) {
         $("#clock").each(function (index, elem) {
             $(elem).FlipClock(estrategia.TeQuedan,
-                {
-                    countdown: true,
-                    clockFace: "HourlyCounter",
-                    language: "es-es"
-                });
+				{
+				    countdown: true,
+				    clockFace: "HourlyCounter",
+				    language: "es-es"
+				});
         });
     };
 
@@ -531,6 +548,7 @@ var FichaModule = (function (config) {
             SetHandlebars("#template-fichadetallevideo", estrategia, "#contenedor-tab-video");
 
             if (youtubeModule) {
+
                 youtubeModule.Inicializar();
             }
         }
@@ -541,7 +559,7 @@ var FichaModule = (function (config) {
 
         _estrategia = _getEstrategia();
         var estrategia = _estrategia;
-        
+
         if (estrategia == null) {
             console.log('location', 1);
             window.location = baseUrl + (isMobile() ? "Mobile/" : "") + "Ofertas";
@@ -553,8 +571,8 @@ var FichaModule = (function (config) {
         SetHandlebars("#detalle_ficha_template", estrategia, "#seccion_ficha_handlebars");
 
         if (estrategia.CodigoVariante === _codigoVariedad.IndividualVariable ||
-            estrategia.CodigoVariante === _codigoVariedad.CompuestaVariable ||
-            estrategia.esCampaniaSiguiente) _validarDesactivadoGeneral(estrategia);
+			estrategia.CodigoVariante === _codigoVariedad.CompuestaVariable ||
+			estrategia.esCampaniaSiguiente) _validarDesactivadoGeneral(estrategia);
 
         if (estrategia.TipoAccionAgregar <= 0) {
             $(_seccionesFichaProducto.dvContenedorAgregar).hide();
@@ -594,18 +612,17 @@ var FichaModule = (function (config) {
         //Handlers bars para el detalle de los tabs de fichas
         _construirSeccionDetalleFichas(estrategia);
 
-        // Se realiza la marcación en analytics de la información de la ficha de un producto.
-        var tipoMoneda = AnalyticsPortalModule.FcVerificarTipoMoneda(variablesPortal.SimboloMoneda);
-        AnalyticsPortalModule.MarcarVerFichaProducto(tipoMoneda, estrategia.DescripcionCompleta.trim(), estrategia.CUV2.trim(), estrategia.PrecioVenta, estrategia.DescripcionMarca, null, estrategia.CodigoVariante, _config.palanca);
+        if (!(typeof AnalyticsPortalModule === 'undefined'))
+            AnalyticsPortalModule.MarcaVisualizarDetalleProducto(estrategia);
+
         return true;
     };
 
-    function getEstrategia()
-    {
+    function getEstrategia() {
         return _estrategia || _getEstrategia();
     }
 
-    function Inicializar() { 
+    function Inicializar() {
         _localStorageModule = LocalStorageModule();
         _construirSeccionEstrategia();
         _ocultarSecciones();

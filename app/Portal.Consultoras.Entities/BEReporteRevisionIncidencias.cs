@@ -69,6 +69,8 @@ namespace Portal.Consultoras.Entities
             ImagenTipos = row.ToString("ImagenTipos");
             ImagenTonos = row.ToString("ImagenTonos");
             NombreBulk = row.ToString("NombreBulk");
+            FactorRepeticion = row.ToInt32("FactorRepeticion");
+            CodigoMarca = row.ToString("CodigoMarca");
         }
 
         #region Member Properties
@@ -97,25 +99,28 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public int FactorCuadre { get; set; }
-
         [DataMember]
         public decimal PrecioUnitario { get; set; }
-
         [DataMember]
         public decimal PrecioPublico { get; set; }
-
         [DataMember]
         public int Digitable { get; set; }
-
         [DataMember]
         public string NombreProducto { get; set; }
-
+        [DataMember]
+        public string CodigoMarca { get; set; }
+        [DataMember]
+        public string RutaImagenTipos { get; set; }
+        [DataMember]
+        public string RutaImagenTonos { get; set; }
         [DataMember]
         public string ImagenTipos { get; set; }
         [DataMember]
         public string ImagenTonos { get; set; }
         [DataMember]
         public string NombreBulk { get; set; }
+        [DataMember]
+        public int FactorRepeticion { get; set; }
 
         #endregion
     }
