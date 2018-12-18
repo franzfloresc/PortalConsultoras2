@@ -117,7 +117,8 @@ $(document).ready(function () {
             ListaCoincidenciasBusquedaProductosCdr: "#ListaCoincidenciasBusquedaProductosCdr",
             popupCuvDescripcion: ".popupCuvDescripcion",
             hdCuvCodigo: "#hdCuvCodigo",
-            EleccionTipoEnvio: "#EleccionTipoEnvio"
+            EleccionTipoEnvio: "#EleccionTipoEnvio",
+            hdTieneCDRExpress: "#hdTieneCDRExpress"
         };
 
         me.Eventos = {
@@ -1549,6 +1550,12 @@ $(document).ready(function () {
                     MensajeDespacho: '',
                     EsMovilFin: OrigenCDR
                 };
+
+                if ($(me.Variables.hdTieneCDRExpress).val() == '1') {
+                    item.TipoDespacho = tipoDespacho;
+                    item.FleteDespacho = !tipoDespacho ? 0 : $("#hdFleteDespacho").val();
+                    item.MensajeDespacho = $(!tipoDespacho ? '#divDespachoNormal' : '#divDespachoExpress').CleanWhitespace().html();
+                }
 
                 ShowLoading();
                 jQuery.ajax({

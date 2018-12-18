@@ -237,38 +237,51 @@
         </div>
         <div id="divDetallePaso3" class="AceptarSolucion UltimasSolicitudes" style="display:none;">
         </div>
-        <div id="EleccionTipoEnvio" class="eleccion_tipo_envio text-left">
-            <div class="tipo_envio tipo_envio_regular">
-                <div class="tipo_envio_checkbox">
-                    <input type="radio" value="" id="TipoEnvioRegular" name="TipoEnvio" />
-                    <label for="TipoEnvioRegular">
-                        <span></span>
-                    </label>
+        @if (Model.TieneCDRExpress)
+        {
+            <div id="EleccionTipoEnvio" class="eleccion_tipo_envio text-left">
+                <div class="tipo_envio tipo_envio_regular">
+                    <div class="tipo_envio_checkbox">
+                        <input type="radio" value="" id="TipoEnvioRegular" name="TipoEnvio" />
+                        <label for="TipoEnvioRegular">
+                            <span></span>
+                        </label>
+                    </div>
+                    <div id="divDespachoNormal" class="tipo_envio_descripcion">
+                        @Model.MensajesExpress.RegularPrincipal
+                        <br />
+                        @Model.MensajesExpress.RegularAdicional
+                    </div>
                 </div>
-                <div class="tipo_envio_descripcion">
-                    Envío <span class="text-uppercase">Regular</span> junto con tu pedido.
-                    <br />
-                    - Sin costo adicional.
+                <div class="tipo_envio tipo_envio_express">
+                    <div class="tipo_envio_checkbox">
+                        <input type="radio" value="" id="TipoEnvioExpress" name="TipoEnvio" />
+                        <label for="TipoEnvioExpress">
+                            <span></span>
+                        </label>
+                    </div>
+                    <div id="divDespachoExpress" class="tipo_envio_descripcion">
+                        @Model.MensajesExpress.ExpressPrincipal
+                        <br />
+                        @if (!string.IsNullOrEmpty(Model.MensajesExpress.ExpressFlete))
+                        { @Model.MensajesExpress.ExpressFlete}                        
+                        @if (Model.EsConsultoraNueva)
+                        {
+                            <br />
+                            <span style="color:red;">@Model.MensajesExpress.Nuevas</span>
+                        }                        
+                        <br />
+                        @Model.MensajesExpress.ExpressAdicional
+                    </div>
                 </div>
             </div>
-            <div class="tipo_envio tipo_envio_express">
-                <div class="tipo_envio_checkbox">
-                    <input type="radio" value="" id="TipoEnvioExpress" name="TipoEnvio" />
-                    <label for="TipoEnvioExpress">
-                        <span></span>
-                    </label>
-                </div>
-                <div class="tipo_envio_descripcion">
-                    Envío <span class="text-uppercase">Express</span> especial.
-                    <br />
-                    Tiene un costo de envío.
-                    <br />
-                    Recíbelo: <span>Lima 48 horas y provincia 72 horas</span>.
-                    <br />
-                    No aplica domingos ni feriados.
-                </div>
-            </div>
+        }
+
+        <div style="display:none;">
+            <input type="hidden" id="hdTieneCDRExpress" value="@(Model.TieneCDRExpress ? 1 : 0)" />
+            <input type="hidden" id="hdFleteDespacho" value="@Model.FleteDespacho" />
         </div>
+
         <div class="validacion_datos tipografia_lato AceptarSolucion" style="display:none;">
             <div class="validacion_seccion_titulo">
                 <div class="titulo_validacion_datos tipografia_lato_bold">Valida tus datos</div>
