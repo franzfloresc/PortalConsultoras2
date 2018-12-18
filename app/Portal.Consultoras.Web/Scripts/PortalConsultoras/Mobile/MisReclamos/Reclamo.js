@@ -5,6 +5,7 @@ var pasoActual = 1;
 var paso2Actual = 1;
 var misReclamosRegistro;
 var listaPedidos = new Array();
+var tipoDespacho = false;
 
 $(document).ready(function () {
     'use strict';
@@ -518,6 +519,14 @@ $(document).ready(function () {
                         $(this).toggle($(this).attr('data-value').toLowerCase().indexOf(valorInputBusquedaCuvDescripcion) > -1);
                     });
                 });
+
+                $('.tipo_envio_checkbox label').click(function () {
+                    $('.tipo_envio_checkbox label').prev().removeAttr('checked');
+                    $(this).prev().attr('checked', 'checked');
+                    var oID = $(this).prev().attr("id");
+                    if (oID == "TipoEnvioExpress") tipoDespacho = true;
+                    else tipoDespacho = false;
+                });
             }
         };
 
@@ -565,11 +574,7 @@ $(document).ready(function () {
                             $(me.Variables.ddlnumPedido).hide();
                             $(me.Variables.hdPedidoID).val(data.datos[0].PedidoID);
                             $(me.Variables.txtNumPedido).val("N° " + data.datos[0].NumeroPedido);
-                            //$(me.Variables.txtNumPedido).show();
                             me.Funciones.BuscarCUV();
-                            //$("#txtPedidoID").val(data.datos[0].PedidoID);
-                            //$("#txtNumeroPedido").val(data.datos[0].NumeroPedido);
-                            //BuscarCUV();
                         }
                         else if (data.datos.length > 1) {
                             $(me.Variables.txtNumPedido).hide();                            
@@ -1534,7 +1539,7 @@ $(document).ready(function () {
                     me.Funciones.ControlSetError(me.Variables.txtEmail, me.Variables.spnEmailError, '*Este correo ya está siendo utilizado. Intenta con otro');
                     return false;
                 }
-
+                
                 if ($(me.Variables.politica_devolucion).prop("checked") == false) {
                     messageInfoError(me.Constantes.DebeAceptarPoliticaCambios);
                     return false;
@@ -1550,11 +1555,11 @@ $(document).ready(function () {
                     MensajeDespacho: '',
                     EsMovilFin: OrigenCDR
                 };
-
+                
                 if ($(me.Variables.hdTieneCDRExpress).val() == '1') {
                     item.TipoDespacho = tipoDespacho;
                     item.FleteDespacho = !tipoDespacho ? 0 : $("#hdFleteDespacho").val();
-                    item.MensajeDespacho = $(!tipoDespacho ? '#divDespachoNormal' : '#divDespachoExpress').CleanWhitespace().html();
+                    item.MensajeDespacho = ($(!tipoDespacho ? '#divDespachoNormal' : '#divDespachoExpress').CleanWhitespace().html()).trim();
                 }
 
                 ShowLoading();
