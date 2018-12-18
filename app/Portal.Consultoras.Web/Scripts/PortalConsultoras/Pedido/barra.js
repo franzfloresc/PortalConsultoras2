@@ -674,13 +674,16 @@ function initCarruselPremios(barra) {
     }
 }
 
-function cargarPopupEleccionRegalo() {
+function cargarPopupEleccionRegalo(disableCheck) {
     if (!tpElectivos.hasPremios) {
         return;
     }
 
-    checkPremioSelected();
-    //$('#popupEleccionRegalo').fadeIn(200);
+    var disable = typeof disableCheck === 'boolean' && disableCheck === true;
+    if (!disable) {
+        checkPremioSelected();
+    }
+
     AbrirPopup('#popupEleccionRegalo');
     setTimeout(function () {
         armarCarouselRegalos();
@@ -702,8 +705,7 @@ function checkPremioSelected() {
         return;
     }
 
-    if (tpElectivos.premioSelected &&
-        tpElectivos.premioSelected.CUV2 == detail.CUV) {
+    if (isCuvSelected(detail.CUV)) {
         return;
     }
 
@@ -815,7 +817,9 @@ function agregarPremioDefault() {
             return;
         }
 
-        setPremio(premio);
+        tpElectivos.premioSelected = premio;
+        $('#divBarra .contenedor_circulos').hide();
+        //setPremio(premio);
     });
 }
 
@@ -844,6 +848,17 @@ function getElementPremiosByCuv(list, cuv) {
         }
     }
     return null;
+}
+
+function isCuvSelected(cuv) {
+    if (!tpElectivos.premioSelected ||
+        tpElectivos.premioSelected.CUV2 != cuv)
+    {
+        return false;
+    }
+    var element = getElementByCuv(cuv);
+
+    return element && element.hasClass('opcion_regalo_carousel_elegido');
 }
 
 function loadCarruselPremiosEvents() {
@@ -975,10 +990,14 @@ function getDivPremios() {
     return container.find('.opcion_regalo_carousel_programaNuevas');
 }
 
-function selectPremioDivByCuv(cuv) {
+function getElementByCuv(cuv) {
     var list = getDivPremios();
 
-    var element = getElementPremiosByCuv(list, cuv);
+    return getElementPremiosByCuv(list, cuv);
+}
+
+function selectPremioDivByCuv(cuv) {
+    var element = getElementByCuv(cuv);
     if (!element) {
         return;
     }
