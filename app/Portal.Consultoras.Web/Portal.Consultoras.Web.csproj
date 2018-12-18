@@ -785,6 +785,7 @@
     <Compile Include="Providers\EventoFestivoProvider.cs" />
     <Compile Include="Providers\GuiaNegocioProvider.cs" />
     <Compile Include="Providers\BaseProvider.cs" />
+    <Compile Include="Providers\MiPerfilProvider.cs" />
     <Compile Include="Providers\ProgramaNuevasProvider.cs" />
     <Compile Include="Providers\IssuuProvider.cs" />
     <Compile Include="Providers\MenuContenedorProvider.cs" />
