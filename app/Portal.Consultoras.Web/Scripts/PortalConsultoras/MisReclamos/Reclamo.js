@@ -116,21 +116,15 @@ $(document).ready(function () {
             return false;
         }
 
+        //El if se hizo con !() para colnsiderar posibles valores null o undefined de $('#ddCampania').val()
         if (!($('#ddlCampania').val() > 0)) {
             alert_msg(mensajeCdrFueraDeFechaCompleto);
             return false;
         }
 
-        if ($("#ddlnumPedido").css('display') !== 'none') {
-            $("#ddlnumPedido").val("0");
-            $("#ddlCuv").html("");            
-        }
-        
-
         $('.chosen-select').chosen();
-        $(".chosen-select").val('').trigger("chosen:updated"); 
-
-        //$("#txtCUV").val("");        
+        $(".chosen-select").val('').trigger("chosen:updated");
+     
         $("#hdtxtCUVDescripcion").val("");
         $("#txtCantidad").val("1");
         $("#divMotivo").html('');
@@ -140,7 +134,7 @@ $(document).ready(function () {
         $("#hdImporteTotal2").val(0);
         $("#txtCUVDescripcion2").val("");
         $("#txtCantidad2").val("1");
-        CambioPaso(-100);        
+        CambioPaso(-100);
         $('#ddlnumPedido').append($('<option></option>').val($("#txtPedidoID").val()).html("N° " + $("#txtNumeroPedido").val()));
         $("#ddlnumPedido").show();
         $("#ddlnumPedido").attr("disabled", "disabled");
