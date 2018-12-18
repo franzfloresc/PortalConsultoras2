@@ -80,11 +80,11 @@
             <div style="display:none;"><div data-estrategia="{{JSON2string item}}"></div></div>
             <div data-item-tag="contenido"
                  {{#iff EsSubcampania '==' false}}
-                 {{#iff TipoAccionAgregar 'ContainsArray' '[@Constantes.TipoAccionAgregar.LoQuieres,@Constantes.TipoAccionAgregar.LoQuieresInactivo]' }}
-                 onclick="javascript:VerPopupExpGanaMas();"
-                 {{else}}
-                 onclick="javascript:OnClickFichaDetalle(event.target);"
-                 {{/iff}}
+                     {{#iff TipoAccionAgregar 'ContainsArray' '[@Constantes.TipoAccionAgregar.LoQuieres,@Constantes.TipoAccionAgregar.LoQuieresInactivo]' }}
+                        onclick="javascript:VerPopupExpGanaMas();"
+                     {{else}}
+                        onclick="javascript:OnClickFichaDetalle(event.target);"
+                     {{/iff}}
                  {{/iff}}>
                 <div class="producto_img_home" data-item-tag="foto">
                     <img class="imagen_producto" style="max-width: 100% !important;" data-src="{{ImgUrl FotoProducto01}}" data-img-lazy="1" data-lazy-seccion-revista-digital="" alt="" />

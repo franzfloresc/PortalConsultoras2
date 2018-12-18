@@ -39,10 +39,19 @@
                 <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{variedad.IdMarca}}" />
                 <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{variedad.PrecioCatalogo}}" />
             </div>
-            <div title="Agotado" id="fav_tono_{{variedad.Cuv}}" class="content_tono_detalle tono-agotado"
-                 {{#unless ../esCampaniaSiguiente}}
-                 onclick="javascript: ComponentesModule.SeleccionarPaletaOpcion(event,{{variedad.Cuv}})"
-                 {{/unless}}
+            <div id="fav_tono_{{variedad.Cuv}}"
+                    {{#iff TieneStock '==' false}}
+                        class="content_tono_detalle  tono-agotado" title="Agotado"  
+                        {{#unless ../esCampaniaSiguiente}}
+                            onclick=" "
+                        {{/unless}}
+                    {{else}}
+                        class="content_tono_detalle"
+                        {{#unless ../esCampaniaSiguiente}}
+                            onclick="javascript: ComponentesModule.SeleccionarPaletaOpcion(event,{{variedad.Cuv}})"
+                        {{/unless}}
+                    {{/iff}}
+                
                  data-tono-cuv="{{variedad.Cuv}}"
                  data-tono-change="2"
                  data-tono-nombre="{{variedad.NombreBulk}}"

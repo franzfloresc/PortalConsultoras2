@@ -38,7 +38,11 @@
                 <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{variedad.IdMarca}}" />
                 <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{variedad.PrecioCatalogo}}" />
             </div>
-            <div class="content_tono_detalle tono_agotado"
+            <div {{#iff TieneStock '==' false}}
+                    class="content_tono_detalle tono-agotado" style="pointer-events:none"
+                 {{else}}
+                    class="content_tono_detalle tono-agotado"
+                 {{/iff}}
                  {{#unless ../esCampaniaSiguiente}}
                  onclick="javascript: ComponentesModule.SeleccionarPaletaOpcion(event,{{variedad.Cuv}});"
                  {{/unless}}
