@@ -33,7 +33,8 @@ namespace Portal.Consultoras.Web.Controllers
             if (beusuario != null)
             {
                 model.PaisISO = userData.CodigoISO;
-
+                ViewBag.LocationCountry = userData.CodigoISO;
+                ViewBag.EsMobile = IsMobile();
                 model.NombreCompleto = beusuario.Nombre;
                 model.NombreGerenteZonal = userData.NombreGerenteZonal;
                 model.EMail = beusuario.EMail;

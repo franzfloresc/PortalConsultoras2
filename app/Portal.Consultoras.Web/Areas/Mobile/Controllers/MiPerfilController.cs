@@ -15,6 +15,7 @@ using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using Portal.Consultoras.Web.ServiceSAC;
 using System.Collections.Generic;
+using System.ServiceModel.Channels;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
@@ -25,7 +26,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             ServiceUsuario.BEUsuario beusuario;
             var model = new MisDatosModel();
-
+            
             using (var sv = new UsuarioServiceClient())
             {
                 beusuario = sv.Select(userData.PaisID, userData.CodigoUsuario);
@@ -33,6 +34,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             if (beusuario != null)
             {
+                ViewBag.LocationCountry = userData.CodigoISO;
+                ViewBag.EsMobile = IsMobile();
                 model.PaisISO = userData.CodigoISO;
 
                 model.NombreCompleto = beusuario.Nombre;
