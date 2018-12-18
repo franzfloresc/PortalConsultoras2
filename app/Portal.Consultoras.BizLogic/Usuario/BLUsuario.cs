@@ -3687,5 +3687,21 @@ namespace Portal.Consultoras.BizLogic
             };
         }
         #endregion
+
+        #region UsuariosOpciones
+        public List<BEUsuarioOpciones> GetUsuarioOpciones(int paisID, string codigoUsuario)
+        {
+            List<BEUsuarioOpciones> UsuarioOpcion = new List<BEUsuarioOpciones>();
+            var DAUsuario = new DAUsuario(paisID);
+            using (IDataReader reader = DAUsuario.GetUsuarioOpciones(codigoUsuario))
+            {
+                while (reader.Read())
+                {
+                    UsuarioOpcion.Add(new BEUsuarioOpciones(reader));
+                }
+            }
+            return UsuarioOpcion;
+        }
+        #endregion
     }
 }

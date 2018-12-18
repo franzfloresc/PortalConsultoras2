@@ -15,15 +15,18 @@ using AutoMapper;
 using System.ServiceModel;
 using Portal.Consultoras.Web.Infraestructure.Sms;
 using System.Collections.Generic;
+using Portal.Consultoras.Web.Providers;
 
 namespace Portal.Consultoras.Web.Controllers
 {
     public class MiPerfilController : BaseController
     {
+        protected TablaLogicaProvider _tablaLogica;
         public ActionResult Index()
         {
             BEUsuario beusuario;
             var model = new MisDatosModel();
+            _tablaLogica = new TablaLogicaProvider();
 
             using (var sv = new UsuarioServiceClient())
             {
@@ -108,7 +111,8 @@ namespace Portal.Consultoras.Web.Controllers
                         model.PermisoMenu.Add(subitem.Descripcion);
                     }                    
                 }
-                model.BoletaImpresa = userData.BoletaImpresa;
+
+                model.UsuarioOpciones = _tablaLogica.ObtenerParametrosTablaLogica(userData.PaisID, Constantes.TablaLogica.MiPerfilCheckBox, true);
             }
 
             return View(model);

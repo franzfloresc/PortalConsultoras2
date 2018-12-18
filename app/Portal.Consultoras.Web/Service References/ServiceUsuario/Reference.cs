@@ -1918,6 +1918,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string NombrePaisField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool NotificacionWhatsappField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int NovedadBuscadorField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -3966,6 +3969,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.NombrePaisField, value) != true)) {
                     this.NombrePaisField = value;
                     this.RaisePropertyChanged("NombrePais");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool NotificacionWhatsapp {
+            get {
+                return this.NotificacionWhatsappField;
+            }
+            set {
+                if ((this.NotificacionWhatsappField.Equals(value) != true)) {
+                    this.NotificacionWhatsappField = value;
+                    this.RaisePropertyChanged("NotificacionWhatsapp");
                 }
             }
         }

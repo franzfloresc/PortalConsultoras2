@@ -399,6 +399,5 @@ namespace Portal.Consultoras.Web.Models
         public int IndicadorConsultoraDummy { get; set; }
         public string PersonalizacionesDummy { get; set; }
         public Dictionary<string, string> ListaOrdenamientoFiltrosBuscador { get; set; }
-        public bool BoletaImpresa { get; set; }
     }
 }

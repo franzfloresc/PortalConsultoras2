@@ -941,5 +941,12 @@ namespace Portal.Consultoras.Service
             return _usuarioBusinessLogic.EnviarSmsCodigo(paisID, codigoUsuario, codigoConsultora, campaniaID, esMobile, celularActual, celularNuevo);
         }
         #endregion
+
+        #region UsuarioOpciones
+        public List<BEUsuarioOpciones> GetUsuarioOpciones(int paisID, string codigoUsuario)
+        {
+            return _usuarioBusinessLogic.GetUsuarioOpciones(paisID, codigoUsuario);
+        }
+        #endregion
     }
 }

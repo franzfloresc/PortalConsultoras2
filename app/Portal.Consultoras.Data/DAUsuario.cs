@@ -987,5 +987,12 @@ namespace Portal.Consultoras.Data
             
             Context.ExecuteNonQuery(command);
         }
+
+        public IDataReader GetUsuarioOpciones(string codigoUsuario)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("GetUsuarioOpciones");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.String, codigoUsuario);
+            return Context.ExecuteReader(command);
+        }
     }
 }

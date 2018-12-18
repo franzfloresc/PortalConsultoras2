@@ -102,5 +102,8 @@ namespace Portal.Consultoras.BizLogic
         BERespuestaServicio ActualizarEmailWS(BEUsuario usuario, string correoNuevo);
         BERespuestaServicio EnviarSmsCodigo(int paisID, string codigoUsuario, string codigoConsultora, int campaniaID, bool esMobile, string celularActual, string celularNuevo);
         #endregion
+        #region UsuariosOpciones
+        List<BEUsuarioOpciones> GetUsuarioOpciones(int paisID, string codigoUsuario);
+        #endregion
     }
 }
