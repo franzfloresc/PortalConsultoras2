@@ -113,7 +113,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         model.PermisoMenu.Add(subitem.Descripcion);
                     }
                 }
-                model.BoletaImpresa = userData.BoletaImpresa;
+
             }
 
             return View(model);

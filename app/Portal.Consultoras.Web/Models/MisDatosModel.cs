@@ -4,6 +4,10 @@ namespace Portal.Consultoras.Web.Models
 {
     public class MisDatosModel
     {
+        public MisDatosModel()
+        {
+            UsuarioOpciones = new List<UsuarioOpcionesModel>();
+        }
         public string PaisISO { get; set; }
         public string CodigoUsuario { get; set; }
         public string CodigoUsuarioReal { get; set; }
@@ -38,7 +42,7 @@ namespace Portal.Consultoras.Web.Models
         public int PaisID { get; set; }
         public int IniciaNumeroCelular { get; set; }
         public int IndicadorConsultoraDigital { get; set; }
-        public List<string> PermisoMenu { get; set; }
-        public bool BoletaImpresa { get; set; }
+        public List<string> PermisoMenu { get; set; }        
+        public List<UsuarioOpcionesModel> UsuarioOpciones { get; set; }
     }
 }

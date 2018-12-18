@@ -245,22 +245,45 @@ else
         <div class="permisos_cuenta_wrapper">
             <div class="permisos_cuenta_titulo">
                 Permisos sobre tu cuenta :
-            </div>
+            </div>            
             <div class="permisos_cuenta_opciones">
+
+            @*@foreach (var item in Model.ListaCheckBox)
+            {
+                if (item.Descripcion == "Quiero recibir mis boletas impresas" && item.Valor == "1")
+                {
                 <div class="permiso_cuenta_opcion">
-                    <div class="permiso_cuenta_opcion_descripcion">Quiero recibir mis boletas impresas</div>
+                    <div class="permiso_cuenta_opcion_descripcion">@item.Descripcion</div>
                     <fieldset class="grupo_form_permiso_cuenta">
                         <input class="permiso_cuenta_opcion_checkbox" type="checkbox" name="chkBoletasImpresas" id="chkBoletasImpresas" checked="@Model.BoletaImpresa" />
                         <label for="chkBoletasImpresas" class="permiso_cuenta_opcion_label"></label>
                     </fieldset>
                 </div>
+                }
+                else if (item.Descripcion == "Quiero que se comuniquen conmigo por WhatsApp" && item.Valor == "1")
+                {
                 <div class="permiso_cuenta_opcion">
-                    <div class="permiso_cuenta_opcion_descripcion">Quiero que se comuniquen conmigo por WhatsApp</div>
+                    <div class="permiso_cuenta_opcion_descripcion">@item.Descripcion</div>
                     <fieldset class="grupo_form_permiso_cuenta">
-                        <input class="permiso_cuenta_opcion_checkbox" type="checkbox" name="chkComunicacionWhatsApp" id="chkComunicacionWhatsApp" />
+                        <input class="permiso_cuenta_opcion_checkbox" type="checkbox" name="chkComunicacionWhatsApp" id="chkComunicacionWhatsApp" checked="@Model.NotificacionWhatsapp" />
                         <label for="chkComunicacionWhatsApp" class="permiso_cuenta_opcion_label"></label>
                     </fieldset>
                 </div>
+                }
+            }*@
+                @*@foreach (var item in Model.ListaCheckBox)
+                {
+                    if (item.Valor == "1")
+                    {
+                        <div class="permiso_cuenta_opcion">
+                            <div class="permiso_cuenta_opcion_descripcion">@item.Descripcion</div>
+                            <fieldset class="grupo_form_permiso_cuenta">
+                                <input class="permiso_cuenta_opcion_checkbox" type="checkbox" name="@item.Codigo" id="@item.Codigo" checked="@Model.BoletaImpresa" />
+                                <label for="@item.Codigo" class="permiso_cuenta_opcion_label"></label>
+                            </fieldset>
+                        </div>
+                    }
+                }*@
             </div>
         </div>
         <div class="grupo_input_actualizarMisDatos campos_actualizarDatos terminos_y_condiciones_wrapper pt-31">
