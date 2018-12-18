@@ -499,7 +499,7 @@
             localStorage.setItem('valorBuscador', _config.textoBusqueda);
 
             if (codigo.indexOf(codigoEstrategia) >= 0) {
-                var UrlDetalle = GetPalanca(codigoEstrategia);
+                var UrlDetalle = GetPalanca(codigoEstrategia, origenPedidoWeb);
                 var UrlGeneral = "";
 
                 if (UrlDetalle == "") return false;
