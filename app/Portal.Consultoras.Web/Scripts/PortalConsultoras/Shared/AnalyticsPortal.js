@@ -189,6 +189,24 @@ var AnalyticsPortalModule = (function () {
         ]
     }
 
+    var _urlPaginas = [
+        { Codigo: "00", UrlController: "RevistaDigital" },
+        { Codigo: "01", UrlController: "ShowRoom" },
+        { Codigo: "02", UrlController: "" },
+        { Codigo: "03", UrlController: "" },
+        { Codigo: "04", UrlController: "" },
+        { Codigo: "05", UrlController: "GuiaNegocio" },
+        { Codigo: "06", UrlController: "OfertaLiquidacion" },
+        { Codigo: "07", UrlController: "" },
+        { Codigo: "08", UrlController: "HerramientasVenta" },
+        { Codigo: "09", UrlController: "" },
+        { Codigo: "10", UrlController: "" },
+        { Codigo: "11", UrlController: "" },
+        { Codigo: "12", UrlController: "" },
+        { Codigo: "13", UrlController: "" },
+        { Codigo: "14", UrlController: "MasGanadoras" }
+    ]
+
     ////////////////////////////////////////////////////////////////////////////////////////
     // Ini - Metodos Iniciales
     ////////////////////////////////////////////////////////////////////////////////////////
@@ -236,6 +254,26 @@ var AnalyticsPortalModule = (function () {
         if (seccion == undefined) {
             return "";
         }
+
+        return seccion.TextoList || "";
+    }
+
+    var _getTextoPalancaSegunUrl = function (url) {
+
+        var controller = window.controllerName || "";
+        controller = controller.toLocaleLowerCase();
+
+        var seccion = _urlPaginas.find(function (element) {
+            return element.UrlController.toLocaleLowerCase() == controller;
+        });
+
+        if (seccion == undefined) {
+            return "";
+        }
+
+        var seccion = _origenPedidoWebEstructura.Palanca.find(function (element) {
+            return element.Codigo == seccion.Codigo;
+        });
 
         return seccion.TextoList || "";
     }
@@ -1566,31 +1604,27 @@ var AnalyticsPortalModule = (function () {
 * Nombre Archivo Desktop: Scripts\PortalConsultoras\Shared\MenuContenedor.js
 * Linea de Código Desktop: 284
 */
-    var marcaClicVerMasOfertas = function (url, origenPedido,titulo) {
+    var marcaClicVerMasOfertas = function (url, origenPedido, titulo) {
         try {
             if (_constantes.isTest)
                 alert("Marcación Ver más ofertas.");
-            var esRevisar = window.actionName == "revisar" ? true : false;
-            var nombreBoton = titulo;            
+
             var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(origenPedido);
+
+            if (palanca == _texto.notavaliable) {
+                palanca = _getTextoPalancaSegunUrl(url);
+            }
+
+            var nombreBoton = titulo;
             dataLayer.push({
                 'event': _evento.virtualEvent,
                 'category': fnObtenerContenedor() + ' - ' + palanca,
-                'action': 'Click Botón',
+                'action': 'Clic Botón',
                 'label': nombreBoton,
                 'eventCallback': function () {
                     document.location = url;
                 }
             });
-            //dataLayer.push({
-            //    'event': _evento.virtualEvent,
-            //    'category': fnObtenerContenedor(),
-            //    'action': esRevisar ? 'Click Botón' + ' - ' + palanca : 'Click Botón' + ' - ' + nombreBoton,
-            //    'label': esRevisar ? nombreBoton : palanca,
-            //    'eventCallback': function () {
-            //        document.location = url;
-            //    }
-            //});
 
         } catch (e) {
             document.location = url;
@@ -2260,45 +2294,45 @@ var AnalyticsPortalModule = (function () {
         }
     }
 
-    function marcarClickMasOfertasMG(url, origenPedido, titulo) {
-        try {
-            var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(origenPedido);
-            var nombreBoton = titulo;  
-            dataLayer.push({
-                'event': _evento.virtualEvent,
-                'category': fnObtenerContenedor() + ' - ' + palanca,
-                'action': 'Clic Botón',
-                'label': nombreBoton,
-                'eventCallback': function () {
-                    document.location = url;
-                }
-            });
+    // utilizar MarcaClicVerMasOfertas
+    //function marcarClickMasOfertasMG(url, origenPedido, titulo) {
+    //    try {
+    //        var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(origenPedido);
+    //        var nombreBoton = titulo;  
+    //        dataLayer.push({
+    //            'event': _evento.virtualEvent,
+    //            'category': fnObtenerContenedor() + ' - ' + palanca,
+    //            'action': 'Clic Botón',
+    //            'label': nombreBoton,
+    //            'eventCallback': function () {
+    //                document.location = url;
+    //            }
+    //        });
+    //    } catch (e) {
+    //        document.location = url;
+    //        console.log(_texto.excepcion + e);
+    //    }
+    //}
 
-        } catch (e) {
-            document.location = url;
-            console.log(_texto.excepcion + e);
-        }
-    }
-
-    function marcarClickMasOfertasBannerMG(url,origenPedido, titulo) {
-        try {
-            var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(origenPedido);
-            var nombreBoton = titulo;  
-            dataLayer.push({
-                'event': _evento.virtualEvent,
-                'category': fnObtenerContenedor() + ' - ' + palanca,
-                'action': 'Clic Botón',
-                'label': nombreBoton,
-                'eventCallback': function () {
-                    document.location = url;
-                }
-            });
-
-        } catch (e) {
-            document.location = url;
-            console.log(_texto.excepcion + e);
-        }
-    }
+    // utilizar MarcaClicVerMasOfertas
+    //function marcarClickMasOfertasBannerMG(url,origenPedido, titulo) {
+    //    try {
+    //        var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(origenPedido);
+    //        var nombreBoton = titulo;  
+    //        dataLayer.push({
+    //            'event': _evento.virtualEvent,
+    //            'category': fnObtenerContenedor() + ' - ' + palanca,
+    //            'action': 'Clic Botón',
+    //            'label': nombreBoton,
+    //            'eventCallback': function () {
+    //                document.location = url;
+    //            }
+    //        });
+    //    } catch (e) {
+    //        document.location = url;
+    //        console.log(_texto.excepcion + e);
+    //    }
+    //}
 
     function marcarClickMasOfertasPromotionClickMG() {
         try {
@@ -2480,7 +2514,7 @@ var AnalyticsPortalModule = (function () {
             console.log(_texto.excepcion + e);
         }
     }
-    
+
     var marcaProductImpressionViewRecomendacionesMobile = function (data, index) {
         try {
 
@@ -2659,8 +2693,8 @@ var AnalyticsPortalModule = (function () {
 
         // Ini - Analytics Ganadoras
         MarcaPromotionViewCarrusel: marcaPromotionViewCarrusel,
-        MarcarClickMasOfertasMG: marcarClickMasOfertasMG,
-        MarcarClickMasOfertasBannerMG: marcarClickMasOfertasBannerMG,
+        //MarcarClickMasOfertasMG: marcarClickMasOfertasMG, // utilizar MarcaClicVerMasOfertas
+        //MarcarClickMasOfertasBannerMG: marcarClickMasOfertasBannerMG, // utilizar MarcaClicVerMasOfertas
         MarcarClickMasOfertasPromotionClickMG: marcarClickMasOfertasPromotionClickMG,
         ClickArrowMG: clickArrowMG,
         ClickOnBreadcrumb: clickOnBreadcrumb,

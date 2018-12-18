@@ -292,27 +292,26 @@ var menuModule = (function () {
     }
     function sectionClick(url, titulo, e) {
 
-        var OrigenPedidoWeb = EstrategiaAgregarModule.GetOrigenPedidoWeb($(e), false);
-        titulo = titulo || "";
         url = url || "";
-
         if (_var.Mobile) {
-            if (url.indexOf(ConstantesModule.CodigosPalanca.Ganadoras) > 0)
-                if (url.indexOf("Mobile") < 0)
-                    url = "/Mobile" + url;
+            url = "/Mobile" + url;
         }
 
         if (typeof AnalyticsPortalModule !== "undefined") {
-            OrigenPedidoWeb = OrigenPedidoWeb || "";
             if (url.indexOf(ConstantesModule.CodigosPalanca.Ganadoras) > 0) {
-                if (titulo === "BotonVerMas")
-                    AnalyticsPortalModule.MarcarClickMasOfertasMG(url, OrigenPedidoWeb, e.innerText);
+                titulo = titulo || "";
                 if (titulo === "BannerMG") {
                     AnalyticsPortalModule.MarcarClickMasOfertasPromotionClickMG();
-                    AnalyticsPortalModule.MarcarClickMasOfertasBannerMG(url,OrigenPedidoWeb, e.innerText);
                 }
-            } else
-                AnalyticsPortalModule.MarcaClicVerMasOfertas(url, OrigenPedidoWeb, e.innerText);
+            }
+
+            var OrigenPedidoWeb = EstrategiaAgregarModule.GetOrigenPedidoWeb($(e), false);
+            OrigenPedidoWeb = OrigenPedidoWeb || "";
+
+            AnalyticsPortalModule.MarcaClicVerMasOfertas(url, OrigenPedidoWeb, e.innerText);
+        }
+        else {
+            document.location = url;
         }
 
     }
