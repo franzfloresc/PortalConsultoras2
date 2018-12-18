@@ -34770,8 +34770,13 @@ div.motivoRechazo textarea {
     margin-top:2px;
 }
 
-.opciones_regalo_carousel_programaNuevas.slick-initialized .slick-slide{
+.opciones_regalo_carousel_programaNuevas.slick-initialized .slick-slide,
+.opciones_regalo_carousel_programaNuevas .slick-track
+{
     display:inline-block;
+}
+
+.opciones_regalo_carousel_programaNuevas.slick-initialized .slick-slide{
     vertical-align:top;
     float:none;
     height:315px;
