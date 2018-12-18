@@ -73,6 +73,14 @@
     width:82%;
 }
 
+.w-88{
+    width:88%;
+}
+
+.w-90{
+    width:90%;
+}
+
 .wrapper_content_mi_perfil,
 .wrapper_content_cambiar_contrasenia,
 .wrapper_content_actualizar_correo,
@@ -424,11 +432,10 @@
     .grupo_form_cambio_datos label{
         cursor:default;
         position:absolute;
-        width:90%;
         top:25px;
         left:0;
         font-size:13px;
-        font-weight:bold;
+        font-weight:400;
         height:25px;
         background-color:rgba(255,255,255,1);
         z-index:2;
@@ -458,7 +465,7 @@
     .celular_actual span:first-child,
     .grupo_form_cambio_datos select
     {
-        color:#000;
+        color:#808080;
     }
 
     .grupo_form_cambio_datos label,
@@ -529,6 +536,8 @@
         top:0;
         font-size:13px;
         background-color:rgba(255,255,255,0);
+        color:#000;
+        font-weight:bold;
     }
 
     .grupo_form_cambio_datos input:focus + label,
@@ -782,6 +791,7 @@
     height: auto;
     background-color: #000;
     padding: 20px;
+    height:166px;
 }
 
 .enlace_cerrar_popup_ubicacion_direccion_entrega{
@@ -827,17 +837,25 @@
     font-weight:600;
 }
 
-    .popup_ubicacion_direccion_elegida:before {
+    .popup_ubicacion_direccion_elegida span {
         display: inline-block;
-        vertical-align: middle;
-        content: "";
+        vertical-align: top;
+    }
+
+    .icono_ubicacion_direccion_elegida{
         width: 20px;
         height: 20px;
-        margin-right: 6px;
-        background-image: url(/Content/Images/icono_ubicacion_blanco.svg);
-        background-repeat: no-repeat;
-        background-size: 13px;
-        background-position: center top;
+        margin-right: 2px;
+    }
+
+        .icono_ubicacion_direccion_elegida img{
+            width:auto;
+            height:100%;
+        }
+
+    .texto_ubicacion_direccion_elegida{
+        width:91%;
+        line-height:20px;
     }
 
 .popup_ubicacion_direccion_entrega_cabecera,
@@ -847,7 +865,7 @@
 }
 
 .popup_ubicacion_direccion_entrega_contenido{
-    height: calc(100vh - 148px);
+    height: calc(100vh - 166px);
     overflow: hidden;
 }
 

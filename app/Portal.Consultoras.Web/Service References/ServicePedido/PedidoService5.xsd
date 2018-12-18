@@ -53,6 +53,7 @@
   <xs:element name="BEPedidoObservacion" nillable="true" type="tns:BEPedidoObservacion" />
   <xs:complexType name="BEInputReservaProl">
     <xs:sequence>
+      <xs:element minOccurs="0" name="BoletaImpresa" type="xs:boolean" />
       <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
       <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoPrograma" nillable="true" type="xs:string" />

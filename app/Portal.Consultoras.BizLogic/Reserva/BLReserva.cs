@@ -151,6 +151,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
                     SegmentoInternoID = (usuario.SegmentoInternoID == null ? 0 : Convert.ToInt32(usuario.SegmentoInternoID)),
                     CodigoPrograma = usuario.CodigoPrograma,
                     ConsecutivoNueva = usuario.ConsecutivoNueva
+                    
                 };
 
                 if (usuario.TieneHana == 1)
@@ -562,6 +563,8 @@ namespace Portal.Consultoras.BizLogic.Reserva
             string _gananciaEstimada = Util.DecimalToStringFormat(gananciaEstimada, input.PaisISO);
             string _totalSinDescuento = Util.DecimalToStringFormat(totalSinDescuento, input.PaisISO);
             string _descuento = Util.DecimalToStringFormat(descuento, input.PaisISO);
+            string mensajeBoletaElectronica = string.Empty;
+            if (!input.BoletaImpresa) mensajeBoletaElectronica = " Una vez facturado podrás descargar tus boletas electrónicas desde <a href='https://www.somosbelcorp.com/MisPedidos' target='_blank' cursor='pointer'><b>Aquí</b></a>";
 
             StringBuilder mailBody = new StringBuilder();
             mailBody.Append("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">");
@@ -650,7 +653,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
             mailBody.AppendFormat("<td style = 'width: 50%; font-family: Arial; font-size: 13px; font-weight: 700; color: {0}; padding-right:10px; text-align:right; padding-bottom: 13px; padding-top: 5px;' > {2}{1}</td></tr>", colorStyle, _gananciaEstimada, simbolo);
 
             mailBody.Append("<tr><td colspan = '2' style = 'font-family: Arial; font-size: 12px; color: #000; padding-top: 25px; padding-bottom: 13px; text-align: center; padding-left: 10px; padding-right: 10px;' > IMPORTANTE <BR/>");
-            mailBody.Append("Tu pedido será enviado a Belcorp el día de hoy, siempre y cuando cumplas con el monto mínimo y no tengas deuda pendiente. </td ></tr> ");
+            mailBody.Append("Tu pedido será enviado a Belcorp el día de hoy, siempre y cuando cumplas con el monto mínimo y no tengas deuda pendiente. " + mensajeBoletaElectronica + " </td ></tr> ");
 
             mailBody.Append(" <tr> <td colspan = '2' style = 'background: #000; height: 62px;' > <table align = 'center' style = 'text-align:center; padding:0 13px; width:100%;' >  <tr> ");
             mailBody.Append(" <td style='width: 11 %; text - align:left; vertical - align:top; '> <a href = 'http://belcorp.biz/' ><img src = '" + Globals.RutaCdn + "/ImagenesPortal/Iconos/logo-belcorp.png' alt = 'Logo Belcorp' /></a></td> ");
