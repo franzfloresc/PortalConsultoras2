@@ -3,6 +3,10 @@
     font-weight:bold!important;
 }
 
+.d-block.mostrarEnMobile{
+    display:none!important;
+}
+
 .layout__main__content{
     margin-top:70px;
 }
@@ -176,6 +180,10 @@
 
 @media screen and (max-width:991px){
 
+    .d-block.mostrarEnMobile{
+        display:block!important;
+    }
+
     .layout__content,
     .layout__view__title,
     .layout__view__title__text,
@@ -209,6 +217,17 @@
         font-size:17px;
     }
 
+    .layout__view__title__icono__volver{
+        width:26px;
+        height:20px;
+        margin-right:-15px;
+    }
+
+    .layout__view__title__icono__volver img{
+        width:100%;
+        height:auto;
+    }
+
     .layout__content{
         margin:0;
         padding-left:19px;
@@ -239,6 +258,7 @@
         border:1px solid #000;
         border-radius:4px;
         margin-bottom:14px;
+        max-width:587px;
     }
 
     .info__pasos__compartir__catalogo__campaniaActual__subtitulo{
