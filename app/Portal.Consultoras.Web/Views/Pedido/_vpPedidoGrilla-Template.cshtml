@@ -165,9 +165,10 @@
                 {{#iff DescripcionLarga 'Contains' '\''}}
                     {{Replace DescripcionLarga '\'' ''}}
                 {{/iff}}
-                {{#if PremioElectivo}}
+                {{#if LockPremioElectivo}}
                 <!-- Este enlace se muestra cuando el producto es un regalo de Programa Nuevas -->
                 <a href="javascript:;" onclick="javascript: $('body').css('overflow-y', ''); $('#popupPremio').fadeOut(200); cargarPopupEleccionRegalo();"
+                   class="icono_cambiar_regalo_programaNuevas"
                    style="background-image: url('@Url.Content("~/Content/Images/icono_editar.svg")'); background-repeat:no-repeat; background-size:contain; width: 19px; height: 22px; margin: 0 auto;" title="Editar regalo"></a>
                 <!-- Fin - Este enlace se muestra cuando el producto es un regalo de Programa Nuevas -->
                 {{else}}
