@@ -23,17 +23,20 @@ BEGIN
 		c.INC_CUPO_ELEC_DEFA		,
 		m.Descripcion AS DescripcionMarca
 	FROM ods.CuponesProgramaNuevas c With(nolock)
-	LEFT join dbo.Estrategia e  With(nolock) on c.CodigoCupon = e.CUV2 and c.CodigoPrograma = e.CodigoPrograma
+	LEFT join dbo.Estrategia e  With(nolock) on 
+		c.CodigoCupon = e.CUV2 and
+		c.CodigoPrograma = e.CodigoPrograma and
+		e.activo = 1 and
+		e.campaniaid <= @CampaniaID and e.campaniaidfin >= @CampaniaID
 	LEFT JOIN ods.Campania ca with(nolock) ON @CampaniaID = ca.Codigo
 	LEFT join ods.ProductoComercial pc with(nolock) ON ca.CampaniaID = pc.CampaniaID AND c.CodigoCupon = pc.CUV
 	LEFT JOIN dbo.Marca m WITH (NOLOCK) ON pc.MarcaId = m.MarcaId
 
-	where e.activo = 1
-		and isnull(c.Campana,'') != ''
+	where 
+		isnull(c.Campana,'') != ''
 		and c.CodigoPrograma = @CodigoPrograma
 		and c.CodigoNivel = @CodigoNivel
 		and c.Campana = cast(@CampaniaID as varchar(6))
 		and c.PrecioUnitario = 0
 		and c.IND_CUPO_ELEC = 1
-
 END
