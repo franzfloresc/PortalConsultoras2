@@ -22,6 +22,11 @@ namespace Portal.Consultoras.Web.Controllers
         private readonly IssuuProvider _issuuProvider;
         private readonly ConfiguracionPaisDatosProvider _configuracionPaisDatosProvider;
 
+        public ActionResult MisCatalogosYRevistas()
+        {
+            return View();
+        }
+
         public MisCatalogosRevistasController()
         {
             _issuuProvider = new IssuuProvider();
