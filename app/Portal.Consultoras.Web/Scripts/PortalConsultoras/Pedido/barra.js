@@ -191,11 +191,7 @@ function MostrarBarra(datax, destino) {
     }
     mtoLogroBarra = vLogro;
 
-    if (belcorp.barra.settings.isMobile &&
-        tp > 0 && vLogro >= tp &&
-        dataBarra.TippingPointBarra &&
-        dataBarra.TippingPointBarra.ActivePremioElectivo &&
-        !tpElectivos.premioSelected) {
+    if (isTippingPointSuperado()) {
 
         agregarPremioDefault();
     }
@@ -682,6 +678,19 @@ function cargarPopupEleccionRegalo(disableCheck) {
     }, 150);
 }
 
+function isTippingPointSuperado() {
+    if (!dataBarra) {
+        return false;
+    }
+
+    var tp = dataBarra.TippingPoint;
+    return tp > 0 &&
+        mtoLogroBarra >= tp &&
+        dataBarra.TippingPointBarra &&
+        dataBarra.TippingPointBarra.ActivePremioElectivo &&
+        !tpElectivos.premioSelected;
+}
+
 function checkPremioSelected() {
     var details = tpElectivos.pedidoDetails;
     if (!details || details.length === 0) {
@@ -775,8 +784,13 @@ function cargarPremiosElectivos() {
             var premio = response.selected;
             var premiosMostrar = getPremiosEstrategia(tpElectivos.premios);
 
+            if (isTippingPointSuperado()) {
+                agregarPremioDefault();
+            }
+
             if (premiosMostrar.length === 0) {
-                setPremio(premio);
+                tpElectivos.premioSelected = premio;
+
                 return;
             }
 
