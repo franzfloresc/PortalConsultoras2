@@ -938,6 +938,8 @@ function setPremio(premio) {
     tpElectivos.premioSelected = premio;
     restoreDivPremios();
     updateTitlePopupRegalos(premio);
+    var btns = getPopupRegalos().find('.btn_elegir_regalo');
+    btns.html(premio ? 'Cambiar' : 'Elegir');
 
     if (!premio) {
         $('#divBarra .contenedor_circulos').show();
@@ -981,10 +983,11 @@ function getElementByCuv(cuv) {
 function selectPremioDivByCuv(cuv) {
     var element = getElementByCuv(cuv);
     if (!element) {
-        return;
+        return false;
     }
 
     markPremioSelected(element);
+    return true;
 }
 
 function showPopupNivelSuperado(barra, prevLogro) {
