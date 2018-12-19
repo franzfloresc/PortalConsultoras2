@@ -7,6 +7,7 @@ var tpElectivos = {
     premioSelected: null,
     premios : [],
     loadPremios: false,
+    hasPremios: false,
     pedidoDetails: []
 };
 
@@ -190,11 +191,7 @@ function MostrarBarra(datax, destino) {
     }
     mtoLogroBarra = vLogro;
 
-    if (belcorp.barra.settings.isMobile &&
-        tp > 0 && vLogro >= tp &&
-        dataBarra.TippingPointBarra &&
-        dataBarra.TippingPointBarra.ActivePremioElectivo &&
-        !tpElectivos.premioSelected) {
+    if (isTippingPointSuperado()) {
 
         agregarPremioDefault();
     }
@@ -662,15 +659,40 @@ function initCarruselPremios(barra) {
     if (barra.TippingPointBarra && barra.TippingPointBarra.ActivePremioElectivo) {
         tpElectivos.loadPremios = true;
         cargarPremiosElectivos();
+
+        return;
     }
+
+    hidePencilInDetails();
 }
 
-function cargarPopupEleccionRegalo() {
-    checkPremioSelected();
+function cargarPopupEleccionRegalo(disableCheck) {
+    if (!tpElectivos.hasPremios) {
+        return;
+    }
+
+    var disable = typeof disableCheck === 'boolean' && disableCheck === true;
+    if (!disable) {
+        checkPremioSelected();
+    }
+
     AbrirPopup('#popupEleccionRegalo');
     setTimeout(function () {
         armarCarouselRegalos();
     }, 150);
+}
+
+function isTippingPointSuperado() {
+    if (!dataBarra) {
+        return false;
+    }
+
+    var tp = dataBarra.TippingPoint;
+    return tp > 0 &&
+        mtoLogroBarra >= tp &&
+        dataBarra.TippingPointBarra &&
+        dataBarra.TippingPointBarra.ActivePremioElectivo &&
+        !tpElectivos.premioSelected;
 }
 
 function checkPremioSelected() {
@@ -688,8 +710,7 @@ function checkPremioSelected() {
         return;
     }
 
-    if (tpElectivos.premioSelected &&
-        tpElectivos.premioSelected.CUV2 == detail.CUV) {
+    if (isCuvSelected(detail.CUV)) {
         return;
     }
 
@@ -760,6 +781,11 @@ function getPremiosEstrategia(list) {
     return premios;
 }
 
+function hidePencilInDetails() {
+    var style = $('<style>.icono_cambiar_regalo_programaNuevas { display: none; }</style>');
+    $('html > head').append(style);
+}
+
 function cargarPremiosElectivos() {
     getPremioElectivos()
         .then(function (response) {
@@ -767,7 +793,14 @@ function cargarPremiosElectivos() {
             var premio = response.selected;
             var premiosMostrar = getPremiosEstrategia(tpElectivos.premios);
 
+            if (isTippingPointSuperado()) {
+                agregarPremioDefault();
+            }
+
             if (premiosMostrar.length === 0) {
+                tpElectivos.premioSelected = premio;
+                hidePencilInDetails();
+
                 return;
             }
 
@@ -777,6 +810,7 @@ function cargarPremiosElectivos() {
             $('#hrefIconoRegalo').click(cargarPopupEleccionRegalo);
 
             setPremio(premio);
+            tpElectivos.hasPremios = true;
         });
 }
 
@@ -791,7 +825,9 @@ function agregarPremioDefault() {
             return;
         }
 
-        setPremio(premio);
+        tpElectivos.premioSelected = premio;
+        $('#divBarra .contenedor_circulos').hide();
+        //setPremio(premio);
     });
 }
 
@@ -820,6 +856,17 @@ function getElementPremiosByCuv(list, cuv) {
         }
     }
     return null;
+}
+
+function isCuvSelected(cuv) {
+    if (!tpElectivos.premioSelected ||
+        tpElectivos.premioSelected.CUV2 != cuv)
+    {
+        return false;
+    }
+    var element = getElementByCuv(cuv);
+
+    return element && element.hasClass('opcion_regalo_carousel_elegido');
 }
 
 function loadCarruselPremiosEvents() {
@@ -901,6 +948,8 @@ function setPremio(premio) {
     tpElectivos.premioSelected = premio;
     restoreDivPremios();
     updateTitlePopupRegalos(premio);
+    var btns = getPopupRegalos().find('.btn_elegir_regalo');
+    btns.html(premio ? 'Cambiar' : 'Elegir');
 
     if (!premio) {
         $('#divBarra .contenedor_circulos').show();
@@ -935,15 +984,20 @@ function getDivPremios() {
     return container.find('.opcion_regalo_carousel_programaNuevas');
 }
 
-function selectPremioDivByCuv(cuv) {
+function getElementByCuv(cuv) {
     var list = getDivPremios();
 
-    var element = getElementPremiosByCuv(list, cuv);
+    return getElementPremiosByCuv(list, cuv);
+}
+
+function selectPremioDivByCuv(cuv) {
+    var element = getElementByCuv(cuv);
     if (!element) {
-        return;
+        return false;
     }
 
     markPremioSelected(element);
+    return true;
 }
 
 function showPopupNivelSuperado(barra, prevLogro) {
@@ -962,8 +1016,10 @@ function showPopupNivelSuperado(barra, prevLogro) {
             
             var idPopup = '#popupPremio';
             var dvPremio = $(idPopup);
-            dvPremio.find('.sub-premio-elect').css('display', tpElectivos.premioSelected ? 'none': 'block');
-            dvPremio.find('.btn_escoger_o_cambiar_regalo').html(tpElectivos.premioSelected ? 'CAMBIAR PRODUCTO': '¡Escoger ahora!');
+            var btn = dvPremio.find('.btn_escoger_o_cambiar_regalo');
+            dvPremio.find('.sub-premio-elect').css('display', tpElectivos.premioSelected || !tpElectivos.hasPremios ? 'none': 'block');
+            btn.css('display', !tpElectivos.hasPremios ? 'none': 'block');
+            btn.html(tpElectivos.premioSelected ? 'CAMBIAR PRODUCTO': '¡Escoger ahora!');
             AbrirPopup(idPopup);
             setContainerLluvia(idPopup);
             mostrarLluvia();
