@@ -21,16 +21,16 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class MiPerfilController : BaseController
     {
-        protected TablaLogicaProvider _tablaLogica;
+        protected MiPerfilProvider _miperfil;
         public ActionResult Index()
         {
             BEUsuario beusuario;
             var model = new MisDatosModel();
-            _tablaLogica = new TablaLogicaProvider();
+            _miperfil = new MiPerfilProvider();
 
             using (var sv = new UsuarioServiceClient())
             {
-                beusuario = sv.Select(userData.PaisID, userData.CodigoUsuario);
+                beusuario = sv.Select(userData.PaisID, userData.CodigoUsuario);                
             }
 
             if (beusuario != null)
@@ -113,7 +113,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }                    
                 }
 
-                model.UsuarioOpciones = _tablaLogica.ObtenerParametrosTablaLogica(userData.PaisID, Constantes.TablaLogica.MiPerfilCheckBox, true);
+                model.UsuarioOpciones = _miperfil.GetUsuarioOpciones(userData.PaisID, userData.CodigoUsuario, true);
             }
 
             return View(model);

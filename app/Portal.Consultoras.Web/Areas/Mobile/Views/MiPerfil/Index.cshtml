@@ -247,20 +247,20 @@ else
                     Permisos sobre tu cuenta :
                 </div>
                 <div class="permisos_cuenta_opciones">
-                    <div class="permiso_cuenta_opcion">
-                        <div class="permiso_cuenta_opcion_descripcion text-bold">Quiero recibir mis boletas impresas</div>
-                        <fieldset class="grupo_form_permiso_cuenta">
-                            <input class="permiso_cuenta_opcion_checkbox" type="checkbox" name="chkBoletasImpresas" id="chkBoletasImpresas" checked="@Model.BoletaImpresa" />
-                            <label for="chkBoletasImpresas" class="permiso_cuenta_opcion_label"></label>
-                        </fieldset>
-                    </div>
-                    <div class="permiso_cuenta_opcion">
-                        <div class="permiso_cuenta_opcion_descripcion text-bold">Quiero que se comuniquen conmigo por WhatsApp</div>
-                        <fieldset class="grupo_form_permiso_cuenta">
-                            <input class="permiso_cuenta_opcion_checkbox" type="checkbox" name="chkComunicacionWhatsApp" id="chkComunicacionWhatsApp" />
-                            <label for="chkComunicacionWhatsApp" class="permiso_cuenta_opcion_label"></label>
-                        </fieldset>
-                    </div>
+
+                    @foreach (var item in Model.UsuarioOpciones)
+                    {
+                        if (item.Activo)
+                        {
+                            <div class="permiso_cuenta_opcion">
+                                <div class="permiso_cuenta_opcion_descripcion">@item.Opcion</div>
+                                <fieldset class="grupo_form_permiso_cuenta">
+                                    <input class="permiso_cuenta_opcion_checkbox" type="checkbox" name="@item.Codigo" id="@item.Codigo" checked="@item.CheckBox" />
+                                    <label for="@item.Codigo" class="permiso_cuenta_opcion_label"></label>
+                                </fieldset>
+                            </div>
+                        }
+                    }
                 </div>
             </div>
             <div class="grupo_input_actualizarMisDatos campos_actualizarDatos terminos_y_condiciones_wrapper pt-31">

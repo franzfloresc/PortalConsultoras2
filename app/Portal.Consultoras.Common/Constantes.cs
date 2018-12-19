@@ -432,6 +432,7 @@ namespace Portal.Consultoras.Common
 
 
             public const string JwtApiSomosBelcorp = "JwtApiSomosBelcorp";
+            public const string UsuarioPedidos = "UsuarioPedidos";
 
         }
 

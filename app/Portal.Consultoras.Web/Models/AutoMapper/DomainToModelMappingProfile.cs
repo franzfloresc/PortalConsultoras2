@@ -665,6 +665,14 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                .ForMember(t => t.SAP, f => f.MapFrom(c => c.CodigoProducto))
                .ForMember(t => t.Precio, f => f.MapFrom(c => c.PrecioCatalogo))
                .ForMember(t => t.NombreMarca, f => f.MapFrom(c => c.DescripcionMarca));
+
+            Mapper.CreateMap<ServiceUsuario.BEUsuarioOpciones, UsuarioOpcionesModel>()
+                .ForMember(t => t.CodigoUsuario, f => f.MapFrom(c => c.CodigoUsuario))
+                .ForMember(t => t.OpcionesUsuarioId, f => f.MapFrom(c => c.OpcionesUsuarioId))
+                .ForMember(t => t.Opcion, f => f.MapFrom(c => c.Opcion))
+                .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo))
+                .ForMember(t => t.CheckBox, f => f.MapFrom(c => c.CheckBox))
+                .ForMember(t => t.Activo, f => f.MapFrom(c => c.Activo));
         }
     }
 }

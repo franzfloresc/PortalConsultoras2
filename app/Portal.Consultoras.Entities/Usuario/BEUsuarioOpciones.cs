@@ -1,11 +1,7 @@
 ﻿using Portal.Consultoras.Common;
-using System;
-using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Entities.Usuario
 {
@@ -13,16 +9,22 @@ namespace Portal.Consultoras.Entities.Usuario
     public class BEUsuarioOpciones
     {
         [DataMember]
+        [Column("CodigoUsuario")]
         public string CodigoUsuario { get; set; }
         [DataMember]
+        [Column("OpcionesUsuarioId")]
         public byte OpcionesUsuarioId { get; set; }
         [DataMember]
+        [Column("Opcion")]
         public string Opcion { get; set; }
         [DataMember]
+        [Column("Codigo")]
         public string Codigo { get; set; }
         [DataMember]
+        [Column("CheckBox")]
         public bool CheckBox { get; set; }
         [DataMember]
+        [Column("Activo")]
         public bool Activo { get; set; }
         public BEUsuarioOpciones()
         { }

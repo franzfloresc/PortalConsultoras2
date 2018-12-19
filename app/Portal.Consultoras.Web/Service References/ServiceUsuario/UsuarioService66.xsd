@@ -30,4 +30,21 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEUsuarioDireccion" nillable="true" type="tns:BEUsuarioDireccion" />
+  <xs:complexType name="ArrayOfBEUsuarioOpciones">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEUsuarioOpciones" nillable="true" type="tns:BEUsuarioOpciones" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEUsuarioOpciones" nillable="true" type="tns:ArrayOfBEUsuarioOpciones" />
+  <xs:complexType name="BEUsuarioOpciones">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Activo" type="xs:boolean" />
+      <xs:element minOccurs="0" name="CheckBox" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoUsuario" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Opcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OpcionesUsuarioId" type="xs:unsignedByte" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEUsuarioOpciones" nillable="true" type="tns:BEUsuarioOpciones" />
 </xs:schema>
