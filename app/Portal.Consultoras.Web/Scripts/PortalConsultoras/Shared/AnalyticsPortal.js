@@ -39,7 +39,7 @@ var AnalyticsPortalModule = (function () {
         eligetuopcion: "eligetuopcion",
         verdetalle: "verdetalle",
         contenedor: "Contenedor",
-        contenedorHome: "Contenedor - Home",
+        contenedorHome: "Contenedor - Inicio",
         contenedorDetalle: "Contenedor - Detalle de Producto",
         contenedorDetalleSets: "Contenedor - Detalle de Producto - Ver más Sets",
         contenedorRevisar: "Contenedor - Revisar",
@@ -1089,7 +1089,7 @@ var AnalyticsPortalModule = (function () {
         try {
             switch (_pagina) {
 
-                case "Home": AnalyticsPortalModule.MarcaDetalleProductoBienvenida(element, codigoOrigenPedido); break;
+                case "Home": AnalyticsPortalModule.MarcaDetalleProducto(element); break;
                 case "Contenedor": palanca == "Lanzamientos" ? AnalyticsPortalModule.MarcaClicBanner(element) : AnalyticsPortalModule.MarcaDetalleProducto(element); break;
                 case "Pedido": AnalyticsPortalModule.MarcaDetalleProductoCarrito(element); break; //marcacion punto 2.1.7.4. según el documento de correciones Roxana 
                 case "Landing": AnalyticsPortalModule.MarcaDetalleProducto(element); break;
