@@ -208,6 +208,7 @@ else
                             </fieldset>
                             <fieldset class="grupo_form_cambio_datos grupo_form_cambio_datos_campo_comuna w-50">
                                 <div class="w-100">
+                                    
                                     <select id="txtComuna" name="txtComuna" class="w-100">
                                         <option value="0" selected>-- Seleccione una comuna --</option>
                                         <option value="1">Rímac</option>
@@ -217,7 +218,9 @@ else
                             </fieldset>
                             <fieldset class="grupo_form_cambio_datos grupo_form_cambio_datos_campo_direccion">
                                 <div class="w-100">
-                                    <input id="txtDireccion" name="txtDireccion" class="w-100" type="text" value="" />
+                                    
+                                    @Html.DisplayFor(x => x.DireccionEntrega.Direccion, new {@class = "w-100"})
+                                    @*<input id="txtDireccion" name="txtDireccion" class="w-100" type="text" value=""/>*@
                                     <label for="txtDireccion" class="w-100">
                                         Dirección <span class="asteriscos">*</span>
                                     </label>
@@ -230,7 +233,8 @@ else
                             </fieldset>
                             <fieldset class="grupo_form_cambio_datos">
                                 <div class="w-100">
-                                    <input id="txtReferencia" name="txtReferencia" class="w-100 campo_referencia" type="text" value="" />
+                                    @Html.DisplayFor(x => x.DireccionEntrega.Referencia, new {@class= "w-100 campo_referencia" })
+                                    @*<input id="txtReferencia" name="txtReferencia" class="w-100 campo_referencia" type="text" value="" />*@
                                     <label for="txtReferencia" class="w-100">
                                         Referencia
                                     </label>

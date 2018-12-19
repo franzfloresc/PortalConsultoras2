@@ -1,16 +1,16 @@
-﻿using System;
+﻿using Portal.Consultoras.Web.ServiceUnete;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 
-namespace Portal.Consultoras.Entities.Pedido
+namespace Portal.Consultoras.Web.Models
 {
-    public class BEDireccionEntrega
+    public class DireccionEntregaModel
     {
         public int DireccionEntregaID { get; set; }
         public int ConsultoraID { get; set; }
-        public  int CampaniaID { get; set; }
+        public int CampaniaID { get; set; }
         public int CampaniaAnteriorID { get; set; }
         public int Ubigeo1 { get; set; }
         public int Ubigeo2 { get; set; }
@@ -23,18 +23,21 @@ namespace Portal.Consultoras.Entities.Pedido
         public string DireccionAnterior { get; set; }
         public string Direccion { get; set; }
         public string Referencia { get; set; }
-        public  string CodigoConsultora { get; set; }
+        public string CodigoConsultora { get; set; }
         public string NombreConsultora { get; set; }
         public int LatitudAnterior { get; set; }
         public int LongitudAnterior { get; set; }
         public int Latitud { get; set; }
         public int Longitud { get; set; }
-        public  DateTime? UltimafechaActualizacion { get; set; }
+        public DateTime? UltimafechaActualizacion { get; set; }
 
-        public  string CodigoUsuario { get; set; }
-        public  int PaisID { get; set; }
+        public string CodigoUsuario { get; set; }
+        public int PaisID { get; set; }
         public int Resultado { get; set; }
 
 
+        public ParametroUneteCollection DropDownUbigeo1 { get; set; }
+        public ParametroUneteCollection DropDownUbigeo2 { get; set; }
+        public ParametroUneteCollection DropDownUbigeo3 { get; set; }
     }
 }

@@ -7,7 +7,9 @@ namespace Portal.Consultoras.Web.Models
         public MisDatosModel()
         {
             UsuarioOpciones = new List<UsuarioOpcionesModel>();
+            this.DireccionEntrega = new DireccionEntregaModel();
         }
+      
         public string PaisISO { get; set; }
         public string CodigoUsuario { get; set; }
         public string CodigoUsuarioReal { get; set; }
@@ -44,5 +46,7 @@ namespace Portal.Consultoras.Web.Models
         public int IndicadorConsultoraDigital { get; set; }
         public List<string> PermisoMenu { get; set; }        
         public List<UsuarioOpcionesModel> UsuarioOpciones { get; set; }
+
+        public DireccionEntregaModel DireccionEntrega { get; set; }
     }
 }
