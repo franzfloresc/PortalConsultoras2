@@ -1370,7 +1370,7 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.FotoOriginalSinModificar = usuario.FotoOriginalSinModificar;
                     usuarioModel.DiaFacturacion = GetDiaFacturacion(usuarioModel.PaisID, usuarioModel.CampaniaID, usuarioModel.ConsultoraID, usuarioModel.ZonaID, usuarioModel.RegionID);
                     usuarioModel.NuevasDescripcionesBuscador = getNuevasDescripcionesBuscador(usuarioModel.PaisID);
-                    usuarioModel.ListaOrdenamientoFiltrosBuscador = getListaOrdenamientoFiltrosBuscador(usuarioModel.PaisID);
+                    //usuarioModel.ListaOrdenamientoFiltrosBuscador = getListaOrdenamientoFiltrosBuscador(usuarioModel.PaisID);
                 }
 
                 sessionManager.SetUserData(usuarioModel);
@@ -3006,23 +3006,7 @@ namespace Portal.Consultoras.Web.Controllers
             return result;
         }
 
-        private Dictionary<string, string> getListaOrdenamientoFiltrosBuscador(int paisId)
-        {
-            var result = new Dictionary<string, string>();
-            List<BETablaLogicaDatos> listaDescripciones;
-
-            using (var tablaLogica = new SACServiceClient())
-            {
-                listaDescripciones = tablaLogica.GetTablaLogicaDatos(paisId, Constantes.TablaLogica.ListaOrdenamientoFiltros).ToList();
-            }
-
-            foreach (var item in listaDescripciones)
-            {
-                result.Add(item.Descripcion.ToString(), string.IsNullOrEmpty(item.Valor) ? "" : item.Valor.ToString());
-            }
-
-            return result;
-        }
+      
 
     }
 }
