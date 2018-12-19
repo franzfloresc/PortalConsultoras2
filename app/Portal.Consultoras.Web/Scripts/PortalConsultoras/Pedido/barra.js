@@ -608,7 +608,7 @@ function MostrarBarra(datax, destino) {
     }
 
     var divBarraMsg = $("#divBarra #divBarraMensajeLogrado .agrega_barra");
-    if (sessionStorage.getItem("cuvPack") != null || tp > 0) {
+    if (sessionStorage.getItem("cuvPack") != null || mx > 0) {
         divBarraMsg.html(objMsg.Mensaje.replace("#porcentaje", valPor).replace("#valor", valorMonto));
     } else {
         divBarraMsg.html(objMsg.Mensaje.replace("#porcentaje", valPor).replace("#valor", (mt < mn ? valorMonto : valorMontoEsacalaDescuento)));
