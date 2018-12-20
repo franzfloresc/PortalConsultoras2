@@ -23,41 +23,7 @@ $(document).ready(function () {
             viewport: null
         }
         me.Funciones = {
-            CrearComponentesMapa: function () {
-                
-                map = new google.maps.Map($('.mapa_wrapper')[0], {
-                    center: { lat: -77.0282400, lng: -12.0431800 },
-                    zoom: 17,
-                    mapTypeId: 'roadmap'
-                });
-                
-            
-                marker = new google.maps.Marker({
-                    map: map,
-                    anchor: new google.maps.Point(17, 34),
-                    draggable: true,
-                    animation: google.maps.Animation.DROP
-
-                });
-                directionsService = new google.maps.DirectionsService;
-                var input = document.getElementById('txtDireccion');
-                searchBox = new google.maps.places.Autocomplete(input);
-                searchBox.setComponentRestrictions({ 'country': LocationCountry });
-                searchBox.bindTo('bounds', map);
-            },
-            ResetearMapa: function () {
-                var coordenadas = {
-                    lat: me.Propiedades.latitudIni,
-                    lng: me.Propiedades.longitudIni
-                };
-                
-                if (me.Propiedades.viewport)
-                    map.fitBounds(me.Propiedades.viewport);
-                map.setCenter(coordenadas);
-                marker.setPosition(coordenadas);
-                map.setZoom(ZoonMapa); 
-                $("#RouteDirection").html(me.Propiedades.directionText);
-            },
+          
             InicializarEventos: function () {
                 $('body').on('blur', '.grupo_form_cambio_datos input, .grupo_form_cambio_datos select', me.Eventos.LabelActivo);
                 $('body').on('click', '.enlace_agregar_num_adicional', me.Eventos.AgregarOtroNumero);
@@ -68,14 +34,11 @@ $(document).ready(function () {
                 $('body').on('click', '#CerrarPopupUbicacionDireccionEntrega', me.Eventos.CerrarPopupUbicacionDireccionEntrega);
                 $('body').on('click', '#btnConfirmarUbicacionDireccionEntrega', me.Eventos.ConfirmarUbicacionDireccionEntrega);
 
+                $('body').on('change', '#Ubigeo1,#Ubigeo2', me.Eventos.UbigeoChanged);
+                //$('body').on('click', '#Ubigeo2', me.Eventos.UbigeoChanged);
+
             },
-            InicializarEventosMapa: function () {
-                
-                marker.addListener('dragstart', me.Eventos.DragStart);
-                marker.addListener('dragend', me.Eventos.DragEnd);
-                searchBox.addListener('place_changed', me.Eventos.PlaceChanged);
-               
-            },
+           
             mostrarTelefono: function () {
                 if ($('#txtTelefonoTrabajoMD').val() != '') {
                     $('.enlace_agregar_num_adicional').fadeOut(150);
@@ -121,7 +84,7 @@ $(document).ready(function () {
                 FuncionesGenerales.AvoidingCopyingAndPasting('txtNuevaContrasenia02');
             },
             ValidacionMapa: function () {
-                $('#txtDireccion').focusout(function () {
+                $('#Direccion').focusout(function () {
                     
                     if ($(this).val().length === 0) {
                         //$('.enlace_abrir_mapa')[0].disabled = true;
@@ -129,7 +92,7 @@ $(document).ready(function () {
                 });
                 $("#txtCiudad").change(function () {
                     
-                    $('#txtDireccion').val('');
+                    $('#Direccion').val('');
                     $('.enlace_abrir_mapa')[0].disabled = false;
                     var coordenadas = {
                         lat: 0, lng: 0
@@ -179,42 +142,64 @@ $(document).ready(function () {
                     }
                 });
             },
-            toggleBounce: function () {
-
-                if (marker.getAnimation() !== null) {
-                    marker.setAnimation(null);
-                } else {
-                    marker.setAnimation(google.maps.Animation.BOUNCE);
-                }
-            },
-            QueryGeocode: function (Params, Callback) {
-                var geocoder = new google.maps.Geocoder;
-                geocoder.geocode(Params, function (results, status) {
-                    Callback(results, status);
-
-                });
-            },
-            ConfirmarUbicacion: function() {
-                var coordenadas = {
-                    lat: me.Propiedades.latitudFin,
-                    lng: me.Propiedades.LongitudFin
-                }
-                marker.setPosition(coordenadas);
-                map.setCenter(coordenadas);
-            },
             ModoEdicion: function() {
                 
-                var coordenadas = {
-                    lat: -12.1145937,
-                    lng: -77.00693360000002
-                };
-                me.Propiedades.latitudIni = coordenadas.lat;
-                me.Propiedades.longitudIni = coordenadas.lng;
-                $('#txtDireccion').val('377 Avenida Principal Cercado de Lima');
-                map.setCenter(coordenadas);
-                marker.setPosition(coordenadas);
-                map.setZoom(ZoonMapa); 
-                   
+                $('#Ubigeo1').trigger("change");
+           
+                
+                //var coordenadas = {
+                //    lat: -12.1145937,
+                //    lng: -77.00693360000002
+                //};
+                //me.Propiedades.latitudIni = coordenadas.lat;
+                //me.Propiedades.longitudIni = coordenadas.lng;
+                //$('#Direccion').val('377 Avenida Principal Cercado de Lima');
+                //map.setCenter(coordenadas);
+                //marker.setPosition(coordenadas);
+                //map.setZoom(ZoonMapa); 
+
+            },
+            ShowLoading: function () {
+                if (me.Funciones.isMobile()) {
+                    ShowLoading();
+                } else {
+                    waitingDialog();
+                }
+            },
+            isMobile: function() {
+                if (sessionStorage.desktop)
+                    return false;
+                else if (localStorage.mobile)
+                    return true;
+                var mobile = [
+                    'iphone', 'ipad', 'android', 'blackberry', 'nokia', 'opera mini', 'windows mobile', 'windows phone',
+                    'iemobile'
+                ];
+                for (var i =0 ; i< mobile.length ; i++)
+                {
+                    if (navigator.userAgent.toLowerCase().indexOf(mobile[i].toLowerCase()) > 0)
+                        return true;
+                }
+            
+        
+                return false;
+            },
+            CloseLoading: function () {
+                if (me.Funciones.isMobile()) {
+                    CloseLoading();
+                } else {
+                    closeWaitingDialog();
+                }
+            },
+            ItemSelected: function (selector) {
+                debugger;
+                var ubigeo = $(selector).attr('id');
+                if (Ubigeos[ubigeo] != 0)
+                {
+                    $(selector).val(Ubigeos[ubigeo]).change();
+                    Ubigeos[ubigeo] = 0;
+                }
+
             }
             
         },
@@ -270,13 +255,12 @@ $(document).ready(function () {
                     $('.fondo_popup_ubicacion_direccion_entrega').fadeIn(150);
                     $('.popup_ubicacion_direccion_entrega').fadeIn(150);
                 },
-            ConfirmarUbicacionDireccionEntrega: function () {
+                ConfirmarUbicacionDireccionEntrega: function () {
                 _googleMap.Funciones.ConfirmarUbicacion();
                 $('.fondo_popup_ubicacion_direccion_entrega').fadeOut(150);
                 $('.popup_ubicacion_direccion_entrega').fadeOut(150);
                 //me.Eventos.CerrarPopupUbicacionDireccionEntrega();
             },
-
                 CerrarPopupUbicacionDireccionEntrega: function () {
                     
                     //me.Funciones.ResetearMapa();
@@ -285,92 +269,56 @@ $(document).ready(function () {
                     $('.fondo_popup_ubicacion_direccion_entrega').fadeOut(150);
                     $('.popup_ubicacion_direccion_entrega').fadeOut(150);
                 },
-                DireccionOnBlur: function () {
-                    //if ($(this).val() == '')
+              
+            UbigeoChanged: function () {
 
-                },
-                PlaceChanged: function () {
-                    
-                    var place = searchBox.getPlace();
-                    if (!place.geometry) {
+                debugger;
+                var context = this;
+                var IdName = $(context).attr('id');
+                var ItemChange = $(context).attr('ItemChange');
+                var Identity = IdName.substring(IdName.length - 1);
+                var IdDependiente = '#Ubigeo' + (parseInt(Identity) + 1);
+                var Nivel = $(context).attr('Nivel');
+                var IdPadre = $(context).val();
+                var optVal = $('#' + IdName + ' option:selected').val();
+
+                var optionSelected = $("option:selected", this).attr('value');
+
+                if (optionSelected =='' || $(IdDependiente)[0] == undefined)
                         return;
-                    }
-                    if (place.geometry.viewport) {
-                        map.fitBounds(place.geometry.viewport);
-                        map.setCenter(place.geometry.location);
-                        map.setZoom(ZoonMapa);
-                        me.Propiedades.viewport = place.geometry.viewport;
-                    } else {
-                        map.setCenter(place.geometry.location);
-                        map.setZoom(ZoonMapa);  
-                    }
-                    if (EsMobile=='True')
-                        $('.enlace_abrir_mapa')[0].disabled = false;
+                if (parseInt(ItemChange) == parseInt(optVal))
+                    return;
 
-                    me.Propiedades.latitudIni = place.geometry.location.lat();
-                    me.Propiedades.longitudIni = place.geometry.location.lng();
-                    marker.setPosition(place.geometry.location);
-                    marker.setVisible(true);
-                    var address = '';
-                    if (place.address_components) {
-                        address = [
-                            (place.address_components[0] && place.address_components[0].short_name || ''),
-                            (place.address_components[1] && place.address_components[1].short_name || ''),
-                            (place.address_components[2] && place.address_components[2].short_name || '')
-                        ].join(' ');
-                        me.Propiedades.directionText = place.formatted_address;
-                        $("#RouteDirection").html(place.formatted_address);
-                    }
-                },
-                DragStart: function () {
-                   
-                    //me.Propiedades.latitudIni = this.position.lat();
-                    //me.Propiedades.longitudIni = this.position.lng();
-                },
-                DragEnd: function () {
-                    var Latlng = { lat: this.position.lat(), lng: this.position.lng() };
-                    me.Funciones.QueryGeocode({ latLng: Latlng}, function (results, status) {
-                        
-                        if (status === 'OK') {
-                            if (results[0])
+                   $(context).attr("ItemChange", parseInt(optVal));
+                   me.Funciones.ShowLoading();
+
+                    $.ajax({
+                        url: UrlDrop,
+                        type: 'GET',
+                        data: { Nivel: Nivel, IdPadre: IdPadre },
+                        dataType: 'json',
+                        success: function (response) {
+                            debugger;
+                            var len = response.length;
+                            me.Funciones.CloseLoading();
+                            $(IdDependiente).empty();
+                            $(IdDependiente).append("<option value>--Seleccionar</option>");
+                            for (var i = 0; i < len; i++) {
+                                var id =   response[i]['IdParametroUnete'];
+                                var name = response[i]['Nombre'];
+
+                                $(IdDependiente).append("<option value='" + id + "'>" + name + "</option>");
+
+                            }
+                            me.Funciones.ItemSelected(IdDependiente);
+                            if (IdName === 'Ubigeo1')
                             {
-                                me.Propiedades.latitudFin = Latlng.lat;
-                                me.Propiedades.longitudFin = Latlng.lng;
-
-                                //me.Propiedades.latitudIni = Latlng.lat;
-                                //me.Propiedades.longitudIni = Latlng.lng;
-
-                                for (var i = 0; i < results.length; i++) {
-                                    if (results[i].types.indexOf('street_address') >= 0) {
-                                        $("#RouteDirection").html(results[i].formatted_address);
-                                        break;
-                                    }
-                                }
-                                //results[0].types.indexOf('street_address')
-                                //me.Propiedades.latitudFin =  Latlng.lat;
-                                //me.Propiedades.longitudFin = Latlng.lng;
-
-                                //me.Propiedades.latitudIni = Latlng.lat;
-                                //me.Propiedades.longitudIni = Latlng.lng;
-                              
-                                //me.Propiedades.latitudFin  = results[0].geometry.location.lat();
-                                //me.Propiedades.longitudFin = results[0].geometry.location.lng();
-                               //$("#RouteDirection").html(results[0].formatted_address);
+                                _googleMap.Funciones.LimpiarMapa();
                             }
-                            else {
-                                window.alert('No results found');
-                                return false;
-                            }
-                        }
-                        else {
-                            window.alert('Geocoder failed due to: ' + status);
-                            return false;
                         }
                     });
-            },
-                BoundsChanged: function () {
-                   searchBox.setBounds(map.getBounds());
-                }      
+
+                }
             },
         me.Inicializar = function () {
                  
@@ -381,12 +329,16 @@ $(document).ready(function () {
                 me.Funciones.PuedeCambiarTelefono();
                 me.Funciones.EvitandoCopiarPegar();
                 me.Funciones.ValidacionSoloLetras();
-                me.Funciones.ValidacionMapa();
+            debugger;
+                //me.Funciones.ValidacionMapa();
+                me.Funciones.ModoEdicion();
         },
-        me.InicializarMapa = function() {
+            me.InicializarMapa = function () {
+                debugger;
                 me.Funciones.CrearComponentesMapa();
                 me.Funciones.InicializarEventosMapa();
-                //me.Funciones.ModoEdicion();
+                 
+                //_googleMap.Funciones.ModoEdicion();
         }
     }
 
@@ -851,8 +803,15 @@ var GoogleMap = function() {
 
             });
             directionsService = new google.maps.DirectionsService;
-            var input = document.getElementById('txtDireccion');
+            var input = document.getElementById('Direccion');
+
+
+            //var options = {
+            //    //types: ['(cities)'],
+            //    componentRestrictions: { country: LocationCountry, postalCode: '1530000' }
+            //};
             searchBox = new google.maps.places.Autocomplete(input);
+            //searchBox = new google.maps.places.Autocomplete(input);
             searchBox.setComponentRestrictions({ 'country': LocationCountry });
             searchBox.bindTo('bounds', map);
         },
@@ -868,6 +827,9 @@ var GoogleMap = function() {
             marker.setPosition(coordenadas);
             map.setZoom(ZoonMapa);
             $("#RouteDirection").html(me.Propiedades.directionText);
+            $('#Latitud').val(me.Propiedades.latitudIni);
+            $('#Longitud').val(me.Propiedades.longitudIni);
+
         },
         InicializarEventosMapa: function() {
             debugger;
@@ -877,24 +839,15 @@ var GoogleMap = function() {
 
         },
         ValidacionMapa: function() {
-            $('#txtDireccion').focusout(function() {
+            $('#Direccion').focusout(function() {
                 debugger;
                 if ($(this).val().length === 0) {
                     //$('.enlace_abrir_mapa')[0].disabled = true;
                 }
-            });
-            $("#txtCiudad").change(function() {
-                debugger;
-                $('#txtDireccion').val('');
-                $('.enlace_abrir_mapa')[0].disabled = false;
-                var coordenadas = {
-                    lat: 0,
-                    lng: 0
-                };
-                map.setCenter(coordenadas);
-                marker.setPosition(coordenadas);
-                marker.setVisible(false);
-                map.setZoom(ZoonMapa);
+                var dropdown = document.getElementsByClassName('pac-container')[0];
+                if (dropdown.style.display == 'none') {
+                    me.Funciones.LimpiarMapa();
+                }
             });
 
         },
@@ -914,6 +867,18 @@ var GoogleMap = function() {
 
                 });
         },
+        LimpiarMapa: function() {
+            var coordenadas = {
+                lat:0,
+                lng:0
+            }
+            marker.setPosition(coordenadas);
+            map.setCenter(coordenadas);
+            marker.setVisible(false);
+            $('#Latitud').val("0");
+            $('#Longitud').val("0");
+            $('#Direccion').val('');
+        },
         ConfirmarUbicacion: function () {
             debugger;
             var coordenadas = {
@@ -922,7 +887,9 @@ var GoogleMap = function() {
             }
             marker.setPosition(coordenadas);
             map.setCenter(coordenadas);
-            $('#txtDireccion').val(me.Propiedades.directionText);
+            $('#Direccion').val(me.Propiedades.directionText);
+            $('#Latitud').val(coordenadas.latitudFin);
+            $('#Longitud').val(coordenadas.longitudFin);
         },
         ModoEdicion: function() {
             debugger;
@@ -932,7 +899,7 @@ var GoogleMap = function() {
             };
             me.Propiedades.latitudIni = coordenadas.lat;
             me.Propiedades.longitudIni = coordenadas.lng;
-            $('#txtDireccion').val('377 Avenida Principal Cercado de Lima');
+            $('#Direccion').val('377 Avenida Principal Cercado de Lima');
             map.setCenter(coordenadas);
             marker.setPosition(coordenadas);
             map.setZoom(ZoonMapa);
@@ -956,9 +923,12 @@ var GoogleMap = function() {
                 map.setCenter(place.geometry.location);
                 map.setZoom(ZoonMapa);
             }
-            if (EsMobile =='True')
+            if (EsMobile == 'True')
                 $('.enlace_abrir_mapa')[0].disabled = false;
-
+            else {
+                $('#Latitud').val(place.geometry.location.lat());
+                $('#Longitud').val(place.geometry.location.lng());
+            }
             me.Propiedades.latitudIni = place.geometry.location.lat();
             me.Propiedades.longitudIni = place.geometry.location.lng();
             marker.setPosition(place.geometry.location);
@@ -988,33 +958,20 @@ var GoogleMap = function() {
                         if (results[0]) {
                             me.Propiedades.latitudFin = Latlng.lat;
                             me.Propiedades.longitudFin = Latlng.lng;
-
-                            //me.Propiedades.latitudIni = Latlng.lat;
-                            //me.Propiedades.longitudIni = Latlng.lng;
-
                             for (var i = 0; i < results.length; i++) {
                                 if (results[i].types.indexOf('street_address') >= 0) {
                                     debugger;
                                     if(EsMobile=='True')
                                         $("#RouteDirection").html(results[i].formatted_address);
                                     else
-                                        $("#txtDireccion").val(results[i].formatted_address);
+                                        $("#Direccion").val(results[i].formatted_address);
 
                                     me.Propiedades.directionText = results[i].formatted_address;
 
                                     break;
                                 }
                             }
-                            //results[0].types.indexOf('street_address')
-                            //me.Propiedades.latitudFin =  Latlng.lat;
-                            //me.Propiedades.longitudFin = Latlng.lng;
-
-                            //me.Propiedades.latitudIni = Latlng.lat;
-                            //me.Propiedades.longitudIni = Latlng.lng;
-
-                            //me.Propiedades.latitudFin  = results[0].geometry.location.lat();
-                            //me.Propiedades.longitudFin = results[0].geometry.location.lng();
-                            //$("#RouteDirection").html(results[0].formatted_address);
+                 
                         } else {
                             window.alert('No results found');
                             return false;
@@ -1032,7 +989,9 @@ var GoogleMap = function() {
     me.InicializarMapa = function () {
         me.Funciones.CrearComponentesMapa();
         me.Funciones.InicializarEventosMapa();
-        //me.Funciones.ModoEdicion();
+        me.Funciones.ValidacionMapa();
+        debugger;
+        me.Funciones.ModoEdicion();
     }
 
 }

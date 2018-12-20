@@ -19,7 +19,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 entity = reader.MapToCollection<BEDireccionEntrega>().FirstOrDefault();
             };
 
-            return entity;
+            return entity ?? new BEDireccionEntrega();
         }
 
         public BEDireccionEntrega Insertar(BEDireccionEntrega Direccion)
@@ -30,7 +30,17 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 entity = reader.MapToCollection<BEDireccionEntrega>().FirstOrDefault();
             };
 
-            return entity;
+            return entity ?? new BEDireccionEntrega();
+        }
+        public BEDireccionEntrega ObtenerDireccionPorConsultora(BEDireccionEntrega Direccion)
+        {
+            BEDireccionEntrega entity;
+            using (var reader = new DADireccionEntega(Direccion.PaisID).ObtenerDireccionPorConsultora(Direccion))
+            {
+                entity = reader.MapToCollection<BEDireccionEntrega>().FirstOrDefault();
+            };
+
+            return entity ?? new BEDireccionEntrega();
         }
     }
 }

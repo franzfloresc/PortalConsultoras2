@@ -1,9 +1,11 @@
 ﻿using Portal.Consultoras.BizLogic;
 using Portal.Consultoras.BizLogic.CDR;
 using Portal.Consultoras.BizLogic.PagoEnlinea;
+using Portal.Consultoras.BizLogic.Pedido;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.OpcionesVerificacion;
+using Portal.Consultoras.Entities.Pedido;
 using Portal.Consultoras.Entities.Usuario;
 using Portal.Consultoras.ServiceContracts;
 using System;
@@ -15,15 +17,16 @@ namespace Portal.Consultoras.Service
     public class UsuarioService : IUsuarioService
     {
         private readonly IUsuarioBusinessLogic _usuarioBusinessLogic;
-
-        public UsuarioService() : this(new BLUsuario())
+        private readonly IDireccionEntregaBusinessLogic _direccionEntregaBusinessLogic;
+        public UsuarioService() : this(new BLUsuario() , new BLDireccionEntrega())
         {
 
         }
 
-        public UsuarioService(IUsuarioBusinessLogic usuarioBusinessLogic)
+        public UsuarioService(IUsuarioBusinessLogic usuarioBusinessLogic , IDireccionEntregaBusinessLogic direccionEntregaBusinessLogic)
         {
-            _usuarioBusinessLogic = usuarioBusinessLogic;
+            _usuarioBusinessLogic =          usuarioBusinessLogic;
+            _direccionEntregaBusinessLogic = direccionEntregaBusinessLogic;
         }
 
         public BEUsuario Select(int paisID, string codigoUsuario)
@@ -928,6 +931,11 @@ namespace Portal.Consultoras.Service
         {
             var BLUsuario = new BLUsuario();
             return BLUsuario.ActuaizarNovedadBuscador(paisID, codigoUsuario);
+        }
+
+        public BEDireccionEntrega ObtenerDireccionPorConsultora(BEDireccionEntrega direccion)
+        {
+            return _direccionEntregaBusinessLogic.ObtenerDireccionPorConsultora(direccion);
         }
 
 

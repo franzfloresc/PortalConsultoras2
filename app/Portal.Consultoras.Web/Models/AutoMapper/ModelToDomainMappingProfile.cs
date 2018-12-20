@@ -8,6 +8,7 @@ using Portal.Consultoras.Web.Models.Estrategia;
 using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using Portal.Consultoras.Web.Models.PagoEnLinea;
 
+
 namespace Portal.Consultoras.Web.Models.AutoMapper
 {
     public class ModelToDomainMappingProfile : Profile
@@ -473,6 +474,10 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<PagoEnLineaMedioPagoDetalleModel, BEPagoEnLineaMedioPagoDetalle>();
             Mapper.CreateMap<PagoEnLineaTipoPasarelaModel, BEPagoEnLineaTipoPasarela>();
             Mapper.CreateMap<PagoEnLineaPasarelaCamposModel, BEPagoEnLineaPasarelaCampos>();
+
+
+            Mapper.CreateMap<DireccionEntregaModel, Portal.Consultoras.Web.ServiceUsuario.BEDireccionEntrega>();
+            Mapper.CreateMap<Portal.Consultoras.Web.ServiceUsuario.BEDireccionEntrega, DireccionEntregaModel>();
         }
     }
 }

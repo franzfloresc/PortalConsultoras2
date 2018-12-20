@@ -34,7 +34,8 @@
       <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" />
       <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.OpcionesVerificacion" />
       <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Usuario" />
-      <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd7" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido" />
+      <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd8" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IUsuarioService_UpdNotificacionCdrCulminadoVisualizacion_InputMessage">
@@ -342,6 +343,12 @@
   </wsdl:message>
   <wsdl:message name="IUsuarioService_EnviarSmsCodigo_OutputMessage">
     <wsdl:part name="parameters" element="tns:EnviarSmsCodigoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_ObtenerDireccionPorConsultora_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerDireccionPorConsultora" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_ObtenerDireccionPorConsultora_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerDireccionPorConsultoraResponse" />
   </wsdl:message>
   <wsdl:message name="IUsuarioService_Select_InputMessage">
     <wsdl:part name="parameters" element="tns:Select" />
@@ -1057,6 +1064,10 @@
     <wsdl:operation name="EnviarSmsCodigo">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/EnviarSmsCodigo" message="tns:IUsuarioService_EnviarSmsCodigo_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/EnviarSmsCodigoResponse" message="tns:IUsuarioService_EnviarSmsCodigo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDireccionPorConsultora">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ObtenerDireccionPorConsultora" message="tns:IUsuarioService_ObtenerDireccionPorConsultora_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ObtenerDireccionPorConsultoraResponse" message="tns:IUsuarioService_ObtenerDireccionPorConsultora_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="Select">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/Select" message="tns:IUsuarioService_Select_InputMessage" />
@@ -1853,6 +1864,15 @@
     </wsdl:operation>
     <wsdl:operation name="EnviarSmsCodigo">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/EnviarSmsCodigo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDireccionPorConsultora">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ObtenerDireccionPorConsultora" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3081,6 +3101,15 @@
     </wsdl:operation>
     <wsdl:operation name="EnviarSmsCodigo">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/EnviarSmsCodigo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDireccionPorConsultora">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ObtenerDireccionPorConsultora" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

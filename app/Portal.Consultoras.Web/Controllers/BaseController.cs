@@ -76,6 +76,7 @@ namespace Portal.Consultoras.Web.Controllers
         protected readonly ChatEmtelcoProvider _chatEmtelcoProvider;
         protected readonly ComunicadoProvider _comunicadoProvider;
         protected readonly ProgramaNuevasProvider _programaNuevasProvider;
+        protected readonly MiPerfilProvider _miPerfilProvider;
         protected MasGanadorasModel MasGanadoras
         {
             get
@@ -117,6 +118,7 @@ namespace Portal.Consultoras.Web.Controllers
             _chatEmtelcoProvider = new ChatEmtelcoProvider();
             _comunicadoProvider = new ComunicadoProvider();
             _programaNuevasProvider = new ProgramaNuevasProvider(SessionManager);
+            _miPerfilProvider = new MiPerfilProvider(SessionManager);
         }
 
         public BaseController(ISessionManager sessionManager)

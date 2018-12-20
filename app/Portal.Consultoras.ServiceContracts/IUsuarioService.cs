@@ -1,6 +1,7 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.OpcionesVerificacion;
+using Portal.Consultoras.Entities.Pedido;
 using Portal.Consultoras.Entities.Usuario;
 using System;
 using System.Collections.Generic;
@@ -421,5 +422,8 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         BERespuestaServicio EnviarSmsCodigo(int paisID, string codigoUsuario, string codigoConsultora, int campaniaID, bool esMobile, string celularActual, string celularNuevo);
         #endregion
+
+        [OperationContract]
+        BEDireccionEntrega ObtenerDireccionPorConsultora(BEDireccionEntrega direccion);
     }
 }

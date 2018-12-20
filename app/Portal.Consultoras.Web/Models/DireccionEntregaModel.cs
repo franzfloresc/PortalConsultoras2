@@ -34,10 +34,11 @@ namespace Portal.Consultoras.Web.Models
         public string CodigoUsuario { get; set; }
         public int PaisID { get; set; }
         public int Resultado { get; set; }
+        public int Operacion { get; set; }
 
 
-        public ParametroUneteCollection DropDownUbigeo1 { get; set; }
-        public ParametroUneteCollection DropDownUbigeo2 { get; set; }
-        public ParametroUneteCollection DropDownUbigeo3 { get; set; }
+        public List<ParametroUneteBE> DropDownUbigeo1 { get; set; }
+        public List<ParametroUneteBE> DropDownUbigeo2 { get; set; }
+        public List<ParametroUneteBE> DropDownUbigeo3 { get; set; }
     }
 }

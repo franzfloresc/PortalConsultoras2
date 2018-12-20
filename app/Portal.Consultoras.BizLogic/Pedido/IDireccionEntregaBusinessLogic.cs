@@ -6,5 +6,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
     {
         BEDireccionEntrega Editar(BEDireccionEntrega Direccion);
         BEDireccionEntrega Insertar(BEDireccionEntrega Direccion);
+        BEDireccionEntrega ObtenerDireccionPorConsultora(BEDireccionEntrega direccion);
     }
 }

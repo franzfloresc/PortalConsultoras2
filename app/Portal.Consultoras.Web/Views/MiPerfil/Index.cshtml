@@ -199,29 +199,30 @@ else
                         <div class="opcion_mi_perfil_contenido">
                             <fieldset class="grupo_form_cambio_datos grupo_form_cambio_datos_campo_ciudad w-50">
                                 <div class="w-100">
-                                    <select id="txtCiudad" name="txtCiudad" class="w-100">
+                                    @Html.DropDownListFor(model => model.DireccionEntrega.Ubigeo1, new SelectList(Model.DireccionEntrega.DropDownUbigeo1, "IdParametroUnete", "Nombre"), "--Seleccionar",new { id= "Ubigeo1" , Nivel =6 , @class = "w-100", ItemChange="0" })
+                                    @*<select id="txtCiudad" name="txtCiudad" class="w-100">
                                         <option value="0" selected>-- Seleccione una ciudad --</option>
                                         <option value="1">Lima</option>
-                                    </select>
-                                    <label for="txtCiudad">Ciudad <span class="asteriscos">*</span></label>
+                                    </select>*@
+                                    <label for="Ubigeo1">Ciudad <span class="asteriscos">*</span></label>
                                 </div>
                             </fieldset>
                             <fieldset class="grupo_form_cambio_datos grupo_form_cambio_datos_campo_comuna w-50">
                                 <div class="w-100">
-                                    
-                                    <select id="txtComuna" name="txtComuna" class="w-100">
-                                        <option value="0" selected>-- Seleccione una comuna --</option>
-                                        <option value="1">Rímac</option>
+                                   
+                                    <select id="Ubigeo2" name="Ubigeo2" class="w-100"  Nivel =7>
+                                        @*<option value="0" selected>-- Seleccione una comuna --</option>
+                                        <option value="1">Rímac</option>*@
                                     </select>
-                                    <label for="txtComuna">Comuna <span class="asteriscos">*</span></label>
+                                    <label for="Ubigeo2">Comuna <span class="asteriscos">*</span></label>
                                 </div>
                             </fieldset>
                             <fieldset class="grupo_form_cambio_datos grupo_form_cambio_datos_campo_direccion">
                                 <div class="w-100">
                                     
-                                    @Html.DisplayFor(x => x.DireccionEntrega.Direccion, new {@class = "w-100"})
-                                    @*<input id="txtDireccion" name="txtDireccion" class="w-100" type="text" value=""/>*@
-                                    <label for="txtDireccion" class="w-100">
+                                    @Html.TextBoxFor(x => x.DireccionEntrega.Direccion, new {@class = "w-100" , id= "Direccion" })
+                                    @*<input id="Direccion" name="Direccion" class="w-100" type="text" value=""/>*@
+                                    <label for="Direccion" class="w-100">
                                         Dirección <span class="asteriscos">*</span>
                                     </label>
                                     <a class="enlace_ubicacion_actual" title="Ubicación Actual">
@@ -233,12 +234,16 @@ else
                             </fieldset>
                             <fieldset class="grupo_form_cambio_datos">
                                 <div class="w-100">
-                                    @Html.DisplayFor(x => x.DireccionEntrega.Referencia, new {@class= "w-100 campo_referencia" })
+                                    @Html.TextBoxFor(x => x.DireccionEntrega.Referencia, new { @class = "w-100 campo_referencia", id = "Referencia" })
                                     @*<input id="txtReferencia" name="txtReferencia" class="w-100 campo_referencia" type="text" value="" />*@
-                                    <label for="txtReferencia" class="w-100">
+                                    <label for="Referencia" class="w-100">
                                         Referencia
                                     </label>
                                 </div>
+                                @Html.HiddenFor(m => m.DireccionEntrega.Latitud ,   new { id=  "Latitud"  })
+                                @Html.HiddenFor(m => m.DireccionEntrega.Longitud,   new { id = "Longitud" })
+                                @Html.HiddenFor(m => m.DireccionEntrega.Operacion , new { id= "Operacion" })
+
                             </fieldset>
                         </div>
                     </div>
@@ -317,7 +322,14 @@ else
         debugger;
         var ZoonMapa = 17;
         var LocationCountry = '@ViewBag.LocationCountry';
-        var EsMobile = '@ViewBag.EsMobile' ;
+        var EsMobile = '@ViewBag.EsMobile';
+        var UrlDrop = '@Url.Action("ObtenerUbigeoDependiente")';
+
+        var Ubigeos = { Ubigeo2: '@Model.DireccionEntrega.Ubigeo2', Ubigeo3 :'@Model.DireccionEntrega.Ubigeo3'}
+
+
+        @*var Ubigeo2 = '@Model.DireccionEntrega.Ubigeo2';
+        var Ubigeo3 = '@Model.DireccionEntrega.Ubigeo3';*@
     </script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?client=gme-cetcosa&v=weekly&callback=initMapa&libraries=places,directions"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/MiPerfil/Base.js")"></script>

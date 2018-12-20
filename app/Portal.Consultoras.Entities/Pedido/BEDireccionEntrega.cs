@@ -35,6 +35,7 @@ namespace Portal.Consultoras.Entities.Pedido
         public  int PaisID { get; set; }
         public int Resultado { get; set; }
 
+        public int Operacion { get; set; }
 
     }
 }

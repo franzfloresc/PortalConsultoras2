@@ -316,6 +316,7 @@
     <Compile Include="Models\CambioTipoNegocioModel.cs" />
     <Compile Include="Controllers\ReporteContratoController.cs" />
     <Compile Include="Models\ConsultaCrediticiaExternaMX.cs" />
+    <Compile Include="Models\DireccionEntregaModel.cs" />
     <Compile Include="Models\Estrategia\EstrategiaMDbAdapterModel.cs" />
     <Compile Include="Controllers\OfertaDelDiaController.cs" />
     <Compile Include="CustomHelpers\Infraestructure\Sms\ISmsConfirm.cs" />

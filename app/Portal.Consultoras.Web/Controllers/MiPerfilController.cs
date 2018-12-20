@@ -15,6 +15,7 @@ using AutoMapper;
 using System.ServiceModel;
 using Portal.Consultoras.Web.Infraestructure.Sms;
 using System.Collections.Generic;
+using Portal.Consultoras.Web.ServiceUnete;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -30,7 +31,7 @@ namespace Portal.Consultoras.Web.Controllers
                 beusuario = sv.Select(userData.PaisID, userData.CodigoUsuario);
             }
 
-            if (beusuario != null)
+           if (beusuario != null)
             {
                 model.PaisISO = userData.CodigoISO;
                 ViewBag.LocationCountry = userData.CodigoISO;
@@ -100,7 +101,8 @@ namespace Portal.Consultoras.Web.Controllers
                     p.Posicion.Trim().ToLower().Equals(Constantes.MenuPosicion.Body) && 
                     p.Codigo.Trim().ToLower().Equals(Constantes.MenuCodigo.MiPerfil.ToLower())
                 ).ToList();
-
+                model.DireccionEntrega = _miPerfilProvider.ObtenerDireccionPorConsultora(new DireccionEntregaModel { ConsultoraID = (int)userData.ConsultoraID , PaisID = userData.PaisID });
+                Binder(model.DireccionEntrega);
                 model.PermisoMenu = new List<string>();
                 foreach (var item in objMenu)
                 {
@@ -115,6 +117,30 @@ namespace Portal.Consultoras.Web.Controllers
             return View(model);
         }
 
+        private void Binder(DireccionEntregaModel record)
+        {
+            record.Direccion = record.Direccion ?? "";
+            record.Referencia = record.Referencia ?? "";
+            record.Ubigeo1 = 23;
+            record.Ubigeo2 = 56;
+            record.DropDownUbigeo1 = DropDownUbigeoPrincipal();
+        }
+
+        private   List<ParametroUneteBE> DropDownUbigeoPrincipal()
+        {
+            return  _miPerfilProvider.ObtenerUbigeoPrincipal(userData.CodigoISO);
+        }
+        private List<ParametroUneteBE> DropDownEmpty()
+        {
+            return new List<ParametroUneteBE>();
+        }
+        [HttpGet]
+        public async Task<JsonResult> ObtenerUbigeoDependiente(int Nivel, int IdPadre)
+        {
+            var records = await _miPerfilProvider.ObtenerUbigeoDependiente(userData.CodigoISO,Nivel,IdPadre);
+            return Json(records, JsonRequestBehavior.AllowGet);
+
+        }
         public ActionResult CambiarContrasenia()
         {
             return View();
