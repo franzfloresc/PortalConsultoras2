@@ -362,12 +362,16 @@ var EstrategiaAgregarModule = (function () {
             }
 
             if (isMobile()) {
-              //ActualizarGanancia(data.DataBarra);
-                var prevTotal = mtoLogroBarra || 0;
-                MostrarBarra(data);  //OG
+                if (typeof MostrarBarra === 'function') {
+                    var prevTotal = mtoLogroBarra || 0;
+                    MostrarBarra(data); //OG
+                    showPopupNivelSuperado(data.DataBarra, prevTotal);
+                } else {
+                    ActualizarGanancia(data.DataBarra);
+                }
+                
                 CargarCantidadProductosPedidos(true);
                 microefectoPedidoGuardado();                   
-                showPopupNivelSuperado(data.DataBarra, prevTotal);
 
             } else {
                 CargarResumenCampaniaHeader(true);

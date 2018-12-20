@@ -626,9 +626,6 @@ namespace Portal.Consultoras.Web.Controllers
             barraModel.MontoMaximoStr = Util.ValidaMontoMaximo(userData.MontoMaximo, userData.CodigoISO);
             barraModel.MontoAhorroCatalogoStr = Util.DecimalToStringFormat(montosProl.AhorroCatalogo, userData.CodigoISO);
             barraModel.MontoAhorroRevistaStr = Util.DecimalToStringFormat(montosProl.AhorroRevista, userData.CodigoISO);
-            barraModel.MontoGanancia = barraModel.MontoAhorroCatalogo + barraModel.MontoAhorroRevista;
-            barraModel.TotalPedido = listProducto.Sum(d => d.ImporteTotal);
-            barraModel.CantidadProductos = listProducto.Sum(p => p.Cantidad);
 
             barraModel.MontoMinimo = userData.MontoMinimo;
             if (barraModel.MontoMaximoStr != "") barraModel.MontoMaximo = userData.MontoMaximo;
@@ -636,9 +633,14 @@ namespace Portal.Consultoras.Web.Controllers
             if (barraModel.MontoDescuentoStr != "") barraModel.MontoDescuento = decimal.Parse(montosProl.MontoTotalDescuento);
             if (barraModel.MontoAhorroCatalogoStr != "") barraModel.MontoAhorroCatalogo = decimal.Parse(montosProl.AhorroCatalogo);
             if (barraModel.MontoAhorroRevistaStr != "") barraModel.MontoAhorroRevista = decimal.Parse(montosProl.AhorroRevista);
+
+            barraModel.MontoGanancia = barraModel.MontoAhorroCatalogo + barraModel.MontoAhorroRevista;
+            barraModel.TotalPedido = listProducto.Sum(d => d.ImporteTotal);
+            barraModel.CantidadProductos = listProducto.Sum(p => p.Cantidad);
+            barraModel.CantidadCuv = listProducto.Count;
+
             barraModel.MontoGananciaStr = Util.DecimalToStringFormat(barraModel.MontoGanancia, userData.CodigoISO);
             barraModel.TotalPedidoStr = Util.DecimalToStringFormat(barraModel.TotalPedido, userData.CodigoISO);
-            barraModel.CantidadCuv = listProducto.Count;
         }
 
         private List<BEEscalaDescuento> GetListaEscalaDescuento()
