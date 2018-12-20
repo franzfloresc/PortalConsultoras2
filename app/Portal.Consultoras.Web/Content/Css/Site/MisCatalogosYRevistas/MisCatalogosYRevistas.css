@@ -181,7 +181,9 @@
     margin-bottom:39px;
 }
 
-.catalogos__por__campania__num span{
+.revista__por__campania__num span,
+.catalogos__por__campania__num span
+{
     font-size:20px;
     letter-spacing:0.8px;
 }
@@ -308,6 +310,55 @@
 .modo__compartir__catalogo--mail{
     background-color:#000;
 }
+
+.mi__revista__wrapper{
+    margin-top:109px;
+    background-color:#ecebf0;
+    min-height:327px;
+    padding-top:20px;
+    padding-bottom:20px;
+}
+
+.mi__revista__imagen {
+    max-width: 232px;
+    -moz-box-shadow: 6px 7px 5px 0 rgba(212,205,212,1);
+    -webkit-box-shadow: 6px 7px 5px 0 rgba(212,205,212,1);
+    box-shadow: 6px 7px 5px 0 rgba(212,205,212,1);
+}
+
+    .mi__revista__imagen img{
+        width:100%;
+        height:auto;
+    }
+
+.mi__revista__info__texto{
+    margin-bottom:15px;
+}
+
+.mi__revista__info__texto,
+.btn__encuentra__aqui__tu__revista__digital
+{
+    font-size:13px;
+}
+
+.btn__encuentra__aqui__tu__revista__digital {
+    max-width: 173px;
+    height:40px;
+    background-color: transparent;
+    border:1px solid #000;
+    color: #000;
+    cursor:pointer;
+    letter-spacing:0.8px;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+    .btn__encuentra__aqui__tu__revista__digital:hover{
+        background-color:#000;
+        color:#FFF;
+    }
 
 /*  MIS CATÁLOGOS Y REVISTAS MOBILE */
 
