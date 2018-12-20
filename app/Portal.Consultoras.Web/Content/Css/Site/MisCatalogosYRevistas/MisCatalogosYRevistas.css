@@ -18,7 +18,7 @@
 
 .layout__content{
     margin-top:28px;
-    margin-bottom:44px;
+    margin-bottom:107px;
 }
 
 .layout__view__title,
@@ -170,10 +170,143 @@
     letter-spacing:1px;
     border:none;
     font-size:16px;
+    cursor:pointer;
 }
 
 .btn__compartir--slider{
     max-width:350px;
+}
+
+.catalogos__por__campania__num{
+    margin-bottom:39px;
+}
+
+.catalogos__por__campania__num span{
+    font-size:20px;
+    letter-spacing:0.8px;
+}
+
+.catalogos__por__campania__slider__control {
+    margin-top:123px;
+    height: 66.81px;
+    cursor: pointer;
+    opacity: 0.4;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+    .catalogos__por__campania__slider__control:hover{
+        opacity:1;
+    }
+
+    .catalogos__por__campania__slider__control img{
+        width:35px;
+    }
+
+.catalogos__campania--anterior,
+.catalogos__campania--actual
+{
+    display:none;
+}
+
+.catalogos__por__campania__item__imagenes{
+    justify-content:space-evenly;
+}
+
+.catalogos__por__campania__item__imagen {
+    position: relative;
+    max-width: 306px;
+}
+
+    .catalogos__por__campania__item__imagen:hover{
+        z-index:3;
+    }
+
+    .catalogos__por__campania__item__imagen > a {
+        height: 100%;
+        -moz-transition: all 0.2s ease;
+        -o-transition: all 0.2s ease;
+        -webkit-transition: all 0.2s ease;
+        transition: all 0.3s ease;
+        -moz-box-shadow: 0 20px 20px -19px rgba(0,0,0,0.5);
+        -webkit-box-shadow: 0 20px 20px -19px rgba(0,0,0,0.5);
+        box-shadow: 0 20px 20px -19px rgba(0,0,0,0.5);
+    }
+
+    .catalogos__por__campania__item__imagen > a:hover {
+        -moz-transform: scale(1.08);
+        -ms-transform: scale(1.08);
+        -o-transform: scale(1.08);
+        -webkit-transform: scale(1.08);
+        transform: scale(1.08);
+    }
+
+    .catalogos__por__campania__item__imagen img{
+        width:100%;
+        height:100%;
+    }
+
+    .catalogos__campania--actual .catalogos__por__campania__item__imagen img{
+        width:auto;
+        height:100%;
+    }
+
+.catalogos__por__campania__item__imagen--cyzone,
+.catalogos__por__campania__item__imagen--lbel,
+.catalogos__por__campania__item__imagen--esika
+{
+    height:310px;
+    z-index:1;
+}
+
+.catalogos__campania--actual .catalogos__por__campania__item__imagen--esika{
+    height:346px;
+    z-index:2;
+    left:18px;
+}
+
+.catalogos__campania--actual .catalogos__por__campania__item__imagen--cyzone {
+    left: 114px;
+}
+
+.catalogos__campania--actual .catalogos__por__campania__item__imagen--lbel {
+    left: -88px;
+}
+
+.catalogos__por__campania__item__descrip{
+    margin-top:48px;
+    margin-bottom:26px;
+    max-width:900px;
+}
+
+.catalogos__por__campania__item__descrip div,
+.catalogos__por__campania__item__descrip span
+{
+    font-size:24px;
+}
+
+.catalogos__por__campania__item__modos__compartir{
+    margin-top:28px;
+}
+
+.modo__compartir__catalogo{
+    height:30px;
+    max-width:47%;
+}
+
+    .modo__compartir__catalogo img{
+        width:auto;
+        height:18px;
+    }
+
+.modo__compartir__catalogo--facebook{
+    background-color:#336699;
+}
+
+.modo__compartir__catalogo--mail{
+    background-color:#000;
 }
 
 /*  MIS CATÁLOGOS Y REVISTAS MOBILE */
@@ -220,7 +353,7 @@
     .layout__view__title__icono__volver{
         width:26px;
         height:20px;
-        margin-right:-15px;
+        margin-right:-30px;
     }
 
     .layout__view__title__icono__volver img{
