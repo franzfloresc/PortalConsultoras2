@@ -539,6 +539,7 @@ function MostrarBarra(datax, destino) {
 
     if (belcorp.barra.settings.isMobile) {
         //if (dataBarra.MontoMaximo!= 0 && dataBarra.MontoMaximo != "" && dataBarra.MontoMaximo != null && dataBarra.MontoMaximo.toString().substring(0, 4)!="9999" ) {
+           
             wLogro = CalculoLlenadoBarra();
             CalculoPosicionMinimoMaximo();
         //}
@@ -605,7 +606,7 @@ function MostrarBarra(datax, destino) {
     }
 
     var divBarraMsg = $("#divBarra #divBarraMensajeLogrado .agrega_barra");
-    if (sessionStorage.getItem("cuvPack") != null || tp > 0) {
+    if (sessionStorage.getItem("cuvPack") != null || mx > 0) { 
         divBarraMsg.html(objMsg.Mensaje.replace("#porcentaje", valPor).replace("#valor", valorMonto));
     } else {
         divBarraMsg.html(objMsg.Mensaje.replace("#porcentaje", valPor).replace("#valor", (mt < mn ? valorMonto : valorMontoEsacalaDescuento)));
@@ -1625,6 +1626,7 @@ function CalculoPosicionMinimoMaximo() {
                     document.getElementById('MontoMaximoBloque').style.right = "-14px";
                     document.getElementById('MontoMaximoBloque').style.display = "block";
 
+
                     if (montoActual >= dataBarra.ListaEscalaDescuento[3].MontoDesde) {
                         document.getElementById('MontoMaximoBloque').style.display = "none";
                         document.getElementById('lineaPosicionMontoMaximo').style.display = 'none';
@@ -1702,6 +1704,11 @@ function CalculoPosicionMinimoMaximo() {
                             document.getElementById('MontoMaximoBloque').style.right = "-14px";
                             document.getElementById('MontoMaximoBloque').style.display = "block";
 
+
+                            if (montoActual >= dataBarra.ListaEscalaDescuento[3].MontoDesde) {
+                                document.getElementById('MontoMaximoBloque').style.display = "none";
+                                document.getElementById('lineaPosicionMontoMaximo').style.display = 'none';
+                            }
 
                         }
 
