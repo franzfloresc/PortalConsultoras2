@@ -1626,6 +1626,7 @@ function CalculoPosicionMinimoMaximo() {
                     document.getElementById('MontoMaximoBloque').style.right = "-14px";
                     document.getElementById('MontoMaximoBloque').style.display = "block";
 
+
                     if (montoActual >= dataBarra.ListaEscalaDescuento[3].MontoDesde) {
                         document.getElementById('MontoMaximoBloque').style.display = "none";
                         document.getElementById('lineaPosicionMontoMaximo').style.display = 'none';
@@ -1703,6 +1704,11 @@ function CalculoPosicionMinimoMaximo() {
                             document.getElementById('MontoMaximoBloque').style.right = "-14px";
                             document.getElementById('MontoMaximoBloque').style.display = "block";
 
+
+                            if (montoActual >= dataBarra.ListaEscalaDescuento[3].MontoDesde) {
+                                document.getElementById('MontoMaximoBloque').style.display = "none";
+                                document.getElementById('lineaPosicionMontoMaximo').style.display = 'none';
+                            }
 
                         }
 
