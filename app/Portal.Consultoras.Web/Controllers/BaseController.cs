@@ -118,7 +118,7 @@ namespace Portal.Consultoras.Web.Controllers
             _chatEmtelcoProvider = new ChatEmtelcoProvider();
             _comunicadoProvider = new ComunicadoProvider();
             _programaNuevasProvider = new ProgramaNuevasProvider(SessionManager);
-            _miPerfilProvider = new MiPerfilProvider(SessionManager);
+            _miPerfilProvider = new MiPerfilProvider();
         }
 
         public BaseController(ISessionManager sessionManager)

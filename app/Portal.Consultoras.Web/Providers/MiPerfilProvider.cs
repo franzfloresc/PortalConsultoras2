@@ -19,7 +19,7 @@ namespace Portal.Consultoras.Web.Providers
             sessionManager = SessionManager.SessionManager.Instance;
         }
 
-        public List<ParametroUneteBE> ObtenerUbigeoPrincipal(string CodigoISO)
+        public List<UsuarioOpcionesModel> GetUsuarioOpciones(int paisId, string codigoUsuario , bool sesion)
         {
             var datos = sesion ? sessionManager.GetUsuarioOpciones() : null;
             if (datos == null)
@@ -31,6 +31,18 @@ namespace Portal.Consultoras.Web.Providers
                 }
             }
             return datos;
+        }
+        public List<ParametroUneteBE> ObtenerUbigeoPrincipal(string CodigoISO)
+        {
+            List<ParametroUneteBE> result;
+            int IdPadre = 0;
+            using (var sv = new PortalServiceClient())
+            {
+                
+                result =  sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel1, IdPadre);
+            }
+
+            return result;
         }
 
         public virtual List<UsuarioOpcionesModel> ObtenerUsuarioOpciones(int paisId, string codigoUsuario)
