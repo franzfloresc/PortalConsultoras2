@@ -266,7 +266,7 @@
 .catalogos__campania--actual .catalogos__por__campania__item__imagen--esika{
     min-height:346px;
     z-index:2;
-    left:18px;
+    left:0;
 }
 
     .catalogos__campania--actual .catalogos__por__campania__item__imagen--esika img{
@@ -274,11 +274,11 @@
     }
 
 .catalogos__campania--actual .catalogos__por__campania__item__imagen--cyzone {
-    left: 114px;
+    left: 106px;
 }
 
 .catalogos__campania--actual .catalogos__por__campania__item__imagen--lbel {
-    left: -88px;
+    left: -93px;
 }
 
 .catalogos__por__campania__item__descrip{
