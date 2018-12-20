@@ -3,7 +3,6 @@ using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceUnete;
 using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.SessionManager;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,21 +13,33 @@ namespace Portal.Consultoras.Web.Providers
     public class MiPerfilProvider
     {
         protected ISessionManager sessionManager;
-        public MiPerfilProvider(ISessionManager sessionManager)
+
+        public MiPerfilProvider()
         {
-            this.sessionManager = sessionManager;
+            sessionManager = SessionManager.SessionManager.Instance;
         }
 
         public List<ParametroUneteBE> ObtenerUbigeoPrincipal(string CodigoISO)
         {
-            List<ParametroUneteBE> result;
-            Int32 param = 0;
-            using (var sv = new PortalServiceClient())
+            var datos = sesion ? sessionManager.GetUsuarioOpciones() : null;
+            if (datos == null)
             {
-                result = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel1, param);
+                datos = ObtenerUsuarioOpciones(paisId, codigoUsuario);
+                if (sesion)
+                {
+                    sessionManager.SetUsuarioOpciones(datos);
+                }
             }
+            return datos;
+        }
 
-            return result;
+        public virtual List<UsuarioOpcionesModel> ObtenerUsuarioOpciones(int paisId, string codigoUsuario)
+        {
+            using (var usuario = new UsuarioServiceClient())
+            {
+                var datos = usuario.GetUsuarioOpciones(paisId, codigoUsuario);
+                return Mapper.Map<IEnumerable<BEUsuarioOpciones>, List<UsuarioOpcionesModel>>(datos);
+            }
         }
         public async Task<List<ParametroUneteBE>> ObtenerUbigeoDependiente(string CodigoISO , int Nivel , int IdPadre)
         {

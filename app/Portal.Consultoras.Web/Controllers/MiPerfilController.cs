@@ -16,19 +16,22 @@ using System.ServiceModel;
 using Portal.Consultoras.Web.Infraestructure.Sms;
 using System.Collections.Generic;
 using Portal.Consultoras.Web.ServiceUnete;
+using Portal.Consultoras.Web.Providers;
 
 namespace Portal.Consultoras.Web.Controllers
 {
     public class MiPerfilController : BaseController
     {
+        protected MiPerfilProvider _miperfil;
         public ActionResult Index()
         {
             BEUsuario beusuario;
             var model = new MisDatosModel();
+            _miperfil = new MiPerfilProvider();
 
             using (var sv = new UsuarioServiceClient())
             {
-                beusuario = sv.Select(userData.PaisID, userData.CodigoUsuario);
+                beusuario = sv.Select(userData.PaisID, userData.CodigoUsuario);                
             }
 
            if (beusuario != null)
@@ -111,7 +114,8 @@ namespace Portal.Consultoras.Web.Controllers
                         model.PermisoMenu.Add(subitem.Descripcion);
                     }                    
                 }
-                model.BoletaImpresa = userData.BoletaImpresa;
+
+                model.UsuarioOpciones = _miperfil.GetUsuarioOpciones(userData.PaisID, userData.CodigoUsuario, true);
             }
 
             return View(model);

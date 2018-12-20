@@ -410,6 +410,7 @@
     <Compile Include="ShowRoom\BEShowRoomPersonalizacionNivel.cs" />
     <Compile Include="ShowRoom\BEShowRoomTipoOferta.cs" />
     <Compile Include="BEUsuarioConfiguracion.cs" />
+    <Compile Include="Usuario\BEUsuarioOpciones.cs" />
     <Compile Include="Usuario\BEUsuarioPerfil.cs" />
   </ItemGroup>
   <ItemGroup>

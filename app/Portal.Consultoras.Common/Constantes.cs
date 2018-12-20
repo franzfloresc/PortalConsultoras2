@@ -432,6 +432,7 @@ namespace Portal.Consultoras.Common
 
 
             public const string JwtApiSomosBelcorp = "JwtApiSomosBelcorp";
+            public const string UsuarioPedidos = "UsuarioPedidos";
 
         }
 
@@ -1682,7 +1683,7 @@ namespace Portal.Consultoras.Common
             public const short EscalaDescuentoDestokp = 72;
             public const short EscalaDescuentoMobile = 73;
             public const short ListaOrdenamientoFiltros = 147;
-            public const short ArmaTuPack = 14;
+            public const short ArmaTuPack = 14;            
         }
 
         public struct MensajesCDRExpress

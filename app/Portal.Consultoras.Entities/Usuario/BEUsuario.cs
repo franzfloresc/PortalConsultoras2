@@ -310,7 +310,6 @@ namespace Portal.Consultoras.Entities
             EsConsultoraOficina = row.ToInt32("IndicadorConsultoraOficina") == 1;
             PromedioVenta = row.ToDouble("PromedioVenta");
             NovedadBuscador = row.ToInt32("NovedadBuscador");
-            BoletaImpresa = row.ToBoolean("BoletaImpresa");
         }
 
         [Column("ConsultoraAsociadoID")]
@@ -1238,8 +1237,6 @@ namespace Portal.Consultoras.Entities
         public bool TienePagoEnLinea { get; set; }
         [DataMember]
         public bool TieneMG { get; set; }
-        [DataMember]
-        public bool BoletaImpresa { get; set; }
 
         public BEUsuario(IDataRecord row, bool Tipo, bool ValidaHorario)
         {

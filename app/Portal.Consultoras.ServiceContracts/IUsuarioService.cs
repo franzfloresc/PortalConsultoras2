@@ -422,6 +422,8 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         BERespuestaServicio EnviarSmsCodigo(int paisID, string codigoUsuario, string codigoConsultora, int campaniaID, bool esMobile, string celularActual, string celularNuevo);
         #endregion
+        [OperationContract]
+        List<BEUsuarioOpciones> GetUsuarioOpciones(int paisID, string codigoUsuario);
 
         [OperationContract]
         BEDireccionEntrega ObtenerDireccionPorConsultora(BEDireccionEntrega direccion);

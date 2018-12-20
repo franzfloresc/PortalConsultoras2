@@ -344,6 +344,12 @@
   <wsdl:message name="IUsuarioService_EnviarSmsCodigo_OutputMessage">
     <wsdl:part name="parameters" element="tns:EnviarSmsCodigoResponse" />
   </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetUsuarioOpciones_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUsuarioOpciones" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetUsuarioOpciones_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUsuarioOpcionesResponse" />
+  </wsdl:message>
   <wsdl:message name="IUsuarioService_ObtenerDireccionPorConsultora_InputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerDireccionPorConsultora" />
   </wsdl:message>
@@ -1064,6 +1070,10 @@
     <wsdl:operation name="EnviarSmsCodigo">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/EnviarSmsCodigo" message="tns:IUsuarioService_EnviarSmsCodigo_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/EnviarSmsCodigoResponse" message="tns:IUsuarioService_EnviarSmsCodigo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUsuarioOpciones">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetUsuarioOpciones" message="tns:IUsuarioService_GetUsuarioOpciones_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetUsuarioOpcionesResponse" message="tns:IUsuarioService_GetUsuarioOpciones_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ObtenerDireccionPorConsultora">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ObtenerDireccionPorConsultora" message="tns:IUsuarioService_ObtenerDireccionPorConsultora_InputMessage" />
@@ -1864,6 +1874,15 @@
     </wsdl:operation>
     <wsdl:operation name="EnviarSmsCodigo">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/EnviarSmsCodigo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUsuarioOpciones">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetUsuarioOpciones" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3101,6 +3120,15 @@
     </wsdl:operation>
     <wsdl:operation name="EnviarSmsCodigo">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/EnviarSmsCodigo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUsuarioOpciones">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetUsuarioOpciones" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

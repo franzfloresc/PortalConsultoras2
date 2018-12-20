@@ -16,17 +16,19 @@ using Portal.Consultoras.Web.ServiceZonificacion;
 using Portal.Consultoras.Web.ServiceSAC;
 using System.Collections.Generic;
 using System.ServiceModel.Channels;
+using Portal.Consultoras.Web.Providers;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
     public class MiPerfilController : BaseMobileController
     {
-
+        protected MiPerfilProvider _miperfil;
         public ActionResult Index()
         {
             ServiceUsuario.BEUsuario beusuario;
             var model = new MisDatosModel();
-            
+            _miperfil = new MiPerfilProvider();
+
             using (var sv = new UsuarioServiceClient())
             {
                 beusuario = sv.Select(userData.PaisID, userData.CodigoUsuario);
@@ -113,7 +115,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         model.PermisoMenu.Add(subitem.Descripcion);
                     }
                 }
-                model.BoletaImpresa = userData.BoletaImpresa;
+                model.UsuarioOpciones = _miperfil.GetUsuarioOpciones(userData.PaisID, userData.CodigoUsuario, true);
             }
 
             return View(model);
