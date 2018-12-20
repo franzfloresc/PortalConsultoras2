@@ -699,6 +699,10 @@ function isTippingPointSuperado() {
 function checkPremioSelected() {
     var details = tpElectivos.pedidoDetails;
     if (!details || details.length === 0) {
+        if (tpElectivos.premioSelected) {
+            setPremio(null);
+        }
+
         return;
     }
 
@@ -792,6 +796,7 @@ function cargarPremiosElectivos() {
         .then(function (response) {
             tpElectivos.premios = response.lista;
             var premio = response.selected;
+            tpElectivos.premioSelected = premio;
             var premiosMostrar = getPremiosEstrategia(tpElectivos.premios);
 
             if (isTippingPointSuperado()) {
@@ -799,7 +804,6 @@ function cargarPremiosElectivos() {
             }
 
             if (premiosMostrar.length === 0) {
-                tpElectivos.premioSelected = premio;
                 hidePencilInDetails();
 
                 return;
