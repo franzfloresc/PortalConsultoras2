@@ -14,6 +14,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
+using Portal.Consultoras.Entities.Usuario;
 
 namespace Portal.Consultoras.BizLogic.Reserva
 {
@@ -564,7 +565,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
             string _totalSinDescuento = Util.DecimalToStringFormat(totalSinDescuento, input.PaisISO);
             string _descuento = Util.DecimalToStringFormat(descuento, input.PaisISO);
             string mensajeBoletaElectronica = string.Empty;
-            if (!input.BoletaImpresa) mensajeBoletaElectronica = " Una vez facturado podrás descargar tus boletas electrónicas desde <a href='https://www.somosbelcorp.com/MisPedidos' target='_blank' cursor='pointer'><b>Aquí</b></a>";
+            if (!ObtenerFlagBoletaImpresa(input.PaisID, input.CodigoUsuario)) mensajeBoletaElectronica = " Una vez facturado podrás descargar tus boletas electrónicas desde <a href='https://www.somosbelcorp.com/MisPedidos' target='_blank' cursor='pointer'><b>Aquí</b></a>";
 
             StringBuilder mailBody = new StringBuilder();
             mailBody.Append("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">");
@@ -675,6 +676,16 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 return Util.EnviarMail("no-responder@somosbelcorp.com", input.Email, string.Empty, string.Format("({0}) Confirmación pedido Belcorp", input.PaisISO), mailBody.ToString(), true, null, false);
             }
             catch (Exception) { return false; }
+        }
+
+        private bool ObtenerFlagBoletaImpresa(int paisID, string codigoUsuario)
+        {
+            var BLUsuario = new BLUsuario();
+            var _miperfil = new List<BEUsuarioOpciones>();
+            bool flag = false;
+            _miperfil = BLUsuario.GetUsuarioOpciones(paisID, codigoUsuario);
+            flag = _miperfil.Where(a => a.CodigoUsuario == codigoUsuario && a.OpcionesUsuarioId == 1).Select(b => b.CheckBox).FirstOrDefault();
+            return flag;
         }
 
         private bool InsLogEnvioCorreoPedidoValidado(BEInputReservaProl input, List<BEPedidoWebDetalle> listPedidoWebDetalle)
