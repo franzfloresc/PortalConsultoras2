@@ -937,7 +937,10 @@ function RespuestaEjecutarServicioPROL(response, fnOfertaFinal) {
     arrayProductosGuardadoExito = response;
 
     var cumpleOferta = fnOfertaFinal();
-    if (cumpleOferta) return;
+    if (cumpleOferta) {
+        setReservoPedido();
+        return;
+    }
 
     if (!response.data.Reserva) {
         ShowPopupObservacionesReserva();
@@ -945,7 +948,13 @@ function RespuestaEjecutarServicioPROL(response, fnOfertaFinal) {
     }
 
     EjecutarAccionesReservaExitosa(response);
+    setReservoPedido();
 }
+
+function setReservoPedido() {
+    if (typeof NoReservoPedido !== 'undefined') NoReservoPedido = false;
+}
+
 function EjecutarAccionesReservaExitosa(response) {
     if (response.flagCorreo == '1') EnviarCorreoPedidoReservado();
     if (estaRechazado == "2") cerrarMensajeEstadoPedido();
