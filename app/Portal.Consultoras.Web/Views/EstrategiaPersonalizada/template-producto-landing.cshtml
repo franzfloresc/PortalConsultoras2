@@ -195,13 +195,20 @@
                     {{/iff}}
                     {{/iff}}
                     {{#iff TipoAccionAgregar '==' '@Constantes.TipoAccionAgregar.EligeOpcion'}}
-                    <div {{#iff ClaseBloqueada '==' ''}} onclick="javascript:OnClickFichaDetalle(event.target);" {{/iff}}>
-                        <div class="texto_elige_tono"></div>
-                        <div class="clear"></div>
-                        <a class="btn_elige_tono js-no-popup {{ClaseBloqueada}}" data-item-tag="eligetuopcion">
-                            <div><img src="/Content/Images/mobile/Esika/click-ico.svg">ELIGE TU OPCIÓN</div>
-                        </a>
-                    </div>
+                        {{#iff TieneStock}}
+                            <div {{#iff ClaseBloqueada '==' ''}} onclick="javascript:OnClickFichaDetalle(event.target);" {{/iff}}>
+                                <div class="texto_elige_tono"></div>
+                                <div class="clear"></div>
+                                <a class="btn_elige_tono js-no-popup {{ClaseBloqueada}}" data-item-tag="eligetuopcion">
+                                    <div><img src="/Content/Images/mobile/Esika/click-ico.svg">ELIGE TU OPCIÓN</div>
+                                </a>
+                            </div>
+                        {{else}}
+                            <a href="javascript:;" class="boton_Agregalo_agotado js-no-popup {{ClaseBloqueada}}" style="pointer-events: none;" data-bloqueada="{{ClaseBloqueada}}"
+                               onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event); ">
+                                AGOTADO
+                            </a>
+                        {{/iff}}
                     {{/iff}}
                     {{#iff TipoAccionAgregar '==' '@Constantes.TipoAccionAgregar.LoQuieres'}}
                     <div class="texto_elige_tono"></div>
