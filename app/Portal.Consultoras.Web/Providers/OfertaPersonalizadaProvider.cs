@@ -40,12 +40,14 @@ namespace Portal.Consultoras.Web.Providers
         protected readonly PedidoWebProvider _pedidoWeb;
         protected OfertaBaseProvider _ofertaBaseProvider;
         protected ShowRoomProvider _showRoomProvider;
+        protected ConsultaProlProvider _consultaProlProvider;
         //protected ConfigModel configEstrategiaSR;
 
         public OfertaPersonalizadaProvider() : this(Web.SessionManager.SessionManager.Instance,
             new ConfiguracionManagerProvider(),
             new PedidoWebProvider(),
-            new OfertaBaseProvider())
+            new OfertaBaseProvider(),
+            new ConsultaProlProvider())
         {
         }
 
@@ -53,13 +55,15 @@ namespace Portal.Consultoras.Web.Providers
             ISessionManager sessionManager,
             ConfiguracionManagerProvider configuracionManagerProvider,
             PedidoWebProvider pedidoWebProvider,
-            OfertaBaseProvider ofertaBaseProvider)
+            OfertaBaseProvider ofertaBaseProvider,
+            ConsultaProlProvider consultaProlProvider)
         {
             this.SessionManager = sessionManager;
             _configuracionManager = configuracionManagerProvider;
             _pedidoWeb = pedidoWebProvider;
             _ofertaBaseProvider = ofertaBaseProvider;
             _showRoomProvider = new ShowRoomProvider();
+            _consultaProlProvider = consultaProlProvider;
             //configEstrategiaSR = SessionManager.GetEstrategiaSR() ?? new ConfigModel();
         }
 
@@ -548,7 +552,9 @@ namespace Portal.Consultoras.Web.Providers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 listEstrategia = new List<ServiceOferta.BEEstrategia>();
             }
-            return listEstrategia;
+
+
+            return _consultaProlProvider.ActualizarEstrategiaStockPROL(listEstrategia, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora);
         }
 
         #endregion
@@ -778,6 +784,7 @@ namespace Portal.Consultoras.Web.Providers
 
         public List<ServiceOferta.BEEstrategia> GetShowRoomOfertasConsultora(UsuarioModel usuarioModel)
         {
+
             var entidad = new ServiceOferta.BEEstrategia
             {
                 PaisID = usuarioModel.PaisID,
@@ -789,20 +796,23 @@ namespace Portal.Consultoras.Web.Providers
                 Simbolo = usuarioModel.Simbolo,
                 CodigoTipoEstrategia = "030"
             };
+            List<ServiceOferta.BEEstrategia> listaProducto;
 
             if (_ofertaBaseProvider.UsarMsPersonalizacion(usuarioModel.CodigoISO, Constantes.TipoEstrategiaCodigo.ShowRoom))
             {
-                List<ServiceOferta.BEEstrategia> listaProducto = new ShowRoomProvider().GetShowRoomOfertasConsultora();
-                return listaProducto;
+                 listaProducto = new ShowRoomProvider().GetShowRoomOfertasConsultora();
+                
             }
             else
             {
                 using (var osc = new OfertaServiceClient())
                 {
-                    var listaProducto = osc.GetEstrategiasPedido(entidad).ToList();
-                    return listaProducto;
+                    listaProducto = osc.GetEstrategiasPedido(entidad).ToList();
+                    
                 }
             }
+            
+            return _consultaProlProvider.ActualizarEstrategiaStockPROL(listaProducto, usuarioModel.CodigoISO, usuarioModel.CampaniaID, usuarioModel.GetCodigoConsultora());
         }
 
         public List<EstrategiaPedidoModel> GetProductosCompraPorCompra(UsuarioModel usuario, int eventoId)

@@ -319,6 +319,8 @@
     <Compile Include="CustomFilters\ValidateAjaxModelAttribute.cs" />
     <Compile Include="Models\CambioTipoNegocioModel.cs" />
     <Compile Include="Controllers\ReporteContratoController.cs" />
+    <Compile Include="Models\ConsultaProl\ConsultaStockModel.cs" />
+    <Compile Include="Models\ConsultaProl\RespuestaStockModel.cs" />
     <Compile Include="Models\Estrategia\EstrategiaMDbAdapterModel.cs" />
     <Compile Include="Controllers\OfertaDelDiaController.cs" />
     <Compile Include="CustomHelpers\Infraestructure\Sms\ISmsConfirm.cs" />
@@ -782,6 +784,7 @@
     <Compile Include="Providers\ConfiguracionOfertasHomeProvider.cs" />
     <Compile Include="Providers\ConfiguracionPaisDatosProvider.cs" />
     <Compile Include="Providers\ConfiguracionPaisProvider.cs" />
+    <Compile Include="Providers\ConsultaProlProvider.cs" />
     <Compile Include="Providers\EstadoCuentaProvider.cs" />
     <Compile Include="Providers\EstrategiaComponenteProvider.cs" />
     <Compile Include="Providers\EventoFestivoProvider.cs" />
