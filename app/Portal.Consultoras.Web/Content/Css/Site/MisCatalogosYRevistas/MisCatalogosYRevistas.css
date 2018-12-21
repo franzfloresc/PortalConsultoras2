@@ -247,12 +247,8 @@
     }
 
     .catalogos__por__campania__item__imagen img{
-        width:100%;
-        height:310px;
-    }
-
-    .catalogos__campania--actual .catalogos__por__campania__item__imagen img{
         width:auto;
+        height:310px;
     }
 
 .catalogos__por__campania__item__imagen--cyzone,
@@ -307,6 +303,10 @@
         width:auto;
         height:18px;
     }
+
+.modo__compartir__catalogo--whatsapp{
+    background-color:#69b667;
+}
 
 .modo__compartir__catalogo--facebook{
     background-color:#336699;
@@ -375,6 +375,7 @@
     .layout__content,
     .layout__view__title,
     .layout__view__title__text,
+    .catalogos__por__campania__item__imagen,
     .info__pasos__compartir__catalogo__campaniaActual,
     .info__pasos__compartir__catalogo__campaniaActual__subtitulo
     {
@@ -435,8 +436,120 @@
         font-size:15px;
     }
 
+    .catalogos__por__campania__slider__wrapper{
+        max-width:587px;
+    }
+
+    .catalogos__por__campania__num{
+        order:-2;
+    }
+
+    .catalogos__por__campania__num span{
+        font-size:16px;
+    }
+
+    .catalogos__por__campania__slider__control{
+        margin-top:0;
+        padding-top:3px;
+        width:45px;
+        height:45px;
+        opacity:1;
+    }
+
+    .catalogos__por__campania__slider__control img{
+        width:10px;
+    }
+
+    .catalogos__por__campania__slider__control__izq{
+        order:-3;
+    }
+
+    .catalogos__por__campania__slider__control__der{
+        order:-1;
+    }
+
+    .catalogos__por__campania__item__imagenes{
+        justify-content:center;
+    }
+
+    .catalogos__por__campania__item__imagen--cyzone,
+    .catalogos__por__campania__item__imagen--lbel,
+    .catalogos__por__campania__item__imagen--esika
+    {
+        min-height:160px;
+    }
+
+    .catalogos__campania--actual .catalogos__por__campania__item__imagen--cyzone,
+    .catalogos__campania--actual .catalogos__por__campania__item__imagen--lbel,
+    .catalogos__campania--actual .catalogos__por__campania__item__imagen--cyzone img,
+    .catalogos__campania--actual .catalogos__por__campania__item__imagen--lbel img
+    {
+        height:160px;
+    }
+
+    .catalogos__campania--actual .catalogos__por__campania__item__imagen--cyzone,
+    .catalogos__campania--actual .catalogos__por__campania__item__imagen--lbel
+    {
+        max-width:122.53px;
+    }
+
+    .catalogos__campania--actual .catalogos__por__campania__item__imagen--cyzone{
+        left:35px;
+    }
+
+    .catalogos__campania--actual .catalogos__por__campania__item__imagen--esika{
+        max-width:137px;
+        min-height:180px;
+        left:5px;
+    }
+
+        .catalogos__campania--actual .catalogos__por__campania__item__imagen--esika img{
+            height:180px;
+        }
+
+    .catalogos__campania--actual .catalogos__por__campania__item__imagen--lbel{
+        left:-31px;
+    }
+
+    .catalogos__por__campania__item__imagen:hover{
+        z-index:1;
+    }
+
+        .catalogos__por__campania__item__imagen > a img{
+            width:100%;
+        }
+
+        .catalogos__campania--actual .catalogos__por__campania__item__imagen > a img{
+            width:auto;
+        }
+
+        .catalogos__por__campania__item__imagen > a {
+            max-width:237.42px;
+            -moz-box-shadow: 0 13px 14px -12px rgba(0,0,0,0.5);
+            -webkit-box-shadow: 0 13px 14px -12px rgba(0,0,0,0.5);
+            box-shadow: 0 13px 14px -12px rgba(0,0,0,0.5);
+        }
+
+        .catalogos__por__campania__item__imagen > a:hover {
+            -moz-transform: none;
+            -ms-transform: none;
+            -o-transform: none;
+            -webkit-transform: none;
+            transform: none;
+        }
+
+    .catalogos__por__campania__item__descrip{
+        margin-top:32px;
+        margin-bottom:0;
+    }
+
+    .mi__revista__wrapper{
+        display:none;
+    }
+
     .info__pasos__compartir__catalogo__campaniaActual__wrapper{
         border:none;
+        margin-bottom:32px;
         padding-top:0;
         padding-bottom:0;
     }
@@ -502,6 +615,15 @@
         max-width:198px;
         height:45px;
         font-size:12px;
+    }
+
+    .catalogos__por__campania__item__modos__compartir{
+        margin-bottom:29px;
+    }
+
+    .modo__compartir__catalogo{
+        max-width:30%;
+        height:40px;
     }
 
 }
