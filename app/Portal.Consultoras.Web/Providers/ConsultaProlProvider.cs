@@ -116,7 +116,7 @@ namespace Portal.Consultoras.Web.Providers
             return lista.OrderBy(x => x.TieneStock,false).ToList();
         }
 
-        public List<EstrategiaComponenteModel> ActualizarComponenteStockPROL(string cuvPadre,string paisISO, int campaniaID, string codigoConsultora)
+        public List<EstrategiaComponenteModel> ActualizarComponenteStockPROL(List<EstrategiaComponenteModel> lista ,string cuvPadre,string paisISO, int campaniaID, string codigoConsultora)
         {
             ConsultaStockModel stock = new ConsultaStockModel {
                 PaisISO = paisISO,
@@ -132,9 +132,33 @@ namespace Portal.Consultoras.Web.Providers
             string content = taskApi.Result;
             var respuesta = JsonConvert.DeserializeObject<List<RespuestaStockModel>>(content);
 
-            if (respuesta.Count == 0) { }
+            if (respuesta.Count == 0)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(new Exception("ConsultaProlProvider_ActualizarComponenteStockPROL: Null content"), codigoConsultora, paisISO);
+            }
+            else
+            {
+                lista.Update(
+                    x => {
+                        x.TieneStock = (respuesta.FirstOrDefault(r => r.COD_VENTA_HIJO  == x.Cuv).STOCK == 1) ? true : false;
+                        //x.Hermanos.ForEach(h => h.TieneStock = respuesta.FirstOrDefault(y => y.COD_VENTA_HIJO == h.Cuv).STOCK == 1 ? true : false);
+                        x.Hermanos = ActualizarComponenteHermanos(x.Hermanos, respuesta);
+                    });
+            }
 
-            return null;
+            return lista;
+        }
+
+
+        private List<EstrategiaComponenteModel> ActualizarComponenteHermanos(List<EstrategiaComponenteModel> lista, List<RespuestaStockModel> respuesta) {
+
+            
+            lista.Update(
+                    x => {
+                        if (respuesta.FirstOrDefault(r => r.COD_VENTA_HIJO == x.Cuv)  != null)
+                            x.TieneStock = (respuesta.FirstOrDefault(r => r.COD_VENTA_HIJO == x.Cuv).STOCK == 1) ? true : false;
+                    });
+            return lista;
         }
 
 
