@@ -976,6 +976,9 @@ namespace Portal.Consultoras.ServiceContracts
         BEValidacionModificacionPedido ValidacionModificarPedido(int paisID, long consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA);
 
         [OperationContract]
+        bool GetEsPedidoReservado(int paisId, int campaniId, long consultoraId);
+
+        [OperationContract]
         BEValidacionModificacionPedido ValidacionModificarPedidoSelectiva(int paisID, long consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA, bool validarGPR, bool validarReservado, bool validarHorario);
 
         [OperationContract]
