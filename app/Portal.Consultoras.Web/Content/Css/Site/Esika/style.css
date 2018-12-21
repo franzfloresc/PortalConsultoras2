@@ -34526,7 +34526,7 @@ div.motivoRechazo textarea {
     padding:58px 0;
     top:0;
     left:0;
-    z-index:4000;
+    z-index:10001;
     overflow-x:hidden;
 }
 
