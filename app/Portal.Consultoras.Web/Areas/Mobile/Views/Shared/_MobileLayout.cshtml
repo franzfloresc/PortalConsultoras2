@@ -166,7 +166,7 @@
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupPostulante.cshtml")
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupComunidad.cshtml")
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupSesionFinalizada.cshtml")
-    @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_PopupCierreSesion.cshtml")
+    @{ Html.RenderPartial("~/Views/Shared/VistaParcialMainLayout/_PopupCierreSesion.cshtml");}
 
     <div style="display:none">
         <a id="HiddenRedesSocialesWA" href="#" data-action="share/whatsapp/share">WA</a>
@@ -274,6 +274,7 @@
         }
         window.controllerName = '@ctrl.ToLower()';
         window.actionName     = '@acti.ToLower()';
+        var NoReservoPedido = '@ViewBag.NoReservoPedido' === 'True';
     </script>
 
     @if (ViewBag.MostrarBannerSuperiorOdd == true) // TieneOfertaDelDia
@@ -600,7 +601,8 @@
         </script>
         @TempData.Remove("PixelCodigoIso");
     }
-
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Shared/idle.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Shared/cierre-session.js")"></script>
     <script>
         $.ajaxSetup({
             beforeSend: function (xhr) {

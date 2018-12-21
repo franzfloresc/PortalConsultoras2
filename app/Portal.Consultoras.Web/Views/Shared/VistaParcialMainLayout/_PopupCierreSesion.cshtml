@@ -1,32 +1,23 @@
 ﻿<div class="popup_cierre_sesion" id="PopupCierreSesion" style="display:none;">
     <div class="popup_cierre_sesion_contenido text-center">
-        <!-- CONTENIDO CASO INACTIVIDAD -->
-        <div class="popup_cierre_sesion_icono icono_sesion_por_finalizar center-block">
+        <div class="popup_cierre_sesion_icono center-block">
         </div>
-        <p class="text-center popup_cierre_sesion_mensaje">
-            Tu sesión finalizará en : <span class="text-bold">48 segundos</span>
-            <br />
-            Deseas continuar?
-        </p>
+        <p class="text-center popup_cierre_sesion_mensaje"></p>
         <button class="center-block text-center popup_cierre_sesion_btn popup_cierre_sesion_btn_continuar btn_margen_inferior_30"
-                onclick="javascript: $('#PopupCierreSesion').fadeOut(100);">
+                onclick="javascript: continuarSession();">
             Sí, continuar.
         </button>
-        <!-- FIN - CONTENIDO CASO INACTIVIDAD -->
-        <!-- CONTENIDO CASO CERRAR NAVEGADOR O CERRAR SESIÓN -->
-        <div class="popup_cierre_sesion_icono icono_alerta_cierre_sesion center-block" style="display:none;">
-        </div>
-        <p class="text-center popup_cierre_sesion_mensaje" style="display:none;">
-            Tienes un pedido pendiente
-            <br />
-            Deseas reservarlo?
-        </p>
-        <button class="center-block text-center popup_cierre_sesion_btn popup_cierre_sesion_btn_reservar_pedido btn_margen_inferior_30" style="display:none;">
-            Reservar pedido
+        <button class="center-block text-center popup_cierre_sesion_btn popup_cierre_sesion_btn_reservar_pedido btn_margen_inferior_30"
+                onclick="irReservarPedido()">
+            Si, reservar pedido
         </button>
-        <!-- FIN - CONTENIDO CASO CERRAR NAVEGADOR O CERRAR SESIÓN -->
-        <button class="center-block text-center popup_cierre_sesion_btn popup_cierre_sesion_btn_cerrar_sesion">
+        <button class="center-block text-center popup_cierre_sesion_btn popup_cierre_sesion_btn_cerrar_sesion" sb-cerrar
+                onclick="CerrarSesion()">
             No, cerrar sesión.
+        </button>
+        <button class="center-block text-center popup_cierre_sesion_btn popup_cierre_sesion_btn_cerrar_sesion" sb-ingresar
+                onclick="CerrarSesion()">
+            Ingresar
         </button>
     </div>
 </div>

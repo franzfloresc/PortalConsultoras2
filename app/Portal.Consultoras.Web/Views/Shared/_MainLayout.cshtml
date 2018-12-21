@@ -184,7 +184,7 @@
         </footer>
     </div>
 
-    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_PopupCierreSesion.cshtml")
+    @{ Html.RenderPartial("~/Views/Shared/VistaParcialMainLayout/_PopupCierreSesion.cshtml");}
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpBuscadorResultado.cshtml")
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpFeDeErratas.cshtml")
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpRegistroComunidad.cshtml")
@@ -238,6 +238,7 @@
         var CantidadVecesInicioSesionNovedad = '@ViewBag.CantidadVecesInicioSesionNovedad';
         var NovedadBuscadorVisitasUsuario = '@ViewBag.NovedadBuscador';
         var AplicarLogicaCantidadBotonVerTodos = '@ViewBag.AplicarLogicaCantidadBotonVerTodos'.toLowerCase();
+        var NoReservoPedido = '@ViewBag.NoReservoPedido' === 'True';
     </script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/SB2")
     <script type='text/javascript'>
@@ -348,6 +349,8 @@
     </div>
 
     <script type="text/javascript" src="@Url.Content("~/emt_chat/js/gen.js")?v1"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Shared/idle.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Shared/cierre-session.js")"></script>
 
     @if (TempData.ContainsKey("PixelCodigoIso"))
     {

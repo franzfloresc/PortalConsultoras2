@@ -4097,8 +4097,10 @@
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital.js" />
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-DataLayer.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\AnalyticsPortal.js" />
+    <Content Include="Scripts\PortalConsultoras\Shared\cierre-session.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\ConstantesModule.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\General\RedesSociales.js" />
+    <Content Include="Scripts\PortalConsultoras\Shared\idle.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\LoginLayout.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\MainLayoutResponsive.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\MenuContenedor.js" />
@@ -4476,7 +4478,6 @@
     <Content Include="Areas\Mobile\Views\MasGanadoras\template-landing.cshtml" />
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-carrusel-individuales-v2.cshtml" />
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\template-producto-v2.cshtml" />
-    <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_PopupCierreSesion.cshtml" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
       <SubType>Designer</SubType>
