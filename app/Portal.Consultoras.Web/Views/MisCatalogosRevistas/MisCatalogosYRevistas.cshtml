@@ -24,6 +24,23 @@
     </section>
     <!-- FIN - TITULO DE VISTA CATÁLOGOS -->
 
+    <!-- TABS PARA MOSTRAR SECCIÓN CATÁLOGOS O REVISTAS -->
+    <ul class="col-12 pl-0 pr-0 row flex-row justify-content-between ml-0 mr-0 mb-0 tabs__catalogos__revistas mostrarEnMobile">
+        <li class="col-6 pl-0 pr-0 tab__catalogos__revistas tab__catalogos">
+            <a href="" class="d-block text-uppercase text-center" title="Catálogos">
+                Catálogos
+            </a>
+            <div class="col-12 pl-0 pr-0 d-block indicador__catalogos__revistas indicador__catalogos__revistas--activo"></div>
+        </li>
+        <li class="col-6 pl-0 pr-0 tab__catalogos__revistas tab__revistas">
+            <a href="" class="d-block text-uppercase text-center" title="Revistas">
+                Revistas
+            </a>
+            <div class="col-12 pl-0 pr-0 d-block indicador__catalogos__revistas"></div>
+        </li>
+    </ul>
+    <!-- FIN - TABS PARA MOSTRAR SECCIÓN CATÁLOGOS O REVISTAS -->
+
     <section class="row flex-row justify-content-center ml-0 mr-0 mx-auto layout__content">
 
         <!-- CONTENIDO DE VISTA -->
@@ -161,7 +178,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="w-100">
+                    <div class="w-100" style="position:relative;">
                         <p class="col-12 col-sm-8 col-md-8 col-lg-7 col-xl-7 pl-0 pr-0 text-center mx-auto info__pasos__compartir__catalogo__campaniaActual__subtitulo info__pasos--parteInferior">
                             <span class="d-block col-12 pl-0 pr-0 text-bold mb-14">
                                 ¡Olvídate de las capturas de pantalla y las libretas, nosotros llevamos los apuntes por ti!
@@ -173,6 +190,24 @@
                         <button type="button" class="col-8 col-lg-7 col-xl-7 pl-0 pr-0 row flex-row ml-0 mr-0 mx-auto justify-content-center text-uppercase btn__compartir">
                             Compartir
                         </button>
+                        <div class="col-12 pl-0 pr-0 background__opciones__compartir__catalogos mostrarEnMobile"></div>
+                        <div class="col-12 row flex-row align-items-center ml-0 mr-0 mx-auto opciones__compartir__catalogos">
+                            <a href="" class="d-block col pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--whatsapp" title="Compartir por WhatsApp">
+                                <img class="d-block mx-auto" src="@Url.Content("~/Content/Images/logo_whatsapp.svg")" alt="Compartir por WhatsApp" />
+                            </a>
+                            <a href="" class="d-block col pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--facebook" title="Compartir por Facebook">
+                                <img class="d-block mx-auto" src="@Url.Content("~/Content/Images/logo_facebook2.svg")" alt="Compartir por Facebook" />
+                            </a>
+                            <a href="" class="d-block col pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--email" title="Compartir por Email">
+                                <img class="d-block mx-auto" src="@Url.Content("~/Content/Images/logo_gmail.svg")" alt="Compartir por Email" />
+                            </a>
+                            <a href="" class="d-block col pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--facebookMessenger" title="Compartir por Facebook Messenger">
+                                <img class="d-block mx-auto" src="@Url.Content("~/Content/Images/logo__facebook__messenger.svg")" alt="Compartir por Facebook Messenger" />
+                            </a>
+                            <a href="" class="d-block text-center text-uppercase opcion__compartir__catalogo opcion__compartir__catalogo--copiarEnlace" title="Copiar enlace">
+                                Copiar enlace
+                            </a>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -244,12 +279,12 @@
                 <span class="text-uppercase text-bold">Revista </span>
                 <span class="text-uppercase text-bold num__campania">C18</span>
             </div>
-            <div class="col-12 col-lg-6 col-xl-6 pl-0 pr-0 row flex-row justify-content-between align-items-center ml-0 mr-0 mi__revista">
-                <a href="javascript:;" title="Mi Revista" class="col-6 pl-0 pr-0 d-block mi__revista__imagen">
+            <div class="col-12 col-lg-6 col-xl-6 pl-0 pr-0 row flex-row justify-content-center justify-content-lg-between justify-content-xl-between align-items-center ml-0 mr-0 mi__revista">
+                <a href="javascript:;" title="Mi Revista" class="col-12 col-lg-6 col-xl-6 pl-0 pr-0 d-block mi__revista__imagen">
                     <img src="@Url.Content("~/Content/Images/revista_no_disponible.jpg")" alt="Mi Revista" />
                 </a>
-                <div class="col-6 pl-0 pr-0 text-center mi__revista__info">
-                    <p class="col-12 pl-0 pr-0 mi__revista__info__texto">
+                <div class="col-12 col-lg-6 col-xl-6 pl-0 pr-0 text-center mi__revista__info">
+                    <p class="col-6 col-lg-12 col-xl-12 pl-0 pr-0 mx-auto mi__revista__info__texto">
                         Tu guía de negocio por siempre, <span class="text-bold text-uppercase">Ahora digital</span>
                     </p>
                     <button class="col-12 pl-0 pr-0 text-uppercase btn__encuentra__aqui__tu__revista__digital">

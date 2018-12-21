@@ -294,6 +294,89 @@
     margin-bottom:57px;
 }
 
+.opciones__compartir__catalogos,
+.opciones__compartir__catalogos:before
+{
+    margin:0 auto;
+    left:0;
+    right:0;
+}
+
+.opciones__compartir__catalogos {
+    display:none;
+    justify-content: space-evenly;
+    background-color: #FFF;
+    max-width:567px;
+    position:absolute;
+    bottom:79px;
+    padding:20px 17px 20px 4px;
+    height: 111px;
+    -moz-box-shadow: 0 0 2px rgba(0,0,0,0.37);
+    -webkit-box-shadow: 0 0 2px rgba(0,0,0,0.37);
+    box-shadow: 0 0 2px rgba(0,0,0,0.37);
+}
+    
+    .opciones__compartir__catalogos:before,
+    .opciones__compartir__catalogos:after
+    {
+        top: 100%;
+        left: 50%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+    }
+
+    .opciones__compartir__catalogos:after{
+        border-color: rgba(136, 183, 213, 0);
+        border-top-color: #FFF;
+        border-width: 21px;
+        margin-left: -21px;
+    }
+
+    .opciones__compartir__catalogos:before {
+	    border-color: rgba(194, 225, 245, 0);
+	    border-top-color: rgba(0,0,0,0.37);
+	    border-width: 22px;
+	    margin-left: -22px;
+    }
+
+.opcion__compartir__catalogo{
+    cursor:pointer;
+}
+
+    .opcion__compartir__catalogo img{
+        width:auto;
+        height:100%;
+    }
+
+.opcion__compartir__catalogo--whatsapp{
+    height:54px;
+}
+
+.opcion__compartir__catalogo--facebook{
+    height:42px;
+}
+
+.opcion__compartir__catalogo--email{
+    height:41px;
+}
+
+.opcion__compartir__catalogo--facebookMessenger {
+    height: 43px;
+}
+
+.opcion__compartir__catalogo--copiarEnlace {
+    background-color: #EBEBEB;
+    width: 138px;
+    height: 44px;
+    line-height: 44px;
+    border-radius: 4px;
+    font-size:12px;
+}
+
 .modo__compartir__catalogo{
     height:30px;
     max-width:47%;
@@ -424,6 +507,38 @@
         min-height:0;
     }
 
+    .tabs__catalogos__revistas{
+        background-color:#f2f2f2;
+    }
+
+    .tab__catalogos__revistas{
+        height:52px;
+        position:relative;
+    }
+
+    .tab__catalogos__revistas a{
+        height:100%;
+        color:#000;
+        line-height:52px;
+        font-size:13px;
+    }
+
+    .indicador__catalogos__revistas {
+        position: absolute;
+        height: 4px;
+        left: 0;
+        bottom: 0;
+        background-color: transparent;
+        -moz-transition: all 0.3s ease;
+        -o-transition: all 0.3s ease;
+        -webkit-transition: all 0.3s ease;
+        transition: all 0.3s ease;
+    }
+
+    .indicador__catalogos__revistas--activo{
+        background-color:#e81c36;
+    }
+
     .info__catalogos__revistas{
         max-width:247px;
         line-height:24px;
@@ -444,7 +559,9 @@
         order:-2;
     }
 
-    .catalogos__por__campania__num span{
+    .catalogos__por__campania__num span,
+    .revista__por__campania__num span
+    {
         font-size:16px;
     }
 
@@ -543,10 +660,6 @@
         margin-bottom:0;
     }
 
-    .mi__revista__wrapper{
-        display:none;
-    }
-
     .info__pasos__compartir__catalogo__campaniaActual__wrapper{
         border:none;
         margin-bottom:32px;
@@ -624,6 +737,75 @@
     .modo__compartir__catalogo{
         max-width:30%;
         height:40px;
+    }
+
+    .background__opciones__compartir__catalogos,
+    .opciones__compartir__catalogos
+    {
+        position: fixed;
+    }
+
+    .background__opciones__compartir__catalogos{
+        display:none;
+        background-color:rgba(0,0,0,0.66);
+        width:100%;
+        height:100vh;
+        z-index:2;
+        top:0;
+        left:0;
+    }
+
+    .opciones__compartir__catalogos{
+        bottom: 10px;
+        z-index: 3;
+        width: 93%;
+        height: auto;
+        padding:20px;
+    }
+
+    .opciones__compartir__catalogos:before,
+    .opciones__compartir__catalogos:after
+    {
+        display:none;
+    }
+
+    .opcion__compartir__catalogo--whatsapp{
+        height:38px;
+    }
+
+    .opcion__compartir__catalogo--facebook,
+    .opcion__compartir__catalogo--email
+    {
+        height: 30px;
+    }
+
+    .opcion__compartir__catalogo--facebookMessenger{
+        height:33px;
+    }
+
+    .opcion__compartir__catalogo--copiarEnlace{
+        margin-top:20px;
+    }
+
+    .mi__revista__wrapper{
+        display:none;
+        background-color:#FFF;
+    }
+
+    .revista__por__campania__num{
+        margin-bottom:20px;
+    }
+
+    .mi__revista__imagen{
+        margin-bottom:25px;
+    }
+
+    .mi__revista__info__texto{
+        max-width:200px;
+    }
+
+    .btn__encuentra__aqui__tu__revista__digital{
+        max-width:232px;
     }
 
 }

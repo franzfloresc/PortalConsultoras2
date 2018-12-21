@@ -1691,7 +1691,11 @@
     <Content Include="Content\Images\logo_belcorp_desktop.png" />
     <Content Include="Content\Images\logo_belcorp_mobile.svg" />
     <Content Include="Content\Images\logo_facebook.svg" />
+    <Content Include="Content\Images\logo_facebook2.svg" />
+    <Content Include="Content\Images\logo_gmail.svg" />
+    <Content Include="Content\Images\logo_whatsapp.svg" />
     <Content Include="Content\Images\logo_youtube.svg" />
+    <Content Include="Content\Images\logo__facebook__messenger.svg" />
     <Content Include="Content\Images\mas-desplegable-icono.svg" />
     <Content Include="Content\Images\mas.svg" />
     <Content Include="Content\Images\menos-desplegable-icono.svg" />
