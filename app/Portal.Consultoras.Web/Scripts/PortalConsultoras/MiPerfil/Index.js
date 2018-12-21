@@ -313,7 +313,7 @@ $(document).ready(function () {
                             me.Funciones.ItemSelected(IdDependiente);
                             if (IdName === 'Ubigeo1')
                             {
-                                _googleMap.Funciones.LimpiarMapa();
+                                //_googleMap.Funciones.LimpiarMapa();
                             }
                         }
                     });
@@ -330,8 +330,8 @@ $(document).ready(function () {
                 me.Funciones.EvitandoCopiarPegar();
                 me.Funciones.ValidacionSoloLetras();
             debugger;
-                //me.Funciones.ValidacionMapa();
-                me.Funciones.ModoEdicion();
+               if ($('#Operacion').val() == "1")
+                   me.Funciones.ModoEdicion();
         },
             me.InicializarMapa = function () {
                 debugger;
@@ -841,8 +841,10 @@ var GoogleMap = function() {
         ValidacionMapa: function() {
             $('#Direccion').focusout(function() {
                 debugger;
-                if ($(this).val().length === 0) {
-                    //$('.enlace_abrir_mapa')[0].disabled = true;
+                if ($(this).val().length === 0)
+                {
+                    if (EsMobile == 'True')
+                       $('.enlace_abrir_mapa')[0].disabled = true;
                 }
                 var dropdown = document.getElementsByClassName('pac-container')[0];
                 if (dropdown.style.display == 'none') {
@@ -894,12 +896,12 @@ var GoogleMap = function() {
         ModoEdicion: function() {
             debugger;
             var coordenadas = {
-                lat: -12.1145937,
+                lat: -12.1145937, //$('#Latitud').val()
                 lng: -77.00693360000002
             };
-            me.Propiedades.latitudIni = coordenadas.lat;
+            me.Propiedades.latitudIni = coordenadas.lat; //$('#Latitud').val()
             me.Propiedades.longitudIni = coordenadas.lng;
-            $('#Direccion').val('377 Avenida Principal Cercado de Lima');
+           // $('#Direccion').val('377 Avenida Principal Cercado de Lima');
             map.setCenter(coordenadas);
             marker.setPosition(coordenadas);
             map.setZoom(ZoonMapa);
@@ -991,7 +993,8 @@ var GoogleMap = function() {
         me.Funciones.InicializarEventosMapa();
         me.Funciones.ValidacionMapa();
         debugger;
-        me.Funciones.ModoEdicion();
+        if ($('#Operacion').val()=="1")
+           me.Funciones.ModoEdicion();
     }
 
 }

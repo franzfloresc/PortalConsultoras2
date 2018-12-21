@@ -134,10 +134,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             return  _miPerfilProvider.ObtenerUbigeoPrincipal(userData.CodigoISO);
         }
-        private List<ParametroUneteBE> DropDownEmpty()
-        {
-            return new List<ParametroUneteBE>();
-        }
+       
         [HttpGet]
         public async Task<JsonResult> ObtenerUbigeoDependiente(int Nivel, int IdPadre)
         {
