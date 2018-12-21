@@ -27,13 +27,13 @@
     <!-- TABS PARA MOSTRAR SECCIÓN CATÁLOGOS O REVISTAS -->
     <ul class="col-12 pl-0 pr-0 row flex-row justify-content-between ml-0 mr-0 mb-0 tabs__catalogos__revistas mostrarEnMobile">
         <li class="col-6 pl-0 pr-0 tab__catalogos__revistas tab__catalogos">
-            <a href="" class="d-block text-uppercase text-center" title="Catálogos">
+            <a class="d-block text-uppercase text-center" title="Catálogos">
                 Catálogos
             </a>
             <div class="col-12 pl-0 pr-0 d-block indicador__catalogos__revistas indicador__catalogos__revistas--activo"></div>
         </li>
         <li class="col-6 pl-0 pr-0 tab__catalogos__revistas tab__revistas">
-            <a href="" class="d-block text-uppercase text-center" title="Revistas">
+            <a class="d-block text-uppercase text-center" title="Revistas">
                 Revistas
             </a>
             <div class="col-12 pl-0 pr-0 d-block indicador__catalogos__revistas"></div>
@@ -44,7 +44,7 @@
     <section class="row flex-row justify-content-center ml-0 mr-0 mx-auto layout__content">
 
         <!-- CONTENIDO DE VISTA -->
-        <section class="col-12 pl-0 pr-0">
+        <section class="col-12 pl-0 pr-0 contenido__seccion__catalogo">
             <div class="col-12 col-sm-8 col-md-8 col-lg-7 col-xl-7 pl-0 pr-0 text-left info__catalogos__revistas mostrarEnDesktop">
                 Revisa y comparte los catálogos con tus clientes.
             </div>
@@ -53,13 +53,13 @@
             </div>
         </section>
         <!-- SECCIÓN CARRUSEL DE CATÁLOGOS CAMPAÑA ANTERIOR, ACTUAL Y SIGUIENTE -->
-        <section class="col-12 pl-0 pr-0 row flex-row justify-content-center justify-content-lg-between justify-content-xl-between ml-lg-0 mr-lg-0 ml-xl-0 mr-xl-0 catalogos__por__campania__slider__wrapper">
+        <section class="col-12 pl-0 pr-0 row flex-row justify-content-center justify-content-lg-between justify-content-xl-between ml-lg-0 mr-lg-0 ml-xl-0 mr-xl-0 catalogos__por__campania__slider__wrapper contenido__seccion__catalogo">
             <div class="col-8 col-lg-12 col-xl-12 text-center pl-0 pr-0 catalogos__por__campania__num">
                 <span class="text-uppercase text-bold">Catálogos </span>
                 <span class="text-uppercase text-bold num__campania">C17</span>
             </div>
             <a class="col-1 pl-0 pr-0 row flex-row justify-content-start align-items-start align-items-lg-center align-items-xl-center ml-0 mr-0 catalogos__por__campania__slider__control catalogos__por__campania__slider__control__izq" title="Atrás">
-                <img class="d-block" src="@Url.Content("~/Content/Images/arrow_left.svg")" alt="" />
+                <img src="@Url.Content("~/Content/Images/arrow_left.svg")" alt="" />
             </a>
 
             <!-- CATÁLOGOS CAMPAÑA ANTERIOR -->
@@ -268,13 +268,13 @@
             </section>
             <!-- FIN - CATÁLOGOS CAMPAÑA SIGUIENTE -->
             <a class="col-1 pl-0 pr-0 row flex-row justify-content-end align-items-start align-items-lg-center align-items-xl-center ml-0 mr-0 catalogos__por__campania__slider__control catalogos__por__campania__slider__control__der" title="Siguiente">
-                <img class="d-block" src="@Url.Content("~/Content/Images/arrow_right.svg")" alt="" />
+                <img src="@Url.Content("~/Content/Images/arrow_right.svg")" alt="" />
             </a>
         </section>
         <!-- FIN - SECCIÓN CARRUSEL DE CATÁLOGOS CAMPAÑA ANTERIOR, ACTUAL Y SIGUIENTE -->
 
         <!-- SECCIÓN MI REVISTA -->
-        <section class="col-12 pl-0 pr-0 row flex-row justify-content-center align-items-start ml-0 mr-0 mi__revista__wrapper">
+        <section class="col-12 pl-0 pr-0 row flex-row justify-content-center align-items-start ml-0 mr-0 mi__revista__wrapper contenido__seccion__mi__revista">
             <div class="col-12 text-center pl-0 pr-0 revista__por__campania__num">
                 <span class="text-uppercase text-bold">Revista </span>
                 <span class="text-uppercase text-bold num__campania">C18</span>
@@ -299,3 +299,71 @@
     </section>
 
 </main>
+
+@section scripts{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            // Eventos que se utilizan en vista responsive
+
+            $('.tab__catalogos a').on('click', function (e) {
+                e.preventDefault();
+                $('.contenido__seccion__mi__revista').fadeOut(200);
+                $('.contenido__seccion__catalogo').fadeIn(200);
+                $('.indicador__catalogos__revistas').removeClass('indicador__catalogos__revistas--activo');
+                $(this).next().addClass('indicador__catalogos__revistas--activo');
+            });
+
+            $('.tab__revistas a').on('click', function (e) {
+                e.preventDefault();
+                $('.contenido__seccion__catalogo').fadeOut(200);
+                $('.contenido__seccion__mi__revista').fadeIn(200);
+                $('.indicador__catalogos__revistas').removeClass('indicador__catalogos__revistas--activo');
+                $(this).next().addClass('indicador__catalogos__revistas--activo');
+            });
+
+            $('.catalogos__por__campania__slider__control__izq img').on('click', function (e) {
+                e.preventDefault();
+                if ($('.catalogos__por__campania__slider__control__der img').is(':visible')) {
+                    $('.catalogos__campania--actual').fadeOut(100);
+                    $('.catalogos__campania--siguiente').fadeOut(100);
+                    $('.catalogos__campania--anterior').fadeIn(100);
+                    $('.catalogos__por__campania__slider__control__izq img').fadeOut(100);
+                } else {
+                    $('.catalogos__campania--anterior').fadeOut(100);
+                    $('.catalogos__campania--siguiente').fadeOut(100);
+                    $('.catalogos__campania--actual').fadeIn(100);
+                    $('.catalogos__por__campania__slider__control__der img').fadeIn(100);
+                }
+            });
+
+            $('.catalogos__por__campania__slider__control__der img').on('click', function (e) {
+                e.preventDefault();
+                if ($('.catalogos__por__campania__slider__control__izq img').is(':visible')) {
+                    $('.catalogos__campania--actual').fadeOut(100);
+                    $('.catalogos__campania--anterior').fadeOut(100);
+                    $('.catalogos__campania--siguiente').fadeIn(100);
+                    $('.catalogos__por__campania__slider__control__der img').fadeOut(100);
+                } else {
+                    $('.catalogos__campania--anterior').fadeOut(100);
+                    $('.catalogos__campania--siguiente').fadeOut(100);
+                    $('.catalogos__campania--actual').fadeIn(100);
+                    $('.catalogos__por__campania__slider__control__izq img').fadeIn(100);
+                }
+            });
+
+            if ($('.catalogos__campania--anterior').is(':visible')) {
+                $('.catalogos__por__campania__slider__control__izq img').fadeOut(100);
+            }
+
+            if ($('.catalogos__campania--siguiente').is(':visible')) {
+                $('.catalogos__por__campania__slider__control__der img').fadeOut(100);
+            }
+
+            // Fin - Eventos que se utilizan en vista responsive
+
+        });
+
+    </script>
+}
