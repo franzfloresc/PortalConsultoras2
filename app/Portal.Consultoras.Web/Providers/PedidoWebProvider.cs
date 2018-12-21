@@ -181,6 +181,23 @@ namespace Portal.Consultoras.Web.Providers
 
             return detallesPedidoWeb;
         }
+        
+        public bool TienePedidoReservado(UsuarioModel user)
+        {
+            using (var sv = new PedidoServiceClient())
+            {
+                return sv.GetEsPedidoReservado(user.PaisID, user.CampaniaID, user.UsuarioPrueba == 1 ? user.AceptacionConsultoraDA : user.ConsultoraID);
+            }
+        }
+
+        public bool RequiereCierreSessionValidado(TablaLogicaProvider provider, int paisId)
+        {
+            var list = provider.ObtenerConfiguracion(paisId, Constantes.TablaLogica.CierreSessionValidado);
+
+            var value = provider.ObtenerValorDesdeLista(list, Constantes.TablaLogicaDato.CierreSessionValidado);
+
+            return value == "1";
+        }
 
         private List<BEPedidoWebDetalle> PedidoConObservaciones(List<BEPedidoWebDetalle> pedido, List<ObservacionModel> observaciones)
         {
