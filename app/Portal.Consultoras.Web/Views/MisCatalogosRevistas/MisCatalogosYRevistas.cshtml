@@ -5,6 +5,7 @@
 
 
 <link href="@Url.Content("~/Content/Css/Site/MisCatalogosYRevistas/MisCatalogosYRevistas.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/Css/Site/jquery.tag-editor.css")" rel="stylesheet">
 
 <main class="w-100 row flex-column justify-content-center ml-0 mr-0 layout__main__content">
 
@@ -300,6 +301,54 @@
 
 </main>
 
+<div id="CompartirCorreo" class="CompartirCorreoPop">
+    <div class="contentCompartir">
+        <a class="cerrar_compartir" style="margin-right:-50px;" href="javascript:;" onclick="javascript: $('#CompartirCorreo').hide();">
+            <img src="@Url.Content("~/Content/Images/cerrar_04.png")" alt=" alternate text" />
+        </a>
+        <div class="clear"></div>
+        <div class="titulo_compartir">COMPARTIR <span class="text-bold">CATÁLOGO</span></div>
+        <div class="Label_compartir">Agregar contacto:</div>
+        <a class="mostrar_todos">Añadir todos mis contactos (##)</a>
+        <hr class="clear" />
+        <div id="tagParent" style="border: 1px solid #c5c5c5; margin: 10px 0 20px 0; padding: 10px; padding-left: 8px; ">
+            <div style="width:100%;margin:auto;">
+                <textarea id="tagCorreo"></textarea>
+            </div>
+        </div>
+        <div class="Label_compartir">Mensaje (Editable):</div>
+        <textarea name="comentarios" class="text_compartir" id="comentarios" maxlength="500"></textarea>
+        <div class="Label_compartir">Catálogos a enviar:</div>
+        <hr class="clear" />
+        <div id="divCheckbox">
+            <div data-cat="Esika">
+                <div class="content_checkbox">
+                    <input class="inputradio" type="checkbox">
+                    <span class="inputfalso"></span>
+                </div>
+                <div class="check_label">Ésika</div>
+            </div>
+            <div data-cat="Lbel">
+                <div class="content_checkbox">
+                    <input class="inputradio" type="checkbox">
+                    <span class="inputfalso"></span>
+                </div>
+                <div class="check_label">L'Bel</div>
+            </div>
+            <div data-cat="Cyzone">
+                <div class="content_checkbox">
+                    <input class="inputradio" type="checkbox">
+                    <span class="inputfalso"></span>
+                </div>
+                <div class="check_label">Cyzone</div>
+            </div>
+            <hr class="clear" />
+        </div>
+        <a class="btn_enviar_correo" id="btnEnviarCorreo">ENVIAR</a>
+    </div>
+
+</div>
+
 @section scripts{
     <script type="text/javascript">
 
@@ -366,4 +415,5 @@
         });
 
     </script>
+    <script src="@Url.Content("~/Scripts/Tag/jquery.tags.input.js")"></script>
 }

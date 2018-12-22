@@ -3,6 +3,25 @@
     font-weight:bold!important;
 }
 
+hr{
+    border-color:transparent;
+}
+
+.clear{
+    background: none;
+    border: 0;
+    clear: both;
+    display: block;
+    float: none;
+    font-size: 0;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+}
+
 .d-block.mostrarEnMobile{
     display:none!important;
 }
@@ -452,6 +471,168 @@
         color:#FFF;
     }
 
+/* POPUP COMPARTIR CATÁLOGO */
+
+.CompartirCorreoPop {
+    display:none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: transparent url('/Content/Images/bg_popups.png') repeat left top;
+    z-index: 3000;
+    top: 0;
+}
+
+#CompartirCorreo {
+    display: none;
+}
+
+.contentCompartir {
+    width: 624px;
+    min-height: 150px;
+    background: white;
+    margin: 0 auto;
+    margin-top: 30px !important;
+    overflow: hidden;
+    padding-left: 70px;
+    padding-right: 70px;
+}
+
+.cerrar_compartir {
+    display: block;
+    direction: rtl;
+    margin-top: 19px;
+    text-align: right;
+}
+
+.titulo_compartir{
+    font-family: 'Lato';
+    font-weight: 300;
+    line-height: .82;
+    text-align: center;
+    color: #000000;
+    margin-top: 30px;
+    margin-bottom: 40px;
+}
+
+.titulo_compartir,
+.titulo_compartir span
+{
+    font-size: 28px;
+}
+
+.Label_compartir {
+    font-family: 'Lato';
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: .3px;
+    color: #000000;
+    float: left;
+    margin-bottom: 15px;
+}
+
+.mostrar_todos {
+    display: block;
+    float: right;
+    font-family: 'Lato';
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1;
+    color: #000000;
+    padding-left: 14px;
+    text-decoration: underline!important;
+    background: url('/Content/Images/Esika/indicador_pedido.png') no-repeat;
+    background-position: 0 2px;
+}
+
+.text_compartir {
+    width: 100%;
+    height: 106px;
+    padding: 20px;
+    font-family: 'Lato';
+    font-size: 13px;
+    line-height: 1.54;
+    color: black;
+    background: white;
+    border: 1px solid #c5c5c5;
+    margin-bottom: 15px;
+}
+
+.btn_enviar_correo {
+    width: 176px;
+    height: 45px;
+    background-color: #e81c36;
+    text-align: center;
+    display: block;
+    float: right;
+    color: white!important;
+    line-height: 45px;
+    font-weight: 700;
+    font-family: 'Lato';
+    font-size: 13px;
+    margin-top: 35px;
+    margin-bottom: 35px;
+}
+
+    .btn_enviar_correo:hover{
+        color:#FFF;
+    }
+
+.inputradio {
+    opacity: 0;
+    width: 0 !important;
+    height: 0 !important;
+    position: absolute;
+    z-index: 2;
+}
+
+.inputfalso {
+    border: 1px solid #d2dae1;
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    width: 16px;
+    height: 16px;
+    margin-left: 0 !important;
+    cursor: pointer;
+}
+
+input[type='checkbox']:checked + span:after {
+    content: '■';
+    content: '■';
+    position: absolute;
+    z-index: 1002;
+    top: 2px;
+    overflow: hidden;
+    width: 10px;
+    height: 10px;
+    left: 2px;
+    background: #e81c36;
+    color: #e81c36;
+    font-size: 10px;
+}
+
+.check_label {
+    float: left;
+    margin-left: 5px;
+    margin-right: 34px;
+    font-family: 'Lato';
+    font-size: 13px;
+    margin-top: 16px;
+    cursor: pointer;
+}
+
+.content_checkbox {
+    float: left;
+    width: 16px;
+    height: 16px;
+    position: relative;
+    margin-top: 16px;
+}
+
+/* FIN - POPUP COMPARTIR CATÀLOGO */
+
 /*  MIS CATÁLOGOS Y REVISTAS MOBILE */
 
 @media screen and (max-width:991px){
@@ -812,6 +993,55 @@
     .btn__encuentra__aqui__tu__revista__digital{
         max-width:232px;
     }
+
+    /* POPUP COMPARTIR CATÁLOGO MOBILE */
+
+    .CompartirCorreoPop{
+        overflow:auto;
+    }
+
+    .contentCompartir{
+        width:90%;
+        margin-top:15px!important;
+        margin-bottom:15px!important;
+        padding-left:20px;
+        padding-right:20px;
+    }
+
+    .titulo_compartir,
+    .titulo_compartir span
+    {
+        font-size: 19px;
+    }
+
+    .titulo_compartir{
+        line-height: 28px;
+    }
+
+    .cerrar_compartir{
+        width:19px;
+        height:19px;
+        margin-right:0!important;
+    }
+
+    .cerrar_compartir img,
+    .btn_enviar_correo
+    {
+        width:100%;
+    }
+
+    .Label_compartir{
+        width:100%;
+    }
+
+    .mostrar_todos {
+        float: left;
+        width: 100%;
+        margin-top: 5px;
+        margin-bottom: 10px;
+    }
+
+    /* FIN - POPUP COMPARTIR CATÁLOGO MOBILE */
 
 }
 
