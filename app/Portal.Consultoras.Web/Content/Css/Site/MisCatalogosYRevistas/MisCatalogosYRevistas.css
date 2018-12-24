@@ -631,7 +631,87 @@ input[type='checkbox']:checked + span:after {
     margin-top: 16px;
 }
 
-/* FIN - POPUP COMPARTIR CATÀLOGO */
+/* FIN - POPUP COMPARTIR CATÁLOGO */
+
+/* POPUP MENSAJES ALERTA */
+
+.mensaje_alerta_belcorp {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent url(/Content/Images/bg_popups.png) repeat left top;
+    z-index: 1020;
+    display: none;
+}
+
+.content_mensaje_alerta {
+    width: 511px;
+    height: 330px;
+    background: #fff;
+    top: 50%;
+    position: relative;
+    margin: -165px auto 0 auto;
+}
+
+.btn_cerrar_alerta {
+    width: 19px;
+    height: 19px;
+    float: right;
+    display: block;
+    margin-right: 19px;
+    margin-top: 19px;
+    margin-bottom: 10px;
+}
+
+.icono_mensaje_alerta {
+    width: 40px;
+    height: 40px;
+    margin: 0 auto;
+}
+
+.icono_check_alerta {
+    background: url(/Content/Images/Esika/icono_check_esika.png) center center no-repeat;
+    background-size: 80%;
+}
+
+.texto_mensaje_alerta {
+    font-family: 'Lato';
+    font-weight: 300;
+    font-size: 28px;
+    margin-top: 15px;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.sub_texto_alerta {
+    font-family: 'Lato';
+    font-weight: 400;
+    font-size: 16px;
+    text-align: center;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.btn_ok_alerta {
+    display: block;
+    width: 139px;
+    height: 45px;
+    line-height: 45px;
+    margin: auto;
+    margin-top: 30px;
+    background: #df3d3d;
+    color: #fff;
+    font-family: 'Lato';
+    font-weight: 900;
+    text-align: center;
+    font-size: 13px;
+}
+
+/* FIN - POPUP MENSAJES ALERTA */
 
 /*  MIS CATÁLOGOS Y REVISTAS MOBILE */
 
