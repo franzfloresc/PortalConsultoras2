@@ -164,14 +164,14 @@ namespace Portal.Consultoras.Web.Controllers
                 herramientasVenta = SessionManager.GetHerramientasVenta();
                 guiaNegocio = SessionManager.GetGuiaNegocio();
                 estrategiaODD = SessionManager.OfertaDelDia.Estrategia;
-                configEstrategiaSR = SessionManager.GetEstrategiaSR() ?? new ConfigModel();
+                //configEstrategiaSR = SessionManager.GetEstrategiaSR() ?? new ConfigModel();
                 buscadorYFiltro = SessionManager.GetBuscadorYFiltrosConfig();
 
-                if (!configEstrategiaSR.CargoEntidadesShowRoom)
-                {
-                    _showRoomProvider.CargarEntidadesShowRoom(userData);
-                    configEstrategiaSR = SessionManager.GetEstrategiaSR();
-                }
+                //if (!configEstrategiaSR.CargoEntidadesShowRoom)
+                //{
+                //    _showRoomProvider.CargarEntidadesShowRoom(userData);
+                //    configEstrategiaSR = SessionManager.GetEstrategiaSR();
+                //}
 
                 if (Request.IsAjaxRequest())
                 {

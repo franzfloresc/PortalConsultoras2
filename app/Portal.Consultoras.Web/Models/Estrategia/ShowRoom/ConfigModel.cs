@@ -15,6 +15,11 @@ namespace Portal.Consultoras.Web.Models.Estrategia.ShowRoom
         }
 
         public bool CargoEntidadesShowRoom { get; set; }
+
+        public bool CargoEntidadEventoPersonalizacion { get; set; }
+        public bool CargoEntidadNivel { get; set; }
+        public bool CargoEntidadEventoConsultora { get; set; }
+
         public ShowRoomEventoModel BeShowRoom { get; set; }
         public ShowRoomEventoConsultoraModel BeShowRoomConsultora { get; set; }
         public int ShowRoomNivelId { get; set; }
