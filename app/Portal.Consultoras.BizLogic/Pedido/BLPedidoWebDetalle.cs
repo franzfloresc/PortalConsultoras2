@@ -4,7 +4,6 @@ using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Pedido;
 using Portal.Consultoras.PublicService.Cryptography;
-
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -16,11 +15,6 @@ namespace Portal.Consultoras.BizLogic
 {
     public partial class BLPedidoWebDetalle : IPedidoWebDetalleBusinessLogic
     {
-        //public BLPedidoWebDetalle()
-        //{
-        //    BLProgramaNuevas = new BLProgramaNuevas();
-        //}
-
         public IList<BEPedidoWebDetalle> GetClientesByCampania(int paisID, int campaniaID, long consultoraID)
         {
             var pedidoWebDetalle = new List<BEPedidoWebDetalle>();

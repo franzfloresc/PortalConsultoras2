@@ -539,6 +539,7 @@
       <xs:element minOccurs="0" name="TieneAsesoraOnline" type="xs:int" />
       <xs:element minOccurs="0" name="TieneCDR" type="xs:int" />
       <xs:element minOccurs="0" name="TieneCDRExpress" type="xs:boolean" />
+      <xs:element minOccurs="0" name="TieneChatbot" type="xs:boolean" />
       <xs:element minOccurs="0" name="TieneCupon" type="xs:int" />
       <xs:element minOccurs="0" name="TieneGND" type="xs:boolean" />
       <xs:element minOccurs="0" name="TieneHana" type="xs:int" />
@@ -732,6 +733,7 @@
       <xs:element minOccurs="0" name="EsOfertaIndependiente" type="xs:boolean" />
       <xs:element minOccurs="0" name="EstaEnRevista" type="xs:boolean" />
       <xs:element minOccurs="0" name="EstrategiaID" type="xs:int" />
+      <xs:element minOccurs="0" name="EstrategiaIDSicc" type="xs:int" />
       <xs:element minOccurs="0" name="FlagNueva" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImagenOferta" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImagenProducto" nillable="true" type="xs:string" />
@@ -1031,6 +1033,7 @@
       <xs:element minOccurs="0" name="Direccion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="EstadoPedido" type="xs:short" />
       <xs:element minOccurs="0" name="EstadoPedidoDesc" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FechaFacturado" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FechaModificacion" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaProceso" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaRegistro" type="xs:dateTime" />

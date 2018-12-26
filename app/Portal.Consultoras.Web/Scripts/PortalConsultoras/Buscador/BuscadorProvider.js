@@ -14,6 +14,20 @@
 //        try {
 //            AnalyticsPortalModule.MarcaAnadirCarritoBuscador(model, "Desplegable", textoBusqueda);
 //        } catch (e) {
+        $("#txtPrecioR").val("");
+        $("#txtCantidad").val("");
+        $("#divMensaje").text("");
+        $("#txtCUV").focus();
+        if (isMobile()) {
+            if (isPagina('Pedido')) {
+                PedidoOnSuccess()
+                VisibleEstrategias(true);
+                $("#divResumenPedido").show();
+                $("footer").show();
+                $(".footer-page").css({ "margin-bottom": "0px" });
+                $("#divProductoMantenedor").hide();//
+            }
+        }
 
 //        }
 //    };
@@ -99,6 +113,26 @@
 //                                }
 
 //                                microefectoPedidoGuardado();
+                                limpiarRecomendados();
+
+                                var modelCarrito = {
+                                    'DescripcionCompleta': model.DescripcionProd,
+                                    'CUV': model.CUV,
+                                    'Precio': model.PrecioUnidad,
+                                    'DescripcionMarca': model.CUV,
+                                    'CodigoTipoEstrategia': model.EstrategiaID,
+                                    'MarcaId': model.MarcaID,
+                                    'Cantidad': model.Cantidad
+                                };
+
+                                var _textoBusqueda = localStorage.getItem('valorBuscador');
+                                var _vRecomendaciones = localStorage.getItem('vRecomendaciones');
+                                
+                                if (!(typeof AnalyticsPortalModule === 'undefined') && (_vRecomendaciones === 'undefined' || _vRecomendaciones === 'null' || _vRecomendaciones === null)) {
+                                    AnalyticsPortalModule.MarcaAnadirCarritoBuscador(modelCarrito, 'Resultados', _textoBusqueda);                                    
+                                }
+
+                                localStorage.removeItem('vRecomendaciones');
 
 //                                    CargarResumenCampaniaHeader();
 
@@ -180,6 +214,23 @@
 //                EstrategiaID: EstrategiaID,
 //                LimiteVenta: LimiteVenta
 //            };
+                        'Precio': modelFinal.PrecioUnidad,
+                        'DescripcionMarca': modelFinal.CUV,
+                        'CodigoTipoEstrategia': modelFinal.EstrategiaID,
+                        'MarcaId': modelFinal.MarcaID,
+                        'Cantidad': modelFinal.Cantidad
+                    };
+
+                    var _textoBusqueda = localStorage.getItem('valorBuscador');
+                    var _vRecomendaciones = localStorage.getItem('vRecomendaciones');
+
+                    if (!(typeof AnalyticsPortalModule === 'undefined') && (_vRecomendaciones === 'undefined' || _vRecomendaciones === 'null' || _vRecomendaciones === null)) {
+                        AnalyticsPortalModule.MarcaAnadirCarritoBuscador(modelCarrito, 'Resultados', _textoBusqueda);                        
+                    }
+                        
+
+
+
 
 //            jQuery.ajax({
 //                type: "POST",

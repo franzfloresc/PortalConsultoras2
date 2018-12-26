@@ -53,5 +53,8 @@ namespace Portal.Consultoras.Web.Models.Estrategia
         public DateTime FechaModificacion { get; set; }
 
         public bool? EsSubCampania { get; set; }
+
+        //Lan
+        public List<WaEstrategiaDetalleModel> EstrategiaDetalle { get; set; }
     }
 }

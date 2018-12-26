@@ -138,28 +138,51 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
                 }
             }
 
-            CargarConfiguracion_MedioPagoDetalle(paisId, lista);
+            CargarConfiguracion_MedioPagoDetalle(paisId, lista.Where(e => e.Estado).ToList());
 
             return lista;
         }
 
-        private void CargarConfiguracion_MedioPagoDetalle(int paisId, List<BEPagoEnLineaMedioPagoDetalle> pagoEnLineaMedioPagoDetalles) {
+        private void CargarConfiguracion_MedioPagoDetalle(int paisId, List<BEPagoEnLineaMedioPagoDetalle> pagoEnLineaMedioPagoDetalles)
+        {
+            pagoEnLineaMedioPagoDetalles.ForEach(item => {
+                switch (item.TipoPasarelaCodigoPlataforma) {
+                    case Constantes.PagoEnLineaMetodoPago.PasarelaVisa:
+                        if(item.TipoTarjeta == Constantes.PagoEnLineaTipoTarjeta.Credito) CargarConfiguracion_MedioPagoDetalle_Visa(paisId, item);
+                        break;
+                    case Constantes.PagoEnLineaMetodoPago.PasarelaBelcorpPayU:
+                        CargarConfiguracion_MedioPagoDetalle_Payu(paisId, item);
+                        break;
+                }
+            });
+        }
+
+        private void CargarConfiguracion_MedioPagoDetalle_Visa(int paisId, BEPagoEnLineaMedioPagoDetalle metodoPago)
+        {
             var provider = new NumberFormatInfo() { NumberDecimalSeparator = "." };
 
-            var metodoPagoVisa = pagoEnLineaMedioPagoDetalles.Where(e => e.TipoPasarelaCodigoPlataforma == Constantes.PagoEnLineaMetodoPago.PasarelaVisa && e.TipoTarjeta == Constantes.PagoEnLineaTipoTarjeta.Credito && e.Estado).FirstOrDefault();
-            if (metodoPagoVisa != null)
-            {                
-                var listaConfiguracionPasarelaVisa = ObtenerPagoEnLineaTipoPasarelaByCodigoPlataforma(paisId, Constantes.PagoEnLineaMetodoPago.PasarelaVisa);
-                
-                var porcentajeGastosAdministrativosString = ObtenerValoresTipoPasarela(listaConfiguracionPasarelaVisa, Constantes.PagoEnLineaMetodoPago.PasarelaVisa, Constantes.PagoEnLineaPasarelaVisa.PorcentajeGastosAdministrativos);
-                decimal porcentajeGastosAdministrativos;
-                metodoPagoVisa.PorcentajeGastosAdministrativos = decimal.TryParse(porcentajeGastosAdministrativosString, NumberStyles.Any, provider, out porcentajeGastosAdministrativos) ? porcentajeGastosAdministrativos : 0;
-                metodoPagoVisa.PagoEnLineaGastosLabel = paisId == Constantes.PaisID.Mexico ? Constantes.PagoEnLineaMensajes.GastosLabelMx : Constantes.PagoEnLineaMensajes.GastosLabelPe;
+            var listaConfiguracionPasarelaVisa = ObtenerPagoEnLineaTipoPasarelaByCodigoPlataforma(paisId, Constantes.PagoEnLineaMetodoPago.PasarelaVisa);
 
-                var montoMinimoPagoString = ObtenerValoresTipoPasarela(listaConfiguracionPasarelaVisa, Constantes.PagoEnLineaMetodoPago.PasarelaVisa, Constantes.PagoEnLineaPasarelaVisa.MontoMinimoPago);
-                decimal montoMinimoPago;
-                if (decimal.TryParse(montoMinimoPagoString, NumberStyles.Any, provider, out montoMinimoPago)) metodoPagoVisa.MontoMinimoPago = montoMinimoPago;
-            }
+            var porcentajeGastosAdministrativosString = ObtenerValoresTipoPasarela(listaConfiguracionPasarelaVisa, Constantes.PagoEnLineaMetodoPago.PasarelaVisa, Constantes.PagoEnLineaPasarelaVisa.PorcentajeGastosAdministrativos);
+            decimal porcentajeGastosAdministrativos = 0;
+            decimal.TryParse(porcentajeGastosAdministrativosString, NumberStyles.Any, provider, out porcentajeGastosAdministrativos);
+            metodoPago.PorcentajeGastosAdministrativos = porcentajeGastosAdministrativos;
+            metodoPago.PagoEnLineaGastosLabel = Constantes.PagoEnLineaMensajes.GastosLabel.ContainsKey(paisId) ? Constantes.PagoEnLineaMensajes.GastosLabel[paisId] : "";
+
+            var montoMinimoPagoString = ObtenerValoresTipoPasarela(listaConfiguracionPasarelaVisa, Constantes.PagoEnLineaMetodoPago.PasarelaVisa, Constantes.PagoEnLineaPasarelaVisa.MontoMinimoPago);
+            decimal montoMinimoPago;
+            if (decimal.TryParse(montoMinimoPagoString, NumberStyles.Any, provider, out montoMinimoPago)) metodoPago.MontoMinimoPago = montoMinimoPago;
+        }
+
+        private void CargarConfiguracion_MedioPagoDetalle_Payu(int paisId, BEPagoEnLineaMedioPagoDetalle metodoPago)
+        {
+            var provider = new NumberFormatInfo() { NumberDecimalSeparator = "." };
+
+            var listaConfiguracionPasarelaPayu = ObtenerPagoEnLineaTipoPasarelaByCodigoPlataforma(paisId, Constantes.PagoEnLineaMetodoPago.PasarelaBelcorpPayU);
+
+            var montoMinimoPagoString = ObtenerValoresTipoPasarela(listaConfiguracionPasarelaPayu, Constantes.PagoEnLineaMetodoPago.PasarelaBelcorpPayU, Constantes.PagoEnLineaPasarelaPayu.MontoMinimoPago);
+            decimal montoMinimoPago;
+            if (decimal.TryParse(montoMinimoPagoString, NumberStyles.Any, provider, out montoMinimoPago)) metodoPago.MontoMinimoPago = montoMinimoPago;
         }
 
         public List<BEPagoEnLineaTipoPasarela> ObtenerPagoEnLineaTipoPasarelaByCodigoPlataforma(int paisId, string codigoPlataforma)
@@ -189,7 +212,7 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
                 {
                     lista.Add(new BEPagoEnLineaPasarelaCampos(reader));
                 }
-            } 
+            }
 
             return lista;
         }
@@ -228,21 +251,25 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
             var listaConfiguracionTask = Task.Run(() => listaConfiguracion = _tablaLogicaDatosBusinessLogic.GetListCache(paisId, Constantes.TablaLogica.ValoresPagoEnLinea));
 
             Task.WaitAll(listaMetodoPagoTask, listaMedioPagoTask, listaTipoPagoTask, montoDeudaTask, listaBancoTask, listaConfiguracionTask);
-            
-            if (listaConfiguracion != null) {
+
+            if (listaConfiguracion != null)
+            {
                 var enableExternalApp_String = listaConfiguracion.Where(e => e.TablaLogicaDatosID == Constantes.TablaLogicaDato.PagoEnLinea.Habilitar_App_PBI_ExternalApp).Select(e => e.Valor).FirstOrDefault();
-                if(enableExternalApp_String != "1")  result.ListaBanco.ForEach( e => e.URIExternalApp = null );
+                if (enableExternalApp_String != "1") result.ListaBanco.ForEach(e => e.URIExternalApp = null);
             }
-            if (!result.ListaBanco.Where(e => e.Estado).Any()) {
-                var pagoBancaPorInternet = result.ListaMedioPago.Where(e => e.Codigo == Constantes.PagoEnLineaPasarela.PBI && e.Estado ).FirstOrDefault();
+            if (!result.ListaBanco.Any(e => e.Estado))
+            {
+                var pagoBancaPorInternet = result.ListaMedioPago.FirstOrDefault(e => e.Codigo == Constantes.PagoEnLineaPasarela.PBI && e.Estado);
                 if (pagoBancaPorInternet != null) pagoBancaPorInternet.Estado = false;
             }
 
-            result.ListaMedioPago.Where(e => e.Estado && e.Codigo != Constantes.PagoEnLineaPasarela.PBI)
-                .All(e => {
-                        e.Estado = result.ListaMetodoPago.Any(p => p.PagoEnLineaMedioPagoId == e.PagoEnLineaMedioPagoId);
-                        return true;
-                    });
+            result.ListaMedioPago.ForEach(e =>
+            {
+                if (e.Estado && e.Codigo != Constantes.PagoEnLineaPasarela.PBI)
+                {
+                    e.Estado = result.ListaMetodoPago.Any(p => p.PagoEnLineaMedioPagoId == e.PagoEnLineaMedioPagoId);
+                }
+            });
 
             return result;
         }
@@ -261,13 +288,12 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
             result.SessionToken = Guid.NewGuid().ToString().ToUpper();
             if (listaConfiguracionPasarelaVisa != null)
             {
-                result.EndPointURL = ObtenerValoresTipoPasarela(listaConfiguracionPasarelaVisa, pasarela, Constantes.PagoEnLineaPasarelaVisa.UrlAutorizacionBotonPago);
+                result.EndPointURL = ObtenerValoresTipoPasarela(listaConfiguracionPasarelaVisa, pasarela, Constantes.PagoEnLineaPasarelaVisa.UrlAutorizacionPagoApp);
                 result.MerchantId = ObtenerValoresTipoPasarela(listaConfiguracionPasarelaVisa, pasarela, Constantes.PagoEnLineaPasarelaVisa.MerchantId);
                 result.AccessKeyId = ObtenerValoresTipoPasarela(listaConfiguracionPasarelaVisa, pasarela, Constantes.PagoEnLineaPasarelaVisa.AccessKeyId);
                 result.SecretAccessKey = ObtenerValoresTipoPasarela(listaConfiguracionPasarelaVisa, pasarela, Constantes.PagoEnLineaPasarelaVisa.SecretAccessKey);
                 result.NextCounterURL = ObtenerValoresTipoPasarela(listaConfiguracionPasarelaVisa, pasarela, Constantes.PagoEnLineaPasarelaVisa.UrlGenerarNumeroPedido);
-                if (!string.IsNullOrEmpty(result.NextCounterURL))
-                    result.NextCounterURL = string.Format(Constantes.PagoEnLineaPasarelaVisa.NextCounterURL_Pattern, result.NextCounterURL);
+                result.TerminosUsoURL = ObtenerValoresTipoPasarela(listaConfiguracionPasarelaVisa, pasarela, Constantes.PagoEnLineaPasarelaVisa.UrlTerminosUsoApp);
                 result.Recurrence = Constantes.PagoEnLineaPasarelaVisa.Recurrence;
                 result.RecurrenceAmount = Constantes.PagoEnLineaPasarelaVisa.RecurrenceAmount;
                 result.RecurrenceFrequency = string.Empty;
@@ -329,20 +355,20 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
         {
             string templatePath = AppDomain.CurrentDomain.BaseDirectory + Constantes.PagoEnLineaNotificacion.Email_Template;
             string htmlTemplate = FileManager.GetContenido(templatePath);
-            var esLbel = !WebConfig.PaisesEsika.Contains(usuario.CodigoISO);
+            var esLbel = !WebConfig.PaisesEsika.Contains(Util.GetPaisISO(usuario.PaisID));
 
             htmlTemplate = htmlTemplate.Replace("#URL_IMAGEN_MARCA#", esLbel ? Constantes.ConfiguracionManager.UrlImagenLbel : Constantes.ConfiguracionManager.UrlImagenEsika);
             htmlTemplate = htmlTemplate.Replace("#COLOR_MARCA#", esLbel ? Constantes.ConfiguracionManager.ColorTemaLbel : Constantes.ConfiguracionManager.ColorTemaEsika);
             htmlTemplate = htmlTemplate.Replace("#LABEL_CARGO#", usuario.PaisID == Constantes.PaisID.Mexico ? Constantes.PagoEnLineaMensajes.CargoplataformaMx : Constantes.PagoEnLineaMensajes.CargoplataformaPe);
             htmlTemplate = htmlTemplate.Replace("#FORMATO_NOMBRECOMPLETO#", usuario.PrimerNombre + " " + usuario.PrimerApellido);
             htmlTemplate = htmlTemplate.Replace("#FORMATO_NUMEROOPERACION#", bePagoEnLinea.NumeroOrdenTienda);
-            htmlTemplate = htmlTemplate.Replace("#FORMATO_FECHAPAGO#", bePagoEnLinea.FechaTransaccion.ToString("dd/MM/yyyy") == "01/01/0001" ? "--/--" : bePagoEnLinea.FechaTransaccion.ToString("dd/MM/yyyy HH:mm"));
+            htmlTemplate = htmlTemplate.Replace("#FORMATO_FECHAPAGO#", bePagoEnLinea.FechaTransaccion.ToString(Constantes.Formatos.Fecha) == "01/01/0001" ? "--/--" : bePagoEnLinea.FechaTransaccion.ToString(Constantes.Formatos.FechaHora));
             htmlTemplate = htmlTemplate.Replace("#FORMATO_MONTODEUDA#", Util.DecimalToStringFormat(pagoEnLineaVisa.MontoPago, usuario.CodigoISO));
             htmlTemplate = htmlTemplate.Replace("#FORMATO_MONTOGASTOSADMINISTRATIVOS#", Util.DecimalToStringFormat(pagoEnLineaVisa.MontoGastosAdministrativos, usuario.CodigoISO));
             htmlTemplate = htmlTemplate.Replace("#FORMATO_MONTOTOTAL#", Util.DecimalToStringFormat(pagoEnLineaVisa.MontoDeudaConGastos, usuario.CodigoISO));
             htmlTemplate = htmlTemplate.Replace("#FORMATO_SIMBOLO#", usuario.Simbolo);
             htmlTemplate = htmlTemplate.Replace("#FORMATO_SALDOPENDIENTE#", Util.DecimalToStringFormat(saldoPendiente, usuario.CodigoISO));
-            htmlTemplate = htmlTemplate.Replace("#FORMATO_FECHAVENCIMIENTO#", usuario.FechaVencimiento);
+            htmlTemplate = htmlTemplate.Replace("#FORMATO_FECHAVENCIMIENTO#", usuario.FechaLimPago.ToString(Constantes.Formatos.Fecha));
             htmlTemplate = htmlTemplate.Replace("#FORMATO_MENSAJEINFORMACION#", mensajeInformacionPagoExitoso);
             htmlTemplate = htmlTemplate.Replace("#FORMATO_NUMTARJETA#", bePagoEnLinea.NumeroTarjeta);
 
@@ -366,7 +392,7 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
             bePagoEnLinea.IdGuidExternoTransaccion = respuestaVisa.ExternalTransactionId ?? string.Empty;
             bePagoEnLinea.IdTokenUsuario = respuestaVisa.UserTokenId ?? string.Empty;
             bePagoEnLinea.AliasNameTarjeta = respuestaVisa.AliasNameTarjeta ?? string.Empty;
-                       
+
             bePagoEnLinea.FechaTransaccion = Util.ParseDate(respuestaVisa.Data.FECHAYHORA_TX, "dd/MM/yyyy HH:mm") ?? DateTime.Now;
             bePagoEnLinea.ResultadoValidacionCVV2 = respuestaVisa.Data.RES_CVV2 ?? string.Empty;
             bePagoEnLinea.CsiMensaje = respuestaVisa.Data.CSIMENSAJE ?? string.Empty;

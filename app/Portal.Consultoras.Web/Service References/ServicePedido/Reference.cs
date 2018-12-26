@@ -6230,6 +6230,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private bool TieneCDRExpressField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool TieneChatbotField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int TieneCuponField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -8745,6 +8748,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.TieneCDRExpressField.Equals(value) != true)) {
                     this.TieneCDRExpressField = value;
                     this.RaisePropertyChanged("TieneCDRExpress");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool TieneChatbot {
+            get {
+                return this.TieneChatbotField;
+            }
+            set {
+                if ((this.TieneChatbotField.Equals(value) != true)) {
+                    this.TieneChatbotField = value;
+                    this.RaisePropertyChanged("TieneChatbot");
                 }
             }
         }
@@ -13330,6 +13346,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private int EstrategiaIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int EstrategiaIDSiccField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string FlagNuevaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -13663,6 +13682,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.EstrategiaIDField.Equals(value) != true)) {
                     this.EstrategiaIDField = value;
                     this.RaisePropertyChanged("EstrategiaID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int EstrategiaIDSicc {
+            get {
+                return this.EstrategiaIDSiccField;
+            }
+            set {
+                if ((this.EstrategiaIDSiccField.Equals(value) != true)) {
+                    this.EstrategiaIDSiccField = value;
+                    this.RaisePropertyChanged("EstrategiaIDSicc");
                 }
             }
         }
@@ -16035,6 +16067,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string EstadoPedidoDescField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FechaFacturadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.DateTime FechaModificacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -16362,6 +16397,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.EstadoPedidoDescField, value) != true)) {
                     this.EstadoPedidoDescField = value;
                     this.RaisePropertyChanged("EstadoPedidoDesc");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FechaFacturado {
+            get {
+                return this.FechaFacturadoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FechaFacturadoField, value) != true)) {
+                    this.FechaFacturadoField = value;
+                    this.RaisePropertyChanged("FechaFacturado");
                 }
             }
         }
@@ -20586,6 +20634,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string SessionTokenField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TerminosUsoURLField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string TokenTarjetaGuardadaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -20853,6 +20904,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.SessionTokenField, value) != true)) {
                     this.SessionTokenField = value;
                     this.RaisePropertyChanged("SessionToken");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TerminosUsoURL {
+            get {
+                return this.TerminosUsoURLField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TerminosUsoURLField, value) != true)) {
+                    this.TerminosUsoURLField = value;
+                    this.RaisePropertyChanged("TerminosUsoURL");
                 }
             }
         }

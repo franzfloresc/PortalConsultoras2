@@ -149,48 +149,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 Assert.AreEqual("", result.GetAreaName());
                 VerifyCallLogManager("MensajeProductoBloqueado", "OfertasController.Index");
             }
-
-            //public void Index_GetSeccionRevistaDigital_ReturnSameTitleFromDB()
-            //{
-            //    // Arrenge
-
-            //    // Act
-            //    var result = _ofertasController.Index() as RedirectToRouteResult;
-
-            //    // Assert
-            //    Assert.AreEqual("Ofertas", result.GetControllerName());
-            //    Assert.AreEqual("Index", result.GetActionName());
-            //    Assert.AreEqual("Mobile", result.GetAreaName());
-
-            //}
-
-            //public void Index_GetSeccionRevistaDigitalReducida_ReturnSameTitleFromDB()
-            //{
-            //    // Arrenge
-
-            //    // Act
-            //    var result = _ofertasController.Index() as RedirectToRouteResult;
-
-            //    // Assert
-            //    Assert.AreEqual("Ofertas", result.GetControllerName());
-            //    Assert.AreEqual("Index", result.GetActionName());
-            //    Assert.AreEqual("Mobile", result.GetAreaName());
-
-            //}
-
-            //public void Index_GetSeccionOfertasParaTi_ReturnSameTitleFromDB()
-            //{
-            //    // Arrenge
-
-            //    // Act
-            //    var result = _ofertasController.Index() as RedirectToRouteResult;
-
-            //    // Assert
-            //    Assert.AreEqual("Ofertas", result.GetControllerName());
-            //    Assert.AreEqual("Index", result.GetActionName());
-            //    Assert.AreEqual("Mobile", result.GetAreaName());
-
-            //}
+            
         }
     }
 }

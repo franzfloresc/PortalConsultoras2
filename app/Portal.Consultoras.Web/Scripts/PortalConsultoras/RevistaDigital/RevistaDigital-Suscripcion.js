@@ -194,6 +194,23 @@ function RedireccionarContenedorInformativa(origenWeb) {
 
     window.location = (isMobile() ? "/Mobile" : "") + "/RevistaDigital/Informacion";
 }
+function GetItemLocalStorageSurvicate() {
+    var surviKeys = {};
+    for (var key in localStorage) {
+        if (key.indexOf('survi::') > -1)
+            surviKeys[key] = localStorage[key];
+    }
+    return surviKeys;
+}
+function SetItemLocalStorageSurvicate(storage) {
+
+    if (typeof storage !== 'undefined' && typeof storage === 'object') {
+        for (var key in storage) {
+            if (storage.hasOwnProperty(key))
+                localStorage.setItem(key, storage[key]);
+        }
+    }
+}
 
 function LimpiarLocalStorage() {
     if (typeof (Storage) !== 'undefined') {
@@ -201,7 +218,7 @@ function LimpiarLocalStorage() {
         var itemSBTokenPedido = localStorage.getItem('SBTokenPedido');
         var itemChatEConnected = localStorage.getItem('connected');
         var itemChatEConfigParams = localStorage.getItem('ConfigParams');
-
+        var itemSurvicateStorage = GetItemLocalStorageSurvicate();
         localStorage.clear();
 
         if (typeof (itemSBTokenPais) !== 'undefined' && itemSBTokenPais !== null) {
@@ -218,6 +235,9 @@ function LimpiarLocalStorage() {
 
         if (typeof (itemChatEConfigParams) !== 'undefined' && itemChatEConfigParams !== null) {
             localStorage.setItem('ConfigParams', itemChatEConfigParams);
+        }
+        if (typeof (itemSurvicateStorage) !== 'undefined' && itemSurvicateStorage !== null) {
+            SetItemLocalStorageSurvicate(itemSurvicateStorage);
         }
     }
 };

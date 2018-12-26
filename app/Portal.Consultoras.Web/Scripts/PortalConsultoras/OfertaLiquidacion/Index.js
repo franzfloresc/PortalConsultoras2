@@ -203,7 +203,6 @@ $(document).ready(function () {
 
     //                            $(this).parent().parent().parent().parent().find(".ValidaNumeralOferta").attr('disabled', true);
     //                            $(div).css('display', 'block');
-                                    //$('#divVistaPrevia').dialog('close');
 
     //                            $(lblStock).text(parseInt(Stock - Cantidad));
     //                            $(HiddenStock).val(parseInt(Stock - Cantidad));
@@ -436,7 +435,7 @@ function CargarOfertasLiquidacion() {
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
             if (checkTimeout(data)) {
-                if (data.lista.length > 0) ArmarCarouselLiquidaciones(data.lista);
+                if (data.lista.length > 0) ArmarProductoLiquidaciones(data.lista);
                 if (!data.verMas) UnlinkCargarOfertasToScroll();
                 offsetRegistros += cantidadRegistros;
             }
@@ -449,26 +448,26 @@ function CargarOfertasLiquidacion() {
     });
 }
 
-function ArmarCarouselLiquidaciones(data) {
+function ArmarProductoLiquidaciones(data) {
     data = EstructurarDataCarouselLiquidaciones(data);
     var htmlDiv = SetHandlebars("#OfertasLiquidacion-template", data);
     $('#htmlListado').append(htmlDiv);
     EstablecerAccionLazyImagen("img[data-lazy-seccion-liquidacion]");
 
-    var arrayOfertas = [];
-    $.each(data, function (i, item) {
-        var itemOferta = {
-            'name': item.Descripcion,
-            'id': item.CUV,
-            'price': item.PrecioString,
-            'brand': item.DescripcionMarca,
-            'category': 'NO DISPONIBLE',
-            'variant': item.DescripcionEstrategia,
-            'list': 'Liquidación Web',
-            'position': item.Posicion
-        };
-        arrayOfertas.push(itemOferta);
-    });
+    //var arrayOfertas = [];
+    //$.each(data, function (i, item) {
+    //    var itemOferta = {
+    //        'name': item.Descripcion,
+    //        'id': item.CUV,
+    //        'price': item.PrecioString,
+    //        'brand': item.DescripcionMarca,
+    //        'category': 'NO DISPONIBLE',
+    //        'variant': item.DescripcionEstrategia,
+    //        'list': 'Liquidación Web',
+    //        'position': item.Posicion
+    //    };
+    //    arrayOfertas.push(itemOferta);
+    //});
 }
 
 function EstructurarDataCarouselLiquidaciones(array) {
@@ -579,7 +578,6 @@ function IniDialog() {
             {
                 "Aceptar": function () {
                     HideDialog("DialogMensajesBanner");
-                    //$(this).dialog('close');
                 }
             }
     });
@@ -605,7 +603,7 @@ function InfoCommerceGoogle(ItemTotal, CUV, DescripcionProd, Categoria, Precio, 
             'event': 'addToCart',
             'ecommerce': {
                 'add': {
-                    'actionField': { 'list': 'Liquidación Web' },
+                    'actionField': { 'list': 'Liquidaciones Web' },
                     'products': [
                         {
                             'name': DescripcionProd,
