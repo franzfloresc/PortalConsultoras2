@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +14,7 @@ namespace Portal.Consultoras.Web.Providers
     public class OfertaBaseProvider
     {
         private readonly static HttpClient httpClient = new HttpClient();
+        protected ISessionManager _sessionManager;
 
         static OfertaBaseProvider()
         {
@@ -227,6 +227,9 @@ namespace Portal.Consultoras.Web.Providers
         public bool UsarMsPersonalizacion(string pais, string tipoEstrategia, bool dbDefault = false)
         {
             if (dbDefault) return false;
+
+            var loboGriz = _sessionManager.GetConfigMicroserviciosPersonalizacion(); //LoboGriz
+
             bool paisHabilitado = WebConfig.PaisesMicroservicioPersonalizacion.Contains(pais);
             bool tipoEstrategiaHabilitado = WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion.Contains(tipoEstrategia);
             return paisHabilitado && tipoEstrategiaHabilitado;
@@ -234,6 +237,8 @@ namespace Portal.Consultoras.Web.Providers
 
         public bool UsarMsPersonalizacion(string tipoEstrategia)
         {
+            var loboGriz = _sessionManager.GetConfigMicroserviciosPersonalizacion();//LoboGriz
+
             bool tipoEstrategiaHabilitado = WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion.Contains(tipoEstrategia);
             return tipoEstrategiaHabilitado;
         }

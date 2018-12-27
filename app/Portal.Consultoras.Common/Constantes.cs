@@ -436,6 +436,8 @@ namespace Portal.Consultoras.Common
             public const string JwtApiSomosBelcorp = "JwtApiSomosBelcorp";
             public const string RecomendacionesConfig = "RecomendacionesConfiguracion";
             public const string BuscadorYFiltrosConfig = "BuscadorYFiltros";
+            public const string MSPersonalizacionConfig = "MSPersonalizacion";
+
         }
 
         public static class ConfiguracionManager
@@ -1376,6 +1378,7 @@ namespace Portal.Consultoras.Common
             public const string ElecMultiple = "DP";
             public const string MasGanadoras = "MG";
             public const string Recomendaciones = "RECOMDS";
+            public const string MicroserviciosPersonalizacion = "MSPersonalizacion";
         }
 
 
@@ -2962,6 +2965,11 @@ namespace Portal.Consultoras.Common
             public const string FlagFiltrosBuscador = "FlagFiltrosBuscador";
         }
         
+        public static class CodigoConfiguracionMSPersonalizacion
+        {
+            public const string EstrategiaDisponible = "EstrategiaDisponible";
+        }
+
         public static class CodigoConfiguracionRecomendaciones
         {
             public const string ActivarRecomendaciones = "ActivarRecomendaciones";

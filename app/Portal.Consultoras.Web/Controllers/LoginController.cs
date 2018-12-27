@@ -29,6 +29,7 @@ using System.Web.Security;
 using Portal.Consultoras.Web.Models.Recomendaciones;
 using BEConfiguracionPaisDatos = Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos;
 using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
+using Portal.Consultoras.Web.Models.Estrategia;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -1847,6 +1848,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var configuracionesPaisModels = await GetConfiguracionPais(usuarioModel);
                 var listaConfiPaisModel = new List<ConfiguracionPaisModel>();
                 var buscadorYFiltrosModel = new BuscadorYFiltrosConfiguracionModel();
+                MSPersonalizacionConfiguracionModel msPersonalizacionModel = new MSPersonalizacionConfiguracionModel();
                 var masGanadorasModel = new MasGanadorasModel();
                 var recomendacionesConfiguacionModel = new RecomendacionesConfiguracionModel();
                 var showroomConfigModel = new ConfigModel();
@@ -1942,6 +1944,9 @@ namespace Portal.Consultoras.Web.Controllers
                                     ConfiguracionPaisRecomendaciones(recomendacionesConfiguacionModel,
                                         configuracionPaisDatos);
                                 break;
+                            case Constantes.ConfiguracionPais.MicroserviciosPersonalizacion:
+                                msPersonalizacionModel.EstrategiaDisponible = configuracionPaisDatos.Where(config => config.Codigo == Constantes.CodigoConfiguracionMSPersonalizacion.EstrategiaDisponible).Select(config => config.Valor1).FirstOrDefault() ?? string.Empty;
+                                break;
                         }
 
                         listaConfiPaisModel.Add(c);
@@ -1962,6 +1967,7 @@ namespace Portal.Consultoras.Web.Controllers
                     sessionManager.SetRecomendacionesConfig(recomendacionesConfiguacionModel);
                     sessionManager.MasGanadoras.SetModel(masGanadorasModel);
                     sessionManager.SetEstrategiaSR(showroomConfigModel);
+                    sessionManager.SetConfigMicroserviciosPersonalizacion(msPersonalizacionModel);
                 }
 
                 usuarioModel.CodigosRevistaImpresa = await ObtenerCodigoRevistaFisica(usuarioModel.PaisID);
@@ -2092,6 +2098,8 @@ namespace Portal.Consultoras.Web.Controllers
             buscadorYFiltrosModel.ConfiguracionPaisDatos = Mapper.Map<List<ConfiguracionPaisDatosModel>>(listaDatos) ?? new List<ConfiguracionPaisDatosModel>();
             return buscadorYFiltrosModel;
         }
+
+  
 
         public virtual RecomendacionesConfiguracionModel ConfiguracionPaisRecomendaciones(RecomendacionesConfiguracionModel recomendacionesConfiguracionModel, List<BEConfiguracionPaisDatos> listaDatos)
         {
