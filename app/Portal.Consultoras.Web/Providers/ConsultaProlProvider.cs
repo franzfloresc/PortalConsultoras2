@@ -109,9 +109,16 @@ namespace Portal.Consultoras.Web.Providers
             }
             else
             {
-                lista.Update(x => { x.TieneStock = (respuesta.FirstOrDefault(r => r.COD_VENTA_PADRE == x.CUV2).STOCK == 1) ? true : false; });
+                //lista.Update(x => { x.TieneStock = (respuesta.FirstOrDefault(r => r.COD_VENTA_PADRE == x.CUV2).STOCK == 1) ? true : false; });
+                lista.ForEach(x =>
+                {
+                    var temp = respuesta.FirstOrDefault(r => r.COD_VENTA_PADRE == x.CUV2);
+                    if (temp != null)
+                    {
+                        x.TieneStock = (temp.STOCK == 1);
+                    }
+                });
             }
-
 
             return lista.OrderBy(x => x.TieneStock,false).ToList();
         }
@@ -138,26 +145,43 @@ namespace Portal.Consultoras.Web.Providers
             }
             else
             {
-                lista.Update(
-                    x => {
-                        x.TieneStock = (respuesta.FirstOrDefault(r => r.COD_VENTA_HIJO  == x.Cuv).STOCK == 1) ? true : false;
-                        //x.Hermanos.ForEach(h => h.TieneStock = respuesta.FirstOrDefault(y => y.COD_VENTA_HIJO == h.Cuv).STOCK == 1 ? true : false);
-                        x.Hermanos = ActualizarComponenteHermanos(x.Hermanos, respuesta);
-                    });
+                lista.ForEach(x => 
+                {
+                    var temp = respuesta.FirstOrDefault(r => r.COD_VENTA_HIJO == x.Cuv);
+                    if (temp != null)
+                    {
+                        x.TieneStock = (temp.STOCK == 1);
+                    }
+                    x.Hermanos = ActualizarComponenteHermanos(x.Hermanos, respuesta);
+                });
+
+                //lista.Update(
+                //    x => {
+                //        x.TieneStock = (respuesta.FirstOrDefault(r => r.COD_VENTA_HIJO  == x.Cuv).STOCK == 1) ? true : false;
+                //        //x.Hermanos.ForEach(h => h.TieneStock = respuesta.FirstOrDefault(y => y.COD_VENTA_HIJO == h.Cuv).STOCK == 1 ? true : false);
+                //        x.Hermanos = ActualizarComponenteHermanos(x.Hermanos, respuesta);
+                //    });
             }
 
             return lista;
         }
 
 
-        private List<EstrategiaComponenteModel> ActualizarComponenteHermanos(List<EstrategiaComponenteModel> lista, List<RespuestaStockModel> respuesta) {
-
-            
-            lista.Update(
-                    x => {
-                        if (respuesta.FirstOrDefault(r => r.COD_VENTA_HIJO == x.Cuv)  != null)
-                            x.TieneStock = (respuesta.FirstOrDefault(r => r.COD_VENTA_HIJO == x.Cuv).STOCK == 1) ? true : false;
-                    });
+        private List<EstrategiaComponenteModel> ActualizarComponenteHermanos(List<EstrategiaComponenteModel> lista, List<RespuestaStockModel> respuesta)
+        {
+            //lista.Update(
+            //        x => {
+            //            if (respuesta.FirstOrDefault(r => r.COD_VENTA_HIJO == x.Cuv)  != null)
+            //                x.TieneStock = (respuesta.FirstOrDefault(r => r.COD_VENTA_HIJO == x.Cuv).STOCK == 1) ? true : false;
+            //        });
+            lista.ForEach(x =>
+            {
+                var temp = respuesta.FirstOrDefault(r => r.COD_VENTA_HIJO == x.Cuv);
+                if (temp != null)
+                {
+                    x.TieneStock = (temp.STOCK == 1);
+                }
+            });
             return lista;
         }
 

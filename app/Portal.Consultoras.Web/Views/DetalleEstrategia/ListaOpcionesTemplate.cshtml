@@ -10,7 +10,7 @@
         <li class="seleccion_title">{{#Substr 35 componente.NombreBulk}}{{/Substr}}</li>
         {{#iff this.FactorCuadre '==' '1'}}
             {{#iff componente.cantidadSeleccionada '==' '0'}}
-                {{#iff TieneStock}}
+                {{#iff TieneStock '==' 0}}
                     <li class="seleccion_btn" id="li-eligelo-{{componente.Cuv}}">
                         <button id="btn-eligelo-{{componente.Cuv}}" class="btn-eligelo-agotado"
                                 {{#if ../esCampaniaSiguiente}}

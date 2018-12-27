@@ -642,6 +642,7 @@ function ArmarCarouselEstrategias(data) {
     $("#divListadoEstrategia.slick-initialized").slick("unslick");
 
     data.Lista = data.Lista || [];
+    data.ListaLan = data.ListaLan || [];
     if (data.Lista.length == 0 && data.ListaLan.length == 0) {
         $("#divListaEstrategias").show();
         $("#divContenedorListaEstrategia").hide();

@@ -121,7 +121,7 @@ namespace Portal.Consultoras.Data
 
         public IDataReader GetPedidoWebDetalleByCampania(BEPedidoWebDetalleParametros bePedidoWebDetalleParametros)
          {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidoWebDetalleByCampania2");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidoWebDetalleByCampania");
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, bePedidoWebDetalleParametros.CampaniaId);
             Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, bePedidoWebDetalleParametros.ConsultoraId);
             Context.Database.AddInParameter(command, "@CodigoPrograma", DbType.String, bePedidoWebDetalleParametros.CodigoPrograma);
@@ -376,7 +376,7 @@ namespace Portal.Consultoras.Data
 
         public bool InsertPedidoWebSet(int Campaniaid, int PedidoID, int CantidadSet, string CuvSet, long ConsultoraId, string CodigoUsuario, string CuvsStringList,int EstrategiaId)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsertPedidoWebSet2");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsertPedidoWebSet");
             Context.Database.AddInParameter(command, "@Campaniaid", DbType.Int32, Campaniaid);
             Context.Database.AddInParameter(command, "@PedidoID", DbType.Int64, PedidoID);
             Context.Database.AddInParameter(command, "@CantidadSet", DbType.Int32, CantidadSet);
