@@ -14,7 +14,8 @@ namespace Portal.Consultoras.Web.Providers
     public class OfertaBaseProvider
     {
         private readonly static HttpClient httpClient = new HttpClient();
-        protected ISessionManager _sessionManager;
+
+        private readonly ISessionManager _sessionManager = SessionManager.SessionManager.Instance;
 
         static OfertaBaseProvider()
         {
@@ -228,18 +229,14 @@ namespace Portal.Consultoras.Web.Providers
         {
             if (dbDefault) return false;
 
-            var loboGriz = _sessionManager.GetConfigMicroserviciosPersonalizacion(); //LoboGriz
-
-            bool paisHabilitado = WebConfig.PaisesMicroservicioPersonalizacion.Contains(pais);
-            bool tipoEstrategiaHabilitado = WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion.Contains(tipoEstrategia);
+            bool paisHabilitado = _sessionManager.GetConfigMicroserviciosPersonalizacion().PaisHabilitado.Contains(pais); //WebConfig.PaisesMicroservicioPersonalizacion.Contains(pais);
+            bool tipoEstrategiaHabilitado = _sessionManager.GetConfigMicroserviciosPersonalizacion().EstrategiaHabilitado.Contains(tipoEstrategia); //WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion.Contains(tipoEstrategia);
             return paisHabilitado && tipoEstrategiaHabilitado;
         }
 
         public bool UsarMsPersonalizacion(string tipoEstrategia)
         {
-            var loboGriz = _sessionManager.GetConfigMicroserviciosPersonalizacion();//LoboGriz
-
-            bool tipoEstrategiaHabilitado = WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion.Contains(tipoEstrategia);
+            bool tipoEstrategiaHabilitado = _sessionManager.GetConfigMicroserviciosPersonalizacion().EstrategiaHabilitado.Contains(tipoEstrategia); //WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion.Contains(tipoEstrategia);
             return tipoEstrategiaHabilitado;
         }
     }

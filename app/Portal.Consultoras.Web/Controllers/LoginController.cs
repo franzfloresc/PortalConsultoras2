@@ -1291,12 +1291,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                         #endregion
 
-                        #region ConfiguracionPais
-
-                        usuarioModel = await ConfiguracionPaisUsuario(usuarioModel);
-
-                        #endregion
-
                         #region LLamadas asincronas 
 
                         var flexiPagoTask = Task.Run(() => GetPermisoFlexipago(usuario));
@@ -1363,15 +1357,15 @@ namespace Portal.Consultoras.Web.Controllers
                     sessionManager.SetTieneHvX1(true);
                     sessionManager.SetJwtApiSomosBelcorp(usuarioModel.JwtToken);
                     sessionManager.SetTieneMg(true);
-
-
-
-
+                                                         
                     usuarioModel.FotoPerfil = usuario.FotoPerfil;
                     usuarioModel.FotoOriginalSinModificar = usuario.FotoOriginalSinModificar;
                     usuarioModel.DiaFacturacion = GetDiaFacturacion(usuarioModel.PaisID, usuarioModel.CampaniaID, usuarioModel.ConsultoraID, usuarioModel.ZonaID, usuarioModel.RegionID);
                     usuarioModel.NuevasDescripcionesBuscador = getNuevasDescripcionesBuscador(usuarioModel.PaisID);
                     usuarioModel.ListaOrdenamientoFiltrosBuscador = getListaOrdenamientoFiltrosBuscador(usuarioModel.PaisID);
+                    #region ConfiguracionPais
+                    usuarioModel = await ConfiguracionPaisUsuario(usuarioModel);
+                    #endregion
                 }
 
                 sessionManager.SetUserData(usuarioModel);
@@ -1945,7 +1939,22 @@ namespace Portal.Consultoras.Web.Controllers
                                         configuracionPaisDatos);
                                 break;
                             case Constantes.ConfiguracionPais.MicroserviciosPersonalizacion:
-                                msPersonalizacionModel.EstrategiaDisponible = configuracionPaisDatos.Where(config => config.Codigo == Constantes.CodigoConfiguracionMSPersonalizacion.EstrategiaDisponible).Select(config => config.Valor1).FirstOrDefault() ?? string.Empty;
+                                try
+                                {
+                                    msPersonalizacionModel.EstrategiaHabilitado = configuracionPaisDatos.Where(config => config.Codigo == Constantes.CodigoConfiguracionMSPersonalizacion.EstrategiaDisponible).Select(config => config.Valor1).FirstOrDefault() ?? string.Empty;
+                                    msPersonalizacionModel.PaisHabilitado = string.Empty;
+                                    if (msPersonalizacionModel.EstrategiaHabilitado != string.Empty)
+                                    {
+                                        msPersonalizacionModel.PaisHabilitado = usuarioModel.CodigoISO;
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    msPersonalizacionModel.PaisHabilitado = WebConfig.PaisesMicroservicioPersonalizacion;
+                                    msPersonalizacionModel.EstrategiaHabilitado = WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion;
+                                    Common.LogManager.SaveLog(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
+                                }
+                                
                                 break;
                         }
 

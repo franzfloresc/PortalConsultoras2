@@ -2910,9 +2910,9 @@ namespace Portal.Consultoras.Common
 
             #region Reporte
             /// <summary>
-            /// api/Estrategia/ReporteValidacion/{tipo}/{campania}/{paises}
+            /// api/Estrategia/ReporteValidacion/{tipo}/{campania}
             /// </summary>
-            public const string UrlReporteValidacion = "api/Estrategia/ReporteValidacion/{0}/{1}/{2}";
+            public const string UrlReporteValidacion = "api/Estrategia/ReporteValidacion/{0}/{1}";
             #endregion
         }
         public static class OfertaFinalLog

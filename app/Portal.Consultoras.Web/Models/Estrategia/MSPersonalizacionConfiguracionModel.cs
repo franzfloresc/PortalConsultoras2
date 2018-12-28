@@ -6,6 +6,8 @@
     [Serializable]
     public class MSPersonalizacionConfiguracionModel
     {
-        public string EstrategiaDisponible { get; set; }
+        public string EstrategiaHabilitado { get; set; }
+        public string PaisHabilitado { get; set; }
+
     }
 }

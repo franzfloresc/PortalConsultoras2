@@ -17,6 +17,7 @@ namespace Portal.Consultoras.Web.Providers
 {
     using System.Text;
     using Portal.Consultoras.Common.Response;
+    using Portal.Consultoras.Web.Models.Estrategia;
 
     /// <summary>
     /// Propiedades y metodos de ShowRoom
@@ -326,7 +327,9 @@ namespace Portal.Consultoras.Web.Providers
 
         public void CargarEntidadesShowRoom(UsuarioModel model)
         {
-            var configEstrategiaSR = _sessionManager.GetEstrategiaSR() ?? new ConfigModel();
+            ConfigModel configEstrategiaSR = _sessionManager.GetEstrategiaSR() ?? new ConfigModel();
+            MSPersonalizacionConfiguracionModel msPersonalizacionModel = new MSPersonalizacionConfiguracionModel();
+
             try
             {
                 const int SHOWROOM_ESTADO_ACTIVO = 1;
