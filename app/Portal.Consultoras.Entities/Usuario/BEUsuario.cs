@@ -1212,6 +1212,7 @@ namespace Portal.Consultoras.Entities
         [Column("IndicadorConsultoraOficina")]
         public bool EsConsultoraOficina { get; set; }
         [DataMember]
+        [Column("IndicadorConsultoraDigital")]
         public int IndicadorConsultoraDigital { get; set; }
         [DataMember]
         public string NivelProyectado { get; set; }
