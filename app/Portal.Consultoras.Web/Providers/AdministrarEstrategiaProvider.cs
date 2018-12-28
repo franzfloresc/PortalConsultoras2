@@ -849,7 +849,7 @@ namespace Portal.Consultoras.Web.Providers
             UsuarioModel userData = sessionManager.GetUserData();
             string jsonParameters = string.Empty;
 
-            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlReporteValidacion,tipo,campaniaId,WebConfig.PaisesMicroservicioPersonalizacion);
+            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlReporteValidacion,tipo,campaniaId);
             var taskApi = Task.Run(() => RespSBMicroservicios(jsonParameters, requestUrl, "get", userData));
             Task.WhenAll(taskApi);
             string content = taskApi.Result;

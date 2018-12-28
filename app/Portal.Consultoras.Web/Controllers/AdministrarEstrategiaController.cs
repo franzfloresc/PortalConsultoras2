@@ -70,8 +70,8 @@ namespace Portal.Consultoras.Web.Controllers
                     PaisID = userData.PaisID
                 };
                 //Enviar listado de palancas c/microservicios y si el país está configurado para ser evaluados en grilla.
-                ViewBag.MsEstrategias = WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion;
-                ViewBag.MsPaises = WebConfig.PaisesMicroservicioPersonalizacion;
+                ViewBag.MsEstrategias = SessionManager.GetConfigMicroserviciosPersonalizacion().EstrategiaHabilitado; //WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion;
+                ViewBag.MsPaises = SessionManager.GetConfigMicroserviciosPersonalizacion().PaisHabilitado; //WebConfig.PaisesMicroservicioPersonalizacion;
             }
             catch (Exception ex)
             {
