@@ -862,6 +862,11 @@ input[type='checkbox']:checked + span:after {
         min-height:160px;
     }
 
+    .catalogos__campania--actual{
+        margin-left:-15px!important;
+        margin-right:-15px!important;
+    }
+
     .catalogos__campania--actual .catalogos__por__campania__item__imagen--cyzone,
     .catalogos__campania--actual .catalogos__por__campania__item__imagen--lbel,
     .catalogos__campania--actual .catalogos__por__campania__item__imagen--cyzone img,
