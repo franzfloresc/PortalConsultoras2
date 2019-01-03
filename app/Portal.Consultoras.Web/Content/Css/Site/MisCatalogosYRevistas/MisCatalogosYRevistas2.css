@@ -234,7 +234,9 @@ hr{
     display:none;
 }
 
-.catalogos__por__campania__item__imagenes{
+.catalogos__por__campania__item__imagenes,
+.content_carrusel_catalogo
+{
     justify-content:space-evenly;
 }
 
