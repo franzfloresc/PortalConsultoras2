@@ -1326,7 +1326,47 @@ namespace Portal.Consultoras.Web.Controllers
 
 
                         #endregion
+
+                        #region ConfiguracionPais
+                        usuarioModel = await ConfiguracionPaisUsuario(usuarioModel);
+                        #endregion
                     }
+
+                    List<ConfiguracionPaisModel> configuracionesPaisModels = await GetConfiguracionPais(usuarioModel);
+                    if (configuracionesPaisModels.Any())
+                    {
+                        List<BEConfiguracionPaisDatos> configuracionPaisDatosAll = await GetConfiguracionPaisDatos(usuarioModel);
+                        MSPersonalizacionConfiguracionModel msPersonalizacionModel = new MSPersonalizacionConfiguracionModel();
+
+                        List<BEConfiguracionPaisDatos> configuracionPaisDatos = configuracionPaisDatosAll.Where(d => d.ConfiguracionPaisID == usuarioModel.PaisID && d.Codigo == Constantes.ConfiguracionPais.MicroserviciosPersonalizacion).ToList();
+
+                        try
+                        {
+                            msPersonalizacionModel.EstrategiaHabilitado = configuracionPaisDatos.Where(config => config.Codigo == Constantes.CodigoConfiguracionMSPersonalizacion.EstrategiaDisponible).Select(config => config.Valor1).FirstOrDefault() ?? string.Empty;
+                            msPersonalizacionModel.PaisHabilitado = string.Empty;
+                            if (msPersonalizacionModel.EstrategiaHabilitado != string.Empty)
+                            {
+                                msPersonalizacionModel.PaisHabilitado = usuarioModel.CodigoISO;
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            msPersonalizacionModel.PaisHabilitado = WebConfig.PaisesMicroservicioPersonalizacion;
+                            msPersonalizacionModel.EstrategiaHabilitado = WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion;
+                            Common.LogManager.SaveLog(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
+                        }
+
+                        if (msPersonalizacionModel.EstrategiaHabilitado == null && msPersonalizacionModel.PaisHabilitado == null)
+                        {
+                            msPersonalizacionModel.EstrategiaHabilitado = string.Empty;
+                            msPersonalizacionModel.PaisHabilitado = string.Empty;
+                            Common.LogManager.SaveLog(new Exception("La configuración MSPersonalizacion se encuentra deshabilitado en la tabla configuracionpais.", null), usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
+                        }
+
+                        sessionManager.SetConfigMicroserviciosPersonalizacion(msPersonalizacionModel);
+                    }
+
+
 
                     if (usuarioModel.CatalogoPersonalizado != 0)
                     {
@@ -1363,9 +1403,6 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.DiaFacturacion = GetDiaFacturacion(usuarioModel.PaisID, usuarioModel.CampaniaID, usuarioModel.ConsultoraID, usuarioModel.ZonaID, usuarioModel.RegionID);
                     usuarioModel.NuevasDescripcionesBuscador = getNuevasDescripcionesBuscador(usuarioModel.PaisID);
                     usuarioModel.ListaOrdenamientoFiltrosBuscador = getListaOrdenamientoFiltrosBuscador(usuarioModel.PaisID);
-                    #region ConfiguracionPais
-                    usuarioModel = await ConfiguracionPaisUsuario(usuarioModel);
-                    #endregion
                 }
 
                 sessionManager.SetUserData(usuarioModel);
@@ -1842,7 +1879,6 @@ namespace Portal.Consultoras.Web.Controllers
                 var configuracionesPaisModels = await GetConfiguracionPais(usuarioModel);
                 var listaConfiPaisModel = new List<ConfiguracionPaisModel>();
                 var buscadorYFiltrosModel = new BuscadorYFiltrosConfiguracionModel();
-                MSPersonalizacionConfiguracionModel msPersonalizacionModel = new MSPersonalizacionConfiguracionModel();
                 var masGanadorasModel = new MasGanadorasModel();
                 var recomendacionesConfiguacionModel = new RecomendacionesConfiguracionModel();
                 var showroomConfigModel = new ConfigModel();
@@ -1938,36 +1974,12 @@ namespace Portal.Consultoras.Web.Controllers
                                     ConfiguracionPaisRecomendaciones(recomendacionesConfiguacionModel,
                                         configuracionPaisDatos);
                                 break;
-                            case Constantes.ConfiguracionPais.MicroserviciosPersonalizacion:
-                                try
-                                {
-                                    msPersonalizacionModel.EstrategiaHabilitado = configuracionPaisDatos.Where(config => config.Codigo == Constantes.CodigoConfiguracionMSPersonalizacion.EstrategiaDisponible).Select(config => config.Valor1).FirstOrDefault() ?? string.Empty;
-                                    msPersonalizacionModel.PaisHabilitado = string.Empty;
-                                    if (msPersonalizacionModel.EstrategiaHabilitado != string.Empty)
-                                    {
-                                        msPersonalizacionModel.PaisHabilitado = usuarioModel.CodigoISO;
-                                    }
-                                }
-                                catch (Exception ex)
-                                {
-                                    msPersonalizacionModel.PaisHabilitado = WebConfig.PaisesMicroservicioPersonalizacion;
-                                    msPersonalizacionModel.EstrategiaHabilitado = WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion;
-                                    Common.LogManager.SaveLog(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
-                                }
-                                
-                                break;
                         }
 
                         listaConfiPaisModel.Add(c);
                     }
 
-                    if (msPersonalizacionModel.EstrategiaHabilitado == null && msPersonalizacionModel.PaisHabilitado == null)
-                    {
-                        msPersonalizacionModel.EstrategiaHabilitado = string.Empty;
-                        msPersonalizacionModel.PaisHabilitado = string.Empty;
-                        Common.LogManager.SaveLog(new Exception("La configuración MSPersonalizacion se encuentra deshabilitado en la tabla configuracionpais.", null), usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
-                    }
-
+                
                     revistaDigitalModel.Campania = usuarioModel.CampaniaID % 100;
                     revistaDigitalModel.CampaniaMasUno = Util.AddCampaniaAndNumero(Convert.ToInt32(usuarioModel.CampaniaID), 1, usuarioModel.NroCampanias) % 100;
                     revistaDigitalModel.NombreConsultora = usuarioModel.Sobrenombre;
@@ -1983,7 +1995,6 @@ namespace Portal.Consultoras.Web.Controllers
                     sessionManager.SetRecomendacionesConfig(recomendacionesConfiguacionModel);
                     sessionManager.MasGanadoras.SetModel(masGanadorasModel);
                     sessionManager.SetEstrategiaSR(showroomConfigModel);
-                    sessionManager.SetConfigMicroserviciosPersonalizacion(msPersonalizacionModel);
                 }
 
                 usuarioModel.CodigosRevistaImpresa = await ObtenerCodigoRevistaFisica(usuarioModel.PaisID);
