@@ -1,11 +1,27 @@
-﻿@{
-    ViewBag.Title = "Index";
+﻿@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Models
+@model MisCatalogosRevistasModel
+
+@*@section styles{
+    @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/MisCatalogoRevista")
+}*@
+
+@{
     Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
+    var title = Model.Titulo;
+    ViewBag.Title = title;
 }
 
-
-<link href="@Url.Content("~/Content/Css/Site/MisCatalogosYRevistas/MisCatalogosYRevistas.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/Css/Site/MisCatalogosYRevistas/MisCatalogosYRevistas2.css")" rel="stylesheet" />
 <link href="@Url.Content("~/Content/Css/Site/jquery.tag-editor.css")" rel="stylesheet">
+
+<input type="hidden" id="hdPaisNombre" value="@Model.PaisNombre" />
+<input type="hidden" id="hdCampaniaAnterior" value="@Model.CampaniaAnterior" />
+<input type="hidden" id="hdCampaniaActual" value="@Model.CampaniaActual" />
+<input type="hidden" id="hdCampaniaSiguiente" value="@Model.CampaniaSiguiente" />
+<input type="hidden" id="hdrCampaniaAnterior" value="@Model.CampaniaAnterior" />
+<input type="hidden" id="hdrCampaniaActual" value="@Model.CampaniaActual" />
+<input type="hidden" id="hdrCampaniaSiguiente" value="@Model.CampaniaSiguiente" />
 
 <main class="w-100 row flex-column justify-content-center ml-0 mr-0 layout__main__content">
 
@@ -18,13 +34,12 @@
                     <img class="d-block" src="@Url.Content("~/Content/Images/icono_volver_mobile.svg")" alt="" />
                 </span>
                 <span class="d-block">
-                    Mis <span class="text-bold">Catálogos</span>
+                    Mis <span class="text-bold">@title</span>
                 </span>
             </h1>
         </div>
     </section>
     <!-- FIN - TITULO DE VISTA CATÁLOGOS -->
-
     <!-- TABS PARA MOSTRAR SECCIÓN CATÁLOGOS O REVISTAS -->
     <ul class="col-12 pl-0 pr-0 row flex-row justify-content-between ml-0 mr-0 mb-0 tabs__catalogos__revistas mostrarEnMobile">
         <li class="col-6 pl-0 pr-0 tab__catalogos__revistas tab__catalogos">
@@ -55,71 +70,59 @@
         </section>
         <!-- SECCIÓN CARRUSEL DE CATÁLOGOS CAMPAÑA ANTERIOR, ACTUAL Y SIGUIENTE -->
         <section class="col-12 pl-0 pr-0 row flex-row justify-content-center justify-content-lg-between justify-content-xl-between ml-lg-0 mr-lg-0 ml-xl-0 mr-xl-0 catalogos__por__campania__slider__wrapper contenido__seccion__catalogo">
-            <div class="col-8 col-lg-12 col-xl-12 text-center pl-0 pr-0 catalogos__por__campania__num">
-                <span class="text-uppercase text-bold">Catálogos </span>
-                <span class="text-uppercase text-bold num__campania">C17</span>
+
+            <div class="col-8 col-lg-12 col-xl-12 text-center pl-0 pr-0 catalogos__por__campania__num" id="contentCatalogo">
+                <span class="text-uppercase text-bold" id="TextoCampania">Catálogos </span>
+                @*<span class="text-uppercase text-bold num__campania">C17</span>*@
             </div>
             <a class="col-1 pl-0 pr-0 row flex-row justify-content-start align-items-start align-items-lg-center align-items-xl-center ml-0 mr-0 catalogos__por__campania__slider__control catalogos__por__campania__slider__control__izq" title="Atrás">
-                <img src="@Url.Content("~/Content/Images/arrow_left.svg")" alt="" />
+                <img src="@Url.Content("~/Content/Images/arrow_left.svg")" alt="" onclick="CatalogoMostrar(-1, this)" data-accion="a" />
             </a>
 
-            <!-- CATÁLOGOS CAMPAÑA ANTERIOR -->
-            <section class="col-12 col-lg-10 col-xl-10 pl-0 pr-0 row flex-row justify-content-center ml-0 mr-0 catalogos__por__campania__item__slider catalogos__campania--anterior">
-                <div class="col-12 pl-0 pr-0 row flex-row align-items-center ml-0 mr-0 catalogos__por__campania__item__imagenes">
-                    <div class="col-10 col-lg-3 col-xl-3 pl-0 pr-0 catalogos__por__campania__item__imagen catalogos__por__campania__item__imagen--cyzone">
-                        <a class="d-block" href="https://issuu.com/somosbelcorp/docs/cyzone.peru.c17.2018?mode=embed" title="Catálogo Cyzone" target="_blank">
-                            <img class="d-block" src="http://image.issuu.com/181030202455-20688d083eb1b136effc0a5c70eea5d2/jpg/page_1.jpg" alt="" />
-                        </a>
-                        <div class="row flex-row justify-content-between align-items-start ml-0 mr-0 catalogos__por__campania__item__modos__compartir">
-                            <a href="" class="col-4 col-lg-6 col-xl-6 pl-0 pr-0 row flex-row justify-content-center align-items-center ml-0 mr-0 modo__compartir__catalogo modo__compartir__catalogo--whatsapp mostrarEnMobile" title="Compartir por WhatsApp">
-                                <img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_ws2.png")" alt="Compartir por WhatsApp" />
-                            </a>
-                            <a href="" class="col-4 col-lg-6 col-xl-6 pl-0 pr-0 row flex-row justify-content-center align-items-center ml-0 mr-0 modo__compartir__catalogo modo__compartir__catalogo--facebook" title="Compartir por Facebook">
-                                <img src="@Url.Content("~/Content/Images/Esika/catalogo_facebook.png")" alt="Compartir por Facebook" />
-                            </a>
-                            <a href="" class="col-4 col-lg-6 col-xl-6 pl-0 pr-0 row flex-row justify-content-center align-items-center ml-0 mr-0 modo__compartir__catalogo modo__compartir__catalogo--mail" title="Compartir por email">
-                                <img src="@Url.Content("~/Content/Images/Esika/catalogo_mensaje.png")" alt="Compartir por email" />
-                            </a>
+            <div id="divSection">
+                                        
+            </div>
+
+            <div id="xhtmlSection" style="display: none;">
+                <section class="col-12 col-lg-10 col-xl-10 pl-0 pr-0 row flex-row justify-content-center ml-0 mr-0 catalogos__por__campania__item__slider" data-animation="{animation}">
+                    <div class="col-12 pl-0 pr-0 row flex-row align-items-center ml-0 mr-0 catalogos__por__campania__item__imagenes">   
+                        
+                        <div class="content_carrusel_catalogo" id={divCatalogo} >
+
                         </div>
+                                        
                     </div>
-                    <div class="col-10 col-lg-3 col-xl-3 pl-0 pr-0 catalogos__por__campania__item__imagen catalogos__por__campania__item__imagen--esika">
-                        <a class="d-block" href="https://issuu.com/somosbelcorp/docs/esika.peru.c17.2018?mode=embed" title="Catálogo Ésika" target="_blank">
-                            <img class="d-block" src="http://image.issuu.com/181030202235-52488e541d3a7ce493a4dc458aeb8fc0/jpg/page_1.jpg" alt="" />
+                </section>
+            </div>
+
+            <div id="xHtmlItemCatalogo" style="display: none;">
+                <div class="col-10 col-lg-3 col-xl-3 pl-0 pr-0 catalogos__por__campania__item__imagen" data-cam="{campania}" data-catalogo="{tipoCatalogo}" data-estado="{estado}">
+                    <a class="d-block revista" data-tipo="img" href="" target="_blank">
+                        <img class="d-block" src="@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")" alt="" />
+                    </a>
+                    <div class="row flex-row justify-content-between align-items-start ml-0 mr-0 catalogos__por__campania__item__modos__compartir" data-tipo="content">
+
+                        <div data-tipo="descrip">{descripcion}</div>
+                        <input id="txtUrl{tipoCatalogo}" type="hidden" value="" />
+
+                        <a href="" class="col-4 col-lg-6 col-xl-6 pl-0 pr-0 row flex-row justify-content-center align-items-center ml-0 mr-0 modo__compartir__catalogo modo__compartir__catalogo--whatsapp mostrarEnMobile" title="Compartir por WhatsApp">
+                            <img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_ws2.png")" alt="Compartir por WhatsApp" />
                         </a>
-                        <div class="row flex-row justify-content-between align-items-start ml-0 mr-0 catalogos__por__campania__item__modos__compartir">
-                            <a href="" class="col-4 col-lg-6 col-xl-6 pl-0 pr-0 row flex-row justify-content-center align-items-center ml-0 mr-0 modo__compartir__catalogo modo__compartir__catalogo--whatsapp mostrarEnMobile" title="Compartir por WhatsApp">
-                                <img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_ws2.png")" alt="Compartir por WhatsApp" />
-                            </a>
-                            <a href="" class="col-4 col-lg-6 col-xl-6 pl-0 pr-0 row flex-row justify-content-center align-items-center ml-0 mr-0 modo__compartir__catalogo modo__compartir__catalogo--facebook" title="Compartir por Facebook">
-                                <img src="@Url.Content("~/Content/Images/Esika/catalogo_facebook.png")" alt="Compartir por Facebook" />
-                            </a>
-                            <a href="" class="col-4 col-lg-6 col-xl-6 pl-0 pr-0 row flex-row justify-content-center align-items-center ml-0 mr-0 modo__compartir__catalogo modo__compartir__catalogo--mail" title="Compartir por email">
-                                <img src="@Url.Content("~/Content/Images/Esika/catalogo_mensaje.png")" alt="Compartir por email" />
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-10 col-lg-3 col-xl-3 pl-0 pr-0 catalogos__por__campania__item__imagen catalogos__por__campania__item__imagen--lbel">
-                        <a class="d-block" href="https://issuu.com/somosbelcorp/docs/cyzone.peru.c17.2018?mode=embed" title="Catálogo L'bel'" target="_blank">
-                            <img class="d-block" src="http://image.issuu.com/181030201933-13d693be81fb109a33133a761fe48ea2/jpg/page_1.jpg" alt="" />
+                        <a href="" class="col-4 col-lg-6 col-xl-6 pl-0 pr-0 row flex-row justify-content-center align-items-center ml-0 mr-0 modo__compartir__catalogo modo__compartir__catalogo--facebook" title="Compartir por Facebook" data-accion="face" onclick="RedesSociales.CompartirFacebook('{comp}', '{campania}', this)">
+                            <img src="@Url.Content("~/Content/Images/Esika/catalogo_facebook.png")" alt="Compartir por Facebook" />
                         </a>
-                        <div class="row flex-row justify-content-between align-items-start ml-0 mr-0 catalogos__por__campania__item__modos__compartir">
-                            <a href="" class="col-4 col-lg-6 col-xl-6 pl-0 pr-0 row flex-row justify-content-center align-items-center ml-0 mr-0 modo__compartir__catalogo modo__compartir__catalogo--whatsapp mostrarEnMobile" title="Compartir por WhatsApp">
-                                <img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_ws2.png")" alt="Compartir por WhatsApp" />
-                            </a>
-                            <a href="" class="col-4 col-lg-6 col-xl-6 pl-0 pr-0 row flex-row justify-content-center align-items-center ml-0 mr-0 modo__compartir__catalogo modo__compartir__catalogo--facebook" title="Compartir por Facebook">
-                                <img src="@Url.Content("~/Content/Images/Esika/catalogo_facebook.png")" alt="Compartir por Facebook" />
-                            </a>
-                            <a href="" class="col-4 col-lg-6 col-xl-6 pl-0 pr-0 row flex-row justify-content-center align-items-center ml-0 mr-0 modo__compartir__catalogo modo__compartir__catalogo--mail" title="Compartir por email">
-                                <img src="@Url.Content("~/Content/Images/Esika/catalogo_mensaje.png")" alt="Compartir por email" />
-                            </a>
-                        </div>
+                        <a href="" class="col-4 col-lg-6 col-xl-6 pl-0 pr-0 row flex-row justify-content-center align-items-center ml-0 mr-0 modo__compartir__catalogo modo__compartir__catalogo--mail" title="Compartir por email" onclick="javascript: RedesSociales.AbrirCompartirCorreo('{tipoCatalogo}','{campania}');">
+                            <img src="@Url.Content("~/Content/Images/Esika/catalogo_mensaje.png")" alt="Compartir por email" />
+                        </a>
                     </div>
+
                 </div>
-            </section>
-            <!-- FIN - CATÁLOGOS CAMPAÑA ANTERIOR -->
+
+            </div>
+
 
             <!-- CATÁLOGOS CAMPAÑA ACTUAL -->
-            <section class="col-12 col-lg-10 col-xl-10 pl-0 pr-0 row flex-row justify-content-center ml-0 mr-0 catalogos__por__campania__item__slider catalogos__campania--actual">
+            @*<section class="col-12 col-lg-10 col-xl-10 pl-0 pr-0 row flex-row justify-content-center ml-0 mr-0 catalogos__por__campania__item__slider catalogos__campania--actual">
                 <div class="col-12 pl-0 pr-0 row flex-row flex-nowrap flex-lg-wrap flex-xl-wrap align-items-center ml-lg-0 ml-xl-0 mr-lg-0 mr-xl-0 catalogos__por__campania__item__imagenes">
                     <div class="col-3 pl-0 pr-0 catalogos__por__campania__item__imagen catalogos__por__campania__item__imagen--cyzone">
                         <a class="d-block" href="https://issuu.com/somosbelcorp/docs/cyzone.peru.c18.2018?mode=embed" title="Catálogo Cyzone" target="_blank">
@@ -211,65 +214,12 @@
                         </div>
                     </div>
                 </div>
-            </section>
+            </section>*@
             <!-- FIN - CATÁLOGOS CAMPAÑA ACTUAL -->
 
-            <!-- CATÁLOGOS CAMPAÑA SIGUIENTE -->
-            <section class="col-12 col-lg-10 col-xl-10 pl-0 pr-0 row flex-row justify-content-center ml-0 mr-0 catalogos__por__campania__item__slider catalogos__campania--siguiente">
-                <div class="col-12 pl-0 pr-0 row flex-row align-items-center ml-0 mr-0 catalogos__por__campania__item__imagenes">
-                    <div class="col-10 col-lg-3 col-xl-3 pl-0 pr-0 catalogos__por__campania__item__imagen catalogos__por__campania__item__imagen--cyzone">
-                        <a class="d-block mx-auto" href="https://issuu.com/somosbelcorp/docs/lbel.peru.c01.2019?mode=embed" title="Catálogo Cyzone" target="_blank">
-                            <img class="d-block" src="http://image.issuu.com/181102215550-80b56746a7f65cf88691cd747739c1ed/jpg/page_1.jpg" alt="" />
-                        </a>
-                        <div class="row flex-row justify-content-between align-items-start ml-0 mr-0 catalogos__por__campania__item__modos__compartir">
-                            <a href="" class="col-4 col-lg-6 col-xl-6 pl-0 pr-0 row flex-row justify-content-center align-items-center ml-0 mr-0 modo__compartir__catalogo modo__compartir__catalogo--whatsapp mostrarEnMobile" title="Compartir por WhatsApp">
-                                <img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_ws2.png")" alt="Compartir por WhatsApp" />
-                            </a>
-                            <a href="" class="col-4 col-lg-6 col-xl-6 pl-0 pr-0 row flex-row justify-content-center align-items-center ml-0 mr-0 modo__compartir__catalogo modo__compartir__catalogo--facebook" title="Compartir por Facebook">
-                                <img src="@Url.Content("~/Content/Images/Esika/catalogo_facebook.png")" alt="Compartir por Facebook" />
-                            </a>
-                            <a href="" class="col-4 col-lg-6 col-xl-6 pl-0 pr-0 row flex-row justify-content-center align-items-center ml-0 mr-0 modo__compartir__catalogo modo__compartir__catalogo--mail" title="Compartir por email">
-                                <img src="@Url.Content("~/Content/Images/Esika/catalogo_mensaje.png")" alt="Compartir por email" />
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-10 col-lg-3 col-xl-3 pl-0 pr-0 catalogos__por__campania__item__imagen catalogos__por__campania__item__imagen--esika">
-                        <a class="d-block mx-auto" href="https://issuu.com/somosbelcorp/docs/esika.peru.c01.2019?mode=embed" title="Catálogo Ésika" target="_blank">
-                            <img class="d-block" src="http://image.issuu.com/181106204641-82ea3d8b2869f704490198d48bb0f776/jpg/page_1.jpg" alt="" />
-                        </a>
-                        <div class="row flex-row justify-content-between align-items-start ml-0 mr-0 catalogos__por__campania__item__modos__compartir">
-                            <a href="" class="col-4 col-lg-6 col-xl-6 pl-0 pr-0 row flex-row justify-content-center align-items-center ml-0 mr-0 modo__compartir__catalogo modo__compartir__catalogo--whatsapp mostrarEnMobile" title="Compartir por WhatsApp">
-                                <img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_ws2.png")" alt="Compartir por WhatsApp" />
-                            </a>
-                            <a href="" class="col-4 col-lg-6 col-xl-6 pl-0 pr-0 row flex-row justify-content-center align-items-center ml-0 mr-0 modo__compartir__catalogo modo__compartir__catalogo--facebook" title="Compartir por Facebook">
-                                <img src="@Url.Content("~/Content/Images/Esika/catalogo_facebook.png")" alt="Compartir por Facebook" />
-                            </a>
-                            <a href="" class="col-4 col-lg-6 col-xl-6 pl-0 pr-0 row flex-row justify-content-center align-items-center ml-0 mr-0 modo__compartir__catalogo modo__compartir__catalogo--mail" title="Compartir por email">
-                                <img src="@Url.Content("~/Content/Images/Esika/catalogo_mensaje.png")" alt="Compartir por email" />
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-10 col-lg-3 col-xl-3 pl-0 pr-0 catalogos__por__campania__item__imagen catalogos__por__campania__item__imagen--lbel">
-                        <a class="d-block mx-auto" href="https://issuu.com/somosbelcorp/docs/cyzone.peru.c01.2019?mode=embed" title="Catálogo L'bel'" target="_blank">
-                            <img class="d-block" src="http://image.issuu.com/181102231550-21e92ea2e14d27944b36ceb3746a3a0e/jpg/page_1.jpg" alt="" />
-                        </a>
-                        <div class="row flex-row justify-content-between align-items-start ml-0 mr-0 catalogos__por__campania__item__modos__compartir">
-                            <a href="" class="col-4 col-lg-6 col-xl-6 pl-0 pr-0 row flex-row justify-content-center align-items-center ml-0 mr-0 modo__compartir__catalogo modo__compartir__catalogo--whatsapp mostrarEnMobile" title="Compartir por WhatsApp">
-                                <img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_ws2.png")" alt="Compartir por WhatsApp" />
-                            </a>
-                            <a href="" class="col-4 col-lg-6 col-xl-6 pl-0 pr-0 row flex-row justify-content-center align-items-center ml-0 mr-0 modo__compartir__catalogo modo__compartir__catalogo--facebook" title="Compartir por Facebook">
-                                <img src="@Url.Content("~/Content/Images/Esika/catalogo_facebook.png")" alt="Compartir por Facebook" />
-                            </a>
-                            <a href="" class="col-4 col-lg-6 col-xl-6 pl-0 pr-0 row flex-row justify-content-center align-items-center ml-0 mr-0 modo__compartir__catalogo modo__compartir__catalogo--mail" title="Compartir por email">
-                                <img src="@Url.Content("~/Content/Images/Esika/catalogo_mensaje.png")" alt="Compartir por email" />
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <!-- FIN - CATÁLOGOS CAMPAÑA SIGUIENTE -->
+  
             <a class="col-1 pl-0 pr-0 row flex-row justify-content-end align-items-start align-items-lg-center align-items-xl-center ml-0 mr-0 catalogos__por__campania__slider__control catalogos__por__campania__slider__control__der" title="Siguiente">
-                <img src="@Url.Content("~/Content/Images/arrow_right.svg")" alt="" />
+                <img src="@Url.Content("~/Content/Images/arrow_right.svg")" alt="" onclick="CatalogoMostrar(1, this)" data-accion="s" />
             </a>
         </section>
         <!-- FIN - SECCIÓN CARRUSEL DE CATÁLOGOS CAMPAÑA ANTERIOR, ACTUAL Y SIGUIENTE -->
@@ -295,7 +245,6 @@
             </div>
         </section>
         <!-- FIN - SECCIÓN MI REVISTA -->
-
         <!-- FIN - CONTENIDO DE VISTA -->
     </section>
 
@@ -306,10 +255,9 @@
         <a class="cerrar_compartir" style="margin-right:-50px;" href="javascript:;" onclick="javascript: $('#CompartirCorreo').hide();">
             <img src="@Url.Content("~/Content/Images/cerrar_04.png")" alt=" alternate text" />
         </a>
-        <div class="clear"></div>
-        <div class="titulo_compartir">COMPARTIR <span class="text-bold">CATÁLOGO</span></div>
+        <div class="titulo_compartir">COMPARTIR <b>CATÁLOGO</b></div>
         <div class="Label_compartir">Agregar contacto:</div>
-        <a class="mostrar_todos">Añadir todos mis contactos (##)</a>
+        <a class="mostrar_todos">Añadir todos mis contáctos (##)</a>
         <hr class="clear" />
         <div id="tagParent" style="border: 1px solid #c5c5c5; margin: 10px 0 20px 0; padding: 10px; padding-left: 8px; ">
             <div style="width:100%;margin:auto;">
@@ -346,8 +294,8 @@
         </div>
         <a class="btn_enviar_correo" id="btnEnviarCorreo">ENVIAR</a>
     </div>
-
 </div>
+
 <div class="mensaje_alerta_belcorp" id="mensaje_alerta">
     <div class="content_mensaje_alerta">
         <a class="btn_cerrar_alerta" href="javascript:;" onclick="javascript: $('#mensaje_alerta').hide();"><img src="@Url.Content("~/Content/Images/cerrar_04.png")" /></a>
@@ -369,82 +317,40 @@
     </div>
 </div>
 
+<div style="display: none;">
+    @using (Html.BeginForm("MiRevista", "MisCatalogosRevistas", FormMethod.Post, new { id = "frmMiRevista", target = "_blank" }))
+    {
+        <input type="hidden" name="campaniaRevista" id="campaniaRevista" value="">
+    }
+</div>
+
 @section scripts{
-    <script type="text/javascript">
+    <script type="text/javascript" id="js-ready-Catalogo">
 
-        $(document).ready(function () {
-
-            // Eventos que se utilizan en vista responsive
-
-            $('.tab__catalogos a').on('click', function (e) {
-                e.preventDefault();
-                $('.contenido__seccion__mi__revista').fadeOut(200);
-                $('.contenido__seccion__catalogo').fadeIn(200);
-                $('.indicador__catalogos__revistas').removeClass('indicador__catalogos__revistas--activo');
-                $(this).next().addClass('indicador__catalogos__revistas--activo');
-            });
-
-            $('.tab__revistas a').on('click', function (e) {
-                e.preventDefault();
-                $('.contenido__seccion__catalogo').fadeOut(200);
-                $('.contenido__seccion__mi__revista').fadeIn(200);
-                $('.indicador__catalogos__revistas').removeClass('indicador__catalogos__revistas--activo');
-                $(this).next().addClass('indicador__catalogos__revistas--activo');
-            });
-
-            $('.catalogos__por__campania__slider__control__izq img').on('click', function (e) {
-                e.preventDefault();
-                if ($('.catalogos__por__campania__slider__control__der img').is(':visible')) {
-                    $('.catalogos__campania--actual').fadeOut(100);
-                    $('.catalogos__campania--siguiente').fadeOut(100);
-                    $('.catalogos__campania--anterior').fadeIn(100);
-                    $('.catalogos__por__campania__slider__control__izq img').fadeOut(100);
-                } else {
-                    $('.catalogos__campania--anterior').fadeOut(100);
-                    $('.catalogos__campania--siguiente').fadeOut(100);
-                    $('.catalogos__campania--actual').fadeIn(100);
-                    $('.catalogos__por__campania__slider__control__der img').fadeIn(100);
-                }
-            });
-
-            $('.catalogos__por__campania__slider__control__der img').on('click', function (e) {
-                e.preventDefault();
-                if ($('.catalogos__por__campania__slider__control__izq img').is(':visible')) {
-                    $('.catalogos__campania--actual').fadeOut(100);
-                    $('.catalogos__campania--anterior').fadeOut(100);
-                    $('.catalogos__campania--siguiente').fadeIn(100);
-                    $('.catalogos__por__campania__slider__control__der img').fadeOut(100);
-                } else {
-                    $('.catalogos__campania--anterior').fadeOut(100);
-                    $('.catalogos__campania--siguiente').fadeOut(100);
-                    $('.catalogos__campania--actual').fadeIn(100);
-                    $('.catalogos__por__campania__slider__control__izq img').fadeIn(100);
-                }
-            });
-
-            if ($('.catalogos__campania--anterior').is(':visible')) {
-                $('.catalogos__por__campania__slider__control__izq img').fadeOut(100);
-            }
-
-            if ($('.catalogos__campania--siguiente').is(':visible')) {
-                $('.catalogos__por__campania__slider__control__der img').fadeOut(100);
-            }
-
-            $('#btnCompartir2').on('click', function (e) {
-                if(window.matchMedia('(max-width:991px)').matches){
-                    $('.background__opciones__compartir__catalogos').css('display', 'flex');
-                    $('.opciones__compartir__catalogos').css('display', 'flex');
-
-                } else {
-                    $('.opciones__compartir__catalogos').css('display', 'flex');
-                }
-                
-            });
-
-            // Fin - Eventos que se utilizan en vista responsive
-
-        });
-
+        var imgNoDisponible = '@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")';
+        var imgIssuu = '@Constantes.CatalogoUrlParameters.UrlPart01' +
+            '{img}' +
+            '@Constantes.CatalogoUrlParameters.UrlPart02Alternativo';
+        imgIssuu = imgIssuu.startsWith("https") ? imgIssuu.replace("https://", "http://") : imgIssuu;
+        var codigoIso = '@ViewBag.CodigoISO';
+        var urlObtenerPortadaRevista = '@Url.Action("ObtenerPortadaRevista", "Catalogo", new { area = "Mobile" })';
+        var defaultImageRevista = '@Url.Content("~/Content/Images/revista_no_disponible.jpg")';
+        var urlIconoClienteAutoCompletar = '@Url.Content("~/Content/Images/Esika/user.jpg")';
+        var valContenidoCorreoDefecto = '@Html.Raw(ViewBag.TextoMensajeSaludoCorreo)';
+        var RevistaCodigoIssuu = {
+            '@Model.CampaniaAnterior': '@Model.CodigoRevistaAnterior',
+            '@Model.CampaniaActual': '@Model.CodigoRevistaActual',
+            '@Model.CampaniaSiguiente': '@Model.CodigoRevistaSiguiente'
+        }
+        var urlBuscadorIssu = '@Constantes.CatalogoUrlIssu.Buscador';
+        var urlDetalle = '@Url.Action("Detalle", "MisCatalogosRevistas", new { area = "" })';
+        var _Pagina = 1;
+        var tipoOrigenEstrategia = 1;
     </script>
-    <script src="@Url.Content("~/Scripts/Tag/jquery.tags.input.js")"></script>
+    @*@System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/MisCatalogosRevistas")*@
+<script src="@Url.Content("~/Scripts/Tag/jquery.tags.input.js")"></script>
+<script src="@Url.Content("~/Scripts/PortalConsultoras/MisCatalogosRevistas/Index2.js")"></script>
+
 }
+
+

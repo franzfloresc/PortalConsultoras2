@@ -27,6 +27,45 @@ namespace Portal.Consultoras.Web.Controllers
             return View();
         }
 
+        public ActionResult Index2(string marca = "")
+        {
+            //if (EsDispositivoMovil())
+            //{
+            //    var url = (Request.Url.Query).Split('?');
+            //    if (url.Length > 1 && url[1].Contains("sap"))
+            //    {
+            //        string sap = "&" + url[1].Remove(0, 12);
+            //        return RedirectToAction("Index", "Catalogo", new { area = "Mobile", marca, sap });
+            //    }
+            //    else
+            //    {
+            //        return RedirectToAction("Index", "Catalogo", new { area = "Mobile", marca });
+            //    }
+
+            //}
+
+            var clienteModel = new MisCatalogosRevistasModel
+            {
+                PaisNombre = Util.GetPaisNombreByISO(userData.CodigoISO),
+                CampaniaActual = userData.CampaniaID.ToString(),
+                CampaniaAnterior = Util.AddCampaniaAndNumero(userData.CampaniaID, -1, userData.NroCampanias).ToString(),
+                CampaniaSiguiente = Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias).ToString(),
+                TieneSeccionRD = (revistaDigital.TieneRDC && !userData.TieneGND && !revistaDigital.EsSuscrita) || revistaDigital.TieneRDI,
+                TieneSeccionRevista = !revistaDigital.TieneRDC || !revistaDigital.EsActiva,
+                TieneGND = userData.TieneGND
+            };
+            clienteModel.Titulo = clienteModel.TieneSeccionRD || clienteModel.TieneSeccionRevista ? "Catálogos y Revistas" : "Catálogos";
+            clienteModel.CodigoRevistaActual = _issuuProvider.GetRevistaCodigoIssuu(clienteModel.CampaniaActual, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
+            clienteModel.CodigoRevistaAnterior = _issuuProvider.GetRevistaCodigoIssuu(clienteModel.CampaniaAnterior, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
+            clienteModel.CodigoRevistaSiguiente = _issuuProvider.GetRevistaCodigoIssuu(clienteModel.CampaniaSiguiente, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
+            clienteModel.PartialSectionBpt = _configuracionPaisDatosProvider.GetPartialSectionBptModel(Constantes.OrigenPedidoWeb.SectionBptDesktopCatalogo);
+
+            ViewBag.CodigoISO = userData.CodigoISO;
+            ViewBag.EsConsultoraNueva = userData.EsConsultoraNueva;
+            ViewBag.TextoMensajeSaludoCorreo = TextoMensajeSaludoCorreo;
+            return View(clienteModel);
+        }
+
         public MisCatalogosRevistasController()
         {
             _issuuProvider = new IssuuProvider();
