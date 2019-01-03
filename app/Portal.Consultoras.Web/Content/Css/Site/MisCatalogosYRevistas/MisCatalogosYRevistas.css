@@ -863,8 +863,8 @@ input[type='checkbox']:checked + span:after {
     }
 
     .catalogos__campania--actual{
-       margin-left:-15px!important;
-       margin-right:-15px!important;
+        margin-left:-15px!important;
+        margin-right:-15px!important;
     }
 
     .catalogos__campania--actual .catalogos__por__campania__item__imagen--cyzone,
