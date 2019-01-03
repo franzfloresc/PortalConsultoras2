@@ -1961,6 +1961,13 @@ namespace Portal.Consultoras.Web.Controllers
                         listaConfiPaisModel.Add(c);
                     }
 
+                    if (msPersonalizacionModel.EstrategiaHabilitado == null && msPersonalizacionModel.PaisHabilitado == null)
+                    {
+                        msPersonalizacionModel.EstrategiaHabilitado = string.Empty;
+                        msPersonalizacionModel.PaisHabilitado = string.Empty;
+                        Common.LogManager.SaveLog(new Exception("La configuración MSPersonalizacion se encuentra deshabilitado en la tabla configuracionpais.", null), usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
+                    }
+
                     revistaDigitalModel.Campania = usuarioModel.CampaniaID % 100;
                     revistaDigitalModel.CampaniaMasUno = Util.AddCampaniaAndNumero(Convert.ToInt32(usuarioModel.CampaniaID), 1, usuarioModel.NroCampanias) % 100;
                     revistaDigitalModel.NombreConsultora = usuarioModel.Sobrenombre;
