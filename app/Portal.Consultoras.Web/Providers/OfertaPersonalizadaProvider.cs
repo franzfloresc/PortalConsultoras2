@@ -767,6 +767,7 @@ namespace Portal.Consultoras.Web.Providers
                 estrategiaPersonalizada.Hermanos = estrategiaPersonalizada.Hermanos ?? new List<EstrategiaComponenteModel>();
                 estrategiaPersonalizada.TextoLibre = Util.Trim(estrategiaPersonalizada.TextoLibre);
                 estrategiaPersonalizada.CodigoVariante = Util.Trim(estrategiaPersonalizada.CodigoVariante);
+                estrategiaPersonalizada.TieneTonoAgotado = estrategiaPersonalizada.Hermanos.Where(x => !x.TieneStock).Any();
                 return estrategiaPersonalizada;
             }
             catch (Exception ex)

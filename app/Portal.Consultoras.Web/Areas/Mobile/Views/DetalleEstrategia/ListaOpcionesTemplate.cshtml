@@ -10,7 +10,7 @@
         <li class="seleccion_title">{{#Substr 35 componente.NombreBulk}}{{/Substr}}</li>
         {{#iff this.FactorCuadre '==' '1'}}
         {{#iff componente.cantidadSeleccionada '==' '0'}}
-            {{#iff TieneStock}}
+            {{#iff TieneStock '==' false}}
                 <!-- boton agotado tipos -->
                 <li class="seleccion_btn seleccion_btn_gotado" id="li-eligelo-{{componente.Cuv}}">
                     <button id="btn-eligelo-{{componente.Cuv}}">
