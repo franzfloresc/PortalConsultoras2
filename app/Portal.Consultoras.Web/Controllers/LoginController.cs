@@ -1338,10 +1338,21 @@ namespace Portal.Consultoras.Web.Controllers
                         List<BEConfiguracionPaisDatos> configuracionPaisDatosAll = await GetConfiguracionPaisDatos(usuarioModel);
                         MSPersonalizacionConfiguracionModel msPersonalizacionModel = new MSPersonalizacionConfiguracionModel();
 
-                        List<BEConfiguracionPaisDatos> configuracionPaisDatos = configuracionPaisDatosAll.Where(d => d.ConfiguracionPaisID == usuarioModel.PaisID && d.Codigo == Constantes.ConfiguracionPais.MicroserviciosPersonalizacion).ToList();
+
+                        List<BEConfiguracionPaisDatos> configuracionPaisDatos = new List<BEConfiguracionPaisDatos>();
 
                         try
                         {
+                            foreach (ConfiguracionPaisModel config in configuracionesPaisModels)
+                            {
+                                configuracionPaisDatos = configuracionPaisDatosAll.Where(campo => campo.ConfiguracionPaisID == config.ConfiguracionPaisID).ToList();
+
+                                if (config.Codigo == Constantes.ConfiguracionPais.MicroserviciosPersonalizacion)
+                                {
+                                    break;
+                                }
+                            }
+
                             msPersonalizacionModel.EstrategiaHabilitado = configuracionPaisDatos.Where(config => config.Codigo == Constantes.CodigoConfiguracionMSPersonalizacion.EstrategiaDisponible).Select(config => config.Valor1).FirstOrDefault() ?? string.Empty;
                             msPersonalizacionModel.PaisHabilitado = string.Empty;
                             if (msPersonalizacionModel.EstrategiaHabilitado != string.Empty)
@@ -1365,7 +1376,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                         sessionManager.SetConfigMicroserviciosPersonalizacion(msPersonalizacionModel);
                     }
-
 
 
                     if (usuarioModel.CatalogoPersonalizado != 0)
