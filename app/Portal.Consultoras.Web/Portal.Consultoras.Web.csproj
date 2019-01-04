@@ -4053,6 +4053,7 @@
     <Content Include="Scripts\PortalConsultoras\PagoEnLinea\MetodoPago.js" />
     <Content Include="Scripts\PortalConsultoras\PagoEnLinea\PagoVisa.js" />
     <Content Include="Scripts\PortalConsultoras\PagoEnLinea\PasarelaPago.js" />
+    <Content Include="Scripts\PortalConsultoras\Pedido\barraDesktop.js" />
     <Content Include="Scripts\PortalConsultoras\Pedido\tooltip.js" />
     <Content Include="Scripts\PortalConsultoras\ProductoRecomendado\ProductoRecomendadoModule.js" />
     <Content Include="Scripts\PortalConsultoras\ProductoComentario\ProductoComentarioAdmModule.js" />
