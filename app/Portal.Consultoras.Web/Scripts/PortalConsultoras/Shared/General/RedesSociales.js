@@ -220,8 +220,29 @@
         }
     }
 
-    // catalogo email
-    var AbrirCompartirCorreoNuevo = function (tipoCatalogo, campania) {
+    // catalogo compartir por Facebook actual
+    var CompartirFacebookActual = function (catalogo, campaniaCatalogo, btn) {
+        dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'Catálogos y revistas',
+            'action': 'Compartir FB',
+            'label': catalogo,
+            'value': 0
+        });
+        InsertarLogCatalogoDynamo('Facebook', campaniaCatalogo, catalogo, 1);
+
+        var u = $(btn).parents("[data-cat='" + catalogo + "']").find("#txtUrl" + catalogo).val();
+
+        var popWwidth = 570;
+        var popHeight = 420;
+        var left = (screen.width / 2) - (popWwidth / 2);
+        var top = (screen.height / 2) - (popHeight / 2);
+        var url = "http://www.facebook.com/sharer/sharer.php?u=" + u;
+        window.open(url, 'Facebook', "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left + ",top=" + top + "");
+    }
+
+    // catalogo email actual
+    var AbrirCompartirCorreoActual = function (tipoCatalogo, campania) {
 
         dataLayer.push({
             'event': 'virtualEvent',
@@ -291,7 +312,8 @@
         CompartirTexto: CompartirRedesSocialesTexto,
         CompartirFacebook: CompartirFacebook,
         AbrirCompartirCorreo: AbrirCompartirCorreo,
-        AbrirCompartirCorreoNuevo: AbrirCompartirCorreoNuevo,
+        CompartirFacebookActual: CompartirFacebookActual,
+        AbrirCompartirCorreoActual: AbrirCompartirCorreoActual,
         TagManagerWS: TagManagerWS
     }
 })();
