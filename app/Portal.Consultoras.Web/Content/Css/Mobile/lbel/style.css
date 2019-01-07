@@ -13897,7 +13897,7 @@ span.icon-advertencia {
     padding:58px 0;
     top:0;
     left:0;
-    z-index:10000;
+    z-index:100000;
     overflow-x:hidden;
 }
 

@@ -279,7 +279,7 @@ var store = (function () {
           clearTimeout();
           stopDialogTimer();
 
-          showPopupCierreSesion(4);
+          showPopupFinSesion();
       };
 
       //###############################

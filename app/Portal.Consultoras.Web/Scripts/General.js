@@ -839,15 +839,20 @@ function checkTimeout(data) {
 
         if (!thereIsStillTime) {
 
-            var message = "Tu sesión ha finalizado por inactividad. Por favor, ingresa nuevamente.";
-            if (ViewBagEsMobile == 1) {/*1 Desktop, 2 Mobile*/
-                $('#dialog_SesionMainLayout #mensajeSesionSB2_Error').html(message);
-                $('#dialog_SesionMainLayout').show();
+            if (typeof showPopupFinSesion === 'function') {
+                showPopupFinSesion();
+            } else {
+                var message = "Tu sesión ha finalizado por inactividad. Por favor, ingresa nuevamente.";
+                if (ViewBagEsMobile == 1) {/*1 Desktop, 2 Mobile*/
+                    $('#dialog_SesionMainLayout #mensajeSesionSB2_Error').html(message);
+                    $('#dialog_SesionMainLayout').show();
+                }
+                else {
+                    $('#popupInformacionSB2SesionFinalizada').find('#mensajeInformacionSB2_SesionFinalizada').text(message);
+                    $('#popupInformacionSB2SesionFinalizada').show();
+                }
             }
-            else {
-                $('#popupInformacionSB2SesionFinalizada').find('#mensajeInformacionSB2_SesionFinalizada').text(message);
-                $('#popupInformacionSB2SesionFinalizada').show();
-            }
+
         }
     }
     else {

@@ -67,6 +67,10 @@ function CerrarSesionValidado() {
     $.fn.idleTimeout().logout();
 }
 
+function showPopupFinSesion() {
+    showPopupCierreSesion(4);
+}
+
 function showPopupCierreSesion(tipo) {
     SetupPopupCierreSesion(tipo);
     getPopupCierreSession().fadeIn(100);
