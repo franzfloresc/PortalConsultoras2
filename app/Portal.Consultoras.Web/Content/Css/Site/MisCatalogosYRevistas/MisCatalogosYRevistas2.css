@@ -163,9 +163,9 @@ hr{
 }
 
 .icono__paso__compartir__catalogo__campaniaActual{
-    -ms-flex: 0 0 24px;
-    -webkit-flex: 0 0 24px;
-    flex: 0 0 24px;
+    -ms-flex: 0 0 22px;
+    -webkit-flex: 0 0 22px;
+    flex: 0 0 22px;
     height:19px;
     background-color:#FFF;
     margin-right:10px;
@@ -180,12 +180,17 @@ hr{
     width:93%;
 }
 
+.compartir__catalogo__area,
+.btn__compartir
+{
+    max-width:500px;
+}
+
 .btn__compartir{
     font-family:'Lato', sans-serif;
     background-color:#b9007e;
     color:#FFF;
     border-radius:12px;
-    max-width:500px;
     height:70px;
     letter-spacing:1px;
     border:none;
@@ -332,8 +337,9 @@ hr{
     display:none;
     justify-content: space-evenly;
     background-color: #FFF;
-    max-width:567px;
+    width:567px;
     position:absolute;
+    left:-35px;
     bottom:79px;
     padding:20px 17px 20px 4px;
     height: 111px;
@@ -1022,6 +1028,10 @@ input[type='checkbox']:checked + span:after {
     .opciones__compartir__catalogos
     {
         position: fixed;
+    }
+
+    .opciones__compartir__catalogos{
+        left:0;
     }
 
     .background__opciones__compartir__catalogos{

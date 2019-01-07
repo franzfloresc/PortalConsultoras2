@@ -170,6 +170,8 @@ $(document).ready(function () {
 
     });
 
+    $(document).on('click', 'body', ocultarTooltipCompartirCatalogo);
+
     // Fin - Eventos que se utilizan en vista responsive
 
 });
@@ -819,6 +821,20 @@ function getUrlImagenPortadaRevistaPromise(codigoCampania) {
     });
 
     return defered.promise();
+}
+
+function ocultarTooltipCompartirCatalogo(e) {
+    var backgroundMobileCompartirCatalogo = $(".background__opciones__compartir__catalogos");
+    var compartirCatalogoArea = $(".compartir__catalogo__area");
+    var tooltipOpcionesCompartirCatalogo = $(".opciones__compartir__catalogos");
+    if (tooltipOpcionesCompartirCatalogo.css('display') == 'flex') {
+        if ((!compartirCatalogoArea.is(e.target) && compartirCatalogoArea.has(e.target).length === 0)) {
+            tooltipOpcionesCompartirCatalogo.fadeOut(100);
+            if (window.matchMedia('(max-width:991px)').matches) {
+                backgroundMobileCompartirCatalogo.fadeOut(100);
+            }
+        }
+    }
 }
 
 // mensaje alerta
