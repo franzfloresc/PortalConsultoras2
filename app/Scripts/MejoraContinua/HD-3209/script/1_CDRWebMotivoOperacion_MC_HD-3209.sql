@@ -3,7 +3,7 @@ GO
 
 IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='dbo' and table_name='CDRWebMotivoOperacion' and column_name='Orden')
 BEGIN
-	ALTER TABLE CDRWebMotivoOperacion ADD Orden bit
+	ALTER TABLE CDRWebMotivoOperacion ADD Orden int
 END
 GO
 
@@ -12,7 +12,7 @@ GO
 
 IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='dbo' and table_name='CDRWebMotivoOperacion' and column_name='Orden')
 BEGIN
-	ALTER TABLE CDRWebMotivoOperacion ADD Orden bit
+	ALTER TABLE CDRWebMotivoOperacion ADD Orden int
 END
 GO
 
@@ -21,7 +21,7 @@ GO
 
 IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='dbo' and table_name='CDRWebMotivoOperacion' and column_name='Orden')
 BEGIN
-	ALTER TABLE CDRWebMotivoOperacion ADD Orden bit
+	ALTER TABLE CDRWebMotivoOperacion ADD Orden int
 END
 GO
 
@@ -30,7 +30,7 @@ GO
 
 IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='dbo' and table_name='CDRWebMotivoOperacion' and column_name='Orden')
 BEGIN
-	ALTER TABLE CDRWebMotivoOperacion ADD Orden bit
+	ALTER TABLE CDRWebMotivoOperacion ADD Orden int
 END
 GO
 
@@ -39,7 +39,7 @@ GO
 
 IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='dbo' and table_name='CDRWebMotivoOperacion' and column_name='Orden')
 BEGIN
-	ALTER TABLE CDRWebMotivoOperacion ADD Orden bit
+	ALTER TABLE CDRWebMotivoOperacion ADD Orden int
 END
 GO
 
@@ -48,7 +48,7 @@ GO
 
 IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='dbo' and table_name='CDRWebMotivoOperacion' and column_name='Orden')
 BEGIN
-	ALTER TABLE CDRWebMotivoOperacion ADD Orden bit
+	ALTER TABLE CDRWebMotivoOperacion ADD Orden int
 END
 GO
 
@@ -57,7 +57,7 @@ GO
 
 IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='dbo' and table_name='CDRWebMotivoOperacion' and column_name='Orden')
 BEGIN
-	ALTER TABLE CDRWebMotivoOperacion ADD Orden bit
+	ALTER TABLE CDRWebMotivoOperacion ADD Orden int
 END
 GO
 
@@ -66,7 +66,7 @@ GO
 
 IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='dbo' and table_name='CDRWebMotivoOperacion' and column_name='Orden')
 BEGIN
-	ALTER TABLE CDRWebMotivoOperacion ADD Orden bit
+	ALTER TABLE CDRWebMotivoOperacion ADD Orden int
 END
 GO
 
@@ -75,7 +75,7 @@ GO
 
 IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='dbo' and table_name='CDRWebMotivoOperacion' and column_name='Orden')
 BEGIN
-	ALTER TABLE CDRWebMotivoOperacion ADD Orden bit
+	ALTER TABLE CDRWebMotivoOperacion ADD Orden int
 END
 GO
 
@@ -84,7 +84,7 @@ GO
 
 IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='dbo' and table_name='CDRWebMotivoOperacion' and column_name='Orden')
 BEGIN
-	ALTER TABLE CDRWebMotivoOperacion ADD Orden bit
+	ALTER TABLE CDRWebMotivoOperacion ADD Orden int
 END
 GO
 
@@ -93,7 +93,7 @@ GO
 
 IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='dbo' and table_name='CDRWebMotivoOperacion' and column_name='Orden')
 BEGIN
-	ALTER TABLE CDRWebMotivoOperacion ADD Orden bit
+	ALTER TABLE CDRWebMotivoOperacion ADD Orden int
 END
 GO
 
@@ -102,7 +102,7 @@ GO
 
 IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='dbo' and table_name='CDRWebMotivoOperacion' and column_name='Orden')
 BEGIN
-	ALTER TABLE CDRWebMotivoOperacion ADD Orden bit
+	ALTER TABLE CDRWebMotivoOperacion ADD Orden int
 END
 GO
 
