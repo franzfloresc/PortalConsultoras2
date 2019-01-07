@@ -12,12 +12,18 @@ namespace Portal.Consultoras.Service
     {
         public BEConsultoraCatalogo GetConsultoraCatalogo(string PaisISO, string CodigoConsultora)
         {
+            int paisId = Util.GetPaisID(PaisISO);
             #region Validacion de parámetros
 
-            if (string.IsNullOrEmpty(PaisISO)) throw new Exception("El parámetro PaisISO no puede ser vacio.");
-            if (string.IsNullOrEmpty(CodigoConsultora)) throw new Exception("El parámetro CodigoConsultora no puede ser vacio.");
-            int paisId = Util.GetPaisID(PaisISO);
-            if (paisId == 0) throw new Exception("El parámetro PaisISO no es válido");
+            var mensaje = GetConsultoraCatalogoValidarMensaje(PaisISO, CodigoConsultora, paisId);
+            if (mensaje != "")
+            {
+                throw new Exception(mensaje);
+            }
+            //if (string.IsNullOrEmpty(PaisISO)) throw new Exception("El parámetro PaisISO no puede ser vacio.");
+            //if (string.IsNullOrEmpty(CodigoConsultora)) throw new Exception("El parámetro CodigoConsultora no puede ser vacio.");
+
+            //if (paisId == 0) throw new Exception("El parámetro PaisISO no es válido");
 
             #endregion
 
@@ -48,10 +54,16 @@ namespace Portal.Consultoras.Service
 
         public BEListaConsultoraCatalogo GetConsultorasCatalogosPorUbigeo(string codigoPais, string codigoUbigeo, int marcaId)
         {
-            if (codigoPais.Length > 2) throw new Exception("El campo Pais recibido tiene más de 2 caracteres");
-            if (string.IsNullOrEmpty(codigoPais)) throw new Exception("El Servicio no recibió el parámetro codigoPais correcto");
-            if (string.IsNullOrEmpty(codigoUbigeo)) throw new Exception("El Servicio no recibió el parámetro CodigoUbigeo correcto");
-            if (marcaId == 0) throw new Exception("El Servicio no recibió el parámetro marcaID correcto");
+            var mensaje = ValidarMensaje(codigoPais, codigoUbigeo, marcaId);
+            if (mensaje != "")
+            {
+                throw new Exception(mensaje);
+            }
+
+            //if (codigoPais.Length > 2) throw new Exception("El campo Pais recibido tiene más de 2 caracteres");
+            //if (string.IsNullOrEmpty(codigoPais)) throw new Exception("El Servicio no recibió el parámetro codigoPais correcto");
+            //if (string.IsNullOrEmpty(codigoUbigeo)) throw new Exception("El Servicio no recibió el parámetro CodigoUbigeo correcto");
+            //if (marcaId == 0) throw new Exception("El Servicio no recibió el parámetro marcaID correcto");
 
             int idPais = Util.GetPaisID(codigoPais);
             List<BETablaLogicaDatos> vListaTablaLogicaDatos = new BLTablaLogicaDatos().GetList(idPais, 58);
@@ -65,8 +77,11 @@ namespace Portal.Consultoras.Service
                 int factorUbigeo;
                 int.TryParse(configFactorUbigeo.Codigo, out factorUbigeo);
                 limiteInferior *= factorUbigeo;
-                string mensajeValidacion = string.Format("La longitud del parámetro CodigoUbigeo debe tener como valor mínimo {0}", limiteInferior);
-                if (codigoUbigeo.Length < limiteInferior) throw new Exception(mensajeValidacion);
+                if (codigoUbigeo.Length < limiteInferior)
+                {
+                    string mensajeValidacion = string.Format("La longitud del parámetro CodigoUbigeo debe tener como valor mínimo {0}", limiteInferior);
+                    throw new Exception(mensajeValidacion);
+                }
             }
             int tipoFiltroUbigeo;
             vListaTablaLogicaDatos = new BLTablaLogicaDatos().GetList(idPais, 66);
@@ -82,10 +97,16 @@ namespace Portal.Consultoras.Service
 
         public BEListaConsultoraCatalogo GetConsultorasCatalogosPorUbigeoAndNombresAndApellidos(string codigoPais, string codigoUbigeo, int marcaId, string nombres, string apellidos)
         {
-            if (codigoPais.Length > 2) throw new Exception("El campo Pais recibido tiene más de 2 caracteres");
-            if (string.IsNullOrEmpty(codigoPais)) throw new Exception("El Servicio no recibió el parámetro codigoPais correcto");
-            if (string.IsNullOrEmpty(codigoUbigeo)) throw new Exception("El Servicio no recibió el parámetro CodigoUbigeo correcto");
-            if (marcaId == 0) throw new Exception("El Servicio no recibió el parámetro marcaID correcto");
+            var mensaje = ValidarMensaje(codigoPais, codigoUbigeo, marcaId);
+            if (mensaje != "")
+            {
+                throw new Exception(mensaje);
+            }
+
+            //if (codigoPais.Length > 2) throw new Exception("El campo Pais recibido tiene más de 2 caracteres");
+            //if (string.IsNullOrEmpty(codigoPais)) throw new Exception("El Servicio no recibió el parámetro codigoPais correcto");
+            //if (string.IsNullOrEmpty(codigoUbigeo)) throw new Exception("El Servicio no recibió el parámetro CodigoUbigeo correcto");
+            //if (marcaId == 0) throw new Exception("El Servicio no recibió el parámetro marcaID correcto");
 
             BEListaConsultoraCatalogo bEListaConsultoraCatalogo = new BEListaConsultoraCatalogo();
             int idPais = Util.GetPaisID(codigoPais);
@@ -114,8 +135,11 @@ namespace Portal.Consultoras.Service
                     int factorUbigeo;
                     int.TryParse(configFactorUbigeo.Codigo, out factorUbigeo);
                     limiteInferior *= factorUbigeo;
-                    string mensajeValidacion = string.Format("La longitud del parámetro CodigoUbigeo debe tener como valor mínimo {0}", limiteInferior);
-                    if (codigoUbigeo.Length < limiteInferior) throw new Exception(mensajeValidacion);
+                    if (codigoUbigeo.Length < limiteInferior)
+                    {
+                        string mensajeValidacion = string.Format("La longitud del parámetro CodigoUbigeo debe tener como valor mínimo {0}", limiteInferior);
+                        throw new Exception(mensajeValidacion);
+                    }
                 }
 
                 bEListaConsultoraCatalogo.ConsultorasCatalogos = new BLConsultoraCatalogo().GetConsultorasCatalogosPorUbigeoAndNombresAndApellidos(idPais, codigoUbigeo, nombres, apellidos, marcaId, tipoFiltroUbigeo);
@@ -129,17 +153,19 @@ namespace Portal.Consultoras.Service
 
         public List<BEConsultoraCatalogo> GetConsultorasPorCodigoTerritorioGeo(string codigoPais, string codigoTerritorioGeo)
         {
-            int idPais = Util.GetPaisID(codigoPais ?? "");
-            if (idPais == 0) throw new Exception("El código de Pais recibido no es válido.");
-            codigoTerritorioGeo = codigoTerritorioGeo ?? "";
-            if (codigoTerritorioGeo.Length != 13) throw new Exception("El codigo de TerritorioGeo recibido no es válido.");
-            string codigoRegion = codigoTerritorioGeo.Substring(0, 2);
-            string codigoZona = codigoTerritorioGeo.Substring(2, 4);
-            string codigoSeccion = codigoTerritorioGeo.Substring(6, 1);
-            string codigoTerritorio = codigoTerritorioGeo.Substring(7, 6).TrimStart(new char[] { '0' });
-
             try
             {
+                int idPais = Util.GetPaisID(codigoPais ?? "");
+                codigoTerritorioGeo = codigoTerritorioGeo ?? "";
+
+                if (idPais == 0) throw new Exception("El código de Pais recibido no es válido.");
+                if (codigoTerritorioGeo.Length != 13) throw new Exception("El codigo de TerritorioGeo recibido no es válido.");
+
+                string codigoRegion = codigoTerritorioGeo.Substring(0, 2);
+                string codigoZona = codigoTerritorioGeo.Substring(2, 4);
+                string codigoSeccion = codigoTerritorioGeo.Substring(6, 1);
+                string codigoTerritorio = codigoTerritorioGeo.Substring(7, 6).TrimStart(new char[] { '0' });
+
                 return new BLConsultoraCatalogo().GetConsultorasPorCodigoTerritorioGeo(idPais, codigoRegion, codigoZona, codigoSeccion, codigoTerritorio);
             }
             catch (Exception ex)
@@ -196,6 +222,30 @@ namespace Portal.Consultoras.Service
                     tipoBusqueda, conoceConsultora, codigoDispositivo, soDispotivivo, unidadGeo1, unidadGeo2, unidadGeo3,
                     nombreCliente, emailCliente, telefonoCliente, nuevaConsultora);
             return result;
+        }
+
+
+        private string GetConsultoraCatalogoValidarMensaje(string paisIso, string codigoConsultora, int paisId)
+        {
+            var respuesta = "";
+
+            if (string.IsNullOrEmpty(paisIso)) respuesta = ("El parámetro PaisISO no puede ser vacio.");
+            if (string.IsNullOrEmpty(codigoConsultora)) respuesta = ("El parámetro CodigoConsultora no puede ser vacio.");
+            if (paisId == 0) respuesta = ("El parámetro PaisISO no es válido");
+
+            return respuesta;
+        }
+
+        private string ValidarMensaje(string codigoPais, string codigoUbigeo, int marcaId)
+        {
+            var respuesta = "";
+
+            if (codigoPais.Length > 2) respuesta = ("El campo Pais recibido tiene más de 2 caracteres");
+            if (string.IsNullOrEmpty(codigoPais)) respuesta = ("El Servicio no recibió el parámetro codigoPais correcto");
+            if (string.IsNullOrEmpty(codigoUbigeo)) respuesta = ("El Servicio no recibió el parámetro CodigoUbigeo correcto");
+            if (marcaId == 0) respuesta = ("El Servicio no recibió el parámetro marcaID correcto");
+
+            return respuesta;
         }
     }
 }

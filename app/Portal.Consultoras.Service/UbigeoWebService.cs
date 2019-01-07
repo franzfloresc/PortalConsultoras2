@@ -13,16 +13,34 @@ namespace Portal.Consultoras.Service
 
         public List<BEUnidadGeografica> GetUnidadesGeograficas(string paisID, int nivel, string codigoPadre)
         {
-            int idPais = Util.GetPaisID(paisID);
             if (codigoPadre == null) codigoPadre = "";
             if (paisID == null) paisID = "";
-            if (codigoPadre.Length > 30) throw new Exception("El campo CódigoPadre recibido tiene más de 30 caracteres");
-            if (paisID.Length > 5) throw new Exception("El campo Pais recibido tiene más de 5 caracteres");
+            var mensaje = ValidarMensaje(paisID, codigoPadre);
+            if (mensaje != "")
+            {
+                throw new Exception(mensaje);
+            }
+
+            //if (codigoPadre.Length > 30) throw new Exception("El campo CódigoPadre recibido tiene más de 30 caracteres");
+            //if (paisID.Length > 5) throw new Exception("El campo Pais recibido tiene más de 5 caracteres");
+
+            int idPais = Util.GetPaisID(paisID);
             return new BLUbigeo().GetUnidadesGeograficasPorNivel(idPais, nivel, codigoPadre);
 
         }
 
         #endregion
+
+
+        private string ValidarMensaje(string paisID, string codigoPadre)
+        {
+            var respuesta = "";
+
+            if (codigoPadre.Length > 30) respuesta = ("El campo CódigoPadre recibido tiene más de 30 caracteres");
+            if (paisID.Length > 5) respuesta = ("El campo Pais recibido tiene más de 5 caracteres");
+
+            return respuesta;
+        }
 
         // se movio a Util.GetPaisID
         //public int GetPaisID(string ISO)

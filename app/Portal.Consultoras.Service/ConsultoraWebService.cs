@@ -17,27 +17,37 @@ namespace Portal.Consultoras.Service
             if (codigoUbigeo == null) codigoUbigeo = "";
             if (campania == null) campania = "";
 
-            int idPais = Util.GetPaisID(codigoPais);
-            if (codigoPais.Length > 5) throw new Exception("El campo Pais recibido tiene más de 5 caracteres");
-            if (codigoPais == "") throw new Exception("El Servicio no recibió el parámetro  codigoPais correcto");
-            if (codigoUbigeo == "") throw new Exception("El Servicio no recibió el parámetro CodigoUbigeo correcto");
-            if (campania == "") throw new Exception("El Servicio no recibió el parámetro Campania correcto");
-            if (campania.Length != 6) throw new Exception("El parámetro Campania no recibió el formato correcto");
-            if (marcaId == 0) throw new Exception("El Servicio no recibió el parámetro marcaID correcto");
+            var mensaje = ValidarMensaje(codigoPais, codigoUbigeo, campania, marcaId);
 
+            if (mensaje != "")
+            {
+                throw new Exception(mensaje);
+            }
+
+            //if (codigoPais.Length > 5) throw new Exception("El campo Pais recibido tiene más de 5 caracteres");
+            //if (codigoPais == "") throw new Exception("El Servicio no recibió el parámetro  codigoPais correcto");
+            //if (codigoUbigeo == "") throw new Exception("El Servicio no recibió el parámetro CodigoUbigeo correcto");
+            //if (campania == "") throw new Exception("El Servicio no recibió el parámetro Campania correcto");
+            //if (campania.Length != 6) throw new Exception("El parámetro Campania no recibió el formato correcto");
+            //if (marcaId == 0) throw new Exception("El Servicio no recibió el parámetro marcaID correcto");
+            
+            int idPais = Util.GetPaisID(codigoPais);
             List<BETablaLogicaDatos> vListaTablaLogicaDatos = new BLTablaLogicaDatos().GetList(idPais, 58);
             BETablaLogicaDatos longitudUbigeo = vListaTablaLogicaDatos.Find(x => x.TablaLogicaDatosID == 5801);
             if (longitudUbigeo != null)
             {
                 int limiteInferior;
                 int.TryParse(longitudUbigeo.Codigo, out limiteInferior);
-                int factorUbigeo;
                 vListaTablaLogicaDatos = new BLTablaLogicaDatos().GetList(idPais, 67);
                 BETablaLogicaDatos configFactorUbigeo = vListaTablaLogicaDatos.Find(x => x.TablaLogicaDatosID == 6701);
+                int factorUbigeo;
                 int.TryParse(configFactorUbigeo.Codigo, out factorUbigeo);
                 limiteInferior *= factorUbigeo;
-                string mensajeValidacion = string.Format("La longitud del parámetro CodigoUbigeo debe tener como valor mínimo {0}", limiteInferior);
-                if (codigoUbigeo.Length < limiteInferior) throw new Exception(mensajeValidacion);
+                if (codigoUbigeo.Length < limiteInferior)
+                {
+                    string mensajeValidacion = string.Format("La longitud del parámetro CodigoUbigeo debe tener como valor mínimo {0}", limiteInferior);
+                    throw new Exception(mensajeValidacion);
+                }
             }
             int tipoFiltroUbigeo;
             vListaTablaLogicaDatos = new BLTablaLogicaDatos().GetList(idPais, 66);
@@ -51,11 +61,24 @@ namespace Portal.Consultoras.Service
                 vListaConsultoraUbigeo.Add(new BEConsultoraUbigeo(item));
             }
 
-
             return vListaConsultoraUbigeo;
 
         }
 
+        private string ValidarMensaje(string codigoPais, string codigoUbigeo, string campania, int marcaId)
+        {
+            var respuesta = "";
+
+            if (codigoPais.Length > 5) respuesta = "El campo Pais recibido tiene más de 5 caracteres";
+            if (codigoPais == "") respuesta = "El Servicio no recibió el parámetro  codigoPais correcto";
+            if (codigoUbigeo == "") respuesta = "El Servicio no recibió el parámetro CodigoUbigeo correcto";
+            if (campania == "") respuesta = "El Servicio no recibió el parámetro Campania correcto";
+            if (campania.Length != 6) respuesta = "El parámetro Campania no recibió el formato correcto";
+            if (marcaId == 0) respuesta = "El Servicio no recibió el parámetro marcaID correcto";
+
+            return respuesta;
+        }
+        
         // se movio a Util.GetPaisID
         //public int GetPaisID(string ISO)
         //{
