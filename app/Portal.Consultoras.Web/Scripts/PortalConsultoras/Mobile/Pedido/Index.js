@@ -138,6 +138,7 @@ $(document).ready(function () {
         $("#divResumenPedido").hide();
         $("#btnAgregarProducto").hide();
         $('#PopSugerido').hide();
+        $('#divBarra').hide();
         ProductoRecomendadoModule.OcultarProductosRecomendados();
         
         if (codigo == "") {
@@ -147,6 +148,7 @@ $(document).ready(function () {
             $("#divResumenPedido").show();
             $("footer").show();
             $(".footer-page").css({ "margin-bottom": "0px" });
+            $('#divBarra').show();
         } else {
             VisibleEstrategias(false);
             $("footer").hide();

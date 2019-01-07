@@ -1483,7 +1483,7 @@ function CalculoPosicionMinimoMaximo() {
                         document.getElementById('lineaPosicionMontoMinimo').style.display = 'block';
                         document.getElementById('lineaPosicionMontoMinimo').style.left = (PosicionMontoMinimo) + '%';
 
-                        document.getElementById('MontoMaximoBloque').innerHTML = escala + "%  DSCTO!";
+                        document.getElementById('MontoMaximoBloque').innerHTML = escala + "%  DSCTO";
                         document.getElementById('MontoMaximoBloque').style.top = "5px";
                         document.getElementById('lineaPosicionMontoMaximo').style.display = 'block';
 
@@ -1573,7 +1573,7 @@ function CalculoPosicionMinimoMaximo() {
                             document.getElementById('lineaPosicionMontoMinimo').style.display = 'block';
                             document.getElementById('lineaPosicionMontoMinimo').style.left = (PosicionMontoMinimo) + '%';
 
-                            document.getElementById('MontoMaximoBloque').innerHTML = escala + "%  DSCTO!";
+                            document.getElementById('MontoMaximoBloque').innerHTML = escala + "%  DSCTO";
                             document.getElementById('MontoMaximoBloque').style.top = "5px";
                             document.getElementById('lineaPosicionMontoMaximo').style.display = 'block';
 
@@ -1674,7 +1674,7 @@ function CalculoPosicionMinimoMaximo() {
                                     document.getElementById('lineaPosicionMontoMinimo').style.display = 'block';
                                     document.getElementById('lineaPosicionMontoMinimo').style.left = (PosicionMontoMinimo) + '%';
 
-                                    document.getElementById('MontoMaximoBloque').innerHTML = escala + "%  DSCTO!";
+                                    document.getElementById('MontoMaximoBloque').innerHTML = escala + "%  DSCTO";
                                     document.getElementById('MontoMaximoBloque').style.top = "5px";
                                     document.getElementById('lineaPosicionMontoMaximo').style.display = 'block';
 
