@@ -102,7 +102,7 @@ namespace Portal.Consultoras.Web.Providers
         }
         private PremioProgNuevasOFModel GetPremioProgNuevasOF(PremioProgNuevasModel premio)
         {
-            var dictPremioOF = sessionManager.GetDictPremioProgNuevasOF();
+            var dictPremioOF = sessionManager.GetDictPremioProgNuevasOF() ?? new Dictionary<string, PremioProgNuevasOFModel>();
             if(dictPremioOF.ContainsKey(premio.Cuv)) return dictPremioOF[premio.Cuv];
 
             var premioOF = GetPremioProgNuevasOFFromCatalogoSap(premio);
