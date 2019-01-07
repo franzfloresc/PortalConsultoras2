@@ -149,27 +149,17 @@ $(document).ready(function () {
         $('.catalogos__por__campania__slider__control__der img').fadeOut(100);
     }
 
-    $('#btnCompartir').on('click', function (e) {
+    $('.btn__compartir').on('click', function (e) {
         if (window.matchMedia('(max-width:991px)').matches) {
             $('.background__opciones__compartir__catalogos').css('display', 'flex');
-            $('.opciones__compartir__catalogos').css('display', 'flex');
-
+            $(this).next().css('display', 'flex');
         } else {
-            $('.opciones__compartir__catalogos').css('display', 'flex');
+            $(this).next().css('display', 'flex');
         }
 
     });
 
-    $('#btnCompartirActual').on('click', function (e) {
-        if (window.matchMedia('(max-width:991px)').matches) {
-            $('.background__opciones__compartir__catalogos').css('display', 'flex');
-            $('.opciones__compartir__catalogos').css('display', 'flex');
-
-        } else {
-            $('.opciones__compartir__catalogos').css('display', 'flex');
-        }
-
-    });
+    $(document).on('click', 'body', ocultarTooltipCompartirCatalogo);
 
     // Fin - Eventos que se utilizan en vista responsive
 
@@ -819,6 +809,27 @@ function getUrlImagenPortadaRevistaPromise(codigoCampania) {
     });
 
     return defered.promise();
+}
+
+function ocultarTooltipCompartirCatalogo(e) {
+
+    var backgroundMobileCompartirCatalogo = $('.background__opciones__compartir__catalogos');
+    var compartirCatalogoArea = $('.compartir__catalogo__area');
+    var tooltipOpcionesCompartirCatalogoParteSuperior = $('#btnCompartir').next();
+    var tooltipOpcionesCompartirCatalogoParteInferior = $('#btnCompartirActual').next();
+
+    if (tooltipOpcionesCompartirCatalogoParteSuperior.css('display') == 'flex' || tooltipOpcionesCompartirCatalogoParteInferior.css('display') == 'flex') {
+        if ((!compartirCatalogoArea.is(e.target) && compartirCatalogoArea.has(e.target).length === 0)) {
+            if (tooltipOpcionesCompartirCatalogoParteSuperior.is(':visible')) {
+                tooltipOpcionesCompartirCatalogoParteSuperior.fadeOut(100);
+            } else {
+                tooltipOpcionesCompartirCatalogoParteInferior.fadeOut(100);
+            }
+            if (window.matchMedia('(max-width:991px)').matches) {
+                backgroundMobileCompartirCatalogo.fadeOut(100);
+            }
+        }
+    }
 }
 
 // mensaje alerta
