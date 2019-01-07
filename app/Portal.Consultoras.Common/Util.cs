@@ -2173,7 +2173,7 @@ namespace Portal.Consultoras.Common
                     baseUrl = string.Format(baseUrl + "WebPages/{0}.aspx?parametros={1}", stActionIndex, enviar);
 
                     HiQPdf.HtmlToPdf htmlToPdfConverter = new HiQPdf.HtmlToPdf();
-                    htmlToPdfConverter.SerialNumber = "zoann56qqIKnrLyvvLf74P7u/u7/7vf39/fu/f/g//zg9/f39w==";                                     
+                    htmlToPdfConverter.SerialNumber = "zoann56qqIKnrLyvvLf74P7u/u7/7vf39/fu/f/g//zg9/f39w==";
                     byte[] pdfBuffer = htmlToPdfConverter.ConvertUrlToMemory(baseUrl);
 
                     HttpContext.Current.Response.Clear();
@@ -2428,32 +2428,34 @@ namespace Portal.Consultoras.Common
             }
         }
 
-        public static int GetPaisID(string ISO)
+        public static int GetPaisID(string iso)
         {
-            ISO = ISO.ToUpper();
+            iso = iso.ToUpper();
 
             var listaPaises = new Dictionary<string, int>()
             {
-                {Constantes.CodigosISOPais.Argentina, 1},
-                {Constantes.CodigosISOPais.Bolivia, 2},
-                {Constantes.CodigosISOPais.Chile, 3},
-                {Constantes.CodigosISOPais.Colombia, 4},
-                {Constantes.CodigosISOPais.CostaRica, 5},
-                {Constantes.CodigosISOPais.Ecuador, 6},
-                {Constantes.CodigosISOPais.Salvador, 7},
-                {Constantes.CodigosISOPais.Guatemala, 8},
-                {Constantes.CodigosISOPais.Mexico, 9},
-                {Constantes.CodigosISOPais.Panama, 10},
-                {Constantes.CodigosISOPais.Peru, 11},
-                {Constantes.CodigosISOPais.PuertoRico, 12},
-                {Constantes.CodigosISOPais.Dominicana, 13},
-                {Constantes.CodigosISOPais.Venezuela, 14},
+                {Constantes.CodigosISOPais.Argentina, Constantes.PaisID.Argentina},
+                {Constantes.CodigosISOPais.Bolivia, Constantes.PaisID.Bolivia},
+                {Constantes.CodigosISOPais.Chile, Constantes.PaisID.Chile},
+                {Constantes.CodigosISOPais.Colombia, Constantes.PaisID.Colombia},
+                {Constantes.CodigosISOPais.CostaRica, Constantes.PaisID.CostaRica},
+                {Constantes.CodigosISOPais.Ecuador, Constantes.PaisID.Ecuador},
+                {Constantes.CodigosISOPais.Salvador, Constantes.PaisID.ElSalvador},
+                {Constantes.CodigosISOPais.Guatemala, Constantes.PaisID.Guatemala},
+                {Constantes.CodigosISOPais.Mexico, Constantes.PaisID.Mexico},
+                {Constantes.CodigosISOPais.Panama, Constantes.PaisID.Panama},
+                {Constantes.CodigosISOPais.Peru, Constantes.PaisID.Peru},
+                {Constantes.CodigosISOPais.PuertoRico, Constantes.PaisID.PuertoRico},
+                {Constantes.CodigosISOPais.Dominicana, Constantes.PaisID.RepublicaDominicana},
+                {Constantes.CodigosISOPais.Venezuela, Constantes.PaisID.Venezuela},
+                {Constantes.CodigosISOPais.Brasil, Constantes.PaisID.Brasil},
+                {Constantes.CodigosISOPais.EstadosUnidos, Constantes.PaisID.EstadosUnidos},
             };
 
-            if (!listaPaises.ContainsKey(ISO))
+            if (!listaPaises.ContainsKey(iso))
                 return 0;
 
-            return listaPaises[ISO];
+            return listaPaises[iso];
         }
 
         public static string GetPaisISO(int paisID)
@@ -3846,7 +3848,7 @@ namespace Portal.Consultoras.Common
                 }
             }
 
-           
+
 
             return result;
         }
