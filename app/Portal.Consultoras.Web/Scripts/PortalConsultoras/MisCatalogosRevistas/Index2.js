@@ -1,6 +1,7 @@
 ﻿var tagLbel = "Lbel";
 var tagEsika = "Esika";
 var tagCyzone = "Cyzone";
+var tagTodo = "Todo";
 
 var campSelect = "";
 var campSelectI = 1;
@@ -332,6 +333,7 @@ function CargarCarruselCatalogo() {
             htmlCatalogo = $(itemCatalogo).html();
             htmlCatalogo = htmlCatalogo.replace(/{campania}/g, anio + nro);
             htmlCatalogo = htmlCatalogo.replace(/{tipoCatalogo}/g, tipo);
+            htmlCatalogo = htmlCatalogo.replace(/{tipoCatalogoTodo}/g, tagTodo);
             htmlCatalogo = i == 1 ? htmlCatalogo : htmlCatalogo.replace(/{comp}/g, tipo);
             htmlCatalogo = i == 1 ? htmlCatalogo : htmlCatalogo.replace(/{descripcion}/g, descrCat[tipo]);
             htmlCatalogo = htmlCatalogo.replace(/{estado}/g, "0");
@@ -345,14 +347,9 @@ function CargarCarruselCatalogo() {
     //$("#divCatalogo [data-cat='Cyzone'] > div").addClass("no_margin_right");
 
     for (var i = 0; i < cantCat; i++) {
-        //document.querySelectorAll('[data-cat="Lbel"]')[i].className += " catalogos__por__campania__item__imagen--lbel";
-        //document.querySelectorAll('[data-cat="Esika"]')[i].className += " catalogos__por__campania__item__imagen--esika";
-        //document.querySelectorAll('[data-cat="Cyzone"]')[i].className += " catalogos__por__campania__item__imagen--cyzone";
-
         $("#divCatalogo" + i + " [data-cat='Lbel']").addClass(" catalogos__por__campania__item__imagen--lbel");
         $("#divCatalogo" + i + " [data-cat='Esika']").addClass(" catalogos__por__campania__item__imagen--esika");
-        $("#divCatalogo" + i + " [data-cat='Cyzone']").addClass(" catalogos__por__campania__item__imagen--cyzone");
-        
+        $("#divCatalogo" + i + " [data-cat='Cyzone']").addClass(" catalogos__por__campania__item__imagen--cyzone");       
     }
     
     closeWaitingDialog();
@@ -364,7 +361,10 @@ function FinRenderCatalogo() {
         campSelect = campSelect || getAnioCampania(getCodigoCampaniaActual());
         campSelectI = campSelectI || 1;
         $("#contentCatalogo #TextoCampania").text("CATÁLOGOS C-" + campSelect);
-        //$("#divCatalogo > div > div").show();
+        for (var i = 0; i < cantCam; i++) {
+            $("#divCatalogo" + i +" > div > div").show();
+        }
+        
         CatalogoMostrar(0);
         closeWaitingDialog();
     }
@@ -448,7 +448,7 @@ function GetCatalogosLinksByCampania(data, campania) {
                     : "0";
 
         var elemItem = "[data-cam='" + campania + "'][data-cat='" + tagCat + "']";
-        //$(idCat).find(elemItem).find("[data-tipo='content']").hide();
+        $(idCat).find(elemItem).find("[data-tipo='content']").hide();
         $(elemItem).attr("data-estado", estado);
 
         var codigoISSUU = '', urlCat;
