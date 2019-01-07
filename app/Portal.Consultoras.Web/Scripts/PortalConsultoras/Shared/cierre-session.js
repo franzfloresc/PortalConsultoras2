@@ -53,14 +53,23 @@ function noPedidoReservado() {
 function CerrarSesionValidado() {
 
     if (noPedidoReservado()) {
-        SetupPopupCierreSesion(1);
-        getPopupCierreSession().fadeIn(100);
+        showPopupCierreSesion(1);
 
         return;
     }
 
-    CerrarSesion();
+    if (typeof CerrarSesion === 'function') {
+        CerrarSesion();
+    } else {
+        location.href = baseUrl + 'Login/LogOut';
+    }
+
     $.fn.idleTimeout().logout();
+}
+
+function showPopupCierreSesion(tipo) {
+    SetupPopupCierreSesion(tipo);
+    getPopupCierreSession().fadeIn(100);
 }
 
 function SetupPopupCierreSesion(tipo) {

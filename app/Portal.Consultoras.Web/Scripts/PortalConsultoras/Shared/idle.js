@@ -170,11 +170,10 @@ var store = (function () {
       openWarningDialog = function () {
   
           if (noPedidoReservado()) {
-              SetupPopupCierreSesion(3);
+              showPopupCierreSesion(3);
           } else {
-              SetupPopupCierreSesion(2);
+              showPopupCierreSesion(2);
           }
-          getPopupCierreSession().fadeIn(100);
         // $(dialogContent).dialog({
         //   buttons: [{
         //     text: currentConfig.dialogStayLoggedInButton,
@@ -280,8 +279,7 @@ var store = (function () {
           clearTimeout();
           stopDialogTimer();
 
-          SetupPopupCierreSesion(4);
-          getPopupCierreSession().show();
+          showPopupCierreSesion(4);
       };
 
       //###############################
