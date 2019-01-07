@@ -196,7 +196,7 @@ namespace Portal.Consultoras.Common
                 public const string ListCuv = "ListCuv";
             }
 
-            public const short CierreSessionValidado = 15201;
+            public const short CierreSessionValidado = 15301;
         }
 
         public static class ParametrosNames
@@ -1685,7 +1685,7 @@ namespace Portal.Consultoras.Common
             public const short EscalaDescuentoMobile = 73;
             public const short ListaOrdenamientoFiltros = 147;
             public const short ArmaTuPack = 14;
-            public const short CierreSessionValidado = 152;
+            public const short CierreSessionValidado = 153;
         }
 
         public struct MensajesCDRExpress

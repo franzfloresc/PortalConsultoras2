@@ -137,14 +137,6 @@ var store = (function () {
             openWarningDialog();
             startDialogTimer(); // start timing the warning dialog
           }
-        } else if (store.get('idleTimerLoggedOut') === true) { //a 'manual' user logout?
-          logoutUser();
-        } else {
-  
-          //if (currentConfig.enableDialog && isDialogOpen() === true) {
-          //  destroyWarningDialog();
-          //  stopDialogTimer();
-          //}
         }
       };
   

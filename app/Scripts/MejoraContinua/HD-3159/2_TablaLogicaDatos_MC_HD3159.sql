@@ -1,6 +1,6 @@
-DECLARE @TablaLogicaID int = 152;
-DELETE FROM TablaLogica where TablaLogicaID = @TablaLogicaID;
+DECLARE @TablaLogicaID int = 153;
 DELETE FROM TablaLogicaDatos where TablaLogicaID = @TablaLogicaID;
+DELETE FROM TablaLogica where TablaLogicaID = @TablaLogicaID;
 
-INSERT INTO TablaLogica values (@TablaLogicaID, 'Cierre Sesion Validado')
-INSERT INTO TablaLogicaDatos values (cast(@TablaLogicaID as varchar(3)) + '01', @TablaLogicaID, '01', 'Validar Cierre Session', '1');
+INSERT INTO TablaLogica values (@TablaLogicaID, 'Cierre Sesion')
+INSERT INTO TablaLogicaDatos values (cast(@TablaLogicaID as varchar(3)) + '01', @TablaLogicaID, '01', 'Cierre Session Pedido Reservado', '1');
