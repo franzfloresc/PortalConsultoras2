@@ -151,9 +151,12 @@ $(document).ready(function () {
 
     $('.btn__compartir').on('click', function (e) {
         if (window.matchMedia('(max-width:991px)').matches) {
+            $('.background__opciones__compartir__catalogos').fadeIn(100);
             $('.background__opciones__compartir__catalogos').css('display', 'flex');
+            $(this).next().fadeIn(100);
             $(this).next().css('display', 'flex');
         } else {
+            $(this).next().fadeIn(100);
             $(this).next().css('display', 'flex');
         }
 

@@ -1,6 +1,10 @@
 ﻿
 /* PÁGINA DE RESULTADOS DESKTOP */
 
+.layout__view__breadcrumbs__wrapper{
+    display:none;
+}
+
 .layout__content--vistaResultadosBusqueda{
     width:100%;
     max-width:1366px;
