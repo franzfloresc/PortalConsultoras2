@@ -79,12 +79,12 @@
                 <img src="@Url.Content("~/Content/Images/arrow_left.svg")" alt="" onclick="CatalogoMostrar(-1, this)" data-accion="a" />
             </a>
 
-            <div id="divSection">
+            <div class="col-12 col-lg-10 col-xl-10 pl-0 pr-0 row flex-row justify-content-center ml-0 mr-0 catalogos__por__campania__item__slider" id="divSection">
                                         
             </div>
 
             <div id="xhtmlSection" style="display: none;">
-                <section class="col-12 col-lg-10 col-xl-10 pl-0 pr-0 row flex-row justify-content-center ml-0 mr-0 catalogos__por__campania__item__slider" data-animation="{animation}">
+                <section class="col-12 col-lg-10 col-xl-10 pl-0 pr-0 row flex-row justify-content-center ml-0 mr-0 catalogos__por__campania__item__slider" id="{sectionid}">
                     <div class="col-12 pl-0 pr-0 row flex-row align-items-center ml-0 mr-0 catalogos__por__campania__item__imagenes">   
                         
                         <div class="col-12 pl-0 pr-0 row flex-row align-items-center ml-0 mr-0 content_carrusel_catalogo" id={divCatalogo} >
@@ -96,7 +96,7 @@
             </div>
 
             <div id="xHtmlItemCatalogo" style="display: none;">
-                <div class="col-10 col-lg-3 col-xl-3 pl-0 pr-0 catalogos__por__campania__item__imagen" data-cam="{campania}" data-catalogo="{tipoCatalogo}" data-estado="{estado}">
+                <div class="col-10 col-lg-3 col-xl-3 pl-0 pr-0 catalogos__por__campania__item__imagen" data-cam="{campania}" data-cat="{tipoCatalogo}" data-estado="{estado}">
                     <a class="d-block revista" data-tipo="img" href="" target="_blank">
                         <img class="d-block" src="@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")" alt="" />
                     </a>
@@ -105,43 +105,41 @@
                         <div data-tipo="descrip">{descripcion}</div>
                         <input id="txtUrl{tipoCatalogo}" type="hidden" value="" />
 
-                        <a href="" class="col-4 col-lg-6 col-xl-6 pl-0 pr-0 row flex-row justify-content-center align-items-center ml-0 mr-0 modo__compartir__catalogo modo__compartir__catalogo--whatsapp mostrarEnMobile" title="Compartir por WhatsApp">
+                        <a class="col-4 col-lg-6 col-xl-6 pl-0 pr-0 row flex-row justify-content-center align-items-center ml-0 mr-0 modo__compartir__catalogo modo__compartir__catalogo--whatsapp mostrarEnMobile" title="Compartir por WhatsApp">
                             <img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_ws2.png")" alt="Compartir por WhatsApp" />
                         </a>
-                        <a href="" class="col-4 col-lg-6 col-xl-6 pl-0 pr-0 row flex-row justify-content-center align-items-center ml-0 mr-0 modo__compartir__catalogo modo__compartir__catalogo--facebook" title="Compartir por Facebook" data-accion="face" onclick="RedesSociales.CompartirFacebook('{comp}', '{campania}', this)">
+                        <a class="col-4 col-lg-6 col-xl-6 pl-0 pr-0 row flex-row justify-content-center align-items-center ml-0 mr-0 modo__compartir__catalogo modo__compartir__catalogo--facebook" title="Compartir por Facebook" data-accion="face" onclick="RedesSociales.CompartirFacebook('{comp}', '{campania}', this)">
                             <img src="@Url.Content("~/Content/Images/Esika/catalogo_facebook.png")" alt="Compartir por Facebook" />
                         </a>
-                        <a href="" class="col-4 col-lg-6 col-xl-6 pl-0 pr-0 row flex-row justify-content-center align-items-center ml-0 mr-0 modo__compartir__catalogo modo__compartir__catalogo--mail" title="Compartir por email" onclick="javascript: RedesSociales.AbrirCompartirCorreo('{tipoCatalogo}','{campania}');">
+                        <a class="col-4 col-lg-6 col-xl-6 pl-0 pr-0 row flex-row justify-content-center align-items-center ml-0 mr-0 modo__compartir__catalogo modo__compartir__catalogo--mail" title="Compartir por email" onclick="javascript: RedesSociales.AbrirCompartirCorreoNuevo('{tipoCatalogo}','{campania}');">
                             <img src="@Url.Content("~/Content/Images/Esika/catalogo_mensaje.png")" alt="Compartir por email" />
                         </a>
                     </div>
                 </div>
             </div>
 
-            <!-- CATÁLOGOS CAMPAÑA ACTUAL -->
-            @*<section class="col-12 col-lg-10 col-xl-10 pl-0 pr-0 row flex-row justify-content-center ml-0 mr-0 catalogos__por__campania__item__slider catalogos__campania--actual">
-                <div class="col-12 pl-0 pr-0 row flex-row flex-nowrap flex-lg-wrap flex-xl-wrap align-items-center ml-lg-0 ml-xl-0 mr-lg-0 mr-xl-0 catalogos__por__campania__item__imagenes">
-                    <div class="col-3 pl-0 pr-0 catalogos__por__campania__item__imagen catalogos__por__campania__item__imagen--cyzone">
-                        <a class="d-block" href="https://issuu.com/somosbelcorp/docs/cyzone.peru.c18.2018?mode=embed" title="Catálogo Cyzone" target="_blank">
-                            <img class="d-block" src="http://image.issuu.com/181011235918-aadba8ff44e48dacebee3177740c9c29/jpg/page_1.jpg" alt="" />
-                        </a>
+            <div id="xhtmlSectionActual" style="display: none;">
+                <section class="col-12 col-lg-10 col-xl-10 pl-0 pr-0 row flex-row justify-content-center ml-0 mr-0 catalogos__por__campania__item__slider" id="{sectionid}">
+                    <div class="col-12 pl-0 pr-0 row flex-row flex-nowrap flex-lg-wrap flex-xl-wrap align-items-center ml-lg-0 ml-xl-0 mr-lg-0 mr-xl-0 catalogos__por__campania__item__imagenes" id={divCatalogo}>
+
                     </div>
-                    <div class="col-3 pl-0 pr-0 catalogos__por__campania__item__imagen catalogos__por__campania__item__imagen--esika">
-                        <a class="d-block" href="https://issuu.com/somosbelcorp/docs/esika.peru.c18.2018?mode=embed" title="Catálogo Ésika" target="_blank">
-                            <img class="d-block" src="http://image.issuu.com/181120201832-d6d66dea866799700244f59bd6b1c2d3/jpg/page_1.jpg" alt="" />
-                        </a>
-                    </div>
-                    <div class="col-3 pl-0 pr-0 catalogos__por__campania__item__imagen catalogos__por__campania__item__imagen--lbel">
-                        <a class="d-block" href="https://issuu.com/somosbelcorp/docs/lbel.peru.c18.2018?mode=embed" title="Catálogo L'bel'" target="_blank">
-                            <img class="d-block" src="http://image.issuu.com/181012160630-78f9daab810f7983e8642ba33ac21f2a/jpg/page_1.jpg" alt="" />
-                        </a>
-                    </div>
+                </section>
+            </div>
+
+            <div id="xHtmlItemCatalogoActual" style="display: none;">
+                <div class="col-3 pl-0 pr-0 catalogos__por__campania__item__imagen" data-cam="{campania}" data-cat="{tipoCatalogo}" data-estado="{estado}">
+                    <a class="d-block revista" data-tipo="img" href="" target="_blank">
+                        <img class="d-block" src="@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")" alt="" />
+                    </a>                    
                 </div>
+            </div>
+
+            <div id="xHtmlItemCatalogoPasosActual" style="display: none;">
                 <div class="col-12 pl-0 pr-0 row flex-row justify-content-center justify-content-lg-between justify-content-xl-between align-items-center ml-0 mr-0 catalogos__por__campania__item__descrip">
                     <div class="col-7 pl-0 pr-0 mostrarEnDesktop">
                         Mejoramos la manera de compartir<br />nuestros catálogos. <span class="text-bold">¡Ahora son digitales!</span>
                     </div>
-                    <button type="button" class="col-8 col-lg-5 col-xl-5 pl-0 pr-0 row flex-row ml-0 mr-0 justify-content-center text-uppercase btn__compartir btn__compartir--slider">
+                    <button type="button" id ="btnCompartir" class="col-8 col-lg-5 col-xl-5 pl-0 pr-0 row flex-row ml-0 mr-0 justify-content-center text-uppercase btn__compartir btn__compartir--slider">
                         Compartir
                     </button>
                 </div>
@@ -188,7 +186,7 @@
                                 Empieza a compartir los catálogos digitales por los medios que más uses
                             </span>
                         </p>
-                        <button type="button" class="col-8 col-lg-7 col-xl-7 pl-0 pr-0 row flex-row ml-0 mr-0 mx-auto justify-content-center text-uppercase btn__compartir" id="btnCompartir2">
+                        <button type="button" class="col-8 col-lg-7 col-xl-7 pl-0 pr-0 row flex-row ml-0 mr-0 mx-auto justify-content-center text-uppercase btn__compartir" id="btnCompartirActual">
                             Compartir
                         </button>
                         <div class="col-12 pl-0 pr-0 background__opciones__compartir__catalogos mostrarEnMobile"></div>
@@ -211,9 +209,7 @@
                         </div>
                     </div>
                 </div>
-            </section>*@
-            <!-- FIN - CATÁLOGOS CAMPAÑA ACTUAL -->
-
+            </div>    
   
             <a class="col-1 pl-0 pr-0 row flex-row justify-content-end align-items-start align-items-lg-center align-items-xl-center ml-0 mr-0 catalogos__por__campania__slider__control catalogos__por__campania__slider__control__der" title="Siguiente">
                 <img src="@Url.Content("~/Content/Images/arrow_right.svg")" alt="" onclick="CatalogoMostrar(1, this)" data-accion="s" />
@@ -346,6 +342,7 @@
     </script>
     @*@System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/MisCatalogosRevistas")*@
 <script src="@Url.Content("~/Scripts/Tag/jquery.tags.input.js")"></script>
+<script src="@Url.Content("~/Scripts/PortalConsultoras/Shared/General/RedesSociales.js")"></script>
 <script src="@Url.Content("~/Scripts/PortalConsultoras/MisCatalogosRevistas/Index2.js")"></script>
 
 }

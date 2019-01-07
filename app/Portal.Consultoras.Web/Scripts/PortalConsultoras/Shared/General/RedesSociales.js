@@ -220,6 +220,50 @@
         }
     }
 
+    // catalogo email
+    var AbrirCompartirCorreoNuevo = function (tipoCatalogo, campania) {
+
+        dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'Catálogos y revistas',
+            'action': 'Compartir email – clic botón',
+            'label': tipoCatalogo,
+            'value': 0
+        });
+
+        $("#comentarios").val(valContenidoCorreoDefecto);
+        // remover todos los tag
+        $('#tagCorreo').removeTagAll();
+        // asignar el check al catalogo correspondiente mediante tipoCatalogo
+        campaniaEmail = campania;
+        $("#divCheckbox").find("[type='checkbox']").removeAttr('checked');
+
+        var divs = document.getElementById('divCheckbox').children;
+        for (var i = 0; i < divs.length; i++) {
+            var atribute = divs[i].getAttribute("data-cat");
+            if (atribute == tipoCatalogo) {
+                divs[i].firstElementChild.firstElementChild.setAttribute("checked", "checked");
+                divs[i].firstElementChild.lastElementChild.click();
+            }
+        }
+
+
+        $('#CompartirCorreo').show();
+        $('#CompartirCorreoMobile').show();
+
+        for (var i = 0; i < 3; i++) {
+            var cata = $("#divCatalogo" + i + " [data-cam='" + campania + "'][data-estado='1']");
+
+            if (cata.length > 0) {
+                $("#divCheckbox [data-cat]").hide();
+                for (var j = 0; j < cata.length; j++) {
+                    var cat = $(cata[j]).attr("data-cat");
+                    $("#divCheckbox [data-cat='" + cat + "']").show();
+                }
+            }
+        }
+    }
+
     var TagManagerWS = function (catalogo, campaniaCatalogo) {
         dataLayer.push({
             'event': 'virtualEvent',
@@ -247,6 +291,7 @@
         CompartirTexto: CompartirRedesSocialesTexto,
         CompartirFacebook: CompartirFacebook,
         AbrirCompartirCorreo: AbrirCompartirCorreo,
+        AbrirCompartirCorreoNuevo: AbrirCompartirCorreoNuevo,
         TagManagerWS: TagManagerWS
     }
 })();

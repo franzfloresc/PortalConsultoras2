@@ -63,7 +63,29 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.CodigoISO = userData.CodigoISO;
             ViewBag.EsConsultoraNueva = userData.EsConsultoraNueva;
             ViewBag.TextoMensajeSaludoCorreo = TextoMensajeSaludoCorreo;
-            return View(clienteModel);
+            if (Constantes.PaisID.Bolivia == userData.PaisID || Constantes.PaisID.Chile == userData.PaisID || Constantes.PaisID.Colombia == userData.PaisID ||
+                Constantes.PaisID.CostaRica == userData.PaisID || Constantes.PaisID.Ecuador == userData.PaisID || Constantes.PaisID.Mexico == userData.PaisID ||
+                Constantes.PaisID.Peru == userData.PaisID)
+                return View(clienteModel);
+            else
+            {
+                if (EsDispositivoMovil())
+                {
+                    var url = (Request.Url.Query).Split('?');
+                    if (url.Length > 1 && url[1].Contains("sap"))
+                    {
+                        string sap = "&" + url[1].Remove(0, 12);
+                        return RedirectToAction("Index", "Catalogo", new { area = "Mobile", marca, sap });
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Catalogo", new { area = "Mobile", marca });
+                    }
+
+                }
+
+                return View("Index", clienteModel);
+            }
         }
 
         public MisCatalogosRevistasController()
