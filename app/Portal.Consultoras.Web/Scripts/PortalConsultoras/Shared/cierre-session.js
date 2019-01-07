@@ -1,7 +1,7 @@
 ﻿$(function() {
-    //if (noPedidoReservado()) {
-    //    registerCloseEvent();
-    //}
+    if (noPedidoReservado()) {
+        registerCloseEvent();
+    }
     configureTimeoutPopup();
 });
 
@@ -28,12 +28,12 @@ function getPopupCierreSession() {
 
 function registerCloseEvent() {
     window.onbeforeunload = function(e) {
-        var dialogText = "Podrías perder tus cambios, ¿Seguro que quieres salir?";
+        var dialogText = "Tienes un pedido pendiente, ¿Deseas reservarlo?";
         e.returnValue = dialogText;
         e.cancelBubble = true;
-        //CerrarSesionValidado();
-        return false;
-    }
+        CerrarSesionValidado();
+        return dialogText;
+    };
 }
 
 function continuarSession() {
