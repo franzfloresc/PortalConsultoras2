@@ -221,7 +221,7 @@
     }
 
     // catalogo compartir por Facebook actual
-    var CompartirFacebookActual = function (catalogo, campaniaCatalogo, btn) {
+    var CompartirFacebookActual = function (catalogo, campaniaCatalogo, u) {
         dataLayer.push({
             'event': 'virtualEvent',
             'category': 'Catálogos y revistas',
@@ -231,7 +231,7 @@
         });
         InsertarLogCatalogoDynamo('Facebook', campaniaCatalogo, catalogo, 1);
 
-        var u = $(btn).parents("[data-cat='" + catalogo + "']").find("#txtUrl" + catalogo).val();
+        u = "http://catalogodigital-develop.altimeafactory.com/?iso=PE&consultant=035821619&page=1";//$(btn).parents("[data-cat='" + catalogo + "']").find("#txtUrl" + catalogo).val();
 
         var popWwidth = 570;
         var popHeight = 420;
