@@ -258,31 +258,55 @@
         // asignar el check al catalogo correspondiente mediante tipoCatalogo
         campaniaEmail = campania;
         $("#divCheckbox").find("[type='checkbox']").removeAttr('checked');
+        
+        if (tipoCatalogo == 'Todo') {
 
-        var divs = document.getElementById('divCheckbox').children;
-        for (var i = 0; i < divs.length; i++) {
-            var atribute = divs[i].getAttribute("data-cat");
-            if (atribute == tipoCatalogo) {
-                divs[i].firstElementChild.firstElementChild.setAttribute("checked", "checked");
-                divs[i].firstElementChild.lastElementChild.click();
-            }
+            $('#btnEnviarCorreo').data('piloto', '1')
+            $('#divDescEnviar').hide();
+            $('#divCheckbox').hide();
+            $('#CompartirCorreo').show();
+            
         }
+        else {
 
-
-        $('#CompartirCorreo').show();
-        $('#CompartirCorreoMobile').show();
-
-        for (var i = 0; i < 3; i++) {
-            var cata = $("#divCatalogo" + i + " [data-cam='" + campania + "'][data-estado='1']");
-
-            if (cata.length > 0) {
-                $("#divCheckbox [data-cat]").hide();
-                for (var j = 0; j < cata.length; j++) {
-                    var cat = $(cata[j]).attr("data-cat");
-                    $("#divCheckbox [data-cat='" + cat + "']").show();
+            var divs = document.getElementById('divCheckbox').children;
+            for (var i = 0; i < divs.length; i++) {
+                var atribute = divs[i].getAttribute("data-cat");
+                if (atribute == tipoCatalogo) {
+                    divs[i].firstElementChild.firstElementChild.setAttribute("checked", "checked");
+                    divs[i].firstElementChild.lastElementChild.click();
                 }
             }
-        }
+
+            $('#btnEnviarCorreo').data('piloto', '0')
+            $('#divDescEnviar').show();
+            $('#divCheckbox').show();
+
+            $('#CompartirCorreo').show();
+            //$('#CompartirCorreoMobile').show();
+                                
+            for (var i = 0; i < 3; i++) {
+                var cata = $("#divCatalogo" + i + " [data-cam='" + campania + "'][data-estado='1']");
+
+                if (cata.length > 0) {
+                    $("#divCheckbox [data-cat]").hide();
+                    for (var j = 0; j < cata.length; j++) {
+                        var cat = $(cata[j]).attr("data-cat");
+                        $("#divCheckbox [data-cat='" + cat + "']").show();
+                    }
+                }
+            }          
+        }              
+    }
+
+    var CompartirWhatsAppActual = function (catalogo, campania, texto) {
+        texto = texto.ReplaceAll("/", "%2F");
+        texto = texto.ReplaceAll(":", "%3A");
+        texto = texto.ReplaceAll("?", "%3F");
+        texto = texto.ReplaceAll("=", "%3D");
+
+        var url = "https://api.whatsapp.com/send?text=" + texto;
+        window.open(url, 'WhatsApp');
     }
 
     var TagManagerWS = function (catalogo, campaniaCatalogo) {
@@ -314,6 +338,7 @@
         AbrirCompartirCorreo: AbrirCompartirCorreo,
         CompartirFacebookActual: CompartirFacebookActual,
         AbrirCompartirCorreoActual: AbrirCompartirCorreoActual,
+        CompartirWhatsAppActual: CompartirWhatsAppActual,
         TagManagerWS: TagManagerWS
     }
 })();

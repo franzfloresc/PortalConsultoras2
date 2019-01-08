@@ -90,7 +90,10 @@ $(document).ready(function () {
         obj.find("[type='checkbox']").Checked();
     });
 
-    $("#btnEnviarCorreo").on("click", function () { CatalogoEnviarEmail(); });
+    $("#btnEnviarCorreo").on("click", function () {
+        if ($(this).data('piloto') == 1) CatalogoEnviarEmailPiloto();
+        else CatalogoEnviarEmail();
+    });
 
     // Eventos que se utilizan en vista responsive
 
@@ -274,8 +277,7 @@ function CargarCarruselCatalogo() {
             xHtmlItemCatalogoPasosActual = $(xHtmlItemCatalogoPasosActual).html();
             xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{tipoCatalogoTodo}/g, tagTodo);
             xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{campania}/g, anio + nro);
-            xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{urlface}/g, GetUrlCampaniaActual());
-            xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{urlws}/g, GetUrlCampaniaActual());
+            xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{textourl}/g, GetUrlTextoActual());
 
             $("#idSection" + i).append(xHtmlItemCatalogoPasosActual);
             $("#idSection" + i).addClass(" catalogos__campania--actual");
@@ -423,9 +425,9 @@ function ObtenerEstadoCatalogo(campana, defered) {
     return defered.promise();
 }
 
-function GetUrlCampaniaActual(campania) {
+function GetUrlTextoActual(campania) {
 
-    var url = "http://catalogodigital-develop.altimeafactory.com/?iso=PE&consultant=&page=1";
+    var url = "http://catalogodigital-develop.altimeafactory.com/?iso=PE&consultant=035821619&page=1";
     return url;
 }
 
