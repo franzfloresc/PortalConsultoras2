@@ -2593,6 +2593,17 @@ namespace Portal.Consultoras.BizLogic.Pedido
             var lstDetalle = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
             pedidoDetalle.PedidoID = pedidoID;
 
+            var cntProd = 0;
+            var esDuoPerfecto = _programaNuevasBusinessLogic.EsCuvDuoPerfecto(usuario.PaisID, usuario.CampaniaID, usuario.ConsecutivoNueva, usuario.CodigoPrograma, pedidoDetalle.Producto.CUV);
+            //validacion duo perfecto
+            if (esDuoPerfecto)
+            {
+                cntProd = lstDetalle.Where(x => x.FlagNueva && x.EnRangoProgNuevas).ToList().Count();
+
+                if (cntProd == 2)
+                    return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_DUO_COMPLETO_COMPLETO, string.Format(Constantes.ProgNuevas.Mensaje.Electivo_NoAgregarPorLimite, Constantes.ProgNuevas.Mensaje.Electivo_PromocionNombre));
+            }
+
             foreach (var tono in tonos)
             {
                 var listSp = tono.Split(';');
@@ -2615,6 +2626,12 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 });
             }
             PedidoAgregarProductoAgrupado(usuario, pedidoID, pedidoDetalle.Cantidad, cuvSet, strCuvs, estrategia.EstrategiaID);
+
+            if (cntProd == 1 && esDuoPerfecto)
+                return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.SUCCESS, string.Format(Constantes.ProgNuevas.Mensaje.Electivo_CompletasteLimite, Constantes.ProgNuevas.Mensaje.Electivo_PromocionNombre));
+
+            if (cntProd == 0 && esDuoPerfecto)
+                return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.SUCCESS, string.Format(Constantes.ProgNuevas.Mensaje.Electivo_TeFaltaPocoLimite, cntProd + 1, Constantes.ProgNuevas.Mensaje.Electivo_PromocionNombre));
 
             return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.SUCCESS);
         }
