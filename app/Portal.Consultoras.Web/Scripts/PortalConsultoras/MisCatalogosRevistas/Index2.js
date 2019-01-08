@@ -151,9 +151,12 @@ $(document).ready(function () {
 
     $('.btn__compartir').on('click', function (e) {
         if (window.matchMedia('(max-width:991px)').matches) {
+            $('.background__opciones__compartir__catalogos').fadeIn(100);
             $('.background__opciones__compartir__catalogos').css('display', 'flex');
+            $(this).next().fadeIn(100);
             $(this).next().css('display', 'flex');
         } else {
+            $(this).next().fadeIn(100);
             $(this).next().css('display', 'flex');
         }
 
@@ -658,10 +661,7 @@ function CatalogoEnviarEmail() {
         }
         clientes.push(objCorreo);
     }
-
-
-
-
+    
     var mensaje = $("#comentarios").val();
     if (_Flagchklbel == "1") {
         dataLayer.push({
@@ -725,6 +725,60 @@ function CatalogoEnviarEmail() {
         }
     });
 
+}
+function CatalogoEnviarEmailPiloto() {
+    waitingDialog();
+
+    $('#tagCorreo').addTag($('#tagCorreo_tag').val());
+
+    var correoEnviar = $('#tagCorreo').exportTag() || new Array();
+    if (correoEnviar.length <= 0) {
+        MonstrarExclamacion("No se ha ingresado ningún correo electrónico.");
+        closeWaitingDialog();
+        return false;
+    }
+
+    var clientes = new Array();
+    for (var i = 0; i < correoEnviar.length; i++) {
+        var objCorreo = {
+            "ClienteID": correoEnviar[i].obj.clienteID,
+            "Nombre": correoEnviar[i].obj.nombre,
+            "Email": correoEnviar[i].Name
+        }
+        clientes.push(objCorreo);
+    }
+
+    var mensaje = $("#comentarios").val();
+    jQuery.ajax({
+        type: 'POST',
+        url: baseUrl + 'MisCatalogosRevistas/EnviarEmailPiloto',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify({ ListaCatalogosCliente: clientes, Mensaje: mensaje, Campania: campaniaEmail }),
+        async: true,
+        success: function (data) {
+            closeWaitingDialog();
+            $('#CompartirCorreo').hide();
+            if (checkTimeout(data)) {
+                if (data.success) {
+                    MonstrarAlerta(data.message);
+                    if (data.extra == "R") {
+                        location.href = '/Bienvenida';
+                    }
+                }
+                else {
+                    MonstrarExclamacion(data.message);
+                }
+            }
+        },
+        error: function (data, error) {
+            closeWaitingDialog();
+            $('#CompartirCorreo').hide();
+            if (checkTimeout(data)) {
+                MonstrarExclamacion("ERROR");
+            }
+        }
+    });
 }
 
 function renderItemCliente(event, ui) {
