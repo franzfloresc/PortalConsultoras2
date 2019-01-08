@@ -726,16 +726,19 @@ namespace Portal.Consultoras.Web.Providers
             List<ServiceOferta.BEEstrategia> listEstrategia = new List<ServiceOferta.BEEstrategia>();
             UsuarioModel userData = _sessionManager.GetUserData();
 
-            string pathShowroom = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerOfertas,
-               userData.CodigoISO,
-               Constantes.ConfiguracionPais.ShowRoom,
-               userData.CampaniaID,
-               userData.CodigoConsultora,
-               userData.CodigorRegion,
-               userData.ZonaID,
-               0);
+            string pathOferta = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerOfertas,
+                     userData.CodigoISO,
+                     Constantes.ConfiguracionPais.ShowRoom,
+                     userData.CampaniaID,
+                     userData.CodigoConsultora,
+                     0, //materialGanancia
+                     0, //diaInicio
+                     userData.CodigorRegion,
+                     userData.CodigoZona
+                  );
 
-            var taskApi = Task.Run(() => OfertaBaseProvider.ObtenerOfertasDesdeApi(pathShowroom, userData.CodigoISO));
+
+            var taskApi = Task.Run(() => OfertaBaseProvider.ObtenerOfertasDesdeApi(pathOferta, userData.CodigoISO));
             Task.WhenAll(taskApi);
             return taskApi.Result;
         }
