@@ -241,8 +241,8 @@ namespace Portal.Consultoras.Service
         {
             var respuesta = "";
 
-            if (codigoPais.Length > 2) respuesta = ("El campo Pais recibido tiene más de 2 caracteres");
             if (string.IsNullOrEmpty(codigoPais)) respuesta = ("El Servicio no recibió el parámetro codigoPais correcto");
+            else if (codigoPais.Length > 2) respuesta = ("El campo Pais recibido tiene más de 2 caracteres");
             if (string.IsNullOrEmpty(codigoUbigeo)) respuesta = ("El Servicio no recibió el parámetro CodigoUbigeo correcto");
             if (marcaId == 0) respuesta = ("El Servicio no recibió el parámetro marcaID correcto");
 
