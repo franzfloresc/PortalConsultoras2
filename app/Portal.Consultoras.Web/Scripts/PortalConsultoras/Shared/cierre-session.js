@@ -1,7 +1,7 @@
 ﻿$(function() {
-    if (noPedidoReservado()) {
-        registerCloseEvent();
-    }
+    //if (noPedidoReservado()) {
+    //    registerCloseEvent();
+    //}
     configureTimeoutPopup();
 });
 
