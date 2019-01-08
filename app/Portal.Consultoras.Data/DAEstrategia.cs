@@ -270,7 +270,7 @@ namespace Portal.Consultoras.Data
 
         public IDataReader GetEstrategiaLanzamiento(BEEstrategia entidad)
         {
-            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarEstrategiasLanzamiento2"))
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarEstrategiasLanzamiento"))
             {
                 Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);
                 Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, entidad.ConsultoraID);
@@ -280,7 +280,7 @@ namespace Portal.Consultoras.Data
 
         public IDataReader GetEstrategiaOfertaParaTi(BEEstrategia entidad)
         {
-            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarEstrategiasOPT2"))
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarEstrategiasOPT"))
             {
                 Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);
                 Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, entidad.ConsultoraID);
@@ -290,7 +290,7 @@ namespace Portal.Consultoras.Data
 
         public IDataReader GetEstrategiaRevistaDigital(BEEstrategia entidad)
         {
-            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarEstrategiasRevistaDigital2"))
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarEstrategiasRevistaDigital"))
             {
                 Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);
                 Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, entidad.ConsultoraID);
@@ -301,7 +301,7 @@ namespace Portal.Consultoras.Data
 
         public IDataReader GetEstrategiaGuiaDeNegocioDigitalizada(BEEstrategia entidad)
         {
-            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarEstrategiasGuiaDeNegocioDigitalizada2"))
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarEstrategiasGuiaDeNegocioDigitalizada"))
             {
                 Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);
                 Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, entidad.ConsultoraID);
@@ -311,7 +311,7 @@ namespace Portal.Consultoras.Data
 
         public IDataReader GetEstrategiaHerramientasVenta(BEEstrategia entidad)
         {
-            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarEstrategiasHerramientasVenta2"))
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarEstrategiasHerramientasVenta"))
             {
                 Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);
                 Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, entidad.ConsultoraID);
@@ -321,7 +321,7 @@ namespace Portal.Consultoras.Data
 
         public IDataReader GetEstrategiaShowRoom(BEEstrategia entidad)
         {
-            using (DbCommand command = Context.Database.GetStoredProcCommand("ListarEstrategiasShowRoom2"))
+            using (DbCommand command = Context.Database.GetStoredProcCommand("ListarEstrategiasShowRoom"))
             {
                 Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);
                 Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, entidad.ConsultoraID);
@@ -331,7 +331,7 @@ namespace Portal.Consultoras.Data
 
         public IDataReader GetEstrategiaMasVendidos(BEEstrategia entidad)
         {
-            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarOfertasMasVendidos2"))
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarOfertasMasVendidos"))
             {
                 Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);
                 Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int32, entidad.ConsultoraID);
@@ -383,7 +383,7 @@ namespace Portal.Consultoras.Data
         
         public IDataReader GetEstrategiaODD(int codCampania, string codConsultora, DateTime fechaInicioFact)
         {
-            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarEstrategiasODD22"))
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarEstrategiasODD2"))
             {
                 Context.Database.AddInParameter(command, "@CodCampania", DbType.Int32, codCampania);
                 Context.Database.AddInParameter(command, "@CodConsultora", DbType.String, codConsultora);
