@@ -59,8 +59,7 @@ namespace Portal.Consultoras.Web.Controllers
             clienteModel.CodigoRevistaAnterior = _issuuProvider.GetRevistaCodigoIssuu(clienteModel.CampaniaAnterior, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
             clienteModel.CodigoRevistaSiguiente = _issuuProvider.GetRevistaCodigoIssuu(clienteModel.CampaniaSiguiente, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
             clienteModel.PartialSectionBpt = _configuracionPaisDatosProvider.GetPartialSectionBptModel(Constantes.OrigenPedidoWeb.SectionBptDesktopCatalogo);
-
-            ViewBag.CodigoISO = userData.CodigoISO;
+                        
             ViewBag.EsConsultoraNueva = userData.EsConsultoraNueva;
             ViewBag.TextoMensajeSaludoCorreo = TextoMensajeSaludoCorreo;
             if (Constantes.PaisID.Bolivia == userData.PaisID || Constantes.PaisID.Chile == userData.PaisID || Constantes.PaisID.Colombia == userData.PaisID ||
@@ -586,8 +585,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 string campaniaId;
                 string fechaFacturacion;
-                var urlBase = "http://catalogodigital.somosbelcorp.com?campaign={0}&iso={1}&consultant={2}";
-                var url = string.Format(urlBase, Campania, userData.CodigoISO, userData.CodigoConsultora);
+                var url = string.Format(Constantes.CatalogoUrlDefault.Piloto, Campania, userData.CodigoISO, userData.CodigoConsultora);
                 try
                 {
                     if (Campania == userData.CampaniaID.ToString())

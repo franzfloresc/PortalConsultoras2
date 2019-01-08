@@ -90,7 +90,10 @@ $(document).ready(function () {
         obj.find("[type='checkbox']").Checked();
     });
 
-    $("#btnEnviarCorreo").on("click", function () { CatalogoEnviarEmail(); });
+    $("#btnEnviarCorreo").on("click", function () {
+        if ($(this).data('piloto') == 1) CatalogoEnviarEmailPiloto();
+        else CatalogoEnviarEmail();
+    });
 
     // Eventos que se utilizan en vista responsive
 
@@ -266,12 +269,20 @@ function CargarCarruselCatalogo() {
 
         $("#divSection").append(htmlSection);
 
-        if (i == 0) document.querySelector("#idSection" + i).className += " catalogos__campania--anterior";
-        else if (i == 1) {                        
-            document.querySelector("#idSection" + i).className += " catalogos__campania--actual";            
-            $("#idSection" + i).append($("#xHtmlItemCatalogoPasosActual").html());
+        if (i == 0) $("#idSection" + i).addClass(" catalogos__campania--anterior");
+        else if (i == 1) {
+            var anio = getAnioCampania(getCodigoCampaniaActual());
+            var nro = getNumeroCampania(getCodigoCampaniaActual());
+            var xHtmlItemCatalogoPasosActual = "#xHtmlItemCatalogoPasosActual";
+            xHtmlItemCatalogoPasosActual = $(xHtmlItemCatalogoPasosActual).html();
+            xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{tipoCatalogoTodo}/g, tagTodo);
+            xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{campania}/g, anio + nro);
+            xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{textourl}/g, GetUrlTextoActual());
+
+            $("#idSection" + i).append(xHtmlItemCatalogoPasosActual);
+            $("#idSection" + i).addClass(" catalogos__campania--actual");
         }
-        else if (i == 2) document.querySelector("#idSection" + i).className += " catalogos__campania--siguiente";
+        else if (i == 2) $("#idSection" + i).addClass(" catalogos__campania--siguiente");
     }
 
 
@@ -333,7 +344,6 @@ function CargarCarruselCatalogo() {
             htmlCatalogo = $(itemCatalogo).html();
             htmlCatalogo = htmlCatalogo.replace(/{campania}/g, anio + nro);
             htmlCatalogo = htmlCatalogo.replace(/{tipoCatalogo}/g, tipo);
-            htmlCatalogo = htmlCatalogo.replace(/{tipoCatalogoTodo}/g, tagTodo);
             htmlCatalogo = i == 1 ? htmlCatalogo : htmlCatalogo.replace(/{comp}/g, tipo);
             htmlCatalogo = i == 1 ? htmlCatalogo : htmlCatalogo.replace(/{descripcion}/g, descrCat[tipo]);
             htmlCatalogo = htmlCatalogo.replace(/{estado}/g, "0");
@@ -415,6 +425,12 @@ function ObtenerEstadoCatalogo(campana, defered) {
     return defered.promise();
 }
 
+function GetUrlTextoActual(campania) {
+    var url = demo ? "http://catalogodigital-develop.altimeafactory.com/?iso={0}&consultant=035821619&page=1" : urlPiloto;
+    url = url.replace("{0}", campania).replace("{1}", IsoPais).replace("{2}", codigoConsultora);
+    return url;
+}
+
 function GetCatalogosLinksByCampania(data, campania) {
     waitingDialog();
     $.ajaxSetup({ cache: false });
@@ -429,9 +445,8 @@ function GetCatalogosLinksByCampania(data, campania) {
 
     var idCat = "#divCatalogo" + contDiv;
 
-    for (var i = 0; i < cantCat; i++) {
+    for (var i = 0; i < cantCat; i++) {        
 
-        
         var tagCat = i == 0 && data.estadoLbel != 1 ? tagLbel
             : i == 1 && data.estadoCyzone != 1 ? tagCyzone
                 : i == 2 && data.estadoEsika != 1 ? tagEsika
@@ -448,17 +463,25 @@ function GetCatalogosLinksByCampania(data, campania) {
                     : "0";
 
         var elemItem = "[data-cam='" + campania + "'][data-cat='" + tagCat + "']";
-        $(idCat).find(elemItem).find("[data-tipo='content']").hide();
+        //$(idCat).find(elemItem).find("[data-tipo='content']").hide();
         $(elemItem).attr("data-estado", estado);
 
-        var codigoISSUU = '', urlCat;
+        var codigoISSUU = '', urlCat, tagCatActual, urlCatActual;
         $.each(data.listCatalogo, function (key, catalogo) {
             if (catalogo.marcaCatalogo.toLowerCase() == tagCat.toLowerCase()) {
                 codigoISSUU = catalogo.DocumentID;
                 urlCat = catalogo.SkinURL;
             }
         });
-        cont++;
+
+        //tagCatActual = tagCat;
+        //urlCatActual = urlCat;
+        //if (contDiv == 1) {
+        //    tagCatActual = tagTodo;
+        //    urlCatActual = GetUrlCampaniaActual(campania, 'PE', '035821619');
+        //}
+
+        cont++;        
         if (codigoISSUU == '') {
             $(idCat).find(elemItem).find("[data-tipo='img']").attr("href", linkCat[tagCat]);
             $(idCat).find(elemItem).find("[data-tipo='img']").attr("onclick", "SetGoogleAnalytics('','Ver catálogo','" + tagCat + "')");
@@ -469,10 +492,10 @@ function GetCatalogosLinksByCampania(data, campania) {
             var n = getNumeroCampania(campania);
             $(idCat).find(elemItem).find("[data-tipo='img']").attr("onclick", "SetGoogleAnalytics('" + codigoISSUU + "','Ver catálogo','" + tagCat + "')");
             $(idCat).find(elemItem).find("[data-tipo='img']").attr("href", urlCat);
-            $(idCat).find(elemItem).find("#txtUrl" + tagCat).val(urlCat);
+            if (contDiv != 1) $(idCat).find(elemItem).find("#txtUrl" + tagCat).val(urlCat);
             $(idCat).find(elemItem).find("[data-tipo='img'] img").attr("src", imgIssuu.replace("{img}", codigoISSUU));
 
-            $(idCat).find(elemItem).find("[data-accion='face']").attr("title", 'FB-' + tagCat + ' C' + n + a);
+            if (contDiv != 1) $(idCat).find(elemItem).find("[data-accion='face']").attr("title", 'FB-' + tagCat + ' C' + n + a);
             $(idCat).find(elemItem).find("[data-tipo='img']").attr("title", 'Ver-' + tagCat + ' C' + n + a);
         }
     }

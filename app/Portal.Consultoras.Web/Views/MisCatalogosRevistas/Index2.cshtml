@@ -160,19 +160,19 @@
                             Compartir
                         </button>
                         <div class="row flex-row align-items-center ml-0 mr-0 mx-auto opciones__compartir__catalogos">
-                            <a href="" class="d-block col-3 col-lg col-xl pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--whatsapp" title="Compartir por WhatsApp">
+                            <a class="d-block col-3 col-lg col-xl pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--whatsapp" title="Compartir por WhatsApp" data-accion="whatsapp" onclick="RedesSociales.CompartirWhatsAppActual('{tipoCatalogoTodo}', '{campania}', '{textourl}')">
                                 <img class="d-block mx-auto" src="@Url.Content("~/Content/Images/logo_whatsapp.svg")" alt="Compartir por WhatsApp" />
                             </a>
-                            <a href="" class="d-block col-3 col-lg col-xl pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--facebook" title="Compartir por Facebook">
+                            <a class="d-block col-3 col-lg col-xl pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--facebook" title="Compartir por Facebook" data-accion="face" onclick="RedesSociales.CompartirFacebookActual('{tipoCatalogoTodo}', '{campania}', '{textourl}')">
                                 <img class="d-block mx-auto" src="@Url.Content("~/Content/Images/logo_facebook2.svg")" alt="Compartir por Facebook" />
                             </a>
-                            <a href="" class="d-block col-3 col-lg col-xl pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--email" title="Compartir por Email">
+                            <a class="d-block col-3 col-lg col-xl pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--email" title="Compartir por Email" data-accion="mail" onclick="javascript: RedesSociales.AbrirCompartirCorreoActual('{tipoCatalogoTodo}', '{campania}');">
                                 <img class="d-block mx-auto" src="@Url.Content("~/Content/Images/logo_gmail.svg")" alt="Compartir por Email" />
                             </a>
-                            <a href="" class="d-block col-3 col-lg col-xl pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--facebookMessenger" title="Compartir por Facebook Messenger">
+                            <a class="d-block col-3 col-lg col-xl pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--facebookMessenger" title="Compartir por Facebook Messenger">
                                 <img class="d-block mx-auto" src="@Url.Content("~/Content/Images/logo__facebook__messenger.svg")" alt="Compartir por Facebook Messenger" />
                             </a>
-                            <a href="" class="d-block text-center text-uppercase opcion__compartir__catalogo opcion__compartir__catalogo--copiarEnlace" title="Copiar enlace">
+                            <a class="d-block text-center text-uppercase opcion__compartir__catalogo opcion__compartir__catalogo--copiarEnlace" title="Copiar enlace">
                                 Copiar enlace
                             </a>
                         </div>
@@ -227,22 +227,20 @@
                                 Compartir
                             </button>
                             <div class="row flex-row align-items-center ml-0 mr-0 mx-auto opciones__compartir__catalogos">
-                                <div data-tipo="descrip" style="display:none;">{descripcion}</div>
-                                <input id="txtUrl{tipoCatalogoTodo}" type="hidden" value="" />
-                                <a class="d-block col-3 col-lg col-xl pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--whatsapp" title="Compartir por WhatsApp">
+                                <a class="d-block col-3 col-lg col-xl pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--whatsapp" title="Compartir por WhatsApp" data-accion="whatsapp" onclick="RedesSociales.CompartirWhatsAppActual('{tipoCatalogoTodo}', '{campania}', '{textourl}')">
                                     <img class="d-block mx-auto" src="@Url.Content("~/Content/Images/logo_whatsapp.svg")" alt="Compartir por WhatsApp" />
                                 </a>
-                                <a class="d-block col-3 col-lg col-xl pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--facebook" title="Compartir por Facebook" data-accion="face" onclick="RedesSociales.CompartirFacebookActual('{tipoCatalogoTodo}', '{campania}', this)">
+                                <a class="d-block col-3 col-lg col-xl pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--facebook" title="Compartir por Facebook" data-accion="face" onclick="RedesSociales.CompartirFacebookActual('{tipoCatalogoTodo}', '{campania}', '{textourl}')">
                                     <img class="d-block mx-auto" src="@Url.Content("~/Content/Images/logo_facebook2.svg")" alt="Compartir por Facebook" />
                                 </a>
-                                <a class="d-block col-3 col-lg col-xl pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--email" title="Compartir por Email">
+                                <a class="d-block col-3 col-lg col-xl pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--email" title="Compartir por Email" data-accion="mail" onclick="javascript: RedesSociales.AbrirCompartirCorreoActual('{tipoCatalogoTodo}', '{campania}');">
                                     <img class="d-block mx-auto" src="@Url.Content("~/Content/Images/logo_gmail.svg")" alt="Compartir por Email" />
                                 </a>
                                 <a class="d-block col-3 col-lg col-xl pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--facebookMessenger" title="Compartir por Facebook Messenger">
                                     <img class="d-block mx-auto" src="@Url.Content("~/Content/Images/logo__facebook__messenger.svg")" alt="Compartir por Facebook Messenger" />
                                 </a>
                                 <a class="d-block text-center text-uppercase opcion__compartir__catalogo opcion__compartir__catalogo--copiarEnlace" title="Copiar enlace">
-                                     Copiar enlace
+                                    Copiar enlace
                                 </a>
                             </div>
                         </div>
@@ -298,7 +296,7 @@
         </div>
         <div class="Label_compartir">Mensaje (Editable):</div>
         <textarea name="comentarios" class="text_compartir" id="comentarios" maxlength="500"></textarea>
-        <div class="Label_compartir">Catálogos a enviar:</div>
+        <div class="Label_compartir" id="divDescEnviar">Catálogos a enviar:</div>
         <hr class="clear" />
         <div id="divCheckbox">
             <div data-cat="Esika">
@@ -358,13 +356,15 @@
 
 @section scripts{
     <script type="text/javascript" id="js-ready-Catalogo">
+        var demo = true;
 
+        var urlPiloto = '@Constantes.CatalogoUrlDefault.Piloto';
+        var codigoConsultora = ViewBag.CodigoConsultoraDL;
         var imgNoDisponible = '@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")';
         var imgIssuu = '@Constantes.CatalogoUrlParameters.UrlPart01' +
             '{img}' +
             '@Constantes.CatalogoUrlParameters.UrlPart02Alternativo';
         imgIssuu = imgIssuu.startsWith("https") ? imgIssuu.replace("https://", "http://") : imgIssuu;
-        var codigoIso = '@ViewBag.CodigoISO';
         var urlObtenerPortadaRevista = '@Url.Action("ObtenerPortadaRevista", "Catalogo", new { area = "Mobile" })';
         var defaultImageRevista = '@Url.Content("~/Content/Images/revista_no_disponible.jpg")';
         var urlIconoClienteAutoCompletar = '@Url.Content("~/Content/Images/Esika/user.jpg")';
