@@ -304,6 +304,7 @@
         texto = texto.ReplaceAll(":", "%3A");
         texto = texto.ReplaceAll("?", "%3F");
         texto = texto.ReplaceAll("=", "%3D");
+        texto = texto.ReplaceAll("&", "%26");
 
         var url = "https://api.whatsapp.com/send?text=" + texto;
         window.open(url, 'WhatsApp');
