@@ -277,10 +277,11 @@ function CargarCarruselCatalogo() {
             xHtmlItemCatalogoPasosActual = $(xHtmlItemCatalogoPasosActual).html();
             xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{tipoCatalogoTodo}/g, tagTodo);
             xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{campania}/g, anio + nro);
-            xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{textourl}/g, GetUrlTextoActual());
+            xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{textourl}/g, GetUrlTextoActual(anio + nro));
 
             $("#idSection" + i).append(xHtmlItemCatalogoPasosActual);
             $("#idSection" + i).addClass(" catalogos__campania--actual");
+            $("#txtUrlActual").val(GetUrlTextoActual(anio + nro));
         }
         else if (i == 2) $("#idSection" + i).addClass(" catalogos__campania--siguiente");
     }
@@ -431,6 +432,24 @@ function GetUrlTextoActual(campania) {
     return url;
 }
 
+function CopiarEnlaceActual(catalogo, campania) {
+
+    //var textourl = $(btn).click(function () {
+    //    return $("#txtUrlActual").val();
+    //});
+    //copiarAlPortapapeles(textourl);
+    var copyTextarea = $('#txtUrlActual');
+    copyTextarea.select();
+
+    try {
+        var successful = document.execCommand('copy');
+        var msg = successful ? 'successful' : 'unsuccessful';
+        console.log('Copying text command was ' + msg);
+    } catch (err) {
+        console.log('Oops, unable to copy');
+    }
+}
+
 function GetCatalogosLinksByCampania(data, campania) {
     waitingDialog();
     $.ajaxSetup({ cache: false });
@@ -466,20 +485,13 @@ function GetCatalogosLinksByCampania(data, campania) {
         //$(idCat).find(elemItem).find("[data-tipo='content']").hide();
         $(elemItem).attr("data-estado", estado);
 
-        var codigoISSUU = '', urlCat, tagCatActual, urlCatActual;
+        var codigoISSUU = '', urlCat, urlTexto;
         $.each(data.listCatalogo, function (key, catalogo) {
             if (catalogo.marcaCatalogo.toLowerCase() == tagCat.toLowerCase()) {
                 codigoISSUU = catalogo.DocumentID;
                 urlCat = catalogo.SkinURL;
             }
         });
-
-        //tagCatActual = tagCat;
-        //urlCatActual = urlCat;
-        //if (contDiv == 1) {
-        //    tagCatActual = tagTodo;
-        //    urlCatActual = GetUrlCampaniaActual(campania, 'PE', '035821619');
-        //}
 
         cont++;        
         if (codigoISSUU == '') {
@@ -488,6 +500,14 @@ function GetCatalogosLinksByCampania(data, campania) {
             $(idCat).find(elemItem).find("[data-tipo='img'] img").attr("src", imgNoDisponible);
         }
         else {
+
+            var urlCatWS = urlCat;
+            urlCatWS = urlCatWS.ReplaceAll("/", "%2F");
+            urlCatWS = urlCatWS.ReplaceAll(":", "%3A");
+            urlCatWS = urlCatWS.ReplaceAll("?", "%3F");
+            urlCatWS = urlCatWS.ReplaceAll("=", "%3D");
+            urlCatWS = urlCatWS.ReplaceAll("&", "%26");
+
             var a = getAnioCampania(campania);
             var n = getNumeroCampania(campania);
             $(idCat).find(elemItem).find("[data-tipo='img']").attr("onclick", "SetGoogleAnalytics('" + codigoISSUU + "','Ver catálogo','" + tagCat + "')");
@@ -497,6 +517,8 @@ function GetCatalogosLinksByCampania(data, campania) {
 
             if (contDiv != 1) $(idCat).find(elemItem).find("[data-accion='face']").attr("title", 'FB-' + tagCat + ' C' + n + a);
             $(idCat).find(elemItem).find("[data-tipo='img']").attr("title", 'Ver-' + tagCat + ' C' + n + a);
+
+            if (contDiv != 1) $(idCat).find(elemItem).find("[data-accion='whatsapp']").attr("href", "https://api.whatsapp.com/send?text=" + urlCatWS);
         }
     }
     FinRenderCatalogo();

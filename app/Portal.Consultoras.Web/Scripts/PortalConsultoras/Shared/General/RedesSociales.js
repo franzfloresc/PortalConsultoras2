@@ -308,7 +308,7 @@
 
         var url = "https://api.whatsapp.com/send?text=" + texto;
         window.open(url, 'WhatsApp');
-    }
+    }   
 
     var TagManagerWS = function (catalogo, campaniaCatalogo) {
         dataLayer.push({

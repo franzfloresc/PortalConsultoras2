@@ -121,7 +121,7 @@
                         <div data-tipo="descrip" style="display:none;">{descripcion}</div>
                         <input id="txtUrl{tipoCatalogo}" type="hidden" value="" />
 
-                        <a class="col-4 col-lg-6 col-xl-6 pl-0 pr-0 row flex-row justify-content-center align-items-center ml-0 mr-0 modo__compartir__catalogo modo__compartir__catalogo--whatsapp mostrarEnMobile" title="Compartir por WhatsApp">
+                        <a class="col-4 col-lg-6 col-xl-6 pl-0 pr-0 row flex-row justify-content-center align-items-center ml-0 mr-0 modo__compartir__catalogo modo__compartir__catalogo--whatsapp mostrarEnMobile" title="Compartir por WhatsApp" data-accion="whatsapp" onclick="RedesSociales.TagManagerWS('{comp}','{campania}');">
                             <img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_ws2.png")" alt="Compartir por WhatsApp" />
                         </a>
                         <a class="col-4 col-lg-6 col-xl-6 pl-0 pr-0 row flex-row justify-content-center align-items-center ml-0 mr-0 modo__compartir__catalogo modo__compartir__catalogo--facebook" title="Compartir por Facebook" data-accion="face" onclick="RedesSociales.CompartirFacebook('{comp}', '{campania}', this)">
@@ -160,6 +160,7 @@
                             Compartir
                         </button>
                         <div class="row flex-row align-items-center ml-0 mr-0 mx-auto opciones__compartir__catalogos">
+                            <input id="txtUrlActual" value="" class="txtUrlActual"/>
                             <a class="d-block col-3 col-lg col-xl pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--whatsapp" title="Compartir por WhatsApp" data-accion="whatsapp" onclick="RedesSociales.CompartirWhatsAppActual('{tipoCatalogoTodo}', '{campania}', '{textourl}')">
                                 <img class="d-block mx-auto" src="@Url.Content("~/Content/Images/logo_whatsapp.svg")" alt="Compartir por WhatsApp" />
                             </a>
@@ -172,7 +173,7 @@
                             <a class="d-block col-3 col-lg col-xl pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--facebookMessenger" title="Compartir por Facebook Messenger">
                                 <img class="d-block mx-auto" src="@Url.Content("~/Content/Images/logo__facebook__messenger.svg")" alt="Compartir por Facebook Messenger" />
                             </a>
-                            <a class="d-block text-center text-uppercase opcion__compartir__catalogo opcion__compartir__catalogo--copiarEnlace" title="Copiar enlace">
+                            <a class="d-block text-center text-uppercase opcion__compartir__catalogo opcion__compartir__catalogo--copiarEnlace" title="Copiar enlace" data-accion="copiar" onclick="javascript: CopiarEnlaceActual('{tipoCatalogoTodo}', '{campania}')">
                                 Copiar enlace
                             </a>
                         </div>
@@ -239,7 +240,7 @@
                                 <a class="d-block col-3 col-lg col-xl pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--facebookMessenger" title="Compartir por Facebook Messenger">
                                     <img class="d-block mx-auto" src="@Url.Content("~/Content/Images/logo__facebook__messenger.svg")" alt="Compartir por Facebook Messenger" />
                                 </a>
-                                <a class="d-block text-center text-uppercase opcion__compartir__catalogo opcion__compartir__catalogo--copiarEnlace" title="Copiar enlace">
+                                <a class="d-block text-center text-uppercase opcion__compartir__catalogo opcion__compartir__catalogo--copiarEnlace" title="Copiar enlace" data-accion="copiar" onclick="javascript: CopiarEnlaceActual('{tipoCatalogoTodo}', '{campania}')">
                                     Copiar enlace
                                 </a>
                             </div>
@@ -370,6 +371,23 @@
         <input type="hidden" name="campaniaRevista" id="campaniaRevista" value="">
     }
 </div>
+
+
+    
+<style type="text/css">
+    .txtUrlActual{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        border: none;
+        outline: none;
+        box-shadow: none;
+        background: transparent;
+    }
+</style>        
 
 @section scripts{
     <script type="text/javascript" id="js-ready-Catalogo">
