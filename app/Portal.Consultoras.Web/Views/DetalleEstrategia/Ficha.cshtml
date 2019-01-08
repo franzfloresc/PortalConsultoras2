@@ -12,7 +12,7 @@
         @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/Ficha-Esika")
     }
     else
-    {   
+    {
         @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/Ficha-Lbel")
     }
 }
@@ -32,7 +32,7 @@
 
             </div>
         </div>
-       
+
         <script id="detalle_ficha_template" type="text/x-handlebars-template">
             <div id="dvSeccionIzquierdo" class="ficha_producto">
                 <div id="dvSeccionFoto">
@@ -345,7 +345,7 @@
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/EstrategiaAgregar")
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Ficha")
 
-<script type="text/javascript">
+    <script type="text/javascript">
         AbrirLoad();
 
         var fichaModule;
@@ -373,7 +373,8 @@
                     idPlantillaProducto: "#producto-landing-template",
                     divCarruselContenedor: "#divFichaCarrusel",
                     idTituloCarrusel: "#tituloCarrusel",
-                    divCarruselProducto: "#divFichaCarruselProducto"
+                    divCarruselProducto: "#divFichaCarruselProducto",
+                    OrigenPedidoWeb: "@Model.OrigenUrl"
                 });
                 carruselModule.Inicializar();
             }
@@ -384,5 +385,5 @@
 
         })
 
-</script>
+    </script>
 }

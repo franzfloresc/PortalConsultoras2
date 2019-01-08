@@ -193,6 +193,27 @@ var AnalyticsPortalModule = (function () {
     // Ini - Metodos Iniciales
     ////////////////////////////////////////////////////////////////////////////////////////
 
+
+    var _getEstructuraOrigenPedidoWeb = function (origen) {
+        var origenEstructura = origen || {};
+        origenEstructura.OrigenPedidoWeb = (origenEstructura.OrigenPedidoWeb || "").toString().trim();
+        origenEstructura.CodigoPalanca = (origenEstructura.CodigoPalanca || "").toString().trim();
+
+        if (origenEstructura.OrigenPedidoWeb.length < ConstantesModule.OrigenPedidoWebEstructura.Dimension) {
+            origenEstructura.OrigenPedidoWeb = "";
+        }
+
+        var codigoOrigenPedido = origenEstructura.OrigenPedidoWeb;
+
+        origenEstructura.Pagina = (origenEstructura.Pagina || codigoOrigenPedido.substring(1, 3)).toString().trim();
+        origenEstructura.Palanca = (origenEstructura.Palanca || codigoOrigenPedido.substring(3, 5)).toString().trim();
+        origenEstructura.Seccion = (origenEstructura.Seccion || codigoOrigenPedido.substring(5, 7)).toString().trim();
+
+        console.log("_getEstructuraOrigenPedidoWeb", origen, origenEstructura);
+
+        return origenEstructura;
+    }
+
     var _getTextoContenedorSegunOrigen = function (origenEstructura) {
 
         origenEstructura.CodigoPalanca = origenEstructura.CodigoPalanca || "";
@@ -227,7 +248,7 @@ var AnalyticsPortalModule = (function () {
             return element.Codigo == origenEstructura.Palanca;
         });
 
-        if (seccion == undefined) {
+        if (seccion == undefined && origenEstructura.CodigoPalanca != "") {
             var seccion = _origenPedidoWebEstructura.Palanca.find(function (element) {
                 return element.CodigoPalanca == origenEstructura.CodigoPalanca;
             });
@@ -242,17 +263,19 @@ var AnalyticsPortalModule = (function () {
 
     var _getParametroListSegunOrigen = function (origenEstructura) {
 
+        origenEstructura = _getEstructuraOrigenPedidoWeb(origenEstructura);
+
         var contendor = _getTextoContenedorSegunOrigen(origenEstructura);
         var pagina = _getTextoPaginaSegunOrigen(origenEstructura);
         var palanca = _getTextoPalancaSegunOrigen(origenEstructura);
 
         var separador = " - ";
         var texto = contendor;
-        texto = texto != ""
+        texto += texto != ""
             ? ((pagina != "" ? separador : "") + pagina)
             : pagina;
 
-        texto = texto != ""
+        texto += texto != ""
             ? ((palanca != "" ? separador : "") + palanca)
             : palanca;
 
