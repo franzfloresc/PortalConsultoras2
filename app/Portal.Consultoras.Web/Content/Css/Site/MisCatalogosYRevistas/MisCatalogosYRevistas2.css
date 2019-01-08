@@ -355,6 +355,7 @@ hr{
 .modo__compartir__catalogo{
     height:30px;
     max-width:47%;
+    cursor:pointer;
 }
 
     .modo__compartir__catalogo img{
