@@ -671,18 +671,27 @@ input[type='checkbox']:checked + span:after {
     margin-bottom: 10px;
 }
 
-.icono_mensaje_alerta {
-    width: 40px;
-    height: 40px;
+.icono_mensaje_alerta,
+.icono_exclamacion_alerta
+{
+    width: 55px;
+    height: 55px;
     margin: 0 auto;
 }
 
 .icono_check_alerta {
     background: url(/Content/Images/Esika/icono_check_esika.png) center center no-repeat;
-    background-size: 80%;
+    background-size: 100%;
 }
 
-.texto_mensaje_alerta {
+.icono_exclamacion_alerta{
+    background: url(/Content/Images/Esika/icono_advertencia.png) center center no-repeat;
+    background-size: 100%;
+}
+
+.texto_mensaje_alerta,
+.texto_mensaje_alerta span
+{
     font-family: 'Lato';
     font-weight: 300;
     font-size: 28px;
@@ -707,12 +716,17 @@ input[type='checkbox']:checked + span:after {
     line-height: 45px;
     margin: auto;
     margin-top: 30px;
-    background: #df3d3d;
-    color: #fff;
+    background: #e81c36;
     font-family: 'Lato';
     font-weight: 900;
     text-align: center;
     font-size: 13px;
+}
+
+.btn_ok_alerta,
+.btn_ok_alerta:hover
+{
+    color: #fff!important;
 }
 
 /* FIN - POPUP MENSAJES ALERTA */
@@ -1115,6 +1129,22 @@ input[type='checkbox']:checked + span:after {
     }
 
     /* FIN - POPUP COMPARTIR CATÁLOGO MOBILE */
+
+    /* POPUPS MENSAJES DE ALERTA MOBILE */
+
+    .content_mensaje_alerta{
+        width: 90%;
+        max-width: 511px;
+        height: auto;
+        padding-bottom: 40px;
+    }
+
+    .sub_texto_alerta{
+        padding-left:22px;
+        padding-right:22px;
+    }
+
+    /* FIN - POPUPS MENSAJES DE ALERTA MOBILE */
 
 }
 
