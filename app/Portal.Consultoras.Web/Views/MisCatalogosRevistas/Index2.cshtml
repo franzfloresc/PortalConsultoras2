@@ -357,13 +357,15 @@
 
 @section scripts{
     <script type="text/javascript" id="js-ready-Catalogo">
+        var demo = true;
 
+        var urlPiloto = '@Constantes.CatalogoUrlDefault.Piloto';
+        var codigoConsultora = ViewBag.CodigoConsultoraDL;
         var imgNoDisponible = '@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")';
         var imgIssuu = '@Constantes.CatalogoUrlParameters.UrlPart01' +
             '{img}' +
             '@Constantes.CatalogoUrlParameters.UrlPart02Alternativo';
         imgIssuu = imgIssuu.startsWith("https") ? imgIssuu.replace("https://", "http://") : imgIssuu;
-        var codigoIso = '@ViewBag.CodigoISO';
         var urlObtenerPortadaRevista = '@Url.Action("ObtenerPortadaRevista", "Catalogo", new { area = "Mobile" })';
         var defaultImageRevista = '@Url.Content("~/Content/Images/revista_no_disponible.jpg")';
         var urlIconoClienteAutoCompletar = '@Url.Content("~/Content/Images/Esika/user.jpg")';

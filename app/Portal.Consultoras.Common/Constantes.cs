@@ -1263,6 +1263,7 @@ namespace Portal.Consultoras.Common
             public const string Esika = "http://www.esika.biz";
             public const string Lbel = "http://www.lbel.com";
             public const string Cyzone = "http://www.cyzone.com";
+            public const string Piloto = "http://catalogodigital.somosbelcorp.com?campaign={0}&iso={1}&consultant={2}";
         }
 
         public static class CatalogoUrlIssu
