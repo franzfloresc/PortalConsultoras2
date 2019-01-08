@@ -151,16 +151,24 @@ hr{
     max-width:500px;
 }
 
-.btn__compartir{
-    font-family:'Lato', sans-serif;
-    background-color:#b9007e;
-    color:#FFF;
-    border-radius:12px;
-    height:70px;
-    letter-spacing:1px;
-    border:none;
-    font-size:16px;
-    cursor:pointer;
+.btn__compartir {
+    font-family: 'Lato', sans-serif;
+    background-color: #b9007e;
+    color: #FFF;
+    border-radius: 12px;
+    height: 70px;
+    letter-spacing: 1px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.btn__compartir:hover{
+    opacity:0.8;
 }
 
 .btn__compartir--slider{

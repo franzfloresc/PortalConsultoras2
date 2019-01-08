@@ -156,6 +156,14 @@ hr{
     border:none;
     font-size:16px;
     cursor:pointer;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.btn__compartir:hover{
+    opacity:0.8;
 }
 
 .btn__compartir--slider{
