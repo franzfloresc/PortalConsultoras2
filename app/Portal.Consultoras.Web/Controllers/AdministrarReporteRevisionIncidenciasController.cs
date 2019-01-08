@@ -16,7 +16,7 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class AdministrarReporteRevisionIncidenciasController : BaseAdmController
     {
-        protected string _dbdefault = "dbdefault";
+        //protected string _dbdefault = "dbdefault";
 
         protected OfertaBaseProvider _ofertaBaseProvider;
 
@@ -108,7 +108,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                bool dbdefault = HttpUtility.ParseQueryString(((System.Web.HttpRequestWrapper)Request).UrlReferrer.Query)[_dbdefault].ToBool();
+                //bool dbdefault = HttpUtility.ParseQueryString(((System.Web.HttpRequestWrapper)Request).UrlReferrer.Query)[_dbdefault].ToBool();
 
                 if (ModelState.IsValid)
                 {
@@ -278,7 +278,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                bool dbdefault = HttpUtility.ParseQueryString(((System.Web.HttpRequestWrapper)Request).UrlReferrer.Query)[_dbdefault].ToBool();
+                //bool dbdefault = HttpUtility.ParseQueryString(((System.Web.HttpRequestWrapper)Request).UrlReferrer.Query)[_dbdefault].ToBool();
 
                 if (ModelState.IsValid)
                 {
@@ -337,7 +337,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                bool dbdefault = HttpUtility.ParseQueryString(((System.Web.HttpRequestWrapper)Request).UrlReferrer.Query)[_dbdefault].ToBool();
+                //bool dbdefault = HttpUtility.ParseQueryString(((System.Web.HttpRequestWrapper)Request).UrlReferrer.Query)[_dbdefault].ToBool();
 
                 if (ModelState.IsValid)
                 {
