@@ -381,6 +381,11 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     var tippingPoint = _configuracionProgramaNuevasBusinessLogic.Get(consultoraNuevas);
                     if (tippingPoint.IndExigVent == "1") pedido.TippingPoint = tippingPoint.MontoVentaExigido;
                 }
+
+                //Duo Perfecto
+                if(usuario.CodigoPrograma != string.Empty && usuario.ConsecutivoNueva > 0)
+                    lstDetalle.Where(x => x.FlagNueva && x.EnRangoProgNuevas)
+                        .Update( x => x.EsDuoPerfecto = _programaNuevasBusinessLogic.EsCuvDuoPerfecto(usuario.PaisID, usuario.CampaniaID, usuario.ConsecutivoNueva, usuario.CodigoPrograma, x.CUV));
             }
             catch (Exception ex)
             {
