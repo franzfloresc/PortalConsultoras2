@@ -165,7 +165,7 @@ namespace Portal.Consultoras.Web.Controllers
                 guiaNegocio = SessionManager.GetGuiaNegocio();
                 estrategiaODD = SessionManager.OfertaDelDia.Estrategia;
                 configEstrategiaSR = SessionManager.GetEstrategiaSR() ?? new ConfigModel();
-                buscadorYFiltro = SessionManager.GetBuscadorYFiltros();
+                buscadorYFiltro = SessionManager.GetBuscadorYFiltrosConfig();
 
                 if (!configEstrategiaSR.CargoEntidadesShowRoom)
                 {
@@ -736,9 +736,9 @@ namespace Portal.Consultoras.Web.Controllers
         }
         protected void RegistrarLogDynamoDB(InLogUsabilidadModel Log)
         {
-            var dataString = string.Empty;
             try
             {
+                Log = Log ?? new InLogUsabilidadModel();
                 Log.Fecha = "";
                 Log.Pais = userData.CodigoISO;
                 Log.Region = userData.CodigorRegion;
@@ -757,7 +757,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO, dataString);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
         }
         protected void ActualizarDatosLogDynamoDB(MisDatosModel p_modelo, string p_origen, string p_aplicacion, string p_Accion, string p_CodigoConsultoraBuscado = "", string p_Seccion = "")
@@ -1086,6 +1086,7 @@ namespace Portal.Consultoras.Web.Controllers
                 // odd
                 ViewBag.OfertaDelDia = _ofertaDelDiaProvider.GetOfertaDelDiaConfiguracion(userData);
                 ViewBag.TieneOfertaDelDia = _ofertaDelDiaProvider.CumpleOfertaDelDia(userData, GetControllerActual());
+                ViewBag.MostrarBannerSuperiorOdd = _ofertaDelDiaProvider.MostrarBannerSuperiorOdd(userData, GetControllerActual());
             }
             catch (Exception ex)
             {
@@ -1310,8 +1311,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var variableEstrategia = new VariablesGeneralEstrategiaModel
             {
-                PaisHabilitado = WebConfig.PaisesMicroservicioPersonalizacion,
-                TipoEstrategiaHabilitado = WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion
+                PaisHabilitado = SessionManager.GetConfigMicroserviciosPersonalizacion().PaisHabilitado, //WebConfig.PaisesMicroservicioPersonalizacion,
+                TipoEstrategiaHabilitado = SessionManager.GetConfigMicroserviciosPersonalizacion().EstrategiaHabilitado //WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion
             };
             return variableEstrategia;
         }
@@ -1356,5 +1357,21 @@ namespace Portal.Consultoras.Web.Controllers
             return stream => processor.Secure(stream, password);
         }
 
+        public string ObtenerFlagActivacionRecomendaciones()
+        {
+            var configuracionPaisDatos = SessionManager.GetRecomendacionesConfig()
+                .ConfiguracionPaisDatos
+                .FirstOrDefault(a => a.Codigo.Equals(Constantes.CodigoConfiguracionRecomendaciones.ActivarRecomendaciones));
+            return configuracionPaisDatos != null ? configuracionPaisDatos.Valor1 : "0";
+        }
+
+        public int ObtenerNumeroMaximoCaracteresRecomendaciones(bool esMobile)
+        {
+            var configuracionPaisDatos = SessionManager.GetRecomendacionesConfig()
+                .ConfiguracionPaisDatos
+                .FirstOrDefault(a => a.Codigo.Equals(Constantes.CodigoConfiguracionRecomendaciones.CaracteresDescripcion));
+            if (esMobile ) return configuracionPaisDatos != null ?  configuracionPaisDatos.Valor2.ToInt() : 35;
+            return configuracionPaisDatos != null ? configuracionPaisDatos.Valor1.ToInt() : 37;
+        }
     }
 }

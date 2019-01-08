@@ -803,8 +803,6 @@ namespace Portal.Consultoras.Web.Providers
                 nombreProducto = o.NombreProducto,
                 imagenProducto = o.ImagenProducto,
                 activo = o.Activo,
-                //usuarioCreacion = string,
-                //fechaCreacion = 2018 - 09 - 07T17 = 38 = 03.887Z,
                 usuarioModificacion = userData.CodigoUsuario,
                 fechaModificacion = DateTime.Now,
             });
@@ -851,7 +849,7 @@ namespace Portal.Consultoras.Web.Providers
             UsuarioModel userData = sessionManager.GetUserData();
             string jsonParameters = string.Empty;
 
-            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlReporteValidacion,tipo,campaniaId,WebConfig.PaisesMicroservicioPersonalizacion);
+            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlReporteValidacion,tipo,campaniaId);
             var taskApi = Task.Run(() => RespSBMicroservicios(jsonParameters, requestUrl, "get", userData));
             Task.WhenAll(taskApi);
             string content = taskApi.Result;

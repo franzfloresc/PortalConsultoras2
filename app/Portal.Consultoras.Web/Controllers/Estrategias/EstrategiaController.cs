@@ -205,7 +205,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 
                 listModel = _ofertaPersonalizadaProvider.SetCodigoPalancaMostrar(listModel, palanca);
 
-                var cantidadTotal = listModel.Count + listPerdio.Count();
+                var cantidadTotal = listModel.Count + listPerdio.Count;
 
                 var guarda = !_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, palanca);
 
@@ -236,7 +236,8 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 {
                     success = false,
                     message = "Error al cargar los productos",
-                    data = ""
+                    data = "",
+                    ex = Common.LogManager.GetMensajeError(ex)
                 });
             }
         }

@@ -13,6 +13,8 @@ using Portal.Consultoras.Web.SessionManager.OfertaDelDia;
 using Portal.Consultoras.Web.SessionManager.ShowRoom;
 using System;
 using System.Collections.Generic;
+using Portal.Consultoras.Web.Models.Recomendaciones;
+using Portal.Consultoras.Web.Models.Estrategia;
 
 namespace Portal.Consultoras.Web.SessionManager
 {
@@ -260,10 +262,17 @@ namespace Portal.Consultoras.Web.SessionManager
         int GetLimElectivosProgNuevas();
         void SetLimElectivosProgNuevas(int limElectivos);
 
-        void SetBuscadorYFiltros(BuscadorYFiltrosConfiguracionModel buscadorYFiltrosModel);
+        void SetBuscadorYFiltrosConfig(BuscadorYFiltrosConfiguracionModel buscadorYFiltrosModel);
 
-        BuscadorYFiltrosConfiguracionModel GetBuscadorYFiltros();
-        
+        BuscadorYFiltrosConfiguracionModel GetBuscadorYFiltrosConfig();
+
+        void SetConfigMicroserviciosPersonalizacion(MSPersonalizacionConfiguracionModel msPersonalizacionModel);
+        MSPersonalizacionConfiguracionModel GetConfigMicroserviciosPersonalizacion();
+
+        void SetRecomendacionesConfig(RecomendacionesConfiguracionModel recomendacionesConfiguracionModel);
+
+        RecomendacionesConfiguracionModel GetRecomendacionesConfig();
+
         void SetOcultarBannerApp(dynamic val);
 
         dynamic GetOcultarBannerApp();
@@ -321,9 +330,17 @@ namespace Portal.Consultoras.Web.SessionManager
 
         FichaProductoDetalleModel GetFichaProductoTemporal();
 
+        void SetCDRPedidoFacturado(List<BEPedidoWeb> val);
+
+        List<BEPedidoWeb> GetCDRPedidoFacturado();
+
         void SetCDRCampanias(List<CampaniaModel> val);
 
         List<CampaniaModel> GetCDRCampanias();
+
+        void SetCDRPedidoID(List<CampaniaModel> val);
+
+        List<CampaniaModel> GetCDRPedidoID();
 
         void SetListaCDRDetalle(CDRWebModel val);
 
@@ -483,5 +500,6 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetJwtApiSomosBelcorp(string token);
         
         string GetJwtApiSomosBelcorp();
+
     }
 }

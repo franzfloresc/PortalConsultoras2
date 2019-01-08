@@ -1,4 +1,6 @@
-﻿<script id="ofertadeldia-template" type="text/x-handlebars-template">
+﻿@using Portal.Consultoras.Common
+
+<script id="ofertadeldia-template" type="text/x-handlebars-template">
 
     <div data-odd-tipoventana="baner" data-OrigenPedidoWeb="{{OrigenPedidoWeb}}">
         <div class="content_oferta_dia" id="banner-odd" data-item="">
@@ -8,7 +10,7 @@
             <div class="content_oferta_dia_img derecha_img">
                 <img src="" alt="" style="width: 100%; margin-top: 10px;">
             </div>
-            <div style="display:none;" data-item-campos="" >
+            <div style="display:none;" data-item-campos="">
                 <input data-estrategia="{{JSON2string prod}}" />
             </div>
             <div class="solo_hoy">
@@ -24,11 +26,21 @@
                 <span>{{SimboloMoneda}} {{PrecioOfertaFormat}}</span>
             </div>
             <div style="float: left">
-                <input type="hidden" value="1" style="color:white" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup txtcantidad-odd" tabindex="0" data-input="cantidad" >
+
+                {{#iff prod.TipoAccionAgregar '==' '@Constantes.TipoAccionAgregar.EligeOpcion'}}
+                <a class="btn_agrega_set_dia" onclick="javascript:OnClickFichaDetalle(event.target);">
+                    <img style="width: 17px" src="/Content/Images/click-icon-white.svg" alt="" />
+                    ELIGE TU OPCIÓN
+                </a>
+                {{else}}
+                <input type="hidden" value="1" style="color:white" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup txtcantidad-odd" tabindex="0" data-input="cantidad">
                 <a class="btn_agrega_set_dia"
-                   href="javascript:;" 
-                   onclick="javascript: EstrategiaAgregarModule.EstrategiaAgregar(event, true, 1);"
-                   >AGRÉGALO YA</a>
+                   href="javascript:;"
+                   onclick="javascript: EstrategiaAgregarModule.EstrategiaAgregar(event, true, 1);">
+                    AGRÉGALO YA
+                </a>
+                {{/iff}}
+
             </div>
             <a class="btn_detalle_hoy" data-odd-cantidad="{{CantidadProductos}}" onclick="OfertaDelDiaModule.IrContenedorOfertas();">
                 <div class="circulo_hoy"><span id="odd_simbolo_ver_ofertas">+</span></div>

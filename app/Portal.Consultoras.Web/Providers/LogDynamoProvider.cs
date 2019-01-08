@@ -30,7 +30,7 @@ namespace Portal.Consultoras.Web.Providers
             _configuracionManager = new ConfiguracionManagerProvider();
         }
 
- 
+
 
         public void EjecutarLogDynamoDB(UsuarioModel userParametro, bool esMobile, string campomodificacion, string valoractual, string valoranterior, string origen, string aplicacion, string accion, string codigoconsultorabuscado, string seccion = "")
         {
@@ -142,10 +142,6 @@ namespace Portal.Consultoras.Web.Providers
             var dataString = string.Empty;
             try
             {
-
-
-                
-
                 var urlApi = _configuracionManager.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlLogDynamo);
 
                 if (string.IsNullOrEmpty(urlApi)) return;

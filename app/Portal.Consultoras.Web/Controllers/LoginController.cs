@@ -26,8 +26,10 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
+using Portal.Consultoras.Web.Models.Recomendaciones;
 using BEConfiguracionPaisDatos = Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos;
 using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
+using Portal.Consultoras.Web.Models.Estrategia;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -35,7 +37,7 @@ namespace Portal.Consultoras.Web.Controllers
     {
         private string pasoLog;
         private int misCursos = 0;
-        private int flagMiAcademiaVideo = 0;  
+        private int flagMiAcademiaVideo = 0;
         private string urlSapParametro = "";
 
         private readonly string IP_DEFECTO = "190.187.154.154";
@@ -72,16 +74,16 @@ namespace Portal.Consultoras.Web.Controllers
         {
             MisCursos();
 
-          
+
 
             if (EsUsuarioAutenticado())
             {
                 if (misCursos > 0)
                 {
                     sessionManager.SetMiAcademia(misCursos);
-                    sessionManager.SetMiAcademiaVideo(flagMiAcademiaVideo); 
+                    sessionManager.SetMiAcademiaVideo(flagMiAcademiaVideo);
                     sessionManager.SetMiAcademiaParametro(urlSapParametro);
-                    
+
                     return RedirectToAction("Index", "MiAcademia");
                 }
 
@@ -188,12 +190,12 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     misCursos = Convert.ToInt32(MiId[0]);
                     TempData["MiAcademia"] = misCursos;
-                    
+
                     if (MiCurso[0].ToUpper() == "MIACADEMIAVIDEO")
                     {
                         flagMiAcademiaVideo = 1;
                     }
-                    
+
                     else
                     {
                         TempData["FlagAcademiaVideo"] = 0;
@@ -402,7 +404,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             pasoLog = "Login.Redireccionar";
             var usuario = await GetUserData(paisId, codigoUsuario);
-            
+
             if (usuario == null)
             {
                 if (Request.IsAjaxRequest())
@@ -425,8 +427,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (misCursos > 0)
             {
-                flagMiAcademiaVideo = Convert.ToInt32(TempData["FlagAcademiaVideo"]);  
-                sessionManager.SetMiAcademiaVideo(flagMiAcademiaVideo);  
+                flagMiAcademiaVideo = Convert.ToInt32(TempData["FlagAcademiaVideo"]);
+                sessionManager.SetMiAcademiaVideo(flagMiAcademiaVideo);
 
                 returnUrl = Url.Action("Index", "MiAcademia");
 
@@ -824,7 +826,8 @@ namespace Portal.Consultoras.Web.Controllers
                     case Constantes.IngresoExternoPagina.PedidosFIC:
                         return RedirectToUniqueRoute("PedidoFIC", "Index", null);
                     case Constantes.IngresoExternoPagina.DetalleEstrategia:
-                        if (string.IsNullOrEmpty(model.NombrePalanca)) {
+                        if (string.IsNullOrEmpty(model.NombrePalanca))
+                        {
                             model.NombrePalanca = Constantes.NombrePalanca.Palancas.Keys.Contains(model.PalancaID) ?
                                 Constantes.NombrePalanca.Palancas[model.PalancaID] : model.PalancaID;
                         }
@@ -1288,12 +1291,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                         #endregion
 
-                        #region ConfiguracionPais
-
-                        usuarioModel = await ConfiguracionPaisUsuario(usuarioModel);
-
-                        #endregion
-
                         #region LLamadas asincronas 
 
                         var flexiPagoTask = Task.Run(() => GetPermisoFlexipago(usuario));
@@ -1301,13 +1298,11 @@ namespace Portal.Consultoras.Web.Controllers
                         var fechaPromesaTask = Task.Run(() => GetFechaPromesaEntrega(usuario));
                         var linkPaisTask = Task.Run(() => GetLinksPorPais(usuario.PaisID));
                         var usuarioComunidadTask = Task.Run(() => EsUsuarioComunidad(usuario));
-                        var personalizacionesTask = Task.Run(() => GetPersonalizaiones(usuarioModel));
 
-                        Task.WaitAll(flexiPagoTask, notificacionTask, fechaPromesaTask, linkPaisTask, usuarioComunidadTask, personalizacionesTask);
+                        Task.WaitAll(flexiPagoTask, notificacionTask, fechaPromesaTask, linkPaisTask, usuarioComunidadTask);
 
                         usuarioModel.IndicadorPermisoFlexipago = flexiPagoTask.Result;
                         usuarioModel.TieneNotificaciones = notificacionTask.Result;
-                        usuarioModel.PersonalizacionesDummy = personalizacionesTask.Result;
 
                         var fechaPromesa = fechaPromesaTask.Result;
                         if (!string.IsNullOrEmpty(fechaPromesa))
@@ -1328,10 +1323,60 @@ namespace Portal.Consultoras.Web.Controllers
 
                         usuarioModel.EsUsuarioComunidad = usuarioComunidadTask.Result;
 
-                       
+
 
                         #endregion
+
+                        #region ConfiguracionPais
+                        usuarioModel = await ConfiguracionPaisUsuario(usuarioModel);
+                        #endregion
                     }
+
+                    List<ConfiguracionPaisModel> configuracionesPaisModels = await GetConfiguracionPais(usuarioModel);
+                    if (configuracionesPaisModels.Any())
+                    {
+                        List<BEConfiguracionPaisDatos> configuracionPaisDatosAll = await GetConfiguracionPaisDatos(usuarioModel);
+                        MSPersonalizacionConfiguracionModel msPersonalizacionModel = new MSPersonalizacionConfiguracionModel();
+
+
+                        List<BEConfiguracionPaisDatos> configuracionPaisDatos = new List<BEConfiguracionPaisDatos>();
+
+                        try
+                        {
+                            foreach (ConfiguracionPaisModel config in configuracionesPaisModels)
+                            {
+                                configuracionPaisDatos = configuracionPaisDatosAll.Where(campo => campo.ConfiguracionPaisID == config.ConfiguracionPaisID).ToList();
+
+                                if (config.Codigo == Constantes.ConfiguracionPais.MicroserviciosPersonalizacion)
+                                {
+                                    break;
+                                }
+                            }
+
+                            msPersonalizacionModel.EstrategiaHabilitado = configuracionPaisDatos.Where(config => config.Codigo == Constantes.CodigoConfiguracionMSPersonalizacion.EstrategiaDisponible).Select(config => config.Valor1).FirstOrDefault() ?? string.Empty;
+                            msPersonalizacionModel.PaisHabilitado = string.Empty;
+                            if (msPersonalizacionModel.EstrategiaHabilitado != string.Empty)
+                            {
+                                msPersonalizacionModel.PaisHabilitado = usuarioModel.CodigoISO;
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            msPersonalizacionModel.PaisHabilitado = WebConfig.PaisesMicroservicioPersonalizacion;
+                            msPersonalizacionModel.EstrategiaHabilitado = WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion;
+                            Common.LogManager.SaveLog(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
+                        }
+
+                        if (msPersonalizacionModel.EstrategiaHabilitado == null && msPersonalizacionModel.PaisHabilitado == null)
+                        {
+                            msPersonalizacionModel.EstrategiaHabilitado = string.Empty;
+                            msPersonalizacionModel.PaisHabilitado = string.Empty;
+                            Common.LogManager.SaveLog(new Exception("La configuración MSPersonalizacion se encuentra deshabilitado en la tabla configuracionpais.", null), usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
+                        }
+
+                        sessionManager.SetConfigMicroserviciosPersonalizacion(msPersonalizacionModel);
+                    }
+
 
                     if (usuarioModel.CatalogoPersonalizado != 0)
                     {
@@ -1340,8 +1385,6 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     usuarioModel.JwtToken = await Common.JwtAutentication.getWebTokenAsync(JwtContext.Instance);
 
-
-                   
                     using (var usuarioCliente = new UsuarioServiceClient())
                     {
                         var insert = usuarioCliente.ActualizarNovedadBuscadorAsync(usuarioModel.PaisID, usuarioModel.CodigoUsuario);
@@ -1364,10 +1407,7 @@ namespace Portal.Consultoras.Web.Controllers
                     sessionManager.SetTieneHvX1(true);
                     sessionManager.SetJwtApiSomosBelcorp(usuarioModel.JwtToken);
                     sessionManager.SetTieneMg(true);
-
-
-
-
+                                                         
                     usuarioModel.FotoPerfil = usuario.FotoPerfil;
                     usuarioModel.FotoOriginalSinModificar = usuario.FotoOriginalSinModificar;
                     usuarioModel.DiaFacturacion = GetDiaFacturacion(usuarioModel.PaisID, usuarioModel.CampaniaID, usuarioModel.ConsultoraID, usuarioModel.ZonaID, usuarioModel.RegionID);
@@ -1501,27 +1541,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return result != null;
-        }
-
-        private async Task<string> GetPersonalizaiones(UsuarioModel usuarioModel)
-        {
-            if (usuarioModel.IndicadorConsultoraDummy == 0) return "";
-            var resultado = "";
-
-            try
-            {
-                BuscadorYFiltrosProvider personalizacion = new BuscadorYFiltrosProvider();
-                resultado = await personalizacion.GetPersonalizacion(usuarioModel);
-            }
-            catch (Exception ex)
-            {
-                logManager.LogErrorWebServicesBusWrap(ex, usuarioModel.CodigoUsuario, usuarioModel.PaisID.ToString(), "LoginController.GetPersonalizaiones");
-                return "";
-            }
-
-
-            return resultado;
-        }
+        }        
 
         private async Task<ServiceUsuario.BEUsuario> ActualizarDatosHana(UsuarioModel model)
         {
@@ -1870,6 +1890,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var listaConfiPaisModel = new List<ConfiguracionPaisModel>();
                 var buscadorYFiltrosModel = new BuscadorYFiltrosConfiguracionModel();
                 var masGanadorasModel = new MasGanadorasModel();
+                var recomendacionesConfiguacionModel = new RecomendacionesConfiguracionModel();
                 var showroomConfigModel = new ConfigModel();
 
                 if (configuracionesPaisModels.Any())
@@ -1943,12 +1964,12 @@ namespace Portal.Consultoras.Web.Controllers
                                 herramientasVentaModel = ConfiguracionPaisHerramientasVenta(herramientasVentaModel, configuracionPaisDatos);
                                 break;
                             case Constantes.ConfiguracionPais.BuscadorYFiltros:
-                                usuarioModel.IndicadorConsultoraDummy = 0;
+                                buscadorYFiltrosModel.IndicadorConsultoraDummy = 0;
                                 buscadorYFiltrosModel = ConfiguracionPaisBuscadorYFiltro(buscadorYFiltrosModel, configuracionPaisDatos);
                                 var listaDummy = configuracionPaisDatos.Where(n => n.Codigo == Constantes.TipoConfiguracionBuscador.ConsultoraDummy).ToList();
                                 if (listaDummy.Any())
                                 {
-                                    usuarioModel.IndicadorConsultoraDummy = listaDummy[0].Valor1.ToInt();
+                                    buscadorYFiltrosModel.IndicadorConsultoraDummy = listaDummy[0].Valor1.ToInt();
                                 }
                                 break;
                             case Constantes.ConfiguracionPais.MasGanadoras:
@@ -1958,11 +1979,17 @@ namespace Portal.Consultoras.Web.Controllers
                             case Constantes.ConfiguracionPais.ShowRoom:
                                 showroomConfigModel = ConfiguracionPaisDatosShowRoom(showroomConfigModel, configuracionPaisDatos);
                                 break;
+                            case Constantes.ConfiguracionPais.Recomendaciones:
+                                recomendacionesConfiguacionModel =
+                                    ConfiguracionPaisRecomendaciones(recomendacionesConfiguacionModel,
+                                        configuracionPaisDatos);
+                                break;
                         }
 
                         listaConfiPaisModel.Add(c);
                     }
 
+                
                     revistaDigitalModel.Campania = usuarioModel.CampaniaID % 100;
                     revistaDigitalModel.CampaniaMasUno = Util.AddCampaniaAndNumero(Convert.ToInt32(usuarioModel.CampaniaID), 1, usuarioModel.NroCampanias) % 100;
                     revistaDigitalModel.NombreConsultora = usuarioModel.Sobrenombre;
@@ -1974,7 +2001,8 @@ namespace Portal.Consultoras.Web.Controllers
                     sessionManager.SetConfiguracionesPaisModel(listaConfiPaisModel);
                     sessionManager.SetOfertaFinalModel(ofertaFinalModel);
                     sessionManager.SetHerramientasVenta(herramientasVentaModel);
-                    sessionManager.SetBuscadorYFiltros(buscadorYFiltrosModel);
+                    sessionManager.SetBuscadorYFiltrosConfig(buscadorYFiltrosModel);
+                    sessionManager.SetRecomendacionesConfig(recomendacionesConfiguacionModel);
                     sessionManager.MasGanadoras.SetModel(masGanadorasModel);
                     sessionManager.SetEstrategiaSR(showroomConfigModel);
                 }
@@ -2108,6 +2136,14 @@ namespace Portal.Consultoras.Web.Controllers
             return buscadorYFiltrosModel;
         }
 
+  
+
+        public virtual RecomendacionesConfiguracionModel ConfiguracionPaisRecomendaciones(RecomendacionesConfiguracionModel recomendacionesConfiguracionModel, List<BEConfiguracionPaisDatos> listaDatos)
+        {
+            recomendacionesConfiguracionModel.ConfiguracionPaisDatos = Mapper.Map<List<ConfiguracionPaisDatosModel>>(listaDatos) ?? new List<ConfiguracionPaisDatosModel>();
+            return recomendacionesConfiguracionModel;
+        }
+
         public virtual RevistaDigitalModel ConfiguracionPaisDatosRevistaDigitalIntriga(RevistaDigitalModel revistaDigital, List<BEConfiguracionPaisDatos> listaDatos, string paisIso)
         {
             try
@@ -2140,10 +2176,10 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
 
-                 
+
                 revistaDigital.DLogoMenuInicioActiva = GetValor1WithS3(listaDatos, Constantes.ConfiguracionPaisDatos.RDI.LogoMenuRevistaDigitaIntrigaActiva, paisIso);
-                 revistaDigital.DLogoMenuInicioNoActiva = GetValor1WithS3(listaDatos, Constantes.ConfiguracionPaisDatos.RDI.LogoMenuRevistaDigitaIntrigaNoActivo, paisIso);
-                
+                revistaDigital.DLogoMenuInicioNoActiva = GetValor1WithS3(listaDatos, Constantes.ConfiguracionPaisDatos.RDI.LogoMenuRevistaDigitaIntrigaNoActivo, paisIso);
+
                 confPaisDatoTmp = listaDatos.FirstOrDefault(d =>
                     d.Codigo == Constantes.ConfiguracionPaisDatos.RDI.LogoComercialFondo);
                 if (confPaisDatoTmp != null)
