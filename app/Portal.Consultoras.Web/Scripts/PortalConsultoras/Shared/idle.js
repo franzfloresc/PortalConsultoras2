@@ -94,6 +94,10 @@ var store = (function () {
             stopDialogTimer();
             startIdleTimer();
         };
+
+        this.restarTimer = function() {
+            startIdleTimer();
+        };
       //##############################
       //## Private Functions
       //##############################
@@ -116,12 +120,12 @@ var store = (function () {
       //----------- ACTIVITY DETECTION FUNCTION --------------//
       activityDetector = function () {
   
-        $('body').on(currentConfig.activityEvents, function () {
+        //$('body').on(currentConfig.activityEvents, function () {
   
-          if (!currentConfig.enableDialog || (currentConfig.enableDialog && isDialogOpen() !== true)) {
-            startIdleTimer();
-          }
-        });
+        //  if (!currentConfig.enableDialog || (currentConfig.enableDialog && isDialogOpen() !== true)) {
+        //    startIdleTimer();
+        //  }
+        //});
       };
   
       //----------- IDLE TIMER FUNCTIONS --------------//

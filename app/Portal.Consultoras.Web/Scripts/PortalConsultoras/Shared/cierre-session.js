@@ -3,6 +3,10 @@
     //    registerCloseEvent();
     //}
     configureTimeoutPopup();
+
+    $(document).ajaxComplete(function( event, xhr, settings ) {
+        $.fn.idleTimeout().restarTimer();
+    });
 });
 
 function configureTimeoutPopup() {
