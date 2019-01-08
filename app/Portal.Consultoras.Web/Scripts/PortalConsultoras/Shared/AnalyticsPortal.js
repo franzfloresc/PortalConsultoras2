@@ -578,7 +578,7 @@ var AnalyticsPortalModule = (function () {
             var esFicha = typeof seccion !== "undefined" ? seccion.Seccion == "Ficha" : false;
             var esCarrusel = false;
             if (!(event == null)) {
-                if (codigoSeccion == '05')
+                if (codigoSeccion == '05' || codigoSeccion=='01')
                     esCarrusel = true;
             }
 
@@ -1070,6 +1070,8 @@ var AnalyticsPortalModule = (function () {
     }
 
     var marcaGenericaClic = function (element, codigoOrigenPedido) {
+
+
         var codigoPagina = codigoOrigenPedido.toString().substring(1, 3);
 
         var pagina = _constantes.paginas.find(function (element) {
