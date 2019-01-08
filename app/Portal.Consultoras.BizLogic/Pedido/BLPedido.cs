@@ -2598,7 +2598,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             //validacion duo perfecto
             if (esDuoPerfecto)
             {
-                cntProd = lstDetalle.Where(x => x.FlagNueva && x.EnRangoProgNuevas).ToList().Count();
+                cntProd = lstDetalle.Where(x => x.FlagNueva && x.EnRangoProgNuevas).Count();
 
                 if (cntProd == 2)
                     return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_DUO_COMPLETO_COMPLETO, string.Format(Constantes.ProgNuevas.Mensaje.Electivo_NoAgregarPorLimite, Constantes.ProgNuevas.Mensaje.Electivo_PromocionNombre));
