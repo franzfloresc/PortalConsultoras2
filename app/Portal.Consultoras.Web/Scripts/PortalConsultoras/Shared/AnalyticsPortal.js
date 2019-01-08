@@ -231,34 +231,47 @@ var AnalyticsPortalModule = (function () {
 
     var _getTextoPaginaSegunOrigen = function (origenEstructura) {
 
-        var seccion = _origenPedidoWebEstructura.Pagina.find(function (element) {
+        var obj = _origenPedidoWebEstructura.Pagina.find(function (element) {
             return element.Codigo == origenEstructura.Pagina;
         });
 
-        if (seccion == undefined) {
+        if (obj == undefined) {
             return "";
         }
 
-        return seccion.TextoList || "";
+        return obj.TextoList || "";
     }
 
     var _getTextoPalancaSegunOrigen = function (origenEstructura) {
 
-        var seccion = _origenPedidoWebEstructura.Palanca.find(function (element) {
+        var obj = _origenPedidoWebEstructura.Palanca.find(function (element) {
             return element.Codigo == origenEstructura.Palanca;
         });
 
-        if (seccion == undefined && origenEstructura.CodigoPalanca != "") {
-            var seccion = _origenPedidoWebEstructura.Palanca.find(function (element) {
+        if (obj == undefined && origenEstructura.CodigoPalanca != "") {
+            var obj = _origenPedidoWebEstructura.Palanca.find(function (element) {
                 return element.CodigoPalanca == origenEstructura.CodigoPalanca;
             });
         }
 
-        if (seccion == undefined) {
+        if (obj == undefined) {
             return "";
         }
 
-        return seccion.TextoList || "";
+        return obj.TextoList || "";
+    }
+
+    var _getTextoSeccionSegunOrigen = function (origenEstructura) {
+
+        var obj = _origenPedidoWebEstructura.Seccion.find(function (element) {
+            return element.Codigo == origenEstructura.Seccion;
+        });
+
+        if (obj == undefined) {
+            return "";
+        }
+
+        return obj.TextoList || "";
     }
 
     var _getParametroListSegunOrigen = function (origenEstructura) {
@@ -266,11 +279,21 @@ var AnalyticsPortalModule = (function () {
         origenEstructura = _getEstructuraOrigenPedidoWeb(origenEstructura);
 
         var contendor = _getTextoContenedorSegunOrigen(origenEstructura);
-        var pagina = _getTextoPaginaSegunOrigen(origenEstructura);
+        var pagina = "";
+
+        if (origenEstructura.Seccion == ConstantesModule.OrigenPedidoWebEstructura.Seccion.CarruselVerMas) {
+            pagina = _getTextoSeccionSegunOrigen(origenEstructura);
+        }
+        else {
+            pagina = _getTextoPaginaSegunOrigen(origenEstructura);
+        }
+
         var palanca = _getTextoPalancaSegunOrigen(origenEstructura);
 
         var separador = " - ";
         var texto = contendor;
+
+
         texto += texto != ""
             ? ((pagina != "" ? separador : "") + pagina)
             : pagina;
@@ -446,7 +469,7 @@ var AnalyticsPortalModule = (function () {
             console.log('Analytics - _marcarProductImpresionSegunLista Inicio', data);
 
             var parametroList = _getParametroListSegunOrigen(data.Origen);
-            console.log('Analytics - _marcarProductImpresionSegunLista - parametroList', parametroList);
+            console.log('Analytics - _marcarProductImpresionSegunLista - parametroList => ', parametroList);
 
             var lista = data.lista;
             var cantidadMostrar = lista.length == 1 ? 1 : data.CantidadMostrar;
@@ -462,7 +485,7 @@ var AnalyticsPortalModule = (function () {
                         'category': _texto.notavaliable,
                         'variant': _texto.estandar,
                         'list': parametroList,
-                        'position': (item.Position == undefined ? index : item.position) + 1
+                        'position': (item.Position == undefined ? index : item.Position) + 1
                     };
 
                     impressions.push(impression);
@@ -2493,7 +2516,7 @@ var AnalyticsPortalModule = (function () {
             console.log(_texto.excepcion + e);
         }
     }
-    
+
     var marcaProductImpressionViewRecomendacionesMobile = function (data, index) {
         try {
 
