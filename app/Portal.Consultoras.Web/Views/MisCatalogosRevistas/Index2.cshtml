@@ -30,7 +30,7 @@
         <div class="col pl-0 pr-0 descarga__tu__app__catalogos__img">
             <img src="@Url.Content("~/Content/Images/Mobile/Esika/fondo_app.png")" alt="Descarga tu app de catálogos" />
         </div>
-        <div class="col-5 pl-0 pr-0 descarga__tu__app__catalogos__texto">
+        <div class="col-6 pl-0 pr-0 descarga__tu__app__catalogos__texto">
             <h3 class="text-bold text-uppercase">Descarga tu<br />app de catálogos</h3>
             <p class="text-thin">@textApp</p>
         </div>
@@ -160,7 +160,7 @@
                             Compartir
                         </button>
                         <div class="row flex-row align-items-center ml-0 mr-0 mx-auto opciones__compartir__catalogos">
-                            <input id="txtUrlActual" value="" class="txtUrlActual"/>
+                            <input id="txtUrlActual" type="hidden" value="" class="txtUrlActual"/>
                             <a class="d-block col-3 col-lg col-xl pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--whatsapp" title="Compartir por WhatsApp" data-accion="whatsapp" onclick="RedesSociales.CompartirWhatsAppActual('{tipoCatalogoTodo}', '{campania}', '{textourl}')">
                                 <img class="d-block mx-auto" src="@Url.Content("~/Content/Images/logo_whatsapp.svg")" alt="Compartir por WhatsApp" />
                             </a>
@@ -371,23 +371,6 @@
         <input type="hidden" name="campaniaRevista" id="campaniaRevista" value="">
     }
 </div>
-
-
-    
-<style type="text/css">
-    .txtUrlActual{
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 1px;
-        height: 1px;
-        padding: 0;
-        border: none;
-        outline: none;
-        box-shadow: none;
-        background: transparent;
-    }
-</style>        
 
 @section scripts{
     <script type="text/javascript" id="js-ready-Catalogo">
