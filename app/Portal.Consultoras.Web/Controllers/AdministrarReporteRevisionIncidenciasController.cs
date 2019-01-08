@@ -31,8 +31,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return RedirectToAction("Index", "Bienvenida");
 
             string paisIso = Util.GetPaisISO(userData.PaisID);
-            var carpetaPais = Globals.UrlMatriz + "/" + paisIso;
-            var urlS3 = ConfigCdn.GetUrlCdn(carpetaPais);
+            var urlS3 = ConfigCdn.GetUrlCdnMatriz(paisIso);
 
             var reporteValidacionModel = new ReporteRevisionIncidenciasModel()
             {

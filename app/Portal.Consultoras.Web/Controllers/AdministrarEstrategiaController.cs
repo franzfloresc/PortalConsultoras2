@@ -48,8 +48,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return RedirectToAction("Index", "Bienvenida");
 
                 var paisIso = Util.GetPaisISO(userData.PaisID);
-                var carpetaPais = Globals.UrlMatriz + "/" + paisIso;
-                var urlS3 = ConfigCdn.GetUrlCdn(carpetaPais);
+                var urlS3 = ConfigCdn.GetUrlCdnMatriz(paisIso);
 
                 var habilitarNemotecnico = _tablaLogicaProvider.ObtenerValorTablaLogica(userData.PaisID, Constantes.TablaLogica.Plan20,
                     Constantes.TablaLogicaDato.BusquedaNemotecnicoZonaEstrategia);

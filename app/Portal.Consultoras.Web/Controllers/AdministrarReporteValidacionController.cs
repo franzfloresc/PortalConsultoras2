@@ -38,8 +38,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return RedirectToAction("Index", "Bienvenida");
 
             string paisIso = Util.GetPaisISO(userData.PaisID);
-            var carpetaPais = Globals.UrlMatriz + "/" + paisIso;
-            var urlS3 = ConfigCdn.GetUrlCdn(carpetaPais);
+            var urlS3 = ConfigCdn.GetUrlCdnMatriz(paisIso);
 
             var reporteValidacionModel = new ReporteValidacionModel()
             {
@@ -142,8 +141,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             foreach (var item in lst)
             {
-                var carpetaPais = Globals.UrlMatriz + "/" + item.CodPais;
-                var urlS3 = ConfigCdn.GetUrlCdn(carpetaPais);
+                var urlS3 = ConfigCdn.GetUrlCdnMatriz(item.CodPais);
                 item.ImagenUrl = urlS3 + item.ImagenUrl;
             }
 

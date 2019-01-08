@@ -274,8 +274,7 @@ namespace Portal.Consultoras.Web.Controllers
         private string GetUrlS3()
         {
             var paisIso = Util.GetPaisISO(userData.PaisID);
-            var carpetaPais = Globals.UrlMatriz + "/" + paisIso;
-            return ConfigCdn.GetUrlCdn(carpetaPais);
+            return ConfigCdn.GetUrlCdnMatriz(paisIso);
         }
 
         private AdministrarPalancaModel UpdateFilesPalanca(AdministrarPalancaModel model)

@@ -297,7 +297,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 return !operacionValidaList.Any(operacion => operacion.CodigoOperacion == detalle.CodigoOperacion);
             });
-            //return false;
         }
 
         private bool ValidarRegistro(MisReclamosModel model, out string mensajeError)
