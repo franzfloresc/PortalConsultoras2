@@ -136,21 +136,17 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var listaPedidoFacturados = SessionManager.GetCDRPedidoFacturado();
                 listaPedidoFacturados = listaPedidoFacturados.Where(a => a.CampaniaID == CampaniaID).ToList();
-
-                var NroPedidos = new CampaniaModel();
-
                 if (listaPedidoFacturados.Count > 0)
                 {
                     mensaje = "";
                     foreach (var item in listaPedidoFacturados)
                     {
-                        NroPedidos = new CampaniaModel
+                        listaNroPedidos.Add(new CampaniaModel
                         {
                             NumeroPedido = item.NumeroPedido,
                             strNumeroPedido = "N° " + item.NumeroPedido + " - " + item.FechaRegistro.ToString("dd/MM/yyyy"),
-                            PedidoID = item.PedidoID                            
-                        };
-                        listaNroPedidos.Add(NroPedidos);
+                            PedidoID = item.PedidoID
+                        });
                     }
                 }                               
 
