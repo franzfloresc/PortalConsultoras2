@@ -228,17 +228,16 @@
                                 Compartir
                             </button>
                             <div class="row flex-row align-items-center ml-0 mr-0 mx-auto opciones__compartir__catalogos">
-                                
                                 <a class="d-block col-3 col-lg col-xl pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--whatsapp" title="Compartir por WhatsApp" data-accion="whatsapp" onclick="RedesSociales.CompartirWhatsAppActual('{tipoCatalogoTodo}', '{campania}', '{textourl}')">
                                     <img class="d-block mx-auto" src="@Url.Content("~/Content/Images/logo_whatsapp.svg")" alt="Compartir por WhatsApp" />
                                 </a>
-                                <a class="d-block col pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--facebook" title="Compartir por Facebook" data-accion="face" onclick="RedesSociales.CompartirFacebookActual('{tipoCatalogoTodo}', '{campania}', '{textourl}')">
+                                <a class="d-block col-3 col-lg col-xl pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--facebook" title="Compartir por Facebook" data-accion="face" onclick="RedesSociales.CompartirFacebookActual('{tipoCatalogoTodo}', '{campania}', '{textourl}')">
                                     <img class="d-block mx-auto" src="@Url.Content("~/Content/Images/logo_facebook2.svg")" alt="Compartir por Facebook" />
                                 </a>
-                                <a class="d-block col pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--email" title="Compartir por Email" data-accion="mail" onclick="javascript: RedesSociales.AbrirCompartirCorreoActual('{tipoCatalogoTodo}', '{campania}');">
+                                <a class="d-block col-3 col-lg col-xl pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--email" title="Compartir por Email" data-accion="mail" onclick="javascript: RedesSociales.AbrirCompartirCorreoActual('{tipoCatalogoTodo}', '{campania}');">
                                     <img class="d-block mx-auto" src="@Url.Content("~/Content/Images/logo_gmail.svg")" alt="Compartir por Email" />
                                 </a>
-                                <a class="d-block col pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--facebookMessenger" title="Compartir por Facebook Messenger">
+                                <a class="d-block col-3 col-lg col-xl pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--facebookMessenger" title="Compartir por Facebook Messenger">
                                     <img class="d-block mx-auto" src="@Url.Content("~/Content/Images/logo__facebook__messenger.svg")" alt="Compartir por Facebook Messenger" />
                                 </a>
                                 <a class="d-block text-center text-uppercase opcion__compartir__catalogo opcion__compartir__catalogo--copiarEnlace" title="Copiar enlace" data-accion="copiar" onclick="javascript: CopiarEnlaceActual('{tipoCatalogoTodo}', '{campania}')">
@@ -257,24 +256,41 @@
         <!-- FIN - SECCIÓN CARRUSEL DE CATÁLOGOS CAMPAÑA ANTERIOR, ACTUAL Y SIGUIENTE -->
 
         <!-- SECCIÓN MI REVISTA -->
-        <section class="col-12 pl-0 pr-0 row flex-row justify-content-center align-items-start ml-0 mr-0 mi__revista__wrapper contenido__seccion__mi__revista">
-            <div class="col-12 text-center pl-0 pr-0 revista__por__campania__num">
-                <span class="text-uppercase text-bold">Revista </span>
-                <span class="text-uppercase text-bold num__campania">C18</span>
+        <section id="contentRevista" class="col-12 pl-0 pr-0 row flex-row justify-content-center align-items-start ml-0 mr-0 mi__revista__wrapper contenido__seccion__mi__revista">
+            <div class="col-12 text-center pl-0 pr-0 revista__por__campania__num" data-titulo='revista'>
+                <span class="text-uppercase text-bold">Revista C-18</span>
             </div>
+
+            <!-- CONTENIDO SECCIÓN MI REVISTA CUANDO TIENE GND -->
             <div class="col-12 col-lg-6 col-xl-6 pl-0 pr-0 row flex-row justify-content-center justify-content-lg-between justify-content-xl-between align-items-center ml-0 mr-0 mi__revista">
-                <a href="javascript:;" title="Mi Revista" class="col-12 col-lg-6 col-xl-6 pl-0 pr-0 d-block mi__revista__imagen">
-                    <img src="@Url.Content("~/Content/Images/revista_no_disponible.jpg")" alt="Mi Revista" />
+                <a href="javascript:;" id="lbPortadaGana" title="Mi Revista" class="col-12 col-lg-6 col-xl-6 pl-0 pr-0 d-block mi__revista__imagen">
+                    <img src="@Url.Content("~/Content/Images/revista_no_disponible.jpg")" id="imgPortadaGana" alt="Mi Revista" />
                 </a>
                 <div class="col-12 col-lg-6 col-xl-6 pl-0 pr-0 text-center mi__revista__info">
                     <p class="col-6 col-lg-12 col-xl-12 pl-0 pr-0 mx-auto mi__revista__info__texto">
                         Tu guía de negocio por siempre, <span class="text-bold text-uppercase">Ahora digital</span>
                     </p>
-                    <button class="col-12 pl-0 pr-0 text-uppercase btn__encuentra__aqui__tu__revista__digital">
+                    <a href="@Url.Action("Index", "GuiaNegocio")" target="_blank" class="d-block col-12 pl-0 pr-0 text-uppercase mx-auto btn__encuentra__aqui__tu__revista__digital">
                         Encuéntrala aquí
-                    </button>
+                    </a>
                 </div>
             </div>
+            <!-- FIN - CONTENIDO SECCIÓN MI REVISTA CUANDO TIENE GND -->
+
+            <!-- CONTENIDO SECCIÓN MI REVISTA CUANDO NO TIENE GND -->
+            <div class="col-12 col-lg-5 col-xl-5 pl-0 pr-0 row flex-row justify-content-around align-items-center ml-0 mr-0 revistas__por__campania__slider" style="display:none;">
+                <a data-accion="a" class="col-1 pl-0 pr-0 row flex-row justify-content-start align-items-start align-items-lg-center align-items-xl-center ml-0 mr-0 revistas__por__campania__slider__control revistas__por__campania__slider__control__izq" title="Atrás">
+                    <img src="@Url.Content("~/Content/Images/arrow_left.svg")" alt="" onclick="RevistaMostrar(-1, this)" />
+                </a>
+                <a href="javascript:;" onclick="MostrarMiRevista();" id="lbPortadaGana" title="Mi Revista" class="col-12 col-lg-6 col-xl-6 pl-0 pr-0 d-block mi__revista__imagen">
+                    <img src="@Url.Content("~/Content/Images/revista_no_disponible.jpg")" id="imgPortadaGana" alt="Mi Revista" />
+                </a>
+                <a data-accion="d" class="col-1 pl-0 pr-0 row flex-row justify-content-end align-items-start align-items-lg-center align-items-xl-center ml-0 mr-0 revistas__por__campania__slider__control revistas__por__campania__slider__control__der" title="Siguiente">
+                    <img src="@Url.Content("~/Content/Images/arrow_right.svg")" alt="" onclick="RevistaMostrar(1, this)" />
+                </a>
+            </div>
+            <!-- CONTENIDO SECCIÓN MI REVISTA CUANDO NO TIENE GND -->
+
         </section>
         <!-- FIN - SECCIÓN MI REVISTA -->
         <!-- FIN - CONTENIDO DE VISTA -->
@@ -375,13 +391,15 @@
 
 @section scripts{
     <script type="text/javascript" id="js-ready-Catalogo">
+        var demo = true;
 
+        var urlPiloto = '@Constantes.CatalogoUrlDefault.Piloto';
+        var codigoConsultora = '@ViewBag.CodigoConsultoraDL';
         var imgNoDisponible = '@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")';
         var imgIssuu = '@Constantes.CatalogoUrlParameters.UrlPart01' +
             '{img}' +
             '@Constantes.CatalogoUrlParameters.UrlPart02Alternativo';
         imgIssuu = imgIssuu.startsWith("https") ? imgIssuu.replace("https://", "http://") : imgIssuu;
-        var codigoIso = '@ViewBag.CodigoISO';
         var urlObtenerPortadaRevista = '@Url.Action("ObtenerPortadaRevista", "Catalogo", new { area = "Mobile" })';
         var defaultImageRevista = '@Url.Content("~/Content/Images/revista_no_disponible.jpg")';
         var urlIconoClienteAutoCompletar = '@Url.Content("~/Content/Images/Esika/user.jpg")';

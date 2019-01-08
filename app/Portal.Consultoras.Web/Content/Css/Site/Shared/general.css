@@ -416,13 +416,22 @@ body > img{
     display:none!important;
 }
 
+button:focus{
+    outline:0;
+}
+
 /* FIN - HELPERS CSS (DESKTOP) */
 
 /* POPUP VALIDACIÓN AL AGREGAR PRODUCTO CON CANTIDAD CERO*/
 
 .ui-widget-header{
     background:#FFF;
-    border:0;
+}
+
+.ui-widget-header,
+.ui-widget-content
+{
+    border:0!important;
 }
 
 #alertDialogMensajes .ui-dialog.ui-widget-content {
