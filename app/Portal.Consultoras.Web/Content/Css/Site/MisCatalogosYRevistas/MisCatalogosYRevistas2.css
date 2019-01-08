@@ -28,6 +28,40 @@ hr{
     max-width:1189px;
 }
 
+.descarga__tu__app__catalogos__banner{
+    min-height:80px;
+}
+
+.descarga__tu__app__catalogos__img{
+    max-width:42px;
+}
+
+.descarga__tu__app__catalogos__texto{
+    margin-left:12px;
+    margin-right:5px;
+    max-width:141px;
+}
+
+.descarga__tu__app__catalogos__btn{
+    border:1px solid #000;
+    border-radius:4px;
+    background-color:#FFF;
+    max-width:96px;
+    height:30px;
+    line-height:27px;
+    cursor:pointer;
+}
+
+.descarga__tu__app__catalogos__texto h3,
+.descarga__tu__app__catalogos__texto p
+{
+    font-size:14px;
+}
+
+.descarga__tu__app__catalogos__texto p{
+    margin:0;
+}
+
 .info__catalogos__revistas{
     margin-bottom:44px;
 }
@@ -355,6 +389,7 @@ hr{
 .modo__compartir__catalogo{
     height:30px;
     max-width:47%;
+    cursor:pointer;
 }
 
     .modo__compartir__catalogo img{

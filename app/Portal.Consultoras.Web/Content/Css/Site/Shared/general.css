@@ -395,6 +395,10 @@ body > img{
     font-weight:700;
 }
 
+.text-thin{
+    font-weight:300;
+}
+
 .text-underline{
     text-decoration:underline!important;
 }
