@@ -328,6 +328,8 @@ namespace Portal.Consultoras.Entities
         
         [DataMember]
         public bool EnRangoProgNuevas { get; set; }
+        [DataMember]
+        public bool EsDuoPerfecto { get; set; }
     }
 
 }
