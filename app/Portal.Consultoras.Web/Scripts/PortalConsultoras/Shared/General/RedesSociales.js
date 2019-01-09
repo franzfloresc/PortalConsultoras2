@@ -1,7 +1,8 @@
 ﻿var RedesSociales = (function () {
 
     var _variables = {
-        clickDataCompartir: "[data-compartir]"
+        clickDataCompartir: "[data-compartir]",
+        mensajeURLws: "Hola, revisa los catálogos de esta campaña y pide todo lo que quieras solo dándole click al producto que deseas"
     }
 
     var CompartirRedesSociales = function (e) {
@@ -231,8 +232,6 @@
         });
         InsertarLogCatalogoDynamo('Facebook', campaniaCatalogo, catalogo, 1);
 
-        u = "http://catalogodigital-develop.altimeafactory.com/?iso=PE&consultant=035821619&page=1";//$(btn).parents("[data-cat='" + catalogo + "']").find("#txtUrl" + catalogo).val();
-
         var popWwidth = 570;
         var popHeight = 420;
         var left = (screen.width / 2) - (popWwidth / 2);
@@ -309,11 +308,13 @@
         });
         InsertarLogCatalogoDynamo('Whatsapp', campania, catalogo, 1);
 
+        texto = _variables.mensajeURLws + texto;
         texto = texto.ReplaceAll("/", "%2F");
         texto = texto.ReplaceAll(":", "%3A");
         texto = texto.ReplaceAll("?", "%3F");
         texto = texto.ReplaceAll("=", "%3D");
         texto = texto.ReplaceAll("&", "%26");
+        texto = texto.ReplaceAll(" ", "%20");
 
         var url = "https://api.whatsapp.com/send?text=" + texto;
         window.open(url, 'WhatsApp');
