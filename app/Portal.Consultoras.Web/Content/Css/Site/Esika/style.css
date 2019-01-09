@@ -28998,6 +28998,7 @@ div.motivoRechazo textarea {
 .icono_resumen_resolucion {
     background: url('/Content/Images/RevistaDigital/icono_advertencia_notificacion_esika.svg') no-repeat top left;
     background-position: 0 33px;
+    background-size:7%;
 }
 
 .listado_estado_general {
