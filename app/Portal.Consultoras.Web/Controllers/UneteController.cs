@@ -1608,31 +1608,39 @@ namespace Portal.Consultoras.Web.Controllers
                                 abreviationZona = item.Descripcion;
                             }
                         }
-                        //CAMBIO
-                        if (!string.IsNullOrEmpty(solicitudPostulante.CodigoZona))
-                        {
-                            codigoZona = solicitudPostulante.CodigoZona;
-                        }
-                        else
-                        {
-                            codigoZona = "9999";
-                        }
+                      
+                        if (!string.IsNullOrEmpty(solicitudPostulante.CodigoZona)) { codigoZona = solicitudPostulante.CodigoZona; } else { codigoZona = "9999"; };
+                        // rlClient = string.Format("ValidacionCrediticiaExterna/Get?codigoISO={0}&numeroDocumento={1}&apellido={2}&codZona={3}&apellidoMaterno={4}&nombres={5}&fechaNacimiento={6}&direccion={7}&delegacionMunicipio={8}&ciudad={9}&estado={10}&cp={11}&tarjetaDeCredito={12}&creditoHipotecario={13}&creditoAutomotriz={14}&tipoIdentificacion={15}",
 
-                        urlClient = string.Format("/api/ValidacionCrediticiaExterna/Get?codigoISO={0}&numeroDocumento={1}&apellido={2}&codZona={3}&apellidoMaterno={4}&nombres={5}&fechaNacimiento={6}&direccion={7}&delegacionMunicipio={8}&ciudad={9}&estado={10}&cp={11}&zona={12}&tarjetaDeCredito={13}&creditoHipotecario={14}&creditoAutomotriz={15}&tipoIdentificacion={16}",
-                                         Constantes.CodigosISOPais.Mexico, solicitudPostulante.NumeroDocumento, solicitudPostulante.ApellidoPaterno, codigoZona, solicitudPostulante.ApellidoMaterno, solicitudPostulante.PrimerNombre + ' ' + solicitudPostulante.SegundoNombre, fechaFormato, calleNumero, solicitudPostulante.LugarHijo, ciudad, abreviationZona, solicitudPostulante.CodigoPostal, 9999, String.Empty, String.Empty, String.Empty, solicitudPostulante.TipoDocumento);
+                        urlClient = string.Format("/api/ValidacionCrediticiaExterna/Get?codigoISO={0}&numeroDocumento={1}&apellido={2}&codZona={3}&apellidoMaterno={4}&nombres={5}&fechaNacimiento={6}&direccion={7}&delegacionMunicipio={8}&ciudad={9}&estado={10}&cp={11}&tarjetaDeCredito={12}&creditoHipotecario={13}&creditoAutomotriz={14}&tipoIdentificacion={15}",
+                                         Constantes.CodigosISOPais.Mexico, solicitudPostulante.NumeroDocumento, solicitudPostulante.ApellidoPaterno, codigoZona, solicitudPostulante.ApellidoMaterno, solicitudPostulante.PrimerNombre + ' ' + solicitudPostulante.SegundoNombre, fechaFormato, calleNumero, solicitudPostulante.LugarHijo, ciudad, abreviationZona, Convert.ToInt32(solicitudPostulante.CodigoPostal).ToString("D5"), String.Empty, String.Empty, String.Empty, solicitudPostulante.TipoDocumento);
 
 
                         respuesta = (new Common.Rest()).GetAsync<ConsultaCrediticiaExternaMX>(urlClient);
 
 
-                        respuestaBuro = respuesta.Resultado;
-                        if (respuestaBuro.Equals("R01"))
+                        respuestaBuro = string.IsNullOrWhiteSpace(respuesta.Resultado) ? String.Empty : respuesta.Resultado;
+                        switch (respuestaBuro)
                         {
-                            string[] arrayReferenciaEntrega;
+                            case "R01":
 
-                            arrayReferenciaEntrega = solicitudPostulante.ReferenciaEntrega.Split('|');
-                            solicitudPostulante.ReferenciaEntrega = arrayReferenciaEntrega[0] + "|" + arrayReferenciaEntrega[1] + "|" + arrayReferenciaEntrega[2] + "|" + "R01";
-                            sv.ActualizarReferenciaEntregaSAC(solicitudPostulante);
+                                string[] arrayReferenciaEntrega;
+
+                                arrayReferenciaEntrega = solicitudPostulante.ReferenciaEntrega.Split('|');
+                                solicitudPostulante.ReferenciaEntrega = arrayReferenciaEntrega[0] + "|" + arrayReferenciaEntrega[1] + "|" + arrayReferenciaEntrega[2] + "|" + "R01";
+                                sv.ActualizarReferenciaEntregaSAC(solicitudPostulante);
+
+                                break;
+                            case "R03":
+                                solicitudPostulante.EstadoBurocrediticio = 3;
+                                solicitudPostulante.SubEstadoPostulante = 11;
+                                solicitudPostulante.TipoRechazo = "9";
+                                solicitudPostulante.EstadoPostulante = 4;
+                                solicitudPostulante.Direccion = null;
+                                solicitudPostulante.ReferenciaEntrega = null;
+                                sv.ActualizarReferenciaEntregaSAC(solicitudPostulante);
+
+                                break;
                         }
                         break;
 
