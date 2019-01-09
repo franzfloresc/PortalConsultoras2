@@ -91,8 +91,8 @@
                 <span class="text-uppercase text-bold" id="TextoCampania">Catálogos </span>
                 @*<span class="text-uppercase text-bold num__campania">C17</span>*@
             </div>
-            <a onclick="CatalogoMostrar(-1, this)" data-accion="a" class="col-1 pl-0 pr-0 row flex-row justify-content-start align-items-start align-items-lg-center align-items-xl-center ml-0 mr-0 catalogos__por__campania__slider__control catalogos__por__campania__slider__control__izq" title="Atrás">
-                <img src="@Url.Content("~/Content/Images/arrow_left.svg")" alt="" />
+            <a class="col-1 pl-0 pr-0 row flex-row justify-content-start align-items-start align-items-lg-center align-items-xl-center ml-0 mr-0 catalogos__por__campania__slider__control catalogos__por__campania__slider__control__izq" title="Atrás">
+                <img src="@Url.Content("~/Content/Images/arrow_left.svg")" alt="" onclick="CatalogoMostrar(-1, this)" data-accion="a" />
             </a>
 
             <div class="col-12 col-lg-10 col-xl-10 pl-0 pr-0 row flex-row justify-content-center ml-0 mr-0 catalogos__por__campania__item__slider" id="divSection">
@@ -103,7 +103,7 @@
                 <section class="col-12 pl-0 pr-0 row flex-row justify-content-center ml-0 mr-0 catalogos__por__campania__item__slider" id="{sectionid}">
                     <div class="row flex-row align-items-center ml-0 mr-0 catalogos__por__campania__item__imagenes">   
                         
-                        <div class="row flex-row align-items-center ml-0 mr-0 content_carrusel_catalogo" id={divCatalogo} >
+                        <div class="col-12 pl-0 pr-0 row flex-row align-items-center ml-0 mr-0 content_carrusel_catalogo" id={divCatalogo} >
 
                         </div>
                                         
@@ -249,8 +249,8 @@
                 </div>
             </div>    
   
-            <a onclick="CatalogoMostrar(1, this)" data-accion="s" class="col-1 pl-0 pr-0 row flex-row justify-content-end align-items-start align-items-lg-center align-items-xl-center ml-0 mr-0 catalogos__por__campania__slider__control catalogos__por__campania__slider__control__der" title="Siguiente">
-                <img src="@Url.Content("~/Content/Images/arrow_right.svg")" alt="" />
+            <a class="col-1 pl-0 pr-0 row flex-row justify-content-end align-items-start align-items-lg-center align-items-xl-center ml-0 mr-0 catalogos__por__campania__slider__control catalogos__por__campania__slider__control__der" title="Siguiente">
+                <img src="@Url.Content("~/Content/Images/arrow_right.svg")" alt="" onclick="CatalogoMostrar(1, this)" data-accion="s" />
             </a>
         </section>
         <!-- FIN - SECCIÓN CARRUSEL DE CATÁLOGOS CAMPAÑA ANTERIOR, ACTUAL Y SIGUIENTE -->
