@@ -595,10 +595,19 @@
 
             if (codigo.indexOf(codigoEstrategia) >= 0) {
                 var UrlDetalle = GetPalanca(codigoEstrategia);
+                var UrlGeneral = "";
+                
                 if (UrlDetalle == "") return false;
-                UrlDetalle += codigoCampania + "/" + codigoCuv + "/" + origenPedidoWeb;
 
-                window.location = UrlDetalle;
+                UrlDetalle += codigoCampania + "/" + codigoCuv + "/" + origenPedidoWeb;
+                
+                if (_config.isMobile) {
+                    UrlGeneral = "/Mobile" + UrlDetalle;
+                } else {
+                    UrlGeneral = UrlDetalle;
+                }
+
+                window.location = UrlGeneral;
 
                 if (!(typeof AnalyticsPortalModule === 'undefined'))
                     AnalyticsPortalModule.MarcaEligeTuOpcionBuscador(descripcionProducto + ' - ' + _config.textoBusqueda);
