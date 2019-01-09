@@ -44,6 +44,7 @@ namespace Portal.Consultoras.Web.Providers
                 return estrategias;
             }
 
+
             EstrategiaGenerico respuesta = JsonConvert.DeserializeObject<EstrategiaGenerico>(jsonString);
 
             if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
