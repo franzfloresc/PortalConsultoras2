@@ -2,7 +2,6 @@
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceSAC;
-using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +10,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class AdministrarFactoresGananciaController : BaseController
+    public class AdministrarFactoresGananciaController : BaseAdmController
     {
         public ActionResult Index()
         {
@@ -35,19 +34,6 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
             return View(new CronogramaModel());
-        }
-
-        private IEnumerable<PaisModel> DropDowListPaises()
-        {
-            List<BEPais> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = userData.RolID == 2
-                    ? sv.SelectPaises().ToList()
-                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
-            }
-
-            return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
 
         public ActionResult Consultar(string sidx, string sord, int page, int rows, string vBusqueda)

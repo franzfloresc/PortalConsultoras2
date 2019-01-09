@@ -3161,7 +3161,7 @@
             var rows = jQuery("#list").jqGrid('getRowData');
             for (i = 0; i < rows.length; i++) {
                 var row = rows[i];
-                if (paisHabilitadoMS && _config.microserviciosEstrategias.indexOf(row.CodigoTipoEstrategia) > -1) {
+                if (paisHabilitadoMS && _config.microserviciosEstrategias.indexOf(row.CodigoTipoEstrategia) > -1 && row.CodigoTipoEstrategia!="") {
                     if (!estrategiasSeleccionadasIds.includes(row.EstrategiaID)) {
                         estrategiasNoSeleccionadas.push(row._id);
                     }
@@ -3661,8 +3661,8 @@
             $.ajaxSetup({ cache: false });
             $.ajax({
                 type: "GET",
-                url: baseUrl + "AdministrarEstrategia/ObtenterCampanias",
-                data: "PaisID=" + (Id == "" ? 0 : Id),
+                url: baseUrl + "BaseAdm/ObtenerCampaniasPorUsuario",
+                //data: "PaisID=" + (Id == "" ? 0 : Id),
                 cache: false,
                 dataType: "Json",
                 success: function (data) {
