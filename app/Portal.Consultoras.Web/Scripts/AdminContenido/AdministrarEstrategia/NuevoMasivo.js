@@ -37,22 +37,17 @@
 
 
     var _showActionsVer1 = function (cellvalue, options, rowObject) {
-
+        var text;
         var cantidad = rowObject[2];
         var tipo = rowObject[3];
 
         if (tipo == "2")
             _variables.cantidadPrecargar = parseInt(cantidad);
-
         else if (tipo == "0")
             _variables.cantidadTotal = parseInt(cantidad);
 
-        var text;
         if (cantidad != "0")
-            text = rowObject[2] +
-                " <a href='javascript:;' onclick=admNuevoMasivoModulo.VerCuvsTipo('" +
-                tipo +
-                "')>ver</a>";
+            text = rowObject[2] + '<a href="javascript:;" onclick="admNuevoMasivoModulo.VerCuvsTipo(\'' + tipo + '\', \'' + rowObject[0] + '\')">Ver</a';
         else
             text = rowObject[2];
 
@@ -94,10 +89,13 @@
             }),
             mtype: "GET",
             contentType: "application/json; charset=utf-8",
-            colNames: ["Id", "Descripción", "Cantidad"],
+            colNames: ["Id", "Descripción", '2', '3', '4', "Cantidad"],
             colModel: [
                 { name: "Id", index: "Id", width: 100, editable: true, resizable: false, hidden: true },
                 { name: "Descripcion", index: "Descripcion", width: 100, editable: true, resizable: false },
+                { name: '2', index: '2', hidden: true },
+                { name: '3', index: '3', hidden: true },
+                { name: '4', index: '4', hidden: true },
                 {
                     name: "Activo",
                     index: "Activo",
@@ -235,14 +233,19 @@
 
         console.log('ejecutando de _fnGrillaEstrategias2 - gridComplete - fin');
     }
-    var _fnGrillaCuv1 = function (tipo) {
+    var _fnGrillaCuv1 = function (tipo, rowId) {
         $("#listGrillaCuv1").jqGrid("clearGridData");
+
+        var lMongoId = $('#listCargaMasiva1').jqGrid('getCell', rowId, '4');
+
+        if (!lMongoId || lMongoId.length == 0)
+            return;
 
         var parametros = {
             campaniaId: parseInt($("#ddlCampania").val()),
             tipoConfigurado: parseInt(tipo),
             estrategiaCodigo: $("#ddlTipoEstrategia").find(":selected").data("codigo"),
-            estrategiaMIds: $('#precargadosdiv').text()
+            estrategiaMIds: lMongoId
         };
 
         $("#listGrillaCuv1").setGridParam({ postData: parametros });
@@ -642,8 +645,8 @@
     }
 
     // Public functions 
-    function VerCuvsTipo(tipo) {
-        _fnGrillaCuv1(tipo);
+    function VerCuvsTipo(tipo, rowId) {
+        _fnGrillaCuv1(tipo, rowId);
     }
     function VerCuvsTipo2(tipo) {
         _fnGrillaCuv2(tipo);
