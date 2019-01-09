@@ -2557,34 +2557,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                                                                 usuario.AceptacionConsultoraDA);
             if (validacionHorario.MotivoPedidoLock != Enumeradores.MotivoPedidoLock.Ninguno)
                 return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_RESERVADO_HORARIO_RESTRINGIDO, validacionHorario.Mensaje);
-
-            //FiltrarEstrategiaPedido
-            var estrategia = FiltrarEstrategiaPedido(usuario.PaisID, pedidoDetalle.Producto.EstrategiaID, 0);
-            var cuvSet = estrategia.CUV2;
-
-            //UnidadesPermitidas
-            estrategia.Cantidad = pedidoDetalle.Cantidad;
-            var lstDetalleAgrupado = ObtenerPedidoWebSetDetalleAgrupado(usuario, out pedidoID);
-            if (lstDetalleAgrupado.Any(x => x.CUV == estrategia.CUV2))
-            {
-                var cantidadActual = lstDetalleAgrupado.Where(x => x.CUV == estrategia.CUV2).Sum(x => x.Cantidad);
-                if (cantidadActual + estrategia.Cantidad > estrategia.LimiteVenta)
-                {
-                    return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_CANTIDAD_LIMITE, null, estrategia.LimiteVenta);
-                }
-            }
-            else
-            {
-                if (estrategia.Cantidad > estrategia.LimiteVenta)
-                {
-                    return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_CANTIDAD_LIMITE, null, estrategia.LimiteVenta);
-                }
-            }
-
-            var listCuvTonos = estrategia.CUV2;
-            var tonos = listCuvTonos.Split('|');
-            var ListaCuvsTemporal = new List<string>();
-
+            
             //Obtener Detalle
             var pedidoDetalleBuscar = new BEPedidoBuscar()
             {
@@ -2598,8 +2571,11 @@ namespace Portal.Consultoras.BizLogic.Pedido
             var lstDetalle = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
             pedidoDetalle.PedidoID = pedidoID;
 
+            //Valida que producto sea de duo perfecto
             var cntProd = 0;
             var esDuoPerfecto = _programaNuevasBusinessLogic.EsCuvDuoPerfecto(usuario.PaisID, usuario.CampaniaID, usuario.ConsecutivoNueva, usuario.CodigoPrograma, pedidoDetalle.Producto.CUV);
+
+
             //validacion duo perfecto
             if (esDuoPerfecto)
             {
@@ -2608,6 +2584,33 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 if (cntProd == 2)
                     return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_DUO_COMPLETO_COMPLETO, string.Format(Constantes.ProgNuevas.Mensaje.Electivo_NoAgregarPorLimite, Constantes.ProgNuevas.Mensaje.Electivo_PromocionNombre));
             }
+
+            //FiltrarEstrategiaPedido
+            var estrategia = FiltrarEstrategiaPedido(usuario.PaisID, pedidoDetalle.Producto.EstrategiaID, 0);
+            var cuvSet = estrategia.CUV2;
+
+            //UnidadesPermitidas
+            estrategia.Cantidad = pedidoDetalle.Cantidad;
+            var lstDetalleAgrupado = ObtenerPedidoWebSetDetalleAgrupado(usuario, out pedidoID);
+            if (lstDetalleAgrupado.Any(x => x.CUV == estrategia.CUV2))
+            {
+                var cantidadActual = lstDetalleAgrupado.Where(x => x.CUV == estrategia.CUV2).Sum(x => x.Cantidad);
+                if (cantidadActual + estrategia.Cantidad > estrategia.LimiteVenta)
+                {
+                        return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_CANTIDAD_LIMITE, null, estrategia.LimiteVenta);
+                }
+            }
+            else
+            {
+                if (estrategia.Cantidad > estrategia.LimiteVenta)
+                {
+                        return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_CANTIDAD_LIMITE, null, estrategia.LimiteVenta);
+                }
+            }
+
+            var listCuvTonos = estrategia.CUV2;
+            var tonos = listCuvTonos.Split('|');
+            var ListaCuvsTemporal = new List<string>();
 
             foreach (var tono in tonos)
             {
