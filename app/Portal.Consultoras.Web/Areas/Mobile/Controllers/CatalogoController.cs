@@ -14,7 +14,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
     public class CatalogoController : BaseMobileController
     {
-        private const string TextoMensajeSaludoCorreo = "Revisa los catálogos de esta campaña y comunícate conmigo si estás interesada en algunos de los productos.";
         private readonly IssuuProvider _issuuProvider;
         private readonly ConfiguracionPaisDatosProvider _configuracionPaisDatosProvider;
         public CatalogoController()
@@ -48,7 +47,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             clienteModel.PartialSectionBpt = _configuracionPaisDatosProvider.GetPartialSectionBptModel(Constantes.OrigenPedidoWeb.SectionBptMobileCatalogo);
             
             ViewBag.EsConsultoraNueva = userData.EsConsultoraNueva;
-            ViewBag.TextoMensajeSaludoCorreo = TextoMensajeSaludoCorreo;
 
             string paisesCatalogoWhatsUp = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesCatalogoWhatsUp);
             ViewBag.ActivacionAppCatalogoWhastUp = paisesCatalogoWhatsUp.Contains(userData.CodigoISO) ? 1 : 0;

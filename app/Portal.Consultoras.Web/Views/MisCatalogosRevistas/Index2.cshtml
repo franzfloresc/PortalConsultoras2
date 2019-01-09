@@ -403,7 +403,8 @@
         var urlObtenerPortadaRevista = '@Url.Action("ObtenerPortadaRevista", "Catalogo", new { area = "Mobile" })';
         var defaultImageRevista = '@Url.Content("~/Content/Images/revista_no_disponible.jpg")';
         var urlIconoClienteAutoCompletar = '@Url.Content("~/Content/Images/Esika/user.jpg")';
-        var valContenidoCorreoDefecto = '@Html.Raw(ViewBag.TextoMensajeSaludoCorreo)';
+        var valContenidoCorreoDefecto = '@Html.Raw(Constantes.CatalogoMensajesDefault.SaludoCorreo)';
+        var valContenidoCorreoPilotoDefecto = '@Html.Raw(Constantes.CatalogoMensajesDefault.SaludoCorreoPiloto)';
         var RevistaCodigoIssuu = {
             '@Model.CampaniaAnterior': '@Model.CodigoRevistaAnterior',
             '@Model.CampaniaActual': '@Model.CodigoRevistaActual',
