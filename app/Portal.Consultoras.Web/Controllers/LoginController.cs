@@ -848,6 +848,8 @@ namespace Portal.Consultoras.Web.Controllers
                         return RedirectToUniqueRoute("HerramientasVenta", "Comprar");
                     case Constantes.IngresoExternoPagina.DuoPerfecto :
                         return RedirectToUniqueRoute("ProgramaNuevas", "Index");
+                    case Constantes.IngresoExternoPagina.PedidosPendientes:
+                        return RedirectToUniqueRoute("ConsultoraOnline", "Pendientes");
                 }
             }
             catch (Exception ex)
