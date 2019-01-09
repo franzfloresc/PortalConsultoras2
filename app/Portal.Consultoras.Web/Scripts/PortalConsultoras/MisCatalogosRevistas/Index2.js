@@ -431,7 +431,7 @@ function ObtenerEstadoCatalogo(campana, defered) {
 }
 
 function GetUrlTextoActual(campania) {
-    var url = demo ? "http://catalogodigital-develop.altimeafactory.com/?iso={0}&consultant=035821619&page=1" : urlPiloto;
+    var url = demo == '1' ? "http://catalogodigital-develop.altimeafactory.com/?iso={1}&consultant=035821619&page=1" : urlPiloto;
     url = url.replace("{0}", campania).replace("{1}", IsoPais).replace("{2}", codigoConsultora);
     return url;
 }

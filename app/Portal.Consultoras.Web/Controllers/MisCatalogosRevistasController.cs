@@ -18,7 +18,6 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class MisCatalogosRevistasController : BaseController
     {
-        private const string TextoMensajeSaludoCorreo = "Revisa los catálogos de esta campaña y comunícate conmigo si estás interesada en algunos de los productos.";
         private readonly IssuuProvider _issuuProvider;
         private readonly ConfiguracionPaisDatosProvider _configuracionPaisDatosProvider;
 
@@ -27,23 +26,8 @@ namespace Portal.Consultoras.Web.Controllers
             return View();
         }
 
-        public ActionResult Index2(string marca = "")
+        public ActionResult Index2(string marca = "", string demo = "0")
         {
-            //if (EsDispositivoMovil())
-            //{
-            //    var url = (Request.Url.Query).Split('?');
-            //    if (url.Length > 1 && url[1].Contains("sap"))
-            //    {
-            //        string sap = "&" + url[1].Remove(0, 12);
-            //        return RedirectToAction("Index", "Catalogo", new { area = "Mobile", marca, sap });
-            //    }
-            //    else
-            //    {
-            //        return RedirectToAction("Index", "Catalogo", new { area = "Mobile", marca });
-            //    }
-
-            //}
-
             var clienteModel = new MisCatalogosRevistasModel
             {
                 PaisNombre = Util.GetPaisNombreByISO(userData.CodigoISO),
@@ -59,9 +43,9 @@ namespace Portal.Consultoras.Web.Controllers
             clienteModel.CodigoRevistaAnterior = _issuuProvider.GetRevistaCodigoIssuu(clienteModel.CampaniaAnterior, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
             clienteModel.CodigoRevistaSiguiente = _issuuProvider.GetRevistaCodigoIssuu(clienteModel.CampaniaSiguiente, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
             clienteModel.PartialSectionBpt = _configuracionPaisDatosProvider.GetPartialSectionBptModel(Constantes.OrigenPedidoWeb.SectionBptDesktopCatalogo);
-                        
+
+            ViewBag.Demo = demo;
             ViewBag.EsConsultoraNueva = userData.EsConsultoraNueva;
-            ViewBag.TextoMensajeSaludoCorreo = TextoMensajeSaludoCorreo;
             if (Constantes.PaisID.Bolivia == userData.PaisID || Constantes.PaisID.Chile == userData.PaisID || Constantes.PaisID.Colombia == userData.PaisID ||
                 Constantes.PaisID.CostaRica == userData.PaisID || Constantes.PaisID.Ecuador == userData.PaisID || Constantes.PaisID.Mexico == userData.PaisID ||
                 Constantes.PaisID.Peru == userData.PaisID)
@@ -129,7 +113,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             ViewBag.CodigoISO = userData.CodigoISO;
             ViewBag.EsConsultoraNueva = userData.EsConsultoraNueva;
-            ViewBag.TextoMensajeSaludoCorreo = TextoMensajeSaludoCorreo;
             return View(clienteModel);
         }
 
@@ -583,57 +566,10 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                string campaniaId;
-                string fechaFacturacion;
                 var url = string.Format(Constantes.CatalogoUrlDefault.Piloto, Campania, userData.CodigoISO, userData.CodigoConsultora);
-                try
-                {
-                    if (Campania == userData.CampaniaID.ToString())
-                    {
-                        campaniaId = userData.CampaniaID.ToString();
-
-                        if (!userData.DiaPROL) fechaFacturacion = userData.FechaFacturacion.ToShortDateString();
-                        else
-                        {
-                            DateTime fechaHoraActual = DateTime.Now.AddHours(userData.ZonaHoraria);
-                            if (userData.DiasCampania != 0 && fechaHoraActual < userData.FechaInicioCampania)
-                            {
-                                fechaFacturacion = userData.FechaInicioCampania.ToShortDateString();
-                            }
-                            else
-                            {
-                                fechaFacturacion = fechaHoraActual.ToShortDateString();
-                            }
-                        }
-                    }
-                    else
-                    {
-                        campaniaId = Campania;
-                        using (UsuarioServiceClient sv = new UsuarioServiceClient())
-                        {
-                            fechaFacturacion = sv.GetFechaFacturacion(campaniaId, userData.ZonaID, userData.PaisID).ToShortDateString();
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                    return Json(new
-                    {
-                        success = false,
-                        message = "Por favor vuelva ingresar en unos momentos, ya que el servicio de catálogos virtuales está teniendo problemas.",
-                        extra = string.Empty
-                    });
-                }                
-
-                DateTime dd = DateTime.Parse(fechaFacturacion, new CultureInfo("es-ES"));
-                string fdf = dd.ToString("dd", new CultureInfo("es-ES"));
-                string fmf = dd.ToString("MMMM", new CultureInfo("es-ES"));
-                string ffechaFact = fdf + " de " + char.ToUpper(fmf[0]) + fmf.Substring(1);
-
-                string urlImagenLogo = Globals.RutaCdn + "/ImagenesPortal/Iconos/logo.png";
-                string urlIconEmail = Globals.RutaCdn + "/ImagenesPortal/Iconos/mensaje_mail.png";
-                string urlIconTelefono = Globals.RutaCdn + "/ImagenesPortal/Iconos/celu_mail.png";
+                var urlImagenLogo = Globals.RutaCdn + "/ImagenesPortal/Iconos/logo.png";
+                var urlIconEmail = Globals.RutaCdn + "/ImagenesPortal/Iconos/mensaje_mail.png";
+                var urlIconTelefono = Globals.RutaCdn + "/ImagenesPortal/Iconos/celu_mail.png";
 
                 if (!_configuracionManagerProvider.GetPaisesEsikaFromConfig().Contains(userData.CodigoISO))
                 {
@@ -668,11 +604,7 @@ namespace Portal.Consultoras.Web.Controllers
                     mailBody += "<td style=\"font-family:'Calibri'; font-size:17px; text-align:center; font-weight:500; color:#000; padding:0 0 20px 0;\">¡Hola!</td>";
                     mailBody += "</tr>";
                     mailBody += "<tr>";
-                    mailBody += "<td style=\"text-align:center; font-family:'Calibri'; font-size:22px; font-weight:700; color:#000; padding-bottom:15px;\">ENT&Eacute;RATE DE LAS NOVEDADES DE TUS CAT&Aacute;LOGOS</td>";
-                    mailBody += "</tr>";
-                    mailBody += "<tr>";
                     mailBody += "<td style=\"text-align:center; font-family:'Calibri'; color:#000; font-weight:500; font-size:14px; padding-bottom:30px;\">" + (Mensaje ?? "");
-                    mailBody += "<br/><br/>Recuerda que tienes hasta el " + ffechaFact + " para enviarme tu pedido.<br/><br />Si tienes alguna consulta no dudes en contactarme:</td>";
                     mailBody += "</tr>";
                     mailBody += "<tr>";
                     mailBody += "<td>";
@@ -682,16 +614,16 @@ namespace Portal.Consultoras.Web.Controllers
                     mailBody += "<![endif]-->";
                     mailBody += "<tbody>";
                     mailBody += "<tr>";
-                    mailBody += "<td style=\"text-align:center; width:48%;\">";
 
+                    mailBody += "<td style=\"text-align:center; width:48%;\">";
                     if (!string.IsNullOrEmpty(userData.EMail))
                     {
                         mailBody += "<img style=\"vertical-align:middle;\" src=\"" + urlIconEmail + "\" alt=\"Icono Mensaje\" /> &nbsp;" + userData.EMail;
 
                     }
                     mailBody += "</td>";
-                    mailBody += "<td style=\"text-align:center; width:48%;\">";
 
+                    mailBody += "<td style=\"text-align:center; width:48%;\">";
                     if (!string.IsNullOrEmpty(userData.Celular))
                     {
                         mailBody += "<img style=\"vertical-align:middle;\"  src=\"" + urlIconTelefono + "\" alt=\"Icono Celular\" /> &nbsp;" + userData.Celular;
@@ -700,8 +632,8 @@ namespace Portal.Consultoras.Web.Controllers
                             mailBody += " / " + userData.Telefono;
                         }
                     }
-
                     mailBody += "</td>";
+
                     mailBody += "</tr>";
                     mailBody += "</tbody>";
                     mailBody += "<!--[if gte mso 9]>";
@@ -712,14 +644,14 @@ namespace Portal.Consultoras.Web.Controllers
                     mailBody += "</tr>";
                     mailBody += "<tr>";
                     mailBody += "<td>";
-                    mailBody += "<table align=\"center\" style=\"text-align:center; width:100%; max-width:500px;  font-family:'Calibri'; color:#000; padding-top:25px;\">";
+                    mailBody += "<table align=\"center\" style=\"text-align:center; width:100%; max-width:500px; font-family:'Calibri'; color:#000; padding-top:25px;\">";
                     mailBody += "<!--[if gte mso 9]>";
                     mailBody += "<table id=\"tableForOutlook\"><tr><td>";
                     mailBody += "<![endif]-->";
                     mailBody += "<tbody>";
                     mailBody += "<tr>";
                     mailBody += "<td style=\"width:29.3%; display: table-cell; padding-left:2%; padding-right:2%;\">";
-                    mailBody += "<a href=\"" + url + "\" style=\"width:100%; display:block;\">Catálogos y revistas</a>";
+                    mailBody += "<a href=\"" + url + "\" style=\"width:100%; display:block;\">" + url + "</a>";
                     mailBody += "</td>";
                     mailBody += "</tr>";
                     mailBody += "</tbody>";
@@ -808,14 +740,14 @@ namespace Portal.Consultoras.Web.Controllers
                     mailBody += "</html>";
 
                     if (!ValidarCorreoFormato(item.Email)) txtBuil.Append(item.Email + "; ");
-                    else Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", item.Email, "Revisa tus catálogos de campaña " + campaniaId.Substring(4, 2), mailBody, true, userData.NombreConsultora);
+                    else Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", item.Email, "Revisa tus catálogos de campaña " + Campania.Substring(4, 2), mailBody, true, userData.NombreConsultora);
 
                     #endregion
                 }
 
                 using (ClienteServiceClient sv = new ClienteServiceClient())
                 {
-                    sv.InsCatalogoCampania(userData.PaisID, userData.CodigoConsultora, Convert.ToInt32(campaniaId));
+                    sv.InsCatalogoCampania(userData.PaisID, userData.CodigoConsultora, Convert.ToInt32(Campania));
                 }
 
                 string correosInvalidos = txtBuil.ToString();
