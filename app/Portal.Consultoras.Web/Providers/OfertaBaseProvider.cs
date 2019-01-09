@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Models.Estrategia.Response;
 using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
@@ -42,6 +43,7 @@ namespace Portal.Consultoras.Web.Providers
             {
                 return estrategias;
             }
+
 
             EstrategiaGenerico respuesta = JsonConvert.DeserializeObject<EstrategiaGenerico>(jsonString);
 
