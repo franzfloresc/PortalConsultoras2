@@ -1,8 +1,6 @@
-﻿using AutoMapper;
-using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
-using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -13,7 +11,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class AdministrarTipoEstrategiaController : BaseController
+    public class AdministrarTipoEstrategiaController : BaseAdmController
     {
         public ActionResult Index(TipoEstrategiaModel model)
         {
@@ -169,19 +167,6 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
             return RedirectToAction("Index", "AdministrarTipoEstrategia");
-        }
-
-        private IEnumerable<PaisModel> DropDowListPaises()
-        {
-            List<BEPais> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = userData.RolID == 2
-                    ? sv.SelectPaises().ToList()
-                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
-            }
-
-            return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
 
         [HttpPost]

@@ -53,7 +53,7 @@ namespace Portal.Consultoras.Web.WebPages
                     sb.Append("<td>" + item.CUV + "</td>");
                     sb.Append("<td>" + item.DescripcionProd + "</td>");
                     sb.Append("<td><center>" + item.Cantidad + "</center></td>");
-                    if (paisId == 4)
+                    if (paisId == Constantes.PaisID.Colombia)
                     {
                         sb.Append("<td>" + Convert.ToDecimal(item.PrecioUnidad).ToString("#,##0").Replace(',', '.') + "</td>");
                         sb.Append("<td>" + Convert.ToDecimal(item.ImporteTotal).ToString("#,##0").Replace(',', '.') + "</td>");

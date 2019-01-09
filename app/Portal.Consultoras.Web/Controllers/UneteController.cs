@@ -1572,9 +1572,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpGet]
         public JsonResult ConsultarBuroExterno(int id, int idEstado)
         {
-            SolicitudPostulante solicitudPostulante = new SolicitudPostulante();
-            ConsultaCrediticiaExternaMX respuesta = new ConsultaCrediticiaExternaMX();
-
             string urlClient = "";
             string abreviationZona = "";
             string codigoZona = "";
@@ -1586,7 +1583,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (var sv = new PortalServiceClient())
             {
-                solicitudPostulante = sv.ObtenerSolicitudPostulante(CodigoISO, id);
+                var solicitudPostulante = sv.ObtenerSolicitudPostulante(CodigoISO, id);
 
                 switch (solicitudPostulante.PaisID)
                 {
@@ -1622,7 +1619,7 @@ namespace Portal.Consultoras.Web.Controllers
                                          Constantes.CodigosISOPais.Mexico, solicitudPostulante.NumeroDocumento, solicitudPostulante.ApellidoPaterno, codigoZona, solicitudPostulante.ApellidoMaterno, solicitudPostulante.PrimerNombre + ' ' + solicitudPostulante.SegundoNombre, fechaFormato, calleNumero, solicitudPostulante.LugarHijo, ciudad, abreviationZona, solicitudPostulante.CodigoPostal, 9999, String.Empty, String.Empty, String.Empty, solicitudPostulante.TipoDocumento);
 
 
-                        respuesta = (new Common.Rest()).GetAsync<ConsultaCrediticiaExternaMX>(urlClient);
+                        ConsultaCrediticiaExternaMX respuesta = (new Common.Rest()).GetAsync<ConsultaCrediticiaExternaMX>(urlClient);
 
 
                         respuestaBuro = respuesta.Resultado;

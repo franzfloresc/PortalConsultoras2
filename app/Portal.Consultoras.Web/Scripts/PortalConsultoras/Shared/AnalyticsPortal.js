@@ -248,11 +248,11 @@ var AnalyticsPortalModule = (function () {
 
         var separador = " - ";
         var texto = contendor;
-        texto = texto != ""
+        texto += texto != ""
             ? ((pagina != "" ? separador : "") + pagina)
             : pagina;
 
-        texto = texto != ""
+        texto += texto != ""
             ? ((palanca != "" ? separador : "") + palanca)
             : palanca;
 
