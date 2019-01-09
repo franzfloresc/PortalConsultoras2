@@ -1,4 +1,4 @@
-﻿namespace Portal.Consultoras.Web.Models.Estrategia.Response
+﻿namespace Portal.Consultoras.Web.Models.Search.ResponseOferta.Estructura
 {
     public class Componente
     {
