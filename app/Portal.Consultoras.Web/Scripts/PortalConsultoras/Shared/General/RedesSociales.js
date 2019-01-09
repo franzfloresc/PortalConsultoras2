@@ -252,7 +252,7 @@
             'value': 0
         });
 
-        $("#comentarios").val(valContenidoCorreoDefecto);
+        $("#comentarios").val(valContenidoCorreoPilotoDefecto);
         // remover todos los tag
         $('#tagCorreo').removeTagAll();
         // asignar el check al catalogo correspondiente mediante tipoCatalogo

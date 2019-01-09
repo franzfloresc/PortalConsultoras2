@@ -30,7 +30,7 @@
         <div class="col pl-0 pr-0 descarga__tu__app__catalogos__img">
             <img src="@Url.Content("~/Content/Images/Mobile/Esika/fondo_app.png")" alt="Descarga tu app de catálogos" />
         </div>
-        <div class="col-5 pl-0 pr-0 descarga__tu__app__catalogos__texto">
+        <div class="col-6 pl-0 pr-0 descarga__tu__app__catalogos__texto">
             <h3 class="text-bold text-uppercase">Descarga tu<br />app de catálogos</h3>
             <p class="text-thin">@textApp</p>
         </div>
@@ -57,7 +57,7 @@
     <!-- FIN - TITULO DE VISTA CATÁLOGOS -->
 
     <!-- TABS PARA MOSTRAR SECCIÓN CATÁLOGOS O REVISTAS -->
-    <ul class="col-12 pl-0 pr-0 row flex-row justify-content-between ml-0 mr-0 mb-0 tabs__catalogos__revistas mostrarEnMobile">
+    <ul class="row flex-row justify-content-between ml-0 mr-0 mb-0 tabs__catalogos__revistas mostrarEnMobile">
         <li class="col-6 pl-0 pr-0 tab__catalogos__revistas tab__catalogos">
             <a class="d-block text-uppercase text-center" title="Catálogos">
                 Catálogos
@@ -101,7 +101,7 @@
 
             <div id="xhtmlSection" style="display: none;">
                 <section class="col-12 pl-0 pr-0 row flex-row justify-content-center ml-0 mr-0 catalogos__por__campania__item__slider" id="{sectionid}">
-                    <div class="col-12 pl-0 pr-0 row flex-row align-items-center ml-0 mr-0 catalogos__por__campania__item__imagenes">   
+                    <div class="row flex-row align-items-center ml-0 mr-0 catalogos__por__campania__item__imagenes">   
                         
                         <div class="col-12 pl-0 pr-0 row flex-row align-items-center ml-0 mr-0 content_carrusel_catalogo" id={divCatalogo} >
 
@@ -112,7 +112,7 @@
             </div>
 
             <div id="xHtmlItemCatalogo" style="display: none;">
-                <div class="col-10 col-lg-3 col-xl-3 pl-0 pr-0 catalogos__por__campania__item__imagen" data-cam="{campania}" data-cat="{tipoCatalogo}" data-estado="{estado}">
+                <div class="col-12 col-lg-3 col-xl-3 pl-0 pr-0 catalogos__por__campania__item__imagen" data-cam="{campania}" data-cat="{tipoCatalogo}" data-estado="{estado}">
                     <a class="d-block mx-auto revista" data-tipo="img" href="" target="_blank">
                         <img class="d-block" src="@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")" alt="" />
                     </a>
@@ -136,14 +136,14 @@
 
             <div id="xhtmlSectionActual" style="display: none;">
                 <section class="col-12 col-lg-10 col-xl-10 pl-0 pr-0 row flex-row justify-content-center ml-0 mr-0 catalogos__por__campania__item__slider" id="{sectionid}">
-                    <div class="col-12 pl-0 pr-0 row flex-row flex-nowrap flex-lg-wrap flex-xl-wrap align-items-center ml-lg-0 ml-xl-0 mr-lg-0 mr-xl-0 catalogos__por__campania__item__imagenes" id={divCatalogo}>
+                    <div class="row flex-row flex-nowrap flex-lg-wrap flex-xl-wrap align-items-center ml-lg-0 ml-xl-0 mr-lg-0 mr-xl-0 catalogos__por__campania__item__imagenes" id={divCatalogo}>
 
                     </div>
                 </section>
             </div>
 
             <div id="xHtmlItemCatalogoActual" style="display: none;">
-                <div class="col-3 pl-0 pr-0 catalogos__por__campania__item__imagen" data-cam="{campania}" data-cat="{tipoCatalogo}" data-estado="{estado}">
+                <div class="col-10 col-lg-3 col-xl-3 pl-0 pr-0 catalogos__por__campania__item__imagen" data-cam="{campania}" data-cat="{tipoCatalogo}" data-estado="{estado}">
                     <a class="d-block revista" data-tipo="img" href="" target="_blank">
                         <img class="d-block" src="@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")" alt="" />
                     </a>                    
@@ -157,10 +157,10 @@
                         Mejoramos la manera de compartir<br />nuestros catálogos. <span class="text-bold">¡Ahora son digitales!</span>
                     </div>
                     <div class="col-8 col-lg-5 col-xl-5 pl-0 pr-0 compartir__catalogo__area">
-                        <button type="button" id="btnCompartir" class="col-12 pl-0 pr-0 row flex-row ml-0 mr-0 justify-content-center text-uppercase btn__compartir btn__compartir--slider">
+                        <a id="btnCompartir" class="col-12 pl-0 pr-0 row flex-row ml-0 mr-0 justify-content-center text-uppercase btn__compartir btn__compartir--slider">
                             Compartir
-                        </button>
-                        <div class="row flex-row align-items-center ml-0 mr-0 mx-auto opciones__compartir__catalogos">
+                        </a>
+                        <div class="row flex-row justify-content-center align-items-center ml-0 mr-0 mx-auto opciones__compartir__catalogos">
                             
                             <a class="d-block col-3 col-lg col-xl pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--whatsapp" title="Compartir por WhatsApp" data-accion="whatsapp" onclick="javascript: RedesSociales.CompartirWhatsAppActual('{tipoCatalogoTodo}', '{campania}', '{textourl}')">
                                 <img class="d-block mx-auto" src="@Url.Content("~/Content/Images/logo_whatsapp.svg")" alt="Compartir por WhatsApp" />
@@ -225,10 +225,10 @@
                         </p>
                         <div class="col-12 pl-0 pr-0 background__opciones__compartir__catalogos mostrarEnMobile"></div>
                         <div class="col-12 col-lg-8 col-xl-8 pl-0 pr-0 mx-auto compartir__catalogo__area">
-                            <button type="button" class="col-12 pl-0 pr-0 row flex-row ml-0 mr-0 mx-auto justify-content-center text-uppercase btn__compartir" id="btnCompartirActual">
+                            <a class="col-12 pl-0 pr-0 row flex-row ml-0 mr-0 mx-auto justify-content-center text-uppercase btn__compartir" id="btnCompartirActual">
                                 Compartir
-                            </button>
-                            <div class="row flex-row align-items-center ml-0 mr-0 mx-auto opciones__compartir__catalogos">
+                            </a>
+                            <div class="row flex-row justify-content-center align-items-center ml-0 mr-0 mx-auto opciones__compartir__catalogos">
                                 <a class="d-block col-3 col-lg col-xl pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--whatsapp" title="Compartir por WhatsApp" data-accion="whatsapp" onclick="javascript: RedesSociales.CompartirWhatsAppActual('{tipoCatalogoTodo}', '{campania}', '{textourl}')">
                                     <img class="d-block mx-auto" src="@Url.Content("~/Content/Images/logo_whatsapp.svg")" alt="Compartir por WhatsApp" />
                                 </a>
@@ -302,9 +302,9 @@
 <div id="CompartirCorreo" class="CompartirCorreoPop">
     <div class="contentCompartir">
         <a class="cerrar_compartir" style="margin-right:-50px;" href="javascript:;" onclick="javascript: $('#CompartirCorreo').hide();">
-            <img src="@Url.Content("~/Content/Images/cerrar_04.png")" alt=" alternate text" />
+            <img src="@Url.Content("~/Content/Images/cerrar_04.png")" alt="" />
         </a>
-        <div class="titulo_compartir">COMPARTIR <b>CATÁLOGO</b></div>
+        <div class="titulo_compartir">COMPARTIR <span class="text-bold">CATÁLOGO</span></div>
         <div class="Label_compartir">Agregar contacto:</div>
         <a class="mostrar_todos">Añadir todos mis contáctos (##)</a>
         <hr class="clear" />
@@ -350,7 +350,7 @@
         <a class="btn_cerrar_alerta" href="javascript:;" onclick="javascript: $('#mensaje_alerta').hide();"><img src="@Url.Content("~/Content/Images/cerrar_04.png")" /></a>
         <hr class="clear" />
         <div class="icono_mensaje_alerta icono_check_alerta"></div>
-        <div class="texto_mensaje_alerta" id="mensaje_alerta_titulo">¡BIEN <b>HECHO</b>! </div>
+        <div class="texto_mensaje_alerta" id="mensaje_alerta_titulo">¡BIEN <span class="text-bold">HECHO</span>! </div>
         <div class="sub_texto_alerta" id="mensaje_alerta_texto">Se envió satisfactoriamente el correo a los clientes(s) seleccionado(s)</div>
         <a class="btn_ok_alerta" onclick="javascript: $('#mensaje_alerta').hide();">OK</a>
     </div>
@@ -360,7 +360,7 @@
         <a class="btn_cerrar_alerta" href="javascript:;" onclick="javascript: $('#mensaje_exclamacion').hide();"><img src="@Url.Content("~/Content/Images/cerrar_04.png")" /></a>
         <hr class="clear" />
         <div class="icono_mensaje_alerta icono_exclamacion_alerta"></div>
-        <div class="texto_mensaje_alerta" id="mensaje_exclamacion_titulo">LO <b>SENTIMOS</b> </div>
+        <div class="texto_mensaje_alerta" id="mensaje_exclamacion_titulo">LO <span class="text-bold">SENTIMOS</span> </div>
         <div class="sub_texto_alerta" id="mensaje_exclamacion_texto">Debe seleccionar al menos un Catálogo</div>
         <a class="btn_ok_alerta" onclick="javascript: $('#mensaje_exclamacion').hide();">OK</a>
     </div>
@@ -373,29 +373,12 @@
     }
 </div>
 
-
-    
-<style type="text/css">
-    .txtUrlActual{
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 1px;
-        height: 1px;
-        padding: 0;
-        border: none;
-        outline: none;
-        box-shadow: none;
-        background: transparent;
-    }
-</style>        
-
 @section scripts{
     <script type="text/javascript" id="js-ready-Catalogo">
-        var demo = true;
+        var demo = '@ViewBag.Demo';
 
         var urlPiloto = '@Constantes.CatalogoUrlDefault.Piloto';
-        var codigoConsultora = '@ViewBag.CodigoConsultoraDL';
+        var codigoConsultora = '@Html.Raw(ViewBag.CodigoConsultoraDL)';
         var imgNoDisponible = '@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")';
         var imgIssuu = '@Constantes.CatalogoUrlParameters.UrlPart01' +
             '{img}' +
@@ -404,7 +387,8 @@
         var urlObtenerPortadaRevista = '@Url.Action("ObtenerPortadaRevista", "Catalogo", new { area = "Mobile" })';
         var defaultImageRevista = '@Url.Content("~/Content/Images/revista_no_disponible.jpg")';
         var urlIconoClienteAutoCompletar = '@Url.Content("~/Content/Images/Esika/user.jpg")';
-        var valContenidoCorreoDefecto = '@Html.Raw(ViewBag.TextoMensajeSaludoCorreo)';
+        var valContenidoCorreoDefecto = '@Html.Raw(Constantes.CatalogoMensajesDefault.SaludoCorreo)';
+        var valContenidoCorreoPilotoDefecto = '@Html.Raw(Constantes.CatalogoMensajesDefault.SaludoCorreoPiloto)';
         var RevistaCodigoIssuu = {
             '@Model.CampaniaAnterior': '@Model.CodigoRevistaAnterior',
             '@Model.CampaniaActual': '@Model.CodigoRevistaActual',

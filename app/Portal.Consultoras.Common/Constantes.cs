@@ -58,7 +58,6 @@ namespace Portal.Consultoras.Common
             public const string UrlPart02 = "/jpg/page_1_thumb_small.jpg";
             public const string UrlPart03 = "/jpg/page_1_thumb_medium.jpg";
             public const string UrlPart02Alternativo = "/jpg/page_1.jpg";
-
         }
 
         public static class EstadoPedido
@@ -1270,6 +1269,12 @@ namespace Portal.Consultoras.Common
         {
             public const string Buscador = "//search.issuu.com/api/2_0/document?username=somosbelcorp&q=";
             public const string RDR = "rdr";
+        }
+
+        public static class CatalogoMensajesDefault
+        {
+            public const string SaludoCorreo = "Revisa los catálogos de esta campaña y comunícate conmigo si estás interesada en algunos de los productos.";
+            public const string SaludoCorreoPiloto = "Revisa los catálogos de esta campaña y pide lo que quieras sólo dándole click al producto que deseas.";
         }
 
         public static class RevistaNombre

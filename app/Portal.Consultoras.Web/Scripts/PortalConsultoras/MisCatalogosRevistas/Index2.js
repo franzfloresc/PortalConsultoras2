@@ -165,7 +165,11 @@ $(document).ready(function () {
 
     });
 
-    $(document).on('click', 'body', ocultarTooltipCompartirCatalogo);
+    if (window.matchMedia('(max-width:991px)').matches) {
+        $(document).on('click', '.background__opciones__compartir__catalogos', ocultarTooltipCompartirCatalogoMobile);
+    } else {
+        $(document).on('click', 'body', ocultarTooltipCompartirCatalogo);
+    }
 
     // Fin - Eventos que se utilizan en vista responsive
 
@@ -427,7 +431,7 @@ function ObtenerEstadoCatalogo(campana, defered) {
 }
 
 function GetUrlTextoActual(campania) {
-    var url = demo ? "http://catalogodigital-develop.altimeafactory.com/?iso={0}&consultant=035821619&page=1" : urlPiloto;
+    var url = demo == '1' ? "http://catalogodigital-develop.altimeafactory.com/?iso={1}&consultant=035821619&page=1" : urlPiloto;
     url = url.replace("{0}", campania).replace("{1}", IsoPais).replace("{2}", codigoConsultora);
     return url;
 }
@@ -909,7 +913,6 @@ function getUrlImagenPortadaRevistaPromise(codigoCampania) {
 
 function ocultarTooltipCompartirCatalogo(e) {
 
-    var backgroundMobileCompartirCatalogo = $('.background__opciones__compartir__catalogos');
     var compartirCatalogoArea = $('.compartir__catalogo__area');
     var tooltipOpcionesCompartirCatalogoParteSuperior = $('#btnCompartir').next();
     var tooltipOpcionesCompartirCatalogoParteInferior = $('#btnCompartirActual').next();
@@ -921,11 +924,13 @@ function ocultarTooltipCompartirCatalogo(e) {
             } else {
                 tooltipOpcionesCompartirCatalogoParteInferior.fadeOut(100);
             }
-            if (window.matchMedia('(max-width:991px)').matches) {
-                backgroundMobileCompartirCatalogo.fadeOut(100);
-            }
         }
     }
+}
+
+function ocultarTooltipCompartirCatalogoMobile() {
+    $('.opciones__compartir__catalogos').fadeOut(100);
+    $(this).fadeOut(100);
 }
 
 // mensaje alerta
