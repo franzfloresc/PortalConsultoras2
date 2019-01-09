@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-
-namespace Portal.Consultoras.Web.Models.Estrategia.Response
+﻿namespace Portal.Consultoras.Web.Models.Search.ResponseOferta.Estructura
 {
-    public class Result
+    using System.Collections.Generic;
+
+    public class Estrategia
     {
         public string _id { get; set; }
         public int EstrategiaId { get; set; }
@@ -11,9 +11,9 @@ namespace Portal.Consultoras.Web.Models.Estrategia.Response
         public bool Activo { get; set; }
         public string CUV2 { get; set; }
         public string DescripcionCUV2 { get; set; }
-        public int Precio { get; set; }
-        public int Precio2 { get; set; }
-        public int Ganancia { get; set; }
+        public decimal Precio { get; set; }
+        public decimal Precio2 { get; set; }
+        public decimal Ganancia { get; set; }
         public string ImagenURL { get; set; }
         public int LimiteVenta { get; set; }
         public string TextoLibre { get; set; }

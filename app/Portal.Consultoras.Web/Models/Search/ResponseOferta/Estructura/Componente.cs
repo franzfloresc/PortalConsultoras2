@@ -1,4 +1,4 @@
-﻿namespace Portal.Consultoras.Web.Models.Estrategia.Response
+﻿namespace Portal.Consultoras.Web.Models.Search.ResponseOferta.Estructura
 {
     public class Componente
     {
@@ -10,8 +10,8 @@
         public int Grupo { get; set; }
         public string CodigoSap { get; set; }
         public int Cantidad { get; set; }
-        public int PrecioUnitario { get; set; }
-        public int PrecioValorizado { get; set; }
+        public decimal PrecioUnitario { get; set; }
+        public decimal PrecioValorizado { get; set; }
         public int Orden { get; set; }
         public bool IndicadorDigitable { get; set; }
         public int FactorCuadre { get; set; }
