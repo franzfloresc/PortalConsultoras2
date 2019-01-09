@@ -154,9 +154,9 @@ hr{
 .btn__compartir {
     font-family: 'Lato', sans-serif;
     background-color: #b9007e;
-    color: #FFF;
     border-radius: 12px;
     height: 70px;
+    line-height:69px;
     letter-spacing: 1px;
     border: none;
     font-size: 16px;
@@ -165,6 +165,11 @@ hr{
     -o-transition: all 0.3s ease;
     -webkit-transition: all 0.3s ease;
     transition: all 0.3s ease;
+}
+
+.btn__compartir,
+.btn__compartir:hover{
+    color:#FFF!important;
 }
 
 .btn__compartir:hover{
@@ -246,6 +251,7 @@ hr{
     }
 
     .catalogos__por__campania__item__imagen > a {
+        cursor:pointer;
         height: 100%;
         -moz-transition: all 0.2s ease;
         -o-transition: all 0.2s ease;
@@ -475,6 +481,19 @@ hr{
         color:#FFF!important;
     }
 
+.txtUrlActual{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    background: transparent;
+}
+
 /* POPUP COMPARTIR CATÁLOGO */
 
 .CompartirCorreoPop {
@@ -671,18 +690,27 @@ input[type='checkbox']:checked + span:after {
     margin-bottom: 10px;
 }
 
-.icono_mensaje_alerta {
-    width: 40px;
-    height: 40px;
+.icono_mensaje_alerta,
+.icono_exclamacion_alerta
+{
+    width: 55px;
+    height: 55px;
     margin: 0 auto;
 }
 
 .icono_check_alerta {
     background: url(/Content/Images/Esika/icono_check_esika.png) center center no-repeat;
-    background-size: 80%;
+    background-size: 100%;
 }
 
-.texto_mensaje_alerta {
+.icono_exclamacion_alerta{
+    background: url(/Content/Images/Esika/icono_advertencia.png) center center no-repeat;
+    background-size: 100%;
+}
+
+.texto_mensaje_alerta,
+.texto_mensaje_alerta span
+{
     font-family: 'Lato';
     font-weight: 300;
     font-size: 28px;
@@ -707,12 +735,17 @@ input[type='checkbox']:checked + span:after {
     line-height: 45px;
     margin: auto;
     margin-top: 30px;
-    background: #df3d3d;
-    color: #fff;
+    background: #e81c36;
     font-family: 'Lato';
     font-weight: 900;
     text-align: center;
     font-size: 13px;
+}
+
+.btn_ok_alerta,
+.btn_ok_alerta:hover
+{
+    color: #fff!important;
 }
 
 /* FIN - POPUP MENSAJES ALERTA */
@@ -967,6 +1000,7 @@ input[type='checkbox']:checked + span:after {
     .btn__compartir{
         height:45px;
         font-size:12px;
+        line-height:44px;
     }
 
     .catalogos__por__campania__item__modos__compartir{
@@ -998,6 +1032,7 @@ input[type='checkbox']:checked + span:after {
         z-index:2;
         top:0;
         left:0;
+        cursor:pointer;
     }
 
     .opciones__compartir__catalogos{
@@ -1008,23 +1043,30 @@ input[type='checkbox']:checked + span:after {
         padding:20px;
     }
 
+    .opcion__compartir__catalogo{
+        height:45px;
+    }
+
     .opciones__compartir__catalogos:before,
     .opciones__compartir__catalogos:after
     {
         display:none;
     }
 
-    .opcion__compartir__catalogo--whatsapp{
-        height:38px;
+    .opcion__compartir__catalogo--whatsapp img{
+        margin-top:2px;
+        height:40px;
     }
 
-    .opcion__compartir__catalogo--facebook,
-    .opcion__compartir__catalogo--email
+    .opcion__compartir__catalogo--facebook img,
+    .opcion__compartir__catalogo--email img
     {
+        margin-top:7px;
         height: 30px;
     }
 
-    .opcion__compartir__catalogo--facebookMessenger{
+    .opcion__compartir__catalogo--facebookMessenger img{
+        margin-top:5px;
         height:33px;
     }
 
@@ -1115,6 +1157,22 @@ input[type='checkbox']:checked + span:after {
     }
 
     /* FIN - POPUP COMPARTIR CATÁLOGO MOBILE */
+
+    /* POPUPS MENSAJES DE ALERTA MOBILE */
+
+    .content_mensaje_alerta{
+        width: 90%;
+        max-width: 511px;
+        height: auto;
+        padding-bottom: 40px;
+    }
+
+    .sub_texto_alerta{
+        padding-left:22px;
+        padding-right:22px;
+    }
+
+    /* FIN - POPUPS MENSAJES DE ALERTA MOBILE */
 
 }
 
