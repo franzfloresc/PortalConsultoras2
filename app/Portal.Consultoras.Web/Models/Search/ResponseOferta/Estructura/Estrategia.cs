@@ -11,9 +11,9 @@
         public bool Activo { get; set; }
         public string CUV2 { get; set; }
         public string DescripcionCUV2 { get; set; }
-        public int Precio { get; set; }
-        public int Precio2 { get; set; }
-        public int Ganancia { get; set; }
+        public decimal Precio { get; set; }
+        public decimal Precio2 { get; set; }
+        public decimal Ganancia { get; set; }
         public string ImagenURL { get; set; }
         public int LimiteVenta { get; set; }
         public string TextoLibre { get; set; }

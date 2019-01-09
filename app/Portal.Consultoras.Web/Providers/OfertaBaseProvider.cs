@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.Models.Estrategia.Response;
+using Portal.Consultoras.Web.Models.Oferta.ResponseOfertaGenerico;
 using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
@@ -44,19 +44,26 @@ namespace Portal.Consultoras.Web.Providers
                 return estrategias;
             }
 
-
-            EstrategiaGenerico respuesta = JsonConvert.DeserializeObject<EstrategiaGenerico>(jsonString);
+            OutputOferta respuesta = new OutputOferta();
+            try
+            {
+                respuesta = JsonConvert.DeserializeObject<OutputOferta>(jsonString);
+            }
+            catch (Exception ex)
+            {
+                Common.LogManager.SaveLog(ex, string.Empty, codigoISO);
+            }
 
             if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
             {
                 Common.LogManager.SaveLog(new Exception(respuesta.Message), string.Empty, codigoISO);
-                throw new Exception(respuesta.Message);
+                return estrategias;
             }
 
             List<string> listaCuvPrecio0 = new List<string>();
             string codTipoEstrategia = string.Empty, codCampania = string.Empty;
 
-            foreach (Result item in respuesta.Result)
+            foreach (Models.Search.ResponseOferta.Estructura.Estrategia item in respuesta.Result)
             {
                 try
                 {
@@ -150,7 +157,7 @@ namespace Portal.Consultoras.Web.Providers
                     if (estrategia.Precio2 > 0)
                     {
                         List<ServiceOferta.BEEstrategiaProducto> compoponentes = new List<ServiceOferta.BEEstrategiaProducto>();
-                        foreach (Componente componente in item.Componentes)
+                        foreach (var componente in item.Componentes)
                         {
                             ServiceOferta.BEEstrategiaProducto estrategiaTono = new ServiceOferta.BEEstrategiaProducto
                             {

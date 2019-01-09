@@ -255,6 +255,7 @@ namespace Portal.Consultoras.Web.Providers
             }
             catch (Exception ex)
             {
+                _logManager.LogErrorWebServicesBusWrap(ex, model.CodigoConsultora, model.CodigoISO, "ShowroomProvider.ApiEventoPersonalizacion");
                 throw ex;
             }
         }
@@ -797,6 +798,11 @@ namespace Portal.Consultoras.Web.Providers
 
             GenericResponse respuesta = JsonConvert.DeserializeObject<GenericResponse>(content);
 
+            if (respuesta == null)
+            {
+                return null;
+            }
+
             if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
             {
                 throw new Exception(respuesta.Message);
@@ -831,6 +837,11 @@ namespace Portal.Consultoras.Web.Providers
             string content = taskApi.Result;
 
             GenericResponse respuesta = JsonConvert.DeserializeObject<GenericResponse>(content);
+
+            if (respuesta == null)
+            {
+                return new List<ShowRoomNivelModel>();
+            }
 
             if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
             {
