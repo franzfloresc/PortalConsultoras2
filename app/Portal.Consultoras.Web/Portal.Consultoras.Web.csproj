@@ -3892,6 +3892,8 @@
     <Content Include="EsikaConmigo.html" />
     <Content Include="Global.asax" />
     <Content Include="google04fc719c24157f19.html" />
+    <Content Include="gulpfile.js" />
+    <Content Include="karma.conf.js" />
     <Content Include="Key\KeyPrivadaEnvioCadena.xml" />
     <Content Include="Key\KeyPublicaEnvioCadena.xml" />
     <Content Include="LBelConmigo.html" />
@@ -4139,6 +4141,7 @@
     <Content Include="Scripts\PortalConsultoras\Shared\MainLayout.js" />
     <Content Include="Scripts\slick-vertical.min.js" />
     <Content Include="Scripts\Spectrum\spectrum.js" />
+    <Content Include="Scripts\tests\PortalConsultoras\DetalleEstrategia\FichaModuleSpec.js" />
     <Content Include="Scripts\trans-banner.js" />
     <Content Include="Content\ArchivoFaltante\PlantillaModelFaltante.xls" />
     <Content Include="Properties\Settings.settings">
@@ -4473,6 +4476,7 @@
     <Content Include="Areas\Mobile\Views\MasGanadoras\template-landing.cshtml" />
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-carrusel-individuales-v2.cshtml" />
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\template-producto-v2.cshtml" />
+    <Content Include="package.json" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
       <SubType>Designer</SubType>
