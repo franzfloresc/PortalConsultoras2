@@ -57,7 +57,7 @@
     <!-- FIN - TITULO DE VISTA CATÁLOGOS -->
 
     <!-- TABS PARA MOSTRAR SECCIÓN CATÁLOGOS O REVISTAS -->
-    <ul class="col-12 pl-0 pr-0 row flex-row justify-content-between ml-0 mr-0 mb-0 tabs__catalogos__revistas mostrarEnMobile">
+    <ul class="row flex-row justify-content-between ml-0 mr-0 mb-0 tabs__catalogos__revistas mostrarEnMobile">
         <li class="col-6 pl-0 pr-0 tab__catalogos__revistas tab__catalogos">
             <a class="d-block text-uppercase text-center" title="Catálogos">
                 Catálogos
@@ -91,8 +91,8 @@
                 <span class="text-uppercase text-bold" id="TextoCampania">Catálogos </span>
                 @*<span class="text-uppercase text-bold num__campania">C17</span>*@
             </div>
-            <a class="col-1 pl-0 pr-0 row flex-row justify-content-start align-items-start align-items-lg-center align-items-xl-center ml-0 mr-0 catalogos__por__campania__slider__control catalogos__por__campania__slider__control__izq" title="Atrás">
-                <img src="@Url.Content("~/Content/Images/arrow_left.svg")" alt="" onclick="CatalogoMostrar(-1, this)" data-accion="a" />
+            <a onclick="CatalogoMostrar(-1, this)" data-accion="a" class="col-1 pl-0 pr-0 row flex-row justify-content-start align-items-start align-items-lg-center align-items-xl-center ml-0 mr-0 catalogos__por__campania__slider__control catalogos__por__campania__slider__control__izq" title="Atrás">
+                <img src="@Url.Content("~/Content/Images/arrow_left.svg")" alt="" />
             </a>
 
             <div class="col-12 col-lg-10 col-xl-10 pl-0 pr-0 row flex-row justify-content-center ml-0 mr-0 catalogos__por__campania__item__slider" id="divSection">
@@ -101,9 +101,9 @@
 
             <div id="xhtmlSection" style="display: none;">
                 <section class="col-12 pl-0 pr-0 row flex-row justify-content-center ml-0 mr-0 catalogos__por__campania__item__slider" id="{sectionid}">
-                    <div class="col-12 pl-0 pr-0 row flex-row align-items-center ml-0 mr-0 catalogos__por__campania__item__imagenes">   
+                    <div class="row flex-row align-items-center ml-0 mr-0 catalogos__por__campania__item__imagenes">   
                         
-                        <div class="col-12 pl-0 pr-0 row flex-row align-items-center ml-0 mr-0 content_carrusel_catalogo" id={divCatalogo} >
+                        <div class="row flex-row align-items-center ml-0 mr-0 content_carrusel_catalogo" id={divCatalogo} >
 
                         </div>
                                         
@@ -112,7 +112,7 @@
             </div>
 
             <div id="xHtmlItemCatalogo" style="display: none;">
-                <div class="col-10 col-lg-3 col-xl-3 pl-0 pr-0 catalogos__por__campania__item__imagen" data-cam="{campania}" data-cat="{tipoCatalogo}" data-estado="{estado}">
+                <div class="col-12 col-lg-3 col-xl-3 pl-0 pr-0 catalogos__por__campania__item__imagen" data-cam="{campania}" data-cat="{tipoCatalogo}" data-estado="{estado}">
                     <a class="d-block mx-auto revista" data-tipo="img" href="" target="_blank">
                         <img class="d-block" src="@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")" alt="" />
                     </a>
@@ -136,14 +136,14 @@
 
             <div id="xhtmlSectionActual" style="display: none;">
                 <section class="col-12 col-lg-10 col-xl-10 pl-0 pr-0 row flex-row justify-content-center ml-0 mr-0 catalogos__por__campania__item__slider" id="{sectionid}">
-                    <div class="col-12 pl-0 pr-0 row flex-row flex-nowrap flex-lg-wrap flex-xl-wrap align-items-center ml-lg-0 ml-xl-0 mr-lg-0 mr-xl-0 catalogos__por__campania__item__imagenes" id={divCatalogo}>
+                    <div class="row flex-row flex-nowrap flex-lg-wrap flex-xl-wrap align-items-center ml-lg-0 ml-xl-0 mr-lg-0 mr-xl-0 catalogos__por__campania__item__imagenes" id={divCatalogo}>
 
                     </div>
                 </section>
             </div>
 
             <div id="xHtmlItemCatalogoActual" style="display: none;">
-                <div class="col-3 pl-0 pr-0 catalogos__por__campania__item__imagen" data-cam="{campania}" data-cat="{tipoCatalogo}" data-estado="{estado}">
+                <div class="col-10 col-lg-3 col-xl-3 pl-0 pr-0 catalogos__por__campania__item__imagen" data-cam="{campania}" data-cat="{tipoCatalogo}" data-estado="{estado}">
                     <a class="d-block revista" data-tipo="img" href="" target="_blank">
                         <img class="d-block" src="@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")" alt="" />
                     </a>                    
@@ -156,10 +156,10 @@
                         Mejoramos la manera de compartir<br />nuestros catálogos. <span class="text-bold">¡Ahora son digitales!</span>
                     </div>
                     <div class="col-8 col-lg-5 col-xl-5 pl-0 pr-0 compartir__catalogo__area">
-                        <button type="button" id="btnCompartir" class="col-12 pl-0 pr-0 row flex-row ml-0 mr-0 justify-content-center text-uppercase btn__compartir btn__compartir--slider">
+                        <a id="btnCompartir" class="col-12 pl-0 pr-0 row flex-row ml-0 mr-0 justify-content-center text-uppercase btn__compartir btn__compartir--slider">
                             Compartir
-                        </button>
-                        <div class="row flex-row align-items-center ml-0 mr-0 mx-auto opciones__compartir__catalogos">
+                        </a>
+                        <div class="row flex-row justify-content-center align-items-center ml-0 mr-0 mx-auto opciones__compartir__catalogos">
                             <input id="txtUrlActual" type="hidden" value="" class="txtUrlActual"/>
                             <a class="d-block col-3 col-lg col-xl pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--whatsapp" title="Compartir por WhatsApp" data-accion="whatsapp" onclick="RedesSociales.CompartirWhatsAppActual('{tipoCatalogoTodo}', '{campania}', '{textourl}')">
                                 <img class="d-block mx-auto" src="@Url.Content("~/Content/Images/logo_whatsapp.svg")" alt="Compartir por WhatsApp" />
@@ -224,10 +224,10 @@
                         </p>
                         <div class="col-12 pl-0 pr-0 background__opciones__compartir__catalogos mostrarEnMobile"></div>
                         <div class="col-12 col-lg-8 col-xl-8 pl-0 pr-0 mx-auto compartir__catalogo__area">
-                            <button type="button" class="col-12 pl-0 pr-0 row flex-row ml-0 mr-0 mx-auto justify-content-center text-uppercase btn__compartir" id="btnCompartirActual">
+                            <a class="col-12 pl-0 pr-0 row flex-row ml-0 mr-0 mx-auto justify-content-center text-uppercase btn__compartir" id="btnCompartirActual">
                                 Compartir
-                            </button>
-                            <div class="row flex-row align-items-center ml-0 mr-0 mx-auto opciones__compartir__catalogos">
+                            </a>
+                            <div class="row flex-row justify-content-center align-items-center ml-0 mr-0 mx-auto opciones__compartir__catalogos">
                                 <a class="d-block col-3 col-lg col-xl pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--whatsapp" title="Compartir por WhatsApp" data-accion="whatsapp" onclick="RedesSociales.CompartirWhatsAppActual('{tipoCatalogoTodo}', '{campania}', '{textourl}')">
                                     <img class="d-block mx-auto" src="@Url.Content("~/Content/Images/logo_whatsapp.svg")" alt="Compartir por WhatsApp" />
                                 </a>
@@ -249,8 +249,8 @@
                 </div>
             </div>    
   
-            <a class="col-1 pl-0 pr-0 row flex-row justify-content-end align-items-start align-items-lg-center align-items-xl-center ml-0 mr-0 catalogos__por__campania__slider__control catalogos__por__campania__slider__control__der" title="Siguiente">
-                <img src="@Url.Content("~/Content/Images/arrow_right.svg")" alt="" onclick="CatalogoMostrar(1, this)" data-accion="s" />
+            <a onclick="CatalogoMostrar(1, this)" data-accion="s" class="col-1 pl-0 pr-0 row flex-row justify-content-end align-items-start align-items-lg-center align-items-xl-center ml-0 mr-0 catalogos__por__campania__slider__control catalogos__por__campania__slider__control__der" title="Siguiente">
+                <img src="@Url.Content("~/Content/Images/arrow_right.svg")" alt="" />
             </a>
         </section>
         <!-- FIN - SECCIÓN CARRUSEL DE CATÁLOGOS CAMPAÑA ANTERIOR, ACTUAL Y SIGUIENTE -->

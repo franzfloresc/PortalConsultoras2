@@ -154,9 +154,9 @@ hr{
 .btn__compartir {
     font-family: 'Lato', sans-serif;
     background-color: #b9007e;
-    color: #FFF;
     border-radius: 12px;
     height: 70px;
+    line-height:69px;
     letter-spacing: 1px;
     border: none;
     font-size: 16px;
@@ -165,6 +165,11 @@ hr{
     -o-transition: all 0.3s ease;
     -webkit-transition: all 0.3s ease;
     transition: all 0.3s ease;
+}
+
+.btn__compartir,
+.btn__compartir:hover{
+    color:#FFF!important;
 }
 
 .btn__compartir:hover{
@@ -246,6 +251,7 @@ hr{
     }
 
     .catalogos__por__campania__item__imagen > a {
+        cursor:pointer;
         height: 100%;
         -moz-transition: all 0.2s ease;
         -o-transition: all 0.2s ease;
@@ -994,6 +1000,7 @@ input[type='checkbox']:checked + span:after {
     .btn__compartir{
         height:45px;
         font-size:12px;
+        line-height:44px;
     }
 
     .catalogos__por__campania__item__modos__compartir{
@@ -1025,6 +1032,7 @@ input[type='checkbox']:checked + span:after {
         z-index:2;
         top:0;
         left:0;
+        cursor:pointer;
     }
 
     .opciones__compartir__catalogos{
@@ -1035,23 +1043,30 @@ input[type='checkbox']:checked + span:after {
         padding:20px;
     }
 
+    .opcion__compartir__catalogo{
+        height:45px;
+    }
+
     .opciones__compartir__catalogos:before,
     .opciones__compartir__catalogos:after
     {
         display:none;
     }
 
-    .opcion__compartir__catalogo--whatsapp{
-        height:38px;
+    .opcion__compartir__catalogo--whatsapp img{
+        margin-top:2px;
+        height:40px;
     }
 
-    .opcion__compartir__catalogo--facebook,
-    .opcion__compartir__catalogo--email
+    .opcion__compartir__catalogo--facebook img,
+    .opcion__compartir__catalogo--email img
     {
+        margin-top:7px;
         height: 30px;
     }
 
-    .opcion__compartir__catalogo--facebookMessenger{
+    .opcion__compartir__catalogo--facebookMessenger img{
+        margin-top:5px;
         height:33px;
     }
 

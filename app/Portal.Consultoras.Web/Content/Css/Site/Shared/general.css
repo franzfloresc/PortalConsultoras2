@@ -25,6 +25,7 @@ ul{
 a, a:hover,a:active{
     color:#000!important;
     text-decoration:none;
+    cursor:pointer;
 }
 
 body > img{

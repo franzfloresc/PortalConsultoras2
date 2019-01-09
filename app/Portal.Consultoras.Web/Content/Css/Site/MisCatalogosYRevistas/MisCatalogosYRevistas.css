@@ -145,21 +145,25 @@ hr{
     width:93%;
 }
 
-.btn__compartir{
-    font-family:'Lato', sans-serif;
-    background-color:#b9007e;
-    color:#FFF;
-    border-radius:12px;
-    max-width:500px;
-    height:70px;
-    letter-spacing:1px;
-    border:none;
-    font-size:16px;
-    cursor:pointer;
+.btn__compartir {
+    font-family: 'Lato', sans-serif;
+    background-color: #b9007e;
+    border-radius: 12px;
+    height: 70px;
+    line-height:69px;
+    letter-spacing: 1px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
     -moz-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
     -webkit-transition: all 0.3s ease;
     transition: all 0.3s ease;
+}
+
+.btn__compartir,
+.btn__compartir:hover{
+    color:#FFF!important;
 }
 
 .btn__compartir:hover{
@@ -236,6 +240,7 @@ hr{
     }
 
     .catalogos__por__campania__item__imagen > a {
+        cursor:pointer;
         height: 100%;
         -moz-transition: all 0.2s ease;
         -o-transition: all 0.2s ease;
@@ -972,10 +977,16 @@ input[type='checkbox']:checked + span:after {
         margin-bottom:18px;
     }
 
-    .btn__compartir{
+    .compartir__catalogo__area,
+    .btn__compartir
+    {
         max-width:198px;
+    }
+
+    .btn__compartir{
         height:45px;
         font-size:12px;
+        line-height:44px;
     }
 
     .catalogos__por__campania__item__modos__compartir{
@@ -1001,6 +1012,7 @@ input[type='checkbox']:checked + span:after {
         z-index:2;
         top:0;
         left:0;
+        cursor:pointer;
     }
 
     .opciones__compartir__catalogos{

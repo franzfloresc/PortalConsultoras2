@@ -165,7 +165,11 @@ $(document).ready(function () {
 
     });
 
-    $(document).on('click', 'body', ocultarTooltipCompartirCatalogo);
+    if (window.matchMedia('(max-width:991px)').matches) {
+        $(document).on('click', '.background__opciones__compartir__catalogos', ocultarTooltipCompartirCatalogoMobile);
+    } else {
+        $(document).on('click', 'body', ocultarTooltipCompartirCatalogo);
+    }
 
     // Fin - Eventos que se utilizan en vista responsive
 
@@ -912,7 +916,6 @@ function getUrlImagenPortadaRevistaPromise(codigoCampania) {
 
 function ocultarTooltipCompartirCatalogo(e) {
 
-    var backgroundMobileCompartirCatalogo = $('.background__opciones__compartir__catalogos');
     var compartirCatalogoArea = $('.compartir__catalogo__area');
     var tooltipOpcionesCompartirCatalogoParteSuperior = $('#btnCompartir').next();
     var tooltipOpcionesCompartirCatalogoParteInferior = $('#btnCompartirActual').next();
@@ -924,11 +927,13 @@ function ocultarTooltipCompartirCatalogo(e) {
             } else {
                 tooltipOpcionesCompartirCatalogoParteInferior.fadeOut(100);
             }
-            if (window.matchMedia('(max-width:991px)').matches) {
-                backgroundMobileCompartirCatalogo.fadeOut(100);
-            }
         }
     }
+}
+
+function ocultarTooltipCompartirCatalogoMobile() {
+    $('.opciones__compartir__catalogos').fadeOut(100);
+    $(this).fadeOut(100);
 }
 
 // mensaje alerta
