@@ -300,6 +300,15 @@
     }
 
     var CompartirWhatsAppActual = function (catalogo, campania, texto) {
+        dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'Catálogos y revistas',
+            'action': 'Compartir WhatsApp',
+            'label': catalogo,
+            'value': 0
+        });
+        InsertarLogCatalogoDynamo('Whatsapp', campania, catalogo, 1);
+
         texto = texto.ReplaceAll("/", "%2F");
         texto = texto.ReplaceAll(":", "%3A");
         texto = texto.ReplaceAll("?", "%3F");

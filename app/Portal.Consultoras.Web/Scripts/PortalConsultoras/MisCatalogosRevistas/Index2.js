@@ -434,12 +434,8 @@ function GetUrlTextoActual(campania) {
 
 function CopiarEnlaceActual(catalogo, campania) {
 
-    //var textourl = $(btn).click(function () {
-    //    return $("#txtUrlActual").val();
-    //});
-    //copiarAlPortapapeles(textourl);
-    var copyTextarea = $('#txtUrlActual');
-    copyTextarea.select();
+    var copyText = $('#txtUrlActual');
+    copyText.select();
 
     try {
         var successful = document.execCommand('copy');
@@ -510,8 +506,9 @@ function GetCatalogosLinksByCampania(data, campania) {
 
             var a = getAnioCampania(campania);
             var n = getNumeroCampania(campania);
-            $(idCat).find(elemItem).find("[data-tipo='img']").attr("onclick", "SetGoogleAnalytics('" + codigoISSUU + "','Ver catálogo','" + tagCat + "')");
-            $(idCat).find(elemItem).find("[data-tipo='img']").attr("href", urlCat);
+            $(idCat).find(elemItem).find("[data-tipo='img']").attr("onclick", "SetGoogleAnalytics('" + codigoISSUU + "','Ver catálogo','" + tagCat + "')");            
+            if (contDiv == 1) $(idCat).find(elemItem).find("[data-tipo='img']").attr("href", GetUrlTextoActual(campania));
+            else $(idCat).find(elemItem).find("[data-tipo='img']").attr("href", urlCat);;
             if (contDiv != 1) $(idCat).find(elemItem).find("#txtUrl" + tagCat).val(urlCat);
             $(idCat).find(elemItem).find("[data-tipo='img'] img").attr("src", imgIssuu.replace("{img}", codigoISSUU));
 
