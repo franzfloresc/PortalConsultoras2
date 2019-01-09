@@ -67,6 +67,13 @@
             </div>
         }
 
+        @*INI EINCA HD-3094 09-01-2019*@
+        <div class="pago_rechazado" style="margin-top:15px;">
+                <input type="button" value="IR AL HOME" onclick="window.location.href='@Url.Action("Index", "Bienvenida", new { area = "Mobile" })'" class="btn_bg_write" />
+                <input type="button" value="VOLVER A INTENTAR" onclick="window.location.href='@Url.Action("MetodoPago", "PagoEnLinea", new { area = "Mobile" })'" class="btn_bg_primary" />
+        </div>
+        @*FIN EINCA HD-3094 09-01-2019*@
+
     </div>
 
 </div>

@@ -8034,6 +8034,41 @@ ul.tabs {
     font-weight: 700;
 }
 
+/*INI EINCA HD-3094 09-01-2019 Boton genérico fondo blanco y rojo*/
+.btn_bg_write {
+    font-family: 'lato';
+    background: white;
+    color: black;
+    font-weight: 400;
+    height: 45px;
+    border: 1px solid #ccc;
+    float: left;
+    text-align-last: center;
+    display: inline-block;
+    width: auto;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.btn_bg_primario {
+    font-family: 'lato';
+    background: rgb(232, 28, 54);
+    color: #fff;
+    font-weight: 700;
+    height: 45px;
+    float: left;
+    text-align-last: center;
+    border: 1px solid rgb(232, 28, 54);
+    display: inline-block;
+    width: auto;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    margin-left: 4px;
+}
+/*FIN EINCA HD-3094 09-01-2019 Boton genérico fondo blanco*/
+
+
+
 .div-3 .ganancia {
     float: right;
     width: 250px;
