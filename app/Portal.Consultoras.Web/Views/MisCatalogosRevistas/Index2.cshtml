@@ -391,10 +391,10 @@
 
 @section scripts{
     <script type="text/javascript" id="js-ready-Catalogo">
-        var demo = true;
+        var demo = '@ViewBag.Demo';
 
         var urlPiloto = '@Constantes.CatalogoUrlDefault.Piloto';
-        var codigoConsultora = '@ViewBag.CodigoConsultoraDL';
+        var codigoConsultora = '@Html.Raw(ViewBag.CodigoConsultoraDL)';
         var imgNoDisponible = '@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")';
         var imgIssuu = '@Constantes.CatalogoUrlParameters.UrlPart01' +
             '{img}' +

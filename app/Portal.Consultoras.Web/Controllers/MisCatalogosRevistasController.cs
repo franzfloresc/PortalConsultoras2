@@ -27,23 +27,8 @@ namespace Portal.Consultoras.Web.Controllers
             return View();
         }
 
-        public ActionResult Index2(string marca = "")
+        public ActionResult Index2(string marca = "", string demo = "0")
         {
-            //if (EsDispositivoMovil())
-            //{
-            //    var url = (Request.Url.Query).Split('?');
-            //    if (url.Length > 1 && url[1].Contains("sap"))
-            //    {
-            //        string sap = "&" + url[1].Remove(0, 12);
-            //        return RedirectToAction("Index", "Catalogo", new { area = "Mobile", marca, sap });
-            //    }
-            //    else
-            //    {
-            //        return RedirectToAction("Index", "Catalogo", new { area = "Mobile", marca });
-            //    }
-
-            //}
-
             var clienteModel = new MisCatalogosRevistasModel
             {
                 PaisNombre = Util.GetPaisNombreByISO(userData.CodigoISO),
@@ -59,7 +44,8 @@ namespace Portal.Consultoras.Web.Controllers
             clienteModel.CodigoRevistaAnterior = _issuuProvider.GetRevistaCodigoIssuu(clienteModel.CampaniaAnterior, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
             clienteModel.CodigoRevistaSiguiente = _issuuProvider.GetRevistaCodigoIssuu(clienteModel.CampaniaSiguiente, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
             clienteModel.PartialSectionBpt = _configuracionPaisDatosProvider.GetPartialSectionBptModel(Constantes.OrigenPedidoWeb.SectionBptDesktopCatalogo);
-                        
+
+            ViewBag.Demo = demo;
             ViewBag.EsConsultoraNueva = userData.EsConsultoraNueva;
             ViewBag.TextoMensajeSaludoCorreo = TextoMensajeSaludoCorreo;
             if (Constantes.PaisID.Bolivia == userData.PaisID || Constantes.PaisID.Chile == userData.PaisID || Constantes.PaisID.Colombia == userData.PaisID ||
