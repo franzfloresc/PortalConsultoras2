@@ -113,43 +113,43 @@ $(document).ready(function () {
         $(this).next().addClass('indicador__catalogos__revistas--activo');
     });
 
-    $('.catalogos__por__campania__slider__control__izq img').on('click', function (e) {
+    $('.catalogos__por__campania__slider__control__izq a').on('click', function (e) {
         e.preventDefault();
         
-        if ($('.catalogos__por__campania__slider__control__der img').is(':visible')) {
+        if ($('.catalogos__por__campania__slider__control__der a').is(':visible')) {
             $('.catalogos__campania--actual').fadeOut(100);
             $('.catalogos__campania--siguiente').fadeOut(100);
             $('.catalogos__campania--anterior').fadeIn(100);
-            $('.catalogos__por__campania__slider__control__izq img').fadeOut(100);
+            $('.catalogos__por__campania__slider__control__izq a').fadeOut(100);
         } else {
             $('.catalogos__campania--anterior').fadeOut(100);
             $('.catalogos__campania--siguiente').fadeOut(100);
             $('.catalogos__campania--actual').fadeIn(100);
-            $('.catalogos__por__campania__slider__control__der img').fadeIn(100);
+            $('.catalogos__por__campania__slider__control__der a').fadeIn(100);
         }
     });
 
-    $('.catalogos__por__campania__slider__control__der img').on('click', function (e) {
+    $('.catalogos__por__campania__slider__control__der a').on('click', function (e) {
         e.preventDefault();
-        if ($('.catalogos__por__campania__slider__control__izq img').is(':visible')) {
+        if ($('.catalogos__por__campania__slider__control__izq a').is(':visible')) {
             $('.catalogos__campania--actual').fadeOut(100);
             $('.catalogos__campania--anterior').fadeOut(100);
             $('.catalogos__campania--siguiente').fadeIn(100);
-            $('.catalogos__por__campania__slider__control__der img').fadeOut(100);
+            $('.catalogos__por__campania__slider__control__der a').fadeOut(100);
         } else {
             $('.catalogos__campania--anterior').fadeOut(100);
             $('.catalogos__campania--siguiente').fadeOut(100);
             $('.catalogos__campania--actual').fadeIn(100);
-            $('.catalogos__por__campania__slider__control__izq img').fadeIn(100);
+            $('.catalogos__por__campania__slider__control__izq a').fadeIn(100);
         }
     });
 
     if ($('.catalogos__campania--anterior').is(':visible')) {
-        $('.catalogos__por__campania__slider__control__izq img').fadeOut(100);
+        $('.catalogos__por__campania__slider__control__izq a').fadeOut(100);
     }
 
     if ($('.catalogos__campania--siguiente').is(':visible')) {
-        $('.catalogos__por__campania__slider__control__der img').fadeOut(100);
+        $('.catalogos__por__campania__slider__control__der a').fadeOut(100);
     }
 
     $('.btn__compartir').on('click', function (e) {
