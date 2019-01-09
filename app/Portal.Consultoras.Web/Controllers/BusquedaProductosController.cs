@@ -9,46 +9,27 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class BusquedaProductosController : BaseController
     {
+        private readonly SACServiceClient tablaLogica;
+
+        public BusquedaProductosController()
+        {
+            tablaLogica = new SACServiceClient();
+        }
 
         public ActionResult Index(string q = "")
         {
             var model = new BusquedaProductoOutModel
             {
                 TextoBusqueda = q,
-                ListaOrdenamiento = (Session["OrdenamientoFiltrosBuscador"] == null) ? GetOrdenamientoFiltrosBuscador() : (Dictionary<string, string>)Session["OrdenamientoFiltrosBuscador"],
+                ListaOrdenamiento = tablaLogica.GetOrdenamientoFiltrosBuscador(userData.PaisID),
                 TotalProductosPagina = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.TotalProductosPaginaResultado),
                 TotalCaracteresDescripcion = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.TotalCaracteresDescPaginaResultado),
-                MostrarOpcionesOrdenamiento = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.MostrarOpcionesOrdenamiento).ToBool()                
+                MostrarOpcionesOrdenamiento = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.MostrarOpcionesOrdenamiento).ToBool()
             };
             return View(model);
         }
 
-        private Dictionary<string, string> GetOrdenamientoFiltrosBuscador()
-        {
-            var result = getListaOrdenamientoFiltrosBuscador(userData.PaisID);
-
-            Session["OrdenamientoFiltrosBuscador"] = result;
-
-            return result;
-        }
-
-        private Dictionary<string, string> getListaOrdenamientoFiltrosBuscador(int paisId)
-        {
-            var result = new Dictionary<string, string>();
-            List<BETablaLogicaDatos> listaDescripciones;
-
-            using (var tablaLogica = new SACServiceClient())
-            {
-                listaDescripciones = tablaLogica.GetTablaLogicaDatos(paisId, Constantes.TablaLogica.ListaOrdenamientoFiltros).ToList();
-            }
-
-            foreach (var item in listaDescripciones)
-            {
-                result.Add(item.Descripcion.ToString(), string.IsNullOrEmpty(item.Valor) ? "" : item.Valor.ToString());
-            }
-
-            return result;
-        }
+     
 
     }
 
