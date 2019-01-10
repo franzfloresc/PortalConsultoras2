@@ -2586,6 +2586,31 @@ var AnalyticsPortalModule = (function () {
     ////////////////////////////////////////////////////////////////////////////////////////
 
 
+    var marcarClickMasOfertasLiquidacion = function (url, titulo) {
+        try {
+            if (_constantes.isTest)
+                alert("Marcación Ver más ofertas.");
+
+
+            var nombreBoton = titulo;
+            dataLayer.push({
+                'event': _evento.virtualEvent,
+                'category': "Home - Liquidaciones Web",
+                'action': 'Clic Botón',
+                'label': nombreBoton,
+                'eventCallback': function () {
+                    document.location = url;
+                }
+            });
+
+        } catch (e) {
+            document.location = url;
+            console.log(_texto.excepcion + e);
+        }
+
+    }
+
+
     return {
         // Ini - Metodos Iniciales
         MarcarVerFichaProducto: marcarVerFichaProducto,
@@ -2708,6 +2733,8 @@ var AnalyticsPortalModule = (function () {
         MarcaRecomendacionesFlechaSiguiente: marcaRecomendacionesFlechaSiguiente,
         MarcaRecomendacionesFlechaAnterior: marcaRecomendacionesFlechaAnterior,
         MarcaOcultarRecomendaciones: marcaOcultarRecomendaciones,
-        MarcaAnadirCarritoRecomendaciones: marcaAnadirCarritoRecomendaciones
+        MarcaAnadirCarritoRecomendaciones: marcaAnadirCarritoRecomendaciones,
+
+        MarcarClickMasOfertasLiquidacion: marcarClickMasOfertasLiquidacion,
     }
 })();

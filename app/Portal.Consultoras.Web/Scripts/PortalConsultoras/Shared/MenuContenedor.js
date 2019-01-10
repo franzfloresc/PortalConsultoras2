@@ -291,7 +291,6 @@ var menuModule = (function () {
         }
     }
     function sectionClick(url, titulo, e) {
-
         url = url || "";
         if (_var.Mobile) {
             url = "/Mobile" + url;
@@ -305,10 +304,19 @@ var menuModule = (function () {
                 }
             }
 
-            var OrigenPedidoWeb = EstrategiaAgregarModule.GetOrigenPedidoWeb($(e), false);
-            OrigenPedidoWeb = OrigenPedidoWeb || "";
+            else if (url.indexOf(ConstantesModule.CodigosPalanca.LiquidacionWeb) > 0) {
+                titulo = titulo || "";
+                if (titulo === "BotonVerMasLiquidacion") {
+                    AnalyticsPortalModule.MarcarClickMasOfertasLiquidacion(url, e.innerText);
+                }
+            }
+            else {
+                var OrigenPedidoWeb = EstrategiaAgregarModule.GetOrigenPedidoWeb($(e), false);
+                OrigenPedidoWeb = OrigenPedidoWeb || "";
 
-            AnalyticsPortalModule.MarcaClicVerMasOfertas(url, OrigenPedidoWeb, e.innerText);
+                AnalyticsPortalModule.MarcaClicVerMasOfertas(url, OrigenPedidoWeb, e.innerText);
+            }
+      
         }
         else {
             document.location = url;

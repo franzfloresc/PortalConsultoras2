@@ -18,7 +18,8 @@ var ConstantesModule = (function () {
         ProgramaNuevasRegalo: "ProgramaNuevasRegalo",
         ParticipaProgramaNuevas: "ParticipaProgramaNuevas",
         NotParticipaProgramaNuevas: "NotParticipaProgramaNuevas",
-        Ganadoras: "Ganadoras"
+        Ganadoras: "Ganadoras",
+        LiquidacionWeb: "OfertasLiquidacion"
     }
 
     var _keysLocalStorage = {
