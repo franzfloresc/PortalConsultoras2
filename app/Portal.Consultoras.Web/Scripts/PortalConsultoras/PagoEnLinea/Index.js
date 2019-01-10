@@ -30,6 +30,7 @@ $(document).ready(function () {
                 $(document).on('click', '#divMetodoPagoVisa', me.Eventos.MarcacionMetodoPago);
                 $(document).on('click', '#btnPagoTotal', me.Eventos.PagoTotal);
                 $(document).on('click', '#btnPagoParcial', me.Eventos.PagoParcial);
+                $(document).on('change','#txtMontoParcial', me.Eventos.ValidarMontoDeuda);
             },
             InicializarAcciones: function () {
                 me.globals.barraActivacion.toggleClass('activado');
@@ -178,28 +179,14 @@ $(document).ready(function () {
                 }
 
                 me.Funciones.GuardarMonto(montoDeuda);
-
                 me.Funciones.IrPasarela();
-            },
-            PagoParcial: function (e) {
+            }
+            , PagoParcial: function (e) {
                 e.preventDefault();
                 e.stopPropagation();
 
                 var montoDeuda = $.trim($("#txtMontoParcial").val());
-
-                if ($.trim(montoDeuda) == "" || parseFloat(montoDeuda).toFixed(2) < montoMinimoPago) {
-                    AbrirMensaje("El monto a pagar debe ser mayor o igual a " + montoMinimoPago);
-                    return false;
-                }
-
-                var montoTotal = $.trim($("#hdMontoDeuda").val());
-                if (parseFloat(montoDeuda).toFixed(2) > parseFloat(montoTotal)) {
-                    AbrirMensaje("El monto a pagar excede tu deuda, por favor ingresa otro monto");
-                    return false;
-                }
-
                 me.Funciones.GuardarMonto(montoDeuda);
-
                 me.Funciones.IrPasarela();
             },
             MarcacionMetodoPago: function (e) {
@@ -209,6 +196,30 @@ $(document).ready(function () {
                     'action': 'Clic en Método de Pago',
                     'label': 'Tarjeta de Crédito Visa'
                 });
+            },
+            ValidarMontoDeuda: function (e) {
+                event.preventDefault();
+                var montoTotal = $.trim($("#hdMontoDeuda").val());
+                var montoDeuda = $.trim($("#txtMontoParcial").val());
+
+                if (parseFloat(montoTotal) != 0 && ($.trim(montoDeuda) == "" || parseFloat(montoDeuda).toFixed(2) < montoMinimoPago)) {
+                    AbrirMensaje("El monto a pagar debe ser mayor o igual a " + montoMinimoPago);
+                    $('#btnPagoParcial').removeClass("btn_pago_tarjeta_credito");
+                    $('#btnPagoParcial').attr('disabled', 'disabled');
+                    $('#btnPagoParcial').addClass("disabledButton");
+                    return false;
+                }
+
+                if (parseFloat(montoTotal) != 0 && parseFloat(montoDeuda).toFixed(2) <= parseFloat(montoTotal)) {
+                    $('#btnPagoParcial').removeAttr("disabled");
+                    $('#btnPagoParcial').removeClass("disabledButton");
+                    $('#btnPagoParcial').addClass("btn_pago_tarjeta_credito");
+                }
+                else {
+                    $('#btnPagoParcial').removeClass("btn_pago_tarjeta_credito");
+                    $('#btnPagoParcial').attr('disabled', 'disabled');
+                    $('#btnPagoParcial').addClass("disabledButton");
+                }
             }
         },
         me.Inicializar = function () {
@@ -216,8 +227,21 @@ $(document).ready(function () {
             me.Funciones.InicializarAcciones();
         }
     }
-
     PedidoEnLinea = new mainPL();
-
     PedidoEnLinea.Inicializar();
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
