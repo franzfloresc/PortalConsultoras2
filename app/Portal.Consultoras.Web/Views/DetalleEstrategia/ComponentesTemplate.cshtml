@@ -40,17 +40,14 @@
                 <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{variedad.PrecioCatalogo}}" />
             </div>
             <div id="fav_tono_{{variedad.Cuv}}"
-                 {{#iff TieneStock '==' false}}
-                 class="content_tono_detalle  tono-agotado" title="Agotado"
-                 {{#unless ../esCampaniaSiguiente}}
-                 onclick=" "
-                 {{/unless}}
-                 {{else}}
+                 {{#if TieneStock}}
                  class="content_tono_detalle"
                  {{#unless ../esCampaniaSiguiente}}
                  onclick="javascript: ComponentesModule.SeleccionarPaletaOpcion(event,{{variedad.Cuv}})"
                  {{/unless}}
-                 {{/iff}}
+                 {{else}}
+                 class="content_tono_detalle  tono-agotado" title="Agotado"
+                 {{/if}}
                  data-tono-cuv="{{variedad.Cuv}}"
                  data-tono-change="2"
                  data-tono-nombre="{{variedad.NombreBulk}}"
@@ -63,12 +60,12 @@
     </div>
     {{/each}}
 
-    {{#iff this.TieneTonoAgotado '==' true}}
+    {{#if this.TieneTonoAgotado}}
     <ul class="list-inline" style="padding-top:15px">
         <li><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt=""></li>
         <li>Algunos tipos o tonos se encuentran agotados.</li>
     </ul>
-    {{/iff}}
+    {{/if}}
 
     {{/iff}}
     {{#iff CodigoVariante 'ContainsArray' '[@Constantes.TipoEstrategiaSet.CompuestaFija,@Constantes.TipoEstrategiaSet.CompuestaVariable]'}}
@@ -142,12 +139,12 @@
 
         {{/each}}
 
-        {{#iff this.TieneTonoAgotado '==' true}}
+        {{#if this.TieneTonoAgotado}}
         <ul class="list-inline" style="padding-top:15px">
             <li><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt="" /></li>
             <li>Algunos tipos o tonos se encuentran agotados.</li>
         </ul>
-        {{/iff}}
+        {{/if}}
 
     </div>
     {{/iff}}

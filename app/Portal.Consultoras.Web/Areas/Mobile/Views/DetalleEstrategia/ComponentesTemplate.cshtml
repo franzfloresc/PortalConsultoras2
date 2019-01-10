@@ -38,11 +38,8 @@
                 <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{variedad.IdMarca}}" />
                 <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{variedad.PrecioCatalogo}}" />
             </div>
-            <div {{#iff TieneStock '==' false}}
-                 class="content_tono_detalle tono-agotado" style="pointer-events:none"
-                 {{else}}
-                 class="content_tono_detalle tono-agotado"
-                 {{/iff}}
+            {{#if TieneStock}}
+            <div class="content_tono_detalle tono-agotado"
                  {{#unless ../esCampaniaSiguiente}}
                  onclick="javascript: ComponentesModule.SeleccionarPaletaOpcion(event,{{variedad.Cuv}});"
                  {{/unless}}
@@ -51,6 +48,15 @@
                  data-tono-nombre="{{variedad.NombreBulk}}">
                 <img src="{{variedad.ImagenBulk}}" alt="">
             </div>
+            {{else}}
+            <div class="content_tono_detalle tono-agotado" style="pointer-events:none"
+                 data-tono-cuv="{{variedad.Cuv}}"
+                 data-tono-change="2"
+                 data-tono-nombre="{{variedad.NombreBulk}}">
+                <img src="{{variedad.ImagenBulk}}" alt="">
+            </div>
+            {{/if}}
+
             {{/each}}
         </div>
         <hr class="clear">
@@ -58,12 +64,12 @@
     </div>
     {{/each}}
 
-    {{#iff this.TieneTonoAgotado '==' true}}
+    {{#if this.TieneTonoAgotado}}
     <ul class="list-inline" style="padding-top:15px">
         <li><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt=""></li>
         <li>Algunos tipos o tonos se encuentran agotados.</li>
     </ul>
-    {{/iff}}
+    {{/if}}
 
     {{/iff}}
     {{#iff CodigoVariante 'ContainsArray' '[@Constantes.TipoEstrategiaSet.CompuestaFija,@Constantes.TipoEstrategiaSet.CompuestaVariable]'}}
@@ -139,12 +145,12 @@
             </div>
             {{/each}}
 
-            {{#iff this.TieneTonoAgotado '==' true}}
+            {{#if this.TieneTonoAgotado}}
             <ul class="list-inline" style="padding-top:15px">
                 <li><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt=""></li>
                 <li>Algunos tipos o tonos se encuentran agotados.</li>
             </ul>
-            {{/iff}}
+            {{/if}}
 
         </div>
 

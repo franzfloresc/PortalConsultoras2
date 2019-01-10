@@ -67,11 +67,11 @@
     {{else}}
     <div data-item="{{EstrategiaID}}" data-item-cuv="{{CUV2}}" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" class="{{ClaseEstrategia}}">
         <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
-        <div data-item-tag="body" {{#iff TieneStock '==' false}}
-             class="content_item_carrusel caja-borde producto-agotado"
-             {{else}}
+        <div data-item-tag="body" {{#if TieneStock}}
              class="content_item_carrusel caja-borde"
-             {{/iff}}
+             {{else}}
+             class="content_item_carrusel caja-borde producto-agotado"
+             {{/if}}
              {{#iff EsSubcampania '==' false}}
              {{#iff TipoAccionAgregar '!=' '@Constantes.TipoAccionAgregar.LoQuieres' }}
              style="cursor:pointer;"
@@ -150,7 +150,7 @@
                     <div class="texto_elige_tono"></div>
                     <div class="clear"></div>
 
-                    {{#iff TieneStock}}
+                    {{#if TieneStock}}
                     <div class="liquidacion_rango_home js-no-popup" data-cantidad-contenedor="">
                         <input type="text" value="1" size="2" maxlength="2" data-input='cantidad'
                                class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup {{ClaseBloqueada}}"
@@ -180,9 +180,9 @@
                             </a>
                         </div>
                     </div>
-                    {{/iff}}
+                    {{/if}}
 
-                    {{#iff TieneStock}}
+                    {{#if TieneStock}}
                     <a href="javascript:;" class="boton_Agregalo_home js-no-popup {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}"
                        onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event); ">
                         AGR&Eacute;GALO
@@ -192,10 +192,10 @@
                        onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event); ">
                         AGOTADO
                     </a>
-                    {{/iff}}
+                    {{/if}}
                     {{/iff}}
                     {{#iff TipoAccionAgregar '==' '@Constantes.TipoAccionAgregar.EligeOpcion'}}
-                        {{#iff TieneStock}}
+                        {{#if TieneStock}}
                             <div {{#iff ClaseBloqueada '==' ''}} onclick="javascript:OnClickFichaDetalle(event.target);" {{/iff}}>
                                 <div class="texto_elige_tono"></div>
                                 <div class="clear"></div>
@@ -208,7 +208,7 @@
                                onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event); ">
                                 AGOTADO
                             </a>
-                        {{/iff}}
+                        {{/if}}
                     {{/iff}}
                     {{#iff TipoAccionAgregar '==' '@Constantes.TipoAccionAgregar.LoQuieres'}}
                     <div class="texto_elige_tono"></div>
