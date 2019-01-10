@@ -1,5 +1,9 @@
 ﻿/* HELPERS */
 
+a{
+    cursor:pointer!important;
+}
+
 .text-uppercase{
     text-transform:uppercase;
 }
@@ -527,6 +531,7 @@
         background-position: center;
         background-image: url(/Content/Images/Esika/icono_localizacion.svg);
         z-index: 3000;
+        cursor:pointer;
     }
 
     .grupo_form_cambio_datos input:focus + label,
