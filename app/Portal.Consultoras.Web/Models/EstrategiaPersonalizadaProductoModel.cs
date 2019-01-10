@@ -87,7 +87,6 @@ namespace Portal.Consultoras.Web.Models
         public string CodigoPalanca { get; set; } // codigo donde se van a mostrar los productos
 
         public bool TieneStock { get; set; } //flag para controlar si el producto cuenta con stock
-        public bool TieneTonoAgotado { get; set; } //flag para controlar si algun componente de un SET esta agotado
 
     }
 }

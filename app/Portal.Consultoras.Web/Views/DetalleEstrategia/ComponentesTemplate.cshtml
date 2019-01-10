@@ -68,7 +68,7 @@
     </div>
     {{/each}}
 
-    <div id="div-mensaje-tonos-agotados" style="display: none;">
+    <div style="display: none;" class="xmsg-tonos-agotados">
         <ul class="list-inline" style="padding-bottom:15px">
             <li><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt=""></li>
             <li>Algunos tipos o tonos se encuentran agotados.</li>
@@ -147,12 +147,12 @@
 
         {{/each}}
 
-        {{#if this.TieneTonoAgotado}}
-        <ul class="list-inline" style="padding-top:15px">
-            <li><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt="" /></li>
-            <li>Algunos tipos o tonos se encuentran agotados.</li>
-        </ul>
-        {{/if}}
+        <div style="display: none;" class="xmsg-tonos-agotados">
+            <ul class="list-inline" style="padding-top:15px">
+                <li><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt="" /></li>
+                <li>Algunos tipos o tonos se encuentran agotados.</li>
+            </ul>
+        </div>
 
     </div>
     {{/iff}}
