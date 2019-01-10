@@ -896,11 +896,19 @@ var GoogleMap = function() {
 
         },
         ValidacionMapa: function() {
-            $('#Direccion').focusout(function() {
-                if ($(this).val().length === 0 && EsMobile == 'True')
+            $('#Direccion').keyup(function() {
+                if (EsMobile == 'True')
                 {
-                    //if (EsMobile == 'True')
-                       $('.enlace_abrir_mapa')[0].disabled = true;
+                    if ($(this).val().length === 0)
+                    {
+                        $('.enlace_abrir_mapa')[0].disabled = true;
+                        $('.enlace_abrir_mapa').addClass('enlace_abrir_mapa_disabled');
+                    }
+                    else
+                    {
+                        $('.enlace_abrir_mapa')[0].disabled = false;
+                        $('.enlace_abrir_mapa').removeClass('enlace_abrir_mapa_disabled');
+                    }
                 }
                 var dropdown = document.getElementsByClassName('pac-container')[0];
                 if (dropdown.style.display == 'none') {
