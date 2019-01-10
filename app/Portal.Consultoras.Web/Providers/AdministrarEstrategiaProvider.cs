@@ -850,12 +850,12 @@ namespace Portal.Consultoras.Web.Providers
             UsuarioModel userData = sessionManager.GetUserData();
             string jsonParameters = string.Empty;
 
-            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlReporteValidacion,tipo,campaniaId);
-            var taskApi = Task.Run(() => RespSBMicroservicios(jsonParameters, requestUrl, "get", userData));
+            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlReporteValidacion, userData.CodigoISO, tipo, campaniaId);
+            Task<string> taskApi = Task.Run(() => RespSBMicroservicios(jsonParameters, requestUrl, "get", userData));
             Task.WhenAll(taskApi);
             string content = taskApi.Result;
 
-            var respuesta = JsonConvert.DeserializeObject<GenericResponse>(content);
+            GenericResponse respuesta = JsonConvert.DeserializeObject<GenericResponse>(content);
 
             List<ServicePedido.BEReporteValidacion> listaReporte = (respuesta.Result != null) ? JsonConvert.DeserializeObject<List<ServicePedido.BEReporteValidacion>>(respuesta.Result.ToString()) : new List<ServicePedido.BEReporteValidacion>();
 
