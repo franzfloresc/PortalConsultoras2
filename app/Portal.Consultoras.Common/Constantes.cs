@@ -1341,6 +1341,7 @@ namespace Portal.Consultoras.Common
             public const string InsertarValidarKitInicio = "No está permitido agregar el Kit de un programa obligatorio.";
             public const string ValidarAgregarProgNuevas = "Sucedió un error al validar el programa de nuevas. Inténtenlo más tarde.";
             public const string ExcedioLimiteVenta = "Las unidades ingresadas exceden el máximo permitido ({0}) en esta campaña.";
+            public const string MensajeSeparador = "{0}|{1}";
         }
 
         public static class MensajesExito
@@ -2210,6 +2211,8 @@ namespace Portal.Consultoras.Common
             public static class Code
             {
                 public const string SUCCESS = "0000";
+                public const string SUCCESS_DUOPERFECTO_AGREGADO_UNO = "0010";
+                public const string SUCCESS_DUOPERFECTO_AGREGADO_COMPLETADO = "0011";
                 public const string ERROR_INTERNO = "9999";
                 public const string ERROR_PRODUCTO_NOEXISTE = "1101";
                 public const string ERROR_PRODUCTO_AGOTADO = "1102";
