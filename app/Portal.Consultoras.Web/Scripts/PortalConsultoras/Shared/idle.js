@@ -66,7 +66,8 @@ var store = (function () {
   
         // server-side session keep-alive timer
         sessionKeepAliveTimer: 600,   // ping the server at this interval in seconds. 600 = 10 Minutes. Set to false to disable pings
-        sessionKeepAliveUrl: window.location.href // set URL to ping - does not apply if sessionKeepAliveTimer: false
+        sessionKeepAliveUrl: window.location.href, // set URL to ping - does not apply if sessionKeepAliveTimer: false,
+        endSessionCallback: false
       },
   
       //##############################
@@ -276,6 +277,9 @@ var store = (function () {
           stopDialogTimer();
 
           showPopupFinSesion();
+          if (currentConfig.endSessionCallback) {
+              currentConfig.endSessionCallback();
+          }
       };
 
       //###############################

@@ -15,7 +15,10 @@ function configureTimeoutPopup() {
         idleTimeLimit: 1860,            // 15 seconds 'No activity' time limit in seconds.
         activityEvents: 'click keypress scroll wheel mousewheel',    // separate each event with a space
         dialogDisplayLimit: 48,       // Time to display the warning dialog before logout (and optional callback) in seconds
-        sessionKeepAliveTimer: false  // Set to false to disable pings.
+        sessionKeepAliveTimer: false,  // Set to false to disable pings.
+        endSessionCallback: function() {
+            forceCloseSession();
+        }
     });
 }
 
@@ -69,6 +72,16 @@ function CerrarSesionValidado() {
     }
 
     $.fn.idleTimeout().logout();
+}
+
+function forceCloseSession() {
+    $.get(baseUrl + 'Login/LogOut');
+
+    if (typeof history === 'undefined') return;
+
+    for (var i = 0; i < 100; i++) {
+        history.pushState({}, '', '');
+    }
 }
 
 function showPopupFinSesion() {
