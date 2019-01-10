@@ -56,7 +56,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                                     new BLOfertaProducto(),
                                     new BLProgramaNuevas(),
                                     new BLLimiteVenta())
-            )
+            
         { }
 
         public BLPedido(IProductoBusinessLogic productoBusinessLogic,
@@ -77,7 +77,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                             IOfertaProductoBusinessLogic ofertaProductoBusinessLogic,
                             IProgramaNuevasBusinessLogic programaNuevasBusinessLogic,
                             ILimiteVentaBusinessLogic limiteVentaBusinessLogic)
-            )
+            
         {
             _productoBusinessLogic = productoBusinessLogic;
             _pedidoWebBusinessLogic = pedidoWebBusinessLogic;
@@ -2621,39 +2621,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
         }
         #endregion
 
-        #region Direccion de entrega
-
-        public BEDireccionEntrega InsertarDireccionEntrega(BEDireccionEntrega direccion)
-        {
-            BEDireccionEntrega resultado = null;
-            try
-            {
-
-                resultado = _direccionEntregaBusinessLogic.Insertar(direccion);
-            }
-            catch (Exception ex)
-            {
-                resultado = new BEDireccionEntrega();
-                LogManager.SaveLog(ex, direccion.CodigoUsuario, direccion.PaisID);
-            }
-            return resultado;
-        }
-        public BEDireccionEntrega EditarDireccionEntrega(BEDireccionEntrega direccion)
-        {
-            BEDireccionEntrega resultado = null;
-            try
-            {
-
-                resultado = _direccionEntregaBusinessLogic.Editar(direccion);
-            }
-            catch (Exception ex)
-            {
-                resultado = new BEDireccionEntrega();
-                LogManager.SaveLog(ex, direccion.CodigoUsuario, direccion.PaisID);
-            }
-
-            return resultado;
-        }
-        #endregion
+     
     }
 } 
