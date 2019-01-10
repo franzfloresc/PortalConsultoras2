@@ -52,6 +52,7 @@ namespace Portal.Consultoras.Web.Providers
             catch (Exception ex)
             {
                 Common.LogManager.SaveLog(ex, string.Empty, codigoISO);
+                return estrategias;
             }
 
             if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
@@ -104,7 +105,7 @@ namespace Portal.Consultoras.Web.Providers
                         estrategia.EstrategiaDetalle = new ServiceOferta.BEEstrategiaDetalle();
                         int tablaLogicaDatosID;
 
-                        foreach (var itemED in item.EstrategiaDetalle)
+                        foreach (Models.Search.ResponseOferta.Estructura.EstrategiaDetalle itemED in item.EstrategiaDetalle)
                         {
                             if (itemED.TablaLogicaDatosID == 0) continue;
 
@@ -157,7 +158,7 @@ namespace Portal.Consultoras.Web.Providers
                     if (estrategia.Precio2 > 0)
                     {
                         List<ServiceOferta.BEEstrategiaProducto> compoponentes = new List<ServiceOferta.BEEstrategiaProducto>();
-                        foreach (var componente in item.Componentes)
+                        foreach (Models.Search.ResponseOferta.Estructura.Componente componente in item.Componentes)
                         {
                             ServiceOferta.BEEstrategiaProducto estrategiaTono = new ServiceOferta.BEEstrategiaProducto
                             {
@@ -193,6 +194,7 @@ namespace Portal.Consultoras.Web.Providers
                 catch (Exception ex)
                 {
                     Common.LogManager.SaveLog(ex, string.Empty, codigoISO);
+                    return estrategias;
                 }
             }
 

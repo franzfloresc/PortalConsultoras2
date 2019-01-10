@@ -78,7 +78,7 @@ namespace Portal.Consultoras.Web.Providers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, model.CodigoConsultora, model.PaisID.ToString());
+                Common.LogManager.SaveLog(ex, model.CodigoConsultora, model.PaisID.ToString());
                 ofertasDelDia = new List<ServiceOferta.BEEstrategia>();
             }
             return ofertasDelDia;

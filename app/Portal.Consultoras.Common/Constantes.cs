@@ -2888,19 +2888,19 @@ namespace Portal.Consultoras.Common
             public const string UrlObtenerOfertas = "Oferta/{0}/{1}/{2}/{3}/{4}/{5}/{6}/{7}";
 
             /// <summary>
-            /// api/Evento/Get/{pais}/{campania}
+            /// Evento/Get/{pais}/{campania}
             /// </summary>
-            public const string UrlObtenerEvento = "api/Evento/Get/{0}/{1}";
+            public const string UrlObtenerEvento = "Evento/Get/{0}/{1}";
 
             /// <summary>
-            /// api/Nivel/listar/{pais}
+            /// Nivel/listar/{pais}
             /// </summary>
-            public const string UrlObtenerNivel = "api/Nivel/listar/{0}";
+            public const string UrlObtenerNivel = "Nivel/listar/{0}";
 
             /// <summary>
-            /// api/Evento/listarConsultora/{pais}/{campania}/{codigoConsultora}
+            /// Evento/listarconsultora/{pais}/{campania}/{codigoConsultora}
             /// </summary>
-            public const string UrlObtenerEventoConsultora = "api/Evento/listarConsultora/{0}/{1}/{2}";
+            public const string UrlObtenerEventoConsultora = "Evento/listarconsultora/{0}/{1}/{2}";
             #endregion
 
             #region Reporte
@@ -3216,5 +3216,18 @@ namespace Portal.Consultoras.Common
             public const string FechaHora = "dd/MM/yyyy HH:mm";
         }
 
+        public static class MetodosHTTP
+        {
+            public const string Get = "get";
+            public const string Post = "post";
+            public const string Put = "put";
+            public const string Delete = "delete";
+        }
+
+        public static class MicroServicio
+        {
+            public const string PersonalizacionConfig = "CONFIG";
+            public const string PersonalizacionSearch = "SEARCH";
+        }
     }
 }
