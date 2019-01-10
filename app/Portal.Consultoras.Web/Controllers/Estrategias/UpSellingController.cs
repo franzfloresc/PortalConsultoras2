@@ -16,15 +16,13 @@ using System.Web.Mvc;
 namespace Portal.Consultoras.Web.Controllers.Estrategias
 {
     [BaseAuthenticationFilter]
-    public class UpSellingController : BaseController
+    public class UpSellingController : BaseAdmController
     {
-        private readonly ZonificacionProvider _zonificacionProvider;
         private readonly UpSellingProvider _upSellingProvider;
 
         public UpSellingController()
         {
             _upSellingProvider = new UpSellingProvider();
-            _zonificacionProvider = new ZonificacionProvider();
         }
 
         public async Task<ActionResult> Index()

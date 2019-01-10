@@ -184,7 +184,7 @@
                     var imgProducto = element.attr('src');
                     var fichaProducto = element.closest('article');
 
-                    console.log(imgProducto);
+                    //console.log(imgProducto);
 
                     _funciones.GetSize(imgProducto, function (width, height) {
 
@@ -335,7 +335,7 @@
             return _localStorage;
         },
         mostrarUOcultarCriterios: function (filtroCriterio) {
-            console.log('filtroCriterio', filtroCriterio);
+            //console.log('filtroCriterio', filtroCriterio);
             if (filtroCriterio.length > 0) {
                 if (_config.isMobile) {
                     SetHandlebars(_elementos.scriptHandleBarCriterios, filtroCriterio, _elementos.criteriosBuscadorMobile);
@@ -595,10 +595,19 @@
 
             if (codigo.indexOf(codigoEstrategia) >= 0) {
                 var UrlDetalle = GetPalanca(codigoEstrategia);
+                var UrlGeneral = "";
+                
                 if (UrlDetalle == "") return false;
-                UrlDetalle += codigoCampania + "/" + codigoCuv + "/" + origenPedidoWeb;
 
-                window.location = UrlDetalle;
+                UrlDetalle += codigoCampania + "/" + codigoCuv + "/" + origenPedidoWeb;
+                
+                if (_config.isMobile) {
+                    UrlGeneral = "/Mobile" + UrlDetalle;
+                } else {
+                    UrlGeneral = UrlDetalle;
+                }
+
+                window.location = UrlGeneral;
 
                 if (!(typeof AnalyticsPortalModule === 'undefined'))
                     AnalyticsPortalModule.MarcaEligeTuOpcionBuscador(descripcionProducto + ' - ' + _config.textoBusqueda);
