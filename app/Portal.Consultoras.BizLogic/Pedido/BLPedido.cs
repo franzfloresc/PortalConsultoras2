@@ -383,9 +383,9 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 }
 
                 //Duo Perfecto
-                if(usuario.CodigoPrograma != string.Empty && usuario.ConsecutivoNueva > 0)
+                if (usuario.CodigoPrograma != string.Empty && usuario.ConsecutivoNueva > 0)
                     lstDetalle.Where(x => x.FlagNueva && x.EnRangoProgNuevas)
-                        .Update( x => x.EsDuoPerfecto = _programaNuevasBusinessLogic.EsCuvDuoPerfecto(usuario.PaisID, usuario.CampaniaID, usuario.ConsecutivoNueva, usuario.CodigoPrograma, x.CUV));
+                        .Update(x => x.EsDuoPerfecto = _programaNuevasBusinessLogic.EsCuvDuoPerfecto(usuario.PaisID, usuario.CampaniaID, usuario.ConsecutivoNueva, usuario.CodigoPrograma, x.CUV));
             }
             catch (Exception ex)
             {
@@ -2637,10 +2637,10 @@ namespace Portal.Consultoras.BizLogic.Pedido
             PedidoAgregarProductoAgrupado(usuario, pedidoID, pedidoDetalle.Cantidad, cuvSet, strCuvs, estrategia.EstrategiaID);
 
             if (cntProd == 1 && esDuoPerfecto)
-                return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.SUCCESS, string.Format(Constantes.MensajesError.MensajeSeparador, Constantes.PedidoValidacion.Code.SUCCESS_DUOPERFECTO_AGREGADO_COMPLETADO, string.Format(Constantes.ProgNuevas.Mensaje.Electivo_CompletasteLimite, Constantes.ProgNuevas.Mensaje.Electivo_PromocionNombre)));
+                return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.SUCCESS, Constantes.PedidoValidacion.Code.SUCCESS_DUOPERFECTO_AGREGADO_COMPLETADO + "|" + string.Format(Constantes.ProgNuevas.Mensaje.Electivo_CompletasteLimite, Constantes.ProgNuevas.Mensaje.Electivo_PromocionNombre)));
 
             if (cntProd == 0 && esDuoPerfecto)
-                return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.SUCCESS, string.Format(Constantes.MensajesError.MensajeSeparador, Constantes.PedidoValidacion.Code.SUCCESS_DUOPERFECTO_AGREGADO_UNO, string.Format(Constantes.ProgNuevas.Mensaje.Electivo_TeFaltaPocoLimite, cntProd + 1, Constantes.ProgNuevas.Mensaje.Electivo_PromocionNombre)));
+                return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.SUCCESS, Constantes.PedidoValidacion.Code.SUCCESS_DUOPERFECTO_AGREGADO_UNO + "|" + string.Format(Constantes.ProgNuevas.Mensaje.Electivo_TeFaltaPocoLimite, cntProd + 1, Constantes.ProgNuevas.Mensaje.Electivo_PromocionNombre)));
 
             return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.SUCCESS);
         }
