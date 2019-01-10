@@ -39,7 +39,7 @@
                 <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{variedad.PrecioCatalogo}}" />
             </div>
             {{#if TieneStock}}
-            <div class="content_tono_detalle tono-agotado"
+            <div class="content_tono_detalle"
                  {{#unless ../esCampaniaSiguiente}}
                  onclick="javascript: ComponentesModule.SeleccionarPaletaOpcion(event,{{variedad.Cuv}});"
                  {{/unless}}
@@ -49,7 +49,7 @@
                 <img src="{{variedad.ImagenBulk}}" alt="">
             </div>
             {{else}}
-            <div class="content_tono_detalle tono-agotado" style="pointer-events:none"
+            <div class="content_tono_detalle tono_agotado" style="pointer-events:none"
                  data-tono-cuv="{{variedad.Cuv}}"
                  data-tono-change="2"
                  data-tono-nombre="{{variedad.NombreBulk}}">
@@ -64,13 +64,13 @@
     </div>
     {{/each}}
 
-    {{#if this.TieneTonoAgotado}}
-    <ul class="list-inline" style="padding-top:15px">
-        <li><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt=""></li>
-        <li>Algunos tipos o tonos se encuentran agotados.</li>
-    </ul>
-    {{/if}}
-
+    <div id="div-mensaje-tonos-agotados" style="display: none;">
+        <ul class="list-inline" style="padding-top:15px">
+            <li><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt=""></li>
+            <li>Algunos tipos o tonos se encuentran agotados.</li>
+        </ul>
+    </div>
+    
     {{/iff}}
     {{#iff CodigoVariante 'ContainsArray' '[@Constantes.TipoEstrategiaSet.CompuestaFija,@Constantes.TipoEstrategiaSet.CompuestaVariable]'}}
     <div class="contenido_titulo">

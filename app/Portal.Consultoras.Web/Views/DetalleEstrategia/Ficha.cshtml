@@ -164,8 +164,8 @@
                         </div>
                     </div>
                     {{else}}
-                    <div class="contenedor_rangos {{#if esCampaniaSiguiente}} {{ClaseBloqueadaRangos}} {{/if}}" id="idcontenedor_rangos" data-cantidad-contenedor="" style="display:none">
-                        <input class="txt_cantidad_pedido ValidaNumeral ValidaPasteNumeral" {{#if esCampaniaSiguiente}} {{RangoInputEnabled}} {{/if}} type="text" value="1" size="2" maxlength="2" style="pointer-events: none;" data-input="cantidad" data-cantidad-input="-">
+                    <div class="contenedor_rangos" id="idcontenedor_rangos" data-cantidad-contenedor="" style="display:none">
+                        <input class="txt_cantidad_pedido ValidaNumeral ValidaPasteNumeral" type="text" value="1" size="2" maxlength="2" style="pointer-events: none;" data-input="cantidad" data-cantidad-input="-">
                         <div>
                             <a class="txt_menos" data-cantidad-agregar="-" style="pointer-events: none;">
                                 <div class="dibujar_linea dibujar_menos"></div>
@@ -201,10 +201,10 @@
                        onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, false, 0, true); ">AGRÉGALO</a>
                     {{else}}
                     <a id="btnAgregalo"
-                       class="boton_Agregalo_agotado btn_agregalo "
+                       class="boton_Agregalo_agotado btn_agregalo"
                        style="pointer-events: none;">AGOTADO</a>
-
                     {{/if}}
+
                     <hr class="clear">
                     <div class="ficha_div_libre_agregado">
                         {{#iff TextoLibre '!=' ''}}
