@@ -22,6 +22,18 @@
     height:21px;
 }
 
+/* POPUPS GENERALES - POPUP CIERRE DE SESIÓN */
+
+.icono_sesion_por_finalizar{    
+    background-image:url(/Content/Images/Lbel/icono_sesion_por_finalizar.svg);
+}
+
+.icono_alerta_cierre_sesion{
+    background-image:url(/Content/Images/Lbel/icono_alerta_cierre_sesion.svg);
+}
+
+/* FIN POPUPS GENERALES - POPUP CIERRE DE SESIÓN */
+
 @media screen and (min-width:992px) and (max-width:1204px){
 
     .layout__header--navidenio .layout__container:before{

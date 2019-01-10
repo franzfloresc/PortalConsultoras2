@@ -63,6 +63,18 @@
     background-color:transparent;
 }
 
+/* POPUPS GENERALES - POPUP CIERRE DE SESIÓN */
+
+.icono_sesion_por_finalizar{    
+    background-image:url(/Content/Images/Esika/icono_sesion_por_finalizar.svg);
+}
+
+.icono_alerta_cierre_sesion{
+    background-image:url(/Content/Images/Esika/icono_alerta_cierre_sesion.svg);
+}
+
+/* FIN POPUPS GENERALES - POPUP CIERRE DE SESIÓN */
+
 @media screen and (min-width:992px) and (max-width:1270px){
 
     .layout__header--navidenio .header__marca__pais:before,
