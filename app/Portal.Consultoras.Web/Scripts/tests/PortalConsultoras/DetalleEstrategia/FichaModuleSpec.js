@@ -1,22 +1,22 @@
-///// <reference path="../../../PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js" />
-///// <reference path="../../../PortalConsultoras/DetalleEstrategia/FichaModule.js" />
+/// <reference path="../../../PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js" />
+/// <reference path="../../../PortalConsultoras/DetalleEstrategia/FichaModule.js" />
 
 describe("FichaModule", function () {
     describe("Inicializar", function () {
 
-        beforeAll(function () {
-            //
-        });
-        afterAll(function () {
-            //
-        });
+        //beforeAll(function () {
+        //    //
+        //});
+        //afterAll(function () {
+        //    //
+        //});
 
-        beforeEach(function () {
-            //
-        });
-        afterEach(function () {
-            //
-        });
+        //beforeEach(function () {
+        //    //
+        //});
+        //afterEach(function () {
+        //    //
+        //});
 
         it("throw an exception when config is undefined", function () {
             var errorMsg = '';
@@ -27,7 +27,7 @@ describe("FichaModule", function () {
                 errorMsg = error;
             }
 
-            expect(errorMsg).toContain("config is null or undefined");
+            expect(errorMsg).to.have.string("config is null or undefined");
         });
 
         it("throw an exception when config is null", function () {
@@ -39,7 +39,7 @@ describe("FichaModule", function () {
                 errorMsg = error;
             }
 
-            expect(errorMsg).toContain("config is null or undefined");
+            expect(errorMsg).to.have.string("config is null or undefined");
         });
 
         it("throw an exception when localStorage is undefined", function () {
@@ -53,7 +53,7 @@ describe("FichaModule", function () {
                 errorMsg = error;
             }
 
-            expect(errorMsg).toContain("config.localStorageModule is null or undefined");
+            expect(errorMsg).to.have.string("config.localStorageModule is null or undefined");
         });
 
         it("throw an exception when localStorage is null", function () {
@@ -67,7 +67,7 @@ describe("FichaModule", function () {
                 errorMsg = error;
             }
 
-            expect(errorMsg).toContain("config.localStorageModule is null or undefined");
+            expect(errorMsg).to.have.string("config.localStorageModule is null or undefined");
         });
     });
 });
