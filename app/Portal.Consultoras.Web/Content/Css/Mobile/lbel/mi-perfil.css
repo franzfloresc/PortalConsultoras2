@@ -540,6 +540,10 @@ a{
         cursor:pointer;
     }
 
+    .enlace_abrir_mapa_disabled{
+        background-image: url(/Content/Images/icono_localizacion_disabled.svg);
+    }
+
     .grupo_form_cambio_datos input:focus + label,
     .grupo_form_cambio_datos select:focus + label,
     .campo_con_datos + label
@@ -881,7 +885,9 @@ a{
 }
 
 .confirmar_ubicacion_direccion_entrega,
-.confirmar_ubicacion_direccion_entrega[disabled]{
+.confirmar_ubicacion_direccion_entrega[disabled],
+.btn_guardar_datos_nuevos[disabled]
+{
     -moz-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
     -webkit-transition: all 0.3s ease;
@@ -904,7 +910,9 @@ a{
     cursor:pointer;
 }
 
-.confirmar_ubicacion_direccion_entrega[disabled]{
+.btn_guardar_datos_nuevos[disabled],
+.confirmar_ubicacion_direccion_entrega[disabled]
+{
     background-color: #d6d6d6;
     color: #989898;
     cursor:not-allowed;

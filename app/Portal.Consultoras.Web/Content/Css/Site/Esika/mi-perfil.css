@@ -1,5 +1,9 @@
 ﻿/* HELPERS */
 
+a{
+    cursor:pointer!important;
+}
+
 .text-uppercase{
     text-transform:uppercase;
 }
