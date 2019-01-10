@@ -107,29 +107,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public bool ValidarIngresoShowRoom(bool esIntriga)
-        {
-            if (!configEstrategiaSR.CargoEntidadesShowRoom)
-                return false;
-
-            var resultado = false;
-            var esShowRoom = SessionManager.GetEsShowRoom();
-            var mostrarShowRoomProductos = SessionManager.GetMostrarShowRoomProductos();
-            var mostrarShowRoomProductosExpiro = SessionManager.GetMostrarShowRoomProductosExpiro();
-
-            if (esIntriga)
-            {
-                resultado = esShowRoom && !mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
-            }
-
-            if (!esIntriga)
-            {
-                resultado = esShowRoom && mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
-            }
-
-            return resultado;
-        }
-
         public ShowRoomEventoModel CargarValoresModel()
         {
             ShowRoomEventoModel showRoomEventoModel;

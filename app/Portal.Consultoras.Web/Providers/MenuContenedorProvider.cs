@@ -91,11 +91,6 @@ namespace Portal.Consultoras.Web.Providers
                     menuActivo.OrigenPantalla = esMobile ? Constantes.OrigenPantallaWeb.MShowRoom : Constantes.OrigenPantallaWeb.DShowRoom;
 
                     break;
-
-                case Constantes.UrlMenuContenedor.OfertaDelDia:
-                case Constantes.UrlMenuContenedor.OfertaDelDiaIndex:
-                    menuActivo.Codigo = Constantes.ConfiguracionPais.OfertaDelDia;
-                    break;
                 case Constantes.UrlMenuContenedor.GuiaDeNegocio:
                 case Constantes.UrlMenuContenedor.GuiaDeNegocioIndex:
                     menuActivo.Codigo = Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada;
@@ -149,16 +144,30 @@ namespace Portal.Consultoras.Web.Providers
                     break;
                 case Constantes.UrlMenuContenedor.ProgramaNuevas:
                 case Constantes.UrlMenuContenedor.ProgramaNuevasIndex:
-                    menuActivo.Codigo =  limiteElectivos > 1 ? Constantes.ConfiguracionPais.ElecMultiple : Constantes.ConfiguracionPais.ProgramaNuevas;
+                    if(limiteElectivos > 1)
+                    {
+                        menuActivo.Codigo = Constantes.ConfiguracionPais.ElecMultiple;
+                        menuActivo.OrigenPantalla = esMobile
+                        ? Constantes.OrigenPantallaWeb.MDuoPerfecto
+                        : Constantes.OrigenPantallaWeb.DDuoPerfecto;
+                    }
+                    else
+                    {
+                        menuActivo.Codigo= Constantes.ConfiguracionPais.ProgramaNuevas;
+                        menuActivo.OrigenPantalla = esMobile
+                        ? Constantes.OrigenPantallaWeb.MPacksNuevas
+                        : Constantes.OrigenPantallaWeb.DPacksNuevas;
+                    }
                     break;
                 case Constantes.UrlMenuContenedor.DetalleMasGanadoras:
                     menuActivo.MostrarMenuFlotante = false;
                     break;
                 case Constantes.UrlMenuContenedor.MasGanadorasIndex:
-                    menuActivo.Codigo = Constantes.ConfiguracionPais.MasGanadoras;
-                    break;
                 case Constantes.UrlMenuContenedor.MasGanadoras:
                     menuActivo.Codigo = Constantes.ConfiguracionPais.MasGanadoras;
+                    menuActivo.OrigenPantalla = esMobile
+                        ? Constantes.OrigenPantallaWeb.MMasGanadoras
+                        : Constantes.OrigenPantallaWeb.DMasGanadoras;
                     break;
             }
 
@@ -312,8 +321,8 @@ namespace Portal.Consultoras.Web.Providers
 
             menuContenedor = new List<ConfiguracionPaisModel>();
             configuracionesPais = configuracionesPais.Where(c => c.TienePerfil).ToList();
-            var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-            var paisCarpeta = _configuracionManagerProvider.GetPaisesEsikaFromConfig().Contains(userData.CodigoISO) ? "Esika" : "Lbel";
+            var isoPais = userData.CodigoISO;
+            var paisCarpeta = _configuracionManagerProvider.GetPaisesEsikaFromConfig().Contains(isoPais) ? "Esika" : "Lbel";
             var esElecMultiple = _programaNuevasProvider.GetLimElectivos() > 1;
             List<ServiceOferta.BEEstrategia> listProgNuevas = null;
 
@@ -322,17 +331,17 @@ namespace Portal.Consultoras.Web.Providers
                 var config = confiModel;
                 config.Codigo = Util.Trim(config.Codigo).ToUpper();
                 config.CampaniaId = userData.CampaniaID;
-                config.DesktopFondoBanner = ConfigCdn.GetUrlFileCdn(carpetaPais, config.DesktopFondoBanner);
-                config.DesktopLogoBanner = ConfigCdn.GetUrlFileCdn(carpetaPais, config.DesktopLogoBanner);
-                config.MobileFondoBanner = ConfigCdn.GetUrlFileCdn(carpetaPais, config.MobileFondoBanner);
-                config.MobileLogoBanner = ConfigCdn.GetUrlFileCdn(carpetaPais, config.MobileLogoBanner);
+                config.DesktopFondoBanner = ConfigCdn.GetUrlFileCdnMatriz(isoPais, config.DesktopFondoBanner);
+                config.DesktopLogoBanner = ConfigCdn.GetUrlFileCdnMatriz(isoPais, config.DesktopLogoBanner);
+                config.MobileFondoBanner = ConfigCdn.GetUrlFileCdnMatriz(isoPais, config.MobileFondoBanner);
+                config.MobileLogoBanner = ConfigCdn.GetUrlFileCdnMatriz(isoPais, config.MobileLogoBanner);
 
                 if (revistaDigital.TieneRDI)
                 {
-                    config.DesktopFondoBanner = ConfigCdn.GetUrlFileRDCdn(userData.CodigoISO, revistaDigital.BannerOfertasNoActivaNoSuscrita);
+                    config.DesktopFondoBanner = ConfigCdn.GetUrlFileRDCdn(isoPais, revistaDigital.BannerOfertasNoActivaNoSuscrita);
                     config.DesktopLogoBanner = revistaDigital.DLogoComercialFondoNoActiva;
                     config.MobileFondoBanner = string.Empty;
-                    config.MobileLogoBanner = ConfigCdn.GetUrlFileRDCdn(userData.CodigoISO, revistaDigital.MLogoComercialFondoNoActiva);
+                    config.MobileLogoBanner = ConfigCdn.GetUrlFileRDCdn(isoPais, revistaDigital.MLogoComercialFondoNoActiva);
                 }
                 if (revistaDigital.TieneRevistaDigital())
                 {

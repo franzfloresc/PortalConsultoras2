@@ -57,11 +57,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArmaTuPack\BEProgramaArmaTuPack.cs" />
     <Compile Include="AsesoraOnline\BEAsesoraOnline.cs" />
     <Compile Include="Auditoria.cs" />
     <Compile Include="BEBuscadorYFiltros.cs" />
     <Compile Include="BeReporteContrato.cs" />
     <Compile Include="BEContrato.cs" />
+    <Compile Include="BEReporteRevisionIncidencias.cs" />
     <Compile Include="BERespuestaServicio.cs" />
     <Compile Include="BaseEntidad.cs" />
     <Compile Include="BEActivarPremioNuevas.cs" />
@@ -100,6 +102,7 @@
     <Compile Include="PagoEnLinea\BEPagoEnLineaVisa.cs" />
     <Compile Include="Pedido\BEPedidoReservaResult.cs" />
     <Compile Include="Producto\BEBuscadorResponse.cs" />
+    <Compile Include="LimiteVenta\BERespValidarLimiteVenta.cs" />
     <Compile Include="ProgramaNuevas\BENivelesProgramaNuevas.cs" />
     <Compile Include="ProgramaNuevas\BERespValidarElectivos.cs" />
     <Compile Include="PagoEnLinea\BEPagoEnLineaMedioPago.cs" />

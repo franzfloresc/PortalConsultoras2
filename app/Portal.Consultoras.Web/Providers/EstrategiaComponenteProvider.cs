@@ -1,16 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
 using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.SessionManager;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -134,6 +131,8 @@ namespace Portal.Consultoras.Web.Providers
                 if (x.IdMarca == Constantes.Marca.LBel) codigoMarca = "L";
                 if (x.IdMarca == Constantes.Marca.Esika) codigoMarca = "E";
                 if (x.IdMarca == Constantes.Marca.Cyzone) codigoMarca = "C";
+
+                // Cuando NombreBulk igual a NombreComercial se entiende que es Tipo, caso contrario Tono
                 if ((x.NombreComercial.Equals(x.NombreBulk)))
                 {
                     x.ImagenBulk = string.IsNullOrEmpty(x.ImagenProducto) ? "" : string.Format(_configuracionManagerProvider.GetRutaImagenesAppCatalogo(), codigoIsoPais, campaniaId, codigoMarca, x.ImagenProducto);
@@ -212,7 +211,7 @@ namespace Portal.Consultoras.Web.Providers
 
                 if (!string.IsNullOrEmpty(beEstrategiaProducto.ImagenProducto))
                 {
-                    componenteModel.Imagen = ConfigCdn.GetUrlFileCdn(Globals.UrlMatriz + "/" + _paisISO, beEstrategiaProducto.ImagenProducto);
+                    componenteModel.Imagen = ConfigCdn.GetUrlFileCdnMatriz(_paisISO, beEstrategiaProducto.ImagenProducto);
                 }
 
                 componenteModel.NombreBulk = Util.Trim(componenteModel.NombreBulk);
@@ -361,7 +360,7 @@ namespace Portal.Consultoras.Web.Providers
             }
             catch
             {
-                // Excepcion
+                //
             }
 
             return existe;

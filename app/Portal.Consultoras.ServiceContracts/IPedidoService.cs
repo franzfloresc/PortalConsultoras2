@@ -1,19 +1,18 @@
 ﻿using Portal.Consultoras.Entities;
-using Portal.Consultoras.Entities.ProgramaNuevas;
 using Portal.Consultoras.Entities.Cupon;
 using Portal.Consultoras.Entities.Estrategia;
 using Portal.Consultoras.Entities.PagoEnLinea;
 using Portal.Consultoras.Entities.Pedido;
+using Portal.Consultoras.Entities.ProgramaNuevas;
 using Portal.Consultoras.Entities.ReservaProl;
 using Portal.Consultoras.Entities.RevistaDigital;
 using Portal.Consultoras.Entities.ShowRoom;
-using Estrategia = Portal.Consultoras.Entities.Estrategia;
-
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.ServiceModel;
 using System.Threading.Tasks;
+using Estrategia = Portal.Consultoras.Entities.Estrategia;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -292,7 +291,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         IList<BECrossSellingAsociacion> GetCUVAsociadoByFilter(int PaisID, int CampaniaID, string CUV, string CodigoSegmento);
-        
+
         [OperationContract]
         Task<bool> DelPedidoWebDetalleMasivo(BEUsuario usuario, int pedidoId);
 
@@ -925,7 +924,7 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEPedidoWeb> GetPedidosIngresadoFacturadoWebMobile(int paisID, int consultoraID, int campaniaID, int clienteID, int top, string codigoConsultora);
 
         [OperationContract]
-        List<BEPedidoWeb> GetPedidosIngresadoFacturadoApp(int paisID, int consultoraID, int campaniaID, string codigoConsultora, int usuarioPrueba, string consultoraAsociada, int top);
+        List<BEPedidoWeb> GetPedidosIngresadoFacturadoApp(int paisID, int consultoraID, int campaniaID, string codigoConsultora, int usuarioPrueba, string consultoraAsociada, int top, bool mostrarPaqueteDocumentario);
 
         [OperationContract]
         List<BEMensajeMetaConsultora> GetMensajeMetaConsultora(int paisID, BEMensajeMetaConsultora entidad);
@@ -1074,6 +1073,19 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEReporteValidacion> GetReporteValidacion(int paisID, int campaniaID, int tipoEstrategia);
+
+        [OperationContract]
+        List<BEReporteCuvResumido> GetReporteCuvResumido(int paisID, int campaniaID, string cuv);
+
+        [OperationContract]
+        IList<BEReporteCuvDetallado> GetReporteCuvDetallado(int paisID, int campaniaID, string cuv);
+
+        [OperationContract]
+        List<BEReporteMovimientosPedido> GetReporteMovimientosPedido(int paisID, int campaniaID, string codigoConsultora);
+
+        [OperationContract]
+        List<BEReporteEstrategiasPorConsultora> GetReporteEstrategiasPorConsultora(int paisID, int campaniaID, string codigoConsultora, int palanca, DateTime fechaConsulta);
+
         #endregion
 
         #region Incentivos
@@ -1132,7 +1144,7 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         List<BEMisPedidosFacturados> GetMisPedidosFacturados(int paisID, long ConsultoraID, int CampaniaID, int ClienteID, string NombreConsultora);
         #endregion
-        
+
         #region ProductosPrecargados
         [OperationContract]
         int GetFlagProductosPrecargados(int paisID, string CodigoConsultora, int CampaniaID);
@@ -1192,6 +1204,8 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEProducto> GetProductoSugerido(BEPedidoProductoBuscar productoBuscar);
         [OperationContract]
         BEPedidoDetalleResult InsertProductoBuscador(BEPedidoDetalle pedidoDetalle);
+        [OperationContract]
+        List<BEPedidoDetalleResult> InsertPedidoDetalleMasivo(List<BEPedidoDetalle> lstPedidoDetalle);
         #endregion
 
         #region Pago en Linea
@@ -1251,7 +1265,7 @@ namespace Portal.Consultoras.ServiceContracts
             string CuvsStringList, int EstrategiaId, string nombreConsultora, string codigoPrograma, int numeroPedido);
 
 
-        [OperationContract]        
+        [OperationContract]
         bool UpdCantidadPedidoWebSet(int paisId, int setId, int cantidad, BEPedidoWebDetalleParametros bePedidoWebDetalleParametros);
 
         [OperationContract]
@@ -1268,22 +1282,22 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         void DescargaPedidosCliente(int paisID, int nroLote, string codigoUsuario);
-        
+
         [OperationContract]
         bool LimpiarCacheRedis(int paisID, string codigoTipoEstrategia, string campaniaID);
-        
+
         [OperationContract]
-        List<BEPedidoWebDetalle> ObtenerCuvSetDetalle(int paisID,int campaniaID, long consultoraID, int pedidoID, string ListaSet);
+        List<BEPedidoWebDetalle> ObtenerCuvSetDetalle(int paisID, int campaniaID, long consultoraID, int pedidoID, string ListaSet);
 
         [OperationContract]
         List<BEReporteValidacionSROferta> GetReporteShowRoomOferta(int paisID, int campaniaID);
 
         [OperationContract]
         List<BEReporteValidacionSRComponentes> GetReporteShowRoomComponentes(int paisID, int campaniaID);
-        
+
         [OperationContract]
         BEEstrategia GetEstrategiaPremiosTippingPoint(int paisID, string codigoPrograma, int anioCampana, string codigoNivel);
-        
+
         [OperationContract]
         BEActivarPremioNuevas GetActivarPremioNuevas(int paisID, string codigoPrograma, int anioCampana, string codigoNivel);
 

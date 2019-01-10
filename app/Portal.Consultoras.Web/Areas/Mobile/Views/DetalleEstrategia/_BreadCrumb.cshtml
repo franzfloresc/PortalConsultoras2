@@ -1,4 +1,4 @@
-﻿@using Portal.Consultoras.Web.Helpers
+﻿@using Portal.Consultoras.Web.CustomHelpers
 
 
 @model Portal.Consultoras.Web.Models.DetalleEstrategia.DetalleEstrategiaBreadCrumbsModel
@@ -12,15 +12,15 @@
 					@{ var mobileConfiguracion = Html.MobileAppConfiguracion();
 						if (!mobileConfiguracion.EsAppMobile)
 						{
-							<li data-opcion="@Model.Inicio.Texto"><a href="@Model.Inicio.Url">@Model.Inicio.Texto</a></li>
+							<li data-opcion="@Model.Inicio.Texto"><a href="javascript:;" onclick="eventBreadCumb('@Model.Inicio.Url', '@Model.Inicio.Texto' )">@Model.Inicio.Texto</a></li>
 						}
 					}
-					<li data-opcion="@Model.Ofertas.Texto"><a href="@Model.Ofertas.Url">@Model.Ofertas.Texto</a></li>
+					<li data-opcion="@Model.Ofertas.Texto"><a href="javascript:;" onclick="eventBreadCumb('@Model.Ofertas.Url', '@Model.Ofertas.Texto')">@Model.Ofertas.Texto</a></li>
 					@if (!string.IsNullOrWhiteSpace(Model.Palanca.Texto))
 					{
-						<li data-opcion="@Model.Palanca.Texto"><a href="@Model.Palanca.Url">@Model.Palanca.Texto</a></li>
+						<li data-opcion="@Model.Palanca.Texto"><a href="javascript:;" onclick="eventBreadCumb('@Model.Palanca.Url','@Model.Palanca.Texto')">@Model.Palanca.Texto</a></li>
 					}
-					<li data-opcion="@Model.Producto.Texto"><a href="@Model.Producto.Texto" id="estrategia-breadcrumb">@Model.Producto.Texto</a></li>
+					<li data-opcion="@Model.Producto.Texto"><a href="javascript:;" onclick="eventBreadCumb('@Model.Producto.Texto','@Model.Producto.Texto')" id="estrategia-breadcrumb">@Model.Producto.Texto</a></li>
 				</ul>
 			</div>
 		</div>

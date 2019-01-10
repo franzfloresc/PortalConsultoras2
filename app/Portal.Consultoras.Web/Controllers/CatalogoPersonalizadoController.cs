@@ -184,8 +184,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                                     if (!string.IsNullOrEmpty(beProducto.ImagenProductoSugerido))
                                     {
-                                        string carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                                        imagenUrl = ConfigCdn.GetUrlFileCdn(carpetapais, beProducto.ImagenProductoSugerido);
+                                        imagenUrl = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, beProducto.ImagenProductoSugerido);
                                         add = true;
                                     }
                                 }

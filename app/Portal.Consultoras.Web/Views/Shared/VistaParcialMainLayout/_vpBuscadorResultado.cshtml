@@ -31,8 +31,10 @@
                 {{#if_eq TipoPersonalizacion 'LIQ'}}
                 <span class="resultado_busqueda_precio_oferta d-block pl-0 pr-0">{{PrecioString}}</span>
                 {{else}}
-                <span class="resultado_busqueda_precio_normal d-block pl-0 pr-0">{{ValorizadoString}}</span>
-                <span class="resultado_busqueda_precio_oferta d-block pl-0 pr-0">{{PrecioString}}</span>
+                    {{#iff Valorizado '>' 0}}
+                    <span class="resultado_busqueda_precio_normal d-block pl-0 pr-0">{{ValorizadoString}}</span>
+                    {{/iff}}
+                    <span class="resultado_busqueda_precio_oferta d-block pl-0 pr-0">{{PrecioString}}</span>
                 {{/if_eq}}
             </div>
             <div class="resultado_busqueda_tipo_oferta_prod pl-0 pr-0">{{DescripcionEstrategia}}</div>

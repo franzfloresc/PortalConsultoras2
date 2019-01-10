@@ -78,7 +78,13 @@
 
                             {{#iff prod.TipoAccionAgregar '==' '@Constantes.TipoAccionAgregar.EligeOpcion'}}
                             <div class="contenedor_elige_tu_tono_odd">
-                                <a id="btnElegirTono" class="btn_elige_tu_tono_odd btn_elige_tu_tono_odd_desactivado" data-btn-elegir-tono="">ELIGE TU OPCIÓN</a>
+                                <a
+                                   onclick='OnClickFichaDetalle(this)'
+                                   class="btn_elige_tu_tono_odd"
+                                   data-btn-elegir-tono="">
+                                    <img style="width: 17px" src="/Content/Images/click-icon-white.svg" alt="" />
+                                    ELIGE TU OPCIÓN
+                                </a>
                             </div>
                             {{/iff}}
 

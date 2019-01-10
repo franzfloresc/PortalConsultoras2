@@ -29,14 +29,13 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult OfertasLiquidacion()
         {
-            string sap = "";
-            var url = (Request.Url.Query).Split('?');
 
             if (EsDispositivoMovil())
             {
+                var url = (Request.Url.Query).Split('?');
                 if (url.Length > 1)
                 {
-                    sap = "&" + url[1];
+                    string sap = "&" + url[1];
                     return RedirectToAction("Index", "OfertaLiquidacion", new { area = "Mobile", sap });
                 }
                 else
@@ -47,6 +46,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (userData.CodigoISO == Constantes.CodigosISOPais.Venezuela)
                 return RedirectToAction("Index", "Bienvenida");
+
             try
             {
                 ViewBag.CampaniaID = userData.CampaniaID.ToString();
@@ -143,13 +143,12 @@ namespace Portal.Consultoras.Web.Controllers
                     }
 
                     lst = lst.Take(cantidadregistros).ToList();
-                    var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
                     var extensionNombreImagenSmall = Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall;
                     var extensionNombreImagenMedium = Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium;
 
                     foreach (var item in lst)
                     {
-                        item.ImagenProducto = ConfigCdn.GetUrlFileCdn(carpetaPais, item.ImagenProducto);
+                        item.ImagenProducto = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, item.ImagenProducto);
                         item.ImagenProductoSmall = string.IsNullOrEmpty(item.ImagenProducto) ? string.Empty : Util.GenerarRutaImagenResize(item.ImagenProducto, extensionNombreImagenSmall);
                         item.ImagenProductoMedium = string.IsNullOrEmpty(item.ImagenProducto) ? string.Empty : Util.GenerarRutaImagenResize(item.ImagenProducto, extensionNombreImagenMedium);
                         item.PrecioString = Util.DecimalToStringFormat(item.PrecioOferta, userData.CodigoISO);
@@ -179,8 +178,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (lst.Count > 0)
             {
-                var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                lst.Update(x => x.ImagenProducto = ConfigCdn.GetUrlFileCdn(carpetaPais, x.ImagenProducto));
+                lst.Update(x => x.ImagenProducto = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, x.ImagenProducto));
             }
 
             return Mapper.Map<IList<BEOfertaProducto>, List<OfertaProductoModel>>(lst);
@@ -663,8 +661,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 BEPager pag = Util.PaginadorGenerico(grid, lst);
                 string iso = Util.GetPaisISO(PaisID);
-                var carpetaPais = Globals.UrlMatriz + "/" + iso;
-                lst.Update(x => x.ImagenProducto = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto));
+                lst.Update(x => x.ImagenProducto = ConfigS3.GetUrlFileS3Matriz(iso, x.ImagenProducto));
                 lst.Update(x => x.ISOPais = iso);
                 var data = new
                 {
@@ -722,8 +719,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     #region Imagen Resize 
 
-                    var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                    var rutaImagenCompleta = ConfigS3.GetUrlFileS3(carpetaPais, entidad.ImagenProducto);
+                    var rutaImagenCompleta = ConfigS3.GetUrlFileS3Matriz(userData.CodigoISO, entidad.ImagenProducto);
 
                     mensajeErrorImagenResize = _renderImgProvider.ImagenesResizeProceso(rutaImagenCompleta, userData.CodigoISO);
 
@@ -777,8 +773,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     #region Imagen Resize 
 
-                    var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                    var rutaImagenCompleta = ConfigS3.GetUrlFileS3(carpetaPais, entidad.ImagenProducto);
+                    var rutaImagenCompleta = ConfigS3.GetUrlFileS3Matriz(userData.CodigoISO, entidad.ImagenProducto);
 
                     mensajeErrorImagenResize = _renderImgProvider.ImagenesResizeProceso(rutaImagenCompleta, userData.CodigoISO);
 

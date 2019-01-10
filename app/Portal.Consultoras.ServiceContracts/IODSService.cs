@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ServiceModel;
 using Portal.Consultoras.Entities.ProgramaNuevas;
+using Portal.Consultoras.Entities.LimiteVenta;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -178,6 +179,16 @@ namespace Portal.Consultoras.ServiceContracts
         #region ValidarVentaExclusiva
         [OperationContract]
         Enumeradores.ValidacionVentaExclusiva ValidarVentaExclusiva(int paisID, int campaniaID, string codigoConsultora, string cuv);
+        #endregion 
+
+        #region LimiteVenta
+        [OperationContract]
+        BERespValidarLimiteVenta CuvTieneLimiteVenta(int paisID, int campaniaID, string region, string zona, string cuv, int cantidadIngresada, int cantidadActual);
+        #endregion
+        
+        #region ArmaTuPack
+        [OperationContract]
+        bool CuvArmaTuPackEstaEnLimite(int paisID, int campaniaID, string zona, string cuv, int cantidadIngresada, int cantidadActual);
         #endregion
     }
 }

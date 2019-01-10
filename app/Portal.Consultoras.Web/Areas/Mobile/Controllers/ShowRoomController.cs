@@ -1,6 +1,6 @@
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Controllers;
-using Portal.Consultoras.Web.Helpers;
+using Portal.Consultoras.Web.CustomHelpers;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using System;
@@ -108,38 +108,39 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             try
             {
                 return RedirectToAction("Index", "Ofertas", new { area = "Mobile" });
+                /*
+                if (!ValidarIngresoShowRoom(true))
+                {
+                    return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
+                }
+                ActionExecutingMobile();
 
-                //if (!ValidarIngresoShowRoom(true))
-                //{
-                //    return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
-                //}
-                //ActionExecutingMobile();
+                var model = ObtenerPrimeraOfertaShowRoom();
 
-                //var model = ObtenerPrimeraOfertaShowRoom();
+                if (model == null)
+                {
+                    return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
+                }
 
-                //if (model == null)
-                //{
-                //    return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
-                //}
+                //model.Simbolo = userData.Simbolo;
+                //model.CodigoISO = userData.CodigoISO;
 
-                ////model.Simbolo = userData.Simbolo;
-                ////model.CodigoISO = userData.CodigoISO;
+                var showRoomBannerLateral = _showRoomProvider.GetShowRoomBannerLateral(userData.CodigoISO, userData.ZonaHoraria, userData.FechaInicioCampania);
+                ViewBag.ImagenBannerShowroomIntriga = showRoomBannerLateral.ImagenBannerShowroomIntriga;
+                ViewBag.EstadoActivo = showRoomBannerLateral.EstadoActivo;
 
-                //var showRoomBannerLateral = _showRoomProvider.GetShowRoomBannerLateral(userData.CodigoISO, userData.ZonaHoraria, userData.FechaInicioCampania);
-                //ViewBag.ImagenBannerShowroomIntriga = showRoomBannerLateral.ImagenBannerShowroomIntriga;
-                //ViewBag.EstadoActivo = showRoomBannerLateral.EstadoActivo;
+                var eventoConsultora = configEstrategiaSR.BeShowRoomConsultora ?? new ShowRoomEventoConsultoraModel();
+                eventoConsultora.CorreoEnvioAviso = Util.Trim(eventoConsultora.CorreoEnvioAviso);
 
-                //var eventoConsultora = configEstrategiaSR.BeShowRoomConsultora ?? new ShowRoomEventoConsultoraModel();
-                //eventoConsultora.CorreoEnvioAviso = Util.Trim(eventoConsultora.CorreoEnvioAviso);
+                //model.Suscripcion = eventoConsultora.Suscripcion;
+                //model.EMail = eventoConsultora.CorreoEnvioAviso == "" ? userData.EMail : eventoConsultora.CorreoEnvioAviso;
+                //model.EMailActivo = (eventoConsultora.CorreoEnvioAviso != userData.EMail) || userData.EMailActivo;
+                //model.Celular = userData.Celular;
+                //model.UrlTerminosCondiciones = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.UrlTerminosCondiciones, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
+                //model.Agregado = ObtenerPedidoWebDetalle().Any(d => d.CUV == model.CUV) ? "block" : "none";
 
-                ////model.Suscripcion = eventoConsultora.Suscripcion;
-                ////model.EMail = eventoConsultora.CorreoEnvioAviso == "" ? userData.EMail : eventoConsultora.CorreoEnvioAviso;
-                ////model.EMailActivo = (eventoConsultora.CorreoEnvioAviso != userData.EMail) || userData.EMailActivo;
-                ////model.Celular = userData.Celular;
-                ////model.UrlTerminosCondiciones = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.UrlTerminosCondiciones, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
-                ////model.Agregado = ObtenerPedidoWebDetalle().Any(d => d.CUV == model.CUV) ? "block" : "none";
-
-                //return View(model);
+                return View(model);
+                */
             }
             catch (FaultException ex)
             {
@@ -153,13 +154,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private ShowRoomEventoModel OfertaShowRoom()
         {
-            if (!ValidarIngresoShowRoom(false))
-            {
-                return null;
-            }
-
             try
             {
+                if (!_showRoomProvider.ValidarIngresoShowRoom(false))
+                {
+                    return null;
+                }
+
                 var showRoomEventoModel = CargarValoresModel();
 
                 if (configEstrategiaSR.ListaPersonalizacionConsultora != null)

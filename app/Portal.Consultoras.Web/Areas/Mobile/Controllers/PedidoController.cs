@@ -1,6 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
-using Portal.Consultoras.Web.Helpers;
+using Portal.Consultoras.Web.CustomHelpers;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceCliente;
 using Portal.Consultoras.Web.ServicePedido;
@@ -20,7 +20,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
     public class PedidoController : BaseMobileController
     {
         private readonly ConfiguracionPaisDatosProvider _configuracionPaisDatosProvider;
-        
+
         public PedidoController()
         {
             _configuracionPaisDatosProvider = new ConfiguracionPaisDatosProvider();
@@ -118,6 +118,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             model.MostrarPopupPrecargados = (GetMostradoPopupPrecargados() == 0);
 
+            ViewBag.ActivarRecomendaciones = ObtenerFlagActivacionRecomendaciones();
+            ViewBag.MaxCaracteresRecomendaciones = ObtenerNumeroMaximoCaracteresRecomendaciones(true);
             return View("Index", model);
         }
 
@@ -165,29 +167,26 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult virtualCoach(string param = "")
         {
-            string sap = "";
-            var url = (Request.Url.Query).Split('?');
             try
             {
                 string cuv = param.Substring(0, 5);
                 string campanaId = param.Substring(5, 6);
                 int campana = Convert.ToInt32(campanaId);
-
-
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
             }
 
+            var url = (Request.Url.Query).Split('?');
             if (url.Length > 1 && url[1].Contains("sap"))
             {
-                 sap = "&" + url[1].Remove(0, 26);
-                return RedirectToAction("Detalle", new RouteValueDictionary(new { controller = "FichaProducto", area = "Mobile", param = param, sap }));
+                string sap = "&" + url[1].Remove(0, 26);
+                return RedirectToAction("Detalle", new RouteValueDictionary(new { controller = "FichaProducto", area = "Mobile", param, sap }));
             }
             else
             {
-                return RedirectToAction("Detalle", new RouteValueDictionary(new { controller = "FichaProducto", area = "Mobile", param = param }));
+                return RedirectToAction("Detalle", new RouteValueDictionary(new { controller = "FichaProducto", area = "Mobile", param }));
             }
 
         }
@@ -314,7 +313,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             if (!SessionManager.GetEsShowRoom() && SessionManager.GetEsShowRoom().ToString() == "1")
             {
-                ViewBag.ImagenFondoOFRegalo = _showRoomProvider.ObtenerValorPersonalizacionShowRoom( "ImagenFondoOfertaFinalRegalo", "Mobile");
+                ViewBag.ImagenFondoOFRegalo = _showRoomProvider.ObtenerValorPersonalizacionShowRoom("ImagenFondoOfertaFinalRegalo", "Mobile");
                 ViewBag.Titulo1OFRegalo = _showRoomProvider.ObtenerValorPersonalizacionShowRoom("Titulo1OfertaFinalRegalo", "Mobile");
                 ViewBag.ColorFondo1OFRegalo = _showRoomProvider.ObtenerValorPersonalizacionShowRoom("ColorFondo1OfertaFinalRegalo", "Mobile");
             }
@@ -661,6 +660,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return resultado;
         }
 
-       
+
     }
 }

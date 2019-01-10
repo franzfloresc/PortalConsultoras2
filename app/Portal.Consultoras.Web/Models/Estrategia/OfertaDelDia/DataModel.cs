@@ -18,6 +18,7 @@
         public string ImagenSoloHoy { get; set; }
         public bool TieneOfertas { get; set; }
         public string TextoVerDetalle { get; set; }
+        public string ImagenLateral { get; set; }
 
         #region campos de la primera estrategia
         public int EstrategiaID { get; set; }
