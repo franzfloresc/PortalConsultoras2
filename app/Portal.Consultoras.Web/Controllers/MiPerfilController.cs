@@ -677,7 +677,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ActualizarDatosLogDynamoDB(model, "MI PERFIL", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Modificacion");
                 var lst = resultado.Split('|');
 
-                if (lst[0] == "0")
+                if ( lst[0] == "0")
                 {
                     response = Json(new
                     {

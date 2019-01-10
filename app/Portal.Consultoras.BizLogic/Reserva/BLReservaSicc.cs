@@ -99,7 +99,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
             if (pedidoSapId == 0) return true;
 
             blPedidoWeb.ClearPedidoSapId(usuario.PaisID, usuario.CampaniaID, pedidoId);
-            var codigoPais = Util.GetPaisIsoSicc(usuario.PaisID);
+            var codigoPais = Util.GetPaisIsoPorId(usuario.PaisID);
 
             var output = await ConsumirDeExtCancelarReserva(codigoPais, pedidoSapId);
             return output == "0";
@@ -110,7 +110,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
             var pedidoSapId = blPedidoWeb.GetPedidoSapId(input.PaisID, input.CampaniaID, input.PedidoID);
             var inputPedido = new BEPedidoSicc
             {
-                codigoPais = Util.GetPaisIsoSicc(input.PaisID),
+                codigoPais = Util.GetPaisIsoPorId(input.PaisID),
                 codigoPeriodo = input.CampaniaID.ToString(),
                 codigoCliente = input.CodigoConsultora,
                 indValiProl = input.FechaHoraReserva ? "1" : "0",

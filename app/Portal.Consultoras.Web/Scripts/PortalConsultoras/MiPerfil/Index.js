@@ -84,7 +84,21 @@ $(document).ready(function () {
                 FuncionesGenerales.AvoidingCopyingAndPasting('txtNuevaContrasenia01');
                 FuncionesGenerales.AvoidingCopyingAndPasting('txtNuevaContrasenia02');
             },
-
+            ValidacionDireccion: function() {
+                $("#Referencia").keypress(function (evt) {
+                    
+                    var charCode = (evt.which) ? evt.which : (window.event ? window.event.keyCode : null);
+                    if (!charCode) return false;
+                    if (charCode <= 13) {
+                        return false;
+                    }
+                    else {
+                        var keyChar = String.fromCharCode(charCode);
+                        var re = /s*([0-9]*)\s((NW|SW|SE|NE|S|N|E|W))?(.*)((NW|SW|SE|NE|S|N|E|W))?((#|APT|BSMT|BLDG|DEPT|FL|FRNT|HNGR|KEY|LBBY|LOT|LOWR|OFC|PH|PIER|REAR|RM|SIDE|SLIP|SPC|STOP|STE|TRLR|UNIT|UPPR|\,)[^,]*)(\,)([\s\w]*)/;
+                        return re.test(keyChar);
+                    }
+                });
+            },
             ValidacionSoloLetras: function () {
                 $("#txtTelefonoMD").keypress(function (evt) {
                     var charCode = (evt.which) ? evt.which : (window.event ? window.event.keyCode : null);
@@ -125,7 +139,10 @@ $(document).ready(function () {
             },
             ModoEdicion: function() {
                 //$('#Ubigeo1').trigger("change");
+                if (EsMobile == 'True')
+                   $('.enlace_abrir_mapa')[0].disabled = false;
                 me.Funciones.CargarUbigeos();
+          
             },
             ShowLoading: function () {
                 if (me.Funciones.isMobile()) {
@@ -170,9 +187,9 @@ $(document).ready(function () {
                     }
                 });
                 $.when.apply(null, deferreds).done(function () {
-                    debugger;
+                    
                     $.each(Ubigeos, function (i, n) {
-                        debugger;
+                        
                        var Identity = i.substring(i.length - 1);
                        var elementSiguiente = 'Ubigeo' + (parseInt(Identity) + 1);
                         if ($('#' + elementSiguiente)[0] != undefined) {
@@ -193,7 +210,7 @@ $(document).ready(function () {
                     data: { Nivel: Nivel, IdPadre: IdPadre },
                     dataType: 'json',
                     success: function (response) {
-                        debugger;
+                        
                        
                         var len = response.length;
                         CerrarLoad();
@@ -219,7 +236,7 @@ $(document).ready(function () {
                 return deferredObject.promise();
             },
             ItemSelected: function (selector) {
-                debugger;
+                
                 var ubigeo = $(selector).attr('id');
                 if (Ubigeos[ubigeo] != 0)
                 {
@@ -299,7 +316,7 @@ $(document).ready(function () {
               
             UbigeoChanged: function () {
 
-                debugger;
+                
                 var context = this;
                 var IdName = $(context).attr('id');
                 var Identity = IdName.substring(IdName.length - 1);
@@ -308,6 +325,7 @@ $(document).ready(function () {
                 var IdPadre = $(context).val() == "" ? "" : $(context).val();
                 var optVal = $('#' + IdName + ' option:selected').val();
                 var optionSelected = $("option:selected", this).attr('value');
+                _googleMap.Funciones.LimpiarControlesMap();
                 if ($(IdDependiente)[0] == undefined)
                     return;
                    me.Funciones.ShowLoading();
@@ -329,10 +347,10 @@ $(document).ready(function () {
                                 $(IdDependiente).append("<option value='" + id + "'>" + name + "</option>");
                             }
                             me.Funciones.ItemSelected(IdDependiente);
-                            if (IdName === 'Ubigeo1')
-                            {
-                                _googleMap.Funciones.LimpiarMapa();
-                            }
+                            //if (IdName === 'Ubigeo1')
+                            //{
+                                
+                            //}
                         }
                     });
 
@@ -347,6 +365,7 @@ $(document).ready(function () {
                 me.Funciones.PuedeCambiarTelefono();
                 me.Funciones.EvitandoCopiarPegar();
                 me.Funciones.ValidacionSoloLetras();
+                //me.Funciones.ValidacionDireccion();
                if ($('#Operacion').val() == OperacionDb.Editar)
                    me.Funciones.ModoEdicion();
             }
@@ -382,6 +401,9 @@ function EnlaceTerminosCondiciones() {
 
 
 function actualizarDatos() {
+    
+    $('#btnGuardar')[0].disabled = true;
+
     var hdn_CaracterMaximo = $("#hdn_CaracterMaximo").val();
     var hdn_CaracterMinimo = $("#hdn_CaracterMinimo").val();
     var hdn_iniciaNumero = $('#hdn_iniciaNumero').val();
@@ -395,36 +417,43 @@ function actualizarDatos() {
     var Ubigeo2 = $('#Ubigeo2').val();
     var Latitud = $('#Latitud').val();
     var Longitud = $('#Longitud').val();
-
     var Referencia = $('#Referencia').val();
-
-
+    var Direccion = $('#Direccion').val();
+    var Operacion = $('#Operacion').val();
+    var DireccionEntregaID = $('#DireccionEntregaID').val();
+   
     if (txtEMailMD == "") {
+        $('#btnGuardar')[0].disabled = false;
         alert("Debe ingresar EMail.\n");
         return false;
     }
 
     if (!validateEmail(txtEMailMD)) {
+        $('#btnGuardar')[0].disabled = false;
         alert("El formato del correo electrónico ingresado no es correcto.\n");
         return false;
     }
 
     if ((txtTelefonoMD == null || txtTelefonoMD == "") &&
         (txtCelularMD == null || txtCelularMD == "")) {
+        $('#btnGuardar')[0].disabled = false;
         alert('Debe ingresar al menos un número de contacto: celular o teléfono.');
         return false;
     }
 
     if (txtCelularMD != "") {
         if (!isInt(txtCelularMD)) {
+            $('#btnGuardar')[0].disabled = false;
             alert('El formato del celular no es correcto');
             return false;
         }
         if (isZero(txtCelularMD)) {
+            $('#btnGuardar')[0].disabled = false;
             alert('El formato del celular no es correcto');
             return false;
         }
         if (txtCelularMD.length != hdn_CaracterMaximo) {
+            $('#btnGuardar')[0].disabled = false;
             alert('El formato del celular no es correcto');
             return false;
         }
@@ -434,6 +463,7 @@ function actualizarDatos() {
         if (hdn_iniciaNumero > 0) {
             if (txtCelularMD != null) {
                 if (hdn_iniciaNumero != txtCelularMD.charAt(0)) {
+                    $('#btnGuardar')[0].disabled = false;
                     alert('Su número de celular debe empezar con ' + hdn_iniciaNumero + '.');
                     return false;
                 }
@@ -443,6 +473,8 @@ function actualizarDatos() {
 
     if (txtCelularMD != "") {
         if (!ValidarTelefono(txtCelularMD)) {
+            $('#btnGuardar')[0].disabled = false;
+            $('#btnGuardar')[0].disabled = false;
             alert('El celular que está ingresando ya se encuenta registrado.');
             return false;
         }
@@ -450,19 +482,23 @@ function actualizarDatos() {
 
     if (txtTelefonoMD != "") {
         if (!isInt(txtTelefonoMD)) {
+            $('#btnGuardar')[0].disabled = false;
             alert('El formato de teléfono no es correcto');
             return false;
         }
         if (isZero(txtTelefonoMD)) {
+            $('#btnGuardar')[0].disabled = false;
             alert('El formato del teléfono no es correcto');
             return false;
         }
 
         if (txtTelefonoMD.length < hdn_CaracterMinimo) {
+            $('#btnGuardar')[0].disabled = false;
             alert('El número de teléfono debe tener como mínimo ' + hdn_CaracterMinimo + ' números.');
             return false;
         }
         if (txtTelefonoMD.length > hdn_CaracterMaximo) {
+            $('#btnGuardar')[0].disabled = false;
             alert('El número de teléfono debe tener como máximo ' + hdn_CaracterMaximo + ' números.');
             return false;
         }
@@ -470,30 +506,36 @@ function actualizarDatos() {
 
     if (txtTelefonoTrabajoMD != "") {
         if (!isInt(txtTelefonoTrabajoMD)) {
+            $('#btnGuardar')[0].disabled = false;
             alert('El formato de número adicional no es correcto');
             return false;
         }
         if (isZero(txtTelefonoTrabajoMD)) {
+            $('#btnGuardar')[0].disabled = false;
             alert('El formato de número adicional no es correcto');
             return false;
         }
 
         if (txtTelefonoTrabajoMD.length < hdn_CaracterMinimo) {
+            $('#btnGuardar')[0].disabled = false;
             alert('El número adicional debe tener como mínimo ' + hdn_CaracterMinimo + ' números.');
             return false;
         }
         if (txtTelefonoTrabajoMD.length > hdn_CaracterMaximo) {
+            $('#btnGuardar')[0].disabled = false;
             alert('El número adicional debe tener como máximo ' + hdn_CaracterMaximo + ' números.');
             return false;
         }
     }
 
     if (Ubigeo1 == "") {
+        $('#btnGuardar')[0].disabled = false;
          var item =  $('label[for="Ubigeo1"]').html();
         alert("Debe seleccionar " + item + ".");
         return false;
     }
     if (Ubigeo2 == "") {
+        $('#btnGuardar')[0].disabled = false;
         var item = $('label[for="Ubigeo2"]').html();
         alert("Debe seleccionar " + item + ".");
         return false;
@@ -501,30 +543,36 @@ function actualizarDatos() {
 
 
     if (Referencia == "") {
+        $('#btnGuardar')[0].disabled = false;
         alert("Debe ingresar una dirección de referencia.");
         return false;
     }
 
     if (Latitud == 0 || Longitud == 0) {
-        alert("Debe ingresar una dirección.");
+        $('#btnGuardar')[0].disabled = false;
+        alert("Debe ingresar una dirección valida.");
         return false;
     }
     if (!$('#chkAceptoContratoMD').is(':checked')) {
+        $('#btnGuardar')[0].disabled = false;
         alert('Debe aceptar los términos y condiciones para poder actualizar sus datos.');
         return false;
     }
 
-    AbrirLoad();
+  
 
-    debugger;
+    
+    AbrirLoad();
     var direccion = {
 
-        Ubigeo1: $('#Ubigeo1').val(),
-        Ubigeo2: $('#Ubigeo2').val(),
-        Direccion: $('#Direccion').val(),
-        Latitud: $('#Latitud').val(),
-        Longitud: $('#Longitud').val(),
-        Operacion: $('#Operacion').val()
+        Ubigeo1: Ubigeo1,
+        Ubigeo2: Ubigeo2,
+        Direccion: Direccion,
+        Latitud: Latitud,
+        Longitud: Longitud,
+        Operacion: Operacion,
+        Referencia: Referencia,
+        DireccionEntregaID: DireccionEntregaID
 
     }
 
@@ -553,6 +601,7 @@ function actualizarDatos() {
         async: true,
         success: function (data) {
             if (checkTimeout(data)) {
+                $('#btnGuardar')[0].disabled = false;
                 CerrarLoad();
                 alert(data.message);
                 window.location = $('#volverBienvenida').attr('href');
@@ -842,7 +891,7 @@ var GoogleMap = function() {
     };
     me.Funciones = {
         CrearComponentesMapa: function() {
-            
+
             map = new google.maps.Map($('.mapa_wrapper')[0],
                 {
                     center: { lat: -77.0282400, lng: -12.0431800 },
@@ -869,7 +918,7 @@ var GoogleMap = function() {
             searchBox = new google.maps.places.Autocomplete(input);
             //searchBox = new google.maps.places.Autocomplete(input);
             //searchBox.setComponentRestrictions({ 'country': 'PE' });
-            searchBox.setComponentRestrictions({ 'country': LocationCountry});
+            searchBox.setComponentRestrictions({ 'country': LocationCountry });
             searchBox.bindTo('bounds', map);
         },
         ResetearMapa: function() {
@@ -877,7 +926,7 @@ var GoogleMap = function() {
                 lat: me.Propiedades.latitudIni,
                 lng: me.Propiedades.longitudIni
             };
-            
+
             if (me.Propiedades.viewport)
                 map.fitBounds(me.Propiedades.viewport);
             map.setCenter(coordenadas);
@@ -889,7 +938,7 @@ var GoogleMap = function() {
 
         },
         InicializarEventosMapa: function() {
-            
+
             marker.addListener('dragstart', me.Eventos.DragStart);
             marker.addListener('dragend', me.Eventos.DragEnd);
             searchBox.addListener('place_changed', me.Eventos.PlaceChanged);
@@ -897,10 +946,9 @@ var GoogleMap = function() {
         },
         ValidacionMapa: function() {
             $('#Direccion').focusout(function() {
-                if ($(this).val().length === 0 && EsMobile == 'True')
-                {
+                if ($(this).val().length === 0 && EsMobile == 'True') {
                     //if (EsMobile == 'True')
-                       $('.enlace_abrir_mapa')[0].disabled = true;
+                    $('.enlace_abrir_mapa')[0].disabled = true;
                 }
                 var dropdown = document.getElementsByClassName('pac-container')[0];
                 if (dropdown.style.display == 'none') {
@@ -927,15 +975,19 @@ var GoogleMap = function() {
         },
         LimpiarMapa: function() {
             var coordenadas = {
-                lat:0,
-                lng:0
+                lat: 0,
+                lng: 0
             }
             marker.setPosition(coordenadas);
             map.setCenter(coordenadas);
             marker.setVisible(false);
             $('#Latitud').val("0");
             $('#Longitud').val("0");
-            //$('#Direccion').val('');
+            
+        },
+        LimpiarControlesMap: function () {
+            me.Funciones.LimpiarMapa();
+            $('#Direccion').val('');
         },
         ConfirmarUbicacion: function () {
             
@@ -945,6 +997,9 @@ var GoogleMap = function() {
             }
             marker.setPosition(coordenadas);
             map.setCenter(coordenadas);
+
+            me.Propiedades.directionText = $("#RouteDirection").html();
+
             $('#Direccion').val(me.Propiedades.directionText);
             $('#Latitud').val(coordenadas.latitudFin);
             $('#Longitud').val(coordenadas.longitudFin);
@@ -955,19 +1010,20 @@ var GoogleMap = function() {
                 lat: parseFloat($('#Latitud').val()), //$('#Latitud').val()
                 lng: parseFloat($('#Longitud').val())
             };
-            debugger;
+            
             me.Propiedades.latitudIni = coordenadas.lat; //$('#Latitud').val()
             me.Propiedades.longitudIni = coordenadas.lng;
             map.setCenter(coordenadas);
             marker.setPosition(coordenadas);
             map.setZoom(ZoonMapa);
-
+            me.Propiedades.directionText = $("#Direccion").val();
+            $("#RouteDirection").html(me.Propiedades.directionText);
         }
 
     };
     me.Eventos = {
         PlaceChanged: function() {
-            debugger;
+            
             var place = searchBox.getPlace();
             if (!place.geometry) {
                 return;
@@ -1019,12 +1075,17 @@ var GoogleMap = function() {
                             for (var i = 0; i < results.length; i++) {
                                 if (results[i].types.indexOf('street_address') >= 0) {
                                     
-                                    if(EsMobile=='True')
+                                    if (EsMobile == 'True')
                                         $("#RouteDirection").html(results[i].formatted_address);
                                     else
+                                    {
                                         $("#Direccion").val(results[i].formatted_address);
+                                        $("#Latitud").val(Latlng.lat);
+                                        $("#Longitud").val(Latlng.lng);
+                                    }
+                                      
 
-                                    me.Propiedades.directionText = results[i].formatted_address;
+                                    //me.Propiedades.directionText = results[i].formatted_address;
 
                                     break;
                                 }

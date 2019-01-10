@@ -125,10 +125,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         }
         private void Binder(DireccionEntregaModel record)
         {
-            record.Direccion = record.Direccion ?? "";
-            record.Referencia = record.Referencia ?? "";
-            record.Ubigeo1 = 23;
-            record.Ubigeo2 = 56;
+            
             record.DropDownUbigeo1 = DropDownUbigeoPrincipal();
         }
 

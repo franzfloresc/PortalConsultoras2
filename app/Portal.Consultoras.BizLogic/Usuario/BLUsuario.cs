@@ -3743,47 +3743,26 @@ namespace Portal.Consultoras.BizLogic
                       _direccionEntregaBusinessLogic.Editar(usuario.DireccionEntrega);
                     else
                       _direccionEntregaBusinessLogic.Insertar(usuario.DireccionEntrega);
+                    
 
-
-                    var remoteAddress = new  EndpointAddress("http://pelnx2138:7003/ssiccclespdp/services/ProcesoMAEActualizarDireccionEntregaWebService?wsdl");
+                    var remoteAddress = new  EndpointAddress(WebConfig.ServicioDireccionEntregaSicc);
 
                     using (var svr = new ProcesoMAEActualizarDireccionEntregaWebServiceImplClient(new BasicHttpBinding(), remoteAddress))
                     {
-                        //set timeout
-                        svr.Endpoint.Binding.SendTimeout = new TimeSpan(0, 0, 0, 20);
-
-                        //call web service method
+                        svr.Endpoint.Binding.SendTimeout = new TimeSpan(0, 0, 0, 10);
                         var Direccionexterna = new DireccionEntregaMAEWebService
                         {
                             latitud = usuario.DireccionEntrega.Latitud.ToString(),
-                            longitud = usuario.DireccionEntrega.Latitud.ToString(),
+                            longitud = usuario.DireccionEntrega.Longitud.ToString(),
                             direccion = usuario.DireccionEntrega.Direccion,
                             codigoConsultora = usuario.DireccionEntrega.CodigoConsultora
 
                         };
-                       
-                        var result = svr.actualizacionDireccionEntrega(usuario.CodigoISO, Direccionexterna);
+                        string CodigoIsoSicc = Common.Util.GetSiccPaisISO(usuario.CodigoISO);
+                        var result = svr.actualizacionDireccionEntrega(CodigoIsoSicc, Direccionexterna);
+                        if(result.codigo=="2")
+                            throw new Exception(result.mensaje);
                     }
-
-
-
-
-
-                    //using (var svr = new ProcesoMAEActualizarDireccionEntregaWebServiceImplClient())
-                    //{
-                    //    var Direccionexterna = new DireccionEntregaMAEWebService
-                    //    {
-                    //        latitud = usuario.DireccionEntrega.Latitud.ToString(),
-                    //        longitud= usuario.DireccionEntrega.Latitud.ToString(),
-                    //        direccion = usuario.DireccionEntrega.Direccion,
-                    //        codigoConsultora = usuario.DireccionEntrega.CodigoConsultora
-
-                    //    };
-                    //    svr.Endpoint.Address = new EndpointAddress("http://pelnx2138:7003/ssiccclespdp/services/ProcesoMAEActualizarDireccionEntregaWebService?wsdl");
-                    //    //= WebConfig.Ambiente.ToUpper() == "QA" ? WebConfig.QA_Prol_ServicesCalculos : WebConfig.PR_Prol_ServicesCalculos;
-                    //    var result = svr.actualizacionDireccionEntrega(usuario.CodigoISO, Direccionexterna);
-
-                    //}
                     ts.Complete();
                 }
                 catch (Exception ex)

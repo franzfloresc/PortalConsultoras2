@@ -78,7 +78,7 @@ namespace Portal.Consultoras.Web.Providers
                 BlEntidad =sv.ObtenerDireccionPorConsultora(request);
             }
             response = Mapper.Map<DireccionEntregaModel>(BlEntidad);
-            response.Operacion = response.DireccionEntregaID == 0 ? OperacionBD.Insertar : OperacionBD.Editar;
+            response.Operacion = response.DireccionEntregaID == OperacionBD.Insertar ? OperacionBD.Insertar : OperacionBD.Editar;
             return response;
 
         }
@@ -94,7 +94,7 @@ namespace Portal.Consultoras.Web.Providers
                 BlEntidad = await sv.ObtenerDireccionPorConsultoraAsync(request);
             }
             response = Mapper.Map<DireccionEntregaModel>(BlEntidad);
-            response.Operacion = response.DireccionEntregaID == 0 ? 0 : 1;
+            response.Operacion = response.DireccionEntregaID == OperacionBD.Insertar ? OperacionBD.Insertar : OperacionBD.Editar;
             return response;
 
         }
