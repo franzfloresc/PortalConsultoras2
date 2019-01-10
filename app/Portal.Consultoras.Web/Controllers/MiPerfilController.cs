@@ -123,10 +123,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private void Binder(DireccionEntregaModel record)
         {
-            record.Direccion = record.Direccion ?? "";
-            record.Referencia = record.Referencia ?? "";
-            record.Ubigeo1 = 23;
-            record.Ubigeo2 = 56;
+       
             record.DropDownUbigeo1 = DropDownUbigeoPrincipal();
         }
 
@@ -427,7 +424,6 @@ namespace Portal.Consultoras.Web.Controllers
                 entidad.PaisID = userData.PaisID;
                 entidad.PrimerNombre = userData.PrimerNombre;
                 entidad.CodigoISO = userData.CodigoISO;
-
                 using (UsuarioServiceClient svr = new UsuarioServiceClient())
                 {
                     var resultado = svr.ActualizarMisDatos(entidad, correoAnterior);
@@ -485,6 +481,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return vRetorno;
         }
+      
 
         [HttpPost]
         public JsonResult CambiarConsultoraPass(string OldPassword, string NewPassword)
@@ -651,6 +648,72 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        [Authorize]
+        [HttpPost]
+        public async Task<JsonResult> RegistrarPerfil(MisDatosModel model)
+        {
+            string resultado = string.Empty;
+            JsonResult response;
+
+            try
+            {
+                model.DatosExtra = new
+                {
+                    userData.ZonaID,
+                    userData.RegionID,
+                    userData.CodigoUsuario,
+                    userData.ConsultoraID,
+                    userData.PaisID,
+                    userData.PrimerNombre,
+                    userData.CodigoISO,
+                };
+                model.DireccionEntrega.PaisID = userData.PaisID;
+                model.DireccionEntrega.CodigoConsultora = userData.CodigoConsultora;
+                model.DireccionEntrega.CampaniaID = userData.CampaniaID;
+                model.DireccionEntrega.ConsultoraID = (int)userData.ConsultoraID;
+
+
+                resultado = await _miPerfilProvider.RegistrarAsync(model);
+                ActualizarDatosLogDynamoDB(model, "MI PERFIL", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Modificacion");
+                var lst = resultado.Split('|');
+
+                if (lst[0] == "0")
+                {
+                    response = Json(new
+                    {
+                        Cantidad = lst[3],
+                        success = false,
+                        message = lst[2],
+                        extra = ""
+                    });
+                }
+                else
+                {
+                    response = Json(new
+                    {
+                        Cantidad = 0,
+                        success = true,
+                        message = lst[2],
+                        extra = ""
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                response = Json(new
+                {
+                    Cantidad = 6,
+                    success = false,
+                    message = "Ocurrio un problema al registrar los datos, por favor vuelva a intentarlo.",
+                    extra = ""
+                });
+            }
+
+
+            return response;
+
+        }
 
 
 

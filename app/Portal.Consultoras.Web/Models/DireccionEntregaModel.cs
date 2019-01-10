@@ -1,6 +1,7 @@
 ﻿using Portal.Consultoras.Web.ServiceUnete;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -12,7 +13,9 @@ namespace Portal.Consultoras.Web.Models
         public int ConsultoraID { get; set; }
         public int CampaniaID { get; set; }
         public int CampaniaAnteriorID { get; set; }
+        [Required()]
         public int Ubigeo1 { get; set; }
+        [Required()]
         public int Ubigeo2 { get; set; }
         public int Ubigeo3 { get; set; }
 
@@ -21,14 +24,15 @@ namespace Portal.Consultoras.Web.Models
         public int Ubigeo3Anterior { get; set; }
 
         public string DireccionAnterior { get; set; }
+        [Required(ErrorMessage = "La dirección es requerida.")]
         public string Direccion { get; set; }
         public string Referencia { get; set; }
         public string CodigoConsultora { get; set; }
         public string NombreConsultora { get; set; }
-        public int LatitudAnterior { get; set; }
-        public int LongitudAnterior { get; set; }
-        public int Latitud { get; set; }
-        public int Longitud { get; set; }
+        public decimal LatitudAnterior { get; set; }
+        public decimal LongitudAnterior { get; set; }
+        public decimal Latitud { get; set; }
+        public decimal Longitud { get; set; }
         public DateTime? UltimafechaActualizacion { get; set; }
 
         public string CodigoUsuario { get; set; }

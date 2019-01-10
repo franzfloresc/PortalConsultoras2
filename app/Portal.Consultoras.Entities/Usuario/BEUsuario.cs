@@ -1,5 +1,6 @@
 ﻿using OpenSource.Library.DataAccess;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Entities.Pedido;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
@@ -1237,6 +1238,10 @@ namespace Portal.Consultoras.Entities
         public bool TienePagoEnLinea { get; set; }
         [DataMember]
         public bool TieneMG { get; set; }
+        [DataMember]
+        public BEDireccionEntrega DireccionEntrega;
+        [DataMember]
+        public string CorreoAnterior { get; set; }
 
         public BEUsuario(IDataRecord row, bool Tipo, bool ValidaHorario)
         {

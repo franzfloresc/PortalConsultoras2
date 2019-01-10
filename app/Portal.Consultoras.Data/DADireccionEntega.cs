@@ -22,21 +22,21 @@ namespace Portal.Consultoras.Data
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsertarDireccionEntrega");
             Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int32, direccion.ConsultoraID);
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, direccion.CampaniaID);
+            Context.Database.AddInParameter(command, "@CampaniaAnteriorID", DbType.Int32, direccion.CampaniaAnteriorID);
             Context.Database.AddInParameter(command, "@Ubigeo1 ", DbType.Int32, direccion.Ubigeo1);
             Context.Database.AddInParameter(command, "@Ubigeo2 ", DbType.Int32, direccion.Ubigeo2);
             Context.Database.AddInParameter(command, "@Ubigeo3 ", DbType.Int32, direccion.Ubigeo3);
             Context.Database.AddInParameter(command, "@Ubigeo1Anterior", DbType.Int32, direccion.Ubigeo1Anterior);
             Context.Database.AddInParameter(command, "@Ubigeo2Anterior", DbType.Int32, direccion.Ubigeo2Anterior);
             Context.Database.AddInParameter(command, "@Ubigeo3Anterior", DbType.Int32, direccion.Ubigeo3Anterior);
-            Context.Database.AddInParameter(command, "@DireccionAnterior", DbType.String, direccion.DireccionAnterior);
-            Context.Database.AddInParameter(command, "@DireccionAnterior", DbType.String, direccion.DireccionAnterior);
             Context.Database.AddInParameter(command, "@Direccion", DbType.String, direccion.Direccion);
+            Context.Database.AddInParameter(command, "@DireccionAnterior", DbType.String, direccion.DireccionAnterior);
             Context.Database.AddInParameter(command, "@Referencia", DbType.String, direccion.Referencia);
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, direccion.CodigoConsultora);
-            Context.Database.AddInParameter(command, "@LatitudAnterior", DbType.Int32, direccion.LatitudAnterior);
-            Context.Database.AddInParameter(command, "@LongitudAnterior", DbType.Int32, direccion.LongitudAnterior);
-            Context.Database.AddInParameter(command, "@Latitud", DbType.Int32, direccion.Latitud);
-            Context.Database.AddInParameter(command, "@Longitud", DbType.Int32, direccion.Longitud);
+            Context.Database.AddInParameter(command, "@LatitudAnterior", DbType.Decimal, direccion.LatitudAnterior);
+            Context.Database.AddInParameter(command, "@LongitudAnterior", DbType.Decimal, direccion.LongitudAnterior);
+            Context.Database.AddInParameter(command, "@Latitud", DbType.Decimal, direccion.Latitud);
+            Context.Database.AddInParameter(command, "@Longitud", DbType.Decimal, direccion.Longitud);
             return Context.ExecuteReader(command);
         }
         public IDataReader Editar(BEDireccionEntrega direccion)
@@ -55,10 +55,10 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@Direccion", DbType.String, direccion.Direccion);
             Context.Database.AddInParameter(command, "@Referencia", DbType.String, direccion.Referencia);
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, direccion.CodigoConsultora);
-            Context.Database.AddInParameter(command, "@LatitudAnterior", DbType.Int32, direccion.LatitudAnterior);
-            Context.Database.AddInParameter(command, "@LongitudAnterior", DbType.Int32, direccion.LongitudAnterior);
-            Context.Database.AddInParameter(command, "@Latitud", DbType.Int32, direccion.Latitud);
-            Context.Database.AddInParameter(command, "@Longitud", DbType.Int32, direccion.Longitud);
+            Context.Database.AddInParameter(command, "@LatitudAnterior", DbType.Decimal, direccion.LatitudAnterior);
+            Context.Database.AddInParameter(command, "@LongitudAnterior", DbType.Decimal, direccion.LongitudAnterior);
+            Context.Database.AddInParameter(command, "@Latitud", DbType.Decimal, direccion.Latitud);
+            Context.Database.AddInParameter(command, "@Longitud", DbType.Decimal, direccion.Longitud);
             return Context.ExecuteReader(command);
         }
 

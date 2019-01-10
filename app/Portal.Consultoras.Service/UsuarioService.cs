@@ -733,6 +733,7 @@ namespace Portal.Consultoras.Service
         {
             var blUsuario = new BLUsuario();
             return blUsuario.ActualizarMisDatos(usuario, CorreoAnterior);
+
         }
 
         public BERespuestaServicio ActualizarEmail(BEUsuario usuario, string correoNuevo)
@@ -933,12 +934,20 @@ namespace Portal.Consultoras.Service
             return BLUsuario.ActuaizarNovedadBuscador(paisID, codigoUsuario);
         }
 
+        #region Direccion de Entrega
         public BEDireccionEntrega ObtenerDireccionPorConsultora(BEDireccionEntrega direccion)
         {
             return _direccionEntregaBusinessLogic.ObtenerDireccionPorConsultora(direccion);
         }
-
-
+        public BEDireccionEntrega InsertarDireccionEntrega(BEDireccionEntrega direccion)
+        {
+            return _direccionEntregaBusinessLogic.Insertar(direccion);
+        }
+        public BEDireccionEntrega EditarDireccionEntrega(BEDireccionEntrega direccion)
+        {
+            return _direccionEntregaBusinessLogic.Editar(direccion);
+        }
+        #endregion
         #region ActualizacionDatos
         public BERespuestaServicio ActualizarEmailWS(BEUsuario usuario, string correoNuevo)
         {
@@ -948,8 +957,13 @@ namespace Portal.Consultoras.Service
         {
             return _usuarioBusinessLogic.EnviarSmsCodigo(paisID, codigoUsuario, codigoConsultora, campaniaID, esMobile, celularActual, celularNuevo);
         }
-        #endregion
 
+        public string RegistrarPerfil(BEUsuario usuario)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.RegistrarPerfil(usuario);
+        }
+        #endregion
         #region UsuarioOpciones
         public List<BEUsuarioOpciones> GetUsuarioOpciones(int paisID, string codigoUsuario)
         {

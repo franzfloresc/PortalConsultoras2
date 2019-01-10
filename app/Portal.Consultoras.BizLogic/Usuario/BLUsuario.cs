@@ -16,12 +16,16 @@ using System.Configuration;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Net.Configuration;
 using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Transactions;
 using Portal.Consultoras.Entities.ProgramaNuevas;
 using Portal.Consultoras.Entities.Usuario;
+using Portal.Consultoras.Data.ServiceDirecciondeEntrega;
+using static Portal.Consultoras.Common.Constantes;
+using System.ServiceModel;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -42,6 +46,7 @@ namespace Portal.Consultoras.BizLogic
         private readonly IConsultorasProgramaNuevasBusinessLogic _consultorasProgramaNuevasBusinessLogic;
         private readonly IBelcorpRespondeBusinessLogic _belcorpRespondeBusinessLogic;
         private readonly IContratoAceptacionBusinessLogic _contratoAceptacionBusinessLogic;
+        private readonly IDireccionEntregaBusinessLogic _direccionEntregaBusinessLogic;
 
         public BLUsuario() : this(new BLTablaLogicaDatos(),
                                     new BLConsultoraConcurso(),
@@ -54,7 +59,8 @@ namespace Portal.Consultoras.BizLogic
                                     new BLConsultoraLider(),
                                     new BLConsultorasProgramaNuevas(),
                                     new BLBelcorpResponde(),
-                                    new BLContratoAceptacion())
+                                    new BLContratoAceptacion(),
+                                    new BLDireccionEntrega())
         { }
 
         public BLUsuario(ITablaLogicaDatosBusinessLogic tablaLogicaDatosBusinessLogic,
@@ -68,7 +74,8 @@ namespace Portal.Consultoras.BizLogic
                         IConsultoraLiderBusinessLogic consultoraLiderBusinessLogic,
                         IConsultorasProgramaNuevasBusinessLogic consultorasProgramaNuevasBusinessLogic,
                         IBelcorpRespondeBusinessLogic belcorpRespondeBusinessLogic,
-                        IContratoAceptacionBusinessLogic contratoAceptacionBusinessLogic)
+                        IContratoAceptacionBusinessLogic contratoAceptacionBusinessLogic,
+                        IDireccionEntregaBusinessLogic direccionEntregaBusinessLogic)
         {
             _tablaLogicaDatosBusinessLogic = tablaLogicaDatosBusinessLogic;
             _consultoraConcursoBusinessLogic = consultoraConcursoBusinessLogic;
@@ -82,6 +89,7 @@ namespace Portal.Consultoras.BizLogic
             _consultorasProgramaNuevasBusinessLogic = consultorasProgramaNuevasBusinessLogic;
             _belcorpRespondeBusinessLogic = belcorpRespondeBusinessLogic;
             _contratoAceptacionBusinessLogic = contratoAceptacionBusinessLogic;
+            _direccionEntregaBusinessLogic = direccionEntregaBusinessLogic;
         }
 
         public BEUsuario Select(int paisID, string codigoUsuario)
@@ -1826,6 +1834,7 @@ namespace Portal.Consultoras.BizLogic
             {
                 resultado = string.Format("{0}|{1}|{2}|0", "0", "4", "Ocurrió un error al acceder al servicio, intente nuevamente.");
                 LogManager.SaveLog(ex, usuario.CodigoUsuario, string.Empty);
+                
             }
 
             return resultado;
@@ -3703,5 +3712,87 @@ namespace Portal.Consultoras.BizLogic
             return UsuarioOpcion;
         }
         #endregion
+
+
+        public string RegistrarPerfil(BEUsuario usuario)
+        {
+            string resultado = string.Empty;
+            string[] lst = null;
+            using (TransactionScope ts = new TransactionScope(TransactionScopeOption.RequiresNew))
+            {
+                try
+                {
+                    if(usuario.DireccionEntrega==null)
+                        throw new System.ArgumentException("el parametro DireccionEntrega, no puede ser null", "DireccionEntrega");
+
+                    resultado = ActualizarMisDatos(usuario, usuario.CorreoAnterior);
+                    lst = resultado.Split('|');
+
+                    if (lst[0] == "0")
+                    {
+                        throw new Exception(lst[2]);
+                    }
+
+                    if (usuario.DireccionEntrega.Operacion == OperacionBD.Editar)
+                      _direccionEntregaBusinessLogic.Editar(usuario.DireccionEntrega);
+                    else
+                      _direccionEntregaBusinessLogic.Insertar(usuario.DireccionEntrega);
+
+
+                    var remoteAddress = new  EndpointAddress("http://pelnx2138:7003/ssiccclespdp/services/ProcesoMAEActualizarDireccionEntregaWebService?wsdl");
+
+                    using (var svr = new ProcesoMAEActualizarDireccionEntregaWebServiceImplClient(new BasicHttpBinding(), remoteAddress))
+                    {
+                        //set timeout
+                        svr.Endpoint.Binding.SendTimeout = new TimeSpan(0, 0, 0, 20);
+
+                        //call web service method
+                        var Direccionexterna = new DireccionEntregaMAEWebService
+                        {
+                            latitud = usuario.DireccionEntrega.Latitud.ToString(),
+                            longitud = usuario.DireccionEntrega.Latitud.ToString(),
+                            direccion = usuario.DireccionEntrega.Direccion,
+                            codigoConsultora = usuario.DireccionEntrega.CodigoConsultora
+
+                        };
+                       
+                        var result = svr.actualizacionDireccionEntrega(usuario.CodigoISO, Direccionexterna);
+                    }
+
+
+
+
+
+                    //using (var svr = new ProcesoMAEActualizarDireccionEntregaWebServiceImplClient())
+                    //{
+                    //    var Direccionexterna = new DireccionEntregaMAEWebService
+                    //    {
+                    //        latitud = usuario.DireccionEntrega.Latitud.ToString(),
+                    //        longitud= usuario.DireccionEntrega.Latitud.ToString(),
+                    //        direccion = usuario.DireccionEntrega.Direccion,
+                    //        codigoConsultora = usuario.DireccionEntrega.CodigoConsultora
+
+                    //    };
+                    //    svr.Endpoint.Address = new EndpointAddress("http://pelnx2138:7003/ssiccclespdp/services/ProcesoMAEActualizarDireccionEntregaWebService?wsdl");
+                    //    //= WebConfig.Ambiente.ToUpper() == "QA" ? WebConfig.QA_Prol_ServicesCalculos : WebConfig.PR_Prol_ServicesCalculos;
+                    //    var result = svr.actualizacionDireccionEntrega(usuario.CodigoISO, Direccionexterna);
+
+                    //}
+                    ts.Complete();
+                }
+                catch (Exception ex)
+                {
+                    LogManager.SaveLog(ex, string.Empty, usuario.PaisID);
+                    if (lst[0] != "0")
+                    {
+                        resultado = string.Format("{0}|{1}|{2}|0", "0", "4", "Ocurrió un error al registrar los datos, intente nuevamente.");
+                    }
+                    ts.Dispose();
+                }
+               
+            }
+
+            return resultado;
+        }
     }
 }

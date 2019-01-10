@@ -30,11 +30,11 @@
       <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
-      <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" />
-      <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" />
-      <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.OpcionesVerificacion" />
-      <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Usuario" />
-      <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido" />
+      <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido" />
+      <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" />
+      <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" />
+      <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.OpcionesVerificacion" />
+      <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Usuario" />
       <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd8" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
@@ -350,11 +350,29 @@
   <wsdl:message name="IUsuarioService_GetUsuarioOpciones_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetUsuarioOpcionesResponse" />
   </wsdl:message>
+  <wsdl:message name="IUsuarioService_InsertarDireccionEntrega_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertarDireccionEntrega" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_InsertarDireccionEntrega_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertarDireccionEntregaResponse" />
+  </wsdl:message>
   <wsdl:message name="IUsuarioService_ObtenerDireccionPorConsultora_InputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerDireccionPorConsultora" />
   </wsdl:message>
   <wsdl:message name="IUsuarioService_ObtenerDireccionPorConsultora_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerDireccionPorConsultoraResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_EditarDireccionEntrega_InputMessage">
+    <wsdl:part name="parameters" element="tns:EditarDireccionEntrega" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_EditarDireccionEntrega_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EditarDireccionEntregaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_RegistrarPerfil_InputMessage">
+    <wsdl:part name="parameters" element="tns:RegistrarPerfil" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_RegistrarPerfil_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RegistrarPerfilResponse" />
   </wsdl:message>
   <wsdl:message name="IUsuarioService_Select_InputMessage">
     <wsdl:part name="parameters" element="tns:Select" />
@@ -1075,9 +1093,21 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetUsuarioOpciones" message="tns:IUsuarioService_GetUsuarioOpciones_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetUsuarioOpcionesResponse" message="tns:IUsuarioService_GetUsuarioOpciones_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="InsertarDireccionEntrega">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/InsertarDireccionEntrega" message="tns:IUsuarioService_InsertarDireccionEntrega_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/InsertarDireccionEntregaResponse" message="tns:IUsuarioService_InsertarDireccionEntrega_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="ObtenerDireccionPorConsultora">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ObtenerDireccionPorConsultora" message="tns:IUsuarioService_ObtenerDireccionPorConsultora_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ObtenerDireccionPorConsultoraResponse" message="tns:IUsuarioService_ObtenerDireccionPorConsultora_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EditarDireccionEntrega">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/EditarDireccionEntrega" message="tns:IUsuarioService_EditarDireccionEntrega_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/EditarDireccionEntregaResponse" message="tns:IUsuarioService_EditarDireccionEntrega_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarPerfil">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/RegistrarPerfil" message="tns:IUsuarioService_RegistrarPerfil_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/RegistrarPerfilResponse" message="tns:IUsuarioService_RegistrarPerfil_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="Select">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/Select" message="tns:IUsuarioService_Select_InputMessage" />
@@ -1890,8 +1920,35 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="InsertarDireccionEntrega">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/InsertarDireccionEntrega" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ObtenerDireccionPorConsultora">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/ObtenerDireccionPorConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditarDireccionEntrega">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/EditarDireccionEntrega" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarPerfil">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/RegistrarPerfil" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3136,8 +3193,35 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="InsertarDireccionEntrega">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/InsertarDireccionEntrega" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ObtenerDireccionPorConsultora">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/ObtenerDireccionPorConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditarDireccionEntrega">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/EditarDireccionEntrega" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarPerfil">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/RegistrarPerfil" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

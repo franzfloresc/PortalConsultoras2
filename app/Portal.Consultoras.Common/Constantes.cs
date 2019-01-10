@@ -3105,6 +3105,11 @@ namespace Portal.Consultoras.Common
             public const string FechaHora = "dd/MM/yyyy HH:mm";
 
         }
-
+        public static class OperacionBD
+        {
+            public const int Insertar = 0;
+            public const int Editar = 1;
+            public const int Eliminar = 2;
+        }
     }
 }

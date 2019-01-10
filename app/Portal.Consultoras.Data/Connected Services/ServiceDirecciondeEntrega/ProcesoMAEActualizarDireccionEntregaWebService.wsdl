@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:intf="http://pelnx2138:7003/ssiccclespdp/services/ProcesoMAEActualizarDireccionEntregaWebService" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns1="urn:direccionEntregaMAEWebService.beans.ws.web.mae.spusicc.ssicc.belcorp.biz" xmlns:tns2="urn:procesoMAEWebServiceResultado.beans.ws.web.mae.spusicc.ssicc.belcorp.biz" xmlns:impl="http://pelnx2138:7003/ssiccclespdp/services/ProcesoMAEActualizarDireccionEntregaWebService" targetNamespace="http://pelnx2138:7003/ssiccclespdp/services/ProcesoMAEActualizarDireccionEntregaWebService" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:direccionEntregaMAEWebService.beans.ws.web.mae.spusicc.ssicc.belcorp.biz">
+      <xsd:import namespace="urn:procesoMAEWebServiceResultado.beans.ws.web.mae.spusicc.ssicc.belcorp.biz" />
+      <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+      <xsd:complexType name="DireccionEntregaMAEWebService">
+        <xsd:sequence>
+          <xsd:element name="codigoConsultora" nillable="true" type="soapenc:string" />
+          <xsd:element name="direccion" nillable="true" type="soapenc:string" />
+          <xsd:element name="latitud" nillable="true" type="soapenc:string" />
+          <xsd:element name="longitud" nillable="true" type="soapenc:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:procesoMAEWebServiceResultado.beans.ws.web.mae.spusicc.ssicc.belcorp.biz">
+      <xsd:import namespace="urn:direccionEntregaMAEWebService.beans.ws.web.mae.spusicc.ssicc.belcorp.biz" />
+      <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+      <xsd:complexType name="ProcesoMAEWebServiceResultado">
+        <xsd:sequence>
+          <xsd:element name="codigo" nillable="true" type="soapenc:string" />
+          <xsd:element name="mensaje" nillable="true" type="soapenc:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="actualizacionDireccionEntregaResponse">
+    <wsdl:part name="actualizacionDireccionEntregaReturn" type="tns2:ProcesoMAEWebServiceResultado" />
+  </wsdl:message>
+  <wsdl:message name="actualizacionDireccionEntregaRequest">
+    <wsdl:part name="codigoPais" type="soapenc:string" />
+    <wsdl:part name="consultora" type="tns1:DireccionEntregaMAEWebService" />
+  </wsdl:message>
+  <wsdl:portType name="ProcesoMAEActualizarDireccionEntregaWebServiceImpl">
+    <wsdl:operation name="actualizacionDireccionEntrega" parameterOrder="codigoPais consultora">
+      <wsdl:input name="actualizacionDireccionEntregaRequest" message="impl:actualizacionDireccionEntregaRequest" />
+      <wsdl:output name="actualizacionDireccionEntregaResponse" message="impl:actualizacionDireccionEntregaResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ProcesoMAEActualizarDireccionEntregaWebServiceSoapBinding" type="impl:ProcesoMAEActualizarDireccionEntregaWebServiceImpl">
+    <wsdlsoap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <wsdl:operation name="actualizacionDireccionEntrega">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="actualizacionDireccionEntregaRequest">
+        <wsdlsoap:body use="encoded" namespace="http://impl.ws.mae.spusicc.service.ssicc.belcorp.biz" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output name="actualizacionDireccionEntregaResponse">
+        <wsdlsoap:body use="encoded" namespace="http://pelnx2138:7003/ssiccclespdp/services/ProcesoMAEActualizarDireccionEntregaWebService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ProcesoMAEActualizarDireccionEntregaWebServiceImplService">
+    <wsdl:port name="ProcesoMAEActualizarDireccionEntregaWebService" binding="impl:ProcesoMAEActualizarDireccionEntregaWebServiceSoapBinding">
+      <wsdlsoap:address location="http://pelnx2138:7003/ssiccclespdp/services/ProcesoMAEActualizarDireccionEntregaWebService" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

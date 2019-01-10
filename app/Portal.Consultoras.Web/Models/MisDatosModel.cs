@@ -48,5 +48,7 @@ namespace Portal.Consultoras.Web.Models
         public List<UsuarioOpcionesModel> UsuarioOpciones { get; set; }
 
         public DireccionEntregaModel DireccionEntrega { get; set; }
+
+        public dynamic DatosExtra { get; set; }
     }
 }

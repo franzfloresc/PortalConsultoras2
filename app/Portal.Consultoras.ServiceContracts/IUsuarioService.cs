@@ -424,8 +424,16 @@ namespace Portal.Consultoras.ServiceContracts
         #endregion
         [OperationContract]
         List<BEUsuarioOpciones> GetUsuarioOpciones(int paisID, string codigoUsuario);
-
+        #region Direccion de Entega
+        [OperationContract]
+        BEDireccionEntrega InsertarDireccionEntrega(BEDireccionEntrega direccion);
         [OperationContract]
         BEDireccionEntrega ObtenerDireccionPorConsultora(BEDireccionEntrega direccion);
+        [OperationContract]
+        BEDireccionEntrega EditarDireccionEntrega(BEDireccionEntrega direccion);
+        [OperationContract]
+        string RegistrarPerfil(BEUsuario usuario);
+
+        #endregion
     }
 }
