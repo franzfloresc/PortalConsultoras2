@@ -851,22 +851,30 @@ namespace Portal.Consultoras.Web.Providers
                     : Constantes.TipoAccionAgregar.AgregaloNormal
                 : Constantes.TipoAccionAgregar.EligeOpcion;
 
-            if (codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada)
+            switch (codigoTipoEstrategia)
             {
-                tipo = esConsultoraLider && revistaDigital.SociaEmpresariaExperienciaGanaMas && revistaDigital.EsSuscritaActiva() ? Constantes.TipoAccionAgregar.SinBoton : tipo;
-            }
-            else if (codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.ShowRoom)
-            {
-                tipo = codigoTipos == Constantes.TipoEstrategiaSet.CompuestaVariable ? Constantes.TipoAccionAgregar.EligeOpcion : Constantes.TipoAccionAgregar.AgregaloNormal;
-                tipo = bloqueado && revistaDigital.EsNoSuscritaInactiva() ? Constantes.TipoAccionAgregar.LoQuieres : tipo;
-                tipo = bloqueado && revistaDigital.EsSuscritaInactiva() ? Constantes.TipoAccionAgregar.LoQuieresInactivo : tipo;
-            }
-            else if (codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi
-                || codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso
-                || codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.Lanzamiento)
-            {
-                tipo = bloqueado && revistaDigital.EsNoSuscritaInactiva() ? Constantes.TipoAccionAgregar.LoQuieres : tipo;
-                tipo = bloqueado && revistaDigital.EsSuscritaInactiva() ? Constantes.TipoAccionAgregar.LoQuieresInactivo : tipo;
+                case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
+                    tipo = esConsultoraLider && revistaDigital.SociaEmpresariaExperienciaGanaMas && revistaDigital.EsSuscritaActiva() 
+                        ? Constantes.TipoAccionAgregar.SinBoton 
+                        : tipo;
+                    break;
+                case Constantes.TipoEstrategiaCodigo.ShowRoom:
+                case Constantes.TipoEstrategiaCodigo.OfertasParaMi:
+                case Constantes.TipoEstrategiaCodigo.PackAltoDesembolso:
+                case Constantes.TipoEstrategiaCodigo.Lanzamiento:
+
+                    if (codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.ShowRoom)
+                        tipo = codigoTipos == Constantes.TipoEstrategiaSet.CompuestaVariable 
+                            ? Constantes.TipoAccionAgregar.EligeOpcion
+                            : Constantes.TipoAccionAgregar.AgregaloNormal;
+
+                    if (bloqueado)
+                    {
+                        tipo = revistaDigital.EsNoSuscritaInactiva() ? Constantes.TipoAccionAgregar.LoQuieres : tipo;
+                        tipo = revistaDigital.EsSuscritaInactiva() ? Constantes.TipoAccionAgregar.LoQuieresInactivo : tipo;
+                    }
+                    
+                    break;
             }
             return tipo;
         }
@@ -1379,7 +1387,7 @@ namespace Portal.Consultoras.Web.Providers
                         {
                             if (lineasPorCaja > 0 && !string.IsNullOrEmpty(componente.NombreProducto))
                             {
-                                var nombreFormateado = (componente.NombreProducto.Length <= 26) ? componente.NombreProducto : componente.NombreProducto.Substring(0, 25) + "...";
+                                var nombreFormateado = Util.SubStrCortarNombre(componente.NombreProducto, 25);
                                 item.Hermanos.Add(new EstrategiaComponenteModel()
                                 {
                                     NombreComercial = string.Format("{0}", componente.NombreProducto),
