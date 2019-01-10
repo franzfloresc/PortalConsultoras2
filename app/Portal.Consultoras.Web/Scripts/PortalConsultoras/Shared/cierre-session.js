@@ -10,11 +10,17 @@
 });
 
 function configureTimeoutPopup() {
+    if (typeof SessionTimeout === 'undefined') {
+        return;
+    }
+    var timeoutSeconds = (SessionTimeout * 60) - 5;
+    var timeShowPopup = 48;
+
     $(document).idleTimeout({
         redirectUrl: baseUrl + 'Login/LogOut',       // redirect to this url
-        idleTimeLimit: 1860,            // 15 seconds 'No activity' time limit in seconds.
+        idleTimeLimit: timeoutSeconds - timeShowPopup,            // 15 seconds 'No activity' time limit in seconds.
         activityEvents: 'click keypress scroll wheel mousewheel',    // separate each event with a space
-        dialogDisplayLimit: 48,       // Time to display the warning dialog before logout (and optional callback) in seconds
+        dialogDisplayLimit: timeShowPopup,       // Time to display the warning dialog before logout (and optional callback) in seconds
         sessionKeepAliveTimer: false,  // Set to false to disable pings.
         endSessionCallback: function() {
             forceCloseSession();
