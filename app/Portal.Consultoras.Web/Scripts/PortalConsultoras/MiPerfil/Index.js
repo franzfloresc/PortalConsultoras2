@@ -166,28 +166,7 @@ $(document).ready(function () {
                    var elementSiguiente = 'Ubigeo' + (parseInt(Identity) + 1);
                     if ($('#' + elementSiguiente)[0]!= undefined) {
                       var  Nivel = $('#' + i).attr('Nivel');
-                      //deferreds.push($.ajax({
-                      //      url: UrlDrop,
-                      //      type: 'GET',
-                      //      data: { Nivel: Nivel, IdPadre: n },
-                      //      dataType: 'json',
-                      //      success: function (response) {
-                      //          debugger;
-                      //          var len = response.length;
-                      //          me.Funciones.CloseLoading();
-                      //          $('#' + elementSiguiente).empty();
-                      //          $('#' + elementSiguiente).append("<option value>--Seleccionar</option>");
-                      //          for (var i = 0; i < len; i++) {
-                      //              var id = response[i]['IdParametroUnete'];
-                      //              var name = response[i]['Nombre'];
-
-                      //              $('#' + elementSiguiente).append("<option value='" + id + "'>" + name + "</option>");
-
-                      //          }
-                                
-                      //      }
-                      //  }));
-                        deferreds.push(me.Funciones.ConsultaUbigeo(Nivel, n, elementSiguiente));
+                      deferreds.push(me.Funciones.ConsultaUbigeo(Nivel, n, elementSiguiente));
                     }
                 });
                 $.when.apply(null, deferreds).done(function () {
@@ -371,12 +350,7 @@ $(document).ready(function () {
                if ($('#Operacion').val() == OperacionDb.Editar)
                    me.Funciones.ModoEdicion();
             }
-        //    ,
-        //    me.InicializarMapa = function () {
-                
-        //        me.Funciones.CrearComponentesMapa();
-        //        me.Funciones.InicializarEventosMapa();
-        //}
+     
     }
 
     MiPerfil = new vistaMiPerfil();
@@ -425,74 +399,74 @@ function actualizarDatos() {
     var Referencia = $('#Referencia').val();
 
 
-    //if (txtEMailMD == "") {
-    //    alert("Debe ingresar EMail.\n");
-    //    return false;
-    //}
+    if (txtEMailMD == "") {
+        alert("Debe ingresar EMail.\n");
+        return false;
+    }
 
-    //if (!validateEmail(txtEMailMD)) {
-    //    alert("El formato del correo electrónico ingresado no es correcto.\n");
-    //    return false;
-    //}
+    if (!validateEmail(txtEMailMD)) {
+        alert("El formato del correo electrónico ingresado no es correcto.\n");
+        return false;
+    }
 
-    //if ((txtTelefonoMD == null || txtTelefonoMD == "") &&
-    //    (txtCelularMD == null || txtCelularMD == "")) {
-    //    alert('Debe ingresar al menos un número de contacto: celular o teléfono.');
-    //    return false;
-    //}
+    if ((txtTelefonoMD == null || txtTelefonoMD == "") &&
+        (txtCelularMD == null || txtCelularMD == "")) {
+        alert('Debe ingresar al menos un número de contacto: celular o teléfono.');
+        return false;
+    }
 
-    //if (txtCelularMD != "") {
-    //    if (!isInt(txtCelularMD)) {
-    //        alert('El formato del celular no es correcto');
-    //        return false;
-    //    }
-    //    if (isZero(txtCelularMD)) {
-    //        alert('El formato del celular no es correcto');
-    //        return false;
-    //    }
-    //    if (txtCelularMD.length != hdn_CaracterMaximo) {
-    //        alert('El formato del celular no es correcto');
-    //        return false;
-    //    }
-    //}
+    if (txtCelularMD != "") {
+        if (!isInt(txtCelularMD)) {
+            alert('El formato del celular no es correcto');
+            return false;
+        }
+        if (isZero(txtCelularMD)) {
+            alert('El formato del celular no es correcto');
+            return false;
+        }
+        if (txtCelularMD.length != hdn_CaracterMaximo) {
+            alert('El formato del celular no es correcto');
+            return false;
+        }
+    }
 
-    //if (txtCelularMD != "") {
-    //    if (hdn_iniciaNumero > 0) {
-    //        if (txtCelularMD != null || txtCelularMD != "") {
-    //            if (hdn_iniciaNumero != txtCelularMD.charAt(0)) {
-    //                alert('Su número de celular debe empezar con ' + hdn_iniciaNumero + '.');
-    //                return false;
-    //            }
-    //        }
-    //    }
-    //}
+    if (txtCelularMD != "") {
+        if (hdn_iniciaNumero > 0) {
+            if (txtCelularMD != null || txtCelularMD != "") {
+                if (hdn_iniciaNumero != txtCelularMD.charAt(0)) {
+                    alert('Su número de celular debe empezar con ' + hdn_iniciaNumero + '.');
+                    return false;
+                }
+            }
+        }
+    }
 
-    //if (txtCelularMD != "") {
-    //    if (!ValidarTelefono(txtCelularMD)) {
-    //        alert('El celular que está ingresando ya se encuenta registrado.');
-    //        return false;
-    //    }
-    //}
+    if (txtCelularMD != "") {
+        if (!ValidarTelefono(txtCelularMD)) {
+            alert('El celular que está ingresando ya se encuenta registrado.');
+            return false;
+        }
+    }
 
-    //if (txtTelefonoMD != "") {
-    //    if (!isInt(txtTelefonoMD)) {
-    //        alert('El formato de teléfono no es correcto');
-    //        return false;
-    //    }
-    //    if (isZero(txtTelefonoMD)) {
-    //        alert('El formato del teléfono no es correcto');
-    //        return false;
-    //    }
+    if (txtTelefonoMD != "") {
+        if (!isInt(txtTelefonoMD)) {
+            alert('El formato de teléfono no es correcto');
+            return false;
+        }
+        if (isZero(txtTelefonoMD)) {
+            alert('El formato del teléfono no es correcto');
+            return false;
+        }
 
-    //    if (txtTelefonoMD.length < hdn_CaracterMinimo) {
-    //        alert('El número de teléfono debe tener como mínimo ' + hdn_CaracterMinimo + ' números.');
-    //        return false;
-    //    }
-    //    if (txtTelefonoMD.length > hdn_CaracterMaximo) {
-    //        alert('El número de teléfono debe tener como máximo ' + hdn_CaracterMaximo + ' números.');
-    //        return false;
-    //    }
-    //}
+        if (txtTelefonoMD.length < hdn_CaracterMinimo) {
+            alert('El número de teléfono debe tener como mínimo ' + hdn_CaracterMinimo + ' números.');
+            return false;
+        }
+        if (txtTelefonoMD.length > hdn_CaracterMaximo) {
+            alert('El número de teléfono debe tener como máximo ' + hdn_CaracterMaximo + ' números.');
+            return false;
+        }
+    }
 
     if (txtTelefonoTrabajoMD != "") {
         if (!isInt(txtTelefonoTrabajoMD)) {
