@@ -18,7 +18,7 @@ namespace Portal.Consultoras.Web.Models.Buscador
         public Paginacion Paginacion { get; set; }
         public Filtros Filtro { get; set; }
         public bool IsMobile { get; set; }
-        public bool IsHome { get; set; }
+        public bool IsHome { get; set; }        
     }
 
     public class Filtros

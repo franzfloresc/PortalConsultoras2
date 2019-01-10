@@ -185,11 +185,12 @@ namespace Portal.Consultoras.Common
             public const int ActualizaEscalaDescuentoDestokp = 7201;
             public const int ActualizaEscalaDescuentoMobile = 7301;
 
-            public static class PagoEnLinea {
+            public static class PagoEnLinea
+            {
                 public const int Habilitar_App = 12213;
                 public const int Habilitar_App_PBI_ExternalApp = 12214;
             }
-            
+
             public static class ArmaTuPack
             {
                 public const string ListCuv = "ListCuv";
@@ -355,6 +356,7 @@ namespace Portal.Consultoras.Common
             public const string PROL_CalculoMontosProl = "PROL_CalculoMontosProl";
 
             //  CDR
+            public const string CDRProductoFacturado = "CDRProductoFacturado";
             public const string CDRCampanias = "CDRCampanias";
             public const string CDRMotivoOperacion = "CDRMotivoOperacion";
             public const string CDRPedidosFacturado = "CDRPedidosFacturado";
@@ -433,7 +435,8 @@ namespace Portal.Consultoras.Common
 
             public const string JwtApiSomosBelcorp = "JwtApiSomosBelcorp";
             public const string UsuarioPedidos = "UsuarioPedidos";
-
+            public const string RecomendacionesConfig = "RecomendacionesConfiguracion";
+            public const string BuscadorYFiltrosConfig = "BuscadorYFiltros";
         }
 
         public static class ConfiguracionManager
@@ -734,11 +737,11 @@ namespace Portal.Consultoras.Common
             public const int VirtualCoachDesktopPedido = 1231;
             public const int VirtualCoachMobilePedido = 2231;
             #endregion
-            
+
             #region Programa de Nuevas
             public const string Mensaje1 = "El código solicitado es exclusivo del Programa de Nuevas.";
             #endregion
-            
+
             #region Busqueda y filtros
             public const int DesktopLandingBuscadorOfertasParaTiCarrusel = 1100001;
             public const int DesktopLandingBuscadorShowroomCarrusel = 1100101;
@@ -767,14 +770,14 @@ namespace Portal.Consultoras.Common
             public const int DesktopLandingBuscadorShowroomFicha = 1100102;
             public const int DesktopLandingBuscadorLanzamientosFicha = 1100202;
             public const int DesktopLandingBuscadorOfertaDelDiaFicha = 1100302;
-            public const int DesktopLandingBuscadorGNDFicha = 1100502;            
+            public const int DesktopLandingBuscadorGNDFicha = 1100502;
             public const int DesktopLandingBuscadorHerramientasDeVentaFicha = 1100802;
 
             public const int MobileLandingBuscadorOfertasParaTiFicha = 2100002;
             public const int MobileLandingBuscadorShowroomFicha = 2100102;
             public const int MobileLandingBuscadorLanzamientosFicha = 2100202;
             public const int MobileLandingBuscadorOfertaDelDiaFicha = 2100302;
-            public const int MobileLandingBuscadorGNDFicha = 2100502;            
+            public const int MobileLandingBuscadorGNDFicha = 2100502;
             public const int MobileLandingBuscadorHerramientasDeVentaFicha = 2100802;
 
             #endregion
@@ -902,6 +905,11 @@ namespace Portal.Consultoras.Common
             public const int MobileContenedorShowroomFicha = 2080102;
             public const int MobileContenedorLanzamientosCarrusel = 2080201; // Esta en duro en rdAnalyticsModule
 
+            #endregion
+
+            #region Producto Recomendado
+            public const int DesktopPedidoProductoRecomendadoCarrusel = 1021501;
+            public const int MobilePedidoProductoRecomendadoCarrusel = 2021501;
             #endregion
         }
 
@@ -1376,6 +1384,7 @@ namespace Portal.Consultoras.Common
             public const string ProgramaNuevas = "PN";
             public const string ElecMultiple = "DP";
             public const string MasGanadoras = "MG";
+            public const string Recomendaciones = "RECOMDS";
         }
 
 
@@ -1554,14 +1563,14 @@ namespace Portal.Consultoras.Common
         {
             public static class TipoPresentacion
             {
-                public const int CarruselSimple = 1;
-                public const int SimpleCentrado = 3;
+                public const int CarruselSimple = 1;// Ejm OPT en RDI
+                public const int SimpleCentrado = 3;// Ejm HV
                 public const int Banners = 4;
                 public const int ShowRoom = 5;
                 public const int OfertaDelDia = 6;
                 public const int DescagablesNavidenos = 7;
-                public const int CarruselIndividuales = 8;
-                public const int CarruselIndividualesV2 = 9;
+                public const int CarruselIndividuales = 8; // Ejm LAN
+                public const int CarruselIndividualesV2 = 9; // Ejm GM
             }
         }
 
@@ -2220,6 +2229,9 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_PRODUCTO_SUGERIDO = "1109";
                 public const string ERROR_PRODUCTO_SET = "1110";
                 public const string ERROR_PRODUCTO_NONUEVA = "1111";
+                public const string ERROR_PRODUCTO_NUEVA_NOPERTENECE_TUPROGRAMA = "1112";
+                public const string ERROR_PRODUCTO_NOPERTENECE_VENTAEXCLUSIVA = "1113";
+                public const string ERROR_PRODUCTO_LIMITE_VENTA = "1114";
 
                 public const string ERROR_RESERVADO_HORARIO_RESTRINGIDO = "2101";
                 public const string ERROR_STOCK_ESTRATEGIA = "2102";
@@ -2237,7 +2249,7 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_UNIDAD_SOBREPASA_PERMITIDO = "2116";
                 public const string ERROR_UNIDAD_SINSALDO = "2117";
                 public const string ERROR_UNIDAD_CONSALDO = "2118";
-                public const string ERROR_UNIDAD_SOBREPASA_STOCK = "2119";
+                public const string ERROR_UNIDAD_SOBREPASA_STOCK = "2119";               
 
                 public const string ERROR_RESERVA_NINGUNO = "2010";
                 public const string SUCCESS_RESERVA = "2011";
@@ -2282,7 +2294,9 @@ namespace Portal.Consultoras.Common
                             {Code.ERROR_PRODUCTO_ESTRATEGIA, new PedidoValidacionConfiguracion() },
                             {Code.ERROR_PRODUCTO_SUGERIDO, new PedidoValidacionConfiguracion(){ Mensaje = "Este producto tiene reemplazos sugeridos." } },
                             {Code.ERROR_PRODUCTO_SET, new PedidoValidacionConfiguracion(){ Mensaje = "Este producto es una oferta digital. Te invitamos a que revises tu sección de ofertas."} },
-                            {Code.ERROR_PRODUCTO_NONUEVA, new PedidoValidacionConfiguracion(){ Mensaje = "El código solicitado es exclusivo para quienes participan del Programa de Nuevas." } },
+                            {Code.ERROR_PRODUCTO_NONUEVA, new PedidoValidacionConfiguracion(){ Mensaje = ProgNuevas.Mensaje.ConsultoraNoNueva } },
+                            {Code.ERROR_PRODUCTO_NUEVA_NOPERTENECE_TUPROGRAMA, new PedidoValidacionConfiguracion(){ Mensaje = ProgNuevas.Mensaje.CuvNoPerteneceASuPrograma } },
+                            {Code.ERROR_PRODUCTO_NOPERTENECE_VENTAEXCLUSIVA, new PedidoValidacionConfiguracion(){ Mensaje = VentaExclusiva.CuvNoEsVentaExclusiva } },
 
                             {Code.ERROR_RESERVADO_HORARIO_RESTRINGIDO, new PedidoValidacionConfiguracion()},
                             {Code.ERROR_STOCK_ESTRATEGIA, new PedidoValidacionConfiguracion()},
@@ -2592,7 +2606,7 @@ namespace Portal.Consultoras.Common
         public static class PagoEnLineaPasarela
         {
             public const string Visa = "VISA";
-            public const string PBI = "PBI";            
+            public const string PBI = "PBI";
         }
 
         public static class PagoEnLineaNotificacion
@@ -2622,10 +2636,11 @@ namespace Portal.Consultoras.Common
             public const string Recurrence = "FALSE";
             public const string RecurrenceAmount = "0.00";
 
-            public static class Code {
+            public static class Code
+            {
                 public const string CodigoError_Success = "0";
                 public const string CodigoAccion_Success = "000";
-            }            
+            }
         }
 
         public static class PagoEnLineaRespuestaServicio
@@ -2730,107 +2745,179 @@ namespace Portal.Consultoras.Common
         public static class PersonalizacionOfertasService
         {
             #region Administrar Estrategia
-            //api/Estrategia/listar/{pais}/{tipo}/{campania}
+
+            /// <summary>
+            /// api/Estrategia/listar/{pais}/{tipo}/{campania}
+            /// </summary>
             public const string UrlListarWebApi = "api/estrategia/listar/{0}/{1}/{2}";
 
-            //api/Estrategia/contar/{pais}/{tipo}/{campania}
+            /// <summary>
+            /// api/Estrategia/contar/{pais}/{tipo}/{campania}
+            /// </summary>
             public const string UrlCantidadOfertas = "api/estrategia/contar/{0}/{1}/{2}";
 
-            //api/Estrategia/precargar/{pais}/{tipo}/{campania}
+            /// <summary>
+            /// api/Estrategia/precargar/{pais}/{tipo}/{campania}
+            /// </summary>
             public const string UrlPreCargarWebApi = "api/estrategia/precargar/{0}/{1}/{2}";
 
-            //api/Estrategia/cargar/{pais}
+            /// <summary>
+            /// api/Estrategia/cargar/{pais}
+            /// </summary>
             public const string UrlCargarWebApi = "api/estrategia/cargar/{0}?usuario={1}";
 
-            //api/Estrategia/{pais}/{id} --REVISAR
+            /// <summary>
+            /// api/Estrategia/{pais}/{id} --REVISAR
+            /// </summary>
             public const string UrlFiltrarEstrategia = "api/estrategia/{0}/{1}";
 
-            //api/Estrategia/editar/{pais}
+            /// <summary>
+            /// api/Estrategia/editar/{pais}
+            /// </summary>
             public const string UrlEditarWebApi = "api/estrategia/editar/{0}?prod={1}&perfil={2}";
 
-            //api/Estrategia/deshabilitar/{pais}/{id}?Usuario=           
+            /// <summary>
+            /// api/Estrategia/deshabilitar/{pais}/{id}?Usuario=
+            /// </summary>
             public const string UrlDesactivarWebApi = "api/estrategia/deshabilitar/{0}/{1}?Usuario={2}";
 
-            //api/Estrategia/desactivar/{pais}/{tipo}
+            /// <summary>
+            /// api/Estrategia/desactivar/{pais}/{tipo}
+            /// </summary>
             public const string UrlActivarDesactivarEstrategias = "api/estrategia/activardesactivar/{0}/{1}";
 
-            //api/Estrategia/descripcion/{pais}/{tipo}/{campania}
+            /// <summary>
+            /// api/Estrategia/descripcion/{pais}/{tipo}/{campania}
+            /// </summary>
             public const string UrlUploadCsv = "api/estrategia/descripcion/{0}/{1}/{2}";
 
-            //api/Estrategia/cuv/{pais}/{tipo}/{campania}/{cuv}
+            /// <summary>
+            /// api/Estrategia/cuv/{pais}/{tipo}/{campania}/{cuv}
+            /// </summary>
             public const string UrlEstrategiaCuv = "api/estrategia/cuv/{0}/{1}/{2}/{3}";
 
-            //api/Estrategia/registrar/{pais}
+            /// <summary>
+            /// api/Estrategia/registrar/{pais}
+            /// </summary>
             public const string UrlRegistrarWebApi = "api/estrategia/registrar/{0}";
 
-            //api/TipoEstrategia/editar/{pais}
+            /// <summary>
+            /// api/TipoEstrategia/editar/{pais}
+            /// </summary>
             public const string UrlEditarTipoEstrategiaWebApi = "api/tipo/editar/{0}";
 
-            //api/TipoEstrategia/registrar/{pais}
+            /// <summary>
+            /// api/TipoEstrategia/registrar/{pais}
+            /// </summary>
             public const string UrlRegistrarTipoEstrategiaWebApi = "api/tipo/registrar/{0}";
 
-            //api/Estrategia/multiple/{pais}
+            /// <summary>
+            /// api/Estrategia/multiple/{pais}
+            /// </summary>
             public const string UrlListarEstrategiaPorConfigurarWebApi = "api/Estrategia/multiple/{0}";
 
-            //api/Evento/eliminar/{pais}/{id}
+            /// <summary>
+            /// api/Evento/eliminar/{pais}/{id}
+            /// </summary>
             public const string UrlEliminarShowRoomEvento = "api/Evento/eliminar/{0}/{1}";
 
-            //api/Evento/listar/{pais}/{campania}
+            /// <summary>
+            /// api/Evento/listar/{pais}/{campania}
+            /// </summary>
             public const string UrlConsultarShowRoom = "api/Evento/listar/{0}/{1}";
 
-            //api/Evento/deshabilitar/{pais}/{id}?usuario={usuario}
+            /// <summary>
+            /// api/Evento/deshabilitar/{pais}/{id}?usuario={usuario}
+            /// </summary>
             public const string UrlDeshabilitarShowRoomEvento = "api/Evento/deshabilitar/{0}/{1}?usuario={2}";
 
-            //api/Evento/personalizacion/guardar/{pais}/{idevento}
+            /// <summary>
+            /// api/Evento/personalizacion/guardar/{pais}/{idevento}
+            /// </summary>
             public const string UrlEventoPersonalizacion = "/api/Evento/personalizacion/guardar/{0}/{1}";
 
-            //api/Estrategia/descripcion/{pais}/{tipo}/{campania}?tipoEstrategia={tipoEstrategia}&usuario={usuario}
+            /// <summary>
+            /// api/Estrategia/descripcion/{pais}/{tipo}/{campania}?tipoEstrategia={tipoEstrategia}&usuario={usuario}
+            /// </summary>
             public const string UrlUploadFileSetStrategyShowroom = "api/Estrategia/descripcion/{0}/{1}/{2}?tipoEstrategia={3}&usuario={4}";
 
-            //api/Componente/descripcion/{pais}/{tipo}/{campania}?usuario={usuario}
+            /// <summary>
+            /// api/Componente/descripcion/{pais}/{tipo}/{campania}?usuario={usuario}
+            /// </summary>
             public const string UrlUploadFileProductStrategyShowroom = "api/Componente/descripcion/{0}/{1}/{2}?usuario={3}";
 
-            //api/Evento/registrar/{pais}
+            /// <summary>
+            /// api/Evento/registrar/{pais}
+            /// </summary>
             public const string UrlGuardarShowRoom = "api/Evento/registrar/{0}";
 
-            //api/Evento/editar/{pais}
+            /// <summary>
+            /// api/Evento/editar/{pais}
+            /// </summary>
             public const string UrlUpdateShowRoomEvento = "api/Evento/editar/{0}";
 
-            //api/Estrategia/eliminar/{pais}?id={id}
+            /// <summary>
+            /// api/Estrategia/eliminar/{pais}?id={id}
+            /// </summary>
             public const string UrlEliminarEstrategia = "api/Estrategia/eliminar/{0}?id={1}";
 
-            //api/Componente/deshabilitar/{pais}
+            /// <summary>
+            /// api/Componente/deshabilitar/{pais}
+            /// </summary>
             public const string UrlEliminarOfertaShowRoomDetalleNew = "api/Componente/deshabilitar/{0}";
 
-            //api/Componente/editar/{pais}/{tipo}
+            /// <summary>
+            /// api/Componente/editar/{pais}/{tipo}
+            /// </summary>
             public const string UrlUpdateOfertaShowRoomDetalleNew = "api/Componente/editar/{0}/{1}";
 
-            //api/Estrategia/buscador/{pais}/{tipo}/{campania}
+            /// <summary>
+            /// api/Estrategia/buscador/{pais}/{tipo}/{campania}
+            /// </summary>
             public const string UrlJobBuscador = "api/Estrategia/buscador/{0}/{1}/{2}";
+
+            /// <summary>
+            /// api/Evento/registrarConsultora/{pais}
+            /// </summary>
+            public const string UrlRegistrarEventoConsultora = "api/Evento/registrarConsultora/{0}";
+
+            /// <summary>
+            /// api/Evento/editarConsultora/{pais}/{tipo}
+            /// </summary>
+            public const string UrlEditarEventoConsultora = "api/Evento/editarConsultora/{0}/{1}";
             #endregion
 
             #region Oferta
-            //api/Oferta/{pais}/{tipo}/{codigoCampania}/{codigoConsultora}/{diaInicio}
+            /// <summary>
+            /// api/Oferta/{pais}/{tipo}/{codigoCampania}/{codigoConsultora}/{diaInicio}
+            /// </summary>
             public const string UrlObtenerOfertasDelDia = "api/Oferta/{0}/{1}/{2}/{3}/{4}";
 
-            ///api/Oferta/{pais}/{tipo}/{codigoCampania}/{codigoConsultora}/{codigoRegion}/{codigoZona}/{materialGanancia}
+            /// <summary>
+            /// api/Oferta/{pais}/{tipo}/{codigoCampania}/{codigoConsultora}/{codigoRegion}/{codigoZona}/{materialGanancia}
+            /// </summary>
             public const string UrlObtenerOfertas = "api/Oferta/{0}/{1}/{2}/{3}/{4}/{5}/{6}";
 
-            //api/Evento/Get/{pais}/{campania}
+            /// <summary>
+            /// api/Evento/Get/{pais}/{campania}
+            /// </summary>
             public const string UrlObtenerEvento = "api/Evento/Get/{0}/{1}";
 
-            //api/Nivel/listar/{pais}
+            /// <summary>
+            /// api/Nivel/listar/{pais}
+            /// </summary>
             public const string UrlObtenerNivel = "api/Nivel/listar/{0}";
 
-            //api/Evento/registrarConsultora/{pais}/{codigoCampania}/{codigoConsultora}
-            public const string UrlRegistrarEventoConsultora = "api/Evento/registrarConsultora/{0}/{1}/{2}";
-
-            //api/Evento/editarEventoConsultora/{pais}/{tipo}
-            public const string UrlEditarEventoConsultora = "api/Evento/editarEventoConsultora/{0}/{1}";
+            /// <summary>
+            /// api/Evento/listarConsultora/{pais}/{campania}/{codigoConsultora}
+            /// </summary>
+            public const string UrlObtenerEventoConsultora = "api/Evento/listarConsultora/{0}/{1}/{2}";
             #endregion
 
             #region Reporte
-            //api/Estrategia/ReporteValidacion/{tipo}/{campania}/{paises}
+            /// <summary>
+            /// api/Estrategia/ReporteValidacion/{tipo}/{campania}/{paises}
+            /// </summary>
             public const string UrlReporteValidacion = "api/Estrategia/ReporteValidacion/{0}/{1}/{2}";
             #endregion
         }
@@ -2883,14 +2970,29 @@ namespace Portal.Consultoras.Common
             public const string TotalCaracteresDescPaginaResultado = "TotalCaracteresDescPaginaResultado";
             public const string FlagFiltrosBuscador = "FlagFiltrosBuscador";
         }
+        
+        public static class CodigoConfiguracionRecomendaciones
+        {
+            public const string ActivarRecomendaciones = "ActivarRecomendaciones";
+            public const string MaximoResultados = "MaximoResultados";
+            public const string MinimoResultados = "MinimoResultados";
+            public const string CaracteresDescripcion = "CaracteresDescripcion";
+            public const string CodigoCatalogo = "CodigoCatalogo";
+        }
 
         public static class RutaBuscadorService
         {
-            //Buscador/{CodigoISO}/{CampaniaID}
+            /// <summary>
+            /// Buscador/{CodigoISO}/{CampaniaID}
+            /// </summary>
             public const string UrlBuscador = "Buscador/{0}/{1}/{2}";
 
-            //Personalizacion/{CodigoISO}/{CampaniaID}/{CodigoConsultora}/{Origen}
+            /// <summary>
+            /// Personalizacion/{CodigoISO}/{CampaniaID}/{CodigoConsultora}/{Origen}
+            /// </summary>
             public const string UrlPersonalizacion = "Personalizacion/{0}/{1}/{2}/{3}";
+
+            public const string UrlRecomendaciones = "Recomendaciones/{0}/{1}/{2}";
         }
 
         public static class ActualizacionDatosValidacion
@@ -3061,7 +3163,7 @@ namespace Portal.Consultoras.Common
         public static class ReporteValidacionDatos
         {
             private static Dictionary<int, string> _TipoPersonalizacion;
-            private static Dictionary<int, string> _TipoEstrategiaCodigo;   
+            private static Dictionary<int, string> _TipoEstrategiaCodigo;
             public static class EstrategiaID
             {
                 public const int OPT = 4;
@@ -3099,11 +3201,25 @@ namespace Portal.Consultoras.Common
             }
         }
 
-        public static class Formatos {
+        public static class EstrategiaDetalleCamposID
+        {
+            public const int FlagIndividual = 10212;
+            public const int Slogan = 10213;
+            public const int ImgHomeDesktop = 10210;
+            public const int ImgHomeMobile = 10211;
+            public const int ImgFondoDesktop = 10201;
+            public const int ImgFondoMobile = 10205;
+            public const int ImgFichaDesktop = 10203;
+            public const int ImgFichaFondoDesktop = 10208;
+            public const int ImgFichaMobile = 10206;
+            public const int ImgFichaFondoMobile = 10209;
+            public const int UrlVideoDesktop = 10204;
+            public const int UrlVideoMobile = 10207;
+        }
 
+        public static class Formatos {
             public const string Fecha = "dd/MM/yyyy";
             public const string FechaHora = "dd/MM/yyyy HH:mm";
-
         }
         public static class OperacionBD
         {

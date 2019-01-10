@@ -1239,7 +1239,8 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public bool TieneMG { get; set; }
         [DataMember]
-        public BEDireccionEntrega DireccionEntrega;
+        public BEDireccionEntrega DireccionEntrega { get; set; }
+        public bool TieneChatbot { get; set; }
         [DataMember]
         public string CorreoAnterior { get; set; }
 

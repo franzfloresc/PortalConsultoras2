@@ -432,7 +432,7 @@ function actualizarDatos() {
 
     if (txtCelularMD != "") {
         if (hdn_iniciaNumero > 0) {
-            if (txtCelularMD != null || txtCelularMD != "") {
+            if (txtCelularMD != null) {
                 if (hdn_iniciaNumero != txtCelularMD.charAt(0)) {
                     alert('Su número de celular debe empezar con ' + hdn_iniciaNumero + '.');
                     return false;

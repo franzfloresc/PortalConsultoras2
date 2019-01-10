@@ -10,8 +10,8 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public MasGanadorasController()
         {
-        }                                       
-        // GET: MasGanadoras
+        }
+
         public ActionResult Index()
         {
             var sessionMg = SessionManager.MasGanadoras.GetModel();

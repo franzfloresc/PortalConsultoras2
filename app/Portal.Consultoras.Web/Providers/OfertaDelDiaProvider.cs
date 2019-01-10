@@ -249,6 +249,22 @@ namespace Portal.Consultoras.Web.Providers
         public bool CumpleOfertaDelDia(UsuarioModel usuario, string controlador)
         {
             var result = false;
+
+            if (!NoMostrarBannerODD(controlador))
+            {
+                var tieneOfertaDelDia = sessionManager.OfertaDelDia.Estrategia.TieneOfertaDelDia;
+                result = (!tieneOfertaDelDia ||
+                          (!usuario.ValidacionAbierta && usuario.EstadoPedido == 202 && usuario.IndicadorGPRSB == 2 || usuario.IndicadorGPRSB == 0)
+                          ) && tieneOfertaDelDia;
+            }
+
+            return result;
+        }
+
+        public bool MostrarBannerSuperiorOdd(UsuarioModel usuario, string controlador)
+        {
+            var result = false;
+
             if (!NoMostrarBannerODD(controlador))
             {
                 var tieneOfertaDelDia = sessionManager.OfertaDelDia.Estrategia.TieneOfertaDelDia;

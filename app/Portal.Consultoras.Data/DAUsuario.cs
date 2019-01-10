@@ -994,5 +994,16 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.String, codigoUsuario);
             return Context.ExecuteReader(command);
         }
+         public bool GetPermisoChatbot(string codigoConsultora)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPermisoChatbot");
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, codigoConsultora);            
+            Context.Database.AddOutParameter(command, "@PermisoChatbot", DbType.Boolean, 4);
+
+            Context.ExecuteNonQuery(command);
+            
+            return Convert.ToBoolean(command.Parameters["@PermisoChatbot"].Value);
+        }
+
     }
 }

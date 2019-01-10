@@ -797,6 +797,7 @@
       <xs:element minOccurs="0" name="Direccion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="EstadoPedido" type="xs:short" />
       <xs:element minOccurs="0" name="EstadoPedidoDesc" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FechaFacturado" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FechaModificacion" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaProceso" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaRegistro" type="xs:dateTime" />

@@ -167,7 +167,7 @@ namespace Portal.Consultoras.Web.Controllers
                 guiaNegocio = SessionManager.GetGuiaNegocio();
                 estrategiaODD = SessionManager.OfertaDelDia.Estrategia;
                 configEstrategiaSR = SessionManager.GetEstrategiaSR() ?? new ConfigModel();
-                buscadorYFiltro = SessionManager.GetBuscadorYFiltros();
+                buscadorYFiltro = SessionManager.GetBuscadorYFiltrosConfig();
 
                 if (!configEstrategiaSR.CargoEntidadesShowRoom)
                 {
@@ -1088,6 +1088,7 @@ namespace Portal.Consultoras.Web.Controllers
                 // odd
                 ViewBag.OfertaDelDia = _ofertaDelDiaProvider.GetOfertaDelDiaConfiguracion(userData);
                 ViewBag.TieneOfertaDelDia = _ofertaDelDiaProvider.CumpleOfertaDelDia(userData, GetControllerActual());
+                ViewBag.MostrarBannerSuperiorOdd = _ofertaDelDiaProvider.MostrarBannerSuperiorOdd(userData, GetControllerActual());
             }
             catch (Exception ex)
             {
@@ -1358,5 +1359,21 @@ namespace Portal.Consultoras.Web.Controllers
             return stream => processor.Secure(stream, password);
         }
 
+        public string ObtenerFlagActivacionRecomendaciones()
+        {
+            var configuracionPaisDatos = SessionManager.GetRecomendacionesConfig()
+                .ConfiguracionPaisDatos
+                .FirstOrDefault(a => a.Codigo.Equals(Constantes.CodigoConfiguracionRecomendaciones.ActivarRecomendaciones));
+            return configuracionPaisDatos != null ? configuracionPaisDatos.Valor1 : "0";
+        }
+
+        public int ObtenerNumeroMaximoCaracteresRecomendaciones(bool esMobile)
+        {
+            var configuracionPaisDatos = SessionManager.GetRecomendacionesConfig()
+                .ConfiguracionPaisDatos
+                .FirstOrDefault(a => a.Codigo.Equals(Constantes.CodigoConfiguracionRecomendaciones.CaracteresDescripcion));
+            if (esMobile ) return configuracionPaisDatos != null ?  configuracionPaisDatos.Valor2.ToInt() : 35;
+            return configuracionPaisDatos != null ? configuracionPaisDatos.Valor1.ToInt() : 37;
+        }
     }
 }
