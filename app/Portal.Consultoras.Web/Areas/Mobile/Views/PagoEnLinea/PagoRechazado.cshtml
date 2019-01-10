@@ -38,13 +38,13 @@
 
     <div class="proceso_de_pago_en_linea">
 
-        <div class="pago_rechazado">
+        <div class="pago_rechazado" >
 
             <div class="icono_pago_rechazado"></div>
             <h3 class="titulo_pago_rechazado">
                 Pago <strong>rechazado</strong>
             </h3>
-            <p class="mensaje_pago_rechazado">
+            <p class="mensaje_pago_rechazado" style="display: flex;align-items: center;justify-content: center;">
                 Tu pago no se pudo realizar.
             </p>
 
@@ -52,7 +52,7 @@
         @if (!string.IsNullOrEmpty(Model.DescripcionCodigoAccion))
         {
             <br />
-            <div class="resumen_pago">
+            <div class="resumen_pago" style="display: flex;align-items: center;justify-content: center;">
                 <p class="info_num_operacion_pago">
                     Número de operación: <span class="num_operacion_pago">@Model.NumeroOperacion</span>
                 </p>
