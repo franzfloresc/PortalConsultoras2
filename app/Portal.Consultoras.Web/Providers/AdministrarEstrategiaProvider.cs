@@ -130,13 +130,14 @@ namespace Portal.Consultoras.Web.Providers
 
         private static List<EstrategiaMDbAdapterModel> EstablecerEstrategiaList(IEnumerable<WaEstrategiaModel> waModelList)
         {
-            List<EstrategiaMDbAdapterModel> mapList = waModelList.Select(d =>
+            List<EstrategiaMDbAdapterModel> mapList = waModelList.Select((d, index) =>
                 new EstrategiaMDbAdapterModel
                 {
                     _id = d._id,
                     FlagConfig = d.FlagConfig,
                     BEEstrategia = new ServicePedido.BEEstrategia
                     {
+                        ID = index + 1,
                         EstrategiaID = d.EstrategiaId,
                         CampaniaID = int.Parse(d.CodigoCampania),
                         Activo = d.Activo ? 1 : 0,
@@ -165,7 +166,7 @@ namespace Portal.Consultoras.Web.Providers
                         ImagenMiniaturaURL = d.ImagenMiniatura ?? string.Empty,
                         TipoEstrategiaID = d.TipoEstrategiaId,
                         Imagen = d.FlagImagenURL ? 1 : 0,
-                        DescripcionEstrategia = d.DescripcionTipoEstrategia,                    
+                        DescripcionEstrategia = d.DescripcionTipoEstrategia,
                         CodigoSAP = string.IsNullOrEmpty(d.CodigoSap) ? d.CodigoProducto : d.CodigoSap,
                         Zona = d.Zona,
                         EsSubCampania = d.EsSubCampania.HasValue ? (d.EsSubCampania.Value ? 1 : 0) : 0,

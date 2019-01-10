@@ -735,27 +735,27 @@ namespace Portal.Consultoras.Web.Providers
             return personalizacionNivel;
         }
 
-        public List<ServiceOferta.BEEstrategia> GetShowRoomOfertasConsultora()
-        {
-            List<ServiceOferta.BEEstrategia> listEstrategia = new List<ServiceOferta.BEEstrategia>();
-            UsuarioModel userData = _sessionManager.GetUserData();
+        //public List<ServiceOferta.BEEstrategia> GetShowRoomOfertasConsultora()
+        //{
+        //    List<ServiceOferta.BEEstrategia> listEstrategia = new List<ServiceOferta.BEEstrategia>();
+        //    UsuarioModel userData = _sessionManager.GetUserData();
 
-            string pathOferta = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerOfertas,
-                     userData.CodigoISO,
-                     Constantes.ConfiguracionPais.ShowRoom,
-                     userData.CampaniaID,
-                     userData.CodigoConsultora,
-                     0, //materialGanancia
-                     0, //diaInicio
-                     userData.CodigorRegion,
-                     userData.CodigoZona
-                  );
+        //    string pathOferta = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerOfertas,
+        //             userData.CodigoISO,
+        //             Constantes.ConfiguracionPais.ShowRoom,
+        //             userData.CampaniaID,
+        //             userData.CodigoConsultora,
+        //             0, //materialGanancia
+        //             0, //diaInicio
+        //             userData.CodigorRegion,
+        //             userData.CodigoZona
+        //          );
 
 
-            var taskApi = Task.Run(() => OfertaBaseProvider.ObtenerOfertasDesdeApi(pathOferta, userData.CodigoISO));
-            Task.WhenAll(taskApi);
-            return taskApi.Result;
-        }
+        //    var taskApi = Task.Run(() => OfertaBaseProvider.ObtenerOfertasDesdeApi(pathOferta, userData.CodigoISO));
+        //    Task.WhenAll(taskApi);
+        //    return taskApi.Result;
+        //}
 
 
         public ShowRoomEventoConsultoraModel RegistrarEventoConsultoraApi(int eventoId, bool esGenerica)
