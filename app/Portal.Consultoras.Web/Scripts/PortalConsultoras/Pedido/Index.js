@@ -875,7 +875,9 @@ function InsertarProducto(form) {
                     $("#hdErrorInsertarProducto").val(response.errorInsertarProducto);
 
                     tieneMicroefecto = true;
+                    var prevTotal = mtoLogroBarra;
                     MostrarBarra(response);
+                    showPopupNivelSuperado(response.DataBarra, prevTotal);
                     if (response.modificoBackOrder) showDialog("divBackOrderModificado");
                     CargarDetallePedido();
                     $("#pCantidadProductosPedido").html(response.cantidadTotalProductos > 0 ? response.cantidadTotalProductos : 0);
@@ -2563,7 +2565,9 @@ function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion
 
             CalcularTotalPedido(data.Total, data.Total_Minimo);
 
+            var prevTotal = mtoLogroBarra;
             MostrarBarra(data);
+            showPopupNivelSuperado(data.DataBarra, prevTotal);
 
             $("#pCantidadProductosPedido").html(data.cantidadTotalProductos > 0 ? data.cantidadTotalProductos : 0);
             microefectoPedidoGuardado();
@@ -2672,7 +2676,9 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, setI
             totalUnidades = totalUnidades - parseInt(CantidadAnti) + parseInt(Cantidad);
             $("#pCantidadProductosPedido").html(totalUnidades);
 
+            var prevTotal = mtoLogroBarra;
             MostrarBarra(data);
+            showPopupNivelSuperado(data.DataBarra, prevTotal);
             if (data.modificoBackOrder) {
                 showDialog("divBackOrderModificado");
             }
@@ -2862,7 +2868,9 @@ function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfe
                                 else if (diferenciaCantidades < 0)
                                     TrackingJetloreRemove((diferenciaCantidades * -1).toString(), $("#hdCampaniaCodigo").val(), CUV);
 
+                                var prevTotal = mtoLogroBarra;
                                 MostrarBarra(data);
+                                showPopupNivelSuperado(data.DataBarra, prevTotal);
                                 CargarResumenCampaniaHeader();
                                 if (data.modificoBackOrder) {
                                     showDialog("divBackOrderModificado");
@@ -3034,7 +3042,10 @@ function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfe
                                     else if (diferenciaCantidades < 0)
                                         TrackingJetloreRemove((diferenciaCantidades * -1).toString(), $("#hdCampaniaCodigo").val(), CUV);
 
+                                    var prevTotal = mtoLogroBarra;
                                     MostrarBarra(data);
+                                    showPopupNivelSuperado(data.DataBarra, prevTotal);
+
                                     CargarResumenCampaniaHeader();
                                     if (data.modificoBackOrder) {
                                         showDialog("divBackOrderModificado");
@@ -3284,7 +3295,9 @@ function AgregarProducto(url, model, divDialog, cerrarSplash, asyncX) {
             $("#pCantidadProductosPedido").html(data.cantidadTotalProductos > 0 ? data.cantidadTotalProductos : 0);
             microefectoPedidoGuardado();
             if (cerrarSplash) CerrarSplash();
+            var prevTotal = mtoLogroBarra;
             MostrarBarra(data);
+            showPopupNivelSuperado(data.DataBarra, prevTotal);
             TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);
 
             retorno = data;

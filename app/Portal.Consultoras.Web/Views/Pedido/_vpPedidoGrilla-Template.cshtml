@@ -42,8 +42,12 @@
     {{else}}
     <div class="contenido_ingresoPedido mouse_encima" data-cuv="{{CUV}}">
         @*<div class="texto_pedidos celda_codigo">{{CUV}}</div>*@
-        <div class="texto_pedidos celda_producto pedidoPadreToolTip" style="position:relative">
-
+        <div class="texto_pedidos celda_producto pedidoPadreToolTip" style="position:relative;">
+            {{#if PremioElectivo}}
+            <!-- Cuando la consultora haya seleccionado un regalo se le muestra la descripción de oferta correspondiente al regalo de Programa Nuevas -->
+            <label class="default-color producto_regalo_descripcion_grillaPedido" for="Regalo Programa Nuevas">Regalo Programa Nuevas</label>
+            <!-- Fin - Cuando la consultora haya seleccionado un regalo se le muestra la descripción de oferta correspondiente al regalo de Programa Nuevas -->
+            {{/if}}
             <span class="producto-codigo">{{CUV}}</span>
             {{#if_eq TipoPedido 'M'}}
             <span style="position:relative">
@@ -57,8 +61,17 @@
                 <label for="{{DescripcionCortadaProd}}" class="lblLPDesProd">{{Split DescripcionCortadaProd '|' 0}}</label>
             </span>
             {{/if_eq}}
+            {{#if PremioElectivo}}
+            <!-- Este tooltip se muestra cuando el producto es un regalo del Programa de Nuevas -->
+            <div class="tooltip_informativo_condicion_regalo_programaNuevas">
+                Sólo si llegas a tu monto
+            </div>
+            <!-- Fin - Este tooltip se muestra cuando el producto es un regalo del Programa de Nuevas -->
+            {{/if}}
             <span class="texto_pedidos_ofertas">
+                {{#unless  PremioElectivo}}
                 <label for="{{DescripcionOferta}}">{{DescripcionOferta}}</label>
+                {{/unless}}
             </span>
 
             <div id="tooltipDescPro" class="tooltipPedido">
@@ -85,11 +98,14 @@
                        data-input="cantidad" data-pedido="{{PedidoDetalleID}}" data-SetID="{{SetID}}"
                        @*onkeypress="PreValidarCUV(event);"*@
                        attrKey="PreValidarCUV"
+                       {{#if PremioElectivo}}
+                       readonly="readonly"
+                       {{/if}}
                        onfocus="SeleccionarContenido(this)"
                        onblur="UpdateLiquidacion(event, '{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '1', '{{Cantidad}}', '{{SetID}}', {{EnRangoProgNuevas}})" />
                 <div class="liquidacion_rango_right_pedido">
-                    <a class="mas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
-                    <a class="menos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
+                    <a class="mas" {{#unless PremioElectivo}}onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"{{/unless}}><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
+                    <a class="menos" {{#unless PremioElectivo}}onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"{{/unless}}><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
                 </div>
             </div>
             {{/if}}
@@ -120,7 +136,8 @@
             <input type="hidden" name="hdfLPCli{{PedidoDetalleID}}" value="{{ClienteID}}" class="classClienteID hdfLPCli" />
             <input type="hidden" name="hdfLPCliDes{{PedidoDetalleID}}" value="{{Nombre}}" class="classClienteID hdfLPCliDes" />
             <input type="hidden" name="hdfTest" value="{{Nombre}}" class="classClienteID hdfLPCliDes" />
-
+            
+            {{#unless PremioElectivo}}
             {{#if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Nueva'}}
             <input type="text" name="{{Nombre}}" value="{{Nombre}}" maxlength="50" class="classClienteNombre ValidaAlfanumerico txtLPCli"
                    readonly="readOnly" onkeydown="return false;" style="width:90%; padding:4px;" />
@@ -129,6 +146,7 @@
                    onblur="BlurF(event, '{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '2', '{{CUV}}', '{{EsBackOrder}}', '{{SetID}}')" style="width: 90%; padding: 4px;"
                    datapedido="{{PedidoDetalleID}}" />
             {{/if_eq}}
+            {{/unless}}
             {{/if}}
         </div>
         <div class="texto_pedidos celda_iconos_acciones">
@@ -144,11 +162,19 @@
                 </div>
             </div>
             {{else}}
-            {{#iff DescripcionLarga 'Contains' '\''}}
-            {{Replace DescripcionLarga '\'' ''}}
-            {{/iff}}
-            <a onclick="tooltipDelete('{{PedidoDetalleID}}', '{{SetID}}');"
-               style="background-image: url('@Url.Content("~/Content/Images/Esika/tacho-copy.png")'); background-repeat:no-repeat; width: 17px; height: 22px; margin: 0 auto;" title="Eliminar"></a>
+                {{#iff DescripcionLarga 'Contains' '\''}}
+                    {{Replace DescripcionLarga '\'' ''}}
+                {{/iff}}
+                {{#if LockPremioElectivo}}
+                <!-- Este enlace se muestra cuando el producto es un regalo de Programa Nuevas -->
+                <a href="javascript:;" onclick="javascript: $('body').css('overflow-y', ''); $('#popupPremio').fadeOut(200); cargarPopupEleccionRegalo();"
+                   class="icono_cambiar_regalo_programaNuevas"
+                   style="background-image: url('@Url.Content("~/Content/Images/icono_editar.svg")'); background-repeat:no-repeat; background-size:contain; width: 19px; height: 22px; margin: 0 auto;" title="Editar regalo"></a>
+                <!-- Fin - Este enlace se muestra cuando el producto es un regalo de Programa Nuevas -->
+                {{else}}
+                <a onclick="tooltipDelete('{{PedidoDetalleID}}', '{{SetID}}');"
+                   style="background-image: url('@Url.Content("~/Content/Images/Esika/tacho-copy.png")'); background-repeat:no-repeat; width: 17px; height: 22px; margin: 0 auto;" title="Eliminar"></a>
+                {{/if}}
             {{/if}}
         </div>
         {{#if EsBackOrder}}
@@ -161,15 +187,15 @@
         <div class="stock_content">
             <div class="texto_stock" style="margin-top: 10PX;width:60%">@Constantes.BackOrder.mensajeBackOrderDestokp</div>
             <div class="text_stock" style="margin-top:10px;float:left;width:35%;margin-left:35px;">
-                <a class="btn_no_stock" 
-                   style="font-size:9px;float:left;margin-left:9px;" 
+                <a class="btn_no_stock"
+                   style="font-size:9px;float:left;margin-left:9px;"
                    onclick="ValidDeletePedido('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '{{Cantidad}}', '{{ClienteID_}}', '{{CUVReco}}', '{{EsBackOrder}}', '{{SetID}}', false);"
                    href="javascript:;">
                     NO, ELIMÍNALO
                 </a>
-                <a class="btn_si_stock" 
-                   style="float:right;height:35px;line-height:39px;" 
-                   onclick="AceptarBackOrder('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{ClienteID_}}');" 
+                <a class="btn_si_stock"
+                   style="float:right;height:35px;line-height:39px;"
+                   onclick="AceptarBackOrder('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{ClienteID_}}');"
                    href="javascript:;">
                     ¡SÍ, GRACIAS!
                 </a>

@@ -1672,6 +1672,7 @@
     <Content Include="Content\Images\icono_notificaciones.svg" />
     <Content Include="Content\Images\icono_notificaciones_blanco.svg" />
     <Content Include="Content\Images\icono_popup_limite_credito.svg" />
+    <Content Include="Content\Images\icono_party_popper.png" />
     <Content Include="Content\Images\icono_regalo.png" />
     <Content Include="Content\Images\icono_salvavidas.svg" />
     <Content Include="Content\Images\icono_sin_resultados_busqueda.svg" />
@@ -4484,7 +4485,9 @@
     <Content Include="Areas\Mobile\Views\MasGanadoras\template-landing.cshtml" />
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-carrusel-individuales-v2.cshtml" />
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\template-producto-v2.cshtml" />
+    <Content Include="Areas\Mobile\Views\Pedido\_PopupEleccionRegalo.cshtml" />
     <Content Include="Areas\Mobile\Views\Pedido\_PopupPremio.cshtml" />
+    <Content Include="Areas\Mobile\Views\Pedido\_PopupDescuento.cshtml" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
       <SubType>Designer</SubType>

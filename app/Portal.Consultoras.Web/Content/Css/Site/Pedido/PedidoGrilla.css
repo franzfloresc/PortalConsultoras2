@@ -1361,6 +1361,11 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     letter-spacing: 0.5px;
 }
 
+.producto_regalo_descripcion_grillaPedido{
+    display: block;
+    margin-bottom: 4px;
+}
+
 .franja_negra .liquidacion_rango_wrapper_pedido {
     margin-top: 5px !important;
 }

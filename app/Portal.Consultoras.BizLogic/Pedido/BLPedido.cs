@@ -1320,7 +1320,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 result.CUV = pedidoDetalle.Producto.CUV;
                 result.ClienteID = pedidoDetalle.ClienteID;
                 return result;
-            });
+            }).ToList();
 
             return lstResultBuscar.Select(x =>
             {

@@ -87,12 +87,12 @@ function MostrarBarra(datax, destino) {
     if (!(mn == "0,00" || mn == "0.00" || mn == "0")) {
         wPrimer = wmin;
     }
-    var textoPunto = '<div style="font-weight: bold;">{titulo}</div><div style="font-size: 11px;">{detalle}</div>';
+    var textoPunto = '<div style="font-size:12px; font-weight:400; margin-bottom:4px;">{titulo}</div><div style="font-size: 12px;">{detalle}</div>';
     if (mx > 0 && destino == '2') {
         vLogro = mt - md;
 
         listaLimite.push({
-            nombre: textoPunto.replace("{titulo}", "M. mínimo").replace("{detalle}", variablesPortal.SimboloMoneda + " " + data.MontoMinimoStr),
+            nombre: textoPunto.replace("{titulo}", "M. Mínimo").replace("{detalle}", variablesPortal.SimboloMoneda + " " + data.MontoMinimoStr),
             tipoMensaje: 'MontoMinimo',
             width: wPrimer,
             valor: data.MontoMinimo,
@@ -109,7 +109,7 @@ function MostrarBarra(datax, destino) {
         }
         
         listaLimite.push({
-            nombre: textoPunto.replace("{titulo}", "L. crédito").replace("{detalle}", variablesPortal.SimboloMoneda + " " + data.MontoMaximoStr),
+            nombre: textoPunto.replace("{titulo}", "M. Máximo").replace("{detalle}", variablesPortal.SimboloMoneda + " " + data.MontoMaximoStr),
             tipoMensaje: 'MontoMaximo',
             widthR: wmin,
             valor: data.MontoMaximo,
@@ -156,7 +156,7 @@ function MostrarBarra(datax, destino) {
             listaLimite.push({
                 nombre: textoPunto
                     .replace("{titulo}", monto.PorDescuento + "% DSCTO")
-                    .replace("{detalle}", (ind == 0 ? "M. mínimo: " : "") + variablesPortal.SimboloMoneda + " " + (ind == 0 ? data.MontoMinimoStr : montox.MontoHastaStr)),
+                    .replace("{detalle}", (ind == 0 ? "M. Mínimo: " : "") + variablesPortal.SimboloMoneda + " " + (ind == 0 ? data.MontoMinimoStr : montox.MontoHastaStr)),
                 nombre2: textoPunto2.replace("{titulo}", monto.PorDescuento + "% {DSCTO}"),
                 nombreApp: textoApp
                     .replace("{titulo}", "<span>" + monto.PorDescuento + "</span>" + "% DSCTO")
@@ -177,7 +177,7 @@ function MostrarBarra(datax, destino) {
 
         if (listaLimite.length == 0 && mn > 0 && destino == '2') {
             listaLimite.push({
-                nombre: textoPunto.replace("{titulo}", "M. mínimo").replace("{detalle}", variablesPortal.SimboloMoneda + " " + data.MontoMinimoStr),
+                nombre: textoPunto.replace("{titulo}", "M. Mínimo").replace("{detalle}", variablesPortal.SimboloMoneda + " " + data.MontoMinimoStr),
                 tipoMensaje: 'MontoMinimo',
                 width: wPrimer,
                 valor: data.MontoMinimo,
@@ -231,7 +231,7 @@ function MostrarBarra(datax, destino) {
   
     var htmlPunto = '<div id="punto_{punto}" data-punto="{select}">'
                 + '<div class="monto_minimo_barra" style="width:{wText}px">'
-                    + '<div style="width:{wText}px;position: absolute;" data-texto>{texto}</div>'
+                    + '<div style="width:{wText}px;position: absolute; color:#808080; top:-2px;" data-texto>{texto}</div>'
                     //+ '<div class="linea_indicador_barra" {style}></div>' og
                 + '</div>'
         + '</div>' 
@@ -245,13 +245,18 @@ function MostrarBarra(datax, destino) {
     if (dataTP.Active)
     {
         htmlTippintPoint =
-            '<div id="punto_{punto}" data-punto="{select}">'
+            '<div id="punto_{punto}" data-punto="{select}" style="position: relative; top: 28px; z-index: 200;">'
                 + '<div class="monto_minimo_barra">'
-                    + '<div style="width:{wText}px;position: absolute; top:-15px;" data-texto>'
+                    + '<div style="width:{wText}px;position: relative;" data-texto>'
                         + '<div class="{barra_tooltip_class}">'
-                            + '<div class="tippingPoint {estado}"></div>'
+                            + '<a class="tippingPoint {estado}" href="javascript:;" onclick="javascript: cargarPopupEleccionRegalo();"></a>'
                             + '{barra_monto}'
-                            + '{barra_tooltip}'
+                            //+ '{barra_tooltip}'
+                        + '</div>'
+                        + '<div class="contenedor_circulos microEfecto_regaloPendienteEleccion">'
+                            + '<div class="circulo-1 iniciarTransicion"></div>'
+                            + '<div class="circulo-2 iniciarTransicion"></div>'
+                            + '<div class="circulo-3 iniciarTransicion"></div>'
                         + '</div>'
                     + '</div>'
                     //+ '<div class="linea_indicador_barra"></div>' og 
@@ -578,8 +583,8 @@ function MostrarBarra(datax, destino) {
         tipoMensaje = "TippingPointMobile";
     }
 
+    $('#montoPremioMeta').html(variablesPortal.SimboloMoneda + " " + dataBarra.TippingPointStr);
     if (belcorp.barra.settings.isMobile) {//V&& tp > 0  OG
-        $('#montoPremioMeta').html(variablesPortal.SimboloMoneda + " " + dataBarra.TippingPointStr);
         cargarMontoBanderasMobile(dataBarra);
     }
 
@@ -717,6 +722,10 @@ function initCarruselPremios(barra) {
         return;
     }
 
+    if (!belcorp.barra.settings.isMobile) {
+        $('.btn_seguir_comprando').html('Sigue comprando para llevártelo');
+    }
+
     if (barra.TippingPointBarra && barra.TippingPointBarra.ActivePremioElectivo) {
         tpElectivos.loadPremios = true;
         cargarPremiosElectivos();
@@ -759,6 +768,10 @@ function isTippingPointSuperado() {
 function checkPremioSelected() {
     var details = tpElectivos.pedidoDetails;
     if (!details || details.length === 0) {
+        if (tpElectivos.premioSelected) {
+            setPremio(null);
+        }
+
         return;
     }
 
@@ -852,6 +865,7 @@ function cargarPremiosElectivos() {
         .then(function (response) {
             tpElectivos.premios = response.lista;
             var premio = response.selected;
+            tpElectivos.premioSelected = premio;
             var premiosMostrar = getPremiosEstrategia(tpElectivos.premios);
 
             if (isTippingPointSuperado()) {
@@ -859,7 +873,6 @@ function cargarPremiosElectivos() {
             }
 
             if (premiosMostrar.length === 0) {
-                tpElectivos.premioSelected = premio;
                 hidePencilInDetails();
 
                 return;
@@ -868,10 +881,18 @@ function cargarPremiosElectivos() {
             SetHandlebars("#premios-electivos-template", { lista: premiosMostrar }, '#carouselOpcionesRegalo');
             loadCarruselPremiosEvents();
 
-            $('#hrefIconoRegalo').click(cargarPopupEleccionRegalo);
+            if (belcorp.barra.settings.isMobile) {
+                $('#hrefIconoRegalo').click(cargarPopupEleccionRegalo);
+            }
 
             setPremio(premio);
             tpElectivos.hasPremios = true;
+
+            if (!belcorp.barra.settings.isMobile && !premio) {
+                setTimeout(function() {
+                    $('#divBarra .contenedor_circulos').show();
+                }, 2000);
+            }
         });
 }
 
@@ -940,18 +961,34 @@ function armarCarouselRegalos() {
     if (carrusel[0].slick) {
         return;
     }
+    var options;
 
-    carrusel.slick({
-        infinite: true,
-        lazyLoad: 'ondemand',
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        autoplay: false,
-        speed: 300,
-        arrows: false,
-        variableWidth: true,
-        centerMode: true
-    });
+    if (belcorp.barra.settings.isMobile) {
+        options = {
+            infinite: true,
+            lazyLoad: 'ondemand',
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            autoplay: false,
+            speed: 300,
+            arrows: false,
+            variableWidth: true,
+            centerMode: true
+        };
+    } else {
+        options = {
+            infinite: false,
+            lazyLoad: 'ondemand',
+            slidesToShow: 4,
+            slidesToScroll: 1,
+            autoplay: false,
+            speed: 300,
+            prevArrow: '<a class="ver_anterior_regalo js-slick-prev-h"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
+            nextArrow: '<a class="ver_siguiente_regalo next js-slick-next-h"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>',
+        };
+    }
+
+    carrusel.slick(options);
 }
 
 function seleccionRegaloProgramaNuevas() {
@@ -1074,7 +1111,7 @@ function showPopupNivelSuperado(barra, prevLogro) {
 
         var superaRegalo = tippingPoint <= mtoLogroBarra && tippingPoint > prevLogro;
         if (superaRegalo) {
-            
+
             var idPopup = '#popupPremio';
             var dvPremio = $(idPopup);
             var btn = dvPremio.find('.btn_escoger_o_cambiar_regalo');
