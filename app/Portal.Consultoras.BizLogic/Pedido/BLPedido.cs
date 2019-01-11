@@ -2580,9 +2580,12 @@ namespace Portal.Consultoras.BizLogic.Pedido
             //validacion duo perfecto
             if (esDuoPerfecto)
             {
-                cntProd = lstDetalle.Where(x => x.FlagNueva && x.EnRangoProgNuevas).Count();
+                lstDetalle.Where(x => x.FlagNueva && x.EnRangoProgNuevas)
+                       .Update(x => x.EsDuoPerfecto = _programaNuevasBusinessLogic.EsCuvDuoPerfecto(usuario.PaisID, usuario.CampaniaID, usuario.ConsecutivoNueva, usuario.CodigoPrograma, x.CUV));
+                cntProd = lstDetalle.Where(x => x.EsDuoPerfecto).Count();
 
-                if (cntProd == 2)
+                //El duo perfecto solo acepta dos productos.
+                if (cntProd >= 2)
                     return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_DUO_COMPLETO_COMPLETO, string.Format(Constantes.ProgNuevas.Mensaje.Electivo_NoAgregarPorLimite, Constantes.ProgNuevas.Mensaje.Electivo_PromocionNombre));
             }
 
@@ -2637,10 +2640,10 @@ namespace Portal.Consultoras.BizLogic.Pedido
             PedidoAgregarProductoAgrupado(usuario, pedidoID, pedidoDetalle.Cantidad, cuvSet, strCuvs, estrategia.EstrategiaID);
 
             if (cntProd == 1 && esDuoPerfecto)
-                return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.SUCCESS, Constantes.PedidoValidacion.Code.SUCCESS_DUOPERFECTO_AGREGADO_COMPLETADO + "|" + string.Format(Constantes.ProgNuevas.Mensaje.Electivo_CompletasteLimite, Constantes.ProgNuevas.Mensaje.Electivo_PromocionNombre)));
+                return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.SUCCESS, string.Concat(Constantes.PedidoValidacion.Code.SUCCESS_DUOPERFECTO_AGREGADO_COMPLETADO, "|", string.Format(Constantes.ProgNuevas.Mensaje.Electivo_CompletasteLimite, Constantes.ProgNuevas.Mensaje.Electivo_PromocionNombre)));
 
             if (cntProd == 0 && esDuoPerfecto)
-                return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.SUCCESS, Constantes.PedidoValidacion.Code.SUCCESS_DUOPERFECTO_AGREGADO_UNO + "|" + string.Format(Constantes.ProgNuevas.Mensaje.Electivo_TeFaltaPocoLimite, cntProd + 1, Constantes.ProgNuevas.Mensaje.Electivo_PromocionNombre)));
+                return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.SUCCESS, string.Concat(Constantes.PedidoValidacion.Code.SUCCESS_DUOPERFECTO_AGREGADO_UNO, "|", string.Format(Constantes.ProgNuevas.Mensaje.Electivo_TeFaltaPocoLimite, cntProd + 1, Constantes.ProgNuevas.Mensaje.Electivo_PromocionNombre)));
 
             return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.SUCCESS);
         }
