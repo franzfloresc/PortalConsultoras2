@@ -219,8 +219,6 @@ namespace Portal.Consultoras.Web.Providers
 
         public List<EstrategiaPersonalizadaProductoModel> ConsultarOfertasFiltrarSR(BusquedaProductoModel model, List<EstrategiaPersonalizadaProductoModel> listaFinal1, int tipo)
         {
-            var userData = SessionManager.GetUserData();
-
             var listModel1 = new List<EstrategiaPersonalizadaProductoModel>();
             if (listaFinal1 == null || !listaFinal1.Any())
                 return listModel1;

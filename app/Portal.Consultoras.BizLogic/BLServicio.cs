@@ -125,7 +125,7 @@ namespace Portal.Consultoras.BizLogic
         public int InsServicioCampania(int CampaniaId, int ServicioId, string CodigoISO)
         {
             var daServicio = new DAServicio();
-            CacheManager<BEServicioCampania>.RemoveData(GetPaisID(CodigoISO), ECacheItem.ServiciosBelcorp, CampaniaId.ToString());
+            CacheManager<BEServicioCampania>.RemoveData(Util.GetPaisID(CodigoISO), ECacheItem.ServiciosBelcorp, CampaniaId.ToString());
 
             return daServicio.InsServicioCampania(CampaniaId, ServicioId, CodigoISO);
         }
@@ -133,7 +133,7 @@ namespace Portal.Consultoras.BizLogic
         public int InsServicioCampaniaRango(int CampaniaId, int CampaniaFinalId, int ServicioId, string CodigoISO)
         {
             var daServicio = new DAServicio();
-            CacheManager<BEServicioCampania>.RemoveData(GetPaisID(CodigoISO), ECacheItem.ServiciosBelcorp, CampaniaId.ToString());
+            CacheManager<BEServicioCampania>.RemoveData(Util.GetPaisID(CodigoISO), ECacheItem.ServiciosBelcorp, CampaniaId.ToString());
 
             return daServicio.InsServicioCampaniaRango(CampaniaId, CampaniaFinalId, ServicioId, CodigoISO);
         }
@@ -141,7 +141,7 @@ namespace Portal.Consultoras.BizLogic
         public int DelServicioCampania(int CampaniaId, int ServicioId, string CodigoISO)
         {
             var daServicio = new DAServicio();
-            CacheManager<BEServicioCampania>.RemoveData(GetPaisID(CodigoISO), ECacheItem.ServiciosBelcorp, CampaniaId.ToString());
+            CacheManager<BEServicioCampania>.RemoveData(Util.GetPaisID(CodigoISO), ECacheItem.ServiciosBelcorp, CampaniaId.ToString());
 
             return daServicio.DelServicioCampania(CampaniaId, ServicioId, CodigoISO);
         }
@@ -149,51 +149,50 @@ namespace Portal.Consultoras.BizLogic
         public int DelServicioCampaniaRango(int CampaniaId, int CampaniaFinalId, int ServicioId, string CodigoISO)
         {
             var daServicio = new DAServicio();
-            CacheManager<BEServicioCampania>.RemoveData(GetPaisID(CodigoISO), ECacheItem.ServiciosBelcorp, CampaniaId.ToString());
+            CacheManager<BEServicioCampania>.RemoveData(Util.GetPaisID(CodigoISO), ECacheItem.ServiciosBelcorp, CampaniaId.ToString());
 
             return daServicio.DelServicioCampaniaRango(CampaniaId, CampaniaFinalId, ServicioId, CodigoISO);
         }
 
         public void DeleteCacheServicio(string CodigoISO, int CampaniaId)
         {
-            CacheManager<BEServicioCampania>.RemoveData(GetPaisID(CodigoISO), ECacheItem.ServiciosBelcorp, CampaniaId.ToString());
+            CacheManager<BEServicioCampania>.RemoveData(Util.GetPaisID(CodigoISO), ECacheItem.ServiciosBelcorp, CampaniaId.ToString());
         }
 
-        private int GetPaisID(string ISO)
-        {
-            List<KeyValuePair<string, string>> listaPaises = new List<KeyValuePair<string, string>>()
-            {
-                new KeyValuePair<string, string>("1", Constantes.CodigosISOPais.Argentina),
-                new KeyValuePair<string, string>("2", Constantes.CodigosISOPais.Bolivia),
-                new KeyValuePair<string, string>("3", Constantes.CodigosISOPais.Chile),
-                new KeyValuePair<string, string>("4", Constantes.CodigosISOPais.Colombia),
-                new KeyValuePair<string, string>("5", Constantes.CodigosISOPais.CostaRica),
-                new KeyValuePair<string, string>("6", Constantes.CodigosISOPais.Ecuador),
-                new KeyValuePair<string, string>("7", Constantes.CodigosISOPais.Salvador),
-                new KeyValuePair<string, string>("8", Constantes.CodigosISOPais.Guatemala),
-                new KeyValuePair<string, string>("9", Constantes.CodigosISOPais.Mexico),
-                new KeyValuePair<string, string>("10", Constantes.CodigosISOPais.Panama),
-                new KeyValuePair<string, string>("11", Constantes.CodigosISOPais.Peru),
-                new KeyValuePair<string, string>("12", Constantes.CodigosISOPais.PuertoRico),
-                new KeyValuePair<string, string>("13", Constantes.CodigosISOPais.Dominicana),
-                new KeyValuePair<string, string>("14", Constantes.CodigosISOPais.Venezuela),
-            };
-            string paisId;
-            try
-            {
-                paisId = (from c in listaPaises
-                          where c.Value == ISO.ToUpper()
-                          select c.Key).SingleOrDefault();
-            }
-            catch (Exception)
-            {
-                throw new Exception("Hubo un error en obtener el País");
-            }
-
-            if (paisId == null) paisId = "0";
-
-            return int.Parse(paisId);
-        }
+        // se movio a Util.GetPaisID
+        //private int GetPaisID(string ISO)
+        //{
+        //    List<KeyValuePair<string, string>> listaPaises = new List<KeyValuePair<string, string>>()
+        //    {
+        //        new KeyValuePair<string, string>("1", Constantes.CodigosISOPais.Argentina),
+        //        new KeyValuePair<string, string>("2", Constantes.CodigosISOPais.Bolivia),
+        //        new KeyValuePair<string, string>("3", Constantes.CodigosISOPais.Chile),
+        //        new KeyValuePair<string, string>("4", Constantes.CodigosISOPais.Colombia),
+        //        new KeyValuePair<string, string>("5", Constantes.CodigosISOPais.CostaRica),
+        //        new KeyValuePair<string, string>("6", Constantes.CodigosISOPais.Ecuador),
+        //        new KeyValuePair<string, string>("7", Constantes.CodigosISOPais.Salvador),
+        //        new KeyValuePair<string, string>("8", Constantes.CodigosISOPais.Guatemala),
+        //        new KeyValuePair<string, string>("9", Constantes.CodigosISOPais.Mexico),
+        //        new KeyValuePair<string, string>("10", Constantes.CodigosISOPais.Panama),
+        //        new KeyValuePair<string, string>("11", Constantes.CodigosISOPais.Peru),
+        //        new KeyValuePair<string, string>("12", Constantes.CodigosISOPais.PuertoRico),
+        //        new KeyValuePair<string, string>("13", Constantes.CodigosISOPais.Dominicana),
+        //        new KeyValuePair<string, string>("14", Constantes.CodigosISOPais.Venezuela),
+        //    };
+        //    string paisId;
+        //    try
+        //    {
+        //        paisId = (from c in listaPaises
+        //                  where c.Value == ISO.ToUpper()
+        //                  select c.Key).SingleOrDefault();
+        //    }
+        //    catch (Exception)
+        //    {
+        //        throw new Exception("Hubo un error en obtener el País");
+        //    }
+        //    if (paisId == null) paisId = "0";
+        //    return int.Parse(paisId);
+        //}
 
         public BEServicioSegmentoZona GetServicioCampaniaSegmentoZona(int ServicioId, int CampaniaId, int PaisId)
         {

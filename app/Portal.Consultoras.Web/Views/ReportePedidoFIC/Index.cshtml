@@ -64,39 +64,39 @@
             if (Id != null) {
                 waitingDialog({});
                 $.ajaxSetup({ cache: false });
-                $.getJSON(baseUrl + 'ReportePedidoFIC/ObtenterCampaniasyRegionesPorPais', { PaisID: Id == "" ? 0 : Id }, function (data) {
+                $.getJSON(baseUrl + 'BaseAdm/ObtenerCampaniasZonasRegionesPorPais', { PaisID: Id == "" ? 0 : Id }, function (data) {
                     if (checkTimeout(data)) {
                         LimpiarDependencias(Id);
                         if (Id != "") {
                             var ddlRegion = $('#ddlRegion');
                             var ddlCampania = $('#ddlCampania');
                             var ddlZona = $('#ddlZona');
-                            if (data.lista.length > 0) {
-                                for (var item in data.lista) {
-                                    if (data.lista[item].CampaniaID) {
+                            if (data.lstCampania.length > 0) {
+                                for (var item in data.lstCampania) {
+                                    if (data.lstCampania[item].CampaniaID) {
                                         ddlCampania.append($('<option/>', {
-                                            value: data.lista[item].Codigo,
-                                            text: data.lista[item].Codigo
+                                            value: data.lstCampania[item].Codigo,
+                                            text: data.lstCampania[item].Codigo
                                         }));
                                     }
                                 }
                             }
-                            if (data.lstRegiones.length > 0) {
-                                for (var item in data.lstRegiones) {
-                                    if (data.lstRegiones.hasOwnProperty(item)) {
+                            if (data.lstRegion.length > 0) {
+                                for (var item in data.lstRegion) {
+                                    if (data.lstRegion.hasOwnProperty(item)) {
                                         ddlRegion.append($('<option/>', {
-                                            value: data.lstRegiones[item].RegionID,
-                                            text: data.lstRegiones[item].Codigo
+                                            value: data.lstRegion[item].RegionID,
+                                            text: data.lstRegion[item].Codigo
                                         }));
                                     }
                                 }
                             }
-                            if (data.listaZonas.length > 0) {
-                                for (var item in data.listaZonas) {
-                                    if (data.listaZonas.hasOwnProperty(item)) {
+                            if (data.lstZona.length > 0) {
+                                for (var item in data.lstZona) {
+                                    if (data.lstZona.hasOwnProperty(item)) {
                                         ddlZona.append($('<option/>', {
-                                            value: data.listaZonas[item].ZonaID,
-                                            text: data.listaZonas[item].Codigo
+                                            value: data.lstZona[item].ZonaID,
+                                            text: data.lstZona[item].Codigo
                                         }));
                                     }
                                 }
@@ -483,7 +483,7 @@
             gridComplete: function () { }
         });
         jQuery("#gvwPedidosCampana").jqGrid('navGrid', "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
-        jQuery("#gvwPedidosCampana").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');    
+        jQuery("#gvwPedidosCampana").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
     }
 
     function ExportExcel() {

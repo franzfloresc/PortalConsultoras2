@@ -14,7 +14,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class GestionContenidoController : BaseController
+    public class GestionContenidoController : BaseAdmController
     {
         #region Actions
 
@@ -39,7 +39,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             var model = new FormularioInformativoModel()
             {
-                listaPaises = DropDowListPaises()
+                listaPaises = DropDowListPaises(Constantes.Rol.Administrador)
             };
             return View(model);
         }
@@ -291,18 +291,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
-
-        private IEnumerable<PaisModel> DropDowListPaises()
-        {
-            IList<BEPais> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = sv.SelectPaises();
-            }
-
-            return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
-        }
-
+        
         [HttpPost]
         public JsonResult Mantener(FormularioInformativoModel model)
         {
@@ -864,44 +853,29 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var contenidoDatoModel = new ContenidoDatoModel()
             {
-                listaPaises = DropDowListPaises(),
+                listaPaises = DropDowListPaises(Constantes.Rol.Administrador),
                 listaCampanias = new List<CampaniaModel>()
             };
             return View(contenidoDatoModel);
         }
 
-        public JsonResult ObtenterCampaniasPorPais(int PaisID)
-        {
-            PaisID = 11;
-            IEnumerable<CampaniaModel> lista = DropDownCampanias(PaisID);
-
-            return Json(new
-            {
-                lista = lista
-            }, JsonRequestBehavior.AllowGet);
-        }
-
-        public IEnumerable<CampaniaModel> DropDownCampanias(int paisId)
-        {
-            List<BECampania> lista;
-            using (ZonificacionServiceClient servicezona = new ZonificacionServiceClient())
-            {
-                lista = servicezona.SelectCampanias(paisId).ToList();
-            }
-
-            return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lista);
-        }
+        //movido a BaseAdm/ObtenerCampaniasPeru
+        //public JsonResult ObtenterCampaniasPorPais(int PaisID)
+        //{
+        //    PaisID = Constantes.PaisID.Peru;
+        //    IEnumerable<CampaniaModel> lista = _zonificacionProvider.GetCampanias(PaisID);
+        //    return Json(new
+        //    {
+        //        lista = lista
+        //    }, JsonRequestBehavior.AllowGet);
+        //}
 
         [HttpPost]
         public ActionResult MantenerFondo(ContenidoDatoModel form)
         {
             try
             {
-                List<BEPais> lstPaises;
-                using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-                {
-                    lstPaises = sv.SelectPaises().ToList().FindAll(x => x.PaisID == form.PaisID);
-                }
+                string codigoIso = Util.GetPaisISO(form.PaisID);
 
                 string tempNombreImagenFondo = form.ImagenFondo;
                 string tempNombreImagenLogo = form.ImagenLogo;
@@ -910,12 +884,12 @@ namespace Portal.Consultoras.Web.Controllers
                     PaisID = form.PaisID,
                     CampaniaID = form.CampaniaID,
                     ImagenFondo =
-                        FileManager.CopyImagesFondoLogo(Globals.RutaImagenesFondoPortal + "\\" + lstPaises[0].CodigoISO,
-                            tempNombreImagenFondo, Globals.RutaImagenesTemp, lstPaises[0].CodigoISO,
+                        FileManager.CopyImagesFondoLogo(Globals.RutaImagenesFondoPortal + "\\" + codigoIso,
+                            tempNombreImagenFondo, Globals.RutaImagenesTemp, codigoIso,
                             form.CampaniaID.ToString()),
                     ImagenLogo =
-                        FileManager.CopyImagesFondoLogo(Globals.RutaImagenesLogoPortal + "\\" + lstPaises[0].CodigoISO,
-                            tempNombreImagenLogo, Globals.RutaImagenesTemp, lstPaises[0].CodigoISO,
+                        FileManager.CopyImagesFondoLogo(Globals.RutaImagenesLogoPortal + "\\" + codigoIso,
+                            tempNombreImagenLogo, Globals.RutaImagenesTemp, codigoIso,
                             form.CampaniaID.ToString())
                 };
 
@@ -965,19 +939,15 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult GetFondoyLogo(int PaisID, int CampaniaID)
         {
-            List<BEPais> lstPaises;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lstPaises = sv.SelectPaises().ToList().FindAll(x => x.PaisID == PaisID);
-            }
+            string codigoIso = Util.GetPaisISO(PaisID);
 
             List<BEContenidoDato> lista;
             using (ContenidoServiceClient sv = new ContenidoServiceClient())
             {
                 lista = sv.SelectContenidoDato(PaisID, CampaniaID).ToList();
             }
-            lista.Where(x => x.PaisID == PaisID && x.CampaniaID == CampaniaID).Update(x => x.ImagenFondo = lstPaises[0].CodigoISO + "/" + x.ImagenFondo);
-            lista.Where(x => x.PaisID == PaisID && x.CampaniaID == CampaniaID).Update(x => x.ImagenLogo = lstPaises[0].CodigoISO + "/" + x.ImagenLogo);
+            lista.Where(x => x.PaisID == PaisID && x.CampaniaID == CampaniaID).Update(x => x.ImagenFondo = codigoIso + "/" + x.ImagenFondo);
+            lista.Where(x => x.PaisID == PaisID && x.CampaniaID == CampaniaID).Update(x => x.ImagenLogo = codigoIso + "/" + x.ImagenLogo);
 
             return Json(new
             {
@@ -988,19 +958,15 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult GetFondoyLogoPortal()
         {
-            List<BEPais> lstPaises;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lstPaises = sv.SelectPaises().ToList().FindAll(x => x.PaisID == userData.PaisID);
-            }
+            string codigoIso = Util.GetPaisISO(userData.PaisID);
 
             List<BEContenidoDato> lista;
             using (ContenidoServiceClient sv = new ContenidoServiceClient())
             {
                 lista = sv.SelectContenidoDato(userData.PaisID, userData.CampaniaID).ToList();
             }
-            lista.Where(x => x.PaisID == userData.PaisID && x.CampaniaID == userData.CampaniaID).Update(x => x.ImagenFondo = lstPaises[0].CodigoISO + "/" + x.ImagenFondo);
-            lista.Where(x => x.PaisID == userData.PaisID && x.CampaniaID == userData.CampaniaID).Update(x => x.ImagenLogo = lstPaises[0].CodigoISO + "/" + x.ImagenLogo);
+            lista.Where(x => x.PaisID == userData.PaisID && x.CampaniaID == userData.CampaniaID).Update(x => x.ImagenFondo = codigoIso + "/" + x.ImagenFondo);
+            lista.Where(x => x.PaisID == userData.PaisID && x.CampaniaID == userData.CampaniaID).Update(x => x.ImagenLogo = codigoIso + "/" + x.ImagenLogo);
 
             return Json(new
             {
