@@ -91,10 +91,11 @@
                 <span class="text-uppercase text-bold" id="TextoCampania">Catálogos </span>
                 @*<span class="text-uppercase text-bold num__campania">C17</span>*@
             </div>
-            <a class="col-1 pl-0 pr-0 row flex-row justify-content-start align-items-start align-items-lg-center align-items-xl-center ml-0 mr-0 catalogos__por__campania__slider__control catalogos__por__campania__slider__control__izq" title="Atrás">
-                <img src="@Url.Content("~/Content/Images/arrow_left.svg")" alt="" onclick="CatalogoMostrar(-1, this)" data-accion="a" />
-            </a>
-
+            <div class="col-1 pl-0 pr-0 row flex-row justify-content-start align-items-start align-items-lg-center align-items-xl-center ml-0 mr-0 catalogos__por__campania__slider__control catalogos__por__campania__slider__control__izq">
+                <a onclick="CatalogoMostrar(-1, this)" data-accion="a" class="col-12 pl-0 pr-0 text-left" title="Atrás">
+                    <img class="d-inline-block" src="@Url.Content("~/Content/Images/arrow_left.svg")" alt="" />
+                </a>
+            </div>
             <div class="col-12 col-lg-10 col-xl-10 pl-0 pr-0 row flex-row justify-content-center ml-0 mr-0 catalogos__por__campania__item__slider" id="divSection">
                                         
             </div>
@@ -160,15 +161,15 @@
                         <a id="btnCompartir" class="col-12 pl-0 pr-0 row flex-row ml-0 mr-0 justify-content-center text-uppercase btn__compartir btn__compartir--slider">
                             Compartir
                         </a>
-                        <div class="row flex-row justify-content-center align-items-center ml-0 mr-0 mx-auto opciones__compartir__catalogos">
+                        <div class="row flex-row justify-content-around align-items-center ml-0 mr-0 mx-auto opciones__compartir__catalogos">
                             
-                            <a class="d-block col-3 col-lg col-xl pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--whatsapp" title="Compartir por WhatsApp" data-accion="whatsapp" onclick="javascript: RedesSociales.CompartirWhatsAppActual('{tipoCatalogoTodo}', '{campania}', '{textourl}')">
+                            <a class="d-block col-4 col-lg-2 col-xl-2 pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--whatsapp" title="Compartir por WhatsApp" data-accion="whatsapp" onclick="javascript: RedesSociales.CompartirWhatsAppActual('{tipoCatalogoTodo}', '{campania}', '{textourl}')">
                                 <img class="d-block mx-auto" src="@Url.Content("~/Content/Images/logo_whatsapp.svg")" alt="Compartir por WhatsApp" />
                             </a>
-                            <a class="d-block col-3 col-lg col-xl pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--facebook" title="Compartir por Facebook" data-accion="face" onclick="javascript: RedesSociales.CompartirFacebookActual('{tipoCatalogoTodo}', '{campania}', '{textourl}')">
+                            <a class="d-block col-4 col-lg-2 col-xl-2 pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--facebook" title="Compartir por Facebook" data-accion="face" onclick="javascript: RedesSociales.CompartirFacebookActual('{tipoCatalogoTodo}', '{campania}', '{textourl}')">
                                 <img class="d-block mx-auto" src="@Url.Content("~/Content/Images/logo_facebook2.svg")" alt="Compartir por Facebook" />
                             </a>
-                            <a class="d-block col-3 col-lg col-xl pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--email" title="Compartir por Email" data-accion="mail" onclick="javascript: RedesSociales.AbrirCompartirCorreoActual('{tipoCatalogoTodo}', '{campania}');">
+                            <a class="d-block col-4 col-lg-2 col-xl-2 pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--email" title="Compartir por Email" data-accion="mail" onclick="javascript: RedesSociales.AbrirCompartirCorreoActual('{tipoCatalogoTodo}', '{campania}');">
                                 <img class="d-block mx-auto" src="@Url.Content("~/Content/Images/logo_gmail.svg")" alt="Compartir por Email" />
                             </a>
                             <a class="d-block text-center text-uppercase opcion__compartir__catalogo opcion__compartir__catalogo--copiarEnlace" title="Copiar enlace" data-accion="copiar" onclick="javascript: CopiarEnlaceActual('{tipoCatalogoTodo}', '{campania}')">
@@ -198,7 +199,7 @@
                                     <img src="@Url.Content("~/Content/Images/icono_paso_compartir_catalogo.svg")" alt="" />
                                 </span>
                                 <span class="icono__paso__compartir__catalogo__campaniaActual__descrip">
-                                    Tu cliente podrá seleccionar los productos directament en el catálogo, agregarlos a su bolsa de compras y enviártelos.
+                                    Tu cliente podrá seleccionar los productos directamente en el catálogo, agregarlos a su bolsa de compras y enviártelos.
                                 </span>
                             </li>
                             <li class="row flex-row flex-nowrap flex-lg-wrap flex-xl-wrap justify-content-start align-items-start ml-0 mr-0 paso__compartir__catalogo__campaniaActual">
@@ -225,14 +226,14 @@
                             <a class="col-12 pl-0 pr-0 row flex-row ml-0 mr-0 mx-auto justify-content-center text-uppercase btn__compartir" id="btnCompartirActual">
                                 Compartir
                             </a>
-                            <div class="row flex-row justify-content-center align-items-center ml-0 mr-0 mx-auto opciones__compartir__catalogos">
-                                <a class="d-block col-3 col-lg col-xl pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--whatsapp" title="Compartir por WhatsApp" data-accion="whatsapp" onclick="javascript: RedesSociales.CompartirWhatsAppActual('{tipoCatalogoTodo}', '{campania}', '{textourl}')">
+                            <div class="row flex-row justify-content-around align-items-center ml-0 mr-0 mx-auto opciones__compartir__catalogos">
+                                <a class="d-block col-4 col-lg-2 col-xl-2 pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--whatsapp" title="Compartir por WhatsApp" data-accion="whatsapp" onclick="javascript: RedesSociales.CompartirWhatsAppActual('{tipoCatalogoTodo}', '{campania}', '{textourl}')">
                                     <img class="d-block mx-auto" src="@Url.Content("~/Content/Images/logo_whatsapp.svg")" alt="Compartir por WhatsApp" />
                                 </a>
-                                <a class="d-block col-3 col-lg col-xl pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--facebook" title="Compartir por Facebook" data-accion="face" onclick="javascript: RedesSociales.CompartirFacebookActual('{tipoCatalogoTodo}', '{campania}', '{textourl}')">
+                                <a class="d-block col-4 col-lg-2 col-xl-2 pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--facebook" title="Compartir por Facebook" data-accion="face" onclick="javascript: RedesSociales.CompartirFacebookActual('{tipoCatalogoTodo}', '{campania}', '{textourl}')">
                                     <img class="d-block mx-auto" src="@Url.Content("~/Content/Images/logo_facebook2.svg")" alt="Compartir por Facebook" />
                                 </a>
-                                <a class="d-block col-3 col-lg col-xl pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--email" title="Compartir por Email" data-accion="mail" onclick="javascript: RedesSociales.AbrirCompartirCorreoActual('{tipoCatalogoTodo}', '{campania}');">
+                                <a class="d-block col-4 col-lg-2 col-xl-2 pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--email" title="Compartir por Email" data-accion="mail" onclick="javascript: RedesSociales.AbrirCompartirCorreoActual('{tipoCatalogoTodo}', '{campania}');">
                                     <img class="d-block mx-auto" src="@Url.Content("~/Content/Images/logo_gmail.svg")" alt="Compartir por Email" />
                                 </a>
                                 <a class="d-block text-center text-uppercase opcion__compartir__catalogo opcion__compartir__catalogo--copiarEnlace" title="Copiar enlace" data-accion="copiar" onclick="javascript: CopiarEnlaceActual('{tipoCatalogoTodo}', '{campania}')">
@@ -243,10 +244,11 @@
                     </div>
                 </div>
             </div>    
-  
-            <a class="col-1 pl-0 pr-0 row flex-row justify-content-end align-items-start align-items-lg-center align-items-xl-center ml-0 mr-0 catalogos__por__campania__slider__control catalogos__por__campania__slider__control__der" title="Siguiente">
-                <img src="@Url.Content("~/Content/Images/arrow_right.svg")" alt="" onclick="CatalogoMostrar(1, this)" data-accion="s" />
-            </a>
+            <div class="col-1 pl-0 pr-0 row flex-row justify-content-end align-items-start align-items-lg-center align-items-xl-center ml-0 mr-0 catalogos__por__campania__slider__control catalogos__por__campania__slider__control__der">
+                <a onclick="CatalogoMostrar(1, this)" data-accion="s" class="col-12 pl-0 pr-0 text-right" title="Siguiente">
+                    <img class="d-inline-block" src="@Url.Content("~/Content/Images/arrow_right.svg")" alt="" />
+                </a>
+            </div>
         </section>
         <!-- FIN - SECCIÓN CARRUSEL DE CATÁLOGOS CAMPAÑA ANTERIOR, ACTUAL Y SIGUIENTE -->
 

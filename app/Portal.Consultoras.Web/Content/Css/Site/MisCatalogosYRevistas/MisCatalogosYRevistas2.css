@@ -203,7 +203,17 @@ hr{
 .catalogos__por__campania__slider__control,
 .revistas__por__campania__slider__control
 {
-    height: 66.81px;
+    height:66.81px;
+}
+
+.catalogos__por__campania__slider__control a{
+    display:block;
+    height:100%;
+}
+
+.catalogos__por__campania__slider__control a,
+.revistas__por__campania__slider__control
+{
     cursor: pointer;
     opacity: 0.4;
     -moz-transition: all 0.3s ease;
@@ -212,7 +222,7 @@ hr{
     transition: all 0.3s ease;
 }
 
-    .catalogos__por__campania__slider__control:hover,
+    .catalogos__por__campania__slider__control a:hover,
     .revistas__por__campania__slider__control:hover
     {
         opacity:1;
@@ -221,7 +231,6 @@ hr{
     .catalogos__por__campania__slider__control img,
     .revistas__por__campania__slider__control img
     {
-        display:block;
         width:35px;
     }
 
@@ -341,7 +350,7 @@ hr{
     position:absolute;
     left:-35px;
     bottom:79px;
-    padding:20px 17px 20px 4px;
+    padding:20px 1px;
     height: 111px;
     -moz-box-shadow: 0 0 2px rgba(0,0,0,0.37);
     -webkit-box-shadow: 0 0 2px rgba(0,0,0,0.37);
@@ -377,7 +386,12 @@ hr{
 
 .opcion__compartir__catalogo{
     cursor:pointer;
+    max-width:55px;
 }
+
+    .opcion__compartir__catalogo:last-child{
+        max-width:none;
+    }
 
     .opcion__compartir__catalogo img{
         width:auto;
@@ -829,9 +843,17 @@ input[type='checkbox']:checked + span:after {
 
     .catalogos__por__campania__slider__control{
         margin-top:0;
-        padding-top:3px;
-        width:45px;
         height:45px;
+    }
+
+    .catalogos__por__campania__slider__control,
+    .catalogos__por__campania__slider__control a
+    {
+        width:45px;
+    }
+
+    .catalogos__por__campania__slider__control a{
+        padding-top:3px;
         opacity:1;
     }
 
@@ -1173,6 +1195,22 @@ input[type='checkbox']:checked + span:after {
     }
 
     /* FIN - POPUPS MENSAJES DE ALERTA MOBILE */
+
+}
+
+@media screen and (min-width:412px) and (max-width:991px){
+
+    .opcion__compartir__catalogo--copiarEnlace{
+        margin-top:0;
+    }
+
+}
+
+@media screen and (min-width:377px) and (max-width:991px){
+
+    .opciones__compartir__catalogos{
+        padding:20px 40px;
+    }
 
 }
 
