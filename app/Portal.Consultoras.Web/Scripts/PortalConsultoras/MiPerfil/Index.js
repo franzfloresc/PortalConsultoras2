@@ -94,7 +94,7 @@ $(document).ready(function () {
                     }
                     else {
                         var keyChar = String.fromCharCode(charCode);
-                        var re = /s*([0-9]*)\s((NW|SW|SE|NE|S|N|E|W))?(.*)((NW|SW|SE|NE|S|N|E|W))?((#|APT|BSMT|BLDG|DEPT|FL|FRNT|HNGR|KEY|LBBY|LOT|LOWR|OFC|PH|PIER|REAR|RM|SIDE|SLIP|SPC|STOP|STE|TRLR|UNIT|UPPR|\,)[^,]*)(\,)([\s\w]*)/;
+                        var re = /[a-zA-Z0-9,;#.\s]/;
                         return re.test(keyChar);
                     }
                 });
@@ -365,7 +365,7 @@ $(document).ready(function () {
                 me.Funciones.PuedeCambiarTelefono();
                 me.Funciones.EvitandoCopiarPegar();
                 me.Funciones.ValidacionSoloLetras();
-                //me.Funciones.ValidacionDireccion();
+                me.Funciones.ValidacionDireccion();
                if ($('#Operacion').val() == OperacionDb.Editar)
                    me.Funciones.ModoEdicion();
             }
@@ -601,9 +601,9 @@ function actualizarDatos() {
         async: true,
         success: function (data) {
             if (checkTimeout(data)) {
-                $('#btnGuardar')[0].disabled = false;
                 CerrarLoad();
                 alert(data.message);
+                $('#btnGuardar')[0].disabled = false;
                 window.location = $('#volverBienvenida').attr('href');
             }
         },
@@ -945,22 +945,17 @@ var GoogleMap = function() {
 
         },
         ValidacionMapa: function() {
-            $('#Direccion').keyup(function() {
-                if (EsMobile == 'True')
-                {
-                    if ($(this).val().length === 0)
-                    {
-                        $('.enlace_abrir_mapa')[0].disabled = true;
-                        $('.enlace_abrir_mapa').addClass('enlace_abrir_mapa_disabled');
-                    }
-                    else
-                    {
-                        $('.enlace_abrir_mapa')[0].disabled = false;
-                        $('.enlace_abrir_mapa').removeClass('enlace_abrir_mapa_disabled');
-                    }
+            $('#Direccion').focusout(function () {
+                debugger;
+                if (EsMobile == 'True' && $(this).val().length === 0) {
+                    debugger;
+                    $('.enlace_abrir_mapa')[0].disabled = true;
+                    $('.enlace_abrir_mapa').addClass('enlace_abrir_mapa_disabled');
                 }
                 var dropdown = document.getElementsByClassName('pac-container')[0];
                 if (dropdown.style.display == 'none') {
+                    $('.enlace_abrir_mapa')[0].disabled = true;
+                    $('.enlace_abrir_mapa').addClass('enlace_abrir_mapa_disabled');
                     me.Funciones.LimpiarMapa();
                 }
             });
@@ -992,47 +987,56 @@ var GoogleMap = function() {
             marker.setVisible(false);
             $('#Latitud').val("0");
             $('#Longitud').val("0");
-            
+            me.Propiedades.latitudFin = 0;
+            me.Propiedades.longitudFin = 0;
+            me.Propiedades.latitudIni = 0;
+            me.Propiedades.longitudIni = 0;
         },
         LimpiarControlesMap: function () {
+            debugger;
             me.Funciones.LimpiarMapa();
             $('#Direccion').val('');
+            if (EsMobile == 'True') {
+                $('.enlace_abrir_mapa')[0].disabled = true;
+                $('.enlace_abrir_mapa').addClass('enlace_abrir_mapa_disabled');
+            }
         },
         ConfirmarUbicacion: function () {
+            debugger;
+                var coordenadas = {
+                    lat: me.Propiedades.latitudFin,
+                    lng: me.Propiedades.longitudFin
+                }
+                marker.setPosition(coordenadas);
+                map.setCenter(coordenadas);
+                me.Propiedades.directionText = $("#RouteDirection").html();
+                $('#Direccion').val(me.Propiedades.directionText);
+                $('#Latitud').val(coordenadas.lat);
+                $('#Longitud').val(coordenadas.lng);
             
-            var coordenadas = {
-                lat: me.Propiedades.latitudFin,
-                lng: me.Propiedades.longitudFin
-            }
-            marker.setPosition(coordenadas);
-            map.setCenter(coordenadas);
-
-            me.Propiedades.directionText = $("#RouteDirection").html();
-
-            $('#Direccion').val(me.Propiedades.directionText);
-            $('#Latitud').val(coordenadas.latitudFin);
-            $('#Longitud').val(coordenadas.longitudFin);
         },
         ModoEdicion: function() {
+          
+                var coordenadas = {
+                    lat: parseFloat($('#Latitud').val()), //$('#Latitud').val()
+                    lng: parseFloat($('#Longitud').val())
+                };
+
+                me.Propiedades.latitudIni = coordenadas.lat; //$('#Latitud').val()
+                me.Propiedades.longitudIni = coordenadas.lng;
+                map.setCenter(coordenadas);
+                marker.setPosition(coordenadas);
+                map.setZoom(ZoonMapa);
+                me.Propiedades.directionText = $("#Direccion").val();
+                $("#RouteDirection").html(me.Propiedades.directionText);
             
-            var coordenadas = {
-                lat: parseFloat($('#Latitud').val()), //$('#Latitud').val()
-                lng: parseFloat($('#Longitud').val())
-            };
-            
-            me.Propiedades.latitudIni = coordenadas.lat; //$('#Latitud').val()
-            me.Propiedades.longitudIni = coordenadas.lng;
-            map.setCenter(coordenadas);
-            marker.setPosition(coordenadas);
-            map.setZoom(ZoonMapa);
-            me.Propiedades.directionText = $("#Direccion").val();
-            $("#RouteDirection").html(me.Propiedades.directionText);
+           
         }
 
     };
     me.Eventos = {
         PlaceChanged: function() {
-            
+            debugger;
             var place = searchBox.getPlace();
             if (!place.geometry) {
                 return;
@@ -1046,14 +1050,17 @@ var GoogleMap = function() {
                 map.setCenter(place.geometry.location);
                 map.setZoom(ZoonMapa);
             }
-            if (EsMobile == 'True')
+            if (EsMobile == 'True') {
                 $('.enlace_abrir_mapa')[0].disabled = false;
-            else {
-                $('#Latitud').val(place.geometry.location.lat());
-                $('#Longitud').val(place.geometry.location.lng());
+                $('.enlace_abrir_mapa').removeClass('enlace_abrir_mapa_disabled');
             }
+            $('#Latitud').val(place.geometry.location.lat());
+            $('#Longitud').val(place.geometry.location.lng());
             me.Propiedades.latitudIni = place.geometry.location.lat();
             me.Propiedades.longitudIni = place.geometry.location.lng();
+            me.Propiedades.latitudFin = place.geometry.location.lat();
+            me.Propiedades.longitudFin = place.geometry.location.lng();
+
             marker.setPosition(place.geometry.location);
             marker.setVisible(true);
             var address = '';
@@ -1091,6 +1098,7 @@ var GoogleMap = function() {
                                         $("#Direccion").val(results[i].formatted_address);
                                         $("#Latitud").val(Latlng.lat);
                                         $("#Longitud").val(Latlng.lng);
+                                        me.Propiedades.directionText = results[i].formatted_address;
                                     }
                                       
 
@@ -1118,7 +1126,6 @@ var GoogleMap = function() {
         me.Funciones.CrearComponentesMapa();
         me.Funciones.InicializarEventosMapa();
         me.Funciones.ValidacionMapa();
-        
         if ($('#Operacion').val() == OperacionDb.Editar)
            me.Funciones.ModoEdicion();
     }
