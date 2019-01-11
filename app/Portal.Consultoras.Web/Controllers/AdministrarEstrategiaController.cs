@@ -190,45 +190,47 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    List<EstrategiaMDbAdapterModel> lst = new List<EstrategiaMDbAdapterModel>();
+                    var lst = ConsultarObtenerEstrategia(CampaniaID, TipoEstrategiaID, CUV, Consulta, Imagen, Activo, TipoEstrategiaCodigo, dbdefault);
 
-                    if (Consulta == "1")
-                    {
-                        var entidad = new ServicePedido.BEEstrategia
-                        {
-                            PaisID = userData.PaisID,
-                            TipoEstrategiaID = Convert.ToInt32(TipoEstrategiaID),
-                            CUV2 = CUV != "" ? CUV : "0",
-                            CampaniaID = Convert.ToInt32(CampaniaID),
-                            Activo = Activo,
-                            Imagen = Imagen
-                        };
+                    //List<EstrategiaMDbAdapterModel> lst = new List<EstrategiaMDbAdapterModel>();
 
-                        if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, TipoEstrategiaCodigo, dbdefault))
-                        {
-                            entidad.CodigoTipoEstrategia = TipoEstrategiaCodigo;
-                            lst.AddRange(administrarEstrategiaProvider.Listar(entidad.CampaniaID.ToString(),
-                                entidad.CodigoTipoEstrategia, userData.CodigoISO, entidad.Activo, entidad.CUV2, entidad.Imagen).ToList());
-                        }
-                        else
-                        {
-                            using (var sv = new PedidoServiceClient())
-                            {
-                                var tmpEstrategiaList = sv.GetEstrategias(entidad).ToList();
-                                foreach (var itemEstrategia in tmpEstrategiaList)
-                                {
-                                    lst.Add(new EstrategiaMDbAdapterModel { BEEstrategia = itemEstrategia });
-                                }
-                            }
-                        }
-                    }
-                    else
-                    {
-                        lst = new List<EstrategiaMDbAdapterModel>();
-                    }
+                    //if (Consulta == "1")
+                    //{
+                    //    var entidad = new ServicePedido.BEEstrategia
+                    //    {
+                    //        PaisID = userData.PaisID,
+                    //        TipoEstrategiaID = Convert.ToInt32(TipoEstrategiaID),
+                    //        CUV2 = CUV != "" ? CUV : "0",
+                    //        CampaniaID = Convert.ToInt32(CampaniaID),
+                    //        Activo = Activo,
+                    //        Imagen = Imagen
+                    //    };
 
-                    if (lst.Count > 0)
-                        lst.Update(x => x.BEEstrategia.ImagenURL = ConfigS3.GetUrlFileS3Matriz(userData.CodigoISO, x.BEEstrategia.ImagenURL));
+                    //    if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, TipoEstrategiaCodigo, dbdefault))
+                    //    {
+                    //        entidad.CodigoTipoEstrategia = TipoEstrategiaCodigo;
+                    //        lst.AddRange(administrarEstrategiaProvider.Listar(entidad.CampaniaID.ToString(),
+                    //            entidad.CodigoTipoEstrategia, userData.CodigoISO, entidad.Activo, entidad.CUV2, entidad.Imagen).ToList());
+                    //    }
+                    //    else
+                    //    {
+                    //        using (var sv = new PedidoServiceClient())
+                    //        {
+                    //            var tmpEstrategiaList = sv.GetEstrategias(entidad).ToList();
+                    //            foreach (var itemEstrategia in tmpEstrategiaList)
+                    //            {
+                    //                lst.Add(new EstrategiaMDbAdapterModel { BEEstrategia = itemEstrategia });
+                    //            }
+                    //        }
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    lst = new List<EstrategiaMDbAdapterModel>();
+                    //}
+
+                    //if (lst.Count > 0)
+                    //    lst.Update(x => x.BEEstrategia.ImagenURL = ConfigS3.GetUrlFileS3Matriz(userData.CodigoISO, x.BEEstrategia.ImagenURL));
 
                     var grid = new BEGrid
                     {
@@ -237,34 +239,35 @@ namespace Portal.Consultoras.Web.Controllers
                         SortColumn = sidx,
                         SortOrder = sord
                     };
-                    IEnumerable<EstrategiaMDbAdapterModel> items = lst;
-                    if (lst.Any())
-                    {
-                        if (sord == "asc")
-                        {
-                            switch (sidx)
-                            {
-                                case "CUV2":
-                                    items = lst.OrderBy(x => x.BEEstrategia.CUV2);
-                                    break;
-                                case "CodigoProducto":
-                                    items = lst.OrderBy(x => x.BEEstrategia.CodigoProducto);
-                                    break;
-                            }
-                        }
-                        else
-                        {
-                            switch (sidx)
-                            {
-                                case "CUV2":
-                                    items = lst.OrderByDescending(x => x.BEEstrategia.CUV2);
-                                    break;
-                                case "CodigoProducto":
-                                    items = lst.OrderByDescending(x => x.BEEstrategia.CodigoProducto);
-                                    break;
-                            }
-                        }
-                    }
+
+                    IEnumerable<EstrategiaMDbAdapterModel> items = ConsultarOrdenar(lst, sidx, sord);
+                    //if (lst.Any())
+                    //{
+                    //    if (sord == "asc")
+                    //    {
+                    //        switch (sidx)
+                    //        {
+                    //            case "CUV2":
+                    //                items = lst.OrderBy(x => x.BEEstrategia.CUV2);
+                    //                break;
+                    //            case "CodigoProducto":
+                    //                items = lst.OrderBy(x => x.BEEstrategia.CodigoProducto);
+                    //                break;
+                    //        }
+                    //    }
+                    //    else
+                    //    {
+                    //        switch (sidx)
+                    //        {
+                    //            case "CUV2":
+                    //                items = lst.OrderByDescending(x => x.BEEstrategia.CUV2);
+                    //                break;
+                    //            case "CodigoProducto":
+                    //                items = lst.OrderByDescending(x => x.BEEstrategia.CodigoProducto);
+                    //                break;
+                    //        }
+                    //    }
+                    //}
                     items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
                     var pag = Util.PaginadorGenerico(grid, lst);
 
@@ -307,6 +310,81 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return RedirectToAction("Index", "AdministrarEstrategia");
             }
+        }
+        
+        private List<EstrategiaMDbAdapterModel> ConsultarObtenerEstrategia(string campaniaId, string tipoEstrategiaId,
+            string cuv, string consulta, int imagen, int activo, string tipoEstrategiaCodigo, bool dbdefault)
+        {
+            List<EstrategiaMDbAdapterModel> lst = new List<EstrategiaMDbAdapterModel>();
+            if (consulta == "1")
+            {
+                var entidad = new ServicePedido.BEEstrategia
+                {
+                    PaisID = userData.PaisID,
+                    TipoEstrategiaID = Convert.ToInt32(tipoEstrategiaId),
+                    CUV2 = cuv != "" ? cuv : "0",
+                    CampaniaID = Convert.ToInt32(campaniaId),
+                    Activo = activo,
+                    Imagen = imagen
+                };
+
+                if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, tipoEstrategiaCodigo, dbdefault))
+                {
+                    entidad.CodigoTipoEstrategia = tipoEstrategiaCodigo;
+                    lst.AddRange(administrarEstrategiaProvider.Listar(entidad.CampaniaID.ToString(),
+                        entidad.CodigoTipoEstrategia, userData.CodigoISO, entidad.Activo, entidad.CUV2, entidad.Imagen).ToList());
+                }
+                else
+                {
+                    using (var sv = new PedidoServiceClient())
+                    {
+                        var tmpEstrategiaList = sv.GetEstrategias(entidad).ToList();
+                        foreach (var itemEstrategia in tmpEstrategiaList)
+                        {
+                            lst.Add(new EstrategiaMDbAdapterModel { BEEstrategia = itemEstrategia });
+                        }
+                    }
+                }
+            }
+
+            if (lst.Count > 0)
+                lst.Update(x => x.BEEstrategia.ImagenURL = ConfigS3.GetUrlFileS3Matriz(userData.CodigoISO, x.BEEstrategia.ImagenURL));
+
+            return lst;
+        }
+
+        private IEnumerable<EstrategiaMDbAdapterModel> ConsultarOrdenar(List<EstrategiaMDbAdapterModel> lst, string sidx, string sord)
+        {
+            IEnumerable<EstrategiaMDbAdapterModel> items = lst;
+            if (lst.Any())
+            {
+                if (sord == "asc")
+                {
+                    switch (sidx)
+                    {
+                        case "CUV2":
+                            items = lst.OrderBy(x => x.BEEstrategia.CUV2);
+                            break;
+                        case "CodigoProducto":
+                            items = lst.OrderBy(x => x.BEEstrategia.CodigoProducto);
+                            break;
+                    }
+                }
+                else
+                {
+                    switch (sidx)
+                    {
+                        case "CUV2":
+                            items = lst.OrderByDescending(x => x.BEEstrategia.CUV2);
+                            break;
+                        case "CodigoProducto":
+                            items = lst.OrderByDescending(x => x.BEEstrategia.CodigoProducto);
+                            break;
+                    }
+                }
+            }
+
+            return items;
         }
 
         [HttpGet]
