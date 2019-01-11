@@ -92,7 +92,7 @@
         HerramientaVenta: 13,
         ShowRoom: 30
     }
-
+ 
     var _editData = {};
     var _idImagen = 0;
 
