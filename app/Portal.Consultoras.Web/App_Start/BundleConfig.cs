@@ -373,7 +373,8 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/ProductoListado/CajaProducto.css",
                 "~/Content/Css/Site/ProductosRecomendados/productos-recomendados.css",
                 "~/Content/Css/Site/Pedido/PedidoGrilla.css",
-                "~/Content/Css/Site/Pedido/PedidoTooltip.css"
+                "~/Content/Css/Site/Pedido/PedidoTooltip.css",
+                "~/Content/Css/Site/Landing/producto.landing.css"
             ));
 
             //Tener en cuenta : se esta usando en pedidoFic.

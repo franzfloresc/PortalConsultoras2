@@ -764,7 +764,15 @@ function ArmarCarouselEstrategias(data) {
         });
     }
     else if (tipoOrigenEstrategia == 11) {
-        $("#divListaEstrategias #divListadoEstrategia [data-item] > div").attr("class", "producto_carousel");
+        //$("#divListaEstrategias #divListadoEstrategia [data-item] > div").attr("class", "producto_carousel producto-agotado");
+        var divList = $("#divListaEstrategias #divListadoEstrategia [data-item] > div");
+        $.each(divList, function (k, obj) {
+            if ($(obj).hasClass('producto-agotado'))
+                $(obj).attr('class', 'producto_carousel producto-agotado')
+            else
+                $(obj).attr('class', 'producto_carousel')
+        });
+
         $("#divListaEstrategias #divListadoEstrategia [data-item]").css("padding-bottom", "0");
 
         $("[data-barra-width]").css("width", "100%");
