@@ -569,7 +569,7 @@ namespace Portal.Consultoras.Web.Controllers
                 BEDatosBelcorp BEDatosBelcorp;
                 using (SACServiceClient sv = new SACServiceClient())
                 {
-                    BEDatosBelcorp = sv.GetDatosBelcorp(userData.PaisID).ToList().First();
+                    BEDatosBelcorp = sv.GetDatosBelcorp(userData.PaisID).First();
                 }
 
                 List<BEComprobantePercepcionDetalle> lstBEComprobantePercepcionDetalle;
