@@ -680,7 +680,9 @@ function MostrarBarra(datax, destino) {
     }
 
    
+   
     CalculoPosicionMinimoMaximoDestokp();
+    CalculoPosicionMensaje();
 
     return true;
 }
@@ -1367,6 +1369,19 @@ function CalculoPosicionMinimoMaximoDestokp() {
 
 }
 
+function CalculoPosicionMensaje() {
+    document.getElementById('divBarraMensajeLogrado').firstChild.nextSibling.style.float = 'left';
+    var montoActual = mtoLogroBarra;
+    var montoMaximo = dataBarra.MontoMaximo;
+
+    var AvancePorcentaje  = CalculoPorcentajeAvance(montoActual, montoMaximo);
+
+    if (AvancePorcentaje.substring(0, AvancePorcentaje.length-1)*1>66) {
+        AvancePorcentaje = '67%';
+    }
+
+    document.getElementById('divBarraMensajeLogrado').style.marginLeft = AvancePorcentaje;
+}
 
 function TieneMontoMaximo() {
     return dataBarra.MontoMaximo != 0 &&

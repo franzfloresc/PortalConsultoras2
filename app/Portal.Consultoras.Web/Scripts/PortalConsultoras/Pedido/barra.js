@@ -232,9 +232,10 @@ function MostrarBarra(datax, destino) {
     var htmlPunto = '<div id="punto_{punto}" data-punto="{select}">'
                 + '<div class="monto_minimo_barra" style="width:{wText}px">'
                     + '<div style="width:{wText}px;position: absolute;" data-texto>{texto}</div>'
-                    + '<div class="linea_indicador_barra" {style}></div>'
+                    //+ '<div class="linea_indicador_barra" {style}></div>' og
                 + '</div>'
-            + '</div>';
+        + '</div>' 
+    + '<div class="linea_indicador_barra" id="barra_{punto}" {style}></div>';//hd-2848
 
     // quitando esta clase contenedor_tippingPoint se quita el tooltip y el efecto que salta
     var htmlTippintPoint = "";
@@ -253,9 +254,10 @@ function MostrarBarra(datax, destino) {
                             + '{barra_tooltip}'
                         + '</div>'
                     + '</div>'
-                    + '<div class="linea_indicador_barra"></div>'
+                    //+ '<div class="linea_indicador_barra"></div>' og 
                 + '</div>'
             + '</div>';
+        + '<div class="linea_indicador_barra" id="barra_{punto}" {style}></div>';//hd-2848
 
         htmlTippintPoint = htmlTippintPoint
             .replace('{barra_tooltip_class}', dataTP.ActiveTooltip ? 'contenedor_tippingPoint' : '')
@@ -286,7 +288,9 @@ function MostrarBarra(datax, destino) {
                     + '<div class="bandera_marcador" style="margin-top: -6px;"></div>'
                     + '<div style="margin-left: {marl}px;width: {wText}px;position: absolute;" data-texto>{texto}</div>'
                 + '</div>'
-            + '</div>';
+        + '</div>' 
+    //og
+        + '<div class="linea_indicador_barra" id="barra_{punto}" {style}></div>';//hd-2848
 
 
     if (mx > 0 || destino == '1')
@@ -537,13 +541,18 @@ function MostrarBarra(datax, destino) {
         }
     }
 
+    /*hd-2848*/
     if (belcorp.barra.settings.isMobile) {
-        //if (dataBarra.MontoMaximo!= 0 && dataBarra.MontoMaximo != "" && dataBarra.MontoMaximo != null && dataBarra.MontoMaximo.toString().substring(0, 4)!="9999" ) {
-           
             wLogro = CalculoLlenadoBarra();
-            CalculoPosicionMinimoMaximo();
-        //}
+            CalculoPosicionMinimoMaximo();      
     }
+    else
+    {
+        wLogro = CalculoLlenadoBarraDestokp();
+        wLimite = CalculoLlenadoBarraEspacioLimiteDestokp();
+    }
+
+
     $("#divBarra #divBarraEspacioLimite").css("width", wLimite);
     $("#divBarra #divBarraEspacioLogrado").css("width", wLogro);
 
@@ -626,6 +635,57 @@ function MostrarBarra(datax, destino) {
     if (!belcorp.barra.settings.isMobile) {
         $("#divBarra #divBarraMensajeLogrado").css("width", wMsgTexto);
     }
+
+
+    /*hd-2848*/
+    if (dataBarra.TippingPointBarra.InMinimo != null) { 
+        ConfiguradoRegalo = dataBarra.TippingPointBarra.InMinimo;
+    } 
+    
+
+    /*hd-2848*/
+    if (!belcorp.barra.settings.isMobile) {
+        if (TieneMontoMaximo()) { /// se trata como tipinpoing
+
+            if (dataBarra.TippingPointBarra.Active != null && dataBarra.TippingPointBarra.Active != false) {
+                document.getElementById('punto_0').style = '';
+                document.getElementById('punto_0').className = 'EscalaDescuento';
+                document.getElementById('punto_1').className = 'EscalaDescuento';
+                document.getElementById('punto_2').className = 'EscalaDescuento';
+            }
+            else {
+
+
+                if (ConfiguradoRegalo == true) {
+                    document.getElementById('punto_0').style = '';
+                    document.getElementById('punto_0').className = 'EscalaDescuento';
+                    document.getElementById('punto_1').className = 'EscalaDescuento';
+                    document.getElementById('punto_2').className = 'EscalaDescuento';
+                }
+                else {
+                    document.getElementById('punto_0').style = '';
+                    document.getElementById('punto_0').className = 'EscalaDescuento';
+                    document.getElementById('punto_1').className = 'EscalaDescuento';
+                }
+
+            }
+
+        }
+        else {
+            //escala de desxuento
+            document.getElementById('punto_0').style = '';
+            document.getElementById('punto_0').className = 'EscalaDescuento';
+            document.getElementById('punto_1').className = 'EscalaDescuento';
+            document.getElementById('punto_2').className = 'EscalaDescuento';
+            document.getElementById('punto_3').className = 'EscalaDescuento';
+
+        }
+
+        CalculoPosicionMinimoMaximoDestokp();
+        CalculoPosicionMensajeDestokp();
+    }
+    
+
 
     return true;
 }
@@ -1068,7 +1128,7 @@ function setContainerLluvia(containerId) {
 }
 
 
-var ConfiguradoRegalo = dataBarra.TippingPointBarra.InMinimo;
+var ConfiguradoRegalo;
 function CalculoLlenadoBarra() {
     var TippingPointBarraActive = dataBarra.TippingPointBarra.Active;
     var montoMaximo = dataBarra.MontoMaximo;
@@ -1193,7 +1253,7 @@ function CalculoLlenadoBarra() {
     }
     return AvancePorcentaje;
 }
-
+ 
 function CalculoPosicionMinimoMaximo() {
 
     var TippingPointBarraActive = dataBarra.TippingPointBarra.Active;
@@ -1720,6 +1780,258 @@ function CalculoPosicionMinimoMaximo() {
 
 }
 
+function CalculoLlenadoBarraDestokp() {
+    var montoMaximo = dataBarra.MontoMaximo;
+    var montoActual = mtoLogroBarra;
+    var AvancePorcentaje = 0;
+
+    if (document.getElementsByClassName('bandera_marcador').length > 0) {
+        document.getElementsByClassName('bandera_marcador')[0].style.display = 'none';
+    }
+
+
+
+
+    if (TieneMontoMaximo()) {
+        AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMaximo);
+    }
+    else {
+        montoMaximo = dataBarra.ListaEscalaDescuento[3].MontoDesde + 500;
+        AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMaximo);
+
+    }
+
+    return AvancePorcentaje;
+}
+
+function CalculoLlenadoBarraEspacioLimiteDestokp() {
+
+    var montoMaximo = dataBarra.ListaEscalaDescuento[3].MontoDesde + 500;
+    var montoActual = mtoLogroBarra;
+    var AvancePorcentaje;
+    if (montoActual < dataBarra.ListaEscalaDescuento[0].MontoDesde) {
+
+        var montoMaximo1 = dataBarra.ListaEscalaDescuento[0].MontoDesde;
+        AvancePorcentaje = CalculoPorcentajeAvance(montoMaximo1, montoMaximo);
+
+    } else if (montoActual < dataBarra.ListaEscalaDescuento[1].MontoDesde) {
+
+        var montoMaximo1 = dataBarra.ListaEscalaDescuento[1].MontoDesde;
+        AvancePorcentaje = CalculoPorcentajeAvance(montoMaximo1, montoMaximo);
+    } else if (montoActual < dataBarra.ListaEscalaDescuento[2].MontoDesde) {
+
+        var montoMaximo1 = dataBarra.ListaEscalaDescuento[2].MontoDesde;
+        AvancePorcentaje = CalculoPorcentajeAvance(montoMaximo1, montoMaximo);
+
+    } else if (montoActual < dataBarra.ListaEscalaDescuento[3].MontoDesde) {
+
+        var montoMaximo1 = dataBarra.ListaEscalaDescuento[3].MontoDesde;
+        AvancePorcentaje = CalculoPorcentajeAvance(montoMaximo1, montoMaximo);
+    }
+
+    return AvancePorcentaje;
+}
+
+
+function CalculoPosicionMinimoMaximoDestokp() {
+
+
+    var TippingPointBarraActive = dataBarra.TippingPointBarra.Active;
+    var montoMaximo = dataBarra.MontoMaximo;
+    var montoTipipoing = dataBarra.TippingPoint;
+    var montoActual = mtoLogroBarra;
+    var montoMinimo = dataBarra.MontoMinimo;
+    var PosicionMontoMinimo = 0;
+
+    if (TieneMontoMaximo()) { /// se trata como tipinpoing
+        if (ConfiguradoRegalo == true) {
+
+            var AvancePorcentaje0 = CalculoPorcentajeAvance(montoMinimo, montoMaximo);
+            document.getElementById('barra_0').style.left = AvancePorcentaje0;
+
+            var AvancePorcentajeP0 = (AvancePorcentaje0.substring(0, AvancePorcentaje0.length - 1) * 1 - 7) + '%'
+            document.getElementById('punto_0').style.left = AvancePorcentajeP0;
+
+
+            var AvancePorcentaje1 = CalculoPorcentajeAvance(montoMinimo, montoMaximo);
+           if (document.getElementById('barra_1') != null) document.getElementById('barra_1').style.left = AvancePorcentaje1;
+
+            var AvancePorcentajeP1 = (AvancePorcentaje1.substring(0, AvancePorcentaje1.length - 1) * 1 - 5) + '%'
+            document.getElementById('punto_1').style.left = AvancePorcentajeP1;
+            document.getElementById('punto_1').firstChild.firstChild.style = "width:90px;position: absolute;top: -24px;";
+            document.getElementById('punto_1').firstChild.firstChild.firstChild.firstChild.nextSibling.style.display = "None";
+
+
+            document.getElementById('punto_2').style.left = '94%';
+            document.getElementById('barra_2').style.left = '99.9%';
+
+        }
+        else {
+            if (TippingPointBarraActive) {
+
+                var AvancePorcentaje1 = CalculoPorcentajeAvance(montoMinimo, montoMaximo);
+                document.getElementById('barra_0').style.left = AvancePorcentaje1;
+
+                var AvancePorcentajeP1 = (AvancePorcentaje1.substring(0, AvancePorcentaje1.length - 1) * 1 - 7) + '%'
+                document.getElementById('punto_0').style.left = AvancePorcentajeP1;
+
+
+
+                var AvancePorcentaje2 = CalculoPorcentajeAvance(montoTipipoing, montoMaximo);
+                if (document.getElementById('barra_1')!=null)  document.getElementById('barra_1').style.left = AvancePorcentaje2;
+
+                var AvancePorcentajeP2 = (AvancePorcentaje2.substring(0, AvancePorcentaje2.length - 1) * 1 - 6) + '%'
+                document.getElementById('punto_1').style.left = AvancePorcentajeP2;
+
+
+
+                document.getElementById('punto_2').style.left = '94%';
+                document.getElementById('barra_2').style.left = '99.9%';
+
+
+            }
+            else {
+                if (ConfiguradoRegalo == true) {
+                    var AvancePorcentaje1 = CalculoPorcentajeAvance(montoMinimo, montoMaximo);
+                    document.getElementById('barra_0').style.left = AvancePorcentaje1;
+
+                    var AvancePorcentajeP1 = (AvancePorcentaje1.substring(0, AvancePorcentaje1.length - 1) * 1 - 7) + '%'
+                    document.getElementById('punto_0').style.left = AvancePorcentajeP1;
+
+
+                    document.getElementById('punto_1').style.left = '94%';
+                    document.getElementById('barra_1').style.left = '99.9%';
+
+
+                }
+                else {
+                    // montoMaximo = montoMaximo - 10;
+                    //AQUI
+
+                    var AvancePorcentaje1 = CalculoPorcentajeAvance(montoMinimo, montoMaximo);
+                    document.getElementById('barra_0').style.left = AvancePorcentaje1;
+
+                    var AvancePorcentajeP1 = (AvancePorcentaje1.substring(0, AvancePorcentaje1.length - 1) * 1 - 7) + '%'
+                    document.getElementById('punto_0').style.left = AvancePorcentajeP1;
+
+
+                    document.getElementById('punto_1').style.left = '94%';
+                    document.getElementById('barra_1').style.left = '99.9%';
+
+                }
+            }
+        }
+    }
+    else { /// se trata como escala de descuento
+        if (ConfiguradoRegalo == true) {
+
+
+            var htmleRgaloTipinpoing = ' <div id="punto_4" data-punto="0" class="EscalaDescuento" style="float: left; left: 2.1818%;"><div class="monto_minimo_barra"><div style="width: 90px; position: absolute; top: -24px;" data-texto=""><div class=""><div class="tippingPoint "></div><div class="monto_meta_tippingPoint" style="display: none;">S/.210</div></div></div></div></div>';
+
+            document.getElementById('divBarraLimite').innerHTML = document.getElementById('divBarraLimite').innerHTML + htmleRgaloTipinpoing;
+
+            montoMaximo = dataBarra.ListaEscalaDescuento[3].MontoDesde + 500;
+
+            var montoMaximo1 = dataBarra.ListaEscalaDescuento[0].MontoDesde
+            var AvancePorcentaje1 = CalculoPorcentajeAvance(montoMaximo1, montoMaximo);
+            document.getElementById('barra_0').style.left = AvancePorcentaje1;
+
+            var AvancePorcentajeP1 = (AvancePorcentaje1.substring(0, AvancePorcentaje1.length - 1) * 1 - 7) + '%'
+            document.getElementById('punto_0').style.left = AvancePorcentajeP1;
+
+
+
+            var montoMaximo2 = dataBarra.ListaEscalaDescuento[1].MontoDesde
+            var AvancePorcentaje2 = CalculoPorcentajeAvance(montoMaximo2, montoMaximo);
+            document.getElementById('barra_1').style.left = AvancePorcentaje2;
+
+            var AvancePorcentajeP2 = (AvancePorcentaje2.substring(0, AvancePorcentaje2.length - 1) * 1 - 8) + '%'
+            document.getElementById('punto_1').style.left = AvancePorcentajeP2;
+
+
+
+            var montoMaximo3 = dataBarra.ListaEscalaDescuento[2].MontoDesde
+            var AvancePorcentaje3 = CalculoPorcentajeAvance(montoMaximo3, montoMaximo);
+            document.getElementById('barra_2').style.left = AvancePorcentaje3;
+
+
+            var AvancePorcentajeP3 = (AvancePorcentaje3.substring(0, AvancePorcentaje3.length - 1) * 1 - 5) + '%'
+            document.getElementById('punto_2').style.left = AvancePorcentajeP3;
+
+
+
+            var montoMaximo4 = dataBarra.ListaEscalaDescuento[3].MontoDesde
+            var AvancePorcentaje4 = CalculoPorcentajeAvance(montoMaximo4, montoMaximo);
+            document.getElementById('barra_3').style.left = AvancePorcentaje4;
+
+            var AvancePorcentajeP4 = (AvancePorcentaje4.substring(0, AvancePorcentaje4.length - 1) * 1 - 5) + '%'
+            document.getElementById('punto_3').style.left = AvancePorcentajeP4;
+
+
+
+        }
+        else {
+
+
+
+            montoMaximo = dataBarra.ListaEscalaDescuento[3].MontoDesde + 500;
+
+            var montoMaximo1 = dataBarra.ListaEscalaDescuento[0].MontoDesde
+            var AvancePorcentaje1 = CalculoPorcentajeAvance(montoMaximo1, montoMaximo);
+            document.getElementById('barra_0').style.left = AvancePorcentaje1;
+
+            var AvancePorcentajeP1 = (AvancePorcentaje1.substring(0, AvancePorcentaje1.length - 1) * 1 - 7) + '%'
+            document.getElementById('punto_0').style.left = AvancePorcentajeP1;
+
+
+            var montoMaximo2 = dataBarra.ListaEscalaDescuento[1].MontoDesde
+            var AvancePorcentaje2 = CalculoPorcentajeAvance(montoMaximo2, montoMaximo);
+            document.getElementById('barra_1').style.left = AvancePorcentaje2;
+
+            var AvancePorcentajeP2 = (AvancePorcentaje2.substring(0, AvancePorcentaje2.length - 1) * 1 - 5) + '%'
+            document.getElementById('punto_1').style.left = AvancePorcentajeP2;
+
+
+
+            var montoMaximo3 = dataBarra.ListaEscalaDescuento[2].MontoDesde
+            var AvancePorcentaje3 = CalculoPorcentajeAvance(montoMaximo3, montoMaximo);
+            document.getElementById('barra_2').style.left = AvancePorcentaje3;
+
+
+            var AvancePorcentajeP3 = (AvancePorcentaje3.substring(0, AvancePorcentaje3.length - 1) * 1 - 5) + '%'
+            document.getElementById('punto_2').style.left = AvancePorcentajeP3;
+
+
+
+            var montoMaximo4 = dataBarra.ListaEscalaDescuento[3].MontoDesde
+            var AvancePorcentaje4 = CalculoPorcentajeAvance(montoMaximo4, montoMaximo);
+            document.getElementById('barra_3').style.left = AvancePorcentaje4;
+
+            var AvancePorcentajeP4 = (AvancePorcentaje4.substring(0, AvancePorcentaje4.length - 1) * 1 - 5) + '%'
+            document.getElementById('punto_3').style.left = AvancePorcentajeP4;
+
+
+
+
+        }
+
+    }
+
+}
+
+function CalculoPosicionMensajeDestokp() {
+    document.getElementById('divBarraMensajeLogrado').firstChild.nextSibling.style.float = 'left';
+    var montoActual = mtoLogroBarra;
+    var montoMaximo = dataBarra.MontoMaximo;
+
+    var AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMaximo);
+
+    if (AvancePorcentaje.substring(0, AvancePorcentaje.length - 1) * 1 > 66) {
+        AvancePorcentaje = '67%';
+    }
+
+    document.getElementById('divBarraMensajeLogrado').style.marginLeft = AvancePorcentaje;
+}
 
 function TieneMontoMaximo() {
     return dataBarra.MontoMaximo != 0 &&
@@ -1727,8 +2039,7 @@ function TieneMontoMaximo() {
         dataBarra.MontoMaximo != null &&
         dataBarra.MontoMaximo.toString().substring(0, 4) != "9999";
 }
-
-
+ 
 function CalculoPorcentajeAvance(montoActual, montoMaximo) {
     var AvancePorcentaje = (montoActual * 100) / montoMaximo;
     return (AvancePorcentaje) + '%';
