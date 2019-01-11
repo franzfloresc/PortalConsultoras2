@@ -79,7 +79,7 @@ var store = (function () {
         startKeepSessionAlive, stopKeepSessionAlive, keepSession, keepAlivePing, // session keep alive
         idleTimer, remainingTimer, checkIdleTimeout, checkIdleTimeoutLoop, startIdleTimer, stopIdleTimer, // idle timer
         openWarningDialog, dialogTimer, checkDialogTimeout, startDialogTimer, stopDialogTimer, isDialogOpen, destroyWarningDialog, countdownDisplay, // warning dialog
-        logoutUser, keepAlive;
+        logoutUser, getTipoPopup, isPopupEndSession;
   
       //##############################
       //## Public Functions
@@ -142,6 +142,11 @@ var store = (function () {
             openWarningDialog();
             startDialogTimer(); // start timing the warning dialog
           }
+        } else {
+            if (currentConfig.enableDialog && isDialogOpen() === true && !isPopupEndSession()) {
+                destroyWarningDialog();
+                stopDialogTimer();
+            }
         }
       };
   
@@ -171,29 +176,6 @@ var store = (function () {
           } else {
               showPopupCierreSesion(2);
           }
-        // $(dialogContent).dialog({
-        //   buttons: [{
-        //     text: currentConfig.dialogStayLoggedInButton,
-        //     click: function () {
-        //       destroyWarningDialog();
-        //       stopDialogTimer();
-        //       startIdleTimer();
-        //     }
-        //   },
-        //     {
-        //       text: currentConfig.dialogLogOutNowButton,
-        //       click: function () {
-        //         logoutUser();
-        //       }
-        //     }
-        //     ],
-        //   closeOnEscape: false,
-        //   modal: true,
-        //   title: currentConfig.dialogTitle,
-        //   open: function () {
-        //     $(this).closest('.ui-dialog').find('.ui-dialog-titlebar-close').hide();
-        //   }
-        // });
   
         countdownDisplay();
   
@@ -220,13 +202,24 @@ var store = (function () {
         clearInterval(dialogTimer);
         clearInterval(remainingTimer);
       };
+
+      getTipoPopup = function() {
+         var popup = getPopupCierreSession();
+         
+         return popup.data('tipo');
+      };
   
       isDialogOpen = function () {
-          var popup = getPopupCierreSession();
-          var dialogOpen = popup.is(":visible");
-          var tipo = popup.data('tipo');
+         var dialogOpen = getPopupCierreSession().is(":visible");
+         var tipo = getTipoPopup();
 
-          return dialogOpen && (tipo == 2 || tipo == 3 || tipo == 4);
+         return dialogOpen && (tipo == 2 || tipo == 3 || tipo == 4);
+      };
+
+      isPopupEndSession = function() {
+         var tipo = getTipoPopup();
+
+         return tipo == 4;
       };
   
       destroyWarningDialog = function () {
@@ -247,9 +240,6 @@ var store = (function () {
         };
 
       countdownDisplay = function () {
-       //if (remainingTimer) {
-       //   clearInterval(remainingTimer);
-       //}
         clearInterval(remainingTimer);
         var dialogDisplaySeconds = currentConfig.dialogDisplayLimit;
         showSeconds(dialogDisplaySeconds);
@@ -273,7 +263,7 @@ var store = (function () {
               currentConfig.customCallback();
           }
 
-          clearTimeout();
+          stopIdleTimer();
           stopDialogTimer();
 
           showPopupFinSesion();

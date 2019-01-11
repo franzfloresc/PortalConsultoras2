@@ -5,7 +5,17 @@
     configureTimeoutPopup();
 
     $(document).ajaxComplete(function( event, xhr, settings ) {
-        $.fn.idleTimeout().restarTimer();
+        if (!settings || !settings.url) {
+            return;
+        }
+        var url = settings.url;
+        if (url.startsWith('/Login/LogOut') || url.startsWith('/Login/SesionExpirada')) {
+            return;
+        }
+
+        if (window.idleTimeout) {
+            window.idleTimeout.restarTimer();
+        }
     });
 });
 
@@ -16,10 +26,9 @@ function configureTimeoutPopup() {
     var timeoutSeconds = (SessionTimeout * 60) - 5;
     var timeShowPopup = 48;
 
-    $(document).idleTimeout({
+    window.idleTimeout = $.fn.idleTimeout({
         redirectUrl: baseUrl + 'Login/LogOut',       // redirect to this url
         idleTimeLimit: timeoutSeconds - timeShowPopup,            // 15 seconds 'No activity' time limit in seconds.
-        activityEvents: 'click keypress scroll wheel mousewheel',    // separate each event with a space
         dialogDisplayLimit: timeShowPopup,       // Time to display the warning dialog before logout (and optional callback) in seconds
         sessionKeepAliveTimer: false,  // Set to false to disable pings.
         endSessionCallback: function() {
@@ -31,7 +40,7 @@ function configureTimeoutPopup() {
 function irReservarPedido() {
     var url = baseUrl + (isMobile() ? 'Mobile/Pedido/Detalle' : 'Pedido');
 
-    $.fn.idleTimeout().reset();
+    window.idleTimeout.reset();
     window.location.href = url;
 }
 
@@ -51,7 +60,7 @@ function registerCloseEvent() {
 
 function continuarSession() {
     var urlKeepAlive = baseUrl + 'Bienvenida/KeepAlive';
-    $.fn.idleTimeout().reset();
+    window.idleTimeout.reset();
     $.get(urlKeepAlive);
 }
 
@@ -77,7 +86,7 @@ function CerrarSesionValidado() {
         location.href = baseUrl + 'Login/LogOut';
     }
 
-    $.fn.idleTimeout().logout();
+    window.idleTimeout.logout();
 }
 
 function forceCloseSession() {
@@ -85,7 +94,7 @@ function forceCloseSession() {
 
     if (typeof history === 'undefined') return;
 
-    for (var i = 0; i < 100; i++) {
+    for (var i = 0; i < 50; i++) {
         history.pushState({}, '', '');
     }
 }
