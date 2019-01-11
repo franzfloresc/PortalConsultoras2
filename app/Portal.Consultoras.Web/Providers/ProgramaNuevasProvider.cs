@@ -228,7 +228,6 @@ namespace Portal.Consultoras.Web.Providers
         {
             try
             {
-                var consultoraNuevas = Mapper.Map<BEConsultoraProgramaNuevas>(userData);
                 using (var sv = new ODSServiceClient())
                 {
                     return sv.GetLimElectivosProgNuevas(userData.PaisID, userData.CampaniaID, userData.ConsecutivoNueva, userData.CodigoPrograma);
