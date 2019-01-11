@@ -324,6 +324,26 @@
     margin-top:28px;
 }
 
+.catalogos__campania--actual .catalogos__por__campania__item__imagen--esika{
+    min-height:346px;
+    z-index:2;
+    left:11px;
+    order:-2;
+}
+
+    .catalogos__campania--actual .catalogos__por__campania__item__imagen--esika img{
+        height:346px;
+    }
+
+.catalogos__campania--actual .catalogos__por__campania__item__imagen--cyzone{
+    order:-3;
+}
+
+.catalogos__campania--actual .catalogos__por__campania__item__imagen--lbel{
+    left: -33px;
+    order:-1;
+}
+
 /* FIN - MIS CATÁLOGOS Y REVISTAS (DESKTOP) */
 
 /* MIS CATÁLOGOS Y REVISTAS (MOBILE) */
@@ -336,6 +356,34 @@
 
     .tabs__catalogos__revistas{
         background-color:#f2f2f2;
+    }
+
+    .catalogos__campania--actual .catalogos__por__campania__item__imagen--cyzone,
+    .catalogos__campania--actual .catalogos__por__campania__item__imagen--lbel,
+    .catalogos__campania--actual .catalogos__por__campania__item__imagen--cyzone img,
+    .catalogos__campania--actual .catalogos__por__campania__item__imagen--lbel img
+    {
+        height:160px;
+    }
+
+    .catalogos__campania--actual .catalogos__por__campania__item__imagen--cyzone,
+    .catalogos__campania--actual .catalogos__por__campania__item__imagen--lbel
+    {
+        max-width:122.53px;
+    }
+
+    .catalogos__campania--actual .catalogos__por__campania__item__imagen--esika{
+        max-width:137px;
+        min-height:180px;
+        left:5px;
+    }
+
+        .catalogos__campania--actual .catalogos__por__campania__item__imagen--esika img{
+            height:180px;
+        }
+
+    .catalogos__campania--actual .catalogos__por__campania__item__imagen--lbel{
+        left:-31px;
     }
 
 }
