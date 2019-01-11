@@ -73,7 +73,7 @@ namespace Portal.Consultoras.Web.WebPages
                 sb.Append("<td>" + item.CUV + "</td>");
                 sb.Append("<td>" + item.Descripcion + "</td>");
                 sb.Append("<td><span>" + item.Cantidad + "</span></td>");
-                if (paisId == 4)
+                if (paisId == Constantes.PaisID.Colombia)
                 {
                     sb.Append("<td>" + simbolo + " " + item.PrecioUnitario.ToString("#,##0").Replace(',','.') + "</td>");
                     sb.Append("<td>" + simbolo + " " + item.PrecioTotal.ToString("#,##0").Replace(',', '.') + "</td>");

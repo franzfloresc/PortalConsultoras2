@@ -17,7 +17,7 @@ namespace Portal.Consultoras.Web.WebPages
             string[] lst = param.Split(';');
 
             ddlPais.Items.Add(new ListItem(lst[13]));
-            int paisIso = int.Parse(lst[0]);
+            int paisId = int.Parse(lst[0]);
             string fechaSolicitud = lst[1];
             ddlZonas.Items.Add(new ListItem(lst[12]));
             string seccion = lst[3];
@@ -45,7 +45,7 @@ namespace Portal.Consultoras.Web.WebPages
 
                 BESolicitudCredito solicitud = new BESolicitudCredito()
                 {
-                    PaisID = paisIso,
+                    PaisID = paisId,
                     FechaCreacion = fecha,
                     CodigoZona = codZona,
                     CodigoTerritorio = seccion,
@@ -127,7 +127,7 @@ namespace Portal.Consultoras.Web.WebPages
             sb.Append("<tbody>");
             foreach (var item in items)
             {
-                if (paisIso == 12)
+                if (paisId == Constantes.PaisID.PuertoRico)
                 {
                     sb.Append("<tr>");
                     sb.Append("<td>" + item.CodigoZona + "</td>");

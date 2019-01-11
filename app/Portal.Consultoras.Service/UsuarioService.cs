@@ -8,7 +8,6 @@ using Portal.Consultoras.Entities.Usuario;
 using Portal.Consultoras.ServiceContracts;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Portal.Consultoras.Service
 {
@@ -434,7 +433,7 @@ namespace Portal.Consultoras.Service
 
         public int ValidarEstadoSubscripcion(string PaisISO, string CodigoUsuario, int NroDiasPermitidos)
         {
-            int paisId = GetPaisID(PaisISO);
+            int paisId = Util.GetPaisID(PaisISO);
 
             BLUsuario oblUsuario = new BLUsuario();
             return oblUsuario.ValidarEstadoSubscripcion(paisId, CodigoUsuario, NroDiasPermitidos);
@@ -442,7 +441,7 @@ namespace Portal.Consultoras.Service
 
         public BEUsuario ObtenerDatosPorUsuario(string PaisISO, string CodigoUsuario)
         {
-            int paisId = GetPaisID(PaisISO);
+            int paisId = Util.GetPaisID(PaisISO);
 
             BLUsuario oblUsuario = new BLUsuario();
             return oblUsuario.ObtenerDatosPorUsuario(paisId, CodigoUsuario);
@@ -450,7 +449,7 @@ namespace Portal.Consultoras.Service
 
         public int UpdUsuarioLider(string PaisISO, string CodigoUsuario, string Telefono, string Celular, string Email)
         {
-            int paisId = GetPaisID(PaisISO);
+            int paisId = Util.GetPaisID(PaisISO);
 
             BLUsuario oblUsuario = new BLUsuario();
             return oblUsuario.UpdUsuarioLider(paisId, CodigoUsuario, Telefono, Celular, Email);
@@ -458,7 +457,7 @@ namespace Portal.Consultoras.Service
 
         public int UpdCorreoUsuarioLider(string PaisISO, string CodigoUsuario, string Email)
         {
-            int paisId = GetPaisID(PaisISO);
+            int paisId = Util.GetPaisID(PaisISO);
 
             BLUsuario oblUsuario = new BLUsuario();
             return oblUsuario.UpdCorreoUsuarioLider(paisId, CodigoUsuario, Email);
@@ -466,7 +465,7 @@ namespace Portal.Consultoras.Service
 
         public int CancelarSubscripcion(string PaisISO, string email)
         {
-            int paisId = GetPaisID(PaisISO);
+            int paisId = Util.GetPaisID(PaisISO);
 
             BLUsuario oblUsuario = new BLUsuario();
             return oblUsuario.CancelarSubscripcion(paisId, email);
@@ -474,7 +473,7 @@ namespace Portal.Consultoras.Service
 
         public int ConfirmarSuscripcion(string PaisISO, string Email)
         {
-            int paisId = GetPaisID(PaisISO);
+            int paisId = Util.GetPaisID(PaisISO);
 
             BLUsuario oblUsuario = new BLUsuario();
             return oblUsuario.ConfirmarSuscripcion(paisId, Email);
@@ -482,47 +481,46 @@ namespace Portal.Consultoras.Service
 
         public List<BEUsuario> GenerarReporteSuscripcionLideres(string PaisISO, string TipoReporte)
         {
-            int paisId = GetPaisID(PaisISO);
+            int paisId = Util.GetPaisID(PaisISO);
 
             BLUsuario oblUsuario = new BLUsuario();
             return oblUsuario.GenerarReporteSuscripcionLideres(paisId, TipoReporte);
         }
 
-        public int GetPaisID(string ISO)
-        {
-            try
-            {
-                List<KeyValuePair<string, string>> listaPaises = new List<KeyValuePair<string, string>>()
-                {
-                    new KeyValuePair<string, string>("1", Constantes.CodigosISOPais.Argentina),
-                    new KeyValuePair<string, string>("2", Constantes.CodigosISOPais.Bolivia),
-                    new KeyValuePair<string, string>("3", Constantes.CodigosISOPais.Chile),
-                    new KeyValuePair<string, string>("4", Constantes.CodigosISOPais.Colombia),
-                    new KeyValuePair<string, string>("5", Constantes.CodigosISOPais.CostaRica),
-                    new KeyValuePair<string, string>("6", Constantes.CodigosISOPais.Ecuador),
-                    new KeyValuePair<string, string>("7", Constantes.CodigosISOPais.Salvador),
-                    new KeyValuePair<string, string>("8", Constantes.CodigosISOPais.Guatemala),
-                    new KeyValuePair<string, string>("9", Constantes.CodigosISOPais.Mexico),
-                    new KeyValuePair<string, string>("10", Constantes.CodigosISOPais.Panama),
-                    new KeyValuePair<string, string>("11", Constantes.CodigosISOPais.Peru),
-                    new KeyValuePair<string, string>("12", Constantes.CodigosISOPais.PuertoRico),
-                    new KeyValuePair<string, string>("13", Constantes.CodigosISOPais.Dominicana),
-                    new KeyValuePair<string, string>("14", Constantes.CodigosISOPais.Venezuela),
-                };
-
-                string paisId = (from c in listaPaises
-                                 where c.Value == ISO.ToUpper()
-                                 select c.Key).SingleOrDefault() ?? "";
-
-                int outVal;
-                int.TryParse(paisId, out outVal);
-                return outVal;
-            }
-            catch (Exception)
-            {
-                throw new Exception("Hubo un error en obtener el País");
-            }
-        }
+        // se movio a Util.GetPaisID
+        //public int GetPaisID(string ISO)
+        //{
+        //    try
+        //    {
+        //        List<KeyValuePair<string, string>> listaPaises = new List<KeyValuePair<string, string>>()
+        //        {
+        //            new KeyValuePair<string, string>("1", Constantes.CodigosISOPais.Argentina),
+        //            new KeyValuePair<string, string>("2", Constantes.CodigosISOPais.Bolivia),
+        //            new KeyValuePair<string, string>("3", Constantes.CodigosISOPais.Chile),
+        //            new KeyValuePair<string, string>("4", Constantes.CodigosISOPais.Colombia),
+        //            new KeyValuePair<string, string>("5", Constantes.CodigosISOPais.CostaRica),
+        //            new KeyValuePair<string, string>("6", Constantes.CodigosISOPais.Ecuador),
+        //            new KeyValuePair<string, string>("7", Constantes.CodigosISOPais.Salvador),
+        //            new KeyValuePair<string, string>("8", Constantes.CodigosISOPais.Guatemala),
+        //            new KeyValuePair<string, string>("9", Constantes.CodigosISOPais.Mexico),
+        //            new KeyValuePair<string, string>("10", Constantes.CodigosISOPais.Panama),
+        //            new KeyValuePair<string, string>("11", Constantes.CodigosISOPais.Peru),
+        //            new KeyValuePair<string, string>("12", Constantes.CodigosISOPais.PuertoRico),
+        //            new KeyValuePair<string, string>("13", Constantes.CodigosISOPais.Dominicana),
+        //            new KeyValuePair<string, string>("14", Constantes.CodigosISOPais.Venezuela),
+        //        };
+        //        string paisId = (from c in listaPaises
+        //                         where c.Value == ISO.ToUpper()
+        //                         select c.Key).SingleOrDefault() ?? "";
+        //        int outVal;
+        //        int.TryParse(paisId, out outVal);
+        //        return outVal;
+        //    }
+        //    catch (Exception)
+        //    {
+        //        throw new Exception("Hubo un error en obtener el País");
+        //    }
+        //}
 
         public void UpdNotificacionSolicitudClienteVisualizacion(int paisID, long SolicitudClienteId)
         {
@@ -564,7 +562,7 @@ namespace Portal.Consultoras.Service
 
         public void GuardarContrasenia(string paisISO, string codigoUsuario, string contrasenia)
         {
-            int paisId = GetPaisID(paisISO);
+            int paisId = Util.GetPaisID(paisISO);
 
             BLUsuario blUsuario = new BLUsuario();
             blUsuario.GuardarContrasenia(paisId, codigoUsuario, contrasenia);
@@ -721,7 +719,7 @@ namespace Portal.Consultoras.Service
 
         public int RegistrarUsuarioPostulante(string paisISO, BEUsuarioPostulante entidad)
         {
-            int paisId = GetPaisID(paisISO);
+            int paisId = Util.GetPaisID(paisISO);
             var blUsuario = new BLUsuario();
             return blUsuario.InsUsuarioPostulante(paisId, paisISO, entidad);
         }
@@ -762,7 +760,7 @@ namespace Portal.Consultoras.Service
 
         public int EliminarUsuarioPostulante(string paisISO, string numeroDocumento)
         {
-            int paisId = GetPaisID(paisISO);
+            int paisId = Util.GetPaisID(paisISO);
             var blUsuario = new BLUsuario();
             return blUsuario.DelUsuarioPostulante(paisId, numeroDocumento);
         }
