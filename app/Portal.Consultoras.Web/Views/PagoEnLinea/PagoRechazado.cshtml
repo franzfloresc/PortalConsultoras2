@@ -36,32 +36,34 @@
                 <span class="icono_pago_rechazado"></span>
                 <span>¡Pago <b>rechazado</b>!</span>
             </h3>
-            <p class="mensaje_pago_rechazado">
+            <p class="mensaje_pago_rechazado" style="display: flex;align-items: center;justify-content: center;">
                 Tu pago no se pudo realizar.
             </p>
         </div>
         @if (!string.IsNullOrEmpty(Model.DescripcionCodigoAccion))
         {
-            <div class="resumen_pago resumen_pago_rechazado">
-                <div class="num_operacion">
-                    <span>N° de operación:</span>
-                    <span>@Model.NumeroOperacion</span>
-                </div>
-                <div class="monto_pagado">
-                    <span>Fecha de Operación:</span>
-                    <span>@Model.FechaCreacionString</span>
-                </div>
-                <div class="monto_pagado">
-                    <span>Mensaje:</span>
-                    <span>@Model.DescripcionCodigoAccion</span>
+            <div class="pago_rechazado" style="display: flex;align-items: center;justify-content: center; flex-direction:column;">
+                <div class="resumen_pago resumen_pago_rechazado">
+                    <div class="num_operacion">
+                        <span>N° de operación:</span>
+                        <span>@Model.NumeroOperacion</span>
+                    </div>
+                    <div class="monto_pagado">
+                        <span>Fecha de Operación:</span>
+                        <span>@Model.FechaCreacionString</span>
+                    </div>
+                    <div class="monto_pagado">
+                        <span>Mensaje:</span>
+                        <span>@Model.DescripcionCodigoAccion</span>
+                    </div>
                 </div>
             </div>
         }
         @*INI EINCA HD-3094 09-01-2019*@
         <div class="pago_rechazado" style="margin-top:15px;">
-            <div>
-                <input type="button" value="IR AL HOME" onclick="window.location.href='@Url.Action("Index", "Bienvenida", new { area = "" })'" class="btn_bg_write" />
-                <input type="button" value="VOLVER A INTENTAR" onclick="window.location.href='@Url.Action("MetodoPago", "PagoEnLinea", new { area = "" })'" class="btn_bg_primary" />
+            <div style="display: flex;align-items: center;justify-content: center;">
+                <input type="button" value="IR AL HOME" onclick="window.location.href='@Url.Action("Index", "Bienvenida", new { area = "" })'" class="btn_bg_write" style="width:50%" />
+                <input type="button" value="VOLVER A INTENTAR" onclick="window.location.href='@Url.Action("MetodoPago", "PagoEnLinea", new { area = "" })'" class="btn_bg_primary" style="width:50%" />
             </div>
         </div>
         @*FIN EINCA HD-3094 09-01-2019*@
