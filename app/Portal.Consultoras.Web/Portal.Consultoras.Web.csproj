@@ -177,7 +177,7 @@
     <Reference Include="Trancenter.IFacturaEcuador.EncriptTool">
       <HintPath>..\Binaries\Trancenter.IFacturaEcuador.EncriptTool.dll</HintPath>
     </Reference>
-     <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
     </Reference>
   </ItemGroup>
@@ -507,6 +507,18 @@
     <Compile Include="Models\GuiaNegocioModel.cs" />
     <Compile Include="Models\MasGanadorasModel.cs" />
     <Compile Include="Models\ObservacionModel.cs" />
+    <Compile Include="Models\Search\ResponseEvento\Estructura\Evento.cs" />
+    <Compile Include="Models\Search\ResponseEvento\Estructura\EventoConsultora.cs" />
+    <Compile Include="Models\Search\ResponseEvento\Estructura\PersonalizacionNivel.cs" />
+    <Compile Include="Models\Search\ResponseEvento\OutputEvento.cs" />
+    <Compile Include="Models\Search\ResponseEvento\OutputEventoConsultora.cs" />
+    <Compile Include="Models\Search\ResponseNivel\Estructura\Nivel.cs" />
+    <Compile Include="Models\Search\ResponseNivel\OutputNivel.cs" />
+    <Compile Include="Models\Search\ResponseOferta\Estructura\Componente.cs" />
+    <Compile Include="Models\Search\ResponseOferta\Estructura\Estrategia.cs" />
+    <Compile Include="Models\Search\ResponseOferta\Estructura\EstrategiaDetalle.cs" />
+    <Compile Include="Models\Search\ResponseOferta\OutputOferta.cs" />
+    <Compile Include="Models\Search\Response\ResponseStatus.cs" />
     <Compile Include="Models\PagoEnLinea\PagoEnLineaMedioPagoDetalleModel.cs" />
     <Compile Include="Models\PagoEnLinea\PagoEnLineaMedioPagoModel.cs" />
     <Compile Include="Models\PagoEnLinea\PagoEnLineaPasarelaCamposModel.cs" />
