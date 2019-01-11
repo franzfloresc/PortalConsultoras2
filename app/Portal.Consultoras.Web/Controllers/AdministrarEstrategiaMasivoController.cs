@@ -36,6 +36,7 @@ namespace Portal.Consultoras.Web.Controllers
                         Dictionary<string, int> cantidades = administrarEstrategiaProvider.ObtenerCantidadOfertasParaTi(codigoEstrategia, campaniaId, userData.CodigoISO);
                         cantidadEstrategiasConfiguradas = cantidades["CUV_ZE"];
                         cantidadEstrategiasSinConfigurar = cantidades["CUV_OP"];
+                        cantidadEstrategiasSinConfigurarImagen = cantidades["CUV_SI"];
 
                         List<string> estrategiasWA = administrarEstrategiaProvider.PreCargar(campaniaId.ToString(), codigoEstrategia, userData.CodigoISO);
                         foreach (var item in estrategiasWA)

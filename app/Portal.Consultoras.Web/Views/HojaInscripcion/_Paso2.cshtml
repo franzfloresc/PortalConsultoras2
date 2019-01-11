@@ -54,7 +54,7 @@
         <h2>Datos de contacto</h2>
     </div>
 
-    if (Model.CodigoISO == "CL")
+    if (Model.CodigoISO == Constantes.CodigosISOPais.Chile)
     {
         <div class="field4 no-margin-bottom"><b>*</b>Tel&eacute;fono Celular</div>
         <div class="field8 no-margin-bottom lastfield">
@@ -66,7 +66,7 @@
             @Html.ValidationMessageFor(m => Model.Celular)
         </div>
     }
-    else if (Model.CodigoISO == "CO")
+    else if (Model.CodigoISO == Constantes.CodigosISOPais.Colombia)
     {
         <div class="field4 no-margin-bottom"><b>*</b>Tel&eacute;fono Celular</div>
         <div class="field8 no-margin-bottom lastfield">
@@ -77,7 +77,7 @@
             @Html.ValidationMessageFor(m => Model.Celular)
         </div>
     }
-    else if (Model.CodigoISO == "MX")
+    else if (Model.CodigoISO == Constantes.CodigosISOPais.Mexico)
     {
         <div class="field4 no-margin-bottom"><b>*</b>Tel&eacute;fono Celular</div>
         <div class="field8 no-margin-bottom lastfield">
@@ -90,7 +90,7 @@
         </div>
     }
 
-    if (Model.CodigoISO == "CL" || Model.CodigoISO == "MX")
+    if (Model.CodigoISO == Constantes.CodigosISOPais.Chile || Model.CodigoISO == Constantes.CodigosISOPais.Mexico)
     {
         <div class="field4 no-margin-bottom"><b>*</b>Tel&eacute;fono Fijo</div>
         <div class="field8 no-margin-bottom lastfield">
@@ -102,7 +102,7 @@
             @Html.ValidationMessageFor(m => Model.Telefono)
         </div>
     }
-    else if (Model.CodigoISO == "CO")
+    else if (Model.CodigoISO == Constantes.CodigosISOPais.Colombia)
     {
         <div class="field4 no-margin-bottom">Tel&eacute;fono Fijo</div>
         <div class="field8 no-margin-bottom lastfield">
@@ -145,7 +145,7 @@
             @Html.ValidationMessageFor(m => Model.Comuna)
         </div>
 
-    if (Model.CodigoISO == "CL")
+    if (Model.CodigoISO == Constantes.CodigosISOPais.Chile)
     {
         <div class="field4 no-margin-bottom"><b>*</b>Calle &oacute; avenida</div>
         <div class="field8 no-margin-bottom lastfield">
@@ -156,7 +156,7 @@
             @Html.ValidationMessageFor(m => Model.CalleOAvenida)
         </div>
     }
-    else if (Model.CodigoISO == "CO")
+    else if (Model.CodigoISO == Constantes.CodigosISOPais.Colombia)
     {
         <div class="field4 no-margin-bottom"><b>*</b>Barrio</div>
         <div class="field8 no-margin-bottom lastfield">
@@ -168,7 +168,7 @@
         </div>
     }
 
-    else if (Model.CodigoISO == "MX")
+    else if (Model.CodigoISO == Constantes.CodigosISOPais.Mexico)
     {
         <div class="field4 no-margin-bottom"><b>*</b>Colonia</div>
         <div class="field8 no-margin-bottom lastfield">
@@ -180,7 +180,7 @@
         </div>
     }
 
-    if (Model.CodigoISO == "CL")
+    if (Model.CodigoISO == Constantes.CodigosISOPais.Chile)
     {
         <div class="field4 no-margin-bottom"><b>*</b>Nro.</div>
         <div class="field8 no-margin-bottom lastfield">
@@ -191,7 +191,7 @@
             @Html.ValidationMessageFor(m => Model.Numero)
         </div>
     }
-    else if (Model.CodigoISO == "CO")
+    else if (Model.CodigoISO == Constantes.CodigosISOPais.Colombia)
     {
         <div class="field4 no-margin-bottom"><b>*</b>Dirección</div>
         <div class="field8 no-margin-bottom lastfield" style="width:25%;margin-bottom:0px;">
@@ -208,7 +208,7 @@
             @Html.ValidationMessageFor(m => Model.DptoCasa)
         </div>
     }
-    else if (Model.CodigoISO == "MX")
+    else if (Model.CodigoISO == Constantes.CodigosISOPais.Mexico)
     {
         <div class="field4 no-margin-bottom"><b>*</b>Dirección</div>
         <div class="field8 no-margin-bottom lastfield">
@@ -221,7 +221,7 @@
     }
    
 
-    if (Model.CodigoISO == "CL")
+    if (Model.CodigoISO == Constantes.CodigosISOPais.Chile)
     {
         <div class="field4 no-margin-bottom">Referencia</div>
         <div class="field8 no-margin-bottom lastfield">
@@ -232,7 +232,7 @@
             @Html.ValidationMessageFor(m => Model.DptoCasa)
         </div>
     }
-    else if (Model.CodigoISO == "MX")
+    else if (Model.CodigoISO == Constantes.CodigosISOPais.Mexico)
     {
         <div class="field4 no-margin-bottom"><B>*</B>Referencia</div>
         <div class="field8 no-margin-bottom lastfield">
@@ -244,7 +244,7 @@
         </div>
     }
 
-    if (Model.CodigoISO == "MX")
+    if (Model.CodigoISO == Constantes.CodigosISOPais.Mexico)
     {
         <div class="field4 no-margin-bottom"><b>*</b>Código Postal</div>
         <div class="field8 no-margin-bottom lastfield">
