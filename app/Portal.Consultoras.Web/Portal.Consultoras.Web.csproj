@@ -1602,6 +1602,7 @@
     <Content Include="Content\Images\dateTimePicker\cal_minus.gif" />
     <Content Include="Content\Images\dateTimePicker\cal_plus.gif" />
     <Content Include="Content\Images\dateTimePicker\cal_reverse.gif" />
+    <Content Include="Content\Images\Esika\icono_input_radio_cdr.svg" />
     <Content Include="Content\Images\Esika\RevistaDigital\gana-mas-navidad-esika.svg" />
     <Content Include="Content\Images\Esika\RevistaDigital\gif-club-ganamas2.gif" />
     <Content Include="Content\Images\Esika\RevistaDigital\gif-ganamas.gif" />
@@ -1678,6 +1679,7 @@
     <Content Include="Content\Images\Lbel\icono_envelope.svg" />
     <Content Include="Content\Images\Lbel\icono_fecha_no_valida.svg" />
     <Content Include="Content\Images\Lbel\icono_info_alerta.svg" />
+    <Content Include="Content\Images\Lbel\icono_input_radio_cdr.svg" />
     <Content Include="Content\Images\Lbel\icono_plus.svg" />
     <Content Include="Content\Images\Lbel\icono_sms.svg" />
     <Content Include="Content\Images\Lbel\estrellas.png" />
