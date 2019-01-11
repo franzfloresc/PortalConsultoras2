@@ -292,7 +292,7 @@ var menuModule = (function () {
     }
     function sectionClick(url, titulo, e) {
         url = url || "";
-        if (_var.Mobile) {
+        if (_var.Mobile && url.indexOf("Mobile") < 0) {
             url = "/Mobile" + url;
         }
 
