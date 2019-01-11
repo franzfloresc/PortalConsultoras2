@@ -80,7 +80,7 @@ namespace Portal.Consultoras.Web.Providers
 
         public Converter<decimal, string> CreateConverterDecimalToString(int paisId)
         {
-            if (paisId == 4) return new Converter<decimal, string>(p => p.ToString("n0", new System.Globalization.CultureInfo("es-CO")));
+            if (paisId == Constantes.PaisID.Colombia) return new Converter<decimal, string>(p => p.ToString("n0", new System.Globalization.CultureInfo("es-CO")));
             return new Converter<decimal, string>(p => p.ToString("n2", new System.Globalization.CultureInfo("es-PE")));
         }
 
