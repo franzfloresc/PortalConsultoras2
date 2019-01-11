@@ -600,7 +600,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
 
                 mailBody.AppendFormat("<tr> <td style = 'width: 50%; text-align: left; color: #000; font-family: Arial; font-size: 14px; font-weight:700;' > {0} </td>", pedidoDetalle.DescripcionProd);
                 string rowPrecioUnitario;
-                if (input.PaisID == 4)
+                if (input.PaisID == Constantes.PaisID.Colombia)
                 {
                     mailBody.AppendFormat("<td style = 'width: 50%; text-align: right; color: #000; font-family: Arial; font-size: 14px; font-weight:700;' > {1} {0} </td></tr> ", Util.DecimalToStringFormat(pedidoDetalle.ImporteTotal, input.PaisISO), simbolo);
                     rowPrecioUnitario = String.Format("<tr style='padding-bottom:25px;'> <td colspan = '2' style = 'width: 100%;text-align: left; color: #4d4d4e; font-family: Arial; font-size: 13px; padding-top: 2px;' > Precio Unit.: {1} {0}</td></tr>", Util.DecimalToStringFormat(pedidoDetalle.PrecioUnidad, input.PaisISO), simbolo);
@@ -625,7 +625,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
 
             if (indicadorOfertaCuv)
             {
-                if (input.PaisID == 4)
+                if (input.PaisID == Constantes.PaisID.Colombia)
                 {
                     mailBody.Append("<tr><td style = 'text-align: left; color: #000; font-family: Arial; font-size: 13px; padding-top: 15px; padding-left: 10px;' > TOTAL SIN DSCTO.</td>");
                     mailBody.AppendFormat("<td style = 'text-align: right; color: #000; font-family: Arial; font-size: 13px; padding-top: 15px; padding-right: 10px; font-weight: 700;' > {1}{0} </td></tr> ", String.Format("{0:#,##0}", _totalSinDescuento).Replace(',', '.'), simbolo);
