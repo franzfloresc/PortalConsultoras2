@@ -26,7 +26,7 @@ namespace Portal.Consultoras.Web.Controllers
             return View();
         }
 
-        public ActionResult Index2(string marca = "", string demo = "0")
+        public ActionResult Index2(string marca = "", string demo = "0", string piloto = "0")
         {
             var clienteModel = new MisCatalogosRevistasModel
             {
@@ -46,32 +46,34 @@ namespace Portal.Consultoras.Web.Controllers
             clienteModel.PartialSectionBpt = _configuracionPaisDatosProvider.GetPartialSectionBptModel(Constantes.OrigenPedidoWeb.SectionBptDesktopCatalogo);
 
             ViewBag.Demo = demo;
+            ViewBag.Piloto = piloto;
             ViewBag.EsConsultoraNueva = userData.EsConsultoraNueva;
 
 
-            if (Constantes.PaisID.Bolivia == userData.PaisID || Constantes.PaisID.Chile == userData.PaisID || Constantes.PaisID.Colombia == userData.PaisID ||
-                Constantes.PaisID.CostaRica == userData.PaisID || Constantes.PaisID.Ecuador == userData.PaisID || Constantes.PaisID.Mexico == userData.PaisID ||
-                Constantes.PaisID.Peru == userData.PaisID)
-                return View(clienteModel);
-            else
-            {
-                if (EsDispositivoMovil())
-                {
-                    var url = (Request.Url.Query).Split('?');
-                    if (url.Length > 1 && url[1].Contains("sap"))
-                    {
-                        string sap = "&" + url[1].Remove(0, 12);
-                        return RedirectToAction("Index", "Catalogo", new { area = "Mobile", marca, sap });
-                    }
-                    else
-                    {
-                        return RedirectToAction("Index", "Catalogo", new { area = "Mobile", marca });
-                    }
+            //if (Constantes.PaisID.Bolivia == userData.PaisID || Constantes.PaisID.Chile == userData.PaisID || Constantes.PaisID.Colombia == userData.PaisID ||
+            //    Constantes.PaisID.CostaRica == userData.PaisID || Constantes.PaisID.Ecuador == userData.PaisID || Constantes.PaisID.Mexico == userData.PaisID ||
+            //    Constantes.PaisID.Peru == userData.PaisID)
+            //    return View(clienteModel);
+            //else
+            //{
+            //    if (EsDispositivoMovil())
+            //    {
+            //        var url = (Request.Url.Query).Split('?');
+            //        if (url.Length > 1 && url[1].Contains("sap"))
+            //        {
+            //            string sap = "&" + url[1].Remove(0, 12);
+            //            return RedirectToAction("Index", "Catalogo", new { area = "Mobile", marca, sap });
+            //        }
+            //        else
+            //        {
+            //            return RedirectToAction("Index", "Catalogo", new { area = "Mobile", marca });
+            //        }
 
-                }
+            //    }
 
-                return View("Index", clienteModel);
-            }
+            //    return View("Index", clienteModel);
+            //}
+            return View(clienteModel);
         }
 
         public MisCatalogosRevistasController()

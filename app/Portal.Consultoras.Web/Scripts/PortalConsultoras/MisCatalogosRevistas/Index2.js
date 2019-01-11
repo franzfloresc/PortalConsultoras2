@@ -259,13 +259,15 @@ function CargarCarruselCatalogo() {
     var htmlCatalogoAppend = "";
     var totalItem = cantCat * cantCam;    
 
+    $("#divSection").html("");
+
     var objCheckCata = $($("#divCheckbox > div")[0]).clone();
     $("#divCheckbox").html("");
 
     for (var i = 0; i < cantCam; i++) {
 
         var xhtmlSection = "#xhtmlSection";
-        if (i == 1) xhtmlSection = "#xhtmlSectionActual";
+        if (i == 1 && piloto == '0') xhtmlSection = "#xhtmlSectionActual";
         htmlSection = $(xhtmlSection).html();
         htmlSection = htmlSection.replace(/{sectionid}/g, 'idSection' + i);
         htmlSection = htmlSection.replace(/{divCatalogo}/g, 'divCatalogo' + i);
@@ -274,21 +276,22 @@ function CargarCarruselCatalogo() {
 
         if (i == 0) $("#idSection" + i).addClass(" catalogos__campania--anterior");
         else if (i == 1) {
-            var anio = getAnioCampania(getCodigoCampaniaActual());
-            var nro = getNumeroCampania(getCodigoCampaniaActual());
-            var xHtmlItemCatalogoPasosActual = "#xHtmlItemCatalogoPasosActual";
-            xHtmlItemCatalogoPasosActual = $(xHtmlItemCatalogoPasosActual).html();
-            xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{tipoCatalogoTodo}/g, tagTodo);
-            xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{campania}/g, anio + nro);
-            xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{textourl}/g, GetUrlTextoActual(anio + nro));
+            if (piloto == '0') {
+                var anio = getAnioCampania(getCodigoCampaniaActual());
+                var nro = getNumeroCampania(getCodigoCampaniaActual());
+                var xHtmlItemCatalogoPasosActual = "#xHtmlItemCatalogoPasosActual";
+                xHtmlItemCatalogoPasosActual = $(xHtmlItemCatalogoPasosActual).html();
+                xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{tipoCatalogoTodo}/g, tagTodo);
+                xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{campania}/g, anio + nro);
+                xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{textourl}/g, GetUrlTextoActual(anio + nro));
 
-            $("#idSection" + i).append(xHtmlItemCatalogoPasosActual);
+                $("#idSection" + i).append(xHtmlItemCatalogoPasosActual);                
+                $("#txtUrlActual").val(GetUrlTextoActual(anio + nro));
+            }
             $("#idSection" + i).addClass(" catalogos__campania--actual");
-            $("#txtUrlActual").val(GetUrlTextoActual(anio + nro));
         }
         else if (i == 2) $("#idSection" + i).addClass(" catalogos__campania--siguiente");
-    }
-
+    }    
 
     for (var i = 0; i < cantCam; i++) {
         
@@ -311,24 +314,14 @@ function CargarCarruselCatalogo() {
             nro = getNumeroCampania(getCodigoCampaniaSiguiente());
         }
 
-        //var x = i - parseInt(i / cantCat) * (cantCat/3);
-        //x = x < 0 ? 3 : x > 2 ? 3 : x;
-        //tipo = ordenCat[x];
         if (nro == "" || anio == "") {
             continue;
         }
 
-        //if (i < 3) {
-        //    $(objCheckCata).attr("data-catalogo", tipo);
-        //    $(objCheckCata).find(".check_label").html(nombreCat[tipo]);
-        //    var objxx = $("<div></div>").append(objCheckCata);
-        //    $("#divCheckbox").append(objxx.html());
-        //}
-         
         for (var j = 0; j < cantCat; j++) {
 
             var itemCatalogo = "#xHtmlItemCatalogo";
-            if (i == 1) itemCatalogo = "#xHtmlItemCatalogoActual";
+            if (i == 1 && piloto == '0') itemCatalogo = "#xHtmlItemCatalogoActual";
 
             var x = j - parseInt(j / cantCat) * (cantCat / 3);
             x = x < 0 ? 3 : x > 2 ? 3 : x;
@@ -348,8 +341,8 @@ function CargarCarruselCatalogo() {
             htmlCatalogo = $(itemCatalogo).html();
             htmlCatalogo = htmlCatalogo.replace(/{campania}/g, anio + nro);
             htmlCatalogo = htmlCatalogo.replace(/{tipoCatalogo}/g, tipo);
-            htmlCatalogo = i == 1 ? htmlCatalogo : htmlCatalogo.replace(/{comp}/g, tipo);
-            htmlCatalogo = i == 1 ? htmlCatalogo : htmlCatalogo.replace(/{descripcion}/g, descrCat[tipo]);
+            htmlCatalogo = i == 1 && piloto == '0' ? htmlCatalogo : htmlCatalogo.replace(/{comp}/g, tipo);
+            htmlCatalogo = i == 1 && piloto == '0' ? htmlCatalogo : htmlCatalogo.replace(/{descripcion}/g, descrCat[tipo]);
             htmlCatalogo = htmlCatalogo.replace(/{estado}/g, "0");
             htmlCatalogoAppend = htmlCatalogoAppend + htmlCatalogo;
         }
@@ -512,15 +505,20 @@ function GetCatalogosLinksByCampania(data, campania) {
             var a = getAnioCampania(campania);
             var n = getNumeroCampania(campania);
             $(idCat).find(elemItem).find("[data-tipo='img']").attr("onclick", "SetGoogleAnalytics('" + codigoISSUU + "','Ver catálogo','" + tagCat + "')");            
-            if (contDiv == 1) $(idCat).find(elemItem).find("[data-tipo='img']").attr("href", GetUrlTextoActual(campania));
-            else $(idCat).find(elemItem).find("[data-tipo='img']").attr("href", urlCat);;
-            if (contDiv != 1) $(idCat).find(elemItem).find("#txtUrl" + tagCat).val(urlCat);
+            if (contDiv == 1 && piloto == '0') $(idCat).find(elemItem).find("[data-tipo='img']").attr("href", GetUrlTextoActual(campania));
+            else $(idCat).find(elemItem).find("[data-tipo='img']").attr("href", urlCat);;            
+            if (piloto == '1') $(idCat).find(elemItem).find("#txtUrl" + tagCat).val(urlCat);
+            else if (contDiv != 1 && piloto == '0') $(idCat).find(elemItem).find("#txtUrl" + tagCat).val(urlCat);
+
             $(idCat).find(elemItem).find("[data-tipo='img'] img").attr("src", imgIssuu.replace("{img}", codigoISSUU));
 
-            if (contDiv != 1) $(idCat).find(elemItem).find("[data-accion='face']").attr("title", 'FB-' + tagCat + ' C' + n + a);
+            if (piloto == '1') $(idCat).find(elemItem).find("[data-accion='face']").attr("title", 'FB-' + tagCat + ' C' + n + a);
+            else if (contDiv != 1 && piloto == '0') $(idCat).find(elemItem).find("[data-accion='face']").attr("title", 'FB-' + tagCat + ' C' + n + a);
+
             $(idCat).find(elemItem).find("[data-tipo='img']").attr("title", 'Ver-' + tagCat + ' C' + n + a);
 
-            if (contDiv != 1) $(idCat).find(elemItem).find("[data-accion='whatsapp']").attr("href", "https://api.whatsapp.com/send?text=" + urlCatWS);
+            if (piloto == '1') $(idCat).find(elemItem).find("[data-accion='whatsapp']").attr("href", "https://api.whatsapp.com/send?text=" + urlCatWS);
+            else if (contDiv != 1 && piloto == '0') $(idCat).find(elemItem).find("[data-accion='whatsapp']").attr("href", "https://api.whatsapp.com/send?text=" + urlCatWS);
         }
     }
     FinRenderCatalogo();
