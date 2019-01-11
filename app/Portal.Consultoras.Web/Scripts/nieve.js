@@ -15,8 +15,8 @@ var numObjects = vnumObjects,
     fallSpeed = vfallSpeed,
 	wind = 0;
 
-var heightIcon = esMobile ? 7 : 15;
-var widthIcon = esMobile ? 7 : 15;
+var heightIcon = esMobile ? 7 : 10;
+var widthIcon = esMobile ? 7 : 10;
 
 var objects = new Array(),
     timer,
@@ -74,7 +74,7 @@ function newObject(url, height, width) {
 
 function winSize() {
     winWidthSR = (moz) ? window.innerWidth - 20 : document.body.clientWidth - 20;
-    winHeightSR = (moz) ? window.innerHeight - 200 : document.body.clientHeight - 200;
+    winHeightSR = (moz) ? window.innerHeight : document.body.clientHeight;
 }
 
 function winOfy() {
