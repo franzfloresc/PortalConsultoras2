@@ -27,7 +27,7 @@ namespace Portal.Consultoras.Web.Controllers
         #endregion
     }
 
-    public class ModificacionCronogramaController : BaseController
+    public class ModificacionCronogramaController : BaseAdmController
     {
         public ActionResult Index()
         {
@@ -42,8 +42,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ObtenerRegionesPorPais(int PaisID)
         {
-            IEnumerable<RegionModel> lstRegiones = _baseProvider.DropDownListRegiones(PaisID);
-            IEnumerable<ZonaModel> lstZonas = _baseProvider.DropDownListZonas(PaisID);
+            IEnumerable<RegionModel> lstRegiones = _zonificacionProvider.GetRegiones(PaisID);
+            IEnumerable<ZonaModel> lstZonas = _zonificacionProvider.GetZonas(PaisID);
 
             return Json(new
             {
@@ -51,20 +51,7 @@ namespace Portal.Consultoras.Web.Controllers
                 listaZonas = lstZonas.OrderBy(x => x.Codigo)
             }, JsonRequestBehavior.AllowGet);
         }
-
-        private IEnumerable<PaisModel> DropDowListPaises()
-        {
-            List<BEPais> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = userData.RolID == 2
-                    ? sv.SelectPaises().ToList()
-                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
-            }
-
-            return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
-        }
-
+        
         public JsonResult TraerRegiones(int pais)
         {
             var tree = new JsTreeModel[]
