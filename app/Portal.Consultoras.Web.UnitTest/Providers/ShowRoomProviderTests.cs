@@ -132,7 +132,6 @@ namespace Portal.Consultoras.Web.UnitTest.Providers
             public List<EstrategiaPersonalizadaProductoModel> OfertasSubCampania { get; set; }
             public List<EstrategiaPersonalizadaProductoModel> OfertasPerdio { get; set; }
             public bool TieneLanding { get; set; }
-            //public List<EstrategiaPersonalizadaProductoModel> OfertasCompraPorCompra { get; set; }
         }
 
     }

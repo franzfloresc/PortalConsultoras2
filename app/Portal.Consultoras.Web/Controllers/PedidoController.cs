@@ -310,6 +310,9 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.OfertaFinalEstado = ofertaFinal.Estado;
                 ViewBag.OfertaFinalAlgoritmo = ofertaFinal.Algoritmo;
                 ViewBag.UrlFranjaNegra = _eventoFestivoProvider.GetUrlFranjaNegra();
+
+                ViewBag.ActivarRecomendaciones = ObtenerFlagActivacionRecomendaciones();
+                ViewBag.MaxCaracteresRecomendaciones = ObtenerNumeroMaximoCaracteresRecomendaciones(false);
             }
             catch (FaultException ex)
             {
@@ -1444,7 +1447,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     var campaniaId = userData.CampaniaID;
                     var oBe = svc.GetLineaCreditoFlexipago(vPaisId, consultora, campaniaId);
-                    if (vPaisId == 4)
+                    if (vPaisId == Constantes.PaisID.Colombia)
                     {
                         ViewBag.LineaCredito = string.Format("{0:#,##0}", oBe.LineaCredito);
                         ViewBag.PedidoBase = string.Format("{0:#,##0}", oBe.PedidoBase);
@@ -1461,7 +1464,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
 
-                if (userData.PaisID == 4)
+                if (userData.PaisID == Constantes.PaisID.Colombia)
                 {
                     ViewBag.LineaCredito = "0";
                     ViewBag.PedidoBase = "0";
@@ -1478,7 +1481,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
 
-                if (userData.PaisID == 4)
+                if (userData.PaisID == Constantes.PaisID.Colombia)
                 {
                     ViewBag.LineaCredito = "0";
                     ViewBag.PedidoBase = "0";
@@ -1663,7 +1666,10 @@ namespace Portal.Consultoras.Web.Controllers
                 FlagNueva = prod.FlagNueva,
                 TipoEstrategiaID = prod.TipoEstrategiaID,
                 TieneRDC = tieneRdc,
-                EsOfertaIndependiente = prod.EsOfertaIndependiente
+                EsOfertaIndependiente = prod.EsOfertaIndependiente,
+                CodigoProducto = prod.CodigoProducto,
+                CodigoCatalago = prod.CodigoCatalogo,
+                EstrategiaIDSicc = prod.EstrategiaIDSicc
             }));
 
             return productosModel;
@@ -1769,7 +1775,9 @@ namespace Portal.Consultoras.Web.Controllers
                     EsOfertaIndependiente = estrategia.EsOfertaIndependiente,
                     TieneRDC = tieneRdc,
                     EstrategiaID = producto.EstrategiaID,
-                    EsProgNuevas = esProgNuevas
+                    EsProgNuevas = esProgNuevas,
+                    CodigoCatalago = producto.CodigoCatalogo,
+                    EstrategiaIDSicc = producto.EstrategiaIDSicc
                 });
             }
             catch (Exception ex)

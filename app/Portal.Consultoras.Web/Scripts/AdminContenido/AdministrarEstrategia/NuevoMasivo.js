@@ -1,5 +1,5 @@
 ﻿var NuevoMasivo = (function (config) {
-    //'use strict';
+
     var _config = {
         habilitarNemotecnico: config.habilitarNemotecnico || false,
         urlConsultarOfertasPersonalizadas: config.urlConsultarOfertasPersonalizadas,
@@ -59,7 +59,7 @@
         return text;
     }
     var _showActionsVer2 = function (cellvalue, options, rowObject) {
-        
+
         var cantidad = rowObject[2];
         var tipo = rowObject[3];
 
@@ -83,7 +83,6 @@
     }
 
     var _fnGrillaEstrategias1 = function () {
-        //console.log('_fnGrillaEstrategias1 Inicio', new Date());
         $("#listCargaMasiva1").jqGrid("GridUnload");
         jQuery("#listCargaMasiva1").jqGrid({
             url: _config.urlConsultarOfertasPersonalizadas,
@@ -139,7 +138,7 @@
                 $("#precargadosdiv").html(JSON.parse(JSON.stringify(data.rows[2].cell))[4]);
             },
             gridComplete: function (data) {
-                console.log('_fnGrillaEstrategias1 gridComplete', new Date());
+                //console.log('_fnGrillaEstrategias1 gridComplete', new Date());
                 if (_variables.cantidadPrecargar == 0) {
                     $("#divMostrarPreCarga").css("display", "none");
                 } else {
@@ -155,9 +154,9 @@
     }
     var _fnGrillaEstrategias2 = function () {
         waitingDialog();
-        console.log('ejecutando de _fnGrillaEstrategias2 - inicio', new Date());
+        //console.log('ejecutando de _fnGrillaEstrategias2 - inicio', new Date());
         $("#listCargaMasiva2").jqGrid("GridUnload");
-        console.log(_config.urlEstrategiaTemporalConsultar, _variables.NroLote);
+        //console.log(_config.urlEstrategiaTemporalConsultar, _variables.NroLote);
         jQuery("#listCargaMasiva2").jqGrid({
             url: _config.urlEstrategiaTemporalConsultar,
             hidegrid: false,
@@ -211,7 +210,7 @@
             altclass: "jQGridAltRowClass",
             loadComplete: function () { },
             gridComplete: function () {
-                console.log('ejecutando de _fnGrillaEstrategias2 - gridComplete - inicio', new Date());
+                //console.log('ejecutando de _fnGrillaEstrategias2 - gridComplete - inicio', new Date());
                 closeWaitingDialog();
                 if (_variables.cantidadPrecargar2 == 0) {
                     $("#divMostrarPreCarga2").css("display", "none");
@@ -234,7 +233,7 @@
             { edit: false, add: false, refresh: false, del: false, search: false });
         jQuery("#listCargaMasiva2").setGridParam({ datatype: "json", page: 1 }).trigger("reloadGrid");
 
-        console.log('ejecutando de _fnGrillaEstrategias2 - gridComplete - fin');
+        //console.log('ejecutando de _fnGrillaEstrategias2 - gridComplete - fin');
     }
     var _fnGrillaCuv1 = function (tipo) {
         $("#listGrillaCuv1").jqGrid("clearGridData");
@@ -433,7 +432,6 @@
             {
                 "Salir": function () {
                     HideDialog("DialogGrillaCuv1");
-                    //$(this).dialog("close");
                 }
             }
         });
@@ -450,7 +448,6 @@
             {
                 "Salir": function () {
                     HideDialog("DialogGrillaCuv2");
-                    //$(this).dialog("close");
                 }
             }
         });
@@ -459,7 +456,7 @@
 
     var _eventos = {
         clickNuevoMasivo: function () {
-            console.log('clickNuevoMasivo Inicio', new Date());
+            //console.log('clickNuevoMasivo Inicio', new Date());
             _variablesInicializar();
             if (_validarMasivo()) {
                 $("#divMasivoPaso1").show();
@@ -490,7 +487,7 @@
                 Pagina: _variables.Pagina,
                 CantidadCuv: _variables.CantidadCuv
             };
-            console.log('clickAceptarMasivo1 Inicio', params, new Date());
+            //console.log('clickAceptarMasivo1 Inicio', params, new Date());
 
             waitingDialog();
 
@@ -502,8 +499,8 @@
                 data: JSON.stringify(params),
                 async: true,
                 success: function (data) {
-                    console.log('Respuesta ' + _config.urlEstrategiaTemporalInsert, new Date());
-                    console.log(data);
+                    //console.log('Respuesta ' + _config.urlEstrategiaTemporalInsert, new Date());
+                    //console.log(data);
                     closeWaitingDialog();
                     if (data.success) {
                         if (data.continuaPaso == undefined) {
@@ -520,7 +517,7 @@
                             }
                         }
                         else if (data.continuaPaso === true) {
-                            console.log('antes de _fnGrillaEstrategias2', new Date());
+                            //console.log('antes de _fnGrillaEstrategias2', new Date());
                             closeWaitingDialog();
                             _fnGrillaEstrategias2();
                         }
@@ -530,7 +527,7 @@
                     }
                 },
                 error: function (data, error) {
-                    console.log(data);
+                    //console.log(data);
                     closeWaitingDialog();
                     _toastHelper.error(_config.MensajeErrorGeneral);
                 }
@@ -543,11 +540,11 @@
                 tipoConfigurado: 1,
                 estrategiaId: $("#ddlTipoEstrategia").find(":selected").data("id"),
                 nroLote: _variables.NroLote,
-                codigoEstrategia:$("#ddlTipoEstrategia").find(":selected").data("codigo"),
+                codigoEstrategia: $("#ddlTipoEstrategia").find(":selected").data("codigo"),
                 estrategiaMIds: $('#precargadosdiv').text()
             };
-            console.log('inicio de clickAceptarMasivo2', params, new Date());
-            
+            //console.log('inicio de clickAceptarMasivo2', params, new Date());
+
             waitingDialog();
 
             jQuery.ajax({
@@ -559,8 +556,8 @@
                 async: true,
                 timeout: 120000, // sets timeout to 2 min
                 success: function (data) {
-                    console.log('respuesta ' + _config.urlEstrategiaOfertasPersonalizadasInsert, new Date());
-                    console.log(data); 
+                    //console.log('respuesta ' + _config.urlEstrategiaOfertasPersonalizadasInsert, new Date());
+                    //console.log(data);
                     if (data.success) {
                         $("#divMasivoPaso1").hide();
                         $("#divMasivoPaso2").hide();
@@ -575,10 +572,10 @@
 
                         $("#divPaso3").removeClass("boton_redondo_admcontenido_off");
                         $("#divPaso3").addClass("boton_redondo_admcontenido_on");
-                        
+
                         $("#precargadosdiv").html(JSON.parse(JSON.stringify(data.mongoIdsOK)));
                         $("#cargadoserrordiv").html(JSON.parse(JSON.stringify(data.mongoIdsERROR)));
-                       
+
                     } else {
                         _toastHelper.error(data.message);
                         _eventos.clickCancelarMasivo1();
@@ -588,7 +585,7 @@
                     _toastHelper.error(_config.MensajeErrorGeneral);
                 }
             });
-            console.log('ejecutando clickAceptarMasivo2 - fin'); 
+            //console.log('ejecutando clickAceptarMasivo2 - fin');
         },
         clickCancelarMasivo1: function () {
             _variablesInicializar();
@@ -601,7 +598,7 @@
                 nroLote: _variables.NroLote
             };
 
-            console.log('ejecutando clickCancelarMasivo2 - inicio', params);
+            //console.log('ejecutando clickCancelarMasivo2 - inicio', params);
             jQuery.ajax({
                 type: "POST",
                 url: _config.urlEstrategiaTemporalCancelar,
@@ -611,7 +608,7 @@
                 async: true,
                 success: function (data) {
 
-                    console.log('ejecutando clickAceptarMasivo2 - ajax - inicio', data); 
+                    //console.log('ejecutando clickAceptarMasivo2 - ajax - inicio', data);
                     if (data.success) {
                         _variablesInicializar();
                         HideDialog("DialogNuevoMasivo");
@@ -626,7 +623,7 @@
                 }
             });
 
-            console.log('ejecutando clickCancelarMasivo2 - fin'); 
+            //console.log('ejecutando clickCancelarMasivo2 - fin');
         },
         clickAceptarMasivo3: function () {
             _variablesInicializar();

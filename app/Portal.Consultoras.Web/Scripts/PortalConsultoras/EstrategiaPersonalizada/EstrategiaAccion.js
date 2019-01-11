@@ -1,7 +1,6 @@
 ﻿
 // 1: escritorio Home    11 : escritorio Pedido 
 // 2: mobile  Home       21 : mobile pedido
-    //var tipoOrigenEstrategia = tipoOrigenEstrategia || "";
 
 // Cuarto Dígito
 // 0. Sin popUp         1. Con popUp

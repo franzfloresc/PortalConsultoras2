@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
@@ -13,6 +14,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
     public class MisDatosController : BaseMobileController
     {
+        private readonly ZonificacionProvider _zonificacionProvider;
+
+        public MisDatosController()
+        {
+            _zonificacionProvider = new ZonificacionProvider();
+        }
+
         public ActionResult Index(bool vc = false, string opcionCambiaClave = "")
         {
             ViewBag.DatosIniciales = new BienvenidaHomeModel();
@@ -51,12 +59,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.NombreArchivoContrato = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.Contrato_ActualizarDatos + userData.CodigoISO);
                 model.IndicadorConsultoraDigital = beusuario.IndicadorConsultoraDigital;
 
-                BEZona[] bezona;
-                using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-                {
-                    bezona = sv.SelectZonaById(userData.PaisID, userData.ZonaID);
-                }
-                model.NombreGerenteZonal = bezona.ToList().Count == 0 ? "" : bezona[0].NombreGerenteZona;
+                var bezona = _zonificacionProvider.GetZonaById(userData.PaisID, userData.ZonaID);
+
+                model.NombreGerenteZonal = bezona.NombreGerenteZona;
 
                 if (beusuario.EMailActivo) model.CorreoAlerta = "";
                 if (!beusuario.EMailActivo && beusuario.EMail != "") model.CorreoAlerta = "Su correo aun no ha sido activado";

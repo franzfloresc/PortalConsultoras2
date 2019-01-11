@@ -9,6 +9,7 @@ namespace Portal.Consultoras.Web.Models
         public int NumeroPedido { get; set; }
         public int CampaniaID { get; set; }
         public List<CampaniaModel> ListaCampania { get; set; }
+        public List<CampaniaModel> ListaPedido { get; set; }
         public string Campania { get; set; }
         public string EstadoSsic { get; set; }
         public string CUV { get; set; }
