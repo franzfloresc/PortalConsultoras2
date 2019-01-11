@@ -3,7 +3,6 @@ using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServiceSAC;
-using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -15,7 +14,7 @@ using System.Web.UI.WebControls;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class OfertaFICController : BaseController
+    public class OfertaFICController : BaseAdmController
     {
         public ActionResult Index()
         {
@@ -30,33 +29,12 @@ namespace Portal.Consultoras.Web.Controllers
             return View(oCuvBeneficioModel);
         }
 
-        private IEnumerable<PaisModel> DropDowListPaises()
-        {
-            List<BEPais> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = userData.RolID == 2
-                    ? sv.SelectPaises().ToList()
-                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
-            }
-            return Mapper.Map<IEnumerable<PaisModel>>(lst);
-        }
-
-        public JsonResult ObtenterCampanias(int PaisID)
-        {
-            var listCampania = PaisID == 0 ? null : DropDowListCampanias(PaisID);
-            return Json(new { lista = listCampania }, JsonRequestBehavior.AllowGet);
-        }
-
-        private IEnumerable<CampaniaModel> DropDowListCampanias(int paisId)
-        {
-            IList<BECampania> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = sv.SelectCampanias(paisId);
-            }
-            return Mapper.Map<IEnumerable<CampaniaModel>>(lst);
-        }
+        //movido a BaseAdm/ObtenerCampaniasPorPais
+        //public JsonResult ObtenterCampaniasPorPais(int PaisID)
+        //{
+        //    var listCampania = PaisID == 0 ? null : _zonificacionProvider.GetCampanias(PaisID);
+        //    return Json(new { lista = listCampania }, JsonRequestBehavior.AllowGet);
+        //}
 
         public JsonResult FindByCUVs(int campaniaID, int paisID, string codigo, int rowCount)
         {

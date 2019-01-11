@@ -71,7 +71,7 @@
                 $.ajaxSetup({
                     cache: false
                 });
-                $.getJSON(baseUrl + 'Cronograma/ObtenterCampaniasPorPais', { PaisID: Id == "" ? 0 : Id }, function (data) {
+                $.getJSON(baseUrl + 'BaseAdm/ObtenerCampaniasZonasPorPais', { PaisID: Id == "" ? 0 : Id }, function (data) {
                     if (checkTimeout(data)) {
                         LimpiarDependencias(Id);
 

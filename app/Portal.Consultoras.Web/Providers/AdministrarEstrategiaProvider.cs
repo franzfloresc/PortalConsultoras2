@@ -170,7 +170,7 @@ namespace Portal.Consultoras.Web.Providers
                         Zona = d.Zona,
                         EsSubCampania = d.EsSubCampania.HasValue ? (d.EsSubCampania.Value ? 1 : 0) : 0,
                         //Lan
-                        FlagIndividual = GetValorEstrategiaDetalle(Constantes.EstrategiaDetalleCamposID.FlagIndividual, d.EstrategiaDetalle) == "1" ? true : false,
+                        FlagIndividual = GetValorEstrategiaDetalle(Constantes.EstrategiaDetalleCamposID.FlagIndividual, d.EstrategiaDetalle) == "1",
                         Slogan = GetValorEstrategiaDetalle(Constantes.EstrategiaDetalleCamposID.Slogan, d.EstrategiaDetalle),
                         ImgHomeDesktop = GetValorEstrategiaDetalle(Constantes.EstrategiaDetalleCamposID.ImgHomeDesktop, d.EstrategiaDetalle),
                         ImgHomeMobile = GetValorEstrategiaDetalle(Constantes.EstrategiaDetalleCamposID.ImgHomeMobile, d.EstrategiaDetalle),
