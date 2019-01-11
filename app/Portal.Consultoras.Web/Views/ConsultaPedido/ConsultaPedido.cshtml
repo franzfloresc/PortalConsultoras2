@@ -258,7 +258,7 @@
             if (Id != "") {
                 waitingDialog({});
                 $.ajaxSetup({ cache: false });
-                $.getJSON(baseUrl + 'ConsultaPedido/ObtenterDropDownPorPais', { PaisID: Id == "" ? 0 : Id }, function (data) {
+                $.getJSON(baseUrl + 'BaseAdm/ObtenerCampaniasZonasRegionesPorPais', { PaisID: Id == "" ? 0 : Id }, function (data) {
                     if (checkTimeout(data)) {
                         var ddlCampania = $("#ddlCampania");
                         var ddlZona = $("#ddlZonas");

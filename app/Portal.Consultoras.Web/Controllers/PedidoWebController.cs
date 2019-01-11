@@ -79,7 +79,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             else total = olstPedido.Where(p => p.PedidoDetalleIDPadre == 0).Sum(p => p.ImporteTotal);
 
-            if (userData.PaisID == 4)
+            if (userData.PaisID == Constantes.PaisID.Colombia)
             {
                 model.SubTotalString = string.Format("{0:#,##0}", subtotal).Replace(',', '.');
                 model.DescuentoString = string.Format("{0:#,##0}", descuento).Replace(',', '.');
@@ -157,7 +157,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 BEPager pag = Util.PaginadorGenerico(grid, lst);
 
-                if (userData.PaisID == 4)
+                if (userData.PaisID == Constantes.PaisID.Colombia)
                 {
                     var data = new
                     {
@@ -361,7 +361,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 BEPager pag = Util.PaginadorGenerico(grid, lst);
 
-                if (userData.PaisID == 4)
+                if (userData.PaisID == Constantes.PaisID.Colombia)
                 {
                     var data = new
                     {
@@ -461,7 +461,7 @@ namespace Portal.Consultoras.Web.Controllers
                         txtBuil.Append("" + lst[i].Cantidad.ToString() + "");
                         txtBuil.Append("</td>");
 
-                        if (userData.PaisID == 4)
+                        if (userData.PaisID == Constantes.PaisID.Colombia)
                         {
                             txtBuil.Append("<td style='font-size:11px; width: 182px; text-align: center;'>");
                             txtBuil.Append("" + userData.Simbolo + string.Format("{0:#,##0}", lst[i].PrecioUnidad).Replace(',', '.') + "");
@@ -527,7 +527,7 @@ namespace Portal.Consultoras.Web.Controllers
                     mailBody += "Total :";
                     mailBody += "</td>";
                     mailBody += "<td style='font-size:11px; text-align: center; font-weight: bold'>";
-                    if (userData.PaisID == 4)
+                    if (userData.PaisID == Constantes.PaisID.Colombia)
                     {
                         mailBody += "" + userData.Simbolo + string.Format("{0:#,##0}", total).Replace(',', '.') + "";
                     }
@@ -720,7 +720,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                             else if (arr[1] == "ImporteTotal")
                             {
-                                var importeTotal = userData.PaisID == 4
+                                var importeTotal = userData.PaisID == Constantes.PaisID.Colombia
                                     ? source.ImporteTotal.ToString("#,##0").Replace(',', '.')
                                     : source.ImporteTotal.ToString("0.00");
 
@@ -731,7 +731,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                             else if (arr[1] == "PrecioUnidad")
                             {
-                                var precioUnidad = userData.PaisID == 4
+                                var precioUnidad = userData.PaisID == Constantes.PaisID.Colombia
                                     ? source.PrecioUnidad.ToString("#,##0").Replace(',', '.')
                                     : source.PrecioUnidad.ToString("0.00");
 
@@ -755,7 +755,7 @@ namespace Portal.Consultoras.Web.Controllers
                         titlesStyleh.Font.FontColor = XLColor.FromHtml("#000000");
                         wb.NamedRanges.NamedRange("Totals").Ranges.Style = titlesStyle;
 
-                        var importeTotalPedido = userData.PaisID == 4
+                        var importeTotalPedido = userData.PaisID == Constantes.PaisID.Colombia
                             ? (sourceDetails[i]).ImporteTotalPedido.ToString("#,##0").Replace(',', '.')
                             : (sourceDetails[i]).ImporteTotalPedido.ToString("0.00");
 
