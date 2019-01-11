@@ -140,7 +140,7 @@ var productoComentarioAdmModule = (function () {
         var listarCampaniasPromise = _listarCampaniasPromise(paisId);
         $.when(listarCampaniasPromise).then(function (campaniasResponse) {
             if (checkTimeout(campaniasResponse)) {
-                listaCampanias = campaniasResponse.listaCampanias;
+                listaCampanias = campaniasResponse.lista;
                 _cargarCampanias();
             }
         });

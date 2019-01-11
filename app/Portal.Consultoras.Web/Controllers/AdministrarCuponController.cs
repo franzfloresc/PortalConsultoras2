@@ -1,8 +1,6 @@
-﻿using AutoMapper;
-using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
-using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,7 +12,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class AdministrarCuponController : BaseController
+    public class AdministrarCuponController : BaseAdmController
     {
         public ActionResult Index(AdmCuponModel model)
         {
@@ -23,7 +21,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!UsuarioModel.HasAcces(ViewBag.Permiso, "AdministrarCupon/Index"))
                     return RedirectToAction("Index", "Bienvenida");
 
-                model.ListaPaises = ListarPaises();
+                model.ListaPaises = DropDowListPaises();
                 model.ListaCampanias = new List<CampaniaModel>();
 
                 return View(model);
@@ -363,19 +361,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return listaCuponConsultoras;
-        }
-
-        private IEnumerable<PaisModel> ListarPaises()
-        {
-            List<BEPais> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = userData.RolID == 2
-                    ? sv.SelectPaises().ToList()
-                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
-            }
-
-            return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
 
         #region Mapeo

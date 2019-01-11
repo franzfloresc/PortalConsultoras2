@@ -47,7 +47,7 @@
     <div class="field8 auto-height lastfield">
         @Html.ValidationMessageFor(m => Model.ApellidoPaterno)
     </div>
-    if (Model.CodigoISO == "CL")
+    if (Model.CodigoISO == Constantes.CodigosISOPais.Chile)
     {
         <div class="field4 no-margin-bottom">
             <b>*</b>Apellido materno
@@ -60,7 +60,7 @@
             @Html.ValidationMessageFor(m => Model.ApellidoMaterno)
         </div>
     }
-    else if (Model.CodigoISO == "CO" || Model.CodigoISO == "MX")
+    else if (Model.CodigoISO == Constantes.CodigosISOPais.Colombia || Model.CodigoISO == Constantes.CodigosISOPais.Mexico)
     {
         <div class="field4 no-margin-bottom">Apellido materno</div>
         <div class="field8 no-margin-bottom lastfield">
@@ -70,7 +70,7 @@
         <div class="field8 auto-height lastfield"></div>
     }
 
-    if (Model.CodigoISO == "MX")
+    if (Model.CodigoISO == Constantes.CodigosISOPais.Mexico)
     {
         <div class="field4 no-margin-bottom">
             <b>*</b>Fecha nacimiento
