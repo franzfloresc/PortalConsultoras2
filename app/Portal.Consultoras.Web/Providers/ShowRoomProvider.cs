@@ -503,7 +503,6 @@ namespace Portal.Consultoras.Web.Providers
         {
             if (_ofertaBaseProvider.UsarMsPersonalizacion(model.CodigoISO, Constantes.TipoEstrategiaCodigo.ShowRoom))
             {
-                List<ShowRoomPersonalizacionModel> personalizaciones = configEstrategiaSR.ListaPersonalizacionConsultora;
                 var carpetaPais = Globals.UrlMatriz + "/" + model.CodigoISO;
                 configEstrategiaSR.ListaPersonalizacionConsultora.ForEach(item => item.Valor = item.TipoAtributo == "IMAGEN" ? ConfigCdn.GetUrlFileCdn(carpetaPais, item.Valor) : item.Valor);
             }
@@ -720,7 +719,6 @@ namespace Portal.Consultoras.Web.Providers
 
         public List<ServiceOferta.BEEstrategia> GetShowRoomOfertasConsultora()
         {
-            List<ServiceOferta.BEEstrategia> listEstrategia = new List<ServiceOferta.BEEstrategia>();
             UsuarioModel userData = _sessionManager.GetUserData();
 
             string pathShowroom = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerOfertas,
