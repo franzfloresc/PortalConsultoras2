@@ -2061,7 +2061,20 @@ function CalculoPosicionMensajeDestokp() {
     var montoActual = mtoLogroBarra;
     var montoMaximo = dataBarra.MontoMaximo;
 
-    var AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMaximo);
+
+    var AvancePorcentaje;
+    if (TieneMontoMaximo()) {
+        AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMaximo);
+    }
+    else {
+        montoMaximo = dataBarra.ListaEscalaDescuento[3].MontoDesde + 500;
+        AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMaximo);
+
+    }
+
+
+
+    
 
     if (AvancePorcentaje.substring(0, AvancePorcentaje.length - 1) * 1 > 66) {
         AvancePorcentaje = '67%';
