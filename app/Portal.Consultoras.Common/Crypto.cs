@@ -181,5 +181,22 @@ namespace Portal.Consultoras.Common
             }
             return clearText;
         }
+
+        public static string CreateMD5(string input)
+        {
+            using (var md5Hash = MD5.Create())
+            {
+                var data = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(input));
+
+                var sBuilder = new StringBuilder();
+
+                for (int i = 0; i < data.Length; i++)
+                {
+                    sBuilder.Append(data[i].ToString("x2"));
+                }
+
+                return sBuilder.ToString();
+            }
+        }
     }
 }
