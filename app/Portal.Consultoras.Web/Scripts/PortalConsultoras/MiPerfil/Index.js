@@ -946,9 +946,9 @@ var GoogleMap = function() {
         },
         ValidacionMapa: function() {
             $('#Direccion').focusout(function () {
-                debugger;
+                
                 if (EsMobile == 'True' && $(this).val().length === 0) {
-                    debugger;
+                    
                     $('.enlace_abrir_mapa')[0].disabled = true;
                     $('.enlace_abrir_mapa').addClass('enlace_abrir_mapa_disabled');
                 }
@@ -993,7 +993,7 @@ var GoogleMap = function() {
             me.Propiedades.longitudIni = 0;
         },
         LimpiarControlesMap: function () {
-            debugger;
+            
             me.Funciones.LimpiarMapa();
             $('#Direccion').val('');
             if (EsMobile == 'True') {
@@ -1002,7 +1002,7 @@ var GoogleMap = function() {
             }
         },
         ConfirmarUbicacion: function () {
-            debugger;
+            
                 var coordenadas = {
                     lat: me.Propiedades.latitudFin,
                     lng: me.Propiedades.longitudFin
@@ -1036,7 +1036,7 @@ var GoogleMap = function() {
     };
     me.Eventos = {
         PlaceChanged: function() {
-            debugger;
+            
             var place = searchBox.getPlace();
             if (!place.geometry) {
                 return;
