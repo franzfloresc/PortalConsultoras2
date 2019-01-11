@@ -36,7 +36,8 @@ namespace Portal.Consultoras.Web.Controllers
                 CampaniaSiguiente = Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias).ToString(),
                 TieneSeccionRD = (revistaDigital.TieneRDC && !userData.TieneGND && !revistaDigital.EsSuscrita) || revistaDigital.TieneRDI,
                 TieneSeccionRevista = !revistaDigital.TieneRDC || !revistaDigital.EsActiva,
-                TieneGND = userData.TieneGND
+                TieneGND = userData.TieneGND,
+                EsDispositivoMovil = EsDispositivoMovil()
             };
             clienteModel.Titulo = clienteModel.TieneSeccionRD || clienteModel.TieneSeccionRevista ? "Catálogos y Revistas" : "Catálogos";
             clienteModel.CodigoRevistaActual = _issuuProvider.GetRevistaCodigoIssuu(clienteModel.CampaniaActual, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
@@ -46,6 +47,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             ViewBag.Demo = demo;
             ViewBag.EsConsultoraNueva = userData.EsConsultoraNueva;
+
+
             if (Constantes.PaisID.Bolivia == userData.PaisID || Constantes.PaisID.Chile == userData.PaisID || Constantes.PaisID.Colombia == userData.PaisID ||
                 Constantes.PaisID.CostaRica == userData.PaisID || Constantes.PaisID.Ecuador == userData.PaisID || Constantes.PaisID.Mexico == userData.PaisID ||
                 Constantes.PaisID.Peru == userData.PaisID)

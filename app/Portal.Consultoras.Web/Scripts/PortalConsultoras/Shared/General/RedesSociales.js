@@ -2,7 +2,7 @@
 
     var _variables = {
         clickDataCompartir: "[data-compartir]",
-        mensajeURLws: "Hola, revisa los catálogos de esta campaña y pide todo lo que quieras solo dándole click al producto que deseas"
+        mensajeURLws: "Hola, revisa los catálogos de esta campaña y pide todo lo que quieras solo dándole click al producto que deseas "
     }
 
     var CompartirRedesSociales = function (e) {
@@ -227,7 +227,7 @@
             'event': 'virtualEvent',
             'category': 'Catálogos y revistas',
             'action': 'Compartir FB',
-            'label': catalogo,
+            'label': campaniaCatalogo,
             'value': 0
         });
         InsertarLogCatalogoDynamo('Facebook', campaniaCatalogo, catalogo, 1);
@@ -247,15 +247,13 @@
             'event': 'virtualEvent',
             'category': 'Catálogos y revistas',
             'action': 'Compartir email – clic botón',
-            'label': tipoCatalogo,
+            'label': tipoCatalogo == 'Todo' ? campania : tipoCatalogo,
             'value': 0
         });
 
         $("#comentarios").val(valContenidoCorreoPilotoDefecto);
         // remover todos los tag
         $('#tagCorreo').removeTagAll();
-        // asignar el check al catalogo correspondiente mediante tipoCatalogo
-        campaniaEmail = campania;
         $("#divCheckbox").find("[type='checkbox']").removeAttr('checked');
         
         if (tipoCatalogo == 'Todo') {
@@ -303,7 +301,7 @@
             'event': 'virtualEvent',
             'category': 'Catálogos y revistas',
             'action': 'Compartir WhatsApp',
-            'label': catalogo,
+            'label': campania,
             'value': 0
         });
         InsertarLogCatalogoDynamo('Whatsapp', campania, catalogo, 1);

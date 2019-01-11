@@ -27,7 +27,7 @@ var aCamRev = new Array();
 
 $(document).ready(function () {
 
-        //configurarContenedorExpoOfertas();
+    configurarContenedorExpoOfertas();
     campSelect = getNumeroCampania(getCodigoCampaniaActual());
     $('#campaniaRevista').val(getCodigoCampaniaActual());
     $("#contentCatalogo #TextoCampania").text("CATÁLOGOS C-" + campSelect);
@@ -239,7 +239,6 @@ function configurarContenedorExpoOfertas() {
 
                 $("#catalogoExpoferta").css("cursor", "pointer");
                 $('#contenedorExpofertaMCR').hide();
-
                 if (urlExpoferta.length > 0) {
                     $('#contenedorExpofertaMCR').show();
                     $('#catalogoExpoferta').click(function () {
@@ -431,8 +430,10 @@ function ObtenerEstadoCatalogo(campana, defered) {
 }
 
 function GetUrlTextoActual(campania) {
-    var url = demo == '1' ? "http://catalogodigital-develop.altimeafactory.com/?iso={1}&consultant=035821619&page=1" : urlPiloto;
-    url = url.replace("{0}", campania).replace("{1}", IsoPais).replace("{2}", codigoConsultora);
+    //var url = demo == '1' ? "http://catalogodigital-develop.altimeafactory.com/?iso={1}&consultant=035821619&page=1" : urlPiloto;
+    //url = url.replace("{0}", campania).replace("{1}", IsoPais).replace("{2}", codigoConsultora);
+    var url = demo == '1' ? "http://catalogodigital-develop.altimeafactory.com/?iso={0}&consultant=035821619" : urlPiloto;
+    url = url.replace("{0}", IsoPais).replace("{1}", codigoConsultora);
     return url;
 }
 
@@ -854,7 +855,7 @@ function RevistaMostrar(accion, btn) {
 
     $("#contentRevista [data-accion] img").show();
 
-    $("#contentRevista > span[data-accion] img").show();
+    $("#contentRevista > a[data-accion] img").show();
     if (rCampSelectI == 0 || rCampSelectI == cantCamRev - 1) {
         $(btn).hide();
     }
@@ -881,7 +882,7 @@ function MostrarRevistaCorrecta(codigoCampania) {
         if (checkTimeout(promiseResult)) {
             var urlImagen = promiseResult || defaultImageRevista;
             $("#imgPortadaGana").attr("src", urlImagen);
-            $("#contentRevista .titulo_central[data-titulo='revista']").text("REVISTA C-" + getNumeroCampania(codigoCampania));
+            $("#contentRevista > [data-titulo='revista']").text("REVISTA C-" + getNumeroCampania(codigoCampania));
             FinRenderCatalogo();
         }
     });
