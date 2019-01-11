@@ -229,7 +229,7 @@ else
                                 </fieldset>
                                 <fieldset class="grupo_form_cambio_datos">
                                     <div class="w-100">
-                                        @Html.TextBoxFor(x => x.DireccionEntrega.Referencia, new { @class = "w-100 campo_referencia", id = "Referencia" })
+                                        @Html.TextBoxFor(x => x.DireccionEntrega.Referencia, new { @class = "w-100 campo_referencia", id = "Referencia", maxlength = "400" })
                                         <label for="Referencia" class="w-100">
                                             Referencia
                                         </label>
