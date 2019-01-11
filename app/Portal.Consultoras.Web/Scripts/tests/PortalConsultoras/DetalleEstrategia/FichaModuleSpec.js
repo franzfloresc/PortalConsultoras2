@@ -2,27 +2,21 @@
 /// <reference path="../../../PortalConsultoras/DetalleEstrategia/FichaModule.js" />
 
 describe("FichaModule", function () {
-    describe("Inicializar", function () {
+    describe("Constructor", function () {
+        var errorMsg = '';
 
-        //beforeAll(function () {
-        //    //
-        //});
-        //afterAll(function () {
-        //    //
-        //});
+        beforeEach(function () {
+            errorMsg = ''
+        });
 
-        //beforeEach(function () {
-        //    //
-        //});
         //afterEach(function () {
-        //    //
+        //    // runs after each test in this block
         //});
 
         it("throw an exception when config is undefined", function () {
-            var errorMsg = '';
 
             try {
-                var ficha = FichaModule(undefined);
+                FichaModule(undefined);
             } catch (error) {
                 errorMsg = error;
             }
@@ -31,10 +25,9 @@ describe("FichaModule", function () {
         });
 
         it("throw an exception when config is null", function () {
-            var errorMsg = '';
 
             try {
-                var ficha = FichaModule(null);
+                FichaModule(null);
             } catch (error) {
                 errorMsg = error;
             }
@@ -43,10 +36,9 @@ describe("FichaModule", function () {
         });
 
         it("throw an exception when localStorage is undefined", function () {
-            var errorMsg = '';
 
             try {
-                var ficha = FichaModule({
+                FichaModule({
                     localStorageModule: undefined
                 });
             } catch (error) {
@@ -57,10 +49,9 @@ describe("FichaModule", function () {
         });
 
         it("throw an exception when localStorage is null", function () {
-            var errorMsg = '';
 
             try {
-                var ficha = FichaModule({
+                FichaModule({
                     localStorageModule: null
                 });
             } catch (error) {
@@ -69,5 +60,21 @@ describe("FichaModule", function () {
 
             expect(errorMsg).to.have.string("config.localStorageModule is null or undefined");
         });
+    });
+
+    describe("Inicializar", function () {
+        var fichaModule = null;
+
+        beforeEach(function () {
+            fichaModule = null;
+        });
+
+        //it("should return to /ofertas when estrategia is null", function () {
+
+        //    fichaModule = FichaModule({});
+        //    fichaModule.Inicializar();
+
+        //    expect(errorMsg).to.have.string("config is null or undefined");
+        //});
     });
 });
