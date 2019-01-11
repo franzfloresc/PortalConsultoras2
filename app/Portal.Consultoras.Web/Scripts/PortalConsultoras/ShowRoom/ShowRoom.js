@@ -352,7 +352,6 @@ function CargarProductosShowRoomPromise(busquedaModel) {
 function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosSubCampanias, busquedaModel) {
     var objData = {};
     if (response.success) {
-
         console.log('cantidadTotal-0', response);
         response.totalOfertas = response.cantidadTotal0;
         response.listaOfertas = Clone(response.lista || []);

@@ -76,6 +76,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 List<BETablaLogicaDatos> datGaBoton;
                 List<BETablaLogicaDatos> configCarouselLiquidacion;
+                
+                _showRoomProvider.CargarEventoConsultora(userData);
 
                 using (var sv = new SACServiceClient())
                 {
@@ -233,7 +235,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.TienePagoEnLinea = userData.TienePagoEnLinea;
                 model.MostrarPagoEnLinea = (userData.MontoDeuda > 0);
 
-                #region Camino al Exito
+                #region Camino al Éxito
 
                 var LogicaCaminoExisto = _tablaLogica.ObtenerConfiguracion(userData.PaisID, Constantes.TablaLogica.EscalaDescuentoDestokp);
                 if (LogicaCaminoExisto.Any())
@@ -1293,7 +1295,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #endregion
-        
+
         #region ShowRoom
 
         [HttpPost]
@@ -1301,7 +1303,10 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var entidad = new BEShowRoomEventoConsultora
+                _showRoomProvider.CargarEventoConsultora(userData);
+                _showRoomProvider.CargarEventoPersonalizacion(userData);
+                configEstrategiaSR = SessionManager.GetEstrategiaSR();
+               var entidad = new BEShowRoomEventoConsultora
                 {
                     CodigoConsultora = userData.CodigoConsultora,
                     CampaniaID = userData.CampaniaID,
@@ -1309,7 +1314,7 @@ namespace Portal.Consultoras.Web.Controllers
                     EventoConsultoraID = configEstrategiaSR.BeShowRoomConsultora.EventoConsultoraID,
                 };
 
-                this._showRoomProvider.ActualizarEventoConsultora(entidad, TipoShowRoom);
+                _showRoomProvider.ActualizarEventoConsultora(entidad, TipoShowRoom);
 
                 if (TipoShowRoom == "I")
                 {
@@ -1372,17 +1377,22 @@ namespace Portal.Consultoras.Web.Controllers
 
                 }
 
-                if (!configEstrategiaSR.CargoEntidadesShowRoom)
-                {
-                    return Json(new
-                    {
-                        success = false,
-                        data = "",
-                        message = ""
-                    });
-                }
+                //if (!configEstrategiaSR.CargoEntidadesShowRoom)
+                //{
+                //    return Json(new
+                //    {
+                //        success = false,
+                //        data = "",
+                //        message = ""
+                //    });
+                //}
 
-                var showRoom = configEstrategiaSR.BeShowRoom ?? new ShowRoomEventoModel();
+                //var showRoom = configEstrategiaSR.BeShowRoom ?? new ShowRoomEventoModel();
+
+                ShowRoomEventoModel showRoom = null;
+
+                configEstrategiaSR = SessionManager.GetEstrategiaSR();
+                showRoom = configEstrategiaSR.BeShowRoom;
 
                 if (showRoom.Estado == SHOWROOM_ESTADO_INACTIVO)
                 {

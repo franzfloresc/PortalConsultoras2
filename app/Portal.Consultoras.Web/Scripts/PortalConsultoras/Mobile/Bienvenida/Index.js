@@ -176,7 +176,7 @@ function CrearPopShow() {
 }
 
 function MostrarShowRoom() {
-
+    debugger;
     if (!sesionEsShowRoom) {
         return;
     }

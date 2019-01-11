@@ -29,6 +29,7 @@ namespace Portal.Consultoras.Web.Providers
         private const string EnabledCode = "bar_in_act";
         private const string NoUrlAllowed = "bar_in_no";
         private const short Pl50Key = 98;
+        const int SHOWROOM_ESTADO_ACTIVO = 1;
 
         private readonly TablaLogicaProvider _tablaLogicaProvider;
         private readonly ILogManager _logManager;
@@ -330,13 +331,13 @@ namespace Portal.Consultoras.Web.Providers
             var configEstrategiaSR = _sessionManager.GetEstrategiaSR() ?? new ConfigModel();
             try
             {
-                if (configEstrategiaSR.CargoEntidadNivel)
+                if (!configEstrategiaSR.CargoEntidadNivel)
                 {
                     configEstrategiaSR.ListaNivel = GetShowRoomNivel(model);
                     configEstrategiaSR.ShowRoomNivelId = (configEstrategiaSR.ListaNivel != null && configEstrategiaSR.ListaNivel.Count > 0) ?
                                                             ObtenerNivelId(configEstrategiaSR.ListaNivel) : 0;
 
-                    configEstrategiaSR.CargoEntidadNivel = configEstrategiaSR.ListaNivel != null && 
+                    configEstrategiaSR.CargoEntidadNivel = configEstrategiaSR.ListaNivel != null &&
                                                            configEstrategiaSR.ShowRoomNivelId != 0;
                     _sessionManager.SetEstrategiaSR(configEstrategiaSR);
                 }
@@ -346,46 +347,51 @@ namespace Portal.Consultoras.Web.Providers
                 Common.LogManager.SaveLog(ex, model.CodigoConsultora, model.CodigoISO);
                 configEstrategiaSR.CargoEntidadEventoConsultora = false;
                 configEstrategiaSR.ConfiguracionPaisDatos = new List<ConfiguracionPaisDatosModel>();
-            }            
+            }
         }
 
         public void CargarEventoConsultora(UsuarioModel model)
         {
             var configEstrategiaSR = _sessionManager.GetEstrategiaSR() ?? new ConfigModel();
-            const int SHOWROOM_ESTADO_ACTIVO = 1;
-            _sessionManager.SetEsShowRoom("0");
-            _sessionManager.SetMostrarShowRoomProductos("0");
-            _sessionManager.SetMostrarShowRoomProductosExpiro("0");
+
+
             try
             {
-                if (model.CampaniaID != 0 && configEstrategiaSR.BeShowRoomConsultora == null)
+                if (!configEstrategiaSR.CargoEntidadEventoConsultora)
                 {
-                    CargarEventoPersonalizacion(model);
-                    configEstrategiaSR.BeShowRoomConsultora = GetShowRoomConsultora(model, configEstrategiaSR.BeShowRoom);
-                }
+                    _sessionManager.SetEsShowRoom("0");
+                    _sessionManager.SetMostrarShowRoomProductos("0");
+                    _sessionManager.SetMostrarShowRoomProductosExpiro("0");
 
-                if (configEstrategiaSR.BeShowRoom != null &&
-                        configEstrategiaSR.BeShowRoom.Estado == SHOWROOM_ESTADO_ACTIVO &&
-                        configEstrategiaSR.BeShowRoomConsultora != null)
-                {
-                    _sessionManager.SetEsShowRoom("1");
-
-                    var fechaHoy = model.FechaHoy;
-
-                    if (fechaHoy >= model.FechaInicioCampania.AddDays(-configEstrategiaSR.BeShowRoom.DiasAntes).Date
-                        && fechaHoy <= model.FechaInicioCampania.AddDays(configEstrategiaSR.BeShowRoom.DiasDespues).Date)
+                    if (model.CampaniaID != 0 && configEstrategiaSR.BeShowRoomConsultora == null)
                     {
-                        _sessionManager.SetMostrarShowRoomProductos("1");
+                        CargarEventoPersonalizacion(model);
+                        configEstrategiaSR.BeShowRoomConsultora = GetShowRoomConsultora(model, configEstrategiaSR.BeShowRoom);
                     }
 
-                    if (fechaHoy > model.FechaInicioCampania.AddDays(configEstrategiaSR.BeShowRoom.DiasDespues).Date)
+                    if (configEstrategiaSR.BeShowRoom != null &&
+                           configEstrategiaSR.BeShowRoom.Estado == SHOWROOM_ESTADO_ACTIVO &&
+                           configEstrategiaSR.BeShowRoomConsultora != null)
                     {
-                        _sessionManager.SetMostrarShowRoomProductosExpiro("1");
-                        configEstrategiaSR.ConfiguracionPaisDatos = new List<ConfiguracionPaisDatosModel>();
+                        _sessionManager.SetEsShowRoom("1");
+
+                        var fechaHoy = model.FechaHoy;
+
+                        if (fechaHoy >= model.FechaInicioCampania.AddDays(-configEstrategiaSR.BeShowRoom.DiasAntes).Date
+                            && fechaHoy <= model.FechaInicioCampania.AddDays(configEstrategiaSR.BeShowRoom.DiasDespues).Date)
+                        {
+                            _sessionManager.SetMostrarShowRoomProductos("1");
+                        }
+
+                        if (fechaHoy > model.FechaInicioCampania.AddDays(configEstrategiaSR.BeShowRoom.DiasDespues).Date)
+                        {
+                            _sessionManager.SetMostrarShowRoomProductosExpiro("1");
+                            configEstrategiaSR.ConfiguracionPaisDatos = new List<ConfiguracionPaisDatosModel>();
+                        }
                     }
+                    configEstrategiaSR.CargoEntidadEventoConsultora = configEstrategiaSR.BeShowRoomConsultora != null;
+                    _sessionManager.SetEstrategiaSR(configEstrategiaSR);
                 }
-                configEstrategiaSR.CargoEntidadEventoConsultora = configEstrategiaSR.BeShowRoomConsultora != null;
-                _sessionManager.SetEstrategiaSR(configEstrategiaSR);
             }
             catch (Exception ex)
             {
@@ -431,6 +437,7 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
+        [Obsolete("Se dejará de usar este método porque se ha divido su funcionalidad: CargarEventoPersonalizacion - CargarEventoConsultora - CargarNivelShowRoom")]
         public void CargarEntidadesShowRoom(UsuarioModel model)
         {
             var configEstrategiaSR = _sessionManager.GetEstrategiaSR() ?? new ConfigModel();
@@ -534,9 +541,9 @@ namespace Portal.Consultoras.Web.Providers
 
             if (!PaisTieneShowRoom(codigoIso))
                 return new ShowRoomBannerLateralModel { ConsultoraNoEncontrada = true };
-
+            
             var configEstrategiaSR = _sessionManager.GetEstrategiaSR();
-            if (!configEstrategiaSR.CargoEntidadesShowRoom)
+            if (!configEstrategiaSR.CargoEntidadEventoConsultora)
                 return new ShowRoomBannerLateralModel { ConsultoraNoEncontrada = true };
 
             model.BEShowRoomConsultora = configEstrategiaSR.BeShowRoomConsultora ?? new ShowRoomEventoConsultoraModel();
@@ -675,7 +682,7 @@ namespace Portal.Consultoras.Web.Providers
         public bool ValidarIngresoShowRoom(bool esIntriga)
         {
             var configEstrategiaSR = _sessionManager.GetEstrategiaSR();
-            if (!configEstrategiaSR.CargoEntidadesShowRoom)
+            if (!configEstrategiaSR.CargoEntidadEventoConsultora)
                 return false;
 
             var resultado = false;

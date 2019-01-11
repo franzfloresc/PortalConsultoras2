@@ -14,6 +14,7 @@ namespace Portal.Consultoras.Web.Models.Estrategia.ShowRoom
             ListaPersonalizacionConsultora = new List<ShowRoomPersonalizacionModel>();
         }
 
+        [Obsolete("Esta variable se dejará de usar por estas: CargoEntidadEventoPersonalizacion - CargoEntidadNivel - CargoEntidadEventoConsultora")]
         public bool CargoEntidadesShowRoom { get; set; }
 
         public bool CargoEntidadEventoPersonalizacion { get; set; }

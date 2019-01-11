@@ -2519,7 +2519,7 @@ function CrearPopShow() {
     });
 }
 function MostrarShowRoom() {
-
+    debugger;
     if (viewBagRol == 1) {
         if (!sesionEsShowRoom) {
             return;
@@ -3158,11 +3158,12 @@ function click_no_volver_a_ver_este_anuncio_PopShowroomVenta() {
 }
 
 function MostrarPopupInicial() {
+    
     if (showPopupMisDatos == '1' || popupCambioClave == "1") {
         CargarMisDatos();
         return;
     }
-
+    debugger;
     switch (TipoPopUpMostrar) {
         case popupAceptacionContrato:
             if (ObtenerEstadoContrato()) PopupMostrar('popupAceptacionContrato');
