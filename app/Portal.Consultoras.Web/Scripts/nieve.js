@@ -1,7 +1,7 @@
 var fallingObjects = new Array();
 var listaIconoLluvia = listaIconoLluvia || null;
 var iconoLluvia = iconoLluvia || null;
-var esMobile = esMobile || false;
+var esMobile = isMobile();
 var vfallSpeed = vfallSpeed || 15;
 var vnumObjects = vnumObjects || 100;
 var noIniciarLluvia = noIniciarLluvia || false;
