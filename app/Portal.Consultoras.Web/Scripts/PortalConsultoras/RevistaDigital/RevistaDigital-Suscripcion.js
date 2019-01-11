@@ -170,7 +170,7 @@ function MostrarTerminos() {
         win.focus();
     } else {
         //Browser has blocked it
-        console.log("Habilitar mostrar popup");
+        //console.log("Habilitar mostrar popup");
     }
 }
 

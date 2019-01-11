@@ -185,7 +185,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                             "</tr>"
                           );
 
-            if (userData.PaisID == 4 && lst.Any())
+            if (userData.PaisID == Constantes.PaisID.Colombia && lst.Any())
             {
                 for (int i = 0; i < lst.Count - 1; i++)
                 {
