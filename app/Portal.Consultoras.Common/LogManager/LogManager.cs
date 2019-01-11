@@ -239,6 +239,12 @@ namespace Portal.Consultoras.Common
                 if (logError.Exception != null)
                 {
                     exceptionMessage = logError.Exception.Message;
+
+                    if (logError.Exception.StackTrace != null)
+                    {
+                        exceptionMessage += logError.Exception.StackTrace;
+                    }
+
                 }
 
                 string className;
