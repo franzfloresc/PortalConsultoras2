@@ -99,7 +99,7 @@ $(document).ready(function () {
 
     $('.tab__catalogos a').on('click', function (e) {
         e.preventDefault();
-        $('.contenido__seccion__mi__revista').fadeOut(200);
+        $('.mi__revista__y__marquesina__rd__wrapper').fadeOut(200);
         $('.contenido__seccion__catalogo').fadeIn(200);
         $('.indicador__catalogos__revistas').removeClass('indicador__catalogos__revistas--activo');
         $(this).next().addClass('indicador__catalogos__revistas--activo');
@@ -108,7 +108,7 @@ $(document).ready(function () {
     $('.tab__revistas a').on('click', function (e) {
         e.preventDefault();
         $('.contenido__seccion__catalogo').fadeOut(200);
-        $('.contenido__seccion__mi__revista').fadeIn(200);
+        $('.mi__revista__y__marquesina__rd__wrapper').fadeIn(200);
         $('.indicador__catalogos__revistas').removeClass('indicador__catalogos__revistas--activo');
         $(this).next().addClass('indicador__catalogos__revistas--activo');
     });

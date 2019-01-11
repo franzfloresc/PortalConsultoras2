@@ -189,6 +189,7 @@ hr{
     margin-bottom:39px;
 }
 
+.revista__por__campania__num,
 .revista__por__campania__num span,
 .catalogos__por__campania__num span
 {
@@ -449,7 +450,7 @@ hr{
 .mi__revista__wrapper{
     background-color:#ecebf0;
     min-height:327px;
-    padding-top:20px;
+    padding-top:24px;
     padding-bottom:20px;
 }
 
@@ -507,6 +508,39 @@ hr{
     box-shadow: none;
     background: transparent;
 }
+
+/* AJUSTES REVISTA DIGITAL (DESKTOP) */
+
+.expoferta_revista{
+    margin-top:70px;
+}
+
+.content_belcorp {
+    max-width: 1189px;
+    margin: 0 auto;
+    height: auto;
+    position: relative;
+    font-family: 'Lato';
+}
+
+.hblock_text div{
+    color:#FFF;
+}
+
+.hblock_text div:last-child{
+    font-weight:300!important;
+}
+
+.activar_boton_dorado_a_blanco a{
+    color:#FFF!important;
+    font-weight:700!important;
+}
+
+.activar_boton_dorado_a_blanco a:hover{
+    color:#000!important;
+}
+
+/* FIN - AJUSTES REVISTA DIGITAL (DESKTOP) */
 
 /* POPUP COMPARTIR CATÁLOGO */
 
@@ -836,6 +870,7 @@ input[type='checkbox']:checked + span:after {
     }
 
     .catalogos__por__campania__num span,
+    .revista__por__campania__num,
     .revista__por__campania__num span
     {
         font-size:16px;
@@ -1096,9 +1131,13 @@ input[type='checkbox']:checked + span:after {
         margin-top:20px;
     }
 
-    .mi__revista__wrapper{
+    .mi__revista__y__marquesina__rd__wrapper{
         display:none;
+    }
+
+    .mi__revista__wrapper{
         background-color:#FFF;
+        padding-top:20px;
     }
 
     .revista__por__campania__num{
@@ -1130,6 +1169,20 @@ input[type='checkbox']:checked + span:after {
     .revistas__por__campania__slider__control__der{
         left:15px;
     }
+
+    /* AJUSTES REVISTA DIGITAL (MOBILE) */
+
+    .expoferta_revista{
+        margin-top:2px;
+    }
+
+    .btn_dorado a,
+    .btn_dorado a:hover
+    {
+        color:#FFF!important;
+    }
+
+    /* FIN - AJUSTES REVISTA DIGITAL (MOBILE) */
 
     /* POPUP COMPARTIR CATÁLOGO MOBILE */
 
