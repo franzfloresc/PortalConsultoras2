@@ -242,7 +242,7 @@ namespace Portal.Consultoras.Common
 
                     if (logError.Exception.StackTrace != null)
                     {
-                        exceptionMessage += logError.Exception.StackTrace;
+                        exceptionMessage += " - " + logError.Exception.StackTrace;
                     }
 
                 }
