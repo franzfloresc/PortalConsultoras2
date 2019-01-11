@@ -147,8 +147,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     Enumeradores.ValidacionVentaExclusiva numExclu = ValidarVentaExclusiva(usuario, productoBuscar.CodigoDescripcion);
                     if (numExclu != Enumeradores.ValidacionVentaExclusiva.ContinuaFlujo)
                         return ProductoBuscarRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_NOPERTENECE_VENTAEXCLUSIVA);
-                    
-                }                
+
+                }
                 #endregion
 
                 //Validación producto no existe
@@ -383,9 +383,9 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 }
 
                 //Duo Perfecto
-                if(usuario.CodigoPrograma != string.Empty && usuario.ConsecutivoNueva > 0)
+                if (usuario.CodigoPrograma != string.Empty && usuario.ConsecutivoNueva > 0)
                     lstDetalle.Where(x => x.FlagNueva && x.EnRangoProgNuevas)
-                        .Update( x => x.EsDuoPerfecto = _programaNuevasBusinessLogic.EsCuvDuoPerfecto(usuario.PaisID, usuario.CampaniaID, usuario.ConsecutivoNueva, usuario.CodigoPrograma, x.CUV));
+                        .Update(x => x.EsDuoPerfecto = _programaNuevasBusinessLogic.EsCuvDuoPerfecto(usuario.PaisID, usuario.CampaniaID, usuario.ConsecutivoNueva, usuario.CodigoPrograma, x.CUV));
             }
             catch (Exception ex)
             {
@@ -1706,7 +1706,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
             PedidoInsertar(usuario, pedidoDetalle, lstDetalle, true);
         }
 
-        private bool ValidarStockLimiteVenta(BEUsuario usuario, BEPedidoDetalle pedidoDetalle, List<BEPedidoWebDetalle> pedido, out string mensaje) {            
+        private bool ValidarStockLimiteVenta(BEUsuario usuario, BEPedidoDetalle pedidoDetalle, List<BEPedidoWebDetalle> pedido, out string mensaje)
+        {
             var cantidadActual = pedido.Where(d => d.CUV == pedidoDetalle.Producto.CUV).Sum(d => d.Cantidad);
             var respValidar = _limiteVentaBusinessLogic.CuvTieneLimiteVenta(usuario.PaisID, usuario.CampaniaID, usuario.CodigorRegion, usuario.CodigoZona, pedidoDetalle.Producto.CUV, pedidoDetalle.Cantidad, cantidadActual);
             if (respValidar.TieneLimite) mensaje = string.Format(Constantes.MensajesError.ExcedioLimiteVenta, respValidar.UnidadesMaximas);
@@ -2557,7 +2558,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                                                                 usuario.AceptacionConsultoraDA);
             if (validacionHorario.MotivoPedidoLock != Enumeradores.MotivoPedidoLock.Ninguno)
                 return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_RESERVADO_HORARIO_RESTRINGIDO, validacionHorario.Mensaje);
-            
+
             //Obtener Detalle
             var pedidoDetalleBuscar = new BEPedidoBuscar()
             {
@@ -2579,9 +2580,12 @@ namespace Portal.Consultoras.BizLogic.Pedido
             //validacion duo perfecto
             if (esDuoPerfecto)
             {
-                cntProd = lstDetalle.Where(x => x.FlagNueva && x.EnRangoProgNuevas).Count();
+                lstDetalle.Where(x => x.FlagNueva && x.EnRangoProgNuevas)
+                       .Update(x => x.EsDuoPerfecto = _programaNuevasBusinessLogic.EsCuvDuoPerfecto(usuario.PaisID, usuario.CampaniaID, usuario.ConsecutivoNueva, usuario.CodigoPrograma, x.CUV));
+                cntProd = lstDetalle.Where(x => x.EsDuoPerfecto).Count();
 
-                if (cntProd == 2)
+                //El duo perfecto solo acepta dos productos.
+                if (cntProd >= 2)
                     return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_DUO_COMPLETO_COMPLETO, string.Format(Constantes.ProgNuevas.Mensaje.Electivo_NoAgregarPorLimite, Constantes.ProgNuevas.Mensaje.Electivo_PromocionNombre));
             }
 
@@ -2597,14 +2601,14 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 var cantidadActual = lstDetalleAgrupado.Where(x => x.CUV == estrategia.CUV2).Sum(x => x.Cantidad);
                 if (cantidadActual + estrategia.Cantidad > estrategia.LimiteVenta)
                 {
-                        return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_CANTIDAD_LIMITE, null, estrategia.LimiteVenta);
+                    return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_CANTIDAD_LIMITE, null, estrategia.LimiteVenta);
                 }
             }
             else
             {
                 if (estrategia.Cantidad > estrategia.LimiteVenta)
                 {
-                        return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_CANTIDAD_LIMITE, null, estrategia.LimiteVenta);
+                    return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_CANTIDAD_LIMITE, null, estrategia.LimiteVenta);
                 }
             }
 
@@ -2636,10 +2640,10 @@ namespace Portal.Consultoras.BizLogic.Pedido
             PedidoAgregarProductoAgrupado(usuario, pedidoID, pedidoDetalle.Cantidad, cuvSet, strCuvs, estrategia.EstrategiaID);
 
             if (cntProd == 1 && esDuoPerfecto)
-                return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.SUCCESS, string.Format(Constantes.ProgNuevas.Mensaje.Electivo_CompletasteLimite, Constantes.ProgNuevas.Mensaje.Electivo_PromocionNombre));
+                return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.SUCCESS, string.Concat(Constantes.PedidoValidacion.Code.SUCCESS_DUOPERFECTO_AGREGADO_COMPLETADO, "|", string.Format(Constantes.ProgNuevas.Mensaje.Electivo_CompletasteLimite, Constantes.ProgNuevas.Mensaje.Electivo_PromocionNombre)));
 
             if (cntProd == 0 && esDuoPerfecto)
-                return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.SUCCESS, string.Format(Constantes.ProgNuevas.Mensaje.Electivo_TeFaltaPocoLimite, cntProd + 1, Constantes.ProgNuevas.Mensaje.Electivo_PromocionNombre));
+                return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.SUCCESS, string.Concat(Constantes.PedidoValidacion.Code.SUCCESS_DUOPERFECTO_AGREGADO_UNO, "|", string.Format(Constantes.ProgNuevas.Mensaje.Electivo_TeFaltaPocoLimite, cntProd + 1, Constantes.ProgNuevas.Mensaje.Electivo_PromocionNombre)));
 
             return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.SUCCESS);
         }
