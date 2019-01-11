@@ -12,39 +12,39 @@
             if (Id != null) {
                 waitingDialog({});
                 $.ajaxSetup({ cache: false });
-                $.getJSON(baseUrl + 'ReportePedidoDDWeb/ObtenterCampaniasyZonasPorPais', { PaisID: Id == "" ? 0 : Id }, function (data) {
+                $.getJSON(baseUrl + 'BaseAdm/ObtenerCampaniasZonasRegionesPorPais', { PaisID: Id == "" ? 0 : Id }, function (data) {
                     if (checkTimeout(data)) {
                         LimpiarDependencias(Id);
                         if (Id != "") {
                             var ddlRegion = $('#ddlRegion');
                             var ddlZona = $('#ddlZona');
                             var ddlCampania = $('#ddlCampania');
-                            if (data.DropDownListCampania.length > 0) {
-                                for (var item in data.DropDownListCampania) {
-                                    if (data.DropDownListCampania[item].CampaniaID) {
+                            if (data.lstCampania.length > 0) {
+                                for (var item in data.lstCampania) {
+                                    if (data.lstCampania[item].CampaniaID) {
                                         ddlCampania.append($('<option/>', {
-                                            value: data.DropDownListCampania[item].Codigo,
-                                            text: data.DropDownListCampania[item].Codigo
+                                            value: data.lstCampania[item].Codigo,
+                                            text: data.lstCampania[item].Codigo
                                         }));
                                     }
                                 }
                             }
-                            if (data.DropDownListZona.length > 0) {
-                                for (var item in data.DropDownListZona) {
-                                    if (data.DropDownListZona.hasOwnProperty(item)) {
+                            if (data.lstZona.length > 0) {
+                                for (var item in data.lstZona) {
+                                    if (data.lstZona.hasOwnProperty(item)) {
                                         ddlZona.append($('<option/>', {
-                                            value: data.DropDownListZona[item].Codigo,
-                                            text: data.DropDownListZona[item].Codigo
+                                            value: data.lstZona[item].Codigo,
+                                            text: data.lstZona[item].Codigo
                                         }));
                                     }
                                 }
                             }
-                            if (data.DropDownListRegion.length > 0) {
-                                for (var item in data.DropDownListRegion) {
-                                    if (data.DropDownListRegion.hasOwnProperty(item)) {
+                            if (data.lstRegion.length > 0) {
+                                for (var item in data.lstRegion) {
+                                    if (data.lstRegion.hasOwnProperty(item)) {
                                         ddlRegion.append($('<option/>', {
-                                            value: data.DropDownListRegion[item].RegionID,
-                                            text: data.DropDownListRegion[item].Codigo
+                                            value: data.lstRegion[item].RegionID,
+                                            text: data.lstRegion[item].Codigo
                                         }));
                                     }
                                 }

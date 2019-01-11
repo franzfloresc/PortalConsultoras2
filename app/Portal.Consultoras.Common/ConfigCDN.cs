@@ -37,8 +37,13 @@ namespace Portal.Consultoras.Common
         public static string GetUrlCdn(string carpetaPais)
         {
             var carpeta = string.IsNullOrEmpty(carpetaPais) ? "" : carpetaPais + "/";
-
             return RutaCdn + "/" + carpeta;
+        }
+
+        public static string GetUrlCdnMatriz(string isoPais)
+        {
+            var carpetaPais = string.Format("{0}/{1}", Globals.UrlMatriz, isoPais);
+            return GetUrlCdn(carpetaPais);
         }
 
         public static string GetUrlFileRDCdn(string carpetaPais, string fileName)
