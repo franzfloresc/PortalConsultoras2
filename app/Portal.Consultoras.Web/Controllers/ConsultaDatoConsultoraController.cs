@@ -1,12 +1,10 @@
-﻿using AutoMapper;
-using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceCliente;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
-using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +13,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class ConsultaDatoConsultoraController : BaseController
+    public class ConsultaDatoConsultoraController : BaseAdmController
     {
         readonly PaqueteDocumentarioProvider _paqueteDocumentarioProvider;
         protected EstadoCuentaProvider _estadoCuentaProvider;
@@ -32,7 +30,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 listaPaises = DropDowListPaises(),
                 PaisID = userData.PaisID,
-                listaCampania = ObtenterCampaniasPorPais(userData.PaisID)
+                listaCampania = _zonificacionProvider.GetCampanias(userData.PaisID)
             };
             return View(model);
         }
@@ -42,12 +40,12 @@ namespace Portal.Consultoras.Web.Controllers
             JsonResult v_retorno = null;
 
             try
-            {            
+            {
                 var consultora = new ServiceUsuario.UsuarioServiceClient();
-                var consultoraDato = consultora.DatoConsultoraSAC(paisID, codigoConsultora, documento);   
+                var consultoraDato = consultora.DatoConsultoraSAC(paisID, codigoConsultora, documento);
                 if (consultoraDato != null)
                     ActualizarDatosLogDynamoDB(null, "CONSULTA DATOS CONSULTORA|MIS DATOS", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Consulta", codigoConsultora, "Datos de Consultora");
-                
+
                 v_retorno = Json(consultoraDato, JsonRequestBehavior.AllowGet);
             }
             catch
@@ -110,7 +108,7 @@ namespace Portal.Consultoras.Web.Controllers
             catch (Exception ex)
             {
                 Web.LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-            }            
+            }
 
             if (ModelState.IsValid)
             {
@@ -129,7 +127,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (lst.Count == 0)
                 {
                     fechaVencimiento = "";
-                    montoPagar = userData.PaisID == 4 ? "0" : "0.0";
+                    montoPagar = userData.PaisID == Constantes.PaisID.Colombia ? "0" : "0.0";
                 }
                 else
                 {
@@ -137,7 +135,7 @@ namespace Portal.Consultoras.Web.Controllers
                         fechaVencimiento = lst[lst.Count - 1].Fecha.ToString("dd/MM/yyyy");
                     else
                         fechaVencimiento = string.Empty;
-                    montoPagar = userData.PaisID == 4
+                    montoPagar = userData.PaisID == Constantes.PaisID.Colombia
                         ? string.Format("{0:#,##0}", deudaActualConultora.Replace(',', '.'))
                         : string.Format("{0:#,##0.00}", deudaActualConultora);
                 }
@@ -203,7 +201,7 @@ namespace Portal.Consultoras.Web.Controllers
                 items.Where(x => x.Glosa == null).Update(r => r.Glosa = string.Empty);
 
 
-                if (userData.PaisID == 4)
+                if (userData.PaisID == Constantes.PaisID.Colombia)
                 {
                     var data = new
                     {
@@ -255,7 +253,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
             }
-            
+
             return RedirectToAction("Index", "Bienvenida");
         }
 
@@ -365,7 +363,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 BEPager pag = Util.PaginadorGenerico(grid, lst);
 
-                if (userData.PaisID == 4)
+                if (userData.PaisID == Constantes.PaisID.Colombia)
                 {
                     var data = new
                     {
@@ -430,7 +428,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string fleteString;
                 string totalFacturadoString;
 
-                if (userData.PaisID == 4)
+                if (userData.PaisID == Constantes.PaisID.Colombia)
                 {
 
                     fleteString = string.Format("{0:#,##0}", flete2).Replace(',', '.');
@@ -543,7 +541,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 BEPager pag = Util.PaginadorGenerico(grid, lst);
 
-                if (userData.PaisID == 4)
+                if (userData.PaisID == Constantes.PaisID.Colombia)
                 {
                     var data = new
                     {
@@ -644,7 +642,7 @@ namespace Portal.Consultoras.Web.Controllers
                     total = olstPedido.Sum(p => p.ImporteTotal);
                 }
 
-                totalPw = userData.PaisID == 4 ?
+                totalPw = userData.PaisID == Constantes.PaisID.Colombia ?
                     string.Format("{0:#,##0}", total).Replace(',', '.')
                     : string.Format("{0:N2}", total);
 
@@ -781,7 +779,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 BEPager pag = Util.PaginadorGenerico(grid, lst);
 
-                if (userData.PaisID == 4)
+                if (userData.PaisID == Constantes.PaisID.Colombia)
                 {
                     var data = new
                     {
@@ -901,7 +899,7 @@ namespace Portal.Consultoras.Web.Controllers
                     txtBuil.Append("" + lst[i].Cantidad.ToString() + "");
                     txtBuil.Append("</td>");
 
-                    if (userData.PaisID == 4)
+                    if (userData.PaisID == Constantes.PaisID.Colombia)
                     {
                         txtBuil.Append("<td style='font-size:11px; width: 182px; text-align: center;'>");
                         txtBuil.Append("" + userData.Simbolo + string.Format("{0:#,##0}", lst[i].PrecioUnidad).Replace(',', '.') + "");
@@ -932,7 +930,7 @@ namespace Portal.Consultoras.Web.Controllers
                 txtBuil.Append("</td>");
                 txtBuil.Append("<td style='font-size:11px; text-align: center; font-weight: bold'>");
 
-                if (userData.PaisID == 4)
+                if (userData.PaisID == Constantes.PaisID.Colombia)
                 {
                     txtBuil.Append("" + userData.Simbolo + string.Format("{0:#,##0}", total).Replace(',', '.') + "");
                 }
@@ -989,7 +987,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             string url = "";
             try
-            {                
+            {
                 string paisID = userData.PaisID.ToString();
                 string codigoConsultora = codigo;
                 string mostrarAyudaWebTracking = Convert.ToInt32(true).ToString();
@@ -1003,7 +1001,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 Web.LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json("", JsonRequestBehavior.AllowGet);
-            }           
+            }
         }
 
         public ActionResult PaqueteDocumentario(string sidx, string sord, int page, int rows, string campania, string codigo)
@@ -1016,7 +1014,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 Web.LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
-            
+
 
             BEGrid grid = new BEGrid();
             grid.PageSize = rows;
@@ -1048,7 +1046,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
             #endregion
-            
+
             var data = new
             {
                 total = pag.PageCount,
@@ -1066,7 +1064,7 @@ namespace Portal.Consultoras.Web.Controllers
                            }
                        }
             };
-            
+
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
@@ -1077,29 +1075,6 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #region metodos genericos
-        private IEnumerable<PaisModel> DropDowListPaises()
-        {
-            List<BEPais> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = userData.RolID == 2
-                    ? sv.SelectPaises().ToList()
-                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
-            }
-
-            return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
-        }
-
-        private IEnumerable<CampaniaModel> ObtenterCampaniasPorPais(int paisId)
-        {
-            List<BECampania> lista;
-            using (ZonificacionServiceClient servicezona = new ZonificacionServiceClient())
-            {
-                lista = servicezona.SelectCampanias(paisId).ToList();
-            }
-
-            return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lista);
-        }
 
         public BEPager Paginador(BEGrid item, string vBusqueda, List<RVPRFModel> lst)
         {

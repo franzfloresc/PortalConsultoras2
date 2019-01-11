@@ -438,9 +438,7 @@ namespace Portal.Consultoras.Web.Providers
             seccion.OrigenPedido = esMobile ? Constantes.OrigenPedidoWeb.MobileContenedorShowroomCarrusel : Constantes.OrigenPedidoWeb.DesktopContenedorShowroomCarrusel;
             seccion.OrigenPedidoPopup = esMobile ? Constantes.OrigenPedidoWeb.MobileContenedorShowroomFicha : Constantes.OrigenPedidoWeb.DesktopContenedorShowroomFicha;
             seccion.VerMas = SessionManager.ShowRoom.TieneLanding;
-
-            var userData = SessionManager.GetUserData();
-
+            
             if (!SessionManager.GetMostrarShowRoomProductos())
             {
                 seccion.UrlLandig = (esMobile ? "/Mobile/" : "/") + "ShowRoom/Intriga";

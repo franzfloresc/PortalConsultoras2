@@ -9,19 +9,18 @@ using Portal.Consultoras.Entities.Cupon;
 using Portal.Consultoras.Entities.Estrategia;
 using Portal.Consultoras.Entities.PagoEnLinea;
 using Portal.Consultoras.Entities.Pedido;
+using Portal.Consultoras.Entities.ProgramaNuevas;
 using Portal.Consultoras.Entities.ReservaProl;
 using Portal.Consultoras.Entities.RevistaDigital;
 using Portal.Consultoras.Entities.ShowRoom;
 using Portal.Consultoras.ServiceContracts;
-using Estrategia = Portal.Consultoras.Entities.Estrategia;
-
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.ServiceModel;
 using System.Threading.Tasks;
-using Portal.Consultoras.Entities.ProgramaNuevas;
+using Estrategia = Portal.Consultoras.Entities.Estrategia;
 
 namespace Portal.Consultoras.Service
 {
@@ -1354,41 +1353,40 @@ namespace Portal.Consultoras.Service
             return new BLOfertaProducto().RemoverOfertaLiquidacion(entity);
         }
 
-        public int GetPaisID(string ISO)
-        {
-            try
-            {
-                List<KeyValuePair<string, string>> listaPaises = new List<KeyValuePair<string, string>>()
-                {
-                    new KeyValuePair<string, string>("1", Constantes.CodigosISOPais.Argentina),
-                    new KeyValuePair<string, string>("2", Constantes.CodigosISOPais.Bolivia),
-                    new KeyValuePair<string, string>("3", Constantes.CodigosISOPais.Chile),
-                    new KeyValuePair<string, string>("4", Constantes.CodigosISOPais.Colombia),
-                    new KeyValuePair<string, string>("5", Constantes.CodigosISOPais.CostaRica),
-                    new KeyValuePair<string, string>("6", Constantes.CodigosISOPais.Ecuador),
-                    new KeyValuePair<string, string>("7", Constantes.CodigosISOPais.Salvador),
-                    new KeyValuePair<string, string>("8", Constantes.CodigosISOPais.Guatemala),
-                    new KeyValuePair<string, string>("9", Constantes.CodigosISOPais.Mexico),
-                    new KeyValuePair<string, string>("10", Constantes.CodigosISOPais.Panama),
-                    new KeyValuePair<string, string>("11", Constantes.CodigosISOPais.Peru),
-                    new KeyValuePair<string, string>("12", Constantes.CodigosISOPais.PuertoRico),
-                    new KeyValuePair<string, string>("13", Constantes.CodigosISOPais.Dominicana),
-                    new KeyValuePair<string, string>("14", Constantes.CodigosISOPais.Venezuela),
-                };
-
-                string paisId = (from c in listaPaises
-                                 where c.Value == ISO.ToUpper()
-                                 select c.Key).SingleOrDefault() ?? "";
-
-                int outVal;
-                int.TryParse(paisId, out outVal);
-                return outVal;
-            }
-            catch (Exception)
-            {
-                throw new Exception("Hubo un error en obtener el País");
-            }
-        }
+        // se movio a Util.GetPaisID
+        //public int GetPaisID(string ISO)
+        //{
+        //    try
+        //    {
+        //        List<KeyValuePair<string, string>> listaPaises = new List<KeyValuePair<string, string>>()
+        //        {
+        //            new KeyValuePair<string, string>("1", Constantes.CodigosISOPais.Argentina),
+        //            new KeyValuePair<string, string>("2", Constantes.CodigosISOPais.Bolivia),
+        //            new KeyValuePair<string, string>("3", Constantes.CodigosISOPais.Chile),
+        //            new KeyValuePair<string, string>("4", Constantes.CodigosISOPais.Colombia),
+        //            new KeyValuePair<string, string>("5", Constantes.CodigosISOPais.CostaRica),
+        //            new KeyValuePair<string, string>("6", Constantes.CodigosISOPais.Ecuador),
+        //            new KeyValuePair<string, string>("7", Constantes.CodigosISOPais.Salvador),
+        //            new KeyValuePair<string, string>("8", Constantes.CodigosISOPais.Guatemala),
+        //            new KeyValuePair<string, string>("9", Constantes.CodigosISOPais.Mexico),
+        //            new KeyValuePair<string, string>("10", Constantes.CodigosISOPais.Panama),
+        //            new KeyValuePair<string, string>("11", Constantes.CodigosISOPais.Peru),
+        //            new KeyValuePair<string, string>("12", Constantes.CodigosISOPais.PuertoRico),
+        //            new KeyValuePair<string, string>("13", Constantes.CodigosISOPais.Dominicana),
+        //            new KeyValuePair<string, string>("14", Constantes.CodigosISOPais.Venezuela),
+        //        };
+        //        string paisId = (from c in listaPaises
+        //                         where c.Value == ISO.ToUpper()
+        //                         select c.Key).SingleOrDefault() ?? "";
+        //        int outVal;
+        //        int.TryParse(paisId, out outVal);
+        //        return outVal;
+        //    }
+        //    catch (Exception)
+        //    {
+        //        throw new Exception("Hubo un error en obtener el País");
+        //    }
+        //}
 
         public BEResultadoSolicitud InsertarSolicitudCliente(string prefijoISO, BEEntradaSolicitudCliente entidadSolicitud)
         {
@@ -1413,7 +1411,7 @@ namespace Portal.Consultoras.Service
                 }
                 else
                 {
-                    int paisID = GetPaisID(prefijoISO);
+                    int paisID = Util.GetPaisID(prefijoISO);
                     BLSolicitudCliente blSolicitudCliente = new BLSolicitudCliente();
 
                     return blSolicitudCliente.InsertarSolicitudCliente(paisID, entidadSolicitud);
@@ -1435,7 +1433,7 @@ namespace Portal.Consultoras.Service
                 if (prefijoISO.Length > 2) return new BEResultadoSolicitud(resultado, "El código ISO de País no puede exceder los 5 caracteres.");
                 if (entidadSolicitud == null) return new BEResultadoSolicitud(resultado, "No se ha creado el objeto de solicitud.");
 
-                int paisID = GetPaisID(prefijoISO);
+                int paisID = Util.GetPaisID(prefijoISO);
                 BLSolicitudCliente blSolicitudCliente = new BLSolicitudCliente();
                 return blSolicitudCliente.InsertarSolicitudClienteAppCatalogo(paisID, entidadSolicitud);
             }
@@ -1454,7 +1452,7 @@ namespace Portal.Consultoras.Service
                 if (tipoUsuario == 1 && (dispositivoID == null || dispositivoID == string.Empty)) return new BEResultadoMisPedidosAppCatalogo(error, "Debe ingresar el código del dispositivo.");
                 if (tipoUsuario == 2 && consultoraID == 0) return new BEResultadoMisPedidosAppCatalogo(error, "Debe ingresar el código de consultora.");
 
-                int paisID = GetPaisID(prefijoISO);
+                int paisID = Util.GetPaisID(prefijoISO);
                 BLSolicitudCliente blSolicitudCliente = new BLSolicitudCliente();
                 return blSolicitudCliente.GetPedidosAppCatalogo(paisID, consultoraID, dispositivoID, tipoUsuario, campania);
             }
@@ -1470,7 +1468,7 @@ namespace Portal.Consultoras.Service
                 if (prefijoISO.Length > 2) return new BEResultadoPedidoDetalleAppCatalogo(error, "El código ISO de País no puede exceder los 2 caracteres.");
                 if (pedidoID == 0) return new BEResultadoPedidoDetalleAppCatalogo(error, "Debe ingresar el código del Pedido.");
 
-                int paisID = GetPaisID(prefijoISO);
+                int paisID = Util.GetPaisID(prefijoISO);
                 BLSolicitudCliente blSolicitudCliente = new BLSolicitudCliente();
                 return blSolicitudCliente.GetPedidoDetalle(paisID, pedidoID);
             }
