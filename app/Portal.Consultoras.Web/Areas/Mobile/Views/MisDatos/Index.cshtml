@@ -1,4 +1,5 @@
-﻿@model Portal.Consultoras.Web.Models.MisDatosModel
+﻿@using Portal.Consultoras.Common
+@model Portal.Consultoras.Web.Models.MisDatosModel
 
 @{
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
@@ -46,7 +47,7 @@
         <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
             <div>
                 <label>@ViewBag.DatosIniciales.TextoSobrenombre</label>
-                @if (ViewBag.PaisID == 4)
+                @if (ViewBag.PaisID == Constantes.PaisID.Colombia)
                 {
                     <input type="text" disabled="disabled" readonly name="txtSobrenombre" id="txtSobrenombreMD" value="@Model.Sobrenombre" />
                 }
@@ -57,10 +58,10 @@
             </div>
             <div>
                 <label>
-                    @if (ViewBag.PaisID != 4)
+                    @if (ViewBag.PaisID != Constantes.PaisID.Colombia)
                     {<span class="asterisco_actualizar_datos">(*)&nbsp;</span>}@ViewBag.DatosIniciales.TextoCorreoElectronico
                 </label>
-                @if (ViewBag.PaisId == 4)
+                @if (ViewBag.PaisId == Constantes.PaisID.Colombia)
                 {
                     <input type="text" disabled="disabled" readonly name="txtEMailMD" id="txtEMailMD" value="@Model.EMail" onkeydown="return limitarMaximo(event,this.value,100,'txtEMailMD')" />
                 }
@@ -73,10 +74,10 @@
         <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
             <div>
                 <label>
-                    @if (ViewBag.PaisID != 4)
+                    @if (ViewBag.PaisID != Constantes.PaisID.Colombia)
                     {<span class="asterisco_actualizar_datos">(*)&nbsp;</span>}@ViewBag.DatosIniciales.TextoTelefono
                 </label>
-                @if (ViewBag.PaisID == 4)
+                @if (ViewBag.PaisID == Constantes.PaisID.Colombia)
                 {
                     <input type="text" disabled="disabled" readonly name="txtTelefonoMD" id="txtTelefonoMD" value="@Model.Telefono" onkeydown="return limitarMaximo(event,this.value,@ViewBag.limiteMaximoTelef,'txtTelefonoMD')" />
                 }
@@ -88,10 +89,10 @@
             </div>
             <div>
                 <label>
-                    @if (ViewBag.PaisID != 4)
+                    @if (ViewBag.PaisID != Constantes.PaisID.Colombia)
                     {<span class="asterisco_actualizar_datos">(*)&nbsp;</span>}@ViewBag.DatosIniciales.TextoCelular
                 </label>
-                @if (ViewBag.PaisId == 4)
+                @if (ViewBag.PaisId == Constantes.PaisID.Colombia)
                 {
                     <input type="text" disabled="disabled" readonly name="txtCelularMD" id="txtCelularMD" value="@Model.Celular" onkeydown="return limitarMaximo(event,this.value,@ViewBag.limiteMaximoTelef,'txtCelularMD')" />
                 }
@@ -105,7 +106,7 @@
         <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
             <div>
                 <label>Otro teléfono:</label>
-                @if (ViewBag.PaisId == 4)
+                @if (ViewBag.PaisId == Constantes.PaisID.Colombia)
                 {
                     <input type="text" disabled="disabled" readonly name="txtTelefonoTrabajoMD" id="txtTelefonoTrabajoMD" value="@Model.TelefonoTrabajo" onkeydown="return limitarMaximo(event,this.value,@ViewBag.limiteMaximoTelef,'txtTelefonoTrabajoMD')" />
                 }
@@ -119,7 +120,7 @@
             <div class="checkbox_condiciones">
                 <input type="checkbox" name="condiciones" id="chkAceptoContratoMD" />
                 <label for="chkAceptoContratoMD" class="texto_terminosCondiciones">
-                    @if (ViewBag.PaisId == 4)
+                    @if (ViewBag.PaisId == Constantes.PaisID.Colombia)
                     {
                         <span class="asterisco_actualizar_datos">(*)&nbsp;</span><span>Declaro que he leído los <span><a href="javascript:;" id="hrefTerminosMD">términos y condiciones</a></span> sobre Protección de  Datos Personales y recepción de la factura a través de medios electrónicos, y que me encuentro de acuerdo con los mismos.</span>
                     }
@@ -131,7 +132,7 @@
             </div>
         </div>
         <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
-            @if (ViewBag.PaisId == 4)
+            @if (ViewBag.PaisId == Constantes.PaisID.Colombia)
             {
                 <div class="datos_obligatorios">
                     Modifica tus datos comunicándote al 5948060 en Bogotá y 018000937452 a nivel nacional.

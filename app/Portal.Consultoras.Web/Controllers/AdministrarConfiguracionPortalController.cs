@@ -1,16 +1,12 @@
-﻿using AutoMapper;
-using Portal.Consultoras.Web.Models;
+﻿using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceSAC;
-using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class AdministrarConfiguracionPortalController : BaseController
+    public class AdministrarConfiguracionPortalController : BaseAdmController
     {
         public ActionResult Index()
         {
@@ -18,7 +14,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-
                 BEConfiguracionPortal configuracionPortalParametro =
                     new BEConfiguracionPortal { PaisID = userData.PaisID };
 
@@ -26,7 +21,6 @@ namespace Portal.Consultoras.Web.Controllers
                 using (SACServiceClient sv = new SACServiceClient())
                 {
                     configuracionPortal = sv.ObtenerConfiguracionPortal(configuracionPortalParametro);
-
                 }
 
                 model.PaisID = userData.PaisID;
@@ -35,7 +29,6 @@ namespace Portal.Consultoras.Web.Controllers
                 model.TipoProcesoCarga = (configuracionPortal.TipoProcesoCarga != null && configuracionPortal.TipoProcesoCarga.Value);
                 model.lstPais = DropDowListPaises();
 
-
             }
             catch (FaultException ex)
             {
@@ -43,19 +36,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return View(model);
-        }
-
-        private IEnumerable<PaisModel> DropDowListPaises()
-        {
-            List<BEPais> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = userData.RolID == 2
-                    ? sv.SelectPaises().ToList()
-                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
-            }
-
-            return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
 
         [HttpPost]
