@@ -27,7 +27,7 @@
         </div>
     </article>
     {{else}}
-    <article class="item_producto_contenedor caja-borde"
+    <article class="item_producto_contenedor caja-borde" 
              data-item="{{EstrategiaID}}"
              data-item-cuv="{{CUV2}}"
              data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}"
@@ -38,9 +38,10 @@
             <div data-estrategia="{{JSON2string item}}"></div>
         </div>
 
-        <div data-item-tag="verdetalle"
+        <div {{#if TieneStock}} class="" {{else}} class="producto-agotado" {{/if}} 
+             data-item-tag="verdetalle"
              onclick="javascript:OnClickFichaDetalle(this);">
-
+            <div class="display:none"></div>
             <div class="producto_img">
                 <img data-src="{{ImgSmall FotoProducto01}}"
                      data-img-lazy="1"
@@ -69,11 +70,19 @@
         {
             <div data-tipoagregar="{{TipoAccionAgregar}}">
                 {{#iff TipoAccionAgregar '==' '@Constantes.TipoAccionAgregar.EligeOpcion'}}
-                <div class="elige_tono_item cursor_pointer"
-                     data-item-tag="verdetalle"
-                     onclick="javascript:OnClickFichaDetalle(this);">
-                    <img src="/Content/Images/mobile/Esika/click-ico.svg"> ELIGE TU OPCIÓN
-                </div>
+
+                    {{#if TieneStock}}
+                    <div class="elige_tono_item cursor_pointer"
+                         data-item-tag="verdetalle"
+                         onclick="javascript:OnClickFichaDetalle(this);">
+                        <img src="/Content/Images/mobile/Esika/click-ico.svg"> ELIGE TU OPCIÓN
+                    </div>
+                    {{else}}
+                    <div class="boton_producto_agotado">
+                        Agotado
+                    </div>
+                    {{/if}}
+                
                 {{/iff}}
             </div>
         }

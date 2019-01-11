@@ -172,10 +172,10 @@
                                {{#iff ClaseBloqueada '!=' ''}} disbled="disable" {{/iff}} />
 
                         <div class="liquidacion_rango_right_pedido js-no-popup">
-                            <a href="javascript:;" class="mas js-no-popup" style="pointer-events: none;" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" data-bloqueada="{{ClaseBloqueada}}">
+                            <a href="javascript:;" class="mas js-no-popup" style="pointer-events: none;" data-bloqueada="{{ClaseBloqueada}}">
                                 <img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt="" />
                             </a>
-                            <a href="javascript:;" class="menos js-no-popup" style="pointer-events: none;" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" data-bloqueada="{{ClaseBloqueada}}">
+                            <a href="javascript:;" class="menos js-no-popup" style="pointer-events: none;" data-bloqueada="{{ClaseBloqueada}}">
                                 <img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt="" />
                             </a>
                         </div>
@@ -188,8 +188,8 @@
                         AGR&Eacute;GALO
                     </a>
                     {{else}}
-                    <a href="javascript:;" class="boton_Agregalo_agotado js-no-popup {{ClaseBloqueada}}" style="pointer-events: none;" data-bloqueada="{{ClaseBloqueada}}"
-                       onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event); ">
+                    <a href="javascript:;" class="boton_Agregalo_agotado js-no-popup {{ClaseBloqueada}}" style="pointer-events: none;" 
+                        data-bloqueada="{{ClaseBloqueada}}">
                         AGOTADO
                     </a>
                     {{/if}}
@@ -204,8 +204,8 @@
                                 </a>
                             </div>
                         {{else}}
-                            <a href="javascript:;" class="boton_Agregalo_agotado js-no-popup {{ClaseBloqueada}}" style="pointer-events: none;" data-bloqueada="{{ClaseBloqueada}}"
-                               onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event); ">
+                            <a href="javascript:;" class="boton_Agregalo_agotado js-no-popup {{ClaseBloqueada}}" style="pointer-events: none;" 
+                               data-bloqueada="{{ClaseBloqueada}}">
                                 AGOTADO
                             </a>
                         {{/if}}
