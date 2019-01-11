@@ -243,15 +243,16 @@ else
                     }
                 }
             </div>
-            <div class="permisos_cuenta_wrapper">
-                <div class="permisos_cuenta_titulo">
-                    Permisos sobre tu cuenta :
-                </div>
-                <div class="permisos_cuenta_opciones">
+            @if (Model.UsuarioOpciones.Count() > 0)
+            {
+                <div class="permisos_cuenta_wrapper">
+                    <div class="permisos_cuenta_titulo">
+                        Permisos sobre tu cuenta :
+                    </div>
+                    <div class="permisos_cuenta_opciones">
 
-                    @foreach (var item in Model.UsuarioOpciones)
-                    {
-                        if (item.Activo)
+
+                        @foreach (var item in Model.UsuarioOpciones)
                         {
                             <div class="permiso_cuenta_opcion">
                                 <div class="permiso_cuenta_opcion_descripcion">@item.Opcion</div>
@@ -261,9 +262,9 @@ else
                                 </fieldset>
                             </div>
                         }
-                    }
+                    </div>
                 </div>
-            </div>
+            }
             <div class="grupo_input_actualizarMisDatos campos_actualizarDatos terminos_y_condiciones_wrapper pt-31">
                 <div class="checkbox_condiciones_wrapper w-100">
                     <div class="checkbox_condiciones_descripcion">
