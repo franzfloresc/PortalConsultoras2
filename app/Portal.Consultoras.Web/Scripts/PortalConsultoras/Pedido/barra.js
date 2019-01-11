@@ -1895,7 +1895,7 @@ function CalculoPosicionMinimoMaximoDestokp() {
 
             var AvancePorcentajeP1 = (AvancePorcentaje1.substring(0, AvancePorcentaje1.length - 1) * 1 - 5) + '%'
             document.getElementById('punto_1').style.left = AvancePorcentajeP1;
-            document.getElementById('punto_1').firstChild.firstChild.style = "width:90px;position: absolute;top: -24px;";
+            document.getElementById('punto_1').firstChild.firstChild.style = "width:90px;position: absolute;";//top: -24px;
             document.getElementById('punto_1').firstChild.firstChild.firstChild.firstChild.nextSibling.style.display = "None";
 
 
@@ -1963,7 +1963,7 @@ function CalculoPosicionMinimoMaximoDestokp() {
         if (ConfiguradoRegalo == true) {
 
 
-            var htmleRgaloTipinpoing = ' <div id="punto_4" data-punto="0" class="EscalaDescuento" style="float: left; left: 2.1818%;"><div class="monto_minimo_barra"><div style="width: 90px; position: absolute; top: -24px;" data-texto=""><div class=""><div class="tippingPoint "></div><div class="monto_meta_tippingPoint" style="display: none;">S/.210</div></div></div></div></div>';
+            var htmleRgaloTipinpoing = ' <div id="punto_4" data-punto="0" class="EscalaDescuento" style="float: left; left: 2.1818%;"><div class="monto_minimo_barra"><div style="width: 90px; position: absolute; " data-texto=""><div class=""><div class="tippingPoint "></div><div class="monto_meta_tippingPoint" style="display: none;">S/.210</div></div></div></div></div>';//top: -24px;
 
             document.getElementById('divBarraLimite').innerHTML = document.getElementById('divBarraLimite').innerHTML + htmleRgaloTipinpoing;
 
