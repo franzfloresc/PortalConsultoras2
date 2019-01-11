@@ -612,12 +612,6 @@ button:focus{
     margin-top:60px;
 }
 
-.layout__view__breadcrumbs__wrapper,
-.layout__view__title__wrapper
-{
-    background-color: #f9f9f9;
-}
-
 .layout__view__title__wrapper{
     border-bottom:1px solid #000;
 }
@@ -664,12 +658,6 @@ button:focus{
     position:relative;
 }
 
-.layout__view__title__text,
-.layout__view__title__background
-{
-    background-color:#000;
-}
-
 .layout__view__title__background,
 .layout__view__title__text span
 {
@@ -702,7 +690,6 @@ button:focus{
 }
 
 .layout__view__title__text span{
-    color:#FFF;
     font-family:'Lato', sans-serif;
     font-weight:300;
     font-size:19px;

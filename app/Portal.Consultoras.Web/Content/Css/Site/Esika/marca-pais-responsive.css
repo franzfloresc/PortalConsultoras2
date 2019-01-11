@@ -63,18 +63,6 @@
     background-color:transparent;
 }
 
-/* POPUPS GENERALES - POPUP CIERRE DE SESIÓN */
-
-.icono_sesion_por_finalizar{    
-    background-image:url(/Content/Images/Esika/icono_sesion_por_finalizar.svg);
-}
-
-.icono_alerta_cierre_sesion{
-    background-image:url(/Content/Images/Esika/icono_alerta_cierre_sesion.svg);
-}
-
-/* FIN POPUPS GENERALES - POPUP CIERRE DE SESIÓN */
-
 @media screen and (min-width:992px) and (max-width:1270px){
 
     .layout__header--navidenio .header__marca__pais:before,
@@ -293,5 +281,65 @@
 }
 
 /* FIN - HEADER MOBILE */
+
+/* SECCIÓN BREADCRUMBS Y TITULO DE VISTA (VERSIÓN DESKTOP) */
+
+.layout__view__breadcrumbs__wrapper,
+.layout__view__title__wrapper
+{
+    background-color: #f9f9f9;
+}
+
+.layout__view__title__text,
+.layout__view__title__background
+{
+    background-color:#000;
+}
+
+.layout__view__title__text span{
+    color:#FFF;
+}
+
+.pestana__lbel{
+    display:none;
+}
+
+/* FIN - SECCIÓN BREADCRUMBS Y TITULO DE VISTA (VERSIÓN DESKTOP) */
+
+/* POPUPS GENERALES - POPUP CIERRE DE SESIÓN */
+
+.icono_sesion_por_finalizar{    
+    background-image:url(/Content/Images/Esika/icono_sesion_por_finalizar.svg);
+}
+
+.icono_alerta_cierre_sesion{
+    background-image:url(/Content/Images/Esika/icono_alerta_cierre_sesion.svg);
+}
+
+/* FIN POPUPS GENERALES - POPUP CIERRE DE SESIÓN */
+
+/* MIS CATÁLOGOS Y REVISTAS (DESKTOP) */
+
+.layout__content{
+    margin-top:28px;
+}
+
+/* FIN - MIS CATÁLOGOS Y REVISTAS (DESKTOP) */
+
+/* MIS CATÁLOGOS Y REVISTAS (MOBILE) */
+
+@media screen and (max-width:991px){
+
+    .indicador__catalogos__revistas.indicador__catalogos__revistas--activo{
+        background-color:#e81c36;
+    }
+
+    .tabs__catalogos__revistas{
+        background-color:#f2f2f2;
+    }
+
+}
+
+/* FIN - MIS CATÁLOGOS Y REVISTAS (MOBILE) */
 
 /* FIN - ESTILOS MARCA PAÍS ÉSIKA */

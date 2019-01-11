@@ -23,7 +23,6 @@ hr{
 }
 
 .layout__content{
-    margin-top:28px;
     margin-bottom:107px;
     max-width:1189px;
 }
@@ -817,10 +816,6 @@ input[type='checkbox']:checked + span:after {
         min-height:0;
     }
 
-    .tabs__catalogos__revistas{
-        background-color:#f2f2f2;
-    }
-
     .tab__catalogos__revistas{
         height:52px;
         position:relative;
@@ -843,10 +838,6 @@ input[type='checkbox']:checked + span:after {
         -o-transition: all 0.3s ease;
         -webkit-transition: all 0.3s ease;
         transition: all 0.3s ease;
-    }
-
-    .indicador__catalogos__revistas--activo{
-        background-color:#e81c36;
     }
 
     .info__catalogos__revistas{
