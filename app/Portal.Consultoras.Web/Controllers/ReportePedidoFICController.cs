@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceZonificacion;
@@ -12,7 +11,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class ReportePedidoFICController : BaseController
+    public class ReportePedidoFICController : BaseAdmController
     {
         public ActionResult Index()
         {
@@ -50,13 +49,16 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     else
                     {
+                        int paisId = Convert.ToInt32(vPaisID);
+                        bepais = new BEPais
+                        {
+                            PaisID = paisId,
+                            CodigoISO = Util.GetPaisISO(paisId),
+                            Nombre = Util.GetPaisNombre(paisId)
+                        };
+
                         if (vRegion == "" || vRegion == "-- Todas --") vRegion = "x";
                         if (vZona == "" || vZona == "-- Todas --") vZona = "x";
-
-                        using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-                        {
-                            bepais = sv.SelectPais(Convert.ToInt32(vPaisID));
-                        }
 
                         using (PedidoServiceClient sv = new PedidoServiceClient())
                         {
@@ -119,28 +121,6 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("Index");
         }
 
-        private IEnumerable<PaisModel> DropDowListPaises()
-        {
-            List<BEPais> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = userData.RolID == 2
-                    ? sv.SelectPaises().ToList()
-                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
-            }
-            return Mapper.Map<IEnumerable<PaisModel>>(lst);
-        }
-
-        private IEnumerable<CampaniaModel> DropDowListCampanias(int paisId)
-        {
-            IList<BECampania> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = sv.SelectCampanias(paisId);
-            }
-            return Mapper.Map<IEnumerable<CampaniaModel>>(lst);
-        }
-
         public JsonResult GetConsultorasIds(int regionID, int zonaID, int rowCount, string busqueda)
         {
             using (ServiceODS.ODSServiceClient sv = new ServiceODS.ODSServiceClient())
@@ -190,26 +170,25 @@ namespace Portal.Consultoras.Web.Controllers
             Util.ExportToExcel_FIC("PedidosFICExcel", lst, dic);
             return View();
         }
-
-        public JsonResult ObtenterCampaniasyRegionesPorPais(int PaisID)
-        {
-            IEnumerable<CampaniaModel> lst = null;
-            IEnumerable<RegionModel> lstRegiones = null;
-            IEnumerable<ZonaModel> lstZonas = null;
-
-            if (PaisID != 0)
-            {
-                lst = DropDowListCampanias(PaisID);
-                lstRegiones = _baseProvider.DropDownListRegiones(PaisID).OrderBy(x => x.Codigo);
-                lstZonas = _baseProvider.DropDownListZonas(PaisID).OrderBy(x => x.Codigo);
-            }
-
-            return Json(new
-            {
-                lista = lst,
-                lstRegiones = lstRegiones,
-                listaZonas = lstZonas
-            }, JsonRequestBehavior.AllowGet);
-        }
+        
+        //movido BaseAdm/ObtenerCampaniasZonasRegionesPorPais
+        //public JsonResult ObtenterCampaniasyRegionesPorPais(int PaisID)
+        //{
+        //    IEnumerable<CampaniaModel> lst = null;
+        //    IEnumerable<RegionModel> lstRegiones = null;
+        //    IEnumerable<ZonaModel> lstZonas = null;
+        //    if (PaisID != 0)
+        //    {
+        //        lst = _zonificacionProvider.GetCampanias(PaisID);
+        //        lstRegiones = _zonificacionProvider.GetRegiones(PaisID);
+        //        lstZonas = _zonificacionProvider.GetZonas(PaisID).OrderBy(x => x.Codigo);
+        //    }
+        //    return Json(new
+        //    {
+        //        lista = lst,
+        //        lstRegiones = lstRegiones,
+        //        listaZonas = lstZonas
+        //    }, JsonRequestBehavior.AllowGet);
+        //}
     }
 }
