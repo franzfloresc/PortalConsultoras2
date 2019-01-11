@@ -107,14 +107,14 @@ namespace Portal.Consultoras.Web.Controllers
                         cell = new[] {
                             i.SolicitudPostulanteID.ToString(),
                             i.FechaCreacion.ToString(),
-                            string.IsNullOrWhiteSpace(i.PrimerNombre) ? string.Empty : i.PrimerNombre.ToUpper(),
-                            string.IsNullOrWhiteSpace(i.ApellidoPaterno) ? string.Empty : i.ApellidoPaterno.ToUpper(),
-                            string.IsNullOrWhiteSpace(i.ApellidoMaterno) ? string.Empty : i.ApellidoMaterno.ToUpper(),
-                            string.IsNullOrWhiteSpace(i.CodigoZona) ? string.Empty : i.CodigoZona.ToUpper(),
+                            Util.Trim(i.PrimerNombre).ToUpper(),
+                            Util.Trim(i.ApellidoPaterno).ToUpper(),
+                            Util.Trim(i.ApellidoMaterno).ToUpper(),
+                            Util.Trim(i.CodigoZona).ToUpper(),
                             string.IsNullOrWhiteSpace(i.Direccion) ? string.Empty : concat,
-                            string.IsNullOrWhiteSpace(i.NumeroDocumento) ? string.Empty : i.NumeroDocumento.ToUpper(),
-                            string.IsNullOrWhiteSpace(i.TelefonoFijo) ? string.Empty : i.TelefonoFijo.ToUpper(),
-                            string.IsNullOrWhiteSpace(i.TelefonoCelular) ? string.Empty : i.TelefonoCelular.ToUpper(),
+                            Util.Trim(i.NumeroDocumento).ToUpper(),
+                            Util.Trim(i.TelefonoFijo).ToUpper(),
+                            Util.Trim(i.TelefonoCelular).ToUpper(),
                         }
                     };
                 })
@@ -282,41 +282,43 @@ namespace Portal.Consultoras.Web.Controllers
 
                     foreach (var item in lista)
                     {
-                        object altoOrOtro = null; object medioOrAlto = null; object bajoOrMedio = null; object finalValor = null;
+                        //object altoOrOtro = null; object medioOrAlto = null; object bajoOrMedio = null; object finalValor = null;
 
-                        if (CodigoISO == Pais.Peru || CodigoISO == Pais.Dominicana || CodigoISO == Pais.PuertoRico || CodigoISO == Pais.Mexico || CodigoISO == Pais.Bolivia)
-                        {
-                            altoOrOtro = (item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Alto) ? Enumeradores.TipoNivelesRiesgo.Alto.ToInt() : Enumeradores.TipoNivelesRiesgo.Otro.ToInt();
-                            medioOrAlto = (item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Medio) ? Enumeradores.TipoNivelesRiesgo.Medio.ToInt() : altoOrOtro;
-                            bajoOrMedio = (item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Bajo) ? Enumeradores.TipoNivelesRiesgo.Bajo.ToInt() : medioOrAlto;
-                            finalValor = string.IsNullOrWhiteSpace(item.NivelRiesgo) ? Enumeradores.TipoNivelesRiesgo.Otro.ToInt() : bajoOrMedio;
-                        }
+                        //if (CodigoISO == Pais.Peru || CodigoISO == Pais.Dominicana || CodigoISO == Pais.PuertoRico || CodigoISO == Pais.Mexico || CodigoISO == Pais.Bolivia)
+                        //{
+                        //    altoOrOtro = (item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Alto) ? Enumeradores.TipoNivelesRiesgo.Alto.ToInt() : Enumeradores.TipoNivelesRiesgo.Otro.ToInt();
+                        //    medioOrAlto = (item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Medio) ? Enumeradores.TipoNivelesRiesgo.Medio.ToInt() : altoOrOtro;
+                        //    bajoOrMedio = (item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Bajo) ? Enumeradores.TipoNivelesRiesgo.Bajo.ToInt() : medioOrAlto;
+                        //    finalValor = string.IsNullOrWhiteSpace(item.NivelRiesgo) ? Enumeradores.TipoNivelesRiesgo.Otro.ToInt() : bajoOrMedio;
+                        //}
 
-                        if (CodigoISO == Pais.Bolivia)
-                        {
-                            finalValor = bajoOrMedio;
-                        }
+                        //if (CodigoISO == Pais.Bolivia)
+                        //{
+                        //    finalValor = bajoOrMedio;
+                        //}
 
-                        if (CodigoISO == Pais.Ecuador)
-                        {
-                            altoOrOtro = (item.NivelRiesgo.ToInt() == Enumeradores.TipoNivelesRiesgo.Alto.ToInt()) ? Enumeradores.TipoNivelesRiesgo.Alto.ToInt() : Enumeradores.TipoNivelesRiesgo.Otro.ToInt();
-                            medioOrAlto = (item.NivelRiesgo.ToInt() == Enumeradores.TipoNivelesRiesgo.Medio.ToInt()) ? Enumeradores.TipoNivelesRiesgo.Medio.ToInt() : altoOrOtro;
-                            bajoOrMedio = (item.NivelRiesgo.ToInt() == Enumeradores.TipoNivelesRiesgo.Bajo.ToInt()) ? Enumeradores.TipoNivelesRiesgo.Bajo.ToInt() : medioOrAlto;
-                            finalValor = string.IsNullOrWhiteSpace(item.NivelRiesgo) ? Enumeradores.TipoNivelesRiesgo.Otro.ToInt() : bajoOrMedio;
-                        }
+                        //if (CodigoISO == Pais.Ecuador)
+                        //{
+                        //    altoOrOtro = (item.NivelRiesgo.ToInt() == Enumeradores.TipoNivelesRiesgo.Alto.ToInt()) ? Enumeradores.TipoNivelesRiesgo.Alto.ToInt() : Enumeradores.TipoNivelesRiesgo.Otro.ToInt();
+                        //    medioOrAlto = (item.NivelRiesgo.ToInt() == Enumeradores.TipoNivelesRiesgo.Medio.ToInt()) ? Enumeradores.TipoNivelesRiesgo.Medio.ToInt() : altoOrOtro;
+                        //    bajoOrMedio = (item.NivelRiesgo.ToInt() == Enumeradores.TipoNivelesRiesgo.Bajo.ToInt()) ? Enumeradores.TipoNivelesRiesgo.Bajo.ToInt() : medioOrAlto;
+                        //    finalValor = string.IsNullOrWhiteSpace(item.NivelRiesgo) ? Enumeradores.TipoNivelesRiesgo.Otro.ToInt() : bajoOrMedio;
+                        //}
+
+                        var nivel = NivelesRiesgoInsertarNivelRiesgo(item); //  finalValor.ToInt();
 
                         var parametroTodos = new ParametroUnete
                         {
                             Nombre = item.ZonaSeccion,
                             Descripcion = item.NivelRiesgo,
-                            Valor = finalValor.ToInt(),
+                            Valor = nivel,
                             FK_IdTipoParametro = EnumsTipoParametro.TipoNivelesRiesgo.ToInt(),
                             Estado = 1
                         };
                         listafinal.Add(parametroTodos);
                     }
 
-                    if (listafinal.Count > 0)
+                    if (listafinal.Any())
                     {
                         using (var sv = new PortalServiceClient())
                         {
@@ -344,6 +346,34 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return "Verifique el formato del Documento, posiblemente no sea igual al de la Plantilla.";
             }
+        }
+
+        private int NivelesRiesgoInsertarNivelRiesgo(NivelesRiesgoModel item)
+        {
+            object altoOrOtro = null; object medioOrAlto = null; object bajoOrMedio = null; object finalValor = null;
+
+            if (CodigoISO == Pais.Peru || CodigoISO == Pais.Dominicana || CodigoISO == Pais.PuertoRico || CodigoISO == Pais.Mexico || CodigoISO == Pais.Bolivia)
+            {
+                altoOrOtro = (item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Alto) ? Enumeradores.TipoNivelesRiesgo.Alto.ToInt() : Enumeradores.TipoNivelesRiesgo.Otro.ToInt();
+                medioOrAlto = (item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Medio) ? Enumeradores.TipoNivelesRiesgo.Medio.ToInt() : altoOrOtro;
+                bajoOrMedio = (item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Bajo) ? Enumeradores.TipoNivelesRiesgo.Bajo.ToInt() : medioOrAlto;
+                finalValor = string.IsNullOrWhiteSpace(item.NivelRiesgo) ? Enumeradores.TipoNivelesRiesgo.Otro.ToInt() : bajoOrMedio;
+            }
+
+            if (CodigoISO == Pais.Bolivia)
+            {
+                finalValor = bajoOrMedio;
+            }
+
+            if (CodigoISO == Pais.Ecuador)
+            {
+                altoOrOtro = (item.NivelRiesgo.ToInt() == Enumeradores.TipoNivelesRiesgo.Alto.ToInt()) ? Enumeradores.TipoNivelesRiesgo.Alto.ToInt() : Enumeradores.TipoNivelesRiesgo.Otro.ToInt();
+                medioOrAlto = (item.NivelRiesgo.ToInt() == Enumeradores.TipoNivelesRiesgo.Medio.ToInt()) ? Enumeradores.TipoNivelesRiesgo.Medio.ToInt() : altoOrOtro;
+                bajoOrMedio = (item.NivelRiesgo.ToInt() == Enumeradores.TipoNivelesRiesgo.Bajo.ToInt()) ? Enumeradores.TipoNivelesRiesgo.Bajo.ToInt() : medioOrAlto;
+                finalValor = string.IsNullOrWhiteSpace(item.NivelRiesgo) ? Enumeradores.TipoNivelesRiesgo.Otro.ToInt() : bajoOrMedio;
+            }
+
+            return finalValor.ToInt();
         }
 
         // hay un metodo con el mismo nombre en Util.ReadXmlFile
@@ -561,9 +591,9 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public string NivelesGeograficosInsertar(HttpPostedFileBase uplArchivo, NivelesGeograficosModel model)
         {
-            model.CodigoISO = CodigoISO;
             try
             {
+                model.CodigoISO = CodigoISO;
                 if (uplArchivo == null)
                 {
                     return "El archivo especificado no existe.";
@@ -2021,9 +2051,9 @@ namespace Portal.Consultoras.Web.Controllers
             foreach (string file in Request.Files)
             {
                 var fileContent = Request.Files[file];
-                string[] documentos = null;
                 if (fileContent != null && fileContent.ContentLength > 0)
                 {
+                    string[] documentos = null;
                     if (Util.IsFileExtension(fileContent.FileName, Enumeradores.TypeDocExtension.Excel))
                     {
                         string fileextension = Util.Trim(Path.GetExtension(fileContent.FileName));
