@@ -1695,6 +1695,12 @@
     <Content Include="Content\Images\Lbel\RevistaDigital\gif-club-ganamas2.gif" />
     <Content Include="Content\Images\Lbel\RevistaDigital\gif-ganamas.gif" />
     <Content Include="Content\Images\Lbel\RevistaDigital\menuOfertas_20181001_1121.jpg" />
+    <Content Include="Content\Images\lluvia\ov-d.svg" />
+    <Content Include="Content\Images\lluvia\ov-r.svg" />
+    <Content Include="Content\Images\lluvia\sq-d.svg" />
+    <Content Include="Content\Images\lluvia\sq-r.svg" />
+    <Content Include="Content\Images\lluvia\trg-d.svg" />
+    <Content Include="Content\Images\lluvia\trg-r.svg" />
     <Content Include="Content\Images\logo-club-ganamas-dorado2.svg" />
     <Content Include="Content\Images\Lbel\logo_marca_pais.svg" />
     <Content Include="Content\Images\Lbel\vineta_indicador.png" />
