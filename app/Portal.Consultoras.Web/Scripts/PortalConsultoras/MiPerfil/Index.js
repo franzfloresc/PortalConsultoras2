@@ -6,7 +6,7 @@ var searchBox;
 var _googleMap;
 var OperacionDb = { Insertar: "0", Editar: "1" };
 $(document).ready(function () {
-    debugger;
+    
     if (EsMobile == 'True')
         $('.enlace_abrir_mapa')[0].disabled = true;
     else
