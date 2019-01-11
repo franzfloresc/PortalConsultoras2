@@ -117,14 +117,22 @@ $(document).ready(function () {
         e.preventDefault();
         
         if ($('.catalogos__por__campania__slider__control__der a').is(':visible')) {
-            $('.catalogos__campania--actual').fadeOut(100);
+            if (piloto == '0') {
+                $('.catalogos__campania--actual').fadeOut(100);
+            } else {
+                $('.catalogos__campania--actual--disenioAnterior').fadeOut(100);
+            }
             $('.catalogos__campania--siguiente').fadeOut(100);
             $('.catalogos__campania--anterior').fadeIn(100);
             $('.catalogos__por__campania__slider__control__izq a').fadeOut(100);
         } else {
             $('.catalogos__campania--anterior').fadeOut(100);
             $('.catalogos__campania--siguiente').fadeOut(100);
-            $('.catalogos__campania--actual').fadeIn(100);
+            if (piloto == '0') {
+                $('.catalogos__campania--actual').fadeIn(100);
+            } else {
+                $('.catalogos__campania--actual--disenioAnterior').fadeIn(100);
+            }
             $('.catalogos__por__campania__slider__control__der a').fadeIn(100);
         }
     });
@@ -132,14 +140,23 @@ $(document).ready(function () {
     $('.catalogos__por__campania__slider__control__der a').on('click', function (e) {
         e.preventDefault();
         if ($('.catalogos__por__campania__slider__control__izq a').is(':visible')) {
-            $('.catalogos__campania--actual').fadeOut(100);
+            if (piloto == '0'){
+                $('.catalogos__campania--actual').fadeOut(100);
+            } else {
+                $('.catalogos__campania--actual--disenioAnterior').fadeOut(100);
+            }
             $('.catalogos__campania--anterior').fadeOut(100);
             $('.catalogos__campania--siguiente').fadeIn(100);
             $('.catalogos__por__campania__slider__control__der a').fadeOut(100);
         } else {
             $('.catalogos__campania--anterior').fadeOut(100);
             $('.catalogos__campania--siguiente').fadeOut(100);
-            $('.catalogos__campania--actual').fadeIn(100);
+            if (piloto == '0') {
+                $('.catalogos__campania--actual').fadeIn(100);
+            } else {
+                $('.catalogos__campania--actual--disenioAnterior').fadeIn(100);
+            }
+            $('.catalogos__campania--actual--disenioAnterior').fadeIn(100);
             $('.catalogos__por__campania__slider__control__izq a').fadeIn(100);
         }
     });
@@ -287,8 +304,11 @@ function CargarCarruselCatalogo() {
 
                 $("#idSection" + i).append(xHtmlItemCatalogoPasosActual);                
                 $("#txtUrlActual").val(GetUrlTextoActual(anio + nro));
+                $("#idSection" + i).addClass("catalogos__campania--actual");
+            } else {
+                $('.catalogos__por__campania__item__slider').addClass('altoFijo');
+                $("#idSection" + i).addClass("catalogos__campania--actual--disenioAnterior");
             }
-            $("#idSection" + i).addClass(" catalogos__campania--actual");
         }
         else if (i == 2) $("#idSection" + i).addClass(" catalogos__campania--siguiente");
     }    

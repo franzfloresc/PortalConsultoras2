@@ -238,6 +238,10 @@ hr{
     min-height:425px;
 }
 
+.altoFijo{
+    height:425px;
+}
+
 .catalogos__campania--anterior,
 .catalogos__campania--siguiente
 {
@@ -248,6 +252,10 @@ hr{
 .content_carrusel_catalogo
 {
     justify-content:space-evenly;
+}
+
+.catalogos__por__campania__item__imagenes{
+    width:100%;
 }
 
 .catalogos__por__campania__item__imagen {
@@ -895,7 +903,14 @@ input[type='checkbox']:checked + span:after {
         order:-1;
     }
 
+    .catalogos__por__campania__item__slider,
+    .altoFijo
+    {
+        height:auto;
+    }
+
     .catalogos__por__campania__item__imagenes{
+        width:auto;
         justify-content:center;
     }
 
