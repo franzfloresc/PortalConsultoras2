@@ -1,0 +1,9 @@
+1.WSConsultoras
+
+Actualizar:
+<add key="EstrategiaDisponibleMicroservicioPersonalizacion" value="009,101,007,008,030,001,010,005"/>
+
+Agregar:
+<add key="UrlCatalogoDigital" value="http://catalogodigital.somosbelcorp.com?cod={0}" />
+<add key="MostrarPedidosPendientes" value="1" />
+<add key="PaisesConsultoraOnline" value="PE,CL,CO,MX,EC,CR,BO" />	
