@@ -1,4 +1,5 @@
-﻿@using Portal.Consultoras.Web.Models
+﻿@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Models
 @using System.Globalization;
 @using Portal.Consultoras.Web.CustomHelpers
 @model SolicitudClienteConsultoraModel
@@ -112,7 +113,7 @@
                                 {
                                     <div>
                                         Precio Unitario :
-                                        @if (ViewBag.PaisID == 4)
+                                        @if (ViewBag.PaisID == Constantes.PaisID.Colombia)
                                         {
                                             <span>@ViewBag.Simbolo @String.Format("{0:#,##0}", item.Precio).Replace(',', '.')</span>
                                         }
@@ -125,7 +126,7 @@
                                         <div class="upper">
                                             <strong>Subtotal </strong>
                                             <strong>
-                                                @if (ViewBag.PaisID == 4)
+                                                @if (ViewBag.PaisID == Constantes.PaisID.Colombia)
                                                 {
                                                     <span>@ViewBag.Simbolo @String.Format("{0:#,##0}", item.Precio * (decimal)item.Cantidad).Replace(',', '.')</span>
                                                 }
