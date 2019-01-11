@@ -23,7 +23,7 @@ function configureTimeoutPopup() {
     if (typeof SessionTimeout === 'undefined') {
         return;
     }
-    var timeoutSeconds = (SessionTimeout * 60) - 5;
+    var timeoutSeconds = (SessionTimeout * 60) - 60;
     var timeShowPopup = 48;
 
     window.idleTimeout = $.fn.idleTimeout({
@@ -59,9 +59,14 @@ function registerCloseEvent() {
 }
 
 function continuarSession() {
-    var urlKeepAlive = baseUrl + 'Bienvenida/KeepAlive';
     window.idleTimeout.reset();
-    $.get(urlKeepAlive);
+    callKeepAlive();
+}
+
+function callKeepAlive() {
+    var urlKeepAlive = baseUrl + 'Bienvenida/KeepAlive';
+
+    return $.get(urlKeepAlive);
 }
 
 function noPedidoReservado() {
