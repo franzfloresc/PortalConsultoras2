@@ -233,6 +233,7 @@
     <Compile Include="Areas\Mobile\Controllers\SeguimientoPedidoController.cs" />
     <Compile Include="Areas\Mobile\Controllers\ShowRoomController.cs" />
     <Compile Include="Areas\Mobile\Controllers\TerminosYCondicionesController.cs" />
+    <Compile Include="Controllers\BaseAdmController.cs" />
     <Compile Include="Controllers\ProductoRecomendadoController.cs" />
     <Compile Include="CustomHelpers\StringsHelper.cs" />
     <Compile Include="Areas\Mobile\MobileAreaRegistration.cs" />
@@ -1421,6 +1422,7 @@
     <Content Include="Content\Images\Esika\icono_campos_select_mi_perfil.svg" />
     <Content Include="Content\Images\icono_check_mi_perfil.svg" />
     <Content Include="Content\Images\Esika\icono_localizacion.svg" />
+    <Content Include="Content\Images\icono_localizacion_disabled.svg" />
     <Content Include="Content\Images\icono_mis_datos.svg" />
     <Content Include="Content\Images\icono_ubicacion_blanco.svg" />
     <Content Include="Content\Images\icono_ubicacion.svg" />

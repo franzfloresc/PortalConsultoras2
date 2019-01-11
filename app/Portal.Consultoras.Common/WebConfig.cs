@@ -151,6 +151,12 @@ namespace Portal.Consultoras.Common
             return ConfigurationManager.AppSettings[tagName] ?? string.Empty;
         }
 
-    
+        public static string ServicioDireccionEntregaSicc
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["ServicioDireccionEntregaSicc"] ?? string.Empty;
+            }
+        }
     }
 }

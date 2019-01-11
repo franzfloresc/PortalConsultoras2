@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
@@ -12,7 +11,7 @@ using System.Web.Script.Serialization;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class UpdatePassSACController : BaseController
+    public class UpdatePassSACController : BaseAdmController
     {
         public ActionResult Index()
         {
@@ -142,20 +141,14 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                BEPais bepais;
-
-                using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-                {
-                    bepais = sv.SelectPais(Convert.ToInt32(model.PaisID));
-                }
-
+                var codigoIso = Util.GetPaisISO(model.PaisID);
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
                     var resultExiste = sv.ExisteUsuario(model.PaisID, model.CodigoConsultora, "");
 
                     if (resultExiste == Constantes.ValidacionExisteUsuario.Existe)
                     {
-                        var result = sv.CambiarClaveUsuario(model.PaisID, bepais.CodigoISO, model.CodigoConsultora,
+                        var result = sv.CambiarClaveUsuario(model.PaisID, codigoIso, model.CodigoConsultora,
                             model.Clave, "", userData.CodigoUsuario, EAplicacionOrigen.ActualizarClaveSAC);
 
                         if (result)
@@ -200,19 +193,6 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
 
-        }
-
-        private IEnumerable<PaisModel> DropDowListPaises()
-        {
-            List<BEPais> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = userData.RolID == 2
-                    ? sv.SelectPaises().ToList()
-                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
-            }
-
-            return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
 
         public ActionResult MantenimientoUsuarioGZ()

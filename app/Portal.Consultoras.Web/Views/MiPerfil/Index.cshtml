@@ -230,15 +230,16 @@ else
                             <fieldset class="grupo_form_cambio_datos">
                                 <div class="w-100">
                                     @Html.TextBoxFor(x => x.DireccionEntrega.Referencia, new { @class = "w-100 campo_referencia", id = "Referencia" })
-                                   
+
                                     <label for="Referencia" class="w-100">
                                         Referencia
                                     </label>
                                 </div>
-                                @Html.HiddenFor(m => m.DireccionEntrega.Latitud ,   new { id=  "Latitud"  })
-                                @Html.HiddenFor(m => m.DireccionEntrega.Longitud,   new { id = "Longitud" })
-                                @Html.HiddenFor(m => m.DireccionEntrega.Operacion , new { id= "Operacion" })
-
+                                @Html.HiddenFor(m => m.DireccionEntrega.Latitud, new { id = "Latitud" })
+                                @Html.HiddenFor(m => m.DireccionEntrega.Longitud, new { id = "Longitud" })
+                                @Html.HiddenFor(m => m.DireccionEntrega.Operacion, new { id = "Operacion" })
+                                @Html.HiddenFor(m => m.DireccionEntrega.DireccionEntregaID, new { id = "DireccionEntregaID" })
+                         
                             </fieldset>
                         </div>
                     </div>
@@ -315,7 +316,7 @@ else
 
 @section scripts{
     <script>
-        debugger;
+        
         var ZoonMapa = 17;
         var LocationCountry = '@ViewBag.LocationCountry';
         var EsMobile = '@ViewBag.EsMobile';
