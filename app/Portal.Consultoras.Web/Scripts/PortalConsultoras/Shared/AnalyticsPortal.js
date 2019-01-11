@@ -248,11 +248,11 @@ var AnalyticsPortalModule = (function () {
 
         var separador = " - ";
         var texto = contendor;
-        texto = texto != ""
+        texto += texto != ""
             ? ((pagina != "" ? separador : "") + pagina)
             : pagina;
 
-        texto = texto != ""
+        texto += texto != ""
             ? ((palanca != "" ? separador : "") + palanca)
             : palanca;
 
@@ -400,7 +400,7 @@ var AnalyticsPortalModule = (function () {
     var _marcarImpresionSetProductos = function (arrayItems) {
 
         try {
-            console.log('Analytics - marcarImpresionSetProductos Inicio', arrayItems);
+            //console.log('Analytics - marcarImpresionSetProductos Inicio', arrayItems);
             var tipoMoneda = AnalyticsPortalModule.GetCurrencyCodes(_constantes.codigoPais);
             dataLayer.push({
                 'event': _evento.productImpression,
@@ -420,10 +420,10 @@ var AnalyticsPortalModule = (function () {
             if (_constantes.isTest)
                 alert("Marcación product impression.");
 
-            console.log('Analytics - _marcarProductImpresionSegunLista Inicio', data);
+            //console.log('Analytics - _marcarProductImpresionSegunLista Inicio', data);
 
             var parametroList = _getParametroListSegunOrigen(data.Origen);
-            console.log('Analytics - _marcarProductImpresionSegunLista - parametroList', parametroList);
+            //console.log('Analytics - _marcarProductImpresionSegunLista - parametroList', parametroList);
 
             var lista = data.lista;
             var cantidadMostrar = lista.length == 1 ? 1 : data.CantidadMostrar;
@@ -1027,7 +1027,7 @@ var AnalyticsPortalModule = (function () {
     var marcaGenericaLista = function (seccion, data, pos) {
 
         try {
-            console.log('marcaGenericaLista- ini', seccion, data, pos);
+            //console.log('marcaGenericaLista- ini', seccion, data, pos);
             // mantener la seccion para LAN, luego ponerlo dentro de data como origen
             seccion = seccion.replace("Lista", "");
 

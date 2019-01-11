@@ -57,7 +57,7 @@
             try
             {
                 DASolicitudCredito daSolicitudCredito = new DASolicitudCredito(paisID);
-                if (paisID == 9) // Mexico
+                if (paisID == Constantes.PaisID.Mexico)
                 {
                     resultado = daSolicitudCredito.InsertarSolicitudCreditoMX(beSolicitudCredito);
                 }
