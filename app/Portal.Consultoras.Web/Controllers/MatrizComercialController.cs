@@ -3,7 +3,6 @@ using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.CustomHelpers;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
-using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,7 +13,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class MatrizComercialController : BaseController
+    public class MatrizComercialController : BaseAdmController
     {
         public ActionResult AdministrarMatrizComercial()
         {
@@ -117,19 +116,6 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
             return RedirectToAction("Index", "Bienvenida");
-        }
-
-        private IEnumerable<PaisModel> DropDowListPaises()
-        {
-            List<BEPais> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = userData.RolID == 2
-                    ? sv.SelectPaises().ToList()
-                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
-            }
-
-            return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
 
         private string UploadFoto(string foto, string preFileName, string carpetaPais)
