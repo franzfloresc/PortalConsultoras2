@@ -1,8 +1,6 @@
-﻿using AutoMapper;
-using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
-using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +9,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class ProductoComentarioController : BaseController
+    public class ProductoComentarioController : BaseAdmController
     {
         [HttpGet]
         public ActionResult Index(ProductoComentarioModel model)
@@ -21,7 +19,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!UsuarioModel.HasAcces(ViewBag.Permiso, "ProductoComentario/Index"))
                     return RedirectToAction("Index", "Bienvenida");
 
-                model.Paises = ListarPaises();
+                model.Paises = DropDowListPaises();
                 model.EstadosComentario = ListarEstadosComentario();
                 model.TiposComentario = ListarTiposComentario();
                 model.Campanias = new List<CampaniaModel>();
@@ -33,19 +31,6 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return View(model);
             }
-        }
-
-        private IEnumerable<PaisModel> ListarPaises()
-        {
-            List<BEPais> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = userData.RolID == 2
-                    ? sv.SelectPaises().ToList()
-                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
-            }
-
-            return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
 
         private IEnumerable<EstadoProductoComentarioModel> ListarEstadosComentario()

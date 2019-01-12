@@ -520,7 +520,6 @@ namespace Portal.Consultoras.Web.Providers
         {
             if (_ofertaBaseProvider.UsarMsPersonalizacion(model.CodigoISO, Constantes.TipoEstrategiaCodigo.ShowRoom))
             {
-                List<ShowRoomPersonalizacionModel> personalizaciones = configEstrategiaSR.ListaPersonalizacionConsultora;
                 var carpetaPais = Globals.UrlMatriz + "/" + model.CodigoISO;
                 configEstrategiaSR.ListaPersonalizacionConsultora.ForEach(item => item.Valor = item.TipoAtributo == "IMAGEN" ? ConfigCdn.GetUrlFileCdn(carpetaPais, item.Valor) : item.Valor);
             }
@@ -735,27 +734,23 @@ namespace Portal.Consultoras.Web.Providers
             return personalizacionNivel;
         }
 
-        //public List<ServiceOferta.BEEstrategia> GetShowRoomOfertasConsultora()
-        //{
-        //    List<ServiceOferta.BEEstrategia> listEstrategia = new List<ServiceOferta.BEEstrategia>();
-        //    UsuarioModel userData = _sessionManager.GetUserData();
+        public List<ServiceOferta.BEEstrategia> GetShowRoomOfertasConsultora()
+        {
+            UsuarioModel userData = _sessionManager.GetUserData();
 
-        //    string pathOferta = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerOfertas,
-        //             userData.CodigoISO,
-        //             Constantes.ConfiguracionPais.ShowRoom,
-        //             userData.CampaniaID,
-        //             userData.CodigoConsultora,
-        //             0, //materialGanancia
-        //             0, //diaInicio
-        //             userData.CodigorRegion,
-        //             userData.CodigoZona
-        //          );
+            string pathShowroom = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerOfertas,
+               userData.CodigoISO,
+               Constantes.ConfiguracionPais.ShowRoom,
+               userData.CampaniaID,
+               userData.CodigoConsultora,
+               userData.CodigorRegion,
+               userData.ZonaID,
+               0);
 
-
-        //    var taskApi = Task.Run(() => OfertaBaseProvider.ObtenerOfertasDesdeApi(pathOferta, userData.CodigoISO));
-        //    Task.WhenAll(taskApi);
-        //    return taskApi.Result;
-        //}
+            var taskApi = Task.Run(() => OfertaBaseProvider.ObtenerOfertasDesdeApi(pathShowroom, userData.CodigoISO));
+            Task.WhenAll(taskApi);
+            return taskApi.Result;
+        }
 
 
         public ShowRoomEventoConsultoraModel RegistrarEventoConsultoraApi(int eventoId, bool esGenerica)
@@ -773,7 +768,7 @@ namespace Portal.Consultoras.Web.Providers
             };
 
             string jsonParameters = JsonConvert.SerializeObject(eventoConsultora);
-            Task<string> taskApi = Task.Run(() => RespSBMicroservicios(jsonParameters, requestUrl, Constantes.MetodosHTTP.Put, userData, Constantes.MicroServicio.PersonalizacionConfig)); 
+            Task<string> taskApi = Task.Run(() => RespSBMicroservicios(jsonParameters, requestUrl, "put", userData, "CONFIG"));
             Task.WhenAll(taskApi);
             string content = taskApi.Result;
 

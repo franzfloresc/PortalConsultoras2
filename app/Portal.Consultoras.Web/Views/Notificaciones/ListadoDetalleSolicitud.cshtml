@@ -1,4 +1,5 @@
-﻿@model Portal.Consultoras.Web.Models.SolicitudClienteConsultoraModel
+﻿@using Portal.Consultoras.Common
+@model Portal.Consultoras.Web.Models.SolicitudClienteConsultoraModel
 @using System.Globalization;
     <input type="hidden" class="cSolicitudClienteID" value="@Model.SolicitudClienteId"/>
      <div id="ldnHeader">
@@ -107,7 +108,7 @@
                         </td>
                              @if (Model.MarcaID != 2)
                              {
-                                 if (ViewBag.PaisID == 4)
+                                 if (ViewBag.PaisID == Constantes.PaisID.Colombia)
                                  {
                                 <td style='width: 90px;'>
                                 @String.Format("{0}", String.Format("{0:#,##0}", item.Precio).Replace(',', '.'))
@@ -137,7 +138,7 @@
 
                                  <td colspan="2" style="border:none;"></td>
                                   <td  style="font-family: 'museo_sans_700regular';font-size:15px;background:white;width: 90px;color:#009999;">TOTAL</td>
-                                  @if (ViewBag.PaisID == 4)
+                                  @if (ViewBag.PaisID == Constantes.PaisID.Colombia)
                                   {
                                     <td style="font-family: 'museo_sans_700regular';font-size:15px;background:white;width: 120px; color:#009999;">@String.Format("{0:#,##0}", total).Replace(',', '.')</td>
                                   }

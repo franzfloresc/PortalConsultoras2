@@ -47,11 +47,13 @@ namespace Portal.Consultoras.Web.Controllers
         protected ISessionManager sessionManager = SessionManager.SessionManager.Instance;
         protected ILogManager logManager = LogManager.LogManager.Instance;
 
+        private readonly ZonificacionProvider _zonificacionProvider;
+
         #region Constructor
 
         public LoginController()
         {
-
+            _zonificacionProvider = new ZonificacionProvider();
         }
 
         public LoginController(ISessionManager sessionManager)
@@ -1144,13 +1146,16 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.ValidacionInteractiva = usuario.ValidacionInteractiva;
                     usuarioModel.MensajeValidacionInteractiva = usuario.MensajeValidacionInteractiva;
 
-                    usuarioModel.IndicadorPagoOnline =
-                        usuarioModel.PaisID == 4 || usuarioModel.PaisID == 3 || usuarioModel.PaisID == 12 ? 1 : 0;
-                    usuarioModel.UrlPagoOnline = usuarioModel.PaisID == 4
+                    usuarioModel.IndicadorPagoOnline = usuarioModel.PaisID == Constantes.PaisID.Chile
+                                                        || usuarioModel.PaisID == Constantes.PaisID.Colombia
+                                                        || usuarioModel.PaisID == Constantes.PaisID.PuertoRico
+                                                        ? 1 : 0;
+
+                    usuarioModel.UrlPagoOnline = usuarioModel.PaisID == Constantes.PaisID.Colombia
                         ? "https://www.zonapagos.com/pagosn2/LoginCliente"
-                        : usuarioModel.PaisID == 3
+                        : usuarioModel.PaisID == Constantes.PaisID.Chile
                             ? "https://www.belcorpchile.cl/BotonesPagoRedireccion/PagoConsultora.aspx"
-                            : usuarioModel.PaisID == 12 ? "https://www.somosbelcorp.com/Paypal"
+                            : usuarioModel.PaisID == Constantes.PaisID.PuertoRico ? "https://www.somosbelcorp.com/Paypal"
                                 : "";
 
                     usuarioModel.OfertaFinal = usuario.OfertaFinal;
@@ -2431,11 +2436,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                using (var sv = new ZonificacionServiceClient())
-                {
-                    paises = sv.SelectPaises().ToList();
-                }
-
+                paises = _zonificacionProvider.GetPaisesEntidad();
+                
                 paises.RemoveAll(p => p.CodigoISO == Constantes.CodigosISOPais.Argentina || p.CodigoISO == Constantes.CodigosISOPais.Venezuela);
             }
             catch (Exception ex)
@@ -2485,7 +2487,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             ViewBag.IsoPais = iso;
 
-            if (iso == "BR") iso = "00";
+            if (iso == Constantes.CodigosISOPais.Brasil) iso = "00";
             ViewBag.TituloPagina = " ÉSIKA ";
             ViewBag.IconoPagina = "/Content/Images/Esika/favicon.ico";
             ViewBag.EsPaisEsika = true;
