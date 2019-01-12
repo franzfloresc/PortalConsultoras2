@@ -815,6 +815,7 @@ namespace Portal.Consultoras.Web.Providers
                     userData
                 ));
 
+
             Task.WhenAll(taskApi);
         }
 
