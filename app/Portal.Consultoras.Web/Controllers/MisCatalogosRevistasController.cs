@@ -571,7 +571,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var url = string.Format(Constantes.CatalogoUrlDefault.Piloto, Campania, userData.CodigoISO, userData.CodigoConsultora);
+                var url = GetUrlCatalogoPiloto(Campania);
                 var urlImagenLogo = Globals.RutaCdn + "/ImagenesPortal/Iconos/logo.png";
                 var urlIconEmail = Globals.RutaCdn + "/ImagenesPortal/Iconos/mensaje_mail.png";
                 var urlIconTelefono = Globals.RutaCdn + "/ImagenesPortal/Iconos/celu_mail.png";
@@ -859,6 +859,11 @@ namespace Portal.Consultoras.Web.Controllers
             return campania >= campaniaInicio;
         }
 
-
+        private string GetUrlCatalogoPiloto(string campania)
+        {
+            var url = string.Format(Constantes.CatalogoUrlDefault.Piloto, campania, userData.CodigoISO, userData.CodigoConsultora);
+            byte[] encbuff = Encoding.UTF8.GetBytes(url);
+            return HttpServerUtility.UrlTokenEncode(encbuff);
+        }
     }
 }

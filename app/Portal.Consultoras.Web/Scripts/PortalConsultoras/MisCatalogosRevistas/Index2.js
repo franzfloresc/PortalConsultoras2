@@ -791,6 +791,15 @@ function CatalogoEnviarEmailPiloto() {
         }
         clientes.push(objCorreo);
     }
+    
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Catálogos y revistas',
+        'action': 'Compartir email',
+        'label': campaniaEmail,
+        'value': clientes.length
+    });
+    InsertarLogCatalogoDynamo('Email', campaniaEmail, campaniaEmail, clientes.length);
 
     var mensaje = $("#comentarios").val();
     jQuery.ajax({
