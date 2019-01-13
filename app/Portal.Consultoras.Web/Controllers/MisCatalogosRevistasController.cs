@@ -11,6 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 
@@ -44,12 +45,11 @@ namespace Portal.Consultoras.Web.Controllers
             clienteModel.CodigoRevistaAnterior = _issuuProvider.GetRevistaCodigoIssuu(clienteModel.CampaniaAnterior, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
             clienteModel.CodigoRevistaSiguiente = _issuuProvider.GetRevistaCodigoIssuu(clienteModel.CampaniaSiguiente, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
             clienteModel.PartialSectionBpt = _configuracionPaisDatosProvider.GetPartialSectionBptModel(Constantes.OrigenPedidoWeb.SectionBptDesktopCatalogo);
-
-            ViewBag.Demo = demo;
+            
             ViewBag.Piloto = piloto;
+            ViewBag.UrlCatalogoPiloto = demo == "1" ? "http://catalogodigital-develop.altimeafactory.com/?iso=pe&consultant=035821619" : GetUrlCatalogoPiloto(userData.CampaniaID.ToString());
             ViewBag.EsConsultoraNueva = userData.EsConsultoraNueva;
-
-
+            
             //if (Constantes.PaisID.Bolivia == userData.PaisID || Constantes.PaisID.Chile == userData.PaisID || Constantes.PaisID.Colombia == userData.PaisID ||
             //    Constantes.PaisID.CostaRica == userData.PaisID || Constantes.PaisID.Ecuador == userData.PaisID || Constantes.PaisID.Mexico == userData.PaisID ||
             //    Constantes.PaisID.Peru == userData.PaisID)

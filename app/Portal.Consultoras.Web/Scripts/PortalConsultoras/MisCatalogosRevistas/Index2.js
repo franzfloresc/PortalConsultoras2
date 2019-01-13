@@ -300,10 +300,10 @@ function CargarCarruselCatalogo() {
                 xHtmlItemCatalogoPasosActual = $(xHtmlItemCatalogoPasosActual).html();
                 xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{tipoCatalogoTodo}/g, tagTodo);
                 xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{campania}/g, anio + nro);
-                xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{textourl}/g, GetUrlTextoActual(anio + nro));
+                xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{textourl}/g, urlCatalogoPiloto);
 
                 $("#idSection" + i).append(xHtmlItemCatalogoPasosActual);                
-                $("#txtUrlActual").val(GetUrlTextoActual(anio + nro));
+                $("#txtUrlActual").val(urlCatalogoPiloto);
                 $("#idSection" + i).addClass("catalogos__campania--actual");
             } else {
                 $('.catalogos__por__campania__item__slider').addClass('altoFijo');
@@ -442,14 +442,6 @@ function ObtenerEstadoCatalogo(campana, defered) {
     return defered.promise();
 }
 
-function GetUrlTextoActual(campania) {
-    //var url = demo == '1' ? "http://catalogodigital-develop.altimeafactory.com/?iso={1}&consultant=035821619&page=1" : urlPiloto;
-    //url = url.replace("{0}", campania).replace("{1}", IsoPais).replace("{2}", codigoConsultora);
-    var url = demo == '1' ? "http://catalogodigital-develop.altimeafactory.com/?iso={0}&consultant=035821619" : urlPiloto;
-    url = url.replace("{0}", IsoPais).replace("{1}", codigoConsultora);
-    return url;
-}
-
 function CopiarEnlaceActual(catalogo, campania) {
 
     var copyText = $('#txtUrlActual');
@@ -525,7 +517,7 @@ function GetCatalogosLinksByCampania(data, campania) {
             var a = getAnioCampania(campania);
             var n = getNumeroCampania(campania);
             $(idCat).find(elemItem).find("[data-tipo='img']").attr("onclick", "SetGoogleAnalytics('" + codigoISSUU + "','Ver catálogo','" + tagCat + "')");            
-            if (contDiv == 1 && piloto == '0') $(idCat).find(elemItem).find("[data-tipo='img']").attr("href", GetUrlTextoActual(campania));
+            if (contDiv == 1 && piloto == '0') $(idCat).find(elemItem).find("[data-tipo='img']").attr("href", GurlCatalogoPiloto);
             else $(idCat).find(elemItem).find("[data-tipo='img']").attr("href", urlCat);;            
             if (piloto == '1') $(idCat).find(elemItem).find("#txtUrl" + tagCat).val(urlCat);
             else if (contDiv != 1 && piloto == '0') $(idCat).find(elemItem).find("#txtUrl" + tagCat).val(urlCat);
