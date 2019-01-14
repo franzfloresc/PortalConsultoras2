@@ -117,14 +117,22 @@ $(document).ready(function () {
         e.preventDefault();
         
         if ($('.catalogos__por__campania__slider__control__der a').is(':visible')) {
-            $('.catalogos__campania--actual').fadeOut(100);
+            if (piloto == '0') {
+                $('.catalogos__campania--actual').fadeOut(100);
+            } else {
+                $('.catalogos__campania--actual--disenioAnterior').fadeOut(100);
+            }
             $('.catalogos__campania--siguiente').fadeOut(100);
             $('.catalogos__campania--anterior').fadeIn(100);
             $('.catalogos__por__campania__slider__control__izq a').fadeOut(100);
         } else {
             $('.catalogos__campania--anterior').fadeOut(100);
             $('.catalogos__campania--siguiente').fadeOut(100);
-            $('.catalogos__campania--actual').fadeIn(100);
+            if (piloto == '0') {
+                $('.catalogos__campania--actual').fadeIn(100);
+            } else {
+                $('.catalogos__campania--actual--disenioAnterior').fadeIn(100);
+            }
             $('.catalogos__por__campania__slider__control__der a').fadeIn(100);
         }
     });
@@ -132,14 +140,23 @@ $(document).ready(function () {
     $('.catalogos__por__campania__slider__control__der a').on('click', function (e) {
         e.preventDefault();
         if ($('.catalogos__por__campania__slider__control__izq a').is(':visible')) {
-            $('.catalogos__campania--actual').fadeOut(100);
+            if (piloto == '0'){
+                $('.catalogos__campania--actual').fadeOut(100);
+            } else {
+                $('.catalogos__campania--actual--disenioAnterior').fadeOut(100);
+            }
             $('.catalogos__campania--anterior').fadeOut(100);
             $('.catalogos__campania--siguiente').fadeIn(100);
             $('.catalogos__por__campania__slider__control__der a').fadeOut(100);
         } else {
             $('.catalogos__campania--anterior').fadeOut(100);
             $('.catalogos__campania--siguiente').fadeOut(100);
-            $('.catalogos__campania--actual').fadeIn(100);
+            if (piloto == '0') {
+                $('.catalogos__campania--actual').fadeIn(100);
+            } else {
+                $('.catalogos__campania--actual--disenioAnterior').fadeIn(100);
+            }
+            $('.catalogos__campania--actual--disenioAnterior').fadeIn(100);
             $('.catalogos__por__campania__slider__control__izq a').fadeIn(100);
         }
     });
@@ -283,12 +300,15 @@ function CargarCarruselCatalogo() {
                 xHtmlItemCatalogoPasosActual = $(xHtmlItemCatalogoPasosActual).html();
                 xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{tipoCatalogoTodo}/g, tagTodo);
                 xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{campania}/g, anio + nro);
-                xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{textourl}/g, GetUrlTextoActual(anio + nro));
+                xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{textourl}/g, urlCatalogoPiloto);
 
                 $("#idSection" + i).append(xHtmlItemCatalogoPasosActual);                
-                $("#txtUrlActual").val(GetUrlTextoActual(anio + nro));
+                $("#txtUrlActual").val(urlCatalogoPiloto);
+                $("#idSection" + i).addClass("catalogos__campania--actual");
+            } else {
+                $('.catalogos__por__campania__item__slider').addClass('altoFijo');
+                $("#idSection" + i).addClass("catalogos__campania--actual--disenioAnterior");
             }
-            $("#idSection" + i).addClass(" catalogos__campania--actual");
         }
         else if (i == 2) $("#idSection" + i).addClass(" catalogos__campania--siguiente");
     }    
@@ -422,14 +442,6 @@ function ObtenerEstadoCatalogo(campana, defered) {
     return defered.promise();
 }
 
-function GetUrlTextoActual(campania) {
-    //var url = demo == '1' ? "http://catalogodigital-develop.altimeafactory.com/?iso={1}&consultant=035821619&page=1" : urlPiloto;
-    //url = url.replace("{0}", campania).replace("{1}", IsoPais).replace("{2}", codigoConsultora);
-    var url = demo == '1' ? "http://catalogodigital-develop.altimeafactory.com/?iso={0}&consultant=035821619" : urlPiloto;
-    url = url.replace("{0}", IsoPais).replace("{1}", codigoConsultora);
-    return url;
-}
-
 function CopiarEnlaceActual(catalogo, campania) {
 
     var copyText = $('#txtUrlActual');
@@ -505,7 +517,7 @@ function GetCatalogosLinksByCampania(data, campania) {
             var a = getAnioCampania(campania);
             var n = getNumeroCampania(campania);
             $(idCat).find(elemItem).find("[data-tipo='img']").attr("onclick", "SetGoogleAnalytics('" + codigoISSUU + "','Ver catálogo','" + tagCat + "')");            
-            if (contDiv == 1 && piloto == '0') $(idCat).find(elemItem).find("[data-tipo='img']").attr("href", GetUrlTextoActual(campania));
+            if (contDiv == 1 && piloto == '0') $(idCat).find(elemItem).find("[data-tipo='img']").attr("href", GurlCatalogoPiloto);
             else $(idCat).find(elemItem).find("[data-tipo='img']").attr("href", urlCat);;            
             if (piloto == '1') $(idCat).find(elemItem).find("#txtUrl" + tagCat).val(urlCat);
             else if (contDiv != 1 && piloto == '0') $(idCat).find(elemItem).find("#txtUrl" + tagCat).val(urlCat);
@@ -771,6 +783,15 @@ function CatalogoEnviarEmailPiloto() {
         }
         clientes.push(objCorreo);
     }
+    
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Catálogos y revistas',
+        'action': 'Compartir email',
+        'label': campaniaEmail,
+        'value': clientes.length
+    });
+    InsertarLogCatalogoDynamo('Email', campaniaEmail, campaniaEmail, clientes.length);
 
     var mensaje = $("#comentarios").val();
     jQuery.ajax({

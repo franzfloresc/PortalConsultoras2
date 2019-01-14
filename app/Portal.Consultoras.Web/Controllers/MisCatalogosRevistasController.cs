@@ -11,6 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 
@@ -44,11 +45,11 @@ namespace Portal.Consultoras.Web.Controllers
             clienteModel.CodigoRevistaAnterior = _issuuProvider.GetRevistaCodigoIssuu(clienteModel.CampaniaAnterior, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
             clienteModel.CodigoRevistaSiguiente = _issuuProvider.GetRevistaCodigoIssuu(clienteModel.CampaniaSiguiente, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
             clienteModel.PartialSectionBpt = _configuracionPaisDatosProvider.GetPartialSectionBptModel(Constantes.OrigenPedidoWeb.SectionBptDesktopCatalogo);
-
-            ViewBag.Demo = demo;
+            
             ViewBag.Piloto = piloto;
+            ViewBag.UrlCatalogoPiloto = demo == "1" ? "http://catalogodigital-develop.altimeafactory.com/?iso=pe&consultant=035821619" : GetUrlCatalogoPiloto(userData.CampaniaID.ToString());
             ViewBag.EsConsultoraNueva = userData.EsConsultoraNueva;
-
+            
             //if (Constantes.PaisID.Bolivia == userData.PaisID || Constantes.PaisID.Chile == userData.PaisID || Constantes.PaisID.Colombia == userData.PaisID ||
             //    Constantes.PaisID.CostaRica == userData.PaisID || Constantes.PaisID.Ecuador == userData.PaisID || Constantes.PaisID.Mexico == userData.PaisID ||
             //    Constantes.PaisID.Peru == userData.PaisID)
@@ -570,7 +571,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var url = string.Format(Constantes.CatalogoUrlDefault.Piloto, Campania, userData.CodigoISO, userData.CodigoConsultora);
+                var url = GetUrlCatalogoPiloto(Campania);
                 var urlImagenLogo = Globals.RutaCdn + "/ImagenesPortal/Iconos/logo.png";
                 var urlIconEmail = Globals.RutaCdn + "/ImagenesPortal/Iconos/mensaje_mail.png";
                 var urlIconTelefono = Globals.RutaCdn + "/ImagenesPortal/Iconos/celu_mail.png";
@@ -858,6 +859,11 @@ namespace Portal.Consultoras.Web.Controllers
             return campania >= campaniaInicio;
         }
 
-
+        private string GetUrlCatalogoPiloto(string campania)
+        {
+            var url = string.Format(Constantes.CatalogoUrlDefault.Piloto, campania, userData.CodigoISO, userData.CodigoConsultora);
+            byte[] encbuff = Encoding.UTF8.GetBytes(url);
+            return HttpServerUtility.UrlTokenEncode(encbuff);
+        }
     }
 }
