@@ -500,6 +500,7 @@ namespace Portal.Consultoras.Web.Providers
                         case Constantes.TipoEstrategiaCodigo.Lanzamiento: TipoPersonalizacion = Constantes.ConfiguracionPais.Lanzamiento; break;
                         case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada: TipoPersonalizacion = Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada; break;
                         case Constantes.TipoEstrategiaCodigo.ShowRoom: TipoPersonalizacion = Constantes.ConfiguracionPais.ShowRoom; break;
+                        case Constantes.TipoEstrategiaCodigo.HerramientasVenta: TipoPersonalizacion = Constantes.ConfiguracionPais.HerramientasVenta; break;
                     }
 
                     string pathOferta = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerOfertas,
