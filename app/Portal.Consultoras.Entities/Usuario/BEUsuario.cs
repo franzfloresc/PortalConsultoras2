@@ -314,11 +314,7 @@ namespace Portal.Consultoras.Entities
 
         [Column("ConsultoraAsociadoID")]
         [DataMember]
-        public long ConsultoraAsociadaID
-        {
-            get { return consultoraAsociadoID; }
-            set { consultoraAsociadoID = value; }
-        }
+        public long ConsultoraAsociadaID { get; set; }
 
         [DataMember]
         public string RolDescripcion { get; set; }
@@ -411,122 +407,58 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         [Column("ConsultoraNueva")]
-        public int ConsultoraNueva
-        {
-            get { return mConsultoraNueva; }
-            set { mConsultoraNueva = value; }
-        }
+        public int ConsultoraNueva { get; set; }
         [DataMember]
         public bool EsConsultoraNueva { get; set; }
 
         [DataMember]
-        public string NombrePais
-        {
-            get { return mNombrePais; }
-            set { mNombrePais = value; }
-        }
+        public string NombrePais { get; set; }
 
         [DataMember]
-        public string BanderaImagen
-        {
-            get { return mBanderaImagen; }
-            set { mBanderaImagen = value; }
-        }
+        public string BanderaImagen { get; set; }
 
         [DataMember]
-        public string CodigoFuente
-        {
-            get { return mCodigoFuente; }
-            set { mCodigoFuente = value; }
-        }
+        public string CodigoFuente { get; set; }
 
         [Column("CodigoUsuario")]
         [DataMember]
-        public string CodigoUsuario
-        {
-            get { return msCodigoUsuario; }
-            set { msCodigoUsuario = value; }
-        }
+        public string CodigoUsuario { get; set; }
 
         [Column("CodigoConsultora")]
         [DataMember]
-        public string CodigoConsultora
-        {
-            get { return msCodigoConsultora; }
-            set { msCodigoConsultora = value; }
-        }
+        public string CodigoConsultora { get; set; }
 
         [Column("PaisID")]
         [DataMember]
-        public int PaisID
-        {
-            get { return miPaisID; }
-            set { miPaisID = value; }
-        }
+        public int PaisID { get; set; }
 
         [Column("NombreCompleto")]
         [DataMember]
-        public string Nombre
-        {
-            get { return msNombre; }
-            set { msNombre = value; }
-        }
+        public string Nombre { get; set; }
         [DataMember]
-        public string ClaveSecreta
-        {
-            get { return msClaveSecreta; }
-            set { msClaveSecreta = value; }
-        }
+        public string ClaveSecreta { get; set; }
         [DataMember]
-        public string ActualizarClave
-        {
-            get { return msActualizarClave; }
-            set { msActualizarClave = value; }
-        }
+        public string ActualizarClave { get; set; }
         [DataMember]
-        public string ConfirmarClave
-        {
-            get { return msConfirmarClave; }
-            set { msConfirmarClave = value; }
-        }
+        public string ConfirmarClave { get; set; }
 
         [Column("EMail")]
         [DataMember]
-        public string EMail
-        {
-            get { return msEMail; }
-            set { msEMail = value; }
-        }
+        public string EMail { get; set; }
         [DataMember]
-        public bool EMailActivo
-        {
-            get { return mbEMailActivo; }
-            set { mbEMailActivo = value; }
-        }
+        public bool EMailActivo { get; set; }
 
         [Column("Telefono")]
         [DataMember]
-        public string Telefono
-        {
-            get { return msTelefono; }
-            set { msTelefono = value; }
-        }
+        public string Telefono { get; set; }
 
         [Column("TelefonoTrabajo")]
         [DataMember]
-        public string TelefonoTrabajo
-        {
-            get { return msTelefonoTrabajo; }
-            set { msTelefonoTrabajo = value; }
-        }
+        public string TelefonoTrabajo { get; set; }
 
         [Column("Celular")]
         [DataMember]
-        public string Celular
-        {
-            get { return msCelular; }
-            set { msCelular = value; }
-        }
+        public string Celular { get; set; }
 
         [DataMember]
         public string Sobrenombre
@@ -539,256 +471,122 @@ namespace Portal.Consultoras.Entities
             set { msSobrenombre = value; }
         }
         [DataMember]
-        public bool CompartirDatos
-        {
-            get { return mbCompartirDatos; }
-            set { mbCompartirDatos = value; }
-        }
+        public bool CompartirDatos { get; set; }
         [DataMember]
         public bool AceptoContrato { get; set; }
         [DataMember]
-        public bool Activo
-        {
-            get { return mbActivo; }
-            set { mbActivo = value; }
-        }
+        public bool Activo { get; set; }
 
         [Column("TipoUsuario")]
         [DataMember]
-        public Int16 TipoUsuario
-        {
-            get { return miTipoUsuario; }
-            set { miTipoUsuario = value; }
-        }
+        public Int16 TipoUsuario { get; set; }
+
         [Column("CambioClave")]
         [DataMember]
-        public bool CambioClave
-        {
-            get { return mbCambioClave; }
-            set { mbCambioClave = value; }
-        }
+        public bool CambioClave { get; set; }
 
         [Column("CodigoISO")]
         [DataMember]
-        public string CodigoISO
-        {
-            get { return msCodigoISO; }
-            set { msCodigoISO = value; }
-        }
+        public string CodigoISO { get; set; }
 
         [Column("RegionID")]
         [DataMember]
-        public int RegionID
-        {
-            get { return miRegionID; }
-            set { miRegionID = value; }
-        }
+        public int RegionID { get; set; }
 
         [Column("CodigorRegion")]
         [DataMember]
-        public string CodigorRegion
-        {
-            get { return msCodigorRegion; }
-            set { msCodigorRegion = value; }
-        }
+        public string CodigorRegion { get; set; }
 
         [Column("ZonaID")]
         [DataMember]
-        public int ZonaID
-        {
-            get { return miZonaID; }
-            set { miZonaID = value; }
-        }
+        public int ZonaID { get; set; }
 
         [Column("CodigoZona")]
         [DataMember]
-        public string CodigoZona
-        {
-            get { return msCodigoZona; }
-            set { msCodigoZona = value; }
-        }
+        public string CodigoZona { get; set; }
 
         [Column("ConsultoraID")]
         [DataMember]
-        public long ConsultoraID
-        {
-            get { return miConsultoraID; }
-            set { miConsultoraID = value; }
-        }
+        public long ConsultoraID { get; set; }
 
         [Column("RolID")]
         [DataMember]
-        public short RolID
-        {
-            get { return miRolID; }
-            set { miRolID = value; }
-        }
+        public short RolID { get; set; }
 
         [DataMember]
-        public int CampaniaID
-        {
-            get { return miCampaniaID; }
-            set { miCampaniaID = value; }
-        }
+        public int CampaniaID { get; set; }
 
         [DataMember]
-        public DateTime FechaInicioFacturacion
-        {
-            get { return mdFechaInicioFacturacion; }
-            set { mdFechaInicioFacturacion = value; }
-        }
+        public DateTime FechaInicioFacturacion { get; set; }
 
         [DataMember]
-        public DateTime FechaFinFacturacion
-        {
-            get { return mdFechaFinFacturacion; }
-            set { mdFechaFinFacturacion = value; }
-        }
+        public DateTime FechaFinFacturacion { get; set; }
 
         [DataMember]
-        public string CampaniaDescripcion
-        {
-            get { return msCampaniaDescripcion; }
-            set { msCampaniaDescripcion = value; }
-        }
+        public string CampaniaDescripcion { get; set; }
 
         [DataMember]
-        public TimeSpan HoraInicio
-        {
-            get { return tsHoraInicio; }
-            set { tsHoraInicio = value; }
-        }
+        public TimeSpan HoraInicio { get; set; }
 
         [DataMember]
-        public TimeSpan HoraFin
-        {
-            get { return tsHoraFin; }
-            set { tsHoraFin = value; }
-        }
+        public TimeSpan HoraFin { get; set; }
 
         [DataMember]
-        public bool ZonaValida
-        {
-            get { return mbZonaValida; }
-            set { mbZonaValida = value; }
-        }
+        public bool ZonaValida { get; set; }
 
         [Column("Simbolo")]
         [DataMember]
-        public string Simbolo
-        {
-            get { return msSimbolo; }
-            set { msSimbolo = value; }
-        }
+        public string Simbolo { get; set; }
 
         [DataMember]
-        public int TerritorioID
-        {
-            get { return miTerritorioID; }
-            set { miTerritorioID = value; }
-        }
+        public int TerritorioID { get; set; }
 
         [DataMember]
-        public string CodigoTerritorio
-        {
-            get { return msCodigoTerritorio; }
-            set { msCodigoTerritorio = value; }
-        }
+        public string CodigoTerritorio { get; set; }
 
         [Column("MontoMinimoPedido")]
         [DataMember]
-        public decimal MontoMinimoPedido
-        {
-            get { return mmMontoMinimoPedido; }
-            set { mmMontoMinimoPedido = value; }
-        }
+        public decimal MontoMinimoPedido { get; set; }
 
         [Column("MontoMaximoPedido")]
         [DataMember]
-        public decimal MontoMaximoPedido
-        {
-            get { return mmMontoMaximoPedido; }
-            set { mmMontoMaximoPedido = value; }
-        }
+        public decimal MontoMaximoPedido { get; set; }
 
         [DataMember]
-        public TimeSpan HoraInicioNoFacturable
-        {
-            get { return tsHoraInicioNoFacturable; }
-            set { tsHoraInicioNoFacturable = value; }
-        }
+        public TimeSpan HoraInicioNoFacturable { get; set; }
 
         [DataMember]
-        public TimeSpan HoraCierreNoFacturable
-        {
-            get { return tsHoraCierreNoFacturable; }
-            set { tsHoraCierreNoFacturable = value; }
-        }
+        public TimeSpan HoraCierreNoFacturable { get; set; }
 
         [DataMember]
-        public int DiasAntes
-        {
-            get { return miDiasAntes; }
-            set { miDiasAntes = value; }
-        }
+        public int DiasAntes { get; set; }
 
         [DataMember]
-        public string Segmento
-        {
-            get { return mSegmento; }
-            set { mSegmento = value; }
-        }
+        public string Segmento { get; set; }
 
         [DataMember]
-        public int DiasDuracionCronograma
-        {
-            get { return miDiasDuracionCronograma; }
-            set { miDiasDuracionCronograma = value; }
-        }
+        public int DiasDuracionCronograma { get; set; }
 
         [DataMember]
-        public bool HabilitarRestriccionHoraria
-        {
-            get { return mHabilitarRestriccionHoraria; }
-            set { mHabilitarRestriccionHoraria = value; }
-        }
+        public bool HabilitarRestriccionHoraria { get; set; }
 
         [DataMember]
-        public int HorasDuracionRestriccion
-        {
-            get { return mHorasDuracionRestriccion; }
-            set { mHorasDuracionRestriccion = value; }
-        }
+        public int HorasDuracionRestriccion { get; set; }
 
         [DataMember]
         [Column("AnoCampanaIngreso")]
-        public string AnoCampaniaIngreso
-        {
-            get { return mAnoCampaniaIngreso; }
-            set { mAnoCampaniaIngreso = value; }
-        }
+        public string AnoCampaniaIngreso { get; set; }
 
         [DataMember]
         [Column("PrimerNombre")]
-        public string PrimerNombre
-        {
-            get { return mPrimerNombre; }
-            set { mPrimerNombre = value; }
-        }
+        public string PrimerNombre { get; set; }
 
         [DataMember]
-        public string PrimerApellido
-        {
-            get { return mPrimerApellido; }
-            set { mPrimerApellido = value; }
-        }
+        public string PrimerApellido { get; set; }
 
         [DataMember]
-        public bool MostrarAyudaWebTraking
-        {
-            get { return mostrarAyudaWebTraking; }
-            set { mostrarAyudaWebTraking = value; }
-        }
+        public bool MostrarAyudaWebTraking { get; set; }
+
         [DataMember]
         public int IndicadorOfertaFIC { get; set; }
         [DataMember]
@@ -822,52 +620,24 @@ namespace Portal.Consultoras.Entities
         public int IndicadorContrato { get; set; }
 
         [DataMember]
-        public DateTime FechaFinFIC
-        {
-            get { return mdFechaFinFIC; }
-            set { mdFechaFinFIC = value; }
-        }
+        public DateTime FechaFinFIC { get; set; }
 
         [DataMember]
-        public bool PROLSinStock
-        {
-            get { return mPROLSinStock; }
-            set { mPROLSinStock = value; }
-        }
+        public bool PROLSinStock { get; set; }
 
         [DataMember]
-        public DateTime FechaModificacion
-        {
-            get { return mdFechaModificacion; }
-            set { mdFechaModificacion = value; }
-        }
+        public DateTime FechaModificacion { get; set; }
 
         [DataMember]
-        public string Rol
-        {
-            get { return mdRol; }
-            set { mdRol = value; }
-        }
+        public string Rol { get; set; }
 
         [Column("SegmentoConstancia")]
         [DataMember]
-        public string SegmentoConstancia
-        {
-            get { return mSegmentoConstancia; }
-            set { mSegmentoConstancia = value; }
-        }
+        public string SegmentoConstancia { get; set; }
         [DataMember]
-        public string SeccionAnalytics
-        {
-            get { return mSeccionAnalytics; }
-            set { mSeccionAnalytics = value; }
-        }
+        public string SeccionAnalytics { get; set; }
         [DataMember]
-        public string DescripcionNivel
-        {
-            get { return mDescripcionNivel; }
-            set { mDescripcionNivel = value; }
-        }
+        public string DescripcionNivel { get; set; }
 
         [DataMember]
         public bool esConsultoraLider
@@ -876,11 +646,7 @@ namespace Portal.Consultoras.Entities
             set { mesConsultoraLider = value ? 1 : 0; }
         }
         [DataMember]
-        public string DigitoVerificador
-        {
-            get { return digitoVerificador; }
-            set { digitoVerificador = value; }
-        }
+        public string DigitoVerificador { get; set; }
 
         [DataMember]
         public bool NuevoPROL { get; set; }
@@ -914,25 +680,13 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         [Column("SegmentoInternoId")]
-        public int? SegmentoInternoID
-        {
-            get;
-            set;
-        }
+        public int? SegmentoInternoID { get; set; }
 
         [DataMember]
-        public string SegmentoAbreviatura
-        {
-            get { return mSegmentoAbreviatura; }
-            set { mSegmentoAbreviatura = value; }
-        }
+        public string SegmentoAbreviatura { get; set; }
 
         [DataMember]
-        public bool EstadoSimplificacionCUV
-        {
-            get { return bEstadoSimplificacionCUV; }
-            set { bEstadoSimplificacionCUV = value; }
-        }
+        public bool EstadoSimplificacionCUV { get; set; }
 
         [DataMember]
         public bool EsquemaDAConsultora { get; set; }
