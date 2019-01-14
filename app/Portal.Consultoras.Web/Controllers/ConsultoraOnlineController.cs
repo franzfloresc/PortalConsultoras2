@@ -783,29 +783,28 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (indiceActualPagina > 0)
                     indiceActualPagina--;
+
+                return indiceActualPagina;
             }
+
+            if (Pagina.Equals(">"))
+            {
+                if (indiceActualPagina < indiceUltimaPagina)
+                    indiceActualPagina++;
+
+                return indiceActualPagina;
+            }
+
+            //indiceActualPagina = Pagina.Equals(">>") ? indiceUltimaPagina : int.Parse(Pagina);
+
+            if (Pagina.Equals(">>"))
+                indiceActualPagina = indiceUltimaPagina;
             else
             {
-                if (Pagina.Equals(">"))
+                int pagAux;
+                if (int.TryParse(Pagina, out pagAux))
                 {
-                    if (indiceActualPagina < indiceUltimaPagina)
-                        indiceActualPagina++;
-                }
-                else
-                {
-                    //indiceActualPagina = Pagina.Equals(">>") ? indiceUltimaPagina : int.Parse(Pagina);
-
-                    if (Pagina.Equals(">>"))
-                        indiceActualPagina = indiceUltimaPagina;
-                    else
-                    {
-                        int pagAux;
-                        if (int.TryParse(Pagina, out pagAux))
-                        {
-                            indiceActualPagina = pagAux + sumaPaginaStr;
-                        }
-                    }
-
+                    indiceActualPagina = pagAux + sumaPaginaStr;
                 }
             }
 
