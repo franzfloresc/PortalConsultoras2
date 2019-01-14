@@ -254,6 +254,9 @@
         $("#comentarios").val(valContenidoCorreoPilotoDefecto);
         // remover todos los tag
         $('#tagCorreo').removeTagAll();
+        // asignar el check al catalogo correspondiente mediante tipoCatalogo
+        campaniaEmail = campania;
+
         $("#divCheckbox").find("[type='checkbox']").removeAttr('checked');
         
         if (tipoCatalogo == 'Todo') {
