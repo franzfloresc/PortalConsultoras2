@@ -129,6 +129,9 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int EstrategiaIDSicc { get; set; }
 
+        [DataMember]
+        public bool TieneOfertasRelacionadas { get; set; }
+
         public BEProducto(IDataRecord row)
         {
             CUV = row.ToString("CUV");

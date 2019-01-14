@@ -108,7 +108,12 @@ namespace Portal.Consultoras.BizLogic.Pedido
             {
                 //Informacion de palancas
                 var usuario = productoBuscar.Usuario;
-                var configuracionPaisTask = Task.Run(() => _usuarioBusinessLogic.ConfiguracionPaisUsuario(usuario, Constantes.ConfiguracionPais.RevistaDigital));
+
+                var lstConfiguracionPais = new List<string>();
+                lstConfiguracionPais.Add(Constantes.ConfiguracionPais.RevistaDigital);
+                lstConfiguracionPais.Add(Constantes.ConfiguracionPais.Recomendaciones);
+
+                var configuracionPaisTask = Task.Run(() => _usuarioBusinessLogic.ConfiguracionPaisUsuario(usuario, string.Join("|", lstConfiguracionPais)));
                 var codigosRevistasTask = Task.Run(() => _usuarioBusinessLogic.ObtenerCodigoRevistaFisica(usuario.PaisID));
                 if (Constantes.Inicializacion.EnteroInicial == usuario.ConsecutivoNueva)
                 {
@@ -203,7 +208,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 //Validación producto liquidaciones
                 if (producto.TipoOfertaSisID == Constantes.ConfiguracionOferta.Liquidacion) return ProductoBuscarRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_LIQUIDACION, null, producto);
 
-                //Validacción producto sugerido
+                //Validación producto sugerido
                 if (producto.TieneSugerido > 0) return ProductoBuscarRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_SUGERIDO, null, producto);
 
                 //Información de producto con oferta en revista
@@ -219,6 +224,9 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         else return ProductoBuscarRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_OFERTAREVISTA_LBEL, null, producto);
                     }
                 }
+
+                //Validación ofertas relacionadas
+                producto.TieneOfertasRelacionadas = TieneOfertasRelacionadas(usuario, producto);
 
                 return ProductoBuscarRespuesta(Constantes.PedidoValidacion.Code.SUCCESS, null, producto);
             }
@@ -1420,6 +1428,22 @@ namespace Portal.Consultoras.BizLogic.Pedido
             {
                 return Enumeradores.ValidacionVentaExclusiva.ContinuaFlujo;
             }
+        }
+
+        private bool TieneOfertasRelacionadas(BEUsuario usuario, BEProducto producto)
+        {
+            var activarRecomendaciones = usuario.RecomendacionesConfiguracion.Where(x => x.Codigo == Constantes.CodigoConfiguracionRecomendaciones.ActivarRecomendaciones && x.Valor1 == "1").Any();
+            var esCatalogo = false;
+            var esIndividual = producto.EstrategiaIDSicc == 2001;
+
+            var oCodigoCatalogo = usuario.RecomendacionesConfiguracion.Where(x => x.Codigo == Constantes.CodigoConfiguracionRecomendaciones.CodigoCatalogo).FirstOrDefault();
+            if (oCodigoCatalogo != null)
+            {
+                var lstCodigoCatalogo = oCodigoCatalogo.Valor1.Split(',');
+                esCatalogo = lstCodigoCatalogo.Where(x => x == producto.CodigoCatalogo.ToString()).Any();
+            }
+
+            return activarRecomendaciones && esCatalogo && esIndividual;
         }
         #endregion
 
