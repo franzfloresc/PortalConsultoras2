@@ -1262,7 +1262,6 @@ namespace Portal.Consultoras.Common
             public const string Esika = "http://www.esika.biz";
             public const string Lbel = "http://www.lbel.com";
             public const string Cyzone = "http://www.cyzone.com";
-            public const string Piloto = "http://catalogodigital.somosbelcorp.com?campaign={0}&iso={1}&consultant={2}";
         }
 
         public static class CatalogoUrlIssu
@@ -1275,6 +1274,12 @@ namespace Portal.Consultoras.Common
         {
             public const string SaludoCorreo = "Revisa los catálogos de esta campaña y comunícate conmigo si estás interesada en algunos de los productos.";
             public const string SaludoCorreoPiloto = "Revisa los catálogos de esta campaña y pide lo que quieras sólo dándole click al producto que deseas.";
+        }
+
+        public static class CatalogoPiloto
+        {
+            public const string UrlBase = "http://catalogodigital.somosbelcorp.com?cod={0}";
+            public const string UrlParamEncrip = "iso={0}&consultant={1}";
         }
 
         public static class RevistaNombre

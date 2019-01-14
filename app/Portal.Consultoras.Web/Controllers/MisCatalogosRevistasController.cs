@@ -49,7 +49,7 @@ namespace Portal.Consultoras.Web.Controllers
             clienteModel.PartialSectionBpt = _configuracionPaisDatosProvider.GetPartialSectionBptModel(Constantes.OrigenPedidoWeb.SectionBptDesktopCatalogo);
             
             ViewBag.Piloto = _tablaLogica.ObtenerConfiguracion(userData.PaisID, Constantes.TablaLogica.PilotoCatalogoDigital)[0].Valor; ;
-            ViewBag.UrlCatalogoPiloto = demo == "1" ? "http://catalogodigital-develop.altimeafactory.com/?iso=pe&consultant=035821619" : GetUrlCatalogoPiloto(userData.CampaniaID.ToString());
+            ViewBag.UrlCatalogoPiloto = demo == "1" ? "http://catalogodigital-develop.altimeafactory.com/?iso=pe&consultant=035821619" : GetUrlCatalogoPiloto();
             ViewBag.EsConsultoraNueva = userData.EsConsultoraNueva;
             
             //if (Constantes.PaisID.Bolivia == userData.PaisID || Constantes.PaisID.Chile == userData.PaisID || Constantes.PaisID.Colombia == userData.PaisID ||
@@ -573,7 +573,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var url = GetUrlCatalogoPiloto(Campania);
+                var url = GetUrlCatalogoPiloto();
                 var urlImagenLogo = Globals.RutaCdn + "/ImagenesPortal/Iconos/logo.png";
                 var urlIconEmail = Globals.RutaCdn + "/ImagenesPortal/Iconos/mensaje_mail.png";
                 var urlIconTelefono = Globals.RutaCdn + "/ImagenesPortal/Iconos/celu_mail.png";
@@ -861,11 +861,12 @@ namespace Portal.Consultoras.Web.Controllers
             return campania >= campaniaInicio;
         }
 
-        private string GetUrlCatalogoPiloto(string campania)
+        private string GetUrlCatalogoPiloto()
         {
-            var url = string.Format(Constantes.CatalogoUrlDefault.Piloto, campania, userData.CodigoISO, userData.CodigoConsultora);
+            var url = string.Format(Constantes.CatalogoPiloto.UrlParamEncrip, userData.CodigoISO, userData.CodigoConsultora);
             byte[] encbuff = Encoding.UTF8.GetBytes(url);
-            return HttpServerUtility.UrlTokenEncode(encbuff);
+            var encrip = HttpServerUtility.UrlTokenEncode(encbuff);
+            return string.Format(Constantes.CatalogoPiloto.UrlBase, encrip);
         }
     }
 }
