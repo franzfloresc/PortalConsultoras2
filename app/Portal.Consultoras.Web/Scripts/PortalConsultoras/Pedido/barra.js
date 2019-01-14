@@ -550,6 +550,7 @@ function MostrarBarra(datax, destino) {
     if (belcorp.barra.settings.isMobile) {
           //  wLogro = CalculoLlenadoBarra(); volver comentar hd-2849
            // CalculoPosicionMinimoMaximo();  volver comentar hd-2849
+        
     }
     else
     {
