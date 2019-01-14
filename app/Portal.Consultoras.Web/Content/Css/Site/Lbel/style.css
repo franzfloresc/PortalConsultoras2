@@ -23598,9 +23598,9 @@ input[type='checkbox']:checked + span:after {
 }
 
 .linea_indicador_barra {
-    left: 0;
+    /*left: 0;
     right: 0;
-    margin: 0 auto;
+    margin: 0 auto;*/
     width: 1px;
     height: 8px;
     background: #979797;
@@ -34137,6 +34137,20 @@ height:30px;
 .tooltip_producto_regalo_descripcion strong{
     font-weight:bold;
 }
+
+/**OG*/
+#divBarraLimite {
+    position: relative !important;
+    height: 51px;
+}
+
+.EscalaDescuento {
+    float: none !important;
+    position: absolute;
+    left: 0;
+}
+
+
 
 /* FIN - MEJORA CONTINUA CONSULTORAS - HD-2212 - PROGRAMA DE NUEVAS: MOSTRAR IMAGEN DEL REGALO EN LA BARRA DE DESCUENTOS */
 
