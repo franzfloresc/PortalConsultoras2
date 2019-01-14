@@ -21,14 +21,16 @@ namespace Portal.Consultoras.Web.Controllers
     {
         private readonly IssuuProvider _issuuProvider;
         private readonly ConfiguracionPaisDatosProvider _configuracionPaisDatosProvider;
+        protected Providers.TablaLogicaProvider _tablaLogica;
 
         public ActionResult MisCatalogosYRevistas()
         {
             return View();
         }
 
-        public ActionResult Index2(string marca = "", string demo = "0", string piloto = "0")
+        public ActionResult Index2(string marca = "", string demo = "0")
         {
+            _tablaLogica = new Providers.TablaLogicaProvider();
             var clienteModel = new MisCatalogosRevistasModel
             {
                 PaisNombre = Util.GetPaisNombreByISO(userData.CodigoISO),
@@ -46,7 +48,7 @@ namespace Portal.Consultoras.Web.Controllers
             clienteModel.CodigoRevistaSiguiente = _issuuProvider.GetRevistaCodigoIssuu(clienteModel.CampaniaSiguiente, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
             clienteModel.PartialSectionBpt = _configuracionPaisDatosProvider.GetPartialSectionBptModel(Constantes.OrigenPedidoWeb.SectionBptDesktopCatalogo);
             
-            ViewBag.Piloto = piloto;
+            ViewBag.Piloto = _tablaLogica.ObtenerConfiguracion(userData.PaisID, Constantes.TablaLogica.PilotoCatalogoDigital)[0].Valor; ;
             ViewBag.UrlCatalogoPiloto = demo == "1" ? "http://catalogodigital-develop.altimeafactory.com/?iso=pe&consultant=035821619" : GetUrlCatalogoPiloto(userData.CampaniaID.ToString());
             ViewBag.EsConsultoraNueva = userData.EsConsultoraNueva;
             
