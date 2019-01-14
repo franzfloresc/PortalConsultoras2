@@ -10,82 +10,20 @@ namespace Portal.Consultoras.Entities
     [DataContract]
     public class BEUsuario
     {
-        private string msCodigoConsultora;
-        private string msCodigoUsuario;
-        private int miPaisID;
-        private string msNombre;
-        private string msClaveSecreta;
-        private string msActualizarClave;
-        private string msConfirmarClave;
-        private string msEMail;
-        private bool mbEMailActivo;
-        private string msTelefono;
-        private string msTelefonoTrabajo;
-        private string msCelular;
+        public BEUsuario()
+        {
+        }
+
         [Column("Sobrenombre")]
         public string msSobrenombre { get; set; }
         [Column("PrimerNombre")]
         public string msPrimerNombre { get; set; }
-        private bool mbCompartirDatos;
-        private bool mbActivo;
-        private Int16 miTipoUsuario;
-        private bool mbCambioClave;
-        //Campos dispuestos para la sesión de Usuario
-        private string msCodigoISO;
-        private int miRegionID;
-        private string msCodigorRegion;
-        private int miZonaID;
-        private string msCodigoZona;
-        private long miConsultoraID;
-        private short miRolID;
-
-        private int miCampaniaID;
-
-        private DateTime mdFechaInicioFacturacion;
-        private DateTime mdFechaFinFacturacion;
-        private DateTime mdFechaFinFIC;
-        private string msCampaniaDescripcion;
-        private TimeSpan tsHoraInicio;
-        private TimeSpan tsHoraFin;
-        private bool mbZonaValida;
-        private string msSimbolo;
-        private int miTerritorioID;
-        private string msCodigoTerritorio;
-        private decimal mmMontoMinimoPedido;
-        private decimal mmMontoMaximoPedido;
-        private TimeSpan tsHoraInicioNoFacturable;
-        private TimeSpan tsHoraCierreNoFacturable;
-        private int miDiasAntes;
-        private string mCodigoFuente;
-        private string mBanderaImagen;
-        private string mNombrePais;
-        private int mConsultoraNueva;
-        private string mSegmento;
-
-        private int miDiasDuracionCronograma;
-        private bool mHabilitarRestriccionHoraria;
-        private string mAnoCampaniaIngreso;
-        private string mPrimerNombre;
-        private string mPrimerApellido;
-        private int mHorasDuracionRestriccion;
-        private bool mostrarAyudaWebTraking;
-        private bool mPROLSinStock;
-        private DateTime mdFechaModificacion;
-        private string mdRol;
-        private string mSegmentoConstancia;
-        private string mSeccionAnalytics;
-        private string mDescripcionNivel;
-
+        
         [Column("ESCONSULTORALIDER")]
         public int mesConsultoraLider { get; set; }
-
-        private bool bEstadoSimplificacionCUV { get; set; }
+ 
         private readonly bool bEsquemaDAConsultora;
-        private string digitoVerificador;
-        private long consultoraAsociadoID;
-
-        private string mSegmentoAbreviatura;
-
+       
         [Column("TIENEHANA")]
         public bool tieneHana { get; set; }
 
@@ -94,37 +32,32 @@ namespace Portal.Consultoras.Entities
 
         [Column("TieneLoginExterno")]
         public int tieneLoginExterno { get; set; }
-
-        public BEUsuario()
-        {
- 
-        }
-
+         
         [Obsolete("Use MapUtil.MapToCollection")]
         public BEUsuario(IDataRecord row)
         {
-            msCodigoConsultora = row.ToString("CodigoConsultora");
-            msCodigoUsuario = row.ToString("CodigoUsuario");
-            miPaisID = row.ToInt32("PaisID");
-            msNombre = row.ToString("Nombre");
-            msClaveSecreta = row.ToString("ClaveSecreta");
-            msEMail = row.ToString("EMail");
-            mbEMailActivo = row.ToBoolean("EMailActivo");
-            msTelefono = row.ToString("Telefono");
-            msCelular = row.ToString("Celular");
+            CodigoConsultora = row.ToString("CodigoConsultora");
+            CodigoUsuario = row.ToString("CodigoUsuario");
+            PaisID = row.ToInt32("PaisID");
+            Nombre = row.ToString("Nombre");
+            ClaveSecreta = row.ToString("ClaveSecreta");
+            EMail = row.ToString("EMail");
+            EMailActivo = row.ToBoolean("EMailActivo");
+            Telefono = row.ToString("Telefono");
+            Celular = row.ToString("Celular");
             msSobrenombre = row.ToString("Sobrenombre");
-            mbCompartirDatos = row.ToBoolean("CompartirDatos");
-            mbActivo = row.ToBoolean("Activo");
-            miTipoUsuario = row.ToInt16("TipoUsuario");
-            mbCambioClave = row.ToBoolean("CambioClave");
-            msTelefonoTrabajo = row.ToString("TelefonoTrabajo");
+            CompartirDatos = row.ToBoolean("CompartirDatos");
+            Activo = row.ToBoolean("Activo");
+            TipoUsuario = row.ToInt16("TipoUsuario");
+            CambioClave = row.ToBoolean("CambioClave");
+            TelefonoTrabajo = row.ToString("TelefonoTrabajo");
             AceptoContrato = row.ToBoolean("AceptoContrato");
             MostrarAyudaWebTraking = row.ToBoolean("MostrarAyudaWebTraking");
             CodigoISO = row.ToString("CodigoISO");
             NombrePais = row.ToString("NombrePais");
             RolID = row.ToByte("RolID");
             BanderaImagen = row.ToString("BanderaImagen");
-            msSimbolo = row.ToString("Simbolo");
+            Simbolo = row.ToString("Simbolo");
             FechaModificacion = row.ToDateTime("FechaModificacion");
             Rol = row.ToString("Rol");
             ZonaID = row.ToInt32("ZonaID");
@@ -132,49 +65,48 @@ namespace Portal.Consultoras.Entities
             SeccionAnalytics = row.ToString("Seccion");
             DescripcionNivel = row.ToString("DescripcionNivel");
             esConsultoraLider = row.ToBoolean("esConsultoraLider");
-            bEstadoSimplificacionCUV = row.ToBoolean("EstadoSimplificacionCUV");
+            EstadoSimplificacionCUV = row.ToBoolean("EstadoSimplificacionCUV");
             bEsquemaDAConsultora = row.ToBoolean("EsquemaDAConsultora");
-            digitoVerificador = row.ToString("DigitoVerificador");
+            DigitoVerificador = row.ToString("DigitoVerificador");
             TieneCDRExpress = row.ToBoolean("TieneCDRExpress");
             EsConsecutivoNueva = row.ToBoolean("EsConsecutivoNueva");
             IndicadorConsultoraDigital = row.ToInt32("IndicadorConsultoraDigital");
-
         }
 
         [Obsolete("Use MapUtil.MapToCollection")]
         public BEUsuario(IDataRecord row, bool Tipo)
         {
-            miPaisID = row.ToInt32("PaisID");
-            msCodigoISO = row.ToString("CodigoISO", "");
-            miRegionID = row.ToInt32("RegionID");
-            msCodigorRegion = row.ToString("CodigorRegion", "");
-            miZonaID = row.ToInt32("ZonaID");
-            msCodigoZona = row.ToString("CodigoZona", "");
-            miConsultoraID = row.ToInt64("ConsultoraID");
-            msCodigoConsultora = row.ToString("CodigoConsultora", "");
-            msCodigoUsuario = row.ToString("CodigoUsuario", "");
-            msNombre = row.ToString("NombreCompleto", "");
-            miRolID = row.ToInt16("RolID");
-            msEMail = row.ToString("EMail", "");
-            msSimbolo = row.ToString("Simbolo", "");
-            miTerritorioID = row.ToInt32("TerritorioID");
-            msCodigoTerritorio = row.ToString("CodigoTerritorio", "");
-            mmMontoMinimoPedido = row.ToDecimal("MontoMinimoPedido");
-            mmMontoMaximoPedido = row.ToDecimal("MontoMaximoPedido");
-            mBanderaImagen = row.ToString("BanderaImagen", "");
-            mCodigoFuente = row.ToString("CodigoFuente", "");
-            mNombrePais = row.ToString("NombrePais", "");
-            mbCambioClave = row.ToBoolean("CambioClave");
-            mConsultoraNueva = row.ToInt32("ConsultoraNueva");
-            msCodigoUsuario = row.ToString("CodigoUsuario", "");
-            msTelefono = row.ToString("Telefono", "");
-            msCelular = row.ToString("Celular", "");
-            mSegmento = row.ToString("Segmento", "");
-            mSegmentoAbreviatura = row.ToString("SegmentoAbreviatura", "");
-            msSobrenombre = row.ToString("Sobrenombre", "");
+            PaisID = row.ToInt32("PaisID");
+            CodigoISO = row.ToString("CodigoISO", "");
+            RegionID = row.ToInt32("RegionID");
+            CodigorRegion = row.ToString("CodigorRegion", "");
+            ZonaID = row.ToInt32("ZonaID");
+            CodigoZona = row.ToString("CodigoZona", "");
+            ConsultoraID = row.ToInt64("ConsultoraID");
+            CodigoConsultora = row.ToString("CodigoConsultora", "");
+            CodigoUsuario = row.ToString("CodigoUsuario", "");
+            Nombre = row.ToString("NombreCompleto", "");
+           RolID = row.ToInt16("RolID");
+            EMail = row.ToString("EMail", "");
+            Simbolo = row.ToString("Simbolo", "");
+            TerritorioID = row.ToInt32("TerritorioID");
+            CodigoTerritorio = row.ToString("CodigoTerritorio", "");
+            MontoMinimoPedido = row.ToDecimal("MontoMinimoPedido");
+            MontoMaximoPedido = row.ToDecimal("MontoMaximoPedido");
+            BanderaImagen = row.ToString("BanderaImagen", "");
+            CodigoFuente = row.ToString("CodigoFuente", "");
+            NombrePais = row.ToString("NombrePais", "");
+            CambioClave = row.ToBoolean("CambioClave");
+            ConsultoraNueva = row.ToInt32("ConsultoraNueva");
+            CodigoUsuario = row.ToString("CodigoUsuario", "");
+            Telefono = row.ToString("Telefono", "");
+            Celular = row.ToString("Celular", "");
+            Segmento = row.ToString("Segmento", "");
+            SegmentoAbreviatura = row.ToString("SegmentoAbreviatura", "");
+            Sobrenombre = row.ToString("Sobrenombre", "");
 
             if (string.IsNullOrEmpty(msSobrenombre) && DataRecord.HasColumn(row, "PrimerNombre"))
-                msSobrenombre = Convert.ToString(row["PrimerNombre"]);
+                Sobrenombre = Convert.ToString(row["PrimerNombre"]);
 
             IndicadorDupla = row.ToInt32("IndicadorDupla");
             UsuarioPrueba = row.ToInt32("UsuarioPrueba");
@@ -194,7 +126,7 @@ namespace Portal.Consultoras.Entities
             VioTutorialDesktop = row.ToInt32("VioTutorialDesktop");
             Nivel = row.ToString("Nivel");
             Direccion = row.ToString("Direccion");
-            msTelefonoTrabajo = row.ToString("TelefonoTrabajo");
+            TelefonoTrabajo = row.ToString("TelefonoTrabajo");
             AnoCampaniaIngreso = row.ToString("AnoCampanaIngreso");
             PrimerNombre = row.ToString("PrimerNombre");
             PrimerApellido = row.ToString("PrimerApellido");
@@ -217,7 +149,7 @@ namespace Portal.Consultoras.Entities
             NombrePais = row.ToString("NombrePais");
             RolID = row.ToByte("RolID");
             BanderaImagen = row.ToString("BanderaImagen");
-            msSimbolo = row.ToString("Simbolo");
+            Simbolo = row.ToString("Simbolo");
             FechaModificacion = row.ToDateTime("FechaModificacion");
             Rol = row.ToString("Rol");
             CampanaInvitada = row.ToString("CampanaInvitada");
@@ -250,9 +182,9 @@ namespace Portal.Consultoras.Entities
             EstadoPedido = row.ToInt32("EstadoPedido");
             ValidacionAbierta = row.ToBoolean("ValidacionAbierta");
             NombreGerenteZona = row.ToString("GerenteZona");
-            digitoVerificador = row.ToString("DigitoVerificador");
+            DigitoVerificador = row.ToString("DigitoVerificador");
             OfertaDelDia = row.ToBoolean("TieneODD");
-            consultoraAsociadoID = row.ToInt64("ConsultoraAsociadoID");
+            ConsultoraAsociadaID = row.ToInt64("ConsultoraAsociadoID");
             DocumentoIdentidad = row.ToString("DocumentoIdentidad");
             TipoUsuario = row.ToInt16("TipoUsuario");
             TieneLoginExterno = row.ToBoolean("TieneLoginExterno");
@@ -297,7 +229,7 @@ namespace Portal.Consultoras.Entities
             ValidacionAbierta = row.ToBoolean("ValidacionAbierta");
             FechaActualPais = row.ToDateTime("FechaActualPais");
             AceptacionConsultoraDA = row.ToInt32("AceptacionConsultoraDA");
-            mbCompartirDatos = row.ToBoolean("CompartirDatos");
+            CompartirDatos = row.ToBoolean("CompartirDatos");
             FotoPerfil = row.ToString("FotoPerfil");
             ConsecutivoNueva = row.ToInt32("ConsecutivoNueva");
             CodigoPrograma = row.ToString("CodigoPrograma");
@@ -335,6 +267,7 @@ namespace Portal.Consultoras.Entities
 
         [Column("UsuarioPrueba")]
         public bool usuarioPrueba { get; set; }
+
         private int _UsuarioPrueba;
         [DataMember]
         public int UsuarioPrueba
@@ -792,7 +725,7 @@ namespace Portal.Consultoras.Entities
             esConsultoraLider = row.ToBoolean("esConsultoraLider");
             EstadoSimplificacionCUV = row.ToBoolean("EstadoSimplificacionCUV");
             bEsquemaDAConsultora = row.ToBoolean("EsquemaDAConsultora");
-            digitoVerificador = row.ToString("DigitoVerificador");
+            DigitoVerificador = row.ToString("DigitoVerificador");
             TieneCDRExpress = row.ToBoolean("TieneCDRExpress");
         }
 
@@ -996,8 +929,8 @@ namespace Portal.Consultoras.Entities
 
         public BEUsuario(IDataRecord row, bool Tipo, bool ValidaHorario)
         {
-            miConsultoraID = row.ToInt64("ConsultoraID");
-            consultoraAsociadoID = row.ToInt64("ConsultoraAsociadoID");
+            ConsultoraID = row.ToInt64("ConsultoraID");
+            ConsultoraAsociadaID = row.ToInt64("ConsultoraAsociadoID");
             ZonaHoraria = row.ToDouble("ZonaHoraria");
             HabilitarRestriccionHoraria = row.ToBoolean("HabilitarRestriccionHoraria");
             FechaInicioFacturacion = row.ToDateTime("FechaInicioFacturacion");
