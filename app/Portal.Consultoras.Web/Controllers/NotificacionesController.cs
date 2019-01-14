@@ -25,7 +25,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             _cdrProvider = new CdrProvider();
             _notificacionProvider = new NotificacionProvider();
-        } 
+        }
 
         public ActionResult Index()
         {
@@ -41,6 +41,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     return RedirectToAction("Index", "Notificaciones", new { area = "Mobile" });
                 }
+
             }
 
             SessionManager.SetfechaGetNotificacionesSinLeer(null);
@@ -318,12 +319,42 @@ namespace Portal.Consultoras.Web.Controllers
                 ListaNotificacionesDetallePedido = Mapper.Map<List<NotificacionesModelDetallePedido>>(lstObservacionesPedido),
                 NombreConsultora = userData.NombreConsultora,
                 simbolo = userData.Simbolo,
+                Origen = TipoOrigen,
                 mGanancia = Util.DecimalToStringFormat(
-                    lstObservacionesPedido[0].MontoAhorroCatalogo + lstObservacionesPedido[0].MontoAhorroRevista,
-                    userData.CodigoISO),
-                Origen = TipoOrigen
+                   lstObservacionesPedido.Count() > 0 ? lstObservacionesPedido[0].MontoAhorroCatalogo : Convert.ToDecimal(0) + lstObservacionesPedido.Count() > 0 ? lstObservacionesPedido[0].MontoAhorroRevista : Convert.ToDecimal(0),
+                    userData.CodigoISO)
             };
             ViewBag.PaisIso = userData.CodigoISO;
+            ViewBag.ExistenciaDetallepedido = lstObservacionesPedido.Count();
+
+            if (model.Origen != 3)
+            {
+                if (model.ListaNotificacionesDetallePedido.Count() > 0)
+                {
+                    model.SubTotal = model.ListaNotificacionesDetallePedido.Sum(p => p.ImporteTotal);
+                    model.Descuento = model.ListaNotificacionesDetallePedido[0].DescuentoProl;
+                    model.Total = model.SubTotal - model.Descuento;
+
+                    foreach (var notificacion in model.ListaNotificacionesDetallePedido)
+                    {
+                        notificacion.ImporteTotalString = Util.DecimalToStringFormat(notificacion.ImporteTotal, userData.CodigoISO);
+                        notificacion.PrecioUnidadString = Util.DecimalToStringFormat(notificacion.PrecioUnidad, userData.CodigoISO);
+                    }
+                }
+                else
+                {
+                    model.SubTotal = Convert.ToDecimal(0);
+                    model.Descuento = Convert.ToDecimal(0);
+                    model.Total = Convert.ToDecimal(0);
+
+                    model.ListaNotificacionesDetallePedido.Add(new NotificacionesModelDetallePedido() { ImporteTotalString = "0.00", PrecioUnidadString = "0.00" });
+                }
+                model.SubTotalString = Util.DecimalToStringFormat(model.SubTotal, userData.CodigoISO);
+                model.DescuentoString = Util.DecimalToStringFormat(model.Descuento, userData.CodigoISO);
+                model.TotalString = Util.DecimalToStringFormat(model.Total, userData.CodigoISO);
+
+
+            }
 
             return PartialView("DetalleNotificacionesPedido", model);
         }

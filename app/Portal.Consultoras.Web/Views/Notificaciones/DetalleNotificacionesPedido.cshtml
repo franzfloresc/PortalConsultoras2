@@ -1,17 +1,9 @@
 ﻿@using Portal.Consultoras.Common
 @model Portal.Consultoras.Web.Models.NotificacionesModel
-@{
-    decimal totalPRol = 0;
-    decimal totalPedido = 0;
-    decimal descuento = 0;
-    string simboloMoneda = Model.simbolo;
-}
+
 @if (Model.Origen != 3)
 {
     var isEsika = System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisIso == null ? "" : ViewBag.PaisIso);
-    decimal MontoSinDescuento = Model.ListaNotificacionesDetallePedido.Sum(p => p.ImporteTotal);
-    descuento = Model.ListaNotificacionesDetallePedido[0].DescuentoProl;
-    totalPedido = (MontoSinDescuento - descuento);
 
     <div class="wrapper">
         <div class="webkit" style="margin-left:90px">
@@ -65,22 +57,45 @@
                         Aquí el resumen de tu pedido:
                     </td>
                 </tr>
-                <tr>
-                    <td style="width: 50%; font-family: 'Arial'; font-size: 13px; color: #000; padding-left: 14%; text-align:left;">
-                        MONTO TOTAL:
-                    </td>
-                    <td style="width: 50%; font-family: 'Arial'; font-size: 16px; font-weight: 700; color: #000;padding-right:14%; text-align:right;">
-                        @simboloMoneda <span id="sMontoTotal">@string.Format("{0:N2}", totalPedido)</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="color_marca" style="width: 50%; font-family: 'Arial'; font-size: 13px; font-weight:700; padding-left: 14%; text-align:left; padding-bottom: 20px; padding-top: 5px">
-                        GANANCIA ESTIMADA:
-                    </td>
-                    <td class="color_marca" style="width: 50%; font-family: 'Arial'; font-size: 13px; font-weight: 700; padding-right:14%; text-align:right;padding-bottom: 20px; padding-top: 5px">
-                        @simboloMoneda @Model.mGanancia
-                    </td>
-                </tr>
+                @if (Convert.ToInt32(ViewBag.ExistenciaDetallepedido) > 0)
+                {
+                    <tr>
+                        <td style="width: 50%; font-family: 'Arial'; font-size: 13px; color: #000; padding-left: 14%; text-align:left;">
+                            MONTO TOTAL:
+                        </td>
+                        <td style="width: 50%; font-family: 'Arial'; font-size: 16px; font-weight: 700; color: #000;padding-right:14%; text-align:right;">
+                            @Model.simbolo <span id="sMontoTotal"> @Model.TotalString</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="color_marca" style="width: 50%; font-family: 'Arial'; font-size: 13px; font-weight:700; padding-left: 14%; text-align:left; padding-bottom: 20px; padding-top: 5px">
+                            GANANCIA ESTIMADA:
+                        </td>
+                        <td class="color_marca" style="width: 50%; font-family: 'Arial'; font-size: 13px; font-weight: 700; padding-right:14%; text-align:right;padding-bottom: 20px; padding-top: 5px">
+                            @Model.simbolo @Model.mGanancia
+                        </td>
+                    </tr>
+                }
+                else
+                {
+
+                    <tr>
+                        <td style="width: 50%; font-family: 'Arial'; font-size: 13px; color: #000; padding-left: 14%; text-align:left;">
+                            MONTO TOTAL:
+                        </td>
+                        <td style="width: 50%; font-family: 'Arial'; font-size: 16px; font-weight: 700; color: #000;padding-right:14%; text-align:right;">
+                            @Model.simbolo <span id="sMontoTotal"> 0.00</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="color_marca" style="width: 50%; font-family: 'Arial'; font-size: 13px; font-weight:700; padding-left: 14%; text-align:left; padding-bottom: 20px; padding-top: 5px">
+                            GANANCIA ESTIMADA:
+                        </td>
+                        <td class="color_marca" style="width: 50%; font-family: 'Arial'; font-size: 13px; font-weight: 700; padding-right:14%; text-align:right;padding-bottom: 20px; padding-top: 5px">
+                            @Model.simbolo 0.00
+                        </td>
+                    </tr>
+                }
                 <tr>
                     <td colspan="2" style="text-align: center; color: #000; font-family: 'Arial'; font-size: 15px; font-weight: 700; border-top:1px solid #000; border-bottom: 1px solid #000; padding-top: 8px; padding-bottom: 8px; letter-spacing: .5px;">
                         DETALLE
@@ -90,105 +105,138 @@
                     <td style="text-align: left; color: #000; font-family: 'Arial'; font-size: 13px; font-weight: 700; padding-top: 15px; padding-left: 10px; padding-right: 10px;">DESCRIPCIÓN</td>
                     <td style="text-align: right; color: #000; font-family: 'Arial'; font-size: 13px; font-weight: 700; padding-top: 15px; padding-left: 10px; padding-right: 10px;">SUBTOTAL</td>
                 </tr>
-                <tr>
-                    <td colspan="2" style="padding-top: 15px; padding-left: 10px; padding-right: 10px; border-bottom:2px solid #9E9E9E">
-                        @foreach (var item in Model.ListaNotificacionesDetallePedido)
-                        {
-                            <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0" align="center" style="margin-bottom: 20px;">
-                                <tr>
-                                    <td style="width: 50%; text-align: left; color: #000; font-family: 'Arial'; font-size: 13px; ">Cód. Venta: @item.CUV</td>
-                                    <td>&nbsp;</td>
-                                </tr>
-                                <tr>
-                                    <td style="text-align: left; color: #000; font-family: 'Arial'; font-size: 14px; font-weight:700;">@item.Descripcion</td>
-                                    <td style="text-align: right; color: #000; font-family: 'Arial'; font-size: 14px; font-weight:700;">
-                                        @simboloMoneda @string.Format("{0:N2}", item.ImporteTotal)
-                                    </td>
-                                </tr>
+                @if (Convert.ToInt32(ViewBag.ExistenciaDetallepedido) > 0)
+                {
+                    <tr>
+                        <td colspan="2" style="padding-top: 15px; padding-left: 10px; padding-right: 10px; border-bottom:2px solid #9E9E9E">
+                            @foreach (var item in Model.ListaNotificacionesDetallePedido)
+                            {
+                                <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0" align="center" style="margin-bottom: 20px;">
+                                    <tr>
+                                        <td style="width: 50%; text-align: left; color: #000; font-family: 'Arial'; font-size: 13px; ">Cód. Venta: @item.CUV</td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: left; color: #000; font-family: 'Arial'; font-size: 14px; font-weight:700;">@item.Descripcion</td>
+                                        <td style="text-align: right; color: #000; font-family: 'Arial'; font-size: 14px; font-weight:700;">
+                                            @Model.simbolo @item.ImporteTotalString
+                                        </td>
+                                    </tr>
 
-                                @if (!string.IsNullOrEmpty(@item.ObservacionPROL))
-                                {
-
-
-                                    string[] obser = item.ObservacionPROL.Split('|');
-
-
-                                    if (obser != null)
+                                    @if (!string.IsNullOrEmpty(@item.ObservacionPROL))
                                     {
-                                        int total = obser.Length - 1;
-                                        int count = 1;
-                                        foreach (string ob in obser)
+                                        string[] obser = item.ObservacionPROL.Split('|');
+                                        if (obser != null)
                                         {
-                                            if (!string.IsNullOrEmpty(ob))
+                                            int total = obser.Length - 1;
+                                            int count = 1;
+                                            foreach (string ob in obser)
                                             {
-                                                if (total == count)
+                                                if (!string.IsNullOrEmpty(ob))
                                                 {
-                                                    <tr style="background-color: #eeeeee">
-                                                        <td colspan='2' style="text-align: left;color: #000; font-family: 'Arial'; padding:4px 7px 2px">@ob</td>
-                                                    </tr>
-                                                }
-                                                else
-                                                {
-                                                    <tr style="background-color: #eeeeee;">
+                                                    if (total == count)
+                                                    {
+                                                        <tr style="background-color: #eeeeee">
+                                                            <td colspan='2' style="text-align: left;color: #000; font-family: 'Arial'; padding:4px 7px 2px">@ob</td>
+                                                        </tr>
+                                                    }
+                                                    else
+                                                    {
+                                                        <tr style="background-color: #eeeeee;">
 
-                                                        <td colspan='2' style="text-align: left;color: #000; font-family: 'Arial'; padding:4px 7px 2px">@ob</td>
-                                                    </tr>
+                                                            <td colspan='2' style="text-align: left;color: #000; font-family: 'Arial'; padding:4px 7px 2px">@ob</td>
+                                                        </tr>
+                                                    }
                                                 }
+                                                count++;
                                             }
-                                            count++;
                                         }
+
                                     }
 
-                                }
+                                    <tr>
+                                        <td colspan="2" style="text-align: left; color: #4d4d4e; font-family: 'Arial'; font-size: 13px; padding-top: 2px;">
+                                            Cliente: @(!string.IsNullOrEmpty(item.NombreCliente) ? item.NombreCliente : Model.NombreConsultora)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="text-align: left; color: #4d4d4e; font-family: 'Arial'; font-size: 13px; padding-top: 2px;">
+                                            Cantidad:@item.Cantidad
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="text-align: left; color: #4d4d4e; font-family: 'Arial'; font-size: 13px; padding-top: 2px;">
+                                            Precio Unit.: @Model.simbolo @item.PrecioUnidadString
+                                        </td>
+                                    </tr>
+                                </table>
+                            }
+                        </td>
+                    </tr>
+                }
 
-                                <tr>
-                                    <td colspan="2" style="text-align: left; color: #4d4d4e; font-family: 'Arial'; font-size: 13px; padding-top: 2px;">
-                                        Cliente: @(!string.IsNullOrEmpty(item.NombreCliente) ? item.NombreCliente : Model.NombreConsultora)
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2" style="text-align: left; color: #4d4d4e; font-family: 'Arial'; font-size: 13px; padding-top: 2px;">
-                                        Cantidad:@item.Cantidad
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2" style="text-align: left; color: #4d4d4e; font-family: 'Arial'; font-size: 13px; padding-top: 2px;">
-                                        Precio Unit.: @simboloMoneda @string.Format("{0:N2}", item.PrecioUnidad)
-                                    </td>
-                                </tr>
-
-                            </table>
-                        }
-                    </td>
-                </tr>
-                <tr>
-                    <td style="text-align: left; color: #000; font-family: 'Arial'; font-size: 13px; padding-top: 15px; padding-left: 10px;">TOTAL SIN DSCTO.</td>
-                    <td style="text-align: right; color: #000; font-family: 'Arial'; font-size: 13px; padding-top: 15px; padding-right: 10px; font-weight: 700;">
-                        @simboloMoneda @string.Format("{0:N2}", MontoSinDescuento)
-                    </td>
-                </tr>
-                <tr>
-                    <td style="text-align: left; color: #000; font-family: 'Arial'; font-size: 13px; padding-top:3px; padding-left: 10px; border-bottom: 1px solid #000; padding-bottom: 13px;">DSCTO. OFERTAS POR NIVELES</td>
-                    <td style="text-align: right; color: #000; font-family: 'Arial'; font-size: 13px; padding-top:3px; padding-right: 10px; font-weight: 700; padding-bottom: 13px; border-bottom: 1px solid #000;">
-                        @simboloMoneda @string.Format("{0:N2}", descuento)
-                    </td>
-                </tr>
-                <tr>
-                    <td style="width: 50%; font-family: 'Arial'; font-size: 13px; color: #000; padding-left: 10px; text-align:left; padding-top: 15px;">
-                        MONTO TOTAL:
-                    </td>
-                    <td style="width: 50%; font-family: 'Arial'; font-size: 16px; font-weight: 700; color: #000;padding-right:10px; padding-top: 15px; text-align:right;">
-                        @simboloMoneda <span id="sMontoTotal2">@string.Format("{0:N2}", totalPedido)</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="color_marca" style="width: 50%; font-family: 'Arial'; font-size: 13px; font-weight:700; padding-left: 10px; text-align:left; padding-bottom: 13px; padding-top: 5px;">
-                        GANANCIA ESTIMADA:
-                    </td>
-                    <td class="color_marca" style="width: 50%; font-family: 'Arial'; font-size: 13px; font-weight: 700; padding-right:10px; text-align:right; padding-bottom: 13px; padding-top: 5px;">
-                        @simboloMoneda @Model.mGanancia
-                    </td>
-                </tr>
+                @if (Convert.ToInt32(ViewBag.ExistenciaDetallepedido) > 0)
+                {
+                    <tr>
+                        <td style="text-align: left; color: #000; font-family: 'Arial'; font-size: 13px; padding-top: 15px; padding-left: 10px;">TOTAL SIN DSCTO.</td>
+                        <td style="text-align: right; color: #000; font-family: 'Arial'; font-size: 13px; padding-top: 15px; padding-right: 10px; font-weight: 700;">
+                            @Model.simbolo @Model.SubTotalString
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left; color: #000; font-family: 'Arial'; font-size: 13px; padding-top:3px; padding-left: 10px; border-bottom: 1px solid #000; padding-bottom: 13px;">DSCTO. OFERTAS POR NIVELES</td>
+                        <td style="text-align: right; color: #000; font-family: 'Arial'; font-size: 13px; padding-top:3px; padding-right: 10px; font-weight: 700; padding-bottom: 13px; border-bottom: 1px solid #000;">
+                            @Model.simbolo @Model.DescuentoString
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 50%; font-family: 'Arial'; font-size: 13px; color: #000; padding-left: 10px; text-align:left; padding-top: 15px;">
+                            MONTO TOTAL:
+                        </td>
+                        <td style="width: 50%; font-family: 'Arial'; font-size: 16px; font-weight: 700; color: #000;padding-right:10px; padding-top: 15px; text-align:right;">
+                            @Model.simbolo <span id="sMontoTotal2">@Model.TotalString</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="color_marca" style="width: 50%; font-family: 'Arial'; font-size: 13px; font-weight:700; padding-left: 10px; text-align:left; padding-bottom: 13px; padding-top: 5px;">
+                            GANANCIA ESTIMADA:
+                        </td>
+                        <td class="color_marca" style="width: 50%; font-family: 'Arial'; font-size: 13px; font-weight: 700; padding-right:10px; text-align:right; padding-bottom: 13px; padding-top: 5px;">
+                            @Model.simbolo @Model.mGanancia
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    <tr>
+                        <td style="text-align: left; color: #000; font-family: 'Arial'; font-size: 13px; padding-top: 15px; padding-left: 10px;">TOTAL SIN DSCTO.</td>
+                        <td style="text-align: right; color: #000; font-family: 'Arial'; font-size: 13px; padding-top: 15px; padding-right: 10px; font-weight: 700;">
+                            @Model.simbolo 0.00
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left; color: #000; font-family: 'Arial'; font-size: 13px; padding-top:3px; padding-left: 10px; border-bottom: 1px solid #000; padding-bottom: 13px;">DSCTO. OFERTAS POR NIVELES</td>
+                        <td style="text-align: right; color: #000; font-family: 'Arial'; font-size: 13px; padding-top:3px; padding-right: 10px; font-weight: 700; padding-bottom: 13px; border-bottom: 1px solid #000;">
+                            @Model.simbolo 0.00
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 50%; font-family: 'Arial'; font-size: 13px; color: #000; padding-left: 10px; text-align:left; padding-top: 15px;">
+                            MONTO TOTAL:
+                        </td>
+                        <td style="width: 50%; font-family: 'Arial'; font-size: 16px; font-weight: 700; color: #000;padding-right:10px; padding-top: 15px; text-align:right;">
+                            @Model.simbolo <span id="sMontoTotal2">0.00</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="color_marca" style="width: 50%; font-family: 'Arial'; font-size: 13px; font-weight:700; padding-left: 10px; text-align:left; padding-bottom: 13px; padding-top: 5px;">
+                            GANANCIA ESTIMADA:
+                        </td>
+                        <td class="color_marca" style="width: 50%; font-family: 'Arial'; font-size: 13px; font-weight: 700; padding-right:10px; text-align:right; padding-bottom: 13px; padding-top: 5px;">
+                            @Model.simbolo 0.00
+                        </td>
+                    </tr>
+                }
                 <tr>
                     <td colspan="2" style="font-family: 'Arial'; font-size: 12px; color: #000; padding-top: 25px; padding-bottom: 13px; text-align: center; padding-left: 10px; padding-right: 10px;">
 
@@ -274,4 +322,3 @@ else
         </table>
     </div>
 }
- 
