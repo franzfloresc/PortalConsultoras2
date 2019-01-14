@@ -49,32 +49,10 @@ namespace Portal.Consultoras.Web.Controllers
             clienteModel.PartialSectionBpt = _configuracionPaisDatosProvider.GetPartialSectionBptModel(Constantes.OrigenPedidoWeb.SectionBptDesktopCatalogo);
             
             ViewBag.Piloto = _tablaLogica.ObtenerConfiguracion(userData.PaisID, Constantes.TablaLogica.PilotoCatalogoDigital)[0].Valor; ;
-            ViewBag.UrlCatalogoPiloto = demo == "1" ? "http://catalogodigital-develop.altimeafactory.com/?iso=pe&consultant=035821619" : GetUrlCatalogoPiloto();
+            var urlQA = "http://ecatalogoqa.somosbelcorp.com/?cod={0}";
+            ViewBag.UrlCatalogoPiloto = demo == "1" ? GetUrlCatalogoPiloto(urlQA) : GetUrlCatalogoPiloto(Constantes.CatalogoPiloto.UrlBase);
             ViewBag.EsConsultoraNueva = userData.EsConsultoraNueva;
             
-            //if (Constantes.PaisID.Bolivia == userData.PaisID || Constantes.PaisID.Chile == userData.PaisID || Constantes.PaisID.Colombia == userData.PaisID ||
-            //    Constantes.PaisID.CostaRica == userData.PaisID || Constantes.PaisID.Ecuador == userData.PaisID || Constantes.PaisID.Mexico == userData.PaisID ||
-            //    Constantes.PaisID.Peru == userData.PaisID)
-            //    return View(clienteModel);
-            //else
-            //{
-            //    if (EsDispositivoMovil())
-            //    {
-            //        var url = (Request.Url.Query).Split('?');
-            //        if (url.Length > 1 && url[1].Contains("sap"))
-            //        {
-            //            string sap = "&" + url[1].Remove(0, 12);
-            //            return RedirectToAction("Index", "Catalogo", new { area = "Mobile", marca, sap });
-            //        }
-            //        else
-            //        {
-            //            return RedirectToAction("Index", "Catalogo", new { area = "Mobile", marca });
-            //        }
-
-            //    }
-
-            //    return View("Index", clienteModel);
-            //}
             return View(clienteModel);
         }
 
@@ -573,7 +551,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var url = GetUrlCatalogoPiloto();
+                var url = GetUrlCatalogoPiloto(Constantes.CatalogoPiloto.UrlParamEncrip);
                 var urlImagenLogo = Globals.RutaCdn + "/ImagenesPortal/Iconos/logo.png";
                 var urlIconEmail = Globals.RutaCdn + "/ImagenesPortal/Iconos/mensaje_mail.png";
                 var urlIconTelefono = Globals.RutaCdn + "/ImagenesPortal/Iconos/celu_mail.png";
@@ -861,12 +839,12 @@ namespace Portal.Consultoras.Web.Controllers
             return campania >= campaniaInicio;
         }
 
-        private string GetUrlCatalogoPiloto()
+        private string GetUrlCatalogoPiloto(string urlPiloto)
         {
             var url = string.Format(Constantes.CatalogoPiloto.UrlParamEncrip, userData.CodigoISO, userData.CodigoConsultora);
             byte[] encbuff = Encoding.UTF8.GetBytes(url);
             var encrip = HttpServerUtility.UrlTokenEncode(encbuff);
-            return string.Format(Constantes.CatalogoPiloto.UrlBase, encrip);
+            return string.Format(urlPiloto, encrip);
         }
     }
 }
