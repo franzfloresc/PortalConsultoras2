@@ -146,7 +146,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                             if (message == "1")
                                 return RedirectToAction("Index", "ConsultoraOnline");
-                            
+
                             string sEmail = model.Email ?? string.Empty;
                             string sTelefono = model.Telefono ?? string.Empty;
                             string sCelular = model.Celular ?? string.Empty;
@@ -773,28 +773,39 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
 
-        private int MisPedidosActualPagina(string Pagina, int indiceActualPagina, int indiceUltimaPagina)
+        private int MisPedidosActualPagina(string Pagina, int indiceActualPagina, int indiceUltimaPagina, int sumaPaginaStr = 0)
         {
+
             if (Pagina.Equals("<<"))
-                indiceActualPagina = 0;
+                return 0;
+
+            if (Pagina.Equals("<"))
+            {
+                if (indiceActualPagina > 0)
+                    indiceActualPagina--;
+            }
             else
             {
-                if (Pagina.Equals("<"))
+                if (Pagina.Equals(">"))
                 {
-                    if (indiceActualPagina > 0)
-                        indiceActualPagina--;
+                    if (indiceActualPagina < indiceUltimaPagina)
+                        indiceActualPagina++;
                 }
                 else
                 {
-                    if (Pagina.Equals(">"))
-                    {
-                        if (indiceActualPagina < indiceUltimaPagina)
-                            indiceActualPagina++;
-                    }
+                    //indiceActualPagina = Pagina.Equals(">>") ? indiceUltimaPagina : int.Parse(Pagina);
+
+                    if (Pagina.Equals(">>"))
+                        indiceActualPagina = indiceUltimaPagina;
                     else
                     {
-                        indiceActualPagina = Pagina.Equals(">>") ? indiceUltimaPagina : int.Parse(Pagina);
+                        int pagAux;
+                        if (int.TryParse(Pagina, out pagAux))
+                        {
+                            indiceActualPagina = pagAux + sumaPaginaStr;
+                        }
                     }
+
                 }
             }
 
@@ -923,7 +934,7 @@ namespace Portal.Consultoras.Web.Controllers
                     SessionManager.SetobjMisPedidosDetalle(olstMisPedidosDet);
 
                     olstMisPedidosDet = CargarMisPedidosDetalleDatos(pedido.MarcaID, olstMisPedidosDet);
-                    
+
                     model.ListaDetalle = olstMisPedidosDet;
 
                     BEGrid grid = new BEGrid(sidx, sord, page, rows);
@@ -999,11 +1010,16 @@ namespace Portal.Consultoras.Web.Controllers
                     var pedidoVal = olstMisProductos.FirstOrDefault(x => x.CUV == item.CUV);
                     if (pedidoVal != null)
                     {
-                        item.TieneStock = pedidoVal.TieneStock ? 1 : 0;
-                        item.EstaEnRevista = pedidoVal.EstaEnRevista ? 1 : 0;
+                        item.TieneStock = 1;
+                        item.EstaEnRevista = 0;
+                        if (pedidoVal.EstaEnRevista)
+                        {
+                            item.EstaEnRevista = 1;
+                        }
 
                         if (!pedidoVal.TieneStock)
                         {
+                            item.TieneStock = 0;
                             item.MensajeValidacion = "Este producto está agotado";
                         }
                         else if (pedidoVal.CUVRevista.Length != 0 && revistaGana == 0)
@@ -1032,34 +1048,37 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.CantidadPedidos = objMisPedidos.ListaPedidos.Count(p => string.IsNullOrEmpty(p.Estado));
             indiceActualPagina = (int)TempData["indiceActualPagina"];
             indiceUltimaPagina = (int)TempData["indiceUltimaPagina"];
-            if (Pagina.Equals("<<"))
-                indiceActualPagina = 0;
-            else
-            {
-                if (Pagina.Equals("<"))
-                {
-                    if (indiceActualPagina > 0) indiceActualPagina--;
-                }
-                else
-                {
-                    if (Pagina.Equals(">"))
-                    {
-                        if (indiceActualPagina < indiceUltimaPagina) indiceActualPagina++;
-                    }
-                    else
-                    {
-                        if (Pagina.Equals(">>")) indiceActualPagina = indiceUltimaPagina;
-                        else
-                        {
-                            int pagAeux;
-                            if (int.TryParse(Pagina, out pagAeux))
-                            {
-                                indiceActualPagina = pagAeux - 1;
-                            }
-                        }
-                    }
-                }
-            }
+
+            indiceActualPagina = MisPedidosActualPagina(Pagina, indiceActualPagina, indiceUltimaPagina, -1);
+
+            //if (Pagina.Equals("<<"))
+            //    indiceActualPagina = 0;
+            //else
+            //{
+            //    if (Pagina.Equals("<"))
+            //    {
+            //        if (indiceActualPagina > 0) indiceActualPagina--;
+            //    }
+            //    else
+            //    {
+            //        if (Pagina.Equals(">"))
+            //        {
+            //            if (indiceActualPagina < indiceUltimaPagina) indiceActualPagina++;
+            //        }
+            //        else
+            //        {
+            //            if (Pagina.Equals(">>")) indiceActualPagina = indiceUltimaPagina;
+            //            else
+            //            {
+            //                int pagAeux;
+            //                if (int.TryParse(Pagina, out pagAeux))
+            //                {
+            //                    indiceActualPagina = pagAeux - 1;
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
 
             TempData["indiceUltimaPagina"] = indiceUltimaPagina;
             TempData["indiceActualPagina"] = indiceActualPagina;
