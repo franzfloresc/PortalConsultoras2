@@ -66,7 +66,7 @@ var rdAnalyticsModule = (function () {
     _text = {
         noDisponible: "NO DISPONIBLE",
         estandar: "Estándar",
-        epm: "Showroom",
+        epm: "Gana+",
         exception: "Exception on analytics RD",
         comprarCampania: "Comprar campaña ",
         verCampania: "Ver campaña ",
@@ -150,8 +150,8 @@ var rdAnalyticsModule = (function () {
         
         dataLayer.push({
             "event": _event.virtual,
-            "category": category +'-'+ action,
-            "action": "click Botón",
+            "category": category +' - '+ action,
+            "action": "Click Botón",
             "label": label
         });
     };

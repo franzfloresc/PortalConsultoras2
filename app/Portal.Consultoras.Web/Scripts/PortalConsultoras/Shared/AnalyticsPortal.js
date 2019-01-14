@@ -1673,7 +1673,7 @@ var AnalyticsPortalModule = (function () {
             dataLayer.push({
                 'event': _evento.virtualEvent,
                 'category': textoCategory, //fnObtenerContenedor() + ' - ' + palanca,
-                'action': 'Clic Botón',
+                'action': 'Click Botón',
                 'label': nombreBoton,
                 'eventCallback': function () {
                     document.location = url;
@@ -2650,7 +2650,7 @@ var AnalyticsPortalModule = (function () {
             dataLayer.push({
                 'event': _evento.virtualEvent,
                 'category': "Home - Liquidaciones Web",
-                'action': 'Clic Botón',
+                'action': 'Click Botón',
                 'label': nombreBoton,
                 'eventCallback': function () {
                     document.location = url;
@@ -2663,6 +2663,32 @@ var AnalyticsPortalModule = (function () {
         }
 
     }
+
+    var marcarClickVerTodosOpt = function (url, titulo) {
+        try {
+            if (_constantes.isTest)
+                alert("Marcación Ver más ofertas.");
+
+
+            var nombreBoton = titulo;
+            dataLayer.push({
+                'event': _evento.virtualEvent,
+                'category': "Home - Showroom",
+                'action': 'Click Botón',
+                'label': nombreBoton,
+                'eventCallback': function () {
+                    document.location = url;
+                }
+            });
+
+        } catch (e) {
+            document.location = url;
+            console.log(_texto.excepcion + e);
+        }
+
+    }
+
+    
 
 
     return {
@@ -2790,5 +2816,8 @@ var AnalyticsPortalModule = (function () {
         MarcaAnadirCarritoRecomendaciones: marcaAnadirCarritoRecomendaciones,
 
         MarcarClickMasOfertasLiquidacion: marcarClickMasOfertasLiquidacion,
+        MarcarClickVerTodosOpt: marcarClickVerTodosOpt
+
+        //onclick="javascript: menuModule.sectionClick('/RevistaDigital/Comprar', 'BotonVerMas', this);"
     }
 })();

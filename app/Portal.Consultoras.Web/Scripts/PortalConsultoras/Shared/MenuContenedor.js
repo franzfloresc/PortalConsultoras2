@@ -296,11 +296,18 @@ var menuModule = (function () {
             url = "/Mobile" + url;
         }
 
+        debugger;
         if (typeof AnalyticsPortalModule !== "undefined") {
             if (url.indexOf(ConstantesModule.CodigosPalanca.Ganadoras) > 0) {
                 titulo = titulo || "";
                 if (titulo === "BannerMG") {
                     AnalyticsPortalModule.MarcarClickMasOfertasPromotionClickMG();
+                }
+                else {
+                    var OrigenPedidoWeb = EstrategiaAgregarModule.GetOrigenPedidoWeb($(e), false);
+                    OrigenPedidoWeb = OrigenPedidoWeb || "";
+
+                    AnalyticsPortalModule.MarcaClicVerMasOfertas(url, OrigenPedidoWeb, e.innerText);
                 }
             }
 
@@ -308,6 +315,25 @@ var menuModule = (function () {
                 titulo = titulo || "";
                 if (titulo === "BotonVerMasLiquidacion") {
                     AnalyticsPortalModule.MarcarClickMasOfertasLiquidacion(url, e.innerText);
+                }
+                else {
+                    var OrigenPedidoWeb = EstrategiaAgregarModule.GetOrigenPedidoWeb($(e), false);
+                    OrigenPedidoWeb = OrigenPedidoWeb || "";
+
+                    AnalyticsPortalModule.MarcaClicVerMasOfertas(url, OrigenPedidoWeb, e.innerText);
+                }
+            }
+
+            else if (url.indexOf(ConstantesModule.CodigosPalanca.ShowRoom) > 0) {
+                titulo = titulo || "";
+                if (titulo === "BotonVerMasEspecialesHome") {
+                    AnalyticsPortalModule.MarcarClickMasOfertasLiquidacion(url, e.innerText);
+                }
+                else {
+                    var OrigenPedidoWeb = EstrategiaAgregarModule.GetOrigenPedidoWeb($(e), false);
+                    OrigenPedidoWeb = OrigenPedidoWeb || "";
+
+                    AnalyticsPortalModule.MarcaClicVerMasOfertas(url, OrigenPedidoWeb, e.innerText);
                 }
             }
             else {
