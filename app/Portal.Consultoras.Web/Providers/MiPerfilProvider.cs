@@ -9,7 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Transactions;
 using System.Web;
-using static Portal.Consultoras.Common.Constantes;
+using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -78,7 +78,7 @@ namespace Portal.Consultoras.Web.Providers
                 BlEntidad =sv.ObtenerDireccionPorConsultora(request);
             }
             response = Mapper.Map<DireccionEntregaModel>(BlEntidad);
-            response.Operacion = response.DireccionEntregaID == OperacionBD.Insertar ? OperacionBD.Insertar : OperacionBD.Editar;
+            response.Operacion = response.DireccionEntregaID == Constantes.OperacionBD.Insertar ? Constantes.OperacionBD.Insertar : Constantes.OperacionBD.Editar;
             return response;
 
         }
@@ -94,7 +94,7 @@ namespace Portal.Consultoras.Web.Providers
                 BlEntidad = await sv.ObtenerDireccionPorConsultoraAsync(request);
             }
             response = Mapper.Map<DireccionEntregaModel>(BlEntidad);
-            response.Operacion = response.DireccionEntregaID == OperacionBD.Insertar ? OperacionBD.Insertar : OperacionBD.Editar;
+            response.Operacion = response.DireccionEntregaID == Constantes.OperacionBD.Insertar ? Constantes.OperacionBD.Insertar : Constantes.OperacionBD.Editar;
             return response;
 
         }
@@ -103,7 +103,7 @@ namespace Portal.Consultoras.Web.Providers
         {
             var entidad = Mapper.Map<DireccionEntregaModel, BEDireccionEntrega>(model);
 
-            if (model.Operacion == OperacionBD.Editar)
+            if (model.Operacion == Constantes.OperacionBD.Editar)
             {
                 DireccionEntregaModel direccionAnterior = await ObtenerDireccionPorConsultoraAsync(model);
                 entidad.Ubigeo1Anterior = direccionAnterior.Ubigeo1;
