@@ -551,7 +551,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var url = GetUrlCatalogoPiloto(Constantes.CatalogoPiloto.UrlParamEncrip);
+                var url = GetUrlCatalogoPiloto(Constantes.CatalogoPiloto.UrlBase);
                 var urlImagenLogo = Globals.RutaCdn + "/ImagenesPortal/Iconos/logo.png";
                 var urlIconEmail = Globals.RutaCdn + "/ImagenesPortal/Iconos/mensaje_mail.png";
                 var urlIconTelefono = Globals.RutaCdn + "/ImagenesPortal/Iconos/celu_mail.png";
