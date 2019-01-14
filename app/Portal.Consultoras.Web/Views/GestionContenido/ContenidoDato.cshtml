@@ -13,7 +13,7 @@
             if (Id != null) {
                 waitingDialog({});
                 $.ajaxSetup({ cache: false });
-                $.getJSON(baseUrl + 'GestionContenido/ObtenterCampaniasPorPais', { PaisID: Id == "" ? 0 : Id }, function (data) {
+                $.getJSON(baseUrl + 'BaseAdm/ObtenerCampaniasPeru', {}, function (data) {
                     if (checkTimeout(data)) {
                         var ddlCampania = $("#ddlCampania");
                         ddlCampania.empty();
