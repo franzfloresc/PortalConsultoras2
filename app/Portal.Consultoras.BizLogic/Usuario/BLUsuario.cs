@@ -24,7 +24,6 @@ using System.Transactions;
 using Portal.Consultoras.Entities.ProgramaNuevas;
 using Portal.Consultoras.Entities.Usuario;
 using Portal.Consultoras.Data.ServiceDirecciondeEntrega;
-using static Portal.Consultoras.Common.Constantes;
 using System.ServiceModel;
 
 namespace Portal.Consultoras.BizLogic
@@ -3788,7 +3787,7 @@ namespace Portal.Consultoras.BizLogic
                         throw new Exception(lst[2]);
                     }
 
-                    if (usuario.DireccionEntrega.Operacion == OperacionBD.Editar)
+                    if (usuario.DireccionEntrega.Operacion == Constantes.OperacionBD.Editar)
                       _direccionEntregaBusinessLogic.Editar(usuario.DireccionEntrega);
                     else
                       _direccionEntregaBusinessLogic.Insertar(usuario.DireccionEntrega);
