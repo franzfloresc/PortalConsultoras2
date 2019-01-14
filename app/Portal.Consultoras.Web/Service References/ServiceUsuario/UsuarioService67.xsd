@@ -38,10 +38,9 @@
   <xs:element name="ArrayOfBEUsuarioOpciones" nillable="true" type="tns:ArrayOfBEUsuarioOpciones" />
   <xs:complexType name="BEUsuarioOpciones">
     <xs:sequence>
-      <xs:element minOccurs="0" name="Activo" type="xs:boolean" />
       <xs:element minOccurs="0" name="CheckBox" type="xs:boolean" />
       <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoUsuario" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Opcion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="OpcionesUsuarioId" type="xs:unsignedByte" />
     </xs:sequence>

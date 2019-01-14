@@ -559,7 +559,15 @@ function actualizarDatos() {
         return false;
     }
 
-  
+    /*Recorriendo CheckBox*/
+    var contenido, mensaje;
+    $(".divCheckbox :checkbox").each(function () {
+        debugger
+        mensaje = this.checked ?
+            "El checkbox " + this.name + " se encuentra marcado.<br />" :
+            "El checkbox " + this.name + " no se encuentra marcado.<br />";
+        alert(mensaje);
+    });  
 
     
     AbrirLoad();
@@ -573,7 +581,6 @@ function actualizarDatos() {
         Operacion: Operacion,
         Referencia: Referencia,
         DireccionEntregaID: DireccionEntregaID
-
     }
 
     var item = {

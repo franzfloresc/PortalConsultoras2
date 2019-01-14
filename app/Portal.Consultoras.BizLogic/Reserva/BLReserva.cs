@@ -684,7 +684,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
             var _miperfil = new List<BEUsuarioOpciones>();
             bool flag = false;
             _miperfil = BLUsuario.GetUsuarioOpciones(paisID, codigoUsuario);
-            flag = _miperfil.Where(a => a.CodigoUsuario == codigoUsuario && a.OpcionesUsuarioId == 1).Select(b => b.CheckBox).FirstOrDefault();
+            flag = _miperfil.Where(a => a.OpcionesUsuarioId == Constantes.OpcionesUsuario.BoletaImpresa).Select(b => b.CheckBox).FirstOrDefault();
             return flag;
         }
 

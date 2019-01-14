@@ -3230,5 +3230,11 @@ namespace Portal.Consultoras.Common
             public const int Editar = 1;
             public const int Eliminar = 2;
         }
+
+        public static class OpcionesUsuario
+        {
+            public const int BoletaImpresa = 1;
+            public const int CompartirWhatsApp = 2;
+        }
     }
 }

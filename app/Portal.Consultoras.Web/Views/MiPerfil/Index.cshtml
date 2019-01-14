@@ -253,9 +253,9 @@ else
                 <div class="permisos_cuenta_titulo">
                     Permisos sobre tu cuenta :
                 </div>
-                <div class="permisos_cuenta_opciones">
+                <div class="permisos_cuenta_opciones ">
 
-                    @foreach (var item in Model.UsuarioOpciones)
+                    @foreach (var item in Model.UsuarioOpciones) divCheckbox
                     {
                         <div class="permiso_cuenta_opcion">
                             <div class="permiso_cuenta_opcion_descripcion">@item.Opcion</div>

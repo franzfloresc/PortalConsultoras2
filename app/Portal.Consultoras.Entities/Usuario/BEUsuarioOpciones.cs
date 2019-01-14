@@ -9,9 +9,6 @@ namespace Portal.Consultoras.Entities.Usuario
     public class BEUsuarioOpciones
     {
         [DataMember]
-        [Column("CodigoUsuario")]
-        public string CodigoUsuario { get; set; }
-        [DataMember]
         [Column("OpcionesUsuarioId")]
         public byte OpcionesUsuarioId { get; set; }
         [DataMember]
@@ -24,19 +21,18 @@ namespace Portal.Consultoras.Entities.Usuario
         [Column("CheckBox")]
         public bool CheckBox { get; set; }
         [DataMember]
-        [Column("Activo")]
-        public bool Activo { get; set; }
+        [Column("Descripcion")]
+        public string Descripcion { get; set; }
         public BEUsuarioOpciones()
         { }
 
         public BEUsuarioOpciones(IDataRecord row)
         {
-            CodigoUsuario = row.ToString("CodigoUsuario");
             OpcionesUsuarioId = row.ToByte("OpcionesUsuarioId");
             Opcion = row.ToString("Opcion");
             Codigo = row.ToString("Codigo");
             CheckBox = row.ToBoolean("CheckBox");
-            Activo = row.ToBoolean("Activo");
+            Descripcion = row.ToString("Descripcion");
         }
     }
 }
