@@ -49,7 +49,6 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.Piloto = piloto;
             ViewBag.EsConsultoraNueva = userData.EsConsultoraNueva;
 
-
             //if (Constantes.PaisID.Bolivia == userData.PaisID || Constantes.PaisID.Chile == userData.PaisID || Constantes.PaisID.Colombia == userData.PaisID ||
             //    Constantes.PaisID.CostaRica == userData.PaisID || Constantes.PaisID.Ecuador == userData.PaisID || Constantes.PaisID.Mexico == userData.PaisID ||
             //    Constantes.PaisID.Peru == userData.PaisID)

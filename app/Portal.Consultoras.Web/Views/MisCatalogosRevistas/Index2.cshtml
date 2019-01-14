@@ -53,7 +53,8 @@ else
         <div class="col-12 pl-0 pr-0 mx-auto layout__view__title">
             <div class="layout__view__title__background mostrarEnDesktop"></div>
             <h1 class="col-12 col-lg-6 col-xl-6 pl-lg-0 pl-xl-0 pr-lg-0 pr-xl-0 row flex-column flex-lg-row flex-xl-row flex-wrap flex-lg-nowrap flex-xl-nowrap justify-content-center justify-content-lg-start justify-content-xl-start align-items-lg-center align-items-xl-center layout__view__title__text text-uppercase">
-                <a class="d-block layout__view__title__icono__volver mostrarEnMobile">
+
+                <a href="@Request.UrlReferrer" class="d-block layout__view__title__icono__volver mostrarEnMobile">
                     <img class="d-block" src="@Url.Content("~/Content/Images/icono_volver_mobile.svg")" alt="" />
                 </a>
                 <span class="d-block">

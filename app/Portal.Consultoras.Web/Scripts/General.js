@@ -797,6 +797,27 @@ function isMobile() {
     return isUrlMobile;
 }
 
+var isMobileNative = {
+    Android: function () {
+        return navigator.userAgent.match(/Android/i);
+    },
+    BlackBerry: function () {
+        return navigator.userAgent.match(/BlackBerry/i);
+    },
+    iOS: function () {
+        return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+    },
+    Opera: function () {
+        return navigator.userAgent.match(/Opera Mini/i);
+    },
+    Windows: function () {
+        return navigator.userAgent.match(/IEMobile/i);
+    },
+    any: function () {
+        return (isMobileNative.Android() || isMobileNative.BlackBerry() || isMobileNative.iOS() || isMobileNative.Opera() || isMobileNative.Windows());
+    }
+};
+
 function getMobilePrefixUrl() {
     var uniquePrefix = belcorp.settings.uniquePrefix;
     var currentUrl = $.trim(location.href).toLowerCase();
