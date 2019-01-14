@@ -389,11 +389,9 @@ else
 
 @section scripts{
     <script type="text/javascript" id="js-ready-Catalogo">
-        var urlCatalogoPiloto = '@ViewBag.UrlCatalogoPiloto';
+        var urlCatalogoPiloto = '@Html.Raw(ViewBag.UrlCatalogoPiloto)';
         var piloto = '@ViewBag.Piloto';
 
-        var urlPiloto = '@Constantes.CatalogoUrlDefault.Piloto';
-        var codigoConsultora = '@Html.Raw(ViewBag.CodigoConsultoraDL)';
         var imgNoDisponible = '@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")';
         var imgIssuu = '@Constantes.CatalogoUrlParameters.UrlPart01' +
             '{img}' +

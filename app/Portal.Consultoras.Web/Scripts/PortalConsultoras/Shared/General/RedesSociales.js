@@ -222,7 +222,7 @@
     }
 
     // catalogo compartir por Facebook actual
-    var CompartirFacebookActual = function (catalogo, campaniaCatalogo, u) {
+    var CompartirFacebookActual = function (catalogo, campaniaCatalogo, texto) {
         dataLayer.push({
             'event': 'virtualEvent',
             'category': 'Catálogos y revistas',
@@ -236,7 +236,7 @@
         var popHeight = 420;
         var left = (screen.width / 2) - (popWwidth / 2);
         var top = (screen.height / 2) - (popHeight / 2);
-        var url = "http://www.facebook.com/sharer/sharer.php?u=" + u;
+        var url = "http://www.facebook.com/sharer/sharer.php?u=" + texto;
         window.open(url, 'Facebook', "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left + ",top=" + top + "");
     }
 
