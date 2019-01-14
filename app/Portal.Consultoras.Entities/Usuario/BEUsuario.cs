@@ -1,9 +1,12 @@
 ﻿using OpenSource.Library.DataAccess;
+
 using Portal.Consultoras.Common;
+
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using System.Runtime.Serialization;
+using System.Collections.Generic;
 
 namespace Portal.Consultoras.Entities
 {
@@ -1239,6 +1242,8 @@ namespace Portal.Consultoras.Entities
         public bool TieneMG { get; set; }
         [DataMember]
         public bool TieneChatbot { get; set; }
+        [DataMember]
+        public List<BEConfiguracionPaisDatos> RecomendacionesConfiguracion { get; set; }
 
         public BEUsuario(IDataRecord row, bool Tipo, bool ValidaHorario)
         {
