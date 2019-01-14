@@ -375,7 +375,7 @@
     .catalogos__campania--actual .catalogos__por__campania__item__imagen--esika{
         max-width:137px;
         min-height:180px;
-        left:5px;
+        left:0;
     }
 
         .catalogos__campania--actual .catalogos__por__campania__item__imagen--esika img{
@@ -383,7 +383,7 @@
         }
 
     .catalogos__campania--actual .catalogos__por__campania__item__imagen--lbel{
-        left:-31px;
+        left:-33px;
     }
 
 }
