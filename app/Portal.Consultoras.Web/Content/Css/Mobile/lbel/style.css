@@ -14080,10 +14080,12 @@ span.icon-advertencia {
     top: 0;
 }
 
-.linea_posicion_monto{
+.linea_posicion_monto {
     background-color: #808080;
-    /*left: 0;
-    right: 0;*/
+    /*left: 0; volver comentar hd-2849*/
+    /*right: 0; volver comentar hd-2849*/
+    left: 0;
+    right: 0;
 }
 
 .linea_posicion_monto_regalo{
@@ -14110,7 +14112,8 @@ span.icon-advertencia {
 
 .regalo_tippingPointInicio {
     top: -23px;
-    /*right: 0;*/
+    /*right: 0; volver comentar hd-2849 **/
+    right: 0;
 }
 
 .regalo_tippingPoint img,
