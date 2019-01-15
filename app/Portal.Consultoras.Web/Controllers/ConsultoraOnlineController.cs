@@ -976,66 +976,65 @@ namespace Portal.Consultoras.Web.Controllers
         private List<BEMisPedidosDetalle> CargarMisPedidosDetalleDatos(int marcaId, List<BEMisPedidosDetalle> olstMisPedidosDet)
         {
             // 0=App Catalogos, >0=Portal Marca
-            if (marcaId == 0)
+            if (marcaId != 0)
             {
-                int? revistaGana;
-                using (PedidoServiceClient sv = new PedidoServiceClient())
+                return olstMisPedidosDet;
+            }
+
+            int? revistaGana;
+            using (PedidoServiceClient sv = new PedidoServiceClient())
+            {
+                revistaGana = sv.ValidarDesactivaRevistaGana(userData.PaisID, userData.CampaniaID,
+                    userData.CodigoZona);
+            }
+
+            var txtBuil = new StringBuilder();
+            foreach (var item in olstMisPedidosDet)
+            {
+                txtBuil.Append(item.CUV + ",");
+            }
+
+            string inputCuv = txtBuil.ToString();
+            inputCuv = inputCuv.Substring(0, inputCuv.Length - 1);
+            List<ServiceODS.BEProducto> olstMisProductos;
+
+            using (ODSServiceClient svc = new ODSServiceClient())
+            {
+                olstMisProductos = svc.GetValidarCUVMisPedidos(userData.PaisID, userData.CampaniaID,
+                    inputCuv, userData.RegionID, userData.ZonaID, userData.CodigorRegion,
+                    userData.CodigoZona).ToList();
+            }
+
+            SessionManager.SetobjMisPedidosDetalleVal(olstMisProductos);
+
+            foreach (var item in olstMisPedidosDet)
+            {
+                var pedidoVal = olstMisProductos.FirstOrDefault(x => x.CUV == item.CUV);
+
+                if (pedidoVal == null)
                 {
-                    revistaGana = sv.ValidarDesactivaRevistaGana(userData.PaisID, userData.CampaniaID,
-                        userData.CodigoZona);
+                    item.TieneStock = 0;
+                    item.MensajeValidacion = "El producto solicitado no existe";
+                    continue;
                 }
 
-                var txtBuil = new StringBuilder();
-                foreach (var item in olstMisPedidosDet)
+                item.EstaEnRevista = pedidoVal.EstaEnRevista ? 1 : 0;
+
+                item.TieneStock = 1;
+                if (!pedidoVal.TieneStock)
                 {
-                    txtBuil.Append(item.CUV + ",");
+                    item.TieneStock = 0;
+                    item.MensajeValidacion = "Este producto está agotado";
                 }
-
-                string inputCuv = txtBuil.ToString();
-                inputCuv = inputCuv.Substring(0, inputCuv.Length - 1);
-                List<ServiceODS.BEProducto> olstMisProductos;
-
-                using (ODSServiceClient svc = new ODSServiceClient())
+                else if (pedidoVal.CUVRevista.Length != 0 && revistaGana == 0)
                 {
-                    olstMisProductos = svc.GetValidarCUVMisPedidos(userData.PaisID, userData.CampaniaID,
-                        inputCuv, userData.RegionID, userData.ZonaID, userData.CodigorRegion,
-                        userData.CodigoZona).ToList();
+                    item.EstaEnRevista = 1;
+                    item.MensajeValidacion = isEsika
+                        ? Constantes.MensajeEstaEnRevista.EsikaWeb
+                        : Constantes.MensajeEstaEnRevista.LbelWeb;
                 }
+                
 
-                SessionManager.SetobjMisPedidosDetalleVal(olstMisProductos);
-
-                foreach (var item in olstMisPedidosDet)
-                {
-                    var pedidoVal = olstMisProductos.FirstOrDefault(x => x.CUV == item.CUV);
-                    if (pedidoVal != null)
-                    {
-                        item.TieneStock = 1;
-                        item.EstaEnRevista = 0;
-                        if (pedidoVal.EstaEnRevista)
-                        {
-                            item.EstaEnRevista = 1;
-                        }
-
-                        if (!pedidoVal.TieneStock)
-                        {
-                            item.TieneStock = 0;
-                            item.MensajeValidacion = "Este producto está agotado";
-                        }
-                        else if (pedidoVal.CUVRevista.Length != 0 && revistaGana == 0)
-                        {
-                            item.EstaEnRevista = 1;
-                            item.MensajeValidacion = isEsika
-                                ? Constantes.MensajeEstaEnRevista.EsikaWeb
-                                : Constantes.MensajeEstaEnRevista.LbelWeb;
-                        }
-                    }
-                    else
-                    {
-                        item.TieneStock = 0;
-                        item.MensajeValidacion = "El producto solicitado no existe";
-                    }
-
-                }
             }
 
             return olstMisPedidosDet;
