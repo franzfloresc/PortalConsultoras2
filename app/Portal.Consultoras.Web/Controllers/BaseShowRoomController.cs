@@ -110,6 +110,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ShowRoomEventoModel CargarValoresModel()
         {
             ShowRoomEventoModel showRoomEventoModel;
+            _showRoomProvider.CargarEventoPersonalizacion(userData);
 
             try
             {

@@ -2519,7 +2519,6 @@ function CrearPopShow() {
     });
 }
 function MostrarShowRoom() {
-
     if (viewBagRol == 1) {
         if (!sesionEsShowRoom) {
             return;
@@ -2621,21 +2620,25 @@ function NoMostrarPopupShowRoomIntrigaVenta(tipo) {
         async: false,
         success: function (response) {
             if (checkTimeout(response)) {
-                if (!response.data && response.tipo == "I") {
-                    click_no_volver_a_ver_este_anuncio_PopShowroomIntriga();
-                    $('#PopShowroomIntriga').hide();
-                }
+                //if (!response.data && response.tipo == "I") {
+                //    click_no_volver_a_ver_este_anuncio_PopShowroomIntriga();
+                //    $('#PopShowroomIntriga').hide();
+                //}
 
-                if (!response.data && response.tipo == "V") {
-                    click_no_volver_a_ver_este_anuncio_PopShowroomVenta();
-                    $('#PopShowroomVenta').hide();
-                }
+                //if (!response.data && response.tipo == "V") {
+                //    click_no_volver_a_ver_este_anuncio_PopShowroomVenta();
+                //    $('#PopShowroomVenta').hide();
+                //}
+                click_no_volver_a_ver_este_anuncio_PopShowroomVenta();
+                $('#PopShowroomVenta').hide();
             }
         },
         error: function (response, error) {
             if (checkTimeout(response)) {
-                closeWaitingDialog();
-            }
+                closeWaitingDialog();              
+            }   
+            click_no_volver_a_ver_este_anuncio_PopShowroomVenta();
+            $('#PopShowroomVenta').hide();
         }
     });
 }
@@ -3158,11 +3161,11 @@ function click_no_volver_a_ver_este_anuncio_PopShowroomVenta() {
 }
 
 function MostrarPopupInicial() {
+    
     if (showPopupMisDatos == '1' || popupCambioClave == "1") {
         CargarMisDatos();
         return;
     }
-
     switch (TipoPopUpMostrar) {
         case popupAceptacionContrato:
             if (ObtenerEstadoContrato()) PopupMostrar('popupAceptacionContrato');

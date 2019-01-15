@@ -150,6 +150,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult PopupCerrar()
         {
+            _showRoomProvider.CargarEventoConsultora(userData);
             if (configEstrategiaSR.BeShowRoomConsultora == null)
             {
                 return Json(new
@@ -266,6 +267,8 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 const int SHOWROOM_ESTADO_INACTIVO = 0;
                 const string TIPO_APLICACION_DESKTOP = "Desktop";
+                _showRoomProvider.CargarEventoPersonalizacion(userData);
+                configEstrategiaSR = SessionManager.GetEstrategiaSR();
                 var showRoom = configEstrategiaSR.BeShowRoom ?? new ShowRoomEventoModel();
 
                 if (showRoom.Estado == SHOWROOM_ESTADO_INACTIVO)
@@ -328,6 +331,8 @@ namespace Portal.Consultoras.Web.Controllers
                 const int SHOWROOM_ESTADO_INACTIVO = 0;
                 const string TIPO_APLICACION_DESKTOP = "Desktop";
 
+                _showRoomProvider.CargarEventoPersonalizacion(userData);
+                configEstrategiaSR = SessionManager.GetEstrategiaSR();
                 if (!_showRoomProvider.PaisTieneShowRoom(userData.CodigoISO))
                 {
                     return Json(new
@@ -338,15 +343,15 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
-                if (!configEstrategiaSR.CargoEntidadesShowRoom)
-                {
-                    return Json(new
-                    {
-                        success = false,
-                        data = "",
-                        message = ""
-                    });
-                }
+                //if (!configEstrategiaSR.CargoEntidadesShowRoom)
+                //{
+                //    return Json(new
+                //    {
+                //        success = false,
+                //        data = "",
+                //        message = ""
+                //    });
+                //}
 
                 var showRoom = configEstrategiaSR.BeShowRoom ?? new ShowRoomEventoModel();
 
@@ -673,6 +678,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (model.EnviarParametrosUTMs)
             {
+                _showRoomProvider.CargarEventoPersonalizacion(userData);
+                configEstrategiaSR = SessionManager.GetEstrategiaSR();
                 var nombreEvento = configEstrategiaSR.BeShowRoom != null && configEstrategiaSR.BeShowRoom.Nombre != null ?
                     configEstrategiaSR.BeShowRoom.Nombre.Replace(" ", "") :
                     string.Empty;
@@ -685,6 +692,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private void ProgramarAvisoShowRoom(MisDatosModel model)
         {
+            _showRoomProvider.CargarEventoConsultora(userData);
             configEstrategiaSR.BeShowRoomConsultora = configEstrategiaSR.BeShowRoomConsultora ?? new ShowRoomEventoConsultoraModel();
             configEstrategiaSR.BeShowRoomConsultora.Suscripcion = true;
             configEstrategiaSR.BeShowRoomConsultora.CorreoEnvioAviso = model.EMail;
