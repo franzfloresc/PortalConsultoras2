@@ -19,6 +19,8 @@ namespace Portal.Consultoras.Web.Providers
     using Portal.Consultoras.Web.Models.Estrategia;
     using Portal.Consultoras.Web.Models.Search.ResponseEvento;
     using Portal.Consultoras.Web.Models.Search.ResponseNivel;
+    using System;
+    using System.Text;
 
     /// <summary>
     /// Propiedades y metodos de ShowRoom
@@ -406,10 +408,10 @@ namespace Portal.Consultoras.Web.Providers
                     {
                         if (model.CampaniaID != 0)
                         {
-                            var lstResult = Task.Run(() => ApiEventoPersonalizacion(model));
-                            Task.WhenAll(lstResult);
-                            configEstrategiaSR.BeShowRoom = ObtieneEventoModel(lstResult.Result);
-                            configEstrategiaSR.ListaPersonalizacionConsultora = ObtienePersonalizacionesModel(lstResult.Result);
+                            OutputEvento eventoPersonalizacions = ApiEventoPersonalizacion(model);
+
+                            configEstrategiaSR.BeShowRoom = ObtieneEventoModel(eventoPersonalizacions.Result);
+                            configEstrategiaSR.ListaPersonalizacionConsultora = ObtienePersonalizacionesModel(eventoPersonalizacions.Result.FirstOrDefault().PersonalizacionNivel);
 
                             if (configEstrategiaSR.BeShowRoom != null &&
                                 configEstrategiaSR.BeShowRoom.Estado == SHOWROOM_ESTADO_ACTIVO)
