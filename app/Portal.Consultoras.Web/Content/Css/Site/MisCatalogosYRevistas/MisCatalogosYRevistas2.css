@@ -75,8 +75,8 @@ hr{
     margin-top:32px;
     margin-bottom:60px;
     padding-top:70px;
-    padding-bottom:41px;
-    max-width:900px;
+    padding-bottom:70px;
+    max-width:821px;
     border:1px solid #000;
     border-radius:4px;
 }
@@ -88,34 +88,35 @@ hr{
 .info__pasos__compartir__catalogo__campaniaActual,
 .info__pasos__compartir__catalogo__campaniaActual__subtitulo
 {
-    max-width:515px;
+    max-width:532px;
+}
+
+.info__pasos--parteSuperior span,
+.info__pasos--parteInferior span
+{
+    font-size:24px;
 }
 
 .info__pasos--parteSuperior span{
     font-weight:400;
-    font-size:24px;
-}
-
-.info__pasos--parteInferior span{
-    margin-bottom:38px;
 }
 
 .info__pasos--parteInferior span:first-child{
-    font-size:20px;
+    margin-bottom:30px;
 }
 
 .info__pasos--parteInferior span:last-child{
-    font-size:24px;
+    margin-bottom:44px;
 }
 
 .lista__pasos__compartir__catalogo__campaniaActual{
     list-style-type:none;
-    margin-top:37px;
+    margin-top:45px;
     margin-bottom:57px;
 }
 
 .paso__compartir__catalogo__campaniaActual {
-    margin-bottom:44px;
+    margin-bottom:25px;
 }
 
 .paso__compartir__catalogo__campaniaActual span{
@@ -147,18 +148,18 @@ hr{
 .compartir__catalogo__area,
 .btn__compartir
 {
-    max-width:500px;
+    max-width:350px;
 }
 
 .btn__compartir {
     font-family: 'Lato', sans-serif;
     background-color: #b9007e;
     border-radius: 12px;
-    height: 70px;
-    line-height:69px;
+    height: 45px;
+    line-height:44px;
     letter-spacing: 1px;
     border: none;
-    font-size: 16px;
+    font-size: 14px;
     cursor: pointer;
     -moz-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
@@ -176,12 +177,11 @@ hr{
 }
 
 .btn__compartir--slider{
-    max-width:350px;
+    max-width:208px;
 }
 
 .btn__compartir--slider + .opciones__compartir__catalogos{
-    width:460px;
-    left:-63px;
+    left:-104px;
     z-index:3;
 }
 
@@ -318,7 +318,7 @@ hr{
 .catalogos__por__campania__item__descrip div,
 .catalogos__por__campania__item__descrip span
 {
-    font-size:24px;
+    font-size:22px;
 }
 
 .catalogos__por__campania__item__modos__compartir{
@@ -338,12 +338,12 @@ hr{
     display:none;
     justify-content: space-evenly;
     background-color: #FFF;
-    width:510px;
+    width:420px;
     position:absolute;
-    left:-7px;
-    bottom:79px;
-    padding:20px 15px;
-    height: 111px;
+    left: -29px;
+    bottom: 55px;
+    padding:20px 27px;
+    height: 72px;
     -moz-box-shadow: 0 0 2px rgba(0,0,0,0.37);
     -webkit-box-shadow: 0 0 2px rgba(0,0,0,0.37);
     box-shadow: 0 0 2px rgba(0,0,0,0.37);
@@ -365,15 +365,15 @@ hr{
     .opciones__compartir__catalogos:after{
         border-color: rgba(136, 183, 213, 0);
         border-top-color: #FFF;
-        border-width: 21px;
-        margin-left: -21px;
+        border-width: 19px;
+        margin-left: -19px;
     }
 
     .opciones__compartir__catalogos:before {
 	    border-color: rgba(194, 225, 245, 0);
 	    border-top-color: rgba(0,0,0,0.37);
-	    border-width: 22px;
-	    margin-left: -22px;
+	    border-width: 20px;
+	    margin-left: -20px;
     }
 
 .opcion__compartir__catalogo{
@@ -391,15 +391,14 @@ hr{
     }
 
 .opcion__compartir__catalogo--whatsapp{
-    height:54px;
-}
-
-.opcion__compartir__catalogo--facebook{
-    height:42px;
-}
-
-.opcion__compartir__catalogo--email{
     height:41px;
+    margin-left:-5px;
+}
+
+.opcion__compartir__catalogo--facebook,
+.opcion__compartir__catalogo--email
+{
+    height:32px;
 }
 
 .opcion__compartir__catalogo--facebookMessenger {
@@ -409,10 +408,11 @@ hr{
 .opcion__compartir__catalogo--copiarEnlace {
     background-color: #EBEBEB;
     width: 138px;
-    height: 44px;
-    line-height: 44px;
+    height: 40px;
+    line-height: 39px;
     border-radius: 4px;
     font-size:12px;
+    margin-left:27px;
 }
 
 .modo__compartir__catalogo{
@@ -1072,6 +1072,10 @@ input[type='checkbox']:checked + span:after {
         display:none;
     }
 
+    .opcion__compartir__catalogo--whatsapp{
+        margin-right:0;
+    }
+
     .opcion__compartir__catalogo--whatsapp img{
         margin-top:2px;
         height:40px;
@@ -1091,6 +1095,7 @@ input[type='checkbox']:checked + span:after {
 
     .opcion__compartir__catalogo--copiarEnlace{
         margin-top:20px;
+        margin-left:0;
     }
 
     .mi__revista__y__marquesina__rd__wrapper{
