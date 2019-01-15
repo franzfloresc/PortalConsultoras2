@@ -252,14 +252,14 @@ else
                 <div class="permisos_cuenta_titulo">
                     Permisos sobre tu cuenta :
                 </div>
-                <div class="permisos_cuenta_opciones ">
+                <div class="permisos_cuenta_opciones divCheckbox">
 
-                    @foreach (var item in Model.UsuarioOpciones) divCheckbox
+                    @foreach (var item in Model.UsuarioOpciones) 
                     {
                         <div class="permiso_cuenta_opcion">
                             <div class="permiso_cuenta_opcion_descripcion">@item.Opcion</div>
                             <fieldset class="grupo_form_permiso_cuenta">
-                                <input class="permiso_cuenta_opcion_checkbox" type="checkbox" name="@item.Codigo" id="@item.Codigo" checked="@item.CheckBox" />
+                                <input class="permiso_cuenta_opcion_checkbox" type="checkbox" data-tipoOpcion="@item.OpcionesUsuarioId" name="@item.Codigo" id="@item.Codigo" checked="@item.CheckBox" />
                                 <label for="@item.Codigo" class="permiso_cuenta_opcion_label"></label>
                             </fieldset>
                         </div>

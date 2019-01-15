@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.OpcionesVerificacion;
+using Portal.Consultoras.Entities.Usuario;
 using System;
 using System.Data;
 using System.Data.Common;
@@ -1005,5 +1006,14 @@ namespace Portal.Consultoras.Data
             return Convert.ToBoolean(command.Parameters["@PermisoChatbot"].Value);
         }
 
+        public void InsertarUsuarioOpciones(BEUsuarioOpciones objU, string CodigoUsuario)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsUsuarioOpciones");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, CodigoUsuario);
+            Context.Database.AddInParameter(command, "@OpcionesUsuarioId", DbType.Int32, objU.OpcionesUsuarioId);
+            Context.Database.AddInParameter(command, "@Activo", DbType.Boolean, objU.CheckBox);
+
+            Context.ExecuteNonQuery(command);
+        }
     }
 }

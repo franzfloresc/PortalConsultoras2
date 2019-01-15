@@ -119,6 +119,13 @@ namespace Portal.Consultoras.Web.Providers
             entidad.Referencia = entidad.Referencia ?? string.Empty;
             return entidad;
         }
+
+        private List<BEUsuarioOpciones> BinderUsuarioOpciones(List<UsuarioOpcionesModel> model)
+        {
+            var entidad = Mapper.Map<List<UsuarioOpcionesModel>, List<BEUsuarioOpciones>>(model);
+            return entidad;
+        }
+
         private BEUsuario BinderMisDatos(MisDatosModel model)
         {
             var entidad = Mapper.Map<MisDatosModel, BEUsuario>(model);
@@ -140,28 +147,26 @@ namespace Portal.Consultoras.Web.Providers
 
         public async Task<string> RegistrarAsync(MisDatosModel model)
         {
-
             string resultado = string.Empty;
             try
             {
                 var usuario = BinderMisDatos(model);
                 var direccion = await BinderDireccionAsync(model.DireccionEntrega);
+                var usuarioOpciones = BinderUsuarioOpciones(model.UsuarioOpciones);
                 usuario.DireccionEntrega = direccion;
                 usuario.CorreoAnterior = model.CorreoAnterior;
+                usuario.UsuarioOpciones = usuarioOpciones.ToArray();
+
                 using (UsuarioServiceClient svr = new UsuarioServiceClient())
                 {
                     resultado = await svr.RegistrarPerfilAsync(usuario);
                 }
-
             }
             catch (Exception ex)
             {
 
             }
             return resultado;
-
         }
-
-
     }
 }

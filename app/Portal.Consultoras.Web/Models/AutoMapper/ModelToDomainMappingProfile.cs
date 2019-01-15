@@ -479,6 +479,9 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<DireccionEntregaModel, Portal.Consultoras.Web.ServiceUsuario.BEDireccionEntrega>();
             Mapper.CreateMap<Portal.Consultoras.Web.ServiceUsuario.BEDireccionEntrega, DireccionEntregaModel>();
 
+            Mapper.CreateMap<UsuarioOpcionesModel, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioOpciones>();
+            Mapper.CreateMap<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioOpciones, UsuarioOpcionesModel>();
+
         }
     }
 }

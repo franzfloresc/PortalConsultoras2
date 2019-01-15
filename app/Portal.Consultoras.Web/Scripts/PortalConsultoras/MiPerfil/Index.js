@@ -543,16 +543,14 @@ function actualizarDatos() {
         return false;
     }
 
-    /*Recorriendo CheckBox*/
-    var contenido, mensaje;
+    var permisos = new Array();
     $(".divCheckbox :checkbox").each(function () {
-        debugger
-        mensaje = this.checked ?
-            "El checkbox " + this.name + " se encuentra marcado.<br />" :
-            "El checkbox " + this.name + " no se encuentra marcado.<br />";
-        alert(mensaje);
+        permisos.push({
+            Codigo: $(this).attr("id"),
+            CheckBox: this.checked,
+            OpcionesUsuarioId: $(this).attr("data-tipoOpcion")
+        })
     });  
-
     
     AbrirLoad();
     var direccion = {
@@ -578,7 +576,8 @@ function actualizarDatos() {
         NombreCompleto: jQuery('#hdn_NombreCompletoMD').val(),
         CompartirDatos: false,
         AceptoContrato: $('#chkAceptoContratoMD').is(':checked'),
-        DireccionEntrega: direccion
+        DireccionEntrega: direccion,
+        UsuarioOpciones: permisos
     };
 
     

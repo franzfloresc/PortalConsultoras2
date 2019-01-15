@@ -3791,7 +3791,13 @@ namespace Portal.Consultoras.BizLogic
                       _direccionEntregaBusinessLogic.Editar(usuario.DireccionEntrega);
                     else
                       _direccionEntregaBusinessLogic.Insertar(usuario.DireccionEntrega);
-                    
+
+                    /*Insertar permisos*/
+                    var DAUsuario = new DAUsuario(usuario.PaisID);
+                    foreach (var item in usuario.UsuarioOpciones)
+                    {
+                        DAUsuario.InsertarUsuarioOpciones(item, usuario.CodigoUsuario);
+                    }
 
                     var remoteAddress = new  EndpointAddress(WebConfig.ServicioDireccionEntregaSicc);
 
