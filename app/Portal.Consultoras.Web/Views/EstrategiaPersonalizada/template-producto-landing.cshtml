@@ -136,15 +136,33 @@
                     {{#iff TipoAccionAgregar '==' '@Constantes.TipoAccionAgregar.AgregaloPackNuevas'}}
                     <div class="texto_elige_tono"></div>
                     <div class="clear"></div>
+
+                    {{#if TieneStock}}
                     <div class="liquidacion_rango_home">
                         <input type="text" value="1" size="2" maxlength="2" data-input='cantidad' disabled="disabled"
                                class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
                                style="width: 62px!important;border-right:1px solid #CCCCCC !important;opacity:0.5;" />
                     </div>
+                    {{else}}
+                    <div class="liquidacion_rango_home" style="display: none;">
+                        @*<input type="text" value="1" size="2" maxlength="2" data-input='cantidad' disabled="disabled"
+                               class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
+                               style="width: 62px!important;border-right:1px solid #CCCCCC !important;opacity:0.5;" />*@
+                    </div>
+                    {{/if}}
+
+                    {{#if TieneStock}}
                     <a href="javascript:;" class="boton_Agregalo_home js-no-popup {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}"
                        onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, true, 1); ">
                         AGR&Eacute;GALO
                     </a>
+                    {{else}}
+                    <a href="javascript:;" class="boton_Agregalo_agotado js-no-popup {{ClaseBloqueada}}" style="pointer-events: none;"
+                       data-bloqueada="{{ClaseBloqueada}}">
+                        AGOTADO
+                    </a>
+                    {{/if}}
+
                     {{/iff}}
                     {{#iff TipoAccionAgregar '==' '@Constantes.TipoAccionAgregar.AgregaloNormal'}}
                     <div class="texto_elige_tono"></div>
@@ -166,8 +184,8 @@
                         </div>
                     </div>
                     {{else}}
-                    <div style="display:none" class="liquidacion_rango_home js-no-popup" data-cantidad-contenedor="">
-                        <input type="text" value="1" size="2" maxlength="2" data-input='cantidad' style="pointer-events: none;"
+                    <div class="liquidacion_rango_home js-no-popup" data-cantidad-contenedor="" style="display:none">
+                        @*<input type="text" value="1" size="2" maxlength="2" data-input='cantidad' style="pointer-events: none;"
                                class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup {{ClaseBloqueada}}"
                                {{#iff ClaseBloqueada '!=' ''}} disbled="disable" {{/iff}} />
 
@@ -178,7 +196,7 @@
                             <a href="javascript:;" class="menos js-no-popup" style="pointer-events: none;" data-bloqueada="{{ClaseBloqueada}}">
                                 <img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt="" />
                             </a>
-                        </div>
+                        </div>*@
                     </div>
                     {{/if}}
 
@@ -188,28 +206,28 @@
                         AGR&Eacute;GALO
                     </a>
                     {{else}}
-                    <a href="javascript:;" class="boton_Agregalo_agotado js-no-popup {{ClaseBloqueada}}" style="pointer-events: none;" 
-                        data-bloqueada="{{ClaseBloqueada}}">
+                    <a href="javascript:;" class="boton_Agregalo_agotado js-no-popup {{ClaseBloqueada}}" style="pointer-events: none;"
+                       data-bloqueada="{{ClaseBloqueada}}">
                         AGOTADO
                     </a>
                     {{/if}}
                     {{/iff}}
                     {{#iff TipoAccionAgregar '==' '@Constantes.TipoAccionAgregar.EligeOpcion'}}
-                        {{#if TieneStock}}
-                            <div {{#iff ClaseBloqueada '==' ''}} onclick="javascript:OnClickFichaDetalle(event.target);" {{/iff}}>
-                                <div class="texto_elige_tono"></div>
-                                <div class="clear"></div>
-                                <a class="btn_elige_tono js-no-popup {{ClaseBloqueada}}" data-item-tag="eligetuopcion">
-                                    <div><img src="/Content/Images/mobile/Esika/click-ico.svg">ELIGE TU OPCIÓN</div>
-                                </a>
-                            </div>
-                        {{else}}
-                            <div class="texto_elige_tono"></div>
-                            <a href="javascript:;" class="boton_Agregalo_agotado js-no-popup {{ClaseBloqueada}}" style="pointer-events: none;" 
-                               data-bloqueada="{{ClaseBloqueada}}">
-                                AGOTADO
-                            </a>
-                        {{/if}}
+                    {{#if TieneStock}}
+                    <div {{#iff ClaseBloqueada '==' ''}} onclick="javascript:OnClickFichaDetalle(event.target);" {{/iff}}>
+                        <div class="texto_elige_tono"></div>
+                        <div class="clear"></div>
+                        <a class="btn_elige_tono js-no-popup {{ClaseBloqueada}}" data-item-tag="eligetuopcion">
+                            <div><img src="/Content/Images/mobile/Esika/click-ico.svg">ELIGE TU OPCIÓN</div>
+                        </a>
+                    </div>
+                    {{else}}
+                    <div class="texto_elige_tono"></div>
+                    <a href="javascript:;" class="boton_Agregalo_agotado js-no-popup {{ClaseBloqueada}}" style="pointer-events: none;"
+                       data-bloqueada="{{ClaseBloqueada}}">
+                        AGOTADO
+                    </a>
+                    {{/if}}
                     {{/iff}}
                     {{#iff TipoAccionAgregar '==' '@Constantes.TipoAccionAgregar.LoQuieres'}}
                     <div class="texto_elige_tono"></div>

@@ -527,6 +527,8 @@ namespace Portal.Consultoras.Web.Providers
                     }
                 }
 
+                listEstrategia = _consultaProlProvider.ActualizarEstrategiaStockPROL(listEstrategia, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora);
+
                 if (campaniaId == userData.CampaniaID)
                 {
                     if (tipo == Constantes.TipoEstrategiaCodigo.PackNuevas
@@ -552,7 +554,8 @@ namespace Portal.Consultoras.Web.Providers
             }
 
 
-            return _consultaProlProvider.ActualizarEstrategiaStockPROL(listEstrategia, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora);
+            //return _consultaProlProvider.ActualizarEstrategiaStockPROL(listEstrategia, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora);
+            return listEstrategia;
         }
 
         #endregion
