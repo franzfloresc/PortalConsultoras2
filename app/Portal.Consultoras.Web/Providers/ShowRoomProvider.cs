@@ -122,29 +122,35 @@ namespace Portal.Consultoras.Web.Providers
 
         public ShowRoomEventoConsultoraModel GetShowRoomConsultora(UsuarioModel model, ShowRoomEventoModel showRoomEventoModel)
         {
-            if (UsarMsPersonalizacion(model.CodigoISO, Constantes.TipoEstrategiaCodigo.ShowRoom))
-            {
-                ShowRoomEventoConsultoraModel eventoConsultora = ObtenerEventoConsultoraApi(model.CodigoISO, model.CampaniaID, model.GetCodigoConsultora());
-
-                if (eventoConsultora == null)
+            try {
+                if (UsarMsPersonalizacion(model.CodigoISO, Constantes.TipoEstrategiaCodigo.ShowRoom))
                 {
-                    eventoConsultora = RegistrarEventoConsultoraApi(showRoomEventoModel.EventoID, false);
-                }
+                    ShowRoomEventoConsultoraModel eventoConsultora = ObtenerEventoConsultoraApi(model.CodigoISO, model.CampaniaID, model.GetCodigoConsultora());
 
-                return eventoConsultora;
+                    if (eventoConsultora == null)
+                    {
+                        eventoConsultora = RegistrarEventoConsultoraApi(showRoomEventoModel.EventoID, false);
+                    }
+
+                    return eventoConsultora;
+                }
+                else
+                {
+                    using (PedidoServiceClient servicioWcf = new PedidoServiceClient())
+                    {
+                        BEShowRoomEventoConsultora showRoomEventoConsultora = servicioWcf.GetShowRoomConsultora(
+                            model.PaisID,
+                            model.CampaniaID,
+                            model.GetCodigoConsultora(),
+                            true);
+                        return Mapper.Map<BEShowRoomEventoConsultora, ShowRoomEventoConsultoraModel>(
+                            showRoomEventoConsultora);
+                    }
+                }
             }
-            else
+            catch
             {
-                using (PedidoServiceClient servicioWcf = new PedidoServiceClient())
-                {
-                    BEShowRoomEventoConsultora showRoomEventoConsultora = servicioWcf.GetShowRoomConsultora(
-                        model.PaisID,
-                        model.CampaniaID,
-                        model.GetCodigoConsultora(),
-                        true);
-                    return Mapper.Map<BEShowRoomEventoConsultora, ShowRoomEventoConsultoraModel>(
-                        showRoomEventoConsultora);
-                }
+                return null;
             }
         }
 
@@ -925,21 +931,22 @@ namespace Portal.Consultoras.Web.Providers
 
                 if (respuesta == null)
                 {
-                    return null;
+                    Common.LogManager.SaveLog(new Exception("Servicio no responde"), string.Empty, pais);
+                    throw new Exception();
                 }
 
                 if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
                 {
                     Common.LogManager.SaveLog(new Exception(respuesta.Message), string.Empty, pais);
-                    return null;
+                    throw new Exception(respuesta.Message);
                 }
 
                 ShowRoomEventoConsultoraModel modelo = new ShowRoomEventoConsultoraModel();
 
-                if (respuesta.Result != null)
+                if (respuesta.Result != null && respuesta.Result.Count() > 0)
                 {
                     foreach (Models.Search.ResponseEvento.Estructura.EventoConsultora eventoConsultora in respuesta.Result.DefaultIfEmpty())
-                    {
+                    {                        
                         modelo.EventoConsultoraID = eventoConsultora.EventoConsultoraId;
                         modelo.EventoID = eventoConsultora.EventoId;
                         modelo.CampaniaID = Convert.ToInt32(eventoConsultora.CampaniaId);
@@ -958,7 +965,7 @@ namespace Portal.Consultoras.Web.Providers
             catch (Exception ex)
             {
                 Common.LogManager.SaveLog(ex, string.Empty, pais);
-                return null;
+                throw ex;
             }
         }
 
