@@ -88,6 +88,24 @@ else
         </div>
     </div>
 </section>
+
+
+@*INI EINCA HD-3180 Y HD-3304 15-01-2019*@
+@if (Model.PaisID == Constantes.PaisID.Colombia)
+{
+    <section>
+        <div style="display:flex; display:-webkit-flex;display:-ms-flexbox; flex-direction:row; justify-content:center;">
+            <span style="padding-right:.5rem;">
+                <img style="width:30px;margin-top:.5rem;" src="@Url.Content("~/Content/Images/icono_advertencia_consultora_registrada_coach.png")" />
+            </span>
+            <span style="color:#e81c36;font-weight:bold;font-size:16px;">
+                Modifica tus datos comunicándote al 5948060 en Bogotá y <br /> 018000937452 a nivel nacional.
+            </span>
+        </div>
+    </section>
+}
+@*FIN EINCA HD-3180 Y HD-3304 15-01-2019*@
+
 <section class="form_cambio_datos">
     <div class="wrapper_content_mi_perfil">
         <div class="opciones_mi_perfil">
@@ -199,24 +217,22 @@ else
                         <div class="opcion_mi_perfil_contenido">
                             <fieldset class="grupo_form_cambio_datos grupo_form_cambio_datos_campo_ciudad w-50">
                                 <div class="w-100">
-                                    @Html.DropDownListFor(model => model.DireccionEntrega.Ubigeo1, new SelectList(Model.DireccionEntrega.DropDownUbigeo1, "IdParametroUnete", "Nombre"), "--Seleccionar",new { id= "Ubigeo1" , Nivel =6 , @class = "w-100", ItemChange="0" })
+                                    @Html.DropDownListFor(model => model.DireccionEntrega.Ubigeo1, new SelectList(Model.DireccionEntrega.DropDownUbigeo1, "IdParametroUnete", "Nombre"), "--Seleccionar", new { id = "Ubigeo1", Nivel = 6, @class = "w-100", ItemChange = "0" })
                                     <label for="Ubigeo1">Ciudad <span class="asteriscos">*</span></label>
                                 </div>
                             </fieldset>
                             <fieldset class="grupo_form_cambio_datos grupo_form_cambio_datos_campo_comuna w-50">
                                 <div class="w-100">
-                                   
-                                    <select id="Ubigeo2" name="Ubigeo2" class="w-100"  Nivel =7>
-                                       
-                                    </select>
+
+                                    <select id="Ubigeo2" name="Ubigeo2" class="w-100" Nivel=7></select>
                                     <label for="Ubigeo2">Comuna <span class="asteriscos">*</span></label>
                                 </div>
                             </fieldset>
                             <fieldset class="grupo_form_cambio_datos grupo_form_cambio_datos_campo_direccion">
                                 <div class="w-100">
-                                    
-                                    @Html.TextBoxFor(x => x.DireccionEntrega.Direccion, new {@class = "w-100" , id= "Direccion" })
-                                   
+
+                                    @Html.TextBoxFor(x => x.DireccionEntrega.Direccion, new { @class = "w-100", id = "Direccion" })
+
                                     <label for="Direccion" class="w-100">
                                         Dirección <span class="asteriscos">*</span>
                                     </label>
@@ -238,7 +254,7 @@ else
                                 @Html.HiddenFor(m => m.DireccionEntrega.Longitud, new { id = "Longitud" })
                                 @Html.HiddenFor(m => m.DireccionEntrega.Operacion, new { id = "Operacion" })
                                 @Html.HiddenFor(m => m.DireccionEntrega.DireccionEntregaID, new { id = "DireccionEntregaID" })
-                         
+
                             </fieldset>
                         </div>
                     </div>
@@ -254,7 +270,7 @@ else
                 </div>
                 <div class="permisos_cuenta_opciones divCheckbox">
 
-                    @foreach (var item in Model.UsuarioOpciones) 
+                    @foreach (var item in Model.UsuarioOpciones)
                     {
                         <div class="permiso_cuenta_opcion">
                             <div class="permiso_cuenta_opcion_descripcion">@item.Opcion</div>
@@ -296,13 +312,15 @@ else
                 <div class="datos_obligatorios">
                     <span class="asterisco_actualizar_datos">(*)&nbsp;</span>Datos obligatorios
                 </div>
-                @if (Model.PaisID == Constantes.PaisID.Colombia)
-                {
-                    <p>&nbsp;</p>
-                    <p>
-                        &nbsp;Modifica tus datos comunicándote al 5948060 en Bogotá y 018000937452 a nivel nacional.
-                    </p>
-                }
+                @*INI EINCA HD-3180 Y HD-3304 15-01-2019*@
+                @*@if (Model.PaisID == Constantes.PaisID.Colombia)
+                    {
+                        <p>&nbsp;</p>
+                        <p>
+                            &nbsp;Modifica tus datos comunicándote al 5948060 en Bogotá y 018000937452 a nivel nacional.
+                        </p>
+                    }*@
+                @*FIN EINCA HD-3180 Y HD-3304 15-01-2019*@
             </div>
             <div class="w-50 text-right v-alignMiddle text-uppercase">
                 <button id="btnGuardar" type="button" class="btn_guardar_datos_nuevos text-uppercase text-bold default-background-color mt-13">
@@ -315,7 +333,7 @@ else
 
 @section scripts{
     <script>
-        
+
         var ZoonMapa = 17;
         var LocationCountry = '@ViewBag.LocationCountry';
         var EsMobile = '@ViewBag.EsMobile';
