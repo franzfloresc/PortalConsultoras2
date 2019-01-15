@@ -1040,6 +1040,7 @@ input[type='checkbox']:checked + span:after {
     .btn__compartir--slider + .opciones__compartir__catalogos,
     .opciones__compartir__catalogos
     {
+        width:93%;
         left:0;
     }
 
@@ -1057,7 +1058,6 @@ input[type='checkbox']:checked + span:after {
     .opciones__compartir__catalogos{
         bottom: 10px;
         z-index: 3;
-        width: 93%;
         height: auto;
         padding:20px 48px;
     }
