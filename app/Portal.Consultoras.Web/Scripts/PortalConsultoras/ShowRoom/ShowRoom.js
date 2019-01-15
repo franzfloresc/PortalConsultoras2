@@ -352,7 +352,8 @@ function CargarProductosShowRoomPromise(busquedaModel) {
 function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosSubCampanias, busquedaModel) {
     var objData = {};
     if (response.success) {
-        console.log('cantidadTotal-0', response);
+
+        //console.log('cantidadTotal-0', response);
         response.totalOfertas = response.cantidadTotal0;
         response.listaOfertas = Clone(response.lista || []);
         response.listaOfertasPerdio = Clone(response.listaPerdio || []);
@@ -435,7 +436,7 @@ function CargarShowroomMobile(busquedaModel) {
 function ResolverCargarProductosShowRoomPromiseMobile(response, busquedaModel) {
     if (response.success) {
 
-        console.log('cantidadTotal-0', response);
+        //console.log('cantidadTotal-0', response);
         response.totalOfertas = response.cantidadTotal0;
         response.listaOfertas = Clone(response.lista || []);
         response.listaOfertasPerdio = Clone(response.listaPerdio || []);
@@ -556,7 +557,7 @@ function AnalyticsSRListaOferta(response) {
             Origen: origen
         };
         
-        console.log('AnalyticsSRListaOferta', obj);
+        //console.log('AnalyticsSRListaOferta', obj);
         AnalyticsPortalModule.MarcaGenericaLista("", obj);
     }
 }

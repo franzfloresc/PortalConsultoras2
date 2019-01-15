@@ -1,19 +1,16 @@
-﻿using AutoMapper;
-using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
-using Portal.Consultoras.Web.ServiceAsesoraOnline;
+using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
-using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
-using Portal.Consultoras.Web.Providers;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -21,13 +18,15 @@ namespace Portal.Consultoras.Web.Controllers
     {
         private readonly ConfiguracionPaisDatosProvider _configuracionPaisDatosProvider;
         private readonly BienvenidaProvider _bienvenidaProvider;
-        protected Providers.TablaLogicaProvider _tablaLogica;
+        protected TablaLogicaProvider _tablaLogica;
+        private readonly ZonificacionProvider _zonificacionProvider;
 
         public BienvenidaController()
         {
             _configuracionPaisDatosProvider = new ConfiguracionPaisDatosProvider();
-            _tablaLogica = new Providers.TablaLogicaProvider();
+            _tablaLogica = new TablaLogicaProvider();
             _bienvenidaProvider = new BienvenidaProvider();
+            _zonificacionProvider = new ZonificacionProvider();
         }
 
         public BienvenidaController(ILogManager logManager)
@@ -497,13 +496,10 @@ namespace Portal.Consultoras.Web.Controllers
                 model.UsuarioPrueba = userData.UsuarioPrueba;
                 model.NombreArchivoContrato = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.Contrato_ActualizarDatos + userData.CodigoISO);
                 model.IndicadorConsultoraDigital = beusuario.IndicadorConsultoraDigital;
-
-                BEZona[] bezona;
-                using (var sv = new ZonificacionServiceClient())
-                {
-                    bezona = sv.SelectZonaById(userData.PaisID, userData.ZonaID);
-                }
-                model.NombreGerenteZonal = bezona.ToList().Count == 0 ? "" : bezona[0].NombreGerenteZona;
+                
+                var bezona = _zonificacionProvider.GetZonaById(userData.PaisID, userData.ZonaID);
+                
+                model.NombreGerenteZonal = bezona.NombreGerenteZona;
 
                 if (beusuario.EMailActivo) model.CorreoAlerta = "";
                 if (!beusuario.EMailActivo && beusuario.EMail != "") model.CorreoAlerta = "Su correo aun no ha sido activado";
@@ -1037,7 +1033,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 listaCampania = new List<CampaniaModel>(),
                 listaZonas = new List<ZonaModel>(),
-                listaPaises = DropDowListPaises()
+                listaPaises = _zonificacionProvider.GetPaises(userData.PaisID, userData.RolID)
             };
 
             return View(parametrizarCuvModel);
@@ -1248,18 +1244,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-
-        private IEnumerable<PaisModel> DropDowListPaises()
-        {
-            List<BEPais> lst;
-            using (var sv = new ZonificacionServiceClient())
-            {
-                lst = userData.RolID == 2 ? sv.SelectPaises().ToList() : new List<BEPais> { sv.SelectPais(userData.PaisID) };
-            }
-
-            return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
-        }
-
+        
         private int ValidarSuenioNavidad()
         {
             var entidad = new BESuenioNavidad

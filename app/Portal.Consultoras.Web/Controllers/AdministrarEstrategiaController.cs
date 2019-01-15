@@ -10,10 +10,8 @@ using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
-using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -26,10 +24,9 @@ using System.Web.UI.WebControls;
 using System.Xml.Linq;
 using BEConfiguracionPaisDatos = Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos;
 
-
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class AdministrarEstrategiaController : BaseController
+    public class AdministrarEstrategiaController : BaseAdmController
     {
         protected RenderImgProvider _renderImgProvider;
         protected OfertaBaseProvider _ofertaBaseProvider;
@@ -51,8 +48,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return RedirectToAction("Index", "Bienvenida");
 
                 var paisIso = Util.GetPaisISO(userData.PaisID);
-                var carpetaPais = Globals.UrlMatriz + "/" + paisIso;
-                var urlS3 = ConfigCdn.GetUrlCdn(carpetaPais);
+                var urlS3 = ConfigCdn.GetUrlCdnMatriz(paisIso);
 
                 var habilitarNemotecnico = _tablaLogicaProvider.ObtenerValorTablaLogica(userData.PaisID, Constantes.TablaLogica.Plan20,
                     Constantes.TablaLogicaDato.BusquedaNemotecnicoZonaEstrategia);
@@ -70,8 +66,8 @@ namespace Portal.Consultoras.Web.Controllers
                     PaisID = userData.PaisID
                 };
                 //Enviar listado de palancas c/microservicios y si el país está configurado para ser evaluados en grilla.
-                ViewBag.MsEstrategias = WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion;
-                ViewBag.MsPaises = WebConfig.PaisesMicroservicioPersonalizacion;
+                ViewBag.MsEstrategias = SessionManager.GetConfigMicroserviciosPersonalizacion().EstrategiaHabilitado; //WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion;
+                ViewBag.MsPaises = SessionManager.GetConfigMicroserviciosPersonalizacion().PaisHabilitado; //WebConfig.PaisesMicroservicioPersonalizacion;
             }
             catch (Exception ex)
             {
@@ -80,20 +76,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return View(estrategiaModel);
         }
-
-        private IEnumerable<PaisModel> DropDowListPaises()
-        {
-            List<BEPais> lst;
-            using (var sv = new ZonificacionServiceClient())
-            {
-                lst = userData.RolID == 2
-                    ? sv.SelectPaises().ToList()
-                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
-            }
-
-            return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
-        }
-
+        
         public JsonResult ObtenerPedidoAsociado(string CodigoPrograma)
         {
             IList<BEConfiguracionPackNuevas> lst;
@@ -121,28 +104,16 @@ namespace Portal.Consultoras.Web.Controllers
             return Mapper.Map<IList<BEEtiqueta>, IEnumerable<EtiquetaModel>>(lst);
         }
 
-        public JsonResult ObtenterCampanias(int PaisID)
-        {
-            PaisID = userData.PaisID;
-            var lst = DropDowListCampanias(PaisID);
-
-            return Json(new
-            {
-                lista = lst
-            }, JsonRequestBehavior.AllowGet);
-        }
-
-        private IEnumerable<CampaniaModel> DropDowListCampanias(int PaisID)
-        {
-            IList<BECampania> lst;
-            using (var sv = new ZonificacionServiceClient())
-            {
-                lst = sv.SelectCampanias(PaisID);
-            }
-
-            return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
-        }
-
+        //public JsonResult ObtenterCampanias(int PaisID)
+        //{
+        //    PaisID = userData.PaisID;
+        //    var lst = _zonificacionProvider.GetCampanias(PaisID);
+        //    return Json(new
+        //    {
+        //        lista = lst
+        //    }, JsonRequestBehavior.AllowGet);
+        //}
+        
         private IEnumerable<TipoEstrategiaModel> DropDowListTipoEstrategia()
         {
             var lst = _tipoEstrategiaProvider.GetTipoEstrategias(userData.PaisID);
@@ -1203,10 +1174,10 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(new
             {
                 data = lst[0],
-                precio = (userData.PaisID == 4)
+                precio = (userData.PaisID == Constantes.PaisID.Colombia)
                     ? lst[0].Precio.ToString("#,##0").Replace(',', '.')
                     : lst[0].Precio.ToString("#,##0.00"),
-                precio2 = (userData.PaisID == 4)
+                precio2 = (userData.PaisID == Constantes.PaisID.Colombia)
                     ? lst[0].Precio2.ToString("#,##0").Replace(',', '.')
                     : lst[0].Precio2.ToString("#,##0.00")
             }, JsonRequestBehavior.AllowGet);
@@ -1583,7 +1554,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 ViewBag.hdnPaisISO = userData.CodigoISO;
                 ViewBag.hdnPaisID = userData.PaisID;
-                ViewBag.ddlCampania = DropDowListCampanias(userData.PaisID);
+                ViewBag.ddlCampania = _zonificacionProvider.GetCampanias(userData.PaisID);
 
                 var tipoEstrategias = _tipoEstrategiaProvider.GetTipoEstrategias(userData.PaisID);
                 var oTipoEstrategia =
@@ -1658,7 +1629,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpGet]
         public PartialViewResult ProgramaNuevasDetalle(EstrategiaProgramaNuevasModel inModel)
         {
-            ViewBag.ddlCampania = DropDowListCampanias(userData.PaisID);
+            ViewBag.ddlCampania = _zonificacionProvider.GetCampanias(userData.PaisID);
 
             return PartialView(inModel);
         }
@@ -1878,7 +1849,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 ViewBag.hdnPaisISO = userData.CodigoISO;
                 ViewBag.hdnPaisID = userData.PaisID;
-                ViewBag.ddlCampania = DropDowListCampanias(userData.PaisID);
+                ViewBag.ddlCampania = _zonificacionProvider.GetCampanias(userData.PaisID);
 
                 var tipoEstrategias = _tipoEstrategiaProvider.GetTipoEstrategias(userData.PaisID);
                 var oTipoEstrategia =
@@ -1952,7 +1923,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpGet]
         public PartialViewResult IncentivosDetalle(EstrategiaIncentivosModel inModel)
         {
-            ViewBag.ddlCampania = DropDowListCampanias(userData.PaisID);
+            ViewBag.ddlCampania = _zonificacionProvider.GetCampanias(userData.PaisID);
             ViewBag.ddlTipoConcurso = new List<Object>()
             {
                 new {value = "X", text = "RxP"},

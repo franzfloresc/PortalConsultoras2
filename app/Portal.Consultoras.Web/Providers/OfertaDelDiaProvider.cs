@@ -46,17 +46,23 @@ namespace Portal.Consultoras.Web.Providers
                     Simbolo = model.Simbolo,
                     CodigoTipoEstrategia = Constantes.TipoEstrategiaCodigo.OfertaDelDia
                 };
+              
 
                 if (UsarMsPersonalizacion(model.CodigoISO, Constantes.TipoEstrategiaCodigo.OfertaDelDia))
                 {
                     var diaInicio = DateTime.Now.Date.Subtract(model.FechaInicioCampania.Date).Days;
-                    string pathOfertaDelDia = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerOfertasDelDia,
-                        model.CodigoISO,
-                        Constantes.ConfiguracionPais.OfertaDelDia,
-                        model.CampaniaID,
-                        model.CodigoConsultora,
-                        diaInicio);
-                    var taskApi = Task.Run(() => ObtenerOfertasDesdeApi(pathOfertaDelDia, model.CodigoISO));
+
+                    string pathOferta = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerOfertas,
+                       model.CodigoISO,
+                       Constantes.ConfiguracionPais.OfertaDelDia,
+                       model.CampaniaID,
+                       model.CodigoConsultora,
+                       0, //materialGanancia
+                       diaInicio,
+                       model.CodigorRegion,
+                        model.CodigoZona
+                     );
+                    var taskApi = Task.Run(() => ObtenerOfertasDesdeApi(pathOferta, model.CodigoISO));
 
                     Task.WhenAll(taskApi);
 
@@ -72,7 +78,7 @@ namespace Portal.Consultoras.Web.Providers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, model.CodigoConsultora, model.PaisID.ToString());
+                Common.LogManager.SaveLog(ex, model.CodigoConsultora, model.PaisID.ToString());
                 ofertasDelDia = new List<ServiceOferta.BEEstrategia>();
             }
             return ofertasDelDia;

@@ -246,7 +246,7 @@ function OfertaCargarProductos(busquedaModel, clear, objSeccion) {
     $.ajaxSetup({
         cache: false
     });
-    console.log('OfertaCargarProductos - ajax', busquedaModel, busquedaModel.UrlCargarProductos);
+    //console.log('OfertaCargarProductos - ajax', busquedaModel, busquedaModel.UrlCargarProductos);
     busquedaModel.IsMobile = isMobile();
     jQuery.ajax({
         type: 'POST',
@@ -286,7 +286,7 @@ function OfertaCargarProductoRespuesta(response, clear, busquedaModel) {
             Origen: origen
         };
 
-        console.log('OfertaCargarProductoRespuesta', obj);
+        //console.log('OfertaCargarProductoRespuesta', obj);
         AnalyticsPortalModule.MarcaGenericaLista("", obj);
     }
 
