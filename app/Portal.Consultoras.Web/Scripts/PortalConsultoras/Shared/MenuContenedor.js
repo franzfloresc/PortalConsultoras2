@@ -298,50 +298,51 @@ var menuModule = (function () {
 
         debugger;
         if (typeof AnalyticsPortalModule !== "undefined") {
+            var OrigenPedidoWeb = "";
+            OrigenPedidoWeb = EstrategiaAgregarModule.GetOrigenPedidoWeb($(e), false);
+
             if (url.indexOf(ConstantesModule.CodigosPalanca.Ganadoras) > 0) {
                 titulo = titulo || "";
                 if (titulo === "BannerMG") {
                     AnalyticsPortalModule.MarcarClickMasOfertasPromotionClickMG();
                 }
                 else {
-                    var OrigenPedidoWeb = EstrategiaAgregarModule.GetOrigenPedidoWeb($(e), false);
-                    OrigenPedidoWeb = OrigenPedidoWeb || "";
-
-                    AnalyticsPortalModule.MarcaClicVerMasOfertas(url, OrigenPedidoWeb, e.innerText);
+                    //OrigenPedidoWeb = EstrategiaAgregarModule.GetOrigenPedidoWeb($(e), false);
+                    //OrigenPedidoWeb = OrigenPedidoWeb || "";
+                    //AnalyticsPortalModule.MarcaClicVerMasOfertas(url, OrigenPedidoWeb, e.innerText);
                 }
             }
 
-            else if (url.indexOf(ConstantesModule.CodigosPalanca.LiquidacionWeb) > 0) {
-                titulo = titulo || "";
-                if (titulo === "BotonVerMasLiquidacion") {
-                    AnalyticsPortalModule.MarcarClickMasOfertasLiquidacion(url, e.innerText);
-                }
-                else {
-                    var OrigenPedidoWeb = EstrategiaAgregarModule.GetOrigenPedidoWeb($(e), false);
-                    OrigenPedidoWeb = OrigenPedidoWeb || "";
+            if (url.indexOf(ConstantesModule.CodigosPalanca.LiquidacionWeb) > 0) {
+                OrigenPedidoWeb = ConstantesModule.OrigenPedidoWebEstructura.Dispositivo.Desktop
+                    + ConstantesModule.OrigenPedidoWebEstructura.Pagina.Home
+                    + ConstantesModule.OrigenPedidoWebEstructura.Palanca.Liquidacion
+                    + ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel;
 
-                    AnalyticsPortalModule.MarcaClicVerMasOfertas(url, OrigenPedidoWeb, e.innerText);
-                }
+                //titulo = titulo || "";
+                //if (titulo === "BotonVerMasLiquidacion") {
+                //    AnalyticsPortalModule.MarcarClickMasOfertasLiquidacion(url, e.innerText);
+                //}
+                //else {
+                //    var OrigenPedidoWeb = EstrategiaAgregarModule.GetOrigenPedidoWeb($(e), false);
+                //    OrigenPedidoWeb = OrigenPedidoWeb || "";
+
+                //    AnalyticsPortalModule.MarcaClicVerMasOfertas(url, OrigenPedidoWeb, e.innerText);
+                //}
             }
 
-            else if (url.indexOf(ConstantesModule.CodigosPalanca.ShowRoom) > 0) {
-                titulo = titulo || "";
-                if (titulo === "BotonVerMasEspecialesHome") {
-                    AnalyticsPortalModule.MarcarClickMasOfertasLiquidacion(url, e.innerText);
-                }
-                else {
-                    var OrigenPedidoWeb = EstrategiaAgregarModule.GetOrigenPedidoWeb($(e), false);
-                    OrigenPedidoWeb = OrigenPedidoWeb || "";
-
-                    AnalyticsPortalModule.MarcaClicVerMasOfertas(url, OrigenPedidoWeb, e.innerText);
-                }
+            if (url.indexOf(ConstantesModule.CodigosPalanca.ShowRoom) > 0) {
+                OrigenPedidoWeb = ConstantesModule.OrigenPedidoWebEstructura.Dispositivo.Desktop
+                    + ConstantesModule.OrigenPedidoWebEstructura.Pagina.Home
+                    + ConstantesModule.OrigenPedidoWebEstructura.Palanca.ShowRoom
+                    + ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel;
             }
-            else {
-                var OrigenPedidoWeb = EstrategiaAgregarModule.GetOrigenPedidoWeb($(e), false);
-                OrigenPedidoWeb = OrigenPedidoWeb || "";
+            //else {
+            //    var OrigenPedidoWeb = EstrategiaAgregarModule.GetOrigenPedidoWeb($(e), false);
+            //}
 
-                AnalyticsPortalModule.MarcaClicVerMasOfertas(url, OrigenPedidoWeb, e.innerText);
-            }
+            OrigenPedidoWeb = OrigenPedidoWeb || "";
+            AnalyticsPortalModule.MarcaClicVerMasOfertas(url, OrigenPedidoWeb, e.innerText);
       
         }
         else {
