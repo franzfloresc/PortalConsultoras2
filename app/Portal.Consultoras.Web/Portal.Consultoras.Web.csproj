@@ -1471,6 +1471,7 @@
     <Content Include="Content\Images\banco_interbank.png" />
     <Content Include="Content\Images\banco_pichincha.png" />
     <Content Include="Content\Images\banco_scotiabank.png" />
+    <Content Include="Content\Images\check_terminos_cdr.svg" />
     <Content Include="Content\Images\cincuenta_anios_belcorp_cabecera.png" />
     <Content Include="Content\Images\Buscador\product-iphone.png" />
     <Content Include="Content\Images\carrusel_n_blanco.png" />
