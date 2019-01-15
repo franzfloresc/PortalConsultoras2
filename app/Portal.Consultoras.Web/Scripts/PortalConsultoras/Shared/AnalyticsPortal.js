@@ -212,7 +212,15 @@ var AnalyticsPortalModule = (function () {
     ////////////////////////////////////////////////////////////////////////////////////////
 
     var _getEstructuraOrigenPedidoWeb = function (origen, url) {
-        var origenEstructura = origen || {};
+        var origenEstructura = {};
+
+        if (typeof origen === "object") {
+            origenEstructura = origen || {};
+        }
+        else {
+            origenEstructura.OrigenPedidoWeb = origen || "";
+        }
+
         origenEstructura.OrigenPedidoWeb = (origenEstructura.OrigenPedidoWeb || "").toString().trim();
         origenEstructura.CodigoPalanca = (origenEstructura.CodigoPalanca || "").toString().trim();
 
@@ -1673,8 +1681,8 @@ var AnalyticsPortalModule = (function () {
             });
 
         } catch (e) {
-            document.location = url;
             console.log(_texto.excepcion + e);
+            document.location = url;
         }
 
     }
