@@ -76,6 +76,8 @@ namespace Portal.Consultoras.Entities.Pedido
         public int Resultado { get; set; }
         [DataMember]
         public int Operacion { get; set; }
+        [DataMember]
+        public string ReferenciaAnterior { get; set; }
 
     }
 }

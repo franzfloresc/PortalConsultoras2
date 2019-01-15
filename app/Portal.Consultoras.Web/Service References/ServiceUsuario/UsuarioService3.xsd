@@ -17,6 +17,7 @@
       <xs:element minOccurs="0" name="Operacion" type="xs:int" />
       <xs:element minOccurs="0" name="PaisID" type="xs:int" />
       <xs:element minOccurs="0" name="Referencia" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ReferenciaAnterior" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Resultado" type="xs:int" />
       <xs:element minOccurs="0" name="Ubigeo1" type="xs:int" />
       <xs:element minOccurs="0" name="Ubigeo1Anterior" type="xs:int" />

@@ -113,6 +113,7 @@ namespace Portal.Consultoras.Web.Providers
                 entidad.LatitudAnterior = direccionAnterior.Latitud;
                 entidad.LongitudAnterior = direccionAnterior.Longitud;
                 entidad.CampaniaAnteriorID = direccionAnterior.CampaniaID;
+                entidad.ReferenciaAnterior = direccionAnterior.Referencia;
             }
 
             entidad.DireccionAnterior = entidad.DireccionAnterior ?? string.Empty;

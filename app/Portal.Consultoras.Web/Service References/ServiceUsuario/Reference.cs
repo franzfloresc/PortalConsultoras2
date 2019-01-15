@@ -5319,6 +5319,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string ReferenciaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ReferenciaAnteriorField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int ResultadoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -5543,6 +5546,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.ReferenciaField, value) != true)) {
                     this.ReferenciaField = value;
                     this.RaisePropertyChanged("Referencia");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ReferenciaAnterior {
+            get {
+                return this.ReferenciaAnteriorField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ReferenciaAnteriorField, value) != true)) {
+                    this.ReferenciaAnteriorField = value;
+                    this.RaisePropertyChanged("ReferenciaAnterior");
                 }
             }
         }

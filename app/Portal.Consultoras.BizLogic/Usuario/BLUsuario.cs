@@ -3787,8 +3787,16 @@ namespace Portal.Consultoras.BizLogic
                         throw new Exception(lst[2]);
                     }
 
+                    /*Movimientos Tabla DireccionEntrega */
+                    bool DireccionCambio = false;
+                    bool ReferenciaCambio = false;
+                    DireccionCambio =  !(usuario.DireccionEntrega.Direccion.Trim().Equals(usuario.DireccionEntrega.DireccionAnterior.Trim()));
+                    ReferenciaCambio = !(usuario.DireccionEntrega.Referencia.Trim().Equals(usuario.DireccionEntrega.ReferenciaAnterior.Trim()));
                     if (usuario.DireccionEntrega.Operacion == Constantes.OperacionBD.Editar)
-                      _direccionEntregaBusinessLogic.Editar(usuario.DireccionEntrega);
+                    {
+                        if (ReferenciaCambio || DireccionCambio)
+                            _direccionEntregaBusinessLogic.Editar(usuario.DireccionEntrega);
+                    }
                     else
                       _direccionEntregaBusinessLogic.Insertar(usuario.DireccionEntrega);
 

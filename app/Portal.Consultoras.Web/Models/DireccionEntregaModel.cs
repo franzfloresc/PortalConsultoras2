@@ -22,7 +22,7 @@ namespace Portal.Consultoras.Web.Models
         public int Ubigeo1Anterior { get; set; }
         public int Ubigeo2Anterior { get; set; }
         public int Ubigeo3Anterior { get; set; }
-
+        public string ReferenciaAnterior { get; set; }
         public string DireccionAnterior { get; set; }
         [Required(ErrorMessage = "La dirección es requerida.")]
         public string Direccion { get; set; }
