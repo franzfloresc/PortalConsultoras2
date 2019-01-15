@@ -1216,7 +1216,7 @@ input[type='checkbox']:checked + span:after {
 
 }
 
-@media screen and (min-width:412px) and (max-width:991px){
+@media screen and (min-width:409px) and (max-width:991px){
 
     .opcion__compartir__catalogo--copiarEnlace{
         margin-top:0;
