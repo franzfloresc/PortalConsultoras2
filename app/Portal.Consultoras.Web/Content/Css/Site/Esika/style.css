@@ -23634,19 +23634,20 @@ input[type='checkbox']:checked + span:after {
     line-height: 1.08;
     text-align: center;
     color: black;
-    margin-top: 10px;
+    margin-top: 26px;
 }
 
 .linea_indicador_barra {
-    /*left: 0;
-    right: 0;  og
-    margin: 0 auto;*/
     width: 1px;
     height: 8px;
     background: #979797;
     position: absolute;
-    bottom: 0;
+    top:7px;
     z-index: 100;
+}
+
+.barra_mensaje_meta_pedido{
+    margin-bottom:23px;
 }
 
 .bandera_marcador {
