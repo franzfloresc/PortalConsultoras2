@@ -211,6 +211,36 @@ var AnalyticsPortalModule = (function () {
     // Ini - Metodos Iniciales
     ////////////////////////////////////////////////////////////////////////////////////////
 
+    var _getEstructuraOrigenPedidoWeb = function (origen, url) {
+        var origenEstructura = origen || {};
+        origenEstructura.OrigenPedidoWeb = (origenEstructura.OrigenPedidoWeb || "").toString().trim();
+        origenEstructura.CodigoPalanca = (origenEstructura.CodigoPalanca || "").toString().trim();
+
+        if (origenEstructura.OrigenPedidoWeb.length < ConstantesModule.OrigenPedidoWebEstructura.Dimension) {
+            origenEstructura.OrigenPedidoWeb = "";
+        }
+
+        var codigoOrigenPedido = origenEstructura.OrigenPedidoWeb;
+
+        origenEstructura.Pagina = (origenEstructura.Pagina || codigoOrigenPedido.substring(1, 3)).toString().trim();
+        origenEstructura.Palanca = (origenEstructura.Palanca || codigoOrigenPedido.substring(3, 5)).toString().trim();
+        origenEstructura.Seccion = (origenEstructura.Seccion || codigoOrigenPedido.substring(5, 7)).toString().trim();
+
+        if (origenEstructura.Palanca == "" && url != "") {
+            origenEstructura.Palanca = _getTextoPalancaSegunUrl(url);
+        }
+
+        if (origenEstructura.Pagina == "" && url != "") {
+            switch (window.controllerName) {
+                case "ofertas": origenEstructura.Pagina = ConstantesModule.OrigenPedidoWebEstructura.Pagina.Contenedor; break;
+            }
+        }
+
+        console.log("_getEstructuraOrigenPedidoWeb", origen, origenEstructura);
+
+        return origenEstructura;
+    }
+
     var _getTextoContenedorSegunOrigen = function (origenEstructura) {
 
         origenEstructura.CodigoPalanca = origenEstructura.CodigoPalanca || "";
@@ -245,7 +275,7 @@ var AnalyticsPortalModule = (function () {
             return element.Codigo == origenEstructura.Palanca;
         });
 
-        if (seccion == undefined) {
+        if (seccion == undefined && origenEstructura.CodigoPalanca != "") {
             var seccion = _origenPedidoWebEstructura.Palanca.find(function (element) {
                 return element.CodigoPalanca == origenEstructura.CodigoPalanca;
             });
@@ -256,6 +286,19 @@ var AnalyticsPortalModule = (function () {
         }
 
         return seccion.TextoList || "";
+    }
+
+    var _getTextoSeccionSegunOrigen = function (origenEstructura) {
+
+        var obj = _origenPedidoWebEstructura.Seccion.find(function (element) {
+            return element.Codigo == origenEstructura.Seccion;
+        });
+
+        if (obj == undefined) {
+            return "";
+        }
+
+        return obj.TextoList || "";
     }
 
     var _getTextoPalancaSegunUrl = function (url) {
@@ -278,7 +321,9 @@ var AnalyticsPortalModule = (function () {
         return seccion.TextoList || "";
     }
 
-    var _getParametroListSegunOrigen = function (origenEstructura) {
+    var _getParametroListSegunOrigen = function (origenEstructura, url) {
+
+        origenEstructura = _getEstructuraOrigenPedidoWeb(origenEstructura, url);
 
         var contendor = _getTextoContenedorSegunOrigen(origenEstructura);
         var pagina = _getTextoPaginaSegunOrigen(origenEstructura);
@@ -1609,16 +1654,17 @@ var AnalyticsPortalModule = (function () {
             if (_constantes.isTest)
                 alert("Marcación Ver más ofertas.");
 
-            var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(origenPedido);
+            //var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(origenPedido);
+            //if (palanca == _texto.notavaliable) {
+            //    palanca = _getTextoPalancaSegunUrl(url);
+            //}
 
-            if (palanca == _texto.notavaliable) {
-                palanca = _getTextoPalancaSegunUrl(url);
-            }
+            var textoCategory = _getParametroListSegunOrigen(origenPedido, url);
 
             var nombreBoton = titulo;
             dataLayer.push({
                 'event': _evento.virtualEvent,
-                'category': fnObtenerContenedor() + ' - ' + palanca,
+                'category': textoCategory, //fnObtenerContenedor() + ' - ' + palanca,
                 'action': 'Clic Botón',
                 'label': nombreBoton,
                 'eventCallback': function () {
