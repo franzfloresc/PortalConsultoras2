@@ -154,7 +154,7 @@ hr{
 .btn__compartir {
     font-family: 'Lato', sans-serif;
     background-color: #b9007e;
-    border-radius: 12px;
+    border-radius: 4px;
     height: 45px;
     line-height:44px;
     letter-spacing: 1px;
@@ -344,6 +344,7 @@ hr{
     bottom: 55px;
     padding:20px 27px;
     height: 72px;
+    border-radius:4px;
     -moz-box-shadow: 0 0 2px rgba(0,0,0,0.37);
     -webkit-box-shadow: 0 0 2px rgba(0,0,0,0.37);
     box-shadow: 0 0 2px rgba(0,0,0,0.37);
@@ -365,15 +366,15 @@ hr{
     .opciones__compartir__catalogos:after{
         border-color: rgba(136, 183, 213, 0);
         border-top-color: #FFF;
-        border-width: 19px;
-        margin-left: -19px;
+        border-width: 17px;
+        margin-left: -17px;
     }
 
     .opciones__compartir__catalogos:before {
 	    border-color: rgba(194, 225, 245, 0);
 	    border-top-color: rgba(0,0,0,0.37);
-	    border-width: 20px;
-	    margin-left: -20px;
+	    border-width: 18px;
+	    margin-left: -18px;
     }
 
 .opcion__compartir__catalogo{
@@ -416,9 +417,10 @@ hr{
 }
 
 .modo__compartir__catalogo{
-    height:30px;
+    height:36px;
     max-width:47%;
     cursor:pointer;
+    border-radius:4px;
 }
 
     .modo__compartir__catalogo img{
@@ -968,15 +970,11 @@ input[type='checkbox']:checked + span:after {
     .info__pasos__compartir__catalogo__campaniaActual__subtitulo span,
     .info__pasos--parteInferior span
     {
-        font-size:15px!important;
+        font-size:15px;
     }
 
     .info__pasos--parteSuperior span{
         font-weight:bold;
-    }
-
-    .info__pasos__compartir__catalogo__campaniaActual__subtitulo span{
-        font-size:15px;
     }
 
     .info__pasos--parteInferior{
@@ -988,7 +986,7 @@ input[type='checkbox']:checked + span:after {
     }
 
     .info__pasos--parteInferior span:last-child{
-        margin-bottom:0;
+        margin-bottom:41px;
     }
 
     .lista__pasos__compartir__catalogo__campaniaActual,
@@ -1013,7 +1011,7 @@ input[type='checkbox']:checked + span:after {
     .compartir__catalogo__area,
     .btn__compartir
     {
-        max-width:198px;
+        max-width:208px;
     }
 
     .btn__compartir{
@@ -1056,14 +1054,14 @@ input[type='checkbox']:checked + span:after {
     }
 
     .opciones__compartir__catalogos{
-        bottom: 10px;
+        bottom: 17px;
         z-index: 3;
         height: auto;
-        padding:20px 48px;
+        padding:15px 51px;
     }
 
     .opcion__compartir__catalogo{
-        height:45px;
+        height:40px;
     }
 
     .opciones__compartir__catalogos:before,
@@ -1094,7 +1092,7 @@ input[type='checkbox']:checked + span:after {
     }
 
     .opcion__compartir__catalogo--copiarEnlace{
-        margin-top:20px;
+        margin-top:18px;
         margin-left:0;
     }
 
