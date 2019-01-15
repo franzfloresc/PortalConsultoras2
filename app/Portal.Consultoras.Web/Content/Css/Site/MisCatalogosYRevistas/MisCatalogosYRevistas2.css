@@ -180,7 +180,8 @@ hr{
 }
 
 .btn__compartir--slider + .opciones__compartir__catalogos{
-    left:-105px;
+    width:460px;
+    left:-63px;
     z-index:3;
 }
 
@@ -337,11 +338,11 @@ hr{
     display:none;
     justify-content: space-evenly;
     background-color: #FFF;
-    width:567px;
+    width:510px;
     position:absolute;
-    left:-35px;
+    left:-7px;
     bottom:79px;
-    padding:20px 1px;
+    padding:20px 15px;
     height: 111px;
     -moz-box-shadow: 0 0 2px rgba(0,0,0,0.37);
     -webkit-box-shadow: 0 0 2px rgba(0,0,0,0.37);
@@ -1058,7 +1059,7 @@ input[type='checkbox']:checked + span:after {
         z-index: 3;
         width: 93%;
         height: auto;
-        padding:20px;
+        padding:20px 48px;
     }
 
     .opcion__compartir__catalogo{
