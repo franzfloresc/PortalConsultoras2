@@ -162,6 +162,7 @@ namespace Portal.Consultoras.Web.Providers
                 {
                     resultado = await svr.RegistrarPerfilAsync(usuario);
                 }
+                sessionManager.SetUsuarioOpciones(null);
             }
             catch (Exception ex)
             {

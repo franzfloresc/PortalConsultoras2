@@ -676,9 +676,6 @@ namespace Portal.Consultoras.Web.Controllers
                 model.DireccionEntrega.CampaniaID = userData.CampaniaID;
                 model.DireccionEntrega.ConsultoraID = (int)userData.ConsultoraID;
 
-                //model.UsuarioOpciones
-
-
                 resultado = await _miPerfilProvider.RegistrarAsync(model);
                 ActualizarDatosLogDynamoDB(model, "MI PERFIL", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Modificacion");
                 var lst = resultado.Split('|');
