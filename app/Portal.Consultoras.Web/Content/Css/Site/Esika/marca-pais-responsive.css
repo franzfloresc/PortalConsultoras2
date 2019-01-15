@@ -306,7 +306,25 @@
 
 /* FIN - SECCIÓN BREADCRUMBS Y TITULO DE VISTA (VERSIÓN DESKTOP) */
 
-/* POPUPS GENERALES - POPUP CIERRE DE SESIÓN */
+/* POPUPS GENERALES - POPUP CIERRE DE SESIÓN ANTIGUO (DESKTOP) */
+
+.icono_exclamacion {
+    display: block;
+    width: 60px;
+    height: 60px;
+    margin: 0 auto;
+    background: url(/Content/Images/Esika/icono_exclamacion_esika.png) center center no-repeat;
+    margin-bottom: 18px;
+    background-size: cover;
+}
+
+.btn_ok{
+    background: #e81c36;
+}
+
+/* FIN - POPUPS GENERALES - POPUP CIERRE DE SESIÓN ANTIGUO (DESKTOP) */
+
+/* POPUPS GENERALES - POPUP CIERRE DE SESIÓN (DESKTOP) */
 
 .icono_sesion_por_finalizar{    
     background-image:url(/Content/Images/Esika/icono_sesion_por_finalizar.svg);
@@ -316,7 +334,7 @@
     background-image:url(/Content/Images/Esika/icono_alerta_cierre_sesion.svg);
 }
 
-/* FIN POPUPS GENERALES - POPUP CIERRE DE SESIÓN */
+/* FIN POPUPS GENERALES - POPUP CIERRE DE SESIÓN (DESKTOP) */
 
 /* MIS CATÁLOGOS Y REVISTAS (DESKTOP) */
 
