@@ -1964,9 +1964,16 @@ function CalculoPosicionMinimoMaximoDestokp() {
         if (ConfiguradoRegalo == true) {
 
 
-            var htmleRgaloTipinpoing = ' <div id="punto_4" data-punto="0" class="EscalaDescuento" style="float: left; left: 2.1818%;"><div class="monto_minimo_barra"><div style="width: 90px; position: absolute; " data-texto=""><div class=""><div class="tippingPoint "></div><div class="monto_meta_tippingPoint" style="display: none;">S/.210</div></div></div></div></div>';//top: -24px;
+            //var htmleRgaloTipinpoing = ' <div id="punto_4" data-punto="0" class="EscalaDescuento" style="float: left; left: 2.1818%;"><div class="monto_minimo_barra"><div style="width: 90px; position: absolute; " data-texto=""><div class=""><div class="tippingPoint"></div><div class="monto_meta_tippingPoint" style="display: none;">S/.210</div></div></div></div></div>';//top: -24px;
 
-            document.getElementById('divBarraLimite').innerHTML = document.getElementById('divBarraLimite').innerHTML + htmleRgaloTipinpoing;
+            //document.getElementById('divBarraLimite').innerHTML = document.getElementById('divBarraLimite').innerHTML + htmleRgaloTipinpoing;
+
+            var htmlTipinpoing = '<div id="punto_4" data-punto="0" style="float: left;top: 28px; z-index: 200;left:2.1818%" class="EscalaDescuento"><div class="monto_minimo_barra"><div style="width:90px;position: relative;" data-texto=""><div class=""><a class="tippingPoint" href="javascript:;" onclick="javascript: cargarPopupEleccionRegalo();"></a><div class="monto_meta_tippingPoint">S/.370</div></div><div class="contenedor_circulos microEfecto_regaloPendienteEleccion" style="display: block;"><div class="circulo-1 iniciarTransicion"></div><div class="circulo-2 iniciarTransicion"></div><div class="circulo-3 iniciarTransicion"></div></div></div></div></div>';
+
+            document.getElementById('divBarraLimite').innerHTML = document.getElementById('divBarraLimite').innerHTML + htmlTipinpoing;
+
+
+
 
             montoMaximo = dataBarra.ListaEscalaDescuento[3].MontoDesde + 500;
 
@@ -2010,6 +2017,8 @@ function CalculoPosicionMinimoMaximoDestokp() {
         }
         else {
 
+   
+
 
 
             montoMaximo = dataBarra.ListaEscalaDescuento[3].MontoDesde + 500;
@@ -2049,6 +2058,15 @@ function CalculoPosicionMinimoMaximoDestokp() {
             document.getElementById('punto_3').style.left = AvancePorcentajeP4;
 
 
+
+            if (montoTipipoing != 0) {
+               
+                var htmlTipinpoing = '<div id="punto_4" data-punto="0" style="float: left;top: 28px; z-index: 200;left:8%" class="EscalaDescuento"><div class="monto_minimo_barra"><div style="width:90px;position: relative;" data-texto=""><div class=""><a class="tippingPoint" href="javascript:;" onclick="javascript: cargarPopupEleccionRegalo();"></a><div class="monto_meta_tippingPoint">S/.370</div></div><div class="contenedor_circulos microEfecto_regaloPendienteEleccion" style="display: block;"><div class="circulo-1 iniciarTransicion"></div><div class="circulo-2 iniciarTransicion"></div><div class="circulo-3 iniciarTransicion"></div></div></div></div></div>';
+
+                document.getElementById('divBarraLimite').innerHTML = document.getElementById('divBarraLimite').innerHTML + htmlTipinpoing;
+
+
+            }
 
 
         }
