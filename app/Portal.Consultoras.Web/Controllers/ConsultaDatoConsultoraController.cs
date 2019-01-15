@@ -101,14 +101,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult EstadoCuenta(string sidx, string sord, int page, int rows, string codigoConsultora)
         {
-            try
-            {
-                ActualizarDatosLogDynamoDB(null, "CONSULTA DATOS CONSULTORA|MIS DATOS", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Consulta", codigoConsultora, "Estado de Cuenta");
-            }
-            catch (Exception ex)
-            {
-                Web.LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-            }
+            ActualizarDatosLogDynamoDB(null, "CONSULTA DATOS CONSULTORA|MIS DATOS", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Consulta", codigoConsultora, "Estado de Cuenta");
 
             if (ModelState.IsValid)
             {
@@ -122,29 +115,20 @@ namespace Portal.Consultoras.Web.Controllers
                     deudaActualConultora = client.GetDeudaActualConsultora(userData.PaisID, consulId);
                 }
 
-                string fechaVencimiento;
-                string montoPagar;
-                if (lst.Count == 0)
-                {
-                    fechaVencimiento = "";
-                    montoPagar = userData.PaisID == Constantes.PaisID.Colombia ? "0" : "0.0";
-                }
-                else
+                string fechaVencimiento = string.Empty;
+                string montoPagar = userData.PaisID == Constantes.PaisID.Colombia ? "0" : "0.0";
+                if (lst.Any())
                 {
                     if (!lst[lst.Count - 1].Fecha.ToString("yyyyMMdd").Equals("19000101") && !lst[lst.Count - 1].Fecha.ToString("yyyyMMdd").Equals("00010101"))
                         fechaVencimiento = lst[lst.Count - 1].Fecha.ToString("dd/MM/yyyy");
-                    else
-                        fechaVencimiento = string.Empty;
+
                     montoPagar = userData.PaisID == Constantes.PaisID.Colombia
                         ? string.Format("{0:#,##0}", deudaActualConultora.Replace(',', '.'))
                         : string.Format("{0:#,##0.00}", deudaActualConultora);
-                }
-                var simbolo = string.Format("{0} ", userData.Simbolo);
 
-                if (lst.Count != 0)
-                {
                     lst.RemoveAt(lst.Count - 1);
                 }
+                var simbolo = string.Format("{0} ", userData.Simbolo);
 
                 BEGrid grid = new BEGrid
                 {
@@ -153,46 +137,46 @@ namespace Portal.Consultoras.Web.Controllers
                     SortColumn = sidx,
                     SortOrder = sord
                 };
-                IEnumerable<EstadoCuentaModel> items = lst;
+                IEnumerable<EstadoCuentaModel> items = EstadoCuentaFiltro(lst, sidx, sord);
 
-                #region Sort Section
-                if (sord == "asc")
-                {
-                    switch (sidx)
-                    {
-                        case "Fecha":
-                            items = lst.OrderBy(x => x.Fecha);
-                            break;
-                        case "Glosa":
-                            items = lst.OrderBy(x => x.Glosa);
-                            break;
-                        case "Cargo":
-                            items = lst.OrderBy(x => x.Cargo);
-                            break;
-                        case "Abono":
-                            items = lst.OrderBy(x => x.Abono);
-                            break;
-                    }
-                }
-                else
-                {
-                    switch (sidx)
-                    {
-                        case "Fecha":
-                            items = lst.OrderByDescending(x => x.Fecha);
-                            break;
-                        case "Glosa":
-                            items = lst.OrderByDescending(x => x.Glosa);
-                            break;
-                        case "Cargo":
-                            items = lst.OrderByDescending(x => x.Cargo);
-                            break;
-                        case "Abono":
-                            items = lst.OrderByDescending(x => x.Abono);
-                            break;
-                    }
-                }
-                #endregion
+                //#region Sort Section
+                //if (sord == "asc")
+                //{
+                //    switch (sidx)
+                //    {
+                //        case "Fecha":
+                //            items = lst.OrderBy(x => x.Fecha);
+                //            break;
+                //        case "Glosa":
+                //            items = lst.OrderBy(x => x.Glosa);
+                //            break;
+                //        case "Cargo":
+                //            items = lst.OrderBy(x => x.Cargo);
+                //            break;
+                //        case "Abono":
+                //            items = lst.OrderBy(x => x.Abono);
+                //            break;
+                //    }
+                //}
+                //else
+                //{
+                //    switch (sidx)
+                //    {
+                //        case "Fecha":
+                //            items = lst.OrderByDescending(x => x.Fecha);
+                //            break;
+                //        case "Glosa":
+                //            items = lst.OrderByDescending(x => x.Glosa);
+                //            break;
+                //        case "Cargo":
+                //            items = lst.OrderByDescending(x => x.Cargo);
+                //            break;
+                //        case "Abono":
+                //            items = lst.OrderByDescending(x => x.Abono);
+                //            break;
+                //    }
+                //}
+                //#endregion
 
                 items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize).ToList();
 
@@ -255,6 +239,52 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return RedirectToAction("Index", "Bienvenida");
+        }
+
+        private IEnumerable<EstadoCuentaModel> EstadoCuentaFiltro(List<EstadoCuentaModel> lst, string sidx, string sord)
+        {
+            IEnumerable<EstadoCuentaModel> items = lst;
+
+            #region Sort Section
+            if (sord == "asc")
+            {
+                switch (sidx)
+                {
+                    case "Fecha":
+                        items = lst.OrderBy(x => x.Fecha);
+                        break;
+                    case "Glosa":
+                        items = lst.OrderBy(x => x.Glosa);
+                        break;
+                    case "Cargo":
+                        items = lst.OrderBy(x => x.Cargo);
+                        break;
+                    case "Abono":
+                        items = lst.OrderBy(x => x.Abono);
+                        break;
+                }
+            }
+            else
+            {
+                switch (sidx)
+                {
+                    case "Fecha":
+                        items = lst.OrderByDescending(x => x.Fecha);
+                        break;
+                    case "Glosa":
+                        items = lst.OrderByDescending(x => x.Glosa);
+                        break;
+                    case "Cargo":
+                        items = lst.OrderByDescending(x => x.Cargo);
+                        break;
+                    case "Abono":
+                        items = lst.OrderByDescending(x => x.Abono);
+                        break;
+                }
+            }
+            #endregion
+
+            return items;
         }
 
         #region pedido facturado
@@ -482,60 +512,60 @@ namespace Portal.Consultoras.Web.Controllers
                     SortColumn = sidx,
                     SortOrder = sord
                 };
-                IEnumerable<ServicePedido.BEPedidoWebDetalle> items = lst;
+                IEnumerable<ServicePedido.BEPedidoWebDetalle> items = ConsultarPedidoWebDetalleFiltro(lst, sidx, sord);
 
-                #region Sort Section
-                if (sord == "asc")
-                {
-                    switch (sidx)
-                    {
-                        case "CUV":
-                            items = lst.OrderBy(x => x.CUV);
-                            break;
+                //#region Sort Section
+                //if (sord == "asc")
+                //{
+                //    switch (sidx)
+                //    {
+                //        case "CUV":
+                //            items = lst.OrderBy(x => x.CUV);
+                //            break;
 
-                        case "DescripcionProd":
-                            items = lst.OrderBy(x => x.DescripcionProd);
-                            break;
+                //        case "DescripcionProd":
+                //            items = lst.OrderBy(x => x.DescripcionProd);
+                //            break;
 
-                        case "Cantidad":
-                            items = lst.OrderBy(x => x.Cantidad);
-                            break;
+                //        case "Cantidad":
+                //            items = lst.OrderBy(x => x.Cantidad);
+                //            break;
 
-                        case "PrecioUnidad":
-                            items = lst.OrderBy(x => x.PrecioUnidad);
-                            break;
+                //        case "PrecioUnidad":
+                //            items = lst.OrderBy(x => x.PrecioUnidad);
+                //            break;
 
-                        case "ImporteTotal":
-                            items = lst.OrderBy(x => x.ImporteTotal);
-                            break;
-                    }
-                }
-                else
-                {
-                    switch (sidx)
-                    {
-                        case "CUV":
-                            items = lst.OrderByDescending(x => x.CUV);
-                            break;
+                //        case "ImporteTotal":
+                //            items = lst.OrderBy(x => x.ImporteTotal);
+                //            break;
+                //    }
+                //}
+                //else
+                //{
+                //    switch (sidx)
+                //    {
+                //        case "CUV":
+                //            items = lst.OrderByDescending(x => x.CUV);
+                //            break;
 
-                        case "DescripcionProd":
-                            items = lst.OrderByDescending(x => x.DescripcionProd);
-                            break;
+                //        case "DescripcionProd":
+                //            items = lst.OrderByDescending(x => x.DescripcionProd);
+                //            break;
 
-                        case "Cantidad":
-                            items = lst.OrderByDescending(x => x.Cantidad);
-                            break;
+                //        case "Cantidad":
+                //            items = lst.OrderByDescending(x => x.Cantidad);
+                //            break;
 
-                        case "PrecioUnidad":
-                            items = lst.OrderByDescending(x => x.PrecioUnidad);
-                            break;
+                //        case "PrecioUnidad":
+                //            items = lst.OrderByDescending(x => x.PrecioUnidad);
+                //            break;
 
-                        case "ImporteTotal":
-                            items = lst.OrderByDescending(x => x.ImporteTotal);
-                            break;
-                    }
-                }
-                #endregion
+                //        case "ImporteTotal":
+                //            items = lst.OrderByDescending(x => x.ImporteTotal);
+                //            break;
+                //    }
+                //}
+                //#endregion
 
                 items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
@@ -728,52 +758,52 @@ namespace Portal.Consultoras.Web.Controllers
                     SortColumn = sidx,
                     SortOrder = sord
                 };
-                IEnumerable<ServiceCliente.BEPedidoWebDetalle> items = lst;
+                IEnumerable<ServiceCliente.BEPedidoWebDetalle> items = ConsultarPedidoWebDetalleFiltro(lst, sidx, sord);
 
-                #region Sort Section
-                if (sord == "asc")
-                {
-                    switch (sidx)
-                    {
-                        case "CUV":
-                            items = lst.OrderBy(x => x.CUV);
-                            break;
-                        case "DescripcionProd":
-                            items = lst.OrderBy(x => x.DescripcionProd);
-                            break;
-                        case "Cantidad":
-                            items = lst.OrderBy(x => x.Cantidad);
-                            break;
-                        case "PrecioUnidad":
-                            items = lst.OrderBy(x => x.PrecioUnidad);
-                            break;
-                        case "ImporteTotal":
-                            items = lst.OrderBy(x => x.ImporteTotal);
-                            break;
-                    }
-                }
-                else
-                {
-                    switch (sidx)
-                    {
-                        case "CUV":
-                            items = lst.OrderBy(x => x.CUV);
-                            break;
-                        case "DescripcionProd":
-                            items = lst.OrderByDescending(x => x.DescripcionProd);
-                            break;
-                        case "Cantidad":
-                            items = lst.OrderByDescending(x => x.Cantidad);
-                            break;
-                        case "PrecioUnidad":
-                            items = lst.OrderByDescending(x => x.PrecioUnidad);
-                            break;
-                        case "ImporteTotal":
-                            items = lst.OrderByDescending(x => x.ImporteTotal);
-                            break;
-                    }
-                }
-                #endregion
+                //#region Sort Section
+                //if (sord == "asc")
+                //{
+                //    switch (sidx)
+                //    {
+                //        case "CUV":
+                //            items = lst.OrderBy(x => x.CUV);
+                //            break;
+                //        case "DescripcionProd":
+                //            items = lst.OrderBy(x => x.DescripcionProd);
+                //            break;
+                //        case "Cantidad":
+                //            items = lst.OrderBy(x => x.Cantidad);
+                //            break;
+                //        case "PrecioUnidad":
+                //            items = lst.OrderBy(x => x.PrecioUnidad);
+                //            break;
+                //        case "ImporteTotal":
+                //            items = lst.OrderBy(x => x.ImporteTotal);
+                //            break;
+                //    }
+                //}
+                //else
+                //{
+                //    switch (sidx)
+                //    {
+                //        case "CUV":
+                //            items = lst.OrderBy(x => x.CUV);
+                //            break;
+                //        case "DescripcionProd":
+                //            items = lst.OrderByDescending(x => x.DescripcionProd);
+                //            break;
+                //        case "Cantidad":
+                //            items = lst.OrderByDescending(x => x.Cantidad);
+                //            break;
+                //        case "PrecioUnidad":
+                //            items = lst.OrderByDescending(x => x.PrecioUnidad);
+                //            break;
+                //        case "ImporteTotal":
+                //            items = lst.OrderByDescending(x => x.ImporteTotal);
+                //            break;
+                //    }
+                //}
+                //#endregion
 
                 items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
@@ -834,6 +864,126 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
             return RedirectToAction("PedidoWeb");
+        }
+
+        private IEnumerable<ServicePedido.BEPedidoWebDetalle> ConsultarPedidoWebDetalleFiltro(List<ServicePedido.BEPedidoWebDetalle> lst, string sidx, string sord)
+        {
+            IEnumerable<ServicePedido.BEPedidoWebDetalle> items = lst;
+
+            #region Sort Section
+            if (sord == "asc")
+            {
+                switch (sidx)
+                {
+                    case "CUV":
+                        items = lst.OrderBy(x => x.CUV);
+                        break;
+
+                    case "DescripcionProd":
+                        items = lst.OrderBy(x => x.DescripcionProd);
+                        break;
+
+                    case "Cantidad":
+                        items = lst.OrderBy(x => x.Cantidad);
+                        break;
+
+                    case "PrecioUnidad":
+                        items = lst.OrderBy(x => x.PrecioUnidad);
+                        break;
+
+                    case "ImporteTotal":
+                        items = lst.OrderBy(x => x.ImporteTotal);
+                        break;
+                }
+            }
+            else
+            {
+                switch (sidx)
+                {
+                    case "CUV":
+                        items = lst.OrderByDescending(x => x.CUV);
+                        break;
+
+                    case "DescripcionProd":
+                        items = lst.OrderByDescending(x => x.DescripcionProd);
+                        break;
+
+                    case "Cantidad":
+                        items = lst.OrderByDescending(x => x.Cantidad);
+                        break;
+
+                    case "PrecioUnidad":
+                        items = lst.OrderByDescending(x => x.PrecioUnidad);
+                        break;
+
+                    case "ImporteTotal":
+                        items = lst.OrderByDescending(x => x.ImporteTotal);
+                        break;
+                }
+            }
+            #endregion
+
+            return items;
+        }
+
+        private IEnumerable<ServiceCliente.BEPedidoWebDetalle> ConsultarPedidoWebDetalleFiltro(List<ServiceCliente.BEPedidoWebDetalle> lst, string sidx, string sord)
+        {
+            IEnumerable<ServiceCliente.BEPedidoWebDetalle> items = lst;
+
+            #region Sort Section
+            if (sord == "asc")
+            {
+                switch (sidx)
+                {
+                    case "CUV":
+                        items = lst.OrderBy(x => x.CUV);
+                        break;
+
+                    case "DescripcionProd":
+                        items = lst.OrderBy(x => x.DescripcionProd);
+                        break;
+
+                    case "Cantidad":
+                        items = lst.OrderBy(x => x.Cantidad);
+                        break;
+
+                    case "PrecioUnidad":
+                        items = lst.OrderBy(x => x.PrecioUnidad);
+                        break;
+
+                    case "ImporteTotal":
+                        items = lst.OrderBy(x => x.ImporteTotal);
+                        break;
+                }
+            }
+            else
+            {
+                switch (sidx)
+                {
+                    case "CUV":
+                        items = lst.OrderByDescending(x => x.CUV);
+                        break;
+
+                    case "DescripcionProd":
+                        items = lst.OrderByDescending(x => x.DescripcionProd);
+                        break;
+
+                    case "Cantidad":
+                        items = lst.OrderByDescending(x => x.Cantidad);
+                        break;
+
+                    case "PrecioUnidad":
+                        items = lst.OrderByDescending(x => x.PrecioUnidad);
+                        break;
+
+                    case "ImporteTotal":
+                        items = lst.OrderByDescending(x => x.ImporteTotal);
+                        break;
+                }
+            }
+            #endregion
+
+            return items;
         }
 
         [HttpPost]
