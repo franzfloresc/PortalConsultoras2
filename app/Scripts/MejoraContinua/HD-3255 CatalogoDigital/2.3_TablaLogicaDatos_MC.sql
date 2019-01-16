@@ -1,14 +1,7 @@
 ﻿USE BelcorpPeru_MC
 GO
 
-update menumobile set urlitem = 'MisCatalogosRevistas/Index' where menumobileid = 21 --Mobile/Catalogo
-
 declare @TablaLogicaID int = 155, @TablaLogicaDatosID int = 15302
-
-if not exists (select 1 from TablaLogica where TablaLogicaID = 155)
-begin
-	insert into TablaLogica values(@TablaLogicaID, 'Piloto Catalogo Digital');
-end
 
 if not exists (select 1 from TablaLogicaDatos where TablaLogicaDatosID = 15302)
 begin
@@ -19,14 +12,7 @@ go
 USE BelcorpMexico_MC
 GO
 
-update menumobile set urlitem = 'MisCatalogosRevistas/Index' where menumobileid = 21 --Mobile/Catalogo
-
 declare @TablaLogicaID int = 155, @TablaLogicaDatosID int = 15302
-
-if not exists (select 1 from TablaLogica where TablaLogicaID = 155)
-begin
-	insert into TablaLogica values(@TablaLogicaID, 'Piloto Catalogo Digital');
-end
 
 if not exists (select 1 from TablaLogicaDatos where TablaLogicaDatosID = 15302)
 begin
@@ -37,14 +23,7 @@ go
 USE BelcorpColombia_MC
 GO
 
-update menumobile set urlitem = 'MisCatalogosRevistas/Index' where menumobileid = 21 --Mobile/Catalogo
-
 declare @TablaLogicaID int = 155, @TablaLogicaDatosID int = 15302
-
-if not exists (select 1 from TablaLogica where TablaLogicaID = 155)
-begin
-	insert into TablaLogica values(@TablaLogicaID, 'Piloto Catalogo Digital');
-end
 
 if not exists (select 1 from TablaLogicaDatos where TablaLogicaDatosID = 15302)
 begin
@@ -55,14 +34,7 @@ go
 USE BelcorpSalvador_MC
 GO
 
-update menumobile set urlitem = 'MisCatalogosRevistas/Index' where menumobileid = 21 --Mobile/Catalogo
-
 declare @TablaLogicaID int = 155, @TablaLogicaDatosID int = 15302
-
-if not exists (select 1 from TablaLogica where TablaLogicaID = 155)
-begin
-	insert into TablaLogica values(@TablaLogicaID, 'Piloto Catalogo Digital');
-end
 
 if not exists (select 1 from TablaLogicaDatos where TablaLogicaDatosID = 15302)
 begin
@@ -73,14 +45,7 @@ go
 USE BelcorpPuertoRico_MC
 GO
 
-update menumobile set urlitem = 'MisCatalogosRevistas/Index' where menumobileid = 22 --Mobile/Catalogo
-
 declare @TablaLogicaID int = 155, @TablaLogicaDatosID int = 15302
-
-if not exists (select 1 from TablaLogica where TablaLogicaID = 155)
-begin
-	insert into TablaLogica values(@TablaLogicaID, 'Piloto Catalogo Digital');
-end
 
 if not exists (select 1 from TablaLogicaDatos where TablaLogicaDatosID = 15302)
 begin
@@ -91,14 +56,7 @@ go
 USE BelcorpPanama_MC
 GO
 
-update menumobile set urlitem = 'MisCatalogosRevistas/Index' where menumobileid = 21 --Mobile/Catalogo
-
 declare @TablaLogicaID int = 155, @TablaLogicaDatosID int = 15302
-
-if not exists (select 1 from TablaLogica where TablaLogicaID = 155)
-begin
-	insert into TablaLogica values(@TablaLogicaID, 'Piloto Catalogo Digital');
-end
 
 if not exists (select 1 from TablaLogicaDatos where TablaLogicaDatosID = 15302)
 begin
@@ -109,14 +67,7 @@ go
 USE BelcorpGuatemala_MC
 GO
 
-update menumobile set urlitem = 'MisCatalogosRevistas/Index' where menumobileid = 21 --Mobile/Catalogo
-
 declare @TablaLogicaID int = 155, @TablaLogicaDatosID int = 15302
-
-if not exists (select 1 from TablaLogica where TablaLogicaID = 155)
-begin
-	insert into TablaLogica values(@TablaLogicaID, 'Piloto Catalogo Digital');
-end
 
 if not exists (select 1 from TablaLogicaDatos where TablaLogicaDatosID = 15302)
 begin
@@ -127,14 +78,7 @@ go
 USE BelcorpEcuador_MC
 GO
 
-update menumobile set urlitem = 'MisCatalogosRevistas/Index' where menumobileid = 21 --Mobile/Catalogo
-
 declare @TablaLogicaID int = 155, @TablaLogicaDatosID int = 15302
-
-if not exists (select 1 from TablaLogica where TablaLogicaID = 155)
-begin
-	insert into TablaLogica values(@TablaLogicaID, 'Piloto Catalogo Digital');
-end
 
 if not exists (select 1 from TablaLogicaDatos where TablaLogicaDatosID = 15302)
 begin
@@ -145,14 +89,7 @@ go
 USE BelcorpDominicana_MC
 GO
 
-update menumobile set urlitem = 'MisCatalogosRevistas/Index' where menumobileid = 21 --Mobile/Catalogo
-
 declare @TablaLogicaID int = 155, @TablaLogicaDatosID int = 15302
-
-if not exists (select 1 from TablaLogica where TablaLogicaID = 155)
-begin
-	insert into TablaLogica values(@TablaLogicaID, 'Piloto Catalogo Digital');
-end
 
 if not exists (select 1 from TablaLogicaDatos where TablaLogicaDatosID = 15302)
 begin
@@ -163,14 +100,7 @@ go
 USE BelcorpCostaRica_MC
 GO
 
-update menumobile set urlitem = 'MisCatalogosRevistas/Index' where menumobileid = 21 --Mobile/Catalogo
-
 declare @TablaLogicaID int = 155, @TablaLogicaDatosID int = 15302
-
-if not exists (select 1 from TablaLogica where TablaLogicaID = 155)
-begin
-	insert into TablaLogica values(@TablaLogicaID, 'Piloto Catalogo Digital');
-end
 
 if not exists (select 1 from TablaLogicaDatos where TablaLogicaDatosID = 15302)
 begin
@@ -181,14 +111,7 @@ go
 USE BelcorpChile_MC
 GO
 
-update menumobile set urlitem = 'MisCatalogosRevistas/Index' where menumobileid = 21 --Mobile/Catalogo
-
 declare @TablaLogicaID int = 155, @TablaLogicaDatosID int = 15302
-
-if not exists (select 1 from TablaLogica where TablaLogicaID = 155)
-begin
-	insert into TablaLogica values(@TablaLogicaID, 'Piloto Catalogo Digital');
-end
 
 if not exists (select 1 from TablaLogicaDatos where TablaLogicaDatosID = 15302)
 begin
@@ -200,14 +123,7 @@ go
 USE BelcorpBolivia_MC
 GO
 
-update menumobile set urlitem = 'MisCatalogosRevistas/Index' where menumobileid = 21 --Mobile/Catalogo
-
 declare @TablaLogicaID int = 155, @TablaLogicaDatosID int = 15302
-
-if not exists (select 1 from TablaLogica where TablaLogicaID = 155)
-begin
-	insert into TablaLogica values(@TablaLogicaID, 'Piloto Catalogo Digital');
-end
 
 if not exists (select 1 from TablaLogicaDatos where TablaLogicaDatosID = 15302)
 begin
