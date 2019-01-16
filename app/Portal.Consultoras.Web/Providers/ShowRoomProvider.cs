@@ -422,6 +422,7 @@ namespace Portal.Consultoras.Web.Providers
                     {
                         configEstrategiaSR.BeShowRoom = GetShowRoomEventoByCampaniaId(model);
                         configEstrategiaSR.ListaPersonalizacionConsultora = GetShowRoomPersonalizacion(model);
+
                     }
 
                     if (model.CampaniaID != 0)
@@ -429,6 +430,9 @@ namespace Portal.Consultoras.Web.Providers
                         if (configEstrategiaSR.BeShowRoom != null &&
                             configEstrategiaSR.BeShowRoom.Estado == SHOWROOM_ESTADO_ACTIVO)
                         {
+                            CargarNivelShowRoom(model);
+                            ActualizarValorPersonalizacionesShowRoom(model, configEstrategiaSR);
+
                             _sessionManager.SetEsShowRoom("1");
                             var fechaHoy = model.FechaHoy;
 
