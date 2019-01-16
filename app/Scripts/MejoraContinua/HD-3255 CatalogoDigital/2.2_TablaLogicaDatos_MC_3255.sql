@@ -1,4 +1,4 @@
-﻿USE BelcorpPeru_MC
+﻿USE BelcorpPeru
 GO
 
 declare @TablaLogicaID int = 155, @TablaLogicaDatosID int = 15302
@@ -9,7 +9,7 @@ begin
 end
 go
 
-USE BelcorpMexico_MC
+USE BelcorpMexico
 GO
 
 declare @TablaLogicaID int = 155, @TablaLogicaDatosID int = 15302
@@ -20,7 +20,7 @@ begin
 end
 go
 
-USE BelcorpColombia_MC
+USE BelcorpColombia
 GO
 
 declare @TablaLogicaID int = 155, @TablaLogicaDatosID int = 15302
@@ -31,7 +31,7 @@ begin
 end
 go
 
-USE BelcorpSalvador_MC
+USE BelcorpSalvador
 GO
 
 declare @TablaLogicaID int = 155, @TablaLogicaDatosID int = 15302
@@ -42,7 +42,7 @@ begin
 end
 go
 
-USE BelcorpPuertoRico_MC
+USE BelcorpPuertoRico
 GO
 
 declare @TablaLogicaID int = 155, @TablaLogicaDatosID int = 15302
@@ -53,7 +53,7 @@ begin
 end
 go
 
-USE BelcorpPanama_MC
+USE BelcorpPanama
 GO
 
 declare @TablaLogicaID int = 155, @TablaLogicaDatosID int = 15302
@@ -64,7 +64,7 @@ begin
 end
 go
 
-USE BelcorpGuatemala_MC
+USE BelcorpGuatemala
 GO
 
 declare @TablaLogicaID int = 155, @TablaLogicaDatosID int = 15302
@@ -75,7 +75,7 @@ begin
 end
 go
 
-USE BelcorpEcuador_MC
+USE BelcorpEcuador
 GO
 
 declare @TablaLogicaID int = 155, @TablaLogicaDatosID int = 15302
@@ -86,7 +86,7 @@ begin
 end
 go
 
-USE BelcorpDominicana_MC
+USE BelcorpDominicana
 GO
 
 declare @TablaLogicaID int = 155, @TablaLogicaDatosID int = 15302
@@ -97,7 +97,7 @@ begin
 end
 go
 
-USE BelcorpCostaRica_MC
+USE BelcorpCostaRica
 GO
 
 declare @TablaLogicaID int = 155, @TablaLogicaDatosID int = 15302
@@ -108,7 +108,7 @@ begin
 end
 go
 
-USE BelcorpChile_MC
+USE BelcorpChile
 GO
 
 declare @TablaLogicaID int = 155, @TablaLogicaDatosID int = 15302
@@ -120,7 +120,7 @@ begin
 end
 go
 
-USE BelcorpBolivia_MC
+USE BelcorpBolivia
 GO
 
 declare @TablaLogicaID int = 155, @TablaLogicaDatosID int = 15302
