@@ -240,21 +240,14 @@ function MostrarBarra(datax, destino) {
     // quitando esta clase contenedor_tippingPoint se quita el tooltip y el efecto que salta
     var htmlTippintPoint = "";
     var dataTP = dataBarra.TippingPointBarra;
-    var posicionContenedorRegaloDesktop;
-
-    if (belcorp.barra.settings.isMobile) {
-        posicionContenedorRegaloDesktop = '';
-    } else {
-        posicionContenedorRegaloDesktop = 'top:-77px;';
-    }
 
     // si se va ha mostrar el tooltip
     if (dataTP.Active)
     {
         htmlTippintPoint =
-            '<div id="punto_{punto}" data-punto="{select}" style="position: relative; top: 28px; z-index: 200;">'
+            '<div id="punto_{punto}" data-punto="{select}" style="position: relative; top: -51px; z-index: 200;">'
                 + '<div class="monto_minimo_barra">'
-                    + '<div style="width:{wText}px;position: relative;'+ posicionContenedorRegaloDesktop +'" data-texto>'
+                    + '<div style="width:{wText}px;position: relative;" data-texto>'
                         + '<div class="{barra_tooltip_class}">'
                             + '<a class="tippingPoint {estado}" href="javascript:;" onclick="javascript: cargarPopupEleccionRegalo();"></a>'
                             + '{barra_monto}'
