@@ -16,7 +16,7 @@ namespace Portal.Consultoras.Web.Models.Search.ResponseEvento.Estructura
         public string Atributo { get; set; }
         public string TextoAyuda { get; set; }
         public int Orden { get; set; }
-        public int Estado { get; set; }
+        public bool Estado { get; set; }
         public string Valor { get; set; }
     }
 }
