@@ -275,7 +275,6 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Mobile/Esika/revistaDigital.css",
                "~/Content/Css/Mobile/Esika/seccion-descarga-imprime.css",
                "~/Content/Css/Mobile/calc.css",
-               "~/Content/Css/Site/Esika/campania-navidenia.css",
                "~/Content/Css/Site/ProductosRecomendados/productos-recomendados.css"
             ));
 
@@ -294,7 +293,6 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Mobile/Lbel/revistaDigital.css",
                "~/Content/Css/Mobile/Lbel/seccion-descarga-imprime.css",
                "~/Content/Css/Mobile/calc.css",
-               "~/Content/Css/Site/Lbel/campania-navidenia.css",
                "~/Content/Css/Site/ProductosRecomendados/productos-recomendados.css"
             ));
 
