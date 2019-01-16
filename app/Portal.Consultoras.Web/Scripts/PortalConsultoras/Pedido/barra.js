@@ -1823,11 +1823,6 @@ function CalculoLlenadoBarraDestokp() {
     var montoActual = mtoLogroBarra;
     var AvancePorcentaje = 0;
 
-    if (document.getElementsByClassName('bandera_marcador').length > 0) {
-        document.getElementsByClassName('bandera_marcador')[0].style.display = 'none';
-    }
-
-
 
 
     if (TieneMontoMaximo()) {
