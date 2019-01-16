@@ -981,11 +981,24 @@ FuncionesGenerales = {
         return true;
     },
     ValidarSoloNumerosAndSpecialCharater: function (e) {
+
         var tecla = (document.all) ? e.keyCode : e.which;
         if (tecla == 8) return true;
         var patron = /[0-9-\-]/;
         var te = String.fromCharCode(tecla);
         return patron.test(te);
+    },
+    ValidarSoloNumerosLetrasAndSpecialCharater: function (e) {
+
+        var charCode = (e.which) ? e.which : window.event.keyCode;
+        if (charCode <= 13) {
+            return false;
+        }
+        else {
+            // if (charCode == 10 || charCode==10) return false;
+            if ((charCode >= 48 && charCode <= 57) || (charCode >= 65 && charCode <= 90) || (charCode >= 97 && charCode <= 122))
+                return true; else return false;
+        }
     },
     ValidarSoloLetrasYNumeros: function (e) {
         var charCode = (e.which) ? e.which : window.event.keyCode;
@@ -999,6 +1012,7 @@ FuncionesGenerales = {
         }
     },
     ValidarSoloLetras: function (e) {
+
         var charCode = (e.which) ? e.which : window.event.keyCode;
         if (charCode === 8) return true;
         if (charCode <= 13) {
