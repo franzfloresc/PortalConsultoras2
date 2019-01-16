@@ -110,30 +110,25 @@
     </script>
 
     <div class="layout-somos-belcorp container-fluid pl-0 pr-0">
-        <header class="layout__header layout__header--navidenio row flex-row flex-nowrap justify-content-between justify-content-lg-start justify-content-xl-start align-items-center ml-0 mr-0">
+        <header class="layout__header row flex-row flex-nowrap justify-content-between justify-content-lg-start justify-content-xl-start align-items-center ml-0 mr-0">
             <div class="row flex-row flex-nowrap justify-content-between justify-content-lg-start justify-content-xl-start align-items-center ml-0 mr-0 mx-auto layout__container">
                 <section class="header__icono__menu mostrarEnMobile pl-0 pr-0">
                     <img class="w-100" src="@Url.Content("~/Content/images/mobile/icono-menu-mobile.svg")" alt="Abrir Menú">
                 </section>
-                <section class="header__marca__pais text-right">
+                <section class="header__marca__pais text-left">
                     @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
                     {
                         <picture class="d-block w-100">
-                            @*<source media="(min-width: 992px)" srcset="@Url.Content("~/Content/images/Esika/logo_marca_pais_desktop.svg")">
+                            <source media="(min-width: 992px)" srcset="@Url.Content("~/Content/images/Esika/logo_marca_pais_desktop.svg")">
                             <source media="(max-width: 991px)" srcset="@Url.Content("~/Content/images/Esika/logo_marca_pais_mobile.svg")">
-                            <img class="logoPaginaResponsive pointer" src="@Url.Content("~/Content/images/Esika/logo_marca_pais_desktop.svg")" alt="Ésika">*@
-                            <source media="(min-width: 992px)" srcset="@Url.Content("~/Content/images/Esika/logo_marca_pais_desktop_blanco.svg")">
-                            <source media="(max-width: 991px)" srcset="@Url.Content("~/Content/images/Esika/logo_marca_pais_desktop_blanco.svg")">
-                            <img class="logoPaginaResponsive pointer" src="@Url.Content("~/Content/images/Esika/logo_marca_pais_desktop_blanco.svg")" alt="Ésika">
+                            <img class="logoPaginaResponsive pointer" src="@Url.Content("~/Content/images/Esika/logo_marca_pais_desktop.svg")" alt="Ésika">
                         </picture>
                     }
                     else
                     {
                         <picture class="d-block w-100">
-                            @*<source media="(min-width: 992px)" srcset="@Url.Content("~/Content/images/Lbel/logo_marca_pais.svg")">
-                            <img class="logoPaginaResponsive pointer" src="@Url.Content("~/Content/images/Lbel/logo_marca_pais.svg")">*@
-                            <source media="(min-width: 992px)" srcset="@Url.Content("~/Content/images/Lbel/logo_marca_pais_blanco.svg")">
-                            <img class="logoPaginaResponsive pointer" src="@Url.Content("~/Content/images/Lbel/logo_marca_pais_blanco.svg")">
+                            <source media="(min-width: 992px)" srcset="@Url.Content("~/Content/images/Lbel/logo_marca_pais.svg")">
+                            <img class="logoPaginaResponsive pointer" src="@Url.Content("~/Content/images/Lbel/logo_marca_pais.svg")">
                         </picture>
                     }
 

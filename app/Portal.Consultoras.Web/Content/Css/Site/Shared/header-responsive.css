@@ -2,9 +2,6 @@
 /* HEADER DESKTOP */
 
 .layout__header{
-    background-repeat:no-repeat;
-    background-image:url(/Content/images/cincuenta_anios_belcorp_cabecera.png);
-    background-position:left top;
     height:60px;
     position:fixed;
     background-color:#FFF;
@@ -21,7 +18,7 @@
 }
 
 .header__marca__pais {
-    width: 185px;
+    width: 97px;
     position:relative;
     cursor:pointer;
 }
@@ -82,8 +79,6 @@
     } */
 
     .layout__header{
-        background-image:url(/Content/images/mobile/cincuenta_anios_belcorp_cabecera_mobile.png);
-        background-position:-23px top;
         padding-right:12px;
     }
 
