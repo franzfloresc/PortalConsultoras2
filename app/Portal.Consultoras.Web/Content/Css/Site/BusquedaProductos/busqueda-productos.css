@@ -6,6 +6,7 @@
 }
 
 .layout__content--vistaResultadosBusqueda{
+    margin-top:60px;
     width:100%;
     max-width:1366px;
 }
