@@ -1243,9 +1243,8 @@ namespace Portal.Consultoras.Web.Controllers
                                         CUV = pedidoDetalle.CUV,
                                         DescripcionProd = pedidoDetalle.Producto,
                                         ClienteDescripcion = pedidoAux.Cliente,
-                                        OrigenPedidoWeb = 0
+                                        OrigenPedidoWeb = GetOrigenPedidoWeb(pedidoAux.FlagMedio, pedidoDetalle.MarcaID)
                                     };
-
 
                                     var olstPedidoWebDetalle = AgregarDetallePedido(model);
 
@@ -2331,6 +2330,26 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return new EmptyResult();
+        }
+
+        private int GetOrigenPedidoWeb(string flagMedio, int marcaID)
+        {
+            var origenPedidoWeb = 0;
+
+            if (flagMedio == Constantes.SolicitudCliente.FlagMedio.AppCatalogos)
+            {
+                if (marcaID == Constantes.Marca.LBel) origenPedidoWeb = Constantes.OrigenPedidoWeb.AppCatalogoPedidoCatalogoLbelPendienteDeAprobar;
+                else if (marcaID == Constantes.Marca.Esika) origenPedidoWeb = Constantes.OrigenPedidoWeb.AppCatalogoPedidoCatalogoEsikaPendienteDeAprobar;
+                else if (marcaID == Constantes.Marca.Cyzone) origenPedidoWeb = Constantes.OrigenPedidoWeb.AppCatalogoPedidoCatalogoCyzonePendienteDeAprobar;
+            }
+            else if (flagMedio == Constantes.SolicitudCliente.FlagMedio.CatalogoDigital)
+            {
+                if (marcaID == Constantes.Marca.LBel) origenPedidoWeb = Constantes.OrigenPedidoWeb.CatalogoDigitalPedidoCatalogoLbelPendienteDeAprobar;
+                else if (marcaID == Constantes.Marca.Esika) origenPedidoWeb = Constantes.OrigenPedidoWeb.CatalogoDigitalPedidoCatalogoEsikaPendienteDeAprobar;
+                else if (marcaID == Constantes.Marca.Cyzone) origenPedidoWeb = Constantes.OrigenPedidoWeb.CatalogoDigitalPedidoCatalogoCyzonePendienteDeAprobar;
+            }
+
+            return origenPedidoWeb;
         }
     }
 }

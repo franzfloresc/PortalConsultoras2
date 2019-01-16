@@ -683,7 +683,6 @@ namespace Portal.Consultoras.Common
             // Cuarto Dígito
             // 1. Sin popUp                 2. Con popUp
 
-
             public const int SectionBptDesktopPedido = 12; // Seccion BPT, metodo GetPartialSectionBptModel
             public const int SectionBptDesktopHome = 11; // Seccion BPT, metodo GetPartialSectionBptModel
             public const int SectionBptDesktopCatalogo = 14; // Seccion BPT, metodo GetPartialSectionBptModel
@@ -721,7 +720,6 @@ namespace Portal.Consultoras.Common
             public const int MasVendidosMobileHomeCarrusel = 2151;
             public const int MasVendidosMobileProductPageFicha = 2611;
             #endregion
-
 
             #region MasGanadoras
             public const int DesktopContenedorGanadorasCarrusel = 1081401; // Esta en duro en ConstantesModule
@@ -911,6 +909,15 @@ namespace Portal.Consultoras.Common
             #region Producto Recomendado
             public const int DesktopPedidoProductoRecomendadoCarrusel = 1021501;
             public const int MobilePedidoProductoRecomendadoCarrusel = 2021501;
+            #endregion
+
+            #region Pedidos Pendientes
+            public const int AppCatalogoPedidoCatalogoLbelPendienteDeAprobar = 6021110;
+            public const int AppCatalogoPedidoCatalogoEsikaPendienteDeAprobar = 6021210;
+            public const int AppCatalogoPedidoCatalogoCyzonePendienteDeAprobar = 6021310;
+            public const int CatalogoDigitalPedidoCatalogoLbelPendienteDeAprobar = 7021110;
+            public const int CatalogoDigitalPedidoCatalogoEsikaPendienteDeAprobar = 7021210;
+            public const int CatalogoDigitalPedidoCatalogoCyzonePendienteDeAprobar = 7021310;
             #endregion
         }
 
@@ -3233,5 +3240,15 @@ namespace Portal.Consultoras.Common
             public const string FechaHora = "dd/MM/yyyy HH:mm";
         }
 
+        public class SolicitudCliente
+        {
+            public class FlagMedio
+            {
+                public const string AppCatalogos = "01";
+                public const string WebMarcas = "02";
+                public const string CatalogoDigital = "03";
+                public const string MaquilladorVirtual = "04";
+            }
+        }
     }
 }

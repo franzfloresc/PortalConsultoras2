@@ -7,6 +7,16 @@
     var mobileConfiguracion = Html.MobileAppConfiguracion();
 }
 
+<style>
+    .agotado_consultora {
+        background: #f3f3f3;
+        padding:10px 10px
+    }
+    .agotado_consultora img {
+        height:36px
+    }
+</style>
+
 @{
     if (!mobileConfiguracion.EsAppMobile)
     {
@@ -142,11 +152,11 @@
 
                 if (item.TieneStock == 0)
                 {
-                    <span class="agotado_consultora" style="font-size: 12px;">@item.MensajeValidacion</span>
+                    <span class="agotado_consultora" style="font-size: 12px;"><img src="/Content/Images/RevistaDigital/icono_advertencia_notificacion_esika.svg" /> @item.MensajeValidacion</span>
                 }
                 else if (item.EstaEnRevista == 1)
                 {
-                    <span class="agotado_consultora" style="font-size: 12px;">@item.MensajeValidacion</span>
+                    <span class="agotado_consultora" style="font-size: 12px;"><img src="/Content/Images/RevistaDigital/icono_advertencia_notificacion_esika.svg" /> @item.MensajeValidacion</span>
                 }
             }
         </div>
