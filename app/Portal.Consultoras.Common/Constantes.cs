@@ -58,7 +58,6 @@ namespace Portal.Consultoras.Common
             public const string UrlPart02 = "/jpg/page_1_thumb_small.jpg";
             public const string UrlPart03 = "/jpg/page_1_thumb_medium.jpg";
             public const string UrlPart02Alternativo = "/jpg/page_1.jpg";
-
         }
 
         public static class EstadoPedido
@@ -1276,6 +1275,18 @@ namespace Portal.Consultoras.Common
             public const string RDR = "rdr";
         }
 
+        public static class CatalogoMensajesDefault
+        {
+            public const string SaludoCorreo = "Revisa los catálogos de esta campaña y comunícate conmigo si estás interesada en algunos de los productos.";
+            public const string SaludoCorreoPiloto = "Revisa los catálogos de esta campaña y pide lo que quieras sólo dándole click al producto que deseas.";
+        }
+
+        public static class CatalogoPiloto
+        {
+            public const string UrlBase = "http://catalogodigital.somosbelcorp.com?cod={0}";
+            public const string UrlParamEncrip = "iso={0}&consultant={1}";
+        }
+
         public static class RevistaNombre
         {
             public const string Esika = "Guía de Negocio Ésika";
@@ -1689,6 +1700,7 @@ namespace Portal.Consultoras.Common
             public const short EscalaDescuentoMobile = 73;
             public const short ListaOrdenamientoFiltros = 147;
             public const short ArmaTuPack = 14;
+            public const short PilotoCatalogoDigital = 155;
         }
 
         public struct MensajesCDRExpress

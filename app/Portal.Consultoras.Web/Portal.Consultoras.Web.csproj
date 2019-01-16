@@ -1438,6 +1438,8 @@
     <Content Include="Content\Css\Site\MasGanadoras\banner_ofertas_masGanadoras.css" />
     <Content Include="Content\Css\Site\Menu\MenuPrincipal.css" />
     <Content Include="Content\Css\Site\Menu\MenuContenedor.css" />
+    <Content Include="Content\Css\Site\MisCatalogosYRevistas\MisCatalogosYRevistas.css" />
+    <Content Include="Content\Css\Site\MisCatalogosYRevistas\MisCatalogosYRevistas2.css" />
     <Content Include="Content\Css\Site\Pedido\PedidoGrilla.css" />
     <Content Include="Content\Css\Site\Pedido\PedidoInfo.css" />
     <Content Include="Content\Css\Site\Pedido\PedidoTooltip.css" />
@@ -1667,6 +1669,7 @@
     <Content Include="Content\Images\icono_noticias.svg" />
     <Content Include="Content\Images\icono_notificaciones.svg" />
     <Content Include="Content\Images\icono_notificaciones_blanco.svg" />
+    <Content Include="Content\Images\icono_paso_compartir_catalogo.svg" />
     <Content Include="Content\Images\icono_salvavidas.svg" />
     <Content Include="Content\Images\icono_sin_resultados_busqueda.svg" />
     <Content Include="Content\Images\icono_tooltip_informativo.svg" />
@@ -1694,7 +1697,11 @@
     <Content Include="Content\Images\logo_belcorp_desktop.png" />
     <Content Include="Content\Images\logo_belcorp_mobile.svg" />
     <Content Include="Content\Images\logo_facebook.svg" />
+    <Content Include="Content\Images\logo_facebook2.svg" />
+    <Content Include="Content\Images\logo_gmail.svg" />
+    <Content Include="Content\Images\logo_whatsapp.svg" />
     <Content Include="Content\Images\logo_youtube.svg" />
+    <Content Include="Content\Images\logo__facebook__messenger.svg" />
     <Content Include="Content\Images\mas-desplegable-icono.svg" />
     <Content Include="Content\Images\mas.svg" />
     <Content Include="Content\Images\menos-desplegable-icono.svg" />
@@ -4039,6 +4046,7 @@
     <Content Include="Scripts\PortalConsultoras\MiPerfil\ActualizarCorreo.js" />
     <Content Include="Scripts\PortalConsultoras\MiPerfil\Base.js" />
     <Content Include="Scripts\PortalConsultoras\MiPerfil\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\MisCatalogosRevistas\Index2.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\GuiaNegocio\GuiaNegocio-Landing.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\PedidoFIC\Detalle.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\PedidoFIC\Index.js" />
@@ -5513,6 +5521,9 @@
       <SubType>Designer</SubType>
     </None>
     <Content Include="Views\Bonificaciones\Index.cshtml" />
+    <Content Include="Views\MisCatalogosRevistas\MisCatalogosYRevistas.cshtml" />
+    <Content Include="Views\MisCatalogosRevistas\Index2.cshtml" />
+    <Content Include="Views\MisCatalogosRevistas\template-revista-slide2.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
