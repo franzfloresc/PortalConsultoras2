@@ -2064,7 +2064,7 @@ function CalculoPosicionMinimoMaximoDestokp() {
             var AvancePorcentajeP4 = (AvancePorcentaje4.substring(0, AvancePorcentaje4.length - 1) * 1 - 5) + '%'
             document.getElementById('punto_3').style.left = AvancePorcentajeP4;
 
-
+            +
 
             if (montoTipipoing != 0) {
                
