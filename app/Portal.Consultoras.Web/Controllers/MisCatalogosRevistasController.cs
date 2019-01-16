@@ -863,7 +863,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var url = string.Format(Constantes.CatalogoPiloto.UrlParamEncrip, userData.CodigoISO, userData.CodigoConsultora);
             byte[] encbuff = Encoding.UTF8.GetBytes(url);
-            var encrip = HttpServerUtility.UrlTokenEncode(encbuff);
+            var encrip = Convert.ToBase64String(encbuff);
             return string.Format(Constantes.CatalogoPiloto.UrlBase, encrip);
         }
     }
