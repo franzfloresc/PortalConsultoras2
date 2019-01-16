@@ -21,7 +21,6 @@ namespace Portal.Consultoras.Web.Controllers
     {
         private readonly IssuuProvider _issuuProvider;
         private readonly ConfiguracionPaisDatosProvider _configuracionPaisDatosProvider;
-        protected Providers.TablaLogicaProvider _tablaLogica;    
 
         public MisCatalogosRevistasController()
         {
@@ -73,7 +72,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Index(string marca = "", string demo = "0")
         {
-            _tablaLogica = new Providers.TablaLogicaProvider();
             var clienteModel = new MisCatalogosRevistasModel
             {
                 PaisNombre = Util.GetPaisNombreByISO(userData.CodigoISO),
@@ -90,10 +88,9 @@ namespace Portal.Consultoras.Web.Controllers
             clienteModel.CodigoRevistaAnterior = _issuuProvider.GetRevistaCodigoIssuu(clienteModel.CampaniaAnterior, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
             clienteModel.CodigoRevistaSiguiente = _issuuProvider.GetRevistaCodigoIssuu(clienteModel.CampaniaSiguiente, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
             clienteModel.PartialSectionBpt = _configuracionPaisDatosProvider.GetPartialSectionBptModel(Constantes.OrigenPedidoWeb.SectionBptDesktopCatalogo);
-
-            ViewBag.Piloto = _tablaLogica.ObtenerConfiguracion(userData.PaisID, Constantes.TablaLogica.PilotoCatalogoDigital)[0].Valor; ;
-            var urlQA = "http://ecatalogoqa.somosbelcorp.com/?cod={0}";
-            ViewBag.UrlCatalogoPiloto = demo == "1" ? GetUrlCatalogoPiloto(urlQA) : GetUrlCatalogoPiloto(Constantes.CatalogoPiloto.UrlBase);
+                        
+            ViewBag.Piloto = GetTienePiloto(userData.PaisID);
+            ViewBag.UrlCatalogoPiloto = GetUrlCatalogoPiloto(demo == "1");
             ViewBag.EsConsultoraNueva = userData.EsConsultoraNueva;
 
             return View(clienteModel);
@@ -549,7 +546,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var url = GetUrlCatalogoPiloto(Constantes.CatalogoPiloto.UrlBase);
+                var url = GetUrlCatalogoPiloto(false);
                 var urlImagenLogo = Globals.RutaCdn + "/ImagenesPortal/Iconos/logo.png";
                 var urlIconEmail = Globals.RutaCdn + "/ImagenesPortal/Iconos/mensaje_mail.png";
                 var urlIconTelefono = Globals.RutaCdn + "/ImagenesPortal/Iconos/celu_mail.png";
@@ -837,12 +834,22 @@ namespace Portal.Consultoras.Web.Controllers
             return campania >= campaniaInicio;
         }
 
-        private string GetUrlCatalogoPiloto(string urlPiloto)
+        private string GetUrlCatalogoPiloto(bool qa)
         {
-            var url = string.Format(Constantes.CatalogoPiloto.UrlParamEncrip, userData.CodigoISO, userData.CodigoConsultora);
-            byte[] encbuff = Encoding.UTF8.GetBytes(url);
-            var encrip = Convert.ToBase64String(encbuff);
-            return string.Format(urlPiloto, encrip);
+            var queryString = string.Format(Constantes.CatalogoPiloto.UrlParamEncrip, userData.CodigoISO, userData.CodigoConsultora);
+            byte[] encbuff = Encoding.UTF8.GetBytes(queryString);
+            var encripParams = Convert.ToBase64String(encbuff);
+
+            var urlBase = qa ? Constantes.CatalogoPiloto.UrlBaseQA : Constantes.CatalogoPiloto.UrlBase;
+            return string.Format(Constantes.CatalogoPiloto.UrlCatalogo, urlBase, encripParams);
+        }
+
+        private string GetTienePiloto(int paisId)
+        {
+            var listDato = _tablaLogicaProvider.ObtenerConfiguracion(paisId, Constantes.TablaLogica.PilotoCatalogoDigital);
+            if (listDato.Count == 0) return "0";
+
+            return listDato[0].Valor;
         }
     }
 }
