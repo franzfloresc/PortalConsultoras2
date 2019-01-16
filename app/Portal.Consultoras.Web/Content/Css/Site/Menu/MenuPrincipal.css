@@ -40,27 +40,6 @@
         }
 }
 
-@media screen and (min-width:1090px) and (max-width:1144px) {
-
-    .wrapper_header_logo + .menu_new_esika {
-        width: 626.7px !important;
-    }
-}
-
-@media screen and (min-width:1063px) and (max-width:1089px) {
-
-    .wrapper_header_logo + .menu_new_esika {
-        width: 592px !important;
-    }
-}
-
-@media screen and (max-width: 1062px) {
-
-    .wrapper_header_logo + .menu_new_esika {
-        width: 553px !important;
-    }
-}
-
 .menu_new_esika {
     width: 62%;
     min-height: 60px;
