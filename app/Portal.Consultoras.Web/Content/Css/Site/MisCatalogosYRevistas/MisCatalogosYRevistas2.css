@@ -75,8 +75,8 @@ hr{
     margin-top:32px;
     margin-bottom:60px;
     padding-top:70px;
-    padding-bottom:41px;
-    max-width:900px;
+    padding-bottom:70px;
+    max-width:821px;
     border:1px solid #000;
     border-radius:4px;
 }
@@ -88,34 +88,35 @@ hr{
 .info__pasos__compartir__catalogo__campaniaActual,
 .info__pasos__compartir__catalogo__campaniaActual__subtitulo
 {
-    max-width:515px;
+    max-width:532px;
+}
+
+.info__pasos--parteSuperior span,
+.info__pasos--parteInferior span
+{
+    font-size:24px;
 }
 
 .info__pasos--parteSuperior span{
     font-weight:400;
-    font-size:24px;
-}
-
-.info__pasos--parteInferior span{
-    margin-bottom:38px;
 }
 
 .info__pasos--parteInferior span:first-child{
-    font-size:20px;
+    margin-bottom:30px;
 }
 
 .info__pasos--parteInferior span:last-child{
-    font-size:24px;
+    margin-bottom:44px;
 }
 
 .lista__pasos__compartir__catalogo__campaniaActual{
     list-style-type:none;
-    margin-top:37px;
+    margin-top:45px;
     margin-bottom:57px;
 }
 
 .paso__compartir__catalogo__campaniaActual {
-    margin-bottom:44px;
+    margin-bottom:25px;
 }
 
 .paso__compartir__catalogo__campaniaActual span{
@@ -147,18 +148,18 @@ hr{
 .compartir__catalogo__area,
 .btn__compartir
 {
-    max-width:500px;
+    max-width:350px;
 }
 
 .btn__compartir {
     font-family: 'Lato', sans-serif;
     background-color: #b9007e;
-    border-radius: 12px;
-    height: 70px;
-    line-height:69px;
+    border-radius: 4px;
+    height: 45px;
+    line-height:44px;
     letter-spacing: 1px;
     border: none;
-    font-size: 16px;
+    font-size: 14px;
     cursor: pointer;
     -moz-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
@@ -176,11 +177,11 @@ hr{
 }
 
 .btn__compartir--slider{
-    max-width:350px;
+    max-width:208px;
 }
 
 .btn__compartir--slider + .opciones__compartir__catalogos{
-    left:-105px;
+    left:-104px;
     z-index:3;
 }
 
@@ -317,7 +318,7 @@ hr{
 .catalogos__por__campania__item__descrip div,
 .catalogos__por__campania__item__descrip span
 {
-    font-size:24px;
+    font-size:22px;
 }
 
 .catalogos__por__campania__item__modos__compartir{
@@ -337,12 +338,13 @@ hr{
     display:none;
     justify-content: space-evenly;
     background-color: #FFF;
-    width:567px;
+    width:420px;
     position:absolute;
-    left:-35px;
-    bottom:79px;
-    padding:20px 1px;
-    height: 111px;
+    left: -29px;
+    bottom: 55px;
+    padding:20px 27px;
+    height: 72px;
+    border-radius:4px;
     -moz-box-shadow: 0 0 2px rgba(0,0,0,0.37);
     -webkit-box-shadow: 0 0 2px rgba(0,0,0,0.37);
     box-shadow: 0 0 2px rgba(0,0,0,0.37);
@@ -364,15 +366,15 @@ hr{
     .opciones__compartir__catalogos:after{
         border-color: rgba(136, 183, 213, 0);
         border-top-color: #FFF;
-        border-width: 21px;
-        margin-left: -21px;
+        border-width: 17px;
+        margin-left: -17px;
     }
 
     .opciones__compartir__catalogos:before {
 	    border-color: rgba(194, 225, 245, 0);
 	    border-top-color: rgba(0,0,0,0.37);
-	    border-width: 22px;
-	    margin-left: -22px;
+	    border-width: 18px;
+	    margin-left: -18px;
     }
 
 .opcion__compartir__catalogo{
@@ -390,15 +392,14 @@ hr{
     }
 
 .opcion__compartir__catalogo--whatsapp{
-    height:54px;
-}
-
-.opcion__compartir__catalogo--facebook{
-    height:42px;
-}
-
-.opcion__compartir__catalogo--email{
     height:41px;
+    margin-left:-5px;
+}
+
+.opcion__compartir__catalogo--facebook,
+.opcion__compartir__catalogo--email
+{
+    height:32px;
 }
 
 .opcion__compartir__catalogo--facebookMessenger {
@@ -408,16 +409,18 @@ hr{
 .opcion__compartir__catalogo--copiarEnlace {
     background-color: #EBEBEB;
     width: 138px;
-    height: 44px;
-    line-height: 44px;
+    height: 40px;
+    line-height: 39px;
     border-radius: 4px;
     font-size:12px;
+    margin-left:27px;
 }
 
 .modo__compartir__catalogo{
-    height:30px;
+    height:36px;
     max-width:47%;
     cursor:pointer;
+    border-radius:4px;
 }
 
     .modo__compartir__catalogo img{
@@ -910,7 +913,7 @@ input[type='checkbox']:checked + span:after {
     }
 
     .catalogos__campania--actual .catalogos__por__campania__item__imagen--cyzone{
-        left:35px;
+        left:34px;
     }
 
     .catalogos__por__campania__item__imagen:hover{
@@ -967,15 +970,11 @@ input[type='checkbox']:checked + span:after {
     .info__pasos__compartir__catalogo__campaniaActual__subtitulo span,
     .info__pasos--parteInferior span
     {
-        font-size:15px!important;
+        font-size:15px;
     }
 
     .info__pasos--parteSuperior span{
         font-weight:bold;
-    }
-
-    .info__pasos__compartir__catalogo__campaniaActual__subtitulo span{
-        font-size:15px;
     }
 
     .info__pasos--parteInferior{
@@ -987,7 +986,7 @@ input[type='checkbox']:checked + span:after {
     }
 
     .info__pasos--parteInferior span:last-child{
-        margin-bottom:0;
+        margin-bottom:41px;
     }
 
     .lista__pasos__compartir__catalogo__campaniaActual,
@@ -1012,7 +1011,7 @@ input[type='checkbox']:checked + span:after {
     .compartir__catalogo__area,
     .btn__compartir
     {
-        max-width:198px;
+        max-width:208px;
     }
 
     .btn__compartir{
@@ -1039,6 +1038,7 @@ input[type='checkbox']:checked + span:after {
     .btn__compartir--slider + .opciones__compartir__catalogos,
     .opciones__compartir__catalogos
     {
+        width:93%;
         left:0;
     }
 
@@ -1054,21 +1054,24 @@ input[type='checkbox']:checked + span:after {
     }
 
     .opciones__compartir__catalogos{
-        bottom: 10px;
+        bottom: 17px;
         z-index: 3;
-        width: 93%;
         height: auto;
-        padding:20px;
+        padding:15px 51px;
     }
 
     .opcion__compartir__catalogo{
-        height:45px;
+        height:40px;
     }
 
     .opciones__compartir__catalogos:before,
     .opciones__compartir__catalogos:after
     {
         display:none;
+    }
+
+    .opcion__compartir__catalogo--whatsapp{
+        margin-right:0;
     }
 
     .opcion__compartir__catalogo--whatsapp img{
@@ -1089,7 +1092,8 @@ input[type='checkbox']:checked + span:after {
     }
 
     .opcion__compartir__catalogo--copiarEnlace{
-        margin-top:20px;
+        margin-top:18px;
+        margin-left:0;
     }
 
     .mi__revista__y__marquesina__rd__wrapper{
@@ -1212,7 +1216,7 @@ input[type='checkbox']:checked + span:after {
 
 }
 
-@media screen and (min-width:412px) and (max-width:991px){
+@media screen and (min-width:409px) and (max-width:991px){
 
     .opcion__compartir__catalogo--copiarEnlace{
         margin-top:0;

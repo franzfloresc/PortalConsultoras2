@@ -1,39 +1,43 @@
-﻿    
-<div class="revista_content" id="contentRevista" style="@(ViewBag.EsConsultoraNueva ? "margin-right: 0px;" : "")">
-    <div class="titulo_central" data-titulo='revista'></div>
-    <div class="revista_content2">
-        @if (ViewBag.TieneGnd)
-        {
-            <div>
-                <a class="revista_carrusel" id="lbPortadaGana" href="javascript:;">
-                    <img src="@Url.Content("~/Content/Images/revista_no_disponible.jpg")" id="imgPortadaGana" alt=""/>
-                </a>
-            </div>
-            <div>
-                <div class="revistatxt">
-                    <div class="contrevista">
-                        <p>Tu guía de negocio de siempre, <b>AHORA DIGITAL.</b></p>
-                        <a href="@Url.Action("Index", "GuiaNegocio")">
-                            ENCUENTRALA AQUÍ
-                        </a>
-                    </div>
-                </div>
-            </div>
-        }
-        else
-        {
-            <div>
-                <span class="arrow_revista" data-accion="a">
-                    <img src="@Url.Content("~/Content/Images/Esika/catalogos_arrow.png")" onclick="RevistaMostrar(-1, this)" alt=""/>
-                </span>
-                <a class="revista_carrusel" id="lbPortadaGana" href="javascript:;" onclick="MostrarMiRevista();">
-                    <img src="@Url.Content("~/Content/Images/revista_no_disponible.jpg")" id="imgPortadaGana" alt=""/>
-                </a>
-                <span class="arrow_revista" data-accion="d">
-                    <img src="@Url.Content("~/Content/Images/Esika/catalogos_arrow2.png")" onclick="RevistaMostrar(1, this)" alt=""/>
-                </span>
-            </div>
-        }
+﻿
+<section id="contentRevista" class="col-12 pl-0 pr-0 row flex-row justify-content-center align-items-start ml-0 mr-0 mi__revista__wrapper contenido__seccion__mi__revista">
+
+    <div class="col-12 text-center pl-0 pr-0 revista__por__campania__num text-uppercase text-bold" data-titulo='revista'>
+
     </div>
-</div>
-<br />
+
+    @if (ViewBag.TieneGnd)
+    {
+    <!-- CONTENIDO SECCIÓN MI REVISTA CUANDO TIENE GND -->
+        <div class="col-12 col-lg-6 col-xl-6 pl-0 pr-0 row flex-row justify-content-center justify-content-lg-between justify-content-xl-between align-items-center ml-0 mr-0 mi__revista">
+            <a href="javascript:;" id="lbPortadaGana" title="Mi Revista" class="col-12 col-lg-6 col-xl-6 pl-0 pr-0 d-block mi__revista__imagen">
+                <img src="@Url.Content("~/Content/Images/revista_no_disponible.jpg")" id="imgPortadaGana" alt="Mi Revista" />
+            </a>
+            <div class="col-12 col-lg-6 col-xl-6 pl-0 pr-0 text-center mi__revista__info">
+                <p class="col-6 col-lg-12 col-xl-12 pl-0 pr-0 mx-auto mi__revista__info__texto">
+                    Tu guía de negocio por siempre, <span class="text-bold text-uppercase">Ahora digital</span>
+                </p>
+                <a href="@Url.Action("Index", "GuiaNegocio")" target="_blank" class="d-block col-12 pl-0 pr-0 text-uppercase mx-auto btn__encuentra__aqui__tu__revista__digital">
+                    Encuéntrala aquí
+                </a>
+            </div>
+        </div>
+    <!-- FIN - CONTENIDO SECCIÓN MI REVISTA CUANDO TIENE GND -->
+    }
+    else
+    {
+    <!-- CONTENIDO SECCIÓN MI REVISTA CUANDO NO TIENE GND -->
+        <div class="col-12 col-lg-5 col-xl-5 pl-0 pr-0 row flex-row justify-content-around align-items-center ml-0 mr-0 revistas__por__campania__slider">
+            <a data-accion="a" class="col-1 pl-0 pr-0 row flex-row justify-content-start align-items-start align-items-lg-center align-items-xl-center ml-0 mr-0 revistas__por__campania__slider__control revistas__por__campania__slider__control__izq" title="Atrás">
+                <img src="@Url.Content("~/Content/Images/arrow_left.svg")" alt="" onclick="RevistaMostrar(-1, this)" />
+            </a>
+            <a href="javascript:;" onclick="MostrarMiRevista();" id="lbPortadaGana" title="Mi Revista" class="col-12 col-lg-6 col-xl-6 pl-0 pr-0 d-block mi__revista__imagen">
+                <img src="@Url.Content("~/Content/Images/revista_no_disponible.jpg")" id="imgPortadaGana" alt="Mi Revista" />
+            </a>
+            <a data-accion="d" class="col-1 pl-0 pr-0 row flex-row justify-content-end align-items-start align-items-lg-center align-items-xl-center ml-0 mr-0 revistas__por__campania__slider__control revistas__por__campania__slider__control__der" title="Siguiente">
+                <img src="@Url.Content("~/Content/Images/arrow_right.svg")" alt="" onclick="RevistaMostrar(1, this)" />
+            </a>
+        </div>
+    <!-- CONTENIDO SECCIÓN MI REVISTA CUANDO NO TIENE GND -->
+    }
+
+</section>

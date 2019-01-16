@@ -21,60 +21,7 @@ namespace Portal.Consultoras.Web.Controllers
     {
         private readonly IssuuProvider _issuuProvider;
         private readonly ConfiguracionPaisDatosProvider _configuracionPaisDatosProvider;
-
-        public ActionResult MisCatalogosYRevistas()
-        {
-            return View();
-        }
-
-        public ActionResult Index2(string marca = "", string demo = "0", string piloto = "0")
-        {
-            var clienteModel = new MisCatalogosRevistasModel
-            {
-                PaisNombre = Util.GetPaisNombreByISO(userData.CodigoISO),
-                CampaniaActual = userData.CampaniaID.ToString(),
-                CampaniaAnterior = Util.AddCampaniaAndNumero(userData.CampaniaID, -1, userData.NroCampanias).ToString(),
-                CampaniaSiguiente = Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias).ToString(),
-                TieneSeccionRD = (revistaDigital.TieneRDC && !userData.TieneGND && !revistaDigital.EsSuscrita) || revistaDigital.TieneRDI,
-                TieneSeccionRevista = !revistaDigital.TieneRDC || !revistaDigital.EsActiva,
-                TieneGND = userData.TieneGND,
-                EsDispositivoMovil = EsDispositivoMovil()
-            };
-            clienteModel.Titulo = clienteModel.TieneSeccionRD || clienteModel.TieneSeccionRevista ? "Catálogos y Revistas" : "Catálogos";
-            clienteModel.CodigoRevistaActual = _issuuProvider.GetRevistaCodigoIssuu(clienteModel.CampaniaActual, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
-            clienteModel.CodigoRevistaAnterior = _issuuProvider.GetRevistaCodigoIssuu(clienteModel.CampaniaAnterior, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
-            clienteModel.CodigoRevistaSiguiente = _issuuProvider.GetRevistaCodigoIssuu(clienteModel.CampaniaSiguiente, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
-            clienteModel.PartialSectionBpt = _configuracionPaisDatosProvider.GetPartialSectionBptModel(Constantes.OrigenPedidoWeb.SectionBptDesktopCatalogo);
-            
-            ViewBag.Piloto = piloto;
-            ViewBag.UrlCatalogoPiloto = demo == "1" ? "http://catalogodigital-develop.altimeafactory.com/?iso=pe&consultant=035821619" : GetUrlCatalogoPiloto();
-            ViewBag.EsConsultoraNueva = userData.EsConsultoraNueva;
-            
-            //if (Constantes.PaisID.Bolivia == userData.PaisID || Constantes.PaisID.Chile == userData.PaisID || Constantes.PaisID.Colombia == userData.PaisID ||
-            //    Constantes.PaisID.CostaRica == userData.PaisID || Constantes.PaisID.Ecuador == userData.PaisID || Constantes.PaisID.Mexico == userData.PaisID ||
-            //    Constantes.PaisID.Peru == userData.PaisID)
-            //    return View(clienteModel);
-            //else
-            //{
-            //    if (EsDispositivoMovil())
-            //    {
-            //        var url = (Request.Url.Query).Split('?');
-            //        if (url.Length > 1 && url[1].Contains("sap"))
-            //        {
-            //            string sap = "&" + url[1].Remove(0, 12);
-            //            return RedirectToAction("Index", "Catalogo", new { area = "Mobile", marca, sap });
-            //        }
-            //        else
-            //        {
-            //            return RedirectToAction("Index", "Catalogo", new { area = "Mobile", marca });
-            //        }
-
-            //    }
-
-            //    return View("Index", clienteModel);
-            //}
-            return View(clienteModel);
-        }
+        protected Providers.TablaLogicaProvider _tablaLogica;    
 
         public MisCatalogosRevistasController()
         {
@@ -82,7 +29,9 @@ namespace Portal.Consultoras.Web.Controllers
             _configuracionPaisDatosProvider = new ConfiguracionPaisDatosProvider();
         }
 
-        public ActionResult Index(string marca = "")
+        /**********SE MANTENIENE EN CASO DE ROLLBACK**********/
+        /*
+        public ActionResult Index1(string marca = "")
         {
 
             if (EsDispositivoMovil())
@@ -118,6 +67,35 @@ namespace Portal.Consultoras.Web.Controllers
 
             ViewBag.CodigoISO = userData.CodigoISO;
             ViewBag.EsConsultoraNueva = userData.EsConsultoraNueva;
+            return View(clienteModel);
+        }
+        */
+
+        public ActionResult Index(string marca = "", string demo = "0")
+        {
+            _tablaLogica = new Providers.TablaLogicaProvider();
+            var clienteModel = new MisCatalogosRevistasModel
+            {
+                PaisNombre = Util.GetPaisNombreByISO(userData.CodigoISO),
+                CampaniaActual = userData.CampaniaID.ToString(),
+                CampaniaAnterior = Util.AddCampaniaAndNumero(userData.CampaniaID, -1, userData.NroCampanias).ToString(),
+                CampaniaSiguiente = Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias).ToString(),
+                TieneSeccionRD = (revistaDigital.TieneRDC && !userData.TieneGND && !revistaDigital.EsSuscrita) || revistaDigital.TieneRDI,
+                TieneSeccionRevista = !revistaDigital.TieneRDC || !revistaDigital.EsActiva,
+                TieneGND = userData.TieneGND,
+                EsDispositivoMovil = EsDispositivoMovil()
+            };
+            clienteModel.Titulo = clienteModel.TieneSeccionRD || clienteModel.TieneSeccionRevista ? "Catálogos y Revistas" : "Catálogos";
+            clienteModel.CodigoRevistaActual = _issuuProvider.GetRevistaCodigoIssuu(clienteModel.CampaniaActual, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
+            clienteModel.CodigoRevistaAnterior = _issuuProvider.GetRevistaCodigoIssuu(clienteModel.CampaniaAnterior, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
+            clienteModel.CodigoRevistaSiguiente = _issuuProvider.GetRevistaCodigoIssuu(clienteModel.CampaniaSiguiente, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
+            clienteModel.PartialSectionBpt = _configuracionPaisDatosProvider.GetPartialSectionBptModel(Constantes.OrigenPedidoWeb.SectionBptDesktopCatalogo);
+
+            ViewBag.Piloto = _tablaLogica.ObtenerConfiguracion(userData.PaisID, Constantes.TablaLogica.PilotoCatalogoDigital)[0].Valor; ;
+            var urlQA = "http://ecatalogoqa.somosbelcorp.com/?cod={0}";
+            ViewBag.UrlCatalogoPiloto = demo == "1" ? GetUrlCatalogoPiloto(urlQA) : GetUrlCatalogoPiloto(Constantes.CatalogoPiloto.UrlBase);
+            ViewBag.EsConsultoraNueva = userData.EsConsultoraNueva;
+
             return View(clienteModel);
         }
 
@@ -571,7 +549,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var url = GetUrlCatalogoPiloto();
+                var url = GetUrlCatalogoPiloto(Constantes.CatalogoPiloto.UrlBase);
                 var urlImagenLogo = Globals.RutaCdn + "/ImagenesPortal/Iconos/logo.png";
                 var urlIconEmail = Globals.RutaCdn + "/ImagenesPortal/Iconos/mensaje_mail.png";
                 var urlIconTelefono = Globals.RutaCdn + "/ImagenesPortal/Iconos/celu_mail.png";
@@ -859,12 +837,12 @@ namespace Portal.Consultoras.Web.Controllers
             return campania >= campaniaInicio;
         }
 
-        private string GetUrlCatalogoPiloto()
+        private string GetUrlCatalogoPiloto(string urlPiloto)
         {
             var url = string.Format(Constantes.CatalogoPiloto.UrlParamEncrip, userData.CodigoISO, userData.CodigoConsultora);
             byte[] encbuff = Encoding.UTF8.GetBytes(url);
             var encrip = Convert.ToBase64String(encbuff);
-            return string.Format(Constantes.CatalogoPiloto.UrlBase, encrip);
+            return string.Format(urlPiloto, encrip);
         }
     }
 }
