@@ -21,40 +21,7 @@ namespace Portal.Consultoras.Web.Controllers
     {
         private readonly IssuuProvider _issuuProvider;
         private readonly ConfiguracionPaisDatosProvider _configuracionPaisDatosProvider;
-        protected Providers.TablaLogicaProvider _tablaLogica;
-
-        public ActionResult MisCatalogosYRevistas()
-        {
-            return View();
-        }
-
-        public ActionResult Index2(string marca = "", string demo = "0")
-        {
-            _tablaLogica = new Providers.TablaLogicaProvider();
-            var clienteModel = new MisCatalogosRevistasModel
-            {
-                PaisNombre = Util.GetPaisNombreByISO(userData.CodigoISO),
-                CampaniaActual = userData.CampaniaID.ToString(),
-                CampaniaAnterior = Util.AddCampaniaAndNumero(userData.CampaniaID, -1, userData.NroCampanias).ToString(),
-                CampaniaSiguiente = Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias).ToString(),
-                TieneSeccionRD = (revistaDigital.TieneRDC && !userData.TieneGND && !revistaDigital.EsSuscrita) || revistaDigital.TieneRDI,
-                TieneSeccionRevista = !revistaDigital.TieneRDC || !revistaDigital.EsActiva,
-                TieneGND = userData.TieneGND,
-                EsDispositivoMovil = EsDispositivoMovil()
-            };
-            clienteModel.Titulo = clienteModel.TieneSeccionRD || clienteModel.TieneSeccionRevista ? "Catálogos y Revistas" : "Catálogos";
-            clienteModel.CodigoRevistaActual = _issuuProvider.GetRevistaCodigoIssuu(clienteModel.CampaniaActual, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
-            clienteModel.CodigoRevistaAnterior = _issuuProvider.GetRevistaCodigoIssuu(clienteModel.CampaniaAnterior, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
-            clienteModel.CodigoRevistaSiguiente = _issuuProvider.GetRevistaCodigoIssuu(clienteModel.CampaniaSiguiente, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
-            clienteModel.PartialSectionBpt = _configuracionPaisDatosProvider.GetPartialSectionBptModel(Constantes.OrigenPedidoWeb.SectionBptDesktopCatalogo);
-            
-            ViewBag.Piloto = _tablaLogica.ObtenerConfiguracion(userData.PaisID, Constantes.TablaLogica.PilotoCatalogoDigital)[0].Valor; ;
-            var urlQA = "http://ecatalogoqa.somosbelcorp.com/?cod={0}";
-            ViewBag.UrlCatalogoPiloto = demo == "1" ? GetUrlCatalogoPiloto(urlQA) : GetUrlCatalogoPiloto(Constantes.CatalogoPiloto.UrlBase);
-            ViewBag.EsConsultoraNueva = userData.EsConsultoraNueva;
-            
-            return View(clienteModel);
-        }
+        protected Providers.TablaLogicaProvider _tablaLogica;    
 
         public MisCatalogosRevistasController()
         {
@@ -62,7 +29,9 @@ namespace Portal.Consultoras.Web.Controllers
             _configuracionPaisDatosProvider = new ConfiguracionPaisDatosProvider();
         }
 
-        public ActionResult Index(string marca = "")
+        /**********SE MANTENIENE EN CASO DE ROLLBACK**********/
+        /*
+        public ActionResult Index1(string marca = "")
         {
 
             if (EsDispositivoMovil())
@@ -98,6 +67,35 @@ namespace Portal.Consultoras.Web.Controllers
 
             ViewBag.CodigoISO = userData.CodigoISO;
             ViewBag.EsConsultoraNueva = userData.EsConsultoraNueva;
+            return View(clienteModel);
+        }
+        */
+
+        public ActionResult Index(string marca = "", string demo = "0")
+        {
+            _tablaLogica = new Providers.TablaLogicaProvider();
+            var clienteModel = new MisCatalogosRevistasModel
+            {
+                PaisNombre = Util.GetPaisNombreByISO(userData.CodigoISO),
+                CampaniaActual = userData.CampaniaID.ToString(),
+                CampaniaAnterior = Util.AddCampaniaAndNumero(userData.CampaniaID, -1, userData.NroCampanias).ToString(),
+                CampaniaSiguiente = Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias).ToString(),
+                TieneSeccionRD = (revistaDigital.TieneRDC && !userData.TieneGND && !revistaDigital.EsSuscrita) || revistaDigital.TieneRDI,
+                TieneSeccionRevista = !revistaDigital.TieneRDC || !revistaDigital.EsActiva,
+                TieneGND = userData.TieneGND,
+                EsDispositivoMovil = EsDispositivoMovil()
+            };
+            clienteModel.Titulo = clienteModel.TieneSeccionRD || clienteModel.TieneSeccionRevista ? "Catálogos y Revistas" : "Catálogos";
+            clienteModel.CodigoRevistaActual = _issuuProvider.GetRevistaCodigoIssuu(clienteModel.CampaniaActual, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
+            clienteModel.CodigoRevistaAnterior = _issuuProvider.GetRevistaCodigoIssuu(clienteModel.CampaniaAnterior, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
+            clienteModel.CodigoRevistaSiguiente = _issuuProvider.GetRevistaCodigoIssuu(clienteModel.CampaniaSiguiente, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
+            clienteModel.PartialSectionBpt = _configuracionPaisDatosProvider.GetPartialSectionBptModel(Constantes.OrigenPedidoWeb.SectionBptDesktopCatalogo);
+
+            ViewBag.Piloto = _tablaLogica.ObtenerConfiguracion(userData.PaisID, Constantes.TablaLogica.PilotoCatalogoDigital)[0].Valor; ;
+            var urlQA = "http://ecatalogoqa.somosbelcorp.com/?cod={0}";
+            ViewBag.UrlCatalogoPiloto = demo == "1" ? GetUrlCatalogoPiloto(urlQA) : GetUrlCatalogoPiloto(Constantes.CatalogoPiloto.UrlBase);
+            ViewBag.EsConsultoraNueva = userData.EsConsultoraNueva;
+
             return View(clienteModel);
         }
 
@@ -843,7 +841,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var url = string.Format(Constantes.CatalogoPiloto.UrlParamEncrip, userData.CodigoISO, userData.CodigoConsultora);
             byte[] encbuff = Encoding.UTF8.GetBytes(url);
-            var encrip = HttpServerUtility.UrlTokenEncode(encbuff);
+            var encrip = Convert.ToBase64String(encbuff);
             return string.Format(urlPiloto, encrip);
         }
     }
