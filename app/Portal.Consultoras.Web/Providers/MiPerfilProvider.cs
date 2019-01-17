@@ -118,6 +118,7 @@ namespace Portal.Consultoras.Web.Providers
 
             entidad.DireccionAnterior = entidad.DireccionAnterior ?? string.Empty;
             entidad.Referencia = entidad.Referencia ?? string.Empty;
+            entidad.ReferenciaAnterior = entidad.ReferenciaAnterior ?? string.Empty;
             return entidad;
         }
 
