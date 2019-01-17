@@ -390,18 +390,19 @@ var FichaModule = (function (config) {
         }
         else {
             estrategia = _localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
-            if ((typeof estrategia === "undefined" || estrategia === null) && _config.palanca === _codigoPalanca.OfertasParaMi) {
+            if (typeof estrategia !== "undefined" && estrategia !== null && _config.palanca === _codigoPalanca.OfertasParaMi) {
                 estrategia = _localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _codigoPalanca.Ganadoras);
             }
         }
+        
+        if (typeof estrategia === "undefined" || estrategia == null) return estrategia;
 
-        if (typeof estrategia !== "undefined" && estrategia !== null) {
-            _getComponentesAndUpdateEsMultimarca(estrategia);
-            _actualizarCodigoVariante(estrategia);
-            estrategia.ClaseBloqueada = "btn_desactivado_general";
-            estrategia.ClaseBloqueadaRangos = "contenedor_rangos_desactivado";
-            estrategia.RangoInputEnabled = "disabled";
-        }
+        _getComponentesAndUpdateEsMultimarca(estrategia);
+        _actualizarCodigoVariante(estrategia);
+        //
+        estrategia.ClaseBloqueada = "btn_desactivado_general";
+        estrategia.ClaseBloqueadaRangos = "contenedor_rangos_desactivado";
+        estrategia.RangoInputEnabled = "disabled";
 
         return estrategia;
     };
