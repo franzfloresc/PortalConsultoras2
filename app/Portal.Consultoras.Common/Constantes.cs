@@ -1278,7 +1278,7 @@ namespace Portal.Consultoras.Common
 
         public static class CatalogoPiloto
         {
-            public const string UrlBase = "http://catalogodigital.somosbelcorp.com/?cod={0}";
+            public const string UrlBase = "http://catalogodigital.somosbelcorp.com/";
             public const string UrlBaseQA = "http://ecatalogoqa.somosbelcorp.com/";
             public const string UrlParamEncrip = "iso={0}&consultant={1}";
             public const string UrlCatalogo = "{0}?cod={1}";
