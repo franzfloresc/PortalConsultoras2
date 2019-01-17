@@ -17,9 +17,16 @@
     }
 </style>
 
+<script>
+    var glbDispositivo = 3;
+</script>
+
 @{
     if (!mobileConfiguracion.EsAppMobile)
     {
+        <script>
+            glbDispositivo = 2;
+        </script>
         <div class="titulo_mobile">
             <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
             &nbsp;&nbsp;PENDIENTES
