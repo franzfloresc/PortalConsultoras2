@@ -1,9 +1,7 @@
-﻿using AutoMapper;
-using ClosedXML.Excel;
+﻿using ClosedXML.Excel;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceSAC;
-using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,7 +14,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class ReportePedidoCampaniaController : BaseController
+    public class ReportePedidoCampaniaController : BaseAdmController
     {
         #region Actions
         public async Task<ActionResult> Index()
@@ -122,19 +120,19 @@ namespace Portal.Consultoras.Web.Controllers
             return View();
         }
 
-        public JsonResult ObtenterCampaniasyRegionesPorPais(int PaisID)
-        {
-            IEnumerable<CampaniaModel> lst = DropDowListCampanias(PaisID);
-            IEnumerable<RegionModel> lstRegiones = _baseProvider.DropDownListRegiones(PaisID);
-            IEnumerable<ZonaModel> lstZonas = _baseProvider.DropDownListZonas(PaisID);
-
-            return Json(new
-            {
-                lista = lst,
-                lstRegiones = lstRegiones.OrderBy(x => x.Codigo),
-                listaZonas = lstZonas.OrderBy(x => x.Codigo)
-            }, JsonRequestBehavior.AllowGet);
-        }
+        //movido BaseAdm/ObtenerCampaniasZonasRegionesPorPais
+        //public JsonResult ObtenterCampaniasyRegionesPorPais(int PaisID)
+        //{
+        //    IEnumerable<CampaniaModel> lst = _zonificacionProvider.GetCampanias(PaisID);
+        //    IEnumerable<RegionModel> lstRegiones = _zonificacionProvider.GetRegiones(PaisID);
+        //    IEnumerable<ZonaModel> lstZonas = _zonificacionProvider.GetZonas(PaisID);
+        //    return Json(new
+        //    {
+        //        lista = lst,
+        //        lstRegiones = lstRegiones.OrderBy(x => x.Codigo),
+        //        listaZonas = lstZonas.OrderBy(x => x.Codigo)
+        //    }, JsonRequestBehavior.AllowGet);
+        //}
 
         public void LoadConsultorasCache(int paisId)
         {
@@ -142,30 +140,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 sv.LoadConsultoraCodigo(paisId);
             }
-        }
-
-        private IEnumerable<PaisModel> DropDowListPaises()
-        {
-            List<BEPais> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = userData.RolID == 2
-                    ? sv.SelectPaises().ToList()
-                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
-            }
-
-            return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
-        }
-
-        private IEnumerable<CampaniaModel> DropDowListCampanias(int paisId)
-        {
-            IList<BECampania> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = sv.SelectCampanias(paisId);
-            }
-
-            return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
         }
 
         public JsonResult GetConsultorasIds(int RegionID, int ZonaID, int rowCount, string vBusqueda)
@@ -314,7 +288,7 @@ namespace Portal.Consultoras.Web.Controllers
                                    a.CUV,
                                    a.CodigoProducto,
                                    a.UnidadesDemandadas,
-                                   (userData.PaisID == 4)? SeparadorMiles(Convert.ToDecimal(a.MontoDemandado)) : a.MontoDemandado,
+                                   (userData.PaisID == Constantes.PaisID.Colombia)? SeparadorMiles(Convert.ToDecimal(a.MontoDemandado)) : a.MontoDemandado,
                                    a.TipoOferta,
                                    a.Origen,
                                    a.FechaUltima
@@ -419,7 +393,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     else
                                         ws.Cell(row, col).Style.NumberFormat.Format = "@";
 
-                                    if (userData.PaisID == 4)
+                                    if (userData.PaisID == Constantes.PaisID.Colombia)
                                     {
                                         if (col == 6)
                                         {

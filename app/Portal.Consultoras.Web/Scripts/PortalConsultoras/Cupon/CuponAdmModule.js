@@ -133,7 +133,7 @@
         $.when(campaniasPromise).then(function (campaniasResponse) {
             if (checkTimeout(campaniasResponse)) {
                 $(elements.ddlCampania).empty();
-                listaCampanias = campaniasResponse.listaCampanias;
+                listaCampanias = campaniasResponse.lista;
                 $(elements.ddlCampania).append($('<option/>', { value: "", text: "-- Seleccionar --" }));
 
                 if (listaCampanias.length > 0) {

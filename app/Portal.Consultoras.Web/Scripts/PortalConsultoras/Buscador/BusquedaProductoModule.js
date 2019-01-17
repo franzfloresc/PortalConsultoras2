@@ -184,7 +184,7 @@
                     var imgProducto = element.attr('src');
                     var fichaProducto = element.closest('article');
 
-                    console.log(imgProducto);
+                    //console.log(imgProducto);
 
                     _funciones.GetSize(imgProducto, function (width, height) {
 
@@ -335,7 +335,7 @@
             return _localStorage;
         },
         mostrarUOcultarCriterios: function (filtroCriterio) {
-            console.log('filtroCriterio', filtroCriterio);
+            //console.log('filtroCriterio', filtroCriterio);
             if (filtroCriterio.length > 0) {
                 if (_config.isMobile) {
                     SetHandlebars(_elementos.scriptHandleBarCriterios, filtroCriterio, _elementos.criteriosBuscadorMobile);

@@ -12,7 +12,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class RVDigitalController : BaseController
+    public class RVDigitalController : BaseAdmController
     {
         readonly PaqueteDocumentarioProvider _paqueteDocumentarioProvider;
 
@@ -28,7 +28,7 @@ namespace Portal.Consultoras.Web.Controllers
             var oRVDigitalModel = new RVDigitalModel { listaCampania = _paqueteDocumentarioProvider.GetListCampaniaPaqueteDocumentario(codigoConsultora, userData.CodigoISO, out errorMessage) };
 
             ViewBag.ErrorDescripcion = errorMessage;
-            if (userData.PaisID == 4)
+            if (userData.PaisID == Constantes.PaisID.Colombia)
             {
                 ViewBag.PaisID = userData.PaisID;
                 using (var sv = new ContenidoServiceClient())
@@ -253,19 +253,17 @@ namespace Portal.Consultoras.Web.Controllers
             RVDigitalPaqueteDocumentarioModel model = new RVDigitalPaqueteDocumentarioModel
             {
                 PaisID = userData.PaisID,
-                listaPaises = DropDowListPaises()
+                listaPaises = DropDowListaPaises()
             };
 
             return View(model);
         }
 
-        private IEnumerable<PaisModel> DropDowListPaises()
+        private IEnumerable<PaisModel> DropDowListaPaises()
         {
-            IList<BEPais> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = sv.SelectPaises().ToList().FindAll(x => x.PaisID == userData.PaisID);
-            }
+            IList<BEPais> lst = new List<BEPais> {
+                _zonificacionProvider.GetPaisEntidad(userData.PaisID)
+            };
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }

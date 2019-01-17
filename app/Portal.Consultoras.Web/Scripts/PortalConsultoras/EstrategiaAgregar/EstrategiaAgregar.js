@@ -233,11 +233,11 @@ var EstrategiaAgregarModule = (function () {
         _config.CampaniaCodigo = $(elementosDiv.hdCampaniaCodigo).val() || _config.CampaniaCodigo;
 
         var $btnAgregar = $(event.target);
-        console.log($btnAgregar);
+        //console.log($btnAgregar);
         var origenPedidoWebEstrategia = getOrigenPedidoWeb($btnAgregar);
-        console.log(origenPedidoWebEstrategia);
+        //console.log(origenPedidoWebEstrategia);
         var estrategia = getEstrategia($btnAgregar, origenPedidoWebEstrategia);
-        console.log(estrategia);
+        //console.log(estrategia);
         if (estrategiaEstaBloqueada($btnAgregar, estrategia.CampaniaID)) {
             estrategia.OrigenPedidoWebEstrategia = origenPedidoWebEstrategia;
             getDivMsgBloqueado($btnAgregar, estrategia).show();
