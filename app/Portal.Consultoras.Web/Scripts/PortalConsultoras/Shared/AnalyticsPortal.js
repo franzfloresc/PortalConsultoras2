@@ -197,9 +197,9 @@ var AnalyticsPortalModule = (function () {
 
         origenEstructura.CodigoPalanca = origenEstructura.CodigoPalanca || "";
         var contendor = origenEstructura.Pagina == ConstantesModule.OrigenPedidoWebEstructura.Pagina.Contenedor
-                        || origenEstructura.Seccion == ConstantesModule.OrigenPedidoWebEstructura.Seccion.Ficha
-                        || origenEstructura.Seccion == ConstantesModule.OrigenPedidoWebEstructura.Seccion.CarruselVerMas
-                        || origenEstructura.CodigoPalanca != "";
+            || origenEstructura.Seccion == ConstantesModule.OrigenPedidoWebEstructura.Seccion.Ficha
+            || origenEstructura.Seccion == ConstantesModule.OrigenPedidoWebEstructura.Seccion.CarruselVerMas
+            || origenEstructura.CodigoPalanca != "";
 
         if (contendor) {
             return _texto.contenedor;
@@ -692,11 +692,11 @@ var AnalyticsPortalModule = (function () {
                         ? AnalyticsPortalModule.MarcaAnadirCarritoHomeBanner(null, codigoOrigenPedido, estrategia)
                         : AnalyticsPortalModule.MarcaAnadirCarritoHome(null, codigoOrigenPedido, estrategia);
                     break;
-                    // Inicio Analytics Oferta Miguel
+                // Inicio Analytics Oferta Miguel
                 case "Contenedor": AnalyticsPortalModule.MarcaAnadirCarrito(event, codigoOrigenPedido, estrategia); break;
                 case "Landing": AnalyticsPortalModule.MarcaAnadirCarrito(event, codigoOrigenPedido, estrategia); break;
                 case "Pedido": AnalyticsPortalModule.MarcaAnadirCarrito(event, codigoOrigenPedido, estrategia); break;
-                    // Fin Analytics Oferta Miguel
+                // Fin Analytics Oferta Miguel
             }
 
         } catch (e) {
@@ -880,6 +880,97 @@ var AnalyticsPortalModule = (function () {
                 'event': _evento.socialEvent,
                 'network': network,
                 'action': 'Compartir',
+                'label': label
+            });
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    var marcaFiltroPorCategoria = function (label) {
+        try {
+            dataLayer.push({
+                'event': _evento.virtualEvent,
+                'category': 'Resultados de Búsqueda',
+                'action': 'Filtrar por Categoría',
+                'label': label
+            });
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    var marcaFiltroPorMarca = function (label) {
+        try {
+            dataLayer.push({
+                'event': _evento.virtualEvent,
+                'category': 'Resultados de Búsqueda',
+                'action': 'Filtrar por Marca',
+                'label': label
+            });
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    var marcaFiltroPorPrecio = function (label) {
+        try {
+            dataLayer.push({
+                'event': _evento.virtualEvent,
+                'category': 'Resultados de Búsqueda',
+                'action': 'Filtrar por Precio',
+                'label': label
+            });
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    var marcaEliminarEtiqueta = function (label) {
+        try {
+            dataLayer.push({
+                'event': _evento.virtualEvent,
+                'category': 'Resultados de Búsqueda',
+                'action': 'Eliminar Filtro',
+                'label': label
+            });
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    var marcaLimpiarFiltros = function () {
+        try {
+            dataLayer.push({
+                'event': _evento.virtualEvent,
+                'category': 'Resultados de Búsqueda',
+                'action': 'Clic en Botón',
+                'label': 'Limpiar Filtros'
+            });
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    var marcaBotonFiltro = function () {
+        try {
+            dataLayer.push({
+                'event': _evento.virtualEvent,
+                'category': 'Resultados de Búsqueda',
+                'action': 'Clic en Botón',
+                'label': 'Filtrar'
+            });
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    var marcaBotonAplicarFiltro = function (label) {
+        try {
+            dataLayer.push({
+                'event': _evento.virtualEvent,
+                'category': 'Resultados de Búsqueda',
+                'action': 'Aplicar Filtros',
                 'label': label
             });
         } catch (e) {
@@ -2470,7 +2561,7 @@ var AnalyticsPortalModule = (function () {
             console.log(_texto.excepcion + e);
         }
     }
-    
+
     var marcaProductImpressionViewRecomendacionesMobile = function (data, index) {
         try {
 
@@ -2670,6 +2761,15 @@ var AnalyticsPortalModule = (function () {
         MarcaRecomendacionesFlechaSiguiente: marcaRecomendacionesFlechaSiguiente,
         MarcaRecomendacionesFlechaAnterior: marcaRecomendacionesFlechaAnterior,
         MarcaOcultarRecomendaciones: marcaOcultarRecomendaciones,
-        MarcaAnadirCarritoRecomendaciones: marcaAnadirCarritoRecomendaciones
+        MarcaAnadirCarritoRecomendaciones: marcaAnadirCarritoRecomendaciones,
+
+
+        MarcaFiltroPorCategoria: marcaFiltroPorCategoria,
+        MarcaFiltroPorMarca: marcaFiltroPorMarca,
+        MarcaFiltroPorPrecio: marcaFiltroPorPrecio,
+        MarcaEliminarEtiqueta: marcaEliminarEtiqueta,
+        MarcaLimpiarFiltros: marcaLimpiarFiltros,
+        MarcaBotonFiltro: marcaBotonFiltro,
+        MarcaBotonAplicarFiltro: marcaBotonAplicarFiltro
     }
 })();
