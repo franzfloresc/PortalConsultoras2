@@ -192,7 +192,7 @@ namespace Portal.Consultoras.Web.Providers
 
         public bool RequiereCierreSessionValidado(TablaLogicaProvider provider, int paisId)
         {
-            var list = provider.ObtenerConfiguracion(paisId, Constantes.TablaLogica.CierreSessionValidado);
+            var list = provider.ObtenerParametrosTablaLogica(paisId, Constantes.TablaLogica.CierreSessionValidado, true);
 
             var value = provider.ObtenerValorDesdeLista(list, Constantes.TablaLogicaDato.CierreSessionValidado);
 
