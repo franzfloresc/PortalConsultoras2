@@ -21,7 +21,6 @@
     margin-right:13px;
     margin-bottom:12px;
     background-color:rgba(0,0,0,.5);
-    padding:12px;
     flex: 0 0 47.95%;
     max-width: 47.95%;
     border-radius:4px;
@@ -42,6 +41,8 @@
     flex-direction: column;
     justify-content: flex-end;
     flex-wrap:nowrap;
+    padding:12px;
+    cursor:pointer;
 }
 
 .titulo_categoria_producto_busqueda,

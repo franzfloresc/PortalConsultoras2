@@ -10,6 +10,8 @@
 
 @section styles{
 
+    <link href="@Url.Content("~/Content/Css/Mobile/Buscador/categorias-productos.css")" rel="stylesheet">
+
     @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
     {
         <link href="@Url.Content("~/Content/Css/Site/Esika/buscador-filtros.css")" rel="stylesheet">
@@ -17,7 +19,6 @@
     else
     {
         <link href="@Url.Content("~/Content/Css/Site/Lbel/buscador-filtros.css")" rel="stylesheet">
-        <link href="@Url.Content("~/Content/Css/Mobile/Buscador/categorias-productos.css")" rel="stylesheet">
     }
 
 }
