@@ -294,7 +294,7 @@ function MostrarBarra(datax, destino) {
     var htmlPuntoLimite = '<div id="punto_{punto}" data-punto="{select}">'
                 + '<div class="monto_minimo_barra">'
                     //+ '<div class="bandera_marcador" style="margin-top: -6px;"></div>'
-                    + '<div style="width: {wText}px;position: absolute; color:#808080;" data-texto>{texto}</div>'
+                    + '<div style="margin-left: {marl}px;width: {wText}px;position: absolute; color:#808080;" data-texto>{texto}</div>'
                 + '</div>'
         + '</div>' 
     //og
@@ -681,23 +681,19 @@ function MostrarBarra(datax, destino) {
 
         }
         else {
-            //escala de desxuento
-            //if (document.getElementById('punto_0')) document.getElementById('punto_0').style = '';
-            //if (document.getElementById('punto_0')) document.getElementById('punto_0').className = 'EscalaDescuento';
-            //if (document.getElementById('punto_1')) document.getElementById('punto_1').className = 'EscalaDescuento';
-            //if (document.getElementById('punto_2')) document.getElementById('punto_2').className = 'EscalaDescuento';
-            //if (document.getElementById('punto_3') ) document.getElementById('punto_3').className = 'EscalaDescuento';
-            //if (document.getElementById('punto_4') ) document.getElementById('punto_4').className = 'EscalaDescuento';
-            document.getElementsByClassName('bandera_marcador')[0].style.display = 'block';
-            $(".barra_mensaje_meta_pedido").css('margin-bottom', '51px');
+
+
+
 
             for (var x = 0; x < dataBarra.ListaEscalaDescuento.length; x++) {
                 if (x==0) {
                     if (document.getElementById('punto_0')) document.getElementById('punto_0').style = '';
                     if (document.getElementById('punto_0')) document.getElementById('punto_0').className = 'EscalaDescuento';
                 } else
+                {
                     if (document.getElementById('punto_' + x.toString())) document.getElementById('punto_'+x.toString()).className = 'EscalaDescuento';
-               
+                  
+                }
             }
 
         }
@@ -1989,18 +1985,25 @@ function CalculoPosicionMinimoMaximoDestokp() {
 
             //var htmleRgaloTipinpoing = ' <div id="punto_4" data-punto="0" class="EscalaDescuento" style="float: left; left: 2.1818%;"><div class="monto_minimo_barra"><div style="width: 90px; position: absolute; " data-texto=""><div class=""><div class="tippingPoint"></div><div class="monto_meta_tippingPoint" style="display: none;">S/.210</div></div></div></div></div>';//top: -24px;
   
-            var htmlTipinpoing = '';
-            if (premioSelected.selected) {
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                               //style = "display: block;"                                    
-                htmlTipinpoing = '<div id="punto_'+dataBarra.ListaEscalaDescuento.length+'" data-punto="0" style="float: left;top:-52px; z-index: 200;left:2.1818%" class="EscalaDescuento"><div class="monto_minimo_barra"><div style="width:90px;position: relative;" data-texto=""><div class=""><a class="tippingPoint" href="javascript:;" onclick="javascript: cargarPopupEleccionRegalo();"></a><div class="monto_meta_tippingPoint">S/.370</div></div><div class="contenedor_circulos microEfecto_regaloPendienteEleccion"  ><div class="circulo-1 iniciarTransicion"></div><div class="circulo-2 iniciarTransicion"></div><div class="circulo-3 iniciarTransicion"></div></div></div></div></div>';
+          
 
-            } else  
-            {
-                htmlTipinpoing = '<div id="punto_'+dataBarra.ListaEscalaDescuento.length+'" data-punto="0" style="float: left;top:-52px; z-index: 200;left:2.1818%" class="EscalaDescuento"><div class="monto_minimo_barra"><div style="width:90px;position: relative;" data-texto=""><div class=""><a class="tippingPoint" href="javascript:;" onclick="javascript: cargarPopupEleccionRegalo();"></a><div class="monto_meta_tippingPoint">S/.370</div></div><div class="contenedor_circulos microEfecto_regaloPendienteEleccion" style="display: block;"><div class="circulo-1 iniciarTransicion"></div><div class="circulo-2 iniciarTransicion"></div><div class="circulo-3 iniciarTransicion"></div></div></div></div></div>';
- 
-            }
+             
+                var htmlTipinpoing = '';
+            if (tpElectivos.premioSelected == null) { 
+                    //style = "display: block;"                                    
+                    htmlTipinpoing = '<div id="punto_' + dataBarra.ListaEscalaDescuento.length + '" data-punto="0" style="float: left;top:-52px; z-index: 200;left:2.1818%" class="EscalaDescuento"><div class="monto_minimo_barra"><div style="width:90px;position: relative;" data-texto=""><div class=""><a class="tippingPoint" href="javascript:;" onclick="javascript: cargarPopupEleccionRegalo();"></a><div class="monto_meta_tippingPoint">S/.370</div></div><div class="contenedor_circulos microEfecto_regaloPendienteEleccion"  ><div class="circulo-1 iniciarTransicion"></div><div class="circulo-2 iniciarTransicion"></div><div class="circulo-3 iniciarTransicion"></div></div></div></div></div>';
 
-            document.getElementById('divBarraLimite').innerHTML = document.getElementById('divBarraLimite').innerHTML + htmlTipinpoing;
+                } else {
+                    htmlTipinpoing = '<div id="punto_' + dataBarra.ListaEscalaDescuento.length + '" data-punto="0" style="float: left;top:-52px; z-index: 200;left:2.1818%" class="EscalaDescuento"><div class="monto_minimo_barra"><div style="width:90px;position: relative;" data-texto=""><div class=""><a class="tippingPoint" href="javascript:;" onclick="javascript: cargarPopupEleccionRegalo();"></a><div class="monto_meta_tippingPoint">S/.370</div></div><div class="contenedor_circulos microEfecto_regaloPendienteEleccion" style="display: block;"><div class="circulo-1 iniciarTransicion"></div><div class="circulo-2 iniciarTransicion"></div><div class="circulo-3 iniciarTransicion"></div></div></div></div></div>';
+
+                }
+
+                document.getElementById('divBarraLimite').innerHTML = document.getElementById('divBarraLimite').innerHTML + htmlTipinpoing;
+             
+
+
+
+           
 
 
             montoMaximo = dataBarra.ListaEscalaDescuento[dataBarra.ListaEscalaDescuento.length - 1].MontoDesde + 500;
@@ -2145,19 +2148,25 @@ function CalculoPosicionMinimoMaximoDestokp() {
            
 
             if (montoTipipoing != 0) {
+                 
+                    var htmlTipinpoing = '';
 
-                var htmlTipinpoing = '';
-                if (premioSelected.selected) {
- 
-                    htmlTipinpoing = '<div id="punto_' + dataBarra.ListaEscalaDescuento.length+'" data-punto="0" style="float: left;top:-52px; z-index: 200;left:8%" class="EscalaDescuento"><div class="monto_minimo_barra"><div style="width:90px;position: relative;" data-texto=""><div class=""><a class="tippingPoint" href="javascript:;" onclick="javascript: cargarPopupEleccionRegalo();"></a><div class="monto_meta_tippingPoint">S/.370</div></div><div class="contenedor_circulos microEfecto_regaloPendienteEleccion" ><div class="circulo-1 iniciarTransicion"></div><div class="circulo-2 iniciarTransicion"></div><div class="circulo-3 iniciarTransicion"></div></div></div></div></div>';
+                 if (tpElectivos.premioSelected == null) {
 
-                } else {
+                        htmlTipinpoing = '<div id="punto_' + dataBarra.ListaEscalaDescuento.length + '" data-punto="0" style="float: left;top:-52px; z-index: 200;left:8%" class="EscalaDescuento"><div class="monto_minimo_barra"><div style="width:90px;position: relative;" data-texto=""><div class=""><a class="tippingPoint" href="javascript:;" onclick="javascript: cargarPopupEleccionRegalo();"></a><div class="monto_meta_tippingPoint">S/.370</div></div><div class="contenedor_circulos microEfecto_regaloPendienteEleccion" ><div class="circulo-1 iniciarTransicion"></div><div class="circulo-2 iniciarTransicion"></div><div class="circulo-3 iniciarTransicion"></div></div></div></div></div>';
 
-                    htmlTipinpoing = '<div id="punto_' + dataBarra.ListaEscalaDescuento.length+' data-punto="0" style="float: left;top:-52px; z-index: 200;left:8%" class="EscalaDescuento"><div class="monto_minimo_barra"><div style="width:90px;position: relative;" data-texto=""><div class=""><a class="tippingPoint" href="javascript:;" onclick="javascript: cargarPopupEleccionRegalo();"></a><div class="monto_meta_tippingPoint">S/.370</div></div><div class="contenedor_circulos microEfecto_regaloPendienteEleccion" style="display: block;"><div class="circulo-1 iniciarTransicion"></div><div class="circulo-2 iniciarTransicion"></div><div class="circulo-3 iniciarTransicion"></div></div></div></div></div>';
+                    } else {
 
-                }
+                        htmlTipinpoing = '<div id="punto_' + dataBarra.ListaEscalaDescuento.length + ' data-punto="0" style="float: left;top:-52px; z-index: 200;left:8%" class="EscalaDescuento"><div class="monto_minimo_barra"><div style="width:90px;position: relative;" data-texto=""><div class=""><a class="tippingPoint" href="javascript:;" onclick="javascript: cargarPopupEleccionRegalo();"></a><div class="monto_meta_tippingPoint">S/.370</div></div><div class="contenedor_circulos microEfecto_regaloPendienteEleccion" style="display: block;"><div class="circulo-1 iniciarTransicion"></div><div class="circulo-2 iniciarTransicion"></div><div class="circulo-3 iniciarTransicion"></div></div></div></div></div>';
 
-                document.getElementById('divBarraLimite').innerHTML = document.getElementById('divBarraLimite').innerHTML + htmlTipinpoing;
+                    }
+
+                    document.getElementById('divBarraLimite').innerHTML = document.getElementById('divBarraLimite').innerHTML + htmlTipinpoing;
+
+
+                 
+
+               
 
 
             }
@@ -2165,6 +2174,14 @@ function CalculoPosicionMinimoMaximoDestokp() {
 
         }
 
+        //aparicion de bandera
+        if (dataBarra.ListaEscalaDescuento.length > 1) {
+            if (mtoLogroBarra > dataBarra.ListaEscalaDescuento[0].MontoDesde * 1) {
+                document.getElementsByClassName('bandera_marcador')[0].style.display = 'block';
+                $(".barra_mensaje_meta_pedido").css('margin-bottom', '51px');
+            }
+
+        }
     }
 
 }
