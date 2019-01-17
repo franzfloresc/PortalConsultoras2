@@ -23653,9 +23653,11 @@ input[type='checkbox']:checked + span:after {
 .bandera_marcador {
     width: 21px;
     height: 44px;
-    float: left;
     margin-top: 4px;
     background: url('/Content/Images/Mobile/Esika/bandera.png') no-repeat;
+    position:absolute;
+    right: -14px;
+    bottom: 13px;
 }
 
 .BarraPosicion {
@@ -23671,7 +23673,6 @@ input[type='checkbox']:checked + span:after {
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     height: 14px;
-    overflow: hidden;
     border: solid 1px rgb(234,234,234);
 }
 
