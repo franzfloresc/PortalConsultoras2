@@ -294,7 +294,7 @@ function MostrarBarra(datax, destino) {
     var htmlPuntoLimite = '<div id="punto_{punto}" data-punto="{select}">'
                 + '<div class="monto_minimo_barra">'
                     //+ '<div class="bandera_marcador" style="margin-top: -6px;"></div>'
-                    + '<div style="margin-left: {marl}px;width: {wText}px;position: absolute; color:#808080;" data-texto>{texto}</div>'
+                    + '<div style="width: {wText}px;position: absolute; color:#808080;" data-texto>{texto}</div>'
                 + '</div>'
         + '</div>' 
     //og
