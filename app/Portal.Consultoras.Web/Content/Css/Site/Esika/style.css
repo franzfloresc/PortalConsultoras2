@@ -271,6 +271,10 @@ header {
     margin-top: 21px;
 }
 
+.nav_principal{
+    width:100%;
+}
+
 .nav_principal li:hover > ul {
     display: block;
 }
@@ -16831,7 +16835,7 @@ label.checkpop.c_on {
     text-align: center;
     float: left;
     padding-top: 15px;
-    padding-bottom: 15px;
+    padding-bottom: 13px;
     padding-left: 10px;
     padding-right: 10px;
     background-color:#e81c36;
@@ -31760,9 +31764,9 @@ div.motivoRechazo textarea {
         margin-left: 2.2%;
     }
 
-    .menu_socia_empresaria > .new_menu {
+    /*.menu_socia_empresaria > .new_menu {
         margin-left: 1% !important;
-    }
+    }*/
 }
 
 @media screen and (max-width: 1150px) {
