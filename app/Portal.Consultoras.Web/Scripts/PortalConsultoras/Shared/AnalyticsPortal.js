@@ -164,7 +164,7 @@ var AnalyticsPortalModule = (function () {
         Palanca: [
             { "Codigo": "00", "CodigoPalanca": "RD", "TextoList": "Ofertas Para Ti" },
             { "Codigo": "01", "CodigoPalanca": "SR", "TextoList": "Showroom" },
-            { "Codigo": "02", "CodigoPalanca": "LAN", "TextoList": "" },
+            { "Codigo": "02", "CodigoPalanca": "LAN", "TextoList": "Lanzamientos" },
             { "Codigo": "03", "CodigoPalanca": "ODD", "TextoList": "Oferta del Día" },
             { "Codigo": "04", "CodigoPalanca": "OF", "TextoList": "" },
             { "Codigo": "05", "CodigoPalanca": "GND", "TextoList": "GND" },
