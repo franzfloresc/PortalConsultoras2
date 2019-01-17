@@ -311,20 +311,17 @@
             }
             else
             {
-                if (Model.PaisID == 3) //Chile
+                if (Model.PaisID == Constantes.PaisID.Chile)
                 {
                     <a role="link" region="Central" parent="Mi Estado de Cuenta" title="Paga en línea" class="btn_paga_online_mobile" href="javascript:;" onclick="RedirectPagaEnLineaAnalytics();"> PAGA EN L&Iacute;NEA</a>
                 }
-                else if (Model.PaisID == 4) //Colombia
+                else if (Model.PaisID == Constantes.PaisID.Colombia)
                 {
                     <a role="link" region="Central" parent="Mi Estado de Cuenta" title="Paga en línea" class="btn_paga_online_mobile" href="https://www.zonapagos.com/t_belstar/pagos.asp" target="_blank"> PAGA EN L&Iacute;NEA</a>
                 }
-                else if (Model.PaisID == 12) //Puerto Rico
+                else if (Model.PaisID == Constantes.PaisID.PuertoRico)
                 {
                     <a role="link" region="Central" parent="Mi Estado de Cuenta" title="Paga en línea" class="btn_paga_online_mobile" href="@Url.Action("Index", "Paypal", new { area = "Mobile" })"> PAGA EN L&Iacute;NEA</a>
-                }
-                else if (Model.PaisID == 6 || Model.PaisID == 11)
-                {
                 }
             }
         </div>

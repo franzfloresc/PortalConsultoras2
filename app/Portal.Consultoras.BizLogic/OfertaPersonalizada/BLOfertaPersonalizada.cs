@@ -232,9 +232,12 @@ namespace Portal.Consultoras.BizLogic.OfertaPersonalizada
                     string logPrecio0 = string.Format("Log Precios0 => Fecha:{0} /Palanca:{1} /CodCampania:{2} /CUV(s):{3}", DateTime.Now, entidad.CodigoTipoEstrategia, entidad.CampaniaID, string.Join("|", listaSinPrecio2));
                     LogManager.SaveLog(new Exception(logPrecio0), "", entidad.PaisID);
                 }
-                catch (Exception ex) { throw ex; }
+                catch (Exception)
+                {
+                    //
+                }
             }
-            
+
             estrategiasResult.ForEach(estrategia =>
             {
                 if (estrategia.Precio <= estrategia.Precio2)

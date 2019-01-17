@@ -89,6 +89,7 @@ namespace Portal.Consultoras.Common
             public const int RepublicaDominicana = 13;
             public const int Venezuela = 14;
             public const int Brasil = 15;
+            public const int EstadosUnidos = 16;
         }
 
         public static class CodigosISOPais
@@ -107,6 +108,8 @@ namespace Portal.Consultoras.Common
             public const string Mexico = "MX";
             public const string PuertoRico = "PR";
             public const string Dominicana = "DO";
+            public const string Brasil = "BR";
+            public const string EstadosUnidos = "EU";
         }
 
         public static class ConfiguracionOferta

@@ -2120,7 +2120,7 @@ function EsValidoMontoTotalReserva() {
 }
 
 function EjecutarServicioPROL() {
-    console.log('EjecutarServicio PROL - inicio');
+    //console.log('EjecutarServicio PROL - inicio');
     PedidoProvider
         .PedidoEjecutarServicioProlPromise()
         .done(function (response) {
@@ -2133,11 +2133,11 @@ function EjecutarServicioPROL() {
             //Marcación Analytics
             arrayProductosGuardadoExito = response;
             AnalyticsPortalModule.MarcarGuardaTuPedido();
-            console.log('EjecutarServicio PROL - respuesta');
+            //console.log('EjecutarServicio PROL - respuesta');
 
             if (RespuestaEjecutarServicioPROL(response.data)) return;
 
-            console.log('Mostrar Mensaje Prol - antes');
+            //console.log('Mostrar Mensaje Prol - antes');
             MostrarMensajeProl(response, function () { return CumpleOfertaFinalMostrar(response); });
         })
         .fail(function (data, error) {
@@ -2147,7 +2147,7 @@ function EjecutarServicioPROL() {
 }
 
 function EjecutarServicioPROLSinOfertaFinal() {
-    console.log('EjecutarServicio PROL SinOfertaFinal');
+    //console.log('EjecutarServicio PROL SinOfertaFinal');
     AbrirSplash();
     jQuery.ajax({
         type: "POST",
@@ -2175,7 +2175,7 @@ function EjecutarServicioPROLSinOfertaFinal() {
 
 function RespuestaEjecutarServicioPROL(data, inicio) {
 
-    console.log('Respuesta EjecutarServicio PROL');
+    //console.log('Respuesta EjecutarServicio PROL');
     if (data.ErrorProl) {
         MostrarPopupErrorReserva(data.ListaObservacionesProl[0].Descripcion, data.AvisoProl);
         return true;
@@ -2194,7 +2194,7 @@ function RespuestaEjecutarServicioPROL(data, inicio) {
         mensajeBloqueante = false;
 
         if (data.ObservacionRestrictiva) {
-            console.log('Crear Popup Observaciones- antes');
+            //console.log('Crear Popup Observaciones- antes');
             CrearPopupObservaciones(data, inicio);
         }
         else {
@@ -2212,7 +2212,7 @@ function RespuestaEjecutarServicioPROL(data, inicio) {
 }
 
 function CrearPopupObservaciones(data, inicio) {
-    console.log('Crear Popup Observaciones- inicio');
+    //console.log('Crear Popup Observaciones- inicio');
     inicio = inicio == null || inicio == undefined ? true : inicio;
     var html = "<ul>";
     var msgDefault = "<li>Tu pedido tiene observaciones, por favor revísalo.</li>";
@@ -2287,12 +2287,12 @@ function ActualizarBtnGuardar(data) {
 }
 
 function MostrarMensajeProl(response, fnOfertaFinal) {
-    console.log('Mostrar Mensaje Prol - inicio');
+    //console.log('Mostrar Mensaje Prol - inicio');
     var cumpleOferta = fnOfertaFinal(response);
     if (cumpleOferta) return;
 
     if (!response.data.Reserva) {
-        console.log('Mostrar Mensaje Prol - mensaje');
+        //console.log('Mostrar Mensaje Prol - mensaje');
         ShowPopupObservacionesReserva();
         return;
     }
@@ -3744,17 +3744,17 @@ function ArmarPopupObsReserva(titulo, mensaje) {
 }
 
 function MostrarPopupErrorReserva(mensajePedido, esAviso) {
-    console.log('Mostrar PopupError Reserva - inicio');
+    //console.log('Mostrar PopupError Reserva - inicio');
     mostrarAlerta = typeof mostrarAlerta !== "undefined" ? mostrarAlerta : true;
 
     if (esAviso) ArmarPopupObsReserva("Aviso", mensajePedido);
     else ArmarPopupObsReserva("Error", "ERROR: " + mensajePedido);
-    console.log("Mostrar PopupError Reserva - fin");
+    //console.log("Mostrar PopupError Reserva - fin");
     ShowPopupObservacionesReserva();
 }
 
 function ShowPopupObservacionesReserva() {
-    console.log('ShowPopupObservacionesReserva - divObservacionesPROL');
+    //console.log('ShowPopupObservacionesReserva - divObservacionesPROL');
     showDialogSinScroll("divObservacionesPROL");
 }
 

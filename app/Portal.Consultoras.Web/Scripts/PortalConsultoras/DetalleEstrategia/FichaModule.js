@@ -276,7 +276,7 @@ var FichaModule = (function (config) {
                     dfd.resolve(data);
                 }
                 else {
-                    console.log(data);
+                    //console.log(data);
                     dfd.reject(data);
                 }
             },
@@ -363,7 +363,7 @@ var FichaModule = (function (config) {
 
     var _getEstrategia = function () {
         var estrategia;
-        console.log(_config);
+        //console.log(_config);
         if (_config.tieneSession === "True") {
             estrategia = JSON.parse($(_elementos.idDataEstrategia).attr(_atributos.dataEstrategia));
         }
@@ -562,7 +562,7 @@ var FichaModule = (function (config) {
         var estrategia = _estrategia;
 
         if (estrategia == null) {
-            console.log('location', 1);
+            //console.log('location', 1);
             window.location = baseUrl + (isMobile() ? "Mobile/" : "") + "Ofertas";
             return false;
         }

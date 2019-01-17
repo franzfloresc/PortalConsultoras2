@@ -14,11 +14,19 @@ using Portal.Consultoras.Web.Infraestructure.Validator.Phone;
 using AutoMapper;
 using System.ServiceModel;
 using Portal.Consultoras.Web.Infraestructure.Sms;
+using Portal.Consultoras.Web.Providers;
 
 namespace Portal.Consultoras.Web.Controllers
 {
     public class MiPerfilController : BaseController
     {
+        private readonly ZonificacionProvider _zonificacionProvider;
+
+        public MiPerfilController()
+        {
+            _zonificacionProvider = new ZonificacionProvider();
+        }
+
         public ActionResult Index()
         {
             BEUsuario beusuario;
@@ -49,12 +57,9 @@ namespace Portal.Consultoras.Web.Controllers
                 model.NombreArchivoContrato = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.Contrato_ActualizarDatos + userData.CodigoISO);
                 model.IndicadorConsultoraDigital = beusuario.IndicadorConsultoraDigital;
 
-                BEZona[] bezona;
-                using (var sv = new ZonificacionServiceClient())
-                {
-                    bezona = sv.SelectZonaById(userData.PaisID, userData.ZonaID);
-                }
-                model.NombreGerenteZonal = bezona.ToList().Count == 0 ? "" : bezona[0].NombreGerenteZona;
+                var bezona = _zonificacionProvider.GetZonaById(userData.PaisID, userData.ZonaID);
+               
+                model.NombreGerenteZonal = bezona.NombreGerenteZona;
 
                 if (beusuario.EMailActivo) model.CorreoAlerta = "";
                 if (!beusuario.EMailActivo && beusuario.EMail != "") model.CorreoAlerta = "Su correo aun no ha sido activado";

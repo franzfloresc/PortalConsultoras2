@@ -50,13 +50,12 @@ namespace Portal.Consultoras.Web.Providers
 
         public VariablesGeneralesPortalModel getBaseVariablesPortal(string CodigoISO, string Simbolo)
         {
-            var carpetaPais = Globals.UrlMatriz + "/" + CodigoISO;
             var baseVariablesGeneral = new VariablesGeneralesPortalModel
             {
                 UrlCompartir = Util.GetUrlCompartirFB(CodigoISO),
                 ExtensionImgSmall = Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall,
                 ExtensionImgMedium = Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium,
-                ImgUrlBase = ConfigCdn.GetUrlCdn(carpetaPais),
+                ImgUrlBase = ConfigCdn.GetUrlCdnMatriz(CodigoISO),
                 SimboloMoneda = Simbolo,
                 PaisISO = CodigoISO
             };
