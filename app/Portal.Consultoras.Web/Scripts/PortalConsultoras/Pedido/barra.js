@@ -10,7 +10,7 @@ var tpElectivos = {
     hasPremios: false,
     pedidoDetails: []
 };
-var banderaMarcador = $('.bandera_marcador');
+ 
 
 belcorp.barra = belcorp.barra || {};
 belcorp.barra.settings = belcorp.barra.settings || {};
@@ -18,9 +18,7 @@ belcorp.barra.settings = {
     isMobile: isMobile()
 }
 
-if (banderaMarcador.is(":visible")) {
-    $(".barra_mensaje_meta_pedido").css('margin-bottom', '51px');
-}
+ 
 
 function GetWidthTotalBase() {
     return $("[data-barra-width]").outerWidth();
@@ -690,7 +688,8 @@ function MostrarBarra(datax, destino) {
             //if (document.getElementById('punto_2')) document.getElementById('punto_2').className = 'EscalaDescuento';
             //if (document.getElementById('punto_3') ) document.getElementById('punto_3').className = 'EscalaDescuento';
             //if (document.getElementById('punto_4') ) document.getElementById('punto_4').className = 'EscalaDescuento';
-
+            document.getElementsByClassName('bandera_marcador')[0].style.display = 'block';
+            $(".barra_mensaje_meta_pedido").css('margin-bottom', '51px');
 
             for (var x = 0; x < dataBarra.ListaEscalaDescuento.length; x++) {
                 if (x==0) {
