@@ -1851,20 +1851,36 @@ function CalculoLlenadoBarraDestokp() {
 
 function CalculoLlenadoBarraEspacioLimiteDestokp() {
 
-    var montoMaximo = dataBarra.ListaEscalaDescuento[dataBarra.ListaEscalaDescuento.length-1].MontoDesde + 500;
-    var montoActual = mtoLogroBarra;
-    var AvancePorcentaje;
- 
-    for (var i = 0; i < dataBarra.ListaEscalaDescuento.length; i++) {
 
-        if (montoActual < dataBarra.ListaEscalaDescuento[i].MontoDesde) {
+    if (TieneMontoMaximo()) {
 
-            var montoMaximo1 = dataBarra.ListaEscalaDescuento[i].MontoDesde;
-            AvancePorcentaje = CalculoPorcentajeAvance(montoMaximo1, montoMaximo);
-            break;
-        }
+        var montoMaximo = dataBarra.MontoMaximo;
+        var montoActual = mtoLogroBarra;
+        AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMaximo);
 
     }
+    else
+    {
+        var montoMaximo = dataBarra.ListaEscalaDescuento[dataBarra.ListaEscalaDescuento.length - 1].MontoDesde + 500;
+        var montoActual = mtoLogroBarra;
+        var AvancePorcentaje;
+
+        for (var i = 0; i < dataBarra.ListaEscalaDescuento.length; i++) {
+
+            if (montoActual < dataBarra.ListaEscalaDescuento[i].MontoDesde) {
+
+                var montoMaximo1 = dataBarra.ListaEscalaDescuento[i].MontoDesde;
+                AvancePorcentaje = CalculoPorcentajeAvance(montoMaximo1, montoMaximo);
+                break;
+            }
+
+        }
+
+
+     }
+
+
+ 
 
     //if (montoActual < dataBarra.ListaEscalaDescuento[0].MontoDesde) {
 
