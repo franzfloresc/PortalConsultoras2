@@ -77,17 +77,13 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         }
 
         [HttpGet]
-        public JsonResult JsonConsultarEstrategias(string tipoOrigenEstrategia = "")
+        public JsonResult HomePedidoObtenerProductos(string tipoOrigenEstrategia = "")
         {
             var model = new EstrategiaOutModel();
             try
             {
                 var isMobile = IsMobile();
-                var codAgrupa = (revistaDigital.TieneRDC && revistaDigital.EsActiva)
-                    || (revistaDigital.TieneRDC && revistaDigital.ActivoMdo) ?
-                    Constantes.TipoEstrategiaCodigo.RevistaDigital : Constantes.TipoEstrategiaCodigo.OfertaParaTi;
-
-                var listModel = _ofertaPersonalizadaProvider.ConsultarEstrategiasHomePedido(isMobile, userData, codAgrupa);
+                var listModel = _ofertaPersonalizadaProvider.ConsultarEstrategiasHomePedido(isMobile, userData);
 
                 model.CodigoEstrategia = _revistaDigitalProvider.GetCodigoEstrategia();
                 model.Consultora = userData.Sobrenombre;
@@ -96,22 +92,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                     (tipoOrigenEstrategia == "2" ? "ENCUENTRA OFERTAS, BONIFICACIONES Y LANZAMIENTOS DE LAS 3 MARCAS"
                     : "ENCUENTRA LOS PRODUCTOS QUE TUS CLIENTES BUSCAN HASTA 65% DE DSCTO.");
 
-                if (model.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.RevistaDigital)
-                {
-                    model.OrigenPedidoWeb = tipoOrigenEstrategia == "1" ? Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiCarrusel
-                        : tipoOrigenEstrategia == "11" ? Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTiCarrusel
-                        : tipoOrigenEstrategia == "2" ? Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTiCarrusel
-                        : tipoOrigenEstrategia == "21" ? Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTiCarrusel
-                        : (Request.UrlReferrer != null && isMobile) ? Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTiCarrusel : 0;
-                }
-                else
-                {
-                    model.OrigenPedidoWeb = tipoOrigenEstrategia == "1" ? Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiCarrusel
-                   : tipoOrigenEstrategia == "11" ? Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTiCarrusel
-                   : tipoOrigenEstrategia == "2" ? Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTiCarrusel
-                   : tipoOrigenEstrategia == "21" ? Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTiCarrusel
-                   : (Request.UrlReferrer != null && isMobile) ? Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTiCarrusel : 0;
-                }
+                model.OrigenPedidoWeb = HomePedidoObtenerProductos_OrigenPedidoWeb(model, tipoOrigenEstrategia, isMobile);
 
                 var listaPedido = _pedidoWebProvider.ObtenerPedidoWebSetDetalleAgrupado(0);
 
@@ -128,6 +109,31 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 
             return Json(model, JsonRequestBehavior.AllowGet);
         }
+
+        private int HomePedidoObtenerProductos_OrigenPedidoWeb(EstrategiaOutModel model, string tipoOrigenEstrategia, bool isMobile)
+        {
+            switch (tipoOrigenEstrategia)
+            {
+                case "1":
+                    model.OrigenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiCarrusel;
+                    break;
+                case "11":
+                    model.OrigenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTiCarrusel;
+                    break;
+                case "2":
+                    model.OrigenPedidoWeb = Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTiCarrusel;
+                    break;
+                case "21":
+                    model.OrigenPedidoWeb = Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTiCarrusel;
+                    break;
+                default:
+                    model.OrigenPedidoWeb = (Request.UrlReferrer != null && isMobile) ? Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTiCarrusel : 0;
+                    break;
+            }
+
+            return model.OrigenPedidoWeb;
+        }
+
 
         [HttpGet]
         public JsonResult BSObtenerOfertas()
