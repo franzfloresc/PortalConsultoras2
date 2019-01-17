@@ -83,6 +83,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             try
             {
                 var isMobile = IsMobile();
+
                 var listModel = _ofertaPersonalizadaProvider.ConsultarEstrategiasHomePedido(isMobile, userData);
 
                 model.CodigoEstrategia = _revistaDigitalProvider.GetCodigoEstrategia();
@@ -304,48 +305,34 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         {
             try
             {
-                if (tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.MGObtenerProductos)
+                switch (tipoConsulta)
                 {
-                    var sessionMg = SessionManager.MasGanadoras.GetModel();
-                    if (sessionMg.TieneLanding)
-                    {
-                        var seccionesContenedor = _configuracionOfertasHomeProvider.ObtenerConfiguracionSeccion(revistaDigital, IsMobile());
-                        var entConf = seccionesContenedor.FirstOrDefault(s => s.Codigo == Constantes.ConfiguracionPais.MasGanadoras) ?? new ConfiguracionSeccionHomeModel();
-                        var cantidad = entConf.CantidadMostrar;
-                        if (cantidadTotal <= cantidad)
+                    case Constantes.TipoConsultaOfertaPersonalizadas.MGObtenerProductos:
                         {
-                            sessionMg.TieneLanding = false;
-                            SessionManager.MasGanadoras.SetModel(sessionMg);
+                            var session = SessionManager.MasGanadoras.GetModel();
+                            var tieneLanding = ActualizarSession_TieneLanding(session.TieneLanding, cantidadTotal);
+                            if (!tieneLanding)
+                            {
+                                session.TieneLanding = tieneLanding;
+                                SessionManager.MasGanadoras.SetModel(session);
+                            }
+
+                            break;
                         }
-                    }
-                }
-                else if (tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.SRObtenerProductos)
-                {
-                    var session = SessionManager.ShowRoom;
-                    if (session.TieneLanding)
-                    {
-                        var seccionesContenedor = _configuracionOfertasHomeProvider.ObtenerConfiguracionSeccion(revistaDigital, IsMobile());
-                        var entConf = seccionesContenedor.FirstOrDefault(s => s.Codigo == Constantes.ConfiguracionPais.ShowRoom) ?? new ConfiguracionSeccionHomeModel();
-                        var cantidad = entConf.CantidadMostrar;
-                        if (cantidadTotal <= cantidad)
+
+                    case Constantes.TipoConsultaOfertaPersonalizadas.SRObtenerProductos:
                         {
-                            session.TieneLanding = false;
+                            var session = SessionManager.ShowRoom;
+                            session.TieneLanding = ActualizarSession_TieneLanding(session.TieneLanding, cantidadTotal);
+                            break;
                         }
-                    }
-                }
-                else if (tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.RDObtenerProductos)
-                {
-                    var session = SessionManager.GetRevistaDigital();
-                    if (session.TieneLanding)
-                    {
-                        var seccionesContenedor = _configuracionOfertasHomeProvider.ObtenerConfiguracionSeccion(revistaDigital, IsMobile());
-                        var entConf = seccionesContenedor.FirstOrDefault(s => s.Codigo == Constantes.ConfiguracionPais.RevistaDigital) ?? new ConfiguracionSeccionHomeModel();
-                        var cantidad = entConf.CantidadMostrar;
-                        if (cantidadTotal <= cantidad)
+
+                    case Constantes.TipoConsultaOfertaPersonalizadas.RDObtenerProductos:
                         {
-                            session.TieneLanding = false;
+                            var session = SessionManager.GetRevistaDigital();
+                            session.TieneLanding = ActualizarSession_TieneLanding(session.TieneLanding, cantidadTotal);
+                            break;
                         }
-                    }
                 }
             }
             catch (Exception ex)
@@ -353,6 +340,22 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO, tipoConsulta.ToString());
             }
         }
+
+        private bool ActualizarSession_TieneLanding(bool tieneLanding, int cantidadTotal)
+        {
+            if (tieneLanding)
+            {
+                var seccionesContenedor = _configuracionOfertasHomeProvider.ObtenerConfiguracionSeccion(revistaDigital, IsMobile());
+                var entConf = seccionesContenedor.FirstOrDefault(s => s.Codigo == Constantes.ConfiguracionPais.RevistaDigital) ?? new ConfiguracionSeccionHomeModel();
+                var cantidad = entConf.CantidadMostrar;
+                if (cantidadTotal <= cantidad)
+                {
+                    tieneLanding = false;
+                }
+            }
+            return tieneLanding;
+        }
+
 
         #region Oferta Final
 
