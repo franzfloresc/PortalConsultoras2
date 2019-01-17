@@ -191,10 +191,7 @@ function MostrarBarra(datax, destino) {
     }
     mtoLogroBarra = vLogro;
 
-    if (isTippingPointSuperado()) {
-
-        agregarPremioDefault();
-    }
+    if (isTippingPointSuperado()) agregarPremioDefault();
 
     listaLimite = listaLimite || new Array();
     if (listaLimite.length == 0)
@@ -573,16 +570,8 @@ function MostrarBarra(datax, destino) {
     }
     var tipoMensaje = listaLimite[indPuntoLimite].tipoMensaje;
     tipoMensaje += vLogro >= vLimite ? "Supero" : "";
-    if (vLogro < mn) {
-        tipoMensaje = "MontoMinimo";
-    }
-
+    if (vLogro < mn) tipoMensaje = "MontoMinimo";
     tipoMensaje += belcorp.barra.settings.isMobile ? 'Mobile' : '';
-
-    var tpRegaloMobileShow = tp > 0 && dataBarra.TippingPointBarra.Active && belcorp.barra.settings.isMobile;
-    if (tpRegaloMobileShow && vLogro < tp) {
-        tipoMensaje = "TippingPointMobile";
-    }
 
     $('#montoPremioMeta').html(variablesPortal.SimboloMoneda + " " + dataBarra.TippingPointStr);
     if (belcorp.barra.settings.isMobile) {//V&& tp > 0  OG
