@@ -445,6 +445,7 @@ namespace Portal.Consultoras.Web.Providers
                     var lstTmp = ConsultarEstrategiasPorTipo(esMobile, Constantes.TipoEstrategiaCodigo.RevistaDigital, campaniaId, false, Constantes.MasGanadoras.ObtenerOpmSoloForzadasMG1);
                     listEstrategia.AddRange(lstTmp.Where(x => x.FlagRevista == Constantes.FlagRevista.Valor2).OrderBy(x => x.Orden));
                     listEstrategia.AddRange(lstTmp.Where(x => x.FlagRevista != Constantes.FlagRevista.Valor2).OrderBy(x => x.Orden));
+                    listEstrategia = listEstrategia.OrderBy(x => x.TieneStock, false).ToList();
                     break;
             }
 
@@ -553,8 +554,6 @@ namespace Portal.Consultoras.Web.Providers
                 listEstrategia = new List<ServiceOferta.BEEstrategia>();
             }
 
-
-            //return _consultaProlProvider.ActualizarEstrategiaStockPROL(listEstrategia, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora);
             return listEstrategia;
         }
 
