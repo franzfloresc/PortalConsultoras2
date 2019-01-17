@@ -276,12 +276,28 @@
         }
     };
     var _eventos = {
-
+        MarcarFiltros: function (data, filtroSeleccionado) {
+            switch (data[0]) {
+                case 'cat':
+                    if (!(typeof AnalyticsPortalModule === 'undefined'))
+                        AnalyticsPortalModule.MarcaFiltroPorCategoria(filtroSeleccionado.NombreFiltro);
+                    break;
+                case 'mar':
+                    if (!(typeof AnalyticsPortalModule === 'undefined'))
+                        AnalyticsPortalModule.MarcaFiltroPorMarca(filtroSeleccionado.NombreFiltro);
+                    break;
+                case 'pre':
+                    if (!(typeof AnalyticsPortalModule === 'undefined'))
+                        AnalyticsPortalModule.MarcaFiltroPorPrecio(filtroSeleccionado.NombreFiltro);
+                    break;
+            }
+        },
         EliminarEtiquetaCriterioElegido: function (e) {
             e.preventDefault();
 
             var divPadre = $(this).parents("[data-item='buscadorCriterios']").eq(0);
             var idFiltro = $(divPadre).find(".CriteriosFiltrosId").val();
+            var filtroLabel = $(divPadre).find(".CriteriosFiltrosLabel").val();
 
             var filtroCriterio = _funciones.quitarFiltroMarcado(idFiltro)
 
@@ -293,6 +309,11 @@
 
             var etiquetaCriterioPorEliminar = $(this).parents('.etiqueta__criterioElegido');
             etiquetaCriterioPorEliminar.fadeOut(70);
+
+            if (!(typeof AnalyticsPortalModule === 'undefined'))
+                AnalyticsPortalModule.MarcaEliminarEtiqueta(filtroLabel);
+            break;
+
 
             if (_config.isMobile) {
                 var capturarAnchoEtiquetaPorEliminarMobile = etiquetaCriterioPorEliminar.outerWidth() + 10;
@@ -324,6 +345,11 @@
                 _elementos.contenedorEtiquetas.find('.etiqueta__criterioElegido').fadeOut(70);
                 $(this).fadeOut(70);
             }
+
+            if (!(typeof AnalyticsPortalModule === 'undefined'))
+                AnalyticsPortalModule.MarcaLimpiarFiltros();
+
+
             setTimeout(function () {
                 _elementos.contenedorEtiquetas.find('.etiqueta__criterioElegido').remove();
                 if (_elementos.contenedorEtiquetas.find('.etiqueta__criterioElegido').length == 0) {
@@ -420,6 +446,10 @@
                 $(_elementos.filtroBtnMobileWrapper).delay(100);
                 $(_elementos.filtroBtnMobileWrapper).addClass('filtro__btn__mobile__wrapper--fixed');
             }
+
+            if (!(typeof AnalyticsPortalModule === 'undefined'))
+                AnalyticsPortalModule.MarcaBotonFiltro();
+
             setTimeout(function () {
                 _funciones.AnchoContenedorEtiquetasCriteriosElegidosMobile();
             }, 150);
@@ -434,6 +464,10 @@
                 $(_elementos.filtroBtnMobileWrapper).removeClass('filtro__btn__mobile__wrapper--fixed');
                 $(_elementos.preCargaFiltros).css({ 'width': '', 'max-width': '' });
             }
+
+            //if (!(typeof AnalyticsPortalModule === 'undefined'))
+            //    AnalyticsPortalModule.MarcaBotonAplicarFiltro();
+
             $(_elementos.backgroundAlMostrarFiltrosMobile).fadeOut(100);
             setTimeout(function () {
                 $(_elementos.layoutContent).css({ 'z-index': '2' });
@@ -459,6 +493,10 @@
         },
         LimpiarFiltros: function () {
             $(_elementos.filtroCheckbox).removeAttr('checked');
+
+            if (!(typeof AnalyticsPortalModule === 'undefined'))
+                AnalyticsPortalModule.MarcaLimpiarFiltros();
+
         },
         ScrollCargarProductos: function () {
             _config.cargandoProductos = true;
@@ -537,6 +575,11 @@
                 Max: max
             };
 
+            _eventos.MarcarFiltros(splited, filtroSeleccionado);
+
+            //console.log(splited);
+            //console.log(filtroSeleccionado,);
+
             var seleccionados = get_local_storage(_config.filtrosLocalStorage);
             var opcionesFiltros = [];
 
@@ -550,7 +593,7 @@
                     break;
                 }
             }
-            
+
             var element = $('#' + idFiltro);
             var criterio = $('#criterio' + idFiltro);
 
