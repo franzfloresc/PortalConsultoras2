@@ -482,36 +482,8 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 
                 if (esFacturacion)
                 {
-                    var txtBuil = new StringBuilder();
-
-                    foreach (var beProducto in listaProduto)
-                    {
-                        if (!string.IsNullOrEmpty(beProducto.CodigoProducto))
-                        {
-                            txtBuil.Append(beProducto.CodigoProducto + "|");
-                        }
-                    }
-
-                    var codigoSap = txtBuil.ToString();
-                    codigoSap = codigoSap == "" ? "" : codigoSap.Substring(0, codigoSap.Length - 1);
-
-                    try
-                    {
-                        if (!string.IsNullOrEmpty(codigoSap))
-                        {
-                            using (var sv = new wsConsulta())
-                            {
-                                sv.Url = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.RutaServicePROLConsultas);
-                                listaTieneStock = sv.ConsultaStock(codigoSap, userData.CodigoISO).ToList();
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-
-                        listaTieneStock = new List<Lista>();
-                    }
+                    var codigoSap = SugeridosObtenerProductos_Sap(listaProduto);
+                    listaTieneStock = SugeridosObtenerProductos_ConsultaStock(codigoSap);
                 }
 
                 foreach (var beProducto in listaProduto)
@@ -563,6 +535,46 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             }
 
             return Json(listaProductoModel, JsonRequestBehavior.AllowGet);
+        }
+
+        private string SugeridosObtenerProductos_Sap(List<ServiceODS.BEProducto> listaProduto)
+        {
+            var txtBuil = new StringBuilder();
+
+            foreach (var beProducto in listaProduto)
+            {
+                if (!string.IsNullOrEmpty(beProducto.CodigoProducto))
+                {
+                    txtBuil.Append(beProducto.CodigoProducto + "|");
+                }
+            }
+
+            var codigoSap = txtBuil.ToString();
+            codigoSap = codigoSap == "" ? "" : codigoSap.Substring(0, codigoSap.Length - 1);
+
+            return codigoSap;
+        }
+
+        private List<Lista> SugeridosObtenerProductos_ConsultaStock(string codigoSap)
+        {
+            var listaTieneStock = new List<Lista>();
+            try
+            {
+                if (!string.IsNullOrEmpty(codigoSap))
+                {
+                    using (var sv = new wsConsulta())
+                    {
+                        sv.Url = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.RutaServicePROLConsultas);
+                        listaTieneStock = sv.ConsultaStock(codigoSap, userData.CodigoISO).ToList();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                listaTieneStock = new List<Lista>();
+            }
+            return listaTieneStock;
         }
 
         #endregion
