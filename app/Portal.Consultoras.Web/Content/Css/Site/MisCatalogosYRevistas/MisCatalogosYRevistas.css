@@ -94,7 +94,7 @@ hr{
 .info__pasos--parteSuperior span,
 .info__pasos--parteInferior span
 {
-    font-size:24px;
+    font-size:22px;
 }
 
 .info__pasos--parteSuperior span{
@@ -148,7 +148,7 @@ hr{
 .compartir__catalogo__area,
 .btn__compartir
 {
-    max-width:350px;
+    max-width:208px;
 }
 
 .btn__compartir {
@@ -174,10 +174,6 @@ hr{
 
 .btn__compartir:hover{
     opacity:0.8;
-}
-
-.btn__compartir--slider{
-    max-width:208px;
 }
 
 .btn__compartir--slider + .opciones__compartir__catalogos{
@@ -340,7 +336,7 @@ hr{
     background-color: #FFF;
     width:420px;
     position:absolute;
-    left: -29px;
+    left: -100px;
     bottom: 55px;
     padding:20px 27px;
     height: 72px;
