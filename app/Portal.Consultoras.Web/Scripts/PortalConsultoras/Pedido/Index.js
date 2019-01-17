@@ -173,7 +173,7 @@ $(document).ready(function () {
                 .appendTo(ul);
     };
 
-    $("#txtCUV").keyup(function (evt) {        
+    $("#txtCUV").keyup(function (evt) {
 
         $("#txtCantidad").removeAttr("disabled");
         $("#txtCantidad").val("");
@@ -191,7 +191,7 @@ $(document).ready(function () {
         } else {
             $("#divProductoAgotadoFinal").fadeOut(100);
             $("#hdfCUV").val("");
-            $("#divObservaciones").html("");            
+            $("#divObservaciones").html("");
         }
     });
 
@@ -1777,58 +1777,64 @@ function CargarAutocomplete() {
     var array = $(".classClienteNombre");
     if (array.length === 0)
         return false;
-    $(array).focus(function () {
-        if (HorarioRestringido())
-            this.blur();
-    });
-    $(array).autocomplete({
-        source: baseUrl + "Pedido/AutocompleteByClienteListado",
-        minLength: 4,
-        select: function (event, ui) {
-            if (ui.item.ClienteID != 0) {
-                $(this).val(ui.item.Nombre);
-
-                var rowElement = $(this).closest(".contenido_ingresoPedido");
-                currentInputClienteID = $(rowElement).find(".hdfLPCli");
-                currentInputClienteNombre = $(rowElement).find(".hdfLPCliDes");
-
-                $(currentInputClienteID).val(ui.item.ClienteID);
-                $(currentInputClienteNombre).val(ui.item.Nombre);
-
-                currentInputEdit = $(this);
-                currentClienteEdit = null;
-
-                if (ui.item.TieneTelefono == 0) {
-                    currentClienteEdit = ui.item;
-
-                    showClienteDetalle(ui.item, function (cliente) {
-                        $(currentInputClienteID).val(cliente.ClienteID);
-                        $(currentInputClienteNombre).val(cliente.Nombre);
-                        $(currentInputEdit).val(cliente.Nombre);
-
-                        $(currentInputEdit).blur();
-
-                    }, function () {
-                        CargarDetallePedido();
-                    });
-                }
-            }
-
-            isShown = false;
-            event.preventDefault();
-            return false;
-        }
-    }).data("autocomplete")._renderItem = function (ul, item) {
-        ul.mouseover(function () {
-            isShown = true;
-        }).mouseout(function () {
-            isShown = false;
+    //INI EINCA SALUD-74 17-01-2019 Registrando todos los eventos de los elementos en el DOM
+    array.each(function () {
+        $(this).focus(function () {
+            if (HorarioRestringido())
+                this.blur();
         });
-        return $("<li></li>")
-            .data("item.autocomplete", item)
-            .append("<a>" + item.Nombre + "</a>")
-            .appendTo(ul);
-    };
+
+        $(this).autocomplete({
+            source: baseUrl + "Pedido/AutocompleteByClienteListado",
+            minLength: 4,
+            select: function (event, ui) {
+                if (ui.item.ClienteID != 0) {
+                    $(this).val(ui.item.Nombre);
+
+                    var rowElement = $(this).closest(".contenido_ingresoPedido");
+                    currentInputClienteID = $(rowElement).find(".hdfLPCli");
+                    currentInputClienteNombre = $(rowElement).find(".hdfLPCliDes");
+
+                    $(currentInputClienteID).val(ui.item.ClienteID);
+                    $(currentInputClienteNombre).val(ui.item.Nombre);
+
+                    currentInputEdit = $(this);
+                    currentClienteEdit = null;
+
+                    if (ui.item.TieneTelefono == 0) {
+                        currentClienteEdit = ui.item;
+
+                        showClienteDetalle(ui.item, function (cliente) {
+                            $(currentInputClienteID).val(cliente.ClienteID);
+                            $(currentInputClienteNombre).val(cliente.Nombre);
+                            $(currentInputEdit).val(cliente.Nombre);
+
+                            $(currentInputEdit).blur();
+
+                        }, function () {
+                            CargarDetallePedido();
+                        });
+                    }
+                }
+
+                isShown = false;
+                event.preventDefault();
+                return false;
+            }
+        }).data("autocomplete")._renderItem = function (ul, item) {
+            ul.mouseover(function () {
+                isShown = true;
+            }).mouseout(function () {
+                isShown = false;
+            });
+            return $("<li></li>")
+                .data("item.autocomplete", item)
+                .append("<a>" + item.Nombre + "</a>")
+                .appendTo(ul);
+        };
+    });
+
+    //FIN EINCA SALUD-74 17-01-2019 Registrando todos los eventos de los elementos en el DOM
 }
 
 function CalcularTotal() {
@@ -3314,12 +3320,12 @@ function CargarProductoAgotados(identificador) {
         CargarFiltrosProductoAgotados();
 
     var data =
-        {
-            cuv: $("#producto-faltante-busqueda-cuv").val(),
-            descripcion: $("#producto-faltante-busqueda-descripcion").val(),
-            categoria: $("#ddlCategoriaProductoAgotado").val() == null ? "" : $("#ddlCategoriaProductoAgotado").val(),
-            revista: $("#ddlCatalogoRevistaProductoAgotado").val() == "" ? "" : $("#ddlCatalogoRevistaProductoAgotado option:selected").text()
-        };
+    {
+        cuv: $("#producto-faltante-busqueda-cuv").val(),
+        descripcion: $("#producto-faltante-busqueda-descripcion").val(),
+        categoria: $("#ddlCategoriaProductoAgotado").val() == null ? "" : $("#ddlCategoriaProductoAgotado").val(),
+        revista: $("#ddlCatalogoRevistaProductoAgotado").val() == "" ? "" : $("#ddlCatalogoRevistaProductoAgotado option:selected").text()
+    };
 
     AbrirSplash();
     jQuery.ajax({
@@ -3612,13 +3618,13 @@ function InsertarDemandaTotalReemplazoSugerido(cuvSugerido, precio, cantidad, es
     var _cuvprecio = esAceptado == true ? precio : DecimalToStringFormat($("#txtPrecioR").val());
     waitingDialog({});
     var model =
-        {
-            CUV: cuvbuscado,
-            CUVSugerido: cuvSugerido,
-            PrecioUnidad: _cuvprecio,
-            Cantidad: cantidad,
-            CuvEsAceptado: esAceptado
-        };
+    {
+        CUV: cuvbuscado,
+        CUVSugerido: cuvSugerido,
+        PrecioUnidad: _cuvprecio,
+        Cantidad: cantidad,
+        CuvEsAceptado: esAceptado
+    };
 
     jQuery.ajax({
         type: "POST",
