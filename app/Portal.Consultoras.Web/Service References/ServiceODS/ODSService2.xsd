@@ -805,42 +805,42 @@
   <xs:element name="ListarPremioNuevasPaginado">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q38="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ProgramaNuevas" minOccurs="0" name="premio" nillable="true" type="q38:BEPremioNuevas" />
+        <xs:element xmlns:q39="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ProgramaNuevas" minOccurs="0" name="premio" nillable="true" type="q39:BEPremioNuevas" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="ListarPremioNuevasPaginadoResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q39="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ProgramaNuevas" minOccurs="0" name="ListarPremioNuevasPaginadoResult" nillable="true" type="q39:ArrayOfBEPremioNuevas" />
+        <xs:element xmlns:q40="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ProgramaNuevas" minOccurs="0" name="ListarPremioNuevasPaginadoResult" nillable="true" type="q40:ArrayOfBEPremioNuevas" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="Insertar">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q40="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ProgramaNuevas" minOccurs="0" name="premio" nillable="true" type="q40:BEPremioNuevas" />
+        <xs:element xmlns:q41="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ProgramaNuevas" minOccurs="0" name="premio" nillable="true" type="q41:BEPremioNuevas" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="InsertarResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q41="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ProgramaNuevas" minOccurs="0" name="InsertarResult" nillable="true" type="q41:BEPremioNuevas" />
+        <xs:element xmlns:q42="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ProgramaNuevas" minOccurs="0" name="InsertarResult" nillable="true" type="q42:BEPremioNuevas" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="Editar">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q42="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ProgramaNuevas" minOccurs="0" name="premio" nillable="true" type="q42:BEPremioNuevas" />
+        <xs:element xmlns:q43="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ProgramaNuevas" minOccurs="0" name="premio" nillable="true" type="q43:BEPremioNuevas" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="EditarResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q43="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ProgramaNuevas" minOccurs="0" name="EditarResult" nillable="true" type="q43:BEPremioNuevas" />
+        <xs:element xmlns:q44="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ProgramaNuevas" minOccurs="0" name="EditarResult" nillable="true" type="q44:BEPremioNuevas" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

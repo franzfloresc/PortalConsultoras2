@@ -319,7 +319,7 @@ namespace Portal.Consultoras.Service
         #region LimiteVenta
         public BERespValidarLimiteVenta CuvTieneLimiteVenta(int paisID, int campaniaID, string region, string zona, string cuv, int cantidadIngresada, int cantidadActual)
         {
-            return BLProgramaNuevas.ListarPremioNuevasPaginado(premio);
+            
             return BLLimiteVenta.CuvTieneLimiteVenta(paisID, campaniaID, region, zona, cuv, cantidadIngresada, cantidadActual);
         }
 

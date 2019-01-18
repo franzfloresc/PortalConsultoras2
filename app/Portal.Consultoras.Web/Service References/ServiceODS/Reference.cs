@@ -3540,6 +3540,388 @@ namespace Portal.Consultoras.Web.ServiceODS {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEPremioNuevas", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ProgramaNueva" +
+        "s")]
+    [System.SerializableAttribute()]
+    public partial class BEPremioNuevas : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ActiveDescField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool ActiveMontoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> ActivePremioAutoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool ActivePremioElectivoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool ActiveTooltipField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ActiveTooltipDescField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ActiveTooltipMontoDescField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int AnoCampanaFinField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> AnoCampanaIniField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoProgramaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoUsuarioField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int FilasPorPaginaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdActivarPremioNuevasField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string Ind_Cup_ElecDescField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NivelField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int NroField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int NumeroPaginaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int OperacionResultadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PaisIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SortColumnaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SortDirectionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int TotalFilasField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ActiveDesc {
+            get {
+                return this.ActiveDescField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ActiveDescField, value) != true)) {
+                    this.ActiveDescField = value;
+                    this.RaisePropertyChanged("ActiveDesc");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool ActiveMonto {
+            get {
+                return this.ActiveMontoField;
+            }
+            set {
+                if ((this.ActiveMontoField.Equals(value) != true)) {
+                    this.ActiveMontoField = value;
+                    this.RaisePropertyChanged("ActiveMonto");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> ActivePremioAuto {
+            get {
+                return this.ActivePremioAutoField;
+            }
+            set {
+                if ((this.ActivePremioAutoField.Equals(value) != true)) {
+                    this.ActivePremioAutoField = value;
+                    this.RaisePropertyChanged("ActivePremioAuto");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool ActivePremioElectivo {
+            get {
+                return this.ActivePremioElectivoField;
+            }
+            set {
+                if ((this.ActivePremioElectivoField.Equals(value) != true)) {
+                    this.ActivePremioElectivoField = value;
+                    this.RaisePropertyChanged("ActivePremioElectivo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool ActiveTooltip {
+            get {
+                return this.ActiveTooltipField;
+            }
+            set {
+                if ((this.ActiveTooltipField.Equals(value) != true)) {
+                    this.ActiveTooltipField = value;
+                    this.RaisePropertyChanged("ActiveTooltip");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ActiveTooltipDesc {
+            get {
+                return this.ActiveTooltipDescField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ActiveTooltipDescField, value) != true)) {
+                    this.ActiveTooltipDescField = value;
+                    this.RaisePropertyChanged("ActiveTooltipDesc");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ActiveTooltipMontoDesc {
+            get {
+                return this.ActiveTooltipMontoDescField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ActiveTooltipMontoDescField, value) != true)) {
+                    this.ActiveTooltipMontoDescField = value;
+                    this.RaisePropertyChanged("ActiveTooltipMontoDesc");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int AnoCampanaFin {
+            get {
+                return this.AnoCampanaFinField;
+            }
+            set {
+                if ((this.AnoCampanaFinField.Equals(value) != true)) {
+                    this.AnoCampanaFinField = value;
+                    this.RaisePropertyChanged("AnoCampanaFin");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> AnoCampanaIni {
+            get {
+                return this.AnoCampanaIniField;
+            }
+            set {
+                if ((this.AnoCampanaIniField.Equals(value) != true)) {
+                    this.AnoCampanaIniField = value;
+                    this.RaisePropertyChanged("AnoCampanaIni");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoPrograma {
+            get {
+                return this.CodigoProgramaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoProgramaField, value) != true)) {
+                    this.CodigoProgramaField = value;
+                    this.RaisePropertyChanged("CodigoPrograma");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoUsuario {
+            get {
+                return this.CodigoUsuarioField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoUsuarioField, value) != true)) {
+                    this.CodigoUsuarioField = value;
+                    this.RaisePropertyChanged("CodigoUsuario");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int FilasPorPagina {
+            get {
+                return this.FilasPorPaginaField;
+            }
+            set {
+                if ((this.FilasPorPaginaField.Equals(value) != true)) {
+                    this.FilasPorPaginaField = value;
+                    this.RaisePropertyChanged("FilasPorPagina");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int IdActivarPremioNuevas {
+            get {
+                return this.IdActivarPremioNuevasField;
+            }
+            set {
+                if ((this.IdActivarPremioNuevasField.Equals(value) != true)) {
+                    this.IdActivarPremioNuevasField = value;
+                    this.RaisePropertyChanged("IdActivarPremioNuevas");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Ind_Cup_ElecDesc {
+            get {
+                return this.Ind_Cup_ElecDescField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.Ind_Cup_ElecDescField, value) != true)) {
+                    this.Ind_Cup_ElecDescField = value;
+                    this.RaisePropertyChanged("Ind_Cup_ElecDesc");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Nivel {
+            get {
+                return this.NivelField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NivelField, value) != true)) {
+                    this.NivelField = value;
+                    this.RaisePropertyChanged("Nivel");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Nro {
+            get {
+                return this.NroField;
+            }
+            set {
+                if ((this.NroField.Equals(value) != true)) {
+                    this.NroField = value;
+                    this.RaisePropertyChanged("Nro");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int NumeroPagina {
+            get {
+                return this.NumeroPaginaField;
+            }
+            set {
+                if ((this.NumeroPaginaField.Equals(value) != true)) {
+                    this.NumeroPaginaField = value;
+                    this.RaisePropertyChanged("NumeroPagina");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int OperacionResultado {
+            get {
+                return this.OperacionResultadoField;
+            }
+            set {
+                if ((this.OperacionResultadoField.Equals(value) != true)) {
+                    this.OperacionResultadoField = value;
+                    this.RaisePropertyChanged("OperacionResultado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PaisID {
+            get {
+                return this.PaisIDField;
+            }
+            set {
+                if ((this.PaisIDField.Equals(value) != true)) {
+                    this.PaisIDField = value;
+                    this.RaisePropertyChanged("PaisID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SortColumna {
+            get {
+                return this.SortColumnaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SortColumnaField, value) != true)) {
+                    this.SortColumnaField = value;
+                    this.RaisePropertyChanged("SortColumna");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SortDirection {
+            get {
+                return this.SortDirectionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SortDirectionField, value) != true)) {
+                    this.SortDirectionField = value;
+                    this.RaisePropertyChanged("SortDirection");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TotalFilas {
+            get {
+                return this.TotalFilasField;
+            }
+            set {
+                if ((this.TotalFilasField.Equals(value) != true)) {
+                    this.TotalFilasField = value;
+                    this.RaisePropertyChanged("TotalFilas");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceODS.IODSService")]
     public interface IODSService {
@@ -3833,6 +4215,24 @@ namespace Portal.Consultoras.Web.ServiceODS {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/CuvArmaTuPackEstaEnLimite", ReplyAction="http://tempuri.org/IODSService/CuvArmaTuPackEstaEnLimiteResponse")]
         System.Threading.Tasks.Task<bool> CuvArmaTuPackEstaEnLimiteAsync(int paisID, int campaniaID, string zona, string cuv, int cantidadIngresada, int cantidadActual);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/ListarPremioNuevasPaginado", ReplyAction="http://tempuri.org/IODSService/ListarPremioNuevasPaginadoResponse")]
+        Portal.Consultoras.Web.ServiceODS.BEPremioNuevas[] ListarPremioNuevasPaginado(Portal.Consultoras.Web.ServiceODS.BEPremioNuevas premio);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/ListarPremioNuevasPaginado", ReplyAction="http://tempuri.org/IODSService/ListarPremioNuevasPaginadoResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceODS.BEPremioNuevas[]> ListarPremioNuevasPaginadoAsync(Portal.Consultoras.Web.ServiceODS.BEPremioNuevas premio);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/Insertar", ReplyAction="http://tempuri.org/IODSService/InsertarResponse")]
+        Portal.Consultoras.Web.ServiceODS.BEPremioNuevas Insertar(Portal.Consultoras.Web.ServiceODS.BEPremioNuevas premio);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/Insertar", ReplyAction="http://tempuri.org/IODSService/InsertarResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceODS.BEPremioNuevas> InsertarAsync(Portal.Consultoras.Web.ServiceODS.BEPremioNuevas premio);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/Editar", ReplyAction="http://tempuri.org/IODSService/EditarResponse")]
+        Portal.Consultoras.Web.ServiceODS.BEPremioNuevas Editar(Portal.Consultoras.Web.ServiceODS.BEPremioNuevas premio);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/Editar", ReplyAction="http://tempuri.org/IODSService/EditarResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceODS.BEPremioNuevas> EditarAsync(Portal.Consultoras.Web.ServiceODS.BEPremioNuevas premio);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -4236,6 +4636,30 @@ namespace Portal.Consultoras.Web.ServiceODS {
         
         public System.Threading.Tasks.Task<bool> CuvArmaTuPackEstaEnLimiteAsync(int paisID, int campaniaID, string zona, string cuv, int cantidadIngresada, int cantidadActual) {
             return base.Channel.CuvArmaTuPackEstaEnLimiteAsync(paisID, campaniaID, zona, cuv, cantidadIngresada, cantidadActual);
+        }
+        
+        public Portal.Consultoras.Web.ServiceODS.BEPremioNuevas[] ListarPremioNuevasPaginado(Portal.Consultoras.Web.ServiceODS.BEPremioNuevas premio) {
+            return base.Channel.ListarPremioNuevasPaginado(premio);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceODS.BEPremioNuevas[]> ListarPremioNuevasPaginadoAsync(Portal.Consultoras.Web.ServiceODS.BEPremioNuevas premio) {
+            return base.Channel.ListarPremioNuevasPaginadoAsync(premio);
+        }
+        
+        public Portal.Consultoras.Web.ServiceODS.BEPremioNuevas Insertar(Portal.Consultoras.Web.ServiceODS.BEPremioNuevas premio) {
+            return base.Channel.Insertar(premio);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceODS.BEPremioNuevas> InsertarAsync(Portal.Consultoras.Web.ServiceODS.BEPremioNuevas premio) {
+            return base.Channel.InsertarAsync(premio);
+        }
+        
+        public Portal.Consultoras.Web.ServiceODS.BEPremioNuevas Editar(Portal.Consultoras.Web.ServiceODS.BEPremioNuevas premio) {
+            return base.Channel.Editar(premio);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceODS.BEPremioNuevas> EditarAsync(Portal.Consultoras.Web.ServiceODS.BEPremioNuevas premio) {
+            return base.Channel.EditarAsync(premio);
         }
     }
 }

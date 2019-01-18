@@ -6291,6 +6291,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private bool TieneCDRExpressField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool TieneChatbotField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int TieneCuponField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -8806,6 +8809,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.TieneCDRExpressField.Equals(value) != true)) {
                     this.TieneCDRExpressField = value;
                     this.RaisePropertyChanged("TieneCDRExpress");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool TieneChatbot {
+            get {
+                return this.TieneChatbotField;
+            }
+            set {
+                if ((this.TieneChatbotField.Equals(value) != true)) {
+                    this.TieneChatbotField = value;
+                    this.RaisePropertyChanged("TieneChatbot");
                 }
             }
         }
@@ -13375,6 +13391,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private int EstrategiaIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int EstrategiaIDSiccField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string FlagNuevaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -13708,6 +13727,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.EstrategiaIDField.Equals(value) != true)) {
                     this.EstrategiaIDField = value;
                     this.RaisePropertyChanged("EstrategiaID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int EstrategiaIDSicc {
+            get {
+                return this.EstrategiaIDSiccField;
+            }
+            set {
+                if ((this.EstrategiaIDSiccField.Equals(value) != true)) {
+                    this.EstrategiaIDSiccField = value;
+                    this.RaisePropertyChanged("EstrategiaIDSicc");
                 }
             }
         }
