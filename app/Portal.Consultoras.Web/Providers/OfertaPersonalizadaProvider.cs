@@ -782,7 +782,6 @@ namespace Portal.Consultoras.Web.Providers
 
         public List<ServiceOferta.BEEstrategia> GetShowRoomOfertasConsultora(UsuarioModel usuarioModel)
         {
-
             var entidad = new ServiceOferta.BEEstrategia
             {
                 PaisID = usuarioModel.PaisID,
@@ -799,14 +798,12 @@ namespace Portal.Consultoras.Web.Providers
             if (_ofertaBaseProvider.UsarMsPersonalizacion(usuarioModel.CodigoISO, Constantes.TipoEstrategiaCodigo.ShowRoom))
             {
                  listaProducto = new ShowRoomProvider().GetShowRoomOfertasConsultora();
-                
             }
             else
             {
                 using (var osc = new OfertaServiceClient())
                 {
                     listaProducto = osc.GetEstrategiasPedido(entidad).ToList();
-                    
                 }
             }
             
@@ -1272,6 +1269,10 @@ namespace Portal.Consultoras.Web.Providers
                     });
                 }
 
+                if (tipoOferta == 3)
+                    listaProductoRetorno = listaProductoRetorno.Where(x => x.TieneStock).ToList();
+                listaProductoRetorno = listaProductoRetorno.OrderBy(x => x.TieneStock, false).ToList();
+
                 return listaProductoRetorno;
             }
 
@@ -1283,14 +1284,24 @@ namespace Portal.Consultoras.Web.Providers
             switch (tipoOferta)
             {
                 case 1:
-                    return SessionManager.ShowRoom.Ofertas;
+                    listaProductoRetorno = SessionManager.ShowRoom.Ofertas;
+                    break;
                 case 2:
-                    return SessionManager.ShowRoom.OfertasSubCampania;
+                    listaProductoRetorno = SessionManager.ShowRoom.OfertasSubCampania;
+                    break;
                 case 3:
-                    return SessionManager.ShowRoom.OfertasPerdio;
+                    listaProductoRetorno = SessionManager.ShowRoom.OfertasPerdio;
+                    break;
                 default:
-                    return SessionManager.ShowRoom.Ofertas;
+                    listaProductoRetorno =  SessionManager.ShowRoom.Ofertas;
+                    break;
             }
+
+            if (tipoOferta == 3)
+                listaProductoRetorno = listaProductoRetorno.Where(x => x.TieneStock).ToList();
+            listaProductoRetorno = listaProductoRetorno.OrderBy(x => x.TieneStock, false).ToList();
+
+            return listaProductoRetorno;
         }
 
         private void SetShowRoomOfertasInSession(List<EstrategiaPedidoModel> listaProductoModel, UsuarioModel userData)

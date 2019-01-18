@@ -250,6 +250,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             {
                 listaRetorno = ConsultarOfertasListaPerdioRD(model.CampaniaID, listModelCompleta);
             }
+            listaRetorno = listaRetorno.Where(x => x.TieneStock).ToList();
             return listaRetorno;
         }
 
