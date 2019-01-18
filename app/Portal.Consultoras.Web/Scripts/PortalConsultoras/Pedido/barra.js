@@ -1347,7 +1347,11 @@ function CalculoPosicionMinimoMaximo() {
     var montoActual = mtoLogroBarra;
     var montoMinimo = dataBarra.MontoMinimo;
     var AvancePorcentaje = 0;
-    //var ConfiguradoRegalo = true;
+
+    if (dataBarra.TippingPointBarra.InMinimo!=null) {
+        ConfiguradoRegalo = dataBarra.TippingPointBarra.InMinimo;
+    }
+   
     //var montoMinimo = dataBarra.MontoMinimo;
     //var montoMaximo = dataBarra.MontoMaximo;
     //var montoTipipoing = dataBarra.TippingPoint;
@@ -1872,7 +1876,11 @@ function CalculoLlenadoBarraDestokp() {
 
 
     if (TieneMontoMaximo()) {
-        AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMaximo);
+        if (montoActual <= montoMaximo) {
+            AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMaximo);
+        }
+        else
+            AvancePorcentaje = '100%';
     }
     else {
         
@@ -1889,11 +1897,16 @@ function CalculoLlenadoBarraEspacioLimiteDestokp() {
 
 
     if (TieneMontoMaximo()) {
-
         var montoMaximo = dataBarra.MontoMaximo;
         var montoActual = mtoLogroBarra;
-        AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMaximo);
 
+        if (montoActual <= montoMaximo) {
+            AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMaximo);
+        }
+        else
+            AvancePorcentaje = '100%';
+
+ 
     }
     else
     {
@@ -1968,7 +1981,7 @@ function CalculoPosicionMinimoMaximoDestokp() {
             var AvancePorcentajeP1 = (AvancePorcentaje1.substring(0, AvancePorcentaje1.length - 1) * 1 - 5) + '%'
             document.getElementById('punto_1').style.left = AvancePorcentajeP1;
             document.getElementById('punto_1').firstChild.firstChild.style = "width:90px;position: absolute;";//top: -24px;
-            document.getElementById('punto_1').firstChild.firstChild.firstChild.firstChild.nextSibling.style.display = "None";
+            document.getElementById('punto_1').firstChild.firstChild.firstChild.firstChild.style.display = "None";
 
 
             document.getElementById('punto_2').style.left = '94%';
