@@ -474,6 +474,12 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<PagoEnLineaMedioPagoDetalleModel, BEPagoEnLineaMedioPagoDetalle>();
             Mapper.CreateMap<PagoEnLineaTipoPasarelaModel, BEPagoEnLineaTipoPasarela>();
             Mapper.CreateMap<PagoEnLineaPasarelaCamposModel, BEPagoEnLineaPasarelaCampos>();
+            
+            Mapper.CreateMap<EstrategiaComponenteModel, ServicePedido.BEEstrategiaProducto>()
+               .ForMember(t => t.CUV, f => f.MapFrom(c => c.Cuv))
+               .ForMember(t => t.SAP, f => f.MapFrom(c => c.CodigoProducto))
+               .ForMember(t => t.Precio, f => f.MapFrom(c => c.PrecioCatalogo))
+               .ForMember(t => t.NombreMarca, f => f.MapFrom(c => c.DescripcionMarca));
         }
     }
 }

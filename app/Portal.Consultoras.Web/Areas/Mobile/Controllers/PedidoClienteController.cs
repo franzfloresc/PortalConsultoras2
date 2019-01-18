@@ -1,4 +1,5 @@
-﻿using Portal.Consultoras.Common;
+﻿using AutoMapper;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.ServiceCliente;
 using System;
@@ -12,8 +13,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
     public class PedidoClienteController : BaseMobileController
     {
-        #region Actions
-
         public ActionResult Index()
         {
             var model = new PedidoWebClientePrincipalMobilModel();
@@ -28,21 +27,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     lst = sv.GetPedidosWebByConsultora(userData.PaisID, userData.ConsultoraID).ToList();
                 }
 
-                var lista3Ultimos = lst.OrderByDescending(p => p.CampaniaID).Take(3).ToList();
+                var lista3Ultimos = lst.OrderByDescending(p => p.CampaniaID).Take(3).Where(p => p.CampaniaID != 0).ToList();
 
-                foreach (var item in lista3Ultimos)
-                {
-                    if (item.CampaniaID != 0)
-                    {
-                        model.ListaPedidoCliente.Add(new PedidoWebMobilModel
-                        {
-                            CampaniaID = item.CampaniaID,
-                            ImporteTotal = item.ImporteTotal,
-                            Descuento = -item.DescuentoProl
-                        });
-                    }
-
-                }
+                model.ListaPedidoCliente = Mapper.Map<List<PedidoWebMobilModel>>(lista3Ultimos);
 
                 foreach (var pedidoCliente in model.ListaPedidoCliente)
                 {
@@ -51,16 +38,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     {
                         lstPedidoDetalle = sv.GetClientesByCampania(userData.PaisID, pedidoCliente.CampaniaID, userData.ConsultoraID);
                     }
-                    foreach (var pedidoDetalle in lstPedidoDetalle)
-                    {
-                        pedidoCliente.ListaPedidoWebDetalle.Add(new PedidoWebClienteMobilModel
-                        {
-                            ClienteID = pedidoDetalle.ClienteID,
-                            Nombre = pedidoDetalle.Nombre,
-                            eMail = pedidoDetalle.eMail,
-                            CampaniaID = pedidoDetalle.CampaniaID
-                        });
-                    }
+
+                    pedidoCliente.ListaPedidoWebDetalle = Mapper.Map<List<PedidoWebClienteMobilModel>>(lstPedidoDetalle);
+
 
                     foreach (var pedidoDetalleProducto in pedidoCliente.ListaPedidoWebDetalle)
                     {
@@ -69,31 +49,17 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         {
                             lstPedidoDetalleProducto = sv.GetPedidoWebDetalleByCliente(userData.PaisID, pedidoCliente.CampaniaID, userData.ConsultoraID, pedidoDetalleProducto.ClienteID);
                         }
-                        foreach (var producto in lstPedidoDetalleProducto)
-                        {
-                            pedidoDetalleProducto.ListaPedidoWebDetalleProductos.Add(new PedidoWebDetalleMobilModel
-                            {
-                                ClienteID = producto.ClienteID,
-                                Nombre = producto.Nombre,
-                                eMail = producto.eMail,
-                                CampaniaID = producto.CampaniaID,
-                                DescripcionProd = producto.DescripcionProd,
-                                CUV = producto.CUV,
-                                ObservacionPROL = producto.ObservacionPROL,
-                                IndicadorOfertaCUV = producto.IndicadorOfertaCUV,
-                                PrecioUnidad = producto.PrecioUnidad,
-                                Cantidad = producto.Cantidad,
-                                ImporteTotal = producto.ImporteTotal
-                            });
-                        }
+
+                        pedidoDetalleProducto.ListaPedidoWebDetalleProductos = Mapper.Map<List<PedidoWebDetalleMobilModel>>(lstPedidoDetalleProducto);
+
                         pedidoDetalleProducto.ImporteTotalPedido = pedidoDetalleProducto.ListaPedidoWebDetalleProductos.Sum(p => p.ImporteTotal);
                     }
 
-                    pedidoCliente.TieneDescuentoCuv = userData.EstadoSimplificacionCUV && pedidoCliente.ListaPedidoWebDetalle.Any(pedidoWebDetalle =>
-                        pedidoWebDetalle.ListaPedidoWebDetalleProductos.Any(item =>
-                            string.IsNullOrEmpty(item.ObservacionPROL) && item.IndicadorOfertaCUV
-                        )
-                    );
+                    pedidoCliente.TieneDescuentoCuv = userData.EstadoSimplificacionCUV
+                        && pedidoCliente.ListaPedidoWebDetalle.Any(pedidoWebDetalle =>
+                            pedidoWebDetalle.ListaPedidoWebDetalleProductos.Any(item => string.IsNullOrEmpty(item.ObservacionPROL) && item.IndicadorOfertaCUV)
+                        );
+
                     if (pedidoCliente.TieneDescuentoCuv)
                     {
                         pedidoCliente.Subtotal = pedidoCliente.ImporteTotal;
@@ -281,7 +247,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-                
+
                 if (userData.UsuarioPrueba == 1)
                 {
                     return Json(new
@@ -530,6 +496,5 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
         }
 
-        #endregion
     }
 }
