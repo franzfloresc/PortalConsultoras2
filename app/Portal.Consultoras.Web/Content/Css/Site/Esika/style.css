@@ -23633,7 +23633,7 @@ input[type='checkbox']:checked + span:after {
     line-height: 1.08;
     text-align: center;
     color: black;
-    margin-top: 22px;
+    margin-top: 20px;
 }
 
 .linea_indicador_barra {
