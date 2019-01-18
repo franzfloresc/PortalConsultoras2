@@ -567,9 +567,25 @@ function MostrarBarra(datax, destino) {
 
 
     if (destino == "1") {
-        $('.linea_indicador_barra').hide();
-        return true;
-    }
+        if (!TieneMontoMaximo()) { 
+
+            var NumeroBarras = dataBarra.ListaEscalaDescuento.length;
+            var inicio = (100 / NumeroBarras)-9;
+
+            for (var i = 0; i < dataBarra.ListaEscalaDescuento.length; i++) {
+
+                document.getElementById('barra_' + i.toString()).style.marginLeft = inicio + '%';
+                document.getElementById('barra_' + i.toString()).style.top = '50px';
+                inicio = inicio + (100 / NumeroBarras);
+            }
+
+     
+        }
+      
+    //    $('.linea_indicador_barra').hide();
+    //    return true;
+
+       }
 
     if (mn == 0 && vLogro == 0 && !belcorp.barra.settings.isMobile) {
         $("#divBarra #divBarraMensajeLogrado").hide();
@@ -603,6 +619,8 @@ function MostrarBarra(datax, destino) {
     objMsg.Mensaje = $.trim(objMsg.Mensaje);
 
     if (objMsg.Titulo == "" && objMsg.Mensaje == "") {
+        //CalculoPosicionMinimoMaximoDestokp();
+
         $("#divBarra #divBarraMensajeLogrado").hide();
         return false;
     }
@@ -2212,7 +2230,7 @@ function CalculoPosicionMinimoMaximoDestokp() {
         if (dataBarra.ListaEscalaDescuento.length > 1) {
             if (mtoLogroBarra > dataBarra.ListaEscalaDescuento[0].MontoDesde * 1) {
                 document.getElementsByClassName('bandera_marcador')[0].style.display = 'block';
-                $(".barra_mensaje_meta_pedido").css('margin-bottom', '51px');
+                $(".barra_mensaje_meta_pedido").css('margin-bottom', '56px');
             }
 
         }
