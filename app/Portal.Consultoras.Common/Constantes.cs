@@ -1343,7 +1343,7 @@ namespace Portal.Consultoras.Common
             public const string ErrorGenerico = "Ocurrio un error, vuelva ha intentarlo.";
             public const string InsertarValidarKitInicio = "No está permitido agregar el Kit de un programa obligatorio.";
             public const string ValidarAgregarProgNuevas = "Sucedió un error al validar el programa de nuevas. Inténtenlo más tarde.";
-            public const string ExcedioLimiteVenta = "Debido al gran exceso en la demanda del producto <b>{0} – {1},</b> en esta campaña sólo puedes pedir un máximo de {2} unidades. Modifica las unidades ingresadas";//"Las unidades ingresadas exceden el máximo permitido ({0}) en esta campaña.";
+            public const string ExcedioLimiteVenta = "Esta campaña nuestro producto <b>{0} – {1}</b> ha tenido una gran acogida. Sin embargo hemos reservado una {2} unidad(es) para ti.Por favor modifica tu pedido.";
         }
 
         public static class MensajesExito
