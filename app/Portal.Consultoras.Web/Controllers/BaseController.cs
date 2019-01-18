@@ -167,11 +167,12 @@ namespace Portal.Consultoras.Web.Controllers
                 configEstrategiaSR = SessionManager.GetEstrategiaSR() ?? new ConfigModel();
                 buscadorYFiltro = SessionManager.GetBuscadorYFiltrosConfig();
 
-                if (!configEstrategiaSR.CargoEntidadesShowRoom)
-                {
-                    _showRoomProvider.CargarEntidadesShowRoom(userData);
-                    configEstrategiaSR = SessionManager.GetEstrategiaSR();
-                }
+
+                //if (!configEstrategiaSR.CargoEntidadesShowRoom)
+                //{
+                //    _showRoomProvider.CargarEntidadesShowRoom(userData);
+                //    configEstrategiaSR = SessionManager.GetEstrategiaSR();
+                //}
 
                 if (Request.IsAjaxRequest())
                 {
@@ -1135,8 +1136,10 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.TituloCatalogo = ((revistaDigital.TieneRDC && !userData.TieneGND && !revistaDigital.EsSuscrita) || revistaDigital.TieneRDI) ||
                 (!revistaDigital.TieneRDC || (revistaDigital.TieneRDC && !revistaDigital.EsActiva));
 
+            _showRoomProvider.CargarEventoPersonalizacion(userData);
             var menuActivo = _menuContenedorProvider.GetMenuActivo(userData, revistaDigital, herramientasVenta, Request, guiaNegocio, SessionManager, _configuracionManagerProvider, _eventoFestivoProvider, _configuracionPaisProvider, _guiaNegocioProvider, _ofertaPersonalizadaProvider, _programaNuevasProvider, esMobile);
             ViewBag.MenuContenedorActivo = menuActivo;
+            
             ViewBag.MenuContenedor = _menuContenedorProvider.GetMenuContenedorByMenuActivoCampania(menuActivo.CampaniaId, userData.CampaniaID, userData, revistaDigital, guiaNegocio, SessionManager, _configuracionManagerProvider, _eventoFestivoProvider, _configuracionPaisProvider, _guiaNegocioProvider, _ofertaPersonalizadaProvider, _programaNuevasProvider, esMobile);
 
             var menuMobile = BuildMenuMobile(userData, revistaDigital);
