@@ -270,7 +270,8 @@ else
                 @Html.Partial("~/Views/MisCatalogosRevistas/template-revista-slide.cshtml",
                  new ViewDataDictionary {
                 { "TieneGnd", Model.TieneGND },
-                { "EsConsultoraNueva", ViewBag.EsConsultoraNueva}
+                { "EsConsultoraNueva", ViewBag.EsConsultoraNueva },
+                { "EsDispositivoMovil", Model.EsDispositivoMovil }
                      })
             }
 

@@ -16,9 +16,18 @@
                 <p class="col-6 col-lg-12 col-xl-12 pl-0 pr-0 mx-auto mi__revista__info__texto">
                     Tu guía de negocio por siempre, <span class="text-bold text-uppercase">Ahora digital</span>
                 </p>
-                <a href="@Url.Action("Index", "GuiaNegocio")" target="_blank" class="d-block col-12 pl-0 pr-0 text-uppercase mx-auto btn__encuentra__aqui__tu__revista__digital">
-                    Encuéntrala aquí
-                </a>
+                @if (ViewBag.EsDispositivoMovil)
+                {
+                    <a href="@Url.Action("Index", "GuiaNegocio", new {area = "Mobile"})" class="d-block col-12 pl-0 pr-0 text-uppercase mx-auto btn__encuentra__aqui__tu__revista__digital">
+                        Encuéntrala aquí
+                    </a>
+                }
+                else
+                {
+                    <a href="@Url.Action("Index", "GuiaNegocio")" class="d-block col-12 pl-0 pr-0 text-uppercase mx-auto btn__encuentra__aqui__tu__revista__digital">
+                        Encuéntrala aquí
+                    </a>
+                }
             </div>
         </div>
     <!-- FIN - CONTENIDO SECCIÓN MI REVISTA CUANDO TIENE GND -->
