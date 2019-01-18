@@ -403,6 +403,10 @@ function MostrarBarra(datax, destino) {
         $("#divBarraLimite [data-punto='0']").find("[data-texto]").css("color", "#979797");
         $("#divBarraLimite [data-punto='1']").find("[data-texto]").css("color", "#808080");
         $("#divBarraLimite [data-punto='1']").find("[data-texto]").css("font-weight", "bold");
+        $('.linea_indicador_barra_vista_bienvenida').show();
+        $('.linea_indicador_barra').hide();
+    } else {
+        $('.linea_indicador_barra_vista_bienvenida').hide();
     }
 
     if (wTotalPunto > wTotal) {
@@ -569,8 +573,6 @@ function MostrarBarra(datax, destino) {
 
     if (destino == "1") {
         if (!TieneMontoMaximo()) {
-
-            $('.linea_indicador_barra').hide();
 
             //var NumeroBarras = dataBarra.ListaEscalaDescuento.length;
             //var inicio = (100 / NumeroBarras)-9;

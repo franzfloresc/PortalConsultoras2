@@ -23624,7 +23624,7 @@ input[type='checkbox']:checked + span:after {
     margin-top: 4px;
     background: url('/Content/Images/Mobile/Lbel/bandera.png') no-repeat;
     position:absolute;
-    right: -14px;
+    right: -19px;
     bottom: 13px;
 }
 
