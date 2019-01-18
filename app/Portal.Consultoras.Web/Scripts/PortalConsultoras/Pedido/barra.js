@@ -83,7 +83,7 @@ function MostrarBarra(datax, destino) {
         return false;
 
     var wPrimer = 0;
-    var vLogro = 0;
+    var vLogro = mt - md;
     var wMsgFin = 0;
     var wmin = 45;
 
@@ -92,8 +92,6 @@ function MostrarBarra(datax, destino) {
     }
     var textoPunto = '<div style="font-size:12px; font-weight:400; margin-bottom:4px;">{titulo}</div><div style="font-size: 12px;">{detalle}</div>';
     if (mx > 0 && destino == '2') {
-        vLogro = mt - md;
-
         listaLimite.push({
             nombre: textoPunto.replace("{titulo}", "M. Mínimo").replace("{detalle}", variablesPortal.SimboloMoneda + " " + data.MontoMinimoStr),
             tipoMensaje: 'MontoMinimo',
@@ -120,10 +118,8 @@ function MostrarBarra(datax, destino) {
         });
     }
     else {
-        if ((mt - md) < mn)
-            vLogro = mt - md;
-        else
-            vLogro = me < mn ? mn : me;
+        var valTopTotal = destino == '2' && dataBarra.TippingPointBarra.Active && tp > 0 ? tp : mn
+        if (vLogro > valTopTotal) vLogro = valTopTotal > me ? valTopTotal : me;
 
         listaLimite = new Array();
         listaEscalaDescuento = listaEscalaDescuento || new Array();
@@ -194,10 +190,7 @@ function MostrarBarra(datax, destino) {
     }
     mtoLogroBarra = vLogro;
 
-    if (isTippingPointSuperado()) {
-
-        agregarPremioDefault();
-    }
+    if (isTippingPointSuperado()) agregarPremioDefault();
 
     listaLimite = listaLimite || new Array();
     if (listaLimite.length == 0)
@@ -234,8 +227,8 @@ function MostrarBarra(datax, destino) {
   
     var htmlPunto = '<div id="punto_{punto}" data-punto="{select}">'
                 + '<div class="monto_minimo_barra" style="width:{wText}px">'
-                    + '<div style="width:{wText}px;position: absolute; color:#808080; top:-2px;" data-texto>{texto}</div>'
-                    //+ '<div class="linea_indicador_barra" {style}></div>' og
+                    + '<div style="width:{wText}px;position: absolute; color:#808080;" data-texto>{texto}</div>'
+                    + '<div class="linea_indicador_barra_vista_bienvenida"></div>' //og
                 + '</div>'
         + '</div>' 
     + '<div class="linea_indicador_barra" id="barra_{punto}" {style}></div>';//hd-2848
@@ -262,7 +255,7 @@ function MostrarBarra(datax, destino) {
                             + '<div class="circulo-3 iniciarTransicion"></div>'
                         + '</div>'
                     + '</div>'
-                    //+ '<div class="linea_indicador_barra"></div>' og 
+                    + '<div class="linea_indicador_barra_vista_bienvenida"></div>' //og 
                 + '</div>'
             + '</div>';
         + '<div class="linea_indicador_barra" id="barra_{punto}" {style}></div>';//hd-2848
@@ -295,6 +288,7 @@ function MostrarBarra(datax, destino) {
                 + '<div class="monto_minimo_barra">'
                     //+ '<div class="bandera_marcador" style="margin-top: -6px;"></div>'
                     + '<div style="margin-left: {marl}px;width: {wText}px;position: absolute; color:#808080;" data-texto>{texto}</div>'
+                    + '<div class="linea_indicador_barra_vista_bienvenida"></div>' //og
                 + '</div>'
         + '</div>' 
     //og
@@ -400,8 +394,12 @@ function MostrarBarra(datax, destino) {
 
     if (destino == '1') {
         $("#divBarraLimite [data-punto='0']").find("[data-texto]").css("color", "#979797");
-        $("#divBarraLimite [data-punto='1']").find("[data-texto]").css("color", "#000000");
+        $("#divBarraLimite [data-punto='1']").find("[data-texto]").css("color", "#808080");
         $("#divBarraLimite [data-punto='1']").find("[data-texto]").css("font-weight", "bold");
+        $('.linea_indicador_barra_vista_bienvenida').show();
+        $('.linea_indicador_barra').hide();
+    } else {
+        $('.linea_indicador_barra_vista_bienvenida').hide();
     }
 
     if (wTotalPunto > wTotal) {
@@ -567,17 +565,17 @@ function MostrarBarra(datax, destino) {
 
 
     if (destino == "1") {
-        if (!TieneMontoMaximo()) { 
+        if (!TieneMontoMaximo()) {
 
-            var NumeroBarras = dataBarra.ListaEscalaDescuento.length;
-            var inicio = (100 / NumeroBarras)-9;
+            //var NumeroBarras = dataBarra.ListaEscalaDescuento.length;
+            //var inicio = (100 / NumeroBarras)-9;
 
-            for (var i = 0; i < dataBarra.ListaEscalaDescuento.length; i++) {
+            //for (var i = 0; i < dataBarra.ListaEscalaDescuento.length; i++) {
 
-                document.getElementById('barra_' + i.toString()).style.marginLeft = inicio + '%';
-                document.getElementById('barra_' + i.toString()).style.top = '50px';
-                inicio = inicio + (100 / NumeroBarras);
-            }
+            //    document.getElementById('barra_' + i.toString()).style.marginLeft = inicio + '%';
+            //    document.getElementById('barra_' + i.toString()).style.top = '50px';
+            //    inicio = inicio + (100 / NumeroBarras);
+            //}
 
      
         }
@@ -591,18 +589,24 @@ function MostrarBarra(datax, destino) {
         $("#divBarra #divBarraMensajeLogrado").hide();
         return false;
     }
-    var tipoMensaje = listaLimite[indPuntoLimite].tipoMensaje;
-    tipoMensaje += vLogro >= vLimite ? "Supero" : "";
-    if (vLogro < mn) {
-        tipoMensaje = "MontoMinimo";
-    }
 
+    var valorFalta = vLimite - vLogro;
+    var tipoMensaje = '';
+    var escalaPremio = destino == '2' && mx == 0 && dataBarra.TippingPointBarra.Active;
+    var limiteEsPremio = vLogro < tp; //  && tp <= vLimite;
+
+    if(escalaPremio && limiteEsPremio) {
+        valorFalta = tp - vLogro;
+        tipoMensaje = "TippingPoint";
+    }
+    else if (vLogro < mn) tipoMensaje = "MontoMinimo";
+    else {
+        tipoMensaje = listaLimite[indPuntoLimite].tipoMensaje;
+        if (tipoMensaje == 'EscalaDescuento') valorFalta = vLimite - me;
+        if (vLogro >= vLimite) tipoMensaje += "Supero";
+    }
     tipoMensaje += belcorp.barra.settings.isMobile ? 'Mobile' : '';
-
-    var tpRegaloMobileShow = tp > 0 && dataBarra.TippingPointBarra.Active && belcorp.barra.settings.isMobile;
-    if (tpRegaloMobileShow && vLogro < tp) {
-        tipoMensaje = "TippingPointMobile";
-    }
+    
     var mtoTp = variablesPortal.SimboloMoneda + " " + dataBarra.TippingPointStr;
     $('#montoPremioMeta').html(mtoTp);
     if (tp > 0) {
@@ -625,8 +629,7 @@ function MostrarBarra(datax, destino) {
         return false;
     }
     var valPor = listaLimite[indPuntoLimite].valPor || "";
-    var valorMonto = variablesPortal.SimboloMoneda + " " + DecimalToStringFormat(parseFloat(vLimite - vLogro));
-    var valorMontoEsacalaDescuento = variablesPortal.SimboloMoneda + " " + DecimalToStringFormat(parseFloat(listaLimite[indPuntoLimite].valor - me));
+    var valorMonto = variablesPortal.SimboloMoneda + " " + DecimalToStringFormat(parseFloat(valorFalta));
     $("#divBarra #divBarraMensajeLogrado").show();
     $("#divBarra #divBarraMensajeLogrado .mensaje_barra").html(objMsg.Titulo.replace("#porcentaje", valPor).replace("#valor", valorMonto));
 
@@ -637,27 +640,17 @@ function MostrarBarra(datax, destino) {
         dvMsg.html('');
     }
     
-    if (tpRegaloMobileShow) {
+    if (tp > 0 && dataBarra.TippingPointBarra.Active) {
         $('#hrefIconoRegalo').show();
-
+        
         if (ConfiguradoRegalo == true) {//&& (mtoLogroBarra<=dataBarra.MontoMinimo)
             document.getElementById('divtippingPoint').style.display = 'none';
             document.getElementById('lineaPosicionRegalo').style.display = 'none';
         }
-        
-        if (vLogro < tp) {
-            valorMonto = variablesPortal.SimboloMoneda + " " + DecimalToStringFormat(tp - vLogro);
-        }
-    } else {
-        if (ConfiguradoRegalo == false) $('#hrefIconoRegalo').hide();
     }
 
     var divBarraMsg = $("#divBarra #divBarraMensajeLogrado .agrega_barra");
-    if (sessionStorage.getItem("cuvPack") != null || mx > 0) { 
-        divBarraMsg.html(objMsg.Mensaje.replace("#porcentaje", valPor).replace("#valor", valorMonto));
-    } else {
-        divBarraMsg.html(objMsg.Mensaje.replace("#porcentaje", valPor).replace("#valor", (mt < mn ? valorMonto : valorMontoEsacalaDescuento)));
-    }
+    divBarraMsg.html(objMsg.Mensaje.replace("#porcentaje", valPor).replace("#valor", valorMonto));
 
     //$("#divBarra #divBarraMensajeLogrado .agrega_barra").html(objMsg.Mensaje.replace("#porcentaje", valPor).replace("#valor", valorMonto)); 
     // OG
