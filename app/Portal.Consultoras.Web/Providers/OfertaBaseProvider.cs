@@ -60,7 +60,7 @@ namespace Portal.Consultoras.Web.Providers
                         DescripcionEstrategia = item.descripcionTipoEstrategia,
                         DescripcionMarca = item.marcaDescripcion,
                         EstrategiaID = Convert.ToInt32(item.estrategiaId),
-                        FlagNueva = Convert.ToBoolean(item.flagNueva) ? 1 : 0,
+                        FlagNueva = Convert.ToBoolean(item.flagNueva).ToInt(),
                         FlagRevista = item.flagRevista,
                         FotoProducto01 = item.imagenURL,
                         ImagenURL = item.imagenEstrategia,
@@ -75,10 +75,10 @@ namespace Portal.Consultoras.Web.Providers
                         GananciaString = Util.DecimalToStringFormat((decimal)item.ganancia, codigoISO),
                         Ganancia = Convert.ToDecimal(item.ganancia),
                         TextoLibre = item.textoLibre,
-                        TieneVariedad = Convert.ToBoolean(item.tieneVariedad) ? 1 : 0,
+                        TieneVariedad = Convert.ToBoolean(item.tieneVariedad).ToInt(),
                         TipoEstrategiaID = Convert.ToInt32(item.tipoEstrategiaId),
                         TipoEstrategiaImagenMostrar = 6,
-                        EsSubCampania = Convert.ToBoolean(item.esSubCampania) ? 1 : 0,
+                        EsSubCampania = Convert.ToBoolean(item.esSubCampania).ToInt(),
                     };
                     estrategia.TipoEstrategia = new ServiceOferta.BETipoEstrategia { Codigo = item.codigoTipoEstrategia };
 
@@ -147,7 +147,7 @@ namespace Portal.Consultoras.Web.Providers
                                 SAP = componente.codigoSap,
                                 Orden = componente.orden,
                                 Precio = componente.precioUnitario,
-                                Digitable = Convert.ToBoolean(componente.indicadorDigitable) ? 1 : 0,
+                                Digitable = Convert.ToBoolean(componente.indicadorDigitable).ToInt(),
                                 Cantidad = componente.cantidad,
                                 FactorCuadre = componente.factorCuadre,
                                 IdMarca = componente.marcaId,

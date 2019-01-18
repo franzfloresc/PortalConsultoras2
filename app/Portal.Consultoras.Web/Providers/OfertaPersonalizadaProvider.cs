@@ -269,7 +269,7 @@ namespace Portal.Consultoras.Web.Providers
             }
             else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.LANObtenerProductos)
             {
-                retorno = TieneProductosPerdio(model.CampaniaID) ? 1 : 0;
+                retorno = TieneProductosPerdio(model.CampaniaID).ToInt();
             }
             else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.OPTObtenerProductos)
             {
@@ -634,7 +634,7 @@ namespace Portal.Consultoras.Web.Providers
             var listaRevista = GetListaRevistaCarrusel(listEstrategia, esRevistaDigital);
 
             var cantMax = espaciosCarrusel - listEstrategiaFinal.Count;
-            var cantPack = listaPackNueva.Any() ? 1 : 0;
+            var cantPack = listaPackNueva.Any().ToInt();
             var espaciosRevista = Math.Min(cantMax - cantPack, listaRevista.Count);
 
             if (listaRevista.Count > espaciosRevista) listaRevista.RemoveRange(espaciosRevista, listaRevista.Count - espaciosRevista);

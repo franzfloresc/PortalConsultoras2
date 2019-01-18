@@ -117,7 +117,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.FlagValidacionPedido = "1";
                 }
 
-                model.EstadoPedido = configuracionCampania.EstadoPedido == Constantes.EstadoPedido.Pendiente ? 0 : 1;
+                model.EstadoPedido = (configuracionCampania.EstadoPedido != Constantes.EstadoPedido.Pendiente).ToInt();
 
 
                 ActualizarUserDataConInformacionCampania(configuracionCampania);
@@ -2433,7 +2433,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (userData.IndicadorGPRSB == 2)
             {
                 userData.MostrarBannerRechazo = userData.RechazadoXdeuda;
-                userData.CerrarRechazado = userData.RechazadoXdeuda ? 0 : 1;
+                userData.CerrarRechazado = (!userData.RechazadoXdeuda).ToInt();
             }
         }
 
@@ -2495,7 +2495,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 ViewBag.PedidoProductoMovil = lstPedidoWebDetalle
                     .Any(p => p.TipoPedido.ToUpper().Trim() == "PNV")
-                     ? 1 : 0;
+                    .ToInt();
 
                 if (userData.PedidoID == 0)
                 {

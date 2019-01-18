@@ -1006,8 +1006,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                             var pedidoVal = olstMisProductos.FirstOrDefault(x => x.CUV == item.CUV);
                             if (pedidoVal != null)
                             {
-                                item.TieneStock = (pedidoVal.TieneStock) ? 1 : 0;
-                                item.EstaEnRevista = (pedidoVal.EstaEnRevista) ? 1 : 0;
+                                item.TieneStock = pedidoVal.TieneStock.ToInt();
+                                item.EstaEnRevista = pedidoVal.EstaEnRevista.ToInt();
 
                                 if (!pedidoVal.TieneStock)
                                 {

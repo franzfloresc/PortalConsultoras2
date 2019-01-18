@@ -122,7 +122,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 ViewBag.NumeroCampania = (!string.IsNullOrEmpty(userData.NombreCorto) && userData.NombreCorto.Length > 4)
                     ? userData.NombreCorto.Substring(4) : "";
-                ViewBag.EsUsuarioComunidad = userData.EsUsuarioComunidad ? 1 : 0;
+                ViewBag.EsUsuarioComunidad = userData.EsUsuarioComunidad.ToInt();
                 ViewBag.AnalyticsCampania = userData.CampaniaID;
                 ViewBag.AnalyticsSegmento = string.IsNullOrEmpty(userData.Segmento) ? "(not available)" : userData.Segmento.Trim();
                 ViewBag.AnalyticsEdad = Util.Edad(userData.FechaNacimiento);

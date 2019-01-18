@@ -1018,7 +1018,7 @@ namespace Portal.Consultoras.Web.Controllers
                     continue;
                 }
 
-                item.EstaEnRevista = pedidoVal.EstaEnRevista ? 1 : 0;
+                item.EstaEnRevista = pedidoVal.EstaEnRevista.ToInt();
 
                 item.TieneStock = 1;
                 if (!pedidoVal.TieneStock)

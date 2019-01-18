@@ -111,7 +111,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.SolicitudClienteDetalleID, f => f.MapFrom(c => c.PedidoDetalleId));
 
             Mapper.CreateMap<BELogGPRValidacionDetalle, NotificacionesModelDetallePedido>()
-                .ForMember(t => t.IndicadorOferta, f => f.MapFrom(c => c.IndicadorOferta ? 1 : 0));
+                .ForMember(t => t.IndicadorOferta, f => f.MapFrom(c => c.IndicadorOferta.ToInt()));
 
             Mapper.CreateMap<ServiceUsuario.BEMisPedidosDetalle, MisPedidosDetalleModel2>();
 
