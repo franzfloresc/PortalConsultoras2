@@ -23593,7 +23593,7 @@ input[type='checkbox']:checked + span:after {
     line-height: 1.08;
     text-align: center;
     color: black;
-    margin-top: 20px;
+    margin-top: 19px;
 }
 
 .linea_indicador_barra {
@@ -23606,7 +23606,7 @@ input[type='checkbox']:checked + span:after {
 }
 
 .barra_mensaje_meta_pedido{
-    margin-bottom:23px;
+    margin-bottom:28px;
 }
 
 .bandera_marcador {
@@ -34146,12 +34146,10 @@ height:30px;
 }
 
 .EscalaDescuento {
-    float: none !important;
+    /*float: none !important;*/
     position: absolute;
     left: 0;
 }
-
-
 
 /* FIN - MEJORA CONTINUA CONSULTORAS - HD-2212 - PROGRAMA DE NUEVAS: MOSTRAR IMAGEN DEL REGALO EN LA BARRA DE DESCUENTOS */
 
