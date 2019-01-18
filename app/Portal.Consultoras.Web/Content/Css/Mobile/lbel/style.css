@@ -6583,6 +6583,10 @@ input[type='checkbox']:checked + span:after {
     MARGIN-BOTTOM: 5px;
 }
 
+.barra_title {
+    font-size: 15px;
+}
+
 .flechita_barra {
     position: relative;
     margin-left: 21px;

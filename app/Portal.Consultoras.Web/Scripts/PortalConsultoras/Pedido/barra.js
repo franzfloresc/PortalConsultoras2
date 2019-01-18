@@ -603,9 +603,13 @@ function MostrarBarra(datax, destino) {
     if (tpRegaloMobileShow && vLogro < tp) {
         tipoMensaje = "TippingPointMobile";
     }
+    var mtoTp = variablesPortal.SimboloMoneda + " " + dataBarra.TippingPointStr;
+    $('#montoPremioMeta').html(mtoTp);
+    if (tp > 0) {
+        $('.tooltip_informativo_condicion_regalo_programaNuevas').html('Sólo si llegas a ' + mtoTp);
+    }
 
-    $('#montoPremioMeta').html(variablesPortal.SimboloMoneda + " " + dataBarra.TippingPointStr);
-    if (belcorp.barra.settings.isMobile) {//V&& tp > 0  OG
+    if (belcorp.barra.settings.isMobile) {//V&& tp > 0  OG    
         cargarMontoBanderasMobile(dataBarra);
     }
 
@@ -626,6 +630,12 @@ function MostrarBarra(datax, destino) {
     $("#divBarra #divBarraMensajeLogrado").show();
     $("#divBarra #divBarraMensajeLogrado .mensaje_barra").html(objMsg.Titulo.replace("#porcentaje", valPor).replace("#valor", valorMonto));
 
+    var dvMsg = $("#divBarra #divBarraMensajeLogrado .barra_title");
+    if (mtoLogroBarra >= tp && hasPremioInDetails()) {
+        dvMsg.html('¡Alcanzaste tu regalo!');
+    } else {
+        dvMsg.html('');
+    }
     
     if (tpRegaloMobileShow) {
         $('#hrefIconoRegalo').show();
@@ -746,6 +756,13 @@ function savePedidoDetails(response) {
     }
 
     tpElectivos.pedidoDetails = response.data.ListaDetalleModel || [];
+}
+
+function hasPremioInDetails() {
+    var details = tpElectivos.pedidoDetails;
+    if (!details || details.length === 0) return false;
+
+    return getPremioElectivoInDetails(tpElectivos.pedidoDetails);
 }
 
 function initCarruselPremios(barra) {
