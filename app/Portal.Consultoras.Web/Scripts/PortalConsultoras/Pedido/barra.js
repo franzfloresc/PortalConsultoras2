@@ -121,11 +121,6 @@ function MostrarBarra(datax, destino) {
         var valTopTotal = destino == '2' && dataBarra.TippingPointBarra.Active && tp > 0 ? tp : mn
         if (vLogro > valTopTotal) vLogro = valTopTotal > me ? valTopTotal : me;
 
-        if ((mt - md) < mn)
-            vLogro = mt - md;
-        else
-            vLogro = me < mn ? mn : me;
-
         listaLimite = new Array();
         listaEscalaDescuento = listaEscalaDescuento || new Array();
         var listaEscala = new Array();
@@ -574,19 +569,21 @@ function MostrarBarra(datax, destino) {
         return false;
     }
 
-    var vLimite2 = vLimite;
+    var valorFalta = vLimite - vLogro;
     var tipoMensaje = '';
     var escalaPremio = destino == '2' && mx == 0 && dataBarra.TippingPointBarra.Active;
-    var limiteEsPremio = vLogro > tp  && tp <= vLimite;
+    var limiteEsPremio = vLogro < tp; //  && tp <= vLimite;
 
     if(escalaPremio && limiteEsPremio) {
-        vLimite2 = tp;
+        valorFalta = tp - vLogro;
         tipoMensaje = "TippingPoint";
     }
     else if (vLogro < mn) tipoMensaje = "MontoMinimo";
-    else tipoMensaje = listaLimite[indPuntoLimite].tipoMensaje;
-
-    tipoMensaje += vLogro >= vLimite2 ? "Supero" : "";
+    else {
+        tipoMensaje = listaLimite[indPuntoLimite].tipoMensaje;
+        if (tipoMensaje == 'EscalaDescuento') valorFalta = vLimite - me;
+        if (vLogro >= vLimite) tipoMensaje += "Supero";
+    }
     tipoMensaje += belcorp.barra.settings.isMobile ? 'Mobile' : '';
 
     $('#montoPremioMeta').html(variablesPortal.SimboloMoneda + " " + dataBarra.TippingPointStr);
@@ -604,33 +601,21 @@ function MostrarBarra(datax, destino) {
         return false;
     }
     var valPor = listaLimite[indPuntoLimite].valPor || "";
-    var valorMonto = variablesPortal.SimboloMoneda + " " + DecimalToStringFormat(parseFloat(vLimite - vLogro));
-    var valorMontoEsacalaDescuento = variablesPortal.SimboloMoneda + " " + DecimalToStringFormat(parseFloat(listaLimite[indPuntoLimite].valor - me));
+    var valorMonto = variablesPortal.SimboloMoneda + " " + DecimalToStringFormat(parseFloat(valorFalta));
     $("#divBarra #divBarraMensajeLogrado").show();
     $("#divBarra #divBarraMensajeLogrado .mensaje_barra").html(objMsg.Titulo.replace("#porcentaje", valPor).replace("#valor", valorMonto));
 
-    
-    if (tpRegaloMobileShow) {
+    if (tp > 0 && dataBarra.TippingPointBarra.Active) {
         $('#hrefIconoRegalo').show();
-
+        
         if (ConfiguradoRegalo == true) {//&& (mtoLogroBarra<=dataBarra.MontoMinimo)
             document.getElementById('divtippingPoint').style.display = 'none';
             document.getElementById('lineaPosicionRegalo').style.display = 'none';
         }
-        
-        if (vLogro < tp) {
-            valorMonto = variablesPortal.SimboloMoneda + " " + DecimalToStringFormat(tp - vLogro);
-        }
-    } else {
-        if (ConfiguradoRegalo == false) $('#hrefIconoRegalo').hide();
     }
 
     var divBarraMsg = $("#divBarra #divBarraMensajeLogrado .agrega_barra");
-    if (sessionStorage.getItem("cuvPack") != null || mx > 0) { 
-        divBarraMsg.html(objMsg.Mensaje.replace("#porcentaje", valPor).replace("#valor", valorMonto));
-    } else {
-        divBarraMsg.html(objMsg.Mensaje.replace("#porcentaje", valPor).replace("#valor", (mt < mn ? valorMonto : valorMontoEsacalaDescuento)));
-    }
+    divBarraMsg.html(objMsg.Mensaje.replace("#porcentaje", valPor).replace("#valor", valorMonto));
 
     //$("#divBarra #divBarraMensajeLogrado .agrega_barra").html(objMsg.Mensaje.replace("#porcentaje", valPor).replace("#valor", valorMonto)); 
     // OG
