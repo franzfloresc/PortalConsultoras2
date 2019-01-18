@@ -16,14 +16,19 @@
     flex-wrap:wrap;
 }
 
+.categoria_producto,
+.categoria_producto_enlace
+{
+    border-radius:4px;
+}
+
 .categoria_producto{
     height:80px;
     margin-right:13px;
     margin-bottom:12px;
-    background-color:rgba(0,0,0,.5);
     flex: 0 0 47.95%;
     max-width: 47.95%;
-    border-radius:4px;
+    background-repeat:no-repeat;
 }
 
 .categoria_producto.categoria_fragancias{
@@ -43,6 +48,7 @@
     flex-wrap:nowrap;
     padding:12px;
     cursor:pointer;
+    background-color:rgba(0,0,0,.5);
 }
 
 .titulo_categoria_producto_busqueda,
@@ -58,6 +64,48 @@
 
 .cantidad_productos_por_categoria_busqueda{
     font-size:13px;
+}
+
+.categoria_fragancias{
+    background-image:url('/Content/Images/Buscador/fragancia.jpg');
+    background-position:left center;
+    background-size:100%;
+}
+
+.categoria_maquillaje{
+    background-image:url('/Content/Images/Buscador/maquillaje.jpg');
+    background-position: -11px -33px;
+    background-size: 125%;
+}
+
+.categoria_cuidado_personal{
+    background-image:url('/Content/Images/Buscador/cuidadopersonal.jpg');
+    background-position: -22px -77px;
+    background-size: 143%;
+}
+
+.categoria_tratamiento_facial{
+    background-image:url('/Content/Images/Buscador/tratamiento facial.jpg');
+    background-position: -80px -76px;
+    background-size: 220%;
+}
+
+.categoria_bijouterie{
+    background-image:url('/Content/Images/Buscador/bijouterie.jpg');
+    background-position: -45px -76px;
+    background-size: 200%;
+}
+
+.categoria_moda{
+    background-image:url('/Content/Images/Buscador/moda.jpg');
+    background-position: left center;
+    background-size: 100%;
+}
+
+.categoria_herramientas_venta{
+    background-image:url('/Content/Images/Buscador/herramientas.jpg');
+    background-position: left -24px;
+    background-size: 100%;
 }
 
 @media screen and (max-width:355px){
