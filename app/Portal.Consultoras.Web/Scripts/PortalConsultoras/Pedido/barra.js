@@ -593,7 +593,7 @@ function MostrarBarra(datax, destino) {
         $('.tooltip_informativo_condicion_regalo_programaNuevas').html('Sólo si llegas a ' + mtoTp);
     }
 
-    if (belcorp.barra.settings.isMobile) {//V&& tp > 0  OG
+    if (belcorp.barra.settings.isMobile) {//V&& tp > 0  OG    
         cargarMontoBanderasMobile(dataBarra);
     }
 
@@ -612,6 +612,12 @@ function MostrarBarra(datax, destino) {
     $("#divBarra #divBarraMensajeLogrado").show();
     $("#divBarra #divBarraMensajeLogrado .mensaje_barra").html(objMsg.Titulo.replace("#porcentaje", valPor).replace("#valor", valorMonto));
 
+    var dvMsg = $("#divBarra #divBarraMensajeLogrado .barra_title");
+    if (mtoLogroBarra >= tp && hasPremioInDetails()) {
+        dvMsg.html('¡Alcanzaste tu regalo!');
+    } else {
+        dvMsg.html('');
+    }
     
     if (tpRegaloMobileShow) {
         $('#hrefIconoRegalo').show();
@@ -732,6 +738,13 @@ function savePedidoDetails(response) {
     }
 
     tpElectivos.pedidoDetails = response.data.ListaDetalleModel || [];
+}
+
+function hasPremioInDetails() {
+    var details = tpElectivos.pedidoDetails;
+    if (!details || details.length === 0) return false;
+
+    return getPremioElectivoInDetails(tpElectivos.pedidoDetails);
 }
 
 function initCarruselPremios(barra) {
