@@ -234,8 +234,8 @@ function MostrarBarra(datax, destino) {
   
     var htmlPunto = '<div id="punto_{punto}" data-punto="{select}">'
                 + '<div class="monto_minimo_barra" style="width:{wText}px">'
-                    + '<div style="width:{wText}px;position: absolute; color:#808080; top:-2px;" data-texto>{texto}</div>'
-                    //+ '<div class="linea_indicador_barra" {style}></div>' og
+                    + '<div style="width:{wText}px;position: absolute; color:#808080;" data-texto>{texto}</div>'
+                    + '<div class="linea_indicador_barra_vista_bienvenida"></div>' //og
                 + '</div>'
         + '</div>' 
     + '<div class="linea_indicador_barra" id="barra_{punto}" {style}></div>';//hd-2848
@@ -262,7 +262,7 @@ function MostrarBarra(datax, destino) {
                             + '<div class="circulo-3 iniciarTransicion"></div>'
                         + '</div>'
                     + '</div>'
-                    //+ '<div class="linea_indicador_barra"></div>' og 
+                    + '<div class="linea_indicador_barra_vista_bienvenida"></div>' //og 
                 + '</div>'
             + '</div>';
         + '<div class="linea_indicador_barra" id="barra_{punto}" {style}></div>';//hd-2848
@@ -295,6 +295,7 @@ function MostrarBarra(datax, destino) {
                 + '<div class="monto_minimo_barra">'
                     //+ '<div class="bandera_marcador" style="margin-top: -6px;"></div>'
                     + '<div style="margin-left: {marl}px;width: {wText}px;position: absolute; color:#808080;" data-texto>{texto}</div>'
+                    + '<div class="linea_indicador_barra_vista_bienvenida"></div>' //og
                 + '</div>'
         + '</div>' 
     //og
@@ -400,7 +401,7 @@ function MostrarBarra(datax, destino) {
 
     if (destino == '1') {
         $("#divBarraLimite [data-punto='0']").find("[data-texto]").css("color", "#979797");
-        $("#divBarraLimite [data-punto='1']").find("[data-texto]").css("color", "#000000");
+        $("#divBarraLimite [data-punto='1']").find("[data-texto]").css("color", "#808080");
         $("#divBarraLimite [data-punto='1']").find("[data-texto]").css("font-weight", "bold");
     }
 
@@ -567,17 +568,19 @@ function MostrarBarra(datax, destino) {
 
 
     if (destino == "1") {
-        if (!TieneMontoMaximo()) { 
+        if (!TieneMontoMaximo()) {
 
-            var NumeroBarras = dataBarra.ListaEscalaDescuento.length;
-            var inicio = (100 / NumeroBarras)-9;
+            $('.linea_indicador_barra').hide();
 
-            for (var i = 0; i < dataBarra.ListaEscalaDescuento.length; i++) {
+            //var NumeroBarras = dataBarra.ListaEscalaDescuento.length;
+            //var inicio = (100 / NumeroBarras)-9;
 
-                document.getElementById('barra_' + i.toString()).style.marginLeft = inicio + '%';
-                document.getElementById('barra_' + i.toString()).style.top = '50px';
-                inicio = inicio + (100 / NumeroBarras);
-            }
+            //for (var i = 0; i < dataBarra.ListaEscalaDescuento.length; i++) {
+
+            //    document.getElementById('barra_' + i.toString()).style.marginLeft = inicio + '%';
+            //    document.getElementById('barra_' + i.toString()).style.top = '50px';
+            //    inicio = inicio + (100 / NumeroBarras);
+            //}
 
      
         }

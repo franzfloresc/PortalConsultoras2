@@ -23596,13 +23596,22 @@ input[type='checkbox']:checked + span:after {
     margin-top: 19px;
 }
 
-.linea_indicador_barra {
+.linea_indicador_barra,
+.linea_indicador_barra_vista_bienvenida
+{
     width: 1px;
     height: 8px;
     background: #979797;
     position: absolute;
     top:0;
     z-index: 100;
+}
+
+.linea_indicador_barra_vista_bienvenida {
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    top: 31px;
 }
 
 .barra_mensaje_meta_pedido{
