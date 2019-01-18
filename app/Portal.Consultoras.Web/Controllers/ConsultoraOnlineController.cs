@@ -1243,7 +1243,7 @@ namespace Portal.Consultoras.Web.Controllers
                                         CUV = pedidoDetalle.CUV,
                                         DescripcionProd = pedidoDetalle.Producto,
                                         ClienteDescripcion = pedidoAux.Cliente,
-                                        OrigenPedidoWeb = GetOrigenPedidoWeb(pedidoAux.FlagMedio, pedidoDetalle.MarcaID)
+                                        OrigenPedidoWeb = GetOrigenPedidoWeb(pedidoAux.FlagMedio, pedidoDetalle.MarcaID, pedido.Dispositivo)
                                     };
 
                                     var olstPedidoWebDetalle = AgregarDetallePedido(model);
@@ -2332,21 +2332,54 @@ namespace Portal.Consultoras.Web.Controllers
             return new EmptyResult();
         }
 
-        private int GetOrigenPedidoWeb(string flagMedio, int marcaID)
+        private int GetOrigenPedidoWeb(string flagMedio, int marcaID, int Dispositivo)
         {
             var origenPedidoWeb = 0;
 
-            if (flagMedio == Constantes.SolicitudCliente.FlagMedio.AppCatalogos)
+            if (Dispositivo == 1) //DESKTOP
             {
-                if (marcaID == Constantes.Marca.LBel) origenPedidoWeb = Constantes.OrigenPedidoWeb.AppCatalogoPedidoCatalogoLbelPendienteDeAprobar;
-                else if (marcaID == Constantes.Marca.Esika) origenPedidoWeb = Constantes.OrigenPedidoWeb.AppCatalogoPedidoCatalogoEsikaPendienteDeAprobar;
-                else if (marcaID == Constantes.Marca.Cyzone) origenPedidoWeb = Constantes.OrigenPedidoWeb.AppCatalogoPedidoCatalogoCyzonePendienteDeAprobar;
+                if (flagMedio == Constantes.SolicitudCliente.FlagMedio.AppCatalogos)
+                {
+                    if (marcaID == Constantes.Marca.LBel) origenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopPedidoCatalogoLbelAppCatalogoPendienteDeAprobar;
+                    else if (marcaID == Constantes.Marca.Esika) origenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopPedidoCatalogoEsikaAppCatalogoPendienteDeAprobar;
+                    else if (marcaID == Constantes.Marca.Cyzone) origenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopPedidoCatalogoCyzoneAppCatalogoPendienteDeAprobar;
+                }
+                else if (flagMedio == Constantes.SolicitudCliente.FlagMedio.CatalogoDigital)
+                {
+                    if (marcaID == Constantes.Marca.LBel) origenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopPedidoCatalogoLbelCatalogoDigitalPendienteDeAprobar;
+                    else if (marcaID == Constantes.Marca.Esika) origenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopPedidoCatalogoEsikaCatalogoDigitalPendienteDeAprobar;
+                    else if (marcaID == Constantes.Marca.Cyzone) origenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopPedidoCatalogoCyzoneCatalogoDigitalPendienteDeAprobar;
+                }
             }
-            else if (flagMedio == Constantes.SolicitudCliente.FlagMedio.CatalogoDigital)
+            else if (Dispositivo == 2) //MOBILE
             {
-                if (marcaID == Constantes.Marca.LBel) origenPedidoWeb = Constantes.OrigenPedidoWeb.CatalogoDigitalPedidoCatalogoLbelPendienteDeAprobar;
-                else if (marcaID == Constantes.Marca.Esika) origenPedidoWeb = Constantes.OrigenPedidoWeb.CatalogoDigitalPedidoCatalogoEsikaPendienteDeAprobar;
-                else if (marcaID == Constantes.Marca.Cyzone) origenPedidoWeb = Constantes.OrigenPedidoWeb.CatalogoDigitalPedidoCatalogoCyzonePendienteDeAprobar;
+                if (flagMedio == Constantes.SolicitudCliente.FlagMedio.AppCatalogos)
+                {
+                    if (marcaID == Constantes.Marca.LBel) origenPedidoWeb = Constantes.OrigenPedidoWeb.MobilePedidoCatalogoLbelAppCatalogoPendienteDeAprobar;
+                    else if (marcaID == Constantes.Marca.Esika) origenPedidoWeb = Constantes.OrigenPedidoWeb.MobilePedidoCatalogoEsikaAppCatalogoPendienteDeAprobar;
+                    else if (marcaID == Constantes.Marca.Cyzone) origenPedidoWeb = Constantes.OrigenPedidoWeb.MobilePedidoCatalogoCyzoneAppCatalogoPendienteDeAprobar;
+                }
+                else if (flagMedio == Constantes.SolicitudCliente.FlagMedio.CatalogoDigital)
+                {
+                    if (marcaID == Constantes.Marca.LBel) origenPedidoWeb = Constantes.OrigenPedidoWeb.MobilePedidoCatalogoLbelCatalogoDigitalPendienteDeAprobar;
+                    else if (marcaID == Constantes.Marca.Esika) origenPedidoWeb = Constantes.OrigenPedidoWeb.MobilePedidoCatalogoEsikaCatalogoDigitalPendienteDeAprobar;
+                    else if (marcaID == Constantes.Marca.Cyzone) origenPedidoWeb = Constantes.OrigenPedidoWeb.MobilePedidoCatalogoCyzoneCatalogoDigitalPendienteDeAprobar;
+                }
+            }
+            else if (Dispositivo == 3) //APP
+            {
+                if (flagMedio == Constantes.SolicitudCliente.FlagMedio.AppCatalogos)
+                {
+                    if (marcaID == Constantes.Marca.LBel) origenPedidoWeb = Constantes.OrigenPedidoWeb.AppConsultoraPedidoCatalogoLbelAppCatalogoPendienteDeAprobar;
+                    else if (marcaID == Constantes.Marca.Esika) origenPedidoWeb = Constantes.OrigenPedidoWeb.AppConsultoraPedidoCatalogoEsikaAppCataogoPendienteDeAprobar;
+                    else if (marcaID == Constantes.Marca.Cyzone) origenPedidoWeb = Constantes.OrigenPedidoWeb.AppConsultoraPedidoCatalogoCyzoneAppCatalogoPendienteDeAprobar;
+                }
+                else if (flagMedio == Constantes.SolicitudCliente.FlagMedio.CatalogoDigital)
+                {
+                    if (marcaID == Constantes.Marca.LBel) origenPedidoWeb = Constantes.OrigenPedidoWeb.AppConsultoraPedidoCatalogoLbelCatalogoDigitalPendienteDeAprobar;
+                    else if (marcaID == Constantes.Marca.Esika) origenPedidoWeb = Constantes.OrigenPedidoWeb.AppConsultoraPedidoCatalogoEsikaCatalogoDigitalPendienteDeAprobar;
+                    else if (marcaID == Constantes.Marca.Cyzone) origenPedidoWeb = Constantes.OrigenPedidoWeb.AppConsultoraPedidoCatalogoCyzoneCatalogoDigitalPendienteDeAprobar;
+                }
             }
 
             return origenPedidoWeb;

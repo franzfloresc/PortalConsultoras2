@@ -912,12 +912,24 @@ namespace Portal.Consultoras.Common
             #endregion
 
             #region Pedidos Pendientes
-            public const int AppCatalogoPedidoCatalogoLbelPendienteDeAprobar = 6021110;
-            public const int AppCatalogoPedidoCatalogoEsikaPendienteDeAprobar = 6021210;
-            public const int AppCatalogoPedidoCatalogoCyzonePendienteDeAprobar = 6021310;
-            public const int CatalogoDigitalPedidoCatalogoLbelPendienteDeAprobar = 7021110;
-            public const int CatalogoDigitalPedidoCatalogoEsikaPendienteDeAprobar = 7021210;
-            public const int CatalogoDigitalPedidoCatalogoCyzonePendienteDeAprobar = 7021310;
+            public const int DesktopPedidoCatalogoLbelAppCatalogoPendienteDeAprobar = 1021110;
+            public const int DesktopPedidoCatalogoEsikaAppCatalogoPendienteDeAprobar = 1021210;
+            public const int DesktopPedidoCatalogoCyzoneAppCatalogoPendienteDeAprobar = 1021310;
+            public const int MobilePedidoCatalogoLbelAppCatalogoPendienteDeAprobar = 2021110;
+            public const int MobilePedidoCatalogoEsikaAppCatalogoPendienteDeAprobar = 2021210;
+            public const int MobilePedidoCatalogoCyzoneAppCatalogoPendienteDeAprobar = 2021310;
+            public const int AppConsultoraPedidoCatalogoLbelAppCatalogoPendienteDeAprobar = 4021110;
+            public const int AppConsultoraPedidoCatalogoEsikaAppCataogoPendienteDeAprobar = 4021210;
+            public const int AppConsultoraPedidoCatalogoCyzoneAppCatalogoPendienteDeAprobar = 4021310;
+            public const int DesktopPedidoCatalogoLbelCatalogoDigitalPendienteDeAprobar = 1021111;
+            public const int DesktopPedidoCatalogoEsikaCatalogoDigitalPendienteDeAprobar = 1021211;
+            public const int DesktopPedidoCatalogoCyzoneCatalogoDigitalPendienteDeAprobar = 1021311;
+            public const int MobilePedidoCatalogoLbelCatalogoDigitalPendienteDeAprobar = 2021111;
+            public const int MobilePedidoCatalogoEsikaCatalogoDigitalPendienteDeAprobar = 2021211;
+            public const int MobilePedidoCatalogoCyzoneCatalogoDigitalPendienteDeAprobar = 2021311;
+            public const int AppConsultoraPedidoCatalogoLbelCatalogoDigitalPendienteDeAprobar = 4021111;
+            public const int AppConsultoraPedidoCatalogoEsikaCatalogoDigitalPendienteDeAprobar = 4021211;
+            public const int AppConsultoraPedidoCatalogoCyzoneCatalogoDigitalPendienteDeAprobar = 4021311;
             #endregion
         }
 
