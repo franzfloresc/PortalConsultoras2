@@ -2213,7 +2213,7 @@ function CalculoPosicionMinimoMaximoDestokp() {
         if (dataBarra.ListaEscalaDescuento.length > 1) {
             if (mtoLogroBarra > dataBarra.ListaEscalaDescuento[0].MontoDesde * 1) {
                 document.getElementsByClassName('bandera_marcador')[0].style.display = 'block';
-                $(".barra_mensaje_meta_pedido").css('margin-bottom', '51px');
+                $(".barra_mensaje_meta_pedido").css('margin-bottom', '56px');
             }
 
         }
