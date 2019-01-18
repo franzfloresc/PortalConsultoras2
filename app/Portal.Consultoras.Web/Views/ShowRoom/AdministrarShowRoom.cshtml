@@ -831,7 +831,8 @@
             buttons:
             {
                 "Aceptar": function () {
-                    $(this).dialog('close');
+                    HideDialog("DialogMensajes");
+                    //$(this).dialog('close');
                 }
             }
         });
@@ -873,7 +874,8 @@
                     }
                 },
                 "Cancelar": function () {
-                    $(this).dialog('close');
+                    HideDialog("DialogDatosShowRoom");
+                    //$(this).dialog('close');
                 }
             }
         });
@@ -892,7 +894,8 @@
                     $('#frmCargarConsultoras').submit();
                 },
                 "Cancelar": function () {
-                    $(this).dialog('close');
+                    HideDialog("DialogCargarConsultoras");
+                    //$(this).dialog('close');
                 }
             }
         });
@@ -911,7 +914,8 @@
                     $('#frmCargarStock').submit();
                 },
                 "Cancelar": function () {
-                    $(this).dialog('close');
+                    HideDialog("DialogCargarStock");
+                    //$(this).dialog('close');
                 }
             }
         });
@@ -930,7 +934,8 @@
                     $('#frmCargarDescripcionSets').submit();
                 },
                 "Cancelar": function () {
-                    $(this).dialog('close');
+                    HideDialog("DialogCargarDescripcionSets");
+                    //$(this).dialog('close');
                 }
             }
         });
@@ -949,7 +954,8 @@
                     $('#frmCargarProductoCpc').submit();
                 },
                 "Cancelar": function () {
-                    $(this).dialog('close');
+                    HideDialog("DialogCargarProductoCpc");
+                    //$(this).dialog('close');
                 }
             }
         });
@@ -981,7 +987,8 @@
                     }
                 },
                 "Cancelar": function () {
-                    $(this).dialog('close');
+                    HideDialog("DialogRegistroOfertaShowRoom");
+                    //$(this).dialog('close');
                 }
             }
         });
@@ -993,7 +1000,10 @@
             closeOnEscape: true,
             width: 900,
             draggable: true,
-            title: "Edición de Productos"
+            title: "Edición de Productos",
+            close: function () {
+                HideDialog("DialogRegistroOfertaShowRoomDetalle");
+            }
         });
 
         $('#DialogRegistroOfertaShowRoomDetalleEditar').dialog({
@@ -1024,7 +1034,8 @@
                     return false;
                 },
                 "Cancelar": function () {
-                    $(this).dialog('close');
+                    HideDialog("DialogRegistroOfertaShowRoomDetalleEditar");
+                    //$(this).dialog('close');
                 }
             }
         });
@@ -1049,7 +1060,7 @@
                         vMessage += "- Debe seleccionar el evento.\n";
 
                     if (nivelId == "")
-                        vMessage += "- Debe seleccionar el nivel de la personalización.\n";                    
+                        vMessage += "- Debe seleccionar el nivel de la personalización.\n";
 
                     if (vMessage != "") {
                         alert(vMessage);
@@ -1061,7 +1072,8 @@
                     return false;
                 },
                 "Cancelar": function () {
-                    $(this).dialog('close');
+                    HideDialog("DialogPersonalizacionDetalle");
+                    //$(this).dialog('close');
                 }
             }
         });
@@ -1099,7 +1111,8 @@
                     return false;
                 },
                 "Cancelar": function () {
-                    $(this).dialog('close');
+                    HideDialog("DialogPersonalizacionCategoriaDetalle");
+                    //$(this).dialog('close');
                 }
             }
         });
@@ -1124,10 +1137,11 @@
                     $("#txtCodigoTipoOferta").removeAttr("readonly");
                 },
                 "Salir": function () {
-                    $(this).dialog('close');
+                    HideDialog("DialogTiposOferta");
+                    //$(this).dialog('close');
                 }
             }
-        });        
+        });
     }
 
     function CargarAjaxForm() {
@@ -1155,7 +1169,8 @@
                 closeWaitingDialog();
                 if (checkTimeout(response)) {
                     alert(response);
-                    $('#DialogCargarConsultoras').dialog('close');
+                    HideDialog("DialogCargarConsultoras");
+                    //$('#DialogCargarConsultoras').dialog('close');
                 }
             }
         });
@@ -1187,7 +1202,8 @@
                     $("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
                     CargarCategorias();
                     alert(response);
-                    $('#DialogCargarStock').dialog('close');
+                    HideDialog("DialogCargarStock");
+                    //$('#DialogCargarStock').dialog('close');
                 }
             }
         });
@@ -1218,7 +1234,8 @@
                 if (checkTimeout(response)) {
                     $("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
                     alert(response);
-                    $('#DialogCargarDescripcionSets').dialog('close');
+                    HideDialog("DialogCargarDescripcionSets");
+                    //$('#DialogCargarDescripcionSets').dialog('close');
                 }
             }
         });
@@ -1246,9 +1263,10 @@
             },
             success: function (response) {
                 closeWaitingDialog();
-                if (checkTimeout(response)) {                    
+                if (checkTimeout(response)) {
                     alert(response);
-                    $('#DialogCargarProductoCpc').dialog('close');
+                    HideDialog("DialogCargarProductoCpc");
+                    //$('#DialogCargarProductoCpc').dialog('close');
                 }
             }
         });
@@ -1566,13 +1584,13 @@
                             var listaPersonalizacion = response.listaPersonalizacion;
 
                             var listaPersonalizacionDesktop = listaPersonalizacion.Find("TipoAplicacion", "Desktop");
-                            var listaPersonalizacionMobile = listaPersonalizacion.Find("TipoAplicacion", "Mobile");                            
+                            var listaPersonalizacionMobile = listaPersonalizacion.Find("TipoAplicacion", "Mobile");
 
                             $.each(listaPersonalizacionMobile, function (index, value) {
                                 var htmlPersonalizacion = '';
                                 htmlPersonalizacion += '<div class="div-3" data-idpersonalizacion="' + value.PersonalizacionId + '">';
                                 htmlPersonalizacion += '<input type="hidden" class="hdPersonalizacionNivelId" value="' + value.PersonalizacionNivelId + '"/>';
-                                
+
                                 var valor = value.TipoAtributo == 'IMAGEN' ? value.Valor.replace(/^.*[\\\/]/, '') : value.Valor;
                                 htmlPersonalizacion += '<input type="hidden" class="hdValor" value="' + valor + '"/>';
                                 htmlPersonalizacion += '<input type="hidden" class="hdValorAnterior" value="' + valor + '"/>';
@@ -1581,7 +1599,7 @@
                                 htmlPersonalizacion += '<input type="hidden" class="hdTipoAtributo" value="' + value.TipoAtributo + '"/>';
 
                                 if (value.TipoAtributo == 'IMAGEN') {
-                                    
+
                                     htmlPersonalizacion += '<div class="titC" style="width: 250px; margin-top: 15px;">' + value.TextoAyuda + '</div>';
                                     htmlPersonalizacion += '<div class="titC" style="padding: 0; width: 230px;">';
                                     htmlPersonalizacion += '<div class="input_search">';
@@ -1595,9 +1613,9 @@
                                     }
 
                                     htmlPersonalizacion += '</div>';
-                                    htmlPersonalizacion += '</div>';                                    
+                                    htmlPersonalizacion += '</div>';
                                 } else {
-                                    
+
                                     htmlPersonalizacion += '<div class="titC" style="width: 250px;">' + value.TextoAyuda + '</div>';
                                     htmlPersonalizacion += '<div class="selectP2 borde_redondeado" style="width: 400px;">';
                                     htmlPersonalizacion += '<input type="text" class="txtAtributoPersonalizacion" value="' + value.Valor + '" style="width: 400px;"/>';
@@ -1839,9 +1857,9 @@
                 alert_msg("La descripción del Tipo de Oferta no puede ser vacío");
                 return false;
             }
-           
+
             var existeTipoOferta = ExisteTipoOferta(tipoOfertaId, codigo, descripcion);
-            if (existeTipoOferta != 0) {                
+            if (existeTipoOferta != 0) {
                 return false;
             }
 
@@ -2240,7 +2258,7 @@
                             $("#divPersonalizacion").css("display", "none");
                         } else {
                             var listaNiveles = response.data || new Array();
-                            
+
                             $("#cbNivelEvento").append('<option value="">-- Seleccionar --</option>');
 
                             $.each(listaNiveles, function (index, value) {
@@ -2354,7 +2372,7 @@
         var tieneCompraXcompra = $("#chkEventocompraXcompra").is(":checked");
         var tieneSubCampania = $("#chkEventoTieneSubCampania").is(":checked");
         var tienePersonalizacion = $("#chkEventoTienePersonalizacion").is(":checked");
-        
+
         var showRoom = {
             EventoID: eventoID == "" || eventoID == undefined ? 0 : eventoID,
             CampaniaID: campaniaID,
@@ -2476,7 +2494,7 @@
             hidegrid: false,
             datatype: 'json',
             postData: ({
-                PaisID: function() { return $("#ddlPais").val() },                
+                PaisID: function() { return $("#ddlPais").val() },
                 CampaniaID: function() { return ($("#ddlCampania").val() == "" ? "0" : $("#ddlCampania").val()); }
             }),
             mtype: 'GET',
@@ -2566,7 +2584,7 @@
                 { name: 'NombreProducto', index: 'NombreProducto', width: 80, editable: true, resizable: false },
                 { name: 'Descripcion1', index: 'Descripcion1', width: 80, editable: true, resizable: false },
                 { name: 'Descripcion2', index: 'Descripcion2', width: 80, editable: true, resizable: false },
-                { name: 'Descripcion3', index: 'Descripcion3', width: 80, editable: true, resizable: false },                
+                { name: 'Descripcion3', index: 'Descripcion3', width: 80, editable: true, resizable: false },
                 { name: 'Imagen', index: 'Imagen', width: 55, editable: true, resizable: false, sortable: false, align: 'center', formatter: ShowImageDetalle },
                 { name: 'MarcaProducto', index: 'MarcaProducto', width: 80, editable: true, resizable: false, hidden: true },
                 { name: 'Options', index: 'Options', width: 40, editable: true, sortable: false, align: 'center', resizable: false, formatter: ShowActionsDetalle }
@@ -2777,7 +2795,7 @@
                     $('#hdImagenMini').val("");
                     $('#imgMini').attr('src', imagenProductoVacio);
                 }
-                
+
                 if (jQuery("#list").jqGrid('getCell', ID, 'FlagHabilitarProducto') == "True")
                     $('#chkHabilitarOferta').attr('checked', true);
                 else
@@ -2884,11 +2902,11 @@
             $('#txtEventoRutaShowRoomPopup').val(jQuery("#listEvento").jqGrid('getCell', ID, 'RutaShowRoomPopup'));
             $('#txtEventoRutaShowRoomBannerLateral').val(jQuery("#listEvento").jqGrid('getCell', ID, 'RutaShowRoomBannerLateral'));
 
-            $("#chkEventoEstado").prop('checked', estado == "1");            
+            $("#chkEventoEstado").prop('checked', estado == "1");
             $("#chkEventoTieneCategoria").prop('checked', tieneCategoria == "True");
             $("#chkEventocompraXcompra").prop('checked', tieneCompraXCompra == "True");
             $("#chkEventoTieneSubCampania").prop('checked', tieneSubCampania == "True");
-            
+
             $("#chkEventoTienePersonalizacion").prop('checked', tienePersonalizacion);
 
             $("#divEventoEstado").css("display", "");
@@ -3218,7 +3236,7 @@
             value: "",
             text: "-- Seleccionar --"
         }));
-        
+
         $("#list").jqGrid("clearGridData", true).trigger("reloadGrid");
     }
 
@@ -3242,7 +3260,7 @@
                     $(".qq-upload-list").css("display", "none");
                     if (responseJSON.success) {
                         var rutaImagen = rutaImagenTemporal + responseJSON.name;
-                        
+
                         $(elementoHiddenValor).val(responseJSON.name);
 
                         var html = '<img  alt="" src="' + rutaImagen + '" style="width: auto; height: 60px; max-width: 300px !important;"/>';
@@ -3305,7 +3323,7 @@
                     closeWaitingDialog();
                     if (data.success == true) {
                         alert(data.message);
-                        
+
                         HideDialog("DialogPersonalizacionDetalle");
                     }
                     else {
@@ -3432,7 +3450,7 @@
             colModel: [
                 { name: 'TipoOfertaID', index: 'TipoOfertaID', width: 50, editable: true, resizable: false, hidden: true },
                 { name: 'Codigo', index: 'Codigo', width: 50, editable: true, resizable: false },
-                { name: 'Descripcion', index: 'Descripcion', width: 60, editable: true, resizable: false },                
+                { name: 'Descripcion', index: 'Descripcion', width: 60, editable: true, resizable: false },
                 { name: 'Options', index: 'Options', width: 60, editable: true, sortable: false, align: 'center', resizable: false, formatter: ShowActionsTiposOferta }
             ],
             jsonReader:
@@ -3544,7 +3562,7 @@
                 if (checkTimeout(response)) {
                     if (response.success) {
                         closeWaitingDialog();
-                        
+
                         jQuery("#listShowRoomTipoOferta").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
 
                         $("#hdIdTipoOferta").val("");

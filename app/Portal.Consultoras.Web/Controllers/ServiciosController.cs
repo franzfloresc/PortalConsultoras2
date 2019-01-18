@@ -12,7 +12,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class ServiciosController : BaseController
+    public class ServiciosController : BaseAdmController
     {
         public ActionResult AdministrarServicios()
         {
@@ -28,7 +28,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (!UsuarioModel.HasAcces(ViewBag.Permiso, "Servicios/MantenimientoServicios"))
                 return RedirectToAction("Index", "Bienvenida");
 
-            var model = new ServicioModel { DropDownListCampania = CargarCampania() };
+            var model = new ServicioModel { DropDownListCampania = _zonificacionProvider.GetCampaniasEntidad(Constantes.PaisID.Peru) };
             model.DropDownListCampania.Insert(0, new BECampania() { CampaniaID = 0, Codigo = "-- Seleccionar --" });
 
             return View(model);
@@ -39,7 +39,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (!UsuarioModel.HasAcces(ViewBag.Permiso, "Servicios/MantenimientoServicio"))
                 return RedirectToAction("Index", "Bienvenida");
 
-            var model = new ServicioModel { DropDownListCampania = CargarCampania() };
+            var model = new ServicioModel { DropDownListCampania = _zonificacionProvider.GetCampaniasEntidad(Constantes.PaisID.Peru) };
             model.DropDownListCampania.Insert(0, new BECampania() { CampaniaID = 0, Codigo = "-- Seleccionar --" });
 
             return View(model);
@@ -1187,15 +1187,6 @@ namespace Portal.Consultoras.Web.Controllers
             return Mapper.Map<IList<BEParametro>, IEnumerable<ParametroModel>>(lst);
         }
 
-        private List<BECampania> CargarCampania()
-        {
-            using (ZonificacionServiceClient servicezona = new ZonificacionServiceClient())
-            {
-                BECampania[] becampania = servicezona.SelectCampanias(11);
-                return becampania.ToList();
-            }
-        }
-
         private string DevolverValorParametro(int parametroId)
         {
             switch (parametroId)
@@ -1272,7 +1263,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = PaisId == 14
+                lst = PaisId == Constantes.PaisID.Venezuela
                     ? sv.GetSegmentoBanner(PaisId)
                     : sv.GetSegmentoInternoBanner(PaisId);
             }

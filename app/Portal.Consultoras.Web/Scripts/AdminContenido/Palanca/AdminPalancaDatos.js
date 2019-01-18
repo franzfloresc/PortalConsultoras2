@@ -364,7 +364,7 @@
             width: 830,
             height: 500,
             close: function () {
-                $('body').css({ 'overflow': 'auto' });
+                HideDialog(_elemento.DialogRegistro);
             },
             draggable: false,
             title: _texto.TituloDialogRegistro,
@@ -375,7 +375,7 @@
                     _GuardarDatos(this);
                 },
                 'Salir': function () {
-                    $(this).dialog('close');
+                    HideDialog(_elemento.DialogRegistro);
                 }
             }
         });

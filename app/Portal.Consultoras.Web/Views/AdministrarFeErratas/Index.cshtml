@@ -15,17 +15,17 @@
             if (Id != "") {
                 waitingDialog({});
                 $.ajaxSetup({ cache: false });
-                $.getJSON(baseUrl + 'AdministrarFeErratas/ObtenterDropDownPorPais', { PaisID: Id == "" ? 0 : Id }, function (data) {
+                $.getJSON(baseUrl + 'BaseAdm/ObtenerCampaniasPorPais', { PaisID: Id == "" ? 0 : Id }, function (data) {
                     if (checkTimeout(data)) {
                         var ddlCampania = $("#ddlCampania");
 
                         if (Id != "") {
-                            if (data.lstCampania.length > 0) {
-                                for (var item in data.lstCampania) {
-                                    if (data.lstCampania.hasOwnProperty(item)) {
+                            if (data.lista.length > 0) {
+                                for (var item in data.lista) {
+                                    if (data.lista.hasOwnProperty(item)) {
                                         ddlCampania.append($('<option/>', {
-                                            value: data.lstCampania[item].CampaniaID,
-                                            text: data.lstCampania[item].Codigo
+                                            value: data.lista[item].CampaniaID,
+                                            text: data.lista[item].Codigo
                                         }));
                                     }
                                 }
@@ -102,7 +102,7 @@
         });
 
         $("#btnAgregarActualizar").click(function () {
-            
+
             if ($("#Pagina").val() == "") {
                 alert("Debe ingresar el campo Página, verifique");
                 return false;
@@ -116,9 +116,9 @@
                 return false;
             }
 
-            
+
             if ($(this).val() == 'Agregar') {
-                
+
                 var item = {
                     Pagina: $('#Pagina').val(),
                     Dice: $('#Dice').val(),
@@ -133,7 +133,7 @@
                     data: JSON.stringify(item),
                     async: true,
                     success: function (data) {
-                        
+
                         if (checkTimeout(data)) {
                             closeWaitingDialog();
                             limpiarEntrada();
@@ -147,7 +147,7 @@
                         }
                     },
                     error: function (data, error) {
-                        
+
                         if (checkTimeout(data)) {
                             closeWaitingDialog();
                             alert("ERROR");
@@ -155,9 +155,9 @@
                     }
                 });
             }
-            
+
             if ($(this).val() == 'Actualizar') {
-                
+
                 var item = {
                     FeErratasID: $('#FeErratasID').val(),
                     Pagina: $('#Pagina').val(),
@@ -173,10 +173,10 @@
                     data: JSON.stringify(item),
                     async: true,
                     success: function (data) {
-                        
+
                         if (checkTimeout(data)) {
                             closeWaitingDialog();
-                            limpiarEntrada();                            
+                            limpiarEntrada();
                             if (data.success == true) {
                                 alert(data.message);
                                 jQuery("#gvwFeErratasEntradas").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
@@ -186,7 +186,7 @@
                         }
                     },
                     error: function (data, error) {
-                        
+
                         if (checkTimeout(data)) {
                             closeWaitingDialog();
                             alert("ERROR");
@@ -198,7 +198,7 @@
 
         $('#frmFeErratas').ajaxForm({
             beforeSubmit: function () {
-                
+
                 var message = "";
 
                 if (jQuery.trim($('#ddlPaisDialogo').val()) == "")
@@ -219,12 +219,13 @@
         });
 
         function fnRespuestaFeErratas(responseText, statusText, xhr, $form) {
-            
+
             if (checkTimeout(responseText)) {
                 $("#gvwFeErratas").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
                 limpiarPopup();
                 alert(responseText.message);
-                $('#DialogRegistroFeErratas').dialog('close');
+                HideDialog("DialogRegistroFeErratas");
+                //$('#DialogRegistroFeErratas').dialog('close');
             }
         }
     });
@@ -243,18 +244,19 @@
             buttons:
             {
                 "Guardar": function () {
-                    
+
                     var vMessage = "";
                     $('#frmFeErratas').submit();
                 },
                 "Cerrar": function () {
-                    $(this).dialog('close');
+                    HideDialog("DialogRegistroFeErratas");
+                    //$(this).dialog('close');
                 }
             },
             close: function (event, ui) {
-                
+                    HideDialog("DialogRegistroFeErratas");
                 $.getJSON(baseUrl + 'AdministrarFeErratas/EliminarSesion', {}, function (data) {
-                    
+
                 });
             }
         });
@@ -328,7 +330,7 @@
         };
 
         function ShowImage(cellvalue, options, rowObject) {
-            
+
             var image = "";
             if (rowObject[4] !== "")
                 image = '<img src="' + '@Url.Content("~/Content/FeErratas/")' + isoPAIS + "/" + rowObject[4] + '" alt="" width="160px" height="60px" title="" border="0" />';
@@ -340,7 +342,7 @@
 
     $.jgrid.extend({
         Editar: function (Id) {
-            
+
             if (Id) {
                 $('#FeErratasID').val(Id);
                 $('#PaisID').val(jQuery("#gvwFeErratas").jqGrid('getCell', Id, 'PaisID'));
@@ -350,7 +352,7 @@
                 $('#Titulo').val(jQuery("#gvwFeErratas").jqGrid('getCell', Id, 'Titulo'));
                 $('#ddlPaisDialogo').prop('disabled', 'disabled');
                 $('#ddlCampaniaDialogo').prop('disabled', 'disabled');
-                
+
                 fnGrillaEntradas();
                 jQuery("#gvwFeErratasEntradas").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
                 showDialog("DialogRegistroFeErratas");
@@ -360,7 +362,7 @@
             return false;
         },
         Eliminar: function (Id) {
-            
+
             var elimina = confirm('¿ Está seguro que desea eliminar el registro seleccionado ?');
             if (!elimina)
                 return false;
@@ -456,7 +458,7 @@
 
     $.jgrid.extend({
         Editar2: function (Id) {
-            
+
             if (Id) {
                 $('#FeErratasID').val(Id);
                 $('#Pagina').val(jQuery("#gvwFeErratasEntradas").jqGrid('getCell', Id, 'Página'));
@@ -470,7 +472,7 @@
             return false;
         },
         Eliminar2: function (Id) {
-            
+
             var elimina = confirm('¿ Está seguro que desea eliminar el registro seleccionado ?');
             if (!elimina)
                 return false;
@@ -506,14 +508,14 @@
     });
 
     function VerMas(object, ValorCompleto, ValorParcial) {
-        
+
         var td = object.parentElement;
         td.innerHTML = ValorCompleto + "&nbsp;<a href='javascript:;' onclick=\"VerMenos(this,'" + ValorCompleto + "','" + ValorParcial + "');\" > ...Ver menos" + "</a>";
         return false;
     }
 
     function VerMenos(object, ValorCompleto, ValorParcial) {
-        
+
         var td = object.parentElement;
         td.innerHTML = ValorParcial + "&nbsp;<a href='javascript:;' onclick=\"VerMas(this,'" + ValorCompleto + "','" + ValorParcial + "');\" > ...Ver mas" + "</a>";
         return false;

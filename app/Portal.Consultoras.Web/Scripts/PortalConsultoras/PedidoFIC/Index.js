@@ -149,10 +149,10 @@ $(document).ready(function () {
     });
     $('#btnAgregarOferfaFIC').click(function () {
         GuardarOfertaFICenPedido();
-        $('#divOfertaFIC').dialog('close');
+        HideDialog("divOfertaFIC");
     });
     $('#btnCancelarOferfaFIC').click(function () {
-        $('#divOfertaFIC').dialog('close');
+        HideDialog("divOfertaFIC");
     });
 
     CrearDialogs();
@@ -170,7 +170,7 @@ function CrearDialogs() {
         draggable: true,
         title: "",
         close: function (event, ui) {
-            $(this).dialog('close');
+            HideDialog("divConfirmEliminarTotal");
         }
     });
 
@@ -228,7 +228,7 @@ function CargarDetallePedido(page, rows) {
 
                 $.each(data.ListaCliente, function (index, value) {
                     if (value.ClienteID == -1) {
-                        htmlCliente += '<option value="-1">Cliente</option>';
+                        htmlCliente += '<option value="-1">Cliente/option>';
                     } else {
                         htmlCliente += '<option value="' + value.ClienteID + '">' + value.Nombre + '</option>';
                     }
@@ -387,7 +387,7 @@ function ValidarDescripcion() {
     }
 }
 $('body').on('keypress', 'input[attrKey="PreValidarCUV"]', function (event) {
-    
+
     if (event.keyCode == 13) {
         if ($("#btnAgregar")[0].disabled == false) {
             AgregarProductoListado();
@@ -759,7 +759,7 @@ function EliminarPedidoTotalSi() {
     EliminarPedido();
 }
 function EliminarPedidoTotalNo() {
-    $('#divConfirmEliminarTotal').dialog('close');
+    HideDialog("divConfirmEliminarTotal");
 }
 
 function EliminarPedido() {
@@ -796,7 +796,7 @@ function ValidarUpdate(PedidoDetalleID, FlagValidacion) {
     var Cantidad = $('#txtLPCant' + PedidoDetalleID).val();
     var CantidadAnti = $('#txtLPTempCant' + PedidoDetalleID).val();
     var ClienteAnti = $('#hdfLPTempCliDes' + PedidoDetalleID).val();
-  
+
 
     if (FlagValidacion == "1") {
         if (CantidadAnti == Cantidad)

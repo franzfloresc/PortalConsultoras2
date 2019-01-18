@@ -6,7 +6,7 @@
 }
 
 @section styles{
-    <link href="@Url.Content("~/Content/Css/Site/style-pedido.css")" rel="stylesheet" />
+    @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/PedidoValidado")
 }
 
 <div class="franja_negra pedidoReservado" style="background: #000 url(@ViewBag.UrlFranjaNegra) no-repeat center bottom;"></div>
@@ -112,43 +112,48 @@
                     string cabezaEscala = null, pieEscala = null;
                     string lbl1Ganancia = null, lbl2Ganancia = null;
 
-                    if (Model.PaisID == 11 || Model.PaisID == 4 || Model.PaisID == 6 || Model.PaisID == 7 || Model.PaisID == 8
-                        || Model.PaisID == 12 || Model.PaisID == 13) //PE,CO,EC,GT.SV,PR,DO
+                    if (Model.PaisID == Constantes.PaisID.Colombia
+                        || Model.PaisID == Constantes.PaisID.Ecuador
+                        || Model.PaisID == Constantes.PaisID.ElSalvador
+                        || Model.PaisID == Constantes.PaisID.Guatemala
+                        || Model.PaisID == Constantes.PaisID.Peru
+                        || Model.PaisID == Constantes.PaisID.PuertoRico
+                        || Model.PaisID == Constantes.PaisID.RepublicaDominicana)
                     {
                         cabezaEscala = "Ganancia estimada total";
                         pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocio y Otros";
                         lbl1Ganancia = "Mis descuentos";
                         lbl2Ganancia = "Ganancia estimada *(Guia de negocio y otros)";
                     }
-                    else if (Model.PaisID == 9 || Model.PaisID == 10) //PA,MX
+                    else if (Model.PaisID == Constantes.PaisID.Mexico || Model.PaisID == Constantes.PaisID.Panama)
                     {
                         cabezaEscala = "Ganancia estimada total";
                         pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
                         lbl1Ganancia = "Mis descuentos";
                         lbl2Ganancia = "Ganancia estimada *(Revista y otros)";
                     }
-                    else if (Model.PaisID == 3) //CH
+                    else if (Model.PaisID == Constantes.PaisID.Chile)
                     {
                         cabezaEscala = "Comisión y ahorro total";
                         pieEscala = "Comisión = ganancia estimada proveniente de tus descuentos por compras en catálogo; Ahorro = ahorro estimado proveniente de compras en Guía de Negocio y Otros";
                         lbl1Ganancia = "Mis descuentos (-)10% retencion comisión liquida";
                         lbl2Ganancia = "Ahorro estimado *(Guia de negocio y otros)";
                     }
-                    else if (Model.PaisID == 14) //VE
+                    else if (Model.PaisID == Constantes.PaisID.Venezuela)
                     {
                         cabezaEscala = "Oportunidad de ahorro total";
                         pieEscala = "Oportunidad de Ahorro Total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
                         lbl1Ganancia = "Por tus compras de productos de catalogo";
                         lbl2Ganancia = "Por tus comprar de productos de revista";
                     }
-                    else if (Model.PaisID == 2) //BO
+                    else if (Model.PaisID == Constantes.PaisID.Bolivia)
                     {
                         cabezaEscala = "Ganancia total";
                         pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocio y Otros";
                         lbl1Ganancia = "Mis descuentos";
                         lbl2Ganancia = "Ganancia estimada *(Guia de negocio y otros)";
                     }
-                    else if (Model.PaisID == 5) //CR
+                    else if (Model.PaisID == Constantes.PaisID.CostaRica)
                     {
                         cabezaEscala = "Oportunidad de ahorro total";
                         pieEscala = "Oportunidad de Ahorro Total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
@@ -190,7 +195,7 @@
             <hr class="clear" />
             <div class="linea_gris" style="margin-top:30px"></div>
         </div>
-        
+
         <div class="contenedor_eliminacion_pedido">
             @if (ViewBag.EsKitNueva == 1)
             {
@@ -286,7 +291,7 @@
         </div>
         <div class="contenedor_lista_productosAgotados">
             <h6>PRODUCTOS <b>AGOTADOS</b> de <b>@((string)ViewBag.Campania.ToUpper())</b></h6>
-            
+
             <div class="content_cuv">
                 <section>
                     <div class="filtroInput">
@@ -312,7 +317,7 @@
                 </section>
             </div>
 
-            <div class="tabla_productos_agotados" id="tblProductosFaltantes"  style="overflow-y:hidden;"></div>
+            <div class="tabla_productos_agotados" id="tblProductosFaltantes" style="overflow-y:hidden;"></div>
         </div>
         <div class="clear"></div>
     </div>
@@ -383,7 +388,7 @@
     <div class="content_listado_notificaciones">
         <div class="cod_venta_listado">{{CUV}}</div>
         <div class="descripcion_listado pedidoPadreToolTip descri_list" style="position:relative;">
-            
+
             <span class="texto_pedidos_ofertas">
                 <label for="{{DescripcionOferta}}">{{DescripcionOferta}}</label>
             </span>
@@ -488,6 +493,5 @@
         var correoElectronico = '@Model.eMail';
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
     </script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Pedido/Validado.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Pedido/barra.js")"></script>
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/PedidoValidado")
 }

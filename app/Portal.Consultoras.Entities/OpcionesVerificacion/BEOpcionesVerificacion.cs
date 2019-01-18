@@ -125,15 +125,6 @@ namespace Portal.Consultoras.Entities.OpcionesVerificacion
         [DataMember]
         public string CodigoIso { get; set; }
         [DataMember]
-        public bool opcionHabilitar
-        {
-            get { return true; }
-            set
-            {
-                //
-            }
-        }
-        [DataMember]
         public bool OpcionDesabilitado { get; set; }
         [DataMember]
         public string DescripcionHorario { get; set; }

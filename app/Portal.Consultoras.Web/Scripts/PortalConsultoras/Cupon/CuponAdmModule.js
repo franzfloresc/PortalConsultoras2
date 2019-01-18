@@ -133,7 +133,7 @@
         $.when(campaniasPromise).then(function (campaniasResponse) {
             if (checkTimeout(campaniasResponse)) {
                 $(elements.ddlCampania).empty();
-                listaCampanias = campaniasResponse.listaCampanias;
+                listaCampanias = campaniasResponse.lista;
                 $(elements.ddlCampania).append($('<option/>', { value: "", text: "-- Seleccionar --" }));
 
                 if (listaCampanias.length > 0) {
@@ -201,7 +201,7 @@
                     }
                 },
                 "Cancelar": function () {
-                    $(this).dialog('close');
+                    HideDialog(elements.popupMantenimientoCupon);
                 }
             }
         });
@@ -226,7 +226,7 @@
                     }
                 },
                 "Cancelar": function () {
-                    $(this).dialog('close');
+                    HideDialog(elements.popupMantenimientoCuponConsultora);
                 }
             }
         });
@@ -247,7 +247,7 @@
                     _procesarCargaMasivaCuponConsultora();
                 },
                 "Cancelar": function () {
-                    $(this).dialog('close');
+                    HideDialog(elements.popupMantenimientoCargaCuponConsultora);
                 }
             }
         });
@@ -281,7 +281,7 @@
                 if (crearCuponResponse.success) {
                     alert(crearCuponResponse.message);
                     _listarCuponesPorCampania();
-                    $(mantCuponDialog).dialog('close');
+                    HideDialog(mantCuponDialog);
                 } else {
                     alert(crearCuponResponse.message);
                 }
@@ -313,7 +313,7 @@
                 if (actualizarCuponResponse.success) {
                     alert(actualizarCuponResponse.message);
                     _listarCuponesPorCampania();
-                    $(mantCuponDialog).dialog('close');
+                    HideDialog(mantCuponDialog);
                 } else {
                     alert(actualizarCuponResponse.message);
                 }
@@ -344,7 +344,7 @@
                 if (crearCuponConsultoraResponse.success) {
                     alert(crearCuponConsultoraResponse.message);
                     _listarCuponConsultoras(cuponConsultoraModel.cuponId);
-                    $(mantCuponConsultoraDialog).dialog('close');
+                    HideDialog(mantCuponConsultoraDialog);
                 } else {
                     alert(crearCuponConsultoraResponse.message);
                 }
@@ -375,7 +375,7 @@
                 if (actualizarCuponConsultoraResponse.success) {
                     alert(actualizarCuponConsultoraResponse.message);
                     _listarCuponConsultoras(cuponConsultoraModel.cuponId);
-                    $(mantCuponConsultoraDialog).dialog('close');
+                    HideDialog(mantCuponConsultoraDialog);
                 } else {
                     alert(actualizarCuponConsultoraResponse.message);
                 }
@@ -455,7 +455,7 @@
         }
 
         return true;
-    };    
+    };
 
     var _showActionsEventoCupon = function (cellvalue, options, rowObject) {
 
@@ -765,7 +765,7 @@
                     if (response.success) {
                         _listarCuponConsultoras($(elements.hdCuponIdFrmCargaMasiva).val());
                         alert(response.message);
-                        $(elements.popupMantenimientoCargaCuponConsultora).dialog('close');
+                        HideDialog(elements.popupMantenimientoCargaCuponConsultora);
                     } else {
                         alert(response.message);
                     }
@@ -774,7 +774,7 @@
                 closeWaitingDialog();
             }
         });
-    };    
+    };
 
     var _setearValoresEditarCupon = function (cuponId, tipo, descripcion, estado) {
         var activo = (estado.toLowerCase() == 'true');

@@ -218,18 +218,20 @@ namespace Portal.Consultoras.BizLogic.OfertaPersonalizada
                     string logPrecio0 = string.Format("Log Precios0 => Fecha:{0} /Palanca:{1} /CodCampania:{2} /CUV(s):{3}", DateTime.Now, entidad.CodigoTipoEstrategia, entidad.CampaniaID, string.Join("|", listaCuvPrecio0));
                     LogManager.SaveLog(new Exception(logPrecio0), "", entidad.PaisID);
                 }
-                catch (Exception ex) { throw ex; }
+                catch (Exception)
+                {
+                    //
+                }
             }
 
-            var carpetaPais = Globals.UrlMatriz + "/" + codigoIso;
             estrategiasResult.ForEach(estrategia =>
             {
                 if (estrategia.Precio <= estrategia.Precio2)
                     estrategia.Precio = Convert.ToDecimal(0.0);
 
                 estrategia.CampaniaID = entidad.CampaniaID;
-                estrategia.ImagenURL = ConfigCdn.GetUrlFileCdn(carpetaPais, estrategia.ImagenURL);
-                estrategia.ImagenOfertaIndependiente = ConfigCdn.GetUrlFileCdn(carpetaPais, estrategia.ImagenOfertaIndependiente);
+                estrategia.ImagenURL = ConfigCdn.GetUrlFileCdnMatriz(codigoIso, estrategia.ImagenURL);
+                estrategia.ImagenOfertaIndependiente = ConfigCdn.GetUrlFileCdnMatriz(codigoIso, estrategia.ImagenOfertaIndependiente);
                 estrategia.Simbolo = entidad.Simbolo;
                 estrategia.TieneStockProl = true;
                 estrategia.PrecioString = Util.DecimalToStringFormat(estrategia.Precio2, codigoIso);

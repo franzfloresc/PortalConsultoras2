@@ -14,10 +14,9 @@ using System.Web.UI.WebControls;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class AdministrarReporteRevisionIncidenciasController : BaseController
+    public class AdministrarReporteRevisionIncidenciasController : BaseAdmController
     {
-        protected string _dbdefault = "dbdefault";
-        private const string MensajeNoHayRegistros = "No existen registros para la campaña.";
+        //protected string _dbdefault = "dbdefault";
 
         protected OfertaBaseProvider _ofertaBaseProvider;
 
@@ -32,8 +31,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return RedirectToAction("Index", "Bienvenida");
 
             string paisIso = Util.GetPaisISO(userData.PaisID);
-            var carpetaPais = Globals.UrlMatriz + "/" + paisIso;
-            var urlS3 = ConfigCdn.GetUrlCdn(carpetaPais);
+            var urlS3 = ConfigCdn.GetUrlCdnMatriz(paisIso);
 
             var reporteValidacionModel = new ReporteRevisionIncidenciasModel()
             {
@@ -69,28 +67,15 @@ namespace Portal.Consultoras.Web.Controllers
             return lst;
         }
 
-        public JsonResult ObtenerCampanias()
-        {
-            int paisId = userData.PaisID;
-            IEnumerable<CampaniaModel> lst = DropDowListCampanias(paisId);
-
-            return Json(new
-            {
-                lista = lst
-            }, JsonRequestBehavior.AllowGet);
-
-        }
-
-        private IEnumerable<CampaniaModel> DropDowListCampanias(int paisId)
-        {
-            IList<BECampania> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = sv.SelectCampanias(paisId);
-            }
-
-            return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
-        }
+        //movido BaseAdm/ObtenerCampaniasPorUsuario
+        //public JsonResult ObtenerCampanias()
+        //{
+        //    IEnumerable<CampaniaModel> lst = _zonificacionProvider.GetCampanias(userData.PaisID);
+        //    return Json(new
+        //    {
+        //        lista = lst
+        //    }, JsonRequestBehavior.AllowGet);
+        //}
 
         private IEnumerable<TipoEstrategiaModel> DropDowListTipoEstrategia()
         {
@@ -122,7 +107,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                bool dbdefault = HttpUtility.ParseQueryString(((System.Web.HttpRequestWrapper)Request).UrlReferrer.Query)[_dbdefault].ToBool();
+                //bool dbdefault = HttpUtility.ParseQueryString(((System.Web.HttpRequestWrapper)Request).UrlReferrer.Query)[_dbdefault].ToBool();
 
                 if (ModelState.IsValid)
                 {
@@ -159,25 +144,25 @@ namespace Portal.Consultoras.Web.Controllers
                                    id = a.BEReporteCuvResumido.Cuv,
                                    cell = new string[]
                                    {
-                                a.BEReporteCuvResumido.Cuv,
-                                a.BEReporteCuvResumido.SAP,
-                                a.BEReporteCuvResumido.DescripcionProd,
-                                a.BEReporteCuvResumido.Palanca,
-                                a.BEReporteCuvResumido.imagenURL,
-                                a.BEReporteCuvResumido.Activo,
-                                a.BEReporteCuvResumido.PuedeDigitarse,
-                                a.BEReporteCuvResumido.PrecioSet.ToString("#.#0")
+                                        a.BEReporteCuvResumido.Cuv,
+                                        a.BEReporteCuvResumido.SAP,
+                                        a.BEReporteCuvResumido.DescripcionProd,
+                                        a.BEReporteCuvResumido.Palanca,
+                                        a.BEReporteCuvResumido.imagenURL,
+                                        a.BEReporteCuvResumido.Activo,
+                                        a.BEReporteCuvResumido.PuedeDigitarse,
+                                        a.BEReporteCuvResumido.PrecioSet.ToString("#.#0")
                                    }
                                }
                     };
                     return Json(data, JsonRequestBehavior.AllowGet);
                 }
-                return RedirectToAction("Index", "AdministrarReporteRevisionIncidenciasController");
+                throw new Exception(ModelState.ToString());
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return RedirectToAction("Index", "AdministrarReporteRevisionIncidenciasController");
+                return ErrorJson(ex.Message, true);
             }
         }
 
@@ -185,8 +170,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                //bool ParseQueryString = HttpUtility.ParseQueryString(((System.Web.HttpRequestWrapper)Request).UrlReferrer.Query)[_dbdefault].ToBool();
-                
                 if (ModelState.IsValid)
                 {
                     List<ReporteRevisionIncidenciasMDbAdapterModel> lst = new List<ReporteRevisionIncidenciasMDbAdapterModel>();
@@ -214,6 +197,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                     var pag = Util.PaginadorGenerico(grid, lst);
                     
+                    var codigoISOPais = userData.CodigoISO;
+
                     var data = new
                     {
                         total = pag.PageCount,
@@ -241,7 +226,9 @@ namespace Portal.Consultoras.Web.Controllers
                                         a.BEReporteCuvDetallado.ImagenTipos,
                                         a.BEReporteCuvDetallado.ImagenTonos,
                                         a.BEReporteCuvDetallado.NombreBulk,
-
+                                        a.BEReporteCuvDetallado.FactorRepeticion.ToString(),
+                                        a.BEReporteCuvDetallado.RutaImagenTipos = string.Format(_configuracionManagerProvider.GetRutaImagenesAppCatalogo(), codigoISOPais, CampaniaID, DevolverInicialMarca(a.BEReporteCuvDetallado.CodigoMarca), a.BEReporteCuvDetallado.ImagenTipos),
+                                        a.BEReporteCuvDetallado.RutaImagenTonos = string.Format(_configuracionManagerProvider.GetRutaImagenesAppCatalogoBulk(), codigoISOPais, CampaniaID, DevolverInicialMarca(a.BEReporteCuvDetallado.CodigoMarca), a.BEReporteCuvDetallado.ImagenTonos)
                                    }
                                }
                     };
@@ -259,7 +246,6 @@ namespace Portal.Consultoras.Web.Controllers
                                         .Select(x => x.ErrorMessage))
                 }, JsonRequestBehavior.AllowGet);
 
-                //return RedirectToAction("Index", "AdministrarReporteRevisionIncidencias");
             }
             catch (Exception ex)
             {
@@ -272,8 +258,18 @@ namespace Portal.Consultoras.Web.Controllers
                     data = "",
                     Trycatch = Common.LogManager.GetMensajeError(ex)
                 }, JsonRequestBehavior.AllowGet);
-                //return RedirectToAction("Index", "AdministrarReporteRevisionIncidencias");
             }
+        }
+
+        private string DevolverInicialMarca(string idMarca)
+        {
+            var idMarcaInt = 0;
+            if (!string.IsNullOrEmpty(idMarca)) idMarcaInt = Convert.ToInt32(idMarca);
+            var codigoMarca = string.Empty;
+            if (idMarcaInt == Constantes.Marca.LBel) codigoMarca = "L";
+            if (idMarcaInt == Constantes.Marca.Esika) codigoMarca = "E";
+            if (idMarcaInt == Constantes.Marca.Cyzone) codigoMarca = "C";
+            return codigoMarca;
         }
 
         public ActionResult ConsultarReporteEstrategiasConsultora(string sidx, string sord, int page, int rows, int CampaniaID,
@@ -281,7 +277,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                bool dbdefault = HttpUtility.ParseQueryString(((System.Web.HttpRequestWrapper)Request).UrlReferrer.Query)[_dbdefault].ToBool();
+                //bool dbdefault = HttpUtility.ParseQueryString(((System.Web.HttpRequestWrapper)Request).UrlReferrer.Query)[_dbdefault].ToBool();
 
                 if (ModelState.IsValid)
                 {
@@ -340,7 +336,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                bool dbdefault = HttpUtility.ParseQueryString(((System.Web.HttpRequestWrapper)Request).UrlReferrer.Query)[_dbdefault].ToBool();
+                //bool dbdefault = HttpUtility.ParseQueryString(((System.Web.HttpRequestWrapper)Request).UrlReferrer.Query)[_dbdefault].ToBool();
 
                 if (ModelState.IsValid)
                 {

@@ -1,4 +1,5 @@
-﻿@model Portal.Consultoras.Web.Models.OfertaProductoModel
+﻿@using Portal.Consultoras.Common
+@model Portal.Consultoras.Web.Models.OfertaProductoModel
 @{
     ViewBag.Title = "Administración Códigos de Oferta";
 }
@@ -55,6 +56,9 @@
             width: 500,
             draggable: true,
             title: "Registro/Edición de Códigos de Oferta",
+            close: function () {
+                HideDialog("DialogAdministracionCodigoOferta");
+            },
             buttons:
             {
                 "Guardar": function () {
@@ -100,7 +104,8 @@
                     }
                 },
                 "Cancelar": function () {
-                    $(this).dialog('close');
+                    HideDialog("DialogAdministracionCodigoOferta");
+                    //$(this).dialog('close');
                 }
             }
         });
@@ -320,7 +325,7 @@
                         <option value="1707">Administrador Ofertas Showroom</option>
                         @foreach (var item in Model.lstPais)
                         {
-                            if (item.CodigoISO == "EC")
+                            if (item.CodigoISO == Constantes.CodigosISOPais.Ecuador)
                             {
                                 <option value="1706">Administrador Accesorizate</option>
                             }
@@ -376,7 +381,7 @@
 
                     @foreach (var item in Model.lstPais)
                     {
-                        if (item.CodigoISO == "EC")
+                        if (item.CodigoISO == Constantes.CodigosISOPais.Ecuador)
                         {
                             <option value="1706">Administrador Accesorizate</option>
                         }

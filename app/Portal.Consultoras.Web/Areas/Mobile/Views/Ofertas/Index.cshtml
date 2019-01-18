@@ -1,7 +1,16 @@
-﻿@model Portal.Consultoras.Web.Models.EstrategiaPersonalizadaModel
+﻿@using Portal.Consultoras.Web.Models
+@model Portal.Consultoras.Web.Models.EstrategiaPersonalizadaModel
 
 @{
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayoutContenedor.cshtml";
+
+    var revistaDigital = ViewBag.revistaDigital ?? new RevistaDigitalShortModel();
+
+    var headerAttr = "nosuscrita";
+    if (revistaDigital.EsActiva == true)
+    {
+        headerAttr = "suscrita";
+    }
 }
 @section styles{
 
@@ -15,6 +24,7 @@
     {
         @Styles.Render("~/Bundle/Css/Mobile/Ficha-Lbel")
     }
+
 
     <style type="text/css">
         #btn_init {
@@ -31,10 +41,11 @@
 
 @foreach (var seccion in Model.ListaSeccion)
 {
-    if (Model.vc_sinProducto2 == 0)
+    if (Model.Vc_SinProducto == 0)
     {
 
-        <div data-seccion="@seccion.Codigo"
+        <div @headerAttr
+             data-seccion="@seccion.Codigo"
              data-campania="@seccion.CampaniaID"
              data-url="@seccion.UrlObtenerProductos"
              data-templateProducto="@seccion.TemplateProducto"
@@ -64,7 +75,7 @@
     }
 }
 
-@if (Model.vc_sinProducto2 == 1)
+@if (Model.Vc_SinProducto == 1)
 {
     <div class="msj_nodisponible" id="msj_nodisponible">
 
@@ -82,7 +93,7 @@
 
 
 @Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml", new ViewDataDictionary { { "TieneBotones", true } })
-@Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-v2.cshtml", new ViewDataDictionary { { "TieneBotones", false } })
+@Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-v2.cshtml", new ViewDataDictionary { { "TieneBotones", false }, { "EsSuscrita", ViewBag.EsSuscrita } })
 
 @Html.Partial("~/Areas/Mobile/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", Model.MensajeProductoBloqueado)
 
@@ -95,7 +106,8 @@
         var urlOfertaDetalleProductoLan = '@Url.Action("Ficha", "DetalleEstrategia", new { area = "Mobile" })';
         var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "Estrategia", new { area = "" })';
         var OrigenDesktopODD = 0;
-        var variableEstrategia = @Html.Raw(Json.Encode(ViewBag.variableEstrategia)) || {};
+        var TipoOrigenPantallaODD = 211;
+        var variableEstrategia = @Html.Raw(Json.Encode(Model.VariablesEstrategia)) || {};
     </script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mobile/Ofertas")
 }

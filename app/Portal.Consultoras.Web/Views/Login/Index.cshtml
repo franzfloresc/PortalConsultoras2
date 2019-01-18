@@ -181,6 +181,7 @@
                     if (response.success) {
                         if (response.redirectTo !== "") {
                             analytics.invocarEventoPixel("FacebookLoginValidExternalUser");
+                            limpiar_local_storage();
                             document.location.href = response.redirectTo;
                         }
                     }
@@ -401,7 +402,7 @@
                         </div>
                     </div>
 
-                    @if (ViewBag.PaisID == 11)
+                    @if (ViewBag.PaisID == Constantes.PaisID.Peru)
                     {
                         <a id="lk_telefono">
                             <div class="contenedor_telefonos contenedor_telefonos_mobile" id="divTelefonos">
@@ -409,7 +410,7 @@
                             </div>
                         </a>
                     }
-                    else if (ViewBag.PaisID != 11)
+                    else if (ViewBag.PaisID != Constantes.PaisID.Peru)
                     {
                         <a id="lk_telefono">
                             <div class="titulo_llamanos">LLÁMANOS</div>
@@ -597,11 +598,22 @@
                     <br />
                     <br />
                     <div class="icono_correo">
-                        @if (ViewBag.PaisID == 2 || ViewBag.PaisID == 3 || ViewBag.PaisID == 4 || ViewBag.PaisID == 6 || ViewBag.PaisID == 7 || ViewBag.PaisID == 8 || ViewBag.PaisID == 11 || ViewBag.PaisID == 13 || ViewBag.PaisID == 14)
+                        @if (ViewBag.PaisID == Constantes.PaisID.Bolivia
+                            || ViewBag.PaisID == Constantes.PaisID.Chile
+                            || ViewBag.PaisID == Constantes.PaisID.Colombia
+                            || ViewBag.PaisID == Constantes.PaisID.Ecuador
+                            || ViewBag.PaisID == Constantes.PaisID.ElSalvador
+                            || ViewBag.PaisID == Constantes.PaisID.Guatemala
+                            || ViewBag.PaisID == Constantes.PaisID.Peru
+                            || ViewBag.PaisID == Constantes.PaisID.RepublicaDominicana
+                            || ViewBag.PaisID == Constantes.PaisID.Venezuela)
                         {
                             <img src="~/Content/Images/Login2/Icons/icono-envelope-esika.png" alt="Nuevo Correo" />
                         }
-                        else if (ViewBag.PaisID == 5 || ViewBag.PaisID == 9 || ViewBag.PaisID == 10 || ViewBag.PaisID == 12)
+                        else if (ViewBag.PaisID == Constantes.PaisID.CostaRica
+                            || ViewBag.PaisID == Constantes.PaisID.Mexico
+                            || ViewBag.PaisID == Constantes.PaisID.Panama
+                            || ViewBag.PaisID == Constantes.PaisID.PuertoRico)
                         {
                             <img src="~/Content/Images/Login2/Icons/icono-envelope-lbel.png" alt="Nuevo Correo" />
                         }

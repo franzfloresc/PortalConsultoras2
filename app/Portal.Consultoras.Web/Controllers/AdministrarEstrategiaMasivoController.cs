@@ -36,6 +36,7 @@ namespace Portal.Consultoras.Web.Controllers
                         Dictionary<string, int> cantidades = administrarEstrategiaProvider.ObtenerCantidadOfertasParaTi(codigoEstrategia, campaniaId, userData.CodigoISO);
                         cantidadEstrategiasConfiguradas = cantidades["CUV_ZE"];
                         cantidadEstrategiasSinConfigurar = cantidades["CUV_OP"];
+                        cantidadEstrategiasSinConfigurarImagen = cantidades["CUV_SI"];
 
                         List<string> estrategiasWA = administrarEstrategiaProvider.PreCargar(campaniaId.ToString(), codigoEstrategia, userData.CodigoISO);
                         foreach (var item in estrategiasWA)
@@ -456,6 +457,22 @@ namespace Portal.Consultoras.Web.Controllers
             string mensajePaso = "Inicio";
             try
             {
+                if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, entidadMasivo.EstrategiaCodigo))
+                {
+                    mensajePaso += "|SiMongo";
+
+                    return Json(new
+                    {
+                        success = true,
+                        message = "Termino paso 2",
+                        continuaPaso = true,
+                        entidadMasivo.Pagina,
+                        entidadMasivo.NroLote,
+                        entidadMasivo.CantidadCuv,
+                        mensajePaso
+                    }, JsonRequestBehavior.AllowGet);
+                }
+
                 entidadMasivo.CantidadCuv = TablaLogicaObtenerCantidadCuvPagina(entidadMasivo);
                 mensajePaso += "|TablaLogicaObtenerCantidadCuvPagina = " + entidadMasivo.CantidadCuv;
                 if (entidadMasivo.CantidadCuv <= 0)

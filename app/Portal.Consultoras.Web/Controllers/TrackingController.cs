@@ -9,14 +9,12 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index()
         {
-            string sap = "";
-            var url1 = (Request.Url.Query).Split('?');
             if (EsDispositivoMovil())
-            { 
-
+            {
+                var url1 = (Request.Url.Query).Split('?');
                 if (url1.Length > 1)
                 {
-                    sap = "&" + url1[1];
+                    string sap = "&" + url1[1];
                     return RedirectToAction("Index", "SeguimientoPedido", new { area = "Mobile", sap });
                 }
                 else

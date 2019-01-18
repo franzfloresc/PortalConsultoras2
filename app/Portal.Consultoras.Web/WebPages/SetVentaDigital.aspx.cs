@@ -12,9 +12,8 @@ namespace Portal.Consultoras.Web.WebPages
 {
     public partial class SetVentaDigital : System.Web.UI.Page
     {
-        public static string ImagenCuv = "";
-
-        public static string NombreProducto = "";
+        //public static string ImagenCuv = "";
+        //public static string NombreProducto = "";
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -40,9 +39,7 @@ namespace Portal.Consultoras.Web.WebPages
             int paisId = Util.GetPaisID(codigoIso);
 
             BEShowRoomOferta ofertaShowRoom;
-
-            var carpetaPais = Globals.UrlMatriz + "/" + codigoIso;
-
+            
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
                 ofertaShowRoom = sv.GetShowRoomOfertaById(paisId, idFinal);                
@@ -57,8 +54,8 @@ namespace Portal.Consultoras.Web.WebPages
                 }
                 else
                 {
-                    ofertaShowRoom.ImagenMini = ConfigCdn.GetUrlFileCdn(carpetaPais, ofertaShowRoom.ImagenMini);
-                    ofertaShowRoom.ImagenProducto = ConfigCdn.GetUrlFileCdn(carpetaPais, ofertaShowRoom.ImagenProducto);
+                    ofertaShowRoom.ImagenMini = ConfigCdn.GetUrlFileCdnMatriz(codigoIso, ofertaShowRoom.ImagenMini);
+                    ofertaShowRoom.ImagenProducto = ConfigCdn.GetUrlFileCdnMatriz(codigoIso, ofertaShowRoom.ImagenProducto);
                 }
 
                 List<BEShowRoomOfertaDetalle> listaDetalle;

@@ -90,7 +90,6 @@ namespace Portal.Consultoras.Web.Providers
         {
             try
             {
-                var consultoraNuevas = Mapper.Map<BEConsultoraProgramaNuevas>(userData);
                 using (var sv = new ODSServiceClient())
                 {
                     return sv.GetLimElectivosProgNuevas(userData.PaisID, userData.CampaniaID, userData.ConsecutivoNueva, userData.CodigoPrograma);
@@ -142,8 +141,7 @@ namespace Portal.Consultoras.Web.Providers
 
         private string GetUrlTippingPoint(string noImagen)
         {
-            string urlExtension = string.Format("{0}/{1}", configuracionManager.GetConfiguracionManager(ConfigurationManager.AppSettings["Matriz"] ?? ""), userData.CodigoISO ?? "");
-            string url = ConfigCdn.GetUrlFileCdn(urlExtension, noImagen ?? "");
+            string url = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, noImagen ?? "");
             return url;
         }
     }

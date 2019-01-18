@@ -10,6 +10,7 @@
 @section styles{
     @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/Site-CssPedido")
 }
+
 <div class="franja_negra" style="background: #000 url(@ViewBag.UrlFranjaNegra) no-repeat center bottom;"></div>
 <div class="envolvente_pop_up">
     <div class="pop_pedido" id="pop_liquidacion" style="display: none;">
@@ -43,91 +44,93 @@
     <div class="clear"></div>
 
     <div class="pedido_ingreso_c2">
-		<form id="frmInsertPedido" action="@Url.Action("PedidoInsertar", "Pedido")" method="post" role="form">
-			<input type="hidden" id="hdfDescripcionCategoria" />
-			<input type="hidden" id="hdfDescripcionEstrategia" />
-			<input type="hidden" id="hdfDescripcionMarca" />
-			<input type="hidden" id="hdfCUV" />
-			<input type="hidden" id="hdfClienteDescripcion" />
-			<input type="hidden" id="hdnRegistrosPaginar" value="@Model.Registros" name="Registros" />
-			<input type="hidden" id="hdnRegistrosDePaginar" value="@Model.RegistrosDe" name="RegistrosDe" />
-			<input type="hidden" id="hdnRegistrosTotalPaginar" value="@Model.RegistrosTotal" name="RegistrosTotal" />
-			<input type="hidden" id="hdnPaginaPaginar" value="@Model.Pagina" name="Pagina" />
-			<input type="hidden" id="hdnPaginaDePaginar" value="@Model.PaginaDe" name="PaginaDe" />
-			<input type="hidden" id="hdnClienteID_" value="@Model.ClienteID_" name="ClienteID_" />
-			<input type="hidden" id="hdfTipo" value="@Model.Tipo" name="Tipo" />
-			<input type="hidden" id="hdfIndicadorMontoMinimo" value="@Model.IndicadorMontoMinimo" name="IndicadorMontoMinimo" />
-			<input type="hidden" id="hdTipoOfertaSisID" value="@Model.TipoOfertaSisID" name="TipoOfertaSisID" />
-			<input type="hidden" id="hdConfiguracionOfertaID" value="@Model.ConfiguracionOfertaID" name="ConfiguracionOfertaID" />
-			<input type="hidden" id="hdnDescripcionEstrategia" value="@Model.DescripcionEstrategia" name="DescripcionEstrategia" />
-			<input type="hidden" id="hdnDescripcionLarga" value="@Model.DescripcionLarga" name="DescripcionLarga" />
-			<input type="hidden" id="hdfDescripcionProd" value="@Model.DescripcionProd" name="DescripcionProd" />
-			<input type="hidden" id="hdfMarcaID" value="@Model.MarcaID" name="MarcaID" />
-			<input type="hidden" id="hdfPrecioUnidad" value="@Model.PrecioUnidad" name="PrecioUnidad" />
-			<input type="hidden" id="hdfClienteID" value="@Model.ClienteID" name="ClienteID" />
-			<input type="hidden" id="hdfOrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.DesktopPedidoDigitado" name="OrigenPedidoWeb" />
-			<input type="hidden" id="hdfEsBusquedaSR" />
-			<input type="hidden" id="hdfEstrategiaId" value="0"/>
+        <form id="frmInsertPedido" action="@Url.Action("PedidoInsertar", "Pedido")" method="post" role="form">
+            <input type="hidden" id="hdfDescripcionCategoria" />
+            <input type="hidden" id="hdfDescripcionEstrategia" />
+            <input type="hidden" id="hdfDescripcionMarca" />
+            <input type="hidden" id="hdfCUV" />
+            <input type="hidden" id="hdfClienteDescripcion" />
+            <input type="hidden" id="hdnRegistrosPaginar" value="@Model.Registros" name="Registros" />
+            <input type="hidden" id="hdnRegistrosDePaginar" value="@Model.RegistrosDe" name="RegistrosDe" />
+            <input type="hidden" id="hdnRegistrosTotalPaginar" value="@Model.RegistrosTotal" name="RegistrosTotal" />
+            <input type="hidden" id="hdnPaginaPaginar" value="@Model.Pagina" name="Pagina" />
+            <input type="hidden" id="hdnPaginaDePaginar" value="@Model.PaginaDe" name="PaginaDe" />
+            <input type="hidden" id="hdnClienteID_" value="@Model.ClienteID_" name="ClienteID_" />
+            <input type="hidden" id="hdfTipo" value="@Model.Tipo" name="Tipo" />
+            <input type="hidden" id="hdfIndicadorMontoMinimo" value="@Model.IndicadorMontoMinimo" name="IndicadorMontoMinimo" />
+            <input type="hidden" id="hdTipoOfertaSisID" value="@Model.TipoOfertaSisID" name="TipoOfertaSisID" />
+            <input type="hidden" id="hdConfiguracionOfertaID" value="@Model.ConfiguracionOfertaID" name="ConfiguracionOfertaID" />
+            <input type="hidden" id="hdnDescripcionEstrategia" value="@Model.DescripcionEstrategia" name="DescripcionEstrategia" />
+            <input type="hidden" id="hdnDescripcionLarga" value="@Model.DescripcionLarga" name="DescripcionLarga" />
+            <input type="hidden" id="hdfDescripcionProd" value="@Model.DescripcionProd" name="DescripcionProd" />
+            <input type="hidden" id="hdfMarcaID" value="@Model.MarcaID" name="MarcaID" />
+            <input type="hidden" id="hdfPrecioUnidad" value="@Model.PrecioUnidad" name="PrecioUnidad" />
+            <input type="hidden" id="hdfClienteID" value="@Model.ClienteID" name="ClienteID" />
+            <input type="hidden" id="hdfOrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.DesktopPedidoDigitado" name="OrigenPedidoWeb" />
+            <input type="hidden" id="hdfEsBusquedaSR" />
+            <input type="hidden" id="hdfEstrategiaId" value="0" />
 
-			<div id="divObservaciones" class="pedidos_no_existe" style="position:relative;"></div>
+            <div id="divObservaciones" class="pedidos_no_existe" style="position:relative;"></div>
 
-			<div class="pedido_ingreso_datos campo_codigo">
-				<br />
-				<input type="text" name="CUV" id="txtCUV" maxlength="5" class="ValidaNumeral" placeholder="Código" />
-			</div>
+            <div class="pedido_ingreso_datos campo_codigo">
+                <br />
+                <input type="text" name="CUV" id="txtCUV" maxlength="5" class="ValidaNumeral default-border-hover" placeholder="Código" />
+            </div>
 
-			<div class="pedido_ingreso_datos campo_descripcion_producto">
-				<!-- MENSAJE CUANDO LA DESCRIPCIÓN DE PRODUCTO INGRESADA NO EXISTA -->
-				<div id="divObservacionesDescripProd" class="pedidos_no_existe" style="display:none;">
-					<div class="noti mensaje_producto_noExiste">
-						<div class="noti_message red_texto_size">
-							<span class="icono_advertencia_notificacion"></span>
-							El producto solicitado no existe.
-						</div>
-					</div>
-				</div>
-				<!-- FIN - MENSAJE CUANDO LA DESCRIPCIÓN DE PRODUCTO INGRESADA NO EXISTA -->
-				<br />
-				<input type="text" name="DescripcionProd" id="txtDescripcionProd" maxlength="250" onblur="ValidarDescripcion();" class="ValidaAlfanumerico"
-                       @*onkeyup="PreValidarCUV(event);"*@ 
+            <div class="pedido_ingreso_datos campo_descripcion_producto">
+                <!-- MENSAJE CUANDO LA DESCRIPCIÓN DE PRODUCTO INGRESADA NO EXISTA -->
+                <div id="divObservacionesDescripProd" class="pedidos_no_existe" style="display:none;">
+                    <div class="noti mensaje_producto_noExiste">
+                        <div class="noti_message red_texto_size">
+                            <span class="icono_advertencia_notificacion"></span>
+                            El producto solicitado no existe.
+                        </div>
+                    </div>
+                </div>
+                <!-- FIN - MENSAJE CUANDO LA DESCRIPCIÓN DE PRODUCTO INGRESADA NO EXISTA -->
+                <br />
+                <input type="text" name="DescripcionProd" id="txtDescripcionProd" maxlength="250" onblur="ValidarDescripcion();" class="ValidaAlfanumerico default-border-hover"
+                       @*onkeyup="PreValidarCUV(event);"*@
                        attrKey="PreValidarCUV"
                        placeholder="Descripción producto" />
-			</div>
+            </div>
 
-			<div class="pedido_ingreso_datos campo_precio">
-				<br />
-				<input id="txtPrecioR" disabled="disabled" class="preciounitario" placeholder="Precio" />
-			</div>
+            <div class="pedido_ingreso_datos campo_precio">
+                <br />
+                <input id="txtPrecioR" disabled="disabled" class="preciounitario default-border-hover" placeholder="Precio" />
+            </div>
 
-			<div class="pedido_ingreso_datos campo_cantidad">
-				<br />
-				<div class="liquidacion_rango_wrapper_pedido" data-cantidad-contenedor="">
-					<input type="text" name="Cantidad" id="txtCantidad" data-input="cantidad" value="1" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
-                           @*onkeypress="PreValidarCUV(event);"*@ 
-                           onfocus="SeleccionarContenido(this)" attrKey="PreValidarCUV"/>
-					<div class="liquidacion_rango_right_pedido">
-						<a class="mas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
-						<a class="menos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
-					</div>
-				</div>
-			</div>
+            <div class="pedido_ingreso_datos campo_cantidad">
+                <br />
+                <div class="liquidacion_rango_wrapper_pedido" data-cantidad-contenedor="">
+                    <input type="text" name="Cantidad" id="txtCantidad" data-input="cantidad" value="1" maxlength="2"
+                           class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral default-border-hover"
+                           @*onkeypress="PreValidarCUV(event);"*@
+                           onfocus="SeleccionarContenido(this)" attrKey="PreValidarCUV" />
+                    <div class="liquidacion_rango_right_pedido">
+                        <a class="mas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
+                        <a class="menos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
+                    </div>
+                </div>
+            </div>
 
-			<div class="pedido_ingreso_datos campo_cliente">
-				<br />
-				<input type="text" name="ClienteDescripcion" id="txtClienteDescripcion" onblur="ValidarCliente();" onkeydown="ValidarClienteFocus(event);"
-					   maxlength="50" class="ValidaAlfanumerico" placeholder="Cliente (Opcional)" />
-				<span class="pedido_ingreso_datos_icono_mas">+</span>
-				<a class="pedidos_cliente" onclick="showClienteDetalle(null);">
-					AGREGAR NUEVO CLIENTE
-				</a>
-			</div>
-			<input type="hidden" id="hdFlagNueva" />
-			<input type="hidden" id="hdMetodoBusqueda" />
-			<input id="btnAgregar" type="submit" value="AGREGAR" disabled="disabled" onkeydown="Tabular(event);" class="pedido_agregado" />
-		</form>
+            <div class="pedido_ingreso_datos campo_cliente">
+                <br />
+                <input type="text" name="ClienteDescripcion" id="txtClienteDescripcion" onblur="ValidarCliente();" onkeydown="ValidarClienteFocus(event);"
+                       maxlength="50" class="ValidaAlfanumerico default-border-hover" placeholder="Cliente (Opcional)" />
+                <span class="pedido_ingreso_datos_icono_mas">+</span>
+                <a class="pedidos_cliente" onclick="showClienteDetalle(null);">
+                    AGREGAR NUEVO CLIENTE
+                </a>
+            </div>
+            <input type="hidden" id="hdFlagNueva" />
+            <input type="hidden" id="hdMetodoBusqueda" />
+            <input id="btnAgregar" type="submit" value="AGREGAR" disabled="disabled" onkeydown="Tabular(event);" class="pedido_agregado default-background" />
+        </form>
     </div>
     <div class="clear"></div>
-
+    <div id="divProductosRecomendados"></div>
+    @Html.Partial("~/Views/ProductoRecomendado/_template_producto.cshtml")
     <div class="caja_pedidos">
         <div data-barra-width="">
             <div id="divBarra">
@@ -166,70 +169,71 @@
 
         <div class="content_T_T" style="position:relative; z-index:100">
             <div class="bloque_left"></div>
-            <div id="divListadoPedido" class="divListadoPedido tabla_pedidos">
-                <div class="paginador_pedidos mostrarPaginadorPedidos">
-                    <div class="titulo_mis_pedidos" style="width:100%;">
+            @*<div id="divListadoPedido" class="divListadoPedido tabla_pedidos">
+                    <div class="paginador_pedidos mostrarPaginadorPedidos">
+                        <div class="titulo_mis_pedidos" style="width:100%;">
 
-                        @if (ViewBag.MostrarPedidosPendientes == "1")
-                        {
-                            <h1 id="pedmostreo" class="w_40" data-pedido="1">PEDIDO <b>INGRESADO</b></h1>
+                            @if (ViewBag.MostrarPedidosPendientes == "1")
+                            {
+                                <h1 id="pedmostreo" class="w_40" data-pedido="1">PEDIDO <b>INGRESADO</b></h1>
 
-                            <h1 id="penmostreo" style="display: none; background: white;" class="w_25" data-pedido="2">
-                                <b>PENDIENTES</b>
-                                <div class="info_tiempo_oportunidad inicial">
-                                    <div class="campana">
-                                        <a class="" href="javascript:;" role="menu" region="Superior" title="Notificaciones" id="lnk-sup-notificacion">
-                                            <div class="campana_svg mensaje_svg"></div>
-                                            <p class="notificaciones notificaciones_existentes notificaciones_activas" id="cont1PedidosPend">0</p>
-                                        </a>
+                                <h1 id="penmostreo" style="display: none; background: white;" class="w_25" data-pedido="2">
+                                    <b>PENDIENTES</b>
+                                    <div class="info_tiempo_oportunidad inicial">
+                                        <div class="campana">
+                                            <a class="" href="javascript:;" role="menu" region="Superior" title="Notificaciones" id="lnk-sup-notificacion">
+                                                <div class="campana_svg mensaje_svg"></div>
+                                                <p class="notificaciones notificaciones_existentes notificaciones_activas" id="cont1PedidosPend">0</p>
+                                            </a>
+                                        </div>
+                                        <div class="noticia">
+                                            <h6>Tienes <span id="cont2PedidosPend">0</span> pedidos pendientes.</h6>
+                                            <h6 class="tiempos_P"><span><b>Te quedan <span id="fecPedidoPendRec">00:00:00</span></b></span> horas para atenderlo.</h6>
+                                            <h4 class="linkea_Pendientes">►REVÍSALO</h4>
+                                        </div>
                                     </div>
-                                    <div class="noticia">
-                                        <h6>Tienes <span id="cont2PedidosPend">0</span> pedidos pendientes.</h6>
-                                        <h6 class="tiempos_P"><span><b>Te quedan <span id="fecPedidoPendRec">00:00:00</span></b></span> horas para atenderlo.</h6>
-                                        <h4 class="linkea_Pendientes">►REVÍSALO</h4>
-                                    </div>
-                                </div>
-                            </h1>
-                        }
-                        else
-                        {
-                            <h1>MIS <b>PRODUCTOS</b></h1>
-                        }
-                    </div>
-                    <div id="paginadorCab">
-                    </div>
-                </div>
-                <div class="clear"></div>
-
-
-                <div id="infoPedido">
-                    <div class="grilla_pedidos" data-tag="table" id="tbListaPedido">
-                        <div class="encabezado_ingresoPedido">
-                            <div class="texto_encabezado_pedidos cabecera_codigo" align="left">Código</div>
-                            <div class="texto_encabezado_pedidos cabecera_producto" align="left">Producto</div>
-                            <div class="texto_encabezado_pedidos cabecera_unidades">Unidades</div>
-                            <div class="texto_encabezado_pedidos precioUnitario cabecera_precioUnitario">Precio Unitario</div>
-                            <div class="texto_encabezado_pedidos subtotal cabecera_subtotal">
-                                <span class="mostrarPrecioUnitario">Precio Unitario</span>
-                                <span>Subtotal</span>
-                            </div>
-                            <div class="texto_encabezado_pedidos cabecera_cliente">
-                                <select id="ddlClientes" onchange="CambiarCliente(this)"></select>
-                            </div>
-                            <div class="texto_encabezado_pedidos acciones"></div>
+                                </h1>
+                            }
+                            else
+                            {
+                                <h1>MIS <b>PRODUCTOS</b></h1>
+                            }
                         </div>
-
-                        <div id="tbobyDetallePedido"></div>
+                        <div id="paginadorCab">
+                        </div>
                     </div>
-                </div>
+                    <div class="clear"></div>
 
-                <div class="paginador_pedidos mostrarPaginadorPedidos inferior">
-                    <div id="paginadorPie">
+
+                    <div id="infoPedido">
+                        <div class="grilla_pedidos" data-tag="table" id="tbListaPedido">
+                            <div class="encabezado_ingresoPedido">
+                                <div class="texto_encabezado_pedidos cabecera_codigo" align="left">Código</div>
+                                <div class="texto_encabezado_pedidos cabecera_producto" align="left">Producto</div>
+                                <div class="texto_encabezado_pedidos cabecera_unidades">Unidades</div>
+                                <div class="texto_encabezado_pedidos precioUnitario cabecera_precioUnitario">Precio Unitario</div>
+                                <div class="texto_encabezado_pedidos subtotal cabecera_subtotal">
+                                    <span class="mostrarPrecioUnitario">Precio Unitario</span>
+                                    <span>Subtotal</span>
+                                </div>
+                                <div class="texto_encabezado_pedidos cabecera_cliente">
+                                    <select id="ddlClientes" onchange="CambiarCliente(this)"></select>
+                                </div>
+                                <div class="texto_encabezado_pedidos acciones"></div>
+                            </div>
+
+                            <div id="tbobyDetallePedido"></div>
+                        </div>
                     </div>
-                </div>
 
-                <div class="clear"></div>
-            </div>
+                    <div class="paginador_pedidos mostrarPaginadorPedidos inferior">
+                        <div id="paginadorPie">
+                        </div>
+                    </div>
+
+                    <div class="clear"></div>
+                </div>*@
+            @Html.Partial("~/Views/Pedido/_vpPedidoGrilla.cshtml")
 
             <div class="caja_guardar_pedido">
                 <div class="contenedor_guardadoPedido">
@@ -255,14 +259,14 @@
                                         <span class="dscto_ofertasNiveles">(-) Dscto. Ofertas Por Niveles</span>
                                     </div>
                                     <br />
-                                    <p class="monto_con_descuento pMontoCliente" style="display: none;">
+                                    <p class="monto_con_descuento pMontoCliente default-color" style="display: none;">
                                         <span id="spnNombreCliente"></span>
                                     </p>
                                     <div class="monto_total">
                                         <span><b>Monto total:</b></span>
                                     </div>
                                     <br />
-                                    <div class="monto_ganancia">
+                                    <div class="monto_ganancia default-color">
                                         <div class="info_extra_Validado abrir_popupMisGanancias">
                                             <img src="/Content/Images/Esika/info-copy.png" onclick="MostrarDetalleGanancia();">
                                         </div>
@@ -336,7 +340,7 @@
                                         <span data-montodescuento>@Model.Simbolo @Model.FormatoMontoDescuento</span>
                                     </div>
 
-                                    <p class="monto_con_descuento pMontoCliente" style="display: none;">
+                                    <p class="monto_con_descuento pMontoCliente default-color" style="display: none;">
                                         <span id="spnTotalCliente"></span>
                                     </p>
                                     <p class="monto_total">
@@ -348,7 +352,7 @@
                                         </b>
                                     </p>
 
-                                    <p class="monto_ganancia">
+                                    <p class="monto_ganancia default-color">
                                         <b>
                                             @Model.Simbolo
                                             <span id="spnMontoGanancia" data-ganancia="">@Model.FormatoMontoGanancia</span>
@@ -378,21 +382,21 @@
                         @{
                             if (ViewBag.TipoUsuario == 2)
                             {
-                                <div class="tooltip_importanteGuardarPedido" style="width:370px;">
+                                <div class="tooltip_importanteGuardarPedido default-color" style="width:370px;">
                                     <text>@tooltip1</text>
                                     <span>@tooltip2</span>
                                 </div>
                             }
                             else
                             {
-                                <div class="tooltip_importanteGuardarPedido">
+                                <div class="tooltip_importanteGuardarPedido default-color">
                                     <text>@tooltip1</text>
                                     <span>@tooltip2</span>
                                 </div>
                             }
                         }
                         <div class="boton_guardarPedido">
-                            <input type="button" id="btnValidarPROL" value="@Model.Prol" style="text-transform: uppercase;" class="info_copy" />
+                            <input type="button" id="btnValidarPROL" value="@Model.Prol" style="text-transform: uppercase;" class="info_copy default-background-color" />
                         </div>
                     </div>
 
@@ -415,6 +419,41 @@
                     <img id="idImagenCerrar" src="/Content/Images/icons/close.png" style="padding-left: 35px;">
                 </div>
             </div>
+            <!--Popup observaciones-->
+            <div id="observaciones_alerta" style="display: none;">
+                <div class="observaciones_alerta_blocks">
+
+                    <a class="close_buttom_alerta" href="">
+                        <img src="/Content/Images/close-icon.svg" alt="Alternate Text" />
+                    </a>
+                    <div class="header_observaciones_alerta">
+                        <ul>
+                            <li class="alert-observaciones"><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt=""></li>
+                            <li><h3>OBSERVACIONES DEL PRODUCTO</h3></li>
+                        </ul>
+                        @*<p>Debes tener en cuenta que tu pedido ha sido reservado pero:</p>*@
+                    </div>
+                    <div class="descripcion_observaciones_alerta" id="desc_obs_alerta">
+                        @*<ul>
+                            <li>
+                                El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
+                                Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
+                            </li>
+                            <li>
+                                El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
+                                Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
+                            </li>
+                            <li>
+                                El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
+                                Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
+                            </li>
+
+                        </ul>*@
+                    </div>
+
+                </div>
+            </div>
+            <!-- fin Popup observaciones-->
 
             <div class="contenedor_eliminacion_pedido">
                 <div class="datos_simplificacionCUV" style="display: none;">
@@ -429,7 +468,7 @@
 
                 <p class="texto_eliminar_pedido">
                     <span class="texto_pedido_completo">
-                        Para eliminar el pedido completo <a href="javascript:;" class="link_eliminar_pedido" title="Haz click aquí" onclick="MostrarEliminarPedidoTotal();">haz click aquí</a>
+                        Para eliminar el pedido completo <a href="javascript:;" class="link_eliminar_pedido default-color" title="Haz click aquí" onclick="MostrarEliminarPedidoTotal();">haz click aquí</a>
                     </span>
                 </p>
 
@@ -539,11 +578,11 @@
                 <div class="pedidoBase_lineaCredito">
                     <span>
                         <p>Pedido Base</p>
-                        <p><label id="lblPBFlexipago">@Model.Simbolo @(Model.PaisID == 4 ? string.Format("{0:#,##0}", Model.PedidoBase) : string.Format("{0:#,##0.00}", Model.PedidoBase))</label></p>
+                        <p><label id="lblPBFlexipago">@Model.Simbolo @(Model.PaisID == Constantes.PaisID.Colombia ? string.Format("{0:#,##0}", Model.PedidoBase) : string.Format("{0:#,##0.00}", Model.PedidoBase))</label></p>
                     </span>
                     <span>
                         <p>Línea de Crédito</p>
-                        <p>@Model.Simbolo @(Model.PaisID == 4 ? string.Format("{0:#,##0}", Model.LineaCredito) : string.Format("{0:#,##0.00}", Model.LineaCredito))</p>
+                        <p>@Model.Simbolo @(Model.PaisID == Constantes.PaisID.Colombia ? string.Format("{0:#,##0}", Model.LineaCredito) : string.Format("{0:#,##0.00}", Model.LineaCredito))</p>
                     </span>
                 </div>
                 <div class="clear"></div>
@@ -638,36 +677,42 @@
     </div>
 </div>
 
-<div id="divConfirmEliminarTotal" style="display: none;">
-    <div class="terminos_title_2">
-        IMPORTANTE
-    </div>
+<div id="divConfirmEliminarTotal" style="display: none; text-align: center;">
+    <div style="width: 395px;">
+        <a class="close_buttom_alerta_alerta" href="">
+            <img src="/Content/Images/close-icon.svg" alt="Alternate Text">
+        </a>
+        <img class="icon_alerta_eliminar" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt="">
+        <div class="terminos_title_2">
+            IMPORTANTE
+        </div>
 
-    <div class="pop_pedido_mensaje">
-        ¿Deseas eliminar el pedido completo?.
-    </div>
-    <div style="text-align: center; margin-top: 30px;">
-        <input id="btnEliminarPedidoCompletoNo" type="button" value="No" onclick="EliminarPedidoTotalNo()" class="input_modifica_horizontal" style="width: 100px; margin-left: 0;" />
-        <input id="btnEliminarPedidoCompletoSi" type="button" value="Si" onclick="EliminarPedidoTotalSi()" class="input_modifica_horizontal" style="width: 100px; margin-left: 20px;" />
+        <div class="pop_pedido_mensaje">
+            ¿Deseas eliminar el pedido completo?
+        </div>
+        <div style="text-align: center; margin-top: 18px;">
+            <input id="btnEliminarPedidoCompletoNo" type="button" value="No, gracias" onclick="EliminarPedidoTotalNo()" class="input_modifica_horizontal_cancelar" style="width: 100px; margin-left: 0;" />
+            <input id="btnEliminarPedidoCompletoSi" type="button" value="SÍ, ELIMINAR" onclick="EliminarPedidoTotalSi()" class="input_modifica_horizontal" style="width: 100px; margin-left: 20px;" />
+        </div>
     </div>
 </div>
 
-<div id="divAvisoEliminarRegaloGenerico" style="display: none;">
-    <div class="terminos_title_2">
-        IMPORTANTE
-    </div>
-    <div id="dataEliminar" data-campaniaId="" data-pedidoId="" data-pedidoDetalleId="" data-tipoOfertaSisId="" data-cuv=""
-         data-cantidad="" data-clienteId="" data-cuvReco="" data-esBackOrder=""></div>
+@*<div id="divAvisoEliminarRegaloGenerico" style="display: none;">
+        <div class="terminos_title_2">
+            IMPORTANTE
+        </div>
+        <div id="dataEliminar" data-campaniaId="" data-pedidoId="" data-pedidoDetalleId="" data-tipoOfertaSisId="" data-cuv=""
+             data-cantidad="" data-clienteId="" data-cuvReco="" data-esBackOrder=""></div>
 
-    <div class="pop_pedido_mensaje">
-        ¿Estás segura que quieres eliminar el producto?<br /><br />
-        Recuerda que tienes un premio ganado, si eliminas este producto podrías perderlo.<br /> ¿Deseas continuar?
-    </div>
-    <div style="text-align: center; margin-top: 30px;">
-        <input id="btnEliminarPedidoCompletoNo" type="button" value="No" onclick="CerrarAvisoEliminarRegalo()" class="input_modifica_horizontal" style="width: 100px; margin-left: 0;" />
-        <input id="btnEliminarPedidoCompletoSi" type="button" value="Si" onclick="ContinuarEliminacion()" class="input_modifica_horizontal" style="width: 100px; margin-left: 20px;" />
-    </div>
-</div>
+        <div class="pop_pedido_mensaje">
+            ¿Estás segura que quieres eliminar el producto?<br /><br />
+            Recuerda que tienes un premio ganado, si eliminas este producto podrías perderlo.<br /> ¿Deseas continuar?
+        </div>
+        <div style="text-align: center; margin-top: 30px;">
+            <input id="btnEliminarPedidoCompletoNo" type="button" value="No" onclick="CerrarAvisoEliminarRegalo()" class="input_modifica_horizontal" style="width: 100px; margin-left: 0;" />
+            <input id="btnEliminarPedidoCompletoSi" type="button" value="Si" onclick="ContinuarEliminacion()" class="input_modifica_horizontal" style="width: 100px; margin-left: 20px;" />
+        </div>
+    </div>*@
 <input type="hidden" id="hdfAccionPROL" value="@Model.Prol" />
 <input type="hidden" id="hdfReserva" value="@Model.Reserva" />
 <input type="hidden" id="hdfModificaPedido" value="@Model.EsModificacion" />
@@ -689,15 +734,16 @@
 <input type="hidden" id="hdEsConsultoraNueva" value="@Model.EsConsultoraNueva.ToString()" />
 
 <div id="divObservacionesPROL" style="display: none;">
+    <div style="width: 500px;">
+        <div id="divTituloObservacionesPROL" class="terminos_title_2">
+        </div>
 
-    <div id="divTituloObservacionesPROL" class="terminos_title_2">
-    </div>
-
-    <div id="divMensajeObservacionesPROL" class="pop_pedido_mensaje_prol">
-    </div>
-    <div class="div-3" style="text-align: center;">
-        <div id="DivObsBut">
-            <input id="btnCerrar" type="button" value="Cerrar" onclick="$('#divObservacionesPROL').dialog('close');" class="input_modifica_horizontal" style="margin-left: 0;" />
+        <div id="divMensajeObservacionesPROL" class="pop_pedido_mensaje_prol">
+        </div>
+        <div class="div-3" style="text-align: center;">
+            <div id="DivObsBut">
+                <input id="btnCerrar" type="button" value="Cerrar" onclick="closeDialogObservacionesProl()" class="input_modifica_horizontal" style="margin-left: 0;" />
+            </div>
         </div>
     </div>
 </div>
@@ -882,36 +928,37 @@
     </div>
 </div>
 <div class="contenedor_popup_productosSugeridos1" id="divProductoAgotadoFinal" style="display:none;">
-    <div class="popup_productosSugeridos" style="height:456px;">
-        <div class="mensaje_noExisteProducto">
-            <div class="btn_cerrar_productosSugeridos">
-            </div>
-            <h1>LO SENTIMOS, SE AGOTÓ EL PRODUCTO</h1>
-        </div>
-        <div>
-            <div class="contenedor_productosSugeridos">
-                <div>
-                    <h5>PRUEBA REEMPLAZARLO CON ALGUNO DE ÉSTOS</h5>
+    <div class="popup_productosSugeridos_wrapper">
+        <div class="popup_productosSugeridos" style="height:456px;">
+            <div class="mensaje_noExisteProducto">
+                <div class="btn_cerrar_productosSugeridos">
                 </div>
-                <div data-close="divProductoAgotadoFinal">
-                    <h5>NO, GRACIAS</h5>
-                    <span class="btn_cerrar_opcionNoGracias">
-                        <a href="#">
-                            <img src="@Url.Content("~/Content/Images/cerrar_04.png")" alt="Alternate Text" />
-                        </a>
-                    </span>
-                </div>
-                <div class="clear"></div>
+                <h1>LO SENTIMOS, SE AGOTÓ EL PRODUCTO</h1>
             </div>
-            <div style=" margin-left:27px; margin-right:27px; position:relative; bottom:19px;">
-                <div class="slider center" id="divCarruselSugerido" style="float:left;height:auto;">
+            <div>
+                <div class="contenedor_productosSugeridos">
+                    <div>
+                        <h5>PRUEBA REEMPLAZARLO CON ALGUNO DE ÉSTOS</h5>
+                    </div>
+                    <div class="cerrar_popup_productoSugerido" data-close="divProductoAgotadoFinal">
+                        <h5>NO, GRACIAS</h5>
+                        <span class="btn_cerrar_opcionNoGracias">
+                            <a href="#">
+                                <img src="@Url.Content("~/Content/Images/cerrar_04.png")" alt="Alternate Text" />
+                            </a>
+                        </span>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div style="margin-left:27px; margin-right:27px; position:relative; bottom:19px;">
+                    <div class="slider center" id="divCarruselSugerido" style="float:left;height:auto;">
+                    </div>
+                    <div class="clear"></div>
                 </div>
                 <div class="clear"></div>
             </div>
             <div class="clear"></div>
         </div>
-
-        <div class="clear"></div>
     </div>
 </div>
 <div class="contenedor_popup_ofertaFinal center_text" id="divOfertaFinal" data-popup-main="" data-popup-function-hide="PopupOfertaFinalCerrar">
@@ -1475,191 +1522,191 @@
     {{/each}}
 </script>
 
-<script id="paginador-template" type="text/x-handlebars-template">
-    <ul class="paginador_notificaciones" data-paginacion="block">
+@*<script id="paginador-template" type="text/x-handlebars-template">
+        <ul class="paginador_notificaciones" data-paginacion="block">
 
-        <li class="productos_agregados_usuario">
-            He agregado
-            <span class="cantidad_productos_agregados"><b id="bPedidoPaginarRegistrosTotal" data-paginacion='recordCount'>{{RegistrosTotal}}</b></span>
-            &nbsp;productos
-        </li>
-        <li class="seleccion_pagina">
-            <select data-paginacion="rows" style="height: 24px;" data-val="{{PageSize}}">
-                <option value="10">ver 10 filas</option>
-                <option value="20">ver 20 filas</option>
-                <option value="30">ver 30 filas</option>
-                <option value="40">ver 40 filas</option>
-                <option value="50">ver 50 filas</option>
-            </select>
-        </li>
-        <li class="texto_pagina">Página</li>
-        <li class="flecha_paginador_atras" data-paginacion="back"></li>
-        <li style="margin-right: 6px;">
-            <span class="paginas_pedidos">
-                <span class="pagina_actual">
-                    <input type="text" name="paginaactual" data-paginacion="page" value="{{Pagina}}" class="ValidaNumeral ValidaPasteNumeral" id="paginaactual" data-val="{{Pagina}}" />
-                </span> de
-                <span class="paginas_totales" id="spnPedidoPaginarPaginaDe" data-paginacion='pageCount'>{{PaginaDe}}</span>
-            </span>
-        </li>
-        <li class="flecha_paginador_adelante" data-paginacion="next"></li>
-    </ul>
-    <div class="clear"></div>
-</script>
+            <li class="productos_agregados_usuario">
+                He agregado
+                <span class="cantidad_productos_agregados"><b id="bPedidoPaginarRegistrosTotal" data-paginacion='recordCount'>{{RegistrosTotal}}</b></span>
+                &nbsp;productos
+            </li>
+            <li class="seleccion_pagina">
+                <select data-paginacion="rows" style="height: 24px;" data-val="{{PageSize}}">
+                    <option value="10">ver 10 filas</option>
+                    <option value="20">ver 20 filas</option>
+                    <option value="30">ver 30 filas</option>
+                    <option value="40">ver 40 filas</option>
+                    <option value="50">ver 50 filas</option>
+                </select>
+            </li>
+            <li class="texto_pagina">Página</li>
+            <li class="flecha_paginador_atras" data-paginacion="back"></li>
+            <li style="margin-right: 6px;">
+                <span class="paginas_pedidos">
+                    <span class="pagina_actual">
+                        <input type="text" name="paginaactual" data-paginacion="page" value="{{Pagina}}" class="ValidaNumeral ValidaPasteNumeral" id="paginaactual" data-val="{{Pagina}}" />
+                    </span> de
+                    <span class="paginas_totales" id="spnPedidoPaginarPaginaDe" data-paginacion='pageCount'>{{PaginaDe}}</span>
+                </span>
+            </li>
+            <li class="flecha_paginador_adelante" data-paginacion="next"></li>
+        </ul>
+        <div class="clear"></div>
+    </script>
 
-<script id="producto-template" type="text/x-handlebars-template">
-    {{#each this}}
-    {{#if EliminadoTemporal}}
-    {{else}}
-    <div class="contenido_ingresoPedido mouse_encima" data-cuv="{{CUV}}">
-        <div class="texto_pedidos celda_codigo">{{CUV}}</div>
-        <div class="texto_pedidos celda_producto pedidoPadreToolTip" style="position:relative">
-            <span class="texto_pedidos_ofertas">
-                <label for="{{DescripcionOferta}}">{{DescripcionOferta}}</label>
-            </span>
+    <script id="producto-template" type="text/x-handlebars-template">
+        {{#each this}}
+        {{#if EliminadoTemporal}}
+        {{else}}
+        <div class="contenido_ingresoPedido mouse_encima" data-cuv="{{CUV}}">
+            <div class="texto_pedidos celda_codigo">{{CUV}}</div>
+            <div class="texto_pedidos celda_producto pedidoPadreToolTip" style="position:relative">
+                <span class="texto_pedidos_ofertas">
+                    <label for="{{DescripcionOferta}}">{{DescripcionOferta}}</label>
+                </span>
 
-            {{#if_eq TipoPedido 'M'}}
-            <span style="position:relative">
-                <p class="productos_ingresados_movil">
-                    <span class="icon-mobile"><img src="@Url.Content("~/Content/Images/mobile-pedido.png")" alt="Alternate Text" /></span>
-                </p>
-                <label for="{{DescripcionCortadaProd}}" class="lblLPDesProd">{{Split DescripcionCortadaProd '|' 0}}</label>
-            </span>
-            {{else}}
-            <span style="position:relative">
-                <label for="{{DescripcionCortadaProd}}" class="lblLPDesProd">{{Split DescripcionCortadaProd '|' 0}}</label>
-            </span>
-            {{/if_eq}}
-            
-            <div id="tooltipDescPro" class="tooltipPedido">
-                {{Split DescripcionProd '|' 0}}
+                {{#if_eq TipoPedido 'M'}}
+                <span style="position:relative">
+                    <p class="productos_ingresados_movil">
+                        <span class="icon-mobile"><img src="@Url.Content("~/Content/Images/mobile-pedido.png")" alt="Alternate Text" /></span>
+                    </p>
+                    <label for="{{DescripcionCortadaProd}}" class="lblLPDesProd">{{Split DescripcionCortadaProd '|' 0}}</label>
+                </span>
+                {{else}}
+                <span style="position:relative">
+                    <label for="{{DescripcionCortadaProd}}" class="lblLPDesProd">{{Split DescripcionCortadaProd '|' 0}}</label>
+                </span>
+                {{/if_eq}}
+
+                <div id="tooltipDescPro" class="tooltipPedido">
+                    {{Split DescripcionProd '|' 0}}
+                </div>
+
+                <input type="hidden" name="hdfFlagNueva{{PedidoID}}" value="{{FlagNueva}}" id="hdfFlagNueva{{PedidoID}}" class="hdfFlagNueva" />
+                <input type="hidden" name="hdfCampaniaID{{PedidoID}}" value="{{CampaniaID}}" id="hdfCampaniaID{{PedidoID}}" class="hdfCampaniaID" />
+                <input type="hidden" name="hdfPedidoId{{PedidoID}}" value="{{PedidoID}}" id="hdfPedidoId{{PedidoID}}" class="hdfPedidoId" />
+                <input type="hidden" name="hdfPedidoDetalleID{{PedidoID}}" value="{{PedidoDetalleID}}" id="hdfPedidoDetalleID{{PedidoID}}" class="hdfPedidoDetalleID" />
+                <input type="hidden" name="hdfTipoOfertaSisID{{PedidoID}}" value="{{TipoOfertaSisID}}" id="hdfTipoOfertaSisID{{PedidoID}}" class="hdfTipoOfertaSisID" />
+                <input type="hidden" name="hdfCUV{{PedidoID}}" value="{{CUV}}" id="hdfCUV{{PedidoID}}" class="hdfCUV" />
+                <input type="hidden" name="txtLPTempCant{{PedidoDetalleID}}" value="{{Cantidad}}" class="txtLPTempCant" />
             </div>
-
-            <input type="hidden" name="hdfFlagNueva{{PedidoID}}" value="{{FlagNueva}}" id="hdfFlagNueva{{PedidoID}}" class="hdfFlagNueva" />
-            <input type="hidden" name="hdfCampaniaID{{PedidoID}}" value="{{CampaniaID}}" id="hdfCampaniaID{{PedidoID}}" class="hdfCampaniaID" />
-            <input type="hidden" name="hdfPedidoId{{PedidoID}}" value="{{PedidoID}}" id="hdfPedidoId{{PedidoID}}" class="hdfPedidoId" />
-            <input type="hidden" name="hdfPedidoDetalleID{{PedidoID}}" value="{{PedidoDetalleID}}" id="hdfPedidoDetalleID{{PedidoID}}" class="hdfPedidoDetalleID" />
-            <input type="hidden" name="hdfTipoOfertaSisID{{PedidoID}}" value="{{TipoOfertaSisID}}" id="hdfTipoOfertaSisID{{PedidoID}}" class="hdfTipoOfertaSisID" />
-            <input type="hidden" name="hdfCUV{{PedidoID}}" value="{{CUV}}" id="hdfCUV{{PedidoID}}" class="hdfCUV" />
-            <input type="hidden" name="txtLPTempCant{{PedidoDetalleID}}" value="{{Cantidad}}" class="txtLPTempCant" />
-        </div>
-        <div class="celda_cantidad_pedidos">
-            <div data-SetID="{{SetID}}"></div>
-            {{#if EsKitNueva}}
-            <div class="texto_pedidos" style="text-align:center; margin: 0;padding:0;">{{Cantidad}}</div>
-            {{else if FlagNueva}}
-            <div class="texto_pedidos" style="text-align:center; margin: 0;padding:0;">{{Cantidad}}</div>
-            {{else}}
-            <div class="liquidacion_rango_wrapper_pedido cantidad_detalle_focus" data-cantidad-contenedor="">
-                <input type="text" value="{{Cantidad}}" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral txtLPCant"
-                               data-input="cantidad" data-pedido="{{PedidoDetalleID}}" data-SetID="{{SetID}}" 
-                               @*onkeypress="PreValidarCUV(event);"*@
+            <div class="celda_cantidad_pedidos">
+                <div data-SetID="{{SetID}}"></div>
+                {{#if EsKitNueva}}
+                <div class="texto_pedidos" style="text-align:center; margin: 0;padding:0;">{{Cantidad}}</div>
+                {{else if FlagNueva}}
+                <div class="texto_pedidos" style="text-align:center; margin: 0;padding:0;">{{Cantidad}}</div>
+                {{else}}
+                <div class="liquidacion_rango_wrapper_pedido cantidad_detalle_focus" data-cantidad-contenedor="">
+                    <input type="text" value="{{Cantidad}}" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral txtLPCant"
+                               data-input="cantidad" data-pedido="{{PedidoDetalleID}}" data-SetID="{{SetID}}"
                                attrKey="PreValidarCUV"
                                onfocus="SeleccionarContenido(this)"
                                onblur="UpdateLiquidacion(event, '{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '1', '{{Cantidad}}', '{{SetID}}', {{EnRangoProgNuevas}})" />
-                <div class="liquidacion_rango_right_pedido">
-                    <a class="mas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
-                    <a class="menos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
+                    <div class="liquidacion_rango_right_pedido">
+                        <a class="mas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
+                        <a class="menos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
+                    </div>
                 </div>
+                {{/if}}
             </div>
-            {{/if}}
-        </div>
-        <div class="texto_pedidos precioUnitario">
-            <input type="hidden" name="hdfLPPrecioU{{PedidoDetalleID}}" value="{{PrecioUnidad}}" class="classPrecioUnidad hdfLPPrecioU" />
-            {{SimboloMoneda}} {{FormatoPrecioUnidad}}
-        </div>
-        <div class="texto_pedidos subtotal">
-            <span class="precio">
+            <div class="texto_pedidos precioUnitario">
+                <input type="hidden" name="hdfLPPrecioU{{PedidoDetalleID}}" value="{{PrecioUnidad}}" class="classPrecioUnidad hdfLPPrecioU" />
                 {{SimboloMoneda}} {{FormatoPrecioUnidad}}
-            </span>
-            <span>
-                {{SimboloMoneda}}
-                <label for="item_ImporteTotal" class="classImporteTotal lblLPImpTotal">{{FormatoImporteTotal}}</label>
-                {{#if EstadoSimplificacionCuv}}
-                {{#if IndicadorOfertaCUV}}
-                <input type="hidden" name="ExisteIndicadorOfertaCUV" class="ExisteIndicadorOfertaCUV" value="true" />
-                <span class="icon-advertencia"></span>
-                {{/if}}
-                {{/if}}
-            </span>
-        </div>
-        <div class="texto_pedidos clientePedido">
-            {{#if EsKitNueva}}
-            {{else}}
-            <input type="hidden" name="hdfLPCliIni{{PedidoDetalleID}}" value="{{ClienteID}}" class="classClienteID hdfLPCliIni" />
-            <input type="hidden" name="hdfLPCli{{PedidoDetalleID}}" value="{{ClienteID}}" class="classClienteID hdfLPCli" />
-            <input type="hidden" name="hdfLPCliDes{{PedidoDetalleID}}" value="{{Nombre}}" class="classClienteID hdfLPCliDes" />
-            <input type="hidden" name="hdfTest" value="{{Nombre}}" class="classClienteID hdfLPCliDes" />
+            </div>
+            <div class="texto_pedidos subtotal">
+                <span class="precio">
+                    {{SimboloMoneda}} {{FormatoPrecioUnidad}}
+                </span>
+                <span>
+                    {{SimboloMoneda}}
+                    <label for="item_ImporteTotal" class="classImporteTotal lblLPImpTotal">{{FormatoImporteTotal}}</label>
+                    {{#if EstadoSimplificacionCuv}}
+                    {{#if IndicadorOfertaCUV}}
+                    <input type="hidden" name="ExisteIndicadorOfertaCUV" class="ExisteIndicadorOfertaCUV" value="true" />
+                    <span class="icon-advertencia"></span>
+                    {{/if}}
+                    {{/if}}
+                </span>
+            </div>
+            <div class="texto_pedidos clientePedido">
+                {{#if EsKitNueva}}
+                {{else}}
+                <input type="hidden" name="hdfLPCliIni{{PedidoDetalleID}}" value="{{ClienteID}}" class="classClienteID hdfLPCliIni" />
+                <input type="hidden" name="hdfLPCli{{PedidoDetalleID}}" value="{{ClienteID}}" class="classClienteID hdfLPCli" />
+                <input type="hidden" name="hdfLPCliDes{{PedidoDetalleID}}" value="{{Nombre}}" class="classClienteID hdfLPCliDes" />
+                <input type="hidden" name="hdfTest" value="{{Nombre}}" class="classClienteID hdfLPCliDes" />
 
-            {{#if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Nueva'}}
-            <input type="text" name="{{Nombre}}" value="{{Nombre}}" maxlength="50" class="classClienteNombre ValidaAlfanumerico txtLPCli"
-                   readonly="readOnly" onkeydown="return false;" style="width:90%; padding:4px;" />
+                {{#if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Nueva'}}
+                <input type="text" name="{{Nombre}}" value="{{Nombre}}" maxlength="50" class="classClienteNombre ValidaAlfanumerico txtLPCli"
+                       readonly="readOnly" onkeydown="return false;" style="width:90%; padding:4px;" />
+                {{else}}
+                <input type="text" name="{{Nombre}}" value="{{Nombre}}" maxlength="50" class="classClienteNombre ValidaAlfanumerico txtLPCli"
+                       onblur="BlurF(event, '{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '2', '{{CUV}}', '{{EsBackOrder}}', '{{SetID}}')" style="width: 90%; padding: 4px;"
+                       datapedido="{{PedidoDetalleID}}" />
+                {{/if_eq}}
+                {{/if}}
+            </div>
+            <div class="texto_pedidos celda_iconos_acciones">
+                {{#if EsKitNueva}}
+                <div class="info_copy">
+                    <input type="hidden" data-kit="true" />
+                    <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")" alt="Alternate Text" class="info_copy" style="width: 19px; margin:0;" />
+                    <div class="tooltips tooltip_infoCopy_grid">
+                        <div class="tooltip_flecha_grid"></div>
+                        <h6>Kit de Inicio</h6>
+                        <p>Gana desde el comienzo con las mejores herramientas para tu negocio: productos ganadores, demostradores, fichas de los TOP de @(Model.EsPais) y más.</p>
+                        <p>* @Model.MensajeKitNuevas</p>
+                    </div>
+                </div>
+                {{else}}
+                {{#iff DescripcionLarga 'Contains' '\''}}
+                {{Replace DescripcionLarga '\'' ''}}
+                {{/iff}}
+                    <a onclick="ValidDeletePedido('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '{{Cantidad}}', '{{ClienteID_}}', '{{CUVReco}}', null, '{{SetID}}', {{EnRangoProgNuevas}});"
+                        style="background-image: url('@Url.Content("~/Content/Images/Esika/tacho-copy.png")'); background-repeat:no-repeat; width: 17px; height: 22px; margin: 0 auto;" title="Eliminar"></a>
+
+                {{/if}}
+            </div>
+            {{#if EsBackOrder}}
+            {{#if AceptoBackOrder}}
+            <div class="stock_content_aceptado">
+                <div class="texto_stock" style="color:black;"><b>Te entregaremos el producto en la siguiente campaña.</b></div>
+            </div>
             {{else}}
-            <input type="text" name="{{Nombre}}" value="{{Nombre}}" maxlength="50" class="classClienteNombre ValidaAlfanumerico txtLPCli"
-                   onblur="BlurF(event, '{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '2', '{{CUV}}', '{{EsBackOrder}}', '{{SetID}}')" style="width: 90%; padding: 4px;"
-                   datapedido="{{PedidoDetalleID}}" />
-            {{/if_eq}}
+
+            <div class="stock_content">
+                <div class="texto_stock" style="margin-top: 10PX;width:60%">@Constantes.BackOrder.mensajeBackOrderDestokp</div>
+                <div class="text_stock" style="margin-top:10px;float:left;width:35%;margin-left:35px;">
+                    <a class="btn_no_stock" style="font-size:9px;float:left;margin-left:9px;" onclick="ValidDeletePedido('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '{{Cantidad}}', '{{ClienteID_}}', '{{CUVReco}}', '{{EsBackOrder}}', '{{SetID}}', false);">NO, ELIMÍNALO</a>
+                    <a class="btn_si_stock" style="float:right;height:35px;line-height:39px;" onclick="AceptarBackOrder('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{ClienteID_}}');" href="javascript:;">¡SÍ, GRACIAS!</a>
+                </div>
+                <hr class="clear" />
+            </div>
+
+            {{/if}}
             {{/if}}
         </div>
-        <div class="texto_pedidos celda_iconos_acciones">
-            {{#if EsKitNueva}}
-            <div class="info_copy">
-                <input type="hidden" data-kit="true" />
-                <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")" alt="Alternate Text" class="info_copy" style="width: 19px; margin:0;" />
-                <div class="tooltips tooltip_infoCopy_grid">
-                    <div class="tooltip_flecha_grid"></div>
-                    <h6>Kit de Inicio</h6>
-                    <p>Gana desde el comienzo con las mejores herramientas para tu negocio: productos ganadores, demostradores, fichas de los TOP de @(Model.EsPais) y más.</p>
-                    <p>*@Model.MensajeKitNuevas</p>
+
+        {{/if}}
+
+        {{#IsNullOrEmpty Mensaje '!='}}
+        <div class="fila_mensajeProductoAgotado">
+            <div style="width:100%;">
+                <div class="mensaje_productoAgotado">
+                    {{#iff TipoObservacion '!=' 0}}
+                    <p>{{{Replace Mensaje '¿Deseas aceptar el reemplazo?' ''}}}</p>
+                    {{else}}
+                    <p>{{{Mensaje}}}</p>
+                    {{/iff}}
                 </div>
             </div>
-            {{else}}
-            {{#iff DescripcionLarga 'Contains' '\''}}
-            {{Replace DescripcionLarga '\'' ''}}
-            {{/iff}}
-                <a onclick="ValidDeletePedido('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '{{Cantidad}}', '{{ClienteID_}}', '{{CUVReco}}', null, '{{SetID}}', {{EnRangoProgNuevas}});"
-                    style="background-image: url('@Url.Content("~/Content/Images/Esika/tacho-copy.png")'); background-repeat:no-repeat; width: 17px; height: 22px; margin: 0 auto;" title="Eliminar"></a>
-
-            {{/if}}
         </div>
-        {{#if EsBackOrder}}
-        {{#if AceptoBackOrder}}
-        <div class="stock_content_aceptado">
-            <div class="texto_stock" style="color:black;"><b>Te entregaremos el producto en la siguiente campaña.</b></div>
-        </div>
-        {{else}}
+        {{/IsNullOrEmpty}}
+        {{/each}}
+    </script>*@
 
-        <div class="stock_content">
-            <div class="texto_stock" style="margin-top: 10PX;width:60%">@Constantes.BackOrder.mensajeBackOrderDestokp</div>
-            <div class="text_stock" style="margin-top:10px;float:left;width:35%;margin-left:35px;">
-                <a class="btn_no_stock" style="font-size:9px;float:left;margin-left:9px;" onclick="ValidDeletePedido('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '{{Cantidad}}', '{{ClienteID_}}', '{{CUVReco}}', '{{EsBackOrder}}', '{{SetID}}', false);">NO, ELIMÍNALO</a>
-                <a class="btn_si_stock" style="float:right;height:35px;line-height:39px;" onclick="AceptarBackOrder('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{ClienteID_}}');" href="javascript:;">¡SÍ, GRACIAS!</a>
-            </div>
-            <hr class="clear" />
-        </div>
-
-        {{/if}}
-        {{/if}}
-    </div>
-
-    {{/if}}
-
-    {{#IsNullOrEmpty Mensaje '!='}}
-    <div class="fila_mensajeProductoAgotado">
-        <div style="width:100%;">
-            <div class="mensaje_productoAgotado">
-                {{#iff TipoObservacion '!=' 0}}
-                <p>{{{Replace Mensaje '¿Deseas aceptar el reemplazo?' ''}}}</p>
-                {{else}}
-                <p>{{{Mensaje}}}</p>
-                {{/iff}}
-            </div>
-        </div>
-    </div>
-    {{/IsNullOrEmpty}}
-    {{/each}}
-</script>
-
+@Html.Partial("~/Views/Pedido/_vpPedidoGrilla-Template.cshtml")
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
 @Html.Partial("~/Views/FichaProducto/template-ficha-producto.cshtml")
 
@@ -2013,7 +2060,7 @@
 </script>
 
 @section scripts{
-    <script type="text/javascript">
+<script type="text/javascript">
         var arregloProductos;
         var cantProductosLoad = '@Model.ListaEstrategias.Count';
         var constConfiguracionOfertaLiquidacion = '@Constantes.ConfiguracionOferta.Liquidacion';
@@ -2080,7 +2127,9 @@
         var mensajeSinConexionGenerico = '@Constantes.MensajesError.SinConexion';
         var urlInsertarDemandaTotalReemplazoSugerido = '@Url.Action("InsertarDemandaTotalReemplazoSugerido", "Pedido")';
         var urlEsPedidoDetalleElecMultiple = '@Url.Action("EsPedidoDetalleElecMultiple", "Pedido")';
-    </script>
+        var activarRecomendaciones = '@ViewBag.ActivarRecomendaciones';
+        var maxCaracteresRecomendaciones = '@ViewBag.MaxCaracteresRecomendaciones';
+</script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/SB2-Pedido")
     @if (HttpContext.Current.Request.Browser.IsMobileDevice)
     {
@@ -2093,5 +2142,5 @@
         <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Pedido/ConsultoraOnline.js")"></script>
     }
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/FichaProducto/Index.js")"></script>
-
-} 
+    
+}

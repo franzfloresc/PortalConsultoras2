@@ -2,7 +2,6 @@
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
-using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +10,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class CrossSellingController : BaseController
+    public class CrossSellingController : BaseAdmController
     {
         #region Configuracion Cross Selling
 
@@ -35,38 +34,15 @@ namespace Portal.Consultoras.Web.Controllers
             return View(cronogramaModel);
         }
 
-        private IEnumerable<PaisModel> DropDowListPaises()
-        {
-            List<BEPais> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = userData.RolID == 2
-                    ? sv.SelectPaises().ToList()
-                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
-            }
-
-            return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
-        }
-
-        public JsonResult ObtenterCampaniasPorPais(int PaisID)
-        {
-            IEnumerable<CampaniaModel> lst = DropDowListCampanias(PaisID);
-            return Json(new
-            {
-                lista = lst,
-            }, JsonRequestBehavior.AllowGet);
-        }
-
-        private IEnumerable<CampaniaModel> DropDowListCampanias(int paisId)
-        {
-            IList<BECampania> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = sv.SelectCampanias(paisId);
-            }
-
-            return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
-        }
+        //movido a BaseAdm/ObtenerCampaniasPorPais
+        //public JsonResult ObtenterCampaniasPorPais(int PaisID)
+        //{
+        //    IEnumerable<CampaniaModel> lst = _zonificacionProvider.GetCampanias(PaisID);
+        //    return Json(new
+        //    {
+        //        lista = lst,
+        //    }, JsonRequestBehavior.AllowGet);
+        //}
 
         public ActionResult ConsultarConfiguracionCrossSelling(string sidx, string sord, int page, int rows, int PaisID, int CampaniaID)
         {
@@ -217,8 +193,7 @@ namespace Portal.Consultoras.Web.Controllers
                 
                 if (lst != null && lst.Count > 0)
                 {
-                    var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                    lst.Update(x => x.ImagenProducto = ConfigCdn.GetUrlFileCdn(carpetaPais, x.ImagenProducto));
+                    lst.Update(x => x.ImagenProducto = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, x.ImagenProducto));
                 }                                            
 
                 string iso = Util.GetPaisISO(PaisID);

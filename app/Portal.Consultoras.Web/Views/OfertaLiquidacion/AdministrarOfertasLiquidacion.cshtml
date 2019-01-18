@@ -208,7 +208,7 @@
             var Id = $(this).val();
             if (Id != "") {
                 waitingDialog({});
-                $.getJSON(baseUrl + 'OfertaLiquidacion/ObtenterCampaniasPorPais', { PaisID: Id == "" ? 0 : Id }, function (data) {
+                $.getJSON(baseUrl + 'OfertaLiquidacion/ObtenerCampaniasYConfiguracionPorPais', { PaisID: Id == "" ? 0 : Id }, function (data) {
                     if (checkTimeout(data)) {
                         LimpiarDependencias(Id);
 
