@@ -312,18 +312,12 @@ namespace Portal.Consultoras.Service
             return BLArmaTuPack.CuvEstaEnLimite(paisID, campaniaID, zona, cuv, cantidadIngresada, cantidadActual);
         }
         #endregion
-
-
-       
         
         #region LimiteVenta
         public BERespValidarLimiteVenta CuvTieneLimiteVenta(int paisID, int campaniaID, string region, string zona, string cuv, int cantidadIngresada, int cantidadActual)
         {
-            
             return BLLimiteVenta.CuvTieneLimiteVenta(paisID, campaniaID, region, zona, cuv, cantidadIngresada, cantidadActual);
         }
-
-        
         #endregion
 
         public List<BEPremioNuevas> ListarPremioNuevasPaginado(BEPremioNuevas premio)
