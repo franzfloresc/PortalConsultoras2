@@ -567,6 +567,7 @@ function MostrarBarra(datax, destino) {
 
 
     if (destino == "1") {
+        $('.linea_indicador_barra').hide();
         return true;
     }
 
