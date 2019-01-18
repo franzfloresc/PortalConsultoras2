@@ -56,7 +56,7 @@ var rdAnalyticsModule = (function () {
     _seccionWeb = {
         home: "Home",
         catalogo: "Catálogos y revistas",
-        pedido: "Pedido",
+        pedido: "Carrito de Compras",
         homeMobile: "Mobile Home",
         catalogoMobile: "Mobile Catálogos y revistas",
         pedidoMobile: "Mobile Pedido",
@@ -258,7 +258,7 @@ var rdAnalyticsModule = (function () {
                     _virtualEventPush(_seccionWeb.catalogo, _text.epm, _action.clickBanner);
                     break;
                 case _origenWeb.pedido:
-                    _virtualEventPush(_seccionWeb.pedido, _text.epm, _action.clickBanner);
+                    _virtualEventPush(_seccionWeb.pedido, _text.epm, _action.verMas);
                     break;
                 case _origenWeb.homeLan:
                     _virtualEventPush(_seccionWeb.home, _text.epm, _action.verLan);
