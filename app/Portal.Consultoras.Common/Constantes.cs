@@ -58,7 +58,6 @@ namespace Portal.Consultoras.Common
             public const string UrlPart02 = "/jpg/page_1_thumb_small.jpg";
             public const string UrlPart03 = "/jpg/page_1_thumb_medium.jpg";
             public const string UrlPart02Alternativo = "/jpg/page_1.jpg";
-
         }
 
         public static class EstadoPedido
@@ -684,7 +683,6 @@ namespace Portal.Consultoras.Common
             // Cuarto Dígito
             // 1. Sin popUp                 2. Con popUp
 
-
             public const int SectionBptDesktopPedido = 12; // Seccion BPT, metodo GetPartialSectionBptModel
             public const int SectionBptDesktopHome = 11; // Seccion BPT, metodo GetPartialSectionBptModel
             public const int SectionBptDesktopCatalogo = 14; // Seccion BPT, metodo GetPartialSectionBptModel
@@ -722,7 +720,6 @@ namespace Portal.Consultoras.Common
             public const int MasVendidosMobileHomeCarrusel = 2151;
             public const int MasVendidosMobileProductPageFicha = 2611;
             #endregion
-
 
             #region MasGanadoras
             public const int DesktopContenedorGanadorasCarrusel = 1081401; // Esta en duro en ConstantesModule
@@ -912,6 +909,27 @@ namespace Portal.Consultoras.Common
             #region Producto Recomendado
             public const int DesktopPedidoProductoRecomendadoCarrusel = 1021501;
             public const int MobilePedidoProductoRecomendadoCarrusel = 2021501;
+            #endregion
+
+            #region Pedidos Pendientes
+            public const int DesktopPedidoCatalogoLbelAppCatalogoPendienteDeAprobar = 1021110;
+            public const int DesktopPedidoCatalogoEsikaAppCatalogoPendienteDeAprobar = 1021210;
+            public const int DesktopPedidoCatalogoCyzoneAppCatalogoPendienteDeAprobar = 1021310;
+            public const int MobilePedidoCatalogoLbelAppCatalogoPendienteDeAprobar = 2021110;
+            public const int MobilePedidoCatalogoEsikaAppCatalogoPendienteDeAprobar = 2021210;
+            public const int MobilePedidoCatalogoCyzoneAppCatalogoPendienteDeAprobar = 2021310;
+            public const int AppConsultoraPedidoCatalogoLbelAppCatalogoPendienteDeAprobar = 4021110;
+            public const int AppConsultoraPedidoCatalogoEsikaAppCataogoPendienteDeAprobar = 4021210;
+            public const int AppConsultoraPedidoCatalogoCyzoneAppCatalogoPendienteDeAprobar = 4021310;
+            public const int DesktopPedidoCatalogoLbelCatalogoDigitalPendienteDeAprobar = 1021111;
+            public const int DesktopPedidoCatalogoEsikaCatalogoDigitalPendienteDeAprobar = 1021211;
+            public const int DesktopPedidoCatalogoCyzoneCatalogoDigitalPendienteDeAprobar = 1021311;
+            public const int MobilePedidoCatalogoLbelCatalogoDigitalPendienteDeAprobar = 2021111;
+            public const int MobilePedidoCatalogoEsikaCatalogoDigitalPendienteDeAprobar = 2021211;
+            public const int MobilePedidoCatalogoCyzoneCatalogoDigitalPendienteDeAprobar = 2021311;
+            public const int AppConsultoraPedidoCatalogoLbelCatalogoDigitalPendienteDeAprobar = 4021111;
+            public const int AppConsultoraPedidoCatalogoEsikaCatalogoDigitalPendienteDeAprobar = 4021211;
+            public const int AppConsultoraPedidoCatalogoCyzoneCatalogoDigitalPendienteDeAprobar = 4021311;
             #endregion
         }
 
@@ -1235,6 +1253,8 @@ namespace Portal.Consultoras.Common
             public const string SoloHoy = "SOLOHOY";
             public const string HerramientasDeVenta = "HERRAMIENTASDEVENTA";
             public const string SaberMasInscripcion = "SABERMASINSCRIPCION";
+            public const string DuoPerfecto = "DUOPERFECTO";
+            public const string PedidosPendientes = "PEDIDOSPENDIENTES";
         }
 
         public static class IngresoExternoOrigen
@@ -1272,6 +1292,20 @@ namespace Portal.Consultoras.Common
         {
             public const string Buscador = "//search.issuu.com/api/2_0/document?username=somosbelcorp&q=";
             public const string RDR = "rdr";
+        }
+
+        public static class CatalogoMensajesDefault
+        {
+            public const string SaludoCorreo = "Revisa los catálogos de esta campaña y comunícate conmigo si estás interesada en algunos de los productos.";
+            public const string SaludoCorreoPiloto = "Revisa los catálogos de esta campaña y pide lo que quieras sólo dándole click al producto que deseas.";
+        }
+
+        public static class CatalogoPiloto
+        {
+            public const string UrlBase = "http://catalogodigital.somosbelcorp.com/";
+            public const string UrlBaseQA = "http://ecatalogoqa.somosbelcorp.com/";
+            public const string UrlParamEncrip = "iso={0}&consultant={1}";
+            public const string UrlCatalogo = "{0}?cod={1}";
         }
 
         public static class RevistaNombre
@@ -1687,6 +1721,7 @@ namespace Portal.Consultoras.Common
             public const short EscalaDescuentoMobile = 73;
             public const short ListaOrdenamientoFiltros = 147;
             public const short ArmaTuPack = 14;
+            public const short PilotoCatalogoDigital = 155;
         }
 
         public struct MensajesCDRExpress
@@ -2213,6 +2248,8 @@ namespace Portal.Consultoras.Common
             public static class Code
             {
                 public const string SUCCESS = "0000";
+                public const string SUCCESS_DUOPERFECTO_AGREGADO_UNO = "0010";
+                public const string SUCCESS_DUOPERFECTO_AGREGADO_COMPLETADO = "0011";
                 public const string ERROR_INTERNO = "9999";
                 public const string ERROR_PRODUCTO_NOEXISTE = "1101";
                 public const string ERROR_PRODUCTO_AGOTADO = "1102";
@@ -2226,6 +2263,7 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_PRODUCTO_NUEVA_NOPERTENECE_TUPROGRAMA = "1112";
                 public const string ERROR_PRODUCTO_NOPERTENECE_VENTAEXCLUSIVA = "1113";
                 public const string ERROR_PRODUCTO_LIMITE_VENTA = "1114";
+                public const string ERROR_PRODUCTO_DUO_COMPLETO_COMPLETO = "1115";
 
                 public const string ERROR_RESERVADO_HORARIO_RESTRINGIDO = "2101";
                 public const string ERROR_STOCK_ESTRATEGIA = "2102";
@@ -3216,5 +3254,15 @@ namespace Portal.Consultoras.Common
             public const string FechaHora = "dd/MM/yyyy HH:mm";
         }
 
+        public class SolicitudCliente
+        {
+            public class FlagMedio
+            {
+                public const string AppCatalogos = "01";
+                public const string WebMarcas = "02";
+                public const string CatalogoDigital = "03";
+                public const string MaquilladorVirtual = "04";
+            }
+        }
     }
 }

@@ -231,7 +231,7 @@ namespace Portal.Consultoras.Web.Providers
             return listaEstrategias;
         }
 
-        public List<string> PreCargar(string campaniaId, string tipoEstrategiaCodigo, string pais)
+        public List<EstrategiaMDbAdapterModel> PreCargar(string campaniaId, string tipoEstrategiaCodigo, string pais)
         {
             UsuarioModel userData = sessionManager.GetUserData();
             string jsonParameters = string.Empty;
@@ -243,7 +243,8 @@ namespace Portal.Consultoras.Web.Providers
 
             var respuesta = JsonConvert.DeserializeObject<GenericResponse>(content);
 
-            List<string> listaEstrategias = (respuesta.Result != null) ? JsonConvert.DeserializeObject<List<string>>(respuesta.Result.ToString()) : new List<string>();
+            //List<string> listaEstrategias = (respuesta.Result != null) ? JsonConvert.DeserializeObject<List<string>>(respuesta.Result.ToString()) : new List<string>();
+            var listaEstrategias = (respuesta.Result != null) ? JsonConvert.DeserializeObject<List<EstrategiaMDbAdapterModel>>(respuesta.Result.ToString()) : new List<EstrategiaMDbAdapterModel>();
             return listaEstrategias;
         }
         
