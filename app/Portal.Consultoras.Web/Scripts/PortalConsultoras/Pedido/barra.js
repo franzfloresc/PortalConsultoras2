@@ -227,8 +227,8 @@ function MostrarBarra(datax, destino) {
   
     var htmlPunto = '<div id="punto_{punto}" data-punto="{select}">'
                 + '<div class="monto_minimo_barra" style="width:{wText}px">'
-                    + '<div style="width:{wText}px;position: absolute; color:#808080; top:-2px;" data-texto>{texto}</div>'
-                    //+ '<div class="linea_indicador_barra" {style}></div>' og
+                    + '<div style="width:{wText}px;position: absolute; color:#808080;" data-texto>{texto}</div>'
+                    + '<div class="linea_indicador_barra_vista_bienvenida"></div>' //og
                 + '</div>'
         + '</div>' 
     + '<div class="linea_indicador_barra" id="barra_{punto}" {style}></div>';//hd-2848
@@ -255,7 +255,7 @@ function MostrarBarra(datax, destino) {
                             + '<div class="circulo-3 iniciarTransicion"></div>'
                         + '</div>'
                     + '</div>'
-                    //+ '<div class="linea_indicador_barra"></div>' og 
+                    + '<div class="linea_indicador_barra_vista_bienvenida"></div>' //og 
                 + '</div>'
             + '</div>';
         + '<div class="linea_indicador_barra" id="barra_{punto}" {style}></div>';//hd-2848
@@ -288,6 +288,7 @@ function MostrarBarra(datax, destino) {
                 + '<div class="monto_minimo_barra">'
                     //+ '<div class="bandera_marcador" style="margin-top: -6px;"></div>'
                     + '<div style="margin-left: {marl}px;width: {wText}px;position: absolute; color:#808080;" data-texto>{texto}</div>'
+                    + '<div class="linea_indicador_barra_vista_bienvenida"></div>' //og
                 + '</div>'
         + '</div>' 
     //og
@@ -393,8 +394,12 @@ function MostrarBarra(datax, destino) {
 
     if (destino == '1') {
         $("#divBarraLimite [data-punto='0']").find("[data-texto]").css("color", "#979797");
-        $("#divBarraLimite [data-punto='1']").find("[data-texto]").css("color", "#000000");
+        $("#divBarraLimite [data-punto='1']").find("[data-texto]").css("color", "#808080");
         $("#divBarraLimite [data-punto='1']").find("[data-texto]").css("font-weight", "bold");
+        $('.linea_indicador_barra_vista_bienvenida').show();
+        $('.linea_indicador_barra').hide();
+    } else {
+        $('.linea_indicador_barra_vista_bienvenida').hide();
     }
 
     if (wTotalPunto > wTotal) {
@@ -560,9 +565,25 @@ function MostrarBarra(datax, destino) {
 
 
     if (destino == "1") {
-        $('.linea_indicador_barra').hide();
-        return true;
-    }
+        if (!TieneMontoMaximo()) {
+
+            //var NumeroBarras = dataBarra.ListaEscalaDescuento.length;
+            //var inicio = (100 / NumeroBarras)-9;
+
+            //for (var i = 0; i < dataBarra.ListaEscalaDescuento.length; i++) {
+
+            //    document.getElementById('barra_' + i.toString()).style.marginLeft = inicio + '%';
+            //    document.getElementById('barra_' + i.toString()).style.top = '50px';
+            //    inicio = inicio + (100 / NumeroBarras);
+            //}
+
+     
+        }
+      
+    //    $('.linea_indicador_barra').hide();
+    //    return true;
+
+       }
 
     if (mn == 0 && vLogro == 0 && !belcorp.barra.settings.isMobile) {
         $("#divBarra #divBarraMensajeLogrado").hide();
@@ -585,9 +606,14 @@ function MostrarBarra(datax, destino) {
         if (vLogro >= vLimite) tipoMensaje += "Supero";
     }
     tipoMensaje += belcorp.barra.settings.isMobile ? 'Mobile' : '';
+    
+    var mtoTp = variablesPortal.SimboloMoneda + " " + dataBarra.TippingPointStr;
+    $('#montoPremioMeta').html(mtoTp);
+    if (tp > 0) {
+        $('.tooltip_informativo_condicion_regalo_programaNuevas').html('Sólo si llegas a ' + mtoTp);
+    }
 
-    $('#montoPremioMeta').html(variablesPortal.SimboloMoneda + " " + dataBarra.TippingPointStr);
-    if (belcorp.barra.settings.isMobile) {//V&& tp > 0  OG
+    if (belcorp.barra.settings.isMobile) {//V&& tp > 0  OG    
         cargarMontoBanderasMobile(dataBarra);
     }
 
@@ -597,6 +623,8 @@ function MostrarBarra(datax, destino) {
     objMsg.Mensaje = $.trim(objMsg.Mensaje);
 
     if (objMsg.Titulo == "" && objMsg.Mensaje == "") {
+        //CalculoPosicionMinimoMaximoDestokp();
+
         $("#divBarra #divBarraMensajeLogrado").hide();
         return false;
     }
@@ -605,6 +633,13 @@ function MostrarBarra(datax, destino) {
     $("#divBarra #divBarraMensajeLogrado").show();
     $("#divBarra #divBarraMensajeLogrado .mensaje_barra").html(objMsg.Titulo.replace("#porcentaje", valPor).replace("#valor", valorMonto));
 
+    var dvMsg = $("#divBarra #divBarraMensajeLogrado .barra_title");
+    if (mtoLogroBarra >= tp && hasPremioInDetails()) {
+        dvMsg.html('¡Alcanzaste tu regalo!');
+    } else {
+        dvMsg.html('');
+    }
+    
     if (tp > 0 && dataBarra.TippingPointBarra.Active) {
         $('#hrefIconoRegalo').show();
         
@@ -714,6 +749,13 @@ function savePedidoDetails(response) {
     }
 
     tpElectivos.pedidoDetails = response.data.ListaDetalleModel || [];
+}
+
+function hasPremioInDetails() {
+    var details = tpElectivos.pedidoDetails;
+    if (!details || details.length === 0) return false;
+
+    return getPremioElectivoInDetails(tpElectivos.pedidoDetails);
 }
 
 function initCarruselPremios(barra) {
@@ -1991,13 +2033,16 @@ function CalculoPosicionMinimoMaximoDestokp() {
           
 
              
-                var htmlTipinpoing = '';
+            var htmlTipinpoing = '';
+            var MostrarMonto = 'none';
+            if (dataBarra.TippingPointBarra.ActiveMonto == true) MostrarMonto = 'block';
+
             if (tpElectivos.premioSelected == null) { 
                     //style = "display: block;"                                    
-                    htmlTipinpoing = '<div id="punto_' + dataBarra.ListaEscalaDescuento.length + '" data-punto="0" style="float: left;top:-52px; z-index: 200;left:2.1818%" class="EscalaDescuento"><div class="monto_minimo_barra"><div style="width:90px;position: relative;" data-texto=""><div class=""><a class="tippingPoint" href="javascript:;" onclick="javascript: cargarPopupEleccionRegalo();"></a><div class="monto_meta_tippingPoint">S/.370</div></div><div class="contenedor_circulos microEfecto_regaloPendienteEleccion"  ><div class="circulo-1 iniciarTransicion"></div><div class="circulo-2 iniciarTransicion"></div><div class="circulo-3 iniciarTransicion"></div></div></div></div></div>';
+                htmlTipinpoing = '<div id="punto_' + dataBarra.ListaEscalaDescuento.length + '" data-punto="0" style="float: left;top:-52px; z-index: 200;left:2.1818%" class="EscalaDescuento"><div class="monto_minimo_barra"><div style="width:90px;position: relative;" data-texto=""><div class=""><a class="tippingPoint" href="javascript:;" onclick="javascript: cargarPopupEleccionRegalo();"></a><div class="monto_meta_tippingPoint" style="display:' + MostrarMonto + '">S/.' + montoTipipoing +'</div></div><div class="contenedor_circulos microEfecto_regaloPendienteEleccion" style="display: block;" ><div class="circulo-1 iniciarTransicion"></div><div class="circulo-2 iniciarTransicion"></div><div class="circulo-3 iniciarTransicion"></div></div></div></div></div>';
 
                 } else {
-                    htmlTipinpoing = '<div id="punto_' + dataBarra.ListaEscalaDescuento.length + '" data-punto="0" style="float: left;top:-52px; z-index: 200;left:2.1818%" class="EscalaDescuento"><div class="monto_minimo_barra"><div style="width:90px;position: relative;" data-texto=""><div class=""><a class="tippingPoint" href="javascript:;" onclick="javascript: cargarPopupEleccionRegalo();"></a><div class="monto_meta_tippingPoint">S/.370</div></div><div class="contenedor_circulos microEfecto_regaloPendienteEleccion" style="display: block;"><div class="circulo-1 iniciarTransicion"></div><div class="circulo-2 iniciarTransicion"></div><div class="circulo-3 iniciarTransicion"></div></div></div></div></div>';
+                htmlTipinpoing = '<div id="punto_' + dataBarra.ListaEscalaDescuento.length + '" data-punto="0" style="float: left;top:-52px; z-index: 200;left:2.1818%" class="EscalaDescuento"><div class="monto_minimo_barra"><div style="width:90px;position: relative;" data-texto=""><div class=""><a class="tippingPoint" href="javascript:;" onclick="javascript: cargarPopupEleccionRegalo();"></a><div class="monto_meta_tippingPoint" style="display:' + MostrarMonto +'">S/.' + montoTipipoing+'</div></div><div class="contenedor_circulos microEfecto_regaloPendienteEleccion" ><div class="circulo-1 iniciarTransicion"></div><div class="circulo-2 iniciarTransicion"></div><div class="circulo-3 iniciarTransicion"></div></div></div></div></div>';
 
                 }
 
@@ -2152,15 +2197,18 @@ function CalculoPosicionMinimoMaximoDestokp() {
 
             if (montoTipipoing != 0) {
                  
-                    var htmlTipinpoing = '';
+                var htmlTipinpoing = '';
+                var MostrarMonto = 'none';
+                if (dataBarra.TippingPointBarra.ActiveMonto == true) MostrarMonto = 'block';
 
                  if (tpElectivos.premioSelected == null) {
+                     
 
-                        htmlTipinpoing = '<div id="punto_' + dataBarra.ListaEscalaDescuento.length + '" data-punto="0" style="float: left;top:-52px; z-index: 200;left:8%" class="EscalaDescuento"><div class="monto_minimo_barra"><div style="width:90px;position: relative;" data-texto=""><div class=""><a class="tippingPoint" href="javascript:;" onclick="javascript: cargarPopupEleccionRegalo();"></a><div class="monto_meta_tippingPoint">S/.370</div></div><div class="contenedor_circulos microEfecto_regaloPendienteEleccion" ><div class="circulo-1 iniciarTransicion"></div><div class="circulo-2 iniciarTransicion"></div><div class="circulo-3 iniciarTransicion"></div></div></div></div></div>';
+                     htmlTipinpoing = '<div id="punto_' + dataBarra.ListaEscalaDescuento.length + '" data-punto="0" style="float: left;top:-52px; z-index: 200;left:8%" class="EscalaDescuento"><div class="monto_minimo_barra"><div style="width:90px;position: relative;" data-texto=""><div class=""><a class="tippingPoint" href="javascript:;" onclick="javascript: cargarPopupEleccionRegalo();"></a><div class="monto_meta_tippingPoint" style="display:' + MostrarMonto + '"  >S/.' + montoTipipoing +'</div></div><div class="contenedor_circulos microEfecto_regaloPendienteEleccion" style="display: block;"><div class="circulo-1 iniciarTransicion"></div><div class="circulo-2 iniciarTransicion"></div><div class="circulo-3 iniciarTransicion"></div></div></div></div></div>';
 
                     } else {
 
-                        htmlTipinpoing = '<div id="punto_' + dataBarra.ListaEscalaDescuento.length + ' data-punto="0" style="float: left;top:-52px; z-index: 200;left:8%" class="EscalaDescuento"><div class="monto_minimo_barra"><div style="width:90px;position: relative;" data-texto=""><div class=""><a class="tippingPoint" href="javascript:;" onclick="javascript: cargarPopupEleccionRegalo();"></a><div class="monto_meta_tippingPoint">S/.370</div></div><div class="contenedor_circulos microEfecto_regaloPendienteEleccion" style="display: block;"><div class="circulo-1 iniciarTransicion"></div><div class="circulo-2 iniciarTransicion"></div><div class="circulo-3 iniciarTransicion"></div></div></div></div></div>';
+                     htmlTipinpoing = '<div id="punto_' + dataBarra.ListaEscalaDescuento.length + ' data-punto="0" style="float: left;top:-52px; z-index: 200;left:8%" class="EscalaDescuento"><div class="monto_minimo_barra"><div style="width:90px;position: relative;" data-texto=""><div class=""><a class="tippingPoint" href="javascript:;" onclick="javascript: cargarPopupEleccionRegalo();"></a><div class="monto_meta_tippingPoint" style="display:' + MostrarMonto+'">S/.' + montoTipipoing +'</div></div><div class="contenedor_circulos microEfecto_regaloPendienteEleccion" ><div class="circulo-1 iniciarTransicion"></div><div class="circulo-2 iniciarTransicion"></div><div class="circulo-3 iniciarTransicion"></div></div></div></div></div>';
 
                     }
 
