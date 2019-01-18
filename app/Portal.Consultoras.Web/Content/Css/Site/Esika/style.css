@@ -23627,14 +23627,13 @@ input[type='checkbox']:checked + span:after {
     width: 90px;
     height: 38px;
     position: relative;
-    float: left;
-    Font-family: 'Lato';
+    font-family: 'Lato', sans-serif;
     font-size: 12px;
     font-weight: 400;
     line-height: 1.08;
     text-align: center;
     color: black;
-    margin-top: 26px;
+    margin-top: 19px;
 }
 
 .linea_indicador_barra {
@@ -23642,20 +23641,22 @@ input[type='checkbox']:checked + span:after {
     height: 8px;
     background: #979797;
     position: absolute;
-    top:7px;
+    top:0;
     z-index: 100;
 }
 
 .barra_mensaje_meta_pedido{
-    margin-bottom:23px;
+    margin-bottom:28px;
 }
 
 .bandera_marcador {
     width: 21px;
     height: 44px;
-    float: left;
     margin-top: 4px;
     background: url('/Content/Images/Mobile/Esika/bandera.png') no-repeat;
+    position:absolute;
+    right: -14px;
+    bottom: 13px;
 }
 
 .BarraPosicion {
@@ -23671,7 +23672,6 @@ input[type='checkbox']:checked + span:after {
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     height: 14px;
-    overflow: hidden;
     border: solid 1px rgb(234,234,234);
 }
 
@@ -34387,7 +34387,7 @@ div.motivoRechazo textarea {
 }
 
 .EscalaDescuento {
-    float: none !important;
+    /*float: none !important;*/
     position:  absolute;
     left: 0;
 }
