@@ -3317,10 +3317,10 @@ namespace Portal.Consultoras.BizLogic.Pedido
             #region StockComponente
             if (!(pedidoDetalle.Producto.TipoOfertaSisID == Constantes.ConfiguracionOferta.Liquidacion))
             {
-                var tempPedidowebdetallesGroup = pedidowebdetalles.GroupBy(x => new { x.CUV, x.ClienteID }).Select(y => new BEPedidoWebDetalle
+                var tempPedidowebdetallesGroup = pedidowebdetalles.GroupBy(x => new { x.CUV, x.TipoEstrategiaID }).Select(y => new BEPedidoWebDetalle
                 {
                     CUV = y.First().CUV,
-                    PaisID = y.First().PaisID,
+                    //PaisID = y.First().PaisID,
                     TipoEstrategiaID = y.First().TipoEstrategiaID,
                     Cantidad = y.Sum(c => c.Cantidad)
                 }).ToList();
