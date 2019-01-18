@@ -139,28 +139,26 @@ namespace Portal.Consultoras.Web.Controllers
 
                             return View(consultoraAfiliar);
                         }
-                        else
-                        {
-                            string message = InscripcionActualizarClave(model);
-                            message = InscripcionAfiliaCliente(model, message);
-
-                            if (message == "1")
-                                return RedirectToAction("Index", "ConsultoraOnline");
-
-                            string sEmail = model.Email ?? string.Empty;
-                            string sTelefono = model.Telefono ?? string.Empty;
-                            string sCelular = model.Celular ?? string.Empty;
-
-                            userData.CambioClave = 1;
-                            userData.EMail = sEmail;
-                            userData.Telefono = sTelefono;
-                            userData.Celular = sCelular;
-
-                            ViewBag.AppErrorMessage = message;
-
-                            return View("InscripcionCompleta");
-                        }
                     }
+
+                    string message = InscripcionActualizarClave(model);
+                    message = InscripcionAfiliaCliente(model, message);
+
+                    if (message == "1")
+                        return RedirectToAction("Index", "ConsultoraOnline");
+
+                    string sEmail = model.Email ?? string.Empty;
+                    string sTelefono = model.Telefono ?? string.Empty;
+                    string sCelular = model.Celular ?? string.Empty;
+
+                    userData.CambioClave = 1;
+                    userData.EMail = sEmail;
+                    userData.Telefono = sTelefono;
+                    userData.Celular = sCelular;
+
+                    ViewBag.AppErrorMessage = message;
+
+                    return View("InscripcionCompleta");
 
                 }
                 catch (Exception ex)
@@ -1033,7 +1031,7 @@ namespace Portal.Consultoras.Web.Controllers
                         ? Constantes.MensajeEstaEnRevista.EsikaWeb
                         : Constantes.MensajeEstaEnRevista.LbelWeb;
                 }
-                
+
 
             }
 

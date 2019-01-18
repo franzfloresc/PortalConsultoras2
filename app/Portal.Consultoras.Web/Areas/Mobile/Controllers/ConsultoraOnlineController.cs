@@ -101,125 +101,156 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         [HttpPost]
         public JsonResult Inscripcion(ClienteContactaConsultoraModel model)
         {
-
-            if (ModelState.IsValid)
+            try
             {
-                try
-                {
-                    if (model.ActualizarClave == null) model.ActualizarClave = "";
-                    if (model.ConfirmarClave == null) model.ConfirmarClave = "";
-                    var sEmail = Util.Trim(model.Email);
-                    var sTelefono = Util.Trim(model.Telefono);
-                    var sCelular = Util.Trim(model.Celular);
-
-                    if (model.Email != string.Empty)
-                    {
-                        using (var svr = new UsuarioServiceClient())
-                        {
-                            var cantidad = svr.ValidarEmailConsultora(userData.PaisID, model.Email, userData.CodigoUsuario);
-
-                            if (cantidad > 0)
-                            {
-                                return Json(new
-                                {
-                                    success = false,
-                                    message = "La dirección de correo electrónico ingresada ya pertenece a otra Consultora.",
-                                    data = ""
-                                });
-                            }
-                        }
-                    }
-
-                    using (var sv = new UsuarioServiceClient())
-                    {
-                        var result = sv.UpdateDatosPrimeraVez(userData.PaisID, userData.CodigoUsuario, model.Email, model.Telefono, "", model.Celular, model.CorreoAnterior, model.AceptoContrato);
-
-                        if (result == 0)
-                        {
-                            return Json(new
-                            {
-                                success = false,
-                                message = "Error al actualizar datos, intentelo mas tarde.",
-                                data = ""
-                            });
-                        }
-                        else
-                        {
-                            string message;
-
-                            if (model.ActualizarClave != "")
-                            {
-                                var cambio = sv.ChangePasswordUser(userData.PaisID, userData.CodigoUsuario, userData.CodigoISO + userData.CodigoUsuario, model.ConfirmarClave.ToUpper(), string.Empty, EAplicacionOrigen.BienvenidaConsultora);
-
-                                message = cambio ? "- Los datos han sido actualizados correctamente.\n " : "- Los datos han sido actualizados correctamente.\n - La contraseña no ha sido modificada, intentelo mas tarde.\n ";
-                            }
-                            else
-                            {
-                                message = "- Los datos han sido actualizados correctamente.\n ";
-                            }
-
-                            if (!string.IsNullOrEmpty(model.Email))
-                            {
-                                try
-                                {
-                                    var parametros = new string[] { userData.CodigoUsuario, userData.PaisID.ToString(), userData.CodigoISO, model.Email };
-                                    var paramQuerystring = Util.EncriptarQueryString(parametros);
-                                    var request = this.HttpContext.Request;
-
-                                    var mensaje = mensajeConsultora(userData.PrimerNombre, String.Format("{0}ConsultoraOnline/AtenderCorreo?tipo=Afiliar&data={1}", Util.GetUrlHost(request), paramQuerystring));
-                                    Util.EnviarMailMobile("no-responder@somosbelcorp.com", model.Email, "Confirma tu mail y actívate como Consultora Online", mensaje, true, "Consultora Online Belcorp");
-
-                                    message += "- Se ha enviado un correo electrónico de verificación a la dirección ingresada.";
-                                }
-                                catch (Exception ex)
-                                {
-                                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                                    message += ex.Message;
-                                    return Json(new
-                                    {
-                                        success = false,
-                                        message = message,
-                                        data = ""
-                                    });
-                                }
-
-                            }
-
-                            userData.CambioClave = 1;
-                            userData.EMail = sEmail;
-                            userData.Telefono = sTelefono;
-                            userData.Celular = sCelular;
-
-                            SessionManager.SetUserData(userData);
-
-                            return Json(new
-                            {
-                                success = true,
-                                message = message,
-                                data = ""
-                            });
-                        }
-                    }
-                }
-                catch (Exception ex)
+                if (!ModelState.IsValid)
                 {
                     return Json(new
                     {
                         success = false,
-                        message = ex.Message,
+                        message = "Algun campo requerido no ha sido ingresado",
                         data = ""
                     });
                 }
+
+                model = InscripcionPrepararDatos(model);
+
+                var mensaje = InscripcionValidarCorreo(model);
+                if (mensaje != "")
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = mensaje,
+                        data = ""
+                    });
+                }
+
+                using (var sv = new UsuarioServiceClient())
+                {
+                    var result = sv.UpdateDatosPrimeraVez(userData.PaisID, userData.CodigoUsuario, model.Email, model.Telefono, "", model.Celular, model.CorreoAnterior, model.AceptoContrato);
+
+                    if (result == 0)
+                    {
+                        return Json(new
+                        {
+                            success = false,
+                            message = "Error al actualizar datos, intentelo mas tarde.",
+                            data = ""
+                        });
+                    }
+
+                }
+
+                string message = InscripcionActualizarClave(model);
+                message = InscripcionAfiliaCliente(model, message);
+
+                var sEmail = Util.Trim(model.Email);
+                var sTelefono = Util.Trim(model.Telefono);
+                var sCelular = Util.Trim(model.Celular);
+
+                userData.CambioClave = 1;
+                userData.EMail = sEmail;
+                userData.Telefono = sTelefono;
+                userData.Celular = sCelular;
+
+                SessionManager.SetUserData(userData);
+
+                return Json(new
+                {
+                    success = true,
+                    message = message,
+                    data = ""
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    data = ""
+                });
             }
 
-            return Json(new
-            {
-                success = false,
-                message = "Algun campo requerido no ha sido ingresado",
-                data = ""
-            });
         }
 
+        private ClienteContactaConsultoraModel InscripcionPrepararDatos(ClienteContactaConsultoraModel model)
+        {
+            if (model.ActualizarClave == null) model.ActualizarClave = "";
+            if (model.ConfirmarClave == null) model.ConfirmarClave = "";
+            return model;
+        }
+
+        private string InscripcionValidarCorreo(ClienteContactaConsultoraModel model)
+        {
+            var respuesta = "";
+
+            if (model.Email != string.Empty)
+            {
+                using (var svr = new UsuarioServiceClient())
+                {
+                    var cantidad = svr.ValidarEmailConsultora(userData.PaisID, model.Email, userData.CodigoUsuario);
+
+                    if (cantidad > 0)
+                    {
+                        respuesta = "La dirección de correo electrónico ingresada ya pertenece a otra Consultora.";
+                    }
+                }
+            }
+            return respuesta;
+        }
+
+        private string InscripcionActualizarClave(ClienteContactaConsultoraModel model)
+        {
+            var message = "";
+
+            if (model.ActualizarClave != "")
+            {
+                using (UsuarioServiceClient sv = new UsuarioServiceClient())
+                {
+                    var cambio = sv.ChangePasswordUser(userData.PaisID, userData.CodigoUsuario,
+                    userData.CodigoISO + userData.CodigoUsuario, model.ConfirmarClave.ToUpper(),
+                    string.Empty, EAplicacionOrigen.BienvenidaConsultora);
+
+                    message = cambio
+                        ? "- Los datos han sido actualizados correctamente.\n "
+                        : "- Los datos han sido actualizados correctamente.\n - La contraseña no ha sido modificada, intentelo mas tarde.\n ";
+                }
+            }
+            else
+            {
+                message = "- Los datos han sido actualizados correctamente.\n ";
+            }
+
+            return message;
+        }
+
+        private string InscripcionAfiliaCliente(ClienteContactaConsultoraModel model, string message)
+        {
+            if (!string.IsNullOrEmpty(model.Email))
+            {
+                try
+                {
+                    var parametros = new string[] { userData.CodigoUsuario, userData.PaisID.ToString(), userData.CodigoISO, model.Email };
+                    var paramQuerystring = Util.EncriptarQueryString(parametros);
+                    var request = this.HttpContext.Request;
+
+                    var mensaje = mensajeConsultora(userData.PrimerNombre, String.Format("{0}ConsultoraOnline/AtenderCorreo?tipo=Afiliar&data={1}", Util.GetUrlHost(request), paramQuerystring));
+                    Util.EnviarMailMobile("no-responder@somosbelcorp.com", model.Email, "Confirma tu mail y actívate como Consultora Online", mensaje, true, "Consultora Online Belcorp");
+
+                    message += "- Se ha enviado un correo electrónico de verificación a la dirección ingresada.";
+                }
+                catch (Exception ex)
+                {
+                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                    message += ex.Message;
+                }
+
+            }
+
+            return message;
+        }
         public ActionResult InscripcionCompleta()
         {
             return View();
