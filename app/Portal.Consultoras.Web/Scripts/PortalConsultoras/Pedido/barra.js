@@ -587,8 +587,12 @@ function MostrarBarra(datax, destino) {
     if (tpRegaloMobileShow && vLogro < tp) {
         tipoMensaje = "TippingPointMobile";
     }
+    var mtoTp = variablesPortal.SimboloMoneda + " " + dataBarra.TippingPointStr;
+    $('#montoPremioMeta').html(mtoTp);
+    if (tp > 0) {
+        $('.tooltip_informativo_condicion_regalo_programaNuevas').html('Sólo si llegas a ' + mtoTp);
+    }
 
-    $('#montoPremioMeta').html(variablesPortal.SimboloMoneda + " " + dataBarra.TippingPointStr);
     if (belcorp.barra.settings.isMobile) {//V&& tp > 0  OG
         cargarMontoBanderasMobile(dataBarra);
     }
