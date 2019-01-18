@@ -986,24 +986,7 @@ namespace Portal.Consultoras.Web.Controllers
                     userData.CodigoZona);
             }
 
-            var txtBuil = new StringBuilder();
-            foreach (var item in olstMisPedidosDet)
-            {
-                txtBuil.Append(item.CUV + ",");
-            }
-
-            string inputCuv = txtBuil.ToString();
-            inputCuv = inputCuv.Substring(0, inputCuv.Length - 1);
-            List<ServiceODS.BEProducto> olstMisProductos;
-
-            using (ODSServiceClient svc = new ODSServiceClient())
-            {
-                olstMisProductos = svc.GetValidarCUVMisPedidos(userData.PaisID, userData.CampaniaID,
-                    inputCuv, userData.RegionID, userData.ZonaID, userData.CodigorRegion,
-                    userData.CodigoZona).ToList();
-            }
-
-            SessionManager.SetobjMisPedidosDetalleVal(olstMisProductos);
+            List<ServiceODS.BEProducto> olstMisProductos = GetValidarCuvMisPedidos(olstMisPedidosDet);
 
             foreach (var item in olstMisPedidosDet)
             {
@@ -1036,6 +1019,30 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return olstMisPedidosDet;
+        }
+
+        private List<ServiceODS.BEProducto> GetValidarCuvMisPedidos(List<BEMisPedidosDetalle> olstMisPedidosDet)
+        {
+            var txtBuil = new StringBuilder();
+            foreach (var item in olstMisPedidosDet)
+            {
+                txtBuil.Append(item.CUV + ",");
+            }
+
+            string inputCuv = txtBuil.ToString();
+            inputCuv = inputCuv.Substring(0, inputCuv.Length - 1);
+            List<ServiceODS.BEProducto> olstMisProductos;
+
+            using (ODSServiceClient svc = new ODSServiceClient())
+            {
+                olstMisProductos = svc.GetValidarCUVMisPedidos(userData.PaisID, userData.CampaniaID,
+                    inputCuv, userData.RegionID, userData.ZonaID, userData.CodigorRegion,
+                    userData.CodigoZona).ToList();
+            }
+
+            SessionManager.SetobjMisPedidosDetalleVal(olstMisProductos);
+
+            return olstMisProductos;
         }
 
         public ActionResult ObtenerPagina(string Pagina)

@@ -999,78 +999,22 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     olstMisPedidosDet = svc.GetMisPedidosDetalleConsultoraOnline(userData.PaisID, pedidoId).ToList();
                 }
 
+                model.ListaDetalle2 = new List<MisPedidosDetalleModel2>();
                 if (olstMisPedidosDet.Count > 0)
                 {
                     model.MiPedido = pedido;
 
                     SessionManager.SetobjMisPedidosDetalle(olstMisPedidosDet);
 
-                    // 0=App Catalogos, >0=Portal Marca
-                    if (pedido.MarcaID == 0)
-                    {
-                        int? revistaGana = null;
-                        using (PedidoServiceClient sv = new PedidoServiceClient())
-                        {
-                            revistaGana = sv.ValidarDesactivaRevistaGana(userData.PaisID, userData.CampaniaID, userData.CodigoZona);
-                        }
-
-                        var txtBuil = new StringBuilder();
-                        foreach (var item in olstMisPedidosDet)
-                        {
-                            txtBuil.Append(item.CUV + ",");
-                        }
-
-                        var inputCuv = txtBuil.ToString();
-                        inputCuv = inputCuv.Substring(0, inputCuv.Length - 1);
-
-                        List<ServiceODS.BEProducto> olstMisProductos;
-
-                        using (ODSServiceClient svc = new ODSServiceClient())
-                        {
-                            olstMisProductos = svc.GetValidarCUVMisPedidos(userData.PaisID, userData.CampaniaID, inputCuv, userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona).ToList();
-                        }
-
-                        SessionManager.SetobjMisPedidosDetalleVal(olstMisProductos);
-
-                        foreach (var item in olstMisPedidosDet)
-                        {
-                            var pedidoVal = olstMisProductos.FirstOrDefault(x => x.CUV == item.CUV);
-                            if (pedidoVal != null)
-                            {
-                                item.TieneStock = pedidoVal.TieneStock.ToInt();
-                                item.EstaEnRevista = pedidoVal.EstaEnRevista.ToInt();
-
-                                if (!pedidoVal.TieneStock)
-                                {
-                                    item.MensajeValidacion = "Este producto está agotado";
-                                }
-                                else if (pedidoVal.CUVRevista.Length != 0 && revistaGana == 0)
-                                {
-                                    item.EstaEnRevista = 1;
-                                    item.MensajeValidacion = isEsika
-                                        ? Constantes.MensajeEstaEnRevista.EsikaMobile
-                                        : Constantes.MensajeEstaEnRevista.LbelMobile;
-                                }
-                            }
-                            else
-                            {
-                                item.TieneStock = 0;
-                                item.MensajeValidacion = "El producto solicitado no existe";
-                            }
-
-                        }
-                    }
+                    olstMisPedidosDet = CargarMisPedidosDetalleDatos(pedido.MarcaID, olstMisPedidosDet);
 
                     var detallePedidos = Mapper.Map<List<BEMisPedidosDetalle>, List<MisPedidosDetalleModel2>>(olstMisPedidosDet);
                     detallePedidos.Update(p => p.CodigoIso = userData.CodigoISO);
 
                     model.ListaDetalle2 = detallePedidos;
-                    model.RegistrosTotal = model.ListaDetalle2.Count.ToString();
                 }
-                else
-                {
-                    model.RegistrosTotal = "0";
-                }
+
+                model.RegistrosTotal = model.ListaDetalle2.Count.ToString();
             }
             catch (Exception ex)
             {
@@ -1084,6 +1028,76 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
 
             return View(model);
+        }
+
+        private List<BEMisPedidosDetalle> CargarMisPedidosDetalleDatos(int marcaId, List<BEMisPedidosDetalle> olstMisPedidosDet)
+        {
+            // 0=App Catalogos, >0=Portal Marca
+            if (marcaId != 0)
+            {
+                return olstMisPedidosDet;
+            }
+
+            int? revistaGana = null;
+            using (PedidoServiceClient sv = new PedidoServiceClient())
+            {
+                revistaGana = sv.ValidarDesactivaRevistaGana(userData.PaisID, userData.CampaniaID, userData.CodigoZona);
+            }
+
+            List<ServiceODS.BEProducto> olstMisProductos = GetValidarCuvMisPedidos(olstMisPedidosDet);
+
+            foreach (var item in olstMisPedidosDet)
+            {
+                var pedidoVal = olstMisProductos.FirstOrDefault(x => x.CUV == item.CUV);
+                if (pedidoVal == null)
+                {
+                    item.TieneStock = 0;
+                    item.MensajeValidacion = "El producto solicitado no existe";
+                    continue;
+                }
+
+                item.TieneStock = pedidoVal.TieneStock.ToInt();
+                item.EstaEnRevista = pedidoVal.EstaEnRevista.ToInt();
+
+                if (!pedidoVal.TieneStock)
+                {
+                    item.MensajeValidacion = "Este producto está agotado";
+                }
+                else if (pedidoVal.CUVRevista.Length != 0 && revistaGana == 0)
+                {
+                    item.EstaEnRevista = 1;
+                    item.MensajeValidacion = isEsika
+                        ? Constantes.MensajeEstaEnRevista.EsikaMobile
+                        : Constantes.MensajeEstaEnRevista.LbelMobile;
+                }
+
+
+            }
+
+            return olstMisPedidosDet;
+        }
+
+        private List<ServiceODS.BEProducto> GetValidarCuvMisPedidos(List<BEMisPedidosDetalle> olstMisPedidosDet)
+        {
+
+            var txtBuil = new StringBuilder();
+            foreach (var item in olstMisPedidosDet)
+            {
+                txtBuil.Append(item.CUV + ",");
+            }
+
+            var inputCuv = txtBuil.ToString();
+            inputCuv = inputCuv.Substring(0, inputCuv.Length - 1);
+
+            List<ServiceODS.BEProducto> olstMisProductos;
+
+            using (ODSServiceClient svc = new ODSServiceClient())
+            {
+                olstMisProductos = svc.GetValidarCUVMisPedidos(userData.PaisID, userData.CampaniaID, inputCuv, userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona).ToList();
+            }
+
+            SessionManager.SetobjMisPedidosDetalleVal(olstMisProductos);
+            return olstMisProductos;
         }
 
     }
