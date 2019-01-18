@@ -12,6 +12,7 @@ function getParams() {
     var data = {
         AnoCampanaIni: $("#ddlCampania").val(),
         Nivel: $("#ddlNivel").val(),
+        CodigoPrograma: $('#txtPrograma').val(),
         Active: active
     };
     return data;
