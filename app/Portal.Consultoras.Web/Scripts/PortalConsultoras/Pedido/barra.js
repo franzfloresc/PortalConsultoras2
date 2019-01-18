@@ -80,7 +80,7 @@ function MostrarBarra(datax, destino) {
         return false;
 
     var wPrimer = 0;
-    var vLogro = 0;
+    var vLogro = mt - md;
     var wMsgFin = 0;
     var wmin = 45;
 
@@ -89,8 +89,6 @@ function MostrarBarra(datax, destino) {
     }
     var textoPunto = '<div style="font-size:12px; font-weight:400; margin-bottom:4px;">{titulo}</div><div style="font-size: 12px;">{detalle}</div>';
     if (mx > 0 && destino == '2') {
-        vLogro = mt - md;
-
         listaLimite.push({
             nombre: textoPunto.replace("{titulo}", "M. Mínimo").replace("{detalle}", variablesPortal.SimboloMoneda + " " + data.MontoMinimoStr),
             tipoMensaje: 'MontoMinimo',
@@ -117,6 +115,9 @@ function MostrarBarra(datax, destino) {
         });
     }
     else {
+        var valTopTotal = destino == '2' && dataBarra.TippingPointBarra.Active && tp > 0 ? tp : mn
+        if (vLogro > valTopTotal) vLogro = valTopTotal > me ? valTopTotal : me;
+
         if ((mt - md) < mn)
             vLogro = mt - md;
         else
@@ -568,9 +569,20 @@ function MostrarBarra(datax, destino) {
         $("#divBarra #divBarraMensajeLogrado").hide();
         return false;
     }
-    var tipoMensaje = listaLimite[indPuntoLimite].tipoMensaje;
-    tipoMensaje += vLogro >= vLimite ? "Supero" : "";
-    if (vLogro < mn) tipoMensaje = "MontoMinimo";
+
+    var vLimite2 = vLimite;
+    var tipoMensaje = '';
+    var escalaPremio = destino == '2' && mx == 0 && dataBarra.TippingPointBarra.Active;
+    var limiteEsPremio = vLogro > tp  && tp <= vLimite;
+
+    if(escalaPremio && limiteEsPremio) {
+        vLimite2 = tp;
+        tipoMensaje = "TippingPoint";
+    }
+    else if (vLogro < mn) tipoMensaje = "MontoMinimo";
+    else tipoMensaje = listaLimite[indPuntoLimite].tipoMensaje;
+
+    tipoMensaje += vLogro >= vLimite2 ? "Supero" : "";
     tipoMensaje += belcorp.barra.settings.isMobile ? 'Mobile' : '';
 
     $('#montoPremioMeta').html(variablesPortal.SimboloMoneda + " " + dataBarra.TippingPointStr);
