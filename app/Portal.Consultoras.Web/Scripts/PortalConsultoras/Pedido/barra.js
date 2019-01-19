@@ -643,7 +643,7 @@ function MostrarBarra(datax, destino) {
     if (tp > 0 && dataBarra.TippingPointBarra.Active) {
         $('#hrefIconoRegalo').show();
         
-        if (ConfiguradoRegalo == true) {//&& (mtoLogroBarra<=dataBarra.MontoMinimo)
+        if (ConfiguradoRegalo == true && document.getElementById('divtippingPoint')!=null) {//&& (mtoLogroBarra<=dataBarra.MontoMinimo)
             document.getElementById('divtippingPoint').style.display = 'none';
             document.getElementById('lineaPosicionRegalo').style.display = 'none';
         }
