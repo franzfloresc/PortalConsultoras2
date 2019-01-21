@@ -717,23 +717,21 @@ namespace Portal.Consultoras.Web.Providers
             return personalizacionNivel;
         }
 
-        public List<ServiceOferta.BEEstrategia> GetShowRoomOfertasConsultora()
-        {
-            UsuarioModel userData = _sessionManager.GetUserData();
-
-            string pathShowroom = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerOfertas,
-               userData.CodigoISO,
-               Constantes.ConfiguracionPais.ShowRoom,
-               userData.CampaniaID,
-               userData.CodigoConsultora,
-               userData.CodigorRegion,
-               userData.ZonaID,
-               0);
-
-            var taskApi = Task.Run(() => OfertaBaseProvider.ObtenerOfertasDesdeApi(pathShowroom, userData.CodigoISO));
-            Task.WhenAll(taskApi);
-            return taskApi.Result;
-        }
+        //public List<ServiceOferta.BEEstrategia> GetShowRoomOfertasConsultora()
+        //{
+        //    UsuarioModel userData = _sessionManager.GetUserData();
+        //    string pathShowroom = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerOfertas,
+        //       userData.CodigoISO,
+        //       Constantes.ConfiguracionPais.ShowRoom,
+        //       userData.CampaniaID,
+        //       userData.CodigoConsultora,
+        //       userData.CodigorRegion,
+        //       userData.ZonaID,
+        //       0);
+        //    var taskApi = Task.Run(() => OfertaBaseProvider.ObtenerOfertasDesdeApi(pathShowroom, userData.CodigoISO));
+        //    Task.WhenAll(taskApi);
+        //    return taskApi.Result;
+        //}
 
 
         public ShowRoomEventoConsultoraModel RegistrarEventoConsultoraApi(int eventoId, bool esGenerica)

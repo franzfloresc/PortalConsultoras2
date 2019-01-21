@@ -1,0 +1,65 @@
+﻿@model Portal.Consultoras.Web.Models.IncentivosModel
+@{
+    ViewBag.Title = "Mis Bonificaciones";
+}
+
+<div class="fondo_f9f9f9">
+    <div class="content_belcorp">
+        <div class="fondo_negro_lateral"></div>
+      <div class="titulo_interiores">MIS <span>BONIFICACIONES</span></div>
+        
+
+    </div>
+    <hr class="clear" />
+    <div class="linea_separadora" style="margin-top:-1px"></div>
+</div>
+<div class="content_belcorp">
+    <div class="pestana_lbel"></div>
+</div>
+<div class="content_incentivos">
+    @if (Model.listaIncentivos != null && Model.listaIncentivos.Any())
+    {
+        var contador = 0;
+        foreach (var incentivo in Model.listaIncentivos)
+        {
+            contador += 1;
+
+            <div class="item_incentivos">
+                @Html.Hidden("IncentivoID", incentivo.IncentivoID)
+                <div class="content_img_incetivos">
+                    <a href="@(string.IsNullOrEmpty(incentivo.ArchivoPDF) ? incentivo.Url : incentivo.ArchivoPDF)" target="_blank">
+                        <img src="@incentivo.ArchivoPortada" alt="Logo Incentivo" onclick="SetGoogleAnalytics('@incentivo.ArchivoPortada')" />
+                    </a>
+                </div>
+                <div class="titulo_item_incentivo">
+                    <b>@incentivo.Titulo</b>
+                    <br />@incentivo.Subtitulo
+                </div>
+            </div>
+
+            if (contador == 4)
+            {
+                contador = 0;
+                <hr class="clear" />
+            }
+        }
+    }
+    else
+    {
+        <div style="margin-bottom: 18px;">
+            Por el momento los incentivos no se encuentran configurados en la web.
+        </div>
+    }
+    <hr class="clear" />
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        function SetGoogleAnalytics(NombreImagen) {
+            dataLayer.push({
+                'event': 'pageview',
+                'virtualUrl': '/Incentivo/Link/' + NombreImagen
+            });
+        }
+    </script>
+}
