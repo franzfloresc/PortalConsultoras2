@@ -286,6 +286,7 @@ var CarruselModule = (function (config) {
         campania: config.campania || "",
         cuv: config.cuv || "",
         urlDataCarrusel: config.urlDataCarrusel || "",
+        OrigenPedidoWeb: config.OrigenPedidoWeb || "",
         pantalla: "Ficha"
     };
 
@@ -420,7 +421,8 @@ var CarruselModule = (function (config) {
         }
 
         var origen = {
-            Seccion: ConstantesModule.OrigenPedidoWebEstructura.Seccion.CarruselVerMas
+            Seccion: ConstantesModule.OrigenPedidoWebEstructura.Seccion.CarruselVerMas,
+            OrigenPedidoWeb: _config.OrigenPedidoWeb.toString()
         };
         if (tipo == 1) {
             CarruselAyuda.MarcarAnalyticsInicio(_elementos.divCarruselProducto, data.lista, origen);
