@@ -14006,6 +14006,39 @@ span.icon-advertencia {
 
 /* FIN - MC-HD-2936 - DÚO PERFECTO AJUSTES POPUP */
 
+
+/*INI EINCA HD-3094 09-01-2019 Boton genérico fondo blanco y rojo b*/
+.btn_bg_write {
+    font-family: 'lato';
+    background: white;
+    color: black;
+    font-weight: 400;
+    height: 45px;
+    border: 1px solid #ccc;
+    float: left;
+    text-align-last: center;
+    display: inline-block;
+    width: auto;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.btn_bg_primary {
+    font-family: 'lato';
+    background: #642F80;
+    border: 1px solid #642F80;
+    color: #fff;
+    font-weight: 700;
+    height: 45px;
+    float: left;
+    text-align-last: center;
+    display: inline-block;
+    width: auto;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    margin-left: 4px;
+}
+/*FIN EINCA HD-3094 09-01-2019 Boton genérico fondo blanco*/
 /* PROGRAMA NUEVAS - ELIGE TU REGALO */
 
 .quitarPaddingSuperior{
