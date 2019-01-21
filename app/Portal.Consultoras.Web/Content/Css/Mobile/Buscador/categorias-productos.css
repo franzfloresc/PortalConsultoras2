@@ -17,6 +17,7 @@
 }
 
 .categoria_producto,
+.categoria_producto_fondo_estado,
 .categoria_producto_enlace
 {
     border-radius:4px;
@@ -98,7 +99,7 @@
 
 .categoria_fragancias{
     background-image:url('/Content/Images/Buscador/fragancia.jpg');
-    background-position:left center;
+    background-position:left -160px;
     background-size:100%;
 }
 
