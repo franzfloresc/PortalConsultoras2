@@ -27,8 +27,8 @@
     height:80px;
     margin-right:13px;
     margin-bottom:12px;
-    flex: 0 0 47.95%;
-    max-width: 47.95%;
+    flex: 0 0 calc(50% - 6.5px);
+    max-width: calc(50% - 6.5px);
     position:relative;
     overflow:hidden;
 }
@@ -150,7 +150,7 @@
 @media screen and (max-width:991px) and (orientation:landscape){
 
     .categoria_fragancias img{
-        object-position: -15px 43%;
+        object-position: -15px 44%;
     }
 
     .categoria_maquillaje img{
@@ -175,16 +175,6 @@
 
     .categoria_herramientas_venta img{
         object-position: 2px 42%;
-    }
-
-}
-
-@media screen and (max-width:355px){
-
-    .categoria_producto{
-        flex: 0 0 47.6%;
-        max-width: 47.6%;
-        margin-right:13px;
     }
 
 }
