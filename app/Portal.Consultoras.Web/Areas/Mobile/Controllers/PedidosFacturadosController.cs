@@ -94,7 +94,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 BEPedidoFacturado[] listaPedidosFacturadosDetalle;
                 using (var service = new SACServiceClient())
                 {
-
                     listaPedidosFacturadosDetalle = service.GetPedidosFacturadosDetalle(userData.PaisID, campaniaID.ToString(), "0", "0", userData.CodigoConsultora, pedidoId);
                 }
 
