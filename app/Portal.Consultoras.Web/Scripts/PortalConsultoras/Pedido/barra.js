@@ -639,6 +639,7 @@ function MostrarBarra(datax, destino) {
     } else {
         dvMsg.html('');
     }
+
     
     if (tp > 0 && dataBarra.TippingPointBarra.Active) {
         $('#hrefIconoRegalo').show();
