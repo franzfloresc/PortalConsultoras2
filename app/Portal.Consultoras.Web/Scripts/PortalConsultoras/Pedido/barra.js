@@ -2101,47 +2101,19 @@ function CalculoPosicionMinimoMaximoDestokp() {
 
                 }
 
-            }
 
-
-
-            //montoMaximo = dataBarra.ListaEscalaDescuento[3].MontoDesde + 500;
-
-            //var montoMaximo1 = dataBarra.ListaEscalaDescuento[0].MontoDesde
-            //var AvancePorcentaje1 = CalculoPorcentajeAvance(montoMaximo1, montoMaximo);
-            //document.getElementById('barra_0').style.left = AvancePorcentaje1;
-
-            //var AvancePorcentajeP1 = (AvancePorcentaje1.substring(0, AvancePorcentaje1.length - 1) * 1 - 7) + '%'
-            //document.getElementById('punto_0').style.left = AvancePorcentajeP1;
-
-
-
-            //var montoMaximo2 = dataBarra.ListaEscalaDescuento[1].MontoDesde
-            //var AvancePorcentaje2 = CalculoPorcentajeAvance(montoMaximo2, montoMaximo);
-            //document.getElementById('barra_1').style.left = AvancePorcentaje2;
-
-            //var AvancePorcentajeP2 = (AvancePorcentaje2.substring(0, AvancePorcentaje2.length - 1) * 1 - 8) + '%'
-            //document.getElementById('punto_1').style.left = AvancePorcentajeP2;
-
-
-
-            //var montoMaximo3 = dataBarra.ListaEscalaDescuento[2].MontoDesde
-            //var AvancePorcentaje3 = CalculoPorcentajeAvance(montoMaximo3, montoMaximo);
-            //document.getElementById('barra_2').style.left = AvancePorcentaje3;
-
-
-            //var AvancePorcentajeP3 = (AvancePorcentaje3.substring(0, AvancePorcentaje3.length - 1) * 1 - 5) + '%'
-            //document.getElementById('punto_2').style.left = AvancePorcentajeP3;
-
-
-
-            //var montoMaximo4 = dataBarra.ListaEscalaDescuento[3].MontoDesde
+                      //var montoMaximo4 = dataBarra.ListaEscalaDescuento[3].MontoDesde
             //var AvancePorcentaje4 = CalculoPorcentajeAvance(montoMaximo4, montoMaximo);
             //document.getElementById('barra_3').style.left = AvancePorcentaje4;
 
             //var AvancePorcentajeP4 = (AvancePorcentaje4.substring(0, AvancePorcentaje4.length - 1) * 1 - 5) + '%'
             //document.getElementById('punto_3').style.left = AvancePorcentajeP4;
 
+            }
+
+
+
+             
 
 
         }
@@ -2160,7 +2132,7 @@ function CalculoPosicionMinimoMaximoDestokp() {
                     var AvancePorcentajeP1 = (AvancePorcentaje1.substring(0, AvancePorcentaje1.length - 1) * 1 - 7) + '%'
                     document.getElementById('punto_0').style.left = AvancePorcentajeP1;
 
-                } else {
+                } else if (i > 0 && i < dataBarra.ListaEscalaDescuento.length-1){
                     var montoMaximo2 = dataBarra.ListaEscalaDescuento[i].MontoDesde
                     var AvancePorcentaje2 = CalculoPorcentajeAvance(montoMaximo2, montoMaximo);
                     document.getElementById('barra_'+i.toString()).style.left = AvancePorcentaje2;
@@ -2168,7 +2140,28 @@ function CalculoPosicionMinimoMaximoDestokp() {
                     var AvancePorcentajeP2 = (AvancePorcentaje2.substring(0, AvancePorcentaje2.length - 1) * 1 - 5) + '%'
                     document.getElementById('punto_' +i.toString()).style.left = AvancePorcentajeP2;
 
+                } else {
+                    if (montoActual >= dataBarra.ListaEscalaDescuento[dataBarra.ListaEscalaDescuento.length - 2].MontoDesde)
+                    {
+                        var montoMaximo2 = dataBarra.ListaEscalaDescuento[i].MontoDesde
+                        var AvancePorcentaje2 = CalculoPorcentajeAvance(montoMaximo2, montoMaximo);
+                        document.getElementById('barra_' + i.toString()).style.left = AvancePorcentaje2;
+
+                        var AvancePorcentajeP2 = (AvancePorcentaje2.substring(0, AvancePorcentaje2.length - 1) * 1 +4 ) + '%'
+                        document.getElementById('punto_' + i.toString()).style.left = AvancePorcentajeP2;
+                    }
+
+                    else {
+                        var montoMaximo2 = dataBarra.ListaEscalaDescuento[i].MontoDesde
+                        var AvancePorcentaje2 = CalculoPorcentajeAvance(montoMaximo2, montoMaximo);
+                        document.getElementById('barra_' + i.toString()).style.left = AvancePorcentaje2;
+
+                        var AvancePorcentajeP2 = (AvancePorcentaje2.substring(0, AvancePorcentaje2.length - 1) * 1 -5) + '%'
+                        document.getElementById('punto_' + i.toString()).style.left = AvancePorcentajeP2;
+                    }
                 }
+
+                
 
             }
            
@@ -2245,7 +2238,8 @@ function CalculoPosicionMinimoMaximoDestokp() {
                 document.getElementsByClassName('bandera_marcador')[0].style.display = 'block';
                 $(".barra_mensaje_meta_pedido").css('margin-bottom', '56px');
             }
-
+            else 
+                document.getElementsByClassName('bandera_marcador')[0].style.display = 'none';
         }
     }
 
