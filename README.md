@@ -1,4 +1,4 @@
-# Portal Consultoras SB 2
+# Portal Consultoras SB2
 
 
 PI2-EPM-Sprint4-AnalyticsVerDetalle
