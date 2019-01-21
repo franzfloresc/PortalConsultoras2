@@ -81,10 +81,13 @@
         display:none;
     } */
 
-    .layout__header{
-        background-image:url(/Content/images/mobile/cincuenta_anios_belcorp_cabecera_mobile.png);
-        background-position:-23px top;
-        padding-right:12px;
+    .layout__header {
+        background-image: url(/Content/images/mobile/cincuenta_anios_belcorp_cabecera_mobile.png);
+        background-position: -23px top;
+        padding-right: 12px;
+        -moz-box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5);
+        -webkit-box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5);
+        box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5);
     }
 
     .header__marca__pais picture{

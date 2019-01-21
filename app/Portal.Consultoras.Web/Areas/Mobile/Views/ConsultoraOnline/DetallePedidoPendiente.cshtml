@@ -7,9 +7,26 @@
     var mobileConfiguracion = Html.MobileAppConfiguracion();
 }
 
+<style>
+    .agotado_consultora {
+        background: #f3f3f3;
+        padding:10px 10px
+    }
+    .agotado_consultora img {
+        height:36px
+    }
+</style>
+
+<script>
+    var glbDispositivo = 3;
+</script>
+
 @{
     if (!mobileConfiguracion.EsAppMobile)
     {
+        <script>
+            glbDispositivo = 2;
+        </script>
         <div class="titulo_mobile">
             <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
             &nbsp;&nbsp;PENDIENTES
@@ -142,11 +159,11 @@
 
                 if (item.TieneStock == 0)
                 {
-                    <span class="agotado_consultora" style="font-size: 12px;">@item.MensajeValidacion</span>
+                    <span class="agotado_consultora" style="font-size: 12px;"><img src="/Content/Images/RevistaDigital/icono_advertencia_notificacion_esika.svg" /> @item.MensajeValidacion</span>
                 }
                 else if (item.EstaEnRevista == 1)
                 {
-                    <span class="agotado_consultora" style="font-size: 12px;">@item.MensajeValidacion</span>
+                    <span class="agotado_consultora" style="font-size: 12px;"><img src="/Content/Images/RevistaDigital/icono_advertencia_notificacion_esika.svg" /> @item.MensajeValidacion</span>
                 }
             }
         </div>
