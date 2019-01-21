@@ -8034,6 +8034,41 @@ ul.tabs {
     font-weight: 700;
 }
 
+/*INI EINCA HD-3094 09-01-2019 Boton genérico fondo blanco y rojo*/
+.btn_bg_write {
+    font-family: 'lato';
+    background: white;
+    color: black;
+    font-weight: 400;
+    height: 45px;
+    border: 1px solid #ccc;
+    float: left;
+    text-align-last: center;
+    display: inline-block;
+    width: auto;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.btn_bg_primary {
+    font-family: 'lato';
+    background: rgb(232, 28, 54);
+    color: #fff;
+    font-weight: 700;
+    height: 45px;
+    float: left;
+    text-align-last: center;
+    border: 1px solid rgb(232, 28, 54);
+    display: inline-block;
+    width: auto;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    margin-left: 4px;
+}
+/*FIN EINCA HD-3094 09-01-2019 Boton genérico fondo blanco*/
+
+
+
 .div-3 .ganancia {
     float: right;
     width: 250px;
@@ -28687,20 +28722,39 @@ div.motivoRechazo textarea {
     font-size: 15px;
     line-height: 30px;
     width: 330px;
-    text-decoration: underline;
+}
+
+.politica_reclamos_icono,
+.politica_reclamos_texto
+{
+    display:inline-block;
+    vertical-align:middle;
 }
 
 .politica_reclamos_icono {
-    padding-left: 35px;
-    padding-bottom: 10px;
-    padding-top: 2px;
-    background: url('/Content/Images/Esika/terminos.png') no-repeat;
-    display: inline;
+    background-image: url('/Content/Images/check_terminos_cdr.svg');
+    background-repeat:no-repeat;
+    background-position:center;
+    background-color:#d6d6d6;
+    width:20px;
+    height:20px;
+    margin-top:4.5px;
+    margin-right:6px;
+    border-radius:4px;
+    background-size: 65%;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    cursor:pointer;
 }
 
 .politica_reclamos_icono_active {
-    background: url('/Content/Images/Esika/icono_check_esika.png') no-repeat;
-    background-size: 75%;
+    background-color:#e81c36;
+}
+
+.politica_reclamos_texto a{
+    text-decoration:underline;
 }
 
 .btn_agrega_otro_reclamo {
@@ -28998,6 +29052,7 @@ div.motivoRechazo textarea {
 .icono_resumen_resolucion {
     background: url('/Content/Images/RevistaDigital/icono_advertencia_notificacion_esika.svg') no-repeat top left;
     background-position: 0 33px;
+    background-size:7%;
 }
 
 .listado_estado_general {
