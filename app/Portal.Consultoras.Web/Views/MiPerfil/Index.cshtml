@@ -223,29 +223,23 @@ else
                             </fieldset>
                             <fieldset class="grupo_form_cambio_datos grupo_form_cambio_datos_campo_comuna w-50">
                                 <div class="w-100">
-
                                     <select id="Ubigeo2" name="Ubigeo2" class="w-100" Nivel=7></select>
                                     <label for="Ubigeo2">Comuna <span class="asteriscos">*</span></label>
                                 </div>
                             </fieldset>
                             <fieldset class="grupo_form_cambio_datos grupo_form_cambio_datos_campo_direccion">
                                 <div class="w-100">
-
                                     @Html.TextBoxFor(x => x.DireccionEntrega.Direccion, new { @class = "w-100", id = "Direccion" })
-
                                     <label for="Direccion" class="w-100">
                                         Dirección <span class="asteriscos">*</span>
                                     </label>
                                     <a class="enlace_ubicacion_actual" title="Ubicación Actual">
                                     </a>
                                 </div>
-                                <div id="SeccionMapa" class="mapa_wrapper w-100">
-
-                                </div>
                             </fieldset>
                             <fieldset class="grupo_form_cambio_datos">
                                 <div class="w-100">
-                                    @Html.TextBoxFor(x => x.DireccionEntrega.Referencia, new { @class = "w-100 campo_referencia", id = "Referencia", maxlength = "400" })
+                                    @Html.TextBoxFor(x => x.DireccionEntrega.Referencia, new { @class = "w-100 campo_referencia", id = "Referencia", maxlength = "400", placeholder = "Edificio San Ramón" })
                                     <label for="Referencia" class="w-100">
                                         Referencia
                                     </label>
@@ -254,7 +248,12 @@ else
                                 @Html.HiddenFor(m => m.DireccionEntrega.Longitud, new { id = "Longitud" })
                                 @Html.HiddenFor(m => m.DireccionEntrega.Operacion, new { id = "Operacion" })
                                 @Html.HiddenFor(m => m.DireccionEntrega.DireccionEntregaID, new { id = "DireccionEntregaID" })
-
+                            </fieldset>
+                            <fieldset class="grupo_form_cambio_datos">
+                                <div class="w-100">
+                                    <div id="SeccionMapa" class="mapa_wrapper w-100">
+                                    </div>
+                                </div>
                             </fieldset>
                         </div>
                     </div>

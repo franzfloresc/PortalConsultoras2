@@ -568,10 +568,6 @@ input:focus{
     height:100%;
 }
 
-.terminos_y_condiciones_wrapper{
-    border-top:1px solid #808080;
-}
-
 .enlace_cambiar_dato,
 .enlace_eliminar_numero_adicional
 {
@@ -647,6 +643,11 @@ input:focus{
 .terminos_y_condiciones_wrapper + .grupo_form_cambio_datos .datos_obligatorios
 {
     color:#808080;
+}
+
+.grupo_form_checkbox_condiciones .checkbox_condiciones_label{
+    margin-top:4px!important;
+    margin-bottom:0!important;
 }
 
 .grupo_input_actualizarMisDatos .checkbox_condiciones_wrapper,
