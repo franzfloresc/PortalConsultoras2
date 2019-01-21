@@ -16,7 +16,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
     public class CatalogoRevistaController : Controller
     {
-        private const string TextoMensajeSaludoCorreo = "Revisa los catálogos de esta campaña y comunícate conmigo si estás interesada en algunos de los productos.";
         private const string CodigoISO = "BR";
         private const string paisNombre = "brasil";
         protected readonly ConfiguracionManagerProvider _configuracionManagerProvider;
@@ -76,8 +75,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             bool paisesCatalogoWhatsUp = _configuracionManagerProvider.GetConfiguracionManagerContains(Constantes.ConfiguracionManager.PaisesCatalogoWhatsUp, CodigoISO);
             ViewBag.ActivacionAppCatalogoWhastUp = paisesCatalogoWhatsUp.ToInt();
-
-            ViewBag.TextoMensajeSaludoCorreo = TextoMensajeSaludoCorreo;
             ViewBag.PaisAnalytics = CodigoISO;
 
             return View(clienteModel);
