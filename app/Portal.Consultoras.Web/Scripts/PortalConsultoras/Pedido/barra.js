@@ -225,13 +225,28 @@ function MostrarBarra(datax, destino) {
 
     var styleMin = 'style="margin-left: 6px;"';
   
-    var htmlPunto = '<div id="punto_{punto}" data-punto="{select}">'
+    var htmlPunto = "";
+
+    if (destino == 2) 
+    {
+       htmlPunto = '<div id="punto_{punto}" data-punto="{select}">'
                 + '<div class="monto_minimo_barra" style="width:{wText}px">'
                     + '<div style="width:{wText}px;position: absolute; color:#808080;" data-texto>{texto}</div>'
-                    + '<div class="linea_indicador_barra_vista_bienvenida"></div>' //og
+                    //+ '<div class="linea_indicador_barra_vista_bienvenida"></div>' //og
                 + '</div>'
         + '</div>' 
     + '<div class="linea_indicador_barra" id="barra_{punto}" {style}></div>';//hd-2848
+    }
+    else
+        htmlPunto = '<div id="punto_{punto}" data-punto="{select}">'
+            + '<div class="monto_minimo_barra" style="width:{wText}px">'
+            + '<div style="width:{wText}px;position: absolute; color:#808080;" data-texto>{texto}</div>'
+             + '<div class="linea_indicador_barra_vista_bienvenida"></div>' //og
+            + '</div>'
+            + '</div>'
+         
+
+
 
     // quitando esta clase contenedor_tippingPoint se quita el tooltip y el efecto que salta
     var htmlTippintPoint = "";
@@ -240,6 +255,7 @@ function MostrarBarra(datax, destino) {
     // si se va ha mostrar el tooltip
     if (dataTP.Active)
     {
+        if (destino == '2') {
         htmlTippintPoint =
             '<div id="punto_{punto}" data-punto="{select}" style="position: relative; top: -51px; z-index: 200;">'
                 + '<div class="monto_minimo_barra">'
@@ -255,10 +271,36 @@ function MostrarBarra(datax, destino) {
                             + '<div class="circulo-3 iniciarTransicion"></div>'
                         + '</div>'
                     + '</div>'
-                    + '<div class="linea_indicador_barra_vista_bienvenida"></div>' //og 
+                    //+ '<div class="linea_indicador_barra_vista_bienvenida"></div>' //og 
                 + '</div>'
             + '</div>';
         + '<div class="linea_indicador_barra" id="barra_{punto}" {style}></div>';//hd-2848
+        }
+        else
+            htmlTippintPoint =
+                '<div id="punto_{punto}" data-punto="{select}" style="position: relative; top: -51px; z-index: 200;">'
+                + '<div class="monto_minimo_barra">'
+                + '<div style="width:{wText}px;position: relative;" data-texto>'
+                + '<div class="{barra_tooltip_class}">'
+                + '<a class="tippingPoint {estado}" href="javascript:;" onclick="javascript: cargarPopupEleccionRegalo();"></a>'
+                + '{barra_monto}'
+                //+ '{barra_tooltip}'
+                + '</div>'
+                + '<div class="contenedor_circulos microEfecto_regaloPendienteEleccion">'
+                + '<div class="circulo-1 iniciarTransicion"></div>'
+                + '<div class="circulo-2 iniciarTransicion"></div>'
+                + '<div class="circulo-3 iniciarTransicion"></div>'
+                + '</div>'
+                + '</div>'
+                + '<div class="linea_indicador_barra_vista_bienvenida"></div>' //og 
+                + '</div>'
+                + '</div>';
+        
+
+
+
+
+
 
         htmlTippintPoint = htmlTippintPoint
             .replace('{barra_tooltip_class}', dataTP.ActiveTooltip ? 'contenedor_tippingPoint' : '')
@@ -284,15 +326,31 @@ function MostrarBarra(datax, destino) {
             );
     }
    
-    var htmlPuntoLimite = '<div id="punto_{punto}" data-punto="{select}">'
+    var htmlPuntoLimite = "";
+
+    if (destino == '2')  
+
+        htmlPuntoLimite = '<div id="punto_{punto}" data-punto="{select}">'
                 + '<div class="monto_minimo_barra">'
                     //+ '<div class="bandera_marcador" style="margin-top: -6px;"></div>'
                     + '<div style="width: {wText}px;position: absolute; color:#808080;" data-texto>{texto}</div>'
-                    + '<div class="linea_indicador_barra_vista_bienvenida"></div>' //og
+                    //+ '<div class="linea_indicador_barra_vista_bienvenida"></div>' //og
                 + '</div>'
         + '</div>' 
     //og
-        + '<div class="linea_indicador_barra" id="barra_{punto}" {style}></div>';//hd-2848
+            + '<div class="linea_indicador_barra" id="barra_{punto}" {style}></div>';//hd-2848
+
+    else
+        htmlPuntoLimite = '<div id="punto_{punto}" data-punto="{select}">'
+            + '<div class="monto_minimo_barra">'
+            //+ '<div class="bandera_marcador" style="margin-top: -6px;"></div>'
+            + '<div style="width: {wText}px;position: absolute; color:#808080;" data-texto>{texto}</div>'
+             + '<div class="linea_indicador_barra_vista_bienvenida"></div>' //og
+            + '</div>'
+            + '</div>'
+            //og
+            //+ '<div class="linea_indicador_barra" id="barra_{punto}" {style}></div>';//hd-2848
+
 
 
     if (mx > 0 || destino == '1')
@@ -396,11 +454,12 @@ function MostrarBarra(datax, destino) {
         $("#divBarraLimite [data-punto='0']").find("[data-texto]").css("color", "#979797");
         $("#divBarraLimite [data-punto='1']").find("[data-texto]").css("color", "#808080");
         $("#divBarraLimite [data-punto='1']").find("[data-texto]").css("font-weight", "bold");
-        $('.linea_indicador_barra_vista_bienvenida').show();
-        $('.linea_indicador_barra').hide();
-    } else {
-        $('.linea_indicador_barra_vista_bienvenida').hide();
+        //$('.linea_indicador_barra_vista_bienvenida').show();
+        //$('.linea_indicador_barra').hide();
     }
+    //else {
+    //    $('.linea_indicador_barra_vista_bienvenida').hide();
+    //}
 
     if (wTotalPunto > wTotal) {
         var indAux = indPuntoLimite;
@@ -547,43 +606,25 @@ function MostrarBarra(datax, destino) {
         }
     }
 
+    if (destino == '2') {
     /*hd-2848*/
-    if (belcorp.barra.settings.isMobile) {
-          wLogro = CalculoLlenadoBarra(); //volver comentar hd-2849
-          CalculoPosicionMinimoMaximo();  //volver comentar hd-2849
+        if (belcorp.barra.settings.isMobile) {
+              wLogro = CalculoLlenadoBarra(); //volver comentar hd-2849
+              CalculoPosicionMinimoMaximo();  //volver comentar hd-2849
         
+        }
+        else
+        {
+            wLogro = CalculoLlenadoBarraDestokp();
+            wLimite = CalculoLlenadoBarraEspacioLimiteDestokp();
+        }
     }
-    else
-    {
-        wLogro = CalculoLlenadoBarraDestokp();
-        wLimite = CalculoLlenadoBarraEspacioLimiteDestokp();
-    }
-
 
     $("#divBarra #divBarraEspacioLimite").css("width", wLimite);
     $("#divBarra #divBarraEspacioLogrado").css("width", wLogro);
 
 
-    if (destino == "1") {
-        if (!TieneMontoMaximo()) {
-
-            //var NumeroBarras = dataBarra.ListaEscalaDescuento.length;
-            //var inicio = (100 / NumeroBarras)-9;
-
-            //for (var i = 0; i < dataBarra.ListaEscalaDescuento.length; i++) {
-
-            //    document.getElementById('barra_' + i.toString()).style.marginLeft = inicio + '%';
-            //    document.getElementById('barra_' + i.toString()).style.top = '50px';
-            //    inicio = inicio + (100 / NumeroBarras);
-            //}
-
-     
-        }
-      
-    //    $('.linea_indicador_barra').hide();
-    //    return true;
-
-       }
+  
 
     if (mn == 0 && vLogro == 0 && !belcorp.barra.settings.isMobile) {
         $("#divBarra #divBarraMensajeLogrado").hide();
@@ -669,62 +710,63 @@ function MostrarBarra(datax, destino) {
     }
 
 
+    if (destino == '2') {
     /*hd-2848*/
-    if (dataBarra.TippingPointBarra.InMinimo != null) { 
-        ConfiguradoRegalo = dataBarra.TippingPointBarra.InMinimo;
-    } 
+        if (dataBarra.TippingPointBarra.InMinimo != null) { 
+            ConfiguradoRegalo = dataBarra.TippingPointBarra.InMinimo;
+        } 
     
 
-    /*hd-2848*/
-    if (!belcorp.barra.settings.isMobile) {
-        if (TieneMontoMaximo()) { /// se trata como tipinpoing
+        /*hd-2848*/
+        if (!belcorp.barra.settings.isMobile) {
+            if (TieneMontoMaximo()) { /// se trata como tipinpoing
 
-            if (dataBarra.TippingPointBarra.Active != null && dataBarra.TippingPointBarra.Active != false) {
-                document.getElementById('punto_0').style = '';
-                document.getElementById('punto_0').className = 'EscalaDescuento';
-                document.getElementById('punto_1').className = 'EscalaDescuento';
-                document.getElementById('punto_2').className = 'EscalaDescuento';
-            }
-            else {
-
-
-                if (ConfiguradoRegalo == true) {
+                if (dataBarra.TippingPointBarra.Active != null && dataBarra.TippingPointBarra.Active != false) {
                     document.getElementById('punto_0').style = '';
                     document.getElementById('punto_0').className = 'EscalaDescuento';
                     document.getElementById('punto_1').className = 'EscalaDescuento';
                     document.getElementById('punto_2').className = 'EscalaDescuento';
                 }
                 else {
-                    document.getElementById('punto_0').style = '';
-                    document.getElementById('punto_0').className = 'EscalaDescuento';
-                    document.getElementById('punto_1').className = 'EscalaDescuento';
+
+
+                    if (ConfiguradoRegalo == true) {
+                        document.getElementById('punto_0').style = '';
+                        document.getElementById('punto_0').className = 'EscalaDescuento';
+                        document.getElementById('punto_1').className = 'EscalaDescuento';
+                        document.getElementById('punto_2').className = 'EscalaDescuento';
+                    }
+                    else {
+                        document.getElementById('punto_0').style = '';
+                        document.getElementById('punto_0').className = 'EscalaDescuento';
+                        document.getElementById('punto_1').className = 'EscalaDescuento';
+                    }
+
                 }
 
             }
-
-        }
-        else {
+            else {
 
 
 
 
-            for (var x = 0; x < dataBarra.ListaEscalaDescuento.length; x++) {
-                if (x==0) {
-                    if (document.getElementById('punto_0')) document.getElementById('punto_0').style = '';
-                    if (document.getElementById('punto_0')) document.getElementById('punto_0').className = 'EscalaDescuento';
-                } else
-                {
-                    if (document.getElementById('punto_' + x.toString())) document.getElementById('punto_'+x.toString()).className = 'EscalaDescuento';
+                for (var x = 0; x < dataBarra.ListaEscalaDescuento.length; x++) {
+                    if (x==0) {
+                        if (document.getElementById('punto_0')) document.getElementById('punto_0').style = '';
+                        if (document.getElementById('punto_0')) document.getElementById('punto_0').className = 'EscalaDescuento';
+                    } else
+                    {
+                        if (document.getElementById('punto_' + x.toString())) document.getElementById('punto_'+x.toString()).className = 'EscalaDescuento';
                   
+                    }
                 }
+
             }
 
+            CalculoPosicionMinimoMaximoDestokp();
+            CalculoPosicionMensajeDestokp();
         }
-
-        CalculoPosicionMinimoMaximoDestokp();
-        CalculoPosicionMensajeDestokp();
     }
-    
 
 
     return true;
