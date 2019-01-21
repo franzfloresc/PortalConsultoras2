@@ -10,6 +10,7 @@ function OnClickFichaDetalle(e) {
 
     var UrlDetalle = GetPalanca(codigoEstrategia, OrigenPedidoWeb);
 
+    debugger;
     if (OrigenPedidoWeb == "" || OrigenPedidoWeb === "undefined" || OrigenPedidoWeb == null)
         OrigenPedidoWeb = "";
 

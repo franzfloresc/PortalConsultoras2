@@ -1772,7 +1772,7 @@ var AnalyticsPortalModule = (function () {
 
     var marcaDetalleProductoPrincipal = function (data) {
         try {
-
+            debugger;
             if (_constantes.isTest)
                 alert("Marcación clic detalle producto.");
 
