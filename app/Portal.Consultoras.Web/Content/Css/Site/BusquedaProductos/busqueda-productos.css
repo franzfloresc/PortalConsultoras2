@@ -1,7 +1,12 @@
 ﻿
 /* PÁGINA DE RESULTADOS DESKTOP */
 
+.layout__view__breadcrumbs__wrapper{
+    display:none!important;
+}
+
 .layout__content--vistaResultadosBusqueda{
+    margin-top:60px;
     width:100%;
     max-width:1366px;
 }

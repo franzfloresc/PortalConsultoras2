@@ -22,5 +22,6 @@
         public string NombrePalanca { get; set; }
         public string PalancaID { get; set; }
         public string OrigenPedido { get; set; }
+        public bool LimpiarSession { get; set; }
     }
 }
