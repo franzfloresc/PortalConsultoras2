@@ -14,7 +14,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class AdministrarProductoSugeridoController : BaseController
+    public class AdministrarProductoSugeridoController : BaseAdmController
     {
         protected RenderImgProvider _renderImgProvider;
 
@@ -57,19 +57,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return result;
-        }
-
-        private IEnumerable<PaisModel> DropDowListPaises()
-        {
-            List<BEPais> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = userData.RolID == 2
-                    ? sv.SelectPaises().ToList()
-                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
-            }
-
-            return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
 
         public ActionResult Consultar(string sidx, string sord, int page, int rows, int PaisID, int CampaniaID, string CUVAgotado, string CUVSugerido)
@@ -127,11 +114,9 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ObtenerMatriz(int paisID, int campaniaID, string cuv)
         {
-            BEPais pais;
             int nroCampanias;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                pais = sv.SelectPais(paisID);
                 nroCampanias = sv.GetPaisNumeroCampaniasByPaisID(paisID);
             }
 
@@ -176,8 +161,9 @@ namespace Portal.Consultoras.Web.Controllers
                 Int32.TryParse(_configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.ProductoSugeridoAppCatalogosNroCampaniasAtras), out nroCampaniasAtras);
                 if (nroCampaniasAtras <= 0) nroCampaniasAtras = 3;
 
+                var codigoIso = Util.GetPaisISO(paisID);
                 string paisesCcc = _configuracionManagerProvider.GetPaisesConConsultoraOnlineFromConfig();
-                if (paisesCcc.Contains(pais.CodigoISO)) model.FotoProductoAppCatalogo = ImagenAppCatalogo(campaniaID, model.CodigoSAP, nroCampaniasAtras);
+                if (paisesCcc.Contains(codigoIso)) model.FotoProductoAppCatalogo = ImagenAppCatalogo(campaniaID, model.CodigoSAP, nroCampaniasAtras);
             }
             return Json(new { success = true, matriz = model, totalImagenes = totalImagenes }, JsonRequestBehavior.AllowGet);
         }
@@ -200,28 +186,17 @@ namespace Portal.Consultoras.Web.Controllers
             return data;
         }
 
-        private IEnumerable<CampaniaModel> DropDowListCampanias(int paisId)
-        {
-            IList<BECampania> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = sv.SelectCampanias(paisId);
-            }
-
-            return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
-        }
-
-        public JsonResult ObtenerCampaniasPorPais(int PaisID)
-        {
-            IEnumerable<CampaniaModel> lst = DropDowListCampanias(PaisID);
-            string habilitarNemotecnico = _tablaLogicaProvider.ObtenerValorTablaLogica(PaisID, Constantes.TablaLogica.Plan20, Constantes.TablaLogicaDato.BusquedaNemotecnicoProductoSugerido);
-
-            return Json(new
-            {
-                lista = lst,
-                habilitarNemotecnico = habilitarNemotecnico == "1"
-            }, JsonRequestBehavior.AllowGet);
-        }
+        //movido BaseAdm/ObtenerCampaniasNemotecnicoPorPais
+        //public JsonResult ObtenerCampaniasPorPais(int PaisID)
+        //{
+        //    IEnumerable<CampaniaModel> lst = _zonificacionProvider.GetCampanias(PaisID);
+        //    string habilitarNemotecnico = _tablaLogicaProvider.ObtenerValorTablaLogica(PaisID, Constantes.TablaLogica.Plan20, Constantes.TablaLogicaDato.BusquedaNemotecnicoProductoSugerido);
+        //    return Json(new
+        //    {
+        //        lista = lst,
+        //        habilitarNemotecnico = habilitarNemotecnico == "1"
+        //    }, JsonRequestBehavior.AllowGet);
+        //}
 
         [HttpPost]
         public JsonResult Registrar(AdministrarProductoSugeridoModel model)

@@ -565,10 +565,8 @@ function showDialog(dialogId) {
     dialogId = dialogId[0] == "#" ? dialogId : ("#" + dialogId);
     $(dialogId).dialog("open");
     $("#ui-datepicker-div").css("z-index", "9999");
-    console.log(dialogId);
     setTimeout(function () {
         var h = $(document).innerHeight();
-        console.log(h);
         $(".ui-widget-overlay").css("height", "auto");
         $(".ui-widget-overlay").css("height", h);
     }, 1000);
@@ -580,10 +578,8 @@ function HideDialog(dialogId) {
     try {
 
         dialogId = (dialogId || "").trim();
-        console.log('HideDialog - ini - ', dialogId);
         if (dialogId != "") {
             dialogId = dialogId[0] == "#" ? dialogId : ("#" + dialogId);
-            console.log('HideDialog - close - ', dialogId);
             $(dialogId).dialog("close");
         }
     }
@@ -796,6 +792,27 @@ function isMobile() {
         $.trim(location.href).toLowerCase().indexOf("/g/") > 0;
     return isUrlMobile;
 }
+
+var isMobileNative = {
+    Android: function () {
+        return navigator.userAgent.match(/Android/i);
+    },
+    BlackBerry: function () {
+        return navigator.userAgent.match(/BlackBerry/i);
+    },
+    iOS: function () {
+        return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+    },
+    Opera: function () {
+        return navigator.userAgent.match(/Opera Mini/i);
+    },
+    Windows: function () {
+        return navigator.userAgent.match(/IEMobile/i);
+    },
+    any: function () {
+        return (isMobileNative.Android() || isMobileNative.BlackBerry() || isMobileNative.iOS() || isMobileNative.Opera() || isMobileNative.Windows());
+    }
+};
 
 function getMobilePrefixUrl() {
     var uniquePrefix = belcorp.settings.uniquePrefix;

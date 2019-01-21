@@ -23,7 +23,7 @@ var CarruselAyuda = function () {
         var cantActive = $(_slick.$slider).find('.slick-active').length;
         var indexCurrent = parseInt($(_slick.$slider).find('.slick-current').attr("data-slick-index"));
 
-        console.log('_obtenerSlideMostrar', indexMostrar, indexCurrent, indexActive, currentSlide, nextSlide);
+        //console.log('_obtenerSlideMostrar', indexMostrar, indexCurrent, indexActive, currentSlide, nextSlide);
         var direccion = CarruselVariable.Direccion.prev;
         if (indexCurrent === 0) {
             if (indexMostrar + 1 != slick.$slides.length) {
@@ -46,7 +46,7 @@ var CarruselAyuda = function () {
         }
 
         var slideMostrar = $(_slick.$slider).find("[data-slick-index='" + indexMostrar + "']");
-        console.log('_obtenerSlideMostrar', direccion, indexMostrar, $(slideMostrar));
+        //console.log('_obtenerSlideMostrar', direccion, indexMostrar, $(slideMostrar));
         return {
             Direccion: direccion,
             IndexMostrar: indexMostrar,
@@ -78,7 +78,7 @@ var CarruselAyuda = function () {
 
     var marcarAnalyticsInicio = function (idHtmlSeccion, arrayItems, origen, slidesToShow) {
         try {
-            console.log('marcarAnalyticsInicio - inicio', idHtmlSeccion, arrayItems, origen, slidesToShow);
+            //console.log('marcarAnalyticsInicio - inicio', idHtmlSeccion, arrayItems, origen, slidesToShow);
             idHtmlSeccion = idHtmlSeccion || "";
             idHtmlSeccion = idHtmlSeccion[0] == "#" ? idHtmlSeccion : ("#" + idHtmlSeccion);
             var cantActive = slidesToShow || ($(idHtmlSeccion).find(".slick-active") || []).length;
@@ -101,7 +101,7 @@ var CarruselAyuda = function () {
                     Origen: origen
                 };
 
-                console.log('marcarAnalyticsInicio - fin', obj);
+                //console.log('marcarAnalyticsInicio - fin', obj);
                 AnalyticsPortalModule.MarcaGenericaLista("", obj);
             }
 
@@ -114,7 +114,7 @@ var CarruselAyuda = function () {
     var marcarAnalyticsChange = function (slick, currentSlide, nextSlide, origen) {
         try {
             _slick = slick;
-            console.log('marcarAnalyticsChange - Ini ', origen);
+            //console.log('marcarAnalyticsChange - Ini ', origen);
 
             if (typeof AnalyticsPortalModule == "undefined") {
                 return;
@@ -124,7 +124,7 @@ var CarruselAyuda = function () {
 
             var item = objMostrar.SlideMostrar;
             var estrategia = $($(item).find("[data-estrategia]")[0]).data("estrategia") || "";
-            console.log('marcarAnalyticsChange', estrategia);
+            //console.log('marcarAnalyticsChange', estrategia);
             if (estrategia === "") {
                 if (origen.Palanca == ConstantesModule.OrigenPedidoWebEstructura.Palanca.Liquidacion) {
                     estrategia = _obtenerEstrategiaLiquidacion(objMostrar);
@@ -189,7 +189,7 @@ var CarruselAyuda = function () {
                 $(".js-slick-prev-liq").insertBefore('#divCarruselLiquidaciones').hide();
                 $(".js-slick-next-liq").insertAfter('#divCarruselLiquidaciones');
 
-                console.log('marcarAnalyticsLiquidacion', tipo, data, slick, currentSlide, nextSlide);
+                //console.log('marcarAnalyticsLiquidacion', tipo, data, slick, currentSlide, nextSlide);
 
                 marcarAnalyticsInicio("", data, origen, currentSlide);
 
@@ -286,6 +286,7 @@ var CarruselModule = (function (config) {
         campania: config.campania || "",
         cuv: config.cuv || "",
         urlDataCarrusel: config.urlDataCarrusel || "",
+        OrigenPedidoWeb: config.OrigenPedidoWeb || "",
         pantalla: "Ficha"
     };
 
@@ -420,7 +421,8 @@ var CarruselModule = (function (config) {
         }
 
         var origen = {
-            Seccion: ConstantesModule.OrigenPedidoWebEstructura.Seccion.CarruselVerMas
+            Seccion: ConstantesModule.OrigenPedidoWebEstructura.Seccion.CarruselVerMas,
+            OrigenPedidoWeb: _config.OrigenPedidoWeb.toString()
         };
         if (tipo == 1) {
             CarruselAyuda.MarcarAnalyticsInicio(_elementos.divCarruselProducto, data.lista, origen);

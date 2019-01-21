@@ -29,6 +29,8 @@ namespace Portal.Consultoras.Web.Controllers
                 int cantidadEstrategiasSinConfigurar;
                 int cantidadEstrategiasSinConfigurarImagen = 0;
                 var txtBuildOddIdsEstrategia = new StringBuilder();
+                var lPreCargarFlagImagenURL = new List<string>();
+
                 try
                 {
                     if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, codigoEstrategia))
@@ -36,14 +38,20 @@ namespace Portal.Consultoras.Web.Controllers
                         Dictionary<string, int> cantidades = administrarEstrategiaProvider.ObtenerCantidadOfertasParaTi(codigoEstrategia, campaniaId, userData.CodigoISO);
                         cantidadEstrategiasConfiguradas = cantidades["CUV_ZE"];
                         cantidadEstrategiasSinConfigurar = cantidades["CUV_OP"];
+                        cantidadEstrategiasSinConfigurarImagen = cantidades["CUV_SI"];
 
-                        List<string> estrategiasWA = administrarEstrategiaProvider.PreCargar(campaniaId.ToString(), codigoEstrategia, userData.CodigoISO);
+                        //List<string> estrategiasWA = administrarEstrategiaProvider.PreCargar(campaniaId.ToString(), codigoEstrategia, userData.CodigoISO);
+                        var estrategiasWA = administrarEstrategiaProvider.PreCargar(campaniaId.ToString(), codigoEstrategia, userData.CodigoISO);
                         foreach (var item in estrategiasWA)
                         {
                             if (txtBuildOddIdsEstrategia.ToString() != "")
                                 txtBuildOddIdsEstrategia.Append(",");
-                            txtBuildOddIdsEstrategia.Append(item);
+                            txtBuildOddIdsEstrategia.Append(item._id);
                         }
+
+                        lPreCargarFlagImagenURL.AddRange(estrategiasWA
+                            .Where(c => c.FlagImagenURL == false)
+                            .Select(m => m._id));
                     }
                     else
                     {
@@ -73,7 +81,7 @@ namespace Portal.Consultoras.Web.Controllers
                         Descripcion = codigoEstrategia == Constantes.TipoEstrategiaCodigo.HerramientasVenta ? "CUVS encontrados en Producto Comercial" : "CUVS encontrados en ofertas personalizadas.",
                         Valor = (cantidadEstrategiasConfiguradas + cantidadEstrategiasSinConfigurar).ToString(),
                         ValorOpcional = "0",
-                        mongoIds = ""
+                        mongoIds = txtBuildOddIdsEstrategia.ToString()
                     },
                     new ComunModel
                     {
@@ -81,7 +89,7 @@ namespace Portal.Consultoras.Web.Controllers
                         Descripcion = "CUVS configurados en Zonas de Estrategias",
                         Valor = cantidadEstrategiasConfiguradas.ToString(),
                         ValorOpcional = "1",
-                        mongoIds = ""
+                        mongoIds = txtBuildOddIdsEstrategia.ToString()
                     },
                     new ComunModel
                     {
@@ -116,7 +124,7 @@ namespace Portal.Consultoras.Web.Controllers
                             Descripcion = "CUVS por configurar en Zonas de Estrategias sin Imagen precargada",
                             Valor = cantidadEstrategiasSinConfigurarImagen.ToString(),
                             ValorOpcional = "3",
-                            mongoIds = ""
+                            mongoIds = string.Join(",", lPreCargarFlagImagenURL)
                         });
                     }
                 }
@@ -186,6 +194,18 @@ namespace Portal.Consultoras.Web.Controllers
                                 webApiList.AddRange(estado);
                             }
                         }
+
+                        if (tipoConfigurado == 3)
+                        {
+                            List<string> estrategiaMidsList = new List<string>();
+                            estrategiaMidsList.AddRange(estrategiaMIds.Split(',').ToList());
+                            if (estrategiaMidsList.Any())
+                            {
+                                var estado = administrarEstrategiaProvider.Listar(estrategiaMidsList, userData.CodigoISO);
+                                webApiList.AddRange(estado);
+                            }
+                        }
+
                         lst.AddRange(webApiList.Select(d => d.BEEstrategia).Select(item => new BEEstrategia
                         {
                             CUV2 = item.CUV2,
