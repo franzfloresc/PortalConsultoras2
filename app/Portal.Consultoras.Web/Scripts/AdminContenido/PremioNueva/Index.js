@@ -13,7 +13,7 @@ function getParams() {
         AnoCampanaIni: $("#ddlCampania").val(),
         Nivel: $("#ddlNivel").val(),
         CodigoPrograma: $('#txtPrograma').val(),
-        Active: active
+        ActivePremioAuto: active
     };
     return data;
 }

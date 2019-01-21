@@ -40,7 +40,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     lst = sv.ListarPremioNuevasPaginado(new BEPremioNuevas
                     {
-                        CodigoPrograma= CodigoPrograma ,
+                        CodigoPrograma=   string.IsNullOrEmpty(CodigoPrograma) ? null : CodigoPrograma,
                         AnoCampanaIni= AnoCampanaIni,
                         Nivel= string.IsNullOrEmpty(Nivel) ? null  : Nivel,
                         SortColumna =sidx,
