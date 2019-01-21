@@ -78,7 +78,6 @@ h1#penmostreo .campana {
     margin: 0 auto;
     height: auto;
     z-index: 2;
-    overflow-x:hidden;
 }
 
 .wrapper_general {
