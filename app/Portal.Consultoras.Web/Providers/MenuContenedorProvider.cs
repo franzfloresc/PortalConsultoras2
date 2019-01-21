@@ -322,7 +322,7 @@ namespace Portal.Consultoras.Web.Providers
             menuContenedor = new List<ConfiguracionPaisModel>();
             configuracionesPais = configuracionesPais.Where(c => c.TienePerfil).ToList();
             var isoPais = userData.CodigoISO;
-            var paisCarpeta = _configuracionManagerProvider.GetPaisesEsikaFromConfig().Contains(isoPais) ? "Esika" : "Lbel";
+
             var esElecMultiple = _programaNuevasProvider.GetLimElectivos() > 1;
             List<ServiceOferta.BEEstrategia> listProgNuevas = null;
 
