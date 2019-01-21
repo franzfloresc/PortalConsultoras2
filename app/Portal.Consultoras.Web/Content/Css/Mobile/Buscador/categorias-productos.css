@@ -108,11 +108,6 @@
     font-size:13px;
 }
 
-.categoria_fragancias img{
-    width:100vw;
-    object-position: -15px -180px;
-}
-
 .categoria_maquillaje img,
 .categoria_cuidado_personal img,
 .categoria_tratamiento_facial img,
@@ -123,58 +118,63 @@
     width:50vw;
 }
 
+.categoria_fragancias img{
+    width:100vw;
+    object-position: -15px 46%;
+}
+
 .categoria_maquillaje img{
-    object-position: -4px -18px;
+    object-position: -4px 33%;
 }
 
 .categoria_cuidado_personal img{
-    object-position: -4px -17px;
+    object-position: 11px 22%;
 }
 
 .categoria_tratamiento_facial img{
-    object-position: -4px -41px;
+    object-position: -4px 56%;
 }
 
 .categoria_bijouterie img{
-    object-position: 0 -18px;
+    object-position: 0 13%;
 }
 
 .categoria_moda img{
-    object-position: 0 -32px;
+    object-position: 0 41%;
 }
 
 .categoria_herramientas_venta img{
-    object-position: 7px -46px;
+    object-position: 7px 42%;
 }
 
 @media screen and (max-width:991px) and (orientation:landscape){
 
     .categoria_fragancias img{
-        object-position: -15px -265px;
+        object-position: -15px 43%;
     }
 
     .categoria_maquillaje img{
-        object-position: left -40px;
+        object-position: left 26%;
     }
 
     .categoria_cuidado_personal img{
-        object-position: 45px -67px;
+        object-position: 43px 38%;
     }
 
     .categoria_tratamiento_facial img{
-        object-position: -16px -83px;
+        object-position: -13px 62%;
     }
 
     .categoria_bijouterie img{
-        object-position: 0 -31px;
+        object-position: 0 20%;
     }
 
     .categoria_moda img{
-        object-position: 0 -54px;
+        object-position: 0 34%;
     }
 
     .categoria_herramientas_venta img{
-        object-position: 2px -65px;
+        object-position: 2px 42%;
     }
 
 }
