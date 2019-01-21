@@ -6,6 +6,7 @@ namespace Portal.Consultoras.Web.Models.Estrategia
     {
         public string _id { get; set; }
         public bool FlagConfig { get; set; }
+        public bool FlagImagenURL { get; set; }
         public BEEstrategia BEEstrategia { get; set; }
     }
 }
