@@ -309,19 +309,6 @@ var AnalyticsPortalModule = (function () {
         return obj.TextoList || "";
     }
 
-    var _getTextoSeccionSegunOrigen = function (origenEstructura) {
-
-        var obj = _origenPedidoWebEstructura.Seccion.find(function (element) {
-            return element.Codigo == origenEstructura.Seccion;
-        });
-
-        if (obj == undefined) {
-            return "";
-        }
-
-        return obj.TextoList || "";
-    }
-
     var _getTextoPalancaSegunUrl = function (url) {
 
         var controller = window.controllerName || "";
