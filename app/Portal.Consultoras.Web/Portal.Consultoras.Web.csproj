@@ -1465,7 +1465,7 @@
     <Content Include="Content\Images\Buscador\herramientas.jpg" />
     <Content Include="Content\Images\Buscador\maquillaje.jpg" />
     <Content Include="Content\Images\Buscador\moda.jpg" />
-    <Content Include="Content\Images\Buscador\tratamiento facial.jpg" />
+    <Content Include="Content\Images\Buscador\tratamiento-facial.jpg" />
     <Content Include="Content\Images\cerrar-filtros.svg" />
     <Content Include="Content\Images\banco_bbva.png" />
     <Content Include="Content\Images\banco_bcp.png" />
