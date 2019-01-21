@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Portal.Consultoras.Web.Providers;
+using Portal.Consultoras.Web.ServiceSAC;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
@@ -88,6 +89,20 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.Email = userData.EMail;
             model.Telefono = userData.Celular;
             model.MontoMinimo = userData.MontoMinimo;
+
+            model.TieneCDRExpress = userData.TieneCDRExpress;
+            model.EsConsultoraNueva = userData.EsConsecutivoNueva;
+            model.FleteDespacho = GetValorFleteExpress();
+            model.MensajesExpress = new MensajesCDRExpressModel
+            {
+                RegularPrincipal = GetMensajeCDRExpress(Constantes.MensajesCDRExpress.RegularPrincipal),
+                RegularAdicional = GetMensajeCDRExpress(Constantes.MensajesCDRExpress.RegularAdicional),
+                ExpressPrincipal = GetMensajeCDRExpress(Constantes.MensajesCDRExpress.ExpressPrincipal),
+                ExpressAdicional = GetMensajeCDRExpress(Constantes.MensajesCDRExpress.ExpressAdicional),
+                Nuevas = GetMensajeCDRExpress(Constantes.MensajesCDRExpress.Nuevas),
+                ExpressFlete = SetMensajeFleteExpress(model.FleteDespacho)
+            };
+
 
             int limiteMinimoTelef, limiteMaximoTelef;
             Util.GetLimitNumberPhone(userData.PaisID, out limiteMinimoTelef, out limiteMaximoTelef);
@@ -233,6 +248,62 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 message = "",
                 detalle = lista
             }, JsonRequestBehavior.AllowGet);
+        }
+
+        private decimal GetValorFleteExpress()
+        {
+            decimal costoFlete = 0;
+            try
+            {
+                using (CDRServiceClient cdr = new CDRServiceClient())
+                {
+                    var flete = cdr.GetMontoFletePorZonaId(userData.PaisID, new BECDRWeb() { ZonaID = userData.ZonaID });
+                    costoFlete = flete.FleteDespacho;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoUsuario, userData.CodigoISO);
+            }
+            return costoFlete;
+        }
+
+        private List<BETablaLogicaDatos> GetListMensajeCDRExpress()
+        {
+            if (SessionManager.GetCDRExpressMensajes() != null)
+            {
+                return SessionManager.GetCDRExpressMensajes();
+            }
+
+            var listMensaje = new List<BETablaLogicaDatos>();
+            try
+            {
+                using (SACServiceClient sv = new SACServiceClient())
+                {
+                    listMensaje = sv.GetTablaLogicaDatos(userData.PaisID, Constantes.TablaLogica.CDRExpress).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+            SessionManager.SetCDRExpressMensajes(listMensaje);
+            return listMensaje;
+        }
+
+        private string GetMensajeCDRExpress(string key)
+        {
+            var listMensaje = GetListMensajeCDRExpress();
+            var item = listMensaje.FirstOrDefault(i => i.Codigo == key);
+            return (item ?? new BETablaLogicaDatos()).Descripcion;
+        }
+
+        private string SetMensajeFleteExpress(decimal flete)
+        {
+            if (flete <= 0) return GetMensajeCDRExpress(Constantes.MensajesCDRExpress.ExpressFleteCero);
+
+            var textoFlete = GetMensajeCDRExpress(Constantes.MensajesCDRExpress.ExpressFlete);
+            return string.Format(textoFlete, userData.Simbolo, Util.DecimalToStringFormat(flete, userData.CodigoISO));
         }
     }
 }

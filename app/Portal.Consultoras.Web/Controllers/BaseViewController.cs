@@ -322,14 +322,15 @@ namespace Portal.Consultoras.Web.Controllers
             bool productoPerteneceACampaniaActual, string palanca)
         {
             var breadCrumbs = new DetalleEstrategiaBreadCrumbsModel();
-            var area = IsMobile() ? "mobile" : string.Empty;
-            var nombresPalancas = GetNombresPalancas();
-            breadCrumbs.Inicio.Texto = "Inicio";
-            breadCrumbs.Ofertas.Texto = tieneRevistaDigital && revistaDigital.EsSuscrita ? "Gana +" : "Ofertas Digitales";
-            breadCrumbs.Palanca.Texto = nombresPalancas.ContainsKey(palanca) ? nombresPalancas[palanca] : string.Empty;
 
             try
             {
+                var area = IsMobile() ? "mobile" : string.Empty;
+
+                breadCrumbs.Inicio.Texto = "Inicio";
+                breadCrumbs.Ofertas.Texto = tieneRevistaDigital && revistaDigital.EsSuscrita ? "Gana +" : "Ofertas Digitales";
+                breadCrumbs.Palanca.Texto = GetNombresPalancas(palanca);
+
                 breadCrumbs.Inicio.Url = Url.Action("Index", new { controller = "Bienvenida", area });
 
                 var actionOfertas = productoPerteneceACampaniaActual ? "Index" : "Revisar";
@@ -339,48 +340,57 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!string.IsNullOrWhiteSpace(breadCrumbs.Palanca.Texto))
                 {
                     breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "Ofertas", area });
-                    if (palanca == Constantes.NombrePalanca.ShowRoom)
-                        breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "ShowRoom", area });
-
-                    if (palanca == Constantes.NombrePalanca.Lanzamiento)
+                    switch (palanca)
                     {
-                        var actionPalanca = productoPerteneceACampaniaActual ? "Index" : "Revisar";
-                        breadCrumbs.Palanca.Url = Url.Action(actionPalanca, new { controller = "Ofertas", area }) + "#" + Constantes.ConfiguracionPais.Lanzamiento;
+                        case Constantes.NombrePalanca.ShowRoom:
+                            breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "ShowRoom", area });
+                            break;
+                        case Constantes.NombrePalanca.Lanzamiento:
+                            {
+                                var actionPalanca = productoPerteneceACampaniaActual ? "Index" : "Revisar";
+                                breadCrumbs.Palanca.Url = Url.Action(actionPalanca, new { controller = "Ofertas", area }) + "#" + Constantes.ConfiguracionPais.Lanzamiento;
+                                break;
+                            }
+                        case Constantes.NombrePalanca.OfertaParaTi:
+                        case Constantes.NombrePalanca.OfertasParaMi:
+                        case Constantes.NombrePalanca.RevistaDigital:
+                            {
+                                if (tieneRevistaDigital)
+                                {
+                                    var actionPalanca = productoPerteneceACampaniaActual ? "Comprar" : "Revisar";
+                                    breadCrumbs.Palanca.Url = Url.Action(actionPalanca, new { controller = "RevistaDigital", area });
+                                }
+                                else
+                                {
+                                    breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "Ofertas", area }) + "#" + Constantes.ConfiguracionPais.OfertasParaTi;
+                                }
+
+                                break;
+                            }
+                        case Constantes.NombrePalanca.PackNuevas:
+                            breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "ProgramaNuevas", area });
+                            break;
+                        case Constantes.NombrePalanca.OfertaDelDia:
+                            breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "Ofertas", area }) + "#" + Constantes.ConfiguracionPais.OfertaDelDia;
+                            break;
+                        case Constantes.NombrePalanca.GuiaDeNegocioDigitalizada:
+                            breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "GuiaNegocio", area });
+                            break;
+                        case Constantes.NombrePalanca.HerramientasVenta:
+                            {
+                                var actionPalanca = productoPerteneceACampaniaActual ? "Comprar" : "Revisar";
+                                breadCrumbs.Palanca.Url = Url.Action(actionPalanca, new { controller = "HerramientasVenta", area });
+                                break;
+                            }
+
+                        case Constantes.NombrePalanca.MasGanadoras:
+                            breadCrumbs.Palanca.Url =
+                                SessionManager.MasGanadoras.GetModel().TieneLanding
+                                ? Url.Action("Index", new { controller = "MasGanadoras", area })
+                                : (Url.Action("Index", new { controller = "Ofertas", area }) + "#" + Constantes.ConfiguracionPais.MasGanadoras);
+
+                            break;
                     }
-
-                    if (palanca == Constantes.NombrePalanca.OfertaParaTi ||
-                        palanca == Constantes.NombrePalanca.OfertasParaMi ||
-                        palanca == Constantes.NombrePalanca.RevistaDigital)
-                    {
-                        if (tieneRevistaDigital)
-                        {
-                            var actionPalanca = productoPerteneceACampaniaActual ? "Comprar" : "Revisar";
-                            breadCrumbs.Palanca.Url = Url.Action(actionPalanca, new { controller = "RevistaDigital", area });
-                        }
-                        else
-                        {
-                            breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "Ofertas", area }) + "#" + Constantes.ConfiguracionPais.OfertasParaTi;
-                        }
-                    }
-                    if (palanca == Constantes.NombrePalanca.PackNuevas)
-                        breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "ProgramaNuevas", area });
-                    if (palanca == Constantes.NombrePalanca.OfertaDelDia)
-                        breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "Ofertas", area }) + "#" + Constantes.ConfiguracionPais.OfertaDelDia;
-
-                    if (palanca == Constantes.NombrePalanca.GuiaDeNegocioDigitalizada)
-                        breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "GuiaNegocio", area });
-
-                    if (palanca == Constantes.NombrePalanca.HerramientasVenta)
-                    {
-                        var actionPalanca = productoPerteneceACampaniaActual ? "Comprar" : "Revisar";
-                        breadCrumbs.Palanca.Url = Url.Action(actionPalanca, new { controller = "HerramientasVenta", area });
-                    }
-
-                    if (palanca == Constantes.NombrePalanca.MasGanadoras)
-                        breadCrumbs.Palanca.Url =
-                            SessionManager.MasGanadoras.GetModel().TieneLanding
-                            ? Url.Action("Index", new { controller = "MasGanadoras", area })
-                            : (Url.Action("Index", new { controller = "Ofertas", area }) + "#" + Constantes.ConfiguracionPais.MasGanadoras);
                 }
 
                 breadCrumbs.Producto.Url = "#";
@@ -393,22 +403,23 @@ namespace Portal.Consultoras.Web.Controllers
             return breadCrumbs;
         }
 
-        private Dictionary<string, string> GetNombresPalancas()
+        private string GetNombresPalancas(string palanca)
         {
-            var NombrePalancas = new Dictionary<string, string>();
+            var nombresPalancas = new Dictionary<string, string>
+            {
+                { Constantes.NombrePalanca.ShowRoom, "Especiales" },
+                { Constantes.NombrePalanca.Lanzamiento, "Lo nuevo ¡Nuevo!" },
+                { Constantes.NombrePalanca.OfertaParaTi, "Ofertas para ti" },
+                { Constantes.NombrePalanca.OfertasParaMi, "Ofertas Para ti" },
+                { Constantes.NombrePalanca.RevistaDigital, "Revista Digital" },
+                { Constantes.NombrePalanca.OfertaDelDia, "¡Solo Hoy!" },
+                { Constantes.NombrePalanca.GuiaDeNegocioDigitalizada, "Guía De Negocio" },
+                { Constantes.NombrePalanca.HerramientasVenta, "Demostradores" },
+                { Constantes.NombrePalanca.MasGanadoras, "Las más ganadoras" },
+                { Constantes.NombrePalanca.PackNuevas, _programaNuevasProvider.GetLimElectivos() > 1 ? "Dúo Perfecto" : "Programa Nuevas" }
+            };
 
-            NombrePalancas.Add(Constantes.NombrePalanca.ShowRoom, "Especiales");
-            NombrePalancas.Add(Constantes.NombrePalanca.Lanzamiento, "Lo nuevo ¡Nuevo!");
-            NombrePalancas.Add(Constantes.NombrePalanca.OfertaParaTi, "Ofertas para ti");
-            NombrePalancas.Add(Constantes.NombrePalanca.OfertasParaMi, "Ofertas Para ti");
-            NombrePalancas.Add(Constantes.NombrePalanca.RevistaDigital, "Revista Digital");
-            NombrePalancas.Add(Constantes.NombrePalanca.OfertaDelDia, "¡Solo Hoy!");
-            NombrePalancas.Add(Constantes.NombrePalanca.GuiaDeNegocioDigitalizada, "Guía De Negocio");
-            NombrePalancas.Add(Constantes.NombrePalanca.HerramientasVenta, "Demostradores");
-            NombrePalancas.Add(Constantes.NombrePalanca.MasGanadoras, "Las más ganadoras");
-
-            NombrePalancas.Add(Constantes.NombrePalanca.PackNuevas, _programaNuevasProvider.GetLimElectivos() > 1 ? "Dúo Perfecto" : "Programa Nuevas");
-            return NombrePalancas;
+            return nombresPalancas.ContainsKey(palanca) ? nombresPalancas[palanca] : string.Empty;
         }
 
         public int GetOrigenPedidoWebDetalle(string origen, bool tieneCarrusel = false)
@@ -597,7 +608,7 @@ namespace Portal.Consultoras.Web.Controllers
                 case Constantes.OrigenPedidoWeb.DesktopHomeOfertaDelDiaBannerSuperior:
                     result = Constantes.OrigenPedidoWeb.DesktopHomeOfertaDelDiaFicha;
                     break;
-                #endregion
+                    #endregion
             }
 
             return result;
@@ -606,41 +617,41 @@ namespace Portal.Consultoras.Web.Controllers
 
         public string IdentificarPalancaRevistaDigital(string palanca, int campaniaId)
         {
+            var palancaX = palanca;
             switch (palanca)
             {
                 case Constantes.NombrePalanca.OfertaParaTi:
-                    if (revistaDigital != null)
+                    if (revistaDigital == null)
+                        break;
+
+                    if (revistaDigital.ActivoMdo)
                     {
-                        if (revistaDigital.ActivoMdo)
-                        {
-                            palanca = Constantes.NombrePalanca.OfertasParaMi;
-                        }
-                        else
-                        {
-                            if (revistaDigital.TieneRDC || revistaDigital.TieneRDCR)
-                            {
-                                if (revistaDigital.EsActiva)
-                                {
-                                    palanca = Constantes.NombrePalanca.OfertasParaMi;
-                                }
-                                else
-                                {
-                                    palanca = campaniaId == userData.CampaniaID
-                                        ? Constantes.NombrePalanca.OfertaParaTi
-                                        : Constantes.NombrePalanca.OfertasParaMi;
-                                }
-                            }
-                            else
-                            {
-                                palanca = Constantes.NombrePalanca.OfertaParaTi;
-                            }
-                        }
+                        palancaX = Constantes.NombrePalanca.OfertasParaMi;
+                        break;
                     }
+
+                    if (revistaDigital.TieneRDC || revistaDigital.TieneRDCR)
+                    {
+                        if (revistaDigital.EsActiva)
+                        {
+                            palancaX = Constantes.NombrePalanca.OfertasParaMi;
+                            break;
+                        }
+
+                        palancaX = campaniaId == userData.CampaniaID
+                            ? Constantes.NombrePalanca.OfertaParaTi
+                            : Constantes.NombrePalanca.OfertasParaMi;
+                        
+                        break;
+                    }
+
+                    palancaX = Constantes.NombrePalanca.OfertaParaTi;
+
                     break;
                 default:
                     break;
             }
-            return palanca;
+            return palancaX;
         }
     }
 }

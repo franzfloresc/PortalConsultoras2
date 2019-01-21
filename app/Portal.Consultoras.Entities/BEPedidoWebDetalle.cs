@@ -332,6 +332,8 @@ namespace Portal.Consultoras.Entities
         public string TipoAdm { get; set; }
         [DataMember]
         public bool QuitoCantBackOrder { get; set; }
+        [DataMember]
+        public bool EsDuoPerfecto { get; set; }
     }
 
 }
