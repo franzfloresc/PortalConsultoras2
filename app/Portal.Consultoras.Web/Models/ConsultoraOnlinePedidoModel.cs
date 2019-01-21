@@ -8,5 +8,6 @@ namespace Portal.Consultoras.Web.Models
         public int ClienteId { get; set; }
         public List<MisPedidosDetalleModel> ListaDetalleModel { get; set; }
         public int Accion { get; set; }
+        public int Dispositivo { get; set; }
     }
 }
