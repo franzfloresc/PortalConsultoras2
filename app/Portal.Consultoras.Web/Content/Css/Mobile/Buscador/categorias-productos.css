@@ -157,6 +157,26 @@
         object-position: left -40px;
     }
 
+    .categoria_cuidado_personal img{
+        object-position: 45px -67px;
+    }
+
+    .categoria_tratamiento_facial img{
+        object-position: -16px -83px;
+    }
+
+    .categoria_bijouterie img{
+        object-position: 0 -31px;
+    }
+
+    .categoria_moda img{
+        object-position: 0 -54px;
+    }
+
+    .categoria_herramientas_venta img{
+        object-position: 2px -65px;
+    }
+
 }
 
 @media screen and (max-width:355px){
