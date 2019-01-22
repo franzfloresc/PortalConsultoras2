@@ -4276,7 +4276,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "Ocurrio un error, vuelva ha intentalo."
+                    message = "Ocurrió un error, vuelva a intentarlo."
                 });
             }
         }
