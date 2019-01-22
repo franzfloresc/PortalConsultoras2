@@ -3005,6 +3005,8 @@ namespace Portal.Consultoras.Common
             public const string UrlPersonalizacion = "Personalizacion/{0}/{1}/{2}/{3}";
 
             public const string UrlRecomendaciones = "Recomendaciones/{0}/{1}/{2}";
+
+            public const string UrlCategorias = "Categoria/{0}/{1}";
         }
 
         public static class ActualizacionDatosValidacion
