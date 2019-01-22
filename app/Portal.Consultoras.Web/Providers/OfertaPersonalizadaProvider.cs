@@ -508,9 +508,11 @@ namespace Portal.Consultoras.Web.Providers
                     tipoPersonalizacion,
                     campaniaId,
                     userData.CodigoConsultora,
+                    materialGanancia,
+                    0,//diaInicio
                     userData.CodigorRegion,
-                    userData.CodigoZona,
-                    materialGanancia);
+                    userData.CodigoZona
+                   );
                 var taskApi = Task.Run(() => OfertaBaseProvider.ObtenerOfertasDesdeApi(pathMS, userData.CodigoISO));
                 Task.WhenAll(taskApi);
                 listEstrategia = taskApi.Result;
