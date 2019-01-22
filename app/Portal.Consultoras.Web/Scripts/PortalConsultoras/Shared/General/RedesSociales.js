@@ -210,14 +210,14 @@
         }
 
 
-        $('#CompartirCorreo').show();
-        $('#CompartirCorreoMobile').show();
+        $('#CompartirCorreo').fadeIn(100);
+        $('#CompartirCorreoMobile').fadeIn(100);
 
         var cata = $("#divCatalogo [data-cam='" + campania + "'][data-estado='1']");
-        $("#divCheckbox [data-cat]").hide();
+        $("#divCheckbox [data-cat]").fadeOut(100);
         for (var i = 0; i < cata.length; i++) {
             var cat = $(cata[i]).attr("data-cat");
-            $("#divCheckbox [data-cat='" + cat + "']").show();
+            $("#divCheckbox [data-cat='" + cat + "']").fadeIn(100);
         }
     }
 
@@ -262,9 +262,9 @@
         if (tipoCatalogo == 'Todo') {
 
             $('#btnEnviarCorreo').data('piloto', '1')
-            $('#divDescEnviar').hide();
-            $('#divCheckbox').hide();
-            $('#CompartirCorreo').show();
+            $('#divDescEnviar').fadeOut(100);
+            $('#divCheckbox').fadeOut(100);
+            $('#CompartirCorreo').fadeIn(100);
             
         }
         else {
@@ -279,20 +279,20 @@
             }
 
             $('#btnEnviarCorreo').data('piloto', '0')
-            $('#divDescEnviar').show();
-            $('#divCheckbox').show();
+            $('#divDescEnviar').fadeIn(100);
+            $('#divCheckbox').fadeIn(100);
 
-            $('#CompartirCorreo').show();
-            //$('#CompartirCorreoMobile').show();
+            $('#CompartirCorreo').fadeIn(100);
+            //$('#CompartirCorreoMobile').fadeIn(100);
                                 
             for (var i = 0; i < 3; i++) {
                 var cata = $("#divCatalogo" + i + " [data-cam='" + campania + "'][data-estado='1']");
 
                 if (cata.length > 0) {
-                    $("#divCheckbox [data-cat]").hide();
+                    $("#divCheckbox [data-cat]").fadeOut(100);
                     for (var j = 0; j < cata.length; j++) {
                         var cat = $(cata[j]).attr("data-cat");
-                        $("#divCheckbox [data-cat='" + cat + "']").show();
+                        $("#divCheckbox [data-cat='" + cat + "']").fadeIn(100);
                     }
                 }
             }          

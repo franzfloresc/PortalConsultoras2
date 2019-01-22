@@ -739,7 +739,7 @@ function CatalogoEnviarEmail() {
         async: true,
         success: function (data) {
             closeWaitingDialog();
-            $('#CompartirCorreo').hide();
+            $('#CompartirCorreo').fadeOut(100);
             if (checkTimeout(data)) {
                 if (data.success) {
                     MonstrarAlerta(data.message);
@@ -754,7 +754,7 @@ function CatalogoEnviarEmail() {
         },
         error: function (data, error) {
             closeWaitingDialog();
-            $('#CompartirCorreo').hide();
+            $('#CompartirCorreo').fadeOut(100);
             if (checkTimeout(data)) {
                 MonstrarExclamacion("ERROR");
             }
@@ -803,7 +803,7 @@ function CatalogoEnviarEmailPiloto() {
         async: true,
         success: function (data) {
             closeWaitingDialog();
-            $('#CompartirCorreo').hide();
+            $('#CompartirCorreo').fadeOut(100);
             if (checkTimeout(data)) {
                 if (data.success) {
                     MonstrarAlerta(data.message);
@@ -818,7 +818,7 @@ function CatalogoEnviarEmailPiloto() {
         },
         error: function (data, error) {
             closeWaitingDialog();
-            $('#CompartirCorreo').hide();
+            $('#CompartirCorreo').fadeOut(100);
             if (checkTimeout(data)) {
                 MonstrarExclamacion("ERROR");
             }
@@ -957,10 +957,10 @@ function ocultarTooltipCompartirCatalogoMobile() {
 
 function MonstrarExclamacion(texto) {
     $("#mensaje_exclamacion #mensaje_exclamacion_texto").html(texto);
-    $("#mensaje_exclamacion").show();
+    $("#mensaje_exclamacion").fadeIn(100);
 }
 
 function MonstrarAlerta(texto) {
     $("#mensaje_alerta #mensaje_alerta_texto").html(texto);
-    $("#mensaje_alerta").show();
+    $("#mensaje_alerta").fadeIn(100);
 }

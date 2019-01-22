@@ -409,10 +409,6 @@
 
 @media screen and (max-width:991px){
 
-    .indicador__catalogos__revistas.indicador__catalogos__revistas--activo{
-        background-color:#642f80;
-    }
-
     .tabs__catalogos__revistas{
         background-color:#ffffff;
         border-bottom:1px solid #000;
