@@ -545,7 +545,7 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult EnviarEmailPiloto(List<CatalogoClienteModel> ListaCatalogosCliente, string Mensaje, string Campania)
         {
             try
-            {
+            {                
                 var url = GetUrlCatalogoPiloto(false);
                 var urlImagenLogo = Globals.RutaCdn + "/ImagenesPortal/Iconos/logo.png";
                 var urlIconEmail = Globals.RutaCdn + "/ImagenesPortal/Iconos/mensaje_mail.png";
@@ -558,6 +558,7 @@ namespace Portal.Consultoras.Web.Controllers
                     urlIconTelefono = Globals.RutaCdn + "/ImagenesPortal/Iconos/celu_mail_lbel.png";
                 }
 
+                Mensaje = Mensaje.Replace("\n", Environment.NewLine);
                 var txtBuil = new StringBuilder();
                 foreach (var item in ListaCatalogosCliente)
                 {
