@@ -765,6 +765,10 @@ function MostrarBarra(datax, destino) {
 
             CalculoPosicionMinimoMaximoDestokp();
             CalculoPosicionMensajeDestokp();
+            var premioNoSelected = destino == '2' && tpElectivos.loadPremios && !tpElectivos.premioSelected;
+            if (premioNoSelected) {
+                $('#divBarra .contenedor_circulos').show();
+            }
         }
     }
 
