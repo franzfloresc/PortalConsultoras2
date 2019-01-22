@@ -1102,7 +1102,7 @@ input[type='checkbox']:checked + span:after {
         bottom: 17px;
         z-index: 3;
         height: auto;
-        padding:15px 51px;
+        padding:15px 68px;
     }
 
     .opcion__compartir__catalogo{
@@ -1261,11 +1261,15 @@ input[type='checkbox']:checked + span:after {
 
 }
 
-@media screen and (min-width:409px) and (max-width:991px){
+@media screen and (min-width:467px) and (max-width:991px){
 
     .opcion__compartir__catalogo--copiarEnlace{
         margin-top:0;
     }
+
+}
+
+@media screen and (max-width:395px){
 
     .opciones__compartir__catalogos{
         padding:20px 40px;
