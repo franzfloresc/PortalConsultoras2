@@ -1,20 +1,22 @@
 ﻿using Portal.Consultoras.BizLogic.Reserva;
+using Portal.Consultoras.BizLogic.LimiteVenta;
 using Portal.Consultoras.Common;
-using Portal.Consultoras.Entities.ProgramaNuevas;
 using Portal.Consultoras.Data.ServiceCalculoPROL;
 using Portal.Consultoras.Data.ServicePROL;
 using Portal.Consultoras.Data.ServicePROLConsultas;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Pedido;
 using Portal.Consultoras.Entities.ReservaProl;
+using Portal.Consultoras.Entities.Producto;
+using Portal.Consultoras.Entities.ProgramaNuevas;
 using Portal.Consultoras.PublicService.Cryptography;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Portal.Consultoras.BizLogic.LimiteVenta;
 
 namespace Portal.Consultoras.BizLogic.Pedido
 {
@@ -1352,6 +1354,26 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     };
                 }
             }).ToList();
+        }
+
+        public List<BEProductoRecomendado> GetProductoRecomendado(int paisID, bool RDEsSuscrita, bool RDEsActiva, List<BEProductoRecomendado> lst)
+        {
+            var listaDescripcionesDic = new Dictionary<string, string>();
+            var suscripcionActiva = RDEsSuscrita && RDEsActiva;
+
+            var listaDescripciones = _tablaLogicaDatosBusinessLogic.GetListCache(paisID, Constantes.TablaLogica.NuevaDescripcionProductos);
+
+            foreach (var item in listaDescripciones)
+            {
+                listaDescripcionesDic.Add(item.Codigo, item.Descripcion);
+            }
+
+            lst.ForEach(item =>
+            {
+                item.DescripcionEstrategia = Util.obtenerNuevaDescripcionProducto(listaDescripcionesDic, suscripcionActiva, item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaID, 0, true);
+            });
+
+            return lst;
         }
         #endregion
 
