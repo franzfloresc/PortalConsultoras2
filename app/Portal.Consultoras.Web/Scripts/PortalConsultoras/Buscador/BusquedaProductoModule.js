@@ -56,7 +56,8 @@
         isHome: false,
         filtros: [],
         filtrosLocalStorage: 'filtrosLocalStorage',
-        nombreGrupo: "Categoría"
+        nombreGrupo: "Categoría",
+        categoriaLocalStorage: "categoriasBuscadorMobile"
     };
     var _provider = {
         BusquedaProductoPromise: function (params) {
@@ -125,7 +126,10 @@
                     $(_elementos.divCantidadProductoMobile).html(data.total + ' Resultados');
                     _funciones.ProcesarListaProductos(data.productos);
                     SetHandlebars(_elementos.scriptHandleBarFicha, data.productos, _elementos.divContenedorFicha);
+                    console.log("dataFiltros", data.filtros);
+                    _funciones.validacionDataCategoria(data.filtros);
                     SetHandlebars(_elementos.scriptHandleBarFiltros, data.filtros, _elementos.filtroListaHandleBar);
+
                     _funciones.UpadteFichaProducto();
                     _config.totalProductos = data.total;
                     _config.cargandoProductos = false;
@@ -277,23 +281,48 @@
 
             _funciones.CargarProductos();
         },
-        buscarPorCategoria: function () {
-            if (categoriaBusqueda.length > 0) {
-                _config.textoBusqueda = "";
-                $(_elementos.textoBusquedaMostar).html("Fragancias");
-                _config.filtros = [
-                    {
-                        NombreGrupo: _config.nombreGrupo,
-                        Opciones: [
-                            {
-                                IdFiltro: categoriaBusqueda,
-                                NombreFiltro: "Fragancias",
-                                Min: 0,
-                                Max: 0
-                            }
-                        ]
+        validacionDataCategoria: function (dataFiltro) {
+            var data = dataFiltro;
+            if (_config.categoriaBusqueda.length > 0) {
+                for (var i = 0; i < data.length; i++) {
+                    for (var j = 0; j < data[i].Opciones.length; j++) {
+                        if (data[i].Opciones[j].idFiltro == categoriaBusqueda) {
+                            dataFiltro[i].Opciones.splice(j, 1);
+                        }
                     }
-                ];
+                }
+            }
+            return dataFiltro;
+        },
+        buscarPorCategoria: function () {
+            if (_config.categoriaBusqueda.length > 0) {
+                $(_elementos.textoBusquedaMostar).html("Fragancias");
+
+                var categorias = get_local_storage("categoriasBuscadorMobile");
+                var nombreFiltro = "";
+
+                for (var i = 0; i < categorias.length; i++) {
+                    if (categorias[i].Codigo == _config.categoriaBusqueda) {
+                        nombreFiltro = categorias[i].Nombre;
+                        i += categorias.length;
+                    }
+                }
+
+                var filtroDuro = [{
+                    NombreGrupo: "Categoría",
+                    Opciones: [
+                        {
+                            IdFiltro: _config.categoriaBusqueda,
+                            NombreFiltro: nombreFiltro,
+                            Min: 0,
+                            Max: 0
+                        }]
+                }];
+                
+                set_local_storage(filtroDuro, _config.filtrosLocalStorage);
+
+                _config.numeroPaginaActual = 0;
+                _config.filtros = filtroDuro;
             }
         }
     };
@@ -334,8 +363,6 @@
 
             if (!(typeof AnalyticsPortalModule === 'undefined'))
                 AnalyticsPortalModule.MarcaEliminarEtiqueta(filtroLabel);
-            break;
-
 
             if (_config.isMobile) {
                 var capturarAnchoEtiquetaPorEliminarMobile = etiquetaCriterioPorEliminar.outerWidth() + 10;
@@ -656,10 +683,9 @@
     //Public functions
     function Inicializar() {
         _funciones.InicializarEventos();
-
+        set_local_storage([], _config.filtrosLocalStorage);
         _funciones.buscarPorCategoria();
         _funciones.CargarProductos();
-        set_local_storage([], _config.filtrosLocalStorage);
     }
 
     function ScrollPagina() {
