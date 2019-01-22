@@ -1267,10 +1267,6 @@ input[type='checkbox']:checked + span:after {
         margin-top:0;
     }
 
-}
-
-@media screen and (min-width:377px) and (max-width:991px){
-
     .opciones__compartir__catalogos{
         padding:20px 40px;
     }
