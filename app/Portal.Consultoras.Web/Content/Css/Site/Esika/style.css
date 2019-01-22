@@ -28687,20 +28687,39 @@ div.motivoRechazo textarea {
     font-size: 15px;
     line-height: 30px;
     width: 330px;
-    text-decoration: underline;
+}
+
+.politica_reclamos_icono,
+.politica_reclamos_texto
+{
+    display:inline-block;
+    vertical-align:middle;
 }
 
 .politica_reclamos_icono {
-    padding-left: 35px;
-    padding-bottom: 10px;
-    padding-top: 2px;
-    background: url('/Content/Images/Esika/terminos.png') no-repeat;
-    display: inline;
+    background-image: url('/Content/Images/check_terminos_cdr.svg');
+    background-repeat:no-repeat;
+    background-position:center;
+    background-color:#d6d6d6;
+    width:20px;
+    height:20px;
+    margin-top:4.5px;
+    margin-right:6px;
+    border-radius:4px;
+    background-size: 65%;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    cursor:pointer;
 }
 
 .politica_reclamos_icono_active {
-    background: url('/Content/Images/Esika/icono_check_esika.png') no-repeat;
-    background-size: 75%;
+    background-color:#e81c36;
+}
+
+.politica_reclamos_texto a{
+    text-decoration:underline;
 }
 
 .btn_agrega_otro_reclamo {
