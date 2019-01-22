@@ -62,7 +62,7 @@ var BuscadorModule = (function () {
         aplicarLogicaCantidadBotonVerTodos: (AplicarLogicaCantidadBotonVerTodos === 'true'),
         contadorBusqueda: 0,
         isHome: true,
-        categorias: 'categorias'
+        categorias: 'categoriasBuscadorMobile'
     };
     var _funciones = { //Funciones privadas
         InicializarEventos: function () {

@@ -34,7 +34,8 @@
         etiquetaCriterioElegido: '.icono__eliminar__criterioElegido',
         filtroBtnMobileWrapper: '.filtro__btn__mobile__wrapper',
         valueJSON: ".hdBuscadorJSON",
-        filtroListaHandleBar: ".filtros__lista-handleBar"
+        filtroListaHandleBar: ".filtros__lista-handleBar",
+        textoBusquedaMostar: "#TextoBusqueda"
     };
     var _modificador = {
         itemDropDowndesplegado: "opcion__ordenamiento__dropdown--desplegado",
@@ -43,6 +44,7 @@
     var _config = {
         isMobile: window.matchMedia("(max-width:991px)").matches,
         textoBusqueda: textoBusqueda,
+        categoriaBusqueda: categoriaBusqueda,
         totalProductos: 0,
         totalPaginas: 0,
         productosPorPagina: totalProductosPagina,
@@ -53,7 +55,9 @@
         maxCaracteresDesc: totalCaracteresDescripcion,
         isHome: false,
         filtros: [],
-        filtrosLocalStorage: 'filtrosLocalStorage'
+        filtrosLocalStorage: 'filtrosLocalStorage',
+        nombreGrupo: "Categoría",
+        categoriaLocalStorage: "categoriasBuscadorMobile"
     };
     var _provider = {
         BusquedaProductoPromise: function (params) {
@@ -122,7 +126,10 @@
                     $(_elementos.divCantidadProductoMobile).html(data.total + ' Resultados');
                     _funciones.ProcesarListaProductos(data.productos);
                     SetHandlebars(_elementos.scriptHandleBarFicha, data.productos, _elementos.divContenedorFicha);
+                    console.log("dataFiltros", data.filtros);
+                    _funciones.validacionDataCategoria(data.filtros);
                     SetHandlebars(_elementos.scriptHandleBarFiltros, data.filtros, _elementos.filtroListaHandleBar);
+
                     _funciones.UpadteFichaProducto();
                     _config.totalProductos = data.total;
                     _config.cargandoProductos = false;
@@ -273,6 +280,50 @@
             }
 
             _funciones.CargarProductos();
+        },
+        validacionDataCategoria: function (dataFiltro) {
+            var data = dataFiltro;
+            if (_config.categoriaBusqueda.length > 0) {
+                for (var i = 0; i < data.length; i++) {
+                    for (var j = 0; j < data[i].Opciones.length; j++) {
+                        if (data[i].Opciones[j].idFiltro == categoriaBusqueda) {
+                            dataFiltro[i].Opciones.splice(j, 1);
+                        }
+                    }
+                }
+            }
+            return dataFiltro;
+        },
+        buscarPorCategoria: function () {
+            if (_config.categoriaBusqueda.length > 0) {
+                $(_elementos.textoBusquedaMostar).html("Fragancias");
+
+                var categorias = get_local_storage("categoriasBuscadorMobile");
+                var nombreFiltro = "";
+
+                for (var i = 0; i < categorias.length; i++) {
+                    if (categorias[i].Codigo == _config.categoriaBusqueda) {
+                        nombreFiltro = categorias[i].Nombre;
+                        i += categorias.length;
+                    }
+                }
+
+                var filtroDuro = [{
+                    NombreGrupo: "Categoría",
+                    Opciones: [
+                        {
+                            IdFiltro: _config.categoriaBusqueda,
+                            NombreFiltro: nombreFiltro,
+                            Min: 0,
+                            Max: 0
+                        }]
+                }];
+                
+                set_local_storage(filtroDuro, _config.filtrosLocalStorage);
+
+                _config.numeroPaginaActual = 0;
+                _config.filtros = filtroDuro;
+            }
         }
     };
     var _eventos = {
@@ -312,8 +363,6 @@
 
             if (!(typeof AnalyticsPortalModule === 'undefined'))
                 AnalyticsPortalModule.MarcaEliminarEtiqueta(filtroLabel);
-            break;
-
 
             if (_config.isMobile) {
                 var capturarAnchoEtiquetaPorEliminarMobile = etiquetaCriterioPorEliminar.outerWidth() + 10;
@@ -634,8 +683,9 @@
     //Public functions
     function Inicializar() {
         _funciones.InicializarEventos();
-        _funciones.CargarProductos();
         set_local_storage([], _config.filtrosLocalStorage);
+        _funciones.buscarPorCategoria();
+        _funciones.CargarProductos();
     }
 
     function ScrollPagina() {
