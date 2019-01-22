@@ -11,7 +11,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class AdministrarReporteValidacionController : BaseController
+    public class AdministrarReporteValidacionController : BaseAdmController
     {
 
         protected OfertaBaseProvider _ofertaBaseProvider;
@@ -38,8 +38,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return RedirectToAction("Index", "Bienvenida");
 
             string paisIso = Util.GetPaisISO(userData.PaisID);
-            var carpetaPais = Globals.UrlMatriz + "/" + paisIso;
-            var urlS3 = ConfigCdn.GetUrlCdn(carpetaPais);
+            var urlS3 = ConfigCdn.GetUrlCdnMatriz(paisIso);
 
             var reporteValidacionModel = new ReporteValidacionModel()
             {
@@ -61,27 +60,15 @@ namespace Portal.Consultoras.Web.Controllers
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
 
-        public JsonResult ObtenerCampanias()
-        {
-            int paisId = userData.PaisID;
-            IEnumerable<CampaniaModel> lst = DropDowListCampanias(paisId);
-
-            return Json(new
-            {
-                lista = lst
-            }, JsonRequestBehavior.AllowGet);
-        }
-
-        private IEnumerable<CampaniaModel> DropDowListCampanias(int paisId)
-        {
-            IList<BECampania> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = sv.SelectCampanias(paisId);
-            }
-
-            return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
-        }
+        //movido BaseAdm/ObtenerCampaniasPorUsuario
+        //public JsonResult ObtenerCampanias()
+        //{
+        //    IEnumerable<CampaniaModel> lst = _zonificacionProvider.GetCampanias(userData.PaisID);
+        //    return Json(new
+        //    {
+        //        lista = lst
+        //    }, JsonRequestBehavior.AllowGet);
+        //}
 
         private IEnumerable<TipoEstrategiaModel> DropDowListTipoEstrategia()
         {
@@ -154,8 +141,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             foreach (var item in lst)
             {
-                var carpetaPais = Globals.UrlMatriz + "/" + item.CodPais;
-                var urlS3 = ConfigCdn.GetUrlCdn(carpetaPais);
+                var urlS3 = ConfigCdn.GetUrlCdnMatriz(item.CodPais);
                 item.ImagenUrl = urlS3 + item.ImagenUrl;
             }
 

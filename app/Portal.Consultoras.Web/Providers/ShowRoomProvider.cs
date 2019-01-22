@@ -503,7 +503,6 @@ namespace Portal.Consultoras.Web.Providers
         {
             if (_ofertaBaseProvider.UsarMsPersonalizacion(model.CodigoISO, Constantes.TipoEstrategiaCodigo.ShowRoom))
             {
-                List<ShowRoomPersonalizacionModel> personalizaciones = configEstrategiaSR.ListaPersonalizacionConsultora;
                 var carpetaPais = Globals.UrlMatriz + "/" + model.CodigoISO;
                 configEstrategiaSR.ListaPersonalizacionConsultora.ForEach(item => item.Valor = item.TipoAtributo == "IMAGEN" ? ConfigCdn.GetUrlFileCdn(carpetaPais, item.Valor) : item.Valor);
             }
@@ -718,24 +717,21 @@ namespace Portal.Consultoras.Web.Providers
             return personalizacionNivel;
         }
 
-        public List<ServiceOferta.BEEstrategia> GetShowRoomOfertasConsultora()
-        {
-            List<ServiceOferta.BEEstrategia> listEstrategia = new List<ServiceOferta.BEEstrategia>();
-            UsuarioModel userData = _sessionManager.GetUserData();
-
-            string pathShowroom = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerOfertas,
-               userData.CodigoISO,
-               Constantes.ConfiguracionPais.ShowRoom,
-               userData.CampaniaID,
-               userData.CodigoConsultora,
-               userData.CodigorRegion,
-               userData.ZonaID,
-               0);
-
-            var taskApi = Task.Run(() => OfertaBaseProvider.ObtenerOfertasDesdeApi(pathShowroom, userData.CodigoISO));
-            Task.WhenAll(taskApi);
-            return taskApi.Result;
-        }
+        //public List<ServiceOferta.BEEstrategia> GetShowRoomOfertasConsultora()
+        //{
+        //    UsuarioModel userData = _sessionManager.GetUserData();
+        //    string pathShowroom = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerOfertas,
+        //       userData.CodigoISO,
+        //       Constantes.ConfiguracionPais.ShowRoom,
+        //       userData.CampaniaID,
+        //       userData.CodigoConsultora,
+        //       userData.CodigorRegion,
+        //       userData.ZonaID,
+        //       0);
+        //    var taskApi = Task.Run(() => OfertaBaseProvider.ObtenerOfertasDesdeApi(pathShowroom, userData.CodigoISO));
+        //    Task.WhenAll(taskApi);
+        //    return taskApi.Result;
+        //}
 
 
         public ShowRoomEventoConsultoraModel RegistrarEventoConsultoraApi(int eventoId, bool esGenerica)

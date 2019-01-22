@@ -13,7 +13,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class SolicitudCreditoController : BaseController
+    public class SolicitudCreditoController : BaseAdmController
     {
         public ActionResult SolicitudCredito()
         {
@@ -22,9 +22,8 @@ namespace Portal.Consultoras.Web.Controllers
             var model = new SolicitudCreditoModel();
             try
             {
-                IEnumerable<ZonaModel> lstZona = new List<ZonaModel>();
-                model.ListaPaises = CargarDropDowListPaises();
-                model.ListaZonas = lstZona;
+                model.ListaPaises = DropDowListPaises();
+                model.ListaZonas = new List<ZonaModel>();
             }
             catch (FaultException ex)
             {
@@ -44,9 +43,8 @@ namespace Portal.Consultoras.Web.Controllers
             var model = new SolicitudCreditoModel();
             try
             {
-                IEnumerable<ZonaModel> lstZona = new List<ZonaModel>();
-                model.ListaPaises = CargarDropDowListPaises();
-                model.ListaZonas = lstZona;
+                model.ListaPaises = DropDowListPaises();
+                model.ListaZonas = new List<ZonaModel>();
             }
             catch (FaultException ex)
             {
@@ -59,34 +57,10 @@ namespace Portal.Consultoras.Web.Controllers
             return View(model);
 
         }
-
-        public IEnumerable<ZonaModel> DropDownZonas(int paisId)
-        {
-            IList<BEZona> lista;
-            using (ZonificacionServiceClient servicezona = new ZonificacionServiceClient())
-            {
-                lista = servicezona.SelectAllZonas(paisId);
-            }
-
-            return Mapper.Map<IList<BEZona>, IEnumerable<ZonaModel>>(lista);
-        }
-
-        private IEnumerable<PaisModel> CargarDropDowListPaises()
-        {
-            List<BEPais> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = userData.RolID == 2
-                    ? sv.SelectPaises().ToList()
-                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
-            }
-
-            return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
-        }
-
+                
         public JsonResult ObtenterDropDownPorPais(int PaisID)
         {
-            IEnumerable<ZonaModel> lstzona = DropDownZonas(PaisID);
+            IEnumerable<ZonaModel> lstzona = _zonificacionProvider.GetZonas(PaisID);
 
             return Json(new
             {

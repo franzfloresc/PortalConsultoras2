@@ -81,6 +81,9 @@
     .layout__header{
         padding-left:12px;
         padding-right:12px;
+		-moz-box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5);
+        -webkit-box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5);
+        box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5);
     }
 
     .header__marca__pais picture{

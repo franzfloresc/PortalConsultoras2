@@ -569,7 +569,7 @@ namespace Portal.Consultoras.Web.Controllers
                 BEDatosBelcorp BEDatosBelcorp;
                 using (SACServiceClient sv = new SACServiceClient())
                 {
-                    BEDatosBelcorp = sv.GetDatosBelcorp(userData.PaisID).ToList().First();
+                    BEDatosBelcorp = sv.GetDatosBelcorp(userData.PaisID).First();
                 }
 
                 List<BEComprobantePercepcionDetalle> lstBEComprobantePercepcionDetalle;
@@ -613,7 +613,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 Util.ExportToPdfWebPagesPercepcion("Percepciones.pdf", htmlPercepcionTemplate);
 
-                return View();
+                return new EmptyResult();
             }
             catch (FaultException ex)
             {
@@ -806,7 +806,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                             else if (arr[1] == "Cargo")
                             {
-                                string cargo = userData.PaisID == 4
+                                string cargo = userData.PaisID == Constantes.PaisID.Colombia
                                     ? source.Cargo.ToString("#,##0").Replace(',', '.')
                                     : source.Cargo.ToString("0.00");
 
@@ -816,7 +816,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                             else if (arr[1] == "Abono")
                             {
-                                string abono = userData.PaisID == 4
+                                string abono = userData.PaisID == Constantes.PaisID.Colombia
                                     ? source.Abono.ToString("#,##0").Replace(',', '.')
                                     : source.Abono.ToString("0.00");
                                 ws.Cell(row, col).Value = arr[0] + abono;
@@ -839,7 +839,7 @@ namespace Portal.Consultoras.Web.Controllers
                         wb.NamedRanges.NamedRange("Totals").Ranges.Style = titlesStyle;
 
                         string cargo = "";
-                        if (userData.PaisID == 4)
+                        if (userData.PaisID == Constantes.PaisID.Colombia)
                         {
                             if (Math.Abs(cargoTotal) > 0)
                             {
