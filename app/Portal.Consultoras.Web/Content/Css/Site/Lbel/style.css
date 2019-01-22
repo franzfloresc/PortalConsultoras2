@@ -28650,6 +28650,14 @@ div.motivoRechazo textarea {
     font-size: 15px;
     line-height: 30px;
     width: 330px;
+    text-decoration:none;
+}
+
+.politica_reclamos_icono,
+.politica_reclamos_texto
+{
+    display:inline-block;
+    vertical-align:middle;
 }
 
 .politica_reclamos_icono {
