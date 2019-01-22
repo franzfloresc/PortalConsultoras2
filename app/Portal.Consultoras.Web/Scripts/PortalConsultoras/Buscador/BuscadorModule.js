@@ -60,13 +60,16 @@ var BuscadorModule = (function () {
         urlBusquedaProducto: "/BusquedaProductos",
         aplicarLogicaCantidadBotonVerTodos: (AplicarLogicaCantidadBotonVerTodos === 'true'),
         contadorBusqueda: 0,
-        isHome: true
+        isHome: true,
+        categorias: 'categorias'
     };
     var _funciones = { //Funciones privadas
         InicializarEventos: function () {
             if (!_config.isMobile) {
                 $(document).on("click", _elementos.body, _eventos.CerrarResultadosBusqueda);
                 $(document).on("focus", _elementos.campoBuscadorProductos, _eventos.OcultarTooltipInformativo);
+            } else {
+                _funciones.CargarCategorias();
             }
 
             $(document).on("keyup", _elementos.campoBuscadorProductos, _eventos.AccionesCampoBusquedaAlDigitar);
@@ -156,6 +159,74 @@ var BuscadorModule = (function () {
         LlamarAnalyticsElijeUnaOpcion: function (urlDetalle, textobusqueda) {
             if (!(typeof AnalyticsPortalModule === "undefined"))
                 AnalyticsPortalModule.MarcaEligeUnaOpcion(urlDetalle, textobusqueda);
+        },
+        CargarCategorias: function () {
+
+            var model = {}
+
+            xhr = $.ajax({
+                type: "POST",
+                url: baseUrl + "Buscador/ListarCategorias",
+                data: JSON.stringify(model),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                async: true,
+                cache: false,
+                success: function (msg) {
+                }
+            });
+
+            var successBusqueda = function (r) {
+
+                set_local_storage(r, _config.categorias);
+                console.log(get_local_storage(_config.categorias));
+
+
+                //console.log(r);
+
+                //if (r.total == 0) {
+                //    $(".spinner").fadeOut(150);
+                //    $(".busqueda_sin_resultados").fadeIn(60);
+
+                //    if (!(typeof AnalyticsPortalModule === 'undefined'))
+                //        AnalyticsPortalModule.MarcaBusquedaSinResultadosBuscador(valorBusqueda);
+
+                //} else {
+
+                //    $.each(r.productos, function (index, item) {
+                //        item.posicion = index + 1;
+                //        if (item.Descripcion.length > TotalCaracteresEnListaBuscador) {
+                //            item.Descripcion = item.Descripcion.substring(0, TotalCaracteresEnListaBuscador) + "...";
+                //        }
+                //    });
+
+                //    SetHandlebars("#js-ResultadoBuscador", r.productos, "#ResultadoBuscador");
+
+                //    setTimeout(function () {
+                //        if ($(".busqueda_sin_resultados").is(":visible")) {
+                //            $(".busqueda_sin_resultados").fadeOut(60);
+                //        }
+                //        $(".spinner").fadeOut(150);
+                //        $("#ResultadoBuscador").delay(50);
+                //        $("#ResultadoBuscador").fadeIn(100);
+                //        if (!_config.isMobile) {
+                //            $(".lista_resultados_busqueda_productos").animate({
+                //                'min-height': $("#ResultadoBuscador").height() + 29
+                //            },
+                //                100);
+                //        }
+                //    }, 400);
+
+                //    // si está activa la lógica para ocultar BotonVerTodos
+                //    if (_config.aplicarLogicaCantidadBotonVerTodos && r.total < _config.totalResultadosBuscador) {
+                //        $('.ver_todos_los_resultados_wrapper').hide();
+                //    }
+                //}
+            };
+
+            xhr.then(successBusqueda, function (e) {
+            });
+
         }
     };
     var _eventos = {

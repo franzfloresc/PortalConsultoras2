@@ -1,0 +1,190 @@
+﻿@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Models
+@model MisCatalogosRevistasModel
+
+@section styles{
+    @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/MisCatalogoRevista")
+}
+
+@{
+    var title = Model.Titulo;
+    ViewBag.Title = title;
+}
+
+<input type="hidden" id="hdPaisNombre" value="@Model.PaisNombre" />
+<input type="hidden" id="hdCampaniaAnterior" value="@Model.CampaniaAnterior" />
+<input type="hidden" id="hdCampaniaActual" value="@Model.CampaniaActual" />
+<input type="hidden" id="hdCampaniaSiguiente" value="@Model.CampaniaSiguiente" />
+<input type="hidden" id="hdrCampaniaAnterior" value="@Model.CampaniaAnterior" />
+<input type="hidden" id="hdrCampaniaActual" value="@Model.CampaniaActual" />
+<input type="hidden" id="hdrCampaniaSiguiente" value="@Model.CampaniaSiguiente" />
+
+<div class="fondo_f9f9f9">
+    <div class="content_belcorp">
+        <div class="fondo_negro_lateral"></div>
+        <div class="titulo_interiores">MIS <span>@title</span></div>
+    </div>
+    <hr class="clear" />
+    <div class="linea_separadora" style="margin-top:-1px"></div>
+</div>
+<div class="content_belcorp">
+    <div class="pestana_lbel"></div>
+    <div class="texto_revisa_catalogos">Revisa y comparte los catálogos con tus clientes</div>
+
+    <div>
+        <div id="contentCatalogo">
+            <div class="titulo_central" id="TextoCampania"></div>
+            <span class="arrow_catalogo"><img src="@Url.Content("~/Content/Images/Esika/catalogos_arrow.png")" onclick="CatalogoMostrar(-1, this)" data-accion="a" /></span>
+            <div>
+                <div class="content_carrusel_catalogo" id="divCatalogo">
+                </div>
+            </div>
+            <span class="arrow_catalogo2"><img src="@Url.Content("~/Content/Images/Esika/catalogos_arrow2.png")" onclick="CatalogoMostrar(1, this)" data-accion="s" /></span>
+            <hr class="clear" />
+        </div>
+
+        <div id="xHtmlItemCatalogo" style="display: none;">
+            <div class="tipoClase" data-cam="{campania}" data-cat="{tipoCatalogo}" data-estado="{estado}" style="display: none;">
+                <div class="item1_catalogo" data-tipo="content">
+                    <a class="revista" data-tipo="img" target="_blank" href="">
+                        <img src="@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")" />
+                    </a>
+                    <div data-tipo="descrip">{descripcion}</div>
+                    <input id="txtUrl{tipoCatalogo}" type="hidden" value="" />
+                    <a class="compartir_catalogo_facebook" data-accion="face" onclick="RedesSociales.CompartirFacebook('{comp}', '{campania}', this)"><img src="@Url.Content("~/Content/Images/Esika/catalogo_facebook.png")" /></a>
+                    <a class="compartir_catalogo_mensaje" onclick="javascript: RedesSociales.AbrirCompartirCorreo('{tipoCatalogo}','{campania}');"><img src="@Url.Content("~/Content/Images/Esika/catalogo_mensaje.png")" /></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="expoferta_revista">
+        @if (Model.TieneSeccionRevista)
+        {
+            @Html.Partial("~/Views/MisCatalogosRevistas/template-revista-slide.cshtml",
+                 new ViewDataDictionary {
+            { "TieneGnd", Model.TieneGND },
+            { "EsConsultoraNueva", ViewBag.EsConsultoraNueva}
+                 })
+        }
+
+        @if (Model.TieneSeccionRD)
+        {
+            @Html.Partial("~/Views/MisCatalogosRevistas/_PartialSectionBpt.cshtml", Model.PartialSectionBpt)
+        }
+
+        <span id="spNroCampania" style="display: none;">@Model.CampaniaActual</span>
+        <div class="titulo_central" id="numero_campania" hidden="hidden">@Model.CampaniaActual</div>
+
+        @if (!ViewBag.EsConsultoraNueva)
+        {
+            <div class="revista_content" id="contenedorExpofertaMCR" style="display: none;">
+                <div style="text-align: center; font-family: 'lato'; font-size: 16pt; color: black; letter-spacing: 0.25px; font-weight: 700; margin-top: 48px; margin-bottom: 28px;">EXPOFERTA C-@(Model.CampaniaActual.Substring(4, 2))</div>
+                <div id="catalogoExpoferta" class="revista_carrusel">
+                    <img src="@Url.Content("~/Content/Images/Esika/expoferta_c13.png")" />
+                </div>
+            </div>
+        }
+        <hr class="clear" />
+    </div>
+</div>
+
+<div id="CompartirCorreo" class="CompartirCorreoPop">
+    <div class="contentCompartir">
+        <a class="cerrar_compartir" style="margin-right:-50px;" href="javascript:;" onclick="javascript: $('#CompartirCorreo').hide();">
+            <img src="@Url.Content("~/Content/Images/cerrar_04.png")" alt=" alternate text" />
+        </a>
+        <div class="titulo_compartir">COMPARTIR <b>CATÁLOGO</b></div>
+        <div class="Label_compartir">Agregar contacto:</div>
+        <a class="mostrar_todos">Añadir todos mis contáctos (##)</a>
+        <hr class="clear" />
+        <div id="tagParent" style="border: 1px solid #c5c5c5; margin: 10px 0 20px 0; padding: 10px; padding-left: 8px; ">
+            <div style="width:100%;margin:auto;">
+                <textarea id="tagCorreo"></textarea>
+            </div>
+        </div>
+        <div class="Label_compartir">Mensaje (Editable):</div>
+        <textarea name="comentarios" class="text_compartir" id="comentarios" maxlength="500">
+        </textarea>
+        <div class="Label_compartir">Catálogos a enviar:</div>
+        <hr class="clear" />
+        <div id="divCheckbox">
+            <div data-cat="Esika">
+                <div class="content_checkbox">
+                    <input class="inputradio" type="checkbox">
+                    <span class="inputfalso"></span>
+                </div>
+                <div class="check_label">Ésika</div>
+            </div>
+            <div data-cat="Lbel">
+                <div class="content_checkbox">
+                    <input class="inputradio" type="checkbox">
+                    <span class="inputfalso"></span>
+                </div>
+                <div class="check_label">L'Bel</div>
+            </div>
+            <div data-cat="Cyzone">
+                <div class="content_checkbox">
+                    <input class="inputradio" type="checkbox">
+                    <span class="inputfalso"></span>
+                </div>
+                <div class="check_label">Cyzone</div>
+            </div>
+            <hr class="clear" />
+        </div>
+        <a class="btn_enviar_correo" id="btnEnviarCorreo">ENVIAR</a>
+    </div>
+</div>
+
+<div class="mensaje_alerta_belcorp" id="mensaje_alerta">
+    <div class="content_mensaje_alerta">
+        <a class="btn_cerrar_alerta" href="javascript:;" onclick="javascript: $('#mensaje_alerta').hide();"><img src="@Url.Content("~/Content/Images/cerrar_04.png")" /></a>
+        <hr class="clear" />
+        <div class="icono_mensaje_alerta icono_check_alerta"></div>
+        <div class="texto_mensaje_alerta" id="mensaje_alerta_titulo">¡BIEN <b>HECHO</b>! </div>
+        <div class="sub_texto_alerta" id="mensaje_alerta_texto">Se envió satisfactoriamente el correo a los clientes(s) seleccionado(s)</div>
+        <a class="btn_ok_alerta" onclick="javascript: $('#mensaje_alerta').hide();">OK</a>
+    </div>
+</div>
+<div class="mensaje_alerta_belcorp" id="mensaje_exclamacion">
+    <div class="content_mensaje_alerta">
+        <a class="btn_cerrar_alerta" href="javascript:;" onclick="javascript: $('#mensaje_exclamacion').hide();"><img src="@Url.Content("~/Content/Images/cerrar_04.png")" /></a>
+        <hr class="clear" />
+        <div class="icono_mensaje_alerta icono_exclamacion_alerta"></div>
+        <div class="texto_mensaje_alerta" id="mensaje_exclamacion_titulo">LO <b>SENTIMOS</b> </div>
+        <div class="sub_texto_alerta" id="mensaje_exclamacion_texto">Debe seleccionar al menos un Catálogo</div>
+        <a class="btn_ok_alerta" onclick="javascript: $('#mensaje_exclamacion').hide();">OK</a>
+    </div>
+</div>
+
+<div style="display: none;">
+    @using (Html.BeginForm("MiRevista", "MisCatalogosRevistas", FormMethod.Post, new { id = "frmMiRevista", target = "_blank" }))
+    {
+        <input type="hidden" name="campaniaRevista" id="campaniaRevista" value="">
+    }
+</div>
+@section scripts{
+    <script type="text/javascript" id="js-ready-Catalogo">
+
+        var imgNoDisponible = '@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")';
+        var imgIssuu = '@Constantes.CatalogoUrlParameters.UrlPart01' +
+            '{img}' +
+            '@Constantes.CatalogoUrlParameters.UrlPart02Alternativo';
+        imgIssuu = imgIssuu.startsWith("https") ? imgIssuu.replace("https://", "http://") : imgIssuu;
+        var codigoIso = '@ViewBag.CodigoISODL';
+        var urlObtenerPortadaRevista = '@Url.Action("ObtenerPortadaRevista", "Catalogo", new { area = "Mobile" })';
+        var defaultImageRevista = '@Url.Content("~/Content/Images/revista_no_disponible.jpg")';
+        var urlIconoClienteAutoCompletar = '@Url.Content("~/Content/Images/Esika/user.jpg")';
+        var valContenidoCorreoDefecto = '@Html.Raw(Constantes.CatalogoMensajesDefault.SaludoCorreo)';
+        var RevistaCodigoIssuu = {
+            '@Model.CampaniaAnterior': '@Model.CodigoRevistaAnterior',
+            '@Model.CampaniaActual': '@Model.CodigoRevistaActual',
+            '@Model.CampaniaSiguiente': '@Model.CodigoRevistaSiguiente'
+        }
+        var urlBuscadorIssu = '@Constantes.CatalogoUrlIssu.Buscador';
+        var urlDetalle = '@Url.Action("Detalle", "MisCatalogosRevistas", new { area = "" })';
+        var _Pagina = 1;
+        var tipoOrigenEstrategia = 1;
+    </script>
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/MisCatalogosRevistas")
+}

@@ -1,4 +1,5 @@
-﻿@model Portal.Consultoras.Web.Models.MisDatosModel
+﻿@using Portal.Consultoras.Common
+@model Portal.Consultoras.Web.Models.MisDatosModel
 @{
     ViewBag.Title = "Index";
 }
@@ -281,7 +282,7 @@
                             {
                                 <p class="azul">Estás en <span>@ViewBag.Campania</span>, te quedan <strong>@ViewBag.Dias días</strong> para el cierre.</p>
                             }
-                            <p>@ViewBag.MensajeCierreCampania</p>                            
+                            <p>@ViewBag.MensajeCierreCampania</p>
                         }
                         else
                         {
@@ -365,7 +366,7 @@
                 </div>
             </div>
 
-            @if (Model.PaisISO == "PE")
+            @if (Model.PaisISO == Constantes.CodigosISOPais.Peru)
             {
                 var aceptoContratoAttributes = new Dictionary<string, object> { { "id", "chkAceptoContrato" } };
                 if (Model.AceptoContrato) { aceptoContratoAttributes.Add("disabled", "disabled"); }
@@ -391,7 +392,7 @@
                     @Html.Label("", Model.CorreoAlerta, new { id = "lblCorreo", visible = true, @class = "laber_alerta" })
                 </div>
             </div>
-            @if (Model.PaisISO == "CO")
+            @if (Model.PaisISO == Constantes.CodigosISOPais.Colombia)
             {
                 <div class="div-3">
                     <div style="font-size:14px;margin-left:155px;">

@@ -2,6 +2,7 @@
 using Portal.Consultoras.Web.Models.Buscador;
 using Portal.Consultoras.Web.Providers;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
@@ -32,6 +33,25 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return Json(productosModel, JsonRequestBehavior.AllowGet);
         }
+
+
+        public async Task<JsonResult> ListarCategorias(BuscadorModel model)
+        {
+            List<BuscadorYFiltrosCategoriaModel> productosModel;
+            try
+            {
+                await _buscadorYFiltrosProvider.GetPersonalizacion(userData, true, true);
+                productosModel = await _buscadorYFiltrosProvider.GetCategorias(model);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                productosModel = new List<BuscadorYFiltrosCategoriaModel>();
+            }
+            return Json(productosModel, JsonRequestBehavior.AllowGet);
+        }
+
+
 
     }
 }

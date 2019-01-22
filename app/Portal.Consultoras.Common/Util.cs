@@ -2428,32 +2428,34 @@ namespace Portal.Consultoras.Common
             }
         }
 
-        public static int GetPaisID(string ISO)
+        public static int GetPaisID(string iso)
         {
-            ISO = ISO.ToUpper();
+            iso = iso.ToUpper();
 
             var listaPaises = new Dictionary<string, int>()
             {
-                {Constantes.CodigosISOPais.Argentina, 1},
-                {Constantes.CodigosISOPais.Bolivia, 2},
-                {Constantes.CodigosISOPais.Chile, 3},
-                {Constantes.CodigosISOPais.Colombia, 4},
-                {Constantes.CodigosISOPais.CostaRica, 5},
-                {Constantes.CodigosISOPais.Ecuador, 6},
-                {Constantes.CodigosISOPais.Salvador, 7},
-                {Constantes.CodigosISOPais.Guatemala, 8},
-                {Constantes.CodigosISOPais.Mexico, 9},
-                {Constantes.CodigosISOPais.Panama, 10},
-                {Constantes.CodigosISOPais.Peru, 11},
-                {Constantes.CodigosISOPais.PuertoRico, 12},
-                {Constantes.CodigosISOPais.Dominicana, 13},
-                {Constantes.CodigosISOPais.Venezuela, 14},
+                {Constantes.CodigosISOPais.Argentina, Constantes.PaisID.Argentina},
+                {Constantes.CodigosISOPais.Bolivia, Constantes.PaisID.Bolivia},
+                {Constantes.CodigosISOPais.Chile, Constantes.PaisID.Chile},
+                {Constantes.CodigosISOPais.Colombia, Constantes.PaisID.Colombia},
+                {Constantes.CodigosISOPais.CostaRica, Constantes.PaisID.CostaRica},
+                {Constantes.CodigosISOPais.Ecuador, Constantes.PaisID.Ecuador},
+                {Constantes.CodigosISOPais.Salvador, Constantes.PaisID.ElSalvador},
+                {Constantes.CodigosISOPais.Guatemala, Constantes.PaisID.Guatemala},
+                {Constantes.CodigosISOPais.Mexico, Constantes.PaisID.Mexico},
+                {Constantes.CodigosISOPais.Panama, Constantes.PaisID.Panama},
+                {Constantes.CodigosISOPais.Peru, Constantes.PaisID.Peru},
+                {Constantes.CodigosISOPais.PuertoRico, Constantes.PaisID.PuertoRico},
+                {Constantes.CodigosISOPais.Dominicana, Constantes.PaisID.RepublicaDominicana},
+                {Constantes.CodigosISOPais.Venezuela, Constantes.PaisID.Venezuela},
+                {Constantes.CodigosISOPais.Brasil, Constantes.PaisID.Brasil},
+                {Constantes.CodigosISOPais.EstadosUnidos, Constantes.PaisID.EstadosUnidos},
             };
 
-            if (!listaPaises.ContainsKey(ISO))
+            if (!listaPaises.ContainsKey(iso))
                 return 0;
 
-            return listaPaises[ISO];
+            return listaPaises[iso];
         }
 
         public static string GetPaisISO(int paisID)
@@ -2473,7 +2475,9 @@ namespace Portal.Consultoras.Common
                 {11, Constantes.CodigosISOPais.Peru},
                 {12, Constantes.CodigosISOPais.PuertoRico},
                 {13, Constantes.CodigosISOPais.Dominicana},
-                {14, Constantes.CodigosISOPais.Venezuela}
+                {14, Constantes.CodigosISOPais.Venezuela},
+                {15, Constantes.CodigosISOPais.Brasil },
+                {16, Constantes.CodigosISOPais.EstadosUnidos }
             };
 
             if (!listaPaises.ContainsKey(paisID))
@@ -2530,11 +2534,13 @@ namespace Portal.Consultoras.Common
                 new KeyValuePair<string, string>("7", "El Salvador"),
                 new KeyValuePair<string, string>("8", "Guatemala"),
                 new KeyValuePair<string, string>("9", "México"),
-                new KeyValuePair<string, string>("10", "Pnamá"),
+                new KeyValuePair<string, string>("10", "Panamá"),
                 new KeyValuePair<string, string>("11", "Perú"),
                 new KeyValuePair<string, string>("12", "Puerto Rico"),
                 new KeyValuePair<string, string>("13", "Republica Dominicana"),
                 new KeyValuePair<string, string>("14", "Venezuela"),
+                new KeyValuePair<string, string>("15", "Brasil"),
+                new KeyValuePair<string, string>("16", "Estados Unidos"),
             };
             string iso;
             try
@@ -3395,39 +3401,48 @@ namespace Portal.Consultoras.Common
                     limiteMinimoTelef = 7;
                     limiteMaximoTelef = 9;
                     break;
-                case Constantes.PaisID.Mexico:
-                    limiteMinimoTelef = 5;
-                    limiteMaximoTelef = 10;
-                    break;
-                case Constantes.PaisID.Ecuador:
-                    limiteMinimoTelef = 5;
-                    limiteMaximoTelef = 10;
-                    break;
+                //case Constantes.PaisID.Mexico:
+                //    limiteMinimoTelef = 5;
+                //    limiteMaximoTelef = 10;
+                //    break;
+                //case Constantes.PaisID.Ecuador:
+                //    limiteMinimoTelef = 5;
+                //    limiteMaximoTelef = 10;
+                //    break;
                 case Constantes.PaisID.Chile:
                     limiteMinimoTelef = 5;
                     limiteMaximoTelef = 9;
                     break;
+                case Constantes.PaisID.Mexico:
+                case Constantes.PaisID.Ecuador:
                 case Constantes.PaisID.RepublicaDominicana:
                 case Constantes.PaisID.Colombia:
                     limiteMinimoTelef = 5;
                     limiteMaximoTelef = 10;
                     break;
+                //case Constantes.PaisID.Bolivia:
+                //    limiteMinimoTelef = 5;
+                //    limiteMaximoTelef = 8;
+                //    break;
+                //case Constantes.PaisID.Guatemala:
+                //    limiteMinimoTelef = 5;
+                //    limiteMaximoTelef = 8;
+                //    break;
+                //case Constantes.PaisID.ElSalvador:
+                //    limiteMinimoTelef = 5;
+                //    limiteMaximoTelef = 8;
+                //    break;
+                //case Constantes.PaisID.Panama:
+                //    limiteMinimoTelef = 5;
+                //    limiteMaximoTelef = 8;
+                //    break;
                 case Constantes.PaisID.Bolivia:
-                    limiteMinimoTelef = 5;
-                    limiteMaximoTelef = 8;
-                    break;
                 case Constantes.PaisID.Guatemala:
-                    limiteMinimoTelef = 5;
-                    limiteMaximoTelef = 8;
-                    break;
                 case Constantes.PaisID.ElSalvador:
                     limiteMinimoTelef = 5;
                     limiteMaximoTelef = 8;
                     break;
                 case Constantes.PaisID.Panama:
-                    limiteMinimoTelef = 5;
-                    limiteMaximoTelef = 8;
-                    break;
                 case Constantes.PaisID.CostaRica:
                     limiteMinimoTelef = 5;
                     limiteMaximoTelef = 8;

@@ -578,11 +578,11 @@
                 <div class="pedidoBase_lineaCredito">
                     <span>
                         <p>Pedido Base</p>
-                        <p><label id="lblPBFlexipago">@Model.Simbolo @(Model.PaisID == 4 ? string.Format("{0:#,##0}", Model.PedidoBase) : string.Format("{0:#,##0.00}", Model.PedidoBase))</label></p>
+                        <p><label id="lblPBFlexipago">@Model.Simbolo @(Model.PaisID == Constantes.PaisID.Colombia ? string.Format("{0:#,##0}", Model.PedidoBase) : string.Format("{0:#,##0.00}", Model.PedidoBase))</label></p>
                     </span>
                     <span>
                         <p>Línea de Crédito</p>
-                        <p>@Model.Simbolo @(Model.PaisID == 4 ? string.Format("{0:#,##0}", Model.LineaCredito) : string.Format("{0:#,##0.00}", Model.LineaCredito))</p>
+                        <p>@Model.Simbolo @(Model.PaisID == Constantes.PaisID.Colombia ? string.Format("{0:#,##0}", Model.LineaCredito) : string.Format("{0:#,##0.00}", Model.LineaCredito))</p>
                     </span>
                 </div>
                 <div class="clear"></div>
@@ -938,8 +938,8 @@
             <div>
                 <div class="contenedor_productosSugeridos">
                     <div>
-                        <h5>PRUEBA REEMPLAZARLO CON ALGUNO DE ÉSTOS</h5>
-                    </div>
+                        <h5>PRUEBA CON ESTAS OPCIONES QUE SON SIMILARES</h5>
+                    </div>                    
                     <div class="cerrar_popup_productoSugerido" data-close="divProductoAgotadoFinal">
                         <h5>NO, GRACIAS</h5>
                         <span class="btn_cerrar_opcionNoGracias">

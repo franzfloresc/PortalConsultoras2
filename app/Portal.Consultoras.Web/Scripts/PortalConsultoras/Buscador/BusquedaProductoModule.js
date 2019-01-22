@@ -169,7 +169,7 @@
                     var imgProducto = element.attr('src');
                     var fichaProducto = element.closest('article');
 
-                    console.log(imgProducto);
+                    //console.log(imgProducto);
 
                     _funciones.GetSize(imgProducto, function (width, height) {
 

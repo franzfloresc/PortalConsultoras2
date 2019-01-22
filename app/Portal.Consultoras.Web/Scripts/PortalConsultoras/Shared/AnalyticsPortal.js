@@ -193,6 +193,35 @@ var AnalyticsPortalModule = (function () {
     // Ini - Metodos Iniciales
     ////////////////////////////////////////////////////////////////////////////////////////
 
+
+    var _getEstructuraOrigenPedidoWeb = function (origen) {
+        var origenEstructura = {};
+
+        if (typeof origen === "object") {
+            origenEstructura = origen || {};
+        }
+        else {
+            origenEstructura.OrigenPedidoWeb = origen || "";
+        }
+
+        origenEstructura.OrigenPedidoWeb = (origenEstructura.OrigenPedidoWeb || "").toString().trim();
+        origenEstructura.CodigoPalanca = (origenEstructura.CodigoPalanca || "").toString().trim();
+
+        if (origenEstructura.OrigenPedidoWeb.length < ConstantesModule.OrigenPedidoWebEstructura.Dimension) {
+            origenEstructura.OrigenPedidoWeb = "";
+        }
+
+        var codigoOrigenPedido = origenEstructura.OrigenPedidoWeb;
+
+        origenEstructura.Pagina = (origenEstructura.Pagina || codigoOrigenPedido.substring(1, 3)).toString().trim();
+        origenEstructura.Palanca = (origenEstructura.Palanca || codigoOrigenPedido.substring(3, 5)).toString().trim();
+        origenEstructura.Seccion = (origenEstructura.Seccion || codigoOrigenPedido.substring(5, 7)).toString().trim();
+
+        console.log("_getEstructuraOrigenPedidoWeb", origen, origenEstructura);
+
+        return origenEstructura;
+    }
+
     var _getTextoContenedorSegunOrigen = function (origenEstructura) {
 
         origenEstructura.CodigoPalanca = origenEstructura.CodigoPalanca || "";
@@ -210,49 +239,73 @@ var AnalyticsPortalModule = (function () {
 
     var _getTextoPaginaSegunOrigen = function (origenEstructura) {
 
-        var seccion = _origenPedidoWebEstructura.Pagina.find(function (element) {
+        var obj = _origenPedidoWebEstructura.Pagina.find(function (element) {
             return element.Codigo == origenEstructura.Pagina;
         });
 
-        if (seccion == undefined) {
+        if (obj == undefined) {
             return "";
         }
 
-        return seccion.TextoList || "";
+        return obj.TextoList || "";
     }
 
     var _getTextoPalancaSegunOrigen = function (origenEstructura) {
 
-        var seccion = _origenPedidoWebEstructura.Palanca.find(function (element) {
+        var obj = _origenPedidoWebEstructura.Palanca.find(function (element) {
             return element.Codigo == origenEstructura.Palanca;
         });
 
-        if (seccion == undefined) {
-            var seccion = _origenPedidoWebEstructura.Palanca.find(function (element) {
+        if (obj == undefined && origenEstructura.CodigoPalanca != "") {
+            var obj = _origenPedidoWebEstructura.Palanca.find(function (element) {
                 return element.CodigoPalanca == origenEstructura.CodigoPalanca;
             });
         }
 
-        if (seccion == undefined) {
+        if (obj == undefined) {
             return "";
         }
 
-        return seccion.TextoList || "";
+        return obj.TextoList || "";
+    }
+
+    var _getTextoSeccionSegunOrigen = function (origenEstructura) {
+
+        var obj = _origenPedidoWebEstructura.Seccion.find(function (element) {
+            return element.Codigo == origenEstructura.Seccion;
+        });
+
+        if (obj == undefined) {
+            return "";
+        }
+
+        return obj.TextoList || "";
     }
 
     var _getParametroListSegunOrigen = function (origenEstructura) {
 
+        origenEstructura = _getEstructuraOrigenPedidoWeb(origenEstructura);
+
         var contendor = _getTextoContenedorSegunOrigen(origenEstructura);
-        var pagina = _getTextoPaginaSegunOrigen(origenEstructura);
+        var pagina = "";
+
+        if (origenEstructura.Seccion == ConstantesModule.OrigenPedidoWebEstructura.Seccion.CarruselVerMas) {
+            pagina = _getTextoSeccionSegunOrigen(origenEstructura);
+        }
+        else {
+            pagina = _getTextoPaginaSegunOrigen(origenEstructura);
+        }
+
         var palanca = _getTextoPalancaSegunOrigen(origenEstructura);
 
         var separador = " - ";
         var texto = contendor;
-        texto = texto != ""
+
+        texto += texto != ""
             ? ((pagina != "" ? separador : "") + pagina)
             : pagina;
 
-        texto = texto != ""
+        texto += texto != ""
             ? ((palanca != "" ? separador : "") + palanca)
             : palanca;
 
@@ -400,7 +453,7 @@ var AnalyticsPortalModule = (function () {
     var _marcarImpresionSetProductos = function (arrayItems) {
 
         try {
-            console.log('Analytics - marcarImpresionSetProductos Inicio', arrayItems);
+            //console.log('Analytics - marcarImpresionSetProductos Inicio', arrayItems);
             var tipoMoneda = AnalyticsPortalModule.GetCurrencyCodes(_constantes.codigoPais);
             dataLayer.push({
                 'event': _evento.productImpression,
@@ -420,10 +473,10 @@ var AnalyticsPortalModule = (function () {
             if (_constantes.isTest)
                 alert("Marcación product impression.");
 
-            console.log('Analytics - _marcarProductImpresionSegunLista Inicio', data);
+            //console.log('Analytics - _marcarProductImpresionSegunLista Inicio', data);
 
             var parametroList = _getParametroListSegunOrigen(data.Origen);
-            console.log('Analytics - _marcarProductImpresionSegunLista - parametroList', parametroList);
+            //console.log('Analytics - _marcarProductImpresionSegunLista - parametroList => ', parametroList);
 
             var lista = data.lista;
             var cantidadMostrar = lista.length == 1 ? 1 : data.CantidadMostrar;
@@ -439,7 +492,7 @@ var AnalyticsPortalModule = (function () {
                         'category': _texto.notavaliable,
                         'variant': _texto.estandar,
                         'list': parametroList,
-                        'position': (item.Position == undefined ? index : item.position) + 1
+                        'position': (item.Position == undefined ? index : item.Position) + 1
                     };
 
                     impressions.push(impression);
@@ -1118,7 +1171,7 @@ var AnalyticsPortalModule = (function () {
     var marcaGenericaLista = function (seccion, data, pos) {
 
         try {
-            console.log('marcaGenericaLista- ini', seccion, data, pos);
+            //console.log('marcaGenericaLista- ini', seccion, data, pos);
             // mantener la seccion para LAN, luego ponerlo dentro de data como origen
             seccion = seccion.replace("Lista", "");
 
