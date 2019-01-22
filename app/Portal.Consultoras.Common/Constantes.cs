@@ -1233,6 +1233,7 @@ namespace Portal.Consultoras.Common
         public static class IngresoExternoOrigen
         {
             public const string App = "4";
+            public const string ChatBot = "5";
         }
 
         public static class EstadoCuentaTipoMovimiento

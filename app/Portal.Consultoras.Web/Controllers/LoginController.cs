@@ -846,13 +846,13 @@ namespace Portal.Consultoras.Web.Controllers
                     case Constantes.IngresoExternoPagina.HerramientasDeVenta:
                         return RedirectToUniqueRoute("HerramientasVenta", "Comprar");
                     case Constantes.IngresoExternoPagina.Reclamos:
-                        return RedirectToUniqueRoute("MisReclamos", "Index",null);
+                        return RedirectToUniqueRoute("MisReclamos", "Index", null); // valido
                     case Constantes.IngresoExternoPagina.MetodosPagos:
-                        return RedirectToUniqueRoute("PagoEnLinea", "MetodoPago", null);
+                        return RedirectToUniqueRoute("PagoEnLinea", "MetodoPagoExterno", new { IdOrigen = model.OrigenPedido });
                     case Constantes.IngresoExternoPagina.PagarAqui:
-                        return RedirectToUniqueRoute("PagoEnLinea", "IndexExterno", new { idTipoPago = model.idTipoPago }); //   return RedirectToUniqueRoute("PagoEnLinea", "IndexExterno", null);
+                        return RedirectToUniqueRoute("PagoEnLinea", "IndexExterno", new { IdOrigen = model.OrigenPedido, idTipoPago = model.idTipoPago });
                     case Constantes.IngresoExternoPagina.Ganancias:
-                        return RedirectToUniqueRoute("MiAcademia", "Index", null);
+                        return RedirectToUniqueRoute("MiAcademia", "IndexExterno", new { IdOrigen = model.OrigenPedido });
                 }
             }
             catch (Exception ex)
