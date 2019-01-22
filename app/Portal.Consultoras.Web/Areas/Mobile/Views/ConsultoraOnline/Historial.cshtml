@@ -1,20 +1,34 @@
 ﻿@using Portal.Consultoras.Web.CustomHelpers
 @model Portal.Consultoras.Web.Areas.Mobile.Models.ConsultoraOnlineHistorialMobileModel
 @{
-    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+    var layout = ViewContext.MobileLayout();
+    Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
+    var mobileConfiguracion = Html.MobileAppConfiguracion();
 }
 
-<div class="titulo_mobile">
-    @{ var mobileConfiguracion = Html.MobileAppConfiguracion();
-        if (mobileConfiguracion.MostrarBotonAtras)
-        {
+<style>
+    .tab-primary a:hover {
+        border-bottom: none;
+    }
+
+    .tab-primary a.active {
+        border-bottom: 4px solid #e81c36 !important
+    }
+</style>
+
+@{
+    if (!mobileConfiguracion.EsAppMobile)
+    {
+        <div class="titulo_mobile">
             <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
-        } }
-    &nbsp;&nbsp;&nbsp;&nbsp;HISTORIAL DE PEDIDOS
-</div>
+            &nbsp;&nbsp;&nbsp;&nbsp;HISTORIAL DE PEDIDOS
+        </div>
+        <div class="pestana_esika"></div>
+        <div class="pestana_lbel"></div>
+    }
+}
+
 <div class="fondo_f2f2f2">
-    <div class="pestana_esika"></div>
-    <div class="pestana_lbel"></div>
     <div id="div-tabs" class="tabs-link tab-primary upper">
         @foreach (var campania in Model.CampaniasConsultoraOnline)
         {

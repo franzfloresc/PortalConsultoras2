@@ -100,7 +100,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         pedidoCliente.ImporteTotal = pedidoCliente.Subtotal + pedidoCliente.Descuento;
                     }
 
-                    if (userData.PaisID == 4)
+                    if (userData.PaisID == Constantes.PaisID.Colombia)
                     {
                         pedidoCliente.SubtotalString = pedidoCliente.Subtotal.ToString("n0", new System.Globalization.CultureInfo("es-CO"));
                         pedidoCliente.DescuentoString = pedidoCliente.Descuento.ToString("n0", new System.Globalization.CultureInfo("es-CO"));
@@ -186,7 +186,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         txtBuil.Append("<td style='font-size:11px; width: 124px; text-align: center;'>");
                         txtBuil.Append("" + lst[i].Cantidad.ToString() + "");
                         txtBuil.Append("</td>");
-                        if (userData.PaisID == 4)
+                        if (userData.PaisID == Constantes.PaisID.Colombia)
                         {
                             txtBuil.Append("<td style='font-size:11px; width: 182px; text-align: center;'>");
                             txtBuil.Append("" + userData.Simbolo + string.Format("{0:#,##0}", lst[i].PrecioUnidad).Replace(',', '.') + "");
@@ -214,7 +214,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     txtBuil.Append("</td>");
                     txtBuil.Append("<td style='font-size:11px; text-align: center; font-weight: bold'>");
 
-                    if (userData.PaisID == 4)
+                    if (userData.PaisID == Constantes.PaisID.Colombia)
                     {
                         txtBuil.Append("" + userData.Simbolo + string.Format("{0:#,##0}", total).Replace(',', '.') + "");
                     }
@@ -371,7 +371,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     }
                     else pedidoCliente.ImporteTotal = pedidoWeb.ImporteTotal;
 
-                    if (userData.PaisID == 4)
+                    if (userData.PaisID == Constantes.PaisID.Colombia)
                     {
                         pedidoCliente.SubtotalString = string.Format("{0:#,##0}", pedidoCliente.Subtotal).Replace(',', '.');
                         pedidoCliente.DescuentoString = string.Format("{0:#,##0}", pedidoCliente.Descuento).Replace(',', '.');
@@ -431,7 +431,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                             txtBuil.Append("<td style='font-size:11px; width: 124px; text-align: center;'>");
                             txtBuil.Append("" + item2.Cantidad.ToString() + "");
                             txtBuil.Append("</td>");
-                            if (userData.PaisID == 4)
+                            if (userData.PaisID == Constantes.PaisID.Colombia)
                             {
                                 txtBuil.Append("<td style='font-size:11px; width: 182px; text-align: center;'>");
                                 txtBuil.Append("" + userData.Simbolo + string.Format("{0:#,##0}", item2.PrecioUnidad).Replace(',', '.') + "");
@@ -458,7 +458,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         txtBuil.Append("</td>");
                         txtBuil.Append("<td style='font-size:11px; text-align: center; font-weight: bold'>");
 
-                        if (userData.PaisID == 4) txtBuil.Append("" + userData.Simbolo + string.Format("{0:#,##0}", item.ImporteTotalPedido).Replace(',', '.') + "");
+                        if (userData.PaisID == Constantes.PaisID.Colombia) txtBuil.Append("" + userData.Simbolo + string.Format("{0:#,##0}", item.ImporteTotalPedido).Replace(',', '.') + "");
                         else txtBuil.Append("" + userData.Simbolo + item.ImporteTotalPedido.ToString("#0.00") + "");
                         txtBuil.Append("</td>");
                         txtBuil.Append("</tr>");

@@ -172,21 +172,21 @@
                                     <div class="descripcion_opcion_activacion">
                                         Al presionar continuar aceptas los
                                         @if (metodoPago.TipoVisualizacionTyC == Constantes.PagoEnLineaMetodoPagoVisualizacionTyC.Popup)
-                                        {
-                                            <a class="ver_terminos_y_condiciones" data-tipovisualizacion="">
-                                                términos y condiciones
-                                            </a>
-                                        }
+            {
+                            <a class="ver_terminos_y_condiciones" data-tipovisualizacion="">
+                                términos y condiciones
+                            </a>
+}
                                         @if (metodoPago.TipoVisualizacionTyC == Constantes.PagoEnLineaMetodoPagoVisualizacionTyC.Archivo)
-                                        {
-                                            <a class="ver_terminos_y_condiciones" target="_blank" href="@metodoPago.TerminosCondiciones">
-                                                términos y condiciones
-                                            </a>
-                                        }
+            {
+                            <a class="ver_terminos_y_condiciones" target="_blank" href="@metodoPago.TerminosCondiciones">
+                                términos y condiciones
+                            </a>
+}
 
                                     </div>
                                 </div>
-                                <button type="button" class="btn_pago_tarjeta_credito text-bold text-uppercase default-background w-100" id="btnPagoParcial">
+                                <button type="button" class="text-bold text-uppercase default-background w-100 disabledButton" disabled id="btnPagoParcial">
                                     Continuar
                                 </button>
                             </div>

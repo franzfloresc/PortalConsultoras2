@@ -173,7 +173,6 @@ var OfertaDelDiaModule = function () {
 
         //odd_desktop_google_analytics_product_impresion(data, contenedorOfertas);
 
-        console.log('RenderOfertaDelDia');
         if (typeof CarruselAyuda != "undefined") {
             // marcacion inicio de mostrar productos
             var origen = {
