@@ -1,6 +1,10 @@
 ﻿
 /* PÁGINA DE RESULTADOS DESKTOP */
 
+.layout__container{
+    max-width:1278px;
+}
+
 .layout__view__breadcrumbs__wrapper{
     display:none!important;
 }

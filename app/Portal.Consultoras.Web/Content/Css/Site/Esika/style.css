@@ -4415,8 +4415,9 @@ a.subir_carousel, a.bajar_carousel {
 
 .logo_esika a {
     height: 50px;
-    background: url('/Content/Images/Esika/logo_esika.png') no-repeat;
-    background-size: cover;
+    background: url('/Content/Images/Esika/logo_marca_pais_desktop.svg') no-repeat;
+    background-size: 88%;
+    background-position-y: 7px;
 }
 
     .logo_esika a.negro {

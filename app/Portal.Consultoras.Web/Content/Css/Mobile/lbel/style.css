@@ -3572,12 +3572,22 @@ table > thead > tr > th {
     }
 
 /*NUEVA VERSION MOBILE*/
+
+.menu_icon_wrapper{
+    max-width:60px;
+}
+
+.logo_marca_pais_wrapper{
+    padding-left:10px!important;
+}
+
 .logo_mobile {
-    background: url('/Content/Images/Mobile/Lbel/logo_Lbel.png') no-repeat;
+    background: url('/Content/Images/Lbel/logo_marca_pais.svg') no-repeat;
     width: 72px;
     height: 28px;
     display: block;
-    margin-top: 8px;
+    margin-top: 9px;
+    background-position-y:center;
 }
 
 .campana_mobile {
