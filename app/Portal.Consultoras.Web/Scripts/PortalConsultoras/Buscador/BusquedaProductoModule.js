@@ -34,7 +34,8 @@
         etiquetaCriterioElegido: '.icono__eliminar__criterioElegido',
         filtroBtnMobileWrapper: '.filtro__btn__mobile__wrapper',
         valueJSON: ".hdBuscadorJSON",
-        filtroListaHandleBar: ".filtros__lista-handleBar"
+        filtroListaHandleBar: ".filtros__lista-handleBar",
+        textoBusquedaMostar: "#TextoBusqueda"
     };
     var _modificador = {
         itemDropDowndesplegado: "opcion__ordenamiento__dropdown--desplegado",
@@ -43,6 +44,7 @@
     var _config = {
         isMobile: window.matchMedia("(max-width:991px)").matches,
         textoBusqueda: textoBusqueda,
+        categoriaBusqueda: categoriaBusqueda,
         totalProductos: 0,
         totalPaginas: 0,
         productosPorPagina: totalProductosPagina,
@@ -53,7 +55,8 @@
         maxCaracteresDesc: totalCaracteresDescripcion,
         isHome: false,
         filtros: [],
-        filtrosLocalStorage: 'filtrosLocalStorage'
+        filtrosLocalStorage: 'filtrosLocalStorage',
+        nombreGrupo: "Categoría"
     };
     var _provider = {
         BusquedaProductoPromise: function (params) {
@@ -273,6 +276,25 @@
             }
 
             _funciones.CargarProductos();
+        },
+        buscarPorCategoria: function () {
+            if (categoriaBusqueda.length > 0) {
+                _config.textoBusqueda = "";
+                $(_elementos.textoBusquedaMostar).html("Fragancias");
+                _config.filtros = [
+                    {
+                        NombreGrupo: _config.nombreGrupo,
+                        Opciones: [
+                            {
+                                IdFiltro: categoriaBusqueda,
+                                NombreFiltro: "Fragancias",
+                                Min: 0,
+                                Max: 0
+                            }
+                        ]
+                    }
+                ];
+            }
         }
     };
     var _eventos = {
@@ -634,6 +656,8 @@
     //Public functions
     function Inicializar() {
         _funciones.InicializarEventos();
+
+        _funciones.buscarPorCategoria();
         _funciones.CargarProductos();
         set_local_storage([], _config.filtrosLocalStorage);
     }

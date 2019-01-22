@@ -16,11 +16,12 @@ namespace Portal.Consultoras.Web.Controllers
             tablaLogica = new SACServiceClient();
         }
 
-        public ActionResult Index(string q = "")
+        public ActionResult Index(string q = "", string c = "")
         {
             var model = new BusquedaProductoOutModel
             {
                 TextoBusqueda = q,
+                CategoriaBusqueda = c,
                 ListaOrdenamiento = tablaLogica.GetOrdenamientoFiltrosBuscador(userData.PaisID),
                 TotalProductosPagina = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.TotalProductosPaginaResultado),
                 TotalCaracteresDescripcion = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.TotalCaracteresDescPaginaResultado),
