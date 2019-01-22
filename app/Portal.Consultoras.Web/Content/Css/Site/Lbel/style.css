@@ -285,7 +285,7 @@ header {
     position: absolute;
     top: 39px;
     margin-left: -90px;
-    width: 937px;
+    width: 977px;
     height: auto;
     padding-left: 65px;
     padding-right: 60px;
@@ -906,6 +906,39 @@ header {
     font-size: 8.6px;
     letter-spacing: 1.5px;
 }
+
+/*INI EINCA HD-3094 09-01-2019 Boton genérico fondo blanco y rojo*/
+.btn_bg_write {
+    font-family: 'lato';
+    background: white;
+    color: black;
+    font-weight: 400;
+    height: 45px;
+    border: 1px solid #ccc;
+    float: left;
+    text-align-last: center;
+    display: inline-block;
+    width: auto;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.btn_bg_primary {
+    font-family: 'lato';
+    background: #642F80;
+    color: #fff;
+    font-weight: 700;
+    height: 45px;
+    float: left;
+    text-align-last: center;
+    border: 1px solid #642F80;
+    display: inline-block;
+    width: auto;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    margin-left: 4px;
+}
+/*FIN EINCA HD-3094 09-01-2019 Boton genérico fondo blanco*/
 
 .sombra_e {
     width: 100%;
@@ -28980,6 +29013,7 @@ div.motivoRechazo textarea {
 .icono_resumen_resolucion {
     background: url('/Content/Images/RevistaDigital/icono_advertencia_notificacion.svg') no-repeat top left;
     background-position: 0 33px;
+    background-size:7%;
 }
 
 .listado_estado_general {
