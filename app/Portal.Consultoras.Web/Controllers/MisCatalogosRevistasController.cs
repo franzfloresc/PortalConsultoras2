@@ -558,7 +558,7 @@ namespace Portal.Consultoras.Web.Controllers
                     urlIconTelefono = Globals.RutaCdn + "/ImagenesPortal/Iconos/celu_mail_lbel.png";
                 }
 
-                Mensaje = Mensaje.Replace("\n", Environment.NewLine);
+                Mensaje = Mensaje.Replace("\n", "<br/>");
                 var txtBuil = new StringBuilder();
                 foreach (var item in ListaCatalogosCliente)
                 {
