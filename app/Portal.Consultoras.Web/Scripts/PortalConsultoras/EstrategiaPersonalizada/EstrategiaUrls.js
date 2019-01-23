@@ -10,7 +10,6 @@ function OnClickFichaDetalle(e) {
 
     var UrlDetalle = GetPalanca(codigoEstrategia, OrigenPedidoWeb);
 
-    debugger;
     if (OrigenPedidoWeb == "" || OrigenPedidoWeb === "undefined" || OrigenPedidoWeb == null)
         OrigenPedidoWeb = "";
 
@@ -18,12 +17,15 @@ function OnClickFichaDetalle(e) {
         return null;
 
     UrlDetalle += codigoCampania + "/" + codigoCuv + "/" + OrigenPedidoWeb;
-
-    if (estoyEnLaFicha) {
-        AnalyticsPortalModule.MarcarClicSetProductos(infoCuvItem, e, OrigenPedidoWeb, estoyEnLaFicha);
-    } else
+  ///Comentado por cambios en las funciones que generaban la marcacion del boton Ver detalle  23-01-2019
+    //if (estoyEnLaFicha) {
+    //    AnalyticsPortalModule.MarcaGenericaClic(e, OrigenPedidoWeb, UrlDetalle);
+     
+    //    //AnalyticsPortalModule.MarcarClicSetProductos(infoCuvItem, e, OrigenPedidoWeb, estoyEnLaFicha);
+    //} else
+    ////////////////////////////
         if (!(typeof AnalyticsPortalModule === 'undefined'))
-            AnalyticsPortalModule.MarcaGenericaClic(e, OrigenPedidoWeb);
+            AnalyticsPortalModule.MarcaGenericaClic(e, OrigenPedidoWeb,UrlDetalle);
 
     window.location = UrlDetalle;
 
