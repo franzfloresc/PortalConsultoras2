@@ -167,20 +167,27 @@
                     </div>
                 </div>
 
-                <div class="content_cantidad_ficha_producto" data-cantidad-contenedor="">
-                    <a class="cantidad_menos_home" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
-                        <span>-</span>
-                    </a>
-                    <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
-                    <a class="cantidad_mas_home" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
-                        <span>+</span>
-                    </a>
+                <div id="div-boton-agregar" style="display: none;">
+                    <div class="content_cantidad_ficha_producto" data-cantidad-contenedor="">
+                        <a class="cantidad_menos_home" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
+                            <span>-</span>
+                        </a>
+                        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
+                        <a class="cantidad_mas_home" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
+                            <span>+</span>
+                        </a>
+                    </div>
+
+                    <a class="btn_agregar_ficha_producto @Model.ClaseBloqueada"
+                       id="btnAgregalo"
+                       data-bloqueada=""
+                       onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, false, 0, true); ">AGRÉGALO</a>
+                </div>
+  
+                <div class="boton_agotado_ficha" id="div-boton-agotado" style="display: none;">
+                    Agotado
                 </div>
 
-                <a class="btn_agregar_ficha_producto @Model.ClaseBloqueada"
-                   id="btnAgregalo"
-                   data-bloqueada=""
-                   onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, false, 0, true); ">AGRÉGALO</a>
                 <hr class="clear">
             </div>
         </div>

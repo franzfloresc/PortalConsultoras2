@@ -991,3 +991,37 @@ ul.breadcumbs li a::before {
     position: absolute;
 }
 
+
+/* Agotado */
+.boton_Agregalo_agotado {
+    height: 45px;
+    width: 100%;
+    font-weight: bold;
+    color: #B2B0B0;
+    background-color: #E5E5E5;
+    border: 1px solid #D2D2D2;
+    line-height: 45px;
+    margin-top: 7px;
+    border-radius: 4px;
+    margin-top: 27px;
+}
+
+.tono-agotado {
+    border: 1px solid #dadada !important;
+    cursor: default;
+    opacity: 0.4;
+    position: relative;
+}
+
+    .tono-agotado::after {
+        content: "";
+        display: block;
+        width: 59px;
+        height: 1px;
+        background-color: #d2d2d2;
+        transform: rotate(45deg);
+        z-index: 1;
+        position: absolute;
+        top: 18px;
+        left: -11px;
+    }

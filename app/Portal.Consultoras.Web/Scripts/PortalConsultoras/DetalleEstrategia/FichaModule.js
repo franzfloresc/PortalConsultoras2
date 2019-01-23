@@ -510,6 +510,7 @@ var FichaModule = (function (config) {
                 var diferenciaHeight = dvIzquierdoHeight - dvFichaEtiquetaHeight;
                 dvDetalle.removeClass("ficha_detalle_cuerpo");
                 dvDetalle.height(diferenciaHeight);
+                dvDetalle.css("min-height", diferenciaHeight);
             }
             else {
                 dvDetalle.addClass("ficha_detalle_cuerpo");
@@ -592,6 +593,12 @@ var FichaModule = (function (config) {
         _setEstrategiaBreadcrumb(estrategia);
         SetHandlebars("#detalle_ficha_template", estrategia, "#seccion_ficha_handlebars");
 
+        if (isMobile()) {
+            if (typeof estrategia.TieneStock !== undefined) {
+                if (estrategia.TieneStock) $('#div-boton-agregar').show();
+                else $('#div-boton-agotado').show();
+            }
+        }
         if (estrategia.CodigoVariante === _codigoVariedad.IndividualVariable ||
             estrategia.CodigoVariante === _codigoVariedad.CompuestaVariable ||
             estrategia.esCampaniaSiguiente) _validarDesactivadoGeneral(estrategia);

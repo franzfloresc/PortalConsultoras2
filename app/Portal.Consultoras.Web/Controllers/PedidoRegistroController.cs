@@ -477,6 +477,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult DeleteAll()
         {
+            List<BEPedidoWebDetalle> listaMarcaciones;
             string message;
             try
             {
