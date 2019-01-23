@@ -238,9 +238,6 @@
 
         var lMongoId = $('#listCargaMasiva1').jqGrid('getCell', rowId, '4');
 
-        if (!lMongoId || lMongoId.length == 0)
-            return;
-
         var parametros = {
             campaniaId: parseInt($("#ddlCampania").val()),
             tipoConfigurado: parseInt(tipo),
