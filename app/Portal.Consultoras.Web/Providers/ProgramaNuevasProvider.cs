@@ -93,6 +93,7 @@ namespace Portal.Consultoras.Web.Providers
             };
 
             var premioOF = GetPremioProgNuevasOF(premio);
+            model.Cuv = premio.Cuv;
             model.DescripcionPremio = premioOF.DescripcionPremio;
             model.UrlImagenRegalo = premioOF.UrlImagenRegalo;
             model.PrecioValorizado = premioOF.PrecioValorizado;

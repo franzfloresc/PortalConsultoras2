@@ -692,7 +692,6 @@ function MostrarBarra(datax, destino) {
         if (tipoMensaje == 'EscalaDescuento') valorFalta = vLimite - me;
         if (vLogro >= vLimite) tipoMensaje += "Supero";
     }
-    tipoMensaje += belcorp.barra.settings.isMobile ? 'Mobile' : '';
     
     var mtoTp = variablesPortal.SimboloMoneda + " " + dataBarra.TippingPointStr;
     $('#montoPremioMeta').html(mtoTp);
@@ -811,6 +810,10 @@ function MostrarBarra(datax, destino) {
 
             CalculoPosicionMinimoMaximoDestokp();
             CalculoPosicionMensajeDestokp();
+            var premioNoSelected = destino == '2' && tpElectivos.loadPremios && !tpElectivos.premioSelected;
+            if (premioNoSelected) {
+                $('#divBarra .contenedor_circulos').show();
+            }
         }
     }
 
@@ -2144,7 +2147,7 @@ function CalculoPosicionMinimoMaximoDestokp() {
             var MostrarMonto = 'none';
             if (dataBarra.TippingPointBarra.ActiveMonto == true) MostrarMonto = 'block';
 
-            if (tpElectivos.premioSelected == null) { 
+            if (dataBarra.TippingPointBarra.ActivePremioElectivo && tpElectivos.premioSelected == null) { 
                     //style = "display: block;"                                    
                 htmlTipinpoing = '<div id="punto_' + dataBarra.ListaEscalaDescuento.length + '" data-punto="0" style="float: left;top:-52px; z-index: 200;left:2.1818%" class="EscalaDescuento"><div class="monto_minimo_barra"><div style="width:90px;position: relative;" data-texto=""><div class=""><a class="tippingPoint" href="javascript:;" onclick="javascript: cargarPopupEleccionRegalo();"></a><div class="monto_meta_tippingPoint" style="display:' + MostrarMonto + '">S/.' + montoTipipoing +'</div></div><div class="contenedor_circulos microEfecto_regaloPendienteEleccion" style="display: block;" ><div class="circulo-1 iniciarTransicion"></div><div class="circulo-2 iniciarTransicion"></div><div class="circulo-3 iniciarTransicion"></div></div></div></div></div>';
 
@@ -2242,7 +2245,7 @@ function CalculoPosicionMinimoMaximoDestokp() {
                 var MostrarMonto = 'none';
                 if (dataBarra.TippingPointBarra.ActiveMonto == true) MostrarMonto = 'block';
 
-                 if (tpElectivos.premioSelected == null) {
+                 if (dataBarra.TippingPointBarra.ActivePremioElectivo && tpElectivos.premioSelected == null) {
                      
 
                      htmlTipinpoing = '<div id="punto_' + dataBarra.ListaEscalaDescuento.length + '" data-punto="0" style="float: left;top:-52px; z-index: 200;left:8%" class="EscalaDescuento"><div class="monto_minimo_barra"><div style="width:90px;position: relative;" data-texto=""><div class=""><a class="tippingPoint" href="javascript:;" onclick="javascript: cargarPopupEleccionRegalo();"></a><div class="monto_meta_tippingPoint" style="display:' + MostrarMonto + '"  >S/.' + montoTipipoing +'</div></div><div class="contenedor_circulos microEfecto_regaloPendienteEleccion" style="display: block;"><div class="circulo-1 iniciarTransicion"></div><div class="circulo-2 iniciarTransicion"></div><div class="circulo-3 iniciarTransicion"></div></div></div></div></div>';
