@@ -144,3 +144,17 @@
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Buscador/BuscadorModule.js")"></script>
 
 }
+
+<script id="js-categoriasProductos" type="text/x-handlebars-template">
+    {{#each this as |item|}}
+    <li class="categoria_producto categoria_fragancias">
+        <div class="categoria_producto_fondo_estado"></div>
+        <img class="d-block" src="@Url.Content("~/Content/Images/Buscador/fragancia.jpg")" alt="Fragancias" />
+        <a href="/BusquedaProductos?c={{item.Codigo}}" title="Fragancias" class="d-flex categoria_producto_enlace">
+            <span class="d-block text-bold titulo_categoria_producto_busqueda">{{item.Nombre}}</span>
+            <span class="d-block cantidad_productos_por_categoria_busqueda">{{item.Cantidad}} productos</span>
+        </a>
+    </li>
+    {{/each}}
+
+</script>
