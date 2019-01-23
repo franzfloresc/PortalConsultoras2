@@ -646,7 +646,6 @@ function MostrarBarra(datax, destino) {
         if (tipoMensaje == 'EscalaDescuento') valorFalta = vLimite - me;
         if (vLogro >= vLimite) tipoMensaje += "Supero";
     }
-    tipoMensaje += belcorp.barra.settings.isMobile ? 'Mobile' : '';
     
     var mtoTp = variablesPortal.SimboloMoneda + " " + dataBarra.TippingPointStr;
     $('#montoPremioMeta').html(mtoTp);
