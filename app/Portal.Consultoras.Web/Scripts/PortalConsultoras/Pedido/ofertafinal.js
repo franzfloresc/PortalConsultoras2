@@ -16,6 +16,7 @@ var montoPedidoInicial = 0;
 var montoPedidoFinal = 0;
 var totalProductosOF = 0;
 var tipoMeta = null;
+var dataAgregarOF = null;
 
 $(document).ready(function () {
     $("body").on("click", ".agregarOfertaFinal", function () {
@@ -85,15 +86,23 @@ function ValidarAgregarOfertaFinal(objDivPadre, objCantidad, fnFinal) {
             return false;
         }
 
-        var add = AgregarOfertaFinal(model);
-        if (add.success) {
+        dataAgregarOF = AgregarOfertaFinal(model);
+        if (dataAgregarOF.success) {
             AgregarOfertaFinalLog(model.CUV, model.Cantidad, tipoOfertaFinal_Log, gap_Log, 1, 'Producto Agregado');
-            ActualizarValoresPopupOfertaFinal(add, true);
+            ActualizarValoresPopupOfertaFinal(dataAgregarOF);
             objDivPadre.find('.agregado').show();
             if ($.isFunction(fnFinal)) fnFinal();
         }
         CloseLoadingOF();
     }, 1);
+}
+
+function ActValPopupOFByRegaloNuevas() {
+    if (dataAgregarOF != null) {
+        oRegaloPN = GetRegaloProgramaNuevas();
+        ActualizarValoresPopupOfertaFinal(dataAgregarOF);
+    }
+    else oRegaloPN = null;
 }
 
 function OpenLoadingOF() {
@@ -605,7 +614,7 @@ function validarGanoRegalo(totalPedido) {
     }
 }
 
-function ActualizarValoresPopupOfertaFinal(data, popup) {
+function ActualizarValoresPopupOfertaFinal(data) {
     var nivel;
     var msg1 = "", msj = "";
     var montolimite = 0;

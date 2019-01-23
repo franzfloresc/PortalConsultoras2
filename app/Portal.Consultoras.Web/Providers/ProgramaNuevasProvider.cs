@@ -77,7 +77,11 @@ namespace Portal.Consultoras.Web.Providers
             
             barra.TippingPointBarra.InMinimo = configProgNuevas.IndExigVent == "0" || configProgNuevas.MontoVentaExigido == 0;
 
-            if (barra.TippingPointBarra.InMinimo) barra.TippingPoint = barra.MontoMinimo;
+            if (barra.TippingPointBarra.InMinimo)
+            {
+                barra.TippingPoint = barra.MontoMinimo;
+                barra.TippingPointBarra.ActiveMonto = false;
+            }
             else barra.TippingPoint = configProgNuevas.MontoVentaExigido;
 
             barra.TippingPointStr = Util.DecimalToStringFormat(barra.TippingPoint, userData.CodigoISO);
