@@ -17,7 +17,7 @@ var revistaDigital = revistaDigital || {};
 function CargarCarouselEstrategias() {
     $.ajax({
         type: "GET",
-        url: baseUrl + "Estrategia/JsonConsultarEstrategias",
+        url: baseUrl + "Estrategia/HomePedidoObtenerProductos",
         data: {
             tipoOrigenEstrategia: tipoOrigenEstrategia
         },

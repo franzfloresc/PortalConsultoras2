@@ -144,7 +144,7 @@ namespace Portal.Consultoras.Web.Controllers
                 cantidadEnvios = sv.ValidarEnvioCatalogo(paisId, codigoConsultora, userData.CampaniaID, cantidadValidacion);
             }
 
-            return cantidadEnvios >= cantidadValidacion ? 1 : 0;
+            return (cantidadEnvios >= cantidadValidacion).ToInt();
         }
 
     }

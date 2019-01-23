@@ -62,7 +62,7 @@ namespace Portal.Consultoras.BizLogic
             var listPalabraUnique = new HashSet<string>(listPalabra);
             foreach (var palabra in listPalabraUnique)
             {
-                dictionaryPalabraListCandidato.Add(palabra, GetListCandidatoFromPalabra(paisISO, campaniaID, palabra, iteracion, count == 1 ? 1 : 0));
+                dictionaryPalabraListCandidato.Add(palabra, GetListCandidatoFromPalabra(paisISO, campaniaID, palabra, iteracion, (count == 1).ToInt()));
             }
             if (count > 0) LimitDictionaryPalabraListCandidato(dictionaryPalabraListCandidato, count);
 
