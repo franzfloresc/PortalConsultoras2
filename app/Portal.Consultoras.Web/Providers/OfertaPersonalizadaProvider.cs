@@ -501,7 +501,14 @@ namespace Portal.Consultoras.Web.Providers
                 //    }
                 //}
 
-                listEstrategia = _consultaProlProvider.ActualizarEstrategiaStockPROL(listEstrategia, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora);
+                if (tipo != Constantes.TipoEstrategiaCodigo.PackNuevas)
+                {
+                    listEstrategia = _consultaProlProvider.ActualizarEstrategiaStockPROL(listEstrategia, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora);
+                }
+                else
+                {
+                    listEstrategia.ForEach(x => { x.TieneStock = true; });
+                }
 
                 if (campaniaId == userData.CampaniaID)
                 {
