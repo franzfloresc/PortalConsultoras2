@@ -165,8 +165,6 @@ var BuscadorModule = (function () {
 
             CategoriaProductosDatos = get_local_storage(_config.categorias);
 
-            console.log(CategoriaProductosDatos);
-
             if (CategoriaProductosDatos == null) {
                 var model = {}
 

@@ -12,5 +12,6 @@ namespace Portal.Consultoras.Web.Models
         public string Nombre { get; set; }
         public int Cantidad { get; set; }
         public string Imagen { get; set; }
+        public bool ImagenAncha { get; set; }
     }
 }
