@@ -31,12 +31,14 @@
     overflow:hidden;
 }
 
-.categoria_producto img{
-    height: 80px;
-    object-fit: cover;
-    object-position:right bottom;
-    z-index:1;
-}
+    .categoria_producto img {
+        height: 80px;
+        -o-object-fit: cover;
+        object-fit: cover;
+        -o-object-position: right bottom;
+        object-position: right bottom;
+        z-index: 1;
+    }
 
 .categoria_full_width{
     grid-column: span 4;
@@ -83,14 +85,18 @@
     cursor:not-allowed;
 }
 
-.categoria_producto_enlace{
+.categoria_producto_enlace {
+    -ms-flex-direction: column;
+    -webkit-flex-direction: column;
     flex-direction: column;
     justify-content: flex-end;
-    flex-wrap:nowrap;
-    padding:12px;
-    cursor:pointer;
-    position:relative;
-    z-index:3;
+    -ms-flex-wrap: nowrap;
+    -webkit-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    padding: 12px;
+    cursor: pointer;
+    position: relative;
+    z-index: 3;
 }
 
 .categoria_sin_productos_disponibles .titulo_categoria_producto_busqueda,
@@ -116,27 +122,46 @@
 
 @media all and (-ms-high-contrast: none),(-ms-high-contrast: active) {
 
-    .listado_categorias_productos_busqueda{
-        display:flex;
-        flex-direction:row;
-        justify-content:space-between;
-        flex-wrap:wrap;
+    .listado_categorias_productos_busqueda {
+        display: flex;
+        -ms-flex-direction: row;
+        -webkit-flex-direction: row;
+        flex-direction: row;
+        justify-content: space-between;
+        -ms-flex-wrap: wrap;
+        -webkit-flex-wrap: wrap;
+        flex-wrap: wrap;
     }
 
-    .categoria_full_width{
+    .categoria_full_width {
+        -ms-flex: 0 0 100%;
+        -webkit-flex: 0 0 100%;
         flex: 0 0 100%;
         max-width: 100%;
-        order:-1;
+        order: -1;
     }
 
-    .categoria_half_width{
+    .categoria_half_width {
+        -ms-flex: 0 0 50%;
+        -webkit-flex: 0 0 calc(50% - 6.5px);
         flex: 0 0 calc(50% - 6.5px);
         max-width: calc(50% - 6.5px);
-        order:0;
+        order: 0;
     }
 
     .categoria_producto{
         margin-bottom:12px;
+    }
+
+    .categoria_full_width img,
+    .categoria_half_width img
+    {
+        width:auto;
+    }
+
+    .categoria_producto img{
+        left:auto;
+        right:-95px;
     }
 
 }
