@@ -49,6 +49,28 @@ namespace Portal.Consultoras.Web.Controllers
             
         }
 
+        public JsonResult ObtenerModelo(string palanca, int campaniaId, string cuv, string origen)
+        {
+            try
+            {
+                var modelo = FichaModelo(palanca, campaniaId, cuv, origen);
+                return Json(new
+                {
+                    success = true,
+                    data = modelo
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+
+                return Json(new
+                {
+                    success = false
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         public JsonResult ObtenerComponentes(string estrategiaId, string cuv2, string campania, string codigoVariante, string codigoEstrategia = "", List<EstrategiaComponenteModel> lstHermanos = null)
         {
             try

@@ -3,12 +3,13 @@
 @model Portal.Consultoras.Web.Models.DetalleEstrategiaFichaModel
 
 @{
-    var layout = ViewContext.MobilePedidoLayout();
-    ViewBag.Title = "Ficha-Mobile";
-    Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
-    var mobileConfiguracion = Html.MobileAppConfiguracion();
-    var origen = Request.Params["origen"];
-    origen = origen ?? string.Empty;
+                /**/
+
+                var layout = ViewContext.MobilePedidoLayout();
+                ViewBag.Title = "Ficha-Mobile";
+                Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
+                var origen = Request.Params["origen"];
+                origen = origen ?? string.Empty;
 }
 
 @section styles{
@@ -23,10 +24,16 @@
     }
     <style id="styleRelojOdd"></style>
 }
-@if (!origen.StartsWith(Constantes.IngresoExternoOrigen.App))
+@if (Model.TipoAccionNavegar == Constantes.TipoAccionNavegar.BreadCrumbs)
 {
     @Html.Partial("_BreadCrumb", Model.BreadCrumbs)
+    <div id="seccion_ficha_handlebars"></div>
 }
+else if (Model.TipoAccionNavegar == Constantes.TipoAccionNavegar.Volver)
+{
+    // html volver
+}
+
 @Html.Partial("_ElegirOpciones")
 @Html.Partial("ResumenOpcionesTemplate")
 
@@ -132,8 +139,6 @@
     {{/iff}}
 </script>
 
-
-
 @Html.Partial("ComponentesTemplate")
 
 <div data-item="" data-OrigenPedidoWeb="@Model.OrigenUrl" data-OrigenPedidoWebAgregar="@Model.OrigenAgregar">
@@ -143,7 +148,7 @@
 
     <div id="seccion_ficha_handlebars"></div>
 
-    @if (ViewBag.CampaniaCodigo == Model.Campania)
+    @if (!Model.NoEsCampaniaActual)
     {
         <div id="dvContenedorAgregar" class="content_btn_agregar">
             <div class="content_320">
@@ -183,7 +188,7 @@
                        data-bloqueada=""
                        onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, false, 0, true); ">AGRÉGALO</a>
                 </div>
-  
+
                 <div class="boton_agotado_ficha" id="div-boton-agotado" style="display: none;">
                     Agotado
                 </div>
@@ -234,9 +239,9 @@
         </div>
     </div>
 </div>
+
 @if (Model.TieneCarrusel)
 {
-
     <div id="divFichaCarrusel" class="container">
         <div class="col-md-12 col-sm-12 col-xs-12 ficha_lineaencuentraproducto">
             <hr>
@@ -260,54 +265,47 @@
 }
 
 <!--compartir-->
-@if (!mobileConfiguracion.EsAppMobile)
+
+@if (Model.TieneCompartir)
 {
-    if (Model.TieneCompartir)
-    {
-        <div class="col-md-12 col-sm-12 col-xs-12 ficha_lineaencuentraproducto">
-            <hr>
+    <div class="col-md-12 col-sm-12 col-xs-12 ficha_lineaencuentraproducto">
+        <hr>
+    </div>
+    <div id="Contenedor_redes_sociales" data-item="">
+        <div data-compartir-campos="" style="display:none;">
+            <input type="hidden" class="CUV" value="" />
+            <input type="hidden" class="rsFBMensaje" value="" />
+            <input type="hidden" class="rsWAMensaje" value="" />
+            <input type="hidden" class="rsFBRutaImagen" value="" />
+            <input type="hidden" class="rsWARutaImagen" value="" />
+            <input type="hidden" class="MarcaID" value="" />
+            <input type="hidden" class="MarcaNombre" value="" />
+            <input type="hidden" class="Nombre" value="" />
+            <input type="hidden" class="ProductoDescripcion" value="" />
+            <input type="hidden" class="Volumen" value="" />
+            <input type="hidden" class="Palanca" value="" />
         </div>
-        <div id="Contenedor_redes_sociales" data-item="">
-            <div data-compartir-campos="" style="display:none;">
-                <input type="hidden" class="CUV" value="" />
-                <input type="hidden" class="rsFBMensaje" value="" />
-                <input type="hidden" class="rsWAMensaje" value="" />
-                <input type="hidden" class="rsFBRutaImagen" value="" />
-                <input type="hidden" class="rsWARutaImagen" value="" />
-                <input type="hidden" class="MarcaID" value="" />
-                <input type="hidden" class="MarcaNombre" value="" />
-                <input type="hidden" class="Nombre" value="" />
-                <input type="hidden" class="ProductoDescripcion" value="" />
-                <input type="hidden" class="Volumen" value="" />
-                <input type="hidden" class="Palanca" value="" />
-            </div>
-            <div class="col-md-12 col-sm-12 col-xs-12 share">
-                <p>Comparte el producto con tus clientes</p>
-                <a href="javascript: void(0);" class="text-right">
-                    <img src="~/Content/Images/showroom/redes_whatsapp.png" alt="" class="wsp" data-compartir="WA">
-                </a>
-                <a href="javascript: void(0);">
-                    <img src="~/Content/Images/showroom/redes_facebook.png" alt="" class="fb" data-compartir="FB">
-                </a>
-                <div class="clearfix"></div>
-            </div>
+        <div class="col-md-12 col-sm-12 col-xs-12 share">
+            <p>Comparte el producto con tus clientes</p>
+            <a href="javascript: void(0);" class="text-right">
+                <img src="~/Content/Images/showroom/redes_whatsapp.png" alt="" class="wsp" data-compartir="WA">
+            </a>
+            <a href="javascript: void(0);">
+                <img src="~/Content/Images/showroom/redes_facebook.png" alt="" class="fb" data-compartir="FB">
+            </a>
+            <div class="clearfix"></div>
         </div>
-    }
-    else
-    {
-        <div class="share"></div>
-    }
+    </div>
 }
 else
 {
     <div class="share"></div>
 }
 
-
 @Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml", new ViewDataDictionary { { "TieneBotones", false } })
 @Html.Partial("~/Views/DetalleEstrategia/template-ficha-detalle-video.cshtml")
 
-@if (ViewBag.CampaniaCodigo != Model.Campania)
+@if (Model.NoEsCampaniaActual)
 {
     @Html.Action("RDMensajeBloqueadoDetalle", "RevistaDigital")
 }
@@ -318,7 +316,7 @@ else
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Ficha")
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/EstrategiaAgregar")
 
-    <script>
+    <script type="text/javascript">
         AbrirLoad();
 
         window.videoKey = '@Model.CodigoVideo';
@@ -355,6 +353,7 @@ else
                 });
                 carruselModule.Inicializar();
             }
+
             CerrarLoad();
         });
 
