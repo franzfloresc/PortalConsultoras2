@@ -2649,57 +2649,6 @@ var AnalyticsPortalModule = (function () {
     ////////////////////////////////////////////////////////////////////////////////////////
 
 
-    var marcarClickMasOfertasLiquidacion = function (url, titulo) {
-        try {
-            if (_constantes.isTest)
-                alert("Marcación Ver más ofertas.");
-
-
-            var nombreBoton = titulo;
-            dataLayer.push({
-                'event': _evento.virtualEvent,
-                'category': "Home - Liquidaciones Web",
-                'action': 'Click Botón',
-                'label': nombreBoton,
-                'eventCallback': function () {
-                    document.location = url;
-                }
-            });
-
-        } catch (e) {
-            document.location = url;
-            console.log(_texto.excepcion + e);
-        }
-
-    }
-
-    var marcarClickVerTodosOpt = function (url, titulo) {
-        try {
-            if (_constantes.isTest)
-                alert("Marcación Ver más ofertas.");
-
-
-            var nombreBoton = titulo;
-            dataLayer.push({
-                'event': _evento.virtualEvent,
-                'category': "Home - Showroom",
-                'action': 'Click Botón',
-                'label': nombreBoton,
-                'eventCallback': function () {
-                    document.location = url;
-                }
-            });
-
-        } catch (e) {
-            document.location = url;
-            console.log(_texto.excepcion + e);
-        }
-
-    }
-
-    
-
-
     return {
         // Ini - Metodos Iniciales
         MarcarVerFichaProducto: marcarVerFichaProducto,
@@ -2822,11 +2771,6 @@ var AnalyticsPortalModule = (function () {
         MarcaRecomendacionesFlechaSiguiente: marcaRecomendacionesFlechaSiguiente,
         MarcaRecomendacionesFlechaAnterior: marcaRecomendacionesFlechaAnterior,
         MarcaOcultarRecomendaciones: marcaOcultarRecomendaciones,
-        MarcaAnadirCarritoRecomendaciones: marcaAnadirCarritoRecomendaciones,
-
-        MarcarClickMasOfertasLiquidacion: marcarClickMasOfertasLiquidacion,
-        MarcarClickVerTodosOpt: marcarClickVerTodosOpt
-
-        //onclick="javascript: menuModule.sectionClick('/RevistaDigital/Comprar', 'BotonVerMas', this);"
+        MarcaAnadirCarritoRecomendaciones: marcaAnadirCarritoRecomendaciones
     }
 })();
