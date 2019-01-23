@@ -3231,6 +3231,14 @@ namespace Portal.Consultoras.Common
                     });
                 }
             }
+
+        }
+
+        public static class ConsultaPROL
+        {
+            public const string ConsultaStockProl = "api/Pedido/ValidacionStockPalancas";
+            public const int StockPadre = 0;
+            public const int StockHijo = 1;
         }
 
         public static class EstrategiaDetalleCamposID

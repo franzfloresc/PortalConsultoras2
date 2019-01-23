@@ -61,7 +61,30 @@ var ComponentesModule = (function () {
             }
         });
         SetHandlebars(_elements.componentes.templateId, _estrategia, _elements.componentes.id);
+
+        _mostrarMensajeTonosAgotados(estrategia);
     };
+
+    var _mostrarMensajeTonosAgotados = function (estrategia) {
+        if (estrategia.Hermanos.length > 0) {
+            var cta = 0;
+            var hijos = 0;
+            $.each(estrategia.Hermanos, function (i, obj) {
+                if (obj.Hermanos !== null) {
+                    $.each(obj.Hermanos, function (j, k) {
+                        hijos++;
+                        if (!k.TieneStock) cta++;
+                    });
+                }
+            });
+
+            if (cta > 0 && hijos > 1) {
+                if (cta < hijos) {
+                    $('.xmsg-tonos-agotados').show();
+                }
+            }
+        }
+    }
 
     var _mostrarModalElegirOpciones = function() {
         if (isMobile()) {

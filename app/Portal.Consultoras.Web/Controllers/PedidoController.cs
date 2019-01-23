@@ -4456,6 +4456,8 @@ namespace Portal.Consultoras.Web.Controllers
         //        FichaProductoDetalleModel ficha = SessionManager.GetFichaProductoTemporal();
         //        if (ficha == null) return ErrorJson(Constantes.MensajesError.ErrorGenerico, true);
 
+
+
         //        var numero = Convert.ToInt32(Cantidad);
         //        if (numero > ficha.LimiteVenta) return ErrorJson("La cantidad no debe ser mayor que la cantidad limite ( " + ficha.LimiteVenta + " ).", true);
 
