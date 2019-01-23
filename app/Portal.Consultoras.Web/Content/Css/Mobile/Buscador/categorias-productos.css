@@ -27,8 +27,6 @@
     height:80px;
     margin-right:13px;
     margin-bottom:12px;
-    flex: 0 0 calc(50% - 6.5px);
-    max-width: calc(50% - 6.5px);
     position:relative;
     overflow:hidden;
 }
@@ -36,12 +34,31 @@
 .categoria_producto img{
     height: 80px;
     object-fit: cover;
+    object-position:right bottom;
     z-index:1;
+}
+
+.categoria_full_width{
+    flex: 0 0 100%;
+    max-width: 100%;
+}
+
+.categoria_half_width{
+    flex: 0 0 calc(50% - 6.5px);
+    max-width: calc(50% - 6.5px);
+}
+
+.categoria_full_width img{
+    width:100vw;
+}
+
+.categoria_half_width img{
+    width:50vw;
 }
 
 .categoria_sin_productos_disponibles .categoria_producto_fondo_estado{
     background-color:#d5d6da;
-    opacity:0.92;
+    opacity:0.95;
 }
 
 .categoria_producto img,
@@ -53,7 +70,7 @@
 }
 
 .categoria_producto_fondo_estado{
-   background-color:rgba(0,0,0,.5);
+   background-color:rgba(0,0,0,.4);
    z-index:2;
 }
 
@@ -106,75 +123,4 @@
 
 .cantidad_productos_por_categoria_busqueda{
     font-size:13px;
-}
-
-.categoria_maquillaje img,
-.categoria_cuidado_personal img,
-.categoria_tratamiento_facial img,
-.categoria_bijouterie img,
-.categoria_moda img,
-.categoria_herramientas_venta img
-{
-    width:50vw;
-}
-
-.categoria_fragancias img{
-    width:100vw;
-    object-position: -15px 46%;
-}
-
-.categoria_maquillaje img{
-    object-position: -4px 33%;
-}
-
-.categoria_cuidado_personal img{
-    object-position: 11px 22%;
-}
-
-.categoria_tratamiento_facial img{
-    object-position: -4px 56%;
-}
-
-.categoria_bijouterie img{
-    object-position: 0 13%;
-}
-
-.categoria_moda img{
-    object-position: 0 41%;
-}
-
-.categoria_herramientas_venta img{
-    object-position: 7px 42%;
-}
-
-@media screen and (max-width:991px) and (orientation:landscape){
-
-    .categoria_fragancias img{
-        object-position: -15px 44%;
-    }
-
-    .categoria_maquillaje img{
-        object-position: left 26%;
-    }
-
-    .categoria_cuidado_personal img{
-        object-position: 43px 38%;
-    }
-
-    .categoria_tratamiento_facial img{
-        object-position: -13px 62%;
-    }
-
-    .categoria_bijouterie img{
-        object-position: 0 20%;
-    }
-
-    .categoria_moda img{
-        object-position: 0 34%;
-    }
-
-    .categoria_herramientas_venta img{
-        object-position: 2px 42%;
-    }
-
 }

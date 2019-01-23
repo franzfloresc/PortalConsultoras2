@@ -43,33 +43,37 @@
         </h3>
         <div class="d-block listado_categorias_productos_busqueda_wrapper">
             <ul class="d-flex listado_categorias_productos_busqueda">
-                <li class="categoria_producto categoria_fragancias">
+
+                <!-- Agregar la clase categoria_full_width a las etiquetas <li> que tengan la clase categoria_producto cuando la categoría
+                    vaya a ocupar todo el ancho de la vista, caso contrario si sólo ocupará la mitad agregar la clase categoria_half_width -->
+
+                <li class="categoria_producto categoria_full_width">
                     <div class="categoria_producto_fondo_estado"></div>
-                    <img class="d-block" src="@Url.Content("~/Content/Images/Buscador/fragancia.jpg")" alt="Fragancias" />
+                    <img class="d-block" src="@Url.Content("~/Content/Images/Buscador/categoria_fragancia.jpg")" alt="Fragancias" />
                     <a href="" title="Fragancias" class="d-flex categoria_producto_enlace">
                         <span class="d-block text-bold titulo_categoria_producto_busqueda">Fragancias</span>
                         <span class="d-block cantidad_productos_por_categoria_busqueda">60 productos</span>
                     </a>
                 </li>
-                <li class="categoria_producto categoria_maquillaje">
+                <li class="categoria_producto categoria_half_width">
                     <div class="categoria_producto_fondo_estado"></div>
-                    <img class="d-block" src="@Url.Content("~/Content/Images/Buscador/maquillaje.jpg")" alt="Maquillaje" />
+                    <img class="d-block" src="@Url.Content("~/Content/Images/Buscador/categoria_maquillaje.jpg")" alt="Maquillaje" />
                     <a href="" title="Maquillaje" class="d-flex categoria_producto_enlace">
                         <span class="d-block text-bold titulo_categoria_producto_busqueda">Maquillaje</span>
                         <span class="d-block cantidad_productos_por_categoria_busqueda">180 productos</span>
                     </a>
                 </li>
-                <!-- CUANDO NO HAYA PRODUCTOS DENTRO DE ALGUNA CATEGORÍA AGREGAR CLASE categoria_sin_productos_disponibles AL DIV CON LA CLASE categoria_producto -->
-                <li class="categoria_producto categoria_cuidado_personal categoria_sin_productos_disponibles">
+                <!-- CUANDO NO HAYA PRODUCTOS DENTRO DE ALGUNA CATEGORÍA AGREGAR CLASE categoria_sin_productos_disponibles A LA ETIQUETA <li> CON LA CLASE categoria_producto -->
+                <li class="categoria_producto categoria_half_width categoria_sin_productos_disponibles">
                     <div class="categoria_producto_fondo_estado"></div>
-                    <img class="d-block" src="@Url.Content("~/Content/Images/Buscador/cuidadopersonal.jpg")" alt="Cuidado Personal" />
+                    <img class="d-block" src="@Url.Content("~/Content/Images/Buscador/categoria_cuidado_personal.jpg")" alt="Cuidado Personal" />
                     <a href="" title="Cuidado Personal" class="d-flex categoria_producto_enlace">
                         <span class="d-block text-bold titulo_categoria_producto_busqueda">Cuidado Personal</span>
                         <span class="d-block cantidad_productos_por_categoria_busqueda">0 productos</span>
                     </a>
                 </li>
-                <!-- FIN - CUANDO NO HAYA PRODUCTOS DENTRO DE ALGUNA CATEGORÍA AGREGAR CLASE categoria_sin_productos_disponibles AL DIV CON LA CLASE categoria_producto -->
-                <li class="categoria_producto categoria_tratamiento_facial">
+                <!-- FIN - CUANDO NO HAYA PRODUCTOS DENTRO DE ALGUNA CATEGORÍA AGREGAR CLASE categoria_sin_productos_disponibles A LA ETIQUETA <li> CON LA CLASE categoria_producto -->
+                <li class="categoria_producto categoria_half_width">
                     <div class="categoria_producto_fondo_estado"></div>
                     <img class="d-block" src="@Url.Content("~/Content/Images/Buscador/tratamiento-facial.jpg")" alt="Tratamiento Facial" />
                     <a href="" title="Tratamiento facial" class="d-flex categoria_producto_enlace">
@@ -77,7 +81,7 @@
                         <span class="d-block cantidad_productos_por_categoria_busqueda">10 productos</span>
                     </a>
                 </li>
-                <li class="categoria_producto categoria_bijouterie">
+                <li class="categoria_producto categoria_half_width">
                     <div class="categoria_producto_fondo_estado"></div>
                     <img class="d-block" src="@Url.Content("~/Content/Images/Buscador/bijouterie.jpg")" alt="Bijouterie" />
                     <a href="" title="Bijouterie" class="d-flex categoria_producto_enlace">
@@ -85,24 +89,24 @@
                         <span class="d-block cantidad_productos_por_categoria_busqueda">60 productos</span>
                     </a>
                 </li>
-                <li class="categoria_producto categoria_moda">
+                <li class="categoria_producto categoria_half_width">
                     <div class="categoria_producto_fondo_estado"></div>
-                    <img class="d-block" src="@Url.Content("~/Content/Images/Buscador/moda.jpg")" alt="Moda" />
+                    <img class="d-block" src="@Url.Content("~/Content/Images/Buscador/categoria_moda.jpg")" alt="Moda" />
                     <a href="" title="Moda" class="d-flex categoria_producto_enlace">
                         <span class="d-block text-bold titulo_categoria_producto_busqueda">Moda</span>
                         <span class="d-block cantidad_productos_por_categoria_busqueda">10 productos</span>
                     </a>
                 </li>
-                <!-- CUANDO NO HAYA PRODUCTOS DENTRO DE ALGUNA CATEGORÍA AGREGAR CLASE categoria_sin_productos_disponibles AL DIV CON LA CLASE categoria_producto -->
-                <li class="categoria_producto categoria_herramientas_venta categoria_sin_productos_disponibles">
+                <!-- CUANDO NO HAYA PRODUCTOS DENTRO DE ALGUNA CATEGORÍA AGREGAR CLASE categoria_sin_productos_disponibles A LA ETIQUETA <li> CON LA CLASE categoria_producto -->
+                <li class="categoria_producto categoria_half_width categoria_sin_productos_disponibles">
                     <div class="categoria_producto_fondo_estado"></div>
-                    <img class="d-block" src="@Url.Content("~/Content/Images/Buscador/herramientas.jpg")" alt="Herramientas de venta" />
+                    <img class="d-block" src="@Url.Content("~/Content/Images/Buscador/herramientas_venta.jpg")" alt="Herramientas de venta" />
                     <a href="" title="Herramientas de venta" class="d-flex categoria_producto_enlace">
                         <span class="d-block text-bold titulo_categoria_producto_busqueda">Herramientas<br />de venta</span>
                         <span class="d-block cantidad_productos_por_categoria_busqueda">0 productos</span>
                     </a>
                 </li>
-                <!-- FIN - CUANDO NO HAYA PRODUCTOS DENTRO DE ALGUNA CATEGORÍA AGREGAR CLASE categoria_sin_productos_disponibles AL DIV CON LA CLASE categoria_producto -->
+                <!-- FIN - CUANDO NO HAYA PRODUCTOS DENTRO DE ALGUNA CATEGORÍA AGREGAR CLASE categoria_sin_productos_disponibles A LA ETIQUETA <li> CON LA CLASE categoria_producto -->
             </ul>
         </div>
     </div>
