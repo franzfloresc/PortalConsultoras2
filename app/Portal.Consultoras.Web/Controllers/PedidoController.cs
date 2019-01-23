@@ -4459,9 +4459,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     respValidar = sv.CuvTieneLimiteVenta(userData.PaisID, userData.CampaniaID, userData.CodigorRegion, userData.CodigoZona, cuv, cantidad, cantidadActual);
                 }
-                if (!respValidar.TieneLimite) return mensaje;
-                if (userData.CodigoISO == "PE") return string.Format(Constantes.MensajesError.ExcedioLimiteVentaPE, cuv, descripcion, respValidar.UnidadesMaximas);
-                mensaje = string.Format(Constantes.MensajesError.ExcedioLimiteVenta, respValidar.UnidadesMaximas);
+                if (respValidar.TieneLimite) mensaje = string.Format(Constantes.MensajesError.StockLimiteVenta, cuv, descripcion, respValidar.UnidadesMaximas);
             }
             catch (Exception ex)
             {
