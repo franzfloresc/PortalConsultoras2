@@ -1413,6 +1413,7 @@ namespace Portal.Consultoras.Common
             public const string ElecMultiple = "DP";
             public const string MasGanadoras = "MG";
             public const string Recomendaciones = "RECOMDS";
+            public const string Datami = "DATAMI";
         }
 
 
@@ -3263,6 +3264,30 @@ namespace Portal.Consultoras.Common
                 public const string CatalogoDigital = "03";
                 public const string MaquilladorVirtual = "04";
             }
+        }
+
+        public class SegmentoDatami
+        {
+            public const string SegmentoA = "A";
+            public const string SegmentoB = "B";
+            public const string SegmentoC = "C";
+            public const string SegmentoD = "D";
+            public const string SegmentoE = "E";
+            public const string SegmentoF = "F";
+        }
+
+        public class SegmentoInterno
+        {
+            public const int SinSegmento = 0;
+            public const int Nuevas = 1;
+            public const int EmpresariaBrillante = 2;
+            public const int EmpresariaDeBelleza = 3;
+            public const int ExpertaDeBelleza = 4;
+            public const int EspecialistaDeBelleza = 5;
+            public const int AsesoraDeBelleza = 6;
+            public const int Inconstantes = 7;
+            public const int PosibleEgreso = 8;
+            public const int Reingreso = 9;
         }
     }
 }
