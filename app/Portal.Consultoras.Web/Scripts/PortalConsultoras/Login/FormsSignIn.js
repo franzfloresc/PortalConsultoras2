@@ -87,13 +87,7 @@ $(document).ready(function () {
     $("#ddlPais").change(function () {
         imgISO = $("#ddlPais").val();
         analytics.invocarAnalyticsByCodigoIso(imgISO);
-
-        if (imgISO == "PE" || imgISO == "CO") {
-            $("#RecuadroComunidad").hide();
-        } else {
-            $("#RecuadroComunidad").show();
-        }
-
+        $("#RecuadroComunidad").hide();
         if (imgISO == "MX") {
             $("#AvisoASP").show();
         } else {
