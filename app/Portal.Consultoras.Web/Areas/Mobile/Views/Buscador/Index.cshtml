@@ -45,7 +45,7 @@
             <ul class="listado_categorias_productos_busqueda">
 
                 <!-- Agregar la clase categoria_full_width a las etiquetas <li> que tengan la clase categoria_producto cuando la categoría
-            vaya a ocupar todo el ancho de la vista, caso contrario si sólo ocupará la mitad agregar la clase categoria_half_width -->
+                    vaya a ocupar todo el ancho de la vista, caso contrario si sólo ocupará la mitad agregar la clase categoria_half_width -->
 
                 <li class="categoria_producto categoria_full_width">
                     <div class="categoria_producto_fondo_estado"></div>
@@ -91,22 +91,20 @@
                 </li>
                 <li class="categoria_producto categoria_half_width">
                     <div class="categoria_producto_fondo_estado"></div>
-                    <img class="d-block" src="@Url.Content("~/Content/Images/Buscador/categoria_moda.jpg")" alt="Moda" />
+                    <img class="d-block" src="@Url.Content("~/Content/Images/Buscador/moda.jpg")" alt="Moda" />
                     <a href="" title="Moda" class="d-flex categoria_producto_enlace">
                         <span class="d-block text-bold titulo_categoria_producto_busqueda">Moda</span>
                         <span class="d-block cantidad_productos_por_categoria_busqueda">10 productos</span>
                     </a>
                 </li>
-                <!-- CUANDO NO HAYA PRODUCTOS DENTRO DE ALGUNA CATEGORÍA AGREGAR CLASE categoria_sin_productos_disponibles A LA ETIQUETA <li> CON LA CLASE categoria_producto -->
-                <li class="categoria_producto categoria_half_width categoria_sin_productos_disponibles">
+                <li class="categoria_producto categoria_half_width">
                     <div class="categoria_producto_fondo_estado"></div>
-                    <img class="d-block" src="@Url.Content("~/Content/Images/Buscador/herramientas_venta.jpg")" alt="Herramientas de venta" />
+                    <img class="d-block" src="@Url.Content("~/Content/Images/Buscador/categoria_accesorios.jpg")" alt="Accesorios" />
                     <a href="" title="Herramientas de venta" class="d-flex categoria_producto_enlace">
-                        <span class="d-block text-bold titulo_categoria_producto_busqueda">Herramientas<br />de venta</span>
-                        <span class="d-block cantidad_productos_por_categoria_busqueda">0 productos</span>
+                        <span class="d-block text-bold titulo_categoria_producto_busqueda">Accesorios</span>
+                        <span class="d-block cantidad_productos_por_categoria_busqueda">15 productos</span>
                     </a>
                 </li>
-                <!-- FIN - CUANDO NO HAYA PRODUCTOS DENTRO DE ALGUNA CATEGORÍA AGREGAR CLASE categoria_sin_productos_disponibles A LA ETIQUETA <li> CON LA CLASE categoria_producto -->
             </ul>
         </div>
     </div>
@@ -147,10 +145,10 @@
 
 <script id="js-categoriasProductos" type="text/x-handlebars-template">
     {{#each this as |item|}}
-    <li class="categoria_producto categoria_fragancias">
+    <li class="categoria_producto categoria_full_width">
         <div class="categoria_producto_fondo_estado"></div>
         <img class="d-block" src="@Url.Content("~/Content/Images/Buscador/fragancia.jpg")" alt="Fragancias" />
-        <a href="/BusquedaProductos?c={{item.Codigo}}" title="Fragancias" class="d-flex categoria_producto_enlace">
+        <a href="/BusquedaProductos?c={{item.Codigo}}" title="{{item.Nombre}}" class="d-flex categoria_producto_enlace">
             <span class="d-block text-bold titulo_categoria_producto_busqueda">{{item.Nombre}}</span>
             <span class="d-block cantidad_productos_por_categoria_busqueda">{{item.Cantidad}} productos</span>
         </a>
