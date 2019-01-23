@@ -1766,7 +1766,7 @@ function CalculoPosicionMinimoMaximo() {
                     document.getElementById('lineaPosicionMontoMinimo').style.display = 'block';
                     document.getElementById('lineaPosicionMontoMinimo').style.left = (PosicionMontoMinimo) + '%';
                     document.getElementById('MontoMinimoBloque').style.right = '';
-                    document.getElementById('MontoMinimoBloque').style.left = (PosicionMontoMinimo - 8) + '%';
+                    document.getElementById('MontoMinimoBloque').style.left = (PosicionMontoMinimo - 5) + '%';
                     document.getElementById('MontoMinimoBloque').style.display = 'block';
 
                     document.getElementById('lineaPosicionMontoMaximo').style.display = 'none';
@@ -1803,7 +1803,7 @@ function CalculoPosicionMinimoMaximo() {
                             PosicionMontoTipinpoing = montoTipipoing * 100 / dataBarra.ListaEscalaDescuento[i].MontoDesde;
 
                             document.getElementById('MontoMinimoBloque').style.right = "";
-                            document.getElementById('MontoMinimoBloque').style.left = (PosicionMontoMinimo - 8) + '%';// 
+                            document.getElementById('MontoMinimoBloque').style.left = (PosicionMontoMinimo - 5) + '%';// 
                             document.getElementById('lineaPosicionMontoMinimo').style.display = 'block';
                             document.getElementById('lineaPosicionMontoMinimo').style.left = (PosicionMontoMinimo) + '%';
 
@@ -1832,7 +1832,7 @@ function CalculoPosicionMinimoMaximo() {
                             PosicionMontoTipinpoing = montoTipipoing * 100 / dataBarra.ListaEscalaDescuento[i].MontoDesde;
 
                             document.getElementById('lineaPosicionMontoMinimo').style.left = (PosicionMontoMinimo) + '%';
-                            document.getElementById('MontoMinimoBloque').style.left = (PosicionMontoMinimo - 8) + '%';// 
+                            document.getElementById('MontoMinimoBloque').style.left = (PosicionMontoMinimo - 5) + '%';// 
 
                             document.getElementById('lineaPosicionMontoMaximo').style.display = 'None';
                             document.getElementById('MontoMaximoBloque').innerHTML = "";
@@ -1904,7 +1904,7 @@ function CalculoPosicionMinimoMaximo() {
                                     PosicionMontoMinimo = montoMinimo * 100 / dataBarra.ListaEscalaDescuento[i].MontoDesde;
                           
                                     document.getElementById('MontoMinimoBloque').style.right = "";
-                                    document.getElementById('MontoMinimoBloque').style.left = (PosicionMontoMinimo - 8) + '%';
+                                    document.getElementById('MontoMinimoBloque').style.left = (PosicionMontoMinimo - 5) + '%';
                                     document.getElementById('lineaPosicionMontoMinimo').style.display = 'block';
                                     document.getElementById('lineaPosicionMontoMinimo').style.left = (PosicionMontoMinimo) + '%';
 
