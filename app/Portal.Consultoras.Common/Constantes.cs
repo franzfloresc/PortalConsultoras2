@@ -1612,7 +1612,7 @@ namespace Portal.Consultoras.Common
             public const string EC = "Tu número de cédula de identidad<br/>o correo electrónico.";
             public const string MX = "Tu código de consultora,<br/>INE o correo electrónico.";
             public const string PA = "Tu código de consultora,<br/>documento de identidad<br/>o correo electrónico.";
-            public const string PE = "Tu código de consultora,<br/>DNI o correo electronico.";
+            public const string PE = "Tu código de consultora,<br/>DNI o correo electrónico.";
             public const string PR = "Tu código de consultora,<br/>tarjeta electoral<br/>o correo electrónico.";
             public const string VE = "Tu código de consultora,<br/>cédula de identidad<br/>o correo electrónico.";
             public const string CAM = "Tu código de consultora,<br/>documento único de identidad o<br/>correo electrónico.";
