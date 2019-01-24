@@ -35,10 +35,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         public ActionResult Index()
         {
             LimpiarCacheNotificaciones();
-
-            SessionManager.SetfechaGetNotificacionesSinLeer(null);
-            SessionManager.SetcantidadGetNotificacionesSinLeer(null);
-
             var model = new NotificacionesModel { ListaNotificaciones = ObtenerNotificaciones() };
             return View(model);
         }
