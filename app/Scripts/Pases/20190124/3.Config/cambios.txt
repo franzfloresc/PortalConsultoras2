@@ -4,6 +4,6 @@
 
 Actualizar:
 
-<add key="UrlMicroservicioPersonalizacionSearch" value="http://10.12.6.234:5000/"/>
-
+<add key="UrlMicroservicioPersonalizacionSearch" value="http://internal-elbwcf-sbmicroserviciosqas-1282604982.us-east-1.elb.amazonaws.com:5004/"/>
+<add key="UrlMicroservicioPersonalizacionConfig" value="http://internal-elbwcf-sbmicroserviciosqas-1282604982.us-east-1.elb.amazonaws.com:5006/"/>
 <add key="UrlMicroservicioPersonalizacionSync" value="http://10.12.6.131:5005/"/>
