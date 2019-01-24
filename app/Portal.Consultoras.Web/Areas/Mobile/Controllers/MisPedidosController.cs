@@ -38,6 +38,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                             CodigoEstadoPedido = item.CodigoEstadoPedido,
                             DescripcionEstadoPedido = item.DescripcionEstadoPedido,
                             NumeroCampania = (item.CampaniaID.ToString().Length == 6 ? string.Format("C{0}", item.CampaniaID.Substring(4, 2)) : string.Empty),
+                            Anio = (item.CampaniaID.ToString().Length == 6 ? item.CampaniaID.Substring(0, 4) : string.Empty),
                             EsCampaniaActual = (item.CampaniaID == userData.CampaniaID),
                             EsCampaniaMarcarda = campaniaMarcada
                         });

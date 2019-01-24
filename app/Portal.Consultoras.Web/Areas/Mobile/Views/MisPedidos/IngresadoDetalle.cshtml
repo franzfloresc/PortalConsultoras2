@@ -13,7 +13,8 @@
                 <div class="panel-heading" data-toggle="collapse" href="#collapse_@(pedido.CampaniaID)_@(pedido.ClienteID)">
                     <div class="sections-1">
                         <div class="sections-client">@pedido.NombreCliente</div>
-                        <div class="sections-subtitle">@pedido.CantidadPedido @(pedido.CantidadPedido == 1 ? "unidad ingresada" : "unidades ingresadas")</div>
+                        @*<div class="sections-subtitle">@pedido.CantidadPedido @(pedido.CantidadPedido == 1 ? "unidad ingresada" : "unidades ingresadas")</div>*@
+                        <div class="sections-subtitle">Cantidad: @pedido.CantidadPedido</div>
                     </div>
                     <div class="sections-2">
                         <div class="sections-right">
