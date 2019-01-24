@@ -50,7 +50,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var paisIso = Util.GetPaisISO(userData.PaisID);
                 var urlS3 = ConfigCdn.GetUrlCdnMatriz(paisIso);
 
-                var habilitarNemotecnico = _tablaLogicaProvider.ObtenerValorTablaLogica(userData.PaisID, Constantes.TablaLogica.Plan20,
+                var habilitarNemotecnico = _tablaLogicaProvider.GetTablaLogicaDatoCodigo(userData.PaisID, Constantes.TablaLogica.Plan20,
                     Constantes.TablaLogicaDato.BusquedaNemotecnicoZonaEstrategia);
 
                 estrategiaModel = new EstrategiaModel()
@@ -718,7 +718,7 @@ namespace Portal.Consultoras.Web.Controllers
             var respuestaServiceCdr = new List<RptProductoEstrategia>();
             try
             {
-                var codigo = _tablaLogicaProvider.ObtenerValorTablaLogica(userData.PaisID, Constantes.TablaLogica.Plan20,
+                var codigo = _tablaLogicaProvider.GetTablaLogicaDatoCodigo(userData.PaisID, Constantes.TablaLogica.Plan20,
                     Constantes.TablaLogicaDato.Tonos, true);
 
                 if (Convert.ToInt32(codigo) <= entidad.CampaniaID)

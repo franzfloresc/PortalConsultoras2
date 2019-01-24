@@ -35,25 +35,13 @@ namespace Portal.Consultoras.Web.Providers
             return Util.Trim(par.Codigo);
         }
 
-        public string ObtenerValorDesdeLista(List<TablaLogicaDatosModel> datos, short idTablaLogicaDatos)
+        private string GetTablaLogicaDatoValor(List<TablaLogicaDatosModel> datos, short idTablaLogicaDatos)
         {
-            if (datos == null || datos.Count == 0)
-            {
-                return string.Empty;
-            }
+            datos = datos ?? new List<TablaLogicaDatosModel>();
 
             var par = datos.FirstOrDefault(d => d.TablaLogicaDatosID == idTablaLogicaDatos) ?? new TablaLogicaDatosModel();
 
             return Util.Trim(par.Valor);
-        }
-
-        public int ObtenerValorTablaLogicaInt(List<TablaLogicaDatosModel> lista, short tablaLogicaDatosId)
-        {
-            var resultadoString = GetTablaLogicaDatoCodigo(lista, tablaLogicaDatosId);
-
-            int resultado;
-            int.TryParse(resultadoString, out resultado);
-            return resultado;
         }
 
         public List<TablaLogicaDatosModel> GetTablaLogicaDatos(int paisId, short tablaLogicaId, bool saveInSession = false)
@@ -72,18 +60,25 @@ namespace Portal.Consultoras.Web.Providers
             return datos;
         }
 
-        public string ObtenerValorTablaLogica(int paisId, short tablaLogicaId, short idTablaLogicaDatos, bool saveInSession = false)
+        public string GetTablaLogicaDatoCodigo(int paisId, short tablaLogicaId, short tablaLogicaDatosId, bool saveInSession = false)
         {
-            return GetTablaLogicaDatoCodigo(GetTablaLogicaDatos(paisId, tablaLogicaId, saveInSession), idTablaLogicaDatos);
+            var datos = GetTablaLogicaDatos(paisId, tablaLogicaId, saveInSession);
+            return GetTablaLogicaDatoCodigo(datos, tablaLogicaDatosId);
         }
 
-        public int ObtenerValorTablaLogicaInt(int paisId, short tablaLogicaId, short idTablaLogicaDatos, bool sesion = false)
+        public int GetTablaLogicaDatoCodigoInt(int paisId, short tablaLogicaId, short tablaLogicaDatosId, bool saveInSession = false)
         {
-            var resultadoString = ObtenerValorTablaLogica(paisId, tablaLogicaId, idTablaLogicaDatos, sesion);
-            int resultado;
-            int.TryParse(resultadoString, out resultado);
-            return resultado;
+            var strCodigo = GetTablaLogicaDatoCodigo(paisId, tablaLogicaId,  tablaLogicaDatosId, saveInSession);
+
+            int codigo;
+            int.TryParse(strCodigo, out codigo);
+            return codigo;
         }
 
+        public string GetTablaLogicaDatoValor(int paisId, short tablaLogicaId, short tablaLogicaDatosId, bool saveInSession = false)
+        {
+            var datos = GetTablaLogicaDatos(paisId, tablaLogicaId, saveInSession);
+            return GetTablaLogicaDatoValor(datos, tablaLogicaDatosId);
+        }
     }
 }
