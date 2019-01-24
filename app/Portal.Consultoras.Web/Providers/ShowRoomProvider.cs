@@ -72,7 +72,7 @@ namespace Portal.Consultoras.Web.Providers
         /// <returns>Configuracion de Banner inferior</returns>
         public IBannerInferiorConfiguracion ObtenerBannerConfiguracion(int paisId)
         {
-            var pl50configs = _tablaLogicaProvider.ObtenerConfiguracion(paisId, Pl50Key);
+            var pl50configs = _tablaLogicaProvider.ObtenerParametrosTablaLogica(paisId, Pl50Key);
             var enabledObject = pl50configs.FirstOrDefault(c => c.Codigo == EnabledCode);
             var redirectUrlObject = pl50configs.FirstOrDefault(c => c.Codigo == RedirectCode);
             var imageUrlObject = pl50configs.FirstOrDefault(c => c.Codigo == ImageUrlCode);

@@ -13,7 +13,7 @@ namespace Portal.Consultoras.Web.Infraestructure.Excel
 
         public bool IsRequiredProtection()
         {
-            var items = DataProvider.ObtenerConfiguracion(PaisId, TablaLogicaId);
+            var items = DataProvider.ObtenerParametrosTablaLogica(PaisId, TablaLogicaId);
             var value = DataProvider.ObtenerValorDesdeLista(items, TablaLogicaDatosId);
 
             return value == "1";

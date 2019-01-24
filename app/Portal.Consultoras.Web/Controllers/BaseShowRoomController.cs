@@ -132,7 +132,7 @@ namespace Portal.Consultoras.Web.Controllers
                     showRoomEventoModel.PrecioMaxFiltro = listaShowRoomOfertas.Max(p => p.Precio2);
                 }
 
-                showRoomEventoModel.FiltersBySorting = _tablaLogicaProvider.ObtenerConfiguracion(
+                showRoomEventoModel.FiltersBySorting = _tablaLogicaProvider.ObtenerParametrosTablaLogica(
                     userData.PaisID,
                     Constantes.TablaLogica.OrdenamientoShowRoom);
 

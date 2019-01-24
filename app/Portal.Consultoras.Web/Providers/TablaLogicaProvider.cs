@@ -17,11 +17,11 @@ namespace Portal.Consultoras.Web.Providers
             sessionManager = SessionManager.SessionManager.Instance;
         }
 
-        public virtual List<TablaLogicaDatosModel> ObtenerConfiguracion(int paisId, short key)
+        private List<TablaLogicaDatosModel> GetTablaLogicaDatos(int paisId, short tablaLogicaId)
         {
             using (var cliente = new SACServiceClient())
             {
-                var datos = cliente.GetTablaLogicaDatos(paisId, key);
+                var datos = cliente.GetTablaLogicaDatos(paisId, tablaLogicaId);
                 return Mapper.Map<IEnumerable<BETablaLogicaDatos>, List<TablaLogicaDatosModel>>(datos);
             }
         }
@@ -64,7 +64,7 @@ namespace Portal.Consultoras.Web.Providers
             var datos = sesion ? sessionManager.GetTablaLogicaDatosLista(Constantes.ConstSession.TablaLogicaDatos + tablaLogicaId.ToString()) : null;
             if (datos == null)
             {
-                datos = ObtenerConfiguracion(paisId, tablaLogicaId);
+                datos = GetTablaLogicaDatos(paisId, tablaLogicaId);
 
                 if (sesion)
                 {
