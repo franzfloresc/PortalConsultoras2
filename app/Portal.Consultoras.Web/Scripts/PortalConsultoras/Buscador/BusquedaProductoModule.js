@@ -126,7 +126,6 @@
                     $(_elementos.divCantidadProductoMobile).html(data.total + ' Resultados');
                     _funciones.ProcesarListaProductos(data.productos);
                     SetHandlebars(_elementos.scriptHandleBarFicha, data.productos, _elementos.divContenedorFicha);
-                    console.log("dataFiltros", data.filtros);
                     _funciones.validacionDataCategoria(data.filtros);
                     SetHandlebars(_elementos.scriptHandleBarFiltros, data.filtros, _elementos.filtroListaHandleBar);
 
@@ -172,8 +171,6 @@
 
                     var imgProducto = element.attr('src');
                     var fichaProducto = element.closest('article');
-
-                    //console.log(imgProducto);
 
                     _funciones.GetSize(imgProducto, function (width, height) {
 
@@ -285,10 +282,9 @@
             var data = dataFiltro;
             if (_config.categoriaBusqueda.length > 0) {
                 for (var i = 0; i < data.length; i++) {
-                    for (var j = 0; j < data[i].Opciones.length; j++) {
-                        if (data[i].Opciones[j].idFiltro == categoriaBusqueda) {
-                            dataFiltro[i].Opciones.splice(j, 1);
-                        }
+                    if (data[i].NombreGrupo == _config.nombreGrupo) {
+                        dataFiltro.splice(i, 1);
+                        break;
                     }
                 }
             }
@@ -318,7 +314,7 @@
                             Max: 0
                         }]
                 }];
-                
+
                 set_local_storage(filtroDuro, _config.filtrosLocalStorage);
 
                 _config.numeroPaginaActual = 0;
@@ -409,6 +405,9 @@
             }, 100);
 
             set_local_storage([], _config.filtrosLocalStorage);
+
+            if (_config.categoriaBusqueda.length > 0) _funciones.buscarPorCategoria();
+
             _funciones.accionFiltrosCriterio();
         },
         DropDownOrdenar: function (e) {
@@ -625,9 +624,6 @@
             };
 
             _eventos.MarcarFiltros(splited, filtroSeleccionado);
-
-            //console.log(splited);
-            //console.log(filtroSeleccionado,);
 
             var seleccionados = get_local_storage(_config.filtrosLocalStorage);
             var opcionesFiltros = [];
