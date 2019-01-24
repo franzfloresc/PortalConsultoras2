@@ -3,7 +3,7 @@ go
 
 print db_name()
 
-declare @TablaLogicaId_FeatureFlags int = 157
+declare @TablaLogicaId_FeatureFlags int = 158
 declare @TablaLogicaDescripcion_FeatureFlags varchar(30) = 'Pantallas Responsive'
 --
 declare @TablaLogicaDatosId_MisClientesResponsive int = @TablaLogicaId_FeatureFlags * 100 + 1
@@ -12,7 +12,7 @@ if not exists (	select 1
 				from TablaLogica tl
 				where tl.TablaLogicaID = @TablaLogicaId_FeatureFlags)
 begin
-	print 'insert into TablaLogica : 157 - Pantallas Responsive'
+	print 'insert into TablaLogica : 158 - Pantallas Responsive'
 	insert into TablaLogica(
 	TablaLogicaID
 	,Descripcion
