@@ -89,16 +89,14 @@
                 <li class="categoria_producto categoria_half_width {{#iff item.Cantidad '==' 0}} categoria_sin_productos_disponibles {{/iff}}">
             {{/if}}
                     <div class="categoria_producto_fondo_estado"></div>
-                    <img class="d-block" src="{{item.Imagen}}" alt="Fragancias" />
+                    <img class="d-block" src="{{item.Imagen}}" alt="{{item.Nombre}}" />
                     <a href="{{#iff item.Cantidad '>' 0}}/BusquedaProductos?c={{item.Codigo}}{{else}}#!{{/iff}}" title="{{item.Nombre}}" class="d-flex categoria_producto_enlace">
                         <span class="d-block text-bold titulo_categoria_producto_busqueda">{{item.Nombre}}</span>
                         <span class="d-block cantidad_productos_por_categoria_busqueda">{{item.Cantidad}} productos</span>
                     </a>
                 </li>
         {{/each}}
-
     </script>
-
     <script>
         var boolSuscrita = '@ViewBag.boolSuscrita'.toLowerCase() === 'true';
     </script>
