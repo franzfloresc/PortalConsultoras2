@@ -1253,6 +1253,10 @@ namespace Portal.Consultoras.Common
             public const string SoloHoy = "SOLOHOY";
             public const string HerramientasDeVenta = "HERRAMIENTASDEVENTA";
             public const string SaberMasInscripcion = "SABERMASINSCRIPCION";
+            public const string Reclamos = "RECLAMOS";
+            public const string MetodosPagos = "METODODEPAGO";
+            public const string PagarAqui = "PAGAR";
+            public const string Ganancias = "GANANCIAS";
             public const string DuoPerfecto = "DUOPERFECTO";
             public const string PedidosPendientes = "PEDIDOSPENDIENTES";
         }
@@ -1260,6 +1264,7 @@ namespace Portal.Consultoras.Common
         public static class IngresoExternoOrigen
         {
             public const string App = "4";
+            public const string ChatBot = "5";
         }
 
         public static class EstadoCuentaTipoMovimiento
