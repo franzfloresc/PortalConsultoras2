@@ -72,7 +72,7 @@ $(document).ready(function () {
             CamposFormularioConDatos: function () {
                 var camposFormulario = $('.grupo_form_cambio_datos input, .grupo_form_cambio_datos select');
                 $.map(camposFormulario, function (campoFormulario, key) {
-                    if ($(campoFormulario).val() != 0) {
+                    if ($(campoFormulario).val()) {
                         $(campoFormulario).addClass('campo_con_datos');
                     }
                 });
@@ -244,7 +244,7 @@ $(document).ready(function () {
         me.Eventos = {
                 LabelActivo: function () {
                     var campoDatos = $(this).val();
-                    if (campoDatos != 0) {
+                    if (campoDatos) {
                         $(this).addClass('campo_con_datos');
                     } else {
                         $(this).removeClass('campo_con_datos');

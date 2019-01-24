@@ -302,13 +302,13 @@ input:focus{
     font-size:16px;
 }
 
-.datos_codigo_y_zona{
-    margin-bottom:16px;
-}
-
-/*.datos_gerente_zona{
+/*.datos_codigo_y_zona{
     margin-bottom:16px;
 }*/
+
+.datos_gerente_zona{
+    margin-bottom:16px;
+}
 
 .datos_codigo{
     margin-right:34px;
@@ -511,7 +511,7 @@ input:focus{
     .grupo_form_cambio_datos select{
         -moz-appearance:none;
         -webkit-appearance:none;
-        background-image:url(/Content/Images/Lbel/icono_campos_select_mi_perfil.svg);
+        background-image:url(/Content/Images/icono_campos_select_mi_perfil.svg);
     }
 
     .grupo_form_cambio_datos_campo_ciudad{
@@ -591,6 +591,7 @@ input:focus{
     height:16px;
     background-image:url("/Content/Images/icono_cambiar_dato.svg");
     margin-right:5px;
+    background-size:100%;
 }
 
 .enlace_agregar_num_adicional{
@@ -607,7 +608,7 @@ input:focus{
 .icono_agregar_num_adicional{
     width:15px;
     height:15px;
-    background-image:url("/Content/Images/Lbel/icono_plus.svg");
+    background-image:url("/Content/Images/icono_plus.svg");
     margin-right:3px;
     position:relative;
     top:3.5px;
@@ -628,6 +629,7 @@ input:focus{
 
 .permisos_cuenta_wrapper{
     margin-top:33px;
+    border-bottom:1px solid #808080;
 }
 
 .permisos_cuenta_titulo,
