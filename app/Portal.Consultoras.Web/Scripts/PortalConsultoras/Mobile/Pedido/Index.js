@@ -241,7 +241,7 @@ $(document).ready(function () {
             EsSugerido: true
         };
 
-        InsertarProductoSugerido(model);
+        PedidoRegistroModule.InsertarProductoSugerido(model);
     });
 
     $("#linkAgregarCliente").on("click", function () {

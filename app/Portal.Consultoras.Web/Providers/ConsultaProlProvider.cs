@@ -23,7 +23,7 @@ namespace Portal.Consultoras.Web.Providers
         {
             var rutaServicio = WebConfig.RutaServiceConsultaPROL;
 
-            if (string.IsNullOrEmpty(rutaServicio))
+            if (!string.IsNullOrEmpty(rutaServicio))
             {
                 httpClient.BaseAddress = new Uri(rutaServicio);
                 httpClient.DefaultRequestHeaders.Accept.Clear();
