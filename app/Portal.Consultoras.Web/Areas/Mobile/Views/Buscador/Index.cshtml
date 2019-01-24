@@ -90,7 +90,7 @@
             {{/if}}
                     <div class="categoria_producto_fondo_estado"></div>
                     <img class="d-block" src="{{item.Imagen}}" alt="Fragancias" />
-                    <a href="/BusquedaProductos?c={{item.Codigo}}" title="{{item.Nombre}}" class="d-flex categoria_producto_enlace">
+                    <a href="{{#iff item.Cantidad '>' 0}}/BusquedaProductos?c={{item.Codigo}}{{else}}#!{{/iff}}" title="{{item.Nombre}}" class="d-flex categoria_producto_enlace">
                         <span class="d-block text-bold titulo_categoria_producto_busqueda">{{item.Nombre}}</span>
                         <span class="d-block cantidad_productos_por_categoria_busqueda">{{item.Cantidad}} productos</span>
                     </a>
