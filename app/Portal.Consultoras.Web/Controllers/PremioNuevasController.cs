@@ -112,12 +112,12 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (Result.OperacionResultado == 1)
                     {
-                        message = "Se grabó con �xito los datos.";
+                        message = "Se grabó con exito los datos.";
                         success = true;
                     }
                     else if (Result.OperacionResultado == 0)
                     {
-                        message = "Las fechas no se pueden traslapar, dentro de  una misma config. programa + nivel + valor electivo";
+                        message = "Las fechas no se pueden traslapar, dentro de una misma configuración: Campaña + Programa + Nivel + Premio electivo.";
                     }
                     else
                     {

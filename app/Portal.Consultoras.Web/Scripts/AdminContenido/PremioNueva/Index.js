@@ -162,7 +162,7 @@ function fnDialog() {
 }
 function DesactivarPremio(rowId) {
     var premio = {};
-    var elimina = confirm('¿ Esta seguro que desea deshabilitar el Premio seleccionado?');
+    var elimina = confirm('¿Está seguro que desea deshabilitar el premio?');
     if (!elimina) return;
 
     var rowData = $("#list").jqGrid('getRowData', rowId);
