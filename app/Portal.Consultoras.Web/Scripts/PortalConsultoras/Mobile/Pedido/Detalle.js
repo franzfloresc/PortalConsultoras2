@@ -529,7 +529,7 @@ function ConfigurarFnEliminarProducto(CampaniaID, PedidoID, PedidoDetalleID, Tip
                     }
                 });
                 cuponModule.actualizarContenedorCupon();
-                messageDelete('El producto fue Eliminado.');
+                messageDelete('El producto fue eliminado.');
 
                 ActualizarLocalStoragePalancas(data.data.CUV, false);
             },
