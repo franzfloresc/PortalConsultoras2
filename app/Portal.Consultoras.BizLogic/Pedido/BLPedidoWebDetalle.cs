@@ -471,7 +471,26 @@ namespace Portal.Consultoras.BizLogic
                     }
                 }
             }
-            #endregion            
+            #endregion
+
+            if (bePedidoWebDetalleParametros.AgruparSet)
+            {
+                var PedidoDetalleIdentifierNumber = pedidoWebDetalle.GroupBy(x => new { x.ClienteID, x.EstrategiaId }).Where(x => x.Count() > 1)
+               .Select(g => new { g, count = g.Count() })
+               .SelectMany(t => t.g.Select(b => b)
+                                   .Zip(Enumerable.Range(1, t.count), (j, i) => new BEPedidoWebDetalle
+                                   {
+                                       ClienteID = j.ClienteID,
+                                       EstrategiaId = j.EstrategiaId,
+                                       SetID = j.SetID,
+                                       SetIdentifierNumber = i
+                                   })).ToList();
+
+                foreach (var item in PedidoDetalleIdentifierNumber)
+                {
+                    pedidoWebDetalle.Where(x => x.SetID == item.SetID).Update(x => { x.SetIdentifierNumber = item.SetIdentifierNumber; x.DescripcionProd = x.DescripcionProd + " #" + item.SetIdentifierNumber; });
+                }
+            }
 
             return pedidoWebDetalle;
         }
