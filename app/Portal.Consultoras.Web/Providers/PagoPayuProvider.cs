@@ -228,7 +228,7 @@ namespace Portal.Consultoras.Web.Providers
             }
 
             var tablaLogica = new TablaLogicaProvider();
-            var listaConfiguracion = tablaLogica.ObtenerParametrosTablaLogica(User.PaisID, Constantes.TablaLogica.ValoresPagoEnLinea, true);
+            var listaConfiguracion = tablaLogica.GetTablaLogicaDatos(User.PaisID, Constantes.TablaLogica.ValoresPagoEnLinea, true);
             var mensajeExitoso = tablaLogica.ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.MensajeInformacionPagoExitoso);
 
             model.MensajeInformacionPagoExitoso = mensajeExitoso;

@@ -58,7 +58,7 @@ namespace Portal.Consultoras.Web.Providers
                     rutaImagenMedium = Util.GenerarRutaImagenResize(rutaImagen, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium);
                 }
 
-                var listaValoresImagenesResize = _tablaLogicaProvider.ObtenerParametrosTablaLogica(Constantes.PaisID.Peru, Constantes.TablaLogica.ValoresImagenesResize, true);
+                var listaValoresImagenesResize = _tablaLogicaProvider.GetTablaLogicaDatos(Constantes.PaisID.Peru, Constantes.TablaLogica.ValoresImagenesResize, true);
 
                 int ancho = 0;
                 int alto = 0;

@@ -59,14 +59,14 @@ namespace Portal.Consultoras.Web.Providers
             return resultado;
         }
 
-        public List<TablaLogicaDatosModel> ObtenerParametrosTablaLogica(int paisId, short tablaLogicaId, bool sesion = false)
+        public List<TablaLogicaDatosModel> GetTablaLogicaDatos(int paisId, short tablaLogicaId, bool saveInSession = false)
         {
-            var datos = sesion ? sessionManager.GetTablaLogicaDatosLista(Constantes.ConstSession.TablaLogicaDatos + tablaLogicaId.ToString()) : null;
+            var datos = saveInSession ? sessionManager.GetTablaLogicaDatosLista(Constantes.ConstSession.TablaLogicaDatos + tablaLogicaId.ToString()) : null;
             if (datos == null)
             {
                 datos = GetTablaLogicaDatos(paisId, tablaLogicaId);
 
-                if (sesion)
+                if (saveInSession)
                 {
                     sessionManager.SetTablaLogicaDatosLista(Constantes.ConstSession.TablaLogicaDatos + tablaLogicaId.ToString(), datos);
                 }
@@ -77,7 +77,7 @@ namespace Portal.Consultoras.Web.Providers
 
         public string ObtenerValorTablaLogica(int paisId, short tablaLogicaId, short idTablaLogicaDatos, bool sesion = false)
         {
-            return ObtenerValorTablaLogica(ObtenerParametrosTablaLogica(paisId, tablaLogicaId, sesion), idTablaLogicaDatos);
+            return ObtenerValorTablaLogica(GetTablaLogicaDatos(paisId, tablaLogicaId, sesion), idTablaLogicaDatos);
         }
 
         public int ObtenerValorTablaLogicaInt(int paisId, short tablaLogicaId, short idTablaLogicaDatos, bool sesion = false)

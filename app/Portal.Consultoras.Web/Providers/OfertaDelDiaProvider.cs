@@ -190,7 +190,7 @@ namespace Portal.Consultoras.Web.Providers
                 oddSession = new DataModel();
                 oddSession.TieneOfertaDelDia = true;
 
-                var personalizacionesOdd = _tablaLogica.ObtenerParametrosTablaLogica(usuario.PaisID, Constantes.TablaLogica.PersonalizacionODD);
+                var personalizacionesOdd = _tablaLogica.GetTablaLogicaDatos(usuario.PaisID, Constantes.TablaLogica.PersonalizacionODD);
                 if (!personalizacionesOdd.Any())
                 {
                     oddSession.TieneOfertaDelDia = false;
