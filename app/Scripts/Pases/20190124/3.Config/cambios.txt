@@ -1,0 +1,9 @@
+1.- PortalConsultoras2
+
+
+
+Actualizar:
+
+<add key="UrlMicroservicioPersonalizacionSearch" value="http://10.12.6.234:5000/"/>
+
+<add key="UrlMicroservicioPersonalizacionSync" value="http://10.12.6.131:5005/"/>
