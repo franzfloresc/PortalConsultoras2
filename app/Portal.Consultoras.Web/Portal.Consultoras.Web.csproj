@@ -1464,10 +1464,11 @@
     <Content Include="Content\Images\arrow_left.svg" />
     <Content Include="Content\Images\arrow_right.svg" />
     <Content Include="Content\Images\Buscador\bijouterie.jpg" />
-    <Content Include="Content\Images\Buscador\cuidadopersonal.jpg" />
-    <Content Include="Content\Images\Buscador\fragancia.jpg" />
-    <Content Include="Content\Images\Buscador\herramientas.jpg" />
-    <Content Include="Content\Images\Buscador\maquillaje.jpg" />
+    <Content Include="Content\Images\Buscador\categoria_cuidado_personal.jpg" />
+    <Content Include="Content\Images\Buscador\categoria_fragancia.jpg" />
+    <Content Include="Content\Images\Buscador\categoria_accesorios.jpg" />
+    <Content Include="Content\Images\Buscador\categoria_maquillaje.jpg" />
+    <Content Include="Content\Images\Buscador\herramientas_venta.jpg" />
     <Content Include="Content\Images\Buscador\moda.jpg" />
     <Content Include="Content\Images\Buscador\tratamiento-facial.jpg" />
     <Content Include="Content\Images\cerrar-filtros.svg" />

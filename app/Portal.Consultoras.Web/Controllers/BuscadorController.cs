@@ -37,18 +37,18 @@ namespace Portal.Consultoras.Web.Controllers
 
         public async Task<JsonResult> ListarCategorias(BuscadorModel model)
         {
-            List<BuscadorYFiltrosCategoriaModel> productosModel;
+            List<BuscadorYFiltrosCategoriaModel> categoriasModel;
             try
             {
                 await _buscadorYFiltrosProvider.GetPersonalizacion(userData, true, true);
-                productosModel = await _buscadorYFiltrosProvider.GetCategorias(model);
+                categoriasModel = await _buscadorYFiltrosProvider.GetCategorias(model);
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                productosModel = new List<BuscadorYFiltrosCategoriaModel>();
+                categoriasModel = new List<BuscadorYFiltrosCategoriaModel>();
             }
-            return Json(productosModel, JsonRequestBehavior.AllowGet);
+            return Json(categoriasModel, JsonRequestBehavior.AllowGet);
         }
 
 
