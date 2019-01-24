@@ -292,7 +292,6 @@
         },
         buscarPorCategoria: function () {
             if (_config.categoriaBusqueda.length > 0) {
-                $(_elementos.textoBusquedaMostar).html("Fragancias");
 
                 var categorias = get_local_storage("categoriasBuscadorMobile");
                 var nombreFiltro = "";
@@ -303,6 +302,8 @@
                         i += categorias.length;
                     }
                 }
+
+                $(_elementos.textoBusquedaMostar).html(nombreFiltro);
 
                 var filtroDuro = [{
                     NombreGrupo: "Categoría",
