@@ -3268,12 +3268,12 @@ namespace Portal.Consultoras.Common
 
         public class SegmentoDatami
         {
-            public const string SegmentoA = "A";
-            public const string SegmentoB = "B";
-            public const string SegmentoC = "C";
-            public const string SegmentoD = "D";
-            public const string SegmentoE = "E";
-            public const string SegmentoF = "F";
+            public const string SegmentoA = "Segmento_A";
+            public const string SegmentoB = "Segmento_B";
+            public const string SegmentoC = "Segmento_C";
+            public const string SegmentoD = "Segmento_D";
+            public const string SegmentoE = "Segmento_E";
+            public const string SegmentoF = "Segmento_F";
         }
 
         public class SegmentoInterno
