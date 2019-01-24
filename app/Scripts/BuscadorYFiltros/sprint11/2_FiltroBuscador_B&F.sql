@@ -7,10 +7,10 @@ begin
 	update filtroBuscador set Imagen = 'categoria_fragancia.jpg', imagenAncha = 1 where Descripcion = 'cat-fragancia'
 	update filtroBuscador set Imagen = 'categoria_maquillaje.jpg' where Descripcion = 'cat-maquillaje'
 	update filtroBuscador set Imagen = 'categoria_cuidado_personal.jpg' where Descripcion = 'cat-cuidado-personal'
-	update filtroBuscador set Imagen = '' where Descripcion = 'cat-tratamiento-facial'
+	update filtroBuscador set Imagen = 'categoria_accesorios.jpg' where Descripcion = 'cat-tratamiento-facial'
 	update filtroBuscador set Imagen = 'categoria_accesorios.jpg' where Descripcion = 'cat-bijouterie'
-	update filtroBuscador set Imagen = '' where Descripcion = 'cat-moda'
-	update filtroBuscador set Imagen = '' where Descripcion = 'cat-herramientas-de-venta'
+	update filtroBuscador set Imagen = 'categoria_accesorios.jpg' where Descripcion = 'cat-moda'
+	update filtroBuscador set Imagen = 'categoria_accesorios.jpg' where Descripcion = 'cat-herramientas-de-venta'
 end
 
 GO
@@ -22,10 +22,10 @@ begin
 	update filtroBuscador set Imagen = 'categoria_fragancia.jpg', imagenAncha = 1 where Descripcion = 'cat-fragancia'
 	update filtroBuscador set Imagen = 'categoria_maquillaje.jpg' where Descripcion = 'cat-maquillaje'
 	update filtroBuscador set Imagen = 'categoria_cuidado_personal.jpg' where Descripcion = 'cat-cuidado-personal'
-	update filtroBuscador set Imagen = '' where Descripcion = 'cat-tratamiento-facial'
+	update filtroBuscador set Imagen = 'categoria_accesorios.jpg' where Descripcion = 'cat-tratamiento-facial'
 	update filtroBuscador set Imagen = 'categoria_accesorios.jpg' where Descripcion = 'cat-bijouterie'
-	update filtroBuscador set Imagen = '' where Descripcion = 'cat-moda'
-	update filtroBuscador set Imagen = '' where Descripcion = 'cat-herramientas-de-venta'
+	update filtroBuscador set Imagen = 'categoria_accesorios.jpg' where Descripcion = 'cat-moda'
+	update filtroBuscador set Imagen = 'categoria_accesorios.jpg' where Descripcion = 'cat-herramientas-de-venta'
 end
 
 GO
@@ -37,10 +37,10 @@ begin
 	update filtroBuscador set Imagen = 'categoria_fragancia.jpg', imagenAncha = 1 where Descripcion = 'cat-fragancia'
 	update filtroBuscador set Imagen = 'categoria_maquillaje.jpg' where Descripcion = 'cat-maquillaje'
 	update filtroBuscador set Imagen = 'categoria_cuidado_personal.jpg' where Descripcion = 'cat-cuidado-personal'
-	update filtroBuscador set Imagen = '' where Descripcion = 'cat-tratamiento-facial'
+	update filtroBuscador set Imagen = 'categoria_accesorios.jpg' where Descripcion = 'cat-tratamiento-facial'
 	update filtroBuscador set Imagen = 'categoria_accesorios.jpg' where Descripcion = 'cat-bijouterie'
-	update filtroBuscador set Imagen = '' where Descripcion = 'cat-moda'
-	update filtroBuscador set Imagen = '' where Descripcion = 'cat-herramientas-de-venta'
+	update filtroBuscador set Imagen = 'categoria_accesorios.jpg' where Descripcion = 'cat-moda'
+	update filtroBuscador set Imagen = 'categoria_accesorios.jpg' where Descripcion = 'cat-herramientas-de-venta'
 end
 
 GO
@@ -52,10 +52,10 @@ begin
 	update filtroBuscador set Imagen = 'categoria_fragancia.jpg', imagenAncha = 1 where Descripcion = 'cat-fragancia'
 	update filtroBuscador set Imagen = 'categoria_maquillaje.jpg' where Descripcion = 'cat-maquillaje'
 	update filtroBuscador set Imagen = 'categoria_cuidado_personal.jpg' where Descripcion = 'cat-cuidado-personal'
-	update filtroBuscador set Imagen = '' where Descripcion = 'cat-tratamiento-facial'
+	update filtroBuscador set Imagen = 'categoria_accesorios.jpg' where Descripcion = 'cat-tratamiento-facial'
 	update filtroBuscador set Imagen = 'categoria_accesorios.jpg' where Descripcion = 'cat-bijouterie'
-	update filtroBuscador set Imagen = '' where Descripcion = 'cat-moda'
-	update filtroBuscador set Imagen = '' where Descripcion = 'cat-herramientas-de-venta'
+	update filtroBuscador set Imagen = 'categoria_accesorios.jpg' where Descripcion = 'cat-moda'
+	update filtroBuscador set Imagen = 'categoria_accesorios.jpg' where Descripcion = 'cat-herramientas-de-venta'
 end
 
 GO
@@ -67,10 +67,10 @@ begin
 	update filtroBuscador set Imagen = 'categoria_fragancia.jpg', imagenAncha = 1 where Descripcion = 'cat-fragancia'
 	update filtroBuscador set Imagen = 'categoria_maquillaje.jpg' where Descripcion = 'cat-maquillaje'
 	update filtroBuscador set Imagen = 'categoria_cuidado_personal.jpg' where Descripcion = 'cat-cuidado-personal'
-	update filtroBuscador set Imagen = '' where Descripcion = 'cat-tratamiento-facial'
+	update filtroBuscador set Imagen = 'categoria_accesorios.jpg' where Descripcion = 'cat-tratamiento-facial'
 	update filtroBuscador set Imagen = 'categoria_accesorios.jpg' where Descripcion = 'cat-bijouterie'
-	update filtroBuscador set Imagen = '' where Descripcion = 'cat-moda'
-	update filtroBuscador set Imagen = '' where Descripcion = 'cat-herramientas-de-venta'
+	update filtroBuscador set Imagen = 'categoria_accesorios.jpg' where Descripcion = 'cat-moda'
+	update filtroBuscador set Imagen = 'categoria_accesorios.jpg' where Descripcion = 'cat-herramientas-de-venta'
 end
 
 GO
@@ -82,10 +82,10 @@ begin
 	update filtroBuscador set Imagen = 'categoria_fragancia.jpg', imagenAncha = 1 where Descripcion = 'cat-fragancia'
 	update filtroBuscador set Imagen = 'categoria_maquillaje.jpg' where Descripcion = 'cat-maquillaje'
 	update filtroBuscador set Imagen = 'categoria_cuidado_personal.jpg' where Descripcion = 'cat-cuidado-personal'
-	update filtroBuscador set Imagen = '' where Descripcion = 'cat-tratamiento-facial'
+	update filtroBuscador set Imagen = 'categoria_accesorios.jpg' where Descripcion = 'cat-tratamiento-facial'
 	update filtroBuscador set Imagen = 'categoria_accesorios.jpg' where Descripcion = 'cat-bijouterie'
-	update filtroBuscador set Imagen = '' where Descripcion = 'cat-moda'
-	update filtroBuscador set Imagen = '' where Descripcion = 'cat-herramientas-de-venta'
+	update filtroBuscador set Imagen = 'categoria_accesorios.jpg' where Descripcion = 'cat-moda'
+	update filtroBuscador set Imagen = 'categoria_accesorios.jpg' where Descripcion = 'cat-herramientas-de-venta'
 end
 
 GO
@@ -97,10 +97,10 @@ begin
 	update filtroBuscador set Imagen = 'categoria_fragancia.jpg', imagenAncha = 1 where Descripcion = 'cat-fragancia'
 	update filtroBuscador set Imagen = 'categoria_maquillaje.jpg' where Descripcion = 'cat-maquillaje'
 	update filtroBuscador set Imagen = 'categoria_cuidado_personal.jpg' where Descripcion = 'cat-cuidado-personal'
-	update filtroBuscador set Imagen = '' where Descripcion = 'cat-tratamiento-facial'
+	update filtroBuscador set Imagen = 'categoria_accesorios.jpg' where Descripcion = 'cat-tratamiento-facial'
 	update filtroBuscador set Imagen = 'categoria_accesorios.jpg' where Descripcion = 'cat-bijouterie'
-	update filtroBuscador set Imagen = '' where Descripcion = 'cat-moda'
-	update filtroBuscador set Imagen = '' where Descripcion = 'cat-herramientas-de-venta'
+	update filtroBuscador set Imagen = 'categoria_accesorios.jpg' where Descripcion = 'cat-moda'
+	update filtroBuscador set Imagen = 'categoria_accesorios.jpg' where Descripcion = 'cat-herramientas-de-venta'
 end
 
 GO
@@ -112,10 +112,10 @@ begin
 	update filtroBuscador set Imagen = 'categoria_fragancia.jpg', imagenAncha = 1 where Descripcion = 'cat-fragancia'
 	update filtroBuscador set Imagen = 'categoria_maquillaje.jpg' where Descripcion = 'cat-maquillaje'
 	update filtroBuscador set Imagen = 'categoria_cuidado_personal.jpg' where Descripcion = 'cat-cuidado-personal'
-	update filtroBuscador set Imagen = '' where Descripcion = 'cat-tratamiento-facial'
+	update filtroBuscador set Imagen = 'categoria_accesorios.jpg' where Descripcion = 'cat-tratamiento-facial'
 	update filtroBuscador set Imagen = 'categoria_accesorios.jpg' where Descripcion = 'cat-bijouterie'
-	update filtroBuscador set Imagen = '' where Descripcion = 'cat-moda'
-	update filtroBuscador set Imagen = '' where Descripcion = 'cat-herramientas-de-venta'
+	update filtroBuscador set Imagen = 'categoria_accesorios.jpg' where Descripcion = 'cat-moda'
+	update filtroBuscador set Imagen = 'categoria_accesorios.jpg' where Descripcion = 'cat-herramientas-de-venta'
 end
 
 GO
@@ -127,10 +127,10 @@ begin
 	update filtroBuscador set Imagen = 'categoria_fragancia.jpg', imagenAncha = 1 where Descripcion = 'cat-fragancia'
 	update filtroBuscador set Imagen = 'categoria_maquillaje.jpg' where Descripcion = 'cat-maquillaje'
 	update filtroBuscador set Imagen = 'categoria_cuidado_personal.jpg' where Descripcion = 'cat-cuidado-personal'
-	update filtroBuscador set Imagen = '' where Descripcion = 'cat-tratamiento-facial'
+	update filtroBuscador set Imagen = 'categoria_accesorios.jpg' where Descripcion = 'cat-tratamiento-facial'
 	update filtroBuscador set Imagen = 'categoria_accesorios.jpg' where Descripcion = 'cat-bijouterie'
-	update filtroBuscador set Imagen = '' where Descripcion = 'cat-moda'
-	update filtroBuscador set Imagen = '' where Descripcion = 'cat-herramientas-de-venta'
+	update filtroBuscador set Imagen = 'categoria_accesorios.jpg' where Descripcion = 'cat-moda'
+	update filtroBuscador set Imagen = 'categoria_accesorios.jpg' where Descripcion = 'cat-herramientas-de-venta'
 end
 
 GO
@@ -142,10 +142,10 @@ begin
 	update filtroBuscador set Imagen = 'categoria_fragancia.jpg', imagenAncha = 1 where Descripcion = 'cat-fragancia'
 	update filtroBuscador set Imagen = 'categoria_maquillaje.jpg' where Descripcion = 'cat-maquillaje'
 	update filtroBuscador set Imagen = 'categoria_cuidado_personal.jpg' where Descripcion = 'cat-cuidado-personal'
-	update filtroBuscador set Imagen = '' where Descripcion = 'cat-tratamiento-facial'
+	update filtroBuscador set Imagen = 'categoria_accesorios.jpg' where Descripcion = 'cat-tratamiento-facial'
 	update filtroBuscador set Imagen = 'categoria_accesorios.jpg' where Descripcion = 'cat-bijouterie'
-	update filtroBuscador set Imagen = '' where Descripcion = 'cat-moda'
-	update filtroBuscador set Imagen = '' where Descripcion = 'cat-herramientas-de-venta'
+	update filtroBuscador set Imagen = 'categoria_accesorios.jpg' where Descripcion = 'cat-moda'
+	update filtroBuscador set Imagen = 'categoria_accesorios.jpg' where Descripcion = 'cat-herramientas-de-venta'
 end
 
 GO
@@ -157,10 +157,10 @@ begin
 	update filtroBuscador set Imagen = 'categoria_fragancia.jpg', imagenAncha = 1 where Descripcion = 'cat-fragancia'
 	update filtroBuscador set Imagen = 'categoria_maquillaje.jpg' where Descripcion = 'cat-maquillaje'
 	update filtroBuscador set Imagen = 'categoria_cuidado_personal.jpg' where Descripcion = 'cat-cuidado-personal'
-	update filtroBuscador set Imagen = '' where Descripcion = 'cat-tratamiento-facial'
+	update filtroBuscador set Imagen = 'categoria_accesorios.jpg' where Descripcion = 'cat-tratamiento-facial'
 	update filtroBuscador set Imagen = 'categoria_accesorios.jpg' where Descripcion = 'cat-bijouterie'
-	update filtroBuscador set Imagen = '' where Descripcion = 'cat-moda'
-	update filtroBuscador set Imagen = '' where Descripcion = 'cat-herramientas-de-venta'
+	update filtroBuscador set Imagen = 'categoria_accesorios.jpg' where Descripcion = 'cat-moda'
+	update filtroBuscador set Imagen = 'categoria_accesorios.jpg' where Descripcion = 'cat-herramientas-de-venta'
 end
 
 GO
@@ -172,10 +172,10 @@ begin
 	update filtroBuscador set Imagen = 'categoria_fragancia.jpg', imagenAncha = 1 where Descripcion = 'cat-fragancia'
 	update filtroBuscador set Imagen = 'categoria_maquillaje.jpg' where Descripcion = 'cat-maquillaje'
 	update filtroBuscador set Imagen = 'categoria_cuidado_personal.jpg' where Descripcion = 'cat-cuidado-personal'
-	update filtroBuscador set Imagen = '' where Descripcion = 'cat-tratamiento-facial'
+	update filtroBuscador set Imagen = 'categoria_accesorios.jpg' where Descripcion = 'cat-tratamiento-facial'
 	update filtroBuscador set Imagen = 'categoria_accesorios.jpg' where Descripcion = 'cat-bijouterie'
-	update filtroBuscador set Imagen = '' where Descripcion = 'cat-moda'
-	update filtroBuscador set Imagen = '' where Descripcion = 'cat-herramientas-de-venta'
+	update filtroBuscador set Imagen = 'categoria_accesorios.jpg' where Descripcion = 'cat-moda'
+	update filtroBuscador set Imagen = 'categoria_accesorios.jpg' where Descripcion = 'cat-herramientas-de-venta'
 end
 
 GO
