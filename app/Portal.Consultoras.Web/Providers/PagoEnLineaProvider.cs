@@ -38,9 +38,7 @@ namespace Portal.Consultoras.Web.Providers
             model.MontoDeuda = userData.MontoDeuda;
             model.FechaVencimiento = userData.FechaLimPago;
 
-            var listaConfiguracion = _tablaLogica.GetTablaLogicaDatos(userData.PaisID, Constantes.TablaLogica.ValoresPagoEnLinea, true);
-
-            var porcentajeGastosAdministrativosString = _tablaLogica.ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.PorcentajeGastosAdministrativos);
+            var porcentajeGastosAdministrativosString = _tablaLogica.ObtenerValorTablaLogica(userData.PaisID, Constantes.TablaLogica.ValoresPagoEnLinea, Constantes.TablaLogicaDato.PorcentajeGastosAdministrativos,true);
             decimal porcentajeGastosAdministrativos;
             bool esNum = decimal.TryParse(porcentajeGastosAdministrativosString, out porcentajeGastosAdministrativos);
 
@@ -319,8 +317,7 @@ namespace Portal.Consultoras.Web.Providers
                     model.FechaVencimiento = userData.FechaLimPago;
                     model.SaldoPendiente = decimal.Round(userData.MontoDeuda - model.MontoDeuda, 2);
 
-                    var listaConfiguracion = _tablaLogica.GetTablaLogicaDatos(userData.PaisID, Constantes.TablaLogica.ValoresPagoEnLinea, true);
-                    var mensajeExitoso = _tablaLogica.ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.MensajeInformacionPagoExitoso);
+                    var mensajeExitoso = _tablaLogica.ObtenerValorTablaLogica(userData.PaisID, Constantes.TablaLogica.ValoresPagoEnLinea, Constantes.TablaLogicaDato.MensajeInformacionPagoExitoso, true);
 
                     if (result.Code == Constantes.PagoEnLineaRespuestaServicio.Code.SUCCESS)
                     {
