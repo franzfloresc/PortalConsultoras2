@@ -2375,7 +2375,7 @@ function InsertarPremio(model) {
 };
 
 function ClosePopupRegaloElectivo() {
-    dataAgregarOF == null;
+    if (typeof dataAgregarOF !== 'undefined') dataAgregarOF = null;
     CerrarPopup('#popupEleccionRegalo');
     $('#popupEleccionRegalo').scrollTop(0);
 };
