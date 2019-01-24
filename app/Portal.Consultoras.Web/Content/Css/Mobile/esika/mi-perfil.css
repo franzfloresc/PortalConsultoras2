@@ -325,7 +325,7 @@ a{
 .icono_cambio_password{
     width:13px;
     height:19px;
-    background-image:url("/Content/Images/Esika/icono_candado.svg");
+    background-image:url("/Content/Images/icono_candado.svg");
     background-size:100%;
     margin-right:7px;
     position: relative;
@@ -529,7 +529,7 @@ a{
         width: 40px;
         height: 40px;
         background-position: center;
-        background-image: url(/Content/Images/Esika/icono_localizacion.svg);
+        background-image: url(/Content/Images/icono_localizacion.svg);
         z-index: 999;
         cursor:pointer;
         -moz-transition: all 0.3s ease;
@@ -583,7 +583,7 @@ a{
 .icono_cambiar_dato{
     width:16px;
     height:16px;
-    background-image:url("/Content/Images/Esika/icono_cambiar_dato.svg");
+    background-image:url("/Content/Images/icono_cambiar_dato.svg");
     margin-right:2px;
 }
 

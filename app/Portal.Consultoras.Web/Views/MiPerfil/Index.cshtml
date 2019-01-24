@@ -37,7 +37,7 @@ else
 <section class="datos_usuario_iniciales w-100">
     <div class="wrapper_content_mi_perfil text-center">
         <div class="foto_consultora">
-            <a href="@Url.Action("CambiarFotoPerfil", "MiPerfil", new {area = ""})" title="Editar imagen" class="icono_camara default-background-color"></a>
+            <a href="@Url.Action("CambiarFotoPerfil", "MiPerfil", new {area = ""})" title="Editar imagen" class="icono_camara multimarca-background-color"></a>
             <div class="contenedor_foto_consultora">
                 @if (ViewBag.FotoPerfilAncha)
                 {
@@ -77,7 +77,7 @@ else
             @if (Model.NombreGerenteZonal != "" && Model.IndicadorConsultoraDigital == 0)
             {
                 <div class="datos_gerente_zona">
-                    <span>Gerente de zona : </span>
+                    <span class="text-bold">Gerente de zona : </span>
                     <span class="text-bold">@Model.NombreGerenteZonal</span>
                 </div>
             }

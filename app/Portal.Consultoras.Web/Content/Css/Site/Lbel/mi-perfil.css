@@ -298,7 +298,7 @@ input:focus{
 }
 
 .datos_consultora_mi_perfil{
-    max-width: 347px;
+    /*max-width: 347px;*/
     font-size:16px;
 }
 
@@ -306,10 +306,9 @@ input:focus{
     margin-bottom:16px;
 }
 
-.datos_gerente_zona{
-    display:none;
+/*.datos_gerente_zona{
     margin-bottom:16px;
-}
+}*/
 
 .datos_codigo{
     margin-right:34px;
@@ -318,7 +317,7 @@ input:focus{
 .icono_cambio_password{
     width: 13px;
     height: 19px;
-    background-image: url(/Content/Images/Lbel/icono_candado.svg);
+    background-image: url(/Content/Images/icono_candado.svg);
     background-size: 100%;
     margin-right: 7px;
     position: relative;
@@ -561,7 +560,7 @@ input:focus{
     width: 40px;
     height: 40px;
     background-position: center;
-    background-image: url(/Content/Images/Lbel/icono_localizacion.svg);
+    background-image: url(/Content/Images/icono_localizacion.svg);
     z-index: 3000;
 }
 
@@ -590,7 +589,7 @@ input:focus{
 .icono_cambiar_dato{
     width:16px;
     height:16px;
-    background-image:url("/Content/Images/Lbel/icono_cambiar_dato.svg");
+    background-image:url("/Content/Images/icono_cambiar_dato.svg");
     margin-right:5px;
 }
 
@@ -692,8 +691,8 @@ input.permiso_cuenta_opcion_checkbox
 .checkbox_condiciones_checkbox:checked + .checkbox_condiciones_label,
 .permiso_cuenta_opcion_checkbox:checked + .permiso_cuenta_opcion_label
 {
-    background-color:#642f80;
-    border: 1px solid #642f80;
+    background-color:#b9007e;
+    border: 1px solid #b9007e;
 }
 
 .grupo_input_actualizarMisDatos .checkbox_condiciones_descripcion{
