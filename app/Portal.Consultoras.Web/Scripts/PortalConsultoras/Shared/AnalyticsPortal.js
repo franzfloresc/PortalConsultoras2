@@ -1197,7 +1197,7 @@ var AnalyticsPortalModule = (function () {
             switch (_pagina) {
 
                 case "Home": AnalyticsPortalModule.MarcaDetalleProducto(element,url); break;
-                case "Contenedor": palanca == "Lanzamientos" ? AnalyticsPortalModule.MarcaClicBanner(element) : AnalyticsPortalModule.MarcaDetalleProducto(element,url); break;
+                case "Contenedor": palanca == "Lanzamientos" ? AnalyticsPortalModule.MarcaDetalleProducto(element, url) : AnalyticsPortalModule.MarcaDetalleProducto(element,url); break;
                 case "Pedido": AnalyticsPortalModule.MarcaDetalleProductoCarrito(element,url); break; //marcacion punto 2.1.7.4. según el documento de correciones Roxana 
                 case "Landing": AnalyticsPortalModule.MarcaDetalleProducto(element,url); break;
             }
@@ -1822,7 +1822,7 @@ var AnalyticsPortalModule = (function () {
                             'brand': item.DescripcionMarca,
                             'category': _texto.notavaliable,
                             'variant': _texto.estandar,
-                            'position': 1
+                            'position': item.Posicion
                         }]
                     }
                 }
@@ -1872,7 +1872,7 @@ var AnalyticsPortalModule = (function () {
                             'brand': item.DescripcionMarca,
                             'category': _texto.notavaliable,
                             'variant': _texto.estandar,
-                            'position': 1
+                            'position': item.Posicion
                         }]
                     }
                 }
@@ -1909,7 +1909,7 @@ var AnalyticsPortalModule = (function () {
                             'brand': item.DescripcionMarca,
                             'category': _texto.notavaliable,
                             'variant': _texto.estandar,
-                            'position': 1
+                            'position': item.Posicion
                         }]
                     }
                 }

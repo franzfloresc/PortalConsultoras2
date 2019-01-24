@@ -480,6 +480,8 @@ var CarruselModule = (function (config) {
 
         if (data.lista.length > 0) {
             _variable.cantidadProdCarrusel = data.lista.length;
+            $.each(data.lista, function (i, item) { item.Posicion = i + 1; });
+
             SetHandlebars(_elementos.idPlantillaProducto, data, _elementos.divCarruselProducto);
             _mostrarTitulo();
             _mostrarSlicks();

@@ -398,9 +398,11 @@ function SeccionMostrarProductos(data) {
     data.Mobile = isMobile();
 
     if (data.lista) {
+
         $.each(data.lista, function (i, item) {
             item.EsBanner = false;
             item.EsLanzamiento = false;
+            item.Posicion = i + 1;
         });
     }
 
