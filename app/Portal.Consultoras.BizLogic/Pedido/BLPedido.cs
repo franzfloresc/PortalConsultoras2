@@ -3144,9 +3144,10 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
             #region UnidadesPermitidas
 
+            estrategia.Cantidad = pedidoDetalle.Cantidad;
+
             if (!pedidoDetalle.EnRangoProgramaNuevas)
             {
-                estrategia.Cantidad = pedidoDetalle.Cantidad;
                 if (pedidoDetalle.Producto.TipoOfertaSisID == Constantes.ConfiguracionOferta.Liquidacion)
                 {
                     var entidad = new BEOfertaProducto
@@ -3228,8 +3229,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
             //Monto Máximo
             var ofertas = estrategia.DescripcionCUV2.Split('|');
             pedidoDetalle.Producto.Descripcion = ofertas[0];
-            if (estrategia.FlagNueva == 1) pedidoDetalle.Cantidad = estrategia.LimiteVenta;
-            else pedidoDetalle.Producto.Descripcion = estrategia.DescripcionCUV2;
+            if (estrategia.FlagNueva == 1) { pedidoDetalle.Cantidad = estrategia.LimiteVenta; estrategia.Cantidad = estrategia.LimiteVenta; }
+            else { pedidoDetalle.Producto.Descripcion = estrategia.DescripcionCUV2; }
 
             var resultado = false;
             pedidoDetalle.Producto.PrecioCatalogo = estrategia.Precio2;
