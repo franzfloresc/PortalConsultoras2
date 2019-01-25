@@ -34526,9 +34526,14 @@ height:30px;
     display:inline-block;
 }
 
+.opciones_regalo_carousel_programaNuevas .slick-track{
+    min-width:765px;
+}
+
 .opciones_regalo_carousel_programaNuevas.slick-initialized .slick-slide{
     vertical-align:top;
     float:none;
+    min-width:235px;
     height:315px;
     padding-top:0!important;
     padding-bottom:25px!important;
