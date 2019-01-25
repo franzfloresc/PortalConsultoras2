@@ -3762,7 +3762,8 @@ namespace Portal.Consultoras.Common
             bool mobile,
             bool home,
             bool recomendaciones,
-            bool materialGanancia
+            bool materialGanancia,
+            bool suscripcion
             )
         {
 
@@ -3774,7 +3775,7 @@ namespace Portal.Consultoras.Common
                 return result;
             }
 
-            if (materialGanancia)
+            if (materialGanancia && suscripcion)
             {
                 if (
                     codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertaParaTi ||
@@ -3786,7 +3787,7 @@ namespace Portal.Consultoras.Common
                       (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorGanadorasDesplegable.ToString() : Constantes.OrigenPedidoWeb.DesktopBuscadorGanadorasDesplegable.ToString())
                       :
                       (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorGanadorasCarrusel.ToString() : Constantes.OrigenPedidoWeb.DesktopBuscadorGanadorasCarrusel.ToString());
-                }              
+                }
                 return result;
             }
 
