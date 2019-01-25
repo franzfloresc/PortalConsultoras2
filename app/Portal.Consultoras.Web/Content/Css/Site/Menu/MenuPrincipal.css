@@ -43,7 +43,11 @@
 @media screen and (max-width:1104px){
 
     .wrapper_header_logo + .menu_new_esika{
-        min-width:467px!important;
+        width:467px!important;
+    }
+
+    .wrapper_header_se .wrapper_header_logo + .menu_new_esika{
+        width:540px!important;
     }
 
 }
