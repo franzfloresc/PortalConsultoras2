@@ -1035,16 +1035,18 @@ function agregarPremioDefault() {
         return;
     }
 
-    AgregarPremio(premio).then(function(data) {
-        if (!data) {
-            return;
-        }
+    AgregarPremio(premio)
+        .then(function (data) {
+            if (!data) return;
 
-        tpElectivos.premioSelected = premio;
-        $('#divBarra .contenedor_circulos').hide();
-        //setPremio(premio);
-    });
+            CallFnOFRegaloNuevas();
+            tpElectivos.premioSelected = premio;
+            $('#divBarra .contenedor_circulos').hide();
+            //setPremio(premio);
+        });
 }
+
+function CallFnOFRegaloNuevas(){ if(typeof ActValPopupOFByRegaloNuevas !== 'undefined' && $.isFunction(ActValPopupOFByRegaloNuevas)) ActValPopupOFByRegaloNuevas(); }
 
 function getPremioDefault() {
     var list = tpElectivos.premios;
@@ -1136,10 +1138,9 @@ function seleccionRegaloProgramaNuevas() {
 
     AgregarPremio(premio)
         .then(function(data) {
-            if (!data) {
-                return;
-            }
+            if (!data) return;
 
+            CallFnOFRegaloNuevas();
             setPremio(premio);
         });
 }
@@ -2370,4 +2371,10 @@ function InsertarPremio(model) {
 
         return data;
     });
+};
+
+function ClosePopupRegaloElectivo() {
+    if (typeof dataAgregarOF !== 'undefined') dataAgregarOF = null;
+    CerrarPopup('#popupEleccionRegalo');
+    $('#popupEleccionRegalo').scrollTop(0);
 };
