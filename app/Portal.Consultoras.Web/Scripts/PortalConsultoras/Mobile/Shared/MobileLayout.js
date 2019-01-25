@@ -890,9 +890,17 @@ function CargarCantidadProductosPedidos(noMostrarEfecto) {
 }
 
 function CargarCantidadNotificacionesSinLeer() {
+    //INI EINCA 24-01-2019
+    var sendData = {
+        codigoUsuario: codigoConsultora
+    };
+    //FIN EINCA 24-01-2019
+
     jQuery.ajax({
         type: 'POST',
         url: urlGetNotificacionesSinLeer,
+        data: JSON.stringify(sendData),
+        cache: true,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         success: function (data) {

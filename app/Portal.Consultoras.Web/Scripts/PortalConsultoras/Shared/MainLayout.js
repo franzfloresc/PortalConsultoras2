@@ -2,6 +2,10 @@
 var showDisplayODD = 0;
 var ventanaChat = null;
 
+
+var CodigoConsultora = null;
+
+
 $(document).ready(function () {
     LayoutHeader();
     LayoutMenu();
@@ -406,11 +410,17 @@ function CargarResumenCampaniaHeader(showPopup) {
 }
 
 function CargarCantidadNotificacionesSinLeer() {
+    //INI EINCA 24-01-2019
+    var sendData = {
+        codigoUsuario: codigoConsultora
+    };
+    //FIN EINCA 24-01-2019
+
     jQuery.ajax({
         type: 'POST',
         url: baseUrl + "Notificaciones/GetNotificacionesSinLeer",
-        data: '',
-        cache: false,
+        data: JSON.stringify(sendData),
+        cache: true,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         success: function (data) {

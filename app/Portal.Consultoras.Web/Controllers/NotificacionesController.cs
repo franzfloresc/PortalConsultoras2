@@ -466,13 +466,14 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        [OutputCache(Duration = 30*60 ,Location = System.Web.UI.OutputCacheLocation.Any)] //Media hora EINCA 204-01-2019
-        public JsonResult GetNotificacionesSinLeer()
+        [OutputCacheAttribute(Duration = 1800 ,Location = System.Web.UI.OutputCacheLocation.Client,VaryByParam = "codigoUsuario")] //Media hora EINCA 204-01-2019
+        public JsonResult GetNotificacionesSinLeer(string codigoUsuario = "")
         {
             int cantidadNotificaciones = -1;
             var mensaje = string.Empty;
             try
             {
+                LogManager.LogManager.LogErrorWebServicesBus(new Exception("Registrando carga Notificaciones: "),userData.UsuarioNombre,userData.PaisID.ToString());
 
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
