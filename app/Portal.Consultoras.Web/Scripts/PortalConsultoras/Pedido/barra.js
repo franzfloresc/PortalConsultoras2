@@ -1792,7 +1792,6 @@ function CalculoPosicionMinimoMaximo() {
                     document.getElementById('lineaPosicionMontoMaximo').style.left = "";
                     document.getElementById('MontoMaximoBloque').style.display = "block";
 
-
                     var escala = 0;
                     var lista = dataBarra.ListaEscalaDescuento;
                     for (var i = 0; i < lista.length; i++) {
@@ -1921,7 +1920,7 @@ function CalculoPosicionMinimoMaximo() {
 
                                     PosicionMontoMinimo = montoMinimo * 100 / dataBarra.ListaEscalaDescuento[i].MontoDesde;
                                     document.getElementById('lineaPosicionMontoMinimo').style.left = (PosicionMontoMinimo) + '%';
-                                    document.getElementById('MontoMinimoBloque').style.left = (PosicionMontoMinimo - 8) + '%';// 
+                                    document.getElementById('MontoMinimoBloque').style.left = (PosicionMontoMinimo - 5) + '%';// 
 
                                     document.getElementById('lineaPosicionMontoMaximo').style.display = 'None';
                                     document.getElementById('MontoMaximoBloque').innerHTML = "";
@@ -2071,8 +2070,8 @@ function CalculoPosicionMinimoMaximoDestokp() {
             var AvancePorcentajeP1 = (AvancePorcentaje1.substring(0, AvancePorcentaje1.length - 1) * 1 - 5) + '%'
             document.getElementById('punto_1').style.left = AvancePorcentajeP1;
             document.getElementById('punto_1').firstChild.firstChild.style = "width:90px;position: absolute;";//top: -24px;
-            document.getElementById('punto_1').firstChild.firstChild.firstChild.firstChild.style.display = "None";
-
+            //document.getElementById('punto_1').firstChild.firstChild.firstChild.firstChild.style.display = "None";
+                
 
             document.getElementById('punto_2').style.left = '94%';
             document.getElementById('barra_2').style.left = '99.9%';
