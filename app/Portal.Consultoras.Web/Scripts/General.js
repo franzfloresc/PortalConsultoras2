@@ -989,16 +989,9 @@ FuncionesGenerales = {
         return patron.test(te);
     },
     ValidarSoloNumerosLetrasAndSpecialCharater: function (e) {
-
         var charCode = (e.which) ? e.which : window.event.keyCode;
-        if (charCode <= 13) {
-            return false;
-        }
-        else {
-            // if (charCode == 10 || charCode==10) return false;
-            if ((charCode >= 48 && charCode <= 57) || (charCode >= 65 && charCode <= 90) || (charCode >= 97 && charCode <= 122))
-                return true; else return false;
-        }
+        if ((charCode >= 48 && charCode <= 57) || (charCode >= 65 && charCode <= 90) || (charCode >= 97 && charCode <= 122))
+            return true; else return false;
     },
     ValidarSoloLetrasYNumeros: function (e) {
         var charCode = (e.which) ? e.which : window.event.keyCode;
