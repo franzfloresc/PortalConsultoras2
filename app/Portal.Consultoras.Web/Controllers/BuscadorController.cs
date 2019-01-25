@@ -13,7 +13,7 @@ namespace Portal.Consultoras.Web.Controllers
         private readonly BuscadorYFiltrosProvider _buscadorYFiltrosProvider = new BuscadorYFiltrosProvider();
 
         public ActionResult Index()
-        {
+        {            
             return View();
         }
 

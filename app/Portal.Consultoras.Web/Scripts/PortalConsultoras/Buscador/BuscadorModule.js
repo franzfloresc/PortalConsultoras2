@@ -62,7 +62,8 @@ var BuscadorModule = (function () {
         aplicarLogicaCantidadBotonVerTodos: (AplicarLogicaCantidadBotonVerTodos === 'true'),
         contadorBusqueda: 0,
         isHome: true,
-        categorias: 'categoriasBuscadorMobile'
+        categorias: 'categoriasBuscadorMobile',
+        isSuscrita: 'suscritaBuscadorMobile'
     };
     var _funciones = { //Funciones privadas
         InicializarEventos: function () {
@@ -164,6 +165,16 @@ var BuscadorModule = (function () {
         CargarCategorias: function () {
 
             CategoriaProductosDatos = get_local_storage(_config.categorias);
+
+            var isSuscritaLocal = get_local_storage(_config.isSuscrita);
+
+            if (isSuscritaLocal == boolSuscrita || isSuscritaLocal == null) {
+                set_local_storage(boolSuscrita, _config.isSuscrita);
+
+            } else if (isSuscritaLocal != boolSuscrita) {
+                set_local_storage(boolSuscrita, _config.isSuscrita);
+                CategoriaProductosDatos = null;
+            }            
 
             if (CategoriaProductosDatos == null) {
                 var model = {}
