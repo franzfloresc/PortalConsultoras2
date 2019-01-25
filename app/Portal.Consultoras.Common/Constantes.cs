@@ -3022,6 +3022,8 @@ namespace Portal.Consultoras.Common
             public const string TotalProductosPaginaResultado = "TotalProductosPaginaResultado";
             public const string TotalCaracteresDescPaginaResultado = "TotalCaracteresDescPaginaResultado";
             public const string FlagFiltrosBuscador = "FlagFiltrosBuscador";
+            public const string FlagBuscarPorCategoria = "BuscarPorCategoria";
+            public const string FlagBuscarPorCategoriaTotalProductos = "BuscarPorCategoriaTotalProductos";
         }
         
         public static class CodigoConfiguracionRecomendaciones

@@ -38,7 +38,7 @@
 
 <div class="section-container mt-60">
     <div class="container-fluid d-block seccion_categorias_productos_busqueda_wrapper">
-        <h3 class="d-block seccion_categorias_productos_busqueda_titulo">
+        <h3 class="d-block seccion_categorias_productos_busqueda_titulo" id="TituloCategoriaO">
             Categorías
         </h3>
         <div class="d-block listado_categorias_productos_busqueda_wrapper">
@@ -92,11 +92,16 @@
                     <img class="d-block" src="{{item.Imagen}}" alt="{{item.Nombre}}" />
                     <a href="{{#iff item.Cantidad '>' 0}}/BusquedaProductos?c={{item.Codigo}}{{else}}#!{{/iff}}" title="{{item.Nombre}}" class="d-flex categoria_producto_enlace">
                         <span class="d-block text-bold titulo_categoria_producto_busqueda">{{item.Nombre}}</span>
-                        <span class="d-block cantidad_productos_por_categoria_busqueda">{{item.Cantidad}} productos</span>
+                        @if (@ViewBag.FlagBuscarPorCategoriaTotalProductos == true)
+                        {
+                            <span class="d-block cantidad_productos_por_categoria_busqueda">{{item.Cantidad}} productos</span>
+                        }
                     </a>
                 </li>
         {{/each}}
     </script>
+
     <script>
         var boolSuscrita = '@ViewBag.boolSuscrita'.toLowerCase() === 'true';
+        var FlagBuscarPorCategoria = '@ViewBag.FlagBuscarPorCategoria'.toLowerCase() === 'true';
     </script>
