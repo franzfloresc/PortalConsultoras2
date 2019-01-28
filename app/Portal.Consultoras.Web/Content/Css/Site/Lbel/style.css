@@ -34457,7 +34457,7 @@ height:30px;
     margin-right: auto;
     margin-bottom: 21px;
     padding-top: 40px;
-    padding-bottom: 60px;
+    padding-bottom: 48px;
     position: relative;
 }
 
@@ -34489,8 +34489,9 @@ height:30px;
 .btn_escoger_o_cambiar_regalo
 {
     display:block;
+    width:100%;
     margin:0 auto;
-    border:1px solid #000;
+    border:0.1em solid #000;
     height:56px;
     line-height:56px;
     font-size:14px;
@@ -34509,11 +34510,11 @@ height:30px;
     }
 
 .btn_seguir_comprando{
-    width:304px;
+    max-width:380px;
 }
 
 .btn_escoger_o_cambiar_regalo{
-    width:220px;
+    max-width:220px;
 }
 
 .opciones_regalo_carousel_programaNuevas.slick-slider{
@@ -34528,6 +34529,7 @@ height:30px;
 
 .opciones_regalo_carousel_programaNuevas .slick-track{
     min-width:765px;
+    min-height:332px;
 }
 
 .opciones_regalo_carousel_programaNuevas.slick-initialized .slick-slide{
