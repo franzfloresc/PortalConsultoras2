@@ -514,9 +514,11 @@ namespace Portal.Consultoras.Web.Providers
                     userData.CodigorRegion,
                     userData.CodigoZona
                     );
+
                 var taskApi = Task.Run(() => OfertaBaseProvider.ObtenerOfertasDesdeApi(pathMS, userData.CodigoISO));
                 Task.WhenAll(taskApi);
                 listEstrategia = taskApi.Result;
+
             }
             else
             {
