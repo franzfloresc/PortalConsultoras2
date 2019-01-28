@@ -43,6 +43,8 @@
     /*END Estilo Panel*/
 </style>
 <input id="hfBaseUrl" type="hidden" value="@Url.Content("~")" />
+<input id="hfUrlFrmRegistro" type="hidden" value="@Url.Action("Detalle","TusClientes")" />
+
 <input id="hfPaisID" type="hidden" />
 <input id="hfClienteID" type="hidden" />
 <input id="hfCodigoCliente" type="hidden" />
@@ -50,9 +52,9 @@
 
 <hr class="clear" />
 
+<a href="#" style="text-decoration:underline" id="btnAbrirFormulario">Agregar Cliente</a>
 <input placeholder="Buscar" type="text" class="buscador_clientes" id="txtBusqueda" style="width:100%" />
-<input type="button" id="btnAbrirFormulario" value="AGREGAR CLIENTE" />
-
+ 
 <hr class="clear" />
 
 <div id="handlebars_contenedor1"></div>
@@ -61,7 +63,6 @@
     <div class="content_listado_notificaciones" onclick="seleccionarRegistro({{PaisID}}, {{ClienteID}}, '{{CodigoCliente}}', '{{NombreCliente}}')">
         <div style="display:none;" class="cliente_id">{{ClienteID}}</div>
         <div style="display:none;" class="codigo_cliente">{{CodigoCliente}}</div>
-
         <div class="nombre_cliente_sb">{{NombreCliente}}</div>
     </div>
     {{/each}}
@@ -80,13 +81,9 @@
 
 <script type="text/javascript">
 
-        var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
-        var baseUrl = "@Url.Content("~")";
-
-        function seleccionarRegistro(pPaisID, pClienteID, pCodigoCliente, pNombreCliente) {
+   function seleccionarRegistro(pPaisID, pClienteID, pCodigoCliente, pNombreCliente) {
             console.log(pPaisID, pClienteID, pCodigoCliente, pNombreCliente);
-
-
+       
             $("#hfPaisID").val(pPaisID);
             $("#hfClienteID").val(pClienteID);
             $("#hfCodigoCliente").val(pCodigoCliente);
@@ -101,9 +98,38 @@
         $("#PanelClienteRegistro").css("width", "0");
     }
 
-        $(document).ready(function () {
+    function consultar() {
+        var baseUrl = $("#hfBaseUrl").val();
 
-            $('#PanelClienteRegistro_contenedor').load('@Url.Action("Detalle","TusClientes")');//TusClientes/Detalle.cshtml
+        $.ajax({
+            type: 'POST',
+            url: baseUrl + 'TusClientes/Consultar',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify({ texto: $("#txtBusqueda").val() }),
+            async: true,
+            success: function (data) {
+                console.log(data);
+                pintar(data);
+            },
+            error: function (data, error) { }
+        });
+
+    }
+
+    function pintar(data) {
+        var plantilla = $("#handlebars_plantilla1").html();
+
+        var compiled = Handlebars.compile(plantilla);
+        var html = compiled(data);
+
+        $("#handlebars_contenedor1").empty()
+        $("#handlebars_contenedor1").append(html);
+    }
+
+        $(document).ready(function () {
+            
+            $('#PanelClienteRegistro_contenedor').load($("#hfUrlFrmRegistro").val());//TusClientes/Detalle.cshtml
 
             $("#btnAbrirFormulario").click(function () {
                 PanelRegistroShow();
@@ -116,35 +142,6 @@
                     //}
                 }
             });
-
-            function consultar() {
-                var baseUrl = $("#hfBaseUrl").val();
-
-                $.ajax({
-                    type: 'POST',
-                    url: baseUrl + 'TusClientes/Consultar',
-                    dataType: 'json',
-                    contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify({ texto: $("#txtBusqueda").val()}),
-                    async: true,
-                    success: function (data) {
-                        console.log(data);
-                        pintar(data);
-                    },
-                    error: function (data, error) { }
-                });
-
-            }
-
-            function pintar(data) {
-                var plantilla = $("#handlebars_plantilla1").html();
-
-                var compiled = Handlebars.compile(plantilla);
-                var html = compiled(data);
-
-                $("#handlebars_contenedor1").empty()
-                $("#handlebars_contenedor1").append(html);
-            }
 
             consultar();
         });
