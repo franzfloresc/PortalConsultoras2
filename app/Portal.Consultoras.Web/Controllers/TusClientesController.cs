@@ -41,13 +41,18 @@ namespace Portal.Consultoras.Web.Controllers
         {
             return View();
         }
+         
+        public ActionResult Detalle()
+        {
+            return View();
+        }
 
         public ActionResult PanelLista()
         {
             return View();
         }
 
-        public ActionResult Detalle()
+        public ActionResult PanelMantener()
         {
             return View(new ClienteModel { });
         }
