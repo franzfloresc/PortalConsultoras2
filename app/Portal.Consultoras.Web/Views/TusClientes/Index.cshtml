@@ -54,7 +54,7 @@
 
 <a href="#" style="text-decoration:underline" id="btnAbrirFormulario">Agregar Cliente</a>
 <input placeholder="Buscar" type="text" class="buscador_clientes" id="txtBusqueda" style="width:100%" />
- 
+
 <hr class="clear" />
 
 <div id="handlebars_contenedor1"></div>
@@ -75,19 +75,20 @@
 </div>
 <!-- END: Panel cliente-->
 
+<script type="text/javascript" src="@Url.Content("~/Scripts/General.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.11.2.min.js")"></script>
 
 <script type="text/javascript" src="@Url.Content("~/Scripts/handlebars.min.js")"></script>
 
 <script type="text/javascript">
 
-   function seleccionarRegistro(pPaisID, pClienteID, pCodigoCliente, pNombreCliente) {
-            console.log(pPaisID, pClienteID, pCodigoCliente, pNombreCliente);
-       
-            $("#hfPaisID").val(pPaisID);
-            $("#hfClienteID").val(pClienteID);
-            $("#hfCodigoCliente").val(pCodigoCliente);
-            $("#hfNombreCliente").val(pNombreCliente);
+    function seleccionarRegistro(pPaisID, pClienteID, pCodigoCliente, pNombreCliente) {
+        console.log(pPaisID, pClienteID, pCodigoCliente, pNombreCliente);
+
+        $("#hfPaisID").val(pPaisID);
+        $("#hfClienteID").val(pClienteID);
+        $("#hfCodigoCliente").val(pCodigoCliente);
+        $("#hfNombreCliente").val(pNombreCliente);
     }
 
     function PanelRegistroShow() {
@@ -98,7 +99,7 @@
         $("#PanelClienteRegistro").css("width", "0");
     }
 
-    function consultar() {
+    function listarTusClientes() {
         var baseUrl = $("#hfBaseUrl").val();
 
         $.ajax({
@@ -127,23 +128,23 @@
         $("#handlebars_contenedor1").append(html);
     }
 
-        $(document).ready(function () {
-            
-            $('#PanelClienteRegistro_contenedor').load($("#hfUrlFrmRegistro").val());//TusClientes/Detalle.cshtml
+    $(document).ready(function () {
 
-            $("#btnAbrirFormulario").click(function () {
-                PanelRegistroShow();
-            });
+        $('#PanelClienteRegistro_contenedor').load($("#hfUrlFrmRegistro").val());//TusClientes/Detalle.cshtml
 
-            $("#txtBusqueda").keypress(function (e) {
-                if (e.which == 13) {
-                    //if (checkTimeout()) {
-                        consultar();
-                    //}
-                }
-            });
-
-            consultar();
+        $("#btnAbrirFormulario").click(function () {
+            PanelRegistroShow();
         });
+
+        $("#txtBusqueda").keypress(function (e) {
+            if (e.which == 13) {
+                //if (checkTimeout()) {
+                listarTusClientes();
+                //}
+            }
+        });
+
+        listarTusClientes();
+    });
 
 </script>

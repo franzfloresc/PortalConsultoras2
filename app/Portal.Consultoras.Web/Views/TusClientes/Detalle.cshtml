@@ -93,8 +93,6 @@
 
                 var baseUrlDetalle = $("#hfBaseUrlDetalle").val();
 
-
-                var div = $('#divAgregarCliente');
                 var vcont = 0;
 
                 $('#divNotiNombre').hide();
@@ -112,7 +110,7 @@
                 }
 
                 if ($('#eMail').val() != "") {
-                    if (!validateEmail($(div).find('#eMail').val())) {
+                    if (!validateEmail($('#eMail').val())) {
                         vcont++;
                         $('#divNotiCorreo').show();
                     }
@@ -162,7 +160,9 @@
 
                             alert(data.message);
 
-                            $('#divAgregarCliente').hide();
+                            //Actualizar la lista de TusClientes/Index.cshtml
+                            listarTusClientes();//Método de TusClientes/Index.cshtml
+                            $("#btnCancelar").click();
                         }
                         else {
                             alert(data.message);
