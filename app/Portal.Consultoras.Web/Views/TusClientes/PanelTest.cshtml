@@ -55,7 +55,7 @@
 
     <!-- INIT: Panel cliente-->
     <div id="PanelClienteLista" class="sidenav">
-        <div id="PanelClienteLista_contenedor">
+        <div id="PanelClienteLista_Contenedor">
         </div>
     </div>
     <!-- END: Panel cliente-->
@@ -85,7 +85,7 @@
             });
 
 
-            panel = new ClientePanelModule('PanelClienteLista', 'PanelClienteLista_contenedor', '@Url.Content("~")');
+            panel = new ClientePanelModule('PanelClienteLista', 'PanelClienteLista_Contenedor', '@Url.Content("~")');
             panel.AceptarClick = function (obj) {
                 console.log('tu código:', obj);
             };
