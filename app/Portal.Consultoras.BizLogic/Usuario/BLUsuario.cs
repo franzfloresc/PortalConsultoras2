@@ -3776,9 +3776,6 @@ namespace Portal.Consultoras.BizLogic
             {
                 try
                 {
-                    if(usuario.DireccionEntrega==null)
-                        throw new System.ArgumentException("el parametro DireccionEntrega, no puede ser null", "DireccionEntrega");
-
                     resultado = ActualizarMisDatos(usuario, usuario.CorreoAnterior);
                     lst = resultado.Split('|');
 
@@ -3786,14 +3783,16 @@ namespace Portal.Consultoras.BizLogic
                     {
                         throw new Exception(lst[2]);
                     }
+                    if (usuario.DireccionEntrega == null)
+                        throw new System.ArgumentException("el parametro DireccionEntrega, no puede ser null", "usuario.DireccionEntrega");
 
                     /*Movimientos Tabla DireccionEntrega */
-                    bool DireccionCambio = false;
-                    bool ReferenciaCambio = false;
-                    DireccionCambio =  !(usuario.DireccionEntrega.Direccion.Trim().Equals(usuario.DireccionEntrega.DireccionAnterior.Trim()));
-                    ReferenciaCambio = !(usuario.DireccionEntrega.Referencia.Trim().Equals(usuario.DireccionEntrega.ReferenciaAnterior.Trim()));
                     if (usuario.DireccionEntrega.Operacion == Constantes.OperacionBD.Editar)
                     {
+                        bool DireccionCambio = false;
+                        bool ReferenciaCambio = false;
+                        DireccionCambio = !(usuario.DireccionEntrega.Direccion.Trim().Equals(usuario.DireccionEntrega.DireccionAnterior.Trim()));
+                        ReferenciaCambio = !(usuario.DireccionEntrega.Referencia.Trim().Equals(usuario.DireccionEntrega.ReferenciaAnterior.Trim()));
                         if (ReferenciaCambio || DireccionCambio)
                             _direccionEntregaBusinessLogic.Editar(usuario.DireccionEntrega);
                     }
@@ -3830,7 +3829,7 @@ namespace Portal.Consultoras.BizLogic
                 catch (Exception ex)
                 {
                     LogManager.SaveLog(ex, string.Empty, usuario.PaisID);
-                    if (lst[0] != "0")
+                    if (lst != null  && lst[0] != "0")
                     {
                         resultado = string.Format("{0}|{1}|{2}|0", "0", "4", "Ocurrió un error al registrar los datos, intente nuevamente.");
                     }

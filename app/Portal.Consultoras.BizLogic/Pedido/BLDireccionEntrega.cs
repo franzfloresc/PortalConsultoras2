@@ -26,7 +26,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw ;
             }
 
             return entity ?? new BEDireccionEntrega();
@@ -44,7 +44,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw ;
             }
 
             return entity ?? new BEDireccionEntrega();
@@ -61,7 +61,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw ;
             }
            
 
