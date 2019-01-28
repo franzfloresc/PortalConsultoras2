@@ -1,10 +1,16 @@
 ﻿@using Portal.Consultoras.Common;
 @using Portal.Consultoras.Web.Models.PagoEnLinea;
 @model PagoEnLineaModel
-
 @{
     ViewBag.Title = "Pago En Línea";
-    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+    if (Model.origen == int.Parse(Constantes.IngresoExternoOrigen.ChatBot))
+    {
+        Layout = "~/Areas/Mobile/Views/Shared/_ChatboMobileLayout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+    }
 }
 
 @section styles{
@@ -39,11 +45,18 @@
 
 }
 
-<div class="cabecera_vista_pago_en_linea">
-    <a id="linkRegresar" href="@Request.UrlReferrer" class="enlace_regresar ajustePosicionFlecha" style="display:normal" title="Regresar"></a>
-    PAGO EN LÍNEA
-</div>
 
+@if (Model.origen == int.Parse(Constantes.IngresoExternoOrigen.ChatBot))
+{
+    <div class="titulo_mobile">METODO DE PAGO</div>
+}
+else
+{
+    <div class="cabecera_vista_pago_en_linea">
+        <a id="linkRegresar" href="@Request.UrlReferrer" class="enlace_regresar ajustePosicionFlecha" style="display:normal" title="Regresar"></a>
+        PAGO EN LÍNEA
+    </div>
+}
 <div class="content_belcorp" id="divOpciones" style="display:none">
     <div class="pestana_lbel"></div>
 
