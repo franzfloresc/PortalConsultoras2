@@ -24,13 +24,13 @@ namespace Portal.Consultoras.Web.Controllers
 
         }
 
-        public TusClientesController(ClienteProvider clienteProvider):base()
+        public TusClientesController(ClienteProvider clienteProvider) : base()
         {
             _clienteProvider = clienteProvider;
         }
 
-        public TusClientesController( ClienteProvider clienteProvider,ISessionManager sessionManager,ILogManager logManager)
-            : base(sessionManager,logManager)
+        public TusClientesController(ClienteProvider clienteProvider, ISessionManager sessionManager, ILogManager logManager)
+            : base(sessionManager, logManager)
         {
             _clienteProvider = clienteProvider;
         }
@@ -41,7 +41,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             return View();
         }
-         
+
         public ActionResult Detalle()
         {
             return View();
@@ -61,12 +61,12 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var  clientesResult   = (List<ClienteModel>)null;
+                var clientesResult = (List<ClienteModel>)null;
                 if (ModelState.IsValid)
                 {
-                    _clienteProvider.SelectByConsultora(userData.PaisID, userData.ConsultoraID);
+                    clientesResult = _clienteProvider.SelectByConsultora(userData.PaisID, userData.ConsultoraID);
                 }
-                if (texto.Trim().Length > 0)
+                if (clientesResult !=null && texto.Trim().Length > 0)
                     clientesResult = clientesResult.FindAll(x => x.NombreCliente.Trim().ToUpper().Contains(texto.Trim().ToUpper()));
 
                 return Json(new ConsultarResult(clientesResult), JsonRequestBehavior.AllowGet);
@@ -74,9 +74,9 @@ namespace Portal.Consultoras.Web.Controllers
             catch (Exception ex)
             {
                 logManager.LogErrorWebServicesBusWrap(
-                    ex, 
-                    userData.CodigoConsultora, 
-                    userData.CodigoISO, 
+                    ex,
+                    userData.CodigoConsultora,
+                    userData.CodigoISO,
                     "TusClientesController.Consultar"
                     );
                 return Json(new
