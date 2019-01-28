@@ -412,6 +412,11 @@ a{
     width:92%;
 }
 
+    .permiso_cuenta_opcion_descripcion span{
+        display:block;
+        color:#808080;
+    }
+
 .opcion_mi_perfil_titulo_texto{
     padding-left:15px;
 }

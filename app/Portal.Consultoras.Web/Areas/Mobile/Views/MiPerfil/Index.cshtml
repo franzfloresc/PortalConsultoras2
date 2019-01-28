@@ -272,7 +272,9 @@ else
                         @foreach (var item in Model.UsuarioOpciones)
                         {
                             <div class="permiso_cuenta_opcion">
-                                <div class="permiso_cuenta_opcion_descripcion">@item.Opcion</div>
+                                <div class="permiso_cuenta_opcion_descripcion">@item.Opcion
+                                    <span class="d-block">@item.Descripcion</span>
+                                </div>
                                 <fieldset class="grupo_form_permiso_cuenta">
                                     <input class="permiso_cuenta_opcion_checkbox" type="checkbox" data-tipoOpcion="@item.OpcionesUsuarioId" name="@item.Codigo" id="@item.Codigo" checked="@item.CheckBox" />
                                     <label for="@item.Codigo" class="permiso_cuenta_opcion_label"></label>
