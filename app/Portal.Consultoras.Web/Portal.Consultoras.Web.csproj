@@ -5543,6 +5543,7 @@
     <Content Include="Views\DetalleEstrategia\FichaTemplate.cshtml" />
     <Content Include="Views\TusClientes\Detalle.cshtml" />
     <Content Include="Views\TusClientes\Index.cshtml" />
+    <Content Include="Views\TusClientes\PanelLista.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
