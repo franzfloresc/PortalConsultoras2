@@ -14,6 +14,17 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
     {
         public ActionResult Index()
         {
+            if (_tablaLogicaProvider
+                .GetTablaLogicaDatoValorBool(
+                userData.PaisID,
+                Constantes.TablaLogica.PantallaResponsive,
+                Constantes.TablaLogicaDato.PantallasResponsive.MisClientes,
+                false
+                ))
+            {
+                return RedirectToAction("Index", "MisClientes", new { area = string.Empty });
+            }
+
             List<BECliente> listaClientes;
 
             using (var sv = new ClienteServiceClient())

@@ -19,6 +19,17 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Index()
         {
+            if(_tablaLogicaProvider
+                .GetTablaLogicaDatoValorBool(
+                userData.PaisID,
+                Constantes.TablaLogica.PantallaResponsive,
+                Constantes.TablaLogicaDato.PantallasResponsive.MisClientes,
+                false
+                ))
+            {
+                return RedirectToAction("Index", "MisClientes",new { area = string.Empty });
+            }
+
             if (EsDispositivoMovil())
             {
                 var url = (Request.Url.Query).Split('?');
