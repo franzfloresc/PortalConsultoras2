@@ -127,6 +127,7 @@ var BuscadorModule = (function () {
                     $(".buscador_productos").addClass("buscador_productos_con_enlace_menu_socia_empresaria_vista_pedido");
                 } else {
                     if (window.location.href.indexOf("Bienvenida") > -1) {
+                        $(".wrapper_header").addClass("wrapper_header_se");
                         $(".buscador_productos").addClass("buscador_productos_con_enlace_menu_socia_empresaria_vista_bienvenida");
                     } else {
                         $(".buscador_productos").addClass("buscador_productos_con_enlace_menu_socia_empresaria");
