@@ -779,6 +779,20 @@ namespace Portal.Consultoras.Common
             public const int MobileLandingBuscadorGNDFicha = 2100502;
             public const int MobileLandingBuscadorHerramientasDeVentaFicha = 2100802;
 
+            public const int DesktopBuscadorGanadorasDesplegable = 1041404;
+            public const int MobileBuscadorGanadorasDesplegable = 2041404;
+
+            public const int DesktopBuscadorGanadorasFicha = 1041402;
+            public const int MobileBuscadorGanadorasFicha = 2041402;
+
+            public const int DesktopBuscadorGanadorasCarrusel = 1101401;
+            public const int MobileBuscadorGanadorasCarrusel = 2101401;
+
+            public const int DesktopLandingBuscadorGanadorasFicha = 1101402;
+            public const int MobileLandingBuscadorGanadorasFicha = 2101402;
+
+
+
             #endregion
 
             #region Nuevos Códigos Origen Pedido
@@ -2953,6 +2967,13 @@ namespace Portal.Consultoras.Common
             public const string UrlObtenerEventoConsultora = "api/Evento/listarConsultora/{0}/{1}/{2}";
             #endregion
 
+            #region Personalizacion
+            /// <summary>
+            /// api/Evento/listarConsultora/{isoPais}/{codigoConsultora}/{codigoCampania}
+            /// </summary>
+            public const string UrlObtenerPersonalizacion= "api/Personalizacion/{0}/{1}/{2}";
+            #endregion
+            
             #region Reporte
             /// <summary>
             /// api/Estrategia/ReporteValidacion/{tipo}/{campania}/{paises}
