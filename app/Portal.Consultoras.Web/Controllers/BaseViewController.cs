@@ -259,7 +259,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var area = IsMobile() ? "mobile" : string.Empty;
 
-                breadCrumbs.Inicio.Texto = "Inicio";
+                breadCrumbs.Inicio.Texto = MobileAppConfiguracion.EsAppMobile ? null : "Inicio";
                 breadCrumbs.Ofertas.Texto = tieneRevistaDigital && revistaDigital.EsSuscrita ? "Gana +" : "Ofertas Digitales";
                 breadCrumbs.Palanca.Texto = GetNombresPalancas(palanca);
 
@@ -599,9 +599,9 @@ namespace Portal.Consultoras.Web.Controllers
             modelo.Campania = campaniaId;
             modelo.Cuv = cuv;
 
-            modelo.TieneCarrusel = (Constantes.NombrePalanca.Lanzamiento == palanca
+            modelo.TieneCarrusel = Constantes.NombrePalanca.Lanzamiento == palanca
                     || Constantes.NombrePalanca.ShowRoom == palanca
-                    || Constantes.NombrePalanca.OfertaDelDia == palanca);
+                    || Constantes.NombrePalanca.OfertaDelDia == palanca;
             modelo.OrigenAgregarCarrusel = modelo.TieneCarrusel ? GetOrigenPedidoWebDetalle(origen, modelo.TieneCarrusel) : 0;
 
             modelo.TieneCompartir = !MobileAppConfiguracion.EsAppMobile &&

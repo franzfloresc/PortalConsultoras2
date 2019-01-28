@@ -26,6 +26,7 @@
 
 .detalle_pedido_ingresado {
     display: block;
+    margin-bottom: 15px;
 }
 
 .titulo_detalle {
@@ -38,7 +39,8 @@
 .contenedor_items_pedido {
     display: block;
     text-align: left;
-    border-bottom: 2px solid #bababa;
+    margin-bottom: 10px;
+    padding: 15px 11px;
 }
 
 .separador {
@@ -53,12 +55,11 @@
 
 .bloque_descripcion_items_ingresados {
     margin-bottom: 8px;
-    margin-top: 20px;
 }
 
-.bloque_cantidades_precios_items_ingresados {
+/*.bloque_cantidades_precios_items_ingresados {
     margin-bottom: 20px;
-}
+}*/
 
 .descripcion_item_pedido, .icono_eliminar_item_pedido, .icono_kitNuevas {
     display: inline-block;
@@ -551,3 +552,18 @@
     border: none;
     text-decoration: underline;
 }
+
+.pedido_item_editable {
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.25);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background .3s ease;
+    -moz-transition: background .3s ease;
+    -o-transition: background .3s ease;
+    -ms-transition: background .3s ease;
+    -webkit-transition: background .3s ease;
+}
+
+    .pedido_item_editable:hover {
+        background: #f8f8f8;
+    }
