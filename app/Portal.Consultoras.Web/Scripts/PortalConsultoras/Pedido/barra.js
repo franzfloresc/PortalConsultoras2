@@ -679,10 +679,9 @@ function MostrarBarra(datax, destino) {
 
     var valorFalta = vLimite - vLogro;
     var tipoMensaje = '';
-    var escalaPremio = destino == '2' && mx == 0 && dataBarra.TippingPointBarra.Active;
     var limiteEsPremio = vLogro < tp; //  && tp <= vLimite;
 
-    if(escalaPremio && limiteEsPremio) {
+    if (destino == '2' && dataBarra.TippingPointBarra.Active && limiteEsPremio) {
         valorFalta = tp - vLogro;
         tipoMensaje = "TippingPoint";
     }
@@ -810,7 +809,7 @@ function MostrarBarra(datax, destino) {
 
             CalculoPosicionMinimoMaximoDestokp();
             CalculoPosicionMensajeDestokp();
-            var premioNoSelected = destino == '2' && tpElectivos.loadPremios && !tpElectivos.premioSelected;
+            var premioNoSelected = destino == '2' && tpElectivos.hasPremios && !tpElectivos.premioSelected;
             if (premioNoSelected) {
                 $('#divBarra .contenedor_circulos').show();
             }
@@ -2145,7 +2144,8 @@ function CalculoPosicionMinimoMaximoDestokp() {
             var MostrarMonto = 'none';
             if (dataBarra.TippingPointBarra.ActiveMonto == true) MostrarMonto = 'block';
 
-            if (dataBarra.TippingPointBarra.ActivePremioElectivo && tpElectivos.premioSelected == null) { 
+            var showTintineo = dataBarra.TippingPointBarra.ActivePremioElectivo && tpElectivos.hasPremios && tpElectivos.premioSelected == null;
+            if (showTintineo) { 
                     //style = "display: block;"                                    
                 htmlTipinpoing = '<div id="punto_' + dataBarra.ListaEscalaDescuento.length + '" data-punto="0" style="float: left;top:-52px; z-index: 200;left:2.1818%" class="EscalaDescuento"><div class="monto_minimo_barra"><div style="width:90px;position: relative;" data-texto=""><div class=""><a class="tippingPoint" href="javascript:;" onclick="javascript: cargarPopupEleccionRegalo();"></a><div class="monto_meta_tippingPoint" style="display:' + MostrarMonto + '">S/.' + montoTipipoing +'</div></div><div class="contenedor_circulos microEfecto_regaloPendienteEleccion" style="display: block;" ><div class="circulo-1 iniciarTransicion"></div><div class="circulo-2 iniciarTransicion"></div><div class="circulo-3 iniciarTransicion"></div></div></div></div></div>';
 
@@ -2385,7 +2385,8 @@ function CalculoPosicionMinimoMaximoDestokp() {
                 var MostrarMonto = 'none';
                 if (dataBarra.TippingPointBarra.ActiveMonto == true) MostrarMonto = 'block';
 
-                 if (dataBarra.TippingPointBarra.ActivePremioElectivo && tpElectivos.premioSelected == null) {
+                var showTintineo = dataBarra.TippingPointBarra.ActivePremioElectivo && tpElectivos.hasPremios && tpElectivos.premioSelected == null;
+                 if (showTintineo) {
                      
 
                      htmlTipinpoing = '<div id="punto_' + dataBarra.ListaEscalaDescuento.length + '" data-punto="0" style="float: left;top:-52px; z-index: 200;left:8%" class="EscalaDescuento"><div class="monto_minimo_barra"><div style="width:90px;position: relative;" data-texto=""><div class=""><a class="tippingPoint" href="javascript:;" onclick="javascript: cargarPopupEleccionRegalo();"></a><div class="monto_meta_tippingPoint" style="display:' + MostrarMonto + '"  >S/.' + montoTipipoing +'</div></div><div class="contenedor_circulos microEfecto_regaloPendienteEleccion" style="display: block;"><div class="circulo-1 iniciarTransicion"></div><div class="circulo-2 iniciarTransicion"></div><div class="circulo-3 iniciarTransicion"></div></div></div></div></div>';

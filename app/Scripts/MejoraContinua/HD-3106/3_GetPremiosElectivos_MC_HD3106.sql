@@ -39,4 +39,5 @@ BEGIN
 		and c.Campana = cast(@CampaniaID as varchar(6))
 		and c.PrecioUnitario = 0
 		and c.IND_CUPO_ELEC = 1
+	order by e.Orden ASC
 END
