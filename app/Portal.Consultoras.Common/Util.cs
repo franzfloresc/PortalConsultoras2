@@ -992,7 +992,7 @@ namespace Portal.Consultoras.Common
 
             int pageCount = RecordCount / item.PageSize;
             pageCount = pageCount < 1 ? 1 : pageCount;
-            pageCount += RecordCount > (pageCount * item.PageSize) ? 1 : 0;
+            pageCount += (RecordCount > (pageCount * item.PageSize)).ToInt();
 
             pag.RecordCount = RecordCount;
             pag.PageCount = pageCount;

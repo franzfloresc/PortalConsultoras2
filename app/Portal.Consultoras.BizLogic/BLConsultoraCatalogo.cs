@@ -144,7 +144,7 @@ namespace Portal.Consultoras.BizLogic
             if (consultoraCatalogo.RolId == 0) return 0;
             if (consultoraCatalogo.IdEstadoActividad == -1) return 1; //Se asume para usuarios del tipo SAC
 
-            bool autorizado = (consultoraCatalogo.AutorizaPedido != "N" && consultoraCatalogo.EsAfiliado);
+            bool autorizado = consultoraCatalogo.AutorizaPedido != "N" && consultoraCatalogo.EsAfiliado;
             // Validamos si pertenece a Peru, Bolivia, Chile, Guatemala, El Salvador, Colombia (Paises ESIKA)
             if (paisID == Constantes.PaisID.Bolivia
                 || paisID == Constantes.PaisID.Chile
@@ -158,7 +158,7 @@ namespace Portal.Consultoras.BizLogic
                 if (restriccion != null)
                 {
                     if (paisID == Constantes.PaisID.Colombia) return 0;
-                    return autorizado ? 1 : 0;
+                    return autorizado.ToInt();
                 }
 
                 //Validamos si el estado es reingresada
@@ -183,7 +183,7 @@ namespace Portal.Consultoras.BizLogic
                     BETablaLogicaDatos restriccionEgresada = tabla_Egresada.Find(p => Convert.ToInt32(p.Codigo.Trim()) == consultoraCatalogo.IdEstadoActividad);
                     if (restriccionEgresada != null) return 0;
                 }
-                return autorizado ? 1 : 0;
+                return autorizado.ToInt();
             }
             // Validamos si pertenece a Costa Rica, Panama, Mexico, Puerto Rico, Dominicana, Ecuador, Argentina (Paises MyLbel)
             else if (paisID == Constantes.PaisID.Argentina
@@ -199,7 +199,7 @@ namespace Portal.Consultoras.BizLogic
                 BETablaLogicaDatos restriccion = tabla_Retirada.Find(p => Convert.ToInt32(p.Codigo.Trim()) == consultoraCatalogo.IdEstadoActividad);
                 if (restriccion != null) return 0; //Validamos el Autoriza Pedido
 
-                return autorizado ? 1 : 0; //Validamos el Autoriza Pedido
+                return autorizado.ToInt(); //Validamos el Autoriza Pedido
             }
             return 1;
         }
