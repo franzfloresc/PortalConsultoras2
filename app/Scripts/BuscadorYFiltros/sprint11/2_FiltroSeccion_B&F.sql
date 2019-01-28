@@ -11,9 +11,9 @@ IF NOT EXISTS (SELECT * FROM   filtroseccion WHERE  campoes = 'seccion.keyword')
 	  VALUES     (@id, 'seccion.keyword', 'term')
 
       INSERT INTO filtrobuscador (tablalogicadatosid, estado, codigo, nombre, descripcion, valorminimo, valormaximo, imagen, imagenancha)
-      VALUES      (@id, 1, 401, 'Gana+ / Ofertas', 'sec-gana', '', '', '', 0),
-                  (@id, 1, 402, 'Catálogo', 'sec-cat', '', '', '', 0),
-				  (@id, 1, 403, 'Expoofertas', 'sec-exp', '', '', '', 0)
+      VALUES      (@id, 0, 401, 'Gana+ / Ofertas', 'sec-gana', '', '', '', 0),
+                  (@id, 0, 402, 'Catálogo', 'sec-cat', '', '', '', 0),
+				  (@id, 0, 403, 'Expoofertas', 'sec-exp', '', '', '', 0)
   END
 
 GO
@@ -29,9 +29,9 @@ IF NOT EXISTS (SELECT * FROM   filtroseccion WHERE  campoes = 'seccion.keyword')
 	  VALUES     (@id, 'seccion.keyword', 'term')
 
       INSERT INTO filtrobuscador (tablalogicadatosid, estado, codigo, nombre, descripcion, valorminimo, valormaximo, imagen, imagenancha)
-      VALUES      (@id, 1, 401, 'Gana+ / Ofertas', 'sec-gana', '', '', '', 0),
-                  (@id, 1, 402, 'Catálogo', 'sec-cat', '', '', '', 0),
-				  (@id, 1, 403, 'Liquidaciones', 'sec-liq', '', '', '', 0)
+      VALUES      (@id, 0, 401, 'Gana+ / Ofertas', 'sec-gana', '', '', '', 0),
+                  (@id, 0, 402, 'Catálogo', 'sec-cat', '', '', '', 0),
+				  (@id, 0, 403, 'Liquidaciones', 'sec-liq', '', '', '', 0)
   END
 
 GO
@@ -47,9 +47,9 @@ IF NOT EXISTS (SELECT * FROM   filtroseccion WHERE  campoes = 'seccion.keyword')
 	  VALUES     (@id, 'seccion.keyword', 'term')
 
       INSERT INTO filtrobuscador (tablalogicadatosid, estado, codigo, nombre, descripcion, valorminimo, valormaximo, imagen, imagenancha)
-      VALUES      (@id, 1, 401, 'Gana+ / Ofertas', 'sec-gana', '', '', '', 0),
-                  (@id, 1, 402, 'Catálogo', 'sec-cat', '', '', '', 0),
-				  (@id, 1, 403, 'Liquidaciones', 'sec-liq', '', '', '', 0)
+      VALUES      (@id, 0, 401, 'Gana+ / Ofertas', 'sec-gana', '', '', '', 0),
+                  (@id, 0, 402, 'Catálogo', 'sec-cat', '', '', '', 0),
+				  (@id, 0, 403, 'Liquidaciones', 'sec-liq', '', '', '', 0)
   END
 
 GO
@@ -65,9 +65,9 @@ IF NOT EXISTS (SELECT * FROM   filtroseccion WHERE  campoes = 'seccion.keyword')
 	  VALUES     (@id, 'seccion.keyword', 'term')
 
       INSERT INTO filtrobuscador (tablalogicadatosid, estado, codigo, nombre, descripcion, valorminimo, valormaximo, imagen, imagenancha)
-      VALUES      (@id, 1, 401, 'Gana+ / Ofertas', 'sec-gana', '', '', '', 0),
-                  (@id, 1, 402, 'Catálogo', 'sec-cat', '', '', '', 0),
-				  (@id, 1, 403, 'Liquidaciones', 'sec-liq', '', '', '', 0)
+      VALUES      (@id, 0, 401, 'Gana+ / Ofertas', 'sec-gana', '', '', '', 0),
+                  (@id, 0, 402, 'Catálogo', 'sec-cat', '', '', '', 0),
+				  (@id, 0, 403, 'Liquidaciones', 'sec-liq', '', '', '', 0)
   END
 
 GO
@@ -83,9 +83,9 @@ IF NOT EXISTS (SELECT * FROM   filtroseccion WHERE  campoes = 'seccion.keyword')
 	  VALUES     (@id, 'seccion.keyword', 'term')
 
       INSERT INTO filtrobuscador (tablalogicadatosid, estado, codigo, nombre, descripcion, valorminimo, valormaximo, imagen, imagenancha)
-      VALUES      (@id, 1, 401, 'Gana+ / Ofertas', 'sec-gana', '', '', '', 0),
-                  (@id, 1, 402, 'Catálogo', 'sec-cat', '', '', '', 0),
-				  (@id, 1, 403, 'Liquidaciones', 'sec-liq', '', '', '', 0)
+      VALUES      (@id, 0, 401, 'Gana+ / Ofertas', 'sec-gana', '', '', '', 0),
+                  (@id, 0, 402, 'Catálogo', 'sec-cat', '', '', '', 0),
+				  (@id, 0, 403, 'Liquidaciones', 'sec-liq', '', '', '', 0)
   END
 
 GO
@@ -101,9 +101,9 @@ IF NOT EXISTS (SELECT * FROM   filtroseccion WHERE  campoes = 'seccion.keyword')
 	  VALUES     (@id, 'seccion.keyword', 'term')
 
       INSERT INTO filtrobuscador (tablalogicadatosid, estado, codigo, nombre, descripcion, valorminimo, valormaximo, imagen, imagenancha)
-      VALUES      (@id, 1, 401, 'Gana+ / Ofertas', 'sec-gana', '', '', '', 0),
-                  (@id, 1, 402, 'Catálogo', 'sec-cat', '', '', '', 0),
-				  (@id, 1, 403, 'Liquidaciones', 'sec-liq', '', '', '', 0)
+      VALUES      (@id, 0, 401, 'Gana+ / Ofertas', 'sec-gana', '', '', '', 0),
+                  (@id, 0, 402, 'Catálogo', 'sec-cat', '', '', '', 0),
+				  (@id, 0, 403, 'Liquidaciones', 'sec-liq', '', '', '', 0)
   END
 
 GO
@@ -119,9 +119,9 @@ IF NOT EXISTS (SELECT * FROM   filtroseccion WHERE  campoes = 'seccion.keyword')
 	  VALUES     (@id, 'seccion.keyword', 'term')
 
       INSERT INTO filtrobuscador (tablalogicadatosid, estado, codigo, nombre, descripcion, valorminimo, valormaximo, imagen, imagenancha)
-      VALUES      (@id, 1, 401, 'Gana+ / Ofertas', 'sec-gana', '', '', '', 0),
-                  (@id, 1, 402, 'Catálogo', 'sec-cat', '', '', '', 0),
-				  (@id, 1, 403, 'Liquidaciones', 'sec-liq', '', '', '', 0)
+      VALUES      (@id, 0, 401, 'Gana+ / Ofertas', 'sec-gana', '', '', '', 0),
+                  (@id, 0, 402, 'Catálogo', 'sec-cat', '', '', '', 0),
+				  (@id, 0, 403, 'Liquidaciones', 'sec-liq', '', '', '', 0)
   END
 
 GO
@@ -137,9 +137,9 @@ IF NOT EXISTS (SELECT * FROM   filtroseccion WHERE  campoes = 'seccion.keyword')
 	  VALUES     (@id, 'seccion.keyword', 'term')
 
       INSERT INTO filtrobuscador (tablalogicadatosid, estado, codigo, nombre, descripcion, valorminimo, valormaximo, imagen, imagenancha)
-      VALUES      (@id, 1, 401, 'Gana+ / Ofertas', 'sec-gana', '', '', '', 0),
-                  (@id, 1, 402, 'Catálogo', 'sec-cat', '', '', '', 0),
-				  (@id, 1, 403, 'Liquidaciones', 'sec-liq', '', '', '', 0)
+      VALUES      (@id, 0, 401, 'Gana+ / Ofertas', 'sec-gana', '', '', '', 0),
+                  (@id, 0, 402, 'Catálogo', 'sec-cat', '', '', '', 0),
+				  (@id, 0, 403, 'Liquidaciones', 'sec-liq', '', '', '', 0)
   END
 
 GO
@@ -155,9 +155,9 @@ IF NOT EXISTS (SELECT * FROM   filtroseccion WHERE  campoes = 'seccion.keyword')
 	  VALUES     (@id, 'seccion.keyword', 'term')
 
       INSERT INTO filtrobuscador (tablalogicadatosid, estado, codigo, nombre, descripcion, valorminimo, valormaximo, imagen, imagenancha)
-      VALUES      (@id, 1, 401, 'Gana+ / Ofertas', 'sec-gana', '', '', '', 0),
-                  (@id, 1, 402, 'Catálogo', 'sec-cat', '', '', '', 0),
-				  (@id, 1, 403, 'Liquidaciones', 'sec-liq', '', '', '', 0)
+      VALUES      (@id, 0, 401, 'Gana+ / Ofertas', 'sec-gana', '', '', '', 0),
+                  (@id, 0, 402, 'Catálogo', 'sec-cat', '', '', '', 0),
+				  (@id, 0, 403, 'Liquidaciones', 'sec-liq', '', '', '', 0)
   END
 
 GO
@@ -173,9 +173,9 @@ IF NOT EXISTS (SELECT * FROM   filtroseccion WHERE  campoes = 'seccion.keyword')
 	  VALUES     (@id, 'seccion.keyword', 'term')
 
       INSERT INTO filtrobuscador (tablalogicadatosid, estado, codigo, nombre, descripcion, valorminimo, valormaximo, imagen, imagenancha)
-      VALUES      (@id, 1, 401, 'Gana+ / Ofertas', 'sec-gana', '', '', '', 0),
-                  (@id, 1, 402, 'Catálogo', 'sec-cat', '', '', '', 0),
-				  (@id, 1, 403, 'Liquidaciones', 'sec-liq', '', '', '', 0)
+      VALUES      (@id, 0, 401, 'Gana+ / Ofertas', 'sec-gana', '', '', '', 0),
+                  (@id, 0, 402, 'Catálogo', 'sec-cat', '', '', '', 0),
+				  (@id, 0, 403, 'Liquidaciones', 'sec-liq', '', '', '', 0)
   END
 
 GO
@@ -191,9 +191,9 @@ IF NOT EXISTS (SELECT * FROM   filtroseccion WHERE  campoes = 'seccion.keyword')
 	  VALUES     (@id, 'seccion.keyword', 'term')
 
       INSERT INTO filtrobuscador (tablalogicadatosid, estado, codigo, nombre, descripcion, valorminimo, valormaximo, imagen, imagenancha)
-      VALUES      (@id, 1, 401, 'Gana+ / Ofertas', 'sec-gana', '', '', '', 0),
-                  (@id, 1, 402, 'Catálogo', 'sec-cat', '', '', '', 0),
-				  (@id, 1, 403, 'Liquidaciones', 'sec-liq', '', '', '', 0)
+      VALUES      (@id, 0, 401, 'Gana+ / Ofertas', 'sec-gana', '', '', '', 0),
+                  (@id, 0, 402, 'Catálogo', 'sec-cat', '', '', '', 0),
+				  (@id, 0, 403, 'Liquidaciones', 'sec-liq', '', '', '', 0)
   END
 
 GO
@@ -209,9 +209,9 @@ IF NOT EXISTS (SELECT * FROM   filtroseccion WHERE  campoes = 'seccion.keyword')
 	  VALUES     (@id, 'seccion.keyword', 'term')
 
       INSERT INTO filtrobuscador (tablalogicadatosid, estado, codigo, nombre, descripcion, valorminimo, valormaximo, imagen, imagenancha)
-      VALUES      (@id, 1, 401, 'Gana+ / Ofertas', 'sec-gana', '', '', '', 0),
-                  (@id, 1, 402, 'Catálogo', 'sec-cat', '', '', '', 0),
-				  (@id, 1, 403, 'Liquidaciones', 'sec-liq', '', '', '', 0)
+      VALUES      (@id, 0, 401, 'Gana+ / Ofertas', 'sec-gana', '', '', '', 0),
+                  (@id, 0, 402, 'Catálogo', 'sec-cat', '', '', '', 0),
+				  (@id, 0, 403, 'Liquidaciones', 'sec-liq', '', '', '', 0)
   END
 
 GO
