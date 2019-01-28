@@ -3,7 +3,7 @@ USE BelcorpPeru
 GO
 GO
 IF EXISTS (SELECT 1 FROM SYSOBJECTS WHERE ID = OBJECT_ID('dbo.FiltroSeccion') AND TYPE = 'U')
-   DROP TABLE DBO.FiltroSeccion
+   DROP TABLE dbo.FiltroSeccion
 GO
 CREATE TABLE FiltroSeccion(
 	Id int primary key identity (1,1),
@@ -18,7 +18,7 @@ USE BelcorpMexico
 GO
 GO
 IF EXISTS (SELECT 1 FROM SYSOBJECTS WHERE ID = OBJECT_ID('dbo.FiltroSeccion') AND TYPE = 'U')
-   DROP TABLE DBO.FiltroSeccion
+   DROP TABLE dbo.FiltroSeccion
 GO
 CREATE TABLE FiltroSeccion(
 	Id int primary key identity (1,1),
