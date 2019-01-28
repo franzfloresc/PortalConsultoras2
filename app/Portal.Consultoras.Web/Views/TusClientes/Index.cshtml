@@ -75,6 +75,7 @@
 </div>
 <!-- END: Panel cliente-->
 
+<script type="text/javascript" src="@Url.Content("~/Scripts/General.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.11.2.min.js")"></script>
 
 <script type="text/javascript" src="@Url.Content("~/Scripts/handlebars.min.js")"></script>
@@ -98,7 +99,7 @@
         $("#PanelClienteRegistro").css("width", "0");
     }
 
-    function consultar() {
+    function listarTusClientes() {
         var baseUrl = $("#hfBaseUrl").val();
 
         $.ajax({
@@ -138,12 +139,12 @@
             $("#txtBusqueda").keypress(function (e) {
                 if (e.which == 13) {
                     //if (checkTimeout()) {
-                        consultar();
+                    listarTusClientes();
                     //}
                 }
             });
 
-            consultar();
+            listarTusClientes();
         });
 
 </script>
