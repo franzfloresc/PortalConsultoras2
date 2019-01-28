@@ -22,7 +22,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 false
                 ))
             {
-                return RedirectToAction("Index", "MisClientes", new { area = string.Empty });
+                return RedirectToAction("Index", "TusClientes", new { area = string.Empty });
             }
 
             List<BECliente> listaClientes;
