@@ -110,7 +110,8 @@ var FichaModule = (function (config) {
             return "[data-ficha-contenido=" + templateId + "]";
         },
         navegar: "ficha_navegar_template",
-        carrusel: "ficha_carrusel_template"
+        carrusel: "ficha_carrusel_template",
+        compartir: "ficha_compartir_template"
     };
 
     var _seccionesFichaProducto = {
@@ -170,7 +171,7 @@ var FichaModule = (function (config) {
         if (isMobile()) {
             var $elemento = $(".content_inscribirte");
             if ($elemento.length !== 0) {
-                var $redesSociales = $((_seccionesFichaProducto.Contenedor_redes_sociales));
+                var $redesSociales = $(_seccionesFichaProducto.Contenedor_redes_sociales);
                 $redesSociales.find(".share").css("margin-bottom", "200px");
             }
         }
@@ -544,8 +545,8 @@ var FichaModule = (function (config) {
 
     var _resizeBotonAgregar = function () {
         var dvFoto = $("#dvSeccionFoto");
-        var dvRedesSociales = $("#Contenedor_redes_sociales");
-        var dvFichaEtiqueta = $("#contenedor_ficha_etiquetas");
+        var dvRedesSociales = $(_seccionesFichaProducto.Contenedor_redes_sociales);
+        var dvFichaEtiqueta = $(_seccionesFichaProducto.ContenedoFichaEtiquetas);
         var dvDetalle = $("#dvSeccionDetalle");
 
         if (dvFoto.length && dvRedesSociales.length) {
@@ -570,21 +571,21 @@ var FichaModule = (function (config) {
         }
     };
 
-    var _cargarDataCompartir = function (estrategia) {
-        if (isMobile()) {
-            var $redesSociales = $((_seccionesFichaProducto.Contenedor_redes_sociales));
-            if ($redesSociales.length > 0) {
-                $redesSociales.find(".CUV").val(estrategia.CUV2);
-                $redesSociales.find(".rsFBRutaImagen").val(variablesPortal.ImgUrlBase + estrategia.FotoProducto01);
-                $redesSociales.find(".rsWARutaImagen").val(variablesPortal.ImgUrlBase + estrategia.FotoProducto01);
-                $redesSociales.find(".MarcaID").val(estrategia.MarcaID);
-                $redesSociales.find(".MarcaNombre").val(estrategia.DescripcionMarca);
-                $redesSociales.find(".Nombre").val(estrategia.DescripcionCompleta);
-                $redesSociales.find(".ProductoDescripcion").val(estrategia.DescripcionDetalle);
-                $redesSociales.find(".Palanca").val(_config.palanca);
-            }
-        }
-    }
+    //var _cargarDataCompartir = function (estrategia) {
+    //    if (isMobile()) {
+    //        var $redesSociales = $((_seccionesFichaProducto.Contenedor_redes_sociales));
+    //        if ($redesSociales.length > 0) {
+    //            $redesSociales.find(".CUV").val(estrategia.CUV2);
+    //            $redesSociales.find(".rsFBRutaImagen").val(variablesPortal.ImgUrlBase + estrategia.FotoProducto01);
+    //            $redesSociales.find(".rsWARutaImagen").val(variablesPortal.ImgUrlBase + estrategia.FotoProducto01);
+    //            $redesSociales.find(".MarcaID").val(estrategia.MarcaID);
+    //            $redesSociales.find(".MarcaNombre").val(estrategia.DescripcionMarca);
+    //            $redesSociales.find(".Nombre").val(estrategia.DescripcionCompleta);
+    //            $redesSociales.find(".ProductoDescripcion").val(estrategia.DescripcionDetalle);
+    //            $redesSociales.find(".Palanca").val(_config.palanca);
+    //        }
+    //    }
+    //}
 
     var _crearReloj = function (estrategia) {
         $("#clock").each(function (index, elem) {
@@ -637,7 +638,7 @@ var FichaModule = (function (config) {
 
         if (estrategia == null) {
             //console.log('location', 1);
-            window.location = baseUrl + (isMobile() ? "Mobile/" : "") + "Ofertas";
+            _redireccionar();
             return false;
         }
 
@@ -678,7 +679,7 @@ var FichaModule = (function (config) {
             $(_seccionesFichaProducto.ImagenDeFondo).show();
         }
 
-        _cargarDataCompartir(estrategia);
+        //_cargarDataCompartir(estrategia);
 
         if (estrategia.TieneReloj) {
             _crearReloj(estrategia);
@@ -711,6 +712,13 @@ var FichaModule = (function (config) {
         if (_modeloFicha.TieneCarrusel) {
             SetHandlebars("#" + _template.carrusel, _modeloFicha, _template.getTagDataHtml(_template.carrusel));
         }
+
+        SetHandlebars("#" + _template.compartir, _modeloFicha, _template.getTagDataHtml(_template.compartir));
+        
+    };
+
+    var _redireccionar = function () {
+        window.location = baseUrl + (isMobile() ? "Mobile/" : "") + "Ofertas";
     };
 
     function getEstrategia() {
@@ -729,10 +737,15 @@ var FichaModule = (function (config) {
 
         _promiseObternerModelo(modelo).done(function (data) {
             modeloFicha = data.data || {};
+            modeloFicha.Error = data.success === false;
         }).fail(function (data, error) {
             modeloFicha = {};
             modeloFicha.Error = true;
         });
+
+        if (modeloFicha.Error === true) {
+            _redireccionar();
+        }
 
         _modeloFicha = modeloFicha;
         _modeloFicha.ConfiguracionContenedor = _modeloFicha.ConfiguracionContenedo || new Object(),
