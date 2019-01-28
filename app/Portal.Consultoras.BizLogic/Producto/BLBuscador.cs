@@ -59,7 +59,7 @@ namespace Portal.Consultoras.BizLogic.Producto
             var result = new Dictionary<string, string>();
             try
             {
-                List<BETablaLogicaDatos> rst = (List<BETablaLogicaDatos>)CacheManager<BEBanner>.GetData(ECacheItem.OrdenamientoFiltros);
+                List<BETablaLogicaDatos> rst = (List<BETablaLogicaDatos>)CacheManager<BETablaLogicaDatos>.GetData(ECacheItem.OrdenamientoFiltros);
 
                 if (rst == null)
                 {
