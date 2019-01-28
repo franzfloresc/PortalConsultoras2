@@ -286,6 +286,13 @@ namespace Portal.Consultoras.Common
 
         }
 
+        public static class TipoAccionNavegar
+        {
+            public const int SinBoton = 0;
+            public const int BreadCrumbs = 1;
+            public const int Volver = 2;
+        }
+
         public static class Inicializacion
         {
             public const int EnteroInicial = -1;
