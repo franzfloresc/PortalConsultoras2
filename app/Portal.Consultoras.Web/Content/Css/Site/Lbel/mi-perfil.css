@@ -298,16 +298,15 @@ input:focus{
 }
 
 .datos_consultora_mi_perfil{
-    max-width: 347px;
+    /*max-width: 347px;*/
     font-size:16px;
 }
 
-.datos_codigo_y_zona{
+/*.datos_codigo_y_zona{
     margin-bottom:16px;
-}
+}*/
 
 .datos_gerente_zona{
-    display:none;
     margin-bottom:16px;
 }
 
@@ -318,7 +317,7 @@ input:focus{
 .icono_cambio_password{
     width: 13px;
     height: 19px;
-    background-image: url(/Content/Images/Lbel/icono_candado.svg);
+    background-image: url(/Content/Images/icono_candado.svg);
     background-size: 100%;
     margin-right: 7px;
     position: relative;
@@ -399,6 +398,14 @@ input:focus{
 .permiso_cuenta_opcion_descripcion
 {
     width:92%;
+}
+
+.permiso_cuenta_opcion_descripcion span:first-child{
+    margin-bottom: 2px;
+}
+
+.permiso_cuenta_opcion_descripcion span:last-child {
+    color: #808080;
 }
 
 .opcion_mi_perfil_titulo_texto{
@@ -504,7 +511,7 @@ input:focus{
     .grupo_form_cambio_datos select{
         -moz-appearance:none;
         -webkit-appearance:none;
-        background-image:url(/Content/Images/Lbel/icono_campos_select_mi_perfil.svg);
+        background-image:url(/Content/Images/icono_campos_select_mi_perfil.svg);
     }
 
     .grupo_form_cambio_datos_campo_ciudad{
@@ -553,7 +560,7 @@ input:focus{
     width: 40px;
     height: 40px;
     background-position: center;
-    background-image: url(/Content/Images/Lbel/icono_localizacion.svg);
+    background-image: url(/Content/Images/icono_localizacion.svg);
     z-index: 3000;
 }
 
@@ -566,10 +573,6 @@ input:focus{
 .mapa_wrapper .gmap_canvas
 {
     height:100%;
-}
-
-.terminos_y_condiciones_wrapper{
-    border-top:1px solid #808080;
 }
 
 .enlace_cambiar_dato,
@@ -586,8 +589,9 @@ input:focus{
 .icono_cambiar_dato{
     width:16px;
     height:16px;
-    background-image:url("/Content/Images/Lbel/icono_cambiar_dato.svg");
+    background-image:url("/Content/Images/icono_cambiar_dato.svg");
     margin-right:5px;
+    background-size:100%;
 }
 
 .enlace_agregar_num_adicional{
@@ -604,7 +608,7 @@ input:focus{
 .icono_agregar_num_adicional{
     width:15px;
     height:15px;
-    background-image:url("/Content/Images/Lbel/icono_plus.svg");
+    background-image:url("/Content/Images/icono_plus.svg");
     margin-right:3px;
     position:relative;
     top:3.5px;
@@ -625,6 +629,7 @@ input:focus{
 
 .permisos_cuenta_wrapper{
     margin-top:33px;
+    border-bottom:1px solid #808080;
 }
 
 .permisos_cuenta_titulo,
@@ -647,6 +652,11 @@ input:focus{
 .terminos_y_condiciones_wrapper + .grupo_form_cambio_datos .datos_obligatorios
 {
     color:#808080;
+}
+
+.grupo_form_checkbox_condiciones .checkbox_condiciones_label{
+    margin-top:4px!important;
+    margin-bottom:0!important;
 }
 
 .grupo_input_actualizarMisDatos .checkbox_condiciones_wrapper,
@@ -683,8 +693,8 @@ input.permiso_cuenta_opcion_checkbox
 .checkbox_condiciones_checkbox:checked + .checkbox_condiciones_label,
 .permiso_cuenta_opcion_checkbox:checked + .permiso_cuenta_opcion_label
 {
-    background-color:#642f80;
-    border: 1px solid #642f80;
+    background-color:#b9007e;
+    border: 1px solid #b9007e;
 }
 
 .grupo_input_actualizarMisDatos .checkbox_condiciones_descripcion{

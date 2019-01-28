@@ -12,5 +12,6 @@ namespace Portal.Consultoras.Web.Models
         public string Opcion { get; set; }
         public string Codigo { get; set; }
         public bool CheckBox { get; set; }
+        public string Descripcion { get; set; }
     }
 }

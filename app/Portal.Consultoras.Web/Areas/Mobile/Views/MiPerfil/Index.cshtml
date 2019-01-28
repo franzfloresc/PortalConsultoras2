@@ -41,7 +41,7 @@ else
         <div class="wrapper_content_mi_perfil text-center">
             <div class="foto_consultora center-block">
                 <a href="@Url.Action("Index", "Bienvenida", new { area = "Mobile" })" style="display: none;" id="volverBienvenida">Volver</a>
-                <a href="@Url.Action("CambiarFotoPerfil", "MiPerfil", new {area = "Mobile"})" title="Editar imagen" class="icono_camara default-background-color"></a>
+                <a href="@Url.Action("CambiarFotoPerfil", "MiPerfil", new {area = "Mobile"})" title="Editar imagen" class="icono_camara multimarca-background-color"></a>
                 <div class="contenedor_foto_consultora">
                     @if (ViewBag.FotoPerfilAncha)
                     {
@@ -69,22 +69,22 @@ else
                     <input type="hidden" id="hdn_PuedeActualizar" value="@Model.ActualizaDatos" />
                     <input type="hidden" id="hdn_enlaceTerminosCondiciones" value="@ViewBag.UrlPdfTerminosyCondiciones" />
                     <input type="hidden" id="hdn_iniciaNumero" value="@Model.IniciaNumeroCelular" />
-                    <div class="datos_codigo w-100 text-center">
-                        <span class="text-bold">Código : </span>
-                        <span class="text-bold">@Model.CodigoUsuario</span>
+                    <div class="datos_codigo w-50 text-left">
+                        <span class="text-left text-bold">Código : </span>
+                        <span class="text-right text-bold">@Model.CodigoUsuario</span>
                     </div>
-                    <div class="datos_zona w-100 text-center">
-                        <span class="text-bold">Zona : </span>
-                        <span class="text-bold">@Model.Zona</span>
+                    <div class="datos_zona w-50 text-right">
+                        <span class="text-left text-bold">Zona : </span>
+                        <span class="text-right text-bold">@Model.Zona</span>
                     </div>
                 </div>
-                @*@if (Model.NombreGerenteZonal != "" && Model.IndicadorConsultoraDigital == 0)
-                    {
-                        <div class="datos_gerente_zona">
-                            <span class="w-50 text-left">Gerente de zona : </span>
-                            <span class="w-50 text-right text-bold">@Model.NombreGerenteZonal</span>
-                        </div>
-                    }*@
+                @if (Model.NombreGerenteZonal != "" && Model.IndicadorConsultoraDigital == 0)
+                {
+                    <div class="datos_gerente_zona">
+                        <span class="text-left text-bold">Gerente de zona : </span>
+                        <span class="text-right text-bold pull-right">@Model.NombreGerenteZonal</span>
+                    </div>
+                }
                 <a href="@Url.Action("CambiarContrasenia", "MiPerfil", new {area = "Mobile"})" title="Cambiar contraseña" class="enlace_cambiar_contrasenia_consultora text-center text-bold text-uppercase">
                     <span class="icono_cambio_password"></span>
                     <span class="enlace_texto">Cambiar contraseña</span>
@@ -272,7 +272,9 @@ else
                         @foreach (var item in Model.UsuarioOpciones)
                         {
                             <div class="permiso_cuenta_opcion">
-                                <div class="permiso_cuenta_opcion_descripcion">@item.Opcion</div>
+                                <div class="permiso_cuenta_opcion_descripcion">@item.Opcion
+                                    <span class="d-block">@item.Descripcion</span>
+                                </div>
                                 <fieldset class="grupo_form_permiso_cuenta">
                                     <input class="permiso_cuenta_opcion_checkbox" type="checkbox" data-tipoOpcion="@item.OpcionesUsuarioId" name="@item.Codigo" id="@item.Codigo" checked="@item.CheckBox" />
                                     <label for="@item.Codigo" class="permiso_cuenta_opcion_label"></label>

@@ -306,26 +306,33 @@ a{
     background-repeat: no-repeat;
 }
 
-.datos_codigo_y_zona{
+/*.datos_codigo_y_zona{
     margin-bottom:18px;
-}
+}*/
 
 .nombre_consultora,
 .datos_codigo,
-.datos_zona
+.datos_zona,
+.datos_gerente_zona
 {
     margin-bottom:5px;
     font-size:13px;
 }
 
+.datos_consultora,
+.nombre_consultora
+{
+    margin-bottom:18px;
+}
+
 .datos_gerente_zona{
-    margin-bottom:20px;
+    margin-bottom:27px;
 }
 
 .icono_cambio_password{
     width:13px;
     height:19px;
-    background-image:url("/Content/Images/Esika/icono_candado.svg");
+    background-image:url("/Content/Images/icono_candado.svg");
     background-size:100%;
     margin-right:7px;
     position: relative;
@@ -405,6 +412,11 @@ a{
     width:92%;
 }
 
+    .permiso_cuenta_opcion_descripcion span{
+        display:block;
+        color:#808080;
+    }
+
 .opcion_mi_perfil_titulo_texto{
     padding-left:15px;
 }
@@ -434,6 +446,7 @@ a{
     }
 
     .grupo_form_cambio_datos label{
+        width:90%;
         cursor:default;
         position:absolute;
         top:25px;
@@ -513,7 +526,7 @@ a{
     .grupo_form_cambio_datos select{
         -moz-appearance:none;
         -webkit-appearance:none;
-        background-image:url(/Content/Images/Esika/icono_campos_select_mi_perfil.svg);
+        background-image:url(/Content/Images/icono_campos_select_mi_perfil.svg);
     }
 
     .grupo_form_cambio_datos_campo_direccion{
@@ -529,7 +542,7 @@ a{
         width: 40px;
         height: 40px;
         background-position: center;
-        background-image: url(/Content/Images/Esika/icono_localizacion.svg);
+        background-image: url(/Content/Images/icono_localizacion.svg);
         z-index: 999;
         cursor:pointer;
         -moz-transition: all 0.3s ease;
@@ -565,9 +578,9 @@ a{
         border-bottom:1px solid rgba(0,0,0,1);
     }
 
-.terminos_y_condiciones_wrapper{
+/*.terminos_y_condiciones_wrapper{
     border-top:1px solid #808080;
-}
+}*/
 
 .enlace_cambiar_dato,
 .enlace_eliminar_numero_adicional
@@ -583,7 +596,7 @@ a{
 .icono_cambiar_dato{
     width:16px;
     height:16px;
-    background-image:url("/Content/Images/Esika/icono_cambiar_dato.svg");
+    background-image:url("/Content/Images/icono_cambiar_dato.svg");
     margin-right:2px;
 }
 
@@ -601,7 +614,7 @@ a{
 .icono_agregar_num_adicional{
     width:15px;
     height:15px;
-    background-image:url("/Content/Images/Esika/icono_plus.svg");
+    background-image:url("/Content/Images/icono_plus.svg");
     margin-right:3px;
     position:relative;
     top:2px;
@@ -622,6 +635,7 @@ a{
 
 .permisos_cuenta_wrapper{
     margin-top:33px;
+    border-bottom:1px solid #808080;
 }
 
 .permisos_cuenta_titulo,
@@ -672,8 +686,8 @@ a{
 .checkbox_condiciones_checkbox:checked + .checkbox_condiciones_label,
 .permiso_cuenta_opcion_checkbox:checked + .permiso_cuenta_opcion_label
 {
-    background-color:#e81c36;
-    border: 1px solid #e81c36;
+    background-color:#b9007e;
+    border: 1px solid #b9007e;
 }
 
 .grupo_input_actualizarMisDatos .checkbox_condiciones_descripcion{

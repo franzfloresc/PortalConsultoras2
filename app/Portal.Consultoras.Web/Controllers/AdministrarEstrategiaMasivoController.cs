@@ -29,6 +29,8 @@ namespace Portal.Consultoras.Web.Controllers
                 int cantidadEstrategiasSinConfigurar;
                 int cantidadEstrategiasSinConfigurarImagen = 0;
                 var txtBuildOddIdsEstrategia = new StringBuilder();
+                var lPreCargarFlagImagenURL = new List<string>();
+
                 try
                 {
                     if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, codigoEstrategia))
@@ -38,13 +40,18 @@ namespace Portal.Consultoras.Web.Controllers
                         cantidadEstrategiasSinConfigurar = cantidades["CUV_OP"];
                         cantidadEstrategiasSinConfigurarImagen = cantidades["CUV_SI"];
 
-                        List<string> estrategiasWA = administrarEstrategiaProvider.PreCargar(campaniaId.ToString(), codigoEstrategia, userData.CodigoISO);
+                        //List<string> estrategiasWA = administrarEstrategiaProvider.PreCargar(campaniaId.ToString(), codigoEstrategia, userData.CodigoISO);
+                        var estrategiasWA = administrarEstrategiaProvider.PreCargar(campaniaId.ToString(), codigoEstrategia, userData.CodigoISO);
                         foreach (var item in estrategiasWA)
                         {
                             if (txtBuildOddIdsEstrategia.ToString() != "")
                                 txtBuildOddIdsEstrategia.Append(",");
-                            txtBuildOddIdsEstrategia.Append(item);
+                            txtBuildOddIdsEstrategia.Append(item._id);
                         }
+
+                        lPreCargarFlagImagenURL.AddRange(estrategiasWA
+                            .Where(c => c.FlagImagenURL == false)
+                            .Select(m => m._id));
                     }
                     else
                     {
@@ -74,7 +81,7 @@ namespace Portal.Consultoras.Web.Controllers
                         Descripcion = codigoEstrategia == Constantes.TipoEstrategiaCodigo.HerramientasVenta ? "CUVS encontrados en Producto Comercial" : "CUVS encontrados en ofertas personalizadas.",
                         Valor = (cantidadEstrategiasConfiguradas + cantidadEstrategiasSinConfigurar).ToString(),
                         ValorOpcional = "0",
-                        mongoIds = ""
+                        mongoIds = txtBuildOddIdsEstrategia.ToString()
                     },
                     new ComunModel
                     {
@@ -82,7 +89,7 @@ namespace Portal.Consultoras.Web.Controllers
                         Descripcion = "CUVS configurados en Zonas de Estrategias",
                         Valor = cantidadEstrategiasConfiguradas.ToString(),
                         ValorOpcional = "1",
-                        mongoIds = ""
+                        mongoIds = txtBuildOddIdsEstrategia.ToString()
                     },
                     new ComunModel
                     {
@@ -98,28 +105,14 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (validarEstrategiaImagen == 1)
                 {
-                    if (cantidadEstrategiasSinConfigurarImagen == 0)
+                    lst.Add(new ComunModel
                     {
-                        lst.Add(new ComunModel
-                        {
-                            Id = 4,
-                            Descripcion = "CUVS por configurar en Zonas de Estrategias sin Imagen precargada",
-                            Valor = "0",
-                            ValorOpcional = "3",
-                            mongoIds = ""
-                        });
-                    }
-                    else//(cantidadEstrategiasSinConfigurarImagen > 0)
-                    {
-                        lst.Add(new ComunModel
-                        {
-                            Id = 4,
-                            Descripcion = "CUVS por configurar en Zonas de Estrategias sin Imagen precargada",
-                            Valor = cantidadEstrategiasSinConfigurarImagen.ToString(),
-                            ValorOpcional = "3",
-                            mongoIds = ""
-                        });
-                    }
+                        Id = 4,
+                        Descripcion = "CUVS por configurar en Zonas de Estrategias sin Imagen precargada",
+                        Valor = cantidadEstrategiasSinConfigurarImagen.ToString(),
+                        ValorOpcional = "3",
+                        mongoIds = string.Join(",", lPreCargarFlagImagenURL)
+                    });
                 }
 
                 var grid = new BEGrid
@@ -187,6 +180,18 @@ namespace Portal.Consultoras.Web.Controllers
                                 webApiList.AddRange(estado);
                             }
                         }
+
+                        if (tipoConfigurado == 3)
+                        {
+                            List<string> estrategiaMidsList = new List<string>();
+                            estrategiaMidsList.AddRange(estrategiaMIds.Split(',').ToList());
+                            if (estrategiaMidsList.Any())
+                            {
+                                var estado = administrarEstrategiaProvider.Listar(estrategiaMidsList, userData.CodigoISO);
+                                webApiList.AddRange(estado);
+                            }
+                        }
+
                         lst.AddRange(webApiList.Select(d => d.BEEstrategia).Select(item => new BEEstrategia
                         {
                             CUV2 = item.CUV2,
@@ -195,7 +200,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     else
                     {
-                        if(tipoConfigurado == 3)
+                        if (tipoConfigurado == 3)
                         {
                             using (var svc = new SACServiceClient())
                             {
@@ -211,7 +216,7 @@ namespace Portal.Consultoras.Web.Controllers
                                                                                  tipoConfigurado, estrategiaCodigo, 1, -1)
                                       .ToList();
                             }
-                        }                       
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -685,7 +690,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             bool rpta = false;
             try
-            { 
+            {
                 int validarEstrategiaImagen = _tablaLogicaProvider.ObtenerValorTablaLogicaInt(userData.PaisID, Constantes.TablaLogica.CantidadCuvMasivo, Constantes.TablaLogicaDato.EstrategiaImagen_NuevoMasivo, true);
 
                 if (validarEstrategiaImagen == 1)
@@ -736,7 +741,7 @@ namespace Portal.Consultoras.Web.Controllers
                         lote = estado["CUVOK"].Count;
                         foreach (var item in estado["CUVOK"])
                         {
-                            if (txtBuildIdsEstrategiaOk.ToString() != "") 
+                            if (txtBuildIdsEstrategiaOk.ToString() != "")
                                 txtBuildIdsEstrategiaOk.Append(",");
                             txtBuildIdsEstrategiaOk.Append(item);
                         }
@@ -767,7 +772,7 @@ namespace Portal.Consultoras.Web.Controllers
                     message = lote > 0 ? "Se insertaron las Estrategias." : "Error al insertar las estrategias.",
                     NroLote = nroLote,
                     NroLoteRetorno = lote,
-                     mongoIdsOK = txtBuildIdsEstrategiaOk.ToString(),
+                    mongoIdsOK = txtBuildIdsEstrategiaOk.ToString(),
                     mongoIdsERROR = txtBuildIdsEstrategiaError.ToString(),
                     mensajePaso
                 }, JsonRequestBehavior.AllowGet);
