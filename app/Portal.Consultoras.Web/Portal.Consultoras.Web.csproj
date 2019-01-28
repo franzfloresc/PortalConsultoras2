@@ -4503,6 +4503,7 @@
     <Content Include="Areas\Mobile\Views\MasGanadoras\template-landing.cshtml" />
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-carrusel-individuales-v2.cshtml" />
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\template-producto-v2.cshtml" />
+    <Content Include="Areas\Mobile\Views\Shared\_ChatboMobileLayout.cshtml" />
     <Content Include="package.json" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
