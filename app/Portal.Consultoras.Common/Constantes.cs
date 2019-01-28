@@ -1262,6 +1262,10 @@ namespace Portal.Consultoras.Common
             public const string SoloHoy = "SOLOHOY";
             public const string HerramientasDeVenta = "HERRAMIENTASDEVENTA";
             public const string SaberMasInscripcion = "SABERMASINSCRIPCION";
+            public const string Reclamos = "RECLAMOS";
+            public const string MetodosPagos = "METODODEPAGO";
+            public const string PagarAqui = "PAGAR";
+            public const string Ganancias = "GANANCIAS";
             public const string DuoPerfecto = "DUOPERFECTO";
             public const string PedidosPendientes = "PEDIDOSPENDIENTES";
         }
@@ -1269,6 +1273,7 @@ namespace Portal.Consultoras.Common
         public static class IngresoExternoOrigen
         {
             public const string App = "4";
+            public const string ChatBot = "5";
         }
 
         public static class EstadoCuentaTipoMovimiento
@@ -1387,6 +1392,7 @@ namespace Portal.Consultoras.Common
             public const string InsertarValidarKitInicio = "No está permitido agregar el Kit de un programa obligatorio.";
             public const string ValidarAgregarProgNuevas = "Sucedió un error al validar el programa de nuevas. Inténtenlo más tarde.";
             public const string ExcedioLimiteVenta = "Las unidades ingresadas exceden el máximo permitido ({0}) en esta campaña.";
+            public const string StockLimiteVenta = "En esta campaña nuestro producto <b>{0} – {1}</b> ha tenido una gran acogida. Sin embargo hemos reservado una ({2}) unidad(es) para ti. Por favor modifica las unidades ingresadas.";
         }
 
         public static class MensajesExito
@@ -1620,7 +1626,7 @@ namespace Portal.Consultoras.Common
             public const string EC = "Tu número de cédula de identidad<br/>o correo electrónico.";
             public const string MX = "Tu código de consultora,<br/>INE o correo electrónico.";
             public const string PA = "Tu código de consultora,<br/>documento de identidad<br/>o correo electrónico.";
-            public const string PE = "Tu código de consultora,<br/>DNI o correo electronico.";
+            public const string PE = "Tu código de consultora,<br/>DNI o correo electrónico.";
             public const string PR = "Tu código de consultora,<br/>tarjeta electoral<br/>o correo electrónico.";
             public const string VE = "Tu código de consultora,<br/>cédula de identidad<br/>o correo electrónico.";
             public const string CAM = "Tu código de consultora,<br/>documento único de identidad o<br/>correo electrónico.";

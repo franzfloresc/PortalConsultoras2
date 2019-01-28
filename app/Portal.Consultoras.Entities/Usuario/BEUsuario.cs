@@ -1,4 +1,5 @@
 ﻿using OpenSource.Library.DataAccess;
+
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities.Pedido;
 using Portal.Consultoras.Entities.Usuario;
@@ -7,6 +8,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using System.Runtime.Serialization;
+using System.Collections.Generic;
 
 namespace Portal.Consultoras.Entities
 {
@@ -1215,6 +1217,7 @@ namespace Portal.Consultoras.Entities
         [Column("IndicadorConsultoraOficina")]
         public bool EsConsultoraOficina { get; set; }
         [DataMember]
+        [Column("IndicadorConsultoraDigital")]
         public int IndicadorConsultoraDigital { get; set; }
         [DataMember]
         public string NivelProyectado { get; set; }
@@ -1244,6 +1247,8 @@ namespace Portal.Consultoras.Entities
         public BEDireccionEntrega DireccionEntrega { get; set; }
         public bool TieneChatbot { get; set; }
         [DataMember]
+        public List<BEConfiguracionPaisDatos> RecomendacionesConfiguracion { get; set; }
+		[DataMember]
         public string CorreoAnterior { get; set; }
         [DataMember]
         public List<BEUsuarioOpciones> UsuarioOpciones { get; set; }
