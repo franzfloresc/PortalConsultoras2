@@ -746,6 +746,7 @@
     <Compile Include="Models\TipoEstrategiaModel.cs" />
     <Compile Include="Models\TipoEstrategiaModelo.cs" />
     <Compile Include="Models\TipoLinkModel.cs" />
+    <Compile Include="Models\TusClientes\ConsultarResult.cs" />
     <Compile Include="Models\UpdatePassSACModel.cs" />
     <Compile Include="Models\UrlModel.cs" />
     <Compile Include="Models\UsuarioExternoModel.cs" />
@@ -786,6 +787,7 @@
     <Compile Include="Providers\BuscadorBaseProvider.cs" />
     <Compile Include="Providers\BuscadorYFiltrosProvider.cs" />
     <Compile Include="Providers\CdrProvider.cs" />
+    <Compile Include="Providers\ClienteProvider.cs" />
     <Compile Include="Providers\ConfiguracionManagerProvider.cs" />
     <Compile Include="Providers\ConfiguracionOfertasHomeProvider.cs" />
     <Compile Include="Providers\ConfiguracionPaisDatosProvider.cs" />
@@ -4495,6 +4497,8 @@
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-carrusel-individuales-v2.cshtml" />
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\template-producto-v2.cshtml" />
     <Content Include="package.json" />
+    <Content Include="Areas\Mobile\Views\DetalleEstrategia\ProductoTemplate.cshtml" />
+    <Content Include="Areas\Mobile\Views\DetalleEstrategia\FichaTemplate.cshtml" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
       <SubType>Designer</SubType>
@@ -5543,6 +5547,8 @@
     <Content Include="Views\DetalleEstrategia\FichaTemplate.cshtml" />
     <Content Include="Views\TusClientes\Detalle.cshtml" />
     <Content Include="Views\TusClientes\Index.cshtml" />
+    <Content Include="Views\TusClientes\PanelLista.cshtml" />
+    <Content Include="Views\TusClientes\PanelMantener.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
