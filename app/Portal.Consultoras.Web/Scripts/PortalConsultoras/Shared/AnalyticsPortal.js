@@ -39,7 +39,7 @@ var AnalyticsPortalModule = (function () {
         eligetuopcion: "eligetuopcion",
         verdetalle: "verdetalle",
         contenedor: "Contenedor",
-        contenedorHome: "Contenedor - Home",
+        contenedorHome: "Contenedor - Inicio",
         contenedorDetalle: "Contenedor - Detalle de Producto",
         contenedorDetalleSets: "Contenedor - Detalle de Producto - Ver más Sets",
         contenedorRevisar: "Contenedor - Revisar",
@@ -164,7 +164,7 @@ var AnalyticsPortalModule = (function () {
         Palanca: [
             { "Codigo": "00", "CodigoPalanca": "RD", "TextoList": "Ofertas Para Ti" },
             { "Codigo": "01", "CodigoPalanca": "SR", "TextoList": "Showroom" },
-            { "Codigo": "02", "CodigoPalanca": "LAN", "TextoList": "" },
+            { "Codigo": "02", "CodigoPalanca": "LAN", "TextoList": "Lanzamientos" },
             { "Codigo": "03", "CodigoPalanca": "ODD", "TextoList": "Oferta del Día" },
             { "Codigo": "04", "CodigoPalanca": "OF", "TextoList": "" },
             { "Codigo": "05", "CodigoPalanca": "GND", "TextoList": "GND" },
@@ -189,12 +189,29 @@ var AnalyticsPortalModule = (function () {
         ]
     }
 
+    var _urlPaginas = [
+        { Codigo: "00", UrlController: "RevistaDigital" },
+        { Codigo: "01", UrlController: "ShowRoom" },
+        { Codigo: "02", UrlController: "" },
+        { Codigo: "03", UrlController: "" },
+        { Codigo: "04", UrlController: "" },
+        { Codigo: "05", UrlController: "GuiaNegocio" },
+        { Codigo: "06", UrlController: "OfertaLiquidacion" },
+        { Codigo: "07", UrlController: "" },
+        { Codigo: "08", UrlController: "HerramientasVenta" },
+        { Codigo: "09", UrlController: "" },
+        { Codigo: "10", UrlController: "" },
+        { Codigo: "11", UrlController: "" },
+        { Codigo: "12", UrlController: "" },
+        { Codigo: "13", UrlController: "" },
+        { Codigo: "14", UrlController: "MasGanadoras" }
+    ]
+
     ////////////////////////////////////////////////////////////////////////////////////////
     // Ini - Metodos Iniciales
     ////////////////////////////////////////////////////////////////////////////////////////
 
-
-    var _getEstructuraOrigenPedidoWeb = function (origen) {
+    var _getEstructuraOrigenPedidoWeb = function (origen, url) {
         var origenEstructura = {};
 
         if (typeof origen === "object") {
@@ -216,6 +233,16 @@ var AnalyticsPortalModule = (function () {
         origenEstructura.Pagina = (origenEstructura.Pagina || codigoOrigenPedido.substring(1, 3)).toString().trim();
         origenEstructura.Palanca = (origenEstructura.Palanca || codigoOrigenPedido.substring(3, 5)).toString().trim();
         origenEstructura.Seccion = (origenEstructura.Seccion || codigoOrigenPedido.substring(5, 7)).toString().trim();
+
+        if (origenEstructura.Palanca == "" && url != "") {
+            origenEstructura.Palanca = _getTextoPalancaSegunUrl(url);
+        }
+
+        if (origenEstructura.Pagina == "" && url != "") {
+            switch (window.controllerName) {
+                case "ofertas": origenEstructura.Pagina = ConstantesModule.OrigenPedidoWebEstructura.Pagina.Contenedor; break;
+            }
+        }
 
         console.log("_getEstructuraOrigenPedidoWeb", origen, origenEstructura);
 
@@ -282,9 +309,29 @@ var AnalyticsPortalModule = (function () {
         return obj.TextoList || "";
     }
 
-    var _getParametroListSegunOrigen = function (origenEstructura) {
+    var _getTextoPalancaSegunUrl = function (url) {
 
-        origenEstructura = _getEstructuraOrigenPedidoWeb(origenEstructura);
+        var controller = window.controllerName || "";
+        controller = controller.toLocaleLowerCase();
+
+        var seccion = _urlPaginas.find(function (element) {
+            return element.UrlController.toLocaleLowerCase() == controller;
+        });
+
+        if (seccion == undefined) {
+            return "";
+        }
+
+        var seccion = _origenPedidoWebEstructura.Palanca.find(function (element) {
+            return element.Codigo == seccion.Codigo;
+        });
+
+        return seccion.TextoList || "";
+    }
+
+    var _getParametroListSegunOrigen = function (origenEstructura, url) {
+
+        origenEstructura = _getEstructuraOrigenPedidoWeb(origenEstructura, url);
 
         var contendor = _getTextoContenedorSegunOrigen(origenEstructura);
         var pagina = "";
@@ -1619,27 +1666,32 @@ var AnalyticsPortalModule = (function () {
 * Nombre Archivo Desktop: Scripts\PortalConsultoras\Shared\MenuContenedor.js
 * Linea de Código Desktop: 284
 */
-    var marcaClicVerMasOfertas = function (url, origenPedido) {
+    var marcaClicVerMasOfertas = function (url, origenPedido, titulo) {
         try {
             if (_constantes.isTest)
                 alert("Marcación Ver más ofertas.");
 
-            var esRevisar = window.actionName == "revisar" ? true : false;
-            var nombreBoton = "Ver más Ofertas";
-            var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(origenPedido);
+            //var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(origenPedido);
+            //if (palanca == _texto.notavaliable) {
+            //    palanca = _getTextoPalancaSegunUrl(url);
+            //}
+
+            var textoCategory = _getParametroListSegunOrigen(origenPedido, url);
+
+            var nombreBoton = titulo;
             dataLayer.push({
                 'event': _evento.virtualEvent,
-                'category': fnObtenerContenedor(),
-                'action': esRevisar ? 'Click Botón' + ' - ' + palanca : 'Click Botón' + ' - ' + nombreBoton,
-                'label': esRevisar ? nombreBoton : palanca,
+                'category': textoCategory, //fnObtenerContenedor() + ' - ' + palanca,
+                'action': 'Click Botón',
+                'label': nombreBoton,
                 'eventCallback': function () {
                     document.location = url;
                 }
             });
 
         } catch (e) {
-            document.location = url;
             console.log(_texto.excepcion + e);
+            document.location = url;
         }
 
     }
@@ -2305,43 +2357,45 @@ var AnalyticsPortalModule = (function () {
         }
     }
 
-    function marcarClickMasOfertasMG(url, origenPedido) {
-        try {
+    // utilizar MarcaClicVerMasOfertas
+    //function marcarClickMasOfertasMG(url, origenPedido, titulo) {
+    //    try {
+    //        var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(origenPedido);
+    //        var nombreBoton = titulo;  
+    //        dataLayer.push({
+    //            'event': _evento.virtualEvent,
+    //            'category': fnObtenerContenedor() + ' - ' + palanca,
+    //            'action': 'Clic Botón',
+    //            'label': nombreBoton,
+    //            'eventCallback': function () {
+    //                document.location = url;
+    //            }
+    //        });
+    //    } catch (e) {
+    //        document.location = url;
+    //        console.log(_texto.excepcion + e);
+    //    }
+    //}
 
-            dataLayer.push({
-                'event': _evento.virtualEvent,
-                'category': fnObtenerContenedor(),
-                'action': 'Las Más Ganadoras - Clic Botón',
-                'label': 'Ver más ofertas',
-                'eventCallback': function () {
-                    document.location = url;
-                }
-            });
-
-        } catch (e) {
-            document.location = url;
-            console.log(_texto.excepcion + e);
-        }
-    }
-
-    function marcarClickMasOfertasBannerMG(url) {
-        try {
-
-            dataLayer.push({
-                'event': _evento.virtualEvent,
-                'category': fnObtenerContenedor(),
-                'action': 'Las Más Ganadoras - Clic Banner',
-                'label': 'Ver más',
-                'eventCallback': function () {
-                    document.location = url;
-                }
-            });
-
-        } catch (e) {
-            document.location = url;
-            console.log(_texto.excepcion + e);
-        }
-    }
+    // utilizar MarcaClicVerMasOfertas
+    //function marcarClickMasOfertasBannerMG(url,origenPedido, titulo) {
+    //    try {
+    //        var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(origenPedido);
+    //        var nombreBoton = titulo;  
+    //        dataLayer.push({
+    //            'event': _evento.virtualEvent,
+    //            'category': fnObtenerContenedor() + ' - ' + palanca,
+    //            'action': 'Clic Botón',
+    //            'label': nombreBoton,
+    //            'eventCallback': function () {
+    //                document.location = url;
+    //            }
+    //        });
+    //    } catch (e) {
+    //        document.location = url;
+    //        console.log(_texto.excepcion + e);
+    //    }
+    //}
 
     function marcarClickMasOfertasPromotionClickMG() {
         try {
@@ -2595,12 +2649,6 @@ var AnalyticsPortalModule = (function () {
     ////////////////////////////////////////////////////////////////////////////////////////
 
 
-
-
-
-
-
-
     return {
         // Ini - Metodos Iniciales
         MarcarVerFichaProducto: marcarVerFichaProducto,
@@ -2708,8 +2756,8 @@ var AnalyticsPortalModule = (function () {
 
         // Ini - Analytics Ganadoras
         MarcaPromotionViewCarrusel: marcaPromotionViewCarrusel,
-        MarcarClickMasOfertasMG: marcarClickMasOfertasMG,
-        MarcarClickMasOfertasBannerMG: marcarClickMasOfertasBannerMG,
+        //MarcarClickMasOfertasMG: marcarClickMasOfertasMG, // utilizar MarcaClicVerMasOfertas
+        //MarcarClickMasOfertasBannerMG: marcarClickMasOfertasBannerMG, // utilizar MarcaClicVerMasOfertas
         MarcarClickMasOfertasPromotionClickMG: marcarClickMasOfertasPromotionClickMG,
         ClickArrowMG: clickArrowMG,
         ClickOnBreadcrumb: clickOnBreadcrumb,
