@@ -1379,7 +1379,7 @@ namespace Portal.Consultoras.Common
             public const string Reserva_ObsHuerfanas = "Reserva_ObsHuerfanas: Se obtuvieron observaciones al reservar que no se encuentran en el detalle.";
             public const string Reserva_Prol2 = "Reserva_Prol2: El servicio externo de reserva de Prol2 retornó vacio.";
             public const string Reserva_Prol3 = "Reserva_Prol3: El servicio externo de reserva de Sicc retornó vacio o error.";
-            public const string ErrorGenerico = "Ocurrio un error, vuelva ha intentarlo.";
+            public const string ErrorGenerico = "Ocurrió un error, vuelva a intentarlo.";
             public const string InsertarValidarKitInicio = "No está permitido agregar el Kit de un programa obligatorio.";
             public const string ValidarAgregarProgNuevas = "Sucedió un error al validar el programa de nuevas. Inténtenlo más tarde.";
             public const string ExcedioLimiteVenta = "Las unidades ingresadas exceden el máximo permitido ({0}) en esta campaña.";
@@ -1419,6 +1419,7 @@ namespace Portal.Consultoras.Common
             public const string ElecMultiple = "DP";
             public const string MasGanadoras = "MG";
             public const string Recomendaciones = "RECOMDS";
+            public const string Datami = "DATAMI";
         }
 
 
@@ -3269,6 +3270,30 @@ namespace Portal.Consultoras.Common
                 public const string CatalogoDigital = "03";
                 public const string MaquilladorVirtual = "04";
             }
+        }
+
+        public class SegmentoDatami
+        {
+            public const string SegmentoA = "Segmento_A";
+            public const string SegmentoB = "Segmento_B";
+            public const string SegmentoC = "Segmento_C";
+            public const string SegmentoD = "Segmento_D";
+            public const string SegmentoE = "Segmento_E";
+            public const string SegmentoF = "Segmento_F";
+        }
+
+        public class SegmentoInterno
+        {
+            public const int SinSegmento = 0;
+            public const int Nuevas = 1;
+            public const int EmpresariaBrillante = 2;
+            public const int EmpresariaDeBelleza = 3;
+            public const int ExpertaDeBelleza = 4;
+            public const int EspecialistaDeBelleza = 5;
+            public const int AsesoraDeBelleza = 6;
+            public const int Inconstantes = 7;
+            public const int PosibleEgreso = 8;
+            public const int Reingreso = 9;
         }
     }
 }

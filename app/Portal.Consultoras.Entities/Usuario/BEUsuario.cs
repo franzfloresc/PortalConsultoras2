@@ -1245,6 +1245,8 @@ namespace Portal.Consultoras.Entities
         public bool TieneChatbot { get; set; }
         [DataMember]
         public List<BEConfiguracionPaisDatos> RecomendacionesConfiguracion { get; set; }
+        [DataMember]
+        public string SegmentoDatami { get; set; }
 
         public BEUsuario(IDataRecord row, bool Tipo, bool ValidaHorario)
         {
