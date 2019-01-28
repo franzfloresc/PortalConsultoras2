@@ -56,6 +56,28 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                         )
                     );
             }
+
+            [TestMethod]
+            public void Consultar_CallToProviderThrowException_shouldLogManager()
+            {
+                //Arrange
+                clienteProvider
+                    .Setup(x => x.SelectByConsultora(
+                        It.IsAny<int>(),
+                        It.IsAny<long>()))
+                    .Throws<Exception>();
+
+                var controller = new TusClientesController(clienteProvider.Object
+                    , SessionManager.Object
+                    , LogManager.Object);
+
+
+                //Act
+                controller.Consultar(string.Empty);
+
+                //Assert    
+                VerifyCallLogManager("TusClientesController.Consultar");
+            }
         }
     }
 }

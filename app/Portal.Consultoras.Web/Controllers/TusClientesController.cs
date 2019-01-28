@@ -66,7 +66,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     clientesResult = _clienteProvider.SelectByConsultora(userData.PaisID, userData.ConsultoraID);
                 }
-                if (clientesResult !=null && texto.Trim().Length > 0)
+                if (clientesResult !=null && clientesResult.Any() && texto.Trim().Length > 0)
                     clientesResult = clientesResult.FindAll(x => x.NombreCliente.Trim().ToUpper().Contains(texto.Trim().ToUpper()));
 
                 return Json(new ConsultarResult(clientesResult), JsonRequestBehavior.AllowGet);
