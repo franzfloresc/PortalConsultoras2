@@ -1,0 +1,218 @@
+﻿@using System.Globalization
+@model Portal.Consultoras.Web.Models.ClienteModel
+@{
+    ViewBag.Title = "Mis clientes";
+    Layout = null;
+    //Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+<div style="background-color:#ffffff;height:100%;vertical-align:top;">
+    <h3>AGREGAR CLIENTE</h3>
+
+    <form action="" method="post">
+        @Html.HiddenFor(model => model.ClienteID)
+        @Html.HiddenFor(model => model.CodigoCliente)
+
+        @Html.TextBoxFor(model => model.NombreCliente, new { placeholder = "Nombres", maxlength = "100", @class = "input-nombre", autocomplete = "off" })
+        <div class="noti mensaje_producto_noExiste" id="divNotiNombre" style="display:none;">
+            <div class="noti_message red_texto_size">
+                <span class="icono_advertencia_notificacion"></span>
+                <span class="descripcion_mensaje">
+                    Por favor ingresa un nombre válido.
+                </span>
+            </div>
+        </div>
+        @Html.TextBoxFor(model => model.ApellidoCliente, new { placeholder = "Apellidos", maxlength = "100", @class = "input-nombre", autocomplete = "off", })
+
+        @Html.TextBoxFor(model => model.Telefono, new { placeholder = "Teléfono Fijo", maxlength = "20", @class = "input-number", autocomplete = "off" })
+        @Html.TextBoxFor(model => model.Celular, new { placeholder = "Celular", maxlength = "20", @class = "input-number", autocomplete = "off" })
+
+        @Html.TextBoxFor(model => model.eMail, new { placeholder = "Correo Electrónico (Opcional)", maxlength = "80", @class = "input-correo", autocomplete = "off" })
+        <div class="noti mensaje_producto_noExiste" id="divNotiCorreo" style="display:none;">
+            <div class="noti_message red_texto_size">
+                <span class="icono_advertencia_notificacion"></span>
+                <span class="descripcion_mensaje">
+                    El correo ingresado <b>no existe.</b> <br />
+                    Por favor ingresa un correo válido.
+                </span>
+            </div>
+        </div>
+        <input type="button" class="btnCliente_cancelar" id="btnCancelar" value="CANCELAR" />
+        <input type="button" class="btnCliente_agregar" id="btnAgregar" value="GUARDAR" />
+        <br />
+        <br />
+        <br />
+        <div id="divValidationSummary"></div>
+
+        <input id="hfBaseUrlDetalle" type="hidden" value="@Url.Content("~")" />
+    </form>
+
+    <script>
+
+
+        $(document).ready(function () {
+
+            $(".input-correo").keypress(function (evt) {
+                var charCode = (evt.which) ? evt.which : window.event.keyCode;
+                if (charCode <= 13) return;
+
+                var keyChar = String.fromCharCode(charCode);
+                var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ_.@@-]/;
+                $('#divNotiCorreo').hide();
+                $('#divNotiCorreo2').hide();
+                return re.test(keyChar);
+            });
+
+            $(".input-number").keypress(function (e) {
+
+                $(this).val($(this).val().replace(/[^\d].+/, ""));
+                if ((e.which < 48 || e.which > 57)) e.preventDefault();
+            });
+
+            $(".input-nombre").keypress(function (evt) {
+                var charCode = (evt.which) ? evt.which : window.event.keyCode;
+                if (charCode <= 13) return;
+
+                var keyChar = String.fromCharCode(charCode);
+                var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ _.\/-]/;
+                $('#divNotiNombre').hide();
+
+                return re.test(keyChar);
+            });
+
+            $("#form1").submit(function (e) {
+                //AbrirSplash();
+            });
+
+
+
+            $("#btnCancelar").click(function () {
+                PanelRegistroHide();//Método de TusClientes/Index.cshtml
+            });
+
+            $("#btnAgregar").click(function () {
+
+                var baseUrlDetalle = $("#hfBaseUrlDetalle").val();
+
+
+                var div = $('#divAgregarCliente');
+                var vcont = 0;
+
+                $('#divNotiNombre').hide();
+                $('#divNotiCorreo').hide();
+
+                if ($('#NombreCliente').val() == "") {
+                    vcont++;
+                    $('#divNotiNombre').show();
+                }
+
+                $("#divValidationSummary").html("");
+                if ($('#Telefono').val() == "" && $('#Celular').val() == "") {
+                    vcont++;
+                    $("#divValidationSummary").html("* Debes Ingresar al menos un teléfono de contacto");
+                }
+
+                if ($('#eMail').val() != "") {
+                    if (!validateEmail($(div).find('#eMail').val())) {
+                        vcont++;
+                        $('#divNotiCorreo').show();
+                    }
+                }
+
+                if (vcont > 0) return false;
+
+                var id = $('#ClienteID').val();
+                var codigo = $('#CodigoCliente').val();
+                var nombreCliente = $('#NombreCliente').val();
+                var apellidoCliente = $('#ApellidoCliente').val();
+                var correo = $('#eMail').val();
+                var telefono = $('#Telefono').val();
+                var celular = $('#Celular').val();
+
+                var item = {
+                    ClienteID: id,
+                    CodigoCliente: codigo,
+                    NombreCliente: nombreCliente,
+                    ApellidoCliente: apellidoCliente,
+                    Nombre: jQuery.trim(nombreCliente + " " + apellidoCliente),
+                    eMail: correo,
+                    Telefono: telefono,
+                    Celular: celular
+                };
+
+                //AbrirSplash();
+
+                jQuery.ajax({
+                    type: 'POST',
+                    url: baseUrlDetalle + 'TusClientes/Mantener',
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(item),
+                    async: true,
+                    success: function (data) {
+                        //if (checkTimeout(data)) {
+                        console.log(data);
+
+                        if (data.success == true) {
+                            // CerrarSplash();
+
+                            item.CodigoCliente = data.extra.split("|")[0];
+                            item.ClienteID = data.extra.split("|")[1];
+
+                            console.log(data);
+
+                            alert(data.message);
+
+                            $('#divAgregarCliente').hide();
+                        }
+                        else {
+                            alert(data.message);
+                            //CerrarSplash();
+                        }
+                        //}
+                    },
+                    error: function (data, error) {
+                        //if (checkTimeout(data)) {
+
+                        alert(data.message);
+                        //}
+                    }
+                });
+            });
+
+        });
+
+    </script>
+</div>
+
+<link href="@Url.Content("~/Content/Css/Site/Esika/style.css")" rel="stylesheet" />
+<script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.11.2.min.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/handlebars.min.js")"></script>
+<style>
+
+    .clienteMensajeEditar {
+        display: table;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+        .clienteMensajeEditar span {
+            vertical-align: middle;
+            display: table-cell;
+            padding-right: 5px;
+        }
+
+    .input-nombre {
+        display: block;
+        width: 100%;
+    }
+
+    .input-number {
+        display: block;
+        width: 100%;
+    }
+
+    .input-correo {
+        display: block;
+        width: 100%;
+    }
+</style>
