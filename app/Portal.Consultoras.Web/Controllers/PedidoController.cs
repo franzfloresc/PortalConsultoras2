@@ -68,7 +68,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 model.EsPais = GetMarcaPorCodigoIso(userData.CodigoISO);
                 model.CodigoIso = userData.CodigoISO;
-
+                model.EsConsultoraOficina = userData.EsConsultoraOficina;
                 SessionManager.SetObservacionesProl(null);
                 SessionManager.SetPedidoWeb(null);
                 SessionManager.SetDetallesPedido(null);
