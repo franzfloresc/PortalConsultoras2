@@ -47,6 +47,7 @@ namespace Portal.Consultoras.Web.Controllers
             return View();
         }
 
+        [HttpGet]
         public ActionResult PanelLista()
         {
             return View();
@@ -55,6 +56,11 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult PanelMantener()
         {
             return View(new ClienteModel { });
+        }
+
+        public ActionResult PanelTest()
+        {
+            return View();
         }
 
         public JsonResult Consultar(string texto)

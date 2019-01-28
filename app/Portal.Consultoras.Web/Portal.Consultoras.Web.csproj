@@ -5547,6 +5547,7 @@
     <Content Include="Views\TusClientes\Index.cshtml" />
     <Content Include="Views\TusClientes\PanelLista.cshtml" />
     <Content Include="Views\TusClientes\PanelMantener.cshtml" />
+    <Content Include="Views\TusClientes\PanelTest.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
