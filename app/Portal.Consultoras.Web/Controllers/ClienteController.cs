@@ -27,7 +27,7 @@ namespace Portal.Consultoras.Web.Controllers
                 false
                 ))
             {
-                return RedirectToAction("Index", "MisClientes",new { area = string.Empty });
+                return RedirectToAction("Index", "TusClientes", new { area = string.Empty });
             }
 
             if (EsDispositivoMovil())
