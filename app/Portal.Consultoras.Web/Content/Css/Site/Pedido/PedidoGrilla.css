@@ -244,10 +244,10 @@ h1#penmostreo .campana {
 
 .encabezado_ingresoPedido {
     border-bottom: 1px solid #808080;
+    margin-bottom: 15px;
 }
 
 .contenido_ingresoPedido {
-    border-bottom: 1px solid #ccc;
     position: relative;
 }
 
@@ -258,11 +258,8 @@ h1#penmostreo .campana {
         -o-transition: background .3s ease;
         -ms-transition: background .3s ease;
         -webkit-transition: background .3s ease;
+        margin-bottom: 10px;
     }
-
-        .contenido_ingresoPedido.mouse_encima:hover {
-            background: #f8f8f8;
-        }
 
 div.texto_encabezado_pedidos {
     display: inline-block;
@@ -293,7 +290,7 @@ div.texto_encabezado_pedidos.cabecera_unidades, div.celda_cantidad_pedidos {
 }
 
     div.celda_cantidad_pedidos div.liquidacion_rango_wrapper_pedido input {
-        font-size: 16px !important;
+        font-size: 14px !important;
         background: #fff;
         padding-left: 0 !important;
     }
@@ -1534,3 +1531,13 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     border: none;
     text-decoration: underline;
 }
+
+
+.pedido_item_editable {
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.25);
+    border-radius: 4px;
+}
+    .pedido_item_editable:hover {
+        background: #f8f8f8;
+        cursor: pointer;
+    }
