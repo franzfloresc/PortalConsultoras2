@@ -123,11 +123,11 @@ var BuscadorModule = (function () {
             var enlacesVisiblesMenuLateralDerechoSegunVista = $(".visibilidadEnlaceMenu:visible");
 
             if ($(".new_menu").first().find("a").attr("title") == "SOCIA EMPRESARIA") {
+                $(".wrapper_header").addClass("wrapper_header_se");
                 if (enlacesVisiblesMenuLateralDerechoSegunVista.length > 2) {
                     $(".buscador_productos").addClass("buscador_productos_con_enlace_menu_socia_empresaria_vista_pedido");
                 } else {
                     if (window.location.href.indexOf("Bienvenida") > -1) {
-                        $(".wrapper_header").addClass("wrapper_header_se");
                         $(".buscador_productos").addClass("buscador_productos_con_enlace_menu_socia_empresaria_vista_bienvenida");
                     } else {
                         $(".buscador_productos").addClass("buscador_productos_con_enlace_menu_socia_empresaria");
