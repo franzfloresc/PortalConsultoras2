@@ -80,5 +80,12 @@ namespace Portal.Consultoras.Web.Providers
             var datos = GetTablaLogicaDatos(paisId, tablaLogicaId, saveInSession);
             return GetTablaLogicaDatoValor(datos, tablaLogicaDatosId);
         }
+
+        public bool GetTablaLogicaDatoValorBool(int paisId, short tablaLogicaId, short tablaLogicaDatosId, bool saveInSession = false)
+        {
+            var valor = GetTablaLogicaDatoValor(paisId, tablaLogicaId, tablaLogicaDatosId, saveInSession);
+
+            return valor == "1" ? true : false;
+        }
     }
 }

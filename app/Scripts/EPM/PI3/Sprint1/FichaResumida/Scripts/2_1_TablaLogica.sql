@@ -37,7 +37,7 @@ begin
 	,@TablaLogicaId_FeatureFlags
 	,'MisClientes'
 	,'0 : Habilitar, 1: Deshabilitar'
-	,'0'
+	,'1'
 	)
 end
 
