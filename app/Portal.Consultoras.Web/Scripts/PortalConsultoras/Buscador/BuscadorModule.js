@@ -127,6 +127,7 @@ var BuscadorModule = (function () {
                     $(".buscador_productos").addClass("buscador_productos_con_enlace_menu_socia_empresaria_vista_pedido");
                 } else {
                     if (window.location.href.indexOf("Bienvenida") > -1) {
+                        $(".wrapper_header").addClass("wrapper_header_se");
                         $(".buscador_productos").addClass("buscador_productos_con_enlace_menu_socia_empresaria_vista_bienvenida");
                     } else {
                         $(".buscador_productos").addClass("buscador_productos_con_enlace_menu_socia_empresaria");
@@ -330,7 +331,7 @@ var BuscadorModule = (function () {
                 localStorage.setItem('valorBuscador', textoBusqueda);            
 
             if (codigo.indexOf(codigoEstrategia) >= 0) {
-                var UrlDetalle = GetPalanca(codigoEstrategia);
+                var UrlDetalle = GetPalanca(codigoEstrategia, OrigenPedidoWeb);
                 if (UrlDetalle === "") return false;
                 UrlDetalle += codigoCampania + "/" + codigoCuv + "/" + OrigenPedidoWeb;
                 _funciones.LlamarAnalyticsElijeUnaOpcion(UrlDetalle, textoBusqueda);
