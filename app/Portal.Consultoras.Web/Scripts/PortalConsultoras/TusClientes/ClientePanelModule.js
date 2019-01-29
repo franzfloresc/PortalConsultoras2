@@ -15,7 +15,7 @@
     this.ConfiguracionInicial = function (instancia) {
 
         if ($("#btnPanelListaAceptar").length == 0) {
-            alert('no existe');
+            console.log("no existe 'PanelLista.btnPanelListaAceptar'");
         }
 
         $("#btnPanelListaAceptar").click(function () {
@@ -48,6 +48,7 @@
 
     this.RenderizarPagina = function () {
         var instancia = this;
+        //console.log(this.BaseUrl + "TusClientes/PanelLista");
         $.ajax({
             type: "GET", dataType: "html", cache: false,
             url: this.BaseUrl + "TusClientes/PanelLista",
@@ -56,7 +57,7 @@
                 instancia.ConfiguracionInicial(instancia);
             },
             error: function (e) {
-
+                console.log("ERROR al cargar html PanelLista: ", e);
             }
         });
     }

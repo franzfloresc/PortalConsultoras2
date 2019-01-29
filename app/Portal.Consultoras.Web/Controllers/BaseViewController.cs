@@ -552,7 +552,6 @@ namespace Portal.Consultoras.Web.Controllers
             if (_ofertaPersonalizadaProvider == null)
                 throw new NullReferenceException("_ofertaPersonalizadaProvider can not be null");
 
-
             if (!_ofertaPersonalizadaProvider.EnviaronParametrosValidos(palanca, campaniaId, cuv))
             {
                 return null;
