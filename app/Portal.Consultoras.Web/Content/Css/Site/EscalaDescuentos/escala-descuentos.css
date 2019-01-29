@@ -73,7 +73,8 @@
 .info__escala__descuento__variable__descripcion span,
 .info__descuento__fijo__descripcion span,
 .info__sin__descuento__descripcion span,
-.info__gana__mas__descripcion
+.info__gana__mas__descripcion,
+.escala__descuento__porcentaje
 {
     font-size:14px;
 }
@@ -122,6 +123,64 @@
 
 .info__gana__mas__descripcion--resaltada{
     margin-bottom:10px;
+}
+
+.seccion__barra__escala__descuento{
+    margin-top:30px;
+}
+
+.barra__descuento__wrapper{
+    min-height:340px;
+}
+
+.barra__descuento{
+    width:12px;
+    border:1px solid rgb(234,234,234);
+}
+
+.barra__descuento,
+.barra__descuento__espacio__limite,
+.barra__descuento__espacio__logrado
+{
+    border-radius:10px;
+}
+
+.barra__descuento--vertical{
+    background:linear-gradient(to left, rgba(255,255,255,1) 0, rgba(216,216,216,1) 100%);
+}
+
+/*.barra__descuento--horizontal{
+    background:linear-gradient(to bottom, rgba(255,255,255,1) 0, rgba(216,216,216,1) 100%);
+}*/
+
+.barra__descuento__espacio__limite--vertical{
+    background: linear-gradient(to left, rgba(168,166,168,1) 0, rgba(255,255,255,1) 100%);
+}
+
+.barra__descuento__espacio__logrado--vertical{
+    background: linear-gradient(to bottom, rgba(97,60,135,1) 0, rgba(232,28,54,1) 100%);
+}
+
+.escala__descuentos{
+    height: 100%;
+    padding-left:10px;
+    padding-right:10px;
+}
+
+.linea__escala__descuento {
+    width: 10px;
+    height: 1px;
+    margin-right:10px;
+}
+
+.escala__descuento__rango__montos{
+    font-size:13px;
+}
+
+.info__descuentos__aplicables{
+    margin-top:29px;
+    font-size:12px;
+    line-height:15px;
 }
 
 /* FIN - CONTENIDO VISTA ESCALA DE DESCUENTOS */

@@ -48,6 +48,10 @@ button:focus{
     color:#808080;
 }
 
+.background__color__gray__multimarca{
+    background-color:#808080;
+}
+
 /* FIN - COLORES MARCA PAÍS */
 
 /* HELPERS CSS (DESKTOP) */
@@ -143,6 +147,14 @@ button:focus{
 
 .border-radius-4{
     border-radius:4px;
+}
+
+.full__width{
+    width:100%;
+}
+
+.full__height{
+    height:100%;
 }
 
 /* FIN - HELPERS CSS (DESKTOP) */
