@@ -36,8 +36,8 @@
                 </span>
             </div>
         </div>
-        <input type="button" class="btnCliente_cancelar" id="btnCancelar" value="CANCELAR" />
-        <input type="button" class="btnCliente_agregar" id="btnAgregar" value="GUARDAR" />
+        <input type="button" class="btnCliente_cancelar" id="btnPanelMantenerCerrar" value="CANCELAR" />
+        <input type="button" class="btnCliente_agregar" id="btnPanelMantenerAgregar" value="GUARDAR" />
         <br />
         <br />
         <br />
@@ -82,14 +82,14 @@
             $("#form1").submit(function (e) {
                 //AbrirSplash();
             });
-
-
-
-            $("#btnCancelar").click(function () {
-                PanelRegistroHide();//Método de TusClientes/Index.cshtml
+             
+            $("#btnPanelMantenerCerrar").click(function () {
+                PanelRegistroHide();//Método de TusClientes/PanelLista.cshtml
             });
 
-            $("#btnAgregar").click(function () {
+            $("#btnPanelMantenerAgregar").click(function () {
+
+                
 
                 var baseUrlDetalle = $("#hfBaseUrlDetalle").val();
 
@@ -137,6 +137,7 @@
                     Celular: celular
                 };
 
+                $("#btnPanelMantenerAgregar").hide();
                 //AbrirSplash();
 
                 jQuery.ajax({
@@ -151,30 +152,35 @@
                         console.log(data);
 
                         if (data.success == true) {
+
                             // CerrarSplash();
 
-                            item.CodigoCliente = data.extra.split("|")[0];
-                            item.ClienteID = data.extra.split("|")[1];
+                            ///item.CodigoCliente = data.extra.split("|")[0];
+                            //item.ClienteID = data.extra.split("|")[1];
 
                             console.log(data);
 
                             alert(data.message);
 
-                            //Actualizar la lista de TusClientes/Index.cshtml
-                            listarTusClientes();//Método de TusClientes/Index.cshtml
-                            $("#btnCancelar").click();
+                            //Actualizar la lista de TusClientes/PanelLista.cshtml
+                            $("#txtPanelListaBusqueda").val(item.NombreCliente);//Campo de TusClientes/PanelLista.cshtml
+                            listarTusClientes();//Método de TusClientes/PanelLista.cshtml
+                            $("#btnPanelMantenerCerrar").click();
                         }
                         else {
                             alert(data.message);
                             //CerrarSplash();
                         }
                         //}
+
+                        $("#btnPanelMantenerAgregar").show();
                     },
                     error: function (data, error) {
                         //if (checkTimeout(data)) {
 
                         alert(data.message);
                         //}
+                        $("#btnPanelMantenerAgregar").show();
                     }
                 });
             });
@@ -184,9 +190,13 @@
     </script>
 </div>
 
+@*
+
 <link href="@Url.Content("~/Content/Css/Site/Esika/style.css")" rel="stylesheet" />
 <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.11.2.min.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/handlebars.min.js")"></script>
+
+*@
 <style>
 
     .clienteMensajeEditar {
