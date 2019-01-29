@@ -2015,7 +2015,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (olstClienteModel.Count == 0)
                 {
-                    olstClienteModel.Add(new ClienteModel() { ClienteID = -1, Nombre = "Tu cliente  no está registrado. Haz click aquí para ingresarlo." });
+                    olstClienteModel.Add(new ClienteModel() { ClienteID = -1, Nombre = "Tu cliente no está registrado. Haz click aquí para ingresarlo." });
                 }
             }
             catch (Exception ex)
@@ -2054,7 +2054,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (olstClienteModel.Count == 0)
                 {
-                    olstClienteModel.Add(new ClienteModel() { ClienteID = 0, Nombre = "Tu cliente  no está registrado." });
+                    olstClienteModel.Add(new ClienteModel() { ClienteID = 0, Nombre = "Tu cliente no está registrado." });
                 }
             }
             catch (Exception ex)
