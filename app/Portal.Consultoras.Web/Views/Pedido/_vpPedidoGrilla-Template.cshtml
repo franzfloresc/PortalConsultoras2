@@ -40,8 +40,10 @@
     {{#each this}}
     {{#if EliminadoTemporal}}
     {{else}}
-    <div class="contenido_ingresoPedido mouse_encima pedido_item_editable" data-cuv="{{CUV}}">
-        @*<div class="texto_pedidos celda_codigo">{{CUV}}</div>*@
+    <div class="contenido_ingresoPedido mouse_encima 
+         {{#iff TipoEstrategiaCodigo 'ContainsArray' '["@Constantes.TipoEstrategiaCodigo.ShowRoom","@Constantes.TipoEstrategiaCodigo.OfertaDelDia"]'}} 
+            pedido_item_editable 
+         {{/iff}}" data-cuv="{{CUV}}">
         <div class="texto_pedidos celda_producto pedidoPadreToolTip" style="position:relative">
 
             <span class="producto-codigo">{{CUV}}</span>

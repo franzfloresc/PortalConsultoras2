@@ -24,6 +24,7 @@ var listaMensajeMeta = listaMensajeMeta;
 var listaParametriaOfertaFinal = listaParametriaOfertaFinal || {};
 var cuvbuscado = "";
 var cuvEsProgNuevas = false;
+var fichaModule;
 
 $(document).ready(function () {
     //ValidarKitNuevas();
@@ -511,6 +512,44 @@ $(document).ready(function () {
         return false;
     });
 
+    //$('div.pedido_item_editable').on('click', function (event) {
+    //    event.stopPropagation();
+    //    event.stopImmediatePropagation();
+
+    //    console.log('fila');
+    //});
+});
+
+$('body').on('click', 'div.pedido_item_editable', function (event) {
+    //SoloHoy / 201902 / 31060 / 1080301
+    fichaModule = FichaModule({
+        localStorageModule: LocalStorageModule(),
+        palanca: 'SoloHoy',
+        campania: '201902',
+        cuv: '31060',
+        origen: '1080301',
+        tieneSession: null,
+        urlObtenerComponentes: urlObtenerComponentes
+    });
+    fichaModule.Inicializar();
+    //var obj = {
+    //    palanca: 'OfertaParaTi',
+    //    campaniaId: '201902',
+    //    cuv: '31758',
+    //    origen: '1080001'
+    //};
+
+    //$.ajax({
+    //    type: "POST",
+    //    url: baseUrl + "DetalleEstrategia/ObtenerModelo",
+    //    dataType: "json",
+    //    contentType: "application/json; charset=utf-8",
+    //    data: JSON.stringify(obj),
+    //    success: function (response) {
+    //        console.log(response);
+    //    },
+    //    error: function (response, error) { }
+    //});
 });
 
 function CargarDetallePedido(page, rows, asyncrono) {
@@ -575,6 +614,7 @@ function CargarDetallePedido(page, rows, asyncrono) {
                     item.EstadoSimplificacionCuv = data.EstadoSimplificacionCuv;
                 });
 
+                console.log(data.ListaDetalleModel);
                 var html = ArmarDetallePedido(data.ListaDetalleModel);
                 $("#tbobyDetallePedido").html(html);
 
@@ -1047,7 +1087,6 @@ function ArmarDetallePedidoPaginador(data) {
 }
 
 function ArmarDetallePedido(array) {
-
     return SetHandlebars("#producto-template", array);
 }
 
@@ -3698,5 +3737,3 @@ function CargarProductosRecomendados(item) {
     }
 
 }
-
-

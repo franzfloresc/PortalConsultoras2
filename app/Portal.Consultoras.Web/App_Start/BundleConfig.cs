@@ -217,7 +217,8 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Site/Esika/buscador-filtros.css",
                "~/Content/Css/Site/ProductoListado/CajaProducto.css",
                "~/Content/Css/Site/Esika/campania-navidenia.css",
-               "~/Content/Css/Site/Pedido/PedidoInfo.css"
+               "~/Content/Css/Site/Pedido/PedidoInfo.css",
+               "~/Content/Css/Site/Pedido/EditarProductoFicha.css"
                ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/Site-AsesoraOnline").Include(
@@ -248,7 +249,8 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Site/Lbel/seccion-descarga-imprime.css",
                "~/Content/Css/Site/Lbel/buscador-filtros.css",
                "~/Content/Css/Site/Lbel/campania-navidenia.css",
-               "~/Content/Css/Site/Pedido/PedidoInfo.css"
+               "~/Content/Css/Site/Pedido/PedidoInfo.css",
+               "~/Content/Css/Site/Pedido/EditarProductoFicha.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/Site-Lbel-Contenedor").Include(
@@ -614,7 +616,8 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/PedidoDetalle").Include(
                 "~/Content/Css/Site/slick-pedido.css",
-                "~/Content/Css/Mobile/Pedido/PedidoGrilla.css"
+                "~/Content/Css/Mobile/Pedido/PedidoGrilla.css",
+                "~/Content/Css/Mobile/Pedido/EditarProductoFicha.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/Catalogo").Include(

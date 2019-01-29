@@ -44,31 +44,31 @@
     <div class="clear"></div>
 
     <div class="pedido_ingreso_c2">
-		<form id="frmInsertPedido" action="@Url.Action("PedidoAgregarProductoTransaction", "PedidoRegistro")" method="post" role="form">
-			<input type="hidden" id="hdfDescripcionCategoria" />
-			<input type="hidden" id="hdfDescripcionEstrategia" />
-			<input type="hidden" id="hdfDescripcionMarca" />
-			<input type="hidden" id="hdfCUV" />
-			<input type="hidden" id="hdfClienteDescripcion" />
-			<input type="hidden" id="hdnRegistrosPaginar" value="@Model.Registros" name="Registros" />
-			<input type="hidden" id="hdnRegistrosDePaginar" value="@Model.RegistrosDe" name="RegistrosDe" />
-			<input type="hidden" id="hdnRegistrosTotalPaginar" value="@Model.RegistrosTotal" name="RegistrosTotal" />
-			<input type="hidden" id="hdnPaginaPaginar" value="@Model.Pagina" name="Pagina" />
-			<input type="hidden" id="hdnPaginaDePaginar" value="@Model.PaginaDe" name="PaginaDe" />
-			<input type="hidden" id="hdnClienteID_" value="@Model.ClienteID_" name="ClienteID_" />
-			<input type="hidden" id="hdfTipo" value="@Model.Tipo" name="Tipo" />
-			<input type="hidden" id="hdfIndicadorMontoMinimo" value="@Model.IndicadorMontoMinimo" name="IndicadorMontoMinimo" />
-			<input type="hidden" id="hdTipoOfertaSisID" value="@Model.TipoOfertaSisID" name="TipoOfertaSisID" />
-			<input type="hidden" id="hdConfiguracionOfertaID" value="@Model.ConfiguracionOfertaID" name="ConfiguracionOfertaID" />
-			<input type="hidden" id="hdnDescripcionEstrategia" value="@Model.DescripcionEstrategia" name="DescripcionEstrategia" />
-			<input type="hidden" id="hdnDescripcionLarga" value="@Model.DescripcionLarga" name="DescripcionLarga" />
-			<input type="hidden" id="hdfDescripcionProd" value="@Model.DescripcionProd" name="DescripcionProd" />
-			<input type="hidden" id="hdfMarcaID" value="@Model.MarcaID" name="MarcaID" />
-			<input type="hidden" id="hdfPrecioUnidad" value="@Model.PrecioUnidad" name="PrecioUnidad" />
-			<input type="hidden" id="hdfClienteID" value="@Model.ClienteID" name="ClienteID" />
-			<input type="hidden" id="hdfOrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.DesktopPedidoDigitado" name="OrigenPedidoWeb" />
-			<input type="hidden" id="hdfEsBusquedaSR" />
-			<input type="hidden" id="hdfEstrategiaId" value="0"/>
+        <form id="frmInsertPedido" action="@Url.Action("PedidoAgregarProductoTransaction", "PedidoRegistro")" method="post" role="form">
+            <input type="hidden" id="hdfDescripcionCategoria" />
+            <input type="hidden" id="hdfDescripcionEstrategia" />
+            <input type="hidden" id="hdfDescripcionMarca" />
+            <input type="hidden" id="hdfCUV" />
+            <input type="hidden" id="hdfClienteDescripcion" />
+            <input type="hidden" id="hdnRegistrosPaginar" value="@Model.Registros" name="Registros" />
+            <input type="hidden" id="hdnRegistrosDePaginar" value="@Model.RegistrosDe" name="RegistrosDe" />
+            <input type="hidden" id="hdnRegistrosTotalPaginar" value="@Model.RegistrosTotal" name="RegistrosTotal" />
+            <input type="hidden" id="hdnPaginaPaginar" value="@Model.Pagina" name="Pagina" />
+            <input type="hidden" id="hdnPaginaDePaginar" value="@Model.PaginaDe" name="PaginaDe" />
+            <input type="hidden" id="hdnClienteID_" value="@Model.ClienteID_" name="ClienteID_" />
+            <input type="hidden" id="hdfTipo" value="@Model.Tipo" name="Tipo" />
+            <input type="hidden" id="hdfIndicadorMontoMinimo" value="@Model.IndicadorMontoMinimo" name="IndicadorMontoMinimo" />
+            <input type="hidden" id="hdTipoOfertaSisID" value="@Model.TipoOfertaSisID" name="TipoOfertaSisID" />
+            <input type="hidden" id="hdConfiguracionOfertaID" value="@Model.ConfiguracionOfertaID" name="ConfiguracionOfertaID" />
+            <input type="hidden" id="hdnDescripcionEstrategia" value="@Model.DescripcionEstrategia" name="DescripcionEstrategia" />
+            <input type="hidden" id="hdnDescripcionLarga" value="@Model.DescripcionLarga" name="DescripcionLarga" />
+            <input type="hidden" id="hdfDescripcionProd" value="@Model.DescripcionProd" name="DescripcionProd" />
+            <input type="hidden" id="hdfMarcaID" value="@Model.MarcaID" name="MarcaID" />
+            <input type="hidden" id="hdfPrecioUnidad" value="@Model.PrecioUnidad" name="PrecioUnidad" />
+            <input type="hidden" id="hdfClienteID" value="@Model.ClienteID" name="ClienteID" />
+            <input type="hidden" id="hdfOrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.DesktopPedidoDigitado" name="OrigenPedidoWeb" />
+            <input type="hidden" id="hdfEsBusquedaSR" />
+            <input type="hidden" id="hdfEstrategiaId" value="0" />
 
             <div id="divObservaciones" class="pedidos_no_existe" style="position:relative;"></div>
 
@@ -435,20 +435,20 @@
                     </div>
                     <div class="descripcion_observaciones_alerta" id="desc_obs_alerta">
                         @*<ul>
-                            <li>
-                                El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
-                                Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
-                            </li>
-                            <li>
-                                El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
-                                Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
-                            </li>
-                            <li>
-                                El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
-                                Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
-                            </li>
+                                <li>
+                                    El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
+                                    Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
+                                </li>
+                                <li>
+                                    El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
+                                    Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
+                                </li>
+                                <li>
+                                    El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
+                                    Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
+                                </li>
 
-                        </ul>*@
+                            </ul>*@
                     </div>
 
                 </div>
@@ -939,7 +939,7 @@
                 <div class="contenedor_productosSugeridos">
                     <div>
                         <h5>PRUEBA CON ESTAS OPCIONES QUE SON SIMILARES</h5>
-                    </div>                    
+                    </div>
                     <div class="cerrar_popup_productoSugerido" data-close="divProductoAgotadoFinal">
                         <h5>NO, GRACIAS</h5>
                         <span class="btn_cerrar_opcionNoGracias">
@@ -1709,6 +1709,7 @@
 @Html.Partial("~/Views/Pedido/_vpPedidoGrilla-Template.cshtml")
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
 @Html.Partial("~/Views/FichaProducto/template-ficha-producto.cshtml")
+@Html.Partial("~/Views/DetalleEstrategia/FichaTemplate.cshtml")
 
 <script id="productos-faltantes-template" type="text/x-handlebars-template">
     <table>
@@ -2060,7 +2061,7 @@
 </script>
 
 @section scripts{
-<script type="text/javascript">
+    <script type="text/javascript">
         var arregloProductos;
         var cantProductosLoad = '@Model.ListaEstrategias.Count';
         var constConfiguracionOfertaLiquidacion = '@Constantes.ConfiguracionOferta.Liquidacion';
@@ -2130,8 +2131,9 @@
         var activarRecomendaciones = '@ViewBag.ActivarRecomendaciones';
         var urlValidarKitNuevas = '@Url.Action("ValidarKitNuevas", "PedidoRegistro", new { area = "" })';
         var maxCaracteresRecomendaciones = '@ViewBag.MaxCaracteresRecomendaciones';
+        var urlObtenerComponentes = '@Url.Action("ObtenerComponentes", "DetalleEstrategia")';
 
-</script>
+    </script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/SB2-Pedido")
     @if (HttpContext.Current.Request.Browser.IsMobileDevice)
     {
@@ -2144,5 +2146,5 @@
         <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Pedido/ConsultoraOnline.js")"></script>
     }
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/FichaProducto/Index.js")"></script>
-    
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/DetalleEstrategia/FichaModule.js")"></script>
 }
