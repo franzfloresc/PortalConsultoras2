@@ -118,19 +118,23 @@
                 $("#btnPanelListaAceptar").click(function () {
                     var clienteSeleccion =
                     {
-                        hfPaisID: $("#hfPaisID").val(),
-                        hfClienteID: $("#hfClienteID").val(),
-                        hfCodigoCliente: $("#hfCodigoCliente").val(),
-                        hfNombreCliente: $("#hfNombreCliente").val()
+                        PaisID: $("#hfPaisID").val(),
+                        ClienteID: $("#hfClienteID").val(),
+                        CodigoCliente: $("#hfCodigoCliente").val(),
+                        NombreCliente: $("#hfNombreCliente").val()
                     };
 
-                    console.log("Selección: ", clienteSeleccion);
-
-                    if ($.isFunction(instancia.AceptarClick)) {
-                        instancia.AceptarClick(clienteSeleccion);
+                    
+                    if (clienteSeleccion.ClienteID != "") {
+                        console.log("Selección: ", clienteSeleccion);
+                        instancia.Cerrar();
+                        if ($.isFunction(instancia.AceptarClick)) {
+                            instancia.AceptarClick(clienteSeleccion);
+                        }
+                    } else {
+                        alert('Seleccione un Cliente');
                     }
-
-                   instancia.Cerrar();
+                   
                 });
 
                 $("#btnPanelListaCerrar").click(function () {

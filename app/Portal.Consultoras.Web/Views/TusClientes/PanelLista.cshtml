@@ -57,8 +57,7 @@
 <a href="#" style="text-decoration:underline" id="btnPanelListaCerrar">Cerrar panel</a>
 <a href="#" style="text-decoration:underline" id="btnPanelListaAgregar">Agregar Cliente</a>
 <a href="#" style="text-decoration:underline" id="btnPanelListaAceptar">Aceptar selección</a>
-
-
+  
 <input placeholder="Buscar" type="text" class="buscador_clientes" id="txtPanelListaBusqueda" style="width:100%" />
 
 
@@ -122,8 +121,11 @@
                 data: JSON.stringify({ texto: $("#txtPanelListaBusqueda").val() }),
                 async: true,
                 success: function (data) {
+                    
                     console.log(data);
                     pintar(data);
+
+                    seleccionarRegistro('', '', '', '');
                 },
                 error: function (data, error) { }
             });
