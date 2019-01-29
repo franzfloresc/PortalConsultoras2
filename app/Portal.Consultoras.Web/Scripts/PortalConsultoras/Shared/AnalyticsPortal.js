@@ -311,7 +311,17 @@ var AnalyticsPortalModule = (function () {
 
     var _getTextoPalancaSegunUrl = function (url) {
 
-        var controller = window.controllerName || "";
+        url = url || "";
+        var partes = url.split('/');
+        var controlador = "";
+        $.each(partes, function (index, campo) {
+            campo = campo.toLocaleLowerCase();
+            if (controlador == "" && campo != "" && campo != "mobile") {
+                controlador = campo;
+            }
+        });
+
+        var controller = controlador || window.controllerName || "";
         controller = controller.toLocaleLowerCase();
 
         var seccion = _urlPaginas.find(function (element) {
