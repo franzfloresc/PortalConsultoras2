@@ -83,6 +83,11 @@
     <Compile Include="CDR\DALogCDRWebDetalleCulminado.cs" />
     <Compile Include="CDR\DALogCDRWebDetalle.cs" />
     <Compile Include="CDR\DALogCDRWeb.cs" />
+    <Compile Include="Connected Services\ServiceActualizarFlagBoletaImpresa\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Connected Services\ServiceDirecciondeEntrega\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -305,6 +310,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Connected Services\ServiceActualizarFlagBoletaImpresa\Portal.Consultoras.Data.ServiceActualizarFlagBoletaImpresa.actualizaFlagImpBoletasResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ServiceActualizarFlagBoletaImpresa\Portal.Consultoras.Data.ServiceActualizarFlagBoletaImpresa.ActualizarFlagImpBoletaResultado.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ServiceActualizarFlagBoletaImpresa\ProcesoMAEActualizaFlagImpBoletasWebService.wsdl" />
     <None Include="Connected Services\ServiceDirecciondeEntrega\Portal.Consultoras.Data.ServiceDirecciondeEntrega.actualizacionDireccionEntregaResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -390,6 +402,7 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\ServiceActualizarFlagBoletaImpresa\" />
     <WCFMetadataStorage Include="Connected Services\ServiceDirecciondeEntrega\" />
   </ItemGroup>
   <ItemGroup>
@@ -400,6 +413,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\ServiceDirecciondeEntrega\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ServiceActualizarFlagBoletaImpresa\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ServiceActualizarFlagBoletaImpresa\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ServiceActualizarFlagBoletaImpresa\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

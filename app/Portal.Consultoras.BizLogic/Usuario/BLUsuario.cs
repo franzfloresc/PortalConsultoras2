@@ -25,6 +25,7 @@ using Portal.Consultoras.Entities.ProgramaNuevas;
 using Portal.Consultoras.Entities.Usuario;
 using Portal.Consultoras.Data.ServiceDirecciondeEntrega;
 using System.ServiceModel;
+using Portal.Consultoras.Data.ServiceActualizarFlagBoletaImpresa;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -3826,6 +3827,17 @@ namespace Portal.Consultoras.BizLogic
                         string CodigoIsoSicc = Common.Util.GetSiccPaisISO(usuario.CodigoISO);
                         var result = svr.actualizacionDireccionEntrega(CodigoIsoSicc, Direccionexterna);
                         if(result.codigo=="2")
+                            throw new Exception(result.mensaje);
+                    }
+                    var urlService = new EndpointAddress(WebConfig.ServicioActualizarBoletaImp);
+                    bool flagBolImp = usuario.UsuarioOpciones.Where(a => a.Codigo == "chkBoletasImpresas").Select(b => b.CheckBox).FirstOrDefault();
+                    using (var svr = new ProcesoMAEActualizaFlagImpBoletasWebServiceImplClient(new BasicHttpBinding(), urlService))
+                    {
+                        svr.Endpoint.Binding.SendTimeout = new TimeSpan(0, 0, 0, 10);
+                        var objActualizarFlagBoleta = new List<ConsultoraFlagImpBoleta>();
+                        objActualizarFlagBoleta.Add(new ConsultoraFlagImpBoleta { codigoConsultora = usuario.CodigoUsuario, indImprimeBoleta = !flagBolImp ? "N" : "S" });
+                        var result = svr.actualizaFlagImpBoletas(objActualizarFlagBoleta.ToArray());
+                        if (result.estado == 1)
                             throw new Exception(result.mensaje);
                     }
                     ts.Complete();

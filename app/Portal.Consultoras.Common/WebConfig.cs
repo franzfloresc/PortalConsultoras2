@@ -158,5 +158,13 @@ namespace Portal.Consultoras.Common
                 return ConfigurationManager.AppSettings["ServicioDireccionEntregaSicc"] ?? string.Empty;
             }
         }
+
+        public static string ServicioActualizarBoletaImp
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["ServicioActualizarBoletaImp"] ?? string.Empty;
+            }
+        }
     }
 }
