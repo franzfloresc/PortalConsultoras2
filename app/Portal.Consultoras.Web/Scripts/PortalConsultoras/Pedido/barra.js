@@ -2419,6 +2419,8 @@ function CalculoPosicionMinimoMaximoDestokp() {
             else 
                 document.getElementsByClassName('bandera_marcador')[0].style.display = 'none';
         }
+
+        ReordenarMontosBarra();
     }
 
 }
@@ -2519,3 +2521,132 @@ function ClosePopupRegaloElectivo() {
     CerrarPopup('#popupEleccionRegalo');
     $('#popupEleccionRegalo').scrollTop(0);
 };
+
+function ReordenarMontosBarra()
+{
+    var barra = dataBarra.ListaEscalaDescuento;
+
+    var monto = 0;
+    if (IsoPais == 'CO')
+        monto = 150000;
+     else if (IsoPais == 'CR')
+        monto = 20000;
+    else if (IsoPais == 'CL')
+        monto = 40000;
+    else if (IsoPais == 'PE')
+        monto = 200;
+    else
+        monto = 100;
+
+ 
+    var diferencia2 = 0;
+    for (var i = barra.length - 1; i >=1; i--)
+    {
+
+        if ((IsoPais == 'CO' && i == 0) || (IsoPais == 'CO' && document.getElementById('hdEsConsultoraOficina').value == 'False' && i==1  ) ) continue;
+        i
+
+        var diferencia1 = (barra[i].MontoDesde - barra[i - 1].MontoDesde); 
+        if (i >= 2) {
+            diferencia2 = (barra[i - 1].MontoDesde - barra[i - 2].MontoDesde); 
+        }
+        else
+            diferencia2 = 0;
+
+       
+
+        if (diferencia1 <= monto && (diferencia2 <= monto && diferencia2 != 0)) {  
+
+            if (IsoPais == 'CO') {
+                if (document.getElementById('punto_' + i.toString()) != null) document.getElementById('punto_' + i.toString()).style.left = (document.getElementById('punto_' + i.toString()).style.left.substring(0, document.getElementById('punto_' + i.toString()).style.left.length - 1) * 1 + 2.5) + '%'
+                if (document.getElementById('punto_' + (i - 1).toString()) != null) document.getElementById('punto_' + (i - 1).toString()).style.left = (document.getElementById('punto_' + (i - 1).toString()).style.left.substring(0, document.getElementById('punto_' + (i - 1).toString()).style.left.length - 1) * 1 +2) + '%'
+                if (document.getElementById('punto_' + (i - 2).toString()) != null) document.getElementById('punto_' + (i - 2).toString()).style.left = (document.getElementById('punto_' + (i - 2).toString()).style.left.substring(0, document.getElementById('punto_' + (i - 2).toString()).style.left.length - 1) * 1 - 3) + '%'
+
+
+            }
+            else if (IsoPais == 'CR') {
+                if (document.getElementById('punto_' + i.toString()) != null) document.getElementById('punto_' + i.toString()).style.left = (document.getElementById('punto_' + i.toString()).style.left.substring(0, document.getElementById('punto_' + i.toString()).style.left.length - 1) * 1 + 2) + '%'
+                if (document.getElementById('punto_' + (i - 1).toString()) != null) document.getElementById('punto_' + (i - 1).toString()).style.left = (document.getElementById('punto_' + (i - 1).toString()).style.left.substring(0, document.getElementById('punto_' + (i - 1).toString()).style.left.length - 1) * 1 +2) + '%'
+                if (document.getElementById('punto_' + (i - 2).toString()) != null) document.getElementById('punto_' + (i - 2).toString()).style.left = (document.getElementById('punto_' + (i - 2).toString()).style.left.substring(0, document.getElementById('punto_' + (i - 2).toString()).style.left.length - 1) * 1 - 3) + '%'
+ 
+            }
+            else if (IsoPais != 'CO' && IsoPais != 'CR') {//CHILE
+                if (document.getElementById('punto_' + i.toString()) != null) document.getElementById('punto_' + i.toString()).style.left = (document.getElementById('punto_' + i.toString()).style.left.substring(0, document.getElementById('punto_' + i.toString()).style.left.length - 1) * 1 + 2) + '%'
+                if (document.getElementById('punto_' + (i - 1).toString()) != null) document.getElementById('punto_' + (i - 1).toString()).style.left = (document.getElementById('punto_' + (i - 1).toString()).style.left.substring(0, document.getElementById('punto_' + (i - 1).toString()).style.left.length - 1) * 1 + 2) + '%'
+                if (document.getElementById('punto_' + (i - 2).toString()) != null) document.getElementById('punto_' + (i - 2).toString()).style.left = (document.getElementById('punto_' + (i - 2).toString()).style.left.substring(0, document.getElementById('punto_' + (i - 2).toString()).style.left.length - 1) * 1 - 3) + '%'
+
+
+            }
+
+            for (var x = 0; x < barra.length; x++) {
+                if (IsoPais == 'CO') {
+                    document.getElementById('punto_' + x.toString()).firstChild.firstChild.firstChild.style.fontSize = '10px';
+                    document.getElementById('punto_' + x.toString()).firstChild.firstChild.firstChild.nextSibling.style.fontSize = '10px';
+
+                }
+                else if (IsoPais == 'CR')
+                {
+
+                    document.getElementById('punto_' + x.toString()).firstChild.firstChild.firstChild.style.fontSize = '9px';
+                    document.getElementById('punto_' + x.toString()).firstChild.firstChild.firstChild.nextSibling.style.fontSize = '9px';
+                }
+                else if (IsoPais == 'CL') {
+
+                    document.getElementById('punto_' + x.toString()).firstChild.firstChild.firstChild.style.fontSize = '10px';
+                    document.getElementById('punto_' + x.toString()).firstChild.firstChild.firstChild.nextSibling.style.fontSize = '10px';
+                }
+                else {
+
+                    document.getElementById('punto_' + x.toString()).firstChild.firstChild.firstChild.style.fontSize = '10px';
+                    document.getElementById('punto_' + x.toString()).firstChild.firstChild.firstChild.nextSibling.style.fontSize = '10px';
+                }
+
+
+            }
+
+        }
+        else if (diferencia1 <= monto) {  
+
+            if (IsoPais == 'CO'){
+                if (document.getElementById('punto_' + i.toString()) != null) document.getElementById('punto_' + i.toString()).style.left = (document.getElementById('punto_' + i.toString()).style.left.substring(0, document.getElementById('punto_' + i.toString()).style.left.length - 1) * 1 + 2.5) + '%'
+                if (document.getElementById('punto_' + (i - 1).toString()) != null) document.getElementById('punto_' + (i - 1).toString()).style.left = (document.getElementById('punto_' + (i - 1).toString()).style.left.substring(0, document.getElementById('punto_' + (i - 1).toString()).style.left.length - 1) * 1 - 3) + '%'
+
+
+            }
+            else if (IsoPais == 'CR') {
+                if (document.getElementById('punto_' + i.toString()) != null) document.getElementById('punto_' + i.toString()).style.left = (document.getElementById('punto_' + i.toString()).style.left.substring(0, document.getElementById('punto_' + i.toString()).style.left.length - 1) * 1 + 2) + '%'
+                if (document.getElementById('punto_' + (i - 1).toString()) != null) document.getElementById('punto_' + (i - 1).toString()).style.left = (document.getElementById('punto_' + (i - 1).toString()).style.left.substring(0, document.getElementById('punto_' + (i - 1).toString()).style.left.length - 1) * 1 - 5) + '%'
+ 
+            }
+            else if (IsoPais != 'CO' && IsoPais != 'CR') {
+                if (document.getElementById('punto_' + i.toString()) != null) document.getElementById('punto_' + i.toString()).style.left = (document.getElementById('punto_' + i.toString()).style.left.substring(0, document.getElementById('punto_' + i.toString()).style.left.length - 1) * 1 + 2) + '%'
+                if (document.getElementById('punto_' + (i - 1).toString()) != null) document.getElementById('punto_' + (i - 1).toString()).style.left = (document.getElementById('punto_' + (i - 1).toString()).style.left.substring(0, document.getElementById('punto_' + (i - 1).toString()).style.left.length - 1) * 1 - 3) + '%'
+
+            }
+                      
+            for (var x = 0; x < barra.length; x++) {
+                if (IsoPais == 'CO') {
+                    document.getElementById('punto_' + x.toString()).firstChild.firstChild.firstChild.style.fontSize = '10px';
+                    document.getElementById('punto_' + x.toString()).firstChild.firstChild.firstChild.nextSibling.style.fontSize = '10px';
+
+                }
+                else if (IsoPais == 'CR') {
+
+                    document.getElementById('punto_' + x.toString()).firstChild.firstChild.firstChild.style.fontSize = '9px';
+                    document.getElementById('punto_' + x.toString()).firstChild.firstChild.firstChild.nextSibling.style.fontSize = '9px';
+                }
+                else if (IsoPais != 'CO' && IsoPais != 'CR') {
+
+                    document.getElementById('punto_' + x.toString()).firstChild.firstChild.firstChild.style.fontSize = '10px';
+                    document.getElementById('punto_' + x.toString()).firstChild.firstChild.firstChild.nextSibling.style.fontSize = '10px';
+                }
+            }
+
+        }
+        
+
+
+ 
+    }
+
+}
