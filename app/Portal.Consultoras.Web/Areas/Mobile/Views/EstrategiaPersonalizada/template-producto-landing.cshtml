@@ -109,14 +109,14 @@
                                         <span class="producto_precio_oferta"><b>{{SimboloMoneda}} {{PrecioVenta}}</b></span>
                                     </div>
 
-                                    {{#iff TipoAccionAgregar '!=' '@Constantes.TipoAccionAgregar.EligeOpcion'}}
+                                    @*{{#iff TipoAccionAgregar '!=' '@Constantes.TipoAccionAgregar.EligeOpcion'}}
                                     {{#if TieneStock}}
                                     {{else}}
                                     <div class="boton_producto_agotado">
                                         Agotado
                                     </div>
                                     {{/if}}
-                                    {{/iff}}
+                                    {{/iff}}*@
 
                                 </div>
                             </div>
@@ -127,6 +127,7 @@
                             <div>
                                 {{#iff TipoAccionAgregarTipoAccionAgregar '==' '@Constantes.TipoAccionAgregar.AgregaloPackNuevas'}}
                                 <div class="texto_elige_tono">&nbsp;</div>
+                                {{#if TieneStock}}
                                 <div class="producto_nombre_descripcion">
                                     <div class="liquidacion_rango_home">
                                         <input type="tel" value="1" size="2" maxlength="2" data-input='cantidad' disabled="disabled"
@@ -136,19 +137,23 @@
                                                {{#iff ClaseBloqueada '!=' ''}} disbled="disable" {{/iff}}>
                                     </div>
                                     <div class="clear"></div>
-                                    {{#if TieneStock}}
-                                        <a class="boton_Agregalo_home {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}" onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event); ">
-                                            AGR&Eacute;GALO
-                                        </a>
-                                    {{else}}
-                                        <div class="boton_producto_agotado">
-                                            Agotado
-                                        </div>
-                                    {{/if}}
+                                    <a class="boton_Agregalo_home {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}" onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event); ">
+                                        AGR&Eacute;GALO
+                                    </a>
                                 </div>
+                                {{else}}
+                                <div class="clear"></div>
+                                <div class="texto_elige_tono" style="height: 55px;padding-top: 16px;"></div>
+                                <div class="clear"></div>
+                                <div class="boton_producto_agotado">
+                                    Agotado
+                                </div>
+                                {{/if}}
                                 {{/iff}}
+
                                 {{#iff TipoAccionAgregar '==' '@Constantes.TipoAccionAgregar.AgregaloNormal'}}
                                 <div class="texto_elige_tono">&nbsp;</div>
+                                {{#if TieneStock}}
                                 <div class="producto_nombre_descripcion">
                                     <div class="liquidacion_rango_home" data-cantidad-contenedor="">
                                         <a class="cantidad_menos_home" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" data-bloqueada="{{ClaseBloqueada}}"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
@@ -159,21 +164,24 @@
                                         <a class="cantidad_mas_home" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" data-bloqueada="{{ClaseBloqueada}}"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                                     </div>
                                     <div class="clear"></div>
-                                    {{#if TieneStock}}
                                     <a class="boton_Agregalo_home {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}" onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event); ">
                                         AGR&Eacute;GALO
                                     </a>
-                                     {{else}}
-                                        <div class="boton_producto_agotado">
-                                            Agotado
-                                        </div>
-                                    {{/if}}
                                 </div>
+                                {{else}}
+                                <div class="clear"></div>
+                                <div class="texto_elige_tono" style="height: 55px;padding-top: 16px;"></div>
+                                <div class="clear"></div>
+                                <div class="boton_producto_agotado">
+                                    Agotado
+                                </div>
+                                {{/if}}
                                 {{/iff}}
+
                                 {{#iff TipoAccionAgregar '==' '@Constantes.TipoAccionAgregar.EligeOpcion'}}
                                 <div class="texto_elige_tono">&nbsp;</div>
                                 <div class="clear"></div>
-                                <div class="texto_elige_tono" style="height: 55px;padding-top: 16px;">@*¡AHORA ELIGE TU OPCIÓN!*@</div>
+                                <div class="texto_elige_tono" style="height: 55px;padding-top: 16px;"></div>
                                 <div class="clear"></div>
 
                                 {{#if TieneStock}}
@@ -187,8 +195,8 @@
                                     Agotado
                                 </div>
                                 {{/if}}
-                                
                                 {{/iff}}
+
                                 <div class="producto_nombre_descripcion">
                                     <div class="agregado product-add" style="text-align:right;display:{{#if IsAgregado }}block;{{else}}none;{{/if}}">
                                         AGREGADO
