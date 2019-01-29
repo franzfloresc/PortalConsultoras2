@@ -37,8 +37,10 @@ function MostrarBarra(datax, destino) {
         initCarruselPremios(dataBarra);
         if (datax.data && datax.data.CUV) {
             trySetPremioElectivo(datax.data.CUV);
+        } else {
+            savePedidoDetails(datax);
+            checkPremioSelected();
         }
-        savePedidoDetails(datax);
     }
 
     dataBarra.ListaEscalaDescuento = dataBarra.ListaEscalaDescuento || new Array();
@@ -875,7 +877,7 @@ function cargarPopupEleccionRegalo(disableCheck) {
 
     var disable = typeof disableCheck === 'boolean' && disableCheck === true;
     if (!disable) {
-        checkPremioSelected();
+        checkPremioSelected(true);
     }
 
     AbrirPopup('#popupEleccionRegalo');
@@ -897,7 +899,7 @@ function isTippingPointSuperado() {
         !tpElectivos.premioSelected;
 }
 
-function checkPremioSelected() {
+function checkPremioSelected(validateInCarrusel) {
     var details = tpElectivos.pedidoDetails;
     if (!details || details.length === 0) {
         if (tpElectivos.premioSelected) {
@@ -916,7 +918,7 @@ function checkPremioSelected() {
         return;
     }
 
-    if (isCuvSelected(detail.CUV)) {
+    if (isCuvSelected(detail.CUV, validateInCarrusel)) {
         return;
     }
 
@@ -1074,12 +1076,21 @@ function getElementPremiosByCuv(list, cuv) {
     return null;
 }
 
-function isCuvSelected(cuv) {
+function isCuvSelected(cuv, validateInCarrusel) {
     if (!tpElectivos.premioSelected ||
         tpElectivos.premioSelected.CUV2 != cuv)
     {
         return false;
     }
+
+    if (!validateInCarrusel) {
+        return true;
+    }
+
+    return isCuvSelectedInCarrusel(cuv);
+}
+
+function isCuvSelectedInCarrusel(cuv) {
     var element = getElementByCuv(cuv);
 
     return element && element.hasClass('opcion_regalo_carousel_elegido');
