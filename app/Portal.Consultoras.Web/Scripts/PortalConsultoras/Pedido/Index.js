@@ -529,7 +529,8 @@ $('body').on('click', 'div.pedido_item_editable', function (event) {
         cuv: '31060',
         origen: '1080301',
         tieneSession: null,
-        urlObtenerComponentes: urlObtenerComponentes
+        urlObtenerComponentes: urlObtenerComponentes,
+        esEditable: true
     });
     fichaModule.Inicializar();
     //var obj = {

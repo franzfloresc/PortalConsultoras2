@@ -75,7 +75,8 @@ var FichaModule = (function (config) {
         origen: config.origen || "",
         tieneSession: config.tieneSession || "",
         urlObtenerComponentes: config.urlObtenerComponentes || "", // siempre el mismo url ponerlo no config
-        urlObtenerModelo: '/DetalleEstrategia/ObtenerModelo'
+        urlObtenerModelo: '/DetalleEstrategia/ObtenerModelo',
+        esEditable: config.esEditable
     };
 
     var _const = {
@@ -732,6 +733,7 @@ var FichaModule = (function (config) {
         modelo.campaniaId = _config.campania;
         modelo.cuv = _config.cuv;
         modelo.origen = _config.origen;
+        modelo.esEditable = _config.esEditable;
 
         var modeloFicha = {};
 

@@ -49,11 +49,11 @@ namespace Portal.Consultoras.Web.Controllers
             
         }
 
-        public JsonResult ObtenerModelo(string palanca, int campaniaId, string cuv, string origen)
+        public JsonResult ObtenerModelo(string palanca, int campaniaId, string cuv, string origen, bool esEditable = false)
         {
             try
             {
-                var modelo = FichaModelo(palanca, campaniaId, cuv, origen);
+                var modelo = FichaModelo(palanca, campaniaId, cuv, origen, esEditable);
 
                 if (modelo != null)
                 {
