@@ -512,12 +512,7 @@ $(document).ready(function () {
         return false;
     });
 
-    //$('div.pedido_item_editable').on('click', function (event) {
-    //    event.stopPropagation();
-    //    event.stopImmediatePropagation();
-
-    //    console.log('fila');
-    //});
+    
 });
 
 $('body').on('click', 'div.pedido_item_editable', function (event) {
@@ -532,24 +527,7 @@ $('body').on('click', 'div.pedido_item_editable', function (event) {
         urlObtenerComponentes: urlObtenerComponentes
     });
     fichaModule.Inicializar();
-    //var obj = {
-    //    palanca: 'OfertaParaTi',
-    //    campaniaId: '201902',
-    //    cuv: '31758',
-    //    origen: '1080001'
-    //};
-
-    //$.ajax({
-    //    type: "POST",
-    //    url: baseUrl + "DetalleEstrategia/ObtenerModelo",
-    //    dataType: "json",
-    //    contentType: "application/json; charset=utf-8",
-    //    data: JSON.stringify(obj),
-    //    success: function (response) {
-    //        console.log(response);
-    //    },
-    //    error: function (response, error) { }
-    //});
+    
 });
 
 function CargarDetallePedido(page, rows, asyncrono) {
@@ -635,6 +613,7 @@ function CargarDetallePedido(page, rows, asyncrono) {
 
                 MostrarBarra(response);
                 CargarAutocomplete();
+                MuestraFichaResumida();
 
                 if ($("#penmostreo").length > 0) {
                     if ($("#penmostreo").attr("[data-tab-activo]") == "1") {
@@ -647,6 +626,17 @@ function CargarDetallePedido(page, rows, asyncrono) {
     });
 }
 
+function MuestraFichaResumida() {
+    $('.pedido_item_editable').click(function (e) {
+        ShowDivFichaResumida(true);
+    });
+}
+function ShowDivFichaResumida(isShow = true) {
+    if (isShow)
+        $('#DivPopupFichaResumida').css('display', 'block');
+    else
+        $('#DivPopupFichaResumida').css('display', 'none');
+}
 function CargarDialogMesajePostulantePedido() {
     if (gTipoUsuario == "2" && MensajePedidoDesktop == "0") {
         var mesg = "En este momento podrás simular el ingreso de tu pedido.";
