@@ -66,19 +66,23 @@ var ComponentesModule = (function () {
     };
 
     var _mostrarMensajeTonosAgotados = function (estrategia) {
-        if (estrategia.Hermanos.length > 0) {
-            var cta = 0;
+        if (estrategia.Hermanos.length > 1) {
             var hijos = 0;
+            var cta = 0;
             $.each(estrategia.Hermanos, function (i, obj) {
-                if (obj.Hermanos !== null) {
+                if (obj.Hermanos !== 'undefined' && obj.Hermanos !== null) {
                     $.each(obj.Hermanos, function (j, k) {
                         hijos++;
                         if (!k.TieneStock) cta++;
                     });
                 }
+                else {
+                    hijos++;
+                    if (!obj.TieneStock) cta++;
+                }
             });
 
-            if (cta > 0 && hijos > 1) {
+            if (hijos > 1 && cta > 0) {
                 if (cta < hijos) {
                     $('.xmsg-tonos-agotados').show();
                 }
