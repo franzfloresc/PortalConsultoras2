@@ -89,6 +89,8 @@
 
             $("#btnPanelMantenerAgregar").click(function () {
 
+                
+
                 var baseUrlDetalle = $("#hfBaseUrlDetalle").val();
 
                 var vcont = 0;
@@ -135,6 +137,7 @@
                     Celular: celular
                 };
 
+                $("#btnPanelMantenerAgregar").hide();
                 //AbrirSplash();
 
                 jQuery.ajax({
@@ -149,10 +152,11 @@
                         console.log(data);
 
                         if (data.success == true) {
+
                             // CerrarSplash();
 
-                            item.CodigoCliente = data.extra.split("|")[0];
-                            item.ClienteID = data.extra.split("|")[1];
+                            ///item.CodigoCliente = data.extra.split("|")[0];
+                            //item.ClienteID = data.extra.split("|")[1];
 
                             console.log(data);
 
@@ -168,12 +172,15 @@
                             //CerrarSplash();
                         }
                         //}
+
+                        $("#btnPanelMantenerAgregar").show();
                     },
                     error: function (data, error) {
                         //if (checkTimeout(data)) {
 
                         alert(data.message);
                         //}
+                        $("#btnPanelMantenerAgregar").show();
                     }
                 });
             });
