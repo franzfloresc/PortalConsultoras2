@@ -297,11 +297,11 @@ var menuModule = (function () {
         }
 
         if (typeof AnalyticsPortalModule !== "undefined") {
+            titulo = titulo || "";
             var OrigenPedidoWeb = "";
             OrigenPedidoWeb = EstrategiaAgregarModule.GetOrigenPedidoWeb($(e), false);
 
             if (url.indexOf(ConstantesModule.CodigosPalanca.Ganadoras) > 0) {
-                titulo = titulo || "";
                 if (titulo === "BannerMG") {
                     AnalyticsPortalModule.MarcarClickMasOfertasPromotionClickMG();
                 }
@@ -314,7 +314,7 @@ var menuModule = (function () {
                     + ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel;
             }
 
-            if (url.indexOf(ConstantesModule.CodigosPalanca.SR) > 0) {
+            else if (url.indexOf(ConstantesModule.CodigosPalanca.SR) > 0) {
                 if (titulo === "BotonVerMasEspecialesHome") {
                     OrigenPedidoWeb = ConstantesModule.OrigenPedidoWebEstructura.Dispositivo.Desktop
                         + ConstantesModule.OrigenPedidoWebEstructura.Pagina.Home
@@ -323,13 +323,13 @@ var menuModule = (function () {
                 }
             }
 
-            if (url.indexOf(ConstantesModule.CodigosPalanca.GuiaNegocio) > 0) {
+            else if (url.indexOf(ConstantesModule.CodigosPalanca.GuiaNegocio) > 0) {
                 OrigenPedidoWeb = ConstantesModule.OrigenPedidoWebEstructura.Dispositivo.Desktop
                     + ConstantesModule.OrigenPedidoWebEstructura.Pagina.Contenedor
                     + ConstantesModule.OrigenPedidoWebEstructura.Palanca.GND
                     + ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel;
             }
-            if (url.indexOf(ConstantesModule.TipoEstrategia.LAN) > 0) {
+            else if (url.indexOf(ConstantesModule.TipoEstrategia.LAN) > 0) {
                 OrigenPedidoWeb = ConstantesModule.OrigenPedidoWebEstructura.Dispositivo.Desktop
                     + ConstantesModule.OrigenPedidoWebEstructura.Pagina.Home
                     + ConstantesModule.OrigenPedidoWebEstructura.Palanca.Lanzamientos
@@ -337,13 +337,21 @@ var menuModule = (function () {
             }
 
             OrigenPedidoWeb = OrigenPedidoWeb || "";
-            AnalyticsPortalModule.MarcaClicVerMasOfertas(url, OrigenPedidoWeb, e.innerText.replace('+',''));
+            var texto = sectionClickGettexto(e);
+            AnalyticsPortalModule.MarcaClicVerMasOfertas(url, OrigenPedidoWeb, texto);
       
         }
         else {
             document.location = url;
         }
 
+    }
+    function sectionClickGettexto() {
+        var texto = (e.innerText || "").trim();
+        if (texto === "") {
+            texto = $(e).find("[data-seccion-btn-vermas]").html() || "";
+        }
+        return texto.replace('+', '');
     }
     function tabResize() {
 

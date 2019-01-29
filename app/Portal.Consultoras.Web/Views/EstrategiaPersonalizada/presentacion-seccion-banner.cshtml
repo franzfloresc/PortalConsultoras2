@@ -12,6 +12,7 @@
 }
 <div class="bc_plantilla_estrategia_personalizada">
     <div class="parche_presentacion_contenedor parche_presentacion_contenedor_834"
+         onclick="javascript: menuModule.sectionClick('@Model.UrlLandig', '@Model.TituloBtnAnalytics', this);"
          style="background: url(@Model.ImagenFondo);
             height: 500px;
             background-position: 54.5% 0;   
@@ -30,7 +31,7 @@
             @if (Model.VerMas)
             {
                 <div class="ir">
-                    <a class="@vermasClass"  onclick="javascript: menuModule.sectionClick('@Model.UrlLandig', '@Model.TituloBtnAnalytics', this);">VER MÁS OFERTAS</a>
+                    <a class="@vermasClass" href="javascript:void(0);" data-seccion-btn-vermas="">VER MÁS OFERTAS</a>
                 </div>
             }
             <div class="parche_clear"></div>
