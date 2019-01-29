@@ -697,7 +697,7 @@ function AgregarProductoListado() {
         CloseLoading();
         return false;
     }
-
+    
     var CUV = $('#hdfCUV').val();
     $("#hdCuvRecomendado").val(CUV);
     $("#btnAgregarProducto").attr("disabled", "disabled");
@@ -709,7 +709,8 @@ function AgregarProductoListado() {
         PrecioUnidad: $("#hdfPrecioUnidad").val(),
         Cantidad: Cantidad,
         TipoOferta: $("#hdTipoEstrategiaID").val(),
-        enRangoProgNuevas: cuvEsProgNuevas
+        enRangoProgNuevas: cuvEsProgNuevas,
+        descripcion: $("#divNombreProducto").html()
     });
 
     jQuery.ajax({

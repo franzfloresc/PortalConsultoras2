@@ -1,15 +1,28 @@
 ﻿@using Portal.Consultoras.Common;
-
 @{
     ViewBag.Title = "Mis Cursos";
-    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+    int idValidaOrigen = ViewBag.origen == null ? 0 : (int)ViewBag.origen;
+    if (idValidaOrigen == int.Parse(Constantes.IngresoExternoOrigen.ChatBot))
+    {
+        Layout = "~/Areas/Mobile/Views/Shared/_ChatboMobileLayout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+    }
 }
 
-<div class="titulo_mobile">
-    <a href="@Request.UrlReferrer" class="enlace_regresar ajustePosicionFlecha" style="display:normal" title="Regresar"></a>
-    MIS CURSOS
-</div>
-
+@if (idValidaOrigen == int.Parse(Constantes.IngresoExternoOrigen.ChatBot))
+{
+    <div class="titulo_mobile"> MIS CURSOS</div>
+}
+else
+{
+    <div class="titulo_mobile">
+        <a href="@Request.UrlReferrer" class="enlace_regresar ajustePosicionFlecha" style="display:normal" title="Regresar"></a>
+        MIS CURSOS
+    </div>
+}
 <div class="content_belcorp">
     <div class="pestana_lbel"></div>
     <div class="info_academia">
