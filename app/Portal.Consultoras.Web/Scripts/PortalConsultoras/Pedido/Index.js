@@ -516,19 +516,45 @@ $(document).ready(function () {
 });
 
 $('body').on('click', 'div.pedido_item_editable', function (event) {
-    //SoloHoy / 201902 / 31060 / 1080301
-    fichaModule = FichaModule({
-        localStorageModule: LocalStorageModule(),
-        palanca: 'SoloHoy',
-        campania: '201902',
-        cuv: '31060',
-        origen: '1080301',
-        tieneSession: null,
-        urlObtenerComponentes: urlObtenerComponentes,
-        esEditable: true
+    var promise = new Promise(function(resolve, reject) {
+        AbrirSplash();
+        resolve(true);
     });
-    fichaModule.Inicializar();
-    
+
+    promise.then(function(val) {
+        fichaModule = FichaModule({
+            localStorageModule: LocalStorageModule(),
+            palanca: 'SoloHoy',
+            campania: '201902',
+            cuv: '31060',
+            origen: '1080301',
+            tieneSession: null,
+            urlObtenerComponentes: urlObtenerComponentes,
+            esEditable: true
+        });
+
+        fichaModule.Inicializar();
+
+        return val;
+    }).then(function(val) {
+        ShowDivFichaResumida(true);
+    });
+    //AbrirSplash();
+
+    ////SoloHoy / 201902 / 31060 / 1080301
+    //fichaModule = FichaModule({
+    //    localStorageModule: LocalStorageModule(),
+    //    palanca: 'SoloHoy',
+    //    campania: '201902',
+    //    cuv: '31060',
+    //    origen: '1080301',
+    //    tieneSession: null,
+    //    urlObtenerComponentes: urlObtenerComponentes,
+    //    esEditable: true
+    //});
+
+    //fichaModule.Inicializar();
+    //ShowDivFichaResumida(true);
 });
 
 function CargarDetallePedido(page, rows, asyncrono) {
@@ -614,7 +640,7 @@ function CargarDetallePedido(page, rows, asyncrono) {
 
                 MostrarBarra(response);
                 CargarAutocomplete();
-                MuestraFichaResumida();
+                //MuestraFichaResumida();
 
                 if ($("#penmostreo").length > 0) {
                     if ($("#penmostreo").attr("[data-tab-activo]") == "1") {
@@ -627,11 +653,11 @@ function CargarDetallePedido(page, rows, asyncrono) {
     });
 }
 
-function MuestraFichaResumida() {
-    $('.pedido_item_editable').click(function (e) {
-        ShowDivFichaResumida(true);
-    });
-}
+//function MuestraFichaResumida() {
+//    $('.pedido_item_editable').click(function (e) {
+//        ShowDivFichaResumida(true);
+//    });
+//}
 function ShowDivFichaResumida(isShow = true) {
     if (isShow)
         $('#DivPopupFichaResumida').css('display', 'block');

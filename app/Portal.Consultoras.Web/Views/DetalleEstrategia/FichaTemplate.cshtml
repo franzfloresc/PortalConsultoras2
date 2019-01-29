@@ -12,7 +12,7 @@
     }
 }
 
-<div id="ImagenDeFondo" class="imagen_fondo_detalle" style="display:none;"></div>
+<div id="ImagenDeFondo" class="imagen_fondo_detalle"></div>
 <div class="contenedor_detalle texto_font">
     <div class="contenedor_fichas">
         <div class="contenedor_ficha_producto" data-item="" data-tag-html="@ViewBag.Campania">
@@ -153,8 +153,9 @@
     </ul>
 
     {{else if_eq TipoAccionNavegar '@Constantes.TipoAccionNavegar.Volver'}}
-    Volver
+        <a href="javascript:;" onclick="javascript:ShowDivFichaResumida(false)"> Volver</a>
     {{/if_eq}}
+    
 
 </script>
 
