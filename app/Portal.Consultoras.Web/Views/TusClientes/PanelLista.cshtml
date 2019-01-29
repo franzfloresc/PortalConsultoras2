@@ -90,7 +90,7 @@
         <script type="text/javascript" src="@Url.Content("~/Scripts/handlebars.min.js")"></script>
 
     *@
-
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/TusClientes/TusClientesProvider.js")"></script>
     <script type="text/javascript">
 
         function seleccionarRegistro(pPaisID, pClienteID, pCodigoCliente, pNombreCliente) {
@@ -111,24 +111,15 @@
         }
 
         function listarTusClientes() {
-            var baseUrl = $("#hfBaseUrl").val();
-
-            $.ajax({
-                type: 'POST',
-                url: baseUrl + 'TusClientes/Consultar',
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify({ texto: $("#txtPanelListaBusqueda").val() }),
-                async: true,
-                success: function (data) {
-                    
+            var tusClientesProvider = TusClientesProvider();
+            var nombreClinete = $("#txtPanelListaBusqueda").val()
+            tusClientesProvider
+                .consultarPromise(nombreClinete)
+                .done(function (data) {
                     console.log(data);
                     pintar(data);
-
                     seleccionarRegistro('', '', '', '');
-                },
-                error: function (data, error) { }
-            });
+                })
         }
 
         function pintar(data) {
