@@ -38,5 +38,6 @@
         public int DiaInicio { get; set; }
         public int FlagRevista { get; set; }
         public int TipoEstrategiaImagenMostrar { get; set; }
+        public string Niveles { get; set; }
     }
 }

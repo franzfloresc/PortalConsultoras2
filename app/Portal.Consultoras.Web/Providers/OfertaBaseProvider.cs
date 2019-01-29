@@ -97,6 +97,7 @@ namespace Portal.Consultoras.Web.Providers
                         TipoEstrategiaID = Convert.ToInt32(item.TipoEstrategiaId),
                         TipoEstrategiaImagenMostrar = 6,
                         EsSubCampania = Convert.ToBoolean(item.EsSubCampania) ? 1 : 0,
+                        Niveles = item.Niveles
                     };
                     estrategia.TipoEstrategia = new ServiceOferta.BETipoEstrategia { Codigo = item.CodigoTipoEstrategia };
                     
