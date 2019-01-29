@@ -826,7 +826,8 @@ function ValidarStockEstrategia() {
         PrecioUnidad: pprecio,
         Cantidad: cantidadSol,
         TipoOferta: $("#hdTipoEstrategiaID").val(),
-        enRangoProgNuevas: cuvEsProgNuevas
+        enRangoProgNuevas: cuvEsProgNuevas,
+        Descripcion: $("#txtDescripcionProd").val()
     };
 
     jQuery.ajax({
