@@ -217,7 +217,7 @@ var AnalyticsPortalModule = (function () {
         origenEstructura.Palanca = (origenEstructura.Palanca || codigoOrigenPedido.substring(3, 5)).toString().trim();
         origenEstructura.Seccion = (origenEstructura.Seccion || codigoOrigenPedido.substring(5, 7)).toString().trim();
 
-        console.log("_getEstructuraOrigenPedidoWeb", origen, origenEstructura);
+        //console.log("_getEstructuraOrigenPedidoWeb", origen, origenEstructura);
 
         return origenEstructura;
     }
