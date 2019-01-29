@@ -1,0 +1,104 @@
+﻿@{
+    /**/
+
+    ViewBag.Title = "PAnel";
+    Layout = null;
+    //Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>PanelTest</title>
+
+    <style>
+        /*INIT Estilo Panel*/
+        .sidenav {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            right: 0;
+            background-color: #f1f1f1 !important;
+            overflow-x: hidden;
+            transition: 0.5s;
+            /*padding-top: 60px;*/
+        }
+
+            .sidenav a {
+                padding: 8px 8px 8px 32px;
+                text-decoration: none;
+                font-size: 25px;
+                color: #818181;
+                display: block;
+                transition: 0.3s;
+            }
+
+                .sidenav a:hover {
+                    color: #f1f1f1;
+                }
+
+            .sidenav .closebtn {
+                position: absolute;
+                top: 0;
+                right: 25px;
+                font-size: 36px;
+                margin-left: 50px;
+            }
+        /*END Estilo Panel*/
+    </style>
+</head>
+<body>
+
+    <!-- INIT: Panel cliente-->
+    <div id="PanelClienteLista" class="sidenav">
+        <div id="PanelClienteLista_Contenedor">
+        </div>
+    </div>
+    <!-- END: Panel cliente-->
+
+    <input id="btnAbrir" type="button" value="Abrir" />
+    <input id="btnCerrar" type="button" value="Cerrar" />
+
+    <link href="@Url.Content("~/Content/Css/Site/Esika/style.css")" rel="stylesheet" />
+    <script type="text/javascript" src="@Url.Content("~/Scripts/General.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.11.2.min.js")"></script>
+
+    <script type="text/javascript" src="@Url.Content("~/Scripts/handlebars.min.js")"></script>
+
+    <script src="@Url.Content("~/Scripts/PortalConsultoras/TusClientes/ClientePanelModule.js")"></script>
+
+    <script>
+  
+        var panel = null;
+        $(document).ready(function () {
+
+            $("#btnAbrir").click(function () {
+                //$("#PanelClienteLista").css("width", "400px");
+                panel.Abrir();
+            });
+
+            $("#btnCerrar").click(function () {
+                //$("#PanelClienteLista").css("width", "0");
+                panel.Cerrar();
+            });
+             
+            panel = new ClientePanelModule('PanelClienteLista', 'PanelClienteLista_Contenedor', '@Url.Content("~")');
+            panel.AceptarClick = function (obj) {
+                console.log('tu código:', obj);
+            };
+            panel.RenderizarPagina();
+            panel.Abrir();
+             
+        });
+
+        
+
+    </script>
+
+
+</body>
+</html>

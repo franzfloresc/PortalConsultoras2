@@ -47,6 +47,7 @@ namespace Portal.Consultoras.Web.Controllers
             return View();
         }
 
+        [HttpGet]
         public ActionResult PanelLista()
         {
             return View();
@@ -55,6 +56,11 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult PanelMantener()
         {
             return View(new ClienteModel { });
+        }
+
+        public ActionResult PanelTest()
+        {
+            return View();
         }
 
         public JsonResult Consultar(string texto)
@@ -66,7 +72,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     clientesResult = _clienteProvider.SelectByConsultora(userData.PaisID, userData.ConsultoraID);
                 }
-                if (clientesResult !=null && clientesResult.Any() && texto.Trim().Length > 0)
+                if (clientesResult != null && clientesResult.Any() && texto.Trim().Length > 0)
                     clientesResult = clientesResult.FindAll(x => x.NombreCliente.Trim().ToUpper().Contains(texto.Trim().ToUpper()));
 
                 return Json(new ConsultarResult(clientesResult), JsonRequestBehavior.AllowGet);
@@ -89,84 +95,20 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult Mantener(ClienteModel model)
+        public JsonResult Mantener(ClienteModel client)
         {
-            string mensajePaso = string.Empty;
-
-            List<BEClienteDB> clientes = new List<BEClienteDB>();
-            List<BEClienteContactoDB> contactos = new List<BEClienteContactoDB>();
-
             try
             {
-                mensajePaso = "|inicio";
-                if (!string.IsNullOrEmpty(model.Celular))
-                {
-                    mensajePaso += "|validacion celular";
-                    contactos.Add(new BEClienteContactoDB()
-                    {
-                        ClienteID = model.ClienteID,
-                        Estado = Constantes.ClienteEstado.Activo,
-                        TipoContactoID = Constantes.ClienteTipoContacto.Celular,
-                        Valor = model.Celular
-                    });
-                }
+                if (client == null) throw new ArgumentNullException("client", "client parameter is null");
 
-                if (!string.IsNullOrEmpty(model.Telefono))
-                {
-                    mensajePaso += "|validacion telefono";
-                    contactos.Add(new BEClienteContactoDB()
-                    {
-                        ClienteID = model.ClienteID,
-                        Estado = Constantes.ClienteEstado.Activo,
-                        TipoContactoID = Constantes.ClienteTipoContacto.TelefonoFijo,
-                        Valor = model.Telefono
-                    });
-                }
+                var clienteNuevo = client.ClienteID == 0;
 
-                if (!string.IsNullOrEmpty(model.eMail))
-                {
-                    mensajePaso += "|validacion email";
-                    contactos.Add(new BEClienteContactoDB()
-                    {
-                        ClienteID = model.ClienteID,
-                        Estado = Constantes.ClienteEstado.Activo,
-                        TipoContactoID = Constantes.ClienteTipoContacto.Correo,
-                        Valor = model.eMail
-                    });
-                }
-
-                mensajePaso += "|clientes.Add(new BEClienteDB()";
-                clientes.Add(new BEClienteDB()
-                {
-                    CodigoCliente = model.CodigoCliente,
-                    ClienteID = model.ClienteID,
-                    Nombres = model.NombreCliente,
-                    Apellidos = model.ApellidoCliente,
-                    ConsultoraID = userData.ConsultoraID,
-                    Origen = Constantes.ClienteOrigen.Desktop,
-                    Estado = Constantes.ClienteEstado.Activo,
-                    Contactos = contactos.ToArray()
-                });
-
-                List<BEClienteDB> response;
-                using (var sv = new ClienteServiceClient())
-                {
-                    mensajePaso += "|dentro de using (var sv = new ClienteServiceClient())";
-                    response = sv.SaveDB(userData.PaisID, clientes.ToArray()).ToList();
-                    mensajePaso += "|SaveDB = " + response.Count;
-                }
-
-                var itemResponse = response.First();
-                mensajePaso += "| CodigoRespuesta = " + itemResponse.CodigoRespuesta;
-
-                if (itemResponse.CodigoRespuesta == Constantes.ClienteValidacion.Code.SUCCESS)
+                if (_clienteProvider.SaveDB(userData.PaisID, userData.ConsultoraID, client) == Constantes.ClienteValidacion.Code.SUCCESS)
                 {
                     return Json(new
                     {
                         success = true,
-                        message = (itemResponse.Insertado ? "Se registró con éxito tu cliente." : "Se actualizó con éxito tu cliente."),
-                        extra = string.Format("{0}|{1}", itemResponse.CodigoCliente, itemResponse.ClienteID),
-                        mensajePaso
+                        message = clienteNuevo ? "Se registró con éxito tu cliente." : "Se actualizó con éxito tu cliente."
                     });
                 }
                 else
@@ -174,32 +116,17 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(new
                     {
                         success = false,
-                        message = itemResponse.MensajeRespuesta,
-                        mensajePaso
+                        message = clienteNuevo ? "Error al registrar cliente." : "Error al actualizar cliente."
                     });
                 }
             }
-            catch (FaultException ex)
-            {
-                mensajePaso += "|catch FaultException";
-                logManager.LogErrorWebServicesBusWrap(ex, userData.CodigoConsultora, userData.CodigoISO, "TusClientesController.Mantener");
-                return Json(new
-                {
-                    success = false,
-                    message = ex.Message,
-                    mensajePaso,
-                    Trycatch = Common.LogManager.GetMensajeError(ex)
-                });
-            }
             catch (Exception ex)
             {
-                mensajePaso += "|catch exception";
                 logManager.LogErrorWebServicesBusWrap(ex, userData.CodigoConsultora, userData.CodigoISO, "TusClientesController.Mantener");
                 return Json(new
                 {
                     success = false,
                     message = ex.Message,
-                    mensajePaso,
                     Trycatch = Common.LogManager.GetMensajeError(ex)
                 });
             }
