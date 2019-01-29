@@ -1,0 +1,95 @@
+﻿
+.text-bold{
+    font-weight:bold!important;
+}
+
+.layout__content{
+    /*margin-bottom:107px;*/
+    max-width:1189px;
+}
+
+.layout__content--escalaDescuento{
+    padding-top:0;
+    padding-left:20px;
+    padding-right:20px;
+}
+
+.escala__descuento__descripcion_primary{
+    font-size:16px;
+    line-height:24px;
+    margin-bottom:5px;
+}
+
+.escala__descuento__descripcion_secondary,
+.info__calculo__porcentaje__descuento__descripcion span,
+.info__escala__descuento__variable__descripcion span,
+.info__descuento__fijo__descripcion span,
+.info__sin__descuento__descripcion span
+{
+    font-size:14px;
+}
+
+.escala__descuento__descripcion_secondary{
+    margin-bottom:26px;
+}
+
+.info__escala__descuento__variable{
+    margin-bottom:44px;
+}
+
+.info__calculo__porcentaje__descuento{
+    background-color:#f5f5f5;
+    padding:26px 15px;
+    position:relative;
+    margin-bottom:38px;
+}
+
+.info__calculo__porcentaje__descuento__titulo{
+    line-height:25px;
+}
+
+.info__calculo__porcentaje__descuento__titulo,
+.info__escala__descuento__variable__titulo,
+.info__descuento__fijo__titulo,
+.info__sin__descuento__titulo
+{
+    font-size:16px;
+    margin-bottom:8px;
+}
+
+.info__calculo__porcentaje__descuento__descripcion{
+    color:#797979;
+    line-height:19px;
+}
+
+.info__calculo__porcentaje__descuento:after{
+    display:block;
+    margin-left: auto;
+    margin-right: auto;
+    border: solid transparent;
+    border-radius: 4px;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    pointer-events: none;
+    border-color: rgba(245, 245, 245, 0);
+    border-top-color: #f5f5f5;
+    border-width: 18px;
+}
+
+.info__descuento__fijo{
+    margin-bottom:21px;
+}
+
+.info__sin__descuento__descripcion{
+    margin-bottom:33px;
+}
+
+.icono__info__importante{
+    margin-right:2px;
+    margin-bottom:2px;
+}

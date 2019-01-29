@@ -38,6 +38,115 @@ button:focus{
 
 /* FIN - ESTILOS GENERALES */
 
+/* COLORES MARCA PAÍS */
+
+.color__multimarca{
+    color:#B9007E;
+}
+
+.color__gray__multimarca{
+    color:#808080;
+}
+
+/* FIN - COLORES MARCA PAÍS */
+
+/* HELPERS CSS (DESKTOP) */
+
+.ml-0{
+    margin-left:0;
+}
+
+.mr-0{
+    margin-right:0;
+}
+
+.mt-31{
+    margin-top:31px;
+}
+
+.mb-30{
+    margin-bottom:30px;
+}
+
+.pl-0{
+    padding-left:0;
+}
+
+.pr-0{
+    padding-right:0;
+}
+
+.d-none{
+    display:none;
+}
+
+.d-block{
+    display:block;
+}
+
+.text-center{
+    text-align:center;
+}
+
+.text-uppercase{
+    text-transform:uppercase;
+}
+
+.d-inline-block{
+    display:inline-block;
+}
+
+.d-flex{
+    display:flex;
+}
+
+.text-bold{
+    font-weight:700;
+}
+
+.text-thin{
+    font-weight:300;
+}
+
+.text-underline{
+    text-decoration:underline!important;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(124,124,124,.47);
+    border-radius: 20px;
+}
+
+.d-block.mostrarEnMobile{
+    display:none!important;
+}
+
+.mostrarEnMobile{
+    display:none;
+}
+
+.row.mostrarEnMobile{
+    display:none;
+}
+
+.mostrarEnDesktop{
+    display:block;
+}
+
+.row.mostrarEnDesktop{
+    display:flex;
+}
+
+.border-radius-4{
+    border-radius:4px;
+}
+
+/* FIN - HELPERS CSS (DESKTOP) */
+
 /* ESTILOS MODIFICADORES JQUERY UI (PRECARGA PÁGINA RESULTADOS VERSIÓN DESKTOP) */
 
 .ui-widget-overlay{
@@ -345,99 +454,6 @@ button:focus{
 }
 
 /* FIN - PRECARGA PÁGINA RESULTADOS VERSIÓN MOBILE */
-
-/* HELPERS CSS (DESKTOP) */
-
-.ml-0{
-    margin-left:0;
-}
-
-.mr-0{
-    margin-right:0;
-}
-
-.mt-31{
-    margin-top:31px;
-}
-
-.mb-30{
-    margin-bottom:30px;
-}
-
-.pl-0{
-    padding-left:0;
-}
-
-.pr-0{
-    padding-right:0;
-}
-
-.d-none{
-    display:none;
-}
-
-.d-block{
-    display:block;
-}
-
-.text-center{
-    text-align:center;
-}
-
-.text-uppercase{
-    text-transform:uppercase;
-}
-
-.d-inline-block{
-    display:inline-block;
-}
-
-.d-flex{
-    display:flex;
-}
-
-.text-bold{
-    font-weight:700;
-}
-
-.text-thin{
-    font-weight:300;
-}
-
-.text-underline{
-    text-decoration:underline!important;
-}
-
-::-webkit-scrollbar {
-    width: 8px;
-}
-
-::-webkit-scrollbar-thumb {
-    background-color: rgba(124,124,124,.47);
-    border-radius: 20px;
-}
-
-.d-block.mostrarEnMobile{
-    display:none!important;
-}
-
-.mostrarEnMobile{
-    display:none;
-}
-
-.row.mostrarEnMobile{
-    display:none;
-}
-
-.mostrarEnDesktop{
-    display:block;
-}
-
-.row.mostrarEnDesktop{
-    display:flex;
-}
-
-/* FIN - HELPERS CSS (DESKTOP) */
 
 /* POPUP VALIDACIÓN AL AGREGAR PRODUCTO CON CANTIDAD CERO*/
 
