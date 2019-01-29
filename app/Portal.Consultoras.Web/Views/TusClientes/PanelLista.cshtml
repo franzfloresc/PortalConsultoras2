@@ -5,6 +5,7 @@
 }
 
 <link href="@Url.Content("~/Content/Css/Site/Esika/style.css")" rel="stylesheet" />
+
 <style>
     /*INIT Estilo Panel*/
     .sidenav {
@@ -14,7 +15,7 @@
         z-index: 1;
         top: 0;
         right: 0;
-        background-color: #808080;
+        background-color: #f1f1f1 !important;
         overflow-x: hidden;
         transition: 0.5s;
         /*padding-top: 60px;*/
@@ -42,8 +43,9 @@
         }
     /*END Estilo Panel*/
 </style>
+
 <input id="hfBaseUrl" type="hidden" value="@Url.Content("~")" />
-<input id="hfUrlFrmRegistro" type="hidden" value="@Url.Action("Detalle","TusClientes")" />
+<input id="hfUrlFrmRegistro" type="hidden" value="@Url.Action("PanelMantener","TusClientes")" />
 
 <input id="hfPaisID" type="hidden" />
 <input id="hfClienteID" type="hidden" />
@@ -52,99 +54,110 @@
 
 <hr class="clear" />
 
-<a href="#" style="text-decoration:underline" id="btnAbrirFormulario">Agregar Cliente</a>
-<input placeholder="Buscar" type="text" class="buscador_clientes" id="txtBusqueda" style="width:100%" />
+<a href="#" style="text-decoration:underline" id="btnPanelListaCerrar">Cerrar panel</a>
+<a href="#" style="text-decoration:underline" id="btnPanelListaAgregar">Agregar Cliente</a>
+<a href="#" style="text-decoration:underline" id="btnPanelListaAceptar">Aceptar selección</a>
+  
+<input placeholder="Buscar" type="text" class="buscador_clientes" id="txtPanelListaBusqueda" style="width:100%" />
+
 
 <hr class="clear" />
 
 <div id="handlebars_contenedor1"></div>
 <script id="handlebars_plantilla1" type="text/x-handlebars-template">
-    {{# each miData}}
-    <div class="content_listado_notificaciones" onclick="seleccionarRegistro({{PaisID}}, {{ClienteID}}, '{{CodigoCliente}}', '{{NombreCliente}}')">
-        <div style="display:none;" class="cliente_id">{{ClienteID}}</div>
-        <div style="display:none;" class="codigo_cliente">{{CodigoCliente}}</div>
-        <div class="nombre_cliente_sb">{{NombreCliente}}</div>
-    </div>
-    {{/each}}
+
+        {{# each miData}}
+        <div class="content_listado_notificaciones" onclick="seleccionarRegistro({{PaisID}}, {{ClienteID}}, '{{CodigoCliente}}', '{{NombreCliente}}')">
+            <div style="display:none;" class="cliente_id">{{ClienteID}}</div>
+            <div style="display:none;" class="codigo_cliente">{{CodigoCliente}}</div>
+            <div class="nombre_cliente_sb">{{NombreCliente}}</div>
+        </div>
+        {{/each}}
+    
 </script>
 
-<!-- INIT: Panel cliente-->
-<div id="PanelClienteRegistro" class="sidenav">
-    <div id="PanelClienteRegistro_contenedor">
+    <!-- INIT: Panel cliente-->
+    <div id="PanelClienteRegistro" class="sidenav" style="background-color:#f1f1f1 !important;">
+        <div id="PanelClienteRegistro_contenedor" style="background-color:#f1f1f1;">
+        </div>
     </div>
-</div>
-<!-- END: Panel cliente-->
+    <!-- END: Panel cliente-->
+    @*
 
-<script type="text/javascript" src="@Url.Content("~/Scripts/General.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.11.2.min.js")"></script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/General.js")"></script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.11.2.min.js")"></script>
 
-<script type="text/javascript" src="@Url.Content("~/Scripts/handlebars.min.js")"></script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/handlebars.min.js")"></script>
 
-<script type="text/javascript">
+    *@
 
-    function seleccionarRegistro(pPaisID, pClienteID, pCodigoCliente, pNombreCliente) {
-        console.log(pPaisID, pClienteID, pCodigoCliente, pNombreCliente);
+    <script type="text/javascript">
 
-        $("#hfPaisID").val(pPaisID);
-        $("#hfClienteID").val(pClienteID);
-        $("#hfCodigoCliente").val(pCodigoCliente);
-        $("#hfNombreCliente").val(pNombreCliente);
-    }
+        function seleccionarRegistro(pPaisID, pClienteID, pCodigoCliente, pNombreCliente) {
+            console.log(pPaisID, pClienteID, pCodigoCliente, pNombreCliente);
 
-    function PanelRegistroShow() {
-        $("#PanelClienteRegistro").css("width", "400px");
-    }
+            $("#hfPaisID").val(pPaisID);
+            $("#hfClienteID").val(pClienteID);
+            $("#hfCodigoCliente").val(pCodigoCliente);
+            $("#hfNombreCliente").val(pNombreCliente);
+        }
 
-    function PanelRegistroHide() {
-        $("#PanelClienteRegistro").css("width", "0");
-    }
+        function PanelRegistroShow() {
+            $("#PanelClienteRegistro").css("width", "400px");
+        }
 
-    function listarTusClientes() {
-        var baseUrl = $("#hfBaseUrl").val();
+        function PanelRegistroHide() {
+            $("#PanelClienteRegistro").css("width", "0");
+        }
 
-        $.ajax({
-            type: 'POST',
-            url: baseUrl + 'TusClientes/Consultar',
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify({ texto: $("#txtBusqueda").val() }),
-            async: true,
-            success: function (data) {
-                console.log(data);
-                pintar(data);
-            },
-            error: function (data, error) { }
+        function listarTusClientes() {
+            var baseUrl = $("#hfBaseUrl").val();
+
+            $.ajax({
+                type: 'POST',
+                url: baseUrl + 'TusClientes/Consultar',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify({ texto: $("#txtPanelListaBusqueda").val() }),
+                async: true,
+                success: function (data) {
+                    
+                    console.log(data);
+                    pintar(data);
+
+                    seleccionarRegistro('', '', '', '');
+                },
+                error: function (data, error) { }
+            });
+        }
+
+        function pintar(data) {
+            var plantilla = $("#handlebars_plantilla1").html();
+
+            var compiled = Handlebars.compile(plantilla);
+            var html = compiled(data);
+
+            $("#handlebars_contenedor1").empty()
+            $("#handlebars_contenedor1").append(html);
+        }
+
+        $(document).ready(function () {
+
+            $('#PanelClienteRegistro_contenedor').load($("#hfUrlFrmRegistro").val());//TusClientes/Detalle.cshtml
+
+            $("#btnPanelListaAgregar").click(function () {
+                PanelRegistroShow();
+            });
+
+            $("#txtPanelListaBusqueda").keypress(function (e) {
+                if (e.which == 13) {
+                    //if (checkTimeout()) {
+                    listarTusClientes();
+                    //}
+                }
+            });
+
+            listarTusClientes();
         });
 
-    }
-
-    function pintar(data) {
-        var plantilla = $("#handlebars_plantilla1").html();
-
-        var compiled = Handlebars.compile(plantilla);
-        var html = compiled(data);
-
-        $("#handlebars_contenedor1").empty()
-        $("#handlebars_contenedor1").append(html);
-    }
-
-    $(document).ready(function () {
-
-        $('#PanelClienteRegistro_contenedor').load($("#hfUrlFrmRegistro").val());//TusClientes/Detalle.cshtml
-
-        $("#btnAbrirFormulario").click(function () {
-            PanelRegistroShow();
-        });
-
-        $("#txtBusqueda").keypress(function (e) {
-            if (e.which == 13) {
-                //if (checkTimeout()) {
-                listarTusClientes();
-                //}
-            }
-        });
-
-        listarTusClientes();
-    });
-
-</script>
+    </script>
