@@ -207,7 +207,8 @@
                         <div class="fecha_pedido texto_gris_cabeceraMisPedidos">Fecha</div>
                         <div class="monto_totalPedido texto_gris_cabeceraMisPedidos">Monto Total</div>
                         <div class="canal_ingreso texto_gris_cabeceraMisPedidos">Canal Ingreso</div>
-                        <div class="cantidad_prod texto_gris_cabeceraMisPedidos">Cant. Prod.</div>
+                        @*<div class="cantidad_prod texto_gris_cabeceraMisPedidos">Cant. Prod.</div>*@
+                        <div class="cantidad_prod texto_gris_cabeceraMisPedidos">Cantidad</div>
                         <div class="seguimiento texto_gris_cabeceraMisPedidos">Seguimiento</div>
                         <div class="pack_documentario texto_gris_cabeceraMisPedidos">Paq. Document.</div>
                         <div class="estado_detalles texto_gris_cabeceraMisPedidos">Ver Estado / Detalles</div>
@@ -493,8 +494,10 @@
     <div class="content_datos_pedidosIngresados">
         <div class="codigo_prod texto_gris_popup">Código</div>
         <div class="descripcion_prod texto_gris_popup">Producto</div>
-        <div class="cantidadProd texto_gris_popup">Unidades</div>
-        <div class="precioUnitario_prod texto_gris_popup">Precio Unitario</div>
+        @*<div class="cantidadProd texto_gris_popup">Unidades</div>*@
+        <div class="cantidadProd texto_gris_popup">Cantidad</div>
+        @*<div class="precioUnitario_prod texto_gris_popup">Precio Unitario</div>*@
+        <div class="precioUnitario_prod texto_gris_popup">Monto</div>
         <div class="importePago_prod texto_gris_popup">Subtotal</div>
         <div class="importePago_prod texto_gris_popup">Cliente</div>
     </div>
@@ -580,12 +583,17 @@
         <div class="content_datos_pedidosFacturados">
             <div class="codigo_prod texto_gris_popup">Código</div>
             <div class="descripcion_prod texto_gris_popup">Producto</div>
-            <div class="cantidadProd texto_gris_popup">Unidades</div>
+            <div class="cantidadProd texto_gris_popup">Cantidad</div>
+            {{#iff tipo '==' 'f'}}
             <div class="precioUnitario_prod texto_gris_popup">Precio Unitario</div>
+            {{/iff}}
+            {{#iff tipo '==' 'i'}}
+            <div class="precioUnitario_prod texto_gris_popup">Monto</div>
+            {{/iff}}
             <div class="totalPrecio_prod texto_gris_popup">Subtotal</div>
             {{#iff tipo '==' 'f'}}
             <div class="totalPrecio_prod texto_gris_popup">Descuento</div>
-            <div class="totalPrecio_prod texto_gris_popup">Importe a Pagar</div>
+            <div class="totalPrecio_prod texto_gris_popup">Monto</div>
             {{/iff}}
             {{#iff tipo '==' 'i'}}
             <div class="cliente texto_gris_popup">
@@ -614,7 +622,7 @@
     {{#iff tipo '==' 'f'}}
     <div style="text-align:right; padding-right:40px;">
         <div class="content_datos_pedidosFacturados padding_area_montosTotales" style="width:13%!important;">
-            <div class="totalTexto">IMPORTE TOTAL:</div>
+            <div class="totalTexto">MONTO TOTAL:</div>
             <div class="totalTexto">FLETE:</div>
             <div class="totalTexto">TOTAL FACTURADO:</div>
         </div>

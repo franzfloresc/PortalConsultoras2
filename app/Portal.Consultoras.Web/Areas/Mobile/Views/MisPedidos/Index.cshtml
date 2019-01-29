@@ -45,15 +45,16 @@
                                 var clase = pedidoCampania.EsCampaniaMarcarda ? "slick - slide slick - current slick - active" : "slick-slide";
                                 <li data-activo="1" class="@clase">
                                     <div class="contenedorMenu @(pedidoCampania.EsCampaniaMarcarda ? "active": string.Empty )" data-campania="@pedidoCampania.CampaniaID">
-                                        @*@pedidoCampania.NumeroCampania   @pedidoCampania.DescripcionEstadoPedido*@
-                                        @if (@pedidoCampania.DescripcionEstadoPedido == "INGRESADO")
+                                        @*@pedidoCampania.NumeroCampania  @pedidoCampania.DescripcionEstadoPedido*@
+                                        Campaña  @pedidoCampania.NumeroCampania  @pedidoCampania.Anio
+                                        @*@if (@pedidoCampania.DescripcionEstadoPedido == "INGRESADO")
                                         {
                                             @:CAMPAÑA AÑO @pedidoCampania.Anio  @pedidoCampania.NumeroCampania
                                         }
                                         else
                                         {
-                                            @pedidoCampania.NumeroCampania @:  @pedidoCampania.DescripcionEstadoPedido
-                                        }
+                                            @pedidoCampania.NumeroCampania @: @pedidoCampania.DescripcionEstadoPedido
+                                        }*@
                                     </div>
                                 </li>
                             }
