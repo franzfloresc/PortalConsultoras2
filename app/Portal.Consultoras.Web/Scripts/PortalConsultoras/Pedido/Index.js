@@ -516,45 +516,32 @@ $(document).ready(function () {
 });
 
 $('body').on('click', 'div.pedido_item_editable', function (event) {
-    var promise = new Promise(function(resolve, reject) {
-        AbrirSplash();
-        resolve(true);
-    });
+    AbrirSplash();
 
-    promise.then(function(val) {
-        fichaModule = FichaModule({
-            localStorageModule: LocalStorageModule(),
-            palanca: 'SoloHoy',
-            campania: '201902',
-            cuv: '31060',
-            origen: '1080301',
-            tieneSession: null,
-            urlObtenerComponentes: urlObtenerComponentes,
-            esEditable: true
-        });
+    window.setTimeout(function() {
+            fichaModule = FichaModule({
+                localStorageModule: LocalStorageModule(),
+                //palanca: 'SoloHoy',
+                //campania: '201902',
+                //cuv: '31060',
+                //origen: '1080301',
+                palanca: 'OfertaParaTi',
+                campania: '201902',
+                cuv: '32590',
+                origen: '1080001',
+                tieneSession: null,
+                urlObtenerComponentes: urlObtenerComponentes,
+                esEditable: true
+            });
 
-        fichaModule.Inicializar();
+            fichaModule.Inicializar();
+            ShowDivFichaResumida(true);
+            CerrarSplash();
+        },
+        10);
+    
+    //SoloHoy / 201902 / 31060 / 1080301
 
-        return val;
-    }).then(function(val) {
-        ShowDivFichaResumida(true);
-    });
-    //AbrirSplash();
-
-    ////SoloHoy / 201902 / 31060 / 1080301
-    //fichaModule = FichaModule({
-    //    localStorageModule: LocalStorageModule(),
-    //    palanca: 'SoloHoy',
-    //    campania: '201902',
-    //    cuv: '31060',
-    //    origen: '1080301',
-    //    tieneSession: null,
-    //    urlObtenerComponentes: urlObtenerComponentes,
-    //    esEditable: true
-    //});
-
-    //fichaModule.Inicializar();
-    //ShowDivFichaResumida(true);
 });
 
 function CargarDetallePedido(page, rows, asyncrono) {
