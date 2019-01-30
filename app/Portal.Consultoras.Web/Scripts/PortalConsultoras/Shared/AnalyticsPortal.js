@@ -508,7 +508,7 @@ var AnalyticsPortalModule = (function () {
     var _marcarImpresionSetProductos = function (arrayItems) {
 
         try {
-            //console.log('Analytics - marcarImpresionSetProductos Inicio', arrayItems);
+            //console.log('Analytics - _marcarImpresionSetProductos Inicio', arrayItems);
             var tipoMoneda = AnalyticsPortalModule.GetCurrencyCodes(_constantes.codigoPais);
             dataLayer.push({
                 'event': _evento.productImpression,
@@ -2358,47 +2358,7 @@ var AnalyticsPortalModule = (function () {
             console.log(_texto.exception + e);
         }
     }
-
-    // utilizar MarcaClicVerMasOfertas
-    //function marcarClickMasOfertasMG(url, origenPedido, titulo) {
-    //    try {
-    //        var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(origenPedido);
-    //        var nombreBoton = titulo;  
-    //        dataLayer.push({
-    //            'event': _evento.virtualEvent,
-    //            'category': fnObtenerContenedor() + ' - ' + palanca,
-    //            'action': 'Clic Botón',
-    //            'label': nombreBoton,
-    //            'eventCallback': function () {
-    //                document.location = url;
-    //            }
-    //        });
-    //    } catch (e) {
-    //        document.location = url;
-    //        console.log(_texto.excepcion + e);
-    //    }
-    //}
-
-    // utilizar MarcaClicVerMasOfertas
-    //function marcarClickMasOfertasBannerMG(url,origenPedido, titulo) {
-    //    try {
-    //        var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(origenPedido);
-    //        var nombreBoton = titulo;  
-    //        dataLayer.push({
-    //            'event': _evento.virtualEvent,
-    //            'category': fnObtenerContenedor() + ' - ' + palanca,
-    //            'action': 'Clic Botón',
-    //            'label': nombreBoton,
-    //            'eventCallback': function () {
-    //                document.location = url;
-    //            }
-    //        });
-    //    } catch (e) {
-    //        document.location = url;
-    //        console.log(_texto.excepcion + e);
-    //    }
-    //}
-
+    
     function marcarClickMasOfertasPromotionClickMG() {
         try {
             dataLayer.push({
@@ -2654,14 +2614,12 @@ var AnalyticsPortalModule = (function () {
     return {
         // Ini - Metodos Iniciales
         MarcarVerFichaProducto: marcarVerFichaProducto,
-        //FcVerificarTipoMoneda: fcVerificarTipoMoneda, // no se utiliza
         MarcarIniciarPlayVideo: marcarIniciarPlayVideo,
         MarcarCambiaColorCombo: marcarCambiaColorCombo,
         MarcarCambiaColorCuadro: marcarCambiaColorCuadro,
         MarcarAgregaProductoCarro: marcarAgregaProductoCarro,
         MarcarComparteRedesSociales: marcarComparteRedesSociales,
         MarcarClicSetProductos: marcarClicSetProductos,
-        //MarImpresionSetProductos: marcarImpresionSetProductos,// se utiliza solo como privado
         MarcarFichaBreadcrumb: marcarFichaBreadcrumb,
         // Fin - Metodos Iniciales
 
@@ -2685,7 +2643,6 @@ var AnalyticsPortalModule = (function () {
         // Ini - Analytics Buscador Miguel
         MarcaBarraBusqueda: marcaBarraBusqueda,
         GetCurrencyCodes: getCurrencyCodes,
-        //GetPalancaBySeccion: getPalancaBySeccion, // se utiliza solo como privado
         GetPalancaByOrigenPedido: getPalancaByOrigenPedido,
         GetSeccionHomeByOrigenPedido: getSeccionHomeByOrigenPedido,
         GetContenedorByOrigenPedido: getContenedorByOrigenPedido,
@@ -2706,7 +2663,6 @@ var AnalyticsPortalModule = (function () {
         MarcaVerOfertasHome: marcaVerOfertasHome,
         MarcaSucribete: marcaSucribete,
         MarcaGenericaLista: marcaGenericaLista,
-        //MarcaProductImpressionHome: marcaProductImpressionHome, // no se utiliza
         MarcaAnadirCarritoHome: marcaAnadirCarritoHome,
         MarcaGenericaClic: marcaGenericaClic,
         MarcaDetalleProductoBienvenida: marcaDetalleProductoBienvenida,
@@ -2730,24 +2686,17 @@ var AnalyticsPortalModule = (function () {
 
         // Ini - Analytics Ofertas  
         MarcaClicFlechaBanner: marcaClicFlechaBanner,
-        //MarcaPromotionViewBanner: marcaPromotionViewBanner, // se utiliza solo como privado
         AutoMapper: autoMapper,
-        //AutoMapperV2: autoMapperV2, // se utiliza solo como privado
         MarcaClicBanner: marcaClicBanner,
         MarcaClicVerMasOfertas: marcaClicVerMasOfertas,
-        //MarcaProductImpression: marcaProductImpression,  // se utiliza solo como privado
-        //MarcaProductImpressionLanding: marcaProductImpressionLanding,  // se utiliza solo como privado
-        //MarcaProductImpressionCart: marcaProductImpressionCart, // no se utiliza
         MarcaAnadirCarrito: marcaAnadirCarrito,
         MarcaDetalleProducto: marcaDetalleProducto,
         MarcaDetalleProductoPrincipal: marcaDetalleProductoPrincipal,
         MarcaDetalleProductoPrincipalLanding: marcaDetalleProductoPrincipalLanding,
         MarcaDetalleProductoCarrito: marcaDetalleProductoCarrito,
-        //MarcaVisualizacionProducto: marcaVisualizacionProducto, // no se utiliza
         MarcaManagerFiltros: marcaManagerFiltros,
         MarcaCompartirRedesSociales: marcaCompartirRedesSociales,
         MarcaVisualizarDetalleProducto: marcaVisualizarDetalleProducto,
-        //MarcaVisualizarOtrosProductos: marcaVisualizarOtrosProductos, // no se utiliza
         MarcaEliminarPedidoCompleto: marcaEliminarPedidoCompleto,
         MarcarGuardaTuPedido: marcarGuardaTuPedido,
         MarcarPedidoGuardoExito: marcarPedidoGuardoExito,
@@ -2758,8 +2707,6 @@ var AnalyticsPortalModule = (function () {
 
         // Ini - Analytics Ganadoras
         MarcaPromotionViewCarrusel: marcaPromotionViewCarrusel,
-        //MarcarClickMasOfertasMG: marcarClickMasOfertasMG, // utilizar MarcaClicVerMasOfertas
-        //MarcarClickMasOfertasBannerMG: marcarClickMasOfertasBannerMG, // utilizar MarcaClicVerMasOfertas
         MarcarClickMasOfertasPromotionClickMG: marcarClickMasOfertasPromotionClickMG,
         ClickArrowMG: clickArrowMG,
         ClickOnBreadcrumb: clickOnBreadcrumb,
