@@ -401,28 +401,23 @@ namespace Portal.Consultoras.Web.Providers
         {
             if (!SeccionTieneConfiguracionPais(entConf.ConfiguracionPais)) return false;
 
-            if (entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.RevistaDigital
-                || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.RevistaDigitalReducida
-                || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.OfertasParaTi)
+            switch (entConf.ConfiguracionPais.Codigo)
             {
-
-                if (entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.RevistaDigital
-                    && !revistaDigital.TieneRDC) return false;
-
-                if (entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.OfertasParaTi)
-                {
+                case Constantes.ConfiguracionPais.RevistaDigital:
+                    if (!revistaDigital.TieneRDC) return false;
+                    break;
+                case Constantes.ConfiguracionPais.OfertasParaTi:
                     if (revistaDigital.TieneRDC) return false;
 
                     entConf.MobileCantidadProductos = 0;
                     entConf.DesktopCantidadProductos = 0;
-                }
-            }
-            else if (entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.Lanzamiento)
-            {
-                if (!revistaDigital.TieneRevistaDigital()) return false;
+                    break;
+                case Constantes.ConfiguracionPais.Lanzamiento:
+                    if (!revistaDigital.TieneRDC) return false;
 
-                if (menuActivo.CampaniaId != userData.CampaniaID)
-                    entConf.UrlSeccion = "Revisar/" + entConf.UrlSeccion;
+                    if (menuActivo.CampaniaId != userData.CampaniaID)
+                        entConf.UrlSeccion = "Revisar/" + entConf.UrlSeccion;
+                    break;
             }
 
             return true;
