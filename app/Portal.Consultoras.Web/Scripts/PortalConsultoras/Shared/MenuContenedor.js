@@ -337,7 +337,7 @@ var menuModule = (function () {
             }
 
             OrigenPedidoWeb = OrigenPedidoWeb || "";
-            var texto = sectionClickGettexto(e);
+            var texto = sectionClickTexto(e);
             AnalyticsPortalModule.MarcaClicVerMasOfertas(url, OrigenPedidoWeb, texto);
       
         }
@@ -346,8 +346,8 @@ var menuModule = (function () {
         }
 
     }
-    function sectionClickGettexto() {
-        var texto = (e.innerText || "").trim();
+    function sectionClickTexto(e) {
+        var texto = ((e || {}).innerText || "").trim();
         if (texto === "") {
             texto = $(e).find("[data-seccion-btn-vermas]").html() || "";
         }

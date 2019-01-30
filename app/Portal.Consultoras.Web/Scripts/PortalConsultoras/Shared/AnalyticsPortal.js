@@ -235,7 +235,7 @@ var AnalyticsPortalModule = (function () {
         origenEstructura.Seccion = (origenEstructura.Seccion || codigoOrigenPedido.substring(5, 7)).toString().trim();
 
         if (origenEstructura.Palanca == "" && url != "") {
-            origenEstructura.Palanca = _getTextoPalancaSegunUrl(url);
+            origenEstructura.Palanca = _getCodigoPalancaSegunUrl(url);
         }
 
         if (origenEstructura.Pagina == "" && url != "") {
@@ -309,7 +309,7 @@ var AnalyticsPortalModule = (function () {
         return obj.TextoList || "";
     }
 
-    var _getTextoPalancaSegunUrl = function (url) {
+    var _getCodigoPalancaSegunUrl = function (url) {
 
         url = url || "";
         var partes = url.split('/');
@@ -332,11 +332,7 @@ var AnalyticsPortalModule = (function () {
             return "";
         }
 
-        var seccion = _origenPedidoWebEstructura.Palanca.find(function (element) {
-            return element.Codigo == seccion.Codigo;
-        });
-
-        return seccion.TextoList || "";
+        return seccion.Codigo || "";
     }
 
     var _getParametroListSegunOrigen = function (origenEstructura, url) {
@@ -365,6 +361,8 @@ var AnalyticsPortalModule = (function () {
         texto += texto != ""
             ? ((palanca != "" ? separador : "") + palanca)
             : palanca;
+
+        console.log("_getParametroListSegunOrigen = " + texto, origenEstructura, url);
 
         return texto;
     }
@@ -1681,19 +1679,13 @@ var AnalyticsPortalModule = (function () {
             if (_constantes.isTest)
                 alert("Marcación Ver más ofertas.");
 
-            //var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(origenPedido);
-            //if (palanca == _texto.notavaliable) {
-            //    palanca = _getTextoPalancaSegunUrl(url);
-            //}
-
             var textoCategory = _getParametroListSegunOrigen(origenPedido, url);
 
-            var nombreBoton = titulo;
             dataLayer.push({
                 'event': _evento.virtualEvent,
-                'category': textoCategory, //fnObtenerContenedor() + ' - ' + palanca,
+                'category': textoCategory,
                 'action': 'Click Botón',
-                'label': nombreBoton,
+                'label': titulo,
                 'eventCallback': function () {
                     document.location = url;
                 }
