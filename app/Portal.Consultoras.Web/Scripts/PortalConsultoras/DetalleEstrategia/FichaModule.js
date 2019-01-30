@@ -83,17 +83,16 @@ var FichaModule = (function (config) {
         hdCampaniaCodigo: {
             id: "#hdCampaniaCodigo"
         },
-        idDataEstrategia: "#data-estrategia",
+        dataEstrategia: {
+            id: "#data-estrategia",
+            dataEstrategia: "data-estrategia"
+        },
         dataClicked: "[data-clicked]",
         dataChange: "[data-change]",
         dataSelected: "[data-select-area]",
         footerPage: ".footer-page",
         estrategiaBreadcrumb: "#estrategia-breadcrumb",
         marca: "#marca"
-    };
-
-    var _atributos = {
-        dataEstrategia: "data-estrategia",
     };
 
     var _seccionesFichaProducto = {
@@ -385,9 +384,9 @@ var FichaModule = (function (config) {
 
     var _getEstrategia = function () {
         var estrategia;
-        //console.log(_config);
+
         if (_config.tieneSession === "True") {
-            estrategia = JSON.parse($(_elementos.idDataEstrategia).attr(_atributos.dataEstrategia));
+            estrategia = JSON.parse($(_elementos.dataEstrategia.id).attr(_elementos.dataEstrategia.dataEstrategia));
         }
         else {
             estrategia = _localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
@@ -395,14 +394,15 @@ var FichaModule = (function (config) {
                 estrategia = _localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _codigoPalanca.Ganadoras);
             }
         }
+        
+        if (typeof estrategia === "undefined" || estrategia == null) return estrategia;
 
-        if (typeof estrategia !== "undefined" && estrategia !== null) {
-            _getComponentesAndUpdateEsMultimarca(estrategia);
-            _actualizarCodigoVariante(estrategia);
-            estrategia.ClaseBloqueada = "btn_desactivado_general";
-            estrategia.ClaseBloqueadaRangos = "contenedor_rangos_desactivado";
-            estrategia.RangoInputEnabled = "disabled";
-        }
+        _getComponentesAndUpdateEsMultimarca(estrategia);
+        _actualizarCodigoVariante(estrategia);
+        //
+        estrategia.ClaseBloqueada = "btn_desactivado_general";
+        estrategia.ClaseBloqueadaRangos = "contenedor_rangos_desactivado";
+        estrategia.RangoInputEnabled = "disabled";
 
         return estrategia;
     };
@@ -510,6 +510,7 @@ var FichaModule = (function (config) {
                 var diferenciaHeight = dvIzquierdoHeight - dvFichaEtiquetaHeight;
                 dvDetalle.removeClass("ficha_detalle_cuerpo");
                 dvDetalle.height(diferenciaHeight);
+                dvDetalle.css("min-height", diferenciaHeight);
             }
             else {
                 dvDetalle.addClass("ficha_detalle_cuerpo");
@@ -588,10 +589,16 @@ var FichaModule = (function (config) {
             return false;
         }
 
-        $(_elementos.idDataEstrategia).attr(_atributos.dataEstrategia, JSON.stringify(estrategia));
+        $(_elementos.dataEstrategia.id).attr(_elementos.dataEstrategia.dataEstrategia, JSON.stringify(estrategia));
         _setEstrategiaBreadcrumb(estrategia);
         SetHandlebars("#detalle_ficha_template", estrategia, "#seccion_ficha_handlebars");
 
+        if (isMobile()) {
+            if (typeof estrategia.TieneStock !== undefined) {
+                if (estrategia.TieneStock) $('#div-boton-agregar').show();
+                else $('#div-boton-agotado').show();
+            }
+        }
         if (estrategia.CodigoVariante === _codigoVariedad.IndividualVariable ||
             estrategia.CodigoVariante === _codigoVariedad.CompuestaVariable ||
             estrategia.esCampaniaSiguiente) _validarDesactivadoGeneral(estrategia);

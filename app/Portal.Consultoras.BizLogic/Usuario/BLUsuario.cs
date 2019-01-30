@@ -1888,7 +1888,6 @@ namespace Portal.Consultoras.BizLogic
             {
                 if (!usuario.PuedeActualizar) return ActualizacionDatosRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CORREO_CAMBIO_NO_AUTORIZADO);
                 if (string.IsNullOrEmpty(correoNuevo)) return ActualizacionDatosRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CORREO_VACIO);
-                //if (usuario.EMail == correoNuevo) return new BERespuestaServicio { Message = Constantes.MensajesError.UpdCorreoConsultora_CorreoNoCambia };
 
                 if (usuario.EMail != correoNuevo)
                 {
@@ -2213,7 +2212,7 @@ namespace Portal.Consultoras.BizLogic
                             entidad.CodigoUsuario = entidad.NumeroDocumento;
                             // insertar usuario postulante
                             int r3 = daUsuario.InsUsuarioPostulante(entidad);
-                            r = (r3 > 0) ? 1 : 0;
+                            r = (r3 > 0).ToInt();
 
                             if (!string.IsNullOrEmpty(entidad.Correo))
                             {
@@ -2297,7 +2296,7 @@ namespace Portal.Consultoras.BizLogic
                 {
                     var daUsuario = new DAUsuario(paisID);
                     var r1 = daUsuario.DelUsuarioPostulante(numeroDocumento);
-                    r = (r1 > 0) ? 1 : 0;
+                    r = (r1 > 0).ToInt();
                 }
             }
             catch (Exception ex)
@@ -3187,8 +3186,8 @@ namespace Portal.Consultoras.BizLogic
                     oUsu.IntentosRestanteSms = opcion.IntentosSms;
                 }
 
-                oUsu.OpcionVerificacionSMS = opcion.OpcionSms ? (oUsu.Cantidad == 0 ? 1 : 0) : -1;
-                oUsu.OpcionVerificacionCorreo = opcion.OpcionEmail ? (oUsu.Cantidad == 0 ? 1 : 0) : -1;
+                oUsu.OpcionVerificacionSMS = opcion.OpcionSms ? (oUsu.Cantidad == 0).ToInt() : -1;
+                oUsu.OpcionVerificacionCorreo = opcion.OpcionEmail ? (oUsu.Cantidad == 0).ToInt() : -1;
                 oUsu.OpcionCambioClave = (opcion.OpcionContrasena && opcion.OpcionSms) ? oUsu.OpcionCambioClave : -1;
 
                 return oUsu;

@@ -575,7 +575,7 @@
             e.preventDefault();
             AbrirLoad();
             var divPadre = $(this).parents("[data-item='BuscadorFichasProductos']").eq(0);
-            BuscadorProvider.RegistroProductoBuscador(divPadre, _elementos.valueJSON);            
+            PedidoRegistroModule.RegistroProductoBuscador(divPadre, _elementos.valueJSON);            
         },
         RedireccionarAFichaDeFotoYDescripcion: function (e) {
             e.preventDefault();

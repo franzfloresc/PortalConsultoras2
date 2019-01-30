@@ -123,7 +123,7 @@ namespace Portal.Consultoras.Web.Providers
 
                 if (eventoConsultora == null)
                 {
-                    eventoConsultora= RegistrarEventoConsultoraApi(showRoomEventoModel.EventoID, false);
+                    eventoConsultora = RegistrarEventoConsultoraApi(showRoomEventoModel.EventoID, false);
                 }
 
                 return eventoConsultora;
@@ -364,7 +364,7 @@ namespace Portal.Consultoras.Web.Providers
 
                 if (model.CampaniaID != 0)
                 {
-                    configEstrategiaSR.BeShowRoomConsultora = GetShowRoomConsultora(model, configEstrategiaSR.BeShowRoom );
+                    configEstrategiaSR.BeShowRoomConsultora = GetShowRoomConsultora(model, configEstrategiaSR.BeShowRoom);
                 }
 
                 configEstrategiaSR.ListaNivel = GetShowRoomNivel(model);
@@ -539,7 +539,7 @@ namespace Portal.Consultoras.Web.Providers
                         item.Valor = string.Empty;
                         continue;
                     }
-                
+
                     item.Valor = ConfigCdn.GetUrlFileCdnMatriz(model.CodigoISO, item.Valor);
                 }
             }
@@ -717,23 +717,6 @@ namespace Portal.Consultoras.Web.Providers
             return personalizacionNivel;
         }
 
-        //public List<ServiceOferta.BEEstrategia> GetShowRoomOfertasConsultora()
-        //{
-        //    UsuarioModel userData = _sessionManager.GetUserData();
-        //    string pathShowroom = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerOfertas,
-        //       userData.CodigoISO,
-        //       Constantes.ConfiguracionPais.ShowRoom,
-        //       userData.CampaniaID,
-        //       userData.CodigoConsultora,
-        //       userData.CodigorRegion,
-        //       userData.ZonaID,
-        //       0);
-        //    var taskApi = Task.Run(() => OfertaBaseProvider.ObtenerOfertasDesdeApi(pathShowroom, userData.CodigoISO));
-        //    Task.WhenAll(taskApi);
-        //    return taskApi.Result;
-        //}
-
-
         public ShowRoomEventoConsultoraModel RegistrarEventoConsultoraApi(int eventoId, bool esGenerica)
         {
             UsuarioModel userData = _sessionManager.GetUserData();
@@ -749,7 +732,7 @@ namespace Portal.Consultoras.Web.Providers
             };
 
             string jsonParameters = JsonConvert.SerializeObject(eventoConsultora);
-            Task<string> taskApi = Task.Run(() => RespSBMicroservicios(jsonParameters, requestUrl, "put", userData, "CONFIG")); 
+            Task<string> taskApi = Task.Run(() => RespSBMicroservicios(jsonParameters, requestUrl, "put", userData, "CONFIG"));
             Task.WhenAll(taskApi);
             string content = taskApi.Result;
 

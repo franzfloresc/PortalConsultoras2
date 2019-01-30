@@ -1525,6 +1525,8 @@ a.subir_carousel, a.bajar_carousel {
     -webkit-box-shadow: 0 15px 21px -8px rgba(204,200,204,1) !important;
     -moz-box-shadow: 0 15px 21px -8px rgba(204,200,204,1) !important;
     box-shadow: 0 15px 21px -8px rgba(204,200,204,1) !important;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .producto_img {

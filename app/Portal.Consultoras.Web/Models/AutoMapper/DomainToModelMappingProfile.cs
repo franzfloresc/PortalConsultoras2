@@ -110,7 +110,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.SolicitudClienteDetalleID, f => f.MapFrom(c => c.PedidoDetalleId));
 
             Mapper.CreateMap<BELogGPRValidacionDetalle, NotificacionesModelDetallePedido>()
-                .ForMember(t => t.IndicadorOferta, f => f.MapFrom(c => c.IndicadorOferta ? 1 : 0));
+                .ForMember(t => t.IndicadorOferta, f => f.MapFrom(c => c.IndicadorOferta.ToInt()));
 
             Mapper.CreateMap<ServiceUsuario.BEMisPedidosDetalle, MisPedidosDetalleModel2>();
 
@@ -129,7 +129,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.MarcaID, f => f.MapFrom(c => c.IdMarca))
                 .ForMember(t => t.DescripcionMarca, f => f.MapFrom(c => c.NombreMarca))
                 .ForMember(t => t.CUVPedidoImagen, f => f.MapFrom(c => c.ImagenCUVPedido))
-                .ForMember(t => t.TipoEstrategiaID , f => f.MapFrom(c => c.TipoEstrategiaID))
+                .ForMember(t => t.TipoEstrategiaID, f => f.MapFrom(c => c.TipoEstrategiaID))
                 .ForMember(t => t.CUVPedidoNombre, f => f.MapFrom(c => c.NombreCUVPedido));
 
             Mapper.CreateMap<Producto, EstrategiaComponenteModel>()
@@ -165,7 +165,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.FotoPerfil, f => f.MapFrom(c => c.FotoPerfil))
                 .ForMember(t => t.FechaRegistro, f => f.MapFrom(c => c.FechaRegistro))
                 .ForMember(t => t.Estado, f => f.MapFrom(c => c.Estado));
-            
+
 
             Mapper.CreateMap<Portal.Consultoras.Web.ServiceOferta.BEShowRoomOferta, EstrategiaPedidoModel>()
                 .ForMember(t => t.EstrategiaID, f => f.MapFrom(c => c.OfertaShowRoomID))
@@ -555,8 +555,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.SegmentoConstancia, f => f.MapFrom(c => c.SegmentoConstancia ?? string.Empty))
                 .ForMember(t => t.NombreGerenteZonal, f => f.MapFrom(c => c.NombreGerenteZona))
                 .ForMember(t => t.MensajePedidoDesktop,
-                    f => f.MapFrom(c =>
-                        c.TipoUsuario == Constantes.TipoUsuario.Postulante ? c.MensajePedidoDesktop : 0))
+                    f => f.MapFrom(c => c.TipoUsuario == Constantes.TipoUsuario.Postulante ? c.MensajePedidoDesktop : 0))
                 .ForMember(t => t.MensajePedidoMobile,
                     f => f.MapFrom(c => c.TipoUsuario == Constantes.TipoUsuario.Postulante ? c.MensajePedidoMobile : 0))
                 .ForMember(t => t.MontoMinimo, f => f.MapFrom(c => c.MontoMinimoPedido))
@@ -633,9 +632,10 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.PrecioOferta, f => f.MapFrom(c => c.Precio2))
                 .ForMember(t => t.PrecioCatalogo, f => f.MapFrom(c => c.Precio))
                 .ForMember(t => t.TieneOfertaDelDia, f => f.MapFrom(c => true))
+                .ForMember(t => t.TieneStock, f => f.MapFrom(c => c.TieneStock))
                 .ForMember(t => t.Orden, f => f.MapFrom(c => c.Orden));
 
-            
+
             Mapper.CreateMap<ServiceUsuario.BEUsuario, MisDatosModel>();
             Mapper.CreateMap<BEPagoEnLineaTipoPago, PagoEnLineaTipoPagoModel>();
             Mapper.CreateMap<BEPagoEnLineaMedioPago, PagoEnLineaMedioPagoModel>();
@@ -650,13 +650,12 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.Active, f => f.Ignore())
                 .ForMember(t => t.LinkURL, f => f.Ignore());
 
-            Mapper.CreateMap<EstrategiaComponenteModel, ServicePedido.BEEstrategiaProducto>()
-               .ForMember(t => t.CUV, f => f.MapFrom(c => c.Cuv))
-               .ForMember(t => t.SAP, f => f.MapFrom(c => c.CodigoProducto))
-               .ForMember(t => t.Precio, f => f.MapFrom(c => c.PrecioCatalogo))
-               .ForMember(t => t.NombreMarca, f => f.MapFrom(c => c.DescripcionMarca));
-
-            Mapper.CreateMap<ServicePedido.BEEstrategia, PremioElectivoModel>()
+            Mapper.CreateMap<ServiceCliente.BEPedidoWeb, PedidoWebMobilModel>()
+               .ForMember(t => t.Descuento, f => f.MapFrom(c => -1 * c.DescuentoProl));
+            
+            Mapper.CreateMap<ServiceCliente.BEPedidoWebDetalle, PedidoWebClienteMobilModel>();
+            Mapper.CreateMap<ServiceCliente.BEPedidoWebDetalle, PedidoWebDetalleMobilModel>();
+			Mapper.CreateMap<ServicePedido.BEEstrategia, PremioElectivoModel>()
                 .ForMember(t => t.DescripcionResumen, f => f.MapFrom(c => c.DescripcionCUV2));
         }
     }

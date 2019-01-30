@@ -381,12 +381,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                             var arr = column.Contains("#") ? column.Split('#') : new string[] { "", column };
                             string value = ExportToExcelMultiple_ValorColumna(arr[1], source);
-                            //      arr[1] == "CUV" ? source.CUV
-                            //    : arr[1] == "DescripcionProd" ? source.DescripcionProd
-                            //    : arr[1] == "Cantidad" ? source.Cantidad.ToString()
-                            //    : arr[1] == "ImporteTotal" ? Util.DecimalToStringFormat(source.ImporteTotal, userData.CodigoISO)
-                            //    : arr[1] == "PrecioUnidad" ? Util.DecimalToStringFormat(source.PrecioUnidad, userData.CodigoISO)
-                            //    : "";
 
                             if (value == "")
                             {
@@ -461,27 +455,62 @@ namespace Portal.Consultoras.Web.Controllers
 
         private string ExportToExcelMultiple_ValorColumna(string columna, SC.BEPedidoWebDetalle source)
         {
-            string value =
-                columna == "CUV" ? source.CUV
-                : columna == "DescripcionProd" ? source.DescripcionProd
-                : columna == "Cantidad" ? source.Cantidad.ToString()
-                : columna == "ImporteTotal" ? Util.DecimalToStringFormat(source.ImporteTotal, userData.CodigoISO)
-                : columna == "PrecioUnidad" ? Util.DecimalToStringFormat(source.PrecioUnidad, userData.CodigoISO)
-                : "";
+            string value = "";
+
+            switch (columna)
+            {
+                case "CUV":
+                    value = source.CUV;
+                    break;
+                case "DescripcionProd":
+                    value = source.DescripcionProd;
+                    break;
+                case "Cantidad":
+                    value = source.Cantidad.ToString();
+                    break;
+                case "ImporteTotal":
+                    value = Util.DecimalToStringFormat(source.ImporteTotal, userData.CodigoISO);
+                    break;
+                case "PrecioUnidad":
+                    value = Util.DecimalToStringFormat(source.PrecioUnidad, userData.CodigoISO);
+                    break;
+                default:
+                    break;
+            }
+
             return value;
         }
 
         private string ExportToExcelMultiple_ValorColumna(string columna, BEPedidoWebDetalle source)
         {
-            string value =
-                columna == "CUV" ? source.CUV
-                : columna == "DescripcionProd" ? source.DescripcionProd
-                : columna == "Cantidad" ? source.Cantidad.ToString()
-                : columna == "ImporteTotal" ? Util.DecimalToStringFormat(source.ImporteTotal, userData.CodigoISO)
-                : columna == "PrecioUnidad" ? Util.DecimalToStringFormat(source.PrecioUnidad, userData.CodigoISO)
-                : columna == "Descuento" ? Util.DecimalToStringFormat(source.ImporteTotalPedido, userData.CodigoISO)
-                : columna == "ImportePagar" ? Util.DecimalToStringFormat(source.ImporteTotal - source.ImporteTotalPedido, userData.CodigoISO)
-                : "";
+            string value = "";
+            switch (columna)
+            {
+                case "CUV":
+                    value = source.CUV;
+                    break;
+                case "DescripcionProd":
+                    value = source.DescripcionProd;
+                    break;
+                case "Cantidad":
+                    value = source.Cantidad.ToString();
+                    break;
+                case "ImporteTotal":
+                    value = Util.DecimalToStringFormat(source.ImporteTotal, userData.CodigoISO);
+                    break;
+                case "PrecioUnidad":
+                    value = Util.DecimalToStringFormat(source.PrecioUnidad, userData.CodigoISO);
+                    break;
+                case "Descuento":
+                    value = Util.DecimalToStringFormat(source.ImporteTotalPedido, userData.CodigoISO);
+                    break;
+                case "ImportePagar":
+                    value = Util.DecimalToStringFormat(source.ImporteTotal - source.ImporteTotalPedido, userData.CodigoISO);
+                    break;
+                default:
+                    break;
+            }
+
             return value;
         }
 
@@ -601,14 +630,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                             var arr = column.Contains("#") ? column.Split('#') : new string[] { "", column };
                             string value = ExportToExcelMultiple_ValorColumna(arr[1], source);
-                            //  arr[1] == "CUV" ? source.CUV
-                            //: arr[1] == "DescripcionProd" ? source.DescripcionProd
-                            //: arr[1] == "Cantidad" ? source.Cantidad.ToString()
-                            //: arr[1] == "ImporteTotal" ? Util.DecimalToStringFormat(source.ImporteTotal, userData.CodigoISO)
-                            //: arr[1] == "PrecioUnidad" ? Util.DecimalToStringFormat(source.PrecioUnidad, userData.CodigoISO)
-                            //: arr[1] == "Descuento" ? Util.DecimalToStringFormat(source.ImporteTotalPedido, userData.CodigoISO)
-                            //: arr[1] == "ImportePagar" ? Util.DecimalToStringFormat(source.ImporteTotal - source.ImporteTotalPedido, userData.CodigoISO)
-                            //: "";
 
                             if (value == "")
                             {
@@ -863,7 +884,7 @@ namespace Portal.Consultoras.Web.Controllers
                         NombreCliente = ""
                     });
                 }
-                
+
                 #endregion
             }
 

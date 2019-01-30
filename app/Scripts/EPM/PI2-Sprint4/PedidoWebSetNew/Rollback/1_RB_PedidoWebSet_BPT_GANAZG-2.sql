@@ -1,0 +1,49 @@
+﻿USE [BelcorpPeru_BPT]
+GO
+
+PRINT 'ADD COLUMNS'
+
+IF NOT EXISTS (
+	SELECT * 
+	FROM SYS.COLUMNS C
+	JOIN SYS.OBJECTS  O
+	ON C.[OBJECT_ID] = O.[OBJECT_ID]
+	WHERE  O.TYPE = 'U'
+	AND O.NAME = 'PedidoWebSet'
+	AND C.NAME = 'NombreSet'
+	)
+BEGIN
+	ALTER TABLE [dbo].[PedidoWebSet] ADD NombreSet NVARCHAR(800)
+END
+GO
+
+IF NOT EXISTS (
+	SELECT * 
+	FROM SYS.COLUMNS C
+	JOIN SYS.OBJECTS  O
+	ON C.[OBJECT_ID] = O.[OBJECT_ID]
+	WHERE  O.TYPE = 'U'
+	AND O.NAME = 'PedidoWebSet'
+	AND C.NAME = 'TipoEstrategiaId'
+	)
+BEGIN
+	ALTER TABLE [dbo].[PedidoWebSet] ADD TipoEstrategiaId INT
+END
+GO
+
+PRINT 'DROP COLUMNS'
+
+IF EXISTS (
+	SELECT * 
+	FROM SYS.COLUMNS C
+	JOIN SYS.OBJECTS  O
+	ON C.[OBJECT_ID] = O.[OBJECT_ID]
+	WHERE  O.TYPE = 'U'
+	AND O.NAME = 'PedidoWebSet'
+	AND C.NAME = 'ClienteID'
+	)
+BEGIN
+	ALTER TABLE [dbo].[PedidoWebSet] DROP COLUMN ClienteID
+END
+GO
+
