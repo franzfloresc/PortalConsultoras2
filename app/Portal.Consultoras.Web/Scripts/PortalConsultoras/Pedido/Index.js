@@ -537,8 +537,9 @@ $('body').on('click', 'div.pedido_item_editable', function (event) {
             });
 
             fichaModule.Inicializar();
-            ShowDivFichaResumida(true);
+            
             CerrarSplash();
+            ShowDivFichaResumida(true);
         },
         10);
 });
@@ -645,10 +646,14 @@ function CargarDetallePedido(page, rows, asyncrono) {
 //    });
 //}
 function ShowDivFichaResumida(isShow = true) {
-    if (isShow)
+    
+    if (isShow) {
+        $('body').css('overflow', 'hidden');
         $('#DivPopupFichaResumida').css('display', 'block');
-    else
+    } else {
         $('#DivPopupFichaResumida').css('display', 'none');
+        $("body").css("overflow", "scroll");
+    }
 }
 function CargarDialogMesajePostulantePedido() {
     if (gTipoUsuario == "2" && MensajePedidoDesktop == "0") {
