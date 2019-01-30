@@ -527,8 +527,8 @@ $('body').on('click', 'div.pedido_item_editable', function (event) {
                 //origen: '1080301',
                 palanca: 'OfertaParaTi',
                 campania: '201902',
-                cuv: '32590',
-                origen: '1080001',
+                cuv: '33195',
+                origen: '1010001',
                 tieneSession: null,
                 urlObtenerComponentes: urlObtenerComponentes,
                 esEditable: true
