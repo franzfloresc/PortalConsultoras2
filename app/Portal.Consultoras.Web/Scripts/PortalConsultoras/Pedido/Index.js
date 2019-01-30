@@ -516,70 +516,31 @@ $(document).ready(function () {
 });
 
 $('body').on('click', 'div.pedido_item_editable', function (event) {
-    //AbrirSplash();
-
-    //window.setTimeout(function() {
-    //        fichaModule = FichaModule({
-    //            localStorageModule: LocalStorageModule(),
-    //            //palanca: 'SoloHoy',
-    //            //campania: '201902',
-    //            //cuv: '31060',
-    //            //origen: '1080301',
-    //            palanca: 'OfertaParaTi',
-    //            campania: '201902',
-    //            cuv: '32590',
-    //            origen: '1080001',
-    //            tieneSession: null,
-    //            urlObtenerComponentes: urlObtenerComponentes,
-    //            esEditable: true
-    //        });
-
-    //        fichaModule.Inicializar();
-    //        ShowDivFichaResumida(true);
-    //        CerrarSplash();
-    //    },
-    //    10);
+    AbrirSplash();
     
-    ////SoloHoy / 201902 / 31060 / 1080301
+    var row = $(this);
+    var campania = $.trim(row.attr("data-campania"));
+    var cuv = $.trim(row.attr("data-cuv"));
+    var palanca = $.trim(row.attr("data-tipoestrategia"));
+    palanca = GetNombrePalanca(palanca);
 
-    //AbrirSplash();
+    window.setTimeout(function () {
+            fichaModule = FichaModule({
+                localStorageModule: LocalStorageModule(),
+                palanca: palanca,
+                campania: campania,
+                cuv: cuv,
+                origen: '0',
+                tieneSession: null,
+                urlObtenerComponentes: urlObtenerComponentes,
+                esEditable: true
+            });
 
-    //var promise = new Promise(function (resolve, reject) {
-        fichaModule = FichaModule({
-            localStorageModule: LocalStorageModule(),
-            palanca: 'OfertaParaTi',
-            campania: '201902',
-            cuv: '31852',
-            origen: '1080001',
-            tieneSession: null,
-            urlObtenerComponentes: urlObtenerComponentes,
-            esEditable: true
-        });
-
-        fichaModule.Inicializar();
-        ShowDivFichaResumida(true);
-
-    //    resolve(true);
-    //}).then(function (val) {
-    //    CerrarSplash();
-    //    console.log(val);
-    //    return val;
-    //});
-
-    ////SoloHoy / 201902 / 31060 / 1080301
-    //fichaModule = FichaModule({
-    //    localStorageModule: LocalStorageModule(),
-    //    palanca: 'SoloHoy',
-    //    campania: '201902',
-    //    cuv: '31060',
-    //    origen: '1080301',
-    //    tieneSession: null,
-    //    urlObtenerComponentes: urlObtenerComponentes,
-    //    esEditable: true
-    //});
-
-    //fichaModule.Inicializar();
-    //ShowDivFichaResumida(true);
+            fichaModule.Inicializar();
+            ShowDivFichaResumida(true);
+            CerrarSplash();
+        },
+        10);
 });
 
 function CargarDetallePedido(page, rows, asyncrono) {
@@ -644,6 +605,7 @@ function CargarDetallePedido(page, rows, asyncrono) {
                     item.EstadoSimplificacionCuv = data.EstadoSimplificacionCuv;
                 });
 
+                console.log(data.ListaDetalleModel);
                 var html = ArmarDetallePedido(data.ListaDetalleModel);
                 $("#tbobyDetallePedido").html(html);
 
