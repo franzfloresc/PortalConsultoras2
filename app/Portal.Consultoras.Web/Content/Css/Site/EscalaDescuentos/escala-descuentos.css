@@ -5,7 +5,8 @@
 }
 
 .layout__content--escalaDescuento{
-    max-width:1189px;
+    margin-top:45px;
+    max-width:1080px;
     padding-top:0;
     padding-left:20px;
     padding-right:20px;
@@ -16,12 +17,14 @@
 /* CONTENIDO VISTA ESCALA DE DESCUENTOS */
 
 .escala__descuento__descripcion_primary{
-    font-size:16px;
-    line-height:24px;
+    font-size:24px;
+    line-height:30px;
     margin-bottom:5px;
 }
 
 .escala__descuento__descripcion_secondary{
+    font-size:18px;
+    font-weight:bold;
     margin-bottom:26px;
 }
 
@@ -56,6 +59,7 @@
     }
 
 .info__calculo__porcentaje__descuento__titulo{
+    font-size:18px;
     line-height:25px;
 }
 
@@ -64,19 +68,21 @@
 .info__descuento__fijo__titulo,
 .info__sin__descuento__titulo
 {
-    font-size:16px;
+    font-size:22px;
     margin-bottom:8px;
 }
 
-.escala__descuento__descripcion_secondary,
-.info__calculo__porcentaje__descuento__descripcion span,
+.info__calculo__porcentaje__descuento__descripcion span{
+    font-size:14px;
+}
+
 .info__escala__descuento__variable__descripcion span,
 .info__descuento__fijo__descripcion span,
 .info__sin__descuento__descripcion span,
 .info__gana__mas__descripcion,
 .escala__descuento__porcentaje
 {
-    font-size:14px;
+    font-size:16px;
 }
 
 .info__escala__descuento__variable__descripcion span,
@@ -184,3 +190,34 @@
 }
 
 /* FIN - CONTENIDO VISTA ESCALA DE DESCUENTOS */
+
+@media screen and (max-width:991px){
+
+    .layout__content--escalaDescuento{
+        max-width:none;
+    }
+
+    .escala__descuento__descripcion_primary{
+        font-size:16px;
+        line-height:24px;
+    }
+
+    .info__calculo__porcentaje__descuento__titulo,
+    .info__escala__descuento__variable__titulo,
+    .info__descuento__fijo__titulo,
+    .info__sin__descuento__titulo
+    {
+        font-size:16px;
+    }
+
+    .info__calculo__porcentaje__descuento__descripcion span,
+    .info__escala__descuento__variable__descripcion span,
+    .info__descuento__fijo__descripcion span,
+    .info__sin__descuento__descripcion span,
+    .info__gana__mas__descripcion,
+    .escala__descuento__porcentaje
+    {
+        font-size:14px;
+    }
+
+}
