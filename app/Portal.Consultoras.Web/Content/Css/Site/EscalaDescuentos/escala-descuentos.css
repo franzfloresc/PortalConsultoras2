@@ -117,7 +117,8 @@
 }
 
 .info__gana__mas__titulo{
-    margin-bottom:17px;
+    padding-top:5px;
+    margin-bottom:0;
 }
 
 .info__gana__mas{
@@ -297,6 +298,11 @@
 
     .info__gana__mas{
         padding:17px 15px;
+    }
+
+    .info__gana__mas__titulo{
+        padding-top:0;
+        margin-bottom:17px;
     }
 
 }
