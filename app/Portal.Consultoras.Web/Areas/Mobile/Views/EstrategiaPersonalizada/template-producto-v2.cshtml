@@ -70,7 +70,6 @@
         {
             <div data-tipoagregar="{{TipoAccionAgregar}}">
                 {{#iff TipoAccionAgregar '==' '@Constantes.TipoAccionAgregar.EligeOpcion'}}
-
                     {{#if TieneStock}}
                     <div class="elige_tono_item cursor_pointer"
                          data-item-tag="verdetalle"
@@ -83,6 +82,14 @@
                     </div>
                     {{/if}}
                 
+                {{else}}
+                {{#if TieneStock}}
+                {{else}}
+                <div class="boton_producto_agotado">
+                    Agotado
+                </div>
+                {{/if}}
+
                 {{/iff}}
             </div>
         }
