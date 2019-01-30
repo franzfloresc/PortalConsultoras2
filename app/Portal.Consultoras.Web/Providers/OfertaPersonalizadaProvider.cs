@@ -832,7 +832,7 @@ namespace Portal.Consultoras.Web.Providers
                 Simbolo = usuarioModel.Simbolo,
                 CodigoTipoEstrategia = Constantes.TipoEstrategiaCodigo.ShowRoom
             };
-            List<ServiceOferta.BEEstrategia> listaProducto;
+            //List<ServiceOferta.BEEstrategia> listaProducto;
 
             var listEstrategia = GetEstrategiasService(entidad);
             return listEstrategia;
@@ -1330,6 +1330,7 @@ namespace Portal.Consultoras.Web.Providers
             }
 
             var listaProducto = GetShowRoomOfertasConsultora(userData);
+            listaProducto = _consultaProlProvider.ActualizarEstrategiaStockPROL(listaProducto, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora);
             var listaProductoModel = ConsultarEstrategiasFormatoEstrategiaToModel1(listaProducto, userData.CodigoISO, userData.CampaniaID);
 
             SetShowRoomOfertasInSession(listaProductoModel, userData);

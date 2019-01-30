@@ -24823,8 +24823,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     .contenido_misGanancias h6 {
         font-size: 13px;
         font-weight: 900 !important;
-        color: #642f80;
-        text-transform: uppercase;
+        color: #642f80; 
     }
 
 .contenedor_montos_sinDescuento {
@@ -28683,6 +28682,14 @@ div.motivoRechazo textarea {
     font-size: 15px;
     line-height: 30px;
     width: 330px;
+    text-decoration:none;
+}
+
+.politica_reclamos_icono,
+.politica_reclamos_texto
+{
+    display:inline-block;
+    vertical-align:middle;
 }
 
 .politica_reclamos_icono {

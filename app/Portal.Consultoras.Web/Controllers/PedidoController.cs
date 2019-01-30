@@ -129,7 +129,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!userData.DiaPROL)  // Periodo de venta
                 {
                     model.AccionBoton = "guardar";
-                    model.Prol = "GUARDA TU PEDIDO";
+                    model.Prol = "Guarda tu pedido";
                     model.ProlTooltip = "Es importante que guardes tu pedido";
                     model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
 
@@ -142,7 +142,7 @@ namespace Portal.Consultoras.Web.Controllers
                 else // Periodo de facturacion
                 {
                     model.AccionBoton = "validar";
-                    model.Prol = "RESERVA TU PEDIDO";
+                    model.Prol = "Reserva tu pedido";
                     model.ProlTooltip = "Haz click aqui para reservar tu pedido";
                     model.IndicadorGPRSB = configuracionCampania.IndicadorGPRSB;
 
@@ -1499,7 +1499,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region Zona de Estrategias
         [HttpPost]
-        public JsonResult ValidarStockEstrategia(string CUV, string PrecioUnidad, string Cantidad, string TipoOferta, bool enRangoProgNuevas)
+        public JsonResult ValidarStockEstrategia(string CUV, string PrecioUnidad, string Cantidad, string TipoOferta, bool enRangoProgNuevas, string descripcion = "")
         {
             string mensajeMontoMax = "", mensaje = "";
             bool validoMontoMax = false, valido = false;
@@ -1517,7 +1517,7 @@ namespace Portal.Consultoras.Web.Controllers
                         CrearLogProgNuevas("ProgNuevas: ValidarStockEstrategia", CUV);
                         mensaje = ValidarCantidadEnProgramaNuevas(CUV, Convert.ToInt32(Cantidad));
                     }
-                    else mensaje = ValidarStockLimiteVenta(CUV, intCantidad);
+                    else mensaje = ValidarStockLimiteVenta(CUV, intCantidad, descripcion);
 
                     if (mensaje == "") mensaje = ValidarStockEstrategiaMensaje(CUV, intCantidad, TipoOferta.ToInt32Secure());
                     if (mensaje == "") mensaje = ValidarStockArmaTuPackMensaje(CUV, intCantidad);
@@ -2015,7 +2015,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (olstClienteModel.Count == 0)
                 {
-                    olstClienteModel.Add(new ClienteModel() { ClienteID = -1, Nombre = "Tu cliente  no está registrado. Haz click aquí para ingresarlo." });
+                    olstClienteModel.Add(new ClienteModel() { ClienteID = -1, Nombre = "Tu cliente no está registrado. Haz click aquí para ingresarlo." });
                 }
             }
             catch (Exception ex)
@@ -2054,7 +2054,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (olstClienteModel.Count == 0)
                 {
-                    olstClienteModel.Add(new ClienteModel() { ClienteID = 0, Nombre = "Tu cliente  no está registrado." });
+                    olstClienteModel.Add(new ClienteModel() { ClienteID = 0, Nombre = "Tu cliente no está registrado." });
                 }
             }
             catch (Exception ex)
@@ -4427,7 +4427,7 @@ namespace Portal.Consultoras.Web.Controllers
             return mensaje;
         }
 
-        private string ValidarStockLimiteVenta(string cuv, int cantidad)
+        private string ValidarStockLimiteVenta(string cuv, int cantidad, string descripcion = "")
         {
             string mensaje = "";
 
@@ -4440,7 +4440,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     respValidar = sv.CuvTieneLimiteVenta(userData.PaisID, userData.CampaniaID, userData.CodigorRegion, userData.CodigoZona, cuv, cantidad, cantidadActual);
                 }
-                if (respValidar.TieneLimite) mensaje = string.Format(Constantes.MensajesError.ExcedioLimiteVenta, respValidar.UnidadesMaximas);
+                if (respValidar.TieneLimite) mensaje = string.Format(Constantes.MensajesError.StockLimiteVenta, cuv, descripcion, respValidar.UnidadesMaximas);
             }
             catch (Exception ex)
             {

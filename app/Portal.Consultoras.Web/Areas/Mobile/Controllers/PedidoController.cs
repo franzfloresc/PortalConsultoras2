@@ -365,25 +365,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             var pedidoWeb = ObtenerPedidoWeb();
 
-            int result = 0;
-
-            using (var sv = new PedidoServiceClient())
-            {
-
-                DateTime? fechaInicioSetAgrupado = sv.ObtenerFechaInicioSets(userData.PaisID);
-
-                if (fechaInicioSetAgrupado.HasValue)
-                    result = DateTime.Compare(fechaInicioSetAgrupado.Value.Date, pedidoWeb.FechaRegistro.Date);
-            }
-
-            if (result >= 0)
-            {
-                model.SetDetalleMobileFromDetalleWeb(PedidoJerarquico(lstPedidoWebDetalle));
-            }
-            else
-            {
+           
                 model.SetDetalleMobileFromDetalleWeb(lstPedidoWebDetalle);
-            }
+            
             model.Detalle.Update(detalle => { if (string.IsNullOrEmpty(detalle.Nombre)) detalle.Nombre = userData.NombreConsultora; });
             model.Detalle.Update(item => item.DescripcionPrecioUnidad = Util.DecimalToStringFormat(item.PrecioUnidad, model.CodigoISO));
             model.Detalle.Update(item => item.DescripcionImporteTotal = Util.DecimalToStringFormat(item.ImporteTotal, model.CodigoISO));

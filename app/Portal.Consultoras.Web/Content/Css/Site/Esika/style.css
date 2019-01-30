@@ -24036,7 +24036,6 @@ input[type='checkbox']:checked + span:after {
     font-family: 'Lato';
     font-size: 16px;
     color: #e81c36;
-    text-transform: uppercase;
 }
 
     .monto_gananciaValidado span {
@@ -24839,7 +24838,6 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
         font-size: 13px;
         font-weight: 900 !important;
         color: #e81c36;
-        text-transform: uppercase;
     }
 
 span.datoPedidoCliente {
@@ -28722,6 +28720,7 @@ div.motivoRechazo textarea {
     font-size: 15px;
     line-height: 30px;
     width: 330px;
+    text-decoration:none;
 }
 
 .politica_reclamos_icono,
