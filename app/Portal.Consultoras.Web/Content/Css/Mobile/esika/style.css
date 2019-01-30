@@ -6146,8 +6146,7 @@ input[type='checkbox']:checked + span:after {
     font-size: 13px;
     color: #606061;
     margin-top: 20px;
-    margin-bottom: 5px;
-    text-transform: uppercase;
+    margin-bottom: 5px; 
 }
 
 .monto_reservado_mobile {
@@ -6164,7 +6163,6 @@ input[type='checkbox']:checked + span:after {
     font-weight: 700;
     color: #e81c36;
     margin-bottom: 5px;
-    text-transform: uppercase;
 }
 
 .btn_ver_pedido_reservado {
@@ -6180,7 +6178,6 @@ input[type='checkbox']:checked + span:after {
     display: block;
     margin-top: 25px;
     cursor: pointer;
-    text-transform: uppercase;
 }
 
 .tooltip_validado {

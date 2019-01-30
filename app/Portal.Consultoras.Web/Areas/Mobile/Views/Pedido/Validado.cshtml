@@ -28,8 +28,8 @@
         }
         <hr class="clear" />
         <div class="left_reservado">
-            <div class="agregados_reservado">Unidades agregadas</div>
-            <div class="monto_reservado_mobile">MONTO TOTAL</div>
+            <div class="agregados_reservado">Unidades:</div>
+            <div class="monto_reservado_mobile">Total:</div>
             @{
                 string cabezaEscala = null, pieEscala = null;
                 string lbl1Ganancia = null, lbl2Ganancia = null;
@@ -41,14 +41,14 @@
                             Model.CodigoISO == Constantes.CodigosISOPais.Dominicana ||
                             Model.CodigoISO == Constantes.CodigosISOPais.PuertoRico)
                 {
-                    cabezaEscala = "Ganancia estimada total";
+                    cabezaEscala = "Ganancia estimada";
                     pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
                     lbl1Ganancia = "Mis descuentos";
                     lbl2Ganancia = "Ganancia estimada *(Guia de negocio y otros)";
                 }
                 else if (Model.CodigoISO == Constantes.CodigosISOPais.Mexico || Model.CodigoISO == Constantes.CodigosISOPais.Panama)
                 {
-                    cabezaEscala = "Ganancia estimada total";
+                    cabezaEscala = "Ganancia estimada";
                     pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros.";
                     lbl1Ganancia = "Mis descuentos";
                     lbl2Ganancia = "Ganancia estimada *(Revista y otros)";
@@ -89,7 +89,7 @@
             <input type="hidden" id="hdeLbl2Ganancia" value="@lbl2Ganancia" />
 
             <div class="ganancia_reservado">
-                @(cabezaEscala.ToUpper().Trim())
+                @(cabezaEscala.Trim())
             </div>
         </div>
         <div class="right_reservado">
@@ -103,7 +103,7 @@
         <div id="PedidoReservado" class="panel-collapse collapse">
 
             <div class="linea_gris" style="margin-top:10px;"></div>
-            <span class="detalle_reservado">DETALLE</span>
+            <span class="detalle_reservado">Detalle</span>
             <div class="linea_gris"></div>
             @foreach (var item in Model.Detalle)
             {
@@ -116,15 +116,15 @@
                         <div class="texto_reservado">Cliente: @item.Nombre</div>
                     </div>
                     <div class="right_reservado">
-                        <div class="texto_reservado">CANT</div>
+                        <div class="texto_reservado">Cant.:</div>
                         <div class="datos_Reservado"><b>@item.Cantidad</b></div>
                     </div>
                     <hr class="clear" /><br />
                     <div class="left_reservado">
                         <div class="texto_reservado">
-                            <span>Precio Unitario</span>
+                            <span>Precio unitario:</span>
                         </div>
-                        <div class="importe_reservado">SUBTOTAL</div>
+                        <div class="importe_reservado">Subtotal:</div>
                     </div>
                     <div class="right_reservado">
                         <div class="texto_reservado">
@@ -179,7 +179,7 @@
                             <div style="clear:both;"></div>
                         </div>
                     </div>
-                    <b>MONTO TOTAL</b>
+                    <b>Total:</b>
                 </div>
                 <div class="ganancia_Pedidovalidado" style="margin-top:7px">@(cabezaEscala.ToUpper().Trim())</div>
             </div>
@@ -191,7 +191,7 @@
             <hr class="clear" />
         </div>
 
-        <a class="btn_ver_pedido_reservado" data-toggle="collapse" data-parent="#accordion" href="#PedidoReservado">VER MI PEDIDO</a>
+        <a class="btn_ver_pedido_reservado" data-toggle="collapse" data-parent="#accordion" href="#PedidoReservado">Ver mi pedido</a>
         <div class="tooltip_validado">
             <div class="icono_tooltip_validado"></div>
             @{

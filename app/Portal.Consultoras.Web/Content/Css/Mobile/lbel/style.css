@@ -6186,7 +6186,6 @@ input[type='checkbox']:checked + span:after {
     display: block;
     margin-top: 25px;
     cursor: pointer;
-    text-transform: uppercase;
 }
 
 .tooltip_validado {

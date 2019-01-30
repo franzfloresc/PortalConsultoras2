@@ -84,8 +84,8 @@
                 <div class="cod_venta_listado texto_gris">Código</div>
                 <div class="descripcion_listado texto_gris">Producto</div>
                 <div class="cantidad_listado texto_gris">Cantidad</div>
-                <div class="unitario_listado texto_gris">Precio Unitario</div>
-                <div class="total_listado texto_gris">Precio Total</div>
+                <div class="unitario_listado texto_gris">Precio unitario</div>
+                <div class="total_listado texto_gris">Precio total</div>
                 <div class="cliente_listado texto_gris">Cliente</div>
             </div>
             <div class="linea_separadora"></div>
@@ -94,8 +94,8 @@
         <div class="montos_pedidoValidado">
             <div class="contenedor_montos_sinDescuento">
                 <div class="caja_montos_textos_sinDescuento pValidado">
-                    <span>TOTAL SIN DSCTO.</span>
-                    <span class="dscto_ofertasNiveles">(-) Dscto. Ofertas Por Niveles</span>
+                    <span>Subtotal:</span>
+                    <span class="dscto_ofertasNiveles">Descuento ofertas por niveles:</span>
                 </div>
                 <div class="caja_montos_cantidades_sinDescuento pValidado">
                     <span>@Model.Simbolo @Model.TotalSinDsctoFormato</span>
@@ -104,7 +104,7 @@
             </div>
             <hr class="clear">
 
-            <div class="monto_totalValidado"><b>MONTO TOTAL :</b><span>@Model.Simbolo @Model.TotalConDsctoFormato</span></div>
+            <div class="monto_totalValidado"><b>Total:</b><span>@Model.Simbolo @Model.TotalConDsctoFormato</span></div>
 
             <hr class="clear" />
             <div class="monto_gananciaValidado">
@@ -120,17 +120,17 @@
                         || Model.PaisID == Constantes.PaisID.PuertoRico
                         || Model.PaisID == Constantes.PaisID.RepublicaDominicana)
                     {
-                        cabezaEscala = "Ganancia estimada total";
+                        cabezaEscala = "Ganancia estimada";
                         pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocio y Otros";
                         lbl1Ganancia = "Mis descuentos";
-                        lbl2Ganancia = "Ganancia estimada *(Guia de negocio y otros)";
+                        lbl2Ganancia = "Ganancia estimada: <br> (Guía de negocio y otros)";
                     }
                     else if (Model.PaisID == Constantes.PaisID.Mexico || Model.PaisID == Constantes.PaisID.Panama)
                     {
-                        cabezaEscala = "Ganancia estimada total";
+                        cabezaEscala = "Ganancia estimada";
                         pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
                         lbl1Ganancia = "Mis descuentos";
-                        lbl2Ganancia = "Ganancia estimada *(Revista y otros)";
+                        lbl2Ganancia = "Ganancia estimada:  <br> (Guía de negocio y otros)";
                     }
                     else if (Model.PaisID == Constantes.PaisID.Chile)
                     {
@@ -177,7 +177,7 @@
 
             <hr class="clear" />
             <div>
-                <a class="btn_ModificaPedido" onclick="ModificarPedido();">MODIFICA TU PEDIDO</a>
+                <a class="btn_ModificaPedido" onclick="ModificarPedido();">Modifica tu pedido</a>
 
                 @{
                     string[] tooltips = ViewBag.ProlTooltip.Split('|');
@@ -332,9 +332,9 @@
             </a>
         </div>
         <div class="contenido_misGanancias" id="detalleGanancia">
-            <h6>GANANCIA ESTIMADA TOTAL</h6>
+            <h6>Ganancia estimada</h6>
             <div class="mis_descuentos">
-                <span class="mis_descuentos_texto">Mis descuentos</span>
+                <span class="mis_descuentos_texto">Mis descuentos:</span>
                 <span class="mis_descuentos_monto">@Model.Simbolo @ViewBag.MontoAhorroCatalogo</span>
             </div>
             <div class="mis_descuentos">
@@ -379,8 +379,8 @@
         <div class="cod_venta_listado texto_gris">Código</div>
         <div class="descripcion_listado texto_gris">Producto</div>
         <div class="cantidad_listado texto_gris">Cantidad</div>
-        <div class="unitario_listado texto_gris">Precio Unitario</div>
-        <div class="total_listado texto_gris">Precio Total</div>
+        <div class="unitario_listado texto_gris">Precio unitario</div>
+        <div class="total_listado texto_gris">Precio total</div>
         <div class="cliente_listado texto_gris">Cliente</div>
     </div>
     <div class="linea_separadora"></div>

@@ -255,15 +255,15 @@
                                 <hr class="separador_montos" />
                                 <div class="caja_montos_textos">
                                     <div class="caja_montos_textos_sinDescuento">
-                                        <span>TOTAL SIN DSCTO.</span>
-                                        <span class="dscto_ofertasNiveles">(-) Dscto. Ofertas Por Niveles</span>
+                                        <span>Subtotal:</span>
+                                        <span class="dscto_ofertasNiveles">Descuento ofertas por niveles:</span>
                                     </div>
                                     <br />
                                     <p class="monto_con_descuento pMontoCliente default-color" style="display: none;">
                                         <span id="spnNombreCliente"></span>
                                     </p>
                                     <div class="monto_total">
-                                        <span><b>Monto total:</b></span>
+                                        <span><b>Total:</b></span>
                                     </div>
                                     <br />
                                     <div class="monto_ganancia default-color">
@@ -283,18 +283,18 @@
                                                 Model.CodigoIso == Constantes.CodigosISOPais.PuertoRico) //PE,CO,EC,GT.SV,DO,PR
                                             {
 
-                                                cabezaEscala = "Ganancia estimada total";
+                                                cabezaEscala = "Ganancia estimada";
                                                 pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocio y Otros";
                                                 lbl1Ganancia = "Mis descuentos";
-                                                lbl2Ganancia = "Ganancia estimada *(Guia de negocio y otros)";
+                                                lbl2Ganancia = "Ganancia estimada: <br> (Guía de negocio y otros)";
                                             }
                                             else if (Model.CodigoIso == Constantes.CodigosISOPais.Panama ||
                                                 Model.CodigoIso == Constantes.CodigosISOPais.Mexico) //PA,MX
                                             {
-                                                cabezaEscala = "Ganancia estimada total";
+                                                cabezaEscala = "Ganancia estimada";
                                                 pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
                                                 lbl1Ganancia = "Mis descuentos";
-                                                lbl2Ganancia = "Ganancia estimada *(Revista y otros)";
+                                                lbl2Ganancia = "Ganancia estimada: <br> (Guía de negocio y otros)";
                                             }
                                             else if (Model.CodigoIso == Constantes.CodigosISOPais.Chile) //CH
                                             {
@@ -396,7 +396,7 @@
                             }
                         }
                         <div class="boton_guardarPedido">
-                            <input type="button" id="btnValidarPROL" value="@Model.Prol" style="text-transform: uppercase;" class="info_copy default-background-color" />
+                            <input type="button" id="btnValidarPROL" value="@Model.Prol"  class="info_copy default-background-color" />
                         </div>
                     </div>
 
@@ -1310,7 +1310,7 @@
                 <div class="texto_gris_popup padding_tabla_pendientes dinamicostablemini">Código</div>
                 <div class="texto_gris_popup padding_tabla_pendientes dinamicostablemedio">Producto</div>
                 <div class="texto_gris_popup padding_tabla_pendientes dinamicostable">Unidades</div>
-                <div class="texto_gris_popup padding_tabla_pendientes dinamicostable">Precio Unitario</div>
+                <div class="texto_gris_popup padding_tabla_pendientes dinamicostable">Precio unitario</div>
                 <div class="texto_gris_popup padding_tabla_pendientes dinamicostable">Subtotal</div>
                 <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">¿Cómo lo Atenderás?</div>
             </div>
@@ -1395,7 +1395,7 @@
             <div class="content_datos_pendientes">
                 <div class="texto_gris_popup padding_tabla_pendientes dinamicostableextragrande izq">Producto</div>
                 <div class="texto_gris_popup padding_tabla_pendientes dinamicostableextragrande">Unidades</div>
-                <div class="texto_gris_popup padding_tabla_pendientes dinamicostableextragrande">Precio Unitario</div>
+                <div class="texto_gris_popup padding_tabla_pendientes dinamicostableextragrande">Precio unitario</div>
                 <div class="texto_gris_popup padding_tabla_pendientes dinamicostableextragrande">Subtotal</div>
             </div>
             <div class="linea_separadora" style="margin-top:-1px"></div>
