@@ -66,27 +66,26 @@ var ComponentesModule = (function () {
     };
 
     var _mostrarMensajeTonosAgotados = function (estrategia) {
-        if (estrategia.Hermanos.length > 1) {
-            var hijos = 0;
-            var cta = 0;
-            $.each(estrategia.Hermanos, function (i, obj) {
-                if (obj.Hermanos !== 'undefined' && obj.Hermanos !== null) {
-                    $.each(obj.Hermanos, function (j, k) {
-                        hijos++;
-                        if (!k.TieneStock) cta++;
-                    });
-                }
-                else {
-                    hijos++;
-                    if (!obj.TieneStock) cta++;
-                }
-            });
+        var hijos = 0;
+        var cta = 0;
 
-            if (hijos > 1 && cta > 0) {
-                if (cta < hijos) {
-                    $('.xmsg-tonos-agotados').show();
-                }
-            }
+        if (estrategia.CodigoVariante == '2002') {
+            $.each(estrategia.Hermanos, function (i, obj) {
+                hijos++;
+                if (!obj.TieneStock) cta++;
+            });
+        }
+        else {
+            $.each(estrategia.Hermanos, function (i, obj) {
+                $.each(obj.Hermanos, function (j, k) {
+                    hijos++;
+                    if (!k.TieneStock) cta++;
+                });
+            });
+        }
+
+        if (hijos > 0 && cta > 0) {
+            if (cta < hijos) $('.xmsg-tonos-agotados').show();
         }
     }
 
