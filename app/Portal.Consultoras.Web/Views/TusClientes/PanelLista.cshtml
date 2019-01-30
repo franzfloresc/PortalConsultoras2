@@ -57,7 +57,7 @@
 <a href="#" style="text-decoration:underline" id="btnPanelListaCerrar">Cerrar panel</a>
 <a href="#" style="text-decoration:underline" id="btnPanelListaAgregar">Agregar Cliente</a>
 <a href="#" style="text-decoration:underline" id="btnPanelListaAceptar">Aceptar selección</a>
-  
+
 <input placeholder="Buscar" type="text" class="buscador_clientes" id="txtPanelListaBusqueda" style="width:100%" />
 
 
@@ -66,89 +66,36 @@
 <div id="handlebars_contenedor1"></div>
 <script id="handlebars_plantilla1" type="text/x-handlebars-template">
 
-        {{# each miData}}
-        <div class="content_listado_notificaciones" onclick="seleccionarRegistro({{PaisID}}, {{ClienteID}}, '{{CodigoCliente}}', '{{NombreCliente}}')">
-            <div style="display:none;" class="cliente_id">{{ClienteID}}</div>
-            <div style="display:none;" class="codigo_cliente">{{CodigoCliente}}</div>
-            <div class="nombre_cliente_sb">{{NombreCliente}}</div>
-        </div>
-        {{/each}}
-    
+    {{# each miData}}
+    <div class="content_listado_notificaciones" onclick="panelListaModule.seleccionarRegistro({{PaisID}}, {{ClienteID}}, '{{CodigoCliente}}', '{{NombreCliente}}')">
+        <div style="display:none;" class="cliente_id">{{ClienteID}}</div>
+        <div style="display:none;" class="codigo_cliente">{{CodigoCliente}}</div>
+        <div class="nombre_cliente_sb">{{NombreCliente}}</div>
+    </div>
+    {{/each}}
+
 </script>
 
-    <!-- INIT: Panel cliente-->
-    <div id="PanelClienteRegistro" class="sidenav" style="background-color:#f1f1f1 !important;">
-        <div id="PanelClienteRegistro_contenedor" style="background-color:#f1f1f1;">
-        </div>
+<!-- INIT: Panel cliente-->
+<div id="PanelClienteRegistro" class="sidenav" style="background-color:#f1f1f1 !important;">
+    <div id="PanelClienteRegistro_contenedor" style="background-color:#f1f1f1;">
     </div>
-    <!-- END: Panel cliente-->
-    @*
-
-        <script type="text/javascript" src="@Url.Content("~/Scripts/General.js")"></script>
-        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.11.2.min.js")"></script>
-
-        <script type="text/javascript" src="@Url.Content("~/Scripts/handlebars.min.js")"></script>
-
-    *@
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/TusClientes/TusClientesProvider.js")"></script>
-    <script type="text/javascript">
-
-        function seleccionarRegistro(pPaisID, pClienteID, pCodigoCliente, pNombreCliente) {
-            console.log(pPaisID, pClienteID, pCodigoCliente, pNombreCliente);
-
-            $("#hfPaisID").val(pPaisID);
-            $("#hfClienteID").val(pClienteID);
-            $("#hfCodigoCliente").val(pCodigoCliente);
-            $("#hfNombreCliente").val(pNombreCliente);
-        }
-
-        function PanelRegistroShow() {
-            $("#PanelClienteRegistro").css("width", "400px");
-        }
-
-        function PanelRegistroHide() {
-            $("#PanelClienteRegistro").css("width", "0");
-        }
-
-        function listarTusClientes() {
-            var tusClientesProvider = TusClientesProvider();
-            var nombreClinete = $("#txtPanelListaBusqueda").val()
-            tusClientesProvider
-                .consultarPromise(nombreClinete)
-                .done(function (data) {
-                    console.log(data);
-                    pintar(data);
-                    seleccionarRegistro('', '', '', '');
-                })
-        }
-
-        function pintar(data) {
-            var plantilla = $("#handlebars_plantilla1").html();
-
-            var compiled = Handlebars.compile(plantilla);
-            var html = compiled(data);
-
-            $("#handlebars_contenedor1").empty()
-            $("#handlebars_contenedor1").append(html);
-        }
-
-        $(document).ready(function () {
-
-            $('#PanelClienteRegistro_contenedor').load($("#hfUrlFrmRegistro").val());//TusClientes/Detalle.cshtml
-
-            $("#btnPanelListaAgregar").click(function () {
-                PanelRegistroShow();
-            });
-
-            $("#txtPanelListaBusqueda").keypress(function (e) {
-                if (e.which == 13) {
-                    //if (checkTimeout()) {
-                    listarTusClientes();
-                    //}
-                }
-            });
-
-            listarTusClientes();
-        });
-
-    </script>
+</div>
+<!-- END: Panel cliente-->
+@*
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.11.2.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/handlebars.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/General.js")"></script>
+*@
+<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/TusClientes/TusClientesProvider.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/TusClientes/PanelListaModule.js")"></script>
+<script>
+    var tusClientesProvider = TusClientesProvider();
+    var panelListaModule = PanelListaModule({
+        tusClientesProvider,
+        urlPanelMantener: $("#hfUrlFrmRegistro").val()
+    });
+    $(document).ready(function () {
+        panelListaModule.init();
+    });
+</script>

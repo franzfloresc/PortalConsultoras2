@@ -64,15 +64,17 @@
     <input id="btnCerrar" type="button" value="Cerrar" />
 
     <link href="@Url.Content("~/Content/Css/Site/Esika/style.css")" rel="stylesheet" />
-    <script type="text/javascript" src="@Url.Content("~/Scripts/General.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.11.2.min.js")"></script>
 
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.11.2.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-ui-1.9.2.custom.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/handlebars.min.js")"></script>
 
-    <script src="@Url.Content("~/Scripts/PortalConsultoras/TusClientes/ClientePanelModule.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/General.js")"></script>
+
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/TusClientes/ClientePanelModule.js")"></script>
 
     <script>
-  
+
         var panel = null;
         $(document).ready(function () {
 
@@ -85,20 +87,16 @@
                 //$("#PanelClienteLista").css("width", "0");
                 panel.Cerrar();
             });
-             
+
             panel = new ClientePanelModule('PanelClienteLista', 'PanelClienteLista_Contenedor', '@Url.Content("~")');
             panel.AceptarClick = function (obj) {
                 console.log('tu código:', obj);
             };
             panel.RenderizarPagina();
             panel.Abrir();
-             
+
         });
-
-        
-
     </script>
-
 
 </body>
 </html>
