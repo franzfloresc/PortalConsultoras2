@@ -41,7 +41,7 @@
     {{#if EliminadoTemporal}}
     {{else}}
     <div class="contenido_ingresoPedido mouse_encima 
-         {{#iff TipoEstrategiaCodigo 'ContainsArray' '["@Constantes.TipoEstrategiaCodigo.ShowRoom","@Constantes.TipoEstrategiaCodigo.OfertaDelDia"]'}} 
+         {{#iff TipoEstrategiaCodigo 'ContainsArray' '["@Constantes.TipoEstrategiaCodigo.ShowRoom","@Constantes.TipoEstrategiaCodigo.OfertaDelDia","@Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada"]'}} 
             pedido_item_editable 
          {{/iff}}" data-cuv="{{CUV}}" data-campania="{{CampaniaID}}" data-tipoestrategia="{{TipoEstrategiaCodigo}}">
         <div class="texto_pedidos celda_producto pedidoPadreToolTip" style="position:relative">
