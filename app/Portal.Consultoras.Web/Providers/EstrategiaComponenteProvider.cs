@@ -449,9 +449,9 @@ namespace Portal.Consultoras.Web.Providers
                     x.IdMarca != Constantes.Marca.LBel);
 
             int contador = 0;
-            contador += listaComponentesCyzone.Any() ? 1 : 0;
-            contador += listaComponentesEzika.Any() ? 1 : 0;
-            contador += listaComponentesLbel.Any() ? 1 : 0;
+            contador += listaComponentesCyzone.Any().ToInt();
+            contador += listaComponentesEzika.Any().ToInt();
+            contador += listaComponentesLbel.Any().ToInt();
 
             esMultimarca = contador > 1;
 

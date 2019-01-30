@@ -88,9 +88,10 @@ namespace Portal.Consultoras.Web.Annotations
                 listaValoresPropiedadesConjunto.Add(otherValue);
             }
 
-            if (
-                (Condicion && listaValoresPropiedadesConjunto.All(p => p == null || p.ToString() == string.Empty)) ||
-                (!Condicion && listaValoresPropiedadesConjunto.Any(p => p == null || p.ToString() == string.Empty)))
+            var cantidadTotal = listaValoresPropiedadesConjunto.Count;
+            var cantidadNull = listaValoresPropiedadesConjunto.Count(p => p == null || p.ToString() == string.Empty);
+            
+            if (Condicion ? cantidadNull == cantidadTotal : cantidadNull > 0)
             {
                 return new ValidationResult(this.FormatErrorMessage(validationContext.DisplayName));
             }

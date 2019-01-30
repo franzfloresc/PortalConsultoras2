@@ -291,30 +291,67 @@ var menuModule = (function () {
         }
     }
     function sectionClick(url, titulo, e) {
-
-        var OrigenPedidoWeb = EstrategiaAgregarModule.GetOrigenPedidoWeb($(e), false);
-        titulo = titulo || "";
         url = url || "";
-
-        if (_var.Mobile) {
-            if (url.indexOf(ConstantesModule.CodigosPalanca.Ganadoras) > 0)
-                if (url.indexOf("Mobile") < 0)
-                    url = "/Mobile" + url;
+        if (_var.Mobile && url.indexOf("Mobile") < 0) {
+            url = "/Mobile" + url;
         }
 
         if (typeof AnalyticsPortalModule !== "undefined") {
-            OrigenPedidoWeb = OrigenPedidoWeb || "";
+            titulo = titulo || "";
+            var OrigenPedidoWeb = "";
+            OrigenPedidoWeb = EstrategiaAgregarModule.GetOrigenPedidoWeb($(e), false);
+
             if (url.indexOf(ConstantesModule.CodigosPalanca.Ganadoras) > 0) {
-                if (titulo === "BotonVerMas")
-                    AnalyticsPortalModule.MarcarClickMasOfertasMG(url, OrigenPedidoWeb);
                 if (titulo === "BannerMG") {
                     AnalyticsPortalModule.MarcarClickMasOfertasPromotionClickMG();
-                    AnalyticsPortalModule.MarcarClickMasOfertasBannerMG(url);
                 }
-            } else
-                AnalyticsPortalModule.MarcaClicVerMasOfertas(url, OrigenPedidoWeb);
+            }
+
+            if (url.indexOf(ConstantesModule.CodigosPalanca.LiquidacionWeb) > 0) {
+                OrigenPedidoWeb = ConstantesModule.OrigenPedidoWebEstructura.Dispositivo.Desktop
+                    + ConstantesModule.OrigenPedidoWebEstructura.Pagina.Home
+                    + ConstantesModule.OrigenPedidoWebEstructura.Palanca.Liquidacion
+                    + ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel;
+            }
+
+            else if (url.indexOf(ConstantesModule.CodigosPalanca.SR) > 0) {
+                if (titulo === "BotonVerMasEspecialesHome") {
+                    OrigenPedidoWeb = ConstantesModule.OrigenPedidoWebEstructura.Dispositivo.Desktop
+                        + ConstantesModule.OrigenPedidoWebEstructura.Pagina.Home
+                        + ConstantesModule.OrigenPedidoWebEstructura.Palanca.Showroom
+                        + ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel;
+                }
+            }
+
+            else if (url.indexOf(ConstantesModule.CodigosPalanca.GuiaNegocio) > 0) {
+                OrigenPedidoWeb = ConstantesModule.OrigenPedidoWebEstructura.Dispositivo.Desktop
+                    + ConstantesModule.OrigenPedidoWebEstructura.Pagina.Contenedor
+                    + ConstantesModule.OrigenPedidoWebEstructura.Palanca.GND
+                    + ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel;
+            }
+            else if (url.indexOf(ConstantesModule.TipoEstrategia.LAN) > 0) {
+                OrigenPedidoWeb = ConstantesModule.OrigenPedidoWebEstructura.Dispositivo.Desktop
+                    + ConstantesModule.OrigenPedidoWebEstructura.Pagina.Home
+                    + ConstantesModule.OrigenPedidoWebEstructura.Palanca.Lanzamientos
+                    + ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel;
+            }
+
+            OrigenPedidoWeb = OrigenPedidoWeb || "";
+            var texto = sectionClickGettexto(e);
+            AnalyticsPortalModule.MarcaClicVerMasOfertas(url, OrigenPedidoWeb, texto);
+      
+        }
+        else {
+            document.location = url;
         }
 
+    }
+    function sectionClickGettexto() {
+        var texto = (e.innerText || "").trim();
+        if (texto === "") {
+            texto = $(e).find("[data-seccion-btn-vermas]").html() || "";
+        }
+        return texto.replace('+', '');
     }
     function tabResize() {
 
