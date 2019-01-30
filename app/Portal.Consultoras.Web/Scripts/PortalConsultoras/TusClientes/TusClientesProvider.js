@@ -1,14 +1,13 @@
-﻿var TusClientesProvider = function () {
+﻿
+var TusClientesProvider = function () {
     "use strict";
 
     var _consultarPromise = function (nombreCliente) {
         var dfd = jQuery.Deferred();
 
-        var baseUrl = baseUrl || $("#hfBaseUrl").val();
-
         $.ajax({
             type: 'POST',
-            url: baseUrl + 'TusClientes/Consultar',
+            url: '/TusClientes/Consultar',
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify({

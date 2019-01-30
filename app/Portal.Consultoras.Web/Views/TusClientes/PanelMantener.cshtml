@@ -46,9 +46,8 @@
         <input id="hfBaseUrlDetalle" type="hidden" value="@Url.Content("~")" />
     </form>
 
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/TusClientes/PanelMantenerModule.js")"></script>
     <script>
-
-
         $(document).ready(function () {
 
             $(".input-correo").keypress(function (evt) {
@@ -82,14 +81,14 @@
             $("#form1").submit(function (e) {
                 //AbrirSplash();
             });
-             
+
             $("#btnPanelMantenerCerrar").click(function () {
                 PanelRegistroHide();//Método de TusClientes/PanelLista.cshtml
             });
 
             $("#btnPanelMantenerAgregar").click(function () {
 
-                
+
 
                 var baseUrlDetalle = $("#hfBaseUrlDetalle").val();
 
@@ -186,7 +185,6 @@
             });
 
         });
-
     </script>
 </div>
 

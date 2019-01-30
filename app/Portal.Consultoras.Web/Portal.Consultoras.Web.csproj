@@ -4131,6 +4131,9 @@
     <Content Include="Scripts\PortalConsultoras\TagManager\Liquidacion.js" />
     <Content Include="Scripts\PortalConsultoras\TagManager\Home-Pedido.js" />
     <Content Include="Scripts\PortalConsultoras\TusClientes\ClientePanelModule.js" />
+    <Content Include="Scripts\PortalConsultoras\TusClientes\PanelListaModule.js" />
+    <Content Include="Scripts\PortalConsultoras\TusClientes\PanelMantenerModule.js" />
+    <Content Include="Scripts\PortalConsultoras\TusClientes\TusClientesModule.js" />
     <Content Include="Scripts\PortalConsultoras\TusClientes\TusClientesProvider.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\slick.js" />
