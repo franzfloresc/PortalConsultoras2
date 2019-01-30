@@ -212,7 +212,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (!SessionManager.GetActualizarDatosConsultora())
                 {
-                    RegistrarLogDynamoDB(Constantes.LogDynamoDB.AplicacionPortalConsultoras, Constantes.LogDynamoDB.RolConsultora, "HOME", "INGRESAR");
                     SessionManager.SetActualizarDatosConsultora(true);
                 }
 

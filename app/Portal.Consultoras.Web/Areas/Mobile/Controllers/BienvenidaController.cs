@@ -109,7 +109,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 if (SessionManager.GetIngresoPortalConsultoras() == null)
                 {
-                    RegistrarLogDynamoDB(Constantes.LogDynamoDB.AplicacionPortalConsultoras, Constantes.LogDynamoDB.RolConsultora, "HOME", "INGRESAR");
                     SessionManager.SetIngresoPortalConsultoras(true);
                 }
 

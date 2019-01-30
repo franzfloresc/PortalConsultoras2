@@ -727,39 +727,7 @@ namespace Portal.Consultoras.Web.Controllers
         #endregion
 
         #region LogDynamo
-
-        protected void RegistrarLogDynamoDB(string aplicacion, string rol, string pantallaOpcion, string opcionAccion, ServiceUsuario.BEUsuario entidad = null)
-        {
-            string ipCliente = GetIPCliente();
-            bool esMobile = EsDispositivoMovil();
-            _logDynamoProvider.RegistrarLogDynamoDB(userData, aplicacion, rol, pantallaOpcion, opcionAccion, ipCliente, esMobile);
-        }
-        protected void RegistrarLogDynamoDB(InLogUsabilidadModel Log)
-        {
-            try
-            {
-                Log = Log ?? new InLogUsabilidadModel();
-                Log.Fecha = "";
-                Log.Pais = userData.CodigoISO;
-                Log.Region = userData.CodigorRegion;
-                Log.Zona = userData.CodigoZona;
-                Log.Seccion = userData.SeccionAnalytics;
-                Log.Rol = Constantes.LogDynamoDB.RolConsultora;
-                Log.Campania = userData.CampaniaID.ToString();
-                Log.Usuario = userData.CodigoUsuario;
-                Log.DispositivoCategoria = Request.Browser.IsMobileDevice ? "MOBILE" : "WEB";
-                Log.DispositivoID = GetIPCliente();
-                Log.Version = "2.0";
-                Log.JwtToken = userData.JwtToken;
-                Log.CodigoConsultora = userData.CodigoConsultora;
-                Log.CodigoISO = userData.CodigoISO;
-               _logDynamoProvider.RegistrarLogDynamoDB(Log);
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-            }
-        }
+        
         protected void ActualizarDatosLogDynamoDB(MisDatosModel p_modelo, string p_origen, string p_aplicacion, string p_Accion, string p_CodigoConsultoraBuscado = "", string p_Seccion = "")
         {
             bool esMobile = EsDispositivoMovil();
