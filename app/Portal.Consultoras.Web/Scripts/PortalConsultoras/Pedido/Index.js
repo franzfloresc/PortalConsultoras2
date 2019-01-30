@@ -174,7 +174,7 @@ $(document).ready(function () {
                 .appendTo(ul);
     };
 
-    $("#txtCUV").keyup(function (evt) {        
+    $("#txtCUV").keyup(function (evt) {
 
         $("#txtCantidad").removeAttr("disabled");
         $("#txtCantidad").val("");
@@ -192,7 +192,7 @@ $(document).ready(function () {
         } else {
             $("#divProductoAgotadoFinal").fadeOut(100);
             $("#hdfCUV").val("");
-            $("#divObservaciones").html("");            
+            $("#divObservaciones").html("");
         }
     });
 
@@ -425,23 +425,23 @@ $(document).ready(function () {
         //var validarEstrategia = ValidarStockEstrategia();
 
         //if (validarEstrategia.success) {
-            var flagNueva = $.trim($("#hdFlagNueva").val());
-            if (flagNueva == "0" || flagNueva == "") {
-                var form = FuncionesGenerales.GetDataForm(this);
-                form.data.TipoOfertaSisID = $("#hdTipoEstrategiaID").val();
-                form.data.TipoEstrategiaID = $("#hdTipoEstrategiaID").val();
-                form.data.EnRangoProgramaNuevas = cuvEsProgNuevas;
-                PedidoRegistroModule.InsertarProductoPasePedido(form);
-            } else {
-                PedidoRegistroModule.AgregarProductoZonaEstrategia(flagNueva == "1" ? 2 : flagNueva);
-            }
+        var flagNueva = $.trim($("#hdFlagNueva").val());
+        if (flagNueva == "0" || flagNueva == "") {
+            var form = FuncionesGenerales.GetDataForm(this);
+            form.data.TipoOfertaSisID = $("#hdTipoEstrategiaID").val();
+            form.data.TipoEstrategiaID = $("#hdTipoEstrategiaID").val();
+            form.data.EnRangoProgramaNuevas = cuvEsProgNuevas;
+            PedidoRegistroModule.InsertarProductoPasePedido(form);
+        } else {
+            PedidoRegistroModule.AgregarProductoZonaEstrategia(flagNueva == "1" ? 2 : flagNueva);
+        }
 
-            if (cuv.substring(0, 3) == '999') {//OG
-                sessionStorage.setItem('cuvPack', cuv);
-            }
+        if (cuv.substring(0, 3) == '999') {//OG
+            sessionStorage.setItem('cuvPack', cuv);
+        }
 
-            ProcesarActualizacionMostrarContenedorCupon();
-            $("#btnAgregar").removeAttr("disabled");
+        ProcesarActualizacionMostrarContenedorCupon();
+        $("#btnAgregar").removeAttr("disabled");
         //} else {
         //    CerrarSplash();
         //    AbrirMensaje(validarEstrategia.message);
@@ -826,7 +826,8 @@ function ValidarStockEstrategia() {
         PrecioUnidad: pprecio,
         Cantidad: cantidadSol,
         TipoOferta: $("#hdTipoEstrategiaID").val(),
-        enRangoProgNuevas: cuvEsProgNuevas
+        enRangoProgNuevas: cuvEsProgNuevas,
+        Descripcion: $("#txtDescripcionProd").val()
     };
 
     jQuery.ajax({
@@ -1776,61 +1777,67 @@ var currentClienteEdit = null;
 var currentClienteCreate = null;
 
 function CargarAutocomplete() {
-    var array = $(".classClienteNombre");
-    if (array.length === 0)
+    var listaCampo = $(".classClienteNombre");
+    if (listaCampo.length === 0)
         return false;
-    $(array).focus(function () {
-        if (HorarioRestringido())
-            this.blur();
-    });
-    $(array).autocomplete({
-        source: baseUrl + "Pedido/AutocompleteByClienteListado",
-        minLength: 4,
-        select: function (event, ui) {
-            if (ui.item.ClienteID != 0) {
-                $(this).val(ui.item.Nombre);
 
-                var rowElement = $(this).closest(".contenido_ingresoPedido");
-                currentInputClienteID = $(rowElement).find(".hdfLPCli");
-                currentInputClienteNombre = $(rowElement).find(".hdfLPCliDes");
+    $.each(listaCampo, function (indexCampo, array) {
 
-                $(currentInputClienteID).val(ui.item.ClienteID);
-                $(currentInputClienteNombre).val(ui.item.Nombre);
-
-                currentInputEdit = $(this);
-                currentClienteEdit = null;
-
-                if (ui.item.TieneTelefono == 0) {
-                    currentClienteEdit = ui.item;
-
-                    showClienteDetalle(ui.item, function (cliente) {
-                        $(currentInputClienteID).val(cliente.ClienteID);
-                        $(currentInputClienteNombre).val(cliente.Nombre);
-                        $(currentInputEdit).val(cliente.Nombre);
-
-                        $(currentInputEdit).blur();
-
-                    }, function () {
-                        CargarDetallePedido();
-                    });
-                }
-            }
-
-            isShown = false;
-            event.preventDefault();
-            return false;
-        }
-    }).data("autocomplete")._renderItem = function (ul, item) {
-        ul.mouseover(function () {
-            isShown = true;
-        }).mouseout(function () {
-            isShown = false;
+        $(array).focus(function () {
+            if (HorarioRestringido())
+                this.blur();
         });
-        return $("<li></li>")
-            .data("item.autocomplete", item)
-            .append("<a>" + item.Nombre + "</a>")
-            .appendTo(ul);
-    };
+
+        $(array).autocomplete({
+            source: baseUrl + "Pedido/AutocompleteByClienteListado",
+            minLength: 4,
+            select: function (event, ui) {
+                if (ui.item.ClienteID != 0) {
+                    $(this).val(ui.item.Nombre);
+
+                    var rowElement = $(this).closest(".contenido_ingresoPedido");
+                    currentInputClienteID = $(rowElement).find(".hdfLPCli");
+                    currentInputClienteNombre = $(rowElement).find(".hdfLPCliDes");
+
+                    $(currentInputClienteID).val(ui.item.ClienteID);
+                    $(currentInputClienteNombre).val(ui.item.Nombre);
+
+                    currentInputEdit = $(this);
+                    currentClienteEdit = null;
+
+                    if (ui.item.TieneTelefono == 0) {
+                        currentClienteEdit = ui.item;
+
+                        showClienteDetalle(ui.item, function (cliente) {
+                            $(currentInputClienteID).val(cliente.ClienteID);
+                            $(currentInputClienteNombre).val(cliente.Nombre);
+                            $(currentInputEdit).val(cliente.Nombre);
+
+                            $(currentInputEdit).blur();
+
+                        }, function () {
+                            CargarDetallePedido();
+                        });
+                    }
+                }
+
+                isShown = false;
+                event.preventDefault();
+                return false;
+            }
+        }).data("autocomplete")._renderItem = function (ul, item) {
+            ul.mouseover(function () {
+                isShown = true;
+            }).mouseout(function () {
+                isShown = false;
+            });
+            return $("<li></li>")
+                .data("item.autocomplete", item)
+                .append("<a>" + item.Nombre + "</a>")
+                .appendTo(ul);
+        };
+
+    });
 }
 
 function CalcularTotal() {

@@ -387,19 +387,22 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             txtBuil.Append("Cliente");
             txtBuil.Append("</td>");
             txtBuil.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 126px; background-color: #666699;'>");
-            txtBuil.Append("Cod. Venta");
+            /*txtBuil.Append("Cod. Venta");*/
+            txtBuil.Append("Código"); 
             txtBuil.Append("</td>");
             txtBuil.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 347px; background-color: #666699;'>");
-            txtBuil.Append("Descripción");
+            //txtBuil.Append("Descripción");
+            txtBuil.Append("Producto");
             txtBuil.Append("</td>");
             txtBuil.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 124px; background-color: #666699;'>");
             txtBuil.Append("Cantidad");
             txtBuil.Append("</td>");
             txtBuil.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 182px; background-color: #666699;'>");
-            txtBuil.Append("Precio Unit.");
+            //txtBuil.Append("Precio Unit.");
+            txtBuil.Append("Precio unitario");
             txtBuil.Append("</td>");
             txtBuil.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 165px; background-color: #666699;'>");
-            txtBuil.Append("Precio Total");
+            txtBuil.Append("Precio total");
             txtBuil.Append("</td>");
             txtBuil.Append("</tr>");
             /* Armado de Data */

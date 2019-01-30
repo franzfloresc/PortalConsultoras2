@@ -1341,7 +1341,7 @@ var PedidoRegistroModule = function () {
 
         jQuery.ajax({
             type: 'POST',
-            url: _url.urlAgregarUnico,
+            url: baseUrl + _url.urlAgregarUnico,
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(model),
