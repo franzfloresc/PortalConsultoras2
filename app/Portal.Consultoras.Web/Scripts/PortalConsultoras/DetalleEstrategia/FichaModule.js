@@ -718,7 +718,8 @@ var FichaModule = (function (config) {
     };
 
     var _redireccionar = function () {
-        window.location = baseUrl + (isMobile() ? "Mobile/" : "") + "Ofertas";
+        if (!_config.esEditable)
+            window.location = baseUrl + (isMobile() ? "Mobile/" : "") + "Ofertas";
     };
 
     function getEstrategia() {
