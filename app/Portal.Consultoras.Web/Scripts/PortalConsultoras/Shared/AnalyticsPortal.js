@@ -366,6 +366,8 @@ var AnalyticsPortalModule = (function () {
             ? ((palanca != "" ? separador : "") + palanca)
             : palanca;
 
+        console.log("_getParametroListSegunOrigen = " + texto, origenEstructura, url);
+
         return texto;
     }
 
