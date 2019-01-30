@@ -9,17 +9,20 @@ using Portal.Consultoras.Entities.Cupon;
 using Portal.Consultoras.Entities.Estrategia;
 using Portal.Consultoras.Entities.PagoEnLinea;
 using Portal.Consultoras.Entities.Pedido;
+using Producto = Portal.Consultoras.Entities.Producto;
 using Portal.Consultoras.Entities.ProgramaNuevas;
 using Portal.Consultoras.Entities.ReservaProl;
 using Portal.Consultoras.Entities.RevistaDigital;
 using Portal.Consultoras.Entities.ShowRoom;
 using Portal.Consultoras.ServiceContracts;
+
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.ServiceModel;
 using System.Threading.Tasks;
+
 using Estrategia = Portal.Consultoras.Entities.Estrategia;
 
 namespace Portal.Consultoras.Service
@@ -2403,6 +2406,11 @@ namespace Portal.Consultoras.Service
         public List<BEPedidoDetalleResult> InsertPedidoDetalleMasivo(List<BEPedidoDetalle> lstPedidoDetalle)
         {
             return _pedidoBusinessLogic.InsertMasivo(lstPedidoDetalle);
+        }
+
+        public List<Producto.BEProductoRecomendado> GetProductoRecomendado(int paisID, bool RDEsSuscrita, bool RDEsActiva,List<Producto.BEProductoRecomendado> lst)
+        {
+            return _pedidoBusinessLogic.GetProductoRecomendado(paisID, RDEsSuscrita, RDEsActiva, lst);
         }
 
         #endregion

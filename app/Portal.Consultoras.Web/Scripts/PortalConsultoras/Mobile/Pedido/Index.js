@@ -241,7 +241,7 @@ $(document).ready(function () {
             EsSugerido: true
         };
 
-        InsertarProductoSugerido(model);
+        PedidoRegistroModule.InsertarProductoSugerido(model);
     });
 
     $("#linkAgregarCliente").on("click", function () {
@@ -693,7 +693,7 @@ function CancelarProductosSugeridos() {
 //        CloseLoading();
 //        return false;
 //    }
-
+    
 //    var CUV = $('#hdfCUV').val();
 //    $("#hdCuvRecomendado").val(CUV);
 //    $("#btnAgregarProducto").attr("disabled", "disabled");
@@ -705,7 +705,8 @@ function CancelarProductosSugeridos() {
 //        PrecioUnidad: $("#hdfPrecioUnidad").val(),
 //        Cantidad: Cantidad,
 //        TipoOferta: $("#hdTipoEstrategiaID").val(),
-//        enRangoProgNuevas: cuvEsProgNuevas
+//        enRangoProgNuevas: cuvEsProgNuevas,
+//        descripcion: $("#divNombreProducto").html()
 //    });
 
 //    jQuery.ajax({

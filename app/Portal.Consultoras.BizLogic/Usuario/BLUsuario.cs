@@ -3294,6 +3294,8 @@ namespace Portal.Consultoras.BizLogic
                 CodigoUsuarioLog = usuario.CodigoUsuario;
                 PaisIDLog = usuario.PaisID;
 
+                usuario.RecomendacionesConfiguracion = new List<BEConfiguracionPaisDatos>();
+
                 var configuraciones = GetConfiguracionPais(usuario);
 
                 var lstCodigo = codigoConfiguracionPais.Split('|');
@@ -3346,11 +3348,13 @@ namespace Portal.Consultoras.BizLogic
                                 usuario.BuscadorYFiltrosConfiguracion = ConfiguracionPaisBuscadorYFiltro(configuracionPaisDatos);
                                 break;
                             case Constantes.ConfiguracionPais.PagoEnLinea:
-                                if (configuracion.Estado)
-                                    usuario.TienePagoEnLinea = true;
+                                if (configuracion.Estado) usuario.TienePagoEnLinea = true;
                                 break;
                             case Constantes.ConfiguracionPais.MasGanadoras:
                                 usuario.TieneMG = configuracion.Estado;
+                                break;
+                            case Constantes.ConfiguracionPais.Recomendaciones:
+                                usuario.RecomendacionesConfiguracion = configuracionPaisDatos;
                                 break;
                         }
                     }

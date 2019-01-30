@@ -848,6 +848,14 @@ namespace Portal.Consultoras.Web.Controllers
                         return RedirectToUniqueRoute("Ofertas", "Index", null, "ODD");
                     case Constantes.IngresoExternoPagina.HerramientasDeVenta:
                         return RedirectToUniqueRoute("HerramientasVenta", "Comprar");
+                    case Constantes.IngresoExternoPagina.Reclamos:
+                        return RedirectToUniqueRoute("MisReclamos", "Index", null); // valido
+                    case Constantes.IngresoExternoPagina.MetodosPagos:
+                        return RedirectToUniqueRoute("PagoEnLinea", "MetodoPagoExterno", new { IdOrigen = model.OrigenPedido });
+                    case Constantes.IngresoExternoPagina.PagarAqui:
+                        return RedirectToUniqueRoute("PagoEnLinea", "IndexExterno", new { IdOrigen = model.OrigenPedido, idTipoPago = model.idTipoPago });
+                    case Constantes.IngresoExternoPagina.Ganancias:
+                        return RedirectToUniqueRoute("MiAcademia", "IndexExterno", new { IdOrigen = model.OrigenPedido });
                     case Constantes.IngresoExternoPagina.DuoPerfecto :
                         return RedirectToUniqueRoute("ProgramaNuevas", "Index");
                     case Constantes.IngresoExternoPagina.PedidosPendientes:

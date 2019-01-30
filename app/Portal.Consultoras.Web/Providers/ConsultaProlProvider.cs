@@ -165,7 +165,10 @@ namespace Portal.Consultoras.Web.Providers
                         {
                             x.TieneStock = (temp.STOCK == 1);
                         }
-                        x.Hermanos = ActualizarComponenteHermanos(x.Hermanos, respuesta);
+                        if (x.Hermanos != null && x.Hermanos.Any())
+                        {
+                            x.Hermanos = ActualizarComponenteHermanos(x.Hermanos, respuesta);
+                        }
                     });
                 }
 
