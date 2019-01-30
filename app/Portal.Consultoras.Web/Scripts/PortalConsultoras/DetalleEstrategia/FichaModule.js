@@ -369,7 +369,6 @@ var FichaModule = (function (config) {
         return campaniaActual;
     }
 
-
     var _getComponentesAndUpdateEsMultimarca = function (estrategia) {
         if (!IsNullOrEmpty(estrategia.CodigoVariante)) {
             var param = {
@@ -755,7 +754,6 @@ var FichaModule = (function (config) {
     }
 
     function Inicializar() {
-        //AbrirSplash();
         _construirSeccionFicha();
         _construirSeccionEstrategia();
         _ocultarSecciones();
@@ -763,7 +761,6 @@ var FichaModule = (function (config) {
         _crearTabs();
         _ocultarTabs();
         _fijarFooterCampaniaSiguiente();
-        //CerrarSplash();
     }
 
     return {
