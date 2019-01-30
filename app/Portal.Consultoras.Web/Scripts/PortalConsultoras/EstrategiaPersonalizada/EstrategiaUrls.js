@@ -116,3 +116,82 @@ function GetPalanca(codigoEstrategia, OrigenPedidoWeb) {
 
     return url;
 }
+
+function GetNombrePalanca(codigoEstrategia, OrigenPedidoWeb) {
+    OrigenPedidoWeb = OrigenPedidoWeb || -1;
+
+    var palanca = "";
+
+    if (codigoEstrategia != null && typeof codigoEstrategia !== "undefined")
+
+        switch (codigoEstrategia) {
+
+            case ConstantesModule.ConstantesPalanca.OfertaParaTi:
+                palanca += ConstantesModule.CodigosPalanca.OfertaParaTi;
+                break;
+            case ConstantesModule.ConstantesPalanca.PackNuevas:
+                palanca += ConstantesModule.CodigosPalanca.PackNuevas;
+                break;
+            case ConstantesModule.ConstantesPalanca.OfertaWeb:
+                palanca += ConstantesModule.CodigosPalanca.OfertaWeb;
+                break;
+            case ConstantesModule.ConstantesPalanca.Lanzamiento:
+                palanca += ConstantesModule.CodigosPalanca.Lanzamiento;
+                break;
+            case ConstantesModule.ConstantesPalanca.OfertasParaMi:
+                {
+                    if (OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopContenedorGanadorasCarrusel ||
+                        OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopContenedorGanadorasFicha ||
+                        OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopLandingGanadorasGanadorasCarrusel ||
+                        OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopLandingGanadorasGanadorasFicha ||
+                        OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileContenedorGanadorasCarrusel ||
+                        OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileContenedorGanadorasFicha ||
+                        OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileLandingGanadorasGanadorasCarrusel ||
+                        OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileLandingGanadorasGanadorasFicha)
+                        palanca += ConstantesModule.CodigosPalanca.Ganadoras ;
+                    else
+                        palanca += ConstantesModule.CodigosPalanca.OfertaParaTi;
+                }
+                break;
+            case ConstantesModule.ConstantesPalanca.PackAltoDesembolso:
+                palanca += ConstantesModule.CodigosPalanca.OfertaParaTi;
+                break;
+            case ConstantesModule.ConstantesPalanca.RevistaDigital:
+                palanca += ConstantesModule.CodigosPalanca.OfertaParaTi;
+                break;
+            case ConstantesModule.ConstantesPalanca.LosMasVendidos:
+                palanca += ConstantesModule.CodigosPalanca.LosMasVendidos;
+                break;
+            case ConstantesModule.ConstantesPalanca.IncentivosProgramaNuevas:
+                palanca += ConstantesModule.CodigosPalanca.IncentivosProgramaNuevas;
+                break;
+            case ConstantesModule.ConstantesPalanca.OfertaDelDia:
+                palanca += ConstantesModule.CodigosPalanca.OfertaDelDia;
+                break;
+            case ConstantesModule.ConstantesPalanca.GuiaDeNegocioDigitalizada:
+                palanca += ConstantesModule.CodigosPalanca.GuiaDeNegocioDigitalizada;
+                break;
+            case ConstantesModule.ConstantesPalanca.Incentivos:
+                palanca += ConstantesModule.CodigosPalanca.Incentivos;
+                break;
+            case ConstantesModule.ConstantesPalanca.ShowRoom:
+                palanca += ConstantesModule.CodigosPalanca.ShowRoom;
+                break;
+            case ConstantesModule.ConstantesPalanca.HerramientasVenta:
+                palanca += ConstantesModule.CodigosPalanca.HerramientasVenta;
+                break;
+            case ConstantesModule.ConstantesPalanca.ProgramaNuevasRegalo:
+                palanca += ConstantesModule.CodigosPalanca.ProgramaNuevasRegalo;
+                break;
+            case ConstantesModule.ConstantesPalanca.ParticipaProgramaNuevas:
+                palanca += ConstantesModule.CodigosPalanca.ParticipaProgramaNuevas;
+                break;
+            case ConstantesModule.ConstantesPalanca.NotParticipaProgramaNuevas:
+                url += ConstantesModule.CodigosPalanca.NotParticipaProgramaNuevas;
+                break;
+            default:
+                return "";
+        }
+
+    return palanca;
+}

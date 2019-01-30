@@ -517,18 +517,20 @@ $(document).ready(function () {
 
 $('body').on('click', 'div.pedido_item_editable', function (event) {
     AbrirSplash();
-
+    
+    var row = $(this);
+    var campania = $.trim(row.attr("data-campania"));
+    var cuv = $.trim(row.attr("data-cuv"));
+    var palanca = $.trim(row.attr("data-tipoestrategia"));
+    palanca = GetNombrePalanca(palanca);
+         
     window.setTimeout(function() {
             fichaModule = FichaModule({
                 localStorageModule: LocalStorageModule(),
-                //palanca: 'SoloHoy',
-                //campania: '201902',
-                //cuv: '31060',
-                //origen: '1080301',
-                palanca: 'OfertaParaTi',
-                campania: '201902',
-                cuv: '33195',
-                origen: '1010001',
+                palanca: palanca,
+                campania: campania,
+                cuv: cuv,
+                origen: '0',
                 tieneSession: null,
                 urlObtenerComponentes: urlObtenerComponentes,
                 esEditable: true
@@ -540,8 +542,6 @@ $('body').on('click', 'div.pedido_item_editable', function (event) {
         },
         10);
     
-    //SoloHoy / 201902 / 31060 / 1080301
-
 });
 
 function CargarDetallePedido(page, rows, asyncrono) {
