@@ -1888,7 +1888,6 @@ namespace Portal.Consultoras.BizLogic
             {
                 if (!usuario.PuedeActualizar) return ActualizacionDatosRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CORREO_CAMBIO_NO_AUTORIZADO);
                 if (string.IsNullOrEmpty(correoNuevo)) return ActualizacionDatosRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CORREO_VACIO);
-                //if (usuario.EMail == correoNuevo) return new BERespuestaServicio { Message = Constantes.MensajesError.UpdCorreoConsultora_CorreoNoCambia };
 
                 if (usuario.EMail != correoNuevo)
                 {
