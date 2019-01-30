@@ -109,15 +109,6 @@
                                         <span class="producto_precio_oferta"><b>{{SimboloMoneda}} {{PrecioVenta}}</b></span>
                                     </div>
 
-                                    @*{{#iff TipoAccionAgregar '!=' '@Constantes.TipoAccionAgregar.EligeOpcion'}}
-                                    {{#if TieneStock}}
-                                    {{else}}
-                                    <div class="boton_producto_agotado">
-                                        Agotado
-                                    </div>
-                                    {{/if}}
-                                    {{/iff}}*@
-
                                 </div>
                             </div>
                         </div>
@@ -225,7 +216,11 @@
                                     Agotado
                                 </div>
                                 {{/if}}
-                             {{/iff}}
+                            {{else}}
+                                <div class="boton_producto_agotado">
+                                    Agotado
+                                </div>
+                            {{/iff}}
                             </div>
                         }
 
