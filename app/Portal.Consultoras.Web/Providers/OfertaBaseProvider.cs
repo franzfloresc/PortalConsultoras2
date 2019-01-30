@@ -78,8 +78,8 @@ namespace Portal.Consultoras.Web.Providers
                         TieneVariedad = Convert.ToBoolean(item.tieneVariedad).ToInt(),
                         TipoEstrategiaID = Convert.ToInt32(item.tipoEstrategiaId),
                         TipoEstrategiaImagenMostrar = 6,
-                        EsSubCampania = Convert.ToBoolean(item.esSubCampania).ToInt(),
-                        TieneStock = item.flagStock,
+                        EsSubCampania = Convert.ToBoolean(item.esSubCampania).ToInt()
+                        //TieneStock = item.flagStock,
                     };
                     estrategia.TipoEstrategia = new ServiceOferta.BETipoEstrategia { Codigo = item.codigoTipoEstrategia };
 
@@ -177,12 +177,12 @@ namespace Portal.Consultoras.Web.Providers
                     Common.LogManager.SaveLog(ex, "", codigoISO);
                 }
             }
-           
+
             if (listaSinPrecio2.Any())
             {
                 string logPrecio0 = string.Format("Log Precios0 => Fecha:{0} /Palanca:{1} /CodCampania:{2} /CUV(s):{3} /Referencia:{4}", DateTime.Now, codTipoEstrategia, codCampania, string.Join("|", listaSinPrecio2), path);
                 Common.LogManager.SaveLog(new Exception(logPrecio0), "", codigoISO);
-            } 
+            }
 
             return ActualizarStockEstrategiaProl(estrategias, codigoISO);
         }
@@ -238,12 +238,12 @@ namespace Portal.Consultoras.Web.Providers
             return tipoEstrategiaHabilitado;
         }
 
-        static  List<ServiceOferta.BEEstrategia> ActualizarStockEstrategiaProl( List<ServiceOferta.BEEstrategia> estrategias, string paisISo)
+        static List<ServiceOferta.BEEstrategia> ActualizarStockEstrategiaProl(List<ServiceOferta.BEEstrategia> estrategias, string paisISo)
         {
             var estrategiasResult = new List<ServiceOferta.BEEstrategia>();
             var listaSinStock = new List<ServiceOferta.BEEstrategia>();
             var listaTieneStock = new List<Lista>();
-             
+
             try
             {
                 var codigoSap = string.Join("|", estrategias.Where(e => !string.IsNullOrEmpty(e.CodigoProducto) && e.TieneStock).Select(e => e.CodigoProducto));
@@ -256,7 +256,7 @@ namespace Portal.Consultoras.Web.Providers
                     }
                 }
             }
-            catch (Exception )
+            catch (Exception)
             {
                 listaTieneStock = new List<Lista>();
             }

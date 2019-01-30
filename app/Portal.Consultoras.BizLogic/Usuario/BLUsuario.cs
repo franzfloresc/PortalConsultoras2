@@ -1888,7 +1888,6 @@ namespace Portal.Consultoras.BizLogic
             {
                 if (!usuario.PuedeActualizar) return ActualizacionDatosRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CORREO_CAMBIO_NO_AUTORIZADO);
                 if (string.IsNullOrEmpty(correoNuevo)) return ActualizacionDatosRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CORREO_VACIO);
-                //if (usuario.EMail == correoNuevo) return new BERespuestaServicio { Message = Constantes.MensajesError.UpdCorreoConsultora_CorreoNoCambia };
 
                 if (usuario.EMail != correoNuevo)
                 {
@@ -3294,6 +3293,8 @@ namespace Portal.Consultoras.BizLogic
                 CodigoUsuarioLog = usuario.CodigoUsuario;
                 PaisIDLog = usuario.PaisID;
 
+                usuario.RecomendacionesConfiguracion = new List<BEConfiguracionPaisDatos>();
+
                 var configuraciones = GetConfiguracionPais(usuario);
 
                 var lstCodigo = codigoConfiguracionPais.Split('|');
@@ -3346,11 +3347,13 @@ namespace Portal.Consultoras.BizLogic
                                 usuario.BuscadorYFiltrosConfiguracion = ConfiguracionPaisBuscadorYFiltro(configuracionPaisDatos);
                                 break;
                             case Constantes.ConfiguracionPais.PagoEnLinea:
-                                if (configuracion.Estado)
-                                    usuario.TienePagoEnLinea = true;
+                                if (configuracion.Estado) usuario.TienePagoEnLinea = true;
                                 break;
                             case Constantes.ConfiguracionPais.MasGanadoras:
                                 usuario.TieneMG = configuracion.Estado;
+                                break;
+                            case Constantes.ConfiguracionPais.Recomendaciones:
+                                usuario.RecomendacionesConfiguracion = configuracionPaisDatos;
                                 break;
                         }
                     }

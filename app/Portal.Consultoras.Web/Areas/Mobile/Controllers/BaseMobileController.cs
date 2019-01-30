@@ -22,7 +22,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         }
 
-        public BaseMobileController(ISessionManager sessionManager, ILogManager logManager) 
+        public BaseMobileController(ISessionManager sessionManager, ILogManager logManager)
             : base(sessionManager, logManager)
         {
 
@@ -114,35 +114,38 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private void CargarValoresGenerales(UsuarioModel userData)
         {
-            if (SessionManager.GetUserData() != null)
+            if (SessionManager.GetUserData() == null)
             {
-                ViewBag.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre).ToUpper();
-                int j = ViewBag.NombreConsultora.Trim().IndexOf(' ');
-                if (j >= 0) ViewBag.NombreConsultora = ViewBag.NombreConsultora.Substring(0, j).Trim();
-
-                ViewBag.NumeroCampania = (!string.IsNullOrEmpty(userData.NombreCorto) && userData.NombreCorto.Length > 4)
-                    ? userData.NombreCorto.Substring(4) : "";
-                ViewBag.EsUsuarioComunidad = userData.EsUsuarioComunidad.ToInt();
-                ViewBag.AnalyticsCampania = userData.CampaniaID;
-                ViewBag.AnalyticsSegmento = string.IsNullOrEmpty(userData.Segmento) ? "(not available)" : userData.Segmento.Trim();
-                ViewBag.AnalyticsEdad = Util.Edad(userData.FechaNacimiento);
-                ViewBag.AnalyticsZona = userData.CodigoZona;
-                ViewBag.AnalyticsPais = userData.CodigoISO;
-                ViewBag.AnalyticsRol = "Consultora";
-                ViewBag.AnalyticsRegion = userData.CodigorRegion;
-                ViewBag.AnalyticsSeccion = string.IsNullOrEmpty(userData.SeccionAnalytics) ? "(not available)" : userData.SeccionAnalytics;
-                ViewBag.AnalyticsCodigoConsultora = string.IsNullOrEmpty(userData.CodigoConsultora) ? "(not available)" : userData.CodigoConsultora;
-
-                var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
-
-                if (fechaHoy >= userData.FechaInicioCampania.Date && fechaHoy <= userData.FechaFinCampania.Date)
-                    ViewBag.AnalyticsPeriodo = "Facturacion";
-                else
-                    ViewBag.AnalyticsPeriodo = "Venta";
-
-                ViewBag.AnalyticsSegmentoConstancia = string.IsNullOrEmpty(userData.SegmentoConstancia) ? "(not available)" : userData.SegmentoConstancia.Trim();
-                ViewBag.AnalyticsSociaNivel = string.IsNullOrEmpty(userData.DescripcionNivel) ? "(not available)" : userData.DescripcionNivel;
+                return;
             }
+
+            ViewBag.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre).ToUpper();
+            int j = ViewBag.NombreConsultora.Trim().IndexOf(' ');
+            if (j >= 0) ViewBag.NombreConsultora = ViewBag.NombreConsultora.Substring(0, j).Trim();
+
+            ViewBag.NumeroCampania = (!string.IsNullOrEmpty(userData.NombreCorto) && userData.NombreCorto.Length > 4)
+                ? userData.NombreCorto.Substring(4) : "";
+            ViewBag.EsUsuarioComunidad = userData.EsUsuarioComunidad.ToInt();
+            ViewBag.AnalyticsCampania = userData.CampaniaID;
+            ViewBag.AnalyticsSegmento = string.IsNullOrEmpty(userData.Segmento) ? "(not available)" : userData.Segmento.Trim();
+            ViewBag.AnalyticsEdad = Util.Edad(userData.FechaNacimiento);
+            ViewBag.AnalyticsZona = userData.CodigoZona;
+            ViewBag.AnalyticsPais = userData.CodigoISO;
+            ViewBag.AnalyticsRol = "Consultora";
+            ViewBag.AnalyticsRegion = userData.CodigorRegion;
+            ViewBag.AnalyticsSeccion = string.IsNullOrEmpty(userData.SeccionAnalytics) ? "(not available)" : userData.SeccionAnalytics;
+            ViewBag.AnalyticsCodigoConsultora = string.IsNullOrEmpty(userData.CodigoConsultora) ? "(not available)" : userData.CodigoConsultora;
+
+            var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
+
+            if (fechaHoy >= userData.FechaInicioCampania.Date && fechaHoy <= userData.FechaFinCampania.Date)
+                ViewBag.AnalyticsPeriodo = "Facturacion";
+            else
+                ViewBag.AnalyticsPeriodo = "Venta";
+
+            ViewBag.AnalyticsSegmentoConstancia = string.IsNullOrEmpty(userData.SegmentoConstancia) ? "(not available)" : userData.SegmentoConstancia.Trim();
+            ViewBag.AnalyticsSociaNivel = string.IsNullOrEmpty(userData.DescripcionNivel) ? "(not available)" : userData.DescripcionNivel;
+
         }
 
         private bool SiempreMostrarBannerPL20()
@@ -234,7 +237,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return RedirectToRoute(uniqueSessionAttribute.RouteName, routeValues);
         }
-        
+
         private void MostrarBannerApp()
         {
             if (SessionManager.GetOcultarBannerApp() != null)
@@ -256,6 +259,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 ViewBag.BannerApp = oComunicados;
             }
         }
-        
+
     }
 }

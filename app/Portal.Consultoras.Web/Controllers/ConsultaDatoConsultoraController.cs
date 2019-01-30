@@ -139,45 +139,6 @@ namespace Portal.Consultoras.Web.Controllers
                 };
                 IEnumerable<EstadoCuentaModel> items = EstadoCuentaFiltro(lst, sidx, sord);
 
-                //#region Sort Section
-                //if (sord == "asc")
-                //{
-                //    switch (sidx)
-                //    {
-                //        case "Fecha":
-                //            items = lst.OrderBy(x => x.Fecha);
-                //            break;
-                //        case "Glosa":
-                //            items = lst.OrderBy(x => x.Glosa);
-                //            break;
-                //        case "Cargo":
-                //            items = lst.OrderBy(x => x.Cargo);
-                //            break;
-                //        case "Abono":
-                //            items = lst.OrderBy(x => x.Abono);
-                //            break;
-                //    }
-                //}
-                //else
-                //{
-                //    switch (sidx)
-                //    {
-                //        case "Fecha":
-                //            items = lst.OrderByDescending(x => x.Fecha);
-                //            break;
-                //        case "Glosa":
-                //            items = lst.OrderByDescending(x => x.Glosa);
-                //            break;
-                //        case "Cargo":
-                //            items = lst.OrderByDescending(x => x.Cargo);
-                //            break;
-                //        case "Abono":
-                //            items = lst.OrderByDescending(x => x.Abono);
-                //            break;
-                //    }
-                //}
-                //#endregion
-
                 items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize).ToList();
 
                 BEPager pag = Paginador(grid, lst);
@@ -514,59 +475,6 @@ namespace Portal.Consultoras.Web.Controllers
                 };
                 IEnumerable<ServicePedido.BEPedidoWebDetalle> items = ConsultarPedidoWebDetalleFiltro(lst, sidx, sord);
 
-                //#region Sort Section
-                //if (sord == "asc")
-                //{
-                //    switch (sidx)
-                //    {
-                //        case "CUV":
-                //            items = lst.OrderBy(x => x.CUV);
-                //            break;
-
-                //        case "DescripcionProd":
-                //            items = lst.OrderBy(x => x.DescripcionProd);
-                //            break;
-
-                //        case "Cantidad":
-                //            items = lst.OrderBy(x => x.Cantidad);
-                //            break;
-
-                //        case "PrecioUnidad":
-                //            items = lst.OrderBy(x => x.PrecioUnidad);
-                //            break;
-
-                //        case "ImporteTotal":
-                //            items = lst.OrderBy(x => x.ImporteTotal);
-                //            break;
-                //    }
-                //}
-                //else
-                //{
-                //    switch (sidx)
-                //    {
-                //        case "CUV":
-                //            items = lst.OrderByDescending(x => x.CUV);
-                //            break;
-
-                //        case "DescripcionProd":
-                //            items = lst.OrderByDescending(x => x.DescripcionProd);
-                //            break;
-
-                //        case "Cantidad":
-                //            items = lst.OrderByDescending(x => x.Cantidad);
-                //            break;
-
-                //        case "PrecioUnidad":
-                //            items = lst.OrderByDescending(x => x.PrecioUnidad);
-                //            break;
-
-                //        case "ImporteTotal":
-                //            items = lst.OrderByDescending(x => x.ImporteTotal);
-                //            break;
-                //    }
-                //}
-                //#endregion
-
                 items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
                 BEPager pag = Util.PaginadorGenerico(grid, lst);
@@ -759,51 +667,6 @@ namespace Portal.Consultoras.Web.Controllers
                     SortOrder = sord
                 };
                 IEnumerable<ServiceCliente.BEPedidoWebDetalle> items = ConsultarPedidoWebDetalleFiltro(lst, sidx, sord);
-
-                //#region Sort Section
-                //if (sord == "asc")
-                //{
-                //    switch (sidx)
-                //    {
-                //        case "CUV":
-                //            items = lst.OrderBy(x => x.CUV);
-                //            break;
-                //        case "DescripcionProd":
-                //            items = lst.OrderBy(x => x.DescripcionProd);
-                //            break;
-                //        case "Cantidad":
-                //            items = lst.OrderBy(x => x.Cantidad);
-                //            break;
-                //        case "PrecioUnidad":
-                //            items = lst.OrderBy(x => x.PrecioUnidad);
-                //            break;
-                //        case "ImporteTotal":
-                //            items = lst.OrderBy(x => x.ImporteTotal);
-                //            break;
-                //    }
-                //}
-                //else
-                //{
-                //    switch (sidx)
-                //    {
-                //        case "CUV":
-                //            items = lst.OrderBy(x => x.CUV);
-                //            break;
-                //        case "DescripcionProd":
-                //            items = lst.OrderByDescending(x => x.DescripcionProd);
-                //            break;
-                //        case "Cantidad":
-                //            items = lst.OrderByDescending(x => x.Cantidad);
-                //            break;
-                //        case "PrecioUnidad":
-                //            items = lst.OrderByDescending(x => x.PrecioUnidad);
-                //            break;
-                //        case "ImporteTotal":
-                //            items = lst.OrderByDescending(x => x.ImporteTotal);
-                //            break;
-                //    }
-                //}
-                //#endregion
 
                 items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
