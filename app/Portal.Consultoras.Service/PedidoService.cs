@@ -9,21 +9,19 @@ using Portal.Consultoras.Entities.Cupon;
 using Portal.Consultoras.Entities.Estrategia;
 using Portal.Consultoras.Entities.PagoEnLinea;
 using Portal.Consultoras.Entities.Pedido;
-using Producto = Portal.Consultoras.Entities.Producto;
 using Portal.Consultoras.Entities.ProgramaNuevas;
 using Portal.Consultoras.Entities.ReservaProl;
 using Portal.Consultoras.Entities.RevistaDigital;
 using Portal.Consultoras.Entities.ShowRoom;
 using Portal.Consultoras.ServiceContracts;
-
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.ServiceModel;
 using System.Threading.Tasks;
-
 using Estrategia = Portal.Consultoras.Entities.Estrategia;
+using Producto = Portal.Consultoras.Entities.Producto;
 
 namespace Portal.Consultoras.Service
 {
@@ -1356,41 +1354,6 @@ namespace Portal.Consultoras.Service
             return new BLOfertaProducto().RemoverOfertaLiquidacion(entity);
         }
 
-        // se movio a Util.GetPaisID
-        //public int GetPaisID(string ISO)
-        //{
-        //    try
-        //    {
-        //        List<KeyValuePair<string, string>> listaPaises = new List<KeyValuePair<string, string>>()
-        //        {
-        //            new KeyValuePair<string, string>("1", Constantes.CodigosISOPais.Argentina),
-        //            new KeyValuePair<string, string>("2", Constantes.CodigosISOPais.Bolivia),
-        //            new KeyValuePair<string, string>("3", Constantes.CodigosISOPais.Chile),
-        //            new KeyValuePair<string, string>("4", Constantes.CodigosISOPais.Colombia),
-        //            new KeyValuePair<string, string>("5", Constantes.CodigosISOPais.CostaRica),
-        //            new KeyValuePair<string, string>("6", Constantes.CodigosISOPais.Ecuador),
-        //            new KeyValuePair<string, string>("7", Constantes.CodigosISOPais.Salvador),
-        //            new KeyValuePair<string, string>("8", Constantes.CodigosISOPais.Guatemala),
-        //            new KeyValuePair<string, string>("9", Constantes.CodigosISOPais.Mexico),
-        //            new KeyValuePair<string, string>("10", Constantes.CodigosISOPais.Panama),
-        //            new KeyValuePair<string, string>("11", Constantes.CodigosISOPais.Peru),
-        //            new KeyValuePair<string, string>("12", Constantes.CodigosISOPais.PuertoRico),
-        //            new KeyValuePair<string, string>("13", Constantes.CodigosISOPais.Dominicana),
-        //            new KeyValuePair<string, string>("14", Constantes.CodigosISOPais.Venezuela),
-        //        };
-        //        string paisId = (from c in listaPaises
-        //                         where c.Value == ISO.ToUpper()
-        //                         select c.Key).SingleOrDefault() ?? "";
-        //        int outVal;
-        //        int.TryParse(paisId, out outVal);
-        //        return outVal;
-        //    }
-        //    catch (Exception)
-        //    {
-        //        throw new Exception("Hubo un error en obtener el País");
-        //    }
-        //}
-
         public BEResultadoSolicitud InsertarSolicitudCliente(string prefijoISO, BEEntradaSolicitudCliente entidadSolicitud)
         {
             int resultado = 0;
@@ -2408,7 +2371,7 @@ namespace Portal.Consultoras.Service
             return _pedidoBusinessLogic.InsertMasivo(lstPedidoDetalle);
         }
 
-        public List<Producto.BEProductoRecomendado> GetProductoRecomendado(int paisID, bool RDEsSuscrita, bool RDEsActiva,List<Producto.BEProductoRecomendado> lst)
+        public List<Producto.BEProductoRecomendado> GetProductoRecomendado(int paisID, bool RDEsSuscrita, bool RDEsActiva, List<Producto.BEProductoRecomendado> lst)
         {
             return _pedidoBusinessLogic.GetProductoRecomendado(paisID, RDEsSuscrita, RDEsActiva, lst);
         }
