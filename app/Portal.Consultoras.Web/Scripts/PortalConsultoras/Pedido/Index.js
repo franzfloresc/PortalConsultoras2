@@ -522,6 +522,8 @@ $('body').on('click', 'div.pedido_item_editable', function (event) {
     var campania = $.trim(row.attr("data-campania"));
     var cuv = $.trim(row.attr("data-cuv"));
     var palanca = $.trim(row.attr("data-tipoestrategia"));
+    var OrigenPedidoWeb = $.trim(row.attr("data-OrigenPedidoWeb"));
+
     palanca = GetNombrePalanca(palanca);
 
     window.setTimeout(function () {
@@ -530,7 +532,7 @@ $('body').on('click', 'div.pedido_item_editable', function (event) {
                 palanca: palanca,
                 campania: campania,
                 cuv: cuv,
-                origen: '0',
+                origen: OrigenPedidoWeb,
                 tieneSession: null,
                 urlObtenerComponentes: urlObtenerComponentes,
                 esEditable: true
