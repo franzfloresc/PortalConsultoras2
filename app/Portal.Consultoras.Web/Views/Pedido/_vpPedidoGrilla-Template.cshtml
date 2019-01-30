@@ -50,11 +50,11 @@
                 <p class="productos_ingresados_movil">
                     <span class="icon-mobile"><img src="@Url.Content("~/Content/Images/mobile-pedido.png")" alt="pedido mobile" /></span>
                 </p>
-                <label for="{{DescripcionCortadaProd}}" class="lblLPDesProd">{{Split DescripcionCortadaProd '|' 0}}</label>
+                <label for="{{DescripcionCortadaProd}}" class="lblLPDesProd">{{#iff SetIdentifierNumber '>' '0'}} #{{SetIdentifierNumber}} {{/iff}} {{Split DescripcionCortadaProd '|' 0}}</label>
             </span>
             {{else}}
             <span style="position:relative">
-                <label for="{{DescripcionCortadaProd}}" class="lblLPDesProd">{{Split DescripcionCortadaProd '|' 0}}</label>
+                <label for="{{DescripcionCortadaProd}}" class="lblLPDesProd">{{#iff SetIdentifierNumber '>' '0'}} #{{SetIdentifierNumber}} {{/iff}} {{Split DescripcionCortadaProd '|' 0}}</label>
             </span>
             {{/if_eq}}
             <span class="texto_pedidos_ofertas">

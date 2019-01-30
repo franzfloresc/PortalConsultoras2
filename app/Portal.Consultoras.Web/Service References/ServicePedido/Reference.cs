@@ -14722,6 +14722,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private int SetIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int SetIdentifierNumberField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string SimboloField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -15589,6 +15592,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.SetIDField.Equals(value) != true)) {
                     this.SetIDField = value;
                     this.RaisePropertyChanged("SetID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int SetIdentifierNumber {
+            get {
+                return this.SetIdentifierNumberField;
+            }
+            set {
+                if ((this.SetIdentifierNumberField.Equals(value) != true)) {
+                    this.SetIdentifierNumberField = value;
+                    this.RaisePropertyChanged("SetIdentifierNumber");
                 }
             }
         }
