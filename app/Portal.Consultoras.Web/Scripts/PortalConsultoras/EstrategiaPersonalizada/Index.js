@@ -427,6 +427,21 @@ function SeccionMostrarProductos(data) {
     else if (data.Seccion.TipoPresentacion == CONS_TIPO_PRESENTACION.carruselIndividualesv2) {
         RenderCarruselSimpleV2(htmlSeccion, data, CarruselCiclico);
     }
+    else if (data.Seccion.TipoPresentacion == CONS_TIPO_PRESENTACION.SimpleCentrado) {
+        var origen = {
+            Pagina: ConstantesModule.OrigenPedidoWebEstructura.Pagina.Contenedor,
+            CodigoPalanca: data.Seccion.Codigo
+        };
+        var obj = {
+            lista: data.lista,
+            CantidadMostrar: data.lista.length,
+            Origen: origen
+        };
+
+
+        //console.log('marcarAnalyticsInicio - fin', obj);
+        AnalyticsPortalModule.MarcaGenericaLista("", obj);
+    }
 }
 
 function UpdateSessionState(codigo, campaniaId) {
