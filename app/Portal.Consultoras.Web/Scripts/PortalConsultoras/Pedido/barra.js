@@ -2078,7 +2078,14 @@ function CalculoPosicionMinimoMaximoDestokp() {
             var AvancePorcentaje1 = CalculoPorcentajeAvance(montoMinimo, montoMaximo);
            if (document.getElementById('barra_1') != null) document.getElementById('barra_1').style.left = AvancePorcentaje1;
 
-            var AvancePorcentajeP1 = (AvancePorcentaje1.substring(0, AvancePorcentaje1.length - 1) * 1 - 5) + '%'
+            if (document.getElementById('divBarra').style.width.substring(0, document.getElementById('divBarra').style.width.length - 2)*1>1000 ) { 
+                var AvancePorcentajeP1 = (AvancePorcentaje1.substring(0, AvancePorcentaje1.length - 1) * 1 - 3.5) + '%'  
+            }
+            else
+                var AvancePorcentajeP1 = (AvancePorcentaje1.substring(0, AvancePorcentaje1.length - 1) * 1 - 5) + '%' 
+
+           
+
             document.getElementById('punto_1').style.left = AvancePorcentajeP1;
             document.getElementById('punto_1').firstChild.firstChild.style = "width:90px;position: absolute;";//top: -24px;
             //document.getElementById('punto_1').firstChild.firstChild.firstChild.firstChild.style.display = "None";

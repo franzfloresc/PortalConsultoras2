@@ -486,6 +486,27 @@ $(document).ready(function () {
 
     LayoutMenu();
 
+    var myvar = setInterval(myTimer, 1000);
+    var cont = 0;
+    function myTimer()
+    {
+        if (cont <= 5) {
+            cont++;
+            if (document.getElementById('divListaEstrategias').style.display == 'none')
+            {
+                MostrarBarra();
+                clearInterval(myvar);
+            }
+             
+        } 
+        else
+            clearInterval(myvar);
+                 
+    }
+ 
+  
+
+
     $("#observaciones_alerta").dialog({
         modal: true,
         draggable: false,
