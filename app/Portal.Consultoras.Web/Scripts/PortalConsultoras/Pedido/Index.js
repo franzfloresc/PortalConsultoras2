@@ -440,10 +440,12 @@ $(document).ready(function () {
             }
 
             ProcesarActualizacionMostrarContenedorCupon();
+            ProductoRecomendadoModule.OcultarProductosRecomendados();
             $("#btnAgregar").removeAttr("disabled");
         } else {
             CerrarSplash();
             AbrirMensaje(validarEstrategia.message);
+            ProductoRecomendadoModule.OcultarProductosRecomendados();
             $("#btnAgregar").removeAttr("disabled");
         }
 
