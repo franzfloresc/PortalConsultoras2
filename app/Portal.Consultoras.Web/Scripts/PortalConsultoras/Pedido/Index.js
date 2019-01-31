@@ -517,11 +517,13 @@ $(document).ready(function () {
 
 $('body').on('click', 'div.pedido_item_editable', function (event) {
     AbrirSplash();
-
+    
     var row = $(this);
     var campania = $.trim(row.attr("data-campania"));
     var cuv = $.trim(row.attr("data-cuv"));
     var palanca = $.trim(row.attr("data-tipoestrategia"));
+    var OrigenPedidoWeb = $.trim(row.attr("data-OrigenPedidoWeb"));
+
     palanca = GetNombrePalanca(palanca);
 
     window.setTimeout(function () {
@@ -530,16 +532,18 @@ $('body').on('click', 'div.pedido_item_editable', function (event) {
                 palanca: palanca,
                 campania: campania,
                 cuv: cuv,
-                origen: '0',
+                origen: OrigenPedidoWeb,
                 tieneSession: null,
                 urlObtenerComponentes: urlObtenerComponentes,
                 esEditable: true
             });
 
             fichaModule.Inicializar();
-            ShowDivFichaResumida(true);
+            
             CerrarSplash();
-        }, 10);
+            ShowDivFichaResumida(true);
+        },
+        10);
 });
 
 function CargarDetallePedido(page, rows, asyncrono) {
@@ -644,10 +648,14 @@ function CargarDetallePedido(page, rows, asyncrono) {
 //    });
 //}
 function ShowDivFichaResumida(isShow = true) {
-    if (isShow)
+    
+    if (isShow) {
+        $('body').css('overflow', 'hidden');
         $('#DivPopupFichaResumida').css('display', 'block');
-    else
+    } else {
         $('#DivPopupFichaResumida').css('display', 'none');
+        $("body").css("overflow", "scroll");
+    }
 }
 function CargarDialogMesajePostulantePedido() {
     if (gTipoUsuario == "2" && MensajePedidoDesktop == "0") {
