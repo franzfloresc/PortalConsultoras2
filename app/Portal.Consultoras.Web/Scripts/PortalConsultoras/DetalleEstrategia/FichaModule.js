@@ -21,6 +21,7 @@ registerEvent.call(opcionesEvents, "onEstrategiaLoaded");
 registerEvent.call(opcionesEvents, "onOptionSelected");
 
 var variablesPortal = variablesPortal || {};
+var fichaModule = fichaModule || {};
 
 //Función para breadcumb
 function eventBreadCumb(url, titulo) {
@@ -107,7 +108,7 @@ var FichaModule = (function (config) {
     };
 
     var _template = {
-        getTagDataHtml: function(templateId){
+        getTagDataHtml: function (templateId) {
             return "[data-ficha-contenido=" + templateId + "]";
         },
         navegar: "ficha_navegar_template",
@@ -714,7 +715,7 @@ var FichaModule = (function (config) {
         }
 
         SetHandlebars("#" + _template.compartir, _modeloFicha, _template.getTagDataHtml(_template.compartir));
-        
+
     };
 
     var _redireccionar = function () {
@@ -727,7 +728,7 @@ var FichaModule = (function (config) {
     }
 
     function _getModelo() {
-        
+
         var modelo = {};
         modelo.palanca = _config.palanca;
         modelo.campaniaId = _config.campania;
@@ -764,11 +765,65 @@ var FichaModule = (function (config) {
         _fijarFooterCampaniaSiguiente();
     }
 
+
     return {
         Inicializar: Inicializar,
         GetEstrategia: getEstrategia
     };
 });
+
+
+var FichaEditarModule = (function () {
+
+    var EditarProducto = function (event, tipoAccion) {
+        if (tipoAccion != 1) {
+            return false;
+        }
+
+        AbrirSplash();
+
+        var row = $(this);
+        var campania = $.trim(row.attr("data-campania"));
+        var cuv = $.trim(row.attr("data-cuv"));
+        var palanca = $.trim(row.attr("data-tipoestrategia"));
+        var OrigenPedidoWeb = $.trim(row.attr("data-OrigenPedidoWeb"));
+        palanca = GetNombrePalanca(palanca);
+
+        window.setTimeout(function () {
+            fichaModule = FichaModule({
+                localStorageModule: LocalStorageModule(),
+                palanca: palanca,
+                campania: campania,
+                cuv: cuv,
+                origen: OrigenPedidoWeb,
+                tieneSession: null,
+                urlObtenerComponentes: urlObtenerComponentes,
+                esEditable: true
+            });
+
+            _showDivFichaResumida(true);
+            fichaModule.Inicializar();
+            CerrarSplash();
+        },
+            10);
+    }
+
+    var _showDivFichaResumida = function (isShow) {
+        isShow = isShow == undefined ? true : isShow;
+        if (isShow) {
+            $('body').css('overflow', 'hidden');
+            $('#DivPopupFichaResumida').show();
+        }
+        else {
+            $('#DivPopupFichaResumida').hide();
+            $("body").css("overflow", "scroll");
+        }
+    }
+
+    return {
+        EditarProducto: EditarProducto
+    };
+})();
 
 //Funcion temporal hasta estandarizar RevistaDigital.js
 var baseUrl = baseUrl || "";

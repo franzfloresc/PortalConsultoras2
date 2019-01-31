@@ -3528,28 +3528,9 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     if (listaDetalle.Count == 0)
                     {
-                        int isInsert;
-                        using (var sv = new PedidoServiceClient())
-                        {
-                            var bePedidoWeb = new BEPedidoWeb
-                            {
-                                CampaniaID = userData.CampaniaID,
-                                ConsultoraID = userData.ConsultoraID,
-                                PaisID = userData.PaisID,
-                                IPUsuario = userData.IPUsuario,
-                                CodigoUsuarioCreacion = userData.CodigoUsuario
-                            };
-
-                            isInsert = sv.GetProductoCUVsAutomaticosToInsert(bePedidoWeb);
-                        }
-                        if (isInsert > 0)
-                        {
-                            SessionManager.SetDetallesPedido(null);
-                            SessionManager.SetDetallesPedidoSetAgrupado(null);
-                            listaDetalle = ObtenerPedidoWebDetalle();
-
-                            UpdPedidoWebMontosPROL();
-                        }
+                        var inserto = AgregarCuvsAutomatico();
+                        if (inserto)
+                            listaDetalle = ObtenerPedidoWebSetDetalleAgrupado() ?? new List<BEPedidoWebDetalle>();
                     }
 
                     page = 1;
@@ -3568,11 +3549,7 @@ namespace Portal.Consultoras.Web.Controllers
                 listaDetalle = listaDetalle.Where(p => p.ClienteID == clienteId || clienteId == -1).ToList();
                 var totalCliente = listaDetalle.Sum(p => p.ImporteTotal);
 
-                var pedidoWebDetalleModel = Mapper.Map<List<BEPedidoWebDetalle>, List<PedidoWebDetalleModel>>(listaDetalle);
-
-                pedidoWebDetalleModel.ForEach(p => p.Simbolo = userData.Simbolo);
-                pedidoWebDetalleModel.ForEach(p => p.CodigoIso = userData.CodigoISO);
-                pedidoWebDetalleModel.ForEach(p => p.DescripcionCortadaProd = Util.SubStrCortarNombre(p.DescripcionProd, 73));
+                var pedidoWebDetalleModel = MapearListaDetalleModel(listaDetalle);
 
                 model.ListaDetalleModel = pedidoWebDetalleModel;
                 model.Total = total;
@@ -3632,6 +3609,58 @@ namespace Portal.Consultoras.Web.Controllers
                     dataBarra = new BarraConsultoraModel()
                 });
             }
+        }
+
+        private bool AgregarCuvsAutomatico()
+        {
+            int isInsert;
+            var bePedidoWeb = new BEPedidoWeb
+            {
+                CampaniaID = userData.CampaniaID,
+                ConsultoraID = userData.ConsultoraID,
+                PaisID = userData.PaisID,
+                IPUsuario = userData.IPUsuario,
+                CodigoUsuarioCreacion = userData.CodigoUsuario
+            };
+
+            using (var sv = new PedidoServiceClient())
+            {
+                isInsert = sv.GetProductoCUVsAutomaticosToInsert(bePedidoWeb);
+            }
+
+            if (isInsert > 0)
+            {
+                SessionManager.SetDetallesPedido(null);
+                SessionManager.SetDetallesPedidoSetAgrupado(null);
+
+                UpdPedidoWebMontosPROL();
+
+                return true;
+            }
+
+            return false;
+        }
+
+        private List<PedidoWebDetalleModel> MapearListaDetalleModel(List<BEPedidoWebDetalle> listaDetalle)
+        {
+            var pedidoWebDetalleModel = Mapper.Map<List<BEPedidoWebDetalle>, List<PedidoWebDetalleModel>>(listaDetalle);
+
+            pedidoWebDetalleModel.ForEach(p => {
+                p.Simbolo = userData.Simbolo;
+                p.CodigoIso = userData.CodigoISO;
+                p.DescripcionCortadaProd = Util.SubStrCortarNombre(p.DescripcionProd, 73);
+                p.TipoAccion = TipoAccionPedido(p);
+            });
+
+            return pedidoWebDetalleModel;
+        }
+
+        private int TipoAccionPedido(PedidoWebDetalleModel producto)
+        {
+            // los valores deben estar en constantes
+            // considerar tipo estrategia codigo y origen pedido web
+            // caso EsBackOrder
+            return 1;
         }
 
         #region Parametria Oferta Final
