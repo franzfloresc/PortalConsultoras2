@@ -37,10 +37,11 @@
             };
 
             if (clienteSeleccion.ClienteID != "") {
-                console.log("Selección: ", clienteSeleccion);
+                console.log("Selecciónxx: ", clienteSeleccion);
+                console.log("_aceptaSeleccionClick: ", _aceptaSeleccionClick);
                 _cerrar();
-                if ($.isFunction(_aceptarClick)) {
-                    _aceptarClick(clienteSeleccion);
+                if ($.isFunction(_aceptaSeleccionClick)) {
+                    _aceptaSeleccionClick(clienteSeleccion);
                 }
             } else {
                 alert('Seleccione un Cliente');
@@ -67,8 +68,8 @@
             });
     };
 
-    var _setAceptaClick = function (fn) {
-        _setAceptaClick = fn;
+    var _aceptaSeleccionClick = function (fn) {
+        _aceptaSeleccionClick = fn;
     };
 
     var _init = function () {
@@ -83,6 +84,6 @@
         Cerrar: _cerrar,
         init: _init,
         AceptarClick: _aceptarClick,
-        SetAceptaClick: _setAceptaClick
+        AceptaSeleccionClick: _aceptaSeleccionClick
     };
 }
