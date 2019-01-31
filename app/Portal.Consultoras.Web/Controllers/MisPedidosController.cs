@@ -850,7 +850,8 @@ namespace Portal.Consultoras.Web.Controllers
                     Consultora = userData.NombreConsultora,
                     EsBpt = EsOpt() == 1,
                     CodigoPrograma = userData.CodigoPrograma,
-                    NumeroPedido = userData.ConsecutivoNueva
+                    NumeroPedido = userData.ConsecutivoNueva,
+                    AgruparSet = true
                 };
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
