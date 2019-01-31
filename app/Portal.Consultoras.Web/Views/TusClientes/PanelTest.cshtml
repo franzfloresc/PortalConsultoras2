@@ -90,7 +90,9 @@
 
             panel = new ClientePanelModule('PanelClienteLista', 'PanelClienteLista_Contenedor', '@Url.Content("~")');
             panel.AceptarClick = function (obj) {
-                console.log('tu código:', obj);
+
+                console.log('tu código:', obj.PaisID, obj.ClienteID, obj.CodigoCliente, obj.NombreCliente, obj.Nombre );
+                   
             };
             panel.RenderizarPagina();
             panel.Abrir();

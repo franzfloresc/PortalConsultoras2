@@ -24,7 +24,8 @@
                 PaisID: $("#hfPaisID").val(),
                 ClienteID: $("#hfClienteID").val(),
                 CodigoCliente: $("#hfCodigoCliente").val(),
-                NombreCliente: $("#hfNombreCliente").val()
+                NombreCliente: $("#hfNombreCliente").val(),
+                Nombre: $("#hfNombre").val()
             };
 
 

@@ -17,6 +17,7 @@
         hfClienteID: "#hfClienteID",
         hfCodigoCliente: "#hfCodigoCliente",
         hfNombreCliente: "#hfNombreCliente",
+        hfNombre: "#hfNombre",
         //
         hbsClientes: "#handlebars_plantilla1",
         divClientes:"#handlebars_contenedor1"
@@ -35,13 +36,14 @@
         $(_elements.panelClienteRegistro).css("width", "0");
     };
 
-    var _seleccionarRegistro = function (paisId, clienteId, codigoCliente, nombreCliente) {
-        console.log(paisId, clienteId, codigoCliente, nombreCliente);
+    var _seleccionarRegistro = function (paisId, clienteId, codigoCliente, nombreCliente, nombre) {
+        console.log(paisId, clienteId, codigoCliente, nombreCliente, nombre);
 
         $(_elements.hfPaisID).val(paisId);
         $(_elements.hfClienteID).val(clienteId);
         $(_elements.hfCodigoCliente).val(codigoCliente);
         $(_elements.hfNombreCliente).val(nombreCliente);
+        $(_elements.hfNombre).val(nombre);
     };
 
     var _mostrarTusClientes = function () {
@@ -52,7 +54,7 @@
             .done(function (data) {
                 console.log(data);
                 SetHandlebars(_elements.hbsClientes, data, _elements.divClientes);
-                _seleccionarRegistro("", "", "", "");
+                _seleccionarRegistro("", "", "", "","");
             });
     };
 

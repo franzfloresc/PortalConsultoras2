@@ -51,6 +51,7 @@
 <input id="hfClienteID" type="hidden" />
 <input id="hfCodigoCliente" type="hidden" />
 <input id="hfNombreCliente" type="hidden" />
+<input id="hfNombre" type="hidden" />
 
 <hr class="clear" />
 
@@ -67,7 +68,7 @@
 <script id="handlebars_plantilla1" type="text/x-handlebars-template">
 
     {{# each miData}}
-    <div class="content_listado_notificaciones" onclick="panelListaModule.seleccionarRegistro({{PaisID}}, {{ClienteID}}, '{{CodigoCliente}}', '{{NombreCliente}}')">
+    <div class="content_listado_notificaciones" onclick="panelListaModule.seleccionarRegistro({{PaisID}}, {{ClienteID}}, '{{CodigoCliente}}', '{{NombreCliente}}', '{{Nombre}}')">
         <div style="display:none;" class="cliente_id">{{ClienteID}}</div>
         <div style="display:none;" class="codigo_cliente">{{CodigoCliente}}</div>
         <div class="nombre_cliente_sb">{{NombreCliente}}</div>
@@ -95,6 +96,7 @@
         tusClientesProvider,
         urlPanelMantener: $("#hfUrlFrmRegistro").val()
     });
+
     $(document).ready(function () {
         panelListaModule.init();
     });
