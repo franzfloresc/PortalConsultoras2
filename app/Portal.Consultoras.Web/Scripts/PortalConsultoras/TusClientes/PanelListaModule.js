@@ -24,7 +24,17 @@
     };
 
     var _loadPanelMantener = function () {
-        $(_elements.panelRegistroContenedor).load(_config.urlPanelMantener);
+        _config
+            .tusClientesProvider
+            .panelMantenerPromise()
+            .done(function (data) {
+                $(_elements.panelRegistroContenedor).html(data);
+            })
+            .fail(function (data, error) {
+                console.log("ERROR al cargar html PanelLista.");
+                console.log("data : " + data);
+                console.log("error : " + error);
+            });
     }
 
     var _panelRegistroShow = function () {
@@ -58,7 +68,13 @@
             });
     };
 
+    var _setNombreCliente = function (nombreCliente) {
+        $(_elements.txtNombreCliente).val(nombreCliente);
+    }
+
     var _init = function () {
+        _loadPanelMantener();
+
         _mostrarTusClientes();
 
         $("body").on("click", _elements.btnAgregar,function (e) {
@@ -72,12 +88,14 @@
                 //}
             }
         });
-
-        _loadPanelMantener();
     };
 
     return {
         init: _init,
-        seleccionarRegistro:_seleccionarRegistro
+        seleccionarRegistro: _seleccionarRegistro,
+        setNombreCliente: _setNombreCliente,
+        mostrarTusClientes: _mostrarTusClientes,
+        panelRegistroShow: _panelRegistroShow,
+        panelRegistroHide: _panelRegistroHide
     };
 };

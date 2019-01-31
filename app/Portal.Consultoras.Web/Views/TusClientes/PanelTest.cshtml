@@ -71,12 +71,34 @@
 
     <script type="text/javascript" src="@Url.Content("~/Scripts/General.js")"></script>
 
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/TusClientes/TusClientesProvider.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/TusClientes/PanelListaModule.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/TusClientes/PanelMantenerModule.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/TusClientes/ClientePanelModule.js")"></script>
 
     <script>
-
-        var panel = null;
+        var tusClientesProvider = TusClientesProvider();
+        var panelListaModule = PanelListaModule({
+            tusClientesProvider,
+            urlPanelMantener: $("#hfUrlFrmRegistro").val()
+        });
+        var panelMantenerModule = PanelMantenerModule({
+            tusClientesProvider,
+            panelListaModule
+        });
+        var panel = ClientePanelModule({
+            tusClientesProvider,
+            panelListaModule,
+            panelMantenerModule,
+            panelId: 'PanelClienteLista',
+            panelContenedorId: 'PanelClienteLista_Contenedor'
+        });
         $(document).ready(function () {
+            debugger;
+            panel.init();
+            panel.SetAceptaClick(function (obj) {
+                console.log('tu código:', obj);
+            });
 
             $("#btnAbrir").click(function () {
                 //$("#PanelClienteLista").css("width", "400px");
@@ -88,15 +110,7 @@
                 panel.Cerrar();
             });
 
-            panel = new ClientePanelModule('PanelClienteLista', 'PanelClienteLista_Contenedor', '@Url.Content("~")');
-            panel.AceptarClick = function (obj) {
-
-                console.log('tu código:', obj.PaisID, obj.ClienteID, obj.CodigoCliente, obj.NombreCliente, obj.Nombre );
-                   
-            };
-            panel.RenderizarPagina();
-            panel.Abrir();
-
+            
         });
     </script>
 

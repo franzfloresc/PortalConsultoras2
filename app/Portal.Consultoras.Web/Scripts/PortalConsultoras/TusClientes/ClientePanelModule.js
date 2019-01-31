@@ -1,19 +1,27 @@
-﻿function ClientePanelModule(panelId, panelContenedorId, baseUrl) {
-    this.PanelId = panelId;
-    this.PanelContenedorId = panelContenedorId;
-    this.BaseUrl = baseUrl;
-    this.AceptarClick = null;
+﻿var ClientePanelModule = function (config) {
 
-    this.Abrir = function () {
-        $("#" + this.PanelId).css("width", "400px");
+    if (typeof config === "undefined" || config === null) throw "config parameter is null";
+
+    var PanelId = "#" + config.panelId;
+    var PanelContenedorId = "#" + config.panelContenedorId;
+
+    var _config = {
+        tusClientesProvider: config.tusClientesProvider || TusClientesProvider(),
+        panelListaModule: config.panelListaModule || PanelListaModule(),
+        panelMantenerModule: config.panelMantenerModule || PanelMantenerModule(),
+    }
+
+    var _aceptarClick = null;
+
+    var _abrir = function () {
+        $(PanelId).css("width", "400px");
     };
 
-    this.Cerrar = function () {
-        $("#" + this.PanelId).css("width", "0");
+    var _cerrar = function () {
+        $(PanelId).css("width", "0");
     };
 
-    this.ConfiguracionInicial = function (instancia) {
-
+    var _configuracionInicial = function () {
         if ($("#btnPanelListaAceptar").length == 0) {
             console.log("no existe 'PanelLista.btnPanelListaAceptar'");
         }
@@ -28,38 +36,53 @@
                 Nombre: $("#hfNombre").val()
             };
 
-
             if (clienteSeleccion.ClienteID != "") {
                 console.log("Selección: ", clienteSeleccion);
-                instancia.Cerrar();
-                if ($.isFunction(instancia.AceptarClick)) {
-                    instancia.AceptarClick(clienteSeleccion);
+                _cerrar();
+                if ($.isFunction(_aceptarClick)) {
+                    _aceptarClick(clienteSeleccion);
                 }
             } else {
                 alert('Seleccione un Cliente');
             }
-
         });
 
         $("#btnPanelListaCerrar").click(function () {
-            instancia.Cerrar();
+            _cerrar();
         });
-
     };
 
-    this.RenderizarPagina = function () {
-        var instancia = this;
-        //console.log(this.BaseUrl + "TusClientes/PanelLista");
-        $.ajax({
-            type: "GET", dataType: "html", cache: false,
-            url: this.BaseUrl + "TusClientes/PanelLista",
-            success: function (data) {
-                $('#' + instancia.PanelContenedorId).html(data);
-                instancia.ConfiguracionInicial(instancia);
-            },
-            error: function (e) {
-                console.log("ERROR al cargar html PanelLista: ", e);
-            }
-        });
-    }
+    var _renderizarPagina = function () {
+        _config
+            .tusClientesProvider
+            .panelListaPromise()
+            .done(function (data) {
+                $(PanelContenedorId).html(data);
+                _configuracionInicial();
+            })
+            .fail(function (data, error) {
+                console.log("ERROR al cargar html PanelLista.");
+                console.log("data : " + data);
+                console.log("error : " + error);
+            });
+    };
+
+    var _setAceptaClick = function (fn) {
+        _setAceptaClick = fn;
+    };
+
+    var _init = function () {
+        _renderizarPagina();
+        _config.panelListaModule.init();
+        _config.panelMantenerModule.init();
+        _abrir();
+    };
+
+    return {
+        Abrir: _abrir,
+        Cerrar: _cerrar,
+        init: _init,
+        AceptarClick: _aceptarClick,
+        SetAceptaClick: _setAceptaClick
+    };
 }

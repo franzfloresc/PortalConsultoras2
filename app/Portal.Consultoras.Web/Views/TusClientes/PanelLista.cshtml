@@ -88,16 +88,3 @@
     <script type="text/javascript" src="@Url.Content("~/Scripts/handlebars.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/General.js")"></script>
 *@
-<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/TusClientes/TusClientesProvider.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/TusClientes/PanelListaModule.js")"></script>
-<script>
-    var tusClientesProvider = TusClientesProvider();
-    var panelListaModule = PanelListaModule({
-        tusClientesProvider,
-        urlPanelMantener: $("#hfUrlFrmRegistro").val()
-    });
-
-    $(document).ready(function () {
-        panelListaModule.init();
-    });
-</script>
