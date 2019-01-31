@@ -808,10 +808,10 @@ var PedidoRegistroModule = function () {
                 return false;
             }
 
-            var add = _agregarOfertaFinal(model);
-            if (add.success) {
+            var dataAgregarOF = _agregarOfertaFinal(model);
+            if (dataAgregarOF.success) {
                 AgregarOfertaFinalLog(model.CUV, model.Cantidad, tipoOfertaFinal_Log, gap_Log, 1, 'Producto Agregado');
-                ActualizarValoresPopupOfertaFinal(add, true);
+                ActualizarValoresPopupOfertaFinal(dataAgregarOF);
                 objDivPadre.find('.agregado').show();
                 if ($.isFunction(fnFinal)) fnFinal();
             }
@@ -1061,7 +1061,8 @@ var PedidoRegistroModule = function () {
                 }
 
                 CloseLoading();
-                ActualizarGanancia(data.DataBarra);
+                var prevTotal = mtoLogroBarra || 0;
+                MostrarBarra(data);
                 var existeError = $(data).filter("input[id=hdErrorInsertarProducto]").val();
                 if (existeError == "1") {
                     $("#divProductoObservaciones").html('<div class="alert-top-icon text-danger" style="margin-top: 0;"><i class="icon-exclamation-circle"></i><br/>Ocurrió un error al ejecutar la operación.</div>');
@@ -1070,6 +1071,7 @@ var PedidoRegistroModule = function () {
                     CloseLoading();
                     return false;
                 }
+                showPopupNivelSuperado(data.DataBarra, prevTotal);
                 $('#divMensajeCUV').hide();
                 $("#divProductoObservaciones").html("");
                 $("#divProductoMantenedor").hide();
@@ -1278,7 +1280,9 @@ var PedidoRegistroModule = function () {
                     $("#hdErrorInsertarProducto").val(response.errorInsertarProducto);
 
                     //tieneMicroefecto = true;
+                    var prevTotal = mtoLogroBarra;
                     MostrarBarra(response);
+                    showPopupNivelSuperado(response.DataBarra, prevTotal);
                     if (response.modificoBackOrder) showDialog("divBackOrderModificado");
                     CargarDetallePedido();
                     $("#pCantidadProductosPedido").html(response.cantidadTotalProductos > 0 ? response.cantidadTotalProductos : 0);
@@ -1357,7 +1361,8 @@ var PedidoRegistroModule = function () {
                     return false;
                 }
 
-                ActualizarGanancia(data.DataBarra);
+                var prevTotal = mtoLogroBarra || 0;
+                MostrarBarra(data);
                 var existeError = $(data).filter("input[id=hdErrorInsertarProducto]").val();
                 if (existeError == "1") {
                     AbrirMensaje("Ocurrió un error al ejecutar la operación.");
@@ -1366,6 +1371,7 @@ var PedidoRegistroModule = function () {
                 }
 
                 CloseLoading();
+                showPopupNivelSuperado(data.DataBarra, prevTotal);
 
                 $("#divProductoObservaciones").html("");
                 VisibleEstrategias(true);
