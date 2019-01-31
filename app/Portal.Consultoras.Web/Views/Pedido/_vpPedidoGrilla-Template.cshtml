@@ -44,8 +44,8 @@
          {{#iff TipoAccion '==' '1'}} 
             pedido_item_editable 
          {{/iff}}" 
-         onclick="javascript: FichaEditarModule.EditarProducto(event, '{{TipoAccion}}')"
-         data-cuv="{{CUV}}" data-campania="{{CampaniaID}}" data-tipoestrategia="{{TipoEstrategiaCodigo}}">
+         onclick="javascript: FichaEditarModule.EditarProducto(this, '{{TipoAccion}}')"
+         data-cuv="{{CUV}}" data-campania="{{CampaniaID}}" data-tipoestrategia="{{TipoEstrategiaCodigo}}" data-OrigenPedidoWeb="{{OrigenPedidoWeb}}">
         <div class="texto_pedidos celda_producto pedidoPadreToolTip" style="position:relative">
 
             <span class="producto-codigo">{{CUV}}</span>

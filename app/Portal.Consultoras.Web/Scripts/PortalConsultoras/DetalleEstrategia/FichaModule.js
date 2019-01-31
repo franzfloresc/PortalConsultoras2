@@ -774,19 +774,19 @@ var FichaModule = (function (config) {
 
 
 var FichaEditarModule = (function () {
-
+    
     var EditarProducto = function (event, tipoAccion) {
         if (tipoAccion != 1) {
             return false;
         }
-
+        
         AbrirSplash();
 
-        var row = $(this);
-        var campania = $.trim(row.attr("data-campania"));
-        var cuv = $.trim(row.attr("data-cuv"));
-        var palanca = $.trim(row.attr("data-tipoestrategia"));
-        var OrigenPedidoWeb = $.trim(row.attr("data-OrigenPedidoWeb"));
+        var row = event;
+        var campania = $.trim(row.getAttribute("data-campania"));
+        var cuv = $.trim(row.getAttribute("data-cuv"));
+        var palanca = $.trim(row.getAttribute("data-tipoestrategia"));
+        var OrigenPedidoWeb = $.trim(row.getAttribute("data-OrigenPedidoWeb"));
         palanca = GetNombrePalanca(palanca);
 
         window.setTimeout(function () {
