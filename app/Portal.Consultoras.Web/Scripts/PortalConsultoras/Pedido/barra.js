@@ -1256,6 +1256,7 @@ function showPopupNivelSuperado(barra, prevLogro) {
         var superaRegalo = tippingPoint <= mtoLogroBarra && tippingPoint > prevLogro;
         if (superaRegalo) {
 
+            checkPremioSelected(true);
             var idPopup = '#popupPremio';
             var dvPremio = $(idPopup);
             var btn = dvPremio.find('.btn_escoger_o_cambiar_regalo');
