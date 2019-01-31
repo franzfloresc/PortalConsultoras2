@@ -1025,3 +1025,29 @@ ul.breadcumbs li a::before {
         top: 18px;
         left: -11px;
     }
+
+.asignarCliente_bloque {
+    clear: both;
+    padding-top: 55px;
+}
+
+.asignarCliente {
+    padding: 0px;
+}
+
+.asignarCliente li {
+    display: inline-block;
+}
+
+.asignarCliente h3 {
+    font-size: 13px;
+    font-weight: bold !important;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #808080;
+}
+
+.clientes-items {
+    padding: 14px 20px;
+}
+
