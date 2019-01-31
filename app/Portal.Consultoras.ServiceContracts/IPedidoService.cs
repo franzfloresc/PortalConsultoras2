@@ -1311,5 +1311,15 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         List<BEEscalaDescuento> ListarEscalaDescuentoZona(int paisID, int campaniaID, string region, string zona);
 
+        /// <summary>
+        /// Obtiene informacion de componentes seleccionados en el pedido
+        /// </summary>
+        /// <param name="PaisID">Pais</param>
+        /// <param name="CampaniaID">Campania</param>
+        /// <param name="ConsultoraID">Consultora</param>
+        /// <param name="SetID">Set</param>
+        /// <returns></returns>
+        [OperationContract]
+        List<BEEstrategiaProducto> GetEstrategiaProductoComponenteSeleccionado(Int32 PaisID, Int64 CampaniaID, Int64 ConsultoraID, Int32 SetID);
     }
 }

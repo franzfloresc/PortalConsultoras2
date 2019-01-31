@@ -2410,5 +2410,17 @@ namespace Portal.Consultoras.Service
             return blEstrategia.LimpiarCacheRedis(paisID, codigoTipoEstrategia, campaniaID);
         }
 
+        /// <summary>
+        /// Obtiene informacion de componentes seleccionados en el pedido
+        /// </summary>
+        /// <param name="PaisID">Pais</param>
+        /// <param name="CampaniaID">Campania</param>
+        /// <param name="ConsultoraID">Consultora</param>
+        /// <param name="SetID">Set</param>
+        /// <returns></returns>
+        public List<BEEstrategiaProducto> GetEstrategiaProductoComponenteSeleccionado(Int32 PaisID, Int64 CampaniaID, Int64 ConsultoraID, Int32 SetID)
+        {
+            return new BLEstrategiaProducto().GetEstrategiaProductoComponenteSeleccionado(PaisID, CampaniaID, ConsultoraID, SetID);
+        }
     }
 }
