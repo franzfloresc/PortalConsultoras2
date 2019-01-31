@@ -9,10 +9,8 @@
         tusClientesProvider: config.tusClientesProvider || TusClientesProvider(),
         panelListaModule: config.panelListaModule || PanelListaModule(),
         panelMantenerModule: config.panelMantenerModule || PanelMantenerModule(),
-    }
-
-    var _aceptarClick = null;
-
+    };
+ 
     var _abrir = function () {
         $(PanelId).css("width", "400px");
     };
@@ -37,11 +35,11 @@
             };
 
             if (clienteSeleccion.ClienteID != "") {
-                console.log("Selecciónxx: ", clienteSeleccion);
-                console.log("_aceptaSeleccionClick: ", _aceptaSeleccionClick);
+                console.log("Selección: ", clienteSeleccion);
+
                 _cerrar();
-                if ($.isFunction(_aceptaSeleccionClick)) {
-                    _aceptaSeleccionClick(clienteSeleccion);
+                if ($.isFunction(_aceptaClick)) {
+                    _aceptaClick(clienteSeleccion);
                 }
             } else {
                 alert('Seleccione un Cliente');
@@ -68,8 +66,8 @@
             });
     };
 
-    var _aceptaSeleccionClick = function (fn) {
-        _aceptaSeleccionClick = fn;
+    var _aceptaClick = function (fn) {
+        _aceptaClick = fn;
     };
 
     var _init = function () {
@@ -83,7 +81,6 @@
         Abrir: _abrir,
         Cerrar: _cerrar,
         init: _init,
-        AceptarClick: _aceptarClick,
-        AceptaSeleccionClick: _aceptaSeleccionClick
+        AceptaClick: _aceptaClick  
     };
-}
+};
