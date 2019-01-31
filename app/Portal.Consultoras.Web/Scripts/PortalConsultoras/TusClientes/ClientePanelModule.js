@@ -73,8 +73,7 @@
     var _init = function () {
         _renderizarPagina();
         _config.panelListaModule.init();
-        _config.panelMantenerModule.init();
-        _abrir();
+        _config.panelMantenerModule.init();        
     };
 
     return {

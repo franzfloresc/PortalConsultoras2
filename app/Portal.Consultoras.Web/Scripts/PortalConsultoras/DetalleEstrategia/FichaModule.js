@@ -773,13 +773,36 @@ var FichaModule = (function (config) {
 });
 
 
+//INIT PANEL CLIENTE
+
+var tusClientesProvider = TusClientesProvider();
+var panelListaModule = PanelListaModule({
+    tusClientesProvider//,
+    //urlPanelMantener: $("#hfUrlFrmRegistro").val()
+});
+var panelMantenerModule = PanelMantenerModule({
+    tusClientesProvider,
+    panelListaModule
+});
+var panel = ClientePanelModule({
+    tusClientesProvider,
+    panelListaModule,
+    panelMantenerModule,
+    panelId: 'PanelClienteLista',
+    panelContenedorId: 'PanelClienteLista_Contenedor'
+});
+
+//END PANEL CLIENTE
+
+
+
 var FichaEditarModule = (function () {
-    
-    var EditarProducto = function (event, tipoAccion) {
+
+    var EditarProducto = function(event, tipoAccion) {
         if (tipoAccion != 1) {
             return false;
         }
-        
+
         AbrirSplash();
 
         var row = event;
@@ -789,24 +812,26 @@ var FichaEditarModule = (function () {
         var OrigenPedidoWeb = $.trim(row.getAttribute("data-OrigenPedidoWeb"));
         palanca = GetNombrePalanca(palanca);
 
-        window.setTimeout(function () {
-            fichaModule = FichaModule({
-                localStorageModule: LocalStorageModule(),
-                palanca: palanca,
-                campania: campania,
-                cuv: cuv,
-                origen: OrigenPedidoWeb,
-                tieneSession: null,
-                urlObtenerComponentes: urlObtenerComponentes,
-                esEditable: true
-            });
+        window.setTimeout(function() {
+                fichaModule = FichaModule({
+                    localStorageModule: LocalStorageModule(),
+                    palanca: palanca,
+                    campania: campania,
+                    cuv: cuv,
+                    origen: OrigenPedidoWeb,
+                    tieneSession: null,
+                    urlObtenerComponentes: urlObtenerComponentes,
+                    esEditable: true
+                });
 
-            _showDivFichaResumida(true);
-            fichaModule.Inicializar();
-            CerrarSplash();
-        },
+                _showDivFichaResumida(true);
+                fichaModule.Inicializar();
+                CerrarSplash();
+                _initPanelCliente();
+
+            },
             10);
-    }
+    };
 
     var _showDivFichaResumida = function (isShow) {
         isShow = isShow == undefined ? true : isShow;
@@ -819,7 +844,19 @@ var FichaEditarModule = (function () {
             $("body").css("overflow", "scroll");
         }
     }
+    var _initPanelCliente = function() {
+        //INIT PANEL CLIENTE
+        panel.init();
+        panel.AceptaClick(function (obj) {
+            //PaisID, ClienteID, CodigoCliente, NombreCliente, Nombre
+            console.log('tu código:', obj);
+        });
 
+        $("#btnShowCliente").click(function () {
+            panel.Abrir();
+        });
+        //END PANEL CLIENTE
+    }
     return {
         EditarProducto: EditarProducto,
         ShowDivFichaResumida: _showDivFichaResumida
