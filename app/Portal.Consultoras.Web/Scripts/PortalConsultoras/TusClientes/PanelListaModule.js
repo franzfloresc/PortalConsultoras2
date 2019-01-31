@@ -3,7 +3,8 @@
     if (typeof config === "undefined" || config === null) throw "config parameter is null";
 
     var _config = {
-        urlPanelMantener: config.urlPanelMantener || "",
+        //urlPanelMantener: config.urlPanelMantener || "",
+        urlPanelMantener:  "#hfUrlFrmRegistro",
         tusClientesProvider: config.tusClientesProvider /*|| TusClientesProvider()*/
     };
 

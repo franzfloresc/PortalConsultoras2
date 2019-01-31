@@ -79,8 +79,8 @@
     <script>
         var tusClientesProvider = TusClientesProvider();
         var panelListaModule = PanelListaModule({
-            tusClientesProvider,
-            urlPanelMantener: $("#hfUrlFrmRegistro").val()
+            tusClientesProvider//,
+            //urlPanelMantener: $("#hfUrlFrmRegistro").val()
         });
         var panelMantenerModule = PanelMantenerModule({
             tusClientesProvider,
@@ -93,6 +93,7 @@
             panelId: 'PanelClienteLista',
             panelContenedorId: 'PanelClienteLista_Contenedor'
         });
+
         $(document).ready(function () {
             debugger;
             panel.init();
