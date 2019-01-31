@@ -36,7 +36,7 @@
                 console.log("data : " + data);
                 console.log("error : " + error);
             });
-    }
+    };
 
     var _panelRegistroShow = function () {
         $(_elements.panelClienteRegistro).css("width", "400px");
@@ -71,7 +71,7 @@
 
     var _setNombreCliente = function (nombreCliente) {
         $(_elements.txtNombreCliente).val(nombreCliente);
-    }
+    };
 
     var _init = function () {
         _loadPanelMantener();

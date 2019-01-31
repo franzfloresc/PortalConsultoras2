@@ -8,7 +8,7 @@ var TusClientesModule = function (config) {
     var _config = {
         tusClienteProvider: config.tusClienteProvider || TusClientesProvider(),
         checkTimeout: checkTimeout
-    }
+    };
 
     var _elements = {
         txtNombreCliente: "#txtNombreCliente",
@@ -26,10 +26,10 @@ var TusClientesModule = function (config) {
             })
             .fail(function (data, error) {
                 throw "Error al invocar tusClienteProvider.consultarPromise";
-            })
+            });
 
         return false;
-    }
+    };
 
     var _init = function () {
         _buscarClientes();
@@ -38,7 +38,7 @@ var TusClientesModule = function (config) {
                 _buscarClientes();
             }
         });     
-    }
+    };
 
     return {
         init: _init,

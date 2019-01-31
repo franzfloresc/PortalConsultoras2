@@ -9,7 +9,7 @@
         tusClientesProvider: config.tusClientesProvider || TusClientesProvider(),
         panelListaModule: config.panelListaModule || PanelListaModule(),
         panelMantenerModule: config.panelMantenerModule || PanelMantenerModule(),
-    }
+    };
  
     var _abrir = function () {
         $(PanelId).css("width", "400px");
@@ -83,4 +83,4 @@
         init: _init,
         AceptaClick: _aceptaClick  
     };
-}
+};
