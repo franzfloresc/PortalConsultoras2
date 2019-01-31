@@ -821,7 +821,8 @@ var FichaEditarModule = (function () {
     }
 
     return {
-        EditarProducto: EditarProducto
+        EditarProducto: EditarProducto,
+        ShowDivFichaResumida: _showDivFichaResumida
     };
 })();
 
