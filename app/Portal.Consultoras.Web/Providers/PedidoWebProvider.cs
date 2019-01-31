@@ -310,6 +310,14 @@ namespace Portal.Consultoras.Web.Providers
             return pedidoDetalleResult;
         }
 
+        public async Task EliminarPedidoWebDetalle(BEPedidoWebDetalle pedidoDetalle)
+        {
+            using (var pedidoServiceClient = new PedidoServiceClient())
+            {
+                await pedidoServiceClient.DelPedidoWebDetalleAsync(pedidoDetalle);
+            }
+        }
+
         public bool EsHoraReserva(UsuarioModel usuario, DateTime fechaHora)
         {
             if (!usuario.DiaPROL)

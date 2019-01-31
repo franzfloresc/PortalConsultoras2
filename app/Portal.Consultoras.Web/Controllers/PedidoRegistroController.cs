@@ -29,7 +29,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult InsertarPedidoCuvBanner(string CUV, int CantCUVpedido)
+        public async Task<JsonResult> InsertarPedidoCuvBanner(string CUV, int CantCUVpedido)
         {
             try
             {
@@ -63,7 +63,7 @@ namespace Portal.Consultoras.Web.Controllers
                 pedidoCrudModel.OrigenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopHomeBannersCarrusel;
                 pedidoCrudModel.TipoEstrategiaID = Int32.TryParse(producto.TipoEstrategiaID, out outVal) ? Int32.Parse(producto.TipoEstrategiaID) : 0;
 
-                return PedidoAgregarProductoTransaction(pedidoCrudModel);
+                return await PedidoAgregarProductoTransaction(pedidoCrudModel);
 
             }
             catch (Exception ex)
@@ -138,7 +138,7 @@ namespace Portal.Consultoras.Web.Controllers
         #endregion
 
         [HttpPost]
-        public JsonResult PedidoAgregarProductoTransaction(PedidoCrudModel model)
+        public async Task<JsonResult> PedidoAgregarProductoTransaction(PedidoCrudModel model)
         {
             try
             {
@@ -259,6 +259,7 @@ namespace Portal.Consultoras.Web.Controllers
                 pedidoDetalle.EsKitNuevaAuto = model.EsKitNuevaAuto;
                 pedidoDetalle.OfertaWeb = model.OfertaWeb;
 
+                await DeletePremioIfReplace(model);
                 var pedidoDetalleResult = _pedidoWebProvider.InsertPedidoDetalle(pedidoDetalle);
 
                 if (pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS))
@@ -307,6 +308,22 @@ namespace Portal.Consultoras.Web.Controllers
                     success = false,
                     message = "Ocurrió un error, vuelva ha intentarlo."
                 });
+            }
+        }
+
+        private async Task DeletePremioIfReplace(PedidoCrudModel model)
+        {
+            var premios = _programaNuevasProvider.GetListPremioElectivo();
+            if (premios.Any(p => p.CUV2 == model.CUV))
+            {
+                var details = ObtenerPedidoWebDetalle();
+
+                var premioSelected = details.FirstOrDefault(d => premios.Any(c => c.CUV2 == d.CUV));
+
+                if (premioSelected != null)
+                {
+                    await _pedidoWebProvider.EliminarPedidoWebDetalle(premioSelected);
+                }
             }
         }
 
