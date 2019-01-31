@@ -517,7 +517,7 @@ $(document).ready(function () {
 
 $('body').on('click', 'div.pedido_item_editable', function (event) {
     AbrirSplash();
-    
+
     var row = $(this);
     var campania = $.trim(row.attr("data-campania"));
     var cuv = $.trim(row.attr("data-cuv"));
@@ -539,8 +539,7 @@ $('body').on('click', 'div.pedido_item_editable', function (event) {
             fichaModule.Inicializar();
             ShowDivFichaResumida(true);
             CerrarSplash();
-        },
-        10);
+        }, 10);
 });
 
 function CargarDetallePedido(page, rows, asyncrono) {
