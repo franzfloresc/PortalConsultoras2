@@ -137,7 +137,7 @@ function SetupPopupCierreSesion(tipo) {
             popup.find('[sb-cerrar]').show();
             break;
         case 3:
-            body.html('Tu sesión finalizará en : <span class="text-bold" id="countdownDisplay"></span> <br /> Y tienes un pedido pendiente ¿Deseas reservarlo?');
+            body.html('Tu sesión finalizará en : <span class="text-bold" id="countdownDisplay"></span> <br /> y tienes un pedido pendiente ¿Deseas reservarlo?');
             icono.addClass('icono_sesion_por_finalizar');
             popup.find('.popup_cierre_sesion_btn_reservar_pedido').show();
             popup.find('[sb-cerrar]').show();
