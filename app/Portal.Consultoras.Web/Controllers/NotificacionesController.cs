@@ -306,11 +306,76 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult ListarObservaciones(long ProcesoId, int TipoOrigen)
+        public ActionResult ListarObservaciones(long ProcesoId, int TipoOrigen, string Campania)
         {
             List<BENotificacionesDetalle> lstObservaciones;
             List<BENotificacionesDetallePedido> lstObservacionesPedido;
             _notificacionProvider.GetNotificacionesValAutoProl(ProcesoId, TipoOrigen, userData.PaisID, out lstObservaciones, out lstObservacionesPedido);
+
+            if (!string.IsNullOrEmpty(Campania))
+            {
+                int campaniaId = int.Parse(Campania);
+                var detallesPedidoWeb = new List<BEPedidoWebDetalle>();
+                using (var pedidoServiceClient = new PedidoServiceClient())
+                {
+                    var parametros = new BEPedidoWebDetalleParametros
+                    {
+                        PaisId = userData.PaisID,
+                        CampaniaId = campaniaId,
+                        ConsultoraId = userData.ConsultoraID,
+                        Consultora = userData.NombreConsultora,
+                        EsBpt = true,
+                        CodigoPrograma = userData.CodigoPrograma,
+                        NumeroPedido = userData.ConsecutivoNueva,
+                        AgruparSet = true
+                    };
+
+                    detallesPedidoWeb = pedidoServiceClient.SelectByCampania(parametros).ToList();
+                }
+
+                var hayPedidoSet = detallesPedidoWeb.Where(x => x.SetID > 0).ToList();
+                if (hayPedidoSet.Any())
+                {
+                    var pedidoSetSinObs = detallesPedidoWeb.Where(x => lstObservacionesPedido.Any(y => y.CUV != x.CUV)).ToList();
+                    if (pedidoSetSinObs.Any())
+                    {
+                        var pedidoId = pedidoSetSinObs.FirstOrDefault().PedidoID;
+                        var lstSetId = string.Join(",", pedidoSetSinObs.Where(x => x.SetID > 0).Select(e => e.SetID));
+                        var detallesPedidoSet = new List<BEPedidoWebDetalle>();
+
+                        using (var sv = new PedidoServiceClient())
+                        {
+                            detallesPedidoSet = sv.ObtenerCuvSetDetalle(userData.PaisID, campaniaId, userData.ConsultoraID, pedidoId, lstSetId).ToList();
+                        }
+
+                        foreach (var set in pedidoSetSinObs)
+                        {
+                            var setDetalle = detallesPedidoSet.Where(x => x.SetID == set.SetID);
+                            var setDetalleObs = lstObservacionesPedido.Where(x => setDetalle.Any(y => y.CUV == x.CUV));
+                            if (setDetalleObs != null)
+                            {
+                                var observaciones = string.Join("|", setDetalleObs.Select(e => e.ObservacionPROL));
+                                detallesPedidoWeb.Where(x => x.SetID == 1).Update(x => x.ObservacionPROL = observaciones);
+                            }
+                        }
+                    }
+
+                    foreach (var item in detallesPedidoWeb)
+                    {
+                        lstObservacionesPedido.Add(new BENotificacionesDetallePedido
+                        {
+                            CUV = item.CUV,
+                            Cantidad = item.Cantidad,
+                            PrecioUnidad = item.PrecioUnidad,
+                            ImporteTotal = item.ImporteTotal,
+                            Descripcion = item.DescripcionProd,
+                            ObservacionPROL = item.ObservacionPROL,
+                            NombreCliente = item.NombreCliente,
+                            DescuentoProl = item.DescuentoProl,
+                        });
+                    }
+                }
+            }
 
             NotificacionesModel model = new NotificacionesModel
             {

@@ -74,7 +74,7 @@
             {
                 <div class="content_datos_mispagos">
                     <div class="fecha_pagos">SOMOSBELCORP</div>
-                    <a class="movimientos_pagos_content @(item.Visualizado ? "" : "no_leido")" onclick="VisualizarPopup('@item.ProcesoId','@item.Observaciones','@item.Estado','@item.FacturaHoy.ToString()','@item.FechaFacturacion.Day','@item.FechaFacturacion.Month','@item.Visualizado.ToString()','@item.Asunto','@item.Proceso','@item.EsMontoMinimo.ToString()', this)">@item.Asunto</a>
+                    <a class="movimientos_pagos_content @(item.Visualizado ? "" : "no_leido")" onclick="VisualizarPopup('@item.ProcesoId','@item.Observaciones','@item.Estado','@item.FacturaHoy.ToString()','@item.FechaFacturacion.Day','@item.FechaFacturacion.Month','@item.Visualizado.ToString()','@item.Asunto','@item.Proceso','@item.EsMontoMinimo.ToString()', this, '@item.CampaniaId')">@item.Asunto</a>
                     <div class="pedidos_pagos">@Html.DisplayTextFor(modelItem => item.FechaHoraValidación)</div>
                     <div class="abonos_pagos">
                         @if (item.CampaniaId != 0)
