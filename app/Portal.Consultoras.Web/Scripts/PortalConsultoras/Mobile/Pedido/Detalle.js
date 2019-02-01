@@ -103,21 +103,8 @@ function CargarPedido(firstLoad) {
             if (!checkTimeout(data)) {
                 return false;
             }
-
-            SetHandlebars("#template-Detalle", data.data, '#divProductosDetalle');
-            belcorp.mobile.pedido.setDetalles(data.data.ListaDetalleModel);
-
-            if ($('#divContenidoDetalle').find(".icono_advertencia_notificacion").length > 0) {
-                $("#iconoAdvertenciaNotificacion").show();
-            }
-
-            $(".tooltip_noOlvidesGuardarTuPedido").show();
-            $(".btn_guardarPedido").show();
-            $("footer").hide();
-
-            cuponModule.actualizarContenedorCupon();
-
-            if (firstLoad && autoReservar) { EjecutarPROL(); }
+            CargarPedidoRespuesta(data, firstLoad);
+            
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
@@ -127,6 +114,25 @@ function CargarPedido(firstLoad) {
     }).always(function () {
         CloseLoading();
     });
+}
+
+function CargarPedidoRespuesta(data, firstLoad) {
+    SetHandlebars("#template-pedidototal-superior", data.data, '#divPedidoTotalSuperior');
+    SetHandlebars("#template-detalle", data.data, '#divProductosDetalle');
+    SetHandlebars("#template-pedidototal-inferior", data.data, '#divPedidoTotalInferior');
+    belcorp.mobile.pedido.setDetalles(data.data.ListaDetalleModel);
+
+    if ($('#divContenidoDetalle').find(".icono_advertencia_notificacion").length > 0) {
+        $("#iconoAdvertenciaNotificacion").show();
+    }
+
+    $(".tooltip_noOlvidesGuardarTuPedido").show();
+    $(".btn_guardarPedido").show();
+    $("footer").hide();
+
+    cuponModule.actualizarContenedorCupon();
+
+    if (firstLoad && autoReservar) { EjecutarPROL(); }
 }
 
 function GetProductoEntidad(detalleId, setId) {

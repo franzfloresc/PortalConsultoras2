@@ -772,7 +772,6 @@ var FichaModule = (function (config) {
     };
 });
 
-
 //INIT PANEL CLIENTE
 
 var tusClientesProvider = TusClientesProvider();
@@ -803,7 +802,7 @@ var FichaEditarModule = (function () {
             return false;
         }
 
-        AbrirSplash();
+        AbrirLoad();
 
         var row = event;
         var campania = $.trim(row.getAttribute("data-campania"));
@@ -826,7 +825,7 @@ var FichaEditarModule = (function () {
 
                 _showDivFichaResumida(true);
                 fichaModule.Inicializar();
-                CerrarSplash();
+                CerrarLoad();
                 _initPanelCliente();
 
             },
