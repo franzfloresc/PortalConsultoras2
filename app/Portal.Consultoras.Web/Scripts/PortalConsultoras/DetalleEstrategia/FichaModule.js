@@ -23,6 +23,9 @@ registerEvent.call(opcionesEvents, "onOptionSelected");
 var variablesPortal = variablesPortal || {};
 var fichaModule = fichaModule || {};
 
+// TODO: quitar
+var fichaEstrategia;
+
 //Función para breadcumb
 function eventBreadCumb(url, titulo) {
 
@@ -331,7 +334,7 @@ var FichaModule = (function (config) {
         return dfd.promise();
     };
 
-    var _promiseObternerComponentesPedido = function (params) {
+    var _promiseObternerDetallePedido = function (params) {
         var dfd = $.Deferred();
 
         $.ajax({
@@ -413,16 +416,13 @@ var FichaModule = (function (config) {
 
                 if (_config.esEditable) {
                     if (!IsNullOrEmpty(_config.setId)) {
-                        _promiseObternerComponentesPedido({
+                        _promiseObternerDetallePedido({
                             campaniaId: _config.campania,
                             set: _config.setId
                         })
                             .done(function (data) {
                                 if (data.success) {
-                                    if (data.componentes.length > 0) {
-                                        estrategia.Cantidad = data.componentes[0].Cantidad;
-                                        $('input.txt_cantidad_pedido').val(estrategia.Cantidad);
-                                    }
+                                    _asignaDetallePedido(data.componentes);
                                 }
                             }).fail(function (data, error) {
                                 console.log(data);
@@ -617,6 +617,28 @@ var FichaModule = (function (config) {
             }
         }
     };
+
+    var _asignaDetallePedido = function (data) {
+        if (data.length)
+            throw 'Componente: No existe detalle de pedido';
+
+        estrategia.Cantidad = data[0].Cantidad;
+        $('input.txt_cantidad_pedido').val(estrategia.Cantidad);
+
+        $.each(data, function (i, o) {
+            var filterComponente = estrategia
+                .Hermanos
+                .filter(function (objeto) {
+                    return objeto.Cuv == o.CUV2 && (objeto.Hermanos != null && objeto.Hermanos.length > 0);
+                });
+
+            if (filterComponente.length) {
+                ComponentesModule.SeleccionarComponenteDinamico(o.CUV2);
+                ListaOpcionesModule.SeleccionarOpcion(o.CUV2);
+                ResumenOpcionesModule.AplicarOpciones();
+            }
+        });
+    }
 
     //var _cargarDataCompartir = function (estrategia) {
     //    if (isMobile()) {
@@ -896,7 +918,7 @@ var FichaEditarModule = (function () {
         panel.init();
         panel.AceptaClick(function (obj) {
             //PaisID, ClienteID, CodigoCliente, NombreCliente, Nombre
-            console.log('tu código:', obj);
+            //console.log('tu código:', obj);
         });
 
         $("#btnShowCliente").click(function () {

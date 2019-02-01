@@ -579,7 +579,6 @@ function CargarDetallePedido(page, rows, asyncrono) {
                     item.EstadoSimplificacionCuv = data.EstadoSimplificacionCuv;
                 });
 
-                console.log(data.ListaDetalleModel);
                 var html = ArmarDetallePedido(data.ListaDetalleModel);
                 $("#tbobyDetallePedido").html(html);
 
