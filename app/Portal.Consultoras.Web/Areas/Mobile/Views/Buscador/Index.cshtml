@@ -90,7 +90,8 @@
             {{/if}}
                     <div class="categoria_producto_fondo_estado"></div>
                     <img class="d-block" src="{{item.Imagen}}" alt="{{item.Nombre}}" />
-                    <a href="{{#iff item.Cantidad '>' 0}}/BusquedaProductos?c={{item.Codigo}}{{else}}#!{{/iff}}" title="{{item.Nombre}}" class="d-flex categoria_producto_enlace">
+                    <a href="{{#iff item.Cantidad '>' 0}}/BusquedaProductos?c={{item.Codigo}}{{else}}#!{{/iff}}" title="{{item.Nombre}}" 
+                       class="d-flex categoria_producto_enlace" onclick="AnalyticsPortalModule.MarcaCategoria('{{item.Nombre}}')">
                         <span class="d-block text-bold titulo_categoria_producto_busqueda">{{item.Nombre}}</span>
                         @if (@ViewBag.FlagBuscarPorCategoriaTotalProductos == true)
                         {

@@ -2681,15 +2681,18 @@ var AnalyticsPortalModule = (function () {
         });
     }
 
+    var marcaCategoria = function (categoria) {
+        dataLayer.push({
+            "event": _evento.virtualEvent,
+            "category": 'Buscador SB',
+            "action": 'Clic en categoría',
+            "label": categoria
+        });
+    }
+
     ////////////////////////////////////////////////////////////////////////////////////////
     // Fin - Analytics Buscador
     ////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
 
 
     return {
@@ -2814,6 +2817,7 @@ var AnalyticsPortalModule = (function () {
         MarcaRecomendacionesFlechaSiguiente: marcaRecomendacionesFlechaSiguiente,
         MarcaRecomendacionesFlechaAnterior: marcaRecomendacionesFlechaAnterior,
         MarcaOcultarRecomendaciones: marcaOcultarRecomendaciones,
+        MarcaCategoria: marcaCategoria,
         MarcaAnadirCarritoRecomendaciones: marcaAnadirCarritoRecomendaciones,
 
 
