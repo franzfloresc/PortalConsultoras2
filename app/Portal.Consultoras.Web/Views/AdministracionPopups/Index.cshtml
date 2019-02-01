@@ -1,0 +1,272 @@
+﻿@{
+    ViewBag.Title = "Administración de Popups";
+}
+
+<link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+<link href="@Url.Content("~/Content/Css/Site/AdministracionPopups/administracion-popups.css")" rel="stylesheet" />
+
+<main class="d-block layout__content w__100 ml__auto mr__auto vista__administracion__popups">
+    <section class="d__block vista__administracion__popups__cabecera">
+        <h1 class="d__block color__m text__bold vista__administracion__popups__titulo">
+            Administración de Popups
+        </h1>
+        <div class="d__block administracion__popups__grilla__filtros">
+            <form id="AgregarNuevoPopupForm" enctype="multipart/form-data">
+                <div class="d__inline__block grupo__form__grilla__filtros">
+                    <label for="SeleccionCampania" class="d__inline__block text__bold grilla__filtro__label">Campaña:</label>
+                    <select id="SeleccionCampania" class="d__inline__block text__bold border__color__gray__multimarca border__radius__4 grilla__filtro__campo grilla__filtro__select">
+                        <option value="1">201902</option>
+                    </select>
+                </div>
+                <div class="d__inline__block grupo__form__grilla__filtros">
+                    <div class="d__inline__block text__bold grilla__filtro__label">Nuevo Popup:</div>
+                    <input id="SeleccionNuevoPopup" type="file" class="d__none text__bold grilla__filtro__campo grilla__filtro__campo__seleccion__popup" />
+                    <label for="SeleccionNuevoPopup" class="d__inline__block text__bold text__center background__color__m border__radius__4 btn__grilla__filtros btn__agregar">
+                        <span class="d__inline__block text__bold">+</span>
+                        <span class="d__inline__block text__bold">Agregar</span>
+                    </label>
+                </div>
+            </form>
+        </div>
+    </section>
+    <section class="d__block border__radius__4 vista__administracion__popups__contenido">
+        <div class="d__block administracion__popups__grilla">
+            <h2 class="d__block text__bold administracion__popups__grilla__titulo">
+                Popups agregados
+            </h2>
+            <div class="background__color__m row__grilla administracion__popups__grilla__cabecera">
+                <div class="col__grilla col__grilla--numero text__center">N°</div>
+                <div class="col__grilla col__grilla--fondo text__center">Fondo</div>
+                <div class="col__grilla col__grilla--duracion text__center">Duración</div>
+                <div class="col__grilla col__grilla--titulo text__center">Título</div>
+                <div class="col__grilla col__grilla--ruta text__center">Ruta</div>
+                <div class="col__grilla col__grilla--estado text__center">Estado</div>
+                <div class="col__grilla col__grilla--editar text__center">Editar</div>
+            </div>
+            <div class="d__block administracion__popups__grilla__contenido">
+                <div class="background__color__m__lighter row__grilla">
+                    <div class="col__grilla col__grilla--numero">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            1
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--fondo">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            CL_20190142913.png
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--duracion">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            25/03/2019  -  09/04/2019
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--titulo">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            ¡Gana un viaje a Punta Cana! comprando más...
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--ruta">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            https://www.sbepdqa.somosbelcorp.com
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--estado">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            Activo
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--editar">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            Editar
+                        </div>
+                    </div>
+                </div>
+                <div class="background__color__m__lighter row__grilla">
+                    <div class="col__grilla col__grilla--numero">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            2
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--fondo">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            CL_20190142913.png
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--duracion">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            25/03/2019  -  09/04/2019
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--titulo">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            ¡Gana un viaje a Punta Cana! comprando más...
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--ruta">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            https://www.sbepdqa.somosbelcorp.com
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--estado">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            Activo
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--editar">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            Editar
+                        </div>
+                    </div>
+                </div>
+                <div class="background__color__m__lighter row__grilla">
+                    <div class="col__grilla col__grilla--numero">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            3
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--fondo">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            CL_20190142913.png
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--duracion">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            25/03/2019  -  09/04/2019
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--titulo">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            ¡Gana un viaje a Punta Cana! comprando más...
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--ruta">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            https://www.sbepdqa.somosbelcorp.com
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--estado">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            Activo
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--editar">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            Editar
+                        </div>
+                    </div>
+                </div>
+                <div class="background__color__m__lighter row__grilla">
+                    <div class="col__grilla col__grilla--numero">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            4
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--fondo">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            CL_20190142913.png
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--duracion">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            25/03/2019  -  09/04/2019
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--titulo">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            ¡Gana un viaje a Punta Cana! comprando más...
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--ruta">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            https://www.sbepdqa.somosbelcorp.com
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--estado">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            Activo
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--editar">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            Editar
+                        </div>
+                    </div>
+                </div>
+                <div class="background__color__m__lighter row__grilla">
+                    <div class="col__grilla col__grilla--numero">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            5
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--fondo">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            CL_20190142913.png
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--duracion">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            25/03/2019  -  09/04/2019
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--titulo">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            ¡Gana un viaje a Punta Cana! comprando más...
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--ruta">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            https://www.sbepdqa.somosbelcorp.com
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--estado">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            Activo
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--editar">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            Editar
+                        </div>
+                    </div>
+                </div>
+                <div class="background__color__m__lighter row__grilla">
+                    <div class="col__grilla col__grilla--numero">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            6
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--fondo">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            CL_20190142913.png
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--duracion">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            25/03/2019  -  09/04/2019
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--titulo">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            ¡Gana un viaje a Punta Cana! comprando más...
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--ruta">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            https://www.sbepdqa.somosbelcorp.com
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--estado">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            Activo
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--editar">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            Editar
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>   
