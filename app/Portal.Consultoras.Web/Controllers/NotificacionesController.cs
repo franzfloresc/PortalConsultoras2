@@ -315,7 +315,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (!string.IsNullOrEmpty(Campania))
             {
                 int campaniaId = int.Parse(Campania);
-                var detallesPedidoWeb = new List<BEPedidoWebDetalle>();
+                var detallePedidoWeb = new List<BEPedidoWebDetalle>();
                 using (var pedidoServiceClient = new PedidoServiceClient())
                 {
                     var parametros = new BEPedidoWebDetalleParametros
@@ -330,37 +330,37 @@ namespace Portal.Consultoras.Web.Controllers
                         AgruparSet = true
                     };
 
-                    detallesPedidoWeb = pedidoServiceClient.SelectByCampania(parametros).ToList();
+                    detallePedidoWeb = pedidoServiceClient.SelectByCampania(parametros).ToList();
                 }
 
-                var hayPedidoSet = detallesPedidoWeb.Where(x => x.SetID > 0).ToList();
-                if (hayPedidoSet.Any())
+                var tienePedidoSet = detallePedidoWeb.Where(x => x.SetID > 0).ToList();
+                if (tienePedidoSet.Any())
                 {
-                    var pedidoSetSinObs = detallesPedidoWeb.Where(x => lstObservacionesPedido.Any(y => y.CUV != x.CUV)).ToList();
+                    var pedidoSetSinObs = detallePedidoWeb.Where(x => lstObservacionesPedido.Any(y => y.CUV != x.CUV)).ToList();
                     if (pedidoSetSinObs.Any())
                     {
                         var pedidoId = pedidoSetSinObs.FirstOrDefault().PedidoID;
                         var lstSetId = string.Join(",", pedidoSetSinObs.Where(x => x.SetID > 0).Select(e => e.SetID));
-                        var detallesPedidoSet = new List<BEPedidoWebDetalle>();
+                        var detallePedidoSet = new List<BEPedidoWebDetalle>();
 
                         using (var sv = new PedidoServiceClient())
                         {
-                            detallesPedidoSet = sv.ObtenerCuvSetDetalle(userData.PaisID, campaniaId, userData.ConsultoraID, pedidoId, lstSetId).ToList();
+                            detallePedidoSet = sv.ObtenerCuvSetDetalle(userData.PaisID, campaniaId, userData.ConsultoraID, pedidoId, lstSetId).ToList();
                         }
 
                         foreach (var set in pedidoSetSinObs)
                         {
-                            var setDetalle = detallesPedidoSet.Where(x => x.SetID == set.SetID);
+                            var setDetalle = detallePedidoSet.Where(x => x.SetID == set.SetID);
                             var setDetalleObs = lstObservacionesPedido.Where(x => setDetalle.Any(y => y.CUV == x.CUV));
                             if (setDetalleObs != null)
                             {
                                 var observaciones = string.Join("|", setDetalleObs.Select(e => e.ObservacionPROL));
-                                detallesPedidoWeb.Where(x => x.SetID == 1).Update(x => x.ObservacionPROL = observaciones);
+                                detallePedidoWeb.Where(x => x.SetID == 1).Update(x => x.ObservacionPROL = observaciones);
                             }
                         }
                     }
 
-                    foreach (var item in detallesPedidoWeb)
+                    foreach (var item in detallePedidoWeb)
                     {
                         lstObservacionesPedido.Add(new BENotificacionesDetallePedido
                         {
