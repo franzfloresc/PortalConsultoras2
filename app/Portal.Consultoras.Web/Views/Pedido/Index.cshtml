@@ -9,6 +9,7 @@
 
 @section styles{
     @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/Site-CssPedido")
+     
 }
 
 <div class="franja_negra" style="background: #000 url(@ViewBag.UrlFranjaNegra) no-repeat center bottom;"></div>
@@ -1880,6 +1881,19 @@
 </script>
 
 @section scripts{
+    
+    
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-ui-1.9.2.custom.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/handlebars.min.js")"></script>
+
+    <script type="text/javascript" src="@Url.Content("~/Scripts/General.js")"></script>
+
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/TusClientes/TusClientesProvider.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/TusClientes/PanelListaModule.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/TusClientes/PanelMantenerModule.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/TusClientes/ClientePanelModule.js")"></script>
+
+
     <script type="text/javascript">
         var arregloProductos;
         var cantProductosLoad = '@Model.ListaEstrategias.Count';
@@ -1968,9 +1982,19 @@
 
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Ficha")
     @*<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/DetalleEstrategia/ListaOpcionesModule.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/DetalleEstrategia/ComponentesModule.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/DetalleEstrategia/OpcionesSeleccionadasModule.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/DetalleEstrategia/TituloOpcionesSeleccionadasModule.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/DetalleEstrategia/ResumenOpcionesModule.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/DetalleEstrategia/FichaModule.js")"></script>*@
+        <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/DetalleEstrategia/ComponentesModule.js")"></script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/DetalleEstrategia/OpcionesSeleccionadasModule.js")"></script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/DetalleEstrategia/TituloOpcionesSeleccionadasModule.js")"></script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/DetalleEstrategia/ResumenOpcionesModule.js")"></script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/DetalleEstrategia/FichaModule.js")"></script>*@
+
+     
+   
+
 }
+
+
+
+
+
+

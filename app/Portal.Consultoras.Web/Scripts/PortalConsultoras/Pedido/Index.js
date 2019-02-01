@@ -25,8 +25,10 @@ var listaParametriaOfertaFinal = listaParametriaOfertaFinal || {};
 var cuvbuscado = "";
 var cuvEsProgNuevas = false;
 var fichaModule;
+      
 
 $(document).ready(function () {
+     
     //ValidarKitNuevas();
     var hdDataBarra = $("#hdDataBarra").val();
     if ($.trim(hdDataBarra) != "") {
@@ -818,7 +820,6 @@ function ValidarStockEstrategia() {
             success: false,
             message: "No se puede agregar una Oferta Liquidacion por este medio."
         };
-
         return resultado;
     }
 
