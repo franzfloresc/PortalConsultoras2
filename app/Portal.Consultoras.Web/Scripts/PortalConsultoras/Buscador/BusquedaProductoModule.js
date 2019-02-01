@@ -56,7 +56,7 @@
         isHome: false,
         filtros: [],
         filtrosLocalStorage: 'filtrosLocalStorage',
-        nombreGrupo: "Categoría",
+        nombreGrupo: "Categorías",
         categoriaLocalStorage: "categoriasBuscadorMobile"
     };
     var _provider = {
@@ -308,7 +308,7 @@
                 $(_elementos.textoBusquedaMostar).html(nombreFiltro);
 
                 var filtroDuro = [{
-                    NombreGrupo: "Categorías",
+                    NombreGrupo: _config.nombreGrupo,
                     Opciones: [
                         {
                             IdFiltro: _config.categoriaBusqueda,
