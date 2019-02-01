@@ -22056,7 +22056,13 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string CuvProductoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int DigitableField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int FactorRepeticionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string GrupoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NombreProductoField;
@@ -22126,6 +22132,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Digitable {
+            get {
+                return this.DigitableField;
+            }
+            set {
+                if ((this.DigitableField.Equals(value) != true)) {
+                    this.DigitableField = value;
+                    this.RaisePropertyChanged("Digitable");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public int FactorRepeticion {
             get {
                 return this.FactorRepeticionField;
@@ -22134,6 +22153,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.FactorRepeticionField.Equals(value) != true)) {
                     this.FactorRepeticionField = value;
                     this.RaisePropertyChanged("FactorRepeticion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Grupo {
+            get {
+                return this.GrupoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.GrupoField, value) != true)) {
+                    this.GrupoField = value;
+                    this.RaisePropertyChanged("Grupo");
                 }
             }
         }
@@ -43416,13 +43448,11 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ListarEscalaDescuentoZona", ReplyAction="http://tempuri.org/IPedidoService/ListarEscalaDescuentoZonaResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEEscalaDescuento[]> ListarEscalaDescuentoZonaAsync(int paisID, int campaniaID, string region, string zona);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetEstrategiaProductoComponenteSeleccionado", ReplyAction="http://tempuri.org/IPedidoService/GetEstrategiaProductoComponenteSeleccionadoResp" +
-            "onse")]
-        Portal.Consultoras.Web.ServicePedido.BEEstrategiaProducto[] GetEstrategiaProductoComponenteSeleccionado(int PaisID, long CampaniaID, long ConsultoraID, int SetID);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetListaPedidoWebSetDetalle", ReplyAction="http://tempuri.org/IPedidoService/GetListaPedidoWebSetDetalleResponse")]
+        Portal.Consultoras.Web.ServicePedido.BEPedidoWebSetDetalle[] GetListaPedidoWebSetDetalle(int paisId, int campaniaId, long consultoraId, int setId);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetEstrategiaProductoComponenteSeleccionado", ReplyAction="http://tempuri.org/IPedidoService/GetEstrategiaProductoComponenteSeleccionadoResp" +
-            "onse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEEstrategiaProducto[]> GetEstrategiaProductoComponenteSeleccionadoAsync(int PaisID, long CampaniaID, long ConsultoraID, int SetID);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetListaPedidoWebSetDetalle", ReplyAction="http://tempuri.org/IPedidoService/GetListaPedidoWebSetDetalleResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWebSetDetalle[]> GetListaPedidoWebSetDetalleAsync(int paisId, int campaniaId, long consultoraId, int setId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/EliminarEstrategiaProductoAll", ReplyAction="http://tempuri.org/IPedidoService/EliminarEstrategiaProductoAllResponse")]
         int EliminarEstrategiaProductoAll(int paisID, int estrategiaID, string usuario);
@@ -46100,12 +46130,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.ListarEscalaDescuentoZonaAsync(paisID, campaniaID, region, zona);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEEstrategiaProducto[] GetEstrategiaProductoComponenteSeleccionado(int PaisID, long CampaniaID, long ConsultoraID, int SetID) {
-            return base.Channel.GetEstrategiaProductoComponenteSeleccionado(PaisID, CampaniaID, ConsultoraID, SetID);
+        public Portal.Consultoras.Web.ServicePedido.BEPedidoWebSetDetalle[] GetListaPedidoWebSetDetalle(int paisId, int campaniaId, long consultoraId, int setId) {
+            return base.Channel.GetListaPedidoWebSetDetalle(paisId, campaniaId, consultoraId, setId);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEEstrategiaProducto[]> GetEstrategiaProductoComponenteSeleccionadoAsync(int PaisID, long CampaniaID, long ConsultoraID, int SetID) {
-            return base.Channel.GetEstrategiaProductoComponenteSeleccionadoAsync(PaisID, CampaniaID, ConsultoraID, SetID);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWebSetDetalle[]> GetListaPedidoWebSetDetalleAsync(int paisId, int campaniaId, long consultoraId, int setId) {
+            return base.Channel.GetListaPedidoWebSetDetalleAsync(paisId, campaniaId, consultoraId, setId);
         }
         
         public int EliminarEstrategiaProductoAll(int paisID, int estrategiaID, string usuario) {

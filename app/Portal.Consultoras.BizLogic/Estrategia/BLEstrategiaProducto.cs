@@ -63,28 +63,5 @@ namespace Portal.Consultoras.BizLogic
             return result;
         }
 
-        /// <summary>
-        /// Obtiene informacion de componentes seleccionados en el pedido
-        /// </summary>
-        /// <param name="PaisID">Pais</param>
-        /// <param name="CampaniaID">Campania</param>
-        /// <param name="ConsultoraID">Consultora</param>
-        /// <param name="SetID">Set</param>
-        /// <returns></returns>
-        public List<BEEstrategiaProducto> GetEstrategiaProductoComponenteSeleccionado(Int32 PaisID, Int64 CampaniaID, Int64 ConsultoraID, Int32 SetID)
-        {
-            var lista = new List<BEEstrategiaProducto>();
-
-            using (IDataReader reader = new DAEstrategiaProducto(PaisID).GetEstrategiaProductoComponenteSeleccionado(CampaniaID, ConsultoraID, SetID))
-            {
-                while (reader.Read())
-                {
-                    var entidadR = new BEEstrategiaProducto(reader);
-                    lista.Add(entidadR);
-                }
-            }
-
-            return lista;
-        }
     }
 }

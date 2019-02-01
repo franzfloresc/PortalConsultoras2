@@ -638,10 +638,7 @@ body {
     -webkit-transition: all .3s ease;
 }
 
-.texto_sin_tono {
-    border: 1px solid black;
-    border-radius: 4px;
-}
+
 
 .tono_por_elegir {
     background: url('/Content/Images/mobile/Esika/right-arrow.svg');
@@ -650,13 +647,6 @@ body {
     background-size: 13px;
 }
 
-.texto_tono_seleccionado {
-    width: 65%;
-    padding: 13px 15px 13px 14px !important;
-    height: auto;
-    margin: 0;
-    line-height: normal;
-}
 
 .texto_sin_tono .tono_seleccionado {
     margin: 1px 9px;

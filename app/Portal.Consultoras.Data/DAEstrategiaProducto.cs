@@ -96,21 +96,5 @@ namespace Portal.Consultoras.Data
             return (result > 0);
         }
 
-        /// <summary>
-        /// Obtiene informacion de componentes seleccionados en el pedido
-        /// </summary>
-        /// <param name="CampaniaID"></param>
-        /// <param name="ConsultoraID"></param>
-        /// <param name="SetID"></param>
-        /// <returns></returns>
-        public IDataReader GetEstrategiaProductoComponenteSeleccionado(Int64 CampaniaID, Int64 ConsultoraID, Int32 SetID)
-        {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetEstrategiaProductoComponenteSeleccionado");
-            Context.Database.AddInParameter(command, "@pCampaniaID", DbType.Int64, CampaniaID);
-            Context.Database.AddInParameter(command, "@pConsultoraID", DbType.Int64, ConsultoraID);
-            Context.Database.AddInParameter(command, "@pSetID", DbType.Int32, SetID);
-
-            return Context.ExecuteReader(command);
-        }
     }
 }

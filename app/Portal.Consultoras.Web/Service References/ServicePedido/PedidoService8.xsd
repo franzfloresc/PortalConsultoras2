@@ -1119,20 +1119,20 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="GetEstrategiaProductoComponenteSeleccionado">
+  <xs:element name="GetListaPedidoWebSetDetalle">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
-        <xs:element minOccurs="0" name="CampaniaID" type="xs:long" />
-        <xs:element minOccurs="0" name="ConsultoraID" type="xs:long" />
-        <xs:element minOccurs="0" name="SetID" type="xs:int" />
+        <xs:element minOccurs="0" name="paisId" type="xs:int" />
+        <xs:element minOccurs="0" name="campaniaId" type="xs:int" />
+        <xs:element minOccurs="0" name="consultoraId" type="xs:long" />
+        <xs:element minOccurs="0" name="setId" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="GetEstrategiaProductoComponenteSeleccionadoResponse">
+  <xs:element name="GetListaPedidoWebSetDetalleResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q84="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetEstrategiaProductoComponenteSeleccionadoResult" nillable="true" type="q84:ArrayOfBEEstrategiaProducto" />
+        <xs:element xmlns:q84="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido" minOccurs="0" name="GetListaPedidoWebSetDetalleResult" nillable="true" type="q84:ArrayOfBEPedidoWebSetDetalle" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

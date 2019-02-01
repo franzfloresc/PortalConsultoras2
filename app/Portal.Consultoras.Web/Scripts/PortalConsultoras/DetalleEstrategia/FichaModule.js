@@ -478,7 +478,7 @@ var FichaModule = (function (config) {
 
     var _getEstrategia = function () {
         var estrategia;
-
+        
         if (_config.tieneSession) {
             var valData = $(_elementos.dataEstrategia.id).attr(_elementos.dataEstrategia.dataEstrategia) || "";
             if (valData != "") {
@@ -629,12 +629,12 @@ var FichaModule = (function (config) {
             var filterComponente = estrategia
                 .Hermanos
                 .filter(function (objeto) {
-                    return objeto.Cuv == o.CUV2 && (objeto.Hermanos != null && objeto.Hermanos.length > 0);
+                    return objeto.Cuv == o.CuvProducto && (objeto.Hermanos != null && objeto.Hermanos.length > 0);
                 });
 
             if (filterComponente.length) {
-                ComponentesModule.SeleccionarComponenteDinamico(o.CUV2);
-                ListaOpcionesModule.SeleccionarOpcion(o.CUV2);
+                ComponentesModule.SeleccionarComponenteDinamico(o.CuvProducto);
+                ListaOpcionesModule.SeleccionarOpcion(o.CuvProducto);
                 ResumenOpcionesModule.AplicarOpciones();
             }
         });
@@ -895,9 +895,10 @@ var FichaEditarModule = (function () {
                     setId: setId
                 });
 
+                CerrarLoad();
                 _showDivFichaResumida(true);
                 fichaModule.Inicializar();
-                CerrarLoad();
+                
                 _initPanelCliente();
 
             },
@@ -905,6 +906,7 @@ var FichaEditarModule = (function () {
     };
 
     var _showDivFichaResumida = function (isShow) {
+        
         isShow = isShow == undefined ? true : isShow;
         if (isShow) {
             $('body').css('overflow', 'hidden');

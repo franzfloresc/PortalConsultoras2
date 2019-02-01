@@ -53,10 +53,10 @@ namespace Portal.Consultoras.Service
         private readonly IPagoEnLineaBusinessLogic _pagoEnLineaBusinessLogic;
         private readonly BLActivarPremioNuevas _ActivarPremioNuevas;
         private readonly IConsultoraConcursoBusinessLogic _consultoraConcursoBusinessLogic;
-        private readonly IPedidoWebBusinessLogic _pedidoWebBusinessLogic;
         private readonly IConfiguracionProgramaNuevasBusinessLogic _configuracionProgramaNuevasBusinessLogic;
         private readonly ITrackingBusinessLogic _trackingBusinessLogic;
         private readonly IPedidoBusinessLogic _pedidoBusinessLogic;
+        private readonly IPedidoWebBusinessLogic _pedidoWebBusinessLogic;
         private readonly IPedidoWebSetBusinessLogic _pedidoWebSetBusinessLogic;
 
         public PedidoService() : this(new BLConsultoraConcurso(), new BLPedidoWeb(), new BLConfiguracionProgramaNuevas(), new BLTracking(),
@@ -2418,9 +2418,9 @@ namespace Portal.Consultoras.Service
         /// <param name="ConsultoraID">Consultora</param>
         /// <param name="SetID">Set</param>
         /// <returns></returns>
-        public List<BEEstrategiaProducto> GetEstrategiaProductoComponenteSeleccionado(Int32 PaisID, Int64 CampaniaID, Int64 ConsultoraID, Int32 SetID)
+        public List<BEPedidoWebSetDetalle> GetListaPedidoWebSetDetalle(int paisId, int campaniaId, long consultoraId, int setId)
         {
-            return new BLEstrategiaProducto().GetEstrategiaProductoComponenteSeleccionado(PaisID, CampaniaID, ConsultoraID, SetID);
+            return _pedidoWebSetBusinessLogic.GetSetDetalle(paisId, campaniaId, consultoraId, setId);
         }
     }
 }

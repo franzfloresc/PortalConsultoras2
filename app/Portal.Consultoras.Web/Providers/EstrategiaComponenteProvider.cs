@@ -512,23 +512,5 @@ namespace Portal.Consultoras.Web.Providers
             return _paiseLBel.Any(x => x == _paisISO);
         }
 
-        /// <summary>
-        /// Obtiene informacion de componentes seleccionados en el pedido
-        /// </summary>
-        /// <param name="CampaniaID">Campania</param>
-        /// <param name="ConsultoraID">Consultora</param>
-        /// <param name="SetID">Set</param>
-        /// <returns></returns>
-        public List<BEEstrategiaProducto> GetEstrategiaProductoComponenteSeleccionado(Int64 CampaniaID, Int64 ConsultoraID, Int32 SetID)
-        {
-            List<BEEstrategiaProducto> listaProducto;
-
-            using (var svc = new PedidoServiceClient())
-            {
-                listaProducto = svc.GetEstrategiaProductoComponenteSeleccionado(_paisId, CampaniaID, ConsultoraID, SetID).ToList();
-            }
-
-            return listaProducto;
-        }
     }
 }
