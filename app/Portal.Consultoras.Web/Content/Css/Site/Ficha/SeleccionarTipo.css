@@ -221,6 +221,7 @@
     right: -3px;
     top: -5px;
     transition: all 350ms;
+    z-index: 99;
 }
 
 .item_selecionado_close:hover {
@@ -361,4 +362,8 @@ main {
     color: #b9b9b9 !important;
     cursor: default !important;
     font-weight: bold;
+}
+
+#opciones-seleccionadas {
+    margin-top: 2px !important;
 }
