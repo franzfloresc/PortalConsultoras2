@@ -478,7 +478,7 @@ var FichaModule = (function (config) {
 
     var _getEstrategia = function () {
         var estrategia;
-
+        
         if (_config.tieneSession) {
             var valData = $(_elementos.dataEstrategia.id).attr(_elementos.dataEstrategia.dataEstrategia) || "";
             if (valData != "") {
@@ -895,9 +895,10 @@ var FichaEditarModule = (function () {
                     setId: setId
                 });
 
+                CerrarLoad();
                 _showDivFichaResumida(true);
                 fichaModule.Inicializar();
-                CerrarLoad();
+                
                 _initPanelCliente();
 
             },
@@ -905,6 +906,7 @@ var FichaEditarModule = (function () {
     };
 
     var _showDivFichaResumida = function (isShow) {
+        
         isShow = isShow == undefined ? true : isShow;
         if (isShow) {
             $('body').css('overflow', 'hidden');
