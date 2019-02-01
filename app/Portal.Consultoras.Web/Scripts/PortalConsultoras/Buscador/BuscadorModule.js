@@ -163,7 +163,6 @@ var BuscadorModule = (function () {
                 AnalyticsPortalModule.MarcaEligeUnaOpcion(urlDetalle, textobusqueda);
         },
         CargarCategorias: function () {
-
             if (FlagBuscarPorCategoria == true) {
                 $(".seccion_categorias_productos_busqueda_wrapper").fadeIn(150);
 

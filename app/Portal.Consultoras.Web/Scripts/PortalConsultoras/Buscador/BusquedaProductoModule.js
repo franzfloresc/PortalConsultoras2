@@ -120,8 +120,10 @@
 
             _config.cargandoProductos = true;
             var modelo = _funciones.ConstruirModeloBusqueda();
+            
             _provider.BusquedaProductoPromise(modelo)
                 .done(function (data) {
+                    
                     $(_elementos.spanTotalProductos).html(data.total);
                     $(_elementos.divCantidadProductoMobile).html(data.total + ' Resultados');
                     _funciones.ProcesarListaProductos(data.productos);
@@ -306,7 +308,7 @@
                 $(_elementos.textoBusquedaMostar).html(nombreFiltro);
 
                 var filtroDuro = [{
-                    NombreGrupo: "Categoría",
+                    NombreGrupo: "Categorías",
                     Opciones: [
                         {
                             IdFiltro: _config.categoriaBusqueda,
