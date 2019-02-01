@@ -18,7 +18,7 @@ using io = System.IO;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class MatrizCampaniaController : BaseController
+    public class MatrizCampaniaController : BaseAdmController
     {
         public ActionResult ActualizarMatrizCampania()
         {
@@ -34,9 +34,9 @@ namespace Portal.Consultoras.Web.Controllers
 
             var model = new MatrizCampaniaModel
             {
-                listaPaises = ObtenerPaises(),
+                listaPaises = DropDowListPaises(),
                 DropDownListCampania = ObtenerCampanias(),
-                DropDownListCampaniaMasiva = CargarCampaniaMasiva()
+                DropDownListCampaniaMasiva = _zonificacionProvider.GetCampaniasEntidad(Constantes.PaisID.Peru)
             };
             ViewBag.HabilitarRegalo = userData.CodigoISO == Constantes.CodigosISOPais.Chile;
 
@@ -61,37 +61,13 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var model = new MatrizCampaniaModel
             {
-                listaPaises = ObtenerPaises(),
+                listaPaises = DropDowListPaises(),
                 DropDownListCampania = ObtenerCampanias(),
-                DropDownListCampaniaMasiva = CargarCampaniaMasiva()
+                DropDownListCampaniaMasiva = _zonificacionProvider.GetCampaniasEntidad(Constantes.PaisID.Peru)
             };
 
             return Json(model, JsonRequestBehavior.AllowGet);
 
-        }
-
-
-
-        private IEnumerable<PaisModel> ObtenerPaises()
-        {
-            List<BEPais> paises;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                if (userData.RolID == Constantes.Rol.Administrador)
-                {
-                    paises = sv.SelectPaises().ToList();
-                }
-                else
-                {
-                    paises = new List<BEPais>
-                    {
-                        sv.SelectPais(userData.PaisID)
-                    };
-                }
-
-            }
-
-            return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(paises);
         }
 
         private List<BECampania> ObtenerCampanias()
@@ -101,22 +77,13 @@ namespace Portal.Consultoras.Web.Controllers
             return campanias;
         }
 
-
         public JsonResult CargarCampania(string paisId)
         {
-            var campanias = new List<BECampania>() {
-                new BECampania { CampaniaID = 0, Codigo = "-- Seleccionar --" }
-            };
+            var campanias = new List<BECampania>();
 
             try
             {
-                if (!string.IsNullOrEmpty(paisId))
-                {
-                    using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-                    {
-                        campanias.AddRange(sv.SelectCampanias(userData.PaisID).ToList());
-                    }
-                }
+                campanias = _zonificacionProvider.GetCampaniasEntidad(userData.PaisID, true);
             }
             catch (FaultException ex)
             {
@@ -132,20 +99,6 @@ namespace Portal.Consultoras.Web.Controllers
                 DropDownListCampania = campanias
             }, JsonRequestBehavior.AllowGet);
         }
-
-        public List<BECampania> CargarCampaniaMasiva()
-        {
-            using (ZonificacionServiceClient servicezona = new ZonificacionServiceClient())
-            {
-                BECampania[] becampania = servicezona.SelectCampanias(11);
-                return becampania.ToList();
-            }
-        }
-
-
-        public List<MatrizCampaniaModel> ListaCUVs;
-        public bool isError = false;
-
 
         [HttpPost]
         public JsonResult ConsultarDescripcion(string CUV, string IDCampania, string paisID)
@@ -249,7 +202,6 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-
 
         [HttpPost]
         public List<MatrizCampaniaModel> ConsultarDescripcionMasivo(List<MatrizCampaniaModel> productos, string IDCampania, string paisID, ref bool isError)
@@ -359,9 +311,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 System.IO.File.Delete(finalPath);
 
-                ListaCUVs = lista.ToList();
-
-                ListaCUVs = ConsultarDescripcionMasivo(lista.ToList(), campaniaId.ToString(), paisId.ToString(), ref isError);
+                bool isError = false;
+                var ListaCUVs = ConsultarDescripcionMasivo(lista.ToList(), campaniaId.ToString(), paisId.ToString(), ref isError);
                 SessionManager.Seterrores(ListaCUVs);
                 if (isCorrect && lista != null && !isError)
                 {
@@ -390,7 +341,6 @@ namespace Portal.Consultoras.Web.Controllers
                 return "Verifique el contenido del Documento, posiblemente tenga errores en su contenido.";
             }
         }
-
 
         [HttpGet]
         public JsonResult ConsultarErrores(string sidx, string sord, int page, int rows, int vpaisID, int vCampaniaID)
@@ -439,7 +389,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " }, JsonRequestBehavior.AllowGet);
         }
-
 
         [HttpPost]
         public async Task<string> leerArchivoExcel(string pais, string AnioCampania)
@@ -749,7 +698,6 @@ namespace Portal.Consultoras.Web.Controllers
             return rpta;
         }
 
-
         public string InsertarProductoMasivo(int paisID, string data)
         {
 
@@ -777,8 +725,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         }
 
-
     }
-
 
 }

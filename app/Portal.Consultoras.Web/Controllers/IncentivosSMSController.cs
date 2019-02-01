@@ -15,8 +15,6 @@ namespace Portal.Consultoras.Web.Controllers
         readonly string IncentivoPaisISO = Constantes.CodigosISOPais.Bolivia;
         readonly int IncentivoCampania = 201709;
 
-
-        // dejo de funcionar con el Homologar Agregar, el agregar ya no esta
         public ActionResult Index()
         {
             try

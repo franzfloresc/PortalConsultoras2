@@ -14,7 +14,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class AccesorizateController : BaseController
+    public class AccesorizateController : BaseAdmController
     {
         #region Visualización de Pedidos Liquidación
 
@@ -121,55 +121,55 @@ namespace Portal.Consultoras.Web.Controllers
             return Mapper.Map<IList<BEOfertaProducto>, List<OfertaProductoModel>>(lst);
         }
 
-        //[HttpPost]
-        //public JsonResult InsertOfertaWebPortal(PedidoDetalleModel model)
-        //{
-        //    try
-        //    {
-        //        BEPedidoWebDetalle entidad = Mapper.Map<PedidoDetalleModel, BEPedidoWebDetalle>(model);
-        //        using (PedidoServiceClient sv = new PedidoServiceClient())
-        //        {
-        //            entidad.PaisID = userData.PaisID;
-        //            entidad.ConsultoraID = userData.ConsultoraID;
-        //            entidad.CampaniaID = userData.CampaniaID;
-        //            entidad.TipoOfertaSisID = Constantes.ConfiguracionOferta.Accesorizate;
-        //            entidad.IPUsuario = userData.IPUsuario;
+        [HttpPost]
+        public JsonResult InsertOfertaWebPortal(PedidoDetalleModel model)
+        {
+            try
+            {
+                BEPedidoWebDetalle entidad = Mapper.Map<PedidoDetalleModel, BEPedidoWebDetalle>(model);
+                using (PedidoServiceClient sv = new PedidoServiceClient())
+                {
+                    entidad.PaisID = userData.PaisID;
+                    entidad.ConsultoraID = userData.ConsultoraID;
+                    entidad.CampaniaID = userData.CampaniaID;
+                    entidad.TipoOfertaSisID = Constantes.ConfiguracionOferta.Accesorizate;
+                    entidad.IPUsuario = userData.IPUsuario;
 
-        //            entidad.CodigoUsuarioCreacion = userData.CodigoConsultora;
-        //            entidad.CodigoUsuarioModificacion = entidad.CodigoUsuarioCreacion;
-        //            entidad.OrigenPedidoWeb = ProcesarOrigenPedido(entidad.OrigenPedidoWeb);
+                    entidad.CodigoUsuarioCreacion = userData.CodigoConsultora;
+                    entidad.CodigoUsuarioModificacion = entidad.CodigoUsuarioCreacion;
+                    entidad.OrigenPedidoWeb = ProcesarOrigenPedido(entidad.OrigenPedidoWeb);
 
-        //            sv.InsPedidoWebDetalleOferta(entidad);
-        //        }
+                    sv.InsPedidoWebDetalleOferta(entidad);
+                }
 
-        //        return Json(new
-        //        {
-        //            success = true,
-        //            message = "Se agregó la Oferta Web satisfactoriamente.",
-        //            extra = ""
-        //        });
-        //    }
-        //    catch (FaultException ex)
-        //    {
-        //        LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
-        //        return Json(new
-        //        {
-        //            success = false,
-        //            message = ex.Message,
-        //            extra = ""
-        //        });
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-        //        return Json(new
-        //        {
-        //            success = false,
-        //            message = ex.Message,
-        //            extra = ""
-        //        });
-        //    }
-        //}
+                return Json(new
+                {
+                    success = true,
+                    message = "Se agregó la Oferta Web satisfactoriamente.",
+                    extra = ""
+                });
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    extra = ""
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    extra = ""
+                });
+            }
+        }
 
         [HttpPost]
         public JsonResult UpdateOfertaWebPortal(PedidoDetalleModel model)
@@ -333,19 +333,7 @@ namespace Portal.Consultoras.Web.Controllers
             };
             return View(cronogramaModel);
         }
-
-        private IEnumerable<PaisModel> DropDowListPaises()
-        {
-            List<BEPais> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = userData.RolID == 2
-                    ? sv.SelectPaises().ToList()
-                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
-            }
-            return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
-        }
-
+        
         public JsonResult ObtenerDatosAdministracionCorreo(int paisID)
         {
             List<BEAdministracionOfertaProducto> lst = new List<BEAdministracionOfertaProducto>();
@@ -388,9 +376,9 @@ namespace Portal.Consultoras.Web.Controllers
             return Mapper.Map<IList<BEConfiguracionOferta>, IEnumerable<ConfiguracionOfertaModel>>(lst);
         }
 
-        public JsonResult ObtenterCampaniasPorPais(int PaisID)
+        public JsonResult ObtenerCampaniasYConfiguracionPorPais(int PaisID)
         {
-            IEnumerable<CampaniaModel> lst = DropDowListCampanias(PaisID);
+            IEnumerable<CampaniaModel> lst = _zonificacionProvider.GetCampanias(PaisID);
             IEnumerable<ConfiguracionOfertaModel> lstConfig = DropDowListConfiguracion(PaisID);
             return Json(new
             {
@@ -413,18 +401,7 @@ namespace Portal.Consultoras.Web.Controllers
                 lista = lst
             }, JsonRequestBehavior.AllowGet);
         }
-
-        private IEnumerable<CampaniaModel> DropDowListCampanias(int paisId)
-        {
-            IList<BECampania> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = sv.SelectCampanias(paisId);
-            }
-
-            return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
-        }
-
+        
         public JsonResult ObtenerOrdenPriorizacion(int paisID, int ConfiguracionOfertaID, int CampaniaID)
         {
             int orden;

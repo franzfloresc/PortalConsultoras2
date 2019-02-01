@@ -11,6 +11,6 @@ namespace Portal.Consultoras.BizLogic.Reserva
         string DeshacerPedidoValidado(BEUsuario usuario, string tipo);
         Task<BEResultadoReservaProl> EjecutarReserva(BEInputReservaProl input);
         bool EnviarCorreoReservaProl(BEInputReservaProl input);
-        //int InsertarDesglose(BEInputReservaProl input);
+        int InsertarDesglose(BEInputReservaProl input);
     }
 }

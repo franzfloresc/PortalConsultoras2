@@ -23,7 +23,7 @@ namespace Portal.Consultoras.Web.Models
             this.EMail = string.Empty;
             this.CodigoTerritorio = string.Empty;
             this.Simbolo = string.Empty;
-            this.PaisID = 11;
+            this.PaisID = Constantes.PaisID.Peru;
             this.BanderaImagen = string.Empty;
             this.CodigoFuente = string.Empty;
             this.NombrePais = string.Empty;
@@ -397,7 +397,6 @@ namespace Portal.Consultoras.Web.Models
         public Dictionary<string, string> NuevasDescripcionesBuscador { get; set; }
         public int NovedadBuscador { get; set; }
         public int IndicadorConsultoraDummy { get; set; }
-        public string PersonalizacionesDummy { get; set; }
         public Dictionary<string, string> ListaOrdenamientoFiltrosBuscador { get; set; }
     }
 }

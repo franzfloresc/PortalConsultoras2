@@ -6,7 +6,7 @@
 
         jQuery.ajax({
             type: "POST",
-            url: baseUrl + "PedidoRegistro/PedidoAgregarProductoTransaction",
+            url: baseUrl + "Pedido/PedidoAgregarProducto",
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(params),

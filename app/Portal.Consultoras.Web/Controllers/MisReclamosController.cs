@@ -8,7 +8,6 @@ using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
-using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +17,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class MisReclamosController : BaseController
+    public class MisReclamosController : BaseAdmController
     {
         readonly CdrProvider _cdrProvider;
 
@@ -29,13 +28,12 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Index()
         {
-            string sap = "";
-            var url = (Request.Url.Query).Split('?');
             if (EsDispositivoMovil())
             {
+                var url = (Request.Url.Query).Split('?');
                 if (url.Length > 1)
                 {
-                    sap = "&" + url[1];
+                    string sap = "&" + url[1];
                     return RedirectToAction("Index", "MisReclamos", new { area = "Mobile", sap });
                 }
                 else
@@ -44,8 +42,8 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
 
-
-            if (userData.TieneCDR == 0) return RedirectToAction("Index", "Bienvenida");
+            if (userData.TieneCDR == 0)
+                return RedirectToAction("Index", "Bienvenida");
 
             MisReclamosModel model = new MisReclamosModel();
             List<CDRWebModel> listaCdrWebModel;
@@ -76,6 +74,7 @@ namespace Portal.Consultoras.Web.Controllers
             return View(model);
         }
 
+        #region Reclamo
         public ActionResult Reclamo(int pedidoId = 0)
         {
             var model = new MisReclamosModel
@@ -128,6 +127,87 @@ namespace Portal.Consultoras.Web.Controllers
 
             return View(model);
         }
+
+        public JsonResult ObtenerNumeroPedidos(int CampaniaID)
+        {
+            var listaNroPedidos = new List<CampaniaModel>();
+            string mensaje = "No se ha encontrado su número de pedido, vuelva a intentarlo otra vez seleccionando la campaña.";
+            try
+            {
+                var listaPedidoFacturados = SessionManager.GetCDRPedidoFacturado();
+                listaPedidoFacturados = listaPedidoFacturados.Where(a => a.CampaniaID == CampaniaID).ToList();
+                if (listaPedidoFacturados.Count > 0)
+                {
+                    mensaje = "";
+                    foreach (var item in listaPedidoFacturados)
+                    {
+                        listaNroPedidos.Add(new CampaniaModel
+                        {
+                            NumeroPedido = item.NumeroPedido,
+                            strNumeroPedido = "N° " + item.NumeroPedido + " - " + item.FechaRegistro.ToString("dd/MM/yyyy"),
+                            PedidoID = item.PedidoID
+                        });
+                    }
+                }                               
+
+                return Json(new
+                {
+                    success = true,
+                    message = mensaje,
+                    datos = listaNroPedidos
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = mensaje,
+                    datos = listaNroPedidos,
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+
+        public JsonResult BuscarCUV(MisReclamosModel model)
+        {
+            var listaPedidoFacturados = SessionManager.GetCDRPedidoFacturado();
+            var listaCuv = listaPedidoFacturados.FirstOrDefault(a => a.CampaniaID == model.CampaniaID && a.PedidoID == model.PedidoID) ?? new BEPedidoWeb();
+
+            return Json(new
+            {
+                success = true,
+                message = "",
+                detalle = listaCuv.olstBEPedidoWebDetalle
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult ObtenerDatosCuv(int CampaniaID, int PedidoID)
+        {
+            var DatosCuv = new List<BEPedidoWeb>();
+            try
+            {
+                var listaPedidoFacturados = SessionManager.GetCDRPedidoFacturado();
+                DatosCuv = listaPedidoFacturados.Where(a => a.CampaniaID == CampaniaID && a.PedidoID == PedidoID).ToList();
+
+                return Json(new
+                {
+                    success = true,
+                    message = "",
+                    datos = DatosCuv
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "No se ha podido obtener información del CUV, intentelo nuevamente.",
+                    datos = DatosCuv
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        #endregion
 
         private List<BEPedidoWeb> CargarPedidoCUV(MisReclamosModel model)
         {
@@ -258,19 +338,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return cantidad >= 0;
         }
-
-        public JsonResult BuscarCUV(MisReclamosModel model)
-        {
-            var listaPedidoFacturados = CargarPedidoCUV(model);
-
-            return Json(new
-            {
-                success = true,
-                message = "",
-                detalle = listaPedidoFacturados
-            }, JsonRequestBehavior.AllowGet);
-        }
-
+        
         public JsonResult BuscarCuvCambiar(MisReclamosModel model)
         {
             List<ServiceODS.BEProducto> olstProducto;
@@ -954,9 +1022,9 @@ namespace Portal.Consultoras.Web.Controllers
             var cdrWebModel = new CDRWebModel()
             {
                 listaPaises = DropDowListPaises(),
-                lista = DropDowListCampanias(paisId),
-                listaRegiones = _baseProvider.DropDownListRegiones(paisId),
-                listaZonas = _baseProvider.DropDownListZonas(paisId),
+                lista = _zonificacionProvider.GetCampanias(paisId),
+                listaRegiones = _zonificacionProvider.GetRegiones(paisId),
+                listaZonas = _zonificacionProvider.GetZonas(paisId),
                 PaisID = paisId,
                 CampaniaID = campaniaIdActual
             };
@@ -1332,54 +1400,29 @@ namespace Portal.Consultoras.Web.Controllers
             return htmlTemplate;
         }
 
-        private IEnumerable<CampaniaModel> DropDowListCampanias(int paisId)
-        {
-            IList<BECampania> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = sv.SelectCampanias(paisId);
-            }
-
-            return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
-        }
-
-        public JsonResult ObtenterCampanias(int PaisID)
-        {
-            PaisID = userData.PaisID;
-            IEnumerable<CampaniaModel> lst = DropDowListCampanias(PaisID);
-
-            return Json(new
-            {
-                lista = lst
-            }, JsonRequestBehavior.AllowGet);
-        }
-
-        public JsonResult ObtenterCampaniasPorPais(int PaisID)
-        {
-            IEnumerable<CampaniaModel> lst = DropDowListCampanias(PaisID);
-            IEnumerable<ZonaModel> lstZonas = _baseProvider.DropDownListZonas(PaisID);
-            IEnumerable<RegionModel> lstRegiones = _baseProvider.DropDownListRegiones(PaisID);
-
-            return Json(new
-            {
-                lista = lst,
-                listaZonas = lstZonas,
-                listaRegiones = lstRegiones.OrderBy(x => x.Nombre)
-            }, JsonRequestBehavior.AllowGet);
-        }
-
-        private IEnumerable<PaisModel> DropDowListPaises()
-        {
-            List<BEPais> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = userData.RolID == 2
-                    ? sv.SelectPaises().ToList()
-                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
-            }
-
-            return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
-        }
+        // no se utiliza
+        //public JsonResult ObtenterCampanias(int PaisID)
+        //{
+        //    PaisID = userData.PaisID;
+        //    IEnumerable<CampaniaModel> lst = _zonificacionProvider.GetCampanias(PaisID);
+        //    return Json(new
+        //    {
+        //        lista = lst
+        //    }, JsonRequestBehavior.AllowGet);
+        //}
+        // no se utiliza
+        //public JsonResult ObtenterCampaniasPorPais(int PaisID)
+        //{
+        //    IEnumerable<CampaniaModel> lst = _zonificacionProvider.GetCampanias(PaisID);
+        //    IEnumerable<ZonaModel> lstZonas = _zonificacionProvider.GetZonas(PaisID);
+        //    IEnumerable<RegionModel> lstRegiones = _zonificacionProvider.GetRegiones(PaisID);
+        //    return Json(new
+        //    {
+        //        lista = lst,
+        //        listaZonas = lstZonas,
+        //        listaRegiones = lstRegiones.OrderBy(x => x.Nombre)
+        //    }, JsonRequestBehavior.AllowGet);
+        //}
 
         private List<BETablaLogicaDatos> GetListMensajeCDRExpress()
         {

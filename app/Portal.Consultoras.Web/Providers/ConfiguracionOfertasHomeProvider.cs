@@ -96,31 +96,38 @@ namespace Portal.Consultoras.Web.Providers
 
                     #region Pre Validacion
 
-                    if (!SeccionTieneConfiguracionPais(entConf.ConfiguracionPais)) continue;
+                    var conforme = SeccionesPreValidar(ref entConf, revistaDigital);
 
-                    if (entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.RevistaDigital
-                        || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.RevistaDigitalReducida
-                        || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.OfertasParaTi)
+                    if (!conforme)
                     {
-
-                        if (entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.RevistaDigital
-                            && !revistaDigital.TieneRDC) continue;
-
-                        if (entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.OfertasParaTi)
-                        {
-                            if (revistaDigital.TieneRDC) continue;
-
-                            entConf.MobileCantidadProductos = 0;
-                            entConf.DesktopCantidadProductos = 0;
-                        }
+                        continue;
                     }
-                    else if (entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.Lanzamiento)
-                    {
-                        if (!revistaDigital.TieneRevistaDigital()) continue;
 
-                        if (menuActivo.CampaniaId != userData.CampaniaID)
-                            entConf.UrlSeccion = "Revisar/" + entConf.UrlSeccion;
-                    }
+                    //if (!SeccionTieneConfiguracionPais(entConf.ConfiguracionPais)) continue;
+
+                    //if (entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.RevistaDigital
+                    //    || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.RevistaDigitalReducida
+                    //    || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.OfertasParaTi)
+                    //{
+
+                    //    if (entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.RevistaDigital
+                    //        && !revistaDigital.TieneRDC) continue;
+
+                    //    if (entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.OfertasParaTi)
+                    //    {
+                    //        if (revistaDigital.TieneRDC) continue;
+
+                    //        entConf.MobileCantidadProductos = 0;
+                    //        entConf.DesktopCantidadProductos = 0;
+                    //    }
+                    //}
+                    //else if (entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.Lanzamiento)
+                    //{
+                    //    if (!revistaDigital.TieneRevistaDigital()) continue;
+
+                    //    if (menuActivo.CampaniaId != userData.CampaniaID)
+                    //        entConf.UrlSeccion = "Revisar/" + entConf.UrlSeccion;
+                    //}
 
                     #endregion
 
@@ -129,46 +136,48 @@ namespace Portal.Consultoras.Web.Providers
                         Constantes.TagCadenaRd.Nombre1,
                         userData.Sobrenombre);
 
-                    var seccion = new ConfiguracionSeccionHomeModel
-                    {
-                        CampaniaID = menuActivo.CampaniaId,
-                        Codigo = entConf.ConfiguracionPais.Codigo ?? entConf.ConfiguracionOfertasHomeID.ToString().PadLeft(5, '0'),
-                        Orden = revistaDigital.TieneRevistaDigital()
-                            ? isMobile ? entConf.MobileOrdenBpt : entConf.DesktopOrdenBpt
-                            : isMobile ? entConf.MobileOrden : entConf.DesktopOrden,
-                        ColorFondo = isMobile
-                            ? (entConf.MobileColorFondo ?? "")
-                            : (entConf.DesktopColorFondo ?? ""),
-                        UsarImagenFondo = isMobile 
-                            ? entConf.MobileUsarImagenFondo 
-                            : entConf.DesktopUsarImagenFondo,
-                        ImagenFondo = isMobile
-                            ? (entConf.MobileImagenFondo ?? "")
-                            : (entConf.DesktopImagenFondo ?? ""),
-                        ColorTexto = isMobile
-                            ? entConf.MobileColorTexto ?? ""
-                            : entConf.DesktopColorTexto ?? "",
-                        Titulo = isMobile 
-                            ? entConf.MobileTitulo
-                            : entConf.DesktopTitulo,
-                        SubTitulo = isMobile 
-                            ? entConf.MobileSubTitulo
-                            : entConf.DesktopSubTitulo,
-                        TipoPresentacion = isMobile
-                            ? entConf.MobileTipoPresentacion
-                            : entConf.DesktopTipoPresentacion,
-                        TipoEstrategia = isMobile
-                            ? entConf.MobileTipoEstrategia
-                            : entConf.DesktopTipoEstrategia,
-                        CantidadMostrar = isMobile
-                            ? entConf.MobileCantidadProductos
-                            : entConf.DesktopCantidadProductos,
-                        UrlLandig = "/" + (isMobile ? "Mobile/" : "") + entConf.UrlSeccion,
-                        VerMas = true
-                    };
+                    var seccion = SeccionModelo(entConf, revistaDigital, isMobile);
 
-                    seccion.TituloBtnAnalytics = seccion.Titulo.Replace("'", "");
-                    seccion.ImagenFondo = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, seccion.ImagenFondo);
+                    //var seccion = new ConfiguracionSeccionHomeModel
+                    //{
+                    //    CampaniaID = menuActivo.CampaniaId,
+                    //    Codigo = entConf.ConfiguracionPais.Codigo ?? entConf.ConfiguracionOfertasHomeID.ToString().PadLeft(5, '0'),
+                    //    Orden = revistaDigital.TieneRevistaDigital()
+                    //        ? isMobile ? entConf.MobileOrdenBpt : entConf.DesktopOrdenBpt
+                    //        : isMobile ? entConf.MobileOrden : entConf.DesktopOrden,
+                    //    ColorFondo = isMobile
+                    //        ? (entConf.MobileColorFondo ?? "")
+                    //        : (entConf.DesktopColorFondo ?? ""),
+                    //    UsarImagenFondo = isMobile 
+                    //        ? entConf.MobileUsarImagenFondo 
+                    //        : entConf.DesktopUsarImagenFondo,
+                    //    ImagenFondo = isMobile
+                    //        ? (entConf.MobileImagenFondo ?? "")
+                    //        : (entConf.DesktopImagenFondo ?? ""),
+                    //    ColorTexto = isMobile
+                    //        ? entConf.MobileColorTexto ?? ""
+                    //        : entConf.DesktopColorTexto ?? "",
+                    //    Titulo = isMobile 
+                    //        ? entConf.MobileTitulo
+                    //        : entConf.DesktopTitulo,
+                    //    SubTitulo = isMobile 
+                    //        ? entConf.MobileSubTitulo
+                    //        : entConf.DesktopSubTitulo,
+                    //    TipoPresentacion = isMobile
+                    //        ? entConf.MobileTipoPresentacion
+                    //        : entConf.DesktopTipoPresentacion,
+                    //    TipoEstrategia = isMobile
+                    //        ? entConf.MobileTipoEstrategia
+                    //        : entConf.DesktopTipoEstrategia,
+                    //    CantidadMostrar = isMobile
+                    //        ? entConf.MobileCantidadProductos
+                    //        : entConf.DesktopCantidadProductos,
+                    //    UrlLandig = "/" + (isMobile ? "Mobile/" : "") + entConf.UrlSeccion,
+                    //    VerMas = true
+                    //};
+
+                    //seccion.TituloBtnAnalytics = seccion.Titulo.Replace("'", "");
+                    //seccion.ImagenFondo = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, seccion.ImagenFondo);
 
                     #region ConfiguracionPais.Codigo
 
@@ -388,6 +397,36 @@ namespace Portal.Consultoras.Web.Providers
             return seccionesContenedor;
         }
 
+        private bool SeccionesPreValidar(ref BEConfiguracionOfertasHome entConf, RevistaDigitalModel revistaDigital)
+        {
+            if (!SeccionTieneConfiguracionPais(entConf.ConfiguracionPais)) return false;
+
+            if (entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.RevistaDigital
+                || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.RevistaDigitalReducida
+                || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.OfertasParaTi)
+            {
+
+                if (entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.RevistaDigital
+                    && !revistaDigital.TieneRDC) return false;
+
+                if (entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.OfertasParaTi)
+                {
+                    if (revistaDigital.TieneRDC) return false;
+
+                    entConf.MobileCantidadProductos = 0;
+                    entConf.DesktopCantidadProductos = 0;
+                }
+            }
+            else if (entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.Lanzamiento)
+            {
+                if (!revistaDigital.TieneRevistaDigital()) return false;
+
+                if (menuActivo.CampaniaId != userData.CampaniaID)
+                    entConf.UrlSeccion = "Revisar/" + entConf.UrlSeccion;
+            }
+
+            return true;
+        }
 
         private bool SeccionTieneConfiguracionPais(ServiceSAC.BEConfiguracionPais configuracionPais)
         {
@@ -402,6 +441,52 @@ namespace Portal.Consultoras.Web.Providers
             }
 
             return result;
+        }
+
+        private ConfiguracionSeccionHomeModel SeccionModelo(BEConfiguracionOfertasHome entConf, RevistaDigitalModel revistaDigital, bool isMobile)
+        {
+            var seccion = new ConfiguracionSeccionHomeModel
+            {
+                CampaniaID = menuActivo.CampaniaId,
+                Codigo = entConf.ConfiguracionPais.Codigo ?? entConf.ConfiguracionOfertasHomeID.ToString().PadLeft(5, '0'),
+                Orden = revistaDigital.TieneRevistaDigital()
+                            ? isMobile ? entConf.MobileOrdenBpt : entConf.DesktopOrdenBpt
+                            : isMobile ? entConf.MobileOrden : entConf.DesktopOrden,
+                ColorFondo = isMobile
+                            ? (entConf.MobileColorFondo ?? "")
+                            : (entConf.DesktopColorFondo ?? ""),
+                UsarImagenFondo = isMobile
+                            ? entConf.MobileUsarImagenFondo
+                            : entConf.DesktopUsarImagenFondo,
+                ImagenFondo = isMobile
+                            ? (entConf.MobileImagenFondo ?? "")
+                            : (entConf.DesktopImagenFondo ?? ""),
+                ColorTexto = isMobile
+                            ? entConf.MobileColorTexto ?? ""
+                            : entConf.DesktopColorTexto ?? "",
+                Titulo = isMobile
+                            ? entConf.MobileTitulo
+                            : entConf.DesktopTitulo,
+                SubTitulo = isMobile
+                            ? entConf.MobileSubTitulo
+                            : entConf.DesktopSubTitulo,
+                TipoPresentacion = isMobile
+                            ? entConf.MobileTipoPresentacion
+                            : entConf.DesktopTipoPresentacion,
+                TipoEstrategia = isMobile
+                            ? entConf.MobileTipoEstrategia
+                            : entConf.DesktopTipoEstrategia,
+                CantidadMostrar = isMobile
+                            ? entConf.MobileCantidadProductos
+                            : entConf.DesktopCantidadProductos,
+                UrlLandig = "/" + (isMobile ? "Mobile/" : "") + entConf.UrlSeccion,
+                VerMas = true
+            };
+
+            seccion.TituloBtnAnalytics = seccion.Titulo.Replace("'", "");
+            seccion.ImagenFondo = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, seccion.ImagenFondo);
+
+            return seccion;
         }
 
         protected virtual List<BEConfiguracionOfertasHome> GetConfiguracionOfertasHome(int paidId, int campaniaId)
@@ -439,12 +524,11 @@ namespace Portal.Consultoras.Web.Providers
             seccion.OrigenPedidoPopup = esMobile ? Constantes.OrigenPedidoWeb.MobileContenedorShowroomFicha : Constantes.OrigenPedidoWeb.DesktopContenedorShowroomFicha;
             seccion.VerMas = SessionManager.ShowRoom.TieneLanding;
 
-            var userData = SessionManager.GetUserData();
+            var urlMobiel = esMobile ? "/Mobile/" : "/";
 
             if (!SessionManager.GetMostrarShowRoomProductos())
             {
-                seccion.UrlLandig = (esMobile ? "/Mobile/" : "/") + "ShowRoom/Intriga";
-                //seccion.UrlObtenerProductos = "ShowRoom/GetDataShowRoomIntriga";
+                seccion.UrlLandig = urlMobiel + "ShowRoom/Intriga";
 
                 if (!esMobile)
                 {
@@ -461,8 +545,7 @@ namespace Portal.Consultoras.Web.Providers
             }
             else
             {
-                seccion.UrlLandig = (esMobile ? "/Mobile/" : "/") + "ShowRoom";
-                //seccion.UrlObtenerProductos = esMobile ? "" : "ShowRoom/CargarProductosShowRoomOferta";
+                seccion.UrlLandig = urlMobiel + "ShowRoom";
                 if (!esMobile)
                 {
                     seccion.ImagenFondo = ShowRoom.ObtenerValorPersonalizacionShowRoom(

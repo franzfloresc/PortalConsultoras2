@@ -173,9 +173,10 @@
         @{
             string verUltmPagos = Model.PaisID == Constantes.PaisID.Chile ||
                 Model.PaisID == Constantes.PaisID.Colombia ||
-                Model.PaisID == Constantes.PaisID.PuertoRico ||
                 Model.PaisID == Constantes.PaisID.Ecuador ||
-                Model.PaisID == Constantes.PaisID.Peru ? "0" : "1";
+                Model.PaisID == Constantes.PaisID.Peru ||
+                Model.PaisID == Constantes.PaisID.PuertoRico ? "0" : "1";
+
             string ultPg, vermas;
             string clasePagoOnlineVZ = "";
 
@@ -1243,8 +1244,8 @@
         <p></p>
     </div>
     <div style="text-align: center; margin-top: 30px;">
-        <input id="btnAgregarCUVBannerPedidoNo" type="button" value="CANCELAR" onclick="PedidoRegistroModule.AgregarCUVBannerPedidoNo()" class="input_modifica_horizontal" style="width: 100px; margin-left: 0;" />
-        <input id="btnAgregarCUVBannerPedidoSi" type="button" value="ACEPTAR" onclick="PedidoRegistroModule.AgregarCUVBannerPedido()" class="input_modifica_horizontal" style="width: 100px; margin-left: 20px;" />
+        <input id="btnAgregarCUVBannerPedidoNo" type="button" value="CANCELAR" onclick="AgregarCUVBannerPedidoNo()" class="input_modifica_horizontal" style="width: 100px; margin-left: 0;" />
+        <input id="btnAgregarCUVBannerPedidoSi" type="button" value="ACEPTAR" onclick="AgregarCUVBannerPedido()" class="input_modifica_horizontal" style="width: 100px; margin-left: 20px;" />
     </div>
 </div>
 

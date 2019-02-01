@@ -28,7 +28,7 @@
             if (Id != "") {
                 waitingDialog({});
                 $("#hdPaisID").val(Id);
-                $.getJSON(baseUrl + 'CrossSelling/ObtenterCampaniasPorPais', { PaisID: Id == "" ? 0 : Id }, function (data) {
+                $.getJSON(baseUrl + 'BaseAdm/ObtenerCampaniasPorPais', { PaisID: Id == "" ? 0 : Id }, function (data) {
                     if (checkTimeout(data)) {
                         LimpiarDependencias(Id);
 

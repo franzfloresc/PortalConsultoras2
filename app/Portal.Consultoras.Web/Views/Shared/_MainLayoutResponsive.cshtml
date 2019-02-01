@@ -19,6 +19,7 @@
 
     <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
 
+    @Styles.Render("~/Bundle/Css/Mixto/Bootstrap")
     @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
     {
         <link href="@Url.Content("~/Content/Images/Esika/favicon.ico")" rel="shortcut icon" type="image/x-icon" />
@@ -52,6 +53,7 @@
         //ODD
         var MostrarODD = '@ViewBag.MostrarODD';
         var tieneOfertaDelDia = '@ViewBag.TieneOfertaDelDia';
+        var mostrarBannerSuperiorOdd = '@ViewBag.MostrarBannerSuperiorOdd';
         // New Chat
         var emt_client_type = '@ViewBag.TipoUsuario';
         var emt_country = '@ViewBag.CodigoISODL';
@@ -98,6 +100,8 @@
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManagerBody.cshtml")
 
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTrackingJetlore.cshtml")
+
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpDialogSesionMainLayout.cshtml")
 
     <script type="text/javascript">
         if (!String.prototype.startsWith) {
@@ -148,6 +152,19 @@
                 @Html.Partial("~/Views/Shared/_MenuSecundarioResponsive.cshtml")
             </div>
         </header>
+
+        <section class="row flex-row ml-0 mr-0 layout__view__breadcrumbs__wrapper mostrarEnDesktop">
+            <div class="col-12 pl-0 pr-0 mx-auto layout__view__breadcrumbs">
+                <ul class="row flex-row align-items-center ml-0 mr-0 layout__view__lista__breadcrumbs">
+                    <li class="layout__view__breadcrumb">
+                        <a href="@Url.Action("Index", "Bienvenida")" class="d-block" title="Home">Home</a>
+                    </li>
+                    <li class="layout__view__breadcrumb layout__view__breadcrumb--active__view">
+                        <span class="d-block">@ViewBag.Title</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
 
         @RenderBody()
 

@@ -323,6 +323,7 @@ else
 
         $(document).ready(function () {
             fichaModule = FichaModule({
+                localStorageModule: LocalStorageModule(),
                 palanca: "@Model.Palanca",
                 origen: "@Model.OrigenUrl",
                 tieneSession: "@Model.TieneSession",
@@ -332,7 +333,8 @@ else
             });
             fichaModule.Inicializar();
 
-            if (tieneCarrusel) {
+            if (tieneCarrusel == "True")
+            {
                 carruselModule = CarruselModule({
                     palanca: "@Model.Palanca",
                     campania: "@Model.Campania",
@@ -341,7 +343,8 @@ else
                     idPlantillaProducto: "#producto-landing-template",
                     divCarruselContenedor: "#divFichaCarrusel",
                     idTituloCarrusel: "#tituloCarrusel",
-                    divCarruselProducto: "#divFichaCarruselProducto"
+                    divCarruselProducto: "#divFichaCarruselProducto",
+                    OrigenPedidoWeb: "@Model.OrigenUrl"
                 });
                 carruselModule.Inicializar();
             }

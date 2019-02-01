@@ -243,6 +243,7 @@ namespace Portal.Consultoras.Web.Providers
             bePagoEnLinea.FechaNacimiento = info.Birthdate ?? default(DateTime);
             bePagoEnLinea.Correo = info.Email;
             bePagoEnLinea.Celular = info.Phone;
+            bePagoEnLinea.Origen = (pago.EsMobile ? Constantes.PagoEnLineaOrigen.OrigeMobile : Constantes.PagoEnLineaOrigen.OrigenDesktop);
 
             using (var ps = new PedidoServiceClient())
             {

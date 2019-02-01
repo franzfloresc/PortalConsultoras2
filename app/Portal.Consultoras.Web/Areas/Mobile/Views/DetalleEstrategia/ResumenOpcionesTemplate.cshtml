@@ -4,7 +4,7 @@
     {{#iff componente.cantidadAplicada '>' 0}}
     <ul class="tono_selecionado_item">
         <li class="imagen_selecionado"><img src="{{componente.ImagenBulk}}" alt="" /></li>
-        <li class="titulo_seleccionado"><span class="cantidad_producto_opt">x{{componente.cantidadAplicada}} </span> <span class="descripcion_tipo">{{#Substr 25  componente.NombreBulk}}{{/Substr}}</span></li>
+        <li class="titulo_seleccionado"><span class="cantidad_producto_opt">x{{componente.cantidadAplicada}} </span> <span class="descripcion_tipo">{{#Substr 50  componente.NombreBulk}}{{/Substr}}</span></li>
     </ul>
     {{/iff}}
     {{/each}}
@@ -14,8 +14,6 @@
     <div data-tono="" data-tono-select="{{componente.Cuv}}" style="display: none;">
         <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{componente.IdMarca}}" />
         <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{componente.PrecioCatalogo}}" />
-        <input type="hidden" name="nameDigitable" id="Estrategia_hd_Digitable" value="{{componente.Digitable}}" />
-        <input type="hidden" name="nameGrupo" id="Estrategia_hd_Grupo" value="{{componente.Grupo}}" />
     </div>
     {{/each}}
     {{/iff}}

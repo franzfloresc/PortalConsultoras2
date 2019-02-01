@@ -170,7 +170,7 @@ function MostrarTerminos() {
         win.focus();
     } else {
         //Browser has blocked it
-        console.log("Habilitar mostrar popup");
+        //console.log("Habilitar mostrar popup");
     }
 }
 
@@ -184,7 +184,7 @@ function RedireccionarContenedorComprar(origenWeb, codigo) {
         AnalyticsPortalModule.MarcaVerOfertas(origenWeb);
 
     codigo = $.trim(codigo);
-    window.location = (isMobile() ? "/Mobile" : "") + "/Ofertas" + (codigo !== "" ? "#" + codigo : "");
+    window.location = (isMobileNative.any() ? "/Mobile" : "") + "/Ofertas" + (codigo !== "" ? "#" + codigo : "");
 }
 
 function RedireccionarContenedorInformativa(origenWeb) {
@@ -192,7 +192,24 @@ function RedireccionarContenedorInformativa(origenWeb) {
     if (origenWeb !== "")
         rdAnalyticsModule.Access(origenWeb);
 
-    window.location = (isMobile() ? "/Mobile" : "") + "/RevistaDigital/Informacion";
+    window.location = (isMobileNative.any() ? "/Mobile" : "") + "/RevistaDigital/Informacion";
+}
+function GetItemLocalStorageSurvicate() {
+    var surviKeys = {};
+    for (var key in localStorage) {
+        if (key.indexOf('survi::') > -1)
+            surviKeys[key] = localStorage[key];
+    }
+    return surviKeys;
+}
+function SetItemLocalStorageSurvicate(storage) {
+
+    if (typeof storage !== 'undefined' && typeof storage === 'object') {
+        for (var key in storage) {
+            if (storage.hasOwnProperty(key))
+                localStorage.setItem(key, storage[key]);
+        }
+    }
 }
 
 function LimpiarLocalStorage() {
@@ -201,7 +218,7 @@ function LimpiarLocalStorage() {
         var itemSBTokenPedido = localStorage.getItem('SBTokenPedido');
         var itemChatEConnected = localStorage.getItem('connected');
         var itemChatEConfigParams = localStorage.getItem('ConfigParams');
-        var itemSurvicateStorage = localStorage.getItem('SurvicateStorage');
+        var itemSurvicateStorage = GetItemLocalStorageSurvicate();
         localStorage.clear();
 
         if (typeof (itemSBTokenPais) !== 'undefined' && itemSBTokenPais !== null) {
@@ -220,7 +237,7 @@ function LimpiarLocalStorage() {
             localStorage.setItem('ConfigParams', itemChatEConfigParams);
         }
         if (typeof (itemSurvicateStorage) !== 'undefined' && itemSurvicateStorage !== null) {
-            localStorage.setItem('SurvicateStorage', itemSurvicateStorage);
+            SetItemLocalStorageSurvicate(itemSurvicateStorage);
         }
     }
 };

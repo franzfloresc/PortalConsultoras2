@@ -1,5 +1,4 @@
-﻿using Portal.Consultoras.Common;
-using Portal.Consultoras.Data;
+﻿using Portal.Consultoras.Data;
 using Portal.Consultoras.Data.Pedido;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Pedido;
@@ -20,24 +19,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 set.Detalles = da.ObtenerDetalles(id);
 
             return set;
-        }
-
-        public bool EliminarTransaction(int paisId, int id, long ConsultoraId)
-        {
-
-            try
-            {                 
-                var da = new DAPedidoWebSet(paisId);
-                var result = da.Eliminar(id);
-
-                return result > 0;
-
-            }
-            catch (Exception ex)
-            {
-                LogManager.SaveLog(ex, ConsultoraId, paisId);
-                return false;
-            }
         }
 
         public bool Eliminar(int paisId, int id, BEPedidoWebDetalleParametros bePedidoWebDetalleParametros)

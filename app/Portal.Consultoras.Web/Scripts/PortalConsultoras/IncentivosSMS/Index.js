@@ -1,11 +1,9 @@
 ﻿function InsertarProductoIncentivo() {
     HorarioRestringido(function () {
         DesreservarPedido(function () {
-            // dejo de funcionar con el Homologar Agregar, el agregar ya no esta
-            // Pedido/PedidoInsertar ya no existe 
-            //AgregarCuv(function () {
-            //    messageInfoBueno(mensajeRegistroSatisfactorio, RedirectToPedido, RedirectToPedido);
-            //});
+            AgregarCuv(function () {
+                messageInfoBueno(mensajeRegistroSatisfactorio, RedirectToPedido, RedirectToPedido);
+            });
         });
     });
 }
@@ -49,27 +47,26 @@ function DesreservarPedido(fnSuccess) {
             if ($.isFunction(fnSuccess)) fnSuccess();
         });
 }
-// Pedido/PedidoInsertar ya no existe 
-//function AgregarCuv(fnSuccess) {
-//    ShowLoading();
-//    $.post(urlPedidoInsert, productoModel)
-//        .always(function () { CloseLoading(); })
-//        .fail(function (jqXHR, textStatus, error) {
-//            if (!checkTimeout(jqXHR)) return false;
+function AgregarCuv(fnSuccess) {
+    ShowLoading();
+    $.post(urlPedidoInsert, productoModel)
+        .always(function () { CloseLoading(); })
+        .fail(function (jqXHR, textStatus, error) {
+            if (!checkTimeout(jqXHR)) return false;
 
-//            console.error(jqXHR, textStatus, error);
-//            messageInfoError(mensajePostFail);
-//        })
-//        .done(function (response) {
-//            if (!checkTimeout(response)) return false;
-//            if (!response.success) {
-//                messageInfoError(response.message);
-//                return false;
-//            }
+            console.error(jqXHR, textStatus, error);
+            messageInfoError(mensajePostFail);
+        })
+        .done(function (response) {
+            if (!checkTimeout(response)) return false;
+            if (!response.success) {
+                messageInfoError(response.message);
+                return false;
+            }
 
-//            if ($.isFunction(fnSuccess)) fnSuccess();
-//        });
-//}
+            if ($.isFunction(fnSuccess)) fnSuccess();
+        });
+}
 function RedirectToPedido() {
     ShowLoading();
     if (/Mobi/.test(navigator.userAgent)) location.href = urlPedidoMobile;

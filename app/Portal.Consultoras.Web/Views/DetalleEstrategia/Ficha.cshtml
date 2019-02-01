@@ -12,7 +12,7 @@
         @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/Ficha-Esika")
     }
     else
-    {   
+    {
         @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/Ficha-Lbel")
     }
 }
@@ -32,7 +32,7 @@
 
             </div>
         </div>
-       
+
         <script id="detalle_ficha_template" type="text/x-handlebars-template">
             <div id="dvSeccionIzquierdo" class="ficha_producto">
                 <div id="dvSeccionFoto">
@@ -354,6 +354,7 @@
 
         $(document).ready(function () {
             fichaModule = FichaModule({
+                localStorageModule: LocalStorageModule(),
                 palanca: "@Model.Palanca",
                 campania: "@Model.Campania",
                 cuv: "@Model.Cuv",
@@ -363,7 +364,7 @@
             });
             fichaModule.Inicializar();
 
-            if (tieneCarrusel)
+            if (tieneCarrusel == "True")
             {
                 carruselModule = CarruselModule({
                     palanca: "@Model.Palanca",
@@ -373,7 +374,8 @@
                     idPlantillaProducto: "#producto-landing-template",
                     divCarruselContenedor: "#divFichaCarrusel",
                     idTituloCarrusel: "#tituloCarrusel",
-                    divCarruselProducto: "#divFichaCarruselProducto"
+                    divCarruselProducto: "#divFichaCarruselProducto",
+                    OrigenPedidoWeb: "@Model.OrigenUrl"
                 });
                 carruselModule.Inicializar();
             }

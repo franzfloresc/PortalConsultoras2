@@ -28,6 +28,8 @@ namespace Portal.Consultoras.Entities.PagoEnLinea
         public string RecurrenceAmount { get; set; }
         [DataMember]
         public string TokenTarjetaGuardada { get; set; }
+        [DataMember]
+        public string TerminosUsoURL { get; set; }
         #endregion
 
         #region PaymentInfo
