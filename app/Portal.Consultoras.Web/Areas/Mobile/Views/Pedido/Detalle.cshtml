@@ -46,26 +46,6 @@
                         <img alt="Cargando..." src="@Url.Content("~/Content/images/Loading.gif")" />
                     </div>
                 </div>
-                <!--PopUp pedido Observacion-->
-                <div class="modal fade" id="observacionPedido" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <button type="button" class="close_observacionPedido" data-dismiss="modal" aria-label="Close">
-                                <img src="/Content/Images/mobile/Esika/close-button.svg" alt="">
-                            </button>
-
-                            <div class="header_observaciones_alerta">
-                                <ul>
-                                    <li class="alert-observaciones"><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt=""></li>
-                                    <li><h3>OBSERVACIONES DEL PRODUCTO</h3></li>
-                                </ul>
-                                <div class="descripcion_observaciones_alerta" id="desc_obs_alert">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--FinPopUp pedido Observacion-->
                 <div id="divPedidoTotalInferior"></div>
             </div>
         </div>
@@ -261,6 +241,27 @@
     }
 }
 
+<!--PopUp pedido Observacion-->
+<div class="modal fade" id="observacionPedido" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <button type="button" class="close_observacionPedido" data-dismiss="modal" aria-label="Close">
+                <img src="/Content/Images/mobile/Esika/close-button.svg" alt="">
+            </button>
+
+            <div class="header_observaciones_alerta">
+                <ul>
+                    <li class="alert-observaciones"><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt=""></li>
+                    <li><h3>OBSERVACIONES DEL PRODUCTO</h3></li>
+                </ul>
+                <div class="descripcion_observaciones_alerta" id="desc_obs_alert">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--FinPopUp pedido Observacion-->
+
 <script id="template-pedidototal-superior" type="text/x-handlebars-template">
     <div class="textos_resumen">
         <span id="lblProductosResumen">HAS AGREGADO :</span>
@@ -307,11 +308,23 @@
     {{/IsNullOrEmpty}}
     <div id="divContenidoDetalle">
         {{#each this.ListaDetalleModel as |detalle|}}
-        <div class="contenedor_items_pedido pedido_item_editable" data-detalle-item="{{PedidoDetalleID}}_{{SetID}}"
-             data-cuv="{{CUV}}" data-campania="{{CampaniaID}}" data-tipoestrategia="{{TipoEstrategiaCodigo}}" data-OrigenPedidoWeb="{{OrigenPedidoWeb}}">
+        <div class="contenedor_items_pedido
+            {{#iff TipoAccion '==' '1'}}
+                pedido_item_editable
+            {{/iff}}"
+             data-detalle-item="{{PedidoDetalleID}}_{{SetID}}"
+             data-cuv="{{CUV}}" 
+             data-SetID="{{SetID}}" 
+             data-campania="{{CampaniaID}}" 
+             data-tipoestrategia="{{TipoEstrategiaCodigo}}" 
+             data-OrigenPedidoWeb="{{OrigenPedidoWeb}}">
             <div class="bloque_descripcion_items_ingresados">
                 <div onclick="javascript: FichaEditarModule.EditarProducto(this, '{{TipoAccion}}')"
-                     data-cuv="{{CUV}}" data-campania="{{CampaniaID}}" data-tipoestrategia="{{TipoEstrategiaCodigo}}" data-OrigenPedidoWeb="{{OrigenPedidoWeb}}"
+                     data-cuv="{{CUV}}" 
+                     data-SetID="{{SetID}}" 
+                     data-campania="{{CampaniaID}}" 
+                     data-tipoestrategia="{{TipoEstrategiaCodigo}}" 
+                     data-OrigenPedidoWeb="{{OrigenPedidoWeb}}"
                      class="descripcion_item_pedido">
                     <span class="cod_prod">
                         {{#if detalle.EstadoSimplificacionCuv}}
@@ -490,7 +503,7 @@
 
 </script>
 <script id="template-pedidototal-inferior" type="text/x-handlebars-template">
-    
+
     <div class="separador"></div>
     <div style="margin-left: -28px;">
         <div class="textos_resumen">
@@ -897,7 +910,7 @@
 
 @section Scripts{
 
-    <script type="text/javascript">
+<script type="text/javascript">
         var codigoIsoPais = '@Model.CodigoISO';
         var menuNotificaciones = '@ViewBag.MenuNotificaciones';
         var falgValidacionPedido = '@Model.FlagValidacionPedido';
@@ -952,7 +965,8 @@
         var mensajePedidoVacio = '@Constantes.MensajesError.Reserva_SinDetalle';
         var mensajeErrorReserva = '@Constantes.MensajesError.Pedido_Reserva';
         var mensajeSinConexionReserva = '@Constantes.MensajesError.SinConexion_Reserva';
-    </script>
+        var urlObtenerComponentes = '@Url.Action("ObtenerComponentes", "DetalleEstrategia")';
+</script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mobile/PedidoDetalle")
 
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Ficha")

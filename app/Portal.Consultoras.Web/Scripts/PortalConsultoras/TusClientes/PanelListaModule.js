@@ -48,7 +48,7 @@
     };
 
     var _seleccionarRegistro = function (paisId, clienteId, codigoCliente, nombreCliente, nombre) {
-        console.log(paisId, clienteId, codigoCliente, nombreCliente, nombre);
+        //console.log(paisId, clienteId, codigoCliente, nombreCliente, nombre);
 
         $(_elements.hfPaisID).val(paisId);
         $(_elements.hfClienteID).val(clienteId);
@@ -63,7 +63,7 @@
         _config.tusClientesProvider
             .consultarPromise(nombreClinete)
             .done(function (data) {
-                console.log(data);
+                //console.log(data);
                 SetHandlebars(_elements.hbsClientes, data, _elements.divClientes);
                 _seleccionarRegistro("", "", "", "","");
             });
