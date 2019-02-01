@@ -171,7 +171,7 @@ namespace Portal.Consultoras.Web.Providers
             return nombreOferta;
         }
 
-        public DataModel GetOfertaDelDiaConfiguracion(UsuarioModel usuario)
+        public DataModel GetOfertaDelDiaConfiguracion(UsuarioModel usuario, bool origenBase = false)
         {
             var oddSession = sessionManager.OfertaDelDia.Estrategia;
 
@@ -187,14 +187,24 @@ namespace Portal.Consultoras.Web.Providers
                 {
                     if (!oddSession.TieneOfertaDelDia)
                         return oddSession;
-
+                    
                     oddSession.TeQuedan = CountdownOdd(usuario);
                     oddSession.ImagenBanner = ConfigCdn.GetUrlFileCdnMatriz(usuario.CodigoISO, oddSession.ImagenBanner);
+
+                    if (origenBase)
+                    {
+                        var listaEstrategiaBase = GetOfertas(usuario);
+                        oddSession.ListaOferta = _ofertaPersonalizada.ConsultarEstrategiasModelFormato(listaEstrategiaBase, usuario.CodigoISO, usuario.CampaniaID, 2, usuario.esConsultoraLider, usuario.Simbolo);
+                        AsignarPrimeraOferta(ref oddSession, usuario);
+                    }
+
+
                     return oddSession;
-                }
+                }                
+                
 
                 oddSession = new DataModel();
-                oddSession.TieneOfertaDelDia = true;
+                oddSession.TieneOfertaDelDia = true;                
 
                 var personalizacionesOdd = _tablaLogica.ObtenerConfiguracion(usuario.PaisID, Constantes.TablaLogica.PersonalizacionODD);
                 if (!personalizacionesOdd.Any())
@@ -202,9 +212,10 @@ namespace Portal.Consultoras.Web.Providers
                     oddSession.TieneOfertaDelDia = false;
                     oddSession.ListaOferta = new List<EstrategiaPersonalizadaProductoModel>();
                 }
-                var listaEstrategia = GetOfertas(usuario);
 
+                var listaEstrategia = GetOfertas(usuario);
                 oddSession.ListaOferta = _ofertaPersonalizada.ConsultarEstrategiasModelFormato(listaEstrategia, usuario.CodigoISO, usuario.CampaniaID, 2, usuario.esConsultoraLider, usuario.Simbolo);
+
                 if (!oddSession.ListaOferta.Any())
                 {
                     oddSession.TieneOfertaDelDia = false;
@@ -215,7 +226,7 @@ namespace Portal.Consultoras.Web.Providers
                 {
                     sessionManager.OfertaDelDia.Estrategia = oddSession;
                     return oddSession;
-                }
+                }                
 
                 oddSession.TieneOfertas = oddSession.ListaOferta.Any();
                 oddSession.TextoVerDetalle = oddSession.ListaOferta.Any() ? oddSession.ListaOferta.Count > 1 ? "VER MÁS OFERTAS" : "VER OFERTA" : "";
@@ -224,15 +235,12 @@ namespace Portal.Consultoras.Web.Providers
                 var coloFondoDisplay = personalizacionesOdd.FirstOrDefault(x => x.TablaLogicaDatosID == Constantes.TablaLogicaDato.PersonalizacionOdd.ColorFondoDisplay) ?? new TablaLogicaDatosModel();
 
                 oddSession.TeQuedan = CountdownOdd(usuario);
+
                 oddSession.ColorFondo1 = colorFondoBanner.Codigo ?? string.Empty;
                 oddSession.ColorFondo2 = coloFondoDisplay.Codigo ?? string.Empty;
                 oddSession.ImagenSoloHoy = ObtenerUrlImagenOfertaDelDia(usuario.CodigoISO, oddSession.ListaOferta.Count);
 
-                var primeraOferta = oddSession.ListaOferta.FirstOrDefault();
-                oddSession.EstrategiaID = primeraOferta.EstrategiaID;
-                oddSession.ImagenBanner = primeraOferta.FotoProducto01;
-                oddSession.NombreOferta = ObtenerNombreOfertaDelDia(primeraOferta.DescripcionCompleta);
-                oddSession.PrecioOfertaFormat = Util.DecimalToStringFormat(primeraOferta.Precio2, usuario.CodigoISO);
+                AsignarPrimeraOferta(ref oddSession, usuario);
 
             }
             catch (Exception ex)
@@ -242,6 +250,15 @@ namespace Portal.Consultoras.Web.Providers
             }
             sessionManager.OfertaDelDia.Estrategia = oddSession;
             return oddSession;
+        }
+
+        private void AsignarPrimeraOferta(ref DataModel oddSession, UsuarioModel usuario)
+        {
+            var primeraOferta = oddSession.ListaOferta.FirstOrDefault();
+            oddSession.EstrategiaID = primeraOferta.EstrategiaID;
+            oddSession.ImagenBanner = primeraOferta.FotoProducto01;
+            oddSession.NombreOferta = ObtenerNombreOfertaDelDia(primeraOferta.DescripcionCompleta);
+            oddSession.PrecioOfertaFormat = Util.DecimalToStringFormat(primeraOferta.Precio2, usuario.CodigoISO);
         }
 
         public bool MostrarOfertaDelDia(UsuarioModel usuario)
