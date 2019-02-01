@@ -129,12 +129,13 @@
 
         if (Model.ListaPedidoCliente[i].TieneDescuentoCuv)
         {
-            <div id="parteSubTotal_@i" class="block-info text-center" style="margin-top: -10px;">
-                SUBTOTAL<br />
+            <div id="parteSubTotal_@i" class="block-info text-center" style="margin-top: -10px;text-transform: capitalize">
+                Subtotal<br />
                 <div class="text-lg">@Model.Simbolo @Model.ListaPedidoCliente[i].SubtotalString</div>
             </div>
-            <div id="parteDescuento_@i" class="block-info text-center" style="margin-top: -10px;">
-                DESCUENTO OFERTAS CON MAS DE UN PRECIO<br />
+            <div id="parteDescuento_@i" class="block-info text-center" style="margin-top: -10px;text-transform: capitalize">
+                @*DESCUENTO OFERTAS CON MAS DE UN PRECIO<br />*@
+                Descuentos ofertas por niveles<br />
                 <div class="text-lg">@Model.Simbolo @Model.ListaPedidoCliente[i].DescuentoString</div>
             </div>
         }
