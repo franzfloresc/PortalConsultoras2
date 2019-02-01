@@ -1,4 +1,6 @@
-﻿@{
+﻿@using Portal.Consultoras.Web.Models
+
+@{
     ViewBag.Title = "Mis clientes";
     Layout = null;
     Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
@@ -16,7 +18,12 @@
     </div>
 
     <div class="col-10">
-        <input id="btnBuscarClientes" type="button" class="btn btn-primary" title="Agregar Cliente" value="Agregar Cliente" />
+        <input id="btnBuscarClientes"
+               type="button"
+               class="btn btn-primary"
+               title="Agregar Cliente"
+               value="Agregar Cliente"
+               onclick="tusClientesModule.editarCliente(null)" />
     </div>
 </div>
 
@@ -47,7 +54,7 @@
             Eliminar
         </div>
     </div>
-    {{# each miData}}
+    {{# each this.miData as |cliente|}}
     <div class="row">
         <div class="col-1">
             {{NombreCliente}}
@@ -68,14 +75,15 @@
             <input type="button"
                    class="btn btn-primary"
                    title="Agregar Cliente"
-                   value="Editar" />
+                   value="Editar"
+                   onclick="tusClientesModule.editarCliente({{JSON2string cliente}})" />
         </div>
         <div class="col-1">
             <input type="button"
                    class="btn btn-primary"
                    title="Agregar Cliente"
                    value="Eliminar"
-                   onclick="eliminarCliente({{PaisID}}, {{ClienteID}}, '{{CodigoCliente}}', '{{NombreCliente}}')" />
+                   onclick="tusClientesModule.mostarConfirmarEliminarCliente({{ClienteID}})" />
         </div>
     </div>
     {{/each}}
@@ -88,19 +96,53 @@
 
     </div>
     <div class="col-10">
-        <input type="button" class="btn btn-primary" title="Agregar Cliente" value="Agregar Cliente" />
+        <input type="button"
+               class="btn btn-primary"
+               title="Agregar Cliente"
+               value="Agregar Cliente"
+               onclick="tusClientesModule.editarCliente(null)" />
     </div>
 </div>
+
+<div id="divPopupEditarCliente" style="display:none">
+    <input type="button" onclick="tusClientesModule.ocultarEditarCliente();" value="cerrar" />
+    @Html.Partial("_Mantener", new ClienteModel())
+</div>
+
+<div id="divConfirmarEliminarCliente" style="display:none">
+    <input type="button" onclick="tusClientesModule.ocultarConfirmarEliminarCliente();" value="cerrar" />
+    <h1><b>IMPORTANTE</b></h1>
+    <span>¿Estás seguro que quieres eliminar a tu cliente?</span>
+    <div>
+        <button type="button" id="btnConfirmarEliminarCliente" onclick="tusClientesModule.eliminarCliente();">
+            SI, DESEO ELIMINARLO
+        </button>
+        <button type="button"id="btnCancelarEliminarCliente" onclick="tusClientesModule.ocultarConfirmarEliminarCliente();">
+            NO ELIMINAR
+        </button>
+    </div>
+</div>
+
 
 @section scripts{
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/TusClientes/TusClientesProvider.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/TusClientes/TusClientesModule.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/TusClientes/PanelMantenerModule.js")"></script>
     <script type="text/javascript">
         var tusClientesProvider = TusClientesProvider();
-        var tusCliente = TusClientesModule({
+        var tusClientesModule = TusClientesModule({
             tusClientesProvider,
             checkTimeout
         });
-        tusCliente.init();
+        //var panelMantenerModule = PanelMantenerModule({
+        //    tusClientesProvider,
+        //    setNombreClienteCallback: tusClientesModule.setNombreCliente(),
+        //    mostrarTusClientesCallback: tusClientesModule.buscarClientes,
+        //    panelRegistroHideCallback: tusClientesModule.ocultarEditarCliente()
+        //});
+        $(document).ready(function () {
+            tusClientesModule.init();
+            //panelMantenerModule.init();
+        });
     </script>
 }

@@ -8,7 +8,11 @@
         tusClientesProvider: config.tusClientesProvider || TusClientesProvider(),
         setNombreClienteCallback: config.setNombreClienteCallback,
         mostrarTusClientesCallback: config.mostrarTusClientesCallback,
-        panelRegistroHideCallback: config.panelRegistroHideCallback
+        panelRegistroHideCallback: config.panelRegistroHideCallback,
+        seleccionarClienteDespuesEditar: typeof config.seleccionarClienteDespuesEditar === "undefined" ||
+            config.seleccionarClienteDespuesEditar === null ?
+            true :
+            config.seleccionarClienteDespuesEditar
     };
 
     var _elements = {
@@ -28,10 +32,14 @@
         txtCelular: "#Celular",
     };
 
-    var _btnGuardarClienteOnClick = function (e) {
+    var _ocultarMensajesError = function () {
         $(_elements.divErrorNombre).hide();
         $(_elements.divErrorCorreo).hide();
         $(_elements.divErrorTelefonos).hide();
+    };
+
+    var _btnGuardarClienteOnClick = function (e) {
+        _ocultarMensajesError();
 
         var id = $.trim($(_elements.hdnId).val());
         var codigo = $.trim($(_elements.hdnCodigo).val());
@@ -80,7 +88,13 @@
                     console.log(data);
                     //
                     alert(data.message);
-                    if (typeof _config.setNombreClienteCallback === "function")_config.setNombreClienteCallback(cliente.NombreCliente);
+                    if (typeof _config.setNombreClienteCallback === "function") {
+                        if (_config.seleccionarClienteDespuesEditar) {
+                            _config.setNombreClienteCallback(cliente.NombreCliente);
+                        } else {
+                            _config.setNombreClienteCallback("");
+                        }
+                    }
                     if (typeof _config.mostrarTusClientesCallback === "function")_config.mostrarTusClientesCallback();
                     if (typeof _config.panelRegistroHideCallback === "function")_config.panelRegistroHideCallback();
                 }
@@ -88,19 +102,49 @@
                     alert(data.message);
                 }
                 //}
+                $(_elements.btnGuardarCliente).show();
             });
         //CerrarSplash();
-        $(_elements.btnGuardarCliente).hide();
     };
 
+    var _btnCancelarClienteOnClick = function (e) {
+        if (typeof _config.panelRegistroHideCallback === "function") _config.panelRegistroHideCallback();
+    };
+
+    var _setCliente = function (cliente) {
+        _ocultarMensajesError();
+
+        if (typeof cliente === "undefined" || cliente === null) {
+            $(_elements.hdnId).val("");
+            $(_elements.hdnCodigo).val("");
+            $(_elements.txtNombre).val("");
+            $(_elements.txtApellido).val("");
+            $(_elements.txtTelefono).val("");
+            $(_elements.txtCelular).val("");
+            $(_elements.txtCorreo).val("");
+            $(_elements.btnGuardarCliente).show();
+            return;
+        }
+
+        $(_elements.hdnId).val(cliente.ClienteID);
+        $(_elements.hdnCodigo).val(cliente.CodigoCliente);
+        $(_elements.txtNombre).val(cliente.NombreCliente);
+        $(_elements.txtApellido).val(cliente.ApellidoCliente);
+        $(_elements.txtTelefono).val(cliente.Telefono);
+        $(_elements.txtCelular).val(cliente.Celular);
+        $(_elements.txtCorreo).val(cliente.eMail);
+        $(_elements.btnGuardarCliente).show();
+
+        return;
+    }
+
     var _init = function () {
-        $(_elements.btnGuardarCliente).click(_btnGuardarClienteOnClick);
-        $(_elements.btnCancelarCliente).click(function (e) {
-            if (typeof _config.panelRegistroHideCallback === "function") _config.panelRegistroHideCallback();
-        });
+        $("body").on("click", _elements.btnGuardarCliente, _btnGuardarClienteOnClick);
+        $("body").on("click", _elements.btnCancelarCliente, _btnCancelarClienteOnClick);
     };
 
     return {
-        init: _init
+        init: _init,
+        setCliente : _setCliente
     };
 };

@@ -131,5 +131,34 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
+
+        [HttpPost]
+        public JsonResult Eliminar(int clienteId)
+        {
+            try
+            {
+                var mensaje = _clienteProvider.Eliminar(userData.PaisID,userData.ConsultoraID,clienteId) ? 
+                    "Se eliminó satisfactoriamente el registro." : 
+                    "No es posible eliminar al cliente dado que se encuentra asociado a un pedido.";
+
+                return Json(new
+                {
+                    success = true,
+                    message = mensaje,
+                    extra = ""
+                });
+
+            }
+            catch (Exception ex)
+            {
+                logManager.LogErrorWebServicesBusWrap(ex, userData.CodigoConsultora, userData.CodigoISO, "TusClientesController.Eliminar");
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    extra = ""
+                });
+            }
+        }
     }
 }
