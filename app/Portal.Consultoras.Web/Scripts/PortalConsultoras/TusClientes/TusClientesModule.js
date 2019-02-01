@@ -59,8 +59,9 @@ var TusClientesModule = function (config) {
             .eliminarClientePromise(clientId)
             .done(function (data) {
                 alert(data.message);
-                _buscarClientes();
                 _ocultarConfirmarEliminarCliente();
+                _buscarClientes();
+                
             })
             .fail(function (data, error) {
 

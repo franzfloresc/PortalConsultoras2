@@ -40,7 +40,6 @@
 
     var _btnGuardarClienteOnClick = function (e) {
         _ocultarMensajesError();
-
         var id = $.trim($(_elements.hdnId).val());
         var codigo = $.trim($(_elements.hdnCodigo).val());
         var nombreCliente = $.trim($(_elements.txtNombre).val());
@@ -103,7 +102,10 @@
                 }
                 //}
                 $(_elements.btnGuardarCliente).show();
-            });
+            })
+            .fail(function (data, error) {
+                $(_elements.btnGuardarCliente).show();
+            });;
         //CerrarSplash();
     };
 

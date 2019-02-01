@@ -46,27 +46,6 @@ var TusClientesProvider = function () {
         return dfd.promise();
     };
 
-    var _mantenerPromise = function (clienteId) {
-        var dfd = jQuery.Deferred();
-
-        $.ajax({
-            type: 'POST',
-            url: '/TusClientes/Mantener',
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(cliente),
-            async: true,
-            success: function (data) {
-                dfd.resolve(data);
-            },
-            error: function (data, error) {
-                dfd.reject(data, error);
-            }
-        });
-
-        return dfd.promise();
-    };
-
     var _eliminarClientePromise = function (clienteId) {
         var dfd = jQuery.Deferred();
 
