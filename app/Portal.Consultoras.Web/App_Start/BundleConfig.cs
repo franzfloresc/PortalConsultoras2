@@ -758,6 +758,10 @@ namespace Portal.Consultoras.Web
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mixto/Ficha").Include(
                 "~/Scripts/implements/youtube.js",
                 "~/Scripts/General.js",
+
+              
+
+
                 "~/Scripts/PortalConsultoras/Shared/General/RedesSociales.js",
                 "~/Scripts/PortalConsultoras/Shared/ConstantesModule.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
@@ -766,20 +770,25 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/OpcionesSeleccionadasModule.js",
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/TituloOpcionesSeleccionadasModule.js",
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/ResumenOpcionesModule.js",
+
+
+                /*init panel cliente*/
+                "~/Scripts/jquery-ui-1.9.2.custom.min.js",
+
+                "~/Scripts/PortalConsultoras/TusClientes/TusClientesProvider.js",
+                "~/Scripts/PortalConsultoras/TusClientes/PanelListaModule.js",
+                "~/Scripts/PortalConsultoras/TusClientes/PanelMantenerModule.js",
+                "~/Scripts/PortalConsultoras/TusClientes/ClientePanelModule.js",
+            /*end panel cliente*/
+
+
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/FichaModule.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js",
                 "~/Scripts/PortalConsultoras/Shared/AnalyticsPortal.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js",
-                "~/Scripts/PortalConsultoras/DetalleEstrategia/CarruselModule.js",
+                "~/Scripts/PortalConsultoras/DetalleEstrategia/CarruselModule.js" 
 
-                /*init panel cliente*/
-                "~/Scripts/jquery-ui-1.9.2.custom.min.js",
-                 
-                "~/Scripts/PortalConsultoras/TusClientes/TusClientesProvider.js",
-                "~/Scripts/PortalConsultoras/TusClientes/PanelListaModule.js",
-                "~/Scripts/PortalConsultoras/TusClientes/PanelMantenerModule.js",
-                "~/Scripts/PortalConsultoras/TusClientes/ClientePanelModule.js"
-            /*end panel cliente*/
+                
             ));
 
             /*
