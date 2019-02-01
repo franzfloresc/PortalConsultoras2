@@ -422,7 +422,7 @@ var FichaModule = (function (config) {
                         })
                             .done(function (data) {
                                 if (data.success) {
-                                    _asignaDetallePedido(data.componentes);
+                                    _asignaDetallePedido(data.componentes, estrategia);
                                 }
                             }).fail(function (data, error) {
                                 console.log(data);
@@ -618,8 +618,8 @@ var FichaModule = (function (config) {
         }
     };
 
-    var _asignaDetallePedido = function (data) {
-        if (data.length)
+    var _asignaDetallePedido = function (data, estrategia) {
+        if (!data.length)
             throw 'Componente: No existe detalle de pedido';
 
         estrategia.Cantidad = data[0].Cantidad;
