@@ -2088,7 +2088,7 @@ function CalculoPosicionMinimoMaximoDestokp() {
 
             document.getElementById('punto_1').style.left = AvancePorcentajeP1;
             document.getElementById('punto_1').firstChild.firstChild.style = "width:90px;position: absolute;";//top: -24px;
-            //document.getElementById('punto_1').firstChild.firstChild.firstChild.firstChild.style.display = "None";
+            //document.getElementById('punto_1').fi QrstChild.firstChild.firstChild.firstChild.style.display = "None";
                 
 
             document.getElementById('punto_2').style.left = '94%';
@@ -2428,15 +2428,34 @@ function CalculoPosicionMinimoMaximoDestokp() {
 
         }
 
-        //aparicion de bandera
-        if (dataBarra.ListaEscalaDescuento.length > 1) {
-            if (mtoLogroBarra > dataBarra.ListaEscalaDescuento[0].MontoDesde * 1 && mtoLogroBarra < dataBarra.ListaEscalaDescuento[dataBarra.ListaEscalaDescuento.length-1].MontoDesde * 1 ) {
-                document.getElementsByClassName('bandera_marcador')[0].style.display = 'block';
-                $(".barra_mensaje_meta_pedido").css('margin-bottom', '56px');
+        if (IsoPais=='CO') {
+
+            //aparicion de bandera
+            if (dataBarra.ListaEscalaDescuento.length > 1) {
+                if (mtoLogroBarra > dataBarra.ListaEscalaDescuento[1].MontoDesde * 1 && mtoLogroBarra < dataBarra.ListaEscalaDescuento[dataBarra.ListaEscalaDescuento.length - 1].MontoDesde * 1) {
+                    document.getElementsByClassName('bandera_marcador')[0].style.display = 'block';
+                    $(".barra_mensaje_meta_pedido").css('margin-bottom', '56px');
+                }
+                else
+                    document.getElementsByClassName('bandera_marcador')[0].style.display = 'none';
             }
-            else 
-                document.getElementsByClassName('bandera_marcador')[0].style.display = 'none';
+
         }
+        else
+        {
+            //aparicion de bandera
+            if (dataBarra.ListaEscalaDescuento.length > 1) {
+                if (mtoLogroBarra > dataBarra.ListaEscalaDescuento[0].MontoDesde * 1 && mtoLogroBarra < dataBarra.ListaEscalaDescuento[dataBarra.ListaEscalaDescuento.length - 1].MontoDesde * 1) {
+                    document.getElementsByClassName('bandera_marcador')[0].style.display = 'block';
+                    $(".barra_mensaje_meta_pedido").css('margin-bottom', '56px');
+                }
+                else
+                    document.getElementsByClassName('bandera_marcador')[0].style.display = 'none';
+            }
+        }
+
+
+       
 
         ReordenarMontosBarra();
     }
