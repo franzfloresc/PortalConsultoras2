@@ -849,7 +849,9 @@ var panelListaModule = PanelListaModule({
 });
 var panelMantenerModule = PanelMantenerModule({
     tusClientesProvider,
-    panelListaModule
+    setNombreClienteCallback: panelListaModule.setNombreCliente,
+    mostrarTusClientesCallback: panelListaModule.mostrarTusClientes,
+    panelRegistroHideCallback: panelListaModule.panelRegistroHide
 });
 var panel = ClientePanelModule({
     tusClientesProvider,
