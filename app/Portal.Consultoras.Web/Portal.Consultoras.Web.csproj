@@ -5556,11 +5556,11 @@
     <Content Include="Views\MisCatalogosRevistas\template-revista-slide.cshtml" />
     <Content Include="Views\DetalleEstrategia\ProductoTemplate.cshtml" />
     <Content Include="Views\DetalleEstrategia\FichaTemplate.cshtml" />
-    <Content Include="Views\TusClientes\Detalle.cshtml" />
     <Content Include="Views\TusClientes\Index.cshtml" />
     <Content Include="Views\TusClientes\PanelLista.cshtml" />
     <Content Include="Views\TusClientes\PanelMantener.cshtml" />
     <Content Include="Views\TusClientes\PanelTest.cshtml" />
+    <Content Include="Views\TusClientes\_Mantener.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

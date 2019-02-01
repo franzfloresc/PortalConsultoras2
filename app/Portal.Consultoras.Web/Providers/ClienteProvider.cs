@@ -84,5 +84,19 @@ namespace Portal.Consultoras.Web.Providers
 
             return response.First().CodigoRespuesta;
         }
+
+        public virtual bool Eliminar(int paisId, long consultoraId, int clientId)
+        {
+            var result  = false;
+
+            if (clientId == 0) return result;
+
+            using (var serviceClient = new ClienteServiceClient())
+            {
+                result = serviceClient.Delete(paisId, consultoraId, clientId);
+            }
+
+            return result;
+        }
     }
 }
