@@ -347,6 +347,8 @@ namespace Portal.Consultoras.Web.Models
         public string CodigosRevistaImpresa { get; set; }
         public string CodigoPrograma { get; set; }
         public int ConsecutivoNueva { get; set; }
+        public bool TieneDireccionEntrega { get; set; }
+        public bool TienePermisosCuenta { get; set; }
 
         public DateTime FechaHoy
         {

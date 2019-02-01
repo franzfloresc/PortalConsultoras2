@@ -1428,6 +1428,8 @@ namespace Portal.Consultoras.Common
             public const string ElecMultiple = "DP";
             public const string MasGanadoras = "MG";
             public const string Recomendaciones = "RECOMDS";
+            public const string DireccionEntrega = "DIRECCION_ENTREGA";
+            public const string PermisosCuenta = "PERMISOS_CUENTA";
         }
 
 
