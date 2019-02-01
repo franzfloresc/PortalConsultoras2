@@ -123,8 +123,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var ConsultoraID = SessionManager.GetUserData().ConsultoraID;
-                var componentes = _estrategiaComponenteProvider.GetEstrategiaProductoComponenteSeleccionado(campaniaId, ConsultoraID, set);
+                var componentes = _pedidoWebProvider.GetListaPedidoWebSetDetalle(userData.PaisID, campaniaId, userData.ConsultoraID, set);
 
                 return Json(new
                 {
