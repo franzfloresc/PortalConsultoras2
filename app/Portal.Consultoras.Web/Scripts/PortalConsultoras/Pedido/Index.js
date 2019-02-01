@@ -1867,8 +1867,8 @@ function CerrarProductoAgregado() {
     $("#pop_liquidacion").hide();
 }
 
-function ValidDeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cuv, cantidad, clienteId, cuvReco, esBackOrder, setId, enRangoProgNuevas) {
-
+function ValidDeletePedido(event, campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cuv, cantidad, clienteId, cuvReco, esBackOrder, setId, enRangoProgNuevas) {
+    event.stopPropagation();
     ValidDeleteElectivoNuevas(
         cuv,
         enRangoProgNuevas,
