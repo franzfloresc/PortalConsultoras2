@@ -399,7 +399,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js",
-                "~/Scripts/PortalConsultoras/Pedido/tooltip.js",                
+                "~/Scripts/PortalConsultoras/Pedido/tooltip.js",
                 "~/Scripts/PortalConsultoras/Pedido/KitNuevas.js",
                 "~/Scripts/PortalConsultoras/ProductoRecomendado/ProductoRecomendadoModule.js"
             ));
@@ -732,6 +732,20 @@ namespace Portal.Consultoras.Web
 
             #endregion
 
+            #region Cliente
+            bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/ClientePanel").Include(
+                /*init panel cliente*/
+                "~/Scripts/jquery-ui-1.9.2.custom.min.js",
+                "~/Scripts/handlebars.min.js",
+                "~/Scripts/General.js",
+                "~/Scripts/PortalConsultoras/TusClientes/TusClientesProvider.js",
+                "~/Scripts/PortalConsultoras/TusClientes/PanelListaModule.js",
+                "~/Scripts/PortalConsultoras/TusClientes/PanelMantenerModule.js",
+                "~/Scripts/PortalConsultoras/TusClientes/ClientePanelModule.js"
+            /*end panel cliente*/
+            ));
+            #endregion
+
             #region DetalleEstrategia
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mixto/EstrategiaAgregar").Include(
@@ -756,8 +770,22 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js",
                 "~/Scripts/PortalConsultoras/Shared/AnalyticsPortal.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js",
-                "~/Scripts/PortalConsultoras/DetalleEstrategia/CarruselModule.js"
+                "~/Scripts/PortalConsultoras/DetalleEstrategia/CarruselModule.js",
+
+                /*init panel cliente*/
+                "~/Scripts/jquery-ui-1.9.2.custom.min.js",
+                "~/Scripts/handlebars.min.js",
+                "~/Scripts/General.js",
+                "~/Scripts/PortalConsultoras/TusClientes/TusClientesProvider.js",
+                "~/Scripts/PortalConsultoras/TusClientes/PanelListaModule.js",
+                "~/Scripts/PortalConsultoras/TusClientes/PanelMantenerModule.js",
+                "~/Scripts/PortalConsultoras/TusClientes/ClientePanelModule.js"
+            /*end panel cliente*/
             ));
+
+            /*
+  
+             */
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/Ficha").Include(
                 "~/Content/Css/Site/Ficha/Ficha.css",
