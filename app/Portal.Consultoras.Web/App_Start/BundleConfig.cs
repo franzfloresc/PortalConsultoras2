@@ -737,7 +737,7 @@ namespace Portal.Consultoras.Web
                 /*init panel cliente*/
                 "~/Scripts/jquery-ui-1.9.2.custom.min.js",
                 "~/Scripts/handlebars.min.js",
-                "~/Scripts/General.js",
+                 
                 "~/Scripts/PortalConsultoras/TusClientes/TusClientesProvider.js",
                 "~/Scripts/PortalConsultoras/TusClientes/PanelListaModule.js",
                 "~/Scripts/PortalConsultoras/TusClientes/PanelMantenerModule.js",
