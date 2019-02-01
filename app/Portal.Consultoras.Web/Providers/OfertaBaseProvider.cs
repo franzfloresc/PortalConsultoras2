@@ -182,9 +182,9 @@ namespace Portal.Consultoras.Web.Providers
             {
                 string logPrecio0 = string.Format("Log Precios0 => Fecha:{0} /Palanca:{1} /CodCampania:{2} /CUV(s):{3} /Referencia:{4}", DateTime.Now, codTipoEstrategia, codCampania, string.Join("|", listaSinPrecio2), path);
                 Common.LogManager.SaveLog(new Exception(logPrecio0), "", codigoISO);
-            } 
+            }
 
-            return ActualizarStockEstrategiaProl(estrategias, codigoISO);
+            return estrategias;
         }
 
         public string ObtenerDescripcionOferta(string descripcionCuv2)
@@ -236,55 +236,6 @@ namespace Portal.Consultoras.Web.Providers
         {
             bool tipoEstrategiaHabilitado = WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion.Contains(tipoEstrategia);
             return tipoEstrategiaHabilitado;
-        }
-
-        static  List<ServiceOferta.BEEstrategia> ActualizarStockEstrategiaProl( List<ServiceOferta.BEEstrategia> estrategias, string paisISo)
-        {
-            var estrategiasResult = new List<ServiceOferta.BEEstrategia>();
-            var listaSinStock = new List<ServiceOferta.BEEstrategia>();
-            var listaTieneStock = new List<Lista>();
-             
-            try
-            {
-                var codigoSap = string.Join("|", estrategias.Where(e => !string.IsNullOrEmpty(e.CodigoProducto) && e.TieneStock).Select(e => e.CodigoProducto));
-                if (!string.IsNullOrEmpty(codigoSap))
-                {
-                    using (var sv = new wsConsulta())
-                    {
-                        sv.Url = ConfigurationManager.AppSettings["RutaServicePROLConsultas"];
-                        listaTieneStock = sv.ConsultaStock(codigoSap, paisISo).ToList();
-                    }
-                }
-            }
-            catch (Exception )
-            {
-                listaTieneStock = new List<Lista>();
-            }
-
-            estrategias.ForEach(estrategia =>
-            {
-                var add = true;
-                if (estrategia.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.OfertaParaTi)
-                    add = listaTieneStock.Any(p => p.Codsap.ToString() == estrategia.CodigoProducto && p.estado == 1);
-
-                if (!add)
-                {
-                    estrategia.TieneStock = false;
-                    listaSinStock.Add(estrategia);
-                    return;
-                }
-
-                estrategiasResult.Add(estrategia);
-
-            });
-
-            if (listaSinStock.Any())
-            {
-                estrategiasResult.AddRange(listaSinStock);
-            }
-
-            return estrategiasResult;
-
         }
     }
 }

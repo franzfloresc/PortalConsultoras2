@@ -937,7 +937,8 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Mobile/esika/slick.css",
                 "~/Content/Css/Mobile/esika/bootstrap-slider.min.css",
                 "~/Content/Css/Mobile/RevistaDigital/RedimensionLandingRD.css",
-                "~/Content/Css/Mobile/ProductoListado/CajaProducto.css"
+                "~/Content/Css/Mobile/ProductoListado/CajaProducto.css",
+                "~/Content/Css/Mobile/Ficha/ficha.css"
             ));
 
             //Se aisló el css de bootstrap de los otros css de Bundle/Css/Mixto, porque generaba errores de minificación
