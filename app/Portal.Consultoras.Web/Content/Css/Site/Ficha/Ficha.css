@@ -1108,10 +1108,12 @@ ul.breadcumbs li a::before {
     line-height: normal;
     border-radius: 4px;
     font-family: 'Lato', sans-serif !important;
-    background: url('/Content/Images/mobile/Esika/right-arrow.svg');
+    /*background: url('/Content/Images/mobile/Esika/right-arrow.svg');*/
     background-position: right 15px center;
     background-repeat: no-repeat;
     background-size: 13px;
+    margin-bottom: 40px;
+    position: relative;
 }
 
 .seleccion_main_Clientes {
@@ -1140,4 +1142,13 @@ ul.breadcumbs li a::before {
     line-height: normal;
     padding: 15px 0px;
     border-bottom: 1px solid #d8d8d8;
+}
+
+
+.cambiar_opcion_editarFicha {
+    font-size: 13px;
+    position: absolute;
+    right: 12px;
+    top: 8px;
+    text-transform: none;
 }
