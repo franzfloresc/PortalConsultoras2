@@ -183,15 +183,39 @@ namespace Portal.Consultoras.Web.Controllers
                 ObtenerPedidoWeb();
                 ObtenerPedidoWebDetalle();
 
-                GetUserDataViewBag();
+                bool esMobile = EsDispositivoMovil();
+                bool actualizaBase = true; //actualizar session de ODD desde BD
+
+                if (esMobile)
+                {
+                    if (filterContext.ActionDescriptor.ControllerDescriptor.ControllerName == "DescargarApp")
+                    {
+                        TempData["CallBase"] = "DescargarApp";
+                        actualizaBase = true;
+                    }
+                    else
+                    {
+                        if ((TempData["CallBase"] ?? "").ToString() == "DescargarApp")
+                        {
+                            //Valida si ya se ha cargado la data desde el controlador "DescargarApp", para no volver a actualizar data
+                            actualizaBase = false;
+                            TempData["CallBase"] = null;
+                        }
+                        else
+                        {
+                            actualizaBase = true;
+                        }
+                    }
+                }
+
+                GetUserDataViewBag(actualizaBase);
 
                 var controllerName = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;
                 var actionName = filterContext.ActionDescriptor.ActionName;
                 if (!Constantes.AceptacionContrato.ControladoresOmitidas.Contains(controllerName)
                     && !Constantes.AceptacionContrato.AcionesOmitidas.Contains(actionName)
                     && ValidarContratoPopup())
-                {
-                    bool esMobile = EsDispositivoMovil();
+                {                    
                     filterContext.Result = !esMobile ? new RedirectResult(Url.Action("Index", "Bienvenida")) :
                         new RedirectResult(Url.Action("Index", "Bienvenida", new { Area = "Mobile" }));
                     return;
@@ -933,7 +957,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region Cargar ViewBag
 
-        private void GetUserDataViewBag()
+        private void GetUserDataViewBag(bool actualizaBaseODD)
         {
             var esMobile = IsMobile();
 
@@ -1085,7 +1109,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.GPRBannerUrl = userData.GPRBannerUrl;
 
                 // odd
-                ViewBag.OfertaDelDia = _ofertaDelDiaProvider.GetOfertaDelDiaConfiguracion(userData);
+                ViewBag.OfertaDelDia = _ofertaDelDiaProvider.GetOfertaDelDiaConfiguracion(userData, actualizaBaseODD);
                 ViewBag.TieneOfertaDelDia = _ofertaDelDiaProvider.CumpleOfertaDelDia(userData, GetControllerActual());
                 ViewBag.MostrarBannerSuperiorOdd = _ofertaDelDiaProvider.MostrarBannerSuperiorOdd(userData, GetControllerActual());
             }
