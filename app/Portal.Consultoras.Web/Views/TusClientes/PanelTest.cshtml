@@ -77,6 +77,7 @@
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/TusClientes/ClientePanelModule.js")"></script>
 
     <script>
+        debugger;
         var tusClientesProvider = TusClientesProvider();
         var panelListaModule = PanelListaModule({
             tusClientesProvider//,
@@ -84,7 +85,9 @@
         });
         var panelMantenerModule = PanelMantenerModule({
             tusClientesProvider,
-            panelListaModule
+            setNombreClienteCallback: panelListaModule.setNombreCliente,
+            mostrarTusClientesCallback: panelListaModule.mostrarTusClientes,
+            panelRegistroHideCallback: panelListaModule.panelRegistroHide,
         });
         var panel = ClientePanelModule({
             tusClientesProvider,
@@ -95,7 +98,6 @@
         });
 
         $(document).ready(function () {
-            //debugger;
             panel.init();
             panel.AceptaClick(function (obj) {
                 //PaisID, ClienteID, CodigoCliente, NombreCliente, Nombre 

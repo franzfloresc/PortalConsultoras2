@@ -6,7 +6,9 @@
 
     var _config = {
         tusClientesProvider: config.tusClientesProvider || TusClientesProvider(),
-        panelListaModule: config.panelListaModule || PanelListaModule(),
+        setNombreClienteCallback: config.setNombreClienteCallback,
+        mostrarTusClientesCallback: config.mostrarTusClientesCallback,
+        panelRegistroHideCallback: config.panelRegistroHideCallback
     };
 
     var _elements = {
@@ -78,9 +80,9 @@
                     console.log(data);
                     //
                     alert(data.message);
-                    _config.panelListaModule.setNombreCliente(cliente.NombreCliente);
-                    _config.panelListaModule.mostrarTusClientes();
-                    _config.panelListaModule.panelRegistroHide();
+                    if (typeof _config.setNombreClienteCallback === "function")_config.setNombreClienteCallback(cliente.NombreCliente);
+                    if (typeof _config.mostrarTusClientesCallback === "function")_config.mostrarTusClientesCallback();
+                    if (typeof _config.panelRegistroHideCallback === "function")_config.panelRegistroHideCallback();
                 }
                 else {
                     alert(data.message);
@@ -94,7 +96,7 @@
     var _init = function () {
         $(_elements.btnGuardarCliente).click(_btnGuardarClienteOnClick);
         $(_elements.btnCancelarCliente).click(function (e) {
-            _config.panelListaModule.panelRegistroHide();
+            if (typeof _config.panelRegistroHideCallback === "function") _config.panelRegistroHideCallback();
         });
     };
 
