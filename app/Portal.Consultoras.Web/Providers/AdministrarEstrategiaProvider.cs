@@ -2,8 +2,11 @@
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Common.Response;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.Config.ResponseReporte;
+using Portal.Consultoras.Web.Models.Config.ResponseReporte.Estructura;
 using Portal.Consultoras.Web.Models.Estrategia;
 using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
+using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.SessionManager;
 using System;
@@ -861,6 +864,119 @@ namespace Portal.Consultoras.Web.Providers
             List<ServicePedido.BEReporteValidacion> listaReporte = (respuesta.Result != null) ? JsonConvert.DeserializeObject<List<ServicePedido.BEReporteValidacion>>(respuesta.Result.ToString()) : new List<ServicePedido.BEReporteValidacion>();
 
             return listaReporte;
+        }
+
+        public ReporteValidacionShowroom ObtenerReportValidacionShowroom(string campaniaId)
+        {
+            UsuarioModel userData = sessionManager.GetUserData();
+            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlReporteValidacion, userData.CodigoISO, Constantes.TipoPersonalizacion.ShowRoom, campaniaId);
+
+            Task<string> taskApi = Task.Run(() => RespSBMicroservicios(string.Empty,
+                                                                       requestUrl,
+                                                                       Constantes.MetodosHTTP.Get,
+                                                                       userData));
+            Task.WhenAll(taskApi);
+            string jsonString = taskApi.Result;
+
+            OutputReporteValidacion respuesta = JsonConvert.DeserializeObject<OutputReporteValidacion>(jsonString);
+
+            if (respuesta == null)
+            {
+                return new ReporteValidacionShowroom();
+            }
+
+            if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
+            {
+                Common.LogManager.SaveLog(new Exception(respuesta.Message), string.Empty, userData.CodigoISO);
+                return new ReporteValidacionShowroom();
+            }
+
+            ReporteValidacionShowroom reporteValidacionShowroom = new ReporteValidacionShowroom
+            {
+                ListaCampania = new List<ReporteValidacionSRModel>(),
+                ListaComponente = new List<ReporteValidacionSRModel>(),
+                ListaOferta = new List<ReporteValidacionSRModel>(),
+                ListaPersonalizacion = new List<ReporteValidacionSRModel>()
+            };
+
+            foreach (ReporteValidacionCampania campania in respuesta.Result.ReporteValidacionCampania)
+            {
+                ReporteValidacionSRModel data = new ReporteValidacionSRModel
+                {
+                    CodPais = campania.Pais,
+                    Campania = campania.Campania.ToString(),
+                    NombreEvento = campania.NombreEvento,
+                    DiasAntesFacturacion = campania.DiasAntes,
+                    DiasDespuesFacturacion = campania.DiasDespues,
+                    FlagHabilitarEvento = campania.FlagHabilitarEvento,
+                    FlagHabilitarCompraXCompra = campania.FlagHabilitarCompraXCompra,
+                    FlagHabilitarSubCampania = campania.FlagHabilitarSubCampania
+                };
+
+                reporteValidacionShowroom.ListaCampania.Add(data);
+            }
+
+            foreach (ReporteValidacionComponente componente in respuesta.Result.ReporteValidacionComponente)
+            {
+                ReporteValidacionSRModel data = new ReporteValidacionSRModel()
+                {
+                    CodPais = componente.Pais,
+                    Campania = componente.Campania.ToString(),
+                    CUV = componente.CUV,
+                    Nombre = componente.Nombre ?? string.Empty,
+                    Descripcion1 = componente.Descripcion1 ?? string.Empty,
+                    FlagImagenCargada = string.IsNullOrEmpty(componente.FlagImagenCargada) ? 0 : Convert.ToInt32(componente.FlagImagenCargada)
+                };
+
+                reporteValidacionShowroom.ListaComponente.Add(data);
+            }
+
+            foreach (ReporteValidacionOferta oferta in respuesta.Result.ReporteValidacionOferta)
+            {
+                ReporteValidacionSRModel data = new ReporteValidacionSRModel()
+                {
+                    CodPais = oferta.Pais,
+                    Campania = oferta.Campania.ToString(),
+                    CodigoTO = oferta.CodigoTO,
+                    CodigoSAP = oferta.SAP,
+                    CUV = oferta.CUV,
+                    Descripcion = oferta.Descripcion,
+                    PrecioValorizado = decimal.Parse(oferta.PrecioValorizado.ToString()),
+                    PrecioOferta = decimal.Parse(oferta.PrecioOferta.ToString()),
+                    UnidadesPermitidas = oferta.UnidadesPermitidas,
+                    EsSubCampania = oferta.EsSubCampania ? 1 : 0,
+                    HabilitarOferta = oferta.HabilitarOferta ? 1 : 0,
+                    FlagImagenCargada = oferta.FlagImagenCargada ? 1 : 0,
+                    FlagImagenMINI = oferta.FlagImagenMini ? 1 : 0
+                };
+
+                reporteValidacionShowroom.ListaOferta.Add(data);
+            }
+
+            foreach (ReporteValidacionPersonalizacion personalizacion in respuesta.Result.ReporteValidacionPersonalizacion)
+            {
+                ReporteValidacionSRModel data = new ReporteValidacionSRModel()
+                {
+                    Medio = personalizacion.Medio,
+                    Personalizacion = personalizacion.Personalizacion,
+                    BO = personalizacion.BO ?? string.Empty,
+                    CL = personalizacion.CL ?? string.Empty,
+                    CO = personalizacion.CO ?? string.Empty,
+                    CR = personalizacion.CR ?? string.Empty,
+                    DO = personalizacion.DO ?? string.Empty,
+                    EC = personalizacion.EC ?? string.Empty,
+                    GT = personalizacion.GT ?? string.Empty,
+                    MX = personalizacion.MX ?? string.Empty,
+                    PA = personalizacion.PA ?? string.Empty,
+                    PE = personalizacion.PE ?? string.Empty,
+                    PR = personalizacion.PR ?? string.Empty,
+                    SV = personalizacion.SV ?? string.Empty
+                };
+
+                reporteValidacionShowroom.ListaPersonalizacion.Add(data);
+            }
+            
+            return reporteValidacionShowroom;
         }
 
         public ServicePedido.BEEstrategiaDetalle ObtenerEstrategiaDetalle(ServicePedido.BEEstrategia entidad)

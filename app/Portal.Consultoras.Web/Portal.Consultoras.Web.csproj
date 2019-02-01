@@ -318,6 +318,13 @@
     <Compile Include="CustomFilters\ValidateAjaxModelAttribute.cs" />
     <Compile Include="Models\CambioTipoNegocioModel.cs" />
     <Compile Include="Controllers\ReporteContratoController.cs" />
+    <Compile Include="Models\Config\ResponseReporte\Estructura\ReporteValidacion.cs" />
+    <Compile Include="Models\Config\ResponseReporte\Estructura\ReporteValidacionCampania.cs" />
+    <Compile Include="Models\Config\ResponseReporte\Estructura\ReporteValidacionComponente.cs" />
+    <Compile Include="Models\Config\ResponseReporte\Estructura\ReporteValidacionOferta.cs" />
+    <Compile Include="Models\Config\ResponseReporte\Estructura\ReporteValidacionPersonalizacion.cs" />
+    <Compile Include="Models\Config\ResponseReporte\OutputReporteValidacion.cs" />
+    <Compile Include="Models\Config\Response\ResponseStatus.cs" />
     <Compile Include="Models\ConsultaCrediticiaExternaMX.cs" />
     <Compile Include="Models\Estrategia\EstrategiaMDbAdapterModel.cs" />
     <Compile Include="Controllers\OfertaDelDiaController.cs" />
@@ -509,6 +516,7 @@
     <Compile Include="Models\GuiaNegocioModel.cs" />
     <Compile Include="Models\MasGanadorasModel.cs" />
     <Compile Include="Models\ObservacionModel.cs" />
+    <Compile Include="Models\ReporteValidacionShowroom.cs" />
     <Compile Include="Models\Search\ResponseEvento\Estructura\Evento.cs" />
     <Compile Include="Models\Search\ResponseEvento\Estructura\EventoConsultora.cs" />
     <Compile Include="Models\Search\ResponseEvento\Estructura\PersonalizacionNivel.cs" />
