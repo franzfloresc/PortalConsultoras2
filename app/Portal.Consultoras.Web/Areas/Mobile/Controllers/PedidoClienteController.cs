@@ -45,12 +45,39 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     foreach (var pedidoDetalleProducto in pedidoCliente.ListaPedidoWebDetalle)
                     {
                         BEPedidoWebDetalle[] lstPedidoDetalleProducto;
-                        using (var sv = new ClienteServiceClient())
+                        var lstPedidoDetalleProducto2 = new List<BEPedidoWebDetalle>();
+                        //using (var sv = new ClienteServiceClient())
+                        //{
+                        //    lstPedidoDetalleProducto = sv.GetPedidoWebDetalleByCliente(userData.PaisID, pedidoCliente.CampaniaID, userData.ConsultoraID, pedidoDetalleProducto.ClienteID);
+                        //}
+
+                        var detallepedido = ObtenerPedidoWebSetDetalleAgrupado();
+
+                        foreach (var det in detallepedido)
                         {
-                            lstPedidoDetalleProducto = sv.GetPedidoWebDetalleByCliente(userData.PaisID, pedidoCliente.CampaniaID, userData.ConsultoraID, pedidoDetalleProducto.ClienteID);
+                            lstPedidoDetalleProducto2.Add(new BEPedidoWebDetalle
+                            {
+                                ClienteID = det.ClienteID,
+                                Nombre = det.Nombre,
+                                eMail = det.eMail,
+                                CampaniaID = det.CampaniaID,
+                                CUV = det.CUV,
+                                DescripcionProd = det.DescripcionProd,
+                                DescripcionLarga = det.DescripcionLarga,
+                                DescripcionEstrategia = det.DescripcionEstrategia,
+                                Categoria = det.Categoria,
+                                Cantidad = det.Cantidad,
+                                PrecioUnidad = det.PrecioUnidad,
+                                ImporteTotal = det.ImporteTotal,
+                                ImporteTotalPedido = det.ImporteTotalPedido,
+                                MarcaID = det.MarcaID,
+                                //descripcionmarca
+                                ObservacionPROL = det.ObservacionPROL,
+                                IndicadorOfertaCUV = det.IndicadorOfertaCUV
+                            });
                         }
 
-                        pedidoDetalleProducto.ListaPedidoWebDetalleProductos = Mapper.Map<List<PedidoWebDetalleMobilModel>>(lstPedidoDetalleProducto);
+                        pedidoDetalleProducto.ListaPedidoWebDetalleProductos = Mapper.Map<List<PedidoWebDetalleMobilModel>>(lstPedidoDetalleProducto2);
 
                         pedidoDetalleProducto.ImporteTotalPedido = pedidoDetalleProducto.ListaPedidoWebDetalleProductos.Sum(p => p.ImporteTotal);
                     }
