@@ -120,6 +120,7 @@ namespace Portal.Consultoras.Common
             }
             catch (Exception ex)
             {
+
                 //EventLog.WriteEntry("SomosBelcorp - LogManager", string.Format("Mensaje: {0} \nTrace: {1}", ex.Message, ex.StackTrace), EventLogEntryType.Error);
             }
         }
