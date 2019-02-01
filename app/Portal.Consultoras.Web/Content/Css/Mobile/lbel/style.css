@@ -4666,8 +4666,7 @@ body {
 
 .mi_ganancia {
     color: #642f80;
-    font-weight: 700;
-    text-transform: uppercase;
+    font-weight: 700; 
 }
 
 @media screen and (min-width:0) and (max-width:407px) {

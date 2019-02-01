@@ -236,7 +236,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if (!userData.DiaPROL)  // Periodo de venta
             {
                 ViewBag.AccionBoton = "guardar";
-                model.Prol = "GUARDA TU PEDIDO";
+                model.Prol = "Guarda tu pedido";
                 model.ProlTooltip = "Es importante que guardes tu pedido";
                 model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
 
@@ -249,7 +249,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             else // Periodo de facturacion
             {
                 ViewBag.AccionBoton = "validar";
-                model.Prol = "RESERVA TU PEDIDO";
+                model.Prol = "Reserva tu pedido";
                 model.ProlTooltip = "Haz click aqui para reservar tu pedido";
 
                 if (diaActual <= userData.FechaInicioCampania)

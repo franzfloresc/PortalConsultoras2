@@ -111,7 +111,7 @@
                     <div class="left_reservado" style="width:235px;">
                         <div class="datos_Reservado">
                             <span> @item.CUV </span>
-                            <span>@item.DescripcionProd</span>
+                            <span>@(item.SetIdentifierNumber > 0?"# " + item.SetIdentifierNumber.ToString() : "")   @item.DescripcionProd</span>
                         </div>
                         <div class="texto_reservado">Cliente: @item.Nombre</div>
                     </div>
@@ -181,7 +181,7 @@
                     </div>
                     <b>Total:</b>
                 </div>
-                <div class="ganancia_Pedidovalidado" style="margin-top:7px">@(cabezaEscala.ToUpper().Trim())</div>
+                <div class="ganancia_Pedidovalidado" style="margin-top:7px">@(cabezaEscala.Trim())</div>
             </div>
 
             <div class="right_reservado">
