@@ -477,11 +477,11 @@
   <wsdl:message name="IPedidoService_ListarEscalaDescuentoZona_OutputMessage">
     <wsdl:part name="parameters" element="tns:ListarEscalaDescuentoZonaResponse" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_GetEstrategiaProductoComponenteSeleccionado_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetEstrategiaProductoComponenteSeleccionado" />
+  <wsdl:message name="IPedidoService_GetListaPedidoWebSetDetalle_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetListaPedidoWebSetDetalle" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_GetEstrategiaProductoComponenteSeleccionado_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetEstrategiaProductoComponenteSeleccionadoResponse" />
+  <wsdl:message name="IPedidoService_GetListaPedidoWebSetDetalle_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetListaPedidoWebSetDetalleResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_EliminarEstrategiaProductoAll_InputMessage">
     <wsdl:part name="parameters" element="tns:EliminarEstrategiaProductoAll" />
@@ -2812,9 +2812,9 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ListarEscalaDescuentoZona" message="tns:IPedidoService_ListarEscalaDescuentoZona_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ListarEscalaDescuentoZonaResponse" message="tns:IPedidoService_ListarEscalaDescuentoZona_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetEstrategiaProductoComponenteSeleccionado">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetEstrategiaProductoComponenteSeleccionado" message="tns:IPedidoService_GetEstrategiaProductoComponenteSeleccionado_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetEstrategiaProductoComponenteSeleccionadoResponse" message="tns:IPedidoService_GetEstrategiaProductoComponenteSeleccionado_OutputMessage" />
+    <wsdl:operation name="GetListaPedidoWebSetDetalle">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetListaPedidoWebSetDetalle" message="tns:IPedidoService_GetListaPedidoWebSetDetalle_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetListaPedidoWebSetDetalleResponse" message="tns:IPedidoService_GetListaPedidoWebSetDetalle_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="EliminarEstrategiaProductoAll">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/EliminarEstrategiaProductoAll" message="tns:IPedidoService_EliminarEstrategiaProductoAll_InputMessage" />
@@ -4827,8 +4827,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetEstrategiaProductoComponenteSeleccionado">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetEstrategiaProductoComponenteSeleccionado" style="document" />
+    <wsdl:operation name="GetListaPedidoWebSetDetalle">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetListaPedidoWebSetDetalle" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -8548,8 +8548,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetEstrategiaProductoComponenteSeleccionado">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetEstrategiaProductoComponenteSeleccionado" style="document" />
+    <wsdl:operation name="GetListaPedidoWebSetDetalle">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetListaPedidoWebSetDetalle" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

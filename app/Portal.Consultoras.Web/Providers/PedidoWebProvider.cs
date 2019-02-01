@@ -351,9 +351,9 @@ namespace Portal.Consultoras.Web.Providers
         /// <param name="ConsultoraID">Consultora</param>
         /// <param name="SetID">Set</param>
         /// <returns></returns>
-        public List<BEEstrategiaProducto> GetListaPedidoWebSetDetalle(int paisId, int campaniaId, long consultoraId, int setId)
+        public List<BEPedidoWebSetDetalle> GetListaPedidoWebSetDetalle(int paisId, int campaniaId, long consultoraId, int setId)
         {
-            List<BEEstrategiaProducto> listaProducto;
+            List<BEPedidoWebSetDetalle> listaProducto;
 
             using (var svc = new PedidoServiceClient())
             {
