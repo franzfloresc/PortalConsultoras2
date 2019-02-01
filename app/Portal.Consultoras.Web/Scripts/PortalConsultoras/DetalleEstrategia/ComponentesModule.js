@@ -27,13 +27,13 @@ var ComponentesModule = (function () {
         body: {
             modalActivadoClass: "modal_activado"
         },
-        componentes : {
+        componentes: {
             id: "#componentes",
             templateId: "#componentes-template"
         },
         divElegirOpciones: {
             id: "#elegir-opciones-modal",
-            marginRight :"0",
+            marginRight: "0",
             opacity: "1",
             modalFondo: {
                 id: ".modal-fondo",
@@ -208,6 +208,7 @@ var ComponentesModule = (function () {
     function getEstrategia() {
         return _estrategia;
     }
+
     return {
         ListarComponentes: ListarComponentes,
         SeleccionarComponente: SeleccionarComponente,

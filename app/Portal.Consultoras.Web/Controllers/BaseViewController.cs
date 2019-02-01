@@ -608,7 +608,7 @@ namespace Portal.Consultoras.Web.Controllers
                 || Constantes.NombrePalanca.PackNuevas == palanca);
 
             modelo.NoEsCampaniaActual = campaniaId != userData.CampaniaID;
-
+            modelo.Cantidad = 1;
             #endregion
 
             #region ODD
