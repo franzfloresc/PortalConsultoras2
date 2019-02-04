@@ -930,6 +930,8 @@ var FichaEditarModule = (function () {
         panel.AceptaClick(function (obj) {
             //PaisID, ClienteID, CodigoCliente, NombreCliente, Nombre
             //console.log('tu código:', obj);
+            $("#hfClienteId").val(obj.ClienteID);
+            $("#hfClienteNombre").val(obj.Nombre);
         });
 
         $("#btnShowCliente").click(function () {
