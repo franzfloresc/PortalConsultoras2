@@ -239,3 +239,19 @@
     align-items:center;
     overflow-wrap:break-word;
 }
+
+.enlace__editar {
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    cursor:pointer;
+}
+
+    .enlace__editar:hover {
+        opacity: 0.8;
+    }
+
+.enlace__editar img{
+    border:0;
+}
