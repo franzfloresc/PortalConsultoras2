@@ -690,4 +690,9 @@ ul.breadcumbs li:last-child a {
     opacity: .4;
 }
 
+
+.xmsg-tonos-agotados{
+    clear: both;
+    margin-left: 15px;
+}
   
