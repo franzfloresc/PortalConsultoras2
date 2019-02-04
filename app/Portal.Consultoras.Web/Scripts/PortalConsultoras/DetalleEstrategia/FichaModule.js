@@ -781,6 +781,7 @@ var FichaModule = (function (config) {
 
         if (_modeloFicha.BreadCrumbs) {
             _modeloFicha.BreadCrumbs.TipoAccionNavegar = _modeloFicha.TipoAccionNavegar;
+            console.log(_template.navegar);
             SetHandlebars("#" + _template.navegar, _modeloFicha.BreadCrumbs, _template.getTagDataHtml(_template.navegar));
         }
 
