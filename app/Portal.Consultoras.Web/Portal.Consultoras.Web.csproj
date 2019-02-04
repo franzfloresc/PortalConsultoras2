@@ -1663,6 +1663,7 @@
     <Content Include="Content\Images\icono-calendario.svg" />
     <Content Include="Content\Images\icono_avatar_menu.svg" />
     <Content Include="Content\Images\icono_banca_por_internet.png" />
+    <Content Include="Content\Images\icono_buscador.svg" />
     <Content Include="Content\Images\icono_buscador_blanco.svg" />
     <Content Include="Content\Images\icono_cargar_foto_desde_galeria.svg" />
     <Content Include="Content\Images\icono_carrito.svg" />

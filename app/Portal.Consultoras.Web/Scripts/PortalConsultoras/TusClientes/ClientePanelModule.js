@@ -12,11 +12,22 @@
     };
  
     var _abrir = function () {
-        $(PanelId).css("width", "400px");
+        //$(PanelId).css("width", "400px");
+        $('.modal-fondo').css('opacity', '.7');
+        $('.modal-fondo').show();
+        $(PanelId).show();
+        $(PanelId).css('margin-right', '0');
+        $(PanelId).css('opacity', '1');
     };
 
     var _cerrar = function () {
-        $(PanelId).css("width", "0");
+        debugger
+        $(PanelId).css('margin-right', '-330px');
+        $(PanelId)('opacity', '.0');
+        $(PanelId).hide();
+        $('.modal-fondo').hide();
+        $('.modal-fondo').css('opacity', '.0');
+        
     };
 
     var _configuracionInicial = function () {

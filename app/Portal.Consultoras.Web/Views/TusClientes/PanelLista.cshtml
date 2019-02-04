@@ -6,85 +6,117 @@
 
 @*<link href="@Url.Content("~/Content/Css/Site/Esika/style.css")" rel="stylesheet" />*@
 
-<style>
-    /*INIT Estilo Panel*/
-    .sidenav {
-        height: 100%;
-        width: 0;
-        position: fixed;
-        z-index: 1;
-        top: 0;
-        right: 0;
-        background-color: #f1f1f1 !important;
-        overflow-x: hidden;
-        transition: 0.5s;
-        /*padding-top: 60px;*/
-    }
-
-        .sidenav a {
-            padding: 8px 8px 8px 32px;
-            text-decoration: none;
-            font-size: 25px;
-            color: #818181;
-            display: block;
-            transition: 0.3s;
+@*<style>
+        /*INIT Estilo Panel*/
+        .sidenav {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            right: 0;
+            background-color: #f1f1f1 !important;
+            overflow-x: hidden;
+            transition: 0.5s;
+            /*padding-top: 60px;*/
         }
 
-            .sidenav a:hover {
-                color: #f1f1f1;
+            .sidenav a {
+                padding: 8px 8px 8px 32px;
+                text-decoration: none;
+                font-size: 25px;
+                color: #818181;
+                display: block;
+                transition: 0.3s;
             }
 
-        .sidenav .closebtn {
-            position: absolute;
-            top: 0;
-            right: 25px;
-            font-size: 36px;
-            margin-left: 50px;
-        }
-    /*END Estilo Panel*/
-</style>
+                .sidenav a:hover {
+                    color: #f1f1f1;
+                }
 
-<input id="hfBaseUrl" type="hidden" value="@Url.Content("~")" />
-<input id="hfUrlFrmRegistro" type="hidden" value="@Url.Action("PanelMantener","TusClientes")" />
+            .sidenav .closebtn {
+                position: absolute;
+                top: 0;
+                right: 25px;
+                font-size: 36px;
+                margin-left: 50px;
+            }
+        /*END Estilo Panel*/
+    </style>*@
 
-<input id="hfPaisID" type="hidden" />
-<input id="hfClienteID" type="hidden" />
-<input id="hfCodigoCliente" type="hidden" />
-<input id="hfNombreCliente" type="hidden" />
-<input id="hfNombre" type="hidden" />
+@*<input id="hfBaseUrl" type="hidden" value="@Url.Content("~")" />
+    <input id="hfUrlFrmRegistro" type="hidden" value="@Url.Action("PanelMantener","TusClientes")" />
 
-<hr class="clear" />
+    <input id="hfPaisID" type="hidden" />
+    <input id="hfClienteID" type="hidden" />
+    <input id="hfCodigoCliente" type="hidden" />
+    <input id="hfNombreCliente" type="hidden" />
+    <input id="hfNombre" type="hidden" />
 
-<a href="#" style="text-decoration:underline" id="btnPanelListaCerrar">Cerrar panel</a>
-<a href="#" style="text-decoration:underline" id="btnPanelListaAgregar">Agregar Cliente</a>
-<a href="#" style="text-decoration:underline" id="btnPanelListaAceptar">Aceptar selección</a>
+    <hr class="clear" />
 
-<input placeholder="Buscar" type="text" class="buscador_clientes" id="txtPanelListaBusqueda" style="width:100%" />
+    <a href="#" style="text-decoration:underline" id="btnPanelListaCerrar">Cerrar panel</a>
+    <a href="#" style="text-decoration:underline" id="btnPanelListaAgregar">Agregar Cliente</a>
+    <a href="#" style="text-decoration:underline" id="btnPanelListaAceptar">Aceptar selección</a>
+
+    <input placeholder="Buscar" type="text" class="buscador_clientes" id="txtPanelListaBusqueda" style="width:100%" />
 
 
-<hr class="clear" />
+    <hr class="clear" />
 
-<div id="handlebars_contenedor1"></div>
-<script id="handlebars_plantilla1" type="text/x-handlebars-template">
+    <div id="handlebars_contenedor1"></div>
+    <script id="handlebars_plantilla1" type="text/x-handlebars-template">
 
-    {{# each miData}}
-    <div class="content_listado_notificaciones" onclick="panelListaModule.seleccionarRegistro({{PaisID}}, {{ClienteID}}, '{{CodigoCliente}}', '{{NombreCliente}}', '{{Nombre}}')">
-        <div style="display:none;" class="cliente_id">{{ClienteID}}</div>
-        <div style="display:none;" class="codigo_cliente">{{CodigoCliente}}</div>
-        <div class="nombre_cliente_sb">{{NombreCliente}}</div>
+        {{# each miData}}
+        <div class="content_listado_notificaciones" onclick="panelListaModule.seleccionarRegistro({{PaisID}}, {{ClienteID}}, '{{CodigoCliente}}', '{{NombreCliente}}', '{{Nombre}}')">
+            <div style="display:none;" class="cliente_id">{{ClienteID}}</div>
+            <div style="display:none;" class="codigo_cliente">{{CodigoCliente}}</div>
+            <div class="nombre_cliente_sb">{{NombreCliente}}</div>
+        </div>
+        {{/each}}
+
+    </script>
+
+    <!-- INIT: Panel cliente-->
+    <div id="PanelClienteRegistro" class="sidenav" style="background-color:#f1f1f1 !important;">
+        <div id="PanelClienteRegistro_contenedor" style="background-color:#f1f1f1;">
+        </div>
     </div>
-    {{/each}}
-
-</script>
-
-<!-- INIT: Panel cliente-->
-<div id="PanelClienteRegistro" class="sidenav" style="background-color:#f1f1f1 !important;">
-    <div id="PanelClienteRegistro_contenedor" style="background-color:#f1f1f1;">
-    </div>
-</div>
-<!-- END: Panel cliente-->
+    <!-- END: Panel cliente-->*@
 @*
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.11.2.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/handlebars.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/General.js")"></script>
 *@
+
+
+    <div style="height: 100%;">
+        <div class="header_fixed_Clientes">
+            <div class="seleccion_header_Clientes" id="contendor-titulo-opciones">
+                <div id="titulo-opciones-seleccionadas" class="seleccion_header">
+                    <div>ASIGNAR A OTRO CLIENTE</div>
+                    <button id="btnPanelListaCerrar" class="button_cerrar_Clientes"><img src="/Content/Images/mobile/Esika/close-button.svg" alt=""></button>
+                </div>
+            </div>
+        </div>
+        <div class="seleccion_main_Clientes clientes-items" style="height: 100%">
+            <div class="buscar_clientes">
+                <input type="text" name="search" value="" placeholder="Buscar cliente" />
+                <img src="/Content/Images/icono_buscador.svg" alt="" />
+            </div>
+            <div class="clientes_lista">
+                <h3>NUEVO CLIENTE +</h3>
+                <ul>
+                    <li class="cliente-list">Angel Pérez</li>
+                    <li class="cliente-list">Azucena Suárez</li>
+                    <li class="cliente-list">Emy</li>
+                    <li class="cliente-list">Juanita</li>
+                    <li class="cliente-list">Angel Pérez</li>
+                    <li class="cliente-list">Azucena Suárez</li>
+                    <li class="cliente-list">Emy</li>
+                    <li class="cliente-list">Juanita</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
