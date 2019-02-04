@@ -18,7 +18,10 @@ var ConstantesModule = (function () {
         ProgramaNuevasRegalo: "ProgramaNuevasRegalo",
         ParticipaProgramaNuevas: "ParticipaProgramaNuevas",
         NotParticipaProgramaNuevas: "NotParticipaProgramaNuevas",
-        Ganadoras: "Ganadoras"
+        Ganadoras: "Ganadoras",
+        LiquidacionWeb: "OfertasLiquidacion",
+        GuiaNegocio: "GuiaNegocio",
+        SR:"ShowRoom"
     }
 
     var _keysLocalStorage = {
@@ -88,12 +91,22 @@ var ConstantesModule = (function () {
         MobileContenedorGanadorasCarrusel: "2081401",
         MobileContenedorGanadorasFicha: "2081402",
         MobileLandingGanadorasGanadorasCarrusel: "2111401",
-        MobileLandingGanadorasGanadorasFicha: "2111402"
+        MobileLandingGanadorasGanadorasFicha: "2111402",
+
+        DesktopBuscadorGanadorasDesplegable: "1041404",
+        MobileBuscadorGanadorasDesplegable: "2041404",
+        DesktopBuscadorGanadorasFicha: "1041402",
+        MobileBuscadorGanadorasFicha: "2041402",
+        DesktopBuscadorGanadorasCarrusel: "1101401",
+        MobileBuscadorGanadorasCarrusel: "2101401",
+        DesktopLandingBuscadorGanadorasFicha: "1101402",
+        MobileLandingBuscadorGanadorasFicha: "2101402"
+
     }
 
     // en AnaluticsPortal.js tambiar actualizar los valores
     var _origenPedidoWebEstructura = {
-        Dimension: 6,
+        Dimension: 7,
         Dispositivo: {
             Desktop: '1',
             Mobile: '2'
