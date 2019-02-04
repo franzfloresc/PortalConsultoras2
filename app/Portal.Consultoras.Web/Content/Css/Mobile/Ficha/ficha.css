@@ -699,7 +699,7 @@ ul.breadcumbs li:last-child a {
 
 /*Modal Asignar Cliente*/
 
-#AsignarCliente {
+#btnShowCliente {
     background: no-repeat;
     border: 1px solid #000;
     width: 100%;
@@ -715,11 +715,11 @@ ul.breadcumbs li:last-child a {
     background-size: 13px;
 }
 
-.asignarCliente {
+.btnShowCliente {
     margin-bottom: 0px;
 }
 
-    .asignarCliente h3 {
+    .btnShowCliente h3 {
         font-size: 13px;
         font-weight: bold !important;
         letter-spacing: 0.5px;
@@ -727,7 +727,7 @@ ul.breadcumbs li:last-child a {
         color: #808080;
     }
 
-    .asignarCliente li {
+    .btnShowCliente li {
         display: inline-block;
         font-size: 13px;
     }
@@ -847,6 +847,6 @@ ul.breadcumbs li:last-child a {
     overflow: hidden;
 }
 
-.AsignarCliente_bloque .col-xs-12 {
+.btnShowCliente_bloque .col-xs-12 {
     padding-top: 10px;
 }
