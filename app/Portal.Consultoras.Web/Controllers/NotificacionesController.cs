@@ -312,6 +312,7 @@ namespace Portal.Consultoras.Web.Controllers
             List<BENotificacionesDetallePedido> lstObservacionesPedido;
             _notificacionProvider.GetNotificacionesValAutoProl(ProcesoId, TipoOrigen, userData.PaisID, out lstObservaciones, out lstObservacionesPedido);
 
+
             if (!string.IsNullOrEmpty(Campania))
             {
                 int campaniaId = int.Parse(Campania);
@@ -333,58 +334,40 @@ namespace Portal.Consultoras.Web.Controllers
                     detallesPedidoWeb = pedidoServiceClient.SelectByCampania(parametros).ToList();
                 }
 
+
                 var hayPedidoSet = detallesPedidoWeb.Where(x => x.SetID > 0).ToList();
+                var listadoHijos = new List<BEPedidoWebDetalle>();
                 if (hayPedidoSet.Any())
                 {
-                    var pedidoSetSinObs = detallesPedidoWeb.Where(x => lstObservacionesPedido.Any(y => y.CUV != x.CUV)).ToList();
-                    if (pedidoSetSinObs.Any())
+
+                    var lstSetId = string.Empty;
+
+                    var pedidoId = detallesPedidoWeb.FirstOrDefault().PedidoID;                
+
+                    lstSetId = string.Join(",", detallesPedidoWeb.Where(x => x.SetID > 0).Select(e => e.SetID));
+                    using (var sv = new PedidoServiceClient())
                     {
-                        var pedidoId = pedidoSetSinObs.FirstOrDefault().PedidoID;
-                        var lstSetId = string.Join(",", pedidoSetSinObs.Where(x => x.SetID > 0).Select(e => e.SetID));
-                        var detallesPedidoSet = new List<BEPedidoWebDetalle>();
-
-                        using (var sv = new PedidoServiceClient())
-                        {
-                            detallesPedidoSet = sv.ObtenerCuvSetDetalle(userData.PaisID, campaniaId, userData.ConsultoraID, pedidoId, lstSetId).ToList();
-                        }
-
-                        foreach (var set in pedidoSetSinObs)
-                        {
-                            var setDetalle = detallesPedidoSet.Where(x => x.SetID == set.SetID);
-                            var setDetalleObs = lstObservacionesPedido.Where(x => setDetalle.Any(y => y.CUV == x.CUV));
-                            if (setDetalleObs != null)
-                            {
-                                var observaciones = string.Join("|", setDetalleObs.Select(e => e.ObservacionPROL));
-                                detallesPedidoWeb.Where(x => x.SetID == 1).Update(x => x.ObservacionPROL = observaciones);
-                            }
-                        }
-                    }
-
-                    foreach (var item in detallesPedidoWeb)
-                    {
-                        lstObservacionesPedido.Add(new BENotificacionesDetallePedido
-                        {
-                            CUV = item.CUV,
-                            Cantidad = item.Cantidad,
-                            PrecioUnidad = item.PrecioUnidad,
-                            ImporteTotal = item.ImporteTotal,
-                            Descripcion = item.DescripcionProd,
-                            ObservacionPROL = item.ObservacionPROL,
-                            NombreCliente = item.NombreCliente,
-                            DescuentoProl = item.DescuentoProl,
-                        });
-                    }
+                        listadoHijos = sv.ObtenerCuvSetDetalle(userData.PaisID, campaniaId, userData.ConsultoraID, pedidoId, lstSetId).ToList();
+                    }  
                 }
+
+
+                lstObservacionesPedido = _notificacionProvider.AgruparNotificaciones(lstObservacionesPedido, detallesPedidoWeb, listadoHijos, Campania);
+
+
             }
 
-            NotificacionesModel model = new NotificacionesModel
+
+                NotificacionesModel model = new NotificacionesModel
             {
                 ListaNotificacionesDetalle = lstObservaciones,
                 ListaNotificacionesDetallePedido = Mapper.Map<List<NotificacionesModelDetallePedido>>(lstObservacionesPedido),
                 NombreConsultora = userData.NombreConsultora,
                 simbolo = userData.Simbolo,
                 mGanancia = Util.DecimalToStringFormat(
-                    lstObservacionesPedido[0].MontoAhorroCatalogo + lstObservacionesPedido[0].MontoAhorroRevista,
+                    lstObservacionesPedido.Any()?
+                    lstObservacionesPedido[0].MontoAhorroCatalogo + lstObservacionesPedido[0].MontoAhorroRevista
+                    :0,
                     userData.CodigoISO),
                 Origen = TipoOrigen
             };

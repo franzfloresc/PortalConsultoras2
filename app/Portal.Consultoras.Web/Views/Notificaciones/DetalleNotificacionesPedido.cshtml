@@ -10,7 +10,7 @@
 {
     var isEsika = System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisIso == null ? "" : ViewBag.PaisIso);
     decimal MontoSinDescuento = Model.ListaNotificacionesDetallePedido.Sum(p => p.ImporteTotal);
-    descuento = Model.ListaNotificacionesDetallePedido[0].DescuentoProl;
+    descuento = Model.ListaNotificacionesDetallePedido.Any()? Model.ListaNotificacionesDetallePedido[0].DescuentoProl:0;
     totalPedido = (MontoSinDescuento - descuento);
 
     <div class="wrapper">

@@ -50,7 +50,7 @@ else
             {
                 var estilo = item.Visualizado ? "" : "no_leido";
 
-                <li class="@estilo" onclick="VisualizarPopup('@item.ProcesoId','@item.Observaciones','@item.Estado','@item.FacturaHoy.ToString()','@item.FechaFacturacion.Day','@item.FechaFacturacion.Month','@item.Visualizado.ToString()','@item.Asunto','@item.Proceso', this)">
+                <li class="@estilo" onclick="VisualizarPopup('@item.ProcesoId','@item.Observaciones','@item.Estado','@item.FacturaHoy.ToString()','@item.FechaFacturacion.Day','@item.FechaFacturacion.Month','@item.Visualizado.ToString()','@item.Asunto','@item.Proceso', this, '@item.CampaniaId')">
 
                     <div class="text-noti">
                         <div  >

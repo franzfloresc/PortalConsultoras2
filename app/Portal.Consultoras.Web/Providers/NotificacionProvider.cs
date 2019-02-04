@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServicePedidoRechazado;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System;
@@ -93,5 +94,66 @@ namespace Portal.Consultoras.Web.Providers
             }
             lstObservaciones = lstObservaciones.GroupBy(o => o.CUV).Select(g => g.First()).ToList();
         }
+
+
+        public List<BENotificacionesDetallePedido> AgruparNotificaciones( List<BENotificacionesDetallePedido> lstObservacionesPedido, 
+            List<BEPedidoWebDetalle> detallesPedidoWeb , List<BEPedidoWebDetalle> listadoHijos, string Campania)
+        {
+                            
+
+
+                    detallesPedidoWeb.ForEach(itemPedido => {
+
+                        if (itemPedido.SetID > 0 && listadoHijos.Any())
+                        {
+                            List<String> cuvHijos = listadoHijos.Where(x => x.SetID == itemPedido.SetID).Select(x => x.CUV).ToList();
+                            var observacionesHijos = lstObservacionesPedido.Where(x => cuvHijos.Contains(x.CUV) && x.ObservacionPROL != null).ToList();
+
+                            if (lstObservacionesPedido.Where(x => cuvHijos.Contains(x.CUV) && x.ObservacionPROL != null).FirstOrDefault() != null)
+                                observacionesHijos.Add(lstObservacionesPedido.Where(x => cuvHijos.Contains(x.CUV) && x.ObservacionPROL != null).FirstOrDefault());
+
+                            itemPedido.ObservacionPROL = observacionesHijos.Any() ? string.Join("", observacionesHijos.Select(e => e.ObservacionPROL)) : null;
+
+
+                        }
+                        else
+                        {
+                            var observacion = lstObservacionesPedido.FirstOrDefault(obs => obs.CUV == itemPedido.CUV && obs.ObservacionPROL != null);
+                            itemPedido.ObservacionPROL = observacion != null ? observacion.ObservacionPROL : null;
+
+                        }
+
+
+                    });
+
+ 
+
+                    lstObservacionesPedido = new List<BENotificacionesDetallePedido>();
+
+                    foreach (var item in detallesPedidoWeb)
+                    {
+                        lstObservacionesPedido.Add(new BENotificacionesDetallePedido
+                        {
+                            CUV = item.CUV,
+                            Cantidad = item.Cantidad,
+                            PrecioUnidad = item.PrecioUnidad,
+                            ImporteTotal = item.ImporteTotal,
+                            Descripcion = item.DescripcionProd,
+                            ObservacionPROL = item.ObservacionPROL,
+                            NombreCliente = item.NombreCliente,
+                            DescuentoProl = item.DescuentoProl,
+                            MontoAhorroCatalogo= item.MontoAhorroCatalogo,
+                            MontoAhorroRevista= item.MontoAhorroRevista
+                        });
+                    }
+               
+           
+
+            return lstObservacionesPedido;
+        }
+
+
+
+
     }
 }
