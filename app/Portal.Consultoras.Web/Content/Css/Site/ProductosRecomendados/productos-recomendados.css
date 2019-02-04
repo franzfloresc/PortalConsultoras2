@@ -108,7 +108,7 @@
     flex: 0 1 385px;
     min-height: 160.9px;
     margin-right:14px;
-    padding:14px 17px;
+    padding:8px 10px 11px 17px;
     border-radius: 4px;
     border: 1px solid #d8d8d8;
     -moz-box-shadow: 0 2px 4px 0 #d8d8d8;
@@ -128,9 +128,9 @@
 
 .producto_recomendado .agregado{
     position: absolute;
-    bottom: 7.5px;
-    right: 22px;
-    padding-right:0;
+    bottom: 8.5px;
+    right: 18px;
+    padding-right: 0;
 }
 
 /*.producto_recomendado:last-child{
@@ -195,9 +195,13 @@
 .producto_por_agregar_precio_normal,
 .producto_por_agregar_precio_oferta,
 .producto_recomendado_marca,
-.producto_recomendado_nombre
+.producto_recomendado_nombre,
+.producto_recomendado_precio_normal,
+.producto_recomendado_precio_oferta,
+.producto_recomendado_tipo_oferta_personalizacion
 {
-    letter-spacing:0.2px;
+    letter-spacing:0.5px;
+    line-height:16px;
 }
 
 .producto_recomendado_marca,
@@ -246,7 +250,6 @@
 }
 
 .producto_recomendado_precio_oferta{
-    margin-top:-5px;
     font-weight:bold;
 }
 
