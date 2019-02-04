@@ -105,13 +105,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                             switch (fechaFormatted)
                             {
                                 case "01/01/0001":
-                                    estadoSeguimiento.DiaMes = string.Empty;
-                                    estadoSeguimiento.HoraMinuto = string.Empty;
-                                    break;
                                 case "1/01/0001":
-                                    estadoSeguimiento.DiaMes = string.Empty;
-                                    estadoSeguimiento.HoraMinuto = string.Empty;
-                                    break;
                                 case "01/01/2001":
                                     estadoSeguimiento.DiaMes = string.Empty;
                                     estadoSeguimiento.HoraMinuto = string.Empty;
