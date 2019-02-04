@@ -892,11 +892,11 @@ var FichaEditarModule = (function () {
         AbrirLoad();
 
         var row = $(event).parent("[data-detalle-item]");
-        var campania = $.trim(row.getAttribute("data-campania"));
-        var cuv = $.trim(row.getAttribute("data-cuv"));
-        var palanca = $.trim(row.getAttribute("data-tipoestrategia"));
-        var OrigenPedidoWeb = $.trim(row.getAttribute("data-OrigenPedidoWeb"));
-        var setId = $.trim(row.getAttribute("data-SetID"));
+        var campania = $.trim(row.attr("data-campania"));
+        var cuv = $.trim(row.attr("data-cuv"));
+        var palanca = $.trim(row.attr("data-tipoestrategia"));
+        var OrigenPedidoWeb = $.trim(row.attr("data-OrigenPedidoWeb"));
+        var setId = $.trim(row.attr("data-SetID"));
         palanca = GetNombrePalanca(palanca);
 
         window.setTimeout(function() {
