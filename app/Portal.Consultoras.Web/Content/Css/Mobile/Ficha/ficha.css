@@ -617,4 +617,82 @@ ul.breadcumbs li:last-child a {
     }
 
 
+.boton_agotado_ficha {
+    width: 100%;
+    height: 48px;
+    font-size: 13px;
+    color: #B2B0B0;
+    background-color: #E5E5E5;
+    text-align: center;
+    font-weight: 700;
+    text-transform: uppercase;
+    border: 1px solid #D2D2D2;
+    line-height: 48px;
+    border-radius: 4px;
+}
+
+.tono_agotado {
+    border: 1px solid #D2D2D2;
+    cursor: default;
+}
+
+    .tono_agotado::after {
+        content: "";
+        display: block;
+        width: 98px;
+        height: 1px;
+        background-color: #c5c5c5;
+        transform: rotate(45deg);
+        z-index: 1;
+        position: absolute;
+        top: 29px;
+        left: -19px;
+    }
+
+.tono_agotado img {
+    opacity: .4;
+}
+
+.seleccion_btn_gotado button {
+    color: #B2B0B0 !important;
+    background-color: #E5E5E5 !important;
+    border: 1px solid #D2D2D2 !important;
+    cursor: default;
+}
+
+
+
+.tono_agotado_modal li:nth-child(1):after {
+    content: "";
+    display: block;
+    width: 85px;
+    height: 1px;
+    background-color: #c5c5c5;
+    transform: rotate(45deg);
+    z-index: 1;
+    position: absolute;
+    top: 30px;
+    left: -12px;
+}
+
+.tono_agotado_modal li:nth-child(1) {
+    border: 1px solid #D2D2D2;
+    padding-left: 0px !important;
+    position: relative;
+}
+
+
+.tono_agotado_modal li:nth-child(1) img{
+    opacity: .4;
+}
+
+.tono_agotado_modal li:nth-child(2){
+    opacity: .4;
+}
+
+
+.xmsg-tonos-agotados{
+    clear: both;
+    margin-left: 15px;
+}
   

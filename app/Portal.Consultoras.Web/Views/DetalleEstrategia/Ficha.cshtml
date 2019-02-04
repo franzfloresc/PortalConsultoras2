@@ -151,6 +151,7 @@
 
                 </div>
                 <div id="dvContenedorAgregar" class="contenedor_agregar">
+                    {{#if TieneStock}}
                     <div class="contenedor_rangos {{#if esCampaniaSiguiente}} {{ClaseBloqueadaRangos}} {{/if}}" id="idcontenedor_rangos" data-cantidad-contenedor="">
                         <input class="txt_cantidad_pedido ValidaNumeral ValidaPasteNumeral" {{#if esCampaniaSiguiente}} {{RangoInputEnabled}} {{/if}} type="text" value="1" size="2" maxlength="2" data-input="cantidad" data-cantidad-input="-">
                         <div>
@@ -162,7 +163,19 @@
                             </a>
                         </div>
                     </div>
-
+                    {{else}}
+                    <div class="contenedor_rangos" id="idcontenedor_rangos" data-cantidad-contenedor="" style="display:none">
+                        @*<input class="txt_cantidad_pedido ValidaNumeral ValidaPasteNumeral" type="text" value="1" size="2" maxlength="2" style="pointer-events: none;" data-input="cantidad" data-cantidad-input="-">
+                        <div>
+                            <a class="txt_menos" data-cantidad-agregar="-" style="pointer-events: none;">
+                                <div class="dibujar_linea dibujar_menos"></div>
+                            </a>
+                            <a class="txt_mas" data-cantidad-agregar="+" style="pointer-events: none;">
+                                <div class="dibujar_linea dibujar_mas"></div>
+                            </a>
+                        </div>*@
+                    </div>
+                    {{/if}}
                     <div data-selecciontono="tooltip" class="popover top tooltip_agregar_desabilitado" role="tooltip" id="" style="display: none;">
                         <div class="arrow" style="left: 20%;"></div>
                         <div class="popover-content">
@@ -181,10 +194,16 @@
                             </ul>
                         </div>
                     </div>
+                    {{#if TieneStock}}
                     <a id="btnAgregalo"
                        class="btn_agregalo {{#if esCampaniaSiguiente}} {{ClaseBloqueada}} {{/if}}"
                        {{#if esCampaniaSiguiente}} data-bloqueada="{{ClaseBloqueada}}" {{/if}}
                        onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, false, 0, true); ">AGRÉGALO</a>
+                    {{else}}
+                    <a id="btnAgregalo"
+                       class="boton_Agregalo_agotado btn_agregalo"
+                       style="pointer-events: none;">AGOTADO</a>
+                    {{/if}}
 
                     <hr class="clear">
                     <div class="ficha_div_libre_agregado">
@@ -202,189 +221,189 @@
                     </div>
                 </div>
 
-            </div>
-        </script>
+                    </div>
+                </script>
 
-        @Html.Partial("ComponentesTemplate")
+                @Html.Partial("ComponentesTemplate")
 
-        <div id="ContenidoProducto" class="contenedor_ficha_tabs" style="display:none;">
-            <div class="tabla_ficha_tab">
-                <div class="row_ficha_tab">
-                    <div class="cell_ficha_tab" id="div_ficha_tab1">
-                        <div class="contents_ficha_tab">
-                            <input id="ficha_tab_1" class="imput_tab_clean imput_tab" type="radio" name="tabs" data-numTab="1">
-                            <label for="ficha_tab_1" class="label_tab">DETALLE DEL PRODUCTO</label>
+                <div id="ContenidoProducto" class="contenedor_ficha_tabs" style="display:none;">
+                    <div class="tabla_ficha_tab">
+                        <div class="row_ficha_tab">
+                            <div class="cell_ficha_tab" id="div_ficha_tab1">
+                                <div class="contents_ficha_tab">
+                                    <input id="ficha_tab_1" class="imput_tab_clean imput_tab" type="radio" name="tabs" data-numTab="1">
+                                    <label for="ficha_tab_1" class="label_tab">DETALLE DEL PRODUCTO</label>
+                                </div>
+                            </div>
+                            <div class="cell_ficha_tab" id="div_ficha_tab2">
+                                <div class="contents_ficha_tab">
+                                    <input id="ficha_tab_2" class="imput_tab_clean imput_tab" type="radio" data-numTab="2" name="tabs">
+                                    <label for="ficha_tab_2" class="label_tab">DETALLE DEL PACK</label>
+                                </div>
+                            </div>
+                            <div class="cell_ficha_tab" id="div_ficha_tab3">
+                                <div class="contents_ficha_tab">
+                                    <input id="ficha_tab_3" class="imput_tab_clean imput_tab" type="radio" data-numTab="3" name="tabs">
+                                    <label for="ficha_tab_3" class="label_tab">TIPS DE VENTA</label>
+                                </div>
+                            </div>
+                            <div class="cell_ficha_tab" id="div_ficha_tab4">
+                                <div class="contents_ficha_tab">
+                                    <input id="ficha_tab_4" class="imput_tab_clean imput_tab" type="radio" data-numTab="4" name="tabs">
+                                    <label for="ficha_tab_4" class="label_tab">BENEFICIOS</label>
+                                </div>
+                            </div>
+                            <div class="cell_ficha_tab" id="div_ficha_tab5">
+                                <div class="contents_ficha_tab">
+                                    <input id="ficha_tab_5" class="imput_tab_clean imput_tab" type="radio" data-numTab="5" name="tabs">
+                                    <label for="ficha_tab_5" class="label_tab">VIDEO</label>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="cell_ficha_tab" id="div_ficha_tab2">
-                        <div class="contents_ficha_tab">
-                            <input id="ficha_tab_2" class="imput_tab_clean imput_tab" type="radio" data-numTab="2" name="tabs">
-                            <label for="ficha_tab_2" class="label_tab">DETALLE DEL PACK</label>
+                    <section id="contenido_1" class="seccion_tab">
+                        <ul class="txt_ul">
+                            <li class="txt_li">
+                                <div class="txt_li_titulo">Labial en barra rouge lintense:</div>
+                                <div class="txt_li_descripcion">El labial Color HD Velvet tiene un color mate 5 veces más intenso que hidrata tus labios. Contiene una fórmula con pigmentos de color saturado y microprismas que capturan la luz para amplificar el color. Labial de sensación ligera.</div>
+                            </li>
+                            <li>
+                                <div class="txt_li_titulo">Pulso:</div>
+                                <div class="txt_li_descripcion">Posee un poder de seduccón innato que le permite conquistar a cualquier mujer a través de su mirada penetrante y su media sonrisa. Su aspecto puede parecer irreverente pero su elegancia y gestos de caballerosidad lo hacen irresistible. Aún sin conocerlo, puedes saber que</div>
+                            </li>
+                        </ul>
+                    </section>
+                    <section id="contenido_2" class="seccion_tab">
+                        <ul class="txt_ul">
+                            <li class="txt_li">
+                                <div class="txt_li_titulo">Labial en barra rouge lintense:</div>
+                                <div class="txt_li_descripcion">El labial Color HD Velvet tiene un color mate 5 veces más intenso que hidrata tus labios. Contiene una fórmula con pigmentos de color saturado y microprismas que capturan la luz para amplificar el color. Labial de sensación ligera.</div>
+                            </li>
+                            <li>
+                                <div class="txt_li_titulo">Pulso:</div>
+                                <div class="txt_li_descripcion">Posee un poder de seduccón innato que le permite conquistar a cualquier mujer a través de su mirada penetrante y su media sonrisa. Su aspecto puede parecer irreverente pero su elegancia y gestos de caballerosidad lo hacen irresistible. Aún sin conocerlo, puedes saber que</div>
+                            </li>
+                        </ul>
+                    </section>
+                    <section id="contenido_3" class="seccion_tab">
+                        <div class="contenedor_img_txt">
+                            <div class="txt_img_seccion_tab">
+                                <div class="img_seccion_tab">
+                                    <img class="contenedor_img" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_2000934882018554845_vffslsirks.png" alt="">
+                                </div>
+                                <div class="txt_seccion_tab">
+                                    Tiene un aroma maderoso con Canela de Magadascar de larga duración.<br />
+                                    Su envase azul es moderno y sotisficado. Inspirado en el hombre.
+                                </div>
+                            </div>
+                            <div class="txt_img_seccion_tab">
+                                <div class="img_seccion_tab">
+                                    <img class="contenedor_img" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_2000892222018550244_gbatklhzxl.png" alt="">
+                                </div>
+                                <div class="txt_seccion_tab">
+                                    Aplícala directamente en la muñeca de tu cliente usando el demostrador.
+                                </div>
+                            </div>
+                            <div class="txt_img_seccion_tab">
+                                <div class="img_seccion_tab">
+                                    <img class="contenedor_img" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200083615201851656_wedqazhdhj.png" alt="">
+                                </div>
+                                <div class="txt_seccion_tab">
+                                    Convencelo comentando que el olor durará hasta el final del día y pregunta: "¿Te pido el fresco aroma de Cardigan Evolución?"
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="cell_ficha_tab" id="div_ficha_tab3">
-                        <div class="contents_ficha_tab">
-                            <input id="ficha_tab_3" class="imput_tab_clean imput_tab" type="radio" data-numTab="3" name="tabs">
-                            <label for="ficha_tab_3" class="label_tab">TIPS DE VENTA</label>
+                    </section>
+                    <section id="contenido_4" class="seccion_tab">
+                        <div class="contenedor_txt_p">
+                            <div class="txt_p_titulo">¿Por qué nos encanta?</div>
+                            <div class="txt_p">
+                                El Labial Color HD Velvet tiene un color mate 5 veces más intenso que hidrata tus labios. Contiene una fórmula con pigmentos de color saturado y microprismas que capturan la luz para amplificar el color. Labial de sensación ligera.
+                            </div>
+                            <div class="txt_p_titulo">¿Qué hace?</div>
+                            <div class="txt_p">
+                                El nuevo labial mate posee una gran innovación que mantiene tus labios hidratados hasta por 24 horas. Disfruta de todo el color
+                                y la suavidad de miles de pétalos de rosa en tus labios.
+                            </div>
+                            <div class="txt_p_titulo">¿Cómo funciona?</div>
+                            <div class="txt_p">
+                                Labial Mate aterciopelado, no reseca los labios y viene con identificador de color en el envase.
+                            </div>
                         </div>
-                    </div>
-                    <div class="cell_ficha_tab" id="div_ficha_tab4">
-                        <div class="contents_ficha_tab">
-                            <input id="ficha_tab_4" class="imput_tab_clean imput_tab" type="radio" data-numTab="4" name="tabs">
-                            <label for="ficha_tab_4" class="label_tab">BENEFICIOS</label>
-                        </div>
-                    </div>
-                    <div class="cell_ficha_tab" id="div_ficha_tab5">
-                        <div class="contents_ficha_tab">
-                            <input id="ficha_tab_5" class="imput_tab_clean imput_tab" type="radio" data-numTab="5" name="tabs">
-                            <label for="ficha_tab_5" class="label_tab">VIDEO</label>
-                        </div>
-                    </div>
+                    </section>
+                    <section id="contenido_5" class="seccion_tab">
+                        <div class="contenedor_iframe_seccion_tab" id="contenedor-tab-video"></div>
+                    </section>
                 </div>
+                @if (Model.TieneCarrusel)
+                {
+                    <div id="divFichaCarrusel" class="contenedor_ficha_carrusel">
+                        <div class="contenedor_titulo_carrusel">
+                            <div class="contenedor_linea_carrusel">
+                                <div class="dibujar_linea dibujar_linea_titulo_carrusel linea_izquierda"></div>
+                            </div>
+                            <div id="tituloCarrusel" class="txt_titulo_carrusel"></div>
+                            <div class="contenedor_linea_carrusel">
+                                <div class="dibujar_linea dibujar_linea_titulo_carrusel linea_derecha"></div>
+                            </div>
+                        </div>
+                        <!--carrusel-->
+                        <div class="contenedor_carrusel" data-OrigenPedidoWeb="@Model.OrigenUrl" data-OrigenPedidoWebAgregar="@Model.OrigenAgregarCarrusel">
+                            <div id="divFichaCarruselProducto" style="text-align:center;"></div>
+                        </div>
+                    </div>
+                }
             </div>
-            <section id="contenido_1" class="seccion_tab">
-                <ul class="txt_ul">
-                    <li class="txt_li">
-                        <div class="txt_li_titulo">Labial en barra rouge lintense:</div>
-                        <div class="txt_li_descripcion">El labial Color HD Velvet tiene un color mate 5 veces más intenso que hidrata tus labios. Contiene una fórmula con pigmentos de color saturado y microprismas que capturan la luz para amplificar el color. Labial de sensación ligera.</div>
-                    </li>
-                    <li>
-                        <div class="txt_li_titulo">Pulso:</div>
-                        <div class="txt_li_descripcion">Posee un poder de seduccón innato que le permite conquistar a cualquier mujer a través de su mirada penetrante y su media sonrisa. Su aspecto puede parecer irreverente pero su elegancia y gestos de caballerosidad lo hacen irresistible. Aún sin conocerlo, puedes saber que</div>
-                    </li>
-                </ul>
-            </section>
-            <section id="contenido_2" class="seccion_tab">
-                <ul class="txt_ul">
-                    <li class="txt_li">
-                        <div class="txt_li_titulo">Labial en barra rouge lintense:</div>
-                        <div class="txt_li_descripcion">El labial Color HD Velvet tiene un color mate 5 veces más intenso que hidrata tus labios. Contiene una fórmula con pigmentos de color saturado y microprismas que capturan la luz para amplificar el color. Labial de sensación ligera.</div>
-                    </li>
-                    <li>
-                        <div class="txt_li_titulo">Pulso:</div>
-                        <div class="txt_li_descripcion">Posee un poder de seduccón innato que le permite conquistar a cualquier mujer a través de su mirada penetrante y su media sonrisa. Su aspecto puede parecer irreverente pero su elegancia y gestos de caballerosidad lo hacen irresistible. Aún sin conocerlo, puedes saber que</div>
-                    </li>
-                </ul>
-            </section>
-            <section id="contenido_3" class="seccion_tab">
-                <div class="contenedor_img_txt">
-                    <div class="txt_img_seccion_tab">
-                        <div class="img_seccion_tab">
-                            <img class="contenedor_img" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_2000934882018554845_vffslsirks.png" alt="">
-                        </div>
-                        <div class="txt_seccion_tab">
-                            Tiene un aroma maderoso con Canela de Magadascar de larga duración.<br />
-                            Su envase azul es moderno y sotisficado. Inspirado en el hombre.
-                        </div>
-                    </div>
-                    <div class="txt_img_seccion_tab">
-                        <div class="img_seccion_tab">
-                            <img class="contenedor_img" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_2000892222018550244_gbatklhzxl.png" alt="">
-                        </div>
-                        <div class="txt_seccion_tab">
-                            Aplícala directamente en la muñeca de tu cliente usando el demostrador.
-                        </div>
-                    </div>
-                    <div class="txt_img_seccion_tab">
-                        <div class="img_seccion_tab">
-                            <img class="contenedor_img" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200083615201851656_wedqazhdhj.png" alt="">
-                        </div>
-                        <div class="txt_seccion_tab">
-                            Convencelo comentando que el olor durará hasta el final del día y pregunta: "¿Te pido el fresco aroma de Cardigan Evolución?"
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <section id="contenido_4" class="seccion_tab">
-                <div class="contenedor_txt_p">
-                    <div class="txt_p_titulo">¿Por qué nos encanta?</div>
-                    <div class="txt_p">
-                        El Labial Color HD Velvet tiene un color mate 5 veces más intenso que hidrata tus labios. Contiene una fórmula con pigmentos de color saturado y microprismas que capturan la luz para amplificar el color. Labial de sensación ligera.
-                    </div>
-                    <div class="txt_p_titulo">¿Qué hace?</div>
-                    <div class="txt_p">
-                        El nuevo labial mate posee una gran innovación que mantiene tus labios hidratados hasta por 24 horas. Disfruta de todo el color
-                        y la suavidad de miles de pétalos de rosa en tus labios.
-                    </div>
-                    <div class="txt_p_titulo">¿Cómo funciona?</div>
-                    <div class="txt_p">
-                        Labial Mate aterciopelado, no reseca los labios y viene con identificador de color en el envase.
-                    </div>
-                </div>
-            </section>
-            <section id="contenido_5" class="seccion_tab">
-                <div class="contenedor_iframe_seccion_tab" id="contenedor-tab-video"></div>
-            </section>
         </div>
-        @if (Model.TieneCarrusel)
-        {
-            <div id="divFichaCarrusel" class="contenedor_ficha_carrusel">
-                <div class="contenedor_titulo_carrusel">
-                    <div class="contenedor_linea_carrusel">
-                        <div class="dibujar_linea dibujar_linea_titulo_carrusel linea_izquierda"></div>
-                    </div>
-                    <div id="tituloCarrusel" class="txt_titulo_carrusel"></div>
-                    <div class="contenedor_linea_carrusel">
-                        <div class="dibujar_linea dibujar_linea_titulo_carrusel linea_derecha"></div>
-                    </div>
-                </div>
-                <!--carrusel-->
-                <div class="contenedor_carrusel" data-OrigenPedidoWeb="@Model.OrigenUrl" data-OrigenPedidoWebAgregar="@Model.OrigenAgregarCarrusel">
-                    <div id="divFichaCarruselProducto" style="text-align:center;"></div>
-                </div>
-            </div>
-        }
-    </div>
-</div>
-@Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
-@Html.Partial("~/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", Model.MensajeProductoBloqueado)
-@Html.Partial("~/Views/DetalleEstrategia/template-ficha-detalle-video.cshtml")
+        @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
+        @Html.Partial("~/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", Model.MensajeProductoBloqueado)
+        @Html.Partial("~/Views/DetalleEstrategia/template-ficha-detalle-video.cshtml")
 
-@section scripts{
+        @section scripts{
 
-    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/EstrategiaAgregar")
-    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Ficha")
+            @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/EstrategiaAgregar")
+            @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Ficha")
 
-    <script type="text/javascript">
-        AbrirLoad();
+            <script type="text/javascript">
+                AbrirLoad();
 
-        var fichaModule;
-        var carruselModule;
-        var tieneCarrusel = '@Model.TieneCarrusel';
+                var fichaModule;
+                var carruselModule;
+                var tieneCarrusel = '@Model.TieneCarrusel';
 
-        $(document).ready(function () {
-            fichaModule = FichaModule({
-                localStorageModule: LocalStorageModule(),
-                palanca: "@Model.Palanca",
-                campania: "@Model.Campania",
-                cuv: "@Model.Cuv",
-                origen: "@Model.OrigenUrl",
-                tieneSession: "@Model.TieneSession",
-                urlObtenerComponentes: '@Url.Action("ObtenerComponentes", "DetalleEstrategia")'
-            });
-            fichaModule.Inicializar();
+                $(document).ready(function () {
+                    fichaModule = FichaModule({
+                        localStorageModule: LocalStorageModule(),
+                        palanca: "@Model.Palanca",
+                        campania: "@Model.Campania",
+                        cuv: "@Model.Cuv",
+                        origen: "@Model.OrigenUrl",
+                        tieneSession: "@Model.TieneSession",
+                        urlObtenerComponentes: '@Url.Action("ObtenerComponentes", "DetalleEstrategia")'
+                    });
+                    fichaModule.Inicializar();
 
-            if (tieneCarrusel == "True")
-            {
-                carruselModule = CarruselModule({
-                    palanca: "@Model.Palanca",
-                    campania: "@Model.Campania",
-                    cuv: "@Model.Cuv",
-                    urlDataCarrusel: '@Url.Action("FichaObtenerProductosCarrusel", "Estrategia", new { Area = "" })',
-                    idPlantillaProducto: "#producto-landing-template",
-                    divCarruselContenedor: "#divFichaCarrusel",
-                    idTituloCarrusel: "#tituloCarrusel",
-                    divCarruselProducto: "#divFichaCarruselProducto",
-                    OrigenPedidoWeb: "@Model.OrigenUrl"
+                    if (tieneCarrusel)
+                    {
+                        carruselModule = CarruselModule({
+                            palanca: "@Model.Palanca",
+                            campania: "@Model.Campania",
+                            cuv: "@Model.Cuv",
+                            urlDataCarrusel: '@Url.Action("FichaObtenerProductosCarrusel", "Estrategia", new { Area = "" })',
+                            idPlantillaProducto: "#producto-landing-template",
+                            divCarruselContenedor: "#divFichaCarrusel",
+                            idTituloCarrusel: "#tituloCarrusel",
+                            divCarruselProducto: "#divFichaCarruselProducto",
+                            OrigenPedidoWeb: "@Model.OrigenUrl"
+                        });
+                        carruselModule.Inicializar();
+                    }
+                    CerrarLoad();
                 });
-                carruselModule.Inicializar();
-            }
-            CerrarLoad();
-        });
 
-        $(document).ajaxStop(function () {
+                $(document).ajaxStop(function () {
 
-        })
+                })
 
-    </script>
-}
+            </script>
+        }

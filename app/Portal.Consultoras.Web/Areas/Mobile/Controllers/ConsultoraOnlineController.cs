@@ -101,125 +101,156 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         [HttpPost]
         public JsonResult Inscripcion(ClienteContactaConsultoraModel model)
         {
-
-            if (ModelState.IsValid)
+            try
             {
-                try
-                {
-                    if (model.ActualizarClave == null) model.ActualizarClave = "";
-                    if (model.ConfirmarClave == null) model.ConfirmarClave = "";
-                    var sEmail = Util.Trim(model.Email);
-                    var sTelefono = Util.Trim(model.Telefono);
-                    var sCelular = Util.Trim(model.Celular);
-
-                    if (model.Email != string.Empty)
-                    {
-                        using (var svr = new UsuarioServiceClient())
-                        {
-                            var cantidad = svr.ValidarEmailConsultora(userData.PaisID, model.Email, userData.CodigoUsuario);
-
-                            if (cantidad > 0)
-                            {
-                                return Json(new
-                                {
-                                    success = false,
-                                    message = "La dirección de correo electrónico ingresada ya pertenece a otra Consultora.",
-                                    data = ""
-                                });
-                            }
-                        }
-                    }
-
-                    using (var sv = new UsuarioServiceClient())
-                    {
-                        var result = sv.UpdateDatosPrimeraVez(userData.PaisID, userData.CodigoUsuario, model.Email, model.Telefono, "", model.Celular, model.CorreoAnterior, model.AceptoContrato);
-
-                        if (result == 0)
-                        {
-                            return Json(new
-                            {
-                                success = false,
-                                message = "Error al actualizar datos, intentelo mas tarde.",
-                                data = ""
-                            });
-                        }
-                        else
-                        {
-                            string message;
-
-                            if (model.ActualizarClave != "")
-                            {
-                                var cambio = sv.ChangePasswordUser(userData.PaisID, userData.CodigoUsuario, userData.CodigoISO + userData.CodigoUsuario, model.ConfirmarClave.ToUpper(), string.Empty, EAplicacionOrigen.BienvenidaConsultora);
-
-                                message = cambio ? "- Los datos han sido actualizados correctamente.\n " : "- Los datos han sido actualizados correctamente.\n - La contraseña no ha sido modificada, intentelo mas tarde.\n ";
-                            }
-                            else
-                            {
-                                message = "- Los datos han sido actualizados correctamente.\n ";
-                            }
-
-                            if (!string.IsNullOrEmpty(model.Email))
-                            {
-                                try
-                                {
-                                    var parametros = new string[] { userData.CodigoUsuario, userData.PaisID.ToString(), userData.CodigoISO, model.Email };
-                                    var paramQuerystring = Util.EncriptarQueryString(parametros);
-                                    var request = this.HttpContext.Request;
-
-                                    var mensaje = mensajeConsultora(userData.PrimerNombre, String.Format("{0}ConsultoraOnline/AtenderCorreo?tipo=Afiliar&data={1}", Util.GetUrlHost(request), paramQuerystring));
-                                    Util.EnviarMailMobile("no-responder@somosbelcorp.com", model.Email, "Confirma tu mail y actívate como Consultora Online", mensaje, true, "Consultora Online Belcorp");
-
-                                    message += "- Se ha enviado un correo electrónico de verificación a la dirección ingresada.";
-                                }
-                                catch (Exception ex)
-                                {
-                                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                                    message += ex.Message;
-                                    return Json(new
-                                    {
-                                        success = false,
-                                        message = message,
-                                        data = ""
-                                    });
-                                }
-
-                            }
-
-                            userData.CambioClave = 1;
-                            userData.EMail = sEmail;
-                            userData.Telefono = sTelefono;
-                            userData.Celular = sCelular;
-
-                            SessionManager.SetUserData(userData);
-
-                            return Json(new
-                            {
-                                success = true,
-                                message = message,
-                                data = ""
-                            });
-                        }
-                    }
-                }
-                catch (Exception ex)
+                if (!ModelState.IsValid)
                 {
                     return Json(new
                     {
                         success = false,
-                        message = ex.Message,
+                        message = "Algun campo requerido no ha sido ingresado",
                         data = ""
                     });
                 }
+
+                model = InscripcionPrepararDatos(model);
+
+                var mensaje = InscripcionValidarCorreo(model);
+                if (mensaje != "")
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = mensaje,
+                        data = ""
+                    });
+                }
+
+                using (var sv = new UsuarioServiceClient())
+                {
+                    var result = sv.UpdateDatosPrimeraVez(userData.PaisID, userData.CodigoUsuario, model.Email, model.Telefono, "", model.Celular, model.CorreoAnterior, model.AceptoContrato);
+
+                    if (result == 0)
+                    {
+                        return Json(new
+                        {
+                            success = false,
+                            message = "Error al actualizar datos, intentelo mas tarde.",
+                            data = ""
+                        });
+                    }
+
+                }
+
+                string message = InscripcionActualizarClave(model);
+                message = InscripcionAfiliaCliente(model, message);
+
+                var sEmail = Util.Trim(model.Email);
+                var sTelefono = Util.Trim(model.Telefono);
+                var sCelular = Util.Trim(model.Celular);
+
+                userData.CambioClave = 1;
+                userData.EMail = sEmail;
+                userData.Telefono = sTelefono;
+                userData.Celular = sCelular;
+
+                SessionManager.SetUserData(userData);
+
+                return Json(new
+                {
+                    success = true,
+                    message = message,
+                    data = ""
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    data = ""
+                });
             }
 
-            return Json(new
-            {
-                success = false,
-                message = "Algun campo requerido no ha sido ingresado",
-                data = ""
-            });
         }
 
+        private ClienteContactaConsultoraModel InscripcionPrepararDatos(ClienteContactaConsultoraModel model)
+        {
+            if (model.ActualizarClave == null) model.ActualizarClave = "";
+            if (model.ConfirmarClave == null) model.ConfirmarClave = "";
+            return model;
+        }
+
+        private string InscripcionValidarCorreo(ClienteContactaConsultoraModel model)
+        {
+            var respuesta = "";
+
+            if (model.Email != string.Empty)
+            {
+                using (var svr = new UsuarioServiceClient())
+                {
+                    var cantidad = svr.ValidarEmailConsultora(userData.PaisID, model.Email, userData.CodigoUsuario);
+
+                    if (cantidad > 0)
+                    {
+                        respuesta = "La dirección de correo electrónico ingresada ya pertenece a otra Consultora.";
+                    }
+                }
+            }
+            return respuesta;
+        }
+
+        private string InscripcionActualizarClave(ClienteContactaConsultoraModel model)
+        {
+            var message = "";
+
+            if (model.ActualizarClave != "")
+            {
+                using (UsuarioServiceClient sv = new UsuarioServiceClient())
+                {
+                    var cambio = sv.ChangePasswordUser(userData.PaisID, userData.CodigoUsuario,
+                    userData.CodigoISO + userData.CodigoUsuario, model.ConfirmarClave.ToUpper(),
+                    string.Empty, EAplicacionOrigen.BienvenidaConsultora);
+
+                    message = cambio
+                        ? "- Los datos han sido actualizados correctamente.\n "
+                        : "- Los datos han sido actualizados correctamente.\n - La contraseña no ha sido modificada, intentelo mas tarde.\n ";
+                }
+            }
+            else
+            {
+                message = "- Los datos han sido actualizados correctamente.\n ";
+            }
+
+            return message;
+        }
+
+        private string InscripcionAfiliaCliente(ClienteContactaConsultoraModel model, string message)
+        {
+            if (!string.IsNullOrEmpty(model.Email))
+            {
+                try
+                {
+                    var parametros = new string[] { userData.CodigoUsuario, userData.PaisID.ToString(), userData.CodigoISO, model.Email };
+                    var paramQuerystring = Util.EncriptarQueryString(parametros);
+                    var request = this.HttpContext.Request;
+
+                    var mensaje = mensajeConsultora(userData.PrimerNombre, String.Format("{0}ConsultoraOnline/AtenderCorreo?tipo=Afiliar&data={1}", Util.GetUrlHost(request), paramQuerystring));
+                    Util.EnviarMailMobile("no-responder@somosbelcorp.com", model.Email, "Confirma tu mail y actívate como Consultora Online", mensaje, true, "Consultora Online Belcorp");
+
+                    message += "- Se ha enviado un correo electrónico de verificación a la dirección ingresada.";
+                }
+                catch (Exception ex)
+                {
+                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                    message += ex.Message;
+                }
+
+            }
+
+            return message;
+        }
         public ActionResult InscripcionCompleta()
         {
             return View();
@@ -968,78 +999,22 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     olstMisPedidosDet = svc.GetMisPedidosDetalleConsultoraOnline(userData.PaisID, pedidoId).ToList();
                 }
 
+                model.ListaDetalle2 = new List<MisPedidosDetalleModel2>();
                 if (olstMisPedidosDet.Count > 0)
                 {
                     model.MiPedido = pedido;
 
                     SessionManager.SetobjMisPedidosDetalle(olstMisPedidosDet);
 
-                    // 0=App Catalogos, >0=Portal Marca
-                    if (pedido.MarcaID == 0)
-                    {
-                        int? revistaGana = null;
-                        using (PedidoServiceClient sv = new PedidoServiceClient())
-                        {
-                            revistaGana = sv.ValidarDesactivaRevistaGana(userData.PaisID, userData.CampaniaID, userData.CodigoZona);
-                        }
-
-                        var txtBuil = new StringBuilder();
-                        foreach (var item in olstMisPedidosDet)
-                        {
-                            txtBuil.Append(item.CUV + ",");
-                        }
-
-                        var inputCuv = txtBuil.ToString();
-                        inputCuv = inputCuv.Substring(0, inputCuv.Length - 1);
-
-                        List<ServiceODS.BEProducto> olstMisProductos;
-
-                        using (ODSServiceClient svc = new ODSServiceClient())
-                        {
-                            olstMisProductos = svc.GetValidarCUVMisPedidos(userData.PaisID, userData.CampaniaID, inputCuv, userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona).ToList();
-                        }
-
-                        SessionManager.SetobjMisPedidosDetalleVal(olstMisProductos);
-
-                        foreach (var item in olstMisPedidosDet)
-                        {
-                            var pedidoVal = olstMisProductos.FirstOrDefault(x => x.CUV == item.CUV);
-                            if (pedidoVal != null)
-                            {
-                                item.TieneStock = (pedidoVal.TieneStock) ? 1 : 0;
-                                item.EstaEnRevista = (pedidoVal.EstaEnRevista) ? 1 : 0;
-
-                                if (!pedidoVal.TieneStock)
-                                {
-                                    item.MensajeValidacion = "Este producto está agotado";
-                                }
-                                else if (pedidoVal.CUVRevista.Length != 0 && revistaGana == 0)
-                                {
-                                    item.EstaEnRevista = 1;
-                                    item.MensajeValidacion = isEsika
-                                        ? Constantes.MensajeEstaEnRevista.EsikaMobile
-                                        : Constantes.MensajeEstaEnRevista.LbelMobile;
-                                }
-                            }
-                            else
-                            {
-                                item.TieneStock = 0;
-                                item.MensajeValidacion = "El producto solicitado no existe";
-                            }
-
-                        }
-                    }
+                    olstMisPedidosDet = CargarMisPedidosDetalleDatos(pedido.MarcaID, olstMisPedidosDet);
 
                     var detallePedidos = Mapper.Map<List<BEMisPedidosDetalle>, List<MisPedidosDetalleModel2>>(olstMisPedidosDet);
                     detallePedidos.Update(p => p.CodigoIso = userData.CodigoISO);
 
                     model.ListaDetalle2 = detallePedidos;
-                    model.RegistrosTotal = model.ListaDetalle2.Count.ToString();
                 }
-                else
-                {
-                    model.RegistrosTotal = "0";
-                }
+
+                model.RegistrosTotal = model.ListaDetalle2.Count.ToString();
             }
             catch (Exception ex)
             {
@@ -1053,6 +1028,76 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
 
             return View(model);
+        }
+
+        private List<BEMisPedidosDetalle> CargarMisPedidosDetalleDatos(int marcaId, List<BEMisPedidosDetalle> olstMisPedidosDet)
+        {
+            // 0=App Catalogos, >0=Portal Marca
+            if (marcaId != 0)
+            {
+                return olstMisPedidosDet;
+            }
+
+            int? revistaGana = null;
+            using (PedidoServiceClient sv = new PedidoServiceClient())
+            {
+                revistaGana = sv.ValidarDesactivaRevistaGana(userData.PaisID, userData.CampaniaID, userData.CodigoZona);
+            }
+
+            List<ServiceODS.BEProducto> olstMisProductos = GetValidarCuvMisPedidos(olstMisPedidosDet);
+
+            foreach (var item in olstMisPedidosDet)
+            {
+                var pedidoVal = olstMisProductos.FirstOrDefault(x => x.CUV == item.CUV);
+                if (pedidoVal == null)
+                {
+                    item.TieneStock = 0;
+                    item.MensajeValidacion = "El producto solicitado no existe";
+                    continue;
+                }
+
+                item.TieneStock = pedidoVal.TieneStock.ToInt();
+                item.EstaEnRevista = pedidoVal.EstaEnRevista.ToInt();
+
+                if (!pedidoVal.TieneStock)
+                {
+                    item.MensajeValidacion = "Este producto está agotado";
+                }
+                else if (pedidoVal.CUVRevista.Length != 0 && revistaGana == 0)
+                {
+                    item.EstaEnRevista = 1;
+                    item.MensajeValidacion = isEsika
+                        ? Constantes.MensajeEstaEnRevista.EsikaMobile
+                        : Constantes.MensajeEstaEnRevista.LbelMobile;
+                }
+
+
+            }
+
+            return olstMisPedidosDet;
+        }
+
+        private List<ServiceODS.BEProducto> GetValidarCuvMisPedidos(List<BEMisPedidosDetalle> olstMisPedidosDet)
+        {
+
+            var txtBuil = new StringBuilder();
+            foreach (var item in olstMisPedidosDet)
+            {
+                txtBuil.Append(item.CUV + ",");
+            }
+
+            var inputCuv = txtBuil.ToString();
+            inputCuv = inputCuv.Substring(0, inputCuv.Length - 1);
+
+            List<ServiceODS.BEProducto> olstMisProductos;
+
+            using (ODSServiceClient svc = new ODSServiceClient())
+            {
+                olstMisProductos = svc.GetValidarCUVMisPedidos(userData.PaisID, userData.CampaniaID, inputCuv, userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona).ToList();
+            }
+
+            SessionManager.SetobjMisPedidosDetalleVal(olstMisProductos);
+            return olstMisProductos;
         }
 
     }

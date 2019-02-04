@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
 using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.ServicePROLConsultas;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -43,7 +43,7 @@ namespace Portal.Consultoras.Web.Providers
             }
 
             var list = JsonConvert.DeserializeObject<List<dynamic>>(jsonString) ?? new List<dynamic>();
-            var listaCuvPrecio0 = new List<string>();
+            var listaSinPrecio2 = new List<string>();
             string codTipoEstrategia = "", codCampania = "";
 
             foreach (var item in list)
@@ -78,7 +78,8 @@ namespace Portal.Consultoras.Web.Providers
                         TieneVariedad = Convert.ToBoolean(item.tieneVariedad) ? 1 : 0,
                         TipoEstrategiaID = Convert.ToInt32(item.tipoEstrategiaId),
                         TipoEstrategiaImagenMostrar = 6,
-                        EsSubCampania = Convert.ToBoolean(item.esSubCampania) ? 1 : 0,
+                        EsSubCampania = Convert.ToBoolean(item.esSubCampania) ? 1 : 0
+                        //TieneStock = item.flagStock,
                     };
                     estrategia.TipoEstrategia = new ServiceOferta.BETipoEstrategia { Codigo = item.codigoTipoEstrategia };
 
@@ -166,7 +167,7 @@ namespace Portal.Consultoras.Web.Providers
                     }
                     else
                     {
-                        listaCuvPrecio0.Add(estrategia.CUV2);
+                        listaSinPrecio2.Add(estrategia.CUV2);
                         codTipoEstrategia = estrategia.CodigoTipoEstrategia;
                         codCampania = estrategia.CampaniaID.ToString();
                     }
@@ -176,10 +177,10 @@ namespace Portal.Consultoras.Web.Providers
                     Common.LogManager.SaveLog(ex, "", codigoISO);
                 }
             }
-
-            if (listaCuvPrecio0.Any())
+           
+            if (listaSinPrecio2.Any())
             {
-                string logPrecio0 = string.Format("Log Precios0 => Fecha:{0} /Palanca:{1} /CodCampania:{2} /CUV(s):{3} /Referencia:{4}", DateTime.Now, codTipoEstrategia, codCampania, string.Join("|", listaCuvPrecio0), path);
+                string logPrecio0 = string.Format("Log Precios0 => Fecha:{0} /Palanca:{1} /CodCampania:{2} /CUV(s):{3} /Referencia:{4}", DateTime.Now, codTipoEstrategia, codCampania, string.Join("|", listaSinPrecio2), path);
                 Common.LogManager.SaveLog(new Exception(logPrecio0), "", codigoISO);
             }
 
@@ -222,7 +223,6 @@ namespace Portal.Consultoras.Web.Providers
             }
             return nombreOferta;
         }
-
 
         public bool UsarMsPersonalizacion(string pais, string tipoEstrategia, bool dbDefault = false)
         {
