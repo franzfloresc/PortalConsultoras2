@@ -659,6 +659,10 @@ a{
     color:#808080;
 }
 
+.terminos_y_condiciones_wrapper ~ .datos_obligatorios{
+    font-size:13px;
+}
+
 .grupo_input_actualizarMisDatos .checkbox_condiciones_wrapper,
 .permiso_cuenta_opcion
 {
