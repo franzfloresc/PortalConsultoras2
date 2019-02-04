@@ -218,7 +218,7 @@ namespace Portal.Consultoras.Web.Controllers
                     SessionManager.SetActualizarDatosConsultora(true);
                 }
 
-                model.ShowRoomMostrarLista = ValidarPermiso(Constantes.MenuCodigo.CatalogoPersonalizado) ? 0 : 1;
+                model.ShowRoomMostrarLista = (!ValidarPermiso(Constantes.MenuCodigo.CatalogoPersonalizado)).ToInt();
                 model.ShowRoomBannerUrl = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.BannerLateralBienvenida, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
                 model.TieneCupon = userData.TieneCupon;
                 model.TieneMasVendidos = userData.TieneMasVendidos;

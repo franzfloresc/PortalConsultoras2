@@ -14,18 +14,16 @@ namespace Portal.Consultoras.Web.Providers
 {
     public class OfertaBaseProvider
     {
-        private readonly static HttpClient httpClient = new HttpClient();
+        private static readonly HttpClient httpClient = new HttpClient();
 
         private readonly ISessionManager _sessionManager = SessionManager.SessionManager.Instance;
 
         static OfertaBaseProvider()
         {
-            if (!string.IsNullOrEmpty(WebConfig.UrlMicroservicioPersonalizacionSearch))
-            {
-                httpClient.BaseAddress = new Uri(WebConfig.UrlMicroservicioPersonalizacionSearch);
-                httpClient.DefaultRequestHeaders.Accept.Clear();
-                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            }
+            if (string.IsNullOrEmpty(WebConfig.UrlMicroservicioPersonalizacionSearch)) return;
+            httpClient.BaseAddress = new Uri(WebConfig.UrlMicroservicioPersonalizacionSearch);
+            httpClient.DefaultRequestHeaders.Accept.Clear();
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
         public static async Task<List<ServiceOferta.BEEstrategia>> ObtenerOfertasDesdeApi(string path, string codigoISO)
@@ -68,7 +66,7 @@ namespace Portal.Consultoras.Web.Providers
             {
                 try
                 {
-                    ServiceOferta.BEEstrategia estrategia = new ServiceOferta.BEEstrategia
+                    var estrategia = new ServiceOferta.BEEstrategia
                     {
                         CampaniaID = Convert.ToInt32(item.CodigoCampania),
                         CodigoEstrategia = item.CodigoEstrategia.ToString(),
@@ -161,7 +159,7 @@ namespace Portal.Consultoras.Web.Providers
                         List<ServiceOferta.BEEstrategiaProducto> compoponentes = new List<ServiceOferta.BEEstrategiaProducto>();
                         foreach (Models.Search.ResponseOferta.Estructura.Componente componente in item.Componentes)
                         {
-                            ServiceOferta.BEEstrategiaProducto estrategiaTono = new ServiceOferta.BEEstrategiaProducto
+                            var estrategiaTono = new ServiceOferta.BEEstrategiaProducto
                             {
                                 Grupo = componente.Grupo.ToString(),
                                 CUV = componente.Cuv,
@@ -201,8 +199,8 @@ namespace Portal.Consultoras.Web.Providers
 
             if (listaCuvPrecio0.Any())
             {
-                string logPrecio0 = string.Format("Log Precios0 => Fecha:{0} /Palanca:{1} /CodCampania:{2} /CUV(s):{3} /Referencia:{4}", DateTime.Now, codTipoEstrategia, codCampania, string.Join("|", listaCuvPrecio0), path);
-                Common.LogManager.SaveLog(new Exception(logPrecio0), string.Empty, codigoISO);
+                var logPrecio0 = string.Format("Log Precios0 => Fecha:{0} /Palanca:{1} /CodCampania:{2} /CUV(s):{3} /Referencia:{4}", DateTime.Now, codTipoEstrategia, codCampania, string.Join("|", listaCuvPrecio0), path);
+                Common.LogManager.SaveLog(new Exception(logPrecio0), "", codigoISO);
             }
 
             return estrategias;
