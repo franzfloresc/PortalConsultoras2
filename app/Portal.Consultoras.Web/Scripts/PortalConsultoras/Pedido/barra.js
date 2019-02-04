@@ -1855,8 +1855,8 @@ function CalculoPosicionMinimoMaximo() {
 
                         }
                     }
-
-                    if (montoActual > dataBarra.ListaEscalaDescuento[3].MontoDesde) {
+                    var idx = dataBarra.ListaEscalaDescuento.length - 1;
+                    if (montoActual > dataBarra.ListaEscalaDescuento[idx].MontoDesde) {
                         PosicionMontoTipinpoing = montoTipipoing * 100 / montoActual;
                         document.getElementById('hrefIconoRegalo').style.left = (PosicionMontoTipinpoing - 3) + '%';
                         document.getElementById('lineaPosicionRegalo').style.left = (PosicionMontoTipinpoing) + '%';
@@ -1871,7 +1871,7 @@ function CalculoPosicionMinimoMaximo() {
                     document.getElementById('MontoMaximoBloque').style.display = "block";
 
 
-                    if (montoActual >= dataBarra.ListaEscalaDescuento[3].MontoDesde) {
+                    if (montoActual >= dataBarra.ListaEscalaDescuento[idx].MontoDesde) {
                         document.getElementById('MontoMaximoBloque').style.display = "none";
                         document.getElementById('lineaPosicionMontoMaximo').style.display = 'none';
                     }

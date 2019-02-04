@@ -100,8 +100,6 @@ var PedidoRegistroModule = function () {
 
                 MostrarBarra(result, '1');
 
-                ActualizarGanancia(result.DataBarra);
-
                 CargarResumenCampaniaHeader(true);
 
                 TrackingJetloreAdd(CantCUVpedido, $("#hdCampaniaCodigo").val(), CUVpedido);
@@ -519,7 +517,6 @@ var PedidoRegistroModule = function () {
 
                 MostrarBarra(data, '1');
 
-                ActualizarGanancia(data.DataBarra);
                 CargarResumenCampaniaHeader(true);
                 TrackingJetloreAdd(item.Cantidad, $("#hdCampaniaCodigo").val(), item.CUV);
                 TagManagerClickAgregarProductoLiquidacion(item);
@@ -1576,7 +1573,9 @@ function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfe
             totalUnidades = totalUnidades - parseInt(CantidadAnti) + parseInt(Cantidad);
             $("#pCantidadProductosPedido").html(totalUnidades);
 
+            var prevTotal = mtoLogroBarra;
             MostrarBarra(data);
+            showPopupNivelSuperado(data.DataBarra, prevTotal);
             if (data.modificoBackOrder) {
                 showDialog("divBackOrderModificado");
             }

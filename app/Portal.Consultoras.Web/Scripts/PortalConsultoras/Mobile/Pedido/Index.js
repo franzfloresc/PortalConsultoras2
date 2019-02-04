@@ -666,13 +666,6 @@ function CancelarProductosSugeridos() {
 //                CloseLoading();
 //                return false;
 //            }
-            var existeError = $(data).filter("input[id=hdErrorInsertarProducto]").val();
-            if (existeError == "1") {
-                AbrirMensaje("Ocurrió un error al ejecutar la operación.");
-                CloseLoading();
-                return false;
-            }
-
 //            CloseLoading();
 //            showPopupNivelSuperado(data.DataBarra, prevTotal);
 
