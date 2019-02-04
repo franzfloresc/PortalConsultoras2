@@ -481,10 +481,11 @@ var FichaModule = (function (config) {
     var _getEstrategia = function () {
         var estrategia;
         
-        if (_config.esEditable) {
-            estrategia = _modeloFicha;
-        } else {
-            if (_config.tieneSession) {
+        if (_config.tieneSession) {
+            if (_config.esEditable) {
+                estrategia = _modeloFicha;
+            }
+            else {
                 var valData = $(_elementos.dataEstrategia.id).attr(_elementos.dataEstrategia.dataEstrategia) || "";
                 if (valData != "") {
                     estrategia = JSON.parse(valData);
@@ -493,14 +494,13 @@ var FichaModule = (function (config) {
                     estrategia = _modeloFicha;
                 }
             }
-            else {
-                estrategia = _localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
-                if ((typeof estrategia === "undefined" || estrategia === null) && _config.palanca === _codigoPalanca.OfertasParaMi) {
-                    estrategia = _localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _codigoPalanca.Ganadoras);
-                }
+        }
+        else {
+            estrategia = _localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
+            if ((typeof estrategia === "undefined" || estrategia === null) && _config.palanca === _codigoPalanca.OfertasParaMi) {
+                estrategia = _localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _codigoPalanca.Ganadoras);
             }
         }
-        
 
         if (typeof estrategia === "undefined" || estrategia == null) return estrategia;
 
@@ -891,7 +891,7 @@ var FichaEditarModule = (function () {
 
         AbrirLoad();
 
-        var row = event;
+        var row = $(event).parent("[data-detalle-item]");
         var campania = $.trim(row.getAttribute("data-campania"));
         var cuv = $.trim(row.getAttribute("data-cuv"));
         var palanca = $.trim(row.getAttribute("data-tipoestrategia"));
