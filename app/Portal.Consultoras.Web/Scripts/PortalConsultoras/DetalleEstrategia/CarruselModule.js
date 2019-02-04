@@ -716,9 +716,10 @@ function ArmarCarouselEstrategias(data) {
         }
     }
 
-    $.each(data.Lista, function (i, item) { item.Posicion = i + 1; });
+
     arrayOfertasParaTi = data.Lista;
     data.lista = data.Lista;
+    $.each(data.Lista, function (i, item) { item.Posicion = i + 1; });
     SetHandlebars("#producto-landing-template", data, "#divListadoEstrategia");
 
     if (tipoOrigenEstrategia == 11) {

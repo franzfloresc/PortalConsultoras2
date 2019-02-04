@@ -1176,7 +1176,8 @@ var AnalyticsPortalModule = (function () {
 
     }
 
-    var marcaGenericaClic = function (element, codigoOrigenPedido,url) {
+    var marcaGenericaClic = function (element, codigoOrigenPedido, url) {
+
         var codigoPagina = codigoOrigenPedido.toString().substring(1, 3);
 
         var pagina = _constantes.paginas.find(function (element) {
@@ -1786,6 +1787,7 @@ var AnalyticsPortalModule = (function () {
             //var contenedor = fnObtenerContenedor();
             //var codigoSeccion = $(data).closest("div:has(.seccion-content-contenedor)").data("seccion");
             var codigoSeccion = "";
+            var item = "";
             if ($(data).parents("[data-Origenpedidowebagregar]").data("origenpedidowebagregar") === undefined) {
                 codigoSeccion = $(data).parents("[data-OrigenPedidoWeb]").data("origenpedidoweb");
             }
@@ -1797,11 +1799,17 @@ var AnalyticsPortalModule = (function () {
             //    ? _getPalancaBySeccion(codigoSeccion)
             //    : AnalyticsPortalModule.GetPalancaByOrigenPedido(codigoorigen);
 
-            var text = $(data).data("item-tag");
-            var eq = text == _texto.verdetalle ? ":eq(2)" : ":eq(4)";
-            var item = $(data).parents(eq).find("div [data-estrategia]").data("estrategia");
+            //var text = $(data).data("item-tag");
+            //var eq = text == _texto.verdetalle ? ":eq(2)" : ":eq(4)";
+            //var item = $(data).parents(eq).find("div [data-estrategia]").data("estrategia");
+            if ($(data).parents("[data-item-cuv]").find("div [data-estrategia]").data("estrategia") === undefined) {
+                item = $(data).parents("[data-OrigenPedidoWeb]").find("div [data-estrategia]").data("estrategia");
+            }
+            else
+                item = $(data).parents("[data-item-cuv]").find("div [data-estrategia]").data("estrategia");
 
-            list = _getParametroListSegunOrigen(codigoSeccion, url);
+            var list = _getParametroListSegunOrigen(codigoSeccion, url);
+
             //var list = "";
             //if (_codigoSeccion.MG === codigoSeccion)
             //    list = contenedor + " - " + palanca;
@@ -1837,6 +1845,7 @@ var AnalyticsPortalModule = (function () {
             if (_constantes.isTest)
                 alert("Marcación clic detalle producto.");
             var codigoSeccion = "";
+            var item = "";
             //var contenedor = fnObtenerContenedor();
             if ($(data).parents("[data-Origenpedidowebagregar]").data("origenpedidowebagregar") === undefined) {
                 codigoSeccion = $(data).parents("[data-OrigenPedidoWeb]").data("origenpedidoweb");
@@ -1846,12 +1855,16 @@ var AnalyticsPortalModule = (function () {
             //var codigoorigenagregar = $(data).parents("[data-Origenpedidowebagregar]").data("origenpedidowebagregar");
             //var codigoSeccion = $(data).parents("[data-OrigenPedidoWeb]").data("origenpedidoweb");
             //var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(codigoSeccion);
-            var text = $(data).data("item-tag");
-            var eq = text == _texto.verdetalle ? ":eq(2)" : ":eq(4)";
-            var item = $(data).parents(eq).find("div [data-estrategia]").data("estrategia");
-            var list = "";
+            //var text = $(data).data("item-tag");
+            //var eq = text == _texto.verdetalle ? ":eq(2)" : ":eq(4)";
+            //var item = $(data).parents(eq).find("div [data-estrategia]").data("estrategia");
+            if ($(data).parents("[data-item-cuv]").find("div [data-estrategia]").data("estrategia")=== undefined) {       
+                item = $(data).parents("[data-OrigenPedidoWeb]").find("div [data-estrategia]").data("estrategia");
+            }
+            else
+                item = $(data).parents("[data-item-cuv]").find("div [data-estrategia]").data("estrategia");
 
-            list = _getParametroListSegunOrigen(codigoSeccion, url);
+            var list = _getParametroListSegunOrigen(codigoSeccion, url);
 
             //if (_codigoSeccion.MG === item.CodigoPalanca)
             //    list = textoCategory;
@@ -1890,9 +1903,11 @@ var AnalyticsPortalModule = (function () {
             var list = "";
             list = _getParametroListSegunOrigen(codigoSeccion, url);
 
-            var text = $(data).data("item-tag");
-            var eq = text == _texto.verdetalle ? ":eq(2)" : ":eq(4)";
-            var item = $(data).parents(eq).find("div [data-estrategia]").data("estrategia");
+            //var text = $(data).data("item-tag");
+            //var eq = text == _texto.verdetalle ? ":eq(2)" : ":eq(4)";
+            //var item = $(data).parents(eq).find("div [data-estrategia]").data("estrategia");
+
+            var item = $(data).parents("[data-item-cuv]").find("div [data-estrategia]").data("estrategia");
 
             //var item = $(data).parents(":eq(2)").find("div [data-estrategia]").data("estrategia");
 
