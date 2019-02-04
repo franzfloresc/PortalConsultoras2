@@ -143,7 +143,7 @@ namespace Portal.Consultoras.Web.Providers
                         ID = index + 1,
                         EstrategiaID = d.EstrategiaId,
                         CampaniaID = int.Parse(d.CodigoCampania),
-                        Activo = d.Activo ? 1 : 0,
+                        Activo = d.Activo.ToInt(),
                         ImagenURL = d.ImagenURL,
                         LimiteVenta = d.LimiteVenta,
                         DescripcionCUV2 = d.DescripcionCUV2,
@@ -153,14 +153,14 @@ namespace Portal.Consultoras.Web.Providers
                         Ganancia = (decimal)d.Ganancia,
                         CUV2 = d.CUV2,
                         Orden = d.Orden,
-                        FlagNueva = d.FlagNueva ? 1 : 0,
-                        FlagEstrella = d.FlagEstrella ? 1 : 0,
+                        FlagNueva = d.FlagNueva.ToInt(),
+                        FlagEstrella = d.FlagEstrella.ToInt(),
                         CodigoEstrategia = d.CodigoEstrategia,
                         CodigoTipoEstrategia = d.CodigoTipoEstrategia,
                         TextoLibre = d.TextoLibre,
                         //cambiar por CodigoProducto cuando se corrija el servicio
                         CodigoProducto = string.IsNullOrEmpty(d.CodigoSap) ? d.CodigoProducto : d.CodigoSap,
-                        IndicadorMontoMinimo = d.IndicadorMontoMinimo ? 1 : 0,
+                        IndicadorMontoMinimo = d.IndicadorMontoMinimo.ToInt(),
                         IdMatrizComercial = d.MatrizComercialId,
                         MarcaID = d.MarcaId,
                         DescripcionMarca = d.MarcaDescripcion,
@@ -168,11 +168,11 @@ namespace Portal.Consultoras.Web.Providers
                         UsuarioModificacion = d.UsuarioModificacion,
                         ImagenMiniaturaURL = d.ImagenMiniatura ?? string.Empty,
                         TipoEstrategiaID = d.TipoEstrategiaId,
-                        Imagen = d.FlagImagenURL ? 1 : 0,
-                        DescripcionEstrategia = d.DescripcionTipoEstrategia,
+                        Imagen = d.FlagImagenURL.ToInt(),
+                        DescripcionEstrategia = d.DescripcionTipoEstrategia,                    
                         CodigoSAP = string.IsNullOrEmpty(d.CodigoSap) ? d.CodigoProducto : d.CodigoSap,
                         Zona = d.Zona,
-                        EsSubCampania = d.EsSubCampania.HasValue ? (d.EsSubCampania.Value ? 1 : 0) : 0,
+                        EsSubCampania = d.EsSubCampania.HasValue ? d.EsSubCampania.Value.ToInt() : 0,
                         //Lan
                         FlagIndividual = GetValorEstrategiaDetalle(Constantes.EstrategiaDetalleCamposID.FlagIndividual, d.EstrategiaDetalle) == "1",
                         Slogan = GetValorEstrategiaDetalle(Constantes.EstrategiaDetalleCamposID.Slogan, d.EstrategiaDetalle),
@@ -465,10 +465,10 @@ namespace Portal.Consultoras.Web.Providers
             var taskApi = Task.Run(() => RespSBMicroservicios(jsonParameters, requestUrl, "put", userData));
             Task.WhenAll(taskApi);
             string content = taskApi.Result;
-            List<DescripcionEstrategiaModel> descripcionList = new List<DescripcionEstrategiaModel>();
 
             var respuesta = JsonConvert.DeserializeObject<GenericResponse>(content);
 
+            List<DescripcionEstrategiaModel> descripcionList = new List<DescripcionEstrategiaModel>();
             if (respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
             {
                 List<Dictionary<string, object>> resultDictionary = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(respuesta.Result.ToString());
@@ -477,8 +477,8 @@ namespace Portal.Consultoras.Web.Providers
                     {
                         Cuv = item["cuv"].ToString(),
                         Descripcion = item["descripcion"].ToString(), 
-                        Estado = (bool) item["estado"] ? 1 : 0
-                    }));
+                        Estado = ((bool)item["estado"]).ToInt()
+                }));
             }
             return descripcionList;
         }
@@ -627,7 +627,7 @@ namespace Portal.Consultoras.Web.Providers
                 {
                     Cuv = item["cuv"].ToString(),
                     Descripcion = item["descripcion"].ToString(),
-                    Estado = (bool)item["estado"] ? 1 : 0
+                    Estado = ((bool)item["estado"]).ToInt()
                 }));
             }
 
