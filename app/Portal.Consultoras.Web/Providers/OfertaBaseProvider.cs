@@ -60,7 +60,7 @@ namespace Portal.Consultoras.Web.Providers
                         DescripcionEstrategia = item.descripcionTipoEstrategia,
                         DescripcionMarca = item.marcaDescripcion,
                         EstrategiaID = Convert.ToInt32(item.estrategiaId),
-                        FlagNueva = Convert.ToBoolean(item.flagNueva).ToInt(),
+                        FlagNueva = Convert.ToBoolean(item.flagNueva) ? 1 : 0,
                         FlagRevista = item.flagRevista,
                         FotoProducto01 = item.imagenURL,
                         ImagenURL = item.imagenEstrategia,
@@ -75,10 +75,10 @@ namespace Portal.Consultoras.Web.Providers
                         GananciaString = Util.DecimalToStringFormat((decimal)item.ganancia, codigoISO),
                         Ganancia = Convert.ToDecimal(item.ganancia),
                         TextoLibre = item.textoLibre,
-                        TieneVariedad = Convert.ToBoolean(item.tieneVariedad).ToInt(),
+                        TieneVariedad = Convert.ToBoolean(item.tieneVariedad) ? 1 : 0,
                         TipoEstrategiaID = Convert.ToInt32(item.tipoEstrategiaId),
                         TipoEstrategiaImagenMostrar = 6,
-                        EsSubCampania = Convert.ToBoolean(item.esSubCampania).ToInt()
+                        EsSubCampania = Convert.ToBoolean(item.esSubCampania) ? 1 : 0
                         //TieneStock = item.flagStock,
                     };
                     estrategia.TipoEstrategia = new ServiceOferta.BETipoEstrategia { Codigo = item.codigoTipoEstrategia };
@@ -148,7 +148,7 @@ namespace Portal.Consultoras.Web.Providers
                                 SAP = componente.codigoSap,
                                 Orden = componente.orden,
                                 Precio = componente.precioUnitario,
-                                Digitable = Convert.ToBoolean(componente.indicadorDigitable).ToInt(),
+                                Digitable = Convert.ToBoolean(componente.indicadorDigitable) ? 1 : 0,
                                 Cantidad = componente.cantidad,
                                 FactorCuadre = componente.factorCuadre,
                                 IdMarca = componente.marcaId,
@@ -184,7 +184,7 @@ namespace Portal.Consultoras.Web.Providers
                 Common.LogManager.SaveLog(new Exception(logPrecio0), "", codigoISO);
             }
 
-            return ActualizarStockEstrategiaProl(estrategias, codigoISO);
+            return estrategias;
         }
 
         public string ObtenerDescripcionOferta(string descripcionCuv2)
@@ -236,55 +236,6 @@ namespace Portal.Consultoras.Web.Providers
         {
             bool tipoEstrategiaHabilitado = WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion.Contains(tipoEstrategia);
             return tipoEstrategiaHabilitado;
-        }
-
-        static List<ServiceOferta.BEEstrategia> ActualizarStockEstrategiaProl(List<ServiceOferta.BEEstrategia> estrategias, string paisISo)
-        {
-            var estrategiasResult = new List<ServiceOferta.BEEstrategia>();
-            var listaSinStock = new List<ServiceOferta.BEEstrategia>();
-            var listaTieneStock = new List<Lista>();
-
-            try
-            {
-                var codigoSap = string.Join("|", estrategias.Where(e => !string.IsNullOrEmpty(e.CodigoProducto) && e.TieneStock).Select(e => e.CodigoProducto));
-                if (!string.IsNullOrEmpty(codigoSap))
-                {
-                    using (var sv = new wsConsulta())
-                    {
-                        sv.Url = ConfigurationManager.AppSettings["RutaServicePROLConsultas"];
-                        listaTieneStock = sv.ConsultaStock(codigoSap, paisISo).ToList();
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                listaTieneStock = new List<Lista>();
-            }
-
-            estrategias.ForEach(estrategia =>
-            {
-                var add = true;
-                if (estrategia.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.OfertaParaTi)
-                    add = listaTieneStock.Any(p => p.Codsap.ToString() == estrategia.CodigoProducto && p.estado == 1);
-
-                if (!add)
-                {
-                    estrategia.TieneStock = false;
-                    listaSinStock.Add(estrategia);
-                    return;
-                }
-
-                estrategiasResult.Add(estrategia);
-
-            });
-
-            if (listaSinStock.Any())
-            {
-                estrategiasResult.AddRange(listaSinStock);
-            }
-
-            return estrategiasResult;
-
         }
     }
 }

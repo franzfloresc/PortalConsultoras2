@@ -77,10 +77,16 @@ var ComponentesModule = (function () {
         }
         else {
             $.each(estrategia.Hermanos, function (i, obj) {
-                $.each(obj.Hermanos, function (j, k) {
+                if (obj.Hermanos !== 'undefined' && obj.Hermanos.length > 0) {
+                    $.each(obj.Hermanos, function (j, k) {
+                        hijos++;
+                        if (!k.TieneStock) cta++;
+                    });
+                }
+                else {
                     hijos++;
-                    if (!k.TieneStock) cta++;
-                });
+                    if (!obj.TieneStock) cta++;
+                }
             });
         }
 
