@@ -329,6 +329,10 @@ a{
     margin-bottom:27px;
 }
 
+.datos_gerente_zona span:last-of-type{
+    width:62%;
+}
+
 .icono_cambio_password{
     width:13px;
     height:19px;
