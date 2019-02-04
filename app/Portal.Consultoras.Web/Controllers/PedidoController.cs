@@ -3660,7 +3660,35 @@ namespace Portal.Consultoras.Web.Controllers
             // los valores deben estar en constantes
             // considerar tipo estrategia codigo y origen pedido web
             // caso EsBackOrder
-            return 1;
+            
+            if ((producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoProductoSugeridoCarrusel ||
+                producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoProductoSugeridoCarrusel) ||  
+                (producto.OrigenPedidoWeb  == Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalCarrusel ||
+                 producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalFicha ||
+                 producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalCarrusel ||
+                 producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalFicha ||
+                 producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.AppConsultoraPedidoOfertaFinalCarrusel ||
+                 producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.AppConsultoraPedidoOfertaFinalFicha)
+                || (producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.AppConsultoraLandingShowroomShowroomSubCampania
+                    || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopLandingShowroomShowroomSubCampania
+                    || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobileLandingShowroomShowroomSubCampania)
+                || producto.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.PackNuevas )
+                return 0;
+
+            switch (producto.TipoEstrategiaCodigo)
+            {
+                case Constantes.TipoEstrategiaCodigo.MasGanadoras:
+                case Constantes.TipoEstrategiaCodigo.ShowRoom:
+                case Constantes.TipoEstrategiaCodigo.Lanzamiento:
+                case Constantes.TipoEstrategiaCodigo.OfertaParaTi:
+                case Constantes.TipoEstrategiaCodigo.OfertasParaMi:
+                case Constantes.TipoEstrategiaCodigo.OfertaDelDia:
+                case Constantes.TipoEstrategiaCodigo.HerramientasVenta:
+                case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
+                    return 1; 
+                default:
+                    return 0;
+            }
         }
 
         #region Parametria Oferta Final

@@ -901,7 +901,7 @@ var FichaEditarModule = (function () {
                     esEditable: true,
                     setId: setId
                 });
-
+                
                 CerrarLoad();
                 _showDivFichaResumida(true);
                 fichaModule.Inicializar();
