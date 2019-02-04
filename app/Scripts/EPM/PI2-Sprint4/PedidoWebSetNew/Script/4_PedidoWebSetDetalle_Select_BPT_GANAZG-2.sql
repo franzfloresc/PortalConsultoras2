@@ -1,9 +1,5 @@
-﻿USE [BelcorpPeru_BPT]
-GO
-/****** Object:  StoredProcedure [dbo].[PedidoWebSetDetalle_Select]    Script Date: 27/11/2018 12:10:23 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
+﻿GO
+USE BelcorpPeru
 GO
 ALTER PROCEDURE [dbo].[PedidoWebSetDetalle_Select] @SetId INT
 AS
@@ -21,14 +17,9 @@ BEGIN
 	FROM PedidoWebSetDetalle
 	WHERE SetId = @SetId
 END
-GO
 
-USE [BelcorpChile_BPT]
 GO
-/****** Object:  StoredProcedure [dbo].[PedidoWebSetDetalle_Select]    Script Date: 27/11/2018 12:10:23 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
+USE BelcorpMexico
 GO
 ALTER PROCEDURE [dbo].[PedidoWebSetDetalle_Select] @SetId INT
 AS
@@ -46,14 +37,9 @@ BEGIN
 	FROM PedidoWebSetDetalle
 	WHERE SetId = @SetId
 END
-GO
 
-USE [BelcorpCostaRica_BPT]
 GO
-/****** Object:  StoredProcedure [dbo].[PedidoWebSetDetalle_Select]    Script Date: 27/11/2018 12:10:23 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
+USE BelcorpColombia
 GO
 ALTER PROCEDURE [dbo].[PedidoWebSetDetalle_Select] @SetId INT
 AS
@@ -71,4 +57,185 @@ BEGIN
 	FROM PedidoWebSetDetalle
 	WHERE SetId = @SetId
 END
+
+GO
+USE BelcorpSalvador
+GO
+ALTER PROCEDURE [dbo].[PedidoWebSetDetalle_Select] @SetId INT
+AS
+BEGIN
+	SELECT SetDetalleID
+		,SetID
+		,CuvProducto
+		--,NombreProducto
+		,Cantidad
+		--,CantidadOriginal
+		,FactorRepeticion
+		,PedidoDetalleID
+		,PrecioUnidad
+		--,TipoOfertaSisID
+	FROM PedidoWebSetDetalle
+	WHERE SetId = @SetId
+END
+
+GO
+USE BelcorpPuertoRico
+GO
+ALTER PROCEDURE [dbo].[PedidoWebSetDetalle_Select] @SetId INT
+AS
+BEGIN
+	SELECT SetDetalleID
+		,SetID
+		,CuvProducto
+		--,NombreProducto
+		,Cantidad
+		--,CantidadOriginal
+		,FactorRepeticion
+		,PedidoDetalleID
+		,PrecioUnidad
+		--,TipoOfertaSisID
+	FROM PedidoWebSetDetalle
+	WHERE SetId = @SetId
+END
+
+GO
+USE BelcorpPanama
+GO
+ALTER PROCEDURE [dbo].[PedidoWebSetDetalle_Select] @SetId INT
+AS
+BEGIN
+	SELECT SetDetalleID
+		,SetID
+		,CuvProducto
+		--,NombreProducto
+		,Cantidad
+		--,CantidadOriginal
+		,FactorRepeticion
+		,PedidoDetalleID
+		,PrecioUnidad
+		--,TipoOfertaSisID
+	FROM PedidoWebSetDetalle
+	WHERE SetId = @SetId
+END
+
+GO
+USE BelcorpGuatemala
+GO
+ALTER PROCEDURE [dbo].[PedidoWebSetDetalle_Select] @SetId INT
+AS
+BEGIN
+	SELECT SetDetalleID
+		,SetID
+		,CuvProducto
+		--,NombreProducto
+		,Cantidad
+		--,CantidadOriginal
+		,FactorRepeticion
+		,PedidoDetalleID
+		,PrecioUnidad
+		--,TipoOfertaSisID
+	FROM PedidoWebSetDetalle
+	WHERE SetId = @SetId
+END
+
+GO
+USE BelcorpEcuador
+GO
+ALTER PROCEDURE [dbo].[PedidoWebSetDetalle_Select] @SetId INT
+AS
+BEGIN
+	SELECT SetDetalleID
+		,SetID
+		,CuvProducto
+		--,NombreProducto
+		,Cantidad
+		--,CantidadOriginal
+		,FactorRepeticion
+		,PedidoDetalleID
+		,PrecioUnidad
+		--,TipoOfertaSisID
+	FROM PedidoWebSetDetalle
+	WHERE SetId = @SetId
+END
+
+GO
+USE BelcorpDominicana
+GO
+ALTER PROCEDURE [dbo].[PedidoWebSetDetalle_Select] @SetId INT
+AS
+BEGIN
+	SELECT SetDetalleID
+		,SetID
+		,CuvProducto
+		--,NombreProducto
+		,Cantidad
+		--,CantidadOriginal
+		,FactorRepeticion
+		,PedidoDetalleID
+		,PrecioUnidad
+		--,TipoOfertaSisID
+	FROM PedidoWebSetDetalle
+	WHERE SetId = @SetId
+END
+
+GO
+USE BelcorpCostaRica
+GO
+ALTER PROCEDURE [dbo].[PedidoWebSetDetalle_Select] @SetId INT
+AS
+BEGIN
+	SELECT SetDetalleID
+		,SetID
+		,CuvProducto
+		--,NombreProducto
+		,Cantidad
+		--,CantidadOriginal
+		,FactorRepeticion
+		,PedidoDetalleID
+		,PrecioUnidad
+		--,TipoOfertaSisID
+	FROM PedidoWebSetDetalle
+	WHERE SetId = @SetId
+END
+
+GO
+USE BelcorpChile
+GO
+ALTER PROCEDURE [dbo].[PedidoWebSetDetalle_Select] @SetId INT
+AS
+BEGIN
+	SELECT SetDetalleID
+		,SetID
+		,CuvProducto
+		--,NombreProducto
+		,Cantidad
+		--,CantidadOriginal
+		,FactorRepeticion
+		,PedidoDetalleID
+		,PrecioUnidad
+		--,TipoOfertaSisID
+	FROM PedidoWebSetDetalle
+	WHERE SetId = @SetId
+END
+
+GO
+USE BelcorpBolivia
+GO
+ALTER PROCEDURE [dbo].[PedidoWebSetDetalle_Select] @SetId INT
+AS
+BEGIN
+	SELECT SetDetalleID
+		,SetID
+		,CuvProducto
+		--,NombreProducto
+		,Cantidad
+		--,CantidadOriginal
+		,FactorRepeticion
+		,PedidoDetalleID
+		,PrecioUnidad
+		--,TipoOfertaSisID
+	FROM PedidoWebSetDetalle
+	WHERE SetId = @SetId
+END
+
 GO
