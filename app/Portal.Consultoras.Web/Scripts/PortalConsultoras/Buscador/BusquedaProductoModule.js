@@ -8,6 +8,7 @@
         opcionOrdenar: "#dpw-ordenar, .opcion__ordenamiento__label",
         opcionFiltrar: "#opcionFiltrar",
         opcionCerrarFiltrosMobile: '#cerrarFiltros, .filtro__btn--aplicar, .background__filtros__mobile',
+        opcionAplicarFiltrosMobile: '.filtro__btn--aplicar',
         opcionLimpiarFiltros: '.filtro__btn--limpiar',
         filtroCheckbox: '.filtro__item__checkbox',
         backgroundAlMostrarFiltrosMobile: '.background__filtros__mobile',
@@ -89,6 +90,7 @@
             $(document).on("click", _elementos.opcionOrdenar, _eventos.DropDownOrdenar);
             $(document).on("click", _elementos.opcionFiltrar, _eventos.MostrarFiltrosMobile);
             $(document).on("click", _elementos.opcionCerrarFiltrosMobile, _eventos.CerrarFiltrosMobile);
+            $(document).on("click", _elementos.opcionAplicarFiltrosMobile, _eventos.AplicarFiltrosMobile);
             $(document).on("click", _elementos.filtroTipoTitulo, _eventos.MostrarOcultarContenidoTipoFiltro);
             $(document).on("click", _elementos.opcionLimpiarFiltros, _eventos.LimpiarFiltros);
             $(document).on("click", _elementos.itemDropDown, _eventos.ClickItemOrdenar);
@@ -524,6 +526,31 @@
                 $(_elementos.layoutContent).css({ 'z-index': '2' });
             }, 400);
             $(_elementos.seccionFiltros).scrollTop(0);
+        },
+        AplicarFiltrosMobile: function (e) {
+            e.preventDefault();
+
+            var seleccionados = get_local_storage(_config.filtrosLocalStorage);
+            var opcionesFiltros = "";
+
+            if (seleccionados.length > 0) {
+                $.each(seleccionados, function (i, item) {
+
+                    if (item.Opciones.length > 0) {
+
+                        $.each(item.Opciones, function (i, itemChild) {
+                            opcionesFiltros += itemChild.NombreFiltro + " - ";
+                        });
+                    }
+                    opcionesFiltros = opcionesFiltros.substr(0, opcionesFiltros.length - 3);
+                    opcionesFiltros += " | ";                    
+                });
+                opcionesFiltros = opcionesFiltros.substr(0, opcionesFiltros.length - 3);
+
+                AnalyticsPortalModule.MarcaBotonAplicarFiltro(opcionesFiltros);
+            }
+
+
         },
         MostrarOcultarContenidoTipoFiltro: function (e) {
             var filtroTipo = $(this).parent();
