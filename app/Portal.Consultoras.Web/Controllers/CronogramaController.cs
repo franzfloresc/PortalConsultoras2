@@ -46,7 +46,7 @@ namespace Portal.Consultoras.Web.Controllers
                 CampaniaID = campaniaIdActual
             };
 
-            ViewBag.TieneCronogramaExtendido = croAuto ? 1 : 0;
+            ViewBag.TieneCronogramaExtendido = croAuto.ToInt();
             return View(cronogramaModel);
         }
 

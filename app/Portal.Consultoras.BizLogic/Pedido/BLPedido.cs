@@ -2148,7 +2148,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     listaRevista = listaRevista.Where(e => e.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
 
                 var cantMax = 8;
-                var cantPack = listaPackNueva.Any() ? 1 : 0;
+                var cantPack = listaPackNueva.Any().ToInt();
                 var top = Math.Min(cantMax - cantPack, listaRevista.Count);
 
                 if (listaRevista.Count > top)

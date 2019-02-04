@@ -2214,7 +2214,7 @@ namespace Portal.Consultoras.BizLogic
                             entidad.CodigoUsuario = entidad.NumeroDocumento;
                             // insertar usuario postulante
                             int r3 = daUsuario.InsUsuarioPostulante(entidad);
-                            r = (r3 > 0) ? 1 : 0;
+                            r = (r3 > 0).ToInt();
 
                             if (!string.IsNullOrEmpty(entidad.Correo))
                             {
@@ -2298,7 +2298,7 @@ namespace Portal.Consultoras.BizLogic
                 {
                     var daUsuario = new DAUsuario(paisID);
                     var r1 = daUsuario.DelUsuarioPostulante(numeroDocumento);
-                    r = (r1 > 0) ? 1 : 0;
+                    r = (r1 > 0).ToInt();
                 }
             }
             catch (Exception ex)
@@ -3188,8 +3188,8 @@ namespace Portal.Consultoras.BizLogic
                     oUsu.IntentosRestanteSms = opcion.IntentosSms;
                 }
 
-                oUsu.OpcionVerificacionSMS = opcion.OpcionSms ? (oUsu.Cantidad == 0 ? 1 : 0) : -1;
-                oUsu.OpcionVerificacionCorreo = opcion.OpcionEmail ? (oUsu.Cantidad == 0 ? 1 : 0) : -1;
+                oUsu.OpcionVerificacionSMS = opcion.OpcionSms ? (oUsu.Cantidad == 0).ToInt() : -1;
+                oUsu.OpcionVerificacionCorreo = opcion.OpcionEmail ? (oUsu.Cantidad == 0).ToInt() : -1;
                 oUsu.OpcionCambioClave = (opcion.OpcionContrasena && opcion.OpcionSms) ? oUsu.OpcionCambioClave : -1;
 
                 return oUsu;
@@ -3549,7 +3549,7 @@ namespace Portal.Consultoras.BizLogic
             }
 
             mostrarBuscador = configuracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.TipoConfiguracionBuscador.ConsultoraDummy);
-            if (mostrarBuscador != null) buscadorYFiltrosConfiguracion.IndicadorConsultoraDummy = mostrarBuscador.Valor1 == "1";
+            if (mostrarBuscador != null) buscadorYFiltrosConfiguracion.IndicadorConsultoraDummy = mostrarBuscador.Valor2 == "1";
 
             mostrarBuscador = configuracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.TipoConfiguracionBuscador.MostrarBotonVerTodos);
             if (mostrarBuscador != null) buscadorYFiltrosConfiguracion.MostrarBotonVerTodosBuscador = mostrarBuscador.Valor1 == "1";
