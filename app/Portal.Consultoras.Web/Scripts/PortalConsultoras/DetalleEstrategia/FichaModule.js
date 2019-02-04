@@ -932,6 +932,8 @@ var FichaEditarModule = (function () {
             //console.log('tu código:', obj);
             $("#hfClienteId").val(obj.ClienteID);
             $("#hfClienteNombre").val(obj.Nombre);
+            $('#spClienteNombre').html(obj.Nombre);
+
         });
 
         $("#btnShowCliente").click(function () {
