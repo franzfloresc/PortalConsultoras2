@@ -117,32 +117,35 @@
 
             </div>
 
+            <!--Init panel cliente-->
             <div class="AsignarCliente_bloque">
                 <div class="col-xs-12">
                     <ul class="asignarCliente">
                         <li><h3>ASIGNADO A:</h3></li>
 
                     </ul>
-                    <button id="btnShowCliente" class="boton_asignarCliente">PARA MÍ 
+                    <button id="btnShowCliente" class="boton_asignarCliente">
+                        PARA MÍ
                         <span class="btn_cambiar_opciones cambiar_opcion cambiar_opcion_editarFicha">
                             Cambiar opción
                             <img src="/Content/Images/mobile/Esika/right-arrow.svg" alt="">
-                         </span>
+                        </span>
                     </button>
                 </div>
 
             </div>
+            <!--Init panel cliente-->
 
             <div id="dvContenedorAgregar" class="contenedor_agregar">
                 {{#if TieneStock}}
                 <div class="contenedor_rangos {{#if esCampaniaSiguiente}} {{ClaseBloqueadaRangos}} {{/if}}" id="idcontenedor_rangos" data-cantidad-contenedor="">
-                    <input class="txt_cantidad_pedido ValidaNumeral ValidaPasteNumeral" 
-                           {{#if esCampaniaSiguiente}} {{RangoInputEnabled}} {{/if}} 
-                           type="text" 
-                           value="{{Cantidad}}" 
-                           size="2" 
-                           maxlength="2" 
-                           data-input="cantidad" 
+                    <input class="txt_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
+                           {{#if esCampaniaSiguiente}} {{RangoInputEnabled}} {{/if}}
+                           type="text"
+                           value="{{Cantidad}}"
+                           size="2"
+                           maxlength="2"
+                           data-input="cantidad"
                            data-cantidad-input="-">
                     <div>
                         <a class="txt_menos" data-cantidad-agregar="-" {{#if esCampaniaSiguiente}} data-bloqueada="{{ClaseBloqueada}} {{/if}}" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
@@ -156,14 +159,14 @@
                 {{else}}
                 <div class="contenedor_rangos" id="idcontenedor_rangos" data-cantidad-contenedor="" style="display:none">
                     @*<input class="txt_cantidad_pedido ValidaNumeral ValidaPasteNumeral" type="text" value="1" size="2" maxlength="2" style="pointer-events: none;" data-input="cantidad" data-cantidad-input="-">
-                        <div>
-                            <a class="txt_menos" data-cantidad-agregar="-" style="pointer-events: none;">
-                                <div class="dibujar_linea dibujar_menos"></div>
-                            </a>
-                            <a class="txt_mas" data-cantidad-agregar="+" style="pointer-events: none;">
-                                <div class="dibujar_linea dibujar_mas"></div>
-                            </a>
-                        </div>*@
+                <div>
+                    <a class="txt_menos" data-cantidad-agregar="-" style="pointer-events: none;">
+                        <div class="dibujar_linea dibujar_menos"></div>
+                    </a>
+                    <a class="txt_mas" data-cantidad-agregar="+" style="pointer-events: none;">
+                        <div class="dibujar_linea dibujar_mas"></div>
+                    </a>
+                </div>*@
                 </div>
                 {{/if}}
                 <div data-selecciontono="tooltip" class="popover top tooltip_agregar_desabilitado" role="tooltip" id="" style="display: none;">
