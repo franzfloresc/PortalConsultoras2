@@ -658,6 +658,7 @@ body {
     line-height: normal;
 }
 
+
 .texto_sin_tono .tono_seleccionado {
     margin: 1px 9px;
 }
@@ -1025,3 +1026,133 @@ ul.breadcumbs li a::before {
         top: 18px;
         left: -11px;
     }
+.button_cerrar_Clientes {
+    padding: 0px !important;
+    margin: 0px;
+    width: auto;
+    border: none;
+    background: none;
+    position: absolute;
+    right: 20px;
+    top: 22px;
+}
+
+.asignarCliente_bloque {
+    clear: both;
+    padding-top: 55px;
+}
+
+.asignarCliente {
+    padding: 0px;
+}
+
+.asignarCliente li {
+    display: inline-block;
+}
+
+.asignarCliente h3 {
+    font-size: 13px;
+    font-weight: bold !important;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #808080;
+}
+
+.clientes-items {
+    padding: 14px 20px;
+}
+
+.buscar_clientes{
+    position: relative;
+}
+
+.buscar_clientes input {
+    display: block;
+    width: 100%;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid #d8d8d8;
+    padding: 10px 0px;
+    font-size: 13px;
+    padding-right: 28px;
+}
+
+.buscar_clientes img{
+    width: 17px;
+    position: absolute;
+    top: 9px;
+    right: 3px;
+}
+
+.button_cerrar_Clientes {
+    padding: 0px !important;
+    margin: 0px;
+    width: auto;
+    border: none;
+    background: none;
+    position: absolute;
+    right: 20px;
+    top: 22px;
+}
+
+.boton_asignarCliente {
+    font-size: 13px;
+    width: 100%;
+    text-align: left;
+    background-color: #fff;
+    font-weight: bold !important;
+    text-transform: uppercase;
+    letter-spacing: 0.2px;
+    padding: 14px 16px;
+    border: 1px solid #000;
+    line-height: normal;
+    border-radius: 4px;
+    font-family: 'Lato', sans-serif !important;
+    /*background: url('/Content/Images/mobile/Esika/right-arrow.svg');*/
+    background-position: right 15px center;
+    background-repeat: no-repeat;
+    background-size: 13px;
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.seleccion_main_Clientes {
+    background-color: #fff;
+    height: 463px;
+    overflow: auto;
+    transition: all 250ms;
+}
+.clientes_lista {
+    margin-top: 20px;
+}
+
+.clientes_lista h3 {
+    font-size: 13px;
+    padding: 15px 0px;
+    margin-bottom: 0px;
+    border-bottom: 1px solid #d8d8d8;
+}
+
+.clientes_lista ul{
+    padding: 0px;
+}
+
+.cliente-list {
+    font-size: 13px;
+    line-height: normal;
+    padding: 15px 0px;
+    border-bottom: 1px solid #d8d8d8;
+}
+
+
+.cambiar_opcion_editarFicha {
+    font-size: 13px;
+    position: absolute;
+    right: 12px;
+    top: 8px;
+    text-transform: none;
+}
+
+
+

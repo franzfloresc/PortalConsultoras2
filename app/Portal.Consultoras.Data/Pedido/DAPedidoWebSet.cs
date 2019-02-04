@@ -1,12 +1,8 @@
-﻿using System;
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Entities.Pedido;
+using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Portal.Consultoras.Common;
-using Portal.Consultoras.Entities.Estrategia;
-using Portal.Consultoras.Entities.Pedido;
 
 namespace Portal.Consultoras.Data.Pedido
 {
@@ -27,6 +23,16 @@ namespace Portal.Consultoras.Data.Pedido
                 var data = reader.MapToObject<BEPedidoWebSet>(nullable: true, closeReaderFinishing: true);
                 return data;
             }
+        }
+
+        public IDataReader GetSetDetalle(int campaniaId, long consultoraId, int setId)
+        {
+            var command = Context.Database.GetStoredProcCommand("dbo.GetEstrategiaProductoComponenteSeleccionado");
+            Context.Database.AddInParameter(command, "@pCampaniaID", DbType.Int32, campaniaId);
+            Context.Database.AddInParameter(command, "@pConsultoraID", DbType.Int64, consultoraId);
+            Context.Database.AddInParameter(command, "@pSetID", DbType.Int32, setId);
+
+            return Context.ExecuteReader(command);
         }
 
         public IEnumerable<BEPedidoWebSetDetalle> ObtenerDetalles(int setId)

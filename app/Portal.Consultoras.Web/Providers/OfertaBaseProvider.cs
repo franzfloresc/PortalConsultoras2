@@ -177,7 +177,7 @@ namespace Portal.Consultoras.Web.Providers
                     Common.LogManager.SaveLog(ex, "", codigoISO);
                 }
             }
-           
+
             if (listaSinPrecio2.Any())
             {
                 string logPrecio0 = string.Format("Log Precios0 => Fecha:{0} /Palanca:{1} /CodCampania:{2} /CUV(s):{3} /Referencia:{4}", DateTime.Now, codTipoEstrategia, codCampania, string.Join("|", listaSinPrecio2), path);

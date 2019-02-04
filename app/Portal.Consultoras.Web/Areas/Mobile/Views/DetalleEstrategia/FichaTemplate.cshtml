@@ -1,0 +1,168 @@
+﻿@using Portal.Consultoras.Common
+
+@{
+    @System.Web.Optimization.Styles.Render("~/Bundle/Css/Mobile/Ficha")
+    if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
+    {
+        @Styles.Render("~/Bundle/Css/Mobile/Ficha-Esika")
+    }
+    else
+    {
+        @Styles.Render("~/Bundle/Css/Mobile/Ficha-Lbel")
+    }
+    <style id="styleRelojOdd"></style>
+}
+
+<div data-ficha-contenido="ficha_navegar_template"></div>
+
+<div data-item="">
+    <div style="display: none;">
+        <div id="data-estrategia" data-estrategia=""></div>
+    </div>
+
+    <div id="seccion_ficha_handlebars"></div>
+</div>
+
+<div class="container" id="ContenidoProducto" style="display:none;">
+    <div class="row tabs">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <ul class="tabs ficha_tabs">
+                <li id="div_ficha_tab1">
+                    <a class="tab-link">DETALLE DEL PRODUCTO</a>
+                    <ul>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim porro dolorum dolor blanditiis omnis sunt aut totam iste, aliquam provident excepturi laborum quo optio! Omnis, ab? Fuga odio eum iure?
+                    </ul>
+                </li>
+                <li id="div_ficha_tab2">
+                    <a class="tab-link">DETALLE DEL PACK</a>
+                    <ul>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim porro dolorum dolor blanditiis omnis sunt aut totam iste, aliquam provident excepturi laborum quo optio! Omnis, ab? Fuga odio eum iure?
+                    </ul>
+                </li>
+                <li id="div_ficha_tab3">
+                    <a class="tab-link">TIPS DE VENTA</a>
+                    <ul>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim porro dolorum dolor blanditiis omnis sunt aut totam iste, aliquam provident excepturi laborum quo optio! Omnis, ab? Fuga odio eum iure?
+                    </ul>
+                </li>
+                <li id="div_ficha_tab4">
+                    <a class="tab-link">BENEFICIOS</a>
+                    <ul>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim porro dolorum dolor blanditiis omnis sunt aut totam iste, aliquam provident excepturi laborum quo optio! Omnis, ab? Fuga odio eum iure?
+                    </ul>
+                </li>
+                <li id="div_ficha_tab5">
+                    <a class="active">VIDEO</a>
+                    <ul style="display: block;">
+                        <div class="video-visual" id="contenido_5">
+                            <div class="contenedor_iframe_seccion_tab" id="contenedor-tab-video"></div>
+                        </div>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div data-ficha-contenido="ficha_carrusel_template"></div>
+
+<div data-ficha-contenido="ficha_compartir_template"></div>
+
+<script id="ficha_navegar_template" type="text/x-handlebars-template">
+    {{#if_eq TipoAccionNavegar '@Constantes.TipoAccionNavegar.BreadCrumbs'}}
+
+    <div class="container" id="div-container-breadcubs">
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="breadcumbs">
+                    {{#IsNullOrEmpty Inicio.Texto '!='}}
+                    <li data-opcion="{{Inicio.Texto}}"><a href="javascript:;" onclick="eventBreadCumb('{{Inicio.Url}}', '{{Inicio.Texto}}' )">{{Inicio.Texto}}</a></li>
+                    {{/IsNullOrEmpty}}
+                    <li data-opcion="{{Ofertas.Texto}}"><a href="javascript:;" onclick="eventBreadCumb('{{Ofertas.Url}}', '{{Ofertas.Texto}}')">{{Ofertas.Texto}}</a></li>
+                    {{#IsNullOrEmpty Palanca.Texto '!='}}
+                    <li data-opcion="{{Palanca.Texto}}"><a href="javascript:;" onclick="eventBreadCumb('{{Palanca.Url}}','{{Palanca.Texto}}')">{{Palanca.Texto}}</a></li>
+                    {{/IsNullOrEmpty}}
+                    <li data-opcion="{{Producto.Texto}}"><a href="javascript:;" onclick="eventBreadCumb('{{Producto.Texto}}','{{Producto.Texto}}')" id="estrategia-breadcrumb">{{Producto.Texto}}</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    {{else if_eq TipoAccionNavegar '@Constantes.TipoAccionNavegar.Volver'}}
+    <a class="boton_volver_ficha" href="javascript:;" onclick="javascript:FichaEditarModule.ShowDivFichaResumida(false)"> <img src="/Content/Images/mobile/Esika/right-arrow.svg" />Volver</a>
+    {{/if_eq}}
+
+</script>
+
+<script id="ficha_carrusel_template" type="text/x-handlebars-template">
+
+    <div id="divFichaCarrusel" class="container">
+        <div class="col-md-12 col-sm-12 col-xs-12 ficha_lineaencuentraproducto">
+            <hr>
+        </div>
+        <hr class="clear" />
+
+        <div class="row carrusel">
+            <div>
+                <div class="set_encuentras_producto">
+                    <div class="wrapper_resumen_mobile ficha_encuentraproducto">
+                        <p id="tituloCarrusel" class="titulo_set"></p>
+                        <div class="set_encuentras_producto_carrusel" data-OrigenPedidoWeb="{{OrigenUrl}}" data-OrigenPedidoWebAgregar="{{OrigenAgregar}}">
+                            <div id="divFichaCarruselProducto"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</script>
+
+<script id="ficha_compartir_template" type="text/x-handlebars-template">
+
+    {{#if TieneCompartir}}
+
+    <div class="col-md-12 col-sm-12 col-xs-12 ficha_lineaencuentraproducto">
+        <hr>
+    </div>
+    <div id="Contenedor_redes_sociales" data-item="">
+        <div data-compartir-campos="" style="display:none;">
+            <input type="hidden" class="CUV" value="{{CUV2}}" />
+            <input type="hidden" class="rsFBMensaje" value="" />
+            <input type="hidden" class="rsWAMensaje" value="" />
+            <input type="hidden" class="rsFBRutaImagen" value="{{ImgUrl FotoProducto01}}" />
+            <input type="hidden" class="rsWARutaImagen" value="{{ImgUrl FotoProducto01}}" />
+            <input type="hidden" class="MarcaID" value="{{MarcaID}}" />
+            <input type="hidden" class="MarcaNombre" value="{{DescripcionMarca}}" />
+            <input type="hidden" class="Nombre" value="{{DescripcionCompleta}}" />
+            <input type="hidden" class="ProductoDescripcion" value="{{DescripcionDetalle}}" />
+            <input type="hidden" class="Volumen" value="" />
+            <input type="hidden" class="Palanca" value="{{Palanca}}" />
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12 share">
+            <p>Comparte el producto con tus clientes</p>
+            <a href="javascript: void(0);" class="text-right">
+                <img src="/Content/Images/showroom/redes_whatsapp.png" alt="" class="wsp" data-compartir="WA">
+            </a>
+            <a href="javascript: void(0);">
+                <img src="/Content/Images/showroom/redes_facebook.png" alt="" class="fb" data-compartir="FB">
+            </a>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+    {{else}}
+    <div class="share"></div>
+    {{/if}}
+
+</script>
+
+@Html.Partial("~/Areas/Mobile/Views/DetalleEstrategia/_ElegirOpciones.cshtml")
+@Html.Partial("~/Areas/Mobile/Views/DetalleEstrategia/ProductoTemplate.cshtml")
+@Html.Partial("~/Areas/Mobile/Views/DetalleEstrategia/ResumenOpcionesTemplate.cshtml")
+@Html.Partial("~/Areas/Mobile/Views/DetalleEstrategia/ComponentesTemplate.cshtml")
+@Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml", new ViewDataDictionary { { "TieneBotones", false } })
+@Html.Partial("~/Views/DetalleEstrategia/template-ficha-detalle-video.cshtml")
+@Html.Partial("_template-ofertadeldia-style")
+

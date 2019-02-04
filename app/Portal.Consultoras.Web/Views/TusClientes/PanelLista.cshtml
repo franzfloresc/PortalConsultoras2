@@ -1,0 +1,90 @@
+﻿@{
+    ViewBag.Title = "Mis clientes";
+    Layout = null;
+    //Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
+}
+
+<link href="@Url.Content("~/Content/Css/Site/Esika/style.css")" rel="stylesheet" />
+
+<style>
+    /*INIT Estilo Panel*/
+    .sidenav {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        right: 0;
+        background-color: #f1f1f1 !important;
+        overflow-x: hidden;
+        transition: 0.5s;
+        /*padding-top: 60px;*/
+    }
+
+        .sidenav a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+        }
+
+            .sidenav a:hover {
+                color: #f1f1f1;
+            }
+
+        .sidenav .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+        }
+    /*END Estilo Panel*/
+</style>
+
+<input id="hfBaseUrl" type="hidden" value="@Url.Content("~")" />
+<input id="hfUrlFrmRegistro" type="hidden" value="@Url.Action("PanelMantener","TusClientes")" />
+
+<input id="hfPaisID" type="hidden" />
+<input id="hfClienteID" type="hidden" />
+<input id="hfCodigoCliente" type="hidden" />
+<input id="hfNombreCliente" type="hidden" />
+<input id="hfNombre" type="hidden" />
+
+<hr class="clear" />
+
+<a href="#" style="text-decoration:underline" id="btnPanelListaCerrar">Cerrar panel</a>
+<a href="#" style="text-decoration:underline" id="btnPanelListaAgregar">Agregar Cliente</a>
+<a href="#" style="text-decoration:underline" id="btnPanelListaAceptar">Aceptar selección</a>
+
+<input placeholder="Buscar" type="text" class="buscador_clientes" id="txtPanelListaBusqueda" style="width:100%" />
+
+
+<hr class="clear" />
+
+<div id="handlebars_contenedor1"></div>
+<script id="handlebars_plantilla1" type="text/x-handlebars-template">
+
+    {{# each miData}}
+    <div class="content_listado_notificaciones" onclick="panelListaModule.seleccionarRegistro({{PaisID}}, {{ClienteID}}, '{{CodigoCliente}}', '{{NombreCliente}}', '{{Nombre}}')">
+        <div style="display:none;" class="cliente_id">{{ClienteID}}</div>
+        <div style="display:none;" class="codigo_cliente">{{CodigoCliente}}</div>
+        <div class="nombre_cliente_sb">{{NombreCliente}}</div>
+    </div>
+    {{/each}}
+
+</script>
+
+<!-- INIT: Panel cliente-->
+<div id="PanelClienteRegistro" class="sidenav" style="background-color:#f1f1f1 !important;">
+    <div id="PanelClienteRegistro_contenedor" style="background-color:#f1f1f1;">
+    </div>
+</div>
+<!-- END: Panel cliente-->
+@*
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.11.2.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/handlebars.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/General.js")"></script>
+*@
