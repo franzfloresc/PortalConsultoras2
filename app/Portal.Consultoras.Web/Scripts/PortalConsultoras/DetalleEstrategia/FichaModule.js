@@ -130,6 +130,8 @@ var FichaModule = (function (config) {
         dvContenedorAgregar: "#dvContenedorAgregar"
     };
 
+
+
     var _tabsFichaProducto = {
         detalleProducto: "#div_ficha_tab1",
         detallePack: "#div_ficha_tab2",
@@ -847,7 +849,17 @@ var FichaModule = (function (config) {
     };
 });
 
+
 //INIT PANEL CLIENTE
+
+var _seccionesPanelCliente = {
+    hfClienteId: "#hfClienteId",
+    hfClienteNombre: "#hfClienteNombre",
+    spClienteNombre: "#spClienteNombre",
+    btnShowCliente: "#btnShowCliente"
+
+};
+
 
 var tusClientesProvider = TusClientesProvider();
 var panelListaModule = PanelListaModule({
@@ -930,13 +942,13 @@ var FichaEditarModule = (function () {
         panel.AceptaClick(function (obj) {
             //PaisID, ClienteID, CodigoCliente, NombreCliente, Nombre
             //console.log('tu código:', obj);
-            $("#hfClienteId").val(obj.ClienteID);
-            $("#hfClienteNombre").val(obj.Nombre);
-            $('#spClienteNombre').html(obj.Nombre);
-
+            $(_seccionesPanelCliente.hfClienteId).val(obj.ClienteID);
+            $(_seccionesPanelCliente.hfClienteNombre).val(obj.Nombre);
+            $(_seccionesPanelCliente.spClienteNombre).html(obj.Nombre);
+            EstrategiaAgregarModule.HabilitarBoton(); //EstrategiaAgregarModule.DeshabilitarBoton();
         });
 
-        $("#btnShowCliente").click(function () {
+        $(_seccionesPanelCliente.btnShowCliente).click(function () {
             panel.Abrir();
         });
         //END PANEL CLIENTE
