@@ -914,6 +914,19 @@ namespace Portal.Consultoras.Common
             public const int MobileBuscadorGNDFicha = 2040502;
             public const int MobileBuscadorHerramientasdeVentaFicha = 2040802;
 
+            public const int DesktopPedidoProductoRecomendadoOpm = 1020008;
+            public const int DesktopPedidoProductoRecomendadoShowRoom = 1020108;
+            public const int DesktopPedidoProductoRecomendadoLan = 1020208;
+            public const int DesktopPedidoProductoRecomendadoOdd = 1020308;
+            public const int DesktopPedidoProductoRecomendadoHv = 1020808;
+            public const int DesktopPedidoProductoRecomendadoGanadoras = 1021408;
+            public const int MobilePedidoProductoRecomendadoOpm = 2020008;
+            public const int MobilePedidoProductoRecomendadoShowRoom = 2020108;
+            public const int MobilePedidoProductoRecomendadoLan = 2020208;
+            public const int MobilePedidoProductoRecomendadoOdd = 2020308;
+            public const int MobilePedidoProductoRecomendadoHv = 2020808;
+            public const int MobilePedidoProductoRecomendadoGanadoras = 2021408;
+                                            
             public const int MobileContenedorShowroomCarrusel = 2080101;
             public const int MobileContenedorShowroomFicha = 2080102;
             public const int MobileContenedorLanzamientosCarrusel = 2080201; // Esta en duro en rdAnalyticsModule

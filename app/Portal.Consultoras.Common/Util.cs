@@ -3758,37 +3758,22 @@ namespace Portal.Consultoras.Common
             return result;
         }
 
-        public static string obtenerCodigoOrigenWeb(
-            string codigoEstrategia,
-            string codigoTipoEstrategia,
-            int marcaId,
-            bool mobile,
-            bool home,
-            bool recomendaciones,
-            bool materialGanancia
-            )
+        public static string obtenerCodigoOrigenWeb(string codigoEstrategia,string codigoTipoEstrategia,
+            int marcaId, bool mobile, bool home, bool recomendaciones, bool materialGanancia)
         {
-
             var result = "";
-
-            if (recomendaciones)
-            {
-                result = mobile ? Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoCarrusel.ToString() : Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoCarrusel.ToString();
-                return result;
-            }
-
             if (materialGanancia)
             {
-                if (
-                    codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertaParaTi ||
+                if (codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertaParaTi ||
                     codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi ||
-                    codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso
-                    )
+                    codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso)
                 {
                     result = home ?
-                      (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorGanadorasDesplegable.ToString() : Constantes.OrigenPedidoWeb.DesktopBuscadorGanadorasDesplegable.ToString())
+                      (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorGanadorasDesplegable.ToString() : 
+                          Constantes.OrigenPedidoWeb.DesktopBuscadorGanadorasDesplegable.ToString())
                       :
-                      (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorGanadorasCarrusel.ToString() : Constantes.OrigenPedidoWeb.DesktopBuscadorGanadorasCarrusel.ToString());
+                      (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorGanadorasCarrusel.ToString() : 
+                          Constantes.OrigenPedidoWeb.DesktopBuscadorGanadorasCarrusel.ToString());
                 }              
                 return result;
             }
@@ -3797,66 +3782,103 @@ namespace Portal.Consultoras.Common
             {
                 case "LIQ":
                     result = home ?
-                        (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorLiquidacionDesplegableBuscador.ToString() : Constantes.OrigenPedidoWeb.DesktopBuscadorLiquidacionDesplegableBuscador.ToString())
+                        (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorLiquidacionDesplegableBuscador.ToString() : 
+                            Constantes.OrigenPedidoWeb.DesktopBuscadorLiquidacionDesplegableBuscador.ToString())
                         :
-                        (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorLiquidacionCarrusel.ToString() : Constantes.OrigenPedidoWeb.DesktopLandingBuscadorLiquidacionCarrusel.ToString());
+                        (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorLiquidacionCarrusel.ToString() : 
+                            Constantes.OrigenPedidoWeb.DesktopLandingBuscadorLiquidacionCarrusel.ToString());
                     break;
                 case "CAT":
                     result = home ?
-                        ((marcaId == 1 ? (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorCatalogoLbelDesplegableBuscador.ToString() : Constantes.OrigenPedidoWeb.DesktopBuscadorCatalogoLbelDesplegableBuscador.ToString()) :
-                        (marcaId == 2 ? (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorCatalogoEsikaDesplegableBuscador.ToString() : Constantes.OrigenPedidoWeb.DesktopBuscadorCatalogoEsikaDesplegableBuscador.ToString()) :
-                        (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorCatalogoCyzoneDesplegableBuscador.ToString() : Constantes.OrigenPedidoWeb.DesktopBuscadorCatalogoCyzoneDesplegableBuscador.ToString()))))
+                        ((marcaId == 1 ? (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorCatalogoLbelDesplegableBuscador.ToString() : 
+                                Constantes.OrigenPedidoWeb.DesktopBuscadorCatalogoLbelDesplegableBuscador.ToString()) :
+                        (marcaId == 2 ? (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorCatalogoEsikaDesplegableBuscador.ToString() : 
+                                Constantes.OrigenPedidoWeb.DesktopBuscadorCatalogoEsikaDesplegableBuscador.ToString()) :
+                        (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorCatalogoCyzoneDesplegableBuscador.ToString() : 
+                            Constantes.OrigenPedidoWeb.DesktopBuscadorCatalogoCyzoneDesplegableBuscador.ToString()))))
                         :
-                         ((marcaId == 1 ? (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorCatalogoLbelCarrusel.ToString() : Constantes.OrigenPedidoWeb.DesktopLandingBuscadorCatalogoLbelCarrusel.ToString()) :
-                        (marcaId == 2 ? (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorCatalogoEsikaCarrusel.ToString() : Constantes.OrigenPedidoWeb.DesktopLandingBuscadorCatalogoEsikaCarrusel.ToString()) :
-                        (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorCatalogoCyzoneCarrusel.ToString() : Constantes.OrigenPedidoWeb.DesktopLandingBuscadorCatalogoCyzoneCarrusel.ToString()))));
+                         ((marcaId == 1 ? (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorCatalogoLbelCarrusel.ToString() : 
+                                 Constantes.OrigenPedidoWeb.DesktopLandingBuscadorCatalogoLbelCarrusel.ToString()) :
+                        (marcaId == 2 ? (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorCatalogoEsikaCarrusel.ToString() : 
+                                Constantes.OrigenPedidoWeb.DesktopLandingBuscadorCatalogoEsikaCarrusel.ToString()) :
+                        (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorCatalogoCyzoneCarrusel.ToString() : 
+                            Constantes.OrigenPedidoWeb.DesktopLandingBuscadorCatalogoCyzoneCarrusel.ToString()))));
                     break;
                 case "ODD":
                     result = home ?
-                        (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorOfertaDelDiaDesplegableBuscador.ToString() : Constantes.OrigenPedidoWeb.DesktopBuscadorOfertaDelDiaDesplegableBuscador.ToString())
+                        (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorOfertaDelDiaDesplegableBuscador.ToString() : 
+                            Constantes.OrigenPedidoWeb.DesktopBuscadorOfertaDelDiaDesplegableBuscador.ToString())
                         :
-                        (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorOfertaDelDiaCarrusel.ToString() : Constantes.OrigenPedidoWeb.DesktopLandingBuscadorOfertaDelDiaCarrusel.ToString());
+                        (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorOfertaDelDiaCarrusel.ToString() : 
+                            Constantes.OrigenPedidoWeb.DesktopLandingBuscadorOfertaDelDiaCarrusel.ToString());
                     break;
                 default:
                     switch (codigoTipoEstrategia)
                     {
                         case Constantes.TipoEstrategiaCodigo.ShowRoom:
-                            result = home ?
-                                (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorShowroomDesplegableBuscador.ToString() : Constantes.OrigenPedidoWeb.DesktopBuscadorShowroomDesplegableBuscador.ToString())
+                            result = recomendaciones ? 
+                                (mobile ? Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoShowRoom.ToString() : 
+                                    Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoShowRoom.ToString()) 
+                                : home ?
+                                (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorShowroomDesplegableBuscador.ToString() : 
+                                    Constantes.OrigenPedidoWeb.DesktopBuscadorShowroomDesplegableBuscador.ToString())
                                 :
-                                (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorShowroomCarrusel.ToString() : Constantes.OrigenPedidoWeb.DesktopLandingBuscadorShowroomCarrusel.ToString());
+                                (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorShowroomCarrusel.ToString() : 
+                                    Constantes.OrigenPedidoWeb.DesktopLandingBuscadorShowroomCarrusel.ToString());
                             break;
                         case Constantes.TipoEstrategiaCodigo.Lanzamiento:
-                            result = home ?
-                                (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorLanzamientosDesplegableBuscador.ToString() : Constantes.OrigenPedidoWeb.DesktopBuscadorLanzamientosDesplegableBuscador.ToString())
+                            result = recomendaciones ?
+                                (mobile ? Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoLan.ToString() :
+                                    Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoLan.ToString())
+                                : home ?
+                                (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorLanzamientosDesplegableBuscador.ToString() : 
+                                    Constantes.OrigenPedidoWeb.DesktopBuscadorLanzamientosDesplegableBuscador.ToString())
                                 :
-                                (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorLanzamientosCarrusel.ToString() : Constantes.OrigenPedidoWeb.DesktopLandingBuscadorLanzamientosCarrusel.ToString());
+                                (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorLanzamientosCarrusel.ToString() : 
+                                    Constantes.OrigenPedidoWeb.DesktopLandingBuscadorLanzamientosCarrusel.ToString());
                             break;
                         case Constantes.TipoEstrategiaCodigo.OfertaParaTi:
                         case Constantes.TipoEstrategiaCodigo.OfertasParaMi:
                         case Constantes.TipoEstrategiaCodigo.PackAltoDesembolso:
-                            result = home ?
-                                (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorOfertasParaTiDesplegableBuscador.ToString() : Constantes.OrigenPedidoWeb.DesktopBuscadorOfertasParaTiDesplegableBuscador.ToString())
+                            result = recomendaciones ?
+                                (mobile ? Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoOpm.ToString() :
+                                    Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoOpm.ToString())
+                                : home ?
+                                (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorOfertasParaTiDesplegableBuscador.ToString() : 
+                                    Constantes.OrigenPedidoWeb.DesktopBuscadorOfertasParaTiDesplegableBuscador.ToString())
                                 :
-                                (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorOfertasParaTiCarrusel.ToString() : Constantes.OrigenPedidoWeb.DesktopLandingBuscadorOfertasParaTiCarrusel.ToString());
+                                (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorOfertasParaTiCarrusel.ToString() : 
+                                    Constantes.OrigenPedidoWeb.DesktopLandingBuscadorOfertasParaTiCarrusel.ToString());
                             break;
                         case Constantes.TipoEstrategiaCodigo.OfertaDelDia:
-                            result = home ?
-                                 (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorOfertaDelDiaDesplegableBuscador.ToString() : Constantes.OrigenPedidoWeb.DesktopBuscadorOfertaDelDiaDesplegableBuscador.ToString())
+                            result = recomendaciones ?
+                                (mobile ? Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoOdd.ToString() :
+                                    Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoOdd.ToString())
+                                : home ?
+                                 (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorOfertaDelDiaDesplegableBuscador.ToString() : 
+                                     Constantes.OrigenPedidoWeb.DesktopBuscadorOfertaDelDiaDesplegableBuscador.ToString())
                                  :
-                                 (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorOfertaDelDiaCarrusel.ToString() : Constantes.OrigenPedidoWeb.DesktopLandingBuscadorOfertaDelDiaCarrusel.ToString());
+                                 (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorOfertaDelDiaCarrusel.ToString() : 
+                                     Constantes.OrigenPedidoWeb.DesktopLandingBuscadorOfertaDelDiaCarrusel.ToString());
                             break;
                         case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
                             result = home ?
-                                (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorGNDDesplegableBuscador.ToString() : Constantes.OrigenPedidoWeb.DesktopBuscadorGNDDesplegableBuscador.ToString())
+                                (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorGNDDesplegableBuscador.ToString() : 
+                                    Constantes.OrigenPedidoWeb.DesktopBuscadorGNDDesplegableBuscador.ToString())
                                 :
-                                (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorGNDCarrusel.ToString() : Constantes.OrigenPedidoWeb.DesktopLandingBuscadorGNDCarrusel.ToString());
+                                (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorGNDCarrusel.ToString() : 
+                                    Constantes.OrigenPedidoWeb.DesktopLandingBuscadorGNDCarrusel.ToString());
                             break;
                         case Constantes.TipoEstrategiaCodigo.HerramientasVenta:
-                            result = home ?
-                               (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorHerramientasdeVentaDesplegableBuscador.ToString() : Constantes.OrigenPedidoWeb.DesktopBuscadorHerramientasdeVentaDesplegableBuscador.ToString())
+                            result = recomendaciones ?
+                                (mobile ? Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoHv.ToString() :
+                                    Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoHv.ToString())
+                                : home ?
+                               (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorHerramientasdeVentaDesplegableBuscador.ToString() : 
+                                   Constantes.OrigenPedidoWeb.DesktopBuscadorHerramientasdeVentaDesplegableBuscador.ToString())
                                :
-                               (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorHerramientasDeVentaCarrusel.ToString() : Constantes.OrigenPedidoWeb.DesktopLandingBuscadorHerramientasDeVentaCarrusel.ToString());
+                               (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorHerramientasDeVentaCarrusel.ToString() : 
+                                   Constantes.OrigenPedidoWeb.DesktopLandingBuscadorHerramientasDeVentaCarrusel.ToString());
                             break;
                     }
                     break;
