@@ -627,6 +627,16 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             #endregion
+            
+            modelo.MostrarSelectorCliente = false;
+#if DEBUG
+            modelo.MostrarSelectorCliente = _tablaLogicaProvider.GetTablaLogicaDatoValorBool(
+                            userData.PaisID,
+                            Constantes.TablaLogica.PantallaResponsive,
+                            Constantes.TablaLogicaDato.PantallasResponsive.MisClientes,
+                            false
+                            );
+#endif
 
             return modelo;
         }

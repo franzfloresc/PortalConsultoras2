@@ -1882,14 +1882,6 @@
 
 @section scripts{
 
-
-    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-ui-1.9.2.custom.min.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/handlebars.min.js")"></script>
-
-    <script type="text/javascript" src="@Url.Content("~/Scripts/General.js")"></script>
-
-    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/TusClientes")
-
     <script type="text/javascript">
         var arregloProductos;
         var cantProductosLoad = '@Model.ListaEstrategias.Count';
@@ -1977,6 +1969,7 @@
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/FichaProducto/Index.js")"></script>
 
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Ficha")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/TusClientes")
 
 }
 
