@@ -3,6 +3,7 @@
 *{
     font-family:'Lato', sans-serif;
     font-weight:400;
+    box-sizing:border-box;
 }
 
 /* FIN - ESTILOS GENERALES */
@@ -178,6 +179,7 @@
     border-right:1px solid #FFF;
     padding-left:10px;
     padding-right:10px;
+    position:relative;
 }
 
 .administracion__popups__grilla__cabecera .col__grilla{
@@ -194,32 +196,85 @@
     max-width:3%;
 }
 
-.col__grilla--fondo,
-.col__grilla--duracion
-{
-    -ms-flex: 0 0 15%;
-    flex:0 0 15%;
-    max-width:15%;
+.col__grilla--fondo{
+    -ms-flex: 0 0 16%;
+    flex:0 0 16%;
+    max-width:16%;
+}
+
+.col__grilla--duracion{
+    -ms-flex: 0 0 14%;
+    flex:0 0 14%;
+    max-width:14%;
 }
 
 .col__grilla--titulo{
-    -ms-flex: 0 0 19.5%;
-    flex:0 0 19.5%;
-    max-width:19.5%;
+    -ms-flex: 0 0 25%;
+    flex:0 0 25%;
+    max-width:25%;
 }
 
 .col__grilla--ruta{
-    -ms-flex: 0 0 24%;
-    flex:0 0 24%;
-    max-width:24%;
+    -ms-flex: 0 0 27%;
+    flex:0 0 27%;
+    max-width:27%;
 }
 
-.col__grilla--estado,
-.col__grilla--editar
+.col__grilla--estado {
+    -ms-flex: 0 0 9%;
+    -webkit-flex: 0 0 9%;
+    flex: 0 0 9%;
+    max-width: 9%;
+}
+
+.col__grilla--editar{
+    -ms-flex: 0 0 6%;
+    flex:0 0 6%;
+    max-width:6%;
+}
+
+.opcion__filtro__estado,
+.opcion__filtro__estado__enlace,
+.opcion__filtro__estado__enlace:hover
 {
-    -ms-flex: 0 0 5%;
-    flex:0 0 5%;
-    max-width:5%;
+    color:#000;
+}
+
+.empty__space{
+    position: absolute;
+    height: 20px;
+    background-color: transparent;
+    top: -10px;
+}
+
+.lista__opciones__filtro__estado {
+    display: none;
+    position: absolute;
+    top: 37px;
+    left: -8%;
+    right: 0;
+    width: 111px;
+    height: 90px;
+    background-color: #FFF;
+    z-index: 2;
+    border: 1px solid #D8D8D8;
+}
+
+.col__grilla--estado:hover .lista__opciones__filtro__estado{
+    display:block;
+}
+
+.col__grilla__despliegue__opciones--estado span:first-child{
+    margin-right:5px;
+}
+
+.opcion__filtro__estado{
+    min-height:44px;
+    border-bottom:1px solid #D8D8D8;
+}
+
+.opcion__filtro__estado:last-child{
+    border-bottom:none;
 }
 
 .administracion__popups__grilla__contenido .row__grilla{
