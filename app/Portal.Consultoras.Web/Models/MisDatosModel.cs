@@ -50,5 +50,6 @@ namespace Portal.Consultoras.Web.Models
         public DireccionEntregaModel DireccionEntrega { get; set; }
 
         public dynamic DatosExtra { get; set; }
+        public bool TieneDireccionEntrega { get; set; }
     }
 }

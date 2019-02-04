@@ -3830,12 +3830,12 @@ namespace Portal.Consultoras.BizLogic
                             throw new Exception(result.mensaje);
                     }
                     var urlService = new EndpointAddress(WebConfig.ServicioActualizarBoletaImp);
-                    bool flagBolImp = usuario.UsuarioOpciones.Where(a => a.Codigo == "chkBoletasImpresas").Select(b => b.CheckBox).FirstOrDefault();
+                    string flagBolImp = !usuario.UsuarioOpciones.Where(a => a.Codigo == "chkBoletasImpresas").Select(b => b.CheckBox).FirstOrDefault() ? "N" : "S";
                     using (var svr = new ProcesoMAEActualizaFlagImpBoletasWebServiceImplClient(new BasicHttpBinding(), urlService))
                     {
                         svr.Endpoint.Binding.SendTimeout = new TimeSpan(0, 0, 0, 10);
                         var objActualizarFlagBoleta = new List<ConsultoraFlagImpBoleta>();
-                        objActualizarFlagBoleta.Add(new ConsultoraFlagImpBoleta { codigoConsultora = usuario.CodigoUsuario, indImprimeBoleta = !flagBolImp ? "N" : "S" });
+                        objActualizarFlagBoleta.Add(new ConsultoraFlagImpBoleta { codigoConsultora = usuario.CodigoUsuario, indImprimeBoleta = flagBolImp, indImprimePaquete = flagBolImp });
                         var result = svr.actualizaFlagImpBoletas(objActualizarFlagBoleta.ToArray());
                         if (result.estado == 1)
                             throw new Exception(result.mensaje);

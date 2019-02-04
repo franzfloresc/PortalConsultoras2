@@ -10,6 +10,7 @@
         <xsd:sequence>
           <xsd:element name="codigoConsultora" nillable="true" type="soapenc:string" />
           <xsd:element name="indImprimeBoleta" nillable="true" type="soapenc:string" />
+          <xsd:element name="indImprimePaquete" nillable="true" type="soapenc:string" />
         </xsd:sequence>
       </xsd:complexType>
     </xsd:schema>
