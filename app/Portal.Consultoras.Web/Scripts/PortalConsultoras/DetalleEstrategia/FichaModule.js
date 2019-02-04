@@ -479,21 +479,26 @@ var FichaModule = (function (config) {
     var _getEstrategia = function () {
         var estrategia;
         
-        if (_config.tieneSession) {
-            var valData = $(_elementos.dataEstrategia.id).attr(_elementos.dataEstrategia.dataEstrategia) || "";
-            if (valData != "") {
-                estrategia = JSON.parse(valData);
+        if (_config.esEditable) {
+            estrategia = _modeloFicha;
+        } else {
+            if (_config.tieneSession) {
+                var valData = $(_elementos.dataEstrategia.id).attr(_elementos.dataEstrategia.dataEstrategia) || "";
+                if (valData != "") {
+                    estrategia = JSON.parse(valData);
+                }
+                else {
+                    estrategia = _modeloFicha;
+                }
             }
             else {
-                estrategia = _modeloFicha;
+                estrategia = _localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
+                if ((typeof estrategia === "undefined" || estrategia === null) && _config.palanca === _codigoPalanca.OfertasParaMi) {
+                    estrategia = _localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _codigoPalanca.Ganadoras);
+                }
             }
         }
-        else {
-            estrategia = _localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
-            if ((typeof estrategia === "undefined" || estrategia === null) && _config.palanca === _codigoPalanca.OfertasParaMi) {
-                estrategia = _localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _codigoPalanca.Ganadoras);
-            }
-        }
+        
 
         if (typeof estrategia === "undefined" || estrategia == null) return estrategia;
 
@@ -770,6 +775,7 @@ var FichaModule = (function (config) {
     };
 
     var _construirSeccionFicha = function () {
+        
         _getModelo();
         _config.tieneSession = _modeloFicha.TieneSession;
 
