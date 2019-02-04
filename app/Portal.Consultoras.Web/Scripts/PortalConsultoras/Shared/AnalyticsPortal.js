@@ -39,7 +39,7 @@ var AnalyticsPortalModule = (function () {
         eligetuopcion: "eligetuopcion",
         verdetalle: "verdetalle",
         contenedor: "Contenedor",
-        contenedorHome: "Contenedor - Home",
+        contenedorHome: "Contenedor - Inicio",
         contenedorDetalle: "Contenedor - Detalle de Producto",
         contenedorDetalleSets: "Contenedor - Detalle de Producto - Ver más Sets",
         contenedorRevisar: "Contenedor - Revisar",
@@ -164,7 +164,7 @@ var AnalyticsPortalModule = (function () {
         Palanca: [
             { "Codigo": "00", "CodigoPalanca": "RD", "TextoList": "Ofertas Para Ti" },
             { "Codigo": "01", "CodigoPalanca": "SR", "TextoList": "Showroom" },
-            { "Codigo": "02", "CodigoPalanca": "LAN", "TextoList": "" },
+            { "Codigo": "02", "CodigoPalanca": "LAN", "TextoList": "Lanzamientos" },
             { "Codigo": "03", "CodigoPalanca": "ODD", "TextoList": "Oferta del Día" },
             { "Codigo": "04", "CodigoPalanca": "OF", "TextoList": "" },
             { "Codigo": "05", "CodigoPalanca": "GND", "TextoList": "GND" },
@@ -189,12 +189,29 @@ var AnalyticsPortalModule = (function () {
         ]
     }
 
+    var _urlPaginas = [
+        { Codigo: "00", UrlController: "RevistaDigital" },
+        { Codigo: "01", UrlController: "ShowRoom" },
+        { Codigo: "02", UrlController: "" },
+        { Codigo: "03", UrlController: "" },
+        { Codigo: "04", UrlController: "" },
+        { Codigo: "05", UrlController: "GuiaNegocio" },
+        { Codigo: "06", UrlController: "OfertaLiquidacion" },
+        { Codigo: "07", UrlController: "" },
+        { Codigo: "08", UrlController: "HerramientasVenta" },
+        { Codigo: "09", UrlController: "" },
+        { Codigo: "10", UrlController: "" },
+        { Codigo: "11", UrlController: "" },
+        { Codigo: "12", UrlController: "" },
+        { Codigo: "13", UrlController: "" },
+        { Codigo: "14", UrlController: "MasGanadoras" }
+    ]
+
     ////////////////////////////////////////////////////////////////////////////////////////
     // Ini - Metodos Iniciales
     ////////////////////////////////////////////////////////////////////////////////////////
 
-
-    var _getEstructuraOrigenPedidoWeb = function (origen) {
+    var _getEstructuraOrigenPedidoWeb = function (origen, url) {
         var origenEstructura = {};
 
         if (typeof origen === "object") {
@@ -217,7 +234,17 @@ var AnalyticsPortalModule = (function () {
         origenEstructura.Palanca = (origenEstructura.Palanca || codigoOrigenPedido.substring(3, 5)).toString().trim();
         origenEstructura.Seccion = (origenEstructura.Seccion || codigoOrigenPedido.substring(5, 7)).toString().trim();
 
-        //console.log("_getEstructuraOrigenPedidoWeb", origen, origenEstructura);
+        if (origenEstructura.Palanca == "" && url != "") {
+            origenEstructura.Palanca = _getCodigoPalancaSegunUrl(url);
+        }
+
+        if (origenEstructura.Pagina == "" && url != "") {
+            switch (window.controllerName) {
+                case "ofertas": origenEstructura.Pagina = ConstantesModule.OrigenPedidoWebEstructura.Pagina.Contenedor; break;
+            }
+        }
+
+        console.log("_getEstructuraOrigenPedidoWeb", origen, origenEstructura);
 
         return origenEstructura;
     }
@@ -282,9 +309,35 @@ var AnalyticsPortalModule = (function () {
         return obj.TextoList || "";
     }
 
-    var _getParametroListSegunOrigen = function (origenEstructura) {
+    var _getCodigoPalancaSegunUrl = function (url) {
 
-        origenEstructura = _getEstructuraOrigenPedidoWeb(origenEstructura);
+        url = url || "";
+        var partes = url.split('/');
+        var controlador = "";
+        $.each(partes, function (index, campo) {
+            campo = campo.toLocaleLowerCase();
+            if (controlador == "" && campo != "" && campo != "mobile") {
+                controlador = campo;
+            }
+        });
+
+        var controller = controlador || window.controllerName || "";
+        controller = controller.toLocaleLowerCase();
+
+        var seccion = _urlPaginas.find(function (element) {
+            return element.UrlController.toLocaleLowerCase() == controller;
+        });
+
+        if (seccion == undefined) {
+            return "";
+        }
+
+        return seccion.Codigo || "";
+    }
+
+    var _getParametroListSegunOrigen = function (origenEstructura, url) {
+
+        origenEstructura = _getEstructuraOrigenPedidoWeb(origenEstructura, url);
 
         var contendor = _getTextoContenedorSegunOrigen(origenEstructura);
         var pagina = "";
@@ -308,6 +361,8 @@ var AnalyticsPortalModule = (function () {
         texto += texto != ""
             ? ((palanca != "" ? separador : "") + palanca)
             : palanca;
+
+        console.log("_getParametroListSegunOrigen = " + texto, origenEstructura, url);
 
         return texto;
     }
@@ -453,7 +508,7 @@ var AnalyticsPortalModule = (function () {
     var _marcarImpresionSetProductos = function (arrayItems) {
 
         try {
-            //console.log('Analytics - marcarImpresionSetProductos Inicio', arrayItems);
+            //console.log('Analytics - _marcarImpresionSetProductos Inicio', arrayItems);
             var tipoMoneda = AnalyticsPortalModule.GetCurrencyCodes(_constantes.codigoPais);
             dataLayer.push({
                 'event': _evento.productImpression,
@@ -1619,27 +1674,26 @@ var AnalyticsPortalModule = (function () {
 * Nombre Archivo Desktop: Scripts\PortalConsultoras\Shared\MenuContenedor.js
 * Linea de Código Desktop: 284
 */
-    var marcaClicVerMasOfertas = function (url, origenPedido) {
+    var marcaClicVerMasOfertas = function (url, origenPedido, titulo) {
         try {
             if (_constantes.isTest)
                 alert("Marcación Ver más ofertas.");
 
-            var esRevisar = window.actionName == "revisar" ? true : false;
-            var nombreBoton = "Ver más Ofertas";
-            var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(origenPedido);
+            var textoCategory = _getParametroListSegunOrigen(origenPedido, url);
+
             dataLayer.push({
                 'event': _evento.virtualEvent,
-                'category': fnObtenerContenedor(),
-                'action': esRevisar ? 'Click Botón' + ' - ' + palanca : 'Click Botón' + ' - ' + nombreBoton,
-                'label': esRevisar ? nombreBoton : palanca,
+                'category': textoCategory,
+                'action': 'Click Botón',
+                'label': titulo,
                 'eventCallback': function () {
                     document.location = url;
                 }
             });
 
         } catch (e) {
-            document.location = url;
             console.log(_texto.excepcion + e);
+            document.location = url;
         }
 
     }
@@ -2304,45 +2358,7 @@ var AnalyticsPortalModule = (function () {
             console.log(_texto.exception + e);
         }
     }
-
-    function marcarClickMasOfertasMG(url, origenPedido) {
-        try {
-
-            dataLayer.push({
-                'event': _evento.virtualEvent,
-                'category': fnObtenerContenedor(),
-                'action': 'Las Más Ganadoras - Clic Botón',
-                'label': 'Ver más ofertas',
-                'eventCallback': function () {
-                    document.location = url;
-                }
-            });
-
-        } catch (e) {
-            document.location = url;
-            console.log(_texto.excepcion + e);
-        }
-    }
-
-    function marcarClickMasOfertasBannerMG(url) {
-        try {
-
-            dataLayer.push({
-                'event': _evento.virtualEvent,
-                'category': fnObtenerContenedor(),
-                'action': 'Las Más Ganadoras - Clic Banner',
-                'label': 'Ver más',
-                'eventCallback': function () {
-                    document.location = url;
-                }
-            });
-
-        } catch (e) {
-            document.location = url;
-            console.log(_texto.excepcion + e);
-        }
-    }
-
+    
     function marcarClickMasOfertasPromotionClickMG() {
         try {
             dataLayer.push({
@@ -2595,23 +2611,15 @@ var AnalyticsPortalModule = (function () {
     ////////////////////////////////////////////////////////////////////////////////////////
 
 
-
-
-
-
-
-
     return {
         // Ini - Metodos Iniciales
         MarcarVerFichaProducto: marcarVerFichaProducto,
-        //FcVerificarTipoMoneda: fcVerificarTipoMoneda, // no se utiliza
         MarcarIniciarPlayVideo: marcarIniciarPlayVideo,
         MarcarCambiaColorCombo: marcarCambiaColorCombo,
         MarcarCambiaColorCuadro: marcarCambiaColorCuadro,
         MarcarAgregaProductoCarro: marcarAgregaProductoCarro,
         MarcarComparteRedesSociales: marcarComparteRedesSociales,
         MarcarClicSetProductos: marcarClicSetProductos,
-        //MarImpresionSetProductos: marcarImpresionSetProductos,// se utiliza solo como privado
         MarcarFichaBreadcrumb: marcarFichaBreadcrumb,
         // Fin - Metodos Iniciales
 
@@ -2635,7 +2643,6 @@ var AnalyticsPortalModule = (function () {
         // Ini - Analytics Buscador Miguel
         MarcaBarraBusqueda: marcaBarraBusqueda,
         GetCurrencyCodes: getCurrencyCodes,
-        //GetPalancaBySeccion: getPalancaBySeccion, // se utiliza solo como privado
         GetPalancaByOrigenPedido: getPalancaByOrigenPedido,
         GetSeccionHomeByOrigenPedido: getSeccionHomeByOrigenPedido,
         GetContenedorByOrigenPedido: getContenedorByOrigenPedido,
@@ -2656,7 +2663,6 @@ var AnalyticsPortalModule = (function () {
         MarcaVerOfertasHome: marcaVerOfertasHome,
         MarcaSucribete: marcaSucribete,
         MarcaGenericaLista: marcaGenericaLista,
-        //MarcaProductImpressionHome: marcaProductImpressionHome, // no se utiliza
         MarcaAnadirCarritoHome: marcaAnadirCarritoHome,
         MarcaGenericaClic: marcaGenericaClic,
         MarcaDetalleProductoBienvenida: marcaDetalleProductoBienvenida,
@@ -2680,24 +2686,17 @@ var AnalyticsPortalModule = (function () {
 
         // Ini - Analytics Ofertas  
         MarcaClicFlechaBanner: marcaClicFlechaBanner,
-        //MarcaPromotionViewBanner: marcaPromotionViewBanner, // se utiliza solo como privado
         AutoMapper: autoMapper,
-        //AutoMapperV2: autoMapperV2, // se utiliza solo como privado
         MarcaClicBanner: marcaClicBanner,
         MarcaClicVerMasOfertas: marcaClicVerMasOfertas,
-        //MarcaProductImpression: marcaProductImpression,  // se utiliza solo como privado
-        //MarcaProductImpressionLanding: marcaProductImpressionLanding,  // se utiliza solo como privado
-        //MarcaProductImpressionCart: marcaProductImpressionCart, // no se utiliza
         MarcaAnadirCarrito: marcaAnadirCarrito,
         MarcaDetalleProducto: marcaDetalleProducto,
         MarcaDetalleProductoPrincipal: marcaDetalleProductoPrincipal,
         MarcaDetalleProductoPrincipalLanding: marcaDetalleProductoPrincipalLanding,
         MarcaDetalleProductoCarrito: marcaDetalleProductoCarrito,
-        //MarcaVisualizacionProducto: marcaVisualizacionProducto, // no se utiliza
         MarcaManagerFiltros: marcaManagerFiltros,
         MarcaCompartirRedesSociales: marcaCompartirRedesSociales,
         MarcaVisualizarDetalleProducto: marcaVisualizarDetalleProducto,
-        //MarcaVisualizarOtrosProductos: marcaVisualizarOtrosProductos, // no se utiliza
         MarcaEliminarPedidoCompleto: marcaEliminarPedidoCompleto,
         MarcarGuardaTuPedido: marcarGuardaTuPedido,
         MarcarPedidoGuardoExito: marcarPedidoGuardoExito,
@@ -2708,8 +2707,6 @@ var AnalyticsPortalModule = (function () {
 
         // Ini - Analytics Ganadoras
         MarcaPromotionViewCarrusel: marcaPromotionViewCarrusel,
-        MarcarClickMasOfertasMG: marcarClickMasOfertasMG,
-        MarcarClickMasOfertasBannerMG: marcarClickMasOfertasBannerMG,
         MarcarClickMasOfertasPromotionClickMG: marcarClickMasOfertasPromotionClickMG,
         ClickArrowMG: clickArrowMG,
         ClickOnBreadcrumb: clickOnBreadcrumb,

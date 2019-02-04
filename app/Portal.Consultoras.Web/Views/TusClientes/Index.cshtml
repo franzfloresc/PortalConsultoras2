@@ -117,7 +117,7 @@
         <button type="button" id="btnConfirmarEliminarCliente" onclick="tusClientesModule.eliminarCliente();">
             SI, DESEO ELIMINARLO
         </button>
-        <button type="button"id="btnCancelarEliminarCliente" onclick="tusClientesModule.ocultarConfirmarEliminarCliente();">
+        <button type="button" id="btnCancelarEliminarCliente" onclick="tusClientesModule.ocultarConfirmarEliminarCliente();">
             NO ELIMINAR
         </button>
     </div>
@@ -125,9 +125,9 @@
 
 
 @section scripts{
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/TusClientes/TusClientesProvider.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/TusClientes/TusClientesModule.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/TusClientes/PanelMantenerModule.js")"></script>
+
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/TusClientesIndex")
+
     <script type="text/javascript">
         var tusClientesProvider = TusClientesProvider();
         var tusClientesModule = TusClientesModule({

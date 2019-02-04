@@ -477,11 +477,7 @@ namespace Portal.Consultoras.BizLogic
                 {
                     incentivosNivel = reader.MapToCollection<BEIncentivoNivel>();
 
-                    if (reader.NextResult())
-                    {
-                        incentivosPremios = reader.MapToCollection<BEIncentivoPremio>();
-                        incentivosPremios.Update(x => x.ImagenPremio = (string.IsNullOrEmpty(x.ImagenPremio) ? string.Empty : string.Format(Resources.IncentivoMessages.UrlImagenCUV, ConfigCdn.GetUrlCdn(string.Empty), paisISO, x.ImagenPremio)));
-                    }
+                    if (reader.NextResult()) incentivosPremios = reader.MapToCollection<BEIncentivoPremio>();
 
                     foreach (var item in incentivosNivel)
                     {

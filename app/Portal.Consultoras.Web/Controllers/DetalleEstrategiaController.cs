@@ -54,7 +54,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var modelo = FichaModelo(palanca, campaniaId, cuv, origen, esEditable);
-
+               
                 if (modelo != null)
                 {
                     return Json(new
