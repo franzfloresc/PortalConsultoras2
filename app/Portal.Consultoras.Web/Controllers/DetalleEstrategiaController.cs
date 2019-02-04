@@ -54,18 +54,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var modelo = FichaModelo(palanca, campaniaId, cuv, origen, esEditable);
-                modelo.MostrarSelectorCliente = false;
-#if DEBUG
-                modelo.MostrarSelectorCliente = _tablaLogicaProvider.GetTablaLogicaDatoValorBool(
-                                userData.PaisID,
-                                Constantes.TablaLogica.PantallaResponsive,
-                                Constantes.TablaLogicaDato.PantallasResponsive.MisClientes,
-                                false
-                                );
-#endif
                
-
-
                 if (modelo != null)
                 {
                     return Json(new

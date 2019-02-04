@@ -882,8 +882,6 @@ var panel = ClientePanelModule({
 
 //END PANEL CLIENTE
 
-
-
 var FichaEditarModule = (function () {
 
     var EditarProducto = function(event, tipoAccion) {
