@@ -9,7 +9,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 
 
-[assembly: PreApplicationStartMethod(typeof(Portal.Consultoras.Web.PreApplicationStart), "Start")]
+//[assembly: PreApplicationStartMethod(typeof(Portal.Consultoras.Web.PreApplicationStart), "Start")]
 namespace Portal.Consultoras.Web
 {
 
@@ -92,12 +92,12 @@ namespace Portal.Consultoras.Web
         }
     }
 
-    public class PreApplicationStart
-    {
-        public static void Start()
-        {
+    //public class PreApplicationStart
+    //{
+    //    public static void Start()
+    //    {
          
-            Microsoft.Web.Infrastructure.DynamicModuleHelper.DynamicModuleUtility.RegisterModule(typeof(Portal.Consultoras.Common.JwtModule));
-        }
-    }
+    //        Microsoft.Web.Infrastructure.DynamicModuleHelper.DynamicModuleUtility.RegisterModule(typeof(Portal.Consultoras.Common.JwtModule));
+    //    }
+    //}
 }
