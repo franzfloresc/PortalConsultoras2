@@ -43,11 +43,6 @@
     <div class="contenido_ingresoPedido mouse_encima" data-cuv="{{CUV}}">
         @*<div class="texto_pedidos celda_codigo">{{CUV}}</div>*@
         <div class="texto_pedidos celda_producto pedidoPadreToolTip" style="position:relative;">
-            {{#if PremioElectivo}}
-            <!-- Cuando la consultora haya seleccionado un regalo se le muestra la descripción de oferta correspondiente al regalo de Programa Nuevas -->
-            <label class="default-color producto_regalo_descripcion_grillaPedido" for="Regalo Programa Nuevas">Regalo Programa Nuevas</label>
-            <!-- Fin - Cuando la consultora haya seleccionado un regalo se le muestra la descripción de oferta correspondiente al regalo de Programa Nuevas -->
-            {{/if}}
             <span class="producto-codigo">{{CUV}}</span>
             {{#if_eq TipoPedido 'M'}}
             <span style="position:relative">
@@ -63,16 +58,18 @@
             {{/if_eq}}
             {{#if PremioElectivo}}
             <!-- Este tooltip se muestra cuando el producto es un regalo del Programa de Nuevas -->
+            <span class="texto_pedidos_ofertas">
+                <label for="Regalo Programa Nuevas">Regalo Programa Nuevas</label>
+            </span>
             <div class="tooltip_informativo_condicion_regalo_programaNuevas">
                 Sólo si llegas a tu monto
             </div>
             <!-- Fin - Este tooltip se muestra cuando el producto es un regalo del Programa de Nuevas -->
-            {{/if}}
+            {{else}}
             <span class="texto_pedidos_ofertas">
-                {{#unless  PremioElectivo}}
                 <label for="{{DescripcionOferta}}">{{DescripcionOferta}}</label>
-                {{/unless}}
             </span>
+            {{/if}}
 
             <div id="tooltipDescPro" class="tooltipPedido">
                 {{Split DescripcionProd '|' 0}}

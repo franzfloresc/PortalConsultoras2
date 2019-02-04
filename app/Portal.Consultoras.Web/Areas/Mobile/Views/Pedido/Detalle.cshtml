@@ -299,11 +299,6 @@
         <div class="contenedor_items_pedido">
             <div class="bloque_descripcion_items_ingresados">
                 <div class="descripcion_item_pedido">
-                    <span class="mensaje_tipoProd">
-                        {{#if detalle.PremioElectivo }}
-                        <span class="text-uppercase">Regalo Programa Nuevas</span>
-                        {{/if}}
-                    </span>
                     <span class="cod_prod">
                         {{#if detalle.EstadoSimplificacionCuv}}
                         {{#if detalle.IndicadorOfertaCUV}}
@@ -319,7 +314,12 @@
                         {{/iff}}
                         <span>{{Split detalle.DescripcionProd '|' 0}}</span>
                     </span>
-                    {{#unless detalle.PremioElectivo }}
+                    {{#if detalle.PremioElectivo }}
+                    <span class="mensaje_tipoProd">
+                        <br />
+                        <span class="text-uppercase">Regalo Programa Nuevas</span>
+                    </span>
+                    {{else}}
                     <span class="mensaje_tipoProd">
                         {{#iff detalle.TipoPedido '==' 'M'}}
                         <br />
@@ -334,7 +334,7 @@
                         {{/iff}}
                         {{/IsNullOrEmpty}}
                     </span>
-                    {{/unless}}
+                    {{/if}}
                     {{#iff detalle.EsKitNueva '==' false}}
                     <span class="nom_cliente">Cliente: {{detalle.Nombre}}</span>
                     {{/iff}}

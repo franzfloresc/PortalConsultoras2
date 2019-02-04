@@ -655,7 +655,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             
             Mapper.CreateMap<ServiceCliente.BEPedidoWebDetalle, PedidoWebClienteMobilModel>();
             Mapper.CreateMap<ServiceCliente.BEPedidoWebDetalle, PedidoWebDetalleMobilModel>();
-			Mapper.CreateMap<ServicePedido.BEEstrategia, PremioElectivoModel>()
+            Mapper.CreateMap<ServicePedido.BEEstrategia, PremioElectivoModel>()
                 .ForMember(t => t.DescripcionResumen, f => f.MapFrom(c => c.DescripcionCUV2));
         }
     }
