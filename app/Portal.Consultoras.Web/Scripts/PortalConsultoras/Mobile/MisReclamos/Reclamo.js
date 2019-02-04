@@ -573,6 +573,7 @@ $(document).ready(function () {
                         if (data.datos.length == 1) {                            
                             $(me.Variables.ddlnumPedido).hide();
                             $(me.Variables.hdPedidoID).val(data.datos[0].PedidoID);
+                            $(me.Variables.hdNumeroPedido).val(data.datos[0].NumeroPedido);
                             $(me.Variables.txtNumPedido).val("N° " + data.datos[0].NumeroPedido);
                             me.Funciones.BuscarCUV();
                         }
