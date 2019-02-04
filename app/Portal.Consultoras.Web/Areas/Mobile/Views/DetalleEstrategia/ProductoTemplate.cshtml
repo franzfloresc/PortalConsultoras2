@@ -103,6 +103,7 @@
         </div>
         {{/iff}}
 
+        {{#if MostrarSelectorCliente}}
         <!--Init panel cliente-->
 
         <input id="hfClienteId" type="hidden" />
@@ -134,6 +135,7 @@
                 <button id="btnShowCliente">ASIGNAR A OTRO CLIENTE</button>
             </div>
         </div>
+        {{/if}}
         <!--Init panel cliente-->
         {{#iff NoEsCampaniaActual}}
         {{else}}

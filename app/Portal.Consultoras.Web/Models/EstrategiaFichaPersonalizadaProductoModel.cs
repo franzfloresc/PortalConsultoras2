@@ -36,5 +36,7 @@ namespace Portal.Consultoras.Web.Models
 
         public bool Error { get; set; }
         public int Cantidad { get; set; }
+
+        public bool MostrarSelectorCliente { get; set; }
     }
 }
