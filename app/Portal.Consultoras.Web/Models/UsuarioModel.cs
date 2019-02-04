@@ -399,6 +399,6 @@ namespace Portal.Consultoras.Web.Models
         public Dictionary<string, string> NuevasDescripcionesBuscador { get; set; }
         public int NovedadBuscador { get; set; }
         public int IndicadorConsultoraDummy { get; set; }
-        public Dictionary<string, string> ListaOrdenamientoFiltrosBuscador { get; set; }
+        
     }
 }
