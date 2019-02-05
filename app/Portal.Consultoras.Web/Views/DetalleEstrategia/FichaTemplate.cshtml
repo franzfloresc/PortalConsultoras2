@@ -168,10 +168,6 @@
 </script>
 
 <script id="ficha_carrusel_template" type="text/x-handlebars-template">
-    {{#if esEditable }}
-        <div id="divFichaCarrusel" class="contenedor_ficha_carrusel">
-        </div>
-    {{else}}
         <div id="divFichaCarrusel" class="contenedor_ficha_carrusel">
             <div class="contenedor_titulo_carrusel">
                 <div class="contenedor_linea_carrusel">
@@ -187,7 +183,6 @@
                 <div id="divFichaCarruselProducto" style="text-align:center;"></div>
             </div>
         </div>
-    {{/if}}
 </script>
 
 @Html.Partial("~/Views/DetalleEstrategia/_ElegirOpciones.cshtml")

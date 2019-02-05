@@ -719,7 +719,7 @@ var FichaModule = (function (config) {
             _redireccionar();
             return false;
         }
-
+        
         $(_elementos.dataEstrategia.id).attr(_elementos.dataEstrategia.dataEstrategia, JSON.stringify(estrategia));
         _setEstrategiaBreadcrumb(estrategia);
         SetHandlebars("#detalle_ficha_template", estrategia, "#seccion_ficha_handlebars");
@@ -788,10 +788,10 @@ var FichaModule = (function (config) {
         if (_modeloFicha.BreadCrumbs) {
             _modeloFicha.BreadCrumbs.TipoAccionNavegar = _modeloFicha.TipoAccionNavegar;
             console.log(_template.navegar);
-            console.log(_modeloFicha);
+            
             SetHandlebars("#" + _template.navegar, _modeloFicha.BreadCrumbs, _template.getTagDataHtml(_template.navegar));
         }
-
+        
         if (_modeloFicha.TieneCarrusel) {
             _modeloFicha.esEditable = _config.esEditable;
 
@@ -894,7 +894,7 @@ var FichaEditarModule = (function () {
         if (tipoAccion != 1) {
             return false;
         }
-
+        
         AbrirLoad();
 
         var row = $(event).parent("[data-detalle-item]");
