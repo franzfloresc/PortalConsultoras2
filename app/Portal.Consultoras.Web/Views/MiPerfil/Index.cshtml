@@ -215,7 +215,7 @@ else
 
             @if (Model.TieneDireccionEntrega)
             {
-            <div class="opcion_mi_perfil opcion_direccion_entrega">
+            <div class="opcion_mi_perfil opcion_direccion_entrega" id="SeccionDireccionEntrega">
                 <div class="opcion_mi_perfil_titulo">
                     <span class="icono_mis_datos">
                         <img src="@Url.Content("~/Content/Images/icono_ubicacion.svg")" alt="Dirección de entrega" />
@@ -252,19 +252,19 @@ else
                     </fieldset>
                     <fieldset class="grupo_form_cambio_datos">
                         <div class="w-100">
-                                    <input class="w-100" id="Zona" name="txtZona" type="text" value="" placeholder="Ejm: Edificio San Ramón">
-                                    <label for="Zona" class="w-100">
+                            <input class="w-100" id="Zona" name="txtZona" type="text" value="" placeholder="Ejm: Edificio San Ramón">
+                            <label for="Zona" class="w-100">
                                         Zona / N° de Departamento / Calle 
                                         @if (Model.PaisID != 3)
                                         {
                                             <span class="asteriscos">*</span>
                                         }                                        
-                                    </label>
-                                </div>
-                            </fieldset>
-                            <fieldset class="grupo_form_cambio_datos">
-                                <div class="w-100">
-                                    @Html.TextBoxFor(x => x.DireccionEntrega.Referencia, new { @class = "w-100 campo_referencia", id = "Referencia", maxlength = "400", placeholder = "Información adicional" })
+                            </label>
+                        </div>
+                    </fieldset>
+                    <fieldset class="grupo_form_cambio_datos">
+                        <div class="w-100">
+                            @Html.TextBoxFor(x => x.DireccionEntrega.Referencia, new { @class = "w-100 campo_referencia", id = "Referencia", maxlength = "400", placeholder = "Información adicional" })
                             <label for="Referencia" class="w-100">
                                 Referencia
                                 @if (Model.PaisID != 3)
@@ -286,7 +286,7 @@ else
                     </fieldset>
                 </div>
             </div>
-        }            
+            }            
 
         </div>
         @if (Model.UsuarioOpciones.Count() > 0)
@@ -362,7 +362,6 @@ else
 
 @section scripts{
     <script>
-
         var ZoonMapa = 17;
         var LocationCountry = '@ViewBag.LocationCountry';
         var EsMobile = '@ViewBag.EsMobile';
