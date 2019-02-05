@@ -124,14 +124,17 @@ $(document).ready(function () {
                 $('.catalogos__campania--actual--disenioAnterior').fadeOut(100);
             }
             $('.catalogos__campania--siguiente').fadeOut(100);
+            $('.catalogos__campania--anterior').delay(100);
             $('.catalogos__campania--anterior').fadeIn(100);
             $('.catalogos__por__campania__slider__control__izq a').fadeOut(100);
         } else {
             $('.catalogos__campania--anterior').fadeOut(100);
             $('.catalogos__campania--siguiente').fadeOut(100);
             if (piloto == '1' && isPilotoSeg == false) {
+                $('.catalogos__campania--actual').delay(100);
                 $('.catalogos__campania--actual').fadeIn(100);
             } else {
+                $('.catalogos__campania--actual--disenioAnterior').delay(100);
                 $('.catalogos__campania--actual--disenioAnterior').fadeIn(100);
             }
             $('.catalogos__por__campania__slider__control__der a').fadeIn(100);
@@ -148,14 +151,17 @@ $(document).ready(function () {
                 $('.catalogos__campania--actual--disenioAnterior').fadeOut(100);
             }
             $('.catalogos__campania--anterior').fadeOut(100);
+            $('.catalogos__campania--siguiente').delay(100);
             $('.catalogos__campania--siguiente').fadeIn(100);
             $('.catalogos__por__campania__slider__control__der a').fadeOut(100);
         } else {
             $('.catalogos__campania--anterior').fadeOut(100);
             $('.catalogos__campania--siguiente').fadeOut(100);
             if (piloto == '1' && isPilotoSeg == false) {
+                $('.catalogos__campania--actual').delay(100);
                 $('.catalogos__campania--actual').fadeIn(100);
             } else {
+                $('.catalogos__campania--actual--disenioAnterior').delay(100);
                 $('.catalogos__campania--actual--disenioAnterior').fadeIn(100);
             }
             $('.catalogos__campania--actual--disenioAnterior').fadeIn(100);
