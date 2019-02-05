@@ -10,7 +10,7 @@
         panelListaModule: config.panelListaModule /*|| PanelListaModule()*/,
         panelMantenerModule: config.panelMantenerModule /*|| PanelMantenerModule()*/,
     };
- 
+
     var _abrir = function () {
         //$(PanelId).css("width", "400px");
         $('.modal-fondo').css('opacity', '.7');
@@ -21,13 +21,13 @@
     };
 
     var _cerrar = function () {
-        debugger
+
         $(PanelId).css('margin-right', '-330px');
-        $(PanelId)('opacity', '.0');
+        $(PanelId).('opacity', '.0');
         $(PanelId).hide();
         $('.modal-fondo').hide();
         $('.modal-fondo').css('opacity', '.0');
-        
+
     };
 
     var _configuracionInicial = function () {
@@ -36,6 +36,7 @@
         }
 
         $("#btnPanelListaAceptar").click(function () {
+
             var clienteSeleccion =
             {
                 PaisID: $("#hfPaisID").val(),
@@ -45,19 +46,22 @@
                 Nombre: $("#hfNombre").val()
             };
 
+
             if (clienteSeleccion.ClienteID != "") {
                 console.log("Selección: ", clienteSeleccion);
+                console.log(_aceptaClick);
+                console.log($.isFunction(_aceptaClick));
 
                 _cerrar();
-                if ($.isFunction(_aceptaClick)) {
-                    _aceptaClick(clienteSeleccion);
-                }
+                _aceptaClick(clienteSeleccion);
+
             } else {
                 alert('Seleccione un Cliente');
             }
         });
 
         $("#btnPanelListaCerrar").click(function () {
+
             _cerrar();
         });
     };
@@ -84,13 +88,13 @@
     var _init = function () {
         _renderizarPagina();
         _config.panelListaModule.init();
-        _config.panelMantenerModule.init();        
+        _config.panelMantenerModule.init();
     };
 
     return {
         Abrir: _abrir,
         Cerrar: _cerrar,
         init: _init,
-        AceptaClick: _aceptaClick  
+        AceptaClick: _aceptaClick
     };
 };

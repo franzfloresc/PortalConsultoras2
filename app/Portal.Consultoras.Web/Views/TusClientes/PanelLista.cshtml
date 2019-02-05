@@ -1,7 +1,9 @@
 ﻿@{
-    ViewBag.Title = "Mis clientes";
-    Layout = null;
-    //Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
+                /**/
+
+                ViewBag.Title = "Mis clientes";
+                Layout = null;
+                //Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
 }
 
 @*<link href="@Url.Content("~/Content/Css/Site/Esika/style.css")" rel="stylesheet" />*@
@@ -44,7 +46,8 @@
         /*END Estilo Panel*/
     </style>*@
 
-@*<input id="hfBaseUrl" type="hidden" value="@Url.Content("~")" />
+@*
+    <input id="hfBaseUrl" type="hidden" value="@Url.Content("~")" />
     <input id="hfUrlFrmRegistro" type="hidden" value="@Url.Action("PanelMantener","TusClientes")" />
 
     <input id="hfPaisID" type="hidden" />
@@ -89,34 +92,74 @@
     <script type="text/javascript" src="@Url.Content("~/Scripts/General.js")"></script>
 *@
 
+<input id="hfBaseUrl" type="hidden" value="@Url.Content("~")" />
+<input id="hfUrlFrmRegistro" type="hidden" value="@Url.Action("PanelMantener","TusClientes")" />
 
-    <div style="height: 100%;">
-        <div class="header_fixed_Clientes">
-            <div class="seleccion_header_Clientes" id="contendor-titulo-opciones">
-                <div id="titulo-opciones-seleccionadas" class="seleccion_header">
-                    <div>ASIGNAR A OTRO CLIENTE</div>
-                    <button id="btnPanelListaCerrar" class="button_cerrar_Clientes"><img src="/Content/Images/mobile/Esika/close-button.svg" alt=""></button>
-                </div>
-            </div>
-        </div>
-        <div class="seleccion_main_Clientes clientes-items" style="height: 100%">
-            <div class="buscar_clientes">
-                <input type="text" name="search" value="" placeholder="Buscar cliente" />
-                <img src="/Content/Images/icono_buscador.svg" alt="" />
-            </div>
-            <div class="clientes_lista">
-                <h3>NUEVO CLIENTE +</h3>
-                <ul>
-                    <li class="cliente-list">Angel Pérez</li>
-                    <li class="cliente-list">Azucena Suárez</li>
-                    <li class="cliente-list">Emy</li>
-                    <li class="cliente-list">Juanita</li>
-                    <li class="cliente-list">Angel Pérez</li>
-                    <li class="cliente-list">Azucena Suárez</li>
-                    <li class="cliente-list">Emy</li>
-                    <li class="cliente-list">Juanita</li>
-                </ul>
+<input id="hfPaisID" type="hidden" />
+<input id="hfClienteID" type="hidden" />
+<input id="hfCodigoCliente" type="hidden" />
+<input id="hfNombreCliente" type="hidden" />
+<input id="hfNombre" type="hidden" />
+
+
+<div style="height: 100%;">
+    <div class="header_fixed_Clientes">
+        <div class="seleccion_header_Clientes" id="contendor-titulo-opciones">
+            <div id="titulo-opciones-seleccionadas" class="seleccion_header">
+                <div>ASIGNAR A OTRO CLIENTE</div>
+                <button id="btnPanelListaCerrar" class="button_cerrar_Clientes"><img src="/Content/Images/mobile/Esika/close-button.svg" alt=""></button>
+
+
+
+
             </div>
         </div>
     </div>
+    <div class="seleccion_main_Clientes clientes-items" style="height: 100%">
+        <div class="buscar_clientes">
+            <input type="text" name="search" value="" placeholder="Buscar cliente" id="txtPanelListaBusqueda" />
+            <img src="/Content/Images/icono_buscador.svg" alt="" />
+        </div>
+        <div class="clientes_lista">
+            <h3 id="btnPanelListaAgregar">NUEVO CLIENTE +</h3>
+
+            @*<a href="#" style="text-decoration:underline" id="btnPanelListaCerrar">Cerrar panel</a>*@
+            @*<input id="btnPanelListaAgregar" type="button" value="Agregar Cliente" />*@
+            <input id="btnPanelListaAceptar" type="button" value="Aceptar selección" />
+
+            @*<a href="#" style="text-decoration:underline" id="btnPanelListaAgregar">Agregar Cliente</a>
+                <a href="#" style="text-decoration:underline" id="btnPanelListaAceptar">Aceptar selección</a>*@
+
+            <div id="handlebars_contenedor1"></div>
+            <script id="handlebars_plantilla1" type="text/x-handlebars-template">
+                <ul>
+                    {{# each miData}}
+
+                    <li class="cliente-list" onclick="panelListaModule.seleccionarRegistro({{PaisID}}, {{ClienteID}}, '{{CodigoCliente}}', '{{NombreCliente}}', '{{Nombre}}')">
+                        {{NombreCliente}}
+                    </li>
+
+                    {{/each}}
+                </ul>
+            </script>
+
+            <!-- INIT: Panel cliente-->
+            <div id="PanelClienteRegistro" class="sidenav" style="background-color:#f1f1f1 !important;">
+                <div id="PanelClienteRegistro_contenedor" style="background-color:#f1f1f1;">
+                </div>
+            </div>
+            <!-- END: Panel cliente-->
+            @*<ul>
+                    <li class="cliente-list">Angel Pérez</li>
+                    <li class="cliente-list">Azucena Suárez</li>
+                    <li class="cliente-list">Emy</li>
+                    <li class="cliente-list">Juanita</li>
+                    <li class="cliente-list">Angel Pérez</li>
+                    <li class="cliente-list">Azucena Suárez</li>
+                    <li class="cliente-list">Emy</li>
+                    <li class="cliente-list">Juanita</li>
+                </ul>*@
+        </div>
+    </div>
+</div>
 
