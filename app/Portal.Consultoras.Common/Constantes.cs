@@ -1444,7 +1444,6 @@ namespace Portal.Consultoras.Common
             public const string Recomendaciones = "RECOMDS";
             public const string Datami = "DATAMI";
             public const string DireccionEntrega = "DIRECCION_ENTREGA";
-            public const string PermisosCuenta = "PERMISOS_CUENTA";
         }
 
 

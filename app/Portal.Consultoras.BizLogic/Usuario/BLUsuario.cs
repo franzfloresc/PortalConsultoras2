@@ -1853,7 +1853,8 @@ namespace Portal.Consultoras.BizLogic
 
             try
             {
-                if (usuario.EMail != string.Empty)
+                if (usuario.PaisID == Constantes.PaisID.Chile && usuario.EMail == string.Empty) return string.Format("{0}|{1}|{2}|0", "1", "3", "- Sus datos se actualizaron correctamente");
+                if (usuario.EMail != string.Empty) 
                 {
                     int cantidad = this.ValidarEmailConsultora(usuario.PaisID, usuario.EMail, usuario.CodigoUsuario);
 

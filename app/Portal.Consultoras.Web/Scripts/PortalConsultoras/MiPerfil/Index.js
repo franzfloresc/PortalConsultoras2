@@ -391,37 +391,43 @@ function actualizarDatos() {
     var hdn_CaracterMaximo = $("#hdn_CaracterMaximo").val();
     var hdn_CaracterMinimo = $("#hdn_CaracterMinimo").val();
     var hdn_iniciaNumero = $('#hdn_iniciaNumero').val();
+    var hdn_PaisID = $('#hdn_PaisID').val();
     var txtCelularMD = jQuery.trim($('#txtCelularMD').val());
     var txtTelefonoMD = jQuery.trim($("#txtTelefonoMD").val());
     var txtTelefonoTrabajoMD = jQuery.trim($("#txtTelefonoTrabajoMD").val());
     var txtEMailMD = jQuery.trim($('#txtEMailMD').val());
 
-
     var Ubigeo1 = $('#Ubigeo1').val();
     var Ubigeo2 = $('#Ubigeo2').val();
     var Latitud = $('#Latitud').val();
-    var Longitud = $('#Longitud').val();
-    var Referencia = $('#Referencia').val();
+    var Longitud = $('#Longitud').val();    
     var Direccion = $('#Direccion').val();
+    var Zona = $('#Zona').val();
+    var Referencia = $('#Referencia').val();
     var Operacion = $('#Operacion').val();
     var DireccionEntregaID = $('#DireccionEntregaID').val();
    
-    if (txtEMailMD == "") {
+    if (txtEMailMD == "" && hdn_PaisID != 3) {
         $('#btnGuardar')[0].disabled = false;
         alert("Debe ingresar EMail.\n");
         return false;
     }
 
-    if (!validateEmail(txtEMailMD)) {
+    if (!validateEmail(txtEMailMD) && hdn_PaisID != 3) {
         $('#btnGuardar')[0].disabled = false;
         alert("El formato del correo electrónico ingresado no es correcto.\n");
         return false;
     }
 
-    if ((txtTelefonoMD == null || txtTelefonoMD == "") &&
-        (txtCelularMD == null || txtCelularMD == "")) {
+    if ((txtCelularMD == null || txtCelularMD == "")) {
         $('#btnGuardar')[0].disabled = false;
-        alert('Debe ingresar al menos un número de contacto: celular o teléfono.');
+        alert('Debe ingresar un número de celular. \n');
+        return false;
+    }
+
+    if ((txtTelefonoMD == null || txtTelefonoMD == "") && hdn_PaisID != 3 ) {
+        $('#btnGuardar')[0].disabled = false;
+        alert('Debe ingresar un número de teléfono. \n');
         return false;
     }
 
@@ -464,7 +470,7 @@ function actualizarDatos() {
         }
     }
 
-    if (txtTelefonoMD != "") {
+    if (txtTelefonoMD != "" && hdn_PaisID != 3) {
         if (!isInt(txtTelefonoMD)) {
             $('#btnGuardar')[0].disabled = false;
             alert('El formato de teléfono no es correcto');
@@ -525,8 +531,13 @@ function actualizarDatos() {
         return false;
     }
 
+    if (Zona == "" && hdn_PaisID != 3) {
+        $('#btnGuardar')[0].disabled = false;
+        alert("Debe ingresar una Zona / N° de Deprtamento / Calle.");
+        return false;
+    }
 
-    if (Referencia == "") {
+    if (Referencia == "" && hdn_PaisID != 3) {
         $('#btnGuardar')[0].disabled = false;
         alert("Debe ingresar una dirección de referencia.");
         return false;
@@ -562,7 +573,8 @@ function actualizarDatos() {
         Longitud: Longitud,
         Operacion: Operacion,
         Referencia: Referencia,
-        DireccionEntregaID: DireccionEntregaID
+        DireccionEntregaID: DireccionEntregaID,
+        Zona: Zona
     }
 
     var item = {

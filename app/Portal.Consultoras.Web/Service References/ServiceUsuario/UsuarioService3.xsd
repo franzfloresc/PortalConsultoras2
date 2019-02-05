@@ -26,6 +26,8 @@
       <xs:element minOccurs="0" name="Ubigeo3" type="xs:int" />
       <xs:element minOccurs="0" name="Ubigeo3Anterior" type="xs:int" />
       <xs:element minOccurs="0" name="UltimafechaActualizacion" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Zona" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ZonaAnterior" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEDireccionEntrega" nillable="true" type="tns:BEDireccionEntrega" />

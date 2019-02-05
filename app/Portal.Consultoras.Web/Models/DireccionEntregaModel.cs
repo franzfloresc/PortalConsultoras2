@@ -26,6 +26,8 @@ namespace Portal.Consultoras.Web.Models
         public string DireccionAnterior { get; set; }
         [Required(ErrorMessage = "La dirección es requerida.")]
         public string Direccion { get; set; }
+        public string ZonaAnterior { get; set; }
+        public string Zona { get; set; }
         public string Referencia { get; set; }
         public string CodigoConsultora { get; set; }
         public string NombreConsultora { get; set; }

@@ -31,6 +31,8 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@Ubigeo3Anterior", DbType.Int32, direccion.Ubigeo3Anterior);
             Context.Database.AddInParameter(command, "@Direccion", DbType.String, direccion.Direccion);
             Context.Database.AddInParameter(command, "@DireccionAnterior", DbType.String, direccion.DireccionAnterior);
+            Context.Database.AddInParameter(command, "@ZonaAnterior", DbType.String, direccion.ZonaAnterior);
+            Context.Database.AddInParameter(command, "@Zona", DbType.String, direccion.Zona);
             Context.Database.AddInParameter(command, "@Referencia", DbType.String, direccion.Referencia);
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, direccion.CodigoConsultora);
             Context.Database.AddInParameter(command, "@LatitudAnterior", DbType.Decimal, direccion.LatitudAnterior);
@@ -53,6 +55,8 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@Ubigeo3Anterior", DbType.Int32, direccion.Ubigeo3Anterior);
             Context.Database.AddInParameter(command, "@DireccionAnterior", DbType.String, direccion.DireccionAnterior);
             Context.Database.AddInParameter(command, "@Direccion", DbType.String, direccion.Direccion);
+            Context.Database.AddInParameter(command, "@ZonaAnterior", DbType.String, direccion.ZonaAnterior);
+            Context.Database.AddInParameter(command, "@Zona", DbType.String, direccion.Zona);
             Context.Database.AddInParameter(command, "@Referencia", DbType.String, direccion.Referencia);
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, direccion.CodigoConsultora);
             Context.Database.AddInParameter(command, "@LatitudAnterior", DbType.Decimal, direccion.LatitudAnterior);

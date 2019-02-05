@@ -5,7 +5,7 @@ IF (EXISTS (SELECT *
                  FROM INFORMATION_SCHEMA.TABLES 
                  WHERE TABLE_SCHEMA = 'dbo' 
                  AND  TABLE_NAME = 'DireccionEntrega'))
-DROP PROCEDURE [dbo].[DireccionEntrega]
+DROP TABLE [dbo].[DireccionEntrega]
 GO
 create table DireccionEntrega
 (
@@ -21,7 +21,9 @@ create table DireccionEntrega
  Ubigeo3Anterior int not null,
  DireccionAnterior varchar(400) not null,
  Direccion varchar(400) not null,
- Referencia varchar(400) not null,
+ ZonaAnterior varchar(400) null,
+ Zona varchar(400) null,
+ Referencia varchar(400) null,
  CodigoConsultora varchar(20) not null,
  Latitud decimal(9,6) ,
  Longitud decimal(9,6) ,
@@ -40,7 +42,7 @@ IF (EXISTS (SELECT *
                  FROM INFORMATION_SCHEMA.TABLES 
                  WHERE TABLE_SCHEMA = 'dbo' 
                  AND  TABLE_NAME = 'DireccionEntrega'))
-DROP PROCEDURE [dbo].[DireccionEntrega]
+DROP TABLE [dbo].[DireccionEntrega]
 GO
 create table DireccionEntrega
 (
@@ -56,7 +58,9 @@ create table DireccionEntrega
  Ubigeo3Anterior int not null,
  DireccionAnterior varchar(400) not null,
  Direccion varchar(400) not null,
- Referencia varchar(400) not null,
+ ZonaAnterior varchar(400) null,
+ Zona varchar(400) null,
+ Referencia varchar(400) null,
  CodigoConsultora varchar(20) not null,
  Latitud decimal(9,6) ,
  Longitud decimal(9,6) ,
@@ -75,7 +79,7 @@ IF (EXISTS (SELECT *
                  FROM INFORMATION_SCHEMA.TABLES 
                  WHERE TABLE_SCHEMA = 'dbo' 
                  AND  TABLE_NAME = 'DireccionEntrega'))
-DROP PROCEDURE [dbo].[DireccionEntrega]
+DROP TABLE [dbo].[DireccionEntrega]
 GO
 create table DireccionEntrega
 (
@@ -91,7 +95,9 @@ create table DireccionEntrega
  Ubigeo3Anterior int not null,
  DireccionAnterior varchar(400) not null,
  Direccion varchar(400) not null,
- Referencia varchar(400) not null,
+ ZonaAnterior varchar(400) null,
+ Zona varchar(400) null,
+ Referencia varchar(400) null,
  CodigoConsultora varchar(20) not null,
  Latitud decimal(9,6) ,
  Longitud decimal(9,6) ,
@@ -110,7 +116,7 @@ IF (EXISTS (SELECT *
                  FROM INFORMATION_SCHEMA.TABLES 
                  WHERE TABLE_SCHEMA = 'dbo' 
                  AND  TABLE_NAME = 'DireccionEntrega'))
-DROP PROCEDURE [dbo].[DireccionEntrega]
+DROP TABLE [dbo].[DireccionEntrega]
 GO
 create table DireccionEntrega
 (
@@ -126,7 +132,9 @@ create table DireccionEntrega
  Ubigeo3Anterior int not null,
  DireccionAnterior varchar(400) not null,
  Direccion varchar(400) not null,
- Referencia varchar(400) not null,
+ ZonaAnterior varchar(400) null,
+ Zona varchar(400) null,
+ Referencia varchar(400) null,
  CodigoConsultora varchar(20) not null,
  Latitud decimal(9,6) ,
  Longitud decimal(9,6) ,
@@ -145,7 +153,7 @@ IF (EXISTS (SELECT *
                  FROM INFORMATION_SCHEMA.TABLES 
                  WHERE TABLE_SCHEMA = 'dbo' 
                  AND  TABLE_NAME = 'DireccionEntrega'))
-DROP PROCEDURE [dbo].[DireccionEntrega]
+DROP TABLE [dbo].[DireccionEntrega]
 GO
 create table DireccionEntrega
 (
@@ -161,7 +169,9 @@ create table DireccionEntrega
  Ubigeo3Anterior int not null,
  DireccionAnterior varchar(400) not null,
  Direccion varchar(400) not null,
- Referencia varchar(400) not null,
+ ZonaAnterior varchar(400) null,
+ Zona varchar(400) null,
+ Referencia varchar(400) null,
  CodigoConsultora varchar(20) not null,
  Latitud decimal(9,6) ,
  Longitud decimal(9,6) ,
@@ -180,7 +190,7 @@ IF (EXISTS (SELECT *
                  FROM INFORMATION_SCHEMA.TABLES 
                  WHERE TABLE_SCHEMA = 'dbo' 
                  AND  TABLE_NAME = 'DireccionEntrega'))
-DROP PROCEDURE [dbo].[DireccionEntrega]
+DROP TABLE [dbo].[DireccionEntrega]
 GO
 create table DireccionEntrega
 (
@@ -196,7 +206,9 @@ create table DireccionEntrega
  Ubigeo3Anterior int not null,
  DireccionAnterior varchar(400) not null,
  Direccion varchar(400) not null,
- Referencia varchar(400) not null,
+ ZonaAnterior varchar(400) null,
+ Zona varchar(400) null,
+ Referencia varchar(400) null,
  CodigoConsultora varchar(20) not null,
  Latitud decimal(9,6) ,
  Longitud decimal(9,6) ,
@@ -215,7 +227,7 @@ IF (EXISTS (SELECT *
                  FROM INFORMATION_SCHEMA.TABLES 
                  WHERE TABLE_SCHEMA = 'dbo' 
                  AND  TABLE_NAME = 'DireccionEntrega'))
-DROP PROCEDURE [dbo].[DireccionEntrega]
+DROP TABLE [dbo].[DireccionEntrega]
 GO
 create table DireccionEntrega
 (
@@ -231,7 +243,9 @@ create table DireccionEntrega
  Ubigeo3Anterior int not null,
  DireccionAnterior varchar(400) not null,
  Direccion varchar(400) not null,
- Referencia varchar(400) not null,
+ ZonaAnterior varchar(400) null,
+ Zona varchar(400) null,
+ Referencia varchar(400) null,
  CodigoConsultora varchar(20) not null,
  Latitud decimal(9,6) ,
  Longitud decimal(9,6) ,
@@ -250,7 +264,7 @@ IF (EXISTS (SELECT *
                  FROM INFORMATION_SCHEMA.TABLES 
                  WHERE TABLE_SCHEMA = 'dbo' 
                  AND  TABLE_NAME = 'DireccionEntrega'))
-DROP PROCEDURE [dbo].[DireccionEntrega]
+DROP TABLE [dbo].[DireccionEntrega]
 GO
 create table DireccionEntrega
 (
@@ -266,7 +280,9 @@ create table DireccionEntrega
  Ubigeo3Anterior int not null,
  DireccionAnterior varchar(400) not null,
  Direccion varchar(400) not null,
- Referencia varchar(400) not null,
+ ZonaAnterior varchar(400) null,
+ Zona varchar(400) null,
+ Referencia varchar(400) null,
  CodigoConsultora varchar(20) not null,
  Latitud decimal(9,6) ,
  Longitud decimal(9,6) ,
@@ -285,7 +301,7 @@ IF (EXISTS (SELECT *
                  FROM INFORMATION_SCHEMA.TABLES 
                  WHERE TABLE_SCHEMA = 'dbo' 
                  AND  TABLE_NAME = 'DireccionEntrega'))
-DROP PROCEDURE [dbo].[DireccionEntrega]
+DROP TABLE [dbo].[DireccionEntrega]
 GO
 create table DireccionEntrega
 (
@@ -301,7 +317,9 @@ create table DireccionEntrega
  Ubigeo3Anterior int not null,
  DireccionAnterior varchar(400) not null,
  Direccion varchar(400) not null,
- Referencia varchar(400) not null,
+ ZonaAnterior varchar(400) null,
+ Zona varchar(400) null,
+ Referencia varchar(400) null,
  CodigoConsultora varchar(20) not null,
  Latitud decimal(9,6) ,
  Longitud decimal(9,6) ,
@@ -320,7 +338,7 @@ IF (EXISTS (SELECT *
                  FROM INFORMATION_SCHEMA.TABLES 
                  WHERE TABLE_SCHEMA = 'dbo' 
                  AND  TABLE_NAME = 'DireccionEntrega'))
-DROP PROCEDURE [dbo].[DireccionEntrega]
+DROP TABLE [dbo].[DireccionEntrega]
 GO
 create table DireccionEntrega
 (
@@ -336,7 +354,9 @@ create table DireccionEntrega
  Ubigeo3Anterior int not null,
  DireccionAnterior varchar(400) not null,
  Direccion varchar(400) not null,
- Referencia varchar(400) not null,
+ ZonaAnterior varchar(400) null,
+ Zona varchar(400) null,
+ Referencia varchar(400) null,
  CodigoConsultora varchar(20) not null,
  Latitud decimal(9,6) ,
  Longitud decimal(9,6) ,
@@ -355,7 +375,7 @@ IF (EXISTS (SELECT *
                  FROM INFORMATION_SCHEMA.TABLES 
                  WHERE TABLE_SCHEMA = 'dbo' 
                  AND  TABLE_NAME = 'DireccionEntrega'))
-DROP PROCEDURE [dbo].[DireccionEntrega]
+DROP TABLE [dbo].[DireccionEntrega]
 GO
 create table DireccionEntrega
 (
@@ -371,7 +391,9 @@ create table DireccionEntrega
  Ubigeo3Anterior int not null,
  DireccionAnterior varchar(400) not null,
  Direccion varchar(400) not null,
- Referencia varchar(400) not null,
+ ZonaAnterior varchar(400) null,
+ Zona varchar(400) null,
+ Referencia varchar(400) null,
  CodigoConsultora varchar(20) not null,
  Latitud decimal(9,6) ,
  Longitud decimal(9,6) ,
@@ -390,7 +412,7 @@ IF (EXISTS (SELECT *
                  FROM INFORMATION_SCHEMA.TABLES 
                  WHERE TABLE_SCHEMA = 'dbo' 
                  AND  TABLE_NAME = 'DireccionEntrega'))
-DROP PROCEDURE [dbo].[DireccionEntrega]
+DROP TABLE [dbo].[DireccionEntrega]
 GO
 create table DireccionEntrega
 (
@@ -406,7 +428,9 @@ create table DireccionEntrega
  Ubigeo3Anterior int not null,
  DireccionAnterior varchar(400) not null,
  Direccion varchar(400) not null,
- Referencia varchar(400) not null,
+ ZonaAnterior varchar(400) null,
+ Zona varchar(400) null,
+ Referencia varchar(400) null,
  CodigoConsultora varchar(20) not null,
  Latitud decimal(9,6) ,
  Longitud decimal(9,6) ,

@@ -20,7 +20,9 @@ create PROCEDURE InsertarDireccionEntrega
 @Ubigeo2Anterior int ,
 @Ubigeo3Anterior int ,
 @DireccionAnterior varchar(400) ,
-@Direccion varchar(400) ,
+@Direccion varchar(400),
+@ZonaAnterior varchar(400),
+@Zona varchar(400),
 @Referencia varchar(400) ,
 @CodigoConsultora varchar(20),
 @LatitudAnterior decimal(9,6) ,
@@ -48,6 +50,8 @@ BEGIN
 		Ubigeo3Anterior,
 		DireccionAnterior,
 		Direccion,
+		ZonaAnterior,
+		Zona,
 		Referencia,
 		CodigoConsultora,
 		Latitud,
@@ -55,7 +59,7 @@ BEGIN
 		LatitudAnterior,
 		LongitudAnterior
 	)
-	values(@ConsultoraID,@CampaniaID,@CampaniaAnteriorID,@Ubigeo1,@Ubigeo2,@Ubigeo3,@Ubigeo1Anterior,@Ubigeo2Anterior,@Ubigeo3Anterior,@DireccionAnterior,@Direccion,@Referencia,@CodigoConsultora,@Latitud,@Longitud,@LatitudAnterior,@LongitudAnterior)
+	values(@ConsultoraID,@CampaniaID,@CampaniaAnteriorID,@Ubigeo1,@Ubigeo2,@Ubigeo3,@Ubigeo1Anterior,@Ubigeo2Anterior,@Ubigeo3Anterior,@DireccionAnterior,@Direccion,@ZonaAnterior,@Zona,@Referencia,@CodigoConsultora,@Latitud,@Longitud,@LatitudAnterior,@LongitudAnterior)
 	set @Id =@@IDENTITY;
 
 	select @Id DireccionEntregaID;
@@ -84,7 +88,9 @@ create PROCEDURE InsertarDireccionEntrega
 @Ubigeo2Anterior int ,
 @Ubigeo3Anterior int ,
 @DireccionAnterior varchar(400) ,
-@Direccion varchar(400) ,
+@Direccion varchar(400),
+@ZonaAnterior varchar(400),
+@Zona varchar(400),
 @Referencia varchar(400) ,
 @CodigoConsultora varchar(20),
 @LatitudAnterior decimal(9,6) ,
@@ -112,6 +118,8 @@ BEGIN
 		Ubigeo3Anterior,
 		DireccionAnterior,
 		Direccion,
+		ZonaAnterior,
+		Zona,
 		Referencia,
 		CodigoConsultora,
 		Latitud,
@@ -119,7 +127,7 @@ BEGIN
 		LatitudAnterior,
 		LongitudAnterior
 	)
-	values(@ConsultoraID,@CampaniaID,@CampaniaAnteriorID,@Ubigeo1,@Ubigeo2,@Ubigeo3,@Ubigeo1Anterior,@Ubigeo2Anterior,@Ubigeo3Anterior,@DireccionAnterior,@Direccion,@Referencia,@CodigoConsultora,@Latitud,@Longitud,@LatitudAnterior,@LongitudAnterior)
+	values(@ConsultoraID,@CampaniaID,@CampaniaAnteriorID,@Ubigeo1,@Ubigeo2,@Ubigeo3,@Ubigeo1Anterior,@Ubigeo2Anterior,@Ubigeo3Anterior,@DireccionAnterior,@Direccion,@ZonaAnterior,@Zona,@Referencia,@CodigoConsultora,@Latitud,@Longitud,@LatitudAnterior,@LongitudAnterior)
 	set @Id =@@IDENTITY;
 
 	select @Id DireccionEntregaID;
@@ -148,7 +156,9 @@ create PROCEDURE InsertarDireccionEntrega
 @Ubigeo2Anterior int ,
 @Ubigeo3Anterior int ,
 @DireccionAnterior varchar(400) ,
-@Direccion varchar(400) ,
+@Direccion varchar(400),
+@ZonaAnterior varchar(400),
+@Zona varchar(400),
 @Referencia varchar(400) ,
 @CodigoConsultora varchar(20),
 @LatitudAnterior decimal(9,6) ,
@@ -176,6 +186,8 @@ BEGIN
 		Ubigeo3Anterior,
 		DireccionAnterior,
 		Direccion,
+		ZonaAnterior,
+		Zona,
 		Referencia,
 		CodigoConsultora,
 		Latitud,
@@ -183,7 +195,7 @@ BEGIN
 		LatitudAnterior,
 		LongitudAnterior
 	)
-	values(@ConsultoraID,@CampaniaID,@CampaniaAnteriorID,@Ubigeo1,@Ubigeo2,@Ubigeo3,@Ubigeo1Anterior,@Ubigeo2Anterior,@Ubigeo3Anterior,@DireccionAnterior,@Direccion,@Referencia,@CodigoConsultora,@Latitud,@Longitud,@LatitudAnterior,@LongitudAnterior)
+	values(@ConsultoraID,@CampaniaID,@CampaniaAnteriorID,@Ubigeo1,@Ubigeo2,@Ubigeo3,@Ubigeo1Anterior,@Ubigeo2Anterior,@Ubigeo3Anterior,@DireccionAnterior,@Direccion,@ZonaAnterior,@Zona,@Referencia,@CodigoConsultora,@Latitud,@Longitud,@LatitudAnterior,@LongitudAnterior)
 	set @Id =@@IDENTITY;
 
 	select @Id DireccionEntregaID;
@@ -212,7 +224,9 @@ create PROCEDURE InsertarDireccionEntrega
 @Ubigeo2Anterior int ,
 @Ubigeo3Anterior int ,
 @DireccionAnterior varchar(400) ,
-@Direccion varchar(400) ,
+@Direccion varchar(400),
+@ZonaAnterior varchar(400),
+@Zona varchar(400),
 @Referencia varchar(400) ,
 @CodigoConsultora varchar(20),
 @LatitudAnterior decimal(9,6) ,
@@ -240,6 +254,8 @@ BEGIN
 		Ubigeo3Anterior,
 		DireccionAnterior,
 		Direccion,
+		ZonaAnterior,
+		Zona,
 		Referencia,
 		CodigoConsultora,
 		Latitud,
@@ -247,7 +263,7 @@ BEGIN
 		LatitudAnterior,
 		LongitudAnterior
 	)
-	values(@ConsultoraID,@CampaniaID,@CampaniaAnteriorID,@Ubigeo1,@Ubigeo2,@Ubigeo3,@Ubigeo1Anterior,@Ubigeo2Anterior,@Ubigeo3Anterior,@DireccionAnterior,@Direccion,@Referencia,@CodigoConsultora,@Latitud,@Longitud,@LatitudAnterior,@LongitudAnterior)
+	values(@ConsultoraID,@CampaniaID,@CampaniaAnteriorID,@Ubigeo1,@Ubigeo2,@Ubigeo3,@Ubigeo1Anterior,@Ubigeo2Anterior,@Ubigeo3Anterior,@DireccionAnterior,@Direccion,@ZonaAnterior,@Zona,@Referencia,@CodigoConsultora,@Latitud,@Longitud,@LatitudAnterior,@LongitudAnterior)
 	set @Id =@@IDENTITY;
 
 	select @Id DireccionEntregaID;
@@ -276,7 +292,9 @@ create PROCEDURE InsertarDireccionEntrega
 @Ubigeo2Anterior int ,
 @Ubigeo3Anterior int ,
 @DireccionAnterior varchar(400) ,
-@Direccion varchar(400) ,
+@Direccion varchar(400),
+@ZonaAnterior varchar(400),
+@Zona varchar(400),
 @Referencia varchar(400) ,
 @CodigoConsultora varchar(20),
 @LatitudAnterior decimal(9,6) ,
@@ -304,6 +322,8 @@ BEGIN
 		Ubigeo3Anterior,
 		DireccionAnterior,
 		Direccion,
+		ZonaAnterior,
+		Zona,
 		Referencia,
 		CodigoConsultora,
 		Latitud,
@@ -311,7 +331,7 @@ BEGIN
 		LatitudAnterior,
 		LongitudAnterior
 	)
-	values(@ConsultoraID,@CampaniaID,@CampaniaAnteriorID,@Ubigeo1,@Ubigeo2,@Ubigeo3,@Ubigeo1Anterior,@Ubigeo2Anterior,@Ubigeo3Anterior,@DireccionAnterior,@Direccion,@Referencia,@CodigoConsultora,@Latitud,@Longitud,@LatitudAnterior,@LongitudAnterior)
+	values(@ConsultoraID,@CampaniaID,@CampaniaAnteriorID,@Ubigeo1,@Ubigeo2,@Ubigeo3,@Ubigeo1Anterior,@Ubigeo2Anterior,@Ubigeo3Anterior,@DireccionAnterior,@Direccion,@ZonaAnterior,@Zona,@Referencia,@CodigoConsultora,@Latitud,@Longitud,@LatitudAnterior,@LongitudAnterior)
 	set @Id =@@IDENTITY;
 
 	select @Id DireccionEntregaID;
@@ -340,7 +360,9 @@ create PROCEDURE InsertarDireccionEntrega
 @Ubigeo2Anterior int ,
 @Ubigeo3Anterior int ,
 @DireccionAnterior varchar(400) ,
-@Direccion varchar(400) ,
+@Direccion varchar(400),
+@ZonaAnterior varchar(400),
+@Zona varchar(400),
 @Referencia varchar(400) ,
 @CodigoConsultora varchar(20),
 @LatitudAnterior decimal(9,6) ,
@@ -368,6 +390,8 @@ BEGIN
 		Ubigeo3Anterior,
 		DireccionAnterior,
 		Direccion,
+		ZonaAnterior,
+		Zona,
 		Referencia,
 		CodigoConsultora,
 		Latitud,
@@ -375,7 +399,7 @@ BEGIN
 		LatitudAnterior,
 		LongitudAnterior
 	)
-	values(@ConsultoraID,@CampaniaID,@CampaniaAnteriorID,@Ubigeo1,@Ubigeo2,@Ubigeo3,@Ubigeo1Anterior,@Ubigeo2Anterior,@Ubigeo3Anterior,@DireccionAnterior,@Direccion,@Referencia,@CodigoConsultora,@Latitud,@Longitud,@LatitudAnterior,@LongitudAnterior)
+	values(@ConsultoraID,@CampaniaID,@CampaniaAnteriorID,@Ubigeo1,@Ubigeo2,@Ubigeo3,@Ubigeo1Anterior,@Ubigeo2Anterior,@Ubigeo3Anterior,@DireccionAnterior,@Direccion,@ZonaAnterior,@Zona,@Referencia,@CodigoConsultora,@Latitud,@Longitud,@LatitudAnterior,@LongitudAnterior)
 	set @Id =@@IDENTITY;
 
 	select @Id DireccionEntregaID;
@@ -404,7 +428,9 @@ create PROCEDURE InsertarDireccionEntrega
 @Ubigeo2Anterior int ,
 @Ubigeo3Anterior int ,
 @DireccionAnterior varchar(400) ,
-@Direccion varchar(400) ,
+@Direccion varchar(400),
+@ZonaAnterior varchar(400),
+@Zona varchar(400),
 @Referencia varchar(400) ,
 @CodigoConsultora varchar(20),
 @LatitudAnterior decimal(9,6) ,
@@ -432,6 +458,8 @@ BEGIN
 		Ubigeo3Anterior,
 		DireccionAnterior,
 		Direccion,
+		ZonaAnterior,
+		Zona,
 		Referencia,
 		CodigoConsultora,
 		Latitud,
@@ -439,7 +467,7 @@ BEGIN
 		LatitudAnterior,
 		LongitudAnterior
 	)
-	values(@ConsultoraID,@CampaniaID,@CampaniaAnteriorID,@Ubigeo1,@Ubigeo2,@Ubigeo3,@Ubigeo1Anterior,@Ubigeo2Anterior,@Ubigeo3Anterior,@DireccionAnterior,@Direccion,@Referencia,@CodigoConsultora,@Latitud,@Longitud,@LatitudAnterior,@LongitudAnterior)
+	values(@ConsultoraID,@CampaniaID,@CampaniaAnteriorID,@Ubigeo1,@Ubigeo2,@Ubigeo3,@Ubigeo1Anterior,@Ubigeo2Anterior,@Ubigeo3Anterior,@DireccionAnterior,@Direccion,@ZonaAnterior,@Zona,@Referencia,@CodigoConsultora,@Latitud,@Longitud,@LatitudAnterior,@LongitudAnterior)
 	set @Id =@@IDENTITY;
 
 	select @Id DireccionEntregaID;
@@ -468,7 +496,9 @@ create PROCEDURE InsertarDireccionEntrega
 @Ubigeo2Anterior int ,
 @Ubigeo3Anterior int ,
 @DireccionAnterior varchar(400) ,
-@Direccion varchar(400) ,
+@Direccion varchar(400),
+@ZonaAnterior varchar(400),
+@Zona varchar(400),
 @Referencia varchar(400) ,
 @CodigoConsultora varchar(20),
 @LatitudAnterior decimal(9,6) ,
@@ -496,6 +526,8 @@ BEGIN
 		Ubigeo3Anterior,
 		DireccionAnterior,
 		Direccion,
+		ZonaAnterior,
+		Zona,
 		Referencia,
 		CodigoConsultora,
 		Latitud,
@@ -503,7 +535,7 @@ BEGIN
 		LatitudAnterior,
 		LongitudAnterior
 	)
-	values(@ConsultoraID,@CampaniaID,@CampaniaAnteriorID,@Ubigeo1,@Ubigeo2,@Ubigeo3,@Ubigeo1Anterior,@Ubigeo2Anterior,@Ubigeo3Anterior,@DireccionAnterior,@Direccion,@Referencia,@CodigoConsultora,@Latitud,@Longitud,@LatitudAnterior,@LongitudAnterior)
+	values(@ConsultoraID,@CampaniaID,@CampaniaAnteriorID,@Ubigeo1,@Ubigeo2,@Ubigeo3,@Ubigeo1Anterior,@Ubigeo2Anterior,@Ubigeo3Anterior,@DireccionAnterior,@Direccion,@ZonaAnterior,@Zona,@Referencia,@CodigoConsultora,@Latitud,@Longitud,@LatitudAnterior,@LongitudAnterior)
 	set @Id =@@IDENTITY;
 
 	select @Id DireccionEntregaID;
@@ -532,7 +564,9 @@ create PROCEDURE InsertarDireccionEntrega
 @Ubigeo2Anterior int ,
 @Ubigeo3Anterior int ,
 @DireccionAnterior varchar(400) ,
-@Direccion varchar(400) ,
+@Direccion varchar(400),
+@ZonaAnterior varchar(400),
+@Zona varchar(400),
 @Referencia varchar(400) ,
 @CodigoConsultora varchar(20),
 @LatitudAnterior decimal(9,6) ,
@@ -560,6 +594,8 @@ BEGIN
 		Ubigeo3Anterior,
 		DireccionAnterior,
 		Direccion,
+		ZonaAnterior,
+		Zona,
 		Referencia,
 		CodigoConsultora,
 		Latitud,
@@ -567,7 +603,7 @@ BEGIN
 		LatitudAnterior,
 		LongitudAnterior
 	)
-	values(@ConsultoraID,@CampaniaID,@CampaniaAnteriorID,@Ubigeo1,@Ubigeo2,@Ubigeo3,@Ubigeo1Anterior,@Ubigeo2Anterior,@Ubigeo3Anterior,@DireccionAnterior,@Direccion,@Referencia,@CodigoConsultora,@Latitud,@Longitud,@LatitudAnterior,@LongitudAnterior)
+	values(@ConsultoraID,@CampaniaID,@CampaniaAnteriorID,@Ubigeo1,@Ubigeo2,@Ubigeo3,@Ubigeo1Anterior,@Ubigeo2Anterior,@Ubigeo3Anterior,@DireccionAnterior,@Direccion,@ZonaAnterior,@Zona,@Referencia,@CodigoConsultora,@Latitud,@Longitud,@LatitudAnterior,@LongitudAnterior)
 	set @Id =@@IDENTITY;
 
 	select @Id DireccionEntregaID;
@@ -596,7 +632,9 @@ create PROCEDURE InsertarDireccionEntrega
 @Ubigeo2Anterior int ,
 @Ubigeo3Anterior int ,
 @DireccionAnterior varchar(400) ,
-@Direccion varchar(400) ,
+@Direccion varchar(400),
+@ZonaAnterior varchar(400),
+@Zona varchar(400),
 @Referencia varchar(400) ,
 @CodigoConsultora varchar(20),
 @LatitudAnterior decimal(9,6) ,
@@ -624,6 +662,8 @@ BEGIN
 		Ubigeo3Anterior,
 		DireccionAnterior,
 		Direccion,
+		ZonaAnterior,
+		Zona,
 		Referencia,
 		CodigoConsultora,
 		Latitud,
@@ -631,7 +671,7 @@ BEGIN
 		LatitudAnterior,
 		LongitudAnterior
 	)
-	values(@ConsultoraID,@CampaniaID,@CampaniaAnteriorID,@Ubigeo1,@Ubigeo2,@Ubigeo3,@Ubigeo1Anterior,@Ubigeo2Anterior,@Ubigeo3Anterior,@DireccionAnterior,@Direccion,@Referencia,@CodigoConsultora,@Latitud,@Longitud,@LatitudAnterior,@LongitudAnterior)
+	values(@ConsultoraID,@CampaniaID,@CampaniaAnteriorID,@Ubigeo1,@Ubigeo2,@Ubigeo3,@Ubigeo1Anterior,@Ubigeo2Anterior,@Ubigeo3Anterior,@DireccionAnterior,@Direccion,@ZonaAnterior,@Zona,@Referencia,@CodigoConsultora,@Latitud,@Longitud,@LatitudAnterior,@LongitudAnterior)
 	set @Id =@@IDENTITY;
 
 	select @Id DireccionEntregaID;
@@ -660,7 +700,9 @@ create PROCEDURE InsertarDireccionEntrega
 @Ubigeo2Anterior int ,
 @Ubigeo3Anterior int ,
 @DireccionAnterior varchar(400) ,
-@Direccion varchar(400) ,
+@Direccion varchar(400),
+@ZonaAnterior varchar(400),
+@Zona varchar(400),
 @Referencia varchar(400) ,
 @CodigoConsultora varchar(20),
 @LatitudAnterior decimal(9,6) ,
@@ -688,6 +730,8 @@ BEGIN
 		Ubigeo3Anterior,
 		DireccionAnterior,
 		Direccion,
+		ZonaAnterior,
+		Zona,
 		Referencia,
 		CodigoConsultora,
 		Latitud,
@@ -695,7 +739,7 @@ BEGIN
 		LatitudAnterior,
 		LongitudAnterior
 	)
-	values(@ConsultoraID,@CampaniaID,@CampaniaAnteriorID,@Ubigeo1,@Ubigeo2,@Ubigeo3,@Ubigeo1Anterior,@Ubigeo2Anterior,@Ubigeo3Anterior,@DireccionAnterior,@Direccion,@Referencia,@CodigoConsultora,@Latitud,@Longitud,@LatitudAnterior,@LongitudAnterior)
+	values(@ConsultoraID,@CampaniaID,@CampaniaAnteriorID,@Ubigeo1,@Ubigeo2,@Ubigeo3,@Ubigeo1Anterior,@Ubigeo2Anterior,@Ubigeo3Anterior,@DireccionAnterior,@Direccion,@ZonaAnterior,@Zona,@Referencia,@CodigoConsultora,@Latitud,@Longitud,@LatitudAnterior,@LongitudAnterior)
 	set @Id =@@IDENTITY;
 
 	select @Id DireccionEntregaID;
@@ -724,7 +768,9 @@ create PROCEDURE InsertarDireccionEntrega
 @Ubigeo2Anterior int ,
 @Ubigeo3Anterior int ,
 @DireccionAnterior varchar(400) ,
-@Direccion varchar(400) ,
+@Direccion varchar(400),
+@ZonaAnterior varchar(400),
+@Zona varchar(400),
 @Referencia varchar(400) ,
 @CodigoConsultora varchar(20),
 @LatitudAnterior decimal(9,6) ,
@@ -752,6 +798,8 @@ BEGIN
 		Ubigeo3Anterior,
 		DireccionAnterior,
 		Direccion,
+		ZonaAnterior,
+		Zona,
 		Referencia,
 		CodigoConsultora,
 		Latitud,
@@ -759,7 +807,7 @@ BEGIN
 		LatitudAnterior,
 		LongitudAnterior
 	)
-	values(@ConsultoraID,@CampaniaID,@CampaniaAnteriorID,@Ubigeo1,@Ubigeo2,@Ubigeo3,@Ubigeo1Anterior,@Ubigeo2Anterior,@Ubigeo3Anterior,@DireccionAnterior,@Direccion,@Referencia,@CodigoConsultora,@Latitud,@Longitud,@LatitudAnterior,@LongitudAnterior)
+	values(@ConsultoraID,@CampaniaID,@CampaniaAnteriorID,@Ubigeo1,@Ubigeo2,@Ubigeo3,@Ubigeo1Anterior,@Ubigeo2Anterior,@Ubigeo3Anterior,@DireccionAnterior,@Direccion,@ZonaAnterior,@Zona,@Referencia,@CodigoConsultora,@Latitud,@Longitud,@LatitudAnterior,@LongitudAnterior)
 	set @Id =@@IDENTITY;
 
 	select @Id DireccionEntregaID;

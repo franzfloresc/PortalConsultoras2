@@ -48,6 +48,12 @@ namespace Portal.Consultoras.Entities.Pedido
         [Column("Direccion")]
         public string Direccion { get; set; }
         [DataMember]
+        [Column("ZonaAnterior")]
+        public string ZonaAnterior { get; set; }
+        [DataMember]
+        [Column("Zona")]
+        public string Zona { get; set; }
+        [DataMember]
         [Column("Referencia")]
         public string Referencia { get; set; }
         [DataMember]

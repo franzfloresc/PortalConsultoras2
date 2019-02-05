@@ -1962,10 +1962,6 @@ namespace Portal.Consultoras.Web.Controllers
                             case Constantes.ConfiguracionPais.DireccionEntrega:
                                 usuarioModel.TieneDireccionEntrega = c.Estado;
                                 break;
-
-                            case Constantes.ConfiguracionPais.PermisosCuenta:
-                                usuarioModel.TienePermisosCuenta = c.Estado;
-                                break;
                         }
 
                         listaConfiPaisModel.Add(c);
