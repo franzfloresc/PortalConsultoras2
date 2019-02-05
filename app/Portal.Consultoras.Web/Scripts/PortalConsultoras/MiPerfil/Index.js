@@ -5,6 +5,7 @@ var directionsService;
 var searchBox;
 var _googleMap;
 var OperacionDb = { Insertar: "0", Editar: "1" };
+
 $(document).ready(function () {
 
     if ($('#SeccionDireccionEntrega').length != 0) {
@@ -192,18 +193,15 @@ $(document).ready(function () {
                     }
                 });
                 $.when.apply(null, deferreds).done(function () {
-                    
                     $.each(Ubigeos, function (i, n) {
-                        
                        var Identity = i.substring(i.length - 1);
                        var elementSiguiente = 'Ubigeo' + (parseInt(Identity) + 1);
                         if ($('#' + elementSiguiente)[0] != undefined) {
                             $('#' + elementSiguiente).val(Ubigeos[elementSiguiente]);
+                            $('#' + elementSiguiente).addClass('campo_con_datos');
                         }
-                    });
-                    
+                    });                    
                 });
-
             },
             ConsultaUbigeo: function (Nivel, IdPadre , IdElemento) {
                 var deferredObject = $.Deferred(); 
@@ -356,8 +354,7 @@ $(document).ready(function () {
                 me.Funciones.ValidacionDireccion();
                if ($('#Operacion').val() == OperacionDb.Editar)
                    me.Funciones.ModoEdicion();
-            }
-     
+            }     
     }
 
     MiPerfil = new vistaMiPerfil();
