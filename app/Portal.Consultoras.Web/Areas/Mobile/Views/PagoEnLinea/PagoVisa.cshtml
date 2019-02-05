@@ -97,7 +97,7 @@
         </div>
 
         <div class="contenedor_btn_pagar_con_visa">
-            <form id="formBoton" action="@Url.Action("PagoVisaResultado","PagoEnLinea")" method="post">
+            <form id="formBoton" action="@Url.Action("PagoVisaResultado","PagoEnLinea", null, Request.Url.Scheme)" method="post">
                 <script id="javascriptBoton" src="@Model.PagoVisaModel.UrlLibreriaPagoVisa"
                         data-sessiontoken="@Model.PagoVisaModel.SessionToken"
                         data-merchantid="@Model.PagoVisaModel.MerchantId" data-merchantlogo="@Model.PagoVisaModel.MerchantLogo"

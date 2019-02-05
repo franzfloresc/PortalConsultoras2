@@ -63,12 +63,7 @@ namespace Portal.Consultoras.Web.Providers
                     campo = buscadorModel.Orden.Campo,
                     tipo = buscadorModel.Orden.Tipo
                 },
-                filtro = new
-                {
-                    categoria = buscadorModel.Filtro.categoria,
-                    marca = buscadorModel.Filtro.marca,
-                    precio = buscadorModel.Filtro.precio 
-                }
+                filtro = buscadorModel.Filtro
             };
         }
 

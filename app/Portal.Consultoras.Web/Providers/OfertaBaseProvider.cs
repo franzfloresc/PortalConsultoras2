@@ -14,16 +14,14 @@ namespace Portal.Consultoras.Web.Providers
 {
     public class OfertaBaseProvider
     {
-        private readonly static HttpClient httpClient = new HttpClient();
+        private static readonly HttpClient httpClient = new HttpClient();
 
         static OfertaBaseProvider()
         {
-            if (!string.IsNullOrEmpty(WebConfig.UrlMicroservicioPersonalizacionSearch))
-            {
-                httpClient.BaseAddress = new Uri(WebConfig.UrlMicroservicioPersonalizacionSearch);
-                httpClient.DefaultRequestHeaders.Accept.Clear();
-                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            }
+            if (string.IsNullOrEmpty(WebConfig.UrlMicroservicioPersonalizacionSearch)) return;
+            httpClient.BaseAddress = new Uri(WebConfig.UrlMicroservicioPersonalizacionSearch);
+            httpClient.DefaultRequestHeaders.Accept.Clear();
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
         public static async Task<List<ServiceOferta.BEEstrategia>> ObtenerOfertasDesdeApi(string path, string codigoISO)
@@ -50,7 +48,7 @@ namespace Portal.Consultoras.Web.Providers
             {
                 try
                 {
-                    ServiceOferta.BEEstrategia estrategia = new ServiceOferta.BEEstrategia
+                    var estrategia = new ServiceOferta.BEEstrategia
                     {
                         CampaniaID = item.codigoCampania,
                         CodigoEstrategia = item.codigoEstrategia,
@@ -140,7 +138,7 @@ namespace Portal.Consultoras.Web.Providers
                         var compoponentes = new List<ServiceOferta.BEEstrategiaProducto>();
                         foreach (var componente in item.componentes)
                         {
-                            ServiceOferta.BEEstrategiaProducto estrategiaTono = new ServiceOferta.BEEstrategiaProducto
+                            var estrategiaTono = new ServiceOferta.BEEstrategiaProducto
                             {
                                 Grupo = componente.grupo,
                                 CUV = componente.cuv,
@@ -179,7 +177,7 @@ namespace Portal.Consultoras.Web.Providers
 
             if (listaCuvPrecio0.Any())
             {
-                string logPrecio0 = string.Format("Log Precios0 => Fecha:{0} /Palanca:{1} /CodCampania:{2} /CUV(s):{3} /Referencia:{4}", DateTime.Now, codTipoEstrategia, codCampania, string.Join("|", listaCuvPrecio0), path);
+                var logPrecio0 = string.Format("Log Precios0 => Fecha:{0} /Palanca:{1} /CodCampania:{2} /CUV(s):{3} /Referencia:{4}", DateTime.Now, codTipoEstrategia, codCampania, string.Join("|", listaCuvPrecio0), path);
                 Common.LogManager.SaveLog(new Exception(logPrecio0), "", codigoISO);
             }
 
@@ -227,14 +225,14 @@ namespace Portal.Consultoras.Web.Providers
         public bool UsarMsPersonalizacion(string pais, string tipoEstrategia, bool dbDefault = false)
         {
             if (dbDefault) return false;
-            bool paisHabilitado = WebConfig.PaisesMicroservicioPersonalizacion.Contains(pais);
-            bool tipoEstrategiaHabilitado = WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion.Contains(tipoEstrategia);
+            var paisHabilitado = WebConfig.PaisesMicroservicioPersonalizacion.Contains(pais);
+            var tipoEstrategiaHabilitado = WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion.Contains(tipoEstrategia);
             return paisHabilitado && tipoEstrategiaHabilitado;
         }
 
         public bool UsarMsPersonalizacion(string tipoEstrategia)
         {
-            bool tipoEstrategiaHabilitado = WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion.Contains(tipoEstrategia);
+            var tipoEstrategiaHabilitado = WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion.Contains(tipoEstrategia);
             return tipoEstrategiaHabilitado;
         }
     }
