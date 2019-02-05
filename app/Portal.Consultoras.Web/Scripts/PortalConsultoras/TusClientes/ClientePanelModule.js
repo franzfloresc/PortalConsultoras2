@@ -17,17 +17,17 @@
         $('.modal-fondo').show();
         $(PanelId).show();
         $(PanelId).css('margin-right', '0');
-        $(PanelId).css('opacity', '1');
+        $(PanelId).css('opacity', '1'); 
     };
 
     var _cerrar = function () {
-
+ 
         $(PanelId).css('margin-right', '-330px');
-        $(PanelId).('opacity', '.0');
+        $(PanelId).css('opacity', '.0');
         $(PanelId).hide();
         $('.modal-fondo').hide();
         $('.modal-fondo').css('opacity', '.0');
-
+       
     };
 
     var _configuracionInicial = function () {
@@ -49,15 +49,11 @@
 
             if (clienteSeleccion.ClienteID != "") {
                 console.log("Selección: ", clienteSeleccion);
-                console.log(_aceptaClick);
-                console.log($.isFunction(_aceptaClick));
-
+                
                 _cerrar();
                 _aceptaClick(clienteSeleccion);
 
-            } else {
-                alert('Seleccione un Cliente');
-            }
+            } 
         });
 
         $("#btnPanelListaCerrar").click(function () {

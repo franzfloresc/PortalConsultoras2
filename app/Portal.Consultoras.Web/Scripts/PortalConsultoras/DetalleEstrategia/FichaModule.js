@@ -942,7 +942,7 @@ var FichaEditarModule = (function () {
         panel.init();
         panel.AceptaClick(function (obj) {
             //PaisID, ClienteID, CodigoCliente, NombreCliente, Nombre
-            //console.log('tu código:', obj);
+            console.log('tu código:', obj);
             $(_seccionesPanelCliente.hfClienteId).val(obj.ClienteID);
             $(_seccionesPanelCliente.hfClienteNombre).val(obj.Nombre);
             $(_seccionesPanelCliente.spClienteNombre).html(obj.Nombre);

@@ -55,6 +55,8 @@
         $(_elements.hfCodigoCliente).val(codigoCliente);
         $(_elements.hfNombreCliente).val(nombreCliente);
         $(_elements.hfNombre).val(nombre);
+
+        $("#btnPanelListaAceptar").click();
     };
 
     var _mostrarTusClientes = function () {
