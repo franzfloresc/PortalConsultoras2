@@ -120,7 +120,7 @@ function MostrarBarra(datax, destino) {
         });
     }
     else {
-        var valTopTotal = destino == '2' && dataBarra.TippingPointBarra.Active && tp > 0 ? tp : mn
+        var valTopTotal = destino == '2' && dataBarra.TippingPointBarra.Active && tp > 0 ? tp : mn;
         if (vLogro > valTopTotal) vLogro = valTopTotal > me ? valTopTotal : me;
 
         listaLimite = new Array();
@@ -192,7 +192,7 @@ function MostrarBarra(datax, destino) {
     }
     mtoLogroBarra = vLogro;
 
-    if (isTippingPointSuperado()) agregarPremioDefault();
+    //if (isTippingPointSuperado()) agregarPremioDefault();
 
     listaLimite = listaLimite || new Array();
     if (listaLimite.length == 0)
@@ -896,6 +896,7 @@ function isTippingPointSuperado() {
         mtoLogroBarra >= tp &&
         dataBarra.TippingPointBarra &&
         dataBarra.TippingPointBarra.ActivePremioElectivo &&
+        tpElectivos.hasPremios &&
         !tpElectivos.premioSelected;
 }
 
@@ -1032,7 +1033,7 @@ function cargarPremiosElectivos() {
 
 function agregarPremioDefault() {
     var premio = getPremioDefault();
-    if (!premio) {
+    if (!premio || tpElectivos.premioSelected) {
         return;
     }
 
@@ -1257,6 +1258,10 @@ function showPopupNivelSuperado(barra, prevLogro) {
         if (superaRegalo) {
 
             checkPremioSelected(true);
+            if (!tpElectivos.premioSelected) {
+                agregarPremioDefault();
+            }
+
             var idPopup = '#popupPremio';
             var dvPremio = $(idPopup);
             var btn = dvPremio.find('.btn_escoger_o_cambiar_regalo');
