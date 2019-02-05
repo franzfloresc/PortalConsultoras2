@@ -2,6 +2,9 @@
 	Actualizar (QAS y PPR):
 		<add key="UrlMicroservicioPersonalizacionSearch" value="http://10.12.6.234:5000/"/>
 		
-2.- SB Web
+2.- PortalConsultoras2
 	Actualizar (QAS y PPR):
 		<add key="UrlMicroservicioPersonalizacionSearch" value="http://10.12.6.234:5000/"/>
+		
+	Agregar (QAS y PPR):
+		<add key="RutaServiceConsultaPROL" value="http://internal-qaelb-webprol-182416748.us-east-1.elb.amazonaws.com:81" />
