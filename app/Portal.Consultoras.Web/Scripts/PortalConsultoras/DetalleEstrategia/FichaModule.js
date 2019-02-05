@@ -899,7 +899,7 @@ var FichaEditarModule = (function () {
         var palanca = $.trim(row.attr("data-tipoestrategia"));
         var OrigenPedidoWeb = $.trim(row.attr("data-OrigenPedidoWeb"));
         var setId = $.trim(row.attr("data-SetID"));
-        palanca = GetNombrePalanca(palanca, OrigenPedidoWeb);
+        palanca = GetPalanca(palanca, OrigenPedidoWeb, false);
 
         window.setTimeout(function() {
                 fichaModule = FichaModule({
