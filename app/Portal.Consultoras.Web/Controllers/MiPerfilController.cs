@@ -41,68 +41,71 @@ namespace Portal.Consultoras.Web.Controllers
                 beusuario = sv.Select(userData.PaisID, userData.CodigoUsuario);                
             }
 
-           if (beusuario != null)
+            if (beusuario == null)
             {
-                model.PaisISO = userData.CodigoISO;
+                return View(model);
+            }
+
+            model.PaisISO = userData.CodigoISO;
                 ViewBag.LocationCountry = userData.CodigoISO;
                 ViewBag.EsMobile = IsMobile();
-                model.NombreCompleto = beusuario.Nombre;
-                model.NombreGerenteZonal = userData.NombreGerenteZonal;
-                model.EMail = beusuario.EMail;
-                if (!userData.EMail.Contains(string.IsNullOrEmpty(model.EMail) ? "" : model.EMail)) userData.EMail = model.EMail;
-                model.NombreGerenteZonal = userData.NombreGerenteZonal;
-                model.Telefono = beusuario.Telefono;
-                model.TelefonoTrabajo = beusuario.TelefonoTrabajo;
-                model.Celular = beusuario.Celular;
-                if (!userData.Celular.Contains(string.IsNullOrEmpty(model.Celular) ? "" : model.Celular)) userData.Celular = model.Celular;
-                model.Sobrenombre = beusuario.Sobrenombre;
-                model.CompartirDatos = beusuario.CompartirDatos;
-                model.AceptoContrato = beusuario.AceptoContrato;
-                model.UsuarioPrueba = userData.UsuarioPrueba;
-                model.NombreArchivoContrato = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.Contrato_ActualizarDatos + userData.CodigoISO);
-                model.IndicadorConsultoraDigital = beusuario.IndicadorConsultoraDigital;
+            model.NombreCompleto = beusuario.Nombre;
+            model.NombreGerenteZonal = userData.NombreGerenteZonal;
+            model.EMail = beusuario.EMail;
+            if (!userData.EMail.Contains(string.IsNullOrEmpty(model.EMail) ? "" : model.EMail)) userData.EMail = model.EMail;
+            model.NombreGerenteZonal = userData.NombreGerenteZonal;
+            model.Telefono = beusuario.Telefono;
+            model.TelefonoTrabajo = beusuario.TelefonoTrabajo;
+            model.Celular = beusuario.Celular;
+            if (!userData.Celular.Contains(string.IsNullOrEmpty(model.Celular) ? "" : model.Celular)) userData.Celular = model.Celular;
+            model.Sobrenombre = beusuario.Sobrenombre;
+            model.CompartirDatos = beusuario.CompartirDatos;
+            model.AceptoContrato = beusuario.AceptoContrato;
+            model.UsuarioPrueba = userData.UsuarioPrueba;
+            model.NombreArchivoContrato = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.Contrato_ActualizarDatos + userData.CodigoISO);
+            model.IndicadorConsultoraDigital = beusuario.IndicadorConsultoraDigital;
 
-                var bezona = _zonificacionProvider.GetZonaById(userData.PaisID, userData.ZonaID);
-               
-                model.NombreGerenteZonal = bezona.NombreGerenteZona;
+            var bezona = _zonificacionProvider.GetZonaById(userData.PaisID, userData.ZonaID);
 
-                if (beusuario.EMailActivo) model.CorreoAlerta = "";
-                if (!beusuario.EMailActivo && beusuario.EMail != "") model.CorreoAlerta = "Su correo aun no ha sido activado";
+            model.NombreGerenteZonal = bezona.NombreGerenteZona;
 
-                if (model.UsuarioPrueba == 1)
+            if (beusuario.EMailActivo) model.CorreoAlerta = "";
+            if (!beusuario.EMailActivo && beusuario.EMail != "") model.CorreoAlerta = "Su correo aun no ha sido activado";
+
+            if (model.UsuarioPrueba == 1)
+            {
+                using (var sv = new SACServiceClient())
                 {
-                    using (var sv = new SACServiceClient())
-                    {
-                        model.NombreConsultoraAsociada = sv.GetNombreConsultoraAsociada(userData.PaisID, userData.CodigoUsuario) + " (" + sv.GetCodigoConsultoraAsociada(userData.PaisID, userData.CodigoUsuario) + ")";
-                    }
+                    model.NombreConsultoraAsociada = sv.GetNombreConsultoraAsociada(userData.PaisID, userData.CodigoUsuario) + " (" + sv.GetCodigoConsultoraAsociada(userData.PaisID, userData.CodigoUsuario) + ")";
                 }
+            }
 
-                model.DigitoVerificador = string.Empty;
-                model.CodigoUsuario = userData.CodigoUsuario;
-                model.Zona = userData.CodigoZona;
-                model.ServiceSMS = userData.PuedeEnviarSMS;
-                model.ActualizaDatos = userData.PuedeActualizar;
-                model.PaisID = userData.PaisID;
+            model.DigitoVerificador = string.Empty;
+            model.CodigoUsuario = userData.CodigoUsuario;
+            model.Zona = userData.CodigoZona;
+            model.ServiceSMS = userData.PuedeEnviarSMS;
+            model.ActualizaDatos = userData.PuedeActualizar;
+            model.PaisID = userData.PaisID;
 
-                var paisesDigitoControl = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesDigitoControl);
-                if (paisesDigitoControl.Contains(model.PaisISO)
-                    && !string.IsNullOrEmpty(beusuario.DigitoVerificador))
-                {
-                    model.CodigoUsuario = string.Format("{0} - {1} (Zona:{2})", userData.CodigoUsuario, beusuario.DigitoVerificador, userData.CodigoZona);
-                }
-                model.CodigoUsuarioReal = userData.CodigoUsuario;
-                ViewBag.UrlPdfTerminosyCondiciones = _revistaDigitalProvider.GetUrlTerminosCondicionesDatosUsuario(userData.CodigoISO);
+            var paisesDigitoControl = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesDigitoControl);
+            if (paisesDigitoControl.Contains(model.PaisISO)
+                && !string.IsNullOrEmpty(beusuario.DigitoVerificador))
+            {
+                model.CodigoUsuario = string.Format("{0} - {1} (Zona:{2})", userData.CodigoUsuario, beusuario.DigitoVerificador, userData.CodigoZona);
+            }
+            model.CodigoUsuarioReal = userData.CodigoUsuario;
+            ViewBag.UrlPdfTerminosyCondiciones = _revistaDigitalProvider.GetUrlTerminosCondicionesDatosUsuario(userData.CodigoISO);
 
-                #region limite Min - Max Telef
-                int limiteMinimoTelef, limiteMaximoTelef;
-                Util.GetLimitNumberPhone(userData.PaisID, out limiteMinimoTelef, out limiteMaximoTelef);
-                model.limiteMinimoTelef = limiteMinimoTelef;
-                model.limiteMaximoTelef = limiteMaximoTelef;
-                #endregion
-                int numero;
-                bool valida;
-                Util.ObtenerIniciaNumeroCelular(userData.PaisID, out valida, out numero);
-                model.IniciaNumeroCelular = valida ? numero : -1;
+            #region limite Min - Max Telef
+            int limiteMinimoTelef, limiteMaximoTelef;
+            Util.GetLimitNumberPhone(userData.PaisID, out limiteMinimoTelef, out limiteMaximoTelef);
+            model.limiteMinimoTelef = limiteMinimoTelef;
+            model.limiteMaximoTelef = limiteMaximoTelef;
+            #endregion
+            int numero;
+            bool valida;
+            Util.ObtenerIniciaNumeroCelular(userData.PaisID, out valida, out numero);
+            model.IniciaNumeroCelular = valida ? numero : -1;
 
                 var objMenu = ((List<PermisoModel>)ViewBag.Permiso).Where(p => 
                     p.Posicion.Trim().ToLower().Equals(Constantes.MenuPosicion.Body) && 
@@ -120,8 +123,8 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 model.UsuarioOpciones = _miperfil.GetUsuarioOpciones(userData.PaisID, userData.CodigoUsuario, true);
-            }
-
+                model.TieneDireccionEntrega = userData.TieneDireccionEntrega;
+            
             return View(model);
         }
 
@@ -643,7 +646,7 @@ namespace Portal.Consultoras.Web.Controllers
                     var result = svClient.CancelarAtualizacionEmail(userData.PaisID, userData.CodigoUsuario, tipoEnvio);
                     return result;
                 }
-                
+
             }
             catch (Exception ex)
             {

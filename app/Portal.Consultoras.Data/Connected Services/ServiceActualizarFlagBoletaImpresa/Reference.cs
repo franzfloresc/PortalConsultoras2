@@ -40,6 +40,8 @@ namespace Portal.Consultoras.Data.ServiceActualizarFlagBoletaImpresa {
         
         private string indImprimeBoletaField;
         
+        private string indImprimePaqueteField;
+        
         /// <remarks/>
         [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
         public string codigoConsultora {
@@ -61,6 +63,18 @@ namespace Portal.Consultoras.Data.ServiceActualizarFlagBoletaImpresa {
             set {
                 this.indImprimeBoletaField = value;
                 this.RaisePropertyChanged("indImprimeBoleta");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public string indImprimePaquete {
+            get {
+                return this.indImprimePaqueteField;
+            }
+            set {
+                this.indImprimePaqueteField = value;
+                this.RaisePropertyChanged("indImprimePaquete");
             }
         }
         

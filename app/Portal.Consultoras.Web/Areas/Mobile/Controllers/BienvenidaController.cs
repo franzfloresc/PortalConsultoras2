@@ -95,7 +95,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.TieneMasVendidos = userData.TieneMasVendidos;
                 model.TieneAsesoraOnline = userData.TieneAsesoraOnline;
                 model.ActivacionAppCatalogoWhastUp = ObtenerActivacionAppCatalogoWhastUp();
-                model.ShowRoomMostrarLista = ValidarPermiso(Constantes.MenuCodigo.CatalogoPersonalizado) ? 0 : 1;
+                model.ShowRoomMostrarLista = (!ValidarPermiso(Constantes.MenuCodigo.CatalogoPersonalizado)).ToInt();
 
                 ViewBag.paisISO = userData.CodigoISO;
                 ViewBag.Ambiente = _configuracionManagerProvider.GetBucketNameFromConfig();
@@ -223,11 +223,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private int ObtenerActivacionAppCatalogoWhastUp()
         {
-            string paisesCatalogoWhatsUp = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesCatalogoWhatsUp);
-
-            var activacionAppCatalogoWhastUp = paisesCatalogoWhatsUp.Contains(userData.CodigoISO) ? 1 : 0;
-
-            return activacionAppCatalogoWhastUp;
+            bool paisesCatalogoWhatsUp = _configuracionManagerProvider.GetConfiguracionManagerContains(Constantes.ConfiguracionManager.PaisesCatalogoWhatsUp, userData.CodigoISO);
+            
+            return paisesCatalogoWhatsUp.ToInt();
         }
 
         private string ObtenerNombreConsultoraFav()

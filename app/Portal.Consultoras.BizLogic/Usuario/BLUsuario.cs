@@ -573,6 +573,7 @@ namespace Portal.Consultoras.BizLogic
                 lstConfiguracionPais.Add(Constantes.ConfiguracionPais.BuscadorYFiltros);
                 lstConfiguracionPais.Add(Constantes.ConfiguracionPais.PagoEnLinea);
                 lstConfiguracionPais.Add(Constantes.ConfiguracionPais.MasGanadoras);
+                lstConfiguracionPais.Add(Constantes.ConfiguracionPais.Datami);
                 var usuarioPaisTask = Task.Run(() => ConfiguracionPaisUsuario(usuario, string.Join("|", lstConfiguracionPais)));
 
                 Task.WaitAll(
@@ -2222,7 +2223,7 @@ namespace Portal.Consultoras.BizLogic
                             entidad.CodigoUsuario = entidad.NumeroDocumento;
                             // insertar usuario postulante
                             int r3 = daUsuario.InsUsuarioPostulante(entidad);
-                            r = (r3 > 0) ? 1 : 0;
+                            r = (r3 > 0).ToInt();
 
                             if (!string.IsNullOrEmpty(entidad.Correo))
                             {
@@ -2306,7 +2307,7 @@ namespace Portal.Consultoras.BizLogic
                 {
                     var daUsuario = new DAUsuario(paisID);
                     var r1 = daUsuario.DelUsuarioPostulante(numeroDocumento);
-                    r = (r1 > 0) ? 1 : 0;
+                    r = (r1 > 0).ToInt();
                 }
             }
             catch (Exception ex)
@@ -3196,8 +3197,8 @@ namespace Portal.Consultoras.BizLogic
                     oUsu.IntentosRestanteSms = opcion.IntentosSms;
                 }
 
-                oUsu.OpcionVerificacionSMS = opcion.OpcionSms ? (oUsu.Cantidad == 0 ? 1 : 0) : -1;
-                oUsu.OpcionVerificacionCorreo = opcion.OpcionEmail ? (oUsu.Cantidad == 0 ? 1 : 0) : -1;
+                oUsu.OpcionVerificacionSMS = opcion.OpcionSms ? (oUsu.Cantidad == 0).ToInt() : -1;
+                oUsu.OpcionVerificacionCorreo = opcion.OpcionEmail ? (oUsu.Cantidad == 0).ToInt() : -1;
                 oUsu.OpcionCambioClave = (opcion.OpcionContrasena && opcion.OpcionSms) ? oUsu.OpcionCambioClave : -1;
 
                 return oUsu;
@@ -3364,6 +3365,9 @@ namespace Portal.Consultoras.BizLogic
                                 break;
                             case Constantes.ConfiguracionPais.Recomendaciones:
                                 usuario.RecomendacionesConfiguracion = configuracionPaisDatos;
+                                break;
+                            case Constantes.ConfiguracionPais.Datami:
+                                usuario.SegmentoDatami = GetSegmentoDatami(usuario);
                                 break;
                         }
                     }
@@ -3554,7 +3558,7 @@ namespace Portal.Consultoras.BizLogic
             }
 
             mostrarBuscador = configuracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.TipoConfiguracionBuscador.ConsultoraDummy);
-            if (mostrarBuscador != null) buscadorYFiltrosConfiguracion.IndicadorConsultoraDummy = mostrarBuscador.Valor1 == "1";
+            if (mostrarBuscador != null) buscadorYFiltrosConfiguracion.IndicadorConsultoraDummy = mostrarBuscador.Valor2 == "1";
 
             mostrarBuscador = configuracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.TipoConfiguracionBuscador.MostrarBotonVerTodos);
             if (mostrarBuscador != null) buscadorYFiltrosConfiguracion.MostrarBotonVerTodosBuscador = mostrarBuscador.Valor1 == "1";
@@ -3755,7 +3759,7 @@ namespace Portal.Consultoras.BizLogic
             };
         }
         #endregion
-
+        
         #region UsuariosOpciones
         public List<BEUsuarioOpciones> GetUsuarioOpciones(int paisID, string codigoUsuario)
         {
@@ -3772,6 +3776,24 @@ namespace Portal.Consultoras.BizLogic
         }
         #endregion
 
+        private string GetSegmentoDatami(BEUsuario usuario)
+        {
+            var segmentoDatami = string.Empty;
+
+            if (usuario.SegmentoInternoID == Constantes.SegmentoInterno.Inconstantes || usuario.SegmentoInternoID == Constantes.SegmentoInterno.SinSegmento)
+                segmentoDatami = Constantes.SegmentoDatami.SegmentoA;
+            else if(usuario.IndicadorConsultoraDigital == 1)
+                segmentoDatami = Constantes.SegmentoDatami.SegmentoB;
+            else if(usuario.RevistaDigital.EsSuscrita)
+                segmentoDatami = Constantes.SegmentoDatami.SegmentoC;
+            else if(usuario.SegmentoInternoID == Constantes.SegmentoInterno.EmpresariaDeBelleza || usuario.SegmentoInternoID == Constantes.SegmentoInterno.EmpresariaBrillante || usuario.SegmentoInternoID == Constantes.SegmentoInterno.Nuevas)
+                segmentoDatami = Constantes.SegmentoDatami.SegmentoD;
+            else if(usuario.SegmentoInternoID == Constantes.SegmentoInterno.ExpertaDeBelleza)
+                segmentoDatami = Constantes.SegmentoDatami.SegmentoE;
+            else if(usuario.SegmentoInternoID == Constantes.SegmentoInterno.EspecialistaDeBelleza || usuario.SegmentoInternoID == Constantes.SegmentoInterno.AsesoraDeBelleza)
+                segmentoDatami = Constantes.SegmentoDatami.SegmentoF;
+               return segmentoDatami;
+        }
 
         public string RegistrarPerfil(BEUsuario usuario)
         {
@@ -3830,12 +3852,12 @@ namespace Portal.Consultoras.BizLogic
                             throw new Exception(result.mensaje);
                     }
                     var urlService = new EndpointAddress(WebConfig.ServicioActualizarBoletaImp);
-                    bool flagBolImp = usuario.UsuarioOpciones.Where(a => a.Codigo == "chkBoletasImpresas").Select(b => b.CheckBox).FirstOrDefault();
+                    string flagBolImp = !usuario.UsuarioOpciones.Where(a => a.Codigo == "chkBoletasImpresas").Select(b => b.CheckBox).FirstOrDefault() ? "N" : "S";
                     using (var svr = new ProcesoMAEActualizaFlagImpBoletasWebServiceImplClient(new BasicHttpBinding(), urlService))
                     {
                         svr.Endpoint.Binding.SendTimeout = new TimeSpan(0, 0, 0, 10);
                         var objActualizarFlagBoleta = new List<ConsultoraFlagImpBoleta>();
-                        objActualizarFlagBoleta.Add(new ConsultoraFlagImpBoleta { codigoConsultora = usuario.CodigoUsuario, indImprimeBoleta = !flagBolImp ? "N" : "S" });
+                        objActualizarFlagBoleta.Add(new ConsultoraFlagImpBoleta { codigoConsultora = usuario.CodigoUsuario, indImprimeBoleta = flagBolImp, indImprimePaquete = flagBolImp });
                         var result = svr.actualizaFlagImpBoletas(objActualizarFlagBoleta.ToArray());
                         if (result.estado == 1)
                             throw new Exception(result.mensaje);

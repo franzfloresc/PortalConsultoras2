@@ -83,6 +83,7 @@ else
                     <div class="datos_gerente_zona">
                         <span class="text-left text-bold">Gerente de zona : </span>
                         <span class="text-right text-bold pull-right">@Model.NombreGerenteZonal</span>
+                        <div class="clear"></div>
                     </div>
                 }
                 <a href="@Url.Action("CambiarContrasenia", "MiPerfil", new {area = "Mobile"})" title="Cambiar contraseña" class="enlace_cambiar_contrasenia_consultora text-center text-bold text-uppercase">
@@ -222,7 +223,7 @@ else
                                 <fieldset class="grupo_form_cambio_datos">
                                     <div class="w-100">
                                         @Html.DropDownListFor(model => model.DireccionEntrega.Ubigeo1, new SelectList(Model.DireccionEntrega.DropDownUbigeo1, "IdParametroUnete", "Nombre"), "--Seleccionar", new { id = "Ubigeo1", Nivel = 6, @class = "w-100", ItemChange = "0" })
-                                        <label for="Ubigeo1">Ciudad <span class="asteriscos">*</span></label>
+                                        <label for="Ubigeo1">Región <span class="asteriscos">*</span></label>
                                     </div>
                                 </fieldset>
                                 <fieldset class="grupo_form_cambio_datos">
@@ -234,7 +235,7 @@ else
                                 <fieldset class="grupo_form_cambio_datos grupo_form_cambio_datos_campo_direccion">
                                     <div class="w-100">
 
-                                        @Html.TextBoxFor(x => x.DireccionEntrega.Direccion, new { @class = "w-100", id = "Direccion" })
+                                        @Html.TextBoxFor(x => x.DireccionEntrega.Direccion, new { @class = "w-100", id = "Direccion", placeholder = "Ingresa y selecciona tu dirección" })
 
                                         <label for="Direccion" class="w-100">
                                             Dirección <span class="asteriscos">*</span>
@@ -243,9 +244,17 @@ else
                                         </a>
                                     </div>
                                 </fieldset>
+                                <fieldset class="grupo_form_cambio_datos grupo_form_cambio_datos_campo_direccion">
+                                    <div class="w-100">
+                                        <input id="Zona" name="txtZona" class="w-100" type="text" value="" placeholder="Ejm: Edificio San Ramón"/>
+                                        <label for="Zona" class="w-100">
+                                            Zona / N° de Departamento / Calle <span class="asteriscos">*</span>
+                                        </label>
+                                    </div>
+                                </fieldset>
                                 <fieldset class="grupo_form_cambio_datos">
                                     <div class="w-100">
-                                        @Html.TextBoxFor(x => x.DireccionEntrega.Referencia, new { @class = "w-100 campo_referencia", id = "Referencia", maxlength = "400" })
+                                        @Html.TextBoxFor(x => x.DireccionEntrega.Referencia, new { @class = "w-100 campo_referencia", id = "Referencia", maxlength = "400", placeholder = "Información adicional" })
                                         <label for="Referencia" class="w-100">
                                             Referencia
                                         </label>

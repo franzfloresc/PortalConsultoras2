@@ -347,6 +347,8 @@ namespace Portal.Consultoras.Web.Models
         public string CodigosRevistaImpresa { get; set; }
         public string CodigoPrograma { get; set; }
         public int ConsecutivoNueva { get; set; }
+        public bool TieneDireccionEntrega { get; set; }
+        public bool TienePermisosCuenta { get; set; }
 
         public DateTime FechaHoy
         {
@@ -397,6 +399,6 @@ namespace Portal.Consultoras.Web.Models
         public Dictionary<string, string> NuevasDescripcionesBuscador { get; set; }
         public int NovedadBuscador { get; set; }
         public int IndicadorConsultoraDummy { get; set; }
-        public Dictionary<string, string> ListaOrdenamientoFiltrosBuscador { get; set; }
+        
     }
 }
