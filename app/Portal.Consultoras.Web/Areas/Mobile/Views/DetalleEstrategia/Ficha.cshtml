@@ -33,11 +33,10 @@
             fichaModule = FichaModule({
                 localStorageModule: LocalStorageModule(),
                 palanca: "@Model.Palanca",
-                origen: "@Model.OrigenUrl",
-                tieneSession: "@Model.TieneSession",
                 campania: "@Model.Campania",
                 cuv: "@Model.Cuv",
-                urlObtenerComponentes: '@Url.Action("ObtenerComponentes", "DetalleEstrategia", new {area = ""})'
+                origen: "@Model.OrigenUrl",
+                tieneSession: "@Model.TieneSession"
             });
             fichaModule.Inicializar();
 
@@ -60,8 +59,6 @@
             CerrarLoad();
         });
 
-        $(document).ajaxStop(function () {
-
-        })
+        $(document).ajaxStop(function () { })
     </script>
 }
