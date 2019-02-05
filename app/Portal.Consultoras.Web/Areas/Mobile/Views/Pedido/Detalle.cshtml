@@ -313,10 +313,10 @@
                 pedido_item_editable
             {{/iff}}"
              data-detalle-item="{{PedidoDetalleID}}_{{SetID}}"
-             data-cuv="{{CUV}}" 
-             data-SetID="{{SetID}}" 
-             data-campania="{{CampaniaID}}" 
-             data-tipoestrategia="{{TipoEstrategiaCodigo}}" 
+             data-cuv="{{CUV}}"
+             data-SetID="{{SetID}}"
+             data-campania="{{CampaniaID}}"
+             data-tipoestrategia="{{TipoEstrategiaCodigo}}"
              data-OrigenPedidoWeb="{{OrigenPedidoWeb}}">
             <div class="bloque_descripcion_items_ingresados">
                 <div onclick="javascript: FichaEditarModule.EditarProducto(this, '{{TipoAccion}}')"
@@ -905,7 +905,7 @@
 
 @section Scripts{
 
-<script type="text/javascript">
+    <script type="text/javascript">
         var codigoIsoPais = '@Model.CodigoISO';
         var menuNotificaciones = '@ViewBag.MenuNotificaciones';
         var falgValidacionPedido = '@Model.FlagValidacionPedido';
@@ -961,8 +961,11 @@
         var mensajeErrorReserva = '@Constantes.MensajesError.Pedido_Reserva';
         var mensajeSinConexionReserva = '@Constantes.MensajesError.SinConexion_Reserva';
         var urlObtenerComponentes = '@Url.Action("ObtenerComponentes", "DetalleEstrategia", new { area = "" })';
-</script>
+    </script>
+
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mobile/PedidoDetalle")
+
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/TusClientes")
 
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Ficha")
 
