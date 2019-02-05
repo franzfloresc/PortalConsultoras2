@@ -563,8 +563,8 @@ var FichaModule = (function (config) {
 
         if (typeof estrategia === "undefined" || estrategia == null) return estrategia;
 
-        estrategia = _getComponentesAndUpdateEsMultimarca(estrategia);
-        estrategia = _actualizarCodigoVariante(estrategia);
+        _getComponentesAndUpdateEsMultimarca(estrategia);
+        _actualizarCodigoVariante(estrategia);
 
         _SetPedidoSetDetalle(estrategia);
         //
