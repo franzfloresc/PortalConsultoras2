@@ -12,10 +12,6 @@ begin
 	insert into RolPermiso(RolID, PermisoID, Activo, Mostrar) values(1, 1092, 1, 1)
 end
 
-if not exists(select 1 from RolPermiso where PermisoID = 1093 and RolID = 1)
-begin
-	insert into RolPermiso(RolID, PermisoID, Activo, Mostrar) values(1, 1093, 1, 1)
-end
 go
 
 USE BelcorpMexico
@@ -32,10 +28,6 @@ begin
 	insert into RolPermiso(RolID, PermisoID, Activo, Mostrar) values(1, 1092, 1, 1)
 end
 
-if not exists(select 1 from RolPermiso where PermisoID = 1093 and RolID = 1)
-begin
-	insert into RolPermiso(RolID, PermisoID, Activo, Mostrar) values(1, 1093, 1, 1)
-end
 go
 
 USE BelcorpColombia
@@ -52,10 +44,6 @@ begin
 	insert into RolPermiso(RolID, PermisoID, Activo, Mostrar) values(1, 1092, 1, 1)
 end
 
-if not exists(select 1 from RolPermiso where PermisoID = 1093 and RolID = 1)
-begin
-	insert into RolPermiso(RolID, PermisoID, Activo, Mostrar) values(1, 1093, 1, 1)
-end
 go
 
 USE BelcorpSalvador
@@ -72,10 +60,6 @@ begin
 	insert into RolPermiso(RolID, PermisoID, Activo, Mostrar) values(1, 1092, 1, 1)
 end
 
-if not exists(select 1 from RolPermiso where PermisoID = 1093 and RolID = 1)
-begin
-	insert into RolPermiso(RolID, PermisoID, Activo, Mostrar) values(1, 1093, 1, 1)
-end
 go
 
 USE BelcorpPuertoRico
@@ -92,10 +76,6 @@ begin
 	insert into RolPermiso(RolID, PermisoID, Activo, Mostrar) values(1, 1092, 1, 1)
 end
 
-if not exists(select 1 from RolPermiso where PermisoID = 1093 and RolID = 1)
-begin
-	insert into RolPermiso(RolID, PermisoID, Activo, Mostrar) values(1, 1093, 1, 1)
-end
 go
 
 USE BelcorpPanama
@@ -112,10 +92,6 @@ begin
 	insert into RolPermiso(RolID, PermisoID, Activo, Mostrar) values(1, 1092, 1, 1)
 end
 
-if not exists(select 1 from RolPermiso where PermisoID = 1093 and RolID = 1)
-begin
-	insert into RolPermiso(RolID, PermisoID, Activo, Mostrar) values(1, 1093, 1, 1)
-end
 go
 
 USE BelcorpGuatemala
@@ -132,10 +108,6 @@ begin
 	insert into RolPermiso(RolID, PermisoID, Activo, Mostrar) values(1, 1092, 1, 1)
 end
 
-if not exists(select 1 from RolPermiso where PermisoID = 1093 and RolID = 1)
-begin
-	insert into RolPermiso(RolID, PermisoID, Activo, Mostrar) values(1, 1093, 1, 1)
-end
 go
 
 USE BelcorpEcuador
@@ -152,10 +124,6 @@ begin
 	insert into RolPermiso(RolID, PermisoID, Activo, Mostrar) values(1, 1092, 1, 1)
 end
 
-if not exists(select 1 from RolPermiso where PermisoID = 1093 and RolID = 1)
-begin
-	insert into RolPermiso(RolID, PermisoID, Activo, Mostrar) values(1, 1093, 1, 1)
-end
 go
 
 USE BelcorpDominicana
@@ -172,10 +140,6 @@ begin
 	insert into RolPermiso(RolID, PermisoID, Activo, Mostrar) values(1, 1092, 1, 1)
 end
 
-if not exists(select 1 from RolPermiso where PermisoID = 1093 and RolID = 1)
-begin
-	insert into RolPermiso(RolID, PermisoID, Activo, Mostrar) values(1, 1093, 1, 1)
-end
 go
 
 USE BelcorpCostaRica
@@ -192,10 +156,6 @@ begin
 	insert into RolPermiso(RolID, PermisoID, Activo, Mostrar) values(1, 1092, 1, 1)
 end
 
-if not exists(select 1 from RolPermiso where PermisoID = 1093 and RolID = 1)
-begin
-	insert into RolPermiso(RolID, PermisoID, Activo, Mostrar) values(1, 1093, 1, 1)
-end
 go
 
 USE BelcorpChile
@@ -212,10 +172,6 @@ begin
 	insert into RolPermiso(RolID, PermisoID, Activo, Mostrar) values(1, 1092, 1, 1)
 end
 
-if not exists(select 1 from RolPermiso where PermisoID = 1093 and RolID = 1)
-begin
-	insert into RolPermiso(RolID, PermisoID, Activo, Mostrar) values(1, 1093, 1, 1)
-end
 go
 
 USE BelcorpBolivia
@@ -232,8 +188,4 @@ begin
 	insert into RolPermiso(RolID, PermisoID, Activo, Mostrar) values(1, 1092, 1, 1)
 end
 
-if not exists(select 1 from RolPermiso where PermisoID = 1093 and RolID = 1)
-begin
-	insert into RolPermiso(RolID, PermisoID, Activo, Mostrar) values(1, 1093, 1, 1)
-end
 go

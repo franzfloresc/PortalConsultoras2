@@ -14,12 +14,6 @@ begin
 	insert into Permiso(PermisoID, Descripcion, IdPadre, OrdenItem, UrlItem, PaginaNueva, Posicion, UrlImagen, EsSoloImagen, EsMenuEspecial, EsServicios, EsPrincipal, Codigo)
 	values(1092,'MIS DATOS',@IdPadre,1,'',0,'Body','',0,0,0,1,'MiPerfil')
 end
-
-if not exists(select 1 from Permiso where PermisoID = 1093)
-begin
-	insert into Permiso(PermisoID, Descripcion, IdPadre, OrdenItem, UrlItem, PaginaNueva, Posicion, UrlImagen, EsSoloImagen, EsMenuEspecial, EsServicios, EsPrincipal, Codigo)
-	values(1093,'DIRECCIÓN DE ENTREGA',@IdPadre,2,'',0,'Body','',0,0,0,1,'MiPerfil')
-end
 go
 
 USE BelcorpMexico
@@ -39,11 +33,6 @@ begin
 	values(1092,'MIS DATOS',@IdPadre,1,'',0,'Body','',0,0,0,1,'MiPerfil')
 end
 
-if not exists(select 1 from Permiso where PermisoID = 1093)
-begin
-	insert into Permiso(PermisoID, Descripcion, IdPadre, OrdenItem, UrlItem, PaginaNueva, Posicion, UrlImagen, EsSoloImagen, EsMenuEspecial, EsServicios, EsPrincipal, Codigo)
-	values(1093,'DIRECCIÓN DE ENTREGA',@IdPadre,2,'',0,'Body','',0,0,0,1,'MiPerfil')
-end
 go
 
 USE BelcorpColombia
@@ -63,11 +52,6 @@ begin
 	values(1092,'MIS DATOS',@IdPadre,1,'',0,'Body','',0,0,0,1,'MiPerfil')
 end
 
-if not exists(select 1 from Permiso where PermisoID = 1093)
-begin
-	insert into Permiso(PermisoID, Descripcion, IdPadre, OrdenItem, UrlItem, PaginaNueva, Posicion, UrlImagen, EsSoloImagen, EsMenuEspecial, EsServicios, EsPrincipal, Codigo)
-	values(1093,'DIRECCIÓN DE ENTREGA',@IdPadre,2,'',0,'Body','',0,0,0,1,'MiPerfil')
-end
 go
 
 USE BelcorpSalvador
@@ -87,11 +71,6 @@ begin
 	values(1092,'MIS DATOS',@IdPadre,1,'',0,'Body','',0,0,0,1,'MiPerfil')
 end
 
-if not exists(select 1 from Permiso where PermisoID = 1093)
-begin
-	insert into Permiso(PermisoID, Descripcion, IdPadre, OrdenItem, UrlItem, PaginaNueva, Posicion, UrlImagen, EsSoloImagen, EsMenuEspecial, EsServicios, EsPrincipal, Codigo)
-	values(1093,'DIRECCIÓN DE ENTREGA',@IdPadre,2,'',0,'Body','',0,0,0,1,'MiPerfil')
-end
 go
 
 USE BelcorpPuertoRico
@@ -111,11 +90,6 @@ begin
 	values(1092,'MIS DATOS',@IdPadre,1,'',0,'Body','',0,0,0,1,'MiPerfil')
 end
 
-if not exists(select 1 from Permiso where PermisoID = 1093)
-begin
-	insert into Permiso(PermisoID, Descripcion, IdPadre, OrdenItem, UrlItem, PaginaNueva, Posicion, UrlImagen, EsSoloImagen, EsMenuEspecial, EsServicios, EsPrincipal, Codigo)
-	values(1093,'DIRECCIÓN DE ENTREGA',@IdPadre,2,'',0,'Body','',0,0,0,1,'MiPerfil')
-end
 go
 
 USE BelcorpPanama
@@ -135,11 +109,6 @@ begin
 	values(1092,'MIS DATOS',@IdPadre,1,'',0,'Body','',0,0,0,1,'MiPerfil')
 end
 
-if not exists(select 1 from Permiso where PermisoID = 1093)
-begin
-	insert into Permiso(PermisoID, Descripcion, IdPadre, OrdenItem, UrlItem, PaginaNueva, Posicion, UrlImagen, EsSoloImagen, EsMenuEspecial, EsServicios, EsPrincipal, Codigo)
-	values(1093,'DIRECCIÓN DE ENTREGA',@IdPadre,2,'',0,'Body','',0,0,0,1,'MiPerfil')
-end
 go
 
 USE BelcorpGuatemala
@@ -159,11 +128,6 @@ begin
 	values(1092,'MIS DATOS',@IdPadre,1,'',0,'Body','',0,0,0,1,'MiPerfil')
 end
 
-if not exists(select 1 from Permiso where PermisoID = 1093)
-begin
-	insert into Permiso(PermisoID, Descripcion, IdPadre, OrdenItem, UrlItem, PaginaNueva, Posicion, UrlImagen, EsSoloImagen, EsMenuEspecial, EsServicios, EsPrincipal, Codigo)
-	values(1093,'DIRECCIÓN DE ENTREGA',@IdPadre,2,'',0,'Body','',0,0,0,1,'MiPerfil')
-end
 go
 
 USE BelcorpEcuador
@@ -183,11 +147,6 @@ begin
 	values(1092,'MIS DATOS',@IdPadre,1,'',0,'Body','',0,0,0,1,'MiPerfil')
 end
 
-if not exists(select 1 from Permiso where PermisoID = 1093)
-begin
-	insert into Permiso(PermisoID, Descripcion, IdPadre, OrdenItem, UrlItem, PaginaNueva, Posicion, UrlImagen, EsSoloImagen, EsMenuEspecial, EsServicios, EsPrincipal, Codigo)
-	values(1093,'DIRECCIÓN DE ENTREGA',@IdPadre,2,'',0,'Body','',0,0,0,1,'MiPerfil')
-end
 go
 
 USE BelcorpDominicana
@@ -207,11 +166,6 @@ begin
 	values(1092,'MIS DATOS',@IdPadre,1,'',0,'Body','',0,0,0,1,'MiPerfil')
 end
 
-if not exists(select 1 from Permiso where PermisoID = 1093)
-begin
-	insert into Permiso(PermisoID, Descripcion, IdPadre, OrdenItem, UrlItem, PaginaNueva, Posicion, UrlImagen, EsSoloImagen, EsMenuEspecial, EsServicios, EsPrincipal, Codigo)
-	values(1093,'DIRECCIÓN DE ENTREGA',@IdPadre,2,'',0,'Body','',0,0,0,1,'MiPerfil')
-end
 go
 
 USE BelcorpCostaRica
@@ -231,11 +185,6 @@ begin
 	values(1092,'MIS DATOS',@IdPadre,1,'',0,'Body','',0,0,0,1,'MiPerfil')
 end
 
-if not exists(select 1 from Permiso where PermisoID = 1093)
-begin
-	insert into Permiso(PermisoID, Descripcion, IdPadre, OrdenItem, UrlItem, PaginaNueva, Posicion, UrlImagen, EsSoloImagen, EsMenuEspecial, EsServicios, EsPrincipal, Codigo)
-	values(1093,'DIRECCIÓN DE ENTREGA',@IdPadre,2,'',0,'Body','',0,0,0,1,'MiPerfil')
-end
 go
 
 USE BelcorpChile
@@ -255,11 +204,6 @@ begin
 	values(1092,'MIS DATOS',@IdPadre,1,'',0,'Body','',0,0,0,1,'MiPerfil')
 end
 
-if not exists(select 1 from Permiso where PermisoID = 1093)
-begin
-	insert into Permiso(PermisoID, Descripcion, IdPadre, OrdenItem, UrlItem, PaginaNueva, Posicion, UrlImagen, EsSoloImagen, EsMenuEspecial, EsServicios, EsPrincipal, Codigo)
-	values(1093,'DIRECCIÓN DE ENTREGA',@IdPadre,2,'',0,'Body','',0,0,0,1,'MiPerfil')
-end
 go
 
 USE BelcorpBolivia
@@ -279,9 +223,4 @@ begin
 	values(1092,'MIS DATOS',@IdPadre,1,'',0,'Body','',0,0,0,1,'MiPerfil')
 end
 
-if not exists(select 1 from Permiso where PermisoID = 1093)
-begin
-	insert into Permiso(PermisoID, Descripcion, IdPadre, OrdenItem, UrlItem, PaginaNueva, Posicion, UrlImagen, EsSoloImagen, EsMenuEspecial, EsServicios, EsPrincipal, Codigo)
-	values(1093,'DIRECCIÓN DE ENTREGA',@IdPadre,2,'',0,'Body','',0,0,0,1,'MiPerfil')
-end
 go
