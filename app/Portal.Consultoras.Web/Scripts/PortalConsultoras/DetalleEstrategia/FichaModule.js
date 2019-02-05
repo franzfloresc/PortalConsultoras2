@@ -496,6 +496,7 @@ var FichaModule = (function (config) {
             }
         }
         else {
+            console.log("_getEstrategia", _config);
             estrategia = _localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
             if ((typeof estrategia === "undefined" || estrategia === null) && _config.palanca === _codigoPalanca.OfertasParaMi) {
                 estrategia = _localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _codigoPalanca.Ganadoras);
@@ -510,7 +511,6 @@ var FichaModule = (function (config) {
         estrategia.ClaseBloqueada = "btn_desactivado_general";
         estrategia.ClaseBloqueadaRangos = "contenedor_rangos_desactivado";
         estrategia.RangoInputEnabled = "disabled";
-        estrategia.esEditable = _config.esEditable;
 
         return estrategia;
     };
@@ -721,8 +721,6 @@ var FichaModule = (function (config) {
 
         $(_elementos.dataEstrategia.id).attr(_elementos.dataEstrategia.dataEstrategia, JSON.stringify(estrategia));
         _setEstrategiaBreadcrumb(estrategia);
-
-        console.log(estrategia);
         SetHandlebars("#detalle_ficha_template", estrategia, "#seccion_ficha_handlebars");
 
         if (isMobile()) {
@@ -783,6 +781,8 @@ var FichaModule = (function (config) {
         
         _getModelo();
         _config.tieneSession = _modeloFicha.TieneSession;
+        _config.palanca = _modeloFicha.Palanca || _config.palanca;
+        _config.origen = _modeloFicha.OrigenUrl || _config.origen;
 
         if (_modeloFicha.BreadCrumbs) {
             _modeloFicha.BreadCrumbs.TipoAccionNavegar = _modeloFicha.TipoAccionNavegar;
@@ -866,19 +866,18 @@ var _seccionesPanelCliente = {
 
 var tusClientesProvider = TusClientesProvider();
 var panelListaModule = PanelListaModule({
-    tusClientesProvider//,
-    //urlPanelMantener: $("#hfUrlFrmRegistro").val()
+    tusClientesProvider: tusClientesProvider
 });
 var panelMantenerModule = PanelMantenerModule({
-    tusClientesProvider,
+    tusClientesProvider: tusClientesProvider,
     setNombreClienteCallback: panelListaModule.setNombreCliente,
     mostrarTusClientesCallback: panelListaModule.mostrarTusClientes,
     panelRegistroHideCallback: panelListaModule.panelRegistroHide
 });
 var panel = ClientePanelModule({
-    tusClientesProvider,
-    panelListaModule,
-    panelMantenerModule,
+    tusClientesProvider: tusClientesProvider,
+    panelListaModule: panelListaModule,
+    panelMantenerModule: panelMantenerModule,
     panelId: 'PanelClienteLista',
     panelContenedorId: 'PanelClienteLista_Contenedor'
 });
@@ -900,7 +899,7 @@ var FichaEditarModule = (function () {
         var palanca = $.trim(row.attr("data-tipoestrategia"));
         var OrigenPedidoWeb = $.trim(row.attr("data-OrigenPedidoWeb"));
         var setId = $.trim(row.attr("data-SetID"));
-        palanca = GetNombrePalanca(palanca);
+        palanca = GetPalanca(palanca, OrigenPedidoWeb, false);
 
         window.setTimeout(function() {
                 fichaModule = FichaModule({
