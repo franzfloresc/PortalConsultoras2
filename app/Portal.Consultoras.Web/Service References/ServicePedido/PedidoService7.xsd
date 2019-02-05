@@ -252,6 +252,7 @@
       <xs:element minOccurs="0" name="RecurrenceType" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="SecretAccessKey" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="SessionToken" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TerminosUsoURL" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TokenTarjetaGuardada" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TransactionDateTime" type="xs:long" />
       <xs:element minOccurs="0" name="TransactionId" nillable="true" type="xs:string" />
