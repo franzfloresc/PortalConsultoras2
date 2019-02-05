@@ -788,10 +788,13 @@ var FichaModule = (function (config) {
         if (_modeloFicha.BreadCrumbs) {
             _modeloFicha.BreadCrumbs.TipoAccionNavegar = _modeloFicha.TipoAccionNavegar;
             console.log(_template.navegar);
+            console.log(_modeloFicha);
             SetHandlebars("#" + _template.navegar, _modeloFicha.BreadCrumbs, _template.getTagDataHtml(_template.navegar));
         }
 
         if (_modeloFicha.TieneCarrusel) {
+            _modeloFicha.esEditable = _config.esEditable;
+
             SetHandlebars("#" + _template.carrusel, _modeloFicha, _template.getTagDataHtml(_template.carrusel));
         }
 

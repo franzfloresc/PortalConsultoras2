@@ -168,22 +168,26 @@
 </script>
 
 <script id="ficha_carrusel_template" type="text/x-handlebars-template">
-
-    <div id="divFichaCarrusel" class="contenedor_ficha_carrusel">
-        <div class="contenedor_titulo_carrusel">
-            <div class="contenedor_linea_carrusel">
-                <div class="dibujar_linea dibujar_linea_titulo_carrusel linea_izquierda"></div>
+    {{#if esEditable }}
+        <div id="divFichaCarrusel" class="contenedor_ficha_carrusel">
+        </div>
+    {{else}}
+        <div id="divFichaCarrusel" class="contenedor_ficha_carrusel">
+            <div class="contenedor_titulo_carrusel">
+                <div class="contenedor_linea_carrusel">
+                    <div class="dibujar_linea dibujar_linea_titulo_carrusel linea_izquierda"></div>
+                </div>
+                <div id="tituloCarrusel" class="txt_titulo_carrusel"></div>
+                <div class="contenedor_linea_carrusel">
+                    <div class="dibujar_linea dibujar_linea_titulo_carrusel linea_derecha"></div>
+                </div>
             </div>
-            <div id="tituloCarrusel" class="txt_titulo_carrusel"></div>
-            <div class="contenedor_linea_carrusel">
-                <div class="dibujar_linea dibujar_linea_titulo_carrusel linea_derecha"></div>
+            <!--carrusel-->
+            <div class="contenedor_carrusel" data-OrigenPedidoWeb="{{OrigenUrl}}" data-OrigenPedidoWebAgregar="{{OrigenAgregarCarrusel}}">
+                <div id="divFichaCarruselProducto" style="text-align:center;"></div>
             </div>
         </div>
-        <!--carrusel-->
-        <div class="contenedor_carrusel" data-OrigenPedidoWeb="{{OrigenUrl}}" data-OrigenPedidoWebAgregar="{{OrigenAgregarCarrusel}}">
-            <div id="divFichaCarruselProducto" style="text-align:center;"></div>
-        </div>
-    </div>
+    {{/if}}
 </script>
 
 @Html.Partial("~/Views/DetalleEstrategia/_ElegirOpciones.cshtml")
