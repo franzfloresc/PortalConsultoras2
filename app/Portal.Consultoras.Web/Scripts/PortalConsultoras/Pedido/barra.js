@@ -681,7 +681,7 @@ function MostrarBarra(datax, destino) {
 
     var valorFalta = vLimite - vLogro;
     var tipoMensaje = '';
-    var limiteEsPremio = vLogro < tp; //  && tp <= vLimite;
+    var limiteEsPremio = mn <= vLogro && vLogro < tp; //  && tp <= vLimite;
 
     if (destino == '2' && dataBarra.TippingPointBarra.Active && limiteEsPremio) {
         valorFalta = tp - vLogro;
