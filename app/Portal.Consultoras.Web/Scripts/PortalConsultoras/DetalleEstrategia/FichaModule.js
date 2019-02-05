@@ -866,18 +866,18 @@ var _seccionesPanelCliente = {
 
 var tusClientesProvider = TusClientesProvider();
 var panelListaModule = PanelListaModule({
-    tusClientesProvider
+    tusClientesProvider: tusClientesProvider
 });
 var panelMantenerModule = PanelMantenerModule({
-    tusClientesProvider,
+    tusClientesProvider: tusClientesProvider,
     setNombreClienteCallback: panelListaModule.setNombreCliente,
     mostrarTusClientesCallback: panelListaModule.mostrarTusClientes,
     panelRegistroHideCallback: panelListaModule.panelRegistroHide
 });
 var panel = ClientePanelModule({
-    tusClientesProvider,
-    panelListaModule,
-    panelMantenerModule,
+    tusClientesProvider: tusClientesProvider,
+    panelListaModule: panelListaModule,
+    panelMantenerModule: panelMantenerModule,
     panelId: 'PanelClienteLista',
     panelContenedorId: 'PanelClienteLista_Contenedor'
 });
