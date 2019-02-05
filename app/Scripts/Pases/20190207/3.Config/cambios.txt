@@ -1,5 +1,7 @@
 1.- WSConsultoras
-
-Actualizar (QAS y PPR):
-
-<add key="UrlMicroservicioPersonalizacionSearch" value="http://10.12.6.234:5000/"/>
+	Actualizar (QAS y PPR):
+		<add key="UrlMicroservicioPersonalizacionSearch" value="http://10.12.6.234:5000/"/>
+		
+2.- SB Web
+	Actualizar (QAS y PPR):
+		<add key="UrlMicroservicioPersonalizacionSearch" value="http://10.12.6.234:5000/"/>
