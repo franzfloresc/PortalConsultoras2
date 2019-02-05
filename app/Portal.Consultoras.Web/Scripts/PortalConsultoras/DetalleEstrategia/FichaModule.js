@@ -803,8 +803,10 @@ var FichaModule = (function (config) {
     };
 
     var _validarSiEsAgregado = function (estrategia) {
-        if (estrategia.IsAgregado) {
-            $("#ContenedorAgregado").show();
+        if (_config.esEditable) {
+            if (estrategia.IsAgregado) {
+                $("#ContenedorAgregado").show();
+            }
         }
     };
 
