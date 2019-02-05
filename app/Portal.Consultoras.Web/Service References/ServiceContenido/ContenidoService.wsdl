@@ -32,6 +32,7 @@
       <xsd:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
       <xsd:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
       <xsd:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd4" />
+      <xsd:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Comunicado" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IContenidoService_SelectBanner_InputMessage">
@@ -454,6 +455,12 @@
   <wsdl:message name="IContenidoService_ObtenerCorreoEmisor_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerCorreoEmisorResponse" />
   </wsdl:message>
+  <wsdl:message name="IContenidoService_GetListaPoput_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetListaPoput" />
+  </wsdl:message>
+  <wsdl:message name="IContenidoService_GetListaPoput_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetListaPoputResponse" />
+  </wsdl:message>
   <wsdl:portType name="IContenidoService">
     <wsdl:operation name="SelectBanner">
       <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/SelectBanner" message="tns:IContenidoService_SelectBanner_InputMessage" />
@@ -734,6 +741,10 @@
     <wsdl:operation name="ObtenerCorreoEmisor">
       <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/ObtenerCorreoEmisor" message="tns:IContenidoService_ObtenerCorreoEmisor_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/ObtenerCorreoEmisorResponse" message="tns:IContenidoService_ObtenerCorreoEmisor_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetListaPoput">
+      <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/GetListaPoput" message="tns:IContenidoService_GetListaPoput_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/GetListaPoputResponse" message="tns:IContenidoService_GetListaPoput_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IContenidoService" type="tns:IContenidoService">
@@ -1368,6 +1379,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetListaPoput">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/GetListaPoput" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="BasicHttpsBinding_IContenidoService" type="tns:IContenidoService">
     <wsp:PolicyReference URI="#BasicHttpsBinding_IContenidoService_policy" />
@@ -1995,6 +2015,15 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerCorreoEmisor">
       <soap:operation soapAction="http://tempuri.org/IContenidoService/ObtenerCorreoEmisor" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetListaPoput">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/GetListaPoput" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

@@ -1,4 +1,6 @@
 ﻿using Portal.Consultoras.Entities;
+using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 
@@ -37,5 +39,15 @@ namespace Portal.Consultoras.Data
 
             Context.ExecuteNonQuery(command);
         }
+
+        #region Gestor de Poputs
+        public IDataReader GetListaPoput(int estado, string campania)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetListaPoput");
+            Context.Database.AddInParameter(command, "@CodigoCampania", DbType.AnsiString, campania);
+            Context.Database.AddInParameter(command, "@Estado", DbType.Boolean, (estado==1?true:false));
+            return Context.ExecuteReader(command);
+        }
+        #endregion
     }
 }

@@ -279,5 +279,11 @@ namespace Portal.Consultoras.ServiceContracts
         string ObtenerCorreoEmisor(int PaisID);
 
         #endregion
+
+        #region Gestor de Poputs
+        [OperationContract]
+        List<BEComunicado> GetListaPoput(int Estado,string Campania);
+        #endregion
+
     }
 }

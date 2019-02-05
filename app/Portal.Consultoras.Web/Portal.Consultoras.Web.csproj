@@ -296,6 +296,8 @@
     <Compile Include="Controllers\BuscadorController.cs" />
     <Compile Include="Controllers\MasGanadorasController.cs" />
     <Compile Include="Infraestructure\Excel\ExcelProtectionProcessor.cs" />
+    <Compile Include="Models\AdministracionPoput\ComunicadoModel.cs" />
+    <Compile Include="Models\AdministracionPoput\SegmentacionComunicado.cs" />
     <Compile Include="Models\BuscadorYFiltrosConfiguracionModel.cs" />
     <Compile Include="Controllers\BusquedaProductosController.cs" />
     <Compile Include="Controllers\ComunController.cs" />
@@ -4000,6 +4002,8 @@
     <Content Include="Scripts\MultiSelect\js\plugins\scrollTo\README.txt" />
     <Content Include="Scripts\MultiSelect\js\ui.multiselect.js" />
     <Content Include="Scripts\nieve.js" />
+    <Content Include="Scripts\PortalConsultoras\AdministraciónPoput\administracion-popups.js" />
+    <Content Include="Scripts\PortalConsultoras\AdministraciónPoput\Index.js" />
     <Content Include="Scripts\PortalConsultoras\AsesoraOnline\AsesoraOnline.js" />
     <Content Include="Scripts\PortalConsultoras\AsesoraOnline\CancelarSuscripcionJS.js" />
     <Content Include="Scripts\PortalConsultoras\AsesoraOnline\Index.js" />
@@ -4562,6 +4566,9 @@
     <None Include="Service References\ServiceContenido\ContenidoService.disco" />
     <None Include="Service References\ServiceContenido\configuration91.svcinfo" />
     <None Include="Service References\ServiceContenido\configuration.svcinfo" />
+    <None Include="Service References\ServiceContenido\ContenidoService5.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServiceContenido\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -5342,11 +5349,11 @@
     <Content Include="Views\SolicitudCliente\ReporteAfiliadas.cshtml" />
     <Content Include="Views\SolicitudCliente\ReportePedidos.cshtml" />
     <Content Include="Views\MiAcademia\Index.cshtml" />
-    <Content Include="Views\MisReclamos\Index.cshtml" />
+    <Content Include="Views\Notificaciones\MisReclamos\Index.cshtml" />
     <Content Include="Views\Notificaciones\ListadoDetallePedidoRechazado.cshtml" />
     <Content Include="Views\Unete\TemplatesUbigeos\_UbigeoGrupo5.cshtml" />
     <Content Include="Views\Unete\ReporteConsolidado.cshtml" />
-    <Content Include="Views\MisReclamos\Reclamo.cshtml" />
+    <Content Include="Views\Notificaciones\MisReclamos\Reclamo.cshtml" />
     <Content Include="Views\Notificaciones\ListaDetalleCdr.cshtml" />
     <None Include="Service References\ValidacionCrediticia\ValidacionCrediticiaService1.xsd">
       <SubType>Designer</SubType>
@@ -5527,6 +5534,7 @@
     <Content Include="Views\MisCatalogosRevistas\Index.cshtml" />
     <Content Include="Views\MisCatalogosRevistas\template-revista-slide.cshtml" />
     <Content Include="Views\AdministracionPopups\Index.cshtml" />
+    <Content Include="Views\AdministracionPopups\GestionPoput.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -5534,7 +5542,7 @@
     <Content Include="Views\Unete\NivelesGeograficos.cshtml" />
     <Content Include="Views\Notificaciones\ListaDetalleCdrCulminado.cshtml" />
     <Content Include="Views\Login\Admin.cshtml" />
-    <Content Include="Views\MisReclamos\ReporteDetalle.cshtml" />
+    <Content Include="Views\Notificaciones\MisReclamos\ReporteDetalle.cshtml" />
     <Content Include="Views\IncentivosSMS\Index.cshtml" />
     <Content Include="Views\MatrizComercial\MatrizComercialDialog.cshtml" />
     <Content Include="Views\AdministrarProductoSugerido\ListadoImagenesMatriz.cshtml" />

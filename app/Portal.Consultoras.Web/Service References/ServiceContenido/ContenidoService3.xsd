@@ -1040,4 +1040,19 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetListaPoput">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Estado" type="xs:int" />
+        <xs:element minOccurs="0" name="Campania" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetListaPoputResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q57="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetListaPoputResult" nillable="true" type="q57:ArrayOfBEComunicado" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

@@ -1,4 +1,5 @@
 ﻿using Portal.Consultoras.Entities.Comunicado;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
@@ -49,5 +50,26 @@ namespace Portal.Consultoras.Entities
         public bool SegmentacionEstadoActividad { get; set; }
         [DataMember]
         public List<BEComunicadoVista> Vistas { get; set; }
+
+        [DataMember]
+        [Column("FechaInicio")]
+        public string FechaInicio { get; set; }
+
+        [DataMember]
+        [Column("FechaFin")]
+        public string FechaFin { get; set; }
+
+        [DataMember]
+        [Column("Titulo")]
+        public string Titulo { get; set; }
+
+        [DataMember]
+        [Column("Activo")]
+        public bool Activo { get; set; }
+
+        [DataMember]
+        [Column("Numero")]
+        public int Numero { get; set; }
+
     }
 }

@@ -13,12 +13,14 @@ namespace Portal.Consultoras.Service
         private readonly BLNavidadConsultora _BLNavidadConsultora;
         private readonly BLItemCarruselInicio _BLItemCarruselInicio;
         private readonly BLMailing _BLMailing;
+        private readonly BLBelcorpResponde _BLBelcorpResponde;
 
         public ContenidoService()
         {
             _BLNavidadConsultora = new BLNavidadConsultora();
             _BLItemCarruselInicio = new BLItemCarruselInicio();
             _BLMailing = new BLMailing();
+            _BLBelcorpResponde = new BLBelcorpResponde();
         }
 
         #region Gestion Banners
@@ -483,6 +485,14 @@ namespace Portal.Consultoras.Service
         public string ObtenerCorreoEmisor(int PaisID)
         {
             return _BLMailing.ObtenerCorreoEmisor(PaisID);
+        }
+
+        #endregion
+
+        #region Gestor de Poputs
+        public List<BEComunicado> GetListaPoput(int Estado, string Campania)
+        {
+            return _BLBelcorpResponde.GetListaPoput(Estado, Campania);
         }
         #endregion
 

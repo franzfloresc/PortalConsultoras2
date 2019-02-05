@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
+using System;
 using System.Collections.Generic;
 using System.Data;
 
@@ -53,5 +54,34 @@ namespace Portal.Consultoras.BizLogic
         {
             CacheManager<BEBelcorpResponde>.RemoveData(paisID, ECacheItem.BelcorpResponde);
         }
+
+        #region Gestor de Poputs
+        public List<BEComunicado> GetListaPoput(int estado, string campania)
+        {
+            campania = null;
+            List<BEComunicado> listsBEComunicado = new List<BEComunicado>();
+
+            var daBelcorpResponde = new DABelcorpResponde();
+
+            using (IDataReader reader = daBelcorpResponde.GetListaPoput(estado, campania))
+            {
+                while (reader.Read())
+                {
+                    listsBEComunicado.Add(new BEComunicado()
+                    {
+                        Numero = reader[0] == DBNull.Value ? 0 : int.Parse(reader[0].ToString()),
+                        UrlImagen = reader[1] == null ? string.Empty : reader[1].ToString(),
+                        FechaInicio = reader[2] == null ? string.Empty : reader[2].ToString(),
+                        FechaFin = reader[3] == null ? string.Empty : reader[3].ToString(),
+                        Titulo =reader[4] == null ? string.Empty : reader[4].ToString(),
+                        DescripcionAccion = reader[5] == null ? string.Empty : reader[5].ToString(),
+                        Activo = Convert.ToBoolean( reader[6]),
+                    });
+                }
+
+            }
+            return listsBEComunicado;
+        }
+        #endregion
     }
 }

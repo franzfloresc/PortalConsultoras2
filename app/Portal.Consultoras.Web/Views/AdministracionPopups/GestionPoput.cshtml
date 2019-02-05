@@ -1,0 +1,250 @@
+﻿
+@{
+    ViewBag.Title = "GestionPoput";
+}
+
+<h2>GestionPoput</h2>
+
+
+<div id="Listado">
+    <div class="wrap_cab">
+        <div class="filtros2">
+            <div class="elements">
+                <div class="div-2">
+                    <h1>Contenido</h1>
+                </div>
+                <div class="div-3">
+                    <div class="titG">Adjunto Fondo:</div>
+                    <div class="button borde_redondeado">
+                        <input type="button" name="btnAdjuntarImagen" id="btnAdjuntarImagen" value="Agregar" />
+                    </div>
+                </div>
+                <div class="div-3">
+                    <div class="titB">Título Principal:</div>
+                    <div class="text borde_redondeado">
+                        <input type="text" id="txtTituloPrincipal">
+                    </div>
+                </div>
+                <div class="div-3">
+                    <div class="titB">Descripcón:</div>
+                    <div class="textarea_zona borde_redondeado">
+                        <textarea id="txtaDescripcion"></textarea>
+                    </div>
+                </div>
+                <div class="div-3">
+                    <div class="titB">URL:</div>
+                    <div class="text borde_redondeado">
+                        <input type="text" id="txtURL">
+                    </div>
+                </div>
+            </div>
+            <div class="elements">
+                <div class="div-2">
+                    <h1>CONFIGURACIÓN</h1>
+                </div>
+                <div class="div-3">
+                    <div class="titG">Segmento de consultoras:</div>
+                    <div class="button borde_redondeado">
+                        <input type="button" name="" id="btnAdjuntarArchivo" value="Agregar" />
+                    </div>
+                </div>
+                <div class="div-3">
+                    <div class="titG">Duración:</div>
+                    <div class="titJ">Min:</div>
+                    <div class="calendar borde_redondeado">
+                        <input type="text" id="txtFechaDuracionMin">
+                    </div>
+                    <div class="titI">Max:</div>
+                    <div class="calendar borde_redondeado">
+                        <input type="text" id="txtFechaDuracionMax">
+                    </div>
+                </div>
+                <div class="div-3">
+                    <div class="titG">Visualización:</div>
+                    <div class="checkBox borde_redondeado">
+                        <label>
+                            Mobile <input type="checkbox" value="ck1" id="chkVisualizacion" />
+                        </label>
+                        <label>
+                            Desktop <input type="checkbox" value="ck2" id="chkVisualizacion" />
+                        </label>
+                    </div>
+                    <div class="input_global">
+                        <input type="button" value="Descartar" id="btnDescartar" />
+                        <input type="button" value="Cancelar" id="btnGuardar" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="wrap">
+        <div class="container clearfix">
+            <div class="border-wrapper">
+                <table id="list"></table>
+                <div id="pager"></div>
+            </div>
+            <div class="div-3">
+                <div class="titAuto">
+                    <div class="input_search">
+                        <input type="button" name="btnNuevo" id="btnNuevo" value="Nuevo" onclick="return HideDivRegistroZonas();" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div id="Registro" style="display: none;">
+    <input type="hidden" id="hdCampaniaID" />
+    <input type="hidden" id="hdZonaID" />
+
+    <div class="wrap_cab">
+        <div class="filtros">
+            <div class="elements">
+                <div class="div-2">
+                    <h1>Edición de Fechas del <span>Cronograma de Demanda Anticipada</span></h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="wrap">
+        <div class="container clearfix">
+            <div class="border-wrapper_reg">
+                <div class="div-3">
+                    <table class="Edit_reg" style="text-align: left; width: 100%">
+                        <tr>
+                            <td>
+                                <div class="label1">País:</div>
+                                <div class="label2" id="lblPais"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="label1">Campaña:</div>
+                                <div class="label2" id="lblCampania"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="label1">Zona:</div>
+                                <div class="label2" id="lblZona"></div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <h3>Fechas Originales</h3>
+                <div class="div-3">
+                    <div class="titF">Fecha Facturación:</div>
+                    <div class="selectP2 borde_redondeado">
+                        <input type="text" id="txtFecIniFac" readonly="true" />
+                    </div>
+                </div>
+
+                <div class="div-3">
+                    <div class="titF">Fecha Refacturación:</div>
+                    <div class="selectP2 borde_redondeado">
+                        <input type="text" id="txtFecIniReFac" readonly="true" />
+                    </div>
+                </div>
+
+                <h3>Fechas Nuevas</h3>
+                <div class="div-3">
+                    <div class="titF">Fecha Facturación:</div>
+                    <div class="calendar borde_redondeado">
+                        <input type="text" id="txtFecIniFacN" />
+                    </div>
+                </div>
+
+                <div class="div-3">
+                    <div class="titF">Fecha Refacturación:</div>
+                    <div class="calendar borde_redondeado">
+                        <input type="text" id="txtFecIniReFacN" />
+                    </div>
+                </div>
+
+                <div class="div-3">
+                    <div class="titF"></div>
+                    <div class="titC"></div>
+                    <div class="input_global">
+                        <input type="button" value="Guardar" id="btnGuardar" onclick="return ValidacionCronogramaDA();" />
+                    </div>
+                    <div class="input_global">
+                        <input type="button" value="Cancelar" id="btnCancelar" onclick="ShowDiv();" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="RegistroZonas" style="display: none;">
+    <div class="wrap_cab">
+        <div class="filtros">
+            <div class="elements">
+                <div class="div-2">
+                    <h1>Registro de Zonas para el <span>Cronograma de Demanda Anticipada</span></h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="wrap">
+        <div class="container clearfix">
+            <div class="border-wrapper_reg">
+                <h3>Información General</h3>
+                <div class="div-3">
+                    <div class="titF">País:</div>
+                    <div class="selectA borde_redondeado">
+                        @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.listaPaises, "PaisID", "Nombre"), "-- Seleccionar --", new { id = "ddlPaisRegistroZona" })
+                    </div>
+                </div>
+                <div class="div-3">
+                    <div class="titF">Campaña:</div>
+                    <div class="selectA borde_redondeado">
+                        @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.listaCampania, "CampaniaID", "NombreCorto"), "-- Seleccionar --", new { id = "ddlCampaniaRegistroZona" })
+                    </div>
+                </div>
+                <div class="div-3">
+                    <div class="titF">Zona:</div>
+                    <div class="selectA borde_redondeado">
+                        @Html.DropDownListFor(model => model.ZonaID, new SelectList(Model.listaZonas, "ZonaID", "Codigo"), "-- Seleccionar --", new { id = "ddlZonaRegistroZona" })
+                    </div>
+                </div>
+                <h3>Fechas</h3>
+                <div class="div-3">
+                    <div class="titF">Fecha Facturación:</div>
+                    <div class="calendar borde_redondeado">
+                        <input type="text" id="txtFecIniFacZona" />
+                    </div>
+                </div>
+                <div class="div-3">
+                    <div class="titF">Fecha Refacturación:</div>
+                    <div class="calendar borde_redondeado">
+                        <input type="text" id="txtFecIniReFacZona" />
+                    </div>
+                </div>
+                <div class="div-3">
+                    <div class="titF"></div>
+                    <div class="titC"></div>
+                    <div class="input_global">
+                        <input type="button" value="Guardar" id="btnGuardarZona" onclick="return GuardarCronogramaNuevo();" />
+
+                    </div>
+                    <div class="input_global">
+                        <input type="button" value="Cancelar" id="btnCancelarZona" onclick="ShowDivRegistroZonas();" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input id="hdComunicadoId" type="hidden" value="0" />
+</div>
+<div id="loadingScreen"></div>
+
+
+
+@section scripts{
+    <script src="@Url.Content("~/Scripts/PortalConsultoras/GestionPoput/GestionPoput.js")"></script>
+}

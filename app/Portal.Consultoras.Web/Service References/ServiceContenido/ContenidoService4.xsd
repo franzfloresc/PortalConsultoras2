@@ -2,6 +2,7 @@
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
   <xs:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Comunicado" />
   <xs:complexType name="ArrayOfBEBanner">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="BEBanner" nillable="true" type="tns:BEBanner" />
@@ -412,4 +413,34 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEConsultoraMailing" nillable="true" type="tns:BEConsultoraMailing" />
+  <xs:complexType name="ArrayOfBEComunicado">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEComunicado" nillable="true" type="tns:BEComunicado" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEComunicado" nillable="true" type="tns:ArrayOfBEComunicado" />
+  <xs:complexType name="BEComunicado">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Accion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Activo" type="xs:boolean" />
+      <xs:element minOccurs="0" name="CodigoCampania" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ComunicadoId" type="xs:long" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DescripcionAccion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FechaFin" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FechaInicio" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Numero" type="xs:int" />
+      <xs:element minOccurs="0" name="Orden" type="xs:int" />
+      <xs:element minOccurs="0" name="SegmentacionConsultora" type="xs:boolean" />
+      <xs:element minOccurs="0" name="SegmentacionEstadoActividad" type="xs:boolean" />
+      <xs:element minOccurs="0" name="SegmentacionID" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="SegmentacionRegionZona" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Titulo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UrlImagen" nillable="true" type="xs:string" />
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Comunicado" minOccurs="0" name="Vistas" nillable="true" type="q2:ArrayOfBEComunicadoVista" />
+      <xs:element minOccurs="0" name="Visualizo" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEComunicado" nillable="true" type="tns:BEComunicado" />
 </xs:schema>
