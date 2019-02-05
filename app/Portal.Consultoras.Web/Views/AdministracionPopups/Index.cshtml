@@ -23,7 +23,7 @@
                 <div class="d__inline__block grupo__form__grilla__filtros">
                     <div class="d__inline__block text__bold grilla__filtro__label">Nuevo Popup:</div>
                     @*<input id="SeleccionNuevoPopup" type="file" class="d__none text__bold grilla__filtro__campo grilla__filtro__campo__seleccion__popup" />*@
-                    <a class="d__inline__block text__bold text__center background__color__m border__radius__4 btn__grilla__filtros btn__agregar" title="Agregar nuevo popup">
+                    <a class="d__inline__block text__bold text__center background__color__m border__radius__4 btn__grilla__filtros btn__agregar" title="Agregar Nuevo Popup">
                         <span class="d__inline__block text__bold">+</span>
                         <span class="d__inline__block text__bold">Agregar</span>
                     </a>
@@ -107,7 +107,7 @@
                     </div>
                     <div class="col__grilla col__grilla--editar">
                         <div class="row__grilla row__grilla__texto text__center">
-                            <a href="" title="Editar" class="d__block enlace__editar">
+                            <a href="" title="Editar Popup" class="d__block enlace__editar">
                                 <img src="@Url.Content("/Content/Images/Edit.png")" alt="Editar" title="Editar" class="d__block">
                             </a>
                         </div>
@@ -146,7 +146,7 @@
                     </div>
                     <div class="col__grilla col__grilla--editar">
                         <div class="row__grilla row__grilla__texto text__center">
-                            <a href="" title="Editar" class="d__block enlace__editar">
+                            <a href="" title="Editar Popup" class="d__block enlace__editar">
                                 <img src="@Url.Content("/Content/Images/Edit.png")" alt="Editar" title="Editar" class="d__block">
                             </a>
                         </div>
@@ -185,7 +185,7 @@
                     </div>
                     <div class="col__grilla col__grilla--editar">
                         <div class="row__grilla row__grilla__texto text__center">
-                            <a href="" title="Editar" class="d__block enlace__editar">
+                            <a href="" title="Editar Popup" class="d__block enlace__editar">
                                 <img src="@Url.Content("/Content/Images/Edit.png")" alt="Editar" title="Editar" class="d__block">
                             </a>
                         </div>
@@ -224,7 +224,7 @@
                     </div>
                     <div class="col__grilla col__grilla--editar">
                         <div class="row__grilla row__grilla__texto text__center">
-                            <a href="" title="Editar" class="d__block enlace__editar">
+                            <a href="" title="Editar Popup" class="d__block enlace__editar">
                                 <img src="@Url.Content("/Content/Images/Edit.png")" alt="Editar" title="Editar" class="d__block">
                             </a>
                         </div>
@@ -263,7 +263,7 @@
                     </div>
                     <div class="col__grilla col__grilla--editar">
                         <div class="row__grilla row__grilla__texto text__center">
-                            <a href="" title="Editar" class="d__block enlace__editar">
+                            <a href="" title="Editar Popup" class="d__block enlace__editar">
                                 <img src="@Url.Content("/Content/Images/Edit.png")" alt="Editar" title="Editar" class="d__block">
                             </a>
                         </div>
@@ -302,7 +302,7 @@
                     </div>
                     <div class="col__grilla col__grilla--editar">
                         <div class="row__grilla row__grilla__texto text__center">
-                            <a href="" title="Editar" class="d__block enlace__editar">
+                            <a href="" title="Editar Popup" class="d__block enlace__editar">
                                 <img src="@Url.Content("/Content/Images/Edit.png")" alt="Editar" title="Editar" class="d__block">
                             </a>
                         </div>
@@ -315,100 +315,106 @@
 </main>
 
 <!-- MODAL AGREGAR NUEVO POPUP -->   
-<section class="d__flex w__100 modal__bg" style="display:none;">
+<section class="d__flex w__100 modal__bg" id="AgregarPopup">
     <div class="d__block w__100 ml__auto mr__auto modal__wrapper">
         <header class="d__block modal__cabecera">
-            <h2 class="d__block color__m text__bold modal__titulo">Agregar Nuevo Popup</h2>
+            <h2 class="d__block color__m text__bold modal__titulo" id="modalTitulo"></h2>
         </header>
         <section class="d__block modal__contenido modal__contenido--agregarNuevoPopup">
-            <div class="d__block modal__contenido__seccion">
-                <h4 class="d__block text__bold text__uppercase modal__contenido__subtitulo">Contenido</h4>
-                <div class="d__flex modal__contenido__seccion__campos modal__contenido__seccion__campos--contenido">
-                    <div class="d__flex grupo__form__campos">
-                        <div class="d__block color__m text__bold grupo__form__campos__label grupo__form__campos__label--adjuntarFondo">Adjuntar Fondo : </div>
-                        <div class="d__block">
-                            <input id="AgregarImagen" type="file" class="d__none text__bold" />
-                            <label for="AgregarImagen" class="d__block text__bold text__center background__color__m border__radius__4 btn__modal btn__modal--agregar" title="Agregar nuevo popup">
-                                <span class="d__inline__block text__bold">+</span>
-                                <span class="d__inline__block text__bold">Agregar</span>
-                            </label>
-                            <p class="d__block color__gray__multimarca info__formato__medidas">
-                                Formato de archivo JPG.<br />
-                                (326 x 418 píxeles)
-                            </p>
+            <form id="AgregaroEditarPopup" enctype="multipart/form-data" class="d__block">
+                <div class="d__block modal__contenido__seccion">
+                    <h4 class="d__block text__bold text__uppercase modal__contenido__subtitulo">Contenido</h4>
+                    <div class="d__flex modal__contenido__seccion__campos modal__contenido__seccion__campos--contenido">
+                        <div class="d__flex grupo__form__campos">
+                            <div class="d__block color__m text__bold grupo__form__campos__label grupo__form__campos__label--adjuntarFondo">Adjuntar Fondo : </div>
+                            <div class="d__block">
+                                <input id="AgregarImagen" type="file" class="d__none text__bold" />
+                                <label for="AgregarImagen" class="d__block text__bold text__center background__color__m border__radius__4 btn__modal btn__modal--agregar" title="Agregar nuevo popup">
+                                    <span class="d__inline__block text__bold">+</span>
+                                    <span class="d__inline__block text__bold">Agregar</span>
+                                </label>
+                                <p class="d__block color__gray__multimarca info__formato__medidas">
+                                    Formato de archivo JPG.<br />
+                                    (326 x 418 píxeles)
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="d__flex grupo__form__campos">
-                        <label for="txtTituloPrincipal" class="d__block text__bold color__m grupo__form__campos__label">Título principal : </label>
-                        <input id="txtTituloPrincipal" type="text" class="d__block border__color__gray__multimarca border__radius__4 grupo__form__campos__input grupo__form__campos__input--seccionContenido" />
-                    </div>
-                    <div class="d__flex grupo__form__campos">
-                        <label for="txtDescripcion" class="d__block text__bold color__m grupo__form__campos__label grupo__form__campos__label--descripcion">Descripción<br />(max de caract. 290) : </label>
-                        <textarea id="txtDescripcion" class="d__block border__color__gray__multimarca border__radius__4 grupo__form__campos__textarea grupo__form__campos__textarea--seccionContenido"></textarea>
-                    </div>
-                    <div class="d__flex mb-40 grupo__form__campos">
-                        <label for="txtUrl" class="d__block text__uppercase text__bold color__m grupo__form__campos__label">Url : </label>
-                        <input id="txtUrl" type="text" class="d__block border__color__gray__multimarca border__radius__4 grupo__form__campos__input grupo__form__campos__input--seccionContenido" />
+                        <div class="d__flex grupo__form__campos">
+                            <label for="txtTituloPrincipal" class="d__block text__bold color__m grupo__form__campos__label">Título principal : </label>
+                            <input id="txtTituloPrincipal" type="text" class="d__block border__color__gray__multimarca border__radius__4 grupo__form__campos__input grupo__form__campos__input--seccionContenido" />
+                        </div>
+                        <div class="d__flex grupo__form__campos">
+                            <label for="txtDescripcion" class="d__block text__bold color__m grupo__form__campos__label grupo__form__campos__label--descripcion">Descripción<br />(max de caract. 290) : </label>
+                            <textarea id="txtDescripcion" class="d__block border__color__gray__multimarca border__radius__4 grupo__form__campos__textarea grupo__form__campos__textarea--seccionContenido"></textarea>
+                        </div>
+                        <div class="d__flex mb-40 grupo__form__campos">
+                            <label for="txtUrl" class="d__block text__uppercase text__bold color__m grupo__form__campos__label">Url : </label>
+                            <input id="txtUrl" type="text" class="d__block border__color__gray__multimarca border__radius__4 grupo__form__campos__input grupo__form__campos__input--seccionContenido" />
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="d__block modal__contenido__seccion">
-                <h4 class="d__block text__bold text__uppercase modal__contenido__subtitulo">Configuración</h4>
-                <div class="d__flex modal__contenido__seccion__campos modal__contenido__seccion__campos--configuracion">
-                    <div class="d__flex grupo__form__campos">
-                        <div class="d__block text__bold color__m grupo__form__campos__label grupo__form__campos__label--segmentoConsultoras">Segmento de<br />consultoras : </div>
-                        <div class="d__block">
-                            <input id="AgregarCSV" type="file" class="d__none text__bold" />
-                            <label for="AgregarCSV" class="d__block text__bold text__center background__color__m border__radius__4 btn__modal btn__modal--agregar" title="Agregar nuevo popup">
-                                <span class="d__inline__block text__bold">+</span>
-                                <span class="d__inline__block text__bold">Agregar</span>
-                            </label>
-                            <p class="d__block color__gray__multimarca info__formato__medidas">
-                                Formato de archivo *CSV<br />
-                                - Código Consultora
-                            </p>
+                <div class="d__block modal__contenido__seccion">
+                    <h4 class="d__block text__bold text__uppercase modal__contenido__subtitulo">Configuración</h4>
+                    <div class="d__flex modal__contenido__seccion__campos modal__contenido__seccion__campos--configuracion">
+                        <div class="d__flex grupo__form__campos">
+                            <div class="d__block text__bold color__m grupo__form__campos__label grupo__form__campos__label--segmentoConsultoras">Segmento de<br />consultoras : </div>
+                            <div class="d__block">
+                                <input id="AgregarCSV" type="file" class="d__none text__bold" />
+                                <label for="AgregarCSV" class="d__block text__bold text__center background__color__m border__radius__4 btn__modal btn__modal--agregar" title="Agregar nuevo popup">
+                                    <span class="d__inline__block text__bold">+</span>
+                                    <span class="d__inline__block text__bold">Agregar</span>
+                                </label>
+                                <p class="d__block color__gray__multimarca info__formato__medidas">
+                                    Formato de archivo *CSV<br />
+                                    - Código Consultora
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="d__flex grupo__form__campos">
-                        <label class="d__block text__bold color__m grupo__form__campos__label">Duración : </label>
-                        <div class="d__flex mb-0 grupo__form__campos grupo__form__campos--minMax">
-                            <label for="fechaMin" class="d__block text__bold grupo__form__campos__label grupo__form__campos__label--minMax">Min</label>
-                            <input id="fechaMin" type="text" placeholder="dd/mm/aa" class="d__block border__color__gray__multimarca border__radius__4 grupo__form__campos__input grupo__form__campos__input--minMax" />
+                        <div class="d__flex grupo__form__campos">
+                            <label class="d__block text__bold color__m grupo__form__campos__label">Duración : </label>
+                            <div class="d__flex mb-0 grupo__form__campos grupo__form__campos--minMax">
+                                <label for="fechaMin" class="d__block text__bold grupo__form__campos__label grupo__form__campos__label--minMax">Min</label>
+                                <input id="fechaMin" type="text" placeholder="dd/mm/aa" class="d__block border__color__gray__multimarca border__radius__4 grupo__form__campos__input grupo__form__campos__input--minMax" />
+                            </div>
+                            <div class="d__flex mb-0 grupo__form__campos grupo__form__campos--minMax">
+                                <label for="fechaMax" class="d__block text__bold grupo__form__campos__label grupo__form__campos__label--minMax">Max</label>
+                                <input id="fechaMax" type="text" placeholder="dd/mm/aa" class="d__block border__color__gray__multimarca border__radius__4 grupo__form__campos__input grupo__form__campos__input--minMax" />
+                            </div>
                         </div>
-                        <div class="d__flex mb-0 grupo__form__campos grupo__form__campos--minMax">
-                            <label for="fechaMax" class="d__block text__bold grupo__form__campos__label grupo__form__campos__label--minMax">Max</label>
-                            <input id="fechaMax" type="text" placeholder="dd/mm/aa" class="d__block border__color__gray__multimarca border__radius__4 grupo__form__campos__input grupo__form__campos__input--minMax" />
+                        <div class="d__flex grupo__form__campos">
+                            <label class="d__block text__bold color__m grupo__form__campos__label">Duración : </label>
+                            <div class="d__flex mb-0 grupo__form__campos grupo__form__campos--mobileDesktop">
+                                <input id="checkMobile" type="checkbox" class="d__none border__color__gray__multimarca border__radius__4 grupo__form__campos__input" />
+                                <label for="checkMobile" class="d__flex grupo__form__campos__label grupo__form__campos__label--conCheckbox">
+                                    <span class="d__inline__block text__bold">Mobile</span>
+                                    <span class="d__inline__block border__color__gray__multimarca border__radius__4 grupo__form__campos__checkbox"></span>
+                                </label>
+                            </div>
+                            <div class="d__flex mb-0 grupo__form__campos grupo__form__campos--mobileDesktop">
+                                <input id="checkDesktop" type="checkbox" class="d__none border__color__gray__multimarca border__radius__4 grupo__form__campos__input" />
+                                <label for="checkDesktop" class="d__flex grupo__form__campos__label grupo__form__campos__label--conCheckbox">
+                                    <span class="d__inline__block text__bold">Desktop</span>
+                                    <span class="d__inline__block border__color__gray__multimarca border__radius__4 grupo__form__campos__checkbox"></span>
+                                </label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="d__flex grupo__form__campos">
-                        <label class="d__block text__bold color__m grupo__form__campos__label">Duración : </label>
-                        <div class="d__flex mb-0 grupo__form__campos grupo__form__campos--mobileDesktop">
-                            <input id="checkMobile" type="checkbox" class="d__none border__color__gray__multimarca border__radius__4 grupo__form__campos__input" />
-                            <label for="checkMobile" class="d__flex grupo__form__campos__label grupo__form__campos__label--conCheckbox">
-                                <span class="d__inline__block text__bold">Mobile</span>
-                                <span class="d__inline__block border__color__gray__multimarca border__radius__4 grupo__form__campos__checkbox"></span>
-                            </label>
+                        <div class="d__flex grupo__form__campos grupo__form__campos--botones">
+                            <button class="d__block text__bold btn__modal mr-25 border__radius__4 btn__modal--blanco btn__modal--descartar">
+                                Descartar
+                            </button>
+                            <button class="d__block text__bold background__color__m border__radius__4 btn__modal btn__modal--guardar">
+                                Guardar
+                            </button>
                         </div>
-                        <div class="d__flex mb-0 grupo__form__campos grupo__form__campos--mobileDesktop">
-                            <input id="checkDesktop" type="checkbox" class="d__none border__color__gray__multimarca border__radius__4 grupo__form__campos__input" />
-                            <label for="checkDesktop" class="d__flex grupo__form__campos__label grupo__form__campos__label--conCheckbox">
-                                <span class="d__inline__block text__bold">Desktop</span>
-                                <span class="d__inline__block border__color__gray__multimarca border__radius__4 grupo__form__campos__checkbox"></span>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="d__flex grupo__form__campos grupo__form__campos--botones">
-                        <button class="d__block text__bold btn__modal mr-25 border__radius__4 btn__modal--blanco">
-                            Descartar
-                        </button>
-                        <button class="d__block text__bold background__color__m border__radius__4 btn__modal btn__modal--guardar">
-                            Guardar
-                        </button>
                     </div>
                 </div>
-            </div>
+            </form>
         </section>
     </div>
 </section>
 <!-- FIN - MODAL AGREGAR NUEVO POPUP -->
 <!-- FIN - VISTA ADMINISTRACIÓN DE POPUPS -->
+
+@section scripts{
+    <script type="text/javascript" src="@Url.Content("~/Scripts/AdminContenido/AdministracionPopups/Index.js")"></script>
+}

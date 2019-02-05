@@ -3912,6 +3912,7 @@
     <Content Include="LBelConmigo.html" />
     <Content Include="Pdto.aspx" />
     <Content Include="Scripts\accordion.js" />
+    <Content Include="Scripts\AdminContenido\AdministracionPopups\Index.js" />
     <Content Include="Scripts\AdminContenido\AdministrarEstrategia\NuevoMasivo.js" />
     <Content Include="Scripts\AdminContenido\DescripcionComercial.js" />
     <Content Include="Scripts\AdminContenido\Palanca\AdminPalancaDatos.js" />
