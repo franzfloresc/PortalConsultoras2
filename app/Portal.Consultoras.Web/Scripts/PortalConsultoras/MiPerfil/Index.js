@@ -6,11 +6,15 @@ var searchBox;
 var _googleMap;
 var OperacionDb = { Insertar: "0", Editar: "1" };
 $(document).ready(function () {
+
+    if ($('#SeccionDireccionEntrega').length != 0) {
+        if (EsMobile == 'True') {
+            $('.enlace_abrir_mapa')[0].disabled = true;
+        } else {
+            $('.enlace_ubicacion_actual')[0].style.display = "none";
+        }
+    }
     
-    if (EsMobile == 'True')
-        $('.enlace_abrir_mapa')[0].disabled = true;
-    else
-        $('.enlace_ubicacion_actual')[0].style.display = "none";
     var vistaMiPerfil;
     
     vistaMiPerfil = function () {
