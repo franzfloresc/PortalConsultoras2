@@ -496,6 +496,7 @@ var FichaModule = (function (config) {
             }
         }
         else {
+            console.log("_getEstrategia", _config);
             estrategia = _localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
             if ((typeof estrategia === "undefined" || estrategia === null) && _config.palanca === _codigoPalanca.OfertasParaMi) {
                 estrategia = _localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _codigoPalanca.Ganadoras);
@@ -780,6 +781,8 @@ var FichaModule = (function (config) {
         
         _getModelo();
         _config.tieneSession = _modeloFicha.TieneSession;
+        _config.palanca = _modeloFicha.Palanca || _config.palanca;
+        _config.origen = _modeloFicha.OrigenUrl || _config.origen;
 
         if (_modeloFicha.BreadCrumbs) {
             _modeloFicha.BreadCrumbs.TipoAccionNavegar = _modeloFicha.TipoAccionNavegar;
@@ -863,8 +866,7 @@ var _seccionesPanelCliente = {
 
 var tusClientesProvider = TusClientesProvider();
 var panelListaModule = PanelListaModule({
-    tusClientesProvider//,
-    //urlPanelMantener: $("#hfUrlFrmRegistro").val()
+    tusClientesProvider
 });
 var panelMantenerModule = PanelMantenerModule({
     tusClientesProvider,
@@ -897,7 +899,7 @@ var FichaEditarModule = (function () {
         var palanca = $.trim(row.attr("data-tipoestrategia"));
         var OrigenPedidoWeb = $.trim(row.attr("data-OrigenPedidoWeb"));
         var setId = $.trim(row.attr("data-SetID"));
-        palanca = GetNombrePalanca(palanca);
+        palanca = GetNombrePalanca(palanca, OrigenPedidoWeb);
 
         window.setTimeout(function() {
                 fichaModule = FichaModule({

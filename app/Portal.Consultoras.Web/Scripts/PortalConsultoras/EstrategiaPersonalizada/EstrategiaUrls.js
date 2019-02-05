@@ -134,12 +134,12 @@ function GetPalanca(codigoEstrategia, OrigenPedidoWeb) {
 }
 
 function GetNombrePalanca(codigoEstrategia, OrigenPedidoWeb) {
+    console.log('GetNombrePalanca', codigoEstrategia, OrigenPedidoWeb);
     OrigenPedidoWeb = OrigenPedidoWeb || -1;
 
     var palanca = "";
 
-    if (codigoEstrategia != null && typeof codigoEstrategia !== "undefined")
-
+    if (codigoEstrategia != null && typeof codigoEstrategia !== "undefined") {
         switch (codigoEstrategia) {
 
             case ConstantesModule.ConstantesPalanca.OfertaParaTi:
@@ -208,6 +208,6 @@ function GetNombrePalanca(codigoEstrategia, OrigenPedidoWeb) {
             default:
                 return "";
         }
-
+    }
     return palanca;
 }
