@@ -749,7 +749,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         listaHermanosE = svc.GetListBrothersByCUV(userData.PaisID, userData.CampaniaID, cuv).ToList();
                     }
-                    tieneVariedad = listaHermanosE.Any() ? 1 : 0;
+                    tieneVariedad = listaHermanosE.Any().ToInt();
                     break;
                 case Constantes.TipoEstrategiaSet.CompuestaVariable:
                     tieneVariedad = 1;
@@ -1396,7 +1396,7 @@ namespace Portal.Consultoras.Web.Controllers
 
 
                     bool bResultado = administrarEstrategiaProvider.ActivarDesactivarEstrategias(estrategiasActivasList, estrategiasInactivasList, userData.UsuarioNombre, userData.CodigoISO, tipoEstrategiaCod);
-                    resultado = !bResultado ? 1 : 0;
+                    resultado = (!bResultado).ToInt();
                 }
                 else
                 {
