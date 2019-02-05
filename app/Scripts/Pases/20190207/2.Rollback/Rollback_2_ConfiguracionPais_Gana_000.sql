@@ -1,4 +1,4 @@
-USE BelcorpPeru
+﻿USE BelcorpPeru
 GO
 
 declare @Codigo varchar(100) = 'MSPersonalizacion'
