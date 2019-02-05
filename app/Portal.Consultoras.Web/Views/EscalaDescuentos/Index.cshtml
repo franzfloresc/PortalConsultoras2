@@ -1,30 +1,140 @@
-﻿@{
+﻿@model List<Portal.Consultoras.Web.Models.EscalaDescuentoModel>
+
+@{
+    Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
     ViewBag.Title = "Escala de Descuentos";
 }
 
-<div class="fondo_f9f9f9">
-    <div class="content_belcorp content_belcorp_misPedidos">
-        <div class="fondo_negro_lateral"></div>
-        <div class="titulo_interiores">ESCALA DE <span>DESCUENTOS</span></div>
-    </div>
-    <hr class="clear" />
-    <div class="linea_separadora" style="margin-top:-1px"></div>
-</div>
-<div class="pestana_lbel" style="margin-left:119px;"></div>
-<div class="wrap_cab">
-    <div class="filtros">
-        <div class="elements">
-            <div class="div-1">
-                <div class="box">
+<link href="@Url.Content("~/Content/Css/Site/EscalaDescuentos/escala-descuentos.css")" rel="stylesheet" />
+
+<main class="w-100 row flex-column justify-content-center ml-0 mr-0 layout__main__content">
+    <!-- TITULO DE VISTA ESCALA DE DESCUENTOS -->
+    <section class="row flex-row justify-content-start ml-0 mr-0 layout__view__title__wrapper">
+        <div class="col-12 pl-0 pr-0 mx-auto layout__view__title">
+            <div class="layout__view__title__background mostrarEnDesktop"></div>
+            <h1 class="col-12 col-lg-6 col-xl-6 pl-lg-0 pl-xl-0 pr-lg-0 pr-xl-0 row flex-column flex-lg-row flex-xl-row flex-wrap flex-lg-nowrap flex-xl-nowrap justify-content-center justify-content-lg-start justify-content-xl-start align-items-lg-center align-items-xl-center layout__view__title__text text-uppercase">
+                <a href="@Request.UrlReferrer" class="d-block layout__view__title__icono__volver mostrarEnMobile">
+                    <img class="d-block" src="@Url.Content("~/Content/Images/icono_volver_mobile.svg")" alt="" />
+                </a>
+                <span class="d-block">
+                    <span class="text-bold text-uppercase">Escala de descuentos</span>
+                </span>
+            </h1>
+        </div>
+    </section>
+    <div class="row flex-row mx-auto pestana__lbel"></div>
+    <!-- FIN - TITULO DE VISTA ESCALA DE DESCUENTOS -->
+    <!-- CONTENIDO DE VISTA ESCALA DE DESCUENTO -->
+    <section class="row flex-row align-content-start ml-0 mr-0 mx-auto layout__content layout__content--escalaDescuento">
+        <h1 class="col-12 pl-0 pr-0 text-bold text-uppercase text-center escala__descuento__descripcion_primary">
+            Aprovecha estos excelentes descuentos.
+        </h1>
+        <p class="col-12 pl-0 pr-0 text-center color__multimarca escala__descuento__descripcion_secondary">
+            ¡Tú decides cuánto quieres ganar!
+        </p>
+        <div class="row flex-row border-radius-4 text-center ml-0 mr-0 info__calculo__porcentaje__descuento">
+            <h2 class="col-12 pl-0 pr-0 text-uppercase info__calculo__porcentaje__descuento__titulo">
+                Cómo calculo el porcentaje de descuento
+            </h2>
+            <p class="col-12 pl-0 pr-0 info__calculo__porcentaje__descuento__descripcion">
+                <span class="color__gray__multimarca">
+                    Suma todos los productos con descuento variable y ubícate en el monto de la escala que corresponda, luego debes aplicar el % de descuento alcanzado para aquellos productos que son VARIABLES. Para el resto de productos, aplícale el descuento fijo correspondiente.
+                </span>
+            </p>
+        </div>
+        <!-- SECCIÓN ESCALA DE DESCUENTOS EN BARRA -->
+        <section class="row flex-row ml-0 mr-0 info__escala__descuento__variable">
+            <h2 class="col-12 pl-0 pr-0 text-bold text-uppercase info__escala__descuento__variable__titulo">
+                Escala de descuento variable :
+            </h2>
+            <p class="col-12 pl-0 pr-0 info__escala__descuento__variable__descripcion">
+                <span>De acuerdo a estos montos, tu descuento valor catálogo es:</span>
+            </p>
+            <!-- COMPONENTE BARRA DE DESCUENTOS -->
+            <div class="col-12 pl-0 pr-0 text-center row flex-row ml-0 mr-0 seccion__barra__escala__descuento">
+                <div class="col-4 col-lg-12 col-xl-12 pl-0 pr-0 row flex-row justify-content-end ml-0 mr-0 barra__descuento__wrapper">
+                    <div class="barra__descuento barra__descuento--vertical barra__descuento--horizontal">
+                        <div class="col-12 pl-0 pr-0 barra__descuento__espacio__limite barra__descuento__espacio__limite--vertical barra__descuento__espacio__limite--horizontal">
+                            <div class="col-12 pl-0 pr-0 barra__descuento__espacio__logrado barra__descuento__espacio__logrado--vertical barra__descuento__espacio__logrado--horizontal">
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <div class="col-8 col-lg-12 col-xl-12 pl-0 pr-0 mx-lg-auto mx-xl-auto pl-0 pr-0 escala__descuentos__wrapper">
+                    <div class="row flex-row justify-content-between align-content-around ml-0 mr-0 escala__descuentos">
+                        @foreach (var item in Model)
+                        {
+                            <div class="col-12 col-lg col-xl pl-0 pr-0 row flex-row align-items-center ml-0 mr-0 escala__descuento">
+                                <div class="col-1 pl-0 pr-0 mx-lg-auto mx-xl-auto background__color__gray__multimarca linea__escala__descuento">
+                                </div>
+                                <div class="col col-lg-12 col-xl-12 pl-0 pr-0 text-left text-lg-center text-xl-center escala__descuento__porcentaje__y__montos">
+                                    <span class="d-block text-bold text-uppercase escala__descuento__porcentaje">
+                                       @item.PorcentajeDescuento  % dscto
+                                    </span>
+                                    <span class="d-block color__gray__multimarca text-left text-lg-center text-xl-center escala__descuento__rango__montos">
+                                       @item.MontoMinimo a <span class="d-lg-block d-xl-block text-uppercase color__gray__multimarca">@item.MontoMaximo</span>
+                                    </span>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <p class="col-12 pl-0 pr-0 text-center color__gray__multimarca info__descuentos__aplicables">
+                    Estos descuentos aplican en: Cósmeticos  y Bijouterie de catálogos Ésika, L'bel y Cyzone*
+                </p>
+            </div>
+            <!-- FIN - COMPONENTE BARRA DE DESCUENTOS -->
+        </section>
+        <!-- FIN - SECCIÓN ESCALA DE DESCUENTOS EN BARRA -->
+        <div class="row flex-row ml-0 mr-0 info__descuento__fijo">
+            <h2 class="col-12 pl-0 pr-0 text-bold text-uppercase info__descuento__fijo__titulo">
+                Descuento fijo de 20% :
+            </h2>
+            <p class="col-12 pl-0 pr-0 info__descuento__fijo__descripcion">
+                <span>En promociones cosméticos, relojes, lentes, ropa y accesorios cosméticos.</span>
+            </p>
+        </div>
+        <div class="row flex-row ml-0 mr-0 info__sin__descuento">
+            <h2 class="col-12 pl-0 pr-0 text-bold text-uppercase info__sin__descuento__titulo">
+                Sin descuento :
+            </h2>
+            <p class="col-12 pl-0 pr-0 info__sin__descuento__descripcion">
+                <span>
+                    Productos en revista Somos Belcorp, promociones no cosméticas, muestras y material de ayuda de venta ofrecidos en revista Somos Belcorp y/o en los catálogos.
+                </span>
+                <span class="text-uppercase">
+                    (Sin embargo, su venta si suma para alcanzar la escala de descuento).
+                </span>
+            </p>
+        </div>
+        <div class="row flex-row ml-0 mr-0 border-radius-4 info__adicional__importante__escala__descuentos">
+            <div class="col-12 pl-0 pr-0 info__adicional__importante__escala__descuentos__texto">
+                <img src="@Url.Content("~/Content/Images/icono_info_importante.svg")" class="d-inline-block icono__info__importante" alt="Importante" />
+                <span class="text-bold text-uppercase color__multimarca">
+                    Importante:&nbsp;
+                </span>
+                <span class="color__gray__multimarca">
+                    No se aceptarán pedidos por un monto menor de ¢. 55,000. Todo pedido tendrá un recargo por flete. Si tu pedido es hasta ¢. 75,999.99 se te cargará ¢. 2,499 en la capital y ¢. 2,799 en provincia.
+                </span>
             </div>
         </div>
-    </div>
-</div>
-<div class="wrap">
-    <div class="container clearfix container_escalaDescuento">
-        <div>
-            <img src="@ViewBag.Ruta" />
+        <div class="row flex-row ml-0 mr-0 border-radius-4 info__gana__mas">
+            <div class="col-12 col-lg-2 col-xl-2 pl-0 pr-0 text-center text-lg-left text-xl-left info__gana__mas__titulo">
+                <img src="@Url.Content("~/Content/Images/icono_titulo_gana_mas.svg")" alt="Gana Más" />
+            </div>
+            <div class="col-12 col-lg-10 col-xl-10 pl-0 pr-0 text-left info__gana__mas__descripcion">
+                <p class="text-bold info__gana__mas__descripcion--resaltada">
+                    GANA + es una sección exclusiva para consultoras. Infórmate sobre la política y procedimiento de cambios y devoluciones llamando a Belcorp Responde o en www.somosbelcorp.com.
+                </p>
+                <p class="color__gray__multimarca">
+                    Las imágenes de los productos que aparecen en esta sección son referenciales. Podrás recibir productos con el logo nuevo o antiguo de Ésika, manteniendo el mismo nivel de calidad. Los precios de la sección GANA + son netos para las consultoras.
+                </p>
+            </div>
         </div>
-    </div>
-</div>
+
+       
+
+    </section>
+    <!-- FIN - CONTENIDO DE VISTA ESCALA DE DESCUENTO -->
+
+</main>

@@ -287,8 +287,7 @@
                     @Util.DecimalToStringFormat(Convert.ToDecimal(Model.MontoAhorroCatalogo + Model.MontoAhorroRevista), Model.CodigoISO)
                 </span>
             </div>
-            <div role="link" region="Central" parent="Ganancia Estimada Total" title="Pedido ingresado" class="texto_inferior" style="text-decoration:underline;"><a href="@Url.Action("Index", "Pedido")">Pedido ingresado: @Model.Simbolo <span class="js-span-pedidoingresado">@Util.DecimalToStringFormat(Model.MontoPedido, Model.CodigoISO)</span></a></div>
-
+            <a role="link" region="Central" title="Ver más" class="btn_borde_black" href="@Url.Action("Index", "EscalaDescuentos", new { area = "" })"> VER M&Aacute;S</a>
         </div>
     </div>
     <div class="linea_separadora_mobile" style="margin-top:16px"></div>
