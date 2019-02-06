@@ -306,7 +306,6 @@ function CargarCarruselCatalogo() {
                 $("#txtUrlActual").val(urlCatalogoPiloto);
                 $("#idSection" + i).addClass(" catalogos__campania--actual");
             } else {
-                $('.catalogos__por__campania__item__slider').addClass(' altoFijo');
                 $("#idSection" + i).addClass(" catalogos__campania--actual--disenioAnterior");
             }
         }
@@ -568,6 +567,7 @@ function CatalogoMostrar(accion, btn) {
     campSelectI = campSelectI <= 0 ? 0 : campSelectI >= cantCam - 1 ? cantCam - 1 : campSelectI;
 
     var campS = aCam[campSelectI];
+    var catEsika = $('.catalogos__por__campania__item__imagen--esika').is(':visible') && isMobile;
     campSelect = getNumeroCampania(campS);
     $("#contentCatalogo #TextoCampania").text("CATÁLOGOS C-" + campSelect);
     //$("#divCatalogo > div").hide();
@@ -577,6 +577,12 @@ function CatalogoMostrar(accion, btn) {
     if (campSelectI == 0 || campSelectI == cantCam - 1) {
         if (btn != null) {
             $(btn).hide();
+        }
+    }
+
+    if (window.matchMedia('(min-width:992px)').matches){
+        if (!catEsika) {
+            $('.catalogos__por__campania__item__imagenes > .content_carrusel_catalogo').css('max-width', '70' + '%');
         }
     }
 

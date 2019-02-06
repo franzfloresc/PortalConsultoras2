@@ -310,7 +310,7 @@
 .catalogos__campania--actual .catalogos__por__campania__item__imagen--lbel{
     min-height:346px;
     z-index:2;
-    left:11px;
+    left:-13px;
     order:-2;
 }
 
