@@ -514,7 +514,7 @@ function ConfigurarSlick() {
         prevArrow: '<a style="width: auto; display: block; left:  0; margin-left:  9%; top: 24%;"><img src="' + baseUrl + 'Content/Images/Esika/left_compra.png")" alt="" /></a>',
         nextArrow: '<a style="width: auto; display: block; right: 0; margin-right: 9%; text-align:right;  top: 24%;"><img src="' + baseUrl + 'Content/Images/Esika/right_compra.png")" alt="" /></a>'
     //});
-    }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
+    }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
         ValidarBotonAgregar();
     });
 

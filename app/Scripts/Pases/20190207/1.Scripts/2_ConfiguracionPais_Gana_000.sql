@@ -1,4 +1,4 @@
-USE BelcorpPeru
+锘縐SE BelcorpPeru
 GO
 
 declare @Codigo varchar(100) = 'MSPersonalizacion'
@@ -11,10 +11,10 @@ end
 
 INSERT INTO dbo.ConfiguracionPais 
 (Codigo, Excluyente, Descripcion, Estado, TienePerfil, DesdeCampania, OrdenBpt, MobileOrden, MobileOrdenBPT)
-VALUES (@Codigo, 1, 'Microservicios personalizaci髇', 1,  0, 0, 0, 0, 0)
+VALUES (@Codigo, 1, 'Microservicios personalizaci贸n', 1,  0, 0, 0, 0, 0)
 
 INSERT INTO dbo.ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-VALUES (@@IDENTITY, 'EstrategiaDisponible', 0, '101,001,005,007,008,009,010,030', NULL, NULL, 'Estrategia disponible en microservicio personalizaci髇', 1, NULL)
+VALUES (@@IDENTITY, 'EstrategiaDisponible', 0, '101,001,005,007,008,009,010,030', NULL, NULL, 'Estrategia disponible en microservicio personalizaci贸n', 1, NULL)
 
 GO
 
@@ -31,10 +31,10 @@ end
 
 INSERT INTO dbo.ConfiguracionPais 
 (Codigo, Excluyente, Descripcion, Estado, TienePerfil, DesdeCampania, OrdenBpt, MobileOrden, MobileOrdenBPT)
-VALUES (@Codigo, 1, 'Microservicios personalizaci髇', 0,  0, 0, 0, 0, 0)
+VALUES (@Codigo, 1, 'Microservicios personalizaci贸n', 0,  0, 0, 0, 0, 0)
 
 INSERT INTO dbo.ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-VALUES (@@IDENTITY, 'EstrategiaDisponible', 0, ' ', NULL, NULL, 'Estrategia disponible en microservicio personalizaci髇', 1, NULL)
+VALUES (@@IDENTITY, 'EstrategiaDisponible', 0, ' ', NULL, NULL, 'Estrategia disponible en microservicio personalizaci贸n', 1, NULL)
 
 GO
 
@@ -51,10 +51,10 @@ end
 
 INSERT INTO dbo.ConfiguracionPais 
 (Codigo, Excluyente, Descripcion, Estado, TienePerfil, DesdeCampania, OrdenBpt, MobileOrden, MobileOrdenBPT)
-VALUES (@Codigo, 1, 'Microservicios personalizaci髇', 1,  0, 0, 0, 0, 0)
+VALUES (@Codigo, 1, 'Microservicios personalizaci贸n', 1,  0, 0, 0, 0, 0)
 
 INSERT INTO dbo.ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-VALUES (@@IDENTITY, 'EstrategiaDisponible', 0, '101,001,005,007,008,009,010,030', NULL, NULL, 'Estrategia disponible en microservicio personalizaci髇', 1, NULL)
+VALUES (@@IDENTITY, 'EstrategiaDisponible', 0, '101,001,005,007,008,009,010,030', NULL, NULL, 'Estrategia disponible en microservicio personalizaci贸n', 1, NULL)
 
 GO
 
@@ -71,10 +71,10 @@ end
 
 INSERT INTO dbo.ConfiguracionPais 
 (Codigo, Excluyente, Descripcion, Estado, TienePerfil, DesdeCampania, OrdenBpt, MobileOrden, MobileOrdenBPT)
-VALUES (@Codigo, 1, 'Microservicios personalizaci髇', 0,  0, 0, 0, 0, 0)
+VALUES (@Codigo, 1, 'Microservicios personalizaci贸n', 0,  0, 0, 0, 0, 0)
 
 INSERT INTO dbo.ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-VALUES (@@IDENTITY, 'EstrategiaDisponible', 0, ' ', NULL, NULL, 'Estrategia disponible en microservicio personalizaci髇', 1, NULL)
+VALUES (@@IDENTITY, 'EstrategiaDisponible', 0, ' ', NULL, NULL, 'Estrategia disponible en microservicio personalizaci贸n', 1, NULL)
 
 GO
 
@@ -91,10 +91,10 @@ end
 
 INSERT INTO dbo.ConfiguracionPais 
 (Codigo, Excluyente, Descripcion, Estado, TienePerfil, DesdeCampania, OrdenBpt, MobileOrden, MobileOrdenBPT)
-VALUES (@Codigo, 1, 'Microservicios personalizaci髇', 0,  0, 0, 0, 0, 0)
+VALUES (@Codigo, 1, 'Microservicios personalizaci贸n', 0,  0, 0, 0, 0, 0)
 
 INSERT INTO dbo.ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-VALUES (@@IDENTITY, 'EstrategiaDisponible', 0, ' ', NULL, NULL, 'Estrategia disponible en microservicio personalizaci髇', 1, NULL)
+VALUES (@@IDENTITY, 'EstrategiaDisponible', 0, ' ', NULL, NULL, 'Estrategia disponible en microservicio personalizaci贸n', 1, NULL)
 
 GO
 
@@ -111,10 +111,10 @@ end
 
 INSERT INTO dbo.ConfiguracionPais 
 (Codigo, Excluyente, Descripcion, Estado, TienePerfil, DesdeCampania, OrdenBpt, MobileOrden, MobileOrdenBPT)
-VALUES (@Codigo, 1, 'Microservicios personalizaci髇', 0,  0, 0, 0, 0, 0)
+VALUES (@Codigo, 1, 'Microservicios personalizaci贸n', 0,  0, 0, 0, 0, 0)
 
 INSERT INTO dbo.ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-VALUES (@@IDENTITY, 'EstrategiaDisponible', 0, ' ', NULL, NULL, 'Estrategia disponible en microservicio personalizaci髇', 1, NULL)
+VALUES (@@IDENTITY, 'EstrategiaDisponible', 0, ' ', NULL, NULL, 'Estrategia disponible en microservicio personalizaci贸n', 1, NULL)
 
 GO
 
@@ -131,10 +131,10 @@ end
 
 INSERT INTO dbo.ConfiguracionPais 
 (Codigo, Excluyente, Descripcion, Estado, TienePerfil, DesdeCampania, OrdenBpt, MobileOrden, MobileOrdenBPT)
-VALUES (@Codigo, 1, 'Microservicios personalizaci髇', 0,  0, 0, 0, 0, 0)
+VALUES (@Codigo, 1, 'Microservicios personalizaci贸n', 0,  0, 0, 0, 0, 0)
 
 INSERT INTO dbo.ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-VALUES (@@IDENTITY, 'EstrategiaDisponible', 0, ' ', NULL, NULL, 'Estrategia disponible en microservicio personalizaci髇', 1, NULL)
+VALUES (@@IDENTITY, 'EstrategiaDisponible', 0, ' ', NULL, NULL, 'Estrategia disponible en microservicio personalizaci贸n', 1, NULL)
 
 GO
 
@@ -151,10 +151,10 @@ end
 
 INSERT INTO dbo.ConfiguracionPais 
 (Codigo, Excluyente, Descripcion, Estado, TienePerfil, DesdeCampania, OrdenBpt, MobileOrden, MobileOrdenBPT)
-VALUES (@Codigo, 1, 'Microservicios personalizaci髇', 0,  0, 0, 0, 0, 0)
+VALUES (@Codigo, 1, 'Microservicios personalizaci贸n', 0,  0, 0, 0, 0, 0)
 
 INSERT INTO dbo.ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-VALUES (@@IDENTITY, 'EstrategiaDisponible', 0, ' ', NULL, NULL, 'Estrategia disponible en microservicio personalizaci髇', 1, NULL)
+VALUES (@@IDENTITY, 'EstrategiaDisponible', 0, ' ', NULL, NULL, 'Estrategia disponible en microservicio personalizaci贸n', 1, NULL)
 
 GO
 
@@ -171,10 +171,10 @@ end
 
 INSERT INTO dbo.ConfiguracionPais 
 (Codigo, Excluyente, Descripcion, Estado, TienePerfil, DesdeCampania, OrdenBpt, MobileOrden, MobileOrdenBPT)
-VALUES (@Codigo, 1, 'Microservicios personalizaci髇', 0,  0, 0, 0, 0, 0)
+VALUES (@Codigo, 1, 'Microservicios personalizaci贸n', 0,  0, 0, 0, 0, 0)
 
 INSERT INTO dbo.ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-VALUES (@@IDENTITY, 'EstrategiaDisponible', 0, ' ', NULL, NULL, 'Estrategia disponible en microservicio personalizaci髇', 1, NULL)
+VALUES (@@IDENTITY, 'EstrategiaDisponible', 0, ' ', NULL, NULL, 'Estrategia disponible en microservicio personalizaci贸n', 1, NULL)
 
 GO
 
@@ -191,10 +191,10 @@ end
 
 INSERT INTO dbo.ConfiguracionPais 
 (Codigo, Excluyente, Descripcion, Estado, TienePerfil, DesdeCampania, OrdenBpt, MobileOrden, MobileOrdenBPT)
-VALUES (@Codigo, 1, 'Microservicios personalizaci髇', 1,  0, 0, 0, 0, 0)
+VALUES (@Codigo, 1, 'Microservicios personalizaci贸n', 1,  0, 0, 0, 0, 0)
 
 INSERT INTO dbo.ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-VALUES (@@IDENTITY, 'EstrategiaDisponible', 0, '101,001,005,007,008,009,010,030', NULL, NULL, 'Estrategia disponible en microservicio personalizaci髇', 1, NULL)
+VALUES (@@IDENTITY, 'EstrategiaDisponible', 0, '101,001,005,007,008,009,010,030', NULL, NULL, 'Estrategia disponible en microservicio personalizaci贸n', 1, NULL)
 
 GO
 
@@ -211,10 +211,10 @@ end
 
 INSERT INTO dbo.ConfiguracionPais 
 (Codigo, Excluyente, Descripcion, Estado, TienePerfil, DesdeCampania, OrdenBpt, MobileOrden, MobileOrdenBPT)
-VALUES (@Codigo, 1, 'Microservicios personalizaci髇', 1,  0, 0, 0, 0, 0)
+VALUES (@Codigo, 1, 'Microservicios personalizaci贸n', 1,  0, 0, 0, 0, 0)
 
 INSERT INTO dbo.ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-VALUES (@@IDENTITY, 'EstrategiaDisponible', 0, '101,001,005,007,008,009,010,030', NULL, NULL, 'Estrategia disponible en microservicio personalizaci髇', 1, NULL)
+VALUES (@@IDENTITY, 'EstrategiaDisponible', 0, '101,001,005,007,008,009,010,030', NULL, NULL, 'Estrategia disponible en microservicio personalizaci贸n', 1, NULL)
 
 GO
 
@@ -231,10 +231,10 @@ end
 
 INSERT INTO dbo.ConfiguracionPais 
 (Codigo, Excluyente, Descripcion, Estado, TienePerfil, DesdeCampania, OrdenBpt, MobileOrden, MobileOrdenBPT)
-VALUES (@Codigo, 1, 'Microservicios personalizaci髇', 0,  0, 0, 0, 0, 0)
+VALUES (@Codigo, 1, 'Microservicios personalizaci贸n', 0,  0, 0, 0, 0, 0)
 
 INSERT INTO dbo.ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-VALUES (@@IDENTITY, 'EstrategiaDisponible', 0, ' ', NULL, NULL, 'Estrategia disponible en microservicio personalizaci髇', 1, NULL)
+VALUES (@@IDENTITY, 'EstrategiaDisponible', 0, ' ', NULL, NULL, 'Estrategia disponible en microservicio personalizaci贸n', 1, NULL)
 
 GO
 

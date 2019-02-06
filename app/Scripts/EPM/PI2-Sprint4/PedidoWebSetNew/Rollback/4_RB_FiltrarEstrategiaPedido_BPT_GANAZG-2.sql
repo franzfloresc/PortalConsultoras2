@@ -1,16 +1,18 @@
 ﻿GO
 USE BelcorpPeru
 GO
-ALTER PROCEDURE FiltrarEstrategiaPedido
+ALTER PROCEDURE [dbo].[FiltrarEstrategiaPedido]
  @EstrategiaID INT,
  @FlagNueva INT = 0
 AS
 BEGIN
-
+/*
+ FiltrarEstrategiaPedido 11164
+*/
  SET NOCOUNT ON
 
+  /*R2621-LR - INI **/
   DECLARE  @CampaniaID  INT
-
   SELECT @CampaniaID  = E.CampaniaID
   FROM Estrategia E
    INNER JOIN TipoEstrategia TE ON E.TipoEstrategiaID = TE.TipoEstrategiaID
@@ -39,7 +41,7 @@ BEGIN
    WHERE TD.TablaLogicaID = @TablaLogicaID
      AND CAST(TD.Codigo AS VARCHAR(10)) <= @CampaniaID -- CGI(AHAA) - MODIFICACIÓN AL BUG BUG_2015000858
   END
-
+  /*R2621-LR - FIN **/
   SELECT
    EstrategiaID,
    CUV2,
@@ -63,8 +65,7 @@ BEGIN
    'NO DISPONIBLE' AS DescripcionCategoria,
    TE.DescripcionEstrategia AS DescripcionEstrategia,
    @FlagNueva  AS FlagNueva,
-   E.EsOfertaIndependiente,
-   E.CodigoEstrategia
+   E.EsOfertaIndependiente
   FROM
    Estrategia E
    INNER JOIN TipoEstrategia TE ON E.TipoEstrategiaID = TE.TipoEstrategiaID
@@ -81,20 +82,26 @@ BEGIN
  SET NOCOUNT OFF
 
 END
+
+
+
+
 
 GO
 USE BelcorpMexico
 GO
-ALTER PROCEDURE FiltrarEstrategiaPedido
+ALTER PROCEDURE [dbo].[FiltrarEstrategiaPedido]
  @EstrategiaID INT,
  @FlagNueva INT = 0
 AS
 BEGIN
-
+/*
+ FiltrarEstrategiaPedido 11164
+*/
  SET NOCOUNT ON
 
+  /*R2621-LR - INI **/
   DECLARE  @CampaniaID  INT
-
   SELECT @CampaniaID  = E.CampaniaID
   FROM Estrategia E
    INNER JOIN TipoEstrategia TE ON E.TipoEstrategiaID = TE.TipoEstrategiaID
@@ -123,7 +130,7 @@ BEGIN
    WHERE TD.TablaLogicaID = @TablaLogicaID
      AND CAST(TD.Codigo AS VARCHAR(10)) <= @CampaniaID -- CGI(AHAA) - MODIFICACIÓN AL BUG BUG_2015000858
   END
-
+  /*R2621-LR - FIN **/
   SELECT
    EstrategiaID,
    CUV2,
@@ -147,8 +154,7 @@ BEGIN
    'NO DISPONIBLE' AS DescripcionCategoria,
    TE.DescripcionEstrategia AS DescripcionEstrategia,
    @FlagNueva  AS FlagNueva,
-   E.EsOfertaIndependiente,
-   E.CodigoEstrategia
+   E.EsOfertaIndependiente
   FROM
    Estrategia E
    INNER JOIN TipoEstrategia TE ON E.TipoEstrategiaID = TE.TipoEstrategiaID
@@ -165,20 +171,26 @@ BEGIN
  SET NOCOUNT OFF
 
 END
+
+
+
+
 
 GO
 USE BelcorpColombia
 GO
-ALTER PROCEDURE FiltrarEstrategiaPedido
+ALTER PROCEDURE [dbo].[FiltrarEstrategiaPedido]
  @EstrategiaID INT,
  @FlagNueva INT = 0
 AS
 BEGIN
-
+/*
+ FiltrarEstrategiaPedido 11164
+*/
  SET NOCOUNT ON
 
+  /*R2621-LR - INI **/
   DECLARE  @CampaniaID  INT
-
   SELECT @CampaniaID  = E.CampaniaID
   FROM Estrategia E
    INNER JOIN TipoEstrategia TE ON E.TipoEstrategiaID = TE.TipoEstrategiaID
@@ -207,7 +219,7 @@ BEGIN
    WHERE TD.TablaLogicaID = @TablaLogicaID
      AND CAST(TD.Codigo AS VARCHAR(10)) <= @CampaniaID -- CGI(AHAA) - MODIFICACIÓN AL BUG BUG_2015000858
   END
-
+  /*R2621-LR - FIN **/
   SELECT
    EstrategiaID,
    CUV2,
@@ -231,8 +243,7 @@ BEGIN
    'NO DISPONIBLE' AS DescripcionCategoria,
    TE.DescripcionEstrategia AS DescripcionEstrategia,
    @FlagNueva  AS FlagNueva,
-   E.EsOfertaIndependiente,
-   E.CodigoEstrategia
+   E.EsOfertaIndependiente
   FROM
    Estrategia E
    INNER JOIN TipoEstrategia TE ON E.TipoEstrategiaID = TE.TipoEstrategiaID
@@ -249,20 +260,26 @@ BEGIN
  SET NOCOUNT OFF
 
 END
+
+
+
+
 
 GO
 USE BelcorpSalvador
 GO
-ALTER PROCEDURE FiltrarEstrategiaPedido
+ALTER PROCEDURE [dbo].[FiltrarEstrategiaPedido]
  @EstrategiaID INT,
  @FlagNueva INT = 0
 AS
 BEGIN
-
+/*
+ FiltrarEstrategiaPedido 11164
+*/
  SET NOCOUNT ON
 
+  /*R2621-LR - INI **/
   DECLARE  @CampaniaID  INT
-
   SELECT @CampaniaID  = E.CampaniaID
   FROM Estrategia E
    INNER JOIN TipoEstrategia TE ON E.TipoEstrategiaID = TE.TipoEstrategiaID
@@ -291,7 +308,7 @@ BEGIN
    WHERE TD.TablaLogicaID = @TablaLogicaID
      AND CAST(TD.Codigo AS VARCHAR(10)) <= @CampaniaID -- CGI(AHAA) - MODIFICACIÓN AL BUG BUG_2015000858
   END
-
+  /*R2621-LR - FIN **/
   SELECT
    EstrategiaID,
    CUV2,
@@ -315,8 +332,7 @@ BEGIN
    'NO DISPONIBLE' AS DescripcionCategoria,
    TE.DescripcionEstrategia AS DescripcionEstrategia,
    @FlagNueva  AS FlagNueva,
-   E.EsOfertaIndependiente,
-   E.CodigoEstrategia
+   E.EsOfertaIndependiente
   FROM
    Estrategia E
    INNER JOIN TipoEstrategia TE ON E.TipoEstrategiaID = TE.TipoEstrategiaID
@@ -333,20 +349,26 @@ BEGIN
  SET NOCOUNT OFF
 
 END
+
+
+
+
 
 GO
 USE BelcorpPuertoRico
 GO
-ALTER PROCEDURE FiltrarEstrategiaPedido
+ALTER PROCEDURE [dbo].[FiltrarEstrategiaPedido]
  @EstrategiaID INT,
  @FlagNueva INT = 0
 AS
 BEGIN
-
+/*
+ FiltrarEstrategiaPedido 11164
+*/
  SET NOCOUNT ON
 
+  /*R2621-LR - INI **/
   DECLARE  @CampaniaID  INT
-
   SELECT @CampaniaID  = E.CampaniaID
   FROM Estrategia E
    INNER JOIN TipoEstrategia TE ON E.TipoEstrategiaID = TE.TipoEstrategiaID
@@ -375,7 +397,7 @@ BEGIN
    WHERE TD.TablaLogicaID = @TablaLogicaID
      AND CAST(TD.Codigo AS VARCHAR(10)) <= @CampaniaID -- CGI(AHAA) - MODIFICACIÓN AL BUG BUG_2015000858
   END
-
+  /*R2621-LR - FIN **/
   SELECT
    EstrategiaID,
    CUV2,
@@ -399,8 +421,7 @@ BEGIN
    'NO DISPONIBLE' AS DescripcionCategoria,
    TE.DescripcionEstrategia AS DescripcionEstrategia,
    @FlagNueva  AS FlagNueva,
-   E.EsOfertaIndependiente,
-   E.CodigoEstrategia
+   E.EsOfertaIndependiente
   FROM
    Estrategia E
    INNER JOIN TipoEstrategia TE ON E.TipoEstrategiaID = TE.TipoEstrategiaID
@@ -417,20 +438,26 @@ BEGIN
  SET NOCOUNT OFF
 
 END
+
+
+
+
 
 GO
 USE BelcorpPanama
 GO
-ALTER PROCEDURE FiltrarEstrategiaPedido
+ALTER PROCEDURE [dbo].[FiltrarEstrategiaPedido]
  @EstrategiaID INT,
  @FlagNueva INT = 0
 AS
 BEGIN
-
+/*
+ FiltrarEstrategiaPedido 11164
+*/
  SET NOCOUNT ON
 
+  /*R2621-LR - INI **/
   DECLARE  @CampaniaID  INT
-
   SELECT @CampaniaID  = E.CampaniaID
   FROM Estrategia E
    INNER JOIN TipoEstrategia TE ON E.TipoEstrategiaID = TE.TipoEstrategiaID
@@ -459,7 +486,7 @@ BEGIN
    WHERE TD.TablaLogicaID = @TablaLogicaID
      AND CAST(TD.Codigo AS VARCHAR(10)) <= @CampaniaID -- CGI(AHAA) - MODIFICACIÓN AL BUG BUG_2015000858
   END
-
+  /*R2621-LR - FIN **/
   SELECT
    EstrategiaID,
    CUV2,
@@ -483,8 +510,7 @@ BEGIN
    'NO DISPONIBLE' AS DescripcionCategoria,
    TE.DescripcionEstrategia AS DescripcionEstrategia,
    @FlagNueva  AS FlagNueva,
-   E.EsOfertaIndependiente,
-   E.CodigoEstrategia
+   E.EsOfertaIndependiente
   FROM
    Estrategia E
    INNER JOIN TipoEstrategia TE ON E.TipoEstrategiaID = TE.TipoEstrategiaID
@@ -501,20 +527,26 @@ BEGIN
  SET NOCOUNT OFF
 
 END
+
+
+
+
 
 GO
 USE BelcorpGuatemala
 GO
-ALTER PROCEDURE FiltrarEstrategiaPedido
+ALTER PROCEDURE [dbo].[FiltrarEstrategiaPedido]
  @EstrategiaID INT,
  @FlagNueva INT = 0
 AS
 BEGIN
-
+/*
+ FiltrarEstrategiaPedido 11164
+*/
  SET NOCOUNT ON
 
+  /*R2621-LR - INI **/
   DECLARE  @CampaniaID  INT
-
   SELECT @CampaniaID  = E.CampaniaID
   FROM Estrategia E
    INNER JOIN TipoEstrategia TE ON E.TipoEstrategiaID = TE.TipoEstrategiaID
@@ -543,7 +575,7 @@ BEGIN
    WHERE TD.TablaLogicaID = @TablaLogicaID
      AND CAST(TD.Codigo AS VARCHAR(10)) <= @CampaniaID -- CGI(AHAA) - MODIFICACIÓN AL BUG BUG_2015000858
   END
-
+  /*R2621-LR - FIN **/
   SELECT
    EstrategiaID,
    CUV2,
@@ -567,8 +599,7 @@ BEGIN
    'NO DISPONIBLE' AS DescripcionCategoria,
    TE.DescripcionEstrategia AS DescripcionEstrategia,
    @FlagNueva  AS FlagNueva,
-   E.EsOfertaIndependiente,
-   E.CodigoEstrategia
+   E.EsOfertaIndependiente
   FROM
    Estrategia E
    INNER JOIN TipoEstrategia TE ON E.TipoEstrategiaID = TE.TipoEstrategiaID
@@ -585,20 +616,26 @@ BEGIN
  SET NOCOUNT OFF
 
 END
+
+
+
+
 
 GO
 USE BelcorpEcuador
 GO
-ALTER PROCEDURE FiltrarEstrategiaPedido
+ALTER PROCEDURE [dbo].[FiltrarEstrategiaPedido]
  @EstrategiaID INT,
  @FlagNueva INT = 0
 AS
 BEGIN
-
+/*
+ FiltrarEstrategiaPedido 11164
+*/
  SET NOCOUNT ON
 
+  /*R2621-LR - INI **/
   DECLARE  @CampaniaID  INT
-
   SELECT @CampaniaID  = E.CampaniaID
   FROM Estrategia E
    INNER JOIN TipoEstrategia TE ON E.TipoEstrategiaID = TE.TipoEstrategiaID
@@ -627,7 +664,7 @@ BEGIN
    WHERE TD.TablaLogicaID = @TablaLogicaID
      AND CAST(TD.Codigo AS VARCHAR(10)) <= @CampaniaID -- CGI(AHAA) - MODIFICACIÓN AL BUG BUG_2015000858
   END
-
+  /*R2621-LR - FIN **/
   SELECT
    EstrategiaID,
    CUV2,
@@ -651,8 +688,7 @@ BEGIN
    'NO DISPONIBLE' AS DescripcionCategoria,
    TE.DescripcionEstrategia AS DescripcionEstrategia,
    @FlagNueva  AS FlagNueva,
-   E.EsOfertaIndependiente,
-   E.CodigoEstrategia
+   E.EsOfertaIndependiente
   FROM
    Estrategia E
    INNER JOIN TipoEstrategia TE ON E.TipoEstrategiaID = TE.TipoEstrategiaID
@@ -669,20 +705,26 @@ BEGIN
  SET NOCOUNT OFF
 
 END
+
+
+
+
 
 GO
 USE BelcorpDominicana
 GO
-ALTER PROCEDURE FiltrarEstrategiaPedido
+ALTER PROCEDURE [dbo].[FiltrarEstrategiaPedido]
  @EstrategiaID INT,
  @FlagNueva INT = 0
 AS
 BEGIN
-
+/*
+ FiltrarEstrategiaPedido 11164
+*/
  SET NOCOUNT ON
 
+  /*R2621-LR - INI **/
   DECLARE  @CampaniaID  INT
-
   SELECT @CampaniaID  = E.CampaniaID
   FROM Estrategia E
    INNER JOIN TipoEstrategia TE ON E.TipoEstrategiaID = TE.TipoEstrategiaID
@@ -711,7 +753,7 @@ BEGIN
    WHERE TD.TablaLogicaID = @TablaLogicaID
      AND CAST(TD.Codigo AS VARCHAR(10)) <= @CampaniaID -- CGI(AHAA) - MODIFICACIÓN AL BUG BUG_2015000858
   END
-
+  /*R2621-LR - FIN **/
   SELECT
    EstrategiaID,
    CUV2,
@@ -735,8 +777,7 @@ BEGIN
    'NO DISPONIBLE' AS DescripcionCategoria,
    TE.DescripcionEstrategia AS DescripcionEstrategia,
    @FlagNueva  AS FlagNueva,
-   E.EsOfertaIndependiente,
-   E.CodigoEstrategia
+   E.EsOfertaIndependiente
   FROM
    Estrategia E
    INNER JOIN TipoEstrategia TE ON E.TipoEstrategiaID = TE.TipoEstrategiaID
@@ -753,20 +794,26 @@ BEGIN
  SET NOCOUNT OFF
 
 END
+
+
+
+
 
 GO
 USE BelcorpCostaRica
 GO
-ALTER PROCEDURE FiltrarEstrategiaPedido
+ALTER PROCEDURE [dbo].[FiltrarEstrategiaPedido]
  @EstrategiaID INT,
  @FlagNueva INT = 0
 AS
 BEGIN
-
+/*
+ FiltrarEstrategiaPedido 11164
+*/
  SET NOCOUNT ON
 
+  /*R2621-LR - INI **/
   DECLARE  @CampaniaID  INT
-
   SELECT @CampaniaID  = E.CampaniaID
   FROM Estrategia E
    INNER JOIN TipoEstrategia TE ON E.TipoEstrategiaID = TE.TipoEstrategiaID
@@ -795,7 +842,7 @@ BEGIN
    WHERE TD.TablaLogicaID = @TablaLogicaID
      AND CAST(TD.Codigo AS VARCHAR(10)) <= @CampaniaID -- CGI(AHAA) - MODIFICACIÓN AL BUG BUG_2015000858
   END
-
+  /*R2621-LR - FIN **/
   SELECT
    EstrategiaID,
    CUV2,
@@ -819,8 +866,7 @@ BEGIN
    'NO DISPONIBLE' AS DescripcionCategoria,
    TE.DescripcionEstrategia AS DescripcionEstrategia,
    @FlagNueva  AS FlagNueva,
-   E.EsOfertaIndependiente,
-   E.CodigoEstrategia
+   E.EsOfertaIndependiente
   FROM
    Estrategia E
    INNER JOIN TipoEstrategia TE ON E.TipoEstrategiaID = TE.TipoEstrategiaID
@@ -837,20 +883,26 @@ BEGIN
  SET NOCOUNT OFF
 
 END
+
+
+
+
 
 GO
 USE BelcorpChile
 GO
-ALTER PROCEDURE FiltrarEstrategiaPedido
+ALTER PROCEDURE [dbo].[FiltrarEstrategiaPedido]
  @EstrategiaID INT,
  @FlagNueva INT = 0
 AS
 BEGIN
-
+/*
+ FiltrarEstrategiaPedido 11164
+*/
  SET NOCOUNT ON
 
+  /*R2621-LR - INI **/
   DECLARE  @CampaniaID  INT
-
   SELECT @CampaniaID  = E.CampaniaID
   FROM Estrategia E
    INNER JOIN TipoEstrategia TE ON E.TipoEstrategiaID = TE.TipoEstrategiaID
@@ -879,7 +931,7 @@ BEGIN
    WHERE TD.TablaLogicaID = @TablaLogicaID
      AND CAST(TD.Codigo AS VARCHAR(10)) <= @CampaniaID -- CGI(AHAA) - MODIFICACIÓN AL BUG BUG_2015000858
   END
-
+  /*R2621-LR - FIN **/
   SELECT
    EstrategiaID,
    CUV2,
@@ -903,8 +955,7 @@ BEGIN
    'NO DISPONIBLE' AS DescripcionCategoria,
    TE.DescripcionEstrategia AS DescripcionEstrategia,
    @FlagNueva  AS FlagNueva,
-   E.EsOfertaIndependiente,
-   E.CodigoEstrategia
+   E.EsOfertaIndependiente
   FROM
    Estrategia E
    INNER JOIN TipoEstrategia TE ON E.TipoEstrategiaID = TE.TipoEstrategiaID
@@ -921,20 +972,26 @@ BEGIN
  SET NOCOUNT OFF
 
 END
+
+
+
+
 
 GO
 USE BelcorpBolivia
 GO
-ALTER PROCEDURE FiltrarEstrategiaPedido
+ALTER PROCEDURE [dbo].[FiltrarEstrategiaPedido]
  @EstrategiaID INT,
  @FlagNueva INT = 0
 AS
 BEGIN
-
+/*
+ FiltrarEstrategiaPedido 11164
+*/
  SET NOCOUNT ON
 
+  /*R2621-LR - INI **/
   DECLARE  @CampaniaID  INT
-
   SELECT @CampaniaID  = E.CampaniaID
   FROM Estrategia E
    INNER JOIN TipoEstrategia TE ON E.TipoEstrategiaID = TE.TipoEstrategiaID
@@ -963,7 +1020,7 @@ BEGIN
    WHERE TD.TablaLogicaID = @TablaLogicaID
      AND CAST(TD.Codigo AS VARCHAR(10)) <= @CampaniaID -- CGI(AHAA) - MODIFICACIÓN AL BUG BUG_2015000858
   END
-
+  /*R2621-LR - FIN **/
   SELECT
    EstrategiaID,
    CUV2,
@@ -987,8 +1044,7 @@ BEGIN
    'NO DISPONIBLE' AS DescripcionCategoria,
    TE.DescripcionEstrategia AS DescripcionEstrategia,
    @FlagNueva  AS FlagNueva,
-   E.EsOfertaIndependiente,
-   E.CodigoEstrategia
+   E.EsOfertaIndependiente
   FROM
    Estrategia E
    INNER JOIN TipoEstrategia TE ON E.TipoEstrategiaID = TE.TipoEstrategiaID
@@ -1005,5 +1061,9 @@ BEGIN
  SET NOCOUNT OFF
 
 END
+
+
+
+
 
 GO
