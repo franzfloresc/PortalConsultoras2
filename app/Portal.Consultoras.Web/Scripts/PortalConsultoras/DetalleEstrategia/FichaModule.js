@@ -638,8 +638,8 @@ var FichaModule = (function (config) {
 
         if (estrategia.TieneReloj) {
             _crearReloj(estrategia);
-            estrategia.ConfiguracionContenedor = estrategia.ConfiguracionContenedor || {};
-            SetHandlebars("#ofertadeldia-template-style", estrategia, "#styleRelojOdd");
+            _modeloFicha.ConfiguracionContenedor = _modeloFicha.ConfiguracionContenedor || {};
+            SetHandlebars("#ofertadeldia-template-style", _modeloFicha, "#styleRelojOddFicha");
         }
 
         if (!_config.esMobile) {
@@ -965,6 +965,10 @@ var FichaModule = (function (config) {
         return _estrategia || _getEstrategia();
     }
 
+    function getModeloFicha() {
+        return _modeloFicha;
+    }
+
     function Inicializar() {
         _construirSeccionFicha();
         _construirSeccionEstrategia();
@@ -980,7 +984,8 @@ var FichaModule = (function (config) {
 
     return {
         Inicializar: Inicializar,
-        GetEstrategia: getEstrategia
+        GetEstrategia: getEstrategia,
+        GetModeloFicha: getModeloFicha
     };
 });
 
