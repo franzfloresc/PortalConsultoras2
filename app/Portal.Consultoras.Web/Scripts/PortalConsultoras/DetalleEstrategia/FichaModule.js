@@ -20,12 +20,39 @@ var opcionesEvents = opcionesEvents || {};
 registerEvent.call(opcionesEvents, "onEstrategiaLoaded");
 registerEvent.call(opcionesEvents, "onOptionSelected");
 
+var baseUrl = baseUrl || "";
+
 var variablesPortal = variablesPortal || {};
 var fichaModule = fichaModule || {};
 var carruselModule = carruselModule || {};
 
-// TODO: quitar
-var fichaEstrategia;
+//INIT PANEL CLIENTE
+var _seccionesPanelCliente = {
+    hfClienteId: "#hfClienteId",
+    hfClienteNombre: "#hfClienteNombre",
+    spClienteNombre: "#spClienteNombre",
+    btnShowCliente: "#btnShowCliente"
+
+};
+
+var tusClientesProvider = TusClientesProvider();
+var panelListaModule = PanelListaModule({
+    tusClientesProvider: tusClientesProvider
+});
+var panelMantenerModule = PanelMantenerModule({
+    tusClientesProvider: tusClientesProvider,
+    setNombreClienteCallback: panelListaModule.setNombreCliente,
+    mostrarTusClientesCallback: panelListaModule.mostrarTusClientes,
+    panelRegistroHideCallback: panelListaModule.panelRegistroHide
+});
+var panel = ClientePanelModule({
+    tusClientesProvider: tusClientesProvider,
+    panelListaModule: panelListaModule,
+    panelMantenerModule: panelMantenerModule,
+    panelId: 'PanelClienteLista',
+    panelContenedorId: 'PanelClienteLista_Contenedor'
+});
+//END PANEL CLIENTE
 
 //Función para breadcumb
 function eventBreadCumb(url, titulo) {
@@ -836,21 +863,7 @@ var FichaModule = (function (config) {
         SetHandlebars("#" + _template.navegar, _modeloFicha.BreadCrumbs, _template.getTagDataHtml(_template.navegar));
 
         if (_modeloFicha.TieneCarrusel) {
-
             SetHandlebars("#" + _template.carrusel, _modeloFicha, _template.getTagDataHtml(_template.carrusel));
-
-            carruselModule = CarruselModule({
-                palanca: _config.palanca,
-                campania: _config.campania,
-                cuv: _config.cuv,
-                idPlantillaProducto: "#producto-landing-template",
-                divCarruselContenedor: "#divFichaCarrusel",
-                idTituloCarrusel: "#tituloCarrusel",
-                divCarruselProducto: "#divFichaCarruselProducto",
-                OrigenPedidoWeb: _config.origen
-            });
-
-            carruselModule.Inicializar();
         }
 
         SetHandlebars("#" + _template.compartir, _modeloFicha, _template.getTagDataHtml(_template.compartir));
@@ -897,6 +910,48 @@ var FichaModule = (function (config) {
         }
     };
 
+    var _initCarrusel = function () {
+
+        if (!_modeloFicha.TieneCarrusel) {
+            return false;
+        }
+
+        carruselModule = CarruselModule({
+            palanca: _config.palanca,
+            campania: _config.campania,
+            cuv: _config.cuv,
+            idPlantillaProducto: "#producto-landing-template",
+            divCarruselContenedor: "#divFichaCarrusel",
+            idTituloCarrusel: "#tituloCarrusel",
+            divCarruselProducto: "#divFichaCarruselProducto",
+            OrigenPedidoWeb: _config.origen
+        });
+
+        carruselModule.Inicializar();
+    }
+
+    var _initCliente = function () {
+        if (!_modeloFicha.MostrarCliente) {
+            return false;
+        }
+
+        //INIT PANEL CLIENTE
+        panel.init();
+        panel.AceptaClick(function (obj) {
+            //PaisID, ClienteID, CodigoCliente, NombreCliente, Nombre
+            //console.log('tu código:', obj);
+            $(_seccionesPanelCliente.hfClienteId).val(obj.ClienteID);
+            $(_seccionesPanelCliente.hfClienteNombre).val(obj.Nombre);
+            $(_seccionesPanelCliente.spClienteNombre).html(obj.Nombre);
+            EstrategiaAgregarModule.HabilitarBoton(); //EstrategiaAgregarModule.DeshabilitarBoton();
+        });
+
+        $(_seccionesPanelCliente.btnShowCliente).click(function () {
+            panel.Abrir();
+        });
+        //END PANEL CLIENTE
+    }
+
     function getEstrategia() {
         return _estrategia || _getEstrategia();
     }
@@ -909,6 +964,8 @@ var FichaModule = (function (config) {
         _crearTabs();
         _ocultarTabs();
         _fijarFooterCampaniaSiguiente();
+        _initCliente();
+        _initCarrusel();
     }
 
 
@@ -917,38 +974,6 @@ var FichaModule = (function (config) {
         GetEstrategia: getEstrategia
     };
 });
-
-
-//INIT PANEL CLIENTE
-
-var _seccionesPanelCliente = {
-    hfClienteId: "#hfClienteId",
-    hfClienteNombre: "#hfClienteNombre",
-    spClienteNombre: "#spClienteNombre",
-    btnShowCliente: "#btnShowCliente"
-
-};
-
-
-var tusClientesProvider = TusClientesProvider();
-var panelListaModule = PanelListaModule({
-    tusClientesProvider: tusClientesProvider
-});
-var panelMantenerModule = PanelMantenerModule({
-    tusClientesProvider: tusClientesProvider,
-    setNombreClienteCallback: panelListaModule.setNombreCliente,
-    mostrarTusClientesCallback: panelListaModule.mostrarTusClientes,
-    panelRegistroHideCallback: panelListaModule.panelRegistroHide
-});
-var panel = ClientePanelModule({
-    tusClientesProvider: tusClientesProvider,
-    panelListaModule: panelListaModule,
-    panelMantenerModule: panelMantenerModule,
-    panelId: 'PanelClienteLista',
-    panelContenedorId: 'PanelClienteLista_Contenedor'
-});
-
-//END PANEL CLIENTE
 
 var FichaEditarModule = (function () {
 
@@ -988,7 +1013,6 @@ var FichaEditarModule = (function () {
             _showDivFichaResumida(true);
             fichaModule.Inicializar();
 
-            _initPanelCliente();
             CerrarLoad();
         },
         10);
@@ -1017,24 +1041,7 @@ var FichaEditarModule = (function () {
             $("body").css("overflow", "scroll");
         }
     }
-    var _initPanelCliente = function () {
-        //INIT PANEL CLIENTE
-        panel.init();
-        panel.AceptaClick(function (obj) {
-            //PaisID, ClienteID, CodigoCliente, NombreCliente, Nombre
-            //console.log('tu código:', obj);
-            $(_seccionesPanelCliente.hfClienteId).val(obj.ClienteID);
-            $(_seccionesPanelCliente.hfClienteNombre).val(obj.Nombre);
-            $(_seccionesPanelCliente.spClienteNombre).html(obj.Nombre);
-            EstrategiaAgregarModule.HabilitarBoton(); //EstrategiaAgregarModule.DeshabilitarBoton();
-        });
-
-        $(_seccionesPanelCliente.btnShowCliente).click(function () {
-            panel.Abrir();
-        });
-        //END PANEL CLIENTE
-    }
-
+   
     return {
         EditarProducto: EditarProducto,
         ShowDivFichaResumida: _showDivFichaResumida
@@ -1042,7 +1049,7 @@ var FichaEditarModule = (function () {
 })();
 
 //Funcion temporal hasta estandarizar RevistaDigital.js
-var baseUrl = baseUrl || "";
+
 function RDPageInformativa() {
     window.location = baseUrl + (isMobile() ? "Mobile/" : "") + "RevistaDigital/Informacion";
 }
