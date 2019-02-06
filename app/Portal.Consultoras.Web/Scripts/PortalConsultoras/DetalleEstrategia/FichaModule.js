@@ -959,12 +959,12 @@ var FichaEditarModule = (function () {
 
         AbrirLoad();
 
-        var row = $(event).parent("[data-detalle-item]");
+        var row = $(event).parents("[data-detalle-item]");
         var palanca = $.trim(row.attr("data-tipoestrategia"));
+        var OrigenPedidoWeb = $.trim(row.attr("data-OrigenPedidoWeb"));
         palanca = GetPalanca(palanca, OrigenPedidoWeb, false);
         var campania = $.trim(row.attr("data-campania"));
         var cuv = $.trim(row.attr("data-cuv"));
-        var OrigenPedidoWeb = $.trim(row.attr("data-OrigenPedidoWeb"));
         var setId = $.trim(row.attr("data-SetID"));
 
         var objFicha = {
