@@ -592,14 +592,14 @@ var FichaModule = (function (config) {
 
         $(_elementos.dataEstrategia.id).attr(_elementos.dataEstrategia.dataEstrategia, JSON.stringify(estrategia));
         _setEstrategiaBreadcrumb(estrategia);
-
+        estrategia.MostrarCliente = _modeloFicha.MostrarCliente;
         SetHandlebars("#detalle_ficha_template", estrategia, "#seccion_ficha_handlebars");
 
         _setEstrategiaTipoBoton(estrategia);
 
         opcionesEvents.applyChanges("onEstrategiaLoaded", estrategia);
 
-        _setEstrategiaImgFondo();
+        _setEstrategiaImgFondo(estrategia);
 
         if (estrategia.TieneReloj) {
             _crearReloj(estrategia);
@@ -878,6 +878,7 @@ var FichaModule = (function (config) {
 
         if (modeloFicha.Error === true) {
             _redireccionar();
+            return false;
         }
 
         _modeloFicha = modeloFicha;
@@ -890,6 +891,10 @@ var FichaModule = (function (config) {
     var _redireccionar = function () {
         if (!_config.esEditable)
             window.location = baseUrl + (_config.esMobile ? "Mobile/" : "") + "Ofertas";
+        else {
+            alert('Ha ocurrido una excepción al obtener los datos para este CUV.');
+            
+        }
     };
 
     function getEstrategia() {
