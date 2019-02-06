@@ -113,10 +113,6 @@ var FichaModule = (function (config) {
     };
 
     var _const = {
-        TipoAccionNavegar: {
-            BreadCrumbs: 1,
-            Volver: 2
-        },
         urlObtenerComponentes: '/DetalleEstrategia/ObtenerComponentes',
         urlObtenerModelo: '/DetalleEstrategia/ObtenerModelo',
         urlObtenerPedidoWebSetDetalle: '/DetalleEstrategia/ObtenerComponentePedido'
@@ -125,6 +121,7 @@ var FichaModule = (function (config) {
     var _codigoVariedad = ConstantesModule.CodigoVariedad;
     var _codigoPalanca = ConstantesModule.CodigosPalanca;
     var _constantePalanca = ConstantesModule.ConstantesPalanca;
+    var _tipoAccionNavegar = ConstantesModule.TipoAccionNavegar;
 
     var _elementos = {
         hdCampaniaCodigo: {
@@ -650,7 +647,7 @@ var FichaModule = (function (config) {
 
     var _setEstrategiaBreadcrumb = function (estrategia) {
 
-        if (_modeloFicha.TipoAccionNavegar != _const.TipoAccionNavegar.BreadCrumbs) {
+        if (_modeloFicha.TipoAccionNavegar != _tipoAccionNavegar.BreadCrumbs) {
             return false;
         }
 
@@ -980,7 +977,7 @@ var FichaModule = (function (config) {
 var FichaEditarModule = (function () {
 
     var EditarProducto = function (event, tipoAccion) {
-        if (tipoAccion != 1) {
+        if (tipoAccion != ConstantesModule.EditarItemPedido.Activo) {
             return false;
         }
 
