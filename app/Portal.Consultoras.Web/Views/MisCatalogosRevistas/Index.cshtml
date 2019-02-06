@@ -182,6 +182,9 @@ else
                             <a class="d-block col-4 col-lg-2 col-xl-2 pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--email" title="Compartir por Email" data-accion="mail" onclick="javascript: RedesSociales.AbrirCompartirCorreoActual('{tipoCatalogoTodo}', '{campania}');">
                                 <img class="d-block mx-auto" src="@Url.Content("~/Content/Images/logo_gmail.svg")" alt="Compartir por Email" />
                             </a>
+                            <a class="d-block col pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--facebookMessenger" title="Compartir por Facebook Messenger" data-accion="ms" onclick="javascript: RedesSociales.AbrirCompartirMessengerActual('{tipoCatalogoTodo}', '{campania}', '{textourl}');">
+                                <img class="d-block mx-auto" src="@Url.Content("~/Content/Images/logo__facebook__messenger.svg")" alt="Compartir por Facebook Messenger" />
+                            </a>
                             <a class="d-block text-center text-uppercase opcion__compartir__catalogo opcion__compartir__catalogo--copiarEnlace" title="Copiar enlace" data-accion="copiar" onclick="javascript: CopiarEnlaceActual('{tipoCatalogoTodo}', '{campania}')">
                                 Copiar enlace
                             </a>
@@ -245,6 +248,9 @@ else
                                 </a>
                                 <a class="d-block col-4 col-lg-2 col-xl-2 pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--email" title="Compartir por Email" data-accion="mail" onclick="javascript: RedesSociales.AbrirCompartirCorreoActual('{tipoCatalogoTodo}', '{campania}');">
                                     <img class="d-block mx-auto" src="@Url.Content("~/Content/Images/logo_gmail.svg")" alt="Compartir por Email" />
+                                </a>
+                                <a class="d-block col pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--facebookMessenger" title="Compartir por Facebook Messenger" data-accion="ms" onclick="javascript: RedesSociales.CompartirMessengerActual('{tipoCatalogoTodo}', '{campania}', '{textourl}')">
+                                    <img class="d-block mx-auto" src="@Url.Content("~/Content/Images/logo__facebook__messenger.svg")" alt="Compartir por Facebook Messenger" />
                                 </a>
                                 <a class="d-block text-center text-uppercase opcion__compartir__catalogo opcion__compartir__catalogo--copiarEnlace" title="Copiar enlace" data-accion="copiar" onclick="javascript: CopiarEnlaceActual('{tipoCatalogoTodo}', '{campania}')">
                                     Copiar enlace
