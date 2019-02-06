@@ -84,6 +84,97 @@ var PageModule = (function () {
     };
 }());
 
+var DetalleEstrategiaProvider = function () {
+    var _urlDetalleEstrategia = ConstantesModule.UrlDetalleEstrategia;
+
+    var _promiseObternerComponentes = function (params) {
+        var dfd = $.Deferred();
+
+        $.ajax({
+            type: "POST",
+            url: _urlDetalleEstrategia.obtenerComponentes,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(params),
+            async: false,
+            cache: false,
+            success: function (data) {
+                if (data.success) {
+                    dfd.resolve(data);
+                }
+                else {
+                    //console.log(data);
+                    dfd.reject(data);
+                }
+            },
+            error: function (data, error) {
+                dfd.reject(data, error);
+            }
+        });
+
+        return dfd.promise();
+    };
+
+    var _promiseObternerDetallePedido = function (params) {
+        var dfd = $.Deferred();
+
+        $.ajax({
+            type: 'post',
+            url: _urlDetalleEstrategia.obtenerPedidoWebSetDetalle,
+            datatype: 'json',
+            contenttype: 'application/json; charset=utf-8',
+            data: params,
+            success: function (data) {
+                if (data.success) {
+                    dfd.resolve(data);
+                }
+                else {
+                    dfd.reject(data);
+                }
+            },
+            error: function (data, error) {
+                dfd.reject(data, error);
+            }
+        });
+
+        return dfd.promise();
+    };
+
+    var _promiseObternerModelo = function (params) {
+        var dfd = $.Deferred();
+
+        $.ajax({
+            type: "POST",
+            url: _urlDetalleEstrategia.obtenerModelo,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(params),
+            async: false,
+            cache: false,
+            success: function (data) {
+                if (data.success) {
+                    dfd.resolve(data);
+                }
+                else {
+                    //console.log(data);
+                    dfd.reject(data);
+                }
+            },
+            error: function (data, error) {
+                dfd.reject(data, error);
+            }
+        });
+
+        return dfd.promise();
+    };
+
+    return {
+        promiseObternerComponentes: _promiseObternerComponentes,
+        promiseObternerDetallePedido: _promiseObternerDetallePedido,
+        promiseObternerModelo: _promiseObternerModelo
+    };
+}();
+
 var FichaModule = (function (config) {
     "use strict";
 
@@ -93,7 +184,6 @@ var FichaModule = (function (config) {
     if (config.localStorageModule === null || typeof config.localStorageModule === "undefined")
         throw "config.localStorageModule is null or undefined";
 
-    var _localStorageModule = config.localStorageModule;
     var _primeraMarca = "";
     var _ultimaMarca = "";
     var _esMultimarca = false;
@@ -109,14 +199,10 @@ var FichaModule = (function (config) {
         tieneSession: config.tieneSession || "",
         esEditable: config.esEditable || false,
         setId: config.setId || 0,
-        tieneCliente: config.tieneCliente || false
+        tieneCliente: config.tieneCliente || false,
+        localStorageModule: config.localStorageModule,
+        detalleEstrategiaProvider: DetalleEstrategiaProvider
     };
-
-    var _const = {
-        urlObtenerComponentes: '/DetalleEstrategia/ObtenerComponentes',
-        urlObtenerModelo: '/DetalleEstrategia/ObtenerModelo',
-        urlObtenerPedidoWebSetDetalle: '/DetalleEstrategia/ObtenerComponentePedido'
-    }
 
     var _codigoVariedad = ConstantesModule.CodigoVariedad;
     var _codigoPalanca = ConstantesModule.CodigosPalanca;
@@ -214,7 +300,7 @@ var FichaModule = (function (config) {
 
     var _ocultarTabs = function () {
 
-        var estrategia = _localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
+        var estrategia = _config.localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
 
         $(_seccionesFichaProducto.ContenidoProducto).hide();
         $(_tabsFichaProducto.detalleProducto).hide();
@@ -335,87 +421,6 @@ var FichaModule = (function (config) {
         }
     };
 
-    var _promiseObternerComponentes = function (params) {
-        var dfd = $.Deferred();
-
-        $.ajax({
-            type: "POST",
-            url: _const.urlObtenerComponentes,
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(params),
-            async: false,
-            cache: false,
-            success: function (data) {
-                if (data.success) {
-                    dfd.resolve(data);
-                }
-                else {
-                    //console.log(data);
-                    dfd.reject(data);
-                }
-            },
-            error: function (data, error) {
-                dfd.reject(data, error);
-            }
-        });
-
-        return dfd.promise();
-    };
-
-    var _promiseObternerDetallePedido = function (params) {
-        var dfd = $.Deferred();
-
-        $.ajax({
-            type: 'post',
-            url: _const.urlObtenerPedidoWebSetDetalle,
-            datatype: 'json',
-            contenttype: 'application/json; charset=utf-8',
-            data: params,
-            success: function (data) {
-                if (data.success) {
-                    dfd.resolve(data);
-                }
-                else {
-                    dfd.reject(data);
-                }
-            },
-            error: function (data, error) {
-                dfd.reject(data, error);
-            }
-        });
-
-        return dfd.promise();
-    };
-
-    var _promiseObternerModelo = function (params) {
-        var dfd = $.Deferred();
-
-        $.ajax({
-            type: "POST",
-            url: _const.urlObtenerModelo,
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(params),
-            async: false,
-            cache: false,
-            success: function (data) {
-                if (data.success) {
-                    dfd.resolve(data);
-                }
-                else {
-                    //console.log(data);
-                    dfd.reject(data);
-                }
-            },
-            error: function (data, error) {
-                dfd.reject(data, error);
-            }
-        });
-
-        return dfd.promise();
-    };
-
     var _construirSeccionDetalleFichas = function (estrategia) {
 
         if (estrategia === null || typeof (estrategia) === "undefined") {
@@ -484,11 +489,11 @@ var FichaModule = (function (config) {
     var _setPedidoSetDetalle = function (pEstrategia) {
         if (_config.esEditable) {
             if (!IsNullOrEmpty(_config.setId)) {
-                _promiseObternerDetallePedido({
-                    campaniaId: _config.campania,
-                    set: _config.setId
-                })
-                    .done(function (data) {
+                _config.detalleEstrategiaProvider
+                    .promiseObternerDetallePedido({
+                        campaniaId: _config.campania,
+                        set: _config.setId
+                    }).done(function (data) {
                         if (data.success) {
                             _asignaDetallePedido(data.componentes, pEstrategia);
                         }
@@ -513,15 +518,17 @@ var FichaModule = (function (config) {
                 codigoEstrategia: estrategia.CodigoEstrategia,
                 lstHermanos: estrategia.Hermanos
             };
-            _promiseObternerComponentes(param).done(function (data) {
-                estrategia.Hermanos = data.componentes;
-                estrategia.EsMultimarca = data.esMultimarca;
-                _esMultimarca = data.esMultimarca;
+            _config.detalleEstrategiaProvider
+                .promiseObternerComponentes(param)
+                .done(function (data) {
+                    estrategia.Hermanos = data.componentes;
+                    estrategia.EsMultimarca = data.esMultimarca;
+                    _esMultimarca = data.esMultimarca;
 
-            }).fail(function (data, error) {
-                estrategia.Hermanos = [];
-                estrategia.EsMultimarca = false;
-            });
+                }).fail(function (data, error) {
+                    estrategia.Hermanos = [];
+                    estrategia.EsMultimarca = false;
+                });
         }
         else {
             estrategia.Hermanos = [];
@@ -583,9 +590,9 @@ var FichaModule = (function (config) {
         }
         else {
             console.log("_getEstrategia", _config);
-            estrategia = _localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
+            estrategia = _config.localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
             if ((typeof estrategia === "undefined" || estrategia === null) && _config.palanca === _codigoPalanca.OfertasParaMi) {
-                estrategia = _localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _codigoPalanca.Ganadoras);
+                estrategia = _config.localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _codigoPalanca.Ganadoras);
             }
         }
 
@@ -880,13 +887,14 @@ var FichaModule = (function (config) {
 
         var modeloFicha = {};
 
-        _promiseObternerModelo(modelo).done(function (data) {
-            modeloFicha = data.data || {};
-            modeloFicha.Error = data.success === false;
-        }).fail(function (data, error) {
-            modeloFicha = {};
-            modeloFicha.Error = true;
-        });
+        _config.detalleEstrategiaProvider
+            .promiseObternerModelo(modelo).done(function (data) {
+                modeloFicha = data.data || {};
+                modeloFicha.Error = data.success === false;
+            }).fail(function (data, error) {
+                modeloFicha = {};
+                modeloFicha.Error = true;
+            });
 
         if (modeloFicha.Error === true) {
             _redireccionar();

@@ -172,6 +172,13 @@ var ConstantesModule = (function () {
         Activo: 1,
         Inactivo: 2
     };
+
+    var _urlDetalleEstrategia = {
+        obtenerComponentes: '/DetalleEstrategia/ObtenerComponentes',
+        obtenerModelo: '/DetalleEstrategia/ObtenerModelo',
+        obtenerPedidoWebSetDetalle: '/DetalleEstrategia/ObtenerComponentePedido'
+    }
+
     return {
         CodigosPalanca: _codigosPalanca,
         KeysLocalStorage: _keysLocalStorage,
@@ -184,5 +191,6 @@ var ConstantesModule = (function () {
         ConfiguracionOferta: _configuracionOferta,
         TipoAccionNavegar: _tipoAccionNavegar,
         EditarItemPedido: _editarItemPedido,
+        UrlDetalleEstrategia: _urlDetalleEstrategia
     }
 })();
