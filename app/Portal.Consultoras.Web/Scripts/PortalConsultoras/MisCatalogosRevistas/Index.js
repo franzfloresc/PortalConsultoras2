@@ -321,7 +321,6 @@ function CargarCarruselCatalogo() {
                 $("#txtUrlActual").val(urlCatalogoPiloto);
                 $("#idSection" + i).addClass(" catalogos__campania--actual");
             } else {
-                $('.catalogos__por__campania__item__slider').addClass(' altoFijo');
                 $("#idSection" + i).addClass(" catalogos__campania--actual--disenioAnterior");
             }
         }
