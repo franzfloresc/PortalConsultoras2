@@ -5519,7 +5519,6 @@
       <SubType>Designer</SubType>
     </None>
     <Content Include="Views\Bonificaciones\Index.cshtml" />
-    <Content Include="Views\MisCatalogosRevistas\MisCatalogosYRevistas.cshtml" />
     <Content Include="Views\MisCatalogosRevistas\Index.cshtml" />
     <Content Include="Views\MisCatalogosRevistas\template-revista-slide.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
