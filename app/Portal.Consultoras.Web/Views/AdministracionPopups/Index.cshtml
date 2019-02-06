@@ -1,228 +1,420 @@
-﻿@model Portal.Consultoras.Web.Models.AdministracionPoput.ComunicadoModel
-@{
+﻿@{
     ViewBag.Title = "Administración de Popups";
 }
 
 <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
 <link href="@Url.Content("~/Content/Css/Site/AdministracionPopups/administracion-popups.css")" rel="stylesheet" />
 
-
-
-<main class="d-block layout__content w__100 ml__auto mr__auto vista__administracion__popups">
+<!-- VISTA ADMINISTRACIÓN DE POPUPS -->
+<main class="d__block layout__content w__100 ml__auto mr__auto vista__administracion__popups">
+    <!-- CABECERA ADMINISTRACIÓN DE POPUPS -->
     <section class="d__block vista__administracion__popups__cabecera">
         <h1 class="d__block color__m text__bold vista__administracion__popups__titulo">
             Administración de Popups
         </h1>
         <div class="d__block administracion__popups__grilla__filtros">
-            <div class="d__inline__block grupo__form__grilla__filtros">
-                <label for="ddlCampania" class="d__inline__block text__bold grilla__filtro__label">Campaña:</label>
-                @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.listaCampania, "CampaniaID", "NombreCorto"), "-- Seleccionar --", new { @class = "d__inline__block text__bold border__color__gray__multimarca border__radius__4 grilla__filtro__campo grilla__filtro__select", @id = "ddlCampania" })
-            </div>
-            <div class="d__inline__block grupo__form__grilla__filtros">
-                <div class="d__inline__block text__bold grilla__filtro__label">Estado:</div>
-                <div class="smile-rating-toggle-container">
-                        <label for="rbtActivo"  >@Html.RadioButton("Radio", 1, new {  @id = "rbtActivo" })Activo</label>
-                        <label for="rbtInactivo"  >@Html.RadioButton("Radio", 0, new {  @id = "rbtInactivo" })Inactivo</label>
+            <form id="AgregarNuevoPopupForm" enctype="multipart/form-data">
+                <div class="d__inline__block grupo__form__grilla__filtros">
+                    <label for="SeleccionCampania" class="d__inline__block text__bold grilla__filtro__label">Campaña:</label>
+                    <select id="SeleccionCampania" class="d__inline__block text__bold border__color__gray__multimarca border__radius__4 grilla__filtro__campo grilla__filtro__select">
+                        <option value="1">201902</option>
+                    </select>
                 </div>
-            </div>
-            <div class="d__inline__block grupo__form__grilla__filtros" style=" margin-left:20px;">
-                <div class="d__inline__block text__bold grilla__filtro__label">Nuevo Popup:</div>
-                <div class="input_horizontal">
-                    <input type="button" name="btnNuevo" id="btnNuevo" value="Nuevo" />
+                <div class="d__inline__block grupo__form__grilla__filtros">
+                    <div class="d__inline__block text__bold grilla__filtro__label">Nuevo Popup:</div>
+                    @*<input id="SeleccionNuevoPopup" type="file" class="d__none text__bold grilla__filtro__campo grilla__filtro__campo__seleccion__popup" />*@
+                    <a class="d__inline__block text__bold text__center background__color__m border__radius__4 btn__grilla__filtros btn__agregar" title="Agregar Nuevo Popup">
+                        <span class="d__inline__block text__bold">+</span>
+                        <span class="d__inline__block text__bold">Agregar</span>
+                    </a>
                 </div>
-            </div>
+            </form>
         </div>
     </section>
+    <!-- FIN - CABECERA ADMINISTRACIÓN DE POPUPS -->
+    <!-- GRILLA  ADMINISTRACIÓN DE POPUPS -->
     <section class="d__block border__radius__4 vista__administracion__popups__contenido">
-        <div class="d__block administracion__popups__grilla" id="divTabla">
-
+        <div class="d__block administracion__popups__grilla">
+            <h2 class="d__block text__bold administracion__popups__grilla__titulo">
+                Popups agregados
+            </h2>
+            <div class="background__color__m row__grilla administracion__popups__grilla__cabecera">
+                <div class="col__grilla col__grilla--numero text__center">
+                    N°
+                </div>
+                <div class="col__grilla col__grilla--fondo text__center">
+                    Fondo
+                </div>
+                <div class="col__grilla col__grilla--duracion text__center">
+                    Duración
+                </div>
+                <div class="col__grilla col__grilla--titulo text__center">
+                    Título
+                </div>
+                <div class="col__grilla col__grilla--ruta text__center">
+                    Ruta
+                </div>
+                <div class="col__grilla col__grilla--estado text__center">
+                    <a href="" class="col__grilla__despliegue__opciones col__grilla__despliegue__opciones--estado" title="Seleccionar Estado">
+                        <span class="d__inline__block">Estado</span>
+                        <span class="d__inline__block"><img src="@Url.Content("~/Content/Images/flecha_desplegable_grilla.svg")" alt="Desplegar opciones" /></span>
+                    </a>
+                    <ul class="d__block ml__auto mr__auto lista__opciones__filtro__estado">
+                        <li class="d__block w__100 empty__space"></li>
+                        <li class="d__block opcion__filtro__estado opcion__filtro__estado--activo">
+                            <a href="" class="d__block opcion__filtro__estado__enlace" title="Activo">Activo</a>
+                        </li>
+                        <li class="d__block opcion__filtro__estado opcion__filtrar__por__estado--inactivo">
+                            <a href="" class="d__block opcion__filtro__estado__enlace" title="Inactivo">Inactivo</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col__grilla col__grilla--editar text__center">
+                    Editar
+                </div>
+            </div>
+            <div class="d__block administracion__popups__grilla__contenido">
+                <div class="background__color__m__lighter row__grilla">
+                    <div class="col__grilla col__grilla--numero">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            1
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--fondo">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            CL_20190142913.png
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--duracion">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            25/03/2019  -  09/04/2019
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--titulo">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            ¡Gana un viaje a Punta Cana! comprando más...
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--ruta">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            https://www.sbepdqa.somosbelcorp.com
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--estado">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            Activo
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--editar">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            <a href="" title="Editar Popup" class="d__block enlace__editar">
+                                <img src="@Url.Content("/Content/Images/Edit.png")" alt="Editar" title="Editar" class="d__block">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="background__color__m__lighter row__grilla">
+                    <div class="col__grilla col__grilla--numero">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            2
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--fondo">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            CL_20190142913.png
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--duracion">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            25/03/2019  -  09/04/2019
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--titulo">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            ¡Gana un viaje a Punta Cana! comprando más...
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--ruta">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            https://www.sbepdqa.somosbelcorp.com
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--estado">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            Activo
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--editar">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            <a href="" title="Editar Popup" class="d__block enlace__editar">
+                                <img src="@Url.Content("/Content/Images/Edit.png")" alt="Editar" title="Editar" class="d__block">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="background__color__m__lighter row__grilla">
+                    <div class="col__grilla col__grilla--numero">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            3
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--fondo">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            CL_20190142913.png
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--duracion">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            25/03/2019  -  09/04/2019
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--titulo">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            ¡Gana un viaje a Punta Cana! comprando más...
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--ruta">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            https://www.sbepdqa.somosbelcorp.com
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--estado">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            Activo
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--editar">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            <a href="" title="Editar Popup" class="d__block enlace__editar">
+                                <img src="@Url.Content("/Content/Images/Edit.png")" alt="Editar" title="Editar" class="d__block">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="background__color__m__lighter row__grilla">
+                    <div class="col__grilla col__grilla--numero">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            4
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--fondo">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            CL_20190142913.png
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--duracion">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            25/03/2019  -  09/04/2019
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--titulo">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            ¡Gana un viaje a Punta Cana! comprando más...
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--ruta">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            https://www.sbepdqa.somosbelcorp.com
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--estado">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            Activo
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--editar">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            <a href="" title="Editar Popup" class="d__block enlace__editar">
+                                <img src="@Url.Content("/Content/Images/Edit.png")" alt="Editar" title="Editar" class="d__block">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="background__color__m__lighter row__grilla">
+                    <div class="col__grilla col__grilla--numero">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            5
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--fondo">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            CL_20190142913.png
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--duracion">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            25/03/2019  -  09/04/2019
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--titulo">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            ¡Gana un viaje a Punta Cana! comprando más...
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--ruta">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            https://www.sbepdqa.somosbelcorp.com
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--estado">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            Activo
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--editar">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            <a href="" title="Editar Popup" class="d__block enlace__editar">
+                                <img src="@Url.Content("/Content/Images/Edit.png")" alt="Editar" title="Editar" class="d__block">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="background__color__m__lighter row__grilla">
+                    <div class="col__grilla col__grilla--numero">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            6
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--fondo">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            CL_20190142913.png
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--duracion">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            25/03/2019  -  09/04/2019
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--titulo">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            ¡Gana un viaje a Punta Cana! comprando más...
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--ruta">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            https://www.sbepdqa.somosbelcorp.com
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--estado">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            Activo
+                        </div>
+                    </div>
+                    <div class="col__grilla col__grilla--editar">
+                        <div class="row__grilla row__grilla__texto text__center">
+                            <a href="" title="Editar Popup" class="d__block enlace__editar">
+                                <img src="@Url.Content("/Content/Images/Edit.png")" alt="Editar" title="Editar" class="d__block">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
+    <!-- FIN - GRILLA ADMINISTRACIÓN DE POPUPS -->
 </main>
-<div id="DialogAdministracionTipoEstrategia" style="display: none;">
-    <input type="hidden" id="hdPais" value="" />
-    <input type="hidden" id="hdofertas" value="" />
-    <input type="hidden" id="hdofertaid" value="0" />
-    <input type="hidden" id="hdTipoEstrategiaID" value="0" />
-    <div class="Content_modal">
-        <div class="div-3">
-            <div class="titB">País:</div>
-            <div class="selectP2 borde_redondeado">
-                <input type="text" id="txtPaisModal" readonly="readonly" />
-            </div>
-            <div class="titB">Orden:</div>
-            <div class="selectP2 borde_redondeado">
-                <input type="text" id="txtOrden" />
-            </div>
-        </div>
-        <div class="div-3">
-            <div class="titB">Código:</div>
-            <div class="selectP2 borde_redondeado">
-                <input type="text" id="txCodigoOriginalModal" />
-            </div>
-            <div class="titB">Activo:</div>
-            <div class="selectCheck borde_redondeado">
-                <input type="checkbox" id="chkActivo" />
-            </div>
-        </div>
-        <div class="div-3">
-            <div class="titB">Descripción:</div>
-            <div class="selectP2 borde_redondeado" style="width:535px">
-                <input type="text" id="txtDescripcionOriginalModal" style="width:100%" />
-            </div>
-        </div>
-        <div class="div-3">
-            <div class="titB">Tipo:</div>
-            <div class="selectE borde_redondeado">
-                <div class="titB">Nueva:</div>
-                <div class="selectCheck borde_redondeado">
-                    <input type="checkbox" id="chkNueva" />
-                </div>
-                <div class="titF">Recomendación por CUV:</div>
-                <div class="selectCheck borde_redondeado">
-                    <input type="checkbox" id="chkRecoProduc" />
-                </div>
-                <div class="titF" style="width:180px">Recomendación por perfil:</div>
-                <div class="selectCheck borde_redondeado">
-                    <input type="checkbox" id="chkRecoPerfil" />
-                </div>
-            </div>
-        </div>
-        <div class="div-3 divCodigoPrograma">
-            <div class="titB">Código Programa:</div>
-            <div class="selectP2 borde_redondeado">
-                <input type="text" id="txtCodigoPrograma" />
-            </div>
-        </div>
 
-        <div class="div-3">
-            <div class="titB">Validar Tamaño :</div>
-            <div class="selectCheck borde_redondeado">
-                <input type="checkbox" id="chkValImg" />
-            </div>
-            <div class="titB">Tamaño (Kb):</div>
-            <div class="selectP2 borde_redondeado">
-                <input type="number" id="txtPesoMaximoImagen" />
-            </div>
-
-        </div>
-
-
-        <div class="div-3">
-            <div class="titA"></div>
-            <div class="titG">
-                <div class="input_search">
-                    <input type="button" name="btnNuevaOferta" id="btnNuevaOferta" value="Ofertas" style="float:right;" />
-                </div>
-            </div>
-        </div>
-        <div>
-            <div class="float-left">
-                <div class="div-3">
-                    <div class="titB">Mostrar imagen:</div>
-                    <div class="selectCheck borde_redondeado">
-                        <input type="checkbox" id="chkMostrarImg" />
-                    </div>
-                </div>
-                <div class="div-3">
-                    <div class="titB">Imagen:</div>
-                    <div class="selectP2 borde_redondeado aligncenter" style="height: 162px;">
-                        <img src='@Url.Content("~/Content/Images/prod_grilla_vacio.png")' id="img01">
-                    </div>
-
-                    <div class="titB" style="display: none;">Oferta:</div>
-                    <div class="container clearfix" style="display: none;">
-                        <div class="selectA borde_redondeado">
-                        </div>
-                    </div>
-                </div>
-                <div class="div-3">
-                    <div class="titF">Tamaño de imagen: (Ancho: 62px - Alto: 62px)</div>
-                    <div class="titG" style="width: 180px;">
-                        <div class="input_search">
-                            <input type="hidden" id="imagenProducto01" />
-                            <input type="hidden" id="imagenProductoAnterior01" />
-                            <div id="fpUpload01">
-                                <script type="text/javascript">
-                            $.ajaxSetup({ cache: false });
-                            var uploader = new qq.FileUploader({
-                                allowedExtensions: ['jpg', 'png', 'jpeg'],
-                                element: document.getElementById('fpUpload01'),
-                                action: '@Url.Action("ImageTipoOfertaUpload", "AdministrarTipoEstrategia")',
-                                onComplete: function (id, fileName, responseJSON) {
-                                    if (checkTimeout(responseJSON)) {
-                                        $(".qq-upload-list").css("display", "none");
-                                        if (responseJSON.success) {
-                                            $("#imagenProducto01").val(responseJSON.name);
-                                            $('#img01').attr('src', '@Url.Content("~/Content/Temporales/")' + responseJSON.name);
-                                        }
-                                        else {
-                                            alert(responseJSON.message);
-                                        }
-                                    }
-                                },
-                                onSubmit: function (id, fileName) { $(".qq-upload-list").css("display", "none"); },
-                                onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
-                                onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
-                            });
-                                </script>
+<!-- MODAL AGREGAR NUEVO POPUP -->   
+<section class="d__flex w__100 modal__bg" id="AgregarPopup">
+    <div class="d__block w__100 ml__auto mr__auto modal__wrapper">
+        <header class="d__block modal__cabecera">
+            <h2 class="d__block color__m text__bold modal__titulo" id="modalTitulo"></h2>
+        </header>
+        <section class="d__block modal__contenido modal__contenido--agregarNuevoPopup">
+            <form id="AgregaroEditarPopup" enctype="multipart/form-data" class="d__block">
+                <div class="d__block modal__contenido__seccion">
+                    <h4 class="d__block text__bold text__uppercase modal__contenido__subtitulo">Contenido</h4>
+                    <div class="d__flex modal__contenido__seccion__campos modal__contenido__seccion__campos--contenido">
+                        <div class="d__flex grupo__form__campos">
+                            <div class="d__block color__m text__bold grupo__form__campos__label grupo__form__campos__label--adjuntarFondo">Adjuntar Fondo : </div>
+                            <div class="d__block">
+                                <input id="AgregarImagen" type="file" class="d__none text__bold" />
+                                <label for="AgregarImagen" class="d__block text__bold text__center background__color__m border__radius__4 btn__modal btn__modal--agregar" title="Agregar nuevo popup">
+                                    <span class="d__inline__block text__bold">+</span>
+                                    <span class="d__inline__block text__bold">Agregar</span>
+                                </label>
+                                <p class="d__block color__gray__multimarca info__formato__medidas">
+                                    Formato de archivo JPG.<br />
+                                    (326 x 418 píxeles)
+                                </p>
                             </div>
                         </div>
-                    </div>
-
-                </div>
-            </div>
-            <div class="float-left">
-                <div class="div-3 divOfertaIndependiente">
-                    <div class="titB">Imagen Independiente:</div>
-                    <div class="selectCheck borde_redondeado">
-                        <input type="checkbox" id="chkMostrarImgIndependiente" />
-                    </div>
-                </div>
-                <div class="div-3 divOfertaIndependiente" style="display:none;">
-                    <div class="titB">Imagen indep.:</div>
-                    <div class="selectP2 borde_redondeado aligncenter" style="height: 162px;">
-                        <img src='@Url.Content("~/Content/Images/prod_grilla_vacio.png")' id="imgOfertaIndependiente">
-                    </div>
-                </div>
-                <div class="div-3 divOfertaIndependiente" style="display:none;">
-                    <div class="titF">Tamaño de imagen: (Ancho: 62px - Alto: 62px)</div>
-                    <div class="titG" style="width: 180px;">
-                        <div class="input_search">
-                            <input type="hidden" id="hdImagenOfertaIndependiente" />
-                            <input type="hidden" id="hdImagenOfertaIndependienteAnterior" />
-                            <div id="fpUpload02">
-                                <script type="text/javascript">
-                            $.ajaxSetup({ cache: false });
-                            var uploader = new qq.FileUploader({
-                                allowedExtensions: ['jpg', 'png', 'jpeg'],
-                                element: document.getElementById('fpUpload02'),
-                                action: '@Url.Action("ImageTipoOfertaUpload", "AdministrarTipoEstrategia")',
-                                onComplete: function (id, fileName, responseJSON) {
-                                    if (checkTimeout(responseJSON)) {
-                                        $(".qq-upload-list").css("display", "none");
-                                        if (responseJSON.success) {
-                                            $("#hdImagenOfertaIndependiente").val(responseJSON.name);
-                                            $('#imgOfertaIndependiente').attr('src', '@Url.Content("~/Content/Temporales/")' + responseJSON.name);
-                                        }
-                                        else {
-                                            alert(responseJSON.message);
-                                        }
-                                    }
-                                },
-                                onSubmit: function (id, fileName) { $(".qq-upload-list").css("display", "none"); },
-                                onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
-                                onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
-                            });
-                                </script>
-                            </div>
+                        <div class="d__flex grupo__form__campos">
+                            <label for="txtTituloPrincipal" class="d__block text__bold color__m grupo__form__campos__label">Título principal : </label>
+                            <input id="txtTituloPrincipal" type="text" class="d__block border__color__gray__multimarca border__radius__4 grupo__form__campos__input grupo__form__campos__input--seccionContenido" />
+                        </div>
+                        <div class="d__flex grupo__form__campos">
+                            <label for="txtDescripcion" class="d__block text__bold color__m grupo__form__campos__label grupo__form__campos__label--descripcion">Descripción<br />(max de caract. 290) : </label>
+                            <textarea id="txtDescripcion" class="d__block border__color__gray__multimarca border__radius__4 grupo__form__campos__textarea grupo__form__campos__textarea--seccionContenido"></textarea>
+                        </div>
+                        <div class="d__flex mb-40 grupo__form__campos">
+                            <label for="txtUrl" class="d__block text__uppercase text__bold color__m grupo__form__campos__label">Url : </label>
+                            <input id="txtUrl" type="text" class="d__block border__color__gray__multimarca border__radius__4 grupo__form__campos__input grupo__form__campos__input--seccionContenido" />
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
+                <div class="d__block modal__contenido__seccion">
+                    <h4 class="d__block text__bold text__uppercase modal__contenido__subtitulo">Configuración</h4>
+                    <div class="d__flex modal__contenido__seccion__campos modal__contenido__seccion__campos--configuracion">
+                        <div class="d__flex grupo__form__campos">
+                            <div class="d__block text__bold color__m grupo__form__campos__label grupo__form__campos__label--segmentoConsultoras">Segmento de<br />consultoras : </div>
+                            <div class="d__block">
+                                <input id="AgregarCSV" type="file" class="d__none text__bold" />
+                                <label for="AgregarCSV" class="d__block text__bold text__center background__color__m border__radius__4 btn__modal btn__modal--agregar" title="Agregar nuevo popup">
+                                    <span class="d__inline__block text__bold">+</span>
+                                    <span class="d__inline__block text__bold">Agregar</span>
+                                </label>
+                                <p class="d__block color__gray__multimarca info__formato__medidas">
+                                    Formato de archivo *CSV<br />
+                                    - Código Consultora
+                                </p>
+                            </div>
+                        </div>
+                        <div class="d__flex grupo__form__campos">
+                            <label class="d__block text__bold color__m grupo__form__campos__label">Duración : </label>
+                            <div class="d__flex mb-0 grupo__form__campos grupo__form__campos--minMax">
+                                <label for="fechaMin" class="d__block text__bold grupo__form__campos__label grupo__form__campos__label--minMax">Min</label>
+                                <input id="fechaMin" type="text" placeholder="dd/mm/aa" class="d__block border__color__gray__multimarca border__radius__4 grupo__form__campos__input grupo__form__campos__input--minMax" />
+                            </div>
+                            <div class="d__flex mb-0 grupo__form__campos grupo__form__campos--minMax">
+                                <label for="fechaMax" class="d__block text__bold grupo__form__campos__label grupo__form__campos__label--minMax">Max</label>
+                                <input id="fechaMax" type="text" placeholder="dd/mm/aa" class="d__block border__color__gray__multimarca border__radius__4 grupo__form__campos__input grupo__form__campos__input--minMax" />
+                            </div>
+                        </div>
+                        <div class="d__flex grupo__form__campos">
+                            <label class="d__block text__bold color__m grupo__form__campos__label">Duración : </label>
+                            <div class="d__flex mb-0 grupo__form__campos grupo__form__campos--mobileDesktop">
+                                <input id="checkMobile" type="checkbox" class="d__none border__color__gray__multimarca border__radius__4 grupo__form__campos__input" />
+                                <label for="checkMobile" class="d__flex grupo__form__campos__label grupo__form__campos__label--conCheckbox">
+                                    <span class="d__inline__block text__bold">Mobile</span>
+                                    <span class="d__inline__block border__color__gray__multimarca border__radius__4 grupo__form__campos__checkbox"></span>
+                                </label>
+                            </div>
+                            <div class="d__flex mb-0 grupo__form__campos grupo__form__campos--mobileDesktop">
+                                <input id="checkDesktop" type="checkbox" class="d__none border__color__gray__multimarca border__radius__4 grupo__form__campos__input" />
+                                <label for="checkDesktop" class="d__flex grupo__form__campos__label grupo__form__campos__label--conCheckbox">
+                                    <span class="d__inline__block text__bold">Desktop</span>
+                                    <span class="d__inline__block border__color__gray__multimarca border__radius__4 grupo__form__campos__checkbox"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="d__flex grupo__form__campos grupo__form__campos--botones">
+                            <button class="d__block text__bold btn__modal mr-25 border__radius__4 btn__modal--blanco btn__modal--descartar">
+                                Descartar
+                            </button>
+                            <button class="d__block text__bold background__color__m border__radius__4 btn__modal btn__modal--guardar">
+                                Guardar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </section>
     </div>
-</div>
-<div id="loadingScreen"></div>
+</section>
+<!-- FIN - MODAL AGREGAR NUEVO POPUP -->
+<!-- FIN - VISTA ADMINISTRACIÓN DE POPUPS -->
 
-<script src="~/Scripts/PortalConsultoras/AdministraciónPoput/Index.js"></script>
+@section scripts{
+    <script type="text/javascript" src="@Url.Content("~/Scripts/AdminContenido/AdministracionPopups/Index.js")"></script>
+}

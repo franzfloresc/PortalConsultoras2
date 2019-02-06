@@ -1632,6 +1632,7 @@
     <Content Include="Content\Images\filtrar-icono.svg" />
     <Content Include="Content\Images\Esika\fondo-navidenio.png" />
     <Content Include="Content\Images\Esika\logo_marca_pais_desktop_blanco.svg" />
+    <Content Include="Content\Images\flecha_desplegable_grilla.svg" />
     <Content Include="Content\Images\flecha_icono.svg" />
     <Content Include="Content\Images\icono-carrito-compra-blanco.svg" />
     <Content Include="Content\Images\icono-elige-tu-opcion.svg" />
@@ -3913,6 +3914,7 @@
     <Content Include="LBelConmigo.html" />
     <Content Include="Pdto.aspx" />
     <Content Include="Scripts\accordion.js" />
+    <Content Include="Scripts\AdminContenido\AdministracionPopups\Index.js" />
     <Content Include="Scripts\AdminContenido\AdministrarEstrategia\NuevoMasivo.js" />
     <Content Include="Scripts\AdminContenido\DescripcionComercial.js" />
     <Content Include="Scripts\AdminContenido\Palanca\AdminPalancaDatos.js" />

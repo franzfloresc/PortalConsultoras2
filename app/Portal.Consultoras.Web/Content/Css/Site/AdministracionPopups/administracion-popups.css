@@ -1,11 +1,16 @@
 ﻿/* ESTILOS GENERALES */
 
-*{
-    font-family:'Lato', sans-serif;
-    font-weight:400;
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(124, 124, 124, 0.47);
+    border-radius: 20px;
 }
 
 /* FIN - ESTILOS GENERALES */
+
 
 /* HELPERS CSS */
 
@@ -21,8 +26,16 @@
     font-weight:bold!important;
 }
 
+.text__uppercase{
+    text-transform:uppercase;
+}
+
 .d__none{
     display:none;
+}
+
+input[type=checkbox].d__none{
+    display:none!important;
 }
 
 .d__block{
@@ -31,6 +44,10 @@
 
 .d__inline__block{
     display:inline-block;
+}
+
+.d__flex{
+    display:flex;
 }
 
 .ml__auto{
@@ -65,7 +82,21 @@
     border-radius:4px;
 }
 
+.mb-0{
+    margin-bottom:0!important;
+}
+
+.mb-40{
+    margin-bottom:40px!important;
+}
+
+.mr-25{
+    margin-right:25px;
+}
+
 /* FIN - HELPERS CSS */
+
+/* VISTA ADMINISTRACIÓN POPUPS */
 
 .layout__content{
     max-width:1106px;
@@ -73,6 +104,9 @@
 
 .vista__administracion__popups{
     margin-top:45px;
+    font-family:'Lato', sans-serif;
+    font-weight:400;
+    box-sizing:border-box;
 }
 
 .vista__administracion__popups__titulo{
@@ -82,8 +116,10 @@
 
 .grupo__form__grilla__filtros,
 .btn__grilla__filtros,
+.btn__modal,
 .administracion__popups__grilla__titulo
 {
+    font-family:'Lato', sans-serif;
     font-size:16px;
 }
 
@@ -104,7 +140,9 @@
 }
 
 .grilla__filtro__campo,
-.btn__grilla__filtros
+.btn__grilla__filtros,
+.btn__modal,
+.grupo__form__campos__input
 {
     height:40px;
     padding-left:10px;
@@ -112,21 +150,36 @@
 }
 
 .grilla__filtro__select{
+    font-family:'Lato', sans-serif;
     width:200px;
 }
 
-.btn__grilla__filtros{
+.btn__grilla__filtros,
+.btn__modal
+{
     border:0;
     line-height:37px;
 }
 
-.btn__agregar{
+.btn__agregar,
+.btn__modal--agregar,
+.btn__modal--guardar,
+.btn__modal--blanco
+{
     width:150px;
+    cursor:pointer;
+    outline:0;
 }
 
-.grilla__filtro__campo__seleccion__popup:focus + .btn__agregar{
-    cursor:pointer;
+.btn__agregar span:first-child,
+.btn__modal--agregar span:first-child
+{
+    margin-right:4px;
 }
+
+/*.grilla__filtro__campo__seleccion__popup:focus + .btn__agregar{
+    cursor:pointer;
+}*/
 
 .vista__administracion__popups__contenido,
 .administracion__popups__grilla
@@ -145,7 +198,8 @@
 }
 
 .btn__grilla__filtros,
-.administracion__popups__grilla__cabecera
+.administracion__popups__grilla__cabecera,
+.btn__modal--agregar span
 {
     color:#FFF;
 }
@@ -178,6 +232,8 @@
     border-right:1px solid #FFF;
     padding-left:10px;
     padding-right:10px;
+    position:relative;
+    box-sizing:border-box;
 }
 
 .administracion__popups__grilla__cabecera .col__grilla{
@@ -194,32 +250,85 @@
     max-width:3%;
 }
 
-.col__grilla--fondo,
-.col__grilla--duracion
-{
-    -ms-flex: 0 0 15%;
-    flex:0 0 15%;
-    max-width:15%;
+.col__grilla--fondo{
+    -ms-flex: 0 0 16%;
+    flex:0 0 16%;
+    max-width:16%;
+}
+
+.col__grilla--duracion{
+    -ms-flex: 0 0 14%;
+    flex:0 0 14%;
+    max-width:14%;
 }
 
 .col__grilla--titulo{
-    -ms-flex: 0 0 19.5%;
-    flex:0 0 19.5%;
-    max-width:19.5%;
+    -ms-flex: 0 0 25%;
+    flex:0 0 25%;
+    max-width:25%;
 }
 
 .col__grilla--ruta{
-    -ms-flex: 0 0 24%;
-    flex:0 0 24%;
-    max-width:24%;
+    -ms-flex: 0 0 27%;
+    flex:0 0 27%;
+    max-width:27%;
 }
 
-.col__grilla--estado,
-.col__grilla--editar
+.col__grilla--estado {
+    -ms-flex: 0 0 9%;
+    -webkit-flex: 0 0 9%;
+    flex: 0 0 9%;
+    max-width: 9%;
+}
+
+.col__grilla--editar{
+    -ms-flex: 0 0 6%;
+    flex:0 0 6%;
+    max-width:6%;
+}
+
+.opcion__filtro__estado,
+.opcion__filtro__estado__enlace,
+.opcion__filtro__estado__enlace:hover
 {
-    -ms-flex: 0 0 5%;
-    flex:0 0 5%;
-    max-width:5%;
+    color:#000;
+}
+
+.empty__space{
+    position: absolute;
+    height: 20px;
+    background-color: transparent;
+    top: -10px;
+}
+
+.lista__opciones__filtro__estado {
+    display: none;
+    position: absolute;
+    top: 37px;
+    left: -8%;
+    right: 0;
+    width: 111px;
+    height: 90px;
+    background-color: #FFF;
+    z-index: 2;
+    border: 1px solid #D8D8D8;
+}
+
+.col__grilla--estado:hover .lista__opciones__filtro__estado{
+    display:block;
+}
+
+.col__grilla__despliegue__opciones--estado span:first-child{
+    margin-right:5px;
+}
+
+.opcion__filtro__estado{
+    min-height:44px;
+    border-bottom:1px solid #D8D8D8;
+}
+
+.opcion__filtro__estado:last-child{
+    border-bottom:none;
 }
 
 .administracion__popups__grilla__contenido .row__grilla{
@@ -256,4 +365,204 @@
     border:0;
 }
 
+/* MODAL AGREGAR POPUP */
 
+.modal__bg{
+    display:none;
+    background-color:rgba(255,255,255,.85);
+    position:fixed;
+    height:100%;
+    top:0;
+    left:0;
+    justify-content:center;
+    align-items:flex-start;
+    padding-top:60px;
+    padding-bottom:60px;
+    overflow:auto;
+    z-index:4000;
+    font-family:'Lato', sans-serif;
+    font-weight:400;
+    box-sizing:border-box;
+}
+
+.modal__wrapper{
+    -ms-flex: 0 0 1237px;
+    -webkit-flex: 0 0 1237px;
+    flex: 0 0 1237px;
+    max-width: 1237px;
+    background-color:#FFF;
+}
+
+.modal__titulo{
+    font-size:30px;
+    margin-bottom:25px;
+}
+
+.modal__contenido--agregarNuevoPopup{
+    border:1px solid #979797;
+    border-radius:8px;
+    min-height: 768px;
+    padding:45px 39px 20px 39px;
+}
+
+.modal__contenido__subtitulo{
+    color:#000;
+    font-size:16px;
+    padding-bottom:18px;
+    border-bottom:1px solid #979797;
+    margin-bottom:29px;
+}
+
+.modal__contenido__seccion__campos{
+    flex-direction:column;
+    flex-wrap:nowrap;
+}
+
+.grupo__form__campos{
+    flex-direction:row;
+    flex-wrap:wrap;
+    align-items:center;
+    margin-bottom:28px;
+}
+
+.grupo__form__campos__label,
+.grupo__form__campos__input,
+.grupo__form__campos__textarea,
+.btn__modal__agregar span
+{
+    font-family:'Lato', sans-serif;
+    font-weight:400;
+    font-size:16px;
+}
+
+.grupo__form__campos__input,
+.grupo__form__campos__textarea
+{
+    background-color:#FFF;
+    color:#000;
+}
+
+.grupo__form__campos__label {
+    -ms-flex: 0 0 180px;
+    -webkit-flex: 0 0 180px;
+    flex: 0 0 180px;
+    max-width: 180px;
+}
+
+.grupo__form__campos__label--adjuntarFondo,
+.grupo__form__campos__label--descripcion,
+.grupo__form__campos__label--segmentoConsultoras
+{
+    margin-top:5px;
+    align-self:flex-start;
+}
+
+.grupo__form__campos__input--seccionContenido,
+.grupo__form__campos__textarea--seccionContenido
+{
+    -ms-flex: 0 0 500px;
+    -webkit-flex: 0 0 500px;
+    flex: 0 0 500px;
+    max-width:500px;
+}
+
+.grupo__form__campos__textarea{
+    min-height:80px;
+    padding-left:10px;
+    padding-right:15px;
+    resize:none;
+}
+
+.info__formato__medidas{
+    margin-top:8px;
+    margin-bottom:0;
+    font-size:13px;
+}
+
+.grupo__form__campos--minMax {
+    flex-wrap: nowrap;
+    -ms-flex: 0 0 242px;
+    -webkit-flex: 0 0 242px;
+    flex: 0 0 242px;
+    max-width:242px;
+}
+
+.grupo__form__campos__label--minMax,
+.grupo__form__campos__label--conCheckbox
+{
+    color:#000;
+}
+
+.grupo__form__campos__label--minMax{
+    -ms-flex: 0 0 40px;
+    -webkit-flex: 0 0 40px;
+    flex: 0 0 40px;
+    max-width:40px;
+}
+
+.grupo__form__campos__input--minMax {
+    -ms-flex: 0 0 130px;
+    -webkit-flex: 0 0 130px;
+    flex: 0 0 130px;
+    max-width:130px;
+    line-height:40px;
+}
+
+.grupo__form__campos--mobileDesktop{
+    margin-right:45px;
+}
+
+.grupo__form__campos__label--conCheckbox {
+    -ms-flex: 0 0 94px;
+    -webkit-flex: 0 0 94px;
+    flex: 0 0 94px;
+    max-width:94px;
+    align-items:center;
+}
+
+.grupo__form__campos__label--conCheckbox span:first-child{
+    margin-right:10px;
+}
+
+.grupo__form__campos__checkbox{
+    width:18px;
+    height:18px;
+}
+
+.grupo__form__campos__input + .grupo__form__campos__label--conCheckbox .grupo__form__campos__checkbox{
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    background-repeat:no-repeat;
+    background-position:center;
+}
+
+.grupo__form__campos__input:checked + .grupo__form__campos__label--conCheckbox .grupo__form__campos__checkbox{
+    background-color:#808080;
+    background-image:url(/Content/Images/check_terminos_cdr.svg);
+}
+
+.grupo__form__campos--botones{
+    justify-content:flex-end;
+}
+
+.btn__modal--blanco,
+.btn__modal--guardar
+{
+    line-height:normal;
+}
+
+.btn__modal--blanco{
+    color:#000;
+    background-color:#FFF;
+    border:1px solid #000;
+}
+
+.btn__modal--guardar{
+    color:#FFF;
+}
+
+/* FIN - MODAL AGREGAR POPUP */
+
+/* FIN - VISTA ADMINISTRACIÓN POPUPS */
