@@ -295,6 +295,7 @@ namespace Portal.Consultoras.Web.Controllers
                         success = false,
                         message = string.IsNullOrEmpty(pedidoDetalleResult.MensajeRespuesta) ? "Ocurrió un error al ejecutar la operación" : pedidoDetalleResult.MensajeRespuesta,
                         tituloMensaje = pedidoDetalleResult.TituloMensaje,
+                        mensajeAviso = pedidoDetalleResult.MensajeAviso,
                         errorInsertarProducto = "1"
                     }, JsonRequestBehavior.AllowGet);
                 }
