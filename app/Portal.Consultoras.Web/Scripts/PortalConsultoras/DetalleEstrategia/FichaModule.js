@@ -460,8 +460,11 @@ var FichaModule = (function (config) {
     }
 
     var _asignaDetallePedido = function (data, estrategia) {
-        if (!data.length)
-            throw 'Componente: No existe detalle de pedido';
+        if (!data.length) {
+            _redireccionar();
+            return false;
+            //throw 'Componente: No existe detalle de pedido';
+        }
 
         estrategia.Cantidad = data[0].Cantidad;
         $('input.txt_cantidad_pedido').val(estrategia.Cantidad);
@@ -594,8 +597,6 @@ var FichaModule = (function (config) {
         _getComponentesAndUpdateEsMultimarca(estrategia);
         _actualizarCodigoVariante(estrategia);
 
-        _setPedidoSetDetalle(estrategia);
-        //
         estrategia.ClaseBloqueada = "btn_desactivado_general";
         estrategia.ClaseBloqueadaRangos = "contenedor_rangos_desactivado";
         estrategia.RangoInputEnabled = "disabled";
@@ -623,6 +624,7 @@ var FichaModule = (function (config) {
         SetHandlebars("#detalle_ficha_template", estrategia, "#seccion_ficha_handlebars");
 
         _setEstrategiaTipoBoton(estrategia);
+        _setPedidoSetDetalle(estrategia);
 
         opcionesEvents.applyChanges("onEstrategiaLoaded", estrategia);
 
@@ -831,7 +833,7 @@ var FichaModule = (function (config) {
     };
 
     var _validarSiEsAgregado = function (estrategia) {
-        if (_config.esEditable) {
+        if (!_config.esEditable) {
             if (estrategia.IsAgregado) {
                 $("#ContenedorAgregado").show();
             }
@@ -906,7 +908,7 @@ var FichaModule = (function (config) {
             window.location = baseUrl + (_config.esMobile ? "Mobile/" : "") + "Ofertas";
         else {
             alert('Ha ocurrido una excepción al obtener los datos para este CUV.');
-            
+
         }
     };
 
@@ -1041,7 +1043,7 @@ var FichaEditarModule = (function () {
             $("body").css("overflow", "scroll");
         }
     }
-   
+
     return {
         EditarProducto: EditarProducto,
         ShowDivFichaResumida: _showDivFichaResumida
