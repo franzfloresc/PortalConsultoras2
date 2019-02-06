@@ -157,10 +157,10 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 ReporteValidacionShowroom reporteValidacionShowroom = administrarEstrategiaProvider.ObtenerReportValidacionShowroom(CampaniaID);
 
-                listSrCampaniaModel = reporteValidacionShowroom.ListaCampania;
-                lstSrPersonalizacionModel = reporteValidacionShowroom.ListaPersonalizacion;
+                listSrCampaniaModel = reporteValidacionShowroom.ListaCampania.OrderBy(campo => campo.CodPais).ToList();
+                lstSrPersonalizacionModel = reporteValidacionShowroom.ListaPersonalizacion.OrderBy(campo => campo.CodPais).ThenBy(campo => campo.Nombre).ToList();
                 lstSrOfertaModel = reporteValidacionShowroom.ListaOferta;
-                lstSrComponenteModel = reporteValidacionShowroom.ListaComponente;
+                lstSrComponenteModel = reporteValidacionShowroom.ListaComponente.OrderBy(campo => campo.CodPais).ThenBy(campo => campo.CUV).ToList();
 
                 if (listSrCampaniaModel.Count == 0 && lstSrPersonalizacionModel.Count == 0 && lstSrOfertaModel.Count == 0 && lstSrComponenteModel.Count == 0)
                 {
