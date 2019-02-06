@@ -79,7 +79,7 @@ namespace Portal.Consultoras.Web.Controllers
                 FiltersByBrand = _ofertasViewProvider.GetFiltersByBrand(),
                 Success = true,
                 MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(IsMobile()),
-                CantidadFilas = 20
+                CantidadFilas = 30
             };
 
             var dato = _ofertasViewProvider.ObtenerPerdioTitulo(model.CampaniaID, IsMobile());
