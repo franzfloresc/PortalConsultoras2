@@ -1022,12 +1022,6 @@ function cargarPremiosElectivos() {
 
             setPremio(premio);
             tpElectivos.hasPremios = true;
-
-            if (!belcorp.barra.settings.isMobile && !premio) {
-                setTimeout(function() {
-                    $('#divBarra .contenedor_circulos').show();
-                }, 2000);
-            }
         });
 }
 
