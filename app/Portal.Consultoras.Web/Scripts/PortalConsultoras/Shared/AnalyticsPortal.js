@@ -226,9 +226,16 @@ var AnalyticsPortalModule = (function () {
 
         origenEstructura.CodigoPalanca = origenEstructura.CodigoPalanca || "";
         var contendor = origenEstructura.Pagina == ConstantesModule.OrigenPedidoWebEstructura.Pagina.Contenedor
-                        || origenEstructura.Seccion == ConstantesModule.OrigenPedidoWebEstructura.Seccion.Ficha
-                        || origenEstructura.Seccion == ConstantesModule.OrigenPedidoWebEstructura.Seccion.CarruselVerMas
-                        || origenEstructura.CodigoPalanca != "";
+            || origenEstructura.Pagina == ConstantesModule.OrigenPedidoWebEstructura.Pagina.LandingBuscador
+            || origenEstructura.Pagina == ConstantesModule.OrigenPedidoWebEstructura.Pagina.LandingGanadoras
+            || origenEstructura.Pagina == ConstantesModule.OrigenPedidoWebEstructura.Pagina.LandingGnd
+            || origenEstructura.Pagina == ConstantesModule.OrigenPedidoWebEstructura.Pagina.LandingHerramientasVenta
+            || origenEstructura.Pagina == ConstantesModule.OrigenPedidoWebEstructura.Pagina.LandingLiquidacion
+            || origenEstructura.Pagina == ConstantesModule.OrigenPedidoWebEstructura.Pagina.LandingOfertasParaTi
+            || origenEstructura.Pagina == ConstantesModule.OrigenPedidoWebEstructura.Pagina.LandingShowroom
+            || origenEstructura.Seccion == ConstantesModule.OrigenPedidoWebEstructura.Seccion.Ficha
+            || origenEstructura.Seccion == ConstantesModule.OrigenPedidoWebEstructura.Seccion.CarruselVerMas
+            || origenEstructura.CodigoPalanca != "";
 
         if (contendor) {
             return _texto.contenedor;
@@ -1078,7 +1085,6 @@ var AnalyticsPortalModule = (function () {
     }
 
     var marcaGenericaLista = function (seccion, data, pos) {
-
         try {
             //console.log('marcaGenericaLista- ini', seccion, data, pos);
             // mantener la seccion para LAN, luego ponerlo dentro de data como origen
