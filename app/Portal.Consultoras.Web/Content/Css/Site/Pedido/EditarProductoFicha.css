@@ -60,3 +60,51 @@
     margin-left: 50px;
 }
     /*END Estilo Panel*/
+
+
+.Form-AgregarCliente {
+    height: 100%;
+    width: 330px;
+    position: fixed;
+    z-index: 2000 !important;
+    top: 0;
+    right: 0;
+    overflow-x: hidden;
+    background-color: #fff;
+    transition: 0.5s;
+}
+
+.Formulario-AgregarCliente {
+    padding: 14px 20px;
+}
+
+.seleccion_header > h3 {
+    font-size: 15px !important;
+    font-weight: bold !important;
+    line-height: normal;
+    letter-spacing: 1px;
+    color: #000000;
+    text-transform: uppercase;
+    border-bottom: none !important;
+    padding-top: 18px !important;
+    padding-bottom: 0px !important;
+}
+
+.ImputForm-item{
+    margin-bottom: 10px;
+}
+
+    .ImputForm-item input {
+        font-size: 13px;
+        border: none;
+        padding: 9px 0px;
+        color: #000;
+        line-height: normal;
+    }
+
+.bar-imput {
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: #878787;
+}
