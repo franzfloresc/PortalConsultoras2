@@ -84,6 +84,97 @@ var PageModule = (function () {
     };
 }());
 
+var DetalleEstrategiaProvider = function () {
+    var _urlDetalleEstrategia = ConstantesModule.UrlDetalleEstrategia;
+
+    var _promiseObternerComponentes = function (params) {
+        var dfd = $.Deferred();
+
+        $.ajax({
+            type: "POST",
+            url: _urlDetalleEstrategia.obtenerComponentes,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(params),
+            async: false,
+            cache: false,
+            success: function (data) {
+                if (data.success) {
+                    dfd.resolve(data);
+                }
+                else {
+                    //console.log(data);
+                    dfd.reject(data);
+                }
+            },
+            error: function (data, error) {
+                dfd.reject(data, error);
+            }
+        });
+
+        return dfd.promise();
+    };
+
+    var _promiseObternerDetallePedido = function (params) {
+        var dfd = $.Deferred();
+
+        $.ajax({
+            type: 'post',
+            url: _urlDetalleEstrategia.obtenerPedidoWebSetDetalle,
+            datatype: 'json',
+            contenttype: 'application/json; charset=utf-8',
+            data: params,
+            success: function (data) {
+                if (data.success) {
+                    dfd.resolve(data);
+                }
+                else {
+                    dfd.reject(data);
+                }
+            },
+            error: function (data, error) {
+                dfd.reject(data, error);
+            }
+        });
+
+        return dfd.promise();
+    };
+
+    var _promiseObternerModelo = function (params) {
+        var dfd = $.Deferred();
+
+        $.ajax({
+            type: "POST",
+            url: _urlDetalleEstrategia.obtenerModelo,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(params),
+            async: false,
+            cache: false,
+            success: function (data) {
+                if (data.success) {
+                    dfd.resolve(data);
+                }
+                else {
+                    //console.log(data);
+                    dfd.reject(data);
+                }
+            },
+            error: function (data, error) {
+                dfd.reject(data, error);
+            }
+        });
+
+        return dfd.promise();
+    };
+
+    return {
+        promiseObternerComponentes: _promiseObternerComponentes,
+        promiseObternerDetallePedido: _promiseObternerDetallePedido,
+        promiseObternerModelo: _promiseObternerModelo
+    };
+}();
+
 var FichaModule = (function (config) {
     "use strict";
 
@@ -93,7 +184,6 @@ var FichaModule = (function (config) {
     if (config.localStorageModule === null || typeof config.localStorageModule === "undefined")
         throw "config.localStorageModule is null or undefined";
 
-    var _localStorageModule = config.localStorageModule;
     var _primeraMarca = "";
     var _ultimaMarca = "";
     var _esMultimarca = false;
@@ -109,22 +199,15 @@ var FichaModule = (function (config) {
         tieneSession: config.tieneSession || "",
         esEditable: config.esEditable || false,
         setId: config.setId || 0,
-        tieneCliente: config.tieneCliente || false
+        tieneCliente: config.tieneCliente || false,
+        localStorageModule: config.localStorageModule,
+        detalleEstrategiaProvider: DetalleEstrategiaProvider
     };
-
-    var _const = {
-        TipoAccionNavegar: {
-            BreadCrumbs: 1,
-            Volver: 2
-        },
-        urlObtenerComponentes: '/DetalleEstrategia/ObtenerComponentes',
-        urlObtenerModelo: '/DetalleEstrategia/ObtenerModelo',
-        urlObtenerPedidoWebSetDetalle: '/DetalleEstrategia/ObtenerComponentePedido'
-    }
 
     var _codigoVariedad = ConstantesModule.CodigoVariedad;
     var _codigoPalanca = ConstantesModule.CodigosPalanca;
     var _constantePalanca = ConstantesModule.ConstantesPalanca;
+    var _tipoAccionNavegar = ConstantesModule.TipoAccionNavegar;
 
     var _elementos = {
         hdCampaniaCodigo: {
@@ -217,7 +300,7 @@ var FichaModule = (function (config) {
 
     var _ocultarTabs = function () {
 
-        var estrategia = _localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
+        var estrategia = _config.localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
 
         $(_seccionesFichaProducto.ContenidoProducto).hide();
         $(_tabsFichaProducto.detalleProducto).hide();
@@ -338,87 +421,6 @@ var FichaModule = (function (config) {
         }
     };
 
-    var _promiseObternerComponentes = function (params) {
-        var dfd = $.Deferred();
-
-        $.ajax({
-            type: "POST",
-            url: _const.urlObtenerComponentes,
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(params),
-            async: false,
-            cache: false,
-            success: function (data) {
-                if (data.success) {
-                    dfd.resolve(data);
-                }
-                else {
-                    //console.log(data);
-                    dfd.reject(data);
-                }
-            },
-            error: function (data, error) {
-                dfd.reject(data, error);
-            }
-        });
-
-        return dfd.promise();
-    };
-
-    var _promiseObternerDetallePedido = function (params) {
-        var dfd = $.Deferred();
-
-        $.ajax({
-            type: 'post',
-            url: _const.urlObtenerPedidoWebSetDetalle,
-            datatype: 'json',
-            contenttype: 'application/json; charset=utf-8',
-            data: params,
-            success: function (data) {
-                if (data.success) {
-                    dfd.resolve(data);
-                }
-                else {
-                    dfd.reject(data);
-                }
-            },
-            error: function (data, error) {
-                dfd.reject(data, error);
-            }
-        });
-
-        return dfd.promise();
-    };
-
-    var _promiseObternerModelo = function (params) {
-        var dfd = $.Deferred();
-
-        $.ajax({
-            type: "POST",
-            url: _const.urlObtenerModelo,
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(params),
-            async: false,
-            cache: false,
-            success: function (data) {
-                if (data.success) {
-                    dfd.resolve(data);
-                }
-                else {
-                    //console.log(data);
-                    dfd.reject(data);
-                }
-            },
-            error: function (data, error) {
-                dfd.reject(data, error);
-            }
-        });
-
-        return dfd.promise();
-    };
-
     var _construirSeccionDetalleFichas = function (estrategia) {
 
         if (estrategia === null || typeof (estrategia) === "undefined") {
@@ -460,8 +462,11 @@ var FichaModule = (function (config) {
     }
 
     var _asignaDetallePedido = function (data, estrategia) {
-        if (!data.length)
-            throw 'Componente: No existe detalle de pedido';
+        if (!data.length) {
+            _redireccionar();
+            return false;
+            //throw 'Componente: No existe detalle de pedido';
+        }
 
         estrategia.Cantidad = data[0].Cantidad;
         $('input.txt_cantidad_pedido').val(estrategia.Cantidad);
@@ -470,7 +475,9 @@ var FichaModule = (function (config) {
             var filterComponente = estrategia
                 .Hermanos
                 .filter(function (objeto) {
-                    return objeto.Cuv == o.CuvProducto && (objeto.Hermanos != null && objeto.Hermanos.length > 0);
+                    return objeto.Hermanos != null
+                        && objeto.Hermanos.length > 0
+                        && objeto.Hermanos.filter(function (nx) { return nx.Cuv == i.CuvProducto }).length > 0
                 });
 
             if (filterComponente.length) {
@@ -484,11 +491,11 @@ var FichaModule = (function (config) {
     var _setPedidoSetDetalle = function (pEstrategia) {
         if (_config.esEditable) {
             if (!IsNullOrEmpty(_config.setId)) {
-                _promiseObternerDetallePedido({
-                    campaniaId: _config.campania,
-                    set: _config.setId
-                })
-                    .done(function (data) {
+                _config.detalleEstrategiaProvider
+                    .promiseObternerDetallePedido({
+                        campaniaId: _config.campania,
+                        set: _config.setId
+                    }).done(function (data) {
                         if (data.success) {
                             _asignaDetallePedido(data.componentes, pEstrategia);
                         }
@@ -513,15 +520,17 @@ var FichaModule = (function (config) {
                 codigoEstrategia: estrategia.CodigoEstrategia,
                 lstHermanos: estrategia.Hermanos
             };
-            _promiseObternerComponentes(param).done(function (data) {
-                estrategia.Hermanos = data.componentes;
-                estrategia.EsMultimarca = data.esMultimarca;
-                _esMultimarca = data.esMultimarca;
+            _config.detalleEstrategiaProvider
+                .promiseObternerComponentes(param)
+                .done(function (data) {
+                    estrategia.Hermanos = data.componentes;
+                    estrategia.EsMultimarca = data.esMultimarca;
+                    _esMultimarca = data.esMultimarca;
 
-            }).fail(function (data, error) {
-                estrategia.Hermanos = [];
-                estrategia.EsMultimarca = false;
-            });
+                }).fail(function (data, error) {
+                    estrategia.Hermanos = [];
+                    estrategia.EsMultimarca = false;
+                });
         }
         else {
             estrategia.Hermanos = [];
@@ -583,9 +592,9 @@ var FichaModule = (function (config) {
         }
         else {
             console.log("_getEstrategia", _config);
-            estrategia = _localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
+            estrategia = _config.localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
             if ((typeof estrategia === "undefined" || estrategia === null) && _config.palanca === _codigoPalanca.OfertasParaMi) {
-                estrategia = _localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _codigoPalanca.Ganadoras);
+                estrategia = _config.localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _codigoPalanca.Ganadoras);
             }
         }
 
@@ -594,8 +603,6 @@ var FichaModule = (function (config) {
         _getComponentesAndUpdateEsMultimarca(estrategia);
         _actualizarCodigoVariante(estrategia);
 
-        _setPedidoSetDetalle(estrategia);
-        //
         estrategia.ClaseBloqueada = "btn_desactivado_general";
         estrategia.ClaseBloqueadaRangos = "contenedor_rangos_desactivado";
         estrategia.RangoInputEnabled = "disabled";
@@ -623,6 +630,7 @@ var FichaModule = (function (config) {
         SetHandlebars("#detalle_ficha_template", estrategia, "#seccion_ficha_handlebars");
 
         _setEstrategiaTipoBoton(estrategia);
+        _setPedidoSetDetalle(estrategia);
 
         opcionesEvents.applyChanges("onEstrategiaLoaded", estrategia);
 
@@ -630,8 +638,8 @@ var FichaModule = (function (config) {
 
         if (estrategia.TieneReloj) {
             _crearReloj(estrategia);
-            estrategia.ConfiguracionContenedor = estrategia.ConfiguracionContenedor || {};
-            SetHandlebars("#ofertadeldia-template-style", estrategia, "#styleRelojOdd");
+            _modeloFicha.ConfiguracionContenedor = _modeloFicha.ConfiguracionContenedor || {};
+            SetHandlebars("#ofertadeldia-template-style", _modeloFicha, "#styleRelojOddFicha");
         }
 
         if (!_config.esMobile) {
@@ -648,7 +656,7 @@ var FichaModule = (function (config) {
 
     var _setEstrategiaBreadcrumb = function (estrategia) {
 
-        if (_modeloFicha.TipoAccionNavegar != _const.TipoAccionNavegar.BreadCrumbs) {
+        if (_modeloFicha.TipoAccionNavegar != _tipoAccionNavegar.BreadCrumbs) {
             return false;
         }
 
@@ -831,7 +839,7 @@ var FichaModule = (function (config) {
     };
 
     var _validarSiEsAgregado = function (estrategia) {
-        if (_config.esEditable) {
+        if (!_config.esEditable) {
             if (estrategia.IsAgregado) {
                 $("#ContenedorAgregado").show();
             }
@@ -881,13 +889,14 @@ var FichaModule = (function (config) {
 
         var modeloFicha = {};
 
-        _promiseObternerModelo(modelo).done(function (data) {
-            modeloFicha = data.data || {};
-            modeloFicha.Error = data.success === false;
-        }).fail(function (data, error) {
-            modeloFicha = {};
-            modeloFicha.Error = true;
-        });
+        _config.detalleEstrategiaProvider
+            .promiseObternerModelo(modelo).done(function (data) {
+                modeloFicha = data.data || {};
+                modeloFicha.Error = data.success === false;
+            }).fail(function (data, error) {
+                modeloFicha = {};
+                modeloFicha.Error = true;
+            });
 
         if (modeloFicha.Error === true) {
             _redireccionar();
@@ -906,7 +915,7 @@ var FichaModule = (function (config) {
             window.location = baseUrl + (_config.esMobile ? "Mobile/" : "") + "Ofertas";
         else {
             alert('Ha ocurrido una excepción al obtener los datos para este CUV.');
-            
+
         }
     };
 
@@ -956,6 +965,10 @@ var FichaModule = (function (config) {
         return _estrategia || _getEstrategia();
     }
 
+    function getModeloFicha() {
+        return _modeloFicha;
+    }
+
     function Inicializar() {
         _construirSeccionFicha();
         _construirSeccionEstrategia();
@@ -971,14 +984,15 @@ var FichaModule = (function (config) {
 
     return {
         Inicializar: Inicializar,
-        GetEstrategia: getEstrategia
+        GetEstrategia: getEstrategia,
+        GetModeloFicha: getModeloFicha
     };
 });
 
 var FichaEditarModule = (function () {
 
     var EditarProducto = function (event, tipoAccion) {
-        if (tipoAccion != 1) {
+        if (tipoAccion != ConstantesModule.EditarItemPedido.Activo) {
             return false;
         }
 
@@ -1041,7 +1055,7 @@ var FichaEditarModule = (function () {
             $("body").css("overflow", "scroll");
         }
     }
-   
+
     return {
         EditarProducto: EditarProducto,
         ShowDivFichaResumida: _showDivFichaResumida
