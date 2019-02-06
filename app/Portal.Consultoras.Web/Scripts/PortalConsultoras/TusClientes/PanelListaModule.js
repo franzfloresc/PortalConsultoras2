@@ -39,12 +39,11 @@
     };
 
     var _panelRegistroShow = function () {
-        $(_elements.panelClienteRegistro).css("width", "400px");
+        $(_elements.panelClienteRegistro).show();
     };
 
-    
     var _panelRegistroHide = function () {
-        $(_elements.panelClienteRegistro).css("width", "0");
+        $(_elements.panelClienteRegistro).hide();
     };
 
     var _seleccionarRegistro = function (paisId, clienteId, codigoCliente, nombreCliente, nombre) {
@@ -91,6 +90,16 @@
                 //}
             }
         });
+
+        $("#btnPanelListaCerrar_todo").click( function () {   
+            $('#PanelClienteLista').css('margin-right', '-330px');
+            $('#PanelClienteLista').css('opacity', '.0');
+            $('#PanelClienteLista').hide();
+            $('.modal-fondo').hide();
+            $('.modal-fondo').css('opacity', '.0');
+            $(_elements.panelClienteRegistro).hide();
+        });
+
     };
 
     return {

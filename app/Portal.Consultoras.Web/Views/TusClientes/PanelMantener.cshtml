@@ -8,9 +8,9 @@
 
 <div>
     <div class="seleccion_header" style="padding-top: 48px;">
-        <a class="boton_volver_ficha" style=" margin-top: 0px; "><img src="/Content/Images/mobile/Esika/right-arrow.svg">Volver</a>
-        <h3>AGREGAR CLIENTE</h3>
-        <button id="btnPanelListaCerrar" class="button_cerrar_Clientes"><img src="/Content/Images/mobile/Esika/close-button.svg" alt=""></button>
+        <a id="btnPanelMantenerCerrar" class="boton_volver_ficha" style=" margin-top: 0px; "><img src="/Content/Images/mobile/Esika/right-arrow.svg">Volver</a>
+        <h3 style="cursor:pointer">AGREGAR CLIENTE</h3>
+        <button id="btnPanelListaCerrar_todo" class="button_cerrar_Clientes"><img src="/Content/Images/mobile/Esika/close-button.svg" alt=""></button>
     </div>
 
     <form action="" method="post" class="Formulario-AgregarCliente">
@@ -29,6 +29,7 @@
            })
             <label>Nombre</label>
             <div class="bar-imput"></div>
+            <span class="input-requerido">*</span>
         </div>
         <div class="noti mensaje_producto_noExiste" id="divNotiNombre" style="display:none;">
             <div class="noti_message red_texto_size">
@@ -43,7 +44,7 @@
             @Html.TextBoxFor(model => model.ApellidoCliente,
            new
            {
-               placeholder = "Apellidos",
+               placeholder = "",
                maxlength = "100",
                @class = "input-nombre",
                autocomplete = "off",
@@ -51,13 +52,14 @@
            })
             <label>Apellidos</label>
             <div class="bar-imput"></div>
+            <span class="input-requerido">*</span>
         </div>
 
         <div class="ImputForm-item">
             @Html.TextBoxFor(model => model.Telefono,
            new
            {
-               placeholder = "Teléfono Fijo",
+               placeholder = "",
                maxlength = "20",
                @class = "input-number",
                autocomplete = "off",
@@ -65,13 +67,14 @@
            })
             <label>Teléfono Fijo</label>
             <div class="bar-imput"></div>
+            <span class="input-requerido">*</span>
         </div>
 
         <div class="ImputForm-item">
             @Html.TextBoxFor(model => model.Celular,
            new
            {
-               placeholder = "Celular",
+               placeholder = "",
                maxlength = "20",
                @class = "input-number",
                autocomplete = "off",
@@ -79,13 +82,14 @@
            })
             <label>Teléfono Fijo</label>
             <div class="bar-imput"></div>
+            <span class="input-requerido">*</span>
         </div>
 
         <div class="ImputForm-item">
             @Html.TextBoxFor(model => model.eMail,
            new
            {
-               placeholder = "Correo Electrónico (Opcional)",
+               placeholder = "",
                maxlength = "80",
                @class = "input-correo",
                autocomplete = "off",
@@ -103,11 +107,11 @@
                     </span>
                 </div>
             </div>
-            <input type="button" class="btnCliente_cancelar" id="btnPanelMantenerCerrar" value="CANCELAR" />
+            @*<input type="button" class="btnCliente_cancelar" id="btnPanelMantenerCerrar" value="CANCELAR" />*@
             <input type="button" class="btnCliente_agregar" id="btnPanelMantenerAgregar" value="GUARDAR" />
      
             <br />
-            <div id="divValidationSummary" style="display:none;">* Debes Ingresar al menos un teléfono de contacto</div>
+            <div id="divValidationSummary" style="display:none; padding-top: 10px;">* Debes Ingresar al menos un teléfono de contacto</div>
 
     </form>
 </div>
@@ -141,3 +145,18 @@
         width: 100%;
     }
 </style>*@
+
+<script>
+    $(document).ready(function () {
+        $('.ImputForm-item input').blur(function () {
+            if ($(this).val().length !== 0) {
+                $(this).addClass('ActiveLabel');
+                $(this).addClass('bar-imputActive');
+            }
+            else {
+                $(this).removeClass('ActiveLabel');
+                $(this).removeClass('bar-imputActive');
+            }
+        });
+    });
+</script>
