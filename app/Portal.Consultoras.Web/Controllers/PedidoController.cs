@@ -575,7 +575,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         private BEPedidoWebDetalle GetPremioSelected(List<PremioElectivoModel> result)
         {
-            var details = GetPedidoWebDetalle(IsMobile());
+            var details = ObtenerPedidoWebSetDetalleAgrupado(true);
+            if (details == null || details.Count == 0) return null;
 
             var selected = details.FirstOrDefault(d => result.Any(c => c.CUV2 == d.CUV));
             return selected;
@@ -4575,7 +4576,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var premios = _programaNuevasProvider.GetListPremioElectivo();
 
-            var details = GetPedidoWebDetalle(IsMobile());
+            var details = ObtenerPedidoWebSetDetalleAgrupado(true) ?? new List<BEPedidoWebDetalle>();
 
             var selected = premios.FirstOrDefault(c => details.Any(d => c.CUV2 == d.CUV));
 
