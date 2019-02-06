@@ -177,7 +177,6 @@ hr{
 }
 
 .btn__compartir--slider + .opciones__compartir__catalogos{
-    left:-104px;
     z-index:3;
 }
 
@@ -339,9 +338,9 @@ hr{
     display:none;
     justify-content: space-evenly;
     background-color: #FFF;
-    width:420px;
+    width:460px;
     position:absolute;
-    left: -100px;
+    left: -124px;
     bottom: 55px;
     padding:20px 27px;
     height: 72px;
@@ -403,8 +402,9 @@ hr{
     height:32px;
 }
 
-.opcion__compartir__catalogo--facebookMessenger {
-    height: 43px;
+.opcion__compartir__catalogo--facebookMessenger{
+    height:37px;   
+    margin-right:4px;
 }
 
 .opcion__compartir__catalogo--copiarEnlace {
@@ -1063,7 +1063,7 @@ input[type='checkbox']:checked + span:after {
         bottom: 17px;
         z-index: 3;
         height: auto;
-        padding:15px 51px;
+        padding:15px 22px;
     }
 
     .opcion__compartir__catalogo{
@@ -1092,14 +1092,17 @@ input[type='checkbox']:checked + span:after {
         height: 30px;
     }
 
+    .opcion__compartir__catalogo--facebookMessenger{
+        margin-right:3px;
+    }
+
     .opcion__compartir__catalogo--facebookMessenger img{
         margin-top:5px;
-        height:33px;
+        height:34px;
     }
 
     .opcion__compartir__catalogo--copiarEnlace{
         margin-top:18px;
-        margin-left:0;
     }
 
     .mi__revista__y__marquesina__rd__wrapper{
@@ -1222,18 +1225,30 @@ input[type='checkbox']:checked + span:after {
 
 }
 
-@media screen and (min-width:409px) and (max-width:991px){
+@media screen and (min-width:491px) and (max-width:991px){
+
+    .opciones__compartir__catalogos{
+        padding:18px 25px 20px 25px;
+    }
 
     .opcion__compartir__catalogo--copiarEnlace{
-        margin-top:0;
+        margin-top:4px;
     }
 
 }
 
-@media screen and (min-width:377px) and (max-width:991px){
+@media screen and (min-width:377px) and (max-width:490px){
 
     .opciones__compartir__catalogos{
-        padding:20px 40px;
+        padding:18px 50px 20px 50px;
+    }
+
+}
+
+@media screen and (min-width:0) and (max-width:490px){
+
+    .opcion__compartir__catalogo--copiarEnlace{
+        margin-left:0;
     }
 
 }
