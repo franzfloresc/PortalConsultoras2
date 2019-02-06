@@ -583,6 +583,7 @@ function CatalogoMostrar(accion, btn) {
     if (window.matchMedia('(min-width:992px)').matches){
         if (!catEsika) {
             $('.catalogos__por__campania__item__imagenes > .content_carrusel_catalogo').css('max-width', '70' + '%');
+            $('.catalogos__por__campania__item__imagen').css('min-width', '241.45' + 'px');
         }
     }
 

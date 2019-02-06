@@ -295,7 +295,6 @@ hr{
 .catalogos__por__campania__item__imagen--lbel,
 .catalogos__por__campania__item__imagen--esika
 {
-    min-width:241.45px;
     min-height:310px;
     z-index:1;
 }
@@ -888,9 +887,7 @@ input[type='checkbox']:checked + span:after {
         order:-1;
     }
 
-    .catalogos__por__campania__item__slider,
-    .altoFijo
-    {
+    .catalogos__por__campania__item__slider{
         height:auto;
     }
 
