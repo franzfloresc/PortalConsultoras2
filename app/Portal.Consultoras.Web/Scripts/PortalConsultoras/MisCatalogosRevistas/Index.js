@@ -555,20 +555,10 @@ function GetCatalogosLinksByCampania(data, campania) {
             if (contDiv == 1 && piloto == '1' && isPilotoSeg == false) $(idCat).find(elemItem).find("[data-tipo='img']").attr("href", urlCatalogoPiloto);
             else $(idCat).find(elemItem).find("[data-tipo='img']").attr("href", urlCat);
 
-            //if (piloto == '0') $(idCat).find(elemItem).find("#txtUrl" + tagCat).val(urlCat);
-            //else if (contDiv != 1 && piloto == '1') $(idCat).find(elemItem).find("#txtUrl" + tagCat).val(urlCat);
             $(idCat).find(elemItem).find("#txtUrl" + tagCat).val(urlCat);
-
             $(idCat).find(elemItem).find("[data-tipo='img'] img").attr("src", imgIssuu.replace("{img}", codigoISSUU));
-
-            //if (piloto == '0') $(idCat).find(elemItem).find("[data-accion='face']").attr("title", 'FB-' + tagCat + ' C' + n + a);
-            //else if (contDiv != 1 && piloto == '1') $(idCat).find(elemItem).find("[data-accion='face']").attr("title", 'FB-' + tagCat + ' C' + n + a);
             $(idCat).find(elemItem).find("[data-accion='face']").attr("title", 'FB-' + tagCat + ' C' + n + a);
-
             $(idCat).find(elemItem).find("[data-tipo='img']").attr("title", 'Ver-' + tagCat + ' C' + n + a);
-
-            //if (piloto == '0') $(idCat).find(elemItem).find("[data-accion='whatsapp']").attr("href", "https://api.whatsapp.com/send?text=" + urlCatWS);
-            //else if (contDiv != 1 && piloto == '1') $(idCat).find(elemItem).find("[data-accion='whatsapp']").attr("href", "https://api.whatsapp.com/send?text=" + urlCatWS);
             $(idCat).find(elemItem).find("[data-accion='whatsapp']").attr("href", "https://api.whatsapp.com/send?text=" + urlCatWS);
         }
     }
