@@ -6,7 +6,7 @@
 }
 
 @Html.Partial("FichaTemplate")
-@Html.Partial("~/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", Model.MensajeProductoBloqueado)
+@*@Html.Partial("~/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", Model.MensajeProductoBloqueado)*@
 
 @section scripts{
 
@@ -18,8 +18,6 @@
         AbrirLoad();
 
         var fichaModule;
-        var carruselModule;
-        var tieneCarrusel = '@Model.TieneCarrusel';
 
         $(document).ready(function () {
             fichaModule = FichaModule({
@@ -27,26 +25,9 @@
                 palanca: "@Model.Palanca",
                 campania: "@Model.Campania",
                 cuv: "@Model.Cuv",
-                origen: "@Model.OrigenUrl",
-                tieneSession: "@Model.TieneSession"
+                origen: "@Model.OrigenUrl"
             });
             fichaModule.Inicializar();
-
-            if (tieneCarrusel == "True")
-            {
-                carruselModule = CarruselModule({
-                    palanca: "@Model.Palanca",
-                    campania: "@Model.Campania",
-                    cuv: "@Model.Cuv",
-                    urlDataCarrusel: '@Url.Action("FichaObtenerProductosCarrusel", "Estrategia", new { Area = "" })',
-                    idPlantillaProducto: "#producto-landing-template",
-                    divCarruselContenedor: "#divFichaCarrusel",
-                    idTituloCarrusel: "#tituloCarrusel",
-                    divCarruselProducto: "#divFichaCarruselProducto",
-                    OrigenPedidoWeb: "@Model.OrigenUrl"
-                });
-                carruselModule.Inicializar();
-            }
 
             CerrarLoad();
         });

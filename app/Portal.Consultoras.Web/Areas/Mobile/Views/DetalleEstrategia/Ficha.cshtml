@@ -10,10 +10,10 @@
 
 @Html.Partial("FichaTemplate")
 
-@if (Model.NoEsCampaniaActual)
+@*@if (Model.NoEsCampaniaActual)
 {
     @Html.Action("RDMensajeBloqueadoDetalle", "RevistaDigital")
-}
+}*@
 
 @section scripts{
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/EstrategiaAgregar")
@@ -23,11 +23,8 @@
     <script type="text/javascript">
         AbrirLoad();
 
-        window.videoKey = '@Model.CodigoVideo';
         var fichaModule;
-        var carruselModule;
 
-        var tieneCarrusel = '@Model.TieneCarrusel';
         var urlGetCantidadProductos = '@Url.Action("GetResumenCampaniaAgrupado", "GestionContenido", new {area = ""})';
 
         $(document).ready(function () {
@@ -36,26 +33,9 @@
                 palanca: "@Model.Palanca",
                 campania: "@Model.Campania",
                 cuv: "@Model.Cuv",
-                origen: "@Model.OrigenUrl",
-                tieneSession: "@Model.TieneSession"
+                origen: "@Model.OrigenUrl"
             });
             fichaModule.Inicializar();
-
-            if (tieneCarrusel == "True")
-            {
-                carruselModule = CarruselModule({
-                    palanca: "@Model.Palanca",
-                    campania: "@Model.Campania",
-                    cuv: "@Model.Cuv",
-                    urlDataCarrusel: '@Url.Action("FichaObtenerProductosCarrusel", "Estrategia", new {Area = ""})',
-                    idPlantillaProducto: "#producto-landing-template",
-                    divCarruselContenedor: "#divFichaCarrusel",
-                    idTituloCarrusel: "#tituloCarrusel",
-                    divCarruselProducto: "#divFichaCarruselProducto",
-                    OrigenPedidoWeb: "@Model.OrigenUrl"
-                });
-                carruselModule.Inicializar();
-            }
 
             CerrarLoad();
         });

@@ -214,12 +214,21 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var modelo = FichaModelo(palanca, campaniaId, cuv, origen);
+                //var modelo = FichaModelo(palanca, campaniaId, cuv, origen);
 
-                if (modelo != null)
+                //if (modelo != null)
+                //{
+                //    return View(modelo);
+                //}
+
+                var modelo = new DetalleEstrategiaFichaModel
                 {
-                    return View(modelo);
-                }
+                    Palanca = palanca,
+                    Campania = campaniaId,
+                    Cuv = cuv,
+                    OrigenUrl = origen
+                };
+                return View(modelo);
             }
             catch (Exception ex)
             {
@@ -570,35 +579,25 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 return null;
             }
-
+            
             palanca = IdentificarPalancaRevistaDigital(palanca, campaniaId);
 
             if (!_ofertaPersonalizadaProvider.TienePermisoPalanca(palanca))
                 return null;
 
-            DetalleEstrategiaFichaModel modelo = null;
-            if (_ofertaPersonalizadaProvider.PalancasConSesion(palanca))
+            DetalleEstrategiaFichaModel modelo = GetEstrategiaInicial(palanca, campaniaId, cuv);
+            if (modelo == null)
             {
-                var estrategiaPresonalizada = _ofertaPersonalizadaProvider.ObtenerEstrategiaPersonalizada(userData, palanca, cuv, campaniaId);
-
-                if (estrategiaPresonalizada == null)
-                {
-                    return null;
-                }
-
-                if (userData.CampaniaID != campaniaId) estrategiaPresonalizada.ClaseBloqueada = "btn_desactivado_general";
-                modelo = Mapper.Map<EstrategiaPersonalizadaProductoModel, DetalleEstrategiaFichaModel>(estrategiaPresonalizada);
-                if (palanca == Constantes.NombrePalanca.PackNuevas)
-                {
-                    modelo.TipoEstrategiaDetalle.Slogan = "Contenido del Set:";
-                    modelo.ListaDescripcionDetalle = modelo.ArrayContenidoSet;
-                }
+                return null;
             }
 
             #region Modelo
 
             var esMobile = IsMobile();
-            modelo = modelo ?? new DetalleEstrategiaFichaModel();
+
+            modelo.NoEsCampaniaActual = campaniaId != userData.CampaniaID;
+
+
             modelo.MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(esMobile);
             modelo.OrigenUrl = origen;
             modelo.OrigenAgregar = GetOrigenPedidoWebDetalle(origen);
@@ -617,7 +616,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             modelo.TieneCompartir = GetTieneCompartir(palanca, esEditar);
 
-            modelo.NoEsCampaniaActual = campaniaId != userData.CampaniaID;
             modelo.Cantidad = 1;
             #endregion
 
@@ -671,6 +669,29 @@ namespace Portal.Consultoras.Web.Controllers
                     break;
             }
             return palancaX;
+        }
+
+        private DetalleEstrategiaFichaModel GetEstrategiaInicial(string palanca, int campaniaId, string cuv)
+        {
+            var modelo = new DetalleEstrategiaFichaModel();
+            if (_ofertaPersonalizadaProvider.PalancasConSesion(palanca))
+            {
+                var estrategiaPresonalizada = _ofertaPersonalizadaProvider.ObtenerEstrategiaPersonalizada(userData, palanca, cuv, campaniaId);
+
+                if (estrategiaPresonalizada == null)
+                {
+                    return null;
+                }
+
+                if (userData.CampaniaID != campaniaId) estrategiaPresonalizada.ClaseBloqueada = "btn_desactivado_general";
+                modelo = Mapper.Map<EstrategiaPersonalizadaProductoModel, DetalleEstrategiaFichaModel>(estrategiaPresonalizada);
+                if (palanca == Constantes.NombrePalanca.PackNuevas)
+                {
+                    modelo.TipoEstrategiaDetalle.Slogan = "Contenido del Set:";
+                    modelo.ListaDescripcionDetalle = modelo.ArrayContenidoSet;
+                }
+            }
+            return modelo;
         }
 
         private int GetTipoAccionNavegar(int origen, bool esMobile, bool esEditar)

@@ -22,6 +22,7 @@ registerEvent.call(opcionesEvents, "onOptionSelected");
 
 var variablesPortal = variablesPortal || {};
 var fichaModule = fichaModule || {};
+var carruselModule = carruselModule || {};
 
 // TODO: quitar
 var fichaEstrategia;
@@ -453,7 +454,7 @@ var FichaModule = (function (config) {
         });
     }
 
-    var _SetPedidoSetDetalle = function (pEstrategia) {
+    var _setPedidoSetDetalle = function (pEstrategia) {
         if (_config.esEditable) {
             if (!IsNullOrEmpty(_config.setId)) {
                 _promiseObternerDetallePedido({
@@ -566,7 +567,7 @@ var FichaModule = (function (config) {
         _getComponentesAndUpdateEsMultimarca(estrategia);
         _actualizarCodigoVariante(estrategia);
 
-        _SetPedidoSetDetalle(estrategia);
+        _setPedidoSetDetalle(estrategia);
         //
         estrategia.ClaseBloqueada = "btn_desactivado_general";
         estrategia.ClaseBloqueadaRangos = "contenedor_rangos_desactivado";
@@ -835,7 +836,21 @@ var FichaModule = (function (config) {
         SetHandlebars("#" + _template.navegar, _modeloFicha.BreadCrumbs, _template.getTagDataHtml(_template.navegar));
 
         if (_modeloFicha.TieneCarrusel) {
+
             SetHandlebars("#" + _template.carrusel, _modeloFicha, _template.getTagDataHtml(_template.carrusel));
+
+            carruselModule = CarruselModule({
+                palanca: _config.palanca,
+                campania: _config.campania,
+                cuv: _config.cuv,
+                idPlantillaProducto: "#producto-landing-template",
+                divCarruselContenedor: "#divFichaCarrusel",
+                idTituloCarrusel: "#tituloCarrusel",
+                divCarruselProducto: "#divFichaCarruselProducto",
+                OrigenPedidoWeb: _config.origen
+            });
+
+            carruselModule.Inicializar();
         }
 
         SetHandlebars("#" + _template.compartir, _modeloFicha, _template.getTagDataHtml(_template.compartir));
