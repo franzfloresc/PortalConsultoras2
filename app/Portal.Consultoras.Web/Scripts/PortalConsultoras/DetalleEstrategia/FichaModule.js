@@ -475,7 +475,9 @@ var FichaModule = (function (config) {
             var filterComponente = estrategia
                 .Hermanos
                 .filter(function (objeto) {
-                    return objeto.Cuv == o.CuvProducto && (objeto.Hermanos != null && objeto.Hermanos.length > 0);
+                    return objeto.Hermanos != null
+                        && objeto.Hermanos.length > 0
+                        && objeto.Hermanos.filter(function (nx) { return nx.Cuv == i.CuvProducto }).length > 0
                 });
 
             if (filterComponente.length) {
