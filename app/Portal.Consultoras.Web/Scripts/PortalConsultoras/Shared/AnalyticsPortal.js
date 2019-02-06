@@ -940,43 +940,18 @@ var AnalyticsPortalModule = (function () {
         }
     }
 
-    var marcaFiltroPorCategoria = function (label) {
+    var marcaFiltroPorSeccion = function (seccion, label) {
         try {
             dataLayer.push({
                 'event': _evento.virtualEvent,
                 'category': 'Resultados de Búsqueda',
-                'action': 'Filtrar por Categoría',
+                'action': 'Filtrar por ' + seccion,
                 'label': label
             });
         } catch (e) {
             console.error(e);
         }
-    }
 
-    var marcaFiltroPorMarca = function (label) {
-        try {
-            dataLayer.push({
-                'event': _evento.virtualEvent,
-                'category': 'Resultados de Búsqueda',
-                'action': 'Filtrar por Marca',
-                'label': label
-            });
-        } catch (e) {
-            console.error(e);
-        }
-    }
-
-    var marcaFiltroPorPrecio = function (label) {
-        try {
-            dataLayer.push({
-                'event': _evento.virtualEvent,
-                'category': 'Resultados de Búsqueda',
-                'action': 'Filtrar por Precio',
-                'label': label
-            });
-        } catch (e) {
-            console.error(e);
-        }
     }
 
     var marcaEliminarEtiqueta = function (label) {
@@ -2816,10 +2791,7 @@ var AnalyticsPortalModule = (function () {
         MarcaOcultarRecomendaciones: marcaOcultarRecomendaciones,
         MarcaAnadirCarritoRecomendaciones: marcaAnadirCarritoRecomendaciones,
 
-
-        MarcaFiltroPorCategoria: marcaFiltroPorCategoria,
-        MarcaFiltroPorMarca: marcaFiltroPorMarca,
-        MarcaFiltroPorPrecio: marcaFiltroPorPrecio,
+        MarcaFiltroPorSeccion: marcaFiltroPorSeccion,
         MarcaEliminarEtiqueta: marcaEliminarEtiqueta,
         MarcaLimpiarFiltros: marcaLimpiarFiltros,
         MarcaBotonFiltro: marcaBotonFiltro,

@@ -328,22 +328,6 @@
         }
     };
     var _eventos = {
-        MarcarFiltros: function (data, filtroSeleccionado) {
-            switch (data[0]) {
-                case 'cat':
-                    if (!(typeof AnalyticsPortalModule === 'undefined'))
-                        AnalyticsPortalModule.MarcaFiltroPorCategoria(filtroSeleccionado.NombreFiltro);
-                    break;
-                case 'mar':
-                    if (!(typeof AnalyticsPortalModule === 'undefined'))
-                        AnalyticsPortalModule.MarcaFiltroPorMarca(filtroSeleccionado.NombreFiltro);
-                    break;
-                case 'pre':
-                    if (!(typeof AnalyticsPortalModule === 'undefined'))
-                        AnalyticsPortalModule.MarcaFiltroPorPrecio(filtroSeleccionado.NombreFiltro);
-                    break;
-            }
-        },
         EliminarEtiquetaCriterioElegido: function (e) {
             e.preventDefault();
 
@@ -653,8 +637,6 @@
                 Max: max
             };
 
-            _eventos.MarcarFiltros(splited, filtroSeleccionado);
-
             var seleccionados = get_local_storage(_config.filtrosLocalStorage);
             var opcionesFiltros = [];
 
@@ -702,6 +684,11 @@
                 if (_config.isMobile) {
                     _funciones.AnchoContenedorEtiquetasCriteriosElegidosMobile();
                 }
+
+                if (!(typeof AnalyticsPortalModule === 'undefined')) {
+                    AnalyticsPortalModule.MarcaFiltroPorSeccion(nombreSeccion, nombreFiltro);
+                }
+                    
             }
             _funciones.accionFiltrosCriterio();
         }
