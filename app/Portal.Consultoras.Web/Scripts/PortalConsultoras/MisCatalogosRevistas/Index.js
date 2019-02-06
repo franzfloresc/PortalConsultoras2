@@ -571,7 +571,7 @@ function CatalogoMostrar(accion, btn) {
     campSelect = getNumeroCampania(campS);
     $("#contentCatalogo #TextoCampania").text("CATÁLOGOS C-" + campSelect);
     //$("#divCatalogo > div").hide();
-    //$("#divCatalogo > div[data-cam='" + campS + "'][data-estado='1']").show();
+    $("#divCatalogo" + campSelectI + " > div[data-cam='" + campS + "'][data-estado='1']").show();
 
     $("#contentCatalogo > span img").show();
     if (campSelectI == 0 || campSelectI == cantCam - 1) {
