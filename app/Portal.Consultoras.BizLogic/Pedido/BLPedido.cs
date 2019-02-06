@@ -2099,7 +2099,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         case Constantes.PedidoAccion.INSERT:
                             {
                                 _pedidoWebDetalleBusinessLogic.InsertPedidoWebSetTransaction(usuario.PaisID, usuario.CampaniaID, pedidoWebDetalles[0].PedidoID, estrategia.Cantidad, estrategia.CUV2
-                                        , usuario.ConsultoraID, usuario.CodigoConsultora, cuvlist, estrategia.EstrategiaID, pedidoDetalle.ClienteID, pedidoWebDetalles[0].TipoEstrategiaID);
+                                        , usuario.ConsultoraID, usuario.CodigoUsuario, cuvlist, estrategia.EstrategiaID, pedidoDetalle.ClienteID, pedidoWebDetalles[0].TipoEstrategiaID);
                                 
                             }
                             break;
