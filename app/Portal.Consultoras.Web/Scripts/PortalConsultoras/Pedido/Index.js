@@ -24,8 +24,6 @@ var listaMensajeMeta = listaMensajeMeta;
 var listaParametriaOfertaFinal = listaParametriaOfertaFinal || {};
 var cuvbuscado = "";
 var cuvEsProgNuevas = false;
-var fichaModule;
-      
 
 $(document).ready(function () {
      

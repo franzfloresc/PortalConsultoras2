@@ -1,5 +1,4 @@
 ﻿using Portal.Consultoras.Web.Models.DetalleEstrategia;
-using System;
 
 namespace Portal.Consultoras.Web.Models
 {
@@ -37,6 +36,6 @@ namespace Portal.Consultoras.Web.Models
         public bool Error { get; set; }
         public int Cantidad { get; set; }
 
-        public bool MostrarSelectorCliente { get; set; }
+        public bool MostrarCliente { get; set; }
     }
 }

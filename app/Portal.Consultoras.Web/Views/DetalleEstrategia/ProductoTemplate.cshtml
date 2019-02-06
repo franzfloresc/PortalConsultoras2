@@ -117,7 +117,7 @@
 
             </div>
 
-            {{#if MostrarSelectorCliente}}
+            {{#if MostrarCliente}}
             <!--Init panel cliente-->
 
             <input id="hfClienteId" type="hidden" />
@@ -143,6 +143,26 @@
             {{/if}}
 
             <div id="dvContenedorAgregar" class="contenedor_agregar">
+
+                <div data-selecciontono="tooltip" class="popover top tooltip_agregar_desabilitado" role="tooltip" id="" style="display: none;">
+                    <div class="arrow" style="left: 20%;"></div>
+                    <div class="popover-content">
+                        <ul class="list-inline popover_texto">
+                            <li><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt="" /></li>
+                            <li>Debes elegir tus opciones para poder agregar la oferta.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div data-limitepedido="tooltip" class="popover top tooltip_limite_pedidos" role="tooltip" id="" style="display: none;">
+                    <div class="arrow"></div>
+                    <div class="popover-content">
+                        <ul class="list-inline popover_texto">
+                            <li><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt="" /></li>
+                            <li>Lo sentimos <img class="tooltop-emoji" src="/Content/Images/Mobile/Esika/1f615.png" /> Has llegado al límite de pedidos para esta oferta.</li>
+                        </ul>
+                    </div>
+                </div>
+
                 {{#if TieneStock}}
                 <div class="contenedor_rangos {{#if esCampaniaSiguiente}} {{ClaseBloqueadaRangos}} {{/if}}" id="idcontenedor_rangos" data-cantidad-contenedor="">
                     <input class="txt_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
@@ -162,49 +182,12 @@
                         </a>
                     </div>
                 </div>
-                {{else}}
-                <div class="contenedor_rangos" id="idcontenedor_rangos" data-cantidad-contenedor="" style="display:none">
-                    @*<input class="txt_cantidad_pedido ValidaNumeral ValidaPasteNumeral" type="text" value="1" size="2" maxlength="2" style="pointer-events: none;" data-input="cantidad" data-cantidad-input="-">
-            <div>
-                <a class="txt_menos" data-cantidad-agregar="-" style="pointer-events: none;">
-                    <div class="dibujar_linea dibujar_menos"></div>
-                </a>
-                <a class="txt_mas" data-cantidad-agregar="+" style="pointer-events: none;">
-                    <div class="dibujar_linea dibujar_mas"></div>
-                </a>
-            </div>*@
-                </div>
-                {{/if}}
-                <div data-selecciontono="tooltip" class="popover top tooltip_agregar_desabilitado" role="tooltip" id="" style="display: none;">
-                    <div class="arrow" style="left: 20%;"></div>
-                    <div class="popover-content">
-                        <ul class="list-inline popover_texto">
-                            <li><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt="" /></li>
-                            <li>Debes elegir tus opciones para poder agregar la oferta.</li>
-                        </ul>
-                    </div>
-                </div>
-                <div data-limitepedido="tooltip" class="popover top tooltip_limite_pedidos" role="tooltip" id="" style="display: none;">
-                    <div class="arrow"></div>
-                    <div class="popover-content">
-                        <ul class="list-inline popover_texto">
-                            <li><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt="" /></li>
-                            <li>Lo sentimos <img class="tooltop-emoji" src="/Content/Images/Mobile/Esika/1f615.png" /> Has llegado al límite de pedidos para esta oferta.</li>
-                        </ul>
-                    </div>
-                </div>
-                {{#if TieneStock}}
-                {{#if esEditable}}
                 <a id="btnAgregalo"
                    class="btn_agregalo {{#if esCampaniaSiguiente}} {{ClaseBloqueada}} {{/if}}"
                    {{#if esCampaniaSiguiente}} data-bloqueada="{{ClaseBloqueada}}" {{/if}}
-                   onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, false, 0, true); ">ACTUALIZAR</a>
-                {{else}}
-                <a id="btnAgregalo"
-                   class="btn_agregalo {{#if esCampaniaSiguiente}} {{ClaseBloqueada}} {{/if}}"
-                   {{#if esCampaniaSiguiente}} data-bloqueada="{{ClaseBloqueada}}" {{/if}}
-                   onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, false, 0, true); ">AGRÉGALO</a>
-                {{/if}}
+                   onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, false, 0, true); ">
+                    AGRÉGALO
+                </a>
                 {{else}}
                 <a id="btnAgregalo"
                    class="boton_Agregalo_agotado btn_agregalo"
@@ -218,7 +201,7 @@
                     {{/iff}}
                     <div id="ContenedorAgregado" class="ficha_agregado" style="display:none;">
                         <div class="txt_agregado" data-txt_agregado="">
-                            <span class="span_agregado">ACTUALIZADO</span>
+                            <span class="span_agregado">AGREGADO</span>
                             <div class="check_agregado">
                                 <div class="dibujar_linea dibujar_check_agregado"></div>
                             </div>

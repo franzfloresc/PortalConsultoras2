@@ -48,7 +48,7 @@ function GetPalanca(codigoEstrategia, origenPedidoWeb, esUrl) {
     }
 
     origenPedidoWeb = origenPedidoWeb || -1;
-    esUrl = esUrl === undefined || false;
+    esUrl = esUrl === undefined || esUrl;
     if (esUrl) {
         url = isMobile() ? "/Mobile/Detalle/" : "/Detalle/";
     }

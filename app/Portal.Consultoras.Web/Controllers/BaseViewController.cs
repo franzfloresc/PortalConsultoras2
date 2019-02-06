@@ -214,12 +214,21 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var modelo = FichaModelo(palanca, campaniaId, cuv, origen);
+                //var modelo = FichaModelo(palanca, campaniaId, cuv, origen);
 
-                if (modelo != null)
+                //if (modelo != null)
+                //{
+                //    return View(modelo);
+                //}
+
+                var modelo = new DetalleEstrategiaFichaModel
                 {
-                    return View(modelo);
-                }
+                    Palanca = palanca,
+                    Campania = campaniaId,
+                    Cuv = cuv,
+                    OrigenUrl = origen
+                };
+                return View(modelo);
             }
             catch (Exception ex)
             {
@@ -570,35 +579,25 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 return null;
             }
-
+            
             palanca = IdentificarPalancaRevistaDigital(palanca, campaniaId);
 
             if (!_ofertaPersonalizadaProvider.TienePermisoPalanca(palanca))
                 return null;
 
-            DetalleEstrategiaFichaModel modelo = null;
-            if (_ofertaPersonalizadaProvider.PalancasConSesion(palanca))
+            DetalleEstrategiaFichaModel modelo = GetEstrategiaInicial(palanca, campaniaId, cuv);
+            if (modelo == null)
             {
-                var estrategiaPresonalizada = _ofertaPersonalizadaProvider.ObtenerEstrategiaPersonalizada(userData, palanca, cuv, campaniaId);
-
-                if (estrategiaPresonalizada == null)
-                {
-                    return null;
-                }
-
-                if (userData.CampaniaID != campaniaId) estrategiaPresonalizada.ClaseBloqueada = "btn_desactivado_general";
-                modelo = Mapper.Map<EstrategiaPersonalizadaProductoModel, DetalleEstrategiaFichaModel>(estrategiaPresonalizada);
-                if (palanca == Constantes.NombrePalanca.PackNuevas)
-                {
-                    modelo.TipoEstrategiaDetalle.Slogan = "Contenido del Set:";
-                    modelo.ListaDescripcionDetalle = modelo.ArrayContenidoSet;
-                }
+                return null;
             }
 
             #region Modelo
 
             var esMobile = IsMobile();
-            modelo = modelo ?? new DetalleEstrategiaFichaModel();
+
+            modelo.NoEsCampaniaActual = campaniaId != userData.CampaniaID;
+
+
             modelo.MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(esMobile);
             modelo.OrigenUrl = origen;
             modelo.OrigenAgregar = GetOrigenPedidoWebDetalle(origen);
@@ -612,45 +611,23 @@ namespace Portal.Consultoras.Web.Controllers
             modelo.Campania = campaniaId;
             modelo.Cuv = cuv;
 
-            modelo.TieneCarrusel = Constantes.NombrePalanca.Lanzamiento == palanca
-                    || Constantes.NombrePalanca.ShowRoom == palanca
-                    || Constantes.NombrePalanca.OfertaDelDia == palanca;
+            modelo.TieneCarrusel = GetTieneCarrusel(palanca, esEditar);
             modelo.OrigenAgregarCarrusel = modelo.TieneCarrusel ? GetOrigenPedidoWebDetalle(origen, modelo.TieneCarrusel) : 0;
 
-            modelo.TieneCompartir = !MobileAppConfiguracion.EsAppMobile &&
-                !(Constantes.NombrePalanca.HerramientasVenta == palanca
-                || Constantes.NombrePalanca.PackNuevas == palanca);
+            modelo.TieneCompartir = GetTieneCompartir(palanca, esEditar);
 
-            modelo.NoEsCampaniaActual = campaniaId != userData.CampaniaID;
             modelo.Cantidad = 1;
             #endregion
 
             #region ODD
             if (modelo.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.OfertaDelDia)
             {
-                modelo.TeQuedan = _ofertaDelDiaProvider.CountdownOdd(userData).TotalSeconds;
-                modelo.TieneReloj = true;
-
-                var sessionODD = (DataModel)SessionManager.OfertaDelDia.Estrategia.Clone();
-                modelo.ColorFondo1 = sessionODD.ColorFondo1;
-                modelo.ConfiguracionContenedor = (ConfiguracionSeccionHomeModel)sessionODD.ConfiguracionContenedor.Clone();
-                modelo.ConfiguracionContenedor = modelo.ConfiguracionContenedor ?? new ConfiguracionSeccionHomeModel();
-                modelo.ConfiguracionContenedor.ColorFondo = "#fff";
-                modelo.ConfiguracionContenedor.ColorTexto = "#000";
-                modelo.ColorFondo1 = "";
+                modelo = GetDatosOdd(modelo);
             }
 
             #endregion
-            
-            modelo.MostrarSelectorCliente = false;
-#if DEBUG
-            modelo.MostrarSelectorCliente = _tablaLogicaProvider.GetTablaLogicaDatoValorBool(
-                            userData.PaisID,
-                            Constantes.TablaLogica.PantallaResponsive,
-                            Constantes.TablaLogicaDato.PantallasResponsive.MisClientes,
-                            false
-                            );
-#endif
+
+            modelo.MostrarCliente = GetMostrarCliente();
 
             return modelo;
         }
@@ -694,6 +671,29 @@ namespace Portal.Consultoras.Web.Controllers
             return palancaX;
         }
 
+        private DetalleEstrategiaFichaModel GetEstrategiaInicial(string palanca, int campaniaId, string cuv)
+        {
+            var modelo = new DetalleEstrategiaFichaModel();
+            if (_ofertaPersonalizadaProvider.PalancasConSesion(palanca))
+            {
+                var estrategiaPresonalizada = _ofertaPersonalizadaProvider.ObtenerEstrategiaPersonalizada(userData, palanca, cuv, campaniaId);
+
+                if (estrategiaPresonalizada == null)
+                {
+                    return null;
+                }
+
+                if (userData.CampaniaID != campaniaId) estrategiaPresonalizada.ClaseBloqueada = "btn_desactivado_general";
+                modelo = Mapper.Map<EstrategiaPersonalizadaProductoModel, DetalleEstrategiaFichaModel>(estrategiaPresonalizada);
+                if (palanca == Constantes.NombrePalanca.PackNuevas)
+                {
+                    modelo.TipoEstrategiaDetalle.Slogan = "Contenido del Set:";
+                    modelo.ListaDescripcionDetalle = modelo.ArrayContenidoSet;
+                }
+            }
+            return modelo;
+        }
+
         private int GetTipoAccionNavegar(int origen, bool esMobile, bool esEditar)
         {
             int tipo = Constantes.TipoAccionNavegar.SinBoton;
@@ -721,6 +721,56 @@ namespace Portal.Consultoras.Web.Controllers
 
             // aplicar logica para los origenes de sugeridos
             return tipo;
+        }
+
+        private bool GetTieneCarrusel(string palanca, bool esEditar)
+        {
+            return !esEditar && (Constantes.NombrePalanca.Lanzamiento == palanca
+                    || Constantes.NombrePalanca.ShowRoom == palanca
+                    || Constantes.NombrePalanca.OfertaDelDia == palanca);
+        }
+
+
+        private bool GetTieneCompartir(string palanca, bool esEditar)
+        {
+            return !MobileAppConfiguracion.EsAppMobile &&
+                !(Constantes.NombrePalanca.HerramientasVenta == palanca
+                || Constantes.NombrePalanca.PackNuevas == palanca);
+        }
+
+        private DetalleEstrategiaFichaModel GetDatosOdd(DetalleEstrategiaFichaModel modelo)
+        {
+            modelo.TeQuedan = _ofertaDelDiaProvider.CountdownOdd(userData).TotalSeconds;
+            modelo.TieneReloj = true;
+
+            var sessionODD = (DataModel)SessionManager.OfertaDelDia.Estrategia.Clone();
+            modelo.ColorFondo1 = sessionODD.ColorFondo1;
+            modelo.ConfiguracionContenedor = (ConfiguracionSeccionHomeModel)sessionODD.ConfiguracionContenedor.Clone();
+            modelo.ConfiguracionContenedor = modelo.ConfiguracionContenedor ?? new ConfiguracionSeccionHomeModel();
+            modelo.ConfiguracionContenedor.ColorFondo = "#fff";
+            modelo.ConfiguracionContenedor.ColorTexto = "#000";
+            modelo.ColorFondo1 = "";
+
+            return modelo;
+        }
+
+        private bool GetMostrarCliente()
+        {
+            var mostrar = false;
+
+#if DEBUG
+
+            mostrar = _tablaLogicaProvider.GetTablaLogicaDatoValorBool(
+                            userData.PaisID,
+                            Constantes.TablaLogica.PantallaResponsive,
+                            Constantes.TablaLogicaDato.PantallasResponsive.MisClientes,
+                            false
+                            );
+
+#endif
+
+            return mostrar;
+
         }
     }
 }

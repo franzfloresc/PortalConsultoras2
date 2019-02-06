@@ -10,58 +10,36 @@
 
 @Html.Partial("FichaTemplate")
 
-@if (Model.NoEsCampaniaActual)
+@*@if (Model.NoEsCampaniaActual)
 {
     @Html.Action("RDMensajeBloqueadoDetalle", "RevistaDigital")
-}
+}*@
 
 @section scripts{
-    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Ficha")
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/EstrategiaAgregar")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/TusClientes")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Ficha")
 
     <script type="text/javascript">
         AbrirLoad();
 
-        window.videoKey = '@Model.CodigoVideo';
         var fichaModule;
-        var carruselModule;
 
-        var tieneCarrusel = '@Model.TieneCarrusel';
         var urlGetCantidadProductos = '@Url.Action("GetResumenCampaniaAgrupado", "GestionContenido", new {area = ""})';
 
         $(document).ready(function () {
             fichaModule = FichaModule({
                 localStorageModule: LocalStorageModule(),
                 palanca: "@Model.Palanca",
-                origen: "@Model.OrigenUrl",
-                tieneSession: "@Model.TieneSession",
                 campania: "@Model.Campania",
                 cuv: "@Model.Cuv",
-                urlObtenerComponentes: '@Url.Action("ObtenerComponentes", "DetalleEstrategia", new {area = ""})'
+                origen: "@Model.OrigenUrl"
             });
             fichaModule.Inicializar();
-
-            if (tieneCarrusel == "True")
-            {
-                carruselModule = CarruselModule({
-                    palanca: "@Model.Palanca",
-                    campania: "@Model.Campania",
-                    cuv: "@Model.Cuv",
-                    urlDataCarrusel: '@Url.Action("FichaObtenerProductosCarrusel", "Estrategia", new {Area = ""})',
-                    idPlantillaProducto: "#producto-landing-template",
-                    divCarruselContenedor: "#divFichaCarrusel",
-                    idTituloCarrusel: "#tituloCarrusel",
-                    divCarruselProducto: "#divFichaCarruselProducto",
-                    OrigenPedidoWeb: "@Model.OrigenUrl"
-                });
-                carruselModule.Inicializar();
-            }
 
             CerrarLoad();
         });
 
-        $(document).ajaxStop(function () {
-
-        })
+        $(document).ajaxStop(function () { })
     </script>
 }

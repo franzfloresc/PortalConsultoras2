@@ -282,7 +282,7 @@ var CarruselModule = (function (config) {
         palanca: config.palanca || "",
         campania: config.campania || "",
         cuv: config.cuv || "",
-        urlDataCarrusel: config.urlDataCarrusel || "",
+        urlDataCarrusel: config.urlDataCarrusel || "/Estrategia/FichaObtenerProductosCarrusel",
         OrigenPedidoWeb: config.OrigenPedidoWeb || "",
         pantalla: "Ficha"
     };
