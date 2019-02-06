@@ -16,7 +16,7 @@ namespace Portal.Consultoras.Web.Controllers
             using (var srv = new PedidoServiceClient())
             {
                 var List = srv.GetEscalaDescuento(userData.PaisID, userData.CampaniaID, userData.CodigorRegion, userData.CodigoZona).OrderBy(a => a.MontoDesde);
-                var montoMinimo = $"{userData.Simbolo} {Util.DecimalToStringFormat(userData.MontoMinimo, userData.CodigoISO)}";
+                var montoMinimo = string.Format("{0} {1}", userData.Simbolo, Util.DecimalToStringFormat(userData.MontoMinimo, userData.CodigoISO));
                 var simbolo = userData.Simbolo;
                 if (List != null)
                 {
@@ -31,9 +31,9 @@ namespace Portal.Consultoras.Web.Controllers
                             if (i == 0)
                                 obj.MontoMinimo = montoMinimo;
                             else
-                                obj.MontoMinimo = $"{userData.Simbolo} {Util.DecimalToStringFormat(Math.Floor(montoMinimoEscala) + 1, userData.CodigoISO)}";
+                                obj.MontoMinimo = string.Format("{0} {1}", userData.Simbolo, Util.DecimalToStringFormat(Math.Floor(montoMinimoEscala) + 1, userData.CodigoISO));
 
-                            obj.MontoMaximo = i + 1 == cantidad ? "a más" : $"{userData.Simbolo} {Util.DecimalToStringFormat(Math.Floor(item.MontoHasta), userData.CodigoISO)}";
+                            obj.MontoMaximo = i + 1 == cantidad ? "a más" : string.Format("{0} {1}", userData.Simbolo, Util.DecimalToStringFormat(Math.Floor(item.MontoHasta), userData.CodigoISO));
                             montoMinimoEscala = item.MontoHasta;
                             obj.PorcentajeDescuento = Util.DecimalToStringFormat(item.PorDescuento, userData.CodigoISO);
                             model.Add(obj);
