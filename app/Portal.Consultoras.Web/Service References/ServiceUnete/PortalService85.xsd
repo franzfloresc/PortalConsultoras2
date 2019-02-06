@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd7" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="http://localhost:27086/PortalService.svc?xsd=xsd7" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
   <xs:complexType name="ParametroUneteBE">
     <xs:sequence>
       <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
@@ -427,32 +427,4 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ResponseBotmaker" nillable="true" type="tns:ResponseBotmaker" />
-  <xs:complexType name="ArrayOfParametroUneteBE">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="ParametroUneteBE" nillable="true" type="tns:ParametroUneteBE" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfParametroUneteBE" nillable="true" type="tns:ArrayOfParametroUneteBE" />
-  <xs:complexType name="PagoKitInicioBE">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Correo" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Cuv" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Cvv" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="FechaExpiracion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="FechaNacimientoTarjeta" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ImgTipoTarjeta" type="xs:int" />
-      <xs:element minOccurs="0" name="InstitucionFinanciera" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="MetodoPago" type="xs:int" />
-      <xs:element minOccurs="0" name="MetodoPagoId" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="NumeroCelularTitular" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="NumeroDocumentoTitular" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="NumeroTarjeta" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Precio" type="xs:decimal" />
-      <xs:element minOccurs="0" name="TipoDocumentoTitular" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="TipoKit" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="TokenCard" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="PagoKitInicioBE" nillable="true" type="tns:PagoKitInicioBE" />
 </xs:schema>

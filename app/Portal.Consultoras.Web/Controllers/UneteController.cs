@@ -1912,6 +1912,97 @@ namespace Portal.Consultoras.Web.Controllers
             return PartialView("_ConsultarUbicacion");
         }
 
+
+        public ActionResult ReporteTipoConsultora()
+        {
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("GestionaTipoConsultora", "&rol=" + userData.RolDescripcion);
+            return View();
+        }
+
+        public ActionResult ListarTipoConsultora(string sidx, string sord, int page, int rows, string fechaInicio, string fechaFin, string codigoIso)
+        {
+            DateTime fechaInicioSolicitud = Convert.ToDateTime(fechaInicio);
+
+            DateTime fechaFinSolicitud = Convert.ToDateTime(fechaFin);
+
+            using (var sv = new PortalServiceClient())
+            {
+               //List<SolicitudPostulanteBE> lst = new List<SolicitudPostulanteBE>();
+
+                List<SolicitudPostulanteBE> lst = sv.ConsultarTipoPostulante(codigoIso, fechaInicioSolicitud.ToString("yyyy/MM/dd"), fechaFinSolicitud.ToString("yyyy/MM/dd")).ToList();
+
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
+
+                IEnumerable<SolicitudPostulanteBE> items = lst;
+
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
+
+                var data = new
+                {
+                    total = pag.PageCount,
+                    page = pag.CurrentPage,
+                    records = pag.RecordCount,
+                    rows = from a in items
+                           select new
+                           {
+                               id = a.SolicitudPostulanteID,
+                               cell = new string[]
+                               {
+                                   a.SolicitudPostulanteID.ToString(),
+                                   a.NombreCompleto,
+                                   a.CodigoZona,
+                                   a.CodigoSeccion,
+                                   a.CodigoTerritorio,
+                                   a.EstadoPostulante,
+                                   a.FechaCreacion.Value.ToShortDateString(),
+                                   a.FechaAproFVVV.Value.ToShortDateString()
+                                }
+                           }
+                };
+
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public ActionResult ExportarTipoConsultora(string fechaInicio, string fechaFin, string codigoIso)
+        {
+            DateTime fechaInicioSolicitud = Convert.ToDateTime(fechaInicio);
+
+            DateTime fechaFinSolicitud = Convert.ToDateTime(fechaFin);
+
+            using (var sv = new PortalServiceClient())
+            {
+                //List<SolicitudPostulanteBE> lst = new List<SolicitudPostulanteBE>();
+
+                List<SolicitudPostulanteBE> lst = sv.ConsultarTipoPostulante(codigoIso, fechaInicioSolicitud.ToString("yyyy/MM/dd"), fechaFinSolicitud.ToString("yyyy/MM/dd")).ToList();
+
+                Dictionary<string, string> dic = new Dictionary<string, string>
+                {
+                    {"SolicitudPostulanteID", "SolicitudPostulanteID"},
+                    {"Nombre Completo", "NombreCompleto"},
+                    {"CodigoZona", "CodigoZona"},
+                    {"CodigoSeccion", "CodigoSeccion"},
+                    {"CodigoTerritorio", "CodigoTerritorio"},
+                    {"EstadoPostulante", "EstadoPostulante"},
+                    {"FechaCreacion", "FechaCreacion"},
+                    {"FechaCambio", "FechaAproFVVV"}
+                };
+
+                Util.ExportToExcel("Reporte Tipo Consultora", lst, dic);
+
+                return View();
+            }
+        }
+
+
         public ActionResult GestionaPostulante()
         {
             var nombreRol = userData.RolDescripcion;
