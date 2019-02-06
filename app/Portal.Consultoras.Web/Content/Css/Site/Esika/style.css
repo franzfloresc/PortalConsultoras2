@@ -34937,6 +34937,7 @@ div.motivoRechazo textarea {
     letter-spacing: 0.24px;
     height: 51px;
     margin-bottom: 15px;
+    overflow: hidden;
 }
 
 .btn_elegir_regalo{
