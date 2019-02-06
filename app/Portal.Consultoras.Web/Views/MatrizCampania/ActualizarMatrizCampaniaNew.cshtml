@@ -1,6 +1,6 @@
 ﻿@{
-// ViewBag.Title = "Actualización – Matriz Campaña";
-//var imagenVacia = "prod_grilla_vacio.png";
+    // ViewBag.Title = "Actualización – Matriz Campaña";
+    //var imagenVacia = "prod_grilla_vacio.png";
 }
 @using Portal.Consultoras.Common
 
@@ -83,7 +83,7 @@
                                 <div class="div-3">
                                     <div class="titI">Descripción:</div>
                                     <div class="selectA borde_redondeado">
-                                        <input id="txtDescripcionNueva" type="text" maxlength="250" /><img alt="Buscar Cod. Venta" src="" style="display: none" />
+                                        <input id="txtDescripcionNueva" onpaste="return false" onkeypress="return FuncionesGenerales.ValidarSoloNumerosLetrasAndSpecialCharater(event, this, true);" type="text" maxlength="250" /><img alt="Buscar Cod. Venta" src="" style="display: none" />
                                     </div>
                                     <div class="titC">Precio:</div>
                                     <div class="selectP2 borde_redondeado">
@@ -109,7 +109,7 @@
 
                 </div>
                 <div id="tab-masiva" class="contenido_tab">
-                    
+
                     <div class="div-3">
                         <div class="titB">País:</div>
                         <div class="selectA borde_redondeado">
@@ -117,10 +117,10 @@
                         </div>
                         <div class="titI">Año Campaña:</div>
                         <div class="selectA borde_redondeado">
-                         <select id="ddlCampaniaM" disabled></select>
+                            <select id="ddlCampaniaM" disabled></select>
 
                         </div>
-                    
+
 
 
                     </div>
@@ -144,7 +144,7 @@
                         </div>
 
                     </div>
-                    
+
                     <div class="div-3" id="divRegistrosInvalidos" style="display:none">
                         <div class="titB">Registros Invalidos:</div>
 
@@ -165,7 +165,7 @@
                         </div>
 
                     </div>
-                    
+
                     <div id="loadingScreen"></div>
 
                 </div>
