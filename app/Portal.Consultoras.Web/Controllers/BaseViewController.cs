@@ -627,7 +627,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             #endregion
 
-            modelo.MostrarCliente = GetMostrarCliente();
+            modelo.MostrarCliente = GetMostrarCliente(esEditar);
+            modelo.MostrarAdicional = GetInformacionAdicional(esEditar);
 
             return modelo;
         }
@@ -729,8 +730,7 @@ namespace Portal.Consultoras.Web.Controllers
                     || Constantes.NombrePalanca.ShowRoom == palanca
                     || Constantes.NombrePalanca.OfertaDelDia == palanca);
         }
-
-
+        
         private bool GetTieneCompartir(string palanca, bool esEditar)
         {
             return !esEditar && !MobileAppConfiguracion.EsAppMobile &&
@@ -754,13 +754,13 @@ namespace Portal.Consultoras.Web.Controllers
             return modelo;
         }
 
-        private bool GetMostrarCliente()
+        private bool GetMostrarCliente(bool esEditar)
         {
             var mostrar = false;
 
 #if DEBUG
 
-            mostrar = _tablaLogicaProvider.GetTablaLogicaDatoValorBool(
+            mostrar = esEditar && _tablaLogicaProvider.GetTablaLogicaDatoValorBool(
                             userData.PaisID,
                             Constantes.TablaLogica.PantallaResponsive,
                             Constantes.TablaLogicaDato.PantallasResponsive.MisClientes,
@@ -770,6 +770,18 @@ namespace Portal.Consultoras.Web.Controllers
 #endif
 
             return mostrar;
+
+        }
+        
+        /// <summary>
+        /// metodo para obtener toda la informacion adiciona en un modelo
+        /// por el momento solo es bool para saber si va o no
+        /// </summary>
+        /// <param name="esEditar"></param>
+        /// <returns></returns>
+        private bool GetInformacionAdicional(bool esEditar)
+        {
+            return !esEditar;
 
         }
     }
