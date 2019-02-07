@@ -124,6 +124,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             model.UsuarioOpciones = _miperfil.GetUsuarioOpciones(userData.PaisID, userData.CodigoUsuario, true);
             model.TieneDireccionEntrega = userData.TieneDireccionEntrega;
+            model.TienePermisosCuenta = model.UsuarioOpciones.Count > 0;
             model.CodigoConsultoraAsociada = userData.CodigoConsultora;
 
             return View(model);
