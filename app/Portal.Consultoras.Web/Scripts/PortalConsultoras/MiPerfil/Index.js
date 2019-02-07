@@ -392,6 +392,7 @@ function actualizarDatos() {
     $('#btnGuardar')[0].disabled = true;
 
     var TieneDireccionEntrega = $("#hdn_TienedireccionEntrega").val();
+    var TienePermisoCuenta = $("#hdn_TienePermisosCuenta").val();
 
     var hdn_CaracterMaximo = $("#hdn_CaracterMaximo").val();
     var hdn_CaracterMinimo = $("#hdn_CaracterMinimo").val();
@@ -561,14 +562,17 @@ function actualizarDatos() {
     /*** Fin Seccion Direccion Entrega ***/
 
     /*** Seccion Permisos Cuenta ***/
-    var permisos = new Array();
-    $(".divCheckbox :checkbox").each(function () {
-        permisos.push({
-            Codigo: $(this).attr("id"),
-            CheckBox: this.checked,
-            OpcionesUsuarioId: $(this).attr("data-tipoOpcion")
-        })
-    }); 
+    if (TienePermisoCuenta == '1')
+    {
+        var permisos = new Array();
+        $(".divCheckbox :checkbox").each(function () {
+            permisos.push({
+                Codigo: $(this).attr("id"),
+                CheckBox: this.checked,
+                OpcionesUsuarioId: $(this).attr("data-tipoOpcion")
+            })
+        });
+    } 
     /*** Fin Seccion Permisos Cuenta ***/
 
     if (!$('#chkAceptoContratoMD').is(':checked')) {

@@ -67,8 +67,12 @@ else
                 <input type="hidden" id="hdn_iniciaNumero" value="@Model.IniciaNumeroCelular" />
                 <input type="hidden" id="hdn_PaisID" value="@Model.PaisID" />
                 <input type="hidden" id="hdn_CodigoConsultora" value="@Model.CodigoConsultoraAsociada" />
-                @{var TieneDireEntrega = Model.TieneDireccionEntrega ? "1" : "0"; }
+                @{
+                    var TieneDireEntrega = Model.TieneDireccionEntrega ? "1" : "0";
+                    var TienePermiCuenta = Model.TienePermisosCuenta ? "1" : "0";
+                }
                 <input type="hidden" id="hdn_TienedireccionEntrega" value="@TieneDireEntrega" />
+                <input type="hidden" id="hdn_TienePermisosCuenta" value="@TienePermiCuenta" />
                 <div class="datos_codigo">
                     <span class="text-bold">Código : </span>
                     <span class="text-bold">@Model.CodigoUsuario</span>

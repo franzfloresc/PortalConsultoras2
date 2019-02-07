@@ -51,5 +51,6 @@ namespace Portal.Consultoras.Web.Models
 
         public dynamic DatosExtra { get; set; }
         public bool TieneDireccionEntrega { get; set; }
+        public bool TienePermisosCuenta { get; set; }
     }
 }
