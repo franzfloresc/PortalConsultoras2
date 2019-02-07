@@ -11,7 +11,6 @@
 
 /* FIN - ESTILOS GENERALES */
 
-
 /* HELPERS CSS */
 
 .w__100{
@@ -95,6 +94,60 @@ input[type=checkbox].d__none{
 }
 
 /* FIN - HELPERS CSS */
+
+/* AJUSTES PERSONALIZADOS PARA EL DATEPICKER DE JQUERY UI */
+
+.ui-widget.ui-widget-content {
+	font-family: 'Lato';
+	font-size: 13.5px;
+	border-radius: 0%;
+	margin-top:2px;
+	margin-left: -1px;
+    border: 1px solid #808080;
+    border-radius: 4px;
+    background-color: #FFF;
+}
+
+.ui-widget-header{
+	border-radius:0%;
+}
+
+.ui-widget-header,
+.ui-state-default,
+.ui-widget-content .ui-state-default,
+.ui-state-active,
+.ui-widget-content .ui-state-active
+{
+	background:#f5eafb;
+	color:#000;
+	border:none;
+	padding-right:4px;
+	transition:all 0.3s ease;
+	-moz-transition:all 0.3s ease;
+	-o-transition:all 0.3s ease;
+	-ms-transition:all 0.3s ease;
+	-webkit-transition:all 0.3s ease;
+}
+
+.ui-widget-header .ui-datepicker-prev:hover,
+.ui-widget-header .ui-datepicker-next:hover
+{
+	background:#f5eafb;
+	border:none;
+}
+
+.ui-state-hover,
+.ui-widget-content .ui-state-hover,
+.ui-state-highlight,
+.ui-widget-content .ui-state-highlight,
+.ui-widget-content a:hover
+{
+	background:#642f80;
+	color:#FFF;
+    text-decoration:none!important;
+}
+
+/* FIN - AJUSTES PERSONALIZADOS PARA EL DATEPICKER DE JQUERY UI */
 
 /* VISTA ADMINISTRACIÓN POPUPS */
 
