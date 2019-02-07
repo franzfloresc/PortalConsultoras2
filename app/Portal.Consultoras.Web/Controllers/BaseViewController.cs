@@ -733,7 +733,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private bool GetTieneCompartir(string palanca, bool esEditar)
         {
-            return !MobileAppConfiguracion.EsAppMobile &&
+            return !esEditar && !MobileAppConfiguracion.EsAppMobile &&
                 !(Constantes.NombrePalanca.HerramientasVenta == palanca
                 || Constantes.NombrePalanca.PackNuevas == palanca);
         }
