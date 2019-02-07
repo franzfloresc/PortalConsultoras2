@@ -996,10 +996,10 @@ var FichaEditarModule = (function () {
         window.setTimeout(function () {
             fichaModule = FichaModule(objFicha);
 
+            CerrarLoad();
             _showDivFichaResumida(true);
             fichaModule.Inicializar();
-
-            CerrarLoad();
+            
         },
         10);
     };
@@ -1019,6 +1019,7 @@ var FichaEditarModule = (function () {
 
         isShow = isShow == undefined || isShow;
         if (isShow) {
+             
             $('body').css('overflow', 'hidden');
             $('#DivPopupFichaResumida').show();
         }
