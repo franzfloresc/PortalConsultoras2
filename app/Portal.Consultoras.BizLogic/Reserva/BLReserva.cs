@@ -562,6 +562,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
             string _gananciaEstimada = Util.DecimalToStringFormat(gananciaEstimada, input.PaisISO);
             string _totalSinDescuento = Util.DecimalToStringFormat(totalSinDescuento, input.PaisISO);
             string _descuento = Util.DecimalToStringFormat(descuento, input.PaisISO);
+            string strDescripcionCUV = string.Empty;
 
             StringBuilder mailBody = new StringBuilder();
             mailBody.Append("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">");
@@ -598,7 +599,8 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 mailBody.Append("<table width = '100%' align = 'center' border = '0' cellspacing = '0' cellpadding = '0' align = 'center' style = 'padding-bottom: 1px;' >");
                 mailBody.AppendFormat(" <tr> <td style = 'width: 50%; text-align: left; color: #000; font-family: Arial; font-size: 13px; ' > Cód.Venta: {0} </td> <td style = 'width: 50%;'> &nbsp;</td></tr>", pedidoDetalle.CUV);
 
-                mailBody.AppendFormat("<tr> <td style = 'width: 50%; text-align: left; color: #000; font-family: Arial; font-size: 14px; font-weight:700;' > {0} </td>", pedidoDetalle.DescripcionProd.Split('|').First());
+                strDescripcionCUV = pedidoDetalle.DescripcionProd.Split('|').First();
+                mailBody.AppendFormat("<tr> <td style = 'width: 50%; text-align: left; color: #000; font-family: Arial; font-size: 14px; font-weight:700;' > {0} </td>", (pedidoDetalle.SetIdentifierNumber > 0 ) ? string.Format("#{0} {1}", pedidoDetalle.SetIdentifierNumber, strDescripcionCUV) : strDescripcionCUV);
                 string rowPrecioUnitario;
                 if (input.PaisID == Constantes.PaisID.Colombia)
                 {
