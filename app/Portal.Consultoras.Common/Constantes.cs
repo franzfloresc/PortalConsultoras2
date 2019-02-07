@@ -1328,6 +1328,11 @@ namespace Portal.Consultoras.Common
             public const string UrlCatalogo = "{0}?cod={1}";
         }
 
+        public static class Facebook
+        {
+            public const string FB_AppId = "FB_AppId";
+        }
+
         public static class RevistaNombre
         {
             public const string Esika = "Guía de Negocio Ésika";

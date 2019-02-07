@@ -164,6 +164,7 @@ else
             <div id="xHtmlItemCatalogoPasosActual" style="display: none;">
                 <div class="col-12 pl-0 pr-0 row flex-row justify-content-center justify-content-lg-between justify-content-xl-between align-items-center ml-0 mr-0 catalogos__por__campania__item__descrip">
                     <input id="txtUrlActual" value="" class="txtUrlActual" />
+                    
                     <div class="col-9 pl-0 pr-0 mostrarEnDesktop">
                         Mejoramos la manera de compartir<br />nuestros catálogos. <span class="text-bold">¡Ahora son digitales!</span>
                     </div>
@@ -179,7 +180,7 @@ else
                             <a class="d-block col-3 col-lg col-xl pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--facebook" title="Compartir por Facebook" data-accion="face" onclick="javascript: RedesSociales.CompartirFacebookActual('{tipoCatalogoTodo}', '{campania}', '{textourl}')">
                                 <img class="d-block mx-auto" src="@Url.Content("~/Content/Images/logo_facebook2.svg")" alt="Compartir por Facebook" />
                             </a>
-                            <a class="d-block col-3 col-lg col-xl pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--facebookMessenger" title="Compartir por Facebook Messenger" data-accion="ms" onclick="javascript: RedesSociales.AbrirCompartirMessengerActual('{tipoCatalogoTodo}', '{campania}', '{textourl}');">
+                            <a class="d-block col-3 col-lg col-xl pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--facebookMessenger" title="Compartir por Facebook Messenger" data-accion="ms" onclick="javascript: RedesSociales.CompartirMessengerActual('{tipoCatalogoTodo}', '{campania}', '{textourl}', '{isMovil}', '{FBAppId}');">
                                 <img class="d-block mx-auto" src="@Url.Content("~/Content/Images/logo__facebook__messenger.svg")" alt="Compartir por Facebook Messenger" />
                             </a>
                             <a class="d-block col-3 col-lg col-xl pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--email" title="Compartir por Email" data-accion="mail" onclick="javascript: RedesSociales.AbrirCompartirCorreoActual('{tipoCatalogoTodo}', '{campania}');">
@@ -246,7 +247,7 @@ else
                                 <a class="d-block col-3 col-lg col-xl pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--facebook" title="Compartir por Facebook" data-accion="face" onclick="javascript: RedesSociales.CompartirFacebookActual('{tipoCatalogoTodo}', '{campania}', '{textourl}')">
                                     <img class="d-block mx-auto" src="@Url.Content("~/Content/Images/logo_facebook2.svg")" alt="Compartir por Facebook" />
                                 </a>
-                                <a class="d-block col-3 col-lg col-xl pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--facebookMessenger" title="Compartir por Facebook Messenger" data-accion="ms" onclick="javascript: RedesSociales.CompartirMessengerActual('{tipoCatalogoTodo}', '{campania}', '{textourl}')">
+                                <a class="d-block col-3 col-lg col-xl pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--facebookMessenger" title="Compartir por Facebook Messenger" data-accion="ms" onclick="javascript: RedesSociales.CompartirMessengerActual('{tipoCatalogoTodo}', '{campania}', '{textourl}', '{isMovil}', '{FBAppId}')">
                                     <img class="d-block mx-auto" src="@Url.Content("~/Content/Images/logo__facebook__messenger.svg")" alt="Compartir por Facebook Messenger" />
                                 </a>
                                 <a class="d-block col-3 col-lg col-xl pl-0 pr-0 text-center opcion__compartir__catalogo opcion__compartir__catalogo--email" title="Compartir por Email" data-accion="mail" onclick="javascript: RedesSociales.AbrirCompartirCorreoActual('{tipoCatalogoTodo}', '{campania}');">
@@ -418,6 +419,8 @@ else
         var urlDetalle = '@Url.Action("Detalle", "MisCatalogosRevistas", new { area = "" })';
         var _Pagina = 1;
         var tipoOrigenEstrategia = 1;
+        var isMovil = '@Model.EsDispositivoMovil';
+        var FBAppId = '@ViewBag.FBAppId';
     </script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/MisCatalogosRevistas")
 
