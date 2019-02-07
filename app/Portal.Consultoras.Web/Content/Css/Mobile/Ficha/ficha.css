@@ -709,7 +709,7 @@ ul.breadcumbs li:last-child a {
     text-align: left;
     border-radius: 4px;
     text-transform: uppercase;
-    background: url('/Content/Images/mobile/Esika/right-arrow.svg');
+    /*background: url('/Content/Images/mobile/Esika/right-arrow.svg');*/
     background-position: right 15px center;
     background-repeat: no-repeat;
     background-size: 13px;
@@ -719,13 +719,17 @@ ul.breadcumbs li:last-child a {
     margin-bottom: 0px;
 }
 
-    .btnShowCliente h3 {
-        font-size: 13px;
-        font-weight: bold !important;
-        letter-spacing: 0.5px;
-        text-transform: uppercase;
-        color: #808080;
-    }
+.asignarCliente li{
+    list-style: none;
+}
+
+.asignarCliente h3 {
+    font-size: 13px;
+    font-weight: bold !important;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #808080;
+}
 
     .btnShowCliente li {
         display: inline-block;
@@ -786,6 +790,7 @@ ul.breadcumbs li:last-child a {
     right: 20px;
     top: 22px;
 }
+
 
 
 .seleccion_main_Clientes {
@@ -849,4 +854,11 @@ ul.breadcumbs li:last-child a {
 
 .btnShowCliente_bloque .col-xs-12 {
     padding-top: 10px;
+}
+
+.cambiar_opcion {
+    float: right;
+    margin-top: 10px;
+    width: 100%;
+    text-transform: initial;
 }

@@ -130,9 +130,15 @@
             <div class="col-xs-12">
                 <ul class="asignarCliente">
                     <li><h3>ASIGNADO A:</h3></li>
-                    <li><span id="spClienteNombre"> Para mí</span></li>
+                    @*<li><span id="spClienteNombre"> Para mí</span></li>*@
                 </ul>
-                <button id="btnShowCliente">ASIGNAR A OTRO CLIENTE</button>
+                <button id="btnShowCliente" class="boton_asignarCliente">
+                    <span id="spClienteNombre">Para Mi</span>
+                    <span class="btn_cambiar_opciones cambiar_opcion cambiar_opcion_editarFicha">
+                        Cambiar opción
+                        <img src="/Content/Images/mobile/Esika/right-arrow.svg" alt="">
+                    </span>
+                </button>
             </div>
         </div>
         {{/if}}
