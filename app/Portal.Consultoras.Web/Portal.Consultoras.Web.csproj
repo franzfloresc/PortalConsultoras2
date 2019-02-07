@@ -1663,7 +1663,7 @@
     <Content Include="Content\Images\icono_cerrar_menu_mobile.png" />
     <Content Include="Content\Images\icono_comunidad_virtual.svg" />
     <Content Include="Content\Images\icono_esika_responde.png" />
-    <Content Include="Content\Images\icono_info_importante.svg" />
+    <Content Include="Content\Images\icono_infoImportante.svg" />
     <Content Include="Content\Images\icono_limpiar_busqueda.svg" />
     <Content Include="Content\Images\icono_lupa_gris.svg" />
     <Content Include="Content\Images\icono_lupa_blanco.svg" />
@@ -1674,7 +1674,7 @@
     <Content Include="Content\Images\icono_paso_compartir_catalogo.svg" />
     <Content Include="Content\Images\icono_salvavidas.svg" />
     <Content Include="Content\Images\icono_sin_resultados_busqueda.svg" />
-    <Content Include="Content\Images\icono_titulo_gana_mas.svg" />
+    <Content Include="Content\Images\icono_titulo_ganaMas.svg" />
     <Content Include="Content\Images\icono_tooltip_informativo.svg" />
     <Content Include="Content\Images\imagen_prod_no_disponible.jpg" />
     <Content Include="Content\Images\imagen_prod_no_disponible.png" />
