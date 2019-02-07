@@ -38,6 +38,20 @@
                         </div>
                     </div>
                     <div class="producto_recomendado_acciones_wrapper">
+                        {{#if_eq CodigoEstrategia '2003'}}
+                        <!-- BLOQUE DE CÓDIGO A MOSTRAR CUANDO EL PRODUCTO TENGA OPCIÓN PARA ELEGIR TONOS -->
+                        <div class="producto_recomendado_btn_wrapper producto_recomendado_btn_wrapper_full_width" >
+                            <a class="btn_producto_recomendado_elige_tu_opcion text-bold text-center text-uppercase">
+                                <span class="d-inline-block">
+                                    <img src="@Url.Content("/Content/Images/icono-elige-tu-opcion.svg")" alt="Elige tu opción" />
+                                </span>
+                                <span class="d-inline-block text-left">
+                                    Elige tu opción
+                                </span>
+                            </a>
+                        </div>
+                        <!-- FIN - BLOQUE DE CÓDIGO A MOSTRAR CUANDO EL PRODUCTO TENGA OPCIÓN PARA ELEGIR TONOS -->
+                        {{else}}
                         <!-- BLOQUE DE CÓDIGO A MOSTRAR CUANDO EL PRODUCTO NO TENGA OPCIÓN PARA ELEGIR TONOS -->
                         <div class="producto_recomendado_rango_cantidad js-no-popup" data-cantidad-contenedor="">
                             <a class="menos d-block js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event);">
@@ -54,18 +68,7 @@
                             </a>
                         </div>
                         <!-- FIN - BLOQUE DE CÓDIGO A MOSTRAR CUANDO EL PRODUCTO NO TENGA OPCIÓN PARA ELEGIR TONOS -->
-                        <!-- BLOQUE DE CÓDIGO A MOSTRAR CUANDO EL PRODUCTO TENGA OPCIÓN PARA ELEGIR TONOS -->
-                        <div class="producto_recomendado_btn_wrapper producto_recomendado_btn_wrapper_full_width" style="display:none;">
-                            <a class="btn_producto_recomendado_elige_tu_opcion text-bold text-center text-uppercase">
-                                <span class="d-inline-block">
-                                    <img src="@Url.Content("/Content/Images/icono-elige-tu-opcion.svg")" alt="Elige tu opción" />
-                                </span>
-                                <span class="d-inline-block text-left">
-                                    Elige tu opción
-                                </span>
-                            </a>
-                        </div>
-                        <!-- FIN - BLOQUE DE CÓDIGO A MOSTRAR CUANDO EL PRODUCTO TENGA OPCIÓN PARA ELEGIR TONOS -->
+                        {{/if_eq}}
                     </div>
                     <div class="etiqueta_buscador_producto">
                         {{#if_eq Agregado 'Agregado'}}
