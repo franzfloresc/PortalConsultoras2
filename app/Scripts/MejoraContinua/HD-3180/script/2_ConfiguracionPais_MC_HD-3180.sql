@@ -1,84 +1,120 @@
 USE BelcorpPeru
 GO
 
-Insert ConfiguracionPais (Codigo, Excluyente, Descripcion, Estado, TienePerfil, DesdeCampania, Orden, OrdenBpt, MobileOrden, MobileOrdenBPT)
-						values('DIRECCION_ENTREGA', 0, 'Dirección de entrega en perfil', 0, 0, 201903, 0, 0, 0, 0)
+if not exists(select 1 from ConfiguracionPais where Codigo = 'DIRECCION_ENTREGA')
+begin
+	Insert ConfiguracionPais (Codigo, Excluyente, Descripcion, Estado, TienePerfil, DesdeCampania, Orden, OrdenBpt, MobileOrden, MobileOrdenBPT)
+							values('DIRECCION_ENTREGA', 1, 'Dirección de entrega en perfil', 0, 0, 201903, 0, 0, 0, 0)
+end
 GO
 
 USE BelcorpMexico
 GO
 
-Insert ConfiguracionPais (Codigo, Excluyente, Descripcion, Estado, TienePerfil, DesdeCampania, Orden, OrdenBpt, MobileOrden, MobileOrdenBPT)
-						values('DIRECCION_ENTREGA', 0, 'Dirección de entrega en perfil', 0, 0, 201903, 0, 0, 0, 0)
+if not exists(select 1 from ConfiguracionPais where Codigo = 'DIRECCION_ENTREGA')
+begin
+	Insert ConfiguracionPais (Codigo, Excluyente, Descripcion, Estado, TienePerfil, DesdeCampania, Orden, OrdenBpt, MobileOrden, MobileOrdenBPT)
+							values('DIRECCION_ENTREGA', 1, 'Dirección de entrega en perfil', 0, 0, 201903, 0, 0, 0, 0)
+end
 GO
 
 USE BelcorpColombia
 GO
 
-Insert ConfiguracionPais (Codigo, Excluyente, Descripcion, Estado, TienePerfil, DesdeCampania, Orden, OrdenBpt, MobileOrden, MobileOrdenBPT)
-						values('DIRECCION_ENTREGA', 0, 'Dirección de entrega en perfil', 0, 0, 201903, 0, 0, 0, 0)
+if not exists(select 1 from ConfiguracionPais where Codigo = 'DIRECCION_ENTREGA')
+begin
+	Insert ConfiguracionPais (Codigo, Excluyente, Descripcion, Estado, TienePerfil, DesdeCampania, Orden, OrdenBpt, MobileOrden, MobileOrdenBPT)
+							values('DIRECCION_ENTREGA', 1, 'Dirección de entrega en perfil', 0, 0, 201903, 0, 0, 0, 0)
+end
 GO
 
 USE BelcorpSalvador
 GO
 
-Insert ConfiguracionPais (Codigo, Excluyente, Descripcion, Estado, TienePerfil, DesdeCampania, Orden, OrdenBpt, MobileOrden, MobileOrdenBPT)
-						values('DIRECCION_ENTREGA', 0, 'Dirección de entrega en perfil', 0, 0, 201903, 0, 0, 0, 0)
+if not exists(select 1 from ConfiguracionPais where Codigo = 'DIRECCION_ENTREGA')
+begin
+	Insert ConfiguracionPais (Codigo, Excluyente, Descripcion, Estado, TienePerfil, DesdeCampania, Orden, OrdenBpt, MobileOrden, MobileOrdenBPT)
+							values('DIRECCION_ENTREGA', 1, 'Dirección de entrega en perfil', 0, 0, 201903, 0, 0, 0, 0)
+end
 GO
 
 USE BelcorpPuertoRico
 GO
 
-Insert ConfiguracionPais (Codigo, Excluyente, Descripcion, Estado, TienePerfil, DesdeCampania, Orden, OrdenBpt, MobileOrden, MobileOrdenBPT)
-						values('DIRECCION_ENTREGA', 0, 'Dirección de entrega en perfil', 0, 0, 201903, 0, 0, 0, 0)
+if not exists(select 1 from ConfiguracionPais where Codigo = 'DIRECCION_ENTREGA')
+begin
+	Insert ConfiguracionPais (Codigo, Excluyente, Descripcion, Estado, TienePerfil, DesdeCampania, Orden, OrdenBpt, MobileOrden, MobileOrdenBPT)
+							values('DIRECCION_ENTREGA', 1, 'Dirección de entrega en perfil', 0, 0, 201903, 0, 0, 0, 0)
+end
 GO
 
 USE BelcorpPanama
 GO
 
-Insert ConfiguracionPais (Codigo, Excluyente, Descripcion, Estado, TienePerfil, DesdeCampania, Orden, OrdenBpt, MobileOrden, MobileOrdenBPT)
-						values('DIRECCION_ENTREGA', 0, 'Dirección de entrega en perfil', 0, 0, 201903, 0, 0, 0, 0)
+if not exists(select 1 from ConfiguracionPais where Codigo = 'DIRECCION_ENTREGA')
+begin
+	Insert ConfiguracionPais (Codigo, Excluyente, Descripcion, Estado, TienePerfil, DesdeCampania, Orden, OrdenBpt, MobileOrden, MobileOrdenBPT)
+							values('DIRECCION_ENTREGA', 1, 'Dirección de entrega en perfil', 0, 0, 201903, 0, 0, 0, 0)
+end
 GO
 
 USE BelcorpGuatemala
 GO
 
-Insert ConfiguracionPais (Codigo, Excluyente, Descripcion, Estado, TienePerfil, DesdeCampania, Orden, OrdenBpt, MobileOrden, MobileOrdenBPT)
-						values('DIRECCION_ENTREGA', 0, 'Dirección de entrega en perfil', 0, 0, 201903, 0, 0, 0, 0)
+if not exists(select 1 from ConfiguracionPais where Codigo = 'DIRECCION_ENTREGA')
+begin
+	Insert ConfiguracionPais (Codigo, Excluyente, Descripcion, Estado, TienePerfil, DesdeCampania, Orden, OrdenBpt, MobileOrden, MobileOrdenBPT)
+							values('DIRECCION_ENTREGA', 1, 'Dirección de entrega en perfil', 0, 0, 201903, 0, 0, 0, 0)
+end
 GO
 
 USE BelcorpEcuador
 GO
 
-Insert ConfiguracionPais (Codigo, Excluyente, Descripcion, Estado, TienePerfil, DesdeCampania, Orden, OrdenBpt, MobileOrden, MobileOrdenBPT)
-						values('DIRECCION_ENTREGA', 0, 'Dirección de entrega en perfil', 0, 0, 201903, 0, 0, 0, 0)
+if not exists(select 1 from ConfiguracionPais where Codigo = 'DIRECCION_ENTREGA')
+begin
+	Insert ConfiguracionPais (Codigo, Excluyente, Descripcion, Estado, TienePerfil, DesdeCampania, Orden, OrdenBpt, MobileOrden, MobileOrdenBPT)
+							values('DIRECCION_ENTREGA', 1, 'Dirección de entrega en perfil', 0, 0, 201903, 0, 0, 0, 0)
+end
 GO
 
 USE BelcorpDominicana
 GO
 
-Insert ConfiguracionPais (Codigo, Excluyente, Descripcion, Estado, TienePerfil, DesdeCampania, Orden, OrdenBpt, MobileOrden, MobileOrdenBPT)
-						values('DIRECCION_ENTREGA', 0, 'Dirección de entrega en perfil', 0, 0, 201903, 0, 0, 0, 0)
+if not exists(select 1 from ConfiguracionPais where Codigo = 'DIRECCION_ENTREGA')
+begin
+	Insert ConfiguracionPais (Codigo, Excluyente, Descripcion, Estado, TienePerfil, DesdeCampania, Orden, OrdenBpt, MobileOrden, MobileOrdenBPT)
+							values('DIRECCION_ENTREGA', 1, 'Dirección de entrega en perfil', 0, 0, 201903, 0, 0, 0, 0)
+end
 GO
 
 USE BelcorpCostaRica
 GO
 
-Insert ConfiguracionPais (Codigo, Excluyente, Descripcion, Estado, TienePerfil, DesdeCampania, Orden, OrdenBpt, MobileOrden, MobileOrdenBPT)
-						values('DIRECCION_ENTREGA', 0, 'Dirección de entrega en perfil', 0, 0, 201903, 0, 0, 0, 0)
+if not exists(select 1 from ConfiguracionPais where Codigo = 'DIRECCION_ENTREGA')
+begin
+	Insert ConfiguracionPais (Codigo, Excluyente, Descripcion, Estado, TienePerfil, DesdeCampania, Orden, OrdenBpt, MobileOrden, MobileOrdenBPT)
+							values('DIRECCION_ENTREGA', 1, 'Dirección de entrega en perfil', 0, 0, 201903, 0, 0, 0, 0)
+end
 GO
 
 USE BelcorpChile
 GO
 
-Insert ConfiguracionPais (Codigo, Excluyente, Descripcion, Estado, TienePerfil, DesdeCampania, Orden, OrdenBpt, MobileOrden, MobileOrdenBPT)
-						values('DIRECCION_ENTREGA', 0, 'Dirección de entrega en perfil', 1, 0, 201903, 0, 0, 0, 0)
+if not exists(select 1 from ConfiguracionPais where Codigo = 'DIRECCION_ENTREGA')
+begin
+	Insert ConfiguracionPais (Codigo, Excluyente, Descripcion, Estado, TienePerfil, DesdeCampania, Orden, OrdenBpt, MobileOrden, MobileOrdenBPT)
+							values('DIRECCION_ENTREGA', 1, 'Dirección de entrega en perfil', 0, 0, 201903, 0, 0, 0, 0)
+end
 GO
 
 USE BelcorpBolivia
 GO
 
-Insert ConfiguracionPais (Codigo, Excluyente, Descripcion, Estado, TienePerfil, DesdeCampania, Orden, OrdenBpt, MobileOrden, MobileOrdenBPT)
-						values('DIRECCION_ENTREGA', 0, 'Dirección de entrega en perfil', 0, 0, 201903, 0, 0, 0, 0)
+if not exists(select 1 from ConfiguracionPais where Codigo = 'DIRECCION_ENTREGA')
+begin
+	Insert ConfiguracionPais (Codigo, Excluyente, Descripcion, Estado, TienePerfil, DesdeCampania, Orden, OrdenBpt, MobileOrden, MobileOrdenBPT)
+							values('DIRECCION_ENTREGA', 1, 'Dirección de entrega en perfil', 0, 0, 201903, 0, 0, 0, 0)
+end
 GO
 
