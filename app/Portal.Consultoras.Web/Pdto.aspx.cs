@@ -17,11 +17,10 @@ namespace Portal.Consultoras.Web
 
                 string codigoIso = array[0] ?? "";
                 string idProducto = array[1] ?? "";
-                
-                int idProComp;
-                bool esId = int.TryParse(idProducto, out idProComp);
-                int idFinal = esId ? idProComp : 0;
-                
+
+                int idFinal;
+                int.TryParse(idProducto, out idFinal);
+
                 int paisId = Util.GetPaisID(codigoIso);
 
                 BEProductoCompartido objProComp;
@@ -33,7 +32,6 @@ namespace Portal.Consultoras.Web
 
                 if (objProComp != null)
                 {
-                    string productoCompPalanca = objProComp.PcPalanca;
                     var arrayDetalle = objProComp.PcDetalle.Split('|');
 
                     string rutaImagen = "";
@@ -45,14 +43,17 @@ namespace Portal.Consultoras.Web
                     //desconcatenar detalle
                     if (arrayDetalle.Length > 0)
                     {
-                        rutaImagen = Convert.ToString(arrayDetalle[0] ?? "");
-                        marcaDesc = Convert.ToString(arrayDetalle[2] ?? "");
-                        nomProducto = Convert.ToString(arrayDetalle[3] ?? "");
+                        rutaImagen = arrayDetalle.Get(0) ?? "";
+                        marcaDesc = arrayDetalle.Get(2) ?? "";
+                        nomProducto = arrayDetalle.Get(3) ?? "";
 
+                        string productoCompPalanca = objProComp.PcPalanca;
                         if (productoCompPalanca == "FAV")
                         {
-                            volumen = Convert.ToString(arrayDetalle.Length > 4 ? arrayDetalle[4] ?? "" : "");
-                            descProducto = Convert.ToString(arrayDetalle.Length > 5 ? arrayDetalle[5] ?? "" : "");
+                            volumen = arrayDetalle.Get(4) ?? "";
+                            descProducto = arrayDetalle.Get(5) ?? "";
+
+                            arrayDetalle.Get(4);
                         }
                     }
 
@@ -93,7 +94,6 @@ namespace Portal.Consultoras.Web
                     Page.Header.Controls.Add(meta5);
                     Page.Header.Controls.Add(meta6);
 
-
                     imgCuvProducto.Src = rutaImagen;
                     pMarcaProducto.InnerHtml = marcaDesc;
                     pNombreProducto.InnerHtml = nomProducto;
@@ -106,13 +106,14 @@ namespace Portal.Consultoras.Web
                     imgCuvProducto.Visible = false;
                     pMensaje1.InnerHtml = "Producto no encontrado. Contacte a su Consultora.";
                 }
+
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, "", "", "Pdto - Page_Load");
                 imgCuvProducto.Visible = false;
                 pMensaje1.InnerHtml = "Producto no encontrado. Contacte a su Consultora.";
-            }           
+            }
         }
     }
 }

@@ -269,7 +269,7 @@ namespace Portal.Consultoras.Web.Providers
             }
             else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.LANObtenerProductos)
             {
-                retorno = TieneProductosPerdio(model.CampaniaID) ? 1 : 0;
+                retorno = TieneProductosPerdio(model.CampaniaID).ToInt();
             }
             else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.OPTObtenerProductos)
             {
@@ -572,7 +572,7 @@ namespace Portal.Consultoras.Web.Providers
 
         #region Metodos consumo Ofertas por tipo
 
-        public List<EstrategiaPedidoModel> ConsultarEstrategiasHomePedido(bool esMobile, UsuarioModel user, string codAgrupacion)
+        public List<EstrategiaPedidoModel> ConsultarEstrategiasHomePedido(bool esMobile, UsuarioModel user)
         {
             List<ServiceOferta.BEEstrategia> listModel;
             if (SessionManager.GetBEEstrategia(Constantes.ConstSession.ListaEstrategia) != null)
@@ -581,12 +581,18 @@ namespace Portal.Consultoras.Web.Providers
             }
             else
             {
+                bool esRevistaDigital = (revistaDigital.TieneRDC && revistaDigital.EsActiva)
+                        || (revistaDigital.TieneRDC && revistaDigital.ActivoMdo);
+
+                var codAgrupacion = esRevistaDigital
+                    ? Constantes.TipoEstrategiaCodigo.RevistaDigital
+                    : Constantes.TipoEstrategiaCodigo.OfertaParaTi;
+
                 bool esBannerProgNuevas = TieneElecMultipleConfigurado(esMobile, user);
                 SessionManager.SetMostrarBannerNuevas(esBannerProgNuevas);
 
                 var listEstrategias = ConsultarEstrategias(esMobile, 0, codAgrupacion, true, !esBannerProgNuevas);
 
-                bool esRevistaDigital = codAgrupacion == Constantes.TipoEstrategiaCodigo.RevistaDigital;
                 bool limitarEspacioNuevas = esBannerProgNuevas || esRevistaDigital;
 
                 listModel = new List<ServiceOferta.BEEstrategia>();
@@ -628,7 +634,7 @@ namespace Portal.Consultoras.Web.Providers
             var listaRevista = GetListaRevistaCarrusel(listEstrategia, esRevistaDigital);
 
             var cantMax = espaciosCarrusel - listEstrategiaFinal.Count;
-            var cantPack = listaPackNueva.Any() ? 1 : 0;
+            var cantPack = listaPackNueva.Any().ToInt();
             var espaciosRevista = Math.Min(cantMax - cantPack, listaRevista.Count);
 
             if (listaRevista.Count > espaciosRevista) listaRevista.RemoveRange(espaciosRevista, listaRevista.Count - espaciosRevista);
@@ -854,8 +860,8 @@ namespace Portal.Consultoras.Web.Providers
             switch (codigoTipoEstrategia)
             {
                 case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
-                    tipo = esConsultoraLider && revistaDigital.SociaEmpresariaExperienciaGanaMas && revistaDigital.EsSuscritaActiva() 
-                        ? Constantes.TipoAccionAgregar.SinBoton 
+                    tipo = esConsultoraLider && revistaDigital.SociaEmpresariaExperienciaGanaMas && revistaDigital.EsSuscritaActiva()
+                        ? Constantes.TipoAccionAgregar.SinBoton
                         : tipo;
                     break;
                 case Constantes.TipoEstrategiaCodigo.ShowRoom:
@@ -864,7 +870,7 @@ namespace Portal.Consultoras.Web.Providers
                 case Constantes.TipoEstrategiaCodigo.Lanzamiento:
 
                     if (codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.ShowRoom)
-                        tipo = codigoTipos == Constantes.TipoEstrategiaSet.CompuestaVariable 
+                        tipo = codigoTipos == Constantes.TipoEstrategiaSet.CompuestaVariable
                             ? Constantes.TipoAccionAgregar.EligeOpcion
                             : Constantes.TipoAccionAgregar.AgregaloNormal;
 
@@ -873,7 +879,7 @@ namespace Portal.Consultoras.Web.Providers
                         tipo = revistaDigital.EsNoSuscritaInactiva() ? Constantes.TipoAccionAgregar.LoQuieres : tipo;
                         tipo = revistaDigital.EsSuscritaInactiva() ? Constantes.TipoAccionAgregar.LoQuieresInactivo : tipo;
                     }
-                    
+
                     break;
             }
             return tipo;
