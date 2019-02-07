@@ -945,6 +945,10 @@ namespace Portal.Consultoras.Service
         {
             return _direccionEntregaBusinessLogic.Editar(direccion);
         }
+        public void RegistraDireccionEntrega(string codigoISO, BEDireccionEntrega direccionEntrega)
+        {
+            _usuarioBusinessLogic.RegistraDireccionEntrega(codigoISO, direccionEntrega);
+        }
         #endregion
         #region ActualizacionDatos
         public BERespuestaServicio ActualizarEmailWS(BEUsuario usuario, string correoNuevo)
