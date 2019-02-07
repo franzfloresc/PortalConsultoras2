@@ -1,6 +1,8 @@
 ﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Service;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.ServiceSAC;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +15,20 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult Index()
         {
             var model = new List<EscalaDescuentoModel>();
+
+            List<BETablaLogicaDatos> datos;
+            string msj = string.Empty;
+
+            using (var sv = new SACServiceClient())
+                datos = sv.GetTablaLogicaDatos(userData.PaisID, Constantes.TablaLogica.EscalaDescuentoMensajeImportante).ToList() ?? new List<BETablaLogicaDatos>();
+
+            if (datos.Count != 0)
+                msj = datos.Where(a => a.Codigo == "01").Select(b => b.Valor).FirstOrDefault();
+
             using (var srv = new PedidoServiceClient())
             {
                 var List = srv.GetEscalaDescuento(userData.PaisID, userData.CampaniaID, userData.CodigorRegion, userData.CodigoZona).OrderBy(a => a.MontoDesde);
+                
                 var montoMinimo = string.Format("{0} {1}", userData.Simbolo, Util.DecimalToStringFormat(userData.MontoMinimo, userData.CodigoISO));
                 var simbolo = userData.Simbolo;
                 if (List != null)
@@ -42,6 +55,8 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
             }
+            ViewBag.MensajeImportante = msj;
+
             return View(model);
         }
     }

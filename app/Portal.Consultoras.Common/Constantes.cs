@@ -1686,6 +1686,9 @@ namespace Portal.Consultoras.Common
 
             public const int CorreoFeedbackAppConsultora = 105;
 
+            public const int EscalaDescuentoMensajeImportante = 160;
+
+
             /// <summary>
             /// Variables configurables del app
             /// </summary>
