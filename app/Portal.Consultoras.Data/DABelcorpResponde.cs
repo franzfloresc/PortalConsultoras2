@@ -43,9 +43,16 @@ namespace Portal.Consultoras.Data
         #region Gestor de Poputs
         public IDataReader GetListaPoput(int estado, string campania)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetListaPoput");
-            Context.Database.AddInParameter(command, "@CodigoCampania", DbType.AnsiString, campania);
-            Context.Database.AddInParameter(command, "@Estado", DbType.Boolean, (estado==1?true:false));
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetListadoPoput");
+            Context.Database.AddInParameter(command, "@Campania", DbType.AnsiString, campania);
+            Context.Database.AddInParameter(command, "@Activo", DbType.Int32, estado);
+            return Context.ExecuteReader(command);
+        }
+
+        public IDataReader GetDetallePoput(int comunicadoid)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetDetallePoput");
+            Context.Database.AddInParameter(command, "@Comunicadoid", DbType.Int32, comunicadoid);
             return Context.ExecuteReader(command);
         }
         #endregion

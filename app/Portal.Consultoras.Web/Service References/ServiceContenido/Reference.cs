@@ -3087,6 +3087,9 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         private string FechaInicioField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NombreArchivoCCVField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int NumeroField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -3239,6 +3242,19 @@ namespace Portal.Consultoras.Web.ServiceContenido {
                 if ((object.ReferenceEquals(this.FechaInicioField, value) != true)) {
                     this.FechaInicioField = value;
                     this.RaisePropertyChanged("FechaInicio");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string NombreArchivoCCV {
+            get {
+                return this.NombreArchivoCCVField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NombreArchivoCCVField, value) != true)) {
+                    this.NombreArchivoCCVField = value;
+                    this.RaisePropertyChanged("NombreArchivoCCV");
                 }
             }
         }
@@ -3908,6 +3924,12 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/GetListaPoput", ReplyAction="http://tempuri.org/IContenidoService/GetListaPoputResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceContenido.BEComunicado[]> GetListaPoputAsync(int Estado, string Campania);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/GetDetallePoput", ReplyAction="http://tempuri.org/IContenidoService/GetDetallePoputResponse")]
+        Portal.Consultoras.Web.ServiceContenido.BEComunicado GetDetallePoput(int Comunicadoid);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/GetDetallePoput", ReplyAction="http://tempuri.org/IContenidoService/GetDetallePoputResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceContenido.BEComunicado> GetDetallePoputAsync(int Comunicadoid);
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -4563,6 +4585,14 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceContenido.BEComunicado[]> GetListaPoputAsync(int Estado, string Campania) {
             return base.Channel.GetListaPoputAsync(Estado, Campania);
+        }
+        
+        public Portal.Consultoras.Web.ServiceContenido.BEComunicado GetDetallePoput(int Comunicadoid) {
+            return base.Channel.GetDetallePoput(Comunicadoid);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceContenido.BEComunicado> GetDetallePoputAsync(int Comunicadoid) {
+            return base.Channel.GetDetallePoputAsync(Comunicadoid);
         }
     }
 }

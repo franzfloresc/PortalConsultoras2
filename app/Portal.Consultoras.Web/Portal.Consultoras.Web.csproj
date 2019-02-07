@@ -4005,7 +4005,6 @@
     <Content Include="Scripts\MultiSelect\js\ui.multiselect.js" />
     <Content Include="Scripts\nieve.js" />
     <Content Include="Scripts\PortalConsultoras\AdminPoput\AdminPoput.js" />
-    <Content Include="Scripts\PortalConsultoras\AdminPoput\Index.js" />
     <Content Include="Scripts\PortalConsultoras\AsesoraOnline\AsesoraOnline.js" />
     <Content Include="Scripts\PortalConsultoras\AsesoraOnline\CancelarSuscripcionJS.js" />
     <Content Include="Scripts\PortalConsultoras\AsesoraOnline\Index.js" />

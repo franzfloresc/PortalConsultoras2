@@ -92,7 +92,30 @@ namespace Portal.Consultoras.Web.Controllers
             return ComunicadoModel;
         }
 
-        public JsonResult GetCargaListadoPoput(int Estado, string Campania)
+
+
+        public JsonResult GetDetallePoput(int Comunicadoid) {
+            ComunicadoModel objetoComunicadoModel;
+
+            try
+            {
+                using (ContenidoServiceClient sv = new ContenidoServiceClient())
+                {
+                    var objetoContenidoService = sv.GetDetallePoput(Comunicadoid);
+                    objetoComunicadoModel = GetAutoMapperManualObjeto(objetoContenidoService);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                objetoComunicadoModel = new ComunicadoModel();
+            }
+
+            return Json(objetoComunicadoModel, JsonRequestBehavior.AllowGet);
+    }
+
+    public JsonResult GetCargaListadoPoput(int Estado, string Campania)
         {
             List<ComunicadoModel> listaComunicadoModel;
 
@@ -101,7 +124,7 @@ namespace Portal.Consultoras.Web.Controllers
                 using (ContenidoServiceClient sv= new ContenidoServiceClient())
             {
                 var listContenidoService = sv.GetListaPoput(Estado, Campania).ToList();
-                    listaComunicadoModel = GetAutoMapperManual(listContenidoService);
+                    listaComunicadoModel = GetAutoMapperManualLista(listContenidoService);
                     //Mapper.Map<List<ServiceContenido.BEComunicado>, List<ComunicadoModel>>(listContenidoService);
                 }
 
@@ -115,7 +138,7 @@ namespace Portal.Consultoras.Web.Controllers
               return Json(listaComunicadoModel, JsonRequestBehavior.AllowGet);
     }
 
-        private List<ComunicadoModel> GetAutoMapperManual(List<ServiceContenido.BEComunicado> listContenidoService)
+        private List<ComunicadoModel> GetAutoMapperManualLista(List<ServiceContenido.BEComunicado> listContenidoService)
         {
             List<ComunicadoModel> listComunicadoModel = new List<ComunicadoModel>();
 
@@ -123,6 +146,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 listComunicadoModel.Add(
                     new ComunicadoModel() {
+                        ComunicadoId=Convert.ToInt32( item.ComunicadoId),
                         Numero=item.Numero,
                         UrlImagen=GetImagen(item.UrlImagen),
                         FechaInicio_=item.FechaInicio,
@@ -137,6 +161,27 @@ namespace Portal.Consultoras.Web.Controllers
             return listComunicadoModel;
         }
 
+
+        private ComunicadoModel GetAutoMapperManualObjeto(ServiceContenido.BEComunicado objetoContenidoService)
+        {
+         return  new ComunicadoModel()
+            {
+             ComunicadoId = Convert.ToInt32(objetoContenidoService.ComunicadoId),
+             Descripcion = objetoContenidoService.Descripcion,
+             Activo = objetoContenidoService.Activo,
+             DescripcionAccion = objetoContenidoService.DescripcionAccion,
+             SegmentacionID = Convert.ToInt32( objetoContenidoService.SegmentacionID),
+             UrlImagen = GetImagen( objetoContenidoService.UrlImagen),
+             Orden = objetoContenidoService.Orden,
+             NombreArchivoCCV = objetoContenidoService.NombreArchivoCCV,
+             FechaInicio_ = objetoContenidoService.FechaInicio,
+             FechaFin_ = objetoContenidoService.FechaFin
+         };
+                   
+
+         
+        }
+
         private string GetImagen(string urlImagen)
         {
             if (urlImagen != string.Empty) {
@@ -147,7 +192,21 @@ namespace Portal.Consultoras.Web.Controllers
         }
         #endregion
 
+        [HttpPost]
+        public ActionResult GetGuardarPoput()
+        {
+            if (Request.Files.Count > 0)
+            {
+                HttpPostedFileBase frmDataImagen = Request.Files[0];
+                HttpPostedFileBase frmDataArchivoCSV = Request.Files[1];
 
 
-    }   
+            }
+
+                return Json(1, JsonRequestBehavior.AllowGet);
+        }
+
+
+
+    }
 }

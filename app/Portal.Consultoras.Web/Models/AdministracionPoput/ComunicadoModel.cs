@@ -28,6 +28,7 @@ namespace Portal.Consultoras.Web.Models.AdministracionPoput
         public int Numero { get; set; }
         public string FechaInicio_ { get; set; }
         public string FechaFin_ { get; set; }
+        public string NombreArchivoCCV { get; set; }
         public IEnumerable<SegmentacionComunicadoModel> ListaSegmentacionComunicado { set; get; }
         public IEnumerable<CampaniaModel> listaCampania { get; set; }
 

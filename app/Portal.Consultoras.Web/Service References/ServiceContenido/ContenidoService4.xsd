@@ -430,6 +430,7 @@
       <xs:element minOccurs="0" name="DescripcionAccion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FechaFin" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FechaInicio" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NombreArchivoCCV" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Numero" type="xs:int" />
       <xs:element minOccurs="0" name="Orden" type="xs:int" />
       <xs:element minOccurs="0" name="SegmentacionConsultora" type="xs:boolean" />

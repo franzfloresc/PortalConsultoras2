@@ -494,11 +494,14 @@ namespace Portal.Consultoras.Service
         {
             return _BLBelcorpResponde.GetListaPoput(Estado, Campania);
         }
+        public BEComunicado GetDetallePoput(int Comunicadoid)
+        {
+            return _BLBelcorpResponde.GetDetallePoput(Comunicadoid);
+        }
+
         #endregion
 
-        #region Miembros de IContenidoService
-
-        #endregion
+       
 
     }
 }

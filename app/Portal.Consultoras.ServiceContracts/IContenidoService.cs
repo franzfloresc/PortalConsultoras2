@@ -283,6 +283,9 @@ namespace Portal.Consultoras.ServiceContracts
         #region Gestor de Poputs
         [OperationContract]
         List<BEComunicado> GetListaPoput(int Estado,string Campania);
+
+        [OperationContract]
+        BEComunicado GetDetallePoput(int Comunicadoid);
         #endregion
 
     }
