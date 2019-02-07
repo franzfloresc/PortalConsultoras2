@@ -19,10 +19,10 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://pelnx2138:7003/ssiccclespdp/services/ProcesoMAEActualizarDireccionEntregaWebService?wsdl" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://pelnx2044.galileo.ebel:7003/ssiccclespdp/services/ProcesoMAEActualizarDireccionEntregaWebService?wsdl" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="ProcesoMAEActualizarDireccionEntregaWebService.wsdl" MetadataType="Wsdl" ID="21b80dde-b6ed-4cc6-a6ec-80f441cc290f" SourceId="1" SourceUrl="http://pelnx2138:7003/ssiccclespdp/services/ProcesoMAEActualizarDireccionEntregaWebService?wsdl" />
+    <MetadataFile FileName="ProcesoMAEActualizarDireccionEntregaWebService1.wsdl" MetadataType="Wsdl" ID="54f3b661-7fdc-4de6-821e-96b89fa06a21" SourceId="1" SourceUrl="http://pelnx2044.galileo.ebel:7003/ssiccclespdp/services/ProcesoMAEActualizarDireccionEntregaWebService?wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

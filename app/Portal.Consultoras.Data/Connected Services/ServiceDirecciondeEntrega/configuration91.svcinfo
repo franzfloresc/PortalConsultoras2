@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="bYXXvDxsbkcW5ubzZF5xTC7CAfo=">
+<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="73e4NdHrRpUw864rmTY4ZDxIFnw=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="basicHttpBinding" name="ProcesoMAEActualizarDireccionEntregaWebServiceSoapBinding">
       <properties>
@@ -112,10 +112,10 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="ProcesoMAEActualizarDireccionEntregaWebService" contract="ServiceDirecciondeEntrega.ProcesoMAEActualizarDireccionEntregaWebServiceImpl" bindingType="basicHttpBinding" address="http://pelnx2138:7003/ssiccclespdp/services/ProcesoMAEActualizarDireccionEntregaWebService" bindingConfiguration="ProcesoMAEActualizarDireccionEntregaWebServiceSoapBinding">
+    <endpoint name="ProcesoMAEActualizarDireccionEntregaWebService" contract="ServiceDirecciondeEntrega.ProcesoMAEActualizarDireccionEntregaWebServiceImpl" bindingType="basicHttpBinding" address="http://pelnx2044.galileo.ebel:7003/ssiccclespdp/services/ProcesoMAEActualizarDireccionEntregaWebService" bindingConfiguration="ProcesoMAEActualizarDireccionEntregaWebServiceSoapBinding">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>http://pelnx2138:7003/ssiccclespdp/services/ProcesoMAEActualizarDireccionEntregaWebService</serializedValue>
+          <serializedValue>http://pelnx2044.galileo.ebel:7003/ssiccclespdp/services/ProcesoMAEActualizarDireccionEntregaWebService</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />

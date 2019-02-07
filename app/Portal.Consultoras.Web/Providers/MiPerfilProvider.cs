@@ -110,6 +110,7 @@ namespace Portal.Consultoras.Web.Providers
                 entidad.Ubigeo2Anterior = direccionAnterior.Ubigeo2;
                 entidad.Ubigeo3Anterior = direccionAnterior.Ubigeo3;
                 entidad.DireccionAnterior = direccionAnterior.Direccion;
+                entidad.ZonaAnterior = direccionAnterior.Zona;
                 entidad.LatitudAnterior = direccionAnterior.Latitud;
                 entidad.LongitudAnterior = direccionAnterior.Longitud;
                 entidad.CampaniaAnteriorID = direccionAnterior.CampaniaID;

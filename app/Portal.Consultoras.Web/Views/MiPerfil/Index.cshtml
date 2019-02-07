@@ -37,7 +37,7 @@ else
 <section class="datos_usuario_iniciales w-100">
     <div class="wrapper_content_mi_perfil text-center">
         <div class="foto_consultora">
-            <a href="@Url.Action("CambiarFotoPerfil", "MiPerfil", new {area = ""})" title="Editar imagen" class="icono_camara multimarca-background-color"></a>
+            <a href="@Url.Action("CambiarFotoPerfil", "MiPerfil", new { area = "" })" title="Editar imagen" class="icono_camara multimarca-background-color"></a>
             <div class="contenedor_foto_consultora">
                 @if (ViewBag.FotoPerfilAncha)
                 {
@@ -66,6 +66,9 @@ else
                 <input type="hidden" id="hdn_enlaceTerminosCondiciones" value="@ViewBag.UrlPdfTerminosyCondiciones" />
                 <input type="hidden" id="hdn_iniciaNumero" value="@Model.IniciaNumeroCelular" />
                 <input type="hidden" id="hdn_PaisID" value="@Model.PaisID" />
+                <input type="hidden" id="hdn_CodigoConsultora" value="@Model.CodigoConsultoraAsociada" />
+                @{var TieneDireEntrega = Model.TieneDireccionEntrega ? "1" : "0"; }
+                <input type="hidden" id="hdn_TienedireccionEntrega" value="@TieneDireEntrega" />
                 <div class="datos_codigo">
                     <span class="text-bold">Código : </span>
                     <span class="text-bold">@Model.CodigoUsuario</span>
@@ -252,7 +255,7 @@ else
                     </fieldset>
                     <fieldset class="grupo_form_cambio_datos">
                         <div class="w-100">
-                            <input class="w-100" id="Zona" name="txtZona" type="text" value="" placeholder="Ejm: Edificio San Ramón">
+                                    @Html.TextBoxFor(x => x.DireccionEntrega.Zona, new { @class = "w-100", id = "Zona", placeholder = "Ejm: Edificio San Ramón" })
                             <label for="Zona" class="w-100">
                                         Zona / N° de Departamento / Calle / Interior 
                                         @if (Model.PaisID != 3)
@@ -266,11 +269,7 @@ else
                         <div class="w-100">
                             @Html.TextBoxFor(x => x.DireccionEntrega.Referencia, new { @class = "w-100 campo_referencia", id = "Referencia", maxlength = "400", placeholder = "Información adicional" })
                             <label for="Referencia" class="w-100">
-                                Referencia
-                                @if (Model.PaisID != 3)
-                                {
-                                    <span class="asteriscos">*</span>
-                                }                               
+                                Referencia                             
                             </label>
                         </div>
                         @Html.HiddenFor(m => m.DireccionEntrega.Latitud, new { id = "Latitud" })
@@ -286,8 +285,7 @@ else
                     </fieldset>
                 </div>
             </div>
-            }            
-
+            }
         </div>
         @if (Model.UsuarioOpciones.Count() > 0)
         {

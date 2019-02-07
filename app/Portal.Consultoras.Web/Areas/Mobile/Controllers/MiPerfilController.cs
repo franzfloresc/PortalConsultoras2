@@ -99,21 +99,23 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             Util.ObtenerIniciaNumeroCelular(userData.PaisID, out valida, out numero);
             model.IniciaNumeroCelular = valida ? numero : -1;
 
-                var objMenu = ((List<PermisoModel>)ViewBag.Permiso).Where(p =>
-                    p.Posicion.Trim().ToLower().Equals(Constantes.MenuPosicion.Body) &&
-                    p.Codigo.Trim().ToLower().Equals(Constantes.MenuCodigo.MiPerfil.ToLower())
-                ).ToList();
-                model.DireccionEntrega = _miPerfilProvider.ObtenerDireccionPorConsultora(new DireccionEntregaModel { ConsultoraID = (int)userData.ConsultoraID, PaisID = userData.PaisID });
-                Binder(model.DireccionEntrega);
-                model.PermisoMenu = new List<string>();
-                foreach (var item in objMenu)
+            var objMenu = ((List<PermisoModel>)ViewBag.Permiso).Where(p =>
+                p.Posicion.Trim().ToLower().Equals(Constantes.MenuPosicion.Body) &&
+                p.Codigo.Trim().ToLower().Equals(Constantes.MenuCodigo.MiPerfil.ToLower())
+            ).ToList();
+            model.DireccionEntrega = _miPerfilProvider.ObtenerDireccionPorConsultora(new DireccionEntregaModel { ConsultoraID = (int)userData.ConsultoraID, PaisID = userData.PaisID });
+            Binder(model.DireccionEntrega);
+            model.PermisoMenu = new List<string>();
+            foreach (var item in objMenu)
+            {
+                foreach (var subitem in item.SubMenus)
                 {
-                    foreach (var subitem in item.SubMenus)
-                    {
-                        model.PermisoMenu.Add(subitem.Descripcion);
-                    }
+                    model.PermisoMenu.Add(subitem.Descripcion);
                 }
-                model.UsuarioOpciones = _miperfil.GetUsuarioOpciones(userData.PaisID, userData.CodigoUsuario, true);
+            }
+            model.UsuarioOpciones = _miperfil.GetUsuarioOpciones(userData.PaisID, userData.CodigoUsuario, true);
+            model.TieneDireccionEntrega = userData.TieneDireccionEntrega;
+            model.CodigoConsultoraAsociada = userData.CodigoConsultora;
 
             return View(model);
         }

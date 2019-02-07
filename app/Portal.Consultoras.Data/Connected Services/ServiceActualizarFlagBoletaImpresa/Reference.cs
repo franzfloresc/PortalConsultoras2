@@ -12,12 +12,12 @@ namespace Portal.Consultoras.Data.ServiceActualizarFlagBoletaImpresa {
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(Namespace="http://pelnx2138:7003/ssiccclespdp/services/ProcesoMAEActualizaFlagImpBoletasWebS" +
-        "ervice", ConfigurationName="ServiceActualizarFlagBoletaImpresa.ProcesoMAEActualizaFlagImpBoletasWebServiceImp" +
+    [System.ServiceModel.ServiceContractAttribute(Namespace="http://pelnx2044.galileo.ebel:7003/ssiccclespdp/services/ProcesoMAEActualizaFlagI" +
+        "mpBoletasWebService", ConfigurationName="ServiceActualizarFlagBoletaImpresa.ProcesoMAEActualizaFlagImpBoletasWebServiceImp" +
         "l")]
     public interface ProcesoMAEActualizaFlagImpBoletasWebServiceImpl {
         
-        // CODEGEN: Se está generando un contrato de mensaje, ya que el espacio de nombres de contenedor (http://impl.ws.mae.spusicc.service.ssicc.belcorp.biz) del mensaje actualizaFlagImpBoletasRequest no coincide con el valor predeterminado (http://pelnx2138:7003/ssiccclespdp/services/ProcesoMAEActualizaFlagImpBoletasWebService)
+        // CODEGEN: Se está generando un contrato de mensaje, ya que el espacio de nombres de contenedor (http://impl.ws.mae.spusicc.service.ssicc.belcorp.biz) del mensaje actualizaFlagImpBoletasRequest no coincide con el valor predeterminado (http://pelnx2044.galileo.ebel:7003/ssiccclespdp/services/ProcesoMAEActualizaFlagImpBoletasWebService)
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(Style=System.ServiceModel.OperationFormatStyle.Rpc, SupportFaults=true, Use=System.ServiceModel.OperationFormatUse.Encoded)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ErrorActualizarFlagImpBoleta))]
@@ -214,8 +214,8 @@ namespace Portal.Consultoras.Data.ServiceActualizarFlagBoletaImpresa {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="actualizaFlagImpBoletasResponse", WrapperNamespace="http://pelnx2138:7003/ssiccclespdp/services/ProcesoMAEActualizaFlagImpBoletasWebS" +
-        "ervice", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="actualizaFlagImpBoletasResponse", WrapperNamespace="http://pelnx2044.galileo.ebel:7003/ssiccclespdp/services/ProcesoMAEActualizaFlagI" +
+        "mpBoletasWebService", IsWrapped=true)]
     public partial class actualizaFlagImpBoletasResponse {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="", Order=0)]

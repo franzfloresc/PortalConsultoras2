@@ -12,11 +12,11 @@ namespace Portal.Consultoras.Data.ServiceDirecciondeEntrega {
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(Namespace="http://pelnx2138:7003/ssiccclespdp/services/ProcesoMAEActualizarDireccionEntregaW" +
-        "ebService", ConfigurationName="ServiceDirecciondeEntrega.ProcesoMAEActualizarDireccionEntregaWebServiceImpl")]
+    [System.ServiceModel.ServiceContractAttribute(Namespace="http://pelnx2044.galileo.ebel:7003/ssiccclespdp/services/ProcesoMAEActualizarDire" +
+        "ccionEntregaWebService", ConfigurationName="ServiceDirecciondeEntrega.ProcesoMAEActualizarDireccionEntregaWebServiceImpl")]
     public interface ProcesoMAEActualizarDireccionEntregaWebServiceImpl {
         
-        // CODEGEN: Se está generando un contrato de mensaje, ya que el espacio de nombres de contenedor (http://impl.ws.mae.spusicc.service.ssicc.belcorp.biz) del mensaje actualizacionDireccionEntregaRequest no coincide con el valor predeterminado (http://pelnx2138:7003/ssiccclespdp/services/ProcesoMAEActualizarDireccionEntregaWebService)
+        // CODEGEN: Se está generando un contrato de mensaje, ya que el espacio de nombres de contenedor (http://impl.ws.mae.spusicc.service.ssicc.belcorp.biz) del mensaje actualizacionDireccionEntregaRequest no coincide con el valor predeterminado (http://pelnx2044.galileo.ebel:7003/ssiccclespdp/services/ProcesoMAEActualizarDireccionEntregaWebService)
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(Style=System.ServiceModel.OperationFormatStyle.Rpc, SupportFaults=true, Use=System.ServiceModel.OperationFormatUse.Encoded)]
         Portal.Consultoras.Data.ServiceDirecciondeEntrega.actualizacionDireccionEntregaResponse actualizacionDireccionEntrega(Portal.Consultoras.Data.ServiceDirecciondeEntrega.actualizacionDireccionEntregaRequest request);
@@ -169,8 +169,8 @@ namespace Portal.Consultoras.Data.ServiceDirecciondeEntrega {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="actualizacionDireccionEntregaResponse", WrapperNamespace="http://pelnx2138:7003/ssiccclespdp/services/ProcesoMAEActualizarDireccionEntregaW" +
-        "ebService", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="actualizacionDireccionEntregaResponse", WrapperNamespace="http://pelnx2044.galileo.ebel:7003/ssiccclespdp/services/ProcesoMAEActualizarDire" +
+        "ccionEntregaWebService", IsWrapped=true)]
     public partial class actualizacionDireccionEntregaResponse {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="", Order=0)]

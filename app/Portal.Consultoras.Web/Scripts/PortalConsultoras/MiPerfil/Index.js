@@ -389,6 +389,8 @@ function actualizarDatos() {
     
     $('#btnGuardar')[0].disabled = true;
 
+    var TieneDireccionEntrega = $("#TieneDireccionEntrega").val();
+
     var hdn_CaracterMaximo = $("#hdn_CaracterMaximo").val();
     var hdn_CaracterMinimo = $("#hdn_CaracterMinimo").val();
     var hdn_iniciaNumero = $('#hdn_iniciaNumero').val();
@@ -398,16 +400,7 @@ function actualizarDatos() {
     var txtTelefonoTrabajoMD = jQuery.trim($("#txtTelefonoTrabajoMD").val());
     var txtEMailMD = jQuery.trim($('#txtEMailMD').val());
 
-    var Ubigeo1 = $('#Ubigeo1').val();
-    var Ubigeo2 = $('#Ubigeo2').val();
-    var Latitud = $('#Latitud').val();
-    var Longitud = $('#Longitud').val();    
-    var Direccion = $('#Direccion').val();
-    var Zona = $('#Zona').val();
-    var Referencia = $('#Referencia').val();
-    var Operacion = $('#Operacion').val();
-    var DireccionEntregaID = $('#DireccionEntregaID').val();
-   
+    /***  Seccion Mis Datos ***/
     if (txtEMailMD == "" && hdn_PaisID != 3) {
         $('#btnGuardar')[0].disabled = false;
         alert("Debe ingresar EMail.\n");
@@ -518,43 +511,54 @@ function actualizarDatos() {
             return false;
         }
     }
+    /*** Fin Seccion Mis Datos ***/
 
-    if (Ubigeo1 == "") {
-        $('#btnGuardar')[0].disabled = false;
-        var item = $('label[for="Ubigeo1"]').text();
-        alert("Debe seleccionar " + item + ".");
-        return false;
-    }
-    if (Ubigeo2 == "") {
-        $('#btnGuardar')[0].disabled = false;
-        var item = $('label[for="Ubigeo2"]').text();
-        alert("Debe seleccionar " + item + ".");
-        return false;
-    }
+    /*** Seccion Direccion Entrega ***/
+    if (TieneDireccionEntrega == '1') {
+        var Ubigeo1 = $('#Ubigeo1').val();
+        var Ubigeo2 = $('#Ubigeo2').val();
+        var Latitud = $('#Latitud').val();
+        var Longitud = $('#Longitud').val();
+        var Direccion = $('#Direccion').val();
+        var Zona = $('#Zona').val();
+        var Referencia = $('#Referencia').val();
+        var Operacion = $('#Operacion').val();
+        var DireccionEntregaID = $('#DireccionEntregaID').val();
 
-    if (Zona == "" && hdn_PaisID != 3) {
-        $('#btnGuardar')[0].disabled = false;
-        alert("Debe ingresar una Zona / N° de Deprtamento / Calle.");
-        return false;
-    }
+        if (Ubigeo1 == "") {
+            $('#btnGuardar')[0].disabled = false;
+            var item = $('label[for="Ubigeo1"]').text();
+            alert("Debe seleccionar " + item + ".");
+            return false;
+        }
+        if (Ubigeo2 == "") {
+            $('#btnGuardar')[0].disabled = false;
+            var item = $('label[for="Ubigeo2"]').text();
+            alert("Debe seleccionar " + item + ".");
+            return false;
+        }
 
-    if (Referencia == "" && hdn_PaisID != 3) {
-        $('#btnGuardar')[0].disabled = false;
-        alert("Debe ingresar una dirección de referencia.");
-        return false;
-    }
+        if (Zona == "" && hdn_PaisID != 3) {
+            $('#btnGuardar')[0].disabled = false;
+            alert("Debe ingresar una Zona / N° de Deprtamento / Calle.");
+            return false;
+        }
 
-    if (Latitud == 0 || Longitud == 0) {
-        $('#btnGuardar')[0].disabled = false;
-        alert("Debe ingresar una dirección valida.");
-        return false;
-    }
-    if (!$('#chkAceptoContratoMD').is(':checked')) {
-        $('#btnGuardar')[0].disabled = false;
-        alert('Debe aceptar los términos y condiciones para poder actualizar sus datos.');
-        return false;
-    }
+        //if (Referencia == "" && hdn_PaisID != 3) {
+        //    $('#btnGuardar')[0].disabled = false;
+        //    alert("Debe ingresar una dirección de referencia.");
+        //    return false;
+        //}
 
+        if (Latitud == 0 || Longitud == 0) {
+            $('#btnGuardar')[0].disabled = false;
+            alert("Debe ingresar una dirección valida.");
+            return false;
+        }
+    }
+    /*** Fin Seccion Direccion Entrega ***/
+
+    /*** Seccion Permisos Cuenta ***/
     var permisos = new Array();
     $(".divCheckbox :checkbox").each(function () {
         permisos.push({
@@ -562,7 +566,14 @@ function actualizarDatos() {
             CheckBox: this.checked,
             OpcionesUsuarioId: $(this).attr("data-tipoOpcion")
         })
-    });  
+    }); 
+    /*** Fin Seccion Permisos Cuenta ***/
+
+    if (!$('#chkAceptoContratoMD').is(':checked')) {
+        $('#btnGuardar')[0].disabled = false;
+        alert('Debe aceptar los términos y condiciones para poder actualizar sus datos.');
+        return false;
+    }
     
     AbrirLoad();
     var direccion = {
@@ -575,7 +586,8 @@ function actualizarDatos() {
         Operacion: Operacion,
         Referencia: Referencia,
         DireccionEntregaID: DireccionEntregaID,
-        Zona: Zona
+        Zona: Zona,
+        CodigoConsultora: jQuery('#hdn_CodigoConsultora').val(),
     }
 
     var item = {
