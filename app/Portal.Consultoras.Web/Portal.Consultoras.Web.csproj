@@ -1663,6 +1663,7 @@
     <Content Include="Content\Images\icono_cerrar_menu_mobile.png" />
     <Content Include="Content\Images\icono_comunidad_virtual.svg" />
     <Content Include="Content\Images\icono_esika_responde.png" />
+    <Content Include="Content\Images\icono_info_importante.svg" />
     <Content Include="Content\Images\icono_limpiar_busqueda.svg" />
     <Content Include="Content\Images\icono_lupa_gris.svg" />
     <Content Include="Content\Images\icono_lupa_blanco.svg" />
@@ -1673,6 +1674,7 @@
     <Content Include="Content\Images\icono_paso_compartir_catalogo.svg" />
     <Content Include="Content\Images\icono_salvavidas.svg" />
     <Content Include="Content\Images\icono_sin_resultados_busqueda.svg" />
+    <Content Include="Content\Images\icono_titulo_gana_mas.svg" />
     <Content Include="Content\Images\icono_tooltip_informativo.svg" />
     <Content Include="Content\Images\imagen_prod_no_disponible.jpg" />
     <Content Include="Content\Images\imagen_prod_no_disponible.png" />
@@ -5278,7 +5280,7 @@
     <Content Include="Web References\ServiceCatalogosIssuu\Reference.map" />
     <Content Include="Views\Notificaciones\ListadoDetalleCatalogo.cshtml" />
     <Content Include="Views\ABCProducto\Index.cshtml" />
-    <Content Include="Views\EscalaDescuentos\Index.cshtml" />
+    <Content Include="Views\EscalaDescuentos\--Index.cshtml" />
     <Content Include="Views\ConsultoraOnline\Index.cshtml" />
     <Content Include="Views\ConsultoraOnline\Informacion.cshtml" />
     <Content Include="Views\ConsultoraOnline\_MenuConsultoraOnline.cshtml" />
@@ -5526,6 +5528,7 @@
     <Content Include="Views\MisCatalogosRevistas\MisCatalogosYRevistas.cshtml" />
     <Content Include="Views\MisCatalogosRevistas\Index.cshtml" />
     <Content Include="Views\MisCatalogosRevistas\template-revista-slide.cshtml" />
+    <Content Include="Views\EscalaDescuentos\Index.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
