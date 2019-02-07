@@ -23638,10 +23638,13 @@ input[type='checkbox']:checked + span:after {
     margin-top: 19px;
 }
 
+.linea_indicador_barra{
+    width:0.15em;
+}
+
 .linea_indicador_barra,
 .linea_indicador_barra_vista_bienvenida
 {
-    width: 1px;
     height: 8px;
     background: #979797;
     position: absolute;
@@ -23650,6 +23653,7 @@ input[type='checkbox']:checked + span:after {
 }
 
 .linea_indicador_barra_vista_bienvenida {
+    width: 1px;
     left: 0;
     right: 0;
     margin: 0 auto;
