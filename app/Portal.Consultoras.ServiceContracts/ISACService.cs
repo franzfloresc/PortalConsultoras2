@@ -328,6 +328,11 @@ namespace Portal.Consultoras.ServiceContracts
         List<BETablaLogicaDatos> GetTablaLogicaDatos(int paisID, Int16 TablaLogicaID);
         #endregion
 
+        #region Buscador
+        [OperationContract]
+        Dictionary<string, string> GetOrdenamientoFiltrosBuscador(int paisID);
+        #endregion
+
         #region "Fe de Erratas"
 
         [OperationContract]

@@ -2,7 +2,6 @@
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
-using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,7 +11,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class OfertaNuevaController : BaseController
+    public class OfertaNuevaController : BaseAdmController
     {
 
         public ActionResult OfertaNueva()
@@ -24,7 +23,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 IEnumerable<CampaniaModel> lstCampania = new List<CampaniaModel>();
-                model.listaPaises = CargarDropDowListPaises();
+                model.listaPaises = DropDowListPaises();
                 model.listaCampania = lstCampania;
                 model.PaisNombre = userData.NombrePais;
             }
@@ -156,16 +155,6 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
             return RedirectToAction("Consultar");
-        }
-
-        public JsonResult ObtenterDropDownPorPais(int PaisID)
-        {
-            IEnumerable<CampaniaModel> lstcampania = DropDownCampanias(PaisID);
-
-            return Json(new
-            {
-                lstCampania = lstcampania
-            }, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult ValidarOfertasNuevas(int vPaisID, string vCodigoCampania, string vCUV)
@@ -333,30 +322,6 @@ namespace Portal.Consultoras.Web.Controllers
                     extra = ""
                 });
             }
-        }
-
-        public IEnumerable<CampaniaModel> DropDownCampanias(int paisId)
-        {
-            IList<BECampania> lista;
-            using (ZonificacionServiceClient servicezona = new ZonificacionServiceClient())
-            {
-                lista = servicezona.SelectCampanias(paisId);
-            }
-
-            return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lista);
-        }
-
-        private IEnumerable<PaisModel> CargarDropDowListPaises()
-        {
-            List<BEPais> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = userData.RolID == 2
-                    ? sv.SelectPaises().ToList()
-                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
-            }
-
-            return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
 
         public JsonResult ObtenerISOPais(int paisID)

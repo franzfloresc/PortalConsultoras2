@@ -17,7 +17,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class ConsultaPedidoController : BaseController
+    public class ConsultaPedidoController : BaseAdmController
     {
         #region Action
         public ActionResult ConsultaPedido()
@@ -36,7 +36,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 IEnumerable<ZonaModel> lstZona = new List<ZonaModel>();
 
-                model.listaPaises = CargarDropDowListPaises();
+                model.listaPaises = DropDowListPaises();
                 model.listaCampania = lstCampania;
                 model.listaRegiones = lstRegion;
                 model.listaZonas = lstZona;
@@ -194,42 +194,6 @@ namespace Portal.Consultoras.Web.Controllers
         #endregion
 
         #region Metodos
-        public JsonResult ObtenterDropDownPorPais(int PaisID)
-        {
-            IEnumerable<CampaniaModel> lstcampania = DropDownCampanias(PaisID);
-            IEnumerable<ZonaModel> lstzona = DropDownZonas(PaisID);
-            IEnumerable<RegionModel> lstregion = _baseProvider.DropDownListRegiones(PaisID);
-
-            return Json(new
-            {
-                lstCampania = lstcampania,
-                lstZona = lstzona,
-                lstRegion = lstregion
-
-            }, JsonRequestBehavior.AllowGet);
-        }
-
-        public IEnumerable<CampaniaModel> DropDownCampanias(int paisId)
-        {
-            IList<BECampania> lista;
-            using (ZonificacionServiceClient servicezona = new ZonificacionServiceClient())
-            {
-                lista = servicezona.SelectCampanias(paisId);
-            }
-
-            return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lista);
-        }
-
-        public IEnumerable<ZonaModel> DropDownZonas(int paisId)
-        {
-            IList<BEZona> lista;
-            using (ZonificacionServiceClient servicezona = new ZonificacionServiceClient())
-            {
-                lista = servicezona.SelectAllZonas(paisId);
-            }
-
-            return Mapper.Map<IList<BEZona>, IEnumerable<ZonaModel>>(lista);
-        }
 
         public JsonResult SelectTerritorioByCodigo(string codigo, int rowCount, int paisID)
         {
@@ -331,10 +295,10 @@ namespace Portal.Consultoras.Web.Controllers
                             a.CodigoZona,
                             a.CodigoConsultora,
                             a.Nombres,
-                            userData.PaisID == 4
+                            userData.PaisID == Constantes.PaisID.Colombia
                                 ? a.MontoPedido.ToString("#,##0").Replace(',', '.')
                                 : a.MontoPedido.ToString("0.00"),
-                            userData.PaisID == 4
+                            userData.PaisID == Constantes.PaisID.Colombia
                                 ? a.SaldoDeuda.ToString("#,##0").Replace(',', '.')
                                 : a.SaldoDeuda.ToString("0.00"),
                             a.DescripcionBloqueo,
@@ -374,7 +338,7 @@ namespace Portal.Consultoras.Web.Controllers
                     total = pag.PageCount,
                     page = pag.CurrentPage,
                     records = pag.RecordCount,
-                    totalimporte = (userData.PaisID == 4)
+                    totalimporte = (userData.PaisID == Constantes.PaisID.Colombia)
                         ? lst.Sum(x => x.ImporteTotal).ToString("#,##0").Replace(',', '.')
                         : lst.Sum(x => x.ImporteTotal).ToString("0.00"),
                     simbolo = lst[0].Simbolo,
@@ -387,10 +351,10 @@ namespace Portal.Consultoras.Web.Controllers
                             a.CUV,
                             a.DescripcionProd,
                             a.Cantidad.ToString(),
-                            userData.PaisID == 4
+                            userData.PaisID == Constantes.PaisID.Colombia
                                 ? a.PrecioUnidad.ToString("#,##0").Replace(',', '.')
                                 : a.PrecioUnidad.ToString("0.00"),
-                            userData.PaisID == 4
+                            userData.PaisID == Constantes.PaisID.Colombia
                                 ? a.ImporteTotal.ToString("#,##0").Replace(',', '.')
                                 : a.ImporteTotal.ToString("0.00")
 
@@ -588,7 +552,7 @@ namespace Portal.Consultoras.Web.Controllers
                             else
                                 ws.Cell(row, col).Style.NumberFormat.Format = "@";
 
-                            if (userData.PaisID == 4)
+                            if (userData.PaisID == Constantes.PaisID.Colombia)
                             {
                                 if (col == 4 || col == 5)
                                 {
@@ -680,19 +644,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             Util.ExportToPdfWebPages(this, "PedidosBloqueoPDF.pdf", "BloqueoPedidoImp", Util.EncriptarQueryString(lista));
             return View();
-        }
-
-        private IEnumerable<PaisModel> CargarDropDowListPaises()
-        {
-            List<BEPais> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = userData.RolID == 2
-                    ? sv.SelectPaises().ToList()
-                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
-            }
-
-            return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
 
         #endregion

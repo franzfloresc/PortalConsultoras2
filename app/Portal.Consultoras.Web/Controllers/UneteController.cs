@@ -1,3 +1,4 @@
+using ClosedXML.Excel;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Portal.Consultoras.Common;
@@ -7,7 +8,6 @@ using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceUnete;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Configuration;
 using System.Data;
 using System.Data.OleDb;
@@ -16,13 +16,11 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Reflection;
 using System.ServiceModel;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
-using ClosedXML.Excel;
 using ConsultoraBE = Portal.Consultoras.Web.HojaInscripcionBelcorpPais.ConsultoraBE;
 using Pais = Portal.Consultoras.Common.Constantes.CodigosISOPais;
 
@@ -107,14 +105,14 @@ namespace Portal.Consultoras.Web.Controllers
                         cell = new[] {
                             i.SolicitudPostulanteID.ToString(),
                             i.FechaCreacion.ToString(),
-                            string.IsNullOrWhiteSpace(i.PrimerNombre) ? string.Empty : i.PrimerNombre.ToUpper(),
-                            string.IsNullOrWhiteSpace(i.ApellidoPaterno) ? string.Empty : i.ApellidoPaterno.ToUpper(),
-                            string.IsNullOrWhiteSpace(i.ApellidoMaterno) ? string.Empty : i.ApellidoMaterno.ToUpper(),
-                            string.IsNullOrWhiteSpace(i.CodigoZona) ? string.Empty : i.CodigoZona.ToUpper(),
+                            Util.Trim(i.PrimerNombre).ToUpper(),
+                            Util.Trim(i.ApellidoPaterno).ToUpper(),
+                            Util.Trim(i.ApellidoMaterno).ToUpper(),
+                            Util.Trim(i.CodigoZona).ToUpper(),
                             string.IsNullOrWhiteSpace(i.Direccion) ? string.Empty : concat,
-                            string.IsNullOrWhiteSpace(i.NumeroDocumento) ? string.Empty : i.NumeroDocumento.ToUpper(),
-                            string.IsNullOrWhiteSpace(i.TelefonoFijo) ? string.Empty : i.TelefonoFijo.ToUpper(),
-                            string.IsNullOrWhiteSpace(i.TelefonoCelular) ? string.Empty : i.TelefonoCelular.ToUpper(),
+                            Util.Trim(i.NumeroDocumento).ToUpper(),
+                            Util.Trim(i.TelefonoFijo).ToUpper(),
+                            Util.Trim(i.TelefonoCelular).ToUpper(),
                         }
                     };
                 })
@@ -282,41 +280,20 @@ namespace Portal.Consultoras.Web.Controllers
 
                     foreach (var item in lista)
                     {
-                        object altoOrOtro = null; object medioOrAlto = null; object bajoOrMedio = null; object finalValor = null;
-
-                        if (CodigoISO == Pais.Peru || CodigoISO == Pais.Dominicana || CodigoISO == Pais.PuertoRico || CodigoISO == Pais.Mexico || CodigoISO == Pais.Bolivia)
-                        {
-                            altoOrOtro = (item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Alto) ? Enumeradores.TipoNivelesRiesgo.Alto.ToInt() : Enumeradores.TipoNivelesRiesgo.Otro.ToInt();
-                            medioOrAlto = (item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Medio) ? Enumeradores.TipoNivelesRiesgo.Medio.ToInt() : altoOrOtro;
-                            bajoOrMedio = (item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Bajo) ? Enumeradores.TipoNivelesRiesgo.Bajo.ToInt() : medioOrAlto;
-                            finalValor = string.IsNullOrWhiteSpace(item.NivelRiesgo) ? Enumeradores.TipoNivelesRiesgo.Otro.ToInt() : bajoOrMedio;
-                        }
-
-                        if (CodigoISO == Pais.Bolivia)
-                        {
-                            finalValor = bajoOrMedio;
-                        }
-
-                        if (CodigoISO == Pais.Ecuador)
-                        {
-                            altoOrOtro = (item.NivelRiesgo.ToInt() == Enumeradores.TipoNivelesRiesgo.Alto.ToInt()) ? Enumeradores.TipoNivelesRiesgo.Alto.ToInt() : Enumeradores.TipoNivelesRiesgo.Otro.ToInt();
-                            medioOrAlto = (item.NivelRiesgo.ToInt() == Enumeradores.TipoNivelesRiesgo.Medio.ToInt()) ? Enumeradores.TipoNivelesRiesgo.Medio.ToInt() : altoOrOtro;
-                            bajoOrMedio = (item.NivelRiesgo.ToInt() == Enumeradores.TipoNivelesRiesgo.Bajo.ToInt()) ? Enumeradores.TipoNivelesRiesgo.Bajo.ToInt() : medioOrAlto;
-                            finalValor = string.IsNullOrWhiteSpace(item.NivelRiesgo) ? Enumeradores.TipoNivelesRiesgo.Otro.ToInt() : bajoOrMedio;
-                        }
+                        var nivel = NivelesRiesgoInsertarNivelRiesgo(item);
 
                         var parametroTodos = new ParametroUnete
                         {
                             Nombre = item.ZonaSeccion,
                             Descripcion = item.NivelRiesgo,
-                            Valor = finalValor.ToInt(),
+                            Valor = nivel,
                             FK_IdTipoParametro = EnumsTipoParametro.TipoNivelesRiesgo.ToInt(),
                             Estado = 1
                         };
                         listafinal.Add(parametroTodos);
                     }
 
-                    if (listafinal.Count > 0)
+                    if (listafinal.Any())
                     {
                         using (var sv = new PortalServiceClient())
                         {
@@ -344,6 +321,34 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return "Verifique el formato del Documento, posiblemente no sea igual al de la Plantilla.";
             }
+        }
+
+        private int NivelesRiesgoInsertarNivelRiesgo(NivelesRiesgoModel item)
+        {
+            object altoOrOtro = null; object medioOrAlto = null; object bajoOrMedio = null; object finalValor = null;
+
+            if (CodigoISO == Pais.Peru || CodigoISO == Pais.Dominicana || CodigoISO == Pais.PuertoRico || CodigoISO == Pais.Mexico || CodigoISO == Pais.Bolivia)
+            {
+                altoOrOtro = (item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Alto) ? Enumeradores.TipoNivelesRiesgo.Alto.ToInt() : Enumeradores.TipoNivelesRiesgo.Otro.ToInt();
+                medioOrAlto = (item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Medio) ? Enumeradores.TipoNivelesRiesgo.Medio.ToInt() : altoOrOtro;
+                bajoOrMedio = (item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Bajo) ? Enumeradores.TipoNivelesRiesgo.Bajo.ToInt() : medioOrAlto;
+                finalValor = string.IsNullOrWhiteSpace(item.NivelRiesgo) ? Enumeradores.TipoNivelesRiesgo.Otro.ToInt() : bajoOrMedio;
+            }
+
+            if (CodigoISO == Pais.Bolivia)
+            {
+                finalValor = bajoOrMedio;
+            }
+
+            if (CodigoISO == Pais.Ecuador)
+            {
+                altoOrOtro = (item.NivelRiesgo.ToInt() == Enumeradores.TipoNivelesRiesgo.Alto.ToInt()) ? Enumeradores.TipoNivelesRiesgo.Alto.ToInt() : Enumeradores.TipoNivelesRiesgo.Otro.ToInt();
+                medioOrAlto = (item.NivelRiesgo.ToInt() == Enumeradores.TipoNivelesRiesgo.Medio.ToInt()) ? Enumeradores.TipoNivelesRiesgo.Medio.ToInt() : altoOrOtro;
+                bajoOrMedio = (item.NivelRiesgo.ToInt() == Enumeradores.TipoNivelesRiesgo.Bajo.ToInt()) ? Enumeradores.TipoNivelesRiesgo.Bajo.ToInt() : medioOrAlto;
+                finalValor = string.IsNullOrWhiteSpace(item.NivelRiesgo) ? Enumeradores.TipoNivelesRiesgo.Otro.ToInt() : bajoOrMedio;
+            }
+
+            return finalValor.ToInt();
         }
 
         // hay un metodo con el mismo nombre en Util.ReadXmlFile
@@ -561,139 +566,19 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public string NivelesGeograficosInsertar(HttpPostedFileBase uplArchivo, NivelesGeograficosModel model)
         {
-            model.CodigoISO = CodigoISO;
             try
             {
-                if (uplArchivo == null)
+                model.CodigoISO = CodigoISO;
+                var mensaje = NivelesGeograficosInsertarValidarFile(uplArchivo);
+                if (mensaje != "")
                 {
-                    return "El archivo especificado no existe.";
+                    return mensaje;
                 }
 
-                if (!Util.IsFileExtension(uplArchivo.FileName, Enumeradores.TypeDocExtension.Excel))
-                {
-                    return "El archivo especificado no es un documento de tipo MS-Excel.";
-                }
-
-
-                string finalPath = string.Empty;
-                string fileextension = Util.Trim(Path.GetExtension(uplArchivo.FileName));
-
-                if (!fileextension.ToLower().Equals(".xlsx"))
-                {
-                    return "Sólo se permiten archivos MS-Excel versiones 2007-2012.";
-                }
-
-                string pathfaltante = "";
-                string fileName = "";
-                try
-                {
-                    fileName = Guid.NewGuid().ToString();
-                    pathfaltante = Server.MapPath("~/Content/ArchivoNivelGeografico");
-
-                }
-                catch (Exception ex)
-                {
-                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora + " File 01", userData.CodigoISO);
-                }
-
-                try
-                {
-                    if (!Directory.Exists(pathfaltante)) Directory.CreateDirectory(pathfaltante);
-                }
-                catch (Exception ex)
-                {
-                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora + " directorio 02", userData.CodigoISO);
-                }
-
-                try
-                {
-                    finalPath = Path.Combine(pathfaltante, fileName + fileextension);
-                    uplArchivo.SaveAs(finalPath);
-                }
-                catch (Exception ex)
-                {
-                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora + " guarda archivo", userData.CodigoISO);
-                }
-
-                IList<NivelesGeograficosModel> lista = null;
-                try
-                {
-                    bool isCorrect = false;
-                    lista = ReadXmlFileNG(finalPath, true, ref isCorrect, CodigoISO);
-                }
-                catch (Exception ex)
-                {
-                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora + " lee archivo", userData.CodigoISO);
-                }
-
-                System.IO.File.Delete(finalPath);
-
-                List<UbigeoTemplate> listaUbigeo = new List<UbigeoTemplate>();
-
+                var lista = NivelesGeograficosInsertarObtenerLista(uplArchivo);
                 if (lista == null) return "Ocurrió un problema al cargar el documento o tal vez se encuentra vacío.";
 
-                #region NuevoBucle
-
-                // clase ubigeo segun pais
-                Dictionary<string, Type> dicUbigeo = new Dictionary<string, Type> {
-                    { Pais.Panama   , typeof(UbigeoPA)}, { Pais.CostaRica, typeof(UbigeoCR)},
-                    { Pais.Salvador , typeof(UbigeoSV)}, { Pais.Guatemala, typeof(UbigeoGT)}
-                };
-
-                foreach (var item in lista)
-                {
-                    if (CodigoISO == Pais.Panama && (
-                        string.IsNullOrWhiteSpace(item.PROVINCIA) ||
-                        string.IsNullOrWhiteSpace(item.DISTRITO) ||
-                        string.IsNullOrWhiteSpace(item.CORREGIMIENTO)
-                    )) continue;
-
-                    // Creando instancia de objeto
-                    dynamic objUbigeo = Activator.CreateInstance(dicUbigeo[CodigoISO]);
-
-                    objUbigeo.REG = item.REG;
-                    objUbigeo.ZONA = item.ZONA;
-                    objUbigeo.SECC = item.SECC;
-                    objUbigeo.TERRITO = item.TERRITO;
-                    objUbigeo.UBIGEO = item.UBIGEO;
-
-                    if (CodigoISO == Pais.CostaRica || CodigoISO == Pais.Panama)
-                    {
-                        objUbigeo.PROVINCIA = item.PROVINCIA;
-                        objUbigeo.DISTRITO = item.DISTRITO;
-                    }
-                    if (CodigoISO == Pais.CostaRica)
-                    {
-                        objUbigeo.CANTON = item.CANTON;
-                        objUbigeo.BARRIO_COLONIA_URBANIZACION_BARRIADAS_REFERENCIAS = item.BARRIO_COLONIA_URBANIZACION_BARRIADAS_REFERENCIAS;
-                    }
-                    if (CodigoISO == Pais.Panama)
-                    {
-                        objUbigeo.CORREGIMIENTO = item.CORREGIMIENTO;
-                        objUbigeo.BARRIO_COLONIA_URBANIZACION_REFERENCIAS = item.BARRIO_COLONIA_URBANIZACION_REFERENCIAS;
-                    }
-
-                    if (CodigoISO == Pais.Salvador || CodigoISO == Pais.Guatemala)
-                    {
-                        objUbigeo.DEPARTAMENTO = item.DEPARTAMENTO;
-                        objUbigeo.MUNICIPIO = item.MUNICIPIO;
-                    }
-                    if (CodigoISO == Pais.Salvador)
-                    {
-                        objUbigeo.CANTON_CENTRO_POBLADO = item.CANTON_CENTRO_POBLADO;
-                        objUbigeo.BARRIO_COLONIA_URBANIZACION_REFERENCIAS = item.BARRIO_COLONIA_URBANIZACION_REFERENCIAS;
-                    }
-                    if (CodigoISO == Pais.Guatemala)
-                    {
-                        objUbigeo.CENTRO_POBLADO = item.CENTRO_POBLADO;
-                        objUbigeo.ZONA_CIUDAD = item.ZONA_CIUDAD;
-                        objUbigeo.BARRIO_COLONIA_URBANIZACION_ALDEA_REFERENCIAS = item.BARRIO_COLONIA_URBANIZACION_ALDEA_REFERENCIAS;
-                    }
-                    listaUbigeo.Add(objUbigeo);
-                }
-
-                #endregion
-
+                var listaUbigeo = NivelesGeograficosInsertarListaUbigeo(lista);
                 if (listaUbigeo.Count > 0)
                 {
                     using (var sv = new PortalServiceClient())
@@ -718,6 +603,145 @@ namespace Portal.Consultoras.Web.Controllers
                     return "Tiempo de espera agotado. El servicio culminara el proceso por su cuenta. Revise los datos en unos minutos.";
                 return "Verifique el formato del Documento, posiblemente no sea igual al de la Plantilla.";
             }
+        }
+
+        private string NivelesGeograficosInsertarValidarFile(HttpPostedFileBase uplArchivo)
+        {
+            if (uplArchivo == null)
+            {
+                return "El archivo especificado no existe.";
+            }
+
+            if (!Util.IsFileExtension(uplArchivo.FileName, Enumeradores.TypeDocExtension.Excel))
+            {
+                return "El archivo especificado no es un documento de tipo MS-Excel.";
+            }
+
+            string fileextension = Util.Trim(Path.GetExtension(uplArchivo.FileName));
+
+            if (!fileextension.ToLower().Equals(".xlsx"))
+            {
+                return "Sólo se permiten archivos MS-Excel versiones 2007-2012.";
+            }
+            return "";
+        }
+
+        private List<NivelesGeograficosModel> NivelesGeograficosInsertarObtenerLista(HttpPostedFileBase uplArchivo)
+        {
+            string pathfaltante = "";
+            string fileName = "";
+
+            try
+            {
+                fileName = Guid.NewGuid().ToString();
+                pathfaltante = Server.MapPath("~/Content/ArchivoNivelGeografico");
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora + " File 01", userData.CodigoISO);
+            }
+
+            try
+            {
+                if (!Directory.Exists(pathfaltante)) Directory.CreateDirectory(pathfaltante);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora + " directorio 02", userData.CodigoISO);
+            }
+
+            string finalPath = string.Empty;
+            string fileextension = Util.Trim(Path.GetExtension(uplArchivo.FileName));
+            try
+            {
+                finalPath = Path.Combine(pathfaltante, fileName + fileextension);
+                uplArchivo.SaveAs(finalPath);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora + " guarda archivo", userData.CodigoISO);
+            }
+
+            List<NivelesGeograficosModel> lista = null;
+            try
+            {
+                bool isCorrect = false;
+                lista = ReadXmlFileNG(finalPath, true, ref isCorrect, CodigoISO);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora + " lee archivo", userData.CodigoISO);
+            }
+
+            System.IO.File.Delete(finalPath);
+
+            return lista;
+        }
+
+        private List<UbigeoTemplate> NivelesGeograficosInsertarListaUbigeo(List<NivelesGeograficosModel> lista)
+        {
+            List<UbigeoTemplate> listaUbigeo = new List<UbigeoTemplate>();
+
+            // clase ubigeo segun pais
+            Dictionary<string, Type> dicUbigeo = new Dictionary<string, Type> {
+                    { Pais.Panama   , typeof(UbigeoPA)}, { Pais.CostaRica, typeof(UbigeoCR)},
+                    { Pais.Salvador , typeof(UbigeoSV)}, { Pais.Guatemala, typeof(UbigeoGT)}
+                };
+
+            foreach (var item in lista)
+            {
+                if (CodigoISO == Pais.Panama && (
+                    string.IsNullOrWhiteSpace(item.PROVINCIA) ||
+                    string.IsNullOrWhiteSpace(item.DISTRITO) ||
+                    string.IsNullOrWhiteSpace(item.CORREGIMIENTO)
+                )) continue;
+
+                // Creando instancia de objeto
+                dynamic objUbigeo = Activator.CreateInstance(dicUbigeo[CodigoISO]);
+
+                objUbigeo.REG = item.REG;
+                objUbigeo.ZONA = item.ZONA;
+                objUbigeo.SECC = item.SECC;
+                objUbigeo.TERRITO = item.TERRITO;
+                objUbigeo.UBIGEO = item.UBIGEO;
+
+                if (CodigoISO == Pais.CostaRica || CodigoISO == Pais.Panama)
+                {
+                    objUbigeo.PROVINCIA = item.PROVINCIA;
+                    objUbigeo.DISTRITO = item.DISTRITO;
+                }
+                if (CodigoISO == Pais.CostaRica)
+                {
+                    objUbigeo.CANTON = item.CANTON;
+                    objUbigeo.BARRIO_COLONIA_URBANIZACION_BARRIADAS_REFERENCIAS = item.BARRIO_COLONIA_URBANIZACION_BARRIADAS_REFERENCIAS;
+                }
+                if (CodigoISO == Pais.Panama)
+                {
+                    objUbigeo.CORREGIMIENTO = item.CORREGIMIENTO;
+                    objUbigeo.BARRIO_COLONIA_URBANIZACION_REFERENCIAS = item.BARRIO_COLONIA_URBANIZACION_REFERENCIAS;
+                }
+
+                if (CodigoISO == Pais.Salvador || CodigoISO == Pais.Guatemala)
+                {
+                    objUbigeo.DEPARTAMENTO = item.DEPARTAMENTO;
+                    objUbigeo.MUNICIPIO = item.MUNICIPIO;
+                }
+                if (CodigoISO == Pais.Salvador)
+                {
+                    objUbigeo.CANTON_CENTRO_POBLADO = item.CANTON_CENTRO_POBLADO;
+                    objUbigeo.BARRIO_COLONIA_URBANIZACION_REFERENCIAS = item.BARRIO_COLONIA_URBANIZACION_REFERENCIAS;
+                }
+                if (CodigoISO == Pais.Guatemala)
+                {
+                    objUbigeo.CENTRO_POBLADO = item.CENTRO_POBLADO;
+                    objUbigeo.ZONA_CIUDAD = item.ZONA_CIUDAD;
+                    objUbigeo.BARRIO_COLONIA_URBANIZACION_ALDEA_REFERENCIAS = item.BARRIO_COLONIA_URBANIZACION_ALDEA_REFERENCIAS;
+                }
+                listaUbigeo.Add(objUbigeo);
+            }
+
+            return listaUbigeo;
         }
 
         public void EnviarAFFVV(string id)
@@ -1556,7 +1580,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.HTMLSACUnete = getHTMLSACUnete("ConsultarEstadoCrediticia", "&id=" + id);
             return PartialView("_ConsultarEstadoCrediticia");
         }
-        
+
         [HttpPost]
         public JsonResult ConsultarEstadoCrediticia(int id, int idEstado)
         {
@@ -1572,9 +1596,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpGet]
         public JsonResult ConsultarBuroExterno(int id, int idEstado)
         {
-            SolicitudPostulante solicitudPostulante = new SolicitudPostulante();
-            ConsultaCrediticiaExternaMX respuesta = new ConsultaCrediticiaExternaMX();
-
             string urlClient = "";
             string abreviationZona = "";
             string codigoZona = "";
@@ -1586,7 +1607,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (var sv = new PortalServiceClient())
             {
-                solicitudPostulante = sv.ObtenerSolicitudPostulante(CodigoISO, id);
+                var solicitudPostulante = sv.ObtenerSolicitudPostulante(CodigoISO, id);
 
                 switch (solicitudPostulante.PaisID)
                 {
@@ -1608,31 +1629,38 @@ namespace Portal.Consultoras.Web.Controllers
                                 abreviationZona = item.Descripcion;
                             }
                         }
-                        //CAMBIO
-                        if (!string.IsNullOrEmpty(solicitudPostulante.CodigoZona))
+
+                        if (!string.IsNullOrEmpty(solicitudPostulante.CodigoZona)) { codigoZona = solicitudPostulante.CodigoZona; } else { codigoZona = "9999"; };
+                        
+                        urlClient = string.Format("/api/ValidacionCrediticiaExterna/Get?codigoISO={0}&numeroDocumento={1}&apellido={2}&codZona={3}&apellidoMaterno={4}&nombres={5}&fechaNacimiento={6}&direccion={7}&delegacionMunicipio={8}&ciudad={9}&estado={10}&cp={11}&tarjetaDeCredito={12}&creditoHipotecario={13}&creditoAutomotriz={14}&tipoIdentificacion={15}",
+                                         Constantes.CodigosISOPais.Mexico, solicitudPostulante.NumeroDocumento, solicitudPostulante.ApellidoPaterno, codigoZona, solicitudPostulante.ApellidoMaterno, solicitudPostulante.PrimerNombre + ' ' + solicitudPostulante.SegundoNombre, fechaFormato, calleNumero, solicitudPostulante.LugarHijo, ciudad, abreviationZona, Convert.ToInt32(solicitudPostulante.CodigoPostal).ToString("D5"), String.Empty, String.Empty, String.Empty, solicitudPostulante.TipoDocumento);
+
+
+                        ConsultaCrediticiaExternaMX respuesta = (new Common.Rest()).GetAsync<ConsultaCrediticiaExternaMX>(urlClient);
+
+
+                        respuestaBuro = string.IsNullOrWhiteSpace(respuesta.Resultado) ? String.Empty : respuesta.Resultado;
+                        switch (respuestaBuro)
                         {
-                            codigoZona = solicitudPostulante.CodigoZona;
-                        }
-                        else
-                        {
-                            codigoZona = "9999";
-                        }
+                            case "R01":
 
-                        urlClient = string.Format("/api/ValidacionCrediticiaExterna/Get?codigoISO={0}&numeroDocumento={1}&apellido={2}&codZona={3}&apellidoMaterno={4}&nombres={5}&fechaNacimiento={6}&direccion={7}&delegacionMunicipio={8}&ciudad={9}&estado={10}&cp={11}&zona={12}&tarjetaDeCredito={13}&creditoHipotecario={14}&creditoAutomotriz={15}&tipoIdentificacion={16}",
-                                         Constantes.CodigosISOPais.Mexico, solicitudPostulante.NumeroDocumento, solicitudPostulante.ApellidoPaterno, codigoZona, solicitudPostulante.ApellidoMaterno, solicitudPostulante.PrimerNombre + ' ' + solicitudPostulante.SegundoNombre, fechaFormato, calleNumero, solicitudPostulante.LugarHijo, ciudad, abreviationZona, solicitudPostulante.CodigoPostal, 9999, String.Empty, String.Empty, String.Empty, solicitudPostulante.TipoDocumento);
+                                string[] arrayReferenciaEntrega;
 
+                                arrayReferenciaEntrega = solicitudPostulante.ReferenciaEntrega.Split('|');
+                                solicitudPostulante.ReferenciaEntrega = arrayReferenciaEntrega[0] + "|" + arrayReferenciaEntrega[1] + "|" + arrayReferenciaEntrega[2] + "|" + "R01";
+                                sv.ActualizarReferenciaEntregaSAC(solicitudPostulante);
 
-                        respuesta = (new Common.Rest()).GetAsync<ConsultaCrediticiaExternaMX>(urlClient);
+                                break;
+                            case "R03":
+                                solicitudPostulante.EstadoBurocrediticio = 3;
+                                solicitudPostulante.SubEstadoPostulante = 11;
+                                solicitudPostulante.TipoRechazo = "9";
+                                solicitudPostulante.EstadoPostulante = 4;
+                                solicitudPostulante.Direccion = null;
+                                solicitudPostulante.ReferenciaEntrega = null;
+                                sv.ActualizarReferenciaEntregaSAC(solicitudPostulante);
 
-
-                        respuestaBuro = respuesta.Resultado;
-                        if (respuestaBuro.Equals("R01"))
-                        {
-                            string[] arrayReferenciaEntrega;
-
-                            arrayReferenciaEntrega = solicitudPostulante.ReferenciaEntrega.Split('|');
-                            solicitudPostulante.ReferenciaEntrega = arrayReferenciaEntrega[0] + "|" + arrayReferenciaEntrega[1] + "|" + arrayReferenciaEntrega[2] + "|" + "R01";
-                            sv.ActualizarReferenciaEntregaSAC(solicitudPostulante);
+                                break;
                         }
                         break;
 
@@ -2016,9 +2044,9 @@ namespace Portal.Consultoras.Web.Controllers
             foreach (string file in Request.Files)
             {
                 var fileContent = Request.Files[file];
-                string[] documentos = null;
                 if (fileContent != null && fileContent.ContentLength > 0)
                 {
+                    string[] documentos = null;
                     if (Util.IsFileExtension(fileContent.FileName, Enumeradores.TypeDocExtension.Excel))
                     {
                         string fileextension = Util.Trim(Path.GetExtension(fileContent.FileName));

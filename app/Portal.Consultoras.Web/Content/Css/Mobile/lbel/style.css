@@ -231,6 +231,7 @@ h4.re3 {
     #new-header .menu-shop {
         position: relative;
         display: inline-block;
+        top:-3px;
     }
 
         #new-header .menu-shop .icon-menu-shop {
@@ -242,7 +243,7 @@ h4.re3 {
         }
 
         #new-header .menu-shop .num-menu-shop {
-            margin-top: 20px;
+            margin-top: 16px;
             font-size: 12px;
             color: #000;
             text-align: center;
@@ -3571,13 +3572,22 @@ table > thead > tr > th {
     }
 
 /*NUEVA VERSION MOBILE*/
+
+.menu_icon_wrapper{
+    max-width:60px;
+}
+
+.logo_marca_pais_wrapper{
+    padding-left:10px!important;
+}
+
 .logo_mobile {
-    background: url('/Content/Images/Mobile/Lbel/logo_Lbel.png') no-repeat;
+    background: url('/Content/Images/Lbel/logo_marca_pais.svg') no-repeat;
     width: 72px;
     height: 28px;
-    margin: 0 auto;
     display: block;
-    margin-top: 12px;
+    margin-top: 9px;
+    background-position-y:center;
 }
 
 .campana_mobile {
@@ -13358,6 +13368,64 @@ span.icon-advertencia {
     }
 /*FIN BANNER APP*/
 
+.contenedor_circulos {
+    display: none;
+    position: absolute;
+    z-index: 500;
+    left: 34px;
+    top: 10px;
+}
+
+.circulo-1, .circulo-2, .circulo-3 {
+    display: block;
+    border-radius: 100%;
+    position: absolute;
+    background: #642f80;
+    z-index: 500;
+}
+
+.circulo-1.iniciarTransicion {
+    animation: circulo;
+    animation-duration: 1.5s;
+    animation-delay: .3s;
+    animation-timing-function: ease;
+    animation-iteration-count: infinite;
+}
+
+.circulo-2.iniciarTransicion {
+    animation: circulo;
+    animation-duration: 1.5s;
+    animation-delay: .3s;
+    animation-timing-function: ease;
+    animation-iteration-count: infinite;
+}
+
+.circulo-3.iniciarTransicion {
+    animation: circulo;
+    animation-duration: 1.5s;
+    animation-delay: .3s;
+    animation-timing-function: ease;
+    animation-iteration-count: infinite;
+}
+
+@keyframes circulo {
+    0% {
+        top: 12px;
+        left: 7px;
+        opacity: .8;
+        width: 0;
+        height: 0;
+    }
+
+    100% {
+        opacity: 0;
+        top: -14px;
+        left: -21px;
+        width: 58px;
+        height: 58px;
+    }
+}
+
 @-webkit-keyframes flash {
     0% {
         opacity: 1;
@@ -13886,3 +13954,37 @@ span.icon-advertencia {
 }
 
 /* FIN - MC-HD-2936 - DÚO PERFECTO AJUSTES POPUP */
+
+
+/*INI EINCA HD-3094 09-01-2019 Boton genérico fondo blanco y rojo b*/
+.btn_bg_write {
+    font-family: 'lato';
+    background: white;
+    color: black;
+    font-weight: 400;
+    height: 45px;
+    border: 1px solid #ccc;
+    float: left;
+    text-align-last: center;
+    display: inline-block;
+    width: auto;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.btn_bg_primary {
+    font-family: 'lato';
+    background: #642F80;
+    border: 1px solid #642F80;
+    color: #fff;
+    font-weight: 700;
+    height: 45px;
+    float: left;
+    text-align-last: center;
+    display: inline-block;
+    width: auto;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    margin-left: 4px;
+}
+/*FIN EINCA HD-3094 09-01-2019 Boton genérico fondo blanco*/

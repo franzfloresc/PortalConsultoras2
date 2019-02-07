@@ -23,7 +23,7 @@ var CarruselAyuda = function () {
         var cantActive = $(_slick.$slider).find('.slick-active').length;
         var indexCurrent = parseInt($(_slick.$slider).find('.slick-current').attr("data-slick-index"));
 
-        console.log('_obtenerSlideMostrar', indexMostrar, indexCurrent, indexActive, currentSlide, nextSlide);
+        //console.log('_obtenerSlideMostrar', indexMostrar, indexCurrent, indexActive, currentSlide, nextSlide);
         var direccion = CarruselVariable.Direccion.prev;
         if (indexCurrent === 0) {
             if (indexMostrar + 1 != slick.$slides.length) {
@@ -46,7 +46,7 @@ var CarruselAyuda = function () {
         }
 
         var slideMostrar = $(_slick.$slider).find("[data-slick-index='" + indexMostrar + "']");
-        console.log('_obtenerSlideMostrar', direccion, indexMostrar, $(slideMostrar));
+        //console.log('_obtenerSlideMostrar', direccion, indexMostrar, $(slideMostrar));
         return {
             Direccion: direccion,
             IndexMostrar: indexMostrar,
@@ -78,7 +78,7 @@ var CarruselAyuda = function () {
 
     var marcarAnalyticsInicio = function (idHtmlSeccion, arrayItems, origen, slidesToShow) {
         try {
-            console.log('marcarAnalyticsInicio - inicio', idHtmlSeccion, arrayItems, origen, slidesToShow);
+            //console.log('marcarAnalyticsInicio - inicio', idHtmlSeccion, arrayItems, origen, slidesToShow);
             idHtmlSeccion = idHtmlSeccion || "";
             idHtmlSeccion = idHtmlSeccion[0] == "#" ? idHtmlSeccion : ("#" + idHtmlSeccion);
             var cantActive = slidesToShow || ($(idHtmlSeccion).find(".slick-active") || []).length;
@@ -101,7 +101,7 @@ var CarruselAyuda = function () {
                     Origen: origen
                 };
 
-                console.log('marcarAnalyticsInicio - fin', obj);
+                //console.log('marcarAnalyticsInicio - fin', obj);
                 AnalyticsPortalModule.MarcaGenericaLista("", obj);
             }
 
@@ -114,7 +114,7 @@ var CarruselAyuda = function () {
     var marcarAnalyticsChange = function (slick, currentSlide, nextSlide, origen) {
         try {
             _slick = slick;
-            console.log('marcarAnalyticsChange - Ini ', origen);
+            //console.log('marcarAnalyticsChange - Ini ', origen);
 
             if (typeof AnalyticsPortalModule == "undefined") {
                 return;
@@ -124,7 +124,7 @@ var CarruselAyuda = function () {
 
             var item = objMostrar.SlideMostrar;
             var estrategia = $($(item).find("[data-estrategia]")[0]).data("estrategia") || "";
-            console.log('marcarAnalyticsChange', estrategia);
+            //console.log('marcarAnalyticsChange', estrategia);
             if (estrategia === "") {
                 if (origen.Palanca == ConstantesModule.OrigenPedidoWebEstructura.Palanca.Liquidacion) {
                     estrategia = _obtenerEstrategiaLiquidacion(objMostrar);
@@ -189,7 +189,7 @@ var CarruselAyuda = function () {
                 $(".js-slick-prev-liq").insertBefore('#divCarruselLiquidaciones').hide();
                 $(".js-slick-next-liq").insertAfter('#divCarruselLiquidaciones');
 
-                console.log('marcarAnalyticsLiquidacion', tipo, data, slick, currentSlide, nextSlide);
+                //console.log('marcarAnalyticsLiquidacion', tipo, data, slick, currentSlide, nextSlide);
 
                 marcarAnalyticsInicio("", data, origen, currentSlide);
 
@@ -211,8 +211,8 @@ var CarruselAyuda = function () {
             return;
         }
 
-        var objPrevArrow = slick.$prevArrow;//$(event.target).find('.prevArrow')[0];
-        var objNextArrow = slick.$nextArrow;//$(event.target).find('.nextArrow')[0];
+        var objPrevArrow = slick.$prevArrow;
+        var objNextArrow = slick.$nextArrow;
         var objVisorSlick = $(event.target).find('.slick-list')[0];
         var lastSlick = $(event.target).find('[data-slick-index]')[slick.slideCount - 1];
 
@@ -278,14 +278,12 @@ var CarruselAyuda = function () {
 var CarruselModule = (function (config) {
     'use strict';
 
-    //var setCarruselMarcacionAnalytics = []; //Elementos en el carrusel de la ficha para ser marcados cuando el usuario visualiza y rota sobre los elementos
-    //var setCarruselCuv = [];  //Representa el casillero de un CUV del carrusel
-
     var _config = {
         palanca: config.palanca || "",
         campania: config.campania || "",
         cuv: config.cuv || "",
         urlDataCarrusel: config.urlDataCarrusel || "",
+        OrigenPedidoWeb: config.OrigenPedidoWeb || "",
         pantalla: "Ficha"
     };
 
@@ -420,7 +418,8 @@ var CarruselModule = (function (config) {
         }
 
         var origen = {
-            Seccion: ConstantesModule.OrigenPedidoWebEstructura.Seccion.CarruselVerMas
+            Seccion: ConstantesModule.OrigenPedidoWebEstructura.Seccion.CarruselVerMas,
+            OrigenPedidoWeb: _config.OrigenPedidoWeb.toString()
         };
         if (tipo == 1) {
             CarruselAyuda.MarcarAnalyticsInicio(_elementos.divCarruselProducto, data.lista, origen);
@@ -500,131 +499,9 @@ var CarruselModule = (function (config) {
         $(_elementos.divCarruselContenedor).hide();
     }
 
-    ////////////////////////////////////////////////////////////////////
-    //// Ini - Analytic
-    ////////////////////////////////////////////////////////////////////
-    //var _initSwipeCarrusel = function () {
-    //    _initArraysCarrusel();
-    //    //quita duplicados
-
-    //    setCarruselMarcacionAnalytics = multiDimensionalUnico(setCarruselMarcacionAnalytics);
-    //    marcaCuvsActivos();
-    //    //Hace la marcación a analytics
-    //    _marcarSwipeCarrusel();
-    //    _initSlideArrowCarrusel();
-
-    //}
-    //var _initArraysCarrusel = function () {
-    //    var containerItemsSlick = $(".slick-slide");
-    //    $(containerItemsSlick).each(function (index, element) {
-    //        var infoCuvItem = $(element).find("[data-estrategia]").data("estrategia");
-    //        if ("undefined" !== typeof infoCuvItem) {
-    //            setCarruselMarcacionAnalytics.push([infoCuvItem.CUV2, 0]);
-    //            setCarruselCuv.push(infoCuvItem);
-    //        }
-    //    });
-    //}
-    //cuando el usuario hace clic sobre las flechas del carrusel.
-    //var _initSlideArrowCarrusel = function () {
-
-    //    var containerItemsSlick = $(".slick-arrow");
-    //    $(containerItemsSlick).click(function (e) {
-    //        EstablecerAccionLazyImagen(_elementos.divCarruselProducto + " " + _elementos.dataLazy);
-    //        _agregaNewCuvActivo();
-    //        setCarruselMarcacionAnalytics = multiDimensionalUnico(setCarruselMarcacionAnalytics);
-    //        marcaCuvsActivos();
-    //        _marcarSwipeCarrusel();
-    //    });
-
-    //}
-    //function _agregaNewCuvActivo() {
-    //    var containterSlickActive = $(".slick-active");
-    //    $(containterSlickActive).each(function (index, element) {
-    //        var infoCuvItem = $(element).find("[data-estrategia]").data("estrategia");
-    //        if ("undefined" !== typeof infoCuvItem && verificaNuevoCUVParaAnalytic(infoCuvItem))
-    //            setCarruselMarcacionAnalytics.push([infoCuvItem.CUV2, 0]);
-    //    });
-    //}
-    //function marcaCuvsActivos() {
-    //    var containterSlickActive = $(".slick-active");
-    //    $(containterSlickActive).each(function (index, element) {
-    //        var infoCuvItem = $(element).find("[data-estrategia]").data("estrategia");
-    //        if ("undefined" !== typeof infoCuvItem) {
-    //            preparaCUVAnalytic(infoCuvItem);
-    //        }
-    //    });
-    //}
-
-    //Marca como registrado
-    //function preparaCUVAnalytic(infoCuvItem) {
-    //    infoCuvItem = infoCuvItem || {};
-    //    for (var i = 0; i < setCarruselMarcacionAnalytics.length; i++) {
-    //        if (setCarruselMarcacionAnalytics[i][0] == infoCuvItem.CUV2 && setCarruselMarcacionAnalytics[i][1] == 0)
-    //            setCarruselMarcacionAnalytics[i][1] = 1;
-    //    }
-    //}
-    //function verificaNuevoCUVParaAnalytic(infoCuvItem) {
-    //    infoCuvItem = infoCuvItem || {};
-    //    for (var i = 0; i < setCarruselMarcacionAnalytics.length; i++) {
-    //        if (setCarruselMarcacionAnalytics[i][0] == infoCuvItem.CUV2 && setCarruselMarcacionAnalytics[i][1] == 2)
-    //            return false
-    //    }
-    //    return true;
-    //}
-    //quita duplicado
-    //function multiDimensionalUnico(arr) {
-    //    var unicos = [];
-    //    var itemsFound = {};
-    //    for (var i = 0, l = arr.length; i < l; i++) {
-    //        var stringified = JSON.stringify(arr[i]);
-    //        if (itemsFound[stringified]) { continue; }
-    //        unicos.push(arr[i]);
-    //        itemsFound[stringified] = true;
-    //    }
-    //    return unicos;
-    //}
-
-    //obtiene el cuv
-    //function getCuvDeCarrusel(CUV) {
-    //    for (var i = 0; i < setCarruselCuv.length; i++) {
-    //        if (setCarruselCuv[i].CUV2 == CUV)
-    //            return setCarruselCuv[i];
-    //    }
-    //}
-    //var _marcarSwipeCarrusel = function () {
-    //    var cuvsAnalytics = [];
-
-    //    for (var i = 0; i < setCarruselMarcacionAnalytics.length; i++) {
-    //        if (setCarruselMarcacionAnalytics[i][1] == 1) {
-    //            var infoCuv = getCuvDeCarrusel(setCarruselMarcacionAnalytics[i][0]); //obtiene info del cuv
-
-    //            cuvsAnalytics.push({
-    //                'name': infoCuv.DescripcionCortada,
-    //                'id': infoCuv.CUV2,
-    //                'price': infoCuv.Precio2,
-    //                'brand': infoCuv.DescripcionMarca,
-    //                'category': infoCuv.CodigoCategoria,
-    //                'variant': infoCuv.CodigoVariante,
-    //                'list': infoCuv.DescripcionCortada + ' - Set productos',
-    //                'position': i
-    //            });
-    //            setCarruselMarcacionAnalytics[i][1] = 2;
-    //        }
-    //    }
-
-    //    //if (cuvsAnalytics.length > 0) {
-    //    //    cuvsAnalytics = JSON.stringify(cuvsAnalytics);
-    //    //    AnalyticsPortalModule.MarImpresionSetProductos(cuvsAnalytics);
-    //    //}
-    //}
-
-    ////////////////////////////////////////////////////////////////////
-    //// Fin - Analytic
-    ////////////////////////////////////////////////////////////////////
     function Inicializar() {
         _ocultarElementos();
         _mostrarCarrusel();
-        //_initSwipeCarrusel();
     }
 
     return {
@@ -642,6 +519,7 @@ function ArmarCarouselEstrategias(data) {
     $("#divListadoEstrategia.slick-initialized").slick("unslick");
 
     data.Lista = data.Lista || [];
+    data.ListaLan = data.ListaLan || [];
     if (data.Lista.length == 0 && data.ListaLan.length == 0) {
         $("#divListaEstrategias").show();
         $("#divContenedorListaEstrategia").hide();
@@ -763,7 +641,15 @@ function ArmarCarouselEstrategias(data) {
         });
     }
     else if (tipoOrigenEstrategia == 11) {
-        $("#divListaEstrategias #divListadoEstrategia [data-item] > div").attr("class", "producto_carousel");
+        //$("#divListaEstrategias #divListadoEstrategia [data-item] > div").attr("class", "producto_carousel producto-agotado");
+        var divList = $("#divListaEstrategias #divListadoEstrategia [data-item] > div");
+        $.each(divList, function (k, obj) {
+            if ($(obj).hasClass('producto-agotado'))
+                $(obj).attr('class', 'producto_carousel producto-agotado')
+            else
+                $(obj).attr('class', 'producto_carousel')
+        });
+
         $("#divListaEstrategias #divListadoEstrategia [data-item]").css("padding-bottom", "0");
 
         $("[data-barra-width]").css("width", "100%");

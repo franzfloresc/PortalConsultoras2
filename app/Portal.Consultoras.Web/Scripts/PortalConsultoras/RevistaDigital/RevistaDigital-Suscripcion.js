@@ -170,12 +170,11 @@ function MostrarTerminos() {
         win.focus();
     } else {
         //Browser has blocked it
-        console.log("Habilitar mostrar popup");
+        //console.log("Habilitar mostrar popup");
     }
 }
 
 function RedireccionarContenedorComprar(origenWeb, codigo) {
-    
     origenWeb = $.trim(origenWeb);
     if (origenWeb !== "")
         rdAnalyticsModule.Access(origenWeb);
@@ -184,7 +183,7 @@ function RedireccionarContenedorComprar(origenWeb, codigo) {
         AnalyticsPortalModule.MarcaVerOfertas(origenWeb);
 
     codigo = $.trim(codigo);
-    window.location = (isMobile() ? "/Mobile" : "") + "/Ofertas" + (codigo !== "" ? "#" + codigo : "");
+    window.location = (isMobileNative.any() ? "/Mobile" : "") + "/Ofertas" + (codigo !== "" ? "#" + codigo : "");
 }
 
 function RedireccionarContenedorInformativa(origenWeb) {
@@ -192,7 +191,7 @@ function RedireccionarContenedorInformativa(origenWeb) {
     if (origenWeb !== "")
         rdAnalyticsModule.Access(origenWeb);
 
-    window.location = (isMobile() ? "/Mobile" : "") + "/RevistaDigital/Informacion";
+    window.location = (isMobileNative.any() ? "/Mobile" : "") + "/RevistaDigital/Informacion";
 }
 function GetItemLocalStorageSurvicate() {
     var surviKeys = {};

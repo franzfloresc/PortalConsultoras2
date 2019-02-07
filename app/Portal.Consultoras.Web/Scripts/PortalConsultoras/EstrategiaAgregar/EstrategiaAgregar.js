@@ -57,6 +57,8 @@ var EstrategiaAgregarModule = (function () {
         hdCampaniaCodigo: "#hdCampaniaCodigo",
         EstrategiaHdMarcaID: "#Estrategia_hd_MarcaID",
         EstrategiaHdPrecioCatalogo: "#Estrategia_hd_PrecioCatalogo",
+        Estrategia_hd_Digitable: "#Estrategia_hd_Digitable",
+        Estrategia_hd_Grupo: "#Estrategia_hd_Grupo",
         OfertaTipoNuevo: "#OfertaTipoNuevo"
     };
 
@@ -231,11 +233,11 @@ var EstrategiaAgregarModule = (function () {
         _config.CampaniaCodigo = $(elementosDiv.hdCampaniaCodigo).val() || _config.CampaniaCodigo;
 
         var $btnAgregar = $(event.target);
-        console.log($btnAgregar);
+        //console.log($btnAgregar);
         var origenPedidoWebEstrategia = getOrigenPedidoWeb($btnAgregar);
-        console.log(origenPedidoWebEstrategia);
+        //console.log(origenPedidoWebEstrategia);
         var estrategia = getEstrategia($btnAgregar, origenPedidoWebEstrategia);
-        console.log(estrategia);
+        //console.log(estrategia);
         if (estrategiaEstaBloqueada($btnAgregar, estrategia.CampaniaID)) {
             estrategia.OrigenPedidoWebEstrategia = origenPedidoWebEstrategia;
             getDivMsgBloqueado($btnAgregar, estrategia).show();
@@ -289,10 +291,13 @@ var EstrategiaAgregarModule = (function () {
                         var cuv = $(item).attr("data-tono-select");
                         if (cuv != "") {
                             cuvs = cuvs + (cuvs == "" ? "" : "|") + cuv;
-                            if (ConstantesModule.CodigoVariedad.CompuestaVariable == codigoVariante) {
-                                cuvs = cuvs + ";" + $(item).find(elementosDiv.EstrategiaHdMarcaID).val();
-                                cuvs = cuvs + ";" + $(item).find(elementosDiv.EstrategiaHdPrecioCatalogo).val();
-                            }
+                            //if (ConstantesModule.CodigoVariedad.CompuestaVariable == codigoVariante) {
+                            cuvs = cuvs + ";" + $(item).find(elementosDiv.EstrategiaHdMarcaID).val();
+                            cuvs = cuvs + ";" + $(item).find(elementosDiv.EstrategiaHdPrecioCatalogo).val();
+                            cuvs = cuvs + ";" + "";
+                            cuvs = cuvs + ";" + $(item).find(elementosDiv.Estrategia_hd_Digitable).val();
+                            cuvs = cuvs + ";" + $(item).find(elementosDiv.Estrategia_hd_Grupo).val();
+                            //}
                         }
                     });
             }
@@ -455,9 +460,9 @@ var EstrategiaAgregarModule = (function () {
             localStorageModule.ActualizarCheckAgregado($.trim(estrategia.EstrategiaID), estrategia.CampaniaID, estrategia.CodigoPalanca, true);
 
 
-            if (belcorp.estrategia.applyChanges) {
-                belcorp.estrategia.applyChanges("onProductoAgregado", data);
-            }
+            //if (belcorp.estrategia.applyChanges){
+            //    belcorp.estrategia.applyChanges("onProductoAgregado", data);
+            //}
 
             CerrarLoad();
             if (popup) {
@@ -478,7 +483,8 @@ var EstrategiaAgregarModule = (function () {
 
                             $.each(listaCuvs,
                                 function (i, item) {
-                                    var cuv = $(item).attr("data-tono-select", "");
+                                    if (!(item.hasAttribute('data-tono-digitable')))
+                                        var cuv = $(item).attr("data-tono-select", "");
                                 });
                         }
 

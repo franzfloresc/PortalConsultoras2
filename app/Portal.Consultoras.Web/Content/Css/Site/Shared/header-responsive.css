@@ -2,16 +2,13 @@
 /* HEADER DESKTOP */
 
 .layout__header{
-    background-repeat:no-repeat;
-    background-image:url(/Content/images/cincuenta_anios_belcorp_cabecera.png);
-    background-position:left top;
     height:60px;
     position:fixed;
     background-color:#FFF;
     width:100%;
     top:0;
     z-index: 2000;
-    padding-left:12px;
+    padding-left:0;
     padding-right:0;
     -webkit-box-shadow: 0 4px 4px 0 rgba(126,126,126,.5);
     -moz-box-shadow: 0 4px 4px 0 rgba(126,126,126,.5);
@@ -21,18 +18,18 @@
 }
 
 .header__marca__pais {
-    width: 185px;
+    width: 97px;
     position:relative;
     cursor:pointer;
 }
 
-@media screen and (max-width:1270px){
+/*@media screen and (max-width:1270px){
 
     .header__marca__pais {
         width: 163px;
     }
 
-}
+}*/
 
 @media screen and (min-width:992px) and (max-width:1065px){
 
@@ -82,9 +79,11 @@
     } */
 
     .layout__header{
-        background-image:url(/Content/images/mobile/cincuenta_anios_belcorp_cabecera_mobile.png);
-        background-position:-23px top;
+        padding-left:12px;
         padding-right:12px;
+		-moz-box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5);
+        -webkit-box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5);
+        box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5);
     }
 
     .header__marca__pais picture{

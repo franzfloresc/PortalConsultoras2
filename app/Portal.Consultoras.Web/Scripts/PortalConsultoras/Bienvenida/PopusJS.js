@@ -443,7 +443,8 @@ function EmpezarSlider() {
 }
 
 function PresentarNovedadBuscador(_val, _valid) {
-    if (_valid) {
+
+    if (_valid == true) {
         $('#toolTipBuscador').on('hide', function () {
             cancel = 1;
         });
@@ -452,11 +453,11 @@ function PresentarNovedadBuscador(_val, _valid) {
         getStorage = getStorage == null ? 0 : getStorage;
 
         if (getStorage == 0) {
-            console.log('entro1', true);
+            //console.log('entro1', true);
             if (CantidadVecesInicioSesionNovedad > 0) {
-                console.log('entro2', true);
+                //console.log('entro2', true);
                 if (NovedadBuscadorVisitasUsuario >= 0 && NovedadBuscadorVisitasUsuario < CantidadVecesInicioSesionNovedad) {
-                    console.log('entro3', true);
+                    //console.log('entro3', true);
                     if (document.getElementById('toolTipBuscador') != null) document.getElementById('toolTipBuscador').style.display = _val;
                 }
             }
@@ -471,6 +472,8 @@ function PresentarNovedadBuscador(_val, _valid) {
             }
         }, 500);
     }
+
+    
 
 
 
