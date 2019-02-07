@@ -323,7 +323,9 @@ var EstrategiaAgregarModule = (function () {
             }
 
             if (data.success === false) {
-                abrirMensajeEstrategia(data.message, esFicha);
+                if (!IsNullOrEmpty(data.mensajeAviso)) AbrirMensaje(data.mensajeAviso, data.tituloMensaje);
+                else abrirMensajeEstrategia(data.message, esFicha);
+
                 CerrarLoad();
                 return false;
             }

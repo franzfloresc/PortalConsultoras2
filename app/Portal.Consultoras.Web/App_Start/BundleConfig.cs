@@ -216,7 +216,6 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Site/Esika/seccion-descarga-imprime.css",
                "~/Content/Css/Site/Esika/buscador-filtros.css",
                "~/Content/Css/Site/ProductoListado/CajaProducto.css",
-               "~/Content/Css/Site/Esika/campania-navidenia.css",
                "~/Content/Css/Site/Pedido/PedidoInfo.css"
                ));
 
@@ -247,7 +246,6 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Site/Lbel/revistaDigital.css",
                "~/Content/Css/Site/Lbel/seccion-descarga-imprime.css",
                "~/Content/Css/Site/Lbel/buscador-filtros.css",
-               "~/Content/Css/Site/Lbel/campania-navidenia.css",
                "~/Content/Css/Site/Pedido/PedidoInfo.css"
             ));
 
@@ -278,7 +276,6 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Mobile/Esika/revistaDigital.css",
                "~/Content/Css/Mobile/Esika/seccion-descarga-imprime.css",
                "~/Content/Css/Mobile/calc.css",
-               "~/Content/Css/Site/Esika/campania-navidenia.css",
                "~/Content/Css/Site/ProductosRecomendados/productos-recomendados.css"
             ));
 
@@ -297,7 +294,6 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Mobile/Lbel/revistaDigital.css",
                "~/Content/Css/Mobile/Lbel/seccion-descarga-imprime.css",
                "~/Content/Css/Mobile/calc.css",
-               "~/Content/Css/Site/Lbel/campania-navidenia.css",
                "~/Content/Css/Site/ProductosRecomendados/productos-recomendados.css"
             ));
 
@@ -937,7 +933,8 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Mobile/esika/slick.css",
                 "~/Content/Css/Mobile/esika/bootstrap-slider.min.css",
                 "~/Content/Css/Mobile/RevistaDigital/RedimensionLandingRD.css",
-                "~/Content/Css/Mobile/ProductoListado/CajaProducto.css"
+                "~/Content/Css/Mobile/ProductoListado/CajaProducto.css",
+                "~/Content/Css/Mobile/Ficha/ficha.css"
             ));
 
             //Se aisló el css de bootstrap de los otros css de Bundle/Css/Mixto, porque generaba errores de minificación
@@ -949,7 +946,6 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/ui.jquery/jquery-ui.css",
                 "~/Content/Css/Site/Shared/general.css",
                 "~/Content/Css/Site/Shared/header-responsive.css",
-                "~/Content/Css/Site/Shared/campania-navidenia-responsive.css",
                 "~/Content/Css/Site/Shared/menu-principal-responsive.css",
                 "~/Content/Css/Site/Shared/buscador-responsive.css",
                 "~/Content/Css/Site/Shared/menu-secundario-responsive.css",
@@ -961,7 +957,6 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/ui.jquery/jquery-ui.css",
                 "~/Content/Css/Site/Shared/general.css",
                 "~/Content/Css/Site/Shared/header-responsive.css",
-                "~/Content/Css/Site/Shared/campania-navidenia-responsive.css",
                 "~/Content/Css/Site/Shared/menu-principal-responsive.css",
                 "~/Content/Css/Site/Shared/buscador-responsive.css",
                 "~/Content/Css/Site/Shared/menu-secundario-responsive.css",

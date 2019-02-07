@@ -77,19 +77,19 @@
                         <img src="/Content/Images/mobile/Esika/click-ico.svg"> ELIGE TU OPCIÓN
                     </a>
                     {{else}}
-                    <div class="boton_producto_agotado">
+                    <div class="boton_producto_agotado" style="padding-top: 11px;">
                         Agotado
                     </div>
                     {{/if}}
-                
                 {{else}}
-                {{#if TieneStock}}
-                {{else}}
-                <div class="boton_producto_agotado">
-                    Agotado
-                </div>
-                {{/if}}
-
+                    {{#iff TipoAccionAgregar '!=' '@Constantes.TipoAccionAgregar.LoQuieres'}}
+                        {{#if TieneStock}}
+                        {{else}}
+                        <div class="boton_producto_agotado" style="padding-top: 11px;">
+                            Agotado
+                        </div>
+                        {{/if}}
+                    {{/iff}}
                 {{/iff}}
             </div>
         }

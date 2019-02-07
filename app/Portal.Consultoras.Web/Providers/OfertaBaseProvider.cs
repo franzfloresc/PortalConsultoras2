@@ -14,16 +14,14 @@ namespace Portal.Consultoras.Web.Providers
 {
     public class OfertaBaseProvider
     {
-        private readonly static HttpClient httpClient = new HttpClient();
+        private static readonly HttpClient httpClient = new HttpClient();
 
         static OfertaBaseProvider()
         {
-            if (!string.IsNullOrEmpty(WebConfig.UrlMicroservicioPersonalizacionSearch))
-            {
-                httpClient.BaseAddress = new Uri(WebConfig.UrlMicroservicioPersonalizacionSearch);
-                httpClient.DefaultRequestHeaders.Accept.Clear();
-                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            }
+            if (string.IsNullOrEmpty(WebConfig.UrlMicroservicioPersonalizacionSearch)) return;
+            httpClient.BaseAddress = new Uri(WebConfig.UrlMicroservicioPersonalizacionSearch);
+            httpClient.DefaultRequestHeaders.Accept.Clear();
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
         public static async Task<List<ServiceOferta.BEEstrategia>> ObtenerOfertasDesdeApi(string path, string codigoISO)
@@ -50,7 +48,7 @@ namespace Portal.Consultoras.Web.Providers
             {
                 try
                 {
-                    ServiceOferta.BEEstrategia estrategia = new ServiceOferta.BEEstrategia
+                    var estrategia = new ServiceOferta.BEEstrategia
                     {
                         CampaniaID = item.codigoCampania,
                         CodigoEstrategia = item.codigoEstrategia,
@@ -79,7 +77,7 @@ namespace Portal.Consultoras.Web.Providers
                         TipoEstrategiaID = Convert.ToInt32(item.tipoEstrategiaId),
                         TipoEstrategiaImagenMostrar = 6,
                         EsSubCampania = Convert.ToBoolean(item.esSubCampania) ? 1 : 0
-                        //TieneStock = item.flagStock,
+                       
                     };
                     estrategia.TipoEstrategia = new ServiceOferta.BETipoEstrategia { Codigo = item.codigoTipoEstrategia };
 
@@ -141,7 +139,7 @@ namespace Portal.Consultoras.Web.Providers
                         var compoponentes = new List<ServiceOferta.BEEstrategiaProducto>();
                         foreach (var componente in item.componentes)
                         {
-                            ServiceOferta.BEEstrategiaProducto estrategiaTono = new ServiceOferta.BEEstrategiaProducto
+                            var estrategiaTono = new ServiceOferta.BEEstrategiaProducto
                             {
                                 Grupo = componente.grupo,
                                 CUV = componente.cuv,
@@ -182,9 +180,9 @@ namespace Portal.Consultoras.Web.Providers
             {
                 string logPrecio0 = string.Format("Log Precios0 => Fecha:{0} /Palanca:{1} /CodCampania:{2} /CUV(s):{3} /Referencia:{4}", DateTime.Now, codTipoEstrategia, codCampania, string.Join("|", listaSinPrecio2), path);
                 Common.LogManager.SaveLog(new Exception(logPrecio0), "", codigoISO);
-            } 
+            }
 
-            return ActualizarStockEstrategiaProl(estrategias, codigoISO);
+            return estrategias;
         }
 
         public string ObtenerDescripcionOferta(string descripcionCuv2)
@@ -227,64 +225,15 @@ namespace Portal.Consultoras.Web.Providers
         public bool UsarMsPersonalizacion(string pais, string tipoEstrategia, bool dbDefault = false)
         {
             if (dbDefault) return false;
-            bool paisHabilitado = WebConfig.PaisesMicroservicioPersonalizacion.Contains(pais);
-            bool tipoEstrategiaHabilitado = WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion.Contains(tipoEstrategia);
+            var paisHabilitado = WebConfig.PaisesMicroservicioPersonalizacion.Contains(pais);
+            var tipoEstrategiaHabilitado = WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion.Contains(tipoEstrategia);
             return paisHabilitado && tipoEstrategiaHabilitado;
         }
 
         public bool UsarMsPersonalizacion(string tipoEstrategia)
         {
-            bool tipoEstrategiaHabilitado = WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion.Contains(tipoEstrategia);
+            var tipoEstrategiaHabilitado = WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion.Contains(tipoEstrategia);
             return tipoEstrategiaHabilitado;
-        }
-
-        static  List<ServiceOferta.BEEstrategia> ActualizarStockEstrategiaProl( List<ServiceOferta.BEEstrategia> estrategias, string paisISo)
-        {
-            var estrategiasResult = new List<ServiceOferta.BEEstrategia>();
-            var listaSinStock = new List<ServiceOferta.BEEstrategia>();
-            var listaTieneStock = new List<Lista>();
-             
-            try
-            {
-                var codigoSap = string.Join("|", estrategias.Where(e => !string.IsNullOrEmpty(e.CodigoProducto) && e.TieneStock).Select(e => e.CodigoProducto));
-                if (!string.IsNullOrEmpty(codigoSap))
-                {
-                    using (var sv = new wsConsulta())
-                    {
-                        sv.Url = ConfigurationManager.AppSettings["RutaServicePROLConsultas"];
-                        listaTieneStock = sv.ConsultaStock(codigoSap, paisISo).ToList();
-                    }
-                }
-            }
-            catch (Exception )
-            {
-                listaTieneStock = new List<Lista>();
-            }
-
-            estrategias.ForEach(estrategia =>
-            {
-                var add = true;
-                if (estrategia.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.OfertaParaTi)
-                    add = listaTieneStock.Any(p => p.Codsap.ToString() == estrategia.CodigoProducto && p.estado == 1);
-
-                if (!add)
-                {
-                    estrategia.TieneStock = false;
-                    listaSinStock.Add(estrategia);
-                    return;
-                }
-
-                estrategiasResult.Add(estrategia);
-
-            });
-
-            if (listaSinStock.Any())
-            {
-                estrategiasResult.AddRange(listaSinStock);
-            }
-
-            return estrategiasResult;
-
         }
     }
 }
