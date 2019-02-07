@@ -32,5 +32,14 @@ namespace Portal.Consultoras.Web.Models.AdministracionPoput
         public IEnumerable<CampaniaModel> listaCampania { get; set; }
 
     }
+
+
+    public class Archivo
+    {
+        public int RegionId { get; set; }
+        public int ZonaId{ get; set; }
+        public int Estado { get; set; }
+        public int Consultoraid{ get; set; }
+    }
    
 }

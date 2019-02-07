@@ -3,9 +3,10 @@ var VistaAdministracionPopups;
 var URL_CARGAR_CAMPAÑAS = baseUrl + 'AdministracionPopups/GetCargaCampañas'
 var URL_BUSCAR_POPUTS = baseUrl + 'AdministracionPopups/GetCargaListadoPoput'
 var VistaAdministracionPopups;
-
+debugger;
 $(document).ready(function () {
     document.getElementById("rbtActivo").checked = true;
+    debugger;
     var vistaAdPop;
 
     vistaAdPop = function () {
@@ -17,24 +18,24 @@ $(document).ready(function () {
                 $('body').on('click', '.btn__modal--guardar, .btn__modal--descartar', me.Eventos.CerrarPopup);
             }
         },
-        me.Eventos = {
-            AbrirPopup: function (e) {
-                e.preventDefault();
-                $('#modalTitulo').html($(this).attr('title'));
-                $('#AgregarPopup').fadeIn(100);
-                $('#AgregarPopup').scrollTop(0);
-                $('#AgregarPopup').css('display', 'flex');
-                $('body').css('overflow-y', 'hidden');
+            me.Eventos = {
+                AbrirPopup: function (e) {
+                    e.preventDefault();
+                    $('#modalTitulo').html($(this).attr('title'));
+                    $('#AgregarPopup').fadeIn(100);
+                    $('#AgregarPopup').scrollTop(0);
+                    $('#AgregarPopup').css('display', 'flex');
+                    $('body').css('overflow-y', 'hidden');
+                },
+                CerrarPopup: function (e) {
+                    e.preventDefault();
+                    $('#AgregarPopup').fadeOut(100);
+                    $('body').css('overflow-y', '');
+                }
             },
-            CerrarPopup: function (e) {
-                e.preventDefault();
-                $('#AgregarPopup').fadeOut(100);
-                $('body').css('overflow-y', '');
+            me.Inicializar = function () {
+                me.Funciones.InicializarEventos();
             }
-        },
-        me.Inicializar = function () {
-            me.Funciones.InicializarEventos();
-        }
     }
 
     VistaAdministracionPopups = new vistaAdPop();
@@ -132,6 +133,8 @@ $('#ddlCampania').change(function () {
 
 
 function ConstruyeGrillaPoput(data) {
+
+ 
     $("#divTabla").empty();
     var listColumnas = ["N*", "Fondo", "Duración", "Título", "Ruta", "Estado", "Editar"];
 

@@ -11,6 +11,8 @@ using System.ServiceModel;
 using System.Web.Mvc;
 using Portal.Consultoras.Service;
 using Portal.Consultoras.Web.ServiceSAC;
+using System.Web;
+using System.IO;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -20,7 +22,62 @@ namespace Portal.Consultoras.Web.Controllers
         {
             //if (!UsuarioModel.HasAcces(ViewBag.Permiso, "AdministrarGuiaNegocioDigitalizada/Index"))
             //    return RedirectToAction("Index", "Bienvenida");
-            return View(CargaInicial());
+            return View("AdministracionPopups", CargaInicial());
+        }
+
+
+
+        [HttpPost]
+        public ActionResult GetCargarArchivoCSV()
+        {
+            string filePath = string.Empty,filename=string.Empty;
+            if (Request.Files.Count > 0)
+            {
+                HttpPostedFileBase frmData = Request.Files[0];
+
+                List<Archivo> listArchivo = new List<Archivo>();
+            
+                if (frmData != null)
+                {
+                    if (frmData.FileName.EndsWith(".csv"))
+                    {
+                        string path = Server.MapPath("~/Uploads/");
+                        if (!Directory.Exists(path))
+                        {
+                            Directory.CreateDirectory(path);
+
+                        }
+                        filePath = path + Path.GetFileName(frmData.FileName);
+                        filename = Path.GetFileName(frmData.FileName);
+                        string extension = Path.GetExtension(frmData.FileName);
+                        frmData.SaveAs(filePath);
+                        int contador = 0;
+                        string csvData = System.IO.File.ReadAllText(filePath);
+                        foreach (string row in csvData.Split('\n'))
+                        {
+                            if (contador != 0)
+                            {
+                                if (!string.IsNullOrEmpty(row))
+                                {
+                                    listArchivo.Add(new Archivo()
+                                    {
+                                        RegionId = Convert.ToInt32(row.Split(","[0])[0]),
+                                        ZonaId = Convert.ToInt32(row.Split(","[0])[1]),
+                                        Estado = Convert.ToInt32(row.Split(","[0])[2]),
+                                        Consultoraid = Convert.ToInt32(row.Split(","[0])[3])
+                                    });
+                                }
+                            }
+                            contador += 1;
+                        }
+                    }
+                    else
+                    {
+                        return Json(new { dataerror = true, archivo = "Este formato de archivo no es compatible" });
+                    }
+                }
+            }
+            return Json( new { dataerror=false, archivo= string.Concat( "Archivo ",filename) }, JsonRequestBehavior.AllowGet);
         }
 
 
@@ -88,41 +145,9 @@ namespace Portal.Consultoras.Web.Controllers
                     }
             return urlImagen;
         }
-
-
-
-
         #endregion
 
 
-
-        #region Operaciones
-
-
-        #endregion
-
-
-        [HttpPost]
-        public JsonResult GetCargaEdicionPoput()
-        {
-            if (!ValidarPermiso(Constantes.MenuCodigo.CatalogoPersonalizado))
-            {
-                return Json(new
-                {
-                    success = false,
-                    message = "",
-                    data = ""
-                });
-            }
-
-            int cantProFav = Convert.ToInt32(_configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.LimiteJetloreCatalogoPersonalizadoHome));
-            return Json(new
-            {
-                success = false,
-                message = "La dirección de correo electrónico ingresada ya pertenece a otra Consultora.",
-                extra = ""
-            });
-        }
 
     }   
 }

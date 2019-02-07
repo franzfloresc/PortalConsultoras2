@@ -1,11 +1,12 @@
-﻿//import { debug } from "util";
-var VistaAdministracionPopups;
-var URL_CARGAR_CAMPAÑAS = baseUrl + 'AdministracionPopups/GetCargaCampañas'
-var URL_BUSCAR_POPUTS = baseUrl + 'AdministracionPopups/GetCargaListadoPoput'
+﻿var VistaAdministracionPopups;
+var URL_CARGAR_CAMPAÑAS = baseUrl + 'AdministracionPopups/GetCargaCampañas';
+var URL_BUSCAR_POPUTS = baseUrl + 'AdministracionPopups/GetCargaListadoPoput';
+var URL_ADJUNTAR_ARCHIVO = baseUrl + 'AdministracionPopups/GetCargarArchivoCSV';
 var VistaAdministracionPopups;
 
 $(document).ready(function () {
-    document.getElementById("rbtActivo").checked = true;
+    //document.getElementById("rbtActivo").checked = true;
+    debugger;
     var vistaAdPop;
 
     vistaAdPop = function () {
@@ -17,79 +18,127 @@ $(document).ready(function () {
                 $('body').on('click', '.btn__modal--guardar, .btn__modal--descartar', me.Eventos.CerrarPopup);
             }
         },
-        me.Eventos = {
-            AbrirPopup: function (e) {
-                e.preventDefault();
-                $('#modalTitulo').html($(this).attr('title'));
-                $('#AgregarPopup').fadeIn(100);
-                $('#AgregarPopup').scrollTop(0);
-                $('#AgregarPopup').css('display', 'flex');
-                $('body').css('overflow-y', 'hidden');
+            me.Eventos = {
+                AbrirPopup: function (e) {
+                    e.preventDefault();
+                    $('#modalTitulo').html($(this).attr('title'));
+                    $('#AgregarPopup').fadeIn(100);
+                    $('#AgregarPopup').scrollTop(0);
+                    $('#AgregarPopup').css('display', 'flex');
+                    $('body').css('overflow-y', 'hidden');
+                },
+                CerrarPopup: function (e) {
+                    e.preventDefault();
+                    $('#AgregarPopup').fadeOut(100);
+                    $('body').css('overflow-y', '');
+                }
             },
-            CerrarPopup: function (e) {
-                e.preventDefault();
-                $('#AgregarPopup').fadeOut(100);
-                $('body').css('overflow-y', '');
+            me.Inicializar = function () {
+                me.Funciones.InicializarEventos();
             }
-        },
-        me.Inicializar = function () {
-            me.Funciones.InicializarEventos();
-        }
     }
 
     VistaAdministracionPopups = new vistaAdPop();
     VistaAdministracionPopups.Inicializar();
 });
 
-
 $("#imgPoputs").change(function () {
-
+    debugger;
     var File = this.files;
-
-    if (File && File[0]) {
-        ReadImage(File[0]);
+    var resultado = ValidaImagen(File);
+    if (resultado) {
+        if (File && File[0])
+            ReadImage(File[0]);
     }
 });
 
+function ValidaImagen(file) {
+    var uploadFile = file[0];
+    debugger;
+  
+    if (!window.FileReader) {
+        $("#description").html("El navegador no soporta tal lectura de archivos");
+        return false;
+    }
+
+    if (!(/\.(jpg|png|gif)$/i).test(uploadFile.name)) {
+        $("#description").html("El archivo a adjuntar no es una imagen");
+        return false;
+    } else {
+        var img = new Image();
+        img.onload = function () {
+            debugger;
+            if (this.width.toFixed(0) != 200 && this.height.toFixed(0) != 200) {
+                $("#description").html("Las medidas deben ser: 200 * 200'");
+                return false;
+            } else if (uploadFile.size > 20000) {
+                $("#description").html("El peso de la imagen no puede exceder los 200kb");
+                return false;
+            } else
+                return true;
+        };
+    }   
+}
 
 var ReadImage = function (file) {
+    debugger;
 
+   
     var reader = new FileReader;
     var image = new Image;
 
     reader.readAsDataURL(file);
     reader.onload = function (_file) {
-
-        image.src = _file.target.result:
+        debugger;
+        image.src = _file.target.result;
         image.onload = function () {
             var height = this.height;
             var width = this.width;
-            var type = file.type;
+            var type = file.type;   
             var size = ~~(file.size / 1024) + "KB";
 
-
+            $("#targetImg").attr('src', _file.target.result);
+            $("#description").html("Formato de archivo JPG." + "<br/>" + "(" + height + "x" + width + "píxeles)");
+            $("#imgPreview").show();
         }
     }
 }
+var ClearView = function () {
+    debugger;
+    $("#description").val('');
+    $("#imgPoputs").val('');
+    $("#imgPreview").hide();
+}
 
+function ClearFileView() {
 
+}
 
-
-
+function getFileCSV() {
+    debugger;
+    var frmData = new FormData();
+    var file = document.getElementById("fileCSV").files[0];
+    frmData.append("fileCSV", file);
+    $.ajax({
+        type: "POST",
+        url: URL_ADJUNTAR_ARCHIVO,
+        data: frmData,
+        dataType: 'json',
+        contentType: false,
+        processData: false,
+        success: function (msg) {
+         $("#nameArchivo").html(msg.archivo); 
+        },
+        error: function (error) {
+            alert("errror");
+        }
+    });
+}
 
 $('input[type=radio]').on('change', function () {
     GetCargaListadoPoput();
 });
 
-$("#btnNuevo").click(function () {
-    debugger;
-    $.ajaxSetup({ cache: false });
-    $("#rbtActivo").attr("checked", true);
-    $("#rbtInactivo").attr("checked", false);
-
-    var ComunicadoId = 1;/*Hidden*/
-    showDialog("DialogAdministracionTipoEstrategia");
-});
 
 
 function GetCargaListadoPoput() {
@@ -126,12 +175,9 @@ $('#ddlCampania').change(function () {
     GetCargaListadoPoput();
 });
 
-
-
-
-
-
 function ConstruyeGrillaPoput(data) {
+
+
     $("#divTabla").empty();
     var listColumnas = ["N*", "Fondo", "Duración", "Título", "Ruta", "Estado", "Editar"];
 

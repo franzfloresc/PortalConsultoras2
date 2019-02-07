@@ -312,7 +312,7 @@
     </section>
     <!-- FIN - GRILLA ADMINISTRACIÓN DE POPUPS -->
 </main>
-
+    
 <!-- MODAL AGREGAR NUEVO POPUP -->
 <section class="d__flex w__100 modal__bg" id="AgregarPopup">
     <div class="d__block w__100 ml__auto mr__auto modal__wrapper">
@@ -332,10 +332,16 @@
                                     <span class="d__inline__block text__bold">+</span>
                                     <span class="d__inline__block text__bold">Agregar</span>
                                 </label>
-                                <p class="d__block color__gray__multimarca info__formato__medidas">
-                                    Formato de archivo JPG.<br />
-                                    (326 x 418 píxeles)
-                                </p>
+                                <div class="caption">   
+                                    <a href="#" onclick="ClearFileView()"><i class="glyphicon glyphicon-trash"></i></a>
+                                    <p id="description" class="d__block color__gray__multimarca info__formato__medidas">    
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="d__block">
+                                <div id="imgPreview" class="thumbnail" style="display:none" >
+                                    <img class="img-responsive" id="targetImg"/>
+                                </div>
                             </div>
                         </div>
                         <div class="d__flex grupo__form__campos">
@@ -355,20 +361,21 @@
                 <div class="d__block modal__contenido__seccion">
                     <h4 class="d__block text__bold text__uppercase modal__contenido__subtitulo">Configuración</h4>
                     <div class="d__flex modal__contenido__seccion__campos modal__contenido__seccion__campos--configuracion">
-                        <div class="d__flex grupo__form__campos">
-                            <div class="d__block text__bold color__m grupo__form__campos__label grupo__form__campos__label--segmentoConsultoras">Segmento de<br />consultoras : </div>
-                            <div class="d__block">
-                                <input id="AgregarCSV" type="file" class="d__none text__bold" />
-                                <label for="AgregarCSV" class="d__block text__bold text__center background__color__m border__radius__4 btn__modal btn__modal--agregar" title="Agregar nuevo popup">
-                                    <span class="d__inline__block text__bold">+</span>
-                                    <span class="d__inline__block text__bold">Agregar</span>
-                                </label>
-                                <p class="d__block color__gray__multimarca info__formato__medidas">
-                                    Formato de archivo *CSV<br />
-                                    - Código Consultora
-                                </p>
+                 
+                            <div class="d__flex grupo__form__campos">
+                                <div class="d__block text__bold color__m grupo__form__campos__label grupo__form__campos__label--segmentoConsultoras">Segmento de<br />consultoras : </div>
+                                <div class="d__block">
+                                    <input id="fileCSV" type="file" class="d__none text__bold" onchange='getFileCSV()' />
+                                    <label for="fileCSV" class="d__block text__bold text__center background__color__m border__radius__4 btn__modal btn__modal--agregar" title="Agregar nuevo popup">
+                                        <span class="d__inline__block text__bold">+</span>
+                                        <span class="d__inline__block text__bold">Agregar</span>
+                                    </label>
+                                    <p class="d__block color__gray__multimarca info__formato__medidas" id="nameArchivo">
+
+                                    </p>
+                                </div>
                             </div>
-                        </div>
+                      
                         <div class="d__flex grupo__form__campos">
                             <label class="d__block text__bold color__m grupo__form__campos__label">Duración : </label>
                             <div class="d__flex mb-0 grupo__form__campos grupo__form__campos--minMax">
@@ -415,5 +422,5 @@
 <!-- FIN - VISTA ADMINISTRACIÓN DE POS -->
 @section scripts{
 
-
+    <script src="~/Scripts/PortalConsultoras/AdminPoput/AdminPoput.js"></script>
 }
