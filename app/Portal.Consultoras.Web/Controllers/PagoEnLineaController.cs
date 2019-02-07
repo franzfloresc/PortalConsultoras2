@@ -16,7 +16,7 @@ using Portal.Consultoras.Web.Infraestructure.Validator.PagoEnLinea;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class PagoEnLineaController : BaseController
+    public class PagoEnLineaController : BaseAdmController
     {
         protected PagoEnLineaProvider _pagoEnLineaProvider;
 
@@ -24,7 +24,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             _pagoEnLineaProvider = new PagoEnLineaProvider();
         }
-
+        
         public ActionResult Index()
         {
             if (EsDispositivoMovil())
@@ -238,9 +238,9 @@ namespace Portal.Consultoras.Web.Controllers
             var model = new PagoEnLineaReporteModel()
             {
                 listaPaises = DropDowListPaises(),
-                lista = DropDowListCampanias(paisId),
-                listaRegiones = DropDownListRegiones(paisId),
-                listaZonas = DropDownListZonas(paisId),
+                lista = _zonificacionProvider.GetCampanias(paisId),
+                listaRegiones = _zonificacionProvider.GetRegiones(paisId),
+                listaZonas = _zonificacionProvider.GetZonas(paisId),
                 PaisId = paisId,
                 CampaniaId = campaniaIdActual
             };
@@ -458,32 +458,32 @@ namespace Portal.Consultoras.Web.Controllers
                                id = a.PagoEnLineaResultadoLogId,
                                cell = new string[]
                                {
-                            a.CampaniaId.ToString(),
-                            a.NombreComercio ?? string.Empty,
-                            a.IdUnicoTransaccion ?? string.Empty,
-                            a.PagoEnLineaResultadoLogId.ToString(),
-                            a.NombreCompleto ?? string.Empty,
-                            a.FechaTransaccionFormat ?? string.Empty,
-                            a.FechaTransaccionHoraFormat ?? string.Empty,
-                            a.CodigoConsultora ?? string.Empty,
-                            a.NumeroDocumento ?? string.Empty,
-                            a.Canal ?? string.Empty,
-                            a.Ciclo ?? string.Empty,
-                            a.ImporteAutorizado.ToString(),
-                            a.MontoGastosAdministrativos.ToString(),
-                            a.IVA.ToString(),
-                            a.MontoPago.ToString(),
-                            a.TicketId ?? string.Empty,
-                            a.CodigoRegion?? string.Empty,
-                            a.CodigoZona ?? string.Empty,
-                            a.OrigenTarjeta ?? string.Empty,
-                            a.NumeroTarjeta ?? string.Empty,
-                            a.NumeroOrdenTienda ?? string.Empty,
-                            a.MensajeError ?? string.Empty,
-                            a.CodigoError ?? string.Empty,
-                            a.FechaCreacionFormat ?? string.Empty,
-                            a.FechaCreacionHoraFormat ?? string.Empty,
-                            a.Origen ?? string.Empty
+                                    a.CampaniaId.ToString(),
+                                    a.NombreComercio ?? string.Empty,
+                                    a.IdUnicoTransaccion ?? string.Empty,
+                                    a.PagoEnLineaResultadoLogId.ToString(),
+                                    a.NombreCompleto ?? string.Empty,
+                                    a.FechaTransaccionFormat ?? string.Empty,
+                                    a.FechaTransaccionHoraFormat ?? string.Empty,
+                                    a.CodigoConsultora ?? string.Empty,
+                                    a.NumeroDocumento ?? string.Empty,
+                                    a.Canal ?? string.Empty,
+                                    a.Ciclo ?? string.Empty,
+                                    a.ImporteAutorizado.ToString(),
+                                    a.MontoGastosAdministrativos.ToString(),
+                                    a.IVA.ToString(),
+                                    a.MontoPago.ToString(),
+                                    a.TicketId ?? string.Empty,
+                                    a.CodigoRegion?? string.Empty,
+                                    a.CodigoZona ?? string.Empty,
+                                    a.OrigenTarjeta ?? string.Empty,
+                                    a.NumeroTarjeta ?? string.Empty,
+                                    a.NumeroOrdenTienda ?? string.Empty,
+                                    a.MensajeError ?? string.Empty,
+                                    a.CodigoError ?? string.Empty,
+                                    a.FechaCreacionFormat ?? string.Empty,
+                                    a.FechaCreacionHoraFormat ?? string.Empty,
+                                    a.Origen ?? string.Empty
                                }
                            }
                 };
@@ -555,51 +555,8 @@ namespace Portal.Consultoras.Web.Controllers
             Util.ExportToExcel("ReportePagoEnLineaExcel", lst.ToList(), dic, GetExcelSecureCallback());
             return View();
         }
-
-        private IEnumerable<PaisModel> DropDowListPaises()
-        {
-            List<BEPais> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = userData.RolID == 2
-                    ? sv.SelectPaises().ToList()
-                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
-            }
-
-            return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
-        }
-
-        private IEnumerable<CampaniaModel> DropDowListCampanias(int paisId)
-        {
-            IList<BECampania> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = sv.SelectCampanias(paisId);
-            }
-
-            return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
-        }
-
-        protected IEnumerable<RegionModel> DropDownListRegiones(int paisId)
-        {
-            IList<BERegion> lst;
-            using (var sv = new ZonificacionServiceClient())
-            {
-                lst = sv.SelectAllRegiones(paisId);
-            }
-            return Mapper.Map<IList<BERegion>, IEnumerable<RegionModel>>(lst.OrderBy(zona => zona.Codigo).ToList());
-        }
-
-        protected IEnumerable<ZonaModel> DropDownListZonas(int paisId)
-        {
-            IList<BEZona> lst;
-            using (var sv = new ZonificacionServiceClient())
-            {
-                lst = sv.SelectAllZonas(paisId);
-            }
-            return Mapper.Map<IList<BEZona>, IEnumerable<ZonaModel>>(lst);
-        }
-
+        
+        
         private async Task<ActionResult> GetPayResult(PaymentInfo info, PagoEnLineaModel pago)
         {
             var provider = new PagoPayuProvider

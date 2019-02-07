@@ -704,7 +704,8 @@ function AgregarProductoListado() {
 function InsertarProducto() {
     
     var esOfertaNueva = $("#hdfValorFlagNueva").val() === "1";
-    var urlInsertar = esOfertaNueva ? urlPedidoInsertZe : urlPedidoInsert;
+    //var urlInsertar = esOfertaNueva ? urlPedidoInsertZe : urlPedidoInsert;
+    var urlInsertar = urlPedidoInsert;
     var model = {};
     if ($("#hdTipoOfertaSisID").val() === "0") {
         $("#hdTipoOfertaSisID").val($("#hdTipoEstrategiaID").val());

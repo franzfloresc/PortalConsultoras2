@@ -312,7 +312,7 @@
         <hr class="clear" />
         <div class="icono_alerta exclamacion_icono_mobile iphone_1"></div>
         <div class="mensaje_alerta iphone_2">
-            Se agotó este producto. Prueba <b>reemplazarlo</b>  con:
+            Se agotó este producto. Prueba con estas <b> opciones </b> que son similares:
         </div>
         <hr class="clear" />
         <div class="contenedor_carrusel_home" id="divCarruselSugerido">
@@ -449,8 +449,8 @@
         var ofertaLiquidacion = '@Constantes.ConfiguracionOferta.Liquidacion';
         var ofertaAccesorizate = '@Constantes.ConfiguracionOferta.Accesorizate';
 
-        var urlPedidoInsert = '@Url.Action("PedidoInsertar", "Pedido", new { area = "" })';
-        var urlPedidoAgregarProducto = '@Url.Action("PedidoAgregarProducto","Pedido", new { area = ""})';
+        @*var urlPedidoInsert = '@Url.Action("PedidoInsertar", "Pedido", new { area = "" })';*@
+        @*var urlPedidoAgregarProducto = '@Url.Action("PedidoAgregarProducto","Pedido", new { area = ""})';*@
         var urlFindByCUV = '@Url.Action("FindByCUV", "Pedido", new { area = "" })';
         var urlObtenerProductosSugeridos = '@Url.Action("ObtenerProductosSugeridos", "Estrategia", new { area = "" })';
         var urlIngresoFAD = '@Url.Action("IngresoFAD", "Pedido", new { area = "" })';
@@ -460,7 +460,7 @@
         var urlCarruselPrev = "@Url.Content("~/Content/Images/mobile/Esika/previous_ofertas_home.png")";
         var urlCarruselNext = "@Url.Content("~/Content/Images/mobile/Esika/next.png")";
 
-        var urlValidarKitNuevas = '@Url.Action("ValidarKitNuevas", "Pedido", new { area = "" })';
+        var urlValidarKitNuevas = '@Url.Action("ValidarKitNuevas", "PedidoRegistro", new { area = "" })';
         var urlValidarUnidadesPermitidasPedidoProducto = '@Url.Action("ValidarUnidadesPermitidasPedidoProducto", "Accesorizate", new { area = "" })';
         var urlObtenerStockActualProducto = '@Url.Action("ObtenerStockActualProducto", "Accesorizate", new { area = "" })';
         var urlEnHorarioRestringido = '@Url.Action("EnHorarioRestringido", "Pedido", new { area = "" })';
@@ -468,7 +468,7 @@
         var paisIDSesion = '@Model.PaisId';
 
         var urlValidadoPedido = '@Url.Action("Validado", "Pedido", new { area = "Mobile" })';
-        var urlPedidoInsertZe = '@Url.Action("AgregarProductoZE", "Pedido", new { area = "" })';
+        @*var urlPedidoInsertZe = '@Url.Action("AgregarProductoZE", "Pedido", new { area = "" })';*@
 
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
         var productoSugerido = false;

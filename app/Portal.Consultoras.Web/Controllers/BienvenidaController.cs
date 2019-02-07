@@ -1,19 +1,16 @@
-﻿using AutoMapper;
-using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
-using Portal.Consultoras.Web.ServiceAsesoraOnline;
+using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
-using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
-using Portal.Consultoras.Web.Providers;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -21,13 +18,15 @@ namespace Portal.Consultoras.Web.Controllers
     {
         private readonly ConfiguracionPaisDatosProvider _configuracionPaisDatosProvider;
         private readonly BienvenidaProvider _bienvenidaProvider;
-        protected Providers.TablaLogicaProvider _tablaLogica;
+        protected TablaLogicaProvider _tablaLogica;
+        private readonly ZonificacionProvider _zonificacionProvider;
 
         public BienvenidaController()
         {
             _configuracionPaisDatosProvider = new ConfiguracionPaisDatosProvider();
-            _tablaLogica = new Providers.TablaLogicaProvider();
+            _tablaLogica = new TablaLogicaProvider();
             _bienvenidaProvider = new BienvenidaProvider();
+            _zonificacionProvider = new ZonificacionProvider();
         }
 
         public BienvenidaController(ILogManager logManager)
@@ -76,6 +75,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 List<BETablaLogicaDatos> datGaBoton;
                 List<BETablaLogicaDatos> configCarouselLiquidacion;
+                
+                _showRoomProvider.CargarEventoConsultora(userData);
 
                 using (var sv = new SACServiceClient())
                 {
@@ -217,7 +218,7 @@ namespace Portal.Consultoras.Web.Controllers
                     SessionManager.SetActualizarDatosConsultora(true);
                 }
 
-                model.ShowRoomMostrarLista = ValidarPermiso(Constantes.MenuCodigo.CatalogoPersonalizado) ? 0 : 1;
+                model.ShowRoomMostrarLista = (!ValidarPermiso(Constantes.MenuCodigo.CatalogoPersonalizado)).ToInt();
                 model.ShowRoomBannerUrl = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.BannerLateralBienvenida, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
                 model.TieneCupon = userData.TieneCupon;
                 model.TieneMasVendidos = userData.TieneMasVendidos;
@@ -233,7 +234,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.TienePagoEnLinea = userData.TienePagoEnLinea;
                 model.MostrarPagoEnLinea = (userData.MontoDeuda > 0);
 
-                #region Camino al Exito
+                #region Camino al Éxito
 
                 var LogicaCaminoExisto = _tablaLogica.ObtenerConfiguracion(userData.PaisID, Constantes.TablaLogica.EscalaDescuentoDestokp);
                 if (LogicaCaminoExisto.Any())
@@ -495,13 +496,10 @@ namespace Portal.Consultoras.Web.Controllers
                 model.UsuarioPrueba = userData.UsuarioPrueba;
                 model.NombreArchivoContrato = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.Contrato_ActualizarDatos + userData.CodigoISO);
                 model.IndicadorConsultoraDigital = beusuario.IndicadorConsultoraDigital;
-
-                BEZona[] bezona;
-                using (var sv = new ZonificacionServiceClient())
-                {
-                    bezona = sv.SelectZonaById(userData.PaisID, userData.ZonaID);
-                }
-                model.NombreGerenteZonal = bezona.ToList().Count == 0 ? "" : bezona[0].NombreGerenteZona;
+                
+                var bezona = _zonificacionProvider.GetZonaById(userData.PaisID, userData.ZonaID);
+                
+                model.NombreGerenteZonal = bezona.NombreGerenteZona;
 
                 if (beusuario.EMailActivo) model.CorreoAlerta = "";
                 if (!beusuario.EMailActivo && beusuario.EMail != "") model.CorreoAlerta = "Su correo aun no ha sido activado";
@@ -1035,7 +1033,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 listaCampania = new List<CampaniaModel>(),
                 listaZonas = new List<ZonaModel>(),
-                listaPaises = DropDowListPaises()
+                listaPaises = _zonificacionProvider.GetPaises(userData.PaisID, userData.RolID)
             };
 
             return View(parametrizarCuvModel);
@@ -1246,18 +1244,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-
-        private IEnumerable<PaisModel> DropDowListPaises()
-        {
-            List<BEPais> lst;
-            using (var sv = new ZonificacionServiceClient())
-            {
-                lst = userData.RolID == 2 ? sv.SelectPaises().ToList() : new List<BEPais> { sv.SelectPais(userData.PaisID) };
-            }
-
-            return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
-        }
-
+        
         private int ValidarSuenioNavidad()
         {
             var entidad = new BESuenioNavidad
@@ -1293,7 +1280,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #endregion
-        
+
         #region ShowRoom
 
         [HttpPost]
@@ -1301,7 +1288,10 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var entidad = new BEShowRoomEventoConsultora
+                _showRoomProvider.CargarEventoConsultora(userData);
+                _showRoomProvider.CargarEventoPersonalizacion(userData);
+                configEstrategiaSR = SessionManager.GetEstrategiaSR();
+               var entidad = new BEShowRoomEventoConsultora
                 {
                     CodigoConsultora = userData.CodigoConsultora,
                     CampaniaID = userData.CampaniaID,
@@ -1309,7 +1299,7 @@ namespace Portal.Consultoras.Web.Controllers
                     EventoConsultoraID = configEstrategiaSR.BeShowRoomConsultora.EventoConsultoraID,
                 };
 
-                this._showRoomProvider.ActualizarEventoConsultora(entidad, TipoShowRoom);
+                _showRoomProvider.ActualizarEventoConsultora(entidad, TipoShowRoom);
 
                 if (TipoShowRoom == "I")
                 {
@@ -1372,17 +1362,22 @@ namespace Portal.Consultoras.Web.Controllers
 
                 }
 
-                if (!configEstrategiaSR.CargoEntidadesShowRoom)
-                {
-                    return Json(new
-                    {
-                        success = false,
-                        data = "",
-                        message = ""
-                    });
-                }
+                //if (!configEstrategiaSR.CargoEntidadesShowRoom)
+                //{
+                //    return Json(new
+                //    {
+                //        success = false,
+                //        data = "",
+                //        message = ""
+                //    });
+                //}
 
-                var showRoom = configEstrategiaSR.BeShowRoom ?? new ShowRoomEventoModel();
+                //var showRoom = configEstrategiaSR.BeShowRoom ?? new ShowRoomEventoModel();
+
+                ShowRoomEventoModel showRoom = null;
+
+                configEstrategiaSR = SessionManager.GetEstrategiaSR();
+                showRoom = configEstrategiaSR.BeShowRoom;
 
                 if (showRoom.Estado == SHOWROOM_ESTADO_INACTIVO)
                 {

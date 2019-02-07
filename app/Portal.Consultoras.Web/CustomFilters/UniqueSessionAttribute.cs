@@ -30,35 +30,38 @@ namespace Portal.Consultoras.Web.CustomFilters
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            if (!filterContext.HttpContext.Request.IsAjaxRequest() && filterContext.RequestContext.HttpContext.Request.UrlReferrer != null)
+            if (!(!filterContext.HttpContext.Request.IsAjaxRequest() && filterContext.RequestContext.HttpContext.Request.UrlReferrer != null))
             {
-                    var guid = HttpUtility.ParseQueryString(filterContext.RequestContext.HttpContext.Request.UrlReferrer.Query).Get(IdentifierKey);
-                    var originalString = filterContext.RequestContext.HttpContext.Request.UrlReferrer.OriginalString;
-                    var origiIndex = originalString.IndexOf(RoutePrefix, StringComparison.OrdinalIgnoreCase);
-                    if (origiIndex > 0)
-                    {
-                        var urlGuid = originalString.Substring(origiIndex + RoutePrefix.Length, 36);
-                        guid = string.IsNullOrEmpty(guid) ? urlGuid : guid;
-                    }
+                base.OnActionExecuting(filterContext);
+                return;
+            }
 
-                    Guid validatedGuid;
-                    if (!Guid.TryParse(guid, out validatedGuid))
-                        return;
+            var guid = HttpUtility.ParseQueryString(filterContext.RequestContext.HttpContext.Request.UrlReferrer.Query).Get(IdentifierKey);
+            var originalString = filterContext.RequestContext.HttpContext.Request.UrlReferrer.OriginalString;
+            var origiIndex = originalString.IndexOf(RoutePrefix, StringComparison.OrdinalIgnoreCase);
+            if (origiIndex > 0)
+            {
+                var urlGuid = originalString.Substring(origiIndex + RoutePrefix.Length, 36);
+                guid = string.IsNullOrEmpty(guid) ? urlGuid : guid;
+            }
 
-                    if (!string.IsNullOrEmpty(guid) && !filterContext.RouteData.Values.ContainsKey(IdentifierKey))
-                    {
-                        filterContext.RouteData.Values.Add(IdentifierKey, validatedGuid.ToString());
+            Guid validatedGuid;
+            if (!Guid.TryParse(guid, out validatedGuid))
+                return;
 
-                        foreach (var param in filterContext.ActionParameters)
-                        {
-                            if (filterContext.RouteData.Values.ContainsKey(param.Key)) continue;
-                            filterContext.RouteData.Values.Add(param.Key, param.Value);
-                        }
+            if (!string.IsNullOrEmpty(guid) && !filterContext.RouteData.Values.ContainsKey(IdentifierKey))
+            {
+                filterContext.RouteData.Values.Add(IdentifierKey, validatedGuid.ToString());
 
-                        filterContext.Result = new RedirectToRouteResult(RouteName, filterContext.RouteData.Values);
+                foreach (var param in filterContext.ActionParameters)
+                {
+                    if (filterContext.RouteData.Values.ContainsKey(param.Key)) continue;
+                    filterContext.RouteData.Values.Add(param.Key, param.Value);
+                }
 
-                        return;
-                    }
+                filterContext.Result = new RedirectToRouteResult(RouteName, filterContext.RouteData.Values);
+
+                return;
             }
 
             base.OnActionExecuting(filterContext);

@@ -8,7 +8,6 @@ using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
-using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +17,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class MisReclamosController : BaseController
+    public class MisReclamosController : BaseAdmController
     {
         readonly CdrProvider _cdrProvider;
 
@@ -137,23 +136,19 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var listaPedidoFacturados = SessionManager.GetCDRPedidoFacturado();
                 listaPedidoFacturados = listaPedidoFacturados.Where(a => a.CampaniaID == CampaniaID).ToList();
-
-                var NroPedidos = new CampaniaModel();
-
                 if (listaPedidoFacturados.Count > 0)
                 {
                     mensaje = "";
                     foreach (var item in listaPedidoFacturados)
                     {
-                        NroPedidos = new CampaniaModel
+                        listaNroPedidos.Add(new CampaniaModel
                         {
                             NumeroPedido = item.NumeroPedido,
                             strNumeroPedido = "N° " + item.NumeroPedido + " - " + item.FechaRegistro.ToString("dd/MM/yyyy"),
-                            PedidoID = item.PedidoID                            
-                        };
-                        listaNroPedidos.Add(NroPedidos);
+                            PedidoID = item.PedidoID
+                        });
                     }
-                }                               
+                }
 
                 return Json(new
                 {
@@ -302,7 +297,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 return !operacionValidaList.Any(operacion => operacion.CodigoOperacion == detalle.CodigoOperacion);
             });
-            //return false;
         }
 
         private bool ValidarRegistro(MisReclamosModel model, out string mensajeError)
@@ -344,7 +338,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return cantidad >= 0;
         }
-        
+
         public JsonResult BuscarCuvCambiar(MisReclamosModel model)
         {
             List<ServiceODS.BEProducto> olstProducto;
@@ -1028,9 +1022,9 @@ namespace Portal.Consultoras.Web.Controllers
             var cdrWebModel = new CDRWebModel()
             {
                 listaPaises = DropDowListPaises(),
-                lista = DropDowListCampanias(paisId),
-                listaRegiones = _baseProvider.DropDownListRegiones(paisId),
-                listaZonas = _baseProvider.DropDownListZonas(paisId),
+                lista = _zonificacionProvider.GetCampanias(paisId),
+                listaRegiones = _zonificacionProvider.GetRegiones(paisId),
+                listaZonas = _zonificacionProvider.GetZonas(paisId),
                 PaisID = paisId,
                 CampaniaID = campaniaIdActual
             };
@@ -1404,55 +1398,6 @@ namespace Portal.Consultoras.Web.Controllers
             #endregion
 
             return htmlTemplate;
-        }
-
-        private IEnumerable<CampaniaModel> DropDowListCampanias(int paisId)
-        {
-            IList<BECampania> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = sv.SelectCampanias(paisId);
-            }
-
-            return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
-        }
-
-        public JsonResult ObtenterCampanias(int PaisID)
-        {
-            PaisID = userData.PaisID;
-            IEnumerable<CampaniaModel> lst = DropDowListCampanias(PaisID);
-
-            return Json(new
-            {
-                lista = lst
-            }, JsonRequestBehavior.AllowGet);
-        }
-
-        public JsonResult ObtenterCampaniasPorPais(int PaisID)
-        {
-            IEnumerable<CampaniaModel> lst = DropDowListCampanias(PaisID);
-            IEnumerable<ZonaModel> lstZonas = _baseProvider.DropDownListZonas(PaisID);
-            IEnumerable<RegionModel> lstRegiones = _baseProvider.DropDownListRegiones(PaisID);
-
-            return Json(new
-            {
-                lista = lst,
-                listaZonas = lstZonas,
-                listaRegiones = lstRegiones.OrderBy(x => x.Nombre)
-            }, JsonRequestBehavior.AllowGet);
-        }
-
-        private IEnumerable<PaisModel> DropDowListPaises()
-        {
-            List<BEPais> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = userData.RolID == 2
-                    ? sv.SelectPaises().ToList()
-                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
-            }
-
-            return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
 
         private List<BETablaLogicaDatos> GetListMensajeCDRExpress()

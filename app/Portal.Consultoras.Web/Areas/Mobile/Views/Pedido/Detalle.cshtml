@@ -269,7 +269,7 @@
         </div>
     </div>
     <div class="montos_resumen">
-        <span><b data-cantidadproducto="">{{this.TotalProductos}}</b>&nbsp;&nbsp;UNIDADES</span>
+        <span><b data-cantidadproducto="">{{this.TotalProductos}}</b>&nbsp;&nbsp;UNIDAD</span>
         <span><b>{{SimboloMoneda}}&nbsp;&nbsp;</b><b data-pedidocondescuento="">{{FormatoTotalConDescuento}}</b></span>
         <span class="mi_ganancia"><b>{{SimboloMoneda}}&nbsp;&nbsp;</b><b class="lblDescripcionGanancia" data-ganancia="">{{FormatoMontoGanancia}}</b></span>
     </div>
@@ -927,23 +927,23 @@
         var urlPedidoValidado = '@Url.Action("Validado", "Pedido", new {area = "Mobile"})';
         var urlHorarioRestringido = '@Url.Action("EnHorarioRestringido", "Pedido", new {area = ""})';
 
-        var urlValidarUnidadesPermitidasPedidoProductoShowRoom = '@Url.Action("ValidarUnidadesPermitidasPedidoProducto", "ShowRoom", new {area = ""})';
+        @*var urlValidarUnidadesPermitidasPedidoProductoShowRoom = '@Url.Action("ValidarUnidadesPermitidasPedidoProducto", "ShowRoom", new {area = ""})';*@
         var urlObtenerStockActualProductoShowRoom = '@Url.Action("ObtenerStockActualProducto", "ShowRoom", new {area = ""})';
-        var urlValidarUnidadesPermitidasPedidoProducto = '@Url.Action("ValidarUnidadesPermitidasPedidoProducto", "OfertaLiquidacion", new {area = ""})';
+        @*var urlValidarUnidadesPermitidasPedidoProducto = '@Url.Action("ValidarUnidadesPermitidasPedidoProducto", "OfertaLiquidacion", new {area = ""})';*@
         var urlObtenerStockActualProducto = '@Url.Action("ObtenerStockActualProducto", "OfertaLiquidacion", new {area = ""})';
         var urlValidarUnidadesPermitidasPedidoProducto2 = '@Url.Action("ValidarUnidadesPermitidasPedidoProducto", "Accesorizate", new {area = ""})';
         var urlObtenerStockActualProducto2 = '@Url.Action("ObtenerStockActualProducto", "Accesorizate", new {area = ""})';
 
         var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new {area = ""})';
-        var urlPedidoUpdate = '@Url.Action("Update", "Pedido", new {area = ""})';
-        var urlPedidoDelete = '@Url.Action("Delete", "Pedido", new {area = ""})';
-        var urlPedidoDeleteAll = '@Url.Action("DeleteAll", "Pedido", new { area = "" })';
-        var urlInsertarDesglose = '@Url.Action("InsertarDesglose", "Pedido", new {area = ""})';
+        @*var urlPedidoUpdate = '@Url.Action("Update", "Pedido", new {area = ""})';
+        var urlPedidoDelete = '@Url.Action("Delete", "Pedido", new {area = ""})';*@
+        var urlPedidoDeleteAll = '@Url.Action("DeleteAll", "PedidoRegistro", new { area = "" })';
+        @*var urlInsertarDesglose = '@Url.Action("InsertarDesglose", "Pedido", new {area = ""})';*@
         var urlDeshacerReservaPedidoReservado = '@Url.Action("PedidoValidadoDeshacerReserva", "Pedido", new { area = "" })';
         var urlPedidoAceptarBackOrder = '@Url.Action("AceptarBackOrder", "Pedido", new { area = "" })';
 
         var urlDetallePedido = '@Url.Action("CargarDetallePedido", "Pedido", new { area = "" })';
-        var urlValidarKitNuevas = '@Url.Action("ValidarKitNuevas", "Pedido", new { area = "" })';
+        var urlValidarKitNuevas = '@Url.Action("ValidarKitNuevas", "PedidoRegistro", new { area = "" })';
         var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
         var fnEliminarProducto = null;
 
@@ -953,7 +953,7 @@
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
         var viewBagPaisID = '@Model.PaisID';
         var viewBagNombrePais = '@ViewBag.NombrePais';
-        var urlPedidoInsert = '@Url.Action("PedidoInsertar", "Pedido", new {area = ""})';
+        @*var urlPedidoInsert = '@Url.Action("PedidoInsertar", "Pedido", new {area = ""})';*@
 
         var origenPagina = 2;
         var cuvOfertaProl = '@ViewBag.CUVOfertaProl';

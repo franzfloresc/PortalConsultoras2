@@ -471,7 +471,7 @@ function ConfigurarFnEliminarProducto(CampaniaID, PedidoID, PedidoDetalleID, Tip
         ShowLoading();
         jQuery.ajax({
             type: 'POST',
-            url: urlPedidoDelete,
+            url: baseUrl + "PedidoRegistro/DeleteTransaction",
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(param),
@@ -505,7 +505,7 @@ function ConfigurarFnEliminarProducto(CampaniaID, PedidoID, PedidoDetalleID, Tip
                     }
                 });
                 cuponModule.actualizarContenedorCupon();
-                messageDelete('El producto fue Eliminado.');
+                messageDelete('El producto fue eliminado.');
 
                 ActualizarLocalStoragePalancas(data.data.CUV, false);
             },
@@ -746,7 +746,7 @@ function PedidoUpdate(item, PROL, detalleObj, elementRow) {
 
     jQuery.ajax({
         type: 'POST',
-        url: urlPedidoUpdate,
+        url: baseUrl + "PedidoRegistro/UpdateTransaction",
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(item),
@@ -1003,29 +1003,29 @@ function ActualizarBtnGuardar(model) {
     $('#btnGuardarPedido').text(model.Prol);
 }
 
-function AceptarObsInformativas() {
-    ShowLoading();
-    jQuery.ajax({
-        type: 'POST',
-        url: urlInsertarDesglose,
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        async: true,
-        success: function (data) {
-            CloseLoading();
-            if (!checkTimeout(data)) return;
+//function AceptarObsInformativas() {
+//    ShowLoading();
+//    jQuery.ajax({
+//        type: 'POST',
+//        url: urlInsertarDesglose,
+//        dataType: 'json',
+//        contentType: 'application/json; charset=utf-8',
+//        async: true,
+//        success: function (data) {
+//            CloseLoading();
+//            if (!checkTimeout(data)) return;
 
-            if (data.success) location.href = urlPedidoValidado;
-            else messageInfoMalo(data.message);
-        },
-        error: function (data, error) {
-            CloseLoading();
-            if (!checkTimeout(data)) return;
+//            if (data.success) location.href = urlPedidoValidado;
+//            else messageInfoMalo(data.message);
+//        },
+//        error: function (data, error) {
+//            CloseLoading();
+//            if (!checkTimeout(data)) return;
 
-            messageInfoMalo("Ocurrió un error al ejecutar la acción. Por favor inténtelo de nuevo.");
-        }
-    });
-}
+//            messageInfoMalo("Ocurrió un error al ejecutar la acción. Por favor inténtelo de nuevo.");
+//        }
+//    });
+//}
 
 function CancelarObsInformativas() {
     if ($('#hdfModificaPedido').val() != 1) {
@@ -1068,67 +1068,67 @@ function MostrarDetalleGanancia() {
     $('#popupGanancias').show();
 }
 
-function InsertarProducto(model, asyncX, urlMobile) {
-    var retorno = new Object();
+//function InsertarProducto(model, asyncX, urlMobile) {    
+//    var retorno = new Object();
 
-    urlPedidoInsert = (!urlMobile ? urlPedidoInsert : baseUrl + "Pedido/" + urlMobile);
-    jQuery.ajax({
-        type: 'POST',
-        url: urlPedidoInsert,
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(model),
-        async: asyncX == undefined || asyncX == null ? true : asyncX,
-        cache: false,
-        success: function (data) {
-            if (!checkTimeout(data)) {
-                CloseLoading();
-                return false;
-            }
+//    urlPedidoInsert = (!urlMobile ? urlPedidoInsert : baseUrl + "Pedido/" + urlMobile);
+//    jQuery.ajax({
+//        type: 'POST',
+//        url: urlPedidoInsert,
+//        dataType: 'json',
+//        contentType: 'application/json; charset=utf-8',
+//        data: JSON.stringify(model),
+//        async: asyncX == undefined || asyncX == null ? true : asyncX,
+//        cache: false,
+//        success: function (data) {
+//            if (!checkTimeout(data)) {
+//                CloseLoading();
+//                return false;
+//            }
 
-            if (data.success != true) {
-                messageInfoError(data.message);
-                CloseLoading();
-                return false;
-            }
+//            if (data.success != true) {
+//                messageInfoError(data.message);
+//                CloseLoading();
+//                return false;
+//            }
 
-            CloseLoading();
+//            CloseLoading();
 
-            setTimeout(function () { }, 2000);
+//            setTimeout(function () { }, 2000);
 
-            ActualizarGanancia(data.DataBarra);
+//            ActualizarGanancia(data.DataBarra);
 
-            TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);
-            dataLayer.push({
-                'event': 'addToCart',
-                'ecommerce': {
-                    'add': {
-                        'actionField': { 'list': 'Estándar' },
-                        'products': [{
-                            'name': data.data.DescripcionProd,
-                            'price': String(data.data.PrecioUnidad),
-                            'brand': data.data.DescripcionLarga,
-                            'id': data.data.CUV,
-                            'category': 'NO DISPONIBLE',
-                            'variant': data.data.DescripcionOferta,
-                            'quantity': Number(model.Cantidad),
-                            'position': 1
-                        }]
-                    }
-                }
-            });
+//            TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);
+//            dataLayer.push({
+//                'event': 'addToCart',
+//                'ecommerce': {
+//                    'add': {
+//                        'actionField': { 'list': 'Estándar' },
+//                        'products': [{
+//                            'name': data.data.DescripcionProd,
+//                            'price': String(data.data.PrecioUnidad),
+//                            'brand': data.data.DescripcionLarga,
+//                            'id': data.data.CUV,
+//                            'category': 'NO DISPONIBLE',
+//                            'variant': data.data.DescripcionOferta,
+//                            'quantity': Number(model.Cantidad),
+//                            'position': 1
+//                        }]
+//                    }
+//                }
+//            });
 
-            CargarPedido();
+//            CargarPedido();
 
-            retorno = data;
-        },
-        error: function (data, error) {
-            CloseLoading();
-        }
-    });
+//            retorno = data;
+//        },
+//        error: function (data, error) {
+//            CloseLoading();
+//        }
+//    });
 
-    return retorno;
-};
+//    return retorno;
+//};
 
 function ValidarPermiso(obj) {
     var permiso = $(obj).attr("disabled") || "";

@@ -31,6 +31,7 @@ namespace Portal.Consultoras.Web.Providers
         }
         protected OfertaBaseProvider _ofertaBaseProvider;
         protected ISessionManager _sessionManager;
+        protected ConsultaProlProvider _consultaProlProvider;
         public virtual ISessionManager SessionManager
         {
             get { return _sessionManager; }
@@ -40,22 +41,24 @@ namespace Portal.Consultoras.Web.Providers
         public EstrategiaComponenteProvider() : this(
             Web.SessionManager.SessionManager.Instance,
             new OfertaBaseProvider(),
-            new ConfiguracionManagerProvider())
+            new ConfiguracionManagerProvider(),
+            new ConsultaProlProvider())
         {
         }
 
         public EstrategiaComponenteProvider(ISessionManager sessionManager,
             OfertaBaseProvider ofertaBaseProvider,
-            ConfiguracionManagerProvider configuracionManagerProvider)
+            ConfiguracionManagerProvider configuracionManagerProvider,
+            ConsultaProlProvider consultaProlProvider)
         {
             _configuracionManagerProvider = configuracionManagerProvider;
             _ofertaBaseProvider = ofertaBaseProvider;
             this.SessionManager = sessionManager;
+            _consultaProlProvider = consultaProlProvider;
         }
 
         public List<EstrategiaComponenteModel> GetListaComponentes(EstrategiaPersonalizadaProductoModel estrategiaModelo, string codigoTipoEstrategia, out bool esMultimarca, out string mensaje)
         {
-            string joinCuv = string.Empty;
             List<BEEstrategiaProducto> listaBeEstrategiaProductos;
             esMultimarca = false;
             mensaje = "";
@@ -91,7 +94,8 @@ namespace Portal.Consultoras.Web.Providers
 
             listaEstrategiaComponente = OrdenarComponentesPorMarca(listaEstrategiaComponente, out esMultimarca);
             mensaje += "OrdenarComponentesPorMarca = " + listaEstrategiaComponente.Count + "|";
-            return listaEstrategiaComponente;
+
+            return _consultaProlProvider.ActualizarComponenteStockPROL( listaEstrategiaComponente, estrategiaModelo.CUV2, userData.CodigoISO, estrategiaModelo.CampaniaID,userData.GetCodigoConsultora());
         }
 
         public virtual List<BEEstrategiaProducto> GetEstrategiaProducto(int PaisID, int EstrategiaID)
@@ -450,9 +454,9 @@ namespace Portal.Consultoras.Web.Providers
                     x.IdMarca != Constantes.Marca.LBel);
 
             int contador = 0;
-            contador += listaComponentesCyzone.Any() ? 1 : 0;
-            contador += listaComponentesEzika.Any() ? 1 : 0;
-            contador += listaComponentesLbel.Any() ? 1 : 0;
+            contador += listaComponentesCyzone.Any().ToInt();
+            contador += listaComponentesEzika.Any().ToInt();
+            contador += listaComponentesLbel.Any().ToInt();
 
             esMultimarca = contador > 1;
 

@@ -76,7 +76,7 @@
         </div>
 
         <div class="pregunta_inconveniente_producto tipografia_lato tipografia_lato_bold Registro1" id="divUltimasSolicitudes">
-            ¿Con qué producto has tenido inconvenientes?
+            <div class="pregunta_inconveniente_producto_titulo">¿Con qué producto has tenido inconvenientes?</div>
             <div class="mi_solicitud_cdr">
                 <div class="pestania_ver_mi_solicitud">
                     <img src="@Url.Content("~/Content/Images/mobile/pestania_ver_solicitud.svg")" alt="Ver mi solicitud">
@@ -109,8 +109,7 @@
         <div class="campos_registro_solicitud_cdr Registro1">
             <div class="formulario_inscripcion_cdr">
                 @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.ListaCampania, "CampaniaID", "NombreCorto", Model.CampaniaID), new { id = "ddlCampania", @class = "select_reclamo", @required = "required" })
-                <select class="elige_num_pedido" id="ddlnumPedido" name="numPedido" required="required" style="display:none;">
-                </select>
+                <select class="elige_num_pedido" id="ddlnumPedido" name="numPedido" required="required" style="display:none;"></select>
                 <input id="txtNumPedido" type="text" style="text-align:center;display:none;"/>
                 <input id="cuvmobile" class="tipografia_lato tipografia_lato_regular ValidaNumeral ValidaPasteNumeral valid" type="text" value="" placeholder="Código o Descripción del producto"/>
 
@@ -149,7 +148,7 @@
             <input type="hidden" id="hdImporteTotalPedido" />
             <input type="hidden" id="hdCdrWebDatos_Ssic" />
             <input type="hidden" id="hdCuvPrecio2" />
-            <input type="hidden" id="hdCuvCodigo"/>
+            <input type="hidden" id="hdCuvCodigo" />
         </div>
         <div class="pregunta_inconveniente_producto tipografia_lato tipografia_lato_bold Registro2" style="display:none;">
             ¿Cuál fue el inconveniente?
@@ -202,6 +201,7 @@
                         <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad2" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
                                data-input="cantidad" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
                         <a class="cantidad_mas_home modificarPrecioMas"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                        <div class="clear"></div>
                     </div>
                 </div>
             </div>
@@ -237,6 +237,50 @@
         </div>
         <div id="divDetallePaso3" class="AceptarSolucion UltimasSolicitudes" style="display:none;">
         </div>
+        @if (Model.TieneCDRExpress)
+        {
+            <div id="EleccionTipoEnvio" class="eleccion_tipo_envio text-left">
+                <div class="tipo_envio tipo_envio_regular">
+                    <div class="tipo_envio_checkbox">
+                        <input type="radio" value="" id="TipoEnvioRegular" name="TipoEnvio" checked />
+                        <label for="TipoEnvioRegular">
+                            <span></span>
+                        </label>
+                    </div>
+                    <div id="divDespachoNormal" class="tipo_envio_descripcion">
+                        @Model.MensajesExpress.RegularPrincipal
+                        <br />
+                        @Model.MensajesExpress.RegularAdicional
+                    </div>
+                </div>
+                <div class="tipo_envio tipo_envio_express">
+                    <div class="tipo_envio_checkbox">
+                        <input type="radio" value="" id="TipoEnvioExpress" name="TipoEnvio" />
+                        <label for="TipoEnvioExpress">
+                            <span></span>
+                        </label>
+                    </div>
+                    <div id="divDespachoExpress" class="tipo_envio_descripcion">
+                        @Model.MensajesExpress.ExpressPrincipal
+                        <br />
+                        @if (!string.IsNullOrEmpty(Model.MensajesExpress.ExpressFlete))
+                        { @Model.MensajesExpress.ExpressFlete}                        
+                        @if (Model.EsConsultoraNueva)
+                        {
+                            <br />
+                            <span style="color:red;">@Model.MensajesExpress.Nuevas</span>
+                        }                        
+                        <br />
+                        @Model.MensajesExpress.ExpressAdicional
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div style="display:none;">
+            <input type="hidden" id="hdTieneCDRExpress" value="@(Model.TieneCDRExpress ? 1 : 0)" />
+            <input type="hidden" id="hdFleteDespacho" value="@Model.FleteDespacho" />
+        </div>
 
         <div class="validacion_datos tipografia_lato AceptarSolucion" style="display:none;">
             <div class="validacion_seccion_titulo">
@@ -271,11 +315,11 @@
         <div class="content_politica_devolucion tipografia_lato AceptarSolucion" style="display:none;">
             <input type="checkbox" value="" id="politica-devolucion" name="politica-devolucion" />
             <label for="politica-devolucion">
-                <span></span>
                 <a href="@Model.UrlPoliticaCdr" target="_blank" class="enlace_politica_devolucion tipografia_lato_regular"
                    title="acepto la política de devolución">
                     Acepto la política de cambios y devoluciones
                 </a>
+                <span></span>
             </label>
         </div>
         <div class="tooltip_btn_reportar_inconveniente tipografia_lato AceptarSolucion" style="display:none;">
@@ -600,9 +644,9 @@
 
         var mensajeGestionCdrInhabilitada = '@Html.Raw(Model.MensajeGestionCdrInhabilitada)';
         var mensajeCdrFueraDeFechaCompleto = '@Html.Raw(Constantes.CdrWebMensajes.FueraDeFecha)';
-		var mensajeChatEnLinea = '@Html.Raw(Constantes.CdrWebMensajes.ContactateChatEnLinea)';
+        var mensajeChatEnLinea = '@Html.Raw(Constantes.CdrWebMensajes.ContactateChatEnLinea)';
 
-		var flagAppMobile = @(!mobileConfiguracion.EsAppMobile ? 0 : 1);
+        var flagAppMobile = @(!mobileConfiguracion.EsAppMobile ? 0 : 1);
         if (flagAppMobile == 0) mensajeCdrFueraDeFechaCompleto = mensajeCdrFueraDeFechaCompleto + " " + mensajeChatEnLinea;
 
         var OrigenCDR = true;

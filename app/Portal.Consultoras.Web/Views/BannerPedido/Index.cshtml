@@ -24,17 +24,17 @@
             if (Id != "") {
                 waitingDialog({});
                 $.ajaxSetup({ cache: false });
-                $.getJSON(baseUrl + 'BannerPedido/ObtenterDropDownPorPais', { PaisID: Id == "" ? 0 : Id }, function (data) {
+                $.getJSON(baseUrl + 'BaseAdm/ObtenerCampaniasPorPais', { PaisID: Id == "" ? 0 : Id }, function (data) {
                     if (checkTimeout(data)) {
                         var ddlCampania = $("#ddlCampania");
 
                         if (Id != "") {
-                            if (data.lstCampania.length > 0) {
-                                for (var item in data.lstCampania) {
-                                    if (data.lstCampania.hasOwnProperty(item)) {
+                            if (data.lista.length > 0) {
+                                for (var item in data.lista) {
+                                    if (data.lista.hasOwnProperty(item)) {
                                         ddlCampania.append($('<option/>', {
-                                            value: data.lstCampania[item].CampaniaID,
-                                            text: data.lstCampania[item].Codigo
+                                            value: data.lista[item].CampaniaID,
+                                            text: data.lista[item].Codigo
                                         }));
                                     }
                                 }
@@ -136,7 +136,6 @@
                 $("#gvwIncentivos").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
                 limpiarPopup();
                 HideDialog("DialogRegistroIncentivos");
-                //$('#DialogRegistroIncentivos').dialog('close');
                 if (responseText && typeof responseText === "string") {
                     alert($.parseJSON(responseText).message);
                 } else {
@@ -167,7 +166,6 @@
                 },
                 "Cerrar": function () {
                     HideDialog("DialogRegistroIncentivos");
-                    //$(this).dialog('close');
                 }
             }
         });

@@ -8,16 +8,13 @@ using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class AdministrarReporteRevisionIncidenciasController : BaseController
+    public class AdministrarReporteRevisionIncidenciasController : BaseAdmController
     {
-        protected string _dbdefault = "dbdefault";
-
         protected OfertaBaseProvider _ofertaBaseProvider;
 
         public AdministrarReporteRevisionIncidenciasController()
@@ -31,8 +28,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return RedirectToAction("Index", "Bienvenida");
 
             string paisIso = Util.GetPaisISO(userData.PaisID);
-            var carpetaPais = Globals.UrlMatriz + "/" + paisIso;
-            var urlS3 = ConfigCdn.GetUrlCdn(carpetaPais);
+            var urlS3 = ConfigCdn.GetUrlCdnMatriz(paisIso);
 
             var reporteValidacionModel = new ReporteRevisionIncidenciasModel()
             {
@@ -68,29 +64,6 @@ namespace Portal.Consultoras.Web.Controllers
             return lst;
         }
 
-        public JsonResult ObtenerCampanias()
-        {
-            int paisId = userData.PaisID;
-            IEnumerable<CampaniaModel> lst = DropDowListCampanias(paisId);
-
-            return Json(new
-            {
-                lista = lst
-            }, JsonRequestBehavior.AllowGet);
-
-        }
-
-        private IEnumerable<CampaniaModel> DropDowListCampanias(int paisId)
-        {
-            IList<BECampania> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = sv.SelectCampanias(paisId);
-            }
-
-            return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
-        }
-
         private IEnumerable<TipoEstrategiaModel> DropDowListTipoEstrategia()
         {
             var lst = _tipoEstrategiaProvider.GetTipoEstrategias(userData.PaisID);
@@ -121,8 +94,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                bool dbdefault = HttpUtility.ParseQueryString(((System.Web.HttpRequestWrapper)Request).UrlReferrer.Query)[_dbdefault].ToBool();
-
                 if (ModelState.IsValid)
                 {
                     List<ReporteRevisionIncidenciasMDbAdapterModel> lst = new List<ReporteRevisionIncidenciasMDbAdapterModel>();
@@ -291,8 +262,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                bool dbdefault = HttpUtility.ParseQueryString(((System.Web.HttpRequestWrapper)Request).UrlReferrer.Query)[_dbdefault].ToBool();
-
                 if (ModelState.IsValid)
                 {
                     List<ReporteRevisionIncidenciasMDbAdapterModel> lst = new List<ReporteRevisionIncidenciasMDbAdapterModel>();
@@ -350,8 +319,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                bool dbdefault = HttpUtility.ParseQueryString(((System.Web.HttpRequestWrapper)Request).UrlReferrer.Query)[_dbdefault].ToBool();
-
                 if (ModelState.IsValid)
                 {
                     List<ReporteRevisionIncidenciasMDbAdapterModel> lst = new List<ReporteRevisionIncidenciasMDbAdapterModel>();

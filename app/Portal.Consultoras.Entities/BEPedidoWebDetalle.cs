@@ -330,6 +330,12 @@ namespace Portal.Consultoras.Entities
         public bool EsCuponNuevas { get; set; }
         [DataMember]
         public bool EsElecMultipleNuevas { get; set; }
+        [DataMember]
+        public string TipoAdm { get; set; }
+        [DataMember]
+        public bool QuitoCantBackOrder { get; set; }
+        [DataMember]
+        public bool EsDuoPerfecto { get; set; }
     }
 
 }

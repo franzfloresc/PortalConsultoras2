@@ -71,6 +71,12 @@ namespace Portal.Consultoras.BizLogic
             }
         }
 
+        public void ActualizarInsertarPuntosConcursoTransaction(int PaisID, string CodigoConsultora, string CodigoCampania, string CodigoConcursos, string PuntosConcurso, string PuntosExigidosConcurso)
+        {
+            DAConcurso DAConcurso = new DAConcurso(PaisID);
+            DAConcurso.ActualizarInsertarPuntosConcurso(CodigoConsultora, CodigoCampania, CodigoConcursos, PuntosConcurso, PuntosExigidosConcurso);
+        }
+
         /// <summary>
         /// Obtener el puntaje del concurso que participa la consultora.
         /// </summary>
@@ -412,7 +418,9 @@ namespace Portal.Consultoras.BizLogic
                         incentivosPremios = reader.MapToCollection<BEIncentivoProgramaNuevasPremio>();
                         foreach (var premio in incentivosPremios)
                         {
-                            premio.ImagenURL = (string.IsNullOrEmpty(premio.ImagenURL) ? string.Empty : string.Format(Resources.IncentivoMessages.UrlImagenCUV, ConfigCdn.GetUrlCdn(string.Empty), paisISO, premio.ImagenURL));
+                            premio.ImagenURL = (string.IsNullOrEmpty(premio.ImagenURL) 
+                                ? string.Empty 
+                                : string.Format(Resources.IncentivoMessages.UrlImagenCUV, ConfigCdn.GetUrlCdn(string.Empty), paisISO, premio.ImagenURL));
                             premio.DescripcionProducto = premio.DescripcionProducto.Split('|')[0];
                         }
 
@@ -421,7 +429,9 @@ namespace Portal.Consultoras.BizLogic
                             incentivosCupon = reader.MapToCollection<BEIncentivoProgramaNuevasCupon>();
                             foreach (var cupon in incentivosCupon)
                             {
-                                cupon.ImagenURL = (string.IsNullOrEmpty(cupon.ImagenURL) ? string.Empty : string.Format(Resources.IncentivoMessages.UrlImagenCUV, ConfigCdn.GetUrlCdn(string.Empty), paisISO, cupon.ImagenURL));
+                                cupon.ImagenURL = (string.IsNullOrEmpty(cupon.ImagenURL) 
+                                    ? string.Empty 
+                                    : string.Format(Resources.IncentivoMessages.UrlImagenCUV, ConfigCdn.GetUrlCdn(string.Empty), paisISO, cupon.ImagenURL));
                                 cupon.DescripcionProducto = cupon.DescripcionProducto.Split('|')[0];
                             }
                         }
@@ -467,11 +477,7 @@ namespace Portal.Consultoras.BizLogic
                 {
                     incentivosNivel = reader.MapToCollection<BEIncentivoNivel>();
 
-                    if (reader.NextResult())
-                    {
-                        incentivosPremios = reader.MapToCollection<BEIncentivoPremio>();
-                        incentivosPremios.Update(x => x.ImagenPremio = (string.IsNullOrEmpty(x.ImagenPremio) ? string.Empty : string.Format(Resources.IncentivoMessages.UrlImagenCUV, ConfigCdn.GetUrlCdn(string.Empty), paisISO, x.ImagenPremio)));
-                    }
+                    if (reader.NextResult()) incentivosPremios = reader.MapToCollection<BEIncentivoPremio>();
 
                     foreach (var item in incentivosNivel)
                     {

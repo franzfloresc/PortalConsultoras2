@@ -25,10 +25,15 @@ ul{
 a, a:hover,a:active{
     color:#000!important;
     text-decoration:none;
+    cursor:pointer;
 }
 
 body > img{
     display:none;
+}
+
+button:focus{
+    outline:0;
 }
 
 /* FIN - ESTILOS GENERALES */
@@ -341,7 +346,7 @@ body > img{
 
 /* FIN - PRECARGA PÁGINA RESULTADOS VERSIÓN MOBILE */
 
-/* HELPERS CSS */
+/* HELPERS CSS (DESKTOP) */
 
 .ml-0{
     margin-left:0;
@@ -395,6 +400,10 @@ body > img{
     font-weight:700;
 }
 
+.text-thin{
+    font-weight:300;
+}
+
 .text-underline{
     text-decoration:underline!important;
 }
@@ -408,13 +417,38 @@ body > img{
     border-radius: 20px;
 }
 
-/* FIN - HELPERS CSS*/
+.d-block.mostrarEnMobile{
+    display:none!important;
+}
+
+.mostrarEnMobile{
+    display:none;
+}
+
+.row.mostrarEnMobile{
+    display:none;
+}
+
+.mostrarEnDesktop{
+    display:block;
+}
+
+.row.mostrarEnDesktop{
+    display:flex;
+}
+
+/* FIN - HELPERS CSS (DESKTOP) */
 
 /* POPUP VALIDACIÓN AL AGREGAR PRODUCTO CON CANTIDAD CERO*/
 
 .ui-widget-header{
     background:#FFF;
-    border:0;
+}
+
+.ui-widget-header,
+.ui-widget-content
+{
+    border:0!important;
 }
 
 #alertDialogMensajes .ui-dialog.ui-widget-content {
@@ -504,27 +538,275 @@ body > img{
 
 /* FIN - POPUP VALIDACIÓN AL AGREGAR PRODUCTO CON CANTIDAD CERO */
 
-.mostrarEnMobile{
-    display:none;
+/* POPUPS GENERALES - POPUP CIERRE DE SESIÓN ANTIGUO (DESKTOP) */
+
+.contenedor_popup_agregarUnidades{
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent url('/Content/Images/bg_popups.png') repeat left top;
+    z-index: 1000;
+    overflow: auto;
 }
 
-.row.mostrarEnMobile{
-    display:none;
+.contenedor_popup_error {
+    z-index: 3000;
 }
 
-.mostrarEnDesktop{
-    display:block;
+.popup_agregarUnidades {
+    display: block;
+    position: relative;
+    top: 50%;
+    margin: -153px auto 0 auto;
+    background: #fff;
+    width: 100%;
+    max-width: 481px;
+    height: auto;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    box-sizing: border-box;
+    font-family: 'Lato';
 }
 
-.row.mostrarEnDesktop{
-    display:flex;
+.btn_cerrar_agregarUnidades {
+    display: block;
+    width: 100%;
+    max-width: 29px;
+    height: auto;
+    position: absolute;
+    top: 5px;
+    right: -43px;
 }
+
+.texto_btn_cerrar {
+    font-size: 9px;
+    color: #fff;
+    letter-spacing: .5px;
+    position: relative;
+    left: -6px;
+}
+
+.contenido_popUp {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 458px;
+    height: auto;
+}
+
+.titulo_agregarUnidades,
+.titulo_agregarUnidades b
+{
+    font-size:28px;
+}
+
+.titulo_agregarUnidades {
+    width: 100%;
+    margin: 0 0 19px 0;
+    padding: 0;
+    font-family: 'Lato';
+    color: #000;
+    font-weight: 300;
+    text-align: center;
+}
+
+.titulo_agregarUnidades b {
+    font-weight: bold;
+}
+
+.mensaje_agregarUnidades {
+    display: block;
+    font-size: 16px;
+    font-weight: normal;
+    color: #000;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.btn_ok {
+    display: block;
+    width: 139px;
+    height: 45px;
+    font-weight: bold;
+    font-size: 13px;
+    text-align: center;
+    line-height: 45px;
+    color: #fff;
+    margin: 0 auto;
+    border: 0;
+}
+
+/* FIN - POPUPS GENERALES - POPUP CIERRE DE SESIÓN ANTIGUO (DESKTOP) */
+
+/* POPUPS GENERALES - POPUP CIERRE DE SESIÓN (DESKTOP) */
+
+.popup_cierre_sesion{
+    position:fixed;
+    width:100%;
+    height:100%;
+    background-color:#FFF;
+    padding:58px 0;
+    top:0;
+    left:0;
+    z-index:10001;
+    overflow-x:hidden;
+}
+
+.popup_cierre_sesion_icono{
+    width:60px;
+    height:60px;
+    margin:33px auto;
+}
+
+.icono_sesion_por_finalizar,
+.icono_alerta_cierre_sesion
+{
+    background-position:center;
+    background-repeat:no-repeat;
+    background-size:100%;   
+}
+
+.popup_cierre_sesion_mensaje{
+    margin-bottom:89px;
+}
+
+.popup_cierre_sesion_mensaje,
+.popup_cierre_sesion_btn
+{
+    font-size:16px;
+}
+
+.popup_cierre_sesion_btn{
+    display:inline-block;
+    width:100%;
+    max-width:200px;
+    height:50px;
+    line-height:36px;
+    border:1px solid #000;
+    border-radius:4px;
+    font-family:'Lato', sans-serif;
+}
+
+.popup_cierre_sesion_btn_continuar,
+.popup_cierre_sesion_btn_reservar_pedido
+{
+    background-color:#FFF;
+    color:#000;
+    margin-right:35px;
+}
+
+.popup_cierre_sesion_btn_cerrar_sesion{
+    background-color:#000;
+    color:#FFF;
+}
+
+.btn_margen_inferior_30{
+    margin-bottom:30px;
+}
+
+/* FIN - POPUPS GENERALES - POPUP CIERRE DE SESIÓN (DESKTOP) */
+
+/* VISTA BREADCRUMBS Y TITULO DE VISTA (VERSIÓN DESKTOP) */
+
+.layout__view__breadcrumbs__wrapper{
+    margin-top:60px;
+}
+
+.layout__view__title__wrapper{
+    border-bottom:1px solid #000;
+}
+
+.layout__view__breadcrumbs,
+.layout__view__title
+{
+    max-width:1189px;
+}
+
+.layout__view__lista__breadcrumbs {
+    height: 58px;
+    margin-bottom: 6px;
+}
+
+.layout__view__breadcrumb {
+    border-right: 1px solid #878787;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.layout__view__breadcrumb:last-child{
+    border-right:none;
+}
+
+.layout__view__breadcrumb,
+.layout__view__breadcrumb a
+{
+    color:#b1b1b1!important;
+}
+
+.layout__view__breadcrumb--active__view span{
+    color:#878787;
+}
+
+.layout__view__breadcrumb a{
+    height:100%;
+    cursor:pointer;
+}
+
+.layout__view__title,
+.layout__view__title__text
+{
+    position:relative;
+}
+
+.layout__view__title__background,
+.layout__view__title__text span
+{
+    -moz-transform: skewX(-25deg);
+    -ms-transform: skewX(-25deg);
+    -o-transform: skewX(-25deg);
+    -webkit-transform: skewX(-25deg);
+    transform: skewX(-25deg);
+}
+
+.layout__view__title__background{
+    position:absolute;
+    top:0;
+    left:-190%;
+    width:200%;
+    height:51px;
+    z-index:1;
+}
+
+.layout__view__title__text{
+    height: 50px;
+    max-width: 310px;
+    -moz-transform: skewX(25deg);
+    -ms-transform: skewX(25deg);
+    -o-transform: skewX(25deg);
+    -webkit-transform: skewX(25deg);
+    transform: skewX(25deg);
+    margin:0;
+    z-index:2;
+}
+
+.layout__view__title__text span{
+    font-family:'Lato', sans-serif;
+    font-weight:300;
+    font-size:19px;
+    letter-spacing:1px;
+}
+
+/* FIN - VISTA BREADCRUMBS Y TITULO DE VISTA (VERSIÓN DESKTOP) */
 
 /* SECCIÓN CONTENIDO */
 
 .layout__content{
     margin-top:60px;
-    padding:20px 15px;
+    padding:29px 15px 20px 15px;
     min-height:calc(100vh - 207px);
     position:relative;
     z-index:2;
@@ -533,7 +815,7 @@ body > img{
 .layout__container{
     width:100%;
     min-width:992px;
-    max-width:1366px;
+    max-width:1189px;
     position:relative;
 }
 
@@ -553,6 +835,8 @@ body > img{
 
 @media screen and (max-width:991px) {
 
+    /* HELPERS CSS (MOBILE) */
+
     .mostrarEnMobile{
         display:block;
     }
@@ -569,9 +853,80 @@ body > img{
         display:none;
     }
 
+    .d-block.mostrarEnMobile{
+        display:block!important;
+    }
+
+    /* FIN - HELPERS CSS (MOBILE) */
+
+    /* VISTA BREADCRUMBS Y TITULO DE VISTA (VERSIÓN MOBILE) */
+
+    .layout__view__title,
+    .layout__view__title__text{
+        max-width:none;
+    }
+
+    .layout__view__title,
+    .layout__view__title__text,
+    .layout__view__title__text span
+    {
+        -moz-transform: none;
+        -ms-transform: none;
+        -o-transform: none;
+        -webkit-transform: none;
+        transform: none;
+    }
+
+    .layout__view__title__text {
+        height: 60px;
+        line-height:60px;
+    }
+
+    .layout__view__title__text span{
+        font-size:17px;
+    }
+
+    .layout__view__title__icono__volver{
+        width:26px;
+        height:20px;
+        margin-right:-30px;
+    }
+
+    .layout__view__title__icono__volver img{
+        width:100%;
+        height:auto;
+    }
+
+    .layout__main__content{
+        margin-top:60px;
+    }
+
+    /* FIN - VISTA BREADCRUMBS Y TITULO DE VISTA (VERSIÓN MOBILE) */
+
+    /* SECCIÓN CONTENIDO (MOBILE) */
+
     .layout__container{
         min-width:0;
         max-width:none;
     }
+
+    /* FIN - SECCIÓN CONTENIDO (MOBILE) */
+
+    /* POPUPS GENERALES - POPUP CIERRE DE SESIÓN (MOBILE) */
+
+    .popup_cierre_sesion_btn_continuar,
+    .popup_cierre_sesion_btn_reservar_pedido,
+    .popup_cierre_sesion_mensaje,
+    .popup_cierre_sesion_btn
+    {
+        margin-left:auto;
+        margin-right:auto;
+    }
+
+    .popup_cierre_sesion_mensaje{
+        max-width:280px;
+    }
+
+    /* FIN - POPUPS GENERALES - POPUP CIERRE DE SESIÓN (MOBILE) */
 
 }
