@@ -312,9 +312,11 @@ namespace Portal.Consultoras.Web.Controllers
             List<BENotificacionesDetallePedido> lstObservacionesPedido;
             _notificacionProvider.GetNotificacionesValAutoProl(ProcesoId, TipoOrigen, userData.PaisID, out lstObservaciones, out lstObservacionesPedido);
             if (!string.IsNullOrEmpty(Campania))
-            {
+            {
+
                 int campaniaId = int.Parse(Campania);
-                var detallesPedidoWeb = new List<Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle>();
+                var detallesPedidoWeb = new List<Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle>();
+
                 using (var pedidoServiceClient = new PedidoServiceClient())
                 {
                     var parametros = new BEPedidoWebDetalleParametros
@@ -329,20 +331,25 @@ namespace Portal.Consultoras.Web.Controllers
                         AgruparSet = true
                     };
                     detallesPedidoWeb = pedidoServiceClient.SelectByCampania(parametros).ToList();
-                }
+                }
+
                 var hayPedidoSet = detallesPedidoWeb.Where(x => x.SetID > 0).ToList();
-                var listadoHijos = new List<Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle>();
+                var listadoHijos = new List<Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle>();
+
                 if (hayPedidoSet.Any())
                 {
                     var lstSetId = string.Empty;
                     var pedidoId = detallesPedidoWeb.FirstOrDefault().PedidoID;
-                    lstSetId = string.Join(",", detallesPedidoWeb.Where(x => x.SetID > 0).Select(e => e.SetID));
+                    lstSetId = string.Join(",", detallesPedidoWeb.Where(x => x.SetID > 0).Select(e => e.SetID));
+
                     using (var sv = new PedidoServiceClient())
                     {
                         listadoHijos = sv.ObtenerCuvSetDetalle(userData.PaisID, campaniaId, userData.ConsultoraID, pedidoId, lstSetId).ToList();
                     }
-                }
-                lstObservacionesPedido = _notificacionProvider.AgruparNotificaciones(lstObservacionesPedido, detallesPedidoWeb, listadoHijos, Campania);
+                }
+
+                lstObservacionesPedido = _notificacionProvider.AgruparNotificaciones(lstObservacionesPedido, detallesPedidoWeb, listadoHijos, Campania);
+
             }
 
 

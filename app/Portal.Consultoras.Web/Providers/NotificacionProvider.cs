@@ -99,10 +99,10 @@ namespace Portal.Consultoras.Web.Providers
         public List<BENotificacionesDetallePedido> AgruparNotificaciones( List<BENotificacionesDetallePedido> lstObservacionesPedido, 
             List<BEPedidoWebDetalle> detallesPedidoWeb , List<BEPedidoWebDetalle> listadoHijos, string Campania)
         {
-                            
-
 
                     detallesPedidoWeb.ForEach(itemPedido => {
+                         
+                        itemPedido.DescripcionProd = itemPedido.SetIdentifierNumber>=0? string.Format("{0} #{1}",itemPedido.DescripcionProd, itemPedido.SetIdentifierNumber): itemPedido.DescripcionProd;
 
                         if (itemPedido.SetID > 0 && listadoHijos.Any())
                         {
