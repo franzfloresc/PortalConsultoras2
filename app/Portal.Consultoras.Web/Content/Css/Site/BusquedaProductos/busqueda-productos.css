@@ -1473,6 +1473,10 @@
         max-width: 50%;
     }
 
+    .ficha__producto__precio{
+        min-height:39px;
+    }
+
     .ficha__producto--delgada .ficha__producto__precio__normal,
     .ficha__producto--delgada .ficha__producto__precio__oferta
     {
