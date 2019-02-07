@@ -1,6 +1,8 @@
-UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para alcanzar el M. mínimo' WHERE TipoMensaje='MontoMinimo';
+UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para alcanzar el M. mÃ­nimo' WHERE TipoMensaje='MontoMinimo';
 UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para llevarte tu regalo' WHERE TipoMensaje='TippingPoint';
-UPDATE MensajeMetaConsultora SET Mensaje='Sólo puedes agregar #valor más' WHERE TipoMensaje='MontoMaximo';
-UPDATE MensajeMetaConsultora SET Mensaje='¡Alcanzaste tu monto máximo!' WHERE TipoMensaje='MontoMaximoSupero';
+UPDATE MensajeMetaConsultora SET Mensaje='SÃ³lo puedes agregar #valor mÃ¡s' WHERE TipoMensaje='MontoMaximo';
+UPDATE MensajeMetaConsultora SET Mensaje='Â¡Alcanzaste tu monto mÃ¡ximo!' WHERE TipoMensaje='MontoMaximoSupero';
 UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para el #porcentaje% DSCTO' WHERE TipoMensaje='EscalaDescuento';
-UPDATE MensajeMetaConsultora SET Mensaje='¡Alcanzaste el descuento máximo de #porcentaje% DSCTO!' WHERE TipoMensaje='EscalaDescuentoSupero';
+UPDATE MensajeMetaConsultora SET Mensaje='Â¡Alcanzaste el descuento mÃ¡ximo de #porcentaje% DSCTO!' WHERE TipoMensaje='EscalaDescuentoSupero';
+DELETE MensajeMetaConsultora WHERE TipoMensaje='MinimoTippingPoint';
+INSERT INTO MensajeMetaConsultora(TipoMensaje, Titulo, Mensaje) VALUES('MinimoTippingPoint', '', 'Te falta #valor para alcanzar el M. mÃ­nimo y regalo');
