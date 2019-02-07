@@ -4,12 +4,12 @@
 
     var _config = {
         //urlPanelMantener: config.urlPanelMantener || "",
-        urlPanelMantener:  "#hfUrlFrmRegistro",
+        urlPanelMantener: "#hfUrlFrmRegistro",
         tusClientesProvider: config.tusClientesProvider /*|| TusClientesProvider()*/
     };
 
     var _elements = {
-        panelRegistroContenedor : "#PanelClienteRegistro_contenedor",
+        panelRegistroContenedor: "#PanelClienteRegistro_contenedor",
         panelClienteRegistro: "#PanelClienteRegistro",
         btnAgregar: "#btnPanelListaAgregar",
         txtNombreCliente: "#txtPanelListaBusqueda",
@@ -21,7 +21,15 @@
         hfNombre: "#hfNombre",
         //
         hbsClientes: "#handlebars_plantilla1",
-        divClientes:"#handlebars_contenedor1"
+        divClientes: "#handlebars_contenedor1",
+
+        hdnId: "#ClienteID",
+        hdnCodigo: "#CodigoCliente",
+        txtNombre: "#NombreCliente",
+        txtApellido: "#ApellidoCliente",
+        txtCorreo: "#eMail",
+        txtTelefono: "#Telefono",
+        txtCelular: "#Celular"
     };
 
     var _loadPanelMantener = function () {
@@ -39,6 +47,15 @@
     };
 
     var _panelRegistroShow = function () {
+
+        $(_elements.hdnId).val('');
+        $(_elements.hdnCodigo).val('');
+        $(_elements.txtNombre).val('');
+        $(_elements.txtApellido).val('');
+        $(_elements.txtCorreo).val('');
+        $(_elements.txtTelefono).val('');
+        $(_elements.txtCelular).val('');
+
         $(_elements.panelClienteRegistro).show();
     };
 
@@ -66,7 +83,7 @@
             .done(function (data) {
                 //console.log(data);
                 SetHandlebars(_elements.hbsClientes, data, _elements.divClientes);
-                _seleccionarRegistro("", "", "", "","");
+                _seleccionarRegistro("", "", "", "", "");
             });
     };
 
@@ -79,7 +96,7 @@
 
         _mostrarTusClientes();
 
-        $("body").on("click", _elements.btnAgregar,function (e) {
+        $("body").on("click", _elements.btnAgregar, function (e) {
             _panelRegistroShow();
         });
 
@@ -91,7 +108,7 @@
             }
         });
 
-        $("#btnPanelListaCerrar_todo").click( function () {   
+        $("#btnPanelListaCerrar_todo").click(function () {
             $('#PanelClienteLista').css('margin-right', '-330px');
             $('#PanelClienteLista').css('opacity', '.0');
             $('#PanelClienteLista').hide();

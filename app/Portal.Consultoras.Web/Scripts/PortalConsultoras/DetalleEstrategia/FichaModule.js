@@ -228,7 +228,6 @@ var FichaModule = (function (config) {
             return "[data-ficha-contenido=" + templateId + "]";
         },
         navegar: "ficha_navegar_template",
-        producto: "ficha_producto_template",
         carrusel: "ficha_carrusel_template",
         compartir: "ficha_compartir_template",
         styleOdd: "ofertadeldia-template-style"
@@ -398,10 +397,6 @@ var FichaModule = (function (config) {
         var pEstrategia = _estrategia;
         if (pEstrategia === null || typeof (pEstrategia) === "undefined") {
             _redireccionar();
-            return false;
-        }
-
-        if (!_modeloFicha.MostrarAdicional) {
             return false;
         }
 
@@ -592,6 +587,7 @@ var FichaModule = (function (config) {
         estrategia.ClaseBloqueadaRangos = "contenedor_rangos_desactivado";
         estrategia.RangoInputEnabled = "disabled";
         estrategia.esEditable = _config.esEditable;
+        estrategia.setId = _config.setId || 0;
 
         return estrategia;
     };
@@ -612,9 +608,8 @@ var FichaModule = (function (config) {
         $(_elementos.dataEstrategia.id).attr(_elementos.dataEstrategia.dataEstrategia, JSON.stringify(estrategia));
         _setEstrategiaBreadcrumb(estrategia);
         estrategia.MostrarCliente = _modeloFicha.MostrarCliente;
-        
-        _setHandlebars(_template.producto, estrategia);
-        
+        SetHandlebars("#detalle_ficha_template", estrategia, "#seccion_ficha_handlebars");
+
         _setEstrategiaTipoBoton(estrategia);
 
         opcionesEvents.applyChanges("onEstrategiaLoaded", estrategia);
@@ -625,7 +620,7 @@ var FichaModule = (function (config) {
 
         if (estrategia.TieneReloj) {
             _crearReloj(estrategia);
-            _setHandlebars(_template.styleOdd, _modeloFicha);
+            SetHandlebars("#" + _template.styleOdd, _modeloFicha, _template.getTagDataHtml(_template.styleOdd));
         }
 
         if (!_config.esMobile) {
@@ -691,7 +686,7 @@ var FichaModule = (function (config) {
         // texto boton
         if (pEstrategia.TieneStock) {
             if (_config.esEditable) {
-                $(_elementos.btnAgregalo).html("MODIFICAR");
+                $(_elementos.btnAgregalo).html("ACTUALIZAR");
             }
             else {
                 $(_elementos.btnAgregalo).html("AGRÉGALO");
@@ -846,13 +841,13 @@ var FichaModule = (function (config) {
 
         _modeloFicha.BreadCrumbs = _modeloFicha.BreadCrumbs || {};
         _modeloFicha.BreadCrumbs.TipoAccionNavegar = _modeloFicha.TipoAccionNavegar;
-        _setHandlebars(_template.navegar, _modeloFicha.BreadCrumbs);
+        SetHandlebars("#" + _template.navegar, _modeloFicha.BreadCrumbs, _template.getTagDataHtml(_template.navegar));
 
         if (_modeloFicha.TieneCarrusel) {
-            _setHandlebars(_template.carrusel, _modeloFicha);
+            SetHandlebars("#" + _template.carrusel, _modeloFicha, _template.getTagDataHtml(_template.carrusel));
         }
 
-        _setHandlebars(_template.compartir, _modeloFicha);
+        SetHandlebars("#" + _template.compartir, _modeloFicha, _template.getTagDataHtml(_template.compartir));
 
     };
 
@@ -887,10 +882,6 @@ var FichaModule = (function (config) {
     }
 
     ////// Fin - Construir Estructura Ficha
-
-    var _setHandlebars = function (idTemplate, modelo) {
-        SetHandlebars("#" + idTemplate, modelo, _template.getTagDataHtml(idTemplate));
-    }
 
     var _redireccionar = function () {
         if (!_config.esEditable)
@@ -1040,7 +1031,7 @@ var FichaEditarModule = (function () {
             $('#DivPopupFichaResumida').show();
         }
         else {
-            $("[data-ficha-contenido='ofertadeldia-template-style']").html("");
+            $(_template.getTagDataHtml(_template.navegar)).html("");
             $('#DivPopupFichaResumida').hide();
             $("body").css("overflow", "scroll");
         }

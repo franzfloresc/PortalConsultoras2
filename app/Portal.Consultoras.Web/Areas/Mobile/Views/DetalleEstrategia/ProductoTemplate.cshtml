@@ -1,6 +1,6 @@
 ﻿@using Portal.Consultoras.Common
 
-<script id="ficha_producto_template" type="text/x-handlebars-template">
+<script id="detalle_ficha_template" type="text/x-handlebars-template">
     <div data-OrigenPedidoWeb="{{OrigenUrl}}" data-OrigenPedidoWebAgregar="{{OrigenAgregar}}">
 
         {{#if TieneReloj}}
@@ -181,7 +181,7 @@
                     <a class="btn_agregar_ficha_producto {{ClaseBloqueada}}"
                        id="btnAgregalo"
                        data-bloqueada=""
-                       onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, false, 0, true); ">AGRÉGALO</a>
+                       onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, false, 0, true,{{esEditable}}); ">AGRÉGALO</a>
                 </div>
 
                 <div class="boton_agotado_ficha" id="div-boton-agotado" style="display: none;">

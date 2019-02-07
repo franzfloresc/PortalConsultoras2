@@ -75,7 +75,7 @@
         };
 
         $(_elements.btnGuardarCliente).hide();
-        //AbrirSplash();
+        AbrirSplash();
         _config
             .tusClientesProvider
             .mantenerPromise(cliente)
@@ -89,24 +89,40 @@
                     alert(data.message);
                     if (typeof _config.setNombreClienteCallback === "function") {
                         if (_config.seleccionarClienteDespuesEditar) {
+
+                            console.log(data);
                             _config.setNombreClienteCallback(cliente.NombreCliente);
+
+                            _SeteoCerrarPanelLista(data);//asignar datos a los controles
                         } else {
                             _config.setNombreClienteCallback("");
                         }
                     }
-                    if (typeof _config.mostrarTusClientesCallback === "function")_config.mostrarTusClientesCallback();
-                    if (typeof _config.panelRegistroHideCallback === "function")_config.panelRegistroHideCallback();
+                    //if (typeof _config.mostrarTusClientesCallback === "function")_config.mostrarTusClientesCallback();//cargar lista de clientes
+                    if (typeof _config.panelRegistroHideCallback === "function") _config.panelRegistroHideCallback();
                 }
                 else {
                     alert(data.message);
                 }
                 //}
                 $(_elements.btnGuardarCliente).show();
+                CerrarSplash();
             })
             .fail(function (data, error) {
                 $(_elements.btnGuardarCliente).show();
+                CerrarSplash();
             });;
-        //CerrarSplash();
+        
+    };
+
+    var _SeteoCerrarPanelLista = function (data) {
+
+        $("#hfClienteID").val(data.ClienteID);
+        $("#hfCodigoCliente").val(data.CodigoCliente);
+        $("#hfNombreCliente").val(data.NombreCompleto);
+        $("#hfNombre").val(data.NombreCompleto);
+        $("#btnPanelListaAceptar").click();
+
     };
 
     var _btnCancelarClienteOnClick = function (e) {
@@ -147,6 +163,6 @@
 
     return {
         init: _init,
-        setCliente : _setCliente
+        setCliente: _setCliente
     };
 };

@@ -2437,6 +2437,7 @@ namespace Portal.Consultoras.Common
             public const string INSERT = "I";
             public const string UPDATE = "U";
             public const string DELETE = "D";
+            public const string UPDATESET = "US";
         }
 
         public static class FlagRevista

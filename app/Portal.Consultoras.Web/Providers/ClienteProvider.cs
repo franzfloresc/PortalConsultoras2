@@ -25,7 +25,7 @@ namespace Portal.Consultoras.Web.Providers
             return clientesResult;
         }
 
-        public virtual string SaveDB(int paisId, long consultoraId, ClienteModel client)
+        public virtual BEClienteDB SaveDB(int paisId, long consultoraId, ClienteModel client)
         {
 
             List<BEClienteDB> clientes = new List<BEClienteDB>();
@@ -82,7 +82,7 @@ namespace Portal.Consultoras.Web.Providers
                 response = serviceClient.SaveDB(paisId, clientes.ToArray()).ToList();
             }
 
-            return response.First().CodigoRespuesta;
+            return response.First();
         }
 
         public virtual bool Eliminar(int paisId, long consultoraId, int clientId)

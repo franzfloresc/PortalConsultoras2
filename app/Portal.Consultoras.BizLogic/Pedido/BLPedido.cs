@@ -2085,6 +2085,9 @@ namespace Portal.Consultoras.BizLogic.Pedido
                                     SetIdList.Add(obePedidoWebDetalle.SetID);                                  
                                 }
                                 break;
+                            case Constantes.PedidoAccion.UPDATESET:
+
+                                break;
                         }
 
                         if (obePedidoWebDetalle.TipoAdm == Constantes.PedidoAccion.UPDATE && obePedidoWebDetalle.QuitoCantBackOrder)
@@ -2117,6 +2120,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                                  _pedidoWebSetBusinessLogic.EliminarTransaction(usuario.PaisID, setidItem, usuario.ConsultoraID);
                                 });
                             }
+                            break;
+                        case Constantes.PedidoAccion.UPDATESET:
 
                             break;
                     }
@@ -3437,9 +3442,22 @@ namespace Portal.Consultoras.BizLogic.Pedido
             string mensajeObs = "";
             string TituloMensaje = "";
             var modificoBackOrder = false;
-            var transactionExitosa = AdministradorPedido(usuario, pedidoDetalle, pedidowebdetalles, estrategia, Componentes, Constantes.PedidoAccion.INSERT, out mensajeObs, out listCuvEliminar, out TituloMensaje, out modificoBackOrder);
 
-            var response = PedidoDetalleRespuesta(transactionExitosa ? Constantes.PedidoValidacion.Code.SUCCESS : Constantes.PedidoValidacion.Code.ERROR_GRABAR, mensajeObs);
+            var result2 = false;
+            if (pedidoDetalle.EsEditable)
+            {
+                var xx = Delete(new BEPedidoDetalle
+                {
+                    Usuario = pedidoDetalle.Usuario,
+                    PaisID = pedidoDetalle.PaisID,
+                    SetID = pedidoDetalle.SetID,
+                    PedidoID = pedidoDetalle.PedidoID,
+                    IPUsuario = pedidoDetalle.IPUsuario
+                }).Result;
+            }
+            result2 = AdministradorPedido(usuario, pedidoDetalle, pedidowebdetalles, estrategia, Componentes, Constantes.PedidoAccion.INSERT, out mensajeObs, out listCuvEliminar, out TituloMensaje, out modificoBackOrder);
+
+            var response = PedidoDetalleRespuesta(result2 ? Constantes.PedidoValidacion.Code.SUCCESS : Constantes.PedidoValidacion.Code.ERROR_GRABAR, mensajeObs);
             response.ListCuvEliminar = listCuvEliminar;
             response.PedidoWebDetalle = pedidowebdetalles[0];
             response.MensajeAviso = mensajeObs;

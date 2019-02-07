@@ -103,12 +103,17 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var clienteNuevo = client.ClienteID == 0;
 
-                if (_clienteProvider.SaveDB(userData.PaisID, userData.ConsultoraID, client) == Constantes.ClienteValidacion.Code.SUCCESS)
+                var response = _clienteProvider.SaveDB(userData.PaisID, userData.ConsultoraID, client);
+
+                if (response.CodigoRespuesta == Constantes.ClienteValidacion.Code.SUCCESS)
                 {
                     return Json(new
                     {
                         success = true,
-                        message = clienteNuevo ? "Se registró con éxito tu cliente." : "Se actualizó con éxito tu cliente."
+                        message = clienteNuevo ? "Se registró con éxito tu cliente." : "Se actualizó con éxito tu cliente.",
+                        ClienteID = response.ClienteID,
+                        CodigoCliente = response.CodigoCliente,
+                        NombreCompleto = response.NombreCompleto
                     });
                 }
                 else
