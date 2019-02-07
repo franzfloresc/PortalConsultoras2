@@ -3762,21 +3762,6 @@ namespace Portal.Consultoras.Common
             int marcaId, bool mobile, bool home, bool recomendaciones, bool materialGanancia)
         {
             var result = "";
-            if (materialGanancia)
-            {
-                if (codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertaParaTi ||
-                    codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi ||
-                    codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso)
-                {
-                    result = home ?
-                      (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorGanadorasDesplegable.ToString() : 
-                          Constantes.OrigenPedidoWeb.DesktopBuscadorGanadorasDesplegable.ToString())
-                      :
-                      (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorGanadorasCarrusel.ToString() : 
-                          Constantes.OrigenPedidoWeb.DesktopBuscadorGanadorasCarrusel.ToString());
-                }              
-                return result;
-            }
 
             switch (codigoEstrategia)
             {
@@ -3840,7 +3825,16 @@ namespace Portal.Consultoras.Common
                         case Constantes.TipoEstrategiaCodigo.OfertaParaTi:
                         case Constantes.TipoEstrategiaCodigo.OfertasParaMi:
                         case Constantes.TipoEstrategiaCodigo.PackAltoDesembolso:
-                            result = recomendaciones ?
+                            result = recomendaciones && materialGanancia ? 
+                                    (mobile ? Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoGanadoras.ToString() :
+                                    Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoGanadoras.ToString())
+                                : materialGanancia ? (home ?
+                                            (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorGanadorasDesplegable.ToString() :
+                                                Constantes.OrigenPedidoWeb.DesktopBuscadorGanadorasDesplegable.ToString())
+                                            :
+                                            (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorGanadorasCarrusel.ToString() :
+                                                Constantes.OrigenPedidoWeb.DesktopBuscadorGanadorasCarrusel.ToString()))
+                                : recomendaciones ?
                                 (mobile ? Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoOpm.ToString() :
                                     Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoOpm.ToString())
                                 : home ?

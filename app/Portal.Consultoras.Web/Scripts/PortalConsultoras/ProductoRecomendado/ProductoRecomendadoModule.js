@@ -7,7 +7,9 @@
         botonAgregar: ".btn_producto_recomendado_agregalo",
         valueJSON: ".hdRecomendadoJSON",
         next: ".next",
-        previous: ".previous"
+        previous: ".previous",
+        divImagenProductoPedido: "div.producto_por_agregar_imagen",
+        divDescripcionProductoPedido: "div.producto_por_agregar_nombre"
     };
     var _config = {
         isMobile: window.matchMedia("(max-width:991px)").matches,
@@ -184,13 +186,20 @@
                 .done(function (data) {
                     $(_elementos.divProducto).html("");
                     if (data.Total !== 0) {
+                        var listaProductos = [];
                         $.each(data.Productos, function (index, item) {
                             item.posicion = index + 1;
                             if (item.Descripcion.length > _config.maxCaracteresRecomendaciones) {
                                 item.Descripcion = item.Descripcion.substring(0, _config.maxCaracteresRecomendaciones) + "...";
                             }
+                            if (item.TipoPersonalizacion !== "CAT") listaProductos.push(item);
+                            if (_config.isMobile) {
+                                //id = divProductoMantenedor
+                                $(_elementos.divImagenProductoPedido).find("img").attr("src", item.Imagen);
+                                $(_elementos.divDescripcionProductoPedido).html(item.Descripcion);
+                            }
                         });
-                        SetHandlebars(_elementos.templateProducto, data.Productos, _elementos.divProducto);
+                        SetHandlebars(_elementos.templateProducto, listaProductos, _elementos.divProducto);
                         if (_config.isMobile) {
                             _funciones.ArmarCarruselProductosRecomendadosMobile();
                         } else {
