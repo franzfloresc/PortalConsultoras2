@@ -87,7 +87,7 @@ var ReadImage = function (file) {
     reader.readAsDataURL(file);
     reader.onload = function (_file) {
 
-        image.src = _file.target.result:
+        image.src = _file.target.result;
         image.onload = function () {
             var height = this.height;
             var width = this.width;
