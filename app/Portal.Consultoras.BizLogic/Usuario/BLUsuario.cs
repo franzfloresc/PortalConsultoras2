@@ -1,31 +1,33 @@
 ﻿using JWT;
 using Newtonsoft.Json;
+
 using Portal.Consultoras.BizLogic.Pedido;
 using Portal.Consultoras.BizLogic.RevistaDigital;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
+using Portal.Consultoras.Data.ServiceActualizarFlagBoletaImpresa;
 using Portal.Consultoras.Data.Hana;
+using Portal.Consultoras.Data.ServiceDirecciondeEntrega;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Cupon;
 using Portal.Consultoras.Entities.OpcionesVerificacion;
 using Portal.Consultoras.Entities.RevistaDigital;
+using Portal.Consultoras.Entities.Pedido;
+using Portal.Consultoras.Entities.ProgramaNuevas;
+using Portal.Consultoras.Entities.Usuario;
 using Portal.Consultoras.PublicService.Cryptography;
+
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.IO;
 using System.Linq;
-using System.Net.Configuration;
 using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Transactions;
-using Portal.Consultoras.Entities.ProgramaNuevas;
-using Portal.Consultoras.Entities.Usuario;
-using Portal.Consultoras.Data.ServiceDirecciondeEntrega;
 using System.ServiceModel;
-using Portal.Consultoras.Data.ServiceActualizarFlagBoletaImpresa;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -3804,6 +3806,7 @@ namespace Portal.Consultoras.BizLogic
             {
                 try
                 {
+                    /*Actualizar perfil*/
                     resultado = ActualizarMisDatos(usuario, usuario.CorreoAnterior);
                     lst = resultado.Split('|');
 
@@ -3811,21 +3814,9 @@ namespace Portal.Consultoras.BizLogic
                     {
                         throw new Exception(lst[2]);
                     }
-                    if (usuario.DireccionEntrega == null)
-                        throw new System.ArgumentException("el parametro DireccionEntrega, no puede ser null", "usuario.DireccionEntrega");
 
-                    /*Movimientos Tabla DireccionEntrega */
-                    if (usuario.DireccionEntrega.Operacion == Constantes.OperacionBD.Editar)
-                    {
-                        bool DireccionCambio = false;
-                        bool ReferenciaCambio = false;
-                        DireccionCambio = !(usuario.DireccionEntrega.Direccion.Trim().Equals(usuario.DireccionEntrega.DireccionAnterior.Trim()));
-                        ReferenciaCambio = !(usuario.DireccionEntrega.Referencia.Trim().Equals(usuario.DireccionEntrega.ReferenciaAnterior.Trim()));
-                        if (ReferenciaCambio || DireccionCambio)
-                            _direccionEntregaBusinessLogic.Editar(usuario.DireccionEntrega);
-                    }
-                    else
-                      _direccionEntregaBusinessLogic.Insertar(usuario.DireccionEntrega);
+                    /*Insertar dirección entrega*/
+                    if (usuario.DireccionEntrega != null) RegistraDireccionEntrega(usuario.CodigoISO, usuario.DireccionEntrega);
 
                     /*Insertar permisos*/
                     var DAUsuario = new DAUsuario(usuario.PaisID);
@@ -3834,26 +3825,6 @@ namespace Portal.Consultoras.BizLogic
                         DAUsuario.InsertarUsuarioOpciones(item, usuario.CodigoUsuario);
                     }
 
-                    var remoteAddress = new  EndpointAddress(WebConfig.ServicioDireccionEntregaSicc);
-                    string direcConcat = usuario.DireccionEntrega.Direccion + "|" + usuario.DireccionEntrega.Zona + "|" + usuario.DireccionEntrega.Referencia;
-                    if (direcConcat.Length > 100) direcConcat = direcConcat.Substring(0, 100);
-
-                    using (var svr = new ProcesoMAEActualizarDireccionEntregaWebServiceImplClient(new BasicHttpBinding(), remoteAddress))
-                    {
-                        svr.Endpoint.Binding.SendTimeout = new TimeSpan(0, 0, 0, 10);
-                        var Direccionexterna = new DireccionEntregaMAEWebService
-                        {
-                            latitud = usuario.DireccionEntrega.Latitud.ToString(),
-                            longitud = usuario.DireccionEntrega.Longitud.ToString(),
-                            direccion = direcConcat,
-                            codigoConsultora = usuario.DireccionEntrega.CodigoConsultora
-
-                        };
-                        string CodigoIsoSicc = Common.Util.GetSiccPaisISO(usuario.CodigoISO);
-                        var result = svr.actualizacionDireccionEntrega(CodigoIsoSicc, Direccionexterna);
-                        if(result.codigo=="2")
-                            throw new Exception(result.mensaje);
-                    }
                     if (usuario.PaisID == Constantes.PaisID.Chile)
                     {
                         var urlService = new EndpointAddress(WebConfig.ServicioActualizarBoletaImp);
@@ -3881,6 +3852,45 @@ namespace Portal.Consultoras.BizLogic
                 }               
             }
             return resultado;
+        }
+
+        public void RegistraDireccionEntrega(string codigoISO, BEDireccionEntrega direccionEntrega)
+        {
+            /*Envío SQL*/
+            if (direccionEntrega.Operacion == Constantes.OperacionBD.Editar)
+            {
+                var DireccionCambio = !(direccionEntrega.Direccion.Trim().Equals(direccionEntrega.DireccionAnterior.Trim()));
+                var ReferenciaCambio = !(direccionEntrega.Referencia.Trim().Equals(direccionEntrega.ReferenciaAnterior.Trim()));
+
+                if (ReferenciaCambio || DireccionCambio) _direccionEntregaBusinessLogic.Editar(direccionEntrega);
+            }
+            else
+            {
+                _direccionEntregaBusinessLogic.Insertar(direccionEntrega);
+            }
+
+            /*Envío SICC*/
+            var remoteAddress = new EndpointAddress(WebConfig.ServicioDireccionEntregaSicc);
+            var direcConcat = string.Concat(direccionEntrega.Direccion, "|", direccionEntrega.Zona, "|", direccionEntrega.Referencia);
+            if (direcConcat.Length > 100) direcConcat = direcConcat.Substring(0, 100);
+
+            var Direccionexterna = new DireccionEntregaMAEWebService
+            {
+                latitud = direccionEntrega.Latitud.ToString(),
+                longitud = direccionEntrega.Longitud.ToString(),
+                direccion = direcConcat,
+                codigoConsultora = direccionEntrega.CodigoConsultora
+
+            };
+
+            var CodigoIsoSicc = Common.Util.GetSiccPaisISO(codigoISO);
+
+            using (var svr = new ProcesoMAEActualizarDireccionEntregaWebServiceImplClient(new BasicHttpBinding(), remoteAddress))
+            {
+                svr.Endpoint.Binding.SendTimeout = new TimeSpan(0, 0, 0, 10);
+                var result = svr.actualizacionDireccionEntrega(CodigoIsoSicc, Direccionexterna);
+                if (result.codigo == "2") throw new Exception(result.mensaje);
+            }
         }
     }
 }

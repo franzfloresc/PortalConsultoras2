@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Usuario;
+using Portal.Consultoras.Entities.Pedido;
 using System;
 using System.Collections.Generic;
 
@@ -105,5 +106,6 @@ namespace Portal.Consultoras.BizLogic
         #region UsuariosOpciones
         List<BEUsuarioOpciones> GetUsuarioOpciones(int paisID, string codigoUsuario);
         #endregion
+        void RegistraDireccionEntrega(string codigoISO, BEDireccionEntrega direccionEntrega);
     }
 }
