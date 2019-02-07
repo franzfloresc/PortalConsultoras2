@@ -38,7 +38,7 @@
             <div data-estrategia="{{JSON2string item}}"></div>
         </div>
 
-        <a href="javascript:;" data-item-tag="verdetalle"
+        <div data-item-tag="verdetalle"
              onclick="javascript:OnClickFichaDetalle(this);">
 
             <div class="producto_img">
@@ -60,7 +60,7 @@
                 </span>
                 <span class="precio_oferta_item">{{SimboloMoneda}} {{PrecioVenta}}</span>
             </div>
-        </a>
+        </div>
         <div class="clear"></div>
         @if (ViewBag.TieneBotones)
         {
@@ -69,11 +69,11 @@
         {
             <div data-tipoagregar="{{TipoAccionAgregar}}">
                 {{#iff TipoAccionAgregar '==' '@Constantes.TipoAccionAgregar.EligeOpcion'}}
-                <a href="javascript:;" class="elige_tono_item cursor_pointer"
+                <div class="elige_tono_item cursor_pointer"
                      data-item-tag="verdetalle"
                      onclick="javascript:OnClickFichaDetalle(this);">
                     <img src="/Content/Images/mobile/Esika/click-ico.svg"> ELIGE TU OPCIÓN
-                </a>
+                </div>
                 {{/iff}}
             </div>
         }
