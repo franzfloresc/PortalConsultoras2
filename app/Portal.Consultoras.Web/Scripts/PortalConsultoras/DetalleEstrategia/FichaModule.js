@@ -401,6 +401,10 @@ var FichaModule = (function (config) {
             return false;
         }
 
+        if (!_modeloFicha.MostrarAdicional) {
+            return false;
+        }
+
         if (pEstrategia.CodigoEstrategia === _constantePalanca.Lanzamiento) {
             //Construir sección ficha - Video
             if (_config.esMobile) {
