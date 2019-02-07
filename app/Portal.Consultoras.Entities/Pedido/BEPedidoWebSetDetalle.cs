@@ -50,5 +50,10 @@ namespace Portal.Consultoras.Entities.Pedido
         [DataMember]
         [Column("TipoOfertaSisID")]
         public int TipoOfertaSisId { get; set; }
+
+        [DataMember]
+        [Column("SetIdentifierNumber")]
+        public int SetIdentifierNumber { get; set; }
+        
     }
 }

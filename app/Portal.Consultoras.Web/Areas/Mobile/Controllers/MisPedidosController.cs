@@ -119,6 +119,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                             {
                                 ClienteID = detalle.ClienteID,
                                 CUV = detalle.CUV,
+                                SetIdentifierNumber = detalle.SetIdentifierNumber,
                                 DescripcionProducto = detalle.DescripcionProd,
                                 Cantidad = detalle.Cantidad,
                                 PrecioUnidad = Util.DecimalToStringFormat(detalle.PrecioUnidad, userData.CodigoISO, userData.Simbolo),

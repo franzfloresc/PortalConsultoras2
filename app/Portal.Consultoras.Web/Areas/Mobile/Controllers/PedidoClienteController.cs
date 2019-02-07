@@ -73,7 +73,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                                 MarcaID = det.MarcaID,
                                 //descripcionmarca
                                 ObservacionPROL = det.ObservacionPROL,
-                                IndicadorOfertaCUV = det.IndicadorOfertaCUV
+                                IndicadorOfertaCUV = det.IndicadorOfertaCUV,
+                                SetIdentifierNumber = det.SetIdentifierNumber
                             });
                         }
 
