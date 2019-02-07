@@ -9,8 +9,10 @@ var OperacionDb = { Insertar: "0", Editar: "1" };
 $(document).ready(function () {
 
     if ($('#SeccionDireccionEntrega').length != 0) {
-        if (EsMobile == 'True') {
-            $('.enlace_abrir_mapa')[0].disabled = true;
+        if (EsMobile == '1') {
+            if (window.matchMedia("(max-width: 991px)").matches) {
+                $('.enlace_abrir_mapa')[0].disabled = true;
+            }
         } else {
             $('.enlace_ubicacion_actual')[0].style.display = "none";
         }
@@ -145,7 +147,7 @@ $(document).ready(function () {
             },
             ModoEdicion: function() {
                 //$('#Ubigeo1').trigger("change");
-                if (EsMobile == 'True')
+                if (EsMobile == '1')
                    $('.enlace_abrir_mapa')[0].disabled = false;
                 me.Funciones.CargarUbigeos();
           
@@ -389,7 +391,7 @@ function actualizarDatos() {
     
     $('#btnGuardar')[0].disabled = true;
 
-    var TieneDireccionEntrega = $("#TieneDireccionEntrega").val();
+    var TieneDireccionEntrega = $("#hdn_TienedireccionEntrega").val();
 
     var hdn_CaracterMaximo = $("#hdn_CaracterMaximo").val();
     var hdn_CaracterMinimo = $("#hdn_CaracterMinimo").val();
@@ -963,7 +965,7 @@ var GoogleMap = function() {
             $('#Direccion').focusout(function () {
                 var dropdown = document.getElementsByClassName('pac-container')[0];
                 if (dropdown.style.display == 'none') {
-                    if (EsMobile == 'True') {
+                    if (EsMobile == '1') {
 
                         $('.enlace_abrir_mapa')[0].disabled = true;
                         $('.enlace_abrir_mapa').addClass('enlace_abrir_mapa_disabled');
@@ -1013,7 +1015,7 @@ var GoogleMap = function() {
             
             me.Funciones.LimpiarMapa();
             $('#Direccion').val('');
-            if (EsMobile == 'True') {
+            if (EsMobile == '1') {
                 $('.enlace_abrir_mapa')[0].disabled = true;
                 $('.enlace_abrir_mapa').addClass('enlace_abrir_mapa_disabled');
             }
@@ -1067,7 +1069,7 @@ var GoogleMap = function() {
                 map.setCenter(place.geometry.location);
                 map.setZoom(ZoonMapa);
             }
-            if (EsMobile == 'True') {
+            if (EsMobile == '1') {
                 $('.enlace_abrir_mapa')[0].disabled = false;
                 $('.enlace_abrir_mapa').removeClass('enlace_abrir_mapa_disabled');
             }
@@ -1108,7 +1110,7 @@ var GoogleMap = function() {
                             for (var i = 0; i < results.length; i++) {
                                 if (results[i].types.indexOf('street_address') >= 0) {
                                     
-                                    if (EsMobile == 'True')
+                                    if (EsMobile == '1')
                                         $("#RouteDirection").html(results[i].formatted_address);
                                     else
                                     {
