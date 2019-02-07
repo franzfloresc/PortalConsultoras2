@@ -185,7 +185,7 @@
                 <a id="btnAgregalo"
                    class="btn_agregalo {{#if esCampaniaSiguiente}} {{ClaseBloqueada}} {{/if}}"
                    {{#if esCampaniaSiguiente}} data-bloqueada="{{ClaseBloqueada}}" {{/if}}
-                   onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, false, 0, true); ">
+                   onclick="javascript: EstrategiaAgregarModule.EstrategiaAgregar(event, false, 0, true, {{esEditable}}); ">
                     AGRÉGALO
                 </a>
                 {{else}}

@@ -530,6 +530,7 @@
       <xs:element minOccurs="0" name="Segmento" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="SegmentoAbreviatura" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="SegmentoConstancia" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SegmentoDatami" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="SegmentoID" type="xs:int" />
       <xs:element minOccurs="0" name="SegmentoInternoID" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="Simbolo" nillable="true" type="xs:string" />

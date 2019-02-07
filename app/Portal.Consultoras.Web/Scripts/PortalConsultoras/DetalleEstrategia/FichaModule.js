@@ -585,6 +585,7 @@ var FichaModule = (function (config) {
         estrategia.ClaseBloqueadaRangos = "contenedor_rangos_desactivado";
         estrategia.RangoInputEnabled = "disabled";
         estrategia.esEditable = _config.esEditable;
+        estrategia.setId = _config.setId || 0;
 
         return estrategia;
     };
