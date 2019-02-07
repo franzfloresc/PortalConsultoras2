@@ -709,7 +709,7 @@ var FichaModule = (function (config) {
         // texto boton
         if (pEstrategia.TieneStock) {
             if (_config.esEditable) {
-                $(_elementos.btnAgregalo).html("ACTUALIZAR");
+                $(_elementos.btnAgregalo).html("MODIFICAR");
             }
             else {
                 $(_elementos.btnAgregalo).html("AGRÉGALO");
