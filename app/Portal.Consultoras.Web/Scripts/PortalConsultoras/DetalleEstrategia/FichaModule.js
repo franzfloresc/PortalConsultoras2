@@ -477,11 +477,11 @@ var FichaModule = (function (config) {
                 .filter(function (objeto) {
                     return objeto.Hermanos != null
                         && objeto.Hermanos.length > 0
-                        && objeto.Hermanos.filter(function (nx) { return nx.Cuv == i.CuvProducto }).length > 0
+                        && objeto.Hermanos.filter(function (nx) { return nx.Cuv == o.CuvProducto }).length > 0
                 });
 
             if (filterComponente.length) {
-                ComponentesModule.SeleccionarComponenteDinamico(o.CuvProducto);
+                ComponentesModule.SeleccionarComponente(filterComponente[0].Cuv);
                 ListaOpcionesModule.SeleccionarOpcion(o.CuvProducto);
                 ResumenOpcionesModule.AplicarOpciones();
             }
@@ -630,9 +630,10 @@ var FichaModule = (function (config) {
         SetHandlebars("#detalle_ficha_template", estrategia, "#seccion_ficha_handlebars");
 
         _setEstrategiaTipoBoton(estrategia);
-        _setPedidoSetDetalle(estrategia);
 
         opcionesEvents.applyChanges("onEstrategiaLoaded", estrategia);
+
+        _setPedidoSetDetalle(estrategia);
 
         _setEstrategiaImgFondo(estrategia);
 
