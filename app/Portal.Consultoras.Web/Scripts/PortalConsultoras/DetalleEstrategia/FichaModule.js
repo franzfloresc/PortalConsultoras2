@@ -469,6 +469,8 @@ var FichaModule = (function (config) {
                 ResumenOpcionesModule.AplicarOpciones();
             }
         });
+          
+        $(_elementos.btnAgregalo).addClass("btn_desactivado_general");
     }
 
     var _setPedidoSetDetalle = function (pEstrategia) {
@@ -610,6 +612,7 @@ var FichaModule = (function (config) {
         $(_elementos.dataEstrategia.id).attr(_elementos.dataEstrategia.dataEstrategia, JSON.stringify(estrategia));
         _setEstrategiaBreadcrumb(estrategia);
         estrategia.MostrarCliente = _modeloFicha.MostrarCliente;
+        
         _setHandlebars(_template.producto, estrategia);
         
         _setEstrategiaTipoBoton(estrategia);
@@ -1009,7 +1012,6 @@ var FichaEditarModule = (function () {
 
         window.setTimeout(function () {
             fichaModule = FichaModule(objFicha);
-
             CerrarLoad();
             _showDivFichaResumida(true);
             fichaModule.Inicializar();
