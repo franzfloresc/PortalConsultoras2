@@ -2675,4 +2675,15 @@ function ReordenarMontosBarra()
  
     }
 
+
+    if (IsoPais == 'CR' && barra.length >=5) {
+
+    for (var x = 0; x < barra.length; x++) {
+  
+            document.getElementById('punto_' + x.toString()).firstChild.firstChild.firstChild.style.fontSize = '9.2px';
+            document.getElementById('punto_' + x.toString()).firstChild.firstChild.firstChild.nextSibling.style.fontSize = '9.2px';
+    
+    }
+ 
+    }
 }
