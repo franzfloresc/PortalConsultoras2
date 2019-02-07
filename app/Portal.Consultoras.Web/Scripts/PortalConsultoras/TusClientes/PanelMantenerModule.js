@@ -75,7 +75,7 @@
         };
 
         $(_elements.btnGuardarCliente).hide();
-        //AbrirSplash();
+        AbrirSplash();
         _config
             .tusClientesProvider
             .mantenerPromise(cliente)
@@ -106,11 +106,13 @@
                 }
                 //}
                 $(_elements.btnGuardarCliente).show();
+                CerrarSplash();
             })
             .fail(function (data, error) {
                 $(_elements.btnGuardarCliente).show();
+                CerrarSplash();
             });;
-        //CerrarSplash();
+        
     };
 
     var _SeteoCerrarPanelLista = function (data) {
