@@ -681,19 +681,22 @@ function MostrarBarra(datax, destino) {
 
     var valorFalta = vLimite - vLogro;
     var tipoMensaje = '';
-    var limiteEsPremio = mn <= vLogro && vLogro < tp; //  && tp <= vLimite;
+    var muestraTP = destino == '2' && dataBarra.TippingPointBarra.Active && tp > 0;
 
-    if (destino == '2' && dataBarra.TippingPointBarra.Active && limiteEsPremio) {
+    if (vLogro < mn){
+        var minimoTP = muestraTP && dataBarra.TippingPointBarra.InMinimo;
+        tipoMensaje = minimoTP ? "MinimoTippingPoint" : "MontoMinimo";
+    }
+    else if (muestraTP && vLogro < tp) {
         valorFalta = tp - vLogro;
         tipoMensaje = "TippingPoint";
     }
-    else if (vLogro < mn) tipoMensaje = "MontoMinimo";
     else {
         tipoMensaje = listaLimite[indPuntoLimite].tipoMensaje;
         if (tipoMensaje == 'EscalaDescuento') valorFalta = vLimite - me;
         if (vLogro >= vLimite) tipoMensaje += "Supero";
     }
-    
+        
     var mtoTp = variablesPortal.SimboloMoneda + " " + dataBarra.TippingPointStr;
     $('#montoPremioMeta').html(mtoTp);
     if (tp > 0) {
@@ -721,11 +724,7 @@ function MostrarBarra(datax, destino) {
     $("#divBarra #divBarraMensajeLogrado .mensaje_barra").html(objMsg.Titulo.replace("#porcentaje", valPor).replace("#valor", valorMonto));
 
     var dvMsg = $("#divBarra #divBarraMensajeLogrado .barra_title");
-    if (mtoLogroBarra >= tp && hasPremioInDetails()) {
-        dvMsg.html('¡Alcanzaste tu regalo!');
-    } else {
-        dvMsg.html('');
-    }
+    dvMsg.html(muestraTP && mtoLogroBarra >= tp && hasPremioInDetails() ? '¡Alcanzaste tu regalo!' : '');
 
     
     if (tp > 0 && dataBarra.TippingPointBarra.Active) {
