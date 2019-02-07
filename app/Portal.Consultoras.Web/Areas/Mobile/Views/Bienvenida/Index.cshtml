@@ -287,6 +287,11 @@
                     @Util.DecimalToStringFormat(Convert.ToDecimal(Model.MontoAhorroCatalogo + Model.MontoAhorroRevista), Model.CodigoISO)
                 </span>
             </div>
+            <div role="link" region="Central" parent="Ganancia Estimada Total" title="Pedido ingresado" class="texto_inferior" style="text-decoration:underline;">
+                <a href="@Url.Action("Index", "Pedido")">
+                    Pedido ingresado: @Model.Simbolo <span class="js-span-pedidoingresado">@Util.DecimalToStringFormat(Model.MontoPedido, Model.CodigoISO)</span>
+                </a>
+            </div>
             <a role="link" region="Central" title="Ver más" class="btn_borde_black mt-23 mb-0" href="@Url.Action("Index", "EscalaDescuentos", new { area = "" })"> VER M&Aacute;S</a>
         </div>
     </div>
@@ -862,7 +867,7 @@
         var urlCatalogoPersonalizado = '@Url.Action("Index", "CatalogoPersonalizado", new { area = "Mobile" })';
         var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "Estrategia", new { area = "" })';
 
-        var tipoOrigenEstrategia = 2; 
+        var tipoOrigenEstrategia = 2;
         var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.MobileHomeOfertaDelDiaCarrusel';
         var noMostrarPopUpRevistaDig = '@Model.RevistaDigital.NoVolverMostrar';
 
