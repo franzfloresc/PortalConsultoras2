@@ -65,10 +65,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 if (mostrarBanner || mostrarBannerTop)
                 {
                     ViewBag.PermitirCerrarBannerPL20 = permitirCerrarBanner;
+                    _showRoomProvider.CargarEventoConsultora(userData);
                     ShowRoomBannerLateralModel showRoomBannerLateral = _showRoomProvider.GetShowRoomBannerLateral(userData.CodigoISO, userData.ZonaHoraria, userData.FechaInicioCampania);
                     ViewBag.ShowRoomBannerLateral = showRoomBannerLateral;
                     ViewBag.MostrarShowRoomBannerLateral = SessionManager.GetEsShowRoom() &&
-                        !showRoomBannerLateral.ConsultoraNoEncontrada && !showRoomBannerLateral.ConsultoraNoEncontrada &&
+                        !showRoomBannerLateral.ConsultoraNoEncontrada &&
                         showRoomBannerLateral.BEShowRoomConsultora.EventoConsultoraID != 0 && showRoomBannerLateral.EstaActivoLateral;
 
 
