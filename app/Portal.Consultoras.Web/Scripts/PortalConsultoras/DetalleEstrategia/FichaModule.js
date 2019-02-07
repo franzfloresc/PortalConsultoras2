@@ -229,7 +229,8 @@ var FichaModule = (function (config) {
         },
         navegar: "ficha_navegar_template",
         carrusel: "ficha_carrusel_template",
-        compartir: "ficha_compartir_template"
+        compartir: "ficha_compartir_template",
+        styleOdd: "ofertadeldia-template-style"
     };
 
     var _seccionesFichaProducto = {
@@ -616,7 +617,7 @@ var FichaModule = (function (config) {
 
         if (estrategia.TieneReloj) {
             _crearReloj(estrategia);
-            SetHandlebars("#ofertadeldia-template-style", _modeloFicha, "#styleRelojOddFicha");
+            SetHandlebars("#" + _template.styleOdd, _modeloFicha, _template.getTagDataHtml(_template.styleOdd));
         }
 
         if (!_config.esMobile) {
@@ -813,11 +814,15 @@ var FichaModule = (function (config) {
     };
 
     var _validarSiEsAgregado = function (estrategia) {
-        if (!_config.esEditable) {
+        if (_config.esEditable) {
+            $("#ContenedorAgregado").remove();
+        }
+        else {
             if (estrategia.IsAgregado) {
                 $("#ContenedorAgregado").show();
             }
         }
+
     };
 
     ////// Fin - Construir Seccion Estrategia
@@ -925,7 +930,7 @@ var FichaModule = (function (config) {
         });
         //END PANEL CLIENTE
     }
-    
+
     var _analytics = function () {
 
         if (typeof AnalyticsPortalModule === 'undefined')
@@ -1024,6 +1029,7 @@ var FichaEditarModule = (function () {
             $('#DivPopupFichaResumida').show();
         }
         else {
+            $(_template.getTagDataHtml(_template.navegar)).html("");
             $('#DivPopupFichaResumida').hide();
             $("body").css("overflow", "scroll");
         }
