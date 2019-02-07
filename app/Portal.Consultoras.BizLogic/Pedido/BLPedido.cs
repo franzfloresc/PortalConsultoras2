@@ -1,20 +1,22 @@
 ﻿using Portal.Consultoras.BizLogic.Reserva;
+using Portal.Consultoras.BizLogic.LimiteVenta;
 using Portal.Consultoras.Common;
-using Portal.Consultoras.Entities.ProgramaNuevas;
 using Portal.Consultoras.Data.ServiceCalculoPROL;
 using Portal.Consultoras.Data.ServicePROL;
 using Portal.Consultoras.Data.ServicePROLConsultas;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Pedido;
 using Portal.Consultoras.Entities.ReservaProl;
+using Portal.Consultoras.Entities.Producto;
+using Portal.Consultoras.Entities.ProgramaNuevas;
 using Portal.Consultoras.PublicService.Cryptography;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Portal.Consultoras.BizLogic.LimiteVenta;
 
 namespace Portal.Consultoras.BizLogic.Pedido
 {
@@ -108,7 +110,12 @@ namespace Portal.Consultoras.BizLogic.Pedido
             {
                 //Informacion de palancas
                 var usuario = productoBuscar.Usuario;
-                var configuracionPaisTask = Task.Run(() => _usuarioBusinessLogic.ConfiguracionPaisUsuario(usuario, Constantes.ConfiguracionPais.RevistaDigital));
+
+                var lstConfiguracionPais = new List<string>();
+                lstConfiguracionPais.Add(Constantes.ConfiguracionPais.RevistaDigital);
+                lstConfiguracionPais.Add(Constantes.ConfiguracionPais.Recomendaciones);
+
+                var configuracionPaisTask = Task.Run(() => _usuarioBusinessLogic.ConfiguracionPaisUsuario(usuario, string.Join("|", lstConfiguracionPais)));
                 var codigosRevistasTask = Task.Run(() => _usuarioBusinessLogic.ObtenerCodigoRevistaFisica(usuario.PaisID));
                 if (Constantes.Inicializacion.EnteroInicial == usuario.ConsecutivoNueva)
                 {
@@ -147,8 +154,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     Enumeradores.ValidacionVentaExclusiva numExclu = ValidarVentaExclusiva(usuario, productoBuscar.CodigoDescripcion);
                     if (numExclu != Enumeradores.ValidacionVentaExclusiva.ContinuaFlujo)
                         return ProductoBuscarRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_NOPERTENECE_VENTAEXCLUSIVA);
-                    
-                }                
+
+                }
                 #endregion
 
                 //Validación producto no existe
@@ -203,7 +210,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 //Validación producto liquidaciones
                 if (producto.TipoOfertaSisID == Constantes.ConfiguracionOferta.Liquidacion) return ProductoBuscarRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_LIQUIDACION, null, producto);
 
-                //Validacción producto sugerido
+                //Validación producto sugerido
                 if (producto.TieneSugerido > 0) return ProductoBuscarRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_SUGERIDO, null, producto);
 
                 //Información de producto con oferta en revista
@@ -219,6 +226,9 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         else return ProductoBuscarRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_OFERTAREVISTA_LBEL, null, producto);
                     }
                 }
+
+                //Validación ofertas relacionadas
+                producto.TieneOfertasRelacionadas = TieneOfertasRelacionadas(usuario, producto);
 
                 return ProductoBuscarRespuesta(Constantes.PedidoValidacion.Code.SUCCESS, null, producto);
             }
@@ -381,6 +391,11 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     var tippingPoint = _configuracionProgramaNuevasBusinessLogic.Get(consultoraNuevas);
                     if (tippingPoint.IndExigVent == "1") pedido.TippingPoint = tippingPoint.MontoVentaExigido;
                 }
+
+                //Duo Perfecto
+                if (usuario.CodigoPrograma != string.Empty && usuario.ConsecutivoNueva > 0)
+                    lstDetalle.Where(x => x.FlagNueva && x.EnRangoProgNuevas)
+                        .Update(x => x.EsDuoPerfecto = _programaNuevasBusinessLogic.EsCuvDuoPerfecto(usuario.PaisID, usuario.CampaniaID, usuario.ConsecutivoNueva, usuario.CodigoPrograma, x.CUV));
             }
             catch (Exception ex)
             {
@@ -1340,6 +1355,26 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 }
             }).ToList();
         }
+
+        public List<BEProductoRecomendado> GetProductoRecomendado(int paisID, bool RDEsSuscrita, bool RDEsActiva, List<BEProductoRecomendado> lst)
+        {
+            var listaDescripcionesDic = new Dictionary<string, string>();
+            var suscripcionActiva = RDEsSuscrita && RDEsActiva;
+
+            var listaDescripciones = _tablaLogicaDatosBusinessLogic.GetListCache(paisID, Constantes.TablaLogica.NuevaDescripcionProductos);
+
+            foreach (var item in listaDescripciones)
+            {
+                listaDescripcionesDic.Add(item.Codigo, item.Descripcion);
+            }
+
+            lst.ForEach(item =>
+            {
+                item.DescripcionEstrategia = Util.obtenerNuevaDescripcionProducto(listaDescripcionesDic, suscripcionActiva, item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaID, 0, true);
+            });
+
+            return lst;
+        }
         #endregion
 
         #region GetCUV
@@ -1415,6 +1450,22 @@ namespace Portal.Consultoras.BizLogic.Pedido
             {
                 return Enumeradores.ValidacionVentaExclusiva.ContinuaFlujo;
             }
+        }
+
+        private bool TieneOfertasRelacionadas(BEUsuario usuario, BEProducto producto)
+        {
+            var activarRecomendaciones = usuario.RecomendacionesConfiguracion.Where(x => x.Codigo == Constantes.CodigoConfiguracionRecomendaciones.ActivarRecomendaciones && x.Valor1 == "1").Any();
+            var esCatalogo = false;
+            var esIndividual = producto.EstrategiaIDSicc == 2001;
+
+            var oCodigoCatalogo = usuario.RecomendacionesConfiguracion.Where(x => x.Codigo == Constantes.CodigoConfiguracionRecomendaciones.CodigoCatalogo).FirstOrDefault();
+            if (oCodigoCatalogo != null)
+            {
+                var lstCodigoCatalogo = oCodigoCatalogo.Valor1.Split(',');
+                esCatalogo = lstCodigoCatalogo.Where(x => x == producto.CodigoCatalogo.ToString()).Any();
+            }
+
+            return activarRecomendaciones && esCatalogo && esIndividual;
         }
         #endregion
 
@@ -1701,7 +1752,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
             PedidoInsertar(usuario, pedidoDetalle, lstDetalle, true);
         }
 
-        private bool ValidarStockLimiteVenta(BEUsuario usuario, BEPedidoDetalle pedidoDetalle, List<BEPedidoWebDetalle> pedido, out string mensaje) {            
+        private bool ValidarStockLimiteVenta(BEUsuario usuario, BEPedidoDetalle pedidoDetalle, List<BEPedidoWebDetalle> pedido, out string mensaje)
+        {
             var cantidadActual = pedido.Where(d => d.CUV == pedidoDetalle.Producto.CUV).Sum(d => d.Cantidad);
             var respValidar = _limiteVentaBusinessLogic.CuvTieneLimiteVenta(usuario.PaisID, usuario.CampaniaID, usuario.CodigorRegion, usuario.CodigoZona, pedidoDetalle.Producto.CUV, pedidoDetalle.Cantidad, cantidadActual);
             if (respValidar.TieneLimite) mensaje = string.Format(Constantes.MensajesError.ExcedioLimiteVenta, respValidar.UnidadesMaximas);
@@ -2096,7 +2148,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     listaRevista = listaRevista.Where(e => e.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
 
                 var cantMax = 8;
-                var cantPack = listaPackNueva.Any() ? 1 : 0;
+                var cantPack = listaPackNueva.Any().ToInt();
                 var top = Math.Min(cantMax - cantPack, listaRevista.Count);
 
                 if (listaRevista.Count > top)
@@ -2553,6 +2605,36 @@ namespace Portal.Consultoras.BizLogic.Pedido
             if (validacionHorario.MotivoPedidoLock != Enumeradores.MotivoPedidoLock.Ninguno)
                 return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_RESERVADO_HORARIO_RESTRINGIDO, validacionHorario.Mensaje);
 
+            //Obtener Detalle
+            var pedidoDetalleBuscar = new BEPedidoBuscar()
+            {
+                PaisID = usuario.PaisID,
+                CampaniaID = usuario.CampaniaID,
+                ConsultoraID = usuario.ConsultoraID,
+                NombreConsultora = usuario.Nombre,
+                CodigoPrograma = usuario.CodigoPrograma,
+                ConsecutivoNueva = usuario.ConsecutivoNueva
+            };
+            var lstDetalle = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
+            pedidoDetalle.PedidoID = pedidoID;
+
+            //Valida que producto sea de duo perfecto
+            var cntProd = 0;
+            var esDuoPerfecto = _programaNuevasBusinessLogic.EsCuvDuoPerfecto(usuario.PaisID, usuario.CampaniaID, usuario.ConsecutivoNueva, usuario.CodigoPrograma, pedidoDetalle.Producto.CUV);
+
+
+            //validacion duo perfecto
+            if (esDuoPerfecto)
+            {
+                lstDetalle.Where(x => x.FlagNueva && x.EnRangoProgNuevas)
+                       .Update(x => x.EsDuoPerfecto = _programaNuevasBusinessLogic.EsCuvDuoPerfecto(usuario.PaisID, usuario.CampaniaID, usuario.ConsecutivoNueva, usuario.CodigoPrograma, x.CUV));
+                cntProd = lstDetalle.Where(x => x.EsDuoPerfecto).Count();
+
+                //El duo perfecto solo acepta dos productos.
+                if (cntProd >= 2)
+                    return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_DUO_COMPLETO_COMPLETO, string.Format(Constantes.ProgNuevas.Mensaje.Electivo_NoAgregarPorLimite, Constantes.ProgNuevas.Mensaje.Electivo_PromocionNombre));
+            }
+
             //FiltrarEstrategiaPedido
             var estrategia = FiltrarEstrategiaPedido(usuario.PaisID, pedidoDetalle.Producto.EstrategiaID, 0);
             var cuvSet = estrategia.CUV2;
@@ -2580,19 +2662,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
             var tonos = listCuvTonos.Split('|');
             var ListaCuvsTemporal = new List<string>();
 
-            //Obtener Detalle
-            var pedidoDetalleBuscar = new BEPedidoBuscar()
-            {
-                PaisID = usuario.PaisID,
-                CampaniaID = usuario.CampaniaID,
-                ConsultoraID = usuario.ConsultoraID,
-                NombreConsultora = usuario.Nombre,
-                CodigoPrograma = usuario.CodigoPrograma,
-                ConsecutivoNueva = usuario.ConsecutivoNueva
-            };
-            var lstDetalle = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
-            pedidoDetalle.PedidoID = pedidoID;
-
             foreach (var tono in tonos)
             {
                 var listSp = tono.Split(';');
@@ -2615,6 +2684,12 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 });
             }
             PedidoAgregarProductoAgrupado(usuario, pedidoID, pedidoDetalle.Cantidad, cuvSet, strCuvs, estrategia.EstrategiaID);
+
+            if (cntProd == 1 && esDuoPerfecto)
+                return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.SUCCESS, string.Concat(Constantes.PedidoValidacion.Code.SUCCESS_DUOPERFECTO_AGREGADO_COMPLETADO, "|", string.Format(Constantes.ProgNuevas.Mensaje.Electivo_CompletasteLimite, Constantes.ProgNuevas.Mensaje.Electivo_PromocionNombre)));
+
+            if (cntProd == 0 && esDuoPerfecto)
+                return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.SUCCESS, string.Concat(Constantes.PedidoValidacion.Code.SUCCESS_DUOPERFECTO_AGREGADO_UNO, "|", string.Format(Constantes.ProgNuevas.Mensaje.Electivo_TeFaltaPocoLimite, cntProd + 1, Constantes.ProgNuevas.Mensaje.Electivo_PromocionNombre)));
 
             return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.SUCCESS);
         }

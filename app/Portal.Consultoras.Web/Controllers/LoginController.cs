@@ -747,7 +747,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (model == null) return RedirectToAction("UserUnknown", "Login", new { area = "" });
 
                 var userData = sessionManager.GetUserData();
-                if (userData == null || string.Compare(userData.CodigoUsuario, model.CodigoUsuario, StringComparison.OrdinalIgnoreCase) != 0)
+                if (userData == null || string.Compare(userData.CodigoUsuario, model.CodigoUsuario, StringComparison.OrdinalIgnoreCase) != 0 || model.LimpiarSession)
                 {
                     TempData["LimpiarLocalStorage"] = true;
                     Session.Clear();
@@ -848,6 +848,18 @@ namespace Portal.Consultoras.Web.Controllers
                         return RedirectToUniqueRoute("Ofertas", "Index", null, "ODD");
                     case Constantes.IngresoExternoPagina.HerramientasDeVenta:
                         return RedirectToUniqueRoute("HerramientasVenta", "Comprar");
+                    case Constantes.IngresoExternoPagina.Reclamos:
+                        return RedirectToUniqueRoute("MisReclamos", "Index", null); // valido
+                    case Constantes.IngresoExternoPagina.MetodosPagos:
+                        return RedirectToUniqueRoute("PagoEnLinea", "MetodoPagoExterno", new { IdOrigen = model.OrigenPedido });
+                    case Constantes.IngresoExternoPagina.PagarAqui:
+                        return RedirectToUniqueRoute("PagoEnLinea", "IndexExterno", new { IdOrigen = model.OrigenPedido, idTipoPago = model.idTipoPago });
+                    case Constantes.IngresoExternoPagina.Ganancias:
+                        return RedirectToUniqueRoute("MiAcademia", "IndexExterno", new { IdOrigen = model.OrigenPedido });
+                    case Constantes.IngresoExternoPagina.DuoPerfecto :
+                        return RedirectToUniqueRoute("ProgramaNuevas", "Index");
+                    case Constantes.IngresoExternoPagina.PedidosPendientes:
+                        return RedirectToUniqueRoute("ConsultoraOnline", "Pendientes");
                 }
             }
             catch (Exception ex)
@@ -1145,10 +1157,10 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.ValidacionInteractiva = usuario.ValidacionInteractiva;
                     usuarioModel.MensajeValidacionInteractiva = usuario.MensajeValidacionInteractiva;
 
-                    usuarioModel.IndicadorPagoOnline = usuarioModel.PaisID == Constantes.PaisID.Chile
+                    usuarioModel.IndicadorPagoOnline = (usuarioModel.PaisID == Constantes.PaisID.Chile
                                                         || usuarioModel.PaisID == Constantes.PaisID.Colombia
                                                         || usuarioModel.PaisID == Constantes.PaisID.PuertoRico
-                                                        ? 1 : 0;
+                                                        ).ToInt();
 
                     usuarioModel.UrlPagoOnline = usuarioModel.PaisID == Constantes.PaisID.Colombia
                         ? "https://www.zonapagos.com/pagosn2/LoginCliente"
@@ -1375,7 +1387,7 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.FotoOriginalSinModificar = usuario.FotoOriginalSinModificar;
                     usuarioModel.DiaFacturacion = GetDiaFacturacion(usuarioModel.PaisID, usuarioModel.CampaniaID, usuarioModel.ConsultoraID, usuarioModel.ZonaID, usuarioModel.RegionID);
                     usuarioModel.NuevasDescripcionesBuscador = getNuevasDescripcionesBuscador(usuarioModel.PaisID);
-                    usuarioModel.ListaOrdenamientoFiltrosBuscador = getListaOrdenamientoFiltrosBuscador(usuarioModel.PaisID);
+                    
                 }
 
                 sessionManager.SetUserData(usuarioModel);
@@ -1932,7 +1944,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 var listaDummy = configuracionPaisDatos.Where(n => n.Codigo == Constantes.TipoConfiguracionBuscador.ConsultoraDummy).ToList();
                                 if (listaDummy.Any())
                                 {
-                                    buscadorYFiltrosModel.IndicadorConsultoraDummy = listaDummy[0].Valor1.ToInt();
+                                    buscadorYFiltrosModel.IndicadorConsultoraDummy = listaDummy[0].Valor2.ToInt();
                                 }
                                 break;
                             case Constantes.ConfiguracionPais.MasGanadoras:
@@ -3008,23 +3020,7 @@ namespace Portal.Consultoras.Web.Controllers
             return result;
         }
 
-        private Dictionary<string, string> getListaOrdenamientoFiltrosBuscador(int paisId)
-        {
-            var result = new Dictionary<string, string>();
-            List<BETablaLogicaDatos> listaDescripciones;
-
-            using (var tablaLogica = new SACServiceClient())
-            {
-                listaDescripciones = tablaLogica.GetTablaLogicaDatos(paisId, Constantes.TablaLogica.ListaOrdenamientoFiltros).ToList();
-            }
-
-            foreach (var item in listaDescripciones)
-            {
-                result.Add(item.Descripcion.ToString(), string.IsNullOrEmpty(item.Valor) ? "" : item.Valor.ToString());
-            }
-
-            return result;
-        }
+      
 
     }
 }

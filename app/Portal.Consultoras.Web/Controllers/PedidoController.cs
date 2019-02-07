@@ -117,7 +117,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.FlagValidacionPedido = "1";
                 }
 
-                model.EstadoPedido = configuracionCampania.EstadoPedido == Constantes.EstadoPedido.Pendiente ? 0 : 1;
+                model.EstadoPedido = (configuracionCampania.EstadoPedido != Constantes.EstadoPedido.Pendiente).ToInt();
 
 
                 ActualizarUserDataConInformacionCampania(configuracionCampania);
@@ -1499,7 +1499,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region Zona de Estrategias
         [HttpPost]
-        public JsonResult ValidarStockEstrategia(string CUV, string PrecioUnidad, string Cantidad, string TipoOferta, bool enRangoProgNuevas)
+        public JsonResult ValidarStockEstrategia(string CUV, string PrecioUnidad, string Cantidad, string TipoOferta, bool enRangoProgNuevas, string descripcion = "")
         {
             string mensajeMontoMax = "", mensaje = "";
             bool validoMontoMax = false, valido = false;
@@ -1517,7 +1517,7 @@ namespace Portal.Consultoras.Web.Controllers
                         CrearLogProgNuevas("ProgNuevas: ValidarStockEstrategia", CUV);
                         mensaje = ValidarCantidadEnProgramaNuevas(CUV, Convert.ToInt32(Cantidad));
                     }
-                    else mensaje = ValidarStockLimiteVenta(CUV, intCantidad);
+                    else mensaje = ValidarStockLimiteVenta(CUV, intCantidad, descripcion);
 
                     if (mensaje == "") mensaje = ValidarStockEstrategiaMensaje(CUV, intCantidad, TipoOferta.ToInt32Secure());
                     if (mensaje == "") mensaje = ValidarStockArmaTuPackMensaje(CUV, intCantidad);
@@ -2433,7 +2433,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (userData.IndicadorGPRSB == 2)
             {
                 userData.MostrarBannerRechazo = userData.RechazadoXdeuda;
-                userData.CerrarRechazado = userData.RechazadoXdeuda ? 0 : 1;
+                userData.CerrarRechazado = (!userData.RechazadoXdeuda).ToInt();
             }
         }
 
@@ -2495,7 +2495,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 ViewBag.PedidoProductoMovil = lstPedidoWebDetalle
                     .Any(p => p.TipoPedido.ToUpper().Trim() == "PNV")
-                     ? 1 : 0;
+                    .ToInt();
 
                 if (userData.PedidoID == 0)
                 {
@@ -4276,7 +4276,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "Ocurrio un error, vuelva ha intentalo."
+                    message = "Ocurrió un error, vuelva a intentarlo."
                 });
             }
         }
@@ -4446,7 +4446,7 @@ namespace Portal.Consultoras.Web.Controllers
             return mensaje;
         }
 
-        private string ValidarStockLimiteVenta(string cuv, int cantidad)
+        private string ValidarStockLimiteVenta(string cuv, int cantidad, string descripcion = "")
         {
             string mensaje = "";
 
@@ -4459,7 +4459,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     respValidar = sv.CuvTieneLimiteVenta(userData.PaisID, userData.CampaniaID, userData.CodigorRegion, userData.CodigoZona, cuv, cantidad, cantidadActual);
                 }
-                if (respValidar.TieneLimite) mensaje = string.Format(Constantes.MensajesError.ExcedioLimiteVenta, respValidar.UnidadesMaximas);
+                if (respValidar.TieneLimite) mensaje = string.Format(Constantes.MensajesError.StockLimiteVenta, cuv, descripcion, respValidar.UnidadesMaximas);
             }
             catch (Exception ex)
             {

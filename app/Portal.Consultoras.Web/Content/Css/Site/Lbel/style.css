@@ -64,11 +64,14 @@ ul, ol {
 header {
     top: 0 !important;
     left: 0 !important;
-    background: white;
+    background: white!important;
     height: auto;
     position: fixed;
     z-index: 900;
     width: 100% !important;
+    -moz-box-shadow: 0 3px 5px 0 rgba(126, 126, 126, .35);
+    -webkit-box-shadow: 0 3px 5px 0 rgba(126, 126, 126, .35);
+    box-shadow: 0 3px 5px 0 rgba(126, 126, 126, .35);
 }
 
 .user-profile {
@@ -90,6 +93,10 @@ header {
 {
     display:inline-block;
     vertical-align:middle;
+}
+
+.nav_principal{
+    width:100%;
 }
 
 .campana {
@@ -285,7 +292,7 @@ header {
     position: absolute;
     top: 39px;
     margin-left: -90px;
-    width: 937px;
+    width: 977px;
     height: auto;
     padding-left: 65px;
     padding-right: 60px;
@@ -906,6 +913,39 @@ header {
     font-size: 8.6px;
     letter-spacing: 1.5px;
 }
+
+/*INI EINCA HD-3094 09-01-2019 Boton genérico fondo blanco y rojo*/
+.btn_bg_write {
+    font-family: 'lato';
+    background: white;
+    color: black;
+    font-weight: 400;
+    height: 45px;
+    border: 1px solid #ccc;
+    float: left;
+    text-align-last: center;
+    display: inline-block;
+    width: auto;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.btn_bg_primary {
+    font-family: 'lato';
+    background: #642F80;
+    color: #fff;
+    font-weight: 700;
+    height: 45px;
+    float: left;
+    text-align-last: center;
+    border: 1px solid #642F80;
+    display: inline-block;
+    width: auto;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    margin-left: 4px;
+}
+/*FIN EINCA HD-3094 09-01-2019 Boton genérico fondo blanco*/
 
 .sombra_e {
     width: 100%;
@@ -4341,7 +4381,9 @@ a.subir_carousel, a.bajar_carousel {
 
 .logo_esika a {
     height: 50px;
-    background: url('/Content/Images/Lbel/logo_lbel.png') no-repeat;
+    background: url('/Content/Images/Lbel/logo_marca_pais.svg') no-repeat;
+    background-position-y: 14px;
+    background-size: 90%;
 }
 
 .logo_esika {
@@ -16795,7 +16837,7 @@ label.checkpop.c_on {
     padding-bottom: 14px;
     padding-left: 10px;
     padding-right: 10px;
-    background: #613c87;
+    background-color: #613c87;
     color: white;
     line-height: 15px;
     font-family: 'lato';
@@ -19106,9 +19148,9 @@ color:white;
         font-size: 14px;
     }
 
-    .logo_esika {
+    /*.logo_esika {
         width: 10%;
-    }
+    }*/
 
     .menu_socia_empresaria > .new_menu {
         margin-left: 3.2%;
@@ -28650,20 +28692,40 @@ div.motivoRechazo textarea {
     font-size: 15px;
     line-height: 30px;
     width: 330px;
-    text-decoration: underline;
+    text-decoration:none;
+}
+
+.politica_reclamos_icono,
+.politica_reclamos_texto
+{
+    display:inline-block;
+    vertical-align:middle;
 }
 
 .politica_reclamos_icono {
-    padding-left: 35px;
-    padding-bottom: 10px;
-    padding-top: 2px;
-    background: url('/Content/Images/Esika/terminos.png') no-repeat;
-    display: inline;
+    background-image: url('/Content/Images/check_terminos_cdr.svg');
+    background-repeat:no-repeat;
+    background-position:center;
+    background-color:#d6d6d6;
+    width:20px;
+    height:20px;
+    margin-top:4.5px;
+    margin-right:6px;
+    border-radius:4px;
+    background-size: 65%;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    cursor:pointer;
 }
 
 .politica_reclamos_icono_active {
-    background: url('/Content/Images/Lbel/icono_check_lbel.svg') no-repeat;
-    background-size: 75%;
+    background-color:#642f80;
+}
+
+.politica_reclamos_texto a{
+    text-decoration:underline;
 }
 
 .btn_agrega_otro_reclamo {
@@ -28960,6 +29022,7 @@ div.motivoRechazo textarea {
 .icono_resumen_resolucion {
     background: url('/Content/Images/RevistaDigital/icono_advertencia_notificacion.svg') no-repeat top left;
     background-position: 0 33px;
+    background-size:7%;
 }
 
 .listado_estado_general {
@@ -31426,8 +31489,12 @@ height:30px;
         margin-left: 2.2%;
     }
 
+    .menu_socia_empresaria > .new_menu:first-child{
+        margin-left:0%!important;
+    }
+
     .menu_socia_empresaria > .new_menu {
-        margin-left: 1% !important;
+        margin-left: 3% !important;
     }
 }
 

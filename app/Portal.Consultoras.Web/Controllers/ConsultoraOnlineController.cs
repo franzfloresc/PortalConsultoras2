@@ -119,36 +119,13 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 try
                 {
-                    string sEmail = string.Empty;
-                    string sTelefono = string.Empty;
-                    string sCelular = string.Empty;
+                    model = InscripcionPrepararDatos(model);
 
-                    if (model.ActualizarClave == null) model.ActualizarClave = "";
-                    if (model.ConfirmarClave == null) model.ConfirmarClave = "";
-                    if (model.Email != null)
-                        sEmail = model.Email;
-                    if (model.Telefono != null)
-                        sTelefono = model.Telefono;
-                    if (model.Celular != null)
-                        sCelular = model.Celular;
-
-                    model.CorreoAnterior = userData.EMail;
-
-
-                    if (model.Email != string.Empty)
+                    var mensaje = InscripcionValidarCorreo(model);
+                    if (mensaje != "")
                     {
-                        using (UsuarioServiceClient svr = new UsuarioServiceClient())
-                        {
-                            var cantidad =
-                                svr.ValidarEmailConsultora(userData.PaisID, model.Email, userData.CodigoUsuario);
-
-                            if (cantidad > 0)
-                            {
-                                ViewBag.EmailConsultoraTomado =
-                                    "La dirección de correo electrónico ingresada ya pertenece a otra Consultora.";
-                                return View(consultoraAfiliar);
-                            }
-                        }
+                        ViewBag.EmailConsultoraTomado = mensaje;
+                        return View(consultoraAfiliar);
                     }
 
                     using (UsuarioServiceClient sv = new UsuarioServiceClient())
@@ -162,94 +139,26 @@ namespace Portal.Consultoras.Web.Controllers
 
                             return View(consultoraAfiliar);
                         }
-                        else
-                        {
-                            string message;
-
-                            if (model.ActualizarClave != "")
-                            {
-                                var cambio = sv.ChangePasswordUser(userData.PaisID, userData.CodigoUsuario,
-                                    userData.CodigoISO + userData.CodigoUsuario, model.ConfirmarClave.ToUpper(),
-                                    string.Empty, EAplicacionOrigen.BienvenidaConsultora);
-
-                                message = cambio
-                                    ? "- Los datos han sido actualizados correctamente.\n "
-                                    : "- Los datos han sido actualizados correctamente.\n - La contraseña no ha sido modificada, intentelo mas tarde.\n ";
-                            }
-                            else
-                            {
-                                message = "- Los datos han sido actualizados correctamente.\n ";
-                            }
-
-                            if (!string.IsNullOrEmpty(model.Email))
-                            {
-
-                                try
-                                {
-
-                                    ClienteContactaConsultoraModel consultoraAfiliarUser = DatoUsuario();
-
-                                    if (consultoraAfiliarUser.EmailActivo && model.CorreoAnterior == model.Email)
-                                    {
-                                        if (consultoraAfiliarUser.EsPrimeraVez)
-                                        {
-                                            using (ServiceSAC.SACServiceClient sc = new ServiceSAC.SACServiceClient())
-                                            {
-                                                sc.InsAfiliaClienteConsultora(userData.PaisID,
-                                                    consultoraAfiliarUser.ConsultoraID);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            using (ServiceSAC.SACServiceClient sc = new ServiceSAC.SACServiceClient())
-                                            {
-                                                sc.UpdAfiliaClienteConsultora(userData.PaisID,
-                                                    consultoraAfiliarUser.ConsultoraID, true);
-                                            }
-                                        }
-
-                                        return RedirectToAction("Index", "ConsultoraOnline");
-                                    }
-                                    else
-                                    {
-                                        string[] parametros = new string[]
-                                        {
-                                            userData.CodigoUsuario, userData.PaisID.ToString(), userData.CodigoISO,
-                                            model.Email
-                                        };
-                                        string paramQuerystring = Util.EncriptarQueryString(parametros);
-                                        HttpRequestBase request = this.HttpContext.Request;
-
-                                        string cadena = mensajeConsultora(userData.PrimerNombre,
-                                            String.Format("{0}ConsultoraOnline/AtenderCorreo?tipo=Afiliar&data={1}",
-                                                Util.GetUrlHost(request), paramQuerystring));
-                                        Util.EnviarMail("no-responder@somosbelcorp.com", model.Email,
-                                            "Confirma tu mail y actívate como Consultora Online", cadena, true,
-                                            "Consultora Online Belcorp");
-                                        message +=
-                                            "- Se ha enviado un correo electrónico de verificación a la dirección ingresada.";
-                                    }
-                                }
-                                catch (Exception ex)
-                                {
-                                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora,
-                                        userData.CodigoISO);
-                                    message += ex.Message;
-                                }
-
-                            }
-
-                            userData.CambioClave = 1;
-                            userData.EMail = sEmail;
-                            userData.Telefono = sTelefono;
-                            userData.Celular = sCelular;
-
-                            ViewBag.AppErrorMessage = message;
-
-                            return View("InscripcionCompleta");
-                        }
                     }
 
+                    string message = InscripcionActualizarClave(model);
+                    message = InscripcionAfiliaCliente(model, message);
+
+                    if (message == "1")
+                        return RedirectToAction("Index", "ConsultoraOnline");
+
+                    string sEmail = model.Email ?? string.Empty;
+                    string sTelefono = model.Telefono ?? string.Empty;
+                    string sCelular = model.Celular ?? string.Empty;
+
+                    userData.CambioClave = 1;
+                    userData.EMail = sEmail;
+                    userData.Telefono = sTelefono;
+                    userData.Celular = sCelular;
+
+                    ViewBag.AppErrorMessage = message;
+
+                    return View("InscripcionCompleta");
 
                 }
                 catch (Exception ex)
@@ -262,6 +171,117 @@ namespace Portal.Consultoras.Web.Controllers
 
             return View(consultoraAfiliar);
 
+        }
+
+        private ClienteContactaConsultoraModel InscripcionPrepararDatos(ClienteContactaConsultoraModel model)
+        {
+            if (model.ActualizarClave == null) model.ActualizarClave = "";
+            if (model.ConfirmarClave == null) model.ConfirmarClave = "";
+            model.CorreoAnterior = userData.EMail;
+            return model;
+        }
+
+        private string InscripcionValidarCorreo(ClienteContactaConsultoraModel model)
+        {
+            var respuesta = "";
+            if (model.Email != string.Empty)
+            {
+                using (UsuarioServiceClient svr = new UsuarioServiceClient())
+                {
+                    var cantidad =
+                        svr.ValidarEmailConsultora(userData.PaisID, model.Email, userData.CodigoUsuario);
+
+                    if (cantidad > 0)
+                    {
+                        respuesta =
+                            "La dirección de correo electrónico ingresada ya pertenece a otra Consultora.";
+                    }
+                }
+            }
+            return respuesta;
+        }
+
+        private string InscripcionActualizarClave(ClienteContactaConsultoraModel model)
+        {
+            var message = "";
+            if (model.ActualizarClave != "")
+            {
+                using (UsuarioServiceClient sv = new UsuarioServiceClient())
+                {
+                    var cambio = sv.ChangePasswordUser(userData.PaisID, userData.CodigoUsuario,
+                    userData.CodigoISO + userData.CodigoUsuario, model.ConfirmarClave.ToUpper(),
+                    string.Empty, EAplicacionOrigen.BienvenidaConsultora);
+
+                    message = cambio
+                        ? "- Los datos han sido actualizados correctamente.\n "
+                        : "- Los datos han sido actualizados correctamente.\n - La contraseña no ha sido modificada, intentelo mas tarde.\n ";
+                }
+            }
+            else
+            {
+                message = "- Los datos han sido actualizados correctamente.\n ";
+            }
+            return message;
+        }
+
+        private string InscripcionAfiliaCliente(ClienteContactaConsultoraModel model, string message)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(model.Email))
+                    return message;
+
+                ClienteContactaConsultoraModel consultoraAfiliarUser = DatoUsuario();
+
+                if (consultoraAfiliarUser.EmailActivo && model.CorreoAnterior == model.Email)
+                {
+                    if (consultoraAfiliarUser.EsPrimeraVez)
+                    {
+                        using (ServiceSAC.SACServiceClient sc = new ServiceSAC.SACServiceClient())
+                        {
+                            sc.InsAfiliaClienteConsultora(userData.PaisID,
+                                consultoraAfiliarUser.ConsultoraID);
+                        }
+                    }
+                    else
+                    {
+                        using (ServiceSAC.SACServiceClient sc = new ServiceSAC.SACServiceClient())
+                        {
+                            sc.UpdAfiliaClienteConsultora(userData.PaisID,
+                                consultoraAfiliarUser.ConsultoraID, true);
+                        }
+                    }
+
+                    message = "1";
+                }
+                else
+                {
+                    string[] parametros = new string[]
+                    {
+                                            userData.CodigoUsuario, userData.PaisID.ToString(), userData.CodigoISO,
+                                            model.Email
+                    };
+                    string paramQuerystring = Util.EncriptarQueryString(parametros);
+                    HttpRequestBase request = this.HttpContext.Request;
+
+                    string cadena = mensajeConsultora(userData.PrimerNombre,
+                        String.Format("{0}ConsultoraOnline/AtenderCorreo?tipo=Afiliar&data={1}",
+                            Util.GetUrlHost(request), paramQuerystring));
+                    Util.EnviarMail("no-responder@somosbelcorp.com", model.Email,
+                        "Confirma tu mail y actívate como Consultora Online", cadena, true,
+                        "Consultora Online Belcorp");
+                    message +=
+                        "- Se ha enviado un correo electrónico de verificación a la dirección ingresada.";
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora,
+                    userData.CodigoISO);
+                message += ex.Message;
+            }
+
+            return message;
         }
 
         public ActionResult EnviaCorreo()
@@ -711,7 +731,7 @@ namespace Portal.Consultoras.Web.Controllers
                             .ToList();
                 }
 
-                if (olstMisPedidos.Count > 0)
+                if (olstMisPedidos.Any())
                 {
                     using (UsuarioServiceClient svc = new UsuarioServiceClient())
                     {
@@ -737,25 +757,8 @@ namespace Portal.Consultoras.Web.Controllers
                 objMisPedidos = SessionManager.GetobjMisPedidos();
                 indiceActualPagina = (int)TempData["indiceActualPagina"];
                 indiceUltimaPagina = (int)TempData["indiceUltimaPagina"];
-                if (Pagina.Equals("<<")) indiceActualPagina = 0;
-                else
-                {
-                    if (Pagina.Equals("<"))
-                    {
-                        if (indiceActualPagina > 0) indiceActualPagina--;
-                    }
-                    else
-                    {
-                        if (Pagina.Equals(">"))
-                        {
-                            if (indiceActualPagina < indiceUltimaPagina) indiceActualPagina++;
-                        }
-                        else
-                        {
-                            indiceActualPagina = Pagina.Equals(">>") ? indiceUltimaPagina : int.Parse(Pagina);
-                        }
-                    }
-                }
+
+                indiceActualPagina = MisPedidosActualPagina(Pagina, indiceActualPagina, indiceUltimaPagina);
 
                 TempData["indiceUltimaPagina"] = indiceUltimaPagina;
                 TempData["indiceActualPagina"] = indiceActualPagina;
@@ -765,6 +768,45 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.CantidadPedidos = objMisPedidos.ListaPedidos.Count(p => string.IsNullOrEmpty(p.Estado));
 
             return View(mostrarPagina());
+        }
+
+
+        private int MisPedidosActualPagina(string Pagina, int indiceActualPagina, int indiceUltimaPagina, int sumaPaginaStr = 0)
+        {
+
+            if (Pagina.Equals("<<"))
+                return 0;
+
+            if (Pagina.Equals("<"))
+            {
+                if (indiceActualPagina > 0)
+                    indiceActualPagina--;
+
+                return indiceActualPagina;
+            }
+
+            if (Pagina.Equals(">"))
+            {
+                if (indiceActualPagina < indiceUltimaPagina)
+                    indiceActualPagina++;
+
+                return indiceActualPagina;
+            }
+
+            //indiceActualPagina = Pagina.Equals(">>") ? indiceUltimaPagina : int.Parse(Pagina);
+
+            if (Pagina.Equals(">>"))
+                indiceActualPagina = indiceUltimaPagina;
+            else
+            {
+                int pagAux;
+                if (int.TryParse(Pagina, out pagAux))
+                {
+                    indiceActualPagina = pagAux + sumaPaginaStr;
+                }
+            }
+
+            return indiceActualPagina;
         }
 
 
@@ -888,63 +930,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     SessionManager.SetobjMisPedidosDetalle(olstMisPedidosDet);
 
-                    // 0=App Catalogos, >0=Portal Marca
-                    if (pedido.MarcaID == 0)
-                    {
-                        int? revistaGana;
-                        using (PedidoServiceClient sv = new PedidoServiceClient())
-                        {
-                            revistaGana = sv.ValidarDesactivaRevistaGana(userData.PaisID, userData.CampaniaID,
-                                userData.CodigoZona);
-                        }
-
-                        var txtBuil = new StringBuilder();
-                        foreach (var item in olstMisPedidosDet)
-                        {
-                            txtBuil.Append(item.CUV + ",");
-                        }
-
-                        string inputCuv = txtBuil.ToString();
-                        inputCuv = inputCuv.Substring(0, inputCuv.Length - 1);
-                        List<ServiceODS.BEProducto> olstMisProductos;
-
-                        using (ODSServiceClient svc = new ODSServiceClient())
-                        {
-                            olstMisProductos = svc.GetValidarCUVMisPedidos(userData.PaisID, userData.CampaniaID,
-                                inputCuv, userData.RegionID, userData.ZonaID, userData.CodigorRegion,
-                                userData.CodigoZona).ToList();
-                        }
-
-                        SessionManager.SetobjMisPedidosDetalleVal(olstMisProductos);
-
-                        foreach (var item in olstMisPedidosDet)
-                        {
-                            var pedidoVal = olstMisProductos.FirstOrDefault(x => x.CUV == item.CUV);
-                            if (pedidoVal != null)
-                            {
-                                item.TieneStock = (pedidoVal.TieneStock) ? 1 : 0;
-                                item.EstaEnRevista = (pedidoVal.EstaEnRevista) ? 1 : 0;
-
-                                if (!pedidoVal.TieneStock)
-                                {
-                                    item.MensajeValidacion = "Este producto está agotado";
-                                }
-                                else if (pedidoVal.CUVRevista.Length != 0 && revistaGana == 0)
-                                {
-                                    item.EstaEnRevista = 1;
-                                    item.MensajeValidacion = isEsika
-                                        ? Constantes.MensajeEstaEnRevista.EsikaWeb
-                                        : Constantes.MensajeEstaEnRevista.LbelWeb;
-                                }
-                            }
-                            else
-                            {
-                                item.TieneStock = 0;
-                                item.MensajeValidacion = "El producto solicitado no existe";
-                            }
-
-                        }
-                    }
+                    olstMisPedidosDet = CargarMisPedidosDetalleDatos(pedido.MarcaID, olstMisPedidosDet);
 
                     model.ListaDetalle = olstMisPedidosDet;
 
@@ -985,40 +971,117 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        private List<BEMisPedidosDetalle> CargarMisPedidosDetalleDatos(int marcaId, List<BEMisPedidosDetalle> olstMisPedidosDet)
+        {
+            // 0=App Catalogos, >0=Portal Marca
+            if (marcaId != 0)
+            {
+                return olstMisPedidosDet;
+            }
+
+            int? revistaGana;
+            using (PedidoServiceClient sv = new PedidoServiceClient())
+            {
+                revistaGana = sv.ValidarDesactivaRevistaGana(userData.PaisID, userData.CampaniaID,
+                    userData.CodigoZona);
+            }
+
+            List<ServiceODS.BEProducto> olstMisProductos = GetValidarCuvMisPedidos(olstMisPedidosDet);
+
+            foreach (var item in olstMisPedidosDet)
+            {
+                var pedidoVal = olstMisProductos.FirstOrDefault(x => x.CUV == item.CUV);
+
+                if (pedidoVal == null)
+                {
+                    item.TieneStock = 0;
+                    item.MensajeValidacion = "El producto solicitado no existe";
+                    continue;
+                }
+
+                item.EstaEnRevista = pedidoVal.EstaEnRevista.ToInt();
+
+                item.TieneStock = 1;
+                if (!pedidoVal.TieneStock)
+                {
+                    item.TieneStock = 0;
+                    item.MensajeValidacion = "Este producto está agotado";
+                }
+                else if (pedidoVal.CUVRevista.Length != 0 && revistaGana == 0)
+                {
+                    item.EstaEnRevista = 1;
+                    item.MensajeValidacion = isEsika
+                        ? Constantes.MensajeEstaEnRevista.EsikaWeb
+                        : Constantes.MensajeEstaEnRevista.LbelWeb;
+                }
+
+
+            }
+
+            return olstMisPedidosDet;
+        }
+
+        private List<ServiceODS.BEProducto> GetValidarCuvMisPedidos(List<BEMisPedidosDetalle> olstMisPedidosDet)
+        {
+            var txtBuil = new StringBuilder();
+            foreach (var item in olstMisPedidosDet)
+            {
+                txtBuil.Append(item.CUV + ",");
+            }
+
+            string inputCuv = txtBuil.ToString();
+            inputCuv = inputCuv.Substring(0, inputCuv.Length - 1);
+            List<ServiceODS.BEProducto> olstMisProductos;
+
+            using (ODSServiceClient svc = new ODSServiceClient())
+            {
+                olstMisProductos = svc.GetValidarCUVMisPedidos(userData.PaisID, userData.CampaniaID,
+                    inputCuv, userData.RegionID, userData.ZonaID, userData.CodigorRegion,
+                    userData.CodigoZona).ToList();
+            }
+
+            SessionManager.SetobjMisPedidosDetalleVal(olstMisProductos);
+
+            return olstMisProductos;
+        }
+
         public ActionResult ObtenerPagina(string Pagina)
         {
             objMisPedidos = SessionManager.GetobjMisPedidos();
             ViewBag.CantidadPedidos = objMisPedidos.ListaPedidos.Count(p => string.IsNullOrEmpty(p.Estado));
             indiceActualPagina = (int)TempData["indiceActualPagina"];
             indiceUltimaPagina = (int)TempData["indiceUltimaPagina"];
-            if (Pagina.Equals("<<"))
-                indiceActualPagina = 0;
-            else
-            {
-                if (Pagina.Equals("<"))
-                {
-                    if (indiceActualPagina > 0) indiceActualPagina--;
-                }
-                else
-                {
-                    if (Pagina.Equals(">"))
-                    {
-                        if (indiceActualPagina < indiceUltimaPagina) indiceActualPagina++;
-                    }
-                    else
-                    {
-                        if (Pagina.Equals(">>")) indiceActualPagina = indiceUltimaPagina;
-                        else
-                        {
-                            int pagAeux;
-                            if (int.TryParse(Pagina, out pagAeux))
-                            {
-                                indiceActualPagina = pagAeux - 1;
-                            }
-                        }
-                    }
-                }
-            }
+
+            indiceActualPagina = MisPedidosActualPagina(Pagina, indiceActualPagina, indiceUltimaPagina, -1);
+
+            //if (Pagina.Equals("<<"))
+            //    indiceActualPagina = 0;
+            //else
+            //{
+            //    if (Pagina.Equals("<"))
+            //    {
+            //        if (indiceActualPagina > 0) indiceActualPagina--;
+            //    }
+            //    else
+            //    {
+            //        if (Pagina.Equals(">"))
+            //        {
+            //            if (indiceActualPagina < indiceUltimaPagina) indiceActualPagina++;
+            //        }
+            //        else
+            //        {
+            //            if (Pagina.Equals(">>")) indiceActualPagina = indiceUltimaPagina;
+            //            else
+            //            {
+            //                int pagAeux;
+            //                if (int.TryParse(Pagina, out pagAeux))
+            //                {
+            //                    indiceActualPagina = pagAeux - 1;
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
 
             TempData["indiceUltimaPagina"] = indiceUltimaPagina;
             TempData["indiceActualPagina"] = indiceActualPagina;
@@ -1202,9 +1265,8 @@ namespace Portal.Consultoras.Web.Controllers
                                         CUV = pedidoDetalle.CUV,
                                         DescripcionProd = pedidoDetalle.Producto,
                                         ClienteDescripcion = pedidoAux.Cliente,
-                                        OrigenPedidoWeb = 0
+                                        OrigenPedidoWeb = GetOrigenPedidoWeb(pedidoAux.FlagMedio, pedidoDetalle.MarcaID, pedido.Dispositivo)
                                     };
-
 
                                     var olstPedidoWebDetalle = AgregarDetallePedido(model);
 
@@ -2290,6 +2352,59 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return new EmptyResult();
+        }
+
+        private int GetOrigenPedidoWeb(string flagMedio, int marcaID, int Dispositivo)
+        {
+            var origenPedidoWeb = 0;
+
+            if (Dispositivo == 1) //DESKTOP
+            {
+                if (flagMedio == Constantes.SolicitudCliente.FlagMedio.AppCatalogos)
+                {
+                    if (marcaID == Constantes.Marca.LBel) origenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopPedidoCatalogoLbelAppCatalogoPendienteDeAprobar;
+                    else if (marcaID == Constantes.Marca.Esika) origenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopPedidoCatalogoEsikaAppCatalogoPendienteDeAprobar;
+                    else if (marcaID == Constantes.Marca.Cyzone) origenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopPedidoCatalogoCyzoneAppCatalogoPendienteDeAprobar;
+                }
+                else if (flagMedio == Constantes.SolicitudCliente.FlagMedio.CatalogoDigital)
+                {
+                    if (marcaID == Constantes.Marca.LBel) origenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopPedidoCatalogoLbelCatalogoDigitalPendienteDeAprobar;
+                    else if (marcaID == Constantes.Marca.Esika) origenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopPedidoCatalogoEsikaCatalogoDigitalPendienteDeAprobar;
+                    else if (marcaID == Constantes.Marca.Cyzone) origenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopPedidoCatalogoCyzoneCatalogoDigitalPendienteDeAprobar;
+                }
+            }
+            else if (Dispositivo == 2) //MOBILE
+            {
+                if (flagMedio == Constantes.SolicitudCliente.FlagMedio.AppCatalogos)
+                {
+                    if (marcaID == Constantes.Marca.LBel) origenPedidoWeb = Constantes.OrigenPedidoWeb.MobilePedidoCatalogoLbelAppCatalogoPendienteDeAprobar;
+                    else if (marcaID == Constantes.Marca.Esika) origenPedidoWeb = Constantes.OrigenPedidoWeb.MobilePedidoCatalogoEsikaAppCatalogoPendienteDeAprobar;
+                    else if (marcaID == Constantes.Marca.Cyzone) origenPedidoWeb = Constantes.OrigenPedidoWeb.MobilePedidoCatalogoCyzoneAppCatalogoPendienteDeAprobar;
+                }
+                else if (flagMedio == Constantes.SolicitudCliente.FlagMedio.CatalogoDigital)
+                {
+                    if (marcaID == Constantes.Marca.LBel) origenPedidoWeb = Constantes.OrigenPedidoWeb.MobilePedidoCatalogoLbelCatalogoDigitalPendienteDeAprobar;
+                    else if (marcaID == Constantes.Marca.Esika) origenPedidoWeb = Constantes.OrigenPedidoWeb.MobilePedidoCatalogoEsikaCatalogoDigitalPendienteDeAprobar;
+                    else if (marcaID == Constantes.Marca.Cyzone) origenPedidoWeb = Constantes.OrigenPedidoWeb.MobilePedidoCatalogoCyzoneCatalogoDigitalPendienteDeAprobar;
+                }
+            }
+            else if (Dispositivo == 3) //APP
+            {
+                if (flagMedio == Constantes.SolicitudCliente.FlagMedio.AppCatalogos)
+                {
+                    if (marcaID == Constantes.Marca.LBel) origenPedidoWeb = Constantes.OrigenPedidoWeb.AppConsultoraPedidoCatalogoLbelAppCatalogoPendienteDeAprobar;
+                    else if (marcaID == Constantes.Marca.Esika) origenPedidoWeb = Constantes.OrigenPedidoWeb.AppConsultoraPedidoCatalogoEsikaAppCataogoPendienteDeAprobar;
+                    else if (marcaID == Constantes.Marca.Cyzone) origenPedidoWeb = Constantes.OrigenPedidoWeb.AppConsultoraPedidoCatalogoCyzoneAppCatalogoPendienteDeAprobar;
+                }
+                else if (flagMedio == Constantes.SolicitudCliente.FlagMedio.CatalogoDigital)
+                {
+                    if (marcaID == Constantes.Marca.LBel) origenPedidoWeb = Constantes.OrigenPedidoWeb.AppConsultoraPedidoCatalogoLbelCatalogoDigitalPendienteDeAprobar;
+                    else if (marcaID == Constantes.Marca.Esika) origenPedidoWeb = Constantes.OrigenPedidoWeb.AppConsultoraPedidoCatalogoEsikaCatalogoDigitalPendienteDeAprobar;
+                    else if (marcaID == Constantes.Marca.Cyzone) origenPedidoWeb = Constantes.OrigenPedidoWeb.AppConsultoraPedidoCatalogoCyzoneCatalogoDigitalPendienteDeAprobar;
+                }
+            }
+
+            return origenPedidoWeb;
         }
     }
 }
