@@ -3645,22 +3645,31 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var pedidoWebDetalleModel = Mapper.Map<List<BEPedidoWebDetalle>, List<PedidoWebDetalleModel>>(listaDetalle);
 
+            var pedidoEditable = _tablaLogicaProvider.GetTablaLogicaDatoValorBool(
+                            userData.PaisID,
+                            ConsTablaLogica.PasePedido.TablaLogicaID,
+                            ConsTablaLogica.PasePedido.CuvEditable,
+                            true
+                            );
+
             pedidoWebDetalleModel.ForEach(p => {
                 p.Simbolo = userData.Simbolo;
                 p.CodigoIso = userData.CodigoISO;
                 p.DescripcionCortadaProd = Util.SubStrCortarNombre(p.DescripcionProd, 73);
-                p.TipoAccion = TipoAccionPedido(p);
+                p.TipoAccion = TipoAccionPedido(p, pedidoEditable);
             });
 
             return pedidoWebDetalleModel;
         }
 
-        private int TipoAccionPedido(PedidoWebDetalleModel producto)
+        private int TipoAccionPedido(PedidoWebDetalleModel producto, bool valorConfi)
         {
             // los valores deben estar en constantes
             // considerar tipo estrategia codigo y origen pedido web
             // caso EsBackOrder
-            
+
+            if (!valorConfi) return 0;
+
             if ((producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoProductoSugeridoCarrusel ||
                 producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoProductoSugeridoCarrusel) ||  
                 (producto.OrigenPedidoWeb  == Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalCarrusel ||
