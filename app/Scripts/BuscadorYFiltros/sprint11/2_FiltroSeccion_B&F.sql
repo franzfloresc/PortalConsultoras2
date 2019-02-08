@@ -13,7 +13,7 @@ IF NOT EXISTS (SELECT * FROM   filtroseccion WHERE  campoes = 'seccion.keyword')
       INSERT INTO filtrobuscador (tablalogicadatosid, estado, codigo, nombre, descripcion, valorminimo, valormaximo, imagen, imagenancha)
       VALUES      (@id, 0, 401, 'Gana+ / Ofertas', 'sec-gana', '', '', '', 0),
                   (@id, 0, 402, 'Catálogo', 'sec-cat', '', '', '', 0),
-				  (@id, 0, 403, 'Expoofertas', 'sec-exp', '', '', '', 0)
+				  (@id, 0, 403, 'Expofertas', 'sec-exp', '', '', '', 0)
   END
 
 GO
