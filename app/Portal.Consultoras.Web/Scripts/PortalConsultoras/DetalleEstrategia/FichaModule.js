@@ -674,15 +674,20 @@ var FichaModule = (function (config) {
     };
 
     var _setEstrategiaTipoBoton = function (pEstrategia) {
-
+        
         if (pEstrategia.TipoAccionAgregar <= 0) {
             $(_seccionesFichaProducto.dvContenedorAgregar).hide();
         }
-
+        
         if (pEstrategia.CodigoVariante === _codigoVariedad.IndividualVariable ||
             pEstrategia.CodigoVariante === _codigoVariedad.CompuestaVariable ||
+            pEstrategia.CodigoVariante === _codigoVariedad.ComuestaFija ||
             pEstrategia.esCampaniaSiguiente) {
             _validarDesactivadoGeneral(pEstrategia);
+        }
+        if (pEstrategia.CodigoVariante === _codigoVariedad.IndividualVariable ||
+            pEstrategia.CodigoVariante === _codigoVariedad.ComuestaFija ) {
+            _validarActivadoGeneral(pEstrategia);
         }
 
         if (_config.esMobile) {
@@ -704,11 +709,26 @@ var FichaModule = (function (config) {
     };
 
     var _validarDesactivadoGeneral = function (pEstrategia) {
-        $.each(pEstrategia.Hermanos, function (index, hermano) {
-            if (hermano.Hermanos && hermano.Hermanos.length > 0) {
-                EstrategiaAgregarModule.DeshabilitarBoton();
-            }
+        if (pEstrategia.esEditable) {
+            EstrategiaAgregarModule.DeshabilitarBoton();
+        } else {
+            $.each(pEstrategia.Hermanos, function (index, hermano) {
+                if (hermano.Hermanos && hermano.Hermanos.length > 0) {
+                    EstrategiaAgregarModule.DeshabilitarBoton();
+                }
+            });
+        }
+        
+    };
+    var _validarActivadoGeneral = function (pEstrategia) {
+        if (!pEstrategia.esEditable) {
+               $.each(pEstrategia.Hermanos, function (index, hermano) {
+                if (!(hermano.Hermanos && hermano.Hermanos.length > 0)) {
+                    EstrategiaAgregarModule.HabilitarBoton();
+                }
         });
+        }
+        
     };
 
     var _setEstrategiaImgFondo = function (pEstrategia) {
