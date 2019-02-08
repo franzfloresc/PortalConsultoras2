@@ -270,7 +270,7 @@ var EstrategiaAgregarModule = (function () {
             estrategia.FlagNueva = estrategia.FlagNueva == "1" ? estrategia.FlagNueva : "";
             $(elementosDiv.OfertaTipoNuevo).val(estrategia.FlagNueva);
         }
-
+        
         AbrirLoad();
 
         var itemClone = estrategiaObtenerObjHtmlLanding($btnAgregar);
@@ -497,8 +497,11 @@ var EstrategiaAgregarModule = (function () {
                     }
                 }
                 if (!IsNullOrEmpty(data.mensajeAviso)) AbrirMensaje(data.mensajeAviso, data.tituloMensaje);
-
+                if (_config.esFicha) {
+                    FichaEditarModule.ShowDivFichaResumida(false);
+                }
                 return false;
+                
             })
             .fail(function (data, error) {
                 CerrarLoad();
