@@ -444,6 +444,10 @@ var FichaModule = (function (config) {
         return campaniaActual;
     }
 
+    var _asignarCantidad = function (cantidad) {
+        $('input.txtCantidad').val(cantidad);
+    }
+
     var _asignaDetallePedido = function (data, estrategia) {
         if (!data.length) {
             _redireccionar();
@@ -452,7 +456,7 @@ var FichaModule = (function (config) {
         }
 
         estrategia.Cantidad = data[0].Cantidad;
-        $('input.txt_cantidad_pedido').val(estrategia.Cantidad);
+        _asignarCantidad(estrategia.Cantidad);
 
         $.each(data, function (i, o) {
             var filterComponente = estrategia
@@ -491,7 +495,7 @@ var FichaModule = (function (config) {
             }
         }
         else {
-            $('input.txt_cantidad_pedido').val(1);
+            _asignarCantidad(1);
         }
     }
 

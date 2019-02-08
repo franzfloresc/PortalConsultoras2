@@ -172,7 +172,14 @@
                         <a class="cantidad_menos_home" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
                             <span>-</span>
                         </a>
-                        <input type="tel" attern="[0-9]{2}" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
+                        <input type="tel" attern="[0-9]{2}" 
+                               value="{{Cantidad}}" 
+                               size="2" 
+                               maxlength="2" 
+                               id="txtCantidad" 
+                               class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" 
+                               onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" 
+                               data-input="cantidad">
                         <a class="cantidad_mas_home" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
                             <span>+</span>
                         </a>
