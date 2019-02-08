@@ -1009,6 +1009,8 @@ var GoogleMap = function() {
             
             me.Funciones.LimpiarMapa();
             $('#Direccion').val('');
+            $('#Zona').val('');
+            $('#Referencia').val('');
             if (window.matchMedia("(max-width: 991px)").matches) {
                 $('.enlace_abrir_mapa')[0].disabled = true;
                 $('.enlace_abrir_mapa').addClass('enlace_abrir_mapa_disabled');

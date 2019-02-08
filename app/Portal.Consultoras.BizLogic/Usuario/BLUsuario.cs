@@ -3849,6 +3849,12 @@ namespace Portal.Consultoras.BizLogic
                 {
                     LogManager.SaveLog(ex, string.Empty, usuario.PaisID);
                     if (lst != null  && lst[0] != "0")
+
+
+
+
+
+
                     {
                         resultado = string.Format("{0}|{1}|{2}|0", "0", "4", "Ocurrió un error al registrar los datos, intente nuevamente.");
                     }
@@ -3864,9 +3870,10 @@ namespace Portal.Consultoras.BizLogic
             if (direccionEntrega.Operacion == Constantes.OperacionBD.Editar)
             {
                 var DireccionCambio = !(direccionEntrega.Direccion.Trim().Equals(direccionEntrega.DireccionAnterior.Trim()));
+                var ZonaCambio = !(direccionEntrega.Zona.Trim().Equals(direccionEntrega.ZonaAnterior.Trim()));
                 var ReferenciaCambio = !(direccionEntrega.Referencia.Trim().Equals(direccionEntrega.ReferenciaAnterior.Trim()));
 
-                if (ReferenciaCambio || DireccionCambio) _direccionEntregaBusinessLogic.Editar(direccionEntrega);
+                if (ReferenciaCambio || ZonaCambio || DireccionCambio) _direccionEntregaBusinessLogic.Editar(direccionEntrega);
             }
             else
             {
