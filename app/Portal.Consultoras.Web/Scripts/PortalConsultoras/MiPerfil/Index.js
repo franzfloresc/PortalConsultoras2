@@ -374,18 +374,10 @@ $(document).ready(function () {
     CancelarAtualizacionEmail();
 });
  
-
-
-
-
 function EnlaceTerminosCondiciones() {
     var enlace = $('#hdn_enlaceTerminosCondiciones').val();
     $('#hrefTerminosMD').attr('href', enlace);
 }
-
-
-
-
 
 function actualizarDatos() {
     
@@ -607,8 +599,8 @@ function actualizarDatos() {
         NombreCompleto: jQuery('#hdn_NombreCompletoMD').val(),
         CompartirDatos: false,
         AceptoContrato: $('#chkAceptoContratoMD').is(':checked'),
-        DireccionEntrega: direccion,
-        UsuarioOpciones: permisos
+        DireccionEntrega: TieneDireccionEntrega == '1' ? direccion : null,
+        UsuarioOpciones: TienePermisoCuenta == '1' ? permisos : null
     };
 
     

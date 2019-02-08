@@ -3819,26 +3819,30 @@ namespace Portal.Consultoras.BizLogic
                     if (usuario.DireccionEntrega != null) RegistraDireccionEntrega(usuario.CodigoISO, usuario.DireccionEntrega);
 
                     /*Insertar permisos*/
-                    var DAUsuario = new DAUsuario(usuario.PaisID);
-                    foreach (var item in usuario.UsuarioOpciones)
+                    if (usuario.UsuarioOpciones != null)
                     {
-                        DAUsuario.InsertarUsuarioOpciones(item, usuario.CodigoUsuario);
-                    }
-
-                    if (usuario.PaisID == Constantes.PaisID.Chile)
-                    {
-                        var urlService = new EndpointAddress(WebConfig.ServicioActualizarBoletaImp);
-                        string flagBolImp = !usuario.UsuarioOpciones.Where(a => a.Codigo == "chkBoletasImpresas").Select(b => b.CheckBox).FirstOrDefault() ? "N" : "S";
-                        using (var svr = new ProcesoMAEActualizaFlagImpBoletasWebServiceImplClient(new BasicHttpBinding(), urlService))
+                        var DAUsuario = new DAUsuario(usuario.PaisID);
+                        foreach (var item in usuario.UsuarioOpciones)
                         {
-                            svr.Endpoint.Binding.SendTimeout = new TimeSpan(0, 0, 0, 10);
-                            var objActualizarFlagBoleta = new List<ConsultoraFlagImpBoleta>();
-                            objActualizarFlagBoleta.Add(new ConsultoraFlagImpBoleta { codigoConsultora = usuario.CodigoConsultora, indImprimeBoleta = flagBolImp, indImprimePaquete = flagBolImp });
-                            var result = svr.actualizaFlagImpBoletas(objActualizarFlagBoleta.ToArray());
-                            if (result.estado == 1)
-                                throw new Exception(result.mensaje);
+                            DAUsuario.InsertarUsuarioOpciones(item, usuario.CodigoUsuario);
+                        }
+
+                        if (usuario.PaisID == Constantes.PaisID.Chile)
+                        {
+                            var urlService = new EndpointAddress(WebConfig.ServicioActualizarBoletaImp);
+                            string flagBolImp = !usuario.UsuarioOpciones.Where(a => a.Codigo == "chkBoletasImpresas").Select(b => b.CheckBox).FirstOrDefault() ? "N" : "S";
+                            using (var svr = new ProcesoMAEActualizaFlagImpBoletasWebServiceImplClient(new BasicHttpBinding(), urlService))
+                            {
+                                svr.Endpoint.Binding.SendTimeout = new TimeSpan(0, 0, 0, 10);
+                                var objActualizarFlagBoleta = new List<ConsultoraFlagImpBoleta>();
+                                objActualizarFlagBoleta.Add(new ConsultoraFlagImpBoleta { codigoConsultora = usuario.CodigoConsultora, indImprimeBoleta = flagBolImp, indImprimePaquete = flagBolImp });
+                                var result = svr.actualizaFlagImpBoletas(objActualizarFlagBoleta.ToArray());
+                                if (result.estado == 1)
+                                    throw new Exception(result.mensaje);
+                            }
                         }
                     }
+
                     ts.Complete();
                 }
                 catch (Exception ex)

@@ -676,10 +676,13 @@ namespace Portal.Consultoras.Web.Controllers
                     userData.PrimerNombre,
                     userData.CodigoISO,
                 };
-                model.DireccionEntrega.PaisID = userData.PaisID;
-                model.DireccionEntrega.CodigoConsultora = userData.CodigoConsultora;
-                model.DireccionEntrega.CampaniaID = userData.CampaniaID;
-                model.DireccionEntrega.ConsultoraID = (int)userData.ConsultoraID;
+
+                if (model.DireccionEntrega != null) {
+                    model.DireccionEntrega.PaisID = userData.PaisID;
+                    model.DireccionEntrega.CodigoConsultora = userData.CodigoConsultora;
+                    model.DireccionEntrega.CampaniaID = userData.CampaniaID;
+                    model.DireccionEntrega.ConsultoraID = (int)userData.ConsultoraID;
+                }
 
                 resultado = await _miPerfilProvider.RegistrarAsync(model);
                 ActualizarDatosLogDynamoDB(model, "MI PERFIL", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Modificacion");

@@ -101,8 +101,8 @@ namespace Portal.Consultoras.Web.Providers
     
         private async Task<BEDireccionEntrega> BinderDireccionAsync(DireccionEntregaModel model)
         {
+            if (model == null) return null;
             var entidad = Mapper.Map<DireccionEntregaModel, BEDireccionEntrega>(model);
-
             if (model.Operacion == Constantes.OperacionBD.Editar)
             {
                 DireccionEntregaModel direccionAnterior = await ObtenerDireccionPorConsultoraAsync(model);
@@ -125,6 +125,7 @@ namespace Portal.Consultoras.Web.Providers
 
         private List<BEUsuarioOpciones> BinderUsuarioOpciones(List<UsuarioOpcionesModel> model)
         {
+            if (model == null) return null;
             var entidad = Mapper.Map<List<UsuarioOpcionesModel>, List<BEUsuarioOpciones>>(model);
             return entidad;
         }
