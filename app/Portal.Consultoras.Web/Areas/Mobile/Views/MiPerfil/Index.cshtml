@@ -395,7 +395,7 @@ else
 
         var ZoonMapa = 17;
         var LocationCountry = '@ViewBag.LocationCountry';
-        var EsMobile = @ViewBag.EsMobile ? '1' : '0';
+        var EsMobile = '@ViewBag.EsMobile' == 'True' ? '1' : '0';
         var UrlDrop = '@Url.Action("ObtenerUbigeoDependiente")';
         var Ubigeos = { Ubigeo1: '@Model.DireccionEntrega.Ubigeo1', Ubigeo2: '@Model.DireccionEntrega.Ubigeo2', Ubigeo3 :'@Model.DireccionEntrega.Ubigeo3'}
 
