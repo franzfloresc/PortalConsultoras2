@@ -69,10 +69,10 @@
                                 </div>
                                 <div class="col col-lg-12 col-xl-12 pl-0 pr-0 text-left text-lg-center text-xl-center escala__descuento__porcentaje__y__montos">
                                     <span class="d-block text-bold text-uppercase escala__descuento__porcentaje">
-                                       @item.PorcentajeDescuento  % dscto
+                                        @item.PorcentajeDescuento  % dscto
                                     </span>
                                     <span class="d-block color__gray__multimarca text-left text-lg-center text-xl-center escala__descuento__rango__montos">
-                                       @item.MontoMinimo a <span class="d-lg-block d-xl-block text-uppercase color__gray__multimarca">@item.MontoMaximo</span>
+                                        @item.MontoMinimo a <span class="d-lg-block d-xl-block text-uppercase color__gray__multimarca">@item.MontoMaximo</span>
                                     </span>
                                 </div>
                             </div>
@@ -86,13 +86,28 @@
             <!-- FIN - COMPONENTE BARRA DE DESCUENTOS -->
         </section>
         <!-- FIN - SECCIÓN ESCALA DE DESCUENTOS EN BARRA -->
-        <div class="row flex-row ml-0 mr-0 info__descuento__fijo">
+        <div class="row flex-row ml-0 mr-0 info__descuento__fijo w-100">
             <h2 class="col-12 pl-0 pr-0 text-bold text-uppercase info__descuento__fijo__titulo">
-                Descuento fijo de 20% :
+                Descuento fijo :
             </h2>
-            <p class="col-12 pl-0 pr-0 info__descuento__fijo__descripcion">
-                <span>En promociones cosméticos, relojes, lentes, ropa y accesorios cosméticos.</span>
-            </p>
+            <div class="col-12 pl-0 pr-0 row flex-row ml-0 mr-0 info__descuento__fijo__porcentaje__wrapper">
+                <div class="col-12 pl-0 pr-0">
+                    <h3 class="text-bold text-uppercase info__descuento__fijo__porcentaje__titulo">
+                        20% Dscto
+                    </h3>
+                    <p class="info__descuento__fijo__porcentaje__descripcion">
+                        En ropa, relojes, lentes, regalables, accesorios cosméticos, la mejor compra de Ésika, oferta insuperable de Ésika y la oferta especial de Cyzone.
+                    </p>
+                </div>
+                <div class="col-12 pl-0 pr-0">
+                    <h3 class="text-bold text-uppercase info__descuento__fijo__porcentaje__titulo">
+                        10% Dscto
+                    </h3>
+                    <p class="info__descuento__fijo__porcentaje__descripcion">
+                        En catálogo de expofertas.
+                    </p>
+                </div>
+            </div>
         </div>
         <div class="row flex-row ml-0 mr-0 info__sin__descuento">
             <h2 class="col-12 pl-0 pr-0 text-bold text-uppercase info__sin__descuento__titulo">
@@ -114,7 +129,7 @@
                     Importante:&nbsp;
                 </span>
                 <span class="color__gray__multimarca">
-                   @ViewBag.MensajeImportante
+                    @ViewBag.MensajeImportante
                 </span>
             </div>
         </div>
@@ -132,7 +147,7 @@
             </div>
         </div>
 
-       
+
 
     </section>
     <!-- FIN - CONTENIDO DE VISTA ESCALA DE DESCUENTO -->
