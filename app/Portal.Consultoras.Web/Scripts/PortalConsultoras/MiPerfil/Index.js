@@ -9,10 +9,8 @@ var OperacionDb = { Insertar: "0", Editar: "1" };
 $(document).ready(function () {
 
     if ($('#SeccionDireccionEntrega').length != 0) {
-        if (EsMobile == '1') {
-            if (window.matchMedia("(max-width: 991px)").matches) {
-                $('.enlace_abrir_mapa')[0].disabled = true;
-            }
+        if (window.matchMedia("(max-width: 991px)").matches) {
+            $('.enlace_abrir_mapa')[0].disabled = true;
         } else {
             $('.enlace_ubicacion_actual')[0].style.display = "none";
         }
