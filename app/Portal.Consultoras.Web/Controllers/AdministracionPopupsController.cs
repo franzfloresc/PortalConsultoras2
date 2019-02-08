@@ -171,11 +171,15 @@ namespace Portal.Consultoras.Web.Controllers
              Activo = objetoContenidoService.Activo,
              DescripcionAccion = objetoContenidoService.DescripcionAccion,
              SegmentacionID = Convert.ToInt32( objetoContenidoService.SegmentacionID),
-             UrlImagen = GetImagen( objetoContenidoService.UrlImagen),
+             UrlImagen =string.Concat( "Uploads/",GetImagen( objetoContenidoService.UrlImagen)),
+             NombreImagen = GetImagen(objetoContenidoService.UrlImagen),
              Orden = objetoContenidoService.Orden,
              NombreArchivoCCV = objetoContenidoService.NombreArchivoCCV,
              FechaInicio_ = objetoContenidoService.FechaInicio,
-             FechaFin_ = objetoContenidoService.FechaFin
+             FechaFin_ = objetoContenidoService.FechaFin,
+             TipoDispositivo=objetoContenidoService.TipoDispositivo,
+             
+
          };
                    
 

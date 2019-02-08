@@ -3108,6 +3108,9 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         private bool SegmentacionRegionZonaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int TipoDispositivoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string TituloField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -3333,6 +3336,19 @@ namespace Portal.Consultoras.Web.ServiceContenido {
                 if ((this.SegmentacionRegionZonaField.Equals(value) != true)) {
                     this.SegmentacionRegionZonaField = value;
                     this.RaisePropertyChanged("SegmentacionRegionZona");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TipoDispositivo {
+            get {
+                return this.TipoDispositivoField;
+            }
+            set {
+                if ((this.TipoDispositivoField.Equals(value) != true)) {
+                    this.TipoDispositivoField = value;
+                    this.RaisePropertyChanged("TipoDispositivo");
                 }
             }
         }

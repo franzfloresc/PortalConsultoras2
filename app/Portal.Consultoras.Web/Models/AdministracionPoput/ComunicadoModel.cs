@@ -16,11 +16,12 @@ namespace Portal.Consultoras.Web.Models.AdministracionPoput
         public string DescripcionAccion { get; set; }
         public int SegmentacionID { get; set; }
         public string UrlImagen { get; set; }
+        public string Url{ get; set; }
+        public string NombreImagen { get; set; }
         public string Titulo { get; set; }
         public int Orden { get; set; }
         public DateTime FechaInicio { get; set; }
         public DateTime FechaFin { get; set; }
-        public int TipoDispositivo { get; set; }
         public bool SegmentacionConsultora { get; set; }
         public bool SegmentacionRegionZona { get; set; }
         public bool SegmentacionEstadoActividad { get; set; }
@@ -29,6 +30,7 @@ namespace Portal.Consultoras.Web.Models.AdministracionPoput
         public string FechaInicio_ { get; set; }
         public string FechaFin_ { get; set; }
         public string NombreArchivoCCV { get; set; }
+        public int TipoDispositivo { get; set; }
         public IEnumerable<SegmentacionComunicadoModel> ListaSegmentacionComunicado { set; get; }
         public IEnumerable<CampaniaModel> listaCampania { get; set; }
 

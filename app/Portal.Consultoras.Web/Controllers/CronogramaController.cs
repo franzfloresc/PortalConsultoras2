@@ -140,6 +140,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult ConsultarCronograma(string sidx, string sord, int page, int rows, string CampaniaID, string TipoCronogramaID, string PaisID, string ZonaID, string Consulta)
         {
+
             if (ModelState.IsValid)
             {
                 List<BECronograma> lst;

@@ -1,4 +1,5 @@
-﻿var VistaAdministracionPopups;
+﻿var RUTA_MADRE = "~/";
+var VistaAdministracionPopups;
 var URL_BUSCAR_POPUTS = baseUrl + 'AdministracionPopups/GetCargaListadoPoput';
 var URL_ADJUNTAR_ARCHIVO = baseUrl + 'AdministracionPopups/GetCargarArchivoCSV';
 var URL_GUARDAR_POPUT = baseUrl + 'AdministracionPopups/GetGuardarPoput';
@@ -83,6 +84,33 @@ function GetCargaDetallePoput(comunicadoid) {
 }
 
 function GetCamposCargadosPoput(data) {
+    debugger;
+    $("#targetImg").attr('src', (RUTA_MADRE + data.UrlImagen));
+    $("#description").html(data.NombreImagen);
+    $("#imgPreview").show();
+
+    $("#txtTituloPrincipal").val("");
+    $("#txtDescripcion").val(data.Descripcion);
+    $("#txtUrl").val(data.DescripcionAccion);
+    $("#nameArchivo").html(data.NombreArchivoCCV);
+    $("#fechaMin").val(data.FechaInicio_);
+    $("#fechaMax").val(data.FechaFin_);
+    if (data.TipoDispositivo == 1) {
+        document.getElementById('checkMobile').checked = true;
+        document.getElementById('checkMobile').checked = false;
+    }
+    if (data.TipoDispositivo == 2) {
+        document.getElementById('checkMobile').checked = false;
+        document.getElementById('checkMobile').checked = true;
+    }
+    if (data.TipoDispositivo == 0) {
+        document.getElementById('checkMobile').checked = false;
+        document.getElementById('checkMobile').checked = false;
+    }
+
+
+
+
 
 }
 
@@ -146,6 +174,28 @@ var ReadImage = function (file) {
         }
     }
 }
+$("#btnDescartar").click(function () {
+    LimpiarCamposPoput();
+});
+
+function LimpiarCamposPoput() {
+    $("#description").val('');
+    $("#imgPoputs").val('');
+    $("#imgPreview").hide();
+
+    $("#txtTituloPrincipal").val("");
+    $("#txtDescripcion").val("");
+    $("#txtUrl").val("");
+    $("#txtUrl").val("");
+    $("#nameArchivo").html("");
+    $("#fechaMin").val("");
+    $("#fechaMax").val("");
+    document.getElementById('checkMobile').checked = false;
+    document.getElementById('checkDesktop').checked = false;
+}
+
+
+
 var ClearView = function () {
     
     $("#description").val('');

@@ -5146,6 +5146,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Scripts\AdminContenido\MatrizComercial.js" />
+    <Content Include="Uploads\consultora1.jpg" />
     <Content Include="Views\AdministrarEstrategia\_NuevoMasivo.cshtml" />
     <Content Include="Views\CatalogoPersonalizado\Index.cshtml">
       <SubType>Code</SubType>
@@ -5536,6 +5537,7 @@
     <Content Include="Views\MisCatalogosRevistas\template-revista-slide.cshtml" />
     <Content Include="Views\AdministracionPopups\Index.cshtml" />
     <Content Include="Views\AdministracionPopups\AdministracionPopups.cshtml" />
+    <Content Include="Uploads\Archivoccv.csv" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

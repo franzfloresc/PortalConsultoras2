@@ -75,5 +75,9 @@ namespace Portal.Consultoras.Entities
         [Column("NombreArchivoCCV")]
         public string NombreArchivoCCV { get; set; }
 
+        [DataMember]
+        [Column("TipoDispositivo")]
+        public int TipoDispositivo { get; set; }
+
     }
 }

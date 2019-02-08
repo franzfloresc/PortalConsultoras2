@@ -103,6 +103,7 @@ namespace Portal.Consultoras.BizLogic
                     objetoBEComunicado.NombreArchivoCCV = reader[7] == null ? string.Empty : reader[7].ToString();
                     objetoBEComunicado.FechaInicio = reader[8] == null ? string.Empty : reader[8].ToString();
                     objetoBEComunicado.FechaFin = reader[9] == null ? string.Empty : reader[9].ToString();
+                    objetoBEComunicado.TipoDispositivo= reader[10] == DBNull.Value ? 0 : int.Parse(reader[10].ToString());
                 }
 
             }
