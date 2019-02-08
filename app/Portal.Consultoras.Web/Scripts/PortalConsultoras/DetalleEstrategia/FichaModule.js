@@ -445,7 +445,7 @@ var FichaModule = (function (config) {
     }
 
     var _asignarCantidad = function (cantidad) {
-        $('input.txtCantidad').val(cantidad);
+        $('input#txtCantidad').val(cantidad);
     }
 
     var _asignaDetallePedido = function (data, estrategia) {
@@ -456,6 +456,7 @@ var FichaModule = (function (config) {
         }
 
         estrategia.Cantidad = data[0].Cantidad;
+        console.log(estrategia.Cantidad);
         _asignarCantidad(estrategia.Cantidad);
 
         $.each(data, function (i, o) {
