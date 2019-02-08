@@ -41,19 +41,19 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                     pedidoCliente.ListaPedidoWebDetalle = Mapper.Map<List<PedidoWebClienteMobilModel>>(lstPedidoDetalle);
 
-
                     foreach (var pedidoDetalleProducto in pedidoCliente.ListaPedidoWebDetalle)
                     {
-                        BEPedidoWebDetalle[] lstPedidoDetalleProducto;
+                        //BEPedidoWebDetalle[] lstPedidoDetalleProducto;
                         var lstPedidoDetalleProducto2 = new List<BEPedidoWebDetalle>();
                         //using (var sv = new ClienteServiceClient())
                         //{
                         //    lstPedidoDetalleProducto = sv.GetPedidoWebDetalleByCliente(userData.PaisID, pedidoCliente.CampaniaID, userData.ConsultoraID, pedidoDetalleProducto.ClienteID);
                         //}
 
-                        var detallepedido = ObtenerPedidoWebSetDetalleAgrupado();
+                        //var detallepedido = ObtenerPedidoWebSetDetalleAgrupado();
+                        var detallePedidoWeb = GetDetallePedidoAgrupadoByCampania(pedidoDetalleProducto.CampaniaID);
 
-                        foreach (var det in detallepedido)
+                        foreach (var det in detallePedidoWeb)
                         {
                             lstPedidoDetalleProducto2.Add(new BEPedidoWebDetalle
                             {
@@ -71,7 +71,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                                 ImporteTotal = det.ImporteTotal,
                                 ImporteTotalPedido = det.ImporteTotalPedido,
                                 MarcaID = det.MarcaID,
-                                //descripcionmarca
                                 ObservacionPROL = det.ObservacionPROL,
                                 IndicadorOfertaCUV = det.IndicadorOfertaCUV,
                                 SetIdentifierNumber = det.SetIdentifierNumber
@@ -88,10 +87,22 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                             pedidoWebDetalle.ListaPedidoWebDetalleProductos.Any(item => string.IsNullOrEmpty(item.ObservacionPROL) && item.IndicadorOfertaCUV)
                         );
 
+                    var totalPedidoCliente = pedidoCliente.ListaPedidoWebDetalle.Sum(p => p.ImporteTotal);
+                    var desctoPedidoCliente = pedidoCliente.ListaPedidoWebDetalle.Sum(p => p.ImporteDescuento);
+                    var subtotalPedidoCliente = (totalPedidoCliente - desctoPedidoCliente);
+
                     if (pedidoCliente.TieneDescuentoCuv)
                     {
-                        pedidoCliente.Subtotal = pedidoCliente.ImporteTotal;
-                        pedidoCliente.ImporteTotal = pedidoCliente.Subtotal + pedidoCliente.Descuento;
+                        //pedidoCliente.Subtotal = pedidoCliente.ImporteTotal;
+                        //pedidoCliente.ImporteTotal = pedidoCliente.Subtotal + pedidoCliente.Descuento;
+                        pedidoCliente.Subtotal = subtotalPedidoCliente;
+                        pedidoCliente.ImporteTotal = subtotalPedidoCliente + desctoPedidoCliente;
+                    }
+                    else
+                    {
+                        pedidoCliente.Subtotal = subtotalPedidoCliente;
+                        pedidoCliente.ImporteTotal = totalPedidoCliente;
+                        pedidoCliente.Descuento = desctoPedidoCliente;
                     }
 
                     if (userData.PaisID == Constantes.PaisID.Colombia)
@@ -291,13 +302,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 {
                     pedidoWeb = sv.GetPedidoWebByCampaniaConsultora(userData.PaisID, int.Parse(campaniaId), userData.ConsultoraID);
                 }
-                
+
                 List<BEPedidoWebDetalle> lstCabecera;
                 using (ClienteServiceClient sv = new ClienteServiceClient())
                 {
                     lstCabecera = sv.GetClientesByCampania(userData.PaisID, int.Parse(campaniaId), userData.ConsultoraID).ToList();
                 }
-                
+
                 List<PedidoWebClienteMobilModel> listaClientes = Mapper.Map<List<PedidoWebClienteMobilModel>>(lstCabecera);
 
                 List<KeyValuePair<int, string>> dicCabeceras = new List<KeyValuePair<int, string>>();
@@ -338,7 +349,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 PedidoWebMobilModel pedidoCliente = new PedidoWebMobilModel
                 {
-                    TieneDescuentoCuv = userData.EstadoSimplificacionCUV 
+                    TieneDescuentoCuv = userData.EstadoSimplificacionCUV
                                         && listaClientes.Any(pedidoWebDetalle =>
                                             pedidoWebDetalle.ListaPedidoWebDetalleProductos.Any(item =>
                                                 string.IsNullOrEmpty(item.ObservacionPROL) &&
@@ -367,7 +378,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     pedidoCliente.DescuentoString = string.Format("{0:#,##0.00}", pedidoCliente.Descuento);
                     pedidoCliente.ImporteTotalString = string.Format("{0:#,##0.00}", pedidoCliente.ImporteTotal);
                 }
-                
+
                 var mailBody = EnviarEmailContenido(campaniaId, listaClientes, pedidoCliente);
                 Util.EnviarMailMobile("no-responder@somosbelcorp.com", userData.EMail, "(" + userData.CodigoISO + ") Pedido Solicitado", mailBody, true, userData.NombreConsultora);
 
@@ -416,7 +427,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             txtBuil.Append("</td>");
             txtBuil.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 126px; background-color: #666699;'>");
             /*txtBuil.Append("Cod. Venta");*/
-            txtBuil.Append("Código"); 
+            txtBuil.Append("Código");
             txtBuil.Append("</td>");
             txtBuil.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 347px; background-color: #666699;'>");
             //txtBuil.Append("Descripción");
