@@ -252,7 +252,7 @@ namespace Portal.Consultoras.Web.Controllers
                 modelo = modelo ?? new DetalleEstrategiaFichaModel();
                 modelo.MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(IsMobile());
                 modelo.OrigenUrl = origen;
-                modelo.OrigenAgregar = GetOrigenPedidoWebDetalle(origen);
+                modelo.OrigenAgregar = GetOrigenPedidoWebDetalle(origen); 
                 modelo.BreadCrumbs = GetDetalleEstrategiaBreadCrumbs(revistaDigital.TieneRevistaDigital(),
                    userData.CampaniaID == campaniaId,
                    palanca);
@@ -506,6 +506,10 @@ namespace Portal.Consultoras.Web.Controllers
                     break;
                 case Constantes.OrigenPedidoWeb.MobileLandingShowroomShowroomCarrusel:
                     result = Constantes.OrigenPedidoWeb.MobileLandingShowroomShowroomFicha;
+                    break;
+
+                case Constantes.OrigenPedidoWeb.MobileContenedorShowroomCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobileContenedorShowroomFicha;
                     break;
 
                 #endregion Mobile
