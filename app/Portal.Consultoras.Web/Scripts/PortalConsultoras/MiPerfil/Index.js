@@ -145,7 +145,7 @@ $(document).ready(function () {
             },
             ModoEdicion: function() {
                 //$('#Ubigeo1').trigger("change");
-                if (EsMobile == '1')
+                if (window.matchMedia("(max-width: 991px)").matches)
                    $('.enlace_abrir_mapa')[0].disabled = false;
                 me.Funciones.CargarUbigeos();
           
@@ -959,7 +959,7 @@ var GoogleMap = function() {
             $('#Direccion').focusout(function () {
                 var dropdown = document.getElementsByClassName('pac-container')[0];
                 if (dropdown.style.display == 'none') {
-                    if (EsMobile == '1') {
+                    if (window.matchMedia("(max-width: 991px)").matches) {
 
                         $('.enlace_abrir_mapa')[0].disabled = true;
                         $('.enlace_abrir_mapa').addClass('enlace_abrir_mapa_disabled');
@@ -1009,7 +1009,7 @@ var GoogleMap = function() {
             
             me.Funciones.LimpiarMapa();
             $('#Direccion').val('');
-            if (EsMobile == '1') {
+            if (window.matchMedia("(max-width: 991px)").matches) {
                 $('.enlace_abrir_mapa')[0].disabled = true;
                 $('.enlace_abrir_mapa').addClass('enlace_abrir_mapa_disabled');
             }
@@ -1063,7 +1063,7 @@ var GoogleMap = function() {
                 map.setCenter(place.geometry.location);
                 map.setZoom(ZoonMapa);
             }
-            if (EsMobile == '1') {
+            if (window.matchMedia("(max-width: 991px)").matches) {
                 $('.enlace_abrir_mapa')[0].disabled = false;
                 $('.enlace_abrir_mapa').removeClass('enlace_abrir_mapa_disabled');
             }
@@ -1104,7 +1104,7 @@ var GoogleMap = function() {
                             for (var i = 0; i < results.length; i++) {
                                 if (results[i].types.indexOf('street_address') >= 0) {
                                     
-                                    if (EsMobile == '1')
+                                    if (window.matchMedia("(max-width: 991px)").matches)
                                         $("#RouteDirection").html(results[i].formatted_address);
                                     else
                                     {
