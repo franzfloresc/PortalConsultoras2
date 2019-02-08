@@ -666,7 +666,7 @@ var FichaModule = (function (config) {
                 estrategiaBreadcrumb += "...";
         } else {
             if (estrategiaBreadcrumb.length > 7)
-                estrategiaBreadcrumb = estrategiaBreadcrumba.substr(0, 7) + "...";
+                estrategiaBreadcrumb = estrategiaBreadcrumb.substr(0, 7) + "...";
         }
 
         $(_elementos.estrategiaBreadcrumb).text(estrategiaBreadcrumb);
