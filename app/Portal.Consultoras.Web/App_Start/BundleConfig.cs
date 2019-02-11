@@ -490,6 +490,7 @@ namespace Portal.Consultoras.Web
             ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mobile/PedidoDetalle").Include(
+                "~/Scripts/PortalConsultoras/Pedido/PedidoProvider.js",
                 "~/Scripts/PortalConsultoras/Mobile/Pedido/Detalle.js",
                 "~/Scripts/PortalConsultoras/Pedido/ofertaFinal.js",
                 "~/Scripts/PortalConsultoras/Cupon/CuponModule.js",
@@ -934,6 +935,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-SeccionDorada.js",
+                "~/Scripts/PortalConsultoras/Shared/AnalyticsPortal.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js"
            ));
 

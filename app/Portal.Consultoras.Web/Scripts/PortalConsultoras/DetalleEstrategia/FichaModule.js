@@ -597,6 +597,7 @@ var FichaModule = (function (config) {
         estrategia.RangoInputEnabled = "disabled";
         estrategia.esEditable = _config.esEditable;
         estrategia.setId = _config.setId || 0;
+        estrategia.TieneStock = _config.esEditable || estrategia.TieneStock;
 
         return estrategia;
     };
@@ -836,7 +837,7 @@ var FichaModule = (function (config) {
                 var dvRedesSocialesHeight = dvRedesSociales.innerHeight();
                 var diferenciaHeight = dvIzquierdoHeight - dvFichaEtiquetaHeight;
                 dvDetalle.removeClass("ficha_detalle_cuerpo");
-                dvDetalle.height(diferenciaHeight);
+                //dvDetalle.height(diferenciaHeight);
                 dvDetalle.css("min-height", diferenciaHeight);
             }
             else {
