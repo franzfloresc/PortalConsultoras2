@@ -837,7 +837,7 @@ var FichaModule = (function (config) {
                 var dvRedesSocialesHeight = dvRedesSociales.innerHeight();
                 var diferenciaHeight = dvIzquierdoHeight - dvFichaEtiquetaHeight;
                 dvDetalle.removeClass("ficha_detalle_cuerpo");
-                dvDetalle.height(diferenciaHeight);
+                //dvDetalle.height(diferenciaHeight);
                 dvDetalle.css("min-height", diferenciaHeight);
             }
             else {
