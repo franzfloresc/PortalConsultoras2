@@ -419,9 +419,14 @@ var EstrategiaAgregarModule = (function () {
 
                 } else if (tipoOrigenEstrategiaAux == 2 ||
                     tipoOrigenEstrategiaAux == 21 ||
+                    tipoOrigenEstrategiaAux == 22 ||
                     tipoOrigenEstrategiaAux == 27 ||
                     tipoOrigenEstrategiaAux == 262 ||
                     tipoOrigenEstrategiaAux == 272) {
+
+                    //debugger;
+
+                    if (isPagina('mobile/pedido/detalle')) CargarPedido(false);
 
                     if (tipoOrigenEstrategiaAux == 262) {
 
@@ -438,7 +443,7 @@ var EstrategiaAgregarModule = (function () {
                             CargarCarouselEstrategias();
                         }
 
-                        if (tieneMasVendidos === 1) {
+                        if (typeof tieneMasVendidos !== "undefined" && tieneMasVendidos === 1) {
                             CargarCarouselMasVendidos("mobile");
                         }
                     }
