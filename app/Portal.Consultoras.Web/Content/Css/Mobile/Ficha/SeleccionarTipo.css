@@ -199,6 +199,12 @@
     right: -3px;
     top: -3px;
     transition: all 350ms;
+    z-index: 2;
+}
+
+
+.contenedor_selecionados #opciones-seleccionadas {
+    margin-top: 3px !important;
 }
 
 .item_selecionado_close:hover {
