@@ -12,15 +12,15 @@
             {{#iff componente.cantidadSeleccionada '==' '0'}}
                 {{#if TieneStock}}
                     <li class="seleccion_btn" id="li-eligelo-{{componente.Cuv}}">
-                        <button id="btn-eligelo-{{componente.Cuv}}" 
-                            {{#if ../esCampaniaSiguiente}}
-                            class="disabled"
-                            {{else}}
-                            {{#if componente.EleccionBloqueada}}
-                            class="disabled"
-                            {{/if}}
-                            {{/if}}
-                            onclick="javascript: ListaOpcionesModule.SeleccionarOpcion('{{componente.Cuv}}')">Elígelo
+                        <button id="btn-eligelo-{{componente.Cuv}}"
+                                {{#if ../esCampaniaSiguiente}}
+                                class="disabled"
+                                {{else}}
+                                {{#if componente.EleccionBloqueada}}
+                                class="disabled"
+                                {{/if}}
+                                {{/if}}
+                                onclick="javascript: ListaOpcionesModule.SeleccionarOpcion('{{componente.Cuv}}')">Elígelo
                         </button>
                     </li>
                 {{else}}
@@ -89,6 +89,7 @@
             </div>
         </li>
         {{/iff}}
+
     </ul>
     {{/IsNullOrEmpty}}
     {{/each}}
