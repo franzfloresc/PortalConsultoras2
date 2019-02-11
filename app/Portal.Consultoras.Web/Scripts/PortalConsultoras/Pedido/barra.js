@@ -682,15 +682,14 @@ function MostrarBarra(datax, destino) {
     var valorFalta = vLimite - vLogro;
     var tipoMensaje = '';
     var muestraTP = destino == '2' && dataBarra.TippingPointBarra.Active && tp > 0;
+    var limiteEsPremio = vLogro < tp; //  && tp <= vLimite;
 
-    if (vLogro < mn){
-        var minimoTP = muestraTP && dataBarra.TippingPointBarra.InMinimo;
-        tipoMensaje = minimoTP ? "MinimoTippingPoint" : "MontoMinimo";
-    }
-    else if (muestraTP && vLogro < tp) {
+    if (muestraTP && vLogro == 0) tipoMensaje = "Inicio";
+    else if (muestraTP && limiteEsPremio) {
         valorFalta = tp - vLogro;
         tipoMensaje = "TippingPoint";
     }
+    else if (vLogro < mn) tipoMensaje = "MontoMinimo";
     else {
         tipoMensaje = listaLimite[indPuntoLimite].tipoMensaje;
         if (tipoMensaje == 'EscalaDescuento') valorFalta = vLimite - me;
