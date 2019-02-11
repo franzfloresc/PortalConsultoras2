@@ -522,7 +522,6 @@ var EstrategiaAgregarModule = (function () {
     var adicionarCantidad = function (e) {
 
         e.stopPropagation();
-
         var $this = $(e.target);
         if (selectorCantidadEstaBloquedo($this)) return false;
         var $inputCantidad = $this.parents(dataProperties.dataContenedorCantidad).find(dataProperties.dataInputCantidad);
