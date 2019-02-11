@@ -266,16 +266,46 @@ function ConstruyeGrillaPoput(data) {
 
 
     $("#divTabla").empty();
-    var listColumnas = ["N*", "Fondo", "Duración", "Título", "Ruta", "Estado", "Editar"];
+    //var listColumnas = ["N*", "Fondo", "Duración", "Título", "Ruta", "Estado", "Editar"];
+    var listColumnas = [
+        {
+            tituloColumna: 'N°',
+            claseColumna: 'col__grilla--numero'
+        },
+        {
+            tituloColumna: 'Fondo',
+            claseColumna: 'col__grilla--fondo'
+        },
+        {
+            tituloColumna: 'Duración',
+            claseColumna: 'col__grilla--duracion'
+        },
+        {
+            tituloColumna: 'Título',
+            claseColumna: 'col__grilla--titulo'
+        },
+        {
+            tituloColumna: 'Ruta',
+            claseColumna: 'col__grilla--ruta'
+        },
+        {
+            tituloColumna: 'Estado',
+            claseColumna: 'col__grilla--estado'
+        },
+        {
+            tituloColumna: 'Editar',
+            claseColumna: 'col__grilla--editar'
+        }
+    ];
 
     /*Cabecera*/
     var cantidadPoputs = "<h2 class='d__block text__bold administracion__popups__grilla__titulo'>" + (parseInt(data.length) + (data.length == 1 ? " Poput" : " Poputs") + " agregados") + "</h2 >";
     var cabecera = "<div class='background__color__m row__grilla administracion__popups__grilla__cabecera'>";
     listColumnas.forEach(function (element) {
-        if (element, toString() == "Estado") {
-            cabecera += "<div class='col__grilla col__grilla--estado text__center'><a href = '' class='col__grilla__despliegue__opciones col__grilla__despliegue__opciones--estado' title = 'Seleccionar Estado' ><span class='d__inline__block'>Estado</span><span class='d__inline__block'><img src='@Url.Content('~/Content/Images/flecha_desplegable_grilla.svg')' alt='Desplegar opciones' /></span></a ><ul class='d__block ml__auto mr__auto lista__opciones__filtro__estado'><li class='d__block w__100 empty__space'></li><li class='d__block opcion__filtro__estado opcion__filtro__estado--activo'><a href='' class='d__block opcion__filtro__estado__enlace' title='Activo'>Activo</a></li><li class='d__block opcion__filtro__estado opcion__filtrar__por__estado--inactivo'><a href='' class='d__block opcion__filtro__estado__enlace' title='Inactivo'>Inactivo</a></li></ul></div >";
-        } else
-            cabecera += "<div class='col__grilla col__grilla--" + (element.toString() == "N*" ? "numero" : element.toString()) + " text__center'>" + element.toString() + "</div>";
+        //if ((element.tituloColumna).toString() == "Estado") {
+        //    cabecera += "<div class='col__grilla col__grilla--estado text__center'><a href = '' class='col__grilla__despliegue__opciones col__grilla__despliegue__opciones--estado' title = 'Seleccionar Estado' ><span class='d__inline__block'>Estado</span><span class='d__inline__block'><img src='/Content/Images/flecha_desplegable_grilla.svg')' alt='Desplegar opciones' /></span></a ><ul class='d__block ml__auto mr__auto lista__opciones__filtro__estado'><li class='d__block w__100 empty__space'></li><li class='d__block opcion__filtro__estado opcion__filtro__estado--activo'><a href='' class='d__block opcion__filtro__estado__enlace' title='Activo'>Activo</a></li><li class='d__block opcion__filtro__estado opcion__filtrar__por__estado--inactivo'><a href='' class='d__block opcion__filtro__estado__enlace' title='Inactivo'>Inactivo</a></li></ul></div>";
+        //} else
+            cabecera += "<div class='col__grilla " + (element.claseColumna).toString() + " text__center'>" + (element.tituloColumna).toString() + "</div>";
     });
     cabecera += "</div>";
 
@@ -290,7 +320,7 @@ function ConstruyeGrillaPoput(data) {
         detalle += "<div class='col__grilla col__grilla--titulo'><div class='row__grilla row__grilla__texto text__center' >" + data[i].Titulo + "</div ></div >";
         detalle += "<div class='col__grilla col__grilla--ruta'><div class='row__grilla row__grilla__texto text__center' >" + data[i].DescripcionAccion + "</div ></div >";
         detalle += "<div class='col__grilla col__grilla--estado'><div class='row__grilla row__grilla__texto text__center' >" + (data[i].Activo ? "Activo" : "Inactivo") + "</div ></div >";
-        detalle += "<div  class='col__grilla col__grilla--editar'><div class='row__grilla row__grilla__texto text__center' ><a href=''   title='Editar' class='d__block enlace__editar'> <img  ComunicadoId=" + data[i].ComunicadoId.toString() + " src='@Url.Content(' / Content / Images / Edit.png')' alt='Editar' title='Editar' class='d__block'></a></div></div >";
+        detalle += "<div  class='col__grilla col__grilla--editar'><div class='row__grilla row__grilla__texto text__center' ><a href=''   title='Editar' class='d__block enlace__editar'> <img  ComunicadoId=" + data[i].ComunicadoId.toString() + " src='/Content/Images/Edit.png')' alt='Editar' title='Editar' class='d__block'></a></div></div >";
         detalle += "</div>";
     }
     detalle += "</div>";
