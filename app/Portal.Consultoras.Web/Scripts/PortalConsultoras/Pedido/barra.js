@@ -1015,6 +1015,11 @@ function cargarPremiosElectivos() {
             SetHandlebars("#premios-electivos-template", { lista: premiosMostrar }, '#carouselOpcionesRegalo');
             loadCarruselPremiosEvents();
 
+            $('#popupEleccionRegalo .descrip_regalo_carousel label').truncate({
+                limit: 50,
+                token: '...'
+            });
+
             if (belcorp.barra.settings.isMobile) {
                 $('#hrefIconoRegalo').click(cargarPopupEleccionRegalo);
             }
@@ -1023,6 +1028,27 @@ function cargarPremiosElectivos() {
             tpElectivos.hasPremios = true;
         });
 }
+
+$.fn.truncate = function(options) {
+    var defaults = {
+        limit: 10,
+        token: '...'
+    };
+    options = $.extend(defaults, options);
+    return this.each(function() {
+        var $element = $(this);
+        var elementText = $element.text().replace(/\s\s+/g, ' ');
+
+        var len = elementText.length;
+
+        if (len > options.limit) {
+            var lenToken = options.token.length;
+            var replaceText = elementText.substr(0, options.limit - lenToken) + options.token;
+            $element.text(replaceText);
+        }
+        
+    });
+};
 
 function agregarPremioDefault() {
     var premio = getPremioDefault();
@@ -1285,7 +1311,7 @@ function showPopupEscalaSiguiente(dataBarra, prevLogro) {
         if (total >= escala.MontoDesde && total < escala.MontoHasta) {
             if (escala.MontoDesde > prevLogro) {
                 var idPopup = '#popupEscalaDescuento';
-                var content = escala.PorDescuento + '% de dscto!';
+                var content = escala.PorDescuento + '% Dscto.';
                 $(idPopup + ' .porcentaje').html(content);
                 
                 AbrirPopup(idPopup);
