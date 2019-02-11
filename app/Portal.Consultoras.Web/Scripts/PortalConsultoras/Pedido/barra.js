@@ -696,12 +696,8 @@ function MostrarBarra(datax, destino) {
         if (tipoMensaje == 'EscalaDescuento') valorFalta = vLimite - me;
         if (vLogro >= vLimite) tipoMensaje += "Supero";
     }
-        
-    var mtoTp = variablesPortal.SimboloMoneda + " " + dataBarra.TippingPointStr;
-    $('#montoPremioMeta').html(mtoTp);
-    if (tp > 0) {
-        $('.tooltip_informativo_condicion_regalo_programaNuevas').html('Sólo si llegas a ' + mtoTp);
-    }
+
+    showToolTipPremioDetalle(tp);
 
     if (belcorp.barra.settings.isMobile) {//V&& tp > 0  OG    
         cargarMontoBanderasMobile(dataBarra);
@@ -821,6 +817,19 @@ function MostrarBarra(datax, destino) {
     return true;
 }
 
+function showToolTipPremioDetalle(tp) {
+    if (tp == 0) return;
+
+    var dv = $('.tooltip_informativo_condicion_regalo_programaNuevas');
+    if (mtoLogroBarra < tp) {
+        var mtoTp = variablesPortal.SimboloMoneda + " " + dataBarra.TippingPointStr;
+        dv.html('Sólo si llegas a ' + mtoTp);
+        dv.show();
+    } else {
+        dv.hide();
+    }
+}
+
 function cargarMontoBanderasMobile(barra) {
     $('#divMontoMinimo').html(variablesPortal.SimboloMoneda + ' ' + barra.MontoMinimoStr);
     $('#divMontoMaximo').html(variablesPortal.SimboloMoneda + ' ' + barra.MontoMaximoStr);
@@ -855,10 +864,6 @@ function initCarruselPremios(barra) {
         return;
     }
 
-    if (!belcorp.barra.settings.isMobile) {
-        $('.btn_seguir_comprando').html('Sigue comprando para llevártelo');
-    }
-
     if (barra.TippingPointBarra && barra.TippingPointBarra.ActivePremioElectivo) {
         tpElectivos.loadPremios = true;
         cargarPremiosElectivos();
@@ -878,6 +883,8 @@ function cargarPopupEleccionRegalo(disableCheck) {
     if (!disable) {
         checkPremioSelected(true);
     }
+
+    showTextsPremio();
 
     AbrirPopup('#popupEleccionRegalo');
     setTimeout(function () {
@@ -1234,6 +1241,26 @@ function updateTitlePopupRegalos(premio) {
     }
     
     msgRegaloDiv.fadeIn(200);
+}
+
+function showTextsPremio() {
+    if (!dataBarra) return -1;
+
+    var subRegaloDiv = getPopupRegalos().find('.mensaje_subtitulo_regalo');
+    var btn = getPopupRegalos().find('.btn_seguir_comprando');
+
+    if (mtoLogroBarra < dataBarra.TippingPoint) {
+        var mtoTp = variablesPortal.SimboloMoneda + " " + dataBarra.TippingPointStr;
+        subRegaloDiv.html('Será tuyo si pasas ' + mtoTp);
+        btn.html('Sigue comprando para llevártelo');
+    } else {
+        subRegaloDiv.html('Recuerda que puedes cambiarlo en cualquier momento');
+        btn.html('Sigue comprando');
+    }
+
+    if (belcorp.barra.settings.isMobile) {
+        btn.html('Sigue comprando');
+    }
 }
 
 function getDivPremios() {
