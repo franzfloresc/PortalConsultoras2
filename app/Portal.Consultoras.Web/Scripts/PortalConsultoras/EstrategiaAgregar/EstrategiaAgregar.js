@@ -225,7 +225,7 @@ var EstrategiaAgregarModule = (function () {
     };
 
     var estrategiaAgregar = function (event, popup, limite, esFicha, esEditable) {
-        
+
         popup = popup || false;
         limite = limite || 0;
         esEditable = esEditable || false;
@@ -270,7 +270,7 @@ var EstrategiaAgregarModule = (function () {
             estrategia.FlagNueva = estrategia.FlagNueva == "1" ? estrategia.FlagNueva : "";
             $(elementosDiv.OfertaTipoNuevo).val(estrategia.FlagNueva);
         }
-        
+
         AbrirLoad();
 
         var itemClone = estrategiaObtenerObjHtmlLanding($btnAgregar);
@@ -318,7 +318,7 @@ var EstrategiaAgregarModule = (function () {
             EsEditable: estrategia.esEditable,
             SetId: estrategia.setId,
         };
-           
+
         EstrategiaAgregarProvider
             .pedidoAgregarProductoPromise(params)
             .done(function (data) {
@@ -414,9 +414,9 @@ var EstrategiaAgregarModule = (function () {
                             CargarCarouselEstrategias();
                     }
                     HideDialog(elementosDiv.divVistaPrevia.substring(1));
-                    debugger;
                     CargarDetallePedido();
                     MostrarBarra(data);
+
                 } else if (tipoOrigenEstrategiaAux == 2 ||
                     tipoOrigenEstrategiaAux == 21 ||
                     tipoOrigenEstrategiaAux == 27 ||
