@@ -346,6 +346,11 @@
 {
     Html.RenderPartial("MasVendidos");
 }
+ @{ 
+     var array = Model.urlAppCatalogo.Split('/');
+     string controller = array[0];
+     string action = array[1];
+ }
 
 <div id="divListaEstrategias" style="display: none; padding-top: 22px;">
     @Html.Partial("~/Areas/Mobile/Views/Bienvenida/_PartialSectionBpt.cshtml", Model.PartialSectionBpt)
@@ -360,7 +365,7 @@
             HAZ CRECER TU NEGOCIO CON<br />
             EL APP DE CATÁLOGOS
             <a role="link" region="Central" parent="App de Catálogos" title="Entérate Más"
-               class="btn_compartelos" href="@Url.Action("EnterateMas", "Catalogo", new { area = "Mobile" })">ENTÉRATE MÁS</a>
+               class="btn_compartelos" href="@Url.Action(action, controller, new { area = "" })">ENTÉRATE MÁS</a>
 
             @if (Model.IsConsultoraOnline != -1)
             {
@@ -404,7 +409,7 @@
             }
         </div>
         <a role="link" region="Central" parent="App de Catálogos" title="Entérate Más"
-           class="btn_compartelos" href="@Url.Action("EnterateMas", "Catalogo", new { area = "Mobile" })">
+           class="btn_compartelos" href="@Url.Action(action, controller, new { area = "" })">
             <div class="imagen_catalogo celular_esika"><img data-src="@Model.UrlImagenAppCatalogo" alt="-" data-lazy-seccion-banner-home="" /></div>
         </a>
         <hr class="clear" />
