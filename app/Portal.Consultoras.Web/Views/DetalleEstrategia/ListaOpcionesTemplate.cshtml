@@ -11,21 +11,17 @@
         {{#iff this.FactorCuadre '==' '1'}}
             {{#iff componente.cantidadSeleccionada '==' '0'}}
                 {{#if TieneStock}}
-                    <li class="seleccion_btn">
-                        <button onclick="javascript: ListaOpcionesModule.SeleccionarOpcion('{{componente.Cuv}}')">Elígelo</button>
-                    </li>
-                    <li class="seleccion_btn seleccion_cantidad" style="display:none;">
-                        <div class="contenedor_rangos" id="idcontenedor_rangos" data-cantidad-contenedor="">
-                            <input class="txt_cantidad_pedido ValidaNumeral ValidaPasteNumeral" type="text" value="1" size="2" maxlength="2" data-input="cantidad" data-cantidad-input="-">
-                            <div>
-                                <a class="txt_menos" data-cantidad-agregar="-" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
-                                    <div class="dibujar_linea dibujar_menos"></div>
-                                </a>
-                                <a class="txt_mas" data-cantidad-agregar="+" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
-                                    <div class="dibujar_linea dibujar_mas"></div>
-                                </a>
-                            </div>
-                        </div>
+                    <li class="seleccion_btn" id="li-eligelo-{{componente.Cuv}}">
+                        <button id="btn-eligelo-{{componente.Cuv}}" 
+                            {{#if ../esCampaniaSiguiente}}
+                            class="disabled"
+                            {{else}}
+                            {{#if componente.EleccionBloqueada}}
+                            class="disabled"
+                            {{/if}}
+                            {{/if}}
+                            onclick="javascript: ListaOpcionesModule.SeleccionarOpcion('{{componente.Cuv}}')">Elígelo
+                        </button>
                     </li>
                 {{else}}
                     <li class="seleccion_btn" id="li-eligelo-{{componente.Cuv}}">
@@ -93,8 +89,6 @@
             </div>
         </li>
         {{/iff}}
-        <!--
-    -->
     </ul>
     {{/IsNullOrEmpty}}
     {{/each}}
