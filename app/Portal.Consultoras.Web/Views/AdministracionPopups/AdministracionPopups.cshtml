@@ -59,7 +59,7 @@
                     <div class="d__flex modal__contenido__seccion__campos modal__contenido__seccion__campos--contenido">
                         <div class="d__flex grupo__form__campos">
                             <div class="d__block color__m text__bold grupo__form__campos__label grupo__form__campos__label--adjuntarFondo">Adjuntar Fondo : </div>
-                            <div class="d__block">
+                            <div class="d__block mr-20">
                                 <input id="imgPoputs" type="file" class="d__none text__bold" />
                                 <label for="imgPoputs" class="d__block text__bold text__center background__color__m border__radius__4 btn__modal btn__modal--agregar" title="Agregar nuevo popup">
                                     <span class="d__inline__block text__bold">+</span>
@@ -68,13 +68,16 @@
                                 <div class="caption">
                                     <a href="#" onclick="ClearFileView()"><i class="glyphicon glyphicon-trash"></i></a>
                                     <p id="description" class="d__block color__gray__multimarca info__formato__medidas">
+                                        Formato de archivo JPG.<br/>
+                                        (326 x 418 píxeles)
                                     </p>
                                 </div>
                             </div>
-                            <div class="d__block">
-                                <div id="imgPreview" class="thumbnail" style="display:none">
-                                    <img  class="img-responsive" id="targetImg" />
-                                </div>
+                            <div id="imgPreview" class="d__block imagen__cargada__thumbnail__wrapper">
+                                <a href="" title="Eliminar" class="d__block enlace__eliminar__imagen__cargada">
+                                    <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Eliminar Imagen" class="d__block m-0" />
+                                </a>
+                                <img class="d__block m-0 w__100 imagen__cargada__thumbnail" id="targetImg" />
                             </div>
                         </div>
                         <div class="d__flex grupo__form__campos">
