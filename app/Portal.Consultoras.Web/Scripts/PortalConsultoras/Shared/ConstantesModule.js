@@ -83,7 +83,8 @@ var ConstantesModule = (function () {
         OfertasParaMi: "/Estrategia/RDObtenerProductos",
         Lanzamiento: "/Estrategia/LANObtenerProductos",
         GuiaDeNegocioDigitalizada: "/Estrategia/GNDObtenerProductos",
-        HerrameintasVenta: "/Estrategia/HVObtenerProductos"
+        HerrameintasVenta: "/Estrategia/HVObtenerProductos",
+        MasGanadoras: "/Estrategia/MGObtenerProductos"
     }
 
     var _origenPedidoWeb = {

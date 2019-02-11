@@ -597,6 +597,7 @@ var FichaModule = (function (config) {
         estrategia.RangoInputEnabled = "disabled";
         estrategia.esEditable = _config.esEditable;
         estrategia.setId = _config.setId || 0;
+        estrategia.TieneStock = _config.esEditable || estrategia.TieneStock;
 
         return estrategia;
     };
