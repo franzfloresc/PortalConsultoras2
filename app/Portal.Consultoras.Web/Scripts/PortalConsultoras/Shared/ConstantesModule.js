@@ -180,6 +180,11 @@ var ConstantesModule = (function () {
         obtenerPedidoWebSetDetalle: '/DetalleEstrategia/ObtenerComponentePedido'
     }
 
+    var _urlPedido = {
+        cargarDetallePedido: '/Pedido/CargarDetallePedido',
+        ejecutarServicioProl: '/Pedido/EjecutarServicioPROL'
+    }
+
     return {
         CodigosPalanca: _codigosPalanca,
         KeysLocalStorage: _keysLocalStorage,
@@ -192,6 +197,7 @@ var ConstantesModule = (function () {
         ConfiguracionOferta: _configuracionOferta,
         TipoAccionNavegar: _tipoAccionNavegar,
         EditarItemPedido: _editarItemPedido,
-        UrlDetalleEstrategia: _urlDetalleEstrategia
+        UrlDetalleEstrategia: _urlDetalleEstrategia,
+        UrlPedido: _urlPedido
     }
 })();
