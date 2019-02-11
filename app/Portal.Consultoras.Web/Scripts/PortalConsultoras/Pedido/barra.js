@@ -1228,7 +1228,7 @@ function updateTitlePopupRegalos(premio) {
     msgRegaloDiv.fadeOut(200);
 
     if (premio) {
-        msgRegaloDiv.html('¡Ya elegiste tu regalo!');
+        msgRegaloDiv.html('¡YA ELEGISTE TU REGALO!');
     } else {
         msgRegaloDiv.html('¡Puedes elegir tu regalo del Programa de Nuevas ahora!');
     }
