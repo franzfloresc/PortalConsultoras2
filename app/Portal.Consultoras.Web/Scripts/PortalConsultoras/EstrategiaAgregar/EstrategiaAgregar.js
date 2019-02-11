@@ -554,7 +554,10 @@ var EstrategiaAgregarModule = (function () {
         _verificarActivarBtn(); //habilitar botón solo cuando está en la ficha resumida
         return false;
     };
-
+    var validaCantidad = function(e) {
+        if (true) _verificarActivarBtn(); //habilitar botón solo cuando está en la ficha resumida
+        
+    }
     var deshabilitarBoton = function () {
         $(_elementos.btnAgregar.id).addClass(_elementos.btnAgregar.classDesactivado);
     };
@@ -601,6 +604,7 @@ var EstrategiaAgregarModule = (function () {
         GetOrigenPedidoWeb: getOrigenPedidoWeb,
         AdicionarCantidad: adicionarCantidad,
         DisminuirCantidad: disminuirCantidad,
+        ValidaCantidad: validaCantidad,
         ElementosDiv: elementosDiv,
         DeshabilitarBoton: deshabilitarBoton,
         HabilitarBoton: habilitarBoton
