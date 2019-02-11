@@ -76,3 +76,4 @@ node_modules/
 /app/tools/**
 !/app/tools/packages.config
 /app/UpgradeLog.htm
+/app/Portal.Consultoras.Web/Content/Css/Mobile/Ficha
