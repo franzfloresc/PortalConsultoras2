@@ -168,7 +168,8 @@
                     <input class="txt_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
                            {{#if esCampaniaSiguiente}} {{RangoInputEnabled}} {{/if}}
                            type="text"
-                           value="{{Cantidad}}" onkeyup="EstrategiaAgregarModule.ValidaCantidad(event);"
+                           value="{{Cantidad}}" 
+                           onkeyup="EstrategiaAgregarModule.ValidaCantidad(event);"
                            size="2"
                            maxlength="2"
                            id="txtCantidad" 

@@ -560,7 +560,7 @@ var EstrategiaAgregarModule = (function () {
         return false;
     };
     var validaCantidad = function(e) {
-        if (true) _verificarActivarBtn(); //habilitar botón solo cuando está en la ficha resumida
+        _verificarActivarBtn(); //habilitar botón solo cuando está en la ficha resumida
         
     }
     var deshabilitarBoton = function () {
