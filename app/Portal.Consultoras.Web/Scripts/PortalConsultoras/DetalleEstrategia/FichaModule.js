@@ -456,7 +456,6 @@ var FichaModule = (function (config) {
         }
 
         estrategia.Cantidad = data[0].Cantidad;
-        console.log(estrategia.Cantidad);
         _asignarCantidad(estrategia.Cantidad);
 
         $.each(data, function (i, o) {
@@ -980,7 +979,7 @@ var FichaModule = (function (config) {
         if (ConstantesModule.CodigosPalanca.OfertaDelDia == _config.palanca &&
             (estrategia == null || estrategia.EstrategiaID == undefined)) {
             if (muestra)
-                AbrirMensajeEstrategia('¡Ups! Esta oferta fue por tiempo limitado y ya no puedes modificarla.');
+                AbrirMensaje('¡Ups! Esta oferta fue por tiempo limitado y ya no puedes modificarla.');
 
             return false;
         }

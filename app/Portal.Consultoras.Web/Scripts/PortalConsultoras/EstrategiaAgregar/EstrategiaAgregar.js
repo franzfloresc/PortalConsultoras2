@@ -414,7 +414,7 @@ var EstrategiaAgregarModule = (function () {
                             CargarCarouselEstrategias();
                     }
                     HideDialog(elementosDiv.divVistaPrevia.substring(1));
-
+                    debugger;
                     CargarDetallePedido();
                     MostrarBarra(data);
                 } else if (tipoOrigenEstrategiaAux == 2 ||
@@ -501,7 +501,6 @@ var EstrategiaAgregarModule = (function () {
                     FichaEditarModule.ShowDivFichaResumida(false);
                 }
                 return false;
-                
             })
             .fail(function (data, error) {
                 CerrarLoad();

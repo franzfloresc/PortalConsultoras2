@@ -495,7 +495,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Cupon/CuponModule.js",
                 "~/Scripts/PortalConsultoras/Cupon/Cupon.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
-                "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js",
+                //"~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/PedidoRegistro.js",
                 "~/Scripts/PortalConsultoras/Pedido/tooltip.js",
                 "~/Scripts/PortalConsultoras/Pedido/KitNuevas.js"

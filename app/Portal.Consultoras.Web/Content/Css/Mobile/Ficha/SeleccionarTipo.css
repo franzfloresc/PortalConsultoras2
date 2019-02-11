@@ -185,7 +185,7 @@
     line-height: normal;
 }
 
-.item_selecionado_close{
+.item_selecionado_close {
     width: 22px;
     border-radius: 50%;
     height: 22px;
@@ -199,6 +199,7 @@
     right: -3px;
     top: -3px;
     transition: all 350ms;
+    z-index: 99;
 }
 
 .item_selecionado_close:hover {
