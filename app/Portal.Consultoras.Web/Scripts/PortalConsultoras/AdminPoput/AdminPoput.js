@@ -263,8 +263,6 @@ function GetCargaListadoPoput() {
     });
 }
 function ConstruyeGrillaPoput(data) {
-
-
     $("#divTabla").empty();
     //var listColumnas = ["N*", "Fondo", "Duración", "Título", "Ruta", "Estado", "Editar"];
     var listColumnas = [

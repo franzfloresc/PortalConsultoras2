@@ -9,7 +9,7 @@
 <!-- VISTA ADMINISTRACIÓN DE POPUPS -->
 <main class="d__block layout__content w__100 ml__auto mr__auto vista__administracion__popups">
     <!-- CABECERA ADMINISTRACIÓN DE POPUPS -->
-    <section class="d__block vista__administracion__popups__cabecera">
+    <section class="d__block ml__auto mr__auto vista__administracion__popups__cabecera">
         <h1 class="d__block color__m text__bold vista__administracion__popups__titulo">
             Administración de Popups
         </h1>
@@ -19,7 +19,7 @@
                 @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.listaCampania, "CampaniaID", "NombreCorto"), "-- Seleccionar --", new { @class = "d__inline__block text__bold border__color__gray__multimarca border__radius__4 grilla__filtro__campo grilla__filtro__select", @id = "ddlCampania" })
             </div>
             <div class="d__inline__block grupo__form__grilla__filtros">
-                <label for="ddlEstado" class="d__inline__block text__bold grilla__filtro__label">Campaña:</label>
+                <label for="ddlEstado" class="d__inline__block text__bold grilla__filtro__label">Estado:</label>
                 <select id="ddlEstado" class="d__inline__block text__bold border__color__gray__multimarca border__radius__4 grilla__filtro__campo grilla__filtro__select">
                     <option value="2">Todos</option>
                     <option value="1">Activo</option>
@@ -27,7 +27,7 @@
                 </select>
             </div>
 
-            <div class="d__inline__block grupo__form__grilla__filtros" style="margin-left:20px;">
+            <div class="d__inline__block grupo__form__grilla__filtros">
                 <div class="d__inline__block text__bold grilla__filtro__label">Nuevo Popup:</div>
                 <a class="d__inline__block text__bold text__center background__color__m border__radius__4 btn__grilla__filtros btn__agregar" AccionId="1" title="Agregar Nuevo Popup">
                     <span class="d__inline__block text__bold">+</span>
