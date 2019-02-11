@@ -559,14 +559,15 @@ var PedidoRegistroModule = function () {
     var _limpiarRecomendados = function () {
         var seccionProductosRecomendados = $('.divProductosRecomendados');
         seccionProductosRecomendados.slideUp(200);
-        $("#txtDescripcionProd").val("");
-        $("#hdfDescripcionProd").val("");
-        $("#txtPrecioR").val("");
-        $("#txtCantidad").val("");
-        $("#divMensaje").text("");
-        $("#txtCUV").focus();
-        if (isMobile()) {
-            if (isPagina('Pedido')) {
+        if (isPagina('Pedido')) {
+            $("#txtDescripcionProd").val("");
+            $("#hdfDescripcionProd").val("");
+            $("#txtPrecioR").val("");
+            $("#divMensaje").text("");
+            $("#txtCUV").focus();
+            $("#txtCantidad").val("");
+
+            if (isMobile()) {
                 PedidoOnSuccess()
                 VisibleEstrategias(true);
                 $("#divResumenPedido").show();
@@ -614,6 +615,7 @@ var PedidoRegistroModule = function () {
                 }
 
                 producto.html('<span class="text-uppercase text-bold d-inline-block">Agregado</span>');
+                cantidad = 1;
 
                 if (isPagina('pedido')) {
                     if (model != null && model != undefined)
@@ -662,8 +664,9 @@ var PedidoRegistroModule = function () {
     var RegistroProductoBuscador = function (divPadre, valueJSON) {
 
         var model = JSON.parse($(divPadre).find(valueJSON).val());
-        var cantidad = $(divPadre).find("[data-input='cantidad']").val();
+        var divCantidad = $(divPadre).find("[data-input='cantidad']");
         var agregado = $(divPadre).find(".etiqueta_buscador_producto");
+        var cantidad = divCantidad.val();
         model.Cantidad = cantidad;
 
         if (model.TipoPersonalizacion == "LIQ") {
