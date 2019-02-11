@@ -372,7 +372,7 @@
                 <div class="icono_eliminar_item_pedido">
                     <a href="javascript:;"
                        title="Eliminar"
-                       onclick="tooltipDelete('{{PedidoDetalleID}}', '{{SetID}}');"
+                       onclick="tooltipDelete(event,'{{PedidoDetalleID}}', '{{SetID}}');"
                        data-pedidodetalleid="{{detalle.PedidoDetalleID}}"
                        data-setid="{{detalle.SetID}}">
                         <img src="@Url.Content("~/Content/Images/Esika/tacho-copy.png")" alt="Eliminar" />
@@ -964,9 +964,10 @@
     </script>
 
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mobile/PedidoDetalle")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/EstrategiaAgregar")
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/TusClientes")
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Ficha")
-    
+
 
     @if (Model.MostrarPopupPrecargados)
     {

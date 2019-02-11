@@ -669,7 +669,7 @@ ul.breadcumbs li:last-child a {
     height: 1px;
     background-color: #c5c5c5;
     transform: rotate(45deg);
-    z-index: 1;
+    z-index: 0;
     position: absolute;
     top: 30px;
     left: -12px;

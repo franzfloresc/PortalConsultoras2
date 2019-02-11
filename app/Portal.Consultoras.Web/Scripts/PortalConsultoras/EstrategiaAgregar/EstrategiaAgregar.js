@@ -24,7 +24,7 @@ var EstrategiaAgregarModule = (function () {
         CampaniaCodigo: "",
         esFicha: false
     };
-
+    var _codigoVariedad = ConstantesModule.CodigoVariedad;
     var dataProperties = {
         dataItem: "[data-item]",
         dataContenedorCantidad: "[data-cantidad-contenedor]",
@@ -225,7 +225,7 @@ var EstrategiaAgregarModule = (function () {
     };
 
     var estrategiaAgregar = function (event, popup, limite, esFicha, esEditable) {
-        
+
         popup = popup || false;
         limite = limite || 0;
         esEditable = esEditable || false;
@@ -318,7 +318,7 @@ var EstrategiaAgregarModule = (function () {
             EsEditable: estrategia.esEditable,
             SetId: estrategia.setId,
         };
-        debugger;   
+
         EstrategiaAgregarProvider
             .pedidoAgregarProductoPromise(params)
             .done(function (data) {
@@ -414,9 +414,9 @@ var EstrategiaAgregarModule = (function () {
                             CargarCarouselEstrategias();
                     }
                     HideDialog(elementosDiv.divVistaPrevia.substring(1));
-
                     CargarDetallePedido();
                     MostrarBarra(data);
+
                 } else if (tipoOrigenEstrategiaAux == 2 ||
                     tipoOrigenEstrategiaAux == 21 ||
                     tipoOrigenEstrategiaAux == 27 ||
@@ -497,7 +497,9 @@ var EstrategiaAgregarModule = (function () {
                     }
                 }
                 if (!IsNullOrEmpty(data.mensajeAviso)) AbrirMensaje(data.mensajeAviso, data.tituloMensaje);
-
+                if (_config.esFicha) {
+                    FichaEditarModule.ShowDivFichaResumida(false);
+                }
                 return false;
             })
             .fail(function (data, error) {
@@ -509,7 +511,6 @@ var EstrategiaAgregarModule = (function () {
 
     var selectorCantidadEstaBloquedo = function ($element) {
         var result = false;
-
         var dataBloquedaAttrValue = $element.data("bloqueada");
         if (typeof dataBloquedaAttrValue !== "undefined" &&
             $.trim(dataBloquedaAttrValue) !== "") {
@@ -521,7 +522,6 @@ var EstrategiaAgregarModule = (function () {
     var adicionarCantidad = function (e) {
 
         e.stopPropagation();
-
         var $this = $(e.target);
         if (selectorCantidadEstaBloquedo($this)) return false;
         var $inputCantidad = $this.parents(dataProperties.dataContenedorCantidad).find(dataProperties.dataInputCantidad);
@@ -529,10 +529,16 @@ var EstrategiaAgregarModule = (function () {
         cantidad = isNaN(cantidad) ? 0 : cantidad;
         cantidad = cantidad < 99 ? (cantidad + 1) : 99;
         $inputCantidad.val(cantidad);
-
+        _verificarActivarBtn();   //habilitar botón solo cuando está en la ficha resumida
         return false;
     };
 
+    var _verificarActivarBtn = function (codigoVariante) {
+        var estrategia = fichaModule.GetEstrategia();
+        if (estrategia.esEditable) { //todos menos la 2003 (tipos&tonos)
+            EstrategiaAgregarModule.HabilitarBoton();
+        }
+    };
 
     var disminuirCantidad = function (e) {
 
@@ -545,7 +551,7 @@ var EstrategiaAgregarModule = (function () {
         cantidad = isNaN(cantidad) ? 0 : cantidad;
         cantidad = cantidad > 1 ? (cantidad - 1) : 1;
         $inputCantidad.val(cantidad);
-
+        _verificarActivarBtn(); //habilitar botón solo cuando está en la ficha resumida
         return false;
     };
 
