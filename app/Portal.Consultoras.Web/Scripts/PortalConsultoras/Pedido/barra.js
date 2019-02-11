@@ -1341,12 +1341,15 @@ function showPopupEscalaSiguiente(dataBarra, prevLogro) {
                 var content = escala.PorDescuento + '% Dscto.';
                 $(idPopup + ' .porcentaje').html(content);
                 
-                AbrirPopup(idPopup);
+                $(idPopup).show();
                 setContainerLluvia(idPopup);
                 mostrarLluvia();
 
+                setTimeout(function() {
+                    $(idPopup).fadeOut(2000);
+                }, 3000);
+
                 return true;
-                
             }
         }
     }
