@@ -50,7 +50,7 @@ namespace Portal.Consultoras.Web.Controllers
             List<CDRWebModel> listaCdrWebModel;
             try
             {
-                model.CantidadReclamosPorPedido = GetNroSolicitudeReclamoPorPedido();
+                model.CantidadReclamosPorPedido = GetNroSolicitudesReclamoPorPedido();
 
                 using (CDRServiceClient cdr = new CDRServiceClient())
                 {
@@ -73,7 +73,6 @@ namespace Portal.Consultoras.Web.Controllers
             model.ListaCDRWeb = listaCdrWebModel.FindAll(p => p.CantidadDetalle > 0);
 
             model.MensajeGestionCdrInhabilitada = _cdrProvider.MensajeGestionCdrInhabilitadaYChatEnLinea(userData.EsCDRWebZonaValida, userData.IndicadorBloqueoCDR, userData.FechaInicioCampania, userData.ZonaHoraria, userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
-            //ValidadCantidadReclamosPorPedido(model);
             if (!string.IsNullOrEmpty(model.MensajeGestionCdrInhabilitada)) return View(model);
             if (model.ListaCDRWeb.Count == 0) return RedirectToAction("Reclamo");
             return View(model);
@@ -1501,7 +1500,7 @@ namespace Portal.Consultoras.Web.Controllers
             return string.Format(textoFlete, userData.Simbolo, Util.DecimalToStringFormat(flete, userData.CodigoISO));
         }
 
-        private int? GetNroSolicitudeReclamoPorPedido()
+        private int? GetNroSolicitudesReclamoPorPedido()
         {
             int result = 0;
 
