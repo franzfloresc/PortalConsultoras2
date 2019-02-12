@@ -1,3 +1,4 @@
 # Portal Consultoras SB2
 
-EPM/PI3/Sprint1/FichaResumida
+Inicio PI3 Sprint2
+BPT/PI3/Sprint2/GananciaAdmContenido
