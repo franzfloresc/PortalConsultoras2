@@ -29,6 +29,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 var lista3Ultimos = lst.OrderByDescending(p => p.CampaniaID).Take(3).Where(p => p.CampaniaID != 0).ToList();
 
+                // paso 1: obtener los 3 ultimos pedidos
                 model.ListaPedidoCliente = Mapper.Map<List<PedidoWebMobilModel>>(lista3Ultimos);
 
                 foreach (var pedidoCliente in model.ListaPedidoCliente)
@@ -39,7 +40,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         lstPedidoDetalle = sv.GetClientesByCampania(userData.PaisID, pedidoCliente.CampaniaID, userData.ConsultoraID);
                     }
 
+                    // paso 2: obtener los clientes por pedido
                     pedidoCliente.ListaPedidoWebDetalle = Mapper.Map<List<PedidoWebClienteMobilModel>>(lstPedidoDetalle);
+                    decimal totalCliente = 0;
+
+                    // obtener el detalle del pedido
+                    var detallePedidoWeb = GetDetallePedidoAgrupadoByCampania(pedidoCliente.CampaniaID);
 
                     foreach (var pedidoDetalleProducto in pedidoCliente.ListaPedidoWebDetalle)
                     {
@@ -51,9 +57,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         //}
 
                         //var detallepedido = ObtenerPedidoWebSetDetalleAgrupado();
-                        var detallePedidoWeb = GetDetallePedidoAgrupadoByCampania(pedidoDetalleProducto.CampaniaID);
+                        var detallePedidoCliente = detallePedidoWeb.Where(x => x.ClienteID == pedidoDetalleProducto.ClienteID).ToList();
 
-                        foreach (var det in detallePedidoWeb)
+                        foreach (var det in detallePedidoCliente)
                         {
                             lstPedidoDetalleProducto2.Add(new BEPedidoWebDetalle
                             {
@@ -80,6 +86,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         pedidoDetalleProducto.ListaPedidoWebDetalleProductos = Mapper.Map<List<PedidoWebDetalleMobilModel>>(lstPedidoDetalleProducto2);
 
                         pedidoDetalleProducto.ImporteTotalPedido = pedidoDetalleProducto.ListaPedidoWebDetalleProductos.Sum(p => p.ImporteTotal);
+                        totalCliente += pedidoDetalleProducto.ImporteTotalPedido;
                     }
 
                     pedidoCliente.TieneDescuentoCuv = userData.EstadoSimplificacionCUV
@@ -87,22 +94,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                             pedidoWebDetalle.ListaPedidoWebDetalleProductos.Any(item => string.IsNullOrEmpty(item.ObservacionPROL) && item.IndicadorOfertaCUV)
                         );
 
-                    var totalPedidoCliente = pedidoCliente.ListaPedidoWebDetalle.Sum(p => p.ImporteTotal);
-                    var desctoPedidoCliente = pedidoCliente.ListaPedidoWebDetalle.Sum(p => p.ImporteDescuento);
-                    var subtotalPedidoCliente = (totalPedidoCliente - desctoPedidoCliente);
+                    pedidoCliente.ImporteTotal = totalCliente;
 
                     if (pedidoCliente.TieneDescuentoCuv)
                     {
-                        //pedidoCliente.Subtotal = pedidoCliente.ImporteTotal;
-                        //pedidoCliente.ImporteTotal = pedidoCliente.Subtotal + pedidoCliente.Descuento;
-                        pedidoCliente.Subtotal = subtotalPedidoCliente;
-                        pedidoCliente.ImporteTotal = subtotalPedidoCliente + desctoPedidoCliente;
-                    }
-                    else
-                    {
-                        pedidoCliente.Subtotal = subtotalPedidoCliente;
-                        pedidoCliente.ImporteTotal = totalPedidoCliente;
-                        pedidoCliente.Descuento = desctoPedidoCliente;
+                        pedidoCliente.Subtotal = pedidoCliente.ImporteTotal;
+                        pedidoCliente.ImporteTotal = pedidoCliente.Subtotal + pedidoCliente.Descuento;
                     }
 
                     if (userData.PaisID == Constantes.PaisID.Colombia)
