@@ -103,11 +103,11 @@ input[type=checkbox].d__none{
     margin-right:25px;
 }
 
-.ui-state-default{
+.row__grilla.ui-state-default{
     padding-right:0!important;
 }
 
-.ui-state-highlight{
+div.ui-state-highlight{
     height:59px;
     border:2px dashed #87359D;
     background-color:#F0F5F8!important;
@@ -165,6 +165,10 @@ input[type=checkbox].d__none{
 	background:#642f80;
 	color:#FFF;
     text-decoration:none!important;
+}
+
+.ui-state-default.ui-state-highlight{
+    height:auto;
 }
 
 /* FIN - AJUSTES PERSONALIZADOS PARA EL DATEPICKER DE JQUERY UI */
