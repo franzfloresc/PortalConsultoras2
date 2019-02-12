@@ -433,7 +433,8 @@ namespace Portal.Consultoras.ServiceContracts
         BEDireccionEntrega EditarDireccionEntrega(BEDireccionEntrega direccion);
         [OperationContract]
         string RegistrarPerfil(BEUsuario usuario);
-
+        [OperationContract]
+        void RegistrarDireccionEntrega(string codigoISO, BEDireccionEntrega direccionEntrega);
         #endregion
     }
 }

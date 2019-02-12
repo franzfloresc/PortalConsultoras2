@@ -3816,7 +3816,7 @@ namespace Portal.Consultoras.BizLogic
                     }
 
                     /*Insertar dirección entrega*/
-                    if (usuario.DireccionEntrega != null) RegistraDireccionEntrega(usuario.CodigoISO, usuario.DireccionEntrega);
+                    if (usuario.DireccionEntrega != null) RegistrarDireccionEntrega(usuario.CodigoISO, usuario.DireccionEntrega, false);
 
                     /*Insertar permisos*/
                     if (usuario.UsuarioOpciones != null)
@@ -3849,12 +3849,6 @@ namespace Portal.Consultoras.BizLogic
                 {
                     LogManager.SaveLog(ex, string.Empty, usuario.PaisID);
                     if (lst != null  && lst[0] != "0")
-
-
-
-
-
-
                     {
                         resultado = string.Format("{0}|{1}|{2}|0", "0", "4", "Ocurrió un error al registrar los datos, intente nuevamente.");
                     }
@@ -3864,43 +3858,86 @@ namespace Portal.Consultoras.BizLogic
             return resultado;
         }
 
-        public void RegistraDireccionEntrega(string codigoISO, BEDireccionEntrega direccionEntrega)
+        public void RegistrarDireccionEntrega(string codigoISO, BEDireccionEntrega direccionEntrega, bool conTransaccion)
         {
-            /*Envío SQL*/
-            if (direccionEntrega.Operacion == Constantes.OperacionBD.Editar)
-            {
-                var DireccionCambio = !(direccionEntrega.Direccion.Trim().Equals(direccionEntrega.DireccionAnterior.Trim()));
-                var ZonaCambio = !(direccionEntrega.Zona.Trim().Equals(direccionEntrega.ZonaAnterior.Trim()));
-                var ReferenciaCambio = !(direccionEntrega.Referencia.Trim().Equals(direccionEntrega.ReferenciaAnterior.Trim()));
+            var cambioAtributo = false;
+            TransactionScope ts = null;
 
-                if (ReferenciaCambio || ZonaCambio || DireccionCambio) _direccionEntregaBusinessLogic.Editar(direccionEntrega);
+            if (conTransaccion) ts = new TransactionScope(TransactionScopeOption.RequiresNew);
+
+            try
+            {
+                var direccionAnterior = _direccionEntregaBusinessLogic.ObtenerDireccionPorConsultora(direccionEntrega);
+
+                direccionEntrega.DireccionEntregaID = direccionEntrega.DireccionEntregaID == 0 ? direccionAnterior.DireccionEntregaID : direccionEntrega.DireccionEntregaID;
+                direccionEntrega.Operacion = direccionEntrega.DireccionEntregaID > 0 ? Constantes.OperacionBD.Editar : Constantes.OperacionBD.Insertar;
+
+                if (direccionEntrega.Operacion == Constantes.OperacionBD.Editar)
+                {
+                    direccionEntrega.Ubigeo1Anterior = direccionAnterior.Ubigeo1;
+                    direccionEntrega.Ubigeo2Anterior = direccionAnterior.Ubigeo2;
+                    direccionEntrega.Ubigeo3Anterior = direccionAnterior.Ubigeo3;
+                    direccionEntrega.DireccionAnterior = direccionAnterior.Direccion;
+                    direccionEntrega.ZonaAnterior = direccionAnterior.Zona;
+                    direccionEntrega.LatitudAnterior = direccionAnterior.Latitud;
+                    direccionEntrega.LongitudAnterior = direccionAnterior.Longitud;
+                    direccionEntrega.CampaniaAnteriorID = direccionAnterior.CampaniaID;
+                    direccionEntrega.ReferenciaAnterior = direccionAnterior.Referencia;
+                }
+
+                direccionEntrega.DireccionAnterior = direccionEntrega.DireccionAnterior ?? string.Empty;
+                direccionEntrega.Referencia = direccionEntrega.Referencia ?? string.Empty;
+                direccionEntrega.ReferenciaAnterior = direccionEntrega.ReferenciaAnterior ?? string.Empty;
+
+                /*Envío SQL*/
+                if (direccionEntrega.Operacion == Constantes.OperacionBD.Editar)
+                {
+                    if(!direccionEntrega.Ubigeo1.Equals(direccionEntrega.Ubigeo1Anterior)) cambioAtributo = true;
+                    else if(!direccionEntrega.Ubigeo2.Equals(direccionEntrega.Ubigeo2Anterior)) cambioAtributo = true;
+                    else if(!direccionEntrega.Ubigeo3.Equals(direccionEntrega.Ubigeo3Anterior)) cambioAtributo = true;
+                    else if(!direccionEntrega.Direccion.Trim().Equals(direccionEntrega.DireccionAnterior.Trim())) cambioAtributo = true;
+                    else if(!direccionEntrega.Zona.Trim().Equals(direccionEntrega.ZonaAnterior.Trim())) cambioAtributo = true;
+                    else if(!direccionEntrega.Referencia.Trim().Equals(direccionEntrega.ReferenciaAnterior.Trim())) cambioAtributo = true;
+
+                    if (cambioAtributo) _direccionEntregaBusinessLogic.Editar(direccionEntrega);
+                }
+                else
+                {
+                    _direccionEntregaBusinessLogic.Insertar(direccionEntrega);
+                }
+
+                /*Envío SICC*/
+                var remoteAddress = new EndpointAddress(WebConfig.ServicioDireccionEntregaSicc);
+                var direcConcat = string.Concat(direccionEntrega.Direccion, "|", direccionEntrega.Zona, "|", direccionEntrega.Referencia);
+                if (direcConcat.Length > 100) direcConcat = direcConcat.Substring(0, 100);
+
+                var Direccionexterna = new DireccionEntregaMAEWebService
+                {
+                    latitud = direccionEntrega.Latitud.ToString(),
+                    longitud = direccionEntrega.Longitud.ToString(),
+                    direccion = direcConcat,
+                    codigoConsultora = direccionEntrega.CodigoConsultora
+                };
+
+                var CodigoIsoSicc = Common.Util.GetSiccPaisISO(codigoISO);
+
+                using (var svr = new ProcesoMAEActualizarDireccionEntregaWebServiceImplClient(new BasicHttpBinding(), remoteAddress))
+                {
+                    svr.Endpoint.Binding.SendTimeout = new TimeSpan(0, 0, 0, 10);
+                    var result = svr.actualizacionDireccionEntrega(CodigoIsoSicc, Direccionexterna);
+                    if (result.codigo == "2") throw new Exception(result.mensaje);
+                }
+
+                if (conTransaccion) ts.Complete();
             }
-            else
+            catch (Exception ex)
             {
-                _direccionEntregaBusinessLogic.Insertar(direccionEntrega);
+                if (conTransaccion) LogManager.SaveLog(ex, direccionEntrega.ConsultoraID, direccionEntrega.PaisID);
+                throw ex;
             }
-
-            /*Envío SICC*/
-            var remoteAddress = new EndpointAddress(WebConfig.ServicioDireccionEntregaSicc);
-            var direcConcat = string.Concat(direccionEntrega.Direccion, "|", direccionEntrega.Zona, "|", direccionEntrega.Referencia);
-            if (direcConcat.Length > 100) direcConcat = direcConcat.Substring(0, 100);
-
-            var Direccionexterna = new DireccionEntregaMAEWebService
+            finally
             {
-                latitud = direccionEntrega.Latitud.ToString(),
-                longitud = direccionEntrega.Longitud.ToString(),
-                direccion = direcConcat,
-                codigoConsultora = direccionEntrega.CodigoConsultora
-
-            };
-
-            var CodigoIsoSicc = Common.Util.GetSiccPaisISO(codigoISO);
-
-            using (var svr = new ProcesoMAEActualizarDireccionEntregaWebServiceImplClient(new BasicHttpBinding(), remoteAddress))
-            {
-                svr.Endpoint.Binding.SendTimeout = new TimeSpan(0, 0, 0, 10);
-                var result = svr.actualizacionDireccionEntrega(CodigoIsoSicc, Direccionexterna);
-                if (result.codigo == "2") throw new Exception(result.mensaje);
+                if (conTransaccion) ts.Dispose();
             }
         }
     }
