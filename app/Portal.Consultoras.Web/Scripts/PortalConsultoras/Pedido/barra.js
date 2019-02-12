@@ -2579,7 +2579,7 @@ function InsertarPremio(model) {
     
     return jQuery.ajax({
         type: 'POST',
-        url: baseUrl + "Pedido/PedidoInsertar",
+        url: baseUrl + "PedidoRegistro/PedidoAgregarProductoTransaction",
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(model),

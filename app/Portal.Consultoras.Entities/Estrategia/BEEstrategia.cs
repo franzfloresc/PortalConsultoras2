@@ -300,6 +300,9 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public bool CuponElectivoDefault { get; set; }
 
+        [DataMember]
+        public bool TieneStock { get; set; }
+
         public BEEstrategia()
         { }
 
@@ -415,6 +418,8 @@ namespace Portal.Consultoras.Entities
             CuponElectivoDefault = row.ToBoolean("INC_CUPO_ELEC_DEFA");
             EstrategiaDetalle = new BEEstrategiaDetalle(row);
             TipoEstrategia = new BETipoEstrategia(row);
+
+            TieneStock = row.ToBoolean("TieneStock");
         }
     }
 
