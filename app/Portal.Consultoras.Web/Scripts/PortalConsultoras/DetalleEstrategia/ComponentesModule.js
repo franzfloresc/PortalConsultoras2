@@ -27,13 +27,13 @@ var ComponentesModule = (function () {
         body: {
             modalActivadoClass: "modal_activado"
         },
-        componentes : {
+        componentes: {
             id: "#componentes",
             templateId: "#componentes-template"
         },
         divElegirOpciones: {
             id: "#elegir-opciones-modal",
-            marginRight :"0",
+            marginRight: "0",
             opacity: "1",
             modalFondo: {
                 id: ".modal-fondo",
@@ -77,10 +77,16 @@ var ComponentesModule = (function () {
         }
         else {
             $.each(estrategia.Hermanos, function (i, obj) {
-                $.each(obj.Hermanos, function (j, k) {
+                if (obj.Hermanos !== 'undefined' && obj.Hermanos.length > 0) {
+                    $.each(obj.Hermanos, function (j, k) {
+                        hijos++;
+                        if (!k.TieneStock) cta++;
+                    });
+                }
+                else {
                     hijos++;
-                    if (!k.TieneStock) cta++;
-                });
+                    if (!obj.TieneStock) cta++;
+                }
             });
         }
 
@@ -139,6 +145,24 @@ var ComponentesModule = (function () {
         } else {
             AnalyticsPortalModule.MarcarPopupEligeXOpciones(_estrategia);
         }
+    }
+
+    var SeleccionarComponenteDinamico = function (cuv) {
+        var componente = {};
+
+        if (typeof cuv === "undefined" || cuv === null || $.trim(cuv) === "")
+            throw "param cuv is not defined or null";
+
+        $.each(_estrategia.Hermanos, function (index, hermano) {
+            cuv = $.trim(cuv);
+
+            if (cuv === hermano.Cuv) {
+                componente = _estrategia.Hermanos[index];
+                opcionesEvents.applyChanges("onComponentSelected", componente);
+
+                return false;
+            }
+        });
     }
 
     var SeleccionarPaletaOpcion = function (event, cuv) {
@@ -208,9 +232,11 @@ var ComponentesModule = (function () {
     function getEstrategia() {
         return _estrategia;
     }
+
     return {
         ListarComponentes: ListarComponentes,
         SeleccionarComponente: SeleccionarComponente,
+        SeleccionarComponenteDinamico: SeleccionarComponenteDinamico,
         SeleccionarPaletaOpcion: SeleccionarPaletaOpcion,
         LimpiarComponentes: LimpiarComponentes,
         GetEstrategia: getEstrategia

@@ -73,7 +73,12 @@
     color: #B9B9B9;
     padding-top: 3px;
     text-align: center;
+    margin-bottom: 8px;
 }
 
+
+.carrusel .set_encuentras_producto .slick-slide .box_producto_mobile_fix {
+    height: 272px;
+}  
 
 

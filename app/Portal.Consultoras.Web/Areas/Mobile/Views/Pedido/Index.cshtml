@@ -475,17 +475,16 @@
         var productoAgotado = false;
 
         var tipoOrigenEstrategia = 21;
+        var paginaOrigenCupon = 21;
 
         var urlClienteDetalle = "@Url.Action("AgregarCliente", "Cliente", new { area = "Mobile" })";
         var lstClientes = @Html.Raw(@Json.Encode(Model.ListaClientes));
         var urlImagenListaCliente = '@Url.Content("~/Content/Images/arrow.png")';
 
         var tieneCupon = '@Model.TieneCupon';
-        var paginaOrigenCupon = 21;
         var tieneMasVendidos = @Model.TieneMasVendidos;
         var esEmailActivo = '@Model.EmailActivo';
         var viewBagCampaniaActual = '@Model.CampaniaActual';
-        var tipoOrigenEstrategia = 21;
         var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTiCarrusel;
         var origenPedidoWebFichaProducto = @Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTiFicha;
         var MobilePedidoSugerido = @Constantes.OrigenPedidoWeb.MobilePedidoProductoSugeridoCarrusel;

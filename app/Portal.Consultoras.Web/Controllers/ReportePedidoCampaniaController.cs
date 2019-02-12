@@ -120,20 +120,6 @@ namespace Portal.Consultoras.Web.Controllers
             return View();
         }
 
-        //movido BaseAdm/ObtenerCampaniasZonasRegionesPorPais
-        //public JsonResult ObtenterCampaniasyRegionesPorPais(int PaisID)
-        //{
-        //    IEnumerable<CampaniaModel> lst = _zonificacionProvider.GetCampanias(PaisID);
-        //    IEnumerable<RegionModel> lstRegiones = _zonificacionProvider.GetRegiones(PaisID);
-        //    IEnumerable<ZonaModel> lstZonas = _zonificacionProvider.GetZonas(PaisID);
-        //    return Json(new
-        //    {
-        //        lista = lst,
-        //        lstRegiones = lstRegiones.OrderBy(x => x.Codigo),
-        //        listaZonas = lstZonas.OrderBy(x => x.Codigo)
-        //    }, JsonRequestBehavior.AllowGet);
-        //}
-
         public void LoadConsultorasCache(int paisId)
         {
             using (ServiceODS.ODSServiceClient sv = new ServiceODS.ODSServiceClient())

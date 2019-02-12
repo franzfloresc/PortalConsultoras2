@@ -16,6 +16,14 @@ body {
     font-family: 'Lato', sans-serif !important;
 }
 
+input, button, ul, li, a {
+    font-family: 'Lato', sans-serif !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Lato', sans-serif !important;
+}
+
 hr {
     border-top: 1px solid #fff;
 }
@@ -234,6 +242,7 @@ h4.re3 {
     #new-header .menu-shop {
         position: relative;
         display: inline-block;
+        top:-2px;
     }
 
         #new-header .menu-shop .icon-menu-shop {
@@ -245,7 +254,7 @@ h4.re3 {
         }
 
         #new-header .menu-shop .num-menu-shop {
-            margin-top: 20px;
+            margin-top: 16px;
             font-size: 12px;
             color: #000;
             text-align: center;
@@ -3561,13 +3570,22 @@ table > thead > tr > th {
     }
 
 /*NUEVA VERSION MOBILE*/
+
+.menu_icon_wrapper{
+    max-width:60px;
+}
+
+.logo_marca_pais_wrapper{
+    padding-left:10px!important;
+}
+
 .logo_mobile {
-    background: url('/Content/Images/Mobile/Esika/logo_esika.png') no-repeat;
+    background: url('/Content/Images/Esika/logo_marca_pais_mobile.svg') no-repeat;
     width: 72px;
     height: 28px;
-    margin: 0 auto;
     display: block;
-    margin-top: 12px;
+    margin-top: 9px;
+    background-size: 92%;
 }
 
 .campana_mobile {
@@ -13423,8 +13441,8 @@ a {
     display: none;
     position: absolute;
     z-index: 500;
-    left: 23px;
-    top: 6px;
+    left: 34px;
+    top: 10px;
 }
 
 .circulo-1, .circulo-2, .circulo-3 {

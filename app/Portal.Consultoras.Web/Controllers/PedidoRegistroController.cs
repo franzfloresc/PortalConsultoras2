@@ -258,6 +258,8 @@ namespace Portal.Consultoras.Web.Controllers
                 pedidoDetalle.EsKitNueva = model.EsKitNueva;
                 pedidoDetalle.EsKitNuevaAuto = model.EsKitNuevaAuto;
                 pedidoDetalle.OfertaWeb = model.OfertaWeb;
+                pedidoDetalle.EsEditable = model.EsEditable;
+                pedidoDetalle.SetID = model.SetId;
 
                 var pedidoDetalleResult = _pedidoWebProvider.InsertPedidoDetalle(pedidoDetalle);
 
@@ -266,6 +268,7 @@ namespace Portal.Consultoras.Web.Controllers
                     SessionManager.SetPedidoWeb(null);
                     SessionManager.SetDetallesPedido(null);
                     SessionManager.SetDetallesPedidoSetAgrupado(null);
+                    SessionManager.SetBEEstrategia(Constantes.ConstSession.ListaEstrategia, null);
 
                     var pedidoWebDetalle = ObtenerPedidoWebDetalle();
                     var CantidadTotalProductos = pedidoWebDetalle.Sum(dp => dp.Cantidad);
@@ -387,10 +390,10 @@ namespace Portal.Consultoras.Web.Controllers
             var lastResult = new Tuple<bool, JsonResult>(false, Json(new { }));
 
             BEPedidoDetalle pedidoDetalle = new BEPedidoDetalle();
-            pedidoDetalle.Producto = new ServicePedido.BEProducto();
             pedidoDetalle.SetID = setId;
             pedidoDetalle.PedidoDetalleID = PedidoDetalleID;
             pedidoDetalle.PedidoID = PedidoID;
+            pedidoDetalle.Producto = new ServicePedido.BEProducto();
             pedidoDetalle.Producto.TipoOfertaSisID = TipoOfertaSisID;
             pedidoDetalle.Producto.CUV = Util.Trim(CUV);
             pedidoDetalle.Usuario = Mapper.Map<ServicePedido.BEUsuario>(userData);

@@ -110,6 +110,7 @@
       <xs:element minOccurs="0" name="ClienteDescripcion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ClienteID" type="xs:short" />
       <xs:element minOccurs="0" name="EnRangoProgramaNuevas" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EsEditable" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsKitNueva" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsKitNuevaAuto" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsSugerido" type="xs:boolean" />
@@ -191,7 +192,9 @@
       <xs:element minOccurs="0" name="Cantidad" type="xs:int" />
       <xs:element minOccurs="0" name="CantidadOriginal" type="xs:int" />
       <xs:element minOccurs="0" name="CuvProducto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Digitable" type="xs:int" />
       <xs:element minOccurs="0" name="FactorRepeticion" type="xs:int" />
+      <xs:element minOccurs="0" name="Grupo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NombreProducto" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PedidoDetalleId" type="xs:int" />
       <xs:element minOccurs="0" name="PrecioUnidad" type="xs:decimal" />

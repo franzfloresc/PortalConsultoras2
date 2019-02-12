@@ -454,20 +454,6 @@ function ArmarProductoLiquidaciones(data) {
     $('#htmlListado').append(htmlDiv);
     EstablecerAccionLazyImagen("img[data-lazy-seccion-liquidacion]");
 
-    //var arrayOfertas = [];
-    //$.each(data, function (i, item) {
-    //    var itemOferta = {
-    //        'name': item.Descripcion,
-    //        'id': item.CUV,
-    //        'price': item.PrecioString,
-    //        'brand': item.DescripcionMarca,
-    //        'category': 'NO DISPONIBLE',
-    //        'variant': item.DescripcionEstrategia,
-    //        'list': 'Liquidación Web',
-    //        'position': item.Posicion
-    //    };
-    //    arrayOfertas.push(itemOferta);
-    //});
 }
 
 function EstructurarDataCarouselLiquidaciones(array) {

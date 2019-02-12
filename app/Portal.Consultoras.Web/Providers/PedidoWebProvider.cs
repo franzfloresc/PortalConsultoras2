@@ -82,7 +82,6 @@ namespace Portal.Consultoras.Web.Providers
                             CampaniaId = userData.CampaniaID,
                             ConsultoraId = userData.ConsultoraID,
                             Consultora = userData.NombreConsultora,
-                            EsBpt = esOpt == 1, // ya no se utiliza en el sp, confirmar para no enviar el campo
                             CodigoPrograma = userData.CodigoPrograma,
                             NumeroPedido = userData.ConsecutivoNueva
                         };
@@ -143,7 +142,6 @@ namespace Portal.Consultoras.Web.Providers
                             CampaniaId = userData.CampaniaID,
                             ConsultoraId = userData.ConsultoraID,
                             Consultora = userData.NombreConsultora,
-                            EsBpt = esOpt == 1,
                             CodigoPrograma = userData.CodigoPrograma,
                             NumeroPedido = userData.ConsecutivoNueva,
                             AgruparSet = true
@@ -382,6 +380,26 @@ namespace Portal.Consultoras.Web.Providers
             }
 
             return result;
+        }
+
+
+        /// <summary>
+        /// Obtiene informacion de componentes seleccionados en el pedido
+        /// </summary>
+        /// <param name="CampaniaID">Campania</param>
+        /// <param name="ConsultoraID">Consultora</param>
+        /// <param name="SetID">Set</param>
+        /// <returns></returns>
+        public List<BEPedidoWebSetDetalle> GetListaPedidoWebSetDetalle(int paisId, int campaniaId, long consultoraId, int setId)
+        {
+            List<BEPedidoWebSetDetalle> listaProducto;
+
+            using (var svc = new PedidoServiceClient())
+            {
+                listaProducto = svc.GetListaPedidoWebSetDetalle(paisId, campaniaId, consultoraId, setId).ToList();
+            }
+
+            return listaProducto;
         }
     }
 }

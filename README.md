@@ -1,4 +1,3 @@
-# Portal Consultoras SB 2
+# Portal Consultoras SB2
 
-PI3-EPM-Sprint1-Inicio
-
+EPM/PI3/Sprint1/FichaResumida
