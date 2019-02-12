@@ -40,7 +40,10 @@ var EstrategiaAgregarModule = (function () {
         dataItemTagContenido: "[data-item-tag=\"contenido\"]",
         dataTono: "[data-tono]",
         dataTonoSelect: "[data-tono-select]",
-        dataItemHtml: "[data-item-html]"
+        dataItemHtml: "[data-item-html]",
+        tooltip: "[data-agregado=\"tooltip\"]",
+        tooltipMensaje1: "[data-agregado=\"mensaje1\"]",
+        tooltipMensaje2: "[data-agregado=\"mensaje2\"]",
     };
 
     var constantes = {
@@ -360,10 +363,14 @@ var EstrategiaAgregarModule = (function () {
 
                 //Tooltip de agregado
                 if (esFicha) {
-                    var $AgregadoTooltip = $("[data-agregado='tooltip']");
-                    $AgregadoTooltip.show();
-                    setTimeout(function () { $AgregadoTooltip.hide(); }, 4000);
                     try {
+                        var $AgregadoTooltip = $(dataProperties.tooltip);
+                        if (params.EsEditable) {
+                            $AgregadoTooltip.find(dataProperties.tooltipMensaje1).html("¡Listo! ");
+                            $AgregadoTooltip.find(dataProperties.tooltipMensaje2).html(" Modificaste tu pedido");
+                        }
+                        $AgregadoTooltip.show();
+                        setTimeout(function () { $AgregadoTooltip.hide(); }, 4000);
                         ResumenOpcionesModule.LimpiarOpciones();
                     } catch (e) {
                         console.error(e);
