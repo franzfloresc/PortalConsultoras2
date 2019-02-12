@@ -704,7 +704,7 @@ function CancelarProductosSugeridos() {
 //        PrecioUnidad: $("#hdfPrecioUnidad").val(),
 //        Cantidad: Cantidad,
 //        TipoOferta: $("#hdTipoEstrategiaID").val(),
-//        esCuponNuevas: cuvEsCuponNuevas
+//        esCuponNuevas: cuvEsCuponNuevas,
 //        descripcion: $("#divNombreProducto").html()
 //    });
 

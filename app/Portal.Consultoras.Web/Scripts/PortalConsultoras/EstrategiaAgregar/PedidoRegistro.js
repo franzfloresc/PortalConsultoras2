@@ -1505,7 +1505,7 @@ function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfe
         TipoOfertaSisID: TipoOfertaSisID || 0,
         TipoEstrategiaID: TipoOfertaSisID || 0,
         CUV: CUV,
-        esCuponNuevas: esCuponNuevas
+        EsCuponNuevas: esCuponNuevas
     };
 
     //AbrirSplash();
