@@ -186,20 +186,19 @@
                 .done(function (data) {
                     $(_elementos.divProducto).html("");
                     if (data.Total !== 0) {
-                        var listaProductos = [];
                         $.each(data.Productos, function (index, item) {
                             item.posicion = index + 1;
                             if (item.Descripcion.length > _config.maxCaracteresRecomendaciones) {
                                 item.Descripcion = item.Descripcion.substring(0, _config.maxCaracteresRecomendaciones) + "...";
                             }
-                            if (item.TipoPersonalizacion !== "CAT") listaProductos.push(item);
-                            if (_config.isMobile) {
-                                //id = divProductoMantenedor
+                        });
+                        $.each(data.productoConsultado, function (index, item) {
+                            if (item.TipoPersonalizacion === "CAT" && _config.isMobile) {
                                 $(_elementos.divImagenProductoPedido).find("img").attr("src", item.Imagen);
                                 $(_elementos.divDescripcionProductoPedido).html(item.Descripcion);
                             }
                         });
-                        SetHandlebars(_elementos.templateProducto, listaProductos, _elementos.divProducto);
+                        SetHandlebars(_elementos.templateProducto, data.Productos, _elementos.divProducto);
                         if (_config.isMobile) {
                             _funciones.ArmarCarruselProductosRecomendadosMobile();
                         } else {
