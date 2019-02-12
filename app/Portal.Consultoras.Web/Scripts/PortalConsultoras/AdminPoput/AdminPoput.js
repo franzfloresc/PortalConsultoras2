@@ -17,17 +17,50 @@ $(document).ready(function () {
                 $('body').on('click', '.btn__agregar', me.Eventos.AbrirPopupNuevo);
                 $('body').on('click', '.enlace__editar', me.Eventos.AbrirPopupModificar);
                 $('body').on('click', '.btn__modal--descartar', me.Eventos.CerrarPopup);
+            },
+            CargarDatePicker: function () {
+                // Cambia el idioma a calendario
+                $.datepicker.regional['es'] = {
+                    closeText: 'Cerrar',
+                    prevText: '<Ant',
+                    nextText: 'Sig>',
+                    currentText: 'Hoy',
+                    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                    monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+                    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+                    dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
+                    dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
+                    weekHeader: 'Sm',
+                    dateFormat: 'dd/mm/yy',
+                    firstDay: 1,
+                    isRTL: false,
+                    showMonthAfterYear: false,
+                    yearSuffix: ''
+                };
+                $.datepicker.setDefaults($.datepicker.regional['es']);
+                // Fin - Cambia el idioma a calendario
+
+                $('#fechaMin').datepicker();
+                $('#fechaMax').datepicker();
+            },
+            OrdenamientoPersonalizadoFilasGrilla: function () {
+                $("#swappable").swappable({
+                    placeholder: 'ui-state-highlight',
+                    items: '.ui-state-default',
+                    cursorAt: { top: -5 }
+                });
+                $("#swappable").disableSelection();
             }
         },
-            me.Eventos = {
+        me.Eventos = {
             AbrirPopupNuevo: function (e) {
-                    e.preventDefault();
-                    $("#hdAccion").val(1);
-                    $('#modalTitulo').html($(this).attr('title'));
-                    $('#AgregarPopup').fadeIn(100);
-                    $('#AgregarPopup').scrollTop(0);
-                    $('#AgregarPopup').css('display', 'flex');
-                    $('body').css('overflow-y', 'hidden');
+                e.preventDefault();
+                $("#hdAccion").val(1);
+                $('#modalTitulo').html($(this).attr('title'));
+                $('#AgregarPopup').fadeIn(100);
+                $('#AgregarPopup').scrollTop(0);
+                $('#AgregarPopup').css('display', 'flex');
+                $('body').css('overflow-y', 'hidden');
             },
             AbrirPopupModificar: function (e) {
                 
@@ -41,15 +74,16 @@ $(document).ready(function () {
                 $('#AgregarPopup').css('display', 'flex');
                 $('body').css('overflow-y', 'hidden');
             },
-                CerrarPopup: function (e) {
-                    e.preventDefault();
-                    $('#AgregarPopup').fadeOut(100);
-                    $('body').css('overflow-y', '');
-                }
-            },
-            me.Inicializar = function () {
-                me.Funciones.InicializarEventos();
+            CerrarPopup: function (e) {
+                e.preventDefault();
+                $('#AgregarPopup').fadeOut(100);
+                $('body').css('overflow-y', '');
             }
+        },
+        me.Inicializar = function () {
+            me.Funciones.InicializarEventos();
+            me.Funciones.CargarDatePicker();
+        }
     }
 
     VistaAdministracionPopups = new vistaAdPop();
@@ -107,11 +141,6 @@ function GetCamposCargadosPoput(data) {
         document.getElementById('checkMobile').checked = false;
         document.getElementById('checkMobile').checked = false;
     }
-
-
-
-
-
 }
 
 
@@ -308,21 +337,22 @@ function ConstruyeGrillaPoput(data) {
     cabecera += "</div>";
 
     /*Detalle*/
-    var detalle = "<div class='d__block administracion__popups__grilla__contenido'>";
+    var detalle = "<div id='swappable' class='d__block administracion__popups__grilla__contenido'>";
     //detalle += "<div class='background__color__m__lighter row__grilla'><div class='col__grilla col__grilla--numero' ><div class='row__grilla row__grilla__texto text__center'>1</div></div ><div class='col__grilla col__grilla--fondo'> <div class='row__grilla row__grilla__texto text__center'> CL_20190142913.png</div></div><div class='col__grilla col__grilla--duracion'><div class='row__grilla row__grilla__texto text__center'>25/03/2019  -  09/04/2019</div></div> <div class='col__grilla col__grilla--titulo'><div class='row__grilla row__grilla__texto text__center'>¡Gana un viaje a Punta Cana! comprando más...</div></div><div class='col__grilla col__grilla--ruta'><div class='row__grilla row__grilla__texto text__center'> https://www.sbepdqa.somosbelcorp.com </div> </div><div class='col__grilla col__grilla--estado'><div class='row__grilla row__grilla__texto text__center'> Activo </div> </div><div class='col__grilla col__grilla--editar'><div class='row__grilla row__grilla__texto text__center'><a href='' title='Editar' class='d__block enlace__editar'><img src='/Content/Images/Edit.png' alt='Editar' title='Editar' class='d__block'></a></div> </div></div>";
     for (var i = 0; i < data.length; i++) {
-        detalle += "<div class='background__color__m__lighter row__grilla'>";
+        detalle += "<div class='d__block background__color__m__lighter ui-state-default row__grilla'>";
         detalle += "<div class='col__grilla col__grilla--numero'><div class='row__grilla row__grilla__texto text__center' >" + data[i].Numero + "</div ></div >";
         detalle += "<div class='col__grilla col__grilla--fondo'><div class='row__grilla row__grilla__texto text__center' >" + data[i].UrlImagen + "</div ></div >";
         detalle += "<div class='col__grilla col__grilla--duracion'><div class='row__grilla row__grilla__texto text__center' >" + (data[i].FechaInicio_ + "-" + data[i].FechaFin_) + "</div ></div >";
         detalle += "<div class='col__grilla col__grilla--titulo'><div class='row__grilla row__grilla__texto text__center' >" + data[i].Titulo + "</div ></div >";
         detalle += "<div class='col__grilla col__grilla--ruta'><div class='row__grilla row__grilla__texto text__center' >" + data[i].DescripcionAccion + "</div ></div >";
         detalle += "<div class='col__grilla col__grilla--estado'><div class='row__grilla row__grilla__texto text__center' >" + (data[i].Activo ? "Activo" : "Inactivo") + "</div ></div >";
-        detalle += "<div  class='col__grilla col__grilla--editar'><div class='row__grilla row__grilla__texto text__center' ><a href=''   title='Editar' class='d__block enlace__editar'> <img  ComunicadoId=" + data[i].ComunicadoId.toString() + " src='/Content/Images/Edit.png')' alt='Editar' title='Editar' class='d__block'></a></div></div >";
+        detalle += "<div  class='col__grilla col__grilla--editar'><div class='row__grilla row__grilla__texto text__center' ><a href='' title='Editar Popup' class='d__block enlace__editar'><img ComunicadoId=" + data[i].ComunicadoId.toString() + " src='/Content/Images/Edit.png')' alt='Editar Popup' title='Editar Popup' class='d__block'></a></div></div >";
         detalle += "</div>";
     }
     detalle += "</div>";
     $("#divTabla").append(cabecera + detalle);
+    VistaAdministracionPopups.Funciones.OrdenamientoPersonalizadoFilasGrilla();
 }
 
 
@@ -398,9 +428,6 @@ $("#btnGuardar").click(function () {
             alert("errror");
         }
     });
-
-
-
 });
 
 

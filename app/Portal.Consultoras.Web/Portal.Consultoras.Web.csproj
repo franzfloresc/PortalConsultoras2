@@ -3983,6 +3983,11 @@
     <Content Include="Scripts\jquery.rateyo.js" />
     <Content Include="Scripts\jquery.tmpl.js" />
     <Content Include="Scripts\jquery.toast.min.js" />
+    <Content Include="Scripts\jquery.ui.core.js" />
+    <Content Include="Scripts\jquery.ui.mouse.js" />
+    <Content Include="Scripts\jquery.ui.sortable.js" />
+    <Content Include="Scripts\jquery.ui.swappable.js" />
+    <Content Include="Scripts\jquery.ui.widget.js" />
     <Content Include="Scripts\LogError.js" />
     <Content Include="Scripts\MultiSelect\css\common.css" />
     <Content Include="Scripts\MultiSelect\css\ui.multiselect.css" />

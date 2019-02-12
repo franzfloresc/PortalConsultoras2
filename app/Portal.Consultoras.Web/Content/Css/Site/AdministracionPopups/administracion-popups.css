@@ -61,7 +61,9 @@ input[type=checkbox].d__none{
     background-color:#87359D;
 }
 
-.background__color__m__lighter{
+.background__color__m__lighter,
+.background__color__m__lighter.ui-state-default
+{
     background-color:#DDD1F1;
 }
 
@@ -99,6 +101,16 @@ input[type=checkbox].d__none{
 
 .mr-25{
     margin-right:25px;
+}
+
+.ui-state-default{
+    padding-right:0!important;
+}
+
+.ui-state-highlight{
+    height:59px;
+    border:2px dashed #87359D;
+    background-color:#F0F5F8!important;
 }
 
 /* FIN - HELPERS CSS */
@@ -160,7 +172,7 @@ input[type=checkbox].d__none{
 /* VISTA ADMINISTRACIÓN POPUPS */
 
 .layout__content{
-    max-width:1280px;
+    max-width:1200px;
 }
 
 .vista__administracion__popups{
@@ -291,6 +303,10 @@ input[type=checkbox].d__none{
     display:flex;
     flex-direction:row;
     flex-wrap:nowrap;
+}
+
+.administracion__popups__grilla__contenido .ui-state-default{
+    cursor:move;
 }
 
 .col__grilla{

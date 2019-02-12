@@ -39,8 +39,7 @@
     <!-- FIN - CABECERA ADMINISTRACIÓN DE POPUPS -->
     <!-- GRILLA  ADMINISTRACIÓN DE POPUPS -->
     <section class="d__block border__radius__4 vista__administracion__popups__contenido">
-        <div class="d__block administracion__popups__grilla" id="divTabla">
-         
+        <div class="d__block administracion__popups__grilla" id="divTabla">         
         </div>
     </section>
     <!-- FIN - GRILLA ADMINISTRACIÓN DE POPUPS -->
@@ -157,6 +156,10 @@
 <!-- FIN - MODAL AGREGAR NUEVO POPUP -->
 <!-- FIN - VISTA ADMINISTRACIÓN DE POS -->
 @section scripts{
-
-    <script src="~/Scripts/PortalConsultoras/AdminPoput/AdminPoput.js"></script>
+    <script src="@Url.Content("~/Scripts/jquery.ui.core.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.ui.widget.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.ui.mouse.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.ui.sortable.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.ui.swappable.js")"></script> 
+    <script src="@Url.Content("~/Scripts/PortalConsultoras/AdminPoput/AdminPoput.js")"></script>
 }
