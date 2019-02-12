@@ -74,7 +74,8 @@ namespace Portal.Consultoras.Web.Providers
             RevistaDigitalModel revistaDigital,
             bool mobile,
             bool home,
-            bool recomendaciones)
+            bool recomendaciones,
+            bool suscrita)
         {
             var suscripcionActiva = revistaDigital.EsSuscrita && revistaDigital.EsActiva;
             if (!productos.Any()) return new List<Productos>();
@@ -93,7 +94,7 @@ namespace Portal.Consultoras.Web.Providers
                 item.PrecioString = Util.DecimalToStringFormat(item.Precio.ToDecimal(), userData.CodigoISO, userData.Simbolo);
                 item.ValorizadoString = Util.DecimalToStringFormat(item.Valorizado.ToDecimal(), userData.CodigoISO, userData.Simbolo);
                 item.DescripcionEstrategia = Util.obtenerNuevaDescripcionProducto(userData.NuevasDescripcionesBuscador, suscripcionActiva, item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaId, 0, true);
-                item.OrigenPedidoWeb = Util.obtenerCodigoOrigenWeb(item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaId, mobile, home, recomendaciones, item.MaterialGanancia);
+                item.OrigenPedidoWeb = Util.obtenerCodigoOrigenWeb(item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaId, mobile, home, recomendaciones, item.MaterialGanancia,suscrita);
                 item.Agregado = labelAgregado;
                 item.Stock = !item.Stock;
                 item.DescripcionCompleta = item.Descripcion;

@@ -27,14 +27,16 @@
                     <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
                     <div class="content_item_carrusel content_item_carrusel_clubganamas content_item_carrusel_clubganamas_off caja-borde" style="cursor:pointer; ">
                         {{#iff TipoEstrategiaDetalle.ImgFichaDesktop '!=' ''}}
-                            <img src="{{TipoEstrategiaDetalle.ImgFichaDesktop}}" alt="" class="clubganamas_logo" />
+                        <img src="{{TipoEstrategiaDetalle.ImgFichaDesktop}}" alt="" class="clubganamas_logo" />
                         {{/iff}}
                         {{#iff TipoEstrategiaDetalle.ImgHomeDesktop '!=' ''}}
-                            <img src="{{TipoEstrategiaDetalle.ImgHomeDesktop}}" alt="" class="portada" />
+                        <img src="{{TipoEstrategiaDetalle.ImgHomeDesktop}}" alt="" class="portada" />
                         {{/iff}}
                         <p class="tercero">Conoce {{DescripcionResumen}}</p>
-                        <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeLanzamiento, '@Constantes.ConfiguracionPais.Lanzamiento')"
+                        <a onclick="javascript: menuModule.sectionClick('/Ofertas#LAN', 'BotonVerMas', this);"
                            class="portada portada_off">VER LANZAMIENTOS</a>
+                        @*<a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeLanzamiento, '@Constantes.ConfiguracionPais.Lanzamiento')"
+        class="portada portada_off">VER LANZAMIENTOS</a>*@
                     </div>
                 </div>
             {{else}}

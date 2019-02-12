@@ -37,7 +37,7 @@ namespace Portal.Consultoras.BizLogic.Producto
                 lst.Update(item =>
                 {
                     item.DescripcionEstrategia = Util.obtenerNuevaDescripcionProducto(listaDescripcionesDic, suscripcionActiva, item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaID, 0, true);
-                    item.OrigenPedidoWeb = Util.obtenerCodigoOrigenWeb(item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaID, true, false, false, false);
+                    item.OrigenPedidoWeb = Util.obtenerCodigoOrigenWeb(item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaID, true, false, false, false, suscripcionActiva);
 
                     if (isApp)
                     {
@@ -59,7 +59,7 @@ namespace Portal.Consultoras.BizLogic.Producto
             var result = new Dictionary<string, string>();
             try
             {
-                List<BETablaLogicaDatos> rst = (List<BETablaLogicaDatos>)CacheManager<BEBanner>.GetData(ECacheItem.OrdenamientoFiltros);
+                List<BETablaLogicaDatos> rst = (List<BETablaLogicaDatos>)CacheManager<BETablaLogicaDatos>.GetData(ECacheItem.OrdenamientoFiltros);
 
                 if (rst == null)
                 {

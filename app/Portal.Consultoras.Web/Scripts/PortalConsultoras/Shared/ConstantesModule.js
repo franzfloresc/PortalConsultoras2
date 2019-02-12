@@ -18,7 +18,10 @@ var ConstantesModule = (function () {
         ProgramaNuevasRegalo: "ProgramaNuevasRegalo",
         ParticipaProgramaNuevas: "ParticipaProgramaNuevas",
         NotParticipaProgramaNuevas: "NotParticipaProgramaNuevas",
-        Ganadoras: "Ganadoras"
+        Ganadoras: "Ganadoras",
+        LiquidacionWeb: "OfertasLiquidacion",
+        GuiaNegocio: "GuiaNegocio",
+        SR:"ShowRoom"
     }
 
     var _keysLocalStorage = {
@@ -103,7 +106,7 @@ var ConstantesModule = (function () {
 
     // en AnaluticsPortal.js tambiar actualizar los valores
     var _origenPedidoWebEstructura = {
-        Dimension: 6,
+        Dimension: 7,
         Dispositivo: {
             Desktop: '1',
             Mobile: '2'

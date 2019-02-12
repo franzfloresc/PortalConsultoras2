@@ -24,7 +24,16 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 await _buscadorYFiltrosProvider.GetPersonalizacion(userData, true, true);
                 productosModel = await _buscadorYFiltrosProvider.GetBuscador(model);
-                productosModel.productos = _buscadorYFiltrosProvider.ValidacionProductoAgregado(productosModel.productos, SessionManager.GetDetallesPedido(), userData, revistaDigital, model.IsMobile, model.IsHome, false);
+                productosModel.productos = _buscadorYFiltrosProvider.ValidacionProductoAgregado(
+                    productosModel.productos, 
+                    SessionManager.GetDetallesPedido(), 
+                    userData, 
+                    revistaDigital, 
+                    model.IsMobile, 
+                    model.IsHome, 
+                    false,
+                    SessionManager.GetRevistaDigital().EsSuscrita                    
+                    );
             }
             catch (Exception ex)
             {
