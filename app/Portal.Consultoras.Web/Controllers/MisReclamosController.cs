@@ -28,6 +28,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Index()
         {
+
             if (EsDispositivoMovil())
             {
                 var url = (Request.Url.Query).Split('?');
@@ -49,6 +50,8 @@ namespace Portal.Consultoras.Web.Controllers
             List<CDRWebModel> listaCdrWebModel;
             try
             {
+                model.CantidadReclamosPorPedido = GetNroSolicitudeReclamoPorPedido();
+
                 using (CDRServiceClient cdr = new CDRServiceClient())
                 {
                     var beCdrWeb = new BECDRWeb { ConsultoraID = userData.ConsultoraID };
@@ -64,14 +67,32 @@ namespace Portal.Consultoras.Web.Controllers
                 listaCdrWebModel = new List<CDRWebModel>();
             }
 
+
             string urlPoliticaCdr = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlPoliticasCDR) ?? "{0}";
             model.UrlPoliticaCdr = string.Format(urlPoliticaCdr, userData.CodigoISO);
             model.ListaCDRWeb = listaCdrWebModel.FindAll(p => p.CantidadDetalle > 0);
-            model.MensajeGestionCdrInhabilitada = _cdrProvider.MensajeGestionCdrInhabilitadaYChatEnLinea(userData.EsCDRWebZonaValida, userData.IndicadorBloqueoCDR, userData.FechaInicioCampania, userData.ZonaHoraria, userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
 
+            model.MensajeGestionCdrInhabilitada = _cdrProvider.MensajeGestionCdrInhabilitadaYChatEnLinea(userData.EsCDRWebZonaValida, userData.IndicadorBloqueoCDR, userData.FechaInicioCampania, userData.ZonaHoraria, userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
+            //ValidadCantidadReclamosPorPedido(model);
             if (!string.IsNullOrEmpty(model.MensajeGestionCdrInhabilitada)) return View(model);
             if (model.ListaCDRWeb.Count == 0) return RedirectToAction("Reclamo");
             return View(model);
+        }
+
+        private static void ValidadCantidadReclamosPorPedido(MisReclamosModel model)
+        {
+            var cantidadReclamosAprobados = model.ListaCDRWeb.Where(a => a.Estado == Constantes.EstadoCDRWeb.Aceptado).ToList();
+
+            if (cantidadReclamosAprobados != null)
+            {
+                if (cantidadReclamosAprobados.Count > 0)
+                {
+                    if (cantidadReclamosAprobados.Count >= model.CantidadReclamosPorPedido)
+                    {
+                        model.MensajeGestionCdrInhabilitada = Constantes.CdrWebMensajes.ExcedioLimiteReclamo;
+                    }
+                }
+            }
         }
 
         #region Reclamo

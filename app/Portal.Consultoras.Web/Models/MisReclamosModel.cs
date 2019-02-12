@@ -49,5 +49,6 @@ namespace Portal.Consultoras.Web.Models
         public bool EsMovilOrigen { get; set; }
         public bool EsMovilFin { get; set; }
         public MensajesCDRExpressModel MensajesExpress { get; set; }
+        public int? CantidadReclamosPorPedido { get; set; }
     }
 }
