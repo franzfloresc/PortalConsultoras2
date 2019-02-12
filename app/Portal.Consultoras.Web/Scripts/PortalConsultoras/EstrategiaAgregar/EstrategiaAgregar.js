@@ -539,9 +539,11 @@ var EstrategiaAgregarModule = (function () {
     };
 
     var _verificarActivarBtn = function (codigoVariante) {
-        var estrategia = fichaModule.GetEstrategia();
-        if (estrategia.esEditable) { //todos menos la 2003 (tipos&tonos)
-            EstrategiaAgregarModule.HabilitarBoton();
+        if (typeof(fichaModule) != "undefined") {
+            var estrategia = fichaModule.GetEstrategia();
+            if (estrategia.esEditable) { //todos menos la 2003 (tipos&tonos)
+                EstrategiaAgregarModule.HabilitarBoton();
+            }
         }
     };
 
