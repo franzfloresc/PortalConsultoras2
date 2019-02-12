@@ -992,7 +992,7 @@ namespace Portal.Consultoras.Common
 
             int pageCount = RecordCount / item.PageSize;
             pageCount = pageCount < 1 ? 1 : pageCount;
-            pageCount += RecordCount > (pageCount * item.PageSize) ? 1 : 0;
+            pageCount += (RecordCount > (pageCount * item.PageSize)).ToInt();
 
             pag.RecordCount = RecordCount;
             pag.PageCount = pageCount;
@@ -3759,7 +3759,8 @@ namespace Portal.Consultoras.Common
         }
 
         public static string obtenerCodigoOrigenWeb(string codigoEstrategia,string codigoTipoEstrategia,
-            int marcaId, bool mobile, bool home, bool recomendaciones, bool materialGanancia)
+            int marcaId, bool mobile, bool home, bool recomendaciones, bool materialGanancia, bool suscripcion)
+
         {
             var result = "";
 
@@ -3828,7 +3829,7 @@ namespace Portal.Consultoras.Common
                             result = recomendaciones && materialGanancia ? 
                                     (mobile ? Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoGanadoras.ToString() :
                                     Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoGanadoras.ToString())
-                                : materialGanancia ? (home ?
+                                : materialGanancia && suscripcion ? (home ?
                                             (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorGanadorasDesplegable.ToString() :
                                                 Constantes.OrigenPedidoWeb.DesktopBuscadorGanadorasDesplegable.ToString())
                                             :

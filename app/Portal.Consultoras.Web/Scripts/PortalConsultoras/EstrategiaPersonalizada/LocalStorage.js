@@ -144,6 +144,9 @@
             IsMobile: isMobile()
         };
         var urlEstrategia = _obtenerUrlEstrategia(palanca);
+        if (urlEstrategia == null || urlEstrategia == "") {
+            return false;
+        }
         var resppuesta = true;
         _promiseObternerEstrategia(urlEstrategia, param).done(function (data) {
 

@@ -1157,10 +1157,10 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.ValidacionInteractiva = usuario.ValidacionInteractiva;
                     usuarioModel.MensajeValidacionInteractiva = usuario.MensajeValidacionInteractiva;
 
-                    usuarioModel.IndicadorPagoOnline = usuarioModel.PaisID == Constantes.PaisID.Chile
+                    usuarioModel.IndicadorPagoOnline = (usuarioModel.PaisID == Constantes.PaisID.Chile
                                                         || usuarioModel.PaisID == Constantes.PaisID.Colombia
                                                         || usuarioModel.PaisID == Constantes.PaisID.PuertoRico
-                                                        ? 1 : 0;
+                                                        ).ToInt();
 
                     usuarioModel.UrlPagoOnline = usuarioModel.PaisID == Constantes.PaisID.Colombia
                         ? "https://www.zonapagos.com/pagosn2/LoginCliente"
@@ -1944,7 +1944,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 var listaDummy = configuracionPaisDatos.Where(n => n.Codigo == Constantes.TipoConfiguracionBuscador.ConsultoraDummy).ToList();
                                 if (listaDummy.Any())
                                 {
-                                    buscadorYFiltrosModel.IndicadorConsultoraDummy = listaDummy[0].Valor1.ToInt();
+                                    buscadorYFiltrosModel.IndicadorConsultoraDummy = listaDummy[0].Valor2.ToInt();
                                 }
                                 break;
                             case Constantes.ConfiguracionPais.MasGanadoras:
