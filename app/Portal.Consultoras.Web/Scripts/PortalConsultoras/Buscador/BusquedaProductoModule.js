@@ -8,6 +8,7 @@
         opcionOrdenar: "#dpw-ordenar, .opcion__ordenamiento__label",
         opcionFiltrar: "#opcionFiltrar",
         opcionCerrarFiltrosMobile: '#cerrarFiltros, .filtro__btn--aplicar, .background__filtros__mobile',
+        opcionAplicarFiltrosMobile: '.filtro__btn--aplicar',
         opcionLimpiarFiltros: '.filtro__btn--limpiar',
         filtroCheckbox: '.filtro__item__checkbox',
         backgroundAlMostrarFiltrosMobile: '.background__filtros__mobile',
@@ -56,7 +57,7 @@
         isHome: false,
         filtros: [],
         filtrosLocalStorage: 'filtrosLocalStorage',
-        nombreGrupo: "Categoría",
+        nombreGrupo: "Categorías",
         categoriaLocalStorage: "categoriasBuscadorMobile"
     };
     var _provider = {
@@ -89,6 +90,7 @@
             $(document).on("click", _elementos.opcionOrdenar, _eventos.DropDownOrdenar);
             $(document).on("click", _elementos.opcionFiltrar, _eventos.MostrarFiltrosMobile);
             $(document).on("click", _elementos.opcionCerrarFiltrosMobile, _eventos.CerrarFiltrosMobile);
+            $(document).on("click", _elementos.opcionAplicarFiltrosMobile, _eventos.AplicarFiltrosMobile);
             $(document).on("click", _elementos.filtroTipoTitulo, _eventos.MostrarOcultarContenidoTipoFiltro);
             $(document).on("click", _elementos.opcionLimpiarFiltros, _eventos.LimpiarFiltros);
             $(document).on("click", _elementos.itemDropDown, _eventos.ClickItemOrdenar);
@@ -120,8 +122,10 @@
 
             _config.cargandoProductos = true;
             var modelo = _funciones.ConstruirModeloBusqueda();
+            
             _provider.BusquedaProductoPromise(modelo)
                 .done(function (data) {
+                    
                     $(_elementos.spanTotalProductos).html(data.total);
                     $(_elementos.divCantidadProductoMobile).html(data.total + ' Resultados');
                     _funciones.ProcesarListaProductos(data.productos);
@@ -306,7 +310,7 @@
                 $(_elementos.textoBusquedaMostar).html(nombreFiltro);
 
                 var filtroDuro = [{
-                    NombreGrupo: "Categoría",
+                    NombreGrupo: _config.nombreGrupo,
                     Opciones: [
                         {
                             IdFiltro: _config.categoriaBusqueda,
@@ -324,22 +328,6 @@
         }
     };
     var _eventos = {
-        MarcarFiltros: function (data, filtroSeleccionado) {
-            switch (data[0]) {
-                case 'cat':
-                    if (!(typeof AnalyticsPortalModule === 'undefined'))
-                        AnalyticsPortalModule.MarcaFiltroPorCategoria(filtroSeleccionado.NombreFiltro);
-                    break;
-                case 'mar':
-                    if (!(typeof AnalyticsPortalModule === 'undefined'))
-                        AnalyticsPortalModule.MarcaFiltroPorMarca(filtroSeleccionado.NombreFiltro);
-                    break;
-                case 'pre':
-                    if (!(typeof AnalyticsPortalModule === 'undefined'))
-                        AnalyticsPortalModule.MarcaFiltroPorPrecio(filtroSeleccionado.NombreFiltro);
-                    break;
-            }
-        },
         EliminarEtiquetaCriterioElegido: function (e) {
             e.preventDefault();
 
@@ -523,6 +511,31 @@
             }, 400);
             $(_elementos.seccionFiltros).scrollTop(0);
         },
+        AplicarFiltrosMobile: function (e) {
+            e.preventDefault();
+
+            var seleccionados = get_local_storage(_config.filtrosLocalStorage);
+            var opcionesFiltros = "";
+
+            if (seleccionados.length > 0) {
+                $.each(seleccionados, function (i, item) {
+
+                    if (item.Opciones.length > 0) {
+
+                        $.each(item.Opciones, function (i, itemChild) {
+                            opcionesFiltros += itemChild.NombreFiltro + " - ";
+                        });
+                    }
+                    opcionesFiltros = opcionesFiltros.substr(0, opcionesFiltros.length - 3);
+                    opcionesFiltros += " | ";                    
+                });
+                opcionesFiltros = opcionesFiltros.substr(0, opcionesFiltros.length - 3);
+
+                AnalyticsPortalModule.MarcaBotonAplicarFiltro(opcionesFiltros);
+            }
+
+
+        },
         MostrarOcultarContenidoTipoFiltro: function (e) {
             var filtroTipo = $(this).parent();
             var contenidoTipoFiltro = $(this).next();
@@ -624,8 +637,6 @@
                 Max: max
             };
 
-            _eventos.MarcarFiltros(splited, filtroSeleccionado);
-
             var seleccionados = get_local_storage(_config.filtrosLocalStorage);
             var opcionesFiltros = [];
 
@@ -673,6 +684,11 @@
                 if (_config.isMobile) {
                     _funciones.AnchoContenedorEtiquetasCriteriosElegidosMobile();
                 }
+
+                if (!(typeof AnalyticsPortalModule === 'undefined')) {
+                    AnalyticsPortalModule.MarcaFiltroPorSeccion(nombreSeccion, nombreFiltro);
+                }
+                    
             }
             _funciones.accionFiltrosCriterio();
         }

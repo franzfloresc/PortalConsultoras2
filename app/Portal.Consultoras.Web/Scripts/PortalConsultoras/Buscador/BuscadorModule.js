@@ -163,8 +163,7 @@ var BuscadorModule = (function () {
                 AnalyticsPortalModule.MarcaEligeUnaOpcion(urlDetalle, textobusqueda);
         },
         CargarCategorias: function () {
-
-            if (FlagBuscarPorCategoria == true) {
+            if (!(typeof FlagBuscarPorCategoria === 'undefined') && FlagBuscarPorCategoria == true) {
                 $(".seccion_categorias_productos_busqueda_wrapper").fadeIn(150);
 
                 CategoriaProductosDatos = get_local_storage(_config.categorias);
@@ -333,7 +332,7 @@ var BuscadorModule = (function () {
                 if (_config.isMobile) _funciones.CampoDeBusquedaSinCaracteres($(".opcion_limpiar_campo_busqueda_productos"));
                 else _funciones.CampoDeBusquedaSinCaracteres($("#CampoBuscadorProductos"));
 
-                if (FlagBuscarPorCategoria) {
+                if (!(typeof FlagBuscarPorCategoria === 'undefined') && FlagBuscarPorCategoria == true) {
                     $(".seccion_categorias_productos_busqueda_wrapper").fadeIn(150);
                 }                
             }
@@ -345,7 +344,8 @@ var BuscadorModule = (function () {
             $("#CampoBuscadorProductos").val("");
             $("#CampoBuscadorProductos").focus();
             $("#ResultadoBuscador").html("");
-            if (FlagBuscarPorCategoria) {
+
+            if (!(typeof FlagBuscarPorCategoria === 'undefined') && FlagBuscarPorCategoria == true) { 
                 $(".seccion_categorias_productos_busqueda_wrapper").fadeIn(150);
             }            
         },
