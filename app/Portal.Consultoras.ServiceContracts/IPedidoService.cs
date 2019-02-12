@@ -659,8 +659,8 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         int ValidarCUVsRecomendados(BEEstrategia entidad);
 
-        [OperationContract]
-        List<BEEstrategia> FiltrarEstrategiaPedido(BEEstrategia entidad);
+        //[OperationContract]
+        //List<BEEstrategia> FiltrarEstrategiaPedido(BEEstrategia entidad);
 
         [OperationContract]
         string ValidarStockEstrategia(BEEstrategia entidad);
@@ -1016,8 +1016,8 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         BERevistaDigitalSuscripcion RDGetSuscripcionActiva(BERevistaDigitalSuscripcion entidad);
 
-        [OperationContract]
-        int InsertarDesglose(BEInputReservaProl input);
+        //[OperationContract]
+        //int InsertarDesglose(BEInputReservaProl input);
 
         [OperationContract]
         string CargarSesionAndDeshacerPedidoValidado(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, string tipo);
