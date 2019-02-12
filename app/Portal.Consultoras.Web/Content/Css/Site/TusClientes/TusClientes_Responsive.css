@@ -124,3 +124,24 @@ h1, h2, h3, h4, h5, h6 {
     background: url('/Content/Images/Esika/lupa.png') no-repeat right center;
     width: 350px;
 }
+
+.boton_agregar {
+    border: none;
+    background: #000;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: bold;
+    height: 40px;
+    width: 210px;
+    text-align: center;
+}
+
+
+
+
+@media screen and (max-width:768px) {
+    .tabla_cabecera{
+        display:none;
+    }
+}
