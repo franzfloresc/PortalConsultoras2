@@ -23640,10 +23640,13 @@ input[type='checkbox']:checked + span:after {
     margin-top: 19px;
 }
 
+.linea_indicador_barra{
+    width:0.15em;
+}
+
 .linea_indicador_barra,
 .linea_indicador_barra_vista_bienvenida
 {
-    width: 1px;
     height: 8px;
     background: #979797;
     position: absolute;
@@ -23652,6 +23655,7 @@ input[type='checkbox']:checked + span:after {
 }
 
 .linea_indicador_barra_vista_bienvenida {
+    width: 1px;
     left: 0;
     right: 0;
     margin: 0 auto;
@@ -23659,7 +23663,7 @@ input[type='checkbox']:checked + span:after {
 }
 
 .barra_mensaje_meta_pedido{
-    margin-bottom:28px;
+    margin-bottom:56px;
 }
 
 .bandera_marcador {
@@ -34617,10 +34621,11 @@ height:30px;
     font-weight:bold;
 }
 
-.descrip_regalo_carousel{
+.descrip_regalo_carousel {
     letter-spacing: 0.24px;
     height: 51px;
     margin-bottom: 15px;
+    overflow: hidden;
 }
 
 .btn_elegir_regalo{
@@ -34689,7 +34694,7 @@ height:30px;
 
 .texto_regalo_elegido{
     font-size:14px;
-    font-weight:bold;
+    font-weight:800;
 }
 
 /* FIN - POPUP ELIGE TU REGALO DEL PROGRAMA NUEVAS */

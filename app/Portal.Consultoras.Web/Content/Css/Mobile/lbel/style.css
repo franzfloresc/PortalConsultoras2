@@ -14452,10 +14452,11 @@ span.icon-advertencia {
     font-weight:bold;
 }
 
-.descrip_regalo_carousel{
+.descrip_regalo_carousel {
     letter-spacing: 0.24px;
-    height: 51px;
+    height: 42px;
     margin-bottom: 15px;
+    overflow: hidden;
 }
 
 .btn_elegir_regalo{
@@ -14519,7 +14520,7 @@ span.icon-advertencia {
 
 .texto_regalo_elegido{
     font-size:12px;
-    font-weight:bold;
+    font-weight:800;
 }
 
 /* FIN - POPUP ELIGE TU REGALO DEL PROGRAMA NUEVAS */
