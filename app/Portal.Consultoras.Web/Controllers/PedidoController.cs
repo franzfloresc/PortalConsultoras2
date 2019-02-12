@@ -34,15 +34,25 @@ namespace Portal.Consultoras.Web.Controllers
         private readonly int CRITERIO_BUSQUEDA_DESC_PRODUCTO = 2;
         private readonly int CRITERIO_BUSQUEDA_PRODUCTO_CANT = 10;
         private readonly int CUV_NO_TIENE_CREDITO = 2;
+
         private readonly PedidoSetProvider _pedidoSetProvider;
         protected ProductoFaltanteProvider _productoFaltanteProvider;
         private readonly ConfiguracionPaisDatosProvider _configuracionPaisDatosProvider;
 
         public PedidoController()
+            : this(new PedidoSetProvider(),
+                  new ProductoFaltanteProvider(),
+                  new ConfiguracionPaisDatosProvider())
         {
-            _pedidoSetProvider = new PedidoSetProvider();
-            _productoFaltanteProvider = new ProductoFaltanteProvider();
-            _configuracionPaisDatosProvider = new ConfiguracionPaisDatosProvider();
+        }
+
+        public PedidoController(PedidoSetProvider pedidoSetProvider,
+            ProductoFaltanteProvider productoFaltanteProvider,
+            ConfiguracionPaisDatosProvider configuracionPaisDatosProvider)
+        {
+            _pedidoSetProvider = pedidoSetProvider;
+            _productoFaltanteProvider = productoFaltanteProvider;
+            _configuracionPaisDatosProvider = configuracionPaisDatosProvider;
         }
 
         public ActionResult Index(bool lanzarTabConsultoraOnline = false, string cuv = "", int campana = 0)

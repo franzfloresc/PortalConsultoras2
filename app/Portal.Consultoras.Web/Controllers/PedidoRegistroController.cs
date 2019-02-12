@@ -390,10 +390,10 @@ namespace Portal.Consultoras.Web.Controllers
             var lastResult = new Tuple<bool, JsonResult>(false, Json(new { }));
 
             BEPedidoDetalle pedidoDetalle = new BEPedidoDetalle();
-            pedidoDetalle.Producto = new ServicePedido.BEProducto();
             pedidoDetalle.SetID = setId;
             pedidoDetalle.PedidoDetalleID = PedidoDetalleID;
             pedidoDetalle.PedidoID = PedidoID;
+            pedidoDetalle.Producto = new ServicePedido.BEProducto();
             pedidoDetalle.Producto.TipoOfertaSisID = TipoOfertaSisID;
             pedidoDetalle.Producto.CUV = Util.Trim(CUV);
             pedidoDetalle.Usuario = Mapper.Map<ServicePedido.BEUsuario>(userData);

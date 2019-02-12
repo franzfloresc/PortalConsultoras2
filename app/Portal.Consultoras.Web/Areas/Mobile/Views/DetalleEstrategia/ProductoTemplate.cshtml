@@ -179,6 +179,7 @@
                                id="txtCantidad" 
                                class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" 
                                onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" 
+                               onkeyup="EstrategiaAgregarModule.ValidaCantidad(event);"
                                data-input="cantidad">
                         <a class="cantidad_mas_home" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
                             <span>+</span>

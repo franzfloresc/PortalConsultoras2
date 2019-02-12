@@ -112,7 +112,7 @@
                 <hr class="clear">
                 {{/IsNullOrEmpty}}
 
-                <div id="componentes" data-codigovariante="{{CodigoVariante}}">
+                <div id="componentes" data-codigovariante="{{CodigoVariante}}" style="overflow: hidden;">
                 </div>
 
             </div>
@@ -168,7 +168,8 @@
                     <input class="txt_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
                            {{#if esCampaniaSiguiente}} {{RangoInputEnabled}} {{/if}}
                            type="text"
-                           value="{{Cantidad}}"
+                           value="{{Cantidad}}" 
+                           onkeyup="EstrategiaAgregarModule.ValidaCantidad(event);"
                            size="2"
                            maxlength="2"
                            id="txtCantidad" 

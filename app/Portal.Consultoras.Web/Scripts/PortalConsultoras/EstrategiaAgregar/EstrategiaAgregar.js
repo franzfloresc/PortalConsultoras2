@@ -76,9 +76,9 @@ var EstrategiaAgregarModule = (function () {
 
     var getEstrategia = function ($btnAgregar, origenPedidoWebEstrategia) {
 
-        var estrategia = $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataEstrategia).data("estrategia")
-                || $btnAgregar.parents("div.content_btn_agregar").siblings("#contenedor-showroom-subcampanias-mobile")
-                        .find(".slick-active").find(dataProperties.dataEstrategia).data("estrategia")
+        var estrategia = JSON.parse($btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataEstrategia).attr("data-estrategia"))
+                || JSON.parse($btnAgregar.parents("div.content_btn_agregar").siblings("#contenedor-showroom-subcampanias-mobile")
+                        .find(".slick-active").find(dataProperties.dataEstrategia).attr("data-estrategia"))
                 || {};
 
         return estrategia;
@@ -419,9 +419,14 @@ var EstrategiaAgregarModule = (function () {
 
                 } else if (tipoOrigenEstrategiaAux == 2 ||
                     tipoOrigenEstrategiaAux == 21 ||
+                    tipoOrigenEstrategiaAux == 22 ||
                     tipoOrigenEstrategiaAux == 27 ||
                     tipoOrigenEstrategiaAux == 262 ||
                     tipoOrigenEstrategiaAux == 272) {
+
+                    //debugger;
+
+                    if (isPagina('mobile/pedido/detalle')) CargarPedido(false);
 
                     if (tipoOrigenEstrategiaAux == 262) {
 
@@ -438,7 +443,7 @@ var EstrategiaAgregarModule = (function () {
                             CargarCarouselEstrategias();
                         }
 
-                        if (tieneMasVendidos === 1) {
+                        if (typeof tieneMasVendidos !== "undefined" && tieneMasVendidos === 1) {
                             CargarCarouselMasVendidos("mobile");
                         }
                     }
@@ -534,9 +539,11 @@ var EstrategiaAgregarModule = (function () {
     };
 
     var _verificarActivarBtn = function (codigoVariante) {
-        var estrategia = fichaModule.GetEstrategia();
-        if (estrategia.esEditable) { //todos menos la 2003 (tipos&tonos)
-            EstrategiaAgregarModule.HabilitarBoton();
+        if (typeof(fichaModule) != "undefined") {
+            var estrategia = fichaModule.GetEstrategia();
+            if (estrategia.esEditable) { //todos menos la 2003 (tipos&tonos)
+                EstrategiaAgregarModule.HabilitarBoton();
+            }
         }
     };
 
@@ -554,7 +561,10 @@ var EstrategiaAgregarModule = (function () {
         _verificarActivarBtn(); //habilitar botón solo cuando está en la ficha resumida
         return false;
     };
-
+    var validaCantidad = function(e) {
+        _verificarActivarBtn(); //habilitar botón solo cuando está en la ficha resumida
+        
+    }
     var deshabilitarBoton = function () {
         $(_elementos.btnAgregar.id).addClass(_elementos.btnAgregar.classDesactivado);
     };
@@ -601,6 +611,7 @@ var EstrategiaAgregarModule = (function () {
         GetOrigenPedidoWeb: getOrigenPedidoWeb,
         AdicionarCantidad: adicionarCantidad,
         DisminuirCantidad: disminuirCantidad,
+        ValidaCantidad: validaCantidad,
         ElementosDiv: elementosDiv,
         DeshabilitarBoton: deshabilitarBoton,
         HabilitarBoton: habilitarBoton

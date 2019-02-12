@@ -184,7 +184,12 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var listaShowRoomNivel = configEstrategiaSR.ListaNivel ?? new List<ShowRoomNivelModel>();
+                List<ShowRoomNivelModel> listaShowRoomNivel = null;
+
+                _showRoomProvider.CargarNivelShowRoom(userData);
+                configEstrategiaSR = SessionManager.GetEstrategiaSR();
+                listaShowRoomNivel = configEstrategiaSR.ListaNivel ?? new List<ShowRoomNivelModel>();
+
 
                 return Json(new
                 {
@@ -492,11 +497,12 @@ namespace Portal.Consultoras.Web.Controllers
                     listaPersonalizacionModel = JsonConvert.DeserializeObject<List<ShowRoomPersonalizacionModel>>(lstPersonalizacion);
 
                     listaPersonalizacionModel.Where(c => c.TipoAtributo.Trim() == "IMAGEN").Update(
-                         c => {
-                                c.Valor = ConfigCdn.GetUrlFileCdnMatriz(iso, c.Valor);
+                         c =>
+                         {
+                             c.Valor = ConfigCdn.GetUrlFileCdnMatriz(iso, c.Valor);
                              c.PersonalizacionNivelId = 999999;
                          });
-                    listaPersonalizacionModel = listaPersonalizacionModel.OrderBy(x => x.TipoAplicacion).ThenBy(x=> x.Orden ).ToList();
+                    listaPersonalizacionModel = listaPersonalizacionModel.OrderBy(x => x.TipoAplicacion).ThenBy(x => x.Orden).ToList();
                 }
                 else
                 {

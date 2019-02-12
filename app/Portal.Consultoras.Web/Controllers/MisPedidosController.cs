@@ -834,7 +834,6 @@ namespace Portal.Consultoras.Web.Controllers
                     CampaniaId = int.Parse(campaniaId),
                     ConsultoraId = ObtenerConsultoraId(),
                     Consultora = userData.NombreConsultora,
-                    EsBpt = EsOpt() == 1,
                     CodigoPrograma = userData.CodigoPrograma,
                     NumeroPedido = userData.ConsecutivoNueva
                 };
