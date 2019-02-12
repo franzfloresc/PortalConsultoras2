@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Models.Oferta.ResponseOfertaGenerico;
+using Portal.Consultoras.Web.SessionManager;
 using Portal.Consultoras.Web.ServicePROLConsultas;
 using System;
 using System.Collections.Generic;
@@ -16,6 +18,8 @@ namespace Portal.Consultoras.Web.Providers
     {
         private static readonly HttpClient httpClient = new HttpClient();
 
+        private readonly ISessionManager _sessionManager = SessionManager.SessionManager.Instance;
+
         static OfertaBaseProvider()
         {
             if (string.IsNullOrEmpty(WebConfig.UrlMicroservicioPersonalizacionSearch)) return;
@@ -26,109 +30,128 @@ namespace Portal.Consultoras.Web.Providers
 
         public static async Task<List<ServiceOferta.BEEstrategia>> ObtenerOfertasDesdeApi(string path, string codigoISO)
         {
-            var estrategias = new List<ServiceOferta.BEEstrategia>();
-            var httpResponse = await httpClient.GetAsync(path);
+            List<ServiceOferta.BEEstrategia> estrategias = new List<ServiceOferta.BEEstrategia>();
+            HttpResponseMessage httpResponse = await httpClient.GetAsync(path);
 
             if (!httpResponse.IsSuccessStatusCode)
             {
                 return estrategias;
             }
 
-            var jsonString = await httpResponse.Content.ReadAsStringAsync();
-            if (Util.Trim(jsonString) == "")
+            string jsonString = await httpResponse.Content.ReadAsStringAsync();
+            if (Util.Trim(jsonString) == string.Empty)
             {
                 return estrategias;
             }
 
-            var list = JsonConvert.DeserializeObject<List<dynamic>>(jsonString) ?? new List<dynamic>();
+            OutputOferta respuesta = new OutputOferta();
             var listaSinPrecio2 = new List<string>();
-            string codTipoEstrategia = "", codCampania = "";
+            try
+            {
+                respuesta = JsonConvert.DeserializeObject<OutputOferta>(jsonString);
+            }
+            catch (Exception ex)
+            {
+                Common.LogManager.SaveLog(ex, string.Empty, codigoISO);
+                return estrategias;
+            }
 
-            foreach (var item in list)
+            if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
+            {
+                Common.LogManager.SaveLog(new Exception(respuesta.Message), string.Empty, codigoISO);
+                return estrategias;
+            }
+
+            List<string> listaCuvPrecio0 = new List<string>();
+            string codTipoEstrategia = string.Empty, codCampania = string.Empty;
+
+            foreach (Models.Search.ResponseOferta.Estructura.Estrategia item in respuesta.Result)
             {
                 try
                 {
                     var estrategia = new ServiceOferta.BEEstrategia
                     {
-                        CampaniaID = item.codigoCampania,
-                        CodigoEstrategia = item.codigoEstrategia,
-                        CodigoProducto = item.codigoProducto,
-                        CUV2 = item.cuV2,
-                        DescripcionCUV2 = item.descripcionCUV2,
-                        DescripcionEstrategia = item.descripcionTipoEstrategia,
-                        DescripcionMarca = item.marcaDescripcion,
-                        EstrategiaID = Convert.ToInt32(item.estrategiaId),
-                        FlagNueva = Convert.ToBoolean(item.flagNueva) ? 1 : 0,
-                        FlagRevista = item.flagRevista,
-                        FotoProducto01 = item.imagenURL,
-                        ImagenURL = item.imagenEstrategia,
-                        IndicadorMontoMinimo = Convert.ToInt32(item.indicadorMontoMinimo),
-                        LimiteVenta = Convert.ToInt32(item.limiteVenta),
-                        MarcaID = Convert.ToInt32(item.marcaId),
-                        Orden = Convert.ToInt32(item.orden),
-                        Precio = Convert.ToDecimal(item.precio),
-                        Precio2 = Convert.ToDecimal(item.precio2),
-                        PrecioString = Util.DecimalToStringFormat((decimal)item.precio2, codigoISO),
-                        PrecioTachado = Util.DecimalToStringFormat((decimal)item.precio, codigoISO),
-                        GananciaString = Util.DecimalToStringFormat((decimal)item.ganancia, codigoISO),
-                        Ganancia = Convert.ToDecimal(item.ganancia),
-                        TextoLibre = item.textoLibre,
-                        TieneVariedad = Convert.ToBoolean(item.tieneVariedad) ? 1 : 0,
-                        TipoEstrategiaID = Convert.ToInt32(item.tipoEstrategiaId),
+                        CampaniaID = Convert.ToInt32(item.CodigoCampania),
+                        CodigoEstrategia = item.CodigoEstrategia.ToString(),
+                        CodigoProducto = item.CodigoProducto,
+                        CUV2 = item.CUV2,
+                        DescripcionCUV2 = item.DescripcionCUV2,
+                        DescripcionEstrategia = item.DescripcionTipoEstrategia,
+                        DescripcionMarca = item.MarcaDescripcion,
+                        EstrategiaID = Convert.ToInt32(item.EstrategiaId),
+                        FlagNueva = Convert.ToBoolean(item.FlagNueva) ? 1 : 0,
+                        FlagRevista = item.FlagRevista,
+                        FotoProducto01 = item.ImagenURL,
+                        ImagenURL = item.ImagenEstrategia,
+                        IndicadorMontoMinimo = Convert.ToInt32(item.IndicadorMontoMinimo),
+                        LimiteVenta = Convert.ToInt32(item.LimiteVenta),
+                        MarcaID = Convert.ToInt32(item.MarcaId),
+                        Orden = Convert.ToInt32(item.Orden),
+                        Precio = Convert.ToDecimal(item.Precio),
+                        Precio2 = Convert.ToDecimal(item.Precio2),
+                        PrecioString = Util.DecimalToStringFormat((decimal)item.Precio2, codigoISO),
+                        PrecioTachado = Util.DecimalToStringFormat((decimal)item.Precio, codigoISO),
+                        GananciaString = Util.DecimalToStringFormat((decimal)item.Ganancia, codigoISO),
+                        Ganancia = Convert.ToDecimal(item.Ganancia),
+                        TextoLibre = item.TextoLibre,
+                        TieneVariedad = Convert.ToBoolean(item.TieneVariedad) ? 1 : 0,
+                        TipoEstrategiaID = Convert.ToInt32(item.TipoEstrategiaId),
                         TipoEstrategiaImagenMostrar = 6,
-                        EsSubCampania = Convert.ToBoolean(item.esSubCampania) ? 1 : 0
-                       
+                        EsSubCampania = Convert.ToBoolean(item.EsSubCampania) ? 1 : 0,
+                        Niveles = item.Niveles
                     };
-                    estrategia.TipoEstrategia = new ServiceOferta.BETipoEstrategia { Codigo = item.codigoTipoEstrategia };
-
-                    if (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento && item.estrategiaDetalle != null)
+                    estrategia.TipoEstrategia = new ServiceOferta.BETipoEstrategia { Codigo = item.CodigoTipoEstrategia };
+                    
+                    if (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento && item.EstrategiaDetalle != null)
                     {
                         estrategia.EstrategiaDetalle = new ServiceOferta.BEEstrategiaDetalle();
                         int tablaLogicaDatosID;
 
-                        foreach (var itemED in item.estrategiaDetalle)
+                        foreach (Models.Search.ResponseOferta.Estructura.EstrategiaDetalle itemED in item.EstrategiaDetalle)
                         {
-                            if (itemED.tablaLogicaDatosID == null) continue;
+                            if (itemED.TablaLogicaDatosID == 0) continue;
 
-                            tablaLogicaDatosID = Convert.ToInt32(itemED.tablaLogicaDatosID);
+                            tablaLogicaDatosID = Convert.ToInt32(itemED.TablaLogicaDatosID);
 
                             switch (tablaLogicaDatosID)
                             {
                                 case Constantes.EstrategiaDetalleCamposID.FlagIndividual:
-                                    estrategia.EstrategiaDetalle.FlagIndividual = (itemED.valor == "1");
+                                    estrategia.EstrategiaDetalle.FlagIndividual = (itemED.Valor == "1" ? true : false);
                                     break;
                                 case Constantes.EstrategiaDetalleCamposID.ImgFichaDesktop:
-                                    estrategia.EstrategiaDetalle.ImgFichaDesktop = itemED.valor;
+                                    estrategia.EstrategiaDetalle.ImgFichaDesktop = itemED.Valor;
                                     break;
                                 case Constantes.EstrategiaDetalleCamposID.ImgFichaFondoDesktop:
-                                    estrategia.EstrategiaDetalle.ImgFichaFondoDesktop = itemED.valor;
+                                    estrategia.EstrategiaDetalle.ImgFichaFondoDesktop = itemED.Valor;
+
                                     break;
                                 case Constantes.EstrategiaDetalleCamposID.ImgFichaFondoMobile:
-                                    estrategia.EstrategiaDetalle.ImgFichaFondoMobile = itemED.valor;
+                                    estrategia.EstrategiaDetalle.ImgFichaFondoMobile = itemED.Valor;
+
                                     break;
                                 case Constantes.EstrategiaDetalleCamposID.ImgFichaMobile:
-                                    estrategia.EstrategiaDetalle.ImgFichaMobile = itemED.valor;
+                                    estrategia.EstrategiaDetalle.ImgFichaMobile = itemED.Valor;
                                     break;
                                 case Constantes.EstrategiaDetalleCamposID.ImgFondoDesktop:
-                                    estrategia.EstrategiaDetalle.ImgFondoDesktop = itemED.valor;
+                                    estrategia.EstrategiaDetalle.ImgFondoDesktop = itemED.Valor;
                                     break;
                                 case Constantes.EstrategiaDetalleCamposID.ImgFondoMobile:
-                                    estrategia.EstrategiaDetalle.ImgFondoMobile = itemED.valor;
+                                    estrategia.EstrategiaDetalle.ImgFondoMobile = itemED.Valor;
                                     break;
                                 case Constantes.EstrategiaDetalleCamposID.ImgHomeDesktop:
-                                    estrategia.EstrategiaDetalle.ImgHomeDesktop = itemED.valor;
+                                    estrategia.EstrategiaDetalle.ImgHomeDesktop = itemED.Valor;
                                     break;
                                 case Constantes.EstrategiaDetalleCamposID.ImgHomeMobile:
-                                    estrategia.EstrategiaDetalle.ImgHomeMobile = itemED.valor;
+                                    estrategia.EstrategiaDetalle.ImgHomeMobile = itemED.Valor;
                                     break;
                                 case Constantes.EstrategiaDetalleCamposID.Slogan:
-                                    estrategia.EstrategiaDetalle.Slogan = itemED.valor;
+                                    estrategia.EstrategiaDetalle.Slogan = itemED.Valor;
                                     break;
                                 case Constantes.EstrategiaDetalleCamposID.UrlVideoDesktop:
-                                    estrategia.EstrategiaDetalle.UrlVideoDesktop = itemED.valor;
+                                    estrategia.EstrategiaDetalle.UrlVideoDesktop = itemED.Valor;
                                     break;
                                 case Constantes.EstrategiaDetalleCamposID.UrlVideoMobile:
-                                    estrategia.EstrategiaDetalle.UrlVideoMobile = itemED.valor;
+                                    estrategia.EstrategiaDetalle.UrlVideoMobile = itemED.Valor;
                                     break;
                             }
                         }
@@ -136,24 +159,24 @@ namespace Portal.Consultoras.Web.Providers
 
                     if (estrategia.Precio2 > 0)
                     {
-                        var compoponentes = new List<ServiceOferta.BEEstrategiaProducto>();
-                        foreach (var componente in item.componentes)
+                        List<ServiceOferta.BEEstrategiaProducto> compoponentes = new List<ServiceOferta.BEEstrategiaProducto>();
+                        foreach (Models.Search.ResponseOferta.Estructura.Componente componente in item.Componentes)
                         {
                             var estrategiaTono = new ServiceOferta.BEEstrategiaProducto
                             {
-                                Grupo = componente.grupo,
-                                CUV = componente.cuv,
-                                SAP = componente.codigoSap,
-                                Orden = componente.orden,
-                                Precio = componente.precioUnitario,
-                                Digitable = Convert.ToBoolean(componente.indicadorDigitable) ? 1 : 0,
-                                Cantidad = componente.cantidad,
-                                FactorCuadre = componente.factorCuadre,
-                                IdMarca = componente.marcaId,
-                                NombreMarca = componente.nombreMarca,
-                                NombreComercial = componente.nombreComercial,
-                                Volumen = componente.volumen,
-                                NombreBulk = componente.nombreBulk
+                                Grupo = componente.Grupo.ToString(),
+                                CUV = componente.Cuv,
+                                SAP = componente.CodigoSap,
+                                Orden = componente.Orden,
+                                Precio = componente.PrecioUnitario,
+                                Digitable = Convert.ToBoolean(componente.IndicadorDigitable) ? 1 : 0,
+                                Cantidad = componente.Cantidad,
+                                FactorCuadre = componente.FactorCuadre,
+                                IdMarca = componente.MarcaId,
+                                NombreMarca = componente.NombreMarca,
+                                NombreComercial = componente.NombreComercial,
+                                Volumen = componente.Volumen,
+                                NombreBulk = componente.NombreBulk
                             };
 
                             compoponentes.Add(estrategiaTono);
@@ -172,7 +195,8 @@ namespace Portal.Consultoras.Web.Providers
                 }
                 catch (Exception ex)
                 {
-                    Common.LogManager.SaveLog(ex, "", codigoISO);
+                    Common.LogManager.SaveLog(ex, string.Empty, codigoISO);
+                    return estrategias;
                 }
             }
 
@@ -225,14 +249,15 @@ namespace Portal.Consultoras.Web.Providers
         public bool UsarMsPersonalizacion(string pais, string tipoEstrategia, bool dbDefault = false)
         {
             if (dbDefault) return false;
-            var paisHabilitado = WebConfig.PaisesMicroservicioPersonalizacion.Contains(pais);
-            var tipoEstrategiaHabilitado = WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion.Contains(tipoEstrategia);
+
+            bool paisHabilitado = _sessionManager.GetConfigMicroserviciosPersonalizacion().PaisHabilitado.Contains(pais); //WebConfig.PaisesMicroservicioPersonalizacion.Contains(pais);
+            bool tipoEstrategiaHabilitado = _sessionManager.GetConfigMicroserviciosPersonalizacion().EstrategiaHabilitado.Contains(tipoEstrategia); //WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion.Contains(tipoEstrategia);
             return paisHabilitado && tipoEstrategiaHabilitado;
         }
 
         public bool UsarMsPersonalizacion(string tipoEstrategia)
         {
-            var tipoEstrategiaHabilitado = WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion.Contains(tipoEstrategia);
+            bool tipoEstrategiaHabilitado = _sessionManager.GetConfigMicroserviciosPersonalizacion().EstrategiaHabilitado.Contains(tipoEstrategia); //WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion.Contains(tipoEstrategia);
             return tipoEstrategiaHabilitado;
         }
     }
