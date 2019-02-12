@@ -24,6 +24,9 @@ var objects = new Array(),
     winHeightSR, winWidthSR, togvis, moz = (document.getElementById && !document.all) ? 1 : 0;
 
 function mostrarLluvia() {
+    fallingObjects = new Array();
+    objects = new Array();
+
     closeImagenRain = 0;
     if (listaIconoLluvia != null) {
         var par = 0;
@@ -65,7 +68,8 @@ function ocultarLluvia() {
 
 function hideImages() {
     closeImagenRain = 1;
-    $("img[id^='fO']").fadeOut(200);
+    //$("img[id^='fO']").fadeOut(200);
+    $("img[id^='fO']").remove();
 }
 
 function newObject(url, height, width) {
@@ -91,6 +95,8 @@ function fallObject(num, vari, nu) {
 function fall() {
     for (i = 0; i < numObjects; i++) {
         var fallingObject = document.getElementById('fO' + i);
+        if (!fallingObject) continue;
+
         if ((objects[i][1] > (winHeightSR - (objects[i][5] + objects[i][7]))) || (objects[i][0] > (winWidthSR - (objects[i][2] + objects[i][8])))) {
             fallObject(i, objects[i][6], 0);
         }
