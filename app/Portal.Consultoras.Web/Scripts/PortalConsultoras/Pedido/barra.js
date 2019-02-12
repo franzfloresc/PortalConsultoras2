@@ -8,6 +8,7 @@ var tpElectivos = {
     premios : [],
     loadPremios: false,
     hasPremios: false,
+    tempPrevLogro: -1,
     pedidoDetails: []
 };
  
@@ -1293,6 +1294,7 @@ function showPopupNivelSuperado(barra, prevLogro) {
         return;
     }    
     var tippingPoint = barra.TippingPoint || 0;
+    tpElectivos.tempPrevLogro = prevLogro;
 
     if (tippingPoint > 0) {
         if (!barra.TippingPointBarra.Active) {
@@ -1358,8 +1360,20 @@ function showPopupEscala(content) {
 
     setTimeout(function() {
         $(idPopup).fadeOut(2000);
-        ocultarLluvia();
     }, 3000);
+}
+
+function checkPopupEscala() {
+    if (tpElectivos.tempPrevLogro < 0) return;
+
+    if (!TieneMontoMaximo()) {
+        var prevLogro = tpElectivos.tempPrevLogro;
+        setTimeout(function() {
+            showPopupEscalaSiguiente(dataBarra, prevLogro);
+        }, 200);
+    }
+
+    tpElectivos.tempPrevLogro = -1;
 }
 
 function setContainerLluvia(containerId) {
@@ -2607,6 +2621,7 @@ function ClosePopupRegaloElectivo() {
     if (typeof dataAgregarOF !== 'undefined') dataAgregarOF = null;
     CerrarPopup('#popupEleccionRegalo');
     $('#popupEleccionRegalo').scrollTop(0);
+    checkPopupEscala();
 };
 
 function ReordenarMontosBarra()
