@@ -29,6 +29,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Script.Serialization;
 using Portal.Consultoras.Entities;
+using Newtonsoft.Json;//SALUD-83
 
 namespace Portal.Consultoras.Common
 {
@@ -3554,6 +3555,28 @@ namespace Portal.Consultoras.Common
             }
 
             return result;
+        }
+
+        public static string GetParamFileJson(string key)
+        {
+            string result = string.Empty;
+            try
+            {
+                string path = Path.Combine(HttpRuntime.AppDomainAppPath, "App_Data/parametros.json");
+                var json = File.ReadAllText(path);
+                var param = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
+                foreach (var item in param)
+                {
+                    if (item.Key == key)
+                        result = item.Value; break;
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
 
         public static class Security
