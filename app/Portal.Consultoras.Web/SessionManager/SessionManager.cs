@@ -17,6 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.Web;
 using Portal.Consultoras.Web.Models.Recomendaciones;
+using Portal.Consultoras.Web.Models.Estrategia;
 
 namespace Portal.Consultoras.Web.SessionManager
 {
@@ -1324,6 +1325,15 @@ namespace Portal.Consultoras.Web.SessionManager
         public BuscadorYFiltrosConfiguracionModel GetBuscadorYFiltrosConfig()
         {
             return (BuscadorYFiltrosConfiguracionModel)HttpContext.Current.Session[Constantes.ConstSession.BuscadorYFiltrosConfig] ?? new BuscadorYFiltrosConfiguracionModel();
+        }
+
+        public void SetConfigMicroserviciosPersonalizacion(MSPersonalizacionConfiguracionModel msPersonalizacionModel)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.MSPersonalizacionConfig] = msPersonalizacionModel;
+        }
+        public MSPersonalizacionConfiguracionModel GetConfigMicroserviciosPersonalizacion()
+        {
+            return (MSPersonalizacionConfiguracionModel)HttpContext.Current.Session[Constantes.ConstSession.MSPersonalizacionConfig] ?? new MSPersonalizacionConfiguracionModel();
         }
 
         public void SetRecomendacionesConfig(RecomendacionesConfiguracionModel recomendacionesConfiguracionModel)

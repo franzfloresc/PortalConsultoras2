@@ -82,7 +82,6 @@ namespace Portal.Consultoras.Web.Providers
                             CampaniaId = userData.CampaniaID,
                             ConsultoraId = userData.ConsultoraID,
                             Consultora = userData.NombreConsultora,
-                            EsBpt = esOpt == 1, // ya no se utiliza en el sp, confirmar para no enviar el campo
                             CodigoPrograma = userData.CodigoPrograma,
                             NumeroPedido = userData.ConsecutivoNueva
                         };
@@ -143,7 +142,6 @@ namespace Portal.Consultoras.Web.Providers
                             CampaniaId = userData.CampaniaID,
                             ConsultoraId = userData.ConsultoraID,
                             Consultora = userData.NombreConsultora,
-                            EsBpt = esOpt == 1,
                             CodigoPrograma = userData.CodigoPrograma,
                             NumeroPedido = userData.ConsecutivoNueva,
                             AgruparSet = true

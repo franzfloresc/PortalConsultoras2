@@ -267,6 +267,7 @@ namespace Portal.Consultoras.Web.Controllers
                     SessionManager.SetPedidoWeb(null);
                     SessionManager.SetDetallesPedido(null);
                     SessionManager.SetDetallesPedidoSetAgrupado(null);
+                    SessionManager.SetBEEstrategia(Constantes.ConstSession.ListaEstrategia, null);
 
                     var pedidoWebDetalle = ObtenerPedidoWebDetalle();
                     var CantidadTotalProductos = pedidoWebDetalle.Sum(dp => dp.Cantidad);
