@@ -3819,7 +3819,7 @@ namespace Portal.Consultoras.BizLogic
                     if (usuario.DireccionEntrega != null) RegistraDireccionEntrega(usuario.CodigoISO, usuario.DireccionEntrega);
 
                     /*Insertar permisos*/
-                    if (usuario.UsuarioOpciones != null)
+                    if (usuario.UsuarioOpciones != null || usuario.UsuarioOpciones.Count != 0)
                     {
                         var DAUsuario = new DAUsuario(usuario.PaisID);
                         foreach (var item in usuario.UsuarioOpciones)
