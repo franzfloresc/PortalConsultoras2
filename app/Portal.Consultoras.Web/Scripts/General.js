@@ -1006,14 +1006,16 @@ FuncionesGenerales = {
         var tecla = (document.all) ? e.keyCode : e.which;
         if (tecla == 8) return true;
         var patron = /[0-9-\-]/;
-        var te = String.fromCharCode(tecla);
+        var te = String.fromCharCode(tecla);    
         return patron.test(te);
     },
-    ValidarSoloNumerosLetrasAndSpecialCharater: function (e) {
+    ValidarSpecialCharater: function (e) {
         var charCode = (e.which) ? e.which : window.event.keyCode;
-        if ((charCode >= 48 && charCode <= 57) || (charCode >= 65 && charCode <= 90) || (charCode >= 97 && charCode <= 122))
-            return true; else return false;
+        if (charCode <= 13) {
+            return false;
+        }
     },
+   
     ValidarSoloLetrasYNumeros: function (e) {
         var charCode = (e.which) ? e.which : window.event.keyCode;
         if (charCode <= 13) {

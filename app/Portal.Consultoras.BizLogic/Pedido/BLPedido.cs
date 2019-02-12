@@ -3131,7 +3131,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
         {
             var pedidoID = 0;
             var mensaje = string.Empty;
-
             var usuario = pedidoDetalle.Usuario;
 
             #region ConfiguracionPais
@@ -3145,7 +3144,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
             //Configuracion pais - ValidacionMontoMaximo
             //usuario.TieneValidacionMontoMaximo = taskValidacionMontoMaximo.Result.TieneValidacionMontoMaximo;
-            usuario.TieneValidacionMontoMaximo = _usuarioBusinessLogic.ConfiguracionPaisUsuario(usuario, Constantes.ConfiguracionPais.ValidacionMontoMaximo).TieneValidacionMontoMaximo;
+            usuario.TieneValidacionMontoMaximo = _usuarioBusinessLogic.ConfiguracionPaisUsuario(usuario, 
+                Constantes.ConfiguracionPais.ValidacionMontoMaximo).TieneValidacionMontoMaximo;
             #endregion
 
             #region HorarioRestringido

@@ -9605,6 +9605,7 @@ span.icon-advertencia {
     min-height: 100px;
     position: relative;
     width: 50%;
+    height: auto;
 }
 
 .imagen_set_oferta_mobile {
