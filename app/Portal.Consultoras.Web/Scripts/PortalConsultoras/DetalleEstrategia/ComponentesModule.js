@@ -69,7 +69,7 @@ var ComponentesModule = (function () {
         var hijos = 0;
         var cta = 0;
 
-        if (estrategia.CodigoVariante == '2002') {
+        if (estrategia.CodigoVariante == ConstantesModule.CodigoVariedad.ComuestaFija) {
             $.each(estrategia.Hermanos, function (i, obj) {
                 hijos++;
                 if (!obj.TieneStock) cta++;
@@ -90,8 +90,10 @@ var ComponentesModule = (function () {
             });
         }
 
-        if (hijos > 0 && cta > 0) {
-            if (cta < hijos) $('.xmsg-tonos-agotados').show();
+        if (!estrategia.esEditable) {
+            if (hijos > 0 && cta > 0) {
+                if (cta < hijos) $('.xmsg-tonos-agotados').show();
+            }
         }
     }
 
