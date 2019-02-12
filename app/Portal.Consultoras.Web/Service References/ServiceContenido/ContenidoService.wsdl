@@ -467,6 +467,12 @@
   <wsdl:message name="IContenidoService_GetDetallePoput_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetDetallePoputResponse" />
   </wsdl:message>
+  <wsdl:message name="IContenidoService_GuardarPoputs_InputMessage">
+    <wsdl:part name="parameters" element="tns:GuardarPoputs" />
+  </wsdl:message>
+  <wsdl:message name="IContenidoService_GuardarPoputs_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GuardarPoputsResponse" />
+  </wsdl:message>
   <wsdl:portType name="IContenidoService">
     <wsdl:operation name="SelectBanner">
       <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/SelectBanner" message="tns:IContenidoService_SelectBanner_InputMessage" />
@@ -755,6 +761,10 @@
     <wsdl:operation name="GetDetallePoput">
       <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/GetDetallePoput" message="tns:IContenidoService_GetDetallePoput_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/GetDetallePoputResponse" message="tns:IContenidoService_GetDetallePoput_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GuardarPoputs">
+      <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/GuardarPoputs" message="tns:IContenidoService_GuardarPoputs_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/GuardarPoputsResponse" message="tns:IContenidoService_GuardarPoputs_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IContenidoService" type="tns:IContenidoService">
@@ -1407,6 +1417,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GuardarPoputs">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/GuardarPoputs" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="BasicHttpsBinding_IContenidoService" type="tns:IContenidoService">
     <wsp:PolicyReference URI="#BasicHttpsBinding_IContenidoService_policy" />
@@ -2052,6 +2071,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetDetallePoput">
       <soap:operation soapAction="http://tempuri.org/IContenidoService/GetDetallePoput" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarPoputs">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/GuardarPoputs" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

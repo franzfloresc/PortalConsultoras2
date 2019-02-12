@@ -446,7 +446,7 @@
             buttons:
             {
                 "Guardar": function () {
-
+                    debugger;
                     var tipoEstrategiaID = $("#hdTipoEstrategiaID").val();
                     var descripcionEstrategia = $("#txtDescripcionOriginalModal").val();
                     var imagenEstrategia = $("#imagenProducto01").val();
@@ -605,6 +605,7 @@
 
     $.jgrid.extend({
         Editar: function (id, codigo, descripcion, orden, imagen, ofertas, flagactivo, codigoPrograma, flagMostrarImg, MostrarImgOfertaIndependiente, ImagenOfertaIndependiente, flagValidarImagen, pesoMaximoImagen) {
+            debugger;
             if (id) {
                 $("#txtPaisModal").val($("#ddlPais option:selected").html());
                 $("#hdPais").val($("#ddlPais").val());
@@ -908,6 +909,7 @@
                             <input type="hidden" id="hdImagenOfertaIndependienteAnterior" />
                             <div id="fpUpload02">
                                 <script type="text/javascript">
+                                    debugger;
                             $.ajaxSetup({ cache: false });
                             var uploader = new qq.FileUploader({
                                 allowedExtensions: ['jpg', 'png', 'jpeg'],

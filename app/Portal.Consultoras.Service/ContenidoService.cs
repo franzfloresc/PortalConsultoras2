@@ -1,9 +1,12 @@
 ﻿using Portal.Consultoras.BizLogic;
 using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.Comunicado;
 using Portal.Consultoras.ServiceContracts;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
+using System.Runtime.Serialization.Json;
 using System.ServiceModel;
 
 namespace Portal.Consultoras.Service
@@ -499,9 +502,18 @@ namespace Portal.Consultoras.Service
             return _BLBelcorpResponde.GetDetallePoput(Comunicadoid);
         }
 
+        public int GuardarPoputs(string tituloPrincipal, string descripcion, string Url, string fechaMaxima, string fechaMinima, bool checkDesktop, bool checkMobile, int accionID, string datosCSVJson, string comunicadoId, string nombreArchivo, string codigoCampania)
+        {
+            MemoryStream ms = new MemoryStream(System.Text.ASCIIEncoding.ASCII.GetBytes(datosCSVJson));
+            ms.Position = 0;
+            DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(List<BEComunicadoSegmentacion>));
+            List<BEComunicadoSegmentacion> listdatosCSV = (List<BEComunicadoSegmentacion>) ser.ReadObject(ms);
+            return _BLBelcorpResponde.GuardarPoputs(tituloPrincipal, descripcion, Url, fechaMaxima, fechaMinima, checkDesktop, checkMobile, accionID, listdatosCSV,  comunicadoId,  nombreArchivo,  codigoCampania);
+        }
+
         #endregion
 
-       
+
 
     }
 }

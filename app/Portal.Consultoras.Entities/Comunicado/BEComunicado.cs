@@ -80,4 +80,13 @@ namespace Portal.Consultoras.Entities
         public int TipoDispositivo { get; set; }
 
     }
-}
+
+    
+
+
+
+
+
+
+
+    }

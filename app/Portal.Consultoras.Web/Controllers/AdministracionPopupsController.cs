@@ -13,6 +13,8 @@ using Portal.Consultoras.Service;
 using Portal.Consultoras.Web.ServiceSAC;
 using System.Web;
 using System.IO;
+using System.Web.Script.Serialization;
+using System.Runtime.Serialization.Json;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -30,12 +32,11 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public ActionResult GetCargarArchivoCSV()
         {
+            List<Archivo> listArchivo = new List<Archivo>();
             string filePath = string.Empty,filename=string.Empty;
             if (Request.Files.Count > 0)
             {
                 HttpPostedFileBase frmData = Request.Files[0];
-
-                List<Archivo> listArchivo = new List<Archivo>();
             
                 if (frmData != null)
                 {
@@ -77,7 +78,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
             }
-            return Json( new { dataerror=false, archivo= string.Concat( "Archivo ",filename) }, JsonRequestBehavior.AllowGet);
+            return Json( new { dataerror=false, archivo= string.Concat( "Archivo ",filename) , listArchivo = listArchivo }, JsonRequestBehavior.AllowGet);
         }
 
 
@@ -164,14 +165,16 @@ namespace Portal.Consultoras.Web.Controllers
 
         private ComunicadoModel GetAutoMapperManualObjeto(ServiceContenido.BEComunicado objetoContenidoService)
         {
-         return  new ComunicadoModel()
+          //  string fullPathBridge = Server.MapPath(Path.Combine("../Images/AdministracionPoput/"));
+            return  new ComunicadoModel()
             {
-             ComunicadoId = Convert.ToInt32(objetoContenidoService.ComunicadoId),
+         
+            ComunicadoId = Convert.ToInt32(objetoContenidoService.ComunicadoId),
              Descripcion = objetoContenidoService.Descripcion,
              Activo = objetoContenidoService.Activo,
              DescripcionAccion = objetoContenidoService.DescripcionAccion,
              SegmentacionID = Convert.ToInt32( objetoContenidoService.SegmentacionID),
-             UrlImagen =string.Concat( "Uploads/",GetImagen( objetoContenidoService.UrlImagen)),
+             UrlImagen =  string.Concat("../Images/AdministracionPoput/", GetImagen( objetoContenidoService.UrlImagen)),
              NombreImagen = GetImagen(objetoContenidoService.UrlImagen),
              Orden = objetoContenidoService.Orden,
              NombreArchivoCCV = objetoContenidoService.NombreArchivoCCV,
@@ -181,9 +184,10 @@ namespace Portal.Consultoras.Web.Controllers
              
 
          };
-                   
+            //Server.MapPath(Path.Combine(Route_DirectoryServices.ToString())) 
 
-         
+
+
         }
 
         private string GetImagen(string urlImagen)
@@ -199,18 +203,54 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public ActionResult GetGuardarPoput()
         {
+            int result = 0;
             if (Request.Files.Count > 0)
             {
-                HttpPostedFileBase frmDataImagen = Request.Files[0];
-                HttpPostedFileBase frmDataArchivoCSV = Request.Files[1];
+                HttpPostedFileBase frmDataImagen = Request.Files["imagen"];
+                //GetGuardarImagenServidor(frmDataImagen);
 
+                string comunicadoId = Request.Form["comunicadoId"];
+                string tituloPrincipal = Request.Form["txtTituloPrincipal"];
+                string descripcion= Request.Form["txtDescripcion"];
+                string Url = Request.Form["txtUrl"];
+                string fechaMaxima = Request.Form["fechaMax"];
+                string fechaMinima= Request.Form["fechaMin"];
+                bool checkDesktop = Convert.ToBoolean(Request.Form["checkDesktop"]);
+                bool checkMobile = Convert.ToBoolean( Request.Form["checkMobile"]);
+                string nombreArchivo = Request.Form["nombreArchivo"];
+                string codigoCampania = Request.Form["codigoCampania"];
+                int accionID = Convert.ToInt32(Request.Form["accionID"]);
+               
+                using (ContenidoServiceClient svr = new ContenidoServiceClient())
+                {
+                    result = svr.GuardarPoputs(tituloPrincipal, descripcion, Url, fechaMaxima, fechaMinima, checkDesktop, checkMobile, accionID, Request.Form["datosCSV"], comunicadoId, nombreArchivo, codigoCampania);
+                    if (result > 0)
+                    {
+                        return Json(new
+                        {
+                            success = false,
+                            message = "La dirección de correo electrónico ingresada ya pertenece a otra Consultora.",
+                            extra = ""
+                        });
+                    }
+                }
 
             }
 
                 return Json(1, JsonRequestBehavior.AllowGet);
         }
 
-
-
+      
+        private void GetGuardarImagenServidor(HttpPostedFileBase frmDataImagen)
+        {
+            string imagen = "imagen.jpg";
+            var path = Path.Combine(Globals.RutaTemporales, imagen);
+            var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+            var time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
+            var newfilename = userData.CodigoISO + "_" + time + "_" + "01" + "_" + FileManager.RandomString() + ".png";
+            if (imagen != "") ConfigS3.DeleteFileS3(carpetaPais, imagen);
+            ConfigS3.SetFileS3(path, carpetaPais, newfilename);
+            throw new NotImplementedException();
+        }
     }
 }

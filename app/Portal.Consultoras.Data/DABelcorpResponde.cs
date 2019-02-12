@@ -1,4 +1,5 @@
 ﻿using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.Comunicado;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -54,6 +55,33 @@ namespace Portal.Consultoras.Data
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetDetallePoput");
             Context.Database.AddInParameter(command, "@Comunicadoid", DbType.Int32, comunicadoid);
             return Context.ExecuteReader(command);
+        }
+
+        public int  GuardarPoputs(string tituloPrincipal, string descripcion, string url, string fechaMaxima, string fechaMinima, bool checkDesktop, bool checkMobile, int accionID,string[] arrayColumnasBEComunicadoSegmentacion, string comunicadoId, string nombreArchivo, string codigoCampania)
+        {
+            int TipoDispositivo = 0;
+           DbCommand command = Context.Database.GetStoredProcCommand("dbo.GuardarPoput");
+            if (checkMobile && !checkDesktop) TipoDispositivo = 1;
+            if (!checkMobile && checkDesktop) TipoDispositivo = 2;
+            /*cabecera*/
+            Context.Database.AddInParameter(command, "@tituloPrincipal", DbType.Int32, tituloPrincipal);
+            Context.Database.AddInParameter(command, "@descripcion", DbType.AnsiString, descripcion);
+            Context.Database.AddInParameter(command, "@url", DbType.AnsiString, url);
+            Context.Database.AddInParameter(command, "@fechaMaxima", DbType.AnsiString, fechaMaxima);
+            Context.Database.AddInParameter(command, "@fechaMinima", DbType.AnsiString, fechaMinima);
+            Context.Database.AddInParameter(command, "@TipoDispositivo", DbType.AnsiString, TipoDispositivo);
+            Context.Database.AddInParameter(command, "@accionID", DbType.AnsiString, accionID);
+            Context.Database.AddInParameter(command, "@comunicadoId", DbType.AnsiString, comunicadoId);
+            Context.Database.AddInParameter(command, "@nombreArchivo", DbType.AnsiString, nombreArchivo);
+            Context.Database.AddInParameter(command, "@codigoCampania", DbType.AnsiString, codigoCampania);
+
+            /*Detalle*/
+            Context.Database.AddInParameter(command, "@RegionId", DbType.AnsiString, arrayColumnasBEComunicadoSegmentacion[0].ToString());
+            Context.Database.AddInParameter(command, "@ZonaId", DbType.AnsiString, arrayColumnasBEComunicadoSegmentacion[1].ToString());
+            Context.Database.AddInParameter(command, "@Estado", DbType.AnsiString, arrayColumnasBEComunicadoSegmentacion[2].ToString());
+            Context.Database.AddInParameter(command, "@Consultoraid", DbType.AnsiString, arrayColumnasBEComunicadoSegmentacion[3].ToString());
+
+            return Context.ExecuteNonQuery(command);
         }
         #endregion
     }

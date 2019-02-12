@@ -27,5 +27,17 @@ namespace Portal.Consultoras.Entities.Comunicado
         [DataMember]
         [Column("IdEstadoActividad")]
         public int? IdEstadoActividad { get; set; }
+        [DataMember]
+        [Column("RegionId")]
+        public int RegionId { get; set; }
+        [DataMember]
+        [Column("ZonaId")]
+        public int ZonaId { get; set; }
+        [DataMember]
+        [Column("Estado")]
+        public int Estado { get; set; }
+        [DataMember]
+        [Column("Consultoraid")]
+        public int Consultoraid { get; set; }
     }
 }

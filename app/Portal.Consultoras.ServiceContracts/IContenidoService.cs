@@ -286,6 +286,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         BEComunicado GetDetallePoput(int Comunicadoid);
+
+        [OperationContract]
+        int GuardarPoputs(string tituloPrincipal, string descripcion, string Url, string fechaMaxima, string fechaMinima, bool checkDesktop, bool checkMobile, int accionID, string datosCSV, string comunicadoId, string nombreArchivo, string codigoCampania);
         #endregion
 
     }

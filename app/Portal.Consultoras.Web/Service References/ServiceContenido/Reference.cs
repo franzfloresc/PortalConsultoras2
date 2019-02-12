@@ -3946,6 +3946,12 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/GetDetallePoput", ReplyAction="http://tempuri.org/IContenidoService/GetDetallePoputResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceContenido.BEComunicado> GetDetallePoputAsync(int Comunicadoid);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/GuardarPoputs", ReplyAction="http://tempuri.org/IContenidoService/GuardarPoputsResponse")]
+        int GuardarPoputs(string tituloPrincipal, string descripcion, string Url, string fechaMaxima, string fechaMinima, bool checkDesktop, bool checkMobile, int accionID, string datosCSV, string comunicadoId, string nombreArchivo, string codigoCampania);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/GuardarPoputs", ReplyAction="http://tempuri.org/IContenidoService/GuardarPoputsResponse")]
+        System.Threading.Tasks.Task<int> GuardarPoputsAsync(string tituloPrincipal, string descripcion, string Url, string fechaMaxima, string fechaMinima, bool checkDesktop, bool checkMobile, int accionID, string datosCSV, string comunicadoId, string nombreArchivo, string codigoCampania);
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -4609,6 +4615,14 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceContenido.BEComunicado> GetDetallePoputAsync(int Comunicadoid) {
             return base.Channel.GetDetallePoputAsync(Comunicadoid);
+        }
+        
+        public int GuardarPoputs(string tituloPrincipal, string descripcion, string Url, string fechaMaxima, string fechaMinima, bool checkDesktop, bool checkMobile, int accionID, string datosCSV, string comunicadoId, string nombreArchivo, string codigoCampania) {
+            return base.Channel.GuardarPoputs(tituloPrincipal, descripcion, Url, fechaMaxima, fechaMinima, checkDesktop, checkMobile, accionID, datosCSV, comunicadoId, nombreArchivo, codigoCampania);
+        }
+        
+        public System.Threading.Tasks.Task<int> GuardarPoputsAsync(string tituloPrincipal, string descripcion, string Url, string fechaMaxima, string fechaMinima, bool checkDesktop, bool checkMobile, int accionID, string datosCSV, string comunicadoId, string nombreArchivo, string codigoCampania) {
+            return base.Channel.GuardarPoputsAsync(tituloPrincipal, descripcion, Url, fechaMaxima, fechaMinima, checkDesktop, checkMobile, accionID, datosCSV, comunicadoId, nombreArchivo, codigoCampania);
         }
     }
 }

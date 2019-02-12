@@ -1463,6 +1463,8 @@
     <Content Include="Content\Css\Site\Shared\menu-secundario-responsive.css" />
     <Content Include="Content\Css\Site\Shared\general.css" />
     <Content Include="Content\Css\Site\ShowRoom.css" />
+    <Content Include="Content\Images\AdministracionPoput\consultora1.jpg" />
+    <Content Include="Content\Images\AdministracionPoput\consultora2.jpg" />
     <Content Include="Content\Images\arrow_left.svg" />
     <Content Include="Content\Images\arrow_right.svg" />
     <Content Include="Content\Images\cerrar-filtros.svg" />
