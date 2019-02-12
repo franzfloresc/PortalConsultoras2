@@ -81,12 +81,20 @@ input[type=checkbox].d__none{
     border-radius:4px;
 }
 
+.m-0{
+    margin:0;
+}
+
 .mb-0{
     margin-bottom:0!important;
 }
 
 .mb-40{
     margin-bottom:40px!important;
+}
+
+.mr-20{
+    margin-right:20px;
 }
 
 .mr-25{
@@ -152,7 +160,7 @@ input[type=checkbox].d__none{
 /* VISTA ADMINISTRACIÓN POPUPS */
 
 .layout__content{
-    max-width:1106px;
+    max-width:1280px;
 }
 
 .vista__administracion__popups{
@@ -160,6 +168,10 @@ input[type=checkbox].d__none{
     font-family:'Lato', sans-serif;
     font-weight:400;
     box-sizing:border-box;
+}
+
+.vista__administracion__popups__cabecera{
+    max-width:1106px;
 }
 
 .vista__administracion__popups__titulo{
@@ -176,8 +188,12 @@ input[type=checkbox].d__none{
     font-size:16px;
 }
 
-.grupo__form__grilla__filtros:first-child{
-    margin-right:51px;
+.grupo__form__grilla__filtros{
+    margin-right:41px;
+}
+
+.grupo__form__grilla__filtros:last-child{
+    margin-right:0;
 }
 
 .grilla__filtro__label,
@@ -189,7 +205,7 @@ input[type=checkbox].d__none{
 }
 
 .grilla__filtro__label{
-    margin-right:31px;
+    margin-right:22px;
 }
 
 .grilla__filtro__campo,
@@ -299,43 +315,44 @@ input[type=checkbox].d__none{
 
 .col__grilla--numero{
     -ms-flex: 0 0 3%;
+    -webkit-flex: 0 0 3%;
     flex:0 0 3%;
     max-width:3%;
 }
 
-.col__grilla--fondo{
-    -ms-flex: 0 0 16%;
-    flex:0 0 16%;
-    max-width:16%;
+.col__grilla--fondo {
+    -ms-flex: 0 0 18%;
+    -webkit-flex: 0 0 18%;
+    flex: 0 0 18%;
+    max-width: 18%;
 }
 
-.col__grilla--duracion{
-    -ms-flex: 0 0 14%;
-    flex:0 0 14%;
-    max-width:14%;
+.col__grilla--duracion {
+    -ms-flex: 0 0 17%;
+    -webkit-flex: 0 0 17%;
+    flex: 0 0 17%;
+    max-width: 17%;
 }
 
-.col__grilla--titulo{
-    -ms-flex: 0 0 25%;
-    flex:0 0 25%;
-    max-width:25%;
+.col__grilla--titulo {
+    -ms-flex: 0 0 18%;
+    -webkit-flex: 0 0 18%;
+    flex: 0 0 18%;
+    max-width: 18%;
 }
 
-.col__grilla--ruta{
-    -ms-flex: 0 0 27%;
-    flex:0 0 27%;
-    max-width:27%;
+.col__grilla--ruta {
+    -ms-flex: 0 0 32%;
+    -webkit-flex: 0 0 32%;
+    flex: 0 0 32%;
+    max-width: 32%;
 }
 
-.col__grilla--estado {
-    -ms-flex: 0 0 9%;
-    -webkit-flex: 0 0 9%;
-    flex: 0 0 9%;
-    max-width: 9%;
-}
-
-.col__grilla--editar{
+.col__grilla--estado,
+.col__grilla--editar
+{
     -ms-flex: 0 0 6%;
+    -webkit-flex: 0 0 6%;
     flex:0 0 6%;
     max-width:6%;
 }
@@ -530,6 +547,51 @@ input[type=checkbox].d__none{
     margin-top:8px;
     margin-bottom:0;
     font-size:13px;
+    width:170px;
+}
+
+.imagen__cargada__thumbnail__wrapper{
+    width:67px;
+    height:52px;
+    position:relative;
+    align-self:flex-start;
+}
+
+.enlace__eliminar__imagen__cargada,
+.enlace__eliminar__imagen__cargada img
+{
+    position:absolute;
+}
+
+.enlace__eliminar__imagen__cargada{
+    width: 22px;
+    height: 22px;
+    top: -8px;
+    right: -10px;
+    background-color: #808080;
+    border-radius: 100%;
+    z-index: 2;
+    cursor:pointer;
+}
+
+.enlace__eliminar__imagen__cargada img,
+.imagen__cargada__thumbnail
+{    
+    height:auto;
+}
+
+.enlace__eliminar__imagen__cargada img{
+    height: 59%;
+    margin: auto;
+    left: 1px;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.imagen__cargada__thumbnail{
+    position: relative;
+    z-index: 1;
 }
 
 .grupo__form__campos--minMax {
