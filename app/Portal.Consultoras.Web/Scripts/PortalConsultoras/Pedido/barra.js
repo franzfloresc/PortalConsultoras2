@@ -1336,17 +1336,9 @@ function showPopupEscalaSiguiente(dataBarra, prevLogro) {
         var escala = dataBarra.ListaEscalaDescuento[i];
         if (total >= escala.MontoDesde && total < escala.MontoHasta) {
             if (escala.MontoDesde > prevLogro) {
-                var idPopup = '#popupEscalaDescuento';
-                var content = escala.PorDescuento + '% Dscto.';
-                $(idPopup + ' .porcentaje').html(content);
-                
-                $(idPopup).show();
-                setContainerLluvia(idPopup);
-                mostrarLluvia();
 
-                setTimeout(function() {
-                    $(idPopup).fadeOut(2000);
-                }, 3000);
+                var content = escala.PorDescuento + '% Dscto.';
+                showPopupEscala(content);
 
                 return true;
             }
@@ -1354,6 +1346,20 @@ function showPopupEscalaSiguiente(dataBarra, prevLogro) {
     }
 
     return false;
+}
+
+function showPopupEscala(content) {
+    var idPopup = '#popupEscalaDescuento';
+    $(idPopup + ' .porcentaje').html(content);
+                
+    $(idPopup).show();
+    setContainerLluvia(idPopup);
+    mostrarLluvia();
+
+    setTimeout(function() {
+        $(idPopup).fadeOut(2000);
+        ocultarLluvia();
+    }, 3000);
 }
 
 function setContainerLluvia(containerId) {
