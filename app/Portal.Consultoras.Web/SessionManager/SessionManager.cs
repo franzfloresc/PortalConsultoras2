@@ -1344,5 +1344,15 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return (string)HttpContext.Current.Session[Constantes.ConstSession.JwtApiSomosBelcorp];
         }
+        //HD-3412
+        public int? GetSesionNroPedidosCDR()
+        {
+            return (int)HttpContext.Current.Session["NroDeSolicitudesPorPedidoCDR"];
+        }
+        //HD-3412
+        public void SetSesionNroPedidosCDR(int cantidad)
+        {
+            HttpContext.Current.Session["NroDeSolicitudesPorPedidoCDR"] = cantidad;
+        }
     }
 }

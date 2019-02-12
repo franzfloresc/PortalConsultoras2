@@ -148,7 +148,7 @@ namespace Portal.Consultoras.Web.Controllers
                             PedidoID = item.PedidoID
                         });
                     }
-                }                               
+                }
 
                 return Json(new
                 {
@@ -338,7 +338,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return cantidad >= 0;
         }
-        
+
         public JsonResult BuscarCuvCambiar(MisReclamosModel model)
         {
             List<ServiceODS.BEProducto> olstProducto;
@@ -1478,6 +1478,32 @@ namespace Portal.Consultoras.Web.Controllers
 
             var textoFlete = GetMensajeCDRExpress(Constantes.MensajesCDRExpress.ExpressFlete);
             return string.Format(textoFlete, userData.Simbolo, Util.DecimalToStringFormat(flete, userData.CodigoISO));
+        }
+
+        private int? GetNroSolicitudeReclamoPorPedido()
+        {
+            int result = 0;
+
+            try
+            {
+                if (SessionManager.GetSesionNroPedidosCDR() != null)
+                {
+                    return SessionManager.GetSesionNroPedidosCDR();
+                }
+
+                using (var sv = new SACServiceClient())
+                {
+                    var serviceResult = sv.GetTablaLogicaDatos(userData.PaisID, Constantes.TablaLogica.NroReclamosPorPedidoCDR).ToList();
+                    var cantidad = serviceResult.Where(a => a.Codigo == "01").FirstOrDefault().Valor;
+                    int.TryParse(cantidad, out result);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+            SessionManager.SetSesionNroPedidosCDR(result);
+            return result;
         }
     }
 }
