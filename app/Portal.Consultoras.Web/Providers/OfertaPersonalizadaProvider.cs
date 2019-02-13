@@ -468,39 +468,6 @@ namespace Portal.Consultoras.Web.Providers
                 }
 
                 listEstrategia = GetEstrategiasService(entidad);
-                //if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, tipo))
-                //{
-                //    string TipoPersonalizacion = "";
-
-                //    switch (tipo)
-                //    {
-                //        case Constantes.TipoEstrategiaCodigo.OfertaParaTi: TipoPersonalizacion = Constantes.ConfiguracionPais.OfertasParaTi; break;
-                //        case Constantes.TipoEstrategiaCodigo.RevistaDigital: TipoPersonalizacion = Constantes.ConfiguracionPais.RevistaDigital; break;
-                //        case Constantes.TipoEstrategiaCodigo.Lanzamiento: TipoPersonalizacion = Constantes.ConfiguracionPais.Lanzamiento; break;
-                //        case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada: TipoPersonalizacion = Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada; break;
-                //        case Constantes.TipoEstrategiaCodigo.ShowRoom: TipoPersonalizacion = Constantes.ConfiguracionPais.ShowRoom; break;
-                //    }
-
-                //    string pathMS = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerOfertas,
-                //        userData.CodigoISO,
-                //        TipoPersonalizacion,
-                //        campaniaId,
-                //        userData.CodigoConsultora,
-                //        userData.CodigorRegion,
-                //        userData.CodigoZona,
-                //        materialGanancia);
-                //    var taskApi = Task.Run(() => OfertaBaseProvider.ObtenerOfertasDesdeApi(pathMS, userData.CodigoISO));
-                //    Task.WhenAll(taskApi);
-                //    listEstrategia = taskApi.Result;
-                //}
-                //else
-                //{
-                //    using (OfertaServiceClient osc = new OfertaServiceClient())
-                //    {
-                //        listEstrategia = osc.GetEstrategiasPedido(entidad).ToList();
-                //    }
-                //}
-
                 if (tipo != Constantes.TipoEstrategiaCodigo.PackNuevas)
                 {
                     listEstrategia = _consultaProlProvider.ActualizarEstrategiaStockPROL(listEstrategia, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora);
@@ -509,7 +476,7 @@ namespace Portal.Consultoras.Web.Providers
                 {
                     listEstrategia.ForEach(x => { x.TieneStock = true; });
                 }
-
+  
                 if (campaniaId == userData.CampaniaID)
                 {
                     SetSessionEstrategia(tipo, varSession, listEstrategia);
@@ -547,6 +514,7 @@ namespace Portal.Consultoras.Web.Providers
                     case Constantes.TipoEstrategiaCodigo.Lanzamiento: tipoPersonalizacion = Constantes.ConfiguracionPais.Lanzamiento; break;
                     case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada: tipoPersonalizacion = Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada; break;
                     case Constantes.TipoEstrategiaCodigo.ShowRoom: tipoPersonalizacion = Constantes.ConfiguracionPais.ShowRoom; break;
+                    case Constantes.TipoEstrategiaCodigo.HerramientasVenta: tipoPersonalizacion = Constantes.ConfiguracionPais.HerramientasVenta; break;
                 }
 
                 string pathMS = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerOfertas,
@@ -554,12 +522,16 @@ namespace Portal.Consultoras.Web.Providers
                     tipoPersonalizacion,
                     campaniaId,
                     userData.CodigoConsultora,
+                    materialGanancia,
+                    0, //diaInicio
                     userData.CodigorRegion,
-                    userData.CodigoZona,
-                    materialGanancia);
+                    userData.CodigoZona
+                    );
+
                 var taskApi = Task.Run(() => OfertaBaseProvider.ObtenerOfertasDesdeApi(pathMS, userData.CodigoISO));
                 Task.WhenAll(taskApi);
                 listEstrategia = taskApi.Result;
+
             }
             else
             {
@@ -836,20 +808,6 @@ namespace Portal.Consultoras.Web.Providers
 
             var listEstrategia = GetEstrategiasService(entidad);
             return listEstrategia;
-
-            //if (_ofertaBaseProvider.UsarMsPersonalizacion(usuarioModel.CodigoISO, Constantes.TipoEstrategiaCodigo.ShowRoom))
-            //{
-            //    List<ServiceOferta.BEEstrategia> listaProducto = new ShowRoomProvider().GetShowRoomOfertasConsultora();
-            //    return listaProducto;
-            //}
-            //else
-            //{
-            //    using (var osc = new OfertaServiceClient())
-            //    {
-            //        var listaProducto = osc.GetEstrategiasPedido(entidad).ToList();
-            //        return listaProducto;
-            //    }
-            //}
         }
 
         public List<EstrategiaPedidoModel> GetProductosCompraPorCompra(UsuarioModel usuario, int eventoId)

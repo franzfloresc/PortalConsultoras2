@@ -1,0 +1,172 @@
+﻿.Modal_Editar_Producto {
+    display: block;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    background-color: #fff;
+    overflow: auto;
+}
+
+.boton_volver_ficha {
+    font-weight: normal;
+    text-transform: uppercase;
+    font-size: 13px;
+    margin-top: 25px;
+}
+    .boton_volver_ficha img {
+        height: 9px;
+        margin-right: 8px;
+        transform: rotate(180deg);
+    }
+
+
+
+
+/*INIT Estilo Panel*/
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 2000 !important;
+    top: 0;
+    right: 0;
+    background-color: #f1f1f1 !important;
+    overflow-x: hidden;
+    transition: 0.5s;
+    /*padding-top: 60px;*/
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+    /*END Estilo Panel*/
+
+
+.Form-AgregarCliente {
+    height: 100%;
+    width: 330px !important;
+    position: fixed;
+    z-index: 2000 !important;
+    top: 0;
+    right: 0;
+    overflow-x: hidden;
+    background-color: #fff;
+    transition: 0.5s;
+}
+
+.Formulario-AgregarCliente {
+    padding: 17px 20px;
+    background: #fff;
+}
+
+.seleccion_header > h3 {
+    font-size: 15px !important;
+    font-weight: bold !important;
+    line-height: normal;
+    letter-spacing: 1px;
+    color: #000000;
+    text-transform: uppercase;
+    border-bottom: none !important;
+    padding-top: 18px !important;
+    padding-bottom: 0px !important;
+}
+
+.ImputForm-item{
+    margin-bottom: 18px;
+    position: relative;
+}
+
+    .ImputForm-item input {
+        font-size: 13px;
+        border: none;
+        padding: 12px 14px 9px 0px;
+        color: #000;
+        line-height: normal;
+        width: 100%;
+    }
+
+    .ImputForm-item label {
+        cursor: pointer;
+        margin: 0;
+        position: absolute;
+        top: 8px;
+        left: 0px;
+        font-size: 13px;
+        pointer-events: none;
+        transition: all 450ms;
+    }
+
+.ActiveLabel ~ label {
+    color: #878787 !important;
+    font-size: 11px !important;
+    top: -5px !important;
+}
+
+.bar-imput {
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: #aaa;
+    transition: all 450ms;
+}
+
+.btnCliente_agregar {
+    display: inline;
+    width: 100%;
+    border: none;
+    color: #fff;
+    letter-spacing: 1px;
+    font-size: 13px;
+    font-weight: bold;
+    font-family: lato;
+    background: #000;
+    padding: 14px;
+    border-radius: 4px;
+    margin-top: 16px;
+}
+
+.ImputForm-item input:focus ~ label {
+    color: #878787;
+    font-size: 11px;
+    top: -5px;
+}
+
+.ImputForm-item input:focus ~ .bar-imput {
+    background: #000;
+}
+
+.bar-imputActive ~ .bar-imput {
+    background: #000 !important;
+}
+
+.input-requerido {
+    position: absolute;
+    right: 0px;
+    top: 13px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#PanelClienteRegistro {
+    transition: all 400ms;
+}
