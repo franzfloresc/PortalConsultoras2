@@ -175,7 +175,6 @@ function MostrarTerminos() {
 }
 
 function RedireccionarContenedorComprar(origenWeb, codigo) {
-    
     origenWeb = $.trim(origenWeb);
     if (origenWeb !== "")
         rdAnalyticsModule.Access(origenWeb);

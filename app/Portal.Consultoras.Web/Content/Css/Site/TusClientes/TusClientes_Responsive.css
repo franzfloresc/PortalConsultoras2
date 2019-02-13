@@ -1,0 +1,147 @@
+﻿@font-face {
+    font-family: 'icomoon';
+    src: url('fonts/icomoon.eot?-q1bfik');
+    src: url('fonts/icomoon.eot?#iefix-q1bfik') format('embedded-opentype'), url('fonts/icomoon.woff?-q1bfik') format('woff'), url('fonts/icomoon.ttf?-q1bfik') format('truetype'), url('fonts/icomoon.svg?-q1bfik#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'OldStandard-Italic';
+    src: url('fonts/OldStandard-Italic.eot');
+    src: url('fonts/OldStandard-Italic.eot?#iefix') format('embedded-opentype'), url('fonts/OldStandard-Italic.woff') format('woff'), url('fonts/OldStandard-Italic.ttf') format('truetype'), url('fonts/OldStandard-Italic.svg#OldStandardItalic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'Lato', sans-serif !important;
+}
+
+input, button, ul, li, a {
+    font-family: 'Lato', sans-serif !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Lato', sans-serif !important;
+}
+
+
+.tabla_cabecera div {
+    background: #969696;
+    color: #fff;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.3px;
+    padding-top: 19px;
+    padding-bottom: 19px;
+    line-height: normal;
+    text-transform: uppercase;
+}
+
+.tabla_item div {
+    font-size: 13px;
+    line-height: 46px;
+}
+
+
+.btn_editar {
+    background: url('/Content/Images/Esika/editar_clientes.png') center center no-repeat;
+    box-shadow: none;
+    border: none;
+    width: 40px;
+    cursor: pointer;
+    background-size: 23px;
+}
+
+.btn_eliminar {
+    background: url('/Content/Images/Esika/tacho-copy.png') center center no-repeat;
+    box-shadow: none;
+    border: none;
+    width: 40px;
+    cursor: pointer;
+}
+
+.layout__view__lista__breadcrumbs {
+    margin-bottom: 0px !important;
+}
+
+#divClientes .tabla_item:nth-child(even) {
+    background-size: 16px;
+    background-color: #efefef;
+}
+
+.titulo_bloque{
+    border-bottom: 2px solid #000;
+    margin-bottom: 30px;
+}
+
+    .titulo_bloque h3 {
+        color: #fff;
+        font-size: 18px;
+        background-color: #000;
+        
+        text-transform: uppercase;
+        padding: 14px 0px;
+    }
+
+        .titulo_bloque h3 strong {
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+
+    .titulo_bloque .container .row > div {
+        position: relative;
+        width: 150px;
+    }
+
+        .titulo_bloque .container .row > div::after {
+            content: "";
+            display: block;
+            width: 900%;
+            background: #000;
+            height: 49.7px;
+            -webkit-transform: skew(20deg);
+            -moz-transform: skew(20deg);
+            -ms-transform: skew(20deg);
+            -o-transform: skew(20deg);
+            transform: skew(20deg);
+            position: absolute;
+            z-index: -1;
+            top: 0;
+            right: -12px;
+        }
+
+.buscar_cliente {
+    height: 40px;
+    line-height: 40px;
+    border: 1px solid #ccc;
+    font-size: 13px;
+    color: #999;
+    padding: 0px 10px;
+    background: url('/Content/Images/Esika/lupa.png') no-repeat right center;
+    width: 350px;
+}
+
+.boton_agregar {
+    border: none;
+    background: #000;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: bold;
+    height: 40px;
+    width: 210px;
+    text-align: center;
+}
+
+
+
+
+@media screen and (max-width:768px) {
+    .tabla_cabecera{
+        display:none;
+    }
+}

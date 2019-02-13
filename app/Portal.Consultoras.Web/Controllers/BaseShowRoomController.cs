@@ -15,10 +15,10 @@ namespace Portal.Consultoras.Web.Controllers
     [UniqueSession("UniqueRoute", UniqueRoute.IdentifierKey, "/g/")]
     [ClearSessionMobileApp(UniqueRoute.IdentifierKey, "MobileAppConfiguracion", "StartSession")]
 
-    public class BaseShowRoomController: BaseController
+    public class BaseShowRoomController : BaseController
     {
 
-        public BaseShowRoomController():base() { }
+        public BaseShowRoomController() : base() { }
 
         protected string CodigoProceso
         {
@@ -28,7 +28,7 @@ namespace Portal.Consultoras.Web.Controllers
         protected void ActionExecutingMobile()
         {
             if (SessionManager.GetUserData() == null) return;
-            
+
             ViewBag.CodigoCampania = userData.CampaniaID.ToString();
 
             try
@@ -50,7 +50,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         using (var sv = new PedidoServiceClient())
                         {
-                            var result = sv.ValidacionModificarPedidoSelectiva(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, 
+                            var result = sv.ValidacionModificarPedidoSelectiva(userData.PaisID, userData.ConsultoraID, userData.CampaniaID,
                                 userData.UsuarioPrueba == 1, userData.AceptacionConsultoraDA, false, true, false);
                             if (result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Reservado) mostrarBanner = false;
                         }
@@ -79,7 +79,7 @@ namespace Portal.Consultoras.Web.Controllers
                     ViewBag.ImagenPopupShowroomVenta = showRoomBannerLateral.ImagenPopupShowroomVenta;
                     ViewBag.ImagenBannerShowroomVenta = showRoomBannerLateral.ImagenBannerShowroomVenta;
                     ViewBag.DiasFaltantesLetras = showRoomBannerLateral.LetrasDias;
-                    
+
                     ViewBag.MostrarOfertaDelDia = _ofertaDelDiaProvider.MostrarOfertaDelDia(userData);
 
                     showRoomBannerLateral.EstadoActivo = mostrarBannerTop ? "0" : "1";
@@ -110,6 +110,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ShowRoomEventoModel CargarValoresModel()
         {
             ShowRoomEventoModel showRoomEventoModel;
+            _showRoomProvider.CargarEventoPersonalizacion(userData);
 
             try
             {
@@ -132,7 +133,7 @@ namespace Portal.Consultoras.Web.Controllers
                     showRoomEventoModel.PrecioMaxFiltro = listaShowRoomOfertas.Max(p => p.Precio2);
                 }
 
-                showRoomEventoModel.FiltersBySorting = _tablaLogicaProvider.ObtenerConfiguracion(
+                showRoomEventoModel.FiltersBySorting = _tablaLogicaProvider.GetTablaLogicaDatos(
                     userData.PaisID,
                     Constantes.TablaLogica.OrdenamientoShowRoom);
 
@@ -276,11 +277,11 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var ofertaShowRoomModelo = new EstrategiaPersonalizadaProductoModel();
             if (idOferta <= 0) return ofertaShowRoomModelo;
-            
+
             ofertaShowRoomModelo = SessionManager.ShowRoom.Ofertas.Find(o => o.EstrategiaID == idOferta) ?? new EstrategiaPersonalizadaProductoModel();
 
             if (ofertaShowRoomModelo.EstrategiaID <= 0) return ofertaShowRoomModelo;
-            
+
             ofertaShowRoomModelo.FotoProducto01 = Util.Trim(ofertaShowRoomModelo.FotoProducto01) == "" ?
                 "/Content/Images/showroom/no_disponible.png" :
                 ofertaShowRoomModelo.FotoProducto01;
@@ -313,7 +314,7 @@ namespace Portal.Consultoras.Web.Controllers
         protected EstrategiaPersonalizadaProductoModel ObtenerPrimeraOfertaShowRoom()
         {
             var ofertasShowRoom = _ofertaPersonalizadaProvider.ObtenerListaProductoShowRoom(userData, userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 1);
-            
+
             ofertasShowRoom.Update(x => x.DescripcionMarca = Util.GetDescripcionMarca(x.MarcaID));
 
             return ofertasShowRoom.FirstOrDefault() ?? new EstrategiaPersonalizadaProductoModel();
@@ -323,34 +324,37 @@ namespace Portal.Consultoras.Web.Controllers
 
         private void CargarValoresGenerales(UsuarioModel userData)
         {
-            if (SessionManager.GetUserData() != null)
+            if (SessionManager.GetUserData() == null)
             {
-                ViewBag.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre).ToUpper();
-                int j = ViewBag.NombreConsultora.Trim().IndexOf(' ');
-                if (j >= 0) ViewBag.NombreConsultora = ViewBag.NombreConsultora.Substring(0, j).Trim();
-
-                ViewBag.NumeroCampania = userData.NombreCorto.Substring(4);
-                ViewBag.EsUsuarioComunidad = userData.EsUsuarioComunidad.ToInt();
-                ViewBag.AnalyticsCampania = userData.CampaniaID;
-                ViewBag.AnalyticsSegmento = string.IsNullOrEmpty(userData.Segmento) ? "(not available)" : userData.Segmento.Trim();
-                ViewBag.AnalyticsEdad = Util.Edad(userData.FechaNacimiento);
-                ViewBag.AnalyticsZona = userData.CodigoZona;
-                ViewBag.AnalyticsPais = userData.CodigoISO;
-                ViewBag.AnalyticsRol = "Consultora";
-                ViewBag.AnalyticsRegion = userData.CodigorRegion;
-                ViewBag.AnalyticsSeccion = string.IsNullOrEmpty(userData.SeccionAnalytics) ? "(not available)" : userData.SeccionAnalytics;
-                ViewBag.AnalyticsCodigoConsultora = string.IsNullOrEmpty(userData.CodigoConsultora) ? "(not available)" : userData.CodigoConsultora;
-
-                var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
-
-                if (fechaHoy >= userData.FechaInicioCampania.Date && fechaHoy <= userData.FechaFinCampania.Date)
-                    ViewBag.AnalyticsPeriodo = "Facturacion";
-                else
-                    ViewBag.AnalyticsPeriodo = "Venta";
-
-                ViewBag.AnalyticsSegmentoConstancia = string.IsNullOrEmpty(userData.SegmentoConstancia) ? "(not available)" : userData.SegmentoConstancia.Trim();
-                ViewBag.AnalyticsSociaNivel = string.IsNullOrEmpty(userData.DescripcionNivel) ? "(not available)" : userData.DescripcionNivel;
+                return;
             }
+
+            ViewBag.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre).ToUpper();
+            int j = ViewBag.NombreConsultora.Trim().IndexOf(' ');
+            if (j >= 0) ViewBag.NombreConsultora = ViewBag.NombreConsultora.Substring(0, j).Trim();
+
+            ViewBag.NumeroCampania = userData.NombreCorto.Substring(4);
+            ViewBag.EsUsuarioComunidad = userData.EsUsuarioComunidad.ToInt();
+            ViewBag.AnalyticsCampania = userData.CampaniaID;
+            ViewBag.AnalyticsSegmento = string.IsNullOrEmpty(userData.Segmento) ? "(not available)" : userData.Segmento.Trim();
+            ViewBag.AnalyticsEdad = Util.Edad(userData.FechaNacimiento);
+            ViewBag.AnalyticsZona = userData.CodigoZona;
+            ViewBag.AnalyticsPais = userData.CodigoISO;
+            ViewBag.AnalyticsRol = "Consultora";
+            ViewBag.AnalyticsRegion = userData.CodigorRegion;
+            ViewBag.AnalyticsSeccion = string.IsNullOrEmpty(userData.SeccionAnalytics) ? "(not available)" : userData.SeccionAnalytics;
+            ViewBag.AnalyticsCodigoConsultora = string.IsNullOrEmpty(userData.CodigoConsultora) ? "(not available)" : userData.CodigoConsultora;
+
+            var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
+
+            if (fechaHoy >= userData.FechaInicioCampania.Date && fechaHoy <= userData.FechaFinCampania.Date)
+                ViewBag.AnalyticsPeriodo = "Facturacion";
+            else
+                ViewBag.AnalyticsPeriodo = "Venta";
+
+            ViewBag.AnalyticsSegmentoConstancia = string.IsNullOrEmpty(userData.SegmentoConstancia) ? "(not available)" : userData.SegmentoConstancia.Trim();
+            ViewBag.AnalyticsSociaNivel = string.IsNullOrEmpty(userData.DescripcionNivel) ? "(not available)" : userData.DescripcionNivel;
+
         }
 
         private bool SiempreMostrarBannerPL20()

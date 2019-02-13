@@ -319,7 +319,10 @@ else
         </div>
         <div style="width:71%;float:left;">
             <div class="clear"></div>
-            <div class="texto_filtros_fav"><span id="fav-home-total">Te mostramos <span id="spnCantidadFiltro">0</span> de <span id="spnCantidadTotal">0</span> productos.</span><a class="btn_ver_todo_filtros" href="/ShowRoom">VER TODOS</a></div>
+            <div class="texto_filtros_fav">
+                <span id="fav-home-total">Te mostramos <span id="spnCantidadFiltro">0</span> de <span id="spnCantidadTotal">0</span> productos.</span>
+                <a class="btn_ver_todo_filtros" onclick="javascript: menuModule.sectionClick('/ShowRoom', 'BotonVerMasEspecialesHome', this);">VER TODOS</a>
+            </div>
             <hr class="clear">
             <div class="contenedor_productos_showroom" id="divProductosShowRoom" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.DesktopHomeShowroomCarrusel">
             </div>
@@ -402,7 +405,9 @@ else
         <div class="titulo_carrusel_liquidacion">
             @ViewBag.TituloLiqWeb.ToUpper()
         </div>
-        <a role="link" region="Cuerpo" parent="Liquidaciones web" title="Ver más" class="ver_mas_liquidaciones" href="@Url.Action("OfertasLiquidacion", "OfertaLiquidacion")">VER M&Aacute;S +</a>
+        <a role="link" region="Cuerpo" parent="Liquidaciones web" title="Ver más" class="ver_mas_liquidaciones" 
+           onclick="javascript: menuModule.sectionClick('/OfertaLiquidacion/OfertasLiquidacion', 'BotonVerMasLiquidacion', this);">VER M&Aacute;S +</a>
+
         <hr class="clear" />
         <div class="pestana_lbel"></div>
         <div class="content_1_carrusel">
