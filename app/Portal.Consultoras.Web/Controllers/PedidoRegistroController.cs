@@ -337,6 +337,9 @@ namespace Portal.Consultoras.Web.Controllers
             pedidoDetalle.PedidoID = model.PedidoID;
             pedidoDetalle.StockNuevo = model.Stock;
             pedidoDetalle.ClienteDescripcion = model.Nombre;
+            pedidoDetalle.IPUsuario = GetIPCliente();
+            pedidoDetalle.Identifier = SessionManager.GetTokenPedidoAutentico() != null ? SessionManager.GetTokenPedidoAutentico().ToString() : string.Empty;
+
 
             var pedidoDetalleResult = _pedidoWebProvider.UpdatePedidoDetalle(pedidoDetalle);
 
@@ -429,6 +432,7 @@ namespace Portal.Consultoras.Web.Controllers
             errorServer = result.CodigoRespuesta != Constantes.PedidoValidacion.Code.SUCCESS;
             tipo = result.MensajeRespuesta;
 
+            SessionManager.SetPedidoWeb(null);
             SessionManager.SetDetallesPedido(null);
             SessionManager.SetDetallesPedidoSetAgrupado(null);
             SessionManager.SetMontosProl(null);
