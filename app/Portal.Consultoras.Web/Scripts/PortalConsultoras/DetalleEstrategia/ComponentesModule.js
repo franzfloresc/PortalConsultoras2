@@ -61,7 +61,39 @@ var ComponentesModule = (function () {
             }
         });
         SetHandlebars(_elements.componentes.templateId, _estrategia, _elements.componentes.id);
+
+        _mostrarMensajeTonosAgotados(estrategia);
     };
+
+    var _mostrarMensajeTonosAgotados = function (estrategia) {
+        var hijos = 0;
+        var cta = 0;
+
+        if (estrategia.CodigoVariante == '2002') {
+            $.each(estrategia.Hermanos, function (i, obj) {
+                hijos++;
+                if (!obj.TieneStock) cta++;
+            });
+        }
+        else {
+            $.each(estrategia.Hermanos, function (i, obj) {
+                if (obj.Hermanos !== 'undefined' && obj.Hermanos.length > 0) {
+                    $.each(obj.Hermanos, function (j, k) {
+                        hijos++;
+                        if (!k.TieneStock) cta++;
+                    });
+                }
+                else {
+                    hijos++;
+                    if (!obj.TieneStock) cta++;
+                }
+            });
+        }
+
+        if (hijos > 0 && cta > 0) {
+            if (cta < hijos) $('.xmsg-tonos-agotados').show();
+        }
+    }
 
     var _mostrarModalElegirOpciones = function() {
         if (isMobile()) {
