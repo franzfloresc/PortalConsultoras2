@@ -468,7 +468,7 @@ var FichaModule = (function (config) {
                 });
 
             if (filterComponente.length) {
-                ComponentesModule.SeleccionarComponente(filterComponente[0].Cuv);
+                ComponentesModule.SeleccionarComponente(filterComponente[0].Cuv, false);
                 ListaOpcionesModule.SeleccionarOpcion(o.CuvProducto);
                 ResumenOpcionesModule.AplicarOpciones();
             }
