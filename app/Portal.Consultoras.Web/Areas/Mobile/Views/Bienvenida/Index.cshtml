@@ -346,11 +346,6 @@
 {
     Html.RenderPartial("MasVendidos");
 }
- @{ 
-     var array = Model.urlAppCatalogo.Split('/');
-     string controller = array[0];
-     string action = array[1];
- }
 
 <div id="divListaEstrategias" style="display: none; padding-top: 22px;">
     @Html.Partial("~/Areas/Mobile/Views/Bienvenida/_PartialSectionBpt.cshtml", Model.PartialSectionBpt)
@@ -362,10 +357,10 @@
 {
     <div class="wrapper_resumen_mobile">
         <div class="comartir_home_mobile">
-            HAZ CRECER TU NEGOCIO CON<br />
-            EL APP DE CATÁLOGOS
+            COMPARTE EL APP DE CATÁLOGO<br />
+            Y GANA MÁS
             <a role="link" region="Central" parent="App de Catálogos" title="Entérate Más"
-               class="btn_compartelos" href="@Url.Action(action, controller, new { area = "" })">ENTÉRATE MÁS</a>
+               class="btn_compartelos" href="@Url.Action("Index", "MisCatalogosRevistas", new { area = "" })">ENTÉRATE MÁS</a>
 
             @if (Model.IsConsultoraOnline != -1)
             {
@@ -409,7 +404,7 @@
             }
         </div>
         <a role="link" region="Central" parent="App de Catálogos" title="Entérate Más"
-           class="btn_compartelos" href="@Url.Action(action, controller, new { area = "" })">
+           class="btn_compartelos" href="@Url.Action("Index", "MisCatalogosRevistas", new { area = "" })">
             <div class="imagen_catalogo celular_esika"><img data-src="@Model.UrlImagenAppCatalogo" alt="-" data-lazy-seccion-banner-home="" /></div>
         </a>
         <hr class="clear" />

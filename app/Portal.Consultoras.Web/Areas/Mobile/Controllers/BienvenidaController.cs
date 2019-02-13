@@ -127,8 +127,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.TienePagoEnLinea = userData.TienePagoEnLinea;
                 model.ConsultoraNuevaBannerAppMostrar = SessionManager.GetConsultoraNuevaBannerAppMostrar();
                 model.MostrarPagoEnLinea = (userData.MontoDeuda > 0);
-                var lstmenu = _menuProvider.GetMenuMobileModelService(userData.PaisID);
-                model.urlAppCatalogo = lstmenu.Where(a => a.MenuMobileID == Constantes.MenuMobileId.CatalogosYRevistas).Select(b => b.UrlItem).FirstOrDefault();
 
                 #region Camino al Exito
 
