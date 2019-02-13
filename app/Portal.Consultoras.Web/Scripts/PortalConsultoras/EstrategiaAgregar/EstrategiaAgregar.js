@@ -546,10 +546,12 @@ var EstrategiaAgregarModule = (function () {
     };
 
     var _verificarActivarBtn = function (codigoVariante) {
-        if (typeof(fichaModule) != "undefined") {
-            var estrategia = fichaModule.GetEstrategia();
-            if (estrategia.esEditable) { //todos menos la 2003 (tipos&tonos)
-                EstrategiaAgregarModule.HabilitarBoton();
+        if (typeof (fichaModule) != "undefined") {
+            if (typeof (fichaModule.GetEstrategia) != "undefined") {
+                var estrategia = fichaModule.GetEstrategia();
+                if (estrategia.esEditable) { //todos menos la 2003 (tipos&tonos)
+                    EstrategiaAgregarModule.HabilitarBoton();
+                }
             }
         }
     };
@@ -568,9 +570,9 @@ var EstrategiaAgregarModule = (function () {
         _verificarActivarBtn(); //habilitar botón solo cuando está en la ficha resumida
         return false;
     };
-    var validaCantidad = function(e) {
+    var validaCantidad = function (e) {
         _verificarActivarBtn(); //habilitar botón solo cuando está en la ficha resumida
-        
+
     }
     var deshabilitarBoton = function () {
         $(_elementos.btnAgregar.id).addClass(_elementos.btnAgregar.classDesactivado);
