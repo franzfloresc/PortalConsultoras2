@@ -55,6 +55,9 @@ var ComponentesModule = (function () {
         $.each(_estrategia.Hermanos, function (index, hermano) {
             hermano.TienenNombreReferencial = false;
             if (hermano.Hermanos != null && hermano.Hermanos.length > 0) {
+                $.each(hermano.Hermanos, function (indVariedad, variedad) {
+                    variedad.TieneStock = estrategia.esEditable || variedad.TieneStock;
+                });
                 if (hermano.NombreComercial.indexOf(hermano.NombreBulk) >= 0) {
                     hermano.TienenNombreReferencial = true;
                 }
@@ -69,7 +72,7 @@ var ComponentesModule = (function () {
         var hijos = 0;
         var cta = 0;
 
-        if (estrategia.CodigoVariante == '2002') {
+        if (estrategia.CodigoVariante == ConstantesModule.CodigoVariedad.ComuestaFija) {
             $.each(estrategia.Hermanos, function (i, obj) {
                 hijos++;
                 if (!obj.TieneStock) cta++;
@@ -90,8 +93,10 @@ var ComponentesModule = (function () {
             });
         }
 
-        if (hijos > 0 && cta > 0) {
-            if (cta < hijos) $('.xmsg-tonos-agotados').show();
+        if (!estrategia.esEditable) {
+            if (hijos > 0 && cta > 0) {
+                if (cta < hijos) $('.xmsg-tonos-agotados').show();
+            }
         }
     }
 
