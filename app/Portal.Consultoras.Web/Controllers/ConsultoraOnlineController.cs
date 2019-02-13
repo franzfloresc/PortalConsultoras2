@@ -794,8 +794,6 @@ namespace Portal.Consultoras.Web.Controllers
                 return indiceActualPagina;
             }
 
-            //indiceActualPagina = Pagina.Equals(">>") ? indiceUltimaPagina : int.Parse(Pagina);
-
             if (Pagina.Equals(">>"))
                 indiceActualPagina = indiceUltimaPagina;
             else
@@ -1109,35 +1107,6 @@ namespace Portal.Consultoras.Web.Controllers
             indiceUltimaPagina = (int)TempData["indiceUltimaPagina"];
 
             indiceActualPagina = MisPedidosActualPagina(Pagina, indiceActualPagina, indiceUltimaPagina, -1);
-
-            //if (Pagina.Equals("<<"))
-            //    indiceActualPagina = 0;
-            //else
-            //{
-            //    if (Pagina.Equals("<"))
-            //    {
-            //        if (indiceActualPagina > 0) indiceActualPagina--;
-            //    }
-            //    else
-            //    {
-            //        if (Pagina.Equals(">"))
-            //        {
-            //            if (indiceActualPagina < indiceUltimaPagina) indiceActualPagina++;
-            //        }
-            //        else
-            //        {
-            //            if (Pagina.Equals(">>")) indiceActualPagina = indiceUltimaPagina;
-            //            else
-            //            {
-            //                int pagAeux;
-            //                if (int.TryParse(Pagina, out pagAeux))
-            //                {
-            //                    indiceActualPagina = pagAeux - 1;
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
 
             TempData["indiceUltimaPagina"] = indiceUltimaPagina;
             TempData["indiceActualPagina"] = indiceActualPagina;

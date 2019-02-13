@@ -331,7 +331,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 CampaniaId = input.CampaniaID,
                 ConsultoraId = input.ConsultoraID,
                 Consultora = input.NombreConsultora,
-                EsBpt = input.EsOpt == 1,
+                //EsBpt = input.EsOpt == 1,
                 CodigoPrograma = input.CodigoPrograma,
                 NumeroPedido = input.ConsecutivoNueva,
                 AgruparSet = agrupado

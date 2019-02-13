@@ -1,0 +1,197 @@
+﻿@using Portal.Consultoras.Common
+
+@{
+    @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/Ficha")
+    if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
+    {
+        @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/Ficha-Esika")
+    }
+    else
+    {
+        @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/Ficha-Lbel")
+    }
+    <style data-ficha-contenido="ofertadeldia-template-style"></style>
+}
+
+<div id="ImagenDeFondo" class="imagen_fondo_detalle"></div>
+<div class="contenedor_detalle texto_font">
+    <div class="contenedor_fichas">
+        <div class="contenedor_ficha_producto" data-item="" data-tag-html="@ViewBag.Campania">
+            <div style="display:none;">
+                <div id="data-estrategia" data-estrategia=""></div>
+            </div>
+
+            <div data-ficha-contenido="ficha_navegar_template"></div>
+
+            <div data-ficha-contenido="ficha_producto_template"></div>
+        </div>
+
+        <div class="clear"></div>
+
+        <div id="ContenidoProducto" class="contenedor_ficha_tabs" style="display:none;">
+            <div class="tabla_ficha_tab">
+                <div class="row_ficha_tab">
+                    <div class="cell_ficha_tab" id="div_ficha_tab1">
+                        <div class="contents_ficha_tab">
+                            <input id="ficha_tab_1" class="imput_tab_clean imput_tab" type="radio" name="tabs" data-numTab="1">
+                            <label for="ficha_tab_1" class="label_tab">DETALLE DEL PRODUCTO</label>
+                        </div>
+                    </div>
+                    <div class="cell_ficha_tab" id="div_ficha_tab2">
+                        <div class="contents_ficha_tab">
+                            <input id="ficha_tab_2" class="imput_tab_clean imput_tab" type="radio" data-numTab="2" name="tabs">
+                            <label for="ficha_tab_2" class="label_tab">DETALLE DEL PACK</label>
+                        </div>
+                    </div>
+                    <div class="cell_ficha_tab" id="div_ficha_tab3">
+                        <div class="contents_ficha_tab">
+                            <input id="ficha_tab_3" class="imput_tab_clean imput_tab" type="radio" data-numTab="3" name="tabs">
+                            <label for="ficha_tab_3" class="label_tab">TIPS DE VENTA</label>
+                        </div>
+                    </div>
+                    <div class="cell_ficha_tab" id="div_ficha_tab4">
+                        <div class="contents_ficha_tab">
+                            <input id="ficha_tab_4" class="imput_tab_clean imput_tab" type="radio" data-numTab="4" name="tabs">
+                            <label for="ficha_tab_4" class="label_tab">BENEFICIOS</label>
+                        </div>
+                    </div>
+                    <div class="cell_ficha_tab" id="div_ficha_tab5">
+                        <div class="contents_ficha_tab">
+                            <input id="ficha_tab_5" class="imput_tab_clean imput_tab" type="radio" data-numTab="5" name="tabs">
+                            <label for="ficha_tab_5" class="label_tab">VIDEO</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <section id="contenido_1" class="seccion_tab">
+                <ul class="txt_ul">
+                    <li class="txt_li">
+                        <div class="txt_li_titulo">Labial en barra rouge lintense:</div>
+                        <div class="txt_li_descripcion">El labial Color HD Velvet tiene un color mate 5 veces más intenso que hidrata tus labios. Contiene una fórmula con pigmentos de color saturado y microprismas que capturan la luz para amplificar el color. Labial de sensación ligera.</div>
+                    </li>
+                    <li>
+                        <div class="txt_li_titulo">Pulso:</div>
+                        <div class="txt_li_descripcion">Posee un poder de seduccón innato que le permite conquistar a cualquier mujer a través de su mirada penetrante y su media sonrisa. Su aspecto puede parecer irreverente pero su elegancia y gestos de caballerosidad lo hacen irresistible. Aún sin conocerlo, puedes saber que</div>
+                    </li>
+                </ul>
+            </section>
+            <section id="contenido_2" class="seccion_tab">
+                <ul class="txt_ul">
+                    <li class="txt_li">
+                        <div class="txt_li_titulo">Labial en barra rouge lintense:</div>
+                        <div class="txt_li_descripcion">El labial Color HD Velvet tiene un color mate 5 veces más intenso que hidrata tus labios. Contiene una fórmula con pigmentos de color saturado y microprismas que capturan la luz para amplificar el color. Labial de sensación ligera.</div>
+                    </li>
+                    <li>
+                        <div class="txt_li_titulo">Pulso:</div>
+                        <div class="txt_li_descripcion">Posee un poder de seduccón innato que le permite conquistar a cualquier mujer a través de su mirada penetrante y su media sonrisa. Su aspecto puede parecer irreverente pero su elegancia y gestos de caballerosidad lo hacen irresistible. Aún sin conocerlo, puedes saber que</div>
+                    </li>
+                </ul>
+            </section>
+            <section id="contenido_3" class="seccion_tab">
+                <div class="contenedor_img_txt">
+                    <div class="txt_img_seccion_tab">
+                        <div class="img_seccion_tab">
+                            <img class="contenedor_img" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_2000934882018554845_vffslsirks.png" alt="">
+                        </div>
+                        <div class="txt_seccion_tab">
+                            Tiene un aroma maderoso con Canela de Magadascar de larga duración.<br />
+                            Su envase azul es moderno y sotisficado. Inspirado en el hombre.
+                        </div>
+                    </div>
+                    <div class="txt_img_seccion_tab">
+                        <div class="img_seccion_tab">
+                            <img class="contenedor_img" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_2000892222018550244_gbatklhzxl.png" alt="">
+                        </div>
+                        <div class="txt_seccion_tab">
+                            Aplícala directamente en la muñeca de tu cliente usando el demostrador.
+                        </div>
+                    </div>
+                    <div class="txt_img_seccion_tab">
+                        <div class="img_seccion_tab">
+                            <img class="contenedor_img" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200083615201851656_wedqazhdhj.png" alt="">
+                        </div>
+                        <div class="txt_seccion_tab">
+                            Convencelo comentando que el olor durará hasta el final del día y pregunta: "¿Te pido el fresco aroma de Cardigan Evolución?"
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="contenido_4" class="seccion_tab">
+                <div class="contenedor_txt_p">
+                    <div class="txt_p_titulo">¿Por qué nos encanta?</div>
+                    <div class="txt_p">
+                        El Labial Color HD Velvet tiene un color mate 5 veces más intenso que hidrata tus labios. Contiene una fórmula con pigmentos de color saturado y microprismas que capturan la luz para amplificar el color. Labial de sensación ligera.
+                    </div>
+                    <div class="txt_p_titulo">¿Qué hace?</div>
+                    <div class="txt_p">
+                        El nuevo labial mate posee una gran innovación que mantiene tus labios hidratados hasta por 24 horas. Disfruta de todo el color
+                        y la suavidad de miles de pétalos de rosa en tus labios.
+                    </div>
+                    <div class="txt_p_titulo">¿Cómo funciona?</div>
+                    <div class="txt_p">
+                        Labial Mate aterciopelado, no reseca los labios y viene con identificador de color en el envase.
+                    </div>
+                </div>
+            </section>
+            <section id="contenido_5" class="seccion_tab">
+                <div class="contenedor_iframe_seccion_tab" id="contenedor-tab-video"></div>
+            </section>
+        </div>
+
+        <div class="clear"></div>
+
+        <div data-ficha-contenido="ficha_carrusel_template"></div>
+
+    </div>
+</div>
+
+<!-- INIT: Panel cliente-->
+<div id="PanelClienteLista" class="contenedor_seleccion" style=" margin-right: -320px; opacity: 0; height: 100%; display:none;">
+    <section id="PanelClienteLista_Contenedor"></section>
+</div>
+<!-- END: Panel cliente-->
+
+<script id="ficha_navegar_template" type="text/x-handlebars-template">
+    {{#if_eq TipoAccionNavegar '@Constantes.TipoAccionNavegar.BreadCrumbs'}}
+
+    <ul class="breadcumbs">
+        <li data-opcion="{{Inicio.Texto}}"><a href="javascript:;" onclick="eventBreadCumb('{{Inicio.Url}}', '{{Inicio.Texto}}' )">{{Inicio.Texto}}</a></li>
+        <li data-opcion="{{Ofertas.Texto}}"><a href="javascript:;" onclick="eventBreadCumb('{{Ofertas.Url}}', '{{Ofertas.Texto}}')">{{Ofertas.Texto}}</a></li>
+        {{#IsNullOrEmpty Palanca.Texto '!='}}
+        <li data-opcion="{{Palanca.Texto}}"><a href="javascript:;" onclick="eventBreadCumb('{{Palanca.Url}}','{{Palanca.Texto}}')">{{Palanca.Texto}}</a></li>
+        {{/IsNullOrEmpty}}
+        <li data-opcion="{{Producto.Texto}}"><a href="javascript:;" onclick="eventBreadCumb('{{Producto.Texto}}','{{Producto.Texto}}')" id="estrategia-breadcrumb">{{Producto.Texto}}</a></li>
+    </ul>
+
+    {{else if_eq TipoAccionNavegar '@Constantes.TipoAccionNavegar.Volver'}}
+    <a class="boton_volver_ficha" href="javascript:;" onclick="javascript:FichaEditarModule.ShowDivFichaResumida(false)"> <img src="/Content/Images/mobile/Esika/right-arrow.svg" />Volver</a>
+    {{/if_eq}}
+
+
+</script>
+
+<script id="ficha_carrusel_template" type="text/x-handlebars-template">
+
+    <div id="divFichaCarrusel" class="contenedor_ficha_carrusel">
+        <div class="contenedor_titulo_carrusel">
+            <div class="contenedor_linea_carrusel">
+                <div class="dibujar_linea dibujar_linea_titulo_carrusel linea_izquierda"></div>
+            </div>
+            <div id="tituloCarrusel" class="txt_titulo_carrusel"></div>
+            <div class="contenedor_linea_carrusel">
+                <div class="dibujar_linea dibujar_linea_titulo_carrusel linea_derecha"></div>
+            </div>
+        </div>
+        <!--carrusel-->
+        <div class="contenedor_carrusel" data-OrigenPedidoWeb="{{OrigenUrl}}" data-OrigenPedidoWebAgregar="{{OrigenAgregarCarrusel}}">
+            <div id="divFichaCarruselProducto" style="text-align:center;"></div>
+        </div>
+    </div>
+</script>
+
+@Html.Partial("~/Views/DetalleEstrategia/_ElegirOpciones.cshtml")
+@Html.Partial("~/Views/DetalleEstrategia/ProductoTemplate.cshtml")
+@Html.Partial("~/Views/DetalleEstrategia/ResumenOpcionesTemplate.cshtml")
+@Html.Partial("~/Views/DetalleEstrategia/ComponentesTemplate.cshtml")
+@Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
+@Html.Partial("~/Views/DetalleEstrategia/template-ficha-detalle-video.cshtml")

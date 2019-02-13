@@ -216,8 +216,8 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Site/Esika/seccion-descarga-imprime.css",
                "~/Content/Css/Site/Esika/buscador-filtros.css",
                "~/Content/Css/Site/ProductoListado/CajaProducto.css",
-               "~/Content/Css/Site/Esika/campania-navidenia.css",
-               "~/Content/Css/Site/Pedido/PedidoInfo.css"
+               "~/Content/Css/Site/Pedido/PedidoInfo.css",
+               "~/Content/Css/Site/Pedido/EditarProductoFicha.css"
                ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/Site-AsesoraOnline").Include(
@@ -247,8 +247,8 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Site/Lbel/revistaDigital.css",
                "~/Content/Css/Site/Lbel/seccion-descarga-imprime.css",
                "~/Content/Css/Site/Lbel/buscador-filtros.css",
-               "~/Content/Css/Site/Lbel/campania-navidenia.css",
-               "~/Content/Css/Site/Pedido/PedidoInfo.css"
+               "~/Content/Css/Site/Pedido/PedidoInfo.css",
+               "~/Content/Css/Site/Pedido/EditarProductoFicha.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/Site-Lbel-Contenedor").Include(
@@ -278,7 +278,6 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Mobile/Esika/revistaDigital.css",
                "~/Content/Css/Mobile/Esika/seccion-descarga-imprime.css",
                "~/Content/Css/Mobile/calc.css",
-               "~/Content/Css/Site/Esika/campania-navidenia.css",
                "~/Content/Css/Site/ProductosRecomendados/productos-recomendados.css"
             ));
 
@@ -297,7 +296,6 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Mobile/Lbel/revistaDigital.css",
                "~/Content/Css/Mobile/Lbel/seccion-descarga-imprime.css",
                "~/Content/Css/Mobile/calc.css",
-               "~/Content/Css/Site/Lbel/campania-navidenia.css",
                "~/Content/Css/Site/ProductosRecomendados/productos-recomendados.css"
             ));
 
@@ -397,7 +395,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js",
-                "~/Scripts/PortalConsultoras/Pedido/tooltip.js",                
+                "~/Scripts/PortalConsultoras/Pedido/tooltip.js",
                 "~/Scripts/PortalConsultoras/Pedido/KitNuevas.js",
                 "~/Scripts/PortalConsultoras/ProductoRecomendado/ProductoRecomendadoModule.js"
             ));
@@ -492,12 +490,13 @@ namespace Portal.Consultoras.Web
             ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mobile/PedidoDetalle").Include(
+                "~/Scripts/PortalConsultoras/Pedido/PedidoProvider.js",
                 "~/Scripts/PortalConsultoras/Mobile/Pedido/Detalle.js",
                 "~/Scripts/PortalConsultoras/Pedido/ofertaFinal.js",
                 "~/Scripts/PortalConsultoras/Cupon/CuponModule.js",
                 "~/Scripts/PortalConsultoras/Cupon/Cupon.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
-                "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js",
+                //"~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/PedidoRegistro.js",
                 "~/Scripts/PortalConsultoras/Pedido/tooltip.js",
                 "~/Scripts/PortalConsultoras/Pedido/KitNuevas.js"
@@ -614,7 +613,8 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/PedidoDetalle").Include(
                 "~/Content/Css/Site/slick-pedido.css",
-                "~/Content/Css/Mobile/Pedido/PedidoGrilla.css"
+                "~/Content/Css/Mobile/Pedido/PedidoGrilla.css",
+                "~/Content/Css/Mobile/Pedido/EditarProductoFicha.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/Catalogo").Include(
@@ -729,8 +729,23 @@ namespace Portal.Consultoras.Web
 
             #endregion
 
-            #region DetalleEstrategia
+            #region Cliente
+            bundles.Add(new ScriptBundle("~/Bundle/Js/Mixto/TusClientes").Include(
+                "~/Scripts/PortalConsultoras/TusClientes/TusClientesProvider.js",
+                "~/Scripts/PortalConsultoras/TusClientes/PanelListaModule.js",
+                "~/Scripts/PortalConsultoras/TusClientes/PanelMantenerModule.js",
+                "~/Scripts/PortalConsultoras/TusClientes/ClientePanelModule.js"
+            ));
 
+            bundles.Add(new ScriptBundle("~/Bundle/Js/Mixto/TusClientesIndex").Include(
+                "~/Scripts/PortalConsultoras/TusClientes/TusClientesProvider.js",
+                "~/Scripts/PortalConsultoras/TusClientes/TusClientesModule.js",
+                "~/Scripts/PortalConsultoras/TusClientes/PanelMantenerModule.js"
+            ));
+            #endregion
+
+            #region DetalleEstrategia
+            
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mixto/EstrategiaAgregar").Include(
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js",
@@ -749,11 +764,12 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/OpcionesSeleccionadasModule.js",
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/TituloOpcionesSeleccionadasModule.js",
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/ResumenOpcionesModule.js",
-                "~/Scripts/PortalConsultoras/DetalleEstrategia/FichaModule.js",
+                
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js",
                 "~/Scripts/PortalConsultoras/Shared/AnalyticsPortal.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js",
-                "~/Scripts/PortalConsultoras/DetalleEstrategia/CarruselModule.js"
+                "~/Scripts/PortalConsultoras/DetalleEstrategia/CarruselModule.js",
+            "~/Scripts/PortalConsultoras/DetalleEstrategia/FichaModule.js"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/Ficha").Include(
@@ -919,6 +935,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-SeccionDorada.js",
+                "~/Scripts/PortalConsultoras/Shared/AnalyticsPortal.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js"
            ));
 
@@ -937,7 +954,8 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Mobile/esika/slick.css",
                 "~/Content/Css/Mobile/esika/bootstrap-slider.min.css",
                 "~/Content/Css/Mobile/RevistaDigital/RedimensionLandingRD.css",
-                "~/Content/Css/Mobile/ProductoListado/CajaProducto.css"
+                "~/Content/Css/Mobile/ProductoListado/CajaProducto.css",
+                "~/Content/Css/Mobile/Ficha/ficha.css"
             ));
 
             //Se aisló el css de bootstrap de los otros css de Bundle/Css/Mixto, porque generaba errores de minificación
@@ -949,7 +967,6 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/ui.jquery/jquery-ui.css",
                 "~/Content/Css/Site/Shared/general.css",
                 "~/Content/Css/Site/Shared/header-responsive.css",
-                "~/Content/Css/Site/Shared/campania-navidenia-responsive.css",
                 "~/Content/Css/Site/Shared/menu-principal-responsive.css",
                 "~/Content/Css/Site/Shared/buscador-responsive.css",
                 "~/Content/Css/Site/Shared/menu-secundario-responsive.css",
@@ -961,7 +978,6 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/ui.jquery/jquery-ui.css",
                 "~/Content/Css/Site/Shared/general.css",
                 "~/Content/Css/Site/Shared/header-responsive.css",
-                "~/Content/Css/Site/Shared/campania-navidenia-responsive.css",
                 "~/Content/Css/Site/Shared/menu-principal-responsive.css",
                 "~/Content/Css/Site/Shared/buscador-responsive.css",
                 "~/Content/Css/Site/Shared/menu-secundario-responsive.css",

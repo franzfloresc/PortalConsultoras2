@@ -12,5 +12,7 @@ namespace Portal.Consultoras.Web.Models.Buscador
         public int TotalProductosPagina { get; set; }
         public int TotalCaracteresDescripcion { get; set; }
         public bool MostrarOpcionesOrdenamiento { get; set; }
+
+        
     }
 }

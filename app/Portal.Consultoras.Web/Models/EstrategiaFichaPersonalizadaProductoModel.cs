@@ -1,11 +1,10 @@
 ﻿using Portal.Consultoras.Web.Models.DetalleEstrategia;
-using System;
 
 namespace Portal.Consultoras.Web.Models
 {
     public class DetalleEstrategiaFichaModel : EstrategiaPersonalizadaProductoModel
     {
-        public String CodigoVideo { get; set; } //Por defecto 1 video
+        public string CodigoVideo { get; set; } //Por defecto 1 video
         public string OrigenUrl { get; set; }
         public int OrigenAgregar { get; set; }
         public int OrigenAgregarCarrusel { get; set; }
@@ -24,5 +23,21 @@ namespace Portal.Consultoras.Web.Models
 
         public DetalleEstrategiaBreadCrumbsModel BreadCrumbs { get; set; }
         public bool EsVC { get; set; }
+
+        /// <summary>
+        /// 0: Por defecto, no muestra accion de navegabilidad
+        /// 1: BreadCrumbs
+        /// 2: Volver
+        /// </summary>
+        public int TipoAccionNavegar { get; set; }
+
+        public bool NoEsCampaniaActual { get; set; }
+
+        public bool Error { get; set; }
+        public int Cantidad { get; set; }
+
+        public bool MostrarCliente { get; set; }
+
+        public bool MostrarAdicional { get; set; }
     }
 }

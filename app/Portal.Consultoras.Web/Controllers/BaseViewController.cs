@@ -214,79 +214,20 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (_ofertaPersonalizadaProvider == null)
-                    throw new NullReferenceException("_ofertaPersonalizadaProvider can not be null");
+                //var modelo = FichaModelo(palanca, campaniaId, cuv, origen);
 
+                //if (modelo != null)
+                //{
+                //    return View(modelo);
+                //}
 
-                if (!_ofertaPersonalizadaProvider.EnviaronParametrosValidos(palanca, campaniaId, cuv))
+                var modelo = new DetalleEstrategiaFichaModel
                 {
-                    return Redireccionar();
-                }
-
-                palanca = IdentificarPalancaRevistaDigital(palanca, campaniaId);
-
-                if (!_ofertaPersonalizadaProvider.TienePermisoPalanca(palanca))
-                    return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
-
-                DetalleEstrategiaFichaModel modelo = null;
-                if (_ofertaPersonalizadaProvider.PalancasConSesion(palanca))
-                {
-                    var estrategiaPresonalizada = _ofertaPersonalizadaProvider.ObtenerEstrategiaPersonalizada(userData, palanca, cuv, campaniaId);
-
-                    if (estrategiaPresonalizada == null)
-                    {
-                        return Redireccionar();
-                    }
-
-                    if (userData.CampaniaID != campaniaId) estrategiaPresonalizada.ClaseBloqueada = "btn_desactivado_general";
-                    modelo = Mapper.Map<EstrategiaPersonalizadaProductoModel, DetalleEstrategiaFichaModel>(estrategiaPresonalizada);
-                    if (palanca == Constantes.NombrePalanca.PackNuevas)
-                    {
-                        modelo.TipoEstrategiaDetalle.Slogan = "Contenido del Set:";
-                        modelo.ListaDescripcionDetalle = modelo.ArrayContenidoSet;
-                    }
-                }
-
-                #region Modelo
-
-                modelo = modelo ?? new DetalleEstrategiaFichaModel();
-                modelo.MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(IsMobile());
-                modelo.OrigenUrl = origen;
-                modelo.OrigenAgregar = GetOrigenPedidoWebDetalle(origen);
-                modelo.BreadCrumbs = GetDetalleEstrategiaBreadCrumbs(revistaDigital.TieneRevistaDigital(),
-                   userData.CampaniaID == campaniaId,
-                   palanca);
-                modelo.Palanca = palanca;
-                modelo.TieneSession = _ofertaPersonalizadaProvider.PalancasConSesion(palanca);
-                modelo.Campania = campaniaId;
-                modelo.Cuv = cuv;
-
-                modelo.TieneCarrusel = (Constantes.NombrePalanca.Lanzamiento == palanca
-                        || Constantes.NombrePalanca.ShowRoom == palanca
-                        || Constantes.NombrePalanca.OfertaDelDia == palanca);
-                modelo.OrigenAgregarCarrusel = modelo.TieneCarrusel ? GetOrigenPedidoWebDetalle(origen, modelo.TieneCarrusel) : 0;
-                modelo.TieneCompartir = !(Constantes.NombrePalanca.HerramientasVenta == palanca
-                    || Constantes.NombrePalanca.PackNuevas == palanca);
-
-                #endregion
-
-                #region ODD
-                if (modelo.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.OfertaDelDia)
-                {
-                    modelo.TeQuedan = _ofertaDelDiaProvider.CountdownOdd(userData).TotalSeconds;
-                    modelo.TieneReloj = true;
-
-                    var sessionODD = (DataModel)SessionManager.OfertaDelDia.Estrategia.Clone();
-                    modelo.ColorFondo1 = sessionODD.ColorFondo1;
-                    modelo.ConfiguracionContenedor = (ConfiguracionSeccionHomeModel)sessionODD.ConfiguracionContenedor.Clone();
-                    modelo.ConfiguracionContenedor = modelo.ConfiguracionContenedor ?? new ConfiguracionSeccionHomeModel();
-                    modelo.ConfiguracionContenedor.ColorFondo = "#fff";
-                    modelo.ConfiguracionContenedor.ColorTexto = "#000";
-                    modelo.ColorFondo1 = "";
-                }
-
-                #endregion
-
+                    Palanca = palanca,
+                    Campania = campaniaId,
+                    Cuv = cuv,
+                    OrigenUrl = origen
+                };
                 return View(modelo);
             }
             catch (Exception ex)
@@ -294,7 +235,7 @@ namespace Portal.Consultoras.Web.Controllers
                 logManager.LogErrorWebServicesBusWrap(ex, userData.CodigoConsultora, userData.CodigoISO, "BaseViewController.Ficha");
             }
 
-            return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
+            return Redireccionar();
         }
 
         private ActionResult Redireccionar()
@@ -327,7 +268,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var area = IsMobile() ? "mobile" : string.Empty;
 
-                breadCrumbs.Inicio.Texto = "Inicio";
+                breadCrumbs.Inicio.Texto = MobileAppConfiguracion.EsAppMobile ? null : "Inicio";
                 breadCrumbs.Ofertas.Texto = tieneRevistaDigital && revistaDigital.EsSuscrita ? "Gana +" : "Ofertas Digitales";
                 breadCrumbs.Palanca.Texto = GetNombresPalancas(palanca);
 
@@ -549,6 +490,20 @@ namespace Portal.Consultoras.Web.Controllers
                 case Constantes.OrigenPedidoWeb.DesktopLandingBuscadorHerramientasDeVentaCarrusel:
                     result = Constantes.OrigenPedidoWeb.DesktopLandingBuscadorHerramientasDeVentaFicha;
                     break;
+
+                case Constantes.OrigenPedidoWeb.DesktopBuscadorGanadorasCarrusel:
+                    result = Constantes.OrigenPedidoWeb.DesktopLandingBuscadorGanadorasFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobileBuscadorGanadorasCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobileLandingBuscadorGanadorasFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopBuscadorGanadorasDesplegable:
+                    result = Constantes.OrigenPedidoWeb.DesktopBuscadorGanadorasFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobileBuscadorGanadorasDesplegable:
+                    result = Constantes.OrigenPedidoWeb.MobileBuscadorGanadorasFicha;
+                    break;
+
                 #endregion Buscador Desktop
 
                 #region Buscador Mobile
@@ -615,7 +570,70 @@ namespace Portal.Consultoras.Web.Controllers
         }
         #endregion
 
-        public string IdentificarPalancaRevistaDigital(string palanca, int campaniaId)
+        public DetalleEstrategiaFichaModel FichaModelo(string palanca, int campaniaId, string cuv, string origen, bool esEditar = false)
+        {
+            if (_ofertaPersonalizadaProvider == null)
+                throw new NullReferenceException("_ofertaPersonalizadaProvider can not be null");
+
+            if (!_ofertaPersonalizadaProvider.EnviaronParametrosValidos(palanca, campaniaId, cuv))
+            {
+                return null;
+            }
+            
+            palanca = IdentificarPalancaRevistaDigital(palanca, campaniaId);
+
+            if (!_ofertaPersonalizadaProvider.TienePermisoPalanca(palanca))
+                return null;
+
+            DetalleEstrategiaFichaModel modelo = GetEstrategiaInicial(palanca, campaniaId, cuv);
+            if (modelo == null)
+            {
+                return null;
+            }
+
+            #region Modelo
+
+            var esMobile = IsMobile();
+
+            modelo.NoEsCampaniaActual = campaniaId != userData.CampaniaID;
+
+
+            modelo.MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(esMobile);
+            modelo.OrigenUrl = origen;
+            modelo.OrigenAgregar = GetOrigenPedidoWebDetalle(origen);
+
+            modelo.TipoAccionNavegar = GetTipoAccionNavegar(modelo.OrigenAgregar, esMobile, esEditar);
+            modelo.BreadCrumbs = GetDetalleEstrategiaBreadCrumbs(revistaDigital.TieneRevistaDigital(),
+               userData.CampaniaID == campaniaId,
+               palanca);
+            modelo.Palanca = palanca;
+            modelo.TieneSession = _ofertaPersonalizadaProvider.PalancasConSesion(palanca);
+            modelo.Campania = campaniaId;
+            modelo.Cuv = cuv;
+
+            modelo.TieneCarrusel = GetTieneCarrusel(palanca, esEditar);
+            modelo.OrigenAgregarCarrusel = modelo.TieneCarrusel ? GetOrigenPedidoWebDetalle(origen, modelo.TieneCarrusel) : 0;
+
+            modelo.TieneCompartir = GetTieneCompartir(palanca, esEditar);
+
+            modelo.Cantidad = 1;
+            #endregion
+
+            #region ODD
+            if (modelo.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.OfertaDelDia)
+            {
+                modelo = GetDatosOdd(modelo);
+            }
+
+            #endregion
+
+            modelo.MostrarCliente = GetMostrarCliente(esEditar);
+            modelo.MostrarAdicional = GetInformacionAdicional(esEditar);
+
+            return modelo;
+        }
+        
+        private string IdentificarPalancaRevistaDigital(string palanca, int campaniaId)
         {
             var palancaX = palanca;
             switch (palanca)
@@ -641,7 +659,7 @@ namespace Portal.Consultoras.Web.Controllers
                         palancaX = campaniaId == userData.CampaniaID
                             ? Constantes.NombrePalanca.OfertaParaTi
                             : Constantes.NombrePalanca.OfertasParaMi;
-                        
+
                         break;
                     }
 
@@ -652,6 +670,119 @@ namespace Portal.Consultoras.Web.Controllers
                     break;
             }
             return palancaX;
+        }
+
+        private DetalleEstrategiaFichaModel GetEstrategiaInicial(string palanca, int campaniaId, string cuv)
+        {
+            var modelo = new DetalleEstrategiaFichaModel();
+            if (_ofertaPersonalizadaProvider.PalancasConSesion(palanca))
+            {
+                var estrategiaPresonalizada = _ofertaPersonalizadaProvider.ObtenerEstrategiaPersonalizada(userData, palanca, cuv, campaniaId);
+
+                if (estrategiaPresonalizada == null)
+                {
+                    return null;
+                }
+
+                if (userData.CampaniaID != campaniaId) estrategiaPresonalizada.ClaseBloqueada = "btn_desactivado_general";
+                modelo = Mapper.Map<EstrategiaPersonalizadaProductoModel, DetalleEstrategiaFichaModel>(estrategiaPresonalizada);
+                if (palanca == Constantes.NombrePalanca.PackNuevas)
+                {
+                    modelo.TipoEstrategiaDetalle.Slogan = "Contenido del Set:";
+                    modelo.ListaDescripcionDetalle = modelo.ArrayContenidoSet;
+                }
+            }
+            return modelo;
+        }
+
+        private int GetTipoAccionNavegar(int origen, bool esMobile, bool esEditar)
+        {
+            int tipo = Constantes.TipoAccionNavegar.SinBoton;
+
+            if (esMobile && origen.ToString().StartsWith(Constantes.IngresoExternoOrigen.App))
+            {
+                return tipo;
+            }
+
+            if (esEditar)
+            {
+                tipo = Constantes.TipoAccionNavegar.Volver;
+            }
+            else
+            {
+                tipo = GetAccionNavegarSegunOrigen(origen);
+            }
+
+            return tipo;
+        }
+
+        private int GetAccionNavegarSegunOrigen(int origen)
+        {
+            int tipo = Constantes.TipoAccionNavegar.BreadCrumbs;
+
+            // aplicar logica para los origenes de sugeridos
+            return tipo;
+        }
+
+        private bool GetTieneCarrusel(string palanca, bool esEditar)
+        {
+            return !esEditar && (Constantes.NombrePalanca.Lanzamiento == palanca
+                    || Constantes.NombrePalanca.ShowRoom == palanca
+                    || Constantes.NombrePalanca.OfertaDelDia == palanca);
+        }
+        
+        private bool GetTieneCompartir(string palanca, bool esEditar)
+        {
+            return !esEditar && !MobileAppConfiguracion.EsAppMobile &&
+                !(Constantes.NombrePalanca.HerramientasVenta == palanca
+                || Constantes.NombrePalanca.PackNuevas == palanca);
+        }
+
+        private DetalleEstrategiaFichaModel GetDatosOdd(DetalleEstrategiaFichaModel modelo)
+        {
+            modelo.TeQuedan = _ofertaDelDiaProvider.CountdownOdd(userData).TotalSeconds;
+            modelo.TieneReloj = true;
+
+            var sessionODD = (DataModel)SessionManager.OfertaDelDia.Estrategia.Clone();
+            modelo.ColorFondo1 = sessionODD.ColorFondo1;
+            modelo.ConfiguracionContenedor = (ConfiguracionSeccionHomeModel)sessionODD.ConfiguracionContenedor.Clone();
+            modelo.ConfiguracionContenedor = modelo.ConfiguracionContenedor ?? new ConfiguracionSeccionHomeModel();
+            modelo.ConfiguracionContenedor.ColorFondo = "#fff";
+            modelo.ConfiguracionContenedor.ColorTexto = "#000";
+            modelo.ColorFondo1 = "";
+
+            return modelo;
+        }
+
+        private bool GetMostrarCliente(bool esEditar)
+        {
+            var mostrar = false;
+
+#if DEBUG
+
+            mostrar = esEditar && _tablaLogicaProvider.GetTablaLogicaDatoValorBool(
+                            userData.PaisID,
+                            Constantes.TablaLogica.PantallaResponsive,
+                            Constantes.TablaLogicaDato.PantallasResponsive.MisClientes,
+                            false
+                            );
+
+#endif
+
+            return mostrar;
+
+        }
+        
+        /// <summary>
+        /// metodo para obtener toda la informacion adiciona en un modelo
+        /// por el momento solo es bool para saber si va o no
+        /// </summary>
+        /// <param name="esEditar"></param>
+        /// <returns></returns>
+        private bool GetInformacionAdicional(bool esEditar)
+        {
+            return !esEditar;
+
         }
     }
 }
