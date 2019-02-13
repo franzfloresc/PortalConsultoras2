@@ -19,10 +19,10 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://pelnx2044.galileo.ebel:7003/ssiccclespdp/services/ProcesoMAEActualizaFlagImpBoletasWebService?wsdl" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://pelnx2044:7003/ssiccclespdp/services/ProcesoMAEActualizaFlagImpBoletasWebService?wsdl" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="ProcesoMAEActualizaFlagImpBoletasWebService1.wsdl" MetadataType="Wsdl" ID="e950446a-f571-4a95-94e9-6808a052cde2" SourceId="1" SourceUrl="http://pelnx2044.galileo.ebel:7003/ssiccclespdp/services/ProcesoMAEActualizaFlagImpBoletasWebService?wsdl" />
+    <MetadataFile FileName="ProcesoMAEActualizaFlagImpBoletasWebService.wsdl" MetadataType="Wsdl" ID="7e2c1597-ed82-48ef-b3be-802e9b5dcdee" SourceId="1" SourceUrl="http://pelnx2044:7003/ssiccclespdp/services/ProcesoMAEActualizaFlagImpBoletasWebService?wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

@@ -316,14 +316,14 @@
     <None Include="Connected Services\ServiceActualizarFlagBoletaImpresa\Portal.Consultoras.Data.ServiceActualizarFlagBoletaImpresa.ActualizarFlagImpBoletaResultado.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\ServiceActualizarFlagBoletaImpresa\ProcesoMAEActualizaFlagImpBoletasWebService1.wsdl" />
+    <None Include="Connected Services\ServiceActualizarFlagBoletaImpresa\ProcesoMAEActualizaFlagImpBoletasWebService.wsdl" />
     <None Include="Connected Services\ServiceDirecciondeEntrega\Portal.Consultoras.Data.ServiceDirecciondeEntrega.actualizacionDireccionEntregaResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\ServiceDirecciondeEntrega\Portal.Consultoras.Data.ServiceDirecciondeEntrega.ProcesoMAEWebServiceResultado.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\ServiceDirecciondeEntrega\ProcesoMAEActualizarDireccionEntregaWebService1.wsdl" />
+    <None Include="Connected Services\ServiceDirecciondeEntrega\ProcesoMAEActualizarDireccionEntregaWebService.wsdl" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
