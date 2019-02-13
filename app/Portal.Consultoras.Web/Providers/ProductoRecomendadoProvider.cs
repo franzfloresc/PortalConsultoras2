@@ -82,7 +82,7 @@ namespace Portal.Consultoras.Web.Providers
                     rdi = revistaDigital.TieneRDI.ToString(),
                     rdr = revistaDigital.TieneRDCR.ToString(),
                     diaFacturacion = usuarioModel.DiaFacturacion,
-                    mostrarProductoConsultado = esMobile
+                    mostrarProductoConsultado = esMobile.ToString()
                 }
             };
         }
