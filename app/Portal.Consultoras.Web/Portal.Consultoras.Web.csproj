@@ -1395,6 +1395,8 @@
     <Content Include="Content\Banners\FolderContent.txt" />
     <Content Include="Content\Css\Button\style.css" />
     <Content Include="Content\Css\colorpicker\colorpicker.css" />
+    <Content Include="Content\Css\Mobile\Clientes\Asignarcliente.css" />
+    <Content Include="Content\Css\Mobile\Clientes\Clientes.css" />
     <Content Include="Content\Css\Mobile\Contenedor\Index.css" />
     <Content Include="Content\Css\Mobile\Contenedor\carrusel.individual.css" />
     <Content Include="Content\Css\Mobile\esika\mi-perfil.css" />
