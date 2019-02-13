@@ -486,7 +486,9 @@ function PopupPedidoSeleccionar(obj) {
     var pedidos = listaPedidos.Find("PedidoID", id);
     pedido = pedidos.length > 0 ? pedidos[0] : new Object();
     $("#divPopupPedido").hide();
+    alert('PopupPedidoSeleccionar(obj)');
     AsignarCUV(pedido);
+
 }
 
 function ObtenerDatosCuv() {
@@ -514,6 +516,7 @@ function ObtenerDatosCuv() {
                 alert_msg(data.message);
                 return false;
             }
+            alert('ObtenerDatosCuv');
             AsignarCUV(data.datos[0]);
         },
         error: function (data, error) {
@@ -528,8 +531,13 @@ function AsignarCUV(pedido) {
 
     $("#divMotivo").html("");
 
+    //Evaluar si es un nuevo pedido o es un pedido a modificar
+
+
+
     if (pedido.CDRWebID > 0 && pedido.CDRWebEstado != 1 && pedido.CDRWebEstado != 4) {
         alert_msg("Lo sentimos, ya cuentas con una solicitud web para este pedido. Por favor, contáctate con nuestro <span>Chat en Línea</span>.");
+
     } else {
         pedido.olstBEPedidoWebDetalle = pedido.olstBEPedidoWebDetalle || new Array();
         var detalle = pedido.olstBEPedidoWebDetalle.Find("CUV", $.trim($("#ddlCuv").val()) || "");

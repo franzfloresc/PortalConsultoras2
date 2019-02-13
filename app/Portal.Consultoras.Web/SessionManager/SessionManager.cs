@@ -1344,15 +1344,38 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return (string)HttpContext.Current.Session[Constantes.ConstSession.JwtApiSomosBelcorp];
         }
+
         //HD-3412
-        public int? GetSesionNroPedidosCDR()
-        {
-            return (int)HttpContext.Current.Session["NroDeSolicitudesPorPedidoCDR"];
+        public int? GetCantidadSolPedidoAprob() {
+            int valor = 0;
+            var result = int.TryParse(Convert.ToString(HttpContext.Current.Session["CantidadSolPedidoAprob"]), out valor);
+            if (result)
+                return valor;
+            else
+                return null;
         }
         //HD-3412
-        public void SetSesionNroPedidosCDR(int cantidad)
-        {
-            HttpContext.Current.Session["NroDeSolicitudesPorPedidoCDR"] = cantidad;
+        public void SetCantidadSolPedidoAprob(int cantidad) {
+            HttpContext.Current.Session["CantidadSolPedidoAprob"] = cantidad;
         }
+
+        //HD-3412
+        public int? GetNroPedidosCDRConfig()
+        {
+            int valor = 0;
+            var result = int.TryParse(Convert.ToString(HttpContext.Current.Session["NroPedidosCDRConfig"]), out valor);
+            if (result)
+                return valor;
+            else
+                return null;
+
+        }
+        //HD-3412
+        public void SetNroPedidosCDRConfig(int cantidad)
+        {
+            HttpContext.Current.Session["NroPedidosCDRConfig"] = cantidad;
+        }
+
+
     }
 }

@@ -60,6 +60,21 @@ namespace Portal.Consultoras.Web.Controllers
 
                     listaCdrWebModel = Mapper.Map<List<BECDRWeb>, List<CDRWebModel>>(listaReclamo);
                 }
+
+                string urlPoliticaCdr = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlPoliticasCDR) ?? "{0}";
+                model.UrlPoliticaCdr = string.Format(urlPoliticaCdr, userData.CodigoISO);
+                model.ListaCDRWeb = listaCdrWebModel.FindAll(p => p.CantidadDetalle > 0);
+                SetCantidadSolPedidoAprob(model.ListaCDRWeb);
+
+                if (SessionManager.GetCantidadSolPedidoAprob() >= SessionManager.GetNroPedidosCDRConfig()) { 
+                    model.MensajeGestionCdrInhabilitada = Constantes.CdrWebMensajes.ExcedioLimiteReclamo;
+                    return View(model);
+                }
+
+
+                model.MensajeGestionCdrInhabilitada = _cdrProvider.MensajeGestionCdrInhabilitadaYChatEnLinea(userData.EsCDRWebZonaValida, userData.IndicadorBloqueoCDR, userData.FechaInicioCampania, userData.ZonaHoraria, userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
+                if (!string.IsNullOrEmpty(model.MensajeGestionCdrInhabilitada)) return View(model);
+                if (model.ListaCDRWeb.Count == 0) return RedirectToAction("Reclamo");
             }
             catch (Exception ex)
             {
@@ -68,29 +83,23 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
 
-            string urlPoliticaCdr = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlPoliticasCDR) ?? "{0}";
-            model.UrlPoliticaCdr = string.Format(urlPoliticaCdr, userData.CodigoISO);
-            model.ListaCDRWeb = listaCdrWebModel.FindAll(p => p.CantidadDetalle > 0);
-
-            model.MensajeGestionCdrInhabilitada = _cdrProvider.MensajeGestionCdrInhabilitadaYChatEnLinea(userData.EsCDRWebZonaValida, userData.IndicadorBloqueoCDR, userData.FechaInicioCampania, userData.ZonaHoraria, userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
-            if (!string.IsNullOrEmpty(model.MensajeGestionCdrInhabilitada)) return View(model);
-            if (model.ListaCDRWeb.Count == 0) return RedirectToAction("Reclamo");
+           
             return View(model);
         }
 
-        private static void ValidadCantidadReclamosPorPedido(MisReclamosModel model)
+        private void SetCantidadSolPedidoAprob(List<CDRWebModel> lst)
         {
-            var cantidadReclamosAprobados = model.ListaCDRWeb.Where(a => a.Estado == Constantes.EstadoCDRWeb.Aceptado).ToList();
-
-            if (cantidadReclamosAprobados != null)
+            var result = lst.Where(a => a.Estado == Constantes.EstadoCDRWeb.Aceptado).ToList();
+            if (result!=null)
             {
-                if (cantidadReclamosAprobados.Count > 0)
+                if (result.Count> 0)
                 {
-                    if (cantidadReclamosAprobados.Count >= model.CantidadReclamosPorPedido)
-                    {
-                        model.MensajeGestionCdrInhabilitada = Constantes.CdrWebMensajes.ExcedioLimiteReclamo;
-                    }
+                    SessionManager.SetCantidadSolPedidoAprob(result.Count);
                 }
+            }
+            else
+            {
+                SessionManager.SetCantidadSolPedidoAprob(0);
             }
         }
 
@@ -106,6 +115,10 @@ namespace Portal.Consultoras.Web.Controllers
 
             _cdrProvider.CargarInformacion(userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
             model.ListaCampania = SessionManager.GetCDRCampanias();
+
+            model.CantidadReclamosPorPedido = SessionManager.GetNroPedidosCDRConfig();
+
+            
             if (model.ListaCampania.Count <= 1) return RedirectToAction("Index");
 
             if (pedidoId != 0)
@@ -156,17 +169,24 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var listaPedidoFacturados = SessionManager.GetCDRPedidoFacturado();
                 listaPedidoFacturados = listaPedidoFacturados.Where(a => a.CampaniaID == CampaniaID).ToList();
+
                 if (listaPedidoFacturados.Count > 0)
                 {
                     mensaje = "";
                     foreach (var item in listaPedidoFacturados)
                     {
-                        listaNroPedidos.Add(new CampaniaModel
+                        //HD-3412
+                        var existe = listaNroPedidos.Where(c => c.CampaniaID == item.CampaniaID && item.PedidoID == c.PedidoID) ?? new List<CampaniaModel>();
+                        if (!existe.Any())
                         {
-                            NumeroPedido = item.NumeroPedido,
-                            strNumeroPedido = "N° " + item.NumeroPedido + " - " + item.FechaRegistro.ToString("dd/MM/yyyy"),
-                            PedidoID = item.PedidoID
-                        });
+                            listaNroPedidos.Add(new CampaniaModel
+                            {
+                                CampaniaID = item.CampaniaID,
+                                NumeroPedido = item.NumeroPedido,
+                                strNumeroPedido = "N° " + item.NumeroPedido + " - " + item.FechaRegistro.ToString("dd/MM/yyyy"),
+                                PedidoID = item.PedidoID
+                            });
+                        }
                     }
                 }
 
@@ -1506,9 +1526,9 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                if (SessionManager.GetSesionNroPedidosCDR() != null)
+                if (SessionManager.GetNroPedidosCDRConfig() != null)
                 {
-                    return SessionManager.GetSesionNroPedidosCDR();
+                    return SessionManager.GetNroPedidosCDRConfig();
                 }
 
                 using (var sv = new SACServiceClient())
@@ -1522,7 +1542,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
-            SessionManager.SetSesionNroPedidosCDR(result);
+            SessionManager.SetNroPedidosCDRConfig(result);
             return result;
         }
     }

@@ -119,7 +119,6 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string FechaFacturado { get; set; }
 
-
         public BEPedidoWeb() { }
 
         public BEPedidoWeb(IDataRecord row)
