@@ -54,11 +54,11 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (CDRServiceClient cdr = new CDRServiceClient())
                 {
-                    var beCdrWeb = new BECDRWeb { ConsultoraID = userData.ConsultoraID };
+                    var beCdrWeb = new ServiceCDR.BECDRWeb { ConsultoraID = userData.ConsultoraID }; //HD-3412 EINCA
 
                     var listaReclamo = cdr.GetCDRWeb(userData.PaisID, beCdrWeb).ToList();
 
-                    listaCdrWebModel = Mapper.Map<List<BECDRWeb>, List<CDRWebModel>>(listaReclamo);
+                    listaCdrWebModel = Mapper.Map<List<ServiceCDR.BECDRWeb>, List<CDRWebModel>>(listaReclamo);
                 }
 
                 string urlPoliticaCdr = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlPoliticasCDR) ?? "{0}";
@@ -66,7 +66,8 @@ namespace Portal.Consultoras.Web.Controllers
                 model.ListaCDRWeb = listaCdrWebModel.FindAll(p => p.CantidadDetalle > 0);
                 SetCantidadSolPedidoAprob(model.ListaCDRWeb);
 
-                if (SessionManager.GetCantidadSolPedidoAprob() >= SessionManager.GetNroPedidosCDRConfig()) { 
+                if (SessionManager.GetCantidadSolPedidoAprob() >= SessionManager.GetNroPedidosCDRConfig())
+                {
                     model.MensajeGestionCdrInhabilitada = Constantes.CdrWebMensajes.ExcedioLimiteReclamo;
                     return View(model);
                 }
@@ -83,16 +84,16 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
 
-           
+
             return View(model);
         }
 
         private void SetCantidadSolPedidoAprob(List<CDRWebModel> lst)
         {
-            var result = lst.Where(a => a.Estado == Constantes.EstadoCDRWeb.Aceptado).ToList();
-            if (result!=null)
+            var result = lst.Where(a => a.Estado == Constantes.EstadoCDRWeb.Aceptado || a.Estado == Constantes.EstadoCDRWeb.Enviado).ToList();
+            if (result != null)
             {
-                if (result.Count> 0)
+                if (result.Count > 0)
                 {
                     SessionManager.SetCantidadSolPedidoAprob(result.Count);
                 }
@@ -118,7 +119,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             model.CantidadReclamosPorPedido = SessionManager.GetNroPedidosCDRConfig();
 
-            
+
             if (model.ListaCampania.Count <= 1) return RedirectToAction("Index");
 
             if (pedidoId != 0)
@@ -175,7 +176,7 @@ namespace Portal.Consultoras.Web.Controllers
                     mensaje = "";
                     foreach (var item in listaPedidoFacturados)
                     {
-                        //HD-3412
+                        //HD-3412 EINCA
                         var existe = listaNroPedidos.Where(c => c.CampaniaID == item.CampaniaID && item.PedidoID == c.PedidoID) ?? new List<CampaniaModel>();
                         if (!existe.Any())
                         {
@@ -256,6 +257,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.CUV = Util.SubStr(model.CUV, 0);
 
                 var listaPedidoFacturados = _cdrProvider.CargarPedidosFacturados(userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
+                var listaCDRWeb = SessionManager.GetCdrWeb(); //HD-3412 EINCA
 
                 var listaPedido = new List<BEPedidoWeb>();
                 foreach (var pedido in listaPedidoFacturados)
@@ -276,8 +278,9 @@ namespace Portal.Consultoras.Web.Controllers
                                 PedidoID = pedido.PedidoID,
                                 FechaRegistro = pedido.FechaRegistro,
                                 CanalIngreso = pedido.CanalIngreso,
-                                CDRWebID = pedido.CDRWebID,
-                                CDRWebEstado = pedido.CDRWebEstado,
+                                //CDRWebID = pedido.CDRWebID, //HD-3412 EINCA 
+                                //CDRWebEstado = pedido.CDRWebEstado,//HD-3412 EINCA
+
                                 NumeroPedido = pedido.NumeroPedido,
                                 olstBEPedidoWebDetalle = lista.ToArray()
                             };

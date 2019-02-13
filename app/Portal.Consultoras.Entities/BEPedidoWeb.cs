@@ -1,5 +1,5 @@
 ﻿using Portal.Consultoras.Common;
-
+using Portal.Consultoras.Entities.CDR;//HD-3412 EINCA
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -91,13 +91,17 @@ namespace Portal.Consultoras.Entities
         public List<BEPedidoWebDetalle> olstBEPedidoWebDetalle { get; set; }
 
         [DataMember]
+        public List<BECDRWeb> BECDRWeb { get; set; } //HD-3412 EINCA
+
+        [DataMember]
         public decimal Flete { get; set; }
 
-        [DataMember]
-        public int CDRWebID { get; set; }
-
-        [DataMember]
-        public int CDRWebEstado { get; set; }
+        //HD-3412 EINCA
+        //[DataMember]
+        //public int CDRWebID { get; set; }
+        //HD-3412 EINCA
+        //[DataMember]
+        //public int CDRWebEstado { get; set; }
 
         [DataMember]
         public int NumeroPedido { get; set; }
@@ -154,8 +158,8 @@ namespace Portal.Consultoras.Entities
             MontoEscala = row.ToDecimal("MontoEscala");
             CanalIngreso = row.ToString("CanalIngreso");
             Flete = row.ToDecimal("Flete");
-            CDRWebID = row.ToInt32("CDRWebID");
-            CDRWebEstado = row.ToInt32("CDRWebEstado");
+            //CDRWebID = row.ToInt32("CDRWebID");  //HD3412
+            //CDRWebEstado = row.ToInt32("CDRWebEstado"); //HD3412
             NumeroPedido = row.ToInt32("NumeroPedido");
             VersionProl = row.ToByte("VersionProl");
             ModificaPedidoReservado = row.ToBoolean("ModificaPedidoReservado");

@@ -62,13 +62,13 @@ namespace Portal.Consultoras.Web.SessionManager
 
         BEPedidoWeb GetPedidoWeb();
 
-        int? GetNroPedidosCDRConfig(); //HD-3412
+        int? GetNroPedidosCDRConfig(); //HD-3412 EINCA
 
-        void SetNroPedidosCDRConfig(int cantidad);//HD-3412
+        void SetNroPedidosCDRConfig(int cantidad);//HD-3412 EINCA
 
-        int? GetCantidadSolPedidoAprob(); //HD-3412
+        int? GetCantidadSolPedidoAprob(); //HD-3412 EINCA
 
-        void SetCantidadSolPedidoAprob(int cantidad);//HD-3412
+        void SetCantidadSolPedidoAprob(int cantidad);//HD-3412 EINCA
 
 
         void SetPedidoWeb(BEPedidoWeb pedidoWeb);

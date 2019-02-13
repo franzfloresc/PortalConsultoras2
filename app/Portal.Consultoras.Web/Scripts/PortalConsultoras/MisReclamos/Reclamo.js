@@ -533,8 +533,6 @@ function AsignarCUV(pedido) {
 
     //Evaluar si es un nuevo pedido o es un pedido a modificar
 
-
-
     if (pedido.CDRWebID > 0 && pedido.CDRWebEstado != 1 && pedido.CDRWebEstado != 4) {
         alert_msg("Lo sentimos, ya cuentas con una solicitud web para este pedido. Por favor, contáctate con nuestro <span>Chat en Línea</span>.");
 

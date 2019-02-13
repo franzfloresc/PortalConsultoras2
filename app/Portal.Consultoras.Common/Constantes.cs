@@ -1015,7 +1015,7 @@ namespace Portal.Consultoras.Common
             public const string SinPedidosDisponibles = "Lo sentimos, en estos momentos no cuentas con pedidos disponibles para reclamar.";
             public const string FueraDeFecha = "Tu solicitud se encuentra fuera de fecha para poder ser atendida.";
             public const string ContactateChatEnLinea = "Por favor, contáctate con nuestro <span class=\"enlace_chat belcorpChat\"><a>Chat en Línea</a></span>.";
-            public const string ExcedioLimiteReclamo = "Lo sentimos, usted a excedico el límite de reclamos por pedido"; //HD-3412
+            public const string ExcedioLimiteReclamo = "Lo sentimos, usted a excedico el límite de reclamos por pedido"; //HD-3412 EINCA
         }
 
         public static class CodigoOperacionCDR
@@ -1696,7 +1696,7 @@ namespace Portal.Consultoras.Common
 
         public struct TablaLogica
         {
-            public const int NroReclamosPorPedidoCDR = 170; //HD-3412
+            public const int NroReclamosPorPedidoCDR = 170; //HD-3412 EINCA
             public const int PersonalizacionODD = 93;
             public const int Plan20 = 98;
             public const int CDRExpress = 104;

@@ -756,7 +756,7 @@ namespace Portal.Consultoras.Data
 
         public IDataReader GetPedidosFacturadoSegunDias(int campaniaID, long consultoraID, int maxDias)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidosFacturadoSegunDias_SB2");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidosFacturadoSegunDias_SB2_V2"); //HD-3412 EINCA
             Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int32, consultoraID);
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
             Context.Database.AddInParameter(command, "@maxDias", DbType.Int32, maxDias);
