@@ -86,7 +86,7 @@
   </wsdl:binding>
   <wsdl:service name="ProcesoMAEActualizaFlagImpBoletasWebServiceImplService">
     <wsdl:port name="ProcesoMAEActualizaFlagImpBoletasWebService" binding="impl:ProcesoMAEActualizaFlagImpBoletasWebServiceSoapBinding">
-      <wsdlsoap:address location="http://pelnx2044.galileo.ebel:7003/ssiccclespdp/services/ProcesoMAEActualizaFlagImpBoletasWebService" />
+      <wsdlsoap:address location="http://pelnx2044:7003/ssiccclespdp/services/ProcesoMAEActualizaFlagImpBoletasWebService" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>
