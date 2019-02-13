@@ -1009,7 +1009,7 @@ var FichaModule = (function (config) {
         return true;
     }
 
-    function Inicializar() {
+    function _init() {
         _construirSeccionFicha();
         _construirSeccionEstrategia();
         _construirSeccionDetalleFichas();
@@ -1021,7 +1021,7 @@ var FichaModule = (function (config) {
 
 
     return {
-        Inicializar: Inicializar,
+        Inicializar: _init,
         GetEstrategia: getEstrategia,
         GetModeloFicha: getModeloFicha
     };
