@@ -8,6 +8,14 @@ body {
     font-family: 'Lato', sans-serif !important;
 }
 
+input, button, ul, li, a {
+    font-family: 'Lato', sans-serif !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Lato', sans-serif !important;
+}
+
 hr {
     border-top: 1px solid #fff;
 }
@@ -9597,6 +9605,7 @@ span.icon-advertencia {
     min-height: 100px;
     position: relative;
     width: 50%;
+    height: auto;
 }
 
 .imagen_set_oferta_mobile {

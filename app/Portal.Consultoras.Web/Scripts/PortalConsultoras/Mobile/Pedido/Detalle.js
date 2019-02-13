@@ -1,4 +1,6 @@
-﻿var tipoOfertaFinal_Log = "";
+﻿/// <reference path="../../pedido/pedidoprovider.js" />
+
+var tipoOfertaFinal_Log = "";
 var gap_Log = 0;
 var tipoOrigen = '2';
 var arrayProductosGuardadoExito = [];
@@ -82,8 +84,10 @@ $(document).ready(function () {
     });
 });
 
+var pedidoProvider = PedidoProvider();
+
 function CargarPedido(firstLoad) {
-    var obj = {
+    var pageParams = {
         sidx: "",
         sord: "",
         page: 1,
@@ -92,41 +96,41 @@ function CargarPedido(firstLoad) {
         mobil: true
     };
     ShowLoading();
-
-    jQuery.ajax({
-        type: 'POST',
-        url: urlDetallePedido,
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(obj),
-        success: function (data) {
+    pedidoProvider
+        .cargarDetallePedidoPromise(pageParams)
+        .done(function (data) {
             if (!checkTimeout(data)) {
                 return false;
             }
-
-            SetHandlebars("#template-Detalle", data.data, '#divProductosDetalle');
-            belcorp.mobile.pedido.setDetalles(data.data.ListaDetalleModel);
-
-            if ($('#divContenidoDetalle').find(".icono_advertencia_notificacion").length > 0) {
-                $("#iconoAdvertenciaNotificacion").show();
-            }
-
-            $(".tooltip_noOlvidesGuardarTuPedido").show();
-            $(".btn_guardarPedido").show();
-            $("footer").hide();
-
-            cuponModule.actualizarContenedorCupon();
-
-            if (firstLoad && autoReservar) { EjecutarPROL(); }
-        },
-        error: function (data, error) {
+            CargarPedidoRespuesta(data, firstLoad);
+        })
+        .fail(function (data, error) {
             if (checkTimeout(data)) {
                 messageInfo('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
             }
-        }
-    }).always(function () {
-        CloseLoading();
-    });
+        })
+        .then(function () {
+            CloseLoading();
+        });
+}
+
+function CargarPedidoRespuesta(data, firstLoad) {
+    SetHandlebars("#template-pedidototal-superior", data.data, '#divPedidoTotalSuperior');
+    SetHandlebars("#template-detalle", data.data, '#divProductosDetalle');
+    SetHandlebars("#template-pedidototal-inferior", data.data, '#divPedidoTotalInferior');
+    belcorp.mobile.pedido.setDetalles(data.data.ListaDetalleModel);
+
+    if ($('#divContenidoDetalle').find(".icono_advertencia_notificacion").length > 0) {
+        $("#iconoAdvertenciaNotificacion").show();
+    }
+
+    $(".tooltip_noOlvidesGuardarTuPedido").show();
+    $(".btn_guardarPedido").show();
+    $("footer").hide();
+
+    cuponModule.actualizarContenedorCupon();
+
+    if (firstLoad && autoReservar) { EjecutarPROL(); }
 }
 
 function GetProductoEntidad(detalleId, setId) {
@@ -495,7 +499,7 @@ function ConfigurarFnEliminarProducto(CampaniaID, PedidoID, PedidoDetalleID, Tip
         ShowLoading();
         jQuery.ajax({
             type: 'POST',
-            url: urlPedidoDelete,
+            url: baseUrl + "PedidoRegistro/DeleteTransaction",
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(param),
@@ -770,7 +774,7 @@ function PedidoUpdate(item, PROL, detalleObj, elementRow) {
 
     jQuery.ajax({
         type: 'POST',
-        url: urlPedidoUpdate,
+        url: baseUrl + "PedidoRegistro/UpdateTransaction",
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(item),
@@ -907,15 +911,10 @@ function EjecutarServicioPROL() {
 
 function EjecutarServicioPROLSinOfertaFinal() {
     ShowLoading();
-    jQuery.ajax({
-        type: 'POST',
-        url: urlEjecutarServicioPROL,
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        async: true,
-        cache: false,
-        success: function (response) {
-            CloseLoading();
+    pedidoProvider
+        .ejecutarServicioProlPromise()
+        .done(function (response) {
+            
             if (!checkTimeout(response)) return;
             if (!response.success) {
                 messageInfoMalo(mensajeErrorReserva);
@@ -923,12 +922,13 @@ function EjecutarServicioPROLSinOfertaFinal() {
             }
 
             RespuestaEjecutarServicioPROL(response, function () { return false; });
-        },
-        error: function (data, error) {
-            CloseLoading();
+        })
+        .fail(function (data, error) {
             messageInfoMalo(mensajeSinConexionReserva);
-        }
-    });
+        })
+        .then(function () {
+            CloseLoading();
+        })
 }
 
 function RespuestaEjecutarServicioPROL(response, fnOfertaFinal) {
@@ -1027,29 +1027,29 @@ function ActualizarBtnGuardar(model) {
     $('#btnGuardarPedido').text(model.Prol);
 }
 
-function AceptarObsInformativas() {
-    ShowLoading();
-    jQuery.ajax({
-        type: 'POST',
-        url: urlInsertarDesglose,
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        async: true,
-        success: function (data) {
-            CloseLoading();
-            if (!checkTimeout(data)) return;
+//function AceptarObsInformativas() {
+//    ShowLoading();
+//    jQuery.ajax({
+//        type: 'POST',
+//        url: urlInsertarDesglose,
+//        dataType: 'json',
+//        contentType: 'application/json; charset=utf-8',
+//        async: true,
+//        success: function (data) {
+//            CloseLoading();
+//            if (!checkTimeout(data)) return;
 
-            if (data.success) location.href = urlPedidoValidado;
-            else messageInfoMalo(data.message);
-        },
-        error: function (data, error) {
-            CloseLoading();
-            if (!checkTimeout(data)) return;
+//            if (data.success) location.href = urlPedidoValidado;
+//            else messageInfoMalo(data.message);
+//        },
+//        error: function (data, error) {
+//            CloseLoading();
+//            if (!checkTimeout(data)) return;
 
-            messageInfoMalo("Ocurrió un error al ejecutar la acción. Por favor inténtelo de nuevo.");
-        }
-    });
-}
+//            messageInfoMalo("Ocurrió un error al ejecutar la acción. Por favor inténtelo de nuevo.");
+//        }
+//    });
+//}
 
 function CancelarObsInformativas() {
     if ($('#hdfModificaPedido').val() != 1) {
@@ -1092,67 +1092,67 @@ function MostrarDetalleGanancia() {
     $('#popupGanancias').show();
 }
 
-function InsertarProducto(model, asyncX, urlMobile) {
-    var retorno = new Object();
+//function InsertarProducto(model, asyncX, urlMobile) {    
+//    var retorno = new Object();
 
-    urlPedidoInsert = (!urlMobile ? urlPedidoInsert : baseUrl + "Pedido/" + urlMobile);
-    jQuery.ajax({
-        type: 'POST',
-        url: urlPedidoInsert,
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(model),
-        async: asyncX == undefined || asyncX == null ? true : asyncX,
-        cache: false,
-        success: function (data) {
-            if (!checkTimeout(data)) {
-                CloseLoading();
-                return false;
-            }
+//    urlPedidoInsert = (!urlMobile ? urlPedidoInsert : baseUrl + "Pedido/" + urlMobile);
+//    jQuery.ajax({
+//        type: 'POST',
+//        url: urlPedidoInsert,
+//        dataType: 'json',
+//        contentType: 'application/json; charset=utf-8',
+//        data: JSON.stringify(model),
+//        async: asyncX == undefined || asyncX == null ? true : asyncX,
+//        cache: false,
+//        success: function (data) {
+//            if (!checkTimeout(data)) {
+//                CloseLoading();
+//                return false;
+//            }
 
-            if (data.success != true) {
-                messageInfoError(data.message);
-                CloseLoading();
-                return false;
-            }
+//            if (data.success != true) {
+//                messageInfoError(data.message);
+//                CloseLoading();
+//                return false;
+//            }
 
-            CloseLoading();
+//            CloseLoading();
 
-            setTimeout(function () { }, 2000);
+//            setTimeout(function () { }, 2000);
 
-            ActualizarGanancia(data.DataBarra);
+//            ActualizarGanancia(data.DataBarra);
 
-            TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);
-            dataLayer.push({
-                'event': 'addToCart',
-                'ecommerce': {
-                    'add': {
-                        'actionField': { 'list': 'Estándar' },
-                        'products': [{
-                            'name': data.data.DescripcionProd,
-                            'price': String(data.data.PrecioUnidad),
-                            'brand': data.data.DescripcionLarga,
-                            'id': data.data.CUV,
-                            'category': 'NO DISPONIBLE',
-                            'variant': data.data.DescripcionOferta,
-                            'quantity': Number(model.Cantidad),
-                            'position': 1
-                        }]
-                    }
-                }
-            });
+//            TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);
+//            dataLayer.push({
+//                'event': 'addToCart',
+//                'ecommerce': {
+//                    'add': {
+//                        'actionField': { 'list': 'Estándar' },
+//                        'products': [{
+//                            'name': data.data.DescripcionProd,
+//                            'price': String(data.data.PrecioUnidad),
+//                            'brand': data.data.DescripcionLarga,
+//                            'id': data.data.CUV,
+//                            'category': 'NO DISPONIBLE',
+//                            'variant': data.data.DescripcionOferta,
+//                            'quantity': Number(model.Cantidad),
+//                            'position': 1
+//                        }]
+//                    }
+//                }
+//            });
 
-            CargarPedido();
+//            CargarPedido();
 
-            retorno = data;
-        },
-        error: function (data, error) {
-            CloseLoading();
-        }
-    });
+//            retorno = data;
+//        },
+//        error: function (data, error) {
+//            CloseLoading();
+//        }
+//    });
 
-    return retorno;
-};
+//    return retorno;
+//};
 
 function ValidarPermiso(obj) {
     var permiso = $(obj).attr("disabled") || "";

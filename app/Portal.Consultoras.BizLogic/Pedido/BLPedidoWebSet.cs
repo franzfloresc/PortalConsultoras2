@@ -1,8 +1,11 @@
-﻿using Portal.Consultoras.Data;
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Data;
 using Portal.Consultoras.Data.Pedido;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Pedido;
 using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Transactions;
 
@@ -19,6 +22,37 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 set.Detalles = da.ObtenerDetalles(id);
 
             return set;
+        }
+        
+        public List<BEPedidoWebSetDetalle> GetSetDetalle(int paisId, int campaniaId, long consultoraId, int setId)
+        {
+            var lista = new List<BEPedidoWebSetDetalle>();
+
+            using (IDataReader reader = new DAPedidoWebSet(paisId).GetSetDetalle(campaniaId, consultoraId, setId))
+            {
+                lista = reader.MapToCollection<BEPedidoWebSetDetalle>(closeReaderFinishing: true);
+            }
+
+            return lista;
+        }
+
+
+        public bool EliminarTransaction(int paisId, int id, long ConsultoraId)
+        {
+
+            try
+            {                 
+                var da = new DAPedidoWebSet(paisId);
+                var result = da.Eliminar(id);
+
+                return result > 0;
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, ConsultoraId, paisId);
+                return false;
+            }
         }
 
         public bool Eliminar(int paisId, int id, BEPedidoWebDetalleParametros bePedidoWebDetalleParametros)

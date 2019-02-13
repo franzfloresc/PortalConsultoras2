@@ -3,18 +3,17 @@ using Portal.Consultoras.Entities.Cupon;
 using Portal.Consultoras.Entities.Estrategia;
 using Portal.Consultoras.Entities.PagoEnLinea;
 using Portal.Consultoras.Entities.Pedido;
-using Producto = Portal.Consultoras.Entities.Producto;
 using Portal.Consultoras.Entities.ProgramaNuevas;
 using Portal.Consultoras.Entities.ReservaProl;
 using Portal.Consultoras.Entities.RevistaDigital;
 using Portal.Consultoras.Entities.ShowRoom;
-using Estrategia = Portal.Consultoras.Entities.Estrategia;
-
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.ServiceModel;
 using System.Threading.Tasks;
+using Estrategia = Portal.Consultoras.Entities.Estrategia;
+using Producto = Portal.Consultoras.Entities.Producto;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -659,8 +658,8 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         int ValidarCUVsRecomendados(BEEstrategia entidad);
 
-        [OperationContract]
-        List<BEEstrategia> FiltrarEstrategiaPedido(BEEstrategia entidad);
+        //[OperationContract]
+        //List<BEEstrategia> FiltrarEstrategiaPedido(BEEstrategia entidad);
 
         [OperationContract]
         string ValidarStockEstrategia(BEEstrategia entidad);
@@ -1016,8 +1015,8 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         BERevistaDigitalSuscripcion RDGetSuscripcionActiva(BERevistaDigitalSuscripcion entidad);
 
-        [OperationContract]
-        int InsertarDesglose(BEInputReservaProl input);
+        //[OperationContract]
+        //int InsertarDesglose(BEInputReservaProl input);
 
         [OperationContract]
         string CargarSesionAndDeshacerPedidoValidado(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, string tipo);
@@ -1171,21 +1170,26 @@ namespace Portal.Consultoras.ServiceContracts
 
         #endregion
 
+        #region Pedido Registro Insertar-Actualizar-Eliminar
+
+        [OperationContract]
+        BEPedidoDetalleResult InsertPedidoDetalle(BEPedidoDetalle pedidoDetalle);
+        [OperationContract]
+        BEPedidoDetalleResult UpdatePedidoDetalle(BEPedidoDetalle pedidoDetalle);
+        [OperationContract]
+        Task<BEPedidoDetalleResult> DeletePedido(BEPedidoDetalle pedidoDetalle);
+
+        #endregion
+
         #region PedidoNativo
         [OperationContract]
         BEPedidoProducto GetCUV(BEPedidoProductoBuscar productoBuscar);
-        [OperationContract]
-        BEPedidoDetalleResult InsertPedidoDetalle(BEPedidoDetalle pedidoDetalle);
         [OperationContract]
         BEPedidoWeb GetPedido(BEUsuario usuario);
         [OperationContract]
         bool InsertKitInicio(BEUsuario usuario);
         [OperationContract]
-        BEPedidoDetalleResult UpdatePedidoDetalle(BEPedidoDetalle pedidoDetalle);
-        [OperationContract]
         BEConfiguracionPedido GetConfiguracionPedido(int paisID, string codigoUsuario, int campaniaID, string region, string zona);
-        [OperationContract]
-        Task<BEPedidoDetalleResult> DeletePedido(BEPedidoDetalle pedidoDetalle);
         [OperationContract]
         Task<BEPedidoReservaResult> ReservaPedido(BEUsuario usuario);
         [OperationContract]
@@ -1311,5 +1315,15 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         List<BEEscalaDescuento> ListarEscalaDescuentoZona(int paisID, int campaniaID, string region, string zona);
 
+        /// <summary>
+        /// Obtiene detalle del set del pedido
+        /// </summary>
+        /// <param name="paisId">Pais ID</param>
+        /// <param name="campaniaId">Campania ID</param>
+        /// <param name="consultoraId">Consultora ID</param>
+        /// <param name="setId">Set ID</param>
+        /// <returns></returns>
+        [OperationContract]
+        List<BEPedidoWebSetDetalle> GetListaPedidoWebSetDetalle(int paisId, int campaniaId, long consultoraId, int setId);
     }
 }

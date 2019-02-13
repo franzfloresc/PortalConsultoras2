@@ -59,6 +59,16 @@ var ConstantesModule = (function () {
         NotParticipaProgramaNuevas: "0"
     }
 
+    var _configuracionOferta = {
+        Web: 1701,
+        Liquidacion: 1702,
+        CrossSelling: 1703,
+        Nueva: 1704,
+        Flexipago: 1705,
+        Accesorizate: 1706,
+        ShowRoom: 1707,
+    }
+
     var _tipoEstrategia = {
         RD: "RD",
         HV: "HV",
@@ -73,7 +83,8 @@ var ConstantesModule = (function () {
         OfertasParaMi: "/Estrategia/RDObtenerProductos",
         Lanzamiento: "/Estrategia/LANObtenerProductos",
         GuiaDeNegocioDigitalizada: "/Estrategia/GNDObtenerProductos",
-        HerrameintasVenta: "/Estrategia/HVObtenerProductos"
+        HerrameintasVenta: "/Estrategia/HVObtenerProductos",
+        MasGanadoras: "/Estrategia/MGObtenerProductos"
     }
 
     var _origenPedidoWeb = {
@@ -153,6 +164,27 @@ var ConstantesModule = (function () {
         }
     }
 
+    var _tipoAccionNavegar = {
+        BreadCrumbs: 1,
+        Volver: 2
+    };
+
+    var _editarItemPedido = {
+        Activo: 1,
+        Inactivo: 2
+    };
+
+    var _urlDetalleEstrategia = {
+        obtenerComponentes: '/DetalleEstrategia/ObtenerComponentes',
+        obtenerModelo: '/DetalleEstrategia/ObtenerModelo',
+        obtenerPedidoWebSetDetalle: '/DetalleEstrategia/ObtenerComponentePedido'
+    }
+
+    var _urlPedido = {
+        cargarDetallePedido: '/Pedido/CargarDetallePedido',
+        ejecutarServicioProl: '/Pedido/EjecutarServicioPROL'
+    }
+
     return {
         CodigosPalanca: _codigosPalanca,
         KeysLocalStorage: _keysLocalStorage,
@@ -161,7 +193,11 @@ var ConstantesModule = (function () {
         TipoEstrategia: _tipoEstrategia,
         UrlObtenerEstrategia: _urlObtenerEstrategia,
         OrigenPedidoWeb: _origenPedidoWeb,
-        OrigenPedidoWebEstructura: _origenPedidoWebEstructura
+        OrigenPedidoWebEstructura: _origenPedidoWebEstructura,
+        ConfiguracionOferta: _configuracionOferta,
+        TipoAccionNavegar: _tipoAccionNavegar,
+        EditarItemPedido: _editarItemPedido,
+        UrlDetalleEstrategia: _urlDetalleEstrategia,
+        UrlPedido: _urlPedido
     }
-
 })();

@@ -64,7 +64,6 @@ var ResumenOpcionesModule = (function () {
 
     var AplicarOpciones = function (callFromSeleccionarPaletaOpcion) {
         
-        
         var callCloseElegirOpcionesModal = callFromSeleccionarPaletaOpcion ? !callFromSeleccionarPaletaOpcion : true;
         _componente = ListaOpcionesModule.GetComponente() || _componente;
         if (!(_componente.FactorCuadre === _componente.HermanosSeleccionados.length)) {
@@ -105,7 +104,7 @@ var ResumenOpcionesModule = (function () {
             $(_elements.dataTonoDiv).find(_elements.dataTonoCuv).removeClass(_elements.bordeSeleccionTono);
             $(_elements.dataTonoDiv).find(OpcionPaleta).addClass(_elements.bordeSeleccionTono);
         }
-
+        
         _verificarActivarBtn(codigoVariante);
 
         if (callCloseElegirOpcionesModal) {

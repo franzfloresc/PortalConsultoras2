@@ -40,9 +40,19 @@
     {{#each this}}
     {{#if EliminadoTemporal}}
     {{else}}
-    <div class="contenido_ingresoPedido mouse_encima" data-cuv="{{CUV}}">
-        @*<div class="texto_pedidos celda_codigo">{{CUV}}</div>*@
-        <div class="texto_pedidos celda_producto pedidoPadreToolTip" style="position:relative">
+    <div class="contenido_ingresoPedido mouse_encima
+         {{#iff TipoAccion '==' '1'}}
+            pedido_item_editable
+         {{/iff}}"
+         data-detalle-item="{{PedidoDetalleID}}_{{SetID}}"
+         data-cuv="{{CUV}}"
+         data-SetID="{{SetID}}"
+         data-campania="{{CampaniaID}}"
+         data-tipoestrategia="{{TipoEstrategiaCodigo}}"
+         data-OrigenPedidoWeb="{{OrigenPedidoWeb}}">
+        <div class="texto_pedidos celda_producto pedidoPadreToolTip"
+             onclick="javascript:FichaEditarModule.EditarProducto(this, '{{TipoAccion}}')"
+             style="position:relative">
 
             <span class="producto-codigo">{{CUV}}</span>
             {{#if_eq TipoPedido 'M'}}
@@ -94,11 +104,13 @@
             </div>
             {{/if}}
         </div>
-        <div class="texto_pedidos precioUnitario">
+        <div class="texto_pedidos precioUnitario"
+             onclick="javascript:FichaEditarModule.EditarProducto(this, '{{TipoAccion}}')">
             <input type="hidden" name="hdfLPPrecioU{{PedidoDetalleID}}" value="{{PrecioUnidad}}" class="classPrecioUnidad hdfLPPrecioU" />
             {{SimboloMoneda}} {{FormatoPrecioUnidad}}
         </div>
-        <div class="texto_pedidos subtotal">
+        <div class="texto_pedidos subtotal"
+             onclick="javascript:FichaEditarModule.EditarProducto(this, '{{TipoAccion}}')">
             <span class="precio">
                 {{SimboloMoneda}} {{FormatoPrecioUnidad}}
             </span>
@@ -126,7 +138,7 @@
                    readonly="readOnly" onkeydown="return false;" style="width:90%; padding:4px;" />
             {{else}}
             <input type="text" name="{{Nombre}}" value="{{Nombre}}" maxlength="50" class="classClienteNombre ValidaAlfanumerico txtLPCli"
-                   onblur="BlurF(event, '{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '2', '{{CUV}}', '{{EsBackOrder}}', '{{SetID}}')" style="width: 90%; padding: 4px;"
+                   onblur="BlurF(event, '{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '2', '{{CUV}}', '{{SetID}}')" style="width: 90%; padding: 4px;"
                    datapedido="{{PedidoDetalleID}}" />
             {{/if_eq}}
             {{/if}}
@@ -147,7 +159,7 @@
             {{#iff DescripcionLarga 'Contains' '\''}}
             {{Replace DescripcionLarga '\'' ''}}
             {{/iff}}
-            <a onclick="tooltipDelete('{{PedidoDetalleID}}', '{{SetID}}');"
+            <a onclick="tooltipDelete(event, '{{PedidoDetalleID}}', '{{SetID}}');"
                style="background-image: url('@Url.Content("~/Content/Images/Esika/tacho-copy.png")'); background-repeat:no-repeat; width: 17px; height: 22px; margin: 0 auto;" title="Eliminar"></a>
             {{/if}}
         </div>
@@ -161,15 +173,15 @@
         <div class="stock_content">
             <div class="texto_stock" style="margin-top: 10PX;width:60%">@Constantes.BackOrder.mensajeBackOrderDestokp</div>
             <div class="text_stock" style="margin-top:10px;float:left;width:35%;margin-left:35px;">
-                <a class="btn_no_stock" 
-                   style="font-size:9px;float:left;margin-left:9px;" 
-                   onclick="ValidDeletePedido('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '{{Cantidad}}', '{{ClienteID_}}', '{{CUVReco}}', '{{EsBackOrder}}', '{{SetID}}', false);"
+                <a class="btn_no_stock"
+                   style="font-size:9px;float:left;margin-left:9px;"
+                   onclick="ValidDeletePedido(event, '{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '{{Cantidad}}', '{{ClienteID_}}', '{{CUVReco}}', '{{EsBackOrder}}', '{{SetID}}', false);"
                    href="javascript:;">
                     NO, ELIMÍNALO
                 </a>
-                <a class="btn_si_stock" 
-                   style="float:right;height:35px;line-height:39px;" 
-                   onclick="AceptarBackOrder('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{ClienteID_}}');" 
+                <a class="btn_si_stock"
+                   style="float:right;height:35px;line-height:39px;"
+                   onclick="AceptarBackOrder('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{ClienteID_}}');"
                    href="javascript:;">
                     ¡SÍ, GRACIAS!
                 </a>
@@ -180,38 +192,43 @@
         {{/if}}
         {{/if}}
 
-        <div style="display:none" class="popover bottom" id="tlpDelete_{{PedidoDetalleID}}_{{SetID}}">
-            <div class="arrow"></div>
-            <ul class="list-tooltip">
-                <li data-mensaje-eliminar="directo">¿Quieres eliminar este producto?</li>
-                <li data-mensaje-eliminar="regalo">Si eliminas este producto podrías perder el premio que ganaste ¿Quieres eliminar este producto?</li>
-                <li class="boton-secundario">
-                    <button onclick="btnSalirTlpDelete('{{PedidoDetalleID}}','{{SetID}}');">
-                        No Gracias
-                    </button>
-                </li>
-                <li class="boton-primaria">
-                    <button class="default-background"
-                            onclick="ValidDeletePedido('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '{{Cantidad}}', '{{ClienteID_}}', '{{CUVReco}}', null, '{{SetID}}', {{EnRangoProgNuevas}});">
-                        SÍ, ELIMINAR
-                    </button>
-                </li>
-            </ul>
-        </div>
-        {{#IsNullOrEmpty Mensaje '!='}}
-        <div class="popover bottom" style="width: 357px" id="tlpObservaciones_{{PedidoDetalleID}}_{{SetID}}">
-            <div class="arrow"></div>
-            <ul class="list-tooltip">
-                <li class="icon-alert" style="width:auto"><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt=""></li>
-                <li class="boton-secundario">Este producto tiene observaciones. <button onclick="tooltipObservaciones('{{Mensaje}}');">Ver detalles</button></li>
-            </ul>
-        </div>
 
-        {{/IsNullOrEmpty}}
 
 
 
     </div>
+
+    <div style="display:none" class="popover_pedido bottom" id="tlpDelete_{{PedidoDetalleID}}_{{SetID}}">
+        <div class="arrow"></div>
+        <ul class="list-tooltip">
+            <li data-mensaje-eliminar="directo">¿Quieres eliminar este producto?</li>
+            <li data-mensaje-eliminar="regalo">Si eliminas este producto podrías perder el premio que ganaste ¿Quieres eliminar este producto?</li>
+            <li class="boton-secundario">
+                <button onclick="btnSalirTlpDelete(event, '{{PedidoDetalleID}}','{{SetID}}');">
+                    No Gracias
+                </button>
+            </li>
+            <li class="boton-primaria">
+                <button class="default-background"
+                        onclick="ValidDeletePedido(event, '{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '{{Cantidad}}', '{{ClienteID_}}', '{{CUVReco}}', null, '{{SetID}}', {{EnRangoProgNuevas}});">
+                    SÍ, ELIMINAR
+                </button>
+            </li>
+        </ul>
+    </div>
+    {{#IsNullOrEmpty Mensaje '!='}}
+    <div class="popover_pedido bottom" style="width: 357px" id="tlpObservaciones_{{PedidoDetalleID}}_{{SetID}}">
+        <div class="arrow"></div>
+        <ul class="list-tooltip">
+            <li class="icon-alert" style="width:auto"><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt=""></li>
+            <li class="boton-secundario">Este producto tiene observaciones. <button onclick="tooltipObservaciones('{{Mensaje}}');">Ver detalles</button></li>
+        </ul>
+    </div>
+
+    {{/IsNullOrEmpty}}
+
+
+
     {{/if}}
 
 

@@ -51,9 +51,6 @@
     <DeployOnBuild Condition=" '$(DeployWEB)'!='' ">$(DeployWEB)</DeployOnBuild>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
-      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
-    </Reference>
     <Reference Include="AutoMapper">
       <HintPath>..\Binaries\AutoMapper.dll</HintPath>
     </Reference>
@@ -138,8 +135,8 @@
       <HintPath>..\packages\Microsoft.AspNet.Mvc.5.0.0\lib\net45\System.Web.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Web.Optimization">
-      <HintPath>..\Binaries\System.Web.Optimization.dll</HintPath>
+    <Reference Include="System.Web.Optimization, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.0.0\lib\net40\System.Web.Optimization.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Razor.3.0.0\lib\net45\System.Web.Razor.dll</HintPath>
@@ -235,6 +232,7 @@
     <Compile Include="Controllers\BonificacionesController.cs" />
     <Compile Include="Controllers\BaseAdmController.cs" />
     <Compile Include="Controllers\ProductoRecomendadoController.cs" />
+    <Compile Include="Controllers\TusClientesController.cs" />
     <Compile Include="CustomHelpers\StringsHelper.cs" />
     <Compile Include="Areas\Mobile\MobileAreaRegistration.cs" />
     <Compile Include="Areas\Mobile\Models\BienvenidaModel.cs" />
@@ -294,6 +292,7 @@
     <Compile Include="Controllers\AppController.cs" />
     <Compile Include="Controllers\BuscadorController.cs" />
     <Compile Include="Controllers\MasGanadorasController.cs" />
+    <Compile Include="Controllers\PedidoRegistroController.cs" />
     <Compile Include="Infraestructure\Excel\ExcelProtectionProcessor.cs" />
     <Compile Include="Models\BuscadorYFiltrosCategoriaModel.cs" />
     <Compile Include="Models\BuscadorYFiltrosConfiguracionModel.cs" />
@@ -319,7 +318,16 @@
     <Compile Include="CustomFilters\ValidateAjaxModelAttribute.cs" />
     <Compile Include="Models\CambioTipoNegocioModel.cs" />
     <Compile Include="Controllers\ReporteContratoController.cs" />
+    <Compile Include="Models\Config\ResponseReporte\Estructura\ReporteValidacion.cs" />
+    <Compile Include="Models\Config\ResponseReporte\Estructura\ReporteValidacionCampania.cs" />
+    <Compile Include="Models\Config\ResponseReporte\Estructura\ReporteValidacionComponente.cs" />
+    <Compile Include="Models\Config\ResponseReporte\Estructura\ReporteValidacionOferta.cs" />
+    <Compile Include="Models\Config\ResponseReporte\Estructura\ReporteValidacionPersonalizacion.cs" />
+    <Compile Include="Models\Config\ResponseReporte\OutputReporteValidacion.cs" />
+    <Compile Include="Models\Config\Response\ResponseStatus.cs" />
     <Compile Include="Models\ConsultaCrediticiaExternaMX.cs" />
+    <Compile Include="Models\ConsultaProl\ConsultaStockModel.cs" />
+    <Compile Include="Models\ConsultaProl\RespuestaStockModel.cs" />
     <Compile Include="Models\Estrategia\EstrategiaMDbAdapterModel.cs" />
     <Compile Include="Controllers\OfertaDelDiaController.cs" />
     <Compile Include="CustomHelpers\Infraestructure\Sms\ISmsConfirm.cs" />
@@ -339,6 +347,7 @@
     <Compile Include="Models\DetalleEstrategia\DetalleEstrategiaBreadCrumbsModel.cs" />
     <Compile Include="Models\EstrategiaComponenteModel.cs" />
     <Compile Include="Models\EstrategiaFichaPersonalizadaProductoModel.cs" />
+    <Compile Include="Models\Estrategia\MSPersonalizacionConfiguracionModel.cs" />
     <Compile Include="Models\Estrategia\OfertaDelDia\DataModel.cs" />
     <Compile Include="Models\BarraTippingPoint.cs" />
     <Compile Include="Models\Cache\CacheModel.cs" />
@@ -509,6 +518,19 @@
     <Compile Include="Models\GuiaNegocioModel.cs" />
     <Compile Include="Models\MasGanadorasModel.cs" />
     <Compile Include="Models\ObservacionModel.cs" />
+    <Compile Include="Models\ReporteValidacionShowroom.cs" />
+    <Compile Include="Models\Search\ResponseEvento\Estructura\Evento.cs" />
+    <Compile Include="Models\Search\ResponseEvento\Estructura\EventoConsultora.cs" />
+    <Compile Include="Models\Search\ResponseEvento\Estructura\PersonalizacionNivel.cs" />
+    <Compile Include="Models\Search\ResponseEvento\OutputEvento.cs" />
+    <Compile Include="Models\Search\ResponseEvento\OutputEventoConsultora.cs" />
+    <Compile Include="Models\Search\ResponseNivel\Estructura\Nivel.cs" />
+    <Compile Include="Models\Search\ResponseNivel\OutputNivel.cs" />
+    <Compile Include="Models\Search\ResponseOferta\Estructura\Componente.cs" />
+    <Compile Include="Models\Search\ResponseOferta\Estructura\Estrategia.cs" />
+    <Compile Include="Models\Search\ResponseOferta\Estructura\EstrategiaDetalle.cs" />
+    <Compile Include="Models\Search\ResponseOferta\OutputOferta.cs" />
+    <Compile Include="Models\Search\Response\ResponseStatus.cs" />
     <Compile Include="Models\PagoEnLinea\PagoEnLineaMedioPagoDetalleModel.cs" />
     <Compile Include="Models\PagoEnLinea\PagoEnLineaMedioPagoModel.cs" />
     <Compile Include="Models\PagoEnLinea\PagoEnLineaPasarelaCamposModel.cs" />
@@ -743,6 +765,7 @@
     <Compile Include="Models\TipoEstrategiaModel.cs" />
     <Compile Include="Models\TipoEstrategiaModelo.cs" />
     <Compile Include="Models\TipoLinkModel.cs" />
+    <Compile Include="Models\TusClientes\ConsultarResult.cs" />
     <Compile Include="Models\UpdatePassSACModel.cs" />
     <Compile Include="Models\UrlModel.cs" />
     <Compile Include="Models\UsuarioExternoModel.cs" />
@@ -783,10 +806,12 @@
     <Compile Include="Providers\BuscadorBaseProvider.cs" />
     <Compile Include="Providers\BuscadorYFiltrosProvider.cs" />
     <Compile Include="Providers\CdrProvider.cs" />
+    <Compile Include="Providers\ClienteProvider.cs" />
     <Compile Include="Providers\ConfiguracionManagerProvider.cs" />
     <Compile Include="Providers\ConfiguracionOfertasHomeProvider.cs" />
     <Compile Include="Providers\ConfiguracionPaisDatosProvider.cs" />
     <Compile Include="Providers\ConfiguracionPaisProvider.cs" />
+    <Compile Include="Providers\ConsultaProlProvider.cs" />
     <Compile Include="Providers\EstadoCuentaProvider.cs" />
     <Compile Include="Providers\EstrategiaComponenteProvider.cs" />
     <Compile Include="Providers\EventoFestivoProvider.cs" />
@@ -1371,6 +1396,7 @@
     <Content Include="Content\Banners\FolderContent.txt" />
     <Content Include="Content\Css\Button\style.css" />
     <Content Include="Content\Css\colorpicker\colorpicker.css" />
+    <Content Include="Content\Css\Mobile\Clientes\Asignarcliente.css" />
     <Content Include="Content\Css\Mobile\Buscador\categorias-productos.css" />
     <Content Include="Content\Css\Mobile\Contenedor\Index.css" />
     <Content Include="Content\Css\Mobile\Contenedor\carrusel.individual.css" />
@@ -1385,6 +1411,7 @@
     <Content Include="Content\Css\Mobile\LasMasGanadoras\banner_ofertas_masGanadoras.css" />
     <Content Include="Content\Css\Mobile\LasMasGanadoras\presentacion-seccion-carrusel.css" />
     <Content Include="Content\Css\Mobile\lbel\mi-perfil.css" />
+    <Content Include="Content\Css\Mobile\Pedido\EditarProductoFicha.css" />
     <Content Include="Content\Css\Mobile\Pedido\PedidoGrilla.css" />
     <Content Include="Content\Css\Mobile\ProductoListado\CajaProductoV2.css" />
     <Content Include="Content\Css\Mobile\ProductoListado\CajaProducto.css" />
@@ -1441,6 +1468,7 @@
     <Content Include="Content\Css\Site\Menu\MenuPrincipal.css" />
     <Content Include="Content\Css\Site\Menu\MenuContenedor.css" />
     <Content Include="Content\Css\Site\MisCatalogosYRevistas\MisCatalogosYRevistas.css" />
+    <Content Include="Content\Css\Site\Pedido\EditarProductoFicha.css" />
     <Content Include="Content\Css\Site\Pedido\PedidoGrilla.css" />
     <Content Include="Content\Css\Site\Pedido\PedidoInfo.css" />
     <Content Include="Content\Css\Site\Pedido\PedidoTooltip.css" />
@@ -1461,6 +1489,7 @@
     <Content Include="Content\Css\Site\Shared\menu-secundario-responsive.css" />
     <Content Include="Content\Css\Site\Shared\general.css" />
     <Content Include="Content\Css\Site\ShowRoom.css" />
+    <Content Include="Content\Css\Site\TusClientes\TusClientes_Responsive.css" />
     <Content Include="Content\Images\arrow_left.svg" />
     <Content Include="Content\Images\arrow_right.svg" />
     <Content Include="Content\Images\cerrar-filtros.svg" />
@@ -1663,6 +1692,7 @@
     <Content Include="Content\Images\icono-calendario.svg" />
     <Content Include="Content\Images\icono_avatar_menu.svg" />
     <Content Include="Content\Images\icono_banca_por_internet.png" />
+    <Content Include="Content\Images\icono_buscador.svg" />
     <Content Include="Content\Images\icono_buscador_blanco.svg" />
     <Content Include="Content\Images\icono_cargar_foto_desde_galeria.svg" />
     <Content Include="Content\Images\icono_carrito.svg" />
@@ -4038,6 +4068,7 @@
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\TituloOpcionesSeleccionadasModule.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaAgregar\EstrategiaAgregar.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaAgregar\EstrategiaAgregarProvider.js" />
+    <Content Include="Scripts\PortalConsultoras\EstrategiaAgregar\PedidoRegistro.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaIncentivos\Detalle.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaIncentivos\Index.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaPersonalizada\CajaProducto.js" />
@@ -4074,8 +4105,10 @@
     <Content Include="Scripts\PortalConsultoras\PagoEnLinea\MetodoPago.js" />
     <Content Include="Scripts\PortalConsultoras\PagoEnLinea\PagoVisa.js" />
     <Content Include="Scripts\PortalConsultoras\PagoEnLinea\PasarelaPago.js" />
+    <Content Include="Scripts\PortalConsultoras\Pedido\PedidoProvider.js" />
     <Content Include="Scripts\PortalConsultoras\Pedido\tooltip.js" />
     <Content Include="Scripts\PortalConsultoras\ProductoRecomendado\ProductoRecomendadoModule.js" />
+    <Content Include="Scripts\PortalConsultoras\Pedido\KitNuevas.js" />
     <Content Include="Scripts\PortalConsultoras\ProductoComentario\ProductoComentarioAdmModule.js" />
     <Content Include="Scripts\PortalConsultoras\Cupon\CuponAdm.js" />
     <Content Include="Scripts\PortalConsultoras\Cupon\CuponAdmModule.js" />
@@ -4136,6 +4169,11 @@
     <Content Include="Scripts\PortalConsultoras\ShowRoom\ShowRoom.js" />
     <Content Include="Scripts\PortalConsultoras\TagManager\Liquidacion.js" />
     <Content Include="Scripts\PortalConsultoras\TagManager\Home-Pedido.js" />
+    <Content Include="Scripts\PortalConsultoras\TusClientes\ClientePanelModule.js" />
+    <Content Include="Scripts\PortalConsultoras\TusClientes\PanelListaModule.js" />
+    <Content Include="Scripts\PortalConsultoras\TusClientes\PanelMantenerModule.js" />
+    <Content Include="Scripts\PortalConsultoras\TusClientes\TusClientesModule.js" />
+    <Content Include="Scripts\PortalConsultoras\TusClientes\TusClientesProvider.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\slick.js" />
     <Content Include="Scripts\Tag\jquery.caret.min.js" />
@@ -4506,6 +4544,8 @@
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\template-producto-v2.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\_ChatboMobileLayout.cshtml" />
     <Content Include="package.json" />
+    <Content Include="Areas\Mobile\Views\DetalleEstrategia\ProductoTemplate.cshtml" />
+    <Content Include="Areas\Mobile\Views\DetalleEstrategia\FichaTemplate.cshtml" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
       <SubType>Designer</SubType>
@@ -4709,6 +4749,12 @@
     <None Include="Service References\ServicePedido\PedidoService116.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ServicePedido\PedidoService117.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServicePedido\PedidoService118.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServicePedido\PedidoService118.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -4804,6 +4850,9 @@
     <None Include="Service References\ServiceSAC\SACService63.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ServiceSAC\SACService63.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServiceSAC\SACService7.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -4873,6 +4922,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceUnete\PortalService8.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService9.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceUsuarioExt\UsuarioWebService.wsdl" />
@@ -5541,6 +5593,13 @@
     <Content Include="Views\MisCatalogosRevistas\MisCatalogosYRevistas.cshtml" />
     <Content Include="Views\MisCatalogosRevistas\Index.cshtml" />
     <Content Include="Views\MisCatalogosRevistas\template-revista-slide.cshtml" />
+    <Content Include="Views\DetalleEstrategia\ProductoTemplate.cshtml" />
+    <Content Include="Views\DetalleEstrategia\FichaTemplate.cshtml" />
+    <Content Include="Views\TusClientes\Index.cshtml" />
+    <Content Include="Views\TusClientes\PanelLista.cshtml" />
+    <Content Include="Views\TusClientes\PanelMantener.cshtml" />
+    <Content Include="Views\TusClientes\PanelTest.cshtml" />
+    <Content Include="Views\TusClientes\_Mantener.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

@@ -1,0 +1,161 @@
+﻿@using Portal.Consultoras.Web.Models
+
+@{
+    ViewBag.Title = "Mis clientes";
+    Layout = null;
+    Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
+}
+
+
+@*<link href="/Content/Css/Site/Esika/style.css" rel="stylesheet" />*@
+<link href="/Content/Css/Site/TusClientes/TusClientes_Responsive.css" rel="stylesheet" />
+<link href="/Content/Css/Mobile/Clientes/Asignarcliente.css" rel="stylesheet" />
+
+<div class="titulo_bloque">
+    <div class="container">
+        <div class="row">
+            <div>
+                <h3>Mis <strong>Clientes</strong></h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="row" style="margin-bottom:15px;">
+        <div class="col-md-6 col-xs-12">
+            <input id="txtNombreCliente" class="buscar_cliente" type="text" placeholder="Buscar" value="" />
+        </div>
+
+        <div class="col-md-6 col-xs-12" >
+            <input id="btnBuscarClientes"
+                   type="button"
+                   class="boton_agregar float-md-right"
+                   title="Agregar Cliente +"
+                   value="Agregar Cliente +"
+                   onclick="tusClientesModule.editarCliente(null)" />
+        </div>
+    </div>
+    <div class="col-12" style="margin-bottom:15px;">
+        <div id="divClientes">
+
+        </div>
+    </div>
+
+    <script id="hbsClientes" type="text/x-handlebars-template">
+        <div class="row tabla_cabecera">
+            <div class="col-2">
+                Nombres
+            </div>
+            <div class="col-2">
+                Apellidos
+            </div>
+            <div class="col-2">
+                Teléfono  Fijo
+            </div>
+            <div class="col-2">
+                Celular
+            </div>
+            <div class="col-2">
+                Correo
+            </div>
+            <div class="col-1">
+                Editar
+            </div>
+            <div class="col-1">
+                Eliminar
+            </div>
+        </div>
+        {{# each this.miData as |cliente|}}
+        <div class="row  tabla_item">
+            <div class="col-lg-2 col-md-10">
+                {{NombreCliente}}
+            </div>
+            <div class="col-lg-2 col-md-10">
+                {{ApellidoCliente}}
+            </div>
+            <div class="col-lg-2 col-md-10">
+                {{Telefono}}
+            </div>
+            <div class="col-lg-2 col-md-10">
+                {{Celular}}
+            </div>
+            <div class="col-lg-2 col-md-10">
+                {{eMail}}
+            </div>
+            <div class="col-1">
+                <input type="button"
+                       class="btn_editar"
+                       title="Agregar Cliente"
+                       value=""
+                       onclick="tusClientesModule.editarCliente({{JSON2string cliente}})" />
+            </div>
+            <div class="col-1">
+                <input type="button"
+                       class="btn_eliminar"
+                       title="Agregar Cliente"
+                       value=""
+                       onclick="tusClientesModule.mostarConfirmarEliminarCliente({{ClienteID}})" />
+            </div>
+        </div>
+        {{/each}}
+    </script>
+
+
+
+    <div class="row">
+        <div class="col-2">
+
+        </div>
+        <div class="col-10">
+            <input type="button"
+                   class="boton_agregar float-md-right"
+                   title="Agregar Cliente +"
+                   value="Agregar Cliente +"
+                   onclick="tusClientesModule.editarCliente(null)" />
+        </div>
+    </div>
+
+    <div id="divPopupEditarCliente" style="display:none">
+        <input type="button" onclick="tusClientesModule.ocultarEditarCliente();" value="cerrar" />
+        @Html.Partial("_Mantener", new ClienteModel())
+    </div>
+
+    <div id="divConfirmarEliminarCliente" style="display:none">
+        <input type="button" onclick="tusClientesModule.ocultarConfirmarEliminarCliente();" value="cerrar" />
+        <h1><b>IMPORTANTE</b></h1>
+        <span>¿Estás seguro que quieres eliminar a tu cliente?</span>
+        <div>
+            <button type="button" id="btnConfirmarEliminarCliente" onclick="tusClientesModule.eliminarCliente();">
+                SI, DESEO ELIMINARLO
+            </button>
+            <button type="button" id="btnCancelarEliminarCliente" onclick="tusClientesModule.ocultarConfirmarEliminarCliente();">
+                NO ELIMINAR
+            </button>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/TusClientesIndex")
+
+    <script type="text/javascript">
+        var tusClientesProvider = TusClientesProvider();
+        var tusClientesModule = TusClientesModule({
+            tusClientesProvider,
+            checkTimeout
+        });
+        //var panelMantenerModule = PanelMantenerModule({
+        //    tusClientesProvider,
+        //    setNombreClienteCallback: tusClientesModule.setNombreCliente(),
+        //    mostrarTusClientesCallback: tusClientesModule.buscarClientes,
+        //    panelRegistroHideCallback: tusClientesModule.ocultarEditarCliente()
+        //});
+        $(document).ready(function () {
+            tusClientesModule.init();
+            //panelMantenerModule.init();
+        });
+    </script>
+}

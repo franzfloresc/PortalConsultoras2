@@ -27,13 +27,13 @@ var ComponentesModule = (function () {
         body: {
             modalActivadoClass: "modal_activado"
         },
-        componentes : {
+        componentes: {
             id: "#componentes",
             templateId: "#componentes-template"
         },
         divElegirOpciones: {
             id: "#elegir-opciones-modal",
-            marginRight :"0",
+            marginRight: "0",
             opacity: "1",
             modalFondo: {
                 id: ".modal-fondo",
@@ -55,13 +55,50 @@ var ComponentesModule = (function () {
         $.each(_estrategia.Hermanos, function (index, hermano) {
             hermano.TienenNombreReferencial = false;
             if (hermano.Hermanos != null && hermano.Hermanos.length > 0) {
+                $.each(hermano.Hermanos, function (indVariedad, variedad) {
+                    variedad.TieneStock = estrategia.esEditable || variedad.TieneStock;
+                });
                 if (hermano.NombreComercial.indexOf(hermano.NombreBulk) >= 0) {
                     hermano.TienenNombreReferencial = true;
                 }
             }
         });
         SetHandlebars(_elements.componentes.templateId, _estrategia, _elements.componentes.id);
+
+        _mostrarMensajeTonosAgotados(estrategia);
     };
+
+    var _mostrarMensajeTonosAgotados = function (estrategia) {
+        var hijos = 0;
+        var cta = 0;
+
+        if (estrategia.CodigoVariante == ConstantesModule.CodigoVariedad.ComuestaFija) {
+            $.each(estrategia.Hermanos, function (i, obj) {
+                hijos++;
+                if (!obj.TieneStock) cta++;
+            });
+        }
+        else {
+            $.each(estrategia.Hermanos, function (i, obj) {
+                if (obj.Hermanos !== 'undefined' && obj.Hermanos.length > 0) {
+                    $.each(obj.Hermanos, function (j, k) {
+                        hijos++;
+                        if (!k.TieneStock) cta++;
+                    });
+                }
+                else {
+                    hijos++;
+                    if (!obj.TieneStock) cta++;
+                }
+            });
+        }
+
+        if (!estrategia.esEditable) {
+            if (hijos > 0 && cta > 0) {
+                if (cta < hijos) $('.xmsg-tonos-agotados').show();
+            }
+        }
+    }
 
     var _mostrarModalElegirOpciones = function() {
         if (isMobile()) {
@@ -78,11 +115,13 @@ var ComponentesModule = (function () {
         }
     };
 
-    var SeleccionarComponente = function (cuv) {
+    var SeleccionarComponente = function (cuv, abrir) {
         
         if (typeof cuv === "undefined" ||
             cuv === null ||
             $.trim(cuv) === "") throw "param cuv is not defined or null";
+
+        abrir = abrir == undefined || abrir;
         var componente = {}            
         $.each(_estrategia.Hermanos, function (index, hermano) {
             cuv = $.trim(cuv);
@@ -91,7 +130,9 @@ var ComponentesModule = (function () {
 
                 opcionesEvents.applyChanges("onComponentSelected", componente);
 
-                _mostrarModalElegirOpciones();
+                if (abrir) {
+                    _mostrarModalElegirOpciones();
+                }
 
                 return false;
             }
@@ -113,6 +154,24 @@ var ComponentesModule = (function () {
         } else {
             AnalyticsPortalModule.MarcarPopupEligeXOpciones(_estrategia);
         }
+    }
+
+    var SeleccionarComponenteDinamico = function (cuv) {
+        var componente = {};
+
+        if (typeof cuv === "undefined" || cuv === null || $.trim(cuv) === "")
+            throw "param cuv is not defined or null";
+
+        $.each(_estrategia.Hermanos, function (index, hermano) {
+            cuv = $.trim(cuv);
+
+            if (cuv === hermano.Cuv) {
+                componente = _estrategia.Hermanos[index];
+                opcionesEvents.applyChanges("onComponentSelected", componente);
+
+                return false;
+            }
+        });
     }
 
     var SeleccionarPaletaOpcion = function (event, cuv) {
@@ -182,9 +241,11 @@ var ComponentesModule = (function () {
     function getEstrategia() {
         return _estrategia;
     }
+
     return {
         ListarComponentes: ListarComponentes,
         SeleccionarComponente: SeleccionarComponente,
+        SeleccionarComponenteDinamico: SeleccionarComponenteDinamico,
         SeleccionarPaletaOpcion: SeleccionarPaletaOpcion,
         LimpiarComponentes: LimpiarComponentes,
         GetEstrategia: getEstrategia

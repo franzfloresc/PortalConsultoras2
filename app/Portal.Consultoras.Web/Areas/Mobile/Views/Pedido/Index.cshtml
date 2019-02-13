@@ -449,8 +449,8 @@
         var ofertaLiquidacion = '@Constantes.ConfiguracionOferta.Liquidacion';
         var ofertaAccesorizate = '@Constantes.ConfiguracionOferta.Accesorizate';
 
-        var urlPedidoInsert = '@Url.Action("PedidoInsertar", "Pedido", new { area = "" })';
-        var urlPedidoAgregarProducto = '@Url.Action("PedidoAgregarProducto","Pedido", new { area = ""})';
+        @*var urlPedidoInsert = '@Url.Action("PedidoInsertar", "Pedido", new { area = "" })';*@
+        @*var urlPedidoAgregarProducto = '@Url.Action("PedidoAgregarProducto","Pedido", new { area = ""})';*@
         var urlFindByCUV = '@Url.Action("FindByCUV", "Pedido", new { area = "" })';
         var urlObtenerProductosSugeridos = '@Url.Action("ObtenerProductosSugeridos", "Estrategia", new { area = "" })';
         var urlIngresoFAD = '@Url.Action("IngresoFAD", "Pedido", new { area = "" })';
@@ -460,7 +460,7 @@
         var urlCarruselPrev = "@Url.Content("~/Content/Images/mobile/Esika/previous_ofertas_home.png")";
         var urlCarruselNext = "@Url.Content("~/Content/Images/mobile/Esika/next.png")";
 
-        var urlValidarKitNuevas = '@Url.Action("ValidarKitNuevas", "Pedido", new { area = "" })';
+        var urlValidarKitNuevas = '@Url.Action("ValidarKitNuevas", "PedidoRegistro", new { area = "" })';
         var urlValidarUnidadesPermitidasPedidoProducto = '@Url.Action("ValidarUnidadesPermitidasPedidoProducto", "Accesorizate", new { area = "" })';
         var urlObtenerStockActualProducto = '@Url.Action("ObtenerStockActualProducto", "Accesorizate", new { area = "" })';
         var urlEnHorarioRestringido = '@Url.Action("EnHorarioRestringido", "Pedido", new { area = "" })';
@@ -468,24 +468,23 @@
         var paisIDSesion = '@Model.PaisId';
 
         var urlValidadoPedido = '@Url.Action("Validado", "Pedido", new { area = "Mobile" })';
-        var urlPedidoInsertZe = '@Url.Action("AgregarProductoZE", "Pedido", new { area = "" })';
+        @*var urlPedidoInsertZe = '@Url.Action("AgregarProductoZE", "Pedido", new { area = "" })';*@
 
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
         var productoSugerido = false;
         var productoAgotado = false;
 
         var tipoOrigenEstrategia = 21;
+        var paginaOrigenCupon = 21;
 
         var urlClienteDetalle = "@Url.Action("AgregarCliente", "Cliente", new { area = "Mobile" })";
         var lstClientes = @Html.Raw(@Json.Encode(Model.ListaClientes));
         var urlImagenListaCliente = '@Url.Content("~/Content/Images/arrow.png")';
 
         var tieneCupon = '@Model.TieneCupon';
-        var paginaOrigenCupon = 21;
         var tieneMasVendidos = @Model.TieneMasVendidos;
         var esEmailActivo = '@Model.EmailActivo';
         var viewBagCampaniaActual = '@Model.CampaniaActual';
-        var tipoOrigenEstrategia = 21;
         var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTiCarrusel;
         var origenPedidoWebFichaProducto = @Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTiFicha;
         var MobilePedidoSugerido = @Constantes.OrigenPedidoWeb.MobilePedidoProductoSugeridoCarrusel;

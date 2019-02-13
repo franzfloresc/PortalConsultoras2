@@ -47,5 +47,10 @@
         public int LimiteVenta { get; set; }
         
         public bool EnRangoProgramaNuevas { get; set; }
+
+        public bool EsKitNuevaAuto { get; set; }
+
+        public bool EsEditable { get; set; }
+        public int SetId { get; set; }
     }
 }

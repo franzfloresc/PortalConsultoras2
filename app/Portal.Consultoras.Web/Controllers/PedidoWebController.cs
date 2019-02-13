@@ -59,7 +59,6 @@ namespace Portal.Consultoras.Web.Controllers
                         CampaniaId = model.CampaniaID,
                         ConsultoraId = ObtenerConsultoraId(),
                         Consultora = "",
-                        EsBpt = EsOpt() == 1,
                         CodigoPrograma = userData.CodigoPrograma,
                         NumeroPedido = userData.ConsecutivoNueva
                     };
