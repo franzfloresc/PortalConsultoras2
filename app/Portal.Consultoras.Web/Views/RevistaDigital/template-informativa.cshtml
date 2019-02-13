@@ -199,7 +199,7 @@ else
                 <span class="deseas-cancelar">
                     Solo haz clic en el siguiente botón y dejarás de recibir todos los beneficios que te brinda GANA+
                 </span>
-                <a href="javascript: RDDesuscripcion();" class="suscribete-btn">CANCELA TU SUSCRIPCIÓN AQUÍ</a>
+                <a href="javascript: RDDesuscripcion_pregunta();" class="suscribete-btn">CANCELA TU SUSCRIPCIÓN AQUÍ</a>
             }
             @if (!Model.EsSuscrita)
             {
@@ -223,7 +223,7 @@ else if (Model.CancelarSuscripcion)
                 <span class="deseas-cancelar">
                     Cancela tu suscripción haciendo clic en el siguiente botón y dejarás de recibir todos los beneficios que te brinda GANA+
                 </span>
-                <a href="javascript: RDDesuscripcion();" class="suscribete-btn">CANCELA TU SUSCRIPCIÓN AQUÍ</a>
+                <a href="javascript: RDDesuscripcion_pregunta();" class="suscribete-btn">CANCELA TU SUSCRIPCIÓN AQUÍ</a>
             }
             @if (!Model.EsSuscrita)
             {
@@ -374,58 +374,65 @@ else if (Model.CancelarSuscripcion)
 }
 
 
-    <div class="Content_general_pop_up alerta_cancelar_suscripcion" id="alerta_cancelar_suscripcion" style="display:block;">
+    <div class="Content_general_pop_up alerta_cancelar_suscripcion" id="alerta_cancelar_suscripcion" style="display:none;">
         <div class="popup_rd_bloqueado popup_confirmacion_datos">
             <a class="cerrar_fichaProducto" style="position: absolute; top:0px; right: -35px;">
                 <img src="/Content/Images/cerrar_04_blanco.png" alt="" alternate="" text="">
             </a>
             <div class="contenido-table-datos">
-                <div class="cont-datos cancelar_suscripcion">
+                <div class="cont-datos cancelar_suscripcion" id="pregunta" >
                     <h2>¿Estás seguro/a?</h2>
-                     <img src="/Content/Css/Site/Images/gif_de_ofertas_3.gif" alt="" />
-                    <p>Recuerda que perderás <br />
-                      <span>más de 150 ofertas digitales</span></p>
+                    <img src="/Content/Css/Site/Images/gif_de_ofertas_3.gif" alt="" />
+                    <p>
+                        Recuerda que perderás <br />
+                        <span>más de 150 ofertas digitales</span>
+                    </p>
 
                     <ul class="buttons_cancelar_suscripcion">
-                        <li><button>Seguir suscrito/a</button></li>
-                        <li><button>Cancelar suscripción</button></li>
+                        <li><button onclick="RDDesuscripcion_cerrar();">Seguir suscrito/a</button></li>
+                        <li><button onclick="RDDesuscripcion_motivos();">Cancelar suscripción</button></li>
                     </ul>
 
-                    @*<h1 class="titulo_desuscrita">¡LISTO!</h1>
-                    <h2>Ya no estas suscrita</h2>
-                    <form class="form_desuscrita">
-                        <p>¿Qué podríamos hacer para que vuelvas?</p>
+                  
+                </div>
+                <div class="cont-datos cancelar_suscripcion" id="opciones" style="display:none;">
+                    
 
-                        <label class="container_form_desuscrita">
-                            Las ofertas no te parecían atractivas
-                            <input type="checkbox" checked="checked">
-                            <span class="checkmark_desuscrita"></span>
-                        </label>
-                        <label class="container_form_desuscrita">
-                            Prefieres la guía en físico
-                            <input type="checkbox">
-                            <span class="checkmark_desuscrita"></span>
-                        </label>
-                        <label class="container_form_desuscrita">
-                            No sabías que estabas suscrita
-                            <input type="checkbox">
-                            <span class="checkmark_desuscrita"></span>
-                        </label>
-                        <label class="container_form_desuscrita">
-                            No usas Gana+
-                            <input type="checkbox">
-                            <span class="checkmark_desuscrita"></span>
-                        </label>
-                        <label class="container_form_desuscrita">
-                            Otros
-                            <input type="checkbox">
-                            <span class="checkmark_desuscrita"></span>
-                        </label>
-                    </form>
+                    <h1 class="titulo_desuscrita">¡LISTO!</h1>
+            <h2>Ya no estas suscrita</h2>
+            <form class="form_desuscrita">
+                <p>¿Qué podríamos hacer para que vuelvas?</p>
 
-                    <div style="text-align:center">
-                       <button class="boton_desuscrita">Enviar</button> 
-                    </div>*@
+                <label class="container_form_desuscrita">
+                    Las ofertas no te parecían atractivas
+                    <input type="checkbox" checked="checked">
+                    <span class="checkmark_desuscrita"></span>
+                </label>
+                <label class="container_form_desuscrita">
+                    Prefieres la guía en físico
+                    <input type="checkbox">
+                    <span class="checkmark_desuscrita"></span>
+                </label>
+                <label class="container_form_desuscrita">
+                    No sabías que estabas suscrita
+                    <input type="checkbox">
+                    <span class="checkmark_desuscrita"></span>
+                </label>
+                <label class="container_form_desuscrita">
+                    No usas Gana+
+                    <input type="checkbox">
+                    <span class="checkmark_desuscrita"></span>
+                </label>
+                <label class="container_form_desuscrita">
+                    Otros
+                    <input type="checkbox">
+                    <span class="checkmark_desuscrita"></span>
+                </label>
+            </form>
+
+            <div style="text-align:center">
+               <button onclick="RDDesuscripcion();" class="boton_desuscrita">Enviar</button>
+            </div>
                 </div>
             </div>
 

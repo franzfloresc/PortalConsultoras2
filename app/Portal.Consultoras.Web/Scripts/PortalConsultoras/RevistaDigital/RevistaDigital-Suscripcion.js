@@ -129,6 +129,30 @@ function RDSuscripcionPromise() {
     return d.promise();
 }
 
+
+function RDDesuscripcion_pregunta() {
+
+    $('#alerta_cancelar_suscripcion').show();
+    $('#pregunta').show();
+}
+
+function RDDesuscripcion_cerrar() {
+
+    $('#pregunta').show();
+    $('#opciones').hide();
+    $('#alerta_cancelar_suscripcion').hide();
+   
+}
+
+
+
+function RDDesuscripcion_motivos() {     
+    $('#pregunta').hide();
+    $('#opciones').show();
+}
+
+
+
 function RDDesuscripcion() {
     
     AbrirLoad();
