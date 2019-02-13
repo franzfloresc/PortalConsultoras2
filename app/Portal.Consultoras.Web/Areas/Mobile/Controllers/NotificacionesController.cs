@@ -340,9 +340,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             if (Proceso == "CDR" || Proceso == "CDR-CULM")
             {
-                var cdrWeb = new BECDRWeb();
+                var cdrWeb = new ServiceCDR.BECDRWeb();
                 var logCdrWeb = new BELogCDRWeb();
-                var listaCdrWebDetalle = new List<BECDRWebDetalle>();
+                var listaCdrWebDetalle = new List<ServiceCDR.BECDRWebDetalle>();
                 using (CDRServiceClient sv = new CDRServiceClient())
                 {
                     if (Proceso == "CDR")

@@ -18,9 +18,9 @@ namespace Portal.Consultoras.Web.Providers
             sessionManager = SessionManager.SessionManager.Instance;
         }
         
-        public List<BECDRWeb> CargarBECDRWeb(MisReclamosModel model, int paisId, long consultoraId)
+        public List<ServiceCDR.BECDRWeb> CargarBECDRWeb(MisReclamosModel model, int paisId, long consultoraId)
         {
-            List<BECDRWeb> entidadLista;
+            List<ServiceCDR.BECDRWeb> entidadLista;
             try
             {
                 if (sessionManager.GetCdrWeb() != null)
@@ -28,7 +28,7 @@ namespace Portal.Consultoras.Web.Providers
                     return sessionManager.GetCdrWeb();
                 }
 
-                var entidad = new BECDRWeb
+                var entidad = new ServiceCDR.BECDRWeb
                 {
                     CampaniaID = model.CampaniaID,
                     PedidoID = model.PedidoID,
@@ -51,13 +51,13 @@ namespace Portal.Consultoras.Web.Providers
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, consultoraId.ToString(), paisId.ToString());
                 sessionManager.SetCdrWeb(null);
-                entidadLista = new List<BECDRWeb>();
+                entidadLista = new List<ServiceCDR.BECDRWeb>();
             }
 
             return entidadLista;
         }
 
-        public List<BECDRWebDetalle> CargarDetalle(MisReclamosModel model, int paisId, string codigoIso)
+        public List<ServiceCDR.BECDRWebDetalle> CargarDetalle(MisReclamosModel model, int paisId, string codigoIso)
         {
             try
             {
@@ -68,8 +68,8 @@ namespace Portal.Consultoras.Web.Providers
 
                 model = model ?? new MisReclamosModel();
 
-                List<BECDRWebDetalle> lista;
-                var entidad = new BECDRWebDetalle { CDRWebID = model.CDRWebID };
+                List<ServiceCDR.BECDRWebDetalle> lista;
+                var entidad = new ServiceCDR.BECDRWebDetalle { CDRWebID = model.CDRWebID };
                 using (var sv = new CDRServiceClient())
                 {
                     lista = sv.GetCDRWebDetalle(paisId, entidad, model.PedidoID).ToList();
@@ -86,7 +86,7 @@ namespace Portal.Consultoras.Web.Providers
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, "", codigoIso);
                 sessionManager.SetCDRWebDetalle(null);
-                return new List<BECDRWebDetalle>();
+                return new List<ServiceCDR.BECDRWebDetalle>();
             }
         }
 

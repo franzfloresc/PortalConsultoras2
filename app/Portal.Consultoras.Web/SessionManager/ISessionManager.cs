@@ -31,13 +31,13 @@ namespace Portal.Consultoras.Web.SessionManager
 
         #region CDR
 
-        List<BECDRWebDetalle> GetCDRWebDetalle();
+        List<ServiceCDR.BECDRWebDetalle> GetCDRWebDetalle();
         
-        void SetCDRWebDetalle(List<BECDRWebDetalle> datos);
+        void SetCDRWebDetalle(List<ServiceCDR.BECDRWebDetalle> datos);
         
-        List<BECDRWeb> GetCdrWeb();
+        List<ServiceCDR.BECDRWeb> GetCdrWeb();
 
-        void SetCdrWeb(List<BECDRWeb> datos);
+        void SetCdrWeb(List<ServiceCDR.BECDRWeb> datos);
         
         List<CampaniaModel> GetCdrCampanias();
 

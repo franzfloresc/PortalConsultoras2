@@ -72,22 +72,22 @@ namespace Portal.Consultoras.Web.SessionManager
 
         #region CDR
 
-        public List<BECDRWebDetalle> GetCDRWebDetalle()
+        public List<ServiceCDR.BECDRWebDetalle> GetCDRWebDetalle()
         {
-            return (List<BECDRWebDetalle>)HttpContext.Current.Session[Constantes.ConstSession.CDRWebDetalle];
+            return (List<ServiceCDR.BECDRWebDetalle>)HttpContext.Current.Session[Constantes.ConstSession.CDRWebDetalle];
         }
 
-        public void SetCDRWebDetalle(List<BECDRWebDetalle> datos)
+        public void SetCDRWebDetalle(List<ServiceCDR.BECDRWebDetalle> datos)
         {
             HttpContext.Current.Session[Constantes.ConstSession.CDRWebDetalle] = datos;
         }
 
-        public List<BECDRWeb> GetCdrWeb()
+        public List<ServiceCDR.BECDRWeb> GetCdrWeb()
         {
-            return (List<BECDRWeb>)HttpContext.Current.Session[Constantes.ConstSession.CDRWeb];
+            return (List<ServiceCDR.BECDRWeb>)HttpContext.Current.Session[Constantes.ConstSession.CDRWeb];
         }
 
-        public void SetCdrWeb(List<BECDRWeb> datos)
+        public void SetCdrWeb(List<ServiceCDR.BECDRWeb> datos)
         {
             HttpContext.Current.Session[Constantes.ConstSession.CDRWeb] = datos;
         }
