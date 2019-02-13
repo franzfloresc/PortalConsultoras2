@@ -93,7 +93,7 @@
 </div>
 
 <div class="btn_guardarPedido">
-    <input type="submit" value="@Model.Prol" id="btnGuardarPedido" name="btnGuardarPedido" onclick="EjecutarPROL();" />
+    <input type="submit" style="text-transform:none" value="@Model.Prol" id="btnGuardarPedido" name="btnGuardarPedido" onclick="EjecutarPROL();" />
 </div>
 
 <div class="MensajeAlertaMobile" id="popup-observaciones-prol" style="display:none;">
@@ -199,14 +199,14 @@
                 Model.CodigoISO == Constantes.CodigosISOPais.Dominicana ||
                 Model.CodigoISO == Constantes.CodigosISOPais.PuertoRico)
     {
-        cabezaEscala = "Ganancia estimada total";
+        cabezaEscala = "Ganancia estimada";
         pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
         lbl1Ganancia = "Mis descuentos";
         lbl2Ganancia = "Ganancia estimada *(Guia de negocio y otros)";
     }
     else if (Model.CodigoISO == Constantes.CodigosISOPais.Mexico || Model.CodigoISO == Constantes.CodigosISOPais.Panama)
     {
-        cabezaEscala = "Ganancia estimada total";
+        cabezaEscala = "Ganancia estimada";
         pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros.";
         lbl1Ganancia = "Mis descuentos";
         lbl2Ganancia = "Ganancia estimada *(Revista y otros)";
@@ -264,9 +264,9 @@
 
 <script id="template-pedidototal-superior" type="text/x-handlebars-template">
     <div class="textos_resumen">
-        <span id="lblProductosResumen">HAS AGREGADO :</span>
+        <span id="lblProductosResumen">Has agregado :</span>
         <span id="lblTotalResumen">
-            MONTO TOTAL :
+            Total :
         </span>
 
         <input type="hidden" id="hdeCabezaEscala" value="@cabezaEscala" />
@@ -274,8 +274,8 @@
         <input type="hidden" id="hdeLbl1Ganancia" value="@lbl1Ganancia" />
         <input type="hidden" id="hdeLbl2Ganancia" value="@lbl2Ganancia" />
 
-        <div class="mi_ganancia">
-            @(cabezaEscala.ToUpper().Trim()) :
+        <div class="mi_ganancia" style="text-transform:none">
+            @(cabezaEscala.Trim()) :
         </div>
     </div>
     <div class="montos_resumen">
@@ -425,9 +425,9 @@
                     </div>
                 </div>
                 <div class="precios_item">
-                    <span class="precio_normal_pedido">
+                    @*<span class="precio_normal_pedido">
                         <span>{{SimboloMoneda}} {{detalle.FormatoPrecioUnidad}}</span>
-                    </span>
+                    </span>*@
                     <span class="precio_oferta_pedido">
                         {{#if ../EstadoSimplificacionCuv}}
                         {{#if detalle.IndicadorOfertaCUV}}
@@ -502,7 +502,7 @@
     <div class="separador"></div>
     <div style="margin-left: -28px;">
         <div class="textos_resumen">
-            <span style="margin-left:30px;">HAS AGREGADO :</span>
+            <span style="margin-left:30px;">Has agregado :</span>
             <span>
                 <div class="info_validado">
                     <img src="/Content/Images/Esika/info-copy.png" />
@@ -521,10 +521,10 @@
                         </div>
                     </div>
                 </div>
-                MONTO TOTAL :
+                Total :
             </span>
 
-            <div class="mi_ganancia" style="margin-left: 30px;">
+            <div class="mi_ganancia" style="margin-left: 30px; text-transform:none">
                 @(cabezaEscala) :
             </div>
         </div>

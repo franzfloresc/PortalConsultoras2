@@ -256,18 +256,18 @@
                                 <hr class="separador_montos" />
                                 <div class="caja_montos_textos">
                                     <div class="caja_montos_textos_sinDescuento">
-                                        <span>TOTAL SIN DSCTO.</span>
-                                        <span class="dscto_ofertasNiveles">(-) Dscto. Ofertas Por Niveles</span>
+                                        <span>Subtotal</span>
+                                        <span class="dscto_ofertasNiveles">Descuento ofertas por niveles</span>
                                     </div>
                                     <br />
                                     <p class="monto_con_descuento pMontoCliente default-color" style="display: none;">
                                         <span id="spnNombreCliente"></span>
                                     </p>
-                                    <div class="monto_total">
-                                        <span><b>Monto total:</b></span>
+                                    <div class="monto_total" style="text-transform:none">
+                                        <span><b>Total:</b></span>
                                     </div>
                                     <br />
-                                    <div class="monto_ganancia default-color">
+                                    <div class="monto_ganancia default-color" style="text-transform:none">
                                         <div class="info_extra_Validado abrir_popupMisGanancias">
                                             <img src="/Content/Images/Esika/info-copy.png" onclick="MostrarDetalleGanancia();">
                                         </div>
@@ -284,7 +284,7 @@
                                                 Model.CodigoIso == Constantes.CodigosISOPais.PuertoRico) //PE,CO,EC,GT.SV,DO,PR
                                             {
 
-                                                cabezaEscala = "Ganancia estimada total";
+                                                cabezaEscala = "Ganancia estimada";
                                                 pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocio y Otros";
                                                 lbl1Ganancia = "Mis descuentos";
                                                 lbl2Ganancia = "Ganancia estimada *(Guia de negocio y otros)";
@@ -292,7 +292,7 @@
                                             else if (Model.CodigoIso == Constantes.CodigosISOPais.Panama ||
                                                 Model.CodigoIso == Constantes.CodigosISOPais.Mexico) //PA,MX
                                             {
-                                                cabezaEscala = "Ganancia estimada total";
+                                                cabezaEscala = "Ganancia estimada";
                                                 pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
                                                 lbl1Ganancia = "Mis descuentos";
                                                 lbl2Ganancia = "Ganancia estimada *(Revista y otros)";
