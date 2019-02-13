@@ -3,7 +3,16 @@
 @model Portal.Consultoras.Web.Models.MisDatosModel
 @{
     ViewBag.Title = "Mi Perfil";
-    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+
+    int _origen = ViewBag.origen == null ? 0 : (int)ViewBag.origen;
+    if (_origen == int.Parse(Constantes.IngresoExternoOrigen.ChatBot))
+    {
+        Layout = "~/Areas/Mobile/Views/Shared/_ChatboMobileLayout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+    }
 }
 
 @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
@@ -24,14 +33,23 @@ else
     </style>
 }
 <!-- TÍTULO -->
-<div class="titulo_mobile">
-    @{ var mobileConfiguracion = Html.MobileAppConfiguracion();
-        if (mobileConfiguracion.MostrarBotonAtras)
-        {
-            <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
-        } }
-    &nbsp;&nbsp;&nbsp;&nbsp;MI PERFIL
-</div>
+@if (_origen == int.Parse(Constantes.IngresoExternoOrigen.ChatBot))
+{
+    <div class="titulo_mobile">MI PERFIL</div>
+}
+else
+{
+    <div class="titulo_mobile">
+        @{ var mobileConfiguracion = Html.MobileAppConfiguracion();
+            if (mobileConfiguracion.MostrarBotonAtras)
+            {
+                <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+            }
+
+        }
+        &nbsp;&nbsp;&nbsp;&nbsp;MI PERFIL
+    </div>
+}
 <div class="pestana_esika"></div>
 <div class="pestana_lbel"></div>
 <!-- FIN - TÍTULO -->
@@ -150,11 +168,12 @@ else
                                 <fieldset class="grupo_form_cambio_datos">
                                     <div class="w-88">
                                         <input id="txtEMailMD" name="txtEMailMD" class="w-100" type="text" value="@Model.EMail" readonly />
-                                        <label for="txtEMailMD" class="w-100">Correo Electrónico 
-                                        @if (Model.PaisID != 3)
-                                        {
-                                            <span class="asteriscos">*</span>
-                                        }                                        
+                                        <label for="txtEMailMD" class="w-100">
+                                            Correo Electrónico
+                                            @if (Model.PaisID != 3)
+                                            {
+                                                <span class="asteriscos">*</span>
+                                            }
                                         </label>
                                     </div>
                                     <a href="@Url.Action("ActualizarCorreo", "MiPerfil", new { area = "Mobile" })" title="Cambiar" class="enlace_cambiar_dato w-11 text-right">
@@ -197,11 +216,12 @@ else
                                 <fieldset class="grupo_form_cambio_datos">
                                     <div class="w-88">
                                         <input id="txtTelefonoMD" name="txtTelefonoMD" class="w-100" type="tel" value="@Model.Telefono" maxlength="@Model.limiteMaximoTelef" />
-                                        <label for="txtTelefonoMD" class="w-100">Número fijo 
-                                        @if (Model.PaisID != 3)
-                                        {
-                                            <span class="asteriscos">*</span>
-                                        }                                        
+                                        <label for="txtTelefonoMD" class="w-100">
+                                            Número fijo
+                                            @if (Model.PaisID != 3)
+                                            {
+                                                <span class="asteriscos">*</span>
+                                            }
                                         </label>
                                     </div>
                                 </fieldset>
@@ -226,71 +246,71 @@ else
                     }
                 }
 
-            @if (Model.TieneDireccionEntrega)
-            {
-                <div class="opcion_mi_perfil opcion_direccion_entrega" id="SeccionDireccionEntrega">
-                    <div class="opcion_mi_perfil_titulo">
-                        <span class="icono_mis_datos">
-                            <img src="@Url.Content("~/Content/Images/icono_ubicacion.svg")" alt="Dirección de entrega" />
-                        </span>
-                        <span class="opcion_mi_perfil_titulo_texto text-bold text-uppercase">
-                            Dirección de entrega
-                        </span>
-                        <span class="icono_flecha_despliegue_contenido_mi_perfil">
-                            <img src="@Url.Content("~/Content/Images/flecha_despliegue_opcion_mi_perfil.svg")" alt="" />
-                        </span>
-                    </div>
-                    <div class="opcion_mi_perfil_contenido">
-                        <fieldset class="grupo_form_cambio_datos">
-                            <div class="w-100">
-                                @Html.DropDownListFor(model => model.DireccionEntrega.Ubigeo1, new SelectList(Model.DireccionEntrega.DropDownUbigeo1, "IdParametroUnete", "Nombre"), "--Seleccionar", new { id = "Ubigeo1", Nivel = 6, @class = "w-100", ItemChange = "0" })
-                                <label for="Ubigeo1">Región <span class="asteriscos">*</span></label>
-                            </div>
-                        </fieldset>
-                        <fieldset class="grupo_form_cambio_datos">
-                            <div class="w-100">
-                                <select id="Ubigeo2" name="Ubigeo2" class="w-100" Nivel=7></select>
-                                <label for="Ubigeo2">Comuna <span class="asteriscos">*</span></label>
-                            </div>
-                        </fieldset>
-                        <fieldset class="grupo_form_cambio_datos grupo_form_cambio_datos_campo_direccion">
-                            <div class="w-100">
+                @if (Model.TieneDireccionEntrega)
+                {
+                    <div class="opcion_mi_perfil opcion_direccion_entrega" id="SeccionDireccionEntrega">
+                        <div class="opcion_mi_perfil_titulo">
+                            <span class="icono_mis_datos">
+                                <img src="@Url.Content("~/Content/Images/icono_ubicacion.svg")" alt="Dirección de entrega" />
+                            </span>
+                            <span class="opcion_mi_perfil_titulo_texto text-bold text-uppercase">
+                                Dirección de entrega
+                            </span>
+                            <span class="icono_flecha_despliegue_contenido_mi_perfil">
+                                <img src="@Url.Content("~/Content/Images/flecha_despliegue_opcion_mi_perfil.svg")" alt="" />
+                            </span>
+                        </div>
+                        <div class="opcion_mi_perfil_contenido">
+                            <fieldset class="grupo_form_cambio_datos">
+                                <div class="w-100">
+                                    @Html.DropDownListFor(model => model.DireccionEntrega.Ubigeo1, new SelectList(Model.DireccionEntrega.DropDownUbigeo1, "IdParametroUnete", "Nombre"), "--Seleccionar", new { id = "Ubigeo1", Nivel = 6, @class = "w-100", ItemChange = "0" })
+                                    <label for="Ubigeo1">Región <span class="asteriscos">*</span></label>
+                                </div>
+                            </fieldset>
+                            <fieldset class="grupo_form_cambio_datos">
+                                <div class="w-100">
+                                    <select id="Ubigeo2" name="Ubigeo2" class="w-100" Nivel=7></select>
+                                    <label for="Ubigeo2">Comuna <span class="asteriscos">*</span></label>
+                                </div>
+                            </fieldset>
+                            <fieldset class="grupo_form_cambio_datos grupo_form_cambio_datos_campo_direccion">
+                                <div class="w-100">
 
-                                @Html.TextBoxFor(x => x.DireccionEntrega.Direccion, new { @class = "w-100", id = "Direccion", placeholder = "Ingresa y selecciona tu dirección" })
-                                <label for="Direccion" class="w-100">
-                                    Dirección <span class="asteriscos">*</span>
-                                </label>
-                                <a class="enlace_abrir_mapa" title="Abrir Mapa">
-                                </a>
-                            </div>
-                        </fieldset>
-                        <fieldset class="grupo_form_cambio_datos grupo_form_cambio_datos_campo_direccion">
-                            <div class="w-100">
-                                @Html.TextBoxFor(x => x.DireccionEntrega.Zona, new { @class = "w-100", id = "Zona", maxlength = "400", placeholder = "Ejm: Edificio San Ramón" })                                        
-                                <label for="Zona" class="w-100">
-                                    Zona / N° de Departamento / Calle / Interior 
-                                    @if (Model.PaisID != 3)
-                                    {
-                                        <span class="asteriscos">*</span>
-                                    }
-                                </label>
-                            </div>
-                        </fieldset>
-                        <fieldset class="grupo_form_cambio_datos">
-                            <div class="w-100">
-                                @Html.TextBoxFor(x => x.DireccionEntrega.Referencia, new { @class = "w-100 campo_referencia", id = "Referencia", maxlength = "400", placeholder = "Información adicional" })
-                                <label for="Referencia" class="w-100">
-                                    Referencia
-                                </label>
-                            </div>
-                            @Html.HiddenFor(m => m.DireccionEntrega.Latitud, new { id = "Latitud" })
-                            @Html.HiddenFor(m => m.DireccionEntrega.Longitud, new { id = "Longitud" })
-                            @Html.HiddenFor(m => m.DireccionEntrega.Operacion, new { id = "Operacion" })
-                            @Html.HiddenFor(m => m.DireccionEntrega.DireccionEntregaID, new { id = "DireccionEntregaID" })
-                        </fieldset>
+                                    @Html.TextBoxFor(x => x.DireccionEntrega.Direccion, new { @class = "w-100", id = "Direccion", placeholder = "Ingresa y selecciona tu dirección" })
+                                    <label for="Direccion" class="w-100">
+                                        Dirección <span class="asteriscos">*</span>
+                                    </label>
+                                    <a class="enlace_abrir_mapa" title="Abrir Mapa">
+                                    </a>
+                                </div>
+                            </fieldset>
+                            <fieldset class="grupo_form_cambio_datos grupo_form_cambio_datos_campo_direccion">
+                                <div class="w-100">
+                                    @Html.TextBoxFor(x => x.DireccionEntrega.Zona, new { @class = "w-100", id = "Zona", maxlength = "400", placeholder = "Ejm: Edificio San Ramón" })
+                                    <label for="Zona" class="w-100">
+                                        Zona / N° de Departamento / Calle / Interior
+                                        @if (Model.PaisID != 3)
+                                        {
+                                            <span class="asteriscos">*</span>
+                                        }
+                                    </label>
+                                </div>
+                            </fieldset>
+                            <fieldset class="grupo_form_cambio_datos">
+                                <div class="w-100">
+                                    @Html.TextBoxFor(x => x.DireccionEntrega.Referencia, new { @class = "w-100 campo_referencia", id = "Referencia", maxlength = "400", placeholder = "Información adicional" })
+                                    <label for="Referencia" class="w-100">
+                                        Referencia
+                                    </label>
+                                </div>
+                                @Html.HiddenFor(m => m.DireccionEntrega.Latitud, new { id = "Latitud" })
+                                @Html.HiddenFor(m => m.DireccionEntrega.Longitud, new { id = "Longitud" })
+                                @Html.HiddenFor(m => m.DireccionEntrega.Operacion, new { id = "Operacion" })
+                                @Html.HiddenFor(m => m.DireccionEntrega.DireccionEntregaID, new { id = "DireccionEntregaID" })
+                            </fieldset>
+                        </div>
                     </div>
-                </div>
-            }                
+                }
             </div>
             @if (Model.UsuarioOpciones.Count() > 0)
             {
@@ -304,7 +324,8 @@ else
                         @foreach (var item in Model.UsuarioOpciones)
                         {
                             <div class="permiso_cuenta_opcion">
-                                <div class="permiso_cuenta_opcion_descripcion">@item.Opcion
+                                <div class="permiso_cuenta_opcion_descripcion">
+                                    @item.Opcion
                                     <span class="d-block">@item.Descripcion</span>
                                 </div>
                                 <fieldset class="grupo_form_permiso_cuenta">
