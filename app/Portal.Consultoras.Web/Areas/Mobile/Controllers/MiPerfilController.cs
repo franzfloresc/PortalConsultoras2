@@ -22,7 +22,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             _zonificacionProvider = new ZonificacionProvider();
         }
 
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             BEUsuario beusuario;
             var model = new MisDatosModel();
@@ -103,8 +103,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 p.Posicion.Trim().ToLower().Equals(Constantes.MenuPosicion.Body) &&
                 p.Codigo.Trim().ToLower().Equals(Constantes.MenuCodigo.MiPerfil.ToLower())
             ).ToList();
-            model.DireccionEntrega = _miPerfilProvider.ObtenerDireccionPorConsultora(new DireccionEntregaModel { ConsultoraID = (int)userData.ConsultoraID, PaisID = userData.PaisID });
-            Binder(model.DireccionEntrega);
+            model.DireccionEntrega = await _miPerfilProvider.ObtenerDireccionPorConsultoraAsync(new DireccionEntregaModel { ConsultoraID = (int)userData.ConsultoraID, PaisID = userData.PaisID });
+            await BinderAsync(model.DireccionEntrega);
             model.PermisoMenu = new List<string>();
             foreach (var item in objMenu)
             {
@@ -120,10 +120,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return View(model);
         }
-        private void Binder(DireccionEntregaModel record)
+        private async Task BinderAsync(DireccionEntregaModel record)
         {
-            
-            record.DropDownUbigeo1 = DropDownUbigeoPrincipal();
+
+            record.DropDownUbigeo1 = await _miPerfilProvider.ObtenerUbigeoPrincipalAsync(userData.CodigoISO);
         }
 
         private List<ParametroUneteBE> DropDownUbigeoPrincipal()
