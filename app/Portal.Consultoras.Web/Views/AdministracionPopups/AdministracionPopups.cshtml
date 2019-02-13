@@ -37,9 +37,49 @@
         </div>
     </section>
     <!-- FIN - CABECERA ADMINISTRACIÓN DE POPUPS -->
-    <!-- GRILLA  ADMINISTRACIÓN DE POPUPS -->
+    <!-- GRILLA ADMINISTRACIÓN DE POPUPS -->
     <section class="d__block border__radius__4 vista__administracion__popups__contenido">
+        <div class="d__flex administracion__popups__paginacion__grilla">
+            <div class="d__block cantidad__registros__grilla">
+                Tengo <span class="text__bold">50</span> registros
+            </div>
+            <div class="d__flex paginador__grilla">
+                <div class="d__block">Página</div>
+                <div class="d__flex controles__paginacion__grilla">
+                    <a class="d__block flecha__paginacion flecha__paginacion--izquierda" title="Página Anterior">
+                        <img src="@Url.Content("~/Content/Images/flecha-campo-select.svg")" alt="Anterior">
+                    </a>
+                    <div class="d__block filtro__num__pagina">
+                        <input id="PaginaActual" class="d__inline__block text__center border__color__gray__multimarca border__radius__4 paginacion__actual" type="text" value="1">
+                        <span class="d__inline__block num__total__paginas">de 20</span>
+                    </div>
+                    <a class="d__block flecha__paginacion flecha__paginacion--derecha" title="Página Siguiente">
+                        <img src="@Url.Content("~/Content/Images/flecha-campo-select.svg")" alt="Siguiente">
+                    </a>
+                </div>
+            </div>
+        </div>
         <div class="d__block administracion__popups__grilla" id="divTabla">         
+        </div>
+        <div class="d__flex administracion__popups__paginacion__grilla">
+            <div class="d__block cantidad__registros__grilla">
+                Tengo <span class="text__bold">50</span> registros
+            </div>
+            <div class="d__flex paginador__grilla">
+                <div class="d__block">Página</div>
+                <div class="d__flex controles__paginacion__grilla">
+                    <a class="d__block flecha__paginacion flecha__paginacion--izquierda" title="Página Anterior">
+                        <img src="@Url.Content("~/Content/Images/flecha-campo-select.svg")" alt="Anterior">
+                    </a>
+                    <div class="d__block filtro__num__pagina">
+                        <input id="PaginaActual" class="d__inline__block text__center border__color__gray__multimarca border__radius__4 paginacion__actual" type="text" value="1">
+                        <span class="d__inline__block num__total__paginas">de 20</span>
+                    </div>
+                    <a class="d__block flecha__paginacion flecha__paginacion--derecha" title="Página Siguiente">
+                        <img src="@Url.Content("~/Content/Images/flecha-campo-select.svg")" alt="Siguiente">
+                    </a>
+                </div>
+            </div>
         </div>
     </section>
     <!-- FIN - GRILLA ADMINISTRACIÓN DE POPUPS -->

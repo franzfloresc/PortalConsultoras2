@@ -277,6 +277,92 @@ div.ui-state-highlight{
     border:1px solid #979797;
 }
 
+.administracion__popups__paginacion__grilla,
+.paginador__grilla,
+.controles__paginacion__grilla
+{
+    align-items:center;
+}
+
+.administracion__popups__paginacion__grilla{
+    margin-top: 3px;
+    margin-bottom: 10px;
+    justify-content: flex-end;
+    padding-left: 9px;
+    padding-right: 9px;
+    letter-spacing: 0.3px;
+}
+
+.administracion__popups__paginacion__grilla:last-child{
+    margin-top:10px;
+    margin-bottom:3px;
+}
+
+.cantidad__registros__grilla,
+.paginador__grilla,
+.paginacion__actual
+{
+    color:#000;
+}
+
+.cantidad__registros__grilla,
+.paginador__grilla
+{
+    font-size:14px;
+}
+
+.cantidad__registros__grilla{
+    margin-right:50px;
+}
+
+.controles__paginacion__grilla{
+    width: 136px;
+    justify-content: space-around;
+}
+
+.flecha__paginacion{
+    width:9px;
+}
+
+.flecha__paginacion img{
+    width:100%;
+    height:auto;
+}
+
+.flecha__paginacion--izquierda {
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+.flecha__paginacion--derecha{
+    -moz-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+}
+
+.controles__paginacion__grilla,
+.paginacion__actual
+{
+    margin-left:3px;
+}
+
+.paginacion__actual{
+    width: 30px;
+    height: 26px;
+    font-family:'Lato', sans-serif;
+}
+
+.paginacion__actual,
+.num__total__paginas
+{
+    margin-right:3px;
+}
+
 .administracion__popups__grilla{
     min-height:200px;
     background-color:#F0F5F8;
