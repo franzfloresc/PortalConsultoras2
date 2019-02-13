@@ -36,7 +36,7 @@
     background-color:#f5f5f5;
     padding:26px 15px;
     position:relative;
-    margin-bottom:38px;
+    margin-bottom:46px;
 }
 
     .info__calculo__porcentaje__descuento:after{
@@ -107,7 +107,7 @@
 }
 
 .info__descuento__fijo{
-    margin-bottom:18px;
+    margin-bottom:20px;
 }
 
 .info__descuento__fijo__titulo,
@@ -151,7 +151,7 @@
 }
 
 .seccion__barra__escala__descuento{
-    margin-top:38px;
+    margin-top:43px;
 }
 
 .barra__descuento__wrapper{
@@ -317,7 +317,7 @@
     }
 
     .info__adicional__importante__escala__descuentos{
-        margin-bottom:48px;
+        margin-bottom:44px;
     }
 
     .info__gana__mas{
