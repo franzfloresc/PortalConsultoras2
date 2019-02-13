@@ -468,7 +468,7 @@ var FichaModule = (function (config) {
                 });
 
             if (filterComponente.length) {
-                ComponentesModule.SeleccionarComponente(filterComponente[0].Cuv);
+                ComponentesModule.SeleccionarComponente(filterComponente[0].Cuv, false);
                 ListaOpcionesModule.SeleccionarOpcion(o.CuvProducto);
                 ResumenOpcionesModule.AplicarOpciones();
             }
@@ -675,11 +675,11 @@ var FichaModule = (function (config) {
     };
 
     var _setEstrategiaTipoBoton = function (pEstrategia) {
-        
+
         if (pEstrategia.TipoAccionAgregar <= 0) {
             $(_seccionesFichaProducto.dvContenedorAgregar).hide();
         }
-        
+
         if (pEstrategia.CodigoVariante === _codigoVariedad.IndividualVariable ||
             pEstrategia.CodigoVariante === _codigoVariedad.CompuestaVariable ||
             pEstrategia.CodigoVariante === _codigoVariedad.ComuestaFija ||
@@ -687,7 +687,7 @@ var FichaModule = (function (config) {
             _validarDesactivadoGeneral(pEstrategia);
         }
         if (pEstrategia.CodigoVariante === _codigoVariedad.IndividualVariable ||
-            pEstrategia.CodigoVariante === _codigoVariedad.ComuestaFija ) {
+            pEstrategia.CodigoVariante === _codigoVariedad.ComuestaFija) {
             _validarActivadoGeneral(pEstrategia);
         }
 
@@ -719,17 +719,17 @@ var FichaModule = (function (config) {
                 }
             });
         }
-        
+
     };
     var _validarActivadoGeneral = function (pEstrategia) {
         if (!pEstrategia.esEditable) {
-               $.each(pEstrategia.Hermanos, function (index, hermano) {
+            $.each(pEstrategia.Hermanos, function (index, hermano) {
                 if (!(hermano.Hermanos && hermano.Hermanos.length > 0)) {
                     EstrategiaAgregarModule.HabilitarBoton();
                 }
-        });
+            });
         }
-        
+
     };
 
     var _setEstrategiaImgFondo = function (pEstrategia) {
@@ -926,6 +926,7 @@ var FichaModule = (function (config) {
     }
 
     var _redireccionar = function () {
+        console.log('_redireccionar');
         if (!_config.esEditable)
             window.location = baseUrl + (_config.esMobile ? "Mobile/" : "") + "Ofertas";
         else {
@@ -1060,11 +1061,9 @@ var FichaEditarModule = (function () {
 
         window.setTimeout(function () {
             fichaModule = FichaModule(objFicha);
-            CerrarLoad();
-
             fichaModule.Inicializar();
 
-
+            CerrarLoad();
         }, 10);
     };
 
