@@ -89,20 +89,19 @@
             <div class="texto_pedidos texto_cantidad_pedidos">{{Cantidad}}</div>
             {{else if FlagNueva}}
             <div class="texto_pedidos texto_cantidad_pedidos">{{Cantidad}}</div>
+            {{else if PremioElectivo}}
+            <div class="texto_pedidos texto_cantidad_pedidos">{{Cantidad}}</div>
             {{else}}
             <div class="liquidacion_rango_wrapper_pedido cantidad_detalle_focus" data-cantidad-contenedor="">
                 <input type="text" value="{{Cantidad}}" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral txtLPCant"
                        data-input="cantidad" data-pedido="{{PedidoDetalleID}}" data-SetID="{{SetID}}"
                        @*onkeypress="PreValidarCUV(event);"*@
                        attrKey="PreValidarCUV"
-                       {{#if PremioElectivo}}
-                       readonly="readonly"
-                       {{/if}}
                        onfocus="SeleccionarContenido(this)"
                        onblur="UpdateLiquidacion(event, '{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '1', '{{Cantidad}}', '{{SetID}}', {{EnRangoProgNuevas}})" />
                 <div class="liquidacion_rango_right_pedido">
-                    <a class="mas" {{#unless PremioElectivo}}onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"{{/unless}}><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
-                    <a class="menos" {{#unless PremioElectivo}}onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"{{/unless}}><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
+                    <a class="mas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
+                    <a class="menos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
                 </div>
             </div>
             {{/if}}
