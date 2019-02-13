@@ -55,6 +55,9 @@ var ComponentesModule = (function () {
         $.each(_estrategia.Hermanos, function (index, hermano) {
             hermano.TienenNombreReferencial = false;
             if (hermano.Hermanos != null && hermano.Hermanos.length > 0) {
+                $.each(hermano.Hermanos, function (indVariedad, variedad) {
+                    variedad.TieneStock = estrategia.esEditable || variedad.TieneStock;
+                });
                 if (hermano.NombreComercial.indexOf(hermano.NombreBulk) >= 0) {
                     hermano.TienenNombreReferencial = true;
                 }
