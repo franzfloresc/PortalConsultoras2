@@ -7,9 +7,6 @@
 }
 
 
-@*<link href="/Content/Css/Site/Esika/style.css" rel="stylesheet" />*@
-<link href="/Content/Css/Site/TusClientes/TusClientes_Responsive.css" rel="stylesheet" />
-<link href="/Content/Css/Mobile/Clientes/Asignarcliente.css" rel="stylesheet" />
 
 <div class="titulo_bloque">
     <div class="container">
@@ -28,7 +25,7 @@
             <input id="txtNombreCliente" class="buscar_cliente" type="text" placeholder="Buscar" value="" />
         </div>
 
-        <div class="col-md-6 col-xs-12" >
+        <div class="col-md-6 col-xs-12">
             <input id="btnBuscarClientes"
                    type="button"
                    class="boton_agregar float-md-right"
@@ -136,6 +133,10 @@
         </div>
     </div>
 </div>
+
+@section css{
+    @System.Web.Optimization.Styles.Render("~/Bundle/Css/Responsive/TusClientes")
+}
 
 @section scripts{
 
