@@ -449,16 +449,18 @@ var FichaModule = (function (config) {
     }
 
     var _asignaDetallePedido = function (data, estrategia) {
-        if (!data.length) {
+        data = data || {};
+        data.Detalles = data.Detalles || [];
+        if (!data.Detalles.length == 0) {
             _redireccionar();
             return false;
             //throw 'Componente: No existe detalle de pedido';
         }
 
-        estrategia.Cantidad = data[0].Cantidad;
+        estrategia.Cantidad = data.Cantidad;
         _asignarCantidad(estrategia.Cantidad);
 
-        $.each(data, function (i, o) {
+        $.each(data.Detalles, function (i, o) {
             var filterComponente = estrategia
                 .Hermanos
                 .filter(function (objeto) {
@@ -486,7 +488,7 @@ var FichaModule = (function (config) {
                         set: _config.setId
                     }).done(function (data) {
                         if (data.success) {
-                            _asignaDetallePedido(data.componentes, pEstrategia);
+                            _asignaDetallePedido(data.pedidoSet, pEstrategia);
                         }
                     }).fail(function (data, error) {
                         console.log(data);
