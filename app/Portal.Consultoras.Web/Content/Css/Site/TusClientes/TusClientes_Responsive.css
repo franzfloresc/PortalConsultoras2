@@ -71,18 +71,20 @@ h1, h2, h3, h4, h5, h6 {
     background-color: #efefef;
 }
 
-.titulo_bloque{
+.titulo_bloque {
     border-bottom: 2px solid #000;
     margin-bottom: 30px;
+    background-color: #f9f9f9;
 }
 
     .titulo_bloque h3 {
         color: #fff;
         font-size: 18px;
         background-color: #000;
-        
         text-transform: uppercase;
         padding: 14px 0px;
+        z-index: 1;
+        position: relative;
     }
 
         .titulo_bloque h3 strong {
@@ -109,7 +111,7 @@ h1, h2, h3, h4, h5, h6 {
             -o-transform: skew(20deg);
             transform: skew(20deg);
             position: absolute;
-            z-index: -1;
+            z-index: 0;
             top: 0;
             right: -12px;
         }
@@ -123,4 +125,25 @@ h1, h2, h3, h4, h5, h6 {
     padding: 0px 10px;
     background: url('/Content/Images/Esika/lupa.png') no-repeat right center;
     width: 350px;
+}
+
+.boton_agregar {
+    border: none;
+    background: #000;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: bold;
+    height: 40px;
+    width: 210px;
+    text-align: center;
+}
+
+
+
+
+@media screen and (max-width:768px) {
+    .tabla_cabecera{
+        display:none;
+    }
 }
