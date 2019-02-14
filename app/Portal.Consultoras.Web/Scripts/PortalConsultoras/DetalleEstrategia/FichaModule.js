@@ -601,6 +601,8 @@ var FichaModule = (function (config) {
         estrategia.setId = _config.setId || 0;
         estrategia.TieneStock = _config.esEditable || estrategia.TieneStock;
 
+        estrategia = $.extend(_modeloFicha, estrategia);
+
         return estrategia;
     };
 
