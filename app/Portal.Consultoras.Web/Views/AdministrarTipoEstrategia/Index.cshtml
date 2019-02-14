@@ -342,7 +342,7 @@
         Des += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + rowObject[0] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Delete.png")' alt='Eliminar Mensaje' title='Eliminar Mensaje' border='0' /></a>";
         return Des;
     }
-
+    //      
     function EditarOferta(id) {
         var codigoOferta = jQuery("#listaOfertas").jqGrid('getCell', id, 'CodigoOferta');
         var descripcionOferta = jQuery("#listaOfertas").jqGrid('getCell', id, 'DescripcionOferta');

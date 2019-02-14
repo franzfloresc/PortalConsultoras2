@@ -282,13 +282,13 @@ namespace Portal.Consultoras.ServiceContracts
 
         #region Gestor de Poputs
         [OperationContract]
-        List<BEComunicado> GetListaPoput(int Estado,string Campania);
+        List<BEComunicado> GetListaPoput(int Estado,string Campania , int Paginas,int Filas);
 
         [OperationContract]
         BEComunicado GetDetallePoput(int Comunicadoid);
 
         [OperationContract]
-        int GuardarPoputs(string tituloPrincipal, string descripcion, string Url, string fechaMaxima, string fechaMinima, bool checkDesktop, bool checkMobile, int accionID, string datosCSV, string comunicadoId, string nombreArchivo, string codigoCampania);
+        int GuardarPoputs(string tituloPrincipal, string descripcion, string Url, string fechaMaxima, string fechaMinima, bool checkDesktop, bool checkMobile, int accionID, string datosCSV, string comunicadoId, string nombreArchivo, string codigoCampania,string descripcionAccion);
         #endregion
 
     }

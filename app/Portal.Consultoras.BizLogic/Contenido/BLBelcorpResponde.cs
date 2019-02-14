@@ -57,13 +57,13 @@ namespace Portal.Consultoras.BizLogic
         }
 
         #region Gestor de Poputs
-        public List<BEComunicado> GetListaPoput(int estado, string campania)
+        public List<BEComunicado> GetListaPoput(int estado, string campania, int Paginas, int Filas)
         {
             List<BEComunicado> listsBEComunicado = new List<BEComunicado>();
 
             var daBelcorpResponde = new DABelcorpResponde();
 
-            using (IDataReader reader = daBelcorpResponde.GetListaPoput(estado, campania))
+            using (IDataReader reader = daBelcorpResponde.GetListaPoput(estado, campania, Paginas, Filas))
             {
                 while (reader.Read())
                 {
@@ -77,6 +77,7 @@ namespace Portal.Consultoras.BizLogic
                         Titulo =reader[5] == null ? string.Empty : reader[5].ToString(),
                         DescripcionAccion = reader[6] == null ? string.Empty : reader[6].ToString(),
                         Activo = Convert.ToBoolean( reader[7]),
+                        PaginasMaximas= reader[8] == DBNull.Value ? 0 : int.Parse(reader[8].ToString()),
                     });
                 }
 
@@ -112,17 +113,19 @@ namespace Portal.Consultoras.BizLogic
         }
 
 
-        public int GuardarPoputs(string tituloPrincipal, string descripcion, string url, string fechaMaxima, string fechaMinima, bool checkDesktop, bool checkMobile, int accionID, List<BEComunicadoSegmentacion> listdatosCSV, string comunicadoId, string nombreArchivo, string codigoCampania)
+        public int GuardarPoputs(string tituloPrincipal, string descripcion, string UrlImagen, string fechaMaxima, string fechaMinima, bool checkDesktop, bool checkMobile, int accionID, List<BEComunicadoSegmentacion> listdatosCSV, string comunicadoId, string nombreArchivo, string codigoCampania, string descripcionAccion)
         {
             var daBelcorpResponde = new DABelcorpResponde();
             string[] arrayColumnasBEComunicadoSegmentacion = GetArrayColumnas(listdatosCSV);
-            return daBelcorpResponde.GuardarPoputs(tituloPrincipal, descripcion, url, fechaMaxima, fechaMinima, checkDesktop, checkMobile, accionID, arrayColumnasBEComunicadoSegmentacion,  comunicadoId,  nombreArchivo,  codigoCampania);
+            return daBelcorpResponde.GuardarPoputs(tituloPrincipal, descripcion, UrlImagen, fechaMaxima, fechaMinima, checkDesktop, checkMobile, accionID, arrayColumnasBEComunicadoSegmentacion,  comunicadoId,  nombreArchivo,  codigoCampania, descripcionAccion);
 
         }
 
         private string[] GetArrayColumnas(List<BEComunicadoSegmentacion> listdatosCSV)
         {
             string[] arrayColumnas = new string[4];
+            if (listdatosCSV.Count > 0l)
+            {
                 for (int j = 0; j < listdatosCSV.Count; j++)
                 {
                     arrayColumnas[0] += string.Concat(listdatosCSV[j].RegionId.ToString(), "@");
@@ -130,7 +133,17 @@ namespace Portal.Consultoras.BizLogic
                     arrayColumnas[2] += string.Concat(listdatosCSV[j].Estado.ToString(), "@");
                     arrayColumnas[3] += string.Concat(listdatosCSV[j].Consultoraid.ToString(), "@");
                 }
-            for (int j = 0; j < arrayColumnas.Length; j++) arrayColumnas[j] = arrayColumnas[j].Length > 0 ? arrayColumnas[j].Substring(0, arrayColumnas[j].Length - 1) : string.Empty;
+                for (int j = 0; j < arrayColumnas.Length; j++) arrayColumnas[j] = arrayColumnas[j].Length > 0 ? arrayColumnas[j].Substring(0, arrayColumnas[j].Length - 1) : string.Empty;
+                return arrayColumnas;
+            }
+            else
+            {
+                    arrayColumnas[0]="@";
+                    arrayColumnas[1]="@";
+                    arrayColumnas[2]="@";
+                    arrayColumnas[3]="@";
+               
+            }
             return arrayColumnas;
         }
         #endregion

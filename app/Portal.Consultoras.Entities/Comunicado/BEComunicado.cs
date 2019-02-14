@@ -79,6 +79,10 @@ namespace Portal.Consultoras.Entities
         [Column("TipoDispositivo")]
         public int TipoDispositivo { get; set; }
 
+        [DataMember]
+        [Column("PaginasMaximas")]
+        public int PaginasMaximas { get; set; }
+
     }
 
     

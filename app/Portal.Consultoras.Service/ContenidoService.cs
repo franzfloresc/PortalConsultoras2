@@ -493,22 +493,26 @@ namespace Portal.Consultoras.Service
         #endregion
 
         #region Gestor de Poputs
-        public List<BEComunicado> GetListaPoput(int Estado, string Campania)
+        public List<BEComunicado> GetListaPoput(int Estado, string Campania,int  Paginas, int Filas)
         {
-            return _BLBelcorpResponde.GetListaPoput(Estado, Campania);
+            return _BLBelcorpResponde.GetListaPoput(Estado, Campania, Paginas, Filas);
         }
         public BEComunicado GetDetallePoput(int Comunicadoid)
         {
             return _BLBelcorpResponde.GetDetallePoput(Comunicadoid);
         }
 
-        public int GuardarPoputs(string tituloPrincipal, string descripcion, string Url, string fechaMaxima, string fechaMinima, bool checkDesktop, bool checkMobile, int accionID, string datosCSVJson, string comunicadoId, string nombreArchivo, string codigoCampania)
+        public int GuardarPoputs(string tituloPrincipal, string descripcion, string UrlImagen, string fechaMaxima, string fechaMinima, bool checkDesktop, bool checkMobile, int accionID, string datosCSVJson, string comunicadoId, string nombreArchivo, string codigoCampania, string descripcionAccion)
         {
-            MemoryStream ms = new MemoryStream(System.Text.ASCIIEncoding.ASCII.GetBytes(datosCSVJson));
-            ms.Position = 0;
-            DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(List<BEComunicadoSegmentacion>));
-            List<BEComunicadoSegmentacion> listdatosCSV = (List<BEComunicadoSegmentacion>) ser.ReadObject(ms);
-            return _BLBelcorpResponde.GuardarPoputs(tituloPrincipal, descripcion, Url, fechaMaxima, fechaMinima, checkDesktop, checkMobile, accionID, listdatosCSV,  comunicadoId,  nombreArchivo,  codigoCampania);
+            List<BEComunicadoSegmentacion> listdatosCSV = new List<BEComunicadoSegmentacion>();
+            if ( datosCSVJson!="null")
+            {
+                MemoryStream ms = new MemoryStream(System.Text.ASCIIEncoding.ASCII.GetBytes(datosCSVJson));
+                ms.Position = 0;
+                DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(List<BEComunicadoSegmentacion>));
+                listdatosCSV = (List<BEComunicadoSegmentacion>)ser.ReadObject(ms);
+            }
+                return _BLBelcorpResponde.GuardarPoputs(tituloPrincipal, descripcion, UrlImagen, fechaMaxima, fechaMinima, checkDesktop, checkMobile, accionID, listdatosCSV,  comunicadoId,  nombreArchivo,  codigoCampania, descripcionAccion);
         }
 
         #endregion

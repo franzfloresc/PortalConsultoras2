@@ -20,8 +20,11 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class AdministracionPopupsController : BaseAdmController
     {
+        int NUMERO_FILAS = 2;
+        int PAGINAS_MAXIMAS = 0;
         public ActionResult Index()
         {
+            @ViewBag.NumeroFila = NUMERO_FILAS;
             //if (!UsuarioModel.HasAcces(ViewBag.Permiso, "AdministrarGuiaNegocioDigitalizada/Index"))
             //    return RedirectToAction("Index", "Bienvenida");
             return View("AdministracionPopups", CargaInicial());
@@ -78,7 +81,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
             }
-            return Json( new { dataerror=false, archivo= string.Concat( "Archivo ",filename) , listArchivo = listArchivo }, JsonRequestBehavior.AllowGet);
+            return Json( new { dataerror=false, archivo= filename , listArchivo = listArchivo }, JsonRequestBehavior.AllowGet);
         }
 
 
@@ -90,6 +93,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 listaCampania = ObtenerCampaniasPorPaisPoput(Convert.ToInt32(userData.PaisID))
             };
+
             return ComunicadoModel;
         }
 
@@ -116,7 +120,7 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(objetoComunicadoModel, JsonRequestBehavior.AllowGet);
     }
 
-    public JsonResult GetCargaListadoPoput(int Estado, string Campania)
+    public JsonResult GetCargaListadoPoput(int Estado, string Campania, int Paginas, int Filas)
         {
             List<ComunicadoModel> listaComunicadoModel;
 
@@ -124,19 +128,23 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (ContenidoServiceClient sv= new ContenidoServiceClient())
             {
-                var listContenidoService = sv.GetListaPoput(Estado, Campania).ToList();
+                var listContenidoService = sv.GetListaPoput(Estado, Campania, Paginas, Filas).ToList();
                     listaComunicadoModel = GetAutoMapperManualLista(listContenidoService);
-                    //Mapper.Map<List<ServiceContenido.BEComunicado>, List<ComunicadoModel>>(listContenidoService);
                 }
 
-        }
+                if (listaComunicadoModel.Count > 0)
+                {
+                    PAGINAS_MAXIMAS = listaComunicadoModel.FirstOrDefault().PaginasMaximas;
+                    listaComunicadoModel.Update(x => x.UrlImagen = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, x.UrlImagen));
+                }
+            }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 listaComunicadoModel = new List<ComunicadoModel>();
             }
              
-              return Json(listaComunicadoModel, JsonRequestBehavior.AllowGet);
+              return Json(new { Paginamaximas= PAGINAS_MAXIMAS, listaComunicadoModel =listaComunicadoModel }, JsonRequestBehavior.AllowGet);
     }
 
         private List<ComunicadoModel> GetAutoMapperManualLista(List<ServiceContenido.BEComunicado> listContenidoService)
@@ -147,14 +155,16 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 listComunicadoModel.Add(
                     new ComunicadoModel() {
-                        ComunicadoId=Convert.ToInt32( item.ComunicadoId),
-                        Numero=item.Numero,
-                        UrlImagen=GetImagen(item.UrlImagen),
-                        FechaInicio_=item.FechaInicio,
+                        ComunicadoId = Convert.ToInt32(item.ComunicadoId),
+                        Numero = item.Numero,
+                        UrlImagen = item.UrlImagen,
+                        NombreImagen = GetImagen(item.UrlImagen),
+                        FechaInicio_ =item.FechaInicio,
                         FechaFin_=item.FechaFin,
                         Titulo=item.Titulo,
                         DescripcionAccion=item.DescripcionAccion,
-                        Activo=item.Activo
+                        Activo=item.Activo,
+                        PaginasMaximas=item.PaginasMaximas
                     }
                     );
 
@@ -165,54 +175,56 @@ namespace Portal.Consultoras.Web.Controllers
 
         private ComunicadoModel GetAutoMapperManualObjeto(ServiceContenido.BEComunicado objetoContenidoService)
         {
-          //  string fullPathBridge = Server.MapPath(Path.Combine("../Images/AdministracionPoput/"));
             return  new ComunicadoModel()
             {
          
-            ComunicadoId = Convert.ToInt32(objetoContenidoService.ComunicadoId),
+             ComunicadoId = Convert.ToInt32(objetoContenidoService.ComunicadoId),
              Descripcion = objetoContenidoService.Descripcion,
              Activo = objetoContenidoService.Activo,
              DescripcionAccion = objetoContenidoService.DescripcionAccion,
              SegmentacionID = Convert.ToInt32( objetoContenidoService.SegmentacionID),
-             UrlImagen =  string.Concat("../Images/AdministracionPoput/", GetImagen( objetoContenidoService.UrlImagen)),
-             NombreImagen = GetImagen(objetoContenidoService.UrlImagen),
+             UrlImagen = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, objetoContenidoService.UrlImagen) ,
+             NombreImagen =objetoContenidoService.UrlImagen,
              Orden = objetoContenidoService.Orden,
              NombreArchivoCCV = objetoContenidoService.NombreArchivoCCV,
              FechaInicio_ = objetoContenidoService.FechaInicio,
              FechaFin_ = objetoContenidoService.FechaFin,
              TipoDispositivo=objetoContenidoService.TipoDispositivo,
-             
-
          };
-            //Server.MapPath(Path.Combine(Route_DirectoryServices.ToString())) 
-
-
-
         }
 
         private string GetImagen(string urlImagen)
         {
-            if (urlImagen != string.Empty) {
+            if (urlImagen != string.Empty)
+            {
                 string[] array = urlImagen.Split('/');
                 urlImagen = array[array.Length - 1].ToString();
-                    }
+            }
             return urlImagen;
         }
+
+
         #endregion
 
         [HttpPost]
         public ActionResult GetGuardarPoput()
         {
+            string UrlImagen = string.Empty;
             int result = 0;
-            if (Request.Files.Count > 0)
+            if (Request.Files["imagen"] != null)
             {
-                HttpPostedFileBase frmDataImagen = Request.Files["imagen"];
-                //GetGuardarImagenServidor(frmDataImagen);
-
+               HttpPostedFileBase frmDataImagen = Request.Files["imagen"];
+               string urlNueva=  GetGuardarImagenServidor(frmDataImagen.FileName, Request.Form["imagenAnterior"]);
+                UrlImagen = urlNueva;
+            }
+            else
+            {
+                UrlImagen = Request.Form["imagenAnterior"];
+            }
                 string comunicadoId = Request.Form["comunicadoId"];
                 string tituloPrincipal = Request.Form["txtTituloPrincipal"];
-                string descripcion= Request.Form["txtDescripcion"];
-                string Url = Request.Form["txtUrl"];
+                string descripcion = Request.Form["txtDescripcion"];
+                string descripcionAccion = Request.Form["txtUrl"];
                 string fechaMaxima = Request.Form["fechaMax"];
                 string fechaMinima= Request.Form["fechaMin"];
                 bool checkDesktop = Convert.ToBoolean(Request.Form["checkDesktop"]);
@@ -223,34 +235,24 @@ namespace Portal.Consultoras.Web.Controllers
                
                 using (ContenidoServiceClient svr = new ContenidoServiceClient())
                 {
-                    result = svr.GuardarPoputs(tituloPrincipal, descripcion, Url, fechaMaxima, fechaMinima, checkDesktop, checkMobile, accionID, Request.Form["datosCSV"], comunicadoId, nombreArchivo, codigoCampania);
-                    if (result > 0)
-                    {
-                        return Json(new
-                        {
-                            success = false,
-                            message = "La dirección de correo electrónico ingresada ya pertenece a otra Consultora.",
-                            extra = ""
-                        });
-                    }
+                    result = svr.GuardarPoputs(tituloPrincipal, descripcion, UrlImagen, fechaMaxima, fechaMinima, checkDesktop, checkMobile, accionID, Request.Form["datosCSV"], comunicadoId, nombreArchivo, codigoCampania, descripcionAccion);
                 }
-
-            }
-
-                return Json(1, JsonRequestBehavior.AllowGet);
+            
+            
+                return Json(result, JsonRequestBehavior.AllowGet);
         }
 
       
-        private void GetGuardarImagenServidor(HttpPostedFileBase frmDataImagen)
+        private string GetGuardarImagenServidor(string imagenActual, string imagenAnterior)
         {
-            string imagen = "imagen.jpg";
-            var path = Path.Combine(Globals.RutaTemporales, imagen);
+       
+            var path = Path.Combine(Globals.RutaTemporales, imagenActual);
             var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
             var time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
             var newfilename = userData.CodigoISO + "_" + time + "_" + "01" + "_" + FileManager.RandomString() + ".png";
-            if (imagen != "") ConfigS3.DeleteFileS3(carpetaPais, imagen);
+            if (imagenAnterior != "") ConfigS3.DeleteFileS3(carpetaPais, imagenAnterior);
             ConfigS3.SetFileS3(path, carpetaPais, newfilename);
-            throw new NotImplementedException();
+            return newfilename;
         }
     }
 }
