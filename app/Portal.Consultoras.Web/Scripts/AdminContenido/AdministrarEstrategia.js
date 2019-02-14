@@ -1174,10 +1174,13 @@
     }
 
     var _fnGrilla = function () {
+
+
         $("#divSeccionProductos").show();
         $("#list").jqGrid("GridUnload");
         var tipo = $("#ddlTipoEstrategia").find(":selected").data("id");
         var codigo = $("#ddlTipoEstrategia").find(":selected").data("codigo");
+          
 
         var colNameActions = (codigo == _codigoEstrategia.ShowRoom) ? "Set" : "";
         var hideColProducts = (codigo == _codigoEstrategia.ShowRoom) ? false : true;
@@ -1204,7 +1207,8 @@
                 codigo == "008" ||
                 codigo == "010" ||
                 codigo == _codigoEstrategia.ShowRoom ||
-                codigo == _codigoEstrategia.HerramientaVenta),
+                codigo == _codigoEstrategia.HerramientaVenta ||
+                codigo == _codigoEstrategia.ArmaTuPack),
             multiselectWidth: 35,
             colNames: [
                 "EstrategiaID", "Orden", "#", "Pedido Asociado", "Precio", "CUV2", "Descripción", "Limite Venta", "Código SAP", "ImagenURL",
@@ -1405,6 +1409,10 @@
         if (tipo == "4" || codigo == "005" || codigo == "007" ||
             codigo == "008" || codigo == "010" || codigo == _codigoEstrategia.ShowRoom || codigo == _codigoEstrategia.HerramientaVenta) {
             $("#list").jqGrid("hideCol", ["Orden"]);
+        }
+
+        if (codigo == _codigoEstrategia.ArmaTuPack) {
+            $("#list").jqGrid("hideCol", ["Orden", "ID", "NumeroPedido","ImagenProducto"]);
         }
 
         $("<span style=\"position: absolute;margin-top: 10px;\">(*)</span>").prependTo("#jqgh_list_cb");
@@ -3235,7 +3243,10 @@
                 codigo == _codigoEstrategia.PackAltoDesembolso ||
                 codigo == _codigoEstrategia.GuiaDeNegocio ||
                 codigo == _codigoEstrategia.LosMasVendidos ||
-                codigo == _codigoEstrategia.ShowRoom) {
+                codigo == _codigoEstrategia.ShowRoom ||
+                codigo == _codigoEstrategia.ArmaTuPack
+
+            ) {
                 $("#mensajeActivarDesactivar").show();
             } else {
                 $("#mensajeActivarDesactivar").hide();
