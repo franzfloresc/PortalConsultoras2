@@ -32,6 +32,10 @@
     color: #808080;
 }
 
+.AsignarCliente_bloque .col-xs-12 {
+    margin-bottom: 110px;
+}
+
 .btnShowCliente li {
     display: inline-block;
     font-size: 13px;
@@ -39,7 +43,7 @@
 
 .contenedor_seleccion {
     position: fixed;
-    width: 330px;
+    width: 100%;
     top: 0;
     right: 0;
     overflow-y: hidden;

@@ -1488,6 +1488,7 @@
     <Content Include="Content\Css\Site\Shared\general.css" />
     <Content Include="Content\Css\Site\ShowRoom.css" />
     <Content Include="Content\Css\Site\TusClientes\TusClientes_Responsive.css" />
+    <Content Include="Content\Images\arrow-left.png" />
     <Content Include="Content\Images\arrow_left.svg" />
     <Content Include="Content\Images\arrow_right.svg" />
     <Content Include="Content\Images\borrar_tusclientes.svg" />
@@ -1704,6 +1705,7 @@
     <Content Include="Content\Images\icono_salvavidas.svg" />
     <Content Include="Content\Images\icono_sin_resultados_busqueda.svg" />
     <Content Include="Content\Images\icono_tooltip_informativo.svg" />
+    <Content Include="Content\Images\icon_xls.svg" />
     <Content Include="Content\Images\imagen_prod_no_disponible.jpg" />
     <Content Include="Content\Images\imagen_prod_no_disponible.png" />
     <Content Include="Content\Images\imagen_prod_no_disponible.svg" />
