@@ -1,6 +1,6 @@
 ﻿<script id="resumenCampania-template" type="text/x-handlebars-template">
     <div class="info_productos_carrito">
-        Has agregado <span>{{cantidadProductos}}</span> unidades.<br />
+        Hay (<span>{{cantidadProductos}}</span>) unidades en tu carrito<br />
         Últimos agregados:
     </div>
     {{#each this.ultimosTresPedidos}}
@@ -18,8 +18,8 @@
             <div class="tooltip_importe">
                 <div class="left_reservado">
                     <div class="datos_Reservado">
-                        <span>Total sin Dscto. </span>
-                        <span>Dscto por niveles</span>
+                        <span>Subtotal: </span>
+                        <span>Descuento por niveles:</span>
                     </div>
                 </div>
                 <div class="right_reservado">
@@ -30,9 +30,9 @@
                 </div>
             </div>
         </div>
-        PEDIDO TOTAL
+        Total:
         <span>{{SimboloMoneda}} <span data-pedidocondescuento="">{{montoWebConDescuentoStr}}</span></span>
     </div>
     <hr class="clear" />
-    <a href="javascript:;" onclick="RedirectIngresaTuPedido(this);" class="ver_pedido" role="menu" region="Superior" title="Ver mi pedido" id="lnk-sup-ver-mi-pedido">VER TODO MI PEDIDO</a>
+    <a href="javascript:;" onclick="RedirectIngresaTuPedido(this);" class="ver_pedido" role="menu" region="Superior" title="Ver mi pedido" id="lnk-sup-ver-mi-pedido">Ver mi carrito</a>
 </script>
