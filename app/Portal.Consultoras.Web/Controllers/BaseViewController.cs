@@ -756,19 +756,12 @@ namespace Portal.Consultoras.Web.Controllers
 
         private bool GetMostrarCliente(bool esEditar)
         {
-            var mostrar = false;
-
-#if DEBUG
-
-            mostrar = esEditar && _tablaLogicaProvider.GetTablaLogicaDatoValorBool(
+            var mostrar = esEditar && _tablaLogicaProvider.GetTablaLogicaDatoValorBool(
                             userData.PaisID,
                             Constantes.TablaLogica.PantallaResponsive,
                             Constantes.TablaLogicaDato.PantallasResponsive.MisClientes,
                             false
                             );
-
-#endif
-
             return mostrar;
 
         }

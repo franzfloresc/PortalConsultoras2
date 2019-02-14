@@ -9,6 +9,7 @@
 
 @*<link href="/Content/Css/Site/Esika/style.css" rel="stylesheet" />*@
 <link href="/Content/Css/Site/TusClientes/TusClientes_Responsive.css" rel="stylesheet" />
+<link href="/Content/Css/Mobile/Clientes/Asignarcliente.css" rel="stylesheet" />
 
 <div class="titulo_bloque">
     <div class="container">
@@ -22,7 +23,7 @@
 
 <div class="container">
 
-    <div class="row">
+    <div class="row" style="margin-bottom:15px;">
         <div class="col-md-6 col-xs-12">
             <input id="txtNombreCliente" class="buscar_cliente" type="text" placeholder="Buscar" value="" />
         </div>
@@ -31,14 +32,15 @@
             <input id="btnBuscarClientes"
                    type="button"
                    class="boton_agregar float-md-right"
-                   title="Agregar Cliente"
-                   value="Agregar Cliente"
+                   title="Agregar Cliente +"
+                   value="Agregar Cliente +"
                    onclick="tusClientesModule.editarCliente(null)" />
         </div>
     </div>
+    <div class="col-12" style="margin-bottom:15px;">
+        <div id="divClientes">
 
-    <div id="divClientes">
-
+        </div>
     </div>
 
     <script id="hbsClientes" type="text/x-handlebars-template">
@@ -67,19 +69,19 @@
         </div>
         {{# each this.miData as |cliente|}}
         <div class="row  tabla_item">
-            <div class="col-2">
+            <div class="col-lg-2 col-md-10">
                 {{NombreCliente}}
             </div>
-            <div class="col-2">
+            <div class="col-lg-2 col-md-10">
                 {{ApellidoCliente}}
             </div>
-            <div class="col-2">
+            <div class="col-lg-2 col-md-10">
                 {{Telefono}}
             </div>
-            <div class="col-2">
+            <div class="col-lg-2 col-md-10">
                 {{Celular}}
             </div>
-            <div class="col-2">
+            <div class="col-lg-2 col-md-10">
                 {{eMail}}
             </div>
             <div class="col-1">
@@ -108,9 +110,9 @@
         </div>
         <div class="col-10">
             <input type="button"
-                   class="btn btn-primary"
-                   title="Agregar Cliente"
-                   value="Agregar Cliente"
+                   class="boton_agregar float-md-right"
+                   title="Agregar Cliente +"
+                   value="Agregar Cliente +"
                    onclick="tusClientesModule.editarCliente(null)" />
         </div>
     </div>
