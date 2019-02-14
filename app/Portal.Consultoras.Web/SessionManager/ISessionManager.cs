@@ -66,11 +66,6 @@ namespace Portal.Consultoras.Web.SessionManager
 
         void SetNroPedidosCDRConfig(int cantidad);//HD-3412 EINCA
 
-        int? GetCantidadSolPedidoAprob(); //HD-3412 EINCA
-
-        void SetCantidadSolPedidoAprob(int cantidad);//HD-3412 EINCA
-
-
         void SetPedidoWeb(BEPedidoWeb pedidoWeb);
 
         List<BEPedidoWebDetalle> GetDetallesPedido();

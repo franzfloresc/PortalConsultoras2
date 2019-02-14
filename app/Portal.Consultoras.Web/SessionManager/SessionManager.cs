@@ -1345,20 +1345,7 @@ namespace Portal.Consultoras.Web.SessionManager
             return (string)HttpContext.Current.Session[Constantes.ConstSession.JwtApiSomosBelcorp];
         }
 
-        //HD-3412 EINCA
-        public int? GetCantidadSolPedidoAprob() {
-            int valor = 0;
-            var result = int.TryParse(Convert.ToString(HttpContext.Current.Session["CantidadSolPedidoAprob"]), out valor);
-            if (result)
-                return valor;
-            else
-                return null;
-        }
-        //HD-3412 EINCA
-        public void SetCantidadSolPedidoAprob(int cantidad) {
-            HttpContext.Current.Session["CantidadSolPedidoAprob"] = cantidad;
-        }
-
+      
         //HD-3412 EINCA
         public int? GetNroPedidosCDRConfig()
         {
