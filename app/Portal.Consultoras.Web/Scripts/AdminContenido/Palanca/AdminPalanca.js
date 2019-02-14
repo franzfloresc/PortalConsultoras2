@@ -338,12 +338,6 @@ function IniDialogs() {
                     return false;
                 }
 
-                // debe tomar el seleccionado, para el caso tipo presentacion = 9
-                //if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") === _palanca.showroom) {
-                //    desktopTipoPresentacion = _tipopresentacion.showroom;
-                //    mobileTipoPresentacion = _tipopresentacion.banner;
-                //}
-
                 if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") === _palanca.odd) {
                     desktopTipoPresentacion = _tipopresentacion.odd;
                     mobileTipoPresentacion = _tipopresentacion.odd;
