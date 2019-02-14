@@ -235,8 +235,11 @@
         <input type="hidden" class="hdBuscadorJSON" value="{{JSON2string item}}" />
 
         <div class="row flex-row justify-content-center ml-0 mr-0">
-            <figure class="col-12 pl-0 pr-0 ficha__producto__imagen text-center">
+            <figure class="col-12 pl-0 pr-0 row flex-row ml-0 mr-0 justify-content-center align-items-end ficha__producto__imagen text-center">
                 <img data-src="{{Imagen}}" data-src-error="@Url.Content("~/Content/Images/oferta-sin-imagen.svg")" class="lazy redireccionarFicha" />
+                <a title="Ver detalle" class="row flex-row ml-0 mr-0 justify-content-center align-items-center col pl-0 pr-0 text-bold text-uppercase mostrarEnDesktop btn__ver__detalle">
+                    Ver detalle
+                </a>
             </figure>
             <div class="col-12 pl-0 pr-0 ficha__producto__descrip d-block mx-auto text-left">
                 <div class="col-12 pl-0 pr-0 ficha__producto__descrip__marca__pais text-uppercase">
@@ -267,7 +270,6 @@
                         <span class="col-12 pl-0 pr-0 text-bold d-inline-block">
                         </span>
                         {{/if}}
-
                     </a>
                     <!-- FIN - BOTÓN ELIGE TU OPCIÓN -->
                 </div>
