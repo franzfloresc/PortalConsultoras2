@@ -51,28 +51,17 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 model.CantidadReclamosPorPedido = GetNroSolicitudesReclamoPorPedido();
-
-                using (CDRServiceClient cdr = new CDRServiceClient())
-                {
-                    var beCdrWeb = new ServiceCDR.BECDRWeb { ConsultoraID = userData.ConsultoraID }; //HD-3412 EINCA
-
-                    var listaReclamo = cdr.GetCDRWeb(userData.PaisID, beCdrWeb).ToList();
-
-                    listaCdrWebModel = Mapper.Map<List<ServiceCDR.BECDRWeb>, List<CDRWebModel>>(listaReclamo);
-                }
+                listaCdrWebModel = ObtenerCDRWeb();
 
                 string urlPoliticaCdr = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlPoliticasCDR) ?? "{0}";
                 model.UrlPoliticaCdr = string.Format(urlPoliticaCdr, userData.CodigoISO);
                 model.ListaCDRWeb = listaCdrWebModel.FindAll(p => p.CantidadDetalle > 0);
-                SetCantidadSolPedidoAprob(model.ListaCDRWeb);
-
-                if (SessionManager.GetCantidadSolPedidoAprob() >= SessionManager.GetNroPedidosCDRConfig())
+                var resultado = ValidarCantidadSolicitudesPerPedido(model.ListaCDRWeb, model.CantidadReclamosPorPedido);
+                if (resultado)
                 {
                     model.MensajeGestionCdrInhabilitada = Constantes.CdrWebMensajes.ExcedioLimiteReclamo;
                     return View(model);
                 }
-
-
                 model.MensajeGestionCdrInhabilitada = _cdrProvider.MensajeGestionCdrInhabilitadaYChatEnLinea(userData.EsCDRWebZonaValida, userData.IndicadorBloqueoCDR, userData.FechaInicioCampania, userData.ZonaHoraria, userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
                 if (!string.IsNullOrEmpty(model.MensajeGestionCdrInhabilitada)) return View(model);
                 if (model.ListaCDRWeb.Count == 0) return RedirectToAction("Reclamo");
@@ -88,21 +77,69 @@ namespace Portal.Consultoras.Web.Controllers
             return View(model);
         }
 
-        private void SetCantidadSolPedidoAprob(List<CDRWebModel> lst)
+        private List<CDRWebModel> ObtenerCDRWeb()
         {
-            var result = lst.Where(a => a.Estado == Constantes.EstadoCDRWeb.Aceptado || a.Estado == Constantes.EstadoCDRWeb.Enviado).ToList();
-            if (result != null)
+            List<CDRWebModel> listaCdrWebModel;
+            using (CDRServiceClient cdr = new CDRServiceClient())
             {
-                if (result.Count > 0)
-                {
-                    SessionManager.SetCantidadSolPedidoAprob(result.Count);
-                }
+                var beCdrWeb = new ServiceCDR.BECDRWeb { ConsultoraID = userData.ConsultoraID }; //HD-3412 EINCA
+
+                var listaReclamo = cdr.GetCDRWeb(userData.PaisID, beCdrWeb).ToList();
+
+                listaCdrWebModel = Mapper.Map<List<ServiceCDR.BECDRWeb>, List<CDRWebModel>>(listaReclamo);
             }
-            else
-            {
-                SessionManager.SetCantidadSolPedidoAprob(0);
-            }
+
+            return listaCdrWebModel;
         }
+
+        private bool ValidarCantidadSolicitudesPerPedido(List<CDRWebModel> lst, int? CantidadPedidosConfig)
+        {
+            bool result = true;
+
+            int[] arrEstadosConteo = { Constantes.EstadoCDRWeb.Enviado, Constantes.EstadoCDRWeb.Aceptado };
+
+            //Obtenemos el nro de pedidos
+            var pedidos = lst.GroupBy(d => d.PedidoID).Select(a => new PedidosEstadoCDRWeb() { PedidoID = a.Key, Cantidad = 0 })
+                .OrderBy(c => c).ToList();
+
+            //Si no hay PedidoCDR
+            if (!pedidos.Any()) { result = false; return result; }
+            
+
+
+            //Obtenemos el nro de PedidosCDRWeb que contabilizan
+            var pedidoscdrestados = lst.Where(a => arrEstadosConteo.Contains(a.Estado)).GroupBy(a => a.PedidoID)
+                .Select(a => new PedidosEstadoCDRWeb
+                {
+                    PedidoID = a.Key,
+                    Cantidad = a.Count()
+                }).ToList();
+
+
+            //Resultado final calculando la cantidad de todos las Solicitudes por pedido CDR
+            var final = (from c in pedidos
+                         join a in pedidoscdrestados on c.PedidoID equals a.PedidoID into g
+                         from d in g.DefaultIfEmpty()
+                         select new PedidosEstadoCDRWeb
+                         {
+                             PedidoID = c.PedidoID,
+                             Cantidad = d?.Cantidad ?? 0
+                         }).ToList();
+
+            if (final != null)
+            {
+                foreach (var item in final)
+                    if (item.Cantidad < CantidadPedidosConfig) { result = false; break; }
+            }
+            return result;
+        }
+
+        public class PedidosEstadoCDRWeb
+        {
+            public int PedidoID { get; set; }
+            public int? Cantidad { get; set; }
+        }
+
 
         #region Reclamo
         public ActionResult Reclamo(int pedidoId = 0)
