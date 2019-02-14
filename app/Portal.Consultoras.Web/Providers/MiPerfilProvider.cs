@@ -47,7 +47,19 @@ namespace Portal.Consultoras.Web.Providers
 
             return result;
         }
+        
+        public async Task<List<ParametroUneteBE>> ObtenerUbigeoPrincipalAsync(string CodigoISO)
+        {
+            List<ParametroUneteBE> result;
+            int IdPadre = 0;
+            using (var sv = new PortalServiceClient())
+            {
 
+                result = await sv.ObtenerParametrosUneteAsync(CodigoISO, EnumsTipoParametro.LugarNivel1, IdPadre);
+            }
+
+            return result;
+        }
         public virtual List<UsuarioOpcionesModel> ObtenerUsuarioOpciones(int paisId, string codigoUsuario)
         {
             using (var usuario = new UsuarioServiceClient())
