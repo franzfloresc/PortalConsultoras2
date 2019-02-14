@@ -277,6 +277,7 @@ namespace Portal.Consultoras.Common
             public const string GuiaDeNegocioDigitalizada = "GND";
             public const string ShowRoom = "SR";
             public const string HerramientasVenta = "HV";
+            public const string ArmaTuPack = "ATP";
         }
 
         public static class TipoAccionAgregar
