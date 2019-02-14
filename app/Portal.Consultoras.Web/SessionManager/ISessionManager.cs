@@ -60,11 +60,15 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetCdrMotivoOperacion(List<BECDRWebMotivoOperacion> datos);
         #endregion
 
-        BEPedidoWeb GetPedidoWeb();
-
         int? GetNroPedidosCDRConfig(); //HD-3412 EINCA
 
         void SetNroPedidosCDRConfig(int cantidad);//HD-3412 EINCA
+
+        List<CDRWebModel> GetListaCDRWebCargaInicial();//HD-3412 EINCA
+
+        void SetListaCDRWebCargaInicial(List<CDRWebModel> lista);//HD-3412 EINCA
+
+        BEPedidoWeb GetPedidoWeb();
 
         void SetPedidoWeb(BEPedidoWeb pedidoWeb);
 

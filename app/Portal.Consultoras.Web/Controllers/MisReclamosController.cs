@@ -50,17 +50,22 @@ namespace Portal.Consultoras.Web.Controllers
             List<CDRWebModel> listaCdrWebModel;
             try
             {
-                model.CantidadReclamosPorPedido = GetNroSolicitudesReclamoPorPedido();
-                listaCdrWebModel = ObtenerCDRWeb();
+
+                listaCdrWebModel = ObtenerCDRWebCargaInicial();
 
                 string urlPoliticaCdr = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlPoliticasCDR) ?? "{0}";
                 model.UrlPoliticaCdr = string.Format(urlPoliticaCdr, userData.CodigoISO);
                 model.ListaCDRWeb = listaCdrWebModel.FindAll(p => p.CantidadDetalle > 0);
-                var resultado = ValidarCantidadSolicitudesPerPedido(model.ListaCDRWeb, model.CantidadReclamosPorPedido);
-                if (resultado)
+
+                if (listaCdrWebModel.Any())
                 {
-                    model.MensajeGestionCdrInhabilitada = Constantes.CdrWebMensajes.ExcedioLimiteReclamo;
-                    return View(model);
+                    model.CantidadReclamosPorPedido = GetNroSolicitudesReclamoPorPedido();
+                    var resultado = ValidarCantidadSolicitudesPerPedido(model.ListaCDRWeb, model.CantidadReclamosPorPedido);
+                    if (resultado)
+                    {
+                        model.MensajeGestionCdrInhabilitada = Constantes.CdrWebMensajes.ExcedioLimiteReclamo;
+                        return View(model);
+                    }
                 }
                 model.MensajeGestionCdrInhabilitada = _cdrProvider.MensajeGestionCdrInhabilitadaYChatEnLinea(userData.EsCDRWebZonaValida, userData.IndicadorBloqueoCDR, userData.FechaInicioCampania, userData.ZonaHoraria, userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
                 if (!string.IsNullOrEmpty(model.MensajeGestionCdrInhabilitada)) return View(model);
@@ -77,8 +82,13 @@ namespace Portal.Consultoras.Web.Controllers
             return View(model);
         }
 
-        private List<CDRWebModel> ObtenerCDRWeb()
+        private List<CDRWebModel> ObtenerCDRWebCargaInicial()
         {
+            if (SessionManager.GetListaCDRWebCargaInicial() != null)
+            {
+                return SessionManager.GetListaCDRWebCargaInicial();
+            }
+
             List<CDRWebModel> listaCdrWebModel;
             using (CDRServiceClient cdr = new CDRServiceClient())
             {
@@ -88,7 +98,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 listaCdrWebModel = Mapper.Map<List<ServiceCDR.BECDRWeb>, List<CDRWebModel>>(listaReclamo);
             }
-
+            SessionManager.SetListaCDRWebCargaInicial(listaCdrWebModel);
             return listaCdrWebModel;
         }
 
@@ -104,7 +114,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             //Si no hay PedidoCDR
             if (!pedidos.Any()) { result = false; return result; }
-            
+
 
 
             //Obtenemos el nro de PedidosCDRWeb que contabilizan
@@ -294,7 +304,29 @@ namespace Portal.Consultoras.Web.Controllers
                 model.CUV = Util.SubStr(model.CUV, 0);
 
                 var listaPedidoFacturados = _cdrProvider.CargarPedidosFacturados(userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
-                var listaCDRWeb = SessionManager.GetCdrWeb(); //HD-3412 EINCA
+                var listaCDRWebCargaInicial = SessionManager.GetListaCDRWebCargaInicial(); //HD-3412 EINCA
+
+                var lstCDRWeb = new List<ServicePedido.BECDRWeb>();
+
+                if (listaCDRWebCargaInicial.Any())
+                {
+                    foreach (var item in listaCDRWebCargaInicial)
+                    {
+                        var obj = new ServicePedido.BECDRWeb()
+                        {
+                            PedidoID = item.PedidoID,
+                            Estado = item.Estado,
+                            CampaniaID = item.CampaniaID,
+                            CantidadDetalle = item.CantidadDetalle,
+                            CDRWebID = item.CDRWebID,
+                            CDRWebDetalle = null,
+                            PedidoNumero = item.PedidoNumero
+                        };
+                        lstCDRWeb.Add(obj);
+
+                    }
+                }
+
 
                 var listaPedido = new List<BEPedidoWeb>();
                 foreach (var pedido in listaPedidoFacturados)
@@ -307,6 +339,7 @@ namespace Portal.Consultoras.Web.Controllers
                         var lista = pedido.olstBEPedidoWebDetalle.Where(d => (d.CUV == model.CUV && d.CampaniaID == model.CampaniaID) || model.CUV == "").ToList();
                         if (lista.Any())
                         {
+                            //HD-3412 EINCA
                             BEPedidoWeb pedidoActual = new BEPedidoWeb
                             {
                                 CampaniaID = pedido.CampaniaID,
@@ -315,6 +348,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 PedidoID = pedido.PedidoID,
                                 FechaRegistro = pedido.FechaRegistro,
                                 CanalIngreso = pedido.CanalIngreso,
+                                BECDRWeb = lstCDRWeb.Where(a => a.PedidoID == pedido.PedidoID)?.ToArray() ?? null,
                                 //CDRWebID = pedido.CDRWebID, //HD-3412 EINCA 
                                 //CDRWebEstado = pedido.CDRWebEstado,//HD-3412 EINCA
                                 NumeroPedido = pedido.NumeroPedido,

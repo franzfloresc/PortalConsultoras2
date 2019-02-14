@@ -1234,6 +1234,7 @@ namespace Portal.Consultoras.Web.SessionManager
             if (val == null) { return 0; }
             return (int)val;
         }
+       
 
         void ISessionManager.SetCDRExpressMensajes(List<BETablaLogicaDatos> val)
         {
@@ -1345,24 +1346,30 @@ namespace Portal.Consultoras.Web.SessionManager
             return (string)HttpContext.Current.Session[Constantes.ConstSession.JwtApiSomosBelcorp];
         }
 
-      
-        //HD-3412 EINCA
         public int? GetNroPedidosCDRConfig()
         {
             int valor = 0;
             var result = int.TryParse(Convert.ToString(HttpContext.Current.Session["NroPedidosCDRConfig"]), out valor);
+            
             if (result)
                 return valor;
             else
                 return null;
-
         }
-        //HD-3412 EINCA
+
         public void SetNroPedidosCDRConfig(int cantidad)
         {
             HttpContext.Current.Session["NroPedidosCDRConfig"] = cantidad;
         }
 
+        List<CDRWebModel> ISessionManager.GetListaCDRWebCargaInicial()
+        {
+            return (List<CDRWebModel>)HttpContext.Current.Session["ListaCDRWebCargaInicial"];
+        }
 
+        void ISessionManager.SetListaCDRWebCargaInicial(List<CDRWebModel> lista)
+        {
+            HttpContext.Current.Session["ListaCDRWebCargaInicial"] = lista;
+        }
     }
 }

@@ -227,12 +227,46 @@ namespace Portal.Consultoras.Web.Providers
                     return sessionManager.GetCdrPedidosFacturado();
                 }
 
+                var CDRWebCargaInicial = sessionManager.GetListaCDRWebCargaInicial();
+
+                var listaCDRWeb = new List<ServicePedido.BECDRWeb>();
+
+
+                if (CDRWebCargaInicial.Any())
+                {
+                    foreach (var item in CDRWebCargaInicial)
+                    {
+                        var obj = new ServicePedido.BECDRWeb()
+                        {
+                            PedidoID = item.PedidoID,
+                            Estado = item.Estado,
+                            CampaniaID = item.CampaniaID,
+                            CantidadDetalle = item.CantidadDetalle,
+                            CDRWebID = item.CDRWebID,
+                            CDRWebDetalle = null,
+                            PedidoNumero = item.PedidoNumero
+                        };
+                        listaCDRWeb.Add(obj);
+                    }
+                }
+
+
                 if (maxDias <= 0) return new List<BEPedidoWeb>();
 
                 List<BEPedidoWeb> listaPedidoFacturados;
                 using (var sv = new PedidoServiceClient())
                 {
                     listaPedidoFacturados = sv.GetPedidosFacturadoSegunDias(paisId, campaniaId, consultoraId, maxDias).ToList();
+
+                }
+                //HD-3412 EINCA
+                if (listaPedidoFacturados.Any())
+                {
+                    foreach (var item in listaPedidoFacturados)
+                    {
+                        var lst = listaCDRWeb.Where(a => a.PedidoID == item.PedidoID);
+                        item.BECDRWeb = lst?.ToArray() ?? null;
+                    }
                 }
 
                 sessionManager.SetCdrPedidosFacturado(listaPedidoFacturados);

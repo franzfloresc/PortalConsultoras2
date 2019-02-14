@@ -17,28 +17,28 @@ $(document).ready(function () {
     $("#ddlCampania").on("change", function () {
         $("#txtCantidad").val("1");
         $("#divMotivo").html("");
-        if ($("#ddlCampania").val() == 0){            
+        if ($("#ddlCampania").val() == 0) {
             $("#ddlnumPedido").html("");
             $("#ddlnumPedido").hide();
             $("#ddlCuv").html("");
             $('.chosen-select').chosen();
-            $(".chosen-select").val('').trigger("chosen:updated");           
+            $(".chosen-select").val('').trigger("chosen:updated");
             return false;
         }
         $("#txtPedidoID").val(0);
         $("#txtNumeroPedido").val(0);
         ListarPedidoID();
     });
-    
+
     $("#ddlnumPedido").on("change", function () {
         $("#divMotivo").html("");
         $("#txtCantidad").val("1");
-        if ($("#ddlnumPedido").val() == 0) {            
+        if ($("#ddlnumPedido").val() == 0) {
             $("#ddlCuv").html("");
             $('.chosen-select').chosen();
-            $(".chosen-select").val('').trigger("chosen:updated"); 
+            $(".chosen-select").val('').trigger("chosen:updated");
             return false;
-        } 
+        }
         $("#txtPedidoID").val($.trim($("#ddlnumPedido").val()));
         BuscarCUV();
     });
@@ -69,7 +69,7 @@ $(document).ready(function () {
         $("#txtCUVDescripcion2").val('')
         $("#txtCUV2").val('');
         $("#txtCUVPrecio2").val('');
-        
+
         if (ValidarPaso1()) {
             paso2Actual = 1;
             CambioPaso();
@@ -124,7 +124,7 @@ $(document).ready(function () {
 
         $('.chosen-select').chosen();
         $(".chosen-select").val('').trigger("chosen:updated");
-     
+
         $("#hdtxtCUVDescripcion").val("");
         $("#txtCantidad").val("1");
         $("#divMotivo").html('');
@@ -303,8 +303,7 @@ function alertEMail_msg(message, titulo) {
     $('#alertEMailDialogMensajes').dialog('open');
 }
 
-function ListarPedidoID()
-{
+function ListarPedidoID() {
     $("#txtPedidoID").val("");
     $("#txtNumeroPedido").val("");
     $("#ddlnumPedido").html("");
@@ -525,17 +524,21 @@ function ObtenerDatosCuv() {
     });
 }
 
-function AsignarCUV(pedido) { 
+function AsignarCUV(pedido) {
 
     pedido = pedido || new Object();
 
     $("#divMotivo").html("");
-
-    //Evaluar si es un nuevo pedido o es un pedido a modificar
-
-    if (pedido.CDRWebID > 0 && pedido.CDRWebEstado != 1 && pedido.CDRWebEstado != 4) {
-        alert_msg("Lo sentimos, ya cuentas con una solicitud web para este pedido. Por favor, contáctate con nuestro <span>Chat en Línea</span>.");
-
+    var EstadosConteo = 0;
+    $.each(pedido.BECDRWeb, function (i, item) {
+        if (item.Estado === 3 || item.Estado === 2) {
+            EstadosConteo++;
+        }
+    });
+    //Nueva solicitud de reclamo
+    var cantidad = CantidadReclamosPorPedidoConfig != null && CantidadReclamosPorPedidoConfig != '' ? parseInt(CantidadReclamosPorPedidoConfig) : 0;
+    if (cantidad === EstadosConteo && EstadosConteo > 0) {
+        alert_msg("Lo sentimos, usted a excedico el límite de reclamos por pedido");
     } else {
         pedido.olstBEPedidoWebDetalle = pedido.olstBEPedidoWebDetalle || new Array();
         var detalle = pedido.olstBEPedidoWebDetalle.Find("CUV", $.trim($("#ddlCuv").val()) || "");
@@ -545,14 +548,18 @@ function AsignarCUV(pedido) {
         $("#hdtxtCUVDescripcion").val(data.DescripcionProd);
         $("#txtPedidoID").val(data.PedidoID);
         $("#txtNumeroPedido").val(pedido.NumeroPedido);
-
         $("#txtPrecioUnidad").val(data.PrecioUnidad);
         $("#hdImporteTotalPedido").val(pedido.ImporteTotal);
         $("#CDRWebID").val(pedido.CDRWebID);
-
         BuscarMotivo();
         DetalleCargar();
     }
+
+    //if (pedido.CDRWebID > 0 && pedido.CDRWebEstado != 1 && pedido.CDRWebEstado != 4) {
+    //    alert_msg("Lo sentimos, ya cuentas con una solicitud web para este pedido. Por favor, contáctate con nuestro <span>Chat en Línea</span>.");
+    //} else {
+        
+    //}
 }
 
 function BuscarMotivo() {
@@ -1217,7 +1224,7 @@ function SolicitudEnviar(validarCorreoVacio, validarCelularVacio) {
         MensajeDespacho: '',
         EsMovilFin: OrigenCDR
     };
-    
+
     if ($("#hdTieneCDRExpress").val() == '1') {
         item.TipoDespacho = tipoDespacho;
         item.FleteDespacho = !tipoDespacho ? 0 : $("#hdFleteDespacho").val();
