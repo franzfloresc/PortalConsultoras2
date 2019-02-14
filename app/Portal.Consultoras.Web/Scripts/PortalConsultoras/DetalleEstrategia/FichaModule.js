@@ -1031,7 +1031,18 @@ var FichaModule = (function (config) {
 
 var FichaEditarModule = (function () {
 
-    var EditarProducto = function (event, tipoAccion) {
+    var _validarData = function (objFicha) {
+        objFicha = objFicha || {};
+        if (objFicha.palanca == "" || !isInt(objFicha.campania) || !isInt(objFicha.cuv)) {
+            return false;
+        }
+        if (objFicha.esEditable && !isInt(objFicha.setId)) {
+            return false;
+        }
+        return true;
+    };
+
+    var _editarProducto = function (event, tipoAccion) {
         if (tipoAccion != ConstantesModule.EditarItemPedido.Activo) {
             return false;
         }
@@ -1069,17 +1080,6 @@ var FichaEditarModule = (function () {
         }, 10);
     };
 
-    var _validarData = function (objFicha) {
-        objFicha = objFicha || {};
-        if (objFicha.palanca == "" || !isInt(objFicha.campania) || !isInt(objFicha.cuv)) {
-            return false;
-        }
-        if (objFicha.esEditable && !isInt(objFicha.setId)) {
-            return false;
-        }
-        return true;
-    };
-
     var _showDivFichaResumida = function (isShow) {
 
         isShow = isShow == undefined || isShow;
@@ -1095,7 +1095,7 @@ var FichaEditarModule = (function () {
     }
 
     return {
-        EditarProducto: EditarProducto,
+        EditarProducto: _editarProducto,
         ShowDivFichaResumida: _showDivFichaResumida
     };
 })();
