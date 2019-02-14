@@ -451,7 +451,7 @@ var FichaModule = (function (config) {
     var _asignaDetallePedido = function (data, estrategia) {
         data = data || {};
         data.Detalles = data.Detalles || [];
-        if (!data.Detalles.length == 0) {
+        if (data.Detalles.length == 0) {
             _redireccionar();
             return false;
             //throw 'Componente: No existe detalle de pedido';
