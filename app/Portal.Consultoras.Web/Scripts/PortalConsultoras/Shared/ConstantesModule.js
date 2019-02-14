@@ -21,7 +21,7 @@ var ConstantesModule = (function () {
         Ganadoras: "Ganadoras",
         LiquidacionWeb: "OfertasLiquidacion",
         GuiaNegocio: "GuiaNegocio",
-        SR:"ShowRoom"
+        SR: "ShowRoom"
     }
 
     var _keysLocalStorage = {
@@ -76,7 +76,8 @@ var ConstantesModule = (function () {
         GND: "GN",
         LAN: "LAN",
         MG: "MG",
-        SR: "SR"
+        SR: "SR",
+        ATP: "ATP"
     }
 
     var _urlObtenerEstrategia = {
