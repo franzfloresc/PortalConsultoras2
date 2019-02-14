@@ -247,7 +247,6 @@
     color: #000;
     font-size: 17px;
     font-weight: bold;
-    text-transform: uppercase;
     margin-top: 0px;
 }
 
@@ -260,7 +259,6 @@
 .cancelar_suscripcion p {
     color: #000;
     font-size: 13px;
-    text-transform: uppercase;
     margin-bottom: 25px;
 }
 
@@ -275,8 +273,7 @@
 
         .buttons_cancelar_suscripcion li:nth-child(1) button {
             background: none;
-            border: none;
-            text-transform: uppercase;
+            border: none; 
             font-size: 13px;
             font-weight: bold;
             font-family: inherit;
@@ -288,8 +285,7 @@
 
         .buttons_cancelar_suscripcion li:nth-child(2) button {
             background: #C39934;
-            border: none;
-            text-transform: uppercase;
+            border: none; 
             font-size: 13px;
             font-weight: bold;
             font-family: inherit;
@@ -364,7 +360,7 @@
 
 .titulo_desuscrita {
     font-size: 22px;
-    font-weight: bold;
+    font-weight: bold  !important;
     color: #C39934;
 }
 
