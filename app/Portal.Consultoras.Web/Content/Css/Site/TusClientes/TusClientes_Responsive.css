@@ -28,37 +28,40 @@ h1, h2, h3, h4, h5, h6 {
 
 
 .tabla_cabecera div {
-    background: #969696;
-    color: #fff;
+    color: #000;
     font-weight: 600;
     font-size: 13px;
     letter-spacing: 0.3px;
-    padding-top: 19px;
-    padding-bottom: 19px;
+    padding-top: 17px;
+    padding-bottom: 17px;
     line-height: normal;
     text-transform: uppercase;
+    border-bottom: 1px solid #000;
+    border-top: 1px solid #000;
 }
 
 .tabla_item div {
     font-size: 13px;
-    line-height: 46px;
+    line-height: 60px;
+    border-bottom: 1px solid #d8d8d8;
+    height: 60px;
 }
 
 
 .btn_editar {
-    background: url('/Content/Images/Esika/editar_clientes.png') center center no-repeat;
+    background: url('/Content/Images/editar_tu_clientes.svg') center center no-repeat;
     box-shadow: none;
     border: none;
-    width: 40px;
+    width: 23px;
     cursor: pointer;
     background-size: 23px;
 }
 
 .btn_eliminar {
-    background: url('/Content/Images/Esika/tacho-copy.png') center center no-repeat;
+    background: url('/Content/Images/borrar_tusclientes.svg') center center no-repeat;
     box-shadow: none;
     border: none;
-    width: 40px;
+    width: 24px;
     cursor: pointer;
 }
 
@@ -66,10 +69,10 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 0px !important;
 }
 
-#divClientes .tabla_item:nth-child(even) {
+/*#divClientes .tabla_item:nth-child(even) {
     background-size: 16px;
     background-color: #efefef;
-}
+}*/
 
 .titulo_bloque {
     border-bottom: 2px solid #000;
@@ -117,14 +120,16 @@ h1, h2, h3, h4, h5, h6 {
         }
 
 .buscar_cliente {
-    height: 40px;
     line-height: 40px;
-    border: 1px solid #ccc;
+    border: 1px solid #d8d8d8;
     font-size: 13px;
     color: #999;
-    padding: 0px 10px;
+    padding: 0px 18px;
     background: url('/Content/Images/Esika/lupa.png') no-repeat right center;
-    width: 350px;
+    width: 94% !important;
+    height: 45px;
+    border-radius: 4px;
+    display: block;
 }
 
 .boton_agregar {
@@ -132,12 +137,37 @@ h1, h2, h3, h4, h5, h6 {
     background: #000;
     color: #fff;
     text-transform: uppercase;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: bold;
-    height: 40px;
-    width: 210px;
+    height: 45px;
+    padding: 0px 30px;
     text-align: center;
+    line-height: 45px;
+    border-radius: 4px;
+    cursor: pointer;
 }
+
+    .boton_agregar img {
+        width: 25px;
+        height: auto;
+        margin-right: 5px;
+        line-height: 45px;
+    }
+
+
+.botton_export_xls {
+    border: 1px solid #000;
+    border-radius: 4px;
+    margin-right: 10px;
+    background: none;
+    width: 53px;
+    height: 45px;
+}
+
+    .botton_export_xls img {
+        width: 23px;
+        height: 25px;
+    }
 
 
 
@@ -146,4 +176,80 @@ h1, h2, h3, h4, h5, h6 {
     .tabla_cabecera{
         display:none;
     }
+    .titulo_bloque {
+        margin-top: 60px;
+        margin-bottom: 15px;
+        background: #000
+    }
+
+        .titulo_bloque .container .row > div {
+            width: 100%;
+            text-align: center;
+        }
+
+        .titulo_bloque h3 {
+            font-size: 15px;
+            padding: 14px 0px 12px 0px;
+            background: url('/Content/Images/arrow-left.png') no-repeat center left 10px;
+        }
+
+        .titulo_bloque h3 strong {
+            font-size: 15px;
+            font-weight: normal;
+        }
+
+        .titulo_bloque .container .row > div::after {
+            display:none;
+
+        }
+
+    .content_boton_agregar {
+        position: fixed;
+        bottom: 0;
+        z-index: 10;
+        width: 100%;
+        background-color: #f5f5f5;
+        padding: 10px 18px;
+    }
+
+    .botton_export_xls{
+        display: none;
+    }
+    .buscar_cliente{
+        width: 100% !important;
+    }
+
+    .boton_agregar {
+        width: 100%;
+    }
+
+    .tabla_item {
+        border-bottom: 1px solid #d8d8d8;
+        align-items: center;
+    }
+
+        .tabla_item div {
+            border: none;
+            font-size: 15px;
+            text-transform: capitalize;
+        }
+
+            .tabla_item div:nth-child(2), .tabla_item div:nth-child(3), .tabla_item div:nth-child(4), .tabla_item div:nth-child(5){
+                display: none;
+            }
+
+    .btn_eliminar, .btn_editar {
+        padding: 0;
+    }
+
+    .editar {
+        border-right: 1px solid #979797 !important;
+        height: 35px !important;
+        text-align: center;
+    }
+
+    .btn_editar {
+        height: 38px;
+    }
+
 }
