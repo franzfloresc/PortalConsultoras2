@@ -1927,9 +1927,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (var sv = new PortalServiceClient())
             {
-               //List<SolicitudPostulanteBE> lst = new List<SolicitudPostulanteBE>();
-
-                List<SolicitudPostulanteBE> lst = sv.ConsultarTipoPostulante(codigoIso, fechaInicioSolicitud.ToString("yyyy/MM/dd"), fechaFinSolicitud.ToString("yyyy/MM/dd")).ToList();
+               List<SolicitudPostulanteBE> lst = sv.ConsultarTipoPostulante(codigoIso, fechaInicioSolicitud.ToString("yyyy/MM/dd"), fechaFinSolicitud.ToString("yyyy/MM/dd")).ToList();
 
                 BEGrid grid = new BEGrid
                 {
@@ -1958,12 +1956,15 @@ namespace Portal.Consultoras.Web.Controllers
                                {
                                    a.SolicitudPostulanteID.ToString(),
                                    a.NombreCompleto,
+                                   a.NumeroDocumento,
+                                   a.TipoDocumento,
                                    a.CodigoZona,
                                    a.CodigoSeccion,
                                    a.CodigoTerritorio,
                                    a.EstadoPostulante,
-                                   a.FechaCreacion.Value.ToShortDateString(),
-                                   a.FechaAproFVVV.Value.ToShortDateString()
+                                   a.TipoConsultora,
+                                   a.FechaCreacion.Value.ToString("dd/M/yyyy", CultureInfo.InvariantCulture),
+                                   a.FechaAproFVVV.Value.ToString("dd/M/yyyy", CultureInfo.InvariantCulture)
                                 }
                            }
                 };
@@ -1980,18 +1981,19 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (var sv = new PortalServiceClient())
             {
-                //List<SolicitudPostulanteBE> lst = new List<SolicitudPostulanteBE>();
-
                 List<SolicitudPostulanteBE> lst = sv.ConsultarTipoPostulante(codigoIso, fechaInicioSolicitud.ToString("yyyy/MM/dd"), fechaFinSolicitud.ToString("yyyy/MM/dd")).ToList();
-
+                
                 Dictionary<string, string> dic = new Dictionary<string, string>
                 {
-                    {"SolicitudPostulanteID", "SolicitudPostulanteID"},
+                    {"Id Postulante", "SolicitudPostulanteID"},
                     {"Nombre Completo", "NombreCompleto"},
-                    {"CodigoZona", "CodigoZona"},
+                    {"Numero Documento", "NumeroDocumento"},
+                    {"Tipo Documento", "TipoDocumento"},
+                    { "CodigoZona", "CodigoZona"},
                     {"CodigoSeccion", "CodigoSeccion"},
                     {"CodigoTerritorio", "CodigoTerritorio"},
                     {"EstadoPostulante", "EstadoPostulante"},
+                    {"Tipo de Consultora", "TipoConsultora"},
                     {"FechaCreacion", "FechaCreacion"},
                     {"FechaCambio", "FechaAproFVVV"}
                 };
