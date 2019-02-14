@@ -958,8 +958,10 @@ var PedidoRegistroModule = function () {
                 $("#pCantidadProductosPedido").html(data.cantidadTotalProductos > 0 ? data.cantidadTotalProductos : 0);
                 microefectoPedidoGuardado();
                 if (cerrarSplash) CerrarSplash();
+                var prevTotal = mtoLogroBarra || 0;
                 MostrarBarra(data);
                 TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);
+                showPopupNivelSuperado(data.DataBarra, prevTotal);
 
                 retorno = data;
                 return true;
