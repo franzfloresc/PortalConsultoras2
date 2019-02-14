@@ -529,7 +529,7 @@ namespace Portal.Consultoras.Web.Controllers
         //    var mensajeAviso = "";
         //    var listCuvEliminar = new List<string>();
 
-        //    if (model.EnRangoProgramaNuevas)
+        //    if (model.EsCuponNuevas)
         //    {
         //        CrearLogProgNuevas("ProgNuevas: Pedido Insertar", model.CUV);
 
@@ -1499,7 +1499,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region Zona de Estrategias
         [HttpPost]
-        public JsonResult ValidarStockEstrategia(string CUV, string PrecioUnidad, string Cantidad, string TipoOferta, bool enRangoProgNuevas, string descripcion = "")
+        public JsonResult ValidarStockEstrategia(string CUV, string PrecioUnidad, string Cantidad, string TipoOferta, bool esCuponNuevas, string descripcion = "")
         {
             string mensajeMontoMax = "", mensaje = "";
             bool validoMontoMax = false, valido = false;
@@ -1512,7 +1512,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (valido)
                 {
-                    if (enRangoProgNuevas)
+                    if (esCuponNuevas)
                     {
                         CrearLogProgNuevas("ProgNuevas: ValidarStockEstrategia", CUV);
                         mensaje = ValidarCantidadEnProgramaNuevas(CUV, Convert.ToInt32(Cantidad));
@@ -1674,7 +1674,7 @@ namespace Portal.Consultoras.Web.Controllers
                 TipoEstrategiaID = prod.TipoEstrategiaID,
                 TieneRDC = tieneRdc,
                 EsOfertaIndependiente = prod.EsOfertaIndependiente,
-                EsProgNuevas = listCuvNuevasValidas.Contains(prod.CUV.Trim()),
+                EsCuponNuevas = listCuvNuevasValidas.Contains(prod.CUV.Trim()),
                 CodigoProducto = prod.CodigoProducto,
                 CodigoCatalago = prod.CodigoCatalogo,
                 EstrategiaIDSicc = prod.EstrategiaIDSicc
@@ -1690,7 +1690,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.CUV = Util.Trim(model.CUV);
 
                 #region ValidarProgramaNuevas
-                var esProgNuevas = false;
+                var esCuponNuevas = false;
                 Enumeradores.ValidacionProgramaNuevas num = ValidarProgramaNuevas(model.CUV);
                 switch (num)
                 {
@@ -1704,13 +1704,13 @@ namespace Portal.Consultoras.Web.Controllers
                         productosModel.Add(GetValidacionProgramaNuevas(Constantes.ProgNuevas.Mensaje.CuvNoPerteneceASuPrograma));
                         return Json(productosModel, JsonRequestBehavior.AllowGet);
                     case Enumeradores.ValidacionProgramaNuevas.CuvPerteneceProgramaNuevas:
-                        esProgNuevas = true;
+                        esCuponNuevas = true;
                         break;
                 }
                 #endregion
 
                 #region Venta exclusiva
-                if (!esProgNuevas)
+                if (!esCuponNuevas)
                 {
                     Enumeradores.ValidacionVentaExclusiva numExclu = ValidarVentaExclusiva(model.CUV);
                     if (numExclu != Enumeradores.ValidacionVentaExclusiva.ContinuaFlujo)
@@ -1782,7 +1782,7 @@ namespace Portal.Consultoras.Web.Controllers
                     EsOfertaIndependiente = estrategia.EsOfertaIndependiente,
                     TieneRDC = tieneRdc,
                     EstrategiaID = producto.EstrategiaID,
-                    EsProgNuevas = esProgNuevas,
+                    EsCuponNuevas = esCuponNuevas,
                     CodigoCatalago = producto.CodigoCatalogo,
                     EstrategiaIDSicc = producto.EstrategiaIDSicc
                 });
@@ -4303,7 +4303,7 @@ namespace Portal.Consultoras.Web.Controllers
         //        ClienteID_ = model.ClienteID_,
         //        TipoEstrategiaImagen = model.TipoEstrategiaImagen,
         //        EsOfertaIndependiente = estrategia.EsOfertaIndependiente,
-        //        EnRangoProgramaNuevas = model.EnRangoProgramaNuevas || model.FlagNueva == "1"
+        //        EsCuponNuevas = model.EsCuponNuevas || model.FlagNueva == "1"
         //    };
 
         //    return AgregarProductoZE(modelo);
@@ -4532,33 +4532,6 @@ namespace Portal.Consultoras.Web.Controllers
         //}
 
         #endregion
-
-        [HttpPost]
-        public JsonResult EsPedidoDetalleElecMultiple(string cuv)
-        {
-            try
-            {
-                bool esElecMultiple;
-                using (var svc = new ODSServiceClient())
-                {
-                    esElecMultiple = svc.EsCuvDuoPerfecto(userData.PaisID, userData.CampaniaID, userData.ConsecutivoNueva, userData.CodigoPrograma, cuv);
-                }
-
-                return Json(new
-                {
-                    success = true,
-                    esElecMultiple = esElecMultiple,
-                    message = esElecMultiple ?
-                        string.Format(Constantes.ProgNuevas.Mensaje.ElecMultiple_ConfirmaEliminar, Constantes.ProgNuevas.Mensaje.Electivo_PromocionNombre) :
-                        ""
-                });
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return ErrorJson(Constantes.MensajesError.ErrorGenerico);
-            }
-        }
 
         private Enumeradores.ValidacionProgramaNuevas ValidarProgramaNuevas(string cuv)
         {

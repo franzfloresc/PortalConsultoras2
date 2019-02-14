@@ -104,16 +104,35 @@ namespace Portal.Consultoras.BizLogic
             return resp;
         }
 
-        public void UpdateFlagCupones(int paisID, List<BEPedidoWebDetalle> listPedidoDetalle)
+        public void UpdFlagCupones(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, List<BEPedidoWebDetalle> listPedidoDetalle)
         {
             if (listPedidoDetalle == null || listPedidoDetalle.Count == 0) return;
             if (!IsFlagOn(Constantes.ProgNuevas.EncenderValidacion.FlagProgNuevas, paisID)) return;
+            if (!IsFlagOn(Constantes.ProgNuevas.EncenderValidacion.FlagLabelPedidoDet, paisID)) return;
+            if (codigoPrograma == "") return;
 
             var fnEnRango = GetFnEnRangoCuv(paisID);
-            listPedidoDetalle.ForEach(d => d.EnRangoProgNuevas = fnEnRango(Convert.ToInt32(d.CUV)));
+            var listDetalleEnRango = listPedidoDetalle.Where(d => fnEnRango(Convert.ToInt32(d.CUV))).ToList();
+            if (listDetalleEnRango.Count == 0) return;
+            var listCuvNuevas = GetProductosByCampaniaCache(paisID, campaniaID);
+            var listCuvPerteneceNuevas = FiltrarProductosByNivelyCodigoPrograma(listCuvNuevas, consecutivoNueva, codigoPrograma);
+            if (listCuvPerteneceNuevas.Count == 0) return;
+
+            var listDetallePerteneceNuevas = listDetalleEnRango.Where(d => listCuvPerteneceNuevas.Any(p => p.CodigoCupon == d.CUV)).ToList();
+            listDetallePerteneceNuevas.ForEach(d => d.EsCuponNuevas = true);
+
+            var listCuvElectivas = listCuvPerteneceNuevas.Where(a => !a.IndicadorCuponIndependiente).ToList();
+            if (listCuvElectivas.Count == 0) return;
+
+            var nivelInput = new BENivelesProgramaNuevas { Campania = campaniaID.ToString(), CodigoPrograma = codigoPrograma, CodigoNivel = "0" + (consecutivoNueva + 1) };
+            var limElectivos = GetLimiteElectivos(paisID, nivelInput);
+            if (limElectivos <= 1) return;
+
+            var listDetalleElectivos = listDetallePerteneceNuevas.Where(d => listCuvElectivas.Any(c =>c.CodigoCupon == d.CUV)).ToList();
+            listDetalleElectivos.ForEach(d => d.EsElecMultipleNuevas = true);
         }
 
-        public bool EsCuvDuoPerfecto(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string cuv)
+        public bool EsCuvElecMultiple(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string cuv)
         {
             if (!IsFlagOn(Constantes.ProgNuevas.EncenderValidacion.FlagProgNuevas, paisID)) return false;
 
@@ -133,7 +152,7 @@ namespace Portal.Consultoras.BizLogic
             return true;
         }
 
-        public bool TieneListaEstrategiaDuoPerfecto(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, List<string> lstCuv)
+        public bool TieneListaEstrategiaElecMultiple(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, List<string> lstCuv)
         {
             if (!IsFlagOn(Constantes.ProgNuevas.EncenderValidacion.FlagBannerElecMultiple, paisID)) return false;
 
