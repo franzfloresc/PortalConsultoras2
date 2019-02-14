@@ -3835,7 +3835,7 @@ namespace Portal.Consultoras.BizLogic
                             {
                                 svr.Endpoint.Binding.SendTimeout = new TimeSpan(0, 0, 0, 10);
                                 var objActualizarFlagBoleta = new List<ConsultoraFlagImpBoleta>();
-                                objActualizarFlagBoleta.Add(new ConsultoraFlagImpBoleta { codigoConsultora = usuario.CodigoConsultora, indImprimeBoleta = flagBolImp, indImprimePaquete = flagBolImp });
+                                objActualizarFlagBoleta.Add(new ConsultoraFlagImpBoleta { codigoConsultora = usuario.DireccionEntrega.CodigoConsultora, indImprimeBoleta = flagBolImp, indImprimePaquete = flagBolImp });
                                 var result = svr.actualizaFlagImpBoletas(objActualizarFlagBoleta.ToArray());
                                 if (result.estado == 1)
                                     throw new Exception(result.mensaje);
