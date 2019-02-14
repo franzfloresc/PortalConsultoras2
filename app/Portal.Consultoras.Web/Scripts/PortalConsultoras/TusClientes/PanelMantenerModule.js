@@ -3,7 +3,6 @@
 
     if (typeof config === "undefined" || config === null) throw "config parameter is null";
 
-
     var _config = {
         tusClientesProvider: config.tusClientesProvider || TusClientesProvider(),
         setNombreClienteCallback: config.setNombreClienteCallback,
@@ -38,8 +37,8 @@
         $(_elements.divErrorTelefonos).hide();
     };
 
-    var _btnGuardarClienteOnClick = function (e) {
-        _ocultarMensajesError();
+    var _getCliente = function () {
+
         var id = $.trim($(_elements.hdnId).val());
         var codigo = $.trim($(_elements.hdnCodigo).val());
         var nombreCliente = $.trim($(_elements.txtNombre).val());
@@ -48,79 +47,86 @@
         var telefono = $.trim($(_elements.txtTelefono).val());
         var celular = $.trim($(_elements.txtCelular).val());
 
-        if (nombreCliente === "") {
-            $(_elements.divErrorNombre).show();
-            return;
-        }
-
-        if (telefono === "" && celular === "") {
-            $(_elements.divErrorTelefonos).show();
-            return;
-        }
-
-        if (correo !== "" && !validateEmail(correo)) {
-            $(_elements.divErrorCorreo).show();
-            return;
-        }
-
         var cliente = {
             ClienteID: id,
             CodigoCliente: codigo,
             NombreCliente: nombreCliente,
             ApellidoCliente: apellidoCliente,
-            Nombre: jQuery.trim(nombreCliente + " " + apellidoCliente),
+            Nombre: $.trim(nombreCliente + " " + apellidoCliente),
             eMail: correo,
             Telefono: telefono,
             Celular: celular
         };
 
+        return cliente;
+    };
+
+    var _btnGuardarClienteOnClick = function (e) {
+
+        _ocultarMensajesError();
+        
+        var cliente = _getCliente();
+
+        if (cliente.NombreCliente === "") {
+            $(_elements.divErrorNombre).show();
+            return;
+        }
+
+        if (cliente.Telefono === "" && cliente.Celular === "") {
+            $(_elements.divErrorTelefonos).show();
+            return;
+        }
+
+        if (cliente.Correo !== "" && !validateEmail(correo)) {
+            $(_elements.divErrorCorreo).show();
+            return;
+        }
+
         $(_elements.btnGuardarCliente).hide();
-        AbrirSplash();
+
+        AbrirLoad();
+
         _config
             .tusClientesProvider
             .mantenerPromise(cliente)
             .done(function (data) {
                 //if (checkTimeout(data)) {
-                console.log(data);
+
+                alert(data.message);
 
                 if (data.success == true) {
-                    console.log(data);
-                    //
-                    alert(data.message);
                     if (typeof _config.setNombreClienteCallback === "function") {
                         if (_config.seleccionarClienteDespuesEditar) {
-
-                            console.log(data);
                             _config.setNombreClienteCallback(cliente.NombreCliente);
 
-                            _SeteoCerrarPanelLista(data);//asignar datos a los controles
+                            //todo: improve this call
+                            _seteoCerrarPanelLista(data);//asignar datos a los controles
                         } else {
                             _config.setNombreClienteCallback("");
                         }
                     }
-                    //if (typeof _config.mostrarTusClientesCallback === "function")_config.mostrarTusClientesCallback();//cargar lista de clientes
                     if (typeof _config.panelRegistroHideCallback === "function") _config.panelRegistroHideCallback();
                 }
-                else {
-                    alert(data.message);
-                }
-                //}
-                $(_elements.btnGuardarCliente).show();
-                CerrarSplash();
             })
             .fail(function (data, error) {
+                //
+            })
+            .then(function () {
+                CerrarLoad();
                 $(_elements.btnGuardarCliente).show();
-                CerrarSplash();
-            });;
+            });
         
     };
 
-    var _SeteoCerrarPanelLista = function (data) {
+
+    //todo : move this method to another component
+    var _seteoCerrarPanelLista = function (data) {
 
         $("#hfClienteID").val(data.ClienteID);
         $("#hfCodigoCliente").val(data.CodigoCliente);
         $("#hfNombreCliente").val(data.NombreCompleto);
         $("#hfNombre").val(data.NombreCompleto);
+
         $("#btnPanelListaAceptar").click();
 
     };
