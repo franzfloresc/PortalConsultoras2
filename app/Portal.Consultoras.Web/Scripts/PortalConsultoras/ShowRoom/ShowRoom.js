@@ -238,7 +238,7 @@ $(document).ready(function () {
         $('body').css({ 'overflow-y': 'auto' });
 
     });
-
+    ValidarBotonAgregar();
 });
 
 function CargarProductosShowRoom(busquedaModel) {
@@ -513,7 +513,11 @@ function ConfigurarSlick() {
         speed: 260,
         prevArrow: '<a style="width: auto; display: block; left:  0; margin-left:  9%; top: 24%;"><img src="' + baseUrl + 'Content/Images/Esika/left_compra.png")" alt="" /></a>',
         nextArrow: '<a style="width: auto; display: block; right: 0; margin-right: 9%; text-align:right;  top: 24%;"><img src="' + baseUrl + 'Content/Images/Esika/right_compra.png")" alt="" /></a>'
+    //});
+    }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
+        ValidarBotonAgregar();
     });
+
     $('#contenedor-showroom-subcampanias-mobile').slick('slickGoTo', 0);
 }
 
@@ -559,5 +563,22 @@ function AnalyticsSRListaOferta(response) {
         
         //console.log('AnalyticsSRListaOferta', obj);
         AnalyticsPortalModule.MarcaGenericaLista("", obj);
+    }
+}
+
+function ValidarBotonAgregar() {
+    if ($('#contenedor-showroom-subcampanias-mobile').is(":visible")) {
+        var estrategia = $("#contenedor-showroom-subcampanias-mobile").find(".slick-active")
+            .find("[data-estrategia]").data("estrategia");
+
+        if (estrategia !== 'undefined' && estrategia !== null) {
+            if (!estrategia.TieneStock) {
+                $('#div-boton-agregar').hide();
+                $('#div-boton-agotado').show();
+            } else {
+                $('#div-boton-agotado').hide();
+                $('#div-boton-agregar').show();
+            }
+        }
     }
 }

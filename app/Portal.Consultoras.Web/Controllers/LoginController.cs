@@ -29,6 +29,7 @@ using System.Web.Security;
 using Portal.Consultoras.Web.Models.Recomendaciones;
 using BEConfiguracionPaisDatos = Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos;
 using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
+using Portal.Consultoras.Web.Models.Estrategia;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -1307,12 +1308,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                         #endregion
 
-                        #region ConfiguracionPais
-
-                        usuarioModel = await ConfiguracionPaisUsuario(usuarioModel);
-
-                        #endregion
-
                         #region LLamadas asincronas 
 
                         var flexiPagoTask = Task.Run(() => GetPermisoFlexipago(usuario));
@@ -1348,7 +1343,57 @@ namespace Portal.Consultoras.Web.Controllers
 
 
                         #endregion
+
+                        #region ConfiguracionPais
+                        usuarioModel = await ConfiguracionPaisUsuario(usuarioModel);
+                        #endregion
                     }
+
+                    List<ConfiguracionPaisModel> configuracionesPaisModels = await GetConfiguracionPais(usuarioModel);
+                    if (configuracionesPaisModels.Any())
+                    {
+                        List<BEConfiguracionPaisDatos> configuracionPaisDatosAll = await GetConfiguracionPaisDatos(usuarioModel);
+                        MSPersonalizacionConfiguracionModel msPersonalizacionModel = new MSPersonalizacionConfiguracionModel();
+
+
+                        List<BEConfiguracionPaisDatos> configuracionPaisDatos = new List<BEConfiguracionPaisDatos>();
+
+                        try
+                        {
+                            foreach (ConfiguracionPaisModel config in configuracionesPaisModels)
+                            {
+                                configuracionPaisDatos = configuracionPaisDatosAll.Where(campo => campo.ConfiguracionPaisID == config.ConfiguracionPaisID).ToList();
+
+                                if (config.Codigo == Constantes.ConfiguracionPais.MicroserviciosPersonalizacion)
+                                {
+                                    break;
+                                }
+                            }
+
+                            msPersonalizacionModel.EstrategiaHabilitado = configuracionPaisDatos.Where(config => config.Codigo == Constantes.CodigoConfiguracionMSPersonalizacion.EstrategiaDisponible).Select(config => config.Valor1).FirstOrDefault() ?? string.Empty;
+                            msPersonalizacionModel.PaisHabilitado = string.Empty;
+                            if (msPersonalizacionModel.EstrategiaHabilitado != string.Empty)
+                            {
+                                msPersonalizacionModel.PaisHabilitado = usuarioModel.CodigoISO;
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            msPersonalizacionModel.PaisHabilitado = WebConfig.PaisesMicroservicioPersonalizacion;
+                            msPersonalizacionModel.EstrategiaHabilitado = WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion;
+                            Common.LogManager.SaveLog(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
+                        }
+
+                        if (msPersonalizacionModel.EstrategiaHabilitado == null && msPersonalizacionModel.PaisHabilitado == null)
+                        {
+                            msPersonalizacionModel.EstrategiaHabilitado = string.Empty;
+                            msPersonalizacionModel.PaisHabilitado = string.Empty;
+                            Common.LogManager.SaveLog(new Exception("La configuración MSPersonalizacion se encuentra deshabilitado en la tabla configuracionpais.", null), usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
+                        }
+
+                        sessionManager.SetConfigMicroserviciosPersonalizacion(msPersonalizacionModel);
+                    }
+
 
                     if (usuarioModel.CatalogoPersonalizado != 0)
                     {
@@ -1379,15 +1424,12 @@ namespace Portal.Consultoras.Web.Controllers
                     sessionManager.SetTieneHvX1(true);
                     sessionManager.SetJwtApiSomosBelcorp(usuarioModel.JwtToken);
                     sessionManager.SetTieneMg(true);
-
-
-
-
+                                                         
                     usuarioModel.FotoPerfil = usuario.FotoPerfil;
                     usuarioModel.FotoOriginalSinModificar = usuario.FotoOriginalSinModificar;
                     usuarioModel.DiaFacturacion = GetDiaFacturacion(usuarioModel.PaisID, usuarioModel.CampaniaID, usuarioModel.ConsultoraID, usuarioModel.ZonaID, usuarioModel.RegionID);
                     usuarioModel.NuevasDescripcionesBuscador = getNuevasDescripcionesBuscador(usuarioModel.PaisID);
-                    usuarioModel.ListaOrdenamientoFiltrosBuscador = getListaOrdenamientoFiltrosBuscador(usuarioModel.PaisID);
+                    
                 }
 
                 sessionManager.SetUserData(usuarioModel);
@@ -1944,7 +1986,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 var listaDummy = configuracionPaisDatos.Where(n => n.Codigo == Constantes.TipoConfiguracionBuscador.ConsultoraDummy).ToList();
                                 if (listaDummy.Any())
                                 {
-                                    buscadorYFiltrosModel.IndicadorConsultoraDummy = listaDummy[0].Valor1.ToInt();
+                                    buscadorYFiltrosModel.IndicadorConsultoraDummy = listaDummy[0].Valor2.ToInt();
                                 }
                                 break;
                             case Constantes.ConfiguracionPais.MasGanadoras:
@@ -1964,6 +2006,7 @@ namespace Portal.Consultoras.Web.Controllers
                         listaConfiPaisModel.Add(c);
                     }
 
+                
                     revistaDigitalModel.Campania = usuarioModel.CampaniaID % 100;
                     revistaDigitalModel.CampaniaMasUno = Util.AddCampaniaAndNumero(Convert.ToInt32(usuarioModel.CampaniaID), 1, usuarioModel.NroCampanias) % 100;
                     revistaDigitalModel.NombreConsultora = usuarioModel.Sobrenombre;
@@ -2109,6 +2152,8 @@ namespace Portal.Consultoras.Web.Controllers
             buscadorYFiltrosModel.ConfiguracionPaisDatos = Mapper.Map<List<ConfiguracionPaisDatosModel>>(listaDatos) ?? new List<ConfiguracionPaisDatosModel>();
             return buscadorYFiltrosModel;
         }
+
+  
 
         public virtual RecomendacionesConfiguracionModel ConfiguracionPaisRecomendaciones(RecomendacionesConfiguracionModel recomendacionesConfiguracionModel, List<BEConfiguracionPaisDatos> listaDatos)
         {
@@ -3020,23 +3065,7 @@ namespace Portal.Consultoras.Web.Controllers
             return result;
         }
 
-        private Dictionary<string, string> getListaOrdenamientoFiltrosBuscador(int paisId)
-        {
-            var result = new Dictionary<string, string>();
-            List<BETablaLogicaDatos> listaDescripciones;
-
-            using (var tablaLogica = new SACServiceClient())
-            {
-                listaDescripciones = tablaLogica.GetTablaLogicaDatos(paisId, Constantes.TablaLogica.ListaOrdenamientoFiltros).ToList();
-            }
-
-            foreach (var item in listaDescripciones)
-            {
-                result.Add(item.Descripcion.ToString(), string.IsNullOrEmpty(item.Valor) ? "" : item.Valor.ToString());
-            }
-
-            return result;
-        }
+      
 
     }
 }

@@ -1,0 +1,112 @@
+﻿@model Portal.Consultoras.Web.Models.ClienteModel
+
+<div>
+    <h3>AGREGAR CLIENTE</h3>
+
+    <form action="" method="post">
+        @Html.HiddenFor(model => model.ClienteID)
+        @Html.HiddenFor(model => model.CodigoCliente)
+
+        @Html.TextBoxFor(model => model.NombreCliente,
+       new
+       {
+           placeholder = "Nombres",
+           maxlength = "100",
+           @class = "input-nombre",
+           autocomplete = "off",
+           onkeypress = "return FuncionesGenerales.ValidarSoloLetras(event);"
+       })
+        <div class="noti mensaje_producto_noExiste" id="divNotiNombre" style="display:none;">
+            <div class="noti_message red_texto_size">
+                <span class="icono_advertencia_notificacion"></span>
+                <span class="descripcion_mensaje">
+                    Por favor ingresa un nombre válido.
+                </span>
+            </div>
+        </div>
+        @Html.TextBoxFor(model => model.ApellidoCliente,
+       new
+       {
+           placeholder = "Apellidos",
+           maxlength = "100",
+           @class = "input-nombre",
+           autocomplete = "off",
+           onkeypress = "return FuncionesGenerales.ValidarSoloLetras(event);"
+       })
+
+        @Html.TextBoxFor(model => model.Telefono,
+       new
+       {
+           placeholder = "Teléfono Fijo",
+           maxlength = "20",
+           @class = "input-number",
+           autocomplete = "off",
+           onkeypress = "return FuncionesGenerales.ValidarSoloNumeros(event);"
+       })
+        @Html.TextBoxFor(model => model.Celular,
+       new
+       {
+           placeholder = "Celular",
+           maxlength = "20",
+           @class = "input-number",
+           autocomplete = "off",
+           onkeypress = "return FuncionesGenerales.ValidarSoloNumeros(event);"
+       })
+
+        @Html.TextBoxFor(model => model.eMail,
+       new
+       {
+           placeholder = "Correo Electrónico (Opcional)",
+           maxlength = "80",
+           @class = "input-correo",
+           autocomplete = "off",
+           onkeypress = "return FuncionesGenerales.ValidarCorreo(event);"
+       })
+        <div class="noti mensaje_producto_noExiste" id="divNotiCorreo" style="display:none;">
+            <div class="noti_message red_texto_size">
+                <span class="icono_advertencia_notificacion"></span>
+                <span class="descripcion_mensaje">
+                    El correo ingresado <b>no existe.</b> <br />
+                    Por favor ingresa un correo válido.
+                </span>
+            </div>
+        </div>
+        <input type="button" class="btnCliente_cancelar" id="btnPanelMantenerCerrar" value="CANCELAR" />
+        <input type="button" class="btnCliente_agregar" id="btnPanelMantenerAgregar" value="GUARDAR" />
+        <br />
+        <br />
+        <br />
+        <div id="divValidationSummary" style="display:none;">* Debes Ingresar al menos un teléfono de contacto</div>
+
+    </form>
+</div>
+
+<style>
+
+    .clienteMensajeEditar {
+        display: table;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+        .clienteMensajeEditar span {
+            vertical-align: middle;
+            display: table-cell;
+            padding-right: 5px;
+        }
+
+    .input-nombre {
+        display: block;
+        width: 100%;
+    }
+
+    .input-number {
+        display: block;
+        width: 100%;
+    }
+
+    .input-correo {
+        display: block;
+        width: 100%;
+    }
+</style>

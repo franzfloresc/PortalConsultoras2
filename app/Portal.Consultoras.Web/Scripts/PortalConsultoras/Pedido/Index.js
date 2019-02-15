@@ -26,6 +26,7 @@ var cuvbuscado = "";
 var cuvEsProgNuevas = false;
 
 $(document).ready(function () {
+     
     //ValidarKitNuevas();
     var hdDataBarra = $("#hdDataBarra").val();
     if ($.trim(hdDataBarra) != "") {
@@ -441,10 +442,12 @@ $(document).ready(function () {
         }
 
         ProcesarActualizacionMostrarContenedorCupon();
+        ProductoRecomendadoModule.OcultarProductosRecomendados();
         $("#btnAgregar").removeAttr("disabled");
         //} else {
         //    CerrarSplash();
         //    AbrirMensaje(validarEstrategia.message);
+        //    ProductoRecomendadoModule.OcultarProductosRecomendados();
         //    $("#btnAgregar").removeAttr("disabled");
         //}
 
@@ -511,6 +514,7 @@ $(document).ready(function () {
         return false;
     });
 
+    
 });
 
 function CargarDetallePedido(page, rows, asyncrono) {
@@ -595,6 +599,7 @@ function CargarDetallePedido(page, rows, asyncrono) {
 
                 MostrarBarra(response);
                 CargarAutocomplete();
+                //MuestraFichaResumida();
 
                 if ($("#penmostreo").length > 0) {
                     if ($("#penmostreo").attr("[data-tab-activo]") == "1") {
@@ -814,7 +819,6 @@ function ValidarStockEstrategia() {
             success: false,
             message: "No se puede agregar una Oferta Liquidacion por este medio."
         };
-
         return resultado;
     }
 
@@ -1048,7 +1052,6 @@ function ArmarDetallePedidoPaginador(data) {
 }
 
 function ArmarDetallePedido(array) {
-
     return SetHandlebars("#producto-template", array);
 }
 
@@ -1863,8 +1866,8 @@ function CerrarProductoAgregado() {
     $("#pop_liquidacion").hide();
 }
 
-function ValidDeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cuv, cantidad, clienteId, cuvReco, esBackOrder, setId, enRangoProgNuevas) {
-
+function ValidDeletePedido(event, campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cuv, cantidad, clienteId, cuvReco, esBackOrder, setId, enRangoProgNuevas) {
+    event.stopPropagation();
     ValidDeleteElectivoNuevas(
         cuv,
         enRangoProgNuevas,
@@ -3323,12 +3326,12 @@ function CargarProductoAgotados(identificador) {
         CargarFiltrosProductoAgotados();
 
     var data =
-        {
-            cuv: $("#producto-faltante-busqueda-cuv").val(),
-            descripcion: $("#producto-faltante-busqueda-descripcion").val(),
-            categoria: $("#ddlCategoriaProductoAgotado").val() == null ? "" : $("#ddlCategoriaProductoAgotado").val(),
-            revista: $("#ddlCatalogoRevistaProductoAgotado").val() == "" ? "" : $("#ddlCatalogoRevistaProductoAgotado option:selected").text()
-        };
+    {
+        cuv: $("#producto-faltante-busqueda-cuv").val(),
+        descripcion: $("#producto-faltante-busqueda-descripcion").val(),
+        categoria: $("#ddlCategoriaProductoAgotado").val() == null ? "" : $("#ddlCategoriaProductoAgotado").val(),
+        revista: $("#ddlCatalogoRevistaProductoAgotado").val() == "" ? "" : $("#ddlCatalogoRevistaProductoAgotado option:selected").text()
+    };
 
     AbrirSplash();
     jQuery.ajax({
@@ -3705,5 +3708,3 @@ function CargarProductosRecomendados(item) {
     }
 
 }
-
-
