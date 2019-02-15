@@ -1,4 +1,4 @@
-﻿ var AdministrarEstrategia = (function (config) {
+﻿var AdministrarEstrategia = (function (config) {
 
     var _config = {
         actualizarMatrizComercialAction: config.actualizarMatrizComercialAction || "",
@@ -76,7 +76,8 @@
         GuiaDeNegocio: "010",
         LosMasVendidos: "020",
         HerramientaVenta: "011",
-        ShowRoom: "030"
+        ShowRoom: "030",
+        ArmaTuPack: "031"
 
     }
 
@@ -92,7 +93,7 @@
         HerramientaVenta: 13,
         ShowRoom: 30
     }
- 
+
     var _editData = {};
     var _idImagen = 0;
 
@@ -106,8 +107,8 @@
 
     var _paginador = Paginador({
         elementId: "matriz-" +
-        "imagen" +
-        "es-paginacion",
+            "imagen" +
+            "es-paginacion",
         elementClick: _paginadorClick
     });
 
@@ -556,8 +557,8 @@
             else $("#chkOfertaUltimoMinuto").attr("checked", false);
             $(".checksPedidosAsociados")
                 .append('<div class="selectP2 borde_redondeado"><input type="text" id="txtPedidoAsociado" value="' +
-                data.NumeroPedido +
-                '" readonly /></div>');
+                    data.NumeroPedido +
+                    '" readonly /></div>');
 
             _agregarCamposLanzamiento("img-fondo-desktop", data.ImgFondoDesktop);
             _agregarCamposLanzamiento("img-fondo-mobile", data.ImgFondoMobile);
@@ -1028,12 +1029,12 @@
                         {
                             Descripcion: "CUVs Actualizados",
                             Cantidad: data.listActualizado.length +
-                            " <a href='#' onclick=showDialog(\'DialogDescActualizada\')> Ver </a>"
+                                " <a href='#' onclick=showDialog(\'DialogDescActualizada\')> Ver </a>"
                         },
                         {
                             Descripcion: "CUVs no Actualizados",
                             Cantidad: data.listNoActualizado.length +
-                            " <a href='#' onclick=showDialog(\'DialogDescNoActualizada\')> Ver </a>"
+                                " <a href='#' onclick=showDialog(\'DialogDescNoActualizada\')> Ver </a>"
                         }
                     ]
                 };
@@ -1173,10 +1174,13 @@
     }
 
     var _fnGrilla = function () {
+
+
         $("#divSeccionProductos").show();
         $("#list").jqGrid("GridUnload");
         var tipo = $("#ddlTipoEstrategia").find(":selected").data("id");
         var codigo = $("#ddlTipoEstrategia").find(":selected").data("codigo");
+          
 
         var colNameActions = (codigo == _codigoEstrategia.ShowRoom) ? "Set" : "";
         var hideColProducts = (codigo == _codigoEstrategia.ShowRoom) ? false : true;
@@ -1203,7 +1207,8 @@
                 codigo == "008" ||
                 codigo == "010" ||
                 codigo == _codigoEstrategia.ShowRoom ||
-                codigo == _codigoEstrategia.HerramientaVenta),
+                codigo == _codigoEstrategia.HerramientaVenta ||
+                codigo == _codigoEstrategia.ArmaTuPack),
             multiselectWidth: 35,
             colNames: [
                 "EstrategiaID", "Orden", "#", "Pedido Asociado", "Precio", "CUV2", "Descripción", "Limite Venta", "Código SAP", "ImagenURL",
@@ -1362,15 +1367,15 @@
                 }
             ],
             jsonReader:
-                {
-                    root: "rows",
-                    page: "page",
-                    total: "total",
-                    records: "records",
-                    repeatitems: true,
-                    cell: "cell",
-                    id: "id"
-                },
+            {
+                root: "rows",
+                page: "page",
+                total: "total",
+                records: "records",
+                repeatitems: true,
+                cell: "cell",
+                id: "id"
+            },
             pager: jQuery("#pager"),
             loadtext: "Cargando datos...",
             recordtext: "{0} - {1} de {2} Registros",
@@ -1404,6 +1409,10 @@
         if (tipo == "4" || codigo == "005" || codigo == "007" ||
             codigo == "008" || codigo == "010" || codigo == _codigoEstrategia.ShowRoom || codigo == _codigoEstrategia.HerramientaVenta) {
             $("#list").jqGrid("hideCol", ["Orden"]);
+        }
+
+        if (codigo == _codigoEstrategia.ArmaTuPack) {
+            $("#list").jqGrid("hideCol", ["Orden", "ID", "NumeroPedido","ImagenProducto"]);
         }
 
         $("<span style=\"position: absolute;margin-top: 10px;\">(*)</span>").prependTo("#jqgh_list_cb");
@@ -1443,15 +1452,15 @@
                             var item = $(this)[0];
                             $(".checksPedidosAsociados")
                                 .append(
-                                '<div class="titB" style="width:9px;"><input type="checkbox" class="chkclass" id="PedidoAsociado_' +
-                                item +
-                                '" name="PedidoAsociado_' +
-                                item +
-                                '" value=' +
-                                item +
-                                " >" +
-                                item +
-                                "</div>");
+                                    '<div class="titB" style="width:9px;"><input type="checkbox" class="chkclass" id="PedidoAsociado_' +
+                                    item +
+                                    '" name="PedidoAsociado_' +
+                                    item +
+                                    '" value=' +
+                                    item +
+                                    " >" +
+                                    item +
+                                    "</div>");
                         });
                 }
                 closeWaitingDialog();
@@ -3161,7 +3170,7 @@
             var rows = jQuery("#list").jqGrid('getRowData');
             for (i = 0; i < rows.length; i++) {
                 var row = rows[i];
-                if (paisHabilitadoMS && _config.microserviciosEstrategias.indexOf(row.CodigoTipoEstrategia) > -1 && row.CodigoTipoEstrategia!="") {
+                if (paisHabilitadoMS && _config.microserviciosEstrategias.indexOf(row.CodigoTipoEstrategia) > -1 && row.CodigoTipoEstrategia != "") {
                     if (!estrategiasSeleccionadasIds.includes(row.EstrategiaID)) {
                         estrategiasNoSeleccionadas.push(row._id);
                     }
@@ -3234,7 +3243,10 @@
                 codigo == _codigoEstrategia.PackAltoDesembolso ||
                 codigo == _codigoEstrategia.GuiaDeNegocio ||
                 codigo == _codigoEstrategia.LosMasVendidos ||
-                codigo == _codigoEstrategia.ShowRoom) {
+                codigo == _codigoEstrategia.ShowRoom ||
+                codigo == _codigoEstrategia.ArmaTuPack
+
+            ) {
                 $("#mensajeActivarDesactivar").show();
             } else {
                 $("#mensajeActivarDesactivar").hide();
@@ -3633,7 +3645,9 @@
                 _codigoEstrategia.PackAltoDesembolso,
                 _codigoEstrategia.GuiaDeNegocio,
                 _codigoEstrategia.ShowRoom,
-                _codigoEstrategia.HerramientaVenta)) {
+                _codigoEstrategia.HerramientaVenta,
+                _codigoEstrategia.ArmaTuPack
+            )) {
 
                 $("#btnActivarDesactivar").show();
                 $("#btnNuevoMasivo").show();
@@ -3641,10 +3655,21 @@
 
                 if (aux2 !== _codigoEstrategia.HerramientaVenta) $("#btnActualizarTonos").show();
                 if (aux2 === _codigoEstrategia.GuiaDeNegocio) $("#btnCargaBloqueoCuv").show();
+
                 if (aux2 === _codigoEstrategia.ShowRoom) {
                     $("#btnDescripcionMasivo").val("Descrip. Masivo Set");
                     $("#btnDescripcionMasivoProd").show();
-                } else {
+                }
+                else if (aux2 === _codigoEstrategia.ArmaTuPack) {
+                    $("#btnActualizarTonos").hide();
+                    $("#btnNuevo").hide();
+                    $("#btnNuevoMasivo").show();
+                    $("#btnActivarDesactivar").show();
+                    $("#btnDescripcionMasivo").hide();
+                    $("#btnCargaBloqueoCuv").hide();
+                    $("#btnDescripcionMasivoProd").hide();
+                }
+                else {
                     $("#btnDescripcionMasivo").val("Descrip. Masivo");
                     $("#btnDescripcionMasivoProd").hide();
                 }
