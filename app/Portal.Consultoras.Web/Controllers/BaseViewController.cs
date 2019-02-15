@@ -259,13 +259,14 @@ namespace Portal.Consultoras.Web.Controllers
 
         }
 
-        private DetalleEstrategiaBreadCrumbsModel GetDetalleEstrategiaBreadCrumbs(bool tieneRevistaDigital,
-            bool productoPerteneceACampaniaActual, string palanca)
+        private DetalleEstrategiaBreadCrumbsModel GetDetalleEstrategiaBreadCrumbs(int campania, string palanca)
         {
             var breadCrumbs = new DetalleEstrategiaBreadCrumbsModel();
 
             try
             {
+                bool tieneRevistaDigital = revistaDigital.TieneRevistaDigital();
+                bool productoPerteneceACampaniaActual = userData.CampaniaID == campania;
                 var area = IsMobile() ? "mobile" : string.Empty;
 
                 breadCrumbs.Inicio.Texto = MobileAppConfiguracion.EsAppMobile ? null : "Inicio";
@@ -579,7 +580,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 return null;
             }
-            
+
             palanca = IdentificarPalancaRevistaDigital(palanca, campaniaId);
 
             if (!_ofertaPersonalizadaProvider.TienePermisoPalanca(palanca))
@@ -603,9 +604,9 @@ namespace Portal.Consultoras.Web.Controllers
             modelo.OrigenAgregar = GetOrigenPedidoWebDetalle(origen);
 
             modelo.TipoAccionNavegar = GetTipoAccionNavegar(modelo.OrigenAgregar, esMobile, esEditar);
-            modelo.BreadCrumbs = GetDetalleEstrategiaBreadCrumbs(revistaDigital.TieneRevistaDigital(),
-               userData.CampaniaID == campaniaId,
-               palanca);
+            modelo.BreadCrumbs = modelo.TipoAccionNavegar == Constantes.TipoAccionNavegar.BreadCrumbs
+                ? GetDetalleEstrategiaBreadCrumbs(campaniaId, palanca)
+               : new DetalleEstrategiaBreadCrumbsModel();
             modelo.Palanca = palanca;
             modelo.TieneSession = _ofertaPersonalizadaProvider.PalancasConSesion(palanca);
             modelo.Campania = campaniaId;
@@ -632,7 +633,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return modelo;
         }
-        
+
         private string IdentificarPalancaRevistaDigital(string palanca, int campaniaId)
         {
             var palancaX = palanca;
@@ -720,7 +721,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             int tipo = Constantes.TipoAccionNavegar.BreadCrumbs;
 
-            // aplicar logica para los origenes de sugeridos
+            // aplicar logica para los origenes de recomendados
             return tipo;
         }
 
@@ -730,7 +731,7 @@ namespace Portal.Consultoras.Web.Controllers
                     || Constantes.NombrePalanca.ShowRoom == palanca
                     || Constantes.NombrePalanca.OfertaDelDia == palanca);
         }
-        
+
         private bool GetTieneCompartir(string palanca, bool esEditar)
         {
             return !esEditar && !MobileAppConfiguracion.EsAppMobile &&
@@ -756,16 +757,11 @@ namespace Portal.Consultoras.Web.Controllers
 
         private bool GetMostrarCliente(bool esEditar)
         {
-            var mostrar = esEditar && _tablaLogicaProvider.GetTablaLogicaDatoValorBool(
-                            userData.PaisID,
-                            Constantes.TablaLogica.PantallaResponsive,
-                            Constantes.TablaLogicaDato.PantallasResponsive.MisClientes,
-                            false
-                            );
+            var mostrar = esEditar && (new ClienteProvider()).ValidarFlagFuncional(userData.PaisID);
             return mostrar;
 
         }
-        
+
         /// <summary>
         /// metodo para obtener toda la informacion adiciona en un modelo
         /// por el momento solo es bool para saber si va o no
