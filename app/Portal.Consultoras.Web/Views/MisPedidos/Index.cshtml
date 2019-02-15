@@ -599,7 +599,7 @@
             <div class="descripcion_prod texto_gris_popup">Producto</div>
             <div class="cantidadProd texto_gris_popup">Cantidad</div>
             @*{{#iff tipo '==' 'f'}}*@
-            <div class="precioUnitario_prod texto_gris_popup">Precio Unitario</div>
+            <div class="precioUnitario_prod texto_gris_popup">Precio unitario</div>
             @*{{/iff}}
             {{#iff tipo '==' 'i'}}
             <div class="precioUnitario_prod texto_gris_popup">Monto</div>
@@ -656,19 +656,21 @@
             <span>{{CantidadProducto}}</span>
             @*<span>PRODUCTOS</span>*@
             {{#iff CantidadProducto '>' 1}}
-                <span style="text-transform:none">Productos</span>
+                <span style="text-transform:none">Unidades</span>
             {{else}}
-                <span style="text-transform:none">Producto</span>
+                <span style="text-transform:none">Unidad</span>
             {{/iff}}
         </div>
         <div class="content_datos_pedidosFacturados padding_area_montosTotales" style="width:18%!important; font-size:14px;">
             <div class="info_extra_Validado">
                 <img src="/Content/Images/Esika/info-copy.png">
                 <div class="monto_resumenValidado">
-                    <div class="monto_1">Total sin Dscto.</div>
+                    @*<div class="monto_1">Total sin Dscto.</div>*@
+                    <div class="monto_1">Subtotal</div>
                     <div class="monto_numero" style="opacity:0.6">{{SimboloMoneda}} {{ImporteTotal}}</div>
                     <hr class="clear">
-                    <div class="monto_1">Dscto. por niveles </div>
+                    @*<div class="monto_1">Dscto. por niveles </div>*@
+                    <div class="monto_1">Descuento por niveles </div>
                     <div class="monto_numero">{{SimboloMoneda}} {{OfertaNiveles}}</div>
                 </div>
             </div>
