@@ -256,15 +256,15 @@
                                 <hr class="separador_montos" />
                                 <div class="caja_montos_textos">
                                     <div class="caja_montos_textos_sinDescuento">
-                                        <span>TOTAL SIN DSCTO.</span>
-                                        <span class="dscto_ofertasNiveles">(-) Dscto. Ofertas Por Niveles</span>
+                                        <span>Subtotal:</span>
+                                        <span class="dscto_ofertasNiveles">Descuento ofertas por niveles:</span>
                                     </div>
                                     <br />
                                     <p class="monto_con_descuento pMontoCliente default-color" style="display: none;">
                                         <span id="spnNombreCliente"></span>
                                     </p>
                                     <div class="monto_total">
-                                        <span><b>Monto total:</b></span>
+                                        <span><b>Total:</b></span>
                                     </div>
                                     <br />
                                     <div class="monto_ganancia default-color">
@@ -284,7 +284,7 @@
                                                 Model.CodigoIso == Constantes.CodigosISOPais.PuertoRico) //PE,CO,EC,GT.SV,DO,PR
                                             {
 
-                                                cabezaEscala = "Ganancia estimada total";
+                                                cabezaEscala = "Ganancia estimada";
                                                 pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocio y Otros";
                                                 lbl1Ganancia = "Mis descuentos";
                                                 lbl2Ganancia = "Ganancia estimada *(Guia de negocio y otros)";
@@ -397,7 +397,8 @@
                             }
                         }
                         <div class="boton_guardarPedido">
-                            <input type="button" id="btnValidarPROL" value="@Model.Prol" style="text-transform: uppercase;" class="info_copy default-background-color" />
+                            
+                            <button id="btnValidarPROL"  class="info_copy default-background-color">@Model.Prol</button>
                         </div>
                     </div>
 
