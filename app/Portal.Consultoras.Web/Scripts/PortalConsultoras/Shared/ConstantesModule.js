@@ -184,7 +184,8 @@ var ConstantesModule = (function () {
 
     var _urlPedido = {
         cargarDetallePedido: '/Pedido/CargarDetallePedido',
-        ejecutarServicioProl: '/Pedido/EjecutarServicioPROL'
+        ejecutarServicioProl: '/Pedido/EjecutarServicioPROL',
+        updatePostulanteMensaje:'/Pedido/UpdatePostulanteMensaje'
     }
 
     return {
