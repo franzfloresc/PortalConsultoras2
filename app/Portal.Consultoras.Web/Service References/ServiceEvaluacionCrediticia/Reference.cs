@@ -289,16 +289,6 @@ namespace Portal.Consultoras.Web.ServiceEvaluacionCrediticia {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEvaluacionCrediticiaService/ConsultarServicioCrediticioBO", ReplyAction="http://tempuri.org/IEvaluacionCrediticiaService/ConsultarServicioCrediticioBOResp" +
             "onse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceEvaluacionCrediticia.EvaluacionCrediticiaBE> ConsultarServicioCrediticioBOAsync(string codigoISO, string territorio, string numeroDocumento);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEvaluacionCrediticiaService/ConsultarServicioCrediticioEcuado" +
-            "r", ReplyAction="http://tempuri.org/IEvaluacionCrediticiaService/ConsultarServicioCrediticioEcuado" +
-            "rResponse")]
-        Portal.Consultoras.Web.ServiceEvaluacionCrediticia.EvaluacionCrediticiaBE ConsultarServicioCrediticioEcuador(string codigoIso, string tipoIdentificacion, string numeroDocumento);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEvaluacionCrediticiaService/ConsultarServicioCrediticioEcuado" +
-            "r", ReplyAction="http://tempuri.org/IEvaluacionCrediticiaService/ConsultarServicioCrediticioEcuado" +
-            "rResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceEvaluacionCrediticia.EvaluacionCrediticiaBE> ConsultarServicioCrediticioEcuadorAsync(string codigoIso, string tipoIdentificacion, string numeroDocumento);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -382,14 +372,6 @@ namespace Portal.Consultoras.Web.ServiceEvaluacionCrediticia {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceEvaluacionCrediticia.EvaluacionCrediticiaBE> ConsultarServicioCrediticioBOAsync(string codigoISO, string territorio, string numeroDocumento) {
             return base.Channel.ConsultarServicioCrediticioBOAsync(codigoISO, territorio, numeroDocumento);
-        }
-        
-        public Portal.Consultoras.Web.ServiceEvaluacionCrediticia.EvaluacionCrediticiaBE ConsultarServicioCrediticioEcuador(string codigoIso, string tipoIdentificacion, string numeroDocumento) {
-            return base.Channel.ConsultarServicioCrediticioEcuador(codigoIso, tipoIdentificacion, numeroDocumento);
-        }
-        
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceEvaluacionCrediticia.EvaluacionCrediticiaBE> ConsultarServicioCrediticioEcuadorAsync(string codigoIso, string tipoIdentificacion, string numeroDocumento) {
-            return base.Channel.ConsultarServicioCrediticioEcuadorAsync(codigoIso, tipoIdentificacion, numeroDocumento);
         }
     }
 }

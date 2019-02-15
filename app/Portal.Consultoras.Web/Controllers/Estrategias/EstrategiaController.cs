@@ -181,6 +181,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 
                 List<EstrategiaPersonalizadaProductoModel> listModel;
                 List<EstrategiaPersonalizadaProductoModel> listPerdio;
+
                 var listaSubCampania = new List<EstrategiaPersonalizadaProductoModel>();
                 int cantidadTotal0 = 0;
                 if (tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.SRObtenerProductos)
@@ -254,6 +255,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             {
                 listaRetorno = ConsultarOfertasListaPerdioRD(model.CampaniaID, listModelCompleta);
             }
+            listaRetorno = listaRetorno.Where(x => x.TieneStock).ToList();
             return listaRetorno;
         }
 

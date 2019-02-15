@@ -32,7 +32,6 @@
                 buttons: {
                     "Confirmar": function () {
                         HideDialog("dialog");
-                        //$(this).dialog("close");
                         waitingDialog({});
                         jQuery.ajax({
                             type: 'POST',
@@ -57,7 +56,6 @@
                     },
                     "Cancelar": function () {
                         HideDialog("dialog");
-                        //$(this).dialog("close");
                     }
                 }
             });
