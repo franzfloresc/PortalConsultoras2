@@ -523,7 +523,7 @@ var EstrategiaAgregarModule = (function () {
                 }
                 if (!IsNullOrEmpty(data.mensajeAviso)) AbrirMensaje(data.mensajeAviso, data.tituloMensaje);
                 if (_config.esFicha) {
-                    FichaEditarModule.ShowDivFichaResumida(false);
+                    FichaPartialModule.ShowDivFichaResumida(false);
                 }
                 return false;
             })
