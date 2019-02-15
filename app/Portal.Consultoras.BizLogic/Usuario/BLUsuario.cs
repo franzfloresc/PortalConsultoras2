@@ -715,11 +715,11 @@ namespace Portal.Consultoras.BizLogic
                     if (usuario.TieneHana == 1)
                     {
                         var beUsuarioDatosHana = GetDatosConsultoraHana(usuario.PaisID, usuario.CodigoUsuario, usuario.CampaniaID);
-                        if (beUsuarioDatosHana != null) consultora.FechaVencimiento = (beUsuarioDatosHana.FechaLimPago == DateTime.MinValue ? string.Empty : beUsuarioDatosHana.FechaLimPago.ToString("dd/MM/yyyy"));
+                        if (beUsuarioDatosHana != null) consultora.FechaVencimiento = (beUsuarioDatosHana.FechaLimPago == DateTime.MinValue ? string.Empty : beUsuarioDatosHana.FechaLimPago.ToString(Constantes.Formatos.Fecha));
                     }
                     else
                     {
-                        consultora.FechaVencimiento = (usuario.FechaLimPago == DateTime.MinValue ? string.Empty : usuario.FechaLimPago.ToString("dd/MM/yyyy"));
+                        consultora.FechaVencimiento = (usuario.FechaLimPago == DateTime.MinValue ? string.Empty : usuario.FechaLimPago.ToString(Constantes.Formatos.Fecha));
                     }
                 }
             }
@@ -1893,7 +1893,6 @@ namespace Portal.Consultoras.BizLogic
             {
                 if (!usuario.PuedeActualizar) return ActualizacionDatosRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CORREO_CAMBIO_NO_AUTORIZADO);
                 if (string.IsNullOrEmpty(correoNuevo)) return ActualizacionDatosRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CORREO_VACIO);
-                //if (usuario.EMail == correoNuevo) return new BERespuestaServicio { Message = Constantes.MensajesError.UpdCorreoConsultora_CorreoNoCambia };
 
                 if (usuario.EMail != correoNuevo)
                 {
