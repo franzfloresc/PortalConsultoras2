@@ -112,6 +112,7 @@
     bottom: 0;
     box-shadow: 0 -2px 3px 0 rgba(0, 0, 0, 0.2);
     background-color: #ffffff;
+    z-index: 1;
 }
 
 .aplicar_seleccion button{
@@ -215,6 +216,7 @@
     position: fixed;
     width: 100%;
     top: 0px;
+    z-index: 1;
 }
 
 .contenedor_seleccion .slick-track {

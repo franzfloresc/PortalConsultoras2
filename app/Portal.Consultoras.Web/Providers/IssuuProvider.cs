@@ -105,14 +105,13 @@ namespace Portal.Consultoras.Web.Providers
                     }
                 }
             }
-            else
-                esRevistaPiloto = false;
 
             codigo = _configuracionManager.GetConfiguracionManager(Constantes.ConfiguracionManager.CodigoRevistaIssuu);
             if (campania.Length >= 6)
-                nroCampania = campania.Substring(4, 2);
-            if (campania.Length >= 6)
+            {
                 anioCampania = campania.Substring(0, 4);
+                nroCampania = campania.Substring(4, 2);
+            }
 
             if (esRevistaPiloto)
                 requestUrl = string.Format(codigo, codigoISO.ToLower(), nroCampania, anioCampania, codeGrupo.Replace(Constantes.ConfiguracionManager.RevistaPiloto_Escenario, ""));
