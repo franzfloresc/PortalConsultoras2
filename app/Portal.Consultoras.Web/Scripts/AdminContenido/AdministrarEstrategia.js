@@ -789,6 +789,21 @@
         return Des;
     }
 
+    /* INIT ATP */
+    var _showActionsATPGrupo = function (cellvalue, options, rowObject) {
+        console.log('rowObject', rowObject);
+
+        var id = rowObject[0];
+        var campaniaId = $("#ddlCampania").val();
+        var cuv = rowObject[5],
+            _id = rowObject[14];
+
+        var edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').EditarProducto('" + id + "','" + campaniaId + "','" + cuv + "',event);\" >" + "<img src='" + _config.rutaImagenEdit + "' alt='Editar Productos ShowRoom' title='Editar Productos ShowRoom' border='0' /></a>";
+         
+        return edit;
+    }
+    /*END ATP */
+
     var _showImage = function (cellvalue, options, rowObject) {
         var image = $.trim(rowObject[9]);
         var filename = image.replace(/^.*[\\\/]/, "");
@@ -1174,16 +1189,17 @@
     }
 
     var _fnGrilla = function () {
-
-
+         
         $("#divSeccionProductos").show();
         $("#list").jqGrid("GridUnload");
         var tipo = $("#ddlTipoEstrategia").find(":selected").data("id");
         var codigo = $("#ddlTipoEstrategia").find(":selected").data("codigo");
-          
-
+         
         var colNameActions = (codigo == _codigoEstrategia.ShowRoom) ? "Set" : "";
         var hideColProducts = (codigo == _codigoEstrategia.ShowRoom) ? false : true;
+        var hideColATP = (codigo == _codigoEstrategia.ArmaTuPack) ? false : true;
+         
+
         jQuery("#list").jqGrid({
             url: baseUrl + "AdministrarEstrategia/Consultar",
             hidegrid: false,
@@ -1213,7 +1229,8 @@
             colNames: [
                 "EstrategiaID", "Orden", "#", "Pedido Asociado", "Precio", "CUV2", "Descripción", "Limite Venta", "Código SAP", "ImagenURL",
                 "Activo", "EsOfertaIndependiente", "FlagValidarImagen", "PesoMaximoImagen", "_id"
-                , "CodigoTipoEstrategia", "Foto", colNameActions, "Productos"
+                , "CodigoTipoEstrategia", "Foto", colNameActions, "Productos",
+                "Grupos"
             ],
             colModel: [
                 {
@@ -1364,6 +1381,17 @@
                     sortable: false,
                     hidden: hideColProducts,
                     formatter: _showActionsProductos
+                },
+                {
+                    name: "Grupos",
+                    index: "Grupos",
+                    width: 60,
+                    align: "center",
+                    editable: true,
+                    resizable: false,
+                    sortable: false,
+                    hidden: hideColATP,
+                    formatter: _showActionsATPGrupo
                 }
             ],
             jsonReader:
@@ -1393,6 +1421,8 @@
             altclass: "jQGridAltRowClass",
             loadComplete: function (data) {
 
+                console.log('data eaar: ', data);
+
                 if (data.rows.length > 0) {
                     for (var i = 0; i < data.rows.length; i++) {
                         if (data.rows[i].cell[10] == "1") {
@@ -1412,7 +1442,7 @@
         }
 
         if (codigo == _codigoEstrategia.ArmaTuPack) {
-            $("#list").jqGrid("hideCol", ["Orden", "ID", "NumeroPedido","ImagenProducto"]);
+            $("#list").jqGrid("hideCol", ["Orden", "ID", "NumeroPedido", "ImagenProducto"]);
         }
 
         $("<span style=\"position: absolute;margin-top: 10px;\">(*)</span>").prependTo("#jqgh_list_cb");
