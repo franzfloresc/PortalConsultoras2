@@ -24109,7 +24109,7 @@ input[type='checkbox']:checked + span:after {
     font-size: 13px;
     font-weight: 400;
     float: left;
-    width: 110px;
+    width: 140px;
 }
 
 .monto_numero {
