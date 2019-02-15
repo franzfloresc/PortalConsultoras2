@@ -179,7 +179,7 @@ var ConstantesModule = (function () {
     var _urlDetalleEstrategia = {
         obtenerComponentes: '/DetalleEstrategia/ObtenerComponentes',
         obtenerModelo: '/DetalleEstrategia/ObtenerModelo',
-        obtenerPedidoWebSetDetalle: '/DetalleEstrategia/ObtenerComponentePedido'
+        obtenerPedidoWebSetDetalle: '/Pedido/ObtenerPedidoWebSetDetalle'
     }
 
     var _urlPedido = {

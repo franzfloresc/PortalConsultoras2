@@ -449,16 +449,18 @@ var FichaModule = (function (config) {
     }
 
     var _asignaDetallePedido = function (data, estrategia) {
-        if (!data.length) {
+        data = data || {};
+        data.Detalles = data.Detalles || [];
+        if (data.Detalles.length == 0) {
             _redireccionar();
             return false;
             //throw 'Componente: No existe detalle de pedido';
         }
 
-        estrategia.Cantidad = data[0].Cantidad;
+        estrategia.Cantidad = data.Cantidad;
         _asignarCantidad(estrategia.Cantidad);
 
-        $.each(data, function (i, o) {
+        $.each(data.Detalles, function (i, o) {
             var filterComponente = estrategia
                 .Hermanos
                 .filter(function (objeto) {
@@ -486,7 +488,7 @@ var FichaModule = (function (config) {
                         set: _config.setId
                     }).done(function (data) {
                         if (data.success) {
-                            _asignaDetallePedido(data.componentes, pEstrategia);
+                            _asignaDetallePedido(data.pedidoSet, pEstrategia);
                         }
                     }).fail(function (data, error) {
                         console.log(data);
@@ -598,6 +600,8 @@ var FichaModule = (function (config) {
         estrategia.esEditable = _config.esEditable;
         estrategia.setId = _config.setId || 0;
         estrategia.TieneStock = _config.esEditable || estrategia.TieneStock;
+
+        estrategia = $.extend(_modeloFicha, estrategia);
 
         return estrategia;
     };
@@ -875,7 +879,7 @@ var FichaModule = (function (config) {
             _redireccionar();
             return false;
         }
-        FichaEditarModule.ShowDivFichaResumida(true);
+        FichaPartialModule.ShowDivFichaResumida(true);
 
         _modeloFicha.BreadCrumbs = _modeloFicha.BreadCrumbs || {};
         _modeloFicha.BreadCrumbs.TipoAccionNavegar = _modeloFicha.TipoAccionNavegar;
@@ -932,7 +936,7 @@ var FichaModule = (function (config) {
         if (!_config.esEditable)
             window.location = baseUrl + (_config.esMobile ? "Mobile/" : "") + "Ofertas";
         else {
-            FichaEditarModule.ShowDivFichaResumida(false);
+            FichaPartialModule.ShowDivFichaResumida(false);
             //alert('Ha ocurrido una excepción al obtener los datos para este CUV.');
 
         }
@@ -1029,7 +1033,7 @@ var FichaModule = (function (config) {
     };
 });
 
-var FichaEditarModule = (function () {
+var FichaPartialModule = (function () {
 
     var _validarData = function (objFicha) {
         objFicha = objFicha || {};
@@ -1042,7 +1046,7 @@ var FichaEditarModule = (function () {
         return true;
     };
 
-    var _editarProducto = function (event, tipoAccion) {
+    var _construirFicha = function (event, tipoAccion, esEditar) {
         if (tipoAccion != ConstantesModule.EditarItemPedido.Activo) {
             return false;
         }
@@ -1063,7 +1067,7 @@ var FichaEditarModule = (function () {
             campania: campania,
             cuv: cuv,
             origen: OrigenPedidoWeb,
-            esEditable: true,
+            esEditable: esEditar == undefined || esEditar == null || esEditar,
             setId: setId
         };
 
@@ -1073,6 +1077,8 @@ var FichaEditarModule = (function () {
         }
 
         window.setTimeout(function () {
+            AbrirLoad();
+
             fichaModule = FichaModule(objFicha);
             fichaModule.Inicializar();
 
@@ -1095,7 +1101,7 @@ var FichaEditarModule = (function () {
     }
 
     return {
-        EditarProducto: _editarProducto,
+        ConstruirFicha: _construirFicha,
         ShowDivFichaResumida: _showDivFichaResumida
     };
 })();
