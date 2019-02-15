@@ -953,6 +953,8 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
+                SessionManager.SetListaCDRWebCargaInicial(null);//HD-3412 EINCA
+
                 return Json(new
                 {
                     Cantidad = 0,
