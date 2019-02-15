@@ -131,7 +131,6 @@
                 $("#gvwIncentivos").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
                 limpiarPopup();
                 HideDialog("DialogRegistroIncentivos");
-                //$('#DialogRegistroIncentivos').dialog('close');
                 if (responseText && typeof responseText === "string") {
                     alert($.parseJSON(responseText).message);
                 } else {
@@ -159,7 +158,6 @@
                 },
                 "Cerrar": function () {
                     HideDialog("DialogRegistroIncentivos");
-                    //$(this).dialog('close');
                 }
             }
         });
