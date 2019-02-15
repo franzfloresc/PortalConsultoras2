@@ -241,7 +241,7 @@
     }
 
     // catalogo compartir por Facebook actual
-    var CompartirMessengerActual = function (catalogo, campaniaCatalogo, texto, isMovil, FBAppId) {
+    var CompartirMessengerActual = function (/*catalogo,*/ campaniaCatalogo/*, texto, isMovil, FBAppId*/) {
         dataLayer.push({
             'event': 'virtualEvent',
             'category': 'Catálogos y revistas',
@@ -250,27 +250,27 @@
             'value': 0
         });
 
-        texto = texto.ReplaceAll("/", "%2F");
-        texto = texto.ReplaceAll(":", "%3A");
-        texto = texto.ReplaceAll("?", "%3F");
-        texto = texto.ReplaceAll("=", "%3D");
-        texto = texto.ReplaceAll("&", "%26");
-        texto = texto.ReplaceAll(" ", "%20");
+        //texto = texto.ReplaceAll("/", "%2F");
+        //texto = texto.ReplaceAll(":", "%3A");
+        //texto = texto.ReplaceAll("?", "%3F");
+        //texto = texto.ReplaceAll("=", "%3D");
+        //texto = texto.ReplaceAll("&", "%26");
+        //texto = texto.ReplaceAll(" ", "%20");
 
-        var popWwidth = 570;
-        var popHeight = 420;
-        var left = (screen.width / 2) - (popWwidth / 2);
-        var top = (screen.height / 2) - (popHeight / 2);
-        var url;
-        if (isMovil == true) {
-            url = 'fb-messenger://share?link=' + encodeURIComponent(texto) + '&app_id=' + encodeURIComponent(FBAppId);
-            window.open(url);
-        }
-        else
-        {
-            url = "https://www.facebook.com/dialog/send?app_id=" + FBAppId + "&link=" + texto + "&redirect_uri=" + texto;
-            window.open(url, 'Facebook', "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left + ",top=" + top + "");
-        }
+        //var popWwidth = 570;
+        //var popHeight = 420;
+        //var left = (screen.width / 2) - (popWwidth / 2);
+        //var top = (screen.height / 2) - (popHeight / 2);
+        //var url;
+        //if (isMovil == true) {
+        //    url = 'fb-messenger://share?link=' + encodeURIComponent(texto) + '&app_id=' + encodeURIComponent(FBAppId);
+        //    window.open(url);
+        //}
+        //else
+        //{
+        //    url = "https://www.facebook.com/dialog/send?app_id=" + FBAppId + "&link=" + texto + "&redirect_uri=" + texto;
+        //    window.open(url, 'Facebook', "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left + ",top=" + top + "");
+        //}
     }
 
     // catalogo email actual
