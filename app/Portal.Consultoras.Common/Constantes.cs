@@ -198,11 +198,6 @@ namespace Portal.Consultoras.Common
                 public const string ListCuv = "ListCuv";
             }
 
-            public static class PantallasResponsive
-            {
-                public static readonly short MisClientes = 15801;
-            }
-
         }
 
         public static class ParametrosNames
@@ -1771,7 +1766,6 @@ namespace Portal.Consultoras.Common
             public const short ListaOrdenamientoFiltros = 147;
             public const short ArmaTuPack = 14;
             public const short PilotoCatalogoDigital = 155;
-            public const short PantallaResponsive = 158;
         }
 
         public struct MensajesCDRExpress

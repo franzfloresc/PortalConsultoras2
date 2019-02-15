@@ -1,17 +1,13 @@
-﻿using AutoMapper;
-using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.TusClientes;
 using Portal.Consultoras.Web.Providers;
-using Portal.Consultoras.Web.ServiceCliente;
+using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.ServiceModel;
-using System.Web;
 using System.Web.Mvc;
-using Portal.Consultoras.Web.SessionManager;
-using Portal.Consultoras.Web.LogManager;
 
 namespace Portal.Consultoras.Web.Controllers
 {

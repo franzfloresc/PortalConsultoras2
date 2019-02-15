@@ -5,9 +5,14 @@
         <div class="productos_recomendados_carrusel_wrapper w-100">
             <ul id="carouselProductosRecomendados" class="productos_recomendados_carrusel">
                 {{#each this as |item|}}
-                <li class="producto_recomendado" data-item="ProductoRecomendadoBuscador">
+                <li class="producto_recomendado" data-item="ProductoRecomendadoBuscador"  data-detalle-item="0"
+                     data-cuv="{{CUV}}"
+                     data-SetID="0"
+                     data-campania="{{CampaniaID}}"
+                     data-tipoestrategia="{{CodigoTipoEstrategia}}"
+                     data-OrigenPedidoWeb="{{OrigenPedidoWeb}}">
                     <input type="hidden" class="hdRecomendadoJSON" value="{{JSON2string item}}" />
-                    <div class="producto_recomendado_info_wrapper">
+                    <div class="producto_recomendado_info_wrapper"  onclick="javascript:FichaEditarModule.EditarProducto(this, 1)">
                         <div class="producto_recomendado_imagen">
                             <img src="{{Imagen}}" onerror="this.onerror=null;this.src='@Url.Content("~/Content/Images/imagen_prod_no_disponible.jpg")'" />
                         </div>
