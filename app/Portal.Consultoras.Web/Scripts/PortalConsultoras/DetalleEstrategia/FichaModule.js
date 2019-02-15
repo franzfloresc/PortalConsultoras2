@@ -466,12 +466,12 @@ var FichaModule = (function (config) {
                 .filter(function (objeto) {
                     return objeto.Hermanos != null
                         && objeto.Hermanos.length > 0
-                        && objeto.Hermanos.filter(function (nx) { return nx.Cuv == o.CuvProducto }).length > 0
+                        && objeto.Hermanos.filter(function (nx) { return nx.Cuv == o.CUV }).length > 0
                 });
 
             if (filterComponente.length) {
                 ComponentesModule.SeleccionarComponente(filterComponente[0].Cuv, false);
-                ListaOpcionesModule.SeleccionarOpcion(o.CuvProducto);
+                ListaOpcionesModule.SeleccionarOpcion(o.CUV);
                 ResumenOpcionesModule.AplicarOpciones();
             }
         });
