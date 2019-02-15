@@ -141,7 +141,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 //Validación de cuvs en programa nuevas
                 #region ValidarProgramaNuevas
                 var num = ValidarProgramaNuevas(usuario, productoBuscar.CodigoDescripcion);
-                var esProgNuevas = false;
+                var esCuponNuevas = false;
                 switch (num)
                 {
                     case Enumeradores.ValidacionProgramaNuevas.ProductoNoExiste:
@@ -151,13 +151,13 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     case Enumeradores.ValidacionProgramaNuevas.CuvNoPerteneceASuPrograma:
                         return ProductoBuscarRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_NUEVA_NOPERTENECE_TUPROGRAMA);
                     case Enumeradores.ValidacionProgramaNuevas.CuvPerteneceProgramaNuevas:
-                        esProgNuevas = true;
+                        esCuponNuevas = true;
                         break;
                 }
                 #endregion
 
                 #region Venta exclusiva
-                if (!esProgNuevas)
+                if (!esCuponNuevas)
                 {
                     Enumeradores.ValidacionVentaExclusiva numExclu = ValidarVentaExclusiva(usuario, productoBuscar.CodigoDescripcion);
                     if (numExclu != Enumeradores.ValidacionVentaExclusiva.ContinuaFlujo)
@@ -373,7 +373,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                 //Obtener Detalle
                 var pedidoID = 0;
-                var lstDetalle = ObtenerPedidoWebSetDetalleAgrupado(usuario, out pedidoID);
+                var lstDetalle = ObtenerPedidoWebSetDetalleAgrupado(usuario, true, out pedidoID);
 
                 pedido.ImporteTotal = lstDetalle.Sum(x => x.ImporteTotal);
 
@@ -391,7 +391,9 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         x.TipoEstrategiaCodigo,
                         x.MarcaID,
                         x.CodigoCatalago,
-                        x.DescripcionOferta));
+                        x.DescripcionOferta,
+                        x.EsCuponNuevas,
+                        x.EsElecMultipleNuevas));
 
                     lstDetalle.Where(x => x.EsKitNueva).Update(x => x.DescripcionEstrategia = Constantes.PedidoDetalleApp.DescripcionKitInicio);
                     lstDetalle.Where(x => x.IndicadorOfertaCUV && x.TipoEstrategiaID == 0).Update
@@ -413,8 +415,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                 //Duo Perfecto
                 if (usuario.CodigoPrograma != string.Empty && usuario.ConsecutivoNueva > 0)
-                    lstDetalle.Where(x => x.FlagNueva && x.EnRangoProgNuevas)
-                        .Update(x => x.EsDuoPerfecto = _programaNuevasBusinessLogic.EsCuvDuoPerfecto(usuario.PaisID, usuario.CampaniaID, usuario.ConsecutivoNueva, usuario.CodigoPrograma, x.CUV));
+                    lstDetalle.Where(x => x.FlagNueva && x.EsCuponNuevas)
+                        .Update(x => x.EsDuoPerfecto = _programaNuevasBusinessLogic.EsCuvElecMultiple(usuario.PaisID, usuario.CampaniaID, usuario.ConsecutivoNueva, usuario.CodigoPrograma, x.CUV));
             }
             catch (Exception ex)
             {
@@ -617,10 +619,10 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                     //ValidarCantidadEnProgramaNuevas   
 
-                    if (pedidoDetalle.EnRangoProgramaNuevas)
+                    if (pedidoDetalle.EsCuponNuevas)
                     {
                         int cantidadEnPedido = lstDetalle.Where(a => a.CUV == pedidoDetalle.Producto.CUV).Sum(b => b.Cantidad);
-                        var valor = _programaNuevasBusinessLogic.ValidarCantidadMaximaProgramaNuevas
+                        var valor = _programaNuevasBusinessLogic.ValidarCantidadMaxima
                             (usuario.PaisID, usuario.CampaniaID, usuario.ConsecutivoNueva, usuario.CodigoPrograma, cantidadEnPedido, pedidoDetalle.Producto.CUV, pedidoDetalle.StockNuevo);
 
                         if (valor != 0)
@@ -1585,7 +1587,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             Enumeradores.ValidacionProgramaNuevas numero;
             try
             {
-                numero = _programaNuevasBusinessLogic.ValidarBusquedaProgramaNuevas(usuario.PaisID, usuario.CampaniaID, Convert.ToInt32(usuario.ConsultoraID), usuario.CodigoPrograma, usuario.ConsecutivoNueva, cuv);
+                numero = _programaNuevasBusinessLogic.ValidarBusquedaCuv(usuario.PaisID, usuario.CampaniaID, usuario.CodigoPrograma, usuario.ConsecutivoNueva, cuv);
             }
             catch (Exception)
             {
@@ -1920,8 +1922,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
             mensajeObs = string.Empty;
             TituloMensaje = "";
 
-            var perteneceProgramaNuevas = _programaNuevasBusinessLogic.ValidarBusquedaProgramaNuevas
-                            (usuario.PaisID, usuario.CampaniaID, Convert.ToInt32(usuario.ConsultoraID), usuario.CodigoPrograma, usuario.ConsecutivoNueva, obePedidoWebDetalle.CUV);
+            var perteneceProgramaNuevas = _programaNuevasBusinessLogic.ValidarBusquedaCuv
+                            (usuario.PaisID, usuario.CampaniaID, usuario.CodigoPrograma, usuario.ConsecutivoNueva, obePedidoWebDetalle.CUV);
             if (perteneceProgramaNuevas.Equals(Enumeradores.ValidacionProgramaNuevas.CuvPerteneceProgramaNuevas))
             {
                 //ValidarAgregarEnProgramaNuevas
@@ -1948,7 +1950,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                 //ValidarCantidadEnProgramaNuevas                        
                 int cantidadEnPedido = lstDetalle.Where(a => a.CUV == obePedidoWebDetalle.CUV).Sum(b => b.Cantidad);
-                var valor = _programaNuevasBusinessLogic.ValidarCantidadMaximaProgramaNuevas
+                var valor = _programaNuevasBusinessLogic.ValidarCantidadMaxima
                     (usuario.PaisID, usuario.CampaniaID, usuario.ConsecutivoNueva, usuario.CodigoPrograma, cantidadEnPedido, obePedidoWebDetalle.CUV, obePedidoWebDetalle.Cantidad);
 
                 if (valor != 0)
@@ -2009,7 +2011,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         #region ProgramaNuevas
                         if (obePedidoWebDetalle.TipoAdm.Equals(Constantes.PedidoAccion.INSERT))
                         {
-                            if (pedidoDetalle.EnRangoProgramaNuevas)
+                            if (pedidoDetalle.EsCuponNuevas)
                             {
                                 CrearLogProgNuevas("DuoPerfecto: PedidoInsertar", obePedidoWebDetalle.CUV, usuario);
                                 var lstDetalleAgrupado = ObtenerPedidoWebSetDetalleAgrupado(usuario, out pedidoID);
@@ -2218,7 +2220,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 CodigoPrograma = pedidoDetalle.CodigoPrograma,
                 NumeroPedido = pedidoDetalle.ConsecutivoNueva
             };
-            var detallesPedidoWeb = _pedidoWebDetalleBusinessLogic.GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros, false).ToList();
+            var detallesPedidoWeb = _pedidoWebDetalleBusinessLogic.GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros, false, false).ToList();
             pedidoID = detallesPedidoWeb.Any() ? detallesPedidoWeb.FirstOrDefault().PedidoID : 0;
 
             return detallesPedidoWeb;
@@ -2767,6 +2769,10 @@ namespace Portal.Consultoras.BizLogic.Pedido
         #region Sets
         private List<BEPedidoWebDetalle> ObtenerPedidoWebSetDetalleAgrupado(BEUsuario usuario, out int pedidoID)
         {
+            return ObtenerPedidoWebSetDetalleAgrupado(usuario, false, out pedidoID);
+        }
+        private List<BEPedidoWebDetalle> ObtenerPedidoWebSetDetalleAgrupado(BEUsuario usuario, bool updLabelNuevas, out int pedidoID)
+        {
             var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
             {
                 PaisId = usuario.PaisID,
@@ -2779,7 +2785,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 AgruparSet = true
             };
 
-            var detallesPedidoWeb = _pedidoWebDetalleBusinessLogic.GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros).ToList();
+            var detallesPedidoWeb = _pedidoWebDetalleBusinessLogic.GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros, true, updLabelNuevas).ToList();
             pedidoID = detallesPedidoWeb.Any() ? detallesPedidoWeb.FirstOrDefault().PedidoID : 0;
 
             return detallesPedidoWeb;
@@ -3063,15 +3069,15 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
             //Valida que producto sea de duo perfecto
             var cntProd = 0;
-            var esDuoPerfecto = _programaNuevasBusinessLogic.EsCuvDuoPerfecto(usuario.PaisID, usuario.CampaniaID, usuario.ConsecutivoNueva, usuario.CodigoPrograma, pedidoDetalle.Producto.CUV);
+            var esDuoPerfecto = _programaNuevasBusinessLogic.EsCuvElecMultiple(usuario.PaisID, usuario.CampaniaID, usuario.ConsecutivoNueva, usuario.CodigoPrograma, pedidoDetalle.Producto.CUV);
 
 
             //validacion duo perfecto
             if (esDuoPerfecto)
             {
-                lstDetalle.Where(x => x.FlagNueva && x.EnRangoProgNuevas)
-                       .Update(x => x.EsDuoPerfecto = _programaNuevasBusinessLogic.EsCuvDuoPerfecto(usuario.PaisID, usuario.CampaniaID, usuario.ConsecutivoNueva, usuario.CodigoPrograma, x.CUV));
-                cntProd = lstDetalle.Where(x => x.EsDuoPerfecto).Count();
+                lstDetalle.Where(x => x.FlagNueva && x.EsCuponNuevas)
+                       .Update(x => x.EsDuoPerfecto = _programaNuevasBusinessLogic.EsCuvElecMultiple(usuario.PaisID, usuario.CampaniaID, usuario.ConsecutivoNueva, usuario.CodigoPrograma, x.CUV));
+                cntProd = lstDetalle.Count(x => x.EsDuoPerfecto);
 
                 //El duo perfecto solo acepta dos productos.
                 if (cntProd >= 2)
@@ -3269,7 +3275,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     }
                 }
 
-                if (!pedidoDetalle.EnRangoProgramaNuevas)
+                if (!pedidoDetalle.EsCuponNuevas)
                 {
                     //Validar Stock limite de Venta
                     var pedidoDetalleStock = new BEPedidoDetalle();
