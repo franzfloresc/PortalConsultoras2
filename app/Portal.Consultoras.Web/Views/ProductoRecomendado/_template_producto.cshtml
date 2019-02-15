@@ -12,7 +12,7 @@
                      data-tipoestrategia="{{CodigoTipoEstrategia}}"
                      data-OrigenPedidoWeb="{{OrigenPedidoWeb}}">
                     <input type="hidden" class="hdRecomendadoJSON" value="{{JSON2string item}}" />
-                    <div class="producto_recomendado_info_wrapper"  onclick="javascript:FichaEditarModule.EditarProducto(this, 1)">
+                    <div class="producto_recomendado_info_wrapper"  onclick="javascript:FichaPartialModule.ConstruirFicha(this, 1, false)">
                         <div class="producto_recomendado_imagen">
                             <img src="{{Imagen}}" onerror="this.onerror=null;this.src='@Url.Content("~/Content/Images/imagen_prod_no_disponible.jpg")'" />
                         </div>
