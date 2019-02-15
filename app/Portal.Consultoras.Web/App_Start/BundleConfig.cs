@@ -278,9 +278,7 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Mobile/Esika/revistaDigital.css",
                "~/Content/Css/Mobile/Esika/seccion-descarga-imprime.css",
                "~/Content/Css/Mobile/calc.css",
-               "~/Content/Css/Site/ProductosRecomendados/productos-recomendados.css",
-               "~/Content/Css/Mobile/Clientes/Asignarcliente.css"
-
+               "~/Content/Css/Site/ProductosRecomendados/productos-recomendados.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/lbel-CssSB2Mobile").Include(
@@ -298,8 +296,7 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Mobile/Lbel/revistaDigital.css",
                "~/Content/Css/Mobile/Lbel/seccion-descarga-imprime.css",
                "~/Content/Css/Mobile/calc.css",
-               "~/Content/Css/Site/ProductosRecomendados/productos-recomendados.css",
-               "~/Content/Css/Mobile/Clientes/Asignarcliente.css"
+               "~/Content/Css/Site/ProductosRecomendados/productos-recomendados.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/CssBienvenida").Include(
@@ -800,7 +797,9 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Mobile/Ficha/RedesSociales.css",
                 "~/Content/Css/Mobile/Ficha/PopoverTooltip.css",
                 "~/Content/Css/Mobile/ProductoListado/CajaProducto.css",
-                "~/Content/Css/Mobile/Ficha/SeleccionarTipo.css"
+                "~/Content/Css/Mobile/Ficha/SeleccionarTipo.css",
+                "~/Content/Css/Mobile/Clientes/Asignarcliente.css"
+
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/Ficha-Esika").Include(
@@ -986,6 +985,11 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/Shared/menu-secundario-responsive.css",
                 "~/Content/Css/Site/Shared/footer-responsive.css",
                 "~/Content/Css/Site/Lbel/marca-pais-responsive.css"
+            ));
+
+            bundles.Add(new StyleBundle("~/Bundle/Css/Responsive/TusClientes").Include(
+                "~/Content/Css/Mobile/Clientes/Asignarcliente.css",
+                "~/Content/Css/Site/TusClientes/TusClientes_Responsive.css"
             ));
 
 #if DEBUG

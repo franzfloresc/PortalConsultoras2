@@ -24,19 +24,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
             return set;
         }
         
-        public List<BEPedidoWebSetDetalle> GetSetDetalle(int paisId, int campaniaId, long consultoraId, int setId)
-        {
-            var lista = new List<BEPedidoWebSetDetalle>();
-
-            using (IDataReader reader = new DAPedidoWebSet(paisId).GetSetDetalle(campaniaId, consultoraId, setId))
-            {
-                lista = reader.MapToCollection<BEPedidoWebSetDetalle>(closeReaderFinishing: true);
-            }
-
-            return lista;
-        }
-
-
         public bool EliminarTransaction(int paisId, int id, long ConsultoraId)
         {
 

@@ -1490,8 +1490,10 @@
     <Content Include="Content\Css\Site\Shared\general.css" />
     <Content Include="Content\Css\Site\ShowRoom.css" />
     <Content Include="Content\Css\Site\TusClientes\TusClientes_Responsive.css" />
+    <Content Include="Content\Images\arrow-left.png" />
     <Content Include="Content\Images\arrow_left.svg" />
     <Content Include="Content\Images\arrow_right.svg" />
+    <Content Include="Content\Images\borrar_tusclientes.svg" />
     <Content Include="Content\Images\cerrar-filtros.svg" />
     <Content Include="Content\Images\banco_bbva.png" />
     <Content Include="Content\Images\banco_bcp.png" />
@@ -1635,6 +1637,7 @@
     <Content Include="Content\Images\dateTimePicker\cal_minus.gif" />
     <Content Include="Content\Images\dateTimePicker\cal_plus.gif" />
     <Content Include="Content\Images\dateTimePicker\cal_reverse.gif" />
+    <Content Include="Content\Images\editar_tu_clientes.svg" />
     <Content Include="Content\Images\Esika\CategoriasProductos\categoria_bijouterie.jpg" />
     <Content Include="Content\Images\Esika\CategoriasProductos\categoria_fragancias.jpg" />
     <Content Include="Content\Images\Esika\CategoriasProductos\categoria_herramientas_venta.jpg" />
@@ -1711,6 +1714,7 @@
     <Content Include="Content\Images\icono_salvavidas.svg" />
     <Content Include="Content\Images\icono_sin_resultados_busqueda.svg" />
     <Content Include="Content\Images\icono_tooltip_informativo.svg" />
+    <Content Include="Content\Images\icon_xls.svg" />
     <Content Include="Content\Images\imagen_prod_no_disponible.jpg" />
     <Content Include="Content\Images\imagen_prod_no_disponible.png" />
     <Content Include="Content\Images\imagen_prod_no_disponible.svg" />
@@ -3538,6 +3542,7 @@
     <Content Include="Content\Images\no_email.png" />
     <Content Include="Content\Images\no_image.gif" />
     <Content Include="Content\Images\nuevo-producto.png" />
+    <Content Include="Content\Images\nuevo_tuclientes.svg" />
     <Content Include="Content\Images\oferta-sin-imagen.svg" />
     <Content Include="Content\Images\oferta-ultimo-minuto.png" />
     <Content Include="Content\Images\oferta.png" />
