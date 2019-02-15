@@ -282,3 +282,78 @@
         </div>
     </div>
 </div>
+<div class="div-3 Content_modal" style="margin-left: 12px; width: 94%; padding-top: 10px; padding-bottom: 0; margin-bottom: 10px;">
+    <div class="fontColorAdm">
+        <h4>App</h4>
+    </div>
+    <div class="clear-fix"></div>
+    <div class="fontColorAdm">
+        <div class="sideLeft">
+            <div class="div-3" style="margin-bottom:20px">
+                <div class="titG">¿Activar?</div>
+                <div class="titG">
+                    @Html.CheckBoxFor(m => m.AppActivo)
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titG" style="padding-bottom: 0;">Título:</div>
+                <br />
+                <div class="titG selectP2 borde_redondeado" style="width: 312px;">
+                    @Html.TextBoxFor(m => m.AppTitulo, new { @style = "width: 312px;" })
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titG" style="padding-bottom: 0;">
+                    Color Fondo:
+                    <h6>(#Hexadecimal)</h6>
+                </div>
+                <br />
+                <div class="titG selectP2 borde_redondeado" style="width: 312px;">
+                    @Html.TextBoxFor(m => m.AppColorFondo, new { @maxlength = "7", @size = 7 })
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titG" style="padding-bottom: 0;">
+                    Color Texto:
+                    <h6>(#Hexadecimal)</h6>
+                </div>
+                <br />
+                <div class="titG selectP2 borde_redondeado" style="width: 312px;">
+                    @Html.TextBoxFor(m => m.AppColorTexto, new { @maxlength = "7", @size = 7 })
+                </div>
+            </div>
+        </div>
+        <div class="sideRight">
+            <div class="div-3" style="display: inline-block; text-align: left; margin-bottom: 15px;">
+                <div class="titG" style="width:155px">
+                    Banner Informativo (jpg):
+                    <h6>(XXXX x XXXX pixeles)</h6>
+                </div>
+                <div style="display: inline-block;">
+                    @Html.HiddenFor(m => m.AppBannerInformativo, new { id = "nombre-fondo-app" })
+                    <div id="img-fondo-app" style="display: inline-block;vertical-align: middle;"></div>
+                    <div class="pdr_modal2 borde_redondeado alignrigth">
+                        <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="src-fondo-app" class="img-matriz-preview2" data-id="">
+                    </div>
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titG" style="padding-bottom: 0;">Orden:</div>
+                <br />
+                <div class="titG selectP2 borde_redondeado" style="width: 312px;">
+                    @Html.TextBoxFor(m => m.AppOrden, new { @style = "width: 312px;" })
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titG" style="padding-bottom: 0;width:150px">
+                    Cantidad de productos:
+                    <h6>&nbsp;</h6>
+                </div>
+                <br />
+                <div class="titG selectP2 borde_redondeado" style="width: 312px;">
+                    @Html.TextBoxFor(m => m.AppCantidadProductos, new { @style = "width: 312px;" })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

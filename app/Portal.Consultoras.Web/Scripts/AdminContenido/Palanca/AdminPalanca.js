@@ -120,7 +120,7 @@ function ModificarOfertas(idOfertasHome) {
         success: function (result) {
             $("#dialog-content-ofertas-home").empty();
             $("#dialog-content-ofertas-home").html(result).ready(
-                UploadFilePalanca("fondo-mobile"), UploadFilePalanca("fondo-desktop")
+                UploadFilePalanca("fondo-mobile"), UploadFilePalanca("fondo-desktop"), UploadFilePalanca("fondo-app")
             );
 
             showDialog("DialogMantenimientoOfertasHome");
@@ -237,7 +237,7 @@ function IniDialogs() {
         open: function (event, ui) {
             $(".ui-dialog-titlebar-close", ui.dialog).hide();
             $("#colorpickerHolder").ColorPicker({ flat: true });
-            $("#DesktopColorFondo, #DesktopColorTexto, #MobileColorFondo, #MobileColorTexto").ColorPicker({
+            $("#DesktopColorFondo, #DesktopColorTexto, #MobileColorFondo, #MobileColorTexto, #AppColorFondo, #AppColorTexto").ColorPicker({
                 onSubmit: function (hsb, hex, rgb, el) {
                     var newValue = "#" + hex;
                     $(el).val(newValue);
@@ -247,25 +247,29 @@ function IniDialogs() {
                     $(this).ColorPickerSetColor(this.value);
                 }
             })
-                .bind("keyup", function () {
-                    $(this).ColorPickerSetColor(this.value);
-                });
+            .bind("keyup", function () {
+                $(this).ColorPickerSetColor(this.value);
+            });
 
             if ($("#DesktopColorFondo").val() === "") {
                 $("#DesktopColorFondo").val("#000000");
             }
-
             if ($("#MobileColorFondo").val() === "") {
                 $("#MobileColorFondo").val("#000000");
             }
-
+            if ($("#AppColorFondo").val() === "") {
+                $("#AppColorFondo").val("#000000");
+            }
             if ($("#DesktopColorTexto").val() === "") {
                 $("#DesktopColorTexto").val("#ffffff");
             }
-
             if ($("#MobileColorTexto").val() === "") {
                 $("#MobileColorTexto").val("#ffffff");
             }
+            if ($("#AppColorTexto").val() === "") {
+                $("#AppColorTexto").val("#ffffff");
+            }
+
             if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") !== _palanca.odd) {
                 $(".hide-config-image-odd").hide();
             }

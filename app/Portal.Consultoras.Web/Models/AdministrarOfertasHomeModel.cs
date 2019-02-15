@@ -49,5 +49,13 @@ namespace Portal.Consultoras.Web.Models
             DesktopTipoEstrategia = "";
             MobileTipoEstrategia = "";
         }
+
+        public bool AppActivo { get; set; }
+        public string AppTitulo { get; set; }
+        public string AppColorFondo { get; set; }
+        public string AppColorTexto { get; set; }
+        public string AppBannerInformativo { get; set; }
+        public int AppOrden { get; set; }
+        public int AppCantidadProductos { get; set; }
     }
 }
