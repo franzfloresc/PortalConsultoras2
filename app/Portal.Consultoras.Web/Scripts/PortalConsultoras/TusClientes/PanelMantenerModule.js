@@ -165,6 +165,19 @@
     var _init = function () {
         $("body").on("click", _elements.btnGuardarCliente, _btnGuardarClienteOnClick);
         $("body").on("click", _elements.btnCancelarCliente, _btnCancelarClienteOnClick);
+
+        $('.ImputForm-item input').blur(function () {
+            if ($(this).val().length !== 0) {
+                $(this).addClass('ActiveLabel');
+                $(this).addClass('bar-imputActive');
+            }
+            else {
+                $(this).removeClass('ActiveLabel');
+                $(this).removeClass('bar-imputActive');
+            }
+        });
+      
+
     };
 
     return {

@@ -117,8 +117,7 @@
         </div>
     </div>*@
 
-    <div id="divPopupEditarCliente" style="display:none">
-        <input type="button" onclick="tusClientesModule.ocultarEditarCliente();" value="cerrar" />
+    <div id="divPopupEditarCliente" style="display:none; width:330px !important; margin-right: -330px;" class="Form-AgregarCliente">
         @Html.Partial("_Mantener", new ClienteModel())
     </div>
 
@@ -136,6 +135,8 @@
         </div>
     </div>
 </div>
+
+<div id="modal-fondo-form" style="opacity: 0.7; display:none;" class="modal-fondo"></div>
 
 @section css{
     @System.Web.Optimization.Styles.Render("~/Bundle/Css/Responsive/TusClientes")

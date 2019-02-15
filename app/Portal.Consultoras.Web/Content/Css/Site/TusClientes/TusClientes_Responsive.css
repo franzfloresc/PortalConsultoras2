@@ -169,6 +169,13 @@ h1, h2, h3, h4, h5, h6 {
         height: 25px;
     }
 
+.seleccion_header {
+    padding: 15px;
+    padding-top: 15px;
+    border-bottom: 1px solid #d8d8d8;
+    position: relative;
+    background-color: #fff;
+}
 
 
 
@@ -251,5 +258,6 @@ h1, h2, h3, h4, h5, h6 {
     .btn_editar {
         height: 38px;
     }
+
 
 }
