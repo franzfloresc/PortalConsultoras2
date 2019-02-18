@@ -564,6 +564,49 @@ namespace Portal.Consultoras.Web.Controllers
                 case Constantes.OrigenPedidoWeb.DesktopHomeOfertaDelDiaBannerSuperior:
                     result = Constantes.OrigenPedidoWeb.DesktopHomeOfertaDelDiaFicha;
                     break;
+                #endregion
+
+                #region ProductosRecomendadosDesktop
+                case Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoOpm:
+                    result = Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoOpmFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoShowRoom:
+                    result = Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoShowRoomFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoLan:
+                    result = Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoLanFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoOdd:
+                    result = Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoOddFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoHv:
+                    result = Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoHvFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoGanadoras:
+                    result = Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoGanadorasFicha;
+                    break;
+                #endregion
+
+                #region ProductosRecomendadosMobile
+                case Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoOpm:
+                    result = Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoOpmFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoShowRoom:
+                    result = Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoShowRoomFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoLan:
+                    result = Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoLanFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoOdd:
+                    result = Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoOddFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoHv:
+                    result = Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoHvFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoGanadoras:
+                    result = Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoGanadorasFicha;
+                    break;
+
                     #endregion
             }
 
@@ -716,13 +759,13 @@ namespace Portal.Consultoras.Web.Controllers
             var origenString = origen.ToString();
             if (origenString.IsNullOrEmptyTrim()) return tipo;
 
-            var twoLastDigitsOrigen =  origenString.Substring(origenString.Length - 2);
+            var twoLastDigitsOrigen = origenString.Substring(origenString.Length - 2);
             if (twoLastDigitsOrigen.Equals(Constantes.OrigenPedidoWeb.SufijoProductoRecomendadoCarrusel.ToString()) ||
                twoLastDigitsOrigen.Equals(Constantes.OrigenPedidoWeb.SufijoProductoRecomendadoFicha.ToString()))
             {
-               return Constantes.TipoAccionNavegar.Volver;
+                return Constantes.TipoAccionNavegar.Volver;
             }
-           
+
             return tipo;
         }
 
