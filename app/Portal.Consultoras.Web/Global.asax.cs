@@ -54,16 +54,11 @@ namespace Portal.Consultoras.Web
             Globals.UrlOfertasFic = ConfigurationManager.AppSettings["OfertasFic"];
             Globals.UrlNavidadConsultora = ConfigurationManager.AppSettings["NavidadConsultora"];
 
-
             JwtContext.Instance.Application = "SomosBelcorp";
-            
-
-
-            //Globals.JwtToken = JwtAutentication.getWebToken();
 
             AutoMapperConfiguration.Configure();
         }
-        
+
         protected void Session_Start(object sender, EventArgs e)
         {
         }
@@ -96,7 +91,7 @@ namespace Portal.Consultoras.Web
     //{
     //    public static void Start()
     //    {
-         
+
     //        Microsoft.Web.Infrastructure.DynamicModuleHelper.DynamicModuleUtility.RegisterModule(typeof(Portal.Consultoras.Common.JwtModule));
     //    }
     //}
