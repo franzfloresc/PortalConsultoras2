@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.Utils" />
-  <xs:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collections" />
-  <xs:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BC.Parameter" />
-  <xs:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd7" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
-  <xs:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais" />
-  <xs:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" />
-  <xs:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.SAC" />
-  <xs:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd9" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais.MercadoPago" />
+  <xs:import schemaLocation="http://localhost:27086/PortalService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.Utils" />
+  <xs:import schemaLocation="http://localhost:27086/PortalService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collections" />
+  <xs:import schemaLocation="http://localhost:27086/PortalService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BC.Parameter" />
+  <xs:import schemaLocation="http://localhost:27086/PortalService.svc?xsd=xsd7" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="http://localhost:27086/PortalService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais" />
+  <xs:import schemaLocation="http://localhost:27086/PortalService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" />
+  <xs:import schemaLocation="http://localhost:27086/PortalService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.SAC" />
   <xs:element name="ObtenerParametrosUnete">
     <xs:complexType>
       <xs:sequence>
@@ -120,7 +119,6 @@
       <xs:sequence>
         <xs:element minOccurs="0" name="codigoISO" nillable="true" type="xs:string" />
         <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais" minOccurs="0" name="solicitudPostulante" nillable="true" type="q11:SolicitudPostulante" />
-        <xs:element minOccurs="0" name="cadenaPrueba" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1182,82 +1180,6 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q86="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="ResponseWhatsAppResult" nillable="true" type="q86:ResponseBotmaker" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetKitInicio">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="CodigoISO" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="tipo" type="xs:int" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetKitInicioResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q87="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais" minOccurs="0" name="GetKitInicioResult" nillable="true" type="q87:KitInicio" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ProcesarPagoKitInicio">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q88="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais" minOccurs="0" name="postulante" nillable="true" type="q88:SolicitudPostulante" />
-        <xs:element xmlns:q89="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="model" nillable="true" type="q89:PagoKitInicioBE" />
-        <xs:element minOccurs="0" name="CodigoISO" nillable="true" type="xs:string" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ProcesarPagoKitInicioResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q90="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais" minOccurs="0" name="ProcesarPagoKitInicioResult" nillable="true" type="q90:MercadoPagoResult" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="CancelarPagoEfectivo">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="CodigoIso" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="PagoDeKitLogId" type="xs:int" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="CancelarPagoEfectivoResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="CancelarPagoEfectivoResult" type="xs:int" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ValidarPagoEfectivo">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="CodigoIso" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="SolicitudPostulanteId" type="xs:int" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ValidarPagoEfectivoResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="ValidarPagoEfectivoResult" type="xs:boolean" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ConfirmarTransaccion">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="CodigoIso" nillable="true" type="xs:string" />
-        <xs:element xmlns:q91="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais.MercadoPago" minOccurs="0" name="notification" nillable="true" type="q91:Notification" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ConfirmarTransaccionResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="ConfirmarTransaccionResult" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

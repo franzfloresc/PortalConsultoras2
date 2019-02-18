@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="PortalService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="PortalService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
-      <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
-      <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-      <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.Utils" />
-      <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collections" />
-      <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" />
-      <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais" />
-      <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BC.Parameter" />
-      <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd7" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
-      <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.SAC" />
-      <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd9" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais.MercadoPago" />
+      <xsd:import schemaLocation="http://localhost:27086/PortalService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:27086/PortalService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:27086/PortalService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.Utils" />
+      <xsd:import schemaLocation="http://localhost:27086/PortalService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collections" />
+      <xsd:import schemaLocation="http://localhost:27086/PortalService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" />
+      <xsd:import schemaLocation="http://localhost:27086/PortalService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais" />
+      <xsd:import schemaLocation="http://localhost:27086/PortalService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BC.Parameter" />
+      <xsd:import schemaLocation="http://localhost:27086/PortalService.svc?xsd=xsd7" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:27086/PortalService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.SAC" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IPortalService_ObtenerParametrosUnete_InputMessage">
@@ -326,11 +325,11 @@
   <wsdl:message name="IPortalService_ObtenerReporteDiasEspera_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerReporteDiasEsperaResponse" />
   </wsdl:message>
-  <wsdl:message name="IPortalService_ConsultarTipoPostulante_InputMessage">
-    <wsdl:part name="parameters" element="tns:ConsultarTipoPostulante" />
+  <wsdl:message name="IPortalService_ConsultarTiosPostulante_InputMessage">
+    <wsdl:part name="parameters" element="tns:ConsultarTiosPostulante" />
   </wsdl:message>
-  <wsdl:message name="IPortalService_ConsultarTipoPostulante_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ConsultarTipoPostulanteResponse" />
+  <wsdl:message name="IPortalService_ConsultarTiosPostulante_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ConsultarTiosPostulanteResponse" />
   </wsdl:message>
   <wsdl:message name="IPortalService_ConsultarSolicitudesPostulanteV2_InputMessage">
     <wsdl:part name="parameters" element="tns:ConsultarSolicitudesPostulanteV2" />
@@ -481,36 +480,6 @@
   </wsdl:message>
   <wsdl:message name="IPortalService_ResponseWhatsApp_OutputMessage">
     <wsdl:part name="parameters" element="tns:ResponseWhatsAppResponse" />
-  </wsdl:message>
-  <wsdl:message name="IPortalService_GetKitInicio_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetKitInicio" />
-  </wsdl:message>
-  <wsdl:message name="IPortalService_GetKitInicio_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetKitInicioResponse" />
-  </wsdl:message>
-  <wsdl:message name="IPortalService_ProcesarPagoKitInicio_InputMessage">
-    <wsdl:part name="parameters" element="tns:ProcesarPagoKitInicio" />
-  </wsdl:message>
-  <wsdl:message name="IPortalService_ProcesarPagoKitInicio_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ProcesarPagoKitInicioResponse" />
-  </wsdl:message>
-  <wsdl:message name="IPortalService_CancelarPagoEfectivo_InputMessage">
-    <wsdl:part name="parameters" element="tns:CancelarPagoEfectivo" />
-  </wsdl:message>
-  <wsdl:message name="IPortalService_CancelarPagoEfectivo_OutputMessage">
-    <wsdl:part name="parameters" element="tns:CancelarPagoEfectivoResponse" />
-  </wsdl:message>
-  <wsdl:message name="IPortalService_ValidarPagoEfectivo_InputMessage">
-    <wsdl:part name="parameters" element="tns:ValidarPagoEfectivo" />
-  </wsdl:message>
-  <wsdl:message name="IPortalService_ValidarPagoEfectivo_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ValidarPagoEfectivoResponse" />
-  </wsdl:message>
-  <wsdl:message name="IPortalService_ConfirmarTransaccion_InputMessage">
-    <wsdl:part name="parameters" element="tns:ConfirmarTransaccion" />
-  </wsdl:message>
-  <wsdl:message name="IPortalService_ConfirmarTransaccion_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ConfirmarTransaccionResponse" />
   </wsdl:message>
   <wsdl:portType name="IPortalService">
     <wsdl:operation name="ObtenerParametrosUnete">
@@ -721,9 +690,9 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerReporteDiasEspera" message="tns:IPortalService_ObtenerReporteDiasEspera_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerReporteDiasEsperaResponse" message="tns:IPortalService_ObtenerReporteDiasEspera_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="ConsultarTipoPostulante">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ConsultarTipoPostulante" message="tns:IPortalService_ConsultarTipoPostulante_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ConsultarTipoPostulanteResponse" message="tns:IPortalService_ConsultarTipoPostulante_OutputMessage" />
+    <wsdl:operation name="ConsultarTiosPostulante">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ConsultarTiosPostulante" message="tns:IPortalService_ConsultarTiosPostulante_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ConsultarTiosPostulanteResponse" message="tns:IPortalService_ConsultarTiosPostulante_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ConsultarSolicitudesPostulanteV2">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ConsultarSolicitudesPostulanteV2" message="tns:IPortalService_ConsultarSolicitudesPostulanteV2_InputMessage" />
@@ -824,26 +793,6 @@
     <wsdl:operation name="ResponseWhatsApp">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ResponseWhatsApp" message="tns:IPortalService_ResponseWhatsApp_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ResponseWhatsAppResponse" message="tns:IPortalService_ResponseWhatsApp_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetKitInicio">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/GetKitInicio" message="tns:IPortalService_GetKitInicio_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/GetKitInicioResponse" message="tns:IPortalService_GetKitInicio_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="ProcesarPagoKitInicio">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ProcesarPagoKitInicio" message="tns:IPortalService_ProcesarPagoKitInicio_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ProcesarPagoKitInicioResponse" message="tns:IPortalService_ProcesarPagoKitInicio_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="CancelarPagoEfectivo">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/CancelarPagoEfectivo" message="tns:IPortalService_CancelarPagoEfectivo_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/CancelarPagoEfectivoResponse" message="tns:IPortalService_CancelarPagoEfectivo_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="ValidarPagoEfectivo">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ValidarPagoEfectivo" message="tns:IPortalService_ValidarPagoEfectivo_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ValidarPagoEfectivoResponse" message="tns:IPortalService_ValidarPagoEfectivo_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="ConfirmarTransaccion">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ConfirmarTransaccion" message="tns:IPortalService_ConfirmarTransaccion_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ConfirmarTransaccionResponse" message="tns:IPortalService_ConfirmarTransaccion_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IPortalService" type="tns:IPortalService">
@@ -1316,8 +1265,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ConsultarTipoPostulante">
-      <soap:operation soapAction="http://tempuri.org/IPortalService/ConsultarTipoPostulante" style="document" />
+    <wsdl:operation name="ConsultarTiosPostulante">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ConsultarTiosPostulante" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1550,55 +1499,10 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetKitInicio">
-      <soap:operation soapAction="http://tempuri.org/IPortalService/GetKitInicio" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ProcesarPagoKitInicio">
-      <soap:operation soapAction="http://tempuri.org/IPortalService/ProcesarPagoKitInicio" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="CancelarPagoEfectivo">
-      <soap:operation soapAction="http://tempuri.org/IPortalService/CancelarPagoEfectivo" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ValidarPagoEfectivo">
-      <soap:operation soapAction="http://tempuri.org/IPortalService/ValidarPagoEfectivo" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ConfirmarTransaccion">
-      <soap:operation soapAction="http://tempuri.org/IPortalService/ConfirmarTransaccion" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="PortalService">
     <wsdl:port name="BasicHttpBinding_IPortalService" binding="tns:BasicHttpBinding_IPortalService">
-      <soap:address location="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc" />
+      <soap:address location="http://localhost:27086/PortalService.svc" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>
