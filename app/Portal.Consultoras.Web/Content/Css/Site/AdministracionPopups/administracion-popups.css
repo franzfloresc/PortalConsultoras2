@@ -251,9 +251,9 @@ div.ui-state-highlight{
 .btn__modal--guardar,
 .btn__modal--blanco
 {
-    width:150px;
-    cursor:pointer;
-    outline:0;
+    width: 150px;
+    cursor: pointer;
+    outline: 0;
 }
 
 .btn__agregar span:first-child,
@@ -267,35 +267,45 @@ div.ui-state-highlight{
 }*/
 
 .vista__administracion__popups__contenido,
-.administracion__popups__grilla
+.administracion__popups__paginacion
 {
-    padding:10px;
+    padding: 10px;
 }
 
-.vista__administracion__popups__contenido{
-    margin-top:67px;
-    border:1px solid #979797;
-}
-
-.administracion__popups__paginacion__grilla,
-.paginador__grilla,
-.controles__paginacion__grilla
-{
-    align-items:center;
-}
-
-.administracion__popups__paginacion__grilla{
-    margin-top: 3px;
-    margin-bottom: 10px;
+.btn__guardar__ordenamiento__wrapper {
     justify-content: flex-end;
-    padding-left: 9px;
-    padding-right: 9px;
-    letter-spacing: 0.3px;
 }
 
-.administracion__popups__paginacion__grilla:last-child{
-    margin-top:10px;
-    margin-bottom:3px;
+.btn__guardar__ordenamiento {
+    width: 178px;
+    cursor:pointer;
+    margin-left:20px;
+}
+
+.vista__administracion__popups__contenido {
+    margin-top: 67px;
+    border: 1px solid #979797;
+}
+
+.administracion__popups__paginacion__grilla {
+    justify-content: flex-end;
+    margin-top: 6px;
+    margin-bottom: 16px;
+}
+
+    .administracion__popups__paginacion__grilla:last-child {
+        margin-top: 16px;
+        margin-bottom: 6px;
+    }
+
+.administracion__popups__paginacion__componentes,
+.paginador__grilla,
+.controles__paginacion__grilla {
+    align-items: center;
+}
+
+.administracion__popups__paginacion__componentes{
+    letter-spacing: 0.3px;
 }
 
 .cantidad__registros__grilla,
