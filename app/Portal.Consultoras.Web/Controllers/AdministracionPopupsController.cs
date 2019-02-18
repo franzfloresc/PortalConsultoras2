@@ -20,7 +20,7 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class AdministracionPopupsController : BaseAdmController
     {
-        int NUMERO_FILAS = 2;
+        int NUMERO_FILAS = 20;
         int PAGINAS_MAXIMAS = 0;
         public ActionResult Index()
         {
@@ -98,6 +98,25 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
 
+        public JsonResult ActualizaOrden(string Comunicado, string Orden)
+        {
+            int result = 0;
+            try
+            {
+                using (ContenidoServiceClient sv = new ContenidoServiceClient())
+                {
+                    result = sv.ActualizaOrden(Comunicado, Orden);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
 
         public JsonResult GetDetallePoput(int Comunicadoid) {
             ComunicadoModel objetoComunicadoModel;
@@ -147,6 +166,29 @@ namespace Portal.Consultoras.Web.Controllers
               return Json(new { Paginamaximas= PAGINAS_MAXIMAS, listaComunicadoModel =listaComunicadoModel }, JsonRequestBehavior.AllowGet);
     }
 
+
+        public JsonResult EliminarArchivoCsv( int Comunicadoid)
+        {
+            List<ComunicadoModel> listaComunicadoModel;
+            int respuesta = 0;
+            try
+            {
+                using (ContenidoServiceClient sv = new ContenidoServiceClient())
+                {
+                     respuesta = sv.EliminarArchivoCsv(Comunicadoid);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                listaComunicadoModel = new List<ComunicadoModel>();
+            }
+
+            return Json(respuesta, JsonRequestBehavior.AllowGet);
+        }
+
+
+
         private List<ComunicadoModel> GetAutoMapperManualLista(List<ServiceContenido.BEComunicado> listContenidoService)
         {
             List<ComunicadoModel> listComunicadoModel = new List<ComunicadoModel>();
@@ -175,22 +217,25 @@ namespace Portal.Consultoras.Web.Controllers
 
         private ComunicadoModel GetAutoMapperManualObjeto(ServiceContenido.BEComunicado objetoContenidoService)
         {
-            return  new ComunicadoModel()
+            ComunicadoModel objComunicadoModel = new ComunicadoModel();
+
+            objComunicadoModel= new ComunicadoModel()
             {
-         
-             ComunicadoId = Convert.ToInt32(objetoContenidoService.ComunicadoId),
-             Descripcion = objetoContenidoService.Descripcion,
-             Activo = objetoContenidoService.Activo,
-             DescripcionAccion = objetoContenidoService.DescripcionAccion,
-             SegmentacionID = Convert.ToInt32( objetoContenidoService.SegmentacionID),
-             UrlImagen = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, objetoContenidoService.UrlImagen) ,
-             NombreImagen =objetoContenidoService.UrlImagen,
-             Orden = objetoContenidoService.Orden,
-             NombreArchivoCCV = objetoContenidoService.NombreArchivoCCV,
-             FechaInicio_ = objetoContenidoService.FechaInicio,
-             FechaFin_ = objetoContenidoService.FechaFin,
-             TipoDispositivo=objetoContenidoService.TipoDispositivo,
-         };
+
+                ComunicadoId = Convert.ToInt32(objetoContenidoService.ComunicadoId),
+                Descripcion = objetoContenidoService.Descripcion,
+                Activo = objetoContenidoService.Activo,
+                DescripcionAccion = objetoContenidoService.DescripcionAccion,
+                SegmentacionID = Convert.ToInt32(objetoContenidoService.SegmentacionID),
+                UrlImagen = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, objetoContenidoService.UrlImagen),
+                NombreImagen = GetImagen(objetoContenidoService.UrlImagen),
+                Orden = objetoContenidoService.Orden,
+                NombreArchivoCCV = objetoContenidoService.NombreArchivoCCV,
+                FechaInicio_ = objetoContenidoService.FechaInicio,
+                FechaFin_ = objetoContenidoService.FechaFin,
+                TipoDispositivo = objetoContenidoService.TipoDispositivo,
+            };
+            return objComunicadoModel;
         }
 
         private string GetImagen(string urlImagen)

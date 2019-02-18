@@ -515,6 +515,16 @@ namespace Portal.Consultoras.Service
                 return _BLBelcorpResponde.GuardarPoputs(tituloPrincipal, descripcion, UrlImagen, fechaMaxima, fechaMinima, checkDesktop, checkMobile, accionID, listdatosCSV,  comunicadoId,  nombreArchivo,  codigoCampania, descripcionAccion);
         }
 
+        public int ActualizaOrden(string Comunicado, string Orden)
+        {
+            return _BLBelcorpResponde.ActualizaOrden(Comunicado, Orden);
+        }
+
+        public int EliminarArchivoCsv(int Comunicadoid)
+        {
+            return _BLBelcorpResponde.EliminarArchivoCsv(Comunicadoid);
+        }
+
         #endregion
 
 

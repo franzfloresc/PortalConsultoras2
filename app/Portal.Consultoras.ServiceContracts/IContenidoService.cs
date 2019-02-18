@@ -289,6 +289,15 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         int GuardarPoputs(string tituloPrincipal, string descripcion, string Url, string fechaMaxima, string fechaMinima, bool checkDesktop, bool checkMobile, int accionID, string datosCSV, string comunicadoId, string nombreArchivo, string codigoCampania,string descripcionAccion);
+
+        [OperationContract]
+        int ActualizaOrden(string Comunicado,string Orden);
+
+        [OperationContract]
+        int EliminarArchivoCsv(int Comunicadoid);
+
+        
+
         #endregion
 
     }

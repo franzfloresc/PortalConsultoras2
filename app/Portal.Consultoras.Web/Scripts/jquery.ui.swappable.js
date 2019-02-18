@@ -123,8 +123,10 @@ $.widget("ui.swappable", $.ui.sortable, {
 		}
 
 		//Prepare scrolling
-		if(this.scrollParent[0] != document && this.scrollParent[0].tagName != 'HTML')
-			this.overflowOffset = this.scrollParent.offset();
+        if (this.scrollParent[0] != document && this.scrollParent[0].tagName != 'HTML') {
+           
+            this.overflowOffset = this.scrollParent.offset();
+        }
 
 		//Call callbacks
 		this._trigger("start", event, this._uiHash());
@@ -153,8 +155,8 @@ $.widget("ui.swappable", $.ui.sortable, {
 		return true;
 
 	},
-	_mouseStop: function(event, noPropagation) {
-
+    _mouseStop: function (event, noPropagation) {
+       
 		if(!event) return;
 		
 		var o = this.options;
@@ -162,8 +164,21 @@ $.widget("ui.swappable", $.ui.sortable, {
 		
 		var itemPassive = $(target).closest(o.items);
 		var itemActive = this.currentItem.closest(o.items);
-		var itemPlaceholder = $(itemActive).next();
-		
+        var itemPlaceholder = $(itemActive).next();
+        debugger;
+
+        /*Agregardo para el inercambio de orden***************************HD-3344*/
+        var valuePassive = itemPassive[0].getAttribute("orden");
+        var valueActive = itemActive[0].getAttribute("orden");
+        itemActive[0].setAttribute("orden", valuePassive);
+        itemActive[0].firstElementChild.firstChild.innerHTML = valuePassive;
+        itemPassive[0].setAttribute("orden", valueActive)
+        itemPassive[0].firstElementChild.firstChild.innerHTML = valueActive;
+        /*******************************************************************HD-3344*/
+        if (parseInt( valueActive) > 0)
+        document.getElementById("btnActualizaOrden").style.display = "block";
+
+
 		$(itemPassive).after(itemActive);
 		$(itemPlaceholder).after(itemPassive);
 		
@@ -191,14 +206,14 @@ $.widget("ui.swappable", $.ui.sortable, {
 			});
 		} else {
 			this._clear(event, noPropagation);
-		}
+        }
 
 		return false;
 
 	},
 	
-	_clear: function(event, noPropagation) {
-
+    _clear: function (event, noPropagation) {
+       
 		this.reverting = false;
 		// We delay all events that have to be triggered to after the point where the placeholder has been removed and
 		// everything else normalized again

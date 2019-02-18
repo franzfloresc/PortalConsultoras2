@@ -84,6 +84,21 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, arrayColumnasBEComunicadoSegmentacion[3] != null ? arrayColumnasBEComunicadoSegmentacion[0].ToString() : string.Empty);
 
             return Context.ExecuteNonQuery(command);
+
+        }
+        public int ActualizaOrden(string comunicado, string orden)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ActualizaOrden");
+            Context.Database.AddInParameter(command, "@comunicado", DbType.AnsiString, comunicado);
+            Context.Database.AddInParameter(command, "@orden", DbType.AnsiString, orden);
+            return Context.ExecuteNonQuery(command);
+        }
+
+        public int EliminarArchivoCsv(int comunicadoid)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.EliminarArchivoCsv");
+            Context.Database.AddInParameter(command, "@comunicadoid", DbType.Int32, comunicadoid);
+            return Context.ExecuteNonQuery(command);
         }
         #endregion
     }

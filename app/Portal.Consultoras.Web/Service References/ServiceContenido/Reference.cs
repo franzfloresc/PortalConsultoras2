@@ -3968,6 +3968,18 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/GuardarPoputs", ReplyAction="http://tempuri.org/IContenidoService/GuardarPoputsResponse")]
         System.Threading.Tasks.Task<int> GuardarPoputsAsync(string tituloPrincipal, string descripcion, string Url, string fechaMaxima, string fechaMinima, bool checkDesktop, bool checkMobile, int accionID, string datosCSV, string comunicadoId, string nombreArchivo, string codigoCampania, string descripcionAccion);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/ActualizaOrden", ReplyAction="http://tempuri.org/IContenidoService/ActualizaOrdenResponse")]
+        int ActualizaOrden(string Comunicado, string Orden);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/ActualizaOrden", ReplyAction="http://tempuri.org/IContenidoService/ActualizaOrdenResponse")]
+        System.Threading.Tasks.Task<int> ActualizaOrdenAsync(string Comunicado, string Orden);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/EliminarArchivoCsv", ReplyAction="http://tempuri.org/IContenidoService/EliminarArchivoCsvResponse")]
+        int EliminarArchivoCsv(int Comunicadoid);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/EliminarArchivoCsv", ReplyAction="http://tempuri.org/IContenidoService/EliminarArchivoCsvResponse")]
+        System.Threading.Tasks.Task<int> EliminarArchivoCsvAsync(int Comunicadoid);
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -4639,6 +4651,22 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         
         public System.Threading.Tasks.Task<int> GuardarPoputsAsync(string tituloPrincipal, string descripcion, string Url, string fechaMaxima, string fechaMinima, bool checkDesktop, bool checkMobile, int accionID, string datosCSV, string comunicadoId, string nombreArchivo, string codigoCampania, string descripcionAccion) {
             return base.Channel.GuardarPoputsAsync(tituloPrincipal, descripcion, Url, fechaMaxima, fechaMinima, checkDesktop, checkMobile, accionID, datosCSV, comunicadoId, nombreArchivo, codigoCampania, descripcionAccion);
+        }
+        
+        public int ActualizaOrden(string Comunicado, string Orden) {
+            return base.Channel.ActualizaOrden(Comunicado, Orden);
+        }
+        
+        public System.Threading.Tasks.Task<int> ActualizaOrdenAsync(string Comunicado, string Orden) {
+            return base.Channel.ActualizaOrdenAsync(Comunicado, Orden);
+        }
+        
+        public int EliminarArchivoCsv(int Comunicadoid) {
+            return base.Channel.EliminarArchivoCsv(Comunicadoid);
+        }
+        
+        public System.Threading.Tasks.Task<int> EliminarArchivoCsvAsync(int Comunicadoid) {
+            return base.Channel.EliminarArchivoCsvAsync(Comunicadoid);
         }
     }
 }

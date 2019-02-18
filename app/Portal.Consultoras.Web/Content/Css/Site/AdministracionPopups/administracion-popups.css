@@ -257,8 +257,18 @@ div.ui-state-highlight {
 }*/
 
 .vista__administracion__popups__contenido,
-.administracion__popups__grilla {
+.administracion__popups__paginacion {
     padding: 10px;
+}
+
+.btn__guardar__ordenamiento__wrapper {
+    justify-content: flex-end;
+}
+
+.btn__guardar__ordenamiento {
+    width: 178px;
+    cursor: pointer;
+    margin-left: 20px;
 }
 
 .vista__administracion__popups__contenido {
@@ -266,25 +276,26 @@ div.ui-state-highlight {
     border: 1px solid #979797;
 }
 
-.administracion__popups__paginacion__grilla,
+.administracion__popups__paginacion__grilla {
+    justify-content: flex-end;
+    margin-top: 6px;
+    margin-bottom: 16px;
+}
+
+    .administracion__popups__paginacion__grilla:last-child {
+        margin-top: 16px;
+        margin-bottom: 6px;
+    }
+
+.administracion__popups__paginacion__componentes,
 .paginador__grilla,
 .controles__paginacion__grilla {
     align-items: center;
 }
 
-.administracion__popups__paginacion__grilla {
-    margin-top: 3px;
-    margin-bottom: 10px;
-    justify-content: flex-end;
-    padding-left: 9px;
-    padding-right: 9px;
+.administracion__popups__paginacion__componentes {
     letter-spacing: 0.3px;
 }
-
-    .administracion__popups__paginacion__grilla:last-child {
-        margin-top: 10px;
-        margin-bottom: 3px;
-    }
 
 .cantidad__registros__grilla,
 .paginador__grilla,
@@ -632,21 +643,35 @@ div.ui-state-highlight {
     width: 170px;
 }
 
-.imagen__cargada__thumbnail__wrapper {
-    width: 67px;
-    height: 52px;
+.imagen__cargada__thumbnail__wrapper,
+.csv__cargado__thumbnail__wrapper {
     position: relative;
     align-self: flex-start;
 }
 
+.imagen__cargada__thumbnail__wrapper {
+    width: 67px;
+    height: 52px;
+}
+
+.csv__cargado__thumbnail__wrapper {
+    width: 31px;
+    height: 40px;
+    margin-top: 3px;
+    margin-left: 20px;
+}
+
 .enlace__eliminar__imagen__cargada,
-.enlace__eliminar__imagen__cargada img {
+.enlace__eliminar__imagen__cargada img,
+.enlace__eliminar__csv__cargado,
+.enlace__eliminar__csv__cargado img {
     position: absolute;
 }
 
-.enlace__eliminar__imagen__cargada {
-    width: 22px;
-    height: 22px;
+.enlace__eliminar__imagen__cargada,
+.enlace__eliminar__csv__cargado {
+    width: 17px;
+    height: 17px;
     top: -8px;
     right: -10px;
     background-color: #808080;
@@ -656,11 +681,7 @@ div.ui-state-highlight {
 }
 
     .enlace__eliminar__imagen__cargada img,
-    .imagen__cargada__thumbnail {
-        height: auto;
-    }
-
-    .enlace__eliminar__imagen__cargada img {
+    .enlace__eliminar__csv__cargado img {
         height: 59%;
         margin: auto;
         left: 1px;
@@ -669,9 +690,18 @@ div.ui-state-highlight {
         bottom: 0;
     }
 
-.imagen__cargada__thumbnail {
+.imagen__cargada__thumbnail,
+.csv__cargado__thumbnail {
     position: relative;
     z-index: 1;
+}
+
+.imagen__cargada__thumbnail {
+    height: auto;
+}
+
+.csv__cargado__thumbnail {
+    height: 100%;
 }
 
 .grupo__form__campos--minMax {
@@ -755,6 +785,11 @@ div.ui-state-highlight {
 .btn__modal--guardar {
     color: #FFF;
 }
+
+/* FIN - MODAL AGREGAR POPUP */
+
+/* FIN - VISTA ADMINISTRACIÓN POPUPS */
+
 
 .disabledbutton {
     pointer-events: none;

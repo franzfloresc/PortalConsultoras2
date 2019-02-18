@@ -40,23 +40,28 @@
     <!-- GRILLA ADMINISTRACIÓN DE POPUPS -->
     <section class="d__block border__radius__4 vista__administracion__popups__contenido">
         <div class="d__flex administracion__popups__paginacion__grilla">
-            <div class="d__block cantidad__registros__grilla">
-            </div>
-            <div class="d__flex paginador__grilla">
-                <div class="d__block">Página</div>
-                <div class="d__flex controles__paginacion__grilla">
-                    <a id="izquierdaArriba" class="d__block flecha__paginacion flecha__paginacion--izquierda" title="Página Anterior">
-                        <img src="@Url.Content("~/Content/Images/flecha-campo-select.svg")" alt="Anterior">
-                    </a>
-                    <div class="d__block filtro__num__pagina">
-                        <input id="PaginaActualArriba"  onpaste="return false" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event, this, true);"   class="d__inline__block text__center border__color__gray__multimarca border__radius__4 paginacion__actual" value="1"  type="text" >
-                        <span class="d__inline__block num__total__paginas"></span>
-                    </div>
-                    <div id="derechaArriba" class="d__block flecha__paginacion flecha__paginacion--derecha" title="Página Siguiente">
-                        <img  src="@Url.Content("~/Content/Images/flecha-campo-select.svg")" alt="Siguiente">
+            <div class="d__flex administracion__popups__paginacion__componentes">
+                <div class="d__block cantidad__registros__grilla">
+                </div>
+                <div class="d__flex paginador__grilla">
+                    <div class="d__block">Página</div>
+                    <div class="d__flex controles__paginacion__grilla">
+                        <a id="izquierdaArriba" class="d__block flecha__paginacion flecha__paginacion--izquierda" title="Página Anterior">
+                            <img src="@Url.Content("~/Content/Images/flecha-campo-select.svg")" alt="Anterior">
+                        </a>
+                        <div class="d__block filtro__num__pagina">
+                            <input id="PaginaActualArriba" onpaste="return false" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event, this, true);" class="d__inline__block text__center border__color__gray__multimarca border__radius__4 paginacion__actual" value="1" type="text">
+                            <span class="d__inline__block num__total__paginas"></span>
+                        </div>
+                        <div id="derechaArriba" class="d__block flecha__paginacion flecha__paginacion--derecha" title="Página Siguiente">
+                            <img src="@Url.Content("~/Content/Images/flecha-campo-select.svg")" alt="Siguiente">
+                        </div>
                     </div>
                 </div>
             </div>
+            <a class="d__block text__bold text__center background__color__m border__radius__4 btn__grilla__filtros btn__guardar__ordenamiento" title="Guardar ordenamiento" id="btnActualizaOrden" style="display:none;cursor:pointer;">
+                Guardar ordenamiento
+            </a>
         </div>
         <div class="d__block administracion__popups__grilla" id="divTabla">
         </div>
@@ -73,7 +78,7 @@
                     <div class="d__block filtro__num__pagina">
                         <input id="PaginaActualAbajo" onpaste="return false"  onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event, this, true);"class="d__inline__block text__center border__color__gray__multimarca border__radius__4 paginacion__actual" value="1" type="text">
                         <span class="d__inline__block num__total__paginas"></span>
-                    </div>
+                    </div>  
                     <a id="derechaAbajo" class="d__block flecha__paginacion flecha__paginacion--derecha" title="Página Siguiente">
                         <img src="@Url.Content("~/Content/Images/flecha-campo-select.svg")" alt="Siguiente">
                     </a>
@@ -141,7 +146,7 @@
                         <div class="d__block text__bold color__m grupo__form__campos__label grupo__form__campos__label--segmentoConsultoras">Segmento de<br />consultoras : </div>
                         <div class="d__block">
                             <input id="fileCSV" type="file" class="d__none text__bold" onchange='getFileCSV()' />
-                            <label for="fileCSV" class="d__block text__bold text__center background__color__m border__radius__4 btn__modal btn__modal--agregar" title="Agregar nuevo popup">
+                            <label for="fileCSV" class="d__block text__bold text__center background__color__m border__radius__4 btn__modal btn__modal--agregar">
                                 <span class="d__inline__block text__bold">+</span>
                                 <span class="d__inline__block text__bold">Agregar</span>
                             </label>
@@ -149,6 +154,13 @@
 
                             </p>
                         </div>
+                        <div id="EliminarArchivo" class="d__block csv__cargado__thumbnail__wrapper">
+                            <div  title="Eliminar" class="d__block enlace__eliminar__csv__cargado eliminarArchivo">
+                                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Eliminar archivo CSV" class="d__block m-0" />
+                            </div>
+                            <img class="d__block m-0 w__100 csv__cargado__thumbnail" src="@Url.Content("~/Content/Images/csv_file_img.svg")" alt="" />
+                        </div>
+
                     </div>
 
                     <div class="d__flex grupo__form__campos">
@@ -199,13 +211,13 @@
 @section scripts{
 
     <script type="text/javascript">
-        debugger;
-
+        var URL_BUSCAR_POPUTS = baseUrl + 'AdministracionPopups/GetCargaListadoPoput';
         var PAGINAS = parseInt($("#PaginaActualArriba").val());
         localStorage.setItem('PAGINAS', PAGINAS);
-
         var FILAS = parseInt('@ViewBag.NumeroFila');
         var LIMITE_PAGINAS;
+
+
         $(document).ready(function () {
            GetCargaListadoPoput();
             $("#PaginaActualArriba, #PaginaActualAbajo").blur(function () {
@@ -220,7 +232,7 @@
             });
 
             function GetCargaListadoPoput() {
-                debugger;
+                debugger;   
                 var ddlCampania = $('#ddlCampania').val();
                 var ddlEstado = parseInt($('#ddlEstado').val());
 
@@ -237,11 +249,12 @@
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify(object),
                     dataType: "json",
-                    async: true,
+                    cache: true,
+                    //async: false,
                     success: function (data) {
-                        waitingDialog({ "title": "mensaje","message":"yuyuyu"});
+                        //waitingDialog({ "title": "mensaje","message":"yuyuyu"});
                         if (data["listaComunicadoModel"].length == 0) {
-                            closeWaitingDialog();
+                            //closeWaitingDialog();
                             alert("La consulta no arrojó ningún resultado");
                         } 
                         LIMITE_PAGINAS = parseInt(data["Paginamaximas"]);
@@ -257,13 +270,13 @@
        
 
             function ConstruyeGrillaPoput(data) {
-                debugger;
+                
                 $("#divTabla").empty();
                 $(".cantidad__registros__grilla").html("Tengo <span class='text__bold'>" + data.length + "</span> registro" + (data.length > 1 ? "s" : ""));
                 $(".num__total__paginas").html("de " + LIMITE_PAGINAS)
 
                 if (LIMITE_PAGINAS == 0) {
-                    debugger;
+                    
                     document.getElementById("PaginaActualArriba").disabled = true;
                     document.getElementById("PaginaActualAbajo").disabled = true;
                     document.getElementById("PaginaActualArriba").value = LIMITE_PAGINAS;
@@ -295,7 +308,7 @@
                 
                 var listColumnas = [
                     {
-                        tituloColumna: 'N°',
+                        tituloColumna: 'Orden',
                         claseColumna: 'col__grilla--numero'
                     },
                     {
@@ -335,14 +348,14 @@
                 /*Detalle*/
                 var detalle = "<div id='swappable' class='d__block administracion__popups__grilla__contenido'>";
                 for (var i = 0; i < data.length; i++) {
-                    detalle += "<div class='d__block background__color__m__lighter ui-state-default row__grilla'>";
+                    detalle += "<div   comunicadoID='" + data[i].ComunicadoId + "' orden='" + data[i].Numero + "' class='d__block background__color__m__lighter ui-state-default row__grilla'>";
                     detalle += "<div class='col__grilla col__grilla--numero'><div class='row__grilla row__grilla__texto text__center' >" + data[i].Numero + "</div ></div >";
                     detalle += "<div class='col__grilla col__grilla--fondo'><div class='row__grilla row__grilla__texto text__center' >" + data[i].NombreImagen + "</div ></div >";
                     detalle += "<div class='col__grilla col__grilla--duracion'><div class='row__grilla row__grilla__texto text__center' >" + (data[i].FechaInicio_ + "-" + data[i].FechaFin_) + "</div ></div >";
                     detalle += "<div class='col__grilla col__grilla--titulo'><div class='row__grilla row__grilla__texto text__center' >" + data[i].Titulo + "</div ></div >";
                     detalle += "<div class='col__grilla col__grilla--ruta'><div class='row__grilla row__grilla__texto text__center' ><a target='blank' href=" + data[i].DescripcionAccion + "  class='d__block'>" + data[i].DescripcionAccion + "</a></div ></div >";
                     detalle += "<div class='col__grilla col__grilla--estado'><div class='row__grilla row__grilla__texto text__center' >" + (data[i].Activo ? "Activo" : "Inactivo") + "</div ></div >";
-                    detalle += "<div  class='col__grilla col__grilla--editar'><div class='row__grilla row__grilla__texto text__center' ><a href='' title='Editar Popup' class='d__block enlace__editar'><img ComunicadoId=" + data[i].ComunicadoId.toString() + " src=" + "@Url.Content("~/Content/Images/Edit.png") alt='Editar' title='Editar Popup' class='d__block'></a></div></div >";
+                    detalle += "<div class='col__grilla col__grilla--editar'><div class='row__grilla row__grilla__texto text__center' ><a href='' title='Editar Popup' class='d__block enlace__editar'><img ComunicadoId=" + data[i].ComunicadoId.toString() + " src=" + "@Url.Content("~/Content/Images/Edit.png") alt='Editar' title='Editar Popup' class='d__block'></a></div></div >";
                     detalle += "</div>";
                 }
                 detalle += "</div>";
@@ -366,16 +379,64 @@
             });
 
             $("#PaginaActualArriba").blur(function () {
-                debugger;
+                
                 PAGINAS = document.getElementById(this.id).value
                 ActualizaPaginador(PAGINAS);
             });
 
             $("#PaginaActualAbajo").blur(function () {
-                debugger;
+                
                 PAGINAS = document.getElementById(this.id).value
                 ActualizaPaginador(PAGINAS);
             });
+
+            $("#btnActualizaOrden").click(function () { 
+                ActualizarOrden();
+            });
+
+
+
+
+
+
+            function ActualizarOrden() {
+                debugger;
+                var lista = document.querySelector("#swappable");
+                var comunicado="";
+                var orden = "";
+
+                for (var i = 0; i < lista.childElementCount; i++) {
+                    var elemento = lista.children[i];
+                    comunicado += lista.children[i].getAttribute("comunicadoid") + "#"  ;   
+                    orden += lista.children[i].getAttribute("orden")  +  "#"  ;
+                }
+                    comunicado = comunicado.length > 0 ? comunicado.substring(0, comunicado.length - 1) :'0#';
+                    orden = orden.length > 0 ? orden.substring(0, orden.length - 1) : '0#';
+              
+
+                var object = {
+                    Comunicado: comunicado,
+                    Orden: orden,
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: URL_ACTUALIZA_ORDEN,
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(object),
+                    dataType: "json",
+                    async: true,
+                    success: function (data) {
+                        document.getElementById("btnActualizaOrden").style.display = "none";
+                        window.location.reload(true);
+                    },
+                    error: function (x, xh, xhr) {
+                        if (checkTimeout(x)) {
+                            closeWaitingDialog();
+                        }
+                    }
+                });
+            }
 
 
 

@@ -146,6 +146,18 @@ namespace Portal.Consultoras.BizLogic
             }
             return arrayColumnas;
         }
+
+        public int ActualizaOrden(string comunicado, string orden)
+        {
+            var daBelcorpResponde = new DABelcorpResponde();
+            return daBelcorpResponde.ActualizaOrden(comunicado, orden);
+        }
+
+        public int EliminarArchivoCsv(int comunicadoid)
+        {
+            var daBelcorpResponde = new DABelcorpResponde();
+            return daBelcorpResponde.EliminarArchivoCsv(comunicadoid);
+        }
         #endregion
     }
 }

@@ -1,16 +1,17 @@
 ﻿var RUTA_MADRE = "~/";
 var VistaAdministracionPopups;
-var URL_BUSCAR_POPUTS = baseUrl + 'AdministracionPopups/GetCargaListadoPoput';
 var URL_ADJUNTAR_ARCHIVO = baseUrl + 'AdministracionPopups/GetCargarArchivoCSV';
 var URL_GUARDAR_POPUT = baseUrl + 'AdministracionPopups/GetGuardarPoput';
 var URL_DETALLE_POPUT = baseUrl + 'AdministracionPopups/GetDetallePoput';
+var URL_ACTUALIZA_ORDEN = baseUrl + 'AdministracionPopups/ActualizaOrden';
+var URL_ELIMINA_ARCHIVOCSV = baseUrl + 'AdministracionPopups/EliminarArchivoCsv';
 var VistaAdministracionPopups;
 
 $(document).ready(function () {
     var vistaAdPop;
     vistaAdPop = function () {
         var me = this;
-
+       
         me.Funciones = {
             InicializarEventos: function () {
                 $('body').on('click', '.btn__agregar', me.Eventos.AbrirPopupNuevo);
@@ -86,6 +87,7 @@ $(document).ready(function () {
 
 
     $('#fechaMin').change(function (e) {
+        debugger;
         let partes = (e.target.value || '').split('/');
         if (partes.length != 3) {
             alert("Por favor ingrese una fecha válida");
@@ -95,6 +97,7 @@ $(document).ready(function () {
 
 
     $('#fechaMax').change(function (e) {
+        debugger;
         let partes = (e.target.value || '').split('/');
         if (partes.length != 3) {
             alert("Por favor ingrese una fecha válida");
@@ -126,7 +129,6 @@ function GetCargaDetallePoput(comunicadoid) {
         dataType: "json",
         cache: false,
         success: function (data) {
-
             if (checkTimeout(data)) {
                 getCargarDetallePoputLocalStorage(data);
                 GetCamposCargadosPoput(data);
@@ -153,7 +155,7 @@ function getCargarArchivoCSVPoputLocalStorage(data) {
 
 
 function GetCamposCargadosPoput(data) {
-
+ 
     $("#targetImg").attr('src', (data.UrlImagen));
     $("#description").html(data.NombreImagen);
     $("#imgPreview").show();
@@ -178,6 +180,8 @@ function GetCamposCargadosPoput(data) {
         document.getElementById('checkDesktop').checked = true;
     }
 
+    if (data.NombreArchivoCCV.length > 0)
+    document.getElementById("EliminarArchivo").style.display = "block";
 
 }
 
@@ -264,7 +268,7 @@ function ClearFileView() {
 }
 
 function getFileCSV() {
-
+    debugger;
     var frmData = new FormData();
     var file = document.getElementById("fileCSV").files[0];
     frmData.append("fileCSV", file);
@@ -276,9 +280,13 @@ function getFileCSV() {
         contentType: false,
         processData: false,
         success: function (msg) {
-            
             $("#nameArchivo").html(msg.archivo);
-              getCargarArchivoCSVPoputLocalStorage(msg);
+            getCargarArchivoCSVPoputLocalStorage(msg);
+            if (msg.archivo.length > 0)
+            document.getElementById("EliminarArchivo").style.display = "block";
+
+            else
+            document.getElementById("EliminarArchivo").style.display = "none";
         },
         error: function (error) {
             alert("errror");
@@ -288,6 +296,17 @@ function getFileCSV() {
 
 
 
+//function handleDragStart(e) {
+//    debugger;
+//    this.style.opacity = '0.4';  // this / e.target is the source node.
+//}
+
+//debugger;
+//var cols = document.querySelectorAll('swappable');
+//[].forEach.call(cols, function (col) {
+//    debugger;
+//    col.addEventListener('dragstart', handleDragStart, false);
+//}); 
 
 
 
@@ -380,7 +399,7 @@ function getFileCSV() {
 
 
 
-
+     
 
         $.ajax({
             type: "POST",
@@ -393,6 +412,7 @@ function getFileCSV() {
 
                 if (parseInt(msg) > 0) {
                     alert("Se registró de forma satisfactoria");
+                    window.location.reload(true);
                 }
             },
             error: function (error) {
@@ -517,3 +537,35 @@ function ValidaImagen(file) {
     }
 
 }
+
+
+
+$(".eliminarArchivo").click(function () {
+    debugger;
+    var comunicadoid = $("#hdComunicadoId").val();
+    var object = {
+        Comunicadoid: parseInt( comunicadoid)
+    };
+
+    $.ajax({
+        type: "POST",
+        url: URL_ELIMINA_ARCHIVOCSV,
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(object),
+        dataType: "json",
+        async: true,
+        success: function (msg) {
+            localStorage.removeItem("datosCSV");
+            $("#nameArchivo").html("");
+            $("#fileCSV").val("");
+            document.getElementById("EliminarArchivo").style.display = "none";
+        },
+        error: function (error) {
+            alert("errror");
+        }
+    });
+
+
+    
+
+});
