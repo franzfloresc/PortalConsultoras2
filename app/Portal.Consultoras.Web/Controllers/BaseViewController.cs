@@ -586,6 +586,28 @@ namespace Portal.Consultoras.Web.Controllers
                     result = Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoGanadoras;
                     break;
                 #endregion
+
+                #region ProductosRecomendadosMobile
+                case Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoOpm:
+                    result = Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoOpmFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoShowRoom:
+                    result = Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoShowRoomFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoLan:
+                    result = Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoLanFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoOdd:
+                    result = Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoOddFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoHv:
+                    result = Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoHvFicha;
+                    break;
+                case Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoGanadoras:
+                    result = Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoGanadorasFicha;
+                    break;
+
+                    #endregion
             }
 
             return result;
@@ -737,13 +759,13 @@ namespace Portal.Consultoras.Web.Controllers
             var origenString = origen.ToString();
             if (origen == 0 || origenString.IsNullOrEmptyTrim()) return tipo;
            
-            var twoLastDigitsOrigen =  origenString.Substring(origenString.Length - 2);
+            var twoLastDigitsOrigen = origenString.Substring(origenString.Length - 2);
             if (twoLastDigitsOrigen.Equals(Constantes.OrigenPedidoWeb.SufijoProductoRecomendadoCarrusel) ||
                twoLastDigitsOrigen.Equals(Constantes.OrigenPedidoWeb.SufijoProductoRecomendadoFicha))
             {
-               return Constantes.TipoAccionNavegar.Volver;
+                return Constantes.TipoAccionNavegar.Volver;
             }
-           
+
             return tipo;
         }
 

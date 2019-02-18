@@ -925,6 +925,7 @@ namespace Portal.Consultoras.Common
 
             public const string SufijoProductoRecomendadoCarrusel = "08";
             public const string SufijoProductoRecomendadoFicha = "09";
+
             public const int DesktopPedidoProductoRecomendadoOpm = 1020008;
             public const int DesktopPedidoProductoRecomendadoShowRoom = 1020108;
             public const int DesktopPedidoProductoRecomendadoLan = 1020208;
@@ -942,6 +943,18 @@ namespace Portal.Consultoras.Common
             public const int MobileContenedorShowroomFicha = 2080102;
             public const int MobileContenedorLanzamientosCarrusel = 2080201; // Esta en duro en rdAnalyticsModule
 
+            public const int DesktopPedidoProductoRecomendadoOpmFicha = 1020009;
+            public const int DesktopPedidoProductoRecomendadoShowRoomFicha = 1020109;
+            public const int DesktopPedidoProductoRecomendadoLanFicha = 1020209;
+            public const int DesktopPedidoProductoRecomendadoOddFicha = 1020309;
+            public const int DesktopPedidoProductoRecomendadoHvFicha = 1020809;
+            public const int DesktopPedidoProductoRecomendadoGanadorasFicha = 1021409;
+            public const int MobilePedidoProductoRecomendadoOpmFicha = 2020009;
+            public const int MobilePedidoProductoRecomendadoShowRoomFicha = 2020109;
+            public const int MobilePedidoProductoRecomendadoLanFicha = 2020209;
+            public const int MobilePedidoProductoRecomendadoOddFicha = 2020309;
+            public const int MobilePedidoProductoRecomendadoHvFicha = 2020809;
+            public const int MobilePedidoProductoRecomendadoGanadorasFicha = 2021409;
             #endregion
 
             #region Producto Recomendado

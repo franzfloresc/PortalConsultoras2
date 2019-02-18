@@ -45,7 +45,7 @@
                     <div class="producto_recomendado_acciones_wrapper">
                         {{#if_eq CodigoEstrategia '2003'}}
                         <!-- BLOQUE DE CÓDIGO A MOSTRAR CUANDO EL PRODUCTO TENGA OPCIÓN PARA ELEGIR TONOS -->
-                        <div class="producto_recomendado_btn_wrapper producto_recomendado_btn_wrapper_full_width" >
+                        <div class="producto_recomendado_btn_wrapper producto_recomendado_btn_wrapper_full_width" onclick="javascript:FichaPartialModule.ConstruirFicha(this, 1, false)">
                             <a class="btn_producto_recomendado_elige_tu_opcion text-bold text-center text-uppercase">
                                 <span class="d-inline-block">
                                     <img src="@Url.Content("/Content/Images/icono-elige-tu-opcion.svg")" alt="Elige tu opción" />
