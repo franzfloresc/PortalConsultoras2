@@ -610,7 +610,8 @@ namespace Portal.Consultoras.Web
             bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/Pedido").Include(
                 "~/Content/Css/Mobile/RevistaDigital/Bienvenido-Pedido-Catalogo.css",
                 "~/Content/Css/Mobile/ProductoListado/CajaProducto.css",
-                "~/Content/Css/Mobile/Pedido/PedidoGrilla.css"
+                "~/Content/Css/Mobile/Pedido/PedidoGrilla.css",
+                "~/Content/Css/Mobile/Pedido/EditarProductoFicha.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/PedidoDetalle").Include(
