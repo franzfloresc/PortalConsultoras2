@@ -438,6 +438,8 @@ namespace Portal.Consultoras.Common
             public const string JwtApiSomosBelcorp = "JwtApiSomosBelcorp";
             public const string RecomendacionesConfig = "RecomendacionesConfiguracion";
             public const string BuscadorYFiltrosConfig = "BuscadorYFiltros";
+            public const string MSPersonalizacionConfig = "MSPersonalizacion";
+
         }
 
         public static class ConfiguracionManager
@@ -778,6 +780,20 @@ namespace Portal.Consultoras.Common
             public const int MobileLandingBuscadorOfertaDelDiaFicha = 2100302;
             public const int MobileLandingBuscadorGNDFicha = 2100502;
             public const int MobileLandingBuscadorHerramientasDeVentaFicha = 2100802;
+
+            public const int DesktopBuscadorGanadorasDesplegable = 1041404;
+            public const int MobileBuscadorGanadorasDesplegable = 2041404;
+
+            public const int DesktopBuscadorGanadorasFicha = 1041402;
+            public const int MobileBuscadorGanadorasFicha = 2041402;
+
+            public const int DesktopBuscadorGanadorasCarrusel = 1101401;
+            public const int MobileBuscadorGanadorasCarrusel = 2101401;
+
+            public const int DesktopLandingBuscadorGanadorasFicha = 1101402;
+            public const int MobileLandingBuscadorGanadorasFicha = 2101402;
+
+
 
             #endregion
 
@@ -1253,6 +1269,10 @@ namespace Portal.Consultoras.Common
             public const string SoloHoy = "SOLOHOY";
             public const string HerramientasDeVenta = "HERRAMIENTASDEVENTA";
             public const string SaberMasInscripcion = "SABERMASINSCRIPCION";
+            public const string Reclamos = "RECLAMOS";
+            public const string MetodosPagos = "METODODEPAGO";
+            public const string PagarAqui = "PAGAR";
+            public const string Ganancias = "GANANCIAS";
             public const string DuoPerfecto = "DUOPERFECTO";
             public const string PedidosPendientes = "PEDIDOSPENDIENTES";
         }
@@ -1260,6 +1280,7 @@ namespace Portal.Consultoras.Common
         public static class IngresoExternoOrigen
         {
             public const string App = "4";
+            public const string ChatBot = "5";
         }
 
         public static class EstadoCuentaTipoMovimiento
@@ -1342,7 +1363,7 @@ namespace Portal.Consultoras.Common
 
         public static class MensajesError
         {
-            public const string InsertarDesglose = "Ocurrió un error al procesar la reserva.";
+            //public const string InsertarDesglose = "Ocurrió un error al procesar la reserva.";
             public const string CargarProductosShowRoom = "Error al cargar los productos.";
             public const string DeletePedido_CuvNoExiste = "El producto que deseas eliminar ya no se encuentra en tu pedido. Por favor, vuelva a carga la página (F5).";
             public const string RecuperarContrasenia = "Error en la respuesta del servicio de Recuperar Contraseña.";
@@ -1374,10 +1395,11 @@ namespace Portal.Consultoras.Common
             public const string Reserva_ObsHuerfanas = "Reserva_ObsHuerfanas: Se obtuvieron observaciones al reservar que no se encuentran en el detalle.";
             public const string Reserva_Prol2 = "Reserva_Prol2: El servicio externo de reserva de Prol2 retornó vacio.";
             public const string Reserva_Prol3 = "Reserva_Prol3: El servicio externo de reserva de Sicc retornó vacio o error.";
-            public const string ErrorGenerico = "Ocurrio un error, vuelva ha intentarlo.";
+            public const string ErrorGenerico = "Ocurrió un error, vuelva a intentarlo.";
             public const string InsertarValidarKitInicio = "No está permitido agregar el Kit de un programa obligatorio.";
             public const string ValidarAgregarProgNuevas = "Sucedió un error al validar el programa de nuevas. Inténtenlo más tarde.";
             public const string ExcedioLimiteVenta = "Las unidades ingresadas exceden el máximo permitido ({0}) en esta campaña.";
+            public const string StockLimiteVenta = "En esta campaña nuestro producto <b>{0} – {1}</b> ha tenido una gran acogida. Sin embargo hemos reservado una ({2}) unidad(es) para ti. Por favor modifica las unidades ingresadas.";
         }
 
         public static class MensajesExito
@@ -1413,6 +1435,8 @@ namespace Portal.Consultoras.Common
             public const string ElecMultiple = "DP";
             public const string MasGanadoras = "MG";
             public const string Recomendaciones = "RECOMDS";
+            public const string MicroserviciosPersonalizacion = "MSPersonalizacion";
+            public const string Datami = "DATAMI";
         }
 
 
@@ -1611,7 +1635,7 @@ namespace Portal.Consultoras.Common
             public const string EC = "Tu número de cédula de identidad<br/>o correo electrónico.";
             public const string MX = "Tu código de consultora,<br/>INE o correo electrónico.";
             public const string PA = "Tu código de consultora,<br/>documento de identidad<br/>o correo electrónico.";
-            public const string PE = "Tu código de consultora,<br/>DNI o correo electronico.";
+            public const string PE = "Tu código de consultora,<br/>DNI o correo electrónico.";
             public const string PR = "Tu código de consultora,<br/>tarjeta electoral<br/>o correo electrónico.";
             public const string VE = "Tu código de consultora,<br/>cédula de identidad<br/>o correo electrónico.";
             public const string CAM = "Tu código de consultora,<br/>documento único de identidad o<br/>correo electrónico.";
@@ -2921,36 +2945,38 @@ namespace Portal.Consultoras.Common
 
             #region Oferta
             /// <summary>
-            /// api/Oferta/{pais}/{tipo}/{codigoCampania}/{codigoConsultora}/{diaInicio}
+            /// Oferta/{pais}/{tipo}/{codigoCampania}/{codigoConsultora}/{materialGanancia}/{diaInicio}/{codigoRegion}/{codigoZona}
             /// </summary>
-            public const string UrlObtenerOfertasDelDia = "api/Oferta/{0}/{1}/{2}/{3}/{4}";
+            public const string UrlObtenerOfertas = "Oferta/{0}/{1}/{2}/{3}/{4}/{5}/{6}/{7}";
 
             /// <summary>
-            /// api/Oferta/{pais}/{tipo}/{codigoCampania}/{codigoConsultora}/{codigoRegion}/{codigoZona}/{materialGanancia}
+            /// Evento/Get/{pais}/{campania}
             /// </summary>
-            public const string UrlObtenerOfertas = "api/Oferta/{0}/{1}/{2}/{3}/{4}/{5}/{6}";
+            public const string UrlObtenerEvento = "Evento/Get/{0}/{1}";
 
             /// <summary>
-            /// api/Evento/Get/{pais}/{campania}
+            /// Nivel/listar/{pais}
             /// </summary>
-            public const string UrlObtenerEvento = "api/Evento/Get/{0}/{1}";
+            public const string UrlObtenerNivel = "Nivel/listar/{0}";
 
             /// <summary>
-            /// api/Nivel/listar/{pais}
+            /// Evento/listarconsultora/{pais}/{campania}/{codigoConsultora}
             /// </summary>
-            public const string UrlObtenerNivel = "api/Nivel/listar/{0}";
-
-            /// <summary>
-            /// api/Evento/listarConsultora/{pais}/{campania}/{codigoConsultora}
-            /// </summary>
-            public const string UrlObtenerEventoConsultora = "api/Evento/listarConsultora/{0}/{1}/{2}";
+            public const string UrlObtenerEventoConsultora = "Evento/listarconsultora/{0}/{1}/{2}";
             #endregion
 
+            #region Personalizacion
+            /// <summary>
+            /// api/Evento/listarConsultora/{isoPais}/{codigoConsultora}/{codigoCampania}
+            /// </summary>
+            public const string UrlObtenerPersonalizacion= "api/Personalizacion/{0}/{1}/{2}";
+            #endregion
+            
             #region Reporte
             /// <summary>
-            /// api/Estrategia/ReporteValidacion/{tipo}/{campania}/{paises}
+            /// /api/Reporte/ReporteValidacion/{pais}/{tipo}/{campania}
             /// </summary>
-            public const string UrlReporteValidacion = "api/Estrategia/ReporteValidacion/{0}/{1}/{2}";
+            public const string UrlReporteValidacion = "/api/Reporte/ReporteValidacion/{0}/{1}/{2}";
             #endregion
         }
         public static class OfertaFinalLog
@@ -3003,6 +3029,11 @@ namespace Portal.Consultoras.Common
             public const string FlagFiltrosBuscador = "FlagFiltrosBuscador";
         }
         
+        public static class CodigoConfiguracionMSPersonalizacion
+        {
+            public const string EstrategiaDisponible = "EstrategiaDisponible";
+        }
+
         public static class CodigoConfiguracionRecomendaciones
         {
             public const string ActivarRecomendaciones = "ActivarRecomendaciones";
@@ -3231,6 +3262,14 @@ namespace Portal.Consultoras.Common
                     });
                 }
             }
+
+        }
+
+        public static class ConsultaPROL
+        {
+            public const string ConsultaStockProl = "api/Pedido/ValidacionStockPalancas";
+            public const int StockPadre = 0;
+            public const int StockHijo = 1;
         }
 
         public static class EstrategiaDetalleCamposID
@@ -3254,6 +3293,20 @@ namespace Portal.Consultoras.Common
             public const string FechaHora = "dd/MM/yyyy HH:mm";
         }
 
+        public static class MetodosHTTP
+        {
+            public const string Get = "get";
+            public const string Post = "post";
+            public const string Put = "put";
+            public const string Delete = "delete";
+        }
+
+        public static class MicroServicio
+        {
+            public const string PersonalizacionConfig = "CONFIG";
+            public const string PersonalizacionSearch = "SEARCH";
+        }
+
         public class SolicitudCliente
         {
             public class FlagMedio
@@ -3263,6 +3316,30 @@ namespace Portal.Consultoras.Common
                 public const string CatalogoDigital = "03";
                 public const string MaquilladorVirtual = "04";
             }
+        }
+
+        public class SegmentoDatami
+        {
+            public const string SegmentoA = "Segmento_A";
+            public const string SegmentoB = "Segmento_B";
+            public const string SegmentoC = "Segmento_C";
+            public const string SegmentoD = "Segmento_D";
+            public const string SegmentoE = "Segmento_E";
+            public const string SegmentoF = "Segmento_F";
+        }
+
+        public class SegmentoInterno
+        {
+            public const int SinSegmento = 0;
+            public const int Nuevas = 1;
+            public const int EmpresariaBrillante = 2;
+            public const int EmpresariaDeBelleza = 3;
+            public const int ExpertaDeBelleza = 4;
+            public const int EspecialistaDeBelleza = 5;
+            public const int AsesoraDeBelleza = 6;
+            public const int Inconstantes = 7;
+            public const int PosibleEgreso = 8;
+            public const int Reingreso = 9;
         }
     }
 }

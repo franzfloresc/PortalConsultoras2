@@ -15,11 +15,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             var model = new PedidoWebClientePrincipalMobilModel();
 
-            model.PaisID = userData.PaisID;
-            model.Simbolo = userData.Simbolo;
-
             try
             {
+                model.PaisID = userData.PaisID;
+                model.Simbolo = userData.Simbolo;
+
                 BEPedidoFacturado[] listaPedidosFacturados;
 
                 using (var service = new SACServiceClient())
@@ -39,25 +39,27 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         CantidadProductos = pedido.Cantidad
                     };
 
-                    if (!string.IsNullOrEmpty(pedido.EstadoPedido))
+                    if (string.IsNullOrEmpty(pedido.EstadoPedido))
                     {
-                        var parametros = pedido.EstadoPedido.Split(';');
-                        if (parametros.Length >= 3)
-                        {
-                            bePedidoWeb.EstadoPedidoDesc = OrigenDescripcion(parametros[0]);
-                            bePedidoWeb.Direccion = parametros[1] == string.Empty ? "0" : parametros[1];
-                            bePedidoWeb.Flete = decimal.Parse(bePedidoWeb.Direccion);
-                            bePedidoWeb.Subtotal = bePedidoWeb.ImporteTotal - bePedidoWeb.Flete;
-                            bePedidoWeb.CodigoUsuarioCreacion = parametros[2] == string.Empty ? "" : Convert.ToDateTime(parametros[2]).ToShortDateString();
-                        }
-                        bePedidoWeb.ImporteTotal = pedido.ImporteTotal;
-
+                        model.ListaPedidoCliente.Add(bePedidoWeb);
+                        continue;
                     }
 
-              
+                    var parametros = pedido.EstadoPedido.Split(';');
+                    if (parametros.Length < 3)
+                    {
+                        model.ListaPedidoCliente.Add(bePedidoWeb);
+                        continue;
+                    }
+
+                    bePedidoWeb.EstadoPedidoDesc = OrigenDescripcion(parametros[0]);
+                    bePedidoWeb.Direccion = parametros[1] == string.Empty ? "0" : parametros[1];
+                    bePedidoWeb.Flete = decimal.Parse(bePedidoWeb.Direccion);
+                    bePedidoWeb.Subtotal = bePedidoWeb.ImporteTotal - bePedidoWeb.Flete;
+                    bePedidoWeb.CodigoUsuarioCreacion = parametros[2] == string.Empty ? "" : Convert.ToDateTime(parametros[2]).ToShortDateString();
+                    
                     model.ListaPedidoCliente.Add(bePedidoWeb);
                 }
-
 
                 SessionManager.SetPedidosFacturados(model);
             }
@@ -75,7 +77,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public PartialViewResult Detalle(int campaniaID, int pedidoId)
         {
-            
+
             var model = new PedidoWebMobilModel();
             try
             {

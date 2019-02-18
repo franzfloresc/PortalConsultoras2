@@ -79,13 +79,13 @@ namespace Portal.Consultoras.Web.Controllers
                 SortColumn = sidx,
                 SortOrder = sord
             };
-            IEnumerable<BEProductoSugerido> items = lst;            
+            IEnumerable<BEProductoSugerido> items = lst;
 
             items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
             BEPager pag = Util.PaginadorGenerico(grid, lst);
 
-            lst.Update(x => x.ImagenProducto = x.ImagenProducto ?? "");            
+            lst.Update(x => x.ImagenProducto = x.ImagenProducto ?? "");
 
             var data = new
             {
@@ -186,18 +186,6 @@ namespace Portal.Consultoras.Web.Controllers
             return data;
         }
 
-        //movido BaseAdm/ObtenerCampaniasNemotecnicoPorPais
-        //public JsonResult ObtenerCampaniasPorPais(int PaisID)
-        //{
-        //    IEnumerable<CampaniaModel> lst = _zonificacionProvider.GetCampanias(PaisID);
-        //    string habilitarNemotecnico = _tablaLogicaProvider.ObtenerValorTablaLogica(PaisID, Constantes.TablaLogica.Plan20, Constantes.TablaLogicaDato.BusquedaNemotecnicoProductoSugerido);
-        //    return Json(new
-        //    {
-        //        lista = lst,
-        //        habilitarNemotecnico = habilitarNemotecnico == "1"
-        //    }, JsonRequestBehavior.AllowGet);
-        //}
-
         [HttpPost]
         public JsonResult Registrar(AdministrarProductoSugeridoModel model)
         {
@@ -211,14 +199,14 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #region Imagen Resize 
 
-                if (string.IsNullOrEmpty(entidad.ImagenProducto)) return Json(new { success = false, message = "La información ingresada se encuentra incompleta. Por favor, revisar.\n- Debe de seleccionar una imagen.", extra = ""});
-                
+                if (string.IsNullOrEmpty(entidad.ImagenProducto)) return Json(new { success = false, message = "La información ingresada se encuentra incompleta. Por favor, revisar.\n- Debe de seleccionar una imagen.", extra = "" });
+
                 string rutaImagen = entidad.ImagenProducto.Clone().ToString();
 
                 var valorAppCatalogo = Constantes.ConfiguracionImagenResize.ValorTextoDefaultAppCatalogo;
 
                 _renderImgProvider.ImagenesResizeProceso(entidad.ImagenProducto, userData.CodigoISO, rutaImagen.ToLower().Contains(valorAppCatalogo));
-                
+
                 #endregion
 
                 string r;
@@ -257,7 +245,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-        
+
         [HttpPost]
         public JsonResult Deshabilitar(AdministrarProductoSugeridoModel model)
         {
@@ -334,6 +322,6 @@ namespace Portal.Consultoras.Web.Controllers
             if (arrayProducto == null || arrayProducto.Length == 0) return null;
             return arrayProducto[0].Imagen;
         }
-        
+
     }
 }

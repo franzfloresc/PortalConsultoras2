@@ -19,6 +19,7 @@ var listaCorreo = new Array();
 var nombreCat = new Object();
 
 var campaniaEmail = "";
+var isPilotoSeg = false;
 
 var rCampSelect = "";
 var rCampSelectI = 1;
@@ -115,22 +116,25 @@ $(document).ready(function () {
 
     $('.catalogos__por__campania__slider__control__izq a').on('click', function (e) {
         e.preventDefault();
-        
+        isPilotoSeg = GetCatalogosPilotoSeg(getCodigoCampaniaActual());
         if ($('.catalogos__por__campania__slider__control__der a').is(':visible')) {
-            if (piloto == '1') {
+            if (piloto == '1' && isPilotoSeg == false) {
                 $('.catalogos__campania--actual').fadeOut(100);
             } else {
                 $('.catalogos__campania--actual--disenioAnterior').fadeOut(100);
             }
             $('.catalogos__campania--siguiente').fadeOut(100);
+            $('.catalogos__campania--anterior').delay(100);
             $('.catalogos__campania--anterior').fadeIn(100);
             $('.catalogos__por__campania__slider__control__izq a').fadeOut(100);
         } else {
             $('.catalogos__campania--anterior').fadeOut(100);
             $('.catalogos__campania--siguiente').fadeOut(100);
-            if (piloto == '1') {
+            if (piloto == '1' && isPilotoSeg == false) {
+                $('.catalogos__campania--actual').delay(100);
                 $('.catalogos__campania--actual').fadeIn(100);
             } else {
+                $('.catalogos__campania--actual--disenioAnterior').delay(100);
                 $('.catalogos__campania--actual--disenioAnterior').fadeIn(100);
             }
             $('.catalogos__por__campania__slider__control__der a').fadeIn(100);
@@ -139,21 +143,25 @@ $(document).ready(function () {
 
     $('.catalogos__por__campania__slider__control__der a').on('click', function (e) {
         e.preventDefault();
+        isPilotoSeg = GetCatalogosPilotoSeg(getCodigoCampaniaActual());
         if ($('.catalogos__por__campania__slider__control__izq a').is(':visible')) {
-            if (piloto == '1'){
+            if (piloto == '1' && isPilotoSeg == false) {
                 $('.catalogos__campania--actual').fadeOut(100);
             } else {
                 $('.catalogos__campania--actual--disenioAnterior').fadeOut(100);
             }
             $('.catalogos__campania--anterior').fadeOut(100);
+            $('.catalogos__campania--siguiente').delay(100);
             $('.catalogos__campania--siguiente').fadeIn(100);
             $('.catalogos__por__campania__slider__control__der a').fadeOut(100);
         } else {
             $('.catalogos__campania--anterior').fadeOut(100);
             $('.catalogos__campania--siguiente').fadeOut(100);
-            if (piloto == '1') {
+            if (piloto == '1' && isPilotoSeg == false) {
+                $('.catalogos__campania--actual').delay(100);
                 $('.catalogos__campania--actual').fadeIn(100);
             } else {
+                $('.catalogos__campania--actual--disenioAnterior').delay(100);
                 $('.catalogos__campania--actual--disenioAnterior').fadeIn(100);
             }
             $('.catalogos__campania--actual--disenioAnterior').fadeIn(100);
@@ -274,7 +282,10 @@ function CargarCarruselCatalogo() {
     var htmlSection = "";
     var htmlCatalogo = "";
     var htmlCatalogoAppend = "";
-    var totalItem = cantCat * cantCam;    
+    var totalItem = cantCat * cantCam;
+    var anio = "";
+    var nro = "";
+    isPilotoSeg = false;
 
     $("#divSection").html("");
 
@@ -283,8 +294,14 @@ function CargarCarruselCatalogo() {
 
     for (var i = 0; i < cantCam; i++) {
 
+        if (i == 1 && piloto == '1') {
+            anio = getAnioCampania(getCodigoCampaniaActual());
+            nro = getNumeroCampania(getCodigoCampaniaActual());
+            isPilotoSeg = GetCatalogosPilotoSeg(anio + nro);
+        }
+
         var xhtmlSection = "#xhtmlSection";
-        if (i == 1 && piloto == '1') xhtmlSection = "#xhtmlSectionActual";
+        if (i == 1 && piloto == '1' && isPilotoSeg == false)  xhtmlSection = "#xhtmlSectionActual";
         htmlSection = $(xhtmlSection).html();
         htmlSection = htmlSection.replace(/{sectionid}/g, 'idSection' + i);
         htmlSection = htmlSection.replace(/{divCatalogo}/g, 'divCatalogo' + i);
@@ -292,10 +309,8 @@ function CargarCarruselCatalogo() {
         $("#divSection").append(htmlSection);
 
         if (i == 0) $("#idSection" + i).addClass(" catalogos__campania--anterior");
-        else if (i == 1) {
-            if (piloto == '1') {
-                var anio = getAnioCampania(getCodigoCampaniaActual());
-                var nro = getNumeroCampania(getCodigoCampaniaActual());
+        else if (i == 1) {            
+            if (piloto == '1' && isPilotoSeg == false) {
                 var xHtmlItemCatalogoPasosActual = "#xHtmlItemCatalogoPasosActual";
                 xHtmlItemCatalogoPasosActual = $(xHtmlItemCatalogoPasosActual).html();
                 xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{tipoCatalogoTodo}/g, tagTodo);
@@ -306,7 +321,6 @@ function CargarCarruselCatalogo() {
                 $("#txtUrlActual").val(urlCatalogoPiloto);
                 $("#idSection" + i).addClass(" catalogos__campania--actual");
             } else {
-                $('.catalogos__por__campania__item__slider').addClass(' altoFijo');
                 $("#idSection" + i).addClass(" catalogos__campania--actual--disenioAnterior");
             }
         }
@@ -317,9 +331,12 @@ function CargarCarruselCatalogo() {
         
         htmlCatalogo = "";
         htmlCatalogoAppend = "";
-        var nro = "";
-        var anio = "";
+        nro = "";
+        anio = "";
         var tipo = "";
+        isPilotoSeg = false;
+
+        if (i == 1 && piloto == '1') isPilotoSeg = GetCatalogosPilotoSeg(getCodigoCampaniaActual());
 
         if (i < cantCat/3) {
             anio = getAnioCampania(getCodigoCampaniaAnterior());
@@ -341,7 +358,7 @@ function CargarCarruselCatalogo() {
         for (var j = 0; j < cantCat; j++) {
 
             var itemCatalogo = "#xHtmlItemCatalogo";
-            if (i == 1 && piloto == '1') itemCatalogo = "#xHtmlItemCatalogoActual";
+            if (i == 1 && piloto == '1' && isPilotoSeg == false) itemCatalogo = "#xHtmlItemCatalogoActual";
 
             var x = j - parseInt(j / cantCat) * (cantCat / 3);
             x = x < 0 ? 3 : x > 2 ? 3 : x;
@@ -361,17 +378,14 @@ function CargarCarruselCatalogo() {
             htmlCatalogo = $(itemCatalogo).html();
             htmlCatalogo = htmlCatalogo.replace(/{campania}/g, anio + nro);
             htmlCatalogo = htmlCatalogo.replace(/{tipoCatalogo}/g, tipo);
-            htmlCatalogo = i == 1 && piloto == '1' ? htmlCatalogo : htmlCatalogo.replace(/{comp}/g, tipo);
-            htmlCatalogo = i == 1 && piloto == '1' ? htmlCatalogo : htmlCatalogo.replace(/{descripcion}/g, descrCat[tipo]);
+            htmlCatalogo = i == 1 && piloto == '1' && isPilotoSeg == false ? htmlCatalogo : htmlCatalogo.replace(/{comp}/g, tipo);
+            htmlCatalogo = i == 1 && piloto == '1' && isPilotoSeg == false ? htmlCatalogo : htmlCatalogo.replace(/{descripcion}/g, descrCat[tipo]);
             htmlCatalogo = htmlCatalogo.replace(/{estado}/g, "0");
             htmlCatalogoAppend = htmlCatalogoAppend + htmlCatalogo;
         }
                
         $("#divCatalogo" + i).append(htmlCatalogoAppend);               
     }
-
-    //$("#divCatalogo").append("<div class='clear'></div>");
-    //$("#divCatalogo [data-cat='Cyzone'] > div").addClass("no_margin_right");
 
     for (var i = 0; i < cantCat; i++) {
         $("#divCatalogo" + i + " [data-cat='Lbel']").addClass(" catalogos__por__campania__item__imagen--lbel");
@@ -380,6 +394,24 @@ function CargarCarruselCatalogo() {
     }
     
     closeWaitingDialog();
+}
+
+function GetCatalogosPilotoSeg(campana) {
+    isPilotoSeg = false;
+    jQuery.ajax({
+        async: false,
+        type: "GET",
+        url: urlGetPilotoSeg,
+        dataType: "json",
+        data: { campania: campana },
+        success: function (data) {
+            isPilotoSeg = data.PilotoSeg;
+        },
+        error: function (data, x, xh, xhr) {
+            isPilotoSeg = false;
+        }
+    });
+    return isPilotoSeg;
 }
 
 function FinRenderCatalogo() {
@@ -472,6 +504,7 @@ function GetCatalogosLinksByCampania(data, campania) {
 
     for (var i = 0; i < cantCat; i++) {        
 
+        isPilotoSeg = false;
         var tagCat = i == 0 && data.estadoLbel != 1 ? tagLbel
             : i == 1 && data.estadoCyzone != 1 ? tagCyzone
                 : i == 2 && data.estadoEsika != 1 ? tagEsika
@@ -488,7 +521,6 @@ function GetCatalogosLinksByCampania(data, campania) {
                     : "0";
 
         var elemItem = "[data-cam='" + campania + "'][data-cat='" + tagCat + "']";
-        //$(idCat).find(elemItem).find("[data-tipo='content']").hide();
         $(elemItem).attr("data-estado", estado);
 
         var codigoISSUU = '', urlCat, urlTexto;
@@ -516,21 +548,18 @@ function GetCatalogosLinksByCampania(data, campania) {
 
             var a = getAnioCampania(campania);
             var n = getNumeroCampania(campania);
-            $(idCat).find(elemItem).find("[data-tipo='img']").attr("onclick", "SetGoogleAnalytics('" + codigoISSUU + "','Ver catálogo','" + tagCat + "')");            
-            if (contDiv == 1 && piloto == '1') $(idCat).find(elemItem).find("[data-tipo='img']").attr("href", urlCatalogoPiloto);
-            else $(idCat).find(elemItem).find("[data-tipo='img']").attr("href", urlCat);;            
-            if (piloto == '0') $(idCat).find(elemItem).find("#txtUrl" + tagCat).val(urlCat);
-            else if (contDiv != 1 && piloto == '1') $(idCat).find(elemItem).find("#txtUrl" + tagCat).val(urlCat);
+            if (contDiv == 1 && piloto == '1') isPilotoSeg = GetCatalogosPilotoSeg(a + n);
 
+            $(idCat).find(elemItem).find("[data-tipo='img']").attr("onclick", "SetGoogleAnalytics('" + codigoISSUU + "','Ver catálogo','" + tagCat + "')");
+
+            if (contDiv == 1 && piloto == '1' && isPilotoSeg == false) $(idCat).find(elemItem).find("[data-tipo='img']").attr("href", urlCatalogoPiloto);
+            else $(idCat).find(elemItem).find("[data-tipo='img']").attr("href", urlCat);
+
+            $(idCat).find(elemItem).find("#txtUrl" + tagCat).val(urlCat);
             $(idCat).find(elemItem).find("[data-tipo='img'] img").attr("src", imgIssuu.replace("{img}", codigoISSUU));
-
-            if (piloto == '0') $(idCat).find(elemItem).find("[data-accion='face']").attr("title", 'FB-' + tagCat + ' C' + n + a);
-            else if (contDiv != 1 && piloto == '1') $(idCat).find(elemItem).find("[data-accion='face']").attr("title", 'FB-' + tagCat + ' C' + n + a);
-
+            $(idCat).find(elemItem).find("[data-accion='face']").attr("title", 'FB-' + tagCat + ' C' + n + a);
             $(idCat).find(elemItem).find("[data-tipo='img']").attr("title", 'Ver-' + tagCat + ' C' + n + a);
-
-            if (piloto == '0') $(idCat).find(elemItem).find("[data-accion='whatsapp']").attr("href", "https://api.whatsapp.com/send?text=" + urlCatWS);
-            else if (contDiv != 1 && piloto == '1') $(idCat).find(elemItem).find("[data-accion='whatsapp']").attr("href", "https://api.whatsapp.com/send?text=" + urlCatWS);
+            $(idCat).find(elemItem).find("[data-accion='whatsapp']").attr("href", "https://api.whatsapp.com/send?text=" + urlCatWS);
         }
     }
     FinRenderCatalogo();
@@ -568,10 +597,10 @@ function CatalogoMostrar(accion, btn) {
     campSelectI = campSelectI <= 0 ? 0 : campSelectI >= cantCam - 1 ? cantCam - 1 : campSelectI;
 
     var campS = aCam[campSelectI];
+    var catEsika = $('.catalogos__por__campania__item__imagen--esika').is(':visible') && isMobile;
     campSelect = getNumeroCampania(campS);
     $("#contentCatalogo #TextoCampania").text("CATÁLOGOS C-" + campSelect);
-    //$("#divCatalogo > div").hide();
-    //$("#divCatalogo > div[data-cam='" + campS + "'][data-estado='1']").show();
+    $("#divCatalogo" + campSelectI + " > div[data-cam='" + campS + "'][data-estado='1']").show();
 
     $("#contentCatalogo > span img").show();
     if (campSelectI == 0 || campSelectI == cantCam - 1) {
@@ -580,24 +609,12 @@ function CatalogoMostrar(accion, btn) {
         }
     }
 
-    //// Centrar segun cantidad de catalgos
-    //var cata = $("#divCatalogo [data-cam='" + aCam[campSelectI] + "'][data-estado='1'] > div");
-    //if (cata.length < 3) {
-    //    var wUnit = 24.7;//%
-    //    var wTotalRender = wUnit * cata.length;
-    //    var wVacio = 100 - wTotalRender;
-    //    var wVacioUnit = wVacio / cata.length;
-    //    //cata.removeClass("no_margin_right");
-
-    //    if (_Pagina == 1) {
-    //        cata.css("margin-right", (wVacioUnit / 2) + "%");
-    //        cata.css("margin-left", (wVacioUnit / 2) + "%");
-    //    }
-    //    else {
-    //        cata.css("margin-right", "0%");
-    //        cata.css("margin-left", "0%");
-    //    }
-    //}
+    if (window.matchMedia('(min-width:992px)').matches){
+        if (!catEsika) {
+            $('.catalogos__por__campania__item__imagenes > .content_carrusel_catalogo').css('max-width', '70' + '%');
+            $('.catalogos__por__campania__item__imagen').css('min-width', '241.45' + 'px');
+        }
+    }
 
     if (btn != null) {
         dataLayer.push({
