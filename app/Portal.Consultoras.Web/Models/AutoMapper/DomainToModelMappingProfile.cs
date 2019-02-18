@@ -243,7 +243,9 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.Nombre, f => f.MapFrom(c => (c.Componente ?? "").Replace("_", " ")))
                 .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Componente));
 
-            Mapper.CreateMap<BEConfiguracionOfertasHome, AdministrarOfertasHomeModel>();
+            Mapper.CreateMap<BEConfiguracionOfertasHome, AdministrarOfertasHomeModel>()
+                .ForMember(t => t.AdministrarOfertasHomeAppModel, f => f.MapFrom(c => c.ConfiguracionOfertasHomeApp));
+            Mapper.CreateMap<BEConfiguracionOfertasHomeApp, AdministrarOfertasHomeAppModel>();
             Mapper.CreateMap<BETablaLogicaDatos, TablaLogicaDatosModel>()
                 .ForMember(t => t.TablaLogicaDatosID, f => f.MapFrom(c => c.TablaLogicaDatosID))
                 .ForMember(t => t.TablaLogicaID, f => f.MapFrom(c => c.TablaLogicaID))

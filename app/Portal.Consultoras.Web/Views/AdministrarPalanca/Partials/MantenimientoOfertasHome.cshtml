@@ -292,14 +292,14 @@
             <div class="div-3" style="margin-bottom:20px">
                 <div class="titG">¿Activar?</div>
                 <div class="titG">
-                    @Html.CheckBoxFor(m => m.AppActivo)
+                    @Html.CheckBoxFor(m => m.AdministrarOfertasHomeAppModel.AppActivo)
                 </div>
             </div>
             <div class="div-3">
                 <div class="titG" style="padding-bottom: 0;">Título:</div>
                 <br />
                 <div class="titG selectP2 borde_redondeado" style="width: 312px;">
-                    @Html.TextBoxFor(m => m.AppTitulo, new { @style = "width: 312px;" })
+                    @Html.TextBoxFor(m => m.AdministrarOfertasHomeAppModel.AppTitulo, new { @style = "width: 312px;" })
                 </div>
             </div>
             <div class="div-3">
@@ -309,7 +309,7 @@
                 </div>
                 <br />
                 <div class="titG selectP2 borde_redondeado" style="width: 312px;">
-                    @Html.TextBoxFor(m => m.AppColorFondo, new { @maxlength = "7", @size = 7 })
+                    @Html.TextBoxFor(m => m.AdministrarOfertasHomeAppModel.AppColorFondo, new { @maxlength = "7", @size = 7 })
                 </div>
             </div>
             <div class="div-3">
@@ -319,7 +319,7 @@
                 </div>
                 <br />
                 <div class="titG selectP2 borde_redondeado" style="width: 312px;">
-                    @Html.TextBoxFor(m => m.AppColorTexto, new { @maxlength = "7", @size = 7 })
+                    @Html.TextBoxFor(m => m.AdministrarOfertasHomeAppModel.AppColorTexto, new { @maxlength = "7", @size = 7 })
                 </div>
             </div>
         </div>
@@ -330,7 +330,7 @@
                     <h6>(XXXX x XXXX pixeles)</h6>
                 </div>
                 <div style="display: inline-block;">
-                    @Html.HiddenFor(m => m.AppBannerInformativo, new { id = "nombre-fondo-app" })
+                    @Html.HiddenFor(m => m.AdministrarOfertasHomeAppModel.AppBannerInformativo, new { id = "nombre-fondo-app" })
                     <div id="img-fondo-app" style="display: inline-block;vertical-align: middle;"></div>
                     <div class="pdr_modal2 borde_redondeado alignrigth">
                         <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="src-fondo-app" class="img-matriz-preview2" data-id="">
@@ -341,7 +341,7 @@
                 <div class="titG" style="padding-bottom: 0;">Orden:</div>
                 <br />
                 <div class="titG selectP2 borde_redondeado" style="width: 312px;">
-                    @Html.TextBoxFor(m => m.AppOrden, new { @style = "width: 312px;" })
+                    @Html.TextBoxFor(m => m.AdministrarOfertasHomeAppModel.AppOrden, new { @style = "width: 312px;" })
                 </div>
             </div>
             <div class="div-3">
@@ -351,7 +351,7 @@
                 </div>
                 <br />
                 <div class="titG selectP2 borde_redondeado" style="width: 312px;">
-                    @Html.TextBoxFor(m => m.AppCantidadProductos, new { @style = "width: 312px;" })
+                    @Html.TextBoxFor(m => m.AdministrarOfertasHomeAppModel.AppCantidadProductos, new { @style = "width: 312px;" })
                 </div>
             </div>
         </div>

@@ -237,7 +237,7 @@ function IniDialogs() {
         open: function (event, ui) {
             $(".ui-dialog-titlebar-close", ui.dialog).hide();
             $("#colorpickerHolder").ColorPicker({ flat: true });
-            $("#DesktopColorFondo, #DesktopColorTexto, #MobileColorFondo, #MobileColorTexto, #AppColorFondo, #AppColorTexto").ColorPicker({
+            $("#DesktopColorFondo, #DesktopColorTexto, #MobileColorFondo, #MobileColorTexto, #AdministrarOfertasHomeAppModel_AppColorFondo, #AdministrarOfertasHomeAppModel_AppColorTexto").ColorPicker({
                 onSubmit: function (hsb, hex, rgb, el) {
                     var newValue = "#" + hex;
                     $(el).val(newValue);
@@ -257,8 +257,8 @@ function IniDialogs() {
             if ($("#MobileColorFondo").val() === "") {
                 $("#MobileColorFondo").val("#000000");
             }
-            if ($("#AppColorFondo").val() === "") {
-                $("#AppColorFondo").val("#000000");
+            if ($("#AdministrarOfertasHomeAppModel_AppColorFondo").val() === "") {
+                $("#AdministrarOfertasHomeAppModel_AppColorFondo").val("#000000");
             }
             if ($("#DesktopColorTexto").val() === "") {
                 $("#DesktopColorTexto").val("#ffffff");
@@ -266,8 +266,8 @@ function IniDialogs() {
             if ($("#MobileColorTexto").val() === "") {
                 $("#MobileColorTexto").val("#ffffff");
             }
-            if ($("#AppColorTexto").val() === "") {
-                $("#AppColorTexto").val("#ffffff");
+            if ($("#AdministrarOfertasHomeAppModel_AppColorTexto").val() === "") {
+                $("#AdministrarOfertasHomeAppModel_AppColorTexto").val("#ffffff");
             }
 
             if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") !== _palanca.odd) {
@@ -353,6 +353,26 @@ function IniDialogs() {
                     desktopUsarImagenFondo = false;
                     mobileUsarImagenFondo = false;
                 }
+
+                if (isNaN($("#AdministrarOfertasHomeAppModel_AppOrden").val())) {
+                    _toastHelper.error("El valor del orden app tiene que ser numérico.");
+                    return false;
+                }
+                if (isNaN($("#AdministrarOfertasHomeAppModel_AppCantidadProductos").val())) {
+                    _toastHelper.error("El valor de cantidad de productos app debe ser numérico.");
+                    return false;
+                }
+                var AppColorFondo = $("#AdministrarOfertasHomeAppModel_AppColorFondo").val();
+                var AppColorTexto = $("#AdministrarOfertasHomeAppModel_AppColorTexto").val();
+                if (!regExpColorHex.test(AppColorFondo) && AppColorFondo !== "") {
+                    _toastHelper.error("El color de fondo para app debe tener un código hexadecimal válido.");
+                    return false;
+                }
+                if (!regExpColorHex.test(AppColorTexto) && AppColorTexto !== "") {
+                    _toastHelper.error("El color de texto para app debe tener un código hexadecimal válido.");
+                    return false;
+                }
+
                 var params = {
                     ConfiguracionOfertasHomeID: $("#ConfiguracionOfertasHomeID").val(),
                     ConfiguracionPaisID: $("#ddlConfiguracionIdOfertas").val(),
@@ -381,14 +401,25 @@ function IniDialogs() {
                     MobileActivo: $("#MobileActivo").is(":checked"),
                     UrlSeccion: $("#UrlSeccion").val(),
                     DesktopOrdenBpt: $("#DesktopOrdenBpt").val(),
-                    MobileOrdenBpt: $("#DialogMantenimientoOfertasHome #MobileOrdenBpt").val()
+                    MobileOrdenBpt: $("#DialogMantenimientoOfertasHome #MobileOrdenBpt").val(),
+                    AdministrarOfertasHomeAppModel:
+                    {
+                        AppActivo: $("#AdministrarOfertasHomeAppModel_AppActivo").is(":checked"),
+                        AppTitulo: $("#AdministrarOfertasHomeAppModel_AppTitulo").val(),
+                        AppColorFondo: $("#AdministrarOfertasHomeAppModel_AppColorFondo").val(),
+                        AppColorTexto: $("#AdministrarOfertasHomeAppModel_AppColorTexto").val(),
+                        AppBannerInformativo: $("#nombre-fondo-app").val(),
+                        AppOrden: $("#AdministrarOfertasHomeAppModel_AppOrden").val(),
+                        AppCantidadProductos: $("#AdministrarOfertasHomeAppModel_AppCantidadProductos").val(),
+                    }
                 };
+
                 jQuery.ajax({
                     type: "POST",
                     url: baseUrl + "AdministrarPalanca/UpdateOfertasHome",
                     dataType: "json",
                     contentType: "application/json; charset=utf-8",
-                    data: JSON.stringify(params),
+                    data: params,
                     async: true,
                     success: function (data) {
                         if (data.success) {

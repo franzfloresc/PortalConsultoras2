@@ -71,11 +71,11 @@ namespace Portal.Consultoras.Web.Controllers
                 using (var sv = new SACServiceClient())
                 {
                     var beConfiguracionOfertas = sv.GetConfiguracionOfertasHome(userData.PaisID, idOfertasHome);
-                    model = Mapper.Map<BEConfiguracionOfertasHome, AdministrarOfertasHomeModel>(beConfiguracionOfertas);
+                    model = Mapper.Map<AdministrarOfertasHomeModel>(beConfiguracionOfertas);
                 }
             }
-            model.DesktopTipoEstrategia = model.DesktopTipoEstrategia ?? "";
-            model.MobileTipoEstrategia = model.MobileTipoEstrategia ?? "";
+            model.DesktopTipoEstrategia = model.DesktopTipoEstrategia ?? string.Empty;
+            model.MobileTipoEstrategia = model.MobileTipoEstrategia ?? string.Empty;
             model.ListaCampanias = _zonificacionProvider.GetCampanias(userData.PaisID);
             model.ListaTipoPresentacion = ListTipoPresentacion();
             model.ListaConfiguracionPais = ListarConfiguracionPais();
@@ -205,7 +205,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model = UpdateFilesOfertas(model);
                 using (var sv = new SACServiceClient())
                 {
-                    var entidad = Mapper.Map<AdministrarOfertasHomeModel, BEConfiguracionOfertasHome>(model);
+                    var entidad = Mapper.Map<BEConfiguracionOfertasHome>(model);
                     sv.UpdateConfiguracionOfertasHome(entidad);
                 }
                 return Json(new
