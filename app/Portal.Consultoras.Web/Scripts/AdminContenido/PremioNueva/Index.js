@@ -28,7 +28,7 @@ function LoadGrilla() {
         mtype: 'GET',
         contentType: "application/json; charset=utf-8",
         multiselect: false,
-        colNames: ["", "#", "Cod. Programa", "Campaña Inicio", "Campaña Fin", "Nivel", "Premio Activo", "Activar Monto", "Premio Electivo", "Activar Tooltip", "", "", "", "","",""],
+        colNames: ["", "#", "Cod. Programa", "Campaña Inicio", "Campaña Fin", "Nivel", "Premio Auto", "Activar Monto", "Premio Electivo", "Activar Tooltip", "", "", "", "","",""],
         colModel: [
             { name: 'IdActivarPremioNuevas', index: 'IdActivarPremioNuevas', hidden: true },
             { name: 'ID', index: 'ID', width: 50, sortable: false, align: 'center' },
