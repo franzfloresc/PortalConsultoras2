@@ -698,30 +698,31 @@ namespace Portal.Consultoras.Web.Controllers
 
         private int GetTipoAccionNavegar(int origen, bool esMobile, bool esEditar)
         {
-            int tipo = Constantes.TipoAccionNavegar.SinBoton;
+            var tipo = Constantes.TipoAccionNavegar.SinBoton;
 
             if (esMobile && origen.ToString().StartsWith(Constantes.IngresoExternoOrigen.App))
             {
                 return tipo;
             }
 
-            if (esEditar)
-            {
-                tipo = Constantes.TipoAccionNavegar.Volver;
-            }
-            else
-            {
-                tipo = GetAccionNavegarSegunOrigen(origen);
-            }
+            tipo = esEditar ? Constantes.TipoAccionNavegar.Volver : GetAccionNavegarSegunOrigen(origen);
 
             return tipo;
         }
 
         private int GetAccionNavegarSegunOrigen(int origen)
         {
-            int tipo = Constantes.TipoAccionNavegar.BreadCrumbs;
+            var tipo = Constantes.TipoAccionNavegar.BreadCrumbs;
+            var origenString = origen.ToString();
+            if (origenString.IsNullOrEmptyTrim()) return tipo;
 
-            // aplicar logica para los origenes de recomendados
+            var twoLastDigitsOrigen =  origenString.Substring(origenString.Length - 2);
+            if (twoLastDigitsOrigen.Equals(Constantes.OrigenPedidoWeb.SufijoProductoRecomendadoCarrusel.ToString()) ||
+               twoLastDigitsOrigen.Equals(Constantes.OrigenPedidoWeb.SufijoProductoRecomendadoFicha.ToString()))
+            {
+               return Constantes.TipoAccionNavegar.Volver;
+            }
+           
             return tipo;
         }
 
