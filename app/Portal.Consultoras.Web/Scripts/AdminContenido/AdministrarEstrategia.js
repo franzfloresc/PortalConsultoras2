@@ -4351,6 +4351,8 @@
         /*INI ATP*/
         var newTitulo = $("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ArmaTuPack ? "Registro / Edición de Grupos" : "Registro / Edición de Productoss"          
         $('#DialogRegistroOfertaShowRoomDetalleEditar').dialog('option', 'title', newTitulo);
+        $('#spDescripcion1').html('Nombre de Grupos');
+        
         /*INI ATP*/
 
         showDialog("DialogRegistroOfertaShowRoomDetalleEditar");
