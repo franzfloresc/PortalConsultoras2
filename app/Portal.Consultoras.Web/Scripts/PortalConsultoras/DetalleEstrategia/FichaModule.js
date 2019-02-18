@@ -449,6 +449,7 @@ var FichaModule = (function (config) {
     }
 
     var _asignaDetallePedido = function (data, estrategia) {
+        
         data = data || {};
         data.Detalles = data.Detalles || [];
         if (data.Detalles.length == 0) {
@@ -456,6 +457,10 @@ var FichaModule = (function (config) {
             return false;
             //throw 'Componente: No existe detalle de pedido';
         }
+
+        debugger;
+        if (typeof data.ClienteId !== "undefined" && typeof data.ClienteNombre !== "undefined")
+            _selectClient(data.ClienteId, data.ClienteNombre);
 
         estrategia.Cantidad = data.Cantidad;
         _asignarCantidad(estrategia.Cantidad);
@@ -962,6 +967,12 @@ var FichaModule = (function (config) {
         carruselModule.Inicializar();
     }
 
+    var _selectClient = function (clienteId,clienteNombre) {
+        $(_seccionesPanelCliente.hfClienteId).val(clienteId);
+        $(_seccionesPanelCliente.hfClienteNombre).val(clienteNombre);
+        $(_seccionesPanelCliente.spClienteNombre).html(clienteNombre);
+    };
+
     var _initCliente = function () {
         if (!_modeloFicha.MostrarCliente) {
             return false;
@@ -972,9 +983,7 @@ var FichaModule = (function (config) {
         panel.AceptaClick(function (obj) {
             //PaisID, ClienteID, CodigoCliente, NombreCliente, Nombre
             //console.log('tu código:', obj);
-            $(_seccionesPanelCliente.hfClienteId).val(obj.ClienteID);
-            $(_seccionesPanelCliente.hfClienteNombre).val(obj.Nombre);
-            $(_seccionesPanelCliente.spClienteNombre).html(obj.Nombre);
+            _selectClient(obj.ClienteID, obj.Nombre);
             EstrategiaAgregarModule.HabilitarBoton(); //EstrategiaAgregarModule.DeshabilitarBoton();
         });
 
