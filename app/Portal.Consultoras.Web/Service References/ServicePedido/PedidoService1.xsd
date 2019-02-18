@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
-  <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd8" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
-  <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd9" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ReservaProl" />
+  <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd9" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd10" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ReservaProl" />
   <xs:complexType name="ArrayOfBEMisPedidosCampania">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="BEMisPedidosCampania" nillable="true" type="tns:BEMisPedidosCampania" />
@@ -96,6 +96,37 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEPedidoProductoBuscar" nillable="true" type="tns:BEPedidoProductoBuscar" />
+  <xs:complexType name="BEDireccionEntrega">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CampaniaAnteriorID" type="xs:int" />
+      <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+      <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoUsuario" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConsultoraID" type="xs:int" />
+      <xs:element minOccurs="0" name="Direccion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DireccionAnterior" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DireccionEntregaID" type="xs:int" />
+      <xs:element minOccurs="0" name="Latitud" type="xs:decimal" />
+      <xs:element minOccurs="0" name="LatitudAnterior" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Longitud" type="xs:decimal" />
+      <xs:element minOccurs="0" name="LongitudAnterior" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Operacion" type="xs:int" />
+      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+      <xs:element minOccurs="0" name="Referencia" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ReferenciaAnterior" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Resultado" type="xs:int" />
+      <xs:element minOccurs="0" name="Ubigeo1" type="xs:int" />
+      <xs:element minOccurs="0" name="Ubigeo1Anterior" type="xs:int" />
+      <xs:element minOccurs="0" name="Ubigeo2" type="xs:int" />
+      <xs:element minOccurs="0" name="Ubigeo2Anterior" type="xs:int" />
+      <xs:element minOccurs="0" name="Ubigeo3" type="xs:int" />
+      <xs:element minOccurs="0" name="Ubigeo3Anterior" type="xs:int" />
+      <xs:element minOccurs="0" name="UltimafechaActualizacion" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Zona" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ZonaAnterior" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEDireccionEntrega" nillable="true" type="tns:BEDireccionEntrega" />
   <xs:complexType name="BEPedidoProducto">
     <xs:sequence>
       <xs:element minOccurs="0" name="CodigoRespuesta" nillable="true" type="xs:string" />
