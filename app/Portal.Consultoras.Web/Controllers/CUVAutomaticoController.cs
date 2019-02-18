@@ -2,7 +2,6 @@
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServiceSAC;
-using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +29,7 @@ namespace Portal.Consultoras.Web.Controllers
             };
             return View(oCuvAutomaticoModel);
         }
-        
+
         public void LoadConsultorasCache(int paisId)
         {
             using (ODSServiceClient sv = new ODSServiceClient())
@@ -38,23 +37,6 @@ namespace Portal.Consultoras.Web.Controllers
                 sv.LoadConsultoraCodigo(paisId);
             }
         }
-
-        //movido a BaseAdm/ObtenerCampaniasPorPais
-        //public JsonResult ObtenterCampaniasPorPais(int PaisID)
-        //{
-        //    if (PaisID == 0)
-        //    {
-        //        return Json(new
-        //        {
-        //            lista = (IEnumerable<CampaniaModel>)null
-        //        }, JsonRequestBehavior.AllowGet);
-        //    }
-        //    var lst = _zonificacionProvider.GetCampanias(PaisID);
-        //    return Json(new
-        //    {
-        //        lista = lst
-        //    }, JsonRequestBehavior.AllowGet);
-        //}
 
         public JsonResult FindByCUVs(int campaniaID, int paisID, string codigo, int rowCount)
         {

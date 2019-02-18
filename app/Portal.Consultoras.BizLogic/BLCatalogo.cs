@@ -414,7 +414,11 @@ namespace Portal.Consultoras.BizLogic
             if (doc == null) return;
 
             var ndoc = doc["document"];
+            string titutlo = ndoc.Value<string>("title");
+            string Descripcion = ndoc.Value<string>("name");
 
+            catalogoRevista.CatalogoTitulo = titutlo;
+            catalogoRevista.CatalogoDescripcion = Descripcion;
             catalogoRevista.UrlVisor = string.Format(ServiceSettings.Instance.UrlIssuu, catalogoRevista.CodigoIssuu);
             catalogoRevista.UrlImagen = string.Format("https://image.issuu.com/{0}/jpg/page_1_thumb_medium.jpg", ndoc["documentId"]);
         }

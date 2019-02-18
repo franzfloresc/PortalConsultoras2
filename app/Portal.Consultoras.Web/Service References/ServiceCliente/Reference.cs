@@ -616,6 +616,9 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         private string EstadoPedidoDescField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FechaFacturadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.DateTime FechaModificacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -943,6 +946,19 @@ namespace Portal.Consultoras.Web.ServiceCliente {
                 if ((object.ReferenceEquals(this.EstadoPedidoDescField, value) != true)) {
                     this.EstadoPedidoDescField = value;
                     this.RaisePropertyChanged("EstadoPedidoDesc");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FechaFacturado {
+            get {
+                return this.FechaFacturadoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FechaFacturadoField, value) != true)) {
+                    this.FechaFacturadoField = value;
+                    this.RaisePropertyChanged("FechaFacturado");
                 }
             }
         }
@@ -1373,6 +1389,9 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         private bool EsCompraPorCompraField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EsDuoPerfectoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EsKitNuevaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1475,6 +1494,9 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         private bool ProgramaNuevoActivadoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool QuitoCantBackOrderField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int SetIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1485,6 +1507,9 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int SubTipoOfertaSisIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TipoAdmField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string TipoEstrategiaCodigoField;
@@ -1861,6 +1886,19 @@ namespace Portal.Consultoras.Web.ServiceCliente {
                 if ((this.EsCompraPorCompraField.Equals(value) != true)) {
                     this.EsCompraPorCompraField = value;
                     this.RaisePropertyChanged("EsCompraPorCompra");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EsDuoPerfecto {
+            get {
+                return this.EsDuoPerfectoField;
+            }
+            set {
+                if ((this.EsDuoPerfectoField.Equals(value) != true)) {
+                    this.EsDuoPerfectoField = value;
+                    this.RaisePropertyChanged("EsDuoPerfecto");
                 }
             }
         }
@@ -2308,6 +2346,19 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool QuitoCantBackOrder {
+            get {
+                return this.QuitoCantBackOrderField;
+            }
+            set {
+                if ((this.QuitoCantBackOrderField.Equals(value) != true)) {
+                    this.QuitoCantBackOrderField = value;
+                    this.RaisePropertyChanged("QuitoCantBackOrder");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public int SetID {
             get {
                 return this.SetIDField;
@@ -2355,6 +2406,19 @@ namespace Portal.Consultoras.Web.ServiceCliente {
                 if ((this.SubTipoOfertaSisIDField.Equals(value) != true)) {
                     this.SubTipoOfertaSisIDField = value;
                     this.RaisePropertyChanged("SubTipoOfertaSisID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TipoAdm {
+            get {
+                return this.TipoAdmField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TipoAdmField, value) != true)) {
+                    this.TipoAdmField = value;
+                    this.RaisePropertyChanged("TipoAdm");
                 }
             }
         }
