@@ -536,7 +536,7 @@ function GetCatalogosLinksByCampania(data, campania) {
 
             if (piloto == '1' && contDiv == 1) {
                 if (isMovil == "True")
-                    $("[data-accion='ms']").attr("href", "fb-messenger://share?link=" + encodeURIComponent(urlCatalogoPiloto) + "&app_id=" + encodeURIComponent(urlCatalogoPiloto));
+                    $("[data-accion='ms']").attr("href", "fb-messenger://share?link=" + encodeURIComponent(urlCatalogoPiloto) + "&app_id=" + encodeURIComponent(FBAppId));
                 else {
                     $("[data-accion='ms']").attr("href", "https://www.facebook.com/dialog/send?app_id=" + encodeURIComponent(FBAppId) + "&link=" + encodeURIComponent(urlCatalogoPiloto) + "&redirect_uri=" + encodeURIComponent(urlCatalogoPiloto));
                     $("[data-accion='ms']").attr("target", "_blank");
