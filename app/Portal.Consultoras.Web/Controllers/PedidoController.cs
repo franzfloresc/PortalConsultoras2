@@ -139,7 +139,8 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!userData.DiaPROL)  // Periodo de venta
                 {
                     model.AccionBoton = "guardar";
-                    model.Prol = "GUARDA TU PEDIDO";
+                    //model.Prol = "GUARDA TU PEDIDO";
+                    model.Prol = "GUARDAR TU PEDIDO";
                     model.ProlTooltip = "Es importante que guardes tu pedido";
                     model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
 
@@ -302,7 +303,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 ViewBag.NombreConsultora = userData.Sobrenombre;
                 if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
-                    model.Prol = "GUARDA TU PEDIDO";
+                    //model.Prol = "GUARDA TU PEDIDO";
+                    model.Prol = "GUARDAR TU PEDIDO";
 
                 model.CampaniaActual = userData.CampaniaID;
                 model.Simbolo = userData.Simbolo;
@@ -2345,7 +2347,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (!userData.DiaPROL)
             {
-                model.Prol = "GUARDA TU PEDIDO";
+                //model.Prol = "GUARDA TU PEDIDO";
+                model.Prol = "GUARDAR TU PEDIDO";
                 model.ProlTooltip = "Es importante que guardes tu pedido";
                 if (userData.CodigoISO == Constantes.CodigosISOPais.Bolivia) model.ProlTooltip += string.Format("|No olvides reservar tu pedido el dia {0} para que sea enviado a facturar", fechaFacturacionFormat);
                 else model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
