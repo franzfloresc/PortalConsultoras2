@@ -75,11 +75,19 @@ namespace Portal.Consultoras.Web.Providers
                     lista = sv.GetCDRWebDetalle(paisId, entidad, model.PedidoID).ToList();
                 }
 
-                lista.Update(p => p.Solicitud = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.Finalizado, paisId).Descripcion);
-                lista.Update(p => p.SolucionSolicitada = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.MensajeFinalizado, paisId).Descripcion);
-                lista.Update(p => p.FormatoPrecio1 = Util.DecimalToStringFormat(p.Precio, codigoIso));
-                lista.Update(p => p.FormatoPrecio2 = Util.DecimalToStringFormat(p.Precio2, codigoIso));
-                sessionManager.SetCDRWebDetalle(lista);
+                if (lista.Any())
+                {
+                    lista.Update(p => p.Solicitud = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.Finalizado, paisId).Descripcion);
+                    lista.Update(p => p.SolucionSolicitada = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.MensajeFinalizado, paisId).Descripcion);
+                    lista.Update(p => p.FormatoPrecio1 = Util.DecimalToStringFormat(p.Precio, codigoIso));
+                    lista.Update(p => p.FormatoPrecio2 = Util.DecimalToStringFormat(p.Precio2, codigoIso));
+                    sessionManager.SetCDRWebDetalle(lista);
+                }
+                else
+                {
+                    sessionManager.SetCDRWebDetalle(null);
+                }
+
                 return lista;
             }
             catch (Exception ex)
@@ -127,6 +135,8 @@ namespace Portal.Consultoras.Web.Providers
         {
             sessionManager.SetCDRWebDetalle(null);
             sessionManager.SetCdrWeb(null);
+            sessionManager.SetCdrPedidosFacturado(null);//HD-3412 EINCA
+
 
             var listaMotivoOperacion = CargarMotivoOperacion(paisId);
             // get max dias => plazo para hacer reclamo

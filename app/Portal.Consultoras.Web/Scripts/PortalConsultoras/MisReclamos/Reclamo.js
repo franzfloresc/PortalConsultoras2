@@ -530,15 +530,19 @@ function AsignarCUV(pedido) {
 
     $("#divMotivo").html("");
     var EstadosConteo = 0;
+    var CDRWebID = 0; 
     $.each(pedido.BECDRWeb, function (i, item) {
         if (item.Estado === 3 || item.Estado === 2) {
             EstadosConteo++;
         }
+        //obtener el cdr en estado pendiente
+        if (item.Estado === 1) {CDRWebID = item.CDRWebID;}
+
     });
     //Nueva solicitud de reclamo
     var cantidad = CantidadReclamosPorPedidoConfig != null && CantidadReclamosPorPedidoConfig != '' ? parseInt(CantidadReclamosPorPedidoConfig) : 0;
     if (cantidad === EstadosConteo && EstadosConteo > 0) {
-        alert_msg("Lo sentimos, usted a excedico el límite de reclamos por pedido");
+        alert_msg("Lo sentimos, usted a excedido el límite de reclamos por pedido");
     } else {
         pedido.olstBEPedidoWebDetalle = pedido.olstBEPedidoWebDetalle || new Array();
         var detalle = pedido.olstBEPedidoWebDetalle.Find("CUV", $.trim($("#ddlCuv").val()) || "");
@@ -550,7 +554,8 @@ function AsignarCUV(pedido) {
         $("#txtNumeroPedido").val(pedido.NumeroPedido);
         $("#txtPrecioUnidad").val(data.PrecioUnidad);
         $("#hdImporteTotalPedido").val(pedido.ImporteTotal);
-        $("#CDRWebID").val(pedido.CDRWebID);
+        //$("#CDRWebID").val(pedido.CDRWebID); //HD-3412 EINCA
+        $("#CDRWebID").val(CDRWebID); //HD-3412 EINCA
         BuscarMotivo();
         DetalleCargar();
     }

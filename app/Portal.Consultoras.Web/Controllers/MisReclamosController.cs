@@ -50,6 +50,7 @@ namespace Portal.Consultoras.Web.Controllers
             List<CDRWebModel> listaCdrWebModel;
             try
             {
+                SessionManager.SetListaCDRWebCargaInicial(null);//HD-3412 EINCA
 
                 listaCdrWebModel = ObtenerCDRWebCargaInicial();
 
@@ -691,6 +692,11 @@ namespace Portal.Consultoras.Web.Controllers
                 return false;
 
             var cdrWebs = _cdrProvider.CargarBECDRWeb(model, userData.PaisID, userData.ConsultoraID);
+
+            //obtenermos el de estado pendiente
+            cdrWebs = cdrWebs.Where(a => a.Estado == Constantes.EstadoCDRWeb.Pendiente).ToList(); //HD-3412 EINCA
+
+
             if (cdrWebs.Count != 1)
                 return true;
 
