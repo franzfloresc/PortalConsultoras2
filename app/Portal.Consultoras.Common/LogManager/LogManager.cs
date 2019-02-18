@@ -312,7 +312,8 @@ namespace Portal.Consultoras.Common
                 logError.Exception = ex;
                 logError.InformacionAdicional = dataString;
                 logError.Titulo = "Seguimiento de Errores Elastic";
-
+                string pathFile = ConfigurationManager.AppSettings["LogPath"] ?? string.Empty;
+                RegistrarArchivoTexto(logError, pathFile);
                 RegistrarArchivoTexto(logError);
             }
         }
