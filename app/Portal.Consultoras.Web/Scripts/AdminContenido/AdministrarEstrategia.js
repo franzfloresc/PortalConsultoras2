@@ -4359,7 +4359,7 @@
         if ($("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ArmaTuPack) {
             //Descriptivo para Grupos ATP
             newTitulo = "Registro / Edición de Grupos";
-            newLabel0 = "Descripcion1:";
+            newLabel0 = "Nombre de Grupos:";
             newLabel1 = ' ';
             newLabel2 = ' ';
             $('#divMarcaProductoValue').hide();
