@@ -2285,7 +2285,8 @@
             IdMarca: $("#ddlMarcaProductoDetalle").val(),
             Activo: isActive,
             ImagenProducto: $("#hdImagenDetalle").val(),
-            ImagenAnterior: $("#hdImagenDetalleAnterior").val()
+            ImagenAnterior: $("#hdImagenDetalleAnterior").val(),
+            CodigoEstrategia: $("#ddlTipoEstrategia").find(":selected").data("codigo")
         };
 
         waitingDialog({ title: "Procesando" });
