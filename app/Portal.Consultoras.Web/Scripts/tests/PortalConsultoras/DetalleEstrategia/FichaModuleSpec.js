@@ -6,7 +6,7 @@ describe("FichaModule", function () {
         var errorMsg = '';
 
         beforeEach(function () {
-            errorMsg = ''
+            errorMsg = '';
         });
 
         it("throw an exception when config is undefined", function () {
