@@ -30,6 +30,10 @@ namespace Portal.Consultoras.Web.Models.Pedido
         public int OrdenPedido { get; set; }
         
         public IEnumerable<PedidoWebSetDetalleModel> Detalles { get; set; }
-        
+
+        public int ClienteId { get; set; }
+
+        public string ClienteNombre { get; set; }
+
     }
 }
