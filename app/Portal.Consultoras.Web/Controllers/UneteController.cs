@@ -25,6 +25,10 @@ using System.Web.Mvc;
 using ClosedXML.Excel;
 using ConsultoraBE = Portal.Consultoras.Web.HojaInscripcionBelcorpPais.ConsultoraBE;
 using Pais = Portal.Consultoras.Common.Constantes.CodigosISOPais;
+using Portal.Consultoras.Web.Providers;
+using System.Threading.Tasks;
+using Portal.Consultoras.Web.ServiceSAC;
+using Portal.Consultoras.Web.ServiceZonificacion;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -1918,6 +1922,103 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.HTMLSACUnete = getHTMLSACUnete("GestionaPostulante", "&rol=" + nombreRol);
             return View();
         }
+
+
+        public ActionResult ReportePagoKit()
+        {
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("ReportePagoKit", "&rol=" + userData.RolDescripcion);
+            return View();
+        }
+
+        // LMH
+
+        [HttpPost]
+        public async Task<ActionResult> CargaInicialPagoKit()
+        {
+            ZonificacionProvider _zonificacionProvider = new ZonificacionProvider();
+
+            List<object> ListaController = new List<object>();
+
+            try
+            {
+                int paisId = userData.PaisID;
+
+                ListaController.Add(_zonificacionProvider.GetCampanias(paisId));
+
+                ListaController.Add(_zonificacionProvider.GetRegiones(paisId));
+
+                var ListaEstado = await ParametroUnete(EnumsTipoParametro.Pagokit);
+
+                ListaController.Add(ListaEstado);
+
+                ListaController.Add(await getCampañaActual(paisId));
+
+                return Json(new
+                {
+                    success = true,
+                    data = ListaController
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message
+                });
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> getCargarZonas(int idRegion)
+        {
+            try
+            {
+                int paisId = userData.PaisID;
+                
+                using (var srv = new ZonificacionServiceClient())
+                {
+                    var lista  = await srv.SelectAllZonasAsync(paisId);
+
+                    List<BEZona> zonas = lista.Where(x => x.RegionID == idRegion).ToList();
+
+                    return Json(new
+                    {
+                        success = true,
+                        data = zonas
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message
+                });
+            }
+        }
+
+        private async Task<int> getCampañaActual(int paisId)
+        {
+            using (SACServiceClient sv = new SACServiceClient())
+            {
+               int campaniaIdActual = await sv.GetCampaniaFacturacionPaisAsync(paisId);
+
+                return campaniaIdActual;
+            }
+        }
+
+        private async Task<ServiceUnete.ParametroUneteCollection> ParametroUnete(EnumsTipoParametro enumsTipoParametro)
+        {
+            using (var sv = new PortalServiceClient())
+            {
+                ServiceUnete.ParametroUneteCollection parametroUneteBEs = await sv.ObtenerParametrosUneteAsync(userData.CodigoISO, enumsTipoParametro, 0);
+                return parametroUneteBEs;
+            }
+        }
+
+        // LMH
 
         [HttpPost]
         public JsonResult ConsultarSolicitudesPostulanteV2(GestionaPostulanteModelSAC model)
