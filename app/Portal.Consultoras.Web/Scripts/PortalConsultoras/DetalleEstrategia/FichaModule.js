@@ -68,22 +68,6 @@ function eventBreadCumb(url, titulo) {
     document.location = url;
 }
 
-var PageModule = (function () {
-    var _redirectTo = function (url) {
-        if (typeof url === 'undefined') return false;
-
-        if (url === '') return false;
-
-        baseUrl = baseUrl || '';
-
-        window.location = baseUrl + (isMobile() ? "Mobile/" : "") + url;
-    };
-
-    return {
-        redirectTo: _redirectTo
-    };
-}());
-
 var DetalleEstrategiaProvider = function () {
     var _urlDetalleEstrategia = ConstantesModule.UrlDetalleEstrategia;
 
