@@ -582,8 +582,7 @@ function actualizarDatos() {
         Operacion: Operacion,
         Referencia: Referencia,
         DireccionEntregaID: DireccionEntregaID,
-        Zona: Zona,
-        CodigoConsultora: jQuery('#hdn_CodigoConsultora').val(),
+        Zona: Zona        
     }
 
     var item = {

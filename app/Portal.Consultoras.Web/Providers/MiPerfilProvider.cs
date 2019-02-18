@@ -146,6 +146,7 @@ namespace Portal.Consultoras.Web.Providers
         {
             var entidad = Mapper.Map<MisDatosModel, BEUsuario>(model);
             entidad.CodigoUsuario = (entidad.CodigoUsuario == null) ? "" : model.DatosExtra.CodigoUsuario;
+            entidad.CodigoConsultora = model.CodigoConsultoraAsociada ?? "";
             entidad.EMail = entidad.EMail ?? "";
             entidad.Telefono = entidad.Telefono ?? "";
             entidad.TelefonoTrabajo = entidad.TelefonoTrabajo ?? "";

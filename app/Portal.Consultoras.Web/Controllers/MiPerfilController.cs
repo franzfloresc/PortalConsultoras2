@@ -677,6 +677,7 @@ namespace Portal.Consultoras.Web.Controllers
                     userData.CodigoISO,
                 };
 
+                model.CodigoConsultoraAsociada = userData.CodigoConsultora;
                 if (model.DireccionEntrega != null) {
                     model.DireccionEntrega.PaisID = userData.PaisID;
                     model.DireccionEntrega.CodigoConsultora = userData.CodigoConsultora;
