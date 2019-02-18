@@ -714,18 +714,18 @@ namespace Portal.Consultoras.BizLogic
             {
                 if (usuario.RolID == Constantes.TipoUsuario.Consultora)
                 {
-                    DateTime fechaHoy = DateTime.Now.AddHours(usuario.ZonaHoraria).Date;
-                    DateTime fechaFin = usuario.FechaInicioFacturacion;
+                    var fechaHoy = DateTime.Now.AddHours(usuario.ZonaHoraria).Date;
+                    var fechaFin = usuario.FechaInicioFacturacion;
                     consultora.DiasCierre = fechaHoy >= fechaFin.Date ? 0 : (fechaFin.Subtract(DateTime.Now.AddHours(usuario.ZonaHoraria)).Days + 1);
 
                     if (usuario.TieneHana == 1)
                     {
-                        var beUsuarioDatosHana = this.GetDatosConsultoraHana(usuario.PaisID, usuario.CodigoUsuario, usuario.CampaniaID);
-                        if (beUsuarioDatosHana != null) consultora.FechaVencimiento = beUsuarioDatosHana.FechaLimPago.ToString("dd/MM/yyyy");
+                        var beUsuarioDatosHana = GetDatosConsultoraHana(usuario.PaisID, usuario.CodigoUsuario, usuario.CampaniaID);
+                        if (beUsuarioDatosHana != null) consultora.FechaVencimiento = (beUsuarioDatosHana.FechaLimPago == DateTime.MinValue ? string.Empty : beUsuarioDatosHana.FechaLimPago.ToString(Constantes.Formatos.Fecha));
                     }
                     else
                     {
-                        consultora.FechaVencimiento = usuario.FechaLimPago.ToString("dd/MM/yyyy");
+                        consultora.FechaVencimiento = (usuario.FechaLimPago == DateTime.MinValue ? string.Empty : usuario.FechaLimPago.ToString(Constantes.Formatos.Fecha));
                     }
                 }
             }
@@ -1901,7 +1901,6 @@ namespace Portal.Consultoras.BizLogic
             {
                 if (!usuario.PuedeActualizar) return ActualizacionDatosRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CORREO_CAMBIO_NO_AUTORIZADO);
                 if (string.IsNullOrEmpty(correoNuevo)) return ActualizacionDatosRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CORREO_VACIO);
-                //if (usuario.EMail == correoNuevo) return new BERespuestaServicio { Message = Constantes.MensajesError.UpdCorreoConsultora_CorreoNoCambia };
 
                 if (usuario.EMail != correoNuevo)
                 {

@@ -144,6 +144,14 @@ namespace Portal.Consultoras.Common
                 return ConfigurationManager.AppSettings["RutaServiceBuscadorAPI"] ?? string.Empty;
             }
         }
+        public static string RutaServiceConsultaPROL
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["RutaServiceConsultaPROL"] ?? string.Empty;
+            }
+        }
+
         #endregion
 
         public static string GetByTagName(string tagName)

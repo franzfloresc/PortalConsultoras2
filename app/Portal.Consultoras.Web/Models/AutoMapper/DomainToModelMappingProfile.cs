@@ -640,6 +640,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.PrecioOferta, f => f.MapFrom(c => c.Precio2))
                 .ForMember(t => t.PrecioCatalogo, f => f.MapFrom(c => c.Precio))
                 .ForMember(t => t.TieneOfertaDelDia, f => f.MapFrom(c => true))
+                .ForMember(t => t.TieneStock, f => f.MapFrom(c => c.TieneStock))
                 .ForMember(t => t.Orden, f => f.MapFrom(c => c.Orden));
 
 

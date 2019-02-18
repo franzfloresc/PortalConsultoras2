@@ -3455,14 +3455,6 @@ namespace Portal.Consultoras.Common
                     limiteMinimoTelef = 7;
                     limiteMaximoTelef = 9;
                     break;
-                //case Constantes.PaisID.Mexico:
-                //    limiteMinimoTelef = 5;
-                //    limiteMaximoTelef = 10;
-                //    break;
-                //case Constantes.PaisID.Ecuador:
-                //    limiteMinimoTelef = 5;
-                //    limiteMaximoTelef = 10;
-                //    break;
                 case Constantes.PaisID.Chile:
                     limiteMinimoTelef = 5;
                     limiteMaximoTelef = 9;
@@ -3474,22 +3466,6 @@ namespace Portal.Consultoras.Common
                     limiteMinimoTelef = 5;
                     limiteMaximoTelef = 10;
                     break;
-                //case Constantes.PaisID.Bolivia:
-                //    limiteMinimoTelef = 5;
-                //    limiteMaximoTelef = 8;
-                //    break;
-                //case Constantes.PaisID.Guatemala:
-                //    limiteMinimoTelef = 5;
-                //    limiteMaximoTelef = 8;
-                //    break;
-                //case Constantes.PaisID.ElSalvador:
-                //    limiteMinimoTelef = 5;
-                //    limiteMaximoTelef = 8;
-                //    break;
-                //case Constantes.PaisID.Panama:
-                //    limiteMinimoTelef = 5;
-                //    limiteMaximoTelef = 8;
-                //    break;
                 case Constantes.PaisID.Bolivia:
                 case Constantes.PaisID.Guatemala:
                 case Constantes.PaisID.ElSalvador:

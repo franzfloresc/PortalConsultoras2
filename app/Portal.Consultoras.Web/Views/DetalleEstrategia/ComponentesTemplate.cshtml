@@ -30,6 +30,8 @@
             </div>
         </div>
         <div id="resumen-opciones-{{componente.Cuv}}" class="tonos_seleccionados" style="display:none;"></div>
+
+
         {{#iff FactorCuadre '==' '1'}}
         <div class="content_tonos_maquillaje" data-tono-div="{{componente.Cuv}}">
             {{#each componente.Hermanos as |variedad|}}
@@ -37,7 +39,9 @@
                 <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{variedad.IdMarca}}" />
                 <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{variedad.PrecioCatalogo}}" />
             </div>
-            <div id="fav_tono_{{variedad.Cuv}}" class="content_tono_detalle"
+            {{#if TieneStock}}
+            <div id="fav_tono_{{variedad.Cuv}}"
+                 class="content_tono_detalle"
                  {{#unless ../esCampaniaSiguiente}}
                  onclick="javascript: ComponentesModule.SeleccionarPaletaOpcion(event,{{variedad.Cuv}})"
                  {{/unless}}
@@ -47,11 +51,30 @@
                  data-tono-descripcion="{{variedad.NombreComercial}}">
                 <img src="{{variedad.ImagenBulk}}" alt="">
             </div>
+            {{else}}
+            <div id="fav_tono_{{variedad.Cuv}}"
+                 class="content_tono_detalle  tono-agotado" title="Agotado"
+                 data-tono-cuv="{{variedad.Cuv}}"
+                 data-tono-change="2"
+                 data-tono-nombre="{{variedad.NombreBulk}}"
+                 data-tono-descripcion="{{variedad.NombreComercial}}">
+                <img src="{{variedad.ImagenBulk}}" alt="">
+            </div>
+            {{/if}}
+
             {{/each}}
         </div>
         {{/iff}}
     </div>
     {{/each}}
+
+    <div style="display: none;" class="xmsg-tonos-agotados">
+        <ul class="list-inline" style="padding-bottom:15px">
+            <li><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt=""></li>
+            <li>Uno o más productos están AGOTADOS.</li>
+        </ul>
+    </div>
+
     {{/iff}}
     {{#iff CodigoVariante 'ContainsArray' '[@Constantes.TipoEstrategiaSet.CompuestaFija,@Constantes.TipoEstrategiaSet.CompuestaVariable]'}}
     <div class="contenido_titulo">
@@ -118,11 +141,26 @@
                 </div>
                 <div id="resumen-opciones-{{componente.Cuv}}" class="tonos_seleccionados" style="display:none;"></div>
             </div>
+            {{else}}
+            <div data-tono="" data-tono-select="{{componente.Cuv}}" data-tono-digitable="{{componente.Digitable}}" style="display: none;">
+                <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{componente.IdMarca}}" />
+                <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{componente.PrecioCatalogo}}" />
+                <input type="hidden" name="nameDigitable" id="Estrategia_hd_Digitable" value="{{componente.Digitable}}" />
+                <input type="hidden" name="nameGrupo" id="Estrategia_hd_Grupo" value="{{componente.Grupo}}" />
+            </div>
             {{/iff}}
             <hr class="clear">
         </div>
 
         {{/each}}
+
+        <div style="display: none;" class="xmsg-tonos-agotados">
+            <ul class="list-inline" style="padding-top:15px">
+                <li><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt="" /></li>
+                <li>Uno o más productos están AGOTADOS.</li>
+            </ul>
+        </div>
+
     </div>
     {{/iff}}
 </script>
