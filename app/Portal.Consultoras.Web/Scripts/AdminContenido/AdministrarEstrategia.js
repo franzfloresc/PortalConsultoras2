@@ -4348,10 +4348,10 @@
             $("#imgProductoDetalle").attr("src", _config.imagenProductoVacio);
         }
 
-
+        /*INI ATP*/
         var newTitulo = $("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ArmaTuPack ? "Registro / Edición de Grupos" : "Registro / Edición de Productoss"          
         $('#DialogRegistroOfertaShowRoomDetalleEditar').dialog('option', 'title', newTitulo);
-
+        /*INI ATP*/
 
         showDialog("DialogRegistroOfertaShowRoomDetalleEditar");
     }
