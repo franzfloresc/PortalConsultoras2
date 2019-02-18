@@ -381,6 +381,7 @@ namespace Portal.Consultoras.Web
             ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/SB2-Pedido").Include(
+                "~/Scripts/PortalConsultoras/Pedido/PedidoProvider.js",
                 "~/Scripts/PortalConsultoras/Pedido/Index.js",
                 "~/Scripts/PortalConsultoras/Pedido/barra.js",
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/CarruselModule.js",
@@ -470,6 +471,7 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mobile/Pedido").Include(
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/CarruselModule.js",
+                "~/Scripts/PortalConsultoras/Pedido/PedidoProvider.js",
                 "~/Scripts/PortalConsultoras/Mobile/Pedido/index.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js",
@@ -797,7 +799,9 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Mobile/Ficha/RedesSociales.css",
                 "~/Content/Css/Mobile/Ficha/PopoverTooltip.css",
                 "~/Content/Css/Mobile/ProductoListado/CajaProducto.css",
-                "~/Content/Css/Mobile/Ficha/SeleccionarTipo.css"
+                "~/Content/Css/Mobile/Ficha/SeleccionarTipo.css",
+                "~/Content/Css/Mobile/Clientes/Asignarcliente.css"
+
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/Ficha-Esika").Include(
@@ -983,6 +987,11 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/Shared/menu-secundario-responsive.css",
                 "~/Content/Css/Site/Shared/footer-responsive.css",
                 "~/Content/Css/Site/Lbel/marca-pais-responsive.css"
+            ));
+
+            bundles.Add(new StyleBundle("~/Bundle/Css/Responsive/TusClientes").Include(
+                "~/Content/Css/Mobile/Clientes/Asignarcliente.css",
+                "~/Content/Css/Site/TusClientes/TusClientes_Responsive.css"
             ));
 
 #if DEBUG

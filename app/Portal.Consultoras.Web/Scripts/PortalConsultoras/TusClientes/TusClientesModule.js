@@ -44,12 +44,34 @@ var TusClientesModule = function (config) {
     };
 
     var _ocultarEditarCliente = function () {
-        $(_elements.divPopupEditarCliente).hide();
+        
+        $(_elements.divPopupEditarCliente).css("margin-right", "-330px");
+        setTimeout(function () {
+            $(_elements.divPopupEditarCliente).hide();
+            $("body").css("overflow", "auto");
+            $("#modal-fondo-form").hide();
+        }, 450);
+        
     };
 
     var _editarCliente = function (cliente) {
         _panelMantenerCliente.setCliente(cliente)
+        $("body").css("overflow", "hidden");
         $(_elements.divPopupEditarCliente).show();
+        $(_elements.divPopupEditarCliente).css("margin", "0");
+
+        $('.ImputForm-item input').each(function () {
+            if ($(this).val().length !== 0) {
+                $(this).addClass('ActiveLabel');
+                $(this).addClass('bar-imputActive');
+            }
+            else {
+                $(this).removeClass('ActiveLabel');
+                $(this).removeClass('bar-imputActive');
+            }
+        });
+
+        $("#modal-fondo-form").show();
     };
 
     var _eliminarCliente = function () {
@@ -98,6 +120,7 @@ var TusClientesModule = function (config) {
         });
 
         _ocultarEditarCliente();
+           
     };
 
     return {

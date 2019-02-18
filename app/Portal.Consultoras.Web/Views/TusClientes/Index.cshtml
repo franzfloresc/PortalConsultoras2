@@ -7,8 +7,6 @@
 }
 
 
-@*<link href="/Content/Css/Site/Esika/style.css" rel="stylesheet" />*@
-<link href="/Content/Css/Site/TusClientes/TusClientes_Responsive.css" rel="stylesheet" />
 
 <div class="titulo_bloque">
     <div class="container">
@@ -27,13 +25,16 @@
             <input id="txtNombreCliente" class="buscar_cliente" type="text" placeholder="Buscar" value="" />
         </div>
 
-        <div class="col-md-6 col-xs-12" >
-            <input id="btnBuscarClientes"
+        <div class="col-md-6 col-xs-12 d-flex flex-row-reverse content_boton_agregar">  
+            <button id="btnBuscarClientes"  class="boton_agregar float-md-right" onclick="tusClientesModule.editarCliente(null)"> <img src="/Content/Images/nuevo_tuclientes.svg" alt="Alternate Text" />AGREGAR CONTACTO</button>
+            <button class="botton_export_xls"><img src="/Content/Images/nuevo_tuclientes.svg" /></button>
+            @*<input id="btnBuscarClientes"
                    type="button"
                    class="boton_agregar float-md-right"
                    title="Agregar Cliente +"
                    value="Agregar Cliente +"
-                   onclick="tusClientesModule.editarCliente(null)" />
+                   onclick="tusClientesModule.editarCliente(null)"
+                   />*@
         </div>
     </div>
     <div class="col-12" style="margin-bottom:15px;">
@@ -68,29 +69,29 @@
         </div>
         {{# each this.miData as |cliente|}}
         <div class="row  tabla_item">
-            <div class="col-lg-2 col-md-10">
+            <div class="col-md-2 col-8">
                 {{NombreCliente}}
             </div>
-            <div class="col-lg-2 col-md-10">
+            <div class="col-md-2 col-8">
                 {{ApellidoCliente}}
             </div>
-            <div class="col-lg-2 col-md-10">
+            <div class="col-md-2 col-8">
                 {{Telefono}}
             </div>
-            <div class="col-lg-2 col-md-10">
+            <div class="col-md-2 col-8">
                 {{Celular}}
             </div>
-            <div class="col-lg-2 col-md-10">
+            <div class="col-md-2 col-8">
                 {{eMail}}
             </div>
-            <div class="col-1">
+            <div class="col-md-1 col-2 editar">
                 <input type="button"
                        class="btn_editar"
                        title="Agregar Cliente"
                        value=""
                        onclick="tusClientesModule.editarCliente({{JSON2string cliente}})" />
             </div>
-            <div class="col-1">
+            <div class="col-md-1 col-2">
                 <input type="button"
                        class="btn_eliminar"
                        title="Agregar Cliente"
@@ -103,7 +104,7 @@
 
 
 
-    <div class="row">
+    @*<div class="row">
         <div class="col-2">
 
         </div>
@@ -114,10 +115,9 @@
                    value="Agregar Cliente +"
                    onclick="tusClientesModule.editarCliente(null)" />
         </div>
-    </div>
+    </div>*@
 
-    <div id="divPopupEditarCliente" style="display:none">
-        <input type="button" onclick="tusClientesModule.ocultarEditarCliente();" value="cerrar" />
+    <div id="divPopupEditarCliente" style="display:none; width:330px !important; margin-right: -330px;" class="Form-AgregarCliente">
         @Html.Partial("_Mantener", new ClienteModel())
     </div>
 
@@ -135,6 +135,12 @@
         </div>
     </div>
 </div>
+
+<div id="modal-fondo-form" style="opacity: 0.7; display:none;" class="modal-fondo"></div>
+
+@section css{
+    @System.Web.Optimization.Styles.Render("~/Bundle/Css/Responsive/TusClientes")
+}
 
 @section scripts{
 
