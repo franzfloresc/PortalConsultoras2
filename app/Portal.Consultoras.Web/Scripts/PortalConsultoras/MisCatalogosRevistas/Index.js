@@ -306,7 +306,6 @@ function CargarCarruselCatalogo() {
                 $("#txtUrlActual").val(urlCatalogoPiloto);
                 $("#idSection" + i).addClass(" catalogos__campania--actual");
             } else {
-                $('.catalogos__por__campania__item__slider').addClass(' altoFijo');
                 $("#idSection" + i).addClass(" catalogos__campania--actual--disenioAnterior");
             }
         }
@@ -369,9 +368,6 @@ function CargarCarruselCatalogo() {
                
         $("#divCatalogo" + i).append(htmlCatalogoAppend);               
     }
-
-    //$("#divCatalogo").append("<div class='clear'></div>");
-    //$("#divCatalogo [data-cat='Cyzone'] > div").addClass("no_margin_right");
 
     for (var i = 0; i < cantCat; i++) {
         $("#divCatalogo" + i + " [data-cat='Lbel']").addClass(" catalogos__por__campania__item__imagen--lbel");
@@ -568,10 +564,10 @@ function CatalogoMostrar(accion, btn) {
     campSelectI = campSelectI <= 0 ? 0 : campSelectI >= cantCam - 1 ? cantCam - 1 : campSelectI;
 
     var campS = aCam[campSelectI];
+    var catEsika = $('.catalogos__por__campania__item__imagen--esika').is(':visible') && isMobile;
     campSelect = getNumeroCampania(campS);
     $("#contentCatalogo #TextoCampania").text("CATÁLOGOS C-" + campSelect);
-    //$("#divCatalogo > div").hide();
-    //$("#divCatalogo > div[data-cam='" + campS + "'][data-estado='1']").show();
+    $("#divCatalogo" + campSelectI + " > div[data-cam='" + campS + "'][data-estado='1']").show();
 
     $("#contentCatalogo > span img").show();
     if (campSelectI == 0 || campSelectI == cantCam - 1) {
@@ -580,24 +576,12 @@ function CatalogoMostrar(accion, btn) {
         }
     }
 
-    //// Centrar segun cantidad de catalgos
-    //var cata = $("#divCatalogo [data-cam='" + aCam[campSelectI] + "'][data-estado='1'] > div");
-    //if (cata.length < 3) {
-    //    var wUnit = 24.7;//%
-    //    var wTotalRender = wUnit * cata.length;
-    //    var wVacio = 100 - wTotalRender;
-    //    var wVacioUnit = wVacio / cata.length;
-    //    //cata.removeClass("no_margin_right");
-
-    //    if (_Pagina == 1) {
-    //        cata.css("margin-right", (wVacioUnit / 2) + "%");
-    //        cata.css("margin-left", (wVacioUnit / 2) + "%");
-    //    }
-    //    else {
-    //        cata.css("margin-right", "0%");
-    //        cata.css("margin-left", "0%");
-    //    }
-    //}
+    if (window.matchMedia('(min-width:992px)').matches){
+        if (!catEsika) {
+            $('.catalogos__por__campania__item__imagenes > .content_carrusel_catalogo').css('max-width', '70' + '%');
+            $('.catalogos__por__campania__item__imagen').css('min-width', '241.45' + 'px');
+        }
+    }
 
     if (btn != null) {
         dataLayer.push({

@@ -1,50 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:complexType name="ArrayOfBEShowRoomOfertaDetalle">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEShowRoomOfertaDetalle" nillable="true" type="tns:BEShowRoomOfertaDetalle" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfBEShowRoomOfertaDetalle" nillable="true" type="tns:ArrayOfBEShowRoomOfertaDetalle" />
-  <xs:complexType name="BEShowRoomOfertaDetalle">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
-      <xs:element minOccurs="0" name="CodigoEstrategia" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Descripcion1" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Descripcion2" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Descripcion3" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="FechaCreacion" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="FechaModificacion" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="Grupo" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Imagen" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="MarcaProducto" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="NombreProducto" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="NombreSet" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="OfertaShowRoomDetalleID" type="xs:int" />
-      <xs:element minOccurs="0" name="Posicion" type="xs:int" />
-      <xs:element minOccurs="0" name="SAP" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Tonos" nillable="true" type="tns:ArrayOfBEShowRoomTono" />
-      <xs:element minOccurs="0" name="UsuarioCreacion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="UsuarioModificacion" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEShowRoomOfertaDetalle" nillable="true" type="tns:BEShowRoomOfertaDetalle" />
-  <xs:complexType name="ArrayOfBEShowRoomTono">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEShowRoomTono" nillable="true" type="tns:BEShowRoomTono" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfBEShowRoomTono" nillable="true" type="tns:ArrayOfBEShowRoomTono" />
-  <xs:complexType name="BEShowRoomTono">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ImagenBulk" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="NombreBulk" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="NombreComercial" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEShowRoomTono" nillable="true" type="tns:BEShowRoomTono" />
   <xs:complexType name="ArrayOfBEShowRoomPerfil">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="BEShowRoomPerfil" nillable="true" type="tns:BEShowRoomPerfil" />
@@ -268,4 +223,49 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEShowRoomCompraPorCompra" nillable="true" type="tns:BEShowRoomCompraPorCompra" />
+  <xs:complexType name="ArrayOfBEShowRoomOfertaDetalle">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEShowRoomOfertaDetalle" nillable="true" type="tns:BEShowRoomOfertaDetalle" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEShowRoomOfertaDetalle" nillable="true" type="tns:ArrayOfBEShowRoomOfertaDetalle" />
+  <xs:complexType name="BEShowRoomOfertaDetalle">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+      <xs:element minOccurs="0" name="CodigoEstrategia" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Descripcion1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Descripcion2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Descripcion3" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FechaCreacion" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaModificacion" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Grupo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Imagen" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MarcaProducto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NombreProducto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NombreSet" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OfertaShowRoomDetalleID" type="xs:int" />
+      <xs:element minOccurs="0" name="Posicion" type="xs:int" />
+      <xs:element minOccurs="0" name="SAP" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Tonos" nillable="true" type="tns:ArrayOfBEShowRoomTono" />
+      <xs:element minOccurs="0" name="UsuarioCreacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UsuarioModificacion" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEShowRoomOfertaDetalle" nillable="true" type="tns:BEShowRoomOfertaDetalle" />
+  <xs:complexType name="ArrayOfBEShowRoomTono">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEShowRoomTono" nillable="true" type="tns:BEShowRoomTono" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEShowRoomTono" nillable="true" type="tns:ArrayOfBEShowRoomTono" />
+  <xs:complexType name="BEShowRoomTono">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImagenBulk" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NombreBulk" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NombreComercial" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEShowRoomTono" nillable="true" type="tns:BEShowRoomTono" />
 </xs:schema>

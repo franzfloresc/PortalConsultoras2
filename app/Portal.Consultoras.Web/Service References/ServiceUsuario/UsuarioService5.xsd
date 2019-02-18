@@ -34,7 +34,6 @@
       <xs:element minOccurs="0" name="TelefonoCentral" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ZonaID" type="xs:int" />
       <xs:element minOccurs="0" name="campaniaID" type="xs:int" />
-      <xs:element minOccurs="0" name="opcionHabilitar" type="xs:boolean" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEUsuarioDatos" nillable="true" type="tns:BEUsuarioDatos" />
