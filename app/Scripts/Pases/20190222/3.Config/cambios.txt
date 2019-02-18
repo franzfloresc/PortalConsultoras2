@@ -1,0 +1,68 @@
+1. PortalConsultoras2
+Agregar:
+    <add key="Catalogo_Marca_Piloto_EC201903" value="Esika" />
+    <add key="Catalogo_Piloto_Grupos_Esika_EC201903" value="ESCrdr" />
+    <add key="Catalogo_Piloto_Zonas_Esika_EC201903_ESCrdr" value="1824,1912,2217,2219,2220" />
+
+    <!--CHILE-->
+    <add key="Catalogo_Marca_Piloto_CL201906" value="Esika" />
+    <add key="Catalogo_Piloto_Grupos_Esika_CL201906" value="ESCrdr1,ESCrdr2" />
+    <add key="Catalogo_Piloto_Zonas_Esika_CL201906_ESCrdr1" value="1106,1207,1222,1514,1516" />
+    <add key="Catalogo_Piloto_Zonas_Esika_CL201906_ESCrdr2" value="1215,1314,1322,1509,1702" />
+
+    <!--COLOMBIA-->
+    <add key="Catalogo_Marca_Piloto_CO201904" value="Esika" />
+    <add key="Catalogo_Piloto_Grupos_Esika_CO201904" value="ESCrdr" />
+    <add key="Catalogo_Piloto_Zonas_Esika_CO201904_ESCrdr" value="0814,0834,1504,2003,2021" />
+
+    <add key="Catalogo_Marca_Piloto_CO201905" value="Esika" />
+    <add key="Catalogo_Piloto_Grupos_Esika_CO201905" value="ESCrdr" />
+    <add key="Catalogo_Piloto_Zonas_Esika_CO201905_ESCrdr" value="0814,0834,1504,2003,2021" />
+
+    <add key="Catalogo_Marca_Piloto_CO201906" value="Esika" />
+    <add key="Catalogo_Piloto_Grupos_Esika_CO201906" value="ESCrdr" />
+    <add key="Catalogo_Piloto_Zonas_Esika_CO201906_ESCrdr" value="0814,0834,1504,2003,2021" />
+
+    <add key="RevistaPiloto_Grupos_CL201902" value="ESCrdr" />
+    <add key="RevistaPiloto_Zonas_CL201902_ESCrdr" value="1110,1112,1511,1609,1707" />
+
+    <add key="RevistaPiloto_Grupos_CL201903" value="ESCrdr" />
+    <add key="RevistaPiloto_Zonas_CL201903_ESCrdr" value="1110,1112,1511,1609,1707" />
+
+Actualizar:
+    <add key="Catalogo_Piloto_Grupos_Cyzone_EC201901" value="ESCrdr1, ESCrdr2 " />
+
+2. PortalConsultorasWCF2
+
+Agregar:
+    <add key="Catalogo_Marca_Piloto_EC201903" value="Esika" />
+    <add key="Catalogo_Piloto_Grupos_Esika_EC201903" value="ESCrdr" />
+    <add key="Catalogo_Piloto_Zonas_Esika_EC201903_ESCrdr" value="1824,1912,2217,2219,2220" />
+
+    <!--CHILE-->
+    <add key="Catalogo_Marca_Piloto_CL201906" value="Esika" />
+    <add key="Catalogo_Piloto_Grupos_Esika_CL201906" value="ESCrdr1,ESCrdr2" />
+    <add key="Catalogo_Piloto_Zonas_Esika_CL201906_ESCrdr1" value="1106,1207,1222,1514,1516" />
+    <add key="Catalogo_Piloto_Zonas_Esika_CL201906_ESCrdr2" value="1215,1314,1322,1509,1702" />
+
+    <!--COLOMBIA-->
+    <add key="Catalogo_Marca_Piloto_CO201904" value="Esika" />
+    <add key="Catalogo_Piloto_Grupos_Esika_CO201904" value="ESCrdr" />
+    <add key="Catalogo_Piloto_Zonas_Esika_CO201904_ESCrdr" value="0814,0834,1504,2003,2021" />
+
+    <add key="Catalogo_Marca_Piloto_CO201905" value="Esika" />
+    <add key="Catalogo_Piloto_Grupos_Esika_CO201905" value="ESCrdr" />
+    <add key="Catalogo_Piloto_Zonas_Esika_CO201905_ESCrdr" value="0814,0834,1504,2003,2021" />
+
+    <add key="Catalogo_Marca_Piloto_CO201906" value="Esika" />
+    <add key="Catalogo_Piloto_Grupos_Esika_CO201906" value="ESCrdr" />
+    <add key="Catalogo_Piloto_Zonas_Esika_CO201906_ESCrdr" value="0814,0834,1504,2003,2021" />
+
+    <add key="RevistaPiloto_Grupos_CL201902" value="ESCrdr" />
+    <add key="RevistaPiloto_Zonas_CL201902_ESCrdr" value="1110,1112,1511,1609,1707" />
+
+    <add key="RevistaPiloto_Grupos_CL201903" value="ESCrdr" />
+    <add key="RevistaPiloto_Zonas_CL201903_ESCrdr" value="1110,1112,1511,1609,1707" />
+
+Actualizar:
+    <add key="Catalogo_Piloto_Grupos_Cyzone_EC201901" value="ESCrdr1, ESCrdr2 " />
