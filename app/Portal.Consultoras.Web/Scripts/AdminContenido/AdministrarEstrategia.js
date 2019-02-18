@@ -360,7 +360,14 @@
 
             $("#_id").val(_editData.mongoIdVal);
 
+            /*INI ATP*/
+            var newTitulo = $("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ArmaTuPack ? "Edición de Tácticas" : "Registro de Estrategias"
+            $('#DialogAdministracionEstrategia').dialog('option', 'title', newTitulo);
+            /*INI ATP*/
+
             showDialog("DialogAdministracionEstrategia");
+
+             
             _ActualizarFlagIndividual(data);
 
             _editData.IdMatrizComercial = data.IdMatrizComercial;
@@ -769,7 +776,7 @@
     }
 
     var _showActionsProductos = function (cellvalue, options, rowObject) {
-
+        
         var id = rowObject[0];
         var campaniaId = $("#ddlCampania").val();
         var cuv = rowObject[5],
@@ -1200,8 +1207,14 @@
 
         var colNameActions = (codigo == _codigoEstrategia.ShowRoom) ? "Set" : "";
         var hideColProducts = (codigo == _codigoEstrategia.ShowRoom) ? false : true;
-        var hideColATP = (codigo == _codigoEstrategia.ArmaTuPack) ? false : true;
 
+        var hideColATP = true;
+        /*INIT ATP*/
+        if (codigo == _codigoEstrategia.ArmaTuPack) {
+            hideColATP = false;
+            colNameActions = 'Tácticas';
+        }
+        /*INIT ATP*/
 
         jQuery("#list").jqGrid({
             url: baseUrl + "AdministrarEstrategia/Consultar",
@@ -4023,7 +4036,7 @@
     function Editar(id, mongoId, tipoEstrategiaCodigo, event) {
         event.preventDefault();
         event.stopPropagation();
-
+         
         if (id != 0)
             _variables.isNuevo = false;
 
@@ -4245,7 +4258,7 @@
     }
 
     function EditarProducto(ID, CampaniaID, CUV, event) {
-
+       
 
         if (event) {
             event.preventDefault();
