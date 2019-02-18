@@ -2413,18 +2413,6 @@ namespace Portal.Consultoras.Service
         {
             return blEstrategia.LimpiarCacheRedis(paisID, codigoTipoEstrategia, campaniaID);
         }
-
-        /// <summary>
-        /// Obtiene informacion de componentes seleccionados en el pedido
-        /// </summary>
-        /// <param name="PaisID">Pais</param>
-        /// <param name="CampaniaID">Campania</param>
-        /// <param name="ConsultoraID">Consultora</param>
-        /// <param name="SetID">Set</param>
-        /// <returns></returns>
-        public List<BEPedidoWebSetDetalle> GetListaPedidoWebSetDetalle(int paisId, int campaniaId, long consultoraId, int setId)
-        {
-            return _pedidoWebSetBusinessLogic.GetSetDetalle(paisId, campaniaId, consultoraId, setId);
-        }
+        
     }
 }
