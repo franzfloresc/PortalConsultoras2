@@ -1,5 +1,4 @@
-﻿using System;
-
+﻿
 namespace Portal.Consultoras.Common
 {
     public static class ConsTablaLogica
@@ -8,6 +7,12 @@ namespace Portal.Consultoras.Common
         {
             public const int TablaLogicaID = 157;
             public const string CuvEditable = "CuvEditable";//valor del campo 'Codigo' de TablaLogicaDatos
+        }
+
+        public static class FlagFuncional
+        {
+            public const int TablaLogicaID = 158;
+            public const string MisClientes = "MisClientes";
         }
     }
 }
