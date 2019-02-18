@@ -457,10 +457,7 @@ var FichaModule = (function (config) {
             return false;
             //throw 'Componente: No existe detalle de pedido';
         }
-
-        debugger;
-        if (typeof data.ClienteId !== "undefined" && typeof data.ClienteNombre !== "undefined")
-            _selectClient(data.ClienteId, data.ClienteNombre);
+        _selectClient(data.ClienteId, data.ClienteNombre);
 
         estrategia.Cantidad = data.Cantidad;
         _asignarCantidad(estrategia.Cantidad);
@@ -967,10 +964,14 @@ var FichaModule = (function (config) {
         carruselModule.Inicializar();
     }
 
-    var _selectClient = function (clienteId,clienteNombre) {
-        $(_seccionesPanelCliente.hfClienteId).val(clienteId);
-        $(_seccionesPanelCliente.hfClienteNombre).val(clienteNombre);
-        $(_seccionesPanelCliente.spClienteNombre).html(clienteNombre);
+    var _selectClient = function (clienteId, clienteNombre) {
+        if (typeof data.ClienteId !== "undefined" &&
+            typeof data.ClienteNombre !== "undefined" &&
+            data.ClienteId > 0) {
+            $(_seccionesPanelCliente.hfClienteId).val(clienteId);
+            $(_seccionesPanelCliente.hfClienteNombre).val(clienteNombre);
+            $(_seccionesPanelCliente.spClienteNombre).html(clienteNombre);
+        }
     };
 
     var _initCliente = function () {
