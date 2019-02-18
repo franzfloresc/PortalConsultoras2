@@ -4349,10 +4349,28 @@
         }
 
         /*INI ATP*/
-        var newTitulo = $("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ArmaTuPack ? "Registro / Edición de Grupos" : "Registro / Edición de Productoss"          
+        //Descriptivos por default
+        var newTitulo = "Registro / Edición de Productoss"; 
+        var newLabel0 = "Descripcion1:";
+        var newLabel1 = "Marca Producto:";
+        var newLabel2 = '¿Activar Oferta?:';
+
+        if ($("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ArmaTuPack) {
+            //Descriptivo para Grupos ATP
+            newTitulo = "Registro / Edición de Grupos";
+            newLabel0 = "Descripcion1:";
+            newLabel1 = ' ';
+            newLabel2 = ' ';
+            $('#divMarcaProductoValue').hide();
+            $('#divActivoOfertaValue').hide();    
+            $('.input_search').hide();//botón examinar            
+        }
+
         $('#DialogRegistroOfertaShowRoomDetalleEditar').dialog('option', 'title', newTitulo);
-        $('#spDescripcion1').html('Nombre de Grupos');
-        
+        $('#spDescripcion1').html(newLabel0);
+        $('#spMarcaProducto').html(newLabel1);
+        $('#spActivarOferta').html(newLabel2);
+         
         /*INI ATP*/
 
         showDialog("DialogRegistroOfertaShowRoomDetalleEditar");
