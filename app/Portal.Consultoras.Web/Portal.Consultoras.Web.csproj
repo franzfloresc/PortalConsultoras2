@@ -1600,6 +1600,7 @@
     <Content Include="Content\Css\Toast\jquery.toast.min.css" />
     <Content Include="Content\Css\Site\calc.css" />
     <Content Include="Content\Css\Site\fonts\icomoon\iconos-cambio-pass.svg" />
+    <Content Include="Content\Images\csv_file_img.svg" />
     <Content Include="Content\Images\dateTimePicker\cal.gif" />
     <Content Include="Content\Images\dateTimePicker\cal_close.gif" />
     <Content Include="Content\Images\dateTimePicker\cal_fastforward.gif" />

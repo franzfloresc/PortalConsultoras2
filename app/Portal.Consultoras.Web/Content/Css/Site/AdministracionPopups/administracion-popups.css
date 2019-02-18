@@ -666,22 +666,37 @@ div.ui-state-highlight{
     width:170px;
 }
 
-.imagen__cargada__thumbnail__wrapper{
-    width:67px;
-    height:52px;
-    position:relative;
-    align-self:flex-start;
+.imagen__cargada__thumbnail__wrapper,
+.csv__cargado__thumbnail__wrapper 
+{
+    position: relative;
+    align-self: flex-start;
+}
+
+.imagen__cargada__thumbnail__wrapper {
+    width: 67px;
+    height: 52px;
+}
+
+.csv__cargado__thumbnail__wrapper{
+    width:31px;
+    height:40px;
+    margin-top:3px;
+    margin-left:20px;
 }
 
 .enlace__eliminar__imagen__cargada,
-.enlace__eliminar__imagen__cargada img
-{
-    position:absolute;
+.enlace__eliminar__imagen__cargada img,
+.enlace__eliminar__csv__cargado,
+.enlace__eliminar__csv__cargado img {
+    position: absolute;
 }
 
-.enlace__eliminar__imagen__cargada{
-    width: 22px;
-    height: 22px;
+.enlace__eliminar__imagen__cargada,
+.enlace__eliminar__csv__cargado
+{
+    width: 17px;
+    height: 17px;
     top: -8px;
     right: -10px;
     background-color: #808080;
@@ -690,24 +705,30 @@ div.ui-state-highlight{
     cursor:pointer;
 }
 
-.enlace__eliminar__imagen__cargada img,
-.imagen__cargada__thumbnail
-{    
-    height:auto;
-}
+    .enlace__eliminar__imagen__cargada img,
+    .enlace__eliminar__csv__cargado img 
+    {
+        height: 59%;
+        margin: auto;
+        left: 1px;
+        right: 0;
+        top: 0;
+        bottom: 0;
+    }
 
-.enlace__eliminar__imagen__cargada img{
-    height: 59%;
-    margin: auto;
-    left: 1px;
-    right: 0;
-    top: 0;
-    bottom: 0;
+.imagen__cargada__thumbnail,
+.csv__cargado__thumbnail
+{
+    position: relative;
+    z-index: 1;
 }
 
 .imagen__cargada__thumbnail{
-    position: relative;
-    z-index: 1;
+    height: auto;
+}
+
+.csv__cargado__thumbnail{
+    height:100%;
 }
 
 .grupo__form__campos--minMax {
