@@ -46,6 +46,7 @@ namespace Portal.Consultoras.Web.Models
         public int EstrategiaID { get; set; }
         public string SimboloMoneda { get; set; }
         public bool MaterialGanancia { get; set; }
+        public string OrigenPedidoWebFichaResumida { get; set; }
     }
 
     public class OpcionesFiltroResponse

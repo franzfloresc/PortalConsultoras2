@@ -940,6 +940,18 @@ namespace Portal.Consultoras.Common
             public const int MobileContenedorShowroomFicha = 2080102;
             public const int MobileContenedorLanzamientosCarrusel = 2080201; // Esta en duro en rdAnalyticsModule
 
+            public const int DesktopPedidoProductoRecomendadoFichaResumidaOpt = 1020009;
+            public const int DesktopPedidoProductoRecomendadoFichaResumidaSr = 1020109;
+            public const int DesktopPedidoProductoRecomendadoFichaResumidaLan = 1020209;
+            public const int DesktopPedidoProductoRecomendadoFichaResumidaOdd = 1020309;
+            public const int DesktopPedidoProductoRecomendadoFichaResumidaHv = 1020809;
+            public const int DesktopPedidoProductoRecomendadoFichaResumidaGanadoras = 1021409;
+            public const int MobilePedidoProductoRecomendadoFichaResumidaOpt = 2020009;
+            public const int MobilePedidoProductoRecomendadoFichaResumidaSr = 2020109;
+            public const int MobilePedidoProductoRecomendadoFichaResumidaLan = 2020209;
+            public const int MobilePedidoProductoRecomendadoFichaResumidaOdd = 2020309;
+            public const int MobilePedidoProductoRecomendadoFichaResumidaHv = 2020809;
+            public const int MobilePedidoProductoRecomendadoFichaResumidaGanadoras = 2021409;
             #endregion
 
             #region Producto Recomendado
