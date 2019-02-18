@@ -563,8 +563,29 @@ namespace Portal.Consultoras.Web.Controllers
                 #region ODD
                 case Constantes.OrigenPedidoWeb.DesktopHomeOfertaDelDiaBannerSuperior:
                     result = Constantes.OrigenPedidoWeb.DesktopHomeOfertaDelDiaFicha;
+                break;
+                #endregion
+
+                #region Recomendados
+                case Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoShowRoom:
+                    result = Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoShowRoom;
                     break;
-                    #endregion
+                case Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoHv:
+                    result = Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoHv;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoOdd:
+                    result = Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoOdd;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoOpm:
+                    result = Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoOpm;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoLan:
+                    result = Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoLan;
+                    break;
+                case Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoGanadoras:
+                    result = Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoGanadoras;
+                    break;
+                #endregion
             }
 
             return result;
@@ -714,11 +735,11 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var tipo = Constantes.TipoAccionNavegar.BreadCrumbs;
             var origenString = origen.ToString();
-            if (origenString.IsNullOrEmptyTrim()) return tipo;
-
+            if (origen == 0 || origenString.IsNullOrEmptyTrim()) return tipo;
+           
             var twoLastDigitsOrigen =  origenString.Substring(origenString.Length - 2);
-            if (twoLastDigitsOrigen.Equals(Constantes.OrigenPedidoWeb.SufijoProductoRecomendadoCarrusel.ToString()) ||
-               twoLastDigitsOrigen.Equals(Constantes.OrigenPedidoWeb.SufijoProductoRecomendadoFicha.ToString()))
+            if (twoLastDigitsOrigen.Equals(Constantes.OrigenPedidoWeb.SufijoProductoRecomendadoCarrusel) ||
+               twoLastDigitsOrigen.Equals(Constantes.OrigenPedidoWeb.SufijoProductoRecomendadoFicha))
             {
                return Constantes.TipoAccionNavegar.Volver;
             }
