@@ -147,16 +147,23 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult GetCatalogosPilotoSeg(int campania)
         {
-            var data = false; bool outPilotoSeg = false;
-
-            string catalogoLbel = _issuuProvider.GetCatalogoCodigoIssuu(campania.ToString(), Constantes.Marca.LBel, userData.CodigoISO, userData.CodigoZona, out outPilotoSeg);
+            bool data = false, outPilotoSeg = false;
+            string catalogoLbel = string.Empty, catalogoEsika = string.Empty, catalogoCyzone = string.Empty;
+ 
+            catalogoLbel = _issuuProvider.GetCatalogoCodigoIssuu(campania.ToString(), Constantes.Marca.LBel, userData.CodigoISO, userData.CodigoZona, out outPilotoSeg);
             data = outPilotoSeg;
-            string catalogoEsika = _issuuProvider.GetCatalogoCodigoIssuu(campania.ToString(), Constantes.Marca.Esika, userData.CodigoISO, userData.CodigoZona, out outPilotoSeg);
-            data = data ? true : outPilotoSeg ? true: false;
-            string catalogoCyzone = _issuuProvider.GetCatalogoCodigoIssuu(campania.ToString(), Constantes.Marca.Cyzone, userData.CodigoISO, userData.CodigoZona, out outPilotoSeg);
-            data = data ? true : outPilotoSeg ? true : false;
+            catalogoEsika = _issuuProvider.GetCatalogoCodigoIssuu(campania.ToString(), Constantes.Marca.Esika, userData.CodigoISO, userData.CodigoZona, out outPilotoSeg);
+            data = isPilotoSeg(data, outPilotoSeg);
+            catalogoCyzone = _issuuProvider.GetCatalogoCodigoIssuu(campania.ToString(), Constantes.Marca.Cyzone, userData.CodigoISO, userData.CodigoZona, out outPilotoSeg);
+            data = isPilotoSeg(data, outPilotoSeg);
 
-            return Json(new { PilotoSeg = data }, JsonRequestBehavior.AllowGet); ;
+            return Json(new { PilotoSeg = data }, JsonRequestBehavior.AllowGet);
+        }
+
+        private bool isPilotoSeg(bool data, bool outPilotoSeg)
+        {
+            if (data) return true;
+            return outPilotoSeg ? true : false;
         }
 
         public JsonResult AutocompleteCorreo()
