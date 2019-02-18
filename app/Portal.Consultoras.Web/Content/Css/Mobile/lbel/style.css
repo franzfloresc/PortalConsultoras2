@@ -14136,10 +14136,10 @@ span.icon-advertencia {
     right: 0;*/
 }
 
-.linea_posicion_monto_regalo{
-    left:auto;
-    right:12px;
-    background-color:#642f80;
+.linea_posicion_monto_regalo {
+    left: auto;
+    right: 12px;
+    background-color: #b9007e;
 }
 
 .icono_regalo,
@@ -14191,19 +14191,19 @@ span.icon-advertencia {
     border:1px solid #321342;
 }
 
-.monto_regaloTippingPoint{
+.monto_regaloTippingPoint {
     display: block;
-    color: #642f80;
+    color: #b9007e;
     position: absolute;
     min-width: 50px;
-    top:31px;
+    top: 31px;
     left: -12px;
 }
 
-.monto_regaloTippingPoint:before{
-    background-color: #642f80;
-    top: -7px!important;
-}
+    .monto_regaloTippingPoint:before {
+        background-color: #b9007e;
+        top: -7px !important;
+    }
 
 .contenedor_barra_mobile{
     margin-bottom:13px;
