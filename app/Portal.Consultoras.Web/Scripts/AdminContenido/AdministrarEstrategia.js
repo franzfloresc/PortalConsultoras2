@@ -789,7 +789,8 @@
         return Des;
     }
 
-    /* INIT ATP */
+    /* INI ATP */
+
     var _showActionsATPGrupo = function (cellvalue, options, rowObject) {
         console.log('rowObject', rowObject);
 
@@ -799,9 +800,11 @@
             _id = rowObject[14];
 
         var edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').EditarProducto('" + id + "','" + campaniaId + "','" + cuv + "',event);\" >" + "<img src='" + _config.rutaImagenEdit + "' alt='Editar Productos ShowRoom' title='Editar Productos ShowRoom' border='0' /></a>";
-         
+
         return edit;
     }
+
+
     /*END ATP */
 
     var _showImage = function (cellvalue, options, rowObject) {
@@ -1189,16 +1192,16 @@
     }
 
     var _fnGrilla = function () {
-         
+
         $("#divSeccionProductos").show();
         $("#list").jqGrid("GridUnload");
         var tipo = $("#ddlTipoEstrategia").find(":selected").data("id");
         var codigo = $("#ddlTipoEstrategia").find(":selected").data("codigo");
-         
+
         var colNameActions = (codigo == _codigoEstrategia.ShowRoom) ? "Set" : "";
         var hideColProducts = (codigo == _codigoEstrategia.ShowRoom) ? false : true;
         var hideColATP = (codigo == _codigoEstrategia.ArmaTuPack) ? false : true;
-         
+
 
         jQuery("#list").jqGrid({
             url: baseUrl + "AdministrarEstrategia/Consultar",
@@ -2996,6 +2999,7 @@
             }
         });
 
+        
         $("#DialogRegistroOfertaShowRoomDetalle").dialog({
             autoOpen: false,
             resizable: false,
@@ -3003,7 +3007,7 @@
             closeOnEscape: true,
             width: 900,
             draggable: true,
-            title: "Edición de Productos"
+            title: "Edición de Productos" 
         });
 
         $("#DialogRegistroOfertaShowRoomDetalleEditar").dialog({
@@ -4249,6 +4253,11 @@
         $("#txtCUVDetalle").val(CUV);
         $("#txtDescripcionDetalle").val(jQuery("#list").jqGrid("getCell", ID, "DescripcionCUV2"));
         $("#txtPrecioValorizadoDetalle").val(jQuery("#list").jqGrid("getCell", ID, "Precio2"));
+
+        /*INI ATP*/
+        var newTitulo = $("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ArmaTuPack ? "Edición de Grupos" : "Edición de Productos" 
+        $('#DialogRegistroOfertaShowRoomDetalle').dialog('option', 'title', newTitulo);
+        /*END ATP*/
 
         showDialog("DialogRegistroOfertaShowRoomDetalle");
 
