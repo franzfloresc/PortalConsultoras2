@@ -14,16 +14,6 @@ namespace Portal.Consultoras.BizLogic
     {
         public Enumeradores.ValidacionProgramaNuevas ValidarBusquedaCuv(int paisID, int campaniaID, string codigoPrograma, int consecutivoNueva, string cuv)
         {
-            //if (!IsFlagOn(Constantes.ProgNuevas.EncenderValidacion.FlagProgNuevas, paisID)) return Enumeradores.ValidacionProgramaNuevas.ContinuaFlujo;
-            //if (!EstaEnRangoCuv(paisID, Convert.ToInt32(cuv))) return Enumeradores.ValidacionProgramaNuevas.ContinuaFlujo;
-            //List<BEProductoProgramaNuevas> lstProdcutos = GetProductosByCampaniaCache(paisID, campaniaID);
-            //if (lstProdcutos == null || lstProdcutos.Count == 0) return Enumeradores.ValidacionProgramaNuevas.ProductoNoExiste;
-            //if (!lstProdcutos.Any(x => x.CodigoCupon == cuv)) return Enumeradores.ValidacionProgramaNuevas.ProductoNoExiste;
-            //if (codigoPrograma == "") return Enumeradores.ValidacionProgramaNuevas.ConsultoraNoNueva;
-            //lstProdcutos = FiltrarProductosByNivelyCodigoPrograma(lstProdcutos, consecutivoNueva, codigoPrograma);
-            //if (!lstProdcutos.Any(a => a.CodigoCupon == cuv)) return Enumeradores.ValidacionProgramaNuevas.CuvNoPerteneceASuPrograma;
-            //return Enumeradores.ValidacionProgramaNuevas.CuvPerteneceProgramaNuevas;
-
             return ValidarBusquedaListCuv(paisID, campaniaID, codigoPrograma, consecutivoNueva, new List<string> { cuv }).First().Value;
         }
 
@@ -190,12 +180,7 @@ namespace Portal.Consultoras.BizLogic
             if (lstTabla.Where(a => a.Codigo == codigo).Select(b => b.Valor).FirstOrDefault() == "1") return true;
             return false;
         }
-
-        private bool EstaEnRangoCuv(int paisID, int cuv)
-        {
-            var fnEnRango = GetFnEnRangoCuv(paisID);
-            return fnEnRango(cuv);
-        }
+        
         private Predicate<int> GetFnEnRangoCuv(int paisID)
         {
             var lstTabla = new BLTablaLogicaDatos().GetListCache(paisID, Constantes.ProgNuevas.Rango.TablaLogicaID);

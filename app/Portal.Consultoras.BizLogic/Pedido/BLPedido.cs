@@ -2009,15 +2009,13 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     {
 
                         #region ProgramaNuevas
-                        if (obePedidoWebDetalle.TipoAdm.Equals(Constantes.PedidoAccion.INSERT))
+                        if (obePedidoWebDetalle.TipoAdm.Equals(Constantes.PedidoAccion.INSERT) &&
+                            pedidoDetalle.EsCuponNuevas)
                         {
-                            if (pedidoDetalle.EsCuponNuevas)
-                            {
-                                CrearLogProgNuevas("DuoPerfecto: PedidoInsertar", obePedidoWebDetalle.CUV, usuario);
-                                var lstDetalleAgrupado = ObtenerPedidoWebSetDetalleAgrupado(usuario, out pedidoID);
-                                var pasoProgramaNueva = ValidarProgramaNuevas(usuario, obePedidoWebDetalle, lstDetalleAgrupado, out mensajeObs, out listCuvEliminar, out TituloMensaje);
-                                if (!pasoProgramaNueva) return false;
-                            }
+                            CrearLogProgNuevas("DuoPerfecto: PedidoInsertar", obePedidoWebDetalle.CUV, usuario);
+                            var lstDetalleAgrupado = ObtenerPedidoWebSetDetalleAgrupado(usuario, out pedidoID);
+                            var pasoProgramaNueva = ValidarProgramaNuevas(usuario, obePedidoWebDetalle, lstDetalleAgrupado, out mensajeObs, out listCuvEliminar, out TituloMensaje);
+                            if (!pasoProgramaNueva) return false;
                         }
                         #endregion
 
