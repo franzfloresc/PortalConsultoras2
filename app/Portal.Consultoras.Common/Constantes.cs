@@ -923,6 +923,8 @@ namespace Portal.Consultoras.Common
             public const int MobileBuscadorGNDFicha = 2040502;
             public const int MobileBuscadorHerramientasdeVentaFicha = 2040802;
 
+            public const int SufijoProductoRecomendadoCarrusel = 08;
+            public const int SufijoProductoRecomendadoFicha = 09;
             public const int DesktopPedidoProductoRecomendadoOpm = 1020008;
             public const int DesktopPedidoProductoRecomendadoShowRoom = 1020108;
             public const int DesktopPedidoProductoRecomendadoLan = 1020208;

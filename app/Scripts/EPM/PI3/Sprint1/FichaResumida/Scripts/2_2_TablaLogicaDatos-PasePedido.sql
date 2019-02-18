@@ -23,6 +23,8 @@ begin
 			select @TablaLogicaDatosId = max(TablaLogicaDatosId)
 			from TablaLogicaDatos 
 			where TablaLogicaId = @TablaLogicaId
+			
+			set @TablaLogicaDatosId = isnull(@TablaLogicaDatosId, 0)
 
 			if @TablaLogicaDatosId = 0
 				set @TablaLogicaDatosId = @TablaLogicaId * 100
@@ -43,7 +45,7 @@ begin
 			@TablaLogicaDatosId
 			,@TablaLogicaId
 			,@Codigo
-			,'cuv editable en pase pedido = 0 : Habilitar, 1: Deshabilitar'
+			,'cuv editable en pase pedido = 0 : Deshabilitar, 1: Habilitar'
 			,'1'
 			)
 
