@@ -361,13 +361,21 @@
             $("#_id").val(_editData.mongoIdVal);
 
             /*INI ATP*/
-            var newTitulo = $("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ArmaTuPack ? "Edición de Tácticas" : "Registro de Estrategias"
+
+            var newTitulo = "Registro de Estrategias";
+            if ($("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ArmaTuPack) {
+                newTitulo = "Edición de Tácticas";
+                
+                $('#tabControl1').hide();
+                $('#divSeccionImagenes').hide();                
+            }
             $('#DialogAdministracionEstrategia').dialog('option', 'title', newTitulo);
-            /*INI ATP*/
+              
+            /*END ATP*/
 
             showDialog("DialogAdministracionEstrategia");
 
-             
+
             _ActualizarFlagIndividual(data);
 
             _editData.IdMatrizComercial = data.IdMatrizComercial;
@@ -776,7 +784,7 @@
     }
 
     var _showActionsProductos = function (cellvalue, options, rowObject) {
-        
+
         var id = rowObject[0];
         var campaniaId = $("#ddlCampania").val();
         var cuv = rowObject[5],
@@ -2181,7 +2189,7 @@
     var _fnGrillaOfertaShowRoomDetalle = function (campaniaId, cuv, estrategiaId) {
 
         /*INI ATP*/
-        var newTituloGridATP = $("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ArmaTuPack ? "Nombre de Grupos" : "Descripcion1" 
+        var newTituloGridATP = $("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ArmaTuPack ? "Nombre de Grupos" : "Descripcion1"
         /*END ATP*/
 
         $("#listShowRoomDetalle").jqGrid("clearGridData");
@@ -2467,6 +2475,12 @@
             buttons:
             {
                 "Guardar": function () {
+
+                    /*INI ATP*/
+                    if ($("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ArmaTuPack) {
+                        $('#txtOrden').val(1);//valor por default                         
+                    }
+                    /*END ATP*/
 
                     if ($("#mensajeErrorCUV").val() != "") {
                         _toastHelper.error($("#mensajeErrorCUV").val());
@@ -3018,7 +3032,7 @@
             }
         });
 
-        
+
         $("#DialogRegistroOfertaShowRoomDetalle").dialog({
             autoOpen: false,
             resizable: false,
@@ -3026,7 +3040,7 @@
             closeOnEscape: true,
             width: 900,
             draggable: true,
-            title: "Edición de Productos" 
+            title: "Edición de Productos"
         });
 
         $("#DialogRegistroOfertaShowRoomDetalleEditar").dialog({
@@ -4036,7 +4050,7 @@
     function Editar(id, mongoId, tipoEstrategiaCodigo, event) {
         event.preventDefault();
         event.stopPropagation();
-         
+
         if (id != 0)
             _variables.isNuevo = false;
 
@@ -4258,7 +4272,7 @@
     }
 
     function EditarProducto(ID, CampaniaID, CUV, event) {
-       
+
 
         if (event) {
             event.preventDefault();
@@ -4274,7 +4288,7 @@
         $("#txtPrecioValorizadoDetalle").val(jQuery("#list").jqGrid("getCell", ID, "Precio2"));
 
         /*INI ATP*/
-        var newTitulo = $("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ArmaTuPack ? "Edición de Grupos" : "Edición de Productos" 
+        var newTitulo = $("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ArmaTuPack ? "Edición de Grupos" : "Edición de Productos"
         $('#DialogRegistroOfertaShowRoomDetalle').dialog('option', 'title', newTitulo);
         /*END ATP*/
 
@@ -4364,7 +4378,7 @@
 
         /*INI ATP*/
         //Descriptivos por default
-        var newTitulo = "Registro / Edición de Productoss"; 
+        var newTitulo = "Registro / Edición de Productoss";
         var newLabel0 = "Descripcion1:";
         var newLabel1 = "Marca Producto:";
         var newLabel2 = '¿Activar Oferta?:';
@@ -4376,7 +4390,7 @@
             newLabel1 = ' ';
             newLabel2 = ' ';
             $('#divMarcaProductoValue').hide();
-            $('#divActivoOfertaValue').hide();    
+            $('#divActivoOfertaValue').hide();
             $('.input_search').hide();//botón examinar            
         }
 
@@ -4384,7 +4398,7 @@
         $('#spDescripcion1').html(newLabel0);
         $('#spMarcaProducto').html(newLabel1);
         $('#spActivarOferta').html(newLabel2);
-         
+
         /*INI ATP*/
 
         showDialog("DialogRegistroOfertaShowRoomDetalleEditar");
