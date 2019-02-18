@@ -1617,36 +1617,43 @@ namespace Portal.Consultoras.Web.Controllers
         private List<ProductoModel> AutocompleteProductoPedido(string term, int criterio)
         {
             var productosModel = new List<ProductoModel>();
-            var userModel = userData;
-            var productos = SelectProductoByCodigoDescripcionSearchRegionZona(term, userModel, CRITERIO_BUSQUEDA_PRODUCTO_CANT, criterio);
+            var productos = SelectProductoByCodigoDescripcionSearchRegionZona(term, userData, CRITERIO_BUSQUEDA_PRODUCTO_CANT, criterio);
+
+            Dictionary<string, Enumeradores.ValidacionProgramaNuevas> dicValidacionCuv;
+            var arrayCuvProductos = productos.Select(p => p.CUV).ToArray();
+            using (var odsServiceClient = new ODSServiceClient())
+            {
+                dicValidacionCuv = odsServiceClient.ValidarBusquedaProgramaNuevasList(userData.PaisID, userData.CampaniaID, userData.CodigoPrograma, userData.ConsecutivoNueva, arrayCuvProductos);
+            }
+
+            var listEstadosNuevasBloquear = new List<Enumeradores.ValidacionProgramaNuevas> {
+                Enumeradores.ValidacionProgramaNuevas.ProductoNoExiste,
+                Enumeradores.ValidacionProgramaNuevas.ConsultoraNoNueva,
+                Enumeradores.ValidacionProgramaNuevas.CuvNoPerteneceASuPrograma
+            };
+            var listCuvNuevasBloquear = dicValidacionCuv.Where(vc => listEstadosNuevasBloquear.Contains(vc.Value)).Select(vc => vc.Key).ToList();
+            productos = productos.Where(p => !listCuvNuevasBloquear.Contains(p.CUV)).ToList();
 
             var siExiste = productos.Any(p => p.CUV == term);
-
             BloqueoProductosCatalogo(ref productos);
-
             BloqueoProductosDigitales(ref productos);
 
             if (!productos.Any())
             {
-                if (siExiste)
-                {
-                    productosModel.Add(GetProductoDigital());
-                }
-                else
-                {
-                    productosModel.Add(GetProductoNoExiste());
-                }
+                if (siExiste) productosModel.Add(GetProductoDigital());
+                else productosModel.Add(GetProductoNoExiste());
+
                 return productosModel;
             }
 
             productos = productos.Take(CANTIDAD_FILAS_AUTOCOMPLETADO).ToList();
-
             var cuv = productos.First().CUV.Trim();
-            var mensajeByCuv = GetMensajeByCUV(userModel, cuv);
+            var mensajeByCuv = GetMensajeByCUV(userData, cuv);
             var tieneRdc = ValidarTieneRDoRDR();
-
-            productosModel.AddRange(productos.Select(prod => new ProductoModel()
-            {
+            
+            var listEstadosNuevasValidas = new List<Enumeradores.ValidacionProgramaNuevas> { Enumeradores.ValidacionProgramaNuevas.CuvPerteneceProgramaNuevas };
+            var listCuvNuevasValidas = dicValidacionCuv.Where(vc => listEstadosNuevasValidas.Contains(vc.Value)).Select(vc => vc.Key).ToList();
+            productosModel.AddRange(productos.Select(prod => new ProductoModel() {
                 CUV = prod.CUV.Trim(),
                 Descripcion = prod.Descripcion.Trim(),
                 PrecioCatalogo = prod.PrecioCatalogo,
@@ -1667,11 +1674,11 @@ namespace Portal.Consultoras.Web.Controllers
                 TipoEstrategiaID = prod.TipoEstrategiaID,
                 TieneRDC = tieneRdc,
                 EsOfertaIndependiente = prod.EsOfertaIndependiente,
+                EsProgNuevas = listCuvNuevasValidas.Contains(prod.CUV.Trim()),
                 CodigoProducto = prod.CodigoProducto,
                 CodigoCatalago = prod.CodigoCatalogo,
                 EstrategiaIDSicc = prod.EstrategiaIDSicc
             }));
-
             return productosModel;
         }
 
@@ -4560,7 +4567,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (var svc = new ODSServiceClient())
                 {
-                    numero = svc.ValidarBusquedaProgramaNuevas(userData.PaisID, userData.CampaniaID, Convert.ToInt32(userData.ConsultoraID), userData.CodigoPrograma, userData.ConsecutivoNueva, cuv);
+                    numero = svc.ValidarBusquedaProgramaNuevas(userData.PaisID, userData.CampaniaID, userData.CodigoPrograma, userData.ConsecutivoNueva, cuv);
                 }
             }
             catch (Exception ex)

@@ -268,14 +268,18 @@ namespace Portal.Consultoras.Service
         }
 
         #region Programa Nuevas Activo
-        public Enumeradores.ValidacionProgramaNuevas ValidarBusquedaProgramaNuevas(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv)
+        public Enumeradores.ValidacionProgramaNuevas ValidarBusquedaProgramaNuevas(int paisID, int campaniaID, string codigoPrograma, int consecutivoNueva, string cuv)
         {
-            return BLProgramaNuevas.ValidarBusquedaProgramaNuevas(paisID, campaniaID, ConsultoraID, codigoPrograma, consecutivoNueva, cuv);
+            return BLProgramaNuevas.ValidarBusquedaCuv(paisID, campaniaID, codigoPrograma, consecutivoNueva, cuv);
+        }
+        public Dictionary<string, Enumeradores.ValidacionProgramaNuevas> ValidarBusquedaProgramaNuevasList(int paisID, int campaniaID, string codigoPrograma, int consecutivoNueva, List<string> listCuv)
+        {
+            return BLProgramaNuevas.ValidarBusquedaListCuv(paisID, campaniaID, codigoPrograma, consecutivoNueva, listCuv);
         }
 
         public int ValidarCantidadMaximaProgramaNuevas(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, int cantidadEnPedido, string cuvIngresado, int cantidadIngresada)
         {
-            return BLProgramaNuevas.ValidarCantidadMaximaProgramaNuevas(paisID, campaniaID, consecutivoNueva, codigoPrograma, cantidadEnPedido, cuvIngresado, cantidadIngresada);
+            return BLProgramaNuevas.ValidarCantidadMaxima(paisID, campaniaID, consecutivoNueva, codigoPrograma, cantidadEnPedido, cuvIngresado, cantidadIngresada);
         }
 
         public BERespValidarElectivos ValidaCuvElectivo(int paisID, int campaniaID, string cuvIngresado, int consecutivoNueva, string codigoPrograma, List<string> lstCuvPedido)
@@ -295,7 +299,7 @@ namespace Portal.Consultoras.Service
 
         public int GetLimElectivosProgNuevas(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma)
         {
-            return BLProgramaNuevas.GetLimElectivosProgNuevas(paisID, campaniaID, consecutivoNueva, codigoPrograma);
+            return BLProgramaNuevas.GetLimElectivos(paisID, campaniaID, consecutivoNueva, codigoPrograma);
         }
         #endregion
 

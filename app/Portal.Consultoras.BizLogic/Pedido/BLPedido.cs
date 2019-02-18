@@ -620,7 +620,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     if (pedidoDetalle.EnRangoProgramaNuevas)
                     {
                         int cantidadEnPedido = lstDetalle.Where(a => a.CUV == pedidoDetalle.Producto.CUV).Sum(b => b.Cantidad);
-                        var valor = _programaNuevasBusinessLogic.ValidarCantidadMaximaProgramaNuevas
+                        var valor = _programaNuevasBusinessLogic.ValidarCantidadMaxima
                             (usuario.PaisID, usuario.CampaniaID, usuario.ConsecutivoNueva, usuario.CodigoPrograma, cantidadEnPedido, pedidoDetalle.Producto.CUV, pedidoDetalle.StockNuevo);
 
                         if (valor != 0)
@@ -1585,7 +1585,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             Enumeradores.ValidacionProgramaNuevas numero;
             try
             {
-                numero = _programaNuevasBusinessLogic.ValidarBusquedaProgramaNuevas(usuario.PaisID, usuario.CampaniaID, Convert.ToInt32(usuario.ConsultoraID), usuario.CodigoPrograma, usuario.ConsecutivoNueva, cuv);
+                numero = _programaNuevasBusinessLogic.ValidarBusquedaCuv(usuario.PaisID, usuario.CampaniaID, usuario.CodigoPrograma, usuario.ConsecutivoNueva, cuv);
             }
             catch (Exception)
             {
@@ -1920,8 +1920,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
             mensajeObs = string.Empty;
             TituloMensaje = "";
 
-            var perteneceProgramaNuevas = _programaNuevasBusinessLogic.ValidarBusquedaProgramaNuevas
-                            (usuario.PaisID, usuario.CampaniaID, Convert.ToInt32(usuario.ConsultoraID), usuario.CodigoPrograma, usuario.ConsecutivoNueva, obePedidoWebDetalle.CUV);
+            var perteneceProgramaNuevas = _programaNuevasBusinessLogic.ValidarBusquedaCuv
+                            (usuario.PaisID, usuario.CampaniaID, usuario.CodigoPrograma, usuario.ConsecutivoNueva, obePedidoWebDetalle.CUV);
             if (perteneceProgramaNuevas.Equals(Enumeradores.ValidacionProgramaNuevas.CuvPerteneceProgramaNuevas))
             {
                 //ValidarAgregarEnProgramaNuevas
@@ -1948,7 +1948,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                 //ValidarCantidadEnProgramaNuevas                        
                 int cantidadEnPedido = lstDetalle.Where(a => a.CUV == obePedidoWebDetalle.CUV).Sum(b => b.Cantidad);
-                var valor = _programaNuevasBusinessLogic.ValidarCantidadMaximaProgramaNuevas
+                var valor = _programaNuevasBusinessLogic.ValidarCantidadMaxima
                     (usuario.PaisID, usuario.CampaniaID, usuario.ConsecutivoNueva, usuario.CodigoPrograma, cantidadEnPedido, obePedidoWebDetalle.CUV, obePedidoWebDetalle.Cantidad);
 
                 if (valor != 0)

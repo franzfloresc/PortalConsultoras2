@@ -270,6 +270,12 @@
   <wsdl:message name="IODSService_ValidarBusquedaProgramaNuevas_OutputMessage">
     <wsdl:part name="parameters" element="tns:ValidarBusquedaProgramaNuevasResponse" />
   </wsdl:message>
+  <wsdl:message name="IODSService_ValidarBusquedaProgramaNuevasList_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarBusquedaProgramaNuevasList" />
+  </wsdl:message>
+  <wsdl:message name="IODSService_ValidarBusquedaProgramaNuevasList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarBusquedaProgramaNuevasListResponse" />
+  </wsdl:message>
   <wsdl:message name="IODSService_ValidarCantidadMaximaProgramaNuevas_InputMessage">
     <wsdl:part name="parameters" element="tns:ValidarCantidadMaximaProgramaNuevas" />
   </wsdl:message>
@@ -474,6 +480,10 @@
     <wsdl:operation name="ValidarBusquedaProgramaNuevas">
       <wsdl:input wsaw:Action="http://tempuri.org/IODSService/ValidarBusquedaProgramaNuevas" message="tns:IODSService_ValidarBusquedaProgramaNuevas_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IODSService/ValidarBusquedaProgramaNuevasResponse" message="tns:IODSService_ValidarBusquedaProgramaNuevas_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidarBusquedaProgramaNuevasList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IODSService/ValidarBusquedaProgramaNuevasList" message="tns:IODSService_ValidarBusquedaProgramaNuevasList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IODSService/ValidarBusquedaProgramaNuevasListResponse" message="tns:IODSService_ValidarBusquedaProgramaNuevasList_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ValidarCantidadMaximaProgramaNuevas">
       <wsdl:input wsaw:Action="http://tempuri.org/IODSService/ValidarCantidadMaximaProgramaNuevas" message="tns:IODSService_ValidarCantidadMaximaProgramaNuevas_InputMessage" />
@@ -854,6 +864,15 @@
     </wsdl:operation>
     <wsdl:operation name="ValidarBusquedaProgramaNuevas">
       <soap:operation soapAction="http://tempuri.org/IODSService/ValidarBusquedaProgramaNuevas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidarBusquedaProgramaNuevasList">
+      <soap:operation soapAction="http://tempuri.org/IODSService/ValidarBusquedaProgramaNuevasList" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1281,6 +1300,15 @@
     </wsdl:operation>
     <wsdl:operation name="ValidarBusquedaProgramaNuevas">
       <soap:operation soapAction="http://tempuri.org/IODSService/ValidarBusquedaProgramaNuevas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidarBusquedaProgramaNuevasList">
+      <soap:operation soapAction="http://tempuri.org/IODSService/ValidarBusquedaProgramaNuevasList" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
