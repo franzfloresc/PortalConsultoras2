@@ -340,25 +340,6 @@ namespace Portal.Consultoras.Web.Providers
 
             return result;
         }
-
-
-        /// <summary>
-        /// Obtiene informacion de componentes seleccionados en el pedido
-        /// </summary>
-        /// <param name="CampaniaID">Campania</param>
-        /// <param name="ConsultoraID">Consultora</param>
-        /// <param name="SetID">Set</param>
-        /// <returns></returns>
-        public List<BEPedidoWebSetDetalle> GetListaPedidoWebSetDetalle(int paisId, int campaniaId, long consultoraId, int setId)
-        {
-            List<BEPedidoWebSetDetalle> listaProducto;
-
-            using (var svc = new PedidoServiceClient())
-            {
-                listaProducto = svc.GetListaPedidoWebSetDetalle(paisId, campaniaId, consultoraId, setId).ToList();
-            }
-
-            return listaProducto;
-        }
+        
     }
 }
