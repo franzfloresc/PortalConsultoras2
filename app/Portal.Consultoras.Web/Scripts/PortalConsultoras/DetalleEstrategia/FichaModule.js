@@ -184,6 +184,9 @@ var FichaModule = (function (config) {
     if (config.localStorageModule === null || typeof config.localStorageModule === "undefined")
         throw "config.localStorageModule is null or undefined";
 
+    if (config.analyticsPortalModule === null || typeof config.analyticsPortalModule === "undefined")
+        throw "config.analyticsPortalModule is null or undefined";
+
     var _primeraMarca = "";
     var _ultimaMarca = "";
     var _esMultimarca = false;
@@ -201,6 +204,7 @@ var FichaModule = (function (config) {
         setId: config.setId || 0,
         tieneCliente: config.tieneCliente || false,
         localStorageModule: config.localStorageModule,
+        analyticsPortalModule: config.analyticsPortalModule,
         detalleEstrategiaProvider: DetalleEstrategiaProvider
     };
 
@@ -449,7 +453,7 @@ var FichaModule = (function (config) {
     }
 
     var _asignaDetallePedido = function (data, estrategia) {
-        
+
         data = data || {};
         data.Detalles = data.Detalles || [];
         if (data.Detalles.length == 0) {
@@ -996,10 +1000,10 @@ var FichaModule = (function (config) {
 
     var _analytics = function () {
 
-        if (typeof AnalyticsPortalModule === 'undefined')
+        if (typeof _config.analyticsPortalModule === 'undefined')
             return;
 
-        AnalyticsPortalModule.MarcaVisualizarDetalleProducto(_estrategia);
+        _config.analyticsPortalModule.MarcaVisualizarDetalleProducto(_estrategia);
 
     }
 
@@ -1073,6 +1077,7 @@ var FichaPartialModule = (function () {
 
         var objFicha = {
             localStorageModule: LocalStorageModule(),
+            analyticsPortalModule: AnalyticsPortalModule(),
             palanca: palanca,
             campania: campania,
             cuv: cuv,

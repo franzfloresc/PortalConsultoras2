@@ -31,7 +31,7 @@ describe("FichaModule", function () {
             expect(errorMsg).to.have.string("config is null or undefined");
         });
 
-        it("throw an exception when localStorage is undefined", function () {
+        it("throw an exception when localStorageModule is undefined", function () {
 
             try {
                 FichaModule({
@@ -44,7 +44,7 @@ describe("FichaModule", function () {
             expect(errorMsg).to.have.string("config.localStorageModule is null or undefined");
         });
 
-        it("throw an exception when localStorage is null", function () {
+        it("throw an exception when localStorageModule is null", function () {
 
             try {
                 FichaModule({
@@ -56,6 +56,34 @@ describe("FichaModule", function () {
 
             expect(errorMsg).to.have.string("config.localStorageModule is null or undefined");
         });
+
+        it("throw an exception when analyticsPortalModule is undefined", function () {
+
+            try {
+                FichaModule({
+                    localStorageModule: {},
+                    analyticsPortalModule: undefined
+                });
+            } catch (error) {
+                errorMsg = error;
+            }
+
+            expect(errorMsg).to.have.string("config.analyticsPortalModule is null or undefined");
+        });
+
+        it("throw an exception when analyticsPortalModule is null", function () {
+
+            try {
+                FichaModule({
+                    localStorageModule: {},
+                    analyticsPortalModule: null
+                });
+            } catch (error) {
+                errorMsg = error;
+            }
+
+            expect(errorMsg).to.have.string("config.analyticsPortalModule is null or undefined");
+        });
     });
 
     describe("Inicializar", function () {
@@ -63,6 +91,15 @@ describe("FichaModule", function () {
 
         beforeEach(function () {
             fichaModule = null;
+        });
+
+        it("", function () {
+            //var localStorage = sinon.mock(LocalStorageModule());
+            //fichaModule = FichaModule({
+            //    localStorageModule: localStorage
+            //});
+
+            //fichaModule.Inicializar();
         });
     });
 });
