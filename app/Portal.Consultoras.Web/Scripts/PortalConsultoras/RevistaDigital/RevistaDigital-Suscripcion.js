@@ -98,8 +98,13 @@ function RDSuscripcion() {
                 RDActualizarTipoAccionAgregar(data.revistaDigital, key);
             }
 
-            $("#PopRDSuscripcion").css("display", "block"); // Confirmar datos
-            $(".popup_confirmacion_datos .form-datos input").keyup(); //to update button style
+			if (typeof esAppMobile == 'undefined') {
+				$("#PopRDSuscripcion").css("display", "block"); // Confirmar datos
+				$(".popup_confirmacion_datos .form-datos input").keyup(); //to update button style
+			} else if (esAppMobile){
+				window.location.href = (isMobile() ? "/Mobile" : "") + "/GanaMasSuscripcion/Success";
+			}
+            
 
            return false;
         },
