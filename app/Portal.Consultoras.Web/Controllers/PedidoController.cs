@@ -1674,7 +1674,7 @@ namespace Portal.Consultoras.Web.Controllers
                 TipoEstrategiaID = prod.TipoEstrategiaID,
                 TieneRDC = tieneRdc,
                 EsOfertaIndependiente = prod.EsOfertaIndependiente,
-                EsProgNuevas = listCuvNuevasValidas.Contains(prod.CUV.Trim()),
+                EsCuponNuevas = listCuvNuevasValidas.Contains(prod.CUV.Trim()),
                 CodigoProducto = prod.CodigoProducto,
                 CodigoCatalago = prod.CodigoCatalogo,
                 EstrategiaIDSicc = prod.EstrategiaIDSicc
