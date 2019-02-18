@@ -18,19 +18,21 @@ begin
 							where tl.Codigo = @Codigo)
 		begin
 
-			declare @Descripcion varchar(30) = 'Pantalla Responsive MisClientes y Funcionalidad de cliente en Ficha'
+			declare @Descripcion varchar(30) = '0 : Deshabilitar, 1: Habilitar - Pantalla Responsive MisClientes y Funcionalidad de cliente en Ficha'
 			declare @TablaLogicaDatosId int = 0
 
 			select @TablaLogicaDatosId = max(TablaLogicaDatosId)
 			from TablaLogicaDatos 
 			where TablaLogicaId = @TablaLogicaId
 
+			set @TablaLogicaDatosId = isnull(@TablaLogicaDatosId, 0)
+
 			if @TablaLogicaDatosId = 0
 				set @TablaLogicaDatosId = @TablaLogicaId * 100
 
 			set @TablaLogicaDatosId = @TablaLogicaDatosId + 1
 
-			print 'insert' + @Descripcion
+			print 'insert ' + @Descripcion
 			
 			insert into TablaLogicaDatos(
 			TablaLogicaDatosID
@@ -44,7 +46,7 @@ begin
 			@TablaLogicaDatosId
 			,@TablaLogicaId
 			,@Codigo
-			,'0 : Deshabilitar, 1: Habilitar'
+			,@Descripcion
 			,'1'
 			)
 		end
