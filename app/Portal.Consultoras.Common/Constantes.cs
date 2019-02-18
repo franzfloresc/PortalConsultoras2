@@ -923,6 +923,15 @@ namespace Portal.Consultoras.Common
             public const int MobileBuscadorGNDFicha = 2040502;
             public const int MobileBuscadorHerramientasdeVentaFicha = 2040802;
 
+            public const int MobileContenedorShowroomCarrusel = 2080101;
+            public const int MobileContenedorShowroomFicha = 2080102;
+            public const int MobileContenedorLanzamientosCarrusel = 2080201; // Esta en duro en rdAnalyticsModule
+            #endregion
+
+            #region Producto Recomendado
+            public const int DesktopPedidoProductoRecomendadoCarrusel = 1021501;
+            public const int MobilePedidoProductoRecomendadoCarrusel = 2021501;
+
             public const string SufijoProductoRecomendadoCarrusel = "08";
             public const string SufijoProductoRecomendadoFicha = "09";
 
@@ -939,10 +948,6 @@ namespace Portal.Consultoras.Common
             public const int MobilePedidoProductoRecomendadoHv = 2020808;
             public const int MobilePedidoProductoRecomendadoGanadoras = 2021408;
 
-            public const int MobileContenedorShowroomCarrusel = 2080101;
-            public const int MobileContenedorShowroomFicha = 2080102;
-            public const int MobileContenedorLanzamientosCarrusel = 2080201; // Esta en duro en rdAnalyticsModule
-
             public const int DesktopPedidoProductoRecomendadoOpmFicha = 1020009;
             public const int DesktopPedidoProductoRecomendadoShowRoomFicha = 1020109;
             public const int DesktopPedidoProductoRecomendadoLanFicha = 1020209;
@@ -955,11 +960,6 @@ namespace Portal.Consultoras.Common
             public const int MobilePedidoProductoRecomendadoOddFicha = 2020309;
             public const int MobilePedidoProductoRecomendadoHvFicha = 2020809;
             public const int MobilePedidoProductoRecomendadoGanadorasFicha = 2021409;
-            #endregion
-
-            #region Producto Recomendado
-            public const int DesktopPedidoProductoRecomendadoCarrusel = 1021501;
-            public const int MobilePedidoProductoRecomendadoCarrusel = 2021501;
             #endregion
 
             #region Pedidos Pendientes

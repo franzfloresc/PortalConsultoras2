@@ -566,24 +566,24 @@ namespace Portal.Consultoras.Web.Controllers
                 break;
                 #endregion
 
-                #region Recomendados
+                #region ProductoRecomendados
                 case Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoShowRoom:
-                    result = Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoShowRoom;
+                    result = Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoShowRoomFicha;
                     break;
                 case Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoHv:
-                    result = Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoHv;
+                    result = Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoHvFicha;
                     break;
                 case Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoOdd:
-                    result = Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoOdd;
+                    result = Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoOddFicha;
                     break;
                 case Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoOpm:
-                    result = Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoOpm;
+                    result = Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoOpmFicha;
                     break;
                 case Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoLan:
-                    result = Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoLan;
+                    result = Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoLanFicha;
                     break;
                 case Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoGanadoras:
-                    result = Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoGanadoras;
+                    result = Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoGanadorasFicha;
                     break;
                 #endregion
 
@@ -606,8 +606,7 @@ namespace Portal.Consultoras.Web.Controllers
                 case Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoGanadoras:
                     result = Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoGanadorasFicha;
                     break;
-
-                    #endregion
+                #endregion
             }
 
             return result;
