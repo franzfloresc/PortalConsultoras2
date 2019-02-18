@@ -489,17 +489,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        //movido a BaseAdm/ObtenerCampaniasPorPaisOUsuario
-        //public JsonResult ObtenterCampaniasPorPais(int PaisID)
-        //{
-        //    PaisID = PaisID == 0 ? userData.PaisID : PaisID;
-        //    IEnumerable<CampaniaModel> lista = _zonificacionProvider.GetCampanias(PaisID, true);
-        //    return Json(new
-        //    {
-        //        lista = lista
-        //    }, JsonRequestBehavior.AllowGet);
-        //}
-
         public ActionResult DescargaModelo()
         {
             string fileName = "PlantillaModelFaltante.xlsx";
@@ -522,7 +511,7 @@ namespace Portal.Consultoras.Web.Controllers
             return View();
         }
         #endregion
-        
+
         public JsonResult EliminarTodos(string CampaniaID, string Zona, string CUV, string Fecha, string Descripcion)
         {
 

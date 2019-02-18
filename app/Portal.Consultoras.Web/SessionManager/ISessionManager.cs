@@ -14,6 +14,7 @@ using Portal.Consultoras.Web.SessionManager.ShowRoom;
 using System;
 using System.Collections.Generic;
 using Portal.Consultoras.Web.Models.Recomendaciones;
+using Portal.Consultoras.Web.Models.Estrategia;
 
 namespace Portal.Consultoras.Web.SessionManager
 {
@@ -272,6 +273,9 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetBuscadorYFiltrosConfig(BuscadorYFiltrosConfiguracionModel buscadorYFiltrosModel);
 
         BuscadorYFiltrosConfiguracionModel GetBuscadorYFiltrosConfig();
+
+        void SetConfigMicroserviciosPersonalizacion(MSPersonalizacionConfiguracionModel msPersonalizacionModel);
+        MSPersonalizacionConfiguracionModel GetConfigMicroserviciosPersonalizacion();
 
         void SetRecomendacionesConfig(RecomendacionesConfiguracionModel recomendacionesConfiguracionModel);
 
