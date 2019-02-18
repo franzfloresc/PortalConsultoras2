@@ -84,6 +84,36 @@ describe("FichaModule", function () {
 
             expect(errorMsg).to.have.string("config.analyticsPortalModule is null or undefined");
         });
+
+        it("throw an exception when GeneralModule is undefined", function () {
+
+            try {
+                FichaModule({
+                    localStorageModule: {},
+                    analyticsPortalModule: {},
+                    generalModule : undefined
+                });
+            } catch (error) {
+                errorMsg = error;
+            }
+
+            expect(errorMsg).to.have.string("config.generalModule is null or undefined");
+        });
+
+        it("throw an exception when analyticsPortalModule is null", function () {
+
+            try {
+                FichaModule({
+                    localStorageModule: {},
+                    analyticsPortalModule: {},
+                    generalModule : null
+                });
+            } catch (error) {
+                errorMsg = error;
+            }
+
+            expect(errorMsg).to.have.string("config.generalModule is null or undefined");
+        });
     });
 
     describe("Inicializar", function () {

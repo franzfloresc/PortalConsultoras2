@@ -171,6 +171,9 @@ var FichaModule = (function (config) {
     if (config.analyticsPortalModule === null || typeof config.analyticsPortalModule === "undefined")
         throw "config.analyticsPortalModule is null or undefined";
 
+    if (config.generalModule === null || typeof config.generalModule === "undefined")
+        throw "config.generalModule is null or undefined";
+
     var _primeraMarca = "";
     var _ultimaMarca = "";
     var _esMultimarca = false;
@@ -1062,6 +1065,7 @@ var FichaPartialModule = (function () {
         var objFicha = {
             localStorageModule: LocalStorageModule(),
             analyticsPortalModule: AnalyticsPortalModule(),
+            generalModule: GeneralModule(),
             palanca: palanca,
             campania: campania,
             cuv: cuv,
