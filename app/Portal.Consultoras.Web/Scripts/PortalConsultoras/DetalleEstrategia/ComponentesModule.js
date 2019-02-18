@@ -115,11 +115,13 @@ var ComponentesModule = (function () {
         }
     };
 
-    var SeleccionarComponente = function (cuv) {
+    var SeleccionarComponente = function (cuv, abrir) {
         
         if (typeof cuv === "undefined" ||
             cuv === null ||
             $.trim(cuv) === "") throw "param cuv is not defined or null";
+
+        abrir = abrir == undefined || abrir;
         var componente = {}            
         $.each(_estrategia.Hermanos, function (index, hermano) {
             cuv = $.trim(cuv);
@@ -128,7 +130,9 @@ var ComponentesModule = (function () {
 
                 opcionesEvents.applyChanges("onComponentSelected", componente);
 
-                _mostrarModalElegirOpciones();
+                if (abrir) {
+                    _mostrarModalElegirOpciones();
+                }
 
                 return false;
             }

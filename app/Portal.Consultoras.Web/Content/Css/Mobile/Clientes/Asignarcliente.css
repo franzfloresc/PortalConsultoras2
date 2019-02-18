@@ -1,0 +1,294 @@
+﻿/*Modal Asignar Cliente*/
+
+#btnShowCliente {
+    background: no-repeat;
+    border: 1px solid #000;
+    width: 100%;
+    padding: 13px 16px;
+    font-weight: bold;
+    line-height: normal;
+    text-align: left;
+    border-radius: 4px;
+    text-transform: uppercase;
+    /*background: url('/Content/Images/mobile/Esika/right-arrow.svg');*/
+    background-position: right 15px center;
+    background-repeat: no-repeat;
+    background-size: 13px;
+}
+
+.btnShowCliente {
+    margin-bottom: 0px;
+}
+
+.asignarCliente li {
+    list-style: none;
+}
+
+.asignarCliente h3 {
+    font-size: 13px;
+    font-weight: bold !important;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #808080;
+}
+
+.AsignarCliente_bloque .col-xs-12 {
+    margin-bottom: 110px;
+}
+
+.btnShowCliente li {
+    display: inline-block;
+    font-size: 13px;
+}
+
+.contenedor_seleccion {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    right: 0;
+    overflow-y: hidden;
+    transition: all 300ms;
+    z-index: 999999;
+    box-shadow: 0 8px 20px 0px rgba(0, 0, 0, 0.5);
+}
+
+.modal-fondo {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1040;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    z-index: 2;
+    opacity: .7;
+    transition: all 2000ms;
+    z-index: 99999;
+}
+
+.seleccion_header_Clientes {
+    padding: 24px 20px 15px 20px;
+    border-bottom: 1px solid #d8d8d8;
+    position: relative;
+    background-color: #fff;
+}
+
+    .seleccion_header_Clientes > div {
+        font-size: 15px;
+        font-weight: bold;
+        line-height: normal;
+        letter-spacing: 1px;
+        color: #000000;
+        text-transform: uppercase;
+        margin: 0px 0px 4px 0px;
+    }
+
+.button_cerrar_Clientes {
+    padding: 0px !important;
+    margin: 0px;
+    width: auto;
+    border: none;
+    background: none;
+    position: absolute;
+    right: 20px;
+    top: 22px;
+}
+
+
+
+.seleccion_main_Clientes {
+    background-color: #fff;
+    height: 463px;
+    overflow: auto;
+    transition: all 250ms;
+}
+
+.clientes-items {
+    padding: 14px 20px;
+}
+
+.buscar_clientes {
+    position: relative;
+}
+
+    .buscar_clientes input {
+        display: block;
+        width: 100%;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        border-bottom: 1px solid #d8d8d8;
+        padding: 10px 0px;
+        font-size: 13px;
+        padding-right: 28px;
+    }
+
+    .buscar_clientes img {
+        width: 17px;
+        position: absolute;
+        top: 9px;
+        right: 3px;
+    }
+
+.seleccion_header > h3 {
+    font-size: 15px !important;
+    font-weight: bold !important;
+    line-height: normal;
+    letter-spacing: 1px;
+    color: #000000;
+    text-transform: uppercase;
+    border-bottom: none !important;
+    padding-top: 18px !important;
+    padding-bottom: 0px !important;
+}
+
+.clientes_lista ul {
+    padding: 0px;
+}
+
+.cliente-list {
+    font-size: 13px;
+    line-height: normal;
+    padding: 15px 0px;
+    border-bottom: 1px solid #d8d8d8;
+    list-style: none;
+}
+
+.modal_activado {
+    overflow: hidden;
+}
+
+.btnShowCliente_bloque .col-xs-12 {
+    padding-top: 10px;
+}
+
+.cambiar_opcion {
+    float: right;
+    margin-top: 10px;
+    width: 100%;
+    text-transform: initial;
+}
+
+.seleccion_header_Clientes .seleccion_header {
+    padding: 0px !important;
+    border-bottom: none !important;
+    position: initial !important;
+}
+
+
+#PanelClienteRegistro {
+    transition: all 400ms;
+}
+
+
+/*Modal Agregar cliente*/
+
+.Form-AgregarCliente {
+    height: 100%;
+    width: 100% !important;
+    position: fixed;
+    z-index: 9999999 !important;
+    top: 0;
+    right: 0;
+    overflow-x: hidden;
+    background-color: #fff;
+    transition: all 400ms;
+}
+
+
+.ImputForm-item {
+    margin-bottom: 18px;
+    position: relative;
+}
+
+    .ImputForm-item input {
+        font-size: 13px;
+        border: none;
+        padding: 12px 14px 9px 0px;
+        color: #000;
+        line-height: normal;
+        width: 100%;
+    }
+
+    .ImputForm-item label {
+        cursor: pointer;
+        margin: 0;
+        position: absolute;
+        top: 8px;
+        left: 0px;
+        font-size: 13px;
+        pointer-events: none;
+        transition: all 450ms;
+    }
+
+.Formulario-AgregarCliente {
+    padding: 17px 20px;
+    background: #fff;
+}
+
+.ActiveLabel ~ label {
+    color: #878787 !important;
+    font-size: 11px !important;
+    top: -5px !important;
+}
+
+.bar-imput {
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: #aaa;
+    transition: all 450ms;
+}
+
+.btnCliente_agregar {
+    display: inline;
+    width: 100%;
+    border: none;
+    color: #fff;
+    letter-spacing: 1px;
+    font-size: 13px;
+    font-weight: bold;
+    font-family: lato;
+    background: #000;
+    padding: 14px;
+    border-radius: 4px;
+    margin-top: 16px;
+}
+
+.ImputForm-item input:focus ~ label {
+    color: #878787;
+    font-size: 11px;
+    top: -5px;
+}
+
+.ImputForm-item input:focus ~ .bar-imput {
+    background: #000;
+}
+
+.bar-imputActive ~ .bar-imput {
+    background: #000 !important;
+}
+
+.input-requerido {
+    position: absolute;
+    right: 0px;
+    top: 13px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#PanelClienteRegistro {
+    transition: all 400ms;
+}
+
+#PanelClienteRegistro_contenedor #btnPanelMantenerCerrar {
+    padding-left: 0px !important;
+}
+
+#PanelClienteRegistro_contenedor h3 {
+    cursor: pointer;
+    padding-bottom: 0px !important;
+    border: none;
+}
