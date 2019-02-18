@@ -201,6 +201,11 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                model.AdministrarOfertasHomeAppModel.AppBannerInformativo = model.AdministrarOfertasHomeAppModel.AppBannerInformativo ?? string.Empty;
+                model.AdministrarOfertasHomeAppModel.AppColorFondo = model.AdministrarOfertasHomeAppModel.AppColorFondo ?? string.Empty;
+                model.AdministrarOfertasHomeAppModel.AppColorTexto = model.AdministrarOfertasHomeAppModel.AppColorTexto ?? string.Empty;
+                model.AdministrarOfertasHomeAppModel.AppTitulo = model.AdministrarOfertasHomeAppModel.AppTitulo ?? string.Empty;
+
                 model.PaisID = userData.PaisID;
                 model = UpdateFilesOfertas(model);
                 using (var sv = new SACServiceClient())

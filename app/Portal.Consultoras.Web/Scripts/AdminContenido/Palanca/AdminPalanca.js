@@ -404,6 +404,7 @@ function IniDialogs() {
                     MobileOrdenBpt: $("#DialogMantenimientoOfertasHome #MobileOrdenBpt").val(),
                     AdministrarOfertasHomeAppModel:
                     {
+                        ConfiguracionOfertasHomeAppID: $("#AdministrarOfertasHomeAppModel_ConfiguracionOfertasHomeAppID").val(),
                         AppActivo: $("#AdministrarOfertasHomeAppModel_AppActivo").is(":checked"),
                         AppTitulo: $("#AdministrarOfertasHomeAppModel_AppTitulo").val(),
                         AppColorFondo: $("#AdministrarOfertasHomeAppModel_AppColorFondo").val(),
@@ -419,7 +420,7 @@ function IniDialogs() {
                     url: baseUrl + "AdministrarPalanca/UpdateOfertasHome",
                     dataType: "json",
                     contentType: "application/json; charset=utf-8",
-                    data: params,
+                    data: JSON.stringify(params),
                     async: true,
                     success: function (data) {
                         if (data.success) {
