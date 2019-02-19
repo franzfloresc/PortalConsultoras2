@@ -81,6 +81,8 @@
         $(_elements.hfNombreCliente).val(nombreCliente);
         $(_elements.hfNombre).val(nombre);
 
+        $("#DivPopupFichaResumida").css("overflow", "auto");
+
         $("#btnPanelListaAceptar").click();
     };
 

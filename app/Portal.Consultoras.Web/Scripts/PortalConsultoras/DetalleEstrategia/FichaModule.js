@@ -969,6 +969,7 @@ var FichaModule = (function (config) {
 
         $(_seccionesPanelCliente.btnShowCliente).click(function () {
             panelCliente.Abrir();
+            $("#DivPopupFichaResumida").css("overflow", "hidden");
         });
         //END PANEL CLIENTE
     }

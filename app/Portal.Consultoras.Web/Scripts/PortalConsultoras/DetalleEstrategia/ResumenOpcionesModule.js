@@ -107,6 +107,8 @@ var ResumenOpcionesModule = (function () {
         
         _verificarActivarBtn(codigoVariante);
 
+        $("#DivPopupFichaResumida").css("overflow", "auto");
+
         if (callCloseElegirOpcionesModal) {
             var estrategia = fichaModule.GetEstrategia();
             var nombreConcat = "";

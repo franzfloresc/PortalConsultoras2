@@ -60,7 +60,7 @@
         });
 
         $("#btnPanelListaCerrar").click(function () {
-
+            $("#DivPopupFichaResumida").css("overflow", "auto");
             _cerrar();
         });
     };
