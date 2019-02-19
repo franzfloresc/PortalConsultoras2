@@ -51,7 +51,7 @@
          data-tipoestrategia="{{TipoEstrategiaCodigo}}"
          data-OrigenPedidoWeb="{{OrigenPedidoWeb}}">
         <div class="texto_pedidos celda_producto pedidoPadreToolTip"
-             onclick="javascript:FichaEditarModule.EditarProducto(this, '{{TipoAccion}}')"
+             onclick="javascript:FichaPartialModule.ConstruirFicha(this, '{{TipoAccion}}')"
              style="position:relative">
 
             <span class="producto-codigo">{{CUV}}</span>
@@ -105,12 +105,12 @@
             {{/if}}
         </div>
         <div class="texto_pedidos precioUnitario"
-             onclick="javascript:FichaEditarModule.EditarProducto(this, '{{TipoAccion}}')">
+             onclick="javascript:FichaPartialModule.ConstruirFicha(this, '{{TipoAccion}}')">
             <input type="hidden" name="hdfLPPrecioU{{PedidoDetalleID}}" value="{{PrecioUnidad}}" class="classPrecioUnidad hdfLPPrecioU" />
             {{SimboloMoneda}} {{FormatoPrecioUnidad}}
         </div>
         <div class="texto_pedidos subtotal"
-             onclick="javascript:FichaEditarModule.EditarProducto(this, '{{TipoAccion}}')">
+             onclick="javascript:FichaPartialModule.ConstruirFicha(this, '{{TipoAccion}}')">
             <span class="precio">
                 {{SimboloMoneda}} {{FormatoPrecioUnidad}}
             </span>
