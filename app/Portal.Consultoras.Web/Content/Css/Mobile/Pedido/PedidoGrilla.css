@@ -74,22 +74,25 @@
         display: block;
         text-align: left;
         margin-bottom: 2px;
-        font-weight: bold;
+        /* font-weight: bold; */
         font-size: 15px;        
     }
 
 .mensaje_tipoProd {
     font-size: 13px !important;
-    font-weight: bold !important;
+    
     line-height: 6px;
     margin-bottom: 2px !important;
     letter-spacing: 0.5px;
     color: #808080;
 }
+.mensaje_tipoProd label{
+    font-weight: 400 !important;
+}
 
 .cod_prod, .desc_prod, .nom_cliente {
     font-size: 14.5px;
-    font-weight: 500;
+    /* font-weight: 400; */
     color: #000;
 }
 
@@ -199,15 +202,32 @@
     margin-bottom: 3px;
 }
 
-.precio_oferta_pedido {
-    font-size: 15px;
+.precio_oferta_pedido span{
+    font-size: 16px !important;
+    
+}
+.precio_oferta_pedido label{
+    font-weight: 400;
 }
 
     .precio_oferta_pedido span:nth-child(2) {
         display: inline-block;
         vertical-align: middle;
     }
-
+.arrow-down{
+  border: solid #909094;
+  border-width: 0 1px 1px 0;
+  display: inline-block;
+  padding: 2px;
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+.arrow-down:hover{
+    cursor: text;
+}
 .icono_advertencia_notificacion {
     position: relative;
     display: inline-block !important;
@@ -327,7 +347,10 @@
         text-align: center;
         color: #000;
         font-size: 13px;
-        font-weight: bold;
+        font-weight: bold;        
+        left: 0;
+        padding-right: 14px;
+        position: absolute;
     }
 
         .contenedor_cantidadProductos div .campo_cantidadProductos input[value] {
@@ -344,6 +367,7 @@
         float: left;
         overflow: hidden;
         border-radius: 4px;
+        position: relative;
     }
 
     .tooltip_noOlvidesGuardarTuPedido:before, .tooltip_noOlvidesGuardarTuPedido:after {
@@ -386,6 +410,17 @@
 .cod_prod {
     font-size: 14px !important;
     line-height: normal;
+    
+}
+/* Clases para darle peso a las fuentes
+Lato Regulat : .text-regular
+Lato Bold : .text-bold
+ */
+.text-regular{
+    font-weight: 400;
+}
+.text-bold{
+    font-weight: 700;
 }
 
 .popover {

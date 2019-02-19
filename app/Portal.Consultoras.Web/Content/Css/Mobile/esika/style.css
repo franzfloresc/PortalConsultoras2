@@ -13182,6 +13182,10 @@ a {
         display: flex;
         align-items: center;
     }
+    .app-tabs-detail .app-panels .panel-heading{
+        flex-direction: column;
+    }
+    
 
     .app-panels .panel-body {
         padding: 0;
@@ -13215,6 +13219,17 @@ a {
         text-align: right;
     }
 
+    /* 
+    Nota: Para no sobreescribir el valor las clases .sections en otras posibles secciones  
+        .sections-1
+        .sections-2        
+    */
+    .app-tabs-detail .app-panels .panel-heading .sections-1,
+    .app-tabs-detail .app-panels .panel-heading .sections-2{
+        width: 100%;
+    }
+    /* End */
+
     .app-panels .sections-client {
         color: #1d1d26;
         font-size: 15px;
@@ -13232,6 +13247,17 @@ a {
         text-align: right;
         padding-right: 20px;
         font-size: 16px;
+    }
+    /*
+        Nota: Para no sobreescribir el valor las clases .sections en otras posibles secciones 
+    */
+    .app-tabs-detail .app-panels .panel-heading .sections-price{
+        text-align: left;
+
+    }
+    .app-tabs-detail .app-panels .panel-heading .sections-arrow{
+        position: relative;
+        top: -20px;
     }
 
     .app-panels .sections-arrow {

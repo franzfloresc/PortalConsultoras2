@@ -227,7 +227,7 @@
     }
     else if (Model.CodigoISO == Constantes.CodigosISOPais.Bolivia)
     {
-        cabezaEscala = "Ganancia total";
+        cabezaEscala = "Ganancia estimada";
         pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocio y Otros";
         lbl1Ganancia = "Mis descuentos";
         lbl2Ganancia = "Ganancia estimada *(Guia de negocio y otros)";
@@ -321,7 +321,7 @@
             <div class="bloque_descripcion_items_ingresados">
                 <div onclick="javascript: FichaEditarModule.EditarProducto(this, '{{TipoAccion}}')"
                      class="descripcion_item_pedido">
-                    <span class="cod_prod">
+                    <div class="cod_prod text-regular">
                         {{#if detalle.EstadoSimplificacionCuv}}
                         {{#if detalle.IndicadorOfertaCUV}}
                         <input type="hidden" name="ExisteIndicadorOfertaCUV" class="ExisteIndicadorOfertaCUV" value="true" />
@@ -329,14 +329,14 @@
                         {{/if}}
                         {{/if}}
                         {{detalle.CUV}}
-                    </span>
-                    <span class="desc_prod">
+                    </div>
+                    <span class="desc_prod text-bold">
                         {{#iff detalle.IndicadorMontoMinimo '==' 0}}
                         <span class="texto_rojo">*</span>
                         {{/iff}}
                         <span>{{Split detalle.DescripcionProd '|' 0}}</span>
                         
-                        <span class="precio_oferta_pedido">
+                        <span class="precio_oferta_pedido text-regular">
                             {{#if ../EstadoSimplificacionCuv}}
                             {{#if detalle.IndicadorOfertaCUV}}
                             <span class="icon-advertencia"></span>
@@ -346,6 +346,9 @@
                         </span>
 
                     </span>
+                    {{#iff detalle.EsKitNueva '==' false}}
+                    <span class="nom_cliente">Cliente: {{detalle.Nombre}}</span>
+                    {{/iff}}
                     <span class="mensaje_tipoProd">
                         {{#iff detalle.TipoPedido '==' 'M'}}
                         <br />
@@ -360,9 +363,7 @@
                         {{/iff}}
                         {{/IsNullOrEmpty}}
                     </span>
-                    {{#iff detalle.EsKitNueva '==' false}}
-                    <span class="nom_cliente">Cliente: {{detalle.Nombre}}</span>
-                    {{/iff}}
+                    
                 </div>
 
                 {{#if detalle.EsKitNueva}}
@@ -432,6 +433,7 @@
                                    data-cantidad-input="-"
                                    autocomplete="off">
                             {{/iff}}
+                            <i class="arrow-down"></i>
                         </div>
                         <div class="clear"></div>
                     </div>
