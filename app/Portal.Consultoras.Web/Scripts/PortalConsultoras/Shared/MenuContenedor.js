@@ -206,9 +206,10 @@ var menuModule = (function () {
         }
     }
     function updateParentAttribute(codigo) {
-        if (codigo === "ODD") $('ul.subnavegador li a').attr('parent', 'Contenedor - ¡Solo Hoy!');
-        if (codigo === "LAN") $('ul.subnavegador li a').attr('parent', 'Contenedor - Lo Nuevo ¡Nuevo!');
-        if (codigo.indexOf("INICIO") > -1) $('ul.subnavegador li a').attr('parent', 'Contenedor - Inicio');
+        var tituloMenu = 'Contenedor - ' + $(elementos.menu2Ul).find("[data-codigo=" + codigo + "]").find("a").attr("title");
+        if (codigo === "ODD") $('ul.subnavegador li a').attr('parent', tituloMenu);
+        if (codigo === "LAN") $('ul.subnavegador li a').attr('parent', tituloMenu);
+        if (codigo.indexOf("INICIO") > -1) $('ul.subnavegador li a').attr('parent', tituloMenu);
     }
     function menuClick(e, url) {
         var objHtmlEvent = $(e);
