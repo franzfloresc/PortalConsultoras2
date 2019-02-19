@@ -974,7 +974,8 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/Shared/buscador-responsive.css",
                 "~/Content/Css/Site/Shared/menu-secundario-responsive.css",
                 "~/Content/Css/Site/Shared/footer-responsive.css",
-                "~/Content/Css/Site/Esika/marca-pais-responsive.css"
+                "~/Content/Css/Site/Esika/marca-pais-responsive.css",
+                "~/Content/Css/Site/Esika/styleDefault.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/LebelPageResponsive").Include(
@@ -985,10 +986,12 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/Shared/buscador-responsive.css",
                 "~/Content/Css/Site/Shared/menu-secundario-responsive.css",
                 "~/Content/Css/Site/Shared/footer-responsive.css",
-                "~/Content/Css/Site/Lbel/marca-pais-responsive.css"
+                "~/Content/Css/Site/Lbel/marca-pais-responsive.css",
+                "~/Content/Css/Site/Lbel/styleDefault.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Responsive/TusClientes").Include(
+                "~/Content/Css/Site/Pedido/PedidoTooltip.css",
                 "~/Content/Css/Mobile/Clientes/Asignarcliente.css",
                 "~/Content/Css/Site/TusClientes/TusClientes_Responsive.css"
             ));
