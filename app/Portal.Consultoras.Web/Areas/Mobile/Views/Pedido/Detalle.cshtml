@@ -334,7 +334,7 @@
                         {{#iff detalle.IndicadorMontoMinimo '==' 0}}
                         <span class="texto_rojo">*</span>
                         {{/iff}}
-                        <span>{{Split detalle.DescripcionProd '|' 0}}</span>
+                        <span>{{#iff SetIdentifierNumber '>' '0'}} #{{SetIdentifierNumber}} {{/iff}} {{Split detalle.DescripcionProd '|' 0}}</span>
                         
                         <span class="precio_oferta_pedido">
                             {{#if ../EstadoSimplificacionCuv}}

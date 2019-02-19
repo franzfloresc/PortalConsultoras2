@@ -181,6 +181,47 @@ namespace Portal.Consultoras.Web.Providers
             return detallesPedidoWeb;
         }
 
+        public virtual List<BEPedidoWebDetalle> GetDetallePedidoAgrupadoByCampania(int campaniaId)
+        {
+            var detallePedidoWeb = (List<BEPedidoWebDetalle>)null;
+            var userData = sessionManager.GetUserData();
+
+            try
+            {
+                using (var pedidoServiceClient = new PedidoServiceClient())
+                {
+
+                    var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
+                    {
+                        PaisId = userData.PaisID,
+                        CampaniaId = campaniaId,
+                        ConsultoraId = userData.ConsultoraID,
+                        Consultora = userData.NombreConsultora,
+                        CodigoPrograma = userData.CodigoPrograma,
+                        NumeroPedido = userData.ConsecutivoNueva,
+                        AgruparSet = true
+                    };
+
+                    detallePedidoWeb = pedidoServiceClient.SelectByCampania(bePedidoWebDetalleParametros).ToList();
+                }
+
+                foreach (var item in detallePedidoWeb)
+                {
+                    item.ClienteID = string.IsNullOrEmpty(item.Nombre) ? (short)0 : Convert.ToInt16(item.ClienteID);
+                    item.Nombre = string.IsNullOrEmpty(item.Nombre) ? "Para mí" : item.Nombre;
+                    //item.DescripcionOferta = ObtenerDescripcionOferta(item, false, false, userData.NuevasDescripcionesBuscador);
+                }
+            }
+            catch (Exception ex)
+            {
+                detallePedidoWeb = new List<BEPedidoWebDetalle>();
+
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+
+            return detallePedidoWeb;
+        }
+
         private List<BEPedidoWebDetalle> PedidoConObservaciones(List<BEPedidoWebDetalle> pedido, List<ObservacionModel> observaciones)
         {
             var pedObs = pedido;

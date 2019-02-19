@@ -71,7 +71,8 @@
                                 @(string.Format("{0:#,##0.00}", item.ImporteDescuento).Replace(',', '.'))
                             }
                             <div class="upper mt-20">
-                                <strong>Importe a Pagar </strong>
+                                @*<strong>Importe a Pagar </strong>*@
+                                <strong>Monto </strong>
                                 <b>
                                     @Model.Simbolo
                                     @if (Model.CodigoISO == Constantes.CodigosISOPais.Colombia)
@@ -94,7 +95,8 @@
     <table class="table pcolor">
         <tbody>
             <tr>
-                <td class="upper" style="padding-top:25px;">Importe Total<br><span class="color_facturado">Flete</span></td>
+                @*<td class="upper" style="padding-top:25px;">Importe Total<br><span class="color_facturado">Flete</span></td>*@
+                <td class="upper" style="padding-top:25px;">Monto total<br><span class="color_facturado">Flete</span></td>
                 <td class="text-right" style="padding-top:25px;">
                     @Model.Simbolo
                     @if (Model.CodigoISO == Constantes.CodigosISOPais.Colombia)
@@ -107,7 +109,8 @@
                     }
                     <br />
                     <span class="color_facturado">
-                        @Model.Simbolo</span>
+                        @Model.Simbolo
+                    </span>
                     @if (Model.CodigoISO == Constantes.CodigosISOPais.Colombia)
                     {
                         <span class="color_facturado">@(string.Format("{0:#,##0}", Model.Flete).Replace(',', '.'))</span>
@@ -116,7 +119,7 @@
                     {
                         <span class="color_facturado">@(string.Format("{0:#,##0.00}", Model.Flete).Replace(',', '.'))</span>
                     }
-</td>
+                </td>
             </tr>
         </tbody>
     </table>
