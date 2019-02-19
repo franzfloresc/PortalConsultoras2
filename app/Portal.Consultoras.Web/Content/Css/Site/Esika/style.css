@@ -34306,6 +34306,7 @@ div.motivoRechazo textarea {
     margin-top: 2px;
     font-size: 12px;
     color: #b9007e;
+    position:relative;
     top:-50px;
 }
 
