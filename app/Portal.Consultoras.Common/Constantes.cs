@@ -1746,6 +1746,7 @@ namespace Portal.Consultoras.Common
             public const short ListaOrdenamientoFiltros = 147;
             public const short ArmaTuPack = 14;
             public const short PilotoCatalogoDigital = 155;
+            public const short GanaMasNativo = 159;
         }
 
         public struct MensajesCDRExpress

@@ -934,6 +934,8 @@ namespace Portal.Consultoras.Entities
         public List<BEConfiguracionPaisDatos> RecomendacionesConfiguracion { get; set; }
         [DataMember]
         public string SegmentoDatami { get; set; }
+        [DataMember]
+        public bool GanaMasNativo { get; set; }
 
         public BEUsuario(IDataRecord row, bool Tipo, bool ValidaHorario)
         {
