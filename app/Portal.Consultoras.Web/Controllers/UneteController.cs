@@ -1923,14 +1923,13 @@ namespace Portal.Consultoras.Web.Controllers
             return View();
         }
 
+        // LMH
 
         public ActionResult ReportePagoKit()
         {
             ViewBag.HTMLSACUnete = getHTMLSACUnete("ReportePagoKit", "&rol=" + userData.RolDescripcion);
             return View();
         }
-
-        // LMH
 
         [HttpPost]
         public async Task<ActionResult> CargaInicialPagoKit()
@@ -1975,10 +1974,10 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 int paisId = userData.PaisID;
-                
+
                 using (var srv = new ZonificacionServiceClient())
                 {
-                    var lista  = await srv.SelectAllZonasAsync(paisId);
+                    var lista = await srv.SelectAllZonasAsync(paisId);
 
                     List<BEZona> zonas = lista.Where(x => x.RegionID == idRegion).ToList();
 
@@ -2003,7 +2002,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             using (SACServiceClient sv = new SACServiceClient())
             {
-               int campaniaIdActual = await sv.GetCampaniaFacturacionPaisAsync(paisId);
+                int campaniaIdActual = await sv.GetCampaniaFacturacionPaisAsync(paisId);
 
                 return campaniaIdActual;
             }
@@ -2018,7 +2017,155 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        public async Task<ActionResult> ListarPagodeKit(string sidx, string sord, int page, int rows,
+                string codigoiso,
+                int idcampaña,
+                int idregion,
+                int idzona,
+                string documentoidentidad,
+                int idestado,
+                string fpagoinicio,
+                string fpagofin,
+                string fprocesoinicio,
+                string fprocesofin)
+        {
+            string[] parameter = new string[9];
+
+            parameter[0] = Convert.ToString(idcampaña);
+            parameter[1] = Convert.ToString(idregion);
+            parameter[2] = Convert.ToString(idzona);
+            parameter[3] = documentoidentidad;
+            parameter[4] = Convert.ToString(idestado);
+            parameter[5] = Convert.ToDateTime(fpagoinicio).ToString("yyyy/MM/dd");
+            parameter[6] = Convert.ToDateTime(fpagofin).ToString("yyyy/MM/dd");
+            parameter[7] = string.IsNullOrEmpty(fprocesoinicio) ? null : Convert.ToDateTime(fprocesoinicio).ToString("yyyy/MM/dd");
+            parameter[8] = string.IsNullOrEmpty(fprocesofin) ? null : Convert.ToDateTime(fprocesofin).ToString("yyyy/MM/dd");
+
+            using (var sv = new PortalServiceClient())
+            {
+                var lst = await sv.ConsultarPagodeKitLogAsync(codigoiso, parameter);
+
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
+
+                IEnumerable<ReportePagoDeKitLog> items = lst.ToList<ReportePagoDeKitLog>();
+
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+
+                BEPager pag = Util.PaginadorGenerico(grid, lst.ToList<ReportePagoDeKitLog>());
+
+                var data = new
+                {
+                    total = pag.PageCount,
+                    page = pag.CurrentPage,
+                    records = pag.RecordCount,
+                    rows = from a in items
+                           select new
+                           {
+                               id = a.PagoDeKitLogId,
+                               cell = new string[]
+                               {
+                                   a.CampaniaId.ToString(),
+                                   a.MetodoPagoId,
+                                   a.PagoId.ToString(),
+                                   a.NombresCompletos,
+                                   a.CodigoConsultora ?? "",
+                                   a.NumeroDocumento ?? "",
+                                   a.FechaPago ==  null  ? "" : a.FechaPago.Value.ToString("dd/M/yyyy", CultureInfo.InvariantCulture),
+                                   a.HoraPago,
+                                   a.FleteMonto.ToString(),
+                                   a.iva.ToString(),
+                                   a.TransaccionMontoPagadoTotal.ToString(),
+                                   a.TransaccionMontoRecibido.ToString(),
+                                   a.CodigoRegion ?? "",
+                                   a.CodigoZona ?? "",
+                                   a.TipoTarjeta ?? "",
+                                   a.TarjetaNumero ?? "" ,
+                                   a.PagoDeKitLogId.ToString(),
+                                   a.EstatusDetalle?? ""  ,
+                                   a.Estatus ?? "",
+                                   a.FechaProceso ==  null  ? "" : a.FechaProceso.Value.ToString("dd/M/yyyy", CultureInfo.InvariantCulture),
+                                   a.HoraProceso ?? "",
+                                   a.Origen
+                                }
+                           }
+                };
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public ActionResult ExportarPagokitLog(
+            string codigo,
+            int Campaña,
+            string Region,
+            string Zona,
+            int Estado,
+            string CodigoConsutlora,
+            string FechaInicioPago,
+            string FechaFinPago,
+            string FechaInicioProceso,
+            string FechaFinProceso)
+        {
+
+            using (var sv = new PortalServiceClient())
+            {
+
+                string[] parameter = new string[9];
+
+                parameter[0] = Convert.ToString(Campaña);
+                parameter[1] = Convert.ToString(Region);
+                parameter[2] = Convert.ToString(Zona);
+                parameter[3] = CodigoConsutlora;
+                parameter[4] = Convert.ToString(Estado);
+                parameter[5] = Convert.ToDateTime(FechaInicioPago).ToString("yyyy/MM/dd");
+                parameter[6] = Convert.ToDateTime(FechaFinPago).ToString("yyyy/MM/dd");
+                parameter[7] = string.IsNullOrEmpty(FechaInicioProceso) ? null : Convert.ToDateTime(FechaInicioProceso).ToString("yyyy/MM/dd");
+                parameter[8] = string.IsNullOrEmpty(FechaFinProceso) ? null : Convert.ToDateTime(FechaFinProceso).ToString("yyyy/MM/dd");
+
+                List<ReportePagoDeKitLog> lst = sv.ConsultarPagodeKitLog(codigo, parameter).ToList();
+
+                Dictionary<string, string> dic = new Dictionary<string, string>
+                {
+                    {"Campania", "CampaniaId"},
+                    {"Banco", "MetodoPagoId"},
+                    {"Pago", "PagoId"},
+                    {"Nombre Consultora", "NombresCompletos"},
+                    {"Codigo Consultora", "CodigoConsultora"},
+                    {"Numero Documento", "NumeroDocumento"},
+                    {"Fecha Pago", "FechaPago"},
+                    {"Hora Pago", "HoraPago"},
+                    {"Flete", "FleteMonto"},
+                    {"iva", "iva"},
+                    {"Monto Pagado Total", "TransaccionMontoPagadoTotal"},
+                    {"Monto Recibido", "TransaccionMontoRecibido"},
+                    {"Region", "CodigoRegion"},
+                    {"Zona", "CodigoZona"},
+                    {"Origen Trajeta", "TipoTarjeta"},
+                    {"Número de Trajeta", "TarjetaNumero"},
+                    {"Numero de Operacion", "PagoDeKitLogId"},
+                    {"Descripción de transaccion", "EstatusDetalle"},
+                    {"Estado Transaccion", "Estatus"},
+                    {"Fecha Proceso", "FechaProceso"},
+                    {"Hora Proceso", "HoraProceso"},
+                    {"Origen", "Origen"},
+                };
+               
+                Util.ExportToExcel("Reporte Pagokit", lst, dic);
+                return View();
+            }
+
+        }
+
         // LMH
+
+
+
+
 
         [HttpPost]
         public JsonResult ConsultarSolicitudesPostulanteV2(GestionaPostulanteModelSAC model)
@@ -2458,5 +2605,19 @@ namespace Portal.Consultoras.Web.Controllers
 
             return responseHtml;
         }
+    }
+
+    public class ParameterPagodeKit
+    {
+        public int idcampaña { get; set; }
+        public int idregion { get; set; }
+        public int idzona { get; set; }
+        public string documentoidentidad { get; set; }
+        public int idestado { get; set; }
+        public int codigoiso { get; set; }
+        public string fpagoinicio { get; set; }
+        public string fpagofin { get; set; }
+        public string fprocesoinicio { get; set; }
+        public string fprocesofin { get; set; }
     }
 }
