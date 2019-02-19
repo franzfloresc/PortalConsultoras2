@@ -956,8 +956,8 @@ var FichaModule = (function (config) {
     };
 
     var _selectClient = function (clienteId, clienteNombre) {
-        if (typeof data.ClienteId !== "undefined" &&
-            typeof data.ClienteNombre !== "undefined" &&
+        if (typeof clienteId !== "undefined" &&
+            typeof clienteNombre !== "undefined" &&
             data.ClienteId > 0) {
             $(_seccionesPanelCliente.hfClienteId).val(clienteId);
             $(_seccionesPanelCliente.hfClienteNombre).val(clienteNombre);
@@ -1064,8 +1064,8 @@ var FichaPartialModule = (function () {
 
         var objFicha = {
             localStorageModule: LocalStorageModule(),
-            analyticsPortalModule: AnalyticsPortalModule(),
-            generalModule: GeneralModule(),
+            analyticsPortalModule: AnalyticsPortalModule,
+            generalModule: GeneralModule,
             palanca: palanca,
             campania: campania,
             cuv: cuv,
