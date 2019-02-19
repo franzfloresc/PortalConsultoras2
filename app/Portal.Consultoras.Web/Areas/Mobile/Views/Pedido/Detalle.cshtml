@@ -287,11 +287,14 @@
     <div class="detalle_pedido_ingresado">
         <span class="titulo_detalle">DETALLE</span>
     </div>
-    <div class="info_pedidos_por_aprobar">
-        <a href="" class="multimarca-background-color text-center btn_pedidos_por_aprobar" title="Pedidos por aprobar">
-            Pedidos por aprobar (1)
-        </a>
-    </div>
+    @if (ViewBag.CantPedidoPendientes > 0)
+    {
+        <div class="info_pedidos_por_aprobar">
+            <a href="@Url.Action("Pendientes", "ConsultoraOnline", new { area = "Mobile" })" class="multimarca-background-color text-center btn_pedidos_por_aprobar" title="Pedidos por aprobar">
+                Pedidos por aprobar (@ViewBag.CantPedidoPendientes)
+            </a>
+        </div>
+    }
     {{#IsNullOrEmpty this.MensajeCierreCampania '!='}}
     <div class="alert-top-icon text-success">
     </div>
