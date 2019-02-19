@@ -1192,15 +1192,18 @@
 
     var _basicFieldsValidation = function () {
         if ($("#ddlPais").val() === "") {
-            _toastHelper.error("Debe seleccionar el País, verifique.");
+            //_toastHelper.error("Debe seleccionar el País, verifique.");
+            showDialogMensaje("Debe seleccionar el País, verifique.");
             return false;
         }
         if ($("#ddlCampania").val() === "") {
-            _toastHelper.error("Debe seleccionar la Campaña, verifique.");
+            //_toastHelper.error("Debe seleccionar la Campaña, verifique.");
+            showDialogMensaje("Debe seleccionar la Campaña, verifique.");
             return false;
         }
         if ($("#ddlTipoEstrategia").val() === "") {
-            _toastHelper.error("Debe seleccionar un tipo de estrategia, verifique.");
+            //_toastHelper.error("Debe seleccionar un tipo de estrategia, verifique.");
+            showDialogMensaje("Debe seleccionar un tipo de estrategia, verifique.");
             return false;
         }
         return true;

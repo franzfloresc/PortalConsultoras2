@@ -84,7 +84,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/trans-banner.js",
                 "~/Scripts/jquery.tmpl.js",
                 "~/Scripts/LogError.js",
-                "~/Scripts/PortalConsultoras/Shared/ConstantesModule.js"
+                "~/Scripts/PortalConsultoras/Shared/ConstantesModule.js",
+                "~/Scripts/AdminContenido/General.js"
             ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/PluginsFooterSAC").Include(
