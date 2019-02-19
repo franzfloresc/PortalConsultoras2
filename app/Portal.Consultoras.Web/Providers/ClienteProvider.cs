@@ -11,6 +11,23 @@ namespace Portal.Consultoras.Web.Providers
 {
     public class ClienteProvider
     {
+        protected readonly TablaLogicaProvider _tablaLogicaProvider;
+
+        public ClienteProvider()
+        {
+            _tablaLogicaProvider = new TablaLogicaProvider();
+        }
+
+        public virtual bool ValidarFlagFuncional(int paisId)
+        {
+           return _tablaLogicaProvider.GetTablaLogicaDatoValorBool(
+                            paisId,
+                            ConsTablaLogica.FlagFuncional.TablaLogicaID,
+                            ConsTablaLogica.FlagFuncional.MisClientes,
+                            true
+                            );
+        }
+
         public virtual List<ClienteModel> SelectByConsultora(int paisId, long consultoraId)
         {
             var clientesResult = (List<ClienteModel>)null;

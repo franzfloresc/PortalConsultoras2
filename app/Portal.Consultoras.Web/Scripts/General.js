@@ -1,7 +1,7 @@
-﻿var formatDecimalPais = formatDecimalPais || new Object();
+﻿var formatDecimalPais = formatDecimalPais || {};
 var finishLoadCuponContenedorInfo = false;
 var belcorp = belcorp || {};
-belcorp.settings = belcorp.settings || {}
+belcorp.settings = belcorp.settings || {};
 belcorp.settings.uniquePrefix = "/g/";
 
 jQuery(document).ready(function () {
@@ -29,7 +29,7 @@ jQuery(document).ready(function () {
                 if (!options.beforeSend) {
                     options.beforeSend = function (xhr) {
                         xhr.setRequestHeader("guid", posibleGuid);
-                    }
+                    };
                 }
             });
         }
@@ -89,7 +89,7 @@ jQuery(document).ready(function () {
             function () { return (this.nodeType == 3 && !/\S/.test(this.nodeValue)); })
             .remove();
         return this;
-    }
+    };
 
     Clone = function (obj) {
         if (obj == null || typeof (obj) != 'object')
@@ -165,7 +165,7 @@ jQuery(document).ready(function () {
     };
 
     Array.prototype.Find = function (campo, valor) {
-        var array = new Array();
+        var array = [];
         var campoVal = $.trim(campo);
         if (campoVal == "") {
             $.each(this, function (index, item) {
@@ -388,7 +388,7 @@ jQuery(document).ready(function () {
                 return a * b;
             });
         }
-    }
+    };
 
     SetHandlebarsHtml = function (urlTemplate, modelo, idHtml) {
         if (!Handlebars.helpers.iff)
@@ -422,7 +422,7 @@ jQuery(document).ready(function () {
 
         return "";
 
-    }
+    };
     SetHandlebars = function (idTemplate, data, idHtml) {
         if (!Handlebars.helpers.iff)
             HandlebarsRegisterHelper();
@@ -439,13 +439,13 @@ jQuery(document).ready(function () {
         if (idHtml == "" || $(idHtml).length === 0) return htmlDiv;
         $(idHtml).html(htmlDiv);
         return "";
-    }
+    };
 
     SetFormatDecimalPais = function (miles, decimal, decimalCantidad) {
         if (miles != undefined && decimal == undefined && decimalCantidad == undefined) {
             var listaDatos = miles.split("|");
             if (listaDatos.length < 2)
-                return new Object();
+                return {};
 
             miles = listaDatos.length > 0 ? listaDatos[0] : "";
             decimal = listaDatos.length > 1 ? listaDatos[1] : "";
@@ -453,11 +453,11 @@ jQuery(document).ready(function () {
         }
 
 
-        formatDecimalPais = formatDecimalPais || new Object();
+        formatDecimalPais = formatDecimalPais || {};
         formatDecimalPais.miles = miles || ",";
         formatDecimalPais.decimal = decimal || ".";
         formatDecimalPais.decimalCantidad = decimalCantidad || 2;
-    }
+    };
 
     IsDecimalExist = function (p_decimalNumber) {
         var l_boolIsExist = true;
@@ -466,10 +466,10 @@ jQuery(document).ready(function () {
             l_boolIsExist = false;
 
         return l_boolIsExist;
-    }
+    };
 
     DecimalToStringFormat = function (monto, noDecimal) {
-        formatDecimalPais = formatDecimalPais || new Object();
+        formatDecimalPais = formatDecimalPais || {};
         noDecimal = noDecimal || false;
         var decimal = formatDecimalPais.decimal || ".";
         var decimalCantidad = noDecimal ? 0 : (formatDecimalPais.decimalCantidad || 0);
@@ -495,9 +495,9 @@ jQuery(document).ready(function () {
         } while (pEntera.length > 0);
 
         return pEnteraFinal + pDecimal;
-    }
+    };
 
-    IsNullOrEmpty = function (texto) { return texto == null || texto === ''; }
+    IsNullOrEmpty = function (texto) { return texto == null || texto === ''; };
 
     $(document).scroll(function () {
         try {
@@ -507,10 +507,10 @@ jQuery(document).ready(function () {
 
     RemoverRepetidos = function (lista, campo) {
         campo = $.trim(campo);
-        var newLista = new Array();
-        var arrAux = new Array();
+        var newLista = [];
+        var arrAux = [];
         $.each(lista, function (ind, item) {
-            arrAux = new Array();
+            arrAux = [];
             if (campo != "") {
                 arrAux = newLista.Find(campo, item[campo]);
             }
@@ -657,9 +657,14 @@ function waitingDialog(waiting) {
     }
 }
 
-function closeWaitingDialog() {
+function closeWaitingDialog(opcion) {
     try {
         HideDialog("loadingScreen");
+
+        if (opcion.overflow === false) {
+            $('body').css('overflow', 'hidden');
+        }
+
     }
     catch (err) {
     }
@@ -685,7 +690,7 @@ function CerrarLoad(opcion) {
             CloseLoading(opcion);
         }
         else {
-            closeWaitingDialog();
+            closeWaitingDialog(opcion);
         }
     } catch (e) {
 
@@ -758,12 +763,12 @@ function compare_dates(fecha, fecha2) {
     var yDay = fecha2.substring(0, 2);
     var yYear = fecha2.substring(6, 10);
     if (xYear > yYear) {
-        return (true)
+        return (true);
     }
     else {
         if (xYear == yYear) {
             if (xMonth > yMonth) {
-                return (true)
+                return (true);
             }
             else {
                 if (xMonth == yMonth) {
@@ -787,6 +792,10 @@ function IsValidUrl(value) {
     return match;
 }
 
+/**
+ * @deprecated usar GeneralModule.isMobile()
+ * se iran eliminando las referencias de manera progresiva.
+ */
 function isMobile() {
     var isUrlMobile = $.trim(location.href.replace("#", "/") + "/").toLowerCase().indexOf("/mobile/") > 0 ||
         $.trim(location.href).toLowerCase().indexOf("/g/") > 0;
@@ -906,7 +915,7 @@ function paginadorAccionGenerico(obj) {
     pageCount = pageCount <= 0 ? 1 : pageCount;
     paginaActual = paginaActual <= 0 ? 1 : paginaActual;
 
-    var rpt = new Object();
+    var rpt = {};
     rpt.estado = 0;
 
     if (accion === "back") {
@@ -942,7 +951,7 @@ function paginadorAccionGenerico(obj) {
 }
 
 function ActualizarGanancia(data) {
-    data = data || new Object();
+    data = data || {};
     data.CantidadProductos = data.CantidadProductos || "";
     data.TotalPedidoStr = data.TotalPedidoStr || "";
 
@@ -1102,8 +1111,8 @@ FuncionesGenerales = {
     AvoidingCopyingAndPasting: function (idInput) {
         var myInput = document.getElementById(idInput);
         if (myInput) {
-            myInput.onpaste = function (e) { e.preventDefault(); }
-            myInput.oncopy = function (e) { e.preventDefault(); }
+            myInput.onpaste = function (e) { e.preventDefault(); };
+            myInput.oncopy = function (e) { e.preventDefault(); };
         }
     },
     AutoCompletarEmailAPartirDeArroba: function (input) {
@@ -1720,7 +1729,7 @@ function odd_desktop_google_analytics_addtocart(tipo, element) {
                 }]
             }
         }
-    }
+    };
 
     dataLayer.push(data);
 }
@@ -1897,11 +1906,11 @@ var _actualizarModelMasVendidosPromise = function (model) {
     });
     promise.done(function (response) {
         d.resolve(response);
-    })
+    });
     promise.fail(d.reject);
 
     return d.promise();
-}
+};
 
 Object.defineProperty(Object.prototype, "in", {
     value: function () {
@@ -2052,3 +2061,26 @@ function microefectoPedidoGuardado() {
         $(".contenedor_circulos").fadeOut();
     }, 2700);
 }
+
+var GeneralModule = (function(){
+    var _isMobile = function () {
+        var isUrlMobile = $.trim(location.href.replace("#", "/") + "/").toLowerCase().indexOf("/mobile/") > 0 ||
+            $.trim(location.href).toLowerCase().indexOf("/g/") > 0;
+        return isUrlMobile;
+    };
+
+
+    var _redirectTo = function (url) {
+        if(typeof url === "undefined" || url === null || $.trim(url) ==="") return false;
+
+        var destinationUrl = "/";
+        if(isMobile) destinationUrl+= "Mobile/"; 
+        destinationUrl+= url;
+        
+        return destinationUrl;
+    };
+    return {
+        isMobile:_isMobile,
+        redirectTo: _redirectTo,
+    };
+}());

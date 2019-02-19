@@ -29,7 +29,15 @@
         txtApellido: "#ApellidoCliente",
         txtCorreo: "#eMail",
         txtTelefono: "#Telefono",
-        txtCelular: "#Celular"
+        txtCelular: "#Celular",
+
+        // Ini - Estructura Panel
+        panelMain: "#PanelClienteLista",
+        panelCabecera: '[data-panelcliente-seccion="cabecera"]',
+        panelFuncionesAdd: '[data-panelcliente-seccion="funciones"]',
+        panelListaCliente: '[data-panelcliente-seccion="lista"]'
+        // Fin - Estructura Panel
+
     };
 
     var _loadPanelMantener = function () {
@@ -75,6 +83,16 @@
         $("#btnPanelListaAceptar").click();
     };
 
+    var _renderLayoutPanel = function () {
+        var w = window.innerHeight;
+        var c = $(_elements.panelCabecera).innerHeight();
+        var a = $(_elements.panelFuncionesAdd).innerHeight();
+        var l = w - c - a;
+        $(_elements.panelMain).css("height", w);
+        $(_elements.panelListaCliente).css("height", l);
+        $(_elements.panelListaCliente).css("overflow", "auto");
+    };
+
     var _mostrarTusClientes = function () {
 
         var nombreClinete = $.trim($(_elements.txtNombreCliente).val());
@@ -84,6 +102,7 @@
                 //console.log(data);
                 SetHandlebars(_elements.hbsClientes, data, _elements.divClientes);
                 _seleccionarRegistro("", "", "", "", "");
+                _renderLayoutPanel();
             });
     };
 

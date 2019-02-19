@@ -166,11 +166,12 @@
                     <input type="button" name="btnCargaBloqueoCuv" id="btnCargaBloqueoCuv" value="Cargar Bloqueados" style="display: none;" />
                 </div>
             </div>
-
+            <!-- INIT GRID -->
             <div class="border-wrapper">
                 <table id="list"></table>
                 <div id="pager"></div>
             </div>
+            <!-- END GRID -->
             <div id="mensajeActivarDesactivar" style="display: none;">(*) Las filas con el check seleccionado indican que la oferta está habilitada. Las filas con el check sin seleccionar indican que la oferta no está habilitada.</div>
         </div>
     </div>
@@ -520,8 +521,8 @@
             <div class="selectP2 borde_redondeado">
                 <input type="text" id="txtCUVProductoDetalle" />
             </div>
-            <div class="titG">Marca Producto:</div>
-            <div class="selectP2 borde_redondeado">
+            <div class="titG"><span id="spMarcaProducto">Marca Producto:</span></div>
+            <div class="selectP2 borde_redondeado" id="divMarcaProductoValue" >
                 <select id="ddlMarcaProductoDetalle">
                     <option value="0" selected>Seleccione</option>
                     <option value="1">Lbel</option>
@@ -536,7 +537,7 @@
             <div class="selectP2 borde_redondeado">
                 <input type="text" id="txtNombreProductoDetalle" />
             </div>
-            <div class="titG">Descripcion 1:</div>
+            <div class="titG"><span id="spDescripcion1">Descripcion 1:</span></div>
             <div class="selectP2 borde_redondeado">
                 <input type="text" id="txtDescripcion1Detalle" />
             </div>
@@ -546,8 +547,8 @@
             <div class="selectP2 borde_redondeado">
                 <input type="text" id="txtPrecioOfertaDetalle" />
             </div>
-            <div class="titG">¿Activar Oferta?:</div>
-            <div class="selectP2 borde_redondeado">
+            <div class="titG"><span id="spActivarOferta">¿Activar Oferta?:</span></div>
+            <div class="selectP2 borde_redondeado" id="divActivoOfertaValue">
                 <input type="checkbox" id="chkActivoOfertaDetalle" />
             </div>
         </div>
@@ -560,6 +561,7 @@
         <div class="div-3">
             <div class="titG"></div>
             <div class="titC" style="padding: 0; width: 180px; padding-right: 20px;">
+                 
                 <div class="input_search">
                     <div id="fpPopupImagenProductoDetalle">
                         <script type="text/javascript">

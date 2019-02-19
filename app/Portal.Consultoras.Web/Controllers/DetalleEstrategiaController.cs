@@ -112,34 +112,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
         }
-
-        /// <summary>
-        /// Obtiene informacion de componentes seleccionados en el pedido
-        /// </summary>
-        /// <param name="CampaniaID">Campania</param>
-        /// <param name="SetID">Set</param>
-        /// <returns></returns>
-        public JsonResult ObtenerComponentePedido(int campaniaId, int set)
-        {
-            try
-            {
-                var componentes = _pedidoWebProvider.GetListaPedidoWebSetDetalle(userData.PaisID, campaniaId, userData.ConsultoraID, set);
-
-                return Json(new
-                {
-                    success = true,
-                    componentes
-                }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-
-                return Json(new
-                {
-                    success = false
-                }, JsonRequestBehavior.AllowGet);
-            }
-        }
+        
     }
 }

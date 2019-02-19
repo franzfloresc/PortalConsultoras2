@@ -1,96 +1,7 @@
 ﻿@{
-                /**/
-
-                ViewBag.Title = "Mis clientes";
-                Layout = null;
-                //Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
+    ViewBag.Title = "Mis clientes";
+    Layout = null;
 }
-
-@*<link href="@Url.Content("~/Content/Css/Site/Esika/style.css")" rel="stylesheet" />*@
-
-@*<style>
-        /*INIT Estilo Panel*/
-        .sidenav {
-            height: 100%;
-            width: 0;
-            position: fixed;
-            z-index: 1;
-            top: 0;
-            right: 0;
-            background-color: #f1f1f1 !important;
-            overflow-x: hidden;
-            transition: 0.5s;
-            /*padding-top: 60px;*/
-        }
-
-            .sidenav a {
-                padding: 8px 8px 8px 32px;
-                text-decoration: none;
-                font-size: 25px;
-                color: #818181;
-                display: block;
-                transition: 0.3s;
-            }
-
-                .sidenav a:hover {
-                    color: #f1f1f1;
-                }
-
-            .sidenav .closebtn {
-                position: absolute;
-                top: 0;
-                right: 25px;
-                font-size: 36px;
-                margin-left: 50px;
-            }
-        /*END Estilo Panel*/
-    </style>*@
-
-@*
-    <input id="hfBaseUrl" type="hidden" value="@Url.Content("~")" />
-    <input id="hfUrlFrmRegistro" type="hidden" value="@Url.Action("PanelMantener","TusClientes")" />
-
-    <input id="hfPaisID" type="hidden" />
-    <input id="hfClienteID" type="hidden" />
-    <input id="hfCodigoCliente" type="hidden" />
-    <input id="hfNombreCliente" type="hidden" />
-    <input id="hfNombre" type="hidden" />
-
-    <hr class="clear" />
-
-    <a href="#" style="text-decoration:underline" id="btnPanelListaCerrar">Cerrar panel</a>
-    <a href="#" style="text-decoration:underline" id="btnPanelListaAgregar">Agregar Cliente</a>
-    <a href="#" style="text-decoration:underline" id="btnPanelListaAceptar">Aceptar selección</a>
-
-    <input placeholder="Buscar" type="text" class="buscador_clientes" id="txtPanelListaBusqueda" style="width:100%" />
-
-
-    <hr class="clear" />
-
-    <div id="handlebars_contenedor1"></div>
-    <script id="handlebars_plantilla1" type="text/x-handlebars-template">
-
-        {{# each miData}}
-        <div class="content_listado_notificaciones" onclick="panelListaModule.seleccionarRegistro({{PaisID}}, {{ClienteID}}, '{{CodigoCliente}}', '{{NombreCliente}}', '{{Nombre}}')">
-            <div style="display:none;" class="cliente_id">{{ClienteID}}</div>
-            <div style="display:none;" class="codigo_cliente">{{CodigoCliente}}</div>
-            <div class="nombre_cliente_sb">{{NombreCliente}}</div>
-        </div>
-        {{/each}}
-
-    </script>
-
-    <!-- INIT: Panel cliente-->
-    <div id="PanelClienteRegistro" class="sidenav" style="background-color:#f1f1f1 !important;">
-        <div id="PanelClienteRegistro_contenedor" style="background-color:#f1f1f1;">
-        </div>
-    </div>
-    <!-- END: Panel cliente-->*@
-@*
-    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.11.2.min.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/handlebars.min.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/General.js")"></script>
-*@
 
 <input id="hfBaseUrl" type="hidden" value="@Url.Content("~")" />
 <input id="hfUrlFrmRegistro" type="hidden" value="@Url.Action("PanelMantener","TusClientes")" />
@@ -102,61 +13,50 @@
 <input id="hfNombre" type="hidden" />
 
 
-<div style="height: 100%;">
-    <div class="header_fixed_Clientes">
-        <div class="seleccion_header_Clientes" id="contendor-titulo-opciones">
-            <div class="seleccion_header">
-                <div>ASIGNAR A OTRO CLIENTE</div>
-                <button id="btnPanelListaCerrar" class="button_cerrar_Clientes"><img src="/Content/Images/mobile/Esika/close-button.svg" alt=""></button>
-
+<div style="height: auto;">
+    <div class="seleccion_header_Clientes" id="contendor-titulo-opciones" data-panelcliente-seccion="cabecera">
+        <div class="seleccion_header">
+            <div>ASIGNAR A OTRO CLIENTE</div>
+            <button id="btnPanelListaCerrar" class="button_cerrar_Clientes">
+                <img src="/Content/Images/mobile/Esika/close-button.svg" alt="">
+            </button>
+        </div>
+    </div>
+    <div data-panelcliente-seccion="funciones">
+        <div class="clientes-funciones">
+            <div class="buscar_clientes">
+                <input type="text" name="search" value="" placeholder="Buscar cliente" id="txtPanelListaBusqueda" />
+                <img src="/Content/Images/icono_buscador.svg" alt="" />
+            </div>
+            <div class="clientes_lista">
+                <h3 id="btnPanelListaAgregar">NUEVO CLIENTE +</h3>
+                <input id="btnPanelListaAceptar" type="button" value="Aceptar selección" style="display:none;" />
             </div>
         </div>
     </div>
-    <div class="seleccion_main_Clientes clientes-items" style="height: 100%">
-        <div class="buscar_clientes">
-            <input type="text" name="search" value="" placeholder="Buscar cliente" id="txtPanelListaBusqueda" />
-            <img src="/Content/Images/icono_buscador.svg" alt="" />
-        </div>
-        <div class="clientes_lista">
-            <h3 id="btnPanelListaAgregar">NUEVO CLIENTE +</h3>
-
-            @*<a href="#" style="text-decoration:underline" id="btnPanelListaCerrar">Cerrar panel</a>*@
-            @*<input id="btnPanelListaAgregar" type="button" value="Agregar Cliente" />*@
-            <input id="btnPanelListaAceptar" type="button" value="Aceptar selección" style="display:none;" />
-
-            @*<a href="#" style="text-decoration:underline" id="btnPanelListaAgregar">Agregar Cliente</a>
-                <a href="#" style="text-decoration:underline" id="btnPanelListaAceptar">Aceptar selección</a>*@
-
+    <div data-panelcliente-seccion="lista">
+        <div class="seleccion_main_Clientes clientes-items">
             <div id="handlebars_contenedor1"></div>
-            <script id="handlebars_plantilla1" type="text/x-handlebars-template">
-                <ul>
-                    {{# each miData}}
-
-                    <li class="cliente-list" onclick="panelListaModule.seleccionarRegistro({{PaisID}}, {{ClienteID}}, '{{CodigoCliente}}', '{{NombreCliente}}', '{{Nombre}}')">
-                        {{NombreCliente}}
-                    </li>
-
-                    {{/each}}
-                </ul>
-            </script>
-
-            <!-- INIT: Panel cliente-->
-            <div id="PanelClienteRegistro" class="Form-AgregarCliente" style="display:none;">
-                <div id="PanelClienteRegistro_contenedor" >
-                </div>
-            </div>
-            <!-- END: Panel cliente-->
-            @*<ul>
-                    <li class="cliente-list">Angel Pérez</li>
-                    <li class="cliente-list">Azucena Suárez</li>
-                    <li class="cliente-list">Emy</li>
-                    <li class="cliente-list">Juanita</li>
-                    <li class="cliente-list">Angel Pérez</li>
-                    <li class="cliente-list">Azucena Suárez</li>
-                    <li class="cliente-list">Emy</li>
-                    <li class="cliente-list">Juanita</li>
-                </ul>*@
         </div>
     </div>
+    <!-- INIT: Panel cliente-->
+    <div id="PanelClienteRegistro" class="Form-AgregarCliente" style="display:none;">
+        <div id="PanelClienteRegistro_contenedor"></div>
+    </div>
+    <!-- END: Panel cliente-->
 </div>
+
+
+<script id="handlebars_plantilla1" type="text/x-handlebars-template">
+    <ul>
+        {{# each miData}}
+
+        <li class="cliente-list" onclick="panelListaModule.seleccionarRegistro({{PaisID}}, {{ClienteID}}, '{{CodigoCliente}}', '{{NombreCliente}}', '{{Nombre}}')">
+            {{Nombre}}
+        </li>
+
+        {{/each}}
+    </ul>
+</script>
+
 
