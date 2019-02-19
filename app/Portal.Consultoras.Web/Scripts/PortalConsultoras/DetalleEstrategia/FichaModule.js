@@ -32,7 +32,6 @@ var _seccionesPanelCliente = {
     hfClienteNombre: "#hfClienteNombre",
     spClienteNombre: "#spClienteNombre",
     btnShowCliente: "#btnShowCliente"
-
 };
 
 var tusClientesProvider = TusClientesProvider();
@@ -45,7 +44,7 @@ var panelMantenerModule = PanelMantenerModule({
     mostrarTusClientesCallback: panelListaModule.mostrarTusClientes,
     panelRegistroHideCallback: panelListaModule.panelRegistroHide
 });
-var panel = ClientePanelModule({
+var panelCliente = ClientePanelModule({
     tusClientesProvider: tusClientesProvider,
     panelListaModule: panelListaModule,
     panelMantenerModule: panelMantenerModule,
@@ -457,14 +456,14 @@ var FichaModule = (function (config) {
             var filterComponente = estrategia
                 .Hermanos
                 .filter(function (objeto) {
-                    return objeto.Hermanos != null && 
-                    objeto.Hermanos.length > 0 && 
-                    objeto.Hermanos.filter(function (nx) { return nx.Cuv == o.CuvProducto; }).length > 0;
+                    return objeto.Hermanos != null
+                        && objeto.Hermanos.length > 0
+                        && objeto.Hermanos.filter(function (nx) { return nx.Cuv == o.CUV }).length > 0
                 });
 
             if (filterComponente.length) {
                 ComponentesModule.SeleccionarComponente(filterComponente[0].Cuv, false);
-                ListaOpcionesModule.SeleccionarOpcion(o.CuvProducto);
+                ListaOpcionesModule.SeleccionarOpcion(o.CUV);
                 ResumenOpcionesModule.AplicarOpciones();
             }
         });
@@ -971,8 +970,8 @@ var FichaModule = (function (config) {
         }
 
         //INIT PANEL CLIENTE
-        panel.init();
-        panel.AceptaClick(function (obj) {
+        panelCliente.init();
+        panelCliente.AceptaClick(function (obj) {
             //PaisID, ClienteID, CodigoCliente, NombreCliente, Nombre
             //console.log('tu código:', obj);
             _selectClient(obj.ClienteID, obj.Nombre);
@@ -980,7 +979,7 @@ var FichaModule = (function (config) {
         });
 
         $(_seccionesPanelCliente.btnShowCliente).click(function () {
-            panel.Abrir();
+            panelCliente.Abrir();
         });
         //END PANEL CLIENTE
     };
@@ -1085,7 +1084,9 @@ var FichaPartialModule = (function () {
             fichaModule = FichaModule(objFicha);
             fichaModule.Inicializar();
 
-            CerrarLoad();
+            CerrarLoad({
+                overflow: false
+            });
         }, 10);
     };
 

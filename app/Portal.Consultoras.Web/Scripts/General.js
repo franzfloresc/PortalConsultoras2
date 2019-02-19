@@ -657,9 +657,14 @@ function waitingDialog(waiting) {
     }
 }
 
-function closeWaitingDialog() {
+function closeWaitingDialog(opcion) {
     try {
         HideDialog("loadingScreen");
+
+        if (opcion.overflow === false) {
+            $('body').css('overflow', 'hidden');
+        }
+
     }
     catch (err) {
     }
@@ -685,7 +690,7 @@ function CerrarLoad(opcion) {
             CloseLoading(opcion);
         }
         else {
-            closeWaitingDialog();
+            closeWaitingDialog(opcion);
         }
     } catch (e) {
 
