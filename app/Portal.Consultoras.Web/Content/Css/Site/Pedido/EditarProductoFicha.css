@@ -143,6 +143,12 @@
     padding: 14px;
     border-radius: 4px;
     margin-top: 16px;
+    text-transform: uppercase;
+}
+
+#btnPanelListaAgregar{
+    cursor:pointer;
+    font-weight: bold;
 }
 
 .ImputForm-item input:focus ~ label {
