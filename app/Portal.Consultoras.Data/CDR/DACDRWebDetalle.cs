@@ -50,6 +50,7 @@ namespace Portal.Consultoras.Data.CDR
             return Context.ExecuteReader(command);
         }
 
+
         public IDataReader GetCDRWebDetalleLog(BELogCDRWeb entity)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCDRWebDetalleLog");
@@ -67,6 +68,16 @@ namespace Portal.Consultoras.Data.CDR
             int result = Context.ExecuteNonQuery(command);
 
             return result;
+        }
+        //HD-3412 EINCA
+        public int ValCUVEnProcesoReclamo(int pedidoId, string cuv)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarCUVEnProcesoReclamo");
+            Context.Database.AddInParameter(command, "@PedidoID", DbType.Int32, pedidoId);
+            Context.Database.AddInParameter(command, "@CUV", DbType.AnsiString, cuv);
+            Context.Database.AddOutParameter(command, "@Resultado", DbType.Boolean, 1);
+            Context.ExecuteNonQuery(command);
+            return Convert.ToInt32(command.Parameters["@Resultado"].Value);
         }
     }
 }

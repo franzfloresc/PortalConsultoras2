@@ -515,7 +515,6 @@ function ObtenerDatosCuv() {
                 alert_msg(data.message);
                 return false;
             }
-            alert('ObtenerDatosCuv');
             AsignarCUV(data.datos[0]);
         },
         error: function (data, error) {

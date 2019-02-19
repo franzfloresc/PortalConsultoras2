@@ -135,22 +135,12 @@ namespace Portal.Consultoras.Web.Providers
         {
             sessionManager.SetCDRWebDetalle(null);
             sessionManager.SetCdrWeb(null);
-            sessionManager.SetCdrPedidosFacturado(null);//HD-3412 EINCA
+            //sessionManager.SetCDRPedidoFacturado(null);//HD-3412 EINCA
 
 
-            var listaMotivoOperacion = CargarMotivoOperacion(paisId);
-            // get max dias => plazo para hacer reclamo
-            // calcular las campañas existentes en ese rango de dias
-            // obtener todos pedidos facturados de esas campañas existentes
+            List<BEPedidoWeb> listaPedidoFacturados = CDRObtenerPedidoFacturadoCargaInicial(paisId, campaniaId, consultoraId);
+            //sessionManager.SetCDRPedidoFacturado(listaPedidoFacturados); //HD-3412 CargarPedidosFacturados - El método CargarPedidosFacturados ya lo setea
 
-            var maxDias = 0;
-            if (listaMotivoOperacion.Any())
-            {
-                maxDias += int.Parse(listaMotivoOperacion.Max(m => m.CDRTipoOperacion.NumeroDiasAtrasOperacion).ToString());
-            }
-
-            var listaPedidoFacturados = CargarPedidosFacturados(paisId, campaniaId, consultoraId, maxDias);
-            sessionManager.SetCDRPedidoFacturado(listaPedidoFacturados);
 
             var listaCampanias = new List<CampaniaModel>();
             var campania = new CampaniaModel
@@ -159,6 +149,7 @@ namespace Portal.Consultoras.Web.Providers
                 NombreCorto = "¿En qué campaña lo solicitaste?"
             };
             listaCampanias.Add(campania);
+
             foreach (var facturado in listaPedidoFacturados)
             {
                 var existe = listaCampanias.Where(c => c.CampaniaID == facturado.CampaniaID) ?? new List<CampaniaModel>();
@@ -176,6 +167,23 @@ namespace Portal.Consultoras.Web.Providers
 
             CargarParametriaCdr(paisId);
             CargarCdrWebDatos(paisId);
+        }
+
+        public List<BEPedidoWeb> CDRObtenerPedidoFacturadoCargaInicial(int paisId, int campaniaId, long consultoraId)
+        {
+            var listaMotivoOperacion = CargarMotivoOperacion(paisId);
+            // get max dias => plazo para hacer reclamo
+            // calcular las campañas existentes en ese rango de dias
+            // obtener todos pedidos facturados de esas campañas existentes
+
+            var maxDias = 0;
+            if (listaMotivoOperacion.Any())
+            {
+                maxDias += int.Parse(listaMotivoOperacion.Max(m => m.CDRTipoOperacion.NumeroDiasAtrasOperacion).ToString());
+            }
+
+            var listaPedidoFacturados = CargarPedidosFacturados(paisId, campaniaId, consultoraId, maxDias);
+            return listaPedidoFacturados;
         }
 
         public List<BECDRParametria> CargarParametriaCdr(int paisId)
@@ -232,9 +240,9 @@ namespace Portal.Consultoras.Web.Providers
         {
             try
             {
-                if (sessionManager.GetCdrPedidosFacturado() != null)
+                if (sessionManager.GetCDRPedidoFacturado() != null)
                 {
-                    return sessionManager.GetCdrPedidosFacturado();
+                    return sessionManager.GetCDRPedidoFacturado();
                 }
 
                 var CDRWebCargaInicial = sessionManager.GetListaCDRWebCargaInicial();
@@ -274,18 +282,18 @@ namespace Portal.Consultoras.Web.Providers
                 {
                     foreach (var item in listaPedidoFacturados)
                     {
-                        var lst = listaCDRWeb.Where(a => a.PedidoID == item.PedidoID);
+                        var lst = listaCDRWeb.Where(a => a.PedidoID == item.PedidoID && a.CampaniaID == item.CampaniaID);
                         item.BECDRWeb = lst?.ToArray() ?? null;
                     }
                 }
-
-                sessionManager.SetCdrPedidosFacturado(listaPedidoFacturados);
+                               
+                sessionManager.SetCDRPedidoFacturado(listaPedidoFacturados);
                 return listaPedidoFacturados;
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, consultoraId.ToString(), paisId.ToString());
-                sessionManager.SetCdrPedidosFacturado(null);
+                sessionManager.SetCDRPedidoFacturado(null);
                 return new List<BEPedidoWeb>();
             }
         }

@@ -123,15 +123,15 @@ namespace Portal.Consultoras.Web.SessionManager
             HttpContext.Current.Session[Constantes.ConstSession.CDRWebDatos] = datos;
         }
 
-        public List<ServicePedido.BEPedidoWeb> GetCdrPedidosFacturado()
-        {
-            return (List<ServicePedido.BEPedidoWeb>)HttpContext.Current.Session[Constantes.ConstSession.CDRPedidosFacturado];
-        }
+        //public List<ServicePedido.BEPedidoWeb> GetCdrPedidosFacturado()
+        //{
+        //    return (List<ServicePedido.BEPedidoWeb>)HttpContext.Current.Session[Constantes.ConstSession.CDRPedidosFacturado];
+        //}
 
-        public void SetCdrPedidosFacturado(List<ServicePedido.BEPedidoWeb> datos)
-        {
-            HttpContext.Current.Session[Constantes.ConstSession.CDRPedidosFacturado] = datos;
-        }
+        //public void SetCdrPedidosFacturado(List<ServicePedido.BEPedidoWeb> datos)
+        //{
+        //    HttpContext.Current.Session[Constantes.ConstSession.CDRPedidosFacturado] = datos;
+        //}
 
         public List<BECDRWebDescripcion> GetCdrDescripcion()
         {

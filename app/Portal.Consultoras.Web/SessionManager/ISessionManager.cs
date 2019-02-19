@@ -386,9 +386,9 @@ namespace Portal.Consultoras.Web.SessionManager
 
         string GetcarpetaPais();
 
-        void SetCdrPedidosFacturado(List<ServicePedido.BEPedidoWeb> datos);
+        //void SetCdrPedidosFacturado(List<ServicePedido.BEPedidoWeb> datos);
 
-        List<ServicePedido.BEPedidoWeb> GetCdrPedidosFacturado();
+        //List<ServicePedido.BEPedidoWeb> GetCdrPedidosFacturado();
 
         void SetCDRMotivoOperacion(List<BECDRWebMotivoOperacion> val);
 

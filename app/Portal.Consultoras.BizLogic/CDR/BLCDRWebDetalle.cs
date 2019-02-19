@@ -131,6 +131,19 @@ namespace Portal.Consultoras.BizLogic.CDR
 
             return resultado;
         }
-
+        
+        //HD-3412 EINCA
+        public bool ValCUVEnProcesoReclamo(int paisId, int pedidoId, string cuv)
+        {
+            try
+            {
+                var daCdrWebDetalle = new DACDRWebDetalle(paisId);
+                return daCdrWebDetalle.ValCUVEnProcesoReclamo(pedidoId, cuv) == 1 ? true : false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
     }
 }
