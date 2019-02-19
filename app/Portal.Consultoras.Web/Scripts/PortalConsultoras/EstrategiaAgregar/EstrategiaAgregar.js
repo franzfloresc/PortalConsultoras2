@@ -332,7 +332,7 @@ var EstrategiaAgregarModule = (function () {
             FlagNueva: $.trim(estrategia.FlagNueva),
             EsEditable: estrategia.esEditable,
             SetId: estrategia.setId,
-            ClientID : _getClienteIdSelected()
+            ClienteID: estrategia.MostrarCliente ? _getClienteIdSelected() : 0
         };
 
         EstrategiaAgregarProvider
@@ -523,7 +523,7 @@ var EstrategiaAgregarModule = (function () {
                 }
                 if (!IsNullOrEmpty(data.mensajeAviso)) AbrirMensaje(data.mensajeAviso, data.tituloMensaje);
                 if (_config.esFicha) {
-                    FichaEditarModule.ShowDivFichaResumida(false);
+                    FichaPartialModule.ShowDivFichaResumida(false);
                 }
                 return false;
             })

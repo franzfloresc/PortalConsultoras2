@@ -391,7 +391,8 @@
         }
 
         var estrategiaCodigo = $("#ddlTipoEstrategia option:selected").data("codigo") || "";
-        if (!estrategiaCodigo.in(_codigoEstrategia.OfertaParaTi,
+        if (!estrategiaCodigo.in(
+            _codigoEstrategia.OfertaParaTi,
             _codigoEstrategia.GuiaDeNegocio,
             _codigoEstrategia.LosMasVendidos,
             _codigoEstrategia.Lanzamiento,
@@ -399,7 +400,8 @@
             _codigoEstrategia.PackAltoDesembolso,
             _codigoEstrategia.OfertaDelDia,
             _codigoEstrategia.ShowRoom,
-            _codigoEstrategia.HerramientaVenta)) {
+            _codigoEstrategia.HerramientaVenta,
+            ConstantesModule.ConstantesPalanca.ArmaTuPack)) {
 
             _toastHelper.error("Debe seleccionar el tipo de Estrategia que permita esta funcionalidad.");
             return false;

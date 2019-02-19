@@ -923,7 +923,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var entidad = Mapper.Map<EstrategiaProductoModel, ServicePedido.BEEstrategiaProducto>(model);
-
+                
                 entidad.PaisID = userData.PaisID;
                 entidad.UsuarioModificacion = userData.CodigoConsultora;
                 entidad.ImagenProducto = GuardarImagenAmazon(model.ImagenProducto, model.ImagenAnterior, userData.PaisID);
@@ -941,10 +941,17 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
+                /*INI ATP*/
+                string mensaje = "Se actualizó el Producto satisfactoriamente.";
+                if (model.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.ArmaTuPack) {
+                    mensaje = "Se actualizó la información.";
+                }
+                /*INI ATP*/
+
                 return Json(new
                 {
                     success = true,
-                    message = "Se actualizó el Producto satisfactoriamente.",
+                    message = mensaje,
                     extra = ""
                 });
             }

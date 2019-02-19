@@ -360,7 +360,22 @@
 
             $("#_id").val(_editData.mongoIdVal);
 
+            /*INI ATP*/
+
+            var newTitulo = "Registro de Estrategias";
+            if ($("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ArmaTuPack) {
+                newTitulo = "Edición de Tácticas";
+                
+                $('#tabControl1').hide();
+                $('#divSeccionImagenes').hide();                
+            }
+            $('#DialogAdministracionEstrategia').dialog('option', 'title', newTitulo);
+              
+            /*END ATP*/
+
             showDialog("DialogAdministracionEstrategia");
+
+
             _ActualizarFlagIndividual(data);
 
             _editData.IdMatrizComercial = data.IdMatrizComercial;
@@ -789,6 +804,24 @@
         return Des;
     }
 
+    /* INI ATP */
+
+    var _showActionsATPGrupo = function (cellvalue, options, rowObject) {
+        console.log('rowObject', rowObject);
+
+        var id = rowObject[0];
+        var campaniaId = $("#ddlCampania").val();
+        var cuv = rowObject[5],
+            _id = rowObject[14];
+
+        var edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').EditarProducto('" + id + "','" + campaniaId + "','" + cuv + "',event);\" >" + "<img src='" + _config.rutaImagenEdit + "' alt='Editar Productos ShowRoom' title='Editar Productos ShowRoom' border='0' /></a>";
+
+        return edit;
+    }
+
+
+    /*END ATP */
+
     var _showImage = function (cellvalue, options, rowObject) {
         var image = $.trim(rowObject[9]);
         var filename = image.replace(/^.*[\\\/]/, "");
@@ -1175,15 +1208,22 @@
 
     var _fnGrilla = function () {
 
-
         $("#divSeccionProductos").show();
         $("#list").jqGrid("GridUnload");
         var tipo = $("#ddlTipoEstrategia").find(":selected").data("id");
         var codigo = $("#ddlTipoEstrategia").find(":selected").data("codigo");
-          
 
         var colNameActions = (codigo == _codigoEstrategia.ShowRoom) ? "Set" : "";
         var hideColProducts = (codigo == _codigoEstrategia.ShowRoom) ? false : true;
+
+        var hideColATP = true;
+        /*INIT ATP*/
+        if (codigo == _codigoEstrategia.ArmaTuPack) {
+            hideColATP = false;
+            colNameActions = 'Tácticas';
+        }
+        /*INIT ATP*/
+
         jQuery("#list").jqGrid({
             url: baseUrl + "AdministrarEstrategia/Consultar",
             hidegrid: false,
@@ -1213,7 +1253,8 @@
             colNames: [
                 "EstrategiaID", "Orden", "#", "Pedido Asociado", "Precio", "CUV2", "Descripción", "Limite Venta", "Código SAP", "ImagenURL",
                 "Activo", "EsOfertaIndependiente", "FlagValidarImagen", "PesoMaximoImagen", "_id"
-                , "CodigoTipoEstrategia", "Foto", colNameActions, "Productos"
+                , "CodigoTipoEstrategia", "Foto", colNameActions, "Productos",
+                "Grupos"
             ],
             colModel: [
                 {
@@ -1364,6 +1405,17 @@
                     sortable: false,
                     hidden: hideColProducts,
                     formatter: _showActionsProductos
+                },
+                {
+                    name: "Grupos",
+                    index: "Grupos",
+                    width: 60,
+                    align: "center",
+                    editable: true,
+                    resizable: false,
+                    sortable: false,
+                    hidden: hideColATP,
+                    formatter: _showActionsATPGrupo
                 }
             ],
             jsonReader:
@@ -1393,6 +1445,8 @@
             altclass: "jQGridAltRowClass",
             loadComplete: function (data) {
 
+                console.log('data eaar: ', data);
+
                 if (data.rows.length > 0) {
                     for (var i = 0; i < data.rows.length; i++) {
                         if (data.rows[i].cell[10] == "1") {
@@ -1412,7 +1466,7 @@
         }
 
         if (codigo == _codigoEstrategia.ArmaTuPack) {
-            $("#list").jqGrid("hideCol", ["Orden", "ID", "NumeroPedido","ImagenProducto"]);
+            $("#list").jqGrid("hideCol", ["Orden", "ID", "NumeroPedido", "ImagenProducto"]);
         }
 
         $("<span style=\"position: absolute;margin-top: 10px;\">(*)</span>").prependTo("#jqgh_list_cb");
@@ -2133,6 +2187,11 @@
     }
 
     var _fnGrillaOfertaShowRoomDetalle = function (campaniaId, cuv, estrategiaId) {
+
+        /*INI ATP*/
+        var newTituloGridATP = $("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ArmaTuPack ? "Nombre de Grupos" : "Descripcion1"
+        /*END ATP*/
+
         $("#listShowRoomDetalle").jqGrid("clearGridData");
 
         var parametros = {
@@ -2149,7 +2208,7 @@
             postData: (parametros),
             mtype: "GET",
             contentType: "application/json; charset=utf-8",
-            colNames: ["EstrategiaProductoId", "EstrategiaId", "CampaniaID", "CUV", "Nombre", "Descripcion1", "Foto", "Marca", "", "", "", ""],
+            colNames: ["EstrategiaProductoId", "EstrategiaId", "CampaniaID", "CUV", "Nombre", newTituloGridATP, "Foto", "Marca", "", "", "", "Acciones"],
             colModel: [
                 { name: "EstrategiaProductoId", index: "EstrategiaProductoId", width: 50, editable: true, resizable: false, hidden: true },
                 { name: "EstrategiaId", index: "Estrategia", width: 50, editable: true, resizable: false, hidden: true },
@@ -2247,7 +2306,8 @@
             IdMarca: $("#ddlMarcaProductoDetalle").val(),
             Activo: isActive,
             ImagenProducto: $("#hdImagenDetalle").val(),
-            ImagenAnterior: $("#hdImagenDetalleAnterior").val()
+            ImagenAnterior: $("#hdImagenDetalleAnterior").val(),
+            CodigoEstrategia: $("#ddlTipoEstrategia").find(":selected").data("codigo")
         };
 
         waitingDialog({ title: "Procesando" });
@@ -2415,6 +2475,12 @@
             buttons:
             {
                 "Guardar": function () {
+
+                    /*INI ATP*/
+                    if ($("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ArmaTuPack) {
+                        $('#txtOrden').val(1);//valor por default                         
+                    }
+                    /*END ATP*/
 
                     if ($("#mensajeErrorCUV").val() != "") {
                         _toastHelper.error($("#mensajeErrorCUV").val());
@@ -2965,6 +3031,7 @@
                 }
             }
         });
+
 
         $("#DialogRegistroOfertaShowRoomDetalle").dialog({
             autoOpen: false,
@@ -3632,7 +3699,8 @@
         changeTipoEstrategia: function () {
             var aux2 = $("#ddlTipoEstrategia").find(":selected").data("codigo") || "";
             $("#btnActivarDesactivar").hide();
-            $("#btnNuevoMasivo").hide();
+            // TODO: descomentar luego
+            //$("#btnNuevoMasivo").hide();
             $("#btnDescripcionMasivo").hide();
             $("#btnActualizarTonos").hide();
             $("#btnCargaBloqueoCuv").hide();
@@ -4220,6 +4288,11 @@
         $("#txtDescripcionDetalle").val(jQuery("#list").jqGrid("getCell", ID, "DescripcionCUV2"));
         $("#txtPrecioValorizadoDetalle").val(jQuery("#list").jqGrid("getCell", ID, "Precio2"));
 
+        /*INI ATP*/
+        var newTitulo = $("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ArmaTuPack ? "Edición de Grupos" : "Edición de Productos"
+        $('#DialogRegistroOfertaShowRoomDetalle').dialog('option', 'title', newTitulo);
+        /*END ATP*/
+
         showDialog("DialogRegistroOfertaShowRoomDetalle");
 
         _fnGrillaOfertaShowRoomDetalle(CampaniaID, CUV, ID);
@@ -4303,6 +4376,31 @@
             $("#hdImagenDetalleAnterior").val("");
             $("#imgProductoDetalle").attr("src", _config.imagenProductoVacio);
         }
+
+        /*INI ATP*/
+        //Descriptivos por default
+        var newTitulo = "Registro / Edición de Productoss";
+        var newLabel0 = "Descripcion1:";
+        var newLabel1 = "Marca Producto:";
+        var newLabel2 = '¿Activar Oferta?:';
+
+        if ($("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ArmaTuPack) {
+            //Descriptivo para Grupos ATP
+            newTitulo = "Registro / Edición de Grupos";
+            newLabel0 = "Nombre de Grupos:";
+            newLabel1 = ' ';
+            newLabel2 = ' ';
+            $('#divMarcaProductoValue').hide();
+            $('#divActivoOfertaValue').hide();
+            $('.input_search').hide();//botón examinar            
+        }
+
+        $('#DialogRegistroOfertaShowRoomDetalleEditar').dialog('option', 'title', newTitulo);
+        $('#spDescripcion1').html(newLabel0);
+        $('#spMarcaProducto').html(newLabel1);
+        $('#spActivarOferta').html(newLabel2);
+
+        /*INI ATP*/
 
         showDialog("DialogRegistroOfertaShowRoomDetalleEditar");
     }

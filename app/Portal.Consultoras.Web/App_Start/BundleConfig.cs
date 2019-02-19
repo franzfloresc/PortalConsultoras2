@@ -83,7 +83,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/respond.min.js",
                 "~/Scripts/trans-banner.js",
                 "~/Scripts/jquery.tmpl.js",
-                "~/Scripts/LogError.js"
+                "~/Scripts/LogError.js",
+                "~/Scripts/PortalConsultoras/Shared/ConstantesModule.js"
             ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/PluginsFooterSAC").Include(
@@ -174,8 +175,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Buscador/BuscadorProvider.js",
                 "~/Scripts/PortalConsultoras/Buscador/BuscadorModule.js",
                 "~/Scripts/PortalConsultoras/Shared/ConstantesModule.js",
-                "~/Scripts/PortalConsultoras/EstrategiaAgregar/PedidoRegistro.js",
-                "~/Scripts/PortalConsultoras/Shared/AnalyticsPortal.js"
+                "~/Scripts/PortalConsultoras/EstrategiaAgregar/PedidoRegistro.js"
             ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mixto/BusquedaProducto").Include(
@@ -334,8 +334,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Shared/AnalyticsPortal.js",
                 "~/Scripts/PortalConsultoras/Buscador/BuscadorProvider.js",
                 "~/Scripts/PortalConsultoras/Buscador/BuscadorModule.js",
-                "~/Scripts/PortalConsultoras/EstrategiaAgregar/PedidoRegistro.js",
-                "~/Scripts/PortalConsultoras/Shared/AnalyticsPortal.js"
+                "~/Scripts/PortalConsultoras/EstrategiaAgregar/PedidoRegistro.js"
             ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/SB2-Bienvenida").Include(
@@ -381,6 +380,7 @@ namespace Portal.Consultoras.Web
             ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/SB2-Pedido").Include(
+                "~/Scripts/PortalConsultoras/Pedido/PedidoProvider.js",
                 "~/Scripts/PortalConsultoras/Pedido/Index.js",
                 "~/Scripts/PortalConsultoras/Pedido/barra.js",
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/CarruselModule.js",
@@ -470,6 +470,7 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mobile/Pedido").Include(
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/CarruselModule.js",
+                "~/Scripts/PortalConsultoras/Pedido/PedidoProvider.js",
                 "~/Scripts/PortalConsultoras/Mobile/Pedido/index.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js",
