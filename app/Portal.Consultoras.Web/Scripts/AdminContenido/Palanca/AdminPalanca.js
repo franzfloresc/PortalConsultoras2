@@ -120,7 +120,7 @@ function ModificarOfertas(idOfertasHome) {
         success: function (result) {
             $("#dialog-content-ofertas-home").empty();
             $("#dialog-content-ofertas-home").html(result).ready(
-                UploadFilePalanca("fondo-mobile"), UploadFilePalanca("fondo-desktop"), UploadFilePalanca("fondo-app")
+                UploadFilePalanca("fondo-mobile"), UploadFilePalanca("fondo-desktop"), UploadFilePalancaApp("fondo-app")
             );
 
             showDialog("DialogMantenimientoOfertasHome");
@@ -628,6 +628,44 @@ function UploadFilePalanca(tag) {
     if ($("#nombre-" + tag).val() !== "") {
         $("#src-" + tag).attr("src", urlS3 + $("#nombre-" + tag).val());
     }
+
+    return false;
+}
+
+function UploadFilePalancaApp(tag) {
+    var tipoFileTag = $("#nombre-" + tag).attr("imageextension");
+    var tipoFile = tipoFileTag.split(",");
+
+    var params = {};
+    params["width"] = $("#nombre-" + tag).attr("imagewidth");
+    params["height"] = $("#nombre-" + tag).attr("imageheight");
+    params["messageSize"] = "Las medidas no son correctas. Vuelve a intentar, por favor.";
+
+    new qq.FileUploader({
+        allowedExtensions: tipoFile,
+        element: document.getElementById("img-" + tag),
+        action: rutaFileUpload,
+        params: params,
+        messages: {
+            typeError: "El formato no es correcto. Vuelve a intentar, por favor.",
+        },
+        onComplete: function (id, fileName, responseJSON) {
+            if (checkTimeout(responseJSON)) {
+                if (responseJSON.success) {
+                    $("#nombre-" + tag).val(responseJSON.name);
+                    $("#src-" + tag).attr("src", rutaTemporal + responseJSON.name);
+                }
+                else {
+                    alert(responseJSON.message);
+                }
+            }
+            return false;
+        },
+        onSubmit: function (id, fileName) { $(".qq-upload-list").remove(); },
+        onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").remove(); },
+        onCancel: function (id, fileName) { $(".qq-upload-list").remove(); }
+    });
+    if ($("#nombre-" + tag).val() !== "") $("#src-" + tag).attr("src", urlS3 + $("#nombre-" + tag).val());
 
     return false;
 }

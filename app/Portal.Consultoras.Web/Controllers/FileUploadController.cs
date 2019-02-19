@@ -121,23 +121,29 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult ImageLanzamientoUpload(string qqfile)
+        public ActionResult ImageLanzamientoUpload(string qqfile, int width = 0, int height = 0, string messageSize = "")
         {
             try
             {
-                Stream inputStream = Request.InputStream;
-                byte[] fileBytes = ReadFully(inputStream);
-                string ffFileName = qqfile;
-                var time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
-                var path = Path.Combine(Globals.RutaTemporales, time + ffFileName);
+                var inputStream = Request.InputStream;
+                var fileBytes = ReadFully(inputStream);
+
+                var image = System.Drawing.Image.FromStream(new MemoryStream(fileBytes));
+                if (image.Height != height || image.Width != width)
+                    return Json(new { success = false, message = messageSize }, "text/html");
+
+                var time = string.Concat(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Minute, DateTime.Now.Millisecond);
+                var path = Path.Combine(Globals.RutaTemporales, time + qqfile);
+
+                if (!Directory.Exists(Globals.RutaTemporales)) Directory.CreateDirectory(Globals.RutaTemporales);
+
                 System.IO.File.WriteAllBytes(path, fileBytes);
-                if (!System.IO.File.Exists(Globals.RutaTemporales))
-                    Directory.CreateDirectory(Globals.RutaTemporales);
+                
                 return Json(new { success = true, name = Path.GetFileName(path) }, "text/html");
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, "", "");
+                LogManager.LogManager.LogErrorWebServicesBus(ex, string.Empty, string.Empty);
                 return Json(new { success = false, message = "Hubo un error al cargar el archivo, intente nuevamente." }, "text/html");
             }
         }
