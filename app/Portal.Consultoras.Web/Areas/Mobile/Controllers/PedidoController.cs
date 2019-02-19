@@ -320,6 +320,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             model.MostrarPopupPrecargados = (GetMostradoPopupPrecargados() == 0);
             model.MensajeKitNuevas = _programaNuevasProvider.GetMensajeKit();
+            ViewBag.CantPedidoPendientes = _pedidoWebProvider.GetPedidoPendientes(userData);
 
             return View(model);
         }
@@ -499,7 +500,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             TimeSpan sp = horaCierre == 0 ? userData.HoraCierreZonaNormal : userData.HoraCierreZonaDemAnti;
             model.HoraCierre = Util.FormatearHora(sp);
             model.ModificacionPedidoProl = 0;
-            ViewBag.CantPedidoPendientes = _pedidoWebProvider.GetPedidoPendientes(userData);
 
             if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
                 model.Prol = "GUARDA TU PEDIDO";
