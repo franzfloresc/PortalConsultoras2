@@ -13,6 +13,7 @@
         panelClienteRegistro: "#PanelClienteRegistro",
         btnAgregar: "#btnPanelListaAgregar",
         txtNombreCliente: "#txtPanelListaBusqueda",
+        btnBuscarCliente: "#btnBuscarCliente",
         //
         hfPaisID: "#hfPaisID",
         hfClienteID: "#hfClienteID",
@@ -117,16 +118,18 @@
         _setNombreCliente('');
         _mostrarTusClientes();
 
-        $("body").on("click", _elements.btnAgregar, function (e) {
-            _panelRegistroShow();
-        });
-
         $("body").on("keypress", _elements.txtNombreCliente, function (e) {
             if (e.which == 13) {
-                //if (checkTimeout()) {
                 _mostrarTusClientes();
-                //}
             }
+        });
+
+        $("body").on("click", _elements.btnBuscarCliente, function (e) {
+            _mostrarTusClientes();
+        });
+
+        $("body").on("click", _elements.btnAgregar, function (e) {
+            _panelRegistroShow();
         });
 
         $("#btnPanelListaCerrar_todo").click(function () {
