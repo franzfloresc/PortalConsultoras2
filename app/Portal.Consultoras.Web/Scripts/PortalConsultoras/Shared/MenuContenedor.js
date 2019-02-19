@@ -228,8 +228,9 @@ var menuModule = (function () {
                 if ($(elementos.seccionMenuFija).css("position") === "fixed") menuHeight += seccionFixedMenuHeigt;
                 _animateScrollTo(anchorMark + codigo, menuHeight);
                 if (_var.Mobile) _moverSubMenuContenedorOfertasMobile();
-
-                updateParentAttribute(codigo);
+                setTimeout(function () {
+                    updateParentAttribute(codigo);
+                },1000);
             } else {
                 if (currentLocation.indexOf("/revisar") > -1)
                     window.location = originLocation + "/" + (_var.Mobile ? "Mobile/" : "") + "Ofertas/Revisar#" + codigo;
@@ -255,7 +256,9 @@ var menuModule = (function () {
                 $(elementos.claseimgSeleccionado).show();
                 $(elementos.claseimgNoSeleccionado).hide();
                 _animateScrollTo(elementos.html, menuHeight);
-                updateParentAttribute(codigo);
+                setTimeout(function () {
+                    updateParentAttribute(codigo);
+                }, 1000);
             }
 
             if (typeof AnalyticsPortalModule !== "undefined") {
