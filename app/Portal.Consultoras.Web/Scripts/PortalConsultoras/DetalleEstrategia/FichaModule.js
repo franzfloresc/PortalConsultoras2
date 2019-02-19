@@ -913,12 +913,15 @@ var FichaModule = (function (config) {
     }
 
     var _redireccionar = function () {
-        if (!_config.esEditable)
+        _estrategia = {};
+        if (_modeloFicha.TipoAccionNavegar != _tipoAccionNavegar.Volver){
+            _modeloFicha = {};
             window.location = baseUrl + (_config.esMobile ? "Mobile/" : "") + "Ofertas";
+        }
         else {
+            _modeloFicha = {};
             FichaPartialModule.ShowDivFichaResumida(false);
             //alert('Ha ocurrido una excepción al obtener los datos para este CUV.');
-
         }
     };
 
@@ -1013,7 +1016,6 @@ var FichaModule = (function (config) {
         _initCarrusel();
         _analytics();
     }
-
 
     return {
         Inicializar: _init,
