@@ -1,8 +1,8 @@
---USE BelcorpPeru_BPT
+﻿USE BelcorpPeru_BPT
 
 --USE BelcorpChile_BPT
 
-USE BelcorpCostaRica_BPT
+--USE BelcorpCostaRica_BPT
 
 GO
 
@@ -37,11 +37,11 @@ CREATE PROCEDURE [dbo].[PedidoWebSet_Select]
 			,PWS.CodigoUsuarioModificacion
 			,PWS.FechaCreacion
 			,PWS.FechaModificacion
-			,ClienteId = C.ClienteID
-			,ClienteNombre = C.NOMBRE
+			,ClienteId = ISNULL(C.ClienteID,0)
+			,ClienteNombre = ISNULL(C.NOMBRE,'')
 		FROM PedidoWebSet PWS
-			JOIN CLIENTE C ON PWS.ConsultoraID = C.ConsultoraID 
-				AND PWS.ClienteID = C.ClienteID
+			LEFT JOIN CLIENTE C ON PWS.ConsultoraID = C.ConsultoraID 
+				AND ISNULL(PWS.ClienteID,0) = C.ClienteID
 
 		WHERE PWS.SetId = @SetId
 	END
