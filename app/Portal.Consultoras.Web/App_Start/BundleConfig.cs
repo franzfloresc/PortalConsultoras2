@@ -938,10 +938,17 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Mobile/Ficha/ficha.css"
             ));
 
+            bundles.Add(new StyleIgnoreMinifyBundle("~/Bundle/Css/Mixto/Bootstrap").Include(
+                                "~/Content/Css/Site/bootstrap/bootstrap.css", 
+                                "~/Content/Css/Mobile/Ficha/ficha.css"));
             //Se aisló el css de bootstrap de los otros css de Bundle/Css/Mixto, porque generaba errores de minificación
-            bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/Bootstrap").Include(
-                "~/Content/Css/Site/bootstrap/bootstrap.css"
-            ));
+            //bundles.IgnoreCssMinify("~/Bundle/Css/Mixto/Bootstrap", "~/Content/Css/Site/bootstrap/bootstrap.css",
+            //                                                                   "~/Content/Css/Mobile/Ficha/ficha.css"
+            //                                                                    );
+
+            //bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/Bootstrap").Include(
+            //    "~/Content/Css/Site/bootstrap/bootstrap.css"
+            //));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/EsikaPageResponsive").Include(
                 "~/Content/Css/ui.jquery/jquery-ui.css",
