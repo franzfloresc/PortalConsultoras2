@@ -3620,7 +3620,8 @@
         changeTipoEstrategia: function () {
             var aux2 = $("#ddlTipoEstrategia").find(":selected").data("codigo") || "";
             $("#btnActivarDesactivar").hide();
-            $("#btnNuevoMasivo").hide();
+            // TODO: descomentar luego
+            //$("#btnNuevoMasivo").hide();
             $("#btnDescripcionMasivo").hide();
             $("#btnActualizarTonos").hide();
             $("#btnCargaBloqueoCuv").hide();
