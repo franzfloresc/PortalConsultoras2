@@ -639,12 +639,9 @@ namespace Portal.Consultoras.Web.Controllers
             var esMobile = IsMobile();
 
             modelo.NoEsCampaniaActual = campaniaId != userData.CampaniaID;
-
-
             modelo.MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(esMobile);
             modelo.OrigenUrl = origen;
             modelo.OrigenAgregar = GetOrigenPedidoWebDetalle(origen);
-
             modelo.TipoAccionNavegar = GetTipoAccionNavegar(modelo.OrigenAgregar, esMobile, esEditar);
             modelo.BreadCrumbs = modelo.TipoAccionNavegar == Constantes.TipoAccionNavegar.BreadCrumbs
                 ? GetDetalleEstrategiaBreadCrumbs(campaniaId, palanca)
@@ -653,12 +650,9 @@ namespace Portal.Consultoras.Web.Controllers
             modelo.TieneSession = _ofertaPersonalizadaProvider.PalancasConSesion(palanca);
             modelo.Campania = campaniaId;
             modelo.Cuv = cuv;
-
-            modelo.TieneCarrusel = GetTieneCarrusel(palanca, esEditar);
+            modelo.TieneCarrusel = GetValidationHasCarrusel(modelo.OrigenAgregar, palanca, esEditar);
             modelo.OrigenAgregarCarrusel = modelo.TieneCarrusel ? GetOrigenPedidoWebDetalle(origen, modelo.TieneCarrusel) : 0;
-
             modelo.TieneCompartir = GetTieneCompartir(palanca, esEditar);
-
             modelo.Cantidad = 1;
             #endregion
 
@@ -773,6 +767,21 @@ namespace Portal.Consultoras.Web.Controllers
             return !esEditar && (Constantes.NombrePalanca.Lanzamiento == palanca
                     || Constantes.NombrePalanca.ShowRoom == palanca
                     || Constantes.NombrePalanca.OfertaDelDia == palanca);
+        }
+
+        private bool GetValidationHasCarrusel(int origen, string palanca, bool esEditar)
+        {
+            var origenString = origen.ToString();
+            if (origen == 0 || origenString.IsNullOrEmptyTrim()) return GetTieneCarrusel(palanca, esEditar);
+
+            var twoLastDigitsOrigen = origenString.Substring(origenString.Length - 2);
+            if (twoLastDigitsOrigen.Equals(Constantes.OrigenPedidoWeb.SufijoProductoRecomendadoCarrusel) ||
+               twoLastDigitsOrigen.Equals(Constantes.OrigenPedidoWeb.SufijoProductoRecomendadoFicha))
+            {
+                return false;
+            }
+
+            return GetTieneCarrusel(palanca, esEditar);
         }
 
         private bool GetTieneCompartir(string palanca, bool esEditar)

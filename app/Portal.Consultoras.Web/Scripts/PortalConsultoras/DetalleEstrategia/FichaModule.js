@@ -948,7 +948,6 @@ var FichaModule = (function (config) {
     };
 
     var _initCarrusel = function () {
-
         if (!_modeloFicha.TieneCarrusel) {
             return false;
         }
