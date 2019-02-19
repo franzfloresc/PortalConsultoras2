@@ -96,13 +96,13 @@
     top: 22px;
 }
 
-
-
 .seleccion_main_Clientes {
     background-color: #fff;
-    height: 463px;
-    overflow: auto;
     transition: all 250ms;
+}
+
+.clientes-funciones {
+    padding: 14px 20px 0 14px;
 }
 
 .clientes-items {
@@ -111,15 +111,13 @@
 
 .buscar_clientes {
     position: relative;
+    border-bottom: 1px solid #d8d8d8;
 }
 
     .buscar_clientes input {
-        display: block;
-        width: 100%;
-        border-top: none;
-        border-left: none;
-        border-right: none;
-        border-bottom: 1px solid #d8d8d8;
+        display: inline-block;
+        width: 90%;
+        border: none;
         padding: 10px 0px;
         font-size: 13px;
         padding-right: 28px;
@@ -154,6 +152,7 @@
     padding: 15px 0px;
     border-bottom: 1px solid #d8d8d8;
     list-style: none;
+    overflow: hidden;
 }
 
 .modal_activado {
