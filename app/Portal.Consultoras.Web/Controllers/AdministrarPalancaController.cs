@@ -324,7 +324,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (model.ConfiguracionPaisID != 0)
             {
-                BEConfiguracionOfertasHome entidad;
+                var entidad = new BEConfiguracionOfertasHome();
+
                 using (var sv = new SACServiceClient())
                 {
                     entidad = sv.GetConfiguracionOfertasHome(userData.PaisID, model.ConfiguracionOfertasHomeID);
@@ -336,27 +337,30 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!string.IsNullOrEmpty(model.MobileImagenFondo) &&
                     (string.IsNullOrEmpty(entidad.MobileImagenFondo) || model.MobileImagenFondo != entidad.MobileImagenFondo))
                     model.MobileImagenFondo = SaveFileS3(model.MobileImagenFondo);
-
+                if (!string.IsNullOrEmpty(model.AdministrarOfertasHomeAppModel.AppBannerInformativo) &&
+                    (string.IsNullOrEmpty(entidad.ConfiguracionOfertasHomeApp.AppBannerInformativo) || model.AdministrarOfertasHomeAppModel.AppBannerInformativo != entidad.ConfiguracionOfertasHomeApp.AppBannerInformativo))
+                    model.AdministrarOfertasHomeAppModel.AppBannerInformativo = SaveFileS3(model.AdministrarOfertasHomeAppModel.AppBannerInformativo, true);
             }
             else
             {
                 model.DesktopImagenFondo = SaveFileS3(model.DesktopImagenFondo);
                 model.MobileImagenFondo = SaveFileS3(model.MobileImagenFondo);
+                model.AdministrarOfertasHomeAppModel.AppBannerInformativo = SaveFileS3(model.AdministrarOfertasHomeAppModel.AppBannerInformativo, true);
             }
 
             return model;
         }
 
-        private string SaveFileS3(string imagenEstrategia)
+        private string SaveFileS3(string imagenEstrategia, bool mantenerExtension = false)
         {
             imagenEstrategia = Util.Trim(imagenEstrategia);
-            if (imagenEstrategia == "")
-                return "";
+            if (imagenEstrategia == string.Empty)
+                return string.Empty;
 
             var path = Path.Combine(Globals.RutaTemporales, imagenEstrategia);
-            var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-            var time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
-            var newfilename = userData.CodigoISO + "_" + time + "_" + FileManager.RandomString() + ".png";
+            var carpetaPais = string.Concat(Globals.UrlMatriz, "/", userData.CodigoISO);
+            var time = string.Concat(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Minute, DateTime.Now.Millisecond);
+            var newfilename = string.Concat(userData.CodigoISO, "_", time, "_", FileManager.RandomString(), (!mantenerExtension ? ".png" : Path.GetExtension(path)));
             ConfigS3.SetFileS3(path, carpetaPais, newfilename);
             return newfilename;
         }

@@ -639,7 +639,7 @@ function UploadFilePalancaApp(tag) {
     var params = {};
     params["width"] = $("#nombre-" + tag).attr("imagewidth");
     params["height"] = $("#nombre-" + tag).attr("imageheight");
-    params["messageSize"] = "Las medidas no son correctas. Vuelve a intentar, por favor.";
+    params["messageSize"] = $("#nombre-" + tag).attr("messageSize");
 
     new qq.FileUploader({
         allowedExtensions: tipoFile,
@@ -647,7 +647,7 @@ function UploadFilePalancaApp(tag) {
         action: rutaFileUpload,
         params: params,
         messages: {
-            typeError: "El formato no es correcto. Vuelve a intentar, por favor.",
+            typeError: $("#nombre-" + tag).attr("messageFormat")
         },
         onComplete: function (id, fileName, responseJSON) {
             if (checkTimeout(responseJSON)) {

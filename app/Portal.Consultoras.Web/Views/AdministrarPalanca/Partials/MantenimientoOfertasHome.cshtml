@@ -331,7 +331,7 @@
                     <h6>(XXXX x XXXX pixeles)</h6>
                 </div>
                 <div style="display: inline-block;">
-                    @Html.HiddenFor(m => m.AdministrarOfertasHomeAppModel.AppBannerInformativo, new { id = "nombre-fondo-app", imageextension = "jpg", imagewidth = "1324", imageheight= "1500" })
+                    @Html.HiddenFor(m => m.AdministrarOfertasHomeAppModel.AppBannerInformativo, new { id = "nombre-fondo-app", imageextension = "jpg", imagewidth = "1324", imageheight = "1500", messageSize = "Las medidas no son correctas. Vuelve a intentar, por favor.", messageFormat = "El formato no es correcto. Vuelve a intentar, por favor." })
                     <div id="img-fondo-app" style="display: inline-block;vertical-align: middle;"></div>
                     <div class="pdr_modal2 borde_redondeado alignrigth">
                         <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="src-fondo-app" class="img-matriz-preview2" data-id="">
