@@ -92,7 +92,7 @@ namespace Portal.Consultoras.Web.Providers
             UsuarioModel userData = sessionManager.GetUserData();
             Dictionary<string, List<string>> irespuesta = new Dictionary<string, List<string>>();
             string jsonParameters = JsonConvert.SerializeObject(estrategiasIds);
-            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlCargarWebApi, pais,userData.UsuarioNombre);
+            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlCargarWebApi, pais, userData.UsuarioNombre);
             var taskApi = Task.Run(() => RespSBMicroservicios(jsonParameters, requestUrl, "put", userData));
             Task.WhenAll(taskApi);
             string content = taskApi.Result;
@@ -114,7 +114,7 @@ namespace Portal.Consultoras.Web.Providers
             UsuarioModel userData = sessionManager.GetUserData();
             Dictionary<string, int> iCantidadOfertas = new Dictionary<string, int> { { "CUV_ZE", -1 }, { "CUV_OP", -1 } };
             string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlCantidadOfertas, pais, tipoCodigo, campania);
-            
+
             var taskApi = Task.Run(() => RespSBMicroservicios("", requestUrl, "get", userData));
             Task.WhenAll(taskApi);
             string content = taskApi.Result;
@@ -143,7 +143,7 @@ namespace Portal.Consultoras.Web.Providers
                         ID = index + 1,
                         EstrategiaID = d.EstrategiaId,
                         CampaniaID = int.Parse(d.CodigoCampania),
-                        Activo = d.Activo ? 1 : 0,
+                        Activo = d.Activo.ToInt(),
                         ImagenURL = d.ImagenURL,
                         LimiteVenta = d.LimiteVenta,
                         DescripcionCUV2 = d.DescripcionCUV2,
@@ -153,14 +153,14 @@ namespace Portal.Consultoras.Web.Providers
                         Ganancia = (decimal)d.Ganancia,
                         CUV2 = d.CUV2,
                         Orden = d.Orden,
-                        FlagNueva = d.FlagNueva ? 1 : 0,
-                        FlagEstrella = d.FlagEstrella ? 1 : 0,
+                        FlagNueva = d.FlagNueva.ToInt(),
+                        FlagEstrella = d.FlagEstrella.ToInt(),
                         CodigoEstrategia = d.CodigoEstrategia,
                         CodigoTipoEstrategia = d.CodigoTipoEstrategia,
                         TextoLibre = d.TextoLibre,
                         //cambiar por CodigoProducto cuando se corrija el servicio
                         CodigoProducto = string.IsNullOrEmpty(d.CodigoSap) ? d.CodigoProducto : d.CodigoSap,
-                        IndicadorMontoMinimo = d.IndicadorMontoMinimo ? 1 : 0,
+                        IndicadorMontoMinimo = d.IndicadorMontoMinimo.ToInt(),
                         IdMatrizComercial = d.MatrizComercialId,
                         MarcaID = d.MarcaId,
                         DescripcionMarca = d.MarcaDescripcion,
@@ -168,11 +168,11 @@ namespace Portal.Consultoras.Web.Providers
                         UsuarioModificacion = d.UsuarioModificacion,
                         ImagenMiniaturaURL = d.ImagenMiniatura ?? string.Empty,
                         TipoEstrategiaID = d.TipoEstrategiaId,
-                        Imagen = d.FlagImagenURL ? 1 : 0,
+                        Imagen = d.FlagImagenURL.ToInt(),
                         DescripcionEstrategia = d.DescripcionTipoEstrategia,
                         CodigoSAP = string.IsNullOrEmpty(d.CodigoSap) ? d.CodigoProducto : d.CodigoSap,
                         Zona = d.Zona,
-                        EsSubCampania = d.EsSubCampania.HasValue ? (d.EsSubCampania.Value ? 1 : 0) : 0,
+                        EsSubCampania = d.EsSubCampania.HasValue ? d.EsSubCampania.Value.ToInt() : 0,
                         //Lan
                         FlagIndividual = GetValorEstrategiaDetalle(Constantes.EstrategiaDetalleCamposID.FlagIndividual, d.EstrategiaDetalle) == "1",
                         Slogan = GetValorEstrategiaDetalle(Constantes.EstrategiaDetalleCamposID.Slogan, d.EstrategiaDetalle),
@@ -247,11 +247,10 @@ namespace Portal.Consultoras.Web.Providers
 
             var respuesta = JsonConvert.DeserializeObject<GenericResponse>(content);
 
-            //List<string> listaEstrategias = (respuesta.Result != null) ? JsonConvert.DeserializeObject<List<string>>(respuesta.Result.ToString()) : new List<string>();
             var listaEstrategias = (respuesta.Result != null) ? JsonConvert.DeserializeObject<List<EstrategiaMDbAdapterModel>>(respuesta.Result.ToString()) : new List<EstrategiaMDbAdapterModel>();
             return listaEstrategias;
         }
-        
+
         public List<EstrategiaMDbAdapterModel> FiltrarEstrategia(string id, string pais)
         {
             UsuarioModel userData = sessionManager.GetUserData();
@@ -259,8 +258,8 @@ namespace Portal.Consultoras.Web.Providers
 
             var taskApi = Task.Run(() => RespSBMicroservicios(
                     string.Empty,
-                    string.Format(Constantes.PersonalizacionOfertasService.UrlFiltrarEstrategia, pais, id), 
-                    "get", 
+                    string.Format(Constantes.PersonalizacionOfertasService.UrlFiltrarEstrategia, pais, id),
+                    "get",
                     userData
                 ));
 
@@ -302,7 +301,7 @@ namespace Portal.Consultoras.Web.Providers
         public void EditarEstrategia(ServicePedido.BEEstrategia entidad, string mongoId, string pais, string prod, string perfil)
         {
             UsuarioModel userData = sessionManager.GetUserData();
-            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlEditarWebApi, pais,prod,perfil);
+            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlEditarWebApi, pais, prod, perfil);
             WaEstrategiaModel waModel = ObtenerEstrategia(entidad, mongoId);
             waModel.FechaModificacion = DateTime.Now;
             string jsonParameters = JsonConvert.SerializeObject(waModel);
@@ -396,7 +395,7 @@ namespace Portal.Consultoras.Web.Providers
             UsuarioModel userData = sessionManager.GetUserData();
 
             const string jsonParameters = "";
-            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlDesactivarWebApi, pais,id , usuario);
+            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlDesactivarWebApi, pais, id, usuario);
             var taskApi = Task.Run(() => RespSBMicroservicios(jsonParameters, requestUrl, "put", userData));
             Task.WhenAll(taskApi);
             string content = taskApi.Result;
@@ -413,10 +412,10 @@ namespace Portal.Consultoras.Web.Providers
         {
             UsuarioModel userData = sessionManager.GetUserData();
             string jsonParametersActivas = JsonConvert.SerializeObject(estrategiasActivas);
-            
+
             string jsonParametersInactivas = JsonConvert.SerializeObject(estrategiasInactivas);
-            string parametros = "{activar:" + jsonParametersActivas + ", desactivar:" +jsonParametersInactivas+ ", usuario: \"" + usuario + "\"}";
-            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlActivarDesactivarEstrategias, pais,tipo);
+            string parametros = "{activar:" + jsonParametersActivas + ", desactivar:" + jsonParametersInactivas + ", usuario: \"" + usuario + "\"}";
+            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlActivarDesactivarEstrategias, pais, tipo);
             var taskApi = Task.Run(() => RespSBMicroservicios(parametros, requestUrl, "put", userData));
             Task.WhenAll(taskApi);
             string content = taskApi.Result;
@@ -465,20 +464,20 @@ namespace Portal.Consultoras.Web.Providers
             var taskApi = Task.Run(() => RespSBMicroservicios(jsonParameters, requestUrl, "put", userData));
             Task.WhenAll(taskApi);
             string content = taskApi.Result;
-            List<DescripcionEstrategiaModel> descripcionList = new List<DescripcionEstrategiaModel>();
 
             var respuesta = JsonConvert.DeserializeObject<GenericResponse>(content);
 
+            List<DescripcionEstrategiaModel> descripcionList = new List<DescripcionEstrategiaModel>();
             if (respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
             {
                 List<Dictionary<string, object>> resultDictionary = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(respuesta.Result.ToString());
 
                 descripcionList.AddRange(resultDictionary.Select(item => new DescripcionEstrategiaModel
-                    {
-                        Cuv = item["cuv"].ToString(),
-                        Descripcion = item["descripcion"].ToString(), 
-                        Estado = (bool) item["estado"] ? 1 : 0
-                    }));
+                {
+                    Cuv = item["cuv"].ToString(),
+                    Descripcion = item["descripcion"].ToString(),
+                    Estado = ((bool)item["estado"]).ToInt()
+                }));
             }
             return descripcionList;
         }
@@ -541,14 +540,14 @@ namespace Portal.Consultoras.Web.Providers
             UsuarioModel userData = sessionManager.GetUserData();
 
             var taskApi = Task.Run(() => RespSBMicroservicios(
-                    string.Empty, 
-                    string.Format(Constantes.PersonalizacionOfertasService.UrlEliminarShowRoomEvento, userData.CodigoISO, id), 
-                    "delete", 
+                    string.Empty,
+                    string.Format(Constantes.PersonalizacionOfertasService.UrlEliminarShowRoomEvento, userData.CodigoISO, id),
+                    "delete",
                     userData)
                 );
 
             Task.WhenAll(taskApi);
-            
+
             var respuesta = JsonConvert.DeserializeObject<GenericResponse>(taskApi.Result);
 
             if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
@@ -580,7 +579,7 @@ namespace Portal.Consultoras.Web.Providers
 
             var taskApi = Task.Run(() => RespSBMicroservicios(
                     string.Empty
-                    ,string.Format(Constantes.PersonalizacionOfertasService.UrlDeshabilitarShowRoomEvento, userData.CodigoISO, id, userData.CodigoUsuario) 
+                    , string.Format(Constantes.PersonalizacionOfertasService.UrlDeshabilitarShowRoomEvento, userData.CodigoISO, id, userData.CodigoUsuario)
                     , "put"
                     , userData
                 ));
@@ -598,7 +597,8 @@ namespace Portal.Consultoras.Web.Providers
         public int UploadFileSetStrategyShowroom(ServicePedido.BEEstrategiaMasiva m, List<ServicePedido.BEEstrategia> l, string TipoEstrategiaCodigo)
         {
             UsuarioModel userData = sessionManager.GetUserData();
-            string p = JsonConvert.SerializeObject(l.Select(x => new {
+            string p = JsonConvert.SerializeObject(l.Select(x => new
+            {
                 Cuv = x.CUV2
                 , Descripcion = x.DescripcionCUV2
                 , Estado = x.Activo
@@ -609,7 +609,7 @@ namespace Portal.Consultoras.Web.Providers
 
             var taskApi = Task.Run(() => RespSBMicroservicios(
                     p
-                    , string.Format(Constantes.PersonalizacionOfertasService.UrlUploadFileSetStrategyShowroom,userData.CodigoISO, TipoEstrategiaCodigo, m.CampaniaID, m.TipoEstrategiaID, userData.CodigoUsuario)
+                    , string.Format(Constantes.PersonalizacionOfertasService.UrlUploadFileSetStrategyShowroom, userData.CodigoISO, TipoEstrategiaCodigo, m.CampaniaID, m.TipoEstrategiaID, userData.CodigoUsuario)
                     , "put"
                     , userData
                 ));
@@ -627,7 +627,7 @@ namespace Portal.Consultoras.Web.Providers
                 {
                     Cuv = item["cuv"].ToString(),
                     Descripcion = item["descripcion"].ToString(),
-                    Estado = (bool)item["estado"] ? 1 : 0
+                    Estado = ((bool)item["estado"]).ToInt()
                 }));
             }
 
@@ -637,7 +637,8 @@ namespace Portal.Consultoras.Web.Providers
         public int UploadFileProductStrategyShowroom(ServicePedido.BEEstrategiaMasiva m, List<ServicePedido.BEEstrategiaProducto> l, string TipoEstrategiaCodigo)
         {
             UsuarioModel userData = sessionManager.GetUserData();
-            string p = JsonConvert.SerializeObject(l.Select(x => new {
+            string p = JsonConvert.SerializeObject(l.Select(x => new
+            {
                 CUV = x.CUV,
                 NombreProducto = x.NombreProducto,
                 Descripcion = x.Descripcion1,
@@ -647,7 +648,7 @@ namespace Portal.Consultoras.Web.Providers
 
             var taskApi = Task.Run(() => RespSBMicroservicios(
                     p
-                    , string.Format(Constantes.PersonalizacionOfertasService.UrlUploadFileProductStrategyShowroom, userData.CodigoISO, TipoEstrategiaCodigo, m.CampaniaID,userData.CodigoUsuario)
+                    , string.Format(Constantes.PersonalizacionOfertasService.UrlUploadFileProductStrategyShowroom, userData.CodigoISO, TipoEstrategiaCodigo, m.CampaniaID, userData.CodigoUsuario)
                     , "put"
                     , userData
                 ));
@@ -663,7 +664,8 @@ namespace Portal.Consultoras.Web.Providers
         {
             UsuarioModel userData = sessionManager.GetUserData();
 
-            string p = JsonConvert.SerializeObject(new {
+            string p = JsonConvert.SerializeObject(new
+            {
                 _id = o._id,
                 eventoId = o.EventoID,
                 campaniaId = o.CampaniaID,
@@ -682,9 +684,9 @@ namespace Portal.Consultoras.Web.Providers
             });
 
             var taskApi = Task.Run(() => RespSBMicroservicios(
-                p, 
-                string.Format(Constantes.PersonalizacionOfertasService.UrlGuardarShowRoom, userData.CodigoISO), 
-                "post", 
+                p,
+                string.Format(Constantes.PersonalizacionOfertasService.UrlGuardarShowRoom, userData.CodigoISO),
+                "post",
                 userData));
             Task.WhenAll(taskApi);
 
@@ -747,10 +749,11 @@ namespace Portal.Consultoras.Web.Providers
                 throw new Exception(respuesta.Message);
         }
 
-        public void RegistrarEventoPersonalizacion(string pais, string eventoId,string _id,  List<ShowRoomPersonalizacionModel> lstPersonalizacion) {
+        public void RegistrarEventoPersonalizacion(string pais, string eventoId, string _id, List<ShowRoomPersonalizacionModel> lstPersonalizacion)
+        {
             UsuarioModel userData = sessionManager.GetUserData();
             string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlEventoPersonalizacion, pais, _id);
-            string p = JsonConvert.SerializeObject(lstPersonalizacion.Select( x => new
+            string p = JsonConvert.SerializeObject(lstPersonalizacion.Select(x => new
             {
                 personalizacionId = x.PersonalizacionId,
                 tipoAplicacion = x.TipoAplicacion,
@@ -850,7 +853,7 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
-        public  List<ServicePedido.BEReporteValidacion> ObtenerReporteValidacionPalancas(string tipo,string  campaniaId)
+        public List<ServicePedido.BEReporteValidacion> ObtenerReporteValidacionPalancas(string tipo, string campaniaId)
         {
             UsuarioModel userData = sessionManager.GetUserData();
             string jsonParameters = string.Empty;
@@ -942,8 +945,8 @@ namespace Portal.Consultoras.Web.Providers
                     CodigoSAP = oferta.SAP,
                     CUV = oferta.CUV,
                     Descripcion = oferta.Descripcion,
-                    PrecioValorizado = decimal.Parse(oferta.PrecioValorizado.ToString()),
-                    PrecioOferta = decimal.Parse(oferta.PrecioOferta.ToString()),
+                    PrecioValorizado = Convert.ToDecimal(string.Format("{0:#,##0.00}", oferta.PrecioValorizado)),
+                    PrecioOferta = Convert.ToDecimal(string.Format("{0:#,##0.00}", oferta.PrecioOferta)),
                     UnidadesPermitidas = oferta.UnidadesPermitidas,
                     EsSubCampania = oferta.EsSubCampania ? 1 : 0,
                     HabilitarOferta = oferta.HabilitarOferta ? 1 : 0,
@@ -1004,7 +1007,7 @@ namespace Portal.Consultoras.Web.Providers
 
         private static List<WaEstrategiaDetalleModel> FormatterEstrategiaDetalle(ServicePedido.BEEstrategia entidad)
         {
-            List <WaEstrategiaDetalleModel> estrategiaDetalle = new List<WaEstrategiaDetalleModel>();
+            List<WaEstrategiaDetalleModel> estrategiaDetalle = new List<WaEstrategiaDetalleModel>();
             estrategiaDetalle.Add(new WaEstrategiaDetalleModel()
             {
                 TablaLogicaDatosID = Constantes.EstrategiaDetalleCamposID.FlagIndividual,

@@ -1,5 +1,6 @@
 ﻿using OpenSource.Library.DataAccess;
 using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.Pedido;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -206,6 +207,20 @@ namespace Portal.Consultoras.Data
             return result;
         }
 
+        public int UpdPedidoWebSetCliente(BEPedidoDetalle pedidowebdetalle)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdPedidoWebSetCliente"); 
+            Context.Database.AddInParameter(command, "@PedidoID", DbType.Int32, pedidowebdetalle.PedidoID); 
+            Context.Database.AddInParameter(command, "@ClienteID", DbType.Int16, pedidowebdetalle.ClienteID == 0 ? (short?)null : pedidowebdetalle.ClienteID);
+            Context.Database.AddInParameter(command, "@CodigoUsuarioModificacion", DbType.String, pedidowebdetalle.Usuario!=null? pedidowebdetalle.Usuario.CodigoUsuario:string.Empty ); // pedidowebdetalle.CodigoUsuarioModificacion);           
+            Context.Database.AddInParameter(command, "@SetId", DbType.Int32, pedidowebdetalle.SetID);
+            int result = Context.ExecuteNonQuery(command);
+
+            return result;
+        }
+
+        
+
         public int UpdListBackOrderPedidoWebDetalle(int campaniaID, int pedidoID, List<BEPedidoWebDetalle> listPedidoWebDetalle)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdListBackOrderPedidoWebDetalle");
@@ -374,18 +389,20 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteNonQuery(command);
         }
 
-        public bool InsertPedidoWebSet(int Campaniaid, int PedidoID, int CantidadSet, string CuvSet, long ConsultoraId, string CodigoUsuario, string CuvsStringList,int EstrategiaId)
+        public bool InsertPedidoWebSet(int Campaniaid, int PedidoID, int CantidadSet, string CuvSet, long ConsultoraId, string CodigoUsuario, string CuvsStringList,int EstrategiaId, int ClienteID, int TipoEstrategiaID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsertPedidoWebSet");
             Context.Database.AddInParameter(command, "@Campaniaid", DbType.Int32, Campaniaid);
             Context.Database.AddInParameter(command, "@PedidoID", DbType.Int64, PedidoID);
             Context.Database.AddInParameter(command, "@CantidadSet", DbType.Int32, CantidadSet);
             Context.Database.AddInParameter(command, "@CuvSet", DbType.String, CuvSet);
+            Context.Database.AddInParameter(command, "@ClienteID", DbType.String, ClienteID);
             Context.Database.AddInParameter(command, "@EstrategiaID", DbType.Int32, EstrategiaId);
             
             Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int64, ConsultoraId);
             Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.String, CodigoUsuario);
-            Context.Database.AddInParameter(command, "@CuvsStringList", DbType.String, CuvsStringList);
+            Context.Database.AddInParameter(command, "@TipoEstrategiaID", DbType.Int32, TipoEstrategiaID);
+            Context.Database.AddInParameter(command, "@CuvsStringList", DbType.Xml, CuvsStringList);
             return Convert.ToInt32(Context.ExecuteScalar(command)) > 0;
         }
 

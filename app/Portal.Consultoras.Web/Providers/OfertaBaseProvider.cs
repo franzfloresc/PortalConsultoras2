@@ -2,8 +2,10 @@
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models.Oferta.ResponseOfertaGenerico;
 using Portal.Consultoras.Web.SessionManager;
+using Portal.Consultoras.Web.ServicePROLConsultas;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -14,18 +16,16 @@ namespace Portal.Consultoras.Web.Providers
 {
     public class OfertaBaseProvider
     {
-        private readonly static HttpClient httpClient = new HttpClient();
+        private static readonly HttpClient httpClient = new HttpClient();
 
         private readonly ISessionManager _sessionManager = SessionManager.SessionManager.Instance;
 
         static OfertaBaseProvider()
         {
-            if (!string.IsNullOrEmpty(WebConfig.UrlMicroservicioPersonalizacionSearch))
-            {
-                httpClient.BaseAddress = new Uri(WebConfig.UrlMicroservicioPersonalizacionSearch);
-                httpClient.DefaultRequestHeaders.Accept.Clear();
-                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            }
+            if (string.IsNullOrEmpty(WebConfig.UrlMicroservicioPersonalizacionSearch)) return;
+            httpClient.BaseAddress = new Uri(WebConfig.UrlMicroservicioPersonalizacionSearch);
+            httpClient.DefaultRequestHeaders.Accept.Clear();
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
         public static async Task<List<ServiceOferta.BEEstrategia>> ObtenerOfertasDesdeApi(string path, string codigoISO)
@@ -45,6 +45,7 @@ namespace Portal.Consultoras.Web.Providers
             }
 
             OutputOferta respuesta = new OutputOferta();
+            var listaSinPrecio2 = new List<string>();
             try
             {
                 respuesta = JsonConvert.DeserializeObject<OutputOferta>(jsonString);
@@ -68,7 +69,7 @@ namespace Portal.Consultoras.Web.Providers
             {
                 try
                 {
-                    ServiceOferta.BEEstrategia estrategia = new ServiceOferta.BEEstrategia
+                    var estrategia = new ServiceOferta.BEEstrategia
                     {
                         CampaniaID = Convert.ToInt32(item.CodigoCampania),
                         CodigoEstrategia = item.CodigoEstrategia.ToString(),
@@ -161,7 +162,7 @@ namespace Portal.Consultoras.Web.Providers
                         List<ServiceOferta.BEEstrategiaProducto> compoponentes = new List<ServiceOferta.BEEstrategiaProducto>();
                         foreach (Models.Search.ResponseOferta.Estructura.Componente componente in item.Componentes)
                         {
-                            ServiceOferta.BEEstrategiaProducto estrategiaTono = new ServiceOferta.BEEstrategiaProducto
+                            var estrategiaTono = new ServiceOferta.BEEstrategiaProducto
                             {
                                 Grupo = componente.Grupo.ToString(),
                                 CUV = componente.Cuv,
@@ -187,7 +188,7 @@ namespace Portal.Consultoras.Web.Providers
                     }
                     else
                     {
-                        listaCuvPrecio0.Add(estrategia.CUV2);
+                        listaSinPrecio2.Add(estrategia.CUV2);
                         codTipoEstrategia = estrategia.CodigoTipoEstrategia;
                         codCampania = estrategia.CampaniaID.ToString();
                     }
@@ -198,11 +199,11 @@ namespace Portal.Consultoras.Web.Providers
                     return estrategias;
                 }
             }
-
-            if (listaCuvPrecio0.Any())
+           
+            if (listaSinPrecio2.Any())
             {
-                string logPrecio0 = string.Format("Log Precios0 => Fecha:{0} /Palanca:{1} /CodCampania:{2} /CUV(s):{3} /Referencia:{4}", DateTime.Now, codTipoEstrategia, codCampania, string.Join("|", listaCuvPrecio0), path);
-                Common.LogManager.SaveLog(new Exception(logPrecio0), string.Empty, codigoISO);
+                string logPrecio0 = string.Format("Log Precios0 => Fecha:{0} /Palanca:{1} /CodCampania:{2} /CUV(s):{3} /Referencia:{4}", DateTime.Now, codTipoEstrategia, codCampania, string.Join("|", listaSinPrecio2), path);
+                Common.LogManager.SaveLog(new Exception(logPrecio0), "", codigoISO);
             }
 
             return estrategias;
@@ -244,7 +245,6 @@ namespace Portal.Consultoras.Web.Providers
             }
             return nombreOferta;
         }
-
 
         public bool UsarMsPersonalizacion(string pais, string tipoEstrategia, bool dbDefault = false)
         {

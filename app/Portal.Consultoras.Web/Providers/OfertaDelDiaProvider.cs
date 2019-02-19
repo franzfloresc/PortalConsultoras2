@@ -20,6 +20,7 @@ namespace Portal.Consultoras.Web.Providers
         protected ConfiguracionManagerProvider _configuracionManager;
         protected TablaLogicaProvider _tablaLogica;
         protected OfertaPersonalizadaProvider _ofertaPersonalizada;
+        protected ConsultaProlProvider _consultaProlProvider;
 
         public OfertaDelDiaProvider()
         {
@@ -27,6 +28,7 @@ namespace Portal.Consultoras.Web.Providers
             _configuracionManager = new ConfiguracionManagerProvider();
             _tablaLogica = new TablaLogicaProvider();
             _ofertaPersonalizada = new OfertaPersonalizadaProvider();
+            _consultaProlProvider = new ConsultaProlProvider();
         }
 
         public List<ServiceOferta.BEEstrategia> GetOfertas(UsuarioModel model)
@@ -81,6 +83,8 @@ namespace Portal.Consultoras.Web.Providers
                 Common.LogManager.SaveLog(ex, model.CodigoConsultora, model.PaisID.ToString());
                 ofertasDelDia = new List<ServiceOferta.BEEstrategia>();
             }
+
+            ofertasDelDia = _consultaProlProvider.ActualizarEstrategiaStockPROL(ofertasDelDia, model.CodigoISO, model.CampaniaID, model.CodigoConsultora);
             return ofertasDelDia;
         }
 

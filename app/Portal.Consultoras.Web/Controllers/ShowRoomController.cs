@@ -244,17 +244,17 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        [HttpPost]
-        public JsonResult InsertOfertaWebPortal(PedidoDetalleModel model)
-        {
-            return InsertarPedidoWebPortal(model, 1);
-        }
+        //[HttpPost]
+        //public JsonResult InsertOfertaWebPortal(PedidoDetalleModel model)
+        //{
+        //    return InsertarPedidoWebPortal(model, 1);
+        //}
 
-        [HttpPost]
-        public JsonResult InsertOfertaWebPortalCpc(PedidoDetalleModel model)
-        {
-            return InsertarPedidoWebPortal(model, 2);
-        }
+        //[HttpPost]
+        //public JsonResult InsertOfertaWebPortalCpc(PedidoDetalleModel model)
+        //{
+        //    return InsertarPedidoWebPortal(model, 2);
+        //}
 
         #region Comprar desde Pagina de Oferta
 
@@ -509,111 +509,111 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region Metodos Privados
 
-        private JsonResult InsertarPedidoWebPortal(PedidoDetalleModel model, int tipo)
-        {
-            try
-            {
-                string mensaje;
-                var noPasa = ReservadoEnHorarioRestringido(out mensaje);
-                if (noPasa)
-                {
-                    return Json(new
-                    {
-                        success = false,
-                        message = mensaje,
-                        extra = ""
-                    });
-                }
+        //private JsonResult InsertarPedidoWebPortal(PedidoDetalleModel model, int tipo)
+        //{
+        //    try
+        //    {
+        //        string mensaje;
+        //        var noPasa = ReservadoEnHorarioRestringido(out mensaje);
+        //        if (noPasa)
+        //        {
+        //            return Json(new
+        //            {
+        //                success = false,
+        //                message = mensaje,
+        //                extra = ""
+        //            });
+        //        }
 
-                BEPedidoWebDetalle entidad = Mapper.Map<PedidoDetalleModel, BEPedidoWebDetalle>(model);
-                entidad.PaisID = userData.PaisID;
-                entidad.ConsultoraID = userData.ConsultoraID;
-                entidad.CampaniaID = userData.CampaniaID;
+        //        BEPedidoWebDetalle entidad = Mapper.Map<PedidoDetalleModel, BEPedidoWebDetalle>(model);
+        //        entidad.PaisID = userData.PaisID;
+        //        entidad.ConsultoraID = userData.ConsultoraID;
+        //        entidad.CampaniaID = userData.CampaniaID;
 
-                if (tipo == 1)
-                {
-                    entidad.TipoOfertaSisID = Constantes.ConfiguracionOferta.ShowRoom;
-                    entidad.TipoEstrategiaID = model.ConfiguracionOfertaID;
-                }
-                else if (tipo == 2)
-                {
-                    entidad.TipoOfertaSisID = 0;
-                    entidad.OfertaWeb = false;
-                    entidad.ConfiguracionOfertaID = 0;
-                    entidad.SubTipoOfertaSisID = 0;
-                    entidad.EsSugerido = false;
-                    entidad.EsKitNueva = false;
-                    entidad.EsCompraPorCompra = true;
-                }
+        //        if (tipo == 1)
+        //        {
+        //            entidad.TipoOfertaSisID = Constantes.ConfiguracionOferta.ShowRoom;
+        //            entidad.TipoEstrategiaID = model.ConfiguracionOfertaID;
+        //        }
+        //        else if (tipo == 2)
+        //        {
+        //            entidad.TipoOfertaSisID = 0;
+        //            entidad.OfertaWeb = false;
+        //            entidad.ConfiguracionOfertaID = 0;
+        //            entidad.SubTipoOfertaSisID = 0;
+        //            entidad.EsSugerido = false;
+        //            entidad.EsKitNueva = false;
+        //            entidad.EsCompraPorCompra = true;
+        //        }
 
-                entidad.IPUsuario = userData.IPUsuario;
-                entidad.CodigoUsuarioCreacion = userData.CodigoConsultora;
-                entidad.CodigoUsuarioModificacion = entidad.CodigoUsuarioCreacion;
-                entidad.OrigenPedidoWeb = ProcesarOrigenPedido(entidad.OrigenPedidoWeb);
+        //        entidad.IPUsuario = userData.IPUsuario;
+        //        entidad.CodigoUsuarioCreacion = userData.CodigoConsultora;
+        //        entidad.CodigoUsuarioModificacion = entidad.CodigoUsuarioCreacion;
+        //        entidad.OrigenPedidoWeb = ProcesarOrigenPedido(entidad.OrigenPedidoWeb);
 
-                using (var sv = new PedidoServiceClient())
-                {
-                    sv.InsPedidoWebDetalleOferta(entidad);
-                }
+        //        using (var sv = new PedidoServiceClient())
+        //        {
+        //            sv.InsPedidoWebDetalleOferta(entidad);
+        //        }
 
-                SessionManager.SetPedidoWeb(null);
-                SessionManager.SetDetallesPedido(null);
-                SessionManager.SetDetallesPedidoSetAgrupado(null);
+        //        SessionManager.SetPedidoWeb(null);
+        //        SessionManager.SetDetallesPedido(null);
+        //        SessionManager.SetDetallesPedidoSetAgrupado(null);
 
-                UpdPedidoWebMontosPROL();
+        //        UpdPedidoWebMontosPROL();
 
-                var indPedidoAutentico = new BEIndicadorPedidoAutentico
-                {
-                    PedidoID = entidad.PedidoID,
-                    CampaniaID = entidad.CampaniaID,
-                    PedidoDetalleID = entidad.PedidoDetalleID,
-                    IndicadorIPUsuario = GetIPCliente(),
-                    IndicadorFingerprint = "",
-                    IndicadorToken = SessionManager.GetTokenPedidoAutentico() != null
-                        ? SessionManager.GetTokenPedidoAutentico()
-                        : ""
-                };
+        //        var indPedidoAutentico = new BEIndicadorPedidoAutentico
+        //        {
+        //            PedidoID = entidad.PedidoID,
+        //            CampaniaID = entidad.CampaniaID,
+        //            PedidoDetalleID = entidad.PedidoDetalleID,
+        //            IndicadorIPUsuario = GetIPCliente(),
+        //            IndicadorFingerprint = "",
+        //            IndicadorToken = SessionManager.GetTokenPedidoAutentico() != null
+        //                ? SessionManager.GetTokenPedidoAutentico()
+        //                : ""
+        //        };
 
-                InsIndicadorPedidoAutentico(indPedidoAutentico, entidad.CUV);
+        //        InsIndicadorPedidoAutentico(indPedidoAutentico, entidad.CUV);
 
-                if (tipo == 1)
-                {
-                    using (var pedidoServiceClient = new PedidoServiceClient())
-                    {
-                        pedidoServiceClient.InsertPedidoWebSet(userData.PaisID, userData.CampaniaID, userData.PedidoID, model.Cantidad.ToInt(), model.CUV
-                            , userData.ConsultoraID, "", string.Format("{0}:1", model.CUV), 0, userData.NombreConsultora, userData.CodigoPrograma, userData.ConsecutivoNueva);
-                    }
-                }
+        //        if (tipo == 1)
+        //        {
+        //            using (var pedidoServiceClient = new PedidoServiceClient())
+        //            {
+        //                pedidoServiceClient.InsertPedidoWebSet(userData.PaisID, userData.CampaniaID, userData.PedidoID, model.Cantidad.ToInt(), model.CUV
+        //                    , userData.ConsultoraID, "", string.Format("{0}:1", model.CUV), 0, userData.NombreConsultora, userData.CodigoPrograma, userData.ConsecutivoNueva);
+        //            }
+        //        }
 
-                return Json(new
-                {
-                    success = true,
-                    message = "Se agregó la Oferta Web satisfactoriamente.",
-                    extra = "",
-                    DataBarra = GetDataBarra()
-                });
-            }
-            catch (FaultException ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = ex.Message,
-                    extra = ""
-                });
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = ex.Message,
-                    extra = ""
-                });
-            }
-        }
+        //        return Json(new
+        //        {
+        //            success = true,
+        //            message = "Se agregó la Oferta Web satisfactoriamente.",
+        //            extra = "",
+        //            DataBarra = GetDataBarra()
+        //        });
+        //    }
+        //    catch (FaultException ex)
+        //    {
+        //        LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+        //        return Json(new
+        //        {
+        //            success = false,
+        //            message = ex.Message,
+        //            extra = ""
+        //        });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+        //        return Json(new
+        //        {
+        //            success = false,
+        //            message = ex.Message,
+        //            extra = ""
+        //        });
+        //    }
+        //}
 
         private bool CorreoPerteneceAOtraConsultora(MisDatosModel model)
         {

@@ -61,16 +61,6 @@ namespace Portal.Consultoras.Web.Controllers
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
 
-        //movido BaseAdm/ObtenerCampaniasPorUsuario
-        //public JsonResult ObtenerCampanias()
-        //{
-        //    IEnumerable<CampaniaModel> lst = _zonificacionProvider.GetCampanias(userData.PaisID);
-        //    return Json(new
-        //    {
-        //        lista = lst
-        //    }, JsonRequestBehavior.AllowGet);
-        //}
-
         private IEnumerable<TipoEstrategiaModel> DropDowListTipoEstrategia()
         {
             List<BETipoEstrategia> lst = _tipoEstrategiaProvider.GetTipoEstrategias(userData.PaisID);
@@ -124,13 +114,13 @@ namespace Portal.Consultoras.Web.Controllers
                 nombreReporte = NombreReporteValidacionOPM;
 
 
-            if ((int.Parse(TipoEstrategiaID) != 99) || 
+            if ((int.Parse(TipoEstrategiaID) != 99) ||
                 _ofertaBaseProvider.UsarMsPersonalizacion(Constantes.ReporteValidacionDatos.TipoEstrategiaCodigo[int.Parse(TipoEstrategiaID)]))
             {
                 lst = administrarEstrategiaProvider.ObtenerReporteValidacionPalancas(Constantes.ReporteValidacionDatos.TipoPersonalizacion[int.Parse(TipoEstrategiaID)], CampaniaID);
             }
             else
-            { 
+            {
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
                     lst = sv.GetReporteValidacion(userData.PaisID, Convert.ToInt32(CampaniaID), Convert.ToInt32(TipoEstrategiaID)).ToList();
@@ -167,10 +157,10 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 ReporteValidacionShowroom reporteValidacionShowroom = administrarEstrategiaProvider.ObtenerReportValidacionShowroom(CampaniaID);
 
-                listSrCampaniaModel = reporteValidacionShowroom.ListaCampania;
-                lstSrPersonalizacionModel = reporteValidacionShowroom.ListaPersonalizacion;
+                listSrCampaniaModel = reporteValidacionShowroom.ListaCampania.OrderBy(campo => campo.CodPais).ToList();
+                lstSrPersonalizacionModel = reporteValidacionShowroom.ListaPersonalizacion.OrderBy(campo => campo.CodPais).ThenBy(campo => campo.Nombre).ToList();
                 lstSrOfertaModel = reporteValidacionShowroom.ListaOferta;
-                lstSrComponenteModel = reporteValidacionShowroom.ListaComponente;
+                lstSrComponenteModel = reporteValidacionShowroom.ListaComponente.OrderBy(campo => campo.CodPais).ThenBy(campo => campo.CUV).ToList();
 
                 if (listSrCampaniaModel.Count == 0 && lstSrPersonalizacionModel.Count == 0 && lstSrOfertaModel.Count == 0 && lstSrComponenteModel.Count == 0)
                 {

@@ -123,6 +123,7 @@ var BuscadorModule = (function () {
             var enlacesVisiblesMenuLateralDerechoSegunVista = $(".visibilidadEnlaceMenu:visible");
 
             if ($(".new_menu").first().find("a").attr("title") == "SOCIA EMPRESARIA") {
+                $(".wrapper_header").addClass("wrapper_header_se");
                 if (enlacesVisiblesMenuLateralDerechoSegunVista.length > 2) {
                     $(".buscador_productos").addClass("buscador_productos_con_enlace_menu_socia_empresaria_vista_pedido");
                 } else {
@@ -311,7 +312,7 @@ var BuscadorModule = (function () {
             var divPadre = $(this).parents("[data-item='ProductoBuscador']").eq(0);
             var textoBusqueda = $(_elementos.campoBuscadorProductos).val();
             _funciones.LlamarAnalyticsSeleccionarContenido(textoBusqueda);
-            BuscadorProvider.RegistroProductoBuscador(divPadre, _elementos.valueJSON);
+            PedidoRegistroModule.RegistroProductoBuscador(divPadre, _elementos.valueJSON);
         },
         RedireccionarAFichaDeFotoYDescripcion: function (e) {
             e.preventDefault();
@@ -330,7 +331,7 @@ var BuscadorModule = (function () {
                 localStorage.setItem('valorBuscador', textoBusqueda);            
 
             if (codigo.indexOf(codigoEstrategia) >= 0) {
-                var UrlDetalle = GetPalanca(codigoEstrategia);
+                var UrlDetalle = GetPalanca(codigoEstrategia, OrigenPedidoWeb);
                 if (UrlDetalle === "") return false;
                 UrlDetalle += codigoCampania + "/" + codigoCuv + "/" + OrigenPedidoWeb;
                 _funciones.LlamarAnalyticsElijeUnaOpcion(UrlDetalle, textoBusqueda);

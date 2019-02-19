@@ -291,6 +291,7 @@
     <Compile Include="Controllers\AppController.cs" />
     <Compile Include="Controllers\BuscadorController.cs" />
     <Compile Include="Controllers\MasGanadorasController.cs" />
+    <Compile Include="Controllers\PedidoRegistroController.cs" />
     <Compile Include="Infraestructure\Excel\ExcelProtectionProcessor.cs" />
     <Compile Include="Models\BuscadorYFiltrosConfiguracionModel.cs" />
     <Compile Include="Controllers\BusquedaProductosController.cs" />
@@ -323,6 +324,8 @@
     <Compile Include="Models\Config\ResponseReporte\OutputReporteValidacion.cs" />
     <Compile Include="Models\Config\Response\ResponseStatus.cs" />
     <Compile Include="Models\ConsultaCrediticiaExternaMX.cs" />
+    <Compile Include="Models\ConsultaProl\ConsultaStockModel.cs" />
+    <Compile Include="Models\ConsultaProl\RespuestaStockModel.cs" />
     <Compile Include="Models\Estrategia\EstrategiaMDbAdapterModel.cs" />
     <Compile Include="Controllers\OfertaDelDiaController.cs" />
     <Compile Include="CustomHelpers\Infraestructure\Sms\ISmsConfirm.cs" />
@@ -804,6 +807,7 @@
     <Compile Include="Providers\ConfiguracionOfertasHomeProvider.cs" />
     <Compile Include="Providers\ConfiguracionPaisDatosProvider.cs" />
     <Compile Include="Providers\ConfiguracionPaisProvider.cs" />
+    <Compile Include="Providers\ConsultaProlProvider.cs" />
     <Compile Include="Providers\EstadoCuentaProvider.cs" />
     <Compile Include="Providers\EstrategiaComponenteProvider.cs" />
     <Compile Include="Providers\EventoFestivoProvider.cs" />
@@ -4039,6 +4043,7 @@
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\TituloOpcionesSeleccionadasModule.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaAgregar\EstrategiaAgregar.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaAgregar\EstrategiaAgregarProvider.js" />
+    <Content Include="Scripts\PortalConsultoras\EstrategiaAgregar\PedidoRegistro.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaIncentivos\Detalle.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaIncentivos\Index.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaPersonalizada\CajaProducto.js" />
@@ -4077,6 +4082,7 @@
     <Content Include="Scripts\PortalConsultoras\PagoEnLinea\PasarelaPago.js" />
     <Content Include="Scripts\PortalConsultoras\Pedido\tooltip.js" />
     <Content Include="Scripts\PortalConsultoras\ProductoRecomendado\ProductoRecomendadoModule.js" />
+    <Content Include="Scripts\PortalConsultoras\Pedido\KitNuevas.js" />
     <Content Include="Scripts\PortalConsultoras\ProductoComentario\ProductoComentarioAdmModule.js" />
     <Content Include="Scripts\PortalConsultoras\Cupon\CuponAdm.js" />
     <Content Include="Scripts\PortalConsultoras\Cupon\CuponAdmModule.js" />
@@ -4713,6 +4719,9 @@
     <None Include="Service References\ServicePedido\PedidoService118.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ServicePedido\PedidoService118.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServicePedido\PedidoService12.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -4805,6 +4814,9 @@
     <None Include="Service References\ServiceSAC\SACService63.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ServiceSAC\SACService63.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServiceSAC\SACService7.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -4874,6 +4886,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceUnete\PortalService8.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService9.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceUsuarioExt\UsuarioWebService.wsdl" />

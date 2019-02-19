@@ -46,7 +46,7 @@ namespace Portal.Consultoras.Web.Controllers
                 CampaniaID = campaniaIdActual
             };
 
-            ViewBag.TieneCronogramaExtendido = croAuto ? 1 : 0;
+            ViewBag.TieneCronogramaExtendido = croAuto.ToInt();
             return View(cronogramaModel);
         }
 
@@ -68,28 +68,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             return View();
         }
-
-        //movido a BaseAdm/ObtenerCampaniasZonasPorPais
-        //public JsonResult ObtenterCampaniasPorPais(int PaisID)
-        //{
-        //    IEnumerable<CampaniaModel> lst = _zonificacionProvider.GetCampanias(PaisID);
-        //    IEnumerable<ZonaModel> lstZonas = _zonificacionProvider.GetZonas(PaisID);
-        //    return Json(new
-        //    {
-        //        lista = lst,
-        //        listaZonas = lstZonas
-        //    }, JsonRequestBehavior.AllowGet);
-        //}
-
-        //public JsonResult ObtenterCampanias(int PaisID)
-        //{
-        //    PaisID = userData.PaisID;
-        //    IEnumerable<CampaniaModel> lst = _zonificacionProvider.GetCampanias(PaisID);
-        //    return Json(new
-        //    {
-        //        lista = lst
-        //    }, JsonRequestBehavior.AllowGet);
-        //}
 
         public JsonResult ActualizarLog(string CampaniaCodigo, string codigos, string Tipo, string FechaFacturacion, string FechaReFacturacion)
         {
