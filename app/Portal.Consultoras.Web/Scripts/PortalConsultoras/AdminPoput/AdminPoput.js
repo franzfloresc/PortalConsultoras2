@@ -384,6 +384,7 @@ function getFileCSV() {
         }
         var bool = confirm("Deseas guardar los datos ingresados");
         if (bool) {
+            debugger;
         waitingDialog({ "title": "Cargando", "message": "Espere por favor" });
         /*carga de datos*/
         /*Zona de archivos*/
