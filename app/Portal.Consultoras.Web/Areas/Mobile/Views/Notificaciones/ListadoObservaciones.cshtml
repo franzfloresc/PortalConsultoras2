@@ -79,6 +79,22 @@
                 <div class="texto_reservado">CANT</div>
                 <div class="datos_Reservado"><b>@item.Cantidad</b></div>
             </div>
+            @if (!string.IsNullOrEmpty(item.ObservacionPROL))
+            {
+                <div class="left_reservado">
+                    @{string[] obser = item.ObservacionPROL.Split('|');}
+                    @if (obser != null)
+                    {
+                        foreach (string ob in obser)
+                        {
+                            if (!string.IsNullOrEmpty(ob))
+                            {
+                                <span>@ob</span>
+                            }
+                        }
+                    }
+                </div>
+            }
             <hr class="clear" /><br />
             <div class="left_reservado">
                 <div class="texto_reservado">
@@ -107,6 +123,7 @@
 
                 <div class="importe_reservado">@ViewBag.Simbolo @string.Format("{0:N2}", item.ImporteTotal)</div>
             </div>
+            
         </div>
     }
 
