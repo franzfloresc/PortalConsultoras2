@@ -18,6 +18,9 @@
         $(PanelId).show();
         $(PanelId).css('margin-right', '0');
         $(PanelId).css('opacity', '1'); 
+
+        _config.panelListaModule.setNombreCliente('');
+        _config.panelListaModule.mostrarTusClientes();
     };
 
     var _cerrar = function () {

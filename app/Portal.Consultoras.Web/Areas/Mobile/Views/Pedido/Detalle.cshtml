@@ -319,7 +319,7 @@
              data-tipoestrategia="{{TipoEstrategiaCodigo}}"
              data-OrigenPedidoWeb="{{OrigenPedidoWeb}}">
             <div class="bloque_descripcion_items_ingresados">
-                <div onclick="javascript: FichaEditarModule.EditarProducto(this, '{{TipoAccion}}')"
+                <div onclick="javascript: FichaPartialModule.ConstruirFicha(this, '{{TipoAccion}}')"
                      class="descripcion_item_pedido">
                     <div class="cod_prod text-regular">
                         {{#if detalle.EstadoSimplificacionCuv}}
@@ -334,7 +334,7 @@
                         {{#iff detalle.IndicadorMontoMinimo '==' 0}}
                         <span class="texto_rojo">*</span>
                         {{/iff}}
-                        <span>{{Split detalle.DescripcionProd '|' 0}}</span>
+                        <span>{{#iff SetIdentifierNumber '>' '0'}} #{{SetIdentifierNumber}} {{/iff}} {{Split detalle.DescripcionProd '|' 0}}</span>
                         
                         <span class="precio_oferta_pedido text-regular">
                             {{#if ../EstadoSimplificacionCuv}}
@@ -445,7 +445,7 @@
                 
             </div>
 
-            <div style="display:none" class="popover bottom" id="tlpDelete_{{PedidoDetalleID}}_{{SetID}}">
+            <div style="display:none" class="popover_pedido bottom" id="tlpDelete_{{PedidoDetalleID}}_{{SetID}}">
                 <div class="arrow"></div>
                 <p data-mensaje-eliminar="directo">¿Quieres eliminar este producto?</p>
                 <p data-mensaje-eliminar="regalo">Si eliminas este producto podrías perder el premio que ganaste ¿Quieres eliminar este producto?</p>
@@ -476,7 +476,7 @@
                         {{/iff}}
                     </small>
                 </div>*@
-            <div class="popover bottom" id="tlpObservaciones_{{PedidoDetalleID}}_{{SetID}}">
+            <div class="popover_pedido bottom" id="tlpObservaciones_{{PedidoDetalleID}}_{{SetID}}">
                 <div class="arrow"></div>
                 <ul class="list-tooltip">
                     <li class="icon-alert"><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt=""></li>

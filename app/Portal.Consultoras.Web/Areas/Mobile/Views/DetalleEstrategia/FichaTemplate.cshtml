@@ -65,9 +65,8 @@
 </div>
 
 <!-- INIT: Panel cliente-->
-<div id="PanelClienteLista" class="contenedor_seleccion" style=" margin-right: -320px; opacity: 0; height: 100%;">
-    <div id="PanelClienteLista_Contenedor">
-    </div>
+<div id="PanelClienteLista" class="contenedor_seleccion" style=" margin-right: -320px; opacity: 0; height: 100%; display: none;">
+    <div id="PanelClienteLista_Contenedor"></div>
 </div>
 <!-- END: Panel cliente-->
 
@@ -96,7 +95,7 @@
     </div>
 
     {{else if_eq TipoAccionNavegar '@Constantes.TipoAccionNavegar.Volver'}}
-    <a class="boton_volver_ficha" href="javascript:;" onclick="javascript:FichaEditarModule.ShowDivFichaResumida(false)"> <img src="/Content/Images/mobile/Esika/right-arrow.svg" />Volver</a>
+    <a class="boton_volver_ficha" href="javascript:;" onclick="javascript: FichaPartialModule.ShowDivFichaResumida(false)"> <img src="/Content/Images/mobile/Esika/right-arrow.svg" />Volver</a>
     {{/if_eq}}
 
 </script>

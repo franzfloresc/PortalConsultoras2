@@ -139,7 +139,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!userData.DiaPROL)  // Periodo de venta
                 {
                     model.AccionBoton = "guardar";
-                    model.Prol = "GUARDA TU PEDIDO";
+                    model.Prol = "Guarda tu pedido";
                     model.ProlTooltip = "Es importante que guardes tu pedido";
                     model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
 
@@ -152,7 +152,7 @@ namespace Portal.Consultoras.Web.Controllers
                 else // Periodo de facturacion
                 {
                     model.AccionBoton = "validar";
-                    model.Prol = "RESERVA TU PEDIDO";
+                    model.Prol = "Reserva tu pedido";
                     model.ProlTooltip = "Haz click aqui para reservar tu pedido";
                     model.IndicadorGPRSB = configuracionCampania.IndicadorGPRSB;
 
@@ -4745,6 +4745,35 @@ namespace Portal.Consultoras.Web.Controllers
 
             var exTrace = string.Format("ISO:{0};Consultora{1};Cuv:{2}", userData.CodigoISO, userData.CodigoConsultora, cuv);
             LogManager.LogManager.LogErrorWebServicesBus(new CustomTraceException(message, exTrace), userData.CodigoConsultora, userData.CodigoISO);
+        }
+
+        /// <summary>
+        /// Obtiene informacion de componentes seleccionados en el pedido
+        /// </summary>
+        /// <param name="CampaniaID">Campania</param>
+        /// <param name="SetID">Set</param>
+        /// <returns></returns>
+        public JsonResult ObtenerPedidoWebSetDetalle(int campaniaId, int set)
+        {
+            try
+            {
+                var pedidoSet = _pedidoSetProvider.ObtenerPorId(userData.PaisID, set);
+
+                return Json(new
+                {
+                    success = true,
+                    pedidoSet
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+
+                return Json(new
+                {
+                    success = false
+                }, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }

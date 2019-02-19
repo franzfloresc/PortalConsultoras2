@@ -796,6 +796,7 @@ namespace Portal.Consultoras.Web.Controllers
                     tipo = estado.ToLower(),
                     userData.Simbolo,
                     a.CUV,
+                    a.SetIdentifierNumber,
                     a.DescripcionProd,
                     a.Cantidad,
                     PrecioUnidad = Util.DecimalToStringFormat(a.PrecioUnidad, userData.CodigoISO),
@@ -835,7 +836,8 @@ namespace Portal.Consultoras.Web.Controllers
                     ConsultoraId = ObtenerConsultoraId(),
                     Consultora = userData.NombreConsultora,
                     CodigoPrograma = userData.CodigoPrograma,
-                    NumeroPedido = userData.ConsecutivoNueva
+                    NumeroPedido = userData.ConsecutivoNueva,
+                    AgruparSet = true
                 };
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
