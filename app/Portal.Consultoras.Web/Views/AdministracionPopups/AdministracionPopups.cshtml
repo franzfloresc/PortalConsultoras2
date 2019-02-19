@@ -105,7 +105,7 @@
             <div class="d__block modal__contenido__seccion">
                 <h4 class="d__block text__bold text__uppercase modal__contenido__subtitulo">Contenido</h4>
                 <div class="d__flex modal__contenido__seccion__campos modal__contenido__seccion__campos--contenido">
-                    <div class="d__flex grupo__form__campos">
+                    <div class="d__flex grupo__form__campos grupo__form__campos--agregarArchivos">
                         <div class="d__block color__m text__bold grupo__form__campos__label grupo__form__campos__label--adjuntarFondo">Adjuntar Fondo : </div>
                         <div class="d__block mr-20">
                             <input id="imgPoputs" type="file" class="d__none text__bold" />
@@ -146,7 +146,7 @@
                 <h4 class="d__block text__bold text__uppercase modal__contenido__subtitulo">Configuración</h4>
                 <div class="d__flex modal__contenido__seccion__campos modal__contenido__seccion__campos--configuracion">
 
-                    <div class="d__flex grupo__form__campos">
+                    <div class="d__flex grupo__form__campos grupo__form__campos--agregarArchivos">
                         <div class="d__block text__bold color__m grupo__form__campos__label grupo__form__campos__label--segmentoConsultoras">Segmento de<br />consultoras : </div>
                         <div class="d__block">
                             <input id="fileCSV" type="file" class="d__none text__bold" onchange='getFileCSV()' />
@@ -155,6 +155,8 @@
                                 <span class="d__inline__block text__bold">Agregar</span>
                             </label>
                             <p class="d__block color__gray__multimarca info__formato__medidas" id="nameArchivo">
+                                Formato de archivo *CSV.<br />
+                                - Código Consultora
                             </p>
                         </div>
                         <div id="fileCSVThumbnail" class="d__block csv__cargado__thumbnail__wrapper">
@@ -164,7 +166,6 @@
                             <img class="d__block m-0 w__100 csv__cargado__thumbnail" src="@Url.Content("~/Content/Images/csv_file_img.svg")" alt="" />
                         </div>
                     </div>
-
                     <div class="d__flex grupo__form__campos">
                         <label class="d__block text__bold color__m grupo__form__campos__label">Duración : </label>
                         <div class="d__flex mb-0 grupo__form__campos grupo__form__campos--minMax">
@@ -207,10 +208,10 @@
     </div>
 </section>
 <!-- FIN - MODAL AGREGAR NUEVO POPUP -->
-<!-- FIN - VISTA ADMINISTRACIÓN DE POS -->
+<!-- FIN - VISTA ADMINISTRACIÓN DE POPUPS -->
 @section scripts{
     <script src="@Url.Content("~/Scripts/jquery.ui.core.js")"></script>
-    <script src="@Url.Content("~/Scripts/jquery.ui.widget.js")"></script>
+    @*<script src="@Url.Content("~/Scripts/jquery.ui.widget.js")"></script>*@
     <script src="@Url.Content("~/Scripts/jquery.ui.mouse.js")"></script>
     <script src="@Url.Content("~/Scripts/jquery.ui.sortable.js")"></script>
     <script src="@Url.Content("~/Scripts/jquery.ui.swappable.js")"></script> 
