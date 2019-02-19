@@ -280,6 +280,7 @@
             text-decoration: underline;
             margin-bottom: 10px;
             color: #000;
+            text-transform: uppercase;
         }
 
 
@@ -294,6 +295,7 @@
             color: #fff;
             width: 195px;
             border-radius: 4px;
+            text-transform: uppercase;
         }
 
 .container_form_desuscrita {
@@ -386,5 +388,6 @@
     line-height: normal;
     font-size: 13px; 
     font-weight: bold;
-    font-family: inherit;
+    text-transform: uppercase;
+    margin-top: 9px;
 }
