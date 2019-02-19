@@ -213,6 +213,18 @@ div.ui-state-highlight {
     height: auto;
 }
 
+.ui-datepicker select.ui-datepicker-month,
+.ui-datepicker select.ui-datepicker-year
+{
+    border: 1px solid #808080;
+    border-radius: 4px;
+    color: #000;
+    margin-right: 7px;
+    padding-left: 4px;
+    padding-right: 5px;
+    min-width: 71px;
+}
+
 /* FIN - AJUSTES PERSONALIZADOS PARA EL DATEPICKER DE JQUERY UI */
 
 /* VISTA ADMINISTRACIÓN POPUPS */
@@ -276,6 +288,7 @@ div.ui-state-highlight {
 .grilla__filtro__select {
     font-family: 'Lato', sans-serif;
     width: 200px;
+    font-size:15px;
 }
 
 .btn__grilla__filtros,
@@ -324,6 +337,7 @@ div.ui-state-highlight {
 
 .administracion__popups__paginacion__grilla {
     justify-content: flex-end;
+    align-items:center;
     margin-top: 6px;
     margin-bottom: 16px;
 }
@@ -397,6 +411,7 @@ div.ui-state-highlight {
     width: 30px;
     height: 26px;
     font-family: 'Lato', sans-serif;
+    background-color:#FFF;
 }
 
 .paginacion__actual,
@@ -459,24 +474,24 @@ div.ui-state-highlight {
 }
 
 .col__grilla--numero {
-    -ms-flex: 0 0 3%;
-    -webkit-flex: 0 0 3%;
-    flex: 0 0 3%;
-    max-width: 3%;
+    -ms-flex: 0 0 5%;
+    -webkit-flex: 0 0 5%;
+    flex: 0 0 5%;
+    max-width: 5%;
 }
 
 .col__grilla--fondo {
-    -ms-flex: 0 0 18%;
-    -webkit-flex: 0 0 18%;
-    flex: 0 0 18%;
-    max-width: 18%;
+    -ms-flex: 0 0 21%;
+    -webkit-flex: 0 0 21%;
+    flex: 0 0 21%;
+    max-width: 21%;
 }
 
 .col__grilla--duracion {
-    -ms-flex: 0 0 17%;
-    -webkit-flex: 0 0 17%;
-    flex: 0 0 17%;
-    max-width: 17%;
+    -ms-flex: 0 0 15%;
+    -webkit-flex: 0 0 15%;
+    flex: 0 0 15%;
+    max-width: 15%;
 }
 
 .col__grilla--titulo {
@@ -487,18 +502,24 @@ div.ui-state-highlight {
 }
 
 .col__grilla--ruta {
-    -ms-flex: 0 0 32%;
-    -webkit-flex: 0 0 32%;
-    flex: 0 0 32%;
-    max-width: 32%;
+    -ms-flex: 0 0 30%;
+    -webkit-flex: 0 0 30%;
+    flex: 0 0 30%;
+    max-width: 30%;
 }
 
-.col__grilla--estado,
-.col__grilla--editar {
+.col__grilla--estado{
     -ms-flex: 0 0 6%;
     -webkit-flex: 0 0 6%;
     flex: 0 0 6%;
     max-width: 6%;
+}
+
+.col__grilla--editar{
+    -ms-flex: 0 0 5%;
+    -webkit-flex: 0 0 5%;
+    flex: 0 0 5%;
+    max-width: 5%;
 }
 
 .opcion__filtro__estado,
@@ -561,6 +582,14 @@ div.ui-state-highlight {
     align-items: center;
     overflow-wrap: break-word;
 }
+
+    .row__grilla__texto a{
+        color:#000!important;
+    }
+
+    .row__grilla__texto a:hover{
+        text-decoration:underline;
+    }
 
 .enlace__editar {
     -moz-transition: all 0.3s ease;

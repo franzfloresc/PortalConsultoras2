@@ -46,7 +46,7 @@ $(document).ready(function () {
                 $("#swappable").disableSelection();
             }
         },
-            me.Eventos = {
+        me.Eventos = {
             AbrirPopupNuevo: function (e) {
                 e.preventDefault();
                 if ($("#ddlCampania").val().length > 0) {
@@ -60,31 +60,30 @@ $(document).ready(function () {
                     $('#AgregarPopup').css('display', 'flex');
                     $('body').css('overflow-y', 'hidden');
                 } else alert("Tiene que seleccionar una campaña");
-                },
+            },
             AbrirPopupModificar: function (e) {
-                debugger;
-                    e.preventDefault();
-                    $("#hdAccion").val(2)
-                    LimpiarCamposPoput();
-                    var comunicadoid = e.target.getAttribute("comunicadoid")
-                    $("#hdComunicadoId").val(comunicadoid)
-                    GetCargaDetallePoput(comunicadoid);
-                    $('#modalTitulo').html($(this).attr('title'));
-                    $('#AgregarPopup').fadeIn(100);
-                    $('#AgregarPopup').scrollTop(0);
-                    $('#AgregarPopup').css('display', 'flex');
-                    $('body').css('overflow-y', 'hidden');
+                e.preventDefault();
+                $("#hdAccion").val(2)
+                LimpiarCamposPoput();
+                var comunicadoid = e.target.getAttribute("comunicadoid")
+                $("#hdComunicadoId").val(comunicadoid)
+                GetCargaDetallePoput(comunicadoid);
+                $('#modalTitulo').html($(this).attr('title'));
+                $('#AgregarPopup').fadeIn(100);
+                $('#AgregarPopup').scrollTop(0);
+                $('#AgregarPopup').css('display', 'flex');
+                $('body').css('overflow-y', 'hidden');
             },
-                CerrarPopup: function (e) {
-                    e.preventDefault();
-                    $('#AgregarPopup').fadeOut(100);
-                    $('body').css('overflow-y', '');
-                }
-            },
-            me.Inicializar = function () {
-                me.Funciones.InicializarEventos();
-                me.Funciones.CargarDatePicker();
+            CerrarPopup: function (e) {
+                e.preventDefault();
+                $('#AgregarPopup').fadeOut(100);
+                $('body').css('overflow-y', '');
             }
+        },
+        me.Inicializar = function () {
+            me.Funciones.InicializarEventos();
+            me.Funciones.CargarDatePicker();
+        }
     }
 
     VistaAdministracionPopups = new vistaAdPop();
@@ -170,7 +169,6 @@ function getCargarArchivoCSVPoputLocalStorage(data) {
 
 
 function GetCamposCargadosPoput(data) {
-    debugger;
     if (data.NombreImagen.length > 0)
     document.getElementById("imgPreview").style.display = "block";
     $("#targetImg").attr('src', (data.UrlImagen));
@@ -327,7 +325,6 @@ function getFileCSV() {
 
     $("#btnGuardar").click(function () {
 
-        debugger;
         /*Validaciones*/
 
         
@@ -384,7 +381,6 @@ function getFileCSV() {
         }
         var bool = confirm("Deseas guardar los datos ingresados");
         if (bool) {
-            debugger;
         waitingDialog({ "title": "Cargando", "message": "Espere por favor" });
         /*carga de datos*/
         /*Zona de archivos*/
@@ -437,7 +433,6 @@ function getFileCSV() {
 
 
 function respuestaValidacionCambios() {
-    debugger;
     var acumuladoValidacion = 0;
     if (JSON.parse(localStorage.getItem('datosPoput')).NombreImagen != $("#description").html())
             acumuladoValidacion += 1;
@@ -516,7 +511,6 @@ function ValidaImagen(file) {
 
 
 $(".eliminarArchivo").click(function () {
-    debugger;
     var comunicadoid = $("#hdComunicadoId").val();
     var object = {
         Comunicadoid: parseInt( comunicadoid)
