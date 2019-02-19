@@ -49,13 +49,21 @@
 
 <script id="handlebars_plantilla1" type="text/x-handlebars-template">
     <ul>
-        {{# each miData}}
-
-        <li class="cliente-list" onclick="panelListaModule.seleccionarRegistro({{PaisID}}, {{ClienteID}}, '{{CodigoCliente}}', '{{NombreCliente}}', '{{Nombre}}')">
-            {{Nombre}}
-        </li>
-
-        {{/each}}
+        {{#iff miData.length '==' '0'}}
+            {{#iff mostrarNoTieneClientes '==' 'true'}}
+            No tienes clientes registrados.
+            {{else}}
+            <li class="cliente-list">
+                No se encontraron clientes.
+            </li>
+            {{/iff}}
+        {{else}}
+            {{#each miData}}
+            <li class="cliente-list" onclick="panelListaModule.seleccionarRegistro({{PaisID}}, {{ClienteID}}, '{{CodigoCliente}}', '{{NombreCliente}}', '{{Nombre}}')">
+                {{Nombre}}
+            </li>
+            {{/each}}
+        {{/iff}}
     </ul>
 </script>
 

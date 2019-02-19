@@ -94,12 +94,13 @@
     };
 
     var _mostrarTusClientes = function () {
-
+        $(_elements.btnAgregar).hide();
         var nombreClinete = $.trim($(_elements.txtNombreCliente).val());
         _config.tusClientesProvider
             .consultarPromise(nombreClinete)
             .done(function (data) {
-                //console.log(data);
+                data.mostrarNoTieneClientes = nombreClinete === "";
+                if (data.mostrarNoTieneClientes) $(_elements.btnAgregar).show();
                 SetHandlebars(_elements.hbsClientes, data, _elements.divClientes);
                 _seleccionarRegistro("", "", "", "", "");
                 _renderLayoutPanel();
