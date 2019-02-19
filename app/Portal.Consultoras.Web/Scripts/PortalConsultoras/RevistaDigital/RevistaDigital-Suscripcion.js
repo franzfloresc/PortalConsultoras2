@@ -99,14 +99,16 @@ function RDSuscripcion() {
             }
 
 			if (typeof esAppMobile == 'undefined') {
+
 				$("#PopRDSuscripcion").css("display", "block"); // Confirmar datos
-				$(".popup_confirmacion_datos .form-datos input").keyup(); //to update button style
+				$(".popup_confirmacion_datos .form-datos input").keyup(); //to update button 
+
 			} else if (esAppMobile){
-				window.location.href = (isMobile() ? "/Mobile" : "") + "/GanaMasSuscripcion/Success";
+				window.location = (isMobile() ? "/Mobile" : "") + "/RevistaDigital/ConfirmacionAPP";
 			}
             
-
-           return false;
+			return false;
+           
         },
         function (xhr, status, error) {
             CerrarLoad();
