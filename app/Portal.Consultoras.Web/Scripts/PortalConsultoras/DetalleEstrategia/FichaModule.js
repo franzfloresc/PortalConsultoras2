@@ -948,9 +948,9 @@ var FichaModule = (function (config) {
     }
 
     var _selectClient = function (clienteId, clienteNombre) {
-        if (typeof data.ClienteId !== "undefined" &&
-            typeof data.ClienteNombre !== "undefined" &&
-            data.ClienteId > 0) {
+        if (typeof ClienteId !== "undefined" &&
+            typeof ClienteNombre !== "undefined" &&
+            ClienteId > 0) {
             $(_seccionesPanelCliente.hfClienteId).val(clienteId);
             $(_seccionesPanelCliente.hfClienteNombre).val(clienteNombre);
             $(_seccionesPanelCliente.spClienteNombre).html(clienteNombre);
