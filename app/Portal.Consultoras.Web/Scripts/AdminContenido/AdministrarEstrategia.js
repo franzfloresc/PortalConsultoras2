@@ -1,5 +1,5 @@
 ﻿var AdministrarEstrategia = (function (config) {
- 
+
     var _config = {
         actualizarMatrizComercialAction: config.actualizarMatrizComercialAction || "",
         getImagesBySapCodeAction: config.getImagesBySapCodeAction || "",
