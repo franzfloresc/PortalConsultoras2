@@ -20,6 +20,12 @@ Agregar en client (QAS Y PPR):
 Agregar en client (PRD):
     <endpoint address="http://internal-prdelb-wcfasnts01-2006417813.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc" binding="basicHttpBinding" bindingConfiguration="BasicHttpBinding_IPortalService" contract="ServiceUnete.IPortalService" name="BasicHttpBinding_IPortalService" />
 
+Modificar (PRD)
+    <add key="RutaServiceConsultaPROL" value="http://internal-prdelb-webprol-686478451.us-east-1.elb.amazonaws.com:81/" />
+
+Modificar (QAS y PPR)
+    <add key="RutaServiceConsultaPROL" value="http://internal-qaelb-webprol-182416748.us-east-1.elb.amazonaws.com:81/" />
+
 4.- Microservicios (QAS, PPR):
 	Sync
 	Actualizar:
