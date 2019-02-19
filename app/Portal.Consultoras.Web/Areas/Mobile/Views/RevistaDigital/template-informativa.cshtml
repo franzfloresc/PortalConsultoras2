@@ -280,7 +280,7 @@ else if (Model.CancelarSuscripcion)
                 <span class="deseas-cancelar">
                     Cancela tu suscripción haciendo clic en el siguiente botón y dejarás de recibir todos los beneficios que te brinda GANA+
                 </span>
-                <a href="javascript: RDDesuscripcion(event.target);" class="btn-suscribete">CANCELA TU SUSCRIPCIÓN AQUÍ</a>
+                <a href="javascript: RDDesuscripcion(event.target);" class="btn-suscribete">Cancela tu suscripción aquí</a>
             }
             @if (!Model.EsSuscrita)
             {
@@ -374,7 +374,7 @@ else if (Model.CancelarSuscripcion)
 }
 
 
-    <div class="Content_general_pop_up CompartirCorreoPop contenedor_fondo_popup alerta_cancelar_suscripcion" id="alerta_cancelar_suscripcion" data-popup-main="" style="display:none">
+    <div class="Content_general_pop_up CompartirCorreoPop contenedor_fondo_popup alerta_cancelar_suscripcion" id="alerta_cancelar_suscripcion" data-popup-main="" data-popup-function-hide="SRPopupCerrar('V')"  style="display:none">
         <div class="content_pop_up_intriga popup_confirmacion_datos" data-popup-body="">
             <div class="contenido-popup-nuevo-2017">
                 <div class="centrar-estructura estructura_confirmar_datos">
@@ -398,33 +398,33 @@ else if (Model.CancelarSuscripcion)
                         <div class="cont-datos cancelar_suscripcion" id="opciones" style="display:none;">
                            
 
-                            <h1 class="titulo_desuscrita">¡LISTO!</h1>
-            <h2>Ya no estas suscrita</h2>
+                            <h1 class="titulo_desuscrita">¡Listo!</h1>
+                            <h2>Ya no estás suscrito/a</h2>
             <form class="form_desuscrita">
                 <p>¿Qué podríamos hacer para que vuelvas?</p>
 
                 <label class="container_form_desuscrita">
-                    Las ofertas no te parecían atractivas
+                    Tener ofertas más atractivas
                     <input type="checkbox" checked="checked">
                     <span class="checkmark_desuscrita"></span>
                 </label>
                 <label class="container_form_desuscrita">
-                    Prefieres la guía en físico
+                    Enseñarte a usar medios digitales
                     <input type="checkbox">
                     <span class="checkmark_desuscrita"></span>
                 </label>
                 <label class="container_form_desuscrita">
-                    No sabías que estabas suscrita
+                    Responder tus dudas más rápido
                     <input type="checkbox">
                     <span class="checkmark_desuscrita"></span>
                 </label>
                 <label class="container_form_desuscrita">
-                    No usas Gana+
+                    Darte una experiencia personalizada
                     <input type="checkbox">
                     <span class="checkmark_desuscrita"></span>
                 </label>
                 <label class="container_form_desuscrita">
-                    Otros
+                    No sabía que estaba suscrito/a
                     <input type="checkbox">
                     <span class="checkmark_desuscrita"></span>
                 </label>

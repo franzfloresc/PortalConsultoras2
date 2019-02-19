@@ -269,6 +269,7 @@ namespace Portal.Consultoras.Web.Controllers
                     SessionManager.SetDetallesPedido(null);
                     SessionManager.SetDetallesPedidoSetAgrupado(null);
                     SessionManager.SetBEEstrategia(Constantes.ConstSession.ListaEstrategia, null);
+                    SessionManager.SetMontosProl(null);
 
                     var pedidoWebDetalle = ObtenerPedidoWebDetalle();
                     var CantidadTotalProductos = pedidoWebDetalle.Sum(dp => dp.Cantidad);
@@ -338,6 +339,9 @@ namespace Portal.Consultoras.Web.Controllers
             pedidoDetalle.PedidoID = model.PedidoID;
             pedidoDetalle.StockNuevo = model.Stock;
             pedidoDetalle.ClienteDescripcion = model.Nombre;
+            pedidoDetalle.IPUsuario = GetIPCliente();
+            pedidoDetalle.Identifier = SessionManager.GetTokenPedidoAutentico() != null ? SessionManager.GetTokenPedidoAutentico().ToString() : string.Empty;
+
 
             var pedidoDetalleResult = _pedidoWebProvider.UpdatePedidoDetalle(pedidoDetalle);
 
@@ -346,6 +350,7 @@ namespace Portal.Consultoras.Web.Controllers
                 SessionManager.SetPedidoWeb(null);
                 SessionManager.SetDetallesPedido(null);
                 SessionManager.SetDetallesPedidoSetAgrupado(null);
+                SessionManager.SetMontosProl(null);
 
                 var pedidoWebDetalle = ObtenerPedidoWebDetalle();
                 var CantidadTotalProductos = pedidoWebDetalle.Sum(dp => dp.Cantidad);
@@ -429,8 +434,11 @@ namespace Portal.Consultoras.Web.Controllers
             errorServer = result.CodigoRespuesta != Constantes.PedidoValidacion.Code.SUCCESS;
             tipo = result.MensajeRespuesta;
 
+            SessionManager.SetPedidoWeb(null);
             SessionManager.SetDetallesPedido(null);
             SessionManager.SetDetallesPedidoSetAgrupado(null);
+            SessionManager.SetMontosProl(null);
+
             var olstPedidoWebDetalle = ObtenerPedidoWebDetalle();
 
             var total = olstPedidoWebDetalle.Sum(p => p.ImporteTotal);

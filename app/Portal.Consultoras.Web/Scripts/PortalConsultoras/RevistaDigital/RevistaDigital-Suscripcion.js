@@ -136,6 +136,7 @@ function RDDesuscripcion_pregunta() {
     $('#alerta_cancelar_suscripcion').show();
     $('#pregunta').show();
 
+    $('#opciones').hide();
 }
 
 function RDDesuscripcion_cerrar(e) {
