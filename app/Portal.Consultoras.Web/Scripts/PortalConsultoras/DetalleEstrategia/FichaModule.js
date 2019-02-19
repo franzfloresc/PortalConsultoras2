@@ -776,10 +776,10 @@ var FichaModule = (function (config) {
 
         // medida segun alto
         if (proM > proObjH || proM == 0) {
-            styleImg += "max-height:" + proObjH + "px !important;"
+            styleImg += "max-height:" + proObjH + "px !important;";
         }
         else {
-            styleImg += "max-height:" + proM + "px !important;"
+            styleImg += "max-height:" + proM + "px !important;";
         }
 
         // medida segun ancho
@@ -790,10 +790,10 @@ var FichaModule = (function (config) {
         }
         proM = proImg.innerWidth();
         if (proM > proObjW || proM == 0) {
-            styleImg += "max-width:" + proObjW + "px !important;"
+            styleImg += "max-width:" + proObjW + "px !important;";
         }
         else {
-            styleImg += "max-width:" + proM + "px !important;"
+            styleImg += "max-width:" + proM + "px !important;";
         }
 
         // asignar estilos
@@ -943,9 +943,9 @@ var FichaModule = (function (config) {
     }
 
     var _selectClient = function (clienteId, clienteNombre) {
-        if (typeof ClienteId !== "undefined" &&
-            typeof ClienteNombre !== "undefined" &&
-            ClienteId > 0) {
+        if (typeof clienteId !== "undefined" &&
+            typeof clienteNombre !== "undefined" &&
+            clienteId > 0) {
             $(_seccionesPanelCliente.hfClienteId).val(clienteId);
             $(_seccionesPanelCliente.hfClienteNombre).val(clienteNombre);
             $(_seccionesPanelCliente.spClienteNombre).html(clienteNombre);
