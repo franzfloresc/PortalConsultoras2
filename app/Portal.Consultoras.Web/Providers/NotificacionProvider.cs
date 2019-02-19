@@ -102,7 +102,7 @@ namespace Portal.Consultoras.Web.Providers
 
                     detallesPedidoWeb.ForEach(itemPedido => {
                          
-                        itemPedido.DescripcionProd = itemPedido.SetIdentifierNumber>0? string.Format("{0} #{1}",itemPedido.DescripcionProd, itemPedido.SetIdentifierNumber): itemPedido.DescripcionProd;
+                        itemPedido.DescripcionProd = itemPedido.SetIdentifierNumber>0? string.Format("#{1} - {0}", itemPedido.DescripcionProd, itemPedido.SetIdentifierNumber): itemPedido.DescripcionProd;
 
                         if (itemPedido.SetID > 0 && listadoHijos.Any())
                         {
