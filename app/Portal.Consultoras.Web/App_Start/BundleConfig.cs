@@ -939,8 +939,7 @@ namespace Portal.Consultoras.Web
             ));
 
             bundles.Add(new StyleIgnoreMinifyBundle("~/Bundle/Css/Mixto/Bootstrap").Include(
-                                "~/Content/Css/Site/bootstrap/bootstrap.css", 
-                                "~/Content/Css/Mobile/Ficha/ficha.css"));
+                                "~/Content/Css/Site/bootstrap/bootstrap.css"));
             //Se aisló el css de bootstrap de los otros css de Bundle/Css/Mixto, porque generaba errores de minificación
             //bundles.IgnoreCssMinify("~/Bundle/Css/Mixto/Bootstrap", "~/Content/Css/Site/bootstrap/bootstrap.css",
             //                                                                   "~/Content/Css/Mobile/Ficha/ficha.css"
