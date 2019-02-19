@@ -6290,6 +6290,28 @@ input[type='checkbox']:checked + span:after {
     text-align: right;
 }
 
+.observacion_notificacion{
+    margin-top: 12px;
+    padding: 10px;
+    background-color: #EEEEEE;
+    position: relative;
+    border-radius:4px;
+}
+
+.observacion_notificacion:before{
+    bottom: 100%;
+    left: 20px;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(0, 0, 0, 0);
+    border-bottom-color: #EEEEEE;
+    border-width: 7px;
+}
+
 .datos_Reservado {
     font-family: 'Lato';
     font-size: 13px;
