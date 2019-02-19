@@ -32,7 +32,6 @@ var _seccionesPanelCliente = {
     hfClienteNombre: "#hfClienteNombre",
     spClienteNombre: "#spClienteNombre",
     btnShowCliente: "#btnShowCliente"
-
 };
 
 var tusClientesProvider = TusClientesProvider();
@@ -45,7 +44,7 @@ var panelMantenerModule = PanelMantenerModule({
     mostrarTusClientesCallback: panelListaModule.mostrarTusClientes,
     panelRegistroHideCallback: panelListaModule.panelRegistroHide
 });
-var panel = ClientePanelModule({
+var panelCliente = ClientePanelModule({
     tusClientesProvider: tusClientesProvider,
     panelListaModule: panelListaModule,
     panelMantenerModule: panelMantenerModule,
@@ -67,22 +66,6 @@ function eventBreadCumb(url, titulo) {
 
     document.location = url;
 }
-
-var PageModule = (function () {
-    var _redirectTo = function (url) {
-        if (typeof url === 'undefined') return false;
-
-        if (url === '') return false;
-
-        baseUrl = baseUrl || '';
-
-        window.location = baseUrl + (isMobile() ? "Mobile/" : "") + url;
-    };
-
-    return {
-        redirectTo: _redirectTo
-    };
-}());
 
 var DetalleEstrategiaProvider = function () {
     var _urlDetalleEstrategia = ConstantesModule.UrlDetalleEstrategia;
@@ -449,7 +432,7 @@ var FichaModule = (function (config) {
     }
 
     var _asignaDetallePedido = function (data, estrategia) {
-        
+
         data = data || {};
         data.Detalles = data.Detalles || [];
         if (data.Detalles.length == 0) {
@@ -457,10 +440,7 @@ var FichaModule = (function (config) {
             return false;
             //throw 'Componente: No existe detalle de pedido';
         }
-
-        debugger;
-        if (typeof data.ClienteId !== "undefined" && typeof data.ClienteNombre !== "undefined")
-            _selectClient(data.ClienteId, data.ClienteNombre);
+        _selectClient(data.ClienteId, data.ClienteNombre);
 
         estrategia.Cantidad = data.Cantidad;
         _asignarCantidad(estrategia.Cantidad);
@@ -966,10 +946,14 @@ var FichaModule = (function (config) {
         carruselModule.Inicializar();
     }
 
-    var _selectClient = function (clienteId,clienteNombre) {
-        $(_seccionesPanelCliente.hfClienteId).val(clienteId);
-        $(_seccionesPanelCliente.hfClienteNombre).val(clienteNombre);
-        $(_seccionesPanelCliente.spClienteNombre).html(clienteNombre);
+    var _selectClient = function (clienteId, clienteNombre) {
+        if (typeof data.ClienteId !== "undefined" &&
+            typeof data.ClienteNombre !== "undefined" &&
+            data.ClienteId > 0) {
+            $(_seccionesPanelCliente.hfClienteId).val(clienteId);
+            $(_seccionesPanelCliente.hfClienteNombre).val(clienteNombre);
+            $(_seccionesPanelCliente.spClienteNombre).html(clienteNombre);
+        }
     };
 
     var _initCliente = function () {
@@ -978,8 +962,8 @@ var FichaModule = (function (config) {
         }
 
         //INIT PANEL CLIENTE
-        panel.init();
-        panel.AceptaClick(function (obj) {
+        panelCliente.init();
+        panelCliente.AceptaClick(function (obj) {
             //PaisID, ClienteID, CodigoCliente, NombreCliente, Nombre
             //console.log('tu código:', obj);
             _selectClient(obj.ClienteID, obj.Nombre);
@@ -987,7 +971,7 @@ var FichaModule = (function (config) {
         });
 
         $(_seccionesPanelCliente.btnShowCliente).click(function () {
-            panel.Abrir();
+            panelCliente.Abrir();
         });
         //END PANEL CLIENTE
     }
@@ -1090,7 +1074,9 @@ var FichaPartialModule = (function () {
             fichaModule = FichaModule(objFicha);
             fichaModule.Inicializar();
 
-            CerrarLoad();
+            CerrarLoad({
+                overflow: false
+            });
         }, 10);
     };
 
