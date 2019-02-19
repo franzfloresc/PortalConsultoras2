@@ -8,6 +8,7 @@ var URL_ELIMINA_ARCHIVOCSV = baseUrl + 'AdministracionPopups/EliminarArchivoCsv'
 var VistaAdministracionPopups;
 
 $(document).ready(function () {
+ 
     var vistaAdPop;
     vistaAdPop = function () {
         var me = this;
@@ -46,8 +47,10 @@ $(document).ready(function () {
             }
         },
             me.Eventos = {
-                AbrirPopupNuevo: function (e) {
-                    e.preventDefault();
+            AbrirPopupNuevo: function (e) {
+                e.preventDefault();
+                if ($("#ddlCampania").val().length > 0) {
+                    document.getElementById("imgPreview").style.display = "none";
                     $("#hdAccion").val(1)
                     LimpiarCamposPoput();
                     $("#hdAccion").val(1);
@@ -56,8 +59,10 @@ $(document).ready(function () {
                     $('#AgregarPopup').scrollTop(0);
                     $('#AgregarPopup').css('display', 'flex');
                     $('body').css('overflow-y', 'hidden');
+                } else alert("Tiene que seleccionar una campaña");
                 },
             AbrirPopupModificar: function (e) {
+                debugger;
                     e.preventDefault();
                     $("#hdAccion").val(2)
                     LimpiarCamposPoput();
@@ -87,7 +92,7 @@ $(document).ready(function () {
 
 
     $('#fechaMin').change(function (e) {
-        debugger;
+        
         let partes = (e.target.value || '').split('/');
         if (partes.length != 3) {
             alert("Por favor ingrese una fecha válida");
@@ -95,13 +100,23 @@ $(document).ready(function () {
         }
     });
 
-
     $('#fechaMax').change(function (e) {
-        debugger;
+        
+        var fechaMinima = $("#fechaMin").val();
+        var fechaMaxima = $("#fechaMax").val();
+
+        if (fechaMinima == fechaMaxima) {
+            alert("Ingrese un rango de fecha válido");
+            $("#fechaMin").val("");
+            $("#fechaMax").val("");
+            return false;
+        }
+
         let partes = (e.target.value || '').split('/');
         if (partes.length != 3) {
             alert("Por favor ingrese una fecha válida");
             e.target.value = "";
+            return false;
         }
         if ($.trim($("#fechaMin").val()) == "") {
             alert("Por favor ingrese la fecha mínima");
@@ -155,7 +170,9 @@ function getCargarArchivoCSVPoputLocalStorage(data) {
 
 
 function GetCamposCargadosPoput(data) {
- 
+    debugger;
+    if (data.NombreImagen.length > 0)
+    document.getElementById("imgPreview").style.display = "block";
     $("#targetImg").attr('src', (data.UrlImagen));
     $("#description").html(data.NombreImagen);
     $("#imgPreview").show();
@@ -188,18 +205,8 @@ function GetCamposCargadosPoput(data) {
 
 
 $("#imgPoputs").change(function () {
-
-    var File = this.files;
-  var objRespuesta = ValidaImagen(File);
-    	    if (objRespuesta.mensaje == undefined) {
-        	        if (File && File[0])
-            	            ReadImage(File[0]);
-        
-    } else {
-        	        $("#description").html(objRespuesta.mensaje);
-        	        return false;
-        
-    }
+    
+    ValidaImagen(this.files);
 });
 
 
@@ -219,8 +226,9 @@ var ReadImage = function (file) {
             var size = ~~(file.size / 1024) + "KB";
 
             $("#targetImg").attr('src', _file.target.result);
-            $("#description").html(file.name /*"Formato de archivo JPG." + "<br/>" + "(" + height + "x" + width + "píxeles)"*/);
+            $("#description").html(file.name);
             $("#imgPreview").show();
+            $("#hdvalorImagenActual").val(file.name);
         }
     }
 }
@@ -235,6 +243,7 @@ function LimpiarCamposPoput() {
     $("#imgPoputs").val("");
     $("#imgPreview").val("");
     $("#targetImg").attr("src", "");
+   
 
     $("#txtTituloPrincipal").val("");
     $("#txtDescripcion").val("");
@@ -257,6 +266,7 @@ var ClearView = function () {
     $("#description").val('');
     $("#imgPoputs").val('');
     $("#imgPreview").hide();
+   
 }
 function ClearFileView() {
     
@@ -268,7 +278,7 @@ function ClearFileView() {
 }
 
 function getFileCSV() {
-    debugger;
+    
     var frmData = new FormData();
     var file = document.getElementById("fileCSV").files[0];
     frmData.append("fileCSV", file);
@@ -297,14 +307,14 @@ function getFileCSV() {
 
 
 //function handleDragStart(e) {
-//    debugger;
+//    
 //    this.style.opacity = '0.4';  // this / e.target is the source node.
 //}
 
-//debugger;
+//
 //var cols = document.querySelectorAll('swappable');
 //[].forEach.call(cols, function (col) {
-//    debugger;
+//    
 //    col.addEventListener('dragstart', handleDragStart, false);
 //}); 
 
@@ -317,11 +327,20 @@ function getFileCSV() {
 
     $("#btnGuardar").click(function () {
 
-
+        debugger;
         /*Validaciones*/
 
+        
+        if (parseInt($("#hdAccion").val()) == 2) {
+            var cambio = respuestaValidacionCambios();
+            if (!cambio) {
+                alert("No existe ningún cambio realizado");
+                return false;
+            }
+        }
 
-        if ($.trim($("#description").html()) == "") {
+
+        if (document.getElementById("imgPoputs").files[0] == undefined) {
             alert("No seleccionó una imagen");
             return false;
         }
@@ -359,19 +378,13 @@ function getFileCSV() {
 
         /*****************************************************************/
 
-        if (parseInt($("#hdAccion").val()) == 2) {
-            var cambio = respuestaValidacionCambios();
-            if (!cambio) {
-                alert("No existe ningún cambio realizado");
-                return false;
-            }
-        }
         if (document.getElementById('checkMobile').checked != true && document.getElementById('checkDesktop').checked != true) {
             alert("No seelccionó un tipo de dispositivo");
             return false;
         }
-
-
+        var bool = confirm("Deseas guardar los datos ingresados");
+        if (bool) {
+        waitingDialog({ "title": "Cargando", "message": "Espere por favor" });
         /*carga de datos*/
         /*Zona de archivos*/
         var frmData = new FormData();
@@ -396,11 +409,6 @@ function getFileCSV() {
         else
             frmData.append("datosCSV", null);
 
-
-
-
-     
-
         $.ajax({
             type: "POST",
             url: URL_GUARDAR_POPUT,
@@ -409,10 +417,12 @@ function getFileCSV() {
             contentType: false,
             processData: false,
             success: function (msg) {
-
+                closeWaitingDialog();
                 if (parseInt(msg) > 0) {
                     alert("Se registró de forma satisfactoria");
                     window.location.reload(true);
+                } else{
+                    alert("Ocurrió un error al guardar los datos");
                 }
             },
             error: function (error) {
@@ -420,14 +430,15 @@ function getFileCSV() {
             }
         });
 
-
+        }
 
     });
 
 
-    function respuestaValidacionCambios() {
-        var acumuladoValidacion = 0;
-        if (JSON.parse(localStorage.getItem('datosPoput')).NombreImagen != $("#description").html())
+function respuestaValidacionCambios() {
+    debugger;
+    var acumuladoValidacion = 0;
+    if (JSON.parse(localStorage.getItem('datosPoput')).NombreImagen != $("#description").html())
             acumuladoValidacion += 1;
         if (JSON.parse(localStorage.getItem('datosPoput')).NombreArchivoCCV != $("#nameArchivo").html())
             acumuladoValidacion += 1;
@@ -471,73 +482,36 @@ function getFileCSV() {
     }
 
 
-
-
-
-
-
-
-
-
 function ValidaImagen(file) {
     $("#description").html("");
     $("#targetImg").attr("src", "");
 
-    var uploadFile = file[0];
+    var sizeByte = file[0].size;
+    var siezekiloByte = parseInt(sizeByte / 1024);
+    var foto = file[0];
 
-
-    if (!window.FileReader) {
-        $("#description").html("El navegador no soporta tal lectura de archivos");
+    if (siezekiloByte > 52) {
+        alert('El tamaño supera el limite permitido');
         return false;
-
     }
 
-    if (!(/\.(jpg|png|gif)$/i).test(uploadFile.name)) {
-        $("#description").html("El archivo a adjuntar no es una imagen");
+    if (file.length == 0 || !(/\.(jpg|png)$/i).test(foto.name)) {
+        alert('Ingrese una imagen con alguno de los siguientes formatos: .jpg/.png.');
         return false;
-
-    } else {
-        var objRespuesta = new Object();
-
-        if (!window.FileReader)
-            objRespuesta.mensaje = "El navegador no soporta tal lectura de archivos";
-
-        if (file.length == 0 || !(/\.(jpg|png)$/i).test(uploadFile.name))
-            objRespuesta.mensaje = "Ingrese una imagen con alguno de los siguientes formatos: .jpeg/.jpg/.png.";
-
-
-        if (!(/\.(jpg|png|gif)$/i).test(uploadFile.name))
-            objRespuesta.mensaje = "El archivo a adjuntar no es una imagen";
-        else {
-            var img = new Image();
-            img.onload = function () {
-
-                if (this.width.toFixed(0) != 200 && this.height.toFixed(0) != 200) {
-                    $("#description").html("Las medidas deben ser: 200 * 200'");
-                    return false;
-
-                } else if (uploadFile.size > 20000) {
-                    $("#description").html("El peso de la imagen no puede exceder los 200kb");
-                    return false;
-
-                } else
-                    return true;
-
-                if (this.width.toFixed(0) != 326 && this.height.toFixed(0) != 418)
-                    objRespuesta.mensaje = "Las medidas deben ser: 326 x 418'";
-                else if (uploadFile.size > 20000)
-                    objRespuesta.mensaje = "El peso de la imagen no puede exceder los 200kb";
-
-            };
-
-        }
-
-        return objRespuesta;
-
     }
 
+    if ($("#imgPoputs").width() > 326) {
+        alert('Las medidas deben ser: 326 x 418');
+        return false;
+    }
+
+    if ($("#imgPoputs").height() > 418) {
+        alert('Las medidas deben ser: 326 x 418');
+        return false;
+    }
+
+    ReadImage(file[0]);
 }
-
 
 
 $(".eliminarArchivo").click(function () {

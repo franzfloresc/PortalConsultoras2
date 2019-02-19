@@ -31,7 +31,7 @@
                 <div class="d__inline__block text__bold grilla__filtro__label">Nuevo Popup:</div>
                 <a class="d__inline__block text__bold text__center background__color__m border__radius__4 btn__grilla__filtros btn__agregar" AccionId="1" title="Agregar Nuevo Popup">
                     <span class="d__inline__block text__bold">+</span>
-                    <span class="d__inline__block text__bold">Agregar</span>    
+                    <span class="d__inline__block text__bold">Agregar</span>
                 </a>
             </div>
         </div>
@@ -67,18 +67,18 @@
         </div>
         <div class="d__flex administracion__popups__paginacion__grilla">
             <div id="" class="d__block cantidad__registros__grilla">
-         
+
             </div>
             <div class="d__flex paginador__grilla">
-                    <div class="d__block">Página</div>
+                <div class="d__block">Página</div>
                 <div class="d__flex controles__paginacion__grilla">
                     <a id="izquierdaAbajo" class="d__block flecha__paginacion flecha__paginacion--izquierda" title="Página Anterior">
                         <img src="@Url.Content("~/Content/Images/flecha-campo-select.svg")" alt="Anterior">
                     </a>
                     <div class="d__block filtro__num__pagina">
-                        <input id="PaginaActualAbajo" onpaste="return false"  onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event, this, true);"class="d__inline__block text__center border__color__gray__multimarca border__radius__4 paginacion__actual" value="1" type="text">
+                        <input id="PaginaActualAbajo" onpaste="return false" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event, this, true);" class="d__inline__block text__center border__color__gray__multimarca border__radius__4 paginacion__actual" value="1" type="text">
                         <span class="d__inline__block num__total__paginas"></span>
-                    </div>  
+                    </div>
                     <a id="derechaAbajo" class="d__block flecha__paginacion flecha__paginacion--derecha" title="Página Siguiente">
                         <img src="@Url.Content("~/Content/Images/flecha-campo-select.svg")" alt="Siguiente">
                     </a>
@@ -110,14 +110,14 @@
                                 <span class="d__inline__block text__bold">Agregar</span>
                             </label>
                             <div class="caption">
-                                <a href="#" ><i class="glyphicon glyphicon-trash"></i></a>
+                                <a href="#"><i class="glyphicon glyphicon-trash"></i></a>
                                 <p id="description" class="d__block color__gray__multimarca info__formato__medidas">
                                     Formato de archivo JPG.<br />
                                     (326 x 418 píxeles)
                                 </p>
                             </div>
                         </div>
-                        <div id="imgPreview" class="d__block imagen__cargada__thumbnail__wrapper">
+                        <div id="imgPreview" class="d__block imagen__cargada__thumbnail__wrapper" style="display:none;">
                             <div onclick="ClearFileView(this)" title="Eliminar" class="d__block enlace__eliminar__imagen__cargada">
                                 <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Eliminar Imagen" class="d__block m-0" />
                             </div>
@@ -126,11 +126,11 @@
                     </div>
                     <div class="d__flex grupo__form__campos">
                         <label for="txtTituloPrincipal" class="d__block text__bold color__m grupo__form__campos__label">Título principal : </label>
-                        <input id="txtTituloPrincipal" type="text" class="d__block border__color__gray__multimarca border__radius__4 grupo__form__campos__input grupo__form__campos__input--seccionContenido" />
+                        <input id="txtTituloPrincipal" onkeypress="return FuncionesGenerales.ValidarSoloLetrasYNumeros(event, this, true);" type="text" class="d__block border__color__gray__multimarca border__radius__4 grupo__form__campos__input grupo__form__campos__input--seccionContenido" />
                     </div>
                     <div class="d__flex grupo__form__campos">
                         <label for="txtDescripcion" class="d__block text__bold color__m grupo__form__campos__label grupo__form__campos__label--descripcion">Descripción<br />(max de caract. 290) : </label>
-                        <textarea id="txtDescripcion" class="d__block border__color__gray__multimarca border__radius__4 grupo__form__campos__textarea grupo__form__campos__textarea--seccionContenido"></textarea>
+                        <textarea id="txtDescripcion" onkeypress="return FuncionesGenerales.ValidarSoloLetrasYNumeros(event, this, true);" class="d__block border__color__gray__multimarca border__radius__4 grupo__form__campos__textarea grupo__form__campos__textarea--seccionContenido"></textarea>
                     </div>
                     <div class="d__flex mb-40 grupo__form__campos">
                         <label for="txtUrl" class="d__block text__uppercase text__bold color__m grupo__form__campos__label">Url : </label>
@@ -154,8 +154,8 @@
 
                             </p>
                         </div>
-                        <div id="EliminarArchivo" class="d__block csv__cargado__thumbnail__wrapper">
-                            <div  title="Eliminar" class="d__block enlace__eliminar__csv__cargado eliminarArchivo">
+                        <div id="EliminarArchivo" class="d__block csv__cargado__thumbnail__wrapper" style="display:none;">
+                            <div title="Eliminar" class="d__block enlace__eliminar__csv__cargado eliminarArchivo">
                                 <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Eliminar archivo CSV" class="d__block m-0" />
                             </div>
                             <img class="d__block m-0 w__100 csv__cargado__thumbnail" src="@Url.Content("~/Content/Images/csv_file_img.svg")" alt="" />
@@ -221,7 +221,7 @@
         $(document).ready(function () {
            GetCargaListadoPoput();
             $("#PaginaActualArriba, #PaginaActualAbajo").blur(function () {
-               
+
                 if (document.getElementById(this.id).value == "0")
                     document.getElementById(this.id).value = 1;
             });
@@ -232,7 +232,8 @@
             });
 
             function GetCargaListadoPoput() {
-                debugger;   
+                debugger;
+                waitingDialog({ "title": "Cargando", "message": "Espere por favor" });
                 var ddlCampania = $('#ddlCampania').val();
                 var ddlEstado = parseInt($('#ddlEstado').val());
 
@@ -250,15 +251,11 @@
                     data: JSON.stringify(object),
                     dataType: "json",
                     cache: true,
-                    //async: false,
                     success: function (data) {
-                        //waitingDialog({ "title": "mensaje","message":"yuyuyu"});
-                        if (data["listaComunicadoModel"].length == 0) {
-                            //closeWaitingDialog();
-                            alert("La consulta no arrojó ningún resultado");
-                        } 
+                        if (data["listaComunicadoModel"].length == 0) alert("La consulta no arrojó ningún resultado");
                         LIMITE_PAGINAS = parseInt(data["Paginamaximas"]);
                         ConstruyeGrillaPoput(data["listaComunicadoModel"]);
+                        closeWaitingDialog();
                     },
                     error: function (x, xh, xhr) {
                         if (checkTimeout(x)) {
@@ -267,16 +264,16 @@
                     }
                 });
             }
-       
+
 
             function ConstruyeGrillaPoput(data) {
-                
+
                 $("#divTabla").empty();
                 $(".cantidad__registros__grilla").html("Tengo <span class='text__bold'>" + data.length + "</span> registro" + (data.length > 1 ? "s" : ""));
                 $(".num__total__paginas").html("de " + LIMITE_PAGINAS)
 
                 if (LIMITE_PAGINAS == 0) {
-                    
+
                     document.getElementById("PaginaActualArriba").disabled = true;
                     document.getElementById("PaginaActualAbajo").disabled = true;
                     document.getElementById("PaginaActualArriba").value = LIMITE_PAGINAS;
@@ -303,9 +300,9 @@
                     $("#izquierdaAbajo").removeClass("disabledbutton");
 
                 }
-     
 
-                
+
+
                 var listColumnas = [
                     {
                         tituloColumna: 'Orden',
@@ -364,7 +361,7 @@
             }
 
             $(".flecha__paginacion--izquierda").click(function () {
-                
+
                 /*MOVIMIENTO IZQUIERDA*/
                 PAGINAS = parseInt( localStorage.getItem('PAGINAS'));
                 PAGINAS -= 1
@@ -374,23 +371,23 @@
             $(".flecha__paginacion--derecha").click(function () {
                 /*MOVIMIENTO IZQUIERDA*/
                 PAGINAS = parseInt(localStorage.getItem('PAGINAS'));
-                PAGINAS += 1 
+                PAGINAS += 1
                 ActualizaPaginador(PAGINAS);
             });
 
             $("#PaginaActualArriba").blur(function () {
-                
+
                 PAGINAS = document.getElementById(this.id).value
                 ActualizaPaginador(PAGINAS);
             });
 
             $("#PaginaActualAbajo").blur(function () {
-                
+
                 PAGINAS = document.getElementById(this.id).value
                 ActualizaPaginador(PAGINAS);
             });
 
-            $("#btnActualizaOrden").click(function () { 
+            $("#btnActualizaOrden").click(function () {
                 ActualizarOrden();
             });
 
@@ -400,19 +397,19 @@
 
 
             function ActualizarOrden() {
-                debugger;
+                
                 var lista = document.querySelector("#swappable");
                 var comunicado="";
                 var orden = "";
 
                 for (var i = 0; i < lista.childElementCount; i++) {
                     var elemento = lista.children[i];
-                    comunicado += lista.children[i].getAttribute("comunicadoid") + "#"  ;   
+                    comunicado += lista.children[i].getAttribute("comunicadoid") + "#"  ;
                     orden += lista.children[i].getAttribute("orden")  +  "#"  ;
                 }
                     comunicado = comunicado.length > 0 ? comunicado.substring(0, comunicado.length - 1) :'0#';
                     orden = orden.length > 0 ? orden.substring(0, orden.length - 1) : '0#';
-              
+
 
                 var object = {
                     Comunicado: comunicado,
@@ -441,26 +438,26 @@
 
 
             function ActualizaPaginador(PAGINAS) {
-                
+
                 if (PAGINAS <= 0) {
                     localStorage.setItem('PAGINAS', 1);
                     document.getElementById("PaginaActualArriba").value = 1;
                     document.getElementById("PaginaActualAbajo").value = 1;
                     return false;
-                } 
+                }
 
                 if (PAGINAS > LIMITE_PAGINAS) {
                     localStorage.setItem('PAGINAS', LIMITE_PAGINAS);
                     document.getElementById("PaginaActualArriba").value = LIMITE_PAGINAS;
                     document.getElementById("PaginaActualAbajo").value = LIMITE_PAGINAS;
                     return false;
-                } 
+                }
 
                 localStorage.setItem('PAGINAS', PAGINAS);
                 document.getElementById("PaginaActualArriba").value = PAGINAS;
                 document.getElementById("PaginaActualAbajo").value = PAGINAS;
                 GetCargaListadoPoput();
-                   
+
             }
         });
 
@@ -468,9 +465,8 @@
     </script>
 
 
-
     <script src="@Url.Content("~/Scripts/jquery.ui.core.js")"></script>
-    <script src="@Url.Content("~/Scripts/jquery.ui.widget.js")"></script>
+   @* <script src="@Url.Content("~/Scripts/jquery.ui.widget.js")"></script>*@
     <script src="@Url.Content("~/Scripts/jquery.ui.mouse.js")"></script>
     <script src="@Url.Content("~/Scripts/jquery.ui.sortable.js")"></script>
     <script src="@Url.Content("~/Scripts/jquery.ui.swappable.js")"></script>

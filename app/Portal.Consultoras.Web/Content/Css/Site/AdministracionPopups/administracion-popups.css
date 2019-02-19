@@ -114,6 +114,52 @@ div.ui-state-highlight {
 
 /* FIN - HELPERS CSS */
 
+/* ESTILOS MODIFICADORES JQUERY UI (LOADING) */
+
+.ui-widget-overlay {
+    z-index: 2000 !important;
+}
+
+.ui-dialog.ui-widget-content.loadingScreenWindow {
+    width: auto !important;
+    background: #FFFFFF !important;
+    color: #555 !important;
+    border-radius: 0;
+    border: 0;
+    z-index: 2001 !important;
+}
+
+.ui-dialog .ui-dialog-titlebar {
+    padding: 0 0 0 10px;
+}
+
+#loadingScreen {
+    padding: 20px 30px;
+}
+
+.ui-dialog.ui-widget-content.loadingScreenWindow .loadingScreen-titulo,
+.loadingScreen-mensaje {
+    font-family: 'Lato', sans-serif;
+    font-size: 10pt;
+    color: #000 !important;
+    text-align: center;
+}
+
+.ui-dialog.ui-widget-content.loadingScreenWindow .loadingScreen-titulo {
+    font-weight: 700 !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.loadingScreen-mensaje {
+    background: url(/Content/Images/Loading.gif) no-repeat 0 0;
+    padding-left: 25px;
+    padding-bottom: 5px;
+    margin-top: 20px;
+}
+
+/* FIN - ESTILOS MODIFICADORES JQUERY UI (LOADING) */
+
 /* AJUSTES PERSONALIZADOS PARA EL DATEPICKER DE JQUERY UI */
 
 .ui-widget.ui-widget-content {
@@ -636,6 +682,10 @@ div.ui-state-highlight {
     resize: none;
 }
 
+.grupo__form__campos--agregarArchivos {
+    align-items: flex-start;
+}
+
 .info__formato__medidas {
     margin-top: 8px;
     margin-bottom: 0;
@@ -657,7 +707,6 @@ div.ui-state-highlight {
 .csv__cargado__thumbnail__wrapper {
     width: 31px;
     height: 40px;
-    margin-top: 3px;
     margin-left: 20px;
 }
 
@@ -789,8 +838,6 @@ div.ui-state-highlight {
 /* FIN - MODAL AGREGAR POPUP */
 
 /* FIN - VISTA ADMINISTRACIÓN POPUPS */
-
-
 .disabledbutton {
     pointer-events: none;
     opacity: 0.4;
