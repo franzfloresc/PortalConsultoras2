@@ -147,23 +147,16 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult GetCatalogosPilotoSeg(int campania)
         {
-            bool data = false, outPilotoSeg = false;
-            string catalogoLbel = string.Empty, catalogoEsika = string.Empty, catalogoCyzone = string.Empty;
+            bool data, outPilotoSeg;
  
-            catalogoLbel = _issuuProvider.GetCatalogoCodigoIssuu(campania.ToString(), Constantes.Marca.LBel, userData.CodigoISO, userData.CodigoZona, out outPilotoSeg);
+            _issuuProvider.GetCatalogoCodigoIssuu(campania.ToString(), Constantes.Marca.LBel, userData.CodigoISO, userData.CodigoZona, out outPilotoSeg);
             data = outPilotoSeg;
-            catalogoEsika = _issuuProvider.GetCatalogoCodigoIssuu(campania.ToString(), Constantes.Marca.Esika, userData.CodigoISO, userData.CodigoZona, out outPilotoSeg);
-            data = isPilotoSeg(data, outPilotoSeg);
-            catalogoCyzone = _issuuProvider.GetCatalogoCodigoIssuu(campania.ToString(), Constantes.Marca.Cyzone, userData.CodigoISO, userData.CodigoZona, out outPilotoSeg);
-            data = isPilotoSeg(data, outPilotoSeg);
+            _issuuProvider.GetCatalogoCodigoIssuu(campania.ToString(), Constantes.Marca.Esika, userData.CodigoISO, userData.CodigoZona, out outPilotoSeg);
+            data = data || outPilotoSeg;
+            _issuuProvider.GetCatalogoCodigoIssuu(campania.ToString(), Constantes.Marca.Cyzone, userData.CodigoISO, userData.CodigoZona, out outPilotoSeg);
+            data = data || outPilotoSeg;
 
             return Json(new { PilotoSeg = data }, JsonRequestBehavior.AllowGet);
-        }
-
-        private bool isPilotoSeg(bool data, bool outPilotoSeg)
-        {
-            if (data) return true;
-            return outPilotoSeg ? true : false;
         }
 
         public JsonResult AutocompleteCorreo()
