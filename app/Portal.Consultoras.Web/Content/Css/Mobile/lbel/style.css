@@ -4684,8 +4684,7 @@ body {
 
 .mi_ganancia {
     color: #642f80;
-    font-weight: 700;
-    text-transform: uppercase;
+    font-weight: 700; 
 }
 
 @media screen and (min-width:0) and (max-width:407px) {
@@ -6204,7 +6203,6 @@ input[type='checkbox']:checked + span:after {
     display: block;
     margin-top: 25px;
     cursor: pointer;
-    text-transform: uppercase;
 }
 
 .tooltip_validado {

@@ -227,7 +227,7 @@
     }
     else if (Model.CodigoISO == Constantes.CodigosISOPais.Bolivia)
     {
-        cabezaEscala = "Ganancia total";
+        cabezaEscala = "Ganancia estimada";
         pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocio y Otros";
         lbl1Ganancia = "Mis descuentos";
         lbl2Ganancia = "Ganancia estimada *(Guia de negocio y otros)";
@@ -319,9 +319,9 @@
              data-tipoestrategia="{{TipoEstrategiaCodigo}}"
              data-OrigenPedidoWeb="{{OrigenPedidoWeb}}">
             <div class="bloque_descripcion_items_ingresados">
-                <div onclick="javascript: FichaEditarModule.EditarProducto(this, '{{TipoAccion}}')"
+                <div onclick="javascript: FichaPartialModule.ConstruirFicha(this, '{{TipoAccion}}')"
                      class="descripcion_item_pedido">
-                    <span class="cod_prod">
+                    <div class="cod_prod text-regular">
                         {{#if detalle.EstadoSimplificacionCuv}}
                         {{#if detalle.IndicadorOfertaCUV}}
                         <input type="hidden" name="ExisteIndicadorOfertaCUV" class="ExisteIndicadorOfertaCUV" value="true" />
@@ -329,13 +329,26 @@
                         {{/if}}
                         {{/if}}
                         {{detalle.CUV}}
-                    </span>
-                    <span class="desc_prod">
+                    </div>
+                    <span class="desc_prod text-bold">
                         {{#iff detalle.IndicadorMontoMinimo '==' 0}}
                         <span class="texto_rojo">*</span>
                         {{/iff}}
-                        <span>{{Split detalle.DescripcionProd '|' 0}}</span>
+                        <span>{{#iff SetIdentifierNumber '>' '0'}} #{{SetIdentifierNumber}} {{/iff}} {{Split detalle.DescripcionProd '|' 0}}</span>
+                        
+                        <span class="precio_oferta_pedido text-regular">
+                            {{#if ../EstadoSimplificacionCuv}}
+                            {{#if detalle.IndicadorOfertaCUV}}
+                            <span class="icon-advertencia"></span>
+                            {{/if}}
+                            {{/if}}
+                            <span>{{SimboloMoneda}} <label class="ImporteTotal">{{detalle.FormatoImporteTotal}}</label></span>
+                        </span>
+
                     </span>
+                    {{#iff detalle.EsKitNueva '==' false}}
+                    <span class="nom_cliente">Cliente: {{detalle.Nombre}}</span>
+                    {{/iff}}
                     <span class="mensaje_tipoProd">
                         {{#iff detalle.TipoPedido '==' 'M'}}
                         <br />
@@ -350,9 +363,7 @@
                         {{/iff}}
                         {{/IsNullOrEmpty}}
                     </span>
-                    {{#iff detalle.EsKitNueva '==' false}}
-                    <span class="nom_cliente">Cliente: {{detalle.Nombre}}</span>
-                    {{/iff}}
+                    
                 </div>
 
                 {{#if detalle.EsKitNueva}}
@@ -369,6 +380,7 @@
                 </div>
                 {{else}}
 
+                @* 
                 <div class="icono_eliminar_item_pedido">
                     <a href="javascript:;"
                        title="Eliminar"
@@ -378,6 +390,7 @@
                         <img src="@Url.Content("~/Content/Images/Esika/tacho-copy.png")" alt="Eliminar" />
                     </a>
                 </div>
+                *@
 
                 {{/if}}
             </div>
@@ -420,26 +433,19 @@
                                    data-cantidad-input="-"
                                    autocomplete="off">
                             {{/iff}}
+                            <i class="arrow-down"></i>
                         </div>
                         <div class="clear"></div>
                     </div>
                 </div>
-                <div class="precios_item">
-                    @*<span class="precio_normal_pedido">
-                        <span>{{SimboloMoneda}} {{detalle.FormatoPrecioUnidad}}</span>
-                    </span>*@
-                    <span class="precio_oferta_pedido">
-                        {{#if ../EstadoSimplificacionCuv}}
-                        {{#if detalle.IndicadorOfertaCUV}}
-                        <span class="icon-advertencia"></span>
-                        {{/if}}
-                        {{/if}}
-                        <span>{{SimboloMoneda}} <label class="ImporteTotal">{{detalle.FormatoImporteTotal}}</label></span>
-                    </span>
+                <div class="icono_eliminar_item_pedido">
+                    <a href="javascript:;" class="border_radius_4 icon_trash" title="Eliminar" onclick="tooltipDelete(event,'{{PedidoDetalleID}}', '{{SetID}}');" data-pedidodetalleid="{{detalle.PedidoDetalleID}}" data-setid="{{detalle.SetID}}"></a>                        
                 </div>
+
+                
             </div>
 
-            <div style="display:none" class="popover bottom" id="tlpDelete_{{PedidoDetalleID}}_{{SetID}}">
+            <div style="display:none" class="popover_pedido bottom" id="tlpDelete_{{PedidoDetalleID}}_{{SetID}}">
                 <div class="arrow"></div>
                 <p data-mensaje-eliminar="directo">¿Quieres eliminar este producto?</p>
                 <p data-mensaje-eliminar="regalo">Si eliminas este producto podrías perder el premio que ganaste ¿Quieres eliminar este producto?</p>
@@ -470,7 +476,7 @@
                         {{/iff}}
                     </small>
                 </div>*@
-            <div class="popover bottom" id="tlpObservaciones_{{PedidoDetalleID}}_{{SetID}}">
+            <div class="popover_pedido bottom" id="tlpObservaciones_{{PedidoDetalleID}}_{{SetID}}">
                 <div class="arrow"></div>
                 <ul class="list-tooltip">
                     <li class="icon-alert"><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt=""></li>

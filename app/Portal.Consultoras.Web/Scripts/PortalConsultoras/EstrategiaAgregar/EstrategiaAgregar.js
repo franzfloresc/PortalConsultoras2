@@ -40,7 +40,10 @@ var EstrategiaAgregarModule = (function () {
         dataItemTagContenido: "[data-item-tag=\"contenido\"]",
         dataTono: "[data-tono]",
         dataTonoSelect: "[data-tono-select]",
-        dataItemHtml: "[data-item-html]"
+        dataItemHtml: "[data-item-html]",
+        tooltip: "[data-agregado=\"tooltip\"]",
+        tooltipMensaje1: "[data-agregado=\"mensaje1\"]",
+        tooltipMensaje2: "[data-agregado=\"mensaje2\"]",
     };
 
     var constantes = {
@@ -224,6 +227,18 @@ var EstrategiaAgregarModule = (function () {
         }
     };
 
+    var _getClienteIdSelected = function () {
+        var clientId = 0;
+
+        var $divFichaReumida = $('#DivPopupFichaResumida');
+        if ((typeof $divFichaReumida !== "undefined" || $divFichaReumida !== null) && 
+            $divFichaReumida.find("#hfClienteId").length >0) {
+            clientId = $($divFichaReumida.find("#hfClienteId")[0]).val();
+        }
+
+        return clientId;
+    }
+
     var estrategiaAgregar = function (event, popup, limite, esFicha, esEditable) {
 
         popup = popup || false;
@@ -317,6 +332,7 @@ var EstrategiaAgregarModule = (function () {
             FlagNueva: $.trim(estrategia.FlagNueva),
             EsEditable: estrategia.esEditable,
             SetId: estrategia.setId,
+            ClienteID: estrategia.MostrarCliente ? _getClienteIdSelected() : 0
         };
 
         EstrategiaAgregarProvider
@@ -360,10 +376,14 @@ var EstrategiaAgregarModule = (function () {
 
                 //Tooltip de agregado
                 if (esFicha) {
-                    var $AgregadoTooltip = $("[data-agregado='tooltip']");
-                    $AgregadoTooltip.show();
-                    setTimeout(function () { $AgregadoTooltip.hide(); }, 4000);
                     try {
+                        var $AgregadoTooltip = $(dataProperties.tooltip);
+                        if (params.EsEditable) {
+                            $AgregadoTooltip.find(dataProperties.tooltipMensaje1).html("¡Listo! ");
+                            $AgregadoTooltip.find(dataProperties.tooltipMensaje2).html(" Modificaste tu pedido");
+                        }
+                        $AgregadoTooltip.show();
+                        setTimeout(function () { $AgregadoTooltip.hide(); }, 4000);
                         ResumenOpcionesModule.LimpiarOpciones();
                     } catch (e) {
                         console.error(e);
@@ -503,7 +523,7 @@ var EstrategiaAgregarModule = (function () {
                 }
                 if (!IsNullOrEmpty(data.mensajeAviso)) AbrirMensaje(data.mensajeAviso, data.tituloMensaje);
                 if (_config.esFicha) {
-                    FichaEditarModule.ShowDivFichaResumida(false);
+                    FichaPartialModule.ShowDivFichaResumida(false);
                 }
                 return false;
             })
@@ -539,10 +559,12 @@ var EstrategiaAgregarModule = (function () {
     };
 
     var _verificarActivarBtn = function (codigoVariante) {
-        if (typeof(fichaModule) != "undefined") {
-            var estrategia = fichaModule.GetEstrategia();
-            if (estrategia.esEditable) { //todos menos la 2003 (tipos&tonos)
-                EstrategiaAgregarModule.HabilitarBoton();
+        if (typeof (fichaModule) != "undefined") {
+            if (typeof (fichaModule.GetEstrategia) != "undefined") {
+                var estrategia = fichaModule.GetEstrategia();
+                if (estrategia.esEditable) { //todos menos la 2003 (tipos&tonos)
+                    EstrategiaAgregarModule.HabilitarBoton();
+                }
             }
         }
     };
@@ -561,9 +583,9 @@ var EstrategiaAgregarModule = (function () {
         _verificarActivarBtn(); //habilitar botón solo cuando está en la ficha resumida
         return false;
     };
-    var validaCantidad = function(e) {
+    var validaCantidad = function (e) {
         _verificarActivarBtn(); //habilitar botón solo cuando está en la ficha resumida
-        
+
     }
     var deshabilitarBoton = function () {
         $(_elementos.btnAgregar.id).addClass(_elementos.btnAgregar.classDesactivado);

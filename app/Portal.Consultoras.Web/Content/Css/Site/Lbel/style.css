@@ -24842,8 +24842,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     .contenido_misGanancias h6 {
         font-size: 13px;
         font-weight: 900 !important;
-        color: #642f80;
-        text-transform: uppercase;
+        color: #642f80; 
     }
 
 .contenedor_montos_sinDescuento {

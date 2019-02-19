@@ -29,6 +29,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 var lista3Ultimos = lst.OrderByDescending(p => p.CampaniaID).Take(3).Where(p => p.CampaniaID != 0).ToList();
 
+                // paso 1: obtener los 3 ultimos pedidos
                 model.ListaPedidoCliente = Mapper.Map<List<PedidoWebMobilModel>>(lista3Ultimos);
 
                 foreach (var pedidoCliente in model.ListaPedidoCliente)
@@ -39,26 +40,61 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         lstPedidoDetalle = sv.GetClientesByCampania(userData.PaisID, pedidoCliente.CampaniaID, userData.ConsultoraID);
                     }
 
+                    // paso 2: obtener los clientes por pedido
                     pedidoCliente.ListaPedidoWebDetalle = Mapper.Map<List<PedidoWebClienteMobilModel>>(lstPedidoDetalle);
+                    decimal totalCliente = 0;
 
+                    // obtener el detalle del pedido
+                    var detallePedidoWeb = GetDetallePedidoAgrupadoByCampania(pedidoCliente.CampaniaID);
 
                     foreach (var pedidoDetalleProducto in pedidoCliente.ListaPedidoWebDetalle)
                     {
-                        BEPedidoWebDetalle[] lstPedidoDetalleProducto;
-                        using (var sv = new ClienteServiceClient())
+                        //BEPedidoWebDetalle[] lstPedidoDetalleProducto;
+                        var lstPedidoDetalleProducto2 = new List<BEPedidoWebDetalle>();
+                        //using (var sv = new ClienteServiceClient())
+                        //{
+                        //    lstPedidoDetalleProducto = sv.GetPedidoWebDetalleByCliente(userData.PaisID, pedidoCliente.CampaniaID, userData.ConsultoraID, pedidoDetalleProducto.ClienteID);
+                        //}
+
+                        //var detallepedido = ObtenerPedidoWebSetDetalleAgrupado();
+                        var detallePedidoCliente = detallePedidoWeb.Where(x => x.ClienteID == pedidoDetalleProducto.ClienteID).ToList();
+
+                        foreach (var det in detallePedidoCliente)
                         {
-                            lstPedidoDetalleProducto = sv.GetPedidoWebDetalleByCliente(userData.PaisID, pedidoCliente.CampaniaID, userData.ConsultoraID, pedidoDetalleProducto.ClienteID);
+                            lstPedidoDetalleProducto2.Add(new BEPedidoWebDetalle
+                            {
+                                ClienteID = det.ClienteID,
+                                Nombre = det.Nombre,
+                                eMail = det.eMail,
+                                CampaniaID = det.CampaniaID,
+                                CUV = det.CUV,
+                                DescripcionProd = det.DescripcionProd,
+                                DescripcionLarga = det.DescripcionLarga,
+                                DescripcionEstrategia = det.DescripcionEstrategia,
+                                Categoria = det.Categoria,
+                                Cantidad = det.Cantidad,
+                                PrecioUnidad = det.PrecioUnidad,
+                                ImporteTotal = det.ImporteTotal,
+                                ImporteTotalPedido = det.ImporteTotalPedido,
+                                MarcaID = det.MarcaID,
+                                ObservacionPROL = det.ObservacionPROL,
+                                IndicadorOfertaCUV = det.IndicadorOfertaCUV,
+                                SetIdentifierNumber = det.SetIdentifierNumber
+                            });
                         }
 
-                        pedidoDetalleProducto.ListaPedidoWebDetalleProductos = Mapper.Map<List<PedidoWebDetalleMobilModel>>(lstPedidoDetalleProducto);
+                        pedidoDetalleProducto.ListaPedidoWebDetalleProductos = Mapper.Map<List<PedidoWebDetalleMobilModel>>(lstPedidoDetalleProducto2);
 
                         pedidoDetalleProducto.ImporteTotalPedido = pedidoDetalleProducto.ListaPedidoWebDetalleProductos.Sum(p => p.ImporteTotal);
+                        totalCliente += pedidoDetalleProducto.ImporteTotalPedido;
                     }
 
                     pedidoCliente.TieneDescuentoCuv = userData.EstadoSimplificacionCUV
                         && pedidoCliente.ListaPedidoWebDetalle.Any(pedidoWebDetalle =>
                             pedidoWebDetalle.ListaPedidoWebDetalleProductos.Any(item => string.IsNullOrEmpty(item.ObservacionPROL) && item.IndicadorOfertaCUV)
                         );
+
+                    pedidoCliente.ImporteTotal = totalCliente;
 
                     if (pedidoCliente.TieneDescuentoCuv)
                     {
@@ -263,13 +299,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 {
                     pedidoWeb = sv.GetPedidoWebByCampaniaConsultora(userData.PaisID, int.Parse(campaniaId), userData.ConsultoraID);
                 }
-                
+
                 List<BEPedidoWebDetalle> lstCabecera;
                 using (ClienteServiceClient sv = new ClienteServiceClient())
                 {
                     lstCabecera = sv.GetClientesByCampania(userData.PaisID, int.Parse(campaniaId), userData.ConsultoraID).ToList();
                 }
-                
+
                 List<PedidoWebClienteMobilModel> listaClientes = Mapper.Map<List<PedidoWebClienteMobilModel>>(lstCabecera);
 
                 List<KeyValuePair<int, string>> dicCabeceras = new List<KeyValuePair<int, string>>();
@@ -310,7 +346,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 PedidoWebMobilModel pedidoCliente = new PedidoWebMobilModel
                 {
-                    TieneDescuentoCuv = userData.EstadoSimplificacionCUV 
+                    TieneDescuentoCuv = userData.EstadoSimplificacionCUV
                                         && listaClientes.Any(pedidoWebDetalle =>
                                             pedidoWebDetalle.ListaPedidoWebDetalleProductos.Any(item =>
                                                 string.IsNullOrEmpty(item.ObservacionPROL) &&
@@ -339,7 +375,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     pedidoCliente.DescuentoString = string.Format("{0:#,##0.00}", pedidoCliente.Descuento);
                     pedidoCliente.ImporteTotalString = string.Format("{0:#,##0.00}", pedidoCliente.ImporteTotal);
                 }
-                
+
                 var mailBody = EnviarEmailContenido(campaniaId, listaClientes, pedidoCliente);
                 Util.EnviarMailMobile("no-responder@somosbelcorp.com", userData.EMail, "(" + userData.CodigoISO + ") Pedido Solicitado", mailBody, true, userData.NombreConsultora);
 
@@ -387,19 +423,22 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             txtBuil.Append("Cliente");
             txtBuil.Append("</td>");
             txtBuil.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 126px; background-color: #666699;'>");
-            txtBuil.Append("Cod. Venta");
+            /*txtBuil.Append("Cod. Venta");*/
+            txtBuil.Append("Código");
             txtBuil.Append("</td>");
             txtBuil.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 347px; background-color: #666699;'>");
-            txtBuil.Append("Descripción");
+            //txtBuil.Append("Descripción");
+            txtBuil.Append("Producto");
             txtBuil.Append("</td>");
             txtBuil.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 124px; background-color: #666699;'>");
             txtBuil.Append("Cantidad");
             txtBuil.Append("</td>");
             txtBuil.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 182px; background-color: #666699;'>");
-            txtBuil.Append("Precio Unit.");
+            //txtBuil.Append("Precio Unit.");
+            txtBuil.Append("Precio unitario");
             txtBuil.Append("</td>");
             txtBuil.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 165px; background-color: #666699;'>");
-            txtBuil.Append("Precio Total");
+            txtBuil.Append("Precio total");
             txtBuil.Append("</td>");
             txtBuil.Append("</tr>");
             /* Armado de Data */

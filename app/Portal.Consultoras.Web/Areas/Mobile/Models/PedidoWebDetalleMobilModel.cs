@@ -38,5 +38,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public string ObservacionPROL { get; set; }
 
         public bool IndicadorOfertaCUV { get; set; }
+
+        public int SetIdentifierNumber { get; set; }
     }
 }

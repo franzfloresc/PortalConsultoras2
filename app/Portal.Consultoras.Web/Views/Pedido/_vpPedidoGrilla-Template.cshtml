@@ -51,7 +51,7 @@
          data-tipoestrategia="{{TipoEstrategiaCodigo}}"
          data-OrigenPedidoWeb="{{OrigenPedidoWeb}}">
         <div class="texto_pedidos celda_producto pedidoPadreToolTip"
-             onclick="javascript:FichaEditarModule.EditarProducto(this, '{{TipoAccion}}')"
+             onclick="javascript:FichaPartialModule.ConstruirFicha(this, '{{TipoAccion}}')"
              style="position:relative">
 
             <span class="producto-codigo">{{CUV}}</span>
@@ -60,11 +60,11 @@
                 <p class="productos_ingresados_movil">
                     <span class="icon-mobile"><img src="@Url.Content("~/Content/Images/mobile-pedido.png")" alt="pedido mobile" /></span>
                 </p>
-                <label for="{{DescripcionCortadaProd}}" class="lblLPDesProd">{{Split DescripcionCortadaProd '|' 0}}</label>
+                <label for="{{DescripcionCortadaProd}}" class="lblLPDesProd">{{#iff SetIdentifierNumber '>' '0'}} #{{SetIdentifierNumber}} {{/iff}} {{Split DescripcionCortadaProd '|' 0}}</label>
             </span>
             {{else}}
             <span style="position:relative">
-                <label for="{{DescripcionCortadaProd}}" class="lblLPDesProd">{{Split DescripcionCortadaProd '|' 0}}</label>
+                <label for="{{DescripcionCortadaProd}}" class="lblLPDesProd">{{#iff SetIdentifierNumber '>' '0'}} #{{SetIdentifierNumber}} {{/iff}} {{Split DescripcionCortadaProd '|' 0}}</label>
             </span>
             {{/if_eq}}
             <span class="texto_pedidos_ofertas">
@@ -105,12 +105,12 @@
             {{/if}}
         </div>
         <div class="texto_pedidos precioUnitario"
-             onclick="javascript:FichaEditarModule.EditarProducto(this, '{{TipoAccion}}')">
+             onclick="javascript:FichaPartialModule.ConstruirFicha(this, '{{TipoAccion}}')">
             <input type="hidden" name="hdfLPPrecioU{{PedidoDetalleID}}" value="{{PrecioUnidad}}" class="classPrecioUnidad hdfLPPrecioU" />
             {{SimboloMoneda}} {{FormatoPrecioUnidad}}
         </div>
         <div class="texto_pedidos subtotal"
-             onclick="javascript:FichaEditarModule.EditarProducto(this, '{{TipoAccion}}')">
+             onclick="javascript:FichaPartialModule.ConstruirFicha(this, '{{TipoAccion}}')">
             <span class="precio">
                 {{SimboloMoneda}} {{FormatoPrecioUnidad}}
             </span>

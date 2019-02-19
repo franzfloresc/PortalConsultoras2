@@ -26,8 +26,9 @@
         ViewBag.PaisISO == Constantes.CodigosISOPais.Dominicana ||
         ViewBag.PaisISO == Constantes.CodigosISOPais.PuertoRico) //PE,CO,EC,GT.SV,DO,PR
     {
-
-        cabezaEscala = "Ganancia estimada total";
+       
+        //cabezaEscala = "Ganancia estimada total";
+        cabezaEscala = "Ganancia estimada";
         pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocio y Otros";
     }
     else if (ViewBag.PaisISO == Constantes.CodigosISOPais.Panama ||
@@ -160,7 +161,8 @@
                 <div class="popup_content">
                     <div>
                         <div class="pedidosFacturados_campania">
-                            <h1>PEDIDO&nbsp;<b> INGRESADO</b></h1>
+                            @*<h1>PEDIDO&nbsp;<b> INGRESADO</b></h1>*@
+                            <h1>Pedido &nbsp;<b> ingresado</b></h1>
                             <form>
                                 <select data-selectcamp="" data-selectpedidoid=""></select>
                             </form>
@@ -170,7 +172,8 @@
                             </a>
                         </div>
                         <div class="contenedor_bloque_datos">
-                            <span class="texto_descripcion">Estos son los productos que ingresaste por SomosBelcorp.com</span>
+                            @*<span class="texto_descripcion">Estos son los productos que ingresaste por SomosBelcorp.com</span>*@
+                            <span class="texto_descripcion">Productos ingresados por SomosBelcorp.com</span>
                             <div class="icono_imprimir" style="bottom: 20%;right: 3.5%;">
                                 <a href="javascript:;" title="Imprimir">
                                     <img src="@Url.Content("~/Content/Images/imprimir.png")" alt="Imprimir" onclick="Imprimir();" />
@@ -205,12 +208,15 @@
                     <div class="content_datos_mispedidos">
                         <div class="nombre_campania texto_gris_cabeceraMisPedidos">Campaña</div>
                         <div class="fecha_pedido texto_gris_cabeceraMisPedidos">Fecha</div>
-                        <div class="monto_totalPedido texto_gris_cabeceraMisPedidos">Monto Total</div>
-                        <div class="canal_ingreso texto_gris_cabeceraMisPedidos">Canal Ingreso</div>
-                        <div class="cantidad_prod texto_gris_cabeceraMisPedidos">Cant. Prod.</div>
+                        @*<div class="monto_totalPedido texto_gris_cabeceraMisPedidos">Monto Total</div>*@
+                        <div class="monto_totalPedido texto_gris_cabeceraMisPedidos">Total</div>
+                        <div class="canal_ingreso texto_gris_cabeceraMisPedidos">Canal de ingreso</div>
+                        @*<div class="cantidad_prod texto_gris_cabeceraMisPedidos">Cant. Prod.</div>*@
+                        <div class="cantidad_prod texto_gris_cabeceraMisPedidos">Cantidad</div>
                         <div class="seguimiento texto_gris_cabeceraMisPedidos">Seguimiento</div>
-                        <div class="pack_documentario texto_gris_cabeceraMisPedidos">Paq. Document.</div>
-                        <div class="estado_detalles texto_gris_cabeceraMisPedidos">Ver Estado / Detalles</div>
+                        @*<div class="pack_documentario texto_gris_cabeceraMisPedidos">Paq. Document.</div>*@
+                        <div class="pack_documentario texto_gris_cabeceraMisPedidos">Paquete documentario</div>
+                        <div class="estado_detalles texto_gris_cabeceraMisPedidos">Ver estado / detalle</div>
                     </div>
                     <div class="linea_separadora" style="margin-top:-1px"></div>
                     @foreach (var item in Model.ListaFacturados)
@@ -493,15 +499,17 @@
     <div class="content_datos_pedidosIngresados">
         <div class="codigo_prod texto_gris_popup">Código</div>
         <div class="descripcion_prod texto_gris_popup">Producto</div>
-        <div class="cantidadProd texto_gris_popup">Unidades</div>
-        <div class="precioUnitario_prod texto_gris_popup">Precio Unitario</div>
+        @*<div class="cantidadProd texto_gris_popup">Unidades</div>*@
+        <div class="cantidadProd texto_gris_popup">Cantidad</div>
+        @*<div class="precioUnitario_prod texto_gris_popup">Precio Unitario</div>*@
+        <div class="precioUnitario_prod texto_gris_popup">Monto</div>
         <div class="importePago_prod texto_gris_popup">Subtotal</div>
         <div class="importePago_prod texto_gris_popup">Cliente</div>
     </div>
     {{#each this.Rows as |detalle|}}
     <div class="content_datos_pedidosIngresados">
         <div class="codigo_prod">{{detalle.CUV}}</div>
-        <div class="descripcion_prod">{{detalle.DescripcionProd}}</div>
+        <div class="descripcion_prod">{{#iff detalle.SetIdentifierNumber '>' '0'}} #{{detalle.SetIdentifierNumber}} {{/iff}} {{detalle.DescripcionProd}}</div>
         <div class="cantidadProd">{{detalle.Cantidad}}</div>
         <div class="precioUnitario_prod">{{SimboloMoneda}} {{detalle.PrecioUnidad}}</div>
         <div class="importePago_prod">{{SimboloMoneda}} {{detalle.ImporteTotal}}</div>
@@ -530,7 +538,7 @@
                 {{#iff RecordCount '>' 0}}
                 <li class="productos_agregados_usuario" style="display: none;">
                     <span class="cantidad_productos_agregados"><b>{{RecordCount}}</b></span>
-                    &nbsp;productos
+                    &nbsp;productos                   
                 </li>
                 <li class="seleccion_pagina" style="margin-left:10px;">
                     <select data-paginacion="rows" data-val="{{PageSize}}">
@@ -560,12 +568,21 @@
     </div>
     <div style="float:right;">
         <div class="productos_agregados_usuario" style="display:inline-block;">
-            <span class="cantidad_productos_agregados"><b>{{CantidadProducto}}</b></span>
-            &nbsp;productos
-        </div>
+            @*<span class="cantidad_productos_agregados"><b>{{CantidadProducto}}</b></span>
+            &nbsp;productos*@
+            {{#iff CantidadProducto '>' 1}}
+            <span class="cantidad_productos_agregados">
+                Cantidad: <b>{{CantidadProducto}}</b> unidades
+            </span>
+            {{else}}
+            <span class="cantidad_productos_agregados">
+                Cantidad: <b>{{CantidadProducto}}</b> unidad
+            </span>
+            {{/iff}}
+        </div><br />
         <div class="totalPedidoFacturado" style="display:inline-block; margin-right:0px!important;">
             <span>
-                TOTAL
+                Total
                 {{#iff ClienteID '>' '0'}}
                 <span data-cliente-nombre="">{{Nombre}}</span>
                 {{/iff}}
@@ -580,12 +597,17 @@
         <div class="content_datos_pedidosFacturados">
             <div class="codigo_prod texto_gris_popup">Código</div>
             <div class="descripcion_prod texto_gris_popup">Producto</div>
-            <div class="cantidadProd texto_gris_popup">Unidades</div>
-            <div class="precioUnitario_prod texto_gris_popup">Precio Unitario</div>
+            <div class="cantidadProd texto_gris_popup">Cantidad</div>
+            @*{{#iff tipo '==' 'f'}}*@
+            <div class="precioUnitario_prod texto_gris_popup">Precio unitario</div>
+            @*{{/iff}}
+            {{#iff tipo '==' 'i'}}
+            <div class="precioUnitario_prod texto_gris_popup">Monto</div>
+            {{/iff}}*@
             <div class="totalPrecio_prod texto_gris_popup">Subtotal</div>
             {{#iff tipo '==' 'f'}}
             <div class="totalPrecio_prod texto_gris_popup">Descuento</div>
-            <div class="totalPrecio_prod texto_gris_popup">Importe a Pagar</div>
+            <div class="totalPrecio_prod texto_gris_popup">Monto</div>
             {{/iff}}
             {{#iff tipo '==' 'i'}}
             <div class="cliente texto_gris_popup">
@@ -597,7 +619,7 @@
             {{#each this.Rows as |detalle|}}
             <div class="content_datos_pedidosFacturados">
                 <div class="codigo_prod">{{detalle.CUV}}</div>
-                <div class="descripcion_prod">{{detalle.DescripcionProd}}</div>
+                <div class="descripcion_prod">{{#iff detalle.SetIdentifierNumber '>' '0'}} #{{detalle.SetIdentifierNumber}} {{/iff}} {{detalle.DescripcionProd}}</div>
                 <div class="cantidadProd">{{detalle.Cantidad}}</div>
                 <div class="precioUnitario_prod">{{SimboloMoneda}} {{detalle.PrecioUnidad}}</div>
                 <div class="totalPrecio_prod">{{SimboloMoneda}} {{detalle.ImporteTotal}}</div>
@@ -614,7 +636,7 @@
     {{#iff tipo '==' 'f'}}
     <div style="text-align:right; padding-right:40px;">
         <div class="content_datos_pedidosFacturados padding_area_montosTotales" style="width:13%!important;">
-            <div class="totalTexto">IMPORTE TOTAL:</div>
+            <div class="totalTexto">MONTO TOTAL:</div>
             <div class="totalTexto">FLETE:</div>
             <div class="totalTexto">TOTAL FACTURADO:</div>
         </div>
@@ -632,21 +654,29 @@
         </div>
         <div class="cantidad_productos_pedidosIngresados">
             <span>{{CantidadProducto}}</span>
-            <span>PRODUCTOS</span>
+            @*<span>PRODUCTOS</span>*@
+            {{#iff CantidadProducto '>' 1}}
+                <span style="text-transform:none">Unidades</span>
+            {{else}}
+                <span style="text-transform:none">Unidad</span>
+            {{/iff}}
         </div>
         <div class="content_datos_pedidosFacturados padding_area_montosTotales" style="width:18%!important; font-size:14px;">
             <div class="info_extra_Validado">
                 <img src="/Content/Images/Esika/info-copy.png">
                 <div class="monto_resumenValidado">
-                    <div class="monto_1">Total sin Dscto.</div>
+                    @*<div class="monto_1">Total sin Dscto.</div>*@
+                    <div class="monto_1">Subtotal</div>
                     <div class="monto_numero" style="opacity:0.6">{{SimboloMoneda}} {{ImporteTotal}}</div>
                     <hr class="clear">
-                    <div class="monto_1">Dscto. por niveles </div>
+                    @*<div class="monto_1">Dscto. por niveles </div>*@
+                    <div class="monto_1">Descuento por niveles </div>
                     <div class="monto_numero">{{SimboloMoneda}} {{OfertaNiveles}}</div>
                 </div>
             </div>
-            <div class="totalTexto">MONTO TOTAL:</div>
+            @*<div class="totalTexto">MONTO TOTAL:</div>*@
             @*<div class="totalTexto">@(cabezaEscala.Trim().ToUpper()): </div>*@
+            <div class="totalTexto">@(cabezaEscala.Trim()): </div>
             <div class="totalTexto">@(cabezaEscala.Trim()): </div>
         </div>
         <div class="content_datos_pedidosFacturados padding_area_montosTotales" style="font-size:15px;">
