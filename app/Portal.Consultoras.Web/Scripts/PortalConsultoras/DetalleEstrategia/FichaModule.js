@@ -957,7 +957,7 @@ var FichaModule = (function (config) {
     var _selectClient = function (clienteId, clienteNombre) {
         if (typeof clienteId !== "undefined" &&
             typeof clienteNombre !== "undefined" &&
-            data.ClienteId > 0) {
+            clienteId > 0) {
             $(_seccionesPanelCliente.hfClienteId).val(clienteId);
             $(_seccionesPanelCliente.hfClienteNombre).val(clienteNombre);
             $(_seccionesPanelCliente.spClienteNombre).html(clienteNombre);
