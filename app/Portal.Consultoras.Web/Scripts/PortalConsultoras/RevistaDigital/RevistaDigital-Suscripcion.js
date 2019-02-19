@@ -131,13 +131,16 @@ function RDSuscripcionPromise() {
 
 
 function RDDesuscripcion_pregunta() {
-
+    //Marca Analitycs
+    rdAnalyticsModule.CancelarSuscripcion();
     $('#alerta_cancelar_suscripcion').show();
     $('#pregunta').show();
+
 }
 
-function RDDesuscripcion_cerrar() {
+function RDDesuscripcion_cerrar(e) {
 
+    rdAnalyticsModule.DesuscripcionPopup(e.innerHTML);
     $('#pregunta').show();
     $('#opciones').hide();
     $('#alerta_cancelar_suscripcion').hide();
@@ -146,23 +149,26 @@ function RDDesuscripcion_cerrar() {
 
 
 
-function RDDesuscripcion_motivos() {     
+function RDDesuscripcion_motivos(e) {  
+
+    rdAnalyticsModule.DesuscripcionPopup(e.innerHTML);
     $('#pregunta').hide();
     $('#opciones').show();
 }
 
 
 
-function RDDesuscripcion() {
-    
+function RDDesuscripcion(e) {
+
     AbrirLoad();
-    rdAnalyticsModule.CancelarSuscripcion();
+    //rdAnalyticsModule.CancelarSuscripcion();
     $.ajax({
         type: "POST",
         url: baseUrl + "RevistaDigital/Desuscripcion",
         dataType: "json",
         contentType: "application/json; charset=utf-8",
         success: function (data) {
+            rdAnalyticsModule.CancelarSuscripcionEncuesta(e.innerHTML);
             CerrarLoad();
             if (!checkTimeout(data))
                 return false;

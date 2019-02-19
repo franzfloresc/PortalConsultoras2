@@ -152,6 +152,7 @@ var CarruselAyuda = function () {
 
     var marcarAnalyticsContenedor = function (tipo, data, seccionName, slick, currentSlide, nextSlide) {
         //tipo : 1= inicio, 2: cambio
+
         try {
 
             var origen = {

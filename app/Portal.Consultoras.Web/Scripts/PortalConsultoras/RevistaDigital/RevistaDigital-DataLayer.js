@@ -117,6 +117,7 @@ var rdAnalyticsModule = (function () {
         borrar: "Borrar Filtros",
         popupEnterate: "Popup Entérate aquí",
         popupSuscripcion: "Popup Suscripción",
+        popupDesuscripcion: "Popup Desuscripción",
         clickFlechas: "Lo nuevo - Click Flechas"
     },
     _tabCode = {
@@ -153,6 +154,25 @@ var rdAnalyticsModule = (function () {
             "category": category +' - '+ action,
             "action": "Click Botón",
             "label": label
+        });
+    };
+
+    var _popupDesuscripcion = function (category, action, label) {
+
+        dataLayer.push({
+            "event": _event.virtual,
+            "category": category + ' - ' + action,
+            "action": "Click Botón",
+            "label": "Click en botón - " +label
+        });
+    };
+    var _popupDesuscripcionEnviar = function (category, action, label) {
+
+        dataLayer.push({
+            "event": _event.virtual,
+            "category": category + ' - ' + action,
+            "action": "Click Botón Enviar Encuesta",
+            "label":  label
         });
     };
 
@@ -465,6 +485,7 @@ var rdAnalyticsModule = (function () {
         _virtualEventPush(_category.ganaMas, _action.suscripcionExitosa, _text.notAvailable);
     }
 
+
     function MostrarPopup() {
         _promotionViewPush(_text.roInscribirme, _text.popup, _text.banner);
     }
@@ -503,6 +524,15 @@ var rdAnalyticsModule = (function () {
         _virtualEventPush(_text.epm, _action.clickEnBoton, _action.cancelarInscripcion);
     }
 
+    function CancelarSuscripcionEncuesta(texto) {
+
+        _popupDesuscripcionEnviar(_text.epm, _action.popupDesuscripcion, texto);
+    }
+
+    function DesuscripcionPopup(texto) {
+        _popupDesuscripcion(_text.epm, _action.popupDesuscripcion,texto);
+    }
+
     function ContendorSection(titulo) {
         _virtualEventPush(_text.contenedor + " - Home", _capitalizeFirstLetter(titulo.toLowerCase()) + " - Click Botón", _action.verMas);
     }
@@ -515,6 +545,7 @@ var rdAnalyticsModule = (function () {
     }
     
     return {
+        CancelarSuscripcionEncuesta: CancelarSuscripcionEncuesta,
         CancelarSuscripcion: CancelarSuscripcion,
         IrCancelarSuscripcion: IrCancelarSuscripcion,
         CerrarPopUp: CerrarPopUp,
@@ -533,7 +564,8 @@ var rdAnalyticsModule = (function () {
         ContendorSection: ContendorSection,
         IrEnterate: IrEnterate,
         GuardarDatos: GuardarDatos,
-        ClickArrowLan: ClickArrowLan
+        ClickArrowLan: ClickArrowLan,
+        DesuscripcionPopup: DesuscripcionPopup,
         
     };
 })();

@@ -280,7 +280,7 @@ else if (Model.CancelarSuscripcion)
                 <span class="deseas-cancelar">
                     Cancela tu suscripción haciendo clic en el siguiente botón y dejarás de recibir todos los beneficios que te brinda GANA+
                 </span>
-                <a href="javascript: RDDesuscripcion();" class="btn-suscribete">CANCELA TU SUSCRIPCIÓN AQUÍ</a>
+                <a href="javascript: RDDesuscripcion(event.target);" class="btn-suscribete">CANCELA TU SUSCRIPCIÓN AQUÍ</a>
             }
             @if (!Model.EsSuscrita)
             {
@@ -388,8 +388,8 @@ else if (Model.CancelarSuscripcion)
                             </p>
 
                             <ul class="buttons_cancelar_suscripcion">
-                                <li><button onclick="RDDesuscripcion_cerrar();">Seguir suscrito/a</button></li>
-                                <li><button onclick="RDDesuscripcion_motivos();">Cancelar suscripción</button></li>
+                                <li><button onclick="RDDesuscripcion_cerrar(event.target);">Seguir suscrito/a</button></li>
+                                <li><button onclick="RDDesuscripcion_motivos(event.target);">Cancelar suscripción</button></li>
                             </ul>
 
 
@@ -431,7 +431,7 @@ else if (Model.CancelarSuscripcion)
             </form>
 
             <div style="text-align:center">
-               <button  onclick="RDDesuscripcion();" class="boton_desuscrita">Enviar</button>
+               <button  onclick="RDDesuscripcion(event.target);" class="boton_desuscrita">Enviar</button>
             </div>
                         </div>
                     </div>
