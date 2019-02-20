@@ -988,9 +988,10 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     string contenidoMailCulminado = CrearEmailReclamoCulminado(cdrWebMailConfirmacion);
                     //HD-3412 EINCA
+                    var nombreConsultora = userData.NombreConsultora;
                     System.Threading.Tasks.Task.Factory.StartNew(() =>
                     {
-                        Util.EnviarMail("no-responder@somosbelcorp.com", model.Email, "CDR: EN EVALUACIÓN", contenidoMailCulminado, true, userData.NombreConsultora);
+                        Util.EnviarMail("no-responder@somosbelcorp.com", model.Email, "CDR: EN EVALUACIÓN", contenidoMailCulminado, true, nombreConsultora);
                     });
 
                     if (siNoEmail == 1)
@@ -1000,9 +1001,11 @@ namespace Portal.Consultoras.Web.Controllers
                         string cadena = "<br /><br /> Estimada consultora " + userData.NombreConsultora + " Para confirmar la dirección de correo electrónico ingresada haga click " +
                                          "<br /> <a href='" + Util.GetUrlHost(HttpContext.Request) + "WebPages/MailConfirmation.aspx?data=" + paramQuerystring + "'>aquí</a><br/><br/>Belcorp";
                         //HD-3412 EINCA
+                        var codigoIso = userData.CodigoISO;
+
                         System.Threading.Tasks.Task.Factory.StartNew(() =>
                         {
-                            Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", model.Email, "(" + userData.CodigoISO + ") Confimacion de Correo", cadena, true, userData.NombreConsultora);
+                            Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", model.Email, "(" + codigoIso + ") Confimacion de Correo", cadena, true, nombreConsultora);
                         });
 
                         return Json(new

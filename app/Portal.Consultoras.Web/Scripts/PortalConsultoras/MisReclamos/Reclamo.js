@@ -173,6 +173,7 @@ $(document).ready(function () {
         }
         $("#ddlCampania").removeAttr("disabled");
         if (ValidarSolicitudCDREnvio(false, true)) {
+            $('#txtCantidadPedidoConfig').text(CantidadReclamosPorPedidoConfig);
             $('#divConfirmEnviarSolicitudCDR').show();
         }
     });
