@@ -600,7 +600,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 mailBody.AppendFormat(" <tr> <td style = 'width: 50%; text-align: left; color: #000; font-family: Arial; font-size: 13px; ' > Cód.Venta: {0} </td> <td style = 'width: 50%;'> &nbsp;</td></tr>", pedidoDetalle.CUV);
 
                 strDescripcionCUV = pedidoDetalle.DescripcionProd.Split('|').First();
-                mailBody.AppendFormat("<tr> <td style = 'width: 50%; text-align: left; color: #000; font-family: Arial; font-size: 14px; font-weight:700;' > {0} </td>", (pedidoDetalle.SetIdentifierNumber > 0 ) ? string.Format("#{0} {1}", pedidoDetalle.SetIdentifierNumber, strDescripcionCUV) : strDescripcionCUV);
+                mailBody.AppendFormat("<tr> <td style = 'width: 50%; text-align: left; color: #000; font-family: Arial; font-size: 14px; font-weight:700;' > {0} </td>", (pedidoDetalle.SetIdentifierNumber > 0) ? string.Format("#{0} {1}", pedidoDetalle.SetIdentifierNumber, strDescripcionCUV) : strDescripcionCUV);
                 string rowPrecioUnitario;
                 if (input.PaisID == Constantes.PaisID.Colombia)
                 {
@@ -647,8 +647,15 @@ namespace Portal.Consultoras.BizLogic.Reserva
 
             mailBody.Append("<tr> <td style = 'width: 50%; font-family: Arial; font-size: 13px; color: #000; padding-left: 10px; text-align:left; padding-top: 15px;' > Total:</td>");
             mailBody.AppendFormat("<td style = 'width: 50%; font-family: Arial; font-size: 16px; font-weight: 700; color: #000;padding-right:10px; padding-top: 15px; text-align:right;' > {1}{0} </td> </tr>", _montoTotal, simbolo);
-
-            mailBody.AppendFormat("<tr><td style = 'width: 50%; font-family: Arial; font-size: 13px; color: {0}; font-weight:700; padding-left: 10px; text-align:left; padding-bottom: 13px; padding-top: 5px;' > Ganancia estimada:</td>", colorStyle);
+            if (esEsika) 
+            {
+                mailBody.AppendFormat("<tr><td style = 'width: 50%; font-family: Arial; font-size: 13px; color: {0}; font-weight:700; padding-left: 10px; text-align:left; padding-bottom: 13px; padding-top: 5px;' > Comisión y ahorro total:</td>", colorStyle);
+            }
+            else
+            {
+                mailBody.AppendFormat("<tr><td style = 'width: 50%; font-family: Arial; font-size: 13px; color: {0}; font-weight:700; padding-left: 10px; text-align:left; padding-bottom: 13px; padding-top: 5px;' > Oportunidad de ahorro total:</td>", colorStyle);
+            }
+            //mailBody.AppendFormat("<tr><td style = 'width: 50%; font-family: Arial; font-size: 13px; color: {0}; font-weight:700; padding-left: 10px; text-align:left; padding-bottom: 13px; padding-top: 5px;' > Ganancia estimada:</td>", colorStyle);
             mailBody.AppendFormat("<td style = 'width: 50%; font-family: Arial; font-size: 13px; font-weight: 700; color: {0}; padding-right:10px; text-align:right; padding-bottom: 13px; padding-top: 5px;' > {2}{1}</td></tr>", colorStyle, _gananciaEstimada, simbolo);
 
             mailBody.Append("<tr><td colspan = '2' style = 'font-family: Arial; font-size: 12px; color: #000; padding-top: 25px; padding-bottom: 13px; text-align: center; padding-left: 10px; padding-right: 10px;' > IMPORTANTE <BR/>");
