@@ -2289,7 +2289,7 @@ a.subir_carousel, a.bajar_carousel {
 
 .popup_productosSugeridos {
     display: block;
-    position: absolute;
+    position: relative;
     top:233px;
     left:87.5px;
     right: 0;
@@ -2299,6 +2299,7 @@ a.subir_carousel, a.bajar_carousel {
     max-width: 692px;
     height: auto;
     padding-top: 0;
+    padding-bottom:20px;
     box-sizing: border-box;
     z-index: 5;
     box-shadow: 1px 7px 39px -10px #000;
@@ -2308,7 +2309,7 @@ a.subir_carousel, a.bajar_carousel {
         margin: 0 auto;
         width: 100%;
         max-width: 626px;
-        margin-bottom: 20px;
+        margin-bottom: 25px;
     }
 
     .popup_productosSugeridos .slick-slider {
@@ -20364,6 +20365,9 @@ color:white;
         padding-top: 3px;
         padding-bottom: 0;
     }
+    .paginador_notificaciones{
+        float: right;
+    }
 
         .acordion_titulo .mostrarPaginadorPedidos.inferior .flecha_paginador_atras {
             margin-right: 10px;
@@ -24806,7 +24810,10 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
         }
 
 .dscto_ofertasNiveles {
-    margin-left: 20px;
+    /* 
+    GANAZG-176 
+      margin-left: 20px; 
+    */
 }
 
 .separador_montos {

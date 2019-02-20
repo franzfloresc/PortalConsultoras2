@@ -13,6 +13,7 @@
         panelClienteRegistro: "#PanelClienteRegistro",
         btnAgregar: "#btnPanelListaAgregar",
         txtNombreCliente: "#txtPanelListaBusqueda",
+        btnBuscarCliente: "#btnBuscarCliente",
         //
         hfPaisID: "#hfPaisID",
         hfClienteID: "#hfClienteID",
@@ -29,7 +30,15 @@
         txtApellido: "#ApellidoCliente",
         txtCorreo: "#eMail",
         txtTelefono: "#Telefono",
-        txtCelular: "#Celular"
+        txtCelular: "#Celular",
+
+        // Ini - Estructura Panel
+        panelMain: "#PanelClienteLista",
+        panelCabecera: '[data-panelcliente-seccion="cabecera"]',
+        panelFuncionesAdd: '[data-panelcliente-seccion="funciones"]',
+        panelListaCliente: '[data-panelcliente-seccion="lista"]'
+        // Fin - Estructura Panel
+
     };
 
     var _loadPanelMantener = function () {
@@ -75,15 +84,27 @@
         $("#btnPanelListaAceptar").click();
     };
 
-    var _mostrarTusClientes = function () {
+    var _renderLayoutPanel = function () {
+        var w = window.innerHeight;
+        var c = $(_elements.panelCabecera).innerHeight();
+        var a = $(_elements.panelFuncionesAdd).innerHeight();
+        var l = w - c - a;
+        $(_elements.panelMain).css("height", w);
+        $(_elements.panelListaCliente).css("height", l);
+        $(_elements.panelListaCliente).css("overflow", "auto");
+    };
 
+    var _mostrarTusClientes = function () {
+        $(_elements.btnAgregar).hide();
         var nombreClinete = $.trim($(_elements.txtNombreCliente).val());
         _config.tusClientesProvider
             .consultarPromise(nombreClinete)
             .done(function (data) {
-                //console.log(data);
+                data.mostrarNoTieneClientes = nombreClinete === "";
+                if (data.mostrarNoTieneClientes) $(_elements.btnAgregar).show();
                 SetHandlebars(_elements.hbsClientes, data, _elements.divClientes);
                 _seleccionarRegistro("", "", "", "", "");
+                _renderLayoutPanel();
             });
     };
 
@@ -97,16 +118,18 @@
         _setNombreCliente('');
         _mostrarTusClientes();
 
-        $("body").on("click", _elements.btnAgregar, function (e) {
-            _panelRegistroShow();
-        });
-
         $("body").on("keypress", _elements.txtNombreCliente, function (e) {
             if (e.which == 13) {
-                //if (checkTimeout()) {
                 _mostrarTusClientes();
-                //}
             }
+        });
+
+        $("body").on("click", _elements.btnBuscarCliente, function (e) {
+            _mostrarTusClientes();
+        });
+
+        $("body").on("click", _elements.btnAgregar, function (e) {
+            _panelRegistroShow();
         });
 
         $("#btnPanelListaCerrar_todo").click(function () {
