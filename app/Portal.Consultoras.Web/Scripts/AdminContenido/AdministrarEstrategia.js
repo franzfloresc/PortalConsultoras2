@@ -816,6 +816,8 @@
 
         var edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').EditarProducto('" + id + "','" + campaniaId + "','" + cuv + "',event);\" >" + "<img src='" + _config.rutaImagenEdit + "' alt='Editar Productos ShowRoom' title='Editar Productos ShowRoom' border='0' /></a>";
 
+        //showDialog('DialogGrupoEstrategia');
+
         return edit;
     }
 
@@ -2465,6 +2467,27 @@
 
     // Binding events dialogs 
     var _iniDialog = function () {
+        $("#DialogGrupoEstrategia").dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 830,
+            draggable: false,
+            title: "Grupo de Estrategia",
+            close: function (event, ui) { $(".ui-dialog-titlebar-close", ui.dialog).show(); },
+            open: function (event, ui) { $(".ui-dialog-titlebar-close", ui.dialog).hide(); },
+            buttons:
+            {
+                "Guardar": function () {
+                    alert('Guardar');
+                },
+                "Salir": function () {
+                    HideDialog("DialogGrupoEstrategia");
+                }
+            }
+        });
+
         $("#DialogAdministracionEstrategia").dialog({
             autoOpen: false,
             resizable: false,

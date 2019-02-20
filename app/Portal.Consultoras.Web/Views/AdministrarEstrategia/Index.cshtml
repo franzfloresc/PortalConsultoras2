@@ -179,6 +179,8 @@
 
 @Html.Partial("AdministrarEstrategiaDialog")
 
+@Html.Partial("EstrategiaGrupoDialog")
+
 <div id="DialogZona" style="display: none;">
     <div class="Content_modal">
         <div class="div-3">
@@ -522,7 +524,7 @@
                 <input type="text" id="txtCUVProductoDetalle" />
             </div>
             <div class="titG"><span id="spMarcaProducto">Marca producto:</span></div>
-            <div class="selectP2 borde_redondeado" id="divMarcaProductoValue" >
+            <div class="selectP2 borde_redondeado" id="divMarcaProductoValue">
                 <select id="ddlMarcaProductoDetalle">
                     <option value="0" selected>Seleccione</option>
                     <option value="1">Lbel</option>
@@ -561,7 +563,7 @@
         <div class="div-3">
             <div class="titG"></div>
             <div class="titC" style="padding: 0; width: 180px; padding-right: 20px;">
-                 
+
                 <div class="input_search">
                     <div id="fpPopupImagenProductoDetalle">
                         <script type="text/javascript">
