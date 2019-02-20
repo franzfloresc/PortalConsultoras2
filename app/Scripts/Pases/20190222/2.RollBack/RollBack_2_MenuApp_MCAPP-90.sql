@@ -1,155 +1,59 @@
-USE BelcorpPeru
+﻿USE BelcorpPeru
 GO
 
-IF(EXISTS(SELECT CodigoMenuPadre FROM [MenuApp] WHERE Codigo='MEN_LAT_PEDIDOPEND' AND CodigoMenuPadre='MEN_LAT_NEGOCIO' AND VersionMenu=8))
-BEGIN
-	-- Rollback
-	UPDATE [MenuApp]
-	SET Orden=Orden-1
-	WHERE CODIGOMENUPADRE='MEN_LAT_NEGOCIO' AND Visible=1 AND VersionMenu=8 AND Orden>2
-
-	DELETE FROM [MenuApp] WHERE Codigo='MEN_LAT_PEDIDOPEND' AND CodigoMenuPadre='MEN_LAT_NEGOCIO' AND VersionMenu=8
-END
+Delete from menuApp where versionMenu = 8
 
 USE BelcorpMexico
 GO
 
-IF(EXISTS(SELECT CodigoMenuPadre FROM [MenuApp] WHERE Codigo='MEN_LAT_PEDIDOPEND' AND CodigoMenuPadre='MEN_LAT_NEGOCIO' AND VersionMenu=8))
-BEGIN
-	-- Rollback
-	UPDATE [MenuApp]
-	SET Orden=Orden-1
-	WHERE CODIGOMENUPADRE='MEN_LAT_NEGOCIO' AND Visible=1 AND VersionMenu=8 AND Orden>2
-
-	DELETE FROM [MenuApp] WHERE Codigo='MEN_LAT_PEDIDOPEND' AND CodigoMenuPadre='MEN_LAT_NEGOCIO' AND VersionMenu=8
-END
+Delete from menuApp where versionMenu = 8
 
 USE BelcorpColombia
 GO
 
-IF(EXISTS(SELECT CodigoMenuPadre FROM [MenuApp] WHERE Codigo='MEN_LAT_PEDIDOPEND' AND CodigoMenuPadre='MEN_LAT_NEGOCIO' AND VersionMenu=8))
-BEGIN
-	-- Rollback
-	UPDATE [MenuApp]
-	SET Orden=Orden-1
-	WHERE CODIGOMENUPADRE='MEN_LAT_NEGOCIO' AND Visible=1 AND VersionMenu=8 AND Orden>2
-
-	DELETE FROM [MenuApp] WHERE Codigo='MEN_LAT_PEDIDOPEND' AND CodigoMenuPadre='MEN_LAT_NEGOCIO' AND VersionMenu=8
-END
+Delete from menuApp where versionMenu = 8
 
 USE BelcorpSalvador
 GO
 
-IF(EXISTS(SELECT CodigoMenuPadre FROM [MenuApp] WHERE Codigo='MEN_LAT_PEDIDOPEND' AND CodigoMenuPadre='MEN_LAT_NEGOCIO' AND VersionMenu=8))
-BEGIN
-	-- Rollback
-	UPDATE [MenuApp]
-	SET Orden=Orden-1
-	WHERE CODIGOMENUPADRE='MEN_LAT_NEGOCIO' AND Visible=1 AND VersionMenu=8 AND Orden>2
-
-	DELETE FROM [MenuApp] WHERE Codigo='MEN_LAT_PEDIDOPEND' AND CodigoMenuPadre='MEN_LAT_NEGOCIO' AND VersionMenu=8
-END
+Delete from menuApp where versionMenu = 8
 
 USE BelcorpPuertoRico
 GO
 
-IF(EXISTS(SELECT CodigoMenuPadre FROM [MenuApp] WHERE Codigo='MEN_LAT_PEDIDOPEND' AND CodigoMenuPadre='MEN_LAT_NEGOCIO' AND VersionMenu=8))
-BEGIN
-	-- Rollback
-	UPDATE [MenuApp]
-	SET Orden=Orden-1
-	WHERE CODIGOMENUPADRE='MEN_LAT_NEGOCIO' AND Visible=1 AND VersionMenu=8 AND Orden>2
-
-	DELETE FROM [MenuApp] WHERE Codigo='MEN_LAT_PEDIDOPEND' AND CodigoMenuPadre='MEN_LAT_NEGOCIO' AND VersionMenu=8
-END
+Delete from menuApp where versionMenu = 8
 
 USE BelcorpPanama
 GO
 
-IF(EXISTS(SELECT CodigoMenuPadre FROM [MenuApp] WHERE Codigo='MEN_LAT_PEDIDOPEND' AND CodigoMenuPadre='MEN_LAT_NEGOCIO' AND VersionMenu=8))
-BEGIN
-	-- Rollback
-	UPDATE [MenuApp]
-	SET Orden=Orden-1
-	WHERE CODIGOMENUPADRE='MEN_LAT_NEGOCIO' AND Visible=1 AND VersionMenu=8 AND Orden>2
-
-	DELETE FROM [MenuApp] WHERE Codigo='MEN_LAT_PEDIDOPEND' AND CodigoMenuPadre='MEN_LAT_NEGOCIO' AND VersionMenu=8
-END
+Delete from menuApp where versionMenu = 8
 
 USE BelcorpGuatemala
 GO
 
-IF(EXISTS(SELECT CodigoMenuPadre FROM [MenuApp] WHERE Codigo='MEN_LAT_PEDIDOPEND' AND CodigoMenuPadre='MEN_LAT_NEGOCIO' AND VersionMenu=8))
-BEGIN
-	-- Rollback
-	UPDATE [MenuApp]
-	SET Orden=Orden-1
-	WHERE CODIGOMENUPADRE='MEN_LAT_NEGOCIO' AND Visible=1 AND VersionMenu=8 AND Orden>2
-
-	DELETE FROM [MenuApp] WHERE Codigo='MEN_LAT_PEDIDOPEND' AND CodigoMenuPadre='MEN_LAT_NEGOCIO' AND VersionMenu=8
-END
+Delete from menuApp where versionMenu = 8
 
 USE BelcorpEcuador
 GO
 
-IF(EXISTS(SELECT CodigoMenuPadre FROM [MenuApp] WHERE Codigo='MEN_LAT_PEDIDOPEND' AND CodigoMenuPadre='MEN_LAT_NEGOCIO' AND VersionMenu=8))
-BEGIN
-	-- Rollback
-	UPDATE [MenuApp]
-	SET Orden=Orden-1
-	WHERE CODIGOMENUPADRE='MEN_LAT_NEGOCIO' AND Visible=1 AND VersionMenu=8 AND Orden>2
-
-	DELETE FROM [MenuApp] WHERE Codigo='MEN_LAT_PEDIDOPEND' AND CodigoMenuPadre='MEN_LAT_NEGOCIO' AND VersionMenu=8
-END
+Delete from menuApp where versionMenu = 8
 
 USE BelcorpDominicana
 GO
 
-IF(EXISTS(SELECT CodigoMenuPadre FROM [MenuApp] WHERE Codigo='MEN_LAT_PEDIDOPEND' AND CodigoMenuPadre='MEN_LAT_NEGOCIO' AND VersionMenu=8))
-BEGIN
-	-- Rollback
-	UPDATE [MenuApp]
-	SET Orden=Orden-1
-	WHERE CODIGOMENUPADRE='MEN_LAT_NEGOCIO' AND Visible=1 AND VersionMenu=8 AND Orden>2
-
-	DELETE FROM [MenuApp] WHERE Codigo='MEN_LAT_PEDIDOPEND' AND CodigoMenuPadre='MEN_LAT_NEGOCIO' AND VersionMenu=8
-END
+Delete from menuApp where versionMenu = 8
 
 USE BelcorpCostaRica
 GO
 
-IF(EXISTS(SELECT CodigoMenuPadre FROM [MenuApp] WHERE Codigo='MEN_LAT_PEDIDOPEND' AND CodigoMenuPadre='MEN_LAT_NEGOCIO' AND VersionMenu=8))
-BEGIN
-	-- Rollback
-	UPDATE [MenuApp]
-	SET Orden=Orden-1
-	WHERE CODIGOMENUPADRE='MEN_LAT_NEGOCIO' AND Visible=1 AND VersionMenu=8 AND Orden>2
-
-	DELETE FROM [MenuApp] WHERE Codigo='MEN_LAT_PEDIDOPEND' AND CodigoMenuPadre='MEN_LAT_NEGOCIO' AND VersionMenu=8
-END
+Delete from menuApp where versionMenu = 8
 
 USE BelcorpChile
 GO
 
-IF(EXISTS(SELECT CodigoMenuPadre FROM [MenuApp] WHERE Codigo='MEN_LAT_PEDIDOPEND' AND CodigoMenuPadre='MEN_LAT_NEGOCIO' AND VersionMenu=8))
-BEGIN
-	-- Rollback
-	UPDATE [MenuApp]
-	SET Orden=Orden-1
-	WHERE CODIGOMENUPADRE='MEN_LAT_NEGOCIO' AND Visible=1 AND VersionMenu=8 AND Orden>2
-
-	DELETE FROM [MenuApp] WHERE Codigo='MEN_LAT_PEDIDOPEND' AND CodigoMenuPadre='MEN_LAT_NEGOCIO' AND VersionMenu=8
-END
+Delete from menuApp where versionMenu = 8
 
 USE BelcorpBolivia
 GO
 
-IF(EXISTS(SELECT CodigoMenuPadre FROM [MenuApp] WHERE Codigo='MEN_LAT_PEDIDOPEND' AND CodigoMenuPadre='MEN_LAT_NEGOCIO' AND VersionMenu=8))
-BEGIN
-	-- Rollback
-	UPDATE [MenuApp]
-	SET Orden=Orden-1
-	WHERE CODIGOMENUPADRE='MEN_LAT_NEGOCIO' AND Visible=1 AND VersionMenu=8 AND Orden>2
-
-	DELETE FROM [MenuApp] WHERE Codigo='MEN_LAT_PEDIDOPEND' AND CodigoMenuPadre='MEN_LAT_NEGOCIO' AND VersionMenu=8
-END
+Delete from menuApp where versionMenu = 8

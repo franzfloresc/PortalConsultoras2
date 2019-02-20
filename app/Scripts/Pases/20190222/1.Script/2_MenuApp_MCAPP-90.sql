@@ -3,6 +3,12 @@ GO
 
 BEGIN TRY
 	BEGIN TRAN CREA_MENU
+
+	Delete from menuApp where versionMenu = 8
+
+	insert into menuApp select Codigo, Descripcion, Orden, CodigoMenuPadre, Posicion, Visible, VersionMenu = 8, Descripcion2, Descripcion3
+	from MenuApp where versionMenu = 7
+
 	IF(EXISTS(SELECT CodigoMenuPadre FROM [MenuApp] WHERE Codigo='MEN_LAT_PEDIDOPEND' AND CodigoMenuPadre='MEN_LAT_NEGOCIO' AND VersionMenu=8))
 	BEGIN
 		-- Rollback
@@ -35,6 +41,12 @@ GO
 
 BEGIN TRY
 	BEGIN TRAN CREA_MENU
+
+	Delete from menuApp where versionMenu = 8
+
+	insert into menuApp select Codigo, Descripcion, Orden, CodigoMenuPadre, Posicion, Visible, VersionMenu = 8, Descripcion2, Descripcion3
+	from MenuApp where versionMenu = 7
+
 	IF(EXISTS(SELECT CodigoMenuPadre FROM [MenuApp] WHERE Codigo='MEN_LAT_PEDIDOPEND' AND CodigoMenuPadre='MEN_LAT_NEGOCIO' AND VersionMenu=8))
 	BEGIN
 		-- Rollback
@@ -67,6 +79,12 @@ GO
 
 BEGIN TRY
 	BEGIN TRAN CREA_MENU
+
+	Delete from menuApp where versionMenu = 8
+
+	insert into menuApp select Codigo, Descripcion, Orden, CodigoMenuPadre, Posicion, Visible, VersionMenu = 8, Descripcion2, Descripcion3
+	from MenuApp where versionMenu = 7
+
 	IF(EXISTS(SELECT CodigoMenuPadre FROM [MenuApp] WHERE Codigo='MEN_LAT_PEDIDOPEND' AND CodigoMenuPadre='MEN_LAT_NEGOCIO' AND VersionMenu=8))
 	BEGIN
 		-- Rollback
@@ -99,6 +117,12 @@ GO
 
 BEGIN TRY
 	BEGIN TRAN CREA_MENU
+
+	Delete from menuApp where versionMenu = 8
+
+	insert into menuApp select Codigo, Descripcion, Orden, CodigoMenuPadre, Posicion, Visible, VersionMenu = 8, Descripcion2, Descripcion3
+	from MenuApp where versionMenu = 7
+
 	IF(EXISTS(SELECT CodigoMenuPadre FROM [MenuApp] WHERE Codigo='MEN_LAT_PEDIDOPEND' AND CodigoMenuPadre='MEN_LAT_NEGOCIO' AND VersionMenu=8))
 	BEGIN
 		-- Rollback
@@ -131,6 +155,12 @@ GO
 
 BEGIN TRY
 	BEGIN TRAN CREA_MENU
+
+	Delete from menuApp where versionMenu = 8
+
+	insert into menuApp select Codigo, Descripcion, Orden, CodigoMenuPadre, Posicion, Visible, VersionMenu = 8, Descripcion2, Descripcion3
+	from MenuApp where versionMenu = 7
+
 	IF(EXISTS(SELECT CodigoMenuPadre FROM [MenuApp] WHERE Codigo='MEN_LAT_PEDIDOPEND' AND CodigoMenuPadre='MEN_LAT_NEGOCIO' AND VersionMenu=8))
 	BEGIN
 		-- Rollback
@@ -163,6 +193,12 @@ GO
 
 BEGIN TRY
 	BEGIN TRAN CREA_MENU
+
+	Delete from menuApp where versionMenu = 8
+
+	insert into menuApp select Codigo, Descripcion, Orden, CodigoMenuPadre, Posicion, Visible, VersionMenu = 8, Descripcion2, Descripcion3
+	from MenuApp where versionMenu = 7
+
 	IF(EXISTS(SELECT CodigoMenuPadre FROM [MenuApp] WHERE Codigo='MEN_LAT_PEDIDOPEND' AND CodigoMenuPadre='MEN_LAT_NEGOCIO' AND VersionMenu=8))
 	BEGIN
 		-- Rollback
@@ -195,6 +231,12 @@ GO
 
 BEGIN TRY
 	BEGIN TRAN CREA_MENU
+
+	Delete from menuApp where versionMenu = 8
+
+	insert into menuApp select Codigo, Descripcion, Orden, CodigoMenuPadre, Posicion, Visible, VersionMenu = 8, Descripcion2, Descripcion3
+	from MenuApp where versionMenu = 7
+
 	IF(EXISTS(SELECT CodigoMenuPadre FROM [MenuApp] WHERE Codigo='MEN_LAT_PEDIDOPEND' AND CodigoMenuPadre='MEN_LAT_NEGOCIO' AND VersionMenu=8))
 	BEGIN
 		-- Rollback
@@ -227,6 +269,12 @@ GO
 
 BEGIN TRY
 	BEGIN TRAN CREA_MENU
+
+	Delete from menuApp where versionMenu = 8
+
+	insert into menuApp select Codigo, Descripcion, Orden, CodigoMenuPadre, Posicion, Visible, VersionMenu = 8, Descripcion2, Descripcion3
+	from MenuApp where versionMenu = 7
+
 	IF(EXISTS(SELECT CodigoMenuPadre FROM [MenuApp] WHERE Codigo='MEN_LAT_PEDIDOPEND' AND CodigoMenuPadre='MEN_LAT_NEGOCIO' AND VersionMenu=8))
 	BEGIN
 		-- Rollback
@@ -259,6 +307,12 @@ GO
 
 BEGIN TRY
 	BEGIN TRAN CREA_MENU
+
+	Delete from menuApp where versionMenu = 8
+
+	insert into menuApp select Codigo, Descripcion, Orden, CodigoMenuPadre, Posicion, Visible, VersionMenu = 8, Descripcion2, Descripcion3
+	from MenuApp where versionMenu = 7
+
 	IF(EXISTS(SELECT CodigoMenuPadre FROM [MenuApp] WHERE Codigo='MEN_LAT_PEDIDOPEND' AND CodigoMenuPadre='MEN_LAT_NEGOCIO' AND VersionMenu=8))
 	BEGIN
 		-- Rollback
@@ -291,6 +345,12 @@ GO
 
 BEGIN TRY
 	BEGIN TRAN CREA_MENU
+
+	Delete from menuApp where versionMenu = 8
+
+	insert into menuApp select Codigo, Descripcion, Orden, CodigoMenuPadre, Posicion, Visible, VersionMenu = 8, Descripcion2, Descripcion3
+	from MenuApp where versionMenu = 7
+
 	IF(EXISTS(SELECT CodigoMenuPadre FROM [MenuApp] WHERE Codigo='MEN_LAT_PEDIDOPEND' AND CodigoMenuPadre='MEN_LAT_NEGOCIO' AND VersionMenu=8))
 	BEGIN
 		-- Rollback
@@ -323,6 +383,12 @@ GO
 
 BEGIN TRY
 	BEGIN TRAN CREA_MENU
+
+	Delete from menuApp where versionMenu = 8
+
+	insert into menuApp select Codigo, Descripcion, Orden, CodigoMenuPadre, Posicion, Visible, VersionMenu = 8, Descripcion2, Descripcion3
+	from MenuApp where versionMenu = 7
+
 	IF(EXISTS(SELECT CodigoMenuPadre FROM [MenuApp] WHERE Codigo='MEN_LAT_PEDIDOPEND' AND CodigoMenuPadre='MEN_LAT_NEGOCIO' AND VersionMenu=8))
 	BEGIN
 		-- Rollback
@@ -355,6 +421,12 @@ GO
 
 BEGIN TRY
 	BEGIN TRAN CREA_MENU
+
+	Delete from menuApp where versionMenu = 8
+
+	insert into menuApp select Codigo, Descripcion, Orden, CodigoMenuPadre, Posicion, Visible, VersionMenu = 8, Descripcion2, Descripcion3
+	from MenuApp where versionMenu = 7
+
 	IF(EXISTS(SELECT CodigoMenuPadre FROM [MenuApp] WHERE Codigo='MEN_LAT_PEDIDOPEND' AND CodigoMenuPadre='MEN_LAT_NEGOCIO' AND VersionMenu=8))
 	BEGIN
 		-- Rollback
