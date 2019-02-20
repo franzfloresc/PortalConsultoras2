@@ -159,7 +159,9 @@ $(document).ready(function () {
     });
 
     $("#IrSolicitudEnviada").on("click", function () {
+        var button = $(this);
 
+        button.addClass("");
         if (mensajeGestionCdrInhabilitada != '') {
             alert_msg(mensajeGestionCdrInhabilitada);
             return false;
@@ -177,6 +179,7 @@ $(document).ready(function () {
             ValidarTelefonoServer($.trim($("#txtTelefono").val()), function (data) {
                 if (!data.success) {
                     ControlSetError('#txtTelefono', '#spnTelefonoError', '*Este número de celular ya está siendo utilizado. Intenta con otro.');
+                    button.removeClass();
                     return false;
                 } else {
                     ValidarCorreoDuplicadoServer($.trim($("#txtEmail").val()), function (data) {
@@ -185,13 +188,17 @@ $(document).ready(function () {
                         if (correo != correoActual && !data.success) {
                             ControlSetError('#txtEmail', '#spnEmailError', data.message);
                             return false;
+                            button.removeClass();
+
                         } else {
                             SolicitudCDREnviar(function (data) {
                                 if (!data.success) {
                                     alert_msg(data.message);
+                                    button.removeClass();
                                     return false;
                                 } else {
                                     if (data.Cantidad == 1) {
+                                        button.removeClass();
                                         alertEMail_msg(data.message, "MENSAJE");
                                     }
                                 }
@@ -202,6 +209,8 @@ $(document).ready(function () {
                 }
             });
         }
+
+        button.removeClass();
     });
 
     $(document).on('click', '[data-accion]', function () {
