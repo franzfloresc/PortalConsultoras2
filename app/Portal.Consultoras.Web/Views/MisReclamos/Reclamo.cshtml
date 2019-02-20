@@ -327,7 +327,7 @@
 <div class="contenedor_popup_eliminarCliente" id="divConfirmEnviarSolicitudCDR" style="display:none;" >
     <div class="popup_eliminarCliente">
         <div class="btn_cerrar_agregarUnidades">
-            <a href="javascript:;" onclick="CancelarConfirmEnvioPedido();">
+            <a href="javascript:;" onclick="CancelarConfirmEnvioSolicitudCDR();">
                 <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
                 <span class="texto_btn_cerrar">CERRAR</span>
             </a>
@@ -340,10 +340,10 @@
             <span class="mensaje_eliminarCliente">¿Desea continuar?</span>
 
             <div class="btn_grupo_eliminarCliente">
-                <button type="button" name="btn_eliminarCliente" class="btn_eliminarCliente" onclick="CancelarConfirmEnvioPedido();">
+                <button type="button" name="btn_eliminarCliente" class="btn_eliminarCliente" onclick="CancelarConfirmEnvioSolicitudCDR();">
                     No
                 </button>
-                <button type="button" name="btn_noEliminarCliente" class="btn_noEliminarCliente" onclick="ContinuarConfirmEnvioPedido();">
+                <button type="button" name="btn_noEliminarCliente" class="btn_noEliminarCliente" onclick="ContinuarConfirmEnvioSolicitudCDR();">
                     SI
                 </button>
             </div>
