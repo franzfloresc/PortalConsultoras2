@@ -102,7 +102,7 @@ namespace Portal.Consultoras.Web.Controllers
                 listaCdrWebModel = Mapper.Map<List<ServiceCDR.BECDRWeb>, List<CDRWebModel>>(listaReclamo);
             }
 
-            
+
             SessionManager.SetListaCDRWebCargaInicial(listaCdrWebModel);
             return listaCdrWebModel;
         }
@@ -161,7 +161,7 @@ namespace Portal.Consultoras.Web.Controllers
 
 
         #region Reclamo
-        public ActionResult Reclamo(int p = 0,int c = 0)
+        public ActionResult Reclamo(int p = 0, int c = 0)
         {
             var model = new MisReclamosModel
             {
@@ -552,7 +552,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
 
-        public  JsonResult ValidarPaso1(MisReclamosModel model)
+        public JsonResult ValidarPaso1(MisReclamosModel model)
         {
             #region Validar Pack y Sets
 
@@ -974,14 +974,24 @@ namespace Portal.Consultoras.Web.Controllers
 
                 RegistraLogDynamoCDR(model);
 
-                userData.EMail = model.Email;
-                userData.Celular = model.Telefono;
-                SessionManager.SetUserData(userData);
+                //HD-3412 EINCA 
+                var user = SessionManager.GetUserData();
+                user.EMail = model.Email;
+                user.Celular = model.Telefono;
+                SessionManager.SetUserData(user);
+
+                //userData.EMail = model.Email;
+                //userData.Celular = model.Telefono;
+                //SessionManager.SetUserData(userData);
 
                 if (!string.IsNullOrWhiteSpace(model.Email))
                 {
                     string contenidoMailCulminado = CrearEmailReclamoCulminado(cdrWebMailConfirmacion);
-                    //Util.EnviarMail("no-responder@somosbelcorp.com", model.Email, "CDR: EN EVALUACIÓN", contenidoMailCulminado, true, userData.NombreConsultora);
+                    //HD-3412 EINCA
+                    System.Threading.Tasks.Task.Factory.StartNew(() =>
+                    {
+                        Util.EnviarMail("no-responder@somosbelcorp.com", model.Email, "CDR: EN EVALUACIÓN", contenidoMailCulminado, true, userData.NombreConsultora);
+                    });
 
                     if (siNoEmail == 1)
                     {
@@ -989,7 +999,11 @@ namespace Portal.Consultoras.Web.Controllers
                         string paramQuerystring = Util.EncriptarQueryString(parametros);
                         string cadena = "<br /><br /> Estimada consultora " + userData.NombreConsultora + " Para confirmar la dirección de correo electrónico ingresada haga click " +
                                          "<br /> <a href='" + Util.GetUrlHost(HttpContext.Request) + "WebPages/MailConfirmation.aspx?data=" + paramQuerystring + "'>aquí</a><br/><br/>Belcorp";
-                        //Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", model.Email, "(" + userData.CodigoISO + ") Confimacion de Correo", cadena, true, userData.NombreConsultora);
+                        //HD-3412 EINCA
+                        System.Threading.Tasks.Task.Factory.StartNew(() =>
+                        {
+                            Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", model.Email, "(" + userData.CodigoISO + ") Confimacion de Correo", cadena, true, userData.NombreConsultora);
+                        });
 
                         return Json(new
                         {
