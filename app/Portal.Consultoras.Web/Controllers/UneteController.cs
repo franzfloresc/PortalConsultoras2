@@ -1807,8 +1807,8 @@ namespace Portal.Consultoras.Web.Controllers
                                    a.CodigoTerritorio,
                                    a.EstadoPostulante,
                                    a.TipoConsultora,
-                                   a.FechaCreacion.Value.ToString("dd/M/yyyy", CultureInfo.InvariantCulture),
-                                   a.FechaAproFVVV.Value.ToString("dd/M/yyyy", CultureInfo.InvariantCulture)
+                                   a.FechaCreacion.Value.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture),
+                                   a.FechaAproFVVV.Value.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture)
                                 }
                            }
                 };
@@ -1826,20 +1826,20 @@ namespace Portal.Consultoras.Web.Controllers
             using (var sv = new PortalServiceClient())
             {
                 List<SolicitudPostulanteBE> lst = sv.ConsultarTipoPostulante(codigoIso, fechaInicioSolicitud.ToString("yyyy/MM/dd"), fechaFinSolicitud.ToString("yyyy/MM/dd")).ToList();
-                
+               
                 Dictionary<string, string> dic = new Dictionary<string, string>
                 {
                     {"Id Postulante", "SolicitudPostulanteID"},
                     {"Nombre Completo", "NombreCompleto"},
                     {"Numero Documento", "NumeroDocumento"},
                     {"Tipo Documento", "TipoDocumento"},
-                    { "CodigoZona", "CodigoZona"},
-                    {"CodigoSeccion", "CodigoSeccion"},
-                    {"CodigoTerritorio", "CodigoTerritorio"},
-                    {"EstadoPostulante", "EstadoPostulante"},
+                    { "Zona", "CodigoZona"},
+                    {"Sección", "CodigoSeccion"},
+                    {"Territorio", "CodigoTerritorio"},
+                    {"Estado Postulante", "EstadoPostulante"},
                     {"Tipo de Consultora", "TipoConsultora"},
-                    {"FechaCreacion", "FechaCreacion"},
-                    {"FechaCambio", "FechaAproFVVV"}
+                    {"Fecha Creación", "FechaCreacion"},
+                    {"Fecha Cambio", "FechaAproFVVV"}
                 };
 
                 Util.ExportToExcel("Reporte Tipo Consultora", lst, dic);
