@@ -2192,7 +2192,7 @@
     var _fnGrillaOfertaShowRoomDetalle = function (campaniaId, cuv, estrategiaId) {
 
         /*INI ATP*/
-        var newTituloGridATP = $("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ArmaTuPack ? "Nombre de Grupos" : "Descripcion1"
+        var newTituloGridATP = $("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ArmaTuPack ? "Nombre de grupos" : "Descripcion1"
         /*END ATP*/
 
         $("#listShowRoomDetalle").jqGrid("clearGridData");
