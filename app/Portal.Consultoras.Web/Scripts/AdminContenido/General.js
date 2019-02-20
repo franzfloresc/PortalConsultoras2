@@ -11,7 +11,7 @@
         buttons:
         {
             "Aceptar": function() {
-                HideDialog("DialogMensajeAdm");
+                hideDialogMensaje();
             }
         }
     });
@@ -22,8 +22,8 @@ function showDialogMensaje(mensaje, titulo) {
     $("#DialogMensajeAdm").dialog('option', 'title', titulo);
     $("#DialogMensajeAdm").find("#mensajeMostrar").html(mensaje);
     showDialog("DialogMensajeAdm");
-    setTimeout(hideDialogo, 5000);
+    setTimeout(hideDialogMensaje, 5000);
 }
-function hideDialogo() {
+function hideDialogMensaje() {
     HideDialog("DialogMensajeAdm");
 }
