@@ -310,22 +310,16 @@
 <script src="https://www.somosbelcorp.com/Scripts/Comunidad/jquery.min.js" type="text/javascript"></script>
 <script type="text/javascript">
     var var_comunidad = location.host;
-    //var var_comunidad = 'comunidadqa.somosbelcorp.com';
     var var_somosbelcorp = var_comunidad == 'comunidadqa.somosbelcorp.com' ? 'https://sb2qa.somosbelcorp.com/' : 'https://www.somosbelcorp.com/';
-    //var var_somosbelcorp = 'https://sb2qa.somosbelcorp.com'
-
+    
     $(document).ready(function (e) {
         QSRedireccionEstadisticas("estadistica");
 
         if (LITHIUM.CommunityJsonObject.User.id != "-1") {
-            //$("#HNombre").css("display", "block");
             $("#HCerrar").css("display", "block");
-            //$("#MeResponde").css("display", "none");
             $("#MeCampania").css("display", "none");
-            //$("#HCambiarNombre").css("display", "block");
 
             var url_login = document.location.protocol + "//" + var_comunidad + "/restapi/vc/users/login/" + LITHIUM.CommunityJsonObject.User.login + "/profiles/";
-            //var url_login = 'http://comunidadqa.somosbelcorp.com/restapi/vc/users/login/silvianpg/profiles/';
 
             $.ajax({
                 type: "GET",
@@ -334,19 +328,14 @@
                 cache: false,
                 success: function (response) {
                     $(response).find("profile").each(function () {
-                        //if ($(this).attr('name') == 'name_first') {
-                        //    $("#HNombre").html("Hola " + $(this).text());
-                        //}
 
                         if ($(this).attr('name') == 'codigo_consultora') {
                             var consultora = $(this).text();
                             if (consultora != '') {
-                                //$("#MeResponde").css("display", "block");
                                 $("#MeCampania").css("display", "block");
                                 $("#menuNoConsultora").css("display", "none");
                                 $("#menuConsultora").css("display", "block");
                                 $("#hEsConsultora").val("1");
-                                //$("#HPerfil").css("display", "block");
                             }
                         }
 
@@ -403,64 +392,6 @@
                                 $('#lnk-liquidacion-web').show();
                             }
 
-                            // footer
-                            //if (pais == 'CO') {
-                            //    $('#lnk-belcorp-responde').attr('title', 'ÉSIKA RESPONDE');
-                            //    $('#spn-belcorp-responde').text('ÉSIKA RESPONDE');
-                            //}
-
-                            //if (pais == 'PE') {
-                            //    $('#lnk-out-politicas-de-privacidad').show();
-                            //    $('#lnk-out-condiciones-de-uso-web').show();
-                            //    $('#lnk-out-procedimiento-y-formulario').show();
-                            //    $('#lnk-out-terminos-condiciones').hide();
-                            //}
-
-                            //if (pais == 'PA') $('#lnk-out-esika').hide();
-                            //if (pais == 'CO') $('#lnk-out-proteccion-datos').show();
-
-                            //var r1 = pais + '.png';
-                            //var r2 = pais + '.pdf';
-
-                            //var lnk1 = $('#img-bandera-pais').attr('src');
-                            //$('#img-bandera-pais').attr('src', lnk1.replace('PE.png', r1));
-
-                            //var lnk2 = $('#lnk-out-preguntas-frecuentes').attr('href');
-                            //$('#lnk-out-preguntas-frecuentes').attr('href', lnk2.replace('PE.pdf', r2));
-
-                            //var lnk3 = $('#lnk-out-contactanos').attr('href');
-                            //$('#lnk-out-contactanos').attr('href', lnk3.replace('PE.pdf', r2));
-
-                            //var lnk4 = $('#lnk-out-politicas-de-privacidad').attr('href');
-                            //$('#lnk-out-politicas-de-privacidad').attr('href', lnk4.replace('PE.pdf', r2));
-
-                            //var lnk5 = $('#lnk-out-condiciones-de-uso-web').attr('href');
-                            //$('#lnk-out-condiciones-de-uso-web').attr('href', lnk5.replace('PE.pdf', r2));
-
-                            //var lnk6 = $('#lnk-out-procedimiento-y-formulario').attr('href');
-                            //$('#lnk-out-procedimiento-y-formulario').attr('href', lnk6.replace('PE.pdf', r2));
-
-                            //if ($("#hEsConsultora").val() == "1") {
-                            //    if (pais == 'PE') {
-                            //        $("#PEProgBel1").css("display", "block");
-                            //        $("#PEProgBel2").css("display", "block");
-                            //        $("#PEProgBel3").css("display", "block");
-                            //        $("#PEProgBel4").css("display", "block");
-                            //        $("#FactPE").css("display", "block");
-                            //        $("#PercPE").css("display", "block");
-                            //    }
-                            //    else {
-                            //        if (pais == 'CL') {
-                            //            $("#CLProgBel1").css("display", "block");
-                            //            $("#CLProgBel2").css("display", "block");
-                            //        }
-                            //        else {
-                            //            if (pais == 'MX') {
-                            //                $("#MXProgBel1").css("display", "block");
-                            //            }
-                            //        }
-                            //    }
-                            //}
                         }
 
                         if ($(this).attr('name') == 'campania_actual') {

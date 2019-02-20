@@ -40,7 +40,6 @@ namespace Portal.Consultoras.Web.Controllers
                         cantidadEstrategiasSinConfigurar = cantidades["CUV_OP"];
                         cantidadEstrategiasSinConfigurarImagen = cantidades["CUV_SI"];
 
-                        //List<string> estrategiasWA = administrarEstrategiaProvider.PreCargar(campaniaId.ToString(), codigoEstrategia, userData.CodigoISO);
                         var estrategiasWA = administrarEstrategiaProvider.PreCargar(campaniaId.ToString(), codigoEstrategia, userData.CodigoISO);
                         foreach (var item in estrategiasWA)
                         {
@@ -491,7 +490,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 entidadMasivo.Pagina = Math.Max(entidadMasivo.Pagina, 1);
-                var cantTotalPagina = (entidadMasivo.CantTotal / entidadMasivo.CantidadCuv) + (entidadMasivo.CantTotal % entidadMasivo.CantidadCuv == 0 ? 0 : 1);
+                var cantTotalPagina = (entidadMasivo.CantTotal / entidadMasivo.CantidadCuv) + (entidadMasivo.CantTotal % entidadMasivo.CantidadCuv != 0).ToInt();
                 mensajePaso += "|cantTotalPagina < entidadMasivo.Pagina = " + (cantTotalPagina < entidadMasivo.Pagina).ToString();
                 if (cantTotalPagina < entidadMasivo.Pagina)
                 {

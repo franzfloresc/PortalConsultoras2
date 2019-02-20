@@ -19,13 +19,18 @@ var sonarPassword = "admin";
 var buildDir = Directory("./Portal.Consultoras.Web/bin") + Directory(configuration);
 var solutionPath = "./Belcorp.sln";
 var branch = string.Empty;
+string hash = null;
 
 Setup(ctx =>
 {
    // Executed BEFORE the first task.
    var repositoryDirectoryPath = DirectoryPath.FromString("../");
-   var currentBranch = ((ICakeContext)Context).GitBranchCurrent(repositoryDirectoryPath);
+   var currentBranch = GitBranchCurrent(repositoryDirectoryPath);
    branch = currentBranch.FriendlyName;
+   var commit = GitLog(repositoryDirectoryPath, 1).FirstOrDefault();
+   if (commit != null) {
+       hash = commit.Sha.Substring(0, 11);
+   }
 
    Information("Current Branch: " + branch);
    Information("Running tasks...");
@@ -83,10 +88,12 @@ Task("SonarBegin")
 {
     SonarBegin(new SonarBeginSettings {
         Url = sonarEndpoint,
-        Name = "Consultoras - Web - ",
+        Name = "Consultoras - Web - " + branch,
         Key = "portal.consultoras",
         Login = sonarLogin,
         Password = sonarPassword,
+        Version = hash,
+        Exclusions = "**/*.js,**/*.css,**/emt_chat/**,*UnitTest/**"
         // Branch = branch // Require https://docs.sonarqube.org/display/PLUG/Branch+Plugin
     });
 });

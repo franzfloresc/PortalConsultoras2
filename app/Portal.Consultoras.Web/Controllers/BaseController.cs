@@ -167,11 +167,12 @@ namespace Portal.Consultoras.Web.Controllers
                 configEstrategiaSR = SessionManager.GetEstrategiaSR() ?? new ConfigModel();
                 buscadorYFiltro = SessionManager.GetBuscadorYFiltrosConfig();
 
-                if (!configEstrategiaSR.CargoEntidadesShowRoom)
-                {
-                    _showRoomProvider.CargarEntidadesShowRoom(userData);
-                    configEstrategiaSR = SessionManager.GetEstrategiaSR();
-                }
+
+                //if (!configEstrategiaSR.CargoEntidadesShowRoom)
+                //{
+                //    _showRoomProvider.CargarEntidadesShowRoom(userData);
+                //    configEstrategiaSR = SessionManager.GetEstrategiaSR();
+                //}
 
                 if (Request.IsAjaxRequest())
                 {
@@ -182,15 +183,39 @@ namespace Portal.Consultoras.Web.Controllers
                 ObtenerPedidoWeb();
                 ObtenerPedidoWebDetalle();
 
-                GetUserDataViewBag();
+                bool esMobile = EsDispositivoMovil();
+                bool actualizaBase = true; //actualizar session de ODD desde BD
+
+                if (esMobile)
+                {
+                    if (filterContext.ActionDescriptor.ControllerDescriptor.ControllerName == "DescargarApp")
+                    {
+                        TempData["CallBase"] = "DescargarApp";
+                        actualizaBase = true;
+                    }
+                    else
+                    {
+                        if ((TempData["CallBase"] ?? "").ToString() == "DescargarApp")
+                        {
+                            //Valida si ya se ha cargado la data desde el controlador "DescargarApp", para no volver a actualizar data
+                            actualizaBase = false;
+                            TempData["CallBase"] = null;
+                        }
+                        else
+                        {
+                            actualizaBase = true;
+                        }
+                    }
+                }
+
+                GetUserDataViewBag(actualizaBase);
 
                 var controllerName = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;
                 var actionName = filterContext.ActionDescriptor.ActionName;
                 if (!Constantes.AceptacionContrato.ControladoresOmitidas.Contains(controllerName)
                     && !Constantes.AceptacionContrato.AcionesOmitidas.Contains(actionName)
                     && ValidarContratoPopup())
-                {
-                    bool esMobile = EsDispositivoMovil();
+                {                    
                     filterContext.Result = !esMobile ? new RedirectResult(Url.Action("Index", "Bienvenida")) :
                         new RedirectResult(Url.Action("Index", "Bienvenida", new { Area = "Mobile" }));
                     return;
@@ -932,7 +957,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region Cargar ViewBag
 
-        private void GetUserDataViewBag()
+        private void GetUserDataViewBag(bool actualizaBaseODD)
         {
             var esMobile = IsMobile();
 
@@ -1045,7 +1070,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.QSBR = string.Format("NOMB={0}&PAIS={1}&CODI={2}&CORR={3}&TELF={4}", userData.NombreConsultora.ToUpper(), userData.CodigoISO, userData.CodigoConsultora, userData.EMail, (userData.Telefono ?? "").Trim() + ((userData.Celular ?? "").Trim() == string.Empty ? "" : "; " + (userData.Celular ?? "").Trim()));
             ViewBag.QSBR = ViewBag.QSBR.Replace("\n", "").Trim();
 
-            ViewBag.EsUsuarioComunidad = userData.EsUsuarioComunidad ? 1 : 0;
+            ViewBag.EsUsuarioComunidad = userData.EsUsuarioComunidad.ToInt();
             ViewBag.NombreC = userData.PrimerNombre;
             ViewBag.ApellidoC = userData.PrimerApellido;
             ViewBag.CorreoC = userData.EMail;
@@ -1084,7 +1109,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.GPRBannerUrl = userData.GPRBannerUrl;
 
                 // odd
-                ViewBag.OfertaDelDia = _ofertaDelDiaProvider.GetOfertaDelDiaConfiguracion(userData);
+                ViewBag.OfertaDelDia = _ofertaDelDiaProvider.GetOfertaDelDiaConfiguracion(userData, actualizaBaseODD);
                 ViewBag.TieneOfertaDelDia = _ofertaDelDiaProvider.CumpleOfertaDelDia(userData, GetControllerActual());
                 ViewBag.MostrarBannerSuperiorOdd = _ofertaDelDiaProvider.MostrarBannerSuperiorOdd(userData, GetControllerActual());
             }
@@ -1135,8 +1160,10 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.TituloCatalogo = ((revistaDigital.TieneRDC && !userData.TieneGND && !revistaDigital.EsSuscrita) || revistaDigital.TieneRDI) ||
                 (!revistaDigital.TieneRDC || (revistaDigital.TieneRDC && !revistaDigital.EsActiva));
 
+            _showRoomProvider.CargarEventoPersonalizacion(userData);
             var menuActivo = _menuContenedorProvider.GetMenuActivo(userData, revistaDigital, herramientasVenta, Request, guiaNegocio, SessionManager, _configuracionManagerProvider, _eventoFestivoProvider, _configuracionPaisProvider, _guiaNegocioProvider, _ofertaPersonalizadaProvider, _programaNuevasProvider, esMobile);
             ViewBag.MenuContenedorActivo = menuActivo;
+            
             ViewBag.MenuContenedor = _menuContenedorProvider.GetMenuContenedorByMenuActivoCampania(menuActivo.CampaniaId, userData.CampaniaID, userData, revistaDigital, guiaNegocio, SessionManager, _configuracionManagerProvider, _eventoFestivoProvider, _configuracionPaisProvider, _guiaNegocioProvider, _ofertaPersonalizadaProvider, _programaNuevasProvider, esMobile);
 
             var menuMobile = BuildMenuMobile(userData, revistaDigital);
@@ -1188,7 +1215,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.FotoPerfilAncha = userData.FotoPerfilAncha;
             ViewBag.FotoPerfilSinModificar = (string.IsNullOrWhiteSpace(userData.FotoOriginalSinModificar) ? "" : userData.FotoOriginalSinModificar);
 
-            ViewBag.TokenPedidoAutenticoOk = (SessionManager.GetTokenPedidoAutentico() != null) ? 1 : 0;
+            ViewBag.TokenPedidoAutenticoOk = (SessionManager.GetTokenPedidoAutentico() != null).ToInt();
             ViewBag.CodigoEstrategia = _revistaDigitalProvider.GetCodigoEstrategia();
             ViewBag.BannerInferior = _showRoomProvider.EvaluarBannerConfiguracion(userData.PaisID, SessionManager);
             ViewBag.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre).ToUpper();
@@ -1311,8 +1338,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var variableEstrategia = new VariablesGeneralEstrategiaModel
             {
-                PaisHabilitado = WebConfig.PaisesMicroservicioPersonalizacion,
-                TipoEstrategiaHabilitado = WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion
+                PaisHabilitado = SessionManager.GetConfigMicroserviciosPersonalizacion().PaisHabilitado, //WebConfig.PaisesMicroservicioPersonalizacion,
+                TipoEstrategiaHabilitado = SessionManager.GetConfigMicroserviciosPersonalizacion().EstrategiaHabilitado //WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion
             };
             return variableEstrategia;
         }
