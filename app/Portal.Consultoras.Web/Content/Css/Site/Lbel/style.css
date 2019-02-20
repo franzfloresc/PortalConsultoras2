@@ -20364,6 +20364,9 @@ color:white;
         padding-top: 3px;
         padding-bottom: 0;
     }
+    .paginador_notificaciones{
+        float: right;
+    }
 
         .acordion_titulo .mostrarPaginadorPedidos.inferior .flecha_paginador_atras {
             margin-right: 10px;
