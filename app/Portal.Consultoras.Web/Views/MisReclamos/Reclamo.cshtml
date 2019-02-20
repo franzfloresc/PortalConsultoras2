@@ -323,6 +323,35 @@
     </div>
 </div>
 
+@*HD-3412 EINCA*@
+<div class="contenedor_popup_eliminarCliente" id="divConfirmEnviarSolicitudCDR2" style="display:none;" >
+    <div class="popup_eliminarCliente">
+        <div class="btn_cerrar_agregarUnidades">
+            <a href="javascript:;" onclick="CerrarDiv(3);">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
+            </a>
+        </div>
+        <div class="contenido_popUp eliminarCliente">
+            <input type="hidden" id="hdeClienteID" />
+            <div class="icono_advertencia"></div>
+            <h1><b>IMPORTANTE</b></h1>
+            <span class="mensaje_eliminarCliente">Asegúrate tener todos los incovenientes registrados porque s&oacute;lo puedes hacer x solicitud web por pedido</span>
+            <span class="mensaje_eliminarCliente">¿Desea continuar?</span>
+
+            <div class="btn_grupo_eliminarCliente">
+                <button type="button" name="btn_eliminarCliente" class="btn_eliminarCliente" onclick="EliminarCliente();">
+                    No
+                </button>
+                <button type="button" name="btn_noEliminarCliente" class="btn_noEliminarCliente" onclick="CerrarDiv(3);">
+                    SI
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 <div id="alertEMailDialogMensajes" style="display: none;">
     <div class="terminos_title_2">MENSAJE</div>
