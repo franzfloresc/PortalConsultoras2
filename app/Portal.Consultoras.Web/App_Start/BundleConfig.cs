@@ -5,7 +5,7 @@ namespace Portal.Consultoras.Web
     public static class BundleConfig
     {
         /// <summary>
-        /// [~Bundle]/[Js|Css]/[Desktop|Mobile|Mixto]/[Funcionalidad|Página]
+        /// [~/Bundle]/[Js|Css]/[Desktop|Mobile|Mixto|Responsive]/[Funcionalidad|Página]
         /// </summary>
         /// <param name="bundles"></param>
         public static void RegisterBundles(BundleCollection bundles)
@@ -999,6 +999,16 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Mobile/Clientes/Asignarcliente.css",
                 "~/Content/Css/Site/TusClientes/TusClientes_Responsive.css"
             ));
+
+            #region ArmaTuPack
+            
+            bundles.Add(new StyleBundle("~/Bundle/Css/Responsive/ArmaTuPack").Include(
+            ));
+
+            bundles.Add(new ScriptBundle("~/Bundle/Js/Mixto/ArmaTuPack").Include(
+              ));
+            #endregion
+
 
 #if DEBUG
             BundleTable.EnableOptimizations = false;

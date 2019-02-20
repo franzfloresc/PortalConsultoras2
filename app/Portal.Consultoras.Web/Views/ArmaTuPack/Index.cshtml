@@ -1,0 +1,26 @@
+﻿@using Portal.Consultoras.Web.Models
+
+@{
+    Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
+}
+
+
+@section css{
+    @System.Web.Optimization.Styles.Render("~/Bundle/Css/Responsive/ArmaTuPack")
+}
+
+
+
+
+
+@section scripts{
+
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/ArmaTuPack")
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+        });
+    </script>
+}

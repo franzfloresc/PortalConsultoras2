@@ -232,6 +232,7 @@
     <Compile Include="Controllers\BonificacionesController.cs" />
     <Compile Include="Controllers\BaseAdmController.cs" />
     <Compile Include="Controllers\ProductoRecomendadoController.cs" />
+    <Compile Include="Controllers\ArmaTuPackController.cs" />
     <Compile Include="Controllers\TusClientesController.cs" />
     <Compile Include="CustomHelpers\StringsHelper.cs" />
     <Compile Include="Areas\Mobile\MobileAreaRegistration.cs" />
@@ -5589,6 +5590,7 @@
     <Content Include="Views\TusClientes\PanelMantener.cshtml" />
     <Content Include="Views\TusClientes\PanelTest.cshtml" />
     <Content Include="Views\TusClientes\_Mantener.cshtml" />
+    <Content Include="Views\ArmaTuPack\Index.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
