@@ -75,14 +75,18 @@
     var _seleccionarRegistro = function (paisId, clienteId, codigoCliente, nombreCliente, nombre) {
         //console.log(paisId, clienteId, codigoCliente, nombreCliente, nombre);
 
+        paisId = paisId || "";
+
         $(_elements.hfPaisID).val(paisId);
         $(_elements.hfClienteID).val(clienteId);
         $(_elements.hfCodigoCliente).val(codigoCliente);
         $(_elements.hfNombreCliente).val(nombreCliente);
         $(_elements.hfNombre).val(nombre);
 
-        console.log('_seleccionarRegistro - DivPopupFichaResumida overflow auto');
-        $("#DivPopupFichaResumida").css("overflow", "auto");
+        if (paisId != "") {
+            console.log('_seleccionarRegistro - DivPopupFichaResumida overflow auto');
+            $("#DivPopupFichaResumida").css("overflow", "auto");
+        }
 
         $("#btnPanelListaAceptar").click();
     };

@@ -454,6 +454,7 @@ var FichaModule = (function (config) {
 
             if (filterComponente.length) {
                 ComponentesModule.SeleccionarComponente(filterComponente[0].Cuv, false);
+                var cant = 0;
                 for (cant = 0; cant < o.Cantidad; cant++) {
                     ListaOpcionesModule.SeleccionarOpcion(o.CUV);
                 }
