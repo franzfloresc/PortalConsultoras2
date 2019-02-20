@@ -78,30 +78,30 @@ var TusClientesModule = function (config) {
         $("#modal-fondo-form").show();
     };
 
-    var _eliminarCliente = function () {
-        var clientId = parseInt($(_elements.divConfirmarEliminarCliente).data("clienteId"));
+    var _eliminarCliente = function (clienteId) {
         _config
             .tusClientesProvider
-            .eliminarClientePromise(clientId)
+            .eliminarClientePromise(clienteId)
             .done(function (data) {
                 alert(data.message);
-                _ocultarConfirmarEliminarCliente();
+                _ocultarConfirmarEliminarCliente(clienteId);
                 _buscarClientes();
-                
+
             })
             .fail(function (data, error) {
+
+            })
+            .then(function () {
 
             });
     };
 
     var _mostarConfirmarEliminarCliente = function (clienteId) {
-        $(_elements.divConfirmarEliminarCliente).show();
-        $(_elements.divConfirmarEliminarCliente).data("clienteId", clienteId);
+        $(_elements.divConfirmarEliminarCliente + "-" + clienteId).show();
     };
 
-    var _ocultarConfirmarEliminarCliente = function () {
-        $(_elements.divConfirmarEliminarCliente).hide();
-        $(_elements.divConfirmarEliminarCliente).data("clienteId", "");
+    var _ocultarConfirmarEliminarCliente = function (clienteId) {
+        $(_elements.divConfirmarEliminarCliente + "-" + clienteId).hide();
     };
 
     var _init = function () {
