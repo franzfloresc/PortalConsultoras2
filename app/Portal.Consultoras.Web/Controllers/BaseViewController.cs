@@ -89,7 +89,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             model.PerdioLogo = revistaDigital.DLogoComercialActiva;
 
-            model.MostrarFiltros = !model.ProductosPerdio && !(revistaDigital.TieneRDC && !revistaDigital.EsActiva);
+            //model.MostrarFiltros = !model.ProductosPerdio && !(revistaDigital.TieneRDC && !revistaDigital.EsActiva);
             return model;
         }
 
