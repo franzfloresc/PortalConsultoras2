@@ -454,7 +454,10 @@ var FichaModule = (function (config) {
 
             if (filterComponente.length) {
                 ComponentesModule.SeleccionarComponente(filterComponente[0].Cuv, false);
-                ListaOpcionesModule.SeleccionarOpcion(o.CUV);
+                var cant = 0;
+                for (cant = 0; cant < o.Cantidad; cant++) {
+                    ListaOpcionesModule.SeleccionarOpcion(o.CUV);
+                }
                 ResumenOpcionesModule.AplicarOpciones();
             }
         });
@@ -913,12 +916,15 @@ var FichaModule = (function (config) {
     }
 
     var _redireccionar = function () {
-        if (!_config.esEditable)
+        _estrategia = {};
+        if (_modeloFicha.TipoAccionNavegar != _tipoAccionNavegar.Volver){
+            _modeloFicha = {};
             window.location = baseUrl + (_config.esMobile ? "Mobile/" : "") + "Ofertas";
+        }
         else {
+            _modeloFicha = {};
             FichaPartialModule.ShowDivFichaResumida(false);
             //alert('Ha ocurrido una excepción al obtener los datos para este CUV.');
-
         }
     };
 
@@ -965,6 +971,8 @@ var FichaModule = (function (config) {
 
         $(_seccionesPanelCliente.btnShowCliente).click(function () {
             panelCliente.Abrir();
+            console.log('_initCliente - DivPopupFichaResumida overflow hidden');
+            $("#DivPopupFichaResumida").css("overflow", "hidden");
         });
         //END PANEL CLIENTE
     }
@@ -1012,7 +1020,6 @@ var FichaModule = (function (config) {
         _initCarrusel();
         _analytics();
     }
-
 
     return {
         Inicializar: _init,
