@@ -105,6 +105,9 @@ var ComponentesModule = (function () {
             $(_elements.divElegirOpciones.id).modal("show");
         } else {
             $("body").addClass(_elements.body.modalActivadoClass);
+
+            console.log('_mostrarModalElegirOpciones - DivPopupFichaResumida overflow hidden');
+            $("#DivPopupFichaResumida").css("overflow", "hidden");
             $(_elements.divElegirOpciones.modalFondo.id)
                 .css("opacity", _elements.divElegirOpciones.modalFondo.opacity)
                 .show();
@@ -121,10 +124,10 @@ var ComponentesModule = (function () {
             cuv === null ||
             $.trim(cuv) === "") throw "param cuv is not defined or null";
 
+        cuv = $.trim(cuv);
         abrir = abrir == undefined || abrir;
         var componente = {}            
         $.each(_estrategia.Hermanos, function (index, hermano) {
-            cuv = $.trim(cuv);
             if (cuv === hermano.Cuv) { 
                 componente = _estrategia.Hermanos[index];   
 
