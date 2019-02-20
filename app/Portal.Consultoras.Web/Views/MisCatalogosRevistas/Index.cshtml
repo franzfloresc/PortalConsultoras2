@@ -6,10 +6,6 @@
     Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
     var title = Model.Titulo;
     ViewBag.Title = title;
-    var userAgent = HttpContext.Current.Request.UserAgent.ToLower();
-    var urlApp = userAgent.Contains("iphone;") ? "https://itunes.apple.com/pe/app/catalogos-esika-lbel-cyzone/id1052948837?mt=8"
-                                                                                     : "https://play.google.com/store/apps/details?id=belcorp.modobeta.catalogov2&hl=es_419";
-    var textApp = userAgent.Contains("iphone;") ? "Gratis en App Store" : "Gratis en Play Store";
 }
 
 <link href="@Url.Content("~/Content/Css/Site/MisCatalogosYRevistas/MisCatalogosYRevistas.css")" rel="stylesheet" />
@@ -32,21 +28,6 @@ else
 <input type="hidden" id="hdrCampaniaSiguiente" value="@Model.CampaniaSiguiente" />
 
 <main class="w-100 row flex-column justify-content-center ml-0 mr-0 layout__main__content">
-
-    <!-- BANNER DESCARGA TU APP DE CATÁLOGOS -->
-    <section class="row flex-row justify-content-center align-items-center ml-0 mr-0 descarga__tu__app__catalogos__banner mostrarEnMobile">
-        <div class="col pl-0 pr-0 descarga__tu__app__catalogos__img">
-            <img src="@Url.Content("~/Content/Images/Mobile/Esika/fondo_app.png")" alt="Descarga tu app de catálogos" />
-        </div>
-        <div class="col-6 pl-0 pr-0 descarga__tu__app__catalogos__texto">
-            <h3 class="text-bold text-uppercase">Descarga tu<br />app de catálogos</h3>
-            <p class="text-thin">@textApp</p>
-        </div>
-        <a href="@urlApp" class="col-4 pl-0 pr-0 d-block text-uppercase text-center text-bold descarga__tu__app__catalogos__btn">
-            Obtener
-        </a>
-    </section>
-    <!-- FIN - BANNER DESCARGA TU APP DE CATÁLOGOS -->
 
     <!-- TITULO DE VISTA CATÁLOGOS -->
     <section class="row flex-row justify-content-start ml-0 mr-0 layout__view__title__wrapper">
@@ -410,6 +391,7 @@ else
         }
         var urlBuscadorIssu = '@Constantes.CatalogoUrlIssu.Buscador';
         var urlDetalle = '@Url.Action("Detalle", "MisCatalogosRevistas", new { area = "" })';
+        var urlGetPilotoSeg = '@Url.Action("GetCatalogosPilotoSeg", "MisCatalogosRevistas", new { area = "" })';
         var _Pagina = 1;
         var tipoOrigenEstrategia = 1;
     </script>
