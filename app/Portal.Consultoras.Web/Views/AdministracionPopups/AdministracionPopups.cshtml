@@ -101,7 +101,7 @@
             <div class="d__block modal__contenido__seccion">
                 <h4 class="d__block text__bold text__uppercase modal__contenido__subtitulo">Contenido</h4>
                 <div class="d__flex modal__contenido__seccion__campos modal__contenido__seccion__campos--contenido">
-                    <div class="d__flex grupo__form__campos">
+                    <div class="d__flex grupo__form__campos--agregarArchivos">
                         <div class="d__block color__m text__bold grupo__form__campos__label grupo__form__campos__label--adjuntarFondo">Adjuntar Fondo : </div>
                         <div class="d__block mr-20">
                             <input id="imgPoputs" type="file" class="d__none text__bold" />
@@ -142,7 +142,7 @@
                 <h4 class="d__block text__bold text__uppercase modal__contenido__subtitulo">Configuración</h4>
                 <div class="d__flex modal__contenido__seccion__campos modal__contenido__seccion__campos--configuracion">
 
-                    <div class="d__flex grupo__form__campos">
+                    <div class="d__flex grupo__form__campos--agregarArchivos">
                         <div class="d__block text__bold color__m grupo__form__campos__label grupo__form__campos__label--segmentoConsultoras">Segmento de<br />consultoras : </div>
                         <div class="d__block">
                             <input id="fileCSV" type="file" class="d__none text__bold" onchange='getFileCSV()' />
@@ -167,11 +167,11 @@
                         <label class="d__block text__bold color__m grupo__form__campos__label">Duración : </label>
                         <div class="d__flex mb-0 grupo__form__campos grupo__form__campos--minMax">
                             <label for="fechaMin" class="d__block text__bold grupo__form__campos__label grupo__form__campos__label--minMax">Min</label>
-                            <input id="fechaMin" autocomplete="off" type="text" placeholder="dd/mm/aa" class="d__block border__color__gray__multimarca border__radius__4 grupo__form__campos__input grupo__form__campos__input--minMax" />
+                            <input id="fechaMin" autocomplete="off" type="text" placeholder="mm/dd/aa" class="d__block border__color__gray__multimarca border__radius__4 grupo__form__campos__input grupo__form__campos__input--minMax" />
                         </div>
                         <div class="d__flex mb-0 grupo__form__campos grupo__form__campos--minMax">
                             <label for="fechaMax" class="d__block text__bold grupo__form__campos__label grupo__form__campos__label--minMax">Max</label>
-                            <input id="fechaMax" autocomplete="off" type="text" placeholder="dd/mm/aa" class="d__block border__color__gray__multimarca border__radius__4 grupo__form__campos__input grupo__form__campos__input--minMax" />
+                            <input id="fechaMax" autocomplete="off" type="text" placeholder="mm/dd/aa" class="d__block border__color__gray__multimarca border__radius__4 grupo__form__campos__input grupo__form__campos__input--minMax" />
                         </div>
                     </div>
                     <div class="d__flex grupo__form__campos">
@@ -232,7 +232,7 @@
             });
 
             function GetCargaListadoPoput() {
-                debugger;
+              
                 waitingDialog({ "title": "Cargando", "message": "Espere por favor" });
                 var ddlCampania = $('#ddlCampania').val();
                 var ddlEstado = parseInt($('#ddlEstado').val());
@@ -397,7 +397,8 @@
 
 
             function ActualizarOrden() {
-                
+              
+                waitingDialog({ "title": "Cargando", "message": "Espere por favor" });
                 var lista = document.querySelector("#swappable");
                 var comunicado="";
                 var orden = "";

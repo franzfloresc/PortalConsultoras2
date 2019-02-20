@@ -15,6 +15,11 @@ namespace Portal.Consultoras.Data
 
         }
 
+        public DABelcorpResponde(int paisID)
+        : base(paisID, EDbSource.Portal)
+        {
+        }
+
         public IDataReader GetBelcorpResponde(int PaisID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetBelcorpResponde");
@@ -44,7 +49,7 @@ namespace Portal.Consultoras.Data
         #region Gestor de Poputs
         public IDataReader GetListaPoput(int estado, string campania,int Paginas,int Filas)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetListadoPoput");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetListadoPopup");
             Context.Database.AddInParameter(command, "@Campania", DbType.AnsiString, campania);
             Context.Database.AddInParameter(command, "@Activo", DbType.Int32, estado);
             Context.Database.AddInParameter(command, "@Paginas", DbType.Int32, Paginas);
@@ -54,7 +59,7 @@ namespace Portal.Consultoras.Data
 
         public IDataReader GetDetallePoput(int comunicadoid)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetDetallePoput");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetDetallePopup");
             Context.Database.AddInParameter(command, "@Comunicadoid", DbType.Int32, comunicadoid);
             return Context.ExecuteReader(command);
         }
@@ -62,7 +67,7 @@ namespace Portal.Consultoras.Data
         public int  GuardarPoputs(string tituloPrincipal, string descripcion, string UrlImagen, string fechaMaxima, string fechaMinima, bool checkDesktop, bool checkMobile, int accionID,string[] arrayColumnasBEComunicadoSegmentacion, string comunicadoId, string nombreArchivo, string codigoCampania, string descripcionAccion)
         {
             int TipoDispositivo = 0;
-           DbCommand command = Context.Database.GetStoredProcCommand("dbo.GuardarPoput");
+           DbCommand command = Context.Database.GetStoredProcCommand("dbo.GuardarPopup");
             if (checkMobile && !checkDesktop) TipoDispositivo = 1;
             if (!checkMobile && checkDesktop) TipoDispositivo = 2;
             /*cabecera*/

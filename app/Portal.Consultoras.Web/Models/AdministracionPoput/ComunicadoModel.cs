@@ -32,6 +32,7 @@ namespace Portal.Consultoras.Web.Models.AdministracionPoput
         public string NombreArchivoCCV { get; set; }
         public int TipoDispositivo { get; set; }
         public int PaginasMaximas { get; set; }
+        public string Comentario { get; set; }
         public IEnumerable<SegmentacionComunicadoModel> ListaSegmentacionComunicado { set; get; }
         public IEnumerable<CampaniaModel> listaCampania { get; set; }
 

@@ -5,6 +5,8 @@ var URL_GUARDAR_POPUT = baseUrl + 'AdministracionPopups/GetGuardarPoput';
 var URL_DETALLE_POPUT = baseUrl + 'AdministracionPopups/GetDetallePoput';
 var URL_ACTUALIZA_ORDEN = baseUrl + 'AdministracionPopups/ActualizaOrden';
 var URL_ELIMINA_ARCHIVOCSV = baseUrl + 'AdministracionPopups/EliminarArchivoCsv';
+var URL_AGREGAR_IMAGEN = baseUrl + 'AdministracionPopups/AgregarImagenUpload';
+var URL_PRUEBA = baseUrl + 'AdministracionPopups/Prueba';
 var VistaAdministracionPopups;
 
 $(document).ready(function () {
@@ -20,22 +22,40 @@ $(document).ready(function () {
                 $('body').on('click', '.btn__modal--descartar', me.Eventos.CerrarPopup);
             },
             CargarDatePicker: function () {
-                $("#fechaMin").datepicker(
-                    {
-                        minDate: new Date(),
-                        changeMonth: true,
-                        numberOfMonths: 1,
-                        onClose: function (selectedDate) {
-                            $("#fechaMax").datepicker("option", "minDate", selectedDate);
-                        }
-                    });
+                    var dateFormat = "mm/dd/yy",
+                        from = $("#fechaMin")
+                            .datepicker({
+                                defaultDate: "+1w",
+                                changeMonth: true,
+                                numberOfMonths: 1
+                            })
+                            .on("change", function () {
+                                
+                                var fecha = to.val();
+                                to.datepicker("option", "minDate", getDate(this));
+                                to.val(fecha);
+                            }),
+                        to = $("#fechaMax").datepicker({
+                            defaultDate: "+1w",
+                            changeMonth: true,
+                            numberOfMonths: 1
+                        })
+                            .on("change", function () {
+                                   
+                                from.datepicker("option", "maxDate", getDate(this));
+                            });
 
-                $("#fechaMax").datepicker(
-                    {
-                        minDate: new Date(),
-                        changeMonth: true,
-                        numberOfMonths: 1,
-                    });
+                function getDate(element) {
+                    
+                        var date;
+                        try {
+                            date = $.datepicker.parseDate(dateFormat, element.value);
+                        } catch (error) {
+                            date = null;
+                        }
+
+                        return date;
+                    }
             },
             OrdenamientoPersonalizadoFilasGrilla: function () {
                 $("#swappable").swappable({
@@ -62,7 +82,7 @@ $(document).ready(function () {
                 } else alert("Tiene que seleccionar una campaña");
                 },
             AbrirPopupModificar: function (e) {
-                debugger;
+                
                     e.preventDefault();
                     $("#hdAccion").val(2)
                     LimpiarCamposPoput();
@@ -100,16 +120,27 @@ $(document).ready(function () {
         }
     });
 
-    $('#fechaMax').change(function (e) {
+    $('#fechaMax,#fechaMin').change(function (e) {
         
-        var fechaMinima = $("#fechaMin").val();
-        var fechaMaxima = $("#fechaMax").val();
-
-        if (fechaMinima == fechaMaxima) {
-            alert("Ingrese un rango de fecha válido");
-            $("#fechaMin").val("");
-            $("#fechaMax").val("");
-            return false;
+        var idFecha = e.target.id;
+        var valorFecha = e.target.value;
+        switch (idFecha) {
+            case "fechaMin":
+                var fechaMaxima = $("#fechaMax").val();
+                if (fechaMaxima == valorFecha) {
+                    alert("Ambas fechas no pueden ser las mismas");
+                    $("#fechaMin").val("");
+                    return false;
+                }
+                break;
+            case "fechaMax":
+                var fechaMinima = $("#fechaMin").val();
+                if (fechaMinima == valorFecha) {
+                    alert("Ambas fechas no pueden ser las mismas");
+                    $("#fechaMax").val("");
+                    return false;
+                }
+                break;
         }
 
         let partes = (e.target.value || '').split('/');
@@ -127,7 +158,6 @@ $(document).ready(function () {
     });
 
 });
-
 
 
 function GetCargaDetallePoput(comunicadoid) {
@@ -170,15 +200,16 @@ function getCargarArchivoCSVPoputLocalStorage(data) {
 
 
 function GetCamposCargadosPoput(data) {
-    debugger;
-    if (data.NombreImagen.length > 0)
-    document.getElementById("imgPreview").style.display = "block";
-    $("#targetImg").attr('src', (data.UrlImagen));
-    $("#description").html(data.NombreImagen);
-    $("#imgPreview").show();
+    
+    if (data.NombreImagen.length > 0) {
+        document.getElementById("imgPreview").style.display = "block";
+        $("#targetImg").attr('src', (data.UrlImagen));
+        $("#description").html(data.NombreImagen);
+        $("#imgPreview").show();
+    }
 
     $("#txtTituloPrincipal").val(data.Descripcion);
-    $("#txtDescripcion").val("");
+    $("#txtDescripcion").val(data.Comentario);
     $("#txtUrl").val(data.DescripcionAccion);
     $("#nameArchivo").html(data.NombreArchivoCCV);
     $("#fechaMin").val(data.FechaInicio_);
@@ -205,7 +236,6 @@ function GetCamposCargadosPoput(data) {
 
 
 $("#imgPoputs").change(function () {
-    
     ValidaImagen(this.files);
 });
 
@@ -254,7 +284,8 @@ function LimpiarCamposPoput() {
     $("#fechaMax").val("");
     document.getElementById('checkMobile').checked = false;
     document.getElementById('checkDesktop').checked = false;
-
+    document.getElementById("EliminarArchivo").style.display = "none";
+    document.getElementById("imgPreview").style.display = "none";
     localStorage.removeItem("datosPoput");
     localStorage.removeItem("datosCSV");
 }
@@ -272,6 +303,7 @@ function ClearFileView() {
     
     var inputImage = document.getElementById("imgPoputs").value = "";
     var inputImage = document.getElementById("targetImg").value = "";
+    var inputImage = document.getElementById("targetImg").src = "";
     $("#imgPreview").hide();
     $("#description").html("Formato de archivo JPG.<br /> (326 x 418 píxeles)");
 
@@ -325,9 +357,9 @@ function getFileCSV() {
 
 /*Inseriones*/
 
-    $("#btnGuardar").click(function () {
-
-        debugger;
+$("#btnGuardar").click(function () {
+   
+        waitingDialog({ "title": "Cargando", "message": "Espere por favor" });
         /*Validaciones*/
 
         
@@ -340,7 +372,7 @@ function getFileCSV() {
         }
 
 
-        if (document.getElementById("imgPoputs").files[0] == undefined) {
+        if (document.getElementById("targetImg").getAttribute("src").length == 0 ) {
             alert("No seleccionó una imagen");
             return false;
         }
@@ -384,8 +416,8 @@ function getFileCSV() {
         }
         var bool = confirm("Deseas guardar los datos ingresados");
         if (bool) {
-            debugger;
-        waitingDialog({ "title": "Cargando", "message": "Espere por favor" });
+            
+      
         /*carga de datos*/
         /*Zona de archivos*/
         var frmData = new FormData();
@@ -413,17 +445,19 @@ function getFileCSV() {
         $.ajax({
             type: "POST",
             url: URL_GUARDAR_POPUT,
+           // url: URL_PRUEBA,
             data: frmData,
             dataType: 'json',
             contentType: false,
             processData: false,
             success: function (msg) {
-                closeWaitingDialog();
+              
                 if (parseInt(msg) > 0) {
                     alert("Se registró de forma satisfactoria");
                     window.location.reload(true);
                 } else{
                     alert("Ocurrió un error al guardar los datos");
+                    closeWaitingDialog();
                 }
             },
             error: function (error) {
@@ -437,7 +471,7 @@ function getFileCSV() {
 
 
 function respuestaValidacionCambios() {
-    debugger;
+    
     var acumuladoValidacion = 0;
     if (JSON.parse(localStorage.getItem('datosPoput')).NombreImagen != $("#description").html())
             acumuladoValidacion += 1;
@@ -450,7 +484,9 @@ function respuestaValidacionCambios() {
         if (JSON.parse(localStorage.getItem('datosPoput')).FechaInicio_ != $("#fechaMin").val())
             acumuladoValidacion += 1;
         if (JSON.parse(localStorage.getItem('datosPoput')).FechaFin_ != $("#fechaMax").val())
-            acumuladoValidacion += 1;
+        acumuladoValidacion += 1;
+    if (JSON.parse(localStorage.getItem('datosPoput')).Comentario != $("#txtDescripcion").val())
+        acumuladoValidacion += 1;
 
         if (JSON.parse(localStorage.getItem('datosPoput')).TipoDispositivo == 1) {
             if (document.getElementById('checkMobile').checked == true && document.getElementById('checkDesktop').checked == true)
@@ -511,12 +547,30 @@ function ValidaImagen(file) {
         return false;
     }
 
+    /*Enviamos a guardar la imagen en la carpeta del proyecto*/
+    
+    var frmData = new FormData();
+    frmData.append("imagen", document.getElementById("imgPoputs").files[0]);
+    frmData.append("nombreImagen", document.getElementById("imgPoputs").files[0].name);
+    $.ajax({
+        url: URL_AGREGAR_IMAGEN,
+        type: 'POST',
+        data: frmData,
+        processData: false,
+        contentType: false,
+        success: function (data) {
+            
+            if (data != "") {
+            }
+        }
+    });
+
     ReadImage(file[0]);
 }
 
 
 $(".eliminarArchivo").click(function () {
-    debugger;
+    
     var comunicadoid = $("#hdComunicadoId").val();
     var object = {
         Comunicadoid: parseInt( comunicadoid)

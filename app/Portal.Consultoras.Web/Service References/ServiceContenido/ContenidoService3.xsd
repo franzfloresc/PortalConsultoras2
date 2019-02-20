@@ -1047,6 +1047,7 @@
         <xs:element minOccurs="0" name="Campania" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="Paginas" type="xs:int" />
         <xs:element minOccurs="0" name="Filas" type="xs:int" />
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1061,6 +1062,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="Comunicadoid" type="xs:int" />
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1087,6 +1089,7 @@
         <xs:element minOccurs="0" name="nombreArchivo" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="codigoCampania" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="descripcionAccion" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1102,6 +1105,7 @@
       <xs:sequence>
         <xs:element minOccurs="0" name="Comunicado" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="Orden" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1116,6 +1120,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="Comunicadoid" type="xs:int" />
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
