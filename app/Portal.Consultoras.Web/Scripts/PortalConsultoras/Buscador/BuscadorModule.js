@@ -419,7 +419,7 @@ var BuscadorModule = (function () {
                 window.location.href = 'Bienvenida';
             }
             else {
-                window.location.href = 'Mobile/Bienvenida';
+                window.location.href = '/Mobile/Bienvenida';
             }
         }
     };
