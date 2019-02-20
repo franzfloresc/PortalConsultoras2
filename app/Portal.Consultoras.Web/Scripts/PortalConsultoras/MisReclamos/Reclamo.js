@@ -187,14 +187,15 @@ $(document).ready(function () {
                         var correoActual = $.trim($("#hdEmail").val());
                         if (correo != correoActual && !data.success) {
                             ControlSetError('#txtEmail', '#spnEmailError', data.message);
+                            //button.removeClass();
                             return false;
-                            button.removeClass();
-
                         } else {
+                            //mostrar mensaje de confirmación
+
                             SolicitudCDREnviar(function (data) {
+                                //button.removeClass();
                                 if (!data.success) {
                                     alert_msg(data.message);
-                                    button.removeClass();
                                     return false;
                                 } else {
                                     if (data.Cantidad == 1) {
@@ -209,8 +210,7 @@ $(document).ready(function () {
                 }
             });
         }
-
-        button.removeClass();
+        //button.removeClass();
     });
 
     $(document).on('click', '[data-accion]', function () {
