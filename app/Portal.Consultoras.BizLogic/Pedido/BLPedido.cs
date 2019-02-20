@@ -2199,7 +2199,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
         {
             var cantidadActual = pedido.Where(d => d.CUV == pedidoDetalle.Producto.CUV).Sum(d => d.Cantidad);
             var respValidar = _limiteVentaBusinessLogic.CuvTieneLimiteVenta(usuario.PaisID, usuario.CampaniaID, usuario.CodigorRegion, usuario.CodigoZona, pedidoDetalle.Producto.CUV, pedidoDetalle.Cantidad, cantidadActual);
-            if (respValidar.TieneLimite) mensaje = string.Format(Constantes.MensajesError.ExcedioLimiteVenta, respValidar.UnidadesMaximas);
+            if (respValidar.TieneLimite) mensaje = string.Format(Constantes.MensajesError.ExcedioLimiteVenta, pedidoDetalle.Producto.CUV, pedidoDetalle.Producto.Descripcion, respValidar.UnidadesMaximas);
             else mensaje = null;
             return respValidar.TieneLimite;
         }
@@ -3275,6 +3275,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     var pedidoDetalleStock = new BEPedidoDetalle();
                     pedidoDetalleStock.Producto = new BEProducto();
                     pedidoDetalleStock.Producto.CUV = estrategia.CUV2;
+                    pedidoDetalleStock.Producto.Descripcion = pedidoDetalle.Producto.Descripcion;
                     pedidoDetalleStock.Cantidad = pedidoDetalle.Cantidad;
                     var resultStockLimite = ValidarStockLimiteVenta(usuario, pedidoDetalleStock, lstDetalle, out mensaje);
                     if (resultStockLimite) return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_LIMITE_VENTA, mensaje);

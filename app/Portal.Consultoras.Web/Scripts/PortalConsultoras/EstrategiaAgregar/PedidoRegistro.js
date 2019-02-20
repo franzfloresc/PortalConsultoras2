@@ -75,6 +75,7 @@ var PedidoRegistroModule = function () {
 
     /* Ini - Region BannerPedido */
     var _insertarPedidoCuvBanner = function (CUVpedido, CantCUVpedido) {
+        
         var item = {
             CUV: CUVpedido,
             CantCUVpedido: CantCUVpedido
@@ -158,7 +159,7 @@ var PedidoRegistroModule = function () {
     }
 
     var AgregarCUVBannerPedido = function () {
-
+        
         var Id = $("#divConfirmarCUVBanner").data().Id;
         var link = $("#divConfirmarCUVBanner").data().link;
         var CUVpedido = $("#divConfirmarCUVBanner").data().cuvPedido;
@@ -1263,6 +1264,7 @@ var PedidoRegistroModule = function () {
         if (flag == "true") {
             form.url = baseUrl + _url.urlAgregarUnico;
             form.data.EstrategiaID = $("#hdfEstrategiaId").val();
+            form.data.DescripcionProd = $("#DescripcionProd").val();
         }
 
         AbrirSplash();
