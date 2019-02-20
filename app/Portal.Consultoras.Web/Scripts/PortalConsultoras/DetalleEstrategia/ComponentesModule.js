@@ -122,10 +122,10 @@ var ComponentesModule = (function () {
             cuv === null ||
             $.trim(cuv) === "") throw "param cuv is not defined or null";
 
+        cuv = $.trim(cuv);
         abrir = abrir == undefined || abrir;
         var componente = {}            
         $.each(_estrategia.Hermanos, function (index, hermano) {
-            cuv = $.trim(cuv);
             if (cuv === hermano.Cuv) { 
                 componente = _estrategia.Hermanos[index];   
 
