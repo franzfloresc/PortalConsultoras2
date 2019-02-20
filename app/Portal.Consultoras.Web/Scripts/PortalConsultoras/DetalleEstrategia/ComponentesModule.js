@@ -105,6 +105,8 @@ var ComponentesModule = (function () {
             $(_elements.divElegirOpciones.id).modal("show");
         } else {
             $("body").addClass(_elements.body.modalActivadoClass);
+
+            console.log('_mostrarModalElegirOpciones - DivPopupFichaResumida overflow hidden');
             $("#DivPopupFichaResumida").css("overflow", "hidden");
             $(_elements.divElegirOpciones.modalFondo.id)
                 .css("opacity", _elements.divElegirOpciones.modalFondo.opacity)

@@ -107,6 +107,7 @@ var ResumenOpcionesModule = (function () {
         
         _verificarActivarBtn(codigoVariante);
 
+        console.log('AplicarOpciones - DivPopupFichaResumida overflow auto');
         $("#DivPopupFichaResumida").css("overflow", "auto");
 
         if (callCloseElegirOpcionesModal) {

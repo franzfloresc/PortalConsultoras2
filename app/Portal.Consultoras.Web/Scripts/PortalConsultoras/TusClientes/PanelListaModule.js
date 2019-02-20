@@ -81,6 +81,7 @@
         $(_elements.hfNombreCliente).val(nombreCliente);
         $(_elements.hfNombre).val(nombre);
 
+        console.log('_seleccionarRegistro - DivPopupFichaResumida overflow auto');
         $("#DivPopupFichaResumida").css("overflow", "auto");
 
         $("#btnPanelListaAceptar").click();

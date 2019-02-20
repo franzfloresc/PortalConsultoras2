@@ -971,6 +971,7 @@ var FichaModule = (function (config) {
 
         $(_seccionesPanelCliente.btnShowCliente).click(function () {
             panelCliente.Abrir();
+            console.log('_initCliente - DivPopupFichaResumida overflow hidden');
             $("#DivPopupFichaResumida").css("overflow", "hidden");
         });
         //END PANEL CLIENTE
