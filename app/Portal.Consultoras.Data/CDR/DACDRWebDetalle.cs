@@ -43,7 +43,7 @@ namespace Portal.Consultoras.Data.CDR
 
         public IDataReader GetCDRWebDetalle(BECDRWebDetalle entity, int pedidoId)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCDRWebDetalle_V2");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCDRWebDetalle");
             Context.Database.AddInParameter(command, "CDRWebID", DbType.Int32, entity.CDRWebID);
             Context.Database.AddInParameter(command, "PedidoID", DbType.String, pedidoId);
 
