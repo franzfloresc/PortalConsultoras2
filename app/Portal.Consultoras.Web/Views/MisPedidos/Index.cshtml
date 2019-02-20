@@ -509,7 +509,7 @@
     {{#each this.Rows as |detalle|}}
     <div class="content_datos_pedidosIngresados">
         <div class="codigo_prod">{{detalle.CUV}}</div>
-        <div class="descripcion_prod">{{#iff detalle.SetIdentifierNumber '>' '0'}} #{{detalle.SetIdentifierNumber}} {{/iff}} {{detalle.DescripcionProd}}</div>
+        <div class="descripcion_prod">{{#iff detalle.SetIdentifierNumber '>' '0'}} #{{detalle.SetIdentifierNumber}} - {{/iff}} {{detalle.DescripcionProd}}</div>
         <div class="cantidadProd">{{detalle.Cantidad}}</div>
         <div class="precioUnitario_prod">{{SimboloMoneda}} {{detalle.PrecioUnidad}}</div>
         <div class="importePago_prod">{{SimboloMoneda}} {{detalle.ImporteTotal}}</div>
@@ -619,7 +619,7 @@
             {{#each this.Rows as |detalle|}}
             <div class="content_datos_pedidosFacturados">
                 <div class="codigo_prod">{{detalle.CUV}}</div>
-                <div class="descripcion_prod">{{#iff detalle.SetIdentifierNumber '>' '0'}} #{{detalle.SetIdentifierNumber}} {{/iff}} {{detalle.DescripcionProd}}</div>
+                <div class="descripcion_prod">{{#iff detalle.SetIdentifierNumber '>' '0'}} #{{detalle.SetIdentifierNumber}} - {{/iff}} {{detalle.DescripcionProd}}</div>
                 <div class="cantidadProd">{{detalle.Cantidad}}</div>
                 <div class="precioUnitario_prod">{{SimboloMoneda}} {{detalle.PrecioUnidad}}</div>
                 <div class="totalPrecio_prod">{{SimboloMoneda}} {{detalle.ImporteTotal}}</div>

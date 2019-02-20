@@ -29,30 +29,33 @@
                             contadorDetalle = 1;
                             foreach (var pedidoDetalle in pedido.Detalle)
                             {
-                                <div class="sections-3">
-                                    <div>
-                                        <span class="codigo-producto">@pedidoDetalle.CUV</span> @pedidoDetalle.DescripcionProducto
-                                    </div>
+                            <div class="sections-3">
+                                <div>
+                                    <span class="codigo-producto">@pedidoDetalle.CUV</span>
                                 </div>
-                                <div class="sections-4">
-                                    <div class="producto-cantidad">
-                                        Cant: @pedidoDetalle.Cantidad
-                                    </div>
-                                    <div class="producto-precio">
-                                        @pedidoDetalle.PrecioUnidad
-                                    </div>
-                                    <div>
-                                        @pedidoDetalle.ImporteTotal
-                                    </div>
+                                <div>
+                                    @(pedidoDetalle.SetIdentifierNumber > 0 ? "# " + pedidoDetalle.SetIdentifierNumber.ToString() + " - " : "")   @pedidoDetalle.DescripcionProducto
                                 </div>
-                                if (contadorDetalle < pedido.Detalle.Count)
-                                {
-                                    <hr />
-                                }
-                                contadorDetalle++;
+                            </div>
+                            <div class="sections-4">
+                                <div class="producto-cantidad">
+                                    Cant: @pedidoDetalle.Cantidad
+                                </div>
+                                <div class="producto-precio">
+                                    @pedidoDetalle.PrecioUnidad
+                                </div>
+                                <div>
+                                    @pedidoDetalle.ImporteTotal
+                                </div>
+                            </div>
+                            if (contadorDetalle < pedido.Detalle.Count)
+                            {
+                            <hr />
                             }
-                        }
-                    </div>
+                            contadorDetalle++;
+                            }
+                            }
+                        </div>
                 </div>
             </div>
         }
