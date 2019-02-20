@@ -326,7 +326,7 @@
 <div class="contenedor_popup_general" id="divConfirmEnviarSolicitudCDR2" style="display:none;">
     <div class="popup_general">
         <div class="btn_cerrar_popup_general">
-            <a href="javascript:;" onclick="CerrarDiv(3);">
+            <a href="javascript:;" onclick="CancelarConfirmEnvioSolicitudCDR();">
                 <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
                 <span class="texto_btn_cerrar">CERRAR</span>
             </a>
@@ -337,10 +337,10 @@
                 ¿Desea continuar?
             </span>
             <div class="grupo_botones_popup_general">
-                <button type="button" name="btn_accion_secundaria" class="btn_accion_secundaria" onclick="EliminarCliente();">
+                <button type="button" name="btn_accion_secundaria" class="btn_accion_secundaria" onclick="CancelarConfirmEnvioSolicitudCDR();">
                     Cancelar
                 </button>
-                <button type="button" name="btn_accion_principal" class="btn_accion_principal" onclick="CerrarDiv(3);">
+                <button type="button" name="btn_accion_principal" class="btn_accion_principal" onclick="ContinuarConfirmEnvioSolicitudCDR();">
                     Aceptar
                 </button>
             </div>
