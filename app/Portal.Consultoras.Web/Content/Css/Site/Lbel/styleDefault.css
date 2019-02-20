@@ -23,3 +23,197 @@
     cursor:not-allowed!important;
     color:rgba(128, 128, 128, 0.5)!important;
 }
+
+/* POPUP GENERAL (ACCIONES ACEPTAR Y CANCELAR) */
+
+.contenedor_popup_general {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent url('/Content/Images/bg_popups.png') repeat left top;
+    z-index: 1000;
+}
+
+.btn_cerrar_popup_general {
+    display: block;
+    width: 100%;
+    max-width: 48px;
+    height: auto;
+    position: absolute;
+    top: 2px;
+    right: -63px;
+    transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -webkit-transition: all .3s ease;
+}
+
+    .btn_cerrar_popup_general:hover {
+        opacity: .5;
+        filter: alpha(opacity=50);
+    }
+
+    .btn_cerrar_popup_general img {
+        width: 50%;
+        border: 0;
+    }
+
+.popup_general {
+    display: block;
+    position: absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    margin: auto;
+    background: #fff;
+    width: 100%;
+    max-width: 514px;
+    height: 283px;
+    padding-top: 62px;
+    padding-bottom: 40px;
+    box-sizing: border-box;
+    font-family: 'Lato', sans-serif;
+}
+
+    .popup_general .icono_advertencia {
+        display: block;
+        width: 67px;
+        height: 67px;
+        background: url('/Content/Images/Lbel/icono_exclamacion_lbel.png') center center no-repeat;
+        margin: 0 auto 13px auto;
+        background-size: cover;
+    }
+
+.popup_general .btn_cerrar_agregarUnidades {
+    top: -44px;
+    right: -10px;
+}
+
+.popup_general .texto_btn_cerrar {
+    left: -6px;
+    top: -3px;
+}
+
+.contenido_popUp_general h1 {
+    color: #333;
+    font-size: 26px;
+    text-align: center;
+    font-family: 'Lato', sans-serif;
+    margin-bottom: 19px;
+}
+
+.mensaje_popup_general,
+.mensaje_popup_general strong{
+    display:block;
+}
+
+.mensaje_popup_general {
+    color: #000;
+    text-align: center;
+    font-size: 15px;
+    margin-bottom: 33px;
+}
+
+    .mensaje_popup_general strong{
+        font-weight:bold;
+    }
+
+.grupo_botones_popup_general {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    height: auto;
+}
+
+.btn_accion_secundaria,
+.btn_accion_principal
+{
+    display: inline-block;
+    font-family: 'Lato', sans-serif;
+    font-weight: bold;
+    width: 140px;
+    height: 45px;
+    line-height: 45px;
+    vertical-align: middle;
+    text-transform:uppercase;
+    transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -webkit-transition: all .3s ease;
+}
+
+.btn_accion_secundaria {    
+    background: #fff;
+    border: 1px solid #000;
+    margin-right: 17px;
+}
+
+.btn_accion_principal {
+    background: #642f80;
+    color: #fff;
+    border: none;
+}
+
+/*.btn_accion_secundaria:hover {
+    background: #000;
+    color: #fff;
+}
+
+.btn_accion_principal:hover {
+    background: #411c59;
+}*/
+
+@media screen and (max-width:991px) {
+
+    .popup_general {
+        width: 90%;
+        max-width: 400px;
+        height: auto;
+        padding-left: 20px;
+        padding-right: 20px;
+        position: relative;
+        top: 102px;
+    }
+
+    .btn_cerrar_popup_general{
+        top: -33px;
+        right: -24px;
+    }
+
+    .popup_general .texto_btn_cerrar{
+        display:none;
+    }
+
+    .mensaje_popup_general strong{
+        display:inline;
+        margin-bottom:20px;
+    }
+
+    .btn_accion_secundaria,
+    .btn_accion_principal
+    {
+        width:70%;
+    }
+
+    .btn_accion_secundaria{
+        margin-right:0;
+        order:0;
+    }
+
+    .btn_accion_principal{
+        order:-1;
+        margin-bottom:10px;
+    }
+
+}
+
+/* FIN - POPUP GENERAL (ACCIONES ACEPTAR Y CANCELAR) */
