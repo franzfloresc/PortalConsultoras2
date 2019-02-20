@@ -708,15 +708,15 @@ function MostrarBarra(datax, destino) {
     objMsg.Titulo = $.trim(objMsg.Titulo);
     objMsg.Mensaje = $.trim(objMsg.Mensaje);
 
-    if (objMsg.Titulo == "" && objMsg.Mensaje == "") {
-        //CalculoPosicionMinimoMaximoDestokp();
-
-        $("#divBarra #divBarraMensajeLogrado").hide();
-        return false;
+    if ( objMsg.Mensaje != "") {
+        // CalculoPosicionMinimoMaximoDestokp();
+        $("#divBarra #divBarraMensajeLogrado").show();
+       // $("#divBarra #divBarraMensajeLogrado").hide();
+        // return false;
     }
     var valPor = listaLimite[indPuntoLimite].valPor || "";
     var valorMonto = variablesPortal.SimboloMoneda + " " + DecimalToStringFormat(parseFloat(valorFalta));
-    $("#divBarra #divBarraMensajeLogrado").show();
+    
     $("#divBarra #divBarraMensajeLogrado .mensaje_barra").html(objMsg.Titulo.replace("#porcentaje", valPor).replace("#valor", valorMonto));
 
     var dvMsg = $("#divBarra #divBarraMensajeLogrado .barra_title");
