@@ -24806,7 +24806,10 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
         }
 
 .dscto_ofertasNiveles {
-    margin-left: 20px;
+    /* 
+    GANAZG-176 
+      margin-left: 20px; 
+    */
 }
 
 .separador_montos {
