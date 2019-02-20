@@ -57,11 +57,11 @@ namespace Portal.Consultoras.BizLogic
         }
 
         #region Gestor de Poputs
-        public List<BEComunicado> GetListaPoput(int estado, string campania, int Paginas, int Filas)
+        public List<BEComunicado> GetListaPoput(int estado, string campania, int Paginas, int Filas, int PaisID)
         {
             List<BEComunicado> listsBEComunicado = new List<BEComunicado>();
 
-            var daBelcorpResponde = new DABelcorpResponde();
+            var daBelcorpResponde = new DABelcorpResponde(PaisID);
 
             using (IDataReader reader = daBelcorpResponde.GetListaPoput(estado, campania, Paginas, Filas))
             {
@@ -85,11 +85,11 @@ namespace Portal.Consultoras.BizLogic
             return listsBEComunicado;
         }
 
-        public BEComunicado GetDetallePoput(int comunicadoid)
+        public BEComunicado GetDetallePoput(int comunicadoid, int PaisID)
         {
          BEComunicado objetoBEComunicado = new BEComunicado();
 
-            var daBelcorpResponde = new DABelcorpResponde();
+            var daBelcorpResponde = new DABelcorpResponde(PaisID);
 
             using (IDataReader reader = daBelcorpResponde.GetDetallePoput(comunicadoid))
             {
@@ -106,6 +106,7 @@ namespace Portal.Consultoras.BizLogic
                     objetoBEComunicado.FechaInicio = reader[8] == null ? string.Empty : reader[8].ToString();
                     objetoBEComunicado.FechaFin = reader[9] == null ? string.Empty : reader[9].ToString();
                     objetoBEComunicado.TipoDispositivo= reader[10] == DBNull.Value ? 0 : int.Parse(reader[10].ToString());
+                    objetoBEComunicado.Comentario = reader[11] == null ? string.Empty : reader[11].ToString();
                 }
 
             }
@@ -113,9 +114,9 @@ namespace Portal.Consultoras.BizLogic
         }
 
 
-        public int GuardarPoputs(string tituloPrincipal, string descripcion, string UrlImagen, string fechaMaxima, string fechaMinima, bool checkDesktop, bool checkMobile, int accionID, List<BEComunicadoSegmentacion> listdatosCSV, string comunicadoId, string nombreArchivo, string codigoCampania, string descripcionAccion)
+        public int GuardarPoputs(string tituloPrincipal, string descripcion, string UrlImagen, string fechaMaxima, string fechaMinima, bool checkDesktop, bool checkMobile, int accionID, List<BEComunicadoSegmentacion> listdatosCSV, string comunicadoId, string nombreArchivo, string codigoCampania, string descripcionAccion, int PaisID)
         {
-            var daBelcorpResponde = new DABelcorpResponde();
+            var daBelcorpResponde = new DABelcorpResponde(PaisID);
             string[] arrayColumnasBEComunicadoSegmentacion = GetArrayColumnas(listdatosCSV);
             return daBelcorpResponde.GuardarPoputs(tituloPrincipal, descripcion, UrlImagen, fechaMaxima, fechaMinima, checkDesktop, checkMobile, accionID, arrayColumnasBEComunicadoSegmentacion,  comunicadoId,  nombreArchivo,  codigoCampania, descripcionAccion);
 
@@ -147,15 +148,15 @@ namespace Portal.Consultoras.BizLogic
             return arrayColumnas;
         }
 
-        public int ActualizaOrden(string comunicado, string orden)
+        public int ActualizaOrden(string comunicado, string orden, int PaisID)
         {
-            var daBelcorpResponde = new DABelcorpResponde();
+            var daBelcorpResponde = new DABelcorpResponde(PaisID);
             return daBelcorpResponde.ActualizaOrden(comunicado, orden);
         }
 
-        public int EliminarArchivoCsv(int comunicadoid)
+        public int EliminarArchivoCsv(int comunicadoid, int PaisID)
         {
-            var daBelcorpResponde = new DABelcorpResponde();
+            var daBelcorpResponde = new DABelcorpResponde(PaisID);
             return daBelcorpResponde.EliminarArchivoCsv(comunicadoid);
         }
         #endregion

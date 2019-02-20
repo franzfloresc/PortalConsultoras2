@@ -83,6 +83,10 @@ namespace Portal.Consultoras.Entities
         [Column("PaginasMaximas")]
         public int PaginasMaximas { get; set; }
 
+        [DataMember]
+        [Column("Comentario")]
+        public string Comentario { get; set; }
+
     }
 
     

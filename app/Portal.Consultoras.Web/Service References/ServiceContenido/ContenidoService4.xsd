@@ -425,6 +425,7 @@
       <xs:element minOccurs="0" name="Activo" type="xs:boolean" />
       <xs:element minOccurs="0" name="CodigoCampania" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Comentario" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ComunicadoId" type="xs:long" />
       <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DescripcionAccion" nillable="true" type="xs:string" />

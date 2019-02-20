@@ -15,6 +15,7 @@ using System.Web;
 using System.IO;
 using System.Web.Script.Serialization;
 using System.Runtime.Serialization.Json;
+using System.Drawing;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -105,7 +106,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (ContenidoServiceClient sv = new ContenidoServiceClient())
                 {
-                    result = sv.ActualizaOrden(Comunicado, Orden);
+                    result = sv.ActualizaOrden(Comunicado, Orden, userData.PaisID);
                 }
 
             }
@@ -125,7 +126,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (ContenidoServiceClient sv = new ContenidoServiceClient())
                 {
-                    var objetoContenidoService = sv.GetDetallePoput(Comunicadoid);
+                    var objetoContenidoService = sv.GetDetallePoput(Comunicadoid, userData.PaisID);
                     objetoComunicadoModel = GetAutoMapperManualObjeto(objetoContenidoService);
                 }
 
@@ -147,7 +148,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (ContenidoServiceClient sv= new ContenidoServiceClient())
             {
-                var listContenidoService = sv.GetListaPoput(Estado, Campania, Paginas, Filas).ToList();
+                var listContenidoService = sv.GetListaPoput(Estado, Campania, Paginas, Filas, userData.PaisID).ToList();
                     listaComunicadoModel = GetAutoMapperManualLista(listContenidoService);
                 }
 
@@ -175,7 +176,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (ContenidoServiceClient sv = new ContenidoServiceClient())
                 {
-                     respuesta = sv.EliminarArchivoCsv(Comunicadoid);
+                     respuesta = sv.EliminarArchivoCsv(Comunicadoid, userData.PaisID);
                 }
             }
             catch (Exception ex)
@@ -234,6 +235,7 @@ namespace Portal.Consultoras.Web.Controllers
                 FechaInicio_ = objetoContenidoService.FechaInicio,
                 FechaFin_ = objetoContenidoService.FechaFin,
                 TipoDispositivo = objetoContenidoService.TipoDispositivo,
+                Comentario = objetoContenidoService.Comentario
             };
             return objComunicadoModel;
         }
@@ -252,10 +254,21 @@ namespace Portal.Consultoras.Web.Controllers
         #endregion
 
         [HttpPost]
+        public ActionResult Prueba()
+        {
+
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
+
+
+
+
+        [HttpPost]
         public ActionResult GetGuardarPoput()
         {
             string UrlImagen = string.Empty;
             int result = 0;
+            if (Request.Files["imagen"] != null)
             if (Request.Files["imagen"] != null)
             {
                HttpPostedFileBase frmDataImagen = Request.Files["imagen"];
@@ -280,14 +293,59 @@ namespace Portal.Consultoras.Web.Controllers
                
                 using (ContenidoServiceClient svr = new ContenidoServiceClient())
                 {
-                    result = svr.GuardarPoputs(tituloPrincipal, descripcion, UrlImagen, fechaMaxima, fechaMinima, checkDesktop, checkMobile, accionID, Request.Form["datosCSV"], comunicadoId, nombreArchivo, codigoCampania, descripcionAccion);
+                    result = svr.GuardarPoputs(tituloPrincipal, descripcion, UrlImagen, fechaMaxima, fechaMinima, checkDesktop, checkMobile, accionID, Request.Form["datosCSV"], comunicadoId, nombreArchivo, codigoCampania, descripcionAccion, userData.PaisID);
                 }
             
             
                 return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-      
+
+
+        [HttpPost]
+        public ActionResult AgregarImagenUpload(string nombreImagen)
+        {
+            try
+            {
+                if (Request.Files["imagen"] != null)
+                {
+                    HttpPostedFileBase frmDataImagen = Request.Files["imagen"];
+                    string ffFileName = nombreImagen;
+                    var path = Path.Combine(Globals.RutaTemporales, ffFileName);
+                    if (!System.IO.File.Exists(Globals.RutaTemporales))
+                        Directory.CreateDirectory(Globals.RutaTemporales);
+                    if (System.IO.File.Exists(path))
+                        System.IO.File.Delete(path);
+
+                    var ByteDataImage = new byte[frmDataImagen.ContentLength];
+                    frmDataImagen.InputStream.Read(ByteDataImage, 0, frmDataImagen.ContentLength);
+                    System.IO.File.WriteAllBytes(path, ByteDataImage);
+                    
+                }
+                return Json(1, "text/html");
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new { success = false, message = "Hubo un error al cargar el archivo, intente nuevamente." }, "text/html");
+            }
+        }
+
+
+        public static byte[] ReadFully(Stream input)
+        {
+            byte[] buffer = new byte[16 * 1024];
+            using (MemoryStream ms = new MemoryStream())
+            {
+                int read;
+                while ((read = input.Read(buffer, 0, buffer.Length)) > 0)
+                {
+                    ms.Write(buffer, 0, read);
+                }
+                return ms.ToArray();
+            }
+        }
+
         private string GetGuardarImagenServidor(string imagenActual, string imagenAnterior)
         {
        

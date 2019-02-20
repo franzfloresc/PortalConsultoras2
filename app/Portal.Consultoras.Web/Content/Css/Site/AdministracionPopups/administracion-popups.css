@@ -113,6 +113,121 @@ div.ui-state-highlight {
 }
 
 /* FIN - HELPERS CSS */
+/* ESTILOS GENERALES */
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(124, 124, 124, 0.47);
+    border-radius: 20px;
+}
+
+/* FIN - ESTILOS GENERALES */
+
+/* HELPERS CSS */
+
+.w__100 {
+    width: 100%;
+}
+
+.text__center {
+    text-align: center;
+}
+
+.text__bold {
+    font-weight: bold !important;
+}
+
+.text__uppercase {
+    text-transform: uppercase;
+}
+
+.d__none {
+    display: none;
+}
+
+input[type=checkbox].d__none {
+    display: none !important;
+}
+
+.d__block {
+    display: block;
+}
+
+.d__inline__block {
+    display: inline-block;
+}
+
+.d__flex {
+    display: flex;
+}
+
+.ml__auto {
+    margin-left: auto;
+}
+
+.mr__auto {
+    margin-right: auto;
+}
+
+.background__color__m {
+    background-color: #87359D;
+}
+
+.background__color__m__lighter,
+.background__color__m__lighter.ui-state-default {
+    background-color: #DDD1F1;
+}
+
+.color__m {
+    color: #87359D;
+}
+
+.color__gray__multimarca {
+    color: #808080;
+}
+
+.border__color__gray__multimarca {
+    border: 1px solid #808080;
+}
+
+.border__radius__4 {
+    border-radius: 4px;
+}
+
+.m-0 {
+    margin: 0;
+}
+
+.mb-0 {
+    margin-bottom: 0 !important;
+}
+
+.mb-40 {
+    margin-bottom: 40px !important;
+}
+
+.mr-20 {
+    margin-right: 20px;
+}
+
+.mr-25 {
+    margin-right: 25px;
+}
+
+.row__grilla.ui-state-default {
+    padding-right: 0 !important;
+}
+
+div.ui-state-highlight {
+    height: 59px;
+    border: 2px dashed #87359D;
+    background-color: #F0F5F8 !important;
+}
+
+/* FIN - HELPERS CSS */
 
 /* ESTILOS MODIFICADORES JQUERY UI (LOADING) */
 
@@ -214,8 +329,7 @@ div.ui-state-highlight {
 }
 
 .ui-datepicker select.ui-datepicker-month,
-.ui-datepicker select.ui-datepicker-year
-{
+.ui-datepicker select.ui-datepicker-year {
     border: 1px solid #808080;
     border-radius: 4px;
     color: #000;
@@ -288,7 +402,7 @@ div.ui-state-highlight {
 .grilla__filtro__select {
     font-family: 'Lato', sans-serif;
     width: 200px;
-    font-size:15px;
+    font-size: 15px;
 }
 
 .btn__grilla__filtros,
@@ -337,7 +451,7 @@ div.ui-state-highlight {
 
 .administracion__popups__paginacion__grilla {
     justify-content: flex-end;
-    align-items:center;
+    align-items: center;
     margin-top: 6px;
     margin-bottom: 16px;
 }
@@ -411,7 +525,7 @@ div.ui-state-highlight {
     width: 30px;
     height: 26px;
     font-family: 'Lato', sans-serif;
-    background-color:#FFF;
+    background-color: #FFF;
 }
 
 .paginacion__actual,
@@ -508,14 +622,14 @@ div.ui-state-highlight {
     max-width: 30%;
 }
 
-.col__grilla--estado{
+.col__grilla--estado {
     -ms-flex: 0 0 6%;
     -webkit-flex: 0 0 6%;
     flex: 0 0 6%;
     max-width: 6%;
 }
 
-.col__grilla--editar{
+.col__grilla--editar {
     -ms-flex: 0 0 5%;
     -webkit-flex: 0 0 5%;
     flex: 0 0 5%;
@@ -583,13 +697,13 @@ div.ui-state-highlight {
     overflow-wrap: break-word;
 }
 
-    .row__grilla__texto a{
-        color:#000!important;
+    .row__grilla__texto a {
+        color: #000 !important;
     }
 
-    .row__grilla__texto a:hover{
-        text-decoration:underline;
-    }
+        .row__grilla__texto a:hover {
+            text-decoration: underline;
+        }
 
 .enlace__editar {
     -moz-transition: all 0.3s ease;
@@ -865,6 +979,16 @@ div.ui-state-highlight {
 }
 
 /* FIN - MODAL AGREGAR POPUP */
+
+/* FIN - VISTA ADMINISTRACIÓN POPUPS */
+.disabledbutton {
+    pointer-events: none;
+    opacity: 0.4;
+}
+
+/* FIN - MODAL AGREGAR POPUP */
+
+/* FIN - VISTA ADMINISTRACIÓN POPUPS */
 
 /* FIN - VISTA ADMINISTRACIÓN POPUPS */
 .disabledbutton {
