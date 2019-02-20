@@ -111,7 +111,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         {
                             CampaniaID = cliente.CampaniaID,
                             ClienteID = cliente.ClienteID,
-                            NombreCliente = (cliente.ClienteID != 0) ? cliente.NombreCliente : userData.NombreConsultora,
+                            NombreCliente = (cliente.ClienteID != 0) ? cliente.Nombre : userData.NombreConsultora,
                             CantidadPedido = detalleCliente.Sum(x => x.Cantidad),
                             ImportePedido = Util.DecimalToStringFormat(detalleCliente.Sum(x => x.ImporteTotal), userData.CodigoISO, userData.Simbolo),
                             Detalle = new List<MisPedidosIngresadosDetalleModel>()
