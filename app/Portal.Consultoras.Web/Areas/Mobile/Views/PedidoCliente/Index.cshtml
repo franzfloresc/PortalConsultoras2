@@ -62,7 +62,7 @@
                                                 <div class="posr">
                                                     <div class="table-width">
                                                         <div class="upper">
-                                                        @(item3.SetIdentifierNumber > 0 ? "#" + item3.SetIdentifierNumber : "")
+                                                        @(item3.SetIdentifierNumber > 0 ? "#" + item3.SetIdentifierNumber + "-" : "")
                                                         @Html.DisplayTextFor(modelItem => @item3.DescripcionProd)</div>
                                                         <div class="mb-10">
                                                             <div>@Html.DisplayTextFor(modelItem => item3.CUV)</div>
