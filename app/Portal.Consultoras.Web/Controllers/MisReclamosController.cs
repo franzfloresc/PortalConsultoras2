@@ -102,19 +102,7 @@ namespace Portal.Consultoras.Web.Controllers
                 listaCdrWebModel = Mapper.Map<List<ServiceCDR.BECDRWeb>, List<CDRWebModel>>(listaReclamo);
             }
 
-            //if (listaCdrWebModel.Any())
-            //{
-            //    foreach (var item in listaCdrWebModel)
-            //    {
-            //        using (CDRServiceClient sv = new CDRServiceClient())
-            //        {
-            //            var listadetalle
-            //        }
-            //    }
-            //}
-
             
-
             SessionManager.SetListaCDRWebCargaInicial(listaCdrWebModel);
             return listaCdrWebModel;
         }
@@ -146,7 +134,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             //Resultado final calculando la cantidad de todos las Solicitudes por pedido CDR
             var final = (from c in listaCampaniaPedido
-                         join a in pedidoscdrestados on new { c.CampaniaID, c.PedidoID } 
+                         join a in pedidoscdrestados on new { c.CampaniaID, c.PedidoID }
                          equals new { a.CampaniaID, a.PedidoID } into g
                          from d in g.DefaultIfEmpty()
                          select new PedidosEstadoCDRWeb
@@ -173,14 +161,14 @@ namespace Portal.Consultoras.Web.Controllers
 
 
         #region Reclamo
-        public ActionResult Reclamo(int pedidoId = 0)
+        public ActionResult Reclamo(int p = 0,int c = 0)
         {
             var model = new MisReclamosModel
             {
-                PedidoID = pedidoId,
+                PedidoID = p,
                 MensajeGestionCdrInhabilitada = _cdrProvider.MensajeGestionCdrInhabilitadaYChatEnLinea(userData.EsCDRWebZonaValida, userData.IndicadorBloqueoCDR, userData.FechaInicioCampania, userData.ZonaHoraria, userData.PaisID, userData.CampaniaID, userData.ConsultoraID)
             };
-            if (pedidoId == 0 && !string.IsNullOrEmpty(model.MensajeGestionCdrInhabilitada)) return RedirectToAction("Index");
+            if (p == 0 && !string.IsNullOrEmpty(model.MensajeGestionCdrInhabilitada)) return RedirectToAction("Index");
 
             _cdrProvider.CargarInformacion(userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
             model.ListaCampania = SessionManager.GetCDRCampanias();
@@ -190,16 +178,17 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (model.ListaCampania.Count <= 1) return RedirectToAction("Index");
 
-            if (pedidoId != 0)
+            if (p != 0)
             {
-                var listaCdr = _cdrProvider.CargarBECDRWeb(new MisReclamosModel { PedidoID = pedidoId }, userData.PaisID, userData.ConsultoraID);
+                var listaCdr = _cdrProvider.CargarBECDRWeb(new MisReclamosModel { PedidoID = p }, userData.PaisID, userData.ConsultoraID);
                 if (listaCdr.Count == 0) return RedirectToAction("Index");
-
-                if (listaCdr.Count == 1)
+                //HD-3412 EINCA 
+                var listacdrweb = listaCdr.Where(a => a.CDRWebID == c).ToArray();
+                if (listacdrweb.Count() == 1)
                 {
-                    model.CampaniaID = listaCdr[0].CampaniaID;
-                    model.CDRWebID = listaCdr[0].CDRWebID;
-                    model.NumeroPedido = listaCdr[0].PedidoNumero;
+                    model.CampaniaID = listacdrweb[0].CampaniaID;
+                    model.CDRWebID = listacdrweb[0].CDRWebID;
+                    model.NumeroPedido = listacdrweb[0].PedidoNumero;
                 }
             }
 
@@ -453,13 +442,32 @@ namespace Portal.Consultoras.Web.Controllers
 
             //validar si el cuv a cambiar se encuentra en un proceso de solicitud de cambio
             //obtenermos los cdrs de pedidos
-          
-
-            foreach (var item in listaPedidoFacturados.OrderBy(a=>  a.CampaniaID).ThenBy(b=>b.PedidoID))
+            int estado = 0;
+            using (var sv = new CDRServiceClient())
             {
-                //var cuvEnProceso = item.BECDRWeb.Where(a=>a.;
+                estado = sv.ValCUVEnProcesoReclamo(userData.PaisID, model.PedidoID, model.CUV);
             }
-           
+
+            string mensaje = null;
+            switch (estado)
+            {
+                case Constantes.EstadoCDRWeb.Pendiente:
+                case Constantes.EstadoCDRWeb.Enviado:
+                    mensaje = "El CUV se encuentra en un proceso de reclamo";
+                    break;
+                case Constantes.EstadoCDRWeb.Aceptado:
+                    mensaje = "El CUV ya fue tramitado en un proceso de reclamo";
+                    break;
+                default:
+                    mensaje = null;
+                    break;
+            }
+
+            if (mensaje != null)
+            {
+                mensajeError = mensaje;
+                return false;
+            }
 
 
             var pedido = listaPedidoFacturados.FirstOrDefault(p => p.PedidoID == model.PedidoID) ?? new BEPedidoWeb();
@@ -543,7 +551,8 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult ValidarPaso1(MisReclamosModel model)
+
+        public  JsonResult ValidarPaso1(MisReclamosModel model)
         {
             #region Validar Pack y Sets
 
@@ -972,7 +981,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!string.IsNullOrWhiteSpace(model.Email))
                 {
                     string contenidoMailCulminado = CrearEmailReclamoCulminado(cdrWebMailConfirmacion);
-                    Util.EnviarMail("no-responder@somosbelcorp.com", model.Email, "CDR: EN EVALUACIÓN", contenidoMailCulminado, true, userData.NombreConsultora);
+                    //Util.EnviarMail("no-responder@somosbelcorp.com", model.Email, "CDR: EN EVALUACIÓN", contenidoMailCulminado, true, userData.NombreConsultora);
 
                     if (siNoEmail == 1)
                     {
@@ -980,7 +989,7 @@ namespace Portal.Consultoras.Web.Controllers
                         string paramQuerystring = Util.EncriptarQueryString(parametros);
                         string cadena = "<br /><br /> Estimada consultora " + userData.NombreConsultora + " Para confirmar la dirección de correo electrónico ingresada haga click " +
                                          "<br /> <a href='" + Util.GetUrlHost(HttpContext.Request) + "WebPages/MailConfirmation.aspx?data=" + paramQuerystring + "'>aquí</a><br/><br/>Belcorp";
-                        Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", model.Email, "(" + userData.CodigoISO + ") Confimacion de Correo", cadena, true, userData.NombreConsultora);
+                        //Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", model.Email, "(" + userData.CodigoISO + ") Confimacion de Correo", cadena, true, userData.NombreConsultora);
 
                         return Json(new
                         {

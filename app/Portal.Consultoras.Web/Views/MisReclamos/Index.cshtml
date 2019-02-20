@@ -414,6 +414,8 @@
                 var parent = $(elemento).parents(".content_listado_reclamo");
 
                 var id = $(parent).find(".cdrweb_id").val();
+
+
                 var pedidoId = $(parent).find(".cdrweb_pedidoid").val();
                 var estado = $(parent).find(".cdrweb_estado").val();
                 var formatoFechaCulminado = $(parent).find(".cdrweb_formatoFechaCulminado").val();
@@ -423,7 +425,6 @@
                 var mensajeDespacho = IfNull($(parent).find(".cdrweb_mensajedespacho").val(),'');
 
                 $("#hdPedidoIdActual").val(pedidoId);
-
                 var item = {
                     CDRWebID: id || 0,
                     PedidoID: pedidoId || 0,
@@ -432,7 +433,7 @@
 
                 switch (estado) {
                     case "1": //Pendiente
-                        window.location.href = urlReclamo + "?pedidoId=" + pedidoId;
+                        window.location.href = urlReclamo + "?p=" + pedidoId + "&c=" + id;
                         break;
                     case "2": //Enviado
                         ObtenerDetalleCdr(item);
