@@ -555,7 +555,7 @@ var FichaModule = (function (config) {
         var estrategia;
 
         if (_config.tieneSession) {
-            if (_config.esEditable) {
+            if (_config.esEditable || _modeloFicha.TipoAccionNavegar === _tipoAccionNavegar.Volver) {
                 estrategia = _modeloFicha;
             }
             else {

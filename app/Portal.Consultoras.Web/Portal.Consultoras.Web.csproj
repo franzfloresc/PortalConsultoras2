@@ -3963,6 +3963,7 @@
     <Content Include="Scripts\accordion.js" />
     <Content Include="Scripts\AdminContenido\AdministrarEstrategia\NuevoMasivo.js" />
     <Content Include="Scripts\AdminContenido\DescripcionComercial.js" />
+    <Content Include="Scripts\AdminContenido\General.js" />
     <Content Include="Scripts\AdminContenido\Palanca\AdminPalancaDatos.js" />
     <Content Include="Scripts\AdminContenido\MatrizComercialFileUpload.js" />
     <Content Include="Scripts\AdminContenido\ReporteRevisionIncidencias.js" />
