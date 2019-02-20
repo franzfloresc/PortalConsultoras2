@@ -2754,10 +2754,11 @@ function ReordenarMontosBarra()
 
     if (barra.length >= 5) {//IsoPais == 'CR' &&
 
-    for (var x = 0; x < barra.length; x++) {
-  
-            document.getElementById('punto_' + x.toString()).firstChild.firstChild.firstChild.style.fontSize = '9.2px';
-            document.getElementById('punto_' + x.toString()).firstChild.firstChild.firstChild.nextSibling.style.fontSize = '9.2px';
+        for (var x = 0; x < document.getElementsByClassName('EscalaDescuento').length; x++) {
+
+            document.getElementsByClassName('EscalaDescuento')[x].firstChild.firstChild.firstChild.style.fontSize = '9.2px';
+            document.getElementsByClassName('EscalaDescuento')[x].firstChild.firstChild.firstChild.nextSibling.style.fontSize = '9.2px';
+ 
     
     }
  
