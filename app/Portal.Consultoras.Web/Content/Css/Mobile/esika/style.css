@@ -4800,7 +4800,7 @@ body {
         line-height: 15px;
         -webkit-border-radius: 0;
         -webkit-appearance: none !important;
-        text-transform: uppercase;
+ 
     }
 
 .btn_agregarPedido input, .btn_guardarPedido input {
