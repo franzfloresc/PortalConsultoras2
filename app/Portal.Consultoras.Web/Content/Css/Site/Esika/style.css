@@ -23646,12 +23646,13 @@ input[type='checkbox']:checked + span:after {
     font-family: 'lato';
     font-size: 10pt;
 }
+
 /*BARRA ESCALA DESCUENTO*/
 .content_BarrMensaje {
     min-height: 25px;
     float: left;
     padding-left: 0;
-    padding-right: 15px;
+    padding-bottom:7px;
     border-bottom: 1px solid black;
 }
 
@@ -34301,10 +34302,12 @@ div.motivoRechazo textarea {
 
 /* MEJORA CONTINUA CONSULTORAS - HD-2212 - PROGRAMA DE NUEVAS: MOSTRAR IMAGEN DEL REGALO EN LA BARRA DE DESCUENTOS */
 
-.monto_meta_tippingPoint{
-    margin-top:2px;
-    font-size:12px;
-    color:#e81c36;
+.monto_meta_tippingPoint {
+    margin-top: 2px;
+    font-size: 12px;
+    color: #b9007e;
+    position:relative;
+    top:-50px;
 }
 
 .contenedor_tippingPoint {
