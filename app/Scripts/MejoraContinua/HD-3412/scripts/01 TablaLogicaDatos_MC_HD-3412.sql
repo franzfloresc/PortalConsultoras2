@@ -1,5 +1,6 @@
-USE BelcorpPeru
+ï»¿USE BelcorpPeru
 GO
+
 
 INSERT INTO dbo.TablaLogica (
 	TablaLogicaID
@@ -7,7 +8,7 @@ INSERT INTO dbo.TablaLogica (
 	)
 VALUES (
 	170
-	,'N° de solicitudes por pedido'
+	,'NÂ° de solicitudes por pedido.'
 	)
 
 INSERT INTO dbo.TablaLogicaDatos (
@@ -21,7 +22,7 @@ VALUES (
 	15500
 	,170
 	,'01'
-	,'Número de solicitudes por pedido'
+	,'NÃºmero de solicitudes por pedido'
 	,'2'
 	);
 GO
@@ -35,7 +36,7 @@ INSERT INTO dbo.TablaLogica (
 	)
 VALUES (
 	170
-	,'N° de solicitudes por pedido'
+	,'NÂ° de solicitudes por pedido'
 	)
 
 INSERT INTO dbo.TablaLogicaDatos (
@@ -49,7 +50,7 @@ VALUES (
 	15500
 	,170
 	,'01'
-	,'Número de solicitudes por pedido'
+	,'NÃºmero de solicitudes por pedido'
 	,'2'
 	);
 GO
@@ -63,7 +64,7 @@ INSERT INTO dbo.TablaLogica (
 	)
 VALUES (
 	170
-	,'N° de solicitudes por pedido'
+	,'NÂ° de solicitudes por pedido'
 	)
 
 INSERT INTO dbo.TablaLogicaDatos (
@@ -77,7 +78,7 @@ VALUES (
 	15500
 	,170
 	,'01'
-	,'Número de solicitudes por pedido'
+	,'NÃºmero de solicitudes por pedido'
 	,'2'
 	);
 GO
@@ -91,7 +92,7 @@ INSERT INTO dbo.TablaLogica (
 	)
 VALUES (
 	170
-	,'N° de solicitudes por pedido'
+	,'NÂ° de solicitudes por pedido'
 	)
 
 INSERT INTO dbo.TablaLogicaDatos (
@@ -105,7 +106,7 @@ VALUES (
 	15500
 	,170
 	,'01'
-	,'Número de solicitudes por pedido'
+	,'NÃºmero de solicitudes por pedido'
 	,'2'
 	);
 GO
@@ -119,7 +120,7 @@ INSERT INTO dbo.TablaLogica (
 	)
 VALUES (
 	170
-	,'N° de solicitudes por pedido'
+	,'NÂ° de solicitudes por pedido'
 	)
 
 INSERT INTO dbo.TablaLogicaDatos (
@@ -133,7 +134,7 @@ VALUES (
 	15500
 	,170
 	,'01'
-	,'Número de solicitudes por pedido'
+	,'NÃºmero de solicitudes por pedido'
 	,'2'
 	);
 GO
@@ -147,7 +148,7 @@ INSERT INTO dbo.TablaLogica (
 	)
 VALUES (
 	170
-	,'N° de solicitudes por pedido'
+	,'NÂ° de solicitudes por pedido'
 	)
 
 INSERT INTO dbo.TablaLogicaDatos (
@@ -161,7 +162,7 @@ VALUES (
 	15500
 	,170
 	,'01'
-	,'Número de solicitudes por pedido'
+	,'NÃºmero de solicitudes por pedido'
 	,'2'
 	);
 GO
@@ -175,7 +176,7 @@ INSERT INTO dbo.TablaLogica (
 	)
 VALUES (
 	170
-	,'N° de solicitudes por pedido'
+	,'NÂ° de solicitudes por pedido'
 	)
 
 INSERT INTO dbo.TablaLogicaDatos (
@@ -189,7 +190,7 @@ VALUES (
 	15500
 	,170
 	,'01'
-	,'Número de solicitudes por pedido'
+	,'NÃºmero de solicitudes por pedido'
 	,'2'
 	);
 GO
@@ -203,7 +204,7 @@ INSERT INTO dbo.TablaLogica (
 	)
 VALUES (
 	170
-	,'N° de solicitudes por pedido'
+	,'NÂ° de solicitudes por pedido'
 	)
 
 INSERT INTO dbo.TablaLogicaDatos (
@@ -217,7 +218,7 @@ VALUES (
 	15500
 	,170
 	,'01'
-	,'Número de solicitudes por pedido'
+	,'NÃºmero de solicitudes por pedido'
 	,'2'
 	);
 GO
@@ -231,7 +232,7 @@ INSERT INTO dbo.TablaLogica (
 	)
 VALUES (
 	170
-	,'N° de solicitudes por pedido'
+	,'NÂ° de solicitudes por pedido'
 	)
 
 INSERT INTO dbo.TablaLogicaDatos (
@@ -245,7 +246,7 @@ VALUES (
 	15500
 	,170
 	,'01'
-	,'Número de solicitudes por pedido'
+	,'NÃºmero de solicitudes por pedido'
 	,'2'
 	);
 GO
@@ -259,7 +260,7 @@ INSERT INTO dbo.TablaLogica (
 	)
 VALUES (
 	170
-	,'N° de solicitudes por pedido'
+	,'NÂ° de solicitudes por pedido'
 	)
 
 INSERT INTO dbo.TablaLogicaDatos (
@@ -273,12 +274,15 @@ VALUES (
 	15500
 	,170
 	,'01'
-	,'Número de solicitudes por pedido'
+	,'NÃºmero de solicitudes por pedido'
 	,'2'
 	);
 
+go
+
 USE BelcorpPuertoRico
 GO
+
 
 INSERT INTO dbo.TablaLogica (
 	TablaLogicaID
@@ -286,8 +290,9 @@ INSERT INTO dbo.TablaLogica (
 	)
 VALUES (
 	170
-	,'N° de solicitudes por pedido'
+	,'NÂ° de solicitudes por pedido'
 	)
+
 
 INSERT INTO dbo.TablaLogicaDatos (
 	TablaLogicaDatosID
@@ -300,7 +305,7 @@ VALUES (
 	15500
 	,170
 	,'01'
-	,'Número de solicitudes por pedido'
+	,'NÃºmero de solicitudes por pedido'
 	,'2'
 	);
 GO
@@ -314,7 +319,7 @@ INSERT INTO dbo.TablaLogica (
 	)
 VALUES (
 	170
-	,'N° de solicitudes por pedido'
+	,'NÂ° de solicitudes por pedido'
 	)
 
 INSERT INTO dbo.TablaLogicaDatos (
@@ -328,6 +333,6 @@ VALUES (
 	15500
 	,170
 	,'01'
-	,'Número de solicitudes por pedido'
+	,'NÃºmero de solicitudes por pedido'
 	,'2'
 	);
