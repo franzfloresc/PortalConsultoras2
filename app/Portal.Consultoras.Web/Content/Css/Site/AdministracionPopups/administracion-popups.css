@@ -117,7 +117,7 @@ div.ui-state-highlight {
 /* ESTILOS MODIFICADORES JQUERY UI (LOADING) */
 
 .ui-widget-overlay {
-    z-index: 2000 !important;
+    z-index: 4000!important;
 }
 
 .ui-dialog.ui-widget-content.loadingScreenWindow {
@@ -126,7 +126,7 @@ div.ui-state-highlight {
     color: #555 !important;
     border-radius: 0;
     border: 0;
-    z-index: 2001 !important;
+    z-index: 4001!important;
 }
 
 .ui-dialog .ui-dialog-titlebar {
