@@ -27,7 +27,7 @@
 
             <div class="col-md-6 col-xs-12 d-flex flex-row-reverse content_boton_agregar d-none">
                 <button id="btnBuscarClientes" class="boton_agregar float-md-right" onclick="tusClientesModule.editarCliente(null)"> <img src="/Content/Images/nuevo_tuclientes.svg" alt="Alternate Text" />AGREGAR CLIENTE</button>
-                <button class="botton_export_xls"><img src="/Content/Images/icon_xls.svg" /></button>
+                <button id="btnExportarClientes" class="botton_export_xls"><img src="/Content/Images/icon_xls.svg" /></button>
                 @*<input id="btnBuscarClientes"
                     type="button"
                     class="boton_agregar float-md-right"
@@ -103,6 +103,26 @@
                        onclick="tusClientesModule.mostarConfirmarEliminarCliente({{ClienteID}})" />
             </div>
         </div>
+        <div id="divConfirmarEliminarCliente-{{ClienteID}}" style="display:none" class="popover_pedido bottom">
+            <div class="arrow"></div>
+            <div class="row">
+                <div class="col-lg-8 col-12 d-flex align-items-center">
+                    <p style="margin-bottom:10px">¿Quieres eliminar a {{Nombre}}?</p>
+                </div>
+                <div class="col-lg-4 col-12 flex-row-reverse d-flex align-items-center">
+                    <div class="boton-primaria">
+                        <button class="default-background" onclick="tusClientesModule.eliminarCliente({{ClienteID}});">
+                            SÍ, ELIMINAR
+                        </button>
+                    </div>
+                    <div class="boton-secundario" style="margin-right:15px;">
+                        <button onclick="tusClientesModule.ocultarConfirmarEliminarCliente({{ClienteID}});">
+                            No Gracias
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
         {{/each}}
     </script>
 
@@ -125,26 +145,7 @@
         @Html.Partial("_Mantener", new ClienteModel())
     </div>
 
-    <div id="divConfirmarEliminarCliente" style="display:none" class="popover_pedido bottom">
-        <div class="arrow"></div>
-        <div class="row">
-            <div class="col-lg-8 col-12 d-flex align-items-center">
-                <p style="margin-bottom:10px">¿Quieres eliminar a Renzo Vidal?</p>
-            </div>
-            <div class="col-lg-4 col-12 flex-row-reverse d-flex align-items-center">
-                <div class="boton-primaria">
-                    <button class="default-background" onclick="tusClientesModule.eliminarCliente();">
-                        SÍ, ELIMINAR
-                    </button>
-                </div>
-                <div class="boton-secundario" style="margin-right:15px;">
-                    <button onclick="tusClientesModule.ocultarConfirmarEliminarCliente();">
-                        No Gracias
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
+    
     <div id="content_boton_agregar_ancla"></div>
     <div class="row d-md-none" >
         <div id="content_boton_agregar" class="col-12 content_boton_agregar">
@@ -166,8 +167,8 @@
     <script type="text/javascript">
         var tusClientesProvider = TusClientesProvider();
         var tusClientesModule = TusClientesModule({
-            tusClientesProvider,
-            checkTimeout
+            tusClientesProvider: tusClientesProvider,
+            checkTimeout: checkTimeout
         });
         //var panelMantenerModule = PanelMantenerModule({
         //    tusClientesProvider,
