@@ -1254,7 +1254,7 @@
                 codigo == _codigoEstrategia.ArmaTuPack),
             multiselectWidth: 35,
             colNames: [
-                "EstrategiaID", "Orden", "#", "Pedido Asociado", "Precio", "CUV2", "Descripción", "Limite Venta", "Código SAP", "ImagenURL",
+                "EstrategiaID", "Orden", "#", "Pedido asociado", "Precio", "CUV2", "Descripción", "Límite venta", "Código SAP", "ImagenURL",
                 "Activo", "EsOfertaIndependiente", "FlagValidarImagen", "PesoMaximoImagen", "_id"
                 , "CodigoTipoEstrategia", "Foto", colNameActions, "Productos",
                 "Grupos"
@@ -4292,7 +4292,7 @@
         $("#txtPrecioValorizadoDetalle").val(jQuery("#list").jqGrid("getCell", ID, "Precio2"));
 
         /*INI ATP*/
-        var newTitulo = $("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ArmaTuPack ? "Edición de Grupos" : "Edición de Productos"
+        var newTitulo = $("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ArmaTuPack ? "Edición de grupos" : "Edición de Productos"
         $('#DialogRegistroOfertaShowRoomDetalle').dialog('option', 'title', newTitulo);
         /*END ATP*/
 
@@ -4389,7 +4389,7 @@
 
         if ($("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ArmaTuPack) {
             //Descriptivo para Grupos ATP
-            newTitulo = "Registro / Edición de Grupos";
+            newTitulo = "Registro / Edición de grupos";
             newLabel0 = "Nombre de Grupos:";
             newLabel1 = ' ';
             newLabel2 = ' ';
