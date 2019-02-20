@@ -941,17 +941,10 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                /*INI ATP*/
-                string mensaje = "Se actualizó el Producto satisfactoriamente.";
-                if (model.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.ArmaTuPack) {
-                    mensaje = "Se actualizó la información.";
-                }
-                /*INI ATP*/
-
                 return Json(new
                 {
                     success = true,
-                    message = mensaje,
+                    message = "Se actualizó el Producto satisfactoriamente.",
                     extra = ""
                 });
             }
