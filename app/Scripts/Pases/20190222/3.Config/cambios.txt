@@ -25,6 +25,7 @@ Modificar (PRD)
 
 Modificar (QAS y PPR)
     <add key="RutaServiceConsultaPROL" value="http://internal-qaelb-webprol-182416748.us-east-1.elb.amazonaws.com:81/" />
+    <add key="UrlMicroservicioPersonalizacionSearch" value="http://internal-elbwcf-sbmicroserviciosqas-1282604982.us-east-1.elb.amazonaws.com:5004/"/>
 
 4.- Microservicios (QAS, PPR):
 	Sync
