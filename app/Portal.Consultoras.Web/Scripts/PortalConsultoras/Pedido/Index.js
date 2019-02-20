@@ -28,7 +28,6 @@ var cuvEsProgNuevas = false;
 var pedidoProvider = PedidoProvider();
 
 $(document).ready(function () {
-     
     ValidarKitNuevas();
     var hdDataBarra = $("#hdDataBarra").val();
     if ($.trim(hdDataBarra) != "") {
@@ -449,6 +448,7 @@ $(document).ready(function () {
         //} else {
         //    CerrarSplash();
         //    AbrirMensaje(validarEstrategia.message);
+        //    ProductoRecomendadoModule.OcultarProductosRecomendados();
         //    $("#btnAgregar").removeAttr("disabled");
         //}
 

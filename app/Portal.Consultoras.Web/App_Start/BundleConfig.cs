@@ -83,7 +83,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/respond.min.js",
                 "~/Scripts/trans-banner.js",
                 "~/Scripts/jquery.tmpl.js",
-                "~/Scripts/LogError.js"
+                "~/Scripts/LogError.js",
+                "~/Scripts/AdminContenido/General.js"
             ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/PluginsFooterSAC").Include(
@@ -739,6 +740,9 @@ namespace Portal.Consultoras.Web
             ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mixto/TusClientesIndex").Include(
+                "~/Scripts/PortalConsultoras/Shared/ConstantesModule.js",
+                "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js",
+                "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js",
                 "~/Scripts/PortalConsultoras/TusClientes/TusClientesProvider.js",
                 "~/Scripts/PortalConsultoras/TusClientes/TusClientesModule.js",
                 "~/Scripts/PortalConsultoras/TusClientes/PanelMantenerModule.js"
