@@ -45,7 +45,7 @@ var TusClientesModule = function (config) {
 
     var _ocultarEditarCliente = function () {
         
-        $(_elements.divPopupEditarCliente).css("margin-right", "-330px");
+        $(_elements.divPopupEditarCliente).removeClass("show_PopupEditarCliente");
         setTimeout(function () {
             $(_elements.divPopupEditarCliente).hide();
             $("body").css("overflow", "auto");
@@ -58,7 +58,7 @@ var TusClientesModule = function (config) {
         _panelMantenerCliente.setCliente(cliente)
         $("body").css("overflow", "hidden");
         $(_elements.divPopupEditarCliente).show();
-        $(_elements.divPopupEditarCliente).css("margin", "0");
+        $(_elements.divPopupEditarCliente).addClass("show_PopupEditarCliente");
 
         $('.ImputForm-item input').each(function () {
             if ($(this).val().length !== 0) {
@@ -120,7 +120,35 @@ var TusClientesModule = function (config) {
         });
 
         _ocultarEditarCliente();
-           
+
+            $(window).scroll(function () {
+        var scrollTop = $(this).scrollTop();
+        
+        if (scrollTop > 230) {
+            $("#fitros_fixed").addClass("fitros_fixed");
+            $("#fitros_fixed").fadeIn();
+        }
+        else {
+            $("#fitros_fixed").removeClass("fitros_fixed");
+            $("#fitros_fixed").removeAttr('style');
+        }
+    });
+
+    $(window).scroll(function () {
+        var hT = $('#content_boton_agregar_ancla').offset().top,
+            hH = $('#content_boton_agregar_ancla').outerHeight(),
+            wH = $(window).height(),
+            wS = $(this).scrollTop();
+        console.log((hT - wH), wS);
+        if (wS > (hT + hH - wH)) {
+            $("#content_boton_agregar").addClass("content_boton_agregar_ancla");
+            //$("#content_boton_agregar").fadeIn();
+        } else {
+            //$("#content_boton_agregar").removeAttr('style');
+            $("#content_boton_agregar").removeClass("content_boton_agregar_ancla");
+            
+        }
+    });
     };
 
     return {

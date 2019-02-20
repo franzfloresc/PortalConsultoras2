@@ -50,7 +50,7 @@ var ResumenOpcionesModule = (function () {
 
         return false;
     };
-    
+
     var _verificarActivarBtn = function (codigoVariante) {
         if (codigoVariante.in(_codigoVariedad.CompuestaVariable, _codigoVariedad.IndividualVariable)) {
             var activarBtnAgregar = true;
@@ -60,10 +60,10 @@ var ResumenOpcionesModule = (function () {
             });
             if (activarBtnAgregar) EstrategiaAgregarModule.HabilitarBoton();
         }
-    } 
+    }
 
     var AplicarOpciones = function (callFromSeleccionarPaletaOpcion) {
-        
+
         var callCloseElegirOpcionesModal = callFromSeleccionarPaletaOpcion ? !callFromSeleccionarPaletaOpcion : true;
         _componente = ListaOpcionesModule.GetComponente() || _componente;
         if (!(_componente.FactorCuadre === _componente.HermanosSeleccionados.length)) {
@@ -79,10 +79,10 @@ var ResumenOpcionesModule = (function () {
 
         _actualizarCantidadAplicada(codigoVariante);
 
-        var resumenOpcionesContenedor = _elements.resumenOpciones.id +"-"+_componente.Cuv;
+        var resumenOpcionesContenedor = _elements.resumenOpciones.id + "-" + _componente.Cuv;
 
         $(resumenOpcionesContenedor).siblings(_elements.tonosSelectOpt).hide();
-        
+
         $(resumenOpcionesContenedor).show();
 
         if (callCloseElegirOpcionesModal) {
@@ -93,7 +93,7 @@ var ResumenOpcionesModule = (function () {
 
         $(resumenOpcionesContenedor).parents("[data-opciones-seleccionadas]").attr("data-opciones-seleccionadas", _componente.FactorCuadre);
 
-        
+
         if (codigoVariante == _codigoVariedad.IndividualVariable) {
             var OpcionPaleta = "[data-tono-cuv='[CUV]']";
             $.each(_componente.Hermanos, function (index, opcion) {
@@ -104,8 +104,11 @@ var ResumenOpcionesModule = (function () {
             $(_elements.dataTonoDiv).find(_elements.dataTonoCuv).removeClass(_elements.bordeSeleccionTono);
             $(_elements.dataTonoDiv).find(OpcionPaleta).addClass(_elements.bordeSeleccionTono);
         }
-        
+
         _verificarActivarBtn(codigoVariante);
+
+        console.log('AplicarOpciones - DivPopupFichaResumida overflow auto');
+        $("#DivPopupFichaResumida").css("overflow", "auto");
 
         if (callCloseElegirOpcionesModal) {
             var estrategia = fichaModule.GetEstrategia();
@@ -115,17 +118,17 @@ var ResumenOpcionesModule = (function () {
             } else {
                 $.each(_componente.resumenAplicados, function (index, opcion) {
                     if (opcion.cantidadSeleccionada > 0) {
-                        nombreConcat += " " + estrategia.DescripcionCompleta +" " + opcion.NombreBulk + " |";
+                        nombreConcat += " " + estrategia.DescripcionCompleta + " " + opcion.NombreBulk + " |";
                     }
                 });
 
                 nombreConcat = Left(nombreConcat, nombreConcat.length - 1).trim();
-                
+
                 AnalyticsPortalModule.MarcarPopupBotonAplicarSeleccionVariasOpciones(nombreConcat);
             }
         }
-        
-        
+
+
         return false;
     };
 
@@ -134,15 +137,35 @@ var ResumenOpcionesModule = (function () {
         $("div[data-opciones-seleccionadas]").each(function () {
             $(this).attr("data-opciones-seleccionadas", "0");
         });
+
+        if (isPagina('Pedido')) {
+            var seccionProductosRecomendados = $('.divProductosRecomendados');
+            seccionProductosRecomendados.slideUp(200);
+            $("#txtDescripcionProd").val("");
+            $("#hdfDescripcionProd").val("");
+            $("#txtPrecioR").val("");
+            $("#txtCantidad").val("");
+            $("#divMensaje").text("");
+            $("#txtCUV").val("");
+            $("#txtCUV").focus();
+            if (isMobile()) {
+                PedidoOnSuccess()
+                VisibleEstrategias(true);
+                $("#divResumenPedido").show();
+                $("footer").show();
+                $(".footer-page").css({ "margin-bottom": "0px" });
+                $("#divProductoMantenedor").hide();
+            }
+        }
         return false;
     };
-    
+
     return {
         AplicarOpciones: AplicarOpciones,
         LimpiarOpciones: LimpiarOpciones
     };
 }());
 
-opcionesEvents.subscribe("onComponentSelected", function(componente) {
+opcionesEvents.subscribe("onComponentSelected", function (componente) {
 
 });

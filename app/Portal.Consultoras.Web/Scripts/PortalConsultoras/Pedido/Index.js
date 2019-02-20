@@ -29,7 +29,7 @@ var pedidoProvider = PedidoProvider();
 
 $(document).ready(function () {
      
-    //ValidarKitNuevas();
+    ValidarKitNuevas();
     var hdDataBarra = $("#hdDataBarra").val();
     if ($.trim(hdDataBarra) != "") {
         dataBarra = JSON.parse(hdDataBarra);
@@ -449,7 +449,6 @@ $(document).ready(function () {
         //} else {
         //    CerrarSplash();
         //    AbrirMensaje(validarEstrategia.message);
-        //    ProductoRecomendadoModule.OcultarProductosRecomendados();
         //    $("#btnAgregar").removeAttr("disabled");
         //}
 

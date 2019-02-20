@@ -522,7 +522,7 @@ var EstrategiaAgregarModule = (function () {
                     }
                 }
                 if (!IsNullOrEmpty(data.mensajeAviso)) AbrirMensaje(data.mensajeAviso, data.tituloMensaje);
-                if (_config.esFicha) {
+                if (estrategia.TipoAccionNavegar == ConstantesModule.TipoAccionNavegar.Volver) {
                     FichaPartialModule.ShowDivFichaResumida(false);
                 }
                 return false;
