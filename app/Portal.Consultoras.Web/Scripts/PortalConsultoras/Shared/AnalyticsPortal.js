@@ -2681,6 +2681,48 @@ var AnalyticsPortalModule = (function () {
         });
     }
 
+    var marcaFichaDetalleRecomendado = function (strData, position) {
+
+        var jsonData = jQuery.parseJSON(strData);
+
+        var _event = _evento.productClick;
+        var _currencyCode = AnalyticsPortalModule.GetCurrencyCodes(_constantes.codigoPais);
+        var _productName = jsonData.Descripcion;
+        var _id = jsonData.CUV;
+        var _price = jsonData.Precio;
+        var _brand = _getMarca(jsonData.MarcaId);
+        var _category = _texto.notavaliable;
+        var _variant = _texto.estandar;
+        var _position = position;
+        var _list = "Pedido - Ofertas Relacionadas";
+
+        try {
+            dataLayer.push({
+                "event": _event,
+                "ecommerce": {
+                    "currencyCode": _currencyCode,
+                    "click": {
+                        "actionField": {
+                            "list": _list
+                        },
+                        "products": [{
+                            "name": _productName,
+                            "id": _id,
+                            "price": _price,
+                            "brand": _brand,
+                            "category": _category,
+                            "variant": _variant,
+                            "position": _position
+                        }]
+                    }
+                }
+            });
+        } catch (e) {
+            console.log(_texto.exception + e);
+        }
+
+    }
+
     ////////////////////////////////////////////////////////////////////////////////////////
     // Fin - Analytics Buscador
     ////////////////////////////////////////////////////////////////////////////////////////
@@ -2802,6 +2844,7 @@ var AnalyticsPortalModule = (function () {
         MarcaEliminarEtiqueta: marcaEliminarEtiqueta,
         MarcaLimpiarFiltros: marcaLimpiarFiltros,
         MarcaBotonFiltro: marcaBotonFiltro,
-        MarcaBotonAplicarFiltro: marcaBotonAplicarFiltro
+        MarcaBotonAplicarFiltro: marcaBotonAplicarFiltro,
+        MarcaFichaDetalleRecomendado: marcaFichaDetalleRecomendado
     }
 })();
