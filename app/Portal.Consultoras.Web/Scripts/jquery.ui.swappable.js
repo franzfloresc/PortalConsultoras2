@@ -165,7 +165,6 @@ $.widget("ui.swappable", $.ui.sortable, {
 		var itemPassive = $(target).closest(o.items);
 		var itemActive = this.currentItem.closest(o.items);
         var itemPlaceholder = $(itemActive).next();
-        debugger;
 
         /*Agregardo para el inercambio de orden***************************HD-3344*/
         var valuePassive = itemPassive[0].getAttribute("orden");
