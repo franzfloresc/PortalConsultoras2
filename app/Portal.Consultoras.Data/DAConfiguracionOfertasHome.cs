@@ -71,6 +71,7 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
+        
         #region App
         public IDataReader GetApp(int configuracionOfertasHomeID)
         {
@@ -93,6 +94,14 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "AppCantidadProductos", DbType.Int32, entity.AppCantidadProductos);
             Context.ExecuteNonQuery(command);
         }
+
+        public IDataReader GetListarSeccionAPP(int campaniaId)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ConfiguracionOfertasHomeAppListarSecciones");
+            Context.Database.AddInParameter(command, "CampaniaId", DbType.Int32, campaniaId);
+            return Context.ExecuteReader(command);
+        }
+        
         #endregion
     }
 }

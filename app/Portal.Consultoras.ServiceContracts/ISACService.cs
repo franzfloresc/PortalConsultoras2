@@ -705,6 +705,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         IList<BEConfiguracionOfertasHome> ListarSeccionConfiguracionOfertasHome(int paisId, int campaniaId);
+
+        [OperationContract]
+        IList<BEConfiguracionOfertasApp> ListarSeccionConfiguracionOfertasApp(int paisId, int campaniaId);
         #endregion
 
         #region Estrategia

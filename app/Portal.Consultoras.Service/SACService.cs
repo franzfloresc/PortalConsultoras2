@@ -1433,6 +1433,11 @@ namespace Portal.Consultoras.Service
             var bl = new BLConfiguracionOfertasHome();
             return bl.GetListarSeccion(paisId, campaniaId);
         }
+        public IList<BEConfiguracionOfertasApp> ListarSeccionConfiguracionOfertasApp(int paisId, int campaniaId)
+        {
+            var bl = new BLConfiguracionOfertasHome();
+            return bl.GetListarSeccionAPP(paisId, campaniaId);
+        }
         #endregion
 
         #region Estrategia
