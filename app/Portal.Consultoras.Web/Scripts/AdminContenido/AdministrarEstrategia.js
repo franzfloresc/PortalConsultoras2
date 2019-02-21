@@ -365,12 +365,12 @@
             var newTitulo = "Registro de Estrategias";
             if ($("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ArmaTuPack) {
                 newTitulo = "Edición de Tácticas";
-                
+
                 $('#tabControl1').hide();
-                $('#divSeccionImagenes').hide();                
+                $('#divSeccionImagenes').hide();
             }
             $('#DialogAdministracionEstrategia').dialog('option', 'title', newTitulo);
-              
+
             /*END ATP*/
 
             showDialog("DialogAdministracionEstrategia");
@@ -815,8 +815,6 @@
             _id = rowObject[14];
 
         var edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').EditarProducto('" + id + "','" + campaniaId + "','" + cuv + "',event);\" >" + "<img src='" + _config.rutaImagenEdit + "' alt='Editar Productos ShowRoom' title='Editar Productos ShowRoom' border='0' /></a>";
-
-        //showDialog('DialogGrupoEstrategia');
 
         return edit;
     }
@@ -2473,7 +2471,7 @@
             closeOnEscape: true,
             width: 830,
             draggable: false,
-            title: "Grupo de Estrategia",
+            title: "Configurar grupo de estrategia",
             close: function (event, ui) { $(".ui-dialog-titlebar-close", ui.dialog).show(); },
             open: function (event, ui) { $(".ui-dialog-titlebar-close", ui.dialog).hide(); },
             buttons:
@@ -4489,6 +4487,60 @@
             }
         });
     }
+    var correlativo = 0;
+    function AbrirGrupoEstrategia() {
+        correlativo++;
+        showDialog('DialogGrupoEstrategia');
+        var mydata = [{
+            name: "Toronto " + correlativo.toString(),
+            country: "Canada",
+            continent: "North America"
+        }, {
+            name: "New York City",
+            country: "USA",
+            continent: "North America"
+        }, {
+            name: "Silicon Valley",
+            country: "USA",
+            continent: "North America"
+        }, {
+            name: "Paris",
+            country: "France",
+            continent: "Europe"
+        }];
+         
+        if (correlativo == 1) {
+            $("#listGrupoEstrategia").jqGrid({
+                data: mydata,
+                datatype: "local",
+                colNames: ["Name", "Country", "Continent"],
+                colModel: [{
+                    name: 'name',
+                    index: 'name',
+                    editable: true,
+                }, {
+                    name: 'country',
+                    index: 'country',
+                    editable: true,
+                }, {
+                    name: 'continent',
+                    index: 'continent',
+                    editable: true,
+                }],
+                pager: '#pagerGrupoEstrategia',
+                'cellEdit': true,
+                'cellsubmit': 'clientArray',
+                editurl: 'clientArray',
+
+                width: "auto",
+                height: 400,
+                hoverrows: false
+            });
+        } else {
+            $("#listGrupoEstrategia").setGridParam({ data: mydata }).trigger("reloadGrid", [{ page: 1 }]);            
+        }
+        
+    }
 
     function Inicializar() {
         _iniDialog();
@@ -4512,7 +4564,12 @@
             $("#matriz-busqueda-nemotecnico").hide();
         }
 
+        /*INIT ATP*/
+        $("#btnGrupoEstrategia").click(function () {
 
+            AbrirGrupoEstrategia();
+        });
+        /*END ATP*/
     }
 
     return {
