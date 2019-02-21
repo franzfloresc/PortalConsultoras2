@@ -36,7 +36,7 @@
                     }
                 }
                 <h2 class="nombre_campania_pedido">
-                    MI PEDIDO
+                    Mi pedido
                     <span>@Model.DescripcionCampaniaActual</span>
                 </h2>
 
@@ -106,7 +106,7 @@
         <div class="titulo_compartir"><b>IMPORTANTE</b></div>
         <div class="mensaje_alerta" id="modal-prol-contenido"></div>
         <div id="modal-prol-botoneAceptar">
-            <a href="javascript:;" onclick="closeDialogObservacionesProl()" class="btn_ok_mobile"><b>OK</b></a>
+            <a href="javascript:;" onclick="closeDialogObservacionesProl()" class="btn_ok_mobile"><b>Ok</b></a>
         </div>
     </div>
 </div>
@@ -149,7 +149,7 @@
         </a>
         <hr class="clear">
         <div class="icono_alerta check_icono_mobile"></div>
-        <div class="titulo_compartir">¡LO <b>LOGRASTE</b>!</div>
+        <div class="titulo_compartir">¡Lo <b>lograste</b>!</div>
         <div class="mensaje_alerta">Tu pedido fue guardado con éxito</div>
         <a class="btn_ok_mobile"><b>OK</b></a>
     </div>
@@ -279,7 +279,7 @@
         </div>
     </div>
     <div class="montos_resumen">
-        <span><b data-cantidadproducto="">{{this.TotalProductos}}</b>&nbsp;&nbsp;UNIDAD</span>
+        <span><b data-cantidadproducto="">{{this.TotalProductos}}</b>&nbsp;&nbsp;Unidad(es)</span>
         <span><b>{{SimboloMoneda}}&nbsp;&nbsp;</b><b data-pedidocondescuento="">{{FormatoTotalConDescuento}}</b></span>
         <span class="mi_ganancia"><b>{{SimboloMoneda}}&nbsp;&nbsp;</b><b class="lblDescripcionGanancia" data-ganancia="">{{FormatoMontoGanancia}}</b></span>
     </div>
@@ -509,8 +509,8 @@
                     <div class="tooltip_validado_importe">
                         <div class="left_reservado">
                             <div class="datos_Reservado">
-                                <span>Total sin Dscto. </span>
-                                <span>Dscto por niveles</span>
+                                <span>Subtotal: </span>
+                                <span>Descuento ofertas por niveles:</span>
                             </div>
                         </div>
                         <div class="right_reservado">
@@ -530,7 +530,7 @@
         </div>
 
         <div class="montos_resumen">
-            <span><b data-cantidadproducto="">{{TotalProductos}}</b>&nbsp;&nbsp;UNIDADES</span>
+            <span><b data-cantidadproducto="">{{TotalProductos}}</b>&nbsp;&nbsp;Unidad(es)</span>
             <span><b>{{SimboloMoneda}}&nbsp;&nbsp;</b><b data-pedidocondescuento="">{{FormatoTotalConDescuento}}</b></span>
             <span class="mi_ganancia"><b>{{SimboloMoneda}}&nbsp;&nbsp;</b><b data-ganancia="">{{FormatoMontoGanancia}}</b></span>
         </div>

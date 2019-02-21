@@ -141,8 +141,8 @@
                                 <div class="tooltip_validado_importe">
                                     <div class="left_reservado">
                                         <div class="datos_Reservado">
-                                            <span>Total sin Dscto. </span>
-                                            <span>Dscto por niveles</span>
+                                            <span>Subtotal: </span>
+                                            <span>Descuento ofertas por niveles:</span>
                                         </div>
                                     </div>
                                     <div class="right_reservado">
@@ -155,7 +155,7 @@
                             </div>
 
 
-                            MONTO TOTAL :
+                            Total:
                         </span>
                         @{
                             string cabezaEscala = null, pieEscala = null;
@@ -217,17 +217,17 @@
                         <input type="hidden" id="hdeLbl2Ganancia" value="@lbl2Ganancia" />
                         <input type="hidden" id="hdfEsBusquedaSR" />
                         <input type="hidden" id="hdfEstrategiaId" value="0" />
-                        <span class="mi_ganancia" style="margin-left:30px;">@(cabezaEscala.ToUpper().Trim()) :</span>
+                        <span class="mi_ganancia" style="margin-left:30px;">@(cabezaEscala.Trim()) :</span>
                     </div>
 
                     <div class="montos_resumen">
-                        <span><b data-cantidadproducto="">@Model.CantidadProductos</b>&nbsp;&nbsp;UNIDADES</span>
+                        <span><b data-cantidadproducto="">@Model.CantidadProductos</b>&nbsp;&nbsp;Unidad(es)</span>
                         <span><b>@Model.Simbolo&nbsp;&nbsp;</b><b data-pedidocondescuento="">@Model.MontoConDsctoStr</b></span>
                         <span class="mi_ganancia"><b>@Model.Simbolo&nbsp;&nbsp;</b><b data-ganancia="">@Model.GananciaFormat</b></span>
                     </div>
                 </div>
                 <button type="button" class="btn_verMiPedido boton_ingresa_tu_pedido_navidenio">
-                    VER MI PEDIDO
+                    Ver mi pedido
                 </button>
             </div>
 
