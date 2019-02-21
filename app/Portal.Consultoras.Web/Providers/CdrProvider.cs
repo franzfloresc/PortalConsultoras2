@@ -12,12 +12,12 @@ namespace Portal.Consultoras.Web.Providers
     public class CdrProvider
     {
         protected readonly ISessionManager sessionManager;
-        
+
         public CdrProvider()
         {
             sessionManager = SessionManager.SessionManager.Instance;
         }
-        
+
         public List<ServiceCDR.BECDRWeb> CargarBECDRWeb(MisReclamosModel model, int paisId, long consultoraId)
         {
             List<ServiceCDR.BECDRWeb> entidadLista;
@@ -130,7 +130,7 @@ namespace Portal.Consultoras.Web.Providers
                 return listaRetorno;
             }
         }
-        
+
         public void CargarInformacion(int paisId, int campaniaId, long consultoraId)
         {
             sessionManager.SetCDRWebDetalle(null);
@@ -235,7 +235,7 @@ namespace Portal.Consultoras.Web.Providers
             var listaFiltro = listaMotivoOperacion.Where(mo => mo.CDRTipoOperacion.NumeroDiasAtrasOperacion >= differenceInDays).ToList();
             return listaFiltro.OrderBy(p => p.Prioridad).ToList();
         }
-        
+
         public List<BEPedidoWeb> CargarPedidosFacturados(int paisId, int campaniaId, long consultoraId, int maxDias = 0)
         {
             try
@@ -283,10 +283,10 @@ namespace Portal.Consultoras.Web.Providers
                     foreach (var item in listaPedidoFacturados)
                     {
                         var lst = listaCDRWeb.Where(a => a.PedidoID == item.PedidoID && a.CampaniaID == item.CampaniaID);
-                        item.BECDRWeb = lst?.ToArray() ?? null;
+                        item.BECDRWeb = (lst == null) ? null : lst.ToArray();
                     }
                 }
-                               
+
                 sessionManager.SetCDRPedidoFacturado(listaPedidoFacturados);
                 return listaPedidoFacturados;
             }
@@ -297,7 +297,7 @@ namespace Portal.Consultoras.Web.Providers
                 return new List<BEPedidoWeb>();
             }
         }
-        
+
         public BECDRWebDescripcion ObtenerDescripcion(string codigoSsic, string tipo, int paisId)
         {
             codigoSsic = Util.SubStr(codigoSsic, 0);
@@ -431,7 +431,7 @@ namespace Portal.Consultoras.Web.Providers
                 return new List<BECDRWebMotivoOperacion>();
             }
         }
-        
+
         private int CumpleRangoCampaniaCDR(int paisId, int campaniaId, long consultoraId)
         {
             var listaMotivoOperacion = CargarMotivoOperacion(paisId);

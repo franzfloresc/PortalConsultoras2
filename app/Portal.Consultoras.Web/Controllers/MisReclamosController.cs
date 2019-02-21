@@ -141,7 +141,7 @@ namespace Portal.Consultoras.Web.Controllers
                          {
                              CampaniaID = c.CampaniaID,
                              PedidoID = c.PedidoID,
-                             Cantidad = d?.Cantidad ?? 0
+                             Cantidad = (d == null || d.Cantidad == null) ? 0 : d.Cantidad
                          }).ToList();
 
             if (final != null)
@@ -359,7 +359,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 PedidoID = pedido.PedidoID,
                                 FechaRegistro = pedido.FechaRegistro,
                                 CanalIngreso = pedido.CanalIngreso,
-                                BECDRWeb = lstCDRWeb.Where(a => a.PedidoID == pedido.PedidoID)?.ToArray() ?? null,
+                                BECDRWeb = (lstCDRWeb.Where(a => a.PedidoID == pedido.PedidoID).ToList() == null) ? null : lstCDRWeb.Where(a => a.PedidoID == pedido.PedidoID).ToArray(),
                                 //CDRWebID = pedido.CDRWebID, //HD-3412 EINCA 
                                 //CDRWebEstado = pedido.CDRWebEstado,//HD-3412 EINCA
                                 NumeroPedido = pedido.NumeroPedido,
