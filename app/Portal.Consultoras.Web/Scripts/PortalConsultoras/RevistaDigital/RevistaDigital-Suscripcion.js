@@ -135,6 +135,7 @@ function RDDesuscripcion_pregunta() {
     rdAnalyticsModule.CancelarSuscripcion();
     $('#alerta_cancelar_suscripcion').show();
     $('#pregunta').show();
+    $('#frmMotivoDesuscripcion').find('input:checked').click()
 
     $('#opciones').hide();
 }
@@ -148,7 +149,15 @@ function RDDesuscripcion_cerrar(e) {
    
 }
 
+function RDDesuscripcion_check() {   
 
+    if ($('#frmMotivoDesuscripcion').find('input:checked ~ .checkmark_desuscrita')[0])
+         $('#btnDesuscrita').removeClass('disable');
+    else
+        $('#btnDesuscrita').addClass('disable');
+
+
+}
 
 function RDDesuscripcion_motivos(e) {  
 
@@ -160,6 +169,7 @@ function RDDesuscripcion_motivos(e) {
 
 
 function RDDesuscripcion(e) {
+    
 
     AbrirLoad();
     //rdAnalyticsModule.CancelarSuscripcion();
@@ -169,6 +179,7 @@ function RDDesuscripcion(e) {
         dataType: "json",
         contentType: "application/json; charset=utf-8",
         success: function (data) {
+         
             rdAnalyticsModule.CancelarSuscripcionEncuesta(e.innerHTML);
             CerrarLoad();
             if (!checkTimeout(data))
@@ -189,6 +200,8 @@ function RDDesuscripcion(e) {
             window.location.href = (isMobile() ? "/Mobile" : "") + "/Ofertas";
         },
         error: function (data, error) {
+
+            
             CerrarLoad();
         }
     });

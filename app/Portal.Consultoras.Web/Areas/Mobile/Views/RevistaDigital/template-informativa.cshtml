@@ -253,7 +253,7 @@ else
             {
                 <div id="div-suscribite">
                     <div class="logo" style="margin-top:0;"></div>
-                    <a href="javascript: RDSuscripcion();" class="btn-suscribete">SUSCRÍBETE GRATIS AQUÍ</a>
+                    <a href="javascript: RDSuscripcion();" class="btn-suscribete">Suscríbete gratis aquí</a>
                 </div>
             }
 
@@ -284,7 +284,7 @@ else if (Model.CancelarSuscripcion)
             }
             @if (!Model.EsSuscrita)
             {
-                <a href="javascript: RDSuscripcion();" class="btn-suscribete">SUSCRÍBETE GRATIS AQUÍ</a>
+                <a href="javascript: RDSuscripcion();" class="btn-suscribete">Suscríbete gratis aquí</a>
             }
 
             <a href="javascript: MostrarTerminos();" class="terminos" style="text-decoration:underline;">
@@ -374,7 +374,7 @@ else if (Model.CancelarSuscripcion)
 }
 
 
-    <div class="Content_general_pop_up CompartirCorreoPop contenedor_fondo_popup alerta_cancelar_suscripcion" id="alerta_cancelar_suscripcion" data-popup-main="" data-popup-function-hide="SRPopupCerrar('V')"  style="display:none">
+    <div class="Content_general_pop_up CompartirCorreoPop contenedor_fondo_popup alerta_cancelar_suscripcion" id="alerta_cancelar_suscripcion" data-popup-main="" data-popup-function-hide=""  style="display:none">
         <div class="content_pop_up_intriga popup_confirmacion_datos" data-popup-body="">
             <div class="contenido-popup-nuevo-2017">
                 <div class="centrar-estructura estructura_confirmar_datos">
@@ -402,37 +402,37 @@ else if (Model.CancelarSuscripcion)
                             <h2>Ya no estás suscrito/a</h2>
                             <form class="form_desuscrita">
                                 <p>¿Qué podríamos hacer para que vuelvas?</p>
-                                <div class="form_grupo">
+                                <div id="frmMotivoDesuscripcion" class="form_grupo">
                                     <label class="container_form_desuscrita">
                                         Tener ofertas más atractivas
-                                        <input type="checkbox" >
+                                        <input onclick="RDDesuscripcion_check()"  type="checkbox" >
                                         <span class="checkmark_desuscrita"></span>
                                     </label>
                                     <label class="container_form_desuscrita">
                                         Enseñarte a usar medios digitales
-                                        <input type="checkbox">
+                                        <input  onclick="RDDesuscripcion_check()" type="checkbox">
                                         <span class="checkmark_desuscrita"></span>
                                     </label>
                                     <label class="container_form_desuscrita">
                                         Responder tus dudas más rápido
-                                        <input type="checkbox">
+                                        <input  onclick="RDDesuscripcion_check()" type="checkbox">
                                         <span class="checkmark_desuscrita"></span>
                                     </label>
                                     <label class="container_form_desuscrita">
                                         Darte una experiencia personalizada
-                                        <input type="checkbox">
+                                        <input  onclick="RDDesuscripcion_check()" type="checkbox">
                                         <span class="checkmark_desuscrita"></span>
                                     </label>
                                     <label class="container_form_desuscrita">
                                         No sabía que estaba suscrito/a
-                                        <input type="checkbox">
+                                        <input  onclick="RDDesuscripcion_check()" type="checkbox">
                                         <span class="checkmark_desuscrita"></span>
                                     </label>
                                 </div>
                             </form>
 
             <div style="text-align:center">
-               <button  onclick="RDDesuscripcion(event.target);" class="boton_desuscrita disable">Enviar</button>
+               <button id="btnDesuscrita"  onclick="RDDesuscripcion(event.target);" class="boton_desuscrita disable">Enviar</button>
             </div>
                         </div>
                     </div>

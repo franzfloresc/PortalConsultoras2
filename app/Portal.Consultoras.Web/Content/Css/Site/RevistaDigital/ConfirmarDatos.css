@@ -259,8 +259,7 @@
             font-size: 13px;
             font-weight: bold;
             font-family: inherit;
-            text-decoration: underline;
-            text-transform: capitalize;
+            text-decoration: underline; 
         }
 
 
@@ -275,8 +274,7 @@
             color: #fff;
             width: 195px;
             border-radius: 4px;
-            margin-left: 20px;
-            text-transform: capitalize;
+            margin-left: 20px; 
         }
 
 .container_form_desuscrita {
