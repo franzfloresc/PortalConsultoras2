@@ -3967,23 +3967,23 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/ObtenerCorreoEmisor", ReplyAction="http://tempuri.org/IContenidoService/ObtenerCorreoEmisorResponse")]
         System.Threading.Tasks.Task<string> ObtenerCorreoEmisorAsync(int PaisID);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/GetListaPoput", ReplyAction="http://tempuri.org/IContenidoService/GetListaPoputResponse")]
-        Portal.Consultoras.Web.ServiceContenido.BEComunicado[] GetListaPoput(int Estado, string Campania, int Paginas, int Filas, int PaisID);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/GetListaPopup", ReplyAction="http://tempuri.org/IContenidoService/GetListaPopupResponse")]
+        Portal.Consultoras.Web.ServiceContenido.BEComunicado[] GetListaPopup(int Estado, string Campania, int Paginas, int Filas, int PaisID);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/GetListaPoput", ReplyAction="http://tempuri.org/IContenidoService/GetListaPoputResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceContenido.BEComunicado[]> GetListaPoputAsync(int Estado, string Campania, int Paginas, int Filas, int PaisID);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/GetListaPopup", ReplyAction="http://tempuri.org/IContenidoService/GetListaPopupResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceContenido.BEComunicado[]> GetListaPopupAsync(int Estado, string Campania, int Paginas, int Filas, int PaisID);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/GetDetallePoput", ReplyAction="http://tempuri.org/IContenidoService/GetDetallePoputResponse")]
-        Portal.Consultoras.Web.ServiceContenido.BEComunicado GetDetallePoput(int Comunicadoid, int PaisID);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/GetDetallePopup", ReplyAction="http://tempuri.org/IContenidoService/GetDetallePopupResponse")]
+        Portal.Consultoras.Web.ServiceContenido.BEComunicado GetDetallePopup(int Comunicadoid, int PaisID);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/GetDetallePoput", ReplyAction="http://tempuri.org/IContenidoService/GetDetallePoputResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceContenido.BEComunicado> GetDetallePoputAsync(int Comunicadoid, int PaisID);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/GetDetallePopup", ReplyAction="http://tempuri.org/IContenidoService/GetDetallePopupResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceContenido.BEComunicado> GetDetallePopupAsync(int Comunicadoid, int PaisID);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/GuardarPoputs", ReplyAction="http://tempuri.org/IContenidoService/GuardarPoputsResponse")]
-        int GuardarPoputs(string tituloPrincipal, string descripcion, string Url, string fechaMaxima, string fechaMinima, bool checkDesktop, bool checkMobile, int accionID, string datosCSV, string comunicadoId, string nombreArchivo, string codigoCampania, string descripcionAccion, int PaisID);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/GuardarPopups", ReplyAction="http://tempuri.org/IContenidoService/GuardarPopupsResponse")]
+        int GuardarPopups(string tituloPrincipal, string descripcion, string Url, string fechaMaxima, string fechaMinima, bool checkDesktop, bool checkMobile, int accionID, string datosCSV, string comunicadoId, string nombreArchivo, string codigoCampania, string descripcionAccion, int PaisID);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/GuardarPoputs", ReplyAction="http://tempuri.org/IContenidoService/GuardarPoputsResponse")]
-        System.Threading.Tasks.Task<int> GuardarPoputsAsync(string tituloPrincipal, string descripcion, string Url, string fechaMaxima, string fechaMinima, bool checkDesktop, bool checkMobile, int accionID, string datosCSV, string comunicadoId, string nombreArchivo, string codigoCampania, string descripcionAccion, int PaisID);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/GuardarPopups", ReplyAction="http://tempuri.org/IContenidoService/GuardarPopupsResponse")]
+        System.Threading.Tasks.Task<int> GuardarPopupsAsync(string tituloPrincipal, string descripcion, string Url, string fechaMaxima, string fechaMinima, bool checkDesktop, bool checkMobile, int accionID, string datosCSV, string comunicadoId, string nombreArchivo, string codigoCampania, string descripcionAccion, int PaisID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/ActualizaOrden", ReplyAction="http://tempuri.org/IContenidoService/ActualizaOrdenResponse")]
         int ActualizaOrden(string Comunicado, string Orden, int PaisID);
@@ -4645,28 +4645,28 @@ namespace Portal.Consultoras.Web.ServiceContenido {
             return base.Channel.ObtenerCorreoEmisorAsync(PaisID);
         }
         
-        public Portal.Consultoras.Web.ServiceContenido.BEComunicado[] GetListaPoput(int Estado, string Campania, int Paginas, int Filas, int PaisID) {
-            return base.Channel.GetListaPoput(Estado, Campania, Paginas, Filas, PaisID);
+        public Portal.Consultoras.Web.ServiceContenido.BEComunicado[] GetListaPopup(int Estado, string Campania, int Paginas, int Filas, int PaisID) {
+            return base.Channel.GetListaPopup(Estado, Campania, Paginas, Filas, PaisID);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceContenido.BEComunicado[]> GetListaPoputAsync(int Estado, string Campania, int Paginas, int Filas, int PaisID) {
-            return base.Channel.GetListaPoputAsync(Estado, Campania, Paginas, Filas, PaisID);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceContenido.BEComunicado[]> GetListaPopupAsync(int Estado, string Campania, int Paginas, int Filas, int PaisID) {
+            return base.Channel.GetListaPopupAsync(Estado, Campania, Paginas, Filas, PaisID);
         }
         
-        public Portal.Consultoras.Web.ServiceContenido.BEComunicado GetDetallePoput(int Comunicadoid, int PaisID) {
-            return base.Channel.GetDetallePoput(Comunicadoid, PaisID);
+        public Portal.Consultoras.Web.ServiceContenido.BEComunicado GetDetallePopup(int Comunicadoid, int PaisID) {
+            return base.Channel.GetDetallePopup(Comunicadoid, PaisID);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceContenido.BEComunicado> GetDetallePoputAsync(int Comunicadoid, int PaisID) {
-            return base.Channel.GetDetallePoputAsync(Comunicadoid, PaisID);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceContenido.BEComunicado> GetDetallePopupAsync(int Comunicadoid, int PaisID) {
+            return base.Channel.GetDetallePopupAsync(Comunicadoid, PaisID);
         }
         
-        public int GuardarPoputs(string tituloPrincipal, string descripcion, string Url, string fechaMaxima, string fechaMinima, bool checkDesktop, bool checkMobile, int accionID, string datosCSV, string comunicadoId, string nombreArchivo, string codigoCampania, string descripcionAccion, int PaisID) {
-            return base.Channel.GuardarPoputs(tituloPrincipal, descripcion, Url, fechaMaxima, fechaMinima, checkDesktop, checkMobile, accionID, datosCSV, comunicadoId, nombreArchivo, codigoCampania, descripcionAccion, PaisID);
+        public int GuardarPopups(string tituloPrincipal, string descripcion, string Url, string fechaMaxima, string fechaMinima, bool checkDesktop, bool checkMobile, int accionID, string datosCSV, string comunicadoId, string nombreArchivo, string codigoCampania, string descripcionAccion, int PaisID) {
+            return base.Channel.GuardarPopups(tituloPrincipal, descripcion, Url, fechaMaxima, fechaMinima, checkDesktop, checkMobile, accionID, datosCSV, comunicadoId, nombreArchivo, codigoCampania, descripcionAccion, PaisID);
         }
         
-        public System.Threading.Tasks.Task<int> GuardarPoputsAsync(string tituloPrincipal, string descripcion, string Url, string fechaMaxima, string fechaMinima, bool checkDesktop, bool checkMobile, int accionID, string datosCSV, string comunicadoId, string nombreArchivo, string codigoCampania, string descripcionAccion, int PaisID) {
-            return base.Channel.GuardarPoputsAsync(tituloPrincipal, descripcion, Url, fechaMaxima, fechaMinima, checkDesktop, checkMobile, accionID, datosCSV, comunicadoId, nombreArchivo, codigoCampania, descripcionAccion, PaisID);
+        public System.Threading.Tasks.Task<int> GuardarPopupsAsync(string tituloPrincipal, string descripcion, string Url, string fechaMaxima, string fechaMinima, bool checkDesktop, bool checkMobile, int accionID, string datosCSV, string comunicadoId, string nombreArchivo, string codigoCampania, string descripcionAccion, int PaisID) {
+            return base.Channel.GuardarPopupsAsync(tituloPrincipal, descripcion, Url, fechaMaxima, fechaMinima, checkDesktop, checkMobile, accionID, datosCSV, comunicadoId, nombreArchivo, codigoCampania, descripcionAccion, PaisID);
         }
         
         public int ActualizaOrden(string Comunicado, string Orden, int PaisID) {

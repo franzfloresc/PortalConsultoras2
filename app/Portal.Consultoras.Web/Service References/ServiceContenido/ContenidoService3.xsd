@@ -1040,7 +1040,7 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="GetListaPoput">
+  <xs:element name="GetListaPopup">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="Estado" type="xs:int" />
@@ -1051,14 +1051,14 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="GetListaPoputResponse">
+  <xs:element name="GetListaPopupResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q57="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetListaPoputResult" nillable="true" type="q57:ArrayOfBEComunicado" />
+        <xs:element xmlns:q57="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetListaPopupResult" nillable="true" type="q57:ArrayOfBEComunicado" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="GetDetallePoput">
+  <xs:element name="GetDetallePopup">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="Comunicadoid" type="xs:int" />
@@ -1066,14 +1066,14 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="GetDetallePoputResponse">
+  <xs:element name="GetDetallePopupResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q58="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetDetallePoputResult" nillable="true" type="q58:BEComunicado" />
+        <xs:element xmlns:q58="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetDetallePopupResult" nillable="true" type="q58:BEComunicado" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="GuardarPoputs">
+  <xs:element name="GuardarPopups">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="tituloPrincipal" nillable="true" type="xs:string" />
@@ -1093,10 +1093,10 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="GuardarPoputsResponse">
+  <xs:element name="GuardarPopupsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="GuardarPoputsResult" type="xs:int" />
+        <xs:element minOccurs="0" name="GuardarPopupsResult" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

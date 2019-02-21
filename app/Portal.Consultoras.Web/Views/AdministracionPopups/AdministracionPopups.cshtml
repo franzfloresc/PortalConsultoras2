@@ -211,7 +211,6 @@
 @section scripts{
 
     <script type="text/javascript">
-        var URL_BUSCAR_POPUTS = baseUrl + 'AdministracionPopups/GetCargaListadoPoput';
         var PAGINAS = parseInt($("#PaginaActualArriba").val());
         localStorage.setItem('PAGINAS', PAGINAS);
         var FILAS = parseInt('@ViewBag.NumeroFila');
@@ -226,14 +225,12 @@
                     document.getElementById(this.id).value = 1;
             });
 
-
             $('#ddlCampania, #ddlEstado').change(function () {
                 GetCargaListadoPoput();
             });
 
             function GetCargaListadoPoput() {
-              
-                waitingDialog({ "title": "Cargando", "message": "Espere por favor" });
+                waitingDialog({ "title": "Cargando", "message"  : "Espere por favor" });
                 var ddlCampania = $('#ddlCampania').val();
                 var ddlEstado = parseInt($('#ddlEstado').val());
 
@@ -265,9 +262,7 @@
                 });
             }
 
-
             function ConstruyeGrillaPoput(data) {
-
                 $("#divTabla").empty();
                 $(".cantidad__registros__grilla").html("Tengo <span class='text__bold'>" + data.length + "</span> registro" + (data.length > 1 ? "s" : ""));
                 $(".num__total__paginas").html("de " + LIMITE_PAGINAS)
@@ -300,8 +295,6 @@
                     $("#izquierdaAbajo").removeClass("disabledbutton");
 
                 }
-
-
 
                 var listColumnas = [
                     {
@@ -361,7 +354,6 @@
             }
 
             $(".flecha__paginacion--izquierda").click(function () {
-
                 /*MOVIMIENTO IZQUIERDA*/
                 PAGINAS = parseInt( localStorage.getItem('PAGINAS'));
                 PAGINAS -= 1
@@ -369,20 +361,18 @@
             });
 
             $(".flecha__paginacion--derecha").click(function () {
-                /*MOVIMIENTO IZQUIERDA*/
+                /*MOVIMIENTO DERECHA*/
                 PAGINAS = parseInt(localStorage.getItem('PAGINAS'));
                 PAGINAS += 1
                 ActualizaPaginador(PAGINAS);
             });
 
             $("#PaginaActualArriba").blur(function () {
-
                 PAGINAS = document.getElementById(this.id).value
                 ActualizaPaginador(PAGINAS);
             });
 
             $("#PaginaActualAbajo").blur(function () {
-
                 PAGINAS = document.getElementById(this.id).value
                 ActualizaPaginador(PAGINAS);
             });
@@ -391,13 +381,7 @@
                 ActualizarOrden();
             });
 
-
-
-
-
-
             function ActualizarOrden() {
-              
                 waitingDialog({ "title": "Cargando", "message": "Espere por favor" });
                 var lista = document.querySelector("#swappable");
                 var comunicado="";
@@ -410,7 +394,6 @@
                 }
                     comunicado = comunicado.length > 0 ? comunicado.substring(0, comunicado.length - 1) :'0#';
                     orden = orden.length > 0 ? orden.substring(0, orden.length - 1) : '0#';
-
 
                 var object = {
                     Comunicado: comunicado,
@@ -436,8 +419,6 @@
                 });
             }
 
-
-
             function ActualizaPaginador(PAGINAS) {
 
                 if (PAGINAS <= 0) {
@@ -458,16 +439,12 @@
                 document.getElementById("PaginaActualArriba").value = PAGINAS;
                 document.getElementById("PaginaActualAbajo").value = PAGINAS;
                 GetCargaListadoPoput();
-
             }
         });
-
-
     </script>
 
 
     <script src="@Url.Content("~/Scripts/jquery.ui.core.js")"></script>
-   @* <script src="@Url.Content("~/Scripts/jquery.ui.widget.js")"></script>*@
     <script src="@Url.Content("~/Scripts/jquery.ui.mouse.js")"></script>
     <script src="@Url.Content("~/Scripts/jquery.ui.sortable.js")"></script>
     <script src="@Url.Content("~/Scripts/jquery.ui.swappable.js")"></script>

@@ -56,14 +56,14 @@ namespace Portal.Consultoras.BizLogic
             CacheManager<BEBelcorpResponde>.RemoveData(paisID, ECacheItem.BelcorpResponde);
         }
 
-        #region Gestor de Poputs
-        public List<BEComunicado> GetListaPoput(int estado, string campania, int Paginas, int Filas, int PaisID)
+        #region Gestor de Popups
+        public List<BEComunicado> GetListaPopup(int estado, string campania, int Paginas, int Filas, int PaisID)
         {
             List<BEComunicado> listsBEComunicado = new List<BEComunicado>();
 
             var daBelcorpResponde = new DABelcorpResponde(PaisID);
 
-            using (IDataReader reader = daBelcorpResponde.GetListaPoput(estado, campania, Paginas, Filas))
+            using (IDataReader reader = daBelcorpResponde.GetListaPopup(estado, campania, Paginas, Filas))
             {
                 while (reader.Read())
                 {
@@ -85,13 +85,13 @@ namespace Portal.Consultoras.BizLogic
             return listsBEComunicado;
         }
 
-        public BEComunicado GetDetallePoput(int comunicadoid, int PaisID)
+        public BEComunicado GetDetallePopup(int comunicadoid, int PaisID)
         {
          BEComunicado objetoBEComunicado = new BEComunicado();
 
             var daBelcorpResponde = new DABelcorpResponde(PaisID);
 
-            using (IDataReader reader = daBelcorpResponde.GetDetallePoput(comunicadoid))
+            using (IDataReader reader = daBelcorpResponde.GetDetallePopup(comunicadoid))
             {
                 while (reader.Read())
                 {
@@ -114,11 +114,11 @@ namespace Portal.Consultoras.BizLogic
         }
 
 
-        public int GuardarPoputs(string tituloPrincipal, string descripcion, string UrlImagen, string fechaMaxima, string fechaMinima, bool checkDesktop, bool checkMobile, int accionID, List<BEComunicadoSegmentacion> listdatosCSV, string comunicadoId, string nombreArchivo, string codigoCampania, string descripcionAccion, int PaisID)
+        public int GuardarPopups(string tituloPrincipal, string descripcion, string UrlImagen, string fechaMaxima, string fechaMinima, bool checkDesktop, bool checkMobile, int accionID, List<BEComunicadoSegmentacion> listdatosCSV, string comunicadoId, string nombreArchivo, string codigoCampania, string descripcionAccion, int PaisID)
         {
             var daBelcorpResponde = new DABelcorpResponde(PaisID);
             string[] arrayColumnasBEComunicadoSegmentacion = GetArrayColumnas(listdatosCSV);
-            return daBelcorpResponde.GuardarPoputs(tituloPrincipal, descripcion, UrlImagen, fechaMaxima, fechaMinima, checkDesktop, checkMobile, accionID, arrayColumnasBEComunicadoSegmentacion,  comunicadoId,  nombreArchivo,  codigoCampania, descripcionAccion);
+            return daBelcorpResponde.GuardarPopups(tituloPrincipal, descripcion, UrlImagen, fechaMaxima, fechaMinima, checkDesktop, checkMobile, accionID, arrayColumnasBEComunicadoSegmentacion,  comunicadoId,  nombreArchivo,  codigoCampania, descripcionAccion);
 
         }
 

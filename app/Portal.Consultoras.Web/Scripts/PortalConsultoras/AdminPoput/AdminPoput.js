@@ -1,16 +1,49 @@
-﻿var RUTA_MADRE = "~/";
-var VistaAdministracionPopups;
-var URL_ADJUNTAR_ARCHIVO = baseUrl + 'AdministracionPopups/GetCargarArchivoCSV';
-var URL_GUARDAR_POPUT = baseUrl + 'AdministracionPopups/GetGuardarPoput';
-var URL_DETALLE_POPUT = baseUrl + 'AdministracionPopups/GetDetallePoput';
-var URL_ACTUALIZA_ORDEN = baseUrl + 'AdministracionPopups/ActualizaOrden';
-var URL_ELIMINA_ARCHIVOCSV = baseUrl + 'AdministracionPopups/EliminarArchivoCsv';
-var URL_AGREGAR_IMAGEN = baseUrl + 'AdministracionPopups/AgregarImagenUpload';
-var URL_PRUEBA = baseUrl + 'AdministracionPopups/Prueba';
-var VistaAdministracionPopups;
+﻿/*Creado por : Paquirri Seperak
+ Fecha Creación : 14_02_2019
+ */
+/***********************************************DECLARACIÓN DE VARIABLES GLOBALES****************************************************************************************/
+var VistaAdministracionPopups
+    , VistaAdministracionPopups
+    , URL_ADJUNTAR_ARCHIVO = baseUrl + 'AdministracionPopups/GetCargarArchivoCSV'
+    , URL_GUARDAR_POPUT = baseUrl + 'AdministracionPopups/GetGuardarPopup'
+    , URL_DETALLE_POPUT = baseUrl + 'AdministracionPopups/GetDetallePopup'
+    , URL_ACTUALIZA_ORDEN = baseUrl + 'AdministracionPopups/ActualizaOrden'
+    , URL_ELIMINA_ARCHIVOCSV = baseUrl + 'AdministracionPopups/EliminarArchivoCsv'
+    , URL_AGREGAR_IMAGEN = baseUrl + 'AdministracionPopups/AgregarImagenUpload'
+    , URL_BUSCAR_POPUTS = baseUrl + 'AdministracionPopups/GetCargaListadoPopup'
+    , TIPO_ACCION_NUEVO = 1
+    , TIPO_ACCION_MODIFICAR = 2;
 
+var OBJETO_MENJASE = new ObjetoMensajes();
+
+function ObjetoMensajes() {
+    this.seleccionCampaña = "Tiene que seleccionar una campaña";
+    this.ingresarFecha = "Por favor ingrese una fecha válida";
+    this.igualdadFecha = "Ambas fechas no pueden ser las mismas";
+    this.fechaValida = "Por favor ingrese una fecha válida";
+    this.fechaMinima = "Por favor ingrese la fecha mínima";
+    this.fechaMaxima = "Por favor ingrese la fecha máxima";
+    this.sinCambios = "No existe ningún cambio realizado";
+    this.seleccionImagen = "No seleccionó una imagen";
+    this.ingresoTituloPrincipal = "No ingresó el Título principal.";
+    this.ingresoDescripcion = "No ingresó la descripcón.";
+    this.maximocaracteres = "Sobrepasó la cantidad aceptada de caracteres";
+    this.ingresoURL = "No ingresó una URL";
+    this.ingresoTipoDispositivo = "No seelccionó un tipo de dispositivo";
+    this.guardarDatos = "Deseas guardar los datos ingresados";
+    this.cargando = "Cargando";
+    this.espera = "Espere por favor";
+    this.registroSatisfactorio = "Se registró de forma satisfactoria";
+    this.errorRegistro = "Ocurrió un error al guardar los datos";
+    this.tamañoSuperadoImagen = "El tamaño supera el limite permitido";
+    this.formatoInvalidoImagen = "Ingrese una imagen con alguno de los siguientes formatos: .jpg/.png.";
+    this.dimensionesImagen = "Las medidas deben ser: 326 x 418";
+    this.validaArchivoCsv = "Formato de archivo csv";
+    this.validarFechaPasada = "Ingrese una fecha mayor o igual a la de hoy";
+}
+
+/******************************************************MÉTODOS Y OPERACIONES*********************************************************************************/
 $(document).ready(function () {
- 
     var vistaAdPop;
     vistaAdPop = function () {
         var me = this;
@@ -30,7 +63,6 @@ $(document).ready(function () {
                                 numberOfMonths: 1
                             })
                             .on("change", function () {
-                                
                                 var fecha = to.val();
                                 to.datepicker("option", "minDate", getDate(this));
                                 to.val(fecha);
@@ -41,19 +73,15 @@ $(document).ready(function () {
                             numberOfMonths: 1
                         })
                             .on("change", function () {
-                                   
                                 from.datepicker("option", "maxDate", getDate(this));
                             });
-
                 function getDate(element) {
-                    
                         var date;
                         try {
                             date = $.datepicker.parseDate(dateFormat, element.value);
                         } catch (error) {
                             date = null;
                         }
-
                         return date;
                     }
             },
@@ -71,20 +99,20 @@ $(document).ready(function () {
                 e.preventDefault();
                 if ($("#ddlCampania").val().length > 0) {
                     document.getElementById("imgPreview").style.display = "none";
-                    $("#hdAccion").val(1)
                     LimpiarCamposPoput();
-                    $("#hdAccion").val(1);
+                    $("#description").html("Formato de archivo JPG.<br /> (326 x 418 píxeles)");
+                    $("#nameArchivo").html("Formato de archivo csv");
+                    $("#hdAccion").val(TIPO_ACCION_NUEVO);
                     $('#modalTitulo').html($(this).attr('title'));
                     $('#AgregarPopup').fadeIn(100);
                     $('#AgregarPopup').scrollTop(0);
                     $('#AgregarPopup').css('display', 'flex');
                     $('body').css('overflow-y', 'hidden');
-                } else alert("Tiene que seleccionar una campaña");
+                } else alert(OBJETO_MENJASE.seleccionCampaña);
                 },
             AbrirPopupModificar: function (e) {
-                
                     e.preventDefault();
-                    $("#hdAccion").val(2)
+                $("#hdAccion").val(TIPO_ACCION_MODIFICAR)
                     LimpiarCamposPoput();
                     var comunicadoid = e.target.getAttribute("comunicadoid")
                     $("#hdComunicadoId").val(comunicadoid)
@@ -110,47 +138,57 @@ $(document).ready(function () {
     VistaAdministracionPopups = new vistaAdPop();
     VistaAdministracionPopups.Inicializar();
 
-
     $('#fechaMin').change(function (e) {
-        
         let partes = (e.target.value || '').split('/');
         if (partes.length != 3) {
-            alert("Por favor ingrese una fecha válida");
+            alert(OBJETO_MENJASE.ingresarFecha);
             e.target.value = "";
         }
     });
 
     $('#fechaMax,#fechaMin').change(function (e) {
-        
         var idFecha = e.target.id;
         var valorFecha = e.target.value;
+        var dateFormat = "mm/dd/yy";
+
         switch (idFecha) {
             case "fechaMin":
                 var fechaMaxima = $("#fechaMax").val();
                 if (fechaMaxima == valorFecha) {
-                    alert("Ambas fechas no pueden ser las mismas");
+                    alert(OBJETO_MENJASE.igualdadFecha);
                     $("#fechaMin").val("");
                     return false;
                 }
+                var hoy = new Date();
+                var hoy = new Date((hoy.getMonth() + 1).toString() + "/" + hoy.getDate() + "/" + hoy.getFullYear().toString());
+                var date = new Date(valorFecha);
+                if (date < hoy) {
+                    alert(OBJETO_MENJASE.validarFechaPasada);
+                    $("#fechaMin").val("");
+                    return false;
+                }
+              
                 break;
             case "fechaMax":
                 var fechaMinima = $("#fechaMin").val();
                 if (fechaMinima == valorFecha) {
-                    alert("Ambas fechas no pueden ser las mismas");
+                    alert(OBJETO_MENJASE.igualdadFecha);
                     $("#fechaMax").val("");
                     return false;
                 }
+
+
                 break;
         }
 
         let partes = (e.target.value || '').split('/');
         if (partes.length != 3) {
-            alert("Por favor ingrese una fecha válida");
+            alert(OBJETO_MENJASE.ingresarFecha);
             e.target.value = "";
             return false;
         }
         if ($.trim($("#fechaMin").val()) == "") {
-            alert("Por favor ingrese la fecha mínima");
+            alert(OBJETO_MENJASE.fechaMaxima);
             e.target.value = "";
             return false;
         }
@@ -158,7 +196,6 @@ $(document).ready(function () {
     });
 
 });
-
 
 function GetCargaDetallePoput(comunicadoid) {
 
@@ -198,7 +235,6 @@ function getCargarArchivoCSVPoputLocalStorage(data) {
     }
 }
 
-
 function GetCamposCargadosPoput(data) {
     
     if (data.NombreImagen.length > 0) {
@@ -206,7 +242,7 @@ function GetCamposCargadosPoput(data) {
         $("#targetImg").attr('src', (data.UrlImagen));
         $("#description").html(data.NombreImagen);
         $("#imgPreview").show();
-    }
+    } else $("#description").html("Formato de archivo JPG.<br /> (326 x 418 píxeles)");
 
     $("#txtTituloPrincipal").val(data.Descripcion);
     $("#txtDescripcion").val(data.Comentario);
@@ -229,16 +265,16 @@ function GetCamposCargadosPoput(data) {
     }
 
     if (data.NombreArchivoCCV.length > 0)
-    document.getElementById("EliminarArchivo").style.display = "block";
+        document.getElementById("EliminarArchivo").style.display = "block";
+    else
+        $("#nameArchivo").html("Formato de archivo csv");
+
 
 }
-
-
 
 $("#imgPoputs").change(function () {
     ValidaImagen(this.files);
 });
-
 
 var ReadImage = function (file) {
     
@@ -262,13 +298,12 @@ var ReadImage = function (file) {
         }
     }
 }
+
 $("#btnDescartar").click(function () {
     LimpiarCamposPoput();
 });
 
-
 function LimpiarCamposPoput() {
-
     $("#description").html("");
     $("#imgPoputs").val("");
     $("#imgPreview").val("");
@@ -290,8 +325,6 @@ function LimpiarCamposPoput() {
     localStorage.removeItem("datosCSV");
 }
 
-
-
 var ClearView = function () {
 
     $("#description").val('');
@@ -299,18 +332,16 @@ var ClearView = function () {
     $("#imgPreview").hide();
    
 }
+
 function ClearFileView() {
-    
     var inputImage = document.getElementById("imgPoputs").value = "";
     var inputImage = document.getElementById("targetImg").value = "";
     var inputImage = document.getElementById("targetImg").src = "";
     $("#imgPreview").hide();
     $("#description").html("Formato de archivo JPG.<br /> (326 x 418 píxeles)");
-
 }
 
 function getFileCSV() {
-    
     var frmData = new FormData();
     var file = document.getElementById("fileCSV").files[0];
     frmData.append("fileCSV", file);
@@ -322,13 +353,16 @@ function getFileCSV() {
         contentType: false,
         processData: false,
         success: function (msg) {
-            $("#nameArchivo").html(msg.archivo);
+            
+            if (msg.dataerror) {
+                alert(msg.archivo);
+                document.getElementById("EliminarArchivo").style.display = "none";
+                $("#nameArchivo").html("Formato de archivo csv");
+            } else {
+                document.getElementById("EliminarArchivo").style.display = "block";
+                $("#nameArchivo").html(msg.archivo);
+            }
             getCargarArchivoCSVPoputLocalStorage(msg);
-            if (msg.archivo.length > 0)
-            document.getElementById("EliminarArchivo").style.display = "block";
-
-            else
-            document.getElementById("EliminarArchivo").style.display = "none";
         },
         error: function (error) {
             alert("errror");
@@ -336,89 +370,59 @@ function getFileCSV() {
     });
 }
 
-
-
-//function handleDragStart(e) {
-//    
-//    this.style.opacity = '0.4';  // this / e.target is the source node.
-//}
-
-//
-//var cols = document.querySelectorAll('swappable');
-//[].forEach.call(cols, function (col) {
-//    
-//    col.addEventListener('dragstart', handleDragStart, false);
-//}); 
-
-
-
-
-
-
-/*Inseriones*/
-
 $("#btnGuardar").click(function () {
-   
-        waitingDialog({ "title": "Cargando", "message": "Espere por favor" });
-        /*Validaciones*/
 
-        
-        if (parseInt($("#hdAccion").val()) == 2) {
+    if (parseInt($("#hdAccion").val()) == 2) {
             var cambio = respuestaValidacionCambios();
             if (!cambio) {
-                alert("No existe ningún cambio realizado");
+                alert(OBJETO_MENJASE.sinCambios);
                 return false;
             }
         }
 
-
-        if (document.getElementById("targetImg").getAttribute("src").length == 0 ) {
-            alert("No seleccionó una imagen");
+    if (document.getElementById("targetImg").getAttribute("src").length == 0) {
+        alert(OBJETO_MENJASE.seleccionImagen);
             return false;
         }
 
-        if ($.trim($("#txtTituloPrincipal").val()) == "") {
-            alert("No ingresó el Título principal.");
+    if ($.trim($("#txtTituloPrincipal").val()) == "") {
+        alert(OBJETO_MENJASE.ingresoTituloPrincipal);
             return false;
         }
 
-        if ($.trim($("#txtDescripcion").val()) == "") {
-            alert("No ingresó la descripcón.");
+    if ($.trim($("#txtDescripcion").val()) == "") {
+        alert(OBJETO_MENJASE.ingresoDescripcion);
             return false;
         }
 
-        if ($("#txtDescripcion").val().length > 290) {
-            alert("Sobrepasó la cantidad ceptada de caracteres");
+    if ($("#txtDescripcion").val().length > 290) {
+        alert(OBJETO_MENJASE.maximocaracteres);
             return false;
         }
 
-        if ($.trim($("#txtUrl").val()) == "") {
-            alert("No ingresó una URL");
+    if ($.trim($("#txtUrl").val()) == "") {
+        alert(OBJETO_MENJASE.ingresoURL);
             return false;
         }
 
-        if ($.trim($("#fechaMin").val()) == "") {
-            alert("No ingresó una fecha mínima.");
+    if ($.trim($("#fechaMin").val()) == "") {
+        alert(OBJETO_MENJASE.fechaMinima);
             return false;
         }
 
-        if ($.trim($("#fechaMax").val()) == "") {
-            alert("No ingresó una fecha máxima.");
+    if ($.trim($("#fechaMax").val()) == "") {
+        alert(OBJETO_MENJASE.fechaMaxima);
             return false;
         }
 
-
-        /*****************************************************************/
-
-        if (document.getElementById('checkMobile').checked != true && document.getElementById('checkDesktop').checked != true) {
-            alert("No seelccionó un tipo de dispositivo");
+    if (document.getElementById('checkMobile').checked != true && document.getElementById('checkDesktop').checked != true) {
+        alert(OBJETO_MENJASE.ingresoTipoDispositivo);
             return false;
-        }
-        var bool = confirm("Deseas guardar los datos ingresados");
-        if (bool) {
-            
-      
-        /*carga de datos*/
+    }
+    var bool = confirm(OBJETO_MENJASE.guardarDatos);
+    if (bool) {
+        waitingDialog({ "title": OBJETO_MENJASE.cargando, "message": OBJETO_MENJASE.espera });
+
         /*Zona de archivos*/
         var frmData = new FormData();
         if (document.getElementById("imgPoputs") != null)
@@ -434,7 +438,7 @@ $("#btnGuardar").click(function () {
         frmData.append("fechaMin", $("#fechaMin").val());
         frmData.append("checkMobile", document.getElementById('checkMobile').checked);
         frmData.append("checkDesktop", document.getElementById('checkDesktop').checked);
-        frmData.append("nombreArchivo", $("#nameArchivo").html());
+        frmData.append("nombreArchivo", $("#nameArchivo").html().trim().toString() != OBJETO_MENJASE.validaArchivoCsv.trim().toString() ? $("#nameArchivo").html().trim().toString() :"" );
         frmData.append("codigoCampania", $("#ddlCampania").val());
         frmData.append("accionID", $("#hdAccion").val());
         if (localStorage.getItem("datosCSV") != null)
@@ -445,18 +449,16 @@ $("#btnGuardar").click(function () {
         $.ajax({
             type: "POST",
             url: URL_GUARDAR_POPUT,
-           // url: URL_PRUEBA,
             data: frmData,
             dataType: 'json',
             contentType: false,
             processData: false,
             success: function (msg) {
-              
                 if (parseInt(msg) > 0) {
-                    alert("Se registró de forma satisfactoria");
+                    alert(OBJETO_MENJASE.registroSatisfactorio);
                     window.location.reload(true);
-                } else{
-                    alert("Ocurrió un error al guardar los datos");
+                } else {
+                    alert(OBJETO_MENJASE.errorRegistro);
                     closeWaitingDialog();
                 }
             },
@@ -464,16 +466,13 @@ $("#btnGuardar").click(function () {
                 alert("errror");
             }
         });
-
         }
-
     });
 
-
 function respuestaValidacionCambios() {
-    
     var acumuladoValidacion = 0;
-    if (JSON.parse(localStorage.getItem('datosPoput')).NombreImagen != $("#description").html())
+
+        if (JSON.parse(localStorage.getItem('datosPoput')).NombreImagen != $("#description").html())
             acumuladoValidacion += 1;
         if (JSON.parse(localStorage.getItem('datosPoput')).NombreArchivoCCV != $("#nameArchivo").html())
             acumuladoValidacion += 1;
@@ -484,9 +483,9 @@ function respuestaValidacionCambios() {
         if (JSON.parse(localStorage.getItem('datosPoput')).FechaInicio_ != $("#fechaMin").val())
             acumuladoValidacion += 1;
         if (JSON.parse(localStorage.getItem('datosPoput')).FechaFin_ != $("#fechaMax").val())
-        acumuladoValidacion += 1;
-    if (JSON.parse(localStorage.getItem('datosPoput')).Comentario != $("#txtDescripcion").val())
-        acumuladoValidacion += 1;
+            acumuladoValidacion += 1;
+       if (JSON.parse(localStorage.getItem('datosPoput')).Comentario != $("#txtDescripcion").val())
+            acumuladoValidacion += 1;
 
         if (JSON.parse(localStorage.getItem('datosPoput')).TipoDispositivo == 1) {
             if (document.getElementById('checkMobile').checked == true && document.getElementById('checkDesktop').checked == true)
@@ -518,37 +517,35 @@ function respuestaValidacionCambios() {
         if (acumuladoValidacion > 0) return true; else return false;
     }
 
-
 function ValidaImagen(file) {
-    $("#description").html("");
+    $("#description").html("Formato de archivo JPG.<br /> (326 x 418 píxeles)");
     $("#targetImg").attr("src", "");
+    $("#imgPreview").hide();
 
     var sizeByte = file[0].size;
     var siezekiloByte = parseInt(sizeByte / 1024);
     var foto = file[0];
 
     if (siezekiloByte > 52) {
-        alert('El tamaño supera el limite permitido');
+        alert(OBJETO_MENJASE.tamañoSuperadoImagen);
         return false;
     }
 
     if (file.length == 0 || !(/\.(jpg|png)$/i).test(foto.name)) {
-        alert('Ingrese una imagen con alguno de los siguientes formatos: .jpg/.png.');
+        alert(OBJETO_MENJASE.formatoInvalidoImagen);
         return false;
     }
 
     if ($("#imgPoputs").width() > 326) {
-        alert('Las medidas deben ser: 326 x 418');
+        alert(OBJETO_MENJASE.dimensionesImagen);
         return false;
     }
 
     if ($("#imgPoputs").height() > 418) {
-        alert('Las medidas deben ser: 326 x 418');
+        alert(OBJETO_MENJASE.dimensionesImagen);
         return false;
     }
 
-    /*Enviamos a guardar la imagen en la carpeta del proyecto*/
-    
     var frmData = new FormData();
     frmData.append("imagen", document.getElementById("imgPoputs").files[0]);
     frmData.append("nombreImagen", document.getElementById("imgPoputs").files[0].name);
@@ -559,19 +556,14 @@ function ValidaImagen(file) {
         processData: false,
         contentType: false,
         success: function (data) {
-            
-            if (data != "") {
-            }
         }
     });
-
     ReadImage(file[0]);
 }
 
-
 $(".eliminarArchivo").click(function () {
     
-    var comunicadoid = $("#hdComunicadoId").val();
+    var comunicadoid = $("#hdComunicadoId").val() == "" ? 0 : $("#hdComunicadoId").val();
     var object = {
         Comunicadoid: parseInt( comunicadoid)
     };
@@ -588,13 +580,13 @@ $(".eliminarArchivo").click(function () {
             $("#nameArchivo").html("");
             $("#fileCSV").val("");
             document.getElementById("EliminarArchivo").style.display = "none";
+            $("#nameArchivo").html("Formato de archivo csv");
         },
         error: function (error) {
             alert("errror");
         }
     });
-
-
-    
-
 });
+
+/***************************************************************************************************************************************/
+

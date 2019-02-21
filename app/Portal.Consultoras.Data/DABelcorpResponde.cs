@@ -47,7 +47,7 @@ namespace Portal.Consultoras.Data
         }
 
         #region Gestor de Poputs
-        public IDataReader GetListaPoput(int estado, string campania,int Paginas,int Filas)
+        public IDataReader GetListaPopup(int estado, string campania,int Paginas,int Filas)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetListadoPopup");
             Context.Database.AddInParameter(command, "@Campania", DbType.AnsiString, campania);
@@ -57,14 +57,14 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        public IDataReader GetDetallePoput(int comunicadoid)
+        public IDataReader GetDetallePopup(int comunicadoid)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetDetallePopup");
             Context.Database.AddInParameter(command, "@Comunicadoid", DbType.Int32, comunicadoid);
             return Context.ExecuteReader(command);
         }
 
-        public int  GuardarPoputs(string tituloPrincipal, string descripcion, string UrlImagen, string fechaMaxima, string fechaMinima, bool checkDesktop, bool checkMobile, int accionID,string[] arrayColumnasBEComunicadoSegmentacion, string comunicadoId, string nombreArchivo, string codigoCampania, string descripcionAccion)
+        public int  GuardarPopups(string tituloPrincipal, string descripcion, string UrlImagen, string fechaMaxima, string fechaMinima, bool checkDesktop, bool checkMobile, int accionID,string[] arrayColumnasBEComunicadoSegmentacion, string comunicadoId, string nombreArchivo, string codigoCampania, string descripcionAccion)
         {
             int TipoDispositivo = 0;
            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GuardarPopup");

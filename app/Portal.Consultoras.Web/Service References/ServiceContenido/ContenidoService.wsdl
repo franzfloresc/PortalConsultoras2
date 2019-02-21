@@ -455,23 +455,23 @@
   <wsdl:message name="IContenidoService_ObtenerCorreoEmisor_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerCorreoEmisorResponse" />
   </wsdl:message>
-  <wsdl:message name="IContenidoService_GetListaPoput_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetListaPoput" />
+  <wsdl:message name="IContenidoService_GetListaPopup_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetListaPopup" />
   </wsdl:message>
-  <wsdl:message name="IContenidoService_GetListaPoput_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetListaPoputResponse" />
+  <wsdl:message name="IContenidoService_GetListaPopup_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetListaPopupResponse" />
   </wsdl:message>
-  <wsdl:message name="IContenidoService_GetDetallePoput_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetDetallePoput" />
+  <wsdl:message name="IContenidoService_GetDetallePopup_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDetallePopup" />
   </wsdl:message>
-  <wsdl:message name="IContenidoService_GetDetallePoput_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetDetallePoputResponse" />
+  <wsdl:message name="IContenidoService_GetDetallePopup_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDetallePopupResponse" />
   </wsdl:message>
-  <wsdl:message name="IContenidoService_GuardarPoputs_InputMessage">
-    <wsdl:part name="parameters" element="tns:GuardarPoputs" />
+  <wsdl:message name="IContenidoService_GuardarPopups_InputMessage">
+    <wsdl:part name="parameters" element="tns:GuardarPopups" />
   </wsdl:message>
-  <wsdl:message name="IContenidoService_GuardarPoputs_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GuardarPoputsResponse" />
+  <wsdl:message name="IContenidoService_GuardarPopups_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GuardarPopupsResponse" />
   </wsdl:message>
   <wsdl:message name="IContenidoService_ActualizaOrden_InputMessage">
     <wsdl:part name="parameters" element="tns:ActualizaOrden" />
@@ -766,17 +766,17 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/ObtenerCorreoEmisor" message="tns:IContenidoService_ObtenerCorreoEmisor_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/ObtenerCorreoEmisorResponse" message="tns:IContenidoService_ObtenerCorreoEmisor_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetListaPoput">
-      <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/GetListaPoput" message="tns:IContenidoService_GetListaPoput_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/GetListaPoputResponse" message="tns:IContenidoService_GetListaPoput_OutputMessage" />
+    <wsdl:operation name="GetListaPopup">
+      <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/GetListaPopup" message="tns:IContenidoService_GetListaPopup_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/GetListaPopupResponse" message="tns:IContenidoService_GetListaPopup_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetDetallePoput">
-      <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/GetDetallePoput" message="tns:IContenidoService_GetDetallePoput_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/GetDetallePoputResponse" message="tns:IContenidoService_GetDetallePoput_OutputMessage" />
+    <wsdl:operation name="GetDetallePopup">
+      <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/GetDetallePopup" message="tns:IContenidoService_GetDetallePopup_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/GetDetallePopupResponse" message="tns:IContenidoService_GetDetallePopup_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GuardarPoputs">
-      <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/GuardarPoputs" message="tns:IContenidoService_GuardarPoputs_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/GuardarPoputsResponse" message="tns:IContenidoService_GuardarPoputs_OutputMessage" />
+    <wsdl:operation name="GuardarPopups">
+      <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/GuardarPopups" message="tns:IContenidoService_GuardarPopups_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/GuardarPopupsResponse" message="tns:IContenidoService_GuardarPopups_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ActualizaOrden">
       <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/ActualizaOrden" message="tns:IContenidoService_ActualizaOrden_InputMessage" />
@@ -1419,8 +1419,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetListaPoput">
-      <soap:operation soapAction="http://tempuri.org/IContenidoService/GetListaPoput" style="document" />
+    <wsdl:operation name="GetListaPopup">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/GetListaPopup" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1428,8 +1428,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetDetallePoput">
-      <soap:operation soapAction="http://tempuri.org/IContenidoService/GetDetallePoput" style="document" />
+    <wsdl:operation name="GetDetallePopup">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/GetDetallePopup" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1437,8 +1437,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GuardarPoputs">
-      <soap:operation soapAction="http://tempuri.org/IContenidoService/GuardarPoputs" style="document" />
+    <wsdl:operation name="GuardarPopups">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/GuardarPopups" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2098,8 +2098,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetListaPoput">
-      <soap:operation soapAction="http://tempuri.org/IContenidoService/GetListaPoput" style="document" />
+    <wsdl:operation name="GetListaPopup">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/GetListaPopup" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2107,8 +2107,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetDetallePoput">
-      <soap:operation soapAction="http://tempuri.org/IContenidoService/GetDetallePoput" style="document" />
+    <wsdl:operation name="GetDetallePopup">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/GetDetallePopup" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2116,8 +2116,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GuardarPoputs">
-      <soap:operation soapAction="http://tempuri.org/IContenidoService/GuardarPoputs" style="document" />
+    <wsdl:operation name="GuardarPopups">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/GuardarPopups" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

@@ -165,17 +165,19 @@ $.widget("ui.swappable", $.ui.sortable, {
 		var itemPassive = $(target).closest(o.items);
 		var itemActive = this.currentItem.closest(o.items);
         var itemPlaceholder = $(itemActive).next();
-
-        /*Agregardo para el inercambio de orden***************************HD-3344*/
-        var valuePassive = itemPassive[0].getAttribute("orden");
-        var valueActive = itemActive[0].getAttribute("orden");
-        itemActive[0].setAttribute("orden", valuePassive);
-        itemActive[0].firstElementChild.firstChild.innerHTML = valuePassive;
-        itemPassive[0].setAttribute("orden", valueActive)
-        itemPassive[0].firstElementChild.firstChild.innerHTML = valueActive;
-        /*******************************************************************HD-3344*/
-        if (parseInt( valueActive) > 0)
-        document.getElementById("btnActualizaOrden").style.display = "block";
+        debugger;
+        if (itemPassive[0] != undefined) {
+            /*Agregardo para el inercambio de orden***************************HD-3344*/
+            var valuePassive = itemPassive[0].getAttribute("orden");
+            var valueActive = itemActive[0].getAttribute("orden");
+            itemActive[0].setAttribute("orden", valuePassive);
+            itemActive[0].firstElementChild.firstChild.innerHTML = valuePassive;
+            itemPassive[0].setAttribute("orden", valueActive)
+            itemPassive[0].firstElementChild.firstChild.innerHTML = valueActive;
+            /*******************************************************************HD-3344*/
+            if (parseInt(valueActive) > 0)
+                document.getElementById("btnActualizaOrden").style.display = "block";
+        }
 
 
 		$(itemPassive).after(itemActive);
