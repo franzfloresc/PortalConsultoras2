@@ -73,79 +73,94 @@ var DetalleEstrategiaProvider = function () {
     var _promiseObternerComponentes = function (params) {
         var dfd = $.Deferred();
 
-        $.ajax({
-            type: "POST",
-            url: _urlDetalleEstrategia.obtenerComponentes,
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(params),
-            async: false,
-            cache: false,
-            success: function (data) {
-                if (data.success) {
-                    dfd.resolve(data);
-                }
-                else {
-                    dfd.reject(data);
-                }
-            },
-            error: function (data, error) {
-                dfd.reject(data, error);
-            }
-        });
+        try {
 
+            $.ajax({
+                type: "POST",
+                url: _urlDetalleEstrategia.obtenerComponentes,
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(params),
+                async: false,
+                cache: false,
+                success: function (data) {
+                    if (data.success) {
+                        dfd.resolve(data);
+                    }
+                    else {
+                        dfd.reject(data);
+                    }
+                },
+                error: function (data, error) {
+                    dfd.reject(data, error);
+                }
+            });
+
+        } catch (e) {
+            dfd.reject({}, {});
+        }
         return dfd.promise();
     };
 
     var _promiseObternerDetallePedido = function (params) {
         var dfd = $.Deferred();
 
-        $.ajax({
-            type: 'post',
-            url: _urlDetalleEstrategia.obtenerPedidoWebSetDetalle,
-            datatype: 'json',
-            contenttype: 'application/json; charset=utf-8',
-            data: params,
-            success: function (data) {
-                if (data.success) {
-                    dfd.resolve(data);
-                }
-                else {
-                    dfd.reject(data);
-                }
-            },
-            error: function (data, error) {
-                dfd.reject(data, error);
-            }
-        });
+        try {
 
+            $.ajax({
+                type: 'post',
+                url: _urlDetalleEstrategia.obtenerPedidoWebSetDetalle,
+                datatype: 'json',
+                contenttype: 'application/json; charset=utf-8',
+                data: params,
+                success: function (data) {
+                    if (data.success) {
+                        dfd.resolve(data);
+                    }
+                    else {
+                        dfd.reject(data);
+                    }
+                },
+                error: function (data, error) {
+                    dfd.reject(data, error);
+                }
+            });
+
+        } catch (e) {
+            dfd.reject({}, {});
+        }
         return dfd.promise();
     };
 
     var _promiseObternerModelo = function (params) {
         var dfd = $.Deferred();
 
-        $.ajax({
-            type: "POST",
-            url: _urlDetalleEstrategia.obtenerModelo,
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(params),
-            async: false,
-            cache: false,
-            success: function (data) {
-                if (data.success) {
-                    dfd.resolve(data);
-                }
-                else {
-                    dfd.reject(data);
-                }
-            },
-            error: function (data, error) {
-                dfd.reject(data, error);
-            }
-        });
+        try {
 
+            $.ajax({
+                type: "POST",
+                url: _urlDetalleEstrategia.obtenerModelo,
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(params),
+                async: false,
+                cache: false,
+                success: function (data) {
+                    if (data.success) {
+                        dfd.resolve(data);
+                    }
+                    else {
+                        dfd.reject(data);
+                    }
+                },
+                error: function (data, error) {
+                    dfd.reject(data, error);
+                }
+            });
+
+        } catch (e) {
+            dfd.reject({}, {});
+        }
         return dfd.promise();
     };
 
@@ -378,7 +393,7 @@ var FichaModule = (function (config) {
     var _construirSeccionDetalleFichas = function () {
         var pEstrategia = _estrategia;
         if (pEstrategia === null || typeof (pEstrategia) === "undefined") {
-            _redireccionar();
+            _redireccionar("_construirSeccionDetalleFichas, sin Estrategia");
             return false;
         }
 
@@ -434,7 +449,7 @@ var FichaModule = (function (config) {
         data = data || {};
         data.Detalles = data.Detalles || [];
         if (data.Detalles.length == 0) {
-            _redireccionar();
+            _redireccionar('_asignaDetallePedido, sin detalles componentes');
             return false;
             //throw 'Componente: No existe detalle de pedido';
         }
@@ -468,6 +483,7 @@ var FichaModule = (function (config) {
     var _setPedidoSetDetalle = function (pEstrategia) {
         if (_config.esEditable) {
             if (!IsNullOrEmpty(_config.setId)) {
+                var errorRespuesta = false;
                 _config.detalleEstrategiaProvider
                     .promiseObternerDetallePedido({
                         campaniaId: _config.campania,
@@ -479,7 +495,13 @@ var FichaModule = (function (config) {
                     }).fail(function (data, error) {
                         console.log(data);
                         console.log(error);
+                        errorRespuesta = true;
                     });
+
+                if (errorRespuesta) {
+                    _redireccionar("_setPedidoSetDetalle, promiseObternerDetallePedido");
+                    return false;
+                }
             }
         }
         else {
@@ -498,6 +520,7 @@ var FichaModule = (function (config) {
                 lstHermanos: estrategia.Hermanos
             };
 
+            var errorRespuesta = false;
             _config.detalleEstrategiaProvider
                 .promiseObternerComponentes(param)
                 .done(function (data) {
@@ -508,7 +531,14 @@ var FichaModule = (function (config) {
                 }).fail(function (data, error) {
                     estrategia.Hermanos = [];
                     estrategia.EsMultimarca = false;
+                    errorRespuesta = true;
                 });
+
+            if (errorRespuesta) {
+                _redireccionar("_getComponentesAndUpdateEsMultimarca, promiseObternerComponentes");
+                return false;
+            }
+
         }
         else {
             estrategia.Hermanos = [];
@@ -600,7 +630,7 @@ var FichaModule = (function (config) {
         var estrategia = getEstrategia();
 
         if (estrategia == null) {
-            _redireccionar();
+            _redireccionar("_construirSeccionEstrategia, sin estrategia");
             return false;
         }
 
@@ -860,7 +890,7 @@ var FichaModule = (function (config) {
         _config.mostrarCliente = _modeloFicha.MostrarCliente || _config.mostrarCliente;
 
         if (!ValidaOfertaDelDia(true)) {
-            _redireccionar();
+            _redireccionar("_construirSeccionFicha, ValidaOfertaDelDia");
             return false;
         }
         FichaPartialModule.ShowDivFichaResumida(true);
@@ -899,12 +929,13 @@ var FichaModule = (function (config) {
                 modeloFicha.Error = true;
             });
 
+        _modeloFicha = modeloFicha;
+
         if (modeloFicha.Error === true) {
-            _redireccionar();
+            _redireccionar("_getModelo, promiseObternerModelo");
             return false;
         }
 
-        _modeloFicha = modeloFicha;
         _modeloFicha.ConfiguracionContenedor = _modeloFicha.ConfiguracionContenedor || {};
         _modeloFicha.BreadCrumbs = _modeloFicha.BreadCrumbs || {};
     };
@@ -915,16 +946,20 @@ var FichaModule = (function (config) {
         SetHandlebars("#" + idTemplate, modelo, _template.getTagDataHtml(idTemplate));
     }
 
-    var _redireccionar = function () {
+    var _redireccionar = function (txtOrigen) {
+        console.log(txtOrigen);
         _estrategia = {};
-        if (_modeloFicha.TipoAccionNavegar != _tipoAccionNavegar.Volver){
+        if (_modeloFicha.TipoAccionNavegar == undefined) {
+            _modeloFicha.TipoAccionNavegar = $('#DivPopupFichaResumida').length ? _tipoAccionNavegar.Volver : _tipoAccionNavegar.BreadCrumbs;
+        }
+
+        if (_modeloFicha.TipoAccionNavegar != _tipoAccionNavegar.Volver) {
             _modeloFicha = {};
             window.location = baseUrl + (_config.esMobile ? "Mobile/" : "") + "Ofertas";
         }
         else {
             _modeloFicha = {};
             FichaPartialModule.ShowDivFichaResumida(false);
-            //alert('Ha ocurrido una excepción al obtener los datos para este CUV.');
         }
     };
 
