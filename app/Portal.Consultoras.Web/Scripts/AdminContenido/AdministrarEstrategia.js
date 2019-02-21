@@ -4487,59 +4487,79 @@
             }
         });
     }
-    var correlativo = 0;
+
+    var primeraCarga = false;
     function AbrirGrupoEstrategia() {
-        correlativo++;
+
         showDialog('DialogGrupoEstrategia');
-        var mydata = [{
-            name: "Toronto " + correlativo.toString(),
-            country: "Canada",
-            continent: "North America"
-        }, {
-            name: "New York City",
-            country: "USA",
-            continent: "North America"
-        }, {
-            name: "Silicon Valley",
-            country: "USA",
-            continent: "North America"
-        }, {
-            name: "Paris",
-            country: "France",
-            continent: "Europe"
-        }];
-         
-        if (correlativo == 1) {
+        var mydata =
+            [
+                {
+                    EstrategiaId: 1,
+                    EstrategiaGrupoId: 0,
+                    Grupo: 1,
+                    DescripcionSingular: 'DescripcionSingular 1',
+                    DescripcionPlural: 'DescripcionPlural 1'
+                },
+                {
+                    EstrategiaId: 1,
+                    EstrategiaGrupoId: 0,
+                    Grupo: 2,
+                    DescripcionSingular: 'DescripcionSingular 2',
+                    DescripcionPlural: 'DescripcionPlural 2'
+                },
+                {
+                    EstrategiaId: 1,
+                    EstrategiaGrupoId: 0,
+                    Grupo: 3,
+                    DescripcionSingular: 'DescripcionSingular 3',
+                    DescripcionPlural: 'DescripcionPlural 3'
+                }
+            ];
+
+        if (!primeraCarga) {
             $("#listGrupoEstrategia").jqGrid({
                 data: mydata,
                 datatype: "local",
-                colNames: ["Name", "Country", "Continent"],
-                colModel: [{
-                    name: 'name',
-                    index: 'name',
-                    editable: true,
-                }, {
-                    name: 'country',
-                    index: 'country',
-                    editable: true,
-                }, {
-                    name: 'continent',
-                    index: 'continent',
-                    editable: true,
-                }],
+                colNames: ["EstrategiaId", "EstrategiaGrupoId", "Nro. grupo", "Descripción singular", "Descripción plural"],
+                colModel:
+                    [
+                        {
+                            name: 'EstrategiaId',
+                            //index: 'EstrategiaId',
+                            editable: true,
+                            hidden: true
+                        }, {
+                            name: 'EstrategiaGrupoId',
+                            //index: 'EstrategiaGrupoId',
+                            editable: true,
+                            hidden: true
+                        }, {
+                            name: 'Grupo',
+                            //index: 'Grupo',
+                            editable: false,
+                        }, {
+                            name: 'DescripcionSingular',
+                            //index: 'DescripcionSingular',
+                            editable: true,
+                        }, {
+                            name: 'DescripcionPlural',
+                            //index: 'DescripcionPlural',
+                            editable: true,
+                        }
+                    ],
                 pager: '#pagerGrupoEstrategia',
                 'cellEdit': true,
                 'cellsubmit': 'clientArray',
                 editurl: 'clientArray',
 
                 width: "auto",
-                height: 400,
-                hoverrows: false
+                height: "auto",
+                hoverrows: true
             });
         } else {
-            $("#listGrupoEstrategia").setGridParam({ data: mydata }).trigger("reloadGrid", [{ page: 1 }]);            
+            $("#listGrupoEstrategia").setGridParam({ data: mydata }).trigger("reloadGrid", [{ page: 1 }]);
         }
-        
     }
 
     function Inicializar() {
