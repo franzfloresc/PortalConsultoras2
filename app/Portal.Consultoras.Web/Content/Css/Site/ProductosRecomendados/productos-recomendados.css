@@ -474,6 +474,13 @@
         min-width:0;
     }
 
+    .btn_ver_detalle--productoRecomendado,
+    .producto_recomendado_imagen:hover .btn_ver_detalle--productoRecomendado
+    {
+        display:none;
+        opacity:0;
+    }
+
     .producto_recomendado_info{
         padding-left:5px;
         padding-right:0px;
