@@ -51,7 +51,8 @@
         microserviciosEstrategias: config.microserviciosEstrategias,
         microserviciosPaises: config.microserviciosPaises,
 
-        urlConsultarDetalleEstrategiaGrupo: config.urlConsultarDetalleEstrategiaGrupo
+        urlConsultarDetalleEstrategiaGrupo: config.urlConsultarDetalleEstrategiaGrupo,
+        urlEstrategiaGrupoGuardar: config.urlEstrategiaGrupoGuardar
     };
 
     var _variables = {
@@ -2483,7 +2484,9 @@
             buttons:
             {
                 "Guardar": function () {
-                    alert('Guardar');
+
+                    GuardarEstrategiaGrupo();
+
                 },
                 "Salir": function () {
                     HideDialog("DialogGrupoEstrategia");
@@ -4521,6 +4524,33 @@
         return mydata;
     }
 
+
+    function GuardarEstrategiaGrupo() {
+        var mydata = [];
+
+        jQuery.ajax({
+            type: "POST",
+            url: _config.urlEstrategiaGrupoGuardar,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({ datos: _EstrategiaGrupoDatos }),
+            async: false,
+            success: function (data) {
+
+                mydata = data;
+                console.log('guardar result: ', data);
+
+                closeWaitingDialog();
+
+            },
+            error: function (data, error) {
+                closeWaitingDialog();
+
+            }
+        });
+
+        return mydata;
+    }
 
     function AbrirGrupoEstrategia() {
 

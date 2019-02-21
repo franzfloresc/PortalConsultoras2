@@ -231,6 +231,7 @@
     <Compile Include="Areas\Mobile\Controllers\TerminosYCondicionesController.cs" />
     <Compile Include="Controllers\BonificacionesController.cs" />
     <Compile Include="Controllers\BaseAdmController.cs" />
+    <Compile Include="Controllers\EstrategiaGrupoController.cs" />
     <Compile Include="Controllers\ProductoRecomendadoController.cs" />
     <Compile Include="Controllers\ArmaTuPackController.cs" />
     <Compile Include="Controllers\TusClientesController.cs" />
@@ -5899,6 +5900,7 @@
     <Folder Include="Views\Campania\" />
     <Folder Include="Views\Comun\" />
     <Folder Include="Views\Cupon\" />
+    <Folder Include="Views\EstrategiaGrupo\" />
     <Folder Include="Views\EstrategiaProductoComentario\" />
   </ItemGroup>
   <ItemGroup>
