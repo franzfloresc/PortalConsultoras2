@@ -28,7 +28,6 @@ var cuvEsProgNuevas = false;
 var pedidoProvider = PedidoProvider();
 
 $(document).ready(function () {
-     
     ValidarKitNuevas();
     var hdDataBarra = $("#hdDataBarra").val();
     if ($.trim(hdDataBarra) != "") {

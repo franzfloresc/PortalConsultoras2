@@ -83,7 +83,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/respond.min.js",
                 "~/Scripts/trans-banner.js",
                 "~/Scripts/jquery.tmpl.js",
-                "~/Scripts/LogError.js"
+                "~/Scripts/LogError.js",
+                "~/Scripts/AdminContenido/General.js"
             ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/PluginsFooterSAC").Include(
@@ -174,8 +175,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Buscador/BuscadorProvider.js",
                 "~/Scripts/PortalConsultoras/Buscador/BuscadorModule.js",
                 "~/Scripts/PortalConsultoras/Shared/ConstantesModule.js",
-                "~/Scripts/PortalConsultoras/EstrategiaAgregar/PedidoRegistro.js",
-                "~/Scripts/PortalConsultoras/Shared/AnalyticsPortal.js"
+                "~/Scripts/PortalConsultoras/EstrategiaAgregar/PedidoRegistro.js"
             ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mixto/BusquedaProducto").Include(
@@ -334,8 +334,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Shared/AnalyticsPortal.js",
                 "~/Scripts/PortalConsultoras/Buscador/BuscadorProvider.js",
                 "~/Scripts/PortalConsultoras/Buscador/BuscadorModule.js",
-                "~/Scripts/PortalConsultoras/EstrategiaAgregar/PedidoRegistro.js",
-                "~/Scripts/PortalConsultoras/Shared/AnalyticsPortal.js"
+                "~/Scripts/PortalConsultoras/EstrategiaAgregar/PedidoRegistro.js"
             ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/SB2-Bienvenida").Include(
@@ -740,6 +739,9 @@ namespace Portal.Consultoras.Web
             ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mixto/TusClientesIndex").Include(
+                "~/Scripts/PortalConsultoras/Shared/ConstantesModule.js",
+                "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js",
+                "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js",
                 "~/Scripts/PortalConsultoras/TusClientes/TusClientesProvider.js",
                 "~/Scripts/PortalConsultoras/TusClientes/TusClientesModule.js",
                 "~/Scripts/PortalConsultoras/TusClientes/PanelMantenerModule.js"
@@ -975,7 +977,8 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/Shared/buscador-responsive.css",
                 "~/Content/Css/Site/Shared/menu-secundario-responsive.css",
                 "~/Content/Css/Site/Shared/footer-responsive.css",
-                "~/Content/Css/Site/Esika/marca-pais-responsive.css"
+                "~/Content/Css/Site/Esika/marca-pais-responsive.css",
+                "~/Content/Css/Site/Esika/styleDefault.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/LebelPageResponsive").Include(
@@ -986,10 +989,12 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/Shared/buscador-responsive.css",
                 "~/Content/Css/Site/Shared/menu-secundario-responsive.css",
                 "~/Content/Css/Site/Shared/footer-responsive.css",
-                "~/Content/Css/Site/Lbel/marca-pais-responsive.css"
+                "~/Content/Css/Site/Lbel/marca-pais-responsive.css",
+                "~/Content/Css/Site/Lbel/styleDefault.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Responsive/TusClientes").Include(
+                "~/Content/Css/Site/Pedido/PedidoTooltip.css",
                 "~/Content/Css/Mobile/Clientes/Asignarcliente.css",
                 "~/Content/Css/Site/TusClientes/TusClientes_Responsive.css"
             ));

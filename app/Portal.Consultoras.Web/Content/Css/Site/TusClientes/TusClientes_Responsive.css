@@ -74,6 +74,17 @@ h1, h2, h3, h4, h5, h6 {
     background-color: #efefef;
 }*/
 
+
+.Form-AgregarCliente {
+    width: 330px !important;
+    margin-right: -330px;
+}
+
+
+.show_PopupEditarCliente {
+    margin-right: 0px;
+}
+
 .titulo_bloque {
     border-bottom: 2px solid #000;
     margin-bottom: 30px;
@@ -162,6 +173,7 @@ h1, h2, h3, h4, h5, h6 {
     background: none;
     width: 53px;
     height: 45px;
+    cursor: pointer;
 }
 
     .botton_export_xls img {
@@ -177,9 +189,19 @@ h1, h2, h3, h4, h5, h6 {
     background-color: #fff;
 }
 
+.container_clientes{
+    margin-bottom:60px;
+}
+
+
 
 
 @media screen and (max-width:768px) {
+
+    .show_PopupEditarCliente {
+        width: 100% !important;
+    }
+
     .tabla_cabecera{
         display:none;
     }
@@ -258,6 +280,31 @@ h1, h2, h3, h4, h5, h6 {
     .btn_editar {
         height: 38px;
     }
+    .d-none{
+        display:none !important;
+    }
+
+    .container_clientes {
+        margin-bottom: 30px;
+    }
+
+    .content_boton_agregar_ancla {
+        position: relative !important;
+        background: #fff !important;
+    }
+
+}
 
 
+@media screen and (min-width:768px) {
+    .fitros_fixed {
+        display:none;
+        position: fixed;
+        width: 100%;
+        background: #f5f5f5;
+        top: 61px;
+        padding-top: 15px;
+        z-index: 999;
+        border-bottom: 1px solid rgba(126,126,126,.2);
+    }
 }
