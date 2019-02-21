@@ -4541,10 +4541,10 @@
                 colNames: ["EstrategiaId", "EstrategiaGrupoId", "Nro. grupo", "Nombre (Singular)", "Nombre (Plural)"],
                 colModel:
                     [
-                        { name: 'EstrategiaId', index: 'EstrategiaId', editable: true, hidden: false },
-                        { name: 'EstrategiaGrupoId', index: 'EstrategiaGrupoId', editable: true, hidden: false },
-                        { name: 'Grupo', index: 'Grupo', editable: true, },
-                        { name: 'DescripcionSingular', index: 'DescripcionSingular', editable: true, },
+                        { name: 'EstrategiaId', index: 'EstrategiaId', editable: true, hidden: true },
+                        { name: 'EstrategiaGrupoId', index: 'EstrategiaGrupoId', editable: true, hidden: true },
+                        { name: 'Grupo', index: 'Grupo', editable: false },
+                        { name: 'DescripcionSingular', index: 'DescripcionSingular', editable: true  },
                         { name: 'DescripcionPlural', index: 'DescripcionPlural', editable: true }
                     ],
                 pager: '#pagerGrupoEstrategia',
@@ -4563,7 +4563,7 @@
                     if (name == 'DescripcionPlural') {
                         _EstrategiaGrupoDatos[rowid - 1].DescripcionPlural = val;
                     }
-                     
+                    console.log(_EstrategiaGrupoDatos);
                 }
             });
         } else {
