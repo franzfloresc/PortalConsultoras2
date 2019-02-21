@@ -25,9 +25,11 @@ var listaParametriaOfertaFinal = listaParametriaOfertaFinal || {};
 var cuvbuscado = "";
 var cuvEsProgNuevas = false;
 
+var pedidoProvider = PedidoProvider();
+
 $(document).ready(function () {
      
-    //ValidarKitNuevas();
+    ValidarKitNuevas();
     var hdDataBarra = $("#hdDataBarra").val();
     if ($.trim(hdDataBarra) != "") {
         dataBarra = JSON.parse(hdDataBarra);
@@ -522,24 +524,17 @@ function CargarDetallePedido(page, rows, asyncrono) {
 
     $("#tbobyDetallePedido").html('<div><div style="width:100%;"><div style="text-align: center;"><br>Cargando Detalle de Productos<br><img src="' + urlLoad + '" /></div></div></div>');
 
-    var clienteId = $("#ddlClientes").val() || -1;
-    var obj = {
+    var pedidoPageParams = {
         sidx: "",
         sord: "",
         page: page || 1,
         rows: rows || $($('[data-paginacion="rows"]')[0]).val() || 20,
-        clienteId: clienteId
+        clienteId: $("#ddlClientes").val() || -1
     };
 
-    asyncrono = asyncrono == undefined ? true : asyncrono;
-    $.ajax({
-        type: "POST",
-        url: baseUrl + "Pedido/CargarDetallePedido",
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        data: JSON.stringify(obj),
-        async: asyncrono,
-        success: function (response) {
+    pedidoProvider
+        .cargarDetallePedidoPromise(pedidoPageParams)
+        .done(function (response) {
             if (checkTimeout(response)) {
                 var data = response.data;
 
@@ -572,7 +567,7 @@ function CargarDetallePedido(page, rows, asyncrono) {
                 });
 
                 $("#ddlClientes").append(htmlCliente);
-                $("#ddlClientes").val(clienteId);
+                $("#ddlClientes").val(pedidoPageParams.clienteId);
 
                 data.ListaDetalleModel = data.ListaDetalleModel || [];
                 $.each(data.ListaDetalleModel, function (ind, item) {
@@ -594,7 +589,7 @@ function CargarDetallePedido(page, rows, asyncrono) {
                 $("#paginadorCab [data-paginacion='rows']").val(data.Registros || 10);
                 $("#paginadorPie [data-paginacion='rows']").val(data.Registros || 10);
 
-                MostrarInformacionCliente(clienteId);
+                MostrarInformacionCliente(pedidoPageParams.clienteId);
                 mostrarSimplificacionCUV();
 
                 MostrarBarra(response);
@@ -607,9 +602,10 @@ function CargarDetallePedido(page, rows, asyncrono) {
                     }
                 }
             }
-        },
-        error: function (response, error) { }
-    });
+        })
+        .fail(function (response, error) {
+        });
+
 }
 
 function CargarDialogMesajePostulantePedido() {
@@ -649,15 +645,12 @@ function UpdateUsuarioTutoriales() {
     var item = {
         tipo: "1" // Para Desktop
     };
-    $.ajax({
-        type: "POST",
-        url: baseUrl + "Pedido/UpdatePostulanteMensaje",
-        data: JSON.stringify(item),
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        success: function (data) { },
-        error: function (data) { }
-    });
+
+    pedidoProvider
+        .updatePostulanteMensaje(item)
+        .done(function (data) { })
+        .fail(function (data, error) { });
+
     return true;
 }
 

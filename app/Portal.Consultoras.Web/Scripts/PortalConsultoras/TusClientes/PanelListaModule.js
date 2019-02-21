@@ -94,6 +94,7 @@
     var _init = function () {
         _loadPanelMantener();
 
+        _setNombreCliente('');
         _mostrarTusClientes();
 
         $("body").on("click", _elements.btnAgregar, function (e) {
