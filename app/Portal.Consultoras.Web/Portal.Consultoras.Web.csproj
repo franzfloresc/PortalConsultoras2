@@ -4186,7 +4186,6 @@
     <Content Include="Scripts\owl.carousel.js" />
     <Content Include="Scripts\owl.carousel.min.js" />
     <Content Include="Scripts\PortalConsultoras\Bienvenida\Index.js" />
-    <Content Include="Scripts\PortalConsultoras\MisCatalogosRevistas\--Index.js" />
     <Content Include="Scripts\PortalConsultoras\MisPagos\Index.js" />
     <Content Include="Scripts\PortalConsultoras\MisPagos\Percepciones.js" />
     <Content Include="Scripts\PortalConsultoras\MisPedidos\Index.js" />
@@ -5393,7 +5392,6 @@
     <Content Include="Views\MisPedidos\Index.cshtml" />
     <Content Include="Views\MisPagos\Index.cshtml" />
     <Content Include="Views\MisPagos\_PanelLateral.cshtml" />
-    <Content Include="Views\MisCatalogosRevistas\--Index.cshtml" />
     <Content Include="Views\Notificaciones\Index.cshtml" />
     <Content Include="Views\Pedido\PedidoValidado.cshtml" />
     <Content Include="Views\MisBeneficios\Index.cshtml" />
@@ -5581,7 +5579,6 @@
       <SubType>Designer</SubType>
     </None>
     <Content Include="Views\Bonificaciones\Index.cshtml" />
-    <Content Include="Views\MisCatalogosRevistas\MisCatalogosYRevistas.cshtml" />
     <Content Include="Views\MisCatalogosRevistas\Index.cshtml" />
     <Content Include="Views\MisCatalogosRevistas\template-revista-slide.cshtml" />
     <Content Include="Views\DetalleEstrategia\ProductoTemplate.cshtml" />
@@ -5592,6 +5589,7 @@
     <Content Include="Views\TusClientes\PanelTest.cshtml" />
     <Content Include="Views\TusClientes\_Mantener.cshtml" />
     <Content Include="Views\ArmaTuPack\Index.cshtml" />
+    <Content Include="Views\AdministrarEstrategia\EstrategiaGrupoDialog.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -5640,7 +5638,6 @@
     <Content Include="Views\EstrategiaProducto\template_mas_vendidosDP.cshtml" />
     <Content Include="Views\Pedido\template-seccion-opt.cshtml" />
     <Content Include="Views\Unete\TemplatesUbigeos\_UbigeoGrupo7.cshtml" />
-    <Content Include="Views\MisCatalogosRevistas\--template-revista-slide.cshtml" />
     <None Include="Web References\ServiceActualizarDatosPrueba\ProcesoMAEPortalConsultoraWebService.wsdl" />
     <Content Include="Web References\ServiceActualizarDatosPrueba\Reference.map" />
     <Content Include="Views\ShowRoom\Intriga.cshtml" />

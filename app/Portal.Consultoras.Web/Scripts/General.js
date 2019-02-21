@@ -574,6 +574,10 @@ function showDialog(dialogId) {
     return false;
 }
 
+/**
+ * @deprecated
+ * se iran eliminando las referencias de manera progresiva.
+ */
 function HideDialog(dialogId) {
     try {
 
@@ -596,6 +600,10 @@ function validateEmail(email) {
     return re.test(email);
 }
 
+/**
+ * @deprecated usar GeneralModule.abrirLoad()
+ * se iran eliminando las referencias de manera progresiva.
+ */
 function CreateLoading() {
     if ($("#loadingScreen").find(".loadingScreen-titulo").length !== 0 ||
         $("#loadingScreen").find(".loadingScreen-mensaje").length !== 0) return false;
@@ -616,6 +624,7 @@ function CreateLoading() {
     });
     $("#loadingScreen").parent().find(".ui-dialog-titlebar").hide();
 }
+
 //function eventCloseDialogMensaje() {
 //    HideDialog("alertDialogMensajes");
 //}
@@ -632,6 +641,10 @@ function printElement(selector) {
     document.body.innerHTML = originalContents;
 }
 
+/**
+ * @deprecated usar GeneralModule.abrirLoad()
+ * se iran eliminando las referencias de manera progresiva.
+ */
 function waitingDialog(waiting) {
     try {
         if (!$("#loadingScreen")) {
@@ -657,6 +670,10 @@ function waitingDialog(waiting) {
     }
 }
 
+/**
+ * @deprecated usar GeneralModule.cerrarLoad()
+ * se iran eliminando las referencias de manera progresiva.
+ */
 function closeWaitingDialog(opcion) {
     try {
         HideDialog("loadingScreen");
@@ -671,6 +688,10 @@ function closeWaitingDialog(opcion) {
 
 }
 
+/**
+ * @deprecated usar GeneralModule.abrirLoad()
+ * se iran eliminando las referencias de manera progresiva.
+ */
 function AbrirLoad(opcion) {
     try {
         if (isMobile()) {
@@ -684,6 +705,10 @@ function AbrirLoad(opcion) {
     }
 }
 
+/**
+ * @deprecated usar GeneralModule.cerrarLoad()
+ * se iran eliminando las referencias de manera progresiva.
+ */
 function CerrarLoad(opcion) {
     try {
         if (isMobile()) {
@@ -1015,7 +1040,7 @@ FuncionesGenerales = {
         var tecla = (document.all) ? e.keyCode : e.which;
         if (tecla == 8) return true;
         var patron = /[0-9-\-]/;
-        var te = String.fromCharCode(tecla);    
+        var te = String.fromCharCode(tecla);
         return patron.test(te);
     },
     ValidarSpecialCharater: function (e) {
@@ -1024,7 +1049,7 @@ FuncionesGenerales = {
             return false;
         }
     },
-   
+
     ValidarSoloLetrasYNumeros: function (e) {
         var charCode = (e.which) ? e.which : window.event.keyCode;
         if (charCode <= 13) {
@@ -1741,22 +1766,22 @@ function odd_google_analytics_product_click(name, id, price, brand, variant, pos
     dataLayer.push({
         'event': 'productClick',
         'ecommerce':
+        {
+            'click':
             {
-                'click':
-                    {
-                        'actionField': { 'list': listName },
-                        'products':
-                            [{
-                                'name': name,
-                                'id': id,
-                                'price': price,
-                                'brand': brand,
-                                'category': 'No disponible',
-                                'variant': variant,
-                                'position': position
-                            }]
-                    }
+                'actionField': { 'list': listName },
+                'products':
+                    [{
+                        'name': name,
+                        'id': id,
+                        'price': price,
+                        'brand': brand,
+                        'category': 'No disponible',
+                        'variant': variant,
+                        'position': position
+                    }]
             }
+        }
     });
 }
 
@@ -2062,25 +2087,155 @@ function microefectoPedidoGuardado() {
     }, 2700);
 }
 
-var GeneralModule = (function(){
+/**
+ * Creates an object and returns it with all general methods.
+ * This module was created to increase de readibility of the code.
+ */
+var GeneralModule = (function () {
+    "use strict";
+
+    var _elements = {
+        loading :{
+            spin : {
+                id : "loading-spin"
+            },
+            loadingScreen:{
+                id : "loadingScreen",
+                class : {
+                    titulo : "loadingScreen-titulo",
+                    mensaje : "loadingScreen-mensaje"
+                }
+            }
+        }
+    };
+
     var _isMobile = function () {
         var isUrlMobile = $.trim(location.href.replace("#", "/") + "/").toLowerCase().indexOf("/mobile/") > 0 ||
             $.trim(location.href).toLowerCase().indexOf("/g/") > 0;
         return isUrlMobile;
     };
 
-
     var _redirectTo = function (url) {
-        if(typeof url === "undefined" || url === null || $.trim(url) ==="") return false;
+        if (typeof url === "undefined" || url === null || $.trim(url) === "") return false;
 
         var destinationUrl = "/";
-        if(isMobile) destinationUrl+= "Mobile/"; 
-        destinationUrl+= url;
-        
-        return destinationUrl;
+        if (isMobile) destinationUrl += "Mobile/";
+        destinationUrl += url;
+
+        window.location.href = destinationUrl;
     };
+
+    var _showLoading = function () {
+        $("#" + _elements.loading.spin.id).fadeIn();
+    };
+
+    var _closeLoading = function () {
+        $("#" + _elements.loading.spin.id).fadeOut("fast");
+    };
+
+    var _createLoading = function () {
+        if ($("#" + _elements.loading.loadingScreen.id).find("." + _elements.loading.loadingScreen.class.titulo).length !== 0 ||
+            $("#" + _elements.loading.loadingScreen.id).find("." + _elements.loading.loadingScreen.class.mensaje).length !== 0) return false;
+    
+        $("#" + _elements.loading.loadingScreen.id).append("<div class=\"" + _elements.loading.loadingScreen.class.titulo + "\"></div>");
+        $("#" + _elements.loading.loadingScreen.id).append("<div class=\"" + _elements.loading.loadingScreen.class.mensaje + "\"></div>");
+    
+        $("#" + _elements.loading.loadingScreen.id).dialog({
+            autoOpen: false,
+            dialogClass: "loadingScreenWindow",
+            closeOnEscape: false,
+            draggable: false,
+            width: 350,
+            minHeight: 50,
+            modal: true,
+            buttons: {},
+            resizable: false
+        });
+        $("#" + _elements.loading.loadingScreen.id).parent().find(".ui-dialog-titlebar").hide();
+    };
+
+    var waitingDialog = function (params) {
+        try {
+            if (!$("#" + _elements.loading.loadingScreen.id)) {
+                $(document.body).append("<div id=\"" +_elements.loading.loadingScreen.id + "\"></div>");
+            }
+
+            if (!$("#" + _elements.loading.loadingScreen.id).hasClass('ui-dialog-content')) {
+                if ($("#" + _elements.loading.loadingScreen.id).attr("data-dialog") != "1") {
+                    _createLoading();
+                    $("#" + _elements.loading.loadingScreen.id).attr("data-dialog", "1");
+                }
+            }
+            params = params || {};
+            $("#" + _elements.loading.loadingScreen.id).find("." + _elements.loading.loadingScreen.class.titulo).html(params.title && '' != params.title ? params.title : 'Cargando');
+            $("#" + _elements.loading.loadingScreen.id).find("." + _elements.loading.loadingScreen.class.mensaje).html(params.message && '' != params.message ? params.message : 'Espere, por favor...');
+            $("#" + _elements.loading.loadingScreen.id).dialog("open");
+        }
+        catch (err) {
+
+        }
+    };
+
+    var _hideDialog = function (dialogId) {
+        try {
+    
+            dialogId = (dialogId || "").trim();
+            if (dialogId != "") {
+                dialogId = dialogId[0] == "#" ? dialogId : ("#" + dialogId);
+                $(dialogId).dialog("close");
+            }
+        }
+        catch (err) {
+            console.log('HideDialog - log - ', err);
+        }
+    
+        $("body").css("overflow", "auto");
+        return false;
+    };
+
+    var closeWaitingDialog = function (opcion) {
+        try {
+            _hideDialog("loadingScreen");
+
+            if (opcion.overflow === false) {
+                $('body').css('overflow', 'hidden');
+            }
+        }
+        catch (err) {
+        }
+
+    };
+
+    var _abrirLoad = function (opcion) {
+        try {
+            if (_isMobile()) {
+                _showLoading();
+            }
+            else {
+                waitingDialog(opcion);
+            }
+        } catch (e) {
+
+        }
+    };
+
+    var _cerrarLoad = function (opcion) {
+        try {
+            if (isMobile()) {
+                _closeLoading();
+            }
+            else {
+                closeWaitingDialog(opcion);
+            }
+        } catch (e) {
+
+        }
+    };
+
     return {
-        isMobile:_isMobile,
+        isMobile: _isMobile,
         redirectTo: _redirectTo,
+        abrirLoad: _abrirLoad,
+        cerrarLoad: _cerrarLoad
     };
 }());

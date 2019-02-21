@@ -41,7 +41,7 @@
     <div class="filtros2_plan50">
         <div class="elements_plan50">
             <div class="div-2">
-                <h1><span>Zona de Estrategias @(Model.TipoVistaEstrategia == Constantes.TipoVistaEstrategia.ProgramaNuevas ? "- Programa de Nuevas" : string.Empty)</span></h1>
+                <h1><span>Zona de estrategias @(Model.TipoVistaEstrategia == Constantes.TipoVistaEstrategia.ProgramaNuevas ? "- Programa de Nuevas" : string.Empty)</span></h1>
             </div>
             <div class="div-3">
                 <div class="titG">País:</div>
@@ -54,7 +54,7 @@
                 </div>
             </div>
             <div class="div-3">
-                <div class="titG">Tipo de Estrategia:</div>
+                <div class="titG">Tipo de estrategia:</div>
                 <div class="selectA borde_redondeado">
                     <select id="ddlTipoEstrategia" name="ddlTipoEstrategia">
                         @if (Model.ListaTipoEstrategia != null)
@@ -85,7 +85,7 @@
             </div>
 
             <div class="div-3">
-                <div class="titG">Tiene imagen?:</div>
+                <div class="titG">Imagen:</div>
                 <div class="selectA borde_redondeado">
                     <select id="ddlTieneImagen" name="ddlTieneImagen">
                         <option value="-1" selected>-- Seleccionar --</option>
@@ -93,7 +93,7 @@
                         <option value="0">No</option>
                     </select>
                 </div>
-                <div class="titG">Oferta Activa?:</div>
+                <div class="titG">¿oferta activa?</div>
                 <div class="selectA borde_redondeado">
                     <select id="ddlOfertaActiva" name="ddlOfertaActiva">
                         <option value="-1" selected>-- Seleccionar --</option>
@@ -156,13 +156,13 @@
                     <input type="button" name="btnNuevo" id="btnNuevo" value="Nuevo" />
                     @if (Model.TipoVistaEstrategia == Constantes.TipoVistaEstrategia.Todos)
                     {
-                        <input type="button" name="btnNuevoMasivo" id="btnNuevoMasivo" value="Nuevo Masivo" />
+                        <input type="button" name="btnNuevoMasivo" id="btnNuevoMasivo" value="Nuevo masivo" />
                     }
                 </div>
                 <div class="input_modifica_pedido">
-                    <input type="button" name="btnDescripcionMasivo" id="btnDescripcionMasivo" value="Descrip. Masivo" />
+                    <input type="button" name="btnDescripcionMasivo" id="btnDescripcionMasivo" value="Descripción masivo" />
                     <input type="button" name="btnDescripcionMasivoProd" id="btnDescripcionMasivoProd" value="Descrip. Masivo Producto" style="display: none;" />
-                    <input type="button" name="btnActivarDesactivar" id="btnActivarDesactivar" value="Activar/Desactivar" style="display: none;" />
+                    <input type="button" name="btnActivarDesactivar" id="btnActivarDesactivar" value="Activar / Desactivar" style="display: none;" />
                     <input type="button" name="btnCargaBloqueoCuv" id="btnCargaBloqueoCuv" value="Cargar Bloqueados" style="display: none;" />
                 </div>
             </div>
@@ -178,6 +178,8 @@
 </div>
 
 @Html.Partial("AdministrarEstrategiaDialog")
+
+@Html.Partial("EstrategiaGrupoDialog")
 
 <div id="DialogZona" style="display: none;">
     <div class="Content_modal">
@@ -521,8 +523,8 @@
             <div class="selectP2 borde_redondeado">
                 <input type="text" id="txtCUVProductoDetalle" />
             </div>
-            <div class="titG"><span id="spMarcaProducto">Marca Producto:</span></div>
-            <div class="selectP2 borde_redondeado" id="divMarcaProductoValue" >
+            <div class="titG"><span id="spMarcaProducto">Marca producto:</span></div>
+            <div class="selectP2 borde_redondeado" id="divMarcaProductoValue">
                 <select id="ddlMarcaProductoDetalle">
                     <option value="0" selected>Seleccione</option>
                     <option value="1">Lbel</option>
@@ -533,7 +535,7 @@
         </div>
 
         <div class="div-3">
-            <div class="titG">Nombre Producto:</div>
+            <div class="titG">Nombre producto:</div>
             <div class="selectP2 borde_redondeado">
                 <input type="text" id="txtNombreProductoDetalle" />
             </div>
@@ -543,11 +545,11 @@
             </div>
         </div>
         <div class="div-3">
-            <div class="titG">Precio Oferta:</div>
+            <div class="titG">Precio oferta:</div>
             <div class="selectP2 borde_redondeado">
                 <input type="text" id="txtPrecioOfertaDetalle" />
             </div>
-            <div class="titG"><span id="spActivarOferta">¿Activar Oferta?:</span></div>
+            <div class="titG"><span id="spActivarOferta">¿Activar la oferta?</span></div>
             <div class="selectP2 borde_redondeado" id="divActivoOfertaValue">
                 <input type="checkbox" id="chkActivoOfertaDetalle" />
             </div>
@@ -561,7 +563,7 @@
         <div class="div-3">
             <div class="titG"></div>
             <div class="titC" style="padding: 0; width: 180px; padding-right: 20px;">
-                 
+
                 <div class="input_search">
                     <div id="fpPopupImagenProductoDetalle">
                         <script type="text/javascript">

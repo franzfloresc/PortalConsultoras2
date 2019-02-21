@@ -816,6 +816,8 @@
 
         var edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').EditarProducto('" + id + "','" + campaniaId + "','" + cuv + "',event);\" >" + "<img src='" + _config.rutaImagenEdit + "' alt='Editar Productos ShowRoom' title='Editar Productos ShowRoom' border='0' /></a>";
 
+        //showDialog('DialogGrupoEstrategia');
+
         return edit;
     }
 
@@ -1254,7 +1256,7 @@
                 codigo == _codigoEstrategia.ArmaTuPack),
             multiselectWidth: 35,
             colNames: [
-                "EstrategiaID", "Orden", "#", "Pedido Asociado", "Precio", "CUV2", "Descripción", "Limite Venta", "Código SAP", "ImagenURL",
+                "EstrategiaID", "Orden", "#", "Pedido asociado", "Precio", "CUV2", "Descripción", "Límite venta", "Código SAP", "ImagenURL",
                 "Activo", "EsOfertaIndependiente", "FlagValidarImagen", "PesoMaximoImagen", "_id"
                 , "CodigoTipoEstrategia", "Foto", colNameActions, "Productos",
                 "Grupos"
@@ -2192,7 +2194,7 @@
     var _fnGrillaOfertaShowRoomDetalle = function (campaniaId, cuv, estrategiaId) {
 
         /*INI ATP*/
-        var newTituloGridATP = $("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ArmaTuPack ? "Nombre de Grupos" : "Descripcion1"
+        var newTituloGridATP = $("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ArmaTuPack ? "Nombre de grupos" : "Descripcion1"
         /*END ATP*/
 
         $("#listShowRoomDetalle").jqGrid("clearGridData");
@@ -2309,8 +2311,7 @@
             IdMarca: $("#ddlMarcaProductoDetalle").val(),
             Activo: isActive,
             ImagenProducto: $("#hdImagenDetalle").val(),
-            ImagenAnterior: $("#hdImagenDetalleAnterior").val(),
-            CodigoEstrategia: $("#ddlTipoEstrategia").find(":selected").data("codigo")
+            ImagenAnterior: $("#hdImagenDetalleAnterior").val()
         };
 
         waitingDialog({ title: "Procesando" });
@@ -2465,6 +2466,27 @@
 
     // Binding events dialogs 
     var _iniDialog = function () {
+        $("#DialogGrupoEstrategia").dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 830,
+            draggable: false,
+            title: "Grupo de Estrategia",
+            close: function (event, ui) { $(".ui-dialog-titlebar-close", ui.dialog).show(); },
+            open: function (event, ui) { $(".ui-dialog-titlebar-close", ui.dialog).hide(); },
+            buttons:
+            {
+                "Guardar": function () {
+                    alert('Guardar');
+                },
+                "Salir": function () {
+                    HideDialog("DialogGrupoEstrategia");
+                }
+            }
+        });
+
         $("#DialogAdministracionEstrategia").dialog({
             autoOpen: false,
             resizable: false,
@@ -4292,7 +4314,7 @@
         $("#txtPrecioValorizadoDetalle").val(jQuery("#list").jqGrid("getCell", ID, "Precio2"));
 
         /*INI ATP*/
-        var newTitulo = $("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ArmaTuPack ? "Edición de Grupos" : "Edición de Productos"
+        var newTitulo = $("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ArmaTuPack ? "Edición de grupos" : "Edición de Productos"
         $('#DialogRegistroOfertaShowRoomDetalle').dialog('option', 'title', newTitulo);
         /*END ATP*/
 
@@ -4389,7 +4411,7 @@
 
         if ($("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ArmaTuPack) {
             //Descriptivo para Grupos ATP
-            newTitulo = "Registro / Edición de Grupos";
+            newTitulo = "Edición de grupos";
             newLabel0 = "Nombre de Grupos:";
             newLabel1 = ' ';
             newLabel2 = ' ';
