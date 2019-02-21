@@ -224,6 +224,7 @@
   top: 16px;
   transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
+  z-index:-2;
 }
 .arrow-down:hover{
     cursor: text;
@@ -343,7 +344,7 @@
     .contenedor_cantidadProductos div .campo_cantidadProductos input {
         width: 100%;
         border: 0;
-        background: #fff;
+        background: transparent;
         text-align: center;
         color: #000;
         font-size: 13px;
@@ -351,6 +352,7 @@
         left: 0;
         padding-right: 14px;
         position: absolute;
+        z-index: -1;
     }
 
         .contenedor_cantidadProductos div .campo_cantidadProductos input[value] {
@@ -359,7 +361,7 @@
 
     .contenedor_cantidadProductos div span, .contenedor_cantidadProductos div .campo_cantidadProductos {
         border: 1px solid #909094;
-        background: #fff;
+        background: transparent;
         height: 40px;
         vertical-align: top;
         line-height: 40px;
@@ -368,6 +370,7 @@
         overflow: hidden;
         border-radius: 4px;
         position: relative;
+        z-index: 10;
     }
 
     .tooltip_noOlvidesGuardarTuPedido:before, .tooltip_noOlvidesGuardarTuPedido:after {
