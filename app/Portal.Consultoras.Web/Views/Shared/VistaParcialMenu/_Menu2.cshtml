@@ -153,8 +153,9 @@
                                             var tooltip = "Mis Catálogos y Revistas";
                                             opcion = !ViewBag.TituloCatalogo ? "CATÁLOGOS" : opcion;
                                             tooltip = !ViewBag.TituloCatalogo ? "Mis Catálogos" : tooltip;
+                                            var classHref = "menu_imagen" + (ViewBag.CodigoISODL == "PE" ? " no_margin_right" : "");
                                         }
-                                        <a href="javascript:;" class="menu_imagen no_margin_right" onclick="RedirectMenu('Index', 'MisCatalogosRevistas', 0, 'MisCatalogosRevistas')" target="_self" role="menu" region="Principal" parent="MI NEGOCIO" title="@tooltip" id="lnk-pri-miscatalogosrevistas">
+                                        <a href="javascript:;" class="@classHref" onclick="RedirectMenu('Index', 'MisCatalogosRevistas', 0, 'MisCatalogosRevistas')" target="_self" role="menu" region="Principal" parent="MI NEGOCIO" title="@tooltip" id="lnk-pri-miscatalogosrevistas">
                                             <img role="menu" region="Principal" parent="MI NEGOCIO" title="@tooltip" src="@(ViewBag.UrlRaizS3)Menu/MiNegocio/@(ViewBag.codigoISOMenu)/imagen_01.png" />
 
 

@@ -303,6 +303,10 @@ header {
     z-index:3;
 }
 
+.w1080p {
+    width: 1080px;
+}
+
 .sub_menu_home2 {
     position: absolute;
     left: -150px;
