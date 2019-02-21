@@ -66,5 +66,12 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "CampaniaId", DbType.Int32, campaniaId);
             return Context.ExecuteReader(command);
         }
+
+        public IDataReader GetListarSeccionAPP(int campaniaId)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ConfiguracionOfertasHomeAppListarSecciones");
+            Context.Database.AddInParameter(command, "CampaniaId", DbType.Int32, campaniaId);
+            return Context.ExecuteReader(command);
+        }
     }
 }
