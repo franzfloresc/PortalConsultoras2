@@ -77,10 +77,10 @@
             return;
         }
 
-        if (cliente.Correo !== "" && !validateEmail(correo)) {
-            $(_elements.divErrorCorreo).show();
-            return;
-        }
+        //if (cliente.Correo !== "" && !validateEmail(correo)) {
+        //    $(_elements.divErrorCorreo).show();
+        //    return;
+        //}
 
         $(_elements.btnGuardarCliente).hide();
 
