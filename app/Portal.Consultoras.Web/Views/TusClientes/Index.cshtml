@@ -18,27 +18,31 @@
     </div>
 </div>
 
-<div class="container">
+<div id="fitros_fixed">
+    <div class="container">
+        <div class="row" style="margin-bottom:15px;">
+            <div class="col-md-6 col-xs-12">
+                <input id="txtNombreCliente" class="buscar_cliente" type="text" placeholder="Buscar" value="" />
+            </div>
 
-    <div class="row" style="margin-bottom:15px;">
-        <div class="col-md-6 col-xs-12">
-            <input id="txtNombreCliente" class="buscar_cliente" type="text" placeholder="Buscar" value="" />
-        </div>
-
-        <div class="col-md-6 col-xs-12 d-flex flex-row-reverse content_boton_agregar">  
-            <button id="btnBuscarClientes"  class="boton_agregar float-md-right" onclick="tusClientesModule.editarCliente(null)"> <img src="/Content/Images/nuevo_tuclientes.svg" alt="Alternate Text" />AGREGAR CONTACTO</button>
-            <button class="botton_export_xls"><img src="/Content/Images/nuevo_tuclientes.svg" /></button>
-            @*<input id="btnBuscarClientes"
-                   type="button"
-                   class="boton_agregar float-md-right"
-                   title="Agregar Cliente +"
-                   value="Agregar Cliente +"
-                   onclick="tusClientesModule.editarCliente(null)"
-                   />*@
+            <div class="col-md-6 col-xs-12 d-flex flex-row-reverse content_boton_agregar d-none">
+                <button id="btnBuscarClientes" class="boton_agregar float-md-right" onclick="tusClientesModule.editarCliente(null)"> <img src="/Content/Images/nuevo_tuclientes.svg" alt="Alternate Text" />AGREGAR CLIENTE</button>
+                <button id="btnExportarClientes" class="botton_export_xls"><img src="/Content/Images/icon_xls.svg" /></button>
+                @*<input id="btnBuscarClientes"
+                    type="button"
+                    class="boton_agregar float-md-right"
+                    title="Agregar Cliente +"
+                    value="Agregar Cliente +"
+                    onclick="tusClientesModule.editarCliente(null)"
+                    />*@
+            </div>
         </div>
     </div>
-    <div class="col-12" style="margin-bottom:15px;">
-        <div id="divClientes">
+</div>
+
+<div class="container container_clientes" >
+    <div class="col-12">
+        <div id="divClientes" style="margin-bottom:15px;">
 
         </div>
     </div>
@@ -99,39 +103,53 @@
                        onclick="tusClientesModule.mostarConfirmarEliminarCliente({{ClienteID}})" />
             </div>
         </div>
+        <div id="divConfirmarEliminarCliente-{{ClienteID}}" style="display:none" class="popover_pedido bottom">
+            <div class="arrow"></div>
+            <div class="row">
+                <div class="col-lg-8 col-12 d-flex align-items-center">
+                    <p style="margin-bottom:10px">¿Quieres eliminar a {{Nombre}}?</p>
+                </div>
+                <div class="col-lg-4 col-12 flex-row-reverse d-flex align-items-center">
+                    <div class="boton-primaria">
+                        <button class="default-background" onclick="tusClientesModule.eliminarCliente({{ClienteID}});">
+                            SÍ, ELIMINAR
+                        </button>
+                    </div>
+                    <div class="boton-secundario" style="margin-right:15px;">
+                        <button onclick="tusClientesModule.ocultarConfirmarEliminarCliente({{ClienteID}});">
+                            No Gracias
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
         {{/each}}
     </script>
 
 
 
     @*<div class="row">
-        <div class="col-2">
+            <div class="col-2">
 
-        </div>
-        <div class="col-10">
-            <input type="button"
-                   class="boton_agregar float-md-right"
-                   title="Agregar Cliente +"
-                   value="Agregar Cliente +"
-                   onclick="tusClientesModule.editarCliente(null)" />
-        </div>
-    </div>*@
+            </div>
+            <div class="col-10">
+                <input type="button"
+                       class="boton_agregar float-md-right"
+                       title="Agregar Cliente +"
+                       value="Agregar Cliente +"
+                       onclick="tusClientesModule.editarCliente(null)" />
+            </div>
+        </div>*@
 
-    <div id="divPopupEditarCliente" style="display:none; width:330px !important; margin-right: -330px;" class="Form-AgregarCliente">
+    <div id="divPopupEditarCliente" style="" class="Form-AgregarCliente">
         @Html.Partial("_Mantener", new ClienteModel())
     </div>
 
-    <div id="divConfirmarEliminarCliente" style="display:none">
-        <input type="button" onclick="tusClientesModule.ocultarConfirmarEliminarCliente();" value="cerrar" />
-        <h1><b>IMPORTANTE</b></h1>
-        <span>¿Estás seguro que quieres eliminar a tu cliente?</span>
-        <div>
-            <button type="button" id="btnConfirmarEliminarCliente" onclick="tusClientesModule.eliminarCliente();">
-                SI, DESEO ELIMINARLO
-            </button>
-            <button type="button" id="btnCancelarEliminarCliente" onclick="tusClientesModule.ocultarConfirmarEliminarCliente();">
-                NO ELIMINAR
-            </button>
+    
+    <div id="content_boton_agregar_ancla"></div>
+    <div class="row d-md-none" >
+        <div id="content_boton_agregar" class="col-12 content_boton_agregar">
+            <button id="btnBuscarClientes" class="boton_agregar float-md-right" onclick="tusClientesModule.editarCliente(null)"> <img src="/Content/Images/nuevo_tuclientes.svg" alt="Alternate Text" />AGREGAR CLIENTE</button>
         </div>
     </div>
 </div>
@@ -149,8 +167,8 @@
     <script type="text/javascript">
         var tusClientesProvider = TusClientesProvider();
         var tusClientesModule = TusClientesModule({
-            tusClientesProvider,
-            checkTimeout
+            tusClientesProvider: tusClientesProvider,
+            checkTimeout: checkTimeout
         });
         //var panelMantenerModule = PanelMantenerModule({
         //    tusClientesProvider,
