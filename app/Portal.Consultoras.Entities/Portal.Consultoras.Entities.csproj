@@ -91,6 +91,7 @@
     <Compile Include="Comunicado\BEComunicadoVista.cs" />
     <Compile Include="DENativeType.cs" />
     <Compile Include="Estrategia\EstrategiaComponente.cs" />
+    <Compile Include="Oferta\BEConfiguracionOfertasHomeApp.cs" />
     <Compile Include="OpcionesVerificacion\BECodigoGenerado.cs" />
     <Compile Include="OpcionesVerificacion\BEFiltrosOpcionesVerificacion.cs" />
     <Compile Include="OpcionesVerificacion\BEOpcionesVerificacion.cs" />

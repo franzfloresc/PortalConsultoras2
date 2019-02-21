@@ -1,9 +1,12 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.Oferta;
+
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Transactions;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -16,18 +19,20 @@ namespace Portal.Consultoras.BizLogic
             try
             {
                 var da = new DAConfiguracionOfertasHome(paisId);
-                using (IDataReader reader = da.Get(configuracionOfertasHomeId))
+                using (var reader = da.Get(configuracionOfertasHomeId))
                 {
-                    if (reader.Read())
-                    {
-                        configuracionOfertasHome = new BEConfiguracionOfertasHome(reader);
-                    }
+                    if (reader.Read()) configuracionOfertasHome = new BEConfiguracionOfertasHome(reader);
+                }
+                using (var reader = da.GetApp(configuracionOfertasHomeId))
+                {
+                    configuracionOfertasHome.ConfiguracionOfertasHomeApp = reader.MapToObject<BEConfiguracionOfertasHomeApp>();
                 }
             }
             catch (Exception ex)
             {
-                LogManager.SaveLog(ex, "", paisId.ToString());
+                LogManager.SaveLog(ex, string.Empty, paisId.ToString());
             }
+
             return configuracionOfertasHome;
         }
 
@@ -58,9 +63,16 @@ namespace Portal.Consultoras.BizLogic
 
         public void Update(BEConfiguracionOfertasHome entidad)
         {
-            var dAConfiguracionOfertasHome = new DAConfiguracionOfertasHome(entidad.PaisID);
-            dAConfiguracionOfertasHome.Update(entidad);
-            CacheManager<BEConfiguracionOfertasHome>.RemoveData(entidad.PaisID, ECacheItem.SeccionConfiguracionOfertasHome, entidad.CampaniaID.ToString());
+            var oTransactionOptions = new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted };
+            using (var oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
+            {
+                var dAConfiguracionOfertasHome = new DAConfiguracionOfertasHome(entidad.PaisID);
+                var configuracionOfertasHomeID = dAConfiguracionOfertasHome.Update(entidad);
+                entidad.ConfiguracionOfertasHomeApp.ConfiguracionOfertasHomeID = configuracionOfertasHomeID;
+                dAConfiguracionOfertasHome.InsertApp(entidad.ConfiguracionOfertasHomeApp);
+                CacheManager<BEConfiguracionOfertasHome>.RemoveData(entidad.PaisID, ECacheItem.SeccionConfiguracionOfertasHome, entidad.CampaniaID.ToString());
+                oTransactionScope.Complete();
+            }
         }
 
         public IList<BEConfiguracionOfertasHome> GetListarSeccion(int paisId, int campaniaId)
