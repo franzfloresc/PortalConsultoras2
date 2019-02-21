@@ -1,0 +1,180 @@
+﻿.banner_armaTuPack {
+    background-color: #e70002;
+    padding: 30px;
+    text-align: center;
+}
+
+    .banner_armaTuPack h1 {
+        font-size: 20px;
+        color: #fff;
+        font-weight: bold;
+        line-height:normal;
+        margin-bottom: 15px;
+        text-transform: uppercase;
+    }
+
+    .banner_armaTuPack p {
+        font-size: 15px;
+        font-weight: bold;
+        letter-spacing: 1px;
+        line-height: normal;
+        margin-bottom: 0px;
+        color: #fff;
+    }
+
+.Select_ArmaTuPack {
+    background-color: #f5f5f5;
+    padding: 20px 0px;
+}
+
+.Select_Group{
+    margin-bottom: 0;
+}
+
+    .Select_Group li {
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0px 4px;
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+.Select_Item {
+    height: 55px;
+    width: 55px;
+    background-color: #fff;
+    border: dashed 1px #d8d8d8;
+}
+
+.Agregar_ArmaTuPack {
+    width: 240px;
+    height: 40px;
+    color: #fff;
+    background-color: #000;
+    line-height: 40px;
+    text-transform: uppercase;
+    border: none;
+    font-weight: bold;
+    font-size: 13px;
+    margin-left: 40px;
+    cursor: pointer;
+}
+
+.Title_pack {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #d8d8d8;
+    margin-bottom: 25px;
+}
+
+    .Title_pack h3 {
+        font-size: 12px;
+        font-weight: bold;
+        color: #000;
+        text-transform: uppercase;
+    }
+
+    .Title_pack span {
+        font-size: 12px;
+        font-weight: bold;
+        letter-spacing: normal;
+        color: #808080;
+        line-height: normal;
+        margin-left: 25px;
+    }
+
+.Sections_Pack {
+    margin-top: 38px;
+}
+
+.product_pack {
+    padding: 20px 26px;
+    border: 1px solid #ebebeb;
+    border-radius: 4px;
+    max-width: 154px;
+}
+
+.product_img_Pack {
+    height: 86px;
+    text-align: center;
+}
+
+.product_descripcion_Pack{
+    text-align: center;
+}
+
+    .product_descripcion_Pack h3 {
+        font-size: 13px;
+        font-weight: bold;
+        height: 31px;
+    }
+
+    .product_descripcion_Pack button {
+        font-size: 11px;
+        font-weight: bold;
+        height: 34px;
+        text-transform: uppercase;
+        border-radius: 4px;
+        border: 1px solid #000;
+        width: 100%;
+        margin-top: 10px;
+        background-color: #fff;
+        transition: all 300ms;
+        cursor: pointer;
+    }
+
+    .product_descripcion_Pack button:hover {
+        background-color: #000;
+        color: #fff;
+    }
+
+    .product-select{
+        position: relative;
+        width: 100%;
+        height:100%;
+        padding: 2px;
+    }
+
+        .product-select img {
+            width: 100%
+        }
+
+.product_select_close {
+    width: 21px;
+    height: 21px;
+    background-color: #808080;
+    border: none;
+    border-radius: 50%;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    cursor: pointer;
+}
+
+    .product_select_close img {
+        width: 7px;
+        height: 7px;
+
+    }
+
+.Select_Item.active {
+    border-style: solid;
+}
+
+
+@media screen and (min-width:768px) {
+    .Select_ArmaTuPack {
+        position: fixed;
+        width: 100%;
+        bottom: 0;
+        z-index: 1;
+    }
+}
+
+
+
+
+
