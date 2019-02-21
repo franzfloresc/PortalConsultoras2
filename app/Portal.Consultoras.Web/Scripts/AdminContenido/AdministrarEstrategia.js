@@ -49,7 +49,9 @@
         rutastylejstree: config.rutastylejstree,
         urlUploadBloqueoCuv: config.urlUploadBloqueoCuv,
         microserviciosEstrategias: config.microserviciosEstrategias,
-        microserviciosPaises: config.microserviciosPaises
+        microserviciosPaises: config.microserviciosPaises,
+
+        urlConsultarDetalleEstrategiaGrupo: config.urlConsultarDetalleEstrategiaGrupo
     };
 
     var _variables = {
@@ -96,6 +98,11 @@
 
     var _editData = {};
     var _idImagen = 0;
+
+
+    var _EstrategiaGrupoDatos = [];
+    var _Valida1raCarga = false;
+
 
     var _paginadorClick = function (page) {
         var valNemotecnico = $("#txtBusquedaNemotecnico").val();
@@ -1448,7 +1455,6 @@
             altclass: "jQGridAltRowClass",
             loadComplete: function (data) {
 
-                console.log('data eaar: ', data);
 
                 if (data.rows.length > 0) {
                     for (var i = 0; i < data.rows.length; i++) {
@@ -4488,77 +4494,81 @@
         });
     }
 
-    var primeraCarga = false;
+    function ObtenerEstrategiaGrupo() {
+        var mydata = [];
+
+        jQuery.ajax({
+            type: "POST",
+            url: _config.urlConsultarDetalleEstrategiaGrupo,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({ EstrategiaId: $("#hdEstrategiaID").val() }),
+            async: false,
+            success: function (data) {
+
+                mydata = data;
+                console.log('grupos: ', data);
+
+                closeWaitingDialog();
+
+            },
+            error: function (data, error) {
+                closeWaitingDialog();
+
+            }
+        });
+
+        return mydata;
+    }
+
+
     function AbrirGrupoEstrategia() {
 
         showDialog('DialogGrupoEstrategia');
-        var mydata =
-            [
-                {
-                    EstrategiaId: 1,
-                    EstrategiaGrupoId: 0,
-                    Grupo: 1,
-                    DescripcionSingular: 'DescripcionSingular 1',
-                    DescripcionPlural: 'DescripcionPlural 1'
-                },
-                {
-                    EstrategiaId: 1,
-                    EstrategiaGrupoId: 0,
-                    Grupo: 2,
-                    DescripcionSingular: 'DescripcionSingular 2',
-                    DescripcionPlural: 'DescripcionPlural 2'
-                },
-                {
-                    EstrategiaId: 1,
-                    EstrategiaGrupoId: 0,
-                    Grupo: 3,
-                    DescripcionSingular: 'DescripcionSingular 3',
-                    DescripcionPlural: 'DescripcionPlural 3'
-                }
-            ];
+        //waitingDialog();
 
-        if (!primeraCarga) {
+        _EstrategiaGrupoDatos = ObtenerEstrategiaGrupo();
+
+        //$("#listGrupoEstrategia").jqGrid("clearGridData");
+
+        if (!_Valida1raCarga) {
+            _Valida1raCarga = true;
+
             $("#listGrupoEstrategia").jqGrid({
-                data: mydata,
+                data: _EstrategiaGrupoDatos,
+
                 datatype: "local",
-                colNames: ["EstrategiaId", "EstrategiaGrupoId", "Nro. grupo", "Descripción singular", "Descripción plural"],
+                colNames: ["EstrategiaId", "EstrategiaGrupoId", "Nro. grupo", "Nombre (Singular)", "Nombre (Plural)"],
                 colModel:
                     [
-                        {
-                            name: 'EstrategiaId',
-                            //index: 'EstrategiaId',
-                            editable: true,
-                            hidden: true
-                        }, {
-                            name: 'EstrategiaGrupoId',
-                            //index: 'EstrategiaGrupoId',
-                            editable: true,
-                            hidden: true
-                        }, {
-                            name: 'Grupo',
-                            //index: 'Grupo',
-                            editable: false,
-                        }, {
-                            name: 'DescripcionSingular',
-                            //index: 'DescripcionSingular',
-                            editable: true,
-                        }, {
-                            name: 'DescripcionPlural',
-                            //index: 'DescripcionPlural',
-                            editable: true,
-                        }
+                        { name: 'EstrategiaId', index: 'EstrategiaId', editable: true, hidden: false },
+                        { name: 'EstrategiaGrupoId', index: 'EstrategiaGrupoId', editable: true, hidden: false },
+                        { name: 'Grupo', index: 'Grupo', editable: true, },
+                        { name: 'DescripcionSingular', index: 'DescripcionSingular', editable: true, },
+                        { name: 'DescripcionPlural', index: 'DescripcionPlural', editable: true }
                     ],
                 pager: '#pagerGrupoEstrategia',
-                'cellEdit': true,
-                'cellsubmit': 'clientArray',
+                cellEdit: true,
+                cellsubmit: 'clientArray',
                 editurl: 'clientArray',
-
+                viewrecords: true,
                 width: "auto",
                 height: "auto",
-                hoverrows: true
+                afterSaveCell: function (rowid, name, val, iRow, iCol) {
+
+                    //console.log(rowid, name, val, iRow, iCol);
+                    if (name == 'DescripcionSingular') {
+                        _EstrategiaGrupoDatos[rowid - 1].DescripcionSingular = val;
+                    }
+                    if (name == 'DescripcionPlural') {
+                        _EstrategiaGrupoDatos[rowid - 1].DescripcionPlural = val;
+                    }
+                     
+                }
             });
         } else {
-            $("#listGrupoEstrategia").setGridParam({ data: mydata }).trigger("reloadGrid", [{ page: 1 }]);
+
+            $("#listGrupoEstrategia").setGridParam({ data: _EstrategiaGrupoDatos }).trigger("reloadGrid", [{ page: 1 }]);
         }
     }
 
@@ -4589,6 +4599,7 @@
 
             AbrirGrupoEstrategia();
         });
+        
         /*END ATP*/
     }
 
