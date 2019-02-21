@@ -90,7 +90,7 @@
             {{else if FlagNueva}}
             <div class="texto_pedidos texto_cantidad_pedidos">{{Cantidad}}</div>
             {{else if PremioElectivo}}
-            <div class="texto_pedidos texto_cantidad_pedidos">{{Cantidad}}</div>
+            <div class="texto_pedidos texto_cantidad_pedidos texto_cantidad_regalo">{{Cantidad}}</div>
             {{else}}
             <div class="liquidacion_rango_wrapper_pedido cantidad_detalle_focus" data-cantidad-contenedor="">
                 <input type="text" value="{{Cantidad}}" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral txtLPCant"
@@ -165,7 +165,7 @@
                 <!-- Este enlace se muestra cuando el producto es un regalo de Programa Nuevas -->
                 <a href="javascript:;" onclick="javascript: $('body').css('overflow-y', ''); $('#popupPremio').fadeOut(200); cargarPopupEleccionRegalo();"
                    class="icono_cambiar_regalo_programaNuevas"
-                   style="background-image: url('@Url.Content("~/Content/Images/icono_editar.svg")'); background-repeat:no-repeat; background-size:contain; width: 19px; height: 22px; margin: 0 auto;" title="Editar regalo"></a>
+                   style="background-image: url('@Url.Content("~/Content/Images/icono_editar.svg")'); background-repeat:no-repeat; background-size:contain; width: 19px; height: 22px;" title="Editar regalo"></a>
                 <!-- Fin - Este enlace se muestra cuando el producto es un regalo de Programa Nuevas -->
                 {{else}}
                 <a onclick="tooltipDelete('{{PedidoDetalleID}}', '{{SetID}}');"
