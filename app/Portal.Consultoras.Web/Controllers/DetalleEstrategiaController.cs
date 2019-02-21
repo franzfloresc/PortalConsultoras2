@@ -59,7 +59,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     return Json(new
                     {
-                        success = true,
+                        success = !modelo.Error,
                         data = modelo
                     }, JsonRequestBehavior.AllowGet);
                 }

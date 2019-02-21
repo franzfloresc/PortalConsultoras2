@@ -4758,7 +4758,6 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var pedidoSet = _pedidoSetProvider.ObtenerPorId(userData.PaisID, set);
-
                 return Json(new
                 {
                     success = true,
@@ -4768,7 +4767,6 @@ namespace Portal.Consultoras.Web.Controllers
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-
                 return Json(new
                 {
                     success = false
