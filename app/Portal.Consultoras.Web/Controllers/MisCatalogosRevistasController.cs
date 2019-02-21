@@ -10,6 +10,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.ServiceModel;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
@@ -822,6 +823,39 @@ namespace Portal.Consultoras.Web.Controllers
             if (listDato.Count == 0) return "0";
 
             return listDato[0].Valor;
+        }
+
+        [HttpPost]
+        public JsonResult ObtenerPortadaRevista(string codigoCampania)
+        {
+            string url;
+            try
+            {
+                url = GetStringIssuRevista(codigoCampania);
+            }
+            catch (FaultException faulException)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(faulException, userData.CodigoConsultora, userData.CodigoISO + " - " + "ObtenerPortadaRevista");
+                url = Constantes.CatalogoImagenDefault.Revista;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO + " - " + "ObtenerPortadaRevista");
+                url = Constantes.CatalogoImagenDefault.Revista;
+            }
+
+            return Json(url);
+        }
+        private string GetStringIssuRevista(string codigoCampania)
+        {            
+            var lista = new BECatalogoRevista();
+            using (ClienteServiceClient sv = new ClienteServiceClient())
+            {
+                lista = sv.GetListCatalogoRevistaPublicadoWithTitulo(userData.CodigoISO, userData.CodigoZona, Convert.ToInt32(codigoCampania)).FirstOrDefault(l => l.MarcaDescripcion == "Revista");
+            }
+            if (string.IsNullOrEmpty(lista.UrlImagen)) return Constantes.CatalogoImagenDefault.Revista;
+
+            return lista.UrlImagen;
         }
     }
 }

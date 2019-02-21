@@ -379,7 +379,7 @@ else
             '{img}' +
             '@Constantes.CatalogoUrlParameters.UrlPart02Alternativo';
         imgIssuu = imgIssuu.startsWith("https") ? imgIssuu.replace("https://", "http://") : imgIssuu;
-        var urlObtenerPortadaRevista = '@Url.Action("ObtenerPortadaRevista", "Catalogo", new { area = "Mobile" })';
+        var urlObtenerPortadaRevista = '@Url.Action("ObtenerPortadaRevista", "MisCatalogosRevistas", new { area = "" })';
         var defaultImageRevista = '@Url.Content("~/Content/Images/revista_no_disponible.jpg")';
         var urlIconoClienteAutoCompletar = '@Url.Content("~/Content/Images/Esika/user.jpg")';
         var valContenidoCorreoDefecto = '@Html.Raw(Constantes.CatalogoMensajesDefault.SaludoCorreo)';
