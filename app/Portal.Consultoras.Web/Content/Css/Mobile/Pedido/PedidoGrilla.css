@@ -79,11 +79,12 @@
     }
 
 .mensaje_tipoProd {
-    font-size: 12px;
-    font-weight: bold;
+    font-size: 13px !important;
+    font-weight: bold !important;
     line-height: 6px;
-    margin-bottom: 13px !important;
-    text-transform: uppercase;
+    margin-bottom: 2px !important;
+    letter-spacing: 0.5px;
+    color: #808080;
 }
 
 .cod_prod, .desc_prod, .nom_cliente {

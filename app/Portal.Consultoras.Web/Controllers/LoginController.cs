@@ -1679,39 +1679,6 @@ namespace Portal.Consultoras.Web.Controllers
             return configPremio.PremioAuto != null || (configPremio.ListPremioElec != null && configPremio.ListPremioElec.Any());
         }
 
-        private async Task<PremioProgNuevasModel> GetPremioProgNuevasOF(UsuarioModel model, BEConsultoraRegaloProgramaNuevas premio)
-        {
-            var listaProdCatalogo = new List<Producto>();
-            if (!string.IsNullOrEmpty(premio.CodigoSap))
-            {
-                using (var svc = new ProductoServiceClient())
-                {
-                    var lst = await svc.ObtenerProductosPorCampaniasBySapAsync(model.CodigoISO, model.CampaniaID, premio.CodigoSap, 3);
-                    listaProdCatalogo = lst.ToList();
-                }
-            }
-
-            if (listaProdCatalogo.Any())
-            {
-                var prodCatalogo = listaProdCatalogo.FirstOrDefault();
-                if (prodCatalogo != null)
-                {
-                    var dd = (!string.IsNullOrEmpty(prodCatalogo.NombreComercial)
-                        ? prodCatalogo.NombreComercial
-                        : prodCatalogo.DescripcionComercial);
-                    if (!string.IsNullOrEmpty(dd)) premio.DescripcionPremio = dd;
-
-                    if (prodCatalogo.PrecioCatalogo > 0) premio.PrecioCatalogo = prodCatalogo.PrecioCatalogo;
-                    if (prodCatalogo.PrecioValorizado > 0) premio.PrecioValorizado = prodCatalogo.PrecioValorizado;
-                    premio.UrlImagenRegalo = prodCatalogo.Imagen;
-                }
-            }
-
-            var premioProgNuevasOFModel = Mapper.Map<BEConsultoraRegaloProgramaNuevas, PremioProgNuevasModel>(premio);
-            premioProgNuevasOFModel.DescripcionPremio = premioProgNuevasOFModel.DescripcionPremio.ToUpper();
-            return premioProgNuevasOFModel;
-        }
-
         private async Task<List<UsuarioExternoModel>> GetListaLoginExterno(ServiceUsuario.BEUsuario usuario)
         {
             if (!usuario.TieneLoginExterno) return new List<UsuarioExternoModel>();
