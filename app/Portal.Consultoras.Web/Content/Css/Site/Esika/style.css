@@ -26059,7 +26059,8 @@ div.motivoRechazo textarea {
     width: 55%;
     font-weight: 700;
     border: 1px solid black;
-    font-family: 'Lato';
+    border-radius:2px;
+    font-family: 'Lato', sans-serif;
     background: #fff;
     opacity: 0;
     left: 0;

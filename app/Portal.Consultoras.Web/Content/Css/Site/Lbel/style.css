@@ -25285,7 +25285,8 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     width: 43%;
     font-weight: 700;
     border: 1px solid black;
-    font-family: 'Lato';
+    border-radius:2px;
+    font-family: 'Lato', sans-serif;
     background: #fff;
     opacity: 0;
     left: 0;
@@ -25299,6 +25300,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     -webkit-transition: all .3s ease;
     letter-spacing: .2px;
 }
+
 /* POPUP IMAGEN PERFIL PROCESO RECORTE */
 .popup_img_perfil {
     display: block;
