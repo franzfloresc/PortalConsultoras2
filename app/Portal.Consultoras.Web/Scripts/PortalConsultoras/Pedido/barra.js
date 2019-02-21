@@ -507,7 +507,7 @@ function MostrarBarra(datax, destino) {
     }
     else {
         if (mn > 0) {
-            $("#punto_" + indPuntoLimite).css("margin-left", wAreaMover);
+            if (destino == '1') $("#punto_" + indPuntoLimite).css("margin-left", wAreaMover);
         }
         else {
             $("#punto_" + indPuntoLimite).css("margin-right", wAreaMover);
@@ -1688,7 +1688,7 @@ function CalculoPosicionMinimoMaximo() {
                     }
                     else {
                         if (montoActual < montoMinimo) {
-
+                            web
                             var PosicionMontoMinimo = montoMinimo * 100 / montoMinimo;
 
                             document.getElementById('lineaPosicionMontoMinimo').style.display = 'block';
