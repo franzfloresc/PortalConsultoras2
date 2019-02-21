@@ -792,11 +792,13 @@ function PedidoUpdate(item, PROL, detalleObj, elementRow) {
             ActualizarGanancia(data.DataBarra);
 
             var tooltip = $('[data-agregado="tooltip"]');
-            $('[data-agregado="mensaje1"]').html("¡Listo! ");
-            $('[data-agregado="mensaje2"]').html(" Modificaste tu pedido");
-            tooltip.show();
-            setTimeout(function () { tooltip.hide(); }, 4000);
-
+            if (typeof tooltip !== 'undefined') {
+                $('[data-agregado="mensaje1"]').html("¡Listo! ");
+                $('[data-agregado="mensaje2"]').html(" Modificaste tu pedido");
+                tooltip.show();
+                setTimeout(function () { tooltip.hide(); }, 4000);
+            }
+            
             if (PROL == "0") {
                 detalleObj.CantidadTemporal = $(cantidadElement).val();
                 belcorp.mobile.pedido.setDetalleById(detalleObj);

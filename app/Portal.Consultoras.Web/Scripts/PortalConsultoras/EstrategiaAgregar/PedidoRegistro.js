@@ -1547,10 +1547,12 @@ function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfe
             }
 
             var tooltip = $('[data-agregado="tooltip"]');
-            $('[data-agregado="mensaje1"]').html("¡Listo! ");
-            $('[data-agregado="mensaje2"]').html(" Modificaste tu pedido");
-            tooltip.show();
-            setTimeout(function () { tooltip.hide(); }, 4000);
+            if (typeof tooltip !== 'undefined') {
+                $('[data-agregado="mensaje1"]').html("¡Listo! ");
+                $('[data-agregado="mensaje2"]').html(" Modificaste tu pedido");
+                tooltip.show();
+                setTimeout(function () { tooltip.hide(); }, 4000);
+            }
 
             if ($(rowElement).find(".txtLPCli").val().length == 0) {
                 $(rowElement).find(".hdfLPCliDes").val($("#hdfNomConsultora").val());
