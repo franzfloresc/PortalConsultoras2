@@ -2550,7 +2550,7 @@ function CalculoPosicionMensajeDestokp() {
         AvancePorcentaje = '77%';
     }
 
-    document.getElementById('divBarraMensajeLogrado').style.marginLeft = AvancePorcentaje;
+    document.getElementById('divBarraMensajeLogrado').style.left = AvancePorcentaje;
 }
 
 function TieneMontoMaximo() {

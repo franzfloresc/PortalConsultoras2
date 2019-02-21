@@ -307,6 +307,9 @@ div.texto_encabezado_pedidos.cabecera_unidades, div.celda_cantidad_pedidos {
     font-size: 16px !important;
 }
 
+.texto_pedidos.texto_cantidad_regalo{
+    padding-left:15px;
+}
 
 .grilla_pedidos div.fila_mensajeProductoAgotado div {
     padding-top: 0;
