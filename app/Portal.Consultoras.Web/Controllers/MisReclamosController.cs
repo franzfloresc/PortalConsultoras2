@@ -59,10 +59,9 @@ namespace Portal.Consultoras.Web.Controllers
                 string urlPoliticaCdr = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlPoliticasCDR) ?? "{0}";
                 model.UrlPoliticaCdr = string.Format(urlPoliticaCdr, userData.CodigoISO);
                 model.ListaCDRWeb = listaCdrWebModel.FindAll(p => p.CantidadDetalle > 0);
-
+                model.CantidadReclamosPorPedido = GetNroSolicitudesReclamoPorPedido();
                 if (listaCdrWebModel.Any())
-                {
-                    model.CantidadReclamosPorPedido = GetNroSolicitudesReclamoPorPedido();
+                {   
                     var resultado = ValidarCantidadSolicitudesPerPedido(model.ListaCDRWeb, ObtenerCampaniaPedidos, model.CantidadReclamosPorPedido);
                     if (resultado)
                     {
