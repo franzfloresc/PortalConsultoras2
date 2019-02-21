@@ -1920,7 +1920,7 @@ namespace Portal.Consultoras.Web.Controllers
                                    a.NombresCompletos,
                                    a.CodigoConsultora ?? "",
                                    a.NumeroDocumento ?? "",
-                                   a.FechaPago ==  null  ? "" : a.FechaPago.Value.ToString("dd/M/yyyy", CultureInfo.InvariantCulture),
+                                   a.FechaPago ==  null  ? "" : a.FechaPago.Value.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture),
                                    a.HoraPago,
                                    a.FleteMonto.ToString(),
                                    a.iva.ToString(),
@@ -1933,7 +1933,7 @@ namespace Portal.Consultoras.Web.Controllers
                                    a.PagoDeKitLogId.ToString(),
                                    a.EstatusDetalle?? ""  ,
                                    a.Estatus ?? "",
-                                   a.FechaProceso ==  null  ? "" : a.FechaProceso.Value.ToString("dd/M/yyyy", CultureInfo.InvariantCulture),
+                                   a.FechaProceso ==  null  ? "" : a.FechaProceso.Value.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture),
                                    a.HoraProceso ?? "",
                                    a.Origen
                                 }
