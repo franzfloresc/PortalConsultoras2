@@ -64,7 +64,7 @@ $(document).ready(function () {
         if (event.keyCode == 13) {
 
             if ($("#btnAgregar")[0].disabled == false) {
-                AgregarProductoListado();
+                PedidoRegistroModule.AgregarProductoListadoPasePedido();
             }
         }
     })
