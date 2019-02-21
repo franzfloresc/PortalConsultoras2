@@ -249,7 +249,7 @@
 
     .buttons_cancelar_suscripcion li {
         display: inline-block;
-        text-transform: uppercase;
+        text-transform: capitalize;
     }
 
 
@@ -260,7 +260,7 @@
             font-weight: bold;
             font-family: inherit;
             text-decoration: underline;
-            text-transform: uppercase;
+            text-transform: capitalize;
         }
 
 
@@ -276,7 +276,7 @@
             width: 195px;
             border-radius: 4px;
             margin-left: 20px;
-            text-transform: uppercase;
+            text-transform: capitalize;
         }
 
 .container_form_desuscrita {
@@ -361,6 +361,13 @@
     margin-bottom: 15px;
 }
 
+.boton_desuscrita.disable {
+    background: #e5e5e5 !important;
+    border: 1px solid #d2d2d2 !important;
+    color: #b9b9b9;
+    cursor: default !important;
+} 
+
 .boton_desuscrita {
     color: #fff;
     padding: 11px 27px;
@@ -370,6 +377,6 @@
     line-height: normal;
     font-size: 13px;
     font-weight: bold;
-    text-transform: uppercase;
+    text-transform: capitalize;
     margin-top: 9px;
 }
