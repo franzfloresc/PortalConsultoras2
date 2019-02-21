@@ -2119,6 +2119,57 @@ namespace Portal.Consultoras.Common
             public const string TipoImagenSmall = "SMALL";
             public const string TipoImagenMedium = "MEDIUM";
             public const string ValorTextoDefaultAppCatalogo = "appcatalogo";
+
+            public class App
+            {
+                public static List<AppConfiguracion> Configuracion
+                {
+                    get
+                    {
+                        var lst = new List<AppConfiguracion>();
+
+                        lst.Add(new AppConfiguracion()
+                        {
+                            Tipo = "_mdpi",
+                            Alto = 215,
+                            Ancho = 95
+                        });
+                        lst.Add(new AppConfiguracion()
+                        {
+                            Tipo = "_hdpi",
+                            Alto = 322,
+                            Ancho = 142
+                        });
+                        lst.Add(new AppConfiguracion()
+                        {
+                            Tipo = "_xhdpi",
+                            Alto = 430,
+                            Ancho = 190
+                        });
+                        lst.Add(new AppConfiguracion()
+                        {
+                            Tipo = "_xxhdpi",
+                            Alto = 645,
+                            Ancho = 285
+                        });
+                        lst.Add(new AppConfiguracion()
+                        {
+                            Tipo = "_xxxhdpi",
+                            Alto = 860,
+                            Ancho = 380
+                        });
+
+                        return lst;
+                    }
+                }
+
+                public class AppConfiguracion
+                {
+                    public string Tipo { get; set; }
+                    public int Alto { get; set; }
+                    public int Ancho { get; set; }
+                }
+            }
         }
 
         public static class RecuperacionPedido

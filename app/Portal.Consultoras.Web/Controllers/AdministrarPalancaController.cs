@@ -322,10 +322,11 @@ namespace Portal.Consultoras.Web.Controllers
 
         private AdministrarOfertasHomeModel UpdateFilesOfertas(AdministrarOfertasHomeModel model)
         {
+            var resizeImagenApp = false;
+            var entidad = new BEConfiguracionOfertasHome();
+
             if (model.ConfiguracionPaisID != 0)
             {
-                var entidad = new BEConfiguracionOfertasHome();
-
                 using (var sv = new SACServiceClient())
                 {
                     entidad = sv.GetConfiguracionOfertasHome(userData.PaisID, model.ConfiguracionOfertasHomeID);
@@ -339,13 +340,23 @@ namespace Portal.Consultoras.Web.Controllers
                     model.MobileImagenFondo = SaveFileS3(model.MobileImagenFondo);
                 if (!string.IsNullOrEmpty(model.AdministrarOfertasHomeAppModel.AppBannerInformativo) &&
                     (string.IsNullOrEmpty(entidad.ConfiguracionOfertasHomeApp.AppBannerInformativo) || model.AdministrarOfertasHomeAppModel.AppBannerInformativo != entidad.ConfiguracionOfertasHomeApp.AppBannerInformativo))
+                {
+                    resizeImagenApp = true;
                     model.AdministrarOfertasHomeAppModel.AppBannerInformativo = SaveFileS3(model.AdministrarOfertasHomeAppModel.AppBannerInformativo, true);
+                }
             }
             else
             {
                 model.DesktopImagenFondo = SaveFileS3(model.DesktopImagenFondo);
                 model.MobileImagenFondo = SaveFileS3(model.MobileImagenFondo);
                 model.AdministrarOfertasHomeAppModel.AppBannerInformativo = SaveFileS3(model.AdministrarOfertasHomeAppModel.AppBannerInformativo, true);
+                if (model.AdministrarOfertasHomeAppModel.AppBannerInformativo != string.Empty) resizeImagenApp = true;
+            }
+
+            if (resizeImagenApp)
+            {
+                var urlImagen = ConfigS3.GetUrlFileS3Matriz(userData.CodigoISO, model.AdministrarOfertasHomeAppModel.AppBannerInformativo);
+                Providers.RenderImgProvider.ImagenesResizeProcesoApp(urlImagen, userData.CodigoISO);
             }
 
             return model;

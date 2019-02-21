@@ -111,6 +111,8 @@ function NuevoOfertaHome() {
     ModificarOfertas(0);
 }
 function ModificarOfertas(idOfertasHome) {
+    waitingDialog({});
+
     $.ajax({
         url: baseUrl + "AdministrarPalanca/GetOfertasHome",
         type: "GET",
@@ -118,6 +120,8 @@ function ModificarOfertas(idOfertasHome) {
         data: { idOfertasHome: idOfertasHome },
         contentType: "application/json; charset=utf-8",
         success: function (result) {
+            closeWaitingDialog();
+
             $("#dialog-content-ofertas-home").empty();
             $("#dialog-content-ofertas-home").html(result).ready(
                 UploadFilePalanca("fondo-mobile"), UploadFilePalanca("fondo-desktop"), UploadFilePalancaApp("fondo-app")
@@ -415,6 +419,8 @@ function IniDialogs() {
                     }
                 };
 
+                waitingDialog({});
+
                 jQuery.ajax({
                     type: "POST",
                     url: baseUrl + "AdministrarPalanca/UpdateOfertasHome",
@@ -423,6 +429,8 @@ function IniDialogs() {
                     data: JSON.stringify(params),
                     async: true,
                     success: function (data) {
+                        closeWaitingDialog();
+
                         if (data.success) {
                             HideDialog("DialogMantenimientoOfertasHome");
                             _toastHelper.success("Solicitud realizada sin problemas.");
@@ -432,6 +440,8 @@ function IniDialogs() {
                         }
                     },
                     error: function (data, error) {
+                        closeWaitingDialog();
+
                         _toastHelper.error("Error al procesar la Solicitud.");
                     }
                 });
@@ -650,6 +660,7 @@ function UploadFilePalancaApp(tag) {
             typeError: $("#nombre-" + tag).attr("messageFormat")
         },
         onComplete: function (id, fileName, responseJSON) {
+            closeWaitingDialog();
             if (checkTimeout(responseJSON)) {
                 if (responseJSON.success) {
                     $("#nombre-" + tag).val(responseJSON.name);
@@ -661,7 +672,7 @@ function UploadFilePalancaApp(tag) {
             }
             return false;
         },
-        onSubmit: function (id, fileName) { $(".qq-upload-list").remove(); },
+        onSubmit: function (id, fileName) { $(".qq-upload-list").remove(); waitingDialog({}); },
         onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").remove(); },
         onCancel: function (id, fileName) { $(".qq-upload-list").remove(); }
     });
