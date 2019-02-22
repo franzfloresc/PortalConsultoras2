@@ -2541,11 +2541,7 @@ function CalculoPosicionMensajeDestokp() {
         AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMaximo);
 
     }
-
-
-
-    
-
+ 
     if (AvancePorcentaje.substring(0, AvancePorcentaje.length - 1) * 1 > 75) {
 
         if (document.getElementsByClassName('agrega_barra')[0].innerHTML.length >50) {
@@ -2555,8 +2551,7 @@ function CalculoPosicionMensajeDestokp() {
         }  else {
             AvancePorcentaje = '77%';
         }
-
-       
+        
     }
 
     document.getElementById('divBarraMensajeLogrado').style.left = AvancePorcentaje;
