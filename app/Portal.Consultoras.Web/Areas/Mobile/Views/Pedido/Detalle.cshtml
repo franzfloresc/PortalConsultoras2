@@ -314,12 +314,6 @@
                         {{/iff}}
                         <span>{{Split detalle.DescripcionProd '|' 0}}</span>
                     </span>
-                    {{#if detalle.PremioElectivo }}
-                    <span class="mensaje_tipoProd">
-                        <br />
-                        <label for="Regalo Programa Nuevas">Regalo Programa Nuevas</label>
-                    </span>
-                    {{else}}
                     <span class="mensaje_tipoProd">
                         {{#iff detalle.TipoPedido '==' 'M'}}
                         <br />
@@ -334,11 +328,10 @@
                         {{/iff}}
                         {{/IsNullOrEmpty}}
                     </span>
-                    {{/if}}
                     {{#iff detalle.EsKitNueva '==' false}}
                     <span class="nom_cliente">Cliente: {{detalle.Nombre}}</span>
                     {{/iff}}
-                    {{#if detalle.PremioElectivo }}
+                    {{#if detalle.EsPremioElectivo }}
                     <span class="tooltip_informativo_condicion_regalo_programaNuevas">Sólo si llegas a tu monto</span>
                     {{/if}}
                 </div>
@@ -399,7 +392,7 @@
                                    data-cantidad-input="-"
                                    readonly="readonly"
                                    autocomplete="off">
-                            {{else iff detalle.PremioElectivo}}
+                            {{else iff detalle.EsPremioElectivo}}
                             <input type="tel"
                                    class="ValidaNumeral ValidaPasteNumeral Cantidad"
                                    maxlength="2"
