@@ -9,7 +9,7 @@ $(document).ready(function () {
         else mostrar.fadeOut(200);
     });
 
-    ValidarKitNuevas();
+    //ValidarKitNuevas();
 
     $("#suma, #resta").click(function (event) {
         if (!ValidarPermiso(this)) {
@@ -30,22 +30,22 @@ function MensajeGuardar() {
     messageInfoBueno('Tu pedido fue guardado con éxito.');
 }
 
-function ValidarKitNuevas() {
-    jQuery.ajax({
-        type: 'POST',
-        url: urlValidarKitNuevas,
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        success: function (data) {
-            if (!checkTimeout(data)) return false;
-            if (!data.success) messageInfo('Ocurrió un error de conexion al intentar cargar el pedido. Por favor inténtelo mas tarde.');
-            else CargarPedido(true);
-        },
-        error: function (error) {
-            messageInfo('Ocurrió un error de conexion al intentar cargar el pedido. Por favor inténtelo mas tarde.');
-        }
-    });
-}
+//function ValidarKitNuevas() {
+//    jQuery.ajax({
+//        type: 'POST',
+//        url: urlValidarKitNuevas,
+//        dataType: 'json',
+//        contentType: 'application/json; charset=utf-8',
+//        success: function (data) {
+//            if (!checkTimeout(data)) return false;
+//            if (!data.success) messageInfo('Ocurrió un error de conexion al intentar cargar el pedido. Por favor inténtelo mas tarde.');
+//            else CargarPedido(true);
+//        },
+//        error: function (error) {
+//            messageInfo('Ocurrió un error de conexion al intentar cargar el pedido. Por favor inténtelo mas tarde.');
+//        }
+//    });
+//}
 
 function CargarPedido(firstLoad) {
     
@@ -958,29 +958,29 @@ function ConstruirObservacionesPROL(model) {
     return mensajePedido;
 }
 
-function AceptarObsInformativas() {
-    ShowLoading();
-    jQuery.ajax({
-        type: 'POST',
-        url: urlInsertarDesglose,
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        async: true,
-        success: function (data) {
-            CloseLoading();
-            if (!checkTimeout(data)) return;
+//function AceptarObsInformativas() {
+//    ShowLoading();
+//    jQuery.ajax({
+//        type: 'POST',
+//        url: urlInsertarDesglose,
+//        dataType: 'json',
+//        contentType: 'application/json; charset=utf-8',
+//        async: true,
+//        success: function (data) {
+//            CloseLoading();
+//            if (!checkTimeout(data)) return;
 
-            if (data.success) location.href = urlPedidoValidado;
-            else messageInfoMalo(data.message);
-        },
-        error: function (data, error) {
-            CloseLoading();
-            if (!checkTimeout(data)) return;
+//            if (data.success) location.href = urlPedidoValidado;
+//            else messageInfoMalo(data.message);
+//        },
+//        error: function (data, error) {
+//            CloseLoading();
+//            if (!checkTimeout(data)) return;
 
-            messageInfoMalo("Ocurrió un error al ejecutar la acción. Por favor inténtelo de nuevo.");
-        }
-    });
-}
+//            messageInfoMalo("Ocurrió un error al ejecutar la acción. Por favor inténtelo de nuevo.");
+//        }
+//    });
+//}
 
 function CancelarObsInformativas() {
     if ($('#hdfModificaPedido').val() != 1) {

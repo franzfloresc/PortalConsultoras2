@@ -261,5 +261,11 @@ namespace Portal.Consultoras.Common
             if (orderAsc) return list.OrderBy(func);
             return list.OrderByDescending(func);
         }
+        
+        public static T Get<T>(this T[] list, int posicion)
+        {
+            if (list.Length > posicion) return list[posicion];
+            return default(T);
+        }
     }
 }

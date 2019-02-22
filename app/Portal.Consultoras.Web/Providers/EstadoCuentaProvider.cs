@@ -65,51 +65,51 @@ namespace Portal.Consultoras.Web.Providers
             if (pConsultoraId == 0)
                 pConsultoraId = userSession.ConsultoraID;
 
-            if (sessionManager.GetListadoEstadoCuenta() == null)
+            if (sessionManager.GetListadoEstadoCuenta() != null)
             {
-                var estadoCuenta = new List<BEEstadoCuenta>();
-                try
+                lst = sessionManager.GetListadoEstadoCuenta();
+                return lst;
+            }
+
+            var estadoCuenta = new List<BEEstadoCuenta>();
+            try
+            {
+                using (var client = new SACServiceClient())
                 {
-                    using (var client = new SACServiceClient())
-                    {
-                        estadoCuenta = client.GetEstadoCuentaConsultora(userSession.PaisID, pConsultoraId).ToList();
-                    }
+                    estadoCuenta = client.GetEstadoCuentaConsultora(userSession.PaisID, pConsultoraId).ToList();
                 }
-                catch (Exception ex)
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userSession.CodigoConsultora, userSession.CodigoISO);
+            }
+
+            if (estadoCuenta.Count > 0)
+            {
+                foreach (var ec in estadoCuenta)
                 {
-                    LogManager.LogManager.LogErrorWebServicesBus(ex, userSession.CodigoConsultora, userSession.CodigoISO);
-                }
-
-                if (estadoCuenta.Count > 0)
-                {
-                    foreach (var ec in estadoCuenta)
-                    {
-                        lst.Add(new EstadoCuentaModel
-                        {
-                            Fecha = ec.FechaRegistro,
-                            Glosa = ec.DescripcionOperacion,
-                            Cargo = ec.Cargo,
-                            Abono = ec.Abono
-                        });
-                    }
-
-                    var monto = userSession.MontoDeuda;
-
                     lst.Add(new EstadoCuentaModel
                     {
-                        Fecha = userSession.FechaLimPago,
-                        Glosa = "MONTO A PAGAR",
-                        Cargo = monto > 0 ? monto : 0,
-                        Abono = monto < 0 ? 0 : monto
+                        Fecha = ec.FechaRegistro,
+                        Glosa = ec.DescripcionOperacion,
+                        Cargo = ec.Cargo,
+                        Abono = ec.Abono
                     });
                 }
 
-                sessionManager.SetListadoEstadoCuenta(lst);
+                var monto = userSession.MontoDeuda;
+                monto = monto > 0 ? monto : 0;
+
+                lst.Add(new EstadoCuentaModel
+                {
+                    Fecha = userSession.FechaLimPago,
+                    Glosa = "MONTO A PAGAR",
+                    Cargo = monto,
+                    Abono = monto
+                });
             }
-            else
-            {
-                lst = sessionManager.GetListadoEstadoCuenta();
-            }
+
+            sessionManager.SetListadoEstadoCuenta(lst);
 
             return lst;
         }
