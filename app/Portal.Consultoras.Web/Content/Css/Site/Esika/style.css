@@ -2268,7 +2268,7 @@ a.subir_carousel, a.bajar_carousel {
 
 .popup_productosSugeridos {
     display: block;
-    position: absolute;
+    position: relative;
     top:233px;
     left:87.5px;
     right: 0;
@@ -2278,6 +2278,7 @@ a.subir_carousel, a.bajar_carousel {
     max-width: 692px;
     height: auto;
     padding-top: 0;
+    padding-bottom:20px;
     box-sizing: border-box;
     z-index: 5;
     box-shadow: 1px 7px 39px -10px #000;
@@ -2287,7 +2288,7 @@ a.subir_carousel, a.bajar_carousel {
         margin: 0 auto;
         width: 100%;
         max-width: 626px;
-        margin-bottom: 20px;
+        margin-bottom: 25px;
     }
 
     .popup_productosSugeridos .slick-slider {
@@ -34301,6 +34302,11 @@ div.motivoRechazo textarea {
 /* FIN - HD-2524 - POPUP OPTIN (VERIFICACIÓN DE CORREO ELECTRÓNICO PENDIENTE) */
 
 /* MEJORA CONTINUA CONSULTORAS - HD-2212 - PROGRAMA DE NUEVAS: MOSTRAR IMAGEN DEL REGALO EN LA BARRA DE DESCUENTOS */
+
+#divBarraMensajeLogrado{
+    display:inline-block;
+    position:relative;
+}
 
 .monto_meta_tippingPoint {
     margin-top: 2px;

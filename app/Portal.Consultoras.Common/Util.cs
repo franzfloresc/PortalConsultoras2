@@ -3650,12 +3650,14 @@ namespace Portal.Consultoras.Common
         }
 
         public static string obtenerNuevaDescripcionProductoDetalle(int ofertaId, bool pedidoValidado,
-            bool consultoraOnline, int origenPedido, Dictionary<string, string> lista, bool suscripcion,
-            string tipoEstrategiaCodigo, int marcaId, int codigoCatalogo, string descripcion)
+            bool consultoraOnline, int origenPedido, Dictionary<string, string> lista, bool suscripcion, string tipoEstrategiaCodigo,
+            int marcaId, int codigoCatalogo, string descripcion, bool esCuponNuevas, bool EsElecMultipleNuevas, bool esPremioElec)
         {
+            if (esPremioElec) return lista[Constantes.NuevoCatalogoProducto.ESPREMIOELEC];
+            if (EsElecMultipleNuevas) return lista[Constantes.NuevoCatalogoProducto.ESELECMULTIPLENUEVAS];
+            if (esCuponNuevas) return lista[Constantes.NuevoCatalogoProducto.ESCUPONNUEVAS];
+
             var result = "";
-
-
             if (pedidoValidado)
             {
                 result = obtenerNuevaDescripcionProducto(lista, suscripcion, "", tipoEstrategiaCodigo, marcaId, codigoCatalogo);
@@ -3686,10 +3688,7 @@ namespace Portal.Consultoras.Common
             }
             else
             {
-                if (consultoraOnline)
-                {
-                    result = "CLIENTE ONLINE";
-                }
+                if (consultoraOnline) result = "CLIENTE ONLINE";
                 else
                 {
                     switch (origenPedido)

@@ -314,12 +314,6 @@
                         {{/iff}}
                         <span>{{Split detalle.DescripcionProd '|' 0}}</span>
                     </span>
-                    {{#if detalle.PremioElectivo }}
-                    <span class="mensaje_tipoProd">
-                        <br />
-                        <span class="text-uppercase">Regalo Programa Nuevas</span>
-                    </span>
-                    {{else}}
                     <span class="mensaje_tipoProd">
                         {{#iff detalle.TipoPedido '==' 'M'}}
                         <br />
@@ -334,11 +328,10 @@
                         {{/iff}}
                         {{/IsNullOrEmpty}}
                     </span>
-                    {{/if}}
                     {{#iff detalle.EsKitNueva '==' false}}
                     <span class="nom_cliente">Cliente: {{detalle.Nombre}}</span>
                     {{/iff}}
-                    {{#if detalle.PremioElectivo }}
+                    {{#if detalle.EsPremioElectivo }}
                     <span class="tooltip_informativo_condicion_regalo_programaNuevas">Sólo si llegas a tu monto</span>
                     {{/if}}
                 </div>
@@ -399,7 +392,7 @@
                                    data-cantidad-input="-"
                                    readonly="readonly"
                                    autocomplete="off">
-                            {{else iff detalle.PremioElectivo}}
+                            {{else iff detalle.EsPremioElectivo}}
                             <input type="tel"
                                    class="ValidaNumeral ValidaPasteNumeral Cantidad"
                                    maxlength="2"
@@ -973,7 +966,6 @@
 
         var urlDetallePedido = '@Url.Action("CargarDetallePedido", "Pedido", new { area = "" })';
         var urlValidarKitNuevas = '@Url.Action("ValidarKitNuevas", "PedidoRegistro", new { area = "" })';
-        var urlEsPedidoDetalleElecMultiple = '@Url.Action("EsPedidoDetalleElecMultiple", "Pedido", new { area = "" })';
         var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
         var fnEliminarProducto = null;
 
@@ -1005,6 +997,7 @@
         var mensajePedidoVacio = '@Constantes.MensajesError.Reserva_SinDetalle';
         var mensajeErrorReserva = '@Constantes.MensajesError.Pedido_Reserva';
         var mensajeSinConexionReserva = '@Constantes.MensajesError.SinConexion_Reserva';
+        var mensajeElecMultipleEliminar = '@string.Format(Constantes.ProgNuevas.Mensaje.ElecMultiple_ConfirmaEliminar, Constantes.ProgNuevas.Mensaje.Electivo_PromocionNombre)';
 
         //OG
         var dataBarra = JSON.parse('@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(@ViewBag.DataBarra))');

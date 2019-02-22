@@ -976,7 +976,7 @@ function getPremioElectivoInDetails(details) {
     for (var i = 0; i < len; i++) {
         var item = details[i];
 
-        if (item.PremioElectivo) {
+        if (item.EsPremioElectivo) {
             return item;
         }
     }
@@ -2594,16 +2594,20 @@ function CalculoPosicionMensajeDestokp() {
         AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMaximo);
 
     }
+ 
+    if (AvancePorcentaje.substring(0, AvancePorcentaje.length - 1) * 1 > 75) { 
+        if (document.getElementsByClassName('agrega_barra')[0].innerHTML.length >46) {
+            AvancePorcentaje = '70%';
 
+        } else if (document.getElementsByClassName('agrega_barra')[0].innerHTML.length > 44 ){
+            AvancePorcentaje = '73%';
 
-
-    
-
-    if (AvancePorcentaje.substring(0, AvancePorcentaje.length - 1) * 1 > 75) {
-        AvancePorcentaje = '77%';
+        }  else {
+            AvancePorcentaje = '77%';
+        }        
     }
 
-    document.getElementById('divBarraMensajeLogrado').style.marginLeft = AvancePorcentaje;
+    document.getElementById('divBarraMensajeLogrado').style.left = AvancePorcentaje;
 }
 
 function TieneMontoMaximo() {

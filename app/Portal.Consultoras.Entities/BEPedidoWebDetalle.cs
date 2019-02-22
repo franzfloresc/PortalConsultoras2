@@ -327,7 +327,11 @@ namespace Portal.Consultoras.Entities
         public string TipoPedido { get; set; }
         
         [DataMember]
-        public bool EnRangoProgNuevas { get; set; }
+        public bool EsCuponNuevas { get; set; }
+        [DataMember]
+        public bool EsElecMultipleNuevas { get; set; }
+        [DataMember]
+        public bool EsPremioElectivo { get; set; }
         [DataMember]
         public string TipoAdm { get; set; }
         [DataMember]

@@ -56,19 +56,14 @@
                 <label for="{{DescripcionCortadaProd}}" class="lblLPDesProd">{{Split DescripcionCortadaProd '|' 0}}</label>
             </span>
             {{/if_eq}}
-            {{#if PremioElectivo}}
-            <!-- Este tooltip se muestra cuando el producto es un regalo del Programa de Nuevas -->
-            <span class="texto_pedidos_ofertas">
-                <label for="Regalo Programa Nuevas">Regalo Programa Nuevas</label>
-            </span>
-            <div class="tooltip_informativo_condicion_regalo_programaNuevas">
-                Sólo si llegas a tu monto
-            </div>
-            <!-- Fin - Este tooltip se muestra cuando el producto es un regalo del Programa de Nuevas -->
-            {{else}}
+
             <span class="texto_pedidos_ofertas">
                 <label for="{{DescripcionOferta}}">{{DescripcionOferta}}</label>
             </span>
+            {{#if EsPremioElectivo}}
+            <div class="tooltip_informativo_condicion_regalo_programaNuevas">
+                Sólo si llegas a tu monto
+            </div>
             {{/if}}
 
             <div id="tooltipDescPro" class="tooltipPedido">
@@ -89,8 +84,8 @@
             <div class="texto_pedidos texto_cantidad_pedidos">{{Cantidad}}</div>
             {{else if FlagNueva}}
             <div class="texto_pedidos texto_cantidad_pedidos">{{Cantidad}}</div>
-            {{else if PremioElectivo}}
-            <div class="texto_pedidos texto_cantidad_pedidos">{{Cantidad}}</div>
+            {{else if EsPremioElectivo}}
+            <div class="texto_pedidos texto_cantidad_pedidos texto_cantidad_regalo">{{Cantidad}}</div>
             {{else}}
             <div class="liquidacion_rango_wrapper_pedido cantidad_detalle_focus" data-cantidad-contenedor="">
                 <input type="text" value="{{Cantidad}}" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral txtLPCant"
@@ -98,7 +93,7 @@
                        @*onkeypress="PreValidarCUV(event);"*@
                        attrKey="PreValidarCUV"
                        onfocus="SeleccionarContenido(this)"
-                       onblur="UpdateLiquidacion(event, '{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '1', '{{Cantidad}}', '{{SetID}}', {{EnRangoProgNuevas}})" />
+                       onblur="UpdateLiquidacion(event, '{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '1', '{{Cantidad}}', '{{SetID}}', {{EsCuponNuevas}})" />
                 <div class="liquidacion_rango_right_pedido">
                     <a class="mas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
                     <a class="menos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
@@ -133,7 +128,7 @@
             <input type="hidden" name="hdfLPCliDes{{PedidoDetalleID}}" value="{{Nombre}}" class="classClienteID hdfLPCliDes" />
             <input type="hidden" name="hdfTest" value="{{Nombre}}" class="classClienteID hdfLPCliDes" />
             
-            {{#unless PremioElectivo}}
+            {{#unless EsPremioElectivo}}
             {{#if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Nueva'}}
             <input type="text" name="{{Nombre}}" value="{{Nombre}}" maxlength="50" class="classClienteNombre ValidaAlfanumerico txtLPCli"
                    readonly="readOnly" onkeydown="return false;" style="width:90%; padding:4px;" />
@@ -165,7 +160,7 @@
                 <!-- Este enlace se muestra cuando el producto es un regalo de Programa Nuevas -->
                 <a href="javascript:;" onclick="javascript: $('body').css('overflow-y', ''); $('#popupPremio').fadeOut(200); cargarPopupEleccionRegalo();"
                    class="icono_cambiar_regalo_programaNuevas"
-                   style="background-image: url('@Url.Content("~/Content/Images/icono_editar.svg")'); background-repeat:no-repeat; background-size:contain; width: 19px; height: 22px; margin: 0 auto;" title="Editar regalo"></a>
+                   style="background-image: url('@Url.Content("~/Content/Images/icono_editar.svg")'); background-repeat:no-repeat; background-size:contain; width: 19px; height: 22px;" title="Editar regalo"></a>
                 <!-- Fin - Este enlace se muestra cuando el producto es un regalo de Programa Nuevas -->
                 {{else}}
                 <a onclick="tooltipDelete('{{PedidoDetalleID}}', '{{SetID}}');"
@@ -214,7 +209,7 @@
                 </li>
                 <li class="boton-primaria">
                     <button class="default-background"
-                            onclick="ValidDeletePedido('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '{{Cantidad}}', '{{ClienteID_}}', '{{CUVReco}}', null, '{{SetID}}', {{EnRangoProgNuevas}});">
+                            onclick="ValidDeletePedido('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '{{Cantidad}}', '{{ClienteID_}}', '{{CUVReco}}', null, '{{SetID}}', {{EsElecMultipleNuevas}});">
                         SÍ, ELIMINAR
                     </button>
                 </li>
