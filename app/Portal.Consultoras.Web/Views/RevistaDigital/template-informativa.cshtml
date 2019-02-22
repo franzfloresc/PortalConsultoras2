@@ -374,7 +374,7 @@ else if (Model.CancelarSuscripcion)
 }
 
 
-    <div class="Content_general_pop_up alerta_cancelar_suscripcion" id="alerta_cancelar_suscripcion" style="display:none;" data-popup-main="" data-popup-function-hide="">
+    <div class="Content_general_pop_up alerta_cancelar_suscripcion" id="alerta_cancelar_suscripcion" style="display:none; z-index:999;" data-popup-main="" data-popup-function-hide="RDDesuscripcion_cerrar()">
         <div class="popup_rd_bloqueado popup_confirmacion_datos" data-popup-body>
             <a class="cerrar_fichaProducto" style="position: absolute; top:0px; right: -35px;"  href="javascript:;" data-popup-close="">
                 <img src="/Content/Images/cerrar_04_blanco.png" alt="" alternate="" text="">
@@ -432,7 +432,7 @@ else if (Model.CancelarSuscripcion)
                     </form>
 
             <div style="text-align:center">
-               <button id="btnDesuscrita" onclick="RDDesuscripcion(event.target);" class="boton_desuscrita disable">Enviar</button>
+               <button id="btnDesuscrita" onclick="RDDesuscripcion_cerrar(event.target);" class="boton_desuscrita disable">Enviar</button>
             </div>
                 </div>
             </div>

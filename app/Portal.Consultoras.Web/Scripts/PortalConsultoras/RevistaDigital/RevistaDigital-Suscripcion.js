@@ -135,19 +135,26 @@ function RDDesuscripcion_pregunta() {
     rdAnalyticsModule.CancelarSuscripcion();
     $('#alerta_cancelar_suscripcion').show();
     $('#pregunta').show();
-    $('#frmMotivoDesuscripcion').find('input:checked').click()
-
+    $('#frmMotivoDesuscripcion').find('input:checked').click();
     $('#opciones').hide();
 }
 
 function RDDesuscripcion_cerrar(e) {
 
-    rdAnalyticsModule.DesuscripcionPopup(e.innerHTML);
+    if (e)
+        rdAnalyticsModule.DesuscripcionPopup(e.innerHTML);
+
     $('#pregunta').show();
     $('#opciones').hide();
-    $('#alerta_cancelar_suscripcion').hide();
-   
+
+    if (!revistaDigital.EsSuscrita) {
+        window.location.href = (isMobile() ? "/Mobile" : "") + "/Ofertas";
+    }
+    $('#alerta_cancelar_suscripcion').hide();   
 }
+
+ 
+
 
 function RDDesuscripcion_check() {   
 
@@ -155,21 +162,16 @@ function RDDesuscripcion_check() {
          $('#btnDesuscrita').removeClass('disable');
     else
         $('#btnDesuscrita').addClass('disable');
-
-
 }
 
-function RDDesuscripcion_motivos(e) {  
-
+function RDDesuscripcion_motivos(e) {    
     rdAnalyticsModule.DesuscripcionPopup(e.innerHTML);
-    $('#pregunta').hide();
-    $('#opciones').show();
+    RDDesuscripcion(e);
 }
 
 
 
-function RDDesuscripcion(e) {
-    
+function RDDesuscripcion(e) {    
 
     AbrirLoad();
     //rdAnalyticsModule.CancelarSuscripcion();
@@ -179,7 +181,7 @@ function RDDesuscripcion(e) {
         dataType: "json",
         contentType: "application/json; charset=utf-8",
         success: function (data) {
-         
+           
             rdAnalyticsModule.CancelarSuscripcionEncuesta(e.innerHTML);
             CerrarLoad();
             if (!checkTimeout(data))
@@ -196,12 +198,12 @@ function RDDesuscripcion(e) {
                 var key = lsListaRD + data.CampaniaID;
                 RDActualizarTipoAccionAgregar(data.revistaDigital, key);
             }
+            revistaDigital = data.revistaDigital;
+            $('#pregunta').hide();
+            $('#opciones').show();
 
-            window.location.href = (isMobile() ? "/Mobile" : "") + "/Ofertas";
         },
-        error: function (data, error) {
-
-            
+        error: function (data, error) {            
             CerrarLoad();
         }
     });
