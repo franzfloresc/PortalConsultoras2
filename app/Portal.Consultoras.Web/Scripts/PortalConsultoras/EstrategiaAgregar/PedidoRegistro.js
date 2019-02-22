@@ -809,6 +809,12 @@ var PedidoRegistroModule = function () {
 
             var dataAgregarOF = _agregarOfertaFinal(model);
             if (dataAgregarOF.success) {
+                if (typeof MostrarBarra === 'function') {
+                    var prevTotal = mtoLogroBarra;
+                    MostrarBarra(dataAgregarOF);
+                    showPopupNivelSuperado(dataAgregarOF.DataBarra, prevTotal);
+                }
+
                 AgregarOfertaFinalLog(model.CUV, model.Cantidad, tipoOfertaFinal_Log, gap_Log, 1, 'Producto Agregado');
                 ActualizarValoresPopupOfertaFinal(dataAgregarOF);
                 objDivPadre.find('.agregado').show();
