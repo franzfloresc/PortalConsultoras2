@@ -58,6 +58,7 @@
     font-size: 13px;
     margin-left: 40px;
     cursor: pointer;
+    border-radius: 4px;
 }
 
 .Title_pack {
@@ -93,7 +94,7 @@
     max-width: 154px;
 }
 
-.product_img_Pack {
+.product_img_Pack, .product_img_Pack img {
     height: 86px;
     text-align: center;
 }
@@ -164,6 +165,28 @@
     border-style: solid;
 }
 
+.product_descripcion_Pack .disable {
+    background-color: #d8d8d8;
+    color: #808080;
+    border: 1px solid #808080;
+    pointer-events: none;
+}
+
+.Agregar_ArmaTuPack.disable {
+    background-color: #808080;
+}
+
+.product_descripcion_Pack .active{
+    background-color: #000;
+    color: #fff;
+}
+
+.listo {
+    font-size: 12px !important;
+    font-weight: bold !important;
+    color: #6acb3b !important;
+}
+
 
 @media screen and (min-width:768px) {
     .Select_ArmaTuPack {
@@ -172,8 +195,105 @@
         bottom: 0;
         z-index: 1;
     }
+
+    .product_img_Pack {
+        margin-bottom: 10px;
+    }
 }
 
+
+@media screen and (max-width:768px) {
+
+    body {
+        margin-top: 60px;
+    }
+
+    .banner_armaTuPack h1 {
+        font-size: 13px;
+        letter-spacing: 2px;
+    }
+
+    .banner_armaTuPack p {
+        font-size: 13px;
+        font-weight: normal;
+    }
+
+    .banner_armaTuPack {
+        padding: 20px;
+    }
+
+    .product_pack {
+        max-width: 100%;
+        border-radius: 0px;
+        padding: 14px;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+    }
+
+    .product_img_Pack, .product_img_Pack img {
+        height: 65px;
+        width: 65px;
+    }
+
+    .product_pack .col-7 .product_descripcion_Pack {
+        max-width: 103px;
+        text-align: left;
+        margin-left: 7px;
+        overflow: hidden;
+    }
+
+    .product_pack .col-md-12 {
+        display: flex;
+    }
+
+    .product_descripcion_Pack button {
+        margin-top: 0px;
+        width: 98px;
+    }
+
+    .Sections_Pack {
+        border: 1px solid #d8d8d8;
+        border-radius: 4px;
+    }
+
+    .Title_pack {
+        margin-bottom: 0px;
+        padding: 15px 45px 15px 15px;
+        border: none;
+        justify-content: space-between !important;
+        background-image: url('/Content/Images/General/Icons/arrow_down.svg');
+        background-repeat: no-repeat;
+        background-position: center right 11px;
+        background-size: 23px;
+    }
+
+    #Pack_Items article:last-child {
+        border-bottom: none !important;
+    }
+
+    .Agregar_ArmaTuPack_fixed {
+        position: fixed;
+        width: 100%;
+        bottom: 0px;
+        padding: 12px 14px;
+        z-index: 3;
+        background-color: #d8d8d8;
+    }
+
+        .Agregar_ArmaTuPack_fixed button {
+            margin: 0px;
+            width: 100%
+        }
+}
+
+
+@media screen and (max-width:375px) {
+    .Select_Group li {
+        margin: 0px 1px;
+        font-size: 16px;
+    }
+}
 
 
 
