@@ -1352,6 +1352,8 @@ function showPopupNivelSuperado(barra, prevLogro) {
         AbrirPopup(idPopup);
         setContainerLluvia(idPopup);
         mostrarLluvia();
+
+        return;
     }
 
     if (!TieneMontoMaximo()) {
