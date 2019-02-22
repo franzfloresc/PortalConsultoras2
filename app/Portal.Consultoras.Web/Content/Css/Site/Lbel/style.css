@@ -23727,7 +23727,7 @@ input[type='checkbox']:checked + span:after {
     -webkit-border-radius: 10px;
     height: 100%;
     display: block;
-    width: 85%;
+    width: 0;
     background: rgba(97,60,135,1);
     background: -moz-linear-gradient(left, rgba(97,60,135,1) 0, rgba(232,28,54,1) 100%);
     background: -webkit-gradient(left top, right top, color-stop(0, rgba(97,60,135,1)), color-stop(100%, rgba(232,28,54,1)));
