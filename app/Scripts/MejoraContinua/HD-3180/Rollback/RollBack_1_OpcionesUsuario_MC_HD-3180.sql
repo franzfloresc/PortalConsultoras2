@@ -3,7 +3,9 @@ GO
 
 IF EXISTS (SELECT 1 FROM sysobjects WHERE name = 'OpcionesUsuario' AND type = 'U')
 begin
-	DROP TABLE [dbo].[UsuarioOpciones]
+	IF EXISTS (SELECT 1 FROM sysobjects WHERE name = 'UsuarioOpciones' AND type = 'U') 	
+		DROP TABLE [dbo].[UsuarioOpciones]
+
 	DROP TABLE [dbo].[OpcionesUsuario]
 end
 GO
@@ -13,7 +15,9 @@ GO
 
 IF EXISTS (SELECT 1 FROM sysobjects WHERE name = 'OpcionesUsuario' AND type = 'U')
 begin
-	DROP TABLE [dbo].[UsuarioOpciones]
+	IF EXISTS (SELECT 1 FROM sysobjects WHERE name = 'UsuarioOpciones' AND type = 'U') 	
+		DROP TABLE [dbo].[UsuarioOpciones]
+
 	DROP TABLE [dbo].[OpcionesUsuario]
 end
 GO
@@ -23,7 +27,9 @@ GO
 
 IF EXISTS (SELECT 1 FROM sysobjects WHERE name = 'OpcionesUsuario' AND type = 'U')
 begin
-	DROP TABLE [dbo].[UsuarioOpciones]
+	IF EXISTS (SELECT 1 FROM sysobjects WHERE name = 'UsuarioOpciones' AND type = 'U') 	
+		DROP TABLE [dbo].[UsuarioOpciones]
+
 	DROP TABLE [dbo].[OpcionesUsuario]
 end
 GO
@@ -33,7 +39,9 @@ GO
 
 IF EXISTS (SELECT 1 FROM sysobjects WHERE name = 'OpcionesUsuario' AND type = 'U')
 begin
-	DROP TABLE [dbo].[UsuarioOpciones]
+	IF EXISTS (SELECT 1 FROM sysobjects WHERE name = 'UsuarioOpciones' AND type = 'U') 	
+		DROP TABLE [dbo].[UsuarioOpciones]
+
 	DROP TABLE [dbo].[OpcionesUsuario]
 end
 GO
@@ -43,7 +51,9 @@ GO
 
 IF EXISTS (SELECT 1 FROM sysobjects WHERE name = 'OpcionesUsuario' AND type = 'U')
 begin
-	DROP TABLE [dbo].[UsuarioOpciones]
+	IF EXISTS (SELECT 1 FROM sysobjects WHERE name = 'UsuarioOpciones' AND type = 'U') 	
+		DROP TABLE [dbo].[UsuarioOpciones]
+
 	DROP TABLE [dbo].[OpcionesUsuario]
 end
 GO
@@ -53,7 +63,9 @@ GO
 
 IF EXISTS (SELECT 1 FROM sysobjects WHERE name = 'OpcionesUsuario' AND type = 'U')
 begin
-	DROP TABLE [dbo].[UsuarioOpciones]
+	IF EXISTS (SELECT 1 FROM sysobjects WHERE name = 'UsuarioOpciones' AND type = 'U') 	
+		DROP TABLE [dbo].[UsuarioOpciones]
+
 	DROP TABLE [dbo].[OpcionesUsuario]
 end
 GO
@@ -63,7 +75,9 @@ GO
 
 IF EXISTS (SELECT 1 FROM sysobjects WHERE name = 'OpcionesUsuario' AND type = 'U')
 begin
-	DROP TABLE [dbo].[UsuarioOpciones]
+	IF EXISTS (SELECT 1 FROM sysobjects WHERE name = 'UsuarioOpciones' AND type = 'U') 	
+		DROP TABLE [dbo].[UsuarioOpciones]
+
 	DROP TABLE [dbo].[OpcionesUsuario]
 end
 GO
@@ -73,7 +87,9 @@ GO
 
 IF EXISTS (SELECT 1 FROM sysobjects WHERE name = 'OpcionesUsuario' AND type = 'U')
 begin
-	DROP TABLE [dbo].[UsuarioOpciones]
+	IF EXISTS (SELECT 1 FROM sysobjects WHERE name = 'UsuarioOpciones' AND type = 'U') 	
+		DROP TABLE [dbo].[UsuarioOpciones]
+
 	DROP TABLE [dbo].[OpcionesUsuario]
 end
 GO
@@ -83,7 +99,9 @@ GO
 
 IF EXISTS (SELECT 1 FROM sysobjects WHERE name = 'OpcionesUsuario' AND type = 'U')
 begin
-	DROP TABLE [dbo].[UsuarioOpciones]
+	IF EXISTS (SELECT 1 FROM sysobjects WHERE name = 'UsuarioOpciones' AND type = 'U') 	
+		DROP TABLE [dbo].[UsuarioOpciones]
+
 	DROP TABLE [dbo].[OpcionesUsuario]
 end
 GO
@@ -93,7 +111,9 @@ GO
 
 IF EXISTS (SELECT 1 FROM sysobjects WHERE name = 'OpcionesUsuario' AND type = 'U')
 begin
-	DROP TABLE [dbo].[UsuarioOpciones]
+	IF EXISTS (SELECT 1 FROM sysobjects WHERE name = 'UsuarioOpciones' AND type = 'U') 	
+		DROP TABLE [dbo].[UsuarioOpciones]
+
 	DROP TABLE [dbo].[OpcionesUsuario]
 end
 GO
@@ -103,7 +123,9 @@ GO
 
 IF EXISTS (SELECT 1 FROM sysobjects WHERE name = 'OpcionesUsuario' AND type = 'U')
 begin
-	DROP TABLE [dbo].[UsuarioOpciones]
+	IF EXISTS (SELECT 1 FROM sysobjects WHERE name = 'UsuarioOpciones' AND type = 'U') 	
+		DROP TABLE [dbo].[UsuarioOpciones]
+
 	DROP TABLE [dbo].[OpcionesUsuario]
 end
 GO
@@ -113,7 +135,9 @@ GO
 
 IF EXISTS (SELECT 1 FROM sysobjects WHERE name = 'OpcionesUsuario' AND type = 'U')
 begin
-	DROP TABLE [dbo].[UsuarioOpciones]
+	IF EXISTS (SELECT 1 FROM sysobjects WHERE name = 'UsuarioOpciones' AND type = 'U') 	
+		DROP TABLE [dbo].[UsuarioOpciones]
+
 	DROP TABLE [dbo].[OpcionesUsuario]
 end
 GO
