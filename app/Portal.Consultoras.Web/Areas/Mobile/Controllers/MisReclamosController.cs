@@ -79,7 +79,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 var beCdrWeb = new ServiceCDR.BECDRWeb { ConsultoraID = userData.ConsultoraID }; //HD-3412 EINCA
 
-                var listaReclamo = cdr.GetCDRWeb(userData.PaisID, beCdrWeb).ToList();
+                var listaReclamo = cdr.GetCDRWebMobile(userData.PaisID, beCdrWeb).ToList();
 
                 listaCdrWebModel = Mapper.Map<List<ServiceCDR.BECDRWeb>, List<CDRWebModel>>(listaReclamo);
             }
