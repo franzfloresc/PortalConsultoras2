@@ -31,6 +31,9 @@ namespace Portal.Consultoras.Web.Models
         public List<EstrategiaComponenteModel> Hermanos { get; set; }
         public bool TieneStock { get; set; }
 
+        //Agana 244
+        public int EstrategiaGrupoId { get; set; }
+
         public object Clone()
         {
             return this.MemberwiseClone();

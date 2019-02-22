@@ -2202,11 +2202,13 @@
         /*INI ATP*/
         var newTituloGridATP = $("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ArmaTuPack ? "Nombre de grupos" : "Descripcion1"
         /*END ATP*/
+         
 
         $("#listShowRoomDetalle").jqGrid("clearGridData");
 
         var parametros = {
-            estrategiaId: estrategiaId
+            estrategiaId: estrategiaId,
+            codigoTipoEstrategia: $("#ddlTipoEstrategia").find(":selected").data("codigo")
         };
 
         $("#listShowRoomDetalle").setGridParam({ postData: parametros });

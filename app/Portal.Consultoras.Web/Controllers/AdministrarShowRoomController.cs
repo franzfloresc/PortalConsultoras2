@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.AdministrarEstrategia;
 using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceGestionWebPROL;
@@ -646,8 +647,38 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public ActionResult ConsultarOfertaShowRoomDetalleNew(string sidx, string sord, int page, int rows, int estrategiaId)
+        public ActionResult ConsultarOfertaShowRoomDetalleNew(string sidx, string sord, int page, int rows, int estrategiaId,
+            string codigoTipoEstrategia = null)
         {
+
+            //INI AGANA 244:
+            if (codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.ArmaTuPack)
+            {
+                //consultar mongo ...
+                var test = codigoTipoEstrategia;
+                List<EstrategiaGrupoModel> lstEstrategiaGrupo = new List<EstrategiaGrupoModel>();
+                lstEstrategiaGrupo.Add(
+                    new EstrategiaGrupoModel
+                    {
+                        EstrategiaGrupoId = 10,
+                        DescripcionSingular = "Descripción 1",
+                        DescripcionPlural = "Descripción 1 s"
+                    }
+                    );
+
+                List<EstrategiaComponenteModel> lstComponentes = new List<EstrategiaComponenteModel>();
+                lstComponentes.Add(new EstrategiaComponenteModel
+                {
+                    Id = estrategiaId,
+                    Cuv = "123123",
+                    Grupo = "2",                                     
+                    EstrategiaGrupoId = 10
+                });
+
+
+            }
+            //END AGANA 244 
+
             if (ModelState.IsValid)
             {
                 List<ServicePedido.BEEstrategiaProducto> lst;
@@ -732,7 +763,7 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("Index", "Bienvenida");
         }
 
-         
+
         [HttpPost]
         public JsonResult EliminarOfertaShowRoomDetalleAllNew(int estrategiaId)
         {
