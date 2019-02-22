@@ -1,16 +1,30 @@
-﻿@using System.Globalization
-@model Portal.Consultoras.Web.Models.ClienteModel
+﻿@model Portal.Consultoras.Web.Models.ClienteModel
 
 @{
-    ViewBag.Title = "Mis clientes";
     Layout = null;
 }
 
 <div>
-    <div class="seleccion_header" style="padding-top: 48px;">
-        <a id="btnPanelMantenerCerrar" class="boton_volver_ficha" style=" margin-top: 0px; "><img src="/Content/Images/mobile/Esika/right-arrow.svg">Volver</a>
-        <h3 style="cursor:pointer">AGREGAR CLIENTE</h3>
-        <button id="btnPanelListaCerrar_todo" class="button_cerrar_Clientes"><img src="/Content/Images/mobile/Esika/close-button.svg" alt=""></button>
+    <div class="seleccion_header">
+        @if (Model.FlagValidate != 1)
+        {
+            <a id="btnPanelMantenerCerrar" class="boton_volver_ficha" style=" margin-top: 0px; ">
+                <img src="/Content/Images/mobile/Esika/right-arrow.svg">Volver
+            </a>
+            <button type="button"
+                    onclick="tusClientesModule.ocultarEditarCliente();"
+                    id="btnPanelListaCerrar_todo" class="button_cerrar_Clientes">
+                <img src="/Content/Images/mobile/Esika/close-button.svg" alt="">
+            </button>
+        }
+        else
+        {
+            <button type="button"
+                    id="btnPanelListaCerrar_todo" class="button_cerrar_Clientes">
+                <img src="/Content/Images/mobile/Esika/close-button.svg" alt="">
+            </button>
+        }
+        <h3>AGREGAR CLIENTE</h3>
     </div>
 
     <form action="" method="post" class="Formulario-AgregarCliente">
@@ -31,7 +45,7 @@
             <div class="bar-imput"></div>
             <span class="input-requerido">*</span>
         </div>
-        <div class="noti mensaje_producto_noExiste" id="divNotiNombre" style="display:none;">
+        <div id="divNotiNombre" style="display:none;">
             <div class="noti_message red_texto_size">
                 <span class="icono_advertencia_notificacion"></span>
                 <span class="descripcion_mensaje">
@@ -54,6 +68,14 @@
             <div class="bar-imput"></div>
             <span class="input-requerido">*</span>
         </div>
+        <div id="divNotiApellido" style="display:none;">
+            <div class="noti_message red_texto_size">
+                <span class="icono_advertencia_notificacion"></span>
+                <span class="descripcion_mensaje">
+                    Por favor ingresa un nombre válido.
+                </span>
+            </div>
+        </div>
 
         <div class="ImputForm-item">
             @Html.TextBoxFor(model => model.Telefono,
@@ -68,6 +90,14 @@
             <label>Teléfono Fijo</label>
             <div class="bar-imput"></div>
             <span class="input-requerido">*</span>
+        </div>
+        <div id="divNotiTelefono" style="display:none;">
+            <div class="noti_message red_texto_size">
+                <span class="icono_advertencia_notificacion"></span>
+                <span class="descripcion_mensaje">
+                    Por favor ingresa un nombre válido.
+                </span>
+            </div>
         </div>
 
         <div class="ImputForm-item">
@@ -84,6 +114,14 @@
             <div class="bar-imput"></div>
             <span class="input-requerido">*</span>
         </div>
+        <div id="divNotiCelular" style="display:none;">
+            <div class="noti_message red_texto_size">
+                <span class="icono_advertencia_notificacion"></span>
+                <span class="descripcion_mensaje">
+                    Por favor ingresa un nombre válido.
+                </span>
+            </div>
+        </div>
 
         <div class="ImputForm-item">
             @Html.TextBoxFor(model => model.eMail,
@@ -98,50 +136,21 @@
             <label>Correo Electrónico (Opcional)</label>
             <div class="bar-imput"></div>
         </div>
-            <div class="noti mensaje_producto_noExiste" id="divNotiCorreo" style="display:none;">
-                <div class="noti_message red_texto_size">
-                    <span class="icono_advertencia_notificacion"></span>
-                    <span class="descripcion_mensaje">
-                        El correo ingresado <b>no existe.</b> <br />
-                        Por favor ingresa un correo válido.
-                    </span>
-                </div>
+        <div id="divNotiCorreo" style="display:none;">
+            <div class="noti_message red_texto_size">
+                <span class="icono_advertencia_notificacion"></span>
+                <span class="descripcion_mensaje">
+                    El correo ingresado <b>no existe.</b> <br />
+                    Por favor ingresa un correo válido.
+                </span>
             </div>
-            @*<input type="button" class="btnCliente_cancelar" id="btnPanelMantenerCerrar" value="CANCELAR" />*@
-            <input type="button" class="btnCliente_agregar" id="btnPanelMantenerAgregar" value="Agregar" />
-     
-            <br />
-            <div id="divValidationSummary" style="display:none; padding-top: 10px;">* Debes Ingresar al menos un teléfono de contacto</div>
+        </div>
+
+        <input type="button" class="btnCliente_agregar" id="btnPanelMantenerAgregar" value="Agregar" />
+        <br />
+        <br />
+        <div id="divValidationSummary" style="display:none;">* Debes Ingresar al menos un teléfono de contacto</div>
 
     </form>
 </div>
 
-@*<style>
-
-    .clienteMensajeEditar {
-        display: table;
-        padding-left: 20px;
-        padding-right: 20px;
-    }
-
-        .clienteMensajeEditar span {
-            vertical-align: middle;
-            display: table-cell;
-            padding-right: 5px;
-        }
-
-    .input-nombre {
-        display: block;
-        width: 100%;
-    }
-
-    .input-number {
-        display: block;
-        width: 100%;
-    }
-
-    .input-correo {
-        display: block;
-        width: 100%;
-    }
-</style>*@

@@ -45,6 +45,7 @@ var TusClientesModule = function (config) {
 
     var _setNombreCliente = function (nombreCliente) {
         $(_elements.txtNombreCliente).val(nombreCliente);
+        _buscarClientes();
     };
 
     var _ocultarEditarCliente = function () {
@@ -55,7 +56,6 @@ var TusClientesModule = function (config) {
             $("body").css("overflow", "auto");
             $("#modal-fondo-form").hide();
         }, 450);
-        
     };
 
     var _editarCliente = function (cliente) {
@@ -79,20 +79,20 @@ var TusClientesModule = function (config) {
     };
 
     var _eliminarCliente = function (clienteId) {
+        AbrirLoad();
         _config
             .tusClientesProvider
             .eliminarClientePromise(clienteId)
             .done(function (data) {
-                alert(data.message);
+                //alert(data.message);
                 _ocultarConfirmarEliminarCliente(clienteId);
                 _buscarClientes();
-
             })
             .fail(function (data, error) {
 
             })
             .then(function () {
-
+                CerrarLoad();
             });
     };
 

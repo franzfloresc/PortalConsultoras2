@@ -42,17 +42,23 @@
     };
 
     var _loadPanelMantener = function () {
-        _config
-            .tusClientesProvider
-            .panelMantenerPromise()
-            .done(function (data) {
-                $(_elements.panelRegistroContenedor).html(data);
-            })
-            .fail(function (data, error) {
-                console.log("ERROR al cargar html PanelLista.");
-                console.log("data : " + data);
-                console.log("error : " + error);
-            });
+        try {
+
+            _config
+                .tusClientesProvider
+                .panelMantenerPromise()
+                .done(function (data) {
+                    $(_elements.panelRegistroContenedor).html(data);
+                })
+                .fail(function (data, error) {
+                    console.log("ERROR al cargar html PanelLista.");
+                    console.log("data : " + data);
+                    console.log("error : " + error);
+                });
+
+        } catch (e) {
+
+        }
     };
 
     var _panelRegistroShow = function () {
