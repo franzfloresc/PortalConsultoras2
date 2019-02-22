@@ -817,6 +817,28 @@ function MostrarBarra(datax, destino) {
     return true;
 }
 
+function calcMtoLogro(data, destino) {
+    var barra = data.DataBarra;
+    var me = data.MontoEscala;
+    var md = data.MontoDescuento;
+    var mx = data.MontoMaximo;
+    var mt = data.TotalPedido;
+    var tp = data.TippingPoint;
+    
+    var vLogro = mt - md;
+    
+    if (mx > 0 && destino == '2') {
+
+    }
+    else {
+        var valTopTotal = destino == '2' && barra.TippingPointBarra.Active && tp > 0 ? tp : mn;
+        if (vLogro > valTopTotal) vLogro = valTopTotal > me ? valTopTotal : me;
+    }
+    mtoLogroBarra = vLogro;
+
+    return vLogro;
+}
+
 function showToolTipPremioDetalle(tp) {
     if (tp == 0) return;
 
@@ -1289,43 +1311,74 @@ function selectPremioDivByCuv(cuv) {
     return true;
 }
 
-function showPopupNivelSuperado(barra, prevLogro) {
-    if (!barra) {
-        return;
-    }    
+function superoTippingPoint(barra, prevLogro) {
     var tippingPoint = barra.TippingPoint || 0;
-    tpElectivos.tempPrevLogro = prevLogro;
 
     if (tippingPoint > 0) {
         if (!barra.TippingPointBarra.Active) {
-            return;
+            return false;
         }
 
         var superaRegalo = tippingPoint <= mtoLogroBarra && tippingPoint > prevLogro;
         if (superaRegalo) {
 
-            checkPremioSelected(true);
-            if (!tpElectivos.premioSelected) {
-                agregarPremioDefault();
-            }
-
-            var idPopup = '#popupPremio';
-            var dvPremio = $(idPopup);
-            var btn = dvPremio.find('.btn_escoger_o_cambiar_regalo');
-            dvPremio.find('.sub-premio-elect').css('display', tpElectivos.premioSelected || !tpElectivos.hasPremios ? 'none': 'block');
-            btn.css('display', !tpElectivos.hasPremios ? 'none': 'block');
-            btn.html(tpElectivos.premioSelected ? 'CAMBIAR PRODUCTO': '¡Escoger ahora!');
-            AbrirPopup(idPopup);
-            setContainerLluvia(idPopup);
-            mostrarLluvia();
-
-            return;
+            return true;
         }
+    }
+
+    return false;
+}
+
+function showPopupNivelSuperado(barra, prevLogro) {
+    if (!barra) {
+        return;
+    }
+    tpElectivos.tempPrevLogro = prevLogro;
+    var superoTp = superoTippingPoint(barra, prevLogro);
+
+    if (superoTp) {
+
+        checkPremioSelected(true);
+        if (!tpElectivos.premioSelected) {
+            agregarPremioDefault();
+        }
+
+        var idPopup = '#popupPremio';
+        var dvPremio = $(idPopup);
+        var btn = dvPremio.find('.btn_escoger_o_cambiar_regalo');
+        dvPremio.find('.sub-premio-elect').css('display', tpElectivos.premioSelected || !tpElectivos.hasPremios ? 'none': 'block');
+        btn.css('display', !tpElectivos.hasPremios ? 'none': 'block');
+        btn.html(tpElectivos.premioSelected ? 'CAMBIAR PRODUCTO': '¡Escoger ahora!');
+        AbrirPopup(idPopup);
+        setContainerLluvia(idPopup);
+        mostrarLluvia();
     }
 
     if (!TieneMontoMaximo()) {
         showPopupEscalaSiguiente(barra, prevLogro);
     }
+}
+
+function addPremioDefaultSuperado(barra, prevLogro) {
+    var superoTp = superoTippingPoint(barra, prevLogro);
+
+    if (superoTp) {
+        agregarPedidoDefaultExt();
+    }
+}
+
+function agregarPedidoDefaultExt() {
+    AbrirLoad();
+    jQuery.ajax({
+        type: 'POST',
+        url: baseUrl + "PedidoRegistro/AgergarPremioDefault",
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        async: true,
+        cache: false
+    }).always(function () {
+        CerrarLoad();
+    });
 }
 
 function showPopupEscalaSiguiente(dataBarra, prevLogro) {
@@ -2541,13 +2594,17 @@ function CalculoPosicionMensajeDestokp() {
         AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMaximo);
 
     }
+ 
+    if (AvancePorcentaje.substring(0, AvancePorcentaje.length - 1) * 1 > 75) { 
+        if (document.getElementsByClassName('agrega_barra')[0].innerHTML.length >46) {
+            AvancePorcentaje = '70%';
 
+        } else if (document.getElementsByClassName('agrega_barra')[0].innerHTML.length > 44 ){
+            AvancePorcentaje = '73%';
 
-
-    
-
-    if (AvancePorcentaje.substring(0, AvancePorcentaje.length - 1) * 1 > 75) {
-        AvancePorcentaje = '77%';
+        }  else {
+            AvancePorcentaje = '77%';
+        }        
     }
 
     document.getElementById('divBarraMensajeLogrado').style.left = AvancePorcentaje;

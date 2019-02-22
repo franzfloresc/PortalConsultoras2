@@ -318,6 +318,37 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        [HttpPost]
+        public async Task<JsonResult> AgergarPremioDefault()
+        {
+            var premios =_programaNuevasProvider.GetListPremioElectivo();
+            var premioSelected = GetPremioSelected(premios);
+
+            if (premioSelected != null) return Json(false);
+
+            var premioDefault = premios.FirstOrDefault(p => p.CuponElectivoDefault);
+
+            if (premioDefault == null) return Json(false);
+
+            await PedidoAgregarProductoTransaction(new PedidoCrudModel
+            {
+                CUV = premioDefault.CUV2,
+                Cantidad = "1",
+                FlagNueva = "1"
+            });
+
+            return Json(true);
+        }
+
+        private BEPedidoWebDetalle GetPremioSelected(List<PremioElectivoModel> result)
+        {
+            var details = ObtenerPedidoWebSetDetalleAgrupado(true);
+            if (details == null || details.Count == 0) return null;
+
+            var selected = details.FirstOrDefault(d => result.Any(c => c.CUV2 == d.CUV));
+            return selected;
+        }
+
         private async Task<Tuple<bool, JsonResult>> DeletePremioIfReplace(PedidoCrudModel model)
         {
             var premios = _programaNuevasProvider.GetListPremioElectivo();
