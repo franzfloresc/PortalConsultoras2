@@ -2543,7 +2543,7 @@ function CalculoPosicionMensajeDestokp() {
     }
  
     if (AvancePorcentaje.substring(0, AvancePorcentaje.length - 1) * 1 > 75) { 
-        if (document.getElementsByClassName('agrega_barra')[0].innerHTML.length >50) {
+        if (document.getElementsByClassName('agrega_barra')[0].innerHTML.length >46) {
             AvancePorcentaje = '70%';
 
         } else if (document.getElementsByClassName('agrega_barra')[0].innerHTML.length > 44 ){
