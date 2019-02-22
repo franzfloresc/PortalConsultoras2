@@ -142,6 +142,8 @@
 
 <input type="hidden" id="hdPedidoIdActual" />
 
+<input type="hidden" id="hdCDRWebID" />
+
 <div class="contenedor_popup_percepciones" id="PopSolicitud">
     <div class="popup_Pendientes">
         <div class="btn_cerrar_popupPercepcion cerrarPendientesPORTAL">
@@ -425,6 +427,7 @@
                 var mensajeDespacho = IfNull($(parent).find(".cdrweb_mensajedespacho").val(),'');
 
                 $("#hdPedidoIdActual").val(pedidoId);
+                $("#hdCDRWebID").val(id);
                 var item = {
                     CDRWebID: id || 0,
                     PedidoID: pedidoId || 0,
@@ -491,6 +494,7 @@
 
             $("#btnFinalizar").on("click", function () {
                 var pedidoId = $("#hdPedidoIdActual").val();
+                var id = $("#hdCDRWebID").val();
                 var lista = new Array();
 
                 $.each($("#divDetallePedidoCdrObservado .txtCantidad"), function (index, value) {
@@ -507,7 +511,7 @@
                 });
 
                 var actualizado = ActualizarDetalleObservado(lista);
-                if (actualizado) window.location.href = urlReclamo + "?pedidoId=" + pedidoId;
+                if (actualizado) window.location.href = urlReclamo + "?p=" + pedidoId + "&c=" + id;
             });
 
             $("#IrPaso1").on("click", function () {

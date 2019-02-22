@@ -83,7 +83,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return View(model);
         }
-
+        //HD-3412 EINCA
         private List<CDRWebModel> ObtenerCDRWebCargaInicial()
         {
             if (SessionManager.GetListaCDRWebCargaInicial() != null)
@@ -150,7 +150,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return result;
         }
-
+        //HD-3412 EINCA
         public class PedidosEstadoCDRWeb
         {
             public int CampaniaID { get; set; }

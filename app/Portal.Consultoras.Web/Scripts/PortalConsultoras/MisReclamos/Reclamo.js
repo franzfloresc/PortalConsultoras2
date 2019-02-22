@@ -107,6 +107,7 @@ $(document).ready(function () {
             ValidarPasoDosTruequeServer(function (result, msg) {
                 if (!result) {
                     alert_msg(msg);
+                    return false;
                 } else {
                     CambioPaso2(1);
                     $("#spnCuv1").html($.trim($("#ddlCuv").val()));
@@ -1553,7 +1554,7 @@ function SolicitudCDREnviar(callbackWhenFinish) {
                 closeWaitingDialog();
             }
         });
-    }, 0)
+    }, 0);
 
 
 

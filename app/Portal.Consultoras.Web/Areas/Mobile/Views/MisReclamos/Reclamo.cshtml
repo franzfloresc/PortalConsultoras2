@@ -110,8 +110,8 @@
             <div class="formulario_inscripcion_cdr">
                 @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.ListaCampania, "CampaniaID", "NombreCorto", Model.CampaniaID), new { id = "ddlCampania", @class = "select_reclamo", @required = "required" })
                 <select class="elige_num_pedido" id="ddlnumPedido" name="numPedido" required="required" style="display:none;"></select>
-                <input id="txtNumPedido" type="text" style="text-align:center;display:none;"/>
-                <input id="cuvmobile" class="tipografia_lato tipografia_lato_regular ValidaNumeral ValidaPasteNumeral valid" type="text" value="" placeholder="Código o Descripción del producto"/>
+                <input id="txtNumPedido" type="text" style="text-align:center;display:none;" />
+                <input id="cuvmobile" class="tipografia_lato tipografia_lato_regular ValidaNumeral ValidaPasteNumeral valid" type="text" value="" placeholder="Código o Descripción del producto" />
 
                 <div id="DescripcionCuv" class="producto_cdr" style="font-size:13px;display:none">
                     <span id="txtCuv" class="codigo_producto_cdr tipografia_lato_bold"></span>
@@ -264,12 +264,12 @@
                         @Model.MensajesExpress.ExpressPrincipal
                         <br />
                         @if (!string.IsNullOrEmpty(Model.MensajesExpress.ExpressFlete))
-                        { @Model.MensajesExpress.ExpressFlete}                        
+                        {@Model.MensajesExpress.ExpressFlete}
                         @if (Model.EsConsultoraNueva)
                         {
                             <br />
                             <span style="color:red;">@Model.MensajesExpress.Nuevas</span>
-                        }                        
+                        }
                         <br />
                         @Model.MensajesExpress.ExpressAdicional
                     </div>
@@ -455,9 +455,33 @@
     <div class="buscar_producto_cdr_contenido_popup text-center">
         <div class="busqueda_codigo_o_descripcion_wrapper d-block">
             <input type="text" value="" id="CampoBusquedaCuvDescripcion" class="campo_busqueda_codigo_o_descripcion_producto" placeholder="Escribe el código o descripción" />
-            <ul id="ListaCoincidenciasBusquedaProductosCdr" class="lista_coincidencias_busqueda_productos d-block text-left">
+            <ul id="ListaCoincidenciasBusquedaProductosCdr" class="lista_coincidencias_busqueda_productos d-block text-left"></ul>
+        </div>
+    </div>
+</div>
 
-            </ul>
+@*HD-3412 EINCA*@
+<div class="contenedor_popup_general" id="divConfirmEnviarSolicitudCDR" style="display:none;">
+    <div class="popup_general">
+        <div class="btn_cerrar_popup_general">
+            <a href="javascript:;" onclick="CancelarConfirmEnvioSolicitudCDR();">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
+            </a>
+        </div>
+        <div class="contenido_popUp contenido_popUp_general">
+            <span class="mensaje_popup_general">
+                Asegúrate de tener todos los incovenientes registrados <strong>porque s&oacute;lo puedes hacer <span id="txtCantidadPedidoConfig"></span> solicitud web por pedido.</strong><br /><br />
+                ¿Deseas continuar?
+            </span>
+            <div class="grupo_botones_popup_general">
+                <button type="button" name="btn_accion_secundaria" class="btn_accion_secundaria" onclick="misReclamosRegistro.Funciones.CancelarConfirmEnvioSolicitudCDR();">
+                    Cancelar
+                </button>
+                <button type="button" name="btn_accion_principal" class="btn_accion_principal" onclick="misReclamosRegistro.Funciones.ContinuarConfirmEnvioSolicitudCDR();">
+                    Si, continuar
+                </button>
+            </div>
         </div>
     </div>
 </div>
@@ -648,10 +672,10 @@
 
         var flagAppMobile = @(!mobileConfiguracion.EsAppMobile ? 0 : 1);
         if (flagAppMobile == 0) mensajeCdrFueraDeFechaCompleto = mensajeCdrFueraDeFechaCompleto + " " + mensajeChatEnLinea;
-
+        var CantidadReclamosPorPedidoConfig = '@Html.Raw(Model.CantidadReclamosPorPedido)';
         var OrigenCDR = true;
 
     </script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/MisReclamos/Reclamo.js")?v2"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/MisReclamos/Reclamo.js")?v3"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js")"></script>
 }

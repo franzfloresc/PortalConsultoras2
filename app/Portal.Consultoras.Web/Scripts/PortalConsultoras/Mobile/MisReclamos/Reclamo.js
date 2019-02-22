@@ -22,6 +22,7 @@ $(document).ready(function () {
             btn_ver_solicitudes: "#btn_ver_solicitudes",
             btnAceptarSolucion: "[data-cambiopaso]",
             btnCambioProducto: "#btnCambioProducto",
+            btnSiguiente0: '#btnSiguiente0',//HD-3412 EINCA
             btnSiguiente1: "#btnSiguiente1",
             btnSiguiente4: "#btnSiguiente4",
             Cambio3: "#Cambio3",
@@ -119,14 +120,16 @@ $(document).ready(function () {
             popupCuvDescripcion: ".popupCuvDescripcion",
             hdCuvCodigo: "#hdCuvCodigo",
             EleccionTipoEnvio: "#EleccionTipoEnvio",
-            hdTieneCDRExpress: "#hdTieneCDRExpress"
+            hdTieneCDRExpress: "#hdTieneCDRExpress",
+            divConfirmEnviarSolicitudCDR: '#divConfirmEnviarSolicitudCDR', //HD-3412 EINCA
+            txtCantidadPedidoConfig: '#txtCantidadPedidoConfig'//HD-3412 EINCA
         };
 
         me.Eventos = {
             bindEvents: function () {
                 $(me.Variables.footer_page).hide();
                 $(me.Variables.EleccionTipoEnvio).hide();
-                
+
                 var pedidoId = parseInt($(me.Variables.hdPedidoID).val());
                 if (pedidoId != 0) {
                     ShowLoading();
@@ -146,7 +149,7 @@ $(document).ready(function () {
 
                 // Agregar otro producto.
                 $(me.Variables.IrSolicitudInicial).click(function () {
-                    
+
                     if (mensajeGestionCdrInhabilitada != '') {
                         messageInfoValidado(mensajeGestionCdrInhabilitada);
                         return false;
@@ -192,12 +195,12 @@ $(document).ready(function () {
                     $(me.Variables.pasotres).show();
 
                     $(me.Variables.ComboCampania).attr("disabled", "disabled");
-                    me.Funciones.BuscarCUV()
+                    me.Funciones.BuscarCUV();
                 });
 
                 $(me.Variables.miSolicitudCDR).click(function (e) {
                     e.stopPropagation();
-                    
+
                     var detalles = $(me.Variables.divDetalleUltimasSolicitudes + " " + me.Variables.producto_agregado).length || 0;
                     (detalles == 0) ? $(me.Variables.enlace_ir_al_final).hide() : $(me.Variables.enlace_ir_al_final).show();
 
@@ -219,7 +222,7 @@ $(document).ready(function () {
                 });
 
                 $(me.Variables.ocultar_mi_solicitud).click(function (e) {
-                    
+
                     e.stopPropagation();
 
                     $(me.Variables.datosSolicitudOpened).fadeOut(200);
@@ -239,7 +242,7 @@ $(document).ready(function () {
                 });
 
                 $(me.Variables.enlace_ir_al_final + " a").click(function (e) {
-                    
+
                     e.preventDefault();
                     $(me.Variables.listadoProductosAgregados).animate({
                         scrollTop: me.Variables.alturaListaMiSolicitud + "px"
@@ -252,7 +255,7 @@ $(document).ready(function () {
                 });
 
                 $(me.Variables.listado_soluciones_cdr).on('click', me.Variables.solucion_cdr, function () {
-                    
+
                     $(me.Variables.solucion_cdr).attr("data-check", "0");
 
                     var id = $.trim($(this).attr("id"));
@@ -263,14 +266,14 @@ $(document).ready(function () {
                 });
 
                 $(me.Variables.UltimasSolicitudes).on('click', 'a[data-accion]', function (e) {
-                    
+
                     e.preventDefault(); // prevents the <a> from navigating                  
                     me.Funciones.DetalleAccion(this);
                 });
 
                 $(me.Variables.ComboCampania).on("change", function () {
                     $(me.Variables.txtCantidad1).val("1");
-                    if ($(me.Variables.ComboCampania).val() == 0){                        
+                    if ($(me.Variables.ComboCampania).val() == 0) {
                         $(me.Variables.ddlnumPedido).hide();
 
                         $(me.Variables.DescripcionCuv).hide();
@@ -307,7 +310,7 @@ $(document).ready(function () {
                     var _cuv = $.trim($(this).attr("data-codigo"));
                     var _descripcionCuv = $.trim($(this).attr("data-descr"));
                     me.Funciones.CuvSeleccionado(_cuv, _descripcionCuv);
-                });                
+                });
 
                 setInterval(function () {
                     if (cuv2KeyUp) cuv2KeyUp = false;
@@ -315,7 +318,7 @@ $(document).ready(function () {
                 }, 1000)
 
                 $(me.Variables.aCambiarProducto).click(function (e) {
-                    
+
                     $(me.Variables.DescripcionCuv).hide();
                     $(me.Variables.DescripcionCuv).hide();
                     $(me.Variables.txtCuvMobile).show();
@@ -327,16 +330,16 @@ $(document).ready(function () {
                 });
 
                 $(me.Variables.aCambiarProducto2).click(function (e) {
-                    
+
                     $(me.Variables.DescripcionCuv2).hide();
                     $(me.Variables.txtCuvMobile2).fadeIn();
                     $(me.Variables.txtCuvMobile2).focus();
                 });
 
                 $(me.Variables.btnSiguiente1).click(function (e) {
-                    
+
                     if ($(me.Variables.Registro1).is(":visible")) {
-                        
+                        console.log('vista Registro1');
                         if (me.Funciones.ValidarCUVCampania()) {
                             $(me.Variables.Enlace_regresar).show();
                             me.Funciones.BuscarMotivo();
@@ -348,26 +351,33 @@ $(document).ready(function () {
                             return false;
                         }
                     }
-                    
+
                     if ($(me.Variables.Registro2).is(":visible")) {
-                        
-                        $(me.Variables.txtDescripcionCuv2).val('')
+                        console.log('vista Registro1');
+                        $(me.Variables.txtDescripcionCuv2).val('');
                         $(me.Variables.txtCuv2).html('');
                         $(me.Variables.txtPrecioCuv2).html('');
-
-                        if (me.Funciones.ValidarPaso1()) {
-                            paso2Actual = 1;
-                            me.Funciones.CargarOperacion();
-
-                            $(me.Variables.Registro2).hide();
-                            $(me.Variables.Registro3).show();
-                            $(me.Variables.btnSiguiente1).hide();
+                        //HD-3412 EINCA
+                        if (me.Funciones.ValidarPasoUno()) {
+                            me.Funciones.ValidarPasoUnoServer(function (result, msg) {
+                                if (!result && msg != "") {
+                                    $.when(me.Funciones.RegresarRegistro1())
+                                        .then(messageInfoValidado(msg));
+                                } else {
+                                    paso2Actual = 1;
+                                    $.when(me.Funciones.CargarOperacion()).then(function () {
+                                        $(me.Variables.Registro2).hide();
+                                        $(me.Variables.Registro3).show();
+                                        $(me.Variables.btnSiguiente1).hide();
+                                    });
+                                }
+                            });
                         }
                     }
                 });
 
                 $(me.Variables.btnAceptarSolucion).click(function () {
-                    
+
                     me.Funciones.DetalleGuardar();
 
                     $(me.Variables.wrpMobile).removeClass(me.Variables.pb120);
@@ -385,7 +395,7 @@ $(document).ready(function () {
                 });
 
                 $(me.Variables.Enlace_regresar).click(function (e) {
-                    
+
                     $(me.Variables.Registro2).hide();
                     $(me.Variables.Registro3).hide();
                     $(me.Variables.Registro4).hide();
@@ -423,7 +433,7 @@ $(document).ready(function () {
                 });
 
                 $(me.Variables.btnSiguiente4).click(function () {
-                    
+
                     if (mensajeGestionCdrInhabilitada != '') {
                         messageInfoValidado(mensajeGestionCdrInhabilitada);
                         return false;
@@ -441,7 +451,12 @@ $(document).ready(function () {
                     }
 
                     $(me.Variables.ComboCampania).removeAttr("disabled");
-                    me.Funciones.SolicitudEnviar(false, true);
+                    //HD-3412 EINCA
+                    if (me.Funciones.ValidarSolicitudCDREnvio(false, true)) {
+                        $(me.Variables.txtCantidadPedidoConfig).text(CantidadReclamosPorPedidoConfig);
+                        $(me.Variables.divConfirmEnviarSolicitudCDR).show();
+                    }
+
                 });
 
                 $(me.Variables.txtTelefono).keypress(function (evt) {
@@ -454,6 +469,14 @@ $(document).ready(function () {
                         var re = /[0-9+ *#-]/;
                         return re.test(keyChar);
                     }
+                }).keydown(function (e) {
+                    if ($(this).val().length >= 11) {
+                        $(this).val($(this).val().substr(0, 11));
+                    }
+                }).keyup(function (e) {
+                    if ($(this).val().length >= 9) {
+                        $(this).val($(this).val().substr(0, 11));
+                    }
                 });
 
                 $(me.Variables.txtCuvMobile2).on('keyup', function (evt) {
@@ -462,19 +485,25 @@ $(document).ready(function () {
                 });
 
                 $(me.Variables.btnCambioProducto).click(function (evt) {
-                    
-                    if (me.Funciones.ValidarPaso2Trueque()) {
-                        me.Funciones.CambioPaso2(1);
-                        $(me.Variables.btnCambioProducto).hide();
-                        $(me.Variables.btnAceptarSolucion).show();
+                    if (me.Funciones.ValidarPasoDosTrueque()) {
+                        me.Funciones.ValidarPasoDosTruequeServer(function (result, msg) {
+                            if (!result && msg != "") {
+                                messageInfoValidado(msg);
+                            } else {
+                                $.when(me.Funciones.CambioPaso2(1)).then(function () {
+                                    $(me.Variables.btnCambioProducto).hide();
+                                    $(me.Variables.btnAceptarSolucion).show();
 
-                        $(me.Variables.spnCuv1).html($(me.Variables.hdCuvCodigo).val());
-                        $(me.Variables.spnDescripcionCuv1).html($(me.Variables.txtDescripcionCuv).html());
-                        $(me.Variables.spnCantidadCuv1).html($(me.Variables.txtCantidad1).val());
+                                    $(me.Variables.spnCuv1).html($(me.Variables.hdCuvCodigo).val());
+                                    $(me.Variables.spnDescripcionCuv1).html($(me.Variables.txtDescripcionCuv).html());
+                                    $(me.Variables.spnCantidadCuv1).html($(me.Variables.txtCantidad1).val());
 
-                        $(me.Variables.spnCuv2).html($(me.Variables.txtCuvMobile2).val());
-                        $(me.Variables.spnDescripcionCuv2).html($(me.Variables.txtDescripcionCuv2).html());
-                        $(me.Variables.spnCantidadCuv2).html($(me.Variables.txtCantidad2).val());
+                                    $(me.Variables.spnCuv2).html($(me.Variables.txtCuvMobile2).val());
+                                    $(me.Variables.spnDescripcionCuv2).html($(me.Variables.txtDescripcionCuv2).html());
+                                    $(me.Variables.spnCantidadCuv2).html($(me.Variables.txtCantidad2).val());
+                                });
+                            }
+                        });
                     }
                 });
 
@@ -524,6 +553,20 @@ $(document).ready(function () {
                     if (oID == "TipoEnvioExpress") tipoDespacho = true;
                     else tipoDespacho = false;
                 });
+                //HD-3412 EINCA
+                $(me.Variables.txtTelefono).keypress(function (evt) {
+                    var charCode = (evt.which) ? evt.which : window.event.keyCode;
+                    if (charCode <= 13) {
+                        return false;
+                    }
+                    else {
+                        var keyChar = String.fromCharCode(charCode);
+                        var re = /[0-9+ *#-]/;
+                        return re.test(keyChar);
+                    }
+                });
+
+
             }
         };
 
@@ -565,8 +608,8 @@ $(document).ready(function () {
                             messageInfoValidado(data.message);
                             return false;
                         }
-                        
-                        if (data.datos.length == 1) {                            
+
+                        if (data.datos.length == 1) {
                             $(me.Variables.ddlnumPedido).hide();
                             $(me.Variables.hdPedidoID).val(data.datos[0].PedidoID);
                             $(me.Variables.hdNumeroPedido).val(data.datos[0].NumeroPedido);
@@ -574,7 +617,7 @@ $(document).ready(function () {
                             me.Funciones.BuscarCUV();
                         }
                         else if (data.datos.length > 1) {
-                            $(me.Variables.txtNumPedido).hide();                            
+                            $(me.Variables.txtNumPedido).hide();
                             $(me.Variables.ddlnumPedido).append($('<option></option>').val(0).html("Elige un pedido"));
                             $(data.datos).each(function (index, item) {
                                 $(me.Variables.ddlnumPedido).append($('<option></option>').val(item.PedidoID).html(item.strNumeroPedido));
@@ -593,8 +636,77 @@ $(document).ready(function () {
             },
 
 
-            
-            ValidarPaso2Trueque: function () {
+
+            //ValidarPaso2Trueque: function () {
+            //    var ok = true;
+            //    ok = $.trim($(me.Variables.txtCuvMobile2).val()).length == "5" ? ok : false;
+            //    ok = $.trim($(me.Variables.txtDescripcionCuv2).html()) != "" ? ok : false;
+            //    ok = $.trim($(me.Variables.txtPrecioCuv2).html()) != "" ? ok : false;
+
+            //    var montoMinimoReclamo = $(me.Variables.hdMontoMinimoReclamo).val();
+            //    var montoPedidoTrueque = $(me.Variables.hdImporteTotal2).val();
+
+            //    ShowLoading();
+
+            //    var item = {
+            //        PedidoID: $(me.Variables.hdPedidoID).val(),
+            //        CUV: $.trim($(me.Variables.txtCuvMobile2).val()),
+            //        Cantidad: $.trim($(me.Variables.txtCantidad2).val()),
+            //        Motivo: $(".lista_opciones_motivo_cdr input[name='motivo-cdr']:checked").attr("id"),
+            //        CampaniaID: $(me.Variables.ComboCampania).val()
+            //    };
+
+            //    jQuery.ajax({
+            //        type: 'POST',
+            //        url: UrlValidarNoPack,
+            //        dataType: 'json',
+            //        contentType: 'application/json; charset=utf-8',
+            //        data: JSON.stringify(item),
+            //        async: false,
+            //        cache: false,
+            //        success: function (data) {
+            //            CloseLoading();
+
+            //            ok = data.success;
+
+            //            if (!data.success && data.message != "") {
+            //                messageInfoValidado(data.message);
+            //                return false;
+            //            }
+            //        },
+            //        error: function (data, error) {
+            //            CloseLoading();
+            //        }
+            //    });
+            //    var valorParametria = $(me.Variables.hdParametriaCdr).val();
+            //    var valorParametriaAbs = $(me.Variables.hdParametriaAbsCdr).val();
+
+            //    if (valorParametriaAbs == "1") {
+            //        var diferencia = parseFloat(montoMinimoReclamo) - parseFloat(montoPedidoTrueque);
+            //        if (diferencia > parseInt(valorParametria)) {
+            //            messageInfoValidado("Diferencia en trueques excede lo permitido");
+            //            return false;
+            //        }
+            //    } else {
+            //        if (valorParametriaAbs == "2") {
+            //            if (montoPedidoTrueque < montoMinimoReclamo) {
+            //                messageInfoValidado("Está devolviendo menos de lo permitido");
+            //                return false;
+            //            }
+            //        } else {
+            //            var diferencia2 = parseFloat(montoMinimoReclamo) - parseFloat(montoPedidoTrueque);
+            //            diferencia2 = Math.abs(diferencia2);
+
+            //            if (diferencia2 > parseInt(valorParametria)) {
+            //                messageInfoValidado("Diferencia en trueques excede lo permitido");
+            //                return false;
+            //            }
+            //        }
+            //    }
+            //    return ok;
+            //},
+            //HD-3412 EINCA
+            ValidarPasoDosTrueque: function () {
                 var ok = true;
                 ok = $.trim($(me.Variables.txtCuvMobile2).val()).length == "5" ? ok : false;
                 ok = $.trim($(me.Variables.txtDescripcionCuv2).html()) != "" ? ok : false;
@@ -602,42 +714,9 @@ $(document).ready(function () {
 
                 var montoMinimoReclamo = $(me.Variables.hdMontoMinimoReclamo).val();
                 var montoPedidoTrueque = $(me.Variables.hdImporteTotal2).val();
-
-                ShowLoading();
-
-                var item = {
-                    PedidoID: $(me.Variables.hdPedidoID).val(),
-                    CUV: $.trim($(me.Variables.txtCuvMobile2).val()),
-                    Cantidad: $.trim($(me.Variables.txtCantidad2).val()),
-                    Motivo: $(".lista_opciones_motivo_cdr input[name='motivo-cdr']:checked").attr("id"),
-                    CampaniaID: $(me.Variables.ComboCampania).val()
-                };
-
-                jQuery.ajax({
-                    type: 'POST',
-                    url: UrlValidarNoPack,
-                    dataType: 'json',
-                    contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify(item),
-                    async: false,
-                    cache: false,
-                    success: function (data) {
-                        CloseLoading();
-
-                        ok = data.success;
-
-                        if (!data.success && data.message != "") {
-                            messageInfoValidado(data.message);
-                            return false;
-                        }
-                    },
-                    error: function (data, error) {
-                        CloseLoading();
-                    }
-                });
                 var valorParametria = $(me.Variables.hdParametriaCdr).val();
                 var valorParametriaAbs = $(me.Variables.hdParametriaAbsCdr).val();
-                
+
                 if (valorParametriaAbs == "1") {
                     var diferencia = parseFloat(montoMinimoReclamo) - parseFloat(montoPedidoTrueque);
                     if (diferencia > parseInt(valorParametria)) {
@@ -662,9 +741,45 @@ $(document).ready(function () {
                 }
                 return ok;
             },
+            //HD-3412 EINCA
+            ValidarPasoDosTruequeServer: function (callbackWhenFinish) {
 
-            BuscarCUV: function (CUV) {                
-                
+                var item = {
+                    PedidoID: $(me.Variables.hdPedidoID).val(),
+                    CUV: $.trim($(me.Variables.txtCuvMobile2).val()),
+                    Cantidad: $.trim($(me.Variables.txtCantidad2).val()),
+                    Motivo: $(".lista_opciones_motivo_cdr input[name='motivo-cdr']:checked").attr("id"),
+                    CampaniaID: $(me.Variables.ComboCampania).val()
+                };
+
+
+                $.ajaxSetup({
+                    global: false,
+                    type: "POST",
+                    dataType: 'json',
+                    async: true,
+                    cache: false,
+                    contentType: 'application/json; charset=utf-8',
+                    url: UrlValidarNoPack,
+                    beforeSend: function () { ShowLoading(); },
+                    complete: function () { CloseLoading(); }
+                });
+
+                $.ajax({
+                    data: JSON.stringify(item),
+                    success: function (data) {
+                        if (callbackWhenFinish && typeof callbackWhenFinish === "function") {
+                            callbackWhenFinish(data.success, data.message);
+                        }
+                    },
+                    error: function (data, error) {
+                        CloseLoading();
+                    }
+                });
+            },
+
+            BuscarCUV: function (CUV) {
+
                 var CampaniaId = $.trim($(me.Variables.ComboCampania).val()) || 0;
                 var PedidoId = $.trim($(me.Variables.hdPedidoID).val()) || 0;
 
@@ -694,7 +809,7 @@ $(document).ready(function () {
 
                         if (data.detalle == null) return false;
 
-                        if (data.detalle.length > 1) {                             
+                        if (data.detalle.length > 1) {
                             $(me.Variables.campoBusquedaCuvDescripcionCdr).val("");
                             $("#ListaCoincidenciasBusquedaProductosCdr li").filter(function () {
                                 $(this).toggle($(this).attr('data-value').toLowerCase().indexOf("") > -1);
@@ -726,7 +841,7 @@ $(document).ready(function () {
 
             ObtenerDatosCuv: function () {
                 ShowLoading();
-                
+
                 var item = {
                     CampaniaID: $.trim($(me.Variables.ComboCampania).val()),
                     PedidoID: $.trim($(me.Variables.hdPedidoID).val())
@@ -758,16 +873,19 @@ $(document).ready(function () {
             },
 
             AsignarCUV: function (pedido) {
+                var EstadosConteo = 0;
+                var CDRWebID = 0;
                 pedido = pedido || new Object();
-                
-				if (pedido.CDRWebID > 0 && pedido.CDRWebEstado != 1 && pedido.CDRWebEstado != 4) {
-					if (flagAppMobile == 0) {
-						messageInfoError("Lo sentimos, ya cuentas con una solicitud web para este pedido. Por favor, contáctate con nuestro <span class='enlace_chat belcorpChat'><a>Chat en Línea</a></span>.");
-					} else {
-						messageInfoError("Lo sentimos, ya cuentas con una solicitud web para este pedido.");
-					}
-                    return false;
-
+                $.each(pedido.BECDRWeb, function (i, item) {
+                    if (item.Estado === 3 || item.Estado === 2) {
+                        EstadosConteo++;
+                    }
+                    //obtener el cdr en estado pendiente
+                    if (item.Estado === 1) { CDRWebID = item.CDRWebID; }
+                });
+                var cantidad = CantidadReclamosPorPedidoConfig != null && CantidadReclamosPorPedidoConfig != '' ? parseInt(CantidadReclamosPorPedidoConfig) : 0;
+                if (cantidad === EstadosConteo && EstadosConteo > 0) {
+                    messageInfoError("Lo sentimos, usted a excedido el límite de reclamos por pedido");
                 } else {
                     pedido.olstBEPedidoWebDetalle = pedido.olstBEPedidoWebDetalle || new Array();
                     var detalle = pedido.olstBEPedidoWebDetalle.Find("CUV", $(me.Variables.hdCuvCodigo).val() || "");
@@ -780,7 +898,7 @@ $(document).ready(function () {
 
                     $(me.Variables.txtPrecioUnidad).val(data.PrecioUnidad);
                     $(me.Variables.hdImporteTotalPedido).val(pedido.ImporteTotal);
-                    $(me.Variables.hdCDRID).val(pedido.CDRWebID);
+                    $(me.Variables.hdCDRID).val(CDRWebID);
                 }
             },
 
@@ -910,17 +1028,29 @@ $(document).ready(function () {
             },
 
             ValidarCUVCampania: function () {
-                var ok = true;
-                
-                ok = $.trim($(me.Variables.hdPedidoID).val()) > 0 ? ok : false;
-                ok = $(me.Variables.ComboCampania).val() > 0 ? ok : false;
-                ok = $.trim($(me.Variables.hdCuvCodigo).val()) != "" ? ok : false;
 
-                if (!ok) {
-                    messageInfoValidado("Datos incorrectos");
+                if ($(me.Variables.hdPedidoID).val() == "") {
+                    messageInfoValidado("por favor, seleccionar un pedido.");
                     return false;
                 }
-                return ok;
+                if ($(me.Variables.ComboCampania).val() == "" || $(me.Variables.ComboCampania).val() == "0") {
+                    messageInfoValidado("por favor, seleccionar una campaña.");
+                    $(this).focus();
+                    return false;
+                }
+                if ($.trim($(me.Variables.hdCuvCodigo).val()) == "") {
+                    messageInfoValidado("por favor, seleccionar un CUV.");
+                    $(this).focus();
+                    return false;
+                }
+
+                if (!(parseInt($(me.Variables.txtCantidad1).val()) > 0 && parseInt($(me.Variables.txtCantidad1).val()) <= parseInt($(me.Variables.txtCantidad1).attr("data-maxvalue")))) {
+                    messageInfoValidado("Lamentablemente la cantidad ingresada supera a la cantidad facturada en tu pedido (" +
+                        $.trim($(me.Variables.txtCantidad1).attr("data-maxvalue")) + ")");
+                    return false;
+                }
+
+                return true;
             },
 
             RegresarRegistro1: function () {
@@ -930,27 +1060,73 @@ $(document).ready(function () {
                 $(me.Variables.Registro1).show();
             },
 
-            ValidarPaso1: function () {
-                var ok = true;
-                ok = $.trim($(me.Variables.hdPedidoID).val()) > 0 ? ok : false;
-                ok = $(me.Variables.ComboCampania).val() > 0 ? ok : false;
-                ok = $.trim($(me.Variables.hdCuvCodigo/*me.Variables.txtCuvMobile*/).val()) != "" ? ok : false;
+            //ValidarPaso1: function () {
+            //    var ok = true;
+            //    ok = $.trim($(me.Variables.hdPedidoID).val()) > 0 ? ok : false;
+            //    ok = $(me.Variables.ComboCampania).val() > 0 ? ok : false;
+            //    ok = $.trim($(me.Variables.hdCuvCodigo/*me.Variables.txtCuvMobile*/).val()) != "" ? ok : false;
 
-                ok = $(".lista_opciones_motivo_cdr input[name='motivo-cdr']:checked").size() == 0 ? false : ok;
+            //    ok = $(".lista_opciones_motivo_cdr input[name='motivo-cdr']:checked").size() == 0 ? false : ok;
 
-                if (!ok) {
-                    messageInfoValidado("Datos incorrectos");
-                    me.Funciones.RegresarRegistro1();
+            //    if (!ok) {
+            //        messageInfoValidado("Datos incorrectos");
+            //        me.Funciones.RegresarRegistro1();
+            //        return false;
+            //    }
+
+            //    if (!(parseInt($(me.Variables.txtCantidad1).val()) > 0 && parseInt($(me.Variables.txtCantidad1).val()) <= parseInt($(me.Variables.txtCantidad1).attr("data-maxvalue")))) {
+            //        messageInfoValidado("Lamentablemente la cantidad ingresada supera a la cantidad facturada en tu pedido (" +
+            //            $.trim($(me.Variables.txtCantidad1).attr("data-maxvalue")) + ")");
+            //        me.Funciones.RegresarRegistro1();
+            //        return false;
+            //    }
+
+            //    var item = {
+            //        PedidoID: $(me.Variables.hdPedidoID).val(),
+            //        CUV: $(me.Variables.hdCuvCodigo).val(),
+            //        Cantidad: $.trim($(me.Variables.txtCantidad1).val()),
+            //        Motivo: $(".lista_opciones_motivo_cdr input[name='motivo-cdr']:checked").attr("id"),
+            //        CampaniaID: $(me.Variables.ComboCampania).val()
+            //    };
+
+            //    jQuery.ajax({
+            //        type: 'POST',
+            //        url: UrlValidarPaso1,
+            //        dataType: 'json',
+            //        contentType: 'application/json; charset=utf-8',
+            //        data: JSON.stringify(item),
+            //        async: false,
+            //        cache: false,
+            //        success: function (data) {
+            //            CloseLoading();
+            //            if (checkTimeout(data)) {
+            //                ok = data.success;
+
+            //                if (!data.success && data.message != "") {
+            //                    me.Funciones.RegresarRegistro1();
+            //                    messageInfoValidado(data.message);
+            //                }
+            //            }
+            //        },
+            //        error: function (data, error) {
+            //            CloseLoading()
+            //        }
+            //    });
+
+            //    return ok;
+
+            //},
+
+            ValidarPasoUno: function () {
+
+                if ($(".lista_opciones_motivo_cdr input[name='motivo-cdr']:checked").size() == 0) {
+                    messageInfoValidado("por favor, seleccione el motivo del cambio.");
                     return false;
                 }
-
-                if (!(parseInt($(me.Variables.txtCantidad1).val()) > 0 && parseInt($(me.Variables.txtCantidad1).val()) <= parseInt($(me.Variables.txtCantidad1).attr("data-maxvalue")))) {
-                    messageInfoValidado("Lamentablemente la cantidad ingresada supera a la cantidad facturada en tu pedido (" +
-                        $.trim($(me.Variables.txtCantidad1).attr("data-maxvalue")) + ")");
-                    me.Funciones.RegresarRegistro1();
-                    return false;
-                }
-
+                return true;
+            },
+            //HD-3412 EINCA
+            ValidarPasoUnoServer: function (callbackWhenFinish) {
                 var item = {
                     PedidoID: $(me.Variables.hdPedidoID).val(),
                     CUV: $(me.Variables.hdCuvCodigo).val(),
@@ -958,23 +1134,26 @@ $(document).ready(function () {
                     Motivo: $(".lista_opciones_motivo_cdr input[name='motivo-cdr']:checked").attr("id"),
                     CampaniaID: $(me.Variables.ComboCampania).val()
                 };
-                
-                jQuery.ajax({
-                    type: 'POST',
+
+                $.ajaxSetup({
+                    global: false,
+                    type: "POST",
+                    async: true,
+                    cache: false,
                     url: UrlValidarPaso1,
                     dataType: 'json',
                     contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify(item),
-                    async: false,
-                    cache: false,
-                    success: function (data) {
-                        CloseLoading();
-                        if (checkTimeout(data)) {
-                            ok = data.success;
+                    beforeSend: function () { ShowLoading(); },
+                    complete: function () { CloseLoading(); }
+                });
 
-                            if (!data.success && data.message != "") {
-                                me.Funciones.RegresarRegistro1();
-                                messageInfoValidado(data.message);
+
+                $.ajax({
+                    data: JSON.stringify(item),
+                    success: function (data) {
+                        if (checkTimeout(data)) {
+                            if (callbackWhenFinish && typeof callbackWhenFinish === "function") {
+                                callbackWhenFinish(data.success, data.message);
                             }
                         }
                     },
@@ -982,9 +1161,6 @@ $(document).ready(function () {
                         CloseLoading()
                     }
                 });
-
-                return ok;
-
             },
 
             AnalizarOperacion: function (id) {
@@ -1478,28 +1654,189 @@ $(document).ready(function () {
 
             },
 
-            ValidarCorreoDuplicado: function (correo) {
-                var resultado = false;
-                jQuery.ajax({
-                    type: 'POST',
-                    url: UrlValidarCorreoDuplicado,
+            //ValidarCorreoDuplicado: function (correo) {
+            //    var resultado = false;
+            //    jQuery.ajax({
+            //        type: 'POST',
+            //        url: UrlValidarCorreoDuplicado,
+            //        dataType: 'json',
+            //        contentType: 'application/json; charset=utf-8',
+            //        data: JSON.stringify({ correo: correo }),
+            //        async: false,
+            //        cache: false,
+            //        success: function (data) {
+            //            if (!checkTimeout(data))
+            //                resultado = false;
+            //            else
+            //                resultado = data.success;
+            //        },
+            //        error: function (data, error) { }
+            //    });
+            //    return resultado;
+            //},
+            //HD-3412 EINCA
+            ValidarCorreoDuplicadoServer: function (correo, callbackWhenFinish) {
+                $.ajaxSetup({
+                    global: false,
+                    type: "POST",
                     dataType: 'json',
                     contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify({ correo: correo }),
-                    async: false,
+                    async: true,
                     cache: false,
-                    success: function (data) {
-                        if (!checkTimeout(data))
-                            resultado = false;
-                        else
-                            resultado = data.success;
+                    url: UrlValidarCorreoDuplicado,
+                    beforeSend: function () {
+                        ShowLoading();
                     },
-                    error: function (data, error) { }
+                    complete: function () {
+                        CloseLoading();
+                    }
                 });
-                return resultado;
+
+                $.ajax({
+                    data: JSON.stringify({ correo: correo }),
+                    success: function (data) {
+                        if (checkTimeout(data)) {
+                            if (callbackWhenFinish && typeof callbackWhenFinish === "function") {
+                                callbackWhenFinish(data);
+                            }
+                        }
+                    },
+                    error: function (data, error) {
+                        CloseLoading();
+                    }
+                });
+
+
             },
 
-			SolicitudEnviar: function (validarCorreoVacio, validarCelularVacio) {
+            //SolicitudEnviar: function (validarCorreoVacio, validarCelularVacio) {
+            //    var ok = true;
+            //    var correo = $.trim($(me.Variables.txtEmail).val());
+            //    var celular = $.trim($(me.Variables.txtTelefono).val());
+
+            //    if (IfNull(validarCorreoVacio, true) && correo == "") {
+            //        me.Funciones.ControlSetError(me.Variables.txtEmail, me.Variables.spnEmailError, '*Correo Electrónico incorrecto');
+            //        ok = false;
+            //    }
+            //    if (IfNull(validarCelularVacio, true) && celular == "") {
+            //        me.Funciones.ControlSetError(me.Variables.txtTelefono, me.Variables.spnTelefonoError, '*Celular incorrecto');
+            //        ok = false;
+            //    }
+            //    if (!ok) {
+            //        messageInfoError(me.Constantes.DebeAceptarSeccionValidaTusDatos);
+            //        return false;
+            //    }
+            //    if (correo != "" && !validateEmail(correo)) {
+            //        me.Funciones.ControlSetError(me.Variables.txtEmail, me.Variables.spnEmailError, '*Correo Electrónico incorrecto');
+            //        ok = false;
+            //    }
+            //    if (celular != "" && celular.length < 6) {
+            //        me.Funciones.ControlSetError(me.Variables.txtTelefono, me.Variables.spnTelefonoError, '*Celular incorrecto');
+            //        ok = false;
+            //    }
+            //    if (!ok) return false;
+
+            //    if (celular != "" && !me.Funciones.ValidarTelefono(celular)) {
+            //        me.Funciones.ControlSetError(me.Variables.txtTelefono, me.Variables.spnTelefonoError, '*Este número de celular ya está siendo utilizado. Intenta con otro.');
+            //        return false;
+            //    }
+
+            //    var correoActual = $.trim($(me.Variables.Email).val());
+            //    if (correo != "" && correo != correoActual && !me.Funciones.ValidarCorreoDuplicado(correo)) {
+            //        me.Funciones.ControlSetError(me.Variables.txtEmail, me.Variables.spnEmailError, '*Este correo ya está siendo utilizado. Intenta con otro');
+            //        return false;
+            //    }
+
+            //    if ($(me.Variables.politica_devolucion).prop("checked") == false) {
+            //        messageInfoError(me.Constantes.DebeAceptarPoliticaCambios);
+            //        return false;
+            //    }
+
+            //    var item = {
+            //        CDRWebID: $(me.Variables.hdCDRID).val() || 0,
+            //        PedidoID: $(me.Variables.hdPedidoID).val() || 0,
+            //        Email: $(me.Variables.txtEmail).val(),
+            //        Telefono: $(me.Variables.txtTelefono).val(),
+            //        TipoDespacho: false,
+            //        FleteDespacho: 0,
+            //        MensajeDespacho: '',
+            //        EsMovilFin: OrigenCDR
+            //    };
+
+            //    if ($(me.Variables.hdTieneCDRExpress).val() == '1') {
+            //        item.TipoDespacho = tipoDespacho;
+            //        item.FleteDespacho = !tipoDespacho ? 0 : $("#hdFleteDespacho").val();
+            //        item.MensajeDespacho = ($(!tipoDespacho ? '#divDespachoNormal' : '#divDespachoExpress').CleanWhitespace().html()).trim();
+            //    }
+
+            //    ShowLoading();
+            //    jQuery.ajax({
+            //        type: 'POST',
+            //        url: UrlSolicitudEnviar,
+            //        dataType: 'json',
+            //        contentType: 'application/json; charset=utf-8',
+            //        data: JSON.stringify(item),
+            //        cache: false,
+            //        success: function (data) {
+            //            CloseLoading();
+            //            if (!checkTimeout(data)) return false;
+
+            //            if (data.success != true) {
+            //                var mensajeInfo = "";
+            //                if ((data.message.indexOf(mensajeChatEnLinea) > -1) && (flagAppMobile == 1)) {
+            //                    mensajeInfo = data.message.replace(mensajeChatEnLinea, "").trim();
+            //                } else mensajeInfo = data.message;
+
+            //                messageInfo(mensajeInfo);
+
+            //                return false;
+            //            }
+
+            //            var formatoFechaCulminado = "";
+            //            var numeroSolicitud = 0;
+            //            var formatoCampania = "";
+            //            if (data.cdrWeb.CDRWebID > 0) {
+            //                if (data.cdrWeb.FechaCulminado != 'null' || data.cdrWeb.FechaCulminado != "" || data.cdrWeb.FechaCulminado != undefined) {
+            //                    var dateString = data.cdrWeb.FechaCulminado.substr(6);
+            //                    var currentTime = new Date(parseInt(dateString));
+            //                    var month = currentTime.getMonth() + 1;
+            //                    var day = currentTime.getDate();
+            //                    var year = currentTime.getFullYear();
+            //                    formatoFechaCulminado = (day < 10 ? "0" + day : day) + "/" + (month < 10 ? "0" + month : month) + "/" + year;
+            //                }
+
+            //                numeroSolicitud = data.cdrWeb.CDRWebID;
+
+            //                if (data.cdrWeb.CampaniaID.toString().length == 6) {
+            //                    formatoCampania = data.cdrWeb.CampaniaID.toString().substring(0, 4) + "-" + data.cdrWeb.CampaniaID.toString().substring(4);
+            //                }
+            //            }
+
+            //            $(me.Variables.spnSolicitudFechaCulminado).html(formatoFechaCulminado);
+            //            $(me.Variables.spnSolicitudNumeroSolicitud).html(numeroSolicitud);
+            //            $(me.Variables.spnSolicitudCampania).html(formatoCampania);
+            //            $(me.Variables.divProcesoReclamo).hide();
+            //            $(me.Variables.divUltimasSolicitudes).hide();
+            //            $(me.Variables.btnSiguiente4).hide();
+            //            $(me.Variables.btnSiguiente1).hide();
+            //            $(me.Variables.TituloReclamo).hide();
+
+            //            if (data.Cantidad == 1) messageInfoValidado(data.message, "MENSAJE");
+
+            //            $(me.Variables.RegistroAceptarSolucion).hide();
+            //            $(me.Variables.textoMensajeCDR).hide();
+
+            //            $(me.Variables.SolicitudEnviada).show();
+
+            //        },
+            //        error: function (data, error) {
+            //            CloseLoading();
+            //        }
+            //    });
+            //},
+
+            //HD-3412 EINCA
+            ValidarSolicitudCDREnvio: function (validarCorreoVacio, validarCelularVacio) {
                 var ok = true;
                 var correo = $.trim($(me.Variables.txtEmail).val());
                 var celular = $.trim($(me.Variables.txtTelefono).val());
@@ -1526,126 +1863,157 @@ $(document).ready(function () {
                 }
                 if (!ok) return false;
 
-                if (celular != "" && !me.Funciones.ValidarTelefono(celular)) {
-                    me.Funciones.ControlSetError(me.Variables.txtTelefono, me.Variables.spnTelefonoError, '*Este número de celular ya está siendo utilizado. Intenta con otro.');
-                    return false;
-                }
+                //if (celular != "" && !me.Funciones.ValidarTelefono(celular)) {
+                //    me.Funciones.ControlSetError(me.Variables.txtTelefono, me.Variables.spnTelefonoError, '*Este número de celular ya está siendo utilizado. Intenta con otro.');
+                //    return false;
+                //}
 
-                var correoActual = $.trim($(me.Variables.Email).val());
-                if (correo != "" && correo != correoActual && !me.Funciones.ValidarCorreoDuplicado(correo)) {
-                    me.Funciones.ControlSetError(me.Variables.txtEmail, me.Variables.spnEmailError, '*Este correo ya está siendo utilizado. Intenta con otro');
-                    return false;
-                }
-                
+                //var correoActual = $.trim($(me.Variables.Email).val());
+                //if (correo != "" && correo != correoActual && !me.Funciones.ValidarCorreoDuplicado(correo)) {
+                //    me.Funciones.ControlSetError(me.Variables.txtEmail, me.Variables.spnEmailError, '*Este correo ya está siendo utilizado. Intenta con otro');
+                //    return false;
+                //}
+
                 if ($(me.Variables.politica_devolucion).prop("checked") == false) {
                     messageInfoError(me.Constantes.DebeAceptarPoliticaCambios);
                     return false;
                 }
 
-                var item = {
-                    CDRWebID: $(me.Variables.hdCDRID).val() || 0,
-                    PedidoID: $(me.Variables.hdPedidoID).val() || 0,
-                    Email: $(me.Variables.txtEmail).val(),
-                    Telefono: $(me.Variables.txtTelefono).val(),
-                    TipoDespacho: false,
-                    FleteDespacho: 0,
-                    MensajeDespacho: '',
-                    EsMovilFin: OrigenCDR
-                };
-                
-                if ($(me.Variables.hdTieneCDRExpress).val() == '1') {
-                    item.TipoDespacho = tipoDespacho;
-                    item.FleteDespacho = !tipoDespacho ? 0 : $("#hdFleteDespacho").val();
-                    item.MensajeDespacho = ($(!tipoDespacho ? '#divDespachoNormal' : '#divDespachoExpress').CleanWhitespace().html()).trim();
-                }
+                return true;
+            },
+            //HD-3412 EINCA
+            SolicitudCDREnviar: function (callbackWhenFinish) {
+                setTimeout(function () {
+                    var item = {
+                        CDRWebID: $(me.Variables.hdCDRID).val() || 0,
+                        PedidoID: $(me.Variables.hdPedidoID).val() || 0,
+                        Email: $(me.Variables.txtEmail).val(),
+                        Telefono: $(me.Variables.txtTelefono).val(),
+                        TipoDespacho: false,
+                        FleteDespacho: 0,
+                        MensajeDespacho: '',
+                        EsMovilFin: OrigenCDR
+                    };
 
-                ShowLoading();
-                jQuery.ajax({
-                    type: 'POST',
-                    url: UrlSolicitudEnviar,
-                    dataType: 'json',
-                    contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify(item),
-                    cache: false,
-					success: function (data) {
-                        CloseLoading();
-                        if (!checkTimeout(data)) return false;
-
-						if (data.success != true) {
-							var mensajeInfo = "";
-							if ((data.message.indexOf(mensajeChatEnLinea) > -1) && (flagAppMobile == 1)) {
-								mensajeInfo = data.message.replace(mensajeChatEnLinea, "").trim();
-							} else mensajeInfo = data.message;
-							  
-							messageInfo(mensajeInfo);
-							 
-                            return false;
-                        }
-
-                        var formatoFechaCulminado = "";
-                        var numeroSolicitud = 0;
-                        var formatoCampania = "";
-                        if (data.cdrWeb.CDRWebID > 0) {
-                            if (data.cdrWeb.FechaCulminado != 'null' || data.cdrWeb.FechaCulminado != "" || data.cdrWeb.FechaCulminado != undefined) {
-                                var dateString = data.cdrWeb.FechaCulminado.substr(6);
-                                var currentTime = new Date(parseInt(dateString));
-                                var month = currentTime.getMonth() + 1;
-                                var day = currentTime.getDate();
-                                var year = currentTime.getFullYear();
-                                formatoFechaCulminado = (day < 10 ? "0" + day : day) + "/" + (month < 10 ? "0" + month : month) + "/" + year;
-                            }
-
-                            numeroSolicitud = data.cdrWeb.CDRWebID;
-
-                            if (data.cdrWeb.CampaniaID.toString().length == 6) {
-                                formatoCampania = data.cdrWeb.CampaniaID.toString().substring(0, 4) + "-" + data.cdrWeb.CampaniaID.toString().substring(4);
-                            }
-                        }
-
-                        $(me.Variables.spnSolicitudFechaCulminado).html(formatoFechaCulminado);
-                        $(me.Variables.spnSolicitudNumeroSolicitud).html(numeroSolicitud);
-                        $(me.Variables.spnSolicitudCampania).html(formatoCampania);
-                        $(me.Variables.divProcesoReclamo).hide();
-                        $(me.Variables.divUltimasSolicitudes).hide();
-                        $(me.Variables.btnSiguiente4).hide();
-                        $(me.Variables.btnSiguiente1).hide();
-                        $(me.Variables.TituloReclamo).hide();
-
-                        if (data.Cantidad == 1) messageInfoValidado(data.message, "MENSAJE");
-
-                        $(me.Variables.RegistroAceptarSolucion).hide();
-                        $(me.Variables.textoMensajeCDR).hide();
-
-                        $(me.Variables.SolicitudEnviada).show();
-
-                    },
-                    error: function (data, error) {
-                        CloseLoading();
+                    if ($(me.Variables.hdTieneCDRExpress).val() == '1') {
+                        item.TipoDespacho = tipoDespacho;
+                        item.FleteDespacho = !tipoDespacho ? 0 : $("#hdFleteDespacho").val();
+                        item.MensajeDespacho = ($(!tipoDespacho ? '#divDespachoNormal' : '#divDespachoExpress').CleanWhitespace().html()).trim();
                     }
-                });
+
+                    $.ajaxSetup({
+                        global: false,
+                        type: "POST",
+                        async: true,
+                        cache: false,
+                        url: UrlSolicitudEnviar,
+                        dataType: 'json',
+                        contentType: 'application/json; charset=utf-8',
+                        beforeSend: function () {
+                            ShowLoading();
+                        },
+                        complete: function () {
+                            CloseLoading();
+                            $(me.Variables.btnSiguiente4).removeClass('btn_deshabilitado');
+                        }
+                    });
+
+                    $.ajax({
+                        data: JSON.stringify(item),
+                        success: function (data) {
+                            if (data.success) {
+                                var formatoFechaCulminado = "";
+                                var numeroSolicitud = 0;
+                                var formatoCampania = "";
+                                if (data.cdrWeb.CDRWebID > 0) {
+                                    if (data.cdrWeb.FechaCulminado != 'null' || data.cdrWeb.FechaCulminado != "" || data.cdrWeb.FechaCulminado != undefined) {
+                                        var dateString = data.cdrWeb.FechaCulminado.substr(6);
+                                        var currentTime = new Date(parseInt(dateString));
+                                        var month = currentTime.getMonth() + 1;
+                                        var day = currentTime.getDate();
+                                        var year = currentTime.getFullYear();
+                                        formatoFechaCulminado = (day < 10 ? "0" + day : day) + "/" + (month < 10 ? "0" + month : month) + "/" + year;
+                                    }
+
+                                    numeroSolicitud = data.cdrWeb.CDRWebID;
+
+                                    if (data.cdrWeb.CampaniaID.toString().length == 6) {
+                                        formatoCampania = data.cdrWeb.CampaniaID.toString().substring(0, 4) + "-" + data.cdrWeb.CampaniaID.toString().substring(4);
+                                    }
+                                }
+
+                                $(me.Variables.spnSolicitudFechaCulminado).html(formatoFechaCulminado);
+                                $(me.Variables.spnSolicitudNumeroSolicitud).html(numeroSolicitud);
+                                $(me.Variables.spnSolicitudCampania).html(formatoCampania);
+                                $(me.Variables.divProcesoReclamo).hide();
+                                $(me.Variables.divUltimasSolicitudes).hide();
+                                $(me.Variables.btnSiguiente4).hide();
+                                $(me.Variables.btnSiguiente1).hide();
+                                $(me.Variables.TituloReclamo).hide();
+                                $(me.Variables.RegistroAceptarSolucion).hide();
+                                $(me.Variables.textoMensajeCDR).hide();
+                                $(me.Variables.SolicitudEnviada).show();
+                                if (callbackWhenFinish && typeof callbackWhenFinish === "function") {
+                                    callbackWhenFinish(data);
+                                }
+                            }
+                        },
+                        error: function (data, error) {
+                            CloseLoading();
+                        }
+                    });
+                }, 0);
             },
 
-            ValidarTelefono: function () {
-                ShowLoading();
-                var resultado = false;
-                jQuery.ajax({
-                    type: 'POST',
+            //ValidarTelefono: function () {
+            //    ShowLoading();
+            //    var resultado = false;
+            //    jQuery.ajax({
+            //        type: 'POST',
+            //        url: UrlValidaTelefono,
+            //        dataType: 'json',
+            //        contentType: 'application/json; charset=utf-8',
+            //        data: JSON.stringify({ Telefono: $("#txtTelefono").val() }),
+            //        async: false,
+            //        cache: false,
+            //        success: function (data) {
+            //            CloseLoading();
+            //            if (!checkTimeout(data)) resultado = false;
+            //            else resultado = data.success;
+            //        },
+            //        error: function (data, error) {
+            //            CloseLoading();
+            //        }
+            //    });
+            //    return resultado;
+            //},
+            //HD-3412 EINCA
+            ValidarTelefonoServer: function (celular, callbackWhenFinish) {
+                $.ajaxSetup({
+                    global: false,
+                    type: "POST",
+                    async: true,
+                    cache: false,
                     url: UrlValidaTelefono,
                     dataType: 'json',
                     contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify({ Telefono: $("#txtTelefono").val() }),
-                    async: false,
-                    cache: false,
+                    beforeSend: function () { ShowLoading(); $(me.Variables.btnSiguiente4).addClass('btn_deshabilitado'); },
+                    complete: function () { CloseLoading(); }
+                });
+
+                $.ajax({
+                    data: JSON.stringify({ Telefono: celular }),
                     success: function (data) {
-                        CloseLoading();
-                        if (!checkTimeout(data)) resultado = false;
-                        else resultado = data.success;
+                        if (checkTimeout(data)) {
+                            if (callbackWhenFinish && typeof callbackWhenFinish === "function") {
+                                callbackWhenFinish(data);
+                            }
+                        }
                     },
                     error: function (data, error) {
                         CloseLoading();
                     }
                 });
-                return resultado;
             },
 
             ControlSetError: function (inputId, spanId, message) {
@@ -1728,6 +2096,64 @@ $(document).ready(function () {
                 var pedido = pedidos.length > 0 ? pedidos[0] : new Object();
                 $/*("#divPopupPedido").hide();*/
                 me.Funciones.AsignarCUV(pedido);
+            },
+            //HD-3412 EINCA 
+            CancelarConfirmEnvioSolicitudCDR: function () {
+                $(me.Variables.divConfirmEnviarSolicitudCDR).hide();
+            },
+            //HD-3412 EINCA
+            ContinuarConfirmEnvioSolicitudCDR: function () {
+                $.when(me.Funciones.CancelarConfirmEnvioSolicitudCDR()).then(function () {
+                    me.Funciones.ValidarTelefonoServer($.trim($(me.Variables.txtTelefono).val()), function (data) {
+                        if (!data.success) {
+                            me.Funciones.ControlSetError(me.Variables.txtTelefono, me.Variables.spnTelefonoError, '*Este número de celular ya está siendo utilizado. Intenta con otro.');
+                            $(me.Variables.btnSiguiente4).removeClass('btn_deshabilitado');
+                            return false;
+                        } else if ($.trim($(me.Variables.txtEmail).val()) != $.trim($(me.Variables.hdEmail).val())) {
+                            me.Funciones.ValidarCorreoDuplicadoServer($.trim($(me.Variables.txtEmail).val()), function (data) {
+                                if (!data.success) {
+                                    me.Funciones.ControlSetError(me.Variables.txtEmail, me.Variables.spnEmailError, '*Este correo ya está siendo utilizado. Intenta con otro');
+                                    $(me.Variables.btnSiguiente4).removeClass('btn_deshabilitado');
+                                    return false;
+                                } else {
+                                    me.Funciones.SolicitudCDREnviar(function (data) {
+                                        if (!data.success) {
+                                            var mensajeInfo = "";
+                                            if ((data.message.indexOf(mensajeChatEnLinea) > -1) && (flagAppMobile == 1)) {
+                                                mensajeInfo = data.message.replace(mensajeChatEnLinea, "").trim();
+                                            } else mensajeInfo = data.message;
+                                            messageInfo(mensajeInfo);
+                                            $(me.Variables.btnSiguiente4).removeClass('btn_deshabilitado');
+                                            return false;
+                                        } else {
+                                            if (data.Cantidad == 1) {
+                                                $(me.Variables.btnSiguiente4).removeClass('btn_deshabilitado');
+                                                messageInfoValidado(data.message, "MENSAJE");
+                                            }
+                                        }
+                                    });
+                                }
+                            });
+                        } else {
+                            me.Funciones.SolicitudCDREnviar(function (data) {
+                                if (!data.success) {
+                                    var mensajeInfo = "";
+                                    if ((data.message.indexOf(mensajeChatEnLinea) > -1) && (flagAppMobile == 1)) {
+                                        mensajeInfo = data.message.replace(mensajeChatEnLinea, "").trim();
+                                    } else mensajeInfo = data.message;
+                                    messageInfo(mensajeInfo);
+                                    $(me.Variables.btnSiguiente4).removeClass('btn_deshabilitado');
+                                    return false;
+                                } else {
+                                    if (data.Cantidad == 1) {
+                                        $(me.Variables.btnSiguiente4).removeClass('btn_deshabilitado');
+                                        messageInfoValidado(data.message, "MENSAJE");
+                                    }
+                                }
+                            });
+                        }
+                    });
+                });
             }
         };
 
