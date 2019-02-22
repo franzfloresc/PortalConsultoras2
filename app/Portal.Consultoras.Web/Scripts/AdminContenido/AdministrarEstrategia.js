@@ -52,7 +52,8 @@
         microserviciosPaises: config.microserviciosPaises,
 
         urlConsultarDetalleEstrategiaGrupo: config.urlConsultarDetalleEstrategiaGrupo,
-        urlEstrategiaGrupoGuardar: config.urlEstrategiaGrupoGuardar
+        urlEstrategiaGrupoGuardar: config.urlEstrategiaGrupoGuardar 
+        
     };
 
     var _variables = {
@@ -101,7 +102,7 @@
     var _idImagen = 0;
 
 
-    var _EstrategiaGrupoDatos = [];
+    var _EstrategiaGrupoData = [];
     var _Valida1raCarga = false;
 
 
@@ -4533,7 +4534,7 @@
             url: _config.urlEstrategiaGrupoGuardar,
             dataType: "json",
             contentType: "application/json; charset=utf-8",
-            data: JSON.stringify({ datos: _EstrategiaGrupoDatos }),
+            data: JSON.stringify({ datos: _EstrategiaGrupoData }),
             async: false,
             success: function (data) {
 
@@ -4557,7 +4558,7 @@
         showDialog('DialogGrupoEstrategia');
         //waitingDialog();
 
-        _EstrategiaGrupoDatos = ObtenerEstrategiaGrupo();
+        _EstrategiaGrupoData = ObtenerEstrategiaGrupo();
 
         //$("#listGrupoEstrategia").jqGrid("clearGridData");
 
@@ -4565,7 +4566,7 @@
             _Valida1raCarga = true;
 
             $("#listGrupoEstrategia").jqGrid({
-                data: _EstrategiaGrupoDatos,
+                data: _EstrategiaGrupoData,
 
                 datatype: "local",
                 colNames: ["EstrategiaId", "EstrategiaGrupoId", "Nro. grupo", "Nombre (Singular)", "Nombre (Plural)"],
@@ -4573,32 +4574,44 @@
                     [
                         { name: 'EstrategiaId', index: 'EstrategiaId', editable: true, hidden: true },
                         { name: 'EstrategiaGrupoId', index: 'EstrategiaGrupoId', editable: true, hidden: true },
-                        { name: 'Grupo', index: 'Grupo', editable: false },
-                        { name: 'DescripcionSingular', index: 'DescripcionSingular', editable: true  },
-                        { name: 'DescripcionPlural', index: 'DescripcionPlural', editable: true }
+                        { name: 'Grupo', index: 'Grupo', editable: false, width: 200 },
+                        { name: 'DescripcionSingular', index: 'DescripcionSingular', editable: true, width: 250  },
+                        { name: 'DescripcionPlural', index: 'DescripcionPlural', editable: true, width: 250 }
                     ],
                 pager: '#pagerGrupoEstrategia',
                 cellEdit: true,
                 cellsubmit: 'clientArray',
                 editurl: 'clientArray',
                 viewrecords: true,
-                width: "auto",
+                
+                sortname: "Grupo",
+                sortorder: "asc",
+
+                rowList: [10, 20, 30, 40, 50],
+                rowNum: 10,
                 height: "auto",
+                width: 770,
+                pgtext: "Pág: {0} de {1}",
+                loadtext: "Cargando datos...",
+                recordtext: "{0} - {1} de {2} Registros",
+                emptyrecords: "No hay resultados",
+
+
                 afterSaveCell: function (rowid, name, val, iRow, iCol) {
 
                     //console.log(rowid, name, val, iRow, iCol);
                     if (name == 'DescripcionSingular') {
-                        _EstrategiaGrupoDatos[rowid - 1].DescripcionSingular = val;
+                        _EstrategiaGrupoData[rowid - 1].DescripcionSingular = val;
                     }
                     if (name == 'DescripcionPlural') {
-                        _EstrategiaGrupoDatos[rowid - 1].DescripcionPlural = val;
+                        _EstrategiaGrupoData[rowid - 1].DescripcionPlural = val;
                     }
-                    console.log(_EstrategiaGrupoDatos);
+                    console.log(_EstrategiaGrupoData);
                 }
             });
         } else {
 
-            $("#listGrupoEstrategia").setGridParam({ data: _EstrategiaGrupoDatos }).trigger("reloadGrid", [{ page: 1 }]);
+            $("#listGrupoEstrategia").setGridParam({ data: _EstrategiaGrupoData }).trigger("reloadGrid", [{ page: 1 }]);
         }
     }
 
