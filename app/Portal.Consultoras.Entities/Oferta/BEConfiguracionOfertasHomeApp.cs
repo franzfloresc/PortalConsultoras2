@@ -33,5 +33,8 @@ namespace Portal.Consultoras.Entities.Oferta
         [Column("AppCantidadProductos")]
         [DataMember]
         public int AppCantidadProductos { get; set; }
+        [Column("Codigo")]
+        [DataMember]
+        public string Codigo { get; set; }
     }
 }

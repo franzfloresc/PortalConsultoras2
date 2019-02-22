@@ -6,6 +6,7 @@ using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Estrategia;
 using Portal.Consultoras.Entities.Mobile;
 using Portal.Consultoras.Entities.Producto;
+using Portal.Consultoras.Entities.Oferta;
 using Portal.Consultoras.ServiceContracts;
 
 using System;
@@ -1433,7 +1434,7 @@ namespace Portal.Consultoras.Service
             var bl = new BLConfiguracionOfertasHome();
             return bl.GetListarSeccion(paisId, campaniaId);
         }
-        public IList<BEConfiguracionOfertasApp> ListarSeccionConfiguracionOfertasApp(int paisId, int campaniaId)
+        public IList<BEConfiguracionOfertasHomeApp> ListarSeccionConfiguracionOfertasApp(int paisId, int campaniaId)
         {
             var bl = new BLConfiguracionOfertasHome();
             return bl.GetListarSeccionAPP(paisId, campaniaId);

@@ -2,6 +2,7 @@
 using Portal.Consultoras.Entities.Mobile;
 using Portal.Consultoras.Entities.Estrategia;
 using Portal.Consultoras.Entities.Producto;
+using Portal.Consultoras.Entities.Oferta;
 
 using System;
 using System.Collections.Generic;
@@ -707,7 +708,7 @@ namespace Portal.Consultoras.ServiceContracts
         IList<BEConfiguracionOfertasHome> ListarSeccionConfiguracionOfertasHome(int paisId, int campaniaId);
 
         [OperationContract]
-        IList<BEConfiguracionOfertasApp> ListarSeccionConfiguracionOfertasApp(int paisId, int campaniaId);
+        IList<BEConfiguracionOfertasHomeApp> ListarSeccionConfiguracionOfertasApp(int paisId, int campaniaId);
         #endregion
 
         #region Estrategia
