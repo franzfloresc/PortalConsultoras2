@@ -2542,16 +2542,14 @@ function CalculoPosicionMensajeDestokp() {
 
     }
  
-    if (AvancePorcentaje.substring(0, AvancePorcentaje.length - 1) * 1 > 75) {
-
+    if (AvancePorcentaje.substring(0, AvancePorcentaje.length - 1) * 1 > 75) { 
         if (document.getElementsByClassName('agrega_barra')[0].innerHTML.length >50) {
             AvancePorcentaje = '70%';
         } else if (document.getElementsByClassName('agrega_barra')[0].innerHTML.length > 44 ){
             AvancePorcentaje = '73%';
         }  else {
             AvancePorcentaje = '77%';
-        }
-        
+        }        
     }
 
     document.getElementById('divBarraMensajeLogrado').style.left = AvancePorcentaje;
