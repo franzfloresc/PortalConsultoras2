@@ -666,8 +666,13 @@
 
             //Configuracion Microservicios-INI
             microserviciosEstrategias: '@ViewBag.MsEstrategias',
-            microserviciosPaises: '@ViewBag.MsPaises'
+            microserviciosPaises: '@ViewBag.MsPaises',
             //Configuracion Microservicios-FIN
+
+            //INI AGANA 244
+            urlConsultarDetalleEstrategiaGrupo: baseUrl + "EstrategiaGrupo/ConsultarDetalleEstrategiaGrupo",
+            urlEstrategiaGrupoGuardar: baseUrl + "EstrategiaGrupo/Guardar" 
+            //END AGANA 244
         });
 
         adminEstrategiaModule.Inicializar();
