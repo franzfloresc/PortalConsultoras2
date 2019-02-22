@@ -56,19 +56,14 @@
                 <label for="{{DescripcionCortadaProd}}" class="lblLPDesProd">{{Split DescripcionCortadaProd '|' 0}}</label>
             </span>
             {{/if_eq}}
-            {{#if PremioElectivo}}
-            <!-- Este tooltip se muestra cuando el producto es un regalo del Programa de Nuevas -->
-            <span class="texto_pedidos_ofertas">
-                <label for="Regalo Programa Nuevas">Regalo Programa Nuevas</label>
-            </span>
-            <div class="tooltip_informativo_condicion_regalo_programaNuevas">
-                Sólo si llegas a tu monto
-            </div>
-            <!-- Fin - Este tooltip se muestra cuando el producto es un regalo del Programa de Nuevas -->
-            {{else}}
+
             <span class="texto_pedidos_ofertas">
                 <label for="{{DescripcionOferta}}">{{DescripcionOferta}}</label>
             </span>
+            {{#if EsPremioElectivo}}
+            <div class="tooltip_informativo_condicion_regalo_programaNuevas">
+                Sólo si llegas a tu monto
+            </div>
             {{/if}}
 
             <div id="tooltipDescPro" class="tooltipPedido">
@@ -89,7 +84,7 @@
             <div class="texto_pedidos texto_cantidad_pedidos">{{Cantidad}}</div>
             {{else if FlagNueva}}
             <div class="texto_pedidos texto_cantidad_pedidos">{{Cantidad}}</div>
-            {{else if PremioElectivo}}
+            {{else if EsPremioElectivo}}
             <div class="texto_pedidos texto_cantidad_pedidos texto_cantidad_regalo">{{Cantidad}}</div>
             {{else}}
             <div class="liquidacion_rango_wrapper_pedido cantidad_detalle_focus" data-cantidad-contenedor="">
@@ -133,7 +128,7 @@
             <input type="hidden" name="hdfLPCliDes{{PedidoDetalleID}}" value="{{Nombre}}" class="classClienteID hdfLPCliDes" />
             <input type="hidden" name="hdfTest" value="{{Nombre}}" class="classClienteID hdfLPCliDes" />
             
-            {{#unless PremioElectivo}}
+            {{#unless EsPremioElectivo}}
             {{#if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Nueva'}}
             <input type="text" name="{{Nombre}}" value="{{Nombre}}" maxlength="50" class="classClienteNombre ValidaAlfanumerico txtLPCli"
                    readonly="readOnly" onkeydown="return false;" style="width:90%; padding:4px;" />

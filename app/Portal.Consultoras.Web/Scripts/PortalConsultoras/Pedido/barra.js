@@ -954,7 +954,7 @@ function getPremioElectivoInDetails(details) {
     for (var i = 0; i < len; i++) {
         var item = details[i];
 
-        if (item.PremioElectivo) {
+        if (item.EsPremioElectivo) {
             return item;
         }
     }

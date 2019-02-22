@@ -14874,6 +14874,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private bool EsOfertaIndependienteField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EsPremioElectivoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EsSugeridoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -15414,6 +15417,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.EsOfertaIndependienteField.Equals(value) != true)) {
                     this.EsOfertaIndependienteField = value;
                     this.RaisePropertyChanged("EsOfertaIndependiente");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EsPremioElectivo {
+            get {
+                return this.EsPremioElectivoField;
+            }
+            set {
+                if ((this.EsPremioElectivoField.Equals(value) != true)) {
+                    this.EsPremioElectivoField = value;
+                    this.RaisePropertyChanged("EsPremioElectivo");
                 }
             }
         }

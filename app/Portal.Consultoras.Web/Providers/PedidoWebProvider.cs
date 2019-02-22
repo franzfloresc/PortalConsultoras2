@@ -271,7 +271,7 @@ namespace Portal.Consultoras.Web.Providers
 
             descripcion = Util.obtenerNuevaDescripcionProductoDetalle(item.ConfiguracionOfertaID, pedidoValidado,
                 item.FlagConsultoraOnline, item.OrigenPedidoWeb, lista, suscripcion, item.TipoEstrategiaCodigo, item.MarcaID,
-                item.CodigoCatalago, item.DescripcionOferta, item.EsCuponNuevas, item.EsElecMultipleNuevas);
+                item.CodigoCatalago, item.DescripcionOferta, item.EsCuponNuevas, item.EsElecMultipleNuevas, item.EsPremioElectivo);
 
             return descripcion;
         }

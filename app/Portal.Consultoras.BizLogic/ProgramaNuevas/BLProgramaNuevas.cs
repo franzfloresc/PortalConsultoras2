@@ -104,22 +104,15 @@ namespace Portal.Consultoras.BizLogic
             var fnEnRango = GetFnEnRangoCuv(paisID);
             var listDetalleEnRango = listPedidoDetalle.Where(d => fnEnRango(Convert.ToInt32(d.CUV))).ToList();
             if (listDetalleEnRango.Count == 0) return;
-            var listCuvNuevas = GetProductosByCampaniaCache(paisID, campaniaID);
-            var listCuvPerteneceNuevas = FiltrarProductosByNivelyCodigoPrograma(listCuvNuevas, consecutivoNueva, codigoPrograma);
-            if (listCuvPerteneceNuevas.Count == 0) return;
+            var listCuvNuevasCampania = GetProductosByCampaniaCache(paisID, campaniaID);
+            var listCuvNuevas = FiltrarProductosByNivelyCodigoPrograma(listCuvNuevasCampania, consecutivoNueva, codigoPrograma);
+            if (listCuvNuevas.Count == 0) return;
 
-            var listDetallePerteneceNuevas = listDetalleEnRango.Where(d => listCuvPerteneceNuevas.Any(p => p.CodigoCupon == d.CUV)).ToList();
-            listDetallePerteneceNuevas.ForEach(d => d.EsCuponNuevas = true);
+            var listDetNuevas = listDetalleEnRango.Where(d => listCuvNuevas.Any(p => p.CodigoCupon == d.CUV)).ToList();
+            listDetNuevas.ForEach(d => d.EsCuponNuevas = true);
 
-            var listCuvElectivas = listCuvPerteneceNuevas.Where(a => !a.EsCuponIndependiente).ToList();
-            if (listCuvElectivas.Count == 0) return;
-
-            var nivelInput = new BENivelesProgramaNuevas { Campania = campaniaID.ToString(), CodigoPrograma = codigoPrograma, CodigoNivel = "0" + (consecutivoNueva + 1) };
-            var limElectivos = GetLimiteElectivos(paisID, nivelInput);
-            if (limElectivos <= 1) return;
-
-            var listDetalleElectivos = listDetallePerteneceNuevas.Where(d => listCuvElectivas.Any(c =>c.CodigoCupon == d.CUV)).ToList();
-            listDetalleElectivos.ForEach(d => d.EsElecMultipleNuevas = true);
+            ValidFlagEsPremioNueva(listDetNuevas, listCuvNuevas);            
+            ValidFlagEsElecMultipleNuevas(paisID, campaniaID, codigoPrograma, consecutivoNueva, listDetNuevas, listCuvNuevas);
         }
 
         public bool EsCuvElecMultiple(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string cuv)
@@ -241,6 +234,27 @@ namespace Portal.Consultoras.BizLogic
         {
             int iNivelInicial = Convert.ToInt32(nivelInicial);
             return iNivelInicial <= nivelConsultora && nivelConsultora <= (iNivelInicial + campaniasVigentes - 1);
+        }
+
+        private void ValidFlagEsPremioNueva(List<BEPedidoWebDetalle> listDetNuevas, List<BEProductoProgramaNuevas> listCuvNuevas)
+        {
+            var listCuvPremioElec = listCuvNuevas.Where(c => c.EsPremioElectivo).ToList();
+            if (listCuvPremioElec.Count == 0) return;
+
+            var listDetallePremioElec = listDetNuevas.Where(d => listCuvPremioElec.Any(p => p.CodigoCupon == d.CUV)).ToList();
+            listDetallePremioElec.ForEach(d => d.EsPremioElectivo = true);
+        }
+        private void ValidFlagEsElecMultipleNuevas(int paisID, int campania, string codPrograma, int consecutivoNueva, List<BEPedidoWebDetalle> listDetNuevas, List<BEProductoProgramaNuevas> listCuvNuevas)
+        {
+            var listCuvElectivas = listCuvNuevas.Where(c => !c.EsCuponIndependiente).ToList();
+            if (listCuvElectivas.Count == 0) return;
+            
+            var nivelInput = new BENivelesProgramaNuevas { Campania = campania.ToString(), CodigoPrograma = codPrograma, CodigoNivel = "0" + (consecutivoNueva + 1) };
+            var limElectivos = GetLimiteElectivos(paisID, nivelInput);
+            if (limElectivos <= 1) return;
+
+            var listDetalleElectivos = listDetNuevas.Where(d => listCuvElectivas.Any(c => c.CodigoCupon == d.CUV)).ToList();
+            listDetalleElectivos.ForEach(d => d.EsElecMultipleNuevas = true);
         }
 
         #endregion

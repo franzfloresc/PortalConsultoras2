@@ -3573,15 +3573,13 @@ namespace Portal.Consultoras.Web.Controllers
                 var totalCliente = listaDetalle.Sum(p => p.ImporteTotal);
 
                 var pedidoWebDetalleModel = Mapper.Map<List<BEPedidoWebDetalle>, List<PedidoWebDetalleModel>>(listaDetalle);
-
-                var premiosElectivos = _programaNuevasProvider.GetListPremioElectivo();
+                
                 pedidoWebDetalleModel.ForEach(p =>
                 {
                     p.Simbolo = userData.Simbolo;
                     p.CodigoIso = userData.CodigoISO;
                     p.DescripcionCortadaProd = Util.SubStrCortarNombre(p.DescripcionProd, 73);
-                    p.PremioElectivo = premiosElectivos.Any(c => c.CUV2 == p.CUV);
-                    p.LockPremioElectivo = p.PremioElectivo && string.IsNullOrEmpty(p.Mensaje);
+                    p.LockPremioElectivo = p.EsPremioElectivo && string.IsNullOrEmpty(p.Mensaje);
                 });
 
                 model.ListaDetalleModel = pedidoWebDetalleModel;
