@@ -474,9 +474,15 @@ $(document).ready(function () {
                         $(this).val($(this).val().substr(0, 11));
                     }
                 }).keyup(function (e) {
-                    if ($(this).val().length >= 9) {
+                    if ($(this).val().length >= 11) {
                         $(this).val($(this).val().substr(0, 11));
                     }
+                }).blur(function () {
+                    me.Funciones.ControlSetError(me.Variables.txtTelefono, me.Variables.spnTelefonoError, '');
+                });
+
+                $(me.Variables.txtEmail).blur(function () {
+                    me.Funciones.ControlSetError(me.Variables.txtEmail, me.Variables.spnEmailError, '');
                 });
 
                 $(me.Variables.txtCuvMobile2).on('keyup', function (evt) {
