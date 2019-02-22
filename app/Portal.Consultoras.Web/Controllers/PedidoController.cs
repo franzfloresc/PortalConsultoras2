@@ -573,14 +573,6 @@ namespace Portal.Consultoras.Web.Controllers
         //    return Json(PedidoInsertarGenerico(model, false, listCuvEliminar, mensajeAviso, !string.IsNullOrEmpty(mensajeAviso)));
         //}
 
-        private BEPedidoWebDetalle GetPremioSelected(List<PremioElectivoModel> result)
-        {
-            var details = ObtenerPedidoWebSetDetalleAgrupado(true);
-            if (details == null || details.Count == 0) return null;
-
-            var selected = details.FirstOrDefault(d => result.Any(c => c.CUV2 == d.CUV));
-            return selected;
-        }
         //private object PedidoInsertarGenerico(PedidoCrudModel model, bool esKitNuevaAuto, List<string> listCuvEliminar = null, string mensajeAviso = "", bool esMensajeElecMultiple = false)
         //{
         //    try
