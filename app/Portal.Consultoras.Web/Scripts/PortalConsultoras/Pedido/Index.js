@@ -26,7 +26,7 @@ var cuvbuscado = "";
 var cuvEsCuponNuevas = false;
 
 $(document).ready(function () {
-    //ValidarKitNuevas();
+    ValidarKitNuevas();
     var hdDataBarra = $("#hdDataBarra").val();
     if ($.trim(hdDataBarra) != "") {
         dataBarra = JSON.parse(hdDataBarra);
