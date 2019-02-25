@@ -382,6 +382,7 @@ function SeccionMostrarProductos(data) {
         $.each(data.lista, function (i, item) {
             item.EsBanner = false;
             item.EsLanzamiento = false;
+            item.Posicion = i + 1;
         });
     }
 
