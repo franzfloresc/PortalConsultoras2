@@ -2953,13 +2953,19 @@ namespace Portal.Consultoras.Common
             public const string UrlEditarEventoConsultora = "api/Evento/editarConsultora/{0}/{1}";
 
             /// <summary>
-            /// api/Evento/GetEstrategiaGrupoByEstrategiaId/{pais}/{estrategiaId}
+            /// api/EstrategiaGrupo/{pais}/{estrategiaId}
+            /// </summary>        
+            public const string UrlInsertEstrategiaGrupo = "api/EstrategiaGrupo";
+
+            /// <summary>
+            /// api/EstrategiaGrupo/{pais}/{estrategiaId}
+            /// </summary>        
+            public const string UrlUpdateEstrategiaGrupo = "api/EstrategiaGrupo";
+
+            /// <summary>
+            /// api/EstrategiaGrupo/GetEstrategiaGrupoByEstrategiaId/{pais}/{estrategiaId}
             /// </summary>
             public const string UrlGetEstrategiaGrupoByEstrategiaId = "api/EstrategiaGrupo/{0}/{1}";
-            //public const string UrlGetEstrategiaGrupoByEstrategiaId = "api/Evento/editarConsultora/{0}/{1}";
-
-            //public const string UrlInsertEstrategiaGrupo = "api/EstrategiaGrupo/InsertEstrategiaGrupo";
-            public const string UrlInsertEstrategiaGrupo = "api/EstrategiaGrupo";
 
 
             #endregion

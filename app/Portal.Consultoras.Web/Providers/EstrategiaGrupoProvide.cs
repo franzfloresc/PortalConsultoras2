@@ -69,51 +69,81 @@ namespace Portal.Consultoras.Web.Providers
             return respuesta.Success;
         }
 
-        public static async Task<List<ServiceOferta.BEEstrategia>> ObtenerOfertasDesdeApi(string path, string codigoISO)
+        public static async Task<bool> ActualizarGrupoEstrategiaApi(string path, List<EstrategiaGrupoModel> datos, UsuarioModel userData)
         {
-            List<ServiceOferta.BEEstrategia> estrategias = new List<ServiceOferta.BEEstrategia>();
-            HttpResponseMessage httpResponse = await httpClient.GetAsync(path);
+            OutputEstrategiaGrupo respuesta = new OutputEstrategiaGrupo { Success = false };
+
+            EstrategiaGrupoRequest prm = new EstrategiaGrupoRequest();
+            /*prm.pais = userData.PaisID.ToString();
+            prm.estrategiaId = datos[0].EstrategiaId.ToString();*/
+            prm.lstEstrategiaGrupo = datos;
+            string prmfinal = Newtonsoft.Json.JsonConvert.SerializeObject(prm).ToString();
+            HttpResponseMessage httpResponse = await httpClient.PutAsync(
+                path + "/" + userData.CodigoISO + "/" + datos[0].EstrategiaId.ToString(),
+                new StringContent(prmfinal,
+                Encoding.UTF8,
+                "application/json"));
 
             if (!httpResponse.IsSuccessStatusCode)
             {
-                return estrategias;
+                return respuesta.Success;
             }
 
             string jsonString = await httpResponse.Content.ReadAsStringAsync();
 
-            return null;
-            //if (Util.Trim(jsonString) == string.Empty)
-            //{
-            //    return estrategias;
-            //}
+            try
+            {
+                respuesta = JsonConvert.DeserializeObject<OutputEstrategiaGrupo>(jsonString);
+            }
+            catch (Exception ex)
+            {
+                Common.LogManager.SaveLog(ex, string.Empty, userData.CodigoISO);
+            }
 
-            //OutputOferta respuesta = new OutputOferta();
-            //var listaSinPrecio2 = new List<string>();
-            //try
-            //{
-            //    respuesta = JsonConvert.DeserializeObject<OutputOferta>(jsonString);
-            //}
-            //catch (Exception ex)
-            //{
-            //    Common.LogManager.SaveLog(ex, string.Empty, codigoISO);
-            //    return estrategias;
-            //}
+            if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
+            {
+                Common.LogManager.SaveLog(new Exception(respuesta.Message), string.Empty, userData.CodigoISO);
+            }
 
-            //if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
-            //{
-            //    Common.LogManager.SaveLog(new Exception(respuesta.Message), string.Empty, codigoISO);
-            //    return estrategias;
-            //}
-
-
-            //if (listaSinPrecio2.Any())
-            //{
-            //    var logPrecio0 = string.Format("Log Precios0 => Fecha:{0} /Palanca:{1} /CodCampania:{2} /CUV(s):{3} /Referencia:{4}", DateTime.Now, codTipoEstrategia, codCampania, string.Join("|", listaSinPrecio2), path);
-            //    Common.LogManager.SaveLog(new Exception(logPrecio0), "", codigoISO);
-            //}
-
-            //return estrategias;
+            return respuesta.Success;
         }
 
+        public static async Task<OutputEstrategiaGrupo> ObtenerEstrategiaGrupoApi(string path, UsuarioModel userData)
+        {
+            OutputEstrategiaGrupo respuesta = new OutputEstrategiaGrupo();
+            HttpResponseMessage httpResponse = await httpClient.GetAsync(path);
+
+            if (!httpResponse.IsSuccessStatusCode)
+            {
+                return respuesta;
+            }
+
+            string jsonString = await httpResponse.Content.ReadAsStringAsync();
+
+
+            if (Util.Trim(jsonString) == string.Empty)
+            {
+                return respuesta;
+            }
+ 
+            var listaSinPrecio2 = new List<string>();
+            try
+            {
+                respuesta = JsonConvert.DeserializeObject<OutputEstrategiaGrupo>(jsonString);
+            }
+            catch (Exception ex)
+            {
+                Common.LogManager.SaveLog(ex, string.Empty, userData.CodigoISO);
+                return respuesta;
+            }
+
+            if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
+            {
+                Common.LogManager.SaveLog(new Exception(respuesta.Message), string.Empty, userData.CodigoISO);
+                return respuesta;
+            }
+             
+            return respuesta;
+        }
     }
 }

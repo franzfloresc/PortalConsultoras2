@@ -23,16 +23,24 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult Guardar(List<EstrategiaGrupoModel> datos)
         {
-            bool respuesta=false;
+            bool respuesta = false;
             if (ModelState.IsValid)
-            {                
+            {
                 var userData = SessionManager.GetUserData();
-                  
-                string pathMS = Constantes.PersonalizacionOfertasService.UrlInsertEstrategiaGrupo;
 
-                var taskApi = Task.Run(() => EstrategiaGrupoProvide.InsertarGrupoEstrategiaApi(pathMS, datos, userData));
-                Task.WhenAll(taskApi);
-                respuesta = taskApi.Result;
+                Task<bool> taskapi = null;
+
+                if (datos.FindAll(x => x.EstrategiaGrupoId != 0).Count == 0)
+                {
+                    taskapi = Task.Run(() => EstrategiaGrupoProvide.InsertarGrupoEstrategiaApi(Constantes.PersonalizacionOfertasService.UrlInsertEstrategiaGrupo, datos, userData));                   
+                }
+                else
+                {
+                    taskapi = Task.Run(() => EstrategiaGrupoProvide.ActualizarGrupoEstrategiaApi(Constantes.PersonalizacionOfertasService.UrlUpdateEstrategiaGrupo, datos, userData));                  
+                }
+
+                Task.WhenAll(taskapi);
+                respuesta = taskapi.Result;
             }
 
             return Json(new { mensaje = "ok", estado = respuesta }, JsonRequestBehavior.AllowGet);
@@ -42,7 +50,7 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult ConsultarDetalleEstrategiaGrupo(int estrategiaId)
         {
             IEnumerable<Models.AdministrarEstrategia.EstrategiaGrupoModel> res = null;
-
+            var userData = SessionManager.GetUserData();
             if (ModelState.IsValid)
             {
                 List<ServicePedido.BEEstrategiaProducto> lst;
@@ -60,6 +68,12 @@ namespace Portal.Consultoras.Web.Controllers
 
             //Código para setear desde mongo
             //...
+
+            string pathMS = string.Format(Constantes.PersonalizacionOfertasService.UrlGetEstrategiaGrupoByEstrategiaId, userData.CodigoISO, estrategiaId);
+
+            var taskApi = Task.Run(() => EstrategiaGrupoProvide.ObtenerEstrategiaGrupoApi(pathMS, userData));
+            Task.WhenAll(taskApi);
+            var dd = taskApi.Result;
 
             return Json(res, JsonRequestBehavior.AllowGet);
         }
