@@ -3921,6 +3921,7 @@
     <Content Include="emt_chat\images\welcome-lbel.png" />
     <Content Include="emt_chat\images\welcome.png" />
     <Content Include="emt_chat\js\gen.js" />
+    <Content Include="emt_chat\js\inject.js" />
     <Content Include="EsikaConmigo.html" />
     <Content Include="Global.asax" />
     <Content Include="google04fc719c24157f19.html" />
