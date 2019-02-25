@@ -181,7 +181,7 @@ $(document).ready(function () {
                 break;
         }
 
-        let partes = (e.target.value || '').split('/');
+        var partes = (e.target.value || '').split('/');
         if (partes.length != 3) {
             alert(OBJETO_MENJASE.ingresarFecha);
             e.target.value = "";
