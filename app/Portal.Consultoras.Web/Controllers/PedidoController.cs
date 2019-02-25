@@ -529,7 +529,7 @@ namespace Portal.Consultoras.Web.Controllers
         //    var mensajeAviso = "";
         //    var listCuvEliminar = new List<string>();
 
-        //    if (model.EnRangoProgramaNuevas)
+        //    if (model.EsCuponNuevas)
         //    {
         //        CrearLogProgNuevas("ProgNuevas: Pedido Insertar", model.CUV);
 
@@ -1499,7 +1499,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region Zona de Estrategias
         [HttpPost]
-        public JsonResult ValidarStockEstrategia(string CUV, string PrecioUnidad, string Cantidad, string TipoOferta, bool enRangoProgNuevas)
+        public JsonResult ValidarStockEstrategia(string CUV, string PrecioUnidad, string Cantidad, string TipoOferta, bool esCuponNuevas, string descripcion = "")
         {
             string mensajeMontoMax = "", mensaje = "";
             bool validoMontoMax = false, valido = false;
@@ -1512,12 +1512,12 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (valido)
                 {
-                    if (enRangoProgNuevas)
+                    if (esCuponNuevas)
                     {
                         CrearLogProgNuevas("ProgNuevas: ValidarStockEstrategia", CUV);
                         mensaje = ValidarCantidadEnProgramaNuevas(CUV, Convert.ToInt32(Cantidad));
                     }
-                    else mensaje = ValidarStockLimiteVenta(CUV, intCantidad);
+                    else mensaje = ValidarStockLimiteVenta(CUV, intCantidad, descripcion);
 
                     if (mensaje == "") mensaje = ValidarStockEstrategiaMensaje(CUV, intCantidad, TipoOferta.ToInt32Secure());
                     if (mensaje == "") mensaje = ValidarStockArmaTuPackMensaje(CUV, intCantidad);
@@ -1617,36 +1617,43 @@ namespace Portal.Consultoras.Web.Controllers
         private List<ProductoModel> AutocompleteProductoPedido(string term, int criterio)
         {
             var productosModel = new List<ProductoModel>();
-            var userModel = userData;
-            var productos = SelectProductoByCodigoDescripcionSearchRegionZona(term, userModel, CRITERIO_BUSQUEDA_PRODUCTO_CANT, criterio);
+            var productos = SelectProductoByCodigoDescripcionSearchRegionZona(term, userData, CRITERIO_BUSQUEDA_PRODUCTO_CANT, criterio);
+
+            Dictionary<string, Enumeradores.ValidacionProgramaNuevas> dicValidacionCuv;
+            var arrayCuvProductos = productos.Select(p => p.CUV).ToArray();
+            using (var odsServiceClient = new ODSServiceClient())
+            {
+                dicValidacionCuv = odsServiceClient.ValidarBusquedaProgramaNuevasList(userData.PaisID, userData.CampaniaID, userData.CodigoPrograma, userData.ConsecutivoNueva, arrayCuvProductos);
+            }
+
+            var listEstadosNuevasBloquear = new List<Enumeradores.ValidacionProgramaNuevas> {
+                Enumeradores.ValidacionProgramaNuevas.ProductoNoExiste,
+                Enumeradores.ValidacionProgramaNuevas.ConsultoraNoNueva,
+                Enumeradores.ValidacionProgramaNuevas.CuvNoPerteneceASuPrograma
+            };
+            var listCuvNuevasBloquear = dicValidacionCuv.Where(vc => listEstadosNuevasBloquear.Contains(vc.Value)).Select(vc => vc.Key).ToList();
+            productos = productos.Where(p => !listCuvNuevasBloquear.Contains(p.CUV)).ToList();
 
             var siExiste = productos.Any(p => p.CUV == term);
-
             BloqueoProductosCatalogo(ref productos);
-
             BloqueoProductosDigitales(ref productos);
 
             if (!productos.Any())
             {
-                if (siExiste)
-                {
-                    productosModel.Add(GetProductoDigital());
-                }
-                else
-                {
-                    productosModel.Add(GetProductoNoExiste());
-                }
+                if (siExiste) productosModel.Add(GetProductoDigital());
+                else productosModel.Add(GetProductoNoExiste());
+
                 return productosModel;
             }
 
             productos = productos.Take(CANTIDAD_FILAS_AUTOCOMPLETADO).ToList();
-
             var cuv = productos.First().CUV.Trim();
-            var mensajeByCuv = GetMensajeByCUV(userModel, cuv);
+            var mensajeByCuv = GetMensajeByCUV(userData, cuv);
             var tieneRdc = ValidarTieneRDoRDR();
-
-            productosModel.AddRange(productos.Select(prod => new ProductoModel()
-            {
+            
+            var listEstadosNuevasValidas = new List<Enumeradores.ValidacionProgramaNuevas> { Enumeradores.ValidacionProgramaNuevas.CuvPerteneceProgramaNuevas };
+            var listCuvNuevasValidas = dicValidacionCuv.Where(vc => listEstadosNuevasValidas.Contains(vc.Value)).Select(vc => vc.Key).ToList();
+            productosModel.AddRange(productos.Select(prod => new ProductoModel() {
                 CUV = prod.CUV.Trim(),
                 Descripcion = prod.Descripcion.Trim(),
                 PrecioCatalogo = prod.PrecioCatalogo,
@@ -1667,11 +1674,11 @@ namespace Portal.Consultoras.Web.Controllers
                 TipoEstrategiaID = prod.TipoEstrategiaID,
                 TieneRDC = tieneRdc,
                 EsOfertaIndependiente = prod.EsOfertaIndependiente,
+                EsCuponNuevas = listCuvNuevasValidas.Contains(prod.CUV.Trim()),
                 CodigoProducto = prod.CodigoProducto,
                 CodigoCatalago = prod.CodigoCatalogo,
                 EstrategiaIDSicc = prod.EstrategiaIDSicc
             }));
-
             return productosModel;
         }
 
@@ -1683,7 +1690,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.CUV = Util.Trim(model.CUV);
 
                 #region ValidarProgramaNuevas
-                var esProgNuevas = false;
+                var esCuponNuevas = false;
                 Enumeradores.ValidacionProgramaNuevas num = ValidarProgramaNuevas(model.CUV);
                 switch (num)
                 {
@@ -1697,13 +1704,13 @@ namespace Portal.Consultoras.Web.Controllers
                         productosModel.Add(GetValidacionProgramaNuevas(Constantes.ProgNuevas.Mensaje.CuvNoPerteneceASuPrograma));
                         return Json(productosModel, JsonRequestBehavior.AllowGet);
                     case Enumeradores.ValidacionProgramaNuevas.CuvPerteneceProgramaNuevas:
-                        esProgNuevas = true;
+                        esCuponNuevas = true;
                         break;
                 }
                 #endregion
 
                 #region Venta exclusiva
-                if (!esProgNuevas)
+                if (!esCuponNuevas)
                 {
                     Enumeradores.ValidacionVentaExclusiva numExclu = ValidarVentaExclusiva(model.CUV);
                     if (numExclu != Enumeradores.ValidacionVentaExclusiva.ContinuaFlujo)
@@ -1775,7 +1782,7 @@ namespace Portal.Consultoras.Web.Controllers
                     EsOfertaIndependiente = estrategia.EsOfertaIndependiente,
                     TieneRDC = tieneRdc,
                     EstrategiaID = producto.EstrategiaID,
-                    EsProgNuevas = esProgNuevas,
+                    EsCuponNuevas = esCuponNuevas,
                     CodigoCatalago = producto.CodigoCatalogo,
                     EstrategiaIDSicc = producto.EstrategiaIDSicc
                 });
@@ -2015,7 +2022,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (olstClienteModel.Count == 0)
                 {
-                    olstClienteModel.Add(new ClienteModel() { ClienteID = -1, Nombre = "Tu cliente  no está registrado. Haz click aquí para ingresarlo." });
+                    olstClienteModel.Add(new ClienteModel() { ClienteID = -1, Nombre = "Tu cliente no está registrado. Haz click aquí para ingresarlo." });
                 }
             }
             catch (Exception ex)
@@ -2054,7 +2061,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (olstClienteModel.Count == 0)
                 {
-                    olstClienteModel.Add(new ClienteModel() { ClienteID = 0, Nombre = "Tu cliente  no está registrado." });
+                    olstClienteModel.Add(new ClienteModel() { ClienteID = 0, Nombre = "Tu cliente no está registrado." });
                 }
             }
             catch (Exception ex)
@@ -4296,7 +4303,7 @@ namespace Portal.Consultoras.Web.Controllers
         //        ClienteID_ = model.ClienteID_,
         //        TipoEstrategiaImagen = model.TipoEstrategiaImagen,
         //        EsOfertaIndependiente = estrategia.EsOfertaIndependiente,
-        //        EnRangoProgramaNuevas = model.EnRangoProgramaNuevas || model.FlagNueva == "1"
+        //        EsCuponNuevas = model.EsCuponNuevas || model.FlagNueva == "1"
         //    };
 
         //    return AgregarProductoZE(modelo);
@@ -4427,7 +4434,7 @@ namespace Portal.Consultoras.Web.Controllers
             return mensaje;
         }
 
-        private string ValidarStockLimiteVenta(string cuv, int cantidad)
+        private string ValidarStockLimiteVenta(string cuv, int cantidad, string descripcion = "")
         {
             string mensaje = "";
 
@@ -4440,7 +4447,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     respValidar = sv.CuvTieneLimiteVenta(userData.PaisID, userData.CampaniaID, userData.CodigorRegion, userData.CodigoZona, cuv, cantidad, cantidadActual);
                 }
-                if (respValidar.TieneLimite) mensaje = string.Format(Constantes.MensajesError.ExcedioLimiteVenta, respValidar.UnidadesMaximas);
+                if (respValidar.TieneLimite) mensaje = string.Format(Constantes.MensajesError.StockLimiteVenta, cuv, descripcion, respValidar.UnidadesMaximas);
             }
             catch (Exception ex)
             {
@@ -4526,33 +4533,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         #endregion
 
-        [HttpPost]
-        public JsonResult EsPedidoDetalleElecMultiple(string cuv)
-        {
-            try
-            {
-                bool esElecMultiple;
-                using (var svc = new ODSServiceClient())
-                {
-                    esElecMultiple = svc.EsCuvDuoPerfecto(userData.PaisID, userData.CampaniaID, userData.ConsecutivoNueva, userData.CodigoPrograma, cuv);
-                }
-
-                return Json(new
-                {
-                    success = true,
-                    esElecMultiple = esElecMultiple,
-                    message = esElecMultiple ?
-                        string.Format(Constantes.ProgNuevas.Mensaje.ElecMultiple_ConfirmaEliminar, Constantes.ProgNuevas.Mensaje.Electivo_PromocionNombre) :
-                        ""
-                });
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return ErrorJson(Constantes.MensajesError.ErrorGenerico);
-            }
-        }
-
         private Enumeradores.ValidacionProgramaNuevas ValidarProgramaNuevas(string cuv)
         {
             Enumeradores.ValidacionProgramaNuevas numero;
@@ -4560,7 +4540,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (var svc = new ODSServiceClient())
                 {
-                    numero = svc.ValidarBusquedaProgramaNuevas(userData.PaisID, userData.CampaniaID, Convert.ToInt32(userData.ConsultoraID), userData.CodigoPrograma, userData.ConsecutivoNueva, cuv);
+                    numero = svc.ValidarBusquedaProgramaNuevas(userData.PaisID, userData.CampaniaID, userData.CodigoPrograma, userData.ConsecutivoNueva, cuv);
                 }
             }
             catch (Exception ex)

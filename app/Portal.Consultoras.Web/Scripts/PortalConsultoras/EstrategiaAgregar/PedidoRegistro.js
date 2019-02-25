@@ -559,14 +559,15 @@ var PedidoRegistroModule = function () {
     var _limpiarRecomendados = function () {
         var seccionProductosRecomendados = $('.divProductosRecomendados');
         seccionProductosRecomendados.slideUp(200);
-        $("#txtDescripcionProd").val("");
-        $("#hdfDescripcionProd").val("");
-        $("#txtPrecioR").val("");
-        $("#txtCantidad").val("");
-        $("#divMensaje").text("");
-        $("#txtCUV").focus();
-        if (isMobile()) {
-            if (isPagina('Pedido')) {
+        if (isPagina('Pedido')) {
+            $("#txtDescripcionProd").val("");
+            $("#hdfDescripcionProd").val("");
+            $("#txtPrecioR").val("");
+            $("#divMensaje").text("");
+            $("#txtCUV").focus();
+            $("#txtCantidad").val("");
+
+            if (isMobile()) {
                 PedidoOnSuccess()
                 VisibleEstrategias(true);
                 $("#divResumenPedido").show();
@@ -662,8 +663,9 @@ var PedidoRegistroModule = function () {
     var RegistroProductoBuscador = function (divPadre, valueJSON) {
 
         var model = JSON.parse($(divPadre).find(valueJSON).val());
-        var cantidad = $(divPadre).find("[data-input='cantidad']").val();
+        var divCantidad = $(divPadre).find("[data-input='cantidad']");
         var agregado = $(divPadre).find(".etiqueta_buscador_producto");
+        var cantidad = divCantidad.val();
         model.Cantidad = cantidad;
 
         if (model.TipoPersonalizacion == "LIQ") {
@@ -1001,7 +1003,7 @@ var PedidoRegistroModule = function () {
                 ConfiguracionOfertaID: $("#hdConfiguracionOfertaID").val(),
                 ClienteID: $("#txtClienteId").val(),
                 ClienteDescripcion: $("#txtClienteNombre").val(),
-                EnRangoProgramaNuevas: cuvEsProgNuevas
+                EsCuponNuevas: cuvEsCuponNuevas
             };
 
         } else {
@@ -1016,7 +1018,7 @@ var PedidoRegistroModule = function () {
                 TipoOfertaSisID: $("#hdTipoOfertaSisID").val(),
                 IndicadorMontoMinimo: $("#hdfIndicadorMontoMinimo").val(),
                 TipoEstrategiaImagen: 2,
-                EnRangoProgramaNuevas: cuvEsProgNuevas
+                EsCuponNuevas: cuvEsCuponNuevas
             };
         }
 
@@ -1146,7 +1148,7 @@ var PedidoRegistroModule = function () {
         //    PrecioUnidad: 0,
         //    Cantidad: cantidadSol,
         //    TipoOferta: 0,
-        //    enRangoProgNuevas: cuvEsProgNuevas
+        //    esCuponNuevas: cuvEsCuponNuevas
         //};
 
         //jQuery.ajax({
@@ -1194,7 +1196,7 @@ var PedidoRegistroModule = function () {
             IndicadorMontoMinimo: $("#hdfIndicadorMontoMinimo").val(),
             TipoEstrategiaImagen: tipoEstrategiaImagen || 0,
             EsOfertaIndependiente: $("#hdEsOfertaIndependiente").val(),
-            EnRangoProgramaNuevas: cuvEsProgNuevas
+            EsCuponNuevas: cuvEsCuponNuevas
         };
 
         AbrirSplash();
@@ -1341,7 +1343,7 @@ var PedidoRegistroModule = function () {
 
         jQuery.ajax({
             type: 'POST',
-            url: _url.urlAgregarUnico,
+            url: baseUrl + _url.urlAgregarUnico,
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(model),
@@ -1434,7 +1436,7 @@ var PedidoRegistroModule = function () {
 }();
 
 
-function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi, setId, enRangoProgNuevas) {
+function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi, setId, esCuponNuevas) {
     var rowElement = $(event.target).closest(".contenido_ingresoPedido");
     var txtLPCant = $(rowElement).find(".txtLPCant");
     var txtLPTempCant = $(rowElement).find(".txtLPTempCant");
@@ -1505,7 +1507,7 @@ function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfe
         TipoOfertaSisID: TipoOfertaSisID || 0,
         TipoEstrategiaID: TipoOfertaSisID || 0,
         CUV: CUV,
-        enRangoProgNuevas: enRangoProgNuevas
+        EsCuponNuevas: esCuponNuevas
     };
 
     //AbrirSplash();

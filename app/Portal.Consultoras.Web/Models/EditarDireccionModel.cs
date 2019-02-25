@@ -10,6 +10,9 @@ namespace Portal.Consultoras.Web.Models
 
         public string CodigoPais { get; set; }
 
+        [RequiredIf("CodigoPais", "MX", ErrorMessage = "Este campo es obligatorio")]
+        public string Colonia { get; set; }
+
         [Required(ErrorMessage = "Este campo es obligatorio")]
         public string CalleOAvenida { get; set; }
 

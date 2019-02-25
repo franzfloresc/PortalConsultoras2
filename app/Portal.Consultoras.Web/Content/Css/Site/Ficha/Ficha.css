@@ -1003,7 +1003,7 @@ ul.breadcumbs li a::before {
     line-height: 45px;
     margin-top: 7px;
     border-radius: 4px;
-    margin-top: 27px;
+    /*margin-top: 27px;*/
 }
 
 .tono-agotado {

@@ -146,7 +146,7 @@
                     <hr class="clear">
                     {{/IsNullOrEmpty}}
 
-                    <div id="componentes" data-codigovariante="{{CodigoVariante}}">
+                    <div id="componentes" data-codigovariante="{{CodigoVariante}}" style="overflow:hidden;">
                     </div>
 
                 </div>
@@ -373,7 +373,7 @@
 
                 $(document).ready(function () {
                     fichaModule = FichaModule({
-                localStorageModule: LocalStorageModule(),
+                        localStorageModule: LocalStorageModule(),
                         palanca: "@Model.Palanca",
                         campania: "@Model.Campania",
                         cuv: "@Model.Cuv",
@@ -393,8 +393,8 @@
                             idPlantillaProducto: "#producto-landing-template",
                             divCarruselContenedor: "#divFichaCarrusel",
                             idTituloCarrusel: "#tituloCarrusel",
-                            divCarruselProducto: "#divFichaCarruselProducto"
-                    OrigenPedidoWeb: "@Model.OrigenUrl"
+                            divCarruselProducto: "#divFichaCarruselProducto",
+                            OrigenPedidoWeb: "@Model.OrigenUrl"
                         });
                         carruselModule.Inicializar();
                     }

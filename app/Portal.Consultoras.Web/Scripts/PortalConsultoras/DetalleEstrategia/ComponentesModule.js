@@ -66,23 +66,32 @@ var ComponentesModule = (function () {
     };
 
     var _mostrarMensajeTonosAgotados = function (estrategia) {
-        if (estrategia.Hermanos.length > 0) {
-            var cta = 0;
-            var hijos = 0;
+        var hijos = 0;
+        var cta = 0;
+
+        if (estrategia.CodigoVariante == '2002') {
             $.each(estrategia.Hermanos, function (i, obj) {
-                if (obj.Hermanos !== null) {
+                hijos++;
+                if (!obj.TieneStock) cta++;
+            });
+        }
+        else {
+            $.each(estrategia.Hermanos, function (i, obj) {
+                if (obj.Hermanos !== 'undefined' && obj.Hermanos.length > 0) {
                     $.each(obj.Hermanos, function (j, k) {
                         hijos++;
                         if (!k.TieneStock) cta++;
                     });
                 }
-            });
-
-            if (cta > 0 && hijos > 1) {
-                if (cta < hijos) {
-                    $('.xmsg-tonos-agotados').show();
+                else {
+                    hijos++;
+                    if (!obj.TieneStock) cta++;
                 }
-            }
+            });
+        }
+
+        if (hijos > 0 && cta > 0) {
+            if (cta < hijos) $('.xmsg-tonos-agotados').show();
         }
     }
 

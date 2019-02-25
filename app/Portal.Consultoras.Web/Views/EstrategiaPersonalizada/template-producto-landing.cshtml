@@ -18,7 +18,7 @@
             <img src="/Content/Images/etiqueta-club-ganamas-blanco-independiente2.svg" alt="" class="clubganamas_logo" />
             <p class="primero">DISFRUTA DE MÁS Y MEJORES OFERTAS</p>
             <p class="segundo">ÚNETE A GANA+</p>
-            <a href="@Url.Action(" Informacion", "RevistaDigital" )">SUSCRÍBETE GRATIS</a>
+            <a href="@Url.Action("Informacion", "RevistaDigital" )">SUSCRÍBETE GRATIS</a>
         </div>
     </div>
     {{else}}
@@ -33,15 +33,17 @@
             <img src="{{TipoEstrategiaDetalle.ImgHomeDesktop}}" alt="" class="portada" />
             {{/iff}}
             <p class="tercero">Conoce {{DescripcionResumen}}</p>
-            <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeLanzamiento, '@Constantes.ConfiguracionPais.Lanzamiento')"
+            <a onclick="javascript: menuModule.sectionClick('/Ofertas#LAN', 'BotonVerMas', this);"
                class="portada portada_off">VER LANZAMIENTOS</a>
+                        @*<a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeLanzamiento, '@Constantes.ConfiguracionPais.Lanzamiento')"
+        class="portada portada_off">VER LANZAMIENTOS</a>*@
         </div>
     </div>
     {{else}}
     {{#if EsBannerProgNuevas}}
     <div data-item-cuv="{{CUV2}}" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" class="{{ClaseEstrategia}}">
         <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
-        <a href="@Url.Action(" Index", "ProgramaNuevas" )">
+        <a href="@Url.Action("Index", "ProgramaNuevas" )">
             <div class="content_item_carrusel content_item_carrusel_prog_nuevas" style="cursor:pointer;">
                 <img src="{{ImagenURL}}" alt="" class="clubganamas_logo" />
                 <div class="container_text">

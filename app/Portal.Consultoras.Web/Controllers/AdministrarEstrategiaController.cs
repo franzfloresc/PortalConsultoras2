@@ -66,8 +66,8 @@ namespace Portal.Consultoras.Web.Controllers
                     PaisID = userData.PaisID
                 };
                 //Enviar listado de palancas c/microservicios y si el país está configurado para ser evaluados en grilla.
-                ViewBag.MsEstrategias = WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion;
-                ViewBag.MsPaises = WebConfig.PaisesMicroservicioPersonalizacion;
+                ViewBag.MsEstrategias = SessionManager.GetConfigMicroserviciosPersonalizacion().EstrategiaHabilitado; //WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion;
+                ViewBag.MsPaises = SessionManager.GetConfigMicroserviciosPersonalizacion().PaisHabilitado; //WebConfig.PaisesMicroservicioPersonalizacion;
             }
             catch (Exception ex)
             {
@@ -103,16 +103,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             return Mapper.Map<IList<BEEtiqueta>, IEnumerable<EtiquetaModel>>(lst);
         }
-
-        //public JsonResult ObtenterCampanias(int PaisID)
-        //{
-        //    PaisID = userData.PaisID;
-        //    var lst = _zonificacionProvider.GetCampanias(PaisID);
-        //    return Json(new
-        //    {
-        //        lista = lst
-        //    }, JsonRequestBehavior.AllowGet);
-        //}
 
         private IEnumerable<TipoEstrategiaModel> DropDowListTipoEstrategia()
         {
@@ -192,46 +182,6 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     var lst = ConsultarObtenerEstrategia(CampaniaID, TipoEstrategiaID, CUV, Consulta, Imagen, Activo, TipoEstrategiaCodigo, dbdefault);
 
-                    //List<EstrategiaMDbAdapterModel> lst = new List<EstrategiaMDbAdapterModel>();
-
-                    //if (Consulta == "1")
-                    //{
-                    //    var entidad = new ServicePedido.BEEstrategia
-                    //    {
-                    //        PaisID = userData.PaisID,
-                    //        TipoEstrategiaID = Convert.ToInt32(TipoEstrategiaID),
-                    //        CUV2 = CUV != "" ? CUV : "0",
-                    //        CampaniaID = Convert.ToInt32(CampaniaID),
-                    //        Activo = Activo,
-                    //        Imagen = Imagen
-                    //    };
-
-                    //    if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, TipoEstrategiaCodigo, dbdefault))
-                    //    {
-                    //        entidad.CodigoTipoEstrategia = TipoEstrategiaCodigo;
-                    //        lst.AddRange(administrarEstrategiaProvider.Listar(entidad.CampaniaID.ToString(),
-                    //            entidad.CodigoTipoEstrategia, userData.CodigoISO, entidad.Activo, entidad.CUV2, entidad.Imagen).ToList());
-                    //    }
-                    //    else
-                    //    {
-                    //        using (var sv = new PedidoServiceClient())
-                    //        {
-                    //            var tmpEstrategiaList = sv.GetEstrategias(entidad).ToList();
-                    //            foreach (var itemEstrategia in tmpEstrategiaList)
-                    //            {
-                    //                lst.Add(new EstrategiaMDbAdapterModel { BEEstrategia = itemEstrategia });
-                    //            }
-                    //        }
-                    //    }
-                    //}
-                    //else
-                    //{
-                    //    lst = new List<EstrategiaMDbAdapterModel>();
-                    //}
-
-                    //if (lst.Count > 0)
-                    //    lst.Update(x => x.BEEstrategia.ImagenURL = ConfigS3.GetUrlFileS3Matriz(userData.CodigoISO, x.BEEstrategia.ImagenURL));
-
                     var grid = new BEGrid
                     {
                         PageSize = rows,
@@ -241,33 +191,6 @@ namespace Portal.Consultoras.Web.Controllers
                     };
 
                     IEnumerable<EstrategiaMDbAdapterModel> items = ConsultarOrdenar(lst, sidx, sord);
-                    //if (lst.Any())
-                    //{
-                    //    if (sord == "asc")
-                    //    {
-                    //        switch (sidx)
-                    //        {
-                    //            case "CUV2":
-                    //                items = lst.OrderBy(x => x.BEEstrategia.CUV2);
-                    //                break;
-                    //            case "CodigoProducto":
-                    //                items = lst.OrderBy(x => x.BEEstrategia.CodigoProducto);
-                    //                break;
-                    //        }
-                    //    }
-                    //    else
-                    //    {
-                    //        switch (sidx)
-                    //        {
-                    //            case "CUV2":
-                    //                items = lst.OrderByDescending(x => x.BEEstrategia.CUV2);
-                    //                break;
-                    //            case "CodigoProducto":
-                    //                items = lst.OrderByDescending(x => x.BEEstrategia.CodigoProducto);
-                    //                break;
-                    //        }
-                    //    }
-                    //}
                     items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
                     var pag = Util.PaginadorGenerico(grid, lst);
 
@@ -2210,50 +2133,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 UploadFileShowroomValidarModel(model);
 
-                //if (model.Documento == null || model.Documento.ContentLength <= 0) throw new ArgumentException("El archivo esta vacío.");
-                //if (!model.Documento.FileName.EndsWith(".csv")) throw new ArgumentException("El archivo no tiene la extensión correcta.");
-                //if (model.Documento.ContentLength > 4 * 1024 * 1024) throw new ArgumentException("El archivo es demasiado extenso para ser procesado.");
-
                 string readLine = streamReader.ReadLine();
                 if (readLine != null)
                 {
-                    //string[] arrayHeader = readLine.Split('|');
-                    //string columnObservation = string.Empty;
-                    //bool errorColumn = false;
-                    //if (arrayHeader.Length != cantidadColumnas)
-                    //{
-                    //    throw new ArgumentException("Los títulos de las columnas no son los correctos.");
-                    //}
-                    //if (!arrayHeader[(int)Constantes.ColumnsSetStrategyShowroom.Position.CUV].ToLower().Equals(Constantes.ColumnsSetStrategyShowroom.CUV))
-                    //{
-                    //    columnObservation = Constantes.ColumnsSetStrategyShowroom.CUV;
-                    //    errorColumn = true;
-                    //}
-                    //else if (!arrayHeader[(int)Constantes.ColumnsSetStrategyShowroom.Position.AllowedUnits].ToLower().Equals(Constantes.ColumnsSetStrategyShowroom.AllowedUnits))
-                    //{
-                    //    columnObservation = Constantes.ColumnsSetStrategyShowroom.AllowedUnits;
-                    //    errorColumn = true;
-                    //}
-                    //else if (!arrayHeader[(int)Constantes.ColumnsSetStrategyShowroom.Position.NameSet].ToLower().Equals(Constantes.ColumnsSetStrategyShowroom.NameSet))
-                    //{
-                    //    columnObservation = Constantes.ColumnsSetStrategyShowroom.NameSet;
-                    //    errorColumn = true;
-                    //}
-                    //else if (!arrayHeader[(int)Constantes.ColumnsSetStrategyShowroom.Position.BusinessTip].ToLower().Equals(Constantes.ColumnsSetStrategyShowroom.BusinessTip))
-                    //{
-                    //    columnObservation = Constantes.ColumnsSetStrategyShowroom.BusinessTip;
-                    //    errorColumn = true;
-                    //}
-                    //else if (!arrayHeader[(int)Constantes.ColumnsSetStrategyShowroom.Position.IsSubcampaign].ToLower().Equals(Constantes.ColumnsSetStrategyShowroom.IsSubcampaign))
-                    //{
-                    //    columnObservation = Constantes.ColumnsSetStrategyShowroom.IsSubcampaign;
-                    //    errorColumn = true;
-                    //}
-                    //else if (!arrayHeader[(int)Constantes.ColumnsSetStrategyShowroom.Position.OfferStatus].ToLower().Equals(Constantes.ColumnsSetStrategyShowroom.OfferStatus))
-                    //{
-                    //    columnObservation = Constantes.ColumnsSetStrategyShowroom.OfferStatus;
-                    //    errorColumn = true;
-                    //}
                     var columnObservation = UploadFileSetStrategyShowroomMensajeReadLineColumnas(readLine, cantidadColumnas);
                     if (columnObservation != string.Empty)
                     {
@@ -2357,40 +2239,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 UploadFileShowroomValidarModel(model);
 
-                //if (model.Documento == null || model.Documento.ContentLength <= 0) throw new ArgumentException("El archivo esta vacío.");
-                //if (!model.Documento.FileName.EndsWith(".csv")) throw new ArgumentException("El archivo no tiene la extensión correcta.");
-                //if (model.Documento.ContentLength > 4 * 1024 * 1024) throw new ArgumentException("El archivo es demasiado extenso para ser procesado.");
-
                 string readLine = streamReader.ReadLine();
                 if (readLine != null)
                 {
-                    //string[] arrayHeader = readLine.Split('|');
-                    //string columnObservation = string.Empty;
-                    //bool errorColumn = false;
-                    //if (arrayHeader.Length != cantidadColumnas)
-                    //{
-                    //    throw new ArgumentException("Los títulos de las columnas no son los correctos.");
-                    //}
-                    //if (!arrayHeader[(int)Constantes.ColumnsProductStrategyShowroom.Position.CUV].ToLower().Equals(Constantes.ColumnsProductStrategyShowroom.CUV))
-                    //{
-                    //    columnObservation = Constantes.ColumnsProductStrategyShowroom.CUV;
-                    //    errorColumn = true;
-                    //}
-                    //if (!arrayHeader[(int)Constantes.ColumnsProductStrategyShowroom.Position.Order].ToLower().Equals(Constantes.ColumnsProductStrategyShowroom.Order))
-                    //{
-                    //    columnObservation = Constantes.ColumnsProductStrategyShowroom.Order;
-                    //    errorColumn = true;
-                    //}
-                    //if (!arrayHeader[(int)Constantes.ColumnsProductStrategyShowroom.Position.ProductName].ToLower().Equals(Constantes.ColumnsProductStrategyShowroom.ProductName))
-                    //{
-                    //    columnObservation = Constantes.ColumnsProductStrategyShowroom.ProductName;
-                    //    errorColumn = true;
-                    //}
-                    //if (!arrayHeader[(int)Constantes.ColumnsProductStrategyShowroom.Position.Description].ToLower().Equals(Constantes.ColumnsProductStrategyShowroom.Description))
-                    //{
-                    //    columnObservation = Constantes.ColumnsProductStrategyShowroom.Description;
-                    //    errorColumn = true;
-                    //}
                     var columnObservation = UploadFileProductStrategyShowroomMensajeReadLineColumnas(readLine, cantidadColumnas);
                     if (columnObservation != string.Empty)
                     {

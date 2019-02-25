@@ -89,7 +89,6 @@ namespace Portal.Consultoras.Web.Providers
 
             try
             {
-                //var listaCUVs = string.Join("|", lista.Where(e => !string.IsNullOrEmpty(e.CUV2) && e.TieneStock).Select(e => e.CUV2));
                 var listaCUVs = string.Join("|", lista.Where(e => !string.IsNullOrEmpty(e.CUV2)).Select(e => e.CUV2));
                 ConsultaStockModel stock = new ConsultaStockModel
                 {
@@ -165,7 +164,10 @@ namespace Portal.Consultoras.Web.Providers
                         {
                             x.TieneStock = (temp.STOCK == 1);
                         }
-                        x.Hermanos = ActualizarComponenteHermanos(x.Hermanos, respuesta);
+                        if (x.Hermanos != null && x.Hermanos.Any())
+                        {
+                            x.Hermanos = ActualizarComponenteHermanos(x.Hermanos, respuesta);
+                        }
                     });
                 }
 
