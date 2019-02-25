@@ -7,7 +7,7 @@
     <div class="productos_agregado_carrito">
         <div class="marca_belcorp">{{DescripcionLarga}}</div>
         <hr class="clear" />
-        <div class="descripcion_producto_carrito">{{Split DescripcionProd '|' 0}}</div>
+        <div class="descripcion_producto_carrito">{{#iff SetIdentifierNumber '>' '0'}} #{{SetIdentifierNumber}} - {{/iff}} {{Split DescripcionProd '|' 0}}</div>
         <div class="marca_belcorp" style="font-size: 13px;">x{{Cantidad}}</div>
         <div class="precio_carrito">{{SimboloMoneda}} {{ImporteTotal}}</div>
     </div>
