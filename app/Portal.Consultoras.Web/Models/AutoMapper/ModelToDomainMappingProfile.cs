@@ -474,13 +474,6 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<PagoEnLineaMedioPagoDetalleModel, BEPagoEnLineaMedioPagoDetalle>();
             Mapper.CreateMap<PagoEnLineaTipoPasarelaModel, BEPagoEnLineaTipoPasarela>();
             Mapper.CreateMap<PagoEnLineaPasarelaCamposModel, BEPagoEnLineaPasarelaCampos>();
-            Mapper.CreateMap<ComunicadoModel, ServiceContenido.BEComunicado>()
-            .ForMember(t => t.UrlImagen, f => f.MapFrom(c => c.UrlImagen))
-            .ForMember(t => t.FechaInicio, f => f.MapFrom(c => c.FechaInicio_))
-            .ForMember(t => t.FechaFin, f => f.MapFrom(c => c.FechaFin_))
-            .ForMember(t => t.Titulo, f => f.MapFrom(c => c.Titulo))
-            .ForMember(t => t.DescripcionAccion, f => f.MapFrom(c => c.DescripcionAccion))
-            .ForMember(t => t.Activo, f => f.MapFrom(c => c.Activo));
         }
     }
 }

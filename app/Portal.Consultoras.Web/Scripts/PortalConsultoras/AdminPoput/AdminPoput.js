@@ -36,7 +36,7 @@ function ObjetoMensajes() {
     this.registroSatisfactorio = "Se registró de forma satisfactoria";
     this.errorRegistro = "Ocurrió un error al guardar los datos";
     this.tamañoSuperadoImagen = "El tamaño supera el limite permitido";
-    this.formatoInvalidoImagen = "Ingrese una imagen con alguno de los siguientes formatos: .jpg/.png.";
+    this.formatoInvalidoImagen = "Ingrese una imagen con formato .png.";
     this.dimensionesImagen = "Las medidas deben ser: 326 x 418";
     this.validaArchivoCsv = "Formato de archivo csv";
     this.validarFechaPasada = "Ingrese una fecha mayor o igual a la de hoy";
@@ -47,7 +47,7 @@ $(document).ready(function () {
     var vistaAdPop;
     vistaAdPop = function () {
         var me = this;
-       
+
         me.Funciones = {
             InicializarEventos: function () {
                 $('body').on('click', '.btn__agregar', me.Eventos.AbrirPopupNuevo);
@@ -55,35 +55,35 @@ $(document).ready(function () {
                 $('body').on('click', '.btn__modal--descartar', me.Eventos.CerrarPopup);
             },
             CargarDatePicker: function () {
-                    var dateFormat = "mm/dd/yy",
-                        from = $("#fechaMin")
-                            .datepicker({
-                                defaultDate: "+1w",
-                                changeMonth: true,
-                                numberOfMonths: 1
-                            })
-                            .on("change", function () {
-                                var fecha = to.val();
-                                to.datepicker("option", "minDate", getDate(this));
-                                to.val(fecha);
-                            }),
-                        to = $("#fechaMax").datepicker({
-                            defaultDate: "+1w",
+                var dateFormat = "mm/dd/yy",
+                    from = $("#fechaMin")
+                        .datepicker({
+                            // defaultDate: "+1w",
                             changeMonth: true,
                             numberOfMonths: 1
                         })
-                            .on("change", function () {
-                                from.datepicker("option", "maxDate", getDate(this));
-                            });
+                        .on("change", function () {
+                            var fecha = to.val();
+                            to.datepicker("option", "minDate", getDate(this));
+                            to.val(fecha);
+                        }),
+                    to = $("#fechaMax").datepicker({
+                        //  defaultDate: "+1w",
+                        changeMonth: true,
+                        numberOfMonths: 1
+                    })
+                        .on("change", function () {
+                            from.datepicker("option", "maxDate", getDate(this));
+                        });
                 function getDate(element) {
-                        var date;
-                        try {
-                            date = $.datepicker.parseDate(dateFormat, element.value);
-                        } catch (error) {
-                            date = null;
-                        }
-                        return date;
+                    var date;
+                    try {
+                        date = $.datepicker.parseDate(dateFormat, element.value);
+                    } catch (error) {
+                        date = null;
                     }
+                    return date;
+                }
             },
             OrdenamientoPersonalizadoFilasGrilla: function () {
                 $("#swappable").swappable({
@@ -95,24 +95,24 @@ $(document).ready(function () {
             }
         },
             me.Eventos = {
-            AbrirPopupNuevo: function (e) {
-                e.preventDefault();
-                if ($("#ddlCampania").val().length > 0) {
-                    document.getElementById("imgPreview").style.display = "none";
-                    LimpiarCamposPoput();
-                    $("#description").html("Formato de archivo JPG.<br /> (326 x 418 píxeles)");
-                    $("#nameArchivo").html("Formato de archivo csv");
-                    $("#hdAccion").val(TIPO_ACCION_NUEVO);
-                    $('#modalTitulo').html($(this).attr('title'));
-                    $('#AgregarPopup').fadeIn(100);
-                    $('#AgregarPopup').scrollTop(0);
-                    $('#AgregarPopup').css('display', 'flex');
-                    $('body').css('overflow-y', 'hidden');
-                } else alert(OBJETO_MENJASE.seleccionCampaña);
-                },
-            AbrirPopupModificar: function (e) {
+                AbrirPopupNuevo: function (e) {
                     e.preventDefault();
-                $("#hdAccion").val(TIPO_ACCION_MODIFICAR)
+                    if ($("#ddlCampania").val().length > 0) {
+                        document.getElementById("imgPreview").style.display = "none";
+                        LimpiarCamposPoput();
+                        $("#description").html("Formato de archivo JPG.<br /> (326 x 418 píxeles)");
+                        $("#nameArchivo").html(OBJETO_MENJASE.validaArchivoCsv);
+                        $("#hdAccion").val(TIPO_ACCION_NUEVO);
+                        $('#modalTitulo').html($(this).attr('title'));
+                        $('#AgregarPopup').fadeIn(100);
+                        $('#AgregarPopup').scrollTop(0);
+                        $('#AgregarPopup').css('display', 'flex');
+                        $('body').css('overflow-y', 'hidden');
+                    } else alert(OBJETO_MENJASE.seleccionCampaña);
+                },
+                AbrirPopupModificar: function (e) {
+                    e.preventDefault();
+                    $("#hdAccion").val(TIPO_ACCION_MODIFICAR)
                     LimpiarCamposPoput();
                     var comunicadoid = e.target.getAttribute("comunicadoid")
                     $("#hdComunicadoId").val(comunicadoid)
@@ -122,7 +122,7 @@ $(document).ready(function () {
                     $('#AgregarPopup').scrollTop(0);
                     $('#AgregarPopup').css('display', 'flex');
                     $('body').css('overflow-y', 'hidden');
-            },
+                },
                 CerrarPopup: function (e) {
                     e.preventDefault();
                     $('#AgregarPopup').fadeOut(100);
@@ -139,7 +139,7 @@ $(document).ready(function () {
     VistaAdministracionPopups.Inicializar();
 
     $('#fechaMin').change(function (e) {
-        let partes = (e.target.value || '').split('/');
+        var partes = (e.target.value || '').split('/');
         if (partes.length != 3) {
             alert(OBJETO_MENJASE.ingresarFecha);
             e.target.value = "";
@@ -167,7 +167,7 @@ $(document).ready(function () {
                     $("#fechaMin").val("");
                     return false;
                 }
-              
+
                 break;
             case "fechaMax":
                 var fechaMinima = $("#fechaMin").val();
@@ -236,7 +236,7 @@ function getCargarArchivoCSVPoputLocalStorage(data) {
 }
 
 function GetCamposCargadosPoput(data) {
-    
+
     if (data.NombreImagen.length > 0) {
         document.getElementById("imgPreview").style.display = "block";
         $("#targetImg").attr('src', (data.UrlImagen));
@@ -250,16 +250,16 @@ function GetCamposCargadosPoput(data) {
     $("#nameArchivo").html(data.NombreArchivoCCV);
     $("#fechaMin").val(data.FechaInicio_);
     $("#fechaMax").val(data.FechaFin_);
-    
-    if (data.TipoDispositivo == 1) {
-        document.getElementById('checkMobile').checked = true;
-        document.getElementById('checkDesktop').checked = false;
-    }
-    if (data.TipoDispositivo == 2) {
+
+    if (data.TipoDispositivo == 1) {/*Desktop*/
         document.getElementById('checkMobile').checked = false;
         document.getElementById('checkDesktop').checked = true;
     }
-    if (data.TipoDispositivo == 0) {
+    if (data.TipoDispositivo == 2) {/*Mobile*/
+        document.getElementById('checkMobile').checked = true;
+        document.getElementById('checkDesktop').checked = false;
+    }
+    if (data.TipoDispositivo == 0) {/*Todos*/
         document.getElementById('checkMobile').checked = true;
         document.getElementById('checkDesktop').checked = true;
     }
@@ -267,7 +267,7 @@ function GetCamposCargadosPoput(data) {
     if (data.NombreArchivoCCV.length > 0)
         document.getElementById("EliminarArchivo").style.display = "block";
     else
-        $("#nameArchivo").html("Formato de archivo csv");
+        $("#nameArchivo").html(OBJETO_MENJASE.validaArchivoCsv);
 
 
 }
@@ -277,7 +277,7 @@ $("#imgPoputs").change(function () {
 });
 
 var ReadImage = function (file) {
-    
+
     var reader = new FileReader;
     var image = new Image;
 
@@ -308,7 +308,7 @@ function LimpiarCamposPoput() {
     $("#imgPoputs").val("");
     $("#imgPreview").val("");
     $("#targetImg").attr("src", "");
-   
+
 
     $("#txtTituloPrincipal").val("");
     $("#txtDescripcion").val("");
@@ -330,7 +330,7 @@ var ClearView = function () {
     $("#description").val('');
     $("#imgPoputs").val('');
     $("#imgPreview").hide();
-   
+
 }
 
 function ClearFileView() {
@@ -353,11 +353,11 @@ function getFileCSV() {
         contentType: false,
         processData: false,
         success: function (msg) {
-            
+
             if (msg.dataerror) {
                 alert(msg.archivo);
                 document.getElementById("EliminarArchivo").style.display = "none";
-                $("#nameArchivo").html("Formato de archivo csv");
+                $("#nameArchivo").html(OBJETO_MENJASE.validaArchivoCsv);
             } else {
                 document.getElementById("EliminarArchivo").style.display = "block";
                 $("#nameArchivo").html(msg.archivo);
@@ -373,51 +373,51 @@ function getFileCSV() {
 $("#btnGuardar").click(function () {
 
     if (parseInt($("#hdAccion").val()) == 2) {
-            var cambio = respuestaValidacionCambios();
-            if (!cambio) {
-                alert(OBJETO_MENJASE.sinCambios);
-                return false;
-            }
+        var cambio = respuestaValidacionCambios();
+        if (!cambio) {
+            alert(OBJETO_MENJASE.sinCambios);
+            return false;
         }
+    }
 
     if (document.getElementById("targetImg").getAttribute("src").length == 0) {
         alert(OBJETO_MENJASE.seleccionImagen);
-            return false;
-        }
+        return false;
+    }
 
     if ($.trim($("#txtTituloPrincipal").val()) == "") {
         alert(OBJETO_MENJASE.ingresoTituloPrincipal);
-            return false;
-        }
+        return false;
+    }
 
     if ($.trim($("#txtDescripcion").val()) == "") {
         alert(OBJETO_MENJASE.ingresoDescripcion);
-            return false;
-        }
+        return false;
+    }
 
     if ($("#txtDescripcion").val().length > 290) {
         alert(OBJETO_MENJASE.maximocaracteres);
-            return false;
-        }
+        return false;
+    }
 
     if ($.trim($("#txtUrl").val()) == "") {
         alert(OBJETO_MENJASE.ingresoURL);
-            return false;
-        }
+        return false;
+    }
 
     if ($.trim($("#fechaMin").val()) == "") {
         alert(OBJETO_MENJASE.fechaMinima);
-            return false;
-        }
+        return false;
+    }
 
     if ($.trim($("#fechaMax").val()) == "") {
         alert(OBJETO_MENJASE.fechaMaxima);
-            return false;
-        }
+        return false;
+    }
 
     if (document.getElementById('checkMobile').checked != true && document.getElementById('checkDesktop').checked != true) {
         alert(OBJETO_MENJASE.ingresoTipoDispositivo);
-            return false;
+        return false;
     }
     var bool = confirm(OBJETO_MENJASE.guardarDatos);
     if (bool) {
@@ -429,7 +429,7 @@ $("#btnGuardar").click(function () {
             frmData.append("imagen", document.getElementById("imgPoputs").files[0]);
 
         /*Zona de campos*/
-        frmData.append("imagenAnterior", localStorage.getItem('datosPoput') != null ? JSON.parse(localStorage.getItem('datosPoput')).NombreImagen : "");
+        frmData.append("imagenAnterior", localStorage.getItem('datosPoput') != null ? JSON.parse(localStorage.getItem('datosPoput')).UrlImagen : "");
         frmData.append("comunicadoId", $("#hdComunicadoId").val());
         frmData.append("txtTituloPrincipal", $("#txtTituloPrincipal").val());
         frmData.append("txtDescripcion", $("#txtDescripcion").val());
@@ -438,7 +438,7 @@ $("#btnGuardar").click(function () {
         frmData.append("fechaMin", $("#fechaMin").val());
         frmData.append("checkMobile", document.getElementById('checkMobile').checked);
         frmData.append("checkDesktop", document.getElementById('checkDesktop').checked);
-        frmData.append("nombreArchivo", $("#nameArchivo").html().trim().toString() != OBJETO_MENJASE.validaArchivoCsv.trim().toString() ? $("#nameArchivo").html().trim().toString() :"" );
+        frmData.append("nombreArchivo", $("#nameArchivo").html().trim().toString() != OBJETO_MENJASE.validaArchivoCsv.trim().toString() ? $("#nameArchivo").html().trim().toString() : "");
         frmData.append("codigoCampania", $("#ddlCampania").val());
         frmData.append("accionID", $("#hdAccion").val());
         if (localStorage.getItem("datosCSV") != null)
@@ -466,56 +466,59 @@ $("#btnGuardar").click(function () {
                 alert("errror");
             }
         });
-        }
-    });
+    }
+});
 
 function respuestaValidacionCambios() {
     var acumuladoValidacion = 0;
 
-        if (JSON.parse(localStorage.getItem('datosPoput')).NombreImagen != $("#description").html())
-            acumuladoValidacion += 1;
-        if (JSON.parse(localStorage.getItem('datosPoput')).NombreArchivoCCV != $("#nameArchivo").html())
-            acumuladoValidacion += 1;
-        if (JSON.parse(localStorage.getItem('datosPoput')).Descripcion != $("#txtTituloPrincipal").val())
-            acumuladoValidacion += 1;
-        if (JSON.parse(localStorage.getItem('datosPoput')).DescripcionAccion != $("#txtUrl").val())
-            acumuladoValidacion += 1;
-        if (JSON.parse(localStorage.getItem('datosPoput')).FechaInicio_ != $("#fechaMin").val())
-            acumuladoValidacion += 1;
-        if (JSON.parse(localStorage.getItem('datosPoput')).FechaFin_ != $("#fechaMax").val())
-            acumuladoValidacion += 1;
-       if (JSON.parse(localStorage.getItem('datosPoput')).Comentario != $("#txtDescripcion").val())
-            acumuladoValidacion += 1;
+    if (JSON.parse(localStorage.getItem('datosPoput')).NombreImagen != $("#description").html())
+        acumuladoValidacion += 1;
+    if (JSON.parse(localStorage.getItem('datosPoput')).NombreArchivoCCV != ($("#nameArchivo").html() == OBJETO_MENJASE.validaArchivoCsv ? "" : $("#nameArchivo").html()))
+        acumuladoValidacion += 1;   
+    if (JSON.parse(localStorage.getItem('datosPoput')).Descripcion != $("#txtTituloPrincipal").val())
+        acumuladoValidacion += 1;
+    if (JSON.parse(localStorage.getItem('datosPoput')).DescripcionAccion != $("#txtUrl").val())
+        acumuladoValidacion += 1;
+    if (JSON.parse(localStorage.getItem('datosPoput')).FechaInicio_ != $("#fechaMin").val())
+        acumuladoValidacion += 1;
+    if (JSON.parse(localStorage.getItem('datosPoput')).FechaFin_ != $("#fechaMax").val())
+        acumuladoValidacion += 1;
+    if (JSON.parse(localStorage.getItem('datosPoput')).Comentario != $("#txtDescripcion").val())
+        acumuladoValidacion += 1;
 
-        if (JSON.parse(localStorage.getItem('datosPoput')).TipoDispositivo == 1) {
-            if (document.getElementById('checkMobile').checked == true && document.getElementById('checkDesktop').checked == true)
-                acumuladoValidacion += 1;
-            if (document.getElementById('checkMobile').checked != true && document.getElementById('checkDesktop').checked == true)
-                acumuladoValidacion += 1;
-            if (document.getElementById('checkMobile').checked != true && document.getElementById('checkDesktop').checked != true)
-                acumuladoValidacion += 1;
-        }
 
-        if (JSON.parse(localStorage.getItem('datosPoput')).TipoDispositivo == 2) {
-            if (document.getElementById('checkDesktop').checked == true && document.getElementById('checkMobile').checked == true)
-                acumuladoValidacion += 1;
-            if (document.getElementById('checkDesktop').checked != true && document.getElementById('checkMobile').checked == true)
-                acumuladoValidacion += 1;
-            if (document.getElementById('checkDesktop').checked != true && document.getElementById('checkMobile').checked != true)
-                acumuladoValidacion += 1;
-        }
-
-        if (JSON.parse(localStorage.getItem('datosPoput')).TipoDispositivo == 0) {
-            if (document.getElementById('checkMobile').checked == true && document.getElementById('checkDesktop').checked != true)
-                acumuladoValidacion += 1;
-            if (document.getElementById('checkMobile').checked != true && document.getElementById('checkDesktop').checked == true)
-                acumuladoValidacion += 1;
-            if (document.getElementById('checkMobile').checked != true && document.getElementById('checkDesktop').checked != true)
-                acumuladoValidacion += 1;
-        }
-
-        if (acumuladoValidacion > 0) return true; else return false;
+    if (JSON.parse(localStorage.getItem('datosPoput')).TipoDispositivo == 1) {/*Mobile*/
+        if (document.getElementById('checkDesktop').checked == true && document.getElementById('checkMobile').checked == true)
+            acumuladoValidacion += 1;
+        if (document.getElementById('checkDesktop').checked != true && document.getElementById('checkMobile').checked == true)
+            acumuladoValidacion += 1;
+        if (document.getElementById('checkDesktop').checked != true && document.getElementById('checkMobile').checked != true)
+            acumuladoValidacion += 1;
     }
+
+    if (JSON.parse(localStorage.getItem('datosPoput')).TipoDispositivo == 2) {/*Desktop*/
+        if (document.getElementById('checkMobile').checked == true && document.getElementById('checkDesktop').checked == true)
+            acumuladoValidacion += 1;
+        if (document.getElementById('checkMobile').checked != true && document.getElementById('checkDesktop').checked == true)
+            acumuladoValidacion += 1;
+        if (document.getElementById('checkMobile').checked != true && document.getElementById('checkDesktop').checked != true)
+            acumuladoValidacion += 1;
+    }
+
+
+
+    if (JSON.parse(localStorage.getItem('datosPoput')).TipoDispositivo == 0) { /*Todos*/
+        if (document.getElementById('checkMobile').checked == true && document.getElementById('checkDesktop').checked != true)
+            acumuladoValidacion += 1;
+        if (document.getElementById('checkMobile').checked != true && document.getElementById('checkDesktop').checked == true)
+            acumuladoValidacion += 1;
+        if (document.getElementById('checkMobile').checked != true && document.getElementById('checkDesktop').checked != true)
+            acumuladoValidacion += 1;
+    }
+
+    if (acumuladoValidacion > 0) return true; else return false;
+}
 
 function ValidaImagen(file) {
     $("#description").html("Formato de archivo JPG.<br /> (326 x 418 píxeles)");
@@ -531,7 +534,7 @@ function ValidaImagen(file) {
         return false;
     }
 
-    if (file.length == 0 || !(/\.(jpg|png)$/i).test(foto.name)) {
+    if (file.length == 0 || !(/\.(png)$/i).test(foto.name)) {
         alert(OBJETO_MENJASE.formatoInvalidoImagen);
         return false;
     }
@@ -562,10 +565,10 @@ function ValidaImagen(file) {
 }
 
 $(".eliminarArchivo").click(function () {
-    
+
     var comunicadoid = $("#hdComunicadoId").val() == "" ? 0 : $("#hdComunicadoId").val();
     var object = {
-        Comunicadoid: parseInt( comunicadoid)
+        Comunicadoid: parseInt(comunicadoid)
     };
 
     $.ajax({
@@ -580,7 +583,7 @@ $(".eliminarArchivo").click(function () {
             $("#nameArchivo").html("");
             $("#fileCSV").val("");
             document.getElementById("EliminarArchivo").style.display = "none";
-            $("#nameArchivo").html("Formato de archivo csv");
+            $("#nameArchivo").html(OBJETO_MENJASE.validaArchivoCsv);
         },
         error: function (error) {
             alert("errror");

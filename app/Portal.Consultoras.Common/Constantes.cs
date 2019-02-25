@@ -3270,5 +3270,15 @@ namespace Portal.Consultoras.Common
                 public const string MaquilladorVirtual = "04";
             }
         }
+
+        #region
+        public static class CarpetasContenido
+        {
+            public const string Menu = "Menu";
+        }
+
+        #endregion
+
+
     }
 }

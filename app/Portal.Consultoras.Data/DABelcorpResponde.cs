@@ -1,4 +1,5 @@
-﻿using Portal.Consultoras.Entities;
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Comunicado;
 using System;
 using System.Collections.Generic;
@@ -47,7 +48,7 @@ namespace Portal.Consultoras.Data
         }
 
         #region Gestor de Poputs
-        public IDataReader GetListaPopup(int estado, string campania,int Paginas,int Filas)
+        public IDataReader GetListaPopup(int estado, string campania, int Paginas, int Filas)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetListadoPopup");
             Context.Database.AddInParameter(command, "@Campania", DbType.AnsiString, campania);
@@ -64,12 +65,12 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        public int  GuardarPopups(string tituloPrincipal, string descripcion, string UrlImagen, string fechaMaxima, string fechaMinima, bool checkDesktop, bool checkMobile, int accionID,string[] arrayColumnasBEComunicadoSegmentacion, string comunicadoId, string nombreArchivo, string codigoCampania, string descripcionAccion)
+        public int GuardarPopups(string tituloPrincipal, string descripcion, string UrlImagen, string fechaMaxima, string fechaMinima, bool checkDesktop, bool checkMobile, int accionID, string[] arrayColumnasBEComunicadoSegmentacion, string comunicadoId, string nombreArchivo, string codigoCampania, string descripcionAccion)
         {
             int TipoDispositivo = 0;
-           DbCommand command = Context.Database.GetStoredProcCommand("dbo.GuardarPopup");
-            if (checkMobile && !checkDesktop) TipoDispositivo = 1;
-            if (!checkMobile && checkDesktop) TipoDispositivo = 2;
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GuardarPopup");
+            if (checkMobile && !checkDesktop) TipoDispositivo = Constantes.ComunicadoTipoDispositivo.Mobile;
+            if (!checkMobile && checkDesktop) TipoDispositivo = Constantes.ComunicadoTipoDispositivo.Desktop;
             /*cabecera*/
             Context.Database.AddInParameter(command, "@comunicadoId", DbType.AnsiString, comunicadoId);
             Context.Database.AddInParameter(command, "@tituloPrincipal", DbType.AnsiString, tituloPrincipal);
@@ -83,7 +84,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@codigoCampania", DbType.AnsiString, codigoCampania);
             Context.Database.AddInParameter(command, "@accionID", DbType.Int32, accionID);
             /*Detalle*/
-            Context.Database.AddInParameter(command, "@RegionId", DbType.AnsiString, arrayColumnasBEComunicadoSegmentacion[0]!=null? arrayColumnasBEComunicadoSegmentacion[0].ToString():string.Empty );
+            Context.Database.AddInParameter(command, "@RegionId", DbType.AnsiString, arrayColumnasBEComunicadoSegmentacion[0] != null ? arrayColumnasBEComunicadoSegmentacion[0].ToString() : string.Empty);
             Context.Database.AddInParameter(command, "@ZonaId", DbType.AnsiString, arrayColumnasBEComunicadoSegmentacion[1] != null ? arrayColumnasBEComunicadoSegmentacion[1].ToString() : string.Empty);
             Context.Database.AddInParameter(command, "@Estado", DbType.AnsiString, arrayColumnasBEComunicadoSegmentacion[2] != null ? arrayColumnasBEComunicadoSegmentacion[2].ToString() : string.Empty);
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, arrayColumnasBEComunicadoSegmentacion[3] != null ? arrayColumnasBEComunicadoSegmentacion[3].ToString() : string.Empty);

@@ -16,14 +16,15 @@ using System.IO;
 using System.Web.Script.Serialization;
 using System.Runtime.Serialization.Json;
 using System.Drawing;
-    
+
 namespace Portal.Consultoras.Web.Controllers
 {
     public class AdministracionPopupsController : BaseAdmController
     {
         #region DECLARACIÓN DE VARIABLES GLOBALES
-                int NUMERO_FILAS = 20;
-                int PAGINAS_MAXIMAS = 0;
+        int NUMERO_FILAS = 20;
+        int PAGINAS_MAXIMAS = 0;
+        string carpeta = Constantes.CarpetasContenido.Menu.ToString();
         #endregion
 
         #region CONSULTAS Y CARGAR INICIALES
@@ -96,67 +97,67 @@ namespace Portal.Consultoras.Web.Controllers
         #endregion
 
         #region ARCHIVOS
-       [HttpPost]
+        [HttpPost]
         public ActionResult GetCargarArchivoCSV()
-      {
+        {
             List<Archivo> listArchivo = new List<Archivo>();
-            string filePath = string.Empty,filename=string.Empty;
+            string filePath = string.Empty, filename = string.Empty;
 
-         try
-         {
-                if (Request.Files.Count > 0)
+            try
             {
-                HttpPostedFileBase frmData = Request.Files[0];
-            
-                if (frmData != null)
+                if (Request.Files.Count > 0)
                 {
-                    if (frmData.FileName.EndsWith(".csv"))
-                    {
-                        string path = Server.MapPath("~/Uploads/");
-                        if (!Directory.Exists(path))
-                        {
-                            Directory.CreateDirectory(path);
+                    HttpPostedFileBase frmData = Request.Files[0];
 
-                        }
-                        filePath = path + Path.GetFileName(frmData.FileName);
-                        filename = Path.GetFileName(frmData.FileName);
-                        string extension = Path.GetExtension(frmData.FileName);
-                        frmData.SaveAs(filePath);
-                        int contador = 0;
-                        string csvData = System.IO.File.ReadAllText(filePath);
-                        foreach (string row in csvData.Split('\n'))
-                        {
-                            if (contador != 0)
-                            {
-                                if (!string.IsNullOrEmpty(row))
-                                {
-                                    listArchivo.Add(new Archivo()
-                                    {
-                                        RegionId = Convert.ToInt32(row.Split(","[0])[0]),
-                                        ZonaId = Convert.ToInt32(row.Split(","[0])[1]),
-                                        Estado = Convert.ToInt32(row.Split(","[0])[2]),
-                                        Consultoraid = Convert.ToInt32(row.Split(","[0])[3])
-                                    });
-                                }
-                            }
-                            contador += 1;
-                        }
-                    }
-                    else
+                    if (frmData != null)
                     {
-                        return Json(new { dataerror = true, archivo = "Este formato de archivo no es compatible" });
+                        if (frmData.FileName.EndsWith(".csv"))
+                        {
+                            string path = Server.MapPath("~/Uploads/");
+                            if (!Directory.Exists(path))
+                            {
+                                Directory.CreateDirectory(path);
+
+                            }
+                            filePath = path + Path.GetFileName(frmData.FileName);
+                            filename = Path.GetFileName(frmData.FileName);
+                            string extension = Path.GetExtension(frmData.FileName);
+                            frmData.SaveAs(filePath);
+                            int contador = 0;
+                            string csvData = System.IO.File.ReadAllText(filePath);
+                            foreach (string row in csvData.Split('\n'))
+                            {
+                                if (contador != 0)
+                                {
+                                    if (!string.IsNullOrEmpty(row))
+                                    {
+                                        listArchivo.Add(new Archivo()
+                                        {
+                                            RegionId = Convert.ToInt32(row.Split(","[0])[0]),
+                                            ZonaId = Convert.ToInt32(row.Split(","[0])[1]),
+                                            Estado = Convert.ToInt32(row.Split(","[0])[2]),
+                                            Consultoraid = Convert.ToInt32(row.Split(","[0])[3])
+                                        });
+                                    }
+                                }
+                                contador += 1;
+                            }
+                        }
+                        else
+                        {
+                            return Json(new { dataerror = true, archivo = "Este formato de archivo no es compatible" });
+                        }
                     }
                 }
-            }
 
-         }
+            }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 listArchivo = new List<Archivo>();
             }
-            return Json( new { dataerror=false, archivo= filename , listArchivo = listArchivo }, JsonRequestBehavior.AllowGet);
-      }
+            return Json(new { dataerror = false, archivo = filename, listArchivo = listArchivo }, JsonRequestBehavior.AllowGet);
+        }
 
         public JsonResult EliminarArchivoCsv(int Comunicadoid)
         {
@@ -209,14 +210,9 @@ namespace Portal.Consultoras.Web.Controllers
 
         private string GetGuardarImagenServidor(string imagenActual, string imagenAnterior)
         {
-
             var path = Path.Combine(Globals.RutaTemporales, imagenActual);
-            var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-            var time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
-            var newfilename = userData.CodigoISO + "_" + time + "_" + "01" + "_" + FileManager.RandomString() + ".png";
-            if (imagenAnterior != "") ConfigS3.DeleteFileS3(carpetaPais, imagenAnterior);
-            ConfigS3.SetFileS3(path, carpetaPais, newfilename);
-            return newfilename;
+            if (imagenAnterior != "") ConfigS3.DeleteFileS3(carpeta, imagenAnterior);
+            return ConfigS3.SetFileS3URL(path, carpeta, imagenActual);
         }
 
         private string GetImagen(string urlImagen)
@@ -269,7 +265,7 @@ namespace Portal.Consultoras.Web.Controllers
                 Activo = objetoContenidoService.Activo,
                 DescripcionAccion = objetoContenidoService.DescripcionAccion,
                 SegmentacionID = Convert.ToInt32(objetoContenidoService.SegmentacionID),
-                UrlImagen = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, objetoContenidoService.UrlImagen),
+                UrlImagen = ConfigS3.GetUrlFileS3("Menu", objetoContenidoService.UrlImagen, string.Empty),
                 NombreImagen = GetImagen(objetoContenidoService.UrlImagen),
                 Orden = objetoContenidoService.Orden,
                 NombreArchivoCCV = objetoContenidoService.NombreArchivoCCV,
@@ -307,15 +303,15 @@ namespace Portal.Consultoras.Web.Controllers
         {
             string UrlImagen = string.Empty;
             int result = 0;
-        try
-        {
+            try
+            {
                 if (Request.Files["imagen"] != null)
                 {
                     HttpPostedFileBase frmDataImagen = Request.Files["imagen"];
                     string urlNueva = GetGuardarImagenServidor(frmDataImagen.FileName, Request.Form["imagenAnterior"]);
                     UrlImagen = urlNueva;
                 }
-                else  UrlImagen = Request.Form["imagenAnterior"];
+                else UrlImagen = Request.Form["imagenAnterior"];
 
                 string comunicadoId = Request.Form["comunicadoId"];
                 string tituloPrincipal = Request.Form["txtTituloPrincipal"];
@@ -329,16 +325,16 @@ namespace Portal.Consultoras.Web.Controllers
                 string codigoCampania = Request.Form["codigoCampania"];
                 int accionID = Convert.ToInt32(Request.Form["accionID"]);
 
-            using (ContenidoServiceClient svr = new ContenidoServiceClient())
-            {
-                result = svr.GuardarPopups(tituloPrincipal, descripcion, UrlImagen, fechaMaxima, fechaMinima, checkDesktop, checkMobile, accionID, Request.Form["datosCSV"], comunicadoId, nombreArchivo, codigoCampania, descripcionAccion, userData.PaisID);
-            }
+                using (ContenidoServiceClient svr = new ContenidoServiceClient())
+                {
+                    result = svr.GuardarPopups(tituloPrincipal, descripcion, UrlImagen, fechaMaxima, fechaMinima, checkDesktop, checkMobile, accionID, Request.Form["datosCSV"], comunicadoId, nombreArchivo, codigoCampania, descripcionAccion, userData.PaisID);
+                }
 
-        }
-        catch (Exception ex)
-        {
+            }
+            catch (Exception ex)
+            {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-        }
+            }
             return Json(result, JsonRequestBehavior.AllowGet);
         }
         #endregion
