@@ -592,7 +592,7 @@ namespace Portal.Consultoras.Web.Providers
         public bool CanPay(UsuarioModel userData, PagoEnLineaModel pago)
         {
             return userData.TienePagoEnLinea &&
-                   pago.MontoDeuda > 0 &&
+                   pago.MontoDeuda >= Constantes.TablaLogicaDato.PagoEnLinea.MontoMinimoPago &&
                    userData.MontoDeuda >= pago.MontoDeuda;
         }
 
