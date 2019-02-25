@@ -40,7 +40,6 @@ namespace Portal.Consultoras.Web.Controllers
                         cantidadEstrategiasSinConfigurar = cantidades["CUV_OP"];
                         cantidadEstrategiasSinConfigurarImagen = cantidades["CUV_SI"];
 
-                        //List<string> estrategiasWA = administrarEstrategiaProvider.PreCargar(campaniaId.ToString(), codigoEstrategia, userData.CodigoISO);
                         var estrategiasWA = administrarEstrategiaProvider.PreCargar(campaniaId.ToString(), codigoEstrategia, userData.CodigoISO);
                         foreach (var item in estrategiasWA)
                         {

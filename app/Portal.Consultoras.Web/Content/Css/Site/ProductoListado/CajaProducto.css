@@ -27,6 +27,15 @@
     border-radius: 4px;
 }
 
+.producto-agotado > div:nth-child(2) .producto_img_mobile_bpt img, .producto-agotado > div:nth-child(2) .producto_img_home img, .producto-agotado > div:nth-child(2) .producto_img img {
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    -ms-filter: grayscale(100%);
+    -o-filter: grayscale(100%);
+    filter: grayscale(100%);
+    opacity: .7;
+}
+
 .caja-borde {
     border: 1px solid #e7e1e1;
     border-radius: 4px;
