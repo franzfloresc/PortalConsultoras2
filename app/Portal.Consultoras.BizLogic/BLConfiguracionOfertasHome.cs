@@ -100,29 +100,23 @@ namespace Portal.Consultoras.BizLogic
             return lista;
         }
 
-        public IList<BEConfiguracionOfertasApp> GetListarSeccionAPP(int paisId, int campaniaId)
+        public IList<BEConfiguracionOfertasHomeApp> GetListarSeccionAPP(int paisId, int campaniaId)
         {
-            IList<BEConfiguracionOfertasApp> lista;
+           
             try
             {
                 var da = new DAConfiguracionOfertasHome(paisId);
-                lista = new List<BEConfiguracionOfertasApp>();
                 using (IDataReader reader = da.GetListarSeccionAPP(campaniaId))
                 {
-                    while (reader.Read())
-                    {
-                        var configApp = new BEConfiguracionOfertasApp(reader);
-                        lista.Add(configApp);
-                    }
+                    return  reader.MapToCollection<BEConfiguracionOfertasHomeApp>(true);
                 }
             }
             catch (Exception ex)
             {
                 LogManager.SaveLog(ex, "", paisId.ToString());
-                lista = new List<BEConfiguracionOfertasApp>();
+                return new List<BEConfiguracionOfertasHomeApp>();
             }
 
-            return lista;
         }
 
     }
