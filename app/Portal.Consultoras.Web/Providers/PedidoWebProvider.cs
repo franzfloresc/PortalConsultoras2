@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Portal.Consultoras.Web.ServiceUsuario;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -326,6 +327,26 @@ namespace Portal.Consultoras.Web.Providers
                 return (BuildFechaNoHabil(usuario) == 0);
 
             return true;
+        }
+
+        public int GetPedidoPendientes(UsuarioModel usuario)
+        {
+            if (_configuracionManager.GetMostrarPedidosPendientesFromConfig())
+            {
+                var paisesConsultoraOnline = _configuracionManager.GetPaisesConConsultoraOnlineFromConfig();
+                if (paisesConsultoraOnline.Contains(usuario.CodigoISO)
+                    && usuario.EsConsultora())
+                {
+                    using (var svc = new UsuarioServiceClient())
+                    {
+                        var cantPedidosPendientes = svc.GetCantidadSolicitudesPedido(usuario.PaisID, usuario.ConsultoraID, usuario.CampaniaID);
+
+                        return cantPedidosPendientes;
+                    }
+                }
+            }
+
+            return 0;
         }
 
         private int BuildFechaNoHabil(UsuarioModel usuario)
