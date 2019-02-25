@@ -3313,67 +3313,68 @@ namespace Portal.Consultoras.BizLogic
                 var lstCodigo = codigoConfiguracionPais.Split('|');
                 var lstConfig = configuraciones.Where(x => lstCodigo.Any(y => y == x.Codigo));
 
-                if (configuraciones.Any())
+                if (!lstConfig.Any())
                 {
-                    var configuracionPaisDatosAll = GetConfiguracionPaisDatos(usuario);
+                    return usuario;
+                }
 
-                    foreach (var configuracion in lstConfig)
+                var configuracionPaisDatosAll = GetConfiguracionPaisDatos(usuario);
+
+                foreach (var configuracion in lstConfig)
+                {
+                    var configuracionPaisDatos = configuracionPaisDatosAll.Where(d => d.ConfiguracionPaisID == configuracion.ConfiguracionPaisID).ToList();
+
+                    switch (configuracion.Codigo)
                     {
-                        if (configuracion == null) return usuario;
-
-                        var configuracionPaisDatos = configuracionPaisDatosAll.Where(d => d.ConfiguracionPaisID == configuracion.ConfiguracionPaisID).ToList();
-
-                        switch (configuracion.Codigo)
-                        {
-                            case Constantes.ConfiguracionPais.RevistaDigital:
-                                revistaDigitalModel = ConfiguracionPaisDatosRevistaDigital(revistaDigitalModel, configuracionPaisDatos, usuario.CodigoISO);
-                                revistaDigitalModel = ConfiguracionPaisRevistaDigital(revistaDigitalModel, usuario);
-                                revistaDigitalModel.BloqueoRevistaImpresa = configuracion.BloqueoRevistaImpresa;
-                                usuario.RevistaDigital = revistaDigitalModel;
-                                break;
-                            case Constantes.ConfiguracionPais.RevistaDigitalReducida:
-                                revistaDigitalModel.TieneRDCR = true;
-                                revistaDigitalModel.BloqueoRevistaImpresa = revistaDigitalModel.BloqueoRevistaImpresa || configuracion.BloqueoRevistaImpresa;
-                                continue;
-                            case Constantes.ConfiguracionPais.RevistaDigitalIntriga:
-                                revistaDigitalModel.TieneRDI = true;
-                                break;
-                            case Constantes.ConfiguracionPais.ValidacionMontoMaximo:
-                                usuario.TieneValidacionMontoMaximo = configuracion.Estado;
-                                break;
-                            case Constantes.ConfiguracionPais.OfertaFinalTradicional:
-                            case Constantes.ConfiguracionPais.OfertaFinalCrossSelling:
-                            case Constantes.ConfiguracionPais.OfertaFinalRegaloSorpresa:
-                                var ofertaFinalModel = new BEOfertaFinal()
-                                {
-                                    Algoritmo = configuracion.Codigo,
-                                    Estado = configuracion.Estado
-                                };
-                                if (configuracion.Estado)
-                                {
-                                    usuario.OfertaFinal = 1;
-                                    usuario.EsOfertaFinalZonaValida = true;
-                                }
-                                usuario.beOfertaFinal = ofertaFinalModel;
-                                break;
-                            case Constantes.ConfiguracionPais.BuscadorYFiltros:
-                                usuario.BuscadorYFiltrosConfiguracion = ConfiguracionPaisBuscadorYFiltro(configuracionPaisDatos);
-                                break;
-                            case Constantes.ConfiguracionPais.PagoEnLinea:
-                                if (configuracion.Estado) usuario.TienePagoEnLinea = true;
-                                break;
-                            case Constantes.ConfiguracionPais.MasGanadoras:
-                                usuario.TieneMG = configuracion.Estado;
-                                break;
-                            case Constantes.ConfiguracionPais.Recomendaciones:
-                                usuario.RecomendacionesConfiguracion = configuracionPaisDatos;
-                                break;
-                            case Constantes.ConfiguracionPais.Datami:
-                                usuario.SegmentoDatami = GetSegmentoDatami(usuario);
-                                break;
-                        }
+                        case Constantes.ConfiguracionPais.RevistaDigital:
+                            revistaDigitalModel = ConfiguracionPaisDatosRevistaDigital(revistaDigitalModel, configuracionPaisDatos, usuario.CodigoISO);
+                            revistaDigitalModel = ConfiguracionPaisRevistaDigital(revistaDigitalModel, usuario);
+                            revistaDigitalModel.BloqueoRevistaImpresa = configuracion.BloqueoRevistaImpresa;
+                            usuario.RevistaDigital = revistaDigitalModel;
+                            break;
+                        case Constantes.ConfiguracionPais.RevistaDigitalReducida:
+                            revistaDigitalModel.TieneRDCR = true;
+                            revistaDigitalModel.BloqueoRevistaImpresa = revistaDigitalModel.BloqueoRevistaImpresa || configuracion.BloqueoRevistaImpresa;
+                            continue;
+                        case Constantes.ConfiguracionPais.RevistaDigitalIntriga:
+                            revistaDigitalModel.TieneRDI = true;
+                            break;
+                        case Constantes.ConfiguracionPais.ValidacionMontoMaximo:
+                            usuario.TieneValidacionMontoMaximo = configuracion.Estado;
+                            break;
+                        case Constantes.ConfiguracionPais.OfertaFinalTradicional:
+                        case Constantes.ConfiguracionPais.OfertaFinalCrossSelling:
+                        case Constantes.ConfiguracionPais.OfertaFinalRegaloSorpresa:
+                            var ofertaFinalModel = new BEOfertaFinal()
+                            {
+                                Algoritmo = configuracion.Codigo,
+                                Estado = configuracion.Estado
+                            };
+                            if (configuracion.Estado)
+                            {
+                                usuario.OfertaFinal = 1;
+                                usuario.EsOfertaFinalZonaValida = true;
+                            }
+                            usuario.beOfertaFinal = ofertaFinalModel;
+                            break;
+                        case Constantes.ConfiguracionPais.BuscadorYFiltros:
+                            usuario.BuscadorYFiltrosConfiguracion = ConfiguracionPaisBuscadorYFiltro(configuracionPaisDatos);
+                            break;
+                        case Constantes.ConfiguracionPais.PagoEnLinea:
+                            if (configuracion.Estado) usuario.TienePagoEnLinea = true;
+                            break;
+                        case Constantes.ConfiguracionPais.MasGanadoras:
+                            usuario.TieneMG = configuracion.Estado;
+                            break;
+                        case Constantes.ConfiguracionPais.Recomendaciones:
+                            usuario.RecomendacionesConfiguracion = configuracionPaisDatos;
+                            break;
+                        case Constantes.ConfiguracionPais.Datami:
+                            usuario.SegmentoDatami = GetSegmentoDatami(usuario);
+                            break;
                     }
                 }
+
             }
             catch (Exception ex)
             {
@@ -3784,15 +3785,15 @@ namespace Portal.Consultoras.BizLogic
 
             if (usuario.SegmentoInternoID == Constantes.SegmentoInterno.Inconstantes || usuario.SegmentoInternoID == Constantes.SegmentoInterno.SinSegmento)
                 segmentoDatami = Constantes.SegmentoDatami.SegmentoA;
-            else if(usuario.IndicadorConsultoraDigital == 1)
+            else if (usuario.IndicadorConsultoraDigital == 1)
                 segmentoDatami = Constantes.SegmentoDatami.SegmentoB;
-            else if(usuario.RevistaDigital.EsSuscrita)
+            else if (usuario.RevistaDigital.EsSuscrita)
                 segmentoDatami = Constantes.SegmentoDatami.SegmentoC;
-            else if(usuario.SegmentoInternoID == Constantes.SegmentoInterno.EmpresariaDeBelleza || usuario.SegmentoInternoID == Constantes.SegmentoInterno.EmpresariaBrillante || usuario.SegmentoInternoID == Constantes.SegmentoInterno.Nuevas)
+            else if (usuario.SegmentoInternoID == Constantes.SegmentoInterno.EmpresariaDeBelleza || usuario.SegmentoInternoID == Constantes.SegmentoInterno.EmpresariaBrillante || usuario.SegmentoInternoID == Constantes.SegmentoInterno.Nuevas)
                 segmentoDatami = Constantes.SegmentoDatami.SegmentoD;
-            else if(usuario.SegmentoInternoID == Constantes.SegmentoInterno.ExpertaDeBelleza)
+            else if (usuario.SegmentoInternoID == Constantes.SegmentoInterno.ExpertaDeBelleza)
                 segmentoDatami = Constantes.SegmentoDatami.SegmentoE;
-            else if(usuario.SegmentoInternoID == Constantes.SegmentoInterno.EspecialistaDeBelleza || usuario.SegmentoInternoID == Constantes.SegmentoInterno.AsesoraDeBelleza)
+            else if (usuario.SegmentoInternoID == Constantes.SegmentoInterno.EspecialistaDeBelleza || usuario.SegmentoInternoID == Constantes.SegmentoInterno.AsesoraDeBelleza)
                 segmentoDatami = Constantes.SegmentoDatami.SegmentoF;
                return segmentoDatami;
         }

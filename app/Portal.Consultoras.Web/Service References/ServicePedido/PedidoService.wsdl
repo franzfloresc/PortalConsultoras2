@@ -184,17 +184,29 @@
   <wsdl:message name="IPedidoService_ObtenerCertificadoDigital_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerCertificadoDigitalResponse" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_GetCUV_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetCUV" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_GetCUV_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetCUVResponse" />
-  </wsdl:message>
   <wsdl:message name="IPedidoService_InsertPedidoDetalle_InputMessage">
     <wsdl:part name="parameters" element="tns:InsertPedidoDetalle" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_InsertPedidoDetalle_OutputMessage">
     <wsdl:part name="parameters" element="tns:InsertPedidoDetalleResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_UpdatePedidoDetalle_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdatePedidoDetalle" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_UpdatePedidoDetalle_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdatePedidoDetalleResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_DeletePedido_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeletePedido" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_DeletePedido_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeletePedidoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetCUV_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCUV" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetCUV_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCUVResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_GetPedido_InputMessage">
     <wsdl:part name="parameters" element="tns:GetPedido" />
@@ -208,23 +220,11 @@
   <wsdl:message name="IPedidoService_InsertKitInicio_OutputMessage">
     <wsdl:part name="parameters" element="tns:InsertKitInicioResponse" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_UpdatePedidoDetalle_InputMessage">
-    <wsdl:part name="parameters" element="tns:UpdatePedidoDetalle" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_UpdatePedidoDetalle_OutputMessage">
-    <wsdl:part name="parameters" element="tns:UpdatePedidoDetalleResponse" />
-  </wsdl:message>
   <wsdl:message name="IPedidoService_GetConfiguracionPedido_InputMessage">
     <wsdl:part name="parameters" element="tns:GetConfiguracionPedido" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_GetConfiguracionPedido_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetConfiguracionPedidoResponse" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_DeletePedido_InputMessage">
-    <wsdl:part name="parameters" element="tns:DeletePedido" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_DeletePedido_OutputMessage">
-    <wsdl:part name="parameters" element="tns:DeletePedidoResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_ReservaPedido_InputMessage">
     <wsdl:part name="parameters" element="tns:ReservaPedido" />
@@ -2617,13 +2617,21 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerCertificadoDigital" message="tns:IPedidoService_ObtenerCertificadoDigital_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerCertificadoDigitalResponse" message="tns:IPedidoService_ObtenerCertificadoDigital_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetCUV">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetCUV" message="tns:IPedidoService_GetCUV_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetCUVResponse" message="tns:IPedidoService_GetCUV_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="InsertPedidoDetalle">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertPedidoDetalle" message="tns:IPedidoService_InsertPedidoDetalle_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsertPedidoDetalleResponse" message="tns:IPedidoService_InsertPedidoDetalle_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePedidoDetalle">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/UpdatePedidoDetalle" message="tns:IPedidoService_UpdatePedidoDetalle_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/UpdatePedidoDetalleResponse" message="tns:IPedidoService_UpdatePedidoDetalle_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeletePedido">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/DeletePedido" message="tns:IPedidoService_DeletePedido_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/DeletePedidoResponse" message="tns:IPedidoService_DeletePedido_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCUV">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetCUV" message="tns:IPedidoService_GetCUV_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetCUVResponse" message="tns:IPedidoService_GetCUV_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetPedido">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetPedido" message="tns:IPedidoService_GetPedido_InputMessage" />
@@ -2633,17 +2641,9 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertKitInicio" message="tns:IPedidoService_InsertKitInicio_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsertKitInicioResponse" message="tns:IPedidoService_InsertKitInicio_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="UpdatePedidoDetalle">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/UpdatePedidoDetalle" message="tns:IPedidoService_UpdatePedidoDetalle_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/UpdatePedidoDetalleResponse" message="tns:IPedidoService_UpdatePedidoDetalle_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="GetConfiguracionPedido">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetConfiguracionPedido" message="tns:IPedidoService_GetConfiguracionPedido_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetConfiguracionPedidoResponse" message="tns:IPedidoService_GetConfiguracionPedido_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="DeletePedido">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/DeletePedido" message="tns:IPedidoService_DeletePedido_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/DeletePedidoResponse" message="tns:IPedidoService_DeletePedido_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ReservaPedido">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ReservaPedido" message="tns:IPedidoService_ReservaPedido_InputMessage" />
@@ -4387,8 +4387,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetCUV">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetCUV" style="document" />
+    <wsdl:operation name="InsertPedidoDetalle">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertPedidoDetalle" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4396,8 +4396,26 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="InsertPedidoDetalle">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertPedidoDetalle" style="document" />
+    <wsdl:operation name="UpdatePedidoDetalle">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdatePedidoDetalle" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeletePedido">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/DeletePedido" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCUV">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetCUV" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4423,26 +4441,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="UpdatePedidoDetalle">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdatePedidoDetalle" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetConfiguracionPedido">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetConfiguracionPedido" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="DeletePedido">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/DeletePedido" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -8108,8 +8108,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetCUV">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetCUV" style="document" />
+    <wsdl:operation name="InsertPedidoDetalle">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertPedidoDetalle" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -8117,8 +8117,26 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="InsertPedidoDetalle">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertPedidoDetalle" style="document" />
+    <wsdl:operation name="UpdatePedidoDetalle">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdatePedidoDetalle" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeletePedido">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/DeletePedido" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCUV">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetCUV" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -8144,26 +8162,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="UpdatePedidoDetalle">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdatePedidoDetalle" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetConfiguracionPedido">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetConfiguracionPedido" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="DeletePedido">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/DeletePedido" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

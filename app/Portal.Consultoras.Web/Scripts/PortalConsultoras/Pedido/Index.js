@@ -25,6 +25,8 @@ var listaParametriaOfertaFinal = listaParametriaOfertaFinal || {};
 var cuvbuscado = "";
 var cuvEsCuponNuevas = false;
 
+var pedidoProvider = PedidoProvider();
+
 $(document).ready(function () {
     ValidarKitNuevas();
     var hdDataBarra = $("#hdDataBarra").val();
@@ -445,6 +447,7 @@ $(document).ready(function () {
         //} else {
         //    CerrarSplash();
         //    AbrirMensaje(validarEstrategia.message);
+        //    ProductoRecomendadoModule.OcultarProductosRecomendados();
         //    $("#btnAgregar").removeAttr("disabled");
         //}
 
@@ -511,6 +514,7 @@ $(document).ready(function () {
         return false;
     });
 
+    
 });
 
 function CargarDetallePedido(page, rows, asyncrono) {
@@ -518,24 +522,17 @@ function CargarDetallePedido(page, rows, asyncrono) {
 
     $("#tbobyDetallePedido").html('<div><div style="width:100%;"><div style="text-align: center;"><br>Cargando Detalle de Productos<br><img src="' + urlLoad + '" /></div></div></div>');
 
-    var clienteId = $("#ddlClientes").val() || -1;
-    var obj = {
+    var pedidoPageParams = {
         sidx: "",
         sord: "",
         page: page || 1,
         rows: rows || $($('[data-paginacion="rows"]')[0]).val() || 20,
-        clienteId: clienteId
+        clienteId: $("#ddlClientes").val() || -1
     };
 
-    asyncrono = asyncrono == undefined ? true : asyncrono;
-    $.ajax({
-        type: "POST",
-        url: baseUrl + "Pedido/CargarDetallePedido",
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        data: JSON.stringify(obj),
-        async: asyncrono,
-        success: function (response) {
+    pedidoProvider
+        .cargarDetallePedidoPromise(pedidoPageParams)
+        .done(function (response) {
             if (checkTimeout(response)) {
                 var data = response.data;
 
@@ -568,7 +565,7 @@ function CargarDetallePedido(page, rows, asyncrono) {
                 });
 
                 $("#ddlClientes").append(htmlCliente);
-                $("#ddlClientes").val(clienteId);
+                $("#ddlClientes").val(pedidoPageParams.clienteId);
 
                 data.ListaDetalleModel = data.ListaDetalleModel || [];
                 $.each(data.ListaDetalleModel, function (ind, item) {
@@ -590,11 +587,12 @@ function CargarDetallePedido(page, rows, asyncrono) {
                 $("#paginadorCab [data-paginacion='rows']").val(data.Registros || 10);
                 $("#paginadorPie [data-paginacion='rows']").val(data.Registros || 10);
 
-                MostrarInformacionCliente(clienteId);
+                MostrarInformacionCliente(pedidoPageParams.clienteId);
                 mostrarSimplificacionCUV();
 
                 MostrarBarra(response);
                 CargarAutocomplete();
+                //MuestraFichaResumida();
 
                 if ($("#penmostreo").length > 0) {
                     if ($("#penmostreo").attr("[data-tab-activo]") == "1") {
@@ -602,9 +600,10 @@ function CargarDetallePedido(page, rows, asyncrono) {
                     }
                 }
             }
-        },
-        error: function (response, error) { }
-    });
+        })
+        .fail(function (response, error) {
+        });
+
 }
 
 function CargarDialogMesajePostulantePedido() {
@@ -644,15 +643,12 @@ function UpdateUsuarioTutoriales() {
     var item = {
         tipo: "1" // Para Desktop
     };
-    $.ajax({
-        type: "POST",
-        url: baseUrl + "Pedido/UpdatePostulanteMensaje",
-        data: JSON.stringify(item),
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        success: function (data) { },
-        error: function (data) { }
-    });
+
+    pedidoProvider
+        .updatePostulanteMensaje(item)
+        .done(function (data) { })
+        .fail(function (data, error) { });
+
     return true;
 }
 
@@ -814,7 +810,6 @@ function ValidarStockEstrategia() {
             success: false,
             message: "No se puede agregar una Oferta Liquidacion por este medio."
         };
-
         return resultado;
     }
 
@@ -1048,7 +1043,6 @@ function ArmarDetallePedidoPaginador(data) {
 }
 
 function ArmarDetallePedido(array) {
-
     return SetHandlebars("#producto-template", array);
 }
 
@@ -1782,11 +1776,11 @@ function CargarAutocomplete() {
         return false;
 
     $.each(listaCampo, function (indexCampo, array) {
-    
-    	$(array).focus(function () {
+
+        $(array).focus(function () {
             if (HorarioRestringido())
                 this.blur();
-        });        
+        });
 
         $(array).autocomplete({
             source: baseUrl + "Pedido/AutocompleteByClienteListado",
@@ -1838,7 +1832,6 @@ function CargarAutocomplete() {
         };
 
     });
-    
 }
 
 function CalcularTotal() {
@@ -1864,8 +1857,8 @@ function CerrarProductoAgregado() {
     $("#pop_liquidacion").hide();
 }
 
-function ValidDeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cuv, cantidad, clienteId, cuvReco, esBackOrder, setId, esElecMultipleNuevas) {
-
+function ValidDeletePedido(event, campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cuv, cantidad, clienteId, cuvReco, esBackOrder, setId, esElecMultipleNuevas) {
+    event.stopPropagation();
     ValidDeleteElectivoNuevas(
         cuv,
         esElecMultipleNuevas,
@@ -3598,13 +3591,13 @@ function InsertarDemandaTotalReemplazoSugerido(cuvSugerido, precio, cantidad, es
     var _cuvprecio = esAceptado == true ? precio : DecimalToStringFormat($("#txtPrecioR").val());
     waitingDialog({});
     var model =
-    {
-        CUV: cuvbuscado,
-        CUVSugerido: cuvSugerido,
-        PrecioUnidad: _cuvprecio,
-        Cantidad: cantidad,
-        CuvEsAceptado: esAceptado
-    };
+        {
+            CUV: cuvbuscado,
+            CUVSugerido: cuvSugerido,
+            PrecioUnidad: _cuvprecio,
+            Cantidad: cantidad,
+            CuvEsAceptado: esAceptado
+        };
 
     jQuery.ajax({
         type: "POST",
@@ -3682,5 +3675,3 @@ function CargarProductosRecomendados(item) {
     }
 
 }
-
-

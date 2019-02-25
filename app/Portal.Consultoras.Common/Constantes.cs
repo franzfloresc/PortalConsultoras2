@@ -286,6 +286,13 @@ namespace Portal.Consultoras.Common
 
         }
 
+        public static class TipoAccionNavegar
+        {
+            public const int SinBoton = 0;
+            public const int BreadCrumbs = 1;
+            public const int Volver = 2;
+        }
+
         public static class Inicializacion
         {
             public const int EnteroInicial = -1;
@@ -632,7 +639,7 @@ namespace Portal.Consultoras.Common
             public const string DGuiaNegocio = "1I0";
             public const string MGuiaNegocio = "2I0";
             public const string DHerramientaVenta = "1J0";
-            public const string MHerramientaVenta = "2J0";
+            public const string MHerramientaVenta = "2J0";  
             public const string DMasGanadoras = "1K0";
             public const string MMasGanadoras = "2K0";
             public const string DDuoPerfecto = "1L0";
@@ -2439,6 +2446,7 @@ namespace Portal.Consultoras.Common
             public const string INSERT = "I";
             public const string UPDATE = "U";
             public const string DELETE = "D";
+            public const string UPDATESET = "US";
         }
 
         public static class FlagRevista

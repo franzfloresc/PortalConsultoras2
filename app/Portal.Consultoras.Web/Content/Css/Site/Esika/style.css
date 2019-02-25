@@ -37,6 +37,15 @@ body {
         display: none;
     }
 
+
+input, button, ul, li, a{
+    font-family: 'Lato', sans-serif !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Lato', sans-serif !important;
+}
+
 .SubHeader {
     background: #f9f9f9;
 }

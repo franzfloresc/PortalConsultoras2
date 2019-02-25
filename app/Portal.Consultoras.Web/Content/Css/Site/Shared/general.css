@@ -32,6 +32,10 @@ body > img{
     display:none;
 }
 
+button {
+    cursor: pointer;
+}
+
 button:focus{
     outline:0;
 }

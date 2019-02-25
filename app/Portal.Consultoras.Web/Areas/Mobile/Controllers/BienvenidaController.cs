@@ -130,7 +130,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 #region Camino al Exito
 
-                var LogicaCaminoExisto = _tablaLogica.ObtenerConfiguracion(userData.PaisID, Constantes.TablaLogica.EscalaDescuentoMobile);
+                var LogicaCaminoExisto = _tablaLogica.GetTablaLogicaDatos(userData.PaisID, Constantes.TablaLogica.EscalaDescuentoMobile);
                 if (LogicaCaminoExisto.Any())
                 {
                     var CaminoExistoFirst = LogicaCaminoExisto.FirstOrDefault(x => x.TablaLogicaDatosID == Constantes.TablaLogicaDato.ActualizaEscalaDescuentoMobile) ?? new TablaLogicaDatosModel();

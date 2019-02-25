@@ -34,15 +34,25 @@ namespace Portal.Consultoras.Web.Controllers
         private readonly int CRITERIO_BUSQUEDA_DESC_PRODUCTO = 2;
         private readonly int CRITERIO_BUSQUEDA_PRODUCTO_CANT = 10;
         private readonly int CUV_NO_TIENE_CREDITO = 2;
+
         private readonly PedidoSetProvider _pedidoSetProvider;
         protected ProductoFaltanteProvider _productoFaltanteProvider;
         private readonly ConfiguracionPaisDatosProvider _configuracionPaisDatosProvider;
 
         public PedidoController()
+            : this(new PedidoSetProvider(),
+                  new ProductoFaltanteProvider(),
+                  new ConfiguracionPaisDatosProvider())
         {
-            _pedidoSetProvider = new PedidoSetProvider();
-            _productoFaltanteProvider = new ProductoFaltanteProvider();
-            _configuracionPaisDatosProvider = new ConfiguracionPaisDatosProvider();
+        }
+
+        public PedidoController(PedidoSetProvider pedidoSetProvider,
+            ProductoFaltanteProvider productoFaltanteProvider,
+            ConfiguracionPaisDatosProvider configuracionPaisDatosProvider)
+        {
+            _pedidoSetProvider = pedidoSetProvider;
+            _productoFaltanteProvider = productoFaltanteProvider;
+            _configuracionPaisDatosProvider = configuracionPaisDatosProvider;
         }
 
         public ActionResult Index(bool lanzarTabConsultoraOnline = false, string cuv = "", int campana = 0)
@@ -3535,28 +3545,9 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     if (listaDetalle.Count == 0)
                     {
-                        int isInsert;
-                        using (var sv = new PedidoServiceClient())
-                        {
-                            var bePedidoWeb = new BEPedidoWeb
-                            {
-                                CampaniaID = userData.CampaniaID,
-                                ConsultoraID = userData.ConsultoraID,
-                                PaisID = userData.PaisID,
-                                IPUsuario = userData.IPUsuario,
-                                CodigoUsuarioCreacion = userData.CodigoUsuario
-                            };
-
-                            isInsert = sv.GetProductoCUVsAutomaticosToInsert(bePedidoWeb);
-                        }
-                        if (isInsert > 0)
-                        {
-                            SessionManager.SetDetallesPedido(null);
-                            SessionManager.SetDetallesPedidoSetAgrupado(null);
-                            listaDetalle = ObtenerPedidoWebDetalle();
-
-                            UpdPedidoWebMontosPROL();
-                        }
+                        var inserto = AgregarCuvsAutomatico();
+                        if (inserto)
+                            listaDetalle = ObtenerPedidoWebSetDetalleAgrupado() ?? new List<BEPedidoWebDetalle>();
                     }
 
                     page = 1;
@@ -3575,11 +3566,7 @@ namespace Portal.Consultoras.Web.Controllers
                 listaDetalle = listaDetalle.Where(p => p.ClienteID == clienteId || clienteId == -1).ToList();
                 var totalCliente = listaDetalle.Sum(p => p.ImporteTotal);
 
-                var pedidoWebDetalleModel = Mapper.Map<List<BEPedidoWebDetalle>, List<PedidoWebDetalleModel>>(listaDetalle);
-
-                pedidoWebDetalleModel.ForEach(p => p.Simbolo = userData.Simbolo);
-                pedidoWebDetalleModel.ForEach(p => p.CodigoIso = userData.CodigoISO);
-                pedidoWebDetalleModel.ForEach(p => p.DescripcionCortadaProd = Util.SubStrCortarNombre(p.DescripcionProd, 73));
+                var pedidoWebDetalleModel = MapearListaDetalleModel(listaDetalle);
 
                 model.ListaDetalleModel = pedidoWebDetalleModel;
                 model.Total = total;
@@ -3638,6 +3625,95 @@ namespace Portal.Consultoras.Web.Controllers
                     data = "",
                     dataBarra = new BarraConsultoraModel()
                 });
+            }
+        }
+
+        private bool AgregarCuvsAutomatico()
+        {
+            int isInsert;
+            var bePedidoWeb = new BEPedidoWeb
+            {
+                CampaniaID = userData.CampaniaID,
+                ConsultoraID = userData.ConsultoraID,
+                PaisID = userData.PaisID,
+                IPUsuario = userData.IPUsuario,
+                CodigoUsuarioCreacion = userData.CodigoUsuario
+            };
+
+            using (var sv = new PedidoServiceClient())
+            {
+                isInsert = sv.GetProductoCUVsAutomaticosToInsert(bePedidoWeb);
+            }
+
+            if (isInsert > 0)
+            {
+                SessionManager.SetDetallesPedido(null);
+                SessionManager.SetDetallesPedidoSetAgrupado(null);
+
+                UpdPedidoWebMontosPROL();
+
+                return true;
+            }
+
+            return false;
+        }
+
+        private List<PedidoWebDetalleModel> MapearListaDetalleModel(List<BEPedidoWebDetalle> listaDetalle)
+        {
+            var pedidoWebDetalleModel = Mapper.Map<List<BEPedidoWebDetalle>, List<PedidoWebDetalleModel>>(listaDetalle);
+
+            var pedidoEditable = _tablaLogicaProvider.GetTablaLogicaDatoValorBool(
+                            userData.PaisID,
+                            ConsTablaLogica.PasePedido.TablaLogicaID,
+                            ConsTablaLogica.PasePedido.CuvEditable,
+                            true
+                            );
+
+            pedidoWebDetalleModel.ForEach(p => {
+                p.Simbolo = userData.Simbolo;
+                p.CodigoIso = userData.CodigoISO;
+                p.DescripcionCortadaProd = Util.SubStrCortarNombre(p.DescripcionProd, 73);
+                p.TipoAccion = TipoAccionPedido(p, pedidoEditable);
+            });
+
+            return pedidoWebDetalleModel;
+        }
+
+        private int TipoAccionPedido(PedidoWebDetalleModel producto, bool valorConfi)
+        {
+            // los valores deben estar en constantes
+            // considerar tipo estrategia codigo y origen pedido web
+            // caso EsBackOrder
+
+            if (!valorConfi) return 0;
+
+            if ((producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoProductoSugeridoCarrusel ||
+                producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoProductoSugeridoCarrusel) ||  
+                (producto.OrigenPedidoWeb  == Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalCarrusel ||
+                 producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalFicha ||
+                 producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalCarrusel ||
+                 producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalFicha ||
+                 producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.AppConsultoraPedidoOfertaFinalCarrusel ||
+                 producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.AppConsultoraPedidoOfertaFinalFicha)
+                || (producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.AppConsultoraLandingShowroomShowroomSubCampania
+                    || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopLandingShowroomShowroomSubCampania
+                    || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobileLandingShowroomShowroomSubCampania)
+                || producto.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.PackNuevas )
+                return 0;
+
+            switch (producto.TipoEstrategiaCodigo)
+            {
+                case Constantes.TipoEstrategiaCodigo.MasGanadoras:
+                case Constantes.TipoEstrategiaCodigo.ShowRoom:
+                case Constantes.TipoEstrategiaCodigo.Lanzamiento:
+                case Constantes.TipoEstrategiaCodigo.OfertaParaTi:
+                case Constantes.TipoEstrategiaCodigo.OfertasParaMi:
+                case Constantes.TipoEstrategiaCodigo.OfertaDelDia:
+                case Constantes.TipoEstrategiaCodigo.HerramientasVenta:
+                case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
+                    return 1; 
+                default:
+                    return 0;
             }
         }
 
@@ -4649,6 +4725,33 @@ namespace Portal.Consultoras.Web.Controllers
 
             var exTrace = string.Format("ISO:{0};Consultora{1};Cuv:{2}", userData.CodigoISO, userData.CodigoConsultora, cuv);
             LogManager.LogManager.LogErrorWebServicesBus(new CustomTraceException(message, exTrace), userData.CodigoConsultora, userData.CodigoISO);
+        }
+
+        /// <summary>
+        /// Obtiene informacion de componentes seleccionados en el pedido
+        /// </summary>
+        /// <param name="CampaniaID">Campania</param>
+        /// <param name="SetID">Set</param>
+        /// <returns></returns>
+        public JsonResult ObtenerPedidoWebSetDetalle(int campaniaId, int set)
+        {
+            try
+            {
+                var pedidoSet = _pedidoSetProvider.ObtenerPorId(userData.PaisID, set);
+                return Json(new
+                {
+                    success = true,
+                    pedidoSet
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false
+                }, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }

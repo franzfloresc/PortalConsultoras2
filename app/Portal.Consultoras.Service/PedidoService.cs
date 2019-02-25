@@ -53,10 +53,10 @@ namespace Portal.Consultoras.Service
         private readonly IPagoEnLineaBusinessLogic _pagoEnLineaBusinessLogic;
         private readonly BLActivarPremioNuevas _ActivarPremioNuevas;
         private readonly IConsultoraConcursoBusinessLogic _consultoraConcursoBusinessLogic;
-        private readonly IPedidoWebBusinessLogic _pedidoWebBusinessLogic;
         private readonly IConfiguracionProgramaNuevasBusinessLogic _configuracionProgramaNuevasBusinessLogic;
         private readonly ITrackingBusinessLogic _trackingBusinessLogic;
         private readonly IPedidoBusinessLogic _pedidoBusinessLogic;
+        private readonly IPedidoWebBusinessLogic _pedidoWebBusinessLogic;
         private readonly IPedidoWebSetBusinessLogic _pedidoWebSetBusinessLogic;
 
         public PedidoService() : this(new BLConsultoraConcurso(), new BLPedidoWeb(), new BLConfiguracionProgramaNuevas(), new BLTracking(),
@@ -2285,15 +2285,29 @@ namespace Portal.Consultoras.Service
             return _pedidoWebSetBusinessLogic.ObtenerFechaInicioSets(paisId);
         }
 
-        #region PedidoNativo
-        public BEPedidoProducto GetCUV(BEPedidoProductoBuscar productoBuscar)
-        {
-            return _pedidoBusinessLogic.GetCUV(productoBuscar);
-        }
+        #region Pedido Registro Insertar-Actualizar-Eliminar
 
         public BEPedidoDetalleResult InsertPedidoDetalle(BEPedidoDetalle pedidoDetalle)
         {
             return _pedidoBusinessLogic.Insert(pedidoDetalle);
+        }
+
+        public BEPedidoDetalleResult UpdatePedidoDetalle(BEPedidoDetalle pedidoDetalle)
+        {
+            return _pedidoBusinessLogic.Update(pedidoDetalle);
+        }
+
+        public async Task<BEPedidoDetalleResult> DeletePedido(BEPedidoDetalle pedidoDetalle)
+        {
+            return await _pedidoBusinessLogic.Delete(pedidoDetalle);
+        }
+
+        #endregion
+
+        #region PedidoNativo
+        public BEPedidoProducto GetCUV(BEPedidoProductoBuscar productoBuscar)
+        {
+            return _pedidoBusinessLogic.GetCUV(productoBuscar);
         }
 
         public BEPedidoWeb GetPedido(BEUsuario usuario)
@@ -2305,22 +2319,12 @@ namespace Portal.Consultoras.Service
         {
             return _pedidoBusinessLogic.InsertKitInicio(usuario);
         }
-
-        public BEPedidoDetalleResult UpdatePedidoDetalle(BEPedidoDetalle pedidoDetalle)
-        {
-            return _pedidoBusinessLogic.Update(pedidoDetalle);
-        }
-
+        
         public BEConfiguracionPedido GetConfiguracionPedido(int paisID, string codigoUsuario, int campaniaID, string region, string zona)
         {
             return _pedidoBusinessLogic.GetConfiguracion(paisID, codigoUsuario, campaniaID, region, zona);
         }
-
-        public async Task<BEPedidoDetalleResult> DeletePedido(BEPedidoDetalle pedidoDetalle)
-        {
-            return await _pedidoBusinessLogic.Delete(pedidoDetalle);
-        }
-
+        
         public async Task<BEPedidoReservaResult> ReservaPedido(BEUsuario usuario)
         {
             return await _pedidoBusinessLogic.Reserva(usuario);
@@ -2414,8 +2418,6 @@ namespace Portal.Consultoras.Service
         {
             return blEstrategia.LimpiarCacheRedis(paisID, codigoTipoEstrategia, campaniaID);
         }
-
-
-       
+        
     }
 }

@@ -371,15 +371,12 @@ function UpdateUsuarioTutoriales() {
     var item = {
         tipo: '2' // Para mOBILE
     };
-    $.ajax({
-        type: 'POST',
-        url: baseUrl + 'Pedido/UpdatePostulanteMensaje',
-        data: JSON.stringify(item),
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        success: function (data) { },
-        error: function (data) { }
-    });
+
+    pedidoProvider
+        .updatePostulanteMensaje(item)
+        .done(function (data) { })
+        .fail(function (data, error) { });
+
     return true;
 }
 

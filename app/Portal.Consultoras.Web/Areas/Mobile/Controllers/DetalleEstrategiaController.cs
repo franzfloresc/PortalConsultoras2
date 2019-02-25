@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.SessionManager;
+using Portal.Consultoras.Web.Models;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
@@ -17,7 +18,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         }
 
-        public DetalleEstrategiaController(ISessionManager sesionManager, ILogManager logManager, OfertaPersonalizadaProvider ofertaPersonalizadaProvider,OfertaViewProvider ofertaViewProvider)
+        public DetalleEstrategiaController(ISessionManager sesionManager, ILogManager logManager, OfertaPersonalizadaProvider ofertaPersonalizadaProvider, OfertaViewProvider ofertaViewProvider)
             : base(sesionManager, logManager, ofertaPersonalizadaProvider, ofertaViewProvider)
         {
         }
@@ -26,5 +27,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             return base.Ficha(palanca, campaniaId, cuv, origen);
         }
+
     }
 }

@@ -153,5 +153,6 @@ namespace Portal.Consultoras.Web.Models
         public string TipoEstrategiaCodigo { get; set; }
         public bool EsCuponNuevas { get; set; }
         public bool EsElecMultipleNuevas { get; set; }
+        public int TipoAccion { get; set; }
     }
 }
