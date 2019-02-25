@@ -1,0 +1,15 @@
+1.- WSConsultoras
+	Actualizar:
+		<add key="UrlMicroservicioPersonalizacionSearch" value="http://10.12.6.234:5000/"/>
+		<add key="EstrategiaDisponibleMicroservicioPersonalizacion" value="101,001,005,007,008,009,010,030,011" />
+
+	Agregar:
+		<add key="RutaServiceConsultaPROL" value="http://internal-qaelb-webprol-182416748.us-east-1.elb.amazonaws.com:81" />
+		
+2.- PortalConsultoras2
+	Actualizar:
+		<add key="UrlMicroservicioPersonalizacionSearch" value="http://10.12.6.234:5000/"/>
+		<add key="EstrategiaDisponibleMicroservicioPersonalizacion" value="101,001,005,007,008,009,010,030,011" />
+		
+	Agregar:
+		<add key="RutaServiceConsultaPROL" value="http://internal-qaelb-webprol-182416748.us-east-1.elb.amazonaws.com:81" />

@@ -144,6 +144,11 @@ namespace Portal.Consultoras.Service
             return BLPedidoWebDetalle.InsertPedido(pedidoDetalle);
         }
 
+        public IList<BEPedidoWebDetalle> SelectByCampaniaWithLabelProgNuevas(BEPedidoWebDetalleParametros bePedidoWebDetalleParametros)
+        {
+            return BLPedidoWebDetalle.GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros, true, true);
+        }
+
         public IList<BEPedidoWebDetalle> SelectByCampania(BEPedidoWebDetalleParametros bePedidoWebDetalleParametros)
         {
             return BLPedidoWebDetalle.GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros);
@@ -1177,10 +1182,10 @@ namespace Portal.Consultoras.Service
             return new BLEstrategia().ValidarCUVsRecomendados(entidad);
         }
 
-        public List<BEEstrategia> FiltrarEstrategiaPedido(BEEstrategia entidad)
-        {
-            return new BLEstrategia().FiltrarEstrategiaPedido(entidad);
-        }
+        //public List<BEEstrategia> FiltrarEstrategiaPedido(BEEstrategia entidad)
+        //{
+        //    return new BLEstrategia().FiltrarEstrategiaPedido(entidad);
+        //}
         public string ValidarStockEstrategia(BEEstrategia entidad)
         {
             return new BLEstrategia().ValidarStockEstrategia(entidad);
@@ -1852,10 +1857,10 @@ namespace Portal.Consultoras.Service
             return new BLReserva().EnviarCorreoReservaProl(input);
         }
 
-        public int InsertarDesglose(BEInputReservaProl input)
-        {
-            return new BLReserva().InsertarDesglose(input);
-        }
+        //public int InsertarDesglose(BEInputReservaProl input)
+        //{
+        //    return new BLReserva().InsertarDesglose(input);
+        //}
 
         public string CargarSesionAndDeshacerPedidoValidado(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, string tipo)
         {
@@ -2375,6 +2380,7 @@ namespace Portal.Consultoras.Service
         {
             return _pedidoBusinessLogic.GetProductoRecomendado(paisID, RDEsSuscrita, RDEsActiva, lst);
         }
+
         #endregion
 
         public void DescargaPedidosCliente(int paisID, int nroLote, string codigoUsuario)
