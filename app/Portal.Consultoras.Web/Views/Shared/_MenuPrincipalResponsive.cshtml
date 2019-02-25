@@ -324,6 +324,16 @@
                                         </a>
                                     </li>
                                 }
+
+                                if (ViewBag.CodigoISODL == "PE")
+                                {
+                                     <li class="submenu__item submenu__item--Incentivos">
+                                         <a href="@(ViewBag.UrlRaizS3)FileConsultoras/@(ViewBag.codigoISOMenu)/MisEventos.pdf" class="submenu__link d-block" target="_blank" role="menu" region="Principal" parent="MI NEGOCIO" title="Mis Eventos" id="lnk-pri-Eventos">
+                                             <img src="@(ViewBag.UrlRaizS3)Menu/MiNegocio/@(ViewBag.codigoISOMenu)/top_y_brillas.png" class="w-100" alt="Incentivos">
+                                             <div class="submenu__item__title w-100">MIS EVENTOS</div>
+                                         </a>
+                                     </li>
+                                 }
                             }
                         }
                     </ul>
