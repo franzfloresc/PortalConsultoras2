@@ -45,7 +45,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
         private readonly IProgramaNuevasBusinessLogic _programaNuevasBusinessLogic;
         private readonly ILimiteVentaBusinessLogic _limiteVentaBusinessLogic;
         private readonly IArmaTuPackBusinessLogic _BLArmaTuPack;
-
         public BLPedido() : this(new BLProducto(),
                                     new BLPedidoWeb(),
                                     new BLPedidoWebDetalle(),
@@ -3557,5 +3556,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
         }
         #endregion
 
+     
     }
-}
+} 

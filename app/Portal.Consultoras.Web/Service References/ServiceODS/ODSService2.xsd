@@ -796,7 +796,7 @@
   <xs:element name="CuvTieneLimiteVentaResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q38="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.LimiteVenta" minOccurs="0" name="CuvTieneLimiteVentaResult" nillable="true" type="q38:BERespValidarLimiteVenta" />
+        <xs:element xmlns:q40="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.LimiteVenta" minOccurs="0" name="CuvTieneLimiteVentaResult" nillable="true" type="q40:BERespValidarLimiteVenta" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

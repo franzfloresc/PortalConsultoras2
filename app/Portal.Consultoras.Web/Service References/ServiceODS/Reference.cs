@@ -140,6 +140,9 @@ namespace Portal.Consultoras.Web.ServiceODS {
         private bool TieneOfertaRevistaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool TieneOfertasRelacionadasField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool TieneStockField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -676,6 +679,19 @@ namespace Portal.Consultoras.Web.ServiceODS {
                 if ((this.TieneOfertaRevistaField.Equals(value) != true)) {
                     this.TieneOfertaRevistaField = value;
                     this.RaisePropertyChanged("TieneOfertaRevista");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool TieneOfertasRelacionadas {
+            get {
+                return this.TieneOfertasRelacionadasField;
+            }
+            set {
+                if ((this.TieneOfertasRelacionadasField.Equals(value) != true)) {
+                    this.TieneOfertasRelacionadasField = value;
+                    this.RaisePropertyChanged("TieneOfertasRelacionadas");
                 }
             }
         }

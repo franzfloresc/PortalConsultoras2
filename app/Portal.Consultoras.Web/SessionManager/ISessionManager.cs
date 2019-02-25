@@ -500,6 +500,7 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetJwtApiSomosBelcorp(string token);
         
         string GetJwtApiSomosBelcorp();
-
+        void SetUsuarioOpciones(List<UsuarioOpcionesModel> val);
+        List<UsuarioOpcionesModel> GetUsuarioOpciones();
     }
 }

@@ -436,6 +436,7 @@ namespace Portal.Consultoras.Common
 
 
             public const string JwtApiSomosBelcorp = "JwtApiSomosBelcorp";
+            public const string UsuarioPedidos = "UsuarioPedidos";
             public const string RecomendacionesConfig = "RecomendacionesConfiguracion";
             public const string BuscadorYFiltrosConfig = "BuscadorYFiltros";
             public const string MSPersonalizacionConfig = "MSPersonalizacion";
@@ -1233,6 +1234,14 @@ namespace Portal.Consultoras.Common
             public const string PedidoFIC = "PedidoFIC";
             public const string ContenedorOfertas = "ContenedorOfertas";
             public const string LiquidacionWeb = "LiquidacionWeb";
+            public const string MiPerfil = "MiPerfil";
+        }
+
+        public static class MenuPosicion
+        {
+            public const string Header = "header";
+            public const string Body = "body";
+            public const string Footer = "footer";
         }
 
         public static class MenuMobileId
@@ -1275,6 +1284,7 @@ namespace Portal.Consultoras.Common
             public const string Ganancias = "GANANCIAS";
             public const string DuoPerfecto = "DUOPERFECTO";
             public const string PedidosPendientes = "PEDIDOSPENDIENTES";
+            public const string ActualizaDatos = "ACTUALIZADATOS";
         }
 
         public static class IngresoExternoOrigen
@@ -1437,6 +1447,7 @@ namespace Portal.Consultoras.Common
             public const string Recomendaciones = "RECOMDS";
             public const string MicroserviciosPersonalizacion = "MSPersonalizacion";
             public const string Datami = "DATAMI";
+            public const string DireccionEntrega = "DIRECCION_ENTREGA";
         }
 
 
@@ -3295,6 +3306,12 @@ namespace Portal.Consultoras.Common
             public const string Fecha = "dd/MM/yyyy";
             public const string FechaHora = "dd/MM/yyyy HH:mm";
         }
+        public static class OperacionBD
+        {
+            public const int Insertar = 0;
+            public const int Editar = 1;
+            public const int Eliminar = 2;
+        }
 
         public static class MetodosHTTP
         {
@@ -3319,6 +3336,12 @@ namespace Portal.Consultoras.Common
                 public const string CatalogoDigital = "03";
                 public const string MaquilladorVirtual = "04";
             }
+        }
+        
+        public static class OpcionesUsuario
+        {
+            public const int BoletaImpresa = 1;
+            public const int CompartirWhatsApp = 2;
         }
 
         public class SegmentoDatami

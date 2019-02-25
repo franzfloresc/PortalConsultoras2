@@ -2486,7 +2486,61 @@ namespace Portal.Consultoras.Common
             return listaPaises[paisID];
         }
 
-        public static string GetPaisIsoSicc(int paisId)
+        public static string GetSiccPaisISO(string paisISO)
+        {
+            switch (paisISO)
+            {
+                case "CL": return "CLE";
+                case "CO": return "COE";
+                case "EC": return "ECL";
+                case "PE": return "PE"; //REMP
+                case "MX": return "MXL"; //REMP
+                case "CR": return "CRL"; //REMP
+                case "SV": return "SVE"; //REMP
+                case "PA": return "PAL"; //REMP
+                case "GT": return "GTE"; //REMP
+                case "DO": return "DOL"; //REMP
+                case "PR": return "PRL"; //REMP
+                case "BO": return "BOE"; //REMP
+                default: return paisISO;
+            }
+        }
+        public static string GetPaisIsoPorId(int paisId)
+        {
+            switch (paisId)
+            {
+                case 2: //Bolivia
+                    return "BOL";
+                case 3: //Chile
+                    return "CHL";
+                case 4: //Colombia
+                    return "COL";
+                case 5: //Costa Rica
+                    return "CRI";
+                case 6: //Ecuador
+                    return "ECU";
+                case 7: //El Salvador
+                    return "SLV";
+                case 8: //Guatemala
+                    return "GTM";
+                case 9: //México
+                    return "MEX";
+                case 10: //Panamá
+                    return "PAN";
+                case 11: //Perú
+                    return "PER";
+                case 12: //Puerto Rico
+                    return "PRI";
+                case 13: //República Dominicana
+                    return "DOM";
+                case 14: //Venezuela
+                    return "VEN";
+                default:
+                    return "";
+            }
+        }
+
+        public static string GetPaisIsoHanna(int paisId)
         {
             switch (paisId)
             {
@@ -2545,9 +2599,9 @@ namespace Portal.Consultoras.Common
             string iso;
             try
             {
-                iso = (from c in listaPaises
-                       where c.Key == paisID.ToString()
-                       select c.Value).SingleOrDefault();
+                iso =  (from c in listaPaises
+                        where c.Key == paisID.ToString()
+                        select c.Value).SingleOrDefault();
             }
             catch (Exception)
             {

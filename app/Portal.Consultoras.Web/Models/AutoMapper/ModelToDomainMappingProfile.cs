@@ -9,6 +9,7 @@ using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using Portal.Consultoras.Web.Models.PagoEnLinea;
 using Portal.Consultoras.Common;
 
+
 namespace Portal.Consultoras.Web.Models.AutoMapper
 {
     public class ModelToDomainMappingProfile : Profile
@@ -474,12 +475,18 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<PagoEnLineaMedioPagoDetalleModel, BEPagoEnLineaMedioPagoDetalle>();
             Mapper.CreateMap<PagoEnLineaTipoPasarelaModel, BEPagoEnLineaTipoPasarela>();
             Mapper.CreateMap<PagoEnLineaPasarelaCamposModel, BEPagoEnLineaPasarelaCampos>();
+            Mapper.CreateMap<DireccionEntregaModel, Portal.Consultoras.Web.ServiceUsuario.BEDireccionEntrega>();
+            Mapper.CreateMap<Portal.Consultoras.Web.ServiceUsuario.BEDireccionEntrega, DireccionEntregaModel>();
+            Mapper.CreateMap<UsuarioOpcionesModel, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioOpciones>();
+            Mapper.CreateMap<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioOpciones, UsuarioOpcionesModel>();
             
             Mapper.CreateMap<EstrategiaComponenteModel, ServicePedido.BEEstrategiaProducto>()
                .ForMember(t => t.CUV, f => f.MapFrom(c => c.Cuv))
                .ForMember(t => t.SAP, f => f.MapFrom(c => c.CodigoProducto))
                .ForMember(t => t.Precio, f => f.MapFrom(c => c.PrecioCatalogo))
                .ForMember(t => t.NombreMarca, f => f.MapFrom(c => c.DescripcionMarca));
+
+
         }
     }
 }

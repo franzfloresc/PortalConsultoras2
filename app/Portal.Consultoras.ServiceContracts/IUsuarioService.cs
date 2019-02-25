@@ -1,6 +1,7 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.OpcionesVerificacion;
+using Portal.Consultoras.Entities.Pedido;
 using Portal.Consultoras.Entities.Usuario;
 using System;
 using System.Collections.Generic;
@@ -420,6 +421,20 @@ namespace Portal.Consultoras.ServiceContracts
         #region ActualizacionDatos
         [OperationContract]
         BERespuestaServicio EnviarSmsCodigo(int paisID, string codigoUsuario, string codigoConsultora, int campaniaID, bool esMobile, string celularActual, string celularNuevo);
+        #endregion
+        [OperationContract]
+        List<BEUsuarioOpciones> GetUsuarioOpciones(int paisID, string codigoUsuario);
+        #region Direccion de Entega
+        [OperationContract]
+        BEDireccionEntrega InsertarDireccionEntrega(BEDireccionEntrega direccion);
+        [OperationContract]
+        BEDireccionEntrega ObtenerDireccionPorConsultora(BEDireccionEntrega direccion);
+        [OperationContract]
+        BEDireccionEntrega EditarDireccionEntrega(BEDireccionEntrega direccion);
+        [OperationContract]
+        string RegistrarPerfil(BEUsuario usuario);
+        [OperationContract]
+        void RegistrarDireccionEntrega(string codigoISO, BEDireccionEntrega direccionEntrega);
         #endregion
     }
 }

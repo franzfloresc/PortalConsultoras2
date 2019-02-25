@@ -2415,5 +2415,7 @@ namespace Portal.Consultoras.Service
             return blEstrategia.LimpiarCacheRedis(paisID, codigoTipoEstrategia, campaniaID);
         }
 
+
+       
     }
 }

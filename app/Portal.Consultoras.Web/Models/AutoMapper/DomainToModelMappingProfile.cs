@@ -666,6 +666,12 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             
             Mapper.CreateMap<ServiceCliente.BEPedidoWebDetalle, PedidoWebClienteMobilModel>();
             Mapper.CreateMap<ServiceCliente.BEPedidoWebDetalle, PedidoWebDetalleMobilModel>();
+
+            Mapper.CreateMap<ServiceUsuario.BEUsuarioOpciones, UsuarioOpcionesModel>()
+                .ForMember(t => t.OpcionesUsuarioId, f => f.MapFrom(c => c.OpcionesUsuarioId))
+                .ForMember(t => t.Opcion, f => f.MapFrom(c => c.Opcion))
+                .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo))
+                .ForMember(t => t.CheckBox, f => f.MapFrom(c => c.CheckBox));
         }
     }
 }

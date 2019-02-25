@@ -1354,5 +1354,13 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return (string)HttpContext.Current.Session[Constantes.ConstSession.JwtApiSomosBelcorp];
         }
+        public void SetUsuarioOpciones(List<UsuarioOpcionesModel> usuarioOpciones)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.UsuarioPedidos] = usuarioOpciones;
+        }
+        public List<UsuarioOpcionesModel> GetUsuarioOpciones()
+        {
+            return (List<UsuarioOpcionesModel>)HttpContext.Current.Session[Constantes.ConstSession.UsuarioPedidos];
+        }
     }
 }
