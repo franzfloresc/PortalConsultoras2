@@ -352,30 +352,30 @@ namespace Portal.Consultoras.Web.Controllers
         private async Task<Tuple<bool, JsonResult>> DeletePremioIfReplace(PedidoCrudModel model)
         {
             var premios = _programaNuevasProvider.GetListPremioElectivo();
-            if (premios.Any(p => p.CUV2 == model.CUV))
+            var isPremio = premios.Any(p => p.CUV2 == model.CUV);
+            if (!isPremio) return null;
+
+            var details = ObtenerPedidoWebSetDetalleAgrupado(true);
+            if (details == null || details.Count == 0) return null;
+
+            var premioSelected = details.FirstOrDefault(d => premios.Any(c => c.CUV2 == d.CUV));
+
+            if (premioSelected != null && premioSelected.CUV != model.CUV)
             {
-                var details = ObtenerPedidoWebSetDetalleAgrupado(true);
-                if (details == null || details.Count == 0) return null;
+                var result = await DeleteTransactionInternal(
+                    premioSelected.CampaniaID,
+                    premioSelected.PedidoID,
+                    premioSelected.PedidoDetalleID,
+                    premioSelected.TipoOfertaSisID,
+                    premioSelected.CUV,
+                    premioSelected.Cantidad,
+                    premioSelected.ClienteID.ToString(),
+                    "",
+                    premioSelected.EsBackOrder,
+                    premioSelected.SetID
+                );
 
-                var premioSelected = details.FirstOrDefault(d => premios.Any(c => c.CUV2 == d.CUV));
-
-                if (premioSelected != null)
-                {
-                    var result = await DeleteTransactionInternal(
-                        premioSelected.CampaniaID,
-                        premioSelected.PedidoID,
-                        premioSelected.PedidoDetalleID,
-                        premioSelected.TipoOfertaSisID,
-                        premioSelected.CUV,
-                        premioSelected.Cantidad,
-                        premioSelected.ClienteID.ToString(),
-                        "",
-                        premioSelected.EsBackOrder,
-                        premioSelected.SetID
-                    );
-
-                    return result;
-                }
+                return result;
             }
 
             return null;
