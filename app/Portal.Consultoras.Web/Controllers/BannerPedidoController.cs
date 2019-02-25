@@ -63,16 +63,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         }
 
-        //movido BaseAdm/ObtenerCampaniasPorPais
-        //public JsonResult ObtenterDropDownPorPais(int PaisID)
-        //{
-        //    IEnumerable<CampaniaModel> lstcampania = _zonificacionProvider.GetCampanias(PaisID);
-        //    return Json(new
-        //    {
-        //        lstCampania = lstcampania
-        //    }, JsonRequestBehavior.AllowGet);
-        //}
-
         public ActionResult Consultar(string sidx, string sord, int page, int rows, int vpaisID, int vCampaniaID)
         {
             if (ModelState.IsValid)

@@ -11,6 +11,7 @@
       <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BC.Parameter" />
       <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd7" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
       <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.SAC" />
+      <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd9" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais.MercadoPago" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IPortalService_ObtenerParametrosUnete_InputMessage">
@@ -67,12 +68,6 @@
   <wsdl:message name="IPortalService_ActualizarSolicitudPostulantePaso5Pasos_OutputMessage">
     <wsdl:part name="parameters" element="tns:ActualizarSolicitudPostulantePaso5PasosResponse" />
   </wsdl:message>
-  <wsdl:message name="IPortalService_ActualizarSolicitudPostulantePaso5PasosMexico_InputMessage">
-    <wsdl:part name="parameters" element="tns:ActualizarSolicitudPostulantePaso5PasosMexico" />
-  </wsdl:message>
-  <wsdl:message name="IPortalService_ActualizarSolicitudPostulantePaso5PasosMexico_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ActualizarSolicitudPostulantePaso5PasosMexicoResponse" />
-  </wsdl:message>
   <wsdl:message name="IPortalService_EliminarSolicitudPostulanteMexico_InputMessage">
     <wsdl:part name="parameters" element="tns:EliminarSolicitudPostulanteMexico" />
   </wsdl:message>
@@ -90,12 +85,6 @@
   </wsdl:message>
   <wsdl:message name="IPortalService_ActualizarSolicitudPostulantePasoList5Pasos_OutputMessage">
     <wsdl:part name="parameters" element="tns:ActualizarSolicitudPostulantePasoList5PasosResponse" />
-  </wsdl:message>
-  <wsdl:message name="IPortalService_ActualizarSolicitudPostulantePasoList5PasosMexico_InputMessage">
-    <wsdl:part name="parameters" element="tns:ActualizarSolicitudPostulantePasoList5PasosMexico" />
-  </wsdl:message>
-  <wsdl:message name="IPortalService_ActualizarSolicitudPostulantePasoList5PasosMexico_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ActualizarSolicitudPostulantePasoList5PasosMexicoResponse" />
   </wsdl:message>
   <wsdl:message name="IPortalService_AgregarSolicitudPostulante_InputMessage">
     <wsdl:part name="parameters" element="tns:AgregarSolicitudPostulante" />
@@ -337,6 +326,12 @@
   <wsdl:message name="IPortalService_ObtenerReporteDiasEspera_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerReporteDiasEsperaResponse" />
   </wsdl:message>
+  <wsdl:message name="IPortalService_ConsultarTipoPostulante_InputMessage">
+    <wsdl:part name="parameters" element="tns:ConsultarTipoPostulante" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ConsultarTipoPostulante_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ConsultarTipoPostulanteResponse" />
+  </wsdl:message>
   <wsdl:message name="IPortalService_ConsultarSolicitudesPostulanteV2_InputMessage">
     <wsdl:part name="parameters" element="tns:ConsultarSolicitudesPostulanteV2" />
   </wsdl:message>
@@ -469,6 +464,12 @@
   <wsdl:message name="IPortalService_ListarDocumentoExcepcion_OutputMessage">
     <wsdl:part name="parameters" element="tns:ListarDocumentoExcepcionResponse" />
   </wsdl:message>
+  <wsdl:message name="IPortalService_ActualizarReferenciaEntregaSAC_InputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarReferenciaEntregaSAC" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ActualizarReferenciaEntregaSAC_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarReferenciaEntregaSACResponse" />
+  </wsdl:message>
   <wsdl:message name="IPortalService_ImagenesWhatsApp_InputMessage">
     <wsdl:part name="parameters" element="tns:ImagenesWhatsApp" />
   </wsdl:message>
@@ -480,6 +481,36 @@
   </wsdl:message>
   <wsdl:message name="IPortalService_ResponseWhatsApp_OutputMessage">
     <wsdl:part name="parameters" element="tns:ResponseWhatsAppResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_GetKitInicio_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetKitInicio" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_GetKitInicio_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetKitInicioResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ProcesarPagoKitInicio_InputMessage">
+    <wsdl:part name="parameters" element="tns:ProcesarPagoKitInicio" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ProcesarPagoKitInicio_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ProcesarPagoKitInicioResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_CancelarPagoEfectivo_InputMessage">
+    <wsdl:part name="parameters" element="tns:CancelarPagoEfectivo" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_CancelarPagoEfectivo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CancelarPagoEfectivoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ValidarPagoEfectivo_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarPagoEfectivo" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ValidarPagoEfectivo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarPagoEfectivoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ConfirmarTransaccion_InputMessage">
+    <wsdl:part name="parameters" element="tns:ConfirmarTransaccion" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ConfirmarTransaccion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ConfirmarTransaccionResponse" />
   </wsdl:message>
   <wsdl:portType name="IPortalService">
     <wsdl:operation name="ObtenerParametrosUnete">
@@ -518,10 +549,6 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ActualizarSolicitudPostulantePaso5Pasos" message="tns:IPortalService_ActualizarSolicitudPostulantePaso5Pasos_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ActualizarSolicitudPostulantePaso5PasosResponse" message="tns:IPortalService_ActualizarSolicitudPostulantePaso5Pasos_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="ActualizarSolicitudPostulantePaso5PasosMexico">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ActualizarSolicitudPostulantePaso5PasosMexico" message="tns:IPortalService_ActualizarSolicitudPostulantePaso5PasosMexico_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ActualizarSolicitudPostulantePaso5PasosMexicoResponse" message="tns:IPortalService_ActualizarSolicitudPostulantePaso5PasosMexico_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="EliminarSolicitudPostulanteMexico">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/EliminarSolicitudPostulanteMexico" message="tns:IPortalService_EliminarSolicitudPostulanteMexico_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/EliminarSolicitudPostulanteMexicoResponse" message="tns:IPortalService_EliminarSolicitudPostulanteMexico_OutputMessage" />
@@ -533,10 +560,6 @@
     <wsdl:operation name="ActualizarSolicitudPostulantePasoList5Pasos">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ActualizarSolicitudPostulantePasoList5Pasos" message="tns:IPortalService_ActualizarSolicitudPostulantePasoList5Pasos_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ActualizarSolicitudPostulantePasoList5PasosResponse" message="tns:IPortalService_ActualizarSolicitudPostulantePasoList5Pasos_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="ActualizarSolicitudPostulantePasoList5PasosMexico">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ActualizarSolicitudPostulantePasoList5PasosMexico" message="tns:IPortalService_ActualizarSolicitudPostulantePasoList5PasosMexico_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ActualizarSolicitudPostulantePasoList5PasosMexicoResponse" message="tns:IPortalService_ActualizarSolicitudPostulantePasoList5PasosMexico_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="AgregarSolicitudPostulante">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/AgregarSolicitudPostulante" message="tns:IPortalService_AgregarSolicitudPostulante_InputMessage" />
@@ -698,6 +721,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerReporteDiasEspera" message="tns:IPortalService_ObtenerReporteDiasEspera_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerReporteDiasEsperaResponse" message="tns:IPortalService_ObtenerReporteDiasEspera_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="ConsultarTipoPostulante">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ConsultarTipoPostulante" message="tns:IPortalService_ConsultarTipoPostulante_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ConsultarTipoPostulanteResponse" message="tns:IPortalService_ConsultarTipoPostulante_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="ConsultarSolicitudesPostulanteV2">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ConsultarSolicitudesPostulanteV2" message="tns:IPortalService_ConsultarSolicitudesPostulanteV2_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ConsultarSolicitudesPostulanteV2Response" message="tns:IPortalService_ConsultarSolicitudesPostulanteV2_OutputMessage" />
@@ -786,6 +813,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ListarDocumentoExcepcion" message="tns:IPortalService_ListarDocumentoExcepcion_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ListarDocumentoExcepcionResponse" message="tns:IPortalService_ListarDocumentoExcepcion_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="ActualizarReferenciaEntregaSAC">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ActualizarReferenciaEntregaSAC" message="tns:IPortalService_ActualizarReferenciaEntregaSAC_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ActualizarReferenciaEntregaSACResponse" message="tns:IPortalService_ActualizarReferenciaEntregaSAC_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="ImagenesWhatsApp">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ImagenesWhatsApp" message="tns:IPortalService_ImagenesWhatsApp_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ImagenesWhatsAppResponse" message="tns:IPortalService_ImagenesWhatsApp_OutputMessage" />
@@ -793,6 +824,26 @@
     <wsdl:operation name="ResponseWhatsApp">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ResponseWhatsApp" message="tns:IPortalService_ResponseWhatsApp_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ResponseWhatsAppResponse" message="tns:IPortalService_ResponseWhatsApp_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetKitInicio">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/GetKitInicio" message="tns:IPortalService_GetKitInicio_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/GetKitInicioResponse" message="tns:IPortalService_GetKitInicio_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ProcesarPagoKitInicio">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ProcesarPagoKitInicio" message="tns:IPortalService_ProcesarPagoKitInicio_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ProcesarPagoKitInicioResponse" message="tns:IPortalService_ProcesarPagoKitInicio_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CancelarPagoEfectivo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/CancelarPagoEfectivo" message="tns:IPortalService_CancelarPagoEfectivo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/CancelarPagoEfectivoResponse" message="tns:IPortalService_CancelarPagoEfectivo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidarPagoEfectivo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ValidarPagoEfectivo" message="tns:IPortalService_ValidarPagoEfectivo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ValidarPagoEfectivoResponse" message="tns:IPortalService_ValidarPagoEfectivo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmarTransaccion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ConfirmarTransaccion" message="tns:IPortalService_ConfirmarTransaccion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ConfirmarTransaccionResponse" message="tns:IPortalService_ConfirmarTransaccion_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IPortalService" type="tns:IPortalService">
@@ -878,15 +929,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ActualizarSolicitudPostulantePaso5PasosMexico">
-      <soap:operation soapAction="http://tempuri.org/IPortalService/ActualizarSolicitudPostulantePaso5PasosMexico" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="EliminarSolicitudPostulanteMexico">
       <soap:operation soapAction="http://tempuri.org/IPortalService/EliminarSolicitudPostulanteMexico" style="document" />
       <wsdl:input>
@@ -907,15 +949,6 @@
     </wsdl:operation>
     <wsdl:operation name="ActualizarSolicitudPostulantePasoList5Pasos">
       <soap:operation soapAction="http://tempuri.org/IPortalService/ActualizarSolicitudPostulantePasoList5Pasos" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ActualizarSolicitudPostulantePasoList5PasosMexico">
-      <soap:operation soapAction="http://tempuri.org/IPortalService/ActualizarSolicitudPostulantePasoList5PasosMexico" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1283,6 +1316,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ConsultarTipoPostulante">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ConsultarTipoPostulante" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ConsultarSolicitudesPostulanteV2">
       <soap:operation soapAction="http://tempuri.org/IPortalService/ConsultarSolicitudesPostulanteV2" style="document" />
       <wsdl:input>
@@ -1481,6 +1523,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ActualizarReferenciaEntregaSAC">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ActualizarReferenciaEntregaSAC" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ImagenesWhatsApp">
       <soap:operation soapAction="http://tempuri.org/IPortalService/ImagenesWhatsApp" style="document" />
       <wsdl:input>
@@ -1492,6 +1543,51 @@
     </wsdl:operation>
     <wsdl:operation name="ResponseWhatsApp">
       <soap:operation soapAction="http://tempuri.org/IPortalService/ResponseWhatsApp" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetKitInicio">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/GetKitInicio" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProcesarPagoKitInicio">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ProcesarPagoKitInicio" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelarPagoEfectivo">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/CancelarPagoEfectivo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidarPagoEfectivo">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ValidarPagoEfectivo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmarTransaccion">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ConfirmarTransaccion" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
