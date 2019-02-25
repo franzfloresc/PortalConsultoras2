@@ -1,0 +1,33 @@
+1. PortalConsultoras2
+
+Actualizar (QAS, PPR):
+	<add key="PaisesMicroservicioPersonalizacion" value="PE,CL,CR,CO,MX" />
+
+3. WSConsultoras
+
+Agregar en basicHttpBinding (QAS, PPR y PRD):
+    <binding name="BasicHttpBinding_IPortalService" closeTimeout="00:01:00" openTimeout="00:01:00" receiveTimeout="00:10:00" sendTimeout="00:05:00" allowCookies="false" bypassProxyOnLocal="false" hostNameComparisonMode="StrongWildcard" maxBufferPoolSize="2147483647" maxBufferSize="2147483647" maxReceivedMessageSize="2147483647" textEncoding="utf-8" transferMode="Streamed" useDefaultWebProxy="true" messageEncoding="Text">
+      <readerQuotas maxDepth="32" maxStringContentLength="2147483647" maxArrayLength="2147483647" maxBytesPerRead="2147483647" maxNameTableCharCount="2147483647" />
+      <security mode="None">
+        <transport clientCredentialType="None" proxyCredentialType="None" realm="" />
+        <message clientCredentialType="UserName" algorithmSuite="Default" />
+      </security>
+    </binding>
+
+Agregar en client (QAS Y PPR):
+    <endpoint address="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc" binding="basicHttpBinding" bindingConfiguration="BasicHttpBinding_IPortalService" contract="ServiceUnete.IPortalService" name="BasicHttpBinding_IPortalService" />
+
+Agregar en client (PRD):
+    <endpoint address="http://internal-prdelb-wcfasnts01-2006417813.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc" binding="basicHttpBinding" bindingConfiguration="BasicHttpBinding_IPortalService" contract="ServiceUnete.IPortalService" name="BasicHttpBinding_IPortalService" />
+
+Modificar (PRD)
+    <add key="RutaServiceConsultaPROL" value="http://internal-prdelb-webprol-686478451.us-east-1.elb.amazonaws.com:81/" />
+
+Modificar (QAS y PPR)
+    <add key="RutaServiceConsultaPROL" value="http://internal-qaelb-webprol-182416748.us-east-1.elb.amazonaws.com:81/" />
+    <add key="UrlMicroservicioPersonalizacionSearch" value="http://internal-elbwcf-sbmicroserviciosqas-1282604982.us-east-1.elb.amazonaws.com:5004/"/>
+
+4.- Microservicios (QAS, PPR):
+	Sync
+	Actualizar:
+		"Paises": "PE,CL,CO,CR,MX",
