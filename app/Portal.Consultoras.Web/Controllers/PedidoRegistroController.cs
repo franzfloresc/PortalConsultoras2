@@ -253,7 +253,7 @@ namespace Portal.Consultoras.Web.Controllers
                 pedidoDetalle.OrigenPedidoWeb = ProcesarOrigenPedido(model.OrigenPedidoWeb);
                 pedidoDetalle.ClienteID = string.IsNullOrEmpty(model.ClienteID) ? (short)0 : Convert.ToInt16(model.ClienteID);
                 pedidoDetalle.Identifier = SessionManager.GetTokenPedidoAutentico() != null ? SessionManager.GetTokenPedidoAutentico().ToString() : string.Empty;
-                pedidoDetalle.EnRangoProgramaNuevas = model.EnRangoProgramaNuevas || model.FlagNueva == "1";
+                pedidoDetalle.EsCuponNuevas = model.EsCuponNuevas || model.FlagNueva == "1";
                 pedidoDetalle.EsSugerido = model.EsSugerido;
                 pedidoDetalle.EsKitNueva = model.EsKitNueva;
                 pedidoDetalle.EsKitNuevaAuto = model.EsKitNuevaAuto;
@@ -332,7 +332,7 @@ namespace Portal.Consultoras.Web.Controllers
             pedidoDetalle.Producto.CUV = model.CUV;
             pedidoDetalle.Producto.Descripcion = model.DescripcionProd;
             pedidoDetalle.PaisID = userData.PaisID;
-            pedidoDetalle.EnRangoProgramaNuevas = model.EnRangoProgNuevas;
+            pedidoDetalle.EsCuponNuevas = model.EsCuponNuevas;
             pedidoDetalle.SetID = model.SetID;
             pedidoDetalle.PedidoDetalleID = (short)model.PedidoDetalleID;
             pedidoDetalle.ClienteID = (short)model.ClienteID;
