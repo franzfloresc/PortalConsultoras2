@@ -4543,6 +4543,7 @@
 
                 mydata = data;
                 console.log('guardar result: ', data);
+                 
                 if (data.estado) {
                     showDialogMensaje("Información guardada satisfactoriamente.");
                 } else {
