@@ -1,9 +1,17 @@
-﻿@using Portal.Consultoras.Web.CustomHelpers
+﻿@using Portal.Consultoras.Common;
+@using Portal.Consultoras.Web.CustomHelpers
 @using Portal.Consultoras.Web.Models
 @model NotificacionesModel
-
 @{
-    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+    if (Model.Origen == int.Parse(Constantes.IngresoExternoOrigen.ChatBot))
+    {
+        Layout = "~/Areas/Mobile/Views/Shared/_ChatboMobileLayout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+    }
+
 }
 
 @section styles{
@@ -22,14 +30,24 @@
         }
     </style>
 }
-<div class="titulo_mobile">
-    @{ var mobileConfiguracion = Html.MobileAppConfiguracion();
+
+@if (Model.origen == int.Parse(Constantes.IngresoExternoOrigen.ChatBot))
+{
+    <div class="titulo_mobile">MIS NOTIFICACIONES</div>
+}
+else
+{
+    <div class="titulo_mobile">
+    @{
+        var mobileConfiguracion = Html.MobileAppConfiguracion();
         if (mobileConfiguracion.MostrarBotonAtras)
         {
             <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
-        } }
+        }
+    }
     &nbsp;&nbsp;&nbsp;&nbsp;MIS NOTIFICACIONES
 </div>
+}
 <div class="pestana_esika"></div>
 <div class="pestana_lbel"></div>
 @if (Model.ListaNotificaciones.Count == 0)
