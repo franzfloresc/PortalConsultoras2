@@ -140,6 +140,9 @@ namespace Portal.Consultoras.Web.ServiceODS {
         private bool TieneOfertaRevistaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool TieneOfertasRelacionadasField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool TieneStockField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -676,6 +679,19 @@ namespace Portal.Consultoras.Web.ServiceODS {
                 if ((this.TieneOfertaRevistaField.Equals(value) != true)) {
                     this.TieneOfertaRevistaField = value;
                     this.RaisePropertyChanged("TieneOfertaRevista");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool TieneOfertasRelacionadas {
+            get {
+                return this.TieneOfertasRelacionadasField;
+            }
+            set {
+                if ((this.TieneOfertasRelacionadasField.Equals(value) != true)) {
+                    this.TieneOfertasRelacionadasField = value;
+                    this.RaisePropertyChanged("TieneOfertasRelacionadas");
                 }
             }
         }
@@ -3781,10 +3797,16 @@ namespace Portal.Consultoras.Web.ServiceODS {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceODS.BEProducto[]> GetListBrothersByCUVAsync(int paisID, int codCampania, string cuv);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/ValidarBusquedaProgramaNuevas", ReplyAction="http://tempuri.org/IODSService/ValidarBusquedaProgramaNuevasResponse")]
-        Portal.Consultoras.Common.Enumeradores.ValidacionProgramaNuevas ValidarBusquedaProgramaNuevas(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv);
+        Portal.Consultoras.Common.Enumeradores.ValidacionProgramaNuevas ValidarBusquedaProgramaNuevas(int paisID, int campaniaID, string codigoPrograma, int consecutivoNueva, string cuv);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/ValidarBusquedaProgramaNuevas", ReplyAction="http://tempuri.org/IODSService/ValidarBusquedaProgramaNuevasResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Common.Enumeradores.ValidacionProgramaNuevas> ValidarBusquedaProgramaNuevasAsync(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv);
+        System.Threading.Tasks.Task<Portal.Consultoras.Common.Enumeradores.ValidacionProgramaNuevas> ValidarBusquedaProgramaNuevasAsync(int paisID, int campaniaID, string codigoPrograma, int consecutivoNueva, string cuv);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/ValidarBusquedaProgramaNuevasList", ReplyAction="http://tempuri.org/IODSService/ValidarBusquedaProgramaNuevasListResponse")]
+        System.Collections.Generic.Dictionary<string, Portal.Consultoras.Common.Enumeradores.ValidacionProgramaNuevas> ValidarBusquedaProgramaNuevasList(int paisID, int campaniaID, string codigoPrograma, int consecutivoNueva, string[] listCuv);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/ValidarBusquedaProgramaNuevasList", ReplyAction="http://tempuri.org/IODSService/ValidarBusquedaProgramaNuevasListResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.Dictionary<string, Portal.Consultoras.Common.Enumeradores.ValidacionProgramaNuevas>> ValidarBusquedaProgramaNuevasListAsync(int paisID, int campaniaID, string codigoPrograma, int consecutivoNueva, string[] listCuv);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/ValidarCantidadMaximaProgramaNuevas", ReplyAction="http://tempuri.org/IODSService/ValidarCantidadMaximaProgramaNuevasResponse")]
         int ValidarCantidadMaximaProgramaNuevas(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, int cantidadEnPedido, string cuvIngresado, int cantidadIngresada);
@@ -3798,17 +3820,17 @@ namespace Portal.Consultoras.Web.ServiceODS {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/ValidaCuvElectivo", ReplyAction="http://tempuri.org/IODSService/ValidaCuvElectivoResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceODS.BERespValidarElectivos> ValidaCuvElectivoAsync(int paisID, int campaniaID, string cuvIngresado, int consecutivoNueva, string codigoPrograma, string[] lstCuvPedido);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/EsCuvDuoPerfecto", ReplyAction="http://tempuri.org/IODSService/EsCuvDuoPerfectoResponse")]
-        bool EsCuvDuoPerfecto(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string cuv);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/EsCuvElecMultiple", ReplyAction="http://tempuri.org/IODSService/EsCuvElecMultipleResponse")]
+        bool EsCuvElecMultiple(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string cuv);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/EsCuvDuoPerfecto", ReplyAction="http://tempuri.org/IODSService/EsCuvDuoPerfectoResponse")]
-        System.Threading.Tasks.Task<bool> EsCuvDuoPerfectoAsync(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string cuv);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/EsCuvElecMultiple", ReplyAction="http://tempuri.org/IODSService/EsCuvElecMultipleResponse")]
+        System.Threading.Tasks.Task<bool> EsCuvElecMultipleAsync(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string cuv);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/TieneListaEstrategiaDuoPerfecto", ReplyAction="http://tempuri.org/IODSService/TieneListaEstrategiaDuoPerfectoResponse")]
-        bool TieneListaEstrategiaDuoPerfecto(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string[] lstCuv);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/TieneListaEstrategiaElecMultiple", ReplyAction="http://tempuri.org/IODSService/TieneListaEstrategiaElecMultipleResponse")]
+        bool TieneListaEstrategiaElecMultiple(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string[] lstCuv);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/TieneListaEstrategiaDuoPerfecto", ReplyAction="http://tempuri.org/IODSService/TieneListaEstrategiaDuoPerfectoResponse")]
-        System.Threading.Tasks.Task<bool> TieneListaEstrategiaDuoPerfectoAsync(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string[] lstCuv);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/TieneListaEstrategiaElecMultiple", ReplyAction="http://tempuri.org/IODSService/TieneListaEstrategiaElecMultipleResponse")]
+        System.Threading.Tasks.Task<bool> TieneListaEstrategiaElecMultipleAsync(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string[] lstCuv);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/GetLimElectivosProgNuevas", ReplyAction="http://tempuri.org/IODSService/GetLimElectivosProgNuevasResponse")]
         int GetLimElectivosProgNuevas(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma);
@@ -4166,12 +4188,20 @@ namespace Portal.Consultoras.Web.ServiceODS {
             return base.Channel.GetListBrothersByCUVAsync(paisID, codCampania, cuv);
         }
         
-        public Portal.Consultoras.Common.Enumeradores.ValidacionProgramaNuevas ValidarBusquedaProgramaNuevas(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv) {
-            return base.Channel.ValidarBusquedaProgramaNuevas(paisID, campaniaID, ConsultoraID, codigoPrograma, consecutivoNueva, cuv);
+        public Portal.Consultoras.Common.Enumeradores.ValidacionProgramaNuevas ValidarBusquedaProgramaNuevas(int paisID, int campaniaID, string codigoPrograma, int consecutivoNueva, string cuv) {
+            return base.Channel.ValidarBusquedaProgramaNuevas(paisID, campaniaID, codigoPrograma, consecutivoNueva, cuv);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Common.Enumeradores.ValidacionProgramaNuevas> ValidarBusquedaProgramaNuevasAsync(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv) {
-            return base.Channel.ValidarBusquedaProgramaNuevasAsync(paisID, campaniaID, ConsultoraID, codigoPrograma, consecutivoNueva, cuv);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Common.Enumeradores.ValidacionProgramaNuevas> ValidarBusquedaProgramaNuevasAsync(int paisID, int campaniaID, string codigoPrograma, int consecutivoNueva, string cuv) {
+            return base.Channel.ValidarBusquedaProgramaNuevasAsync(paisID, campaniaID, codigoPrograma, consecutivoNueva, cuv);
+        }
+        
+        public System.Collections.Generic.Dictionary<string, Portal.Consultoras.Common.Enumeradores.ValidacionProgramaNuevas> ValidarBusquedaProgramaNuevasList(int paisID, int campaniaID, string codigoPrograma, int consecutivoNueva, string[] listCuv) {
+            return base.Channel.ValidarBusquedaProgramaNuevasList(paisID, campaniaID, codigoPrograma, consecutivoNueva, listCuv);
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.Dictionary<string, Portal.Consultoras.Common.Enumeradores.ValidacionProgramaNuevas>> ValidarBusquedaProgramaNuevasListAsync(int paisID, int campaniaID, string codigoPrograma, int consecutivoNueva, string[] listCuv) {
+            return base.Channel.ValidarBusquedaProgramaNuevasListAsync(paisID, campaniaID, codigoPrograma, consecutivoNueva, listCuv);
         }
         
         public int ValidarCantidadMaximaProgramaNuevas(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, int cantidadEnPedido, string cuvIngresado, int cantidadIngresada) {
@@ -4190,20 +4220,20 @@ namespace Portal.Consultoras.Web.ServiceODS {
             return base.Channel.ValidaCuvElectivoAsync(paisID, campaniaID, cuvIngresado, consecutivoNueva, codigoPrograma, lstCuvPedido);
         }
         
-        public bool EsCuvDuoPerfecto(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string cuv) {
-            return base.Channel.EsCuvDuoPerfecto(paisID, campaniaID, consecutivoNueva, codigoPrograma, cuv);
+        public bool EsCuvElecMultiple(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string cuv) {
+            return base.Channel.EsCuvElecMultiple(paisID, campaniaID, consecutivoNueva, codigoPrograma, cuv);
         }
         
-        public System.Threading.Tasks.Task<bool> EsCuvDuoPerfectoAsync(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string cuv) {
-            return base.Channel.EsCuvDuoPerfectoAsync(paisID, campaniaID, consecutivoNueva, codigoPrograma, cuv);
+        public System.Threading.Tasks.Task<bool> EsCuvElecMultipleAsync(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string cuv) {
+            return base.Channel.EsCuvElecMultipleAsync(paisID, campaniaID, consecutivoNueva, codigoPrograma, cuv);
         }
         
-        public bool TieneListaEstrategiaDuoPerfecto(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string[] lstCuv) {
-            return base.Channel.TieneListaEstrategiaDuoPerfecto(paisID, campaniaID, consecutivoNueva, codigoPrograma, lstCuv);
+        public bool TieneListaEstrategiaElecMultiple(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string[] lstCuv) {
+            return base.Channel.TieneListaEstrategiaElecMultiple(paisID, campaniaID, consecutivoNueva, codigoPrograma, lstCuv);
         }
         
-        public System.Threading.Tasks.Task<bool> TieneListaEstrategiaDuoPerfectoAsync(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string[] lstCuv) {
-            return base.Channel.TieneListaEstrategiaDuoPerfectoAsync(paisID, campaniaID, consecutivoNueva, codigoPrograma, lstCuv);
+        public System.Threading.Tasks.Task<bool> TieneListaEstrategiaElecMultipleAsync(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string[] lstCuv) {
+            return base.Channel.TieneListaEstrategiaElecMultipleAsync(paisID, campaniaID, consecutivoNueva, codigoPrograma, lstCuv);
         }
         
         public int GetLimElectivosProgNuevas(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma) {

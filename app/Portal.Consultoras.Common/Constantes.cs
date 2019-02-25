@@ -2154,6 +2154,7 @@ namespace Portal.Consultoras.Common
                 public const short TablaLogicaID = 7;
                 public const string FlagProgNuevas = "ProgramaNuevas";
                 public const string FlagBannerElecMultiple = "BannerElecMultiple";
+                public const string FlagLabelPedidoDet = "PedidoLabelProgNuevas";
             }
 
             public static class Rango
@@ -3194,6 +3195,8 @@ namespace Portal.Consultoras.Common
             public const string HERRAMIENTASDEVENTA = "HERRAMIENTASDEVENTA";
             public const string ESPECIALES = "ESPECIALES";
             public const string OFERTASFLEXIPAGO = "OFERTASFLEXIPAGO";
+            public const string ESCUPONNUEVAS = "ESCUPONNUEVAS";
+            public const string ESELECMULTIPLENUEVAS = "ESELECMULTIPLENUEVAS";
         }
 
         public static class CodigosCatalogos
