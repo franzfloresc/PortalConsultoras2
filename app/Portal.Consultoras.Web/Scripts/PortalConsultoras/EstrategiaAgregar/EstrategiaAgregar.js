@@ -365,16 +365,29 @@ var EstrategiaAgregarModule = (function () {
                 }
 
             }
+            var barraJsLoaded = typeof MostrarBarra === 'function';
 
-            if (isMobile()) {
-                if (typeof MostrarBarra === 'function') {
-                    var prevTotal = mtoLogroBarra || 0;
-                    MostrarBarra(data); //OG
-                    showPopupNivelSuperado(data.DataBarra, prevTotal);
+            if (barraJsLoaded) {
+                var destino = isPagina('pedido') ? '2': '1';
+                var prevTotal = mtoLogroBarra || 0;
+                var issetPopupPremio = $("#popupPremio").length > 0;
+
+                if ($("#divBarra").length > 0) {
+                    MostrarBarra(data, destino); //OG
+
+                    if (issetPopupPremio) {
+                        showPopupNivelSuperado(data.DataBarra, prevTotal);
+                    } else {
+                        addPremioDefaultSuperado(data.DataBarra, prevTotal);
+                    }
                 } else {
                     ActualizarGanancia(data.DataBarra);
+                    calcMtoLogro(data, destino);
+                    addPremioDefaultSuperado(data.DataBarra, prevTotal);
                 }
-                
+            }
+
+            if (isMobile()) {
                 CargarCantidadProductosPedidos(true);
                 microefectoPedidoGuardado();                   
 

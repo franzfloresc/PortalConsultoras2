@@ -258,7 +258,13 @@ namespace Portal.Consultoras.Web.Providers
                     estrategias = sv.GetEstrategiaPremiosElectivos(userData.PaisID, codigoPrograma, userData.CampaniaID, nivel);
                 }
                 if(estrategias == null) return new List<PremioElectivoModel>();
-                
+
+                var premiosF = userData.ConfigPremioProgNuevas.ListPremioElec;
+                if (premiosF != null)
+                {
+                    estrategias = estrategias.Where(p => premiosF.Any(r => r.Cuv == p.CUV2)).ToArray();
+                }
+
                 var list = Mapper.Map<BEEstrategia[], List<PremioElectivoModel>>(estrategias);
                 list.ForEach(item => item.ImagenURL = GetUrlTippingPoint(item.ImagenURL));
                 return list;

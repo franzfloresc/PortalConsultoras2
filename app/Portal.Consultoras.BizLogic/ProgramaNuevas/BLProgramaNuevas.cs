@@ -105,14 +105,15 @@ namespace Portal.Consultoras.BizLogic
             var listDetalleEnRango = listPedidoDetalle.Where(d => fnEnRango(Convert.ToInt32(d.CUV))).ToList();
             if (listDetalleEnRango.Count == 0) return;
             var listCuvNuevasCampania = GetProductosByCampaniaCache(paisID, campaniaID);
+
             var listCuvNuevas = FiltrarProductosByNivelyCodigoPrograma(listCuvNuevasCampania, consecutivoNueva, codigoPrograma);
             if (listCuvNuevas.Count == 0) return;
-
             var listDetNuevas = listDetalleEnRango.Where(d => listCuvNuevas.Any(p => p.CodigoCupon == d.CUV)).ToList();
             listDetNuevas.ForEach(d => d.EsCuponNuevas = true);
 
-            ValidFlagEsPremioNueva(listDetNuevas, listCuvNuevas);            
-            ValidFlagEsElecMultipleNuevas(paisID, campaniaID, codigoPrograma, consecutivoNueva, listDetNuevas, listCuvNuevas);
+            ValidFlagEsPremioNueva(listDetNuevas, listCuvNuevas);
+            var listDetNuevasNoPremios = listDetNuevas.Where(d => !d.EsPremioElectivo).ToList();
+            ValidFlagEsElecMultipleNuevas(paisID, campaniaID, codigoPrograma, consecutivoNueva, listDetNuevasNoPremios, listCuvNuevas);
         }
 
         public bool EsCuvElecMultiple(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string cuv)
