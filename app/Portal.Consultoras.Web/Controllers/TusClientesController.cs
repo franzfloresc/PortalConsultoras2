@@ -123,7 +123,8 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(new
                     {
                         success = false,
-                        message = clienteNuevo ? "Error al registrar cliente." : "Error al actualizar cliente."
+                        message = clienteNuevo ? "Error al registrar cliente." : "Error al actualizar cliente.",
+                        response
                     });
                 }
             }
@@ -145,7 +146,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var mensaje = _clienteProvider.Eliminar(userData.PaisID,userData.ConsultoraID,clienteId) ? 
-                    "Se eliminó satisfactoriamente el registro." : 
+                    "" : 
                     "No es posible eliminar al cliente dado que se encuentra asociado a un pedido.";
 
                 return Json(new
