@@ -13,7 +13,7 @@ namespace Portal.Consultoras.Web.Models.AdministrarEstrategia
      
         public string estrategiaId { get; set; }
        
-        public List<EstrategiaGrupoModel> EstrategiaGrupos { get; set; }
+        public List<EstrategiaGrupoModel> lstEstrategiaGrupo { get; set; }
     }
     [Serializable]
    

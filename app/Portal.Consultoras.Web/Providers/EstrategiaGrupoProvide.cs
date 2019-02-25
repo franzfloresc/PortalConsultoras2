@@ -35,11 +35,15 @@ namespace Portal.Consultoras.Web.Providers
             OutputEstrategiaGrupo respuesta = new OutputEstrategiaGrupo { Success=false };
 
             EstrategiaGrupoRequest prm = new EstrategiaGrupoRequest();
-            prm.pais = userData.PaisID.ToString();
-            prm.estrategiaId = datos[0].EstrategiaId.ToString();
-            prm.EstrategiaGrupos = datos;
+            /*prm.pais = userData.PaisID.ToString();
+            prm.estrategiaId = datos[0].EstrategiaId.ToString();*/
+            prm.lstEstrategiaGrupo = datos;
             string prmfinal = Newtonsoft.Json.JsonConvert.SerializeObject(prm).ToString();
-            HttpResponseMessage httpResponse = await httpClient.PostAsync(path, new StringContent(prmfinal, Encoding.UTF8, "application/json"));
+            HttpResponseMessage httpResponse = await httpClient.PostAsync(
+                path + "/" + userData.CodigoISO + "/" + datos[0].EstrategiaId.ToString(), 
+                new StringContent(prmfinal,
+                Encoding.UTF8, 
+                "application/json"));
 
             if (!httpResponse.IsSuccessStatusCode)
             {
