@@ -2,7 +2,6 @@
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServiceSAC;
-using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +11,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class CUVAutomaticoController : BaseController
+    public class CUVAutomaticoController : BaseAdmController
     {
         public async Task<ActionResult> Index()
         {
@@ -31,55 +30,12 @@ namespace Portal.Consultoras.Web.Controllers
             return View(oCuvAutomaticoModel);
         }
 
-        private IEnumerable<PaisModel> DropDowListPaises()
-        {
-            List<BEPais> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = userData.RolID == 2
-                    ? sv.SelectPaises().ToList()
-                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
-            }
-
-            return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
-        }
-
         public void LoadConsultorasCache(int paisId)
         {
             using (ODSServiceClient sv = new ODSServiceClient())
             {
                 sv.LoadConsultoraCodigo(paisId);
             }
-        }
-
-        private IEnumerable<CampaniaModel> DropDowListCampanias(int paisId)
-        {
-            IList<BECampania> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = sv.SelectCampanias(paisId);
-            }
-
-            return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
-        }
-
-        public JsonResult ObtenterCampanias(int PaisID)
-        {
-            if (PaisID == 0)
-            {
-                return Json(new
-                {
-                    lista = (IEnumerable<CampaniaModel>)null
-                }, JsonRequestBehavior.AllowGet);
-            }
-
-            var lst = DropDowListCampanias(PaisID);
-
-            return Json(new
-            {
-                lista = lst
-            }, JsonRequestBehavior.AllowGet);
-
         }
 
         public JsonResult FindByCUVs(int campaniaID, int paisID, string codigo, int rowCount)

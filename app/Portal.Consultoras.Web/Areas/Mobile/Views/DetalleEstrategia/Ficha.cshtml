@@ -1,5 +1,5 @@
 ﻿@using Portal.Consultoras.Common
-@using Portal.Consultoras.Web.Helpers
+@using Portal.Consultoras.Web.CustomHelpers
 @model Portal.Consultoras.Web.Models.DetalleEstrategiaFichaModel
 
 @{
@@ -22,6 +22,16 @@
         @Styles.Render("~/Bundle/Css/Mobile/Ficha-Lbel")
     }
     <style id="styleRelojOdd"></style>
+    <style>
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    </style>
 }
 @if (!origen.StartsWith(Constantes.IngresoExternoOrigen.App))
 {
@@ -132,6 +142,8 @@
     {{/iff}}
 </script>
 
+
+
 @Html.Partial("ComponentesTemplate")
 
 <div data-item="" data-OrigenPedidoWeb="@Model.OrigenUrl" data-OrigenPedidoWebAgregar="@Model.OrigenAgregar">
@@ -165,20 +177,26 @@
                     </div>
                 </div>
 
-                <div class="content_cantidad_ficha_producto" data-cantidad-contenedor="">
-                    <a class="cantidad_menos_home" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
-                        <span>-</span>
-                    </a>
-                    <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
-                    <a class="cantidad_mas_home" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
-                        <span>+</span>
-                    </a>
+                <div id="div-boton-agregar" style="display: none;">
+                    <div class="content_cantidad_ficha_producto" data-cantidad-contenedor="">
+                        <a class="cantidad_menos_home" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
+                            <span>-</span>
+                        </a>
+                    <input type="tel" pattern="[0-9]{2}" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
+                        <a class="cantidad_mas_home" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
+                            <span>+</span>
+                        </a>
+                    </div>
+                    <a class="btn_agregar_ficha_producto @Model.ClaseBloqueada"
+                       id="btnAgregalo"
+                       data-bloqueada=""
+                       onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, false, 0, true); ">AGRÉGALO</a>
+                </div>
+  
+                <div class="boton_agotado_ficha" id="div-boton-agotado" style="display: none;">
+                    Agotado
                 </div>
 
-                <a class="btn_agregar_ficha_producto @Model.ClaseBloqueada"
-                   id="btnAgregalo"
-                   data-bloqueada=""
-                   onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, false, 0, true); ">AGRÉGALO</a>
                 <hr class="clear">
             </div>
         </div>
@@ -227,12 +245,12 @@
 </div>
 @if (Model.TieneCarrusel)
 {
-    
-<div id="divFichaCarrusel" class="container">
-    <div class="col-md-12 col-sm-12 col-xs-12 ficha_lineaencuentraproducto">
-        <hr>
-    </div>
-    <hr class="clear" />
+
+    <div id="divFichaCarrusel" class="container">
+        <div class="col-md-12 col-sm-12 col-xs-12 ficha_lineaencuentraproducto">
+            <hr>
+        </div>
+        <hr class="clear" />
 
         <div class="row carrusel">
             <div>
@@ -321,6 +339,7 @@ else
 
         $(document).ready(function () {
             fichaModule = FichaModule({
+                localStorageModule: LocalStorageModule(),
                 palanca: "@Model.Palanca",
                 origen: "@Model.OrigenUrl",
                 tieneSession: "@Model.TieneSession",
@@ -330,7 +349,8 @@ else
             });
             fichaModule.Inicializar();
 
-            if (tieneCarrusel) {
+            if (tieneCarrusel == "True")
+            {
                 carruselModule = CarruselModule({
                     palanca: "@Model.Palanca",
                     campania: "@Model.Campania",
@@ -339,7 +359,8 @@ else
                     idPlantillaProducto: "#producto-landing-template",
                     divCarruselContenedor: "#divFichaCarrusel",
                     idTituloCarrusel: "#tituloCarrusel",
-                    divCarruselProducto: "#divFichaCarruselProducto"
+                    divCarruselProducto: "#divFichaCarruselProducto",
+                    OrigenPedidoWeb: "@Model.OrigenUrl"
                 });
                 carruselModule.Inicializar();
             }

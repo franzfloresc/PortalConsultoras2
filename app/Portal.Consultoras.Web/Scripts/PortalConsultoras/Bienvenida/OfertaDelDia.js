@@ -68,7 +68,7 @@ var OfertaDelDiaModule = function () {
     var props = {
         UrlActual: window.location.href.toLowerCase(),
         UrlValidarStockEstrategia: "Pedido/ValidarStockEstrategia",
-        UrlAgregarProducto: "Pedido/AgregarProductoZE",
+        //UrlAgregarProducto: "Pedido/AgregarProductoZE",
         TipoOrigenPantallaODD: TipoOrigenPantallaODD,
         OrigenDesktopODD: OrigenDesktopODD //para Analytics
     };
@@ -88,13 +88,13 @@ var OfertaDelDiaModule = function () {
             odd_desktop_google_analytics_promotion_click_verofertas();
         } catch (e) {
             //
-        } 
+        }
         var urlOfertas = "/Ofertas" + (codigoAnclaOdd == "" ? "" : "#" + codigoAnclaOdd);
         document.location.href = urlOfertas;
         return true;
     };
 
-    var odd_mobile_home_google_analytics_promotion_impresion = function() {
+    var odd_mobile_home_google_analytics_promotion_impresion = function () {
         if ($("#banner-odd-mobile").length > 0) {
             var id = $("#banner-odd-mobile").find("#estrategia-id-odd").val();
             var name = "Oferta del día - " + $("#banner-odd-mobile").find("#nombre-odd").val();
@@ -124,7 +124,7 @@ var OfertaDelDiaModule = function () {
         }
     };
 
-    var EsValidoResponseGetOfertaDelDia = function(response) {
+    var EsValidoResponseGetOfertaDelDia = function (response) {
         $("#ODD").find(".seccion-loading-contenedor").fadeOut();
         if (!response.success)
             return false;
@@ -171,7 +171,15 @@ var OfertaDelDiaModule = function () {
             SetHandlebars("#producto-landing-template", data, $(contenedorOfertas).find("#divOddCarrusel"));
         }
 
-        odd_desktop_google_analytics_product_impresion(data, contenedorOfertas);
+        if (typeof CarruselAyuda != "undefined") {
+            // marcacion inicio de mostrar productos
+            var origen = {
+                Pagina: ConstantesModule.OrigenPedidoWebEstructura.Pagina.Contenedor,
+                Palanca: ConstantesModule.OrigenPedidoWebEstructura.Palanca.OfertaDelDia,
+                Seccion: ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel
+            };
+            CarruselAyuda.MarcarAnalyticsInicio("#divOddCarrusel", data.ListaOferta, origen, 3);// contenedor
+        }
     };
 
     var MostrarRelojOfertaDelDia = function (totalSegundos) {
@@ -184,51 +192,15 @@ var OfertaDelDiaModule = function () {
         });
     }
 
-    var odd_desktop_procesar_evento_before_change = function(event, slick, currentSlide, nextSlide) {
-        if (currentSlide != nextSlide) {
-            var accion = "";
-            var index = 0;
-            var impresions = [];
+    var odd_desktop_procesar_evento_before_change = function (event, slick, currentSlide, nextSlide) {
 
-            if (nextSlide == 0 && currentSlide + 1 == array_odd.CantidadProductos) {
-                accion = "next";
-            } else if (currentSlide == 0 && nextSlide + 1 == array_odd.CantidadProductos) {
-                accion = "prev";
-            } else if (nextSlide > currentSlide) {
-                accion = "next";
-            } else {
-                accion = "prev";
-            }
+        var origen = {
+            Pagina: ConstantesModule.OrigenPedidoWebEstructura.Pagina.Contenedor,
+            Palanca: ConstantesModule.OrigenPedidoWebEstructura.Palanca.OfertaDelDia,
+            Seccion: ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel
+        };
 
-            if (accion == "prev") {
-                index = nextSlide;
-            }
-            if (accion == "next") {
-                index = nextSlide + 2;
-            }
-            if (index >= array_odd.CantidadProductos) {
-                index = index - array_odd.CantidadProductos;
-            }
-
-            var div = $("#divOddCarrusel").find("[data-item-position=" + index + "]");
-            var name = $(div).find("[data-item-campos]").find(".nombre-odd").val();
-            var id = $(div).find("[data-item-campos]").find(".cuv2-odd").val();
-            var price = $(div).find("[data-item-campos]").find(".precio-odd").val();
-            var brand = $(div).find("[data-item-campos]").find(".marca-descripcion-odd").val();
-            var variant = $(div).find("[data-item-campos]").find(".tipoestrategia-descripcion-odd").val();
-            var position = index + 1;
-            impresions.push({
-                'name': name,
-                'id': id,
-                'price': price,
-                'brand': brand,
-                'category': "No disponible",
-                'variant': variant,
-                'list': "Oferta del día",
-                'position': position
-            });
-            dataLayer.push({ 'event': "productImpression", 'ecommerce': { 'impressions': impresions } });
-        }
+        CarruselAyuda.MarcarAnalyticsChange(slick, currentSlide, nextSlide, origen);// Home Pedido
     };
 
     var ConfigurarCarruselProductos = function (contenedorOfertas, cantidadProductos) {
@@ -237,8 +209,9 @@ var OfertaDelDiaModule = function () {
             $(contenedorOfertas + ' [data-odd-accion="regresar"]').hide();
             $(contenedorOfertas + ' [data-odd-tipoventana="carrusel"]').show();
         }
-
+        var slidesToScroll = cantidadProductos;
         if (cantidadProductos > 2) {
+            slidesToScroll = 2;
             EstablecerLazyCarrusel("#divOddCarrusel");
 
             $("#divOddCarrusel.slick-initialized").slick("unslick");
@@ -246,7 +219,7 @@ var OfertaDelDiaModule = function () {
                 lazyLoad: "ondemand",
                 infinite: true,
                 vertical: false,
-                slidesToShow: 2,
+                slidesToShow: slidesToScroll,
                 slidesToScroll: 1,
                 variableWidth: true,
                 autoplay: false,
@@ -255,8 +228,6 @@ var OfertaDelDiaModule = function () {
                 nextArrow: '<a style="display: block;right: 0;margin-right: -5%; text-align:right;  top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_compra.png")" alt="" class="icono_clase_control_color_dinamico"/></a>'
             }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
                 odd_desktop_procesar_evento_before_change(event, slick, currentSlide, nextSlide);
-            }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
-                EstablecerLazyCarruselAfterChange("#divOddCarrusel");
             });
 
             // esto debe ser automatico
@@ -355,6 +326,7 @@ var OfertaDelDiaModule = function () {
                 $(contenedorOfertas).show();
 
                 ConfigurarCarruselProductos(contenedorOfertas, _data.CantidadProductos);
+
                 if (setColorTexto !== "") {
                     $(".clase_control_color_dinamico").css("color", setColorTexto);
                     $(".clase_control_color_dinamico").css("border-color", setColorTexto);
@@ -415,10 +387,10 @@ var OfertaDelDiaModule = function () {
         return false;
     };
 
-    var ConstruirDescripcionOferta = function(arrDescripcion) {
+    var ConstruirDescripcionOferta = function (arrDescripcion) {
         var descripcion = "";
         $.each(arrDescripcion,
-            function(index, value) {
+            function (index, value) {
                 value = value.replace("<br />", "");
                 value = value.replace("<br/>", "");
                 descripcion += "+ " + value + "<br />";
@@ -426,11 +398,11 @@ var OfertaDelDiaModule = function () {
         return descripcion;
     };
 
-    var AsignarPosicionAListaOfertas = function(listaOfertas) {
+    var AsignarPosicionAListaOfertas = function (listaOfertas) {
         var posicion = 0;
         var nuevaListaOfertas = [];
         $.each(listaOfertas,
-            function(index, value) {
+            function (index, value) {
                 posicion++;
                 value.Posicion = posicion;
                 value.DescripcionOferta = (value.DescripcionOferta == "" || value.DescripcionOferta == null)
@@ -442,11 +414,11 @@ var OfertaDelDiaModule = function () {
         return nuevaListaOfertas;
     };
 
-    var AsignarClaseCssAPalabraGratisMobile = function(listaOfertas) {
+    var AsignarClaseCssAPalabraGratisMobile = function (listaOfertas) {
         var listaOfertasConClases = [];
 
         $.each(listaOfertas,
-            function(index, value) {
+            function (index, value) {
                 value.DescripcionOferta =
                     value.DescripcionOferta.replace("(¡GRATIS!)", "<span class='color-por-marca'>¡GRATIS!</span>");
                 listaOfertasConClases.push(value);
@@ -454,37 +426,6 @@ var OfertaDelDiaModule = function () {
 
         return listaOfertasConClases;
     };
-
-    var odd_mobile_procesar_evento_before_change = function (event, slick, currentSlide, nextSlide, list) {
-        if (currentSlide != nextSlide) {
-            var accion = "";
-            var index = 0;
-
-            if (nextSlide == 0 && currentSlide + 1 == list.length) {
-                accion = "next";
-            } else if (currentSlide == 0 && nextSlide + 1 == list.length) {
-                accion = "prev";
-            } else if (nextSlide > currentSlide) {
-                accion = "next";
-            } else {
-                accion = "prev";
-            }
-
-            if (accion == "prev") {
-                index = nextSlide;
-            }
-            if (accion == "next") {
-                index = nextSlide;
-            }
-            if (index >= list.length) {
-                index = index - list.length;
-            }
-
-            return index;
-        }
-        else
-            return -1;
-    }
 
     var CargarODDMobile = function () {
         MostrarRelojOfertaDelDia($(".clock").data("total-seconds"));
@@ -532,6 +473,6 @@ var OfertaDelDiaModule = function () {
         Inicializar: Inicializar,
         IrContenedorOfertas: IrContenedorOfertas,
         CargarODDEscritorio: CargarODDEscritorio
-};
+    };
 }();
 

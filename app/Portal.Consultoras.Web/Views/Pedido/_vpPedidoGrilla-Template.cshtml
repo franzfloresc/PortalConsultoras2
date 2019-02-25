@@ -1,0 +1,234 @@
+﻿@using Portal.Consultoras.Common
+
+<script id="paginador-template" type="text/x-handlebars-template">
+    <ul class="paginador_notificaciones" data-paginacion="block">
+        {{#if footer}}
+        <li class="productos_agregados_usuario">
+            Has agregado
+            <span class="cantidad_productos_agregados"><b id="bPedidoPaginarRegistrosTotal" data-paginacion='recordCount'>{{RegistrosTotal}}</b></span>
+            &nbsp;productos
+        </li>
+        <li class="seleccion_pagina">
+            <select data-paginacion="rows" style="height: 24px;" data-val="{{PageSize}}">
+                <option value="10">ver 10 filas</option>
+                <option value="20">ver 20 filas</option>
+                <option value="30">ver 30 filas</option>
+                <option value="40">ver 40 filas</option>
+                <option value="50">ver 50 filas</option>
+            </select>
+        </li>
+        {{/if}}
+    </ul>
+
+    <ul class="paginador_notificaciones right" data-paginacion="block">
+        <li class="texto_pagina">Página</li>
+        <li class="flecha_paginador_atras" data-paginacion="back"></li>
+        <li style="margin-right: 6px;">
+            <span class="paginas_pedidos">
+                <span class="pagina_actual">
+                    <input type="text" name="paginaactual" data-paginacion="page" value="{{Pagina}}" class="ValidaNumeral ValidaPasteNumeral" id="paginaactual" data-val="{{Pagina}}" />
+                </span> de
+                <span class="paginas_totales" id="spnPedidoPaginarPaginaDe" data-paginacion='pageCount'>{{PaginaDe}}</span>
+            </span>
+        </li>
+        <li class="flecha_paginador_adelante" data-paginacion="next"></li>
+    </ul>
+    <div class="clear"></div>
+</script>
+
+<script id="producto-template" type="text/x-handlebars-template">
+    {{#each this}}
+    {{#if EliminadoTemporal}}
+    {{else}}
+    <div class="contenido_ingresoPedido mouse_encima" data-cuv="{{CUV}}">
+        @*<div class="texto_pedidos celda_codigo">{{CUV}}</div>*@
+        <div class="texto_pedidos celda_producto pedidoPadreToolTip" style="position:relative">
+
+            <span class="producto-codigo">{{CUV}}</span>
+            {{#if_eq TipoPedido 'M'}}
+            <span style="position:relative">
+                <p class="productos_ingresados_movil">
+                    <span class="icon-mobile"><img src="@Url.Content("~/Content/Images/mobile-pedido.png")" alt="pedido mobile" /></span>
+                </p>
+                <label for="{{DescripcionCortadaProd}}" class="lblLPDesProd">{{Split DescripcionCortadaProd '|' 0}}</label>
+            </span>
+            {{else}}
+            <span style="position:relative">
+                <label for="{{DescripcionCortadaProd}}" class="lblLPDesProd">{{Split DescripcionCortadaProd '|' 0}}</label>
+            </span>
+            {{/if_eq}}
+            <span class="texto_pedidos_ofertas">
+                <label for="{{DescripcionOferta}}">{{DescripcionOferta}}</label>
+            </span>
+
+            <div id="tooltipDescPro" class="tooltipPedido">
+                {{Split DescripcionProd '|' 0}}
+            </div>
+
+            <input type="hidden" name="hdfFlagNueva{{PedidoID}}" value="{{FlagNueva}}" id="hdfFlagNueva{{PedidoID}}" class="hdfFlagNueva" />
+            <input type="hidden" name="hdfCampaniaID{{PedidoID}}" value="{{CampaniaID}}" id="hdfCampaniaID{{PedidoID}}" class="hdfCampaniaID" />
+            <input type="hidden" name="hdfPedidoId{{PedidoID}}" value="{{PedidoID}}" id="hdfPedidoId{{PedidoID}}" class="hdfPedidoId" />
+            <input type="hidden" name="hdfPedidoDetalleID{{PedidoID}}" value="{{PedidoDetalleID}}" id="hdfPedidoDetalleID{{PedidoID}}" class="hdfPedidoDetalleID" />
+            <input type="hidden" name="hdfTipoOfertaSisID{{PedidoID}}" value="{{TipoOfertaSisID}}" id="hdfTipoOfertaSisID{{PedidoID}}" class="hdfTipoOfertaSisID" />
+            <input type="hidden" name="hdfCUV{{PedidoID}}" value="{{CUV}}" id="hdfCUV{{PedidoID}}" class="hdfCUV" />
+            <input type="hidden" name="txtLPTempCant{{PedidoDetalleID}}" value="{{Cantidad}}" class="txtLPTempCant" />
+        </div>
+        <div class="celda_cantidad_pedidos">
+            <div data-SetID="{{SetID}}"></div>
+            {{#if EsKitNueva}}
+            <div class="texto_pedidos texto_cantidad_pedidos">{{Cantidad}}</div>
+            {{else if FlagNueva}}
+            <div class="texto_pedidos texto_cantidad_pedidos">{{Cantidad}}</div>
+            {{else}}
+            <div class="liquidacion_rango_wrapper_pedido cantidad_detalle_focus" data-cantidad-contenedor="">
+                <input type="text" value="{{Cantidad}}" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral txtLPCant"
+                       data-input="cantidad" data-pedido="{{PedidoDetalleID}}" data-SetID="{{SetID}}"
+                       @*onkeypress="PreValidarCUV(event);"*@
+                       attrKey="PreValidarCUV"
+                       onfocus="SeleccionarContenido(this)"
+                       onblur="UpdateLiquidacion(event, '{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '1', '{{Cantidad}}', '{{SetID}}', {{EsCuponNuevas}})" />
+                <div class="liquidacion_rango_right_pedido">
+                    <a class="mas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
+                    <a class="menos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
+                </div>
+            </div>
+            {{/if}}
+        </div>
+        <div class="texto_pedidos precioUnitario">
+            <input type="hidden" name="hdfLPPrecioU{{PedidoDetalleID}}" value="{{PrecioUnidad}}" class="classPrecioUnidad hdfLPPrecioU" />
+            {{SimboloMoneda}} {{FormatoPrecioUnidad}}
+        </div>
+        <div class="texto_pedidos subtotal">
+            <span class="precio">
+                {{SimboloMoneda}} {{FormatoPrecioUnidad}}
+            </span>
+            <span>
+                {{SimboloMoneda}}
+                <label for="item_ImporteTotal" class="classImporteTotal lblLPImpTotal">{{FormatoImporteTotal}}</label>
+                {{#if EstadoSimplificacionCuv}}
+                {{#if IndicadorOfertaCUV}}
+                <input type="hidden" name="ExisteIndicadorOfertaCUV" class="ExisteIndicadorOfertaCUV" value="true" />
+                <span class="icon-advertencia"></span>
+                {{/if}}
+                {{/if}}
+            </span>
+        </div>
+        <div class="texto_pedidos clientePedido">
+            {{#if EsKitNueva}}
+            {{else}}
+            <input type="hidden" name="hdfLPCliIni{{PedidoDetalleID}}" value="{{ClienteID}}" class="classClienteID hdfLPCliIni" />
+            <input type="hidden" name="hdfLPCli{{PedidoDetalleID}}" value="{{ClienteID}}" class="classClienteID hdfLPCli" />
+            <input type="hidden" name="hdfLPCliDes{{PedidoDetalleID}}" value="{{Nombre}}" class="classClienteID hdfLPCliDes" />
+            <input type="hidden" name="hdfTest" value="{{Nombre}}" class="classClienteID hdfLPCliDes" />
+
+            {{#if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Nueva'}}
+            <input type="text" name="{{Nombre}}" value="{{Nombre}}" maxlength="50" class="classClienteNombre ValidaAlfanumerico txtLPCli"
+                   readonly="readOnly" onkeydown="return false;" style="width:90%; padding:4px;" />
+            {{else}}
+            <input type="text" name="{{Nombre}}" value="{{Nombre}}" maxlength="50" class="classClienteNombre ValidaAlfanumerico txtLPCli"
+                   onblur="BlurF(event, '{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '2', '{{CUV}}', '{{SetID}}')" style="width: 90%; padding: 4px;"
+                   datapedido="{{PedidoDetalleID}}" />
+            {{/if_eq}}
+            {{/if}}
+        </div>
+        <div class="texto_pedidos celda_iconos_acciones">
+            {{#if EsKitNueva}}
+            <div class="info_copy">
+                <input type="hidden" data-kit="true" />
+                <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")" alt="Alternate Text" class="info_copy" style="width: 19px; margin:0;" />
+                <div class="tooltips tooltip_infoCopy_grid">
+                    <div class="tooltip_flecha_grid"></div>
+                    <h6>Kit de Inicio</h6>
+                    <p>Gana desde el comienzo con las mejores herramientas para tu negocio: productos ganadores, demostradores, fichas de los TOP de @(Model.EsPais) y más.</p>
+                    <p>* @Model.MensajeKitNuevas</p>
+                </div>
+            </div>
+            {{else}}
+            {{#iff DescripcionLarga 'Contains' '\''}}
+            {{Replace DescripcionLarga '\'' ''}}
+            {{/iff}}
+            <a onclick="tooltipDelete('{{PedidoDetalleID}}', '{{SetID}}');"
+               style="background-image: url('@Url.Content("~/Content/Images/Esika/tacho-copy.png")'); background-repeat:no-repeat; width: 17px; height: 22px; margin: 0 auto;" title="Eliminar"></a>
+            {{/if}}
+        </div>
+        {{#if EsBackOrder}}
+        {{#if AceptoBackOrder}}
+        <div class="stock_content_aceptado">
+            <div class="texto_stock" style="color:black;"><b>Te entregaremos el producto en la siguiente campaña.</b></div>
+        </div>
+        {{else}}
+
+        <div class="stock_content">
+            <div class="texto_stock" style="margin-top: 10PX;width:60%">@Constantes.BackOrder.mensajeBackOrderDestokp</div>
+            <div class="text_stock" style="margin-top:10px;float:left;width:35%;margin-left:35px;">
+                <a class="btn_no_stock" 
+                   style="font-size:9px;float:left;margin-left:9px;" 
+                   onclick="ValidDeletePedido('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '{{Cantidad}}', '{{ClienteID_}}', '{{CUVReco}}', '{{EsBackOrder}}', '{{SetID}}', false);"
+                   href="javascript:;">
+                    NO, ELIMÍNALO
+                </a>
+                <a class="btn_si_stock" 
+                   style="float:right;height:35px;line-height:39px;" 
+                   onclick="AceptarBackOrder('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{ClienteID_}}');" 
+                   href="javascript:;">
+                    ¡SÍ, GRACIAS!
+                </a>
+            </div>
+            <hr class="clear" />
+        </div>
+
+        {{/if}}
+        {{/if}}
+
+        <div style="display:none" class="popover bottom" id="tlpDelete_{{PedidoDetalleID}}_{{SetID}}">
+            <div class="arrow"></div>
+            <ul class="list-tooltip">
+                <li data-mensaje-eliminar="directo">¿Quieres eliminar este producto?</li>
+                <li data-mensaje-eliminar="regalo">Si eliminas este producto podrías perder el premio que ganaste ¿Quieres eliminar este producto?</li>
+                <li class="boton-secundario">
+                    <button onclick="btnSalirTlpDelete('{{PedidoDetalleID}}','{{SetID}}');">
+                        No Gracias
+                    </button>
+                </li>
+                <li class="boton-primaria">
+                    <button class="default-background"
+                            onclick="ValidDeletePedido('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '{{Cantidad}}', '{{ClienteID_}}', '{{CUVReco}}', null, '{{SetID}}', {{EsElecMultipleNuevas}});">
+                        SÍ, ELIMINAR
+                    </button>
+                </li>
+            </ul>
+        </div>
+        {{#IsNullOrEmpty Mensaje '!='}}
+        <div class="popover bottom" style="width: 357px" id="tlpObservaciones_{{PedidoDetalleID}}_{{SetID}}">
+            <div class="arrow"></div>
+            <ul class="list-tooltip">
+                <li class="icon-alert" style="width:auto"><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt=""></li>
+                <li class="boton-secundario">Este producto tiene observaciones. <button onclick="tooltipObservaciones('{{Mensaje}}');">Ver detalles</button></li>
+            </ul>
+        </div>
+
+        {{/IsNullOrEmpty}}
+
+
+
+    </div>
+    {{/if}}
+
+
+    {{/each}}
+
+    @*{{#IsNullOrEmpty Mensaje '!='}}
+        <div class="fila_mensajeProductoAgotado">
+            <div style="width:100%;">
+                <div class="mensaje_productoAgotado">
+                    {{#iff TipoObservacion '!=' 0}}
+                    <p>{{{Replace Mensaje '¿Deseas aceptar el reemplazo?' ''}}}</p>
+                    {{else}}
+                    <p>{{{Mensaje}}}</p>
+                    {{/iff}}
+                </div>
+            </div>
+        </div>
+        {{/IsNullOrEmpty}}
+        {{/each}}*@
+</script>

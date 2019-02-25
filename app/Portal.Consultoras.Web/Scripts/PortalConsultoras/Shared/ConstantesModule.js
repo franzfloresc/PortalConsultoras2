@@ -18,9 +18,12 @@ var ConstantesModule = (function () {
         ProgramaNuevasRegalo: "ProgramaNuevasRegalo",
         ParticipaProgramaNuevas: "ParticipaProgramaNuevas",
         NotParticipaProgramaNuevas: "NotParticipaProgramaNuevas",
-        Ganadoras : "Ganadoras"
+        Ganadoras: "Ganadoras",
+        LiquidacionWeb: "OfertasLiquidacion",
+        GuiaNegocio: "GuiaNegocio",
+        SR:"ShowRoom"
     }
-    
+
     var _keysLocalStorage = {
         GuiaDeNegocio: "GNDLista",
         HerramientasVenta: "HVLista",
@@ -28,7 +31,7 @@ var ConstantesModule = (function () {
         RevistaDigital: "RDLista",
         Ganadoras: "MGLista"
     }
-    
+
     var _codigoVariedad = {
         IndividualVariable: "2001",
         ComuestaFija: "2002",
@@ -56,12 +59,23 @@ var ConstantesModule = (function () {
         NotParticipaProgramaNuevas: "0"
     }
 
+    var _configuracionOferta = {
+        Web: 1701,
+        Liquidacion: 1702,
+        CrossSelling: 1703,
+        Nueva: 1704,
+        Flexipago: 1705,
+        Accesorizate: 1706,
+        ShowRoom: 1707,
+    }
+
     var _tipoEstrategia = {
         RD: "RD",
         HV: "HV",
         GND: "GN",
         LAN: "LAN",
-        MG: "MG"
+        MG: "MG",
+        SR: "SR"
     }
 
     var _urlObtenerEstrategia = {
@@ -87,17 +101,78 @@ var ConstantesModule = (function () {
         MobileContenedorGanadorasCarrusel: "2081401",
         MobileContenedorGanadorasFicha: "2081402",
         MobileLandingGanadorasGanadorasCarrusel: "2111401",
-        MobileLandingGanadorasGanadorasFicha: "2111402"
+        MobileLandingGanadorasGanadorasFicha: "2111402",
+
+        DesktopBuscadorGanadorasDesplegable: "1041404",
+        MobileBuscadorGanadorasDesplegable: "2041404",
+        DesktopBuscadorGanadorasFicha: "1041402",
+        MobileBuscadorGanadorasFicha: "2041402",
+        DesktopBuscadorGanadorasCarrusel: "1101401",
+        MobileBuscadorGanadorasCarrusel: "2101401",
+        DesktopLandingBuscadorGanadorasFicha: "1101402",
+        MobileLandingBuscadorGanadorasFicha: "2101402"
+
     }
-    
+
+    // en AnaluticsPortal.js tambiar actualizar los valores
+    var _origenPedidoWebEstructura = {
+        Dimension: 7,
+        Dispositivo: {
+            Desktop: '1',
+            Mobile: '2'
+        },
+        Pagina: {
+            LandingHerramientasVenta: '00',
+            Home: '01',
+            Pedido: '02',
+            LandingLiquidacion: '03',
+            Buscador: '04',
+            LandingShowroom: '05',
+            LandingGnd: '06',
+            LandingOfertasParaTi: '07',
+            Contenedor: '08',
+            Otras: '09',
+            LandingBuscador: '10',
+            LandingGanadoras: '11'
+        },
+        Palanca: {
+            OfertasParaTi: '00',
+            Showroom: '01',
+            Lanzamientos: '02',
+            OfertaDelDia: '03',
+            OfertaFinal: '04',
+            GND: '05',
+            Liquidacion: '06',
+            ProductoSugerido: '07',
+            HerramientasVenta: '08',
+            Banners: '09',
+            Digitado: '10',
+            CatalogoLbel: '11',
+            CatalogoEsika: '12',
+            CatalogoCyzone: '13',
+            Ganadoras: '14'
+        },
+        Seccion: {
+            Carrusel: '01',
+            Ficha: '02',
+            Banner: '03',
+            DesplegableBuscador: '04',
+            CarruselVerMas: '05',
+            BannerSuperior: '06',
+            SubCampania: '07'
+        }
+    }
+
     return {
         CodigosPalanca: _codigosPalanca,
-        KeysLocalStorage: _keysLocalStorage, 
+        KeysLocalStorage: _keysLocalStorage,
         CodigoVariedad: _codigoVariedad,
         ConstantesPalanca: _constantesPalanca,
         TipoEstrategia: _tipoEstrategia,
         UrlObtenerEstrategia: _urlObtenerEstrategia,
-        OrigenPedidoWeb: _origenPedidoWeb
+        OrigenPedidoWeb: _origenPedidoWeb,
+        OrigenPedidoWebEstructura: _origenPedidoWebEstructura,
+        ConfiguracionOferta: _configuracionOferta
     }
-    
+
 })();

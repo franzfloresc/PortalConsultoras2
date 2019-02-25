@@ -71,6 +71,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
 
                 model.TienePagoEnLinea = userData.TienePagoEnLinea;
+                ViewBag.PaisId = userData.PaisID;
+                model.MostrarPagoEnLinea = userData.MontoDeuda > 0;
             }
             catch (FaultException ex)
             {
@@ -183,7 +185,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                             "</tr>"
                           );
 
-            if (userData.PaisID == 4 && lst.Any())
+            if (userData.PaisID == Constantes.PaisID.Colombia && lst.Any())
             {
                 for (int i = 0; i < lst.Count - 1; i++)
                 {

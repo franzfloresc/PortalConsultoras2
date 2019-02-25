@@ -44,10 +44,8 @@ namespace Portal.Consultoras.Web.Providers
             {
                 string soloImagen = Path.GetFileNameWithoutExtension(rutaImagen);
                 string soloExtension = Path.GetExtension(rutaImagen);
-
-                var carpetaPais = Globals.UrlMatriz + "/" + codigoIso;
-
-                ruta = ConfigCdn.GetUrlFileCdn(carpetaPais, soloImagen + rutaNombreExtension + soloExtension);
+                
+                ruta = ConfigCdn.GetUrlFileCdnMatriz(codigoIso, soloImagen + rutaNombreExtension + soloExtension);
             }
             else
             {
@@ -56,29 +54,7 @@ namespace Portal.Consultoras.Web.Providers
 
             return ruta;
         }
-
-        #region Zonificacion
-        public IEnumerable<RegionModel> DropDownListRegiones(int paisId)
-        {
-            IList<BERegion> lst;
-            using (var sv = new ZonificacionServiceClient())
-            {
-                lst = sv.SelectAllRegiones(paisId);
-            }
-            return Mapper.Map<IList<BERegion>, IEnumerable<RegionModel>>(lst.OrderBy(zona => zona.Codigo).ToList());
-        }
-
-        public IEnumerable<ZonaModel> DropDownListZonas(int paisId)
-        {
-            IList<BEZona> lst;
-            using (var sv = new ZonificacionServiceClient())
-            {
-                lst = sv.SelectAllZonas(paisId);
-            }
-            return Mapper.Map<IList<BEZona>, IEnumerable<ZonaModel>>(lst);
-        }
-        #endregion
-
+        
         public string GetFechaPromesa(TimeSpan horaCierre, int diasFaltantes, DateTime fechaInicioCampania, bool esMobile)
         {
             var time = DateTime.Today.Add(horaCierre);

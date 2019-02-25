@@ -24,10 +24,6 @@
     background-color:transparent;
 }
 
-/*.layout__header--navidenio .menu__item--carrito:after{
-    background-color:transparent!important;
-}*/
-
 .layout__header--navidenio .menu__link--carrito:before{
     background-image:url('/Content/Images/icono_carrito.svg');
     background-position: 15px 14.3px;
@@ -60,6 +56,9 @@
         background: -webkit-linear-gradient(top, #01362d 0%,#016f5f 100%);
         background: linear-gradient(to bottom, #01362d 0%,#016f5f 100%);
         filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#01362d', endColorstr='#016f5f',GradientType=0 );
+        -moz-box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5);
+        -webkit-box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5);
+        box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5);
     }
 
     .layout__header--navidenio .menu__item > a{

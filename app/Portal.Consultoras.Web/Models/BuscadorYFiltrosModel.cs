@@ -10,11 +10,13 @@ namespace Portal.Consultoras.Web.Models
     {
         public int total { get; set; }
         public IList<Productos> productos { get; set; }
-        //public IList<Filtros> filtros { get; set; }
+        public IList<Filtros> filtros { get; set; }
     }
 
     public class Filtros
     {
+        public string NombreGrupo { get; set; }
+        public IList<OpcionesFiltroResponse> Opciones { get; set; }
     }
 
     public class Productos
@@ -42,5 +44,17 @@ namespace Portal.Consultoras.Web.Models
         public string OrigenPedidoWeb { get; set; }
         public string URLBsucador { get; set; }
         public int EstrategiaID { get; set; }
+        public string SimboloMoneda { get; set; }
+        public bool MaterialGanancia { get; set; }
     }
+
+    public class OpcionesFiltroResponse
+    {
+        public string idFiltro { get; set; }
+        public string nombreFiltro { get; set; }
+        public int cantidad { get; set; }
+        public bool marcado { get; set; }
+    }
+
+
 }

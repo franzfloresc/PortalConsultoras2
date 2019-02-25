@@ -8,7 +8,7 @@ using System.Web.Security;
 using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
-using Portal.Consultoras.Web.Helpers;
+using Portal.Consultoras.Web.CustomHelpers;
 using Portal.Consultoras.Web.Infraestructure.Excel;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
@@ -165,13 +165,14 @@ namespace Portal.Consultoras.Web.Controllers
                 guiaNegocio = SessionManager.GetGuiaNegocio();
                 estrategiaODD = SessionManager.OfertaDelDia.Estrategia;
                 configEstrategiaSR = SessionManager.GetEstrategiaSR() ?? new ConfigModel();
-                buscadorYFiltro = SessionManager.GetBuscadorYFiltros();
+                buscadorYFiltro = SessionManager.GetBuscadorYFiltrosConfig();
 
-                if (!configEstrategiaSR.CargoEntidadesShowRoom)
-                {
-                    _showRoomProvider.CargarEntidadesShowRoom(userData);
-                    configEstrategiaSR = SessionManager.GetEstrategiaSR();
-                }
+
+                //if (!configEstrategiaSR.CargoEntidadesShowRoom)
+                //{
+                //    _showRoomProvider.CargarEntidadesShowRoom(userData);
+                //    configEstrategiaSR = SessionManager.GetEstrategiaSR();
+                //}
 
                 if (Request.IsAjaxRequest())
                 {
@@ -182,15 +183,39 @@ namespace Portal.Consultoras.Web.Controllers
                 ObtenerPedidoWeb();
                 ObtenerPedidoWebDetalle();
 
-                GetUserDataViewBag();
+                bool esMobile = EsDispositivoMovil();
+                bool actualizaBase = true; //actualizar session de ODD desde BD
+
+                if (esMobile)
+                {
+                    if (filterContext.ActionDescriptor.ControllerDescriptor.ControllerName == "DescargarApp")
+                    {
+                        TempData["CallBase"] = "DescargarApp";
+                        actualizaBase = true;
+                    }
+                    else
+                    {
+                        if ((TempData["CallBase"] ?? "").ToString() == "DescargarApp")
+                        {
+                            //Valida si ya se ha cargado la data desde el controlador "DescargarApp", para no volver a actualizar data
+                            actualizaBase = false;
+                            TempData["CallBase"] = null;
+                        }
+                        else
+                        {
+                            actualizaBase = true;
+                        }
+                    }
+                }
+
+                GetUserDataViewBag(actualizaBase);
 
                 var controllerName = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;
                 var actionName = filterContext.ActionDescriptor.ActionName;
                 if (!Constantes.AceptacionContrato.ControladoresOmitidas.Contains(controllerName)
                     && !Constantes.AceptacionContrato.AcionesOmitidas.Contains(actionName)
                     && ValidarContratoPopup())
-                {
-                    bool esMobile = EsDispositivoMovil();
+                {                    
                     filterContext.Result = !esMobile ? new RedirectResult(Url.Action("Index", "Bienvenida")) :
                         new RedirectResult(Url.Action("Index", "Bienvenida", new { Area = "Mobile" }));
                     return;
@@ -736,9 +761,9 @@ namespace Portal.Consultoras.Web.Controllers
         }
         protected void RegistrarLogDynamoDB(InLogUsabilidadModel Log)
         {
-            var dataString = string.Empty;
             try
             {
+                Log = Log ?? new InLogUsabilidadModel();
                 Log.Fecha = "";
                 Log.Pais = userData.CodigoISO;
                 Log.Region = userData.CodigorRegion;
@@ -757,7 +782,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO, dataString);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
         }
         protected void ActualizarDatosLogDynamoDB(MisDatosModel p_modelo, string p_origen, string p_aplicacion, string p_Accion, string p_CodigoConsultoraBuscado = "", string p_Seccion = "")
@@ -932,7 +957,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region Cargar ViewBag
 
-        private void GetUserDataViewBag()
+        private void GetUserDataViewBag(bool actualizaBaseODD)
         {
             var esMobile = IsMobile();
 
@@ -1045,7 +1070,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.QSBR = string.Format("NOMB={0}&PAIS={1}&CODI={2}&CORR={3}&TELF={4}", userData.NombreConsultora.ToUpper(), userData.CodigoISO, userData.CodigoConsultora, userData.EMail, (userData.Telefono ?? "").Trim() + ((userData.Celular ?? "").Trim() == string.Empty ? "" : "; " + (userData.Celular ?? "").Trim()));
             ViewBag.QSBR = ViewBag.QSBR.Replace("\n", "").Trim();
 
-            ViewBag.EsUsuarioComunidad = userData.EsUsuarioComunidad ? 1 : 0;
+            ViewBag.EsUsuarioComunidad = userData.EsUsuarioComunidad.ToInt();
             ViewBag.NombreC = userData.PrimerNombre;
             ViewBag.ApellidoC = userData.PrimerApellido;
             ViewBag.CorreoC = userData.EMail;
@@ -1084,8 +1109,9 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.GPRBannerUrl = userData.GPRBannerUrl;
 
                 // odd
-                ViewBag.OfertaDelDia = _ofertaDelDiaProvider.GetOfertaDelDiaConfiguracion(userData);
+                ViewBag.OfertaDelDia = _ofertaDelDiaProvider.GetOfertaDelDiaConfiguracion(userData, actualizaBaseODD);
                 ViewBag.TieneOfertaDelDia = _ofertaDelDiaProvider.CumpleOfertaDelDia(userData, GetControllerActual());
+                ViewBag.MostrarBannerSuperiorOdd = _ofertaDelDiaProvider.MostrarBannerSuperiorOdd(userData, GetControllerActual());
             }
             catch (Exception ex)
             {
@@ -1134,8 +1160,10 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.TituloCatalogo = ((revistaDigital.TieneRDC && !userData.TieneGND && !revistaDigital.EsSuscrita) || revistaDigital.TieneRDI) ||
                 (!revistaDigital.TieneRDC || (revistaDigital.TieneRDC && !revistaDigital.EsActiva));
 
+            _showRoomProvider.CargarEventoPersonalizacion(userData);
             var menuActivo = _menuContenedorProvider.GetMenuActivo(userData, revistaDigital, herramientasVenta, Request, guiaNegocio, SessionManager, _configuracionManagerProvider, _eventoFestivoProvider, _configuracionPaisProvider, _guiaNegocioProvider, _ofertaPersonalizadaProvider, _programaNuevasProvider, esMobile);
             ViewBag.MenuContenedorActivo = menuActivo;
+            
             ViewBag.MenuContenedor = _menuContenedorProvider.GetMenuContenedorByMenuActivoCampania(menuActivo.CampaniaId, userData.CampaniaID, userData, revistaDigital, guiaNegocio, SessionManager, _configuracionManagerProvider, _eventoFestivoProvider, _configuracionPaisProvider, _guiaNegocioProvider, _ofertaPersonalizadaProvider, _programaNuevasProvider, esMobile);
 
             var menuMobile = BuildMenuMobile(userData, revistaDigital);
@@ -1187,7 +1215,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.FotoPerfilAncha = userData.FotoPerfilAncha;
             ViewBag.FotoPerfilSinModificar = (string.IsNullOrWhiteSpace(userData.FotoOriginalSinModificar) ? "" : userData.FotoOriginalSinModificar);
 
-            ViewBag.TokenPedidoAutenticoOk = (SessionManager.GetTokenPedidoAutentico() != null) ? 1 : 0;
+            ViewBag.TokenPedidoAutenticoOk = (SessionManager.GetTokenPedidoAutentico() != null).ToInt();
             ViewBag.CodigoEstrategia = _revistaDigitalProvider.GetCodigoEstrategia();
             ViewBag.BannerInferior = _showRoomProvider.EvaluarBannerConfiguracion(userData.PaisID, SessionManager);
             ViewBag.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre).ToUpper();
@@ -1204,6 +1232,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.NovedadBuscador = userData.NovedadBuscador;
             ViewBag.MostrarBotonVerTodos = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.MostrarBotonVerTodos).ToBool();
             ViewBag.AplicarLogicaCantidadBotonVerTodos = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.AplicarLogicaCantidadBotonVerTodos).ToBool();
+            ViewBag.FlagFiltrosBuscador = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.FlagFiltrosBuscador).ToBool();
         }
 
         #endregion
@@ -1309,8 +1338,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var variableEstrategia = new VariablesGeneralEstrategiaModel
             {
-                PaisHabilitado = WebConfig.PaisesMicroservicioPersonalizacion,
-                TipoEstrategiaHabilitado = WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion
+                PaisHabilitado = SessionManager.GetConfigMicroserviciosPersonalizacion().PaisHabilitado, //WebConfig.PaisesMicroservicioPersonalizacion,
+                TipoEstrategiaHabilitado = SessionManager.GetConfigMicroserviciosPersonalizacion().EstrategiaHabilitado //WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion
             };
             return variableEstrategia;
         }
@@ -1355,5 +1384,21 @@ namespace Portal.Consultoras.Web.Controllers
             return stream => processor.Secure(stream, password);
         }
 
+        public string ObtenerFlagActivacionRecomendaciones()
+        {
+            var configuracionPaisDatos = SessionManager.GetRecomendacionesConfig()
+                .ConfiguracionPaisDatos
+                .FirstOrDefault(a => a.Codigo.Equals(Constantes.CodigoConfiguracionRecomendaciones.ActivarRecomendaciones));
+            return configuracionPaisDatos != null ? configuracionPaisDatos.Valor1 : "0";
+        }
+
+        public int ObtenerNumeroMaximoCaracteresRecomendaciones(bool esMobile)
+        {
+            var configuracionPaisDatos = SessionManager.GetRecomendacionesConfig()
+                .ConfiguracionPaisDatos
+                .FirstOrDefault(a => a.Codigo.Equals(Constantes.CodigoConfiguracionRecomendaciones.CaracteresDescripcion));
+            if (esMobile ) return configuracionPaisDatos != null ?  configuracionPaisDatos.Valor2.ToInt() : 35;
+            return configuracionPaisDatos != null ? configuracionPaisDatos.Valor1.ToInt() : 37;
+        }
     }
 }

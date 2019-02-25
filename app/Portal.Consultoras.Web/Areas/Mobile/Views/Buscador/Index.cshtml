@@ -1,5 +1,5 @@
 ﻿@using Portal.Consultoras.Common
-@using Portal.Consultoras.Web.Helpers
+@using Portal.Consultoras.Web.CustomHelpers
 
 @{
     ViewBag.Title = "Buscador";
@@ -64,8 +64,7 @@
 @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpBuscadorResultado.cshtml")
 
 @section scripts{
-
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaAgregar/PedidoRegistro.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Buscador/BuscadorProvider.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Buscador/BuscadorModule.js")"></script>
-
 }

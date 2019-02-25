@@ -85,7 +85,7 @@
                 } else {
                     alert(responseText.message);
                 }
-                $('#DialogRegistroLugaresPago').dialog('close');
+                HideDialog("DialogRegistroLugaresPago");
             }
         }
     });
@@ -107,7 +107,7 @@
 
                 },
                 "Cerrar": function () {
-                    $(this).dialog('close');
+                    HideDialog("DialogRegistroLugaresPago");
                 }
             }
         });
@@ -336,7 +336,7 @@ colModel: [
         $('#LugarPagoID').val("0");
     }
 
- 
+
 
      $(function () {
         $('#Posicion').keypress(function (e) {

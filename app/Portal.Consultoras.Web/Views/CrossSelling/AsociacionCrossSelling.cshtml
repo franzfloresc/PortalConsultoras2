@@ -32,7 +32,7 @@
             var Id = $(this).val();
             if (Id != "") {
                 waitingDialog({});
-                $.getJSON(baseUrl + 'CrossSelling/ObtenterCampaniasPorPais', { PaisID: Id == "" ? 0 : Id }, function (data) {
+                $.getJSON(baseUrl + 'BaseAdm/ObtenerCampaniasPorPais', { PaisID: Id == "" ? 0 : Id }, function (data) {
                     if (checkTimeout(data)) {
                         LimpiarDependencias(Id);
 
@@ -275,6 +275,7 @@
                 if (TipoCros == 1) {
                     jQuery("#list_Segmentacion").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
                 }
+                HideDialog("DialogAsociarProductosRecomendado");
             },
             buttons:
             {
@@ -302,7 +303,7 @@
                     }
                 },
                 "Cancelar": function () {
-                    $(this).dialog('close');
+                    HideDialog("DialogAsociarProductosRecomendado");
                 }
             }
         });

@@ -1,6 +1,7 @@
-﻿@using Portal.Consultoras.Web.Models
+﻿@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Models
 @using System.Globalization;
-@using Portal.Consultoras.Web.Helpers
+@using Portal.Consultoras.Web.CustomHelpers
 @model SolicitudClienteConsultoraModel
 @{
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
@@ -17,7 +18,7 @@
 <input type="hidden" id="hdSolicitudId" value="@Model.SolicitudClienteId" />
 
 <div class="titulo_mobile">
-    @{  var mobileConfiguracion = Html.MobileAppConfiguracion();
+    @{ var mobileConfiguracion = Html.MobileAppConfiguracion();
         if (mobileConfiguracion.MostrarBotonAtras)
         {
             <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
@@ -82,76 +83,76 @@
     @if (Model.lsProductosDetalle.Count > 0)
     {
         <h3 class="title-line">Detalle del pedido</h3>
-            <p style="text-align: justify;">A continuación se detalla lo que el cliente ha solicitado y el precio que espera pagar. En caso no figure el precio, guíate por el precio que figura en el catálogo.</p>
-            <div class="list-table-new">
-                <ul class="list-table-title upper">
-                    <li>Productos <span class="table-title-right">Cant</span></li>
-                </ul>
-                <ul class="list-table-body">
-                    @foreach (var item in Model.lsProductosDetalle)
-                    {
-                        var preciounitario = String.Format("{0}", String.Format("{0:#,##0.00}", item.Precio));
-                        var preciototal = String.Format("{0}", String.Format("{0:#,##0.00}", item.Precio * (decimal)item.Cantidad));
+        <p style="text-align: justify;">A continuación se detalla lo que el cliente ha solicitado y el precio que espera pagar. En caso no figure el precio, guíate por el precio que figura en el catálogo.</p>
+        <div class="list-table-new">
+            <ul class="list-table-title upper">
+                <li>Productos <span class="table-title-right">Cant</span></li>
+            </ul>
+            <ul class="list-table-body">
+                @foreach (var item in Model.lsProductosDetalle)
+                {
+                    var preciounitario = String.Format("{0}", String.Format("{0:#,##0.00}", item.Precio));
+                    var preciototal = String.Format("{0}", String.Format("{0:#,##0.00}", item.Precio * (decimal)item.Cantidad));
 
-                        <li>
-                            <input type="hidden" class="cDescripcionMarca" value="@item.DescripcionMarca" />
-                            <input type="hidden" class="cID" value="@item.CUV" />
-                            <input type="hidden" class="cDescripcion" value="@item.DescripcionProducto" />
-                            <input type="hidden" class="cCantidad" value="@item.Cantidad" />
-                            <input type="hidden" class="cPrecioUnitario" value="@item.Precio" />
+                    <li>
+                        <input type="hidden" class="cDescripcionMarca" value="@item.DescripcionMarca" />
+                        <input type="hidden" class="cID" value="@item.CUV" />
+                        <input type="hidden" class="cDescripcion" value="@item.DescripcionProducto" />
+                        <input type="hidden" class="cCantidad" value="@item.Cantidad" />
+                        <input type="hidden" class="cPrecioUnitario" value="@item.Precio" />
 
-                            <div class="posr">
-                                <div class="table-width">
-                                    <strong class="upper">@item.DescripcionProducto</strong>
+                        <div class="posr">
+                            <div class="table-width">
+                                <strong class="upper">@item.DescripcionProducto</strong>
 
-                                    <div class="mb-10">
-                                        <strong class="text-lg">@item.CUV</strong>
-                                    </div>
+                                <div class="mb-10">
+                                    <strong class="text-lg">@item.CUV</strong>
+                                </div>
 
-                                    @if (Model.MarcaID != 2)
-                                    {
-                                        <div>
-                                            Precio Unitario :
-                                            @if (ViewBag.PaisID == 4)
-                                            {
-                                                <span>@ViewBag.Simbolo @String.Format("{0:#,##0}", item.Precio).Replace(',', '.')</span>
-                                            }
-                                            else
-                                            {
-                                                <span>@ViewBag.Simbolo @String.Format("{0:#,##0.00}", item.Precio)</span>
-                                            }
-                                            <br />
+                                @if (Model.MarcaID != 2)
+                                {
+                                    <div>
+                                        Precio Unitario :
+                                        @if (ViewBag.PaisID == Constantes.PaisID.Colombia)
+                                        {
+                                            <span>@ViewBag.Simbolo @String.Format("{0:#,##0}", item.Precio).Replace(',', '.')</span>
+                                        }
+                                        else
+                                        {
+                                            <span>@ViewBag.Simbolo @String.Format("{0:#,##0.00}", item.Precio)</span>
+                                        }
+                                        <br />
 
-                                            <div class="upper">
-                                                <strong>Subtotal </strong>
-                                                <strong>
-                                                    @if (ViewBag.PaisID == 4)
-                                                    {
-                                                        <span>@ViewBag.Simbolo @String.Format("{0:#,##0}", item.Precio * (decimal)item.Cantidad).Replace(',', '.')</span>
-                                                    }
-                                                    else
-                                                    {
-                                                        <span>@ViewBag.Simbolo @String.Format("{0:#,##0.00}", item.Precio * (decimal)item.Cantidad)</span>
-                                                    }
-                                                </strong>
-                                            </div>
+                                        <div class="upper">
+                                            <strong>Subtotal </strong>
+                                            <strong>
+                                                @if (ViewBag.PaisID == Constantes.PaisID.Colombia)
+                                                {
+                                                    <span>@ViewBag.Simbolo @String.Format("{0:#,##0}", item.Precio * (decimal)item.Cantidad).Replace(',', '.')</span>
+                                                }
+                                                else
+                                                {
+                                                    <span>@ViewBag.Simbolo @String.Format("{0:#,##0.00}", item.Precio * (decimal)item.Cantidad)</span>
+                                                }
+                                            </strong>
                                         </div>
-                                    }
-                                </div>
-
-                                <div class="cantidad-numero">
-                                    <span class="num-cuadro"> @item.Cantidad </span>
-                                </div>
+                                    </div>
+                                }
                             </div>
-                        </li>
-                    }
-                </ul>
-            </div>
-            <br />
-            <div class="text-right text-success upper" style="font-size:1.2em;">
-                <strong>Total Pedido</strong> @ViewBag.Simbolo @string.Format("{0:N2}", Model.lsProductosDetalle.Sum(p => (p.Cantidad * p.Precio)))
-            </div>
-            <hr class="success" />
+
+                            <div class="cantidad-numero">
+                                <span class="num-cuadro"> @item.Cantidad </span>
+                            </div>
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
+        <br />
+        <div class="text-right text-success upper" style="font-size:1.2em;">
+            <strong>Total Pedido</strong> @ViewBag.Simbolo @string.Format("{0:N2}", Model.lsProductosDetalle.Sum(p => (p.Cantidad * p.Precio)))
+        </div>
+        <hr class="success" />
     }
 
     <div class="form-group form-controls-grey">
@@ -160,13 +161,13 @@
         <div style="margin-bottom: 10px;">Este es el mensaje que le llegará al cliente una vez aceptado el pedido:</div>
 
         @if (String.IsNullOrEmpty(Model.Estado))
+        {
+            if (String.IsNullOrEmpty(Model.MensajeaCliente))
             {
-                if (String.IsNullOrEmpty(Model.MensajeaCliente))
-                {
-                    Model.MensajeaCliente = string.Format("Gracias por haber escogido a {0} como tu Consultora. Pronto se pondrá en contacto contigo para coordinar la hora y lugar de entrega.", ViewBag.NombreCompleto);
-                }
+                Model.MensajeaCliente = string.Format("Gracias por haber escogido a {0} como tu Consultora. Pronto se pondrá en contacto contigo para coordinar la hora y lugar de entrega.", ViewBag.NombreCompleto);
+            }
 
-                @Html.TextAreaFor(m => m.MensajeaCliente, new { rows = 4, cols = 60, placeholder = "Máximo 250 caracteres", id = "taMensaje", @class = "form-control", maxlength = 250 })
+            @Html.TextAreaFor(m => m.MensajeaCliente, new { rows = 4, cols = 60, placeholder = "Máximo 250 caracteres", id = "taMensaje", @class = "form-control", maxlength = 250 })
         }
         else
         {
@@ -181,11 +182,11 @@
                 <button id="btnGuardar" class="btn btn-line-action btn-wfijo btn-round" type="button" onclick="AceptarSolicitud(@Model.SolicitudClienteId,@Model.ConsultoraID,'@Html.Encode(Model.MarcaNombre)','@Model.EmailCliente.ToString()',' @Html.Encode(Model.NombreCliente.ToString())')">
                     Aceptar
                 </button>
-                    <br />
-                    <br />
-                    <button id="btnRechazar" type="button" class="btn btn-line-action btn-wfijo btn-round" onclick="RechazarSolicitud(@Model.SolicitudClienteId,@Model.NumIteracion,'@Model.CodigoUbigeo','@Model.Campania',@Model.MarcaID)">
-                        Rechazar
-                    </button>
+                <br />
+                <br />
+                <button id="btnRechazar" type="button" class="btn btn-line-action btn-wfijo btn-round" onclick="RechazarSolicitud(@Model.SolicitudClienteId,@Model.NumIteracion,'@Model.CodigoUbigeo','@Model.Campania',@Model.MarcaID)">
+                    Rechazar
+                </button>
             }
         </p>
     </div>

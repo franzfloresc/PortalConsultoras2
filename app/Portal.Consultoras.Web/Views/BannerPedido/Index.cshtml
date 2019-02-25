@@ -11,7 +11,7 @@
 
         $("input[name$='grupoUrlPDF']").click(function () {
             var test = $(this).val();
-            
+
             $("div.zona").hide(100);
             $("#zona" + test).show(100);
         });
@@ -24,17 +24,17 @@
             if (Id != "") {
                 waitingDialog({});
                 $.ajaxSetup({ cache: false });
-                $.getJSON(baseUrl + 'BannerPedido/ObtenterDropDownPorPais', { PaisID: Id == "" ? 0 : Id }, function (data) {
+                $.getJSON(baseUrl + 'BaseAdm/ObtenerCampaniasPorPais', { PaisID: Id == "" ? 0 : Id }, function (data) {
                     if (checkTimeout(data)) {
                         var ddlCampania = $("#ddlCampania");
 
                         if (Id != "") {
-                            if (data.lstCampania.length > 0) {
-                                for (var item in data.lstCampania) {
-                                    if (data.lstCampania.hasOwnProperty(item)) {
+                            if (data.lista.length > 0) {
+                                for (var item in data.lista) {
+                                    if (data.lista.hasOwnProperty(item)) {
                                         ddlCampania.append($('<option/>', {
-                                            value: data.lstCampania[item].CampaniaID,
-                                            text: data.lstCampania[item].Codigo
+                                            value: data.lista[item].CampaniaID,
+                                            text: data.lista[item].Codigo
                                         }));
                                     }
                                 }
@@ -119,7 +119,7 @@
                 if (jQuery('#BannerPedidoID').val() == "0")
                     jQuery('#PaisID').val(jQuery('#ddlPaisDialogo').val());
 
-                
+
                 if (message.length > 0) {
                     alert(message);
                     return false;
@@ -135,10 +135,10 @@
             if (checkTimeout(responseText)) {
                 $("#gvwIncentivos").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
                 limpiarPopup();
-                $('#DialogRegistroIncentivos').dialog('close');
+                HideDialog("DialogRegistroIncentivos");
                 if (responseText && typeof responseText === "string") {
                     alert($.parseJSON(responseText).message);
-                } else {                    
+                } else {
                     alert(responseText.message);
                 }
 
@@ -155,6 +155,9 @@
             width: 900,
             draggable: true,
             title: "Actualización de banner de pedido",
+            close: function () {
+                HideDialog("DialogRegistroIncentivos");
+            },
             buttons:
             {
                 "Guardar": function () {
@@ -162,7 +165,7 @@
                     $('#frmIncentivo').submit();
                 },
                 "Cerrar": function () {
-                    $(this).dialog('close');
+                    HideDialog("DialogRegistroIncentivos");
                 }
             }
         });
@@ -272,7 +275,7 @@
     }
 
     $.jgrid.extend({
-        Editar: function (Id) {         
+        Editar: function (Id) {
             if (Id) {
                 $('#BannerPedidoID').val(Id);
                 $('#PaisID').val(jQuery("#gvwIncentivos").jqGrid('getCell', Id, 'PaisID'));
@@ -287,13 +290,13 @@
 
                     var img01 = $('#ArchivoPortada').val().replace(/^.*[\\\/]/, '');
                     if (img01.lastIndexOf("?") >= 0) {
-                        img01 = img01.substring(0, img01.lastIndexOf("?"));                        
+                        img01 = img01.substring(0, img01.lastIndexOf("?"));
                     }
                     $('#ArchivoPortada').val(img01);
 
                     img01 = $('#ArchivoPortadaAnterior').val().replace(/^.*[\\\/]/, '');
                     if (img01.lastIndexOf("?") >= 0) {
-                        img01 = img01.substring(0, img01.lastIndexOf("?"));                        
+                        img01 = img01.substring(0, img01.lastIndexOf("?"));
                     }
                     $('#ArchivoPortadaAnterior').val(img01);
                 }
@@ -303,7 +306,7 @@
                 if ($.trim($("#ArchivoPDF").val()) != "") {
                     var img01 = $('#ArchivoPDF').val();
                     if (img01.lastIndexOf("?") >= 0) {
-                        img01 = img01.substring(0, img01.lastIndexOf("?"));                        
+                        img01 = img01.substring(0, img01.lastIndexOf("?"));
                     }
                     $('#ArchivoPDF').val(img01);
                 }
@@ -321,7 +324,7 @@
                     $("input[name=grupoUrlPDF][value=ninguno]").attr('checked', 'checked').click();
 
                 var TipoUrl = $("#gvwIncentivos").jqGrid('getCell', Id, 'TipoUrl')
-                
+
                 if (TipoUrl=='_blank') {
                     $("input[name=grupoTipoUrl][value=_blank]").attr('checked', 'checked').click();
                 }
@@ -379,7 +382,7 @@
     }
 
     function VerMenos(object, ValorCompleto, ValorParcial) {
-        
+
         var td = object.parentElement;
         td.innerHTML = ValorParcial + "&nbsp;<a href='javascript:;' onclick=\"VerMas(this,'" + ValorCompleto + "','" + ValorParcial + "');\" > ...Ver mas" + "</a>";
         return false;
@@ -397,9 +400,9 @@
     }
 
     function limpiarPopup() {
-        
+
         $('#PaisID').val("");
-        
+
         $('#ddlPaisDialogo').prop('disabled', false);
         $('#ddlPaisDialogo')[0].selectedIndex = 0;
         $('#ddlPaisDialogo').removeAttr("disabled");

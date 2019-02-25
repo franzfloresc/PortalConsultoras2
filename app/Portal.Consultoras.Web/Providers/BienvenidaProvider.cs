@@ -68,13 +68,7 @@ namespace Portal.Consultoras.Web.Providers
 
             if (model.ShowPopupMisDatos  && !esMobile)
                 return Constantes.TipoPopUp.Ninguno;
-           
-            //if (TempData["MostrarPopupCuponGanaste"] != null)
-            //{
-            //    TempData["MostrarPopupCuponGanaste"] = null;
-            //    return Convert.ToInt32(TempData["TipoPopup"]);
-            //}
-         
+                    
             var tipoPopUpMostrar = 0;
             if (sessionManager.GetTipoPopUpMostrar() != -1)
             {
@@ -178,17 +172,14 @@ namespace Portal.Consultoras.Web.Providers
                                 && model.ValidaTiempoVentana == 1
                                 && model.ValidaSegmento == 1)
                             {
-                                //model.MostrarPopupActualizarDatosXPais = Constantes.PaisID.Mexico;
                                 tipoPopUpMostrar = Constantes.TipoPopUp.ActualizarDatos;
                             }
                             else
                             {
                                 var PrimeraVezSession = 1;
                                 if (sessionManager.GetPrimeraVezSession() != null && (int)sessionManager.GetPrimeraVezSession() == 0) PrimeraVezSession = 0;
-                                    //if (model.PrimeraVez == 0 || model.PrimeraVezSession == 0)
                                 if (userData.CambioClave == 0 || PrimeraVezSession == 0)
                                 {
-                                    //model.MostrarPopupActualizarDatosXPais = userData.CodigoISO == Constantes.CodigosISOPais.Peru ? Constantes.PaisID.Peru : 0;
                                     tipoPopUpMostrar = Constantes.TipoPopUp.ActualizarDatos;
                                 }
                             }
@@ -292,7 +283,6 @@ namespace Portal.Consultoras.Web.Providers
                     if (userData.VioTutorialSalvavidas == 0)
                     {
                         UpdateUsuarioTutorial(Constantes.TipoTutorial.Salvavidas);
-                        //ViewBag.MostrarUbicacionTutorial = 0;
                     }
                     else
                     {
@@ -370,47 +360,7 @@ namespace Portal.Consultoras.Web.Providers
 
                 if (cronograma == null) return false;
                 if (cronograma.FechaInicioWeb == null) return false;
-
-                //var fechaDa = (DateTime)cronograma.FechaInicioWeb;
-
-                //var diasemana = "";
-
-                //#region Nombre Dia
-
-                //var dia = fechaDa.DayOfWeek.ToString();
-                //switch (dia)
-                //{
-                //    case "Monday":
-                //        diasemana = "Lunes";
-                //        break;
-                //    case "Tuesday":
-                //        diasemana = "Martes";
-                //        break;
-                //    case "Wednesday":
-                //        diasemana = "Miércoles";
-                //        break;
-                //    case "Thursday":
-                //        diasemana = "Jueves";
-                //        break;
-                //    case "Friday":
-                //        diasemana = "Viernes";
-                //        break;
-                //    case "Saturday":
-                //        diasemana = "Sábado";
-                //        break;
-                //    case "Sunday":
-                //        diasemana = "Domingo";
-                //        break;
-                //}
-
-                //#endregion
-
-                //var sp = userData.HoraCierreZonaDemAntiCierre;
-                //var cierrezonademanti = new DateTime(sp.Ticks).ToString("HH:mm") + " hrs";
-
-                //model.MensajeFechaDA = diasemana + " " + fechaDa.Day.ToString() + " de " + Util.NombreMes(fechaDa.Month) +
-                //                       " (" + cierrezonademanti + ")";
-
+                
                 return true;
 
             }
@@ -436,7 +386,8 @@ namespace Portal.Consultoras.Web.Providers
             {
                 if (showRoomProvider.PaisTieneShowRoom(userData.CodigoISO))
                 {
-                    if (!configEstrategiaSR.CargoEntidadesShowRoom) return false;
+                    showRoomProvider.CargarEventoConsultora(userData);
+                    if (!configEstrategiaSR.CargoEntidadEventoConsultora) return false;
                     var beShowRoomConsultora = configEstrategiaSR.BeShowRoomConsultora;
                     var beShowRoom = configEstrategiaSR.BeShowRoom;
 

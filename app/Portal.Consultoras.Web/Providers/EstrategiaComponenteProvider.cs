@@ -1,16 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
 using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.SessionManager;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -34,6 +31,7 @@ namespace Portal.Consultoras.Web.Providers
         }
         protected OfertaBaseProvider _ofertaBaseProvider;
         protected ISessionManager _sessionManager;
+        protected ConsultaProlProvider _consultaProlProvider;
         public virtual ISessionManager SessionManager
         {
             get { return _sessionManager; }
@@ -43,22 +41,24 @@ namespace Portal.Consultoras.Web.Providers
         public EstrategiaComponenteProvider() : this(
             Web.SessionManager.SessionManager.Instance,
             new OfertaBaseProvider(),
-            new ConfiguracionManagerProvider())
+            new ConfiguracionManagerProvider(),
+            new ConsultaProlProvider())
         {
         }
 
         public EstrategiaComponenteProvider(ISessionManager sessionManager,
             OfertaBaseProvider ofertaBaseProvider,
-            ConfiguracionManagerProvider configuracionManagerProvider)
+            ConfiguracionManagerProvider configuracionManagerProvider,
+            ConsultaProlProvider consultaProlProvider)
         {
             _configuracionManagerProvider = configuracionManagerProvider;
             _ofertaBaseProvider = ofertaBaseProvider;
             this.SessionManager = sessionManager;
+            _consultaProlProvider = consultaProlProvider;
         }
 
         public List<EstrategiaComponenteModel> GetListaComponentes(EstrategiaPersonalizadaProductoModel estrategiaModelo, string codigoTipoEstrategia, out bool esMultimarca, out string mensaje)
         {
-            string joinCuv = string.Empty;
             List<BEEstrategiaProducto> listaBeEstrategiaProductos;
             esMultimarca = false;
             mensaje = "";
@@ -94,7 +94,8 @@ namespace Portal.Consultoras.Web.Providers
 
             listaEstrategiaComponente = OrdenarComponentesPorMarca(listaEstrategiaComponente, out esMultimarca);
             mensaje += "OrdenarComponentesPorMarca = " + listaEstrategiaComponente.Count + "|";
-            return listaEstrategiaComponente;
+
+            return _consultaProlProvider.ActualizarComponenteStockPROL( listaEstrategiaComponente, estrategiaModelo.CUV2, userData.CodigoISO, estrategiaModelo.CampaniaID,userData.GetCodigoConsultora());
         }
 
         public virtual List<BEEstrategiaProducto> GetEstrategiaProducto(int PaisID, int EstrategiaID)
@@ -134,6 +135,8 @@ namespace Portal.Consultoras.Web.Providers
                 if (x.IdMarca == Constantes.Marca.LBel) codigoMarca = "L";
                 if (x.IdMarca == Constantes.Marca.Esika) codigoMarca = "E";
                 if (x.IdMarca == Constantes.Marca.Cyzone) codigoMarca = "C";
+
+                // Cuando NombreBulk igual a NombreComercial se entiende que es Tipo, caso contrario Tono
                 if ((x.NombreComercial.Equals(x.NombreBulk)))
                 {
                     x.ImagenBulk = string.IsNullOrEmpty(x.ImagenProducto) ? "" : string.Format(_configuracionManagerProvider.GetRutaImagenesAppCatalogo(), codigoIsoPais, campaniaId, codigoMarca, x.ImagenProducto);
@@ -212,7 +215,7 @@ namespace Portal.Consultoras.Web.Providers
 
                 if (!string.IsNullOrEmpty(beEstrategiaProducto.ImagenProducto))
                 {
-                    componenteModel.Imagen = ConfigCdn.GetUrlFileCdn(Globals.UrlMatriz + "/" + _paisISO, beEstrategiaProducto.ImagenProducto);
+                    componenteModel.Imagen = ConfigCdn.GetUrlFileCdnMatriz(_paisISO, beEstrategiaProducto.ImagenProducto);
                 }
 
                 componenteModel.NombreBulk = Util.Trim(componenteModel.NombreBulk);
@@ -361,7 +364,7 @@ namespace Portal.Consultoras.Web.Providers
             }
             catch
             {
-                // Excepcion
+                //
             }
 
             return existe;
@@ -451,9 +454,9 @@ namespace Portal.Consultoras.Web.Providers
                     x.IdMarca != Constantes.Marca.LBel);
 
             int contador = 0;
-            contador += listaComponentesCyzone.Any() ? 1 : 0;
-            contador += listaComponentesEzika.Any() ? 1 : 0;
-            contador += listaComponentesLbel.Any() ? 1 : 0;
+            contador += listaComponentesCyzone.Any().ToInt();
+            contador += listaComponentesEzika.Any().ToInt();
+            contador += listaComponentesLbel.Any().ToInt();
 
             esMultimarca = contador > 1;
 

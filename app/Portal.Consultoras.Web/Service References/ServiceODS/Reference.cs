@@ -80,6 +80,9 @@ namespace Portal.Consultoras.Web.ServiceODS {
         private int EstrategiaIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int EstrategiaIDSiccField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string FlagNuevaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -117,6 +120,9 @@ namespace Portal.Consultoras.Web.ServiceODS {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NombreField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool PermiteAgregarPedidoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal PrecioCatalogoField;
@@ -415,6 +421,19 @@ namespace Portal.Consultoras.Web.ServiceODS {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public int EstrategiaIDSicc {
+            get {
+                return this.EstrategiaIDSiccField;
+            }
+            set {
+                if ((this.EstrategiaIDSiccField.Equals(value) != true)) {
+                    this.EstrategiaIDSiccField = value;
+                    this.RaisePropertyChanged("EstrategiaIDSicc");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string FlagNueva {
             get {
                 return this.FlagNuevaField;
@@ -579,6 +598,19 @@ namespace Portal.Consultoras.Web.ServiceODS {
                 if ((object.ReferenceEquals(this.NombreField, value) != true)) {
                     this.NombreField = value;
                     this.RaisePropertyChanged("Nombre");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool PermiteAgregarPedido {
+            get {
+                return this.PermiteAgregarPedidoField;
+            }
+            set {
+                if ((this.PermiteAgregarPedidoField.Equals(value) != true)) {
+                    this.PermiteAgregarPedidoField = value;
+                    this.RaisePropertyChanged("PermiteAgregarPedido");
                 }
             }
         }
@@ -3447,6 +3479,67 @@ namespace Portal.Consultoras.Web.ServiceODS {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BERespValidarLimiteVenta", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.LimiteVenta")]
+    [System.SerializableAttribute()]
+    public partial class BERespValidarLimiteVenta : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool TieneLimiteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int UnidadesMaximasField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool TieneLimite {
+            get {
+                return this.TieneLimiteField;
+            }
+            set {
+                if ((this.TieneLimiteField.Equals(value) != true)) {
+                    this.TieneLimiteField = value;
+                    this.RaisePropertyChanged("TieneLimite");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int UnidadesMaximas {
+            get {
+                return this.UnidadesMaximasField;
+            }
+            set {
+                if ((this.UnidadesMaximasField.Equals(value) != true)) {
+                    this.UnidadesMaximasField = value;
+                    this.RaisePropertyChanged("UnidadesMaximas");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceODS.IODSService")]
     public interface IODSService {
@@ -3688,10 +3781,16 @@ namespace Portal.Consultoras.Web.ServiceODS {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceODS.BEProducto[]> GetListBrothersByCUVAsync(int paisID, int codCampania, string cuv);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/ValidarBusquedaProgramaNuevas", ReplyAction="http://tempuri.org/IODSService/ValidarBusquedaProgramaNuevasResponse")]
-        Portal.Consultoras.Common.Enumeradores.ValidacionProgramaNuevas ValidarBusquedaProgramaNuevas(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv);
+        Portal.Consultoras.Common.Enumeradores.ValidacionProgramaNuevas ValidarBusquedaProgramaNuevas(int paisID, int campaniaID, string codigoPrograma, int consecutivoNueva, string cuv);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/ValidarBusquedaProgramaNuevas", ReplyAction="http://tempuri.org/IODSService/ValidarBusquedaProgramaNuevasResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Common.Enumeradores.ValidacionProgramaNuevas> ValidarBusquedaProgramaNuevasAsync(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv);
+        System.Threading.Tasks.Task<Portal.Consultoras.Common.Enumeradores.ValidacionProgramaNuevas> ValidarBusquedaProgramaNuevasAsync(int paisID, int campaniaID, string codigoPrograma, int consecutivoNueva, string cuv);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/ValidarBusquedaProgramaNuevasList", ReplyAction="http://tempuri.org/IODSService/ValidarBusquedaProgramaNuevasListResponse")]
+        System.Collections.Generic.Dictionary<string, Portal.Consultoras.Common.Enumeradores.ValidacionProgramaNuevas> ValidarBusquedaProgramaNuevasList(int paisID, int campaniaID, string codigoPrograma, int consecutivoNueva, string[] listCuv);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/ValidarBusquedaProgramaNuevasList", ReplyAction="http://tempuri.org/IODSService/ValidarBusquedaProgramaNuevasListResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.Dictionary<string, Portal.Consultoras.Common.Enumeradores.ValidacionProgramaNuevas>> ValidarBusquedaProgramaNuevasListAsync(int paisID, int campaniaID, string codigoPrograma, int consecutivoNueva, string[] listCuv);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/ValidarCantidadMaximaProgramaNuevas", ReplyAction="http://tempuri.org/IODSService/ValidarCantidadMaximaProgramaNuevasResponse")]
         int ValidarCantidadMaximaProgramaNuevas(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, int cantidadEnPedido, string cuvIngresado, int cantidadIngresada);
@@ -3705,17 +3804,17 @@ namespace Portal.Consultoras.Web.ServiceODS {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/ValidaCuvElectivo", ReplyAction="http://tempuri.org/IODSService/ValidaCuvElectivoResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceODS.BERespValidarElectivos> ValidaCuvElectivoAsync(int paisID, int campaniaID, string cuvIngresado, int consecutivoNueva, string codigoPrograma, string[] lstCuvPedido);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/EsCuvDuoPerfecto", ReplyAction="http://tempuri.org/IODSService/EsCuvDuoPerfectoResponse")]
-        bool EsCuvDuoPerfecto(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string cuv);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/EsCuvElecMultiple", ReplyAction="http://tempuri.org/IODSService/EsCuvElecMultipleResponse")]
+        bool EsCuvElecMultiple(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string cuv);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/EsCuvDuoPerfecto", ReplyAction="http://tempuri.org/IODSService/EsCuvDuoPerfectoResponse")]
-        System.Threading.Tasks.Task<bool> EsCuvDuoPerfectoAsync(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string cuv);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/EsCuvElecMultiple", ReplyAction="http://tempuri.org/IODSService/EsCuvElecMultipleResponse")]
+        System.Threading.Tasks.Task<bool> EsCuvElecMultipleAsync(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string cuv);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/TieneListaEstrategiaDuoPerfecto", ReplyAction="http://tempuri.org/IODSService/TieneListaEstrategiaDuoPerfectoResponse")]
-        bool TieneListaEstrategiaDuoPerfecto(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string[] lstCuv);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/TieneListaEstrategiaElecMultiple", ReplyAction="http://tempuri.org/IODSService/TieneListaEstrategiaElecMultipleResponse")]
+        bool TieneListaEstrategiaElecMultiple(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string[] lstCuv);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/TieneListaEstrategiaDuoPerfecto", ReplyAction="http://tempuri.org/IODSService/TieneListaEstrategiaDuoPerfectoResponse")]
-        System.Threading.Tasks.Task<bool> TieneListaEstrategiaDuoPerfectoAsync(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string[] lstCuv);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/TieneListaEstrategiaElecMultiple", ReplyAction="http://tempuri.org/IODSService/TieneListaEstrategiaElecMultipleResponse")]
+        System.Threading.Tasks.Task<bool> TieneListaEstrategiaElecMultipleAsync(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string[] lstCuv);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/GetLimElectivosProgNuevas", ReplyAction="http://tempuri.org/IODSService/GetLimElectivosProgNuevasResponse")]
         int GetLimElectivosProgNuevas(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma);
@@ -3728,6 +3827,18 @@ namespace Portal.Consultoras.Web.ServiceODS {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/ValidarVentaExclusiva", ReplyAction="http://tempuri.org/IODSService/ValidarVentaExclusivaResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Common.Enumeradores.ValidacionVentaExclusiva> ValidarVentaExclusivaAsync(int paisID, int campaniaID, string codigoConsultora, string cuv);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/CuvTieneLimiteVenta", ReplyAction="http://tempuri.org/IODSService/CuvTieneLimiteVentaResponse")]
+        Portal.Consultoras.Web.ServiceODS.BERespValidarLimiteVenta CuvTieneLimiteVenta(int paisID, int campaniaID, string region, string zona, string cuv, int cantidadIngresada, int cantidadActual);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/CuvTieneLimiteVenta", ReplyAction="http://tempuri.org/IODSService/CuvTieneLimiteVentaResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceODS.BERespValidarLimiteVenta> CuvTieneLimiteVentaAsync(int paisID, int campaniaID, string region, string zona, string cuv, int cantidadIngresada, int cantidadActual);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/CuvArmaTuPackEstaEnLimite", ReplyAction="http://tempuri.org/IODSService/CuvArmaTuPackEstaEnLimiteResponse")]
+        bool CuvArmaTuPackEstaEnLimite(int paisID, int campaniaID, string zona, string cuv, int cantidadIngresada, int cantidadActual);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/CuvArmaTuPackEstaEnLimite", ReplyAction="http://tempuri.org/IODSService/CuvArmaTuPackEstaEnLimiteResponse")]
+        System.Threading.Tasks.Task<bool> CuvArmaTuPackEstaEnLimiteAsync(int paisID, int campaniaID, string zona, string cuv, int cantidadIngresada, int cantidadActual);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -4061,12 +4172,20 @@ namespace Portal.Consultoras.Web.ServiceODS {
             return base.Channel.GetListBrothersByCUVAsync(paisID, codCampania, cuv);
         }
         
-        public Portal.Consultoras.Common.Enumeradores.ValidacionProgramaNuevas ValidarBusquedaProgramaNuevas(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv) {
-            return base.Channel.ValidarBusquedaProgramaNuevas(paisID, campaniaID, ConsultoraID, codigoPrograma, consecutivoNueva, cuv);
+        public Portal.Consultoras.Common.Enumeradores.ValidacionProgramaNuevas ValidarBusquedaProgramaNuevas(int paisID, int campaniaID, string codigoPrograma, int consecutivoNueva, string cuv) {
+            return base.Channel.ValidarBusquedaProgramaNuevas(paisID, campaniaID, codigoPrograma, consecutivoNueva, cuv);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Common.Enumeradores.ValidacionProgramaNuevas> ValidarBusquedaProgramaNuevasAsync(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv) {
-            return base.Channel.ValidarBusquedaProgramaNuevasAsync(paisID, campaniaID, ConsultoraID, codigoPrograma, consecutivoNueva, cuv);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Common.Enumeradores.ValidacionProgramaNuevas> ValidarBusquedaProgramaNuevasAsync(int paisID, int campaniaID, string codigoPrograma, int consecutivoNueva, string cuv) {
+            return base.Channel.ValidarBusquedaProgramaNuevasAsync(paisID, campaniaID, codigoPrograma, consecutivoNueva, cuv);
+        }
+        
+        public System.Collections.Generic.Dictionary<string, Portal.Consultoras.Common.Enumeradores.ValidacionProgramaNuevas> ValidarBusquedaProgramaNuevasList(int paisID, int campaniaID, string codigoPrograma, int consecutivoNueva, string[] listCuv) {
+            return base.Channel.ValidarBusquedaProgramaNuevasList(paisID, campaniaID, codigoPrograma, consecutivoNueva, listCuv);
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.Dictionary<string, Portal.Consultoras.Common.Enumeradores.ValidacionProgramaNuevas>> ValidarBusquedaProgramaNuevasListAsync(int paisID, int campaniaID, string codigoPrograma, int consecutivoNueva, string[] listCuv) {
+            return base.Channel.ValidarBusquedaProgramaNuevasListAsync(paisID, campaniaID, codigoPrograma, consecutivoNueva, listCuv);
         }
         
         public int ValidarCantidadMaximaProgramaNuevas(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, int cantidadEnPedido, string cuvIngresado, int cantidadIngresada) {
@@ -4085,20 +4204,20 @@ namespace Portal.Consultoras.Web.ServiceODS {
             return base.Channel.ValidaCuvElectivoAsync(paisID, campaniaID, cuvIngresado, consecutivoNueva, codigoPrograma, lstCuvPedido);
         }
         
-        public bool EsCuvDuoPerfecto(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string cuv) {
-            return base.Channel.EsCuvDuoPerfecto(paisID, campaniaID, consecutivoNueva, codigoPrograma, cuv);
+        public bool EsCuvElecMultiple(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string cuv) {
+            return base.Channel.EsCuvElecMultiple(paisID, campaniaID, consecutivoNueva, codigoPrograma, cuv);
         }
         
-        public System.Threading.Tasks.Task<bool> EsCuvDuoPerfectoAsync(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string cuv) {
-            return base.Channel.EsCuvDuoPerfectoAsync(paisID, campaniaID, consecutivoNueva, codigoPrograma, cuv);
+        public System.Threading.Tasks.Task<bool> EsCuvElecMultipleAsync(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string cuv) {
+            return base.Channel.EsCuvElecMultipleAsync(paisID, campaniaID, consecutivoNueva, codigoPrograma, cuv);
         }
         
-        public bool TieneListaEstrategiaDuoPerfecto(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string[] lstCuv) {
-            return base.Channel.TieneListaEstrategiaDuoPerfecto(paisID, campaniaID, consecutivoNueva, codigoPrograma, lstCuv);
+        public bool TieneListaEstrategiaElecMultiple(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string[] lstCuv) {
+            return base.Channel.TieneListaEstrategiaElecMultiple(paisID, campaniaID, consecutivoNueva, codigoPrograma, lstCuv);
         }
         
-        public System.Threading.Tasks.Task<bool> TieneListaEstrategiaDuoPerfectoAsync(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string[] lstCuv) {
-            return base.Channel.TieneListaEstrategiaDuoPerfectoAsync(paisID, campaniaID, consecutivoNueva, codigoPrograma, lstCuv);
+        public System.Threading.Tasks.Task<bool> TieneListaEstrategiaElecMultipleAsync(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string[] lstCuv) {
+            return base.Channel.TieneListaEstrategiaElecMultipleAsync(paisID, campaniaID, consecutivoNueva, codigoPrograma, lstCuv);
         }
         
         public int GetLimElectivosProgNuevas(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma) {
@@ -4115,6 +4234,22 @@ namespace Portal.Consultoras.Web.ServiceODS {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Common.Enumeradores.ValidacionVentaExclusiva> ValidarVentaExclusivaAsync(int paisID, int campaniaID, string codigoConsultora, string cuv) {
             return base.Channel.ValidarVentaExclusivaAsync(paisID, campaniaID, codigoConsultora, cuv);
+        }
+        
+        public Portal.Consultoras.Web.ServiceODS.BERespValidarLimiteVenta CuvTieneLimiteVenta(int paisID, int campaniaID, string region, string zona, string cuv, int cantidadIngresada, int cantidadActual) {
+            return base.Channel.CuvTieneLimiteVenta(paisID, campaniaID, region, zona, cuv, cantidadIngresada, cantidadActual);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceODS.BERespValidarLimiteVenta> CuvTieneLimiteVentaAsync(int paisID, int campaniaID, string region, string zona, string cuv, int cantidadIngresada, int cantidadActual) {
+            return base.Channel.CuvTieneLimiteVentaAsync(paisID, campaniaID, region, zona, cuv, cantidadIngresada, cantidadActual);
+        }
+        
+        public bool CuvArmaTuPackEstaEnLimite(int paisID, int campaniaID, string zona, string cuv, int cantidadIngresada, int cantidadActual) {
+            return base.Channel.CuvArmaTuPackEstaEnLimite(paisID, campaniaID, zona, cuv, cantidadIngresada, cantidadActual);
+        }
+        
+        public System.Threading.Tasks.Task<bool> CuvArmaTuPackEstaEnLimiteAsync(int paisID, int campaniaID, string zona, string cuv, int cantidadIngresada, int cantidadActual) {
+            return base.Channel.CuvArmaTuPackEstaEnLimiteAsync(paisID, campaniaID, zona, cuv, cantidadIngresada, cantidadActual);
         }
     }
 }

@@ -1,16 +1,14 @@
-﻿using AutoMapper;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
-using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class ConsultaAdministrativaController : BaseController
+    public class ConsultaAdministrativaController : BaseAdmController
     {
         public ActionResult Index()
         {
@@ -21,7 +19,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             ConsultaAdministrativaModel model = new ConsultaAdministrativaModel
             {
-                listaPaises = DropDowListPaises()
+                listaPaises = DropDowListPaises(Constantes.Rol.Administrador)
             };
 
             return View(model);
@@ -128,17 +126,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         }
 
-        private IEnumerable<PaisModel> DropDowListPaises()
-        {
-            List<BEPais> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = sv.SelectPaises().ToList();
-            }
-
-            return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
-        }
-
         private int ValidarEnviarEmail(int paisId, string codigoConsultora)
         {
             int cantidadValidacion;
@@ -157,7 +144,7 @@ namespace Portal.Consultoras.Web.Controllers
                 cantidadEnvios = sv.ValidarEnvioCatalogo(paisId, codigoConsultora, userData.CampaniaID, cantidadValidacion);
             }
 
-            return cantidadEnvios >= cantidadValidacion ? 1 : 0;
+            return (cantidadEnvios >= cantidadValidacion).ToInt();
         }
 
     }

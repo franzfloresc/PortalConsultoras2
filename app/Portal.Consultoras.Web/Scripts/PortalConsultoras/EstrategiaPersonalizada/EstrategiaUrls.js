@@ -1,10 +1,8 @@
 ﻿
 function OnClickFichaDetalle(e) {
-    var estoyEnLaFicha = typeof fichaModule !== "undefined"; //una forma de identificar si estoy en la ficha o no.
-
+    var estoyEnLaFicha = typeof fichaModule !== "undefined"; //una forma de identificar si estoy en la ficha o no.    
     //el objeto e debe ser establecido con target  (e.target)
     var infoCuvItem = EstrategiaAgregarModule.EstrategiaObtenerObj($(e));
-
     var codigoEstrategia = $.trim(infoCuvItem.CodigoEstrategia);
     var codigoCampania = $.trim(infoCuvItem.CampaniaID);
     var codigoCuv = $.trim(infoCuvItem.CUV2);
@@ -15,14 +13,16 @@ function OnClickFichaDetalle(e) {
     if (OrigenPedidoWeb == "" || OrigenPedidoWeb === "undefined" || OrigenPedidoWeb == null)
         OrigenPedidoWeb = "";
 
-    if (UrlDetalle == "" || UrlDetalle === "undefined" || UrlDetalle == null)
+    if (UrlDetalle === "" || UrlDetalle === "undefined" || UrlDetalle == null)
         return null;
 
     UrlDetalle += codigoCampania + "/" + codigoCuv + "/" + OrigenPedidoWeb;
 
     if (estoyEnLaFicha) {
-        AnalyticsPortalModule.MarcarClicSetProductos(infoCuvItem);
-    }
+        AnalyticsPortalModule.MarcarClicSetProductos(infoCuvItem, e, OrigenPedidoWeb, estoyEnLaFicha);
+    } else
+        if (!(typeof AnalyticsPortalModule === 'undefined'))
+            AnalyticsPortalModule.MarcaGenericaClic(e, OrigenPedidoWeb);
 
     window.location = UrlDetalle;
 
@@ -30,6 +30,7 @@ function OnClickFichaDetalle(e) {
 }
 
 function BuscadorFichaDetalle(codigoCampania, codigoCuv, OrigenPedidoWeb, codigoEstrategia) {
+
     var UrlDetalle = GetPalanca(codigoEstrategia);
     if (UrlDetalle == "") return false;
     UrlDetalle += codigoCampania + "/" + codigoCuv + "/" + OrigenPedidoWeb;
@@ -39,7 +40,7 @@ function BuscadorFichaDetalle(codigoCampania, codigoCuv, OrigenPedidoWeb, codigo
 
 function GetPalanca(codigoEstrategia, OrigenPedidoWeb) {
     OrigenPedidoWeb = OrigenPedidoWeb || -1;
-    
+
     var url = isMobile() ? "/Mobile/Detalle/" : "/Detalle/";
 
     if (codigoEstrategia != null && typeof codigoEstrategia !== "undefined")
@@ -67,7 +68,17 @@ function GetPalanca(codigoEstrategia, OrigenPedidoWeb) {
                         OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileContenedorGanadorasCarrusel ||
                         OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileContenedorGanadorasFicha ||
                         OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileLandingGanadorasGanadorasCarrusel ||
-                        OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileLandingGanadorasGanadorasFicha)
+                        OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileLandingGanadorasGanadorasFicha ||
+
+                        OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopBuscadorGanadorasDesplegable ||
+                        OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopBuscadorGanadorasCarrusel ||
+                        OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopBuscadorGanadorasFicha ||
+                        OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.DesktopLandingBuscadorGanadorasFicha ||
+                        OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileBuscadorGanadorasDesplegable ||
+                        OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileBuscadorGanadorasCarrusel ||
+                        OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileBuscadorGanadorasFicha ||
+                        OrigenPedidoWeb == ConstantesModule.OrigenPedidoWeb.MobileLandingBuscadorGanadorasFicha
+                    )
                         url += ConstantesModule.CodigosPalanca.Ganadoras + "/";
                     else
                         url += ConstantesModule.CodigosPalanca.OfertaParaTi + "/";

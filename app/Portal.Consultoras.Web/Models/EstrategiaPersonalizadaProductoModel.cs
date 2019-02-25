@@ -44,7 +44,9 @@ namespace Portal.Consultoras.Web.Models
         public List<EstrategiaComponenteModel> Hermanos { get; set; }
         // se usa para filtrar los productos por categoria en ShowRoom
         public string ImagenProductoMini { get; set; }
-
+        /// <summary>
+        /// ImagenURL se usa para mostrar la imagen de fondo en los banner de los carrusel, Tabla: ConfiguracionPaisDatos
+        /// </summary>
         public string ImagenURL { get; set; }
         public bool IsAgregado { get; set; }
         public List<string> ListaDescripcionDetalle { get; set; }
@@ -69,6 +71,8 @@ namespace Portal.Consultoras.Web.Models
         /// 2: AGRÉGALO - Si puede alterar cantidad
         /// 3: ELIGE TU OPCIÓN
         /// 4: ¿LO QUIERES?
+        /// 5: ¿LO QUIERES? Inactivo
+        /// 11: Banner Carrusel (MG, OPT, SR)
         /// </summary>
         public int TipoAccionAgregar { get; set; }
 
@@ -81,6 +85,8 @@ namespace Portal.Consultoras.Web.Models
 
         public bool EsBannerProgNuevas { get; set; } // Se usa para mostrar carrusel en el carrusel de Ofertas
         public string CodigoPalanca { get; set; } // codigo donde se van a mostrar los productos
+
+        public bool TieneStock { get; set; } //flag para controlar si el producto cuenta con stock
 
     }
 }

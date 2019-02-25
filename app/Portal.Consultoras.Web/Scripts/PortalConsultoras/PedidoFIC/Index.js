@@ -1,4 +1,4 @@
-﻿var tieneMicroefecto = false;
+﻿//var tieneMicroefecto = false;
 var animacion = true;
 $(document).ready(function () {
     $('#txtClienteDescripcion').autocomplete({
@@ -149,10 +149,10 @@ $(document).ready(function () {
     });
     $('#btnAgregarOferfaFIC').click(function () {
         GuardarOfertaFICenPedido();
-        $('#divOfertaFIC').dialog('close');
+        HideDialog("divOfertaFIC");
     });
     $('#btnCancelarOferfaFIC').click(function () {
-        $('#divOfertaFIC').dialog('close');
+        HideDialog("divOfertaFIC");
     });
 
     CrearDialogs();
@@ -170,7 +170,7 @@ function CrearDialogs() {
         draggable: true,
         title: "",
         close: function (event, ui) {
-            $(this).dialog('close');
+            HideDialog("divConfirmEliminarTotal");
         }
     });
 
@@ -228,7 +228,7 @@ function CargarDetallePedido(page, rows) {
 
                 $.each(data.ListaCliente, function (index, value) {
                     if (value.ClienteID == -1) {
-                        htmlCliente += '<option value="-1">Cliente</option>';
+                        htmlCliente += '<option value="-1">Cliente/option>';
                     } else {
                         htmlCliente += '<option value="' + value.ClienteID + '">' + value.Nombre + '</option>';
                     }
@@ -282,7 +282,7 @@ function InsertarProducto(form) {
             if (checkTimeout(response)) {
                 if (response.success == true) {
                     $("#hdErrorInsertarProducto").val(response.errorInsertarProducto);
-                    tieneMicroefecto = true;
+                    //tieneMicroefecto = true;
                     CargarDetallePedido();
                 } else {
                     alert(response.message);
@@ -297,36 +297,36 @@ function InsertarProducto(form) {
     });
 }
 
-function MostrarMicroEfecto() {
-    if (animacion) {
-        animacion = false;
-        var obj = $("#frmInsertPedido");
-        var button = $("#btnAgregar", obj);
-        var efecto = '<div class="btn_animado"><img src="' + urlImagenMicroEfecto + '" alt="" /></div>';
-        var trFirst = $("#tbobyDetallePedido tr:first-child");
+//function MostrarMicroEfecto() {
+//    if (animacion) {
+//        animacion = false;
+//        var obj = $("#frmInsertPedido");
+//        var button = $("#btnAgregar", obj);
+//        var efecto = '<div class="btn_animado"><img src="' + urlImagenMicroEfecto + '" alt="" /></div>';
+//        var trFirst = $("#tbobyDetallePedido tr:first-child");
 
-        $("body").prepend(efecto);
+//        $("body").prepend(efecto);
 
-        $(".btn_animado").css({
-            'top': button.offset().top,
-            'left': button.offset().left
-        }).show().animate({
-            'top': trFirst.offset().top,
-            'left': trFirst.offset().left + (trFirst.width() / 2),
-            'opacity': 0
-        }, 1500, 'swing', function () {
-            $(this).remove();
+//        $(".btn_animado").css({
+//            'top': button.offset().top,
+//            'left': button.offset().left
+//        }).show().animate({
+//            'top': trFirst.offset().top,
+//            'left': trFirst.offset().left + (trFirst.width() / 2),
+//            'opacity': 0
+//        }, 1500, 'swing', function () {
+//            $(this).remove();
 
-            trFirst.addClass("no_mostrar");
+//            trFirst.addClass("no_mostrar");
 
-            $(".no_mostrar").fadeIn();
+//            $(".no_mostrar").fadeIn();
 
-            trFirst.removeClass("no_mostrar");
-            animacion = true;
-            tieneMicroefecto = false;
-        });
-    }
-}
+//            trFirst.removeClass("no_mostrar");
+//            animacion = true;
+//            tieneMicroefecto = false;
+//        });
+//    }
+//}
 
 function ActualizarMontosPedido(formatoTotal, total, formatoTotalCliente) {
     if (formatoTotal != undefined) $("#sTotal").html(formatoTotal);
@@ -387,7 +387,7 @@ function ValidarDescripcion() {
     }
 }
 $('body').on('keypress', 'input[attrKey="PreValidarCUV"]', function (event) {
-    
+
     if (event.keyCode == 13) {
         if ($("#btnAgregar")[0].disabled == false) {
             AgregarProductoListado();
@@ -759,7 +759,7 @@ function EliminarPedidoTotalSi() {
     EliminarPedido();
 }
 function EliminarPedidoTotalNo() {
-    $('#divConfirmEliminarTotal').dialog('close');
+    HideDialog("divConfirmEliminarTotal");
 }
 
 function EliminarPedido() {
@@ -796,7 +796,7 @@ function ValidarUpdate(PedidoDetalleID, FlagValidacion) {
     var Cantidad = $('#txtLPCant' + PedidoDetalleID).val();
     var CantidadAnti = $('#txtLPTempCant' + PedidoDetalleID).val();
     var ClienteAnti = $('#hdfLPTempCliDes' + PedidoDetalleID).val();
-  
+
 
     if (FlagValidacion == "1") {
         if (CantidadAnti == Cantidad)

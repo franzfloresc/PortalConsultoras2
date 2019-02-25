@@ -359,12 +359,15 @@
       <xs:element minOccurs="0" name="TieneAsesoraOnline" type="xs:int" />
       <xs:element minOccurs="0" name="TieneCDR" type="xs:int" />
       <xs:element minOccurs="0" name="TieneCDRExpress" type="xs:boolean" />
+      <xs:element minOccurs="0" name="TieneChatbot" type="xs:boolean" />
       <xs:element minOccurs="0" name="TieneCupon" type="xs:int" />
       <xs:element minOccurs="0" name="TieneGND" type="xs:boolean" />
       <xs:element minOccurs="0" name="TieneHana" type="xs:int" />
       <xs:element minOccurs="0" name="TieneLoginExterno" type="xs:boolean" />
+      <xs:element minOccurs="0" name="TieneMG" type="xs:boolean" />
       <xs:element minOccurs="0" name="TieneMasVendidos" type="xs:int" />
       <xs:element minOccurs="0" name="TieneOfertaLog" type="xs:int" />
+      <xs:element minOccurs="0" name="TienePagoEnLinea" type="xs:boolean" />
       <xs:element minOccurs="0" name="TieneValidacionMontoMaximo" type="xs:boolean" />
       <xs:element minOccurs="0" name="TipoOferta2" type="xs:int" />
       <xs:element minOccurs="0" name="TipoUsuario" type="xs:short" />
@@ -403,6 +406,8 @@
       <xs:element minOccurs="0" name="IndicadorConsultoraDummy" type="xs:boolean" />
       <xs:element minOccurs="0" name="MostrarBotonVerTodosBuscador" type="xs:boolean" />
       <xs:element minOccurs="0" name="MostrarBuscador" type="xs:boolean" />
+      <xs:element minOccurs="0" name="MostrarFiltrosBuscador" type="xs:boolean" />
+      <xs:element minOccurs="0" name="MostrarOpcionesOrdenamiento" type="xs:boolean" />
       <xs:element minOccurs="0" name="TotalResultadosBuscador" type="xs:short" />
     </xs:sequence>
   </xs:complexType>
@@ -448,6 +453,7 @@
   <xs:complexType name="BERespuestaServicio">
     <xs:sequence>
       <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Data" nillable="true" type="xs:anyType" />
       <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Succcess" type="xs:boolean" />
     </xs:sequence>

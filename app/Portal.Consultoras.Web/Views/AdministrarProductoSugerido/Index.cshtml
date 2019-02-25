@@ -326,7 +326,7 @@
                         RegistrarProductoSugerido();
                     },
                     "Cancelar": function () {
-                        $(this).dialog('close');
+                        HideDialog("DialogRegistroProductoSugerido");
                     }
                 }
         });
@@ -350,7 +350,7 @@
                             });
                         }
                         isVistaPreviaOpened = false;
-                        $(this).dialog('close');
+                        HideDialog("divVistaPrevia");
                     }
                 }
         });
@@ -456,7 +456,7 @@
         }
 
         waitingDialog({});
-        $.getJSON(baseUrl + 'AdministrarProductoSugerido/ObtenerCampaniasPorPais', { PaisID: pais }, function (data) {
+        $.getJSON(baseUrl + 'BaseAdm/ObtenerCampaniasNemotecnicoPorPais', { PaisID: pais }, function (data) {
             if (!checkTimeout(data)) {
                 closeWaitingDialog();
                 return false;

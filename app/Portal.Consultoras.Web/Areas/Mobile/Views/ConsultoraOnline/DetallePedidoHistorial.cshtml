@@ -1,39 +1,47 @@
 ﻿@using Portal.Consultoras.Common
-@using Portal.Consultoras.Web.Helpers
+@using Portal.Consultoras.Web.CustomHelpers
 @model Portal.Consultoras.Web.Models.ClienteOnlineModel
 
 @{
-    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+    var layout = ViewContext.MobileLayout();
+    Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
+    var mobileConfiguracion = Html.MobileAppConfiguracion();
 }
 
-<div class="titulo_mobile">
-    @{  var mobileConfiguracion = Html.MobileAppConfiguracion();
-        if (mobileConfiguracion.MostrarBotonAtras)
-        {
+@{
+    if (!mobileConfiguracion.EsAppMobile)
+    {
+        <div class="titulo_mobile">
             <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
-        } }
-    &nbsp;&nbsp;HISTORIAL DE PEDIDOS
-</div>
+            &nbsp;&nbsp;HISTORIAL DE PEDIDOS
+        </div>
+        <div class="pestana_esika"></div>
+        <div class="pestana_lbel"></div>
+    }
+}
+
 <div class="fondo_f2f2f2 triang_pe">
-    <div class="pestana_esika"></div>
-    <div class="pestana_lbel"></div>
     <div class="content_320">
         <div class="titulo_pedido_cancelado"> PEDIDO @Model.EstadoDesc.ToUpper() DE @Model.Cliente.ToUpper()</div>
         <div class="content_dato_historial">
             <span class="nom_his">Nombre</span>
             <span class="nom_his_2"><b>@Model.Cliente</b></span>
+            <hr class="clear" />
         </div>
         <div class="content_dato_historial">
             <span class="nom_his">Teléfono:</span>
             <span class="nom_his_2"><b>@Model.Telefono</b></span>
+            <hr class="clear" />
         </div>
         <div class="content_dato_historial">
             <span class="nom_his">Correo:</span>
             <span class="nom_his_2"><b>@Model.Email</b></span>
+            <hr class="clear" />
         </div>
         <div class="content_dato_historial">
             <span class="nom_his">Dirección:</span>
             <span class="nom_his_2"><b>@Model.Direccion</b></span>
+            <hr class="clear" />
         </div>
         @if (Model.MarcaID != 0)
         {
@@ -52,7 +60,7 @@
             <div class="left_reservado" style="width:228px;">
                 <div class="datos_Reservado">
                     @if (Model.MarcaID == 0)
-                    { <span> @detalle.CUV </span> }
+                    {<span> @detalle.CUV </span>}
                     <span>@detalle.Producto</span>
                 </div>
 
@@ -91,7 +99,7 @@
     </div>
     <hr class="clear" style="margin-bottom: 30px;" />
     @if (Model.PuedeCancelar)
-    { <a href="javascript:AbrirConfirmacionCancelado();" class="btn_cancelar_pendientes">QUIERO CANCELAR TODO EL PEDIDO</a> }
+    {<a href="javascript:AbrirConfirmacionCancelado();" class="btn_cancelar_pendientes">QUIERO CANCELAR TODO EL PEDIDO</a>}
 </div>
 
 <div id="dialog_confirmacionCancelado" class="MensajeAlertaMobile">

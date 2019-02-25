@@ -1,0 +1,169 @@
+﻿@using Portal.Consultoras.Common
+﻿@model Portal.Consultoras.Web.Models.ReporteRevisionIncidenciasModel
+@{
+    ViewBag.Title = "Reporte Revisión Incidencias";
+    var imagenVacia = "prod_grilla_vacio.png";
+}
+
+<script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.paging.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/fileuploader.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.toast.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/handlebars.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/AdminContenido/ToastHelper.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/AdminContenido/Paginador.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/AdminContenido/Nemotecnico.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/AdminContenido/DescripcionComercial.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/AdminContenido/MatrizComercialFileUpload.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/AdminContenido/AdministrarEstrategia.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/AdminContenido/AdministrarEstrategia/NuevoMasivo.js")" type="text/javascript"></script>
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="@Url.Content("~/Content/Css/Toast/jquery.toast.min.css")" rel="stylesheet" />
+
+
+<div class="wrap_cab_plan50">
+    <div class="filtros2_plan50">
+        <div class="elements_plan50">
+            <div class="div-2">
+                <h1><span>Reporte Revisión Incidencias</span></h1>
+            </div>
+            <div class="div-3">
+                <div class="titG">Tipo de Revisión:</div>
+                <div class="selectA borde_redondeado">
+                    @Html.DropDownListFor(model => model.TipoReporteID, new SelectList(Model.listaTipoReporte, "TipoReporteID", "Nombre"), "-- Seleccionar --", new { id = "ddlTipo" })
+                </div>
+                <div class="titG">Campaña:</div>
+                <div class="selectA borde_redondeado">
+                    @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.listaCampania, "CampaniaID", "NombreCorto"), "-- Seleccionar --", new { id = "ddlCampania" })
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titG">Tipo de Estrategia:</div>
+                <div class="selectA borde_redondeado">
+                    <select id="ddlTipoEstrategia" name="ddlTipoEstrategia">
+                        @if (Model.ListaTipoEstrategia != null)
+                        {
+                            <option value="">-- Seleccionar --</option>
+                            for (int i = 0; i < Model.ListaTipoEstrategia.Count(); i++)
+                            {
+                                <option flag-nueva="@Model.ListaTipoEstrategia.ToList()[i].FlagNueva"
+                                        flag-recoproduct="@Model.ListaTipoEstrategia.ToList()[i].FlagRecoProduc"
+                                        flag-recoperfil="@Model.ListaTipoEstrategia.ToList()[i].FlagRecoPerfil"
+                                        codigo-programa="@Model.ListaTipoEstrategia.ToList()[i].CodigoPrograma"
+                                        imagen-tipo="@Model.ListaTipoEstrategia.ToList()[i].Imagen"
+                                        value="@Model.ListaTipoEstrategia.ToList()[i].TipoEstrategiaID"
+                                        data-id="@Model.ListaTipoEstrategia.ToList()[i].CodigoGeneral"
+                                        data-codigo="@Model.ListaTipoEstrategia.ToList()[i].Codigo"
+                                        data-FValidarImagen="@Model.ListaTipoEstrategia.ToList()[i].FlagValidarImagen"
+                                        data-PesoMaximo="@Model.ListaTipoEstrategia.ToList()[i].PesoMaximoImagen">
+                                    @Model.ListaTipoEstrategia.ToList()[i].Descripcion
+                                </option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="titG">CUV<sub>2</sub>:</div>
+                <div class="selectA borde_redondeado">
+                    <input type="text" id="CUV" name="CUV" />
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titG">Consultora:</div>
+                <div class="selectA borde_redondeado">
+                    <input type="text" id="txtConsultora" name="txtConsultora" />
+                </div>
+                <div class="titG">Fecha de Consulta:</div>
+                <div class="calendar borde_redondeado">
+                    <input type="text" id="txtFechaConsulta">
+                </div>
+            </div>
+
+            <div class="div-3">
+                <div class="titG">&nbsp;</div>
+                <div class="input_horizontal">
+                    <input type="button" name="btnBuscar" id="btnBuscar" value="Buscar" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <div class="wrap_plan50" id="divSeccionProductos" style="">
+        <div class="container_plan50 clearfix">
+            @*<h3>Producto</h3>*@
+            <div class="border-wrapper">
+                <table id="list"></table>
+                <div id="pager"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="loadingScreen"></div>
+
+<script src="~/Scripts/AdminContenido/ReporteRevisionIncidencias.js"></script>
+
+<script type="text/javascript">
+    var reporteRevisionIncidencias;
+    var _toastHelper = ToastHelper();
+
+    jQuery(document).ready(function () {
+
+
+        $("#txtFechaConsulta").datepicker({
+            showOn: "button",
+            buttonImage: '@Url.Content("~/Content/Images/calendar.png")',
+            buttonImageOnly: true,
+            dateFormat: 'dd/mm/yy'
+        }).mask('99/99/9999');
+    
+        reporteRevisionIncidencias = ReporteRevisionIncidencias({
+            urlObtenterCampanias: '@Url.Action("ObtenerCampaniasPorUsuario", "BaseAdm")',
+            urlExportarExcel: '@Url.Action("ExportarExcel", "AdministrarReporteRevisionIncidencias")',
+            getFiltrarEstrategiaAction: '@Url.Action("FiltrarEstrategia", "AdministrarEstrategia")',
+            urlGetOfertaByCUV: baseUrl + 'AdministrarEstrategia/GetOfertaByCUV',
+            rutaTemporal: '@Url.Content("~/Content/Temporales/")',
+            urlConsultarCuvTipoConfigurado: baseUrl + 'AdministrarEstrategia/ConsultarCuvTipoConfigurado',
+            urlConsultarCuvTipoConfiguradoTemporal: baseUrl + 'AdministrarEstrategia/ConsultarCuvTipoConfiguradoTemporal',
+            urlUploadCvs: '@Url.Action("UploadCvs", "AdministrarEstrategia")',
+        });
+
+        reporteRevisionIncidencias.init();
+
+        $.jgrid.extend({
+            Editar: reporteRevisionIncidencias.Editar,
+            Eliminar: reporteRevisionIncidencias.Deshabilitar,
+            Remover: reporteRevisionIncidencias.Remover,
+            EditarEvento: reporteRevisionIncidencias.EditarEvento,
+            DeshabilitarEvento: reporteRevisionIncidencias.DeshabilitarEvento,
+            EliminarEvento: reporteRevisionIncidencias.EliminarEvento,
+            EditarProducto: reporteRevisionIncidencias.EditarProducto,
+            EliminarProducto: reporteRevisionIncidencias.EliminarProducto,
+            EditarProductoDetalle: reporteRevisionIncidencias.EditarProductoDetalle,
+            EliminarProductoDetalle: reporteRevisionIncidencias.EliminarProductoDetalle
+        });
+
+        admNuevoMasivoModulo = NuevoMasivo({
+            urlConsultarOfertasPersonalizadas: baseUrl + "AdministrarEstrategiaMasivo/ConsultarOfertasParaTi",
+            urlConsultarCuvTipoConfigurado: baseUrl + 'AdministrarEstrategiaMasivo/ConsultarCuvTipoConfigurado',
+            urlEstrategiaTemporalInsert: baseUrl + "AdministrarEstrategiaMasivo/EstrategiaTemporalInsert",
+            urlEstrategiaTemporalConsultar: baseUrl + "AdministrarEstrategiaMasivo/ConsultarOfertasParaTiTemporal",
+            urlEstrategiaTemporalCancelar: baseUrl + "AdministrarEstrategiaMasivo/CancelarInsertEstrategiaTemporal",
+            urlConsultarCuvTipoConfiguradoTemporal: baseUrl + 'AdministrarEstrategiaMasivo/ConsultarCuvTipoConfiguradoTemporal',
+            urlEstrategiaOfertasPersonalizadasInsert: baseUrl + "AdministrarEstrategiaMasivo/EstrategiaOfertasPersonalizadasInsert",
+            MensajeErrorGeneral: "Lo sentimos, vuelva a intentarlo"
+        });
+
+        admNuevoMasivoModulo.Inicializar();
+
+    });
+
+    $(document).keydown(function (e) {
+        if (e.keyCode == 8 && e.target.tagName != 'INPUT' && e.target.tagName != 'TEXTAREA') {
+            e.preventDefault();
+        }
+    });
+
+</script>

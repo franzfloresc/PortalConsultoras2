@@ -30,8 +30,6 @@ namespace Portal.Consultoras.Web.Providers
             _configuracionManager = new ConfiguracionManagerProvider();
         }
 
- 
-
         public void EjecutarLogDynamoDB(UsuarioModel userParametro, bool esMobile, string campomodificacion, string valoractual, string valoranterior, string origen, string aplicacion, string accion, string codigoconsultorabuscado, string seccion = "")
         {
             string dataString = string.Empty;
@@ -142,10 +140,6 @@ namespace Portal.Consultoras.Web.Providers
             var dataString = string.Empty;
             try
             {
-
-
-                
-
                 var urlApi = _configuracionManager.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlLogDynamo);
 
                 if (string.IsNullOrEmpty(urlApi)) return;
@@ -184,63 +178,63 @@ namespace Portal.Consultoras.Web.Providers
                 {
                     string _seccion = "Mis Datos";
 
-                    if (string.IsNullOrEmpty(userParametro.Sobrenombre)) userParametro.Sobrenombre = "";
-                    if (string.IsNullOrEmpty(userParametro.EMail)) userParametro.EMail = "";
-                    if (string.IsNullOrEmpty(userParametro.Telefono)) userParametro.Telefono = "";
-                    if (string.IsNullOrEmpty(userParametro.Celular)) userParametro.Celular = "";
-                    if (string.IsNullOrEmpty(userParametro.TelefonoTrabajo)) userParametro.TelefonoTrabajo = "";
+                    userParametro.Sobrenombre = Util.Trim(userParametro.Sobrenombre);
+                    userParametro.EMail = Util.Trim(userParametro.EMail);
+                    userParametro.Telefono = Util.Trim(userParametro.Telefono);
+                    userParametro.Celular = Util.Trim(userParametro.Celular);
+                    userParametro.TelefonoTrabajo = Util.Trim(userParametro.TelefonoTrabajo);
 
-                    if (string.IsNullOrEmpty(p_modelo.Sobrenombre)) p_modelo.Sobrenombre = "";
-                    if (string.IsNullOrEmpty(p_modelo.EMail)) p_modelo.EMail = "";
-                    if (string.IsNullOrEmpty(p_modelo.Telefono)) p_modelo.Telefono = "";
-                    if (string.IsNullOrEmpty(p_modelo.Celular)) p_modelo.Celular = "";
-                    if (string.IsNullOrEmpty(p_modelo.TelefonoTrabajo)) p_modelo.TelefonoTrabajo = "";
+                    p_modelo.Sobrenombre = Util.Trim(p_modelo.Sobrenombre);
+                    p_modelo.EMail = Util.Trim(p_modelo.EMail);
+                    p_modelo.Telefono = Util.Trim(p_modelo.Telefono);
+                    p_modelo.Celular = Util.Trim(p_modelo.Celular);
+                    p_modelo.TelefonoTrabajo = Util.Trim(p_modelo.TelefonoTrabajo);
 
                     string v_campomodificacion = string.Empty;
                     string v_valoranterior = string.Empty;
                     string v_valoractual = string.Empty;
 
-                    if (userParametro.Sobrenombre.Trim().ToUpper() != p_modelo.Sobrenombre.Trim().ToUpper())
+                    if (userParametro.Sobrenombre.ToUpper() != p_modelo.Sobrenombre.ToUpper())
                     {
                         v_campomodificacion = "SOBRENOMBRE";
-                        v_valoractual = p_modelo.Sobrenombre.Trim();
-                        v_valoranterior = userParametro.Sobrenombre.Trim();
+                        v_valoractual = p_modelo.Sobrenombre;
+                        v_valoranterior = userParametro.Sobrenombre;
                         userParametro.Sobrenombre = v_valoractual;
                         EjecutarLogDynamoDB(userParametro, esMobile, v_campomodificacion, v_valoractual, v_valoranterior, p_origen, p_aplicacion, p_Accion, p_CodigoConsultoraBuscado, _seccion);
                     }
 
-                    if (userParametro.EMail.Trim().ToUpper() != p_modelo.EMail.Trim().ToUpper())
+                    if (userParametro.EMail.ToUpper() != p_modelo.EMail.ToUpper())
                     {
                         v_campomodificacion = "EMAIL";
-                        v_valoractual = p_modelo.EMail.Trim();
-                        v_valoranterior = userParametro.EMail.Trim();
+                        v_valoractual = p_modelo.EMail;
+                        v_valoranterior = userParametro.EMail;
                         userParametro.EMail = v_valoractual;
                         EjecutarLogDynamoDB(userParametro, esMobile, v_campomodificacion, v_valoractual, v_valoranterior, p_origen, p_aplicacion, p_Accion, p_CodigoConsultoraBuscado, _seccion);
                     }
 
-                    if (userParametro.Telefono.Trim().ToUpper() != p_modelo.Telefono.Trim().ToUpper())
+                    if (userParametro.Telefono.ToUpper() != p_modelo.Telefono.ToUpper())
                     {
                         v_campomodificacion = "TELEFONO";
-                        v_valoractual = p_modelo.Telefono.Trim();
-                        v_valoranterior = userParametro.Telefono.Trim();
+                        v_valoractual = p_modelo.Telefono;
+                        v_valoranterior = userParametro.Telefono;
                         userParametro.Telefono = v_valoractual;
                         EjecutarLogDynamoDB(userParametro, esMobile, v_campomodificacion, v_valoractual, v_valoranterior, p_origen, p_aplicacion, p_Accion, p_CodigoConsultoraBuscado, _seccion);
                     }
 
-                    if (userParametro.Celular.Trim().ToUpper() != p_modelo.Celular.Trim().ToUpper())
+                    if (userParametro.Celular.ToUpper() != p_modelo.Celular.ToUpper())
                     {
                         v_campomodificacion = "CELULAR";
-                        v_valoractual = p_modelo.Celular.Trim();
-                        v_valoranterior = userParametro.Celular.Trim();
+                        v_valoractual = p_modelo.Celular;
+                        v_valoranterior = userParametro.Celular;
                         userParametro.Celular = v_valoractual;
                         EjecutarLogDynamoDB(userParametro, esMobile, v_campomodificacion, v_valoractual, v_valoranterior, p_origen, p_aplicacion, p_Accion, p_CodigoConsultoraBuscado, _seccion);
                     }
 
-                    if (userParametro.TelefonoTrabajo.Trim().ToUpper() != p_modelo.TelefonoTrabajo.Trim().ToUpper())
+                    if (userParametro.TelefonoTrabajo.ToUpper() != p_modelo.TelefonoTrabajo.ToUpper())
                     {
                         v_campomodificacion = "TELEFONO TRABAJO";
-                        v_valoractual = p_modelo.TelefonoTrabajo.Trim();
-                        v_valoranterior = userParametro.TelefonoTrabajo.Trim();
+                        v_valoractual = p_modelo.TelefonoTrabajo;
+                        v_valoranterior = userParametro.TelefonoTrabajo;
                         userParametro.TelefonoTrabajo = v_valoractual;
                         EjecutarLogDynamoDB(userParametro, esMobile, v_campomodificacion, v_valoractual, v_valoranterior, p_origen, p_aplicacion, p_Accion, p_CodigoConsultoraBuscado, _seccion);
                     }

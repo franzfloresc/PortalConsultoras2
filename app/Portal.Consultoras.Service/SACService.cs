@@ -34,7 +34,7 @@ namespace Portal.Consultoras.Service
         private readonly BLLugarPago BLLugarPago;
         private readonly BLIncentivo BLIncentivo;
         private readonly BLBelcorpNoticia BLBelcorpNoticia;
-        private readonly BLTablaLogicaDatos BLTablaLogicaDatos;
+        private readonly BLTablaLogicaDatos BLTablaLogicaDatos;        
         private readonly BLFeErratas BLFeErratas;
         private readonly BLCuv BLCUV;
         private readonly BLBannerPedido BLBannerPedido;
@@ -760,8 +760,17 @@ namespace Portal.Consultoras.Service
         #region Tabla Logica Datos
         public List<BETablaLogicaDatos> GetTablaLogicaDatos(int paisID, Int16 TablaLogicaID)
         {
-            return BLTablaLogicaDatos.GetTablaLogicaDatos(paisID, TablaLogicaID);
+            return BLTablaLogicaDatos.GetList(paisID, TablaLogicaID);
         }
+        #endregion
+
+        #region Buscador
+
+        public Dictionary<string,string> GetOrdenamientoFiltrosBuscador(int paisID)
+        {
+            return _buscadorBusinessLogic.GetOrdenamientoFiltrosBuscador(paisID);
+        }
+
         #endregion
 
         #region Fe de Erratas

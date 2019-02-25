@@ -140,6 +140,7 @@ namespace Portal.Consultoras.Web.Providers
             }
 
             var listaPedidoFacturados = CargarPedidosFacturados(paisId, campaniaId, consultoraId, maxDias);
+            sessionManager.SetCDRPedidoFacturado(listaPedidoFacturados);
 
             var listaCampanias = new List<CampaniaModel>();
             var campania = new CampaniaModel
@@ -393,7 +394,7 @@ namespace Portal.Consultoras.Web.Providers
             }
 
             var listaPedidoFacturados = CargarPedidosFacturados(paisId, campaniaId, consultoraId, maxDias);
-            return (listaPedidoFacturados.Count > 0) ? 1 : 0;
+            return (listaPedidoFacturados.Count > 0).ToInt();
         }
     }
 }

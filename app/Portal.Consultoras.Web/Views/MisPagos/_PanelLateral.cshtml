@@ -1,4 +1,5 @@
-﻿@model Portal.Consultoras.Web.Models.MisPagosModel
+﻿@using Portal.Consultoras.Common
+@model Portal.Consultoras.Web.Models.MisPagosModel
 
 <div class="resumen_pagos">
     <div class="titulo_detalle_pago_img" style="float: none; display: inline-block; vertical-align: middle; margin-left: -11px; "></div>
@@ -7,7 +8,7 @@
         Mi deuda actual es:
         <div class="deuda_home" id="spanDeuda">@Model.Simbolo <span>@Model.MontoPagar</span></div>
         <span id="der_fechaVencimiento">Vencimiento: @Model.FechaVencimiento</span>
-        @if (Model.TienePagoEnLinea)
+        @if (Model.TienePagoEnLinea && Model.MostrarPagoEnLinea)
         {
             <div style="padding-left:20px; padding-right: 20px;">
                 <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Paga en línea"
@@ -18,10 +19,10 @@
     </div>
 
     @{
-        var href = ViewBag.PaisID == 3 ? "javascript:;" : 
-            ViewBag.PaisID == 4 ? "https://www.zonapagos.com/t_belstar/pagos.asp" : 
-            ViewBag.PaisID == 12 ? Url.Action("Index", "Paypal") : "";
-        var onclick = ViewBag.PaisID == 3 ? "onclick='RedirectPagaEnLineaAnalytics();'" : "";
+        var href = ViewBag.PaisID == Constantes.PaisID.Chile ? "javascript:;" :
+            ViewBag.PaisID == Constantes.PaisID.Colombia ? "https://www.zonapagos.com/t_belstar/pagos.asp" :
+            ViewBag.PaisID == Constantes.PaisID.PuertoRico ? Url.Action("Index", "Paypal") : "";
+        var onclick = ViewBag.PaisID == Constantes.PaisID.Chile ? "onclick='RedirectPagaEnLineaAnalytics();'" : "";
 
         if (href != "")
         {

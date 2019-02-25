@@ -1,7 +1,7 @@
 ﻿@using Portal.Consultoras.Common
 @using Portal.Consultoras.Web.Areas.Mobile.Models
 @using Portal.Consultoras.Web.Models
-@using Portal.Consultoras.Web.Helpers
+@using Portal.Consultoras.Web.CustomHelpers
 
 @model PedidoDetalleMobileModel
 @{
@@ -9,8 +9,11 @@
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
 }
 
-<link href="@Url.Content("~/Content/Css/Site/slick-pedido.css")" rel="stylesheet" />
-
+@section styles
+{
+    <link href="@Url.Content("~/Content/Css/Site/slick-pedido.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Css/Mobile/Pedido/PedidoGrilla.css")" rel="stylesheet" />
+}
 
 <input type="hidden" id="hdEsFacturacion" value="@Model.EsFacturacion.ToString()" />
 <input type="hidden" id="hdOfertaFinal" value="@Model.OfertaFinal" />
@@ -28,10 +31,10 @@
         <div class="contenedor_detalle_pedidoIngresado">
             <div class="contenedor_resumenPedido">
                 @{ var mobileConfiguracion = Html.MobileAppConfiguracion();
-        if (mobileConfiguracion.MostrarBotonAtras)
-        {
-            <a href="@Request.UrlReferrer" class="enlace_regresar detalleP" title="Regresar"></a>
-}
+                    if (mobileConfiguracion.MostrarBotonAtras)
+                    {
+                        <a href="@Request.UrlReferrer" class="enlace_regresar detalleP" title="Regresar"></a>
+                    }
                 }
                 <h2 class="nombre_campania_pedido">
                     MI PEDIDO FIC
@@ -135,14 +138,14 @@
 
 <script id="template-Detalle" type="text/x-handlebars-template">
     <div class="textos_resumen">
-        <span id="lblProductosResumen">HE AGREGADO :</span>
+        <span id="lblProductosResumen">HAS AGREGADO :</span>
         <span id="lblTotalResumen">
             MONTO TOTAL :
         </span>
     </div>
     <div class="montos_resumen">
         <span><b data-cantidadproducto="">{{this.TotalProductos}}</b>&nbsp;&nbsp;UNIDADES</span>
-        <span><b>{{SimboloMoneda}}&nbsp;&nbsp;</b><b data-pedidocondescuento="">{{FormatoTotalConDescuento}}</b></span>     
+        <span><b>{{SimboloMoneda}}&nbsp;&nbsp;</b><b data-pedidocondescuento="">{{FormatoTotalConDescuento}}</b></span>
     </div>
 
     <div class="detalle_pedido_ingresado">
@@ -323,7 +326,7 @@
     <div class="separador"></div>
     <div style="margin-left: -28px;">
         <div class="textos_resumen">
-            <span id="lblProductosResumen">HE AGREGADO :</span>
+            <span id="lblProductosResumen">HAS AGREGADO :</span>
             <span style="margin-left:30px;">
                 MONTO TOTAL :
             </span>
@@ -331,7 +334,7 @@
 
         <div class="montos_resumen">
             <span><b data-cantidadproducto="">{{TotalProductos}}</b>&nbsp;&nbsp;UNIDADES</span>
-            <span><b>{{SimboloMoneda}}&nbsp;&nbsp;</b><b data-pedidocondescuento="">{{FormatoTotalConDescuento}}</b></span>           
+            <span><b>{{SimboloMoneda}}&nbsp;&nbsp;</b><b data-pedidocondescuento="">{{FormatoTotalConDescuento}}</b></span>
         </div>
     </div>
 
@@ -622,7 +625,7 @@
         var ofertaLiquidacion = '@Constantes.ConfiguracionOferta.Liquidacion';
         var ofertaShowRoom = '@Constantes.ConfiguracionOferta.ShowRoom';
         var ofertaAccesorizate = '@Constantes.ConfiguracionOferta.Accesorizate';
-        
+
         var urlEjecutarServicioPROL = '@Url.Action("AdministradorPedido", "PedidoFIC", new {area = "Mobile"})';
         var urlPedidoValidado = '@Url.Action("Validado", "Pedido", new {area = "Mobile"})';
         var urlHorarioRestringido = '@Url.Action("EnHorarioRestringido", "Pedido", new {area = ""})';
@@ -638,12 +641,12 @@
         var urlPedidoUpdate = '@Url.Action("Update", "PedidoFIC", new {area = "Mobile" })';
         var urlPedidoDelete = '@Url.Action("Delete", "PedidoFIC", new {area = "Mobile" })';
         var urlPedidoDeleteAll = '@Url.Action("DeleteAll", "PedidoFIC", new { area = "Mobile" })';
-        var urlInsertarDesglose = '@Url.Action("InsertarDesglose", "Pedido", new {area = ""})';
+        @*var urlInsertarDesglose = '@Url.Action("InsertarDesglose", "Pedido", new {area = ""})';*@
         var urlDeshacerReservaPedidoReservado = '@Url.Action("PedidoValidadoDeshacerReserva", "", new { area = "" })';
         var urlPedidoAceptarBackOrder = '@Url.Action("AceptarBackOrder", "Pedido", new { area = "" })';
 
         var urlDetallePedido = '@Url.Action("CargarDetallePedido", "PedidoFIC", new { area = "Mobile" })';
-        var urlValidarKitNuevas = '@Url.Action("ValidarKitNuevas", "Pedido", new { area = "" })';
+        @*var urlValidarKitNuevas = '@Url.Action("ValidarKitNuevas", "Pedido", new { area = "" })';*@
         var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "", new { area = "" })';
         var fnEliminarProducto = null;
 
@@ -653,7 +656,7 @@
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
         var viewBagPaisID = '@Model.PaisID';
         var viewBagNombrePais = '@ViewBag.NombrePais';
-        var urlPedidoInsert = '@Url.Action("PedidoInsertar", "Pedido", new {area = ""})';
+        @*var urlPedidoInsert = '@Url.Action("PedidoInsertar", "Pedido", new {area = ""})';*@
 
         var origenPagina = 2;
         var cuvOfertaProl = '@ViewBag.CUVOfertaProl';

@@ -1,12 +1,13 @@
-﻿@using Portal.Consultoras.Web.Areas.Mobile.Models
-@using Portal.Consultoras.Web.Helpers
+﻿@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Areas.Mobile.Models
+@using Portal.Consultoras.Web.CustomHelpers
 @model  PedidoWebClientePrincipalMobilModel
 
 @{
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
 }
 <div class="titulo_mobile">
-    @{  var mobileConfiguracion = Html.MobileAppConfiguracion();
+    @{ var mobileConfiguracion = Html.MobileAppConfiguracion();
         if (mobileConfiguracion.MostrarBotonAtras)
         {
             <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
@@ -35,9 +36,9 @@
     {
         <div id="tabcontenido_@i" class="block-white" style="margin-top: 0px;">
             @foreach (var item2 in Model.ListaPedidoCliente[i].ListaPedidoWebDetalle)
-                {
-                    var totalPedido = Model.PaisID == 4 ? (string.Format("{0:#,##0}", item2.ImporteTotalPedido).Replace(',', '.')) : (string.Format("{0:#,##0.00}", item2.ImporteTotalPedido));
-                    var collapse = "collapse";
+            {
+                var totalPedido = Model.PaisID == Constantes.PaisID.Colombia ? (string.Format("{0:#,##0}", item2.ImporteTotalPedido).Replace(',', '.')) : (string.Format("{0:#,##0.00}", item2.ImporteTotalPedido));
+                var collapse = "collapse";
                 <div class="panel-group claseAcordion" id="accordion_@(i + "_" + item2.ClienteID)" role="tablist" aria-multiselectable="false">
                     <div class="panel panel-line-info border_bababa">
                         <div class="panel-heading" role="tab">
@@ -65,7 +66,7 @@
                                                             <div>@Html.DisplayTextFor(modelItem => item3.CUV)</div>
                                                         </div>
                                                         Precio Unitario
-                                                        @if (Model.PaisID == 4)//CO
+                                                        @if (Model.PaisID == Constantes.PaisID.Colombia)
                                                         {
                                                             @Model.Simbolo @(string.Format("{0:#,##0}", item3.PrecioUnidad).Replace(',', '.'))
                                                         }
@@ -76,7 +77,7 @@
                                                         <br />
                                                         <div class="upper">
                                                             <strong>Subtotal </strong>
-                                                            @if (Model.PaisID == 4)//CO
+                                                            @if (Model.PaisID == Constantes.PaisID.Colombia)
                                                             {
                                                                 <b>@Model.Simbolo  @(string.Format("{0:#,##0}", item3.ImporteTotal).Replace(',', '.'))</b>
                                                             }
@@ -130,10 +131,10 @@
                 SUBTOTAL<br />
                 <div class="text-lg">@Model.Simbolo @Model.ListaPedidoCliente[i].SubtotalString</div>
             </div>
-                <div id="parteDescuento_@i" class="block-info text-center" style="margin-top: -10px;">
-                    DESCUENTO OFERTAS CON MAS DE UN PRECIO<br />
-                    <div class="text-lg">@Model.Simbolo @Model.ListaPedidoCliente[i].DescuentoString</div>
-                </div>
+            <div id="parteDescuento_@i" class="block-info text-center" style="margin-top: -10px;">
+                DESCUENTO OFERTAS CON MAS DE UN PRECIO<br />
+                <div class="text-lg">@Model.Simbolo @Model.ListaPedidoCliente[i].DescuentoString</div>
+            </div>
         }
         <div id="parteFinal_@i" class="block-info text-center" style="margin-top: -10px;">
             TOTAL PEDIDO <br />

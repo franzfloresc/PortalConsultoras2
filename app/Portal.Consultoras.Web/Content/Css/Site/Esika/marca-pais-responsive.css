@@ -2,132 +2,6 @@
 
 /* HEADER */
 
-/* HEADER MARCA PAÍS NAVIDEÑO */
-
-.layout__header--navidenio .layout__container:before,
-.layout__header--navidenio .header__marca__pais:before,
-.layout__header--navidenio .header__marca__pais:after
-{
-    display:block;
-    content:"";
-    position: absolute;
-    z-index: -1;
-    height: 60px;
-}
-
-.layout__header--navidenio .header__marca__pais:before,
-.layout__header--navidenio .header__marca__pais:after
-{
-    background: -moz-linear-gradient(358.91deg, #E81C36 -63.78%, #720313 101.67%);
-    background: -webkit-linear-gradient(358.91deg, #E81C36 -63.78%, #720313 101.67%);
-    background: linear-gradient(358.91deg, #E81C36 -63.78%, #720313 101.67%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#E81C36', endColorstr='#720313',GradientType=0 );
-}
-
-.layout__header--navidenio .layout__container:before{
-    left: -1197px;
-    top: 0;
-    background: -moz-linear-gradient(360.1deg, #E81C36 -63.78%, #720313 101.67%);
-    background: -webkit-linear-gradient(360.1deg, #E81C36 -63.78%, #720313 101.67%);
-    background: linear-gradient(360.1deg, #E81C36 -63.78%, #720313 101.67%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#E81C36', endColorstr='#720313',GradientType=0 );
-}
-
-.layout__header--navidenio .layout__container:before,
-.layout__header--navidenio .header__marca__pais:before
-{
-    width:100%;
-}
-
-.layout__header--navidenio .header__marca__pais:before{
-    top: -14px;
-}
-
-.layout__header--navidenio .header__marca__pais:after{
-    width: 128px;
-    top:-13px;
-    right: -25px;
-    -moz-transform: skew(-13deg);
-    -ms-transform: skew(-13deg);
-    -o-transform: skew(-13deg);
-    -webkit-transform: skew(-13deg);
-    transform: skew(-13deg);
-}
-
-.layout__header--navidenio .header__marca__pais{
-    right:24px;
-    top:-1px;
-}
-
-.layout__header--navidenio .pestana__marca__pais{
-    background-color:transparent;
-}
-
-@media screen and (min-width:992px) and (max-width:1270px){
-
-    .layout__header--navidenio .header__marca__pais:before,
-    .layout__header--navidenio .header__marca__pais:after
-    {
-        top: -16px;
-    }
-
-}
-
-@media screen and (max-width:991px){
-
-    .layout__header--navidenio .layout__container{
-        justify-content:flex-start!important;
-    }
-
-    .layout__header--navidenio .layout__container:before{
-        display:none;
-    }
-
-    .layout__header--navidenio .header__marca__pais{
-        width:105px;
-        text-align:left!important;
-        right:0;
-    }
-
-    .layout__header--navidenio .header__marca__pais img {
-        right: 1px;
-        height: 30px;
-        margin-top: -4px;
-        padding-left: 17px;
-    }
-
-    .layout__header--navidenio .header__marca__pais:before,
-    .layout__header--navidenio .header__marca__pais:after
-    {
-        top:-14px;
-    }
-
-    .layout__header--navidenio .header__marca__pais:before{
-        right:35px;
-    }
-
-    .layout__header--navidenio .header__marca__pais:after{
-        right:-6px;
-    }
-
-    .layout__header--navidenio .header__menu--lateralDerecho{
-        flex-grow:1!important;
-    }
-
-    .layout__header--navidenio .menu__lista{
-        justify-content:flex-end!important;
-    }
-
-    .layout__header--navidenio .menu__item--lateralDerechoIcono:first-child,
-    .layout__header--navidenio .menu__item--lateralDerechoIcono:nth-child(2)
-    {
-        margin-right:13px!important;
-    }
-
-}
-
-/* FIN - HEADER MARCA PAÍS NAVIDEÑO */
-
 .header__marca__pais img{
     width:auto;
     height:100%;
@@ -147,7 +21,8 @@
 }
 
 .menu__item--campaniaActual{
-    background-color: #a18328;
+    /*background-color: #a18328;*/
+    background-color:#e81c36;
 }
 
 .pestana__marca__pais {
@@ -158,7 +33,7 @@
     background-size: 20px;
     background-position: center 1px;
     top:-17px;
-    left:10.3%;
+    left:16.2%;
 }
 
 .submenu__lista--miNegocio{
@@ -166,7 +41,7 @@
 }
 
 .submenu__lista--miAsesorBelleza{
-    margin-top:7px;
+    margin-top:5px;
 }
 
 .submenu__lista--miAsesorBelleza .pestana__marca__pais{
@@ -176,18 +51,18 @@
 @media screen and (max-width:1270px){
 
     .header__marca__pais picture{
-        height:29px;
+        height:auto;
     }
 
 }
 
-@media screen and (max-width:1249px){
+/*@media screen and (max-width:1249px){
 
     .header__marca__pais picture{
         height:27px;
     }
 
-}
+}*/
 
 @media screen and (min-width:1207px) and (max-width:1212px){
 
@@ -199,13 +74,13 @@
 
 }
 
-@media screen and (min-width:992px) and (max-width:1206px){
+/*@media screen and (min-width:992px) and (max-width:1206px){
 
     .header__marca__pais{
         width:106px;
     }
 
-}
+}*/
 
 @media screen and (min-width:992px) and (max-width:1065px){
 
@@ -245,13 +120,19 @@
 
 @media screen and (max-width:991px){
 
+    .header__icono__menu img{
+        margin-top:6px;
+    }
+
     .header__marca__pais{
         width:136px;
-        background-position:59% center;
+        padding-left:17px;
+        /*background-position:59% center;*/
     }
 
     .header__marca__pais picture {
         margin-top: 3px;
+        height:27px;
     }
 
 }
@@ -264,22 +145,148 @@
 
 }
 
-@media screen and (max-width:370px) {
+/*@media screen and (max-width:370px) {
 
     .header__marca__pais{
         background-position:79% center;
     }
 
-}
+}*/
 
-@media screen and (max-width:350px) {
+/*@media screen and (max-width:350px) {
 
     .header__marca__pais{
         background-position:89% center;
     }
 
-}
+}*/
 
 /* FIN - HEADER MOBILE */
+
+/* SECCIÓN BREADCRUMBS Y TITULO DE VISTA (VERSIÓN DESKTOP) */
+
+.layout__view__breadcrumbs__wrapper,
+.layout__view__title__wrapper
+{
+    background-color: #f9f9f9;
+}
+
+.layout__view__title__text,
+.layout__view__title__background
+{
+    background-color:#000;
+}
+
+.layout__view__title__text span{
+    color:#FFF;
+}
+
+.pestana__lbel{
+    display:none;
+}
+
+/* FIN - SECCIÓN BREADCRUMBS Y TITULO DE VISTA (VERSIÓN DESKTOP) */
+
+/* POPUPS GENERALES - POPUP CIERRE DE SESIÓN ANTIGUO (DESKTOP) */
+
+.icono_exclamacion {
+    display: block;
+    width: 60px;
+    height: 60px;
+    margin: 0 auto;
+    background: url(/Content/Images/Esika/icono_exclamacion_esika.png) center center no-repeat;
+    margin-bottom: 18px;
+    background-size: cover;
+}
+
+.btn_ok{
+    background: #e81c36;
+}
+
+/* FIN - POPUPS GENERALES - POPUP CIERRE DE SESIÓN ANTIGUO (DESKTOP) */
+
+/* POPUPS GENERALES - POPUP CIERRE DE SESIÓN (DESKTOP) */
+
+.icono_sesion_por_finalizar{    
+    background-image:url(/Content/Images/Esika/icono_sesion_por_finalizar.svg);
+}
+
+.icono_alerta_cierre_sesion{
+    background-image:url(/Content/Images/Esika/icono_alerta_cierre_sesion.svg);
+}
+
+/* FIN POPUPS GENERALES - POPUP CIERRE DE SESIÓN (DESKTOP) */
+
+/* MIS CATÁLOGOS Y REVISTAS (DESKTOP) */
+
+.layout__content{
+    margin-top:28px;
+}
+
+.catalogos__campania--actual .catalogos__por__campania__item__imagen--esika{
+    min-height:346px;
+    z-index:2;
+    left:11px;
+    order:-2;
+}
+
+    .catalogos__campania--actual .catalogos__por__campania__item__imagen--esika img{
+        height:346px;
+    }
+
+.catalogos__campania--actual .catalogos__por__campania__item__imagen--cyzone{
+    order:-3;
+}
+
+.catalogos__campania--actual .catalogos__por__campania__item__imagen--lbel{
+    left: -33px;
+    order:-1;
+}
+
+/* FIN - MIS CATÁLOGOS Y REVISTAS (DESKTOP) */
+
+/* MIS CATÁLOGOS Y REVISTAS (MOBILE) */
+
+@media screen and (max-width:991px){
+
+    .indicador__catalogos__revistas.indicador__catalogos__revistas--activo{
+        background-color:#e81c36;
+    }
+
+    .tabs__catalogos__revistas{
+        background-color:#f2f2f2;
+    }
+
+    .catalogos__campania--actual .catalogos__por__campania__item__imagen--cyzone,
+    .catalogos__campania--actual .catalogos__por__campania__item__imagen--lbel,
+    .catalogos__campania--actual .catalogos__por__campania__item__imagen--cyzone img,
+    .catalogos__campania--actual .catalogos__por__campania__item__imagen--lbel img
+    {
+        height:160px;
+    }
+
+    .catalogos__campania--actual .catalogos__por__campania__item__imagen--cyzone,
+    .catalogos__campania--actual .catalogos__por__campania__item__imagen--lbel
+    {
+        max-width:122.53px;
+    }
+
+    .catalogos__campania--actual .catalogos__por__campania__item__imagen--esika{
+        max-width:137px;
+        min-height:180px;
+        left:0;
+    }
+
+        .catalogos__campania--actual .catalogos__por__campania__item__imagen--esika img{
+            height:180px;
+        }
+
+    .catalogos__campania--actual .catalogos__por__campania__item__imagen--lbel{
+        left:-33px;
+    }
+
+}
+
+/* FIN - MIS CATÁLOGOS Y REVISTAS (MOBILE) */
 
 /* FIN - ESTILOS MARCA PAÍS ÉSIKA */

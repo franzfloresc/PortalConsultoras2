@@ -243,7 +243,7 @@ main {
 }
 
 .modal_activado {
-    overflow: hidden;
+    overflow: hidden !important;
 }
 
 .modal-fondo {
@@ -325,4 +325,40 @@ main {
 
 .slick-initialized .item_selecionado.slick-slide {
     display: flex;
+}
+
+/*Agotado*/
+
+.selecion_item_agotado .seleccion_img img, .selecion_item_agotado .seleccion_title {
+    opacity: .4;
+}
+
+.selecion_item_agotado .seleccion_img {
+    border: 1px solid #c5c5c5 !important;
+    cursor: default;
+    opacity: 0.4;
+    position: relative;
+}
+
+    .selecion_item_agotado .seleccion_img::after {
+        content: "";
+        display: block;
+        width: 86px;
+        height: 1px;
+        background-color: #c5c5c5;
+        transform: rotate(45deg);
+        z-index: 1;
+        position: absolute;
+        top: 29px;
+        left: -13px;
+    }
+
+
+.btn-eligelo-agotado {
+    pointer-events: none;
+    background: #e5e5e5 !important;
+    border: 1px solid #d2d2d2 !important;
+    color: #b9b9b9 !important;
+    cursor: default !important;
+    font-weight: bold;
 }

@@ -2,103 +2,6 @@
 
 /* HEADER */
 
-/* HEADER MARCA PAÍS NAVIDEÑO */
-
-.layout__header--navidenio .layout__container:before{
-    display: block;
-    content: "";
-    position: absolute;
-    width: 84px;
-    height: 60px;
-    top: 0;
-    left: 0;
-    background: url(/Content/Images/Lbel/copos-nieve.png);
-    background-repeat: no-repeat;
-    background-position: -93px -31px;
-    background-size: 170px;
-}
-
-.layout__header--navidenio .header__marca__pais img{
-    height:21px;
-}
-
-@media screen and (min-width:992px) and (max-width:1204px){
-
-    .layout__header--navidenio .layout__container:before{
-        background-position: -66px -31px;
-        background-size: 134px;
-    }
-
-    .layout__header--navidenio .header__marca__pais img {
-        height: 19px;
-    }
-
-}
-
-@media screen and (max-width:991px){
-
-    .layout__header--navidenio .layout__container{
-        justify-content:flex-start!important;
-    }
-
-    .layout__header--navidenio .layout__container:before{
-        display:none;
-    }
-
-    .layout__header--navidenio .header__marca__pais{
-        width:105px;
-        text-align:left!important;
-        padding-left:4px;
-    }
-
-    .layout__header--navidenio .header__marca__pais:after{
-        display: block;
-        content: "";
-        width: 84px;
-        height: 60px;
-        position: absolute;
-        top: -21px;
-        right: -53px;
-        z-index:-1;
-        background-image: url(/Content/Images/Lbel/copos-nieve.png);
-        background-repeat: no-repeat;
-        background-position: 19px -77px;
-        background-size: 164px;
-    }
-
-    .layout__header--navidenio .header__marca__pais picture{
-        margin-top:-2px;
-    }
-
-    .layout__header--navidenio .header__marca__pais img{
-        height:17px;
-    }
-
-    /*.layout__header--navidenio .header__marca__pais img {
-        right: 1px;
-        height: 30px;
-        margin-top: -4px;
-        padding-left: 17px;
-    }*/
-
-    .layout__header--navidenio .header__menu--lateralDerecho{
-        flex-grow:1!important;
-    }
-
-    .layout__header--navidenio .menu__lista{
-        justify-content:flex-end!important;
-    }
-
-    .layout__header--navidenio .menu__item--lateralDerechoIcono:first-child,
-    .layout__header--navidenio .menu__item--lateralDerechoIcono:nth-child(2)
-    {
-        margin-right:13px!important;
-    }
-
-}
-
-/* FIN - HEADER MARCA PAÍS NAVIDEÑO */
-
 .header__marca__pais img {
     width: auto;
     height: 19px;
@@ -126,7 +29,7 @@
     background-color: #FFF;
     background-image:url(/Content/Images/Lbel/pestana_lbel.png);
     top: -3px;
-    left: 9.4%;
+    left: 15.7%;
     background-size: cover;
 }
 
@@ -150,13 +53,13 @@
 
 }
 
-@media screen and (min-width:992px) and (max-width:1204px){
+/*@media screen and (min-width:992px) and (max-width:1204px){
 
     .header__marca__pais {
         width: 155px;
     }
 
-}
+}*/
 
 /* FIN - HEADER */
 
@@ -173,15 +76,20 @@
 }
 
 @media screen and (max-width:991px){
+
+    .header__icono__menu img{
+        margin-top:4px;
+    }
     
     .header__marca__pais{
         width:148px;
-        background-position:59% center;
+        padding-left:17px;
+        /*background-position:59% center;*/
     }
 
-    .header__marca__pais picture {
+    /*.header__marca__pais picture {
         margin-top: 9px;
-    }
+    }*/
 
     .header__marca__pais img{
         height:55%;
@@ -189,7 +97,7 @@
 
 }
 
-@media screen and (max-width:480px) {
+/*@media screen and (max-width:480px) {
 
     .header__marca__pais{
         background-position:67% center;
@@ -211,8 +119,249 @@
         background-position:89% center;
     }
 
-}
+}*/
 
 /* FIN - HEADER MOBILE */
+
+/* SECCIÓN BREADCRUMBS Y TITULO DE VISTA (VERSIÓN DESKTOP) */
+
+.layout__view__breadcrumbs__wrapper,
+.layout__view__title__wrapper,
+.layout__view__title__text,
+.layout__view__title__background
+{
+    background-color: transparent;
+}
+
+.layout__view__title__text span{
+    color:#000;
+}
+
+.tabs__catalogos__revistas{
+    margin-top:5px;
+}
+
+.pestana__lbel{
+    margin-top:-3px;
+    background-image: url(/Content/Images/Mobile/Lbel/pestana_lbel.png);
+    background-repeat:no-repeat;
+    background-position: 60px top;
+    width:100%;
+    max-width:1189px;
+    height:20px;
+}
+
+/* FIN - SECCIÓN BREADCRUMBS Y TITULO DE VISTA (VERSIÓN DESKTOP) */
+
+/* SECCIÓN BREADCRUMBS Y TITULO DE VISTA (VERSIÓN MOBILE) */
+
+@media screen and (max-width:991px){
+
+    .pestana__lbel{
+        background-image: url(/Content/Images/Mobile/Lbel/pestana_lbel.png);
+        background-position: center top;
+    }
+
+}
+
+/* FIN - SECCIÓN BREADCRUMBS Y TITULO DE VISTA (VERSIÓN MOBILE) */
+
+/* AJUSTES REVISTA DIGITAL (VISTA CATÁLOGOS Y REVISTAS DESKTOP) */
+
+.logo_no_suscrita {
+    background: url(/Content/Images/Lbel/RevistaDigital/logo_lbel_diagonal.png) !important;
+    background-size: 147px !important;
+    background-repeat: no-repeat !important;
+    background-position: left center !important;
+}
+
+.bg_activar_boton_no_animado {
+    border: 1px solid #000;
+    border-radius: 4px;
+    transition: .3s;
+    cursor: pointer;
+}
+
+
+.bg_activar_boton_no_animado:hover {
+    background-color: #000;
+}
+
+.bg_activar_boton_no_animado:hover a {
+    color: #fff!important;
+}
+
+/* FIN - AJUSTES REVISTA DIGITAL (VISTA CATÁLOGOS Y REVISTAS DESKTOP) */
+
+/* AJUSTES REVISTA DIGITAL (VISTA CATÁLOGOS Y REVISTAS MOBILE) */
+
+@media screen and (max-width:991px){
+
+    .expoferta_revista{
+        margin-top:35px!important;
+    }
+
+    .contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas{
+        margin-top:5px!important;
+    }
+
+    .contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .club_logo,
+    .contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .clubtxt,
+    .club_btn
+    {
+        width:100%!important;
+    }
+
+    .logo_no_suscrita {
+        background-image: url(/Content/Images/Lbel/RevistaDigital/logo_lbel_diagonal.png) !important;
+        background-repeat: no-repeat;
+        background-size: 147px !important;
+        background-repeat: no-repeat;
+        width: 100% !important;
+        background-position: center!important;
+        height: 90px !important;
+        position: relative !important;
+    }
+
+    .centrar_cont_club p,
+    .bg_activar_boton_no_animado a
+    {
+        font-size:13px!important;
+    }
+
+    .clubtxt,
+    .centrar_vertical
+    {
+        height:60px!important;
+    }
+
+    .clubtxt,
+    .centrar_cont_club,
+    .centrar_cont_club p
+    {
+        display:block!important;
+    }
+
+    .centrar_cont_club p{
+        margin:0 auto;
+        max-width:220px;
+    }
+
+    .club_btn{
+        max-width:209px;
+        height:70px!important;
+    }
+
+    .bg_activar_boton_no_animado{
+        height:45px;
+        line-height:43px;
+        padding:0!important;
+    }
+
+}
+
+/* FIN - AJUSTES REVISTA DIGITAL (VISTA CATÁLOGOS Y REVISTAS MOBILE) */
+
+/* POPUPS GENERALES - POPUP CIERRE DE SESIÓN ANTIGUO (DESKTOP) */
+
+.icono_exclamacion {
+    display: block;
+    width: 60px;
+    height: 60px;
+    margin: 0 auto;
+    background: url(/Content/Images/Lbel/icono_exclamacion_lbel.png) center center no-repeat;
+    margin-bottom: 18px;
+    background-size: cover;
+}
+
+.btn_ok{
+    background: #642f80;
+}
+
+/* FIN - POPUPS GENERALES - POPUP CIERRE DE SESIÓN ANTIGUO (DESKTOP) */
+
+/* POPUPS GENERALES - POPUP CIERRE DE SESIÓN (DESKTOP) */
+
+.icono_sesion_por_finalizar{    
+    background-image:url(/Content/Images/Lbel/icono_sesion_por_finalizar.svg);
+}
+
+.icono_alerta_cierre_sesion{
+    background-image:url(/Content/Images/Lbel/icono_alerta_cierre_sesion.svg);
+}
+
+/* FIN POPUPS GENERALES - POPUP CIERRE DE SESIÓN (DESKTOP) */
+
+/* MIS CATÁLOGOS Y REVISTAS (DESKTOP) */
+
+.layout__content{
+    margin-top:15px;
+}
+
+.catalogos__campania--actual .catalogos__por__campania__item__imagen--esika{
+    left: -33px;
+    order:-1;
+}
+
+.catalogos__campania--actual .catalogos__por__campania__item__imagen--cyzone{
+    order:-3;
+}
+
+.catalogos__campania--actual .catalogos__por__campania__item__imagen--lbel{
+    min-height:346px;
+    z-index:2;
+    left:11px;
+    order:-2;
+}
+
+    .catalogos__campania--actual .catalogos__por__campania__item__imagen--lbel img{
+        height:346px;
+    }
+
+/* FIN - MIS CATÁLOGOS Y REVISTAS (DESKTOP) */
+
+/* MIS CATÁLOGOS Y REVISTAS (MOBILE) */
+
+@media screen and (max-width:991px){
+
+    .indicador__catalogos__revistas.indicador__catalogos__revistas--activo{
+        background-color:#642f80;
+    }
+
+    .tabs__catalogos__revistas{
+        background-color:#ffffff;
+        border-bottom:1px solid #000;
+    }
+
+    .catalogos__campania--actual .catalogos__por__campania__item__imagen--cyzone,
+    .catalogos__campania--actual .catalogos__por__campania__item__imagen--esika,
+    .catalogos__campania--actual .catalogos__por__campania__item__imagen--cyzone img,
+    .catalogos__campania--actual .catalogos__por__campania__item__imagen--esika img
+    {
+        height:160px;
+    }
+
+    .catalogos__campania--actual .catalogos__por__campania__item__imagen--cyzone,
+    .catalogos__campania--actual .catalogos__por__campania__item__imagen--esika
+    {
+        max-width:122.53px;
+    }
+
+    .catalogos__campania--actual .catalogos__por__campania__item__imagen--lbel{
+        max-width:137px;
+        min-height:180px;
+        left:0;
+    }
+
+        .catalogos__campania--actual .catalogos__por__campania__item__imagen--lbel img{
+            height:180px;
+        }
+
+    .catalogos__campania--actual .catalogos__por__campania__item__imagen--esika{
+        left:-33px;
+    }
+
+}
+/* FIN - MIS CATÁLOGOS Y REVISTAS (MOBILE) */
 
 /* FIN - ESTILOS MARCA PAÍS LBEL */

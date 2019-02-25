@@ -15,7 +15,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class GestionFaltantesController : BaseController
+    public class GestionFaltantesController : BaseAdmController
     {
         #region Action
         public ActionResult GestionFaltantes()
@@ -179,11 +179,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (zonasAValidar.Length != 0)
                 {
-                    BEZona[] zonas;
-                    using (ZonificacionServiceClient srv = new ZonificacionServiceClient())
-                    {
-                        zonas = srv.SelectAllZonas(paisID);
-                    }
+                    BEZona[] zonas = _zonificacionProvider.GetZonasEntidad(paisID);
 
                     var zonasNoValidas = (from item in zonasAValidar
                                           where !(zonas.Any(z => z.Codigo == item))
@@ -493,16 +489,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public JsonResult ObtenterCampaniasPorPais(int PaisID)
-        {
-            IEnumerable<CampaniaModel> lista = DropDownCampanias(PaisID);
-
-            return Json(new
-            {
-                lista = lista
-            }, JsonRequestBehavior.AllowGet);
-        }
-
         public ActionResult DescargaModelo()
         {
             string fileName = "PlantillaModelFaltante.xlsx";
@@ -523,36 +509,6 @@ namespace Portal.Consultoras.Web.Controllers
             HttpContext.Response.End();
 
             return View();
-        }
-        #endregion
-
-        #region Metodos
-        public IEnumerable<CampaniaModel> DropDownCampanias(int paisId)
-        {
-            List<BECampania> lista;
-            using (ZonificacionServiceClient servicezona = new ZonificacionServiceClient())
-            {
-                lista = paisId == 0
-                    ? servicezona.SelectCampanias(userData.PaisID).ToList()
-                    : servicezona.SelectCampanias(paisId).ToList();
-            }
-            lista.Insert(0, new BECampania() { CampaniaID = 0, Codigo = "-- Seleccionar --" });
-
-            return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lista);
-        }
-
-        private IEnumerable<PaisModel> DropDowListPaises()
-        {
-            List<BEPais> lst;
-
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = userData.RolID == 2
-                    ? sv.SelectPaises().ToList()
-                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
-            }
-
-            return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
         #endregion
 

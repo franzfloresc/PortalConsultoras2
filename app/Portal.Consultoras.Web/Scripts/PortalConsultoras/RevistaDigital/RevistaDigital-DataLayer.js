@@ -56,7 +56,7 @@ var rdAnalyticsModule = (function () {
     _seccionWeb = {
         home: "Home",
         catalogo: "Catálogos y revistas",
-        pedido: "Pedido",
+        pedido: "Carrito de Compras",
         homeMobile: "Mobile Home",
         catalogoMobile: "Mobile Catálogos y revistas",
         pedidoMobile: "Mobile Pedido",
@@ -66,7 +66,7 @@ var rdAnalyticsModule = (function () {
     _text = {
         noDisponible: "NO DISPONIBLE",
         estandar: "Estándar",
-        epm: "Ésika para mí",
+        epm: "Gana+",
         exception: "Exception on analytics RD",
         comprarCampania: "Comprar campaña ",
         verCampania: "Ver campaña ",
@@ -104,8 +104,9 @@ var rdAnalyticsModule = (function () {
         verMas: "Ver más ofertas",
         verTodas: "Ver todas mis ofertas",
         clickBoton: "Click Botón",
+        clickEnBoton: "Click en botón",
         clickCancelar: "Click Link Cancelar Suscripción",
-        cancelarInscripcion: "Cancelar inscripción",
+        cancelarInscripcion: "Cancelar tu subscripción aquí",
         suscripcionExitosa: "Suscripción Exitosa",
         whatsapp: "Enviar por Whatsapp",
         inicioVideo: "Iniciar video",
@@ -145,11 +146,12 @@ var rdAnalyticsModule = (function () {
             return _text.anterior;
         }
     }
-    var _virtualEventPush = function(category, action, label) {
+    var _virtualEventPush = function (category, action, label) {
+        
         dataLayer.push({
             "event": _event.virtual,
-            "category": category,
-            "action": action,
+            "category": category +' - '+ action,
+            "action": "Click Botón",
             "label": label
         });
     };
@@ -250,13 +252,13 @@ var rdAnalyticsModule = (function () {
             var origenWebString = origenWeb.toString();
             switch (origenWebString) {
                 case _origenWeb.home:
-                    _virtualEventPush(_seccionWeb.home, _text.epm, _action.clickBanner);
+                    _virtualEventPush(_seccionWeb.home, _text.epm, _action.verMas);
                     break;
                 case _origenWeb.catalogo:
                     _virtualEventPush(_seccionWeb.catalogo, _text.epm, _action.clickBanner);
                     break;
                 case _origenWeb.pedido:
-                    _virtualEventPush(_seccionWeb.pedido, _text.epm, _action.clickBanner);
+                    _virtualEventPush(_seccionWeb.pedido, _text.epm, _action.verMas);
                     break;
                 case _origenWeb.homeLan:
                     _virtualEventPush(_seccionWeb.home, _text.epm, _action.verLan);
@@ -498,7 +500,7 @@ var rdAnalyticsModule = (function () {
     }
 
     function CancelarSuscripcion() {
-        _virtualEventPush(_text.epm, _action.cancelarInscripcion, _text.notAvailable);
+        _virtualEventPush(_text.epm, _action.clickEnBoton, _action.cancelarInscripcion);
     }
 
     function ContendorSection(titulo) {

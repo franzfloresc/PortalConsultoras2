@@ -1,17 +1,24 @@
 ﻿@using Portal.Consultoras.Common;
 @using Portal.Consultoras.Web.Models.PagoEnLinea;
 @model PagoEnLineaModel
-
 @{
     ViewBag.Title = "Pago En Línea";
-    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
     var metodoPago = Model.MetodoPagoSeleccionado;
+    metodoPago.MontoMinimoPago = metodoPago.MontoMinimoPago ?? (decimal)0.5;
+    if (Model.origen == int.Parse(Constantes.IngresoExternoOrigen.ChatBot))
+    {
+        Layout = "~/Areas/Mobile/Views/Shared/_ChatboMobileLayout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+    }
 }
 
 @section styles{
 
     @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
-    { 
+    {
 
         <link rel="stylesheet" href="@Url.Content("~/Content/Css/Mobile/Esika/pago-en-linea.css")?v=1">
 
@@ -32,11 +39,17 @@
 
 }
 
-<div class="cabecera_vista_pago_en_linea">
-    <a href="@Request.UrlReferrer" class="enlace_regresar ajustePosicionFlecha" style="display:block" title="Regresar"></a>
-    PAGO EN LÍNEA
-</div>
-
+@if (Model.origen == int.Parse(Constantes.IngresoExternoOrigen.ChatBot))
+{
+    <div class="titulo_mobile">PAGO EN LÍNEA</div>
+}
+else
+{
+    <div class="cabecera_vista_pago_en_linea">
+        <a href="@Request.UrlReferrer" class="enlace_regresar ajustePosicionFlecha" style="display:block" title="Regresar"></a>
+        PAGO EN LÍNEA
+    </div>
+}
 <div class="content_belcorp">
     <div class="pestana_lbel"></div>
 
@@ -171,21 +184,21 @@
                                     <div class="descripcion_opcion_activacion">
                                         Al presionar continuar aceptas los
                                         @if (metodoPago.TipoVisualizacionTyC == Constantes.PagoEnLineaMetodoPagoVisualizacionTyC.Popup)
-                                        {
-                                            <a class="ver_terminos_y_condiciones" data-tipovisualizacion="">
-                                                términos y condiciones
-                                            </a>
-                                        }
+            {
+                            <a class="ver_terminos_y_condiciones" data-tipovisualizacion="">
+                                términos y condiciones
+                            </a>
+}
                                         @if (metodoPago.TipoVisualizacionTyC == Constantes.PagoEnLineaMetodoPagoVisualizacionTyC.Archivo)
-                                        {
-                                            <a class="ver_terminos_y_condiciones" target="_blank" href="@metodoPago.TerminosCondiciones">
-                                                términos y condiciones
-                                            </a>
-                                        }
+            {
+                            <a class="ver_terminos_y_condiciones" target="_blank" href="@metodoPago.TerminosCondiciones">
+                                términos y condiciones
+                            </a>
+}
 
                                     </div>
                                 </div>
-                                <button type="button" class="btn_pago_tarjeta_credito text-bold text-uppercase default-background w-100" id="btnPagoParcial">
+                                <button type="button" class="text-bold text-uppercase default-background w-100 disabledButton" disabled id="btnPagoParcial">
                                     Continuar
                                 </button>
                             </div>
@@ -227,5 +240,6 @@
         var urlPasarelaPago = '@Url.Action("PasarelaPago","PagoEnLinea", new { area = "Mobile" })';
         var rutaGuardarDatosPago = '@Url.Action("GuardarMontoDeuda", "PagoEnLinea", new { area = "" })';
         var tipoOrigenPantalla = 2;
+        var montoMinimoPago = @metodoPago.MontoMinimoPago;
     </script>
 }

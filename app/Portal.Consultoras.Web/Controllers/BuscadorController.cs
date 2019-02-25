@@ -9,8 +9,8 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class BuscadorController : BaseController
     {
-        private readonly BuscadorYFiltrosProvider BuscadorYFiltrosProvider = new BuscadorYFiltrosProvider();
-        
+        private readonly BuscadorYFiltrosProvider _buscadorYFiltrosProvider = new BuscadorYFiltrosProvider();
+
         public ActionResult Index()
         {
             return View();
@@ -18,18 +18,29 @@ namespace Portal.Consultoras.Web.Controllers
 
         public async Task<JsonResult> BusquedaProductos(BuscadorModel model)
         {
-            BuscadorYFiltrosModel ProductosModel;
+            BuscadorYFiltrosModel productosModel;
             try
             {
-                var resultBuscador = await BuscadorYFiltrosProvider.GetBuscador(model);
-                ProductosModel = await BuscadorYFiltrosProvider.ValidacionProductoAgregado(resultBuscador, SessionManager.GetDetallesPedido(), userData, revistaDigital, IsMobile());
+                await _buscadorYFiltrosProvider.GetPersonalizacion(userData, true, true);
+                productosModel = await _buscadorYFiltrosProvider.GetBuscador(model);
+                productosModel.productos = _buscadorYFiltrosProvider.ValidacionProductoAgregado(
+                    productosModel.productos, 
+                    SessionManager.GetDetallesPedido(), 
+                    userData, 
+                    revistaDigital, 
+                    model.IsMobile, 
+                    model.IsHome, 
+                    false,
+                    SessionManager.GetRevistaDigital().EsSuscrita                    
+                    );
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                ProductosModel = new BuscadorYFiltrosModel();
+                productosModel = new BuscadorYFiltrosModel();
             }
-            return Json(ProductosModel, JsonRequestBehavior.AllowGet);
+            return Json(productosModel, JsonRequestBehavior.AllowGet);
         }
+
     }
 }

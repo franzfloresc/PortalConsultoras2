@@ -48,7 +48,10 @@ namespace Portal.Consultoras.BizLogic
         HorarioChat,
         HorarioBelcorpResponde,
         CredencialesSMS,
-        NivelesProgramaNuevas
+        NivelesProgramaNuevas,
+        ProgramaArmaTuPack,
+        CuvListZonaArmaTuPack,
+        OrdenamientoFiltros
     }
 
     internal static class CacheManager<T>
@@ -222,11 +225,15 @@ namespace Portal.Consultoras.BizLogic
         }
         public static T ValidateDataElement(int paisID, ECacheItem cacheItem, string customKey, Func<T> fn)
         {
+            return ValidateDataElement(paisID, cacheItem, customKey, fn, TimeSpan.Parse(ConfigurationManager.AppSettings["TimeCacheRedis"]));
+        }
+        public static T ValidateDataElement(int paisID, ECacheItem cacheItem, string customKey, Func<T> fn, TimeSpan timeCache)
+        {
             var entidad = GetDataElement(paisID, cacheItem, customKey);
             if (entidad != null) return entidad;
 
             entidad = fn();
-            AddDataElement(paisID, cacheItem, customKey, entidad);
+            AddDataElement(paisID, cacheItem, customKey, entidad, timeCache);
             return entidad;
         }
 

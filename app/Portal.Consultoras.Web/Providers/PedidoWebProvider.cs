@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -81,12 +82,11 @@ namespace Portal.Consultoras.Web.Providers
                             CampaniaId = userData.CampaniaID,
                             ConsultoraId = userData.ConsultoraID,
                             Consultora = userData.NombreConsultora,
-                            EsBpt = esOpt == 1, // ya no se utiliza en el sp, confirmar para no enviar el campo
                             CodigoPrograma = userData.CodigoPrograma,
                             NumeroPedido = userData.ConsecutivoNueva
                         };
 
-                        detallesPedidoWeb = pedidoServiceClient.SelectByCampania(bePedidoWebDetalleParametros).ToList();
+                        detallesPedidoWeb = pedidoServiceClient.SelectByCampaniaWithLabelProgNuevas(bePedidoWebDetalleParametros).ToList();
                     }
                 }
 
@@ -122,12 +122,13 @@ namespace Portal.Consultoras.Web.Providers
         {
             var detallesPedidoWeb = (List<BEPedidoWebDetalle>)null;
             var userData = sessionManager.GetUserData();
-            var pedidoValidado = sessionManager.GetPedidoValidado();
-            var revistaDigital = sessionManager.GetRevistaDigital();
-            var suscripcionActiva = (revistaDigital.EsSuscrita && revistaDigital.EsActiva);
 
             try
             {
+                var pedidoValidado = sessionManager.GetPedidoValidado();
+                var revistaDigital = sessionManager.GetRevistaDigital();
+                var suscripcionActiva = (revistaDigital.EsSuscrita && revistaDigital.EsActiva);
+
                 detallesPedidoWeb = sessionManager.GetDetallesPedidoSetAgrupado();
 
                 if (detallesPedidoWeb == null || noSession)
@@ -141,22 +142,22 @@ namespace Portal.Consultoras.Web.Providers
                             CampaniaId = userData.CampaniaID,
                             ConsultoraId = userData.ConsultoraID,
                             Consultora = userData.NombreConsultora,
-                            EsBpt = esOpt == 1,
                             CodigoPrograma = userData.CodigoPrograma,
                             NumeroPedido = userData.ConsecutivoNueva,
                             AgruparSet = true
                         };
 
-                        detallesPedidoWeb = pedidoServiceClient.SelectByCampania(bePedidoWebDetalleParametros).ToList();
+                        detallesPedidoWeb = pedidoServiceClient.SelectByCampaniaWithLabelProgNuevas(bePedidoWebDetalleParametros).ToList();
                     }
                 }
 
                 foreach (var item in detallesPedidoWeb)
                 {
                     item.ClienteID = string.IsNullOrEmpty(item.Nombre) ? (short)0 : Convert.ToInt16(item.ClienteID);
-                    item.Nombre = string.IsNullOrEmpty(item.Nombre) ? userData.NombreConsultora : item.Nombre;
+                    item.Nombre = string.IsNullOrEmpty(item.Nombre) ? "Para mí" : item.Nombre;
                     item.DescripcionOferta = ObtenerDescripcionOferta(item, pedidoValidado, suscripcionActiva, userData.NuevasDescripcionesBuscador);
                 }
+
                 var observacionesProl = sessionManager.GetObservacionesProl();
                 if (observacionesProl != null && detallesPedidoWeb.Count > 0)
                 {
@@ -268,11 +269,77 @@ namespace Portal.Consultoras.Web.Providers
         {
             var descripcion = "";
 
-            descripcion = Util.obtenerNuevaDescripcionProductoDetalle(item.ConfiguracionOfertaID, pedidoValidado, item.FlagConsultoraOnline,
-                item.OrigenPedidoWeb, lista, suscripcion, item.TipoEstrategiaCodigo, item.MarcaID, item.CodigoCatalago, item.DescripcionOferta);
+            descripcion = Util.obtenerNuevaDescripcionProductoDetalle(item.ConfiguracionOfertaID, pedidoValidado,
+                item.FlagConsultoraOnline, item.OrigenPedidoWeb, lista, suscripcion, item.TipoEstrategiaCodigo, item.MarcaID,
+                item.CodigoCatalago, item.DescripcionOferta, item.EsCuponNuevas, item.EsElecMultipleNuevas);
 
             return descripcion;
         }
 
+        public BEPedidoDetalleResult InsertPedidoDetalle(BEPedidoDetalle pedidoDetalle)
+        {
+            BEPedidoDetalleResult pedidoDetalleResult;
+            using (var pedidoServiceClient = new PedidoServiceClient())
+            {
+                pedidoDetalleResult = pedidoServiceClient.InsertPedidoDetalle(pedidoDetalle);
+            }
+
+            return pedidoDetalleResult;
+        }
+
+        public BEPedidoDetalleResult UpdatePedidoDetalle(BEPedidoDetalle pedidoDetalle)
+        {
+            BEPedidoDetalleResult pedidoDetalleResult;
+            using (var pedidoServiceClient = new PedidoServiceClient())
+            {
+                pedidoDetalleResult = pedidoServiceClient.UpdatePedidoDetalle(pedidoDetalle);
+            }
+
+            return pedidoDetalleResult;
+        }
+
+        public async Task<BEPedidoDetalleResult> EliminarPedidoDetalle(BEPedidoDetalle pedidoDetalle)
+        {
+            BEPedidoDetalleResult pedidoDetalleResult;
+            using (var pedidoServiceClient = new PedidoServiceClient())
+            {
+                pedidoDetalleResult = await pedidoServiceClient.DeletePedidoAsync(pedidoDetalle);
+            }
+
+            return pedidoDetalleResult;
+        }
+
+        public bool EsHoraReserva(UsuarioModel usuario, DateTime fechaHora)
+        {
+            if (!usuario.DiaPROL)
+                return false;
+
+            var horaNow = new TimeSpan(fechaHora.Hour, fechaHora.Minute, 0);
+            var esHorarioReserva = (fechaHora < usuario.FechaInicioCampania) ?
+                (horaNow > usuario.HoraInicioPreReserva && horaNow < usuario.HoraFinPreReserva) :
+                (horaNow > usuario.HoraInicioReserva && horaNow < usuario.HoraFinReserva);
+
+            if (!esHorarioReserva)
+                return false;
+
+            if (usuario.CodigoISO != Constantes.CodigosISOPais.Peru)
+                return (BuildFechaNoHabil(usuario) == 0);
+
+            return true;
+        }
+
+        private int BuildFechaNoHabil(UsuarioModel usuario)
+        {
+            var result = 0;
+            if (usuario != null && usuario.RolID != 0)
+            {
+                using (var sv = new PedidoServiceClient())
+                {
+                    result = sv.GetFechaNoHabilFacturacion(usuario.PaisID, usuario.CodigoZona, DateTime.Today);
+                }
+            }
+
+            return result;
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿var tagLbel = "Lbel";
 var tagEsika = "Esika";
 var tagCyzone = "Cyzone";
+var tagTodo = "Todo";
 
 var campSelect = "";
 var campSelectI = 1;
@@ -18,6 +19,7 @@ var listaCorreo = new Array();
 var nombreCat = new Object();
 
 var campaniaEmail = "";
+var isPilotoSeg = false;
 
 var rCampSelect = "";
 var rCampSelectI = 1;
@@ -25,9 +27,9 @@ var cantCamRev = 3;
 var aCamRev = new Array();
 
 $(document).ready(function () {
+
     configurarContenedorExpoOfertas();
     campSelect = getNumeroCampania(getCodigoCampaniaActual());
-
     $('#campaniaRevista').val(getCodigoCampaniaActual());
     $("#contentCatalogo #TextoCampania").text("CATÁLOGOS C-" + campSelect);
     aCam.push(getCodigoCampaniaAnterior());
@@ -89,7 +91,113 @@ $(document).ready(function () {
         obj.find("[type='checkbox']").Checked();
     });
 
-    $("#btnEnviarCorreo").on("click", function () { CatalogoEnviarEmail(); });
+    $("#btnEnviarCorreo").on("click", function () {
+        if ($(this).data('piloto') == 1) CatalogoEnviarEmailPiloto();
+        else CatalogoEnviarEmail();
+    });
+
+    // Eventos que se utilizan en vista responsive
+
+    $('.tab__catalogos a').on('click', function (e) {
+        e.preventDefault();
+        $('.mi__revista__y__marquesina__rd__wrapper').fadeOut(200);
+        $('.contenido__seccion__catalogo').fadeIn(200);
+        $('.indicador__catalogos__revistas').removeClass('indicador__catalogos__revistas--activo');
+        $(this).next().addClass('indicador__catalogos__revistas--activo');
+    });
+
+    $('.tab__revistas a').on('click', function (e) {
+        e.preventDefault();
+        $('.contenido__seccion__catalogo').fadeOut(200);
+        $('.mi__revista__y__marquesina__rd__wrapper').fadeIn(200);
+        $('.indicador__catalogos__revistas').removeClass('indicador__catalogos__revistas--activo');
+        $(this).next().addClass('indicador__catalogos__revistas--activo');
+    });
+
+    $('.catalogos__por__campania__slider__control__izq a').on('click', function (e) {
+        e.preventDefault();
+        isPilotoSeg = GetCatalogosPilotoSeg(getCodigoCampaniaActual());
+        if ($('.catalogos__por__campania__slider__control__der a').is(':visible')) {
+            if (piloto == '1' && isPilotoSeg == false) {
+                $('.catalogos__campania--actual').fadeOut(100);
+            } else {
+                $('.catalogos__campania--actual--disenioAnterior').fadeOut(100);
+            }
+            $('.catalogos__campania--siguiente').fadeOut(100);
+            $('.catalogos__campania--anterior').delay(100);
+            $('.catalogos__campania--anterior').fadeIn(100);
+            $('.catalogos__por__campania__slider__control__izq a').fadeOut(100);
+        } else {
+            $('.catalogos__campania--anterior').fadeOut(100);
+            $('.catalogos__campania--siguiente').fadeOut(100);
+            if (piloto == '1' && isPilotoSeg == false) {
+                $('.catalogos__campania--actual').delay(100);
+                $('.catalogos__campania--actual').fadeIn(100);
+            } else {
+                $('.catalogos__campania--actual--disenioAnterior').delay(100);
+                $('.catalogos__campania--actual--disenioAnterior').fadeIn(100);
+            }
+            $('.catalogos__por__campania__slider__control__der a').fadeIn(100);
+        }
+    });
+
+    $('.catalogos__por__campania__slider__control__der a').on('click', function (e) {
+        e.preventDefault();
+        isPilotoSeg = GetCatalogosPilotoSeg(getCodigoCampaniaActual());
+        if ($('.catalogos__por__campania__slider__control__izq a').is(':visible')) {
+            if (piloto == '1' && isPilotoSeg == false) {
+                $('.catalogos__campania--actual').fadeOut(100);
+            } else {
+                $('.catalogos__campania--actual--disenioAnterior').fadeOut(100);
+            }
+            $('.catalogos__campania--anterior').fadeOut(100);
+            $('.catalogos__campania--siguiente').delay(100);
+            $('.catalogos__campania--siguiente').fadeIn(100);
+            $('.catalogos__por__campania__slider__control__der a').fadeOut(100);
+        } else {
+            $('.catalogos__campania--anterior').fadeOut(100);
+            $('.catalogos__campania--siguiente').fadeOut(100);
+            if (piloto == '1' && isPilotoSeg == false) {
+                $('.catalogos__campania--actual').delay(100);
+                $('.catalogos__campania--actual').fadeIn(100);
+            } else {
+                $('.catalogos__campania--actual--disenioAnterior').delay(100);
+                $('.catalogos__campania--actual--disenioAnterior').fadeIn(100);
+            }
+            $('.catalogos__campania--actual--disenioAnterior').fadeIn(100);
+            $('.catalogos__por__campania__slider__control__izq a').fadeIn(100);
+        }
+    });
+
+    if ($('.catalogos__campania--anterior').is(':visible')) {
+        $('.catalogos__por__campania__slider__control__izq a').fadeOut(100);
+    }
+
+    if ($('.catalogos__campania--siguiente').is(':visible')) {
+        $('.catalogos__por__campania__slider__control__der a').fadeOut(100);
+    }
+
+    $('.btn__compartir').on('click', function (e) {
+        if (window.matchMedia('(max-width:991px)').matches) {
+            $('.background__opciones__compartir__catalogos').fadeIn(100);
+            $('.background__opciones__compartir__catalogos').css('display', 'flex');
+            $(this).next().fadeIn(100);
+            $(this).next().css('display', 'flex');
+        } else {
+            $(this).next().fadeIn(100);
+            $(this).next().css('display', 'flex');
+        }
+
+    });
+
+    if (window.matchMedia('(max-width:991px)').matches) {
+        $(document).on('click', '.background__opciones__compartir__catalogos', ocultarTooltipCompartirCatalogoMobile);
+    } else {
+        $(document).on('click', 'body', ocultarTooltipCompartirCatalogo);
+    }
+
+    // Fin - Eventos que se utilizan en vista responsive
+
 });
 
 function getCodigoCampaniaAnterior() {
@@ -156,7 +264,6 @@ function configurarContenedorExpoOfertas() {
 
                 $("#catalogoExpoferta").css("cursor", "pointer");
                 $('#contenedorExpofertaMCR').hide();
-
                 if (urlExpoferta.length > 0) {
                     $('#contenedorExpofertaMCR').show();
                     $('#catalogoExpoferta').click(function () {
@@ -172,60 +279,139 @@ function configurarContenedorExpoOfertas() {
 function CargarCarruselCatalogo() {
     waitingDialog();
 
-    var htmlBase = "";
+    var htmlSection = "";
+    var htmlCatalogo = "";
+    var htmlCatalogoAppend = "";
     var totalItem = cantCat * cantCam;
+    var anio = "";
+    var nro = "";
+    isPilotoSeg = false;
 
-    $("#divCatalogo").html("");
+    $("#divSection").html("");
 
     var objCheckCata = $($("#divCheckbox > div")[0]).clone();
     $("#divCheckbox").html("");
 
-    for (var i = 0; i < totalItem; i++) {
-        var nro = "";
-        var anio = "";
-        var tipo = "";
+    for (var i = 0; i < cantCam; i++) {
 
-        if (i < cantCat) {
+        if (i == 1 && piloto == '1') {
+            anio = getAnioCampania(getCodigoCampaniaActual());
+            nro = getNumeroCampania(getCodigoCampaniaActual());
+            isPilotoSeg = GetCatalogosPilotoSeg(anio + nro);
+        }
+
+        var xhtmlSection = "#xhtmlSection";
+        if (i == 1 && piloto == '1' && isPilotoSeg == false)  xhtmlSection = "#xhtmlSectionActual";
+        htmlSection = $(xhtmlSection).html();
+        htmlSection = htmlSection.replace(/{sectionid}/g, 'idSection' + i);
+        htmlSection = htmlSection.replace(/{divCatalogo}/g, 'divCatalogo' + i);
+
+        $("#divSection").append(htmlSection);
+
+        if (i == 0) $("#idSection" + i).addClass(" catalogos__campania--anterior");
+        else if (i == 1) {            
+            if (piloto == '1' && isPilotoSeg == false) {
+                var xHtmlItemCatalogoPasosActual = "#xHtmlItemCatalogoPasosActual";
+                xHtmlItemCatalogoPasosActual = $(xHtmlItemCatalogoPasosActual).html();
+                xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{tipoCatalogoTodo}/g, tagTodo);
+                xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{campania}/g, anio + nro);
+                xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{textourl}/g, urlCatalogoPiloto);
+
+                $("#idSection" + i).append(xHtmlItemCatalogoPasosActual);                
+                $("#txtUrlActual").val(urlCatalogoPiloto);
+                $("#idSection" + i).addClass(" catalogos__campania--actual");
+            } else {
+                $("#idSection" + i).addClass(" catalogos__campania--actual--disenioAnterior");
+            }
+        }
+        else if (i == 2) $("#idSection" + i).addClass(" catalogos__campania--siguiente");
+    }    
+
+    for (var i = 0; i < cantCam; i++) {
+        
+        htmlCatalogo = "";
+        htmlCatalogoAppend = "";
+        nro = "";
+        anio = "";
+        var tipo = "";
+        isPilotoSeg = false;
+
+        if (i == 1 && piloto == '1') isPilotoSeg = GetCatalogosPilotoSeg(getCodigoCampaniaActual());
+
+        if (i < cantCat/3) {
             anio = getAnioCampania(getCodigoCampaniaAnterior());
             nro = getNumeroCampania(getCodigoCampaniaAnterior());
         }
-        else if (i < cantCat * 2) {
+        else if (i < (cantCat * 2)/3) {
             anio = getAnioCampania(getCodigoCampaniaActual());
             nro = getNumeroCampania(getCodigoCampaniaActual());
         }
-        else if (i < cantCat * 3) {
+        else if (i < (cantCat * 3)/3) {
             anio = getAnioCampania(getCodigoCampaniaSiguiente());
             nro = getNumeroCampania(getCodigoCampaniaSiguiente());
         }
 
-        var x = i - parseInt(i / cantCat) * cantCat;
-        x = x < 0 ? 3 : x > 2 ? 3 : x;
-        tipo = ordenCat[x];
-        if (nro == "" || anio == "" || tipo == "") {
+        if (nro == "" || anio == "") {
             continue;
         }
 
-        htmlBase = $("#xHtmlItemCatalogo").html();
-        htmlBase = htmlBase.replace(/{campania}/g, anio + nro);
-        htmlBase = htmlBase.replace(/{tipoCatalogo}/g, tipo);
-        htmlBase = htmlBase.replace(/{comp}/g, tipo);
-        htmlBase = htmlBase.replace(/{descripcion}/g, descrCat[tipo]);
-        htmlBase = htmlBase.replace(/{estado}/g, "0");
+        for (var j = 0; j < cantCat; j++) {
 
-        $("#divCatalogo").append(htmlBase);
+            var itemCatalogo = "#xHtmlItemCatalogo";
+            if (i == 1 && piloto == '1' && isPilotoSeg == false) itemCatalogo = "#xHtmlItemCatalogoActual";
 
-        if (i < 3) {
-            $(objCheckCata).attr("data-cat", tipo);
-            $(objCheckCata).find(".check_label").html(nombreCat[tipo]);
-            var objxx = $("<div></div>").append(objCheckCata);
-            $("#divCheckbox").append(objxx.html());
+            var x = j - parseInt(j / cantCat) * (cantCat / 3);
+            x = x < 0 ? 3 : x > 2 ? 3 : x;
+            tipo = ordenCat[x];
+
+            if (tipo == "") {
+                continue;
+            }
+
+            if (i == 0 && j < 3) {
+                $(objCheckCata).attr("data-cat", tipo);
+                $(objCheckCata).find(".check_label").html(nombreCat[tipo]);
+                var objxx = $("<div></div>").append(objCheckCata);
+                $("#divCheckbox").append(objxx.html());
+            }
+
+            htmlCatalogo = $(itemCatalogo).html();
+            htmlCatalogo = htmlCatalogo.replace(/{campania}/g, anio + nro);
+            htmlCatalogo = htmlCatalogo.replace(/{tipoCatalogo}/g, tipo);
+            htmlCatalogo = i == 1 && piloto == '1' && isPilotoSeg == false ? htmlCatalogo : htmlCatalogo.replace(/{comp}/g, tipo);
+            htmlCatalogo = i == 1 && piloto == '1' && isPilotoSeg == false ? htmlCatalogo : htmlCatalogo.replace(/{descripcion}/g, descrCat[tipo]);
+            htmlCatalogo = htmlCatalogo.replace(/{estado}/g, "0");
+            htmlCatalogoAppend = htmlCatalogoAppend + htmlCatalogo;
         }
+               
+        $("#divCatalogo" + i).append(htmlCatalogoAppend);               
     }
 
-    $("#divCatalogo").append("<div class='clear'></div>");
-    $("#divCatalogo [data-cat='Cyzone'] > div").addClass("no_margin_right");
-
+    for (var i = 0; i < cantCat; i++) {
+        $("#divCatalogo" + i + " [data-cat='Lbel']").addClass(" catalogos__por__campania__item__imagen--lbel");
+        $("#divCatalogo" + i + " [data-cat='Esika']").addClass(" catalogos__por__campania__item__imagen--esika");
+        $("#divCatalogo" + i + " [data-cat='Cyzone']").addClass(" catalogos__por__campania__item__imagen--cyzone");       
+    }
+    
     closeWaitingDialog();
+}
+
+function GetCatalogosPilotoSeg(campana) {
+    isPilotoSeg = false;
+    jQuery.ajax({
+        async: false,
+        type: "GET",
+        url: urlGetPilotoSeg,
+        dataType: "json",
+        data: { campania: campana },
+        success: function (data) {
+            isPilotoSeg = data.PilotoSeg;
+        },
+        error: function (data, x, xh, xhr) {
+            isPilotoSeg = false;
+        }
+    });
+    return isPilotoSeg;
 }
 
 function FinRenderCatalogo() {
@@ -234,7 +420,10 @@ function FinRenderCatalogo() {
         campSelect = campSelect || getAnioCampania(getCodigoCampaniaActual());
         campSelectI = campSelectI || 1;
         $("#contentCatalogo #TextoCampania").text("CATÁLOGOS C-" + campSelect);
-        $("#divCatalogo > div > div").show();
+        for (var i = 0; i < cantCam; i++) {
+            $("#divCatalogo" + i +" > div > div").show();
+        }
+        
         CatalogoMostrar(0);
         closeWaitingDialog();
     }
@@ -242,13 +431,13 @@ function FinRenderCatalogo() {
 
 function ColumnasDeshabilitadasxPais(valor, accion, label) {
     waitingDialog();
-
+    
     if (typeof (accion) !== 'undefined') {
         SetGoogleAnalytics("", accion, label);
     }
-
     var deferedCam = new Object();
     for (var i = 0; i < aCam.length; i++) {
+
         var camp = aCam[i];
         deferedCam[camp] = jQuery.Deferred();
 
@@ -261,6 +450,7 @@ function ColumnasDeshabilitadasxPais(valor, accion, label) {
     });
 }
 var meDone = function (data, camp) {
+
     if (data != null) GetCatalogosLinksByCampania(data, camp);
     else cont += cantCat;
 }
@@ -284,16 +474,37 @@ function ObtenerEstadoCatalogo(campana, defered) {
     return defered.promise();
 }
 
+function CopiarEnlaceActual(catalogo, campania) {
+
+    var copyText = $('#txtUrlActual');
+    copyText.select();
+
+    try {
+        var successful = document.execCommand('copy');
+        var msg = successful ? 'successful' : 'unsuccessful';
+        console.log('Copying text command was ' + msg);
+    } catch (err) {
+        console.log('Oops, unable to copy');
+    }
+}
+
 function GetCatalogosLinksByCampania(data, campania) {
     waitingDialog();
     $.ajaxSetup({ cache: false });
     
+    var contDiv;
+    for (var i = 0; i < aCam.length; i++) {
+        if (campania == aCam[i]) {
+            contDiv = i;
+            break;
+        }
+    }
 
-    
-    var idCat = "#divCatalogo";
+    var idCat = "#divCatalogo" + contDiv;
 
-    for (var i = 0; i < cantCat; i++) {
+    for (var i = 0; i < cantCat; i++) {        
 
+        isPilotoSeg = false;
         var tagCat = i == 0 && data.estadoLbel != 1 ? tagLbel
             : i == 1 && data.estadoCyzone != 1 ? tagCyzone
                 : i == 2 && data.estadoEsika != 1 ? tagEsika
@@ -310,35 +521,47 @@ function GetCatalogosLinksByCampania(data, campania) {
                     : "0";
 
         var elemItem = "[data-cam='" + campania + "'][data-cat='" + tagCat + "']";
-        $(idCat).find(elemItem).find("[data-tipo='content']").hide();
         $(elemItem).attr("data-estado", estado);
-        
-        var codigoISSUU = '', urlCat;
+
+        var codigoISSUU = '', urlCat, urlTexto;
         $.each(data.listCatalogo, function (key, catalogo) {
             if (catalogo.marcaCatalogo.toLowerCase() == tagCat.toLowerCase()) {
                 codigoISSUU = catalogo.DocumentID;
                 urlCat = catalogo.SkinURL;
             }
         });
-        cont++;
+
+        cont++;        
         if (codigoISSUU == '') {
             $(idCat).find(elemItem).find("[data-tipo='img']").attr("href", linkCat[tagCat]);
             $(idCat).find(elemItem).find("[data-tipo='img']").attr("onclick", "SetGoogleAnalytics('','Ver catálogo','" + tagCat + "')");
             $(idCat).find(elemItem).find("[data-tipo='img'] img").attr("src", imgNoDisponible);
         }
         else {
+
+            var urlCatWS = urlCat;
+            urlCatWS = urlCatWS.ReplaceAll("/", "%2F");
+            urlCatWS = urlCatWS.ReplaceAll(":", "%3A");
+            urlCatWS = urlCatWS.ReplaceAll("?", "%3F");
+            urlCatWS = urlCatWS.ReplaceAll("=", "%3D");
+            urlCatWS = urlCatWS.ReplaceAll("&", "%26");
+
             var a = getAnioCampania(campania);
             var n = getNumeroCampania(campania);
+            if (contDiv == 1 && piloto == '1') isPilotoSeg = GetCatalogosPilotoSeg(a + n);
+
             $(idCat).find(elemItem).find("[data-tipo='img']").attr("onclick", "SetGoogleAnalytics('" + codigoISSUU + "','Ver catálogo','" + tagCat + "')");
-            $(idCat).find(elemItem).find("[data-tipo='img']").attr("href", urlCat);
+
+            if (contDiv == 1 && piloto == '1' && isPilotoSeg == false) $(idCat).find(elemItem).find("[data-tipo='img']").attr("href", urlCatalogoPiloto);
+            else $(idCat).find(elemItem).find("[data-tipo='img']").attr("href", urlCat);
+
             $(idCat).find(elemItem).find("#txtUrl" + tagCat).val(urlCat);
             $(idCat).find(elemItem).find("[data-tipo='img'] img").attr("src", imgIssuu.replace("{img}", codigoISSUU));
-
             $(idCat).find(elemItem).find("[data-accion='face']").attr("title", 'FB-' + tagCat + ' C' + n + a);
             $(idCat).find(elemItem).find("[data-tipo='img']").attr("title", 'Ver-' + tagCat + ' C' + n + a);
+            $(idCat).find(elemItem).find("[data-accion='whatsapp']").attr("href", "https://api.whatsapp.com/send?text=" + urlCatWS);
         }
     }
-
     FinRenderCatalogo();
 }
 
@@ -369,14 +592,14 @@ function ObtenerCodigoISSUU(catalogo, defered, elemItem, tagCat, campaniaX) {
 }
 
 function CatalogoMostrar(accion, btn) {
+
     campSelectI = accion == -1 ? campSelectI - 1 : accion == 1 ? campSelectI + 1 : campSelectI;
     campSelectI = campSelectI <= 0 ? 0 : campSelectI >= cantCam - 1 ? cantCam - 1 : campSelectI;
 
     var campS = aCam[campSelectI];
     campSelect = getNumeroCampania(campS);
     $("#contentCatalogo #TextoCampania").text("CATÁLOGOS C-" + campSelect);
-    $("#divCatalogo > div").hide();
-    $("#divCatalogo > div[data-cam='" + campS + "'][data-estado='1']").show();
+    $("#divCatalogo" + campSelectI + " > div[data-cam='" + campS + "'][data-estado='1']").show();
 
     $("#contentCatalogo > span img").show();
     if (campSelectI == 0 || campSelectI == cantCam - 1) {
@@ -384,25 +607,15 @@ function CatalogoMostrar(accion, btn) {
             $(btn).hide();
         }
     }
-
-    // Centrar segun cantidad de catalgos
-    var cata = $("#divCatalogo [data-cam='" + aCam[campSelectI] + "'][data-estado='1'] > div");
-    if (cata.length < 3) {
-        var wUnit = 24.7;//%
-        var wTotalRender = wUnit * cata.length;
-        var wVacio = 100 - wTotalRender;
-        var wVacioUnit = wVacio / cata.length;
-        cata.removeClass("no_margin_right");
-
-        if (_Pagina == 1) {
-            cata.css("margin-right", (wVacioUnit / 2) + "%");
-            cata.css("margin-left", (wVacioUnit / 2) + "%");
-        }
-        else {
-            cata.css("margin-right", "0%");
-            cata.css("margin-left", "0%");
+    
+    var catEsika = $('.catalogos__por__campania__item__imagen--esika').is(':visible');
+    if (window.matchMedia('(min-width:992px)').matches){
+        if (!catEsika) {
+            $('.catalogos__por__campania__item__imagenes > .content_carrusel_catalogo').css('max-width', '70' + '%');
+            $('.catalogos__por__campania__item__imagen').css('min-width', '241.45' + 'px');
         }
     }
+
     if (btn != null) {
         dataLayer.push({
             'event': 'virtualEvent',
@@ -473,7 +686,7 @@ function CatalogoEnviarEmail() {
     var _Flagchklbel = "0";
     var _Flagchkcyzone = "0";
     var _Flagchkesika = "0";
-    
+
 
     var clientes = new Array();
     for (var i = 0; i < correoEnviar.length; i++) {
@@ -497,14 +710,11 @@ function CatalogoEnviarEmail() {
             _Flagchklbel = objCorreo.LBel;
             _Flagchkesika = objCorreo.Esika;
             _Flagchkcyzone = objCorreo.Cyzone;
-            
+
         }
         clientes.push(objCorreo);
     }
     
-    
-    
-
     var mensaje = $("#comentarios").val();
     if (_Flagchklbel == "1") {
         dataLayer.push({
@@ -569,6 +779,69 @@ function CatalogoEnviarEmail() {
     });
 
 }
+function CatalogoEnviarEmailPiloto() {
+    waitingDialog();
+
+    $('#tagCorreo').addTag($('#tagCorreo_tag').val());
+
+    var correoEnviar = $('#tagCorreo').exportTag() || new Array();
+    if (correoEnviar.length <= 0) {
+        MonstrarExclamacion("No se ha ingresado ningún correo electrónico.");
+        closeWaitingDialog();
+        return false;
+    }
+
+    var clientes = new Array();
+    for (var i = 0; i < correoEnviar.length; i++) {
+        var objCorreo = {
+            "ClienteID": correoEnviar[i].obj.clienteID,
+            "Nombre": correoEnviar[i].obj.nombre,
+            "Email": correoEnviar[i].Name
+        }
+        clientes.push(objCorreo);
+    }
+    
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Catálogos y revistas',
+        'action': 'Compartir email',
+        'label': campaniaEmail,
+        'value': clientes.length
+    });
+    InsertarLogCatalogoDynamo('Email', campaniaEmail, campaniaEmail, clientes.length);
+
+    var mensaje = $("#comentarios").val();
+    jQuery.ajax({
+        type: 'POST',
+        url: baseUrl + 'MisCatalogosRevistas/EnviarEmailPiloto',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify({ ListaCatalogosCliente: clientes, Mensaje: mensaje, Campania: campaniaEmail }),
+        async: true,
+        success: function (data) {
+            closeWaitingDialog();
+            $('#CompartirCorreo').hide();
+            if (checkTimeout(data)) {
+                if (data.success) {
+                    MonstrarAlerta(data.message);
+                    if (data.extra == "R") {
+                        location.href = '/Bienvenida';
+                    }
+                }
+                else {
+                    MonstrarExclamacion(data.message);
+                }
+            }
+        },
+        error: function (data, error) {
+            closeWaitingDialog();
+            $('#CompartirCorreo').hide();
+            if (checkTimeout(data)) {
+                MonstrarExclamacion("ERROR");
+            }
+        }
+    });
+}
 
 function renderItemCliente(event, ui) {
     var htmlTag = ''
@@ -618,7 +891,7 @@ function RevistaMostrar(accion, btn) {
 
     $("#contentRevista [data-accion] img").show();
 
-    $("#contentRevista > span[data-accion] img").show();
+    $("#contentRevista > a[data-accion] img").show();
     if (rCampSelectI == 0 || rCampSelectI == cantCamRev - 1) {
         $(btn).hide();
     }
@@ -645,7 +918,7 @@ function MostrarRevistaCorrecta(codigoCampania) {
         if (checkTimeout(promiseResult)) {
             var urlImagen = promiseResult || defaultImageRevista;
             $("#imgPortadaGana").attr("src", urlImagen);
-            $("#contentRevista .titulo_central[data-titulo='revista']").text("REVISTA C-" + getNumeroCampania(codigoCampania));
+            $("#contentRevista > [data-titulo='revista']").text("REVISTA C-" + getNumeroCampania(codigoCampania));
             FinRenderCatalogo();
         }
     });
@@ -673,6 +946,28 @@ function getUrlImagenPortadaRevistaPromise(codigoCampania) {
     });
 
     return defered.promise();
+}
+
+function ocultarTooltipCompartirCatalogo(e) {
+
+    var compartirCatalogoArea = $('.compartir__catalogo__area');
+    var tooltipOpcionesCompartirCatalogoParteSuperior = $('#btnCompartir').next();
+    var tooltipOpcionesCompartirCatalogoParteInferior = $('#btnCompartirActual').next();
+
+    if (tooltipOpcionesCompartirCatalogoParteSuperior.css('display') == 'flex' || tooltipOpcionesCompartirCatalogoParteInferior.css('display') == 'flex') {
+        if ((!compartirCatalogoArea.is(e.target) && compartirCatalogoArea.has(e.target).length === 0)) {
+            if (tooltipOpcionesCompartirCatalogoParteSuperior.is(':visible')) {
+                tooltipOpcionesCompartirCatalogoParteSuperior.fadeOut(100);
+            } else {
+                tooltipOpcionesCompartirCatalogoParteInferior.fadeOut(100);
+            }
+        }
+    }
+}
+
+function ocultarTooltipCompartirCatalogoMobile() {
+    $('.opciones__compartir__catalogos').fadeOut(100);
+    $(this).fadeOut(100);
 }
 
 // mensaje alerta

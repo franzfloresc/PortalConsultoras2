@@ -1,6 +1,6 @@
 ﻿@using Portal.Consultoras.Common
 @using Portal.Consultoras.Web.Areas.Mobile.Models
-@using Portal.Consultoras.Web.Helpers
+@using Portal.Consultoras.Web.CustomHelpers
 @using Portal.Consultoras.Web.SessionManager
 
 @model PedidoDetalleMobileModel
@@ -9,8 +9,10 @@
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
 }
 
-<link href="@Url.Content("~/Content/Css/Site/slick-pedido.css")" rel="stylesheet" />
-
+@section styles
+{
+    @Styles.Render("~/Bundle/Css/Mobile/PedidoDetalle")
+}
 
 <input type="hidden" id="hdEsFacturacion" value="@Model.EsFacturacion.ToString()" />
 <input type="hidden" id="hdOfertaFinal" value="@Model.OfertaFinal" />
@@ -27,12 +29,12 @@
         <input id="hdAccionBotonProl" type="hidden" value="@ViewBag.AccionBoton" />
         <div class="contenedor_detalle_pedidoIngresado">
             <div class="contenedor_resumenPedido">
-                @{  var mobileConfiguracion = Html.MobileAppConfiguracion();
+                @{ var mobileConfiguracion = Html.MobileAppConfiguracion();
                     if (mobileConfiguracion.MostrarBotonAtras)
                     {
                         <a href="@Request.UrlReferrer" class="enlace_regresar detalleP" title="Regresar"></a>
                     }
-                 }
+                }
                 <h2 class="nombre_campania_pedido">
                     MI PEDIDO
                     <span>@Model.DescripcionCampaniaActual</span>
@@ -82,7 +84,7 @@
 
         <div id="divCondicionesCupon" style="display: none; color: #9b9b9b; margin-bottom: 35px;">
             <div style="text-align:center; font-size: 11px;">*No incluye herramientas de venta</div>
-            <div class="clearfix"></div>    
+            <div class="clearfix"></div>
         </div>
 
     </div>
@@ -102,13 +104,13 @@
         <div class="titulo_compartir"><b>IMPORTANTE</b></div>
         <div class="mensaje_alerta" id="modal-prol-contenido"></div>
         <div id="modal-prol-botoneAceptar">
-            <a href="javascript:;" onclick="$('#popup-observaciones-prol').hide();" class="btn_ok_mobile"><b>OK</b></a>
+            <a href="javascript:;" onclick="closeDialogObservacionesProl()" class="btn_ok_mobile"><b>OK</b></a>
         </div>
     </div>
 </div>
 <div id="popup-eliminar-mensaje" class="MensajeAlertaMobile" style="display:none;">
     <div class="content_mensajeAlerta">
-        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popup-eliminar-item').hide();">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popup-eliminar-mensaje').hide();">
             <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
         </a>
         <hr class="clear">
@@ -129,24 +131,28 @@
         <hr class="clear">
         <div class="icono_alerta exclamacion_icono_mobile"></div>
         <div class="titulo_compartir"><b>IMPORTANTE</b></div>
-        <div class="mensaje_alerta">¿Deseas eliminar el pedido completo?.</div>
-        <a href="javascript:;" onclick="EliminarPedidoTotalSi();" class="btn_ok_mobile"><b>OK</b></a>
+        <div class="mensaje_alerta">¿Deseas eliminar el pedido completo?</div>
+
+        <div style="text-align: center; margin-top: 18px;">
+            <input id="btnEliminarPedidoCompletoNo" type="button" value="No, gracias" onclick="EliminarPedidoTotalNo()" class="input_modifica_horizontal_cancelar" style="width: 100px; margin-left: 0;" />
+            <input id="btnEliminarPedidoCompletoSi" type="button" value="SÍ, ELIMINAR" onclick="EliminarPedidoTotalSi()" class="input_modifica_horizontal" style="width: 100px; margin-left: 20px;" />
+        </div>
     </div>
 </div>
 
-<div id="popup-eliminar-item" class="MensajeAlertaMobile" style="display:none;">
-    <div class="content_mensajeAlerta">
-        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popup-eliminar-item').hide();">
-            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
-        </a>
-        <hr class="clear">
-        <div class="icono_alerta exclamacion_icono_mobile"></div>
-        <div class="titulo_compartir"><b>IMPORTANTE</b></div>
-        <div class="mensaje_alerta">¿Estás segura que quieres eliminar el producto?</div>
-        <div id="mensaleAvisoRegalo" class="mensaje_alerta">Recuerda que tienes un premio ganado, si eliminas este producto podrías perderlo. ¿Deseas continuar?</div>
-        <a href="javascript:;" onclick="ConfirmaEliminarPedido();" class="btn_ok_mobile"><b>OK</b></a>
-    </div>
-</div>
+@*<div id="popup-eliminar-item" class="MensajeAlertaMobile" style="display:none;">
+        <div class="content_mensajeAlerta">
+            <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popup-eliminar-item').hide();">
+                <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+            </a>
+            <hr class="clear">
+            <div class="icono_alerta exclamacion_icono_mobile"></div>
+            <div class="titulo_compartir"><b>IMPORTANTE</b></div>
+            <div class="mensaje_alerta">¿Estás segura que quieres eliminar el producto?</div>
+            <div id="mensaleAvisoRegalo" class="mensaje_alerta">Si eliminas este producto podrías perder el premio que ganaste ¿Quieres eliminar este producto?</div>
+            <a href="javascript:;" onclick="ConfirmaEliminarPedido();" class="btn_ok_mobile"><b>OK</b></a>
+        </div>
+    </div>*@
 <div id="MensajeLograste" class="MensajeAlertaMobile" style="display:none;">
     <div class="content_mensajeAlerta">
         <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#MensajeLograste').hide();">
@@ -194,7 +200,7 @@
 
 <script id="template-Detalle" type="text/x-handlebars-template">
     <div class="textos_resumen">
-        <span id="lblProductosResumen">HE AGREGADO :</span>
+        <span id="lblProductosResumen">HAS AGREGADO :</span>
         <span id="lblTotalResumen">
             MONTO TOTAL :
         </span>
@@ -263,7 +269,7 @@
         </div>
     </div>
     <div class="montos_resumen">
-        <span><b data-cantidadproducto="">{{this.TotalProductos}}</b>&nbsp;&nbsp;UNIDADES</span>
+        <span><b data-cantidadproducto="">{{this.TotalProductos}}</b>&nbsp;&nbsp;UNIDAD</span>
         <span><b>{{SimboloMoneda}}&nbsp;&nbsp;</b><b data-pedidocondescuento="">{{FormatoTotalConDescuento}}</b></span>
         <span class="mi_ganancia"><b>{{SimboloMoneda}}&nbsp;&nbsp;</b><b class="lblDescripcionGanancia" data-ganancia="">{{FormatoMontoGanancia}}</b></span>
     </div>
@@ -291,21 +297,6 @@
         <div class="contenedor_items_pedido">
             <div class="bloque_descripcion_items_ingresados">
                 <div class="descripcion_item_pedido">
-                    <span class="mensaje_tipoProd">
-                        {{#iff detalle.TipoPedido '==' 'M'}}
-                        <br />
-                        <span>App móvil</span>
-                        {{/iff}}
-
-                        {{#IsNullOrEmpty detalle.DescripcionOferta '!='}}
-                        <br />
-                        {{#iff (UpperCase DescripcionOferta) 'Contains' 'OFERTA PARA TI'}}
-                        {{else}}
-                        <label for="{{detalle.DescripcionOferta}}">{{Replace (Replace detalle.DescripcionOferta '[' '') ']' ''}}</label>
-                        {{/iff}}
-                        {{/IsNullOrEmpty}}
-
-                    </span>
                     <span class="cod_prod">
                         {{#if detalle.EstadoSimplificacionCuv}}
                         {{#if detalle.IndicadorOfertaCUV}}
@@ -320,6 +311,20 @@
                         <span class="texto_rojo">*</span>
                         {{/iff}}
                         <span>{{Split detalle.DescripcionProd '|' 0}}</span>
+                    </span>
+                    <span class="mensaje_tipoProd">
+                        {{#iff detalle.TipoPedido '==' 'M'}}
+                        <br />
+                        <span>App móvil</span>
+                        {{/iff}}
+
+                        {{#IsNullOrEmpty detalle.DescripcionOferta '!='}}
+                        <br />
+                        {{#iff (UpperCase DescripcionOferta) 'Contains' 'OFERTA PARA TI'}}
+                        {{else}}
+                        <label for="{{detalle.DescripcionOferta}}">{{Replace (Replace detalle.DescripcionOferta '[' '') ']' ''}}</label>
+                        {{/iff}}
+                        {{/IsNullOrEmpty}}
                     </span>
                     {{#iff detalle.EsKitNueva '==' false}}
                     <span class="nom_cliente">Cliente: {{detalle.Nombre}}</span>
@@ -339,22 +344,26 @@
                     </div>
                 </div>
                 {{else}}
-                
+
                 <div class="icono_eliminar_item_pedido">
-                    <a href="javascript:;" title="Eliminar" onclick="EliminarPedidoEvento(event)" data-pedidodetalleid="{{detalle.PedidoDetalleID}}" data-setid="{{detalle.SetID}}">
+                    <a href="javascript:;"
+                       title="Eliminar"
+                       onclick="tooltipDelete('{{PedidoDetalleID}}', '{{SetID}}');"
+                       data-pedidodetalleid="{{detalle.PedidoDetalleID}}"
+                       data-setid="{{detalle.SetID}}">
                         <img src="@Url.Content("~/Content/Images/Esika/tacho-copy.png")" alt="Eliminar" />
                     </a>
                 </div>
-                
+
                 {{/if}}
-            </div>            
+            </div>
             <div class="bloque_cantidades_precios_items_ingresados">
                 <div class="contenedor_cantidadProductos">
                     <div data-cantidad-contenedor="">
                         <div class="campo_cantidadProductos">
                             {{#iff detalle.EsKitNueva '==' true}}
                             <input type="tel"
-                                   class="ValidaNumeral ValidaPasteNumeral Cantidad"                                   
+                                   class="ValidaNumeral ValidaPasteNumeral Cantidad"
                                    maxlength="2"
                                    name="Cantidad_{{detalle.PedidoDetalleID}}"
                                    value="{{detalle.Cantidad}}"
@@ -365,7 +374,7 @@
                                    autocomplete="off">
                             {{else iff detalle.TipoEstrategiaID '==' 1}}
                             <input type="tel"
-                                   class="ValidaNumeral ValidaPasteNumeral Cantidad"                                   
+                                   class="ValidaNumeral ValidaPasteNumeral Cantidad"
                                    maxlength="2"
                                    name="Cantidad_{{detalle.PedidoDetalleID}}"
                                    value="{{detalle.Cantidad}}"
@@ -376,7 +385,7 @@
                                    autocomplete="off">
                             {{else}}
                             <input type="tel"
-                                   class="ValidaNumeral ValidaPasteNumeral Cantidad"                                   
+                                   class="ValidaNumeral ValidaPasteNumeral Cantidad"
                                    maxlength="2"
                                    name="Cantidad_{{detalle.PedidoDetalleID}}"
                                    onblur="UpdateLiquidacionEvento(event)"
@@ -406,15 +415,43 @@
                 </div>
             </div>
 
+            <div style="display:none" class="popover bottom" id="tlpDelete_{{PedidoDetalleID}}_{{SetID}}">
+                <div class="arrow"></div>
+                <p data-mensaje-eliminar="directo">¿Quieres eliminar este producto?</p>
+                <p data-mensaje-eliminar="regalo">Si eliminas este producto podrías perder el premio que ganaste ¿Quieres eliminar este producto?</p>
+                <div class="button-popover">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <button class="boton-secundario" onclick="btnSalirTlpDelete('{{PedidoDetalleID}}','{{SetID}}');">No Gracias</button>
+                        </div>
+                        <div class="col-xs-6 text-right">
+                            <button class="boton-primario default-background"
+                                    onclick="EliminarPedidoEvento(event)"
+                                    data-pedidodetalleid="{{detalle.PedidoDetalleID}}"
+                                    data-setid="{{detalle.SetID}}">
+                                SÍ, ELIMINAR
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             {{#IsNullOrEmpty detalle.Mensaje '!='}}
-            <div class="notificacion_productoAgotado">
-                <small>
-                    {{#iff detalle.TipoObservacion '!=' 0}}
-                    {{{Replace detalle.Mensaje '¿Deseas aceptar el reemplazo?' ''}}}
-                    {{else}}
-                    {{detalle.Mensaje}}
-                    {{/iff}}
-                </small>
+            @*<div class="notificacion_productoAgotado">
+                    <small>
+                        {{#iff detalle.TipoObservacion '!=' 0}}
+                        {{{Replace detalle.Mensaje '¿Deseas aceptar el reemplazo?' ''}}}
+                        {{else}}
+                        {{detalle.Mensaje}}
+                        {{/iff}}
+                    </small>
+                </div>*@
+            <div class="popover bottom" id="tlpObservaciones_{{PedidoDetalleID}}_{{SetID}}">
+                <div class="arrow"></div>
+                <ul class="list-tooltip">
+                    <li class="icon-alert"><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt=""></li>
+                    <li>Este producto tiene observaciones. <button style="display: block;line-height: 19px;" class="boton-secundario" onclick="tooltipObservaciones('{{Mensaje}}');">Ver detalles</button></li>
+                </ul>
             </div>
             {{/IsNullOrEmpty}}
             {{#if EsBackOrder}}
@@ -435,10 +472,51 @@
         {{/each}}
     </div>
 
+    <!--PopUp pedido Observacion-->
+    @*<button type="button" class="" data-toggle="modal" data-target="#observacionPedido">
+            modal observaciones
+        </button>*@
+    <div class="modal fade" id="observacionPedido" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <button type="button" class="close_observacionPedido" data-dismiss="modal" aria-label="Close">
+                    <img src="/Content/Images/mobile/Esika/close-button.svg" alt="">
+                </button>
+
+                <div class="header_observaciones_alerta">
+                    <ul>
+                        <li class="alert-observaciones"><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt=""></li>
+                        <li><h3>OBSERVACIONES DEL PRODUCTO</h3></li>
+                    </ul>
+                    <div class="text-center">
+                        <p>Debes tener en cuenta que tu pedido ha sido<br /> reservado pero:</p>
+                    </div>
+                    <div class="descripcion_observaciones_alerta" id="desc_obs_alert">
+                        @*<ul>
+                                <li>
+                                    El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
+                                    Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
+                                </li>
+                                <li>
+                                    El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
+                                    Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
+                                </li>
+                                <li>
+                                    El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
+                                    Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
+                                </li>
+                            </ul>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--FinPopUp pedido Observacion-->
+
     <div class="separador"></div>
     <div style="margin-left: -28px;">
         <div class="textos_resumen">
-            <span style="margin-left:30px;">HE AGREGADO :</span>
+            <span style="margin-left:30px;">HAS AGREGADO :</span>
             <span>
                 <div class="info_validado">
                     <img src="/Content/Images/Esika/info-copy.png" />
@@ -479,19 +557,19 @@
             Al validar tu pedido, el sistema elegirá la mejor combinación de precios posibles para ti.
         </span>
     </div>
-    
+
     <div class="mensaje_eliminarPedido">
         <span>
             Para eliminar el pedido completo
             <a href="javascript:;" title="Haz click aquí" onclick="PedidoDetalleEliminarTodoConfirmar()">haz click aquí</a>
         </span>
     </div>
-  
-    
+
+
 </script>
 
 <script id="ofertaFinal-template" type="text/x-handlebars-template">
-    <div  data-popup-body="">
+    <div data-popup-body="">
         <div class="popup_ofertaFinal fondo_gris_popup" data-meta="{{TipoMeta}}" data-meta-total="{{TotalPedido}}">
             <a class="cerrar_popMobile" href="javascript:;" style="top:6px; right:10px;" data-popup-close="divOfertaFinal" onclick="of_google_analytics_cerrar_popup()">
                 <div class="draw_close" alt="Cerrar"></div>
@@ -745,7 +823,7 @@
             <div class="content_info_regalo">
                 <div class="titulo_regalo_producto" id="of-regalo-descripcion">Bicicleta Rockrider 340 Azul</div>
                 <div class="content_imagen_sorpresa">
-                    <img id="of-regalo-imagen" src="https://image.prntscr.com/image/jehvsnsYSyS4klODMOPo5w.png" alt=""/>
+                    <img id="of-regalo-imagen" src="https://image.prntscr.com/image/jehvsnsYSyS4klODMOPo5w.png" alt="" />
                 </div>
                 <div class="descripcion_regalo" id="of-regalo-descripcion-larga">
                     Pedalier de acero con triple plato, con protección de plástico de color azul. Tamaño 80cm x 120cm.
@@ -756,11 +834,11 @@
         </div>
 
     </div>
-    
+
 </script>
 
 <script id="ofertaFinalVerDetalle-template" type="text/x-handlebars-template">
-        <div class="content_popMobile" data-item="{{ID}}" style="padding-bottom:0;">
+    <div class="content_popMobile" data-item="{{ID}}" style="padding-bottom:0;">
         <a class="btn_cerrar_escala" href="javascript:;" onclick="javascript: $('#contenedor_popup_ofertaFinalVerDetalle').hide();">REGRESAR</a>
         <hr class="clear">
         <div class="content_imagen_ficha" style="overflow:hidden;">
@@ -805,12 +883,12 @@
             </div>
             @if (mobileConfiguracion.MostrarHipervinculo)
             {
-            <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="WA">
-                <img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt="">
-            </a>
-            <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB">
-                <img src="/Content/Images/Mobile/Esika/facebook.png" alt="">
-            </a>
+                <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="WA">
+                    <img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt="">
+                </a>
+                <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB">
+                    <img src="/Content/Images/Mobile/Esika/facebook.png" alt="">
+                </a>
             }
         </div>
         <hr class="clear">
@@ -822,8 +900,8 @@
                         <input type="tel" value="1" size="2" maxlength="2" id="txtCantidadFichaOPT" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
                         <a class="cantidad_mas_home" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                     </div>
-                        <a class="btn_agregar_ficha_producto agregarOfertaFinalVerDetalle" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalFicha" href="javascript:;" data-popup-verdetalle="{{id}}"
-                           onclick="of_google_analytics_addtocar('mobile','detail',{{ID}},'{{TipoMeta}}')">AGRÉGALO</a>
+                    <a class="btn_agregar_ficha_producto agregarOfertaFinalVerDetalle" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalFicha" href="javascript:;" data-popup-verdetalle="{{id}}"
+                       onclick="of_google_analytics_addtocar('mobile','detail',{{ID}},'{{TipoMeta}}')">AGRÉGALO</a>
                     <hr class="clear">
                 </div>
             </div>
@@ -849,24 +927,23 @@
         var urlPedidoValidado = '@Url.Action("Validado", "Pedido", new {area = "Mobile"})';
         var urlHorarioRestringido = '@Url.Action("EnHorarioRestringido", "Pedido", new {area = ""})';
 
-        var urlValidarUnidadesPermitidasPedidoProductoShowRoom = '@Url.Action("ValidarUnidadesPermitidasPedidoProducto", "ShowRoom", new {area = ""})';
+        @*var urlValidarUnidadesPermitidasPedidoProductoShowRoom = '@Url.Action("ValidarUnidadesPermitidasPedidoProducto", "ShowRoom", new {area = ""})';*@
         var urlObtenerStockActualProductoShowRoom = '@Url.Action("ObtenerStockActualProducto", "ShowRoom", new {area = ""})';
-        var urlValidarUnidadesPermitidasPedidoProducto = '@Url.Action("ValidarUnidadesPermitidasPedidoProducto", "OfertaLiquidacion", new {area = ""})';
+        @*var urlValidarUnidadesPermitidasPedidoProducto = '@Url.Action("ValidarUnidadesPermitidasPedidoProducto", "OfertaLiquidacion", new {area = ""})';*@
         var urlObtenerStockActualProducto = '@Url.Action("ObtenerStockActualProducto", "OfertaLiquidacion", new {area = ""})';
         var urlValidarUnidadesPermitidasPedidoProducto2 = '@Url.Action("ValidarUnidadesPermitidasPedidoProducto", "Accesorizate", new {area = ""})';
         var urlObtenerStockActualProducto2 = '@Url.Action("ObtenerStockActualProducto", "Accesorizate", new {area = ""})';
 
         var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new {area = ""})';
-        var urlPedidoUpdate = '@Url.Action("Update", "Pedido", new {area = ""})';
-        var urlPedidoDelete = '@Url.Action("Delete", "Pedido", new {area = ""})';
-        var urlPedidoDeleteAll = '@Url.Action("DeleteAll", "Pedido", new { area = "" })';
-        var urlInsertarDesglose = '@Url.Action("InsertarDesglose", "Pedido", new {area = ""})';
+        @*var urlPedidoUpdate = '@Url.Action("Update", "Pedido", new {area = ""})';
+        var urlPedidoDelete = '@Url.Action("Delete", "Pedido", new {area = ""})';*@
+        var urlPedidoDeleteAll = '@Url.Action("DeleteAll", "PedidoRegistro", new { area = "" })';
+        @*var urlInsertarDesglose = '@Url.Action("InsertarDesglose", "Pedido", new {area = ""})';*@
         var urlDeshacerReservaPedidoReservado = '@Url.Action("PedidoValidadoDeshacerReserva", "Pedido", new { area = "" })';
         var urlPedidoAceptarBackOrder = '@Url.Action("AceptarBackOrder", "Pedido", new { area = "" })';
 
         var urlDetallePedido = '@Url.Action("CargarDetallePedido", "Pedido", new { area = "" })';
-        var urlValidarKitNuevas = '@Url.Action("ValidarKitNuevas", "Pedido", new { area = "" })';
-        var urlEsPedidoDetalleElecMultiple = '@Url.Action("EsPedidoDetalleElecMultiple", "Pedido", new { area = "" })';
+        var urlValidarKitNuevas = '@Url.Action("ValidarKitNuevas", "PedidoRegistro", new { area = "" })';
         var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
         var fnEliminarProducto = null;
 
@@ -876,7 +953,7 @@
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
         var viewBagPaisID = '@Model.PaisID';
         var viewBagNombrePais = '@ViewBag.NombrePais';
-        var urlPedidoInsert = '@Url.Action("PedidoInsertar", "Pedido", new {area = ""})';
+        @*var urlPedidoInsert = '@Url.Action("PedidoInsertar", "Pedido", new {area = ""})';*@
 
         var origenPagina = 2;
         var cuvOfertaProl = '@ViewBag.CUVOfertaProl';
@@ -898,6 +975,7 @@
         var mensajePedidoVacio = '@Constantes.MensajesError.Reserva_SinDetalle';
         var mensajeErrorReserva = '@Constantes.MensajesError.Pedido_Reserva';
         var mensajeSinConexionReserva = '@Constantes.MensajesError.SinConexion_Reserva';
+        var mensajeElecMultipleEliminar = '@string.Format(Constantes.ProgNuevas.Mensaje.ElecMultiple_ConfirmaEliminar, Constantes.ProgNuevas.Mensaje.Electivo_PromocionNombre)';
     </script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mobile/PedidoDetalle")
 
@@ -909,5 +987,5 @@
             });
 
         </script>
-    }    
+    }
 }

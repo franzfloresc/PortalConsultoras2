@@ -2,7 +2,6 @@
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceSAC;
-using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +10,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class CronogramaController : BaseController
+    public class CronogramaController : BaseAdmController
     {
 
         #region Actions
@@ -41,13 +40,13 @@ namespace Portal.Consultoras.Web.Controllers
             var cronogramaModel = new CronogramaModel()
             {
                 listaPaises = DropDowListPaises(),
-                listaCampania = DropDowListCampanias(paisId),
-                listaZonas = _baseProvider.DropDownListZonas(paisId),
+                listaCampania = _zonificacionProvider.GetCampanias(paisId),
+                listaZonas = _zonificacionProvider.GetZonas(paisId),
                 PaisID = paisId,
                 CampaniaID = campaniaIdActual
             };
 
-            ViewBag.TieneCronogramaExtendido = croAuto ? 1 : 0;
+            ViewBag.TieneCronogramaExtendido = croAuto.ToInt();
             return View(cronogramaModel);
         }
 
@@ -68,29 +67,6 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult ActualizacionMasiva()
         {
             return View();
-        }
-
-        public JsonResult ObtenterCampaniasPorPais(int PaisID)
-        {
-            IEnumerable<CampaniaModel> lst = DropDowListCampanias(PaisID);
-            IEnumerable<ZonaModel> lstZonas = _baseProvider.DropDownListZonas(PaisID);
-
-            return Json(new
-            {
-                lista = lst,
-                listaZonas = lstZonas
-            }, JsonRequestBehavior.AllowGet);
-        }
-
-        public JsonResult ObtenterCampanias(int PaisID)
-        {
-            PaisID = userData.PaisID;
-            IEnumerable<CampaniaModel> lst = DropDowListCampanias(PaisID);
-
-            return Json(new
-            {
-                lista = lst
-            }, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult ActualizarLog(string CampaniaCodigo, string codigos, string Tipo, string FechaFacturacion, string FechaReFacturacion)
@@ -138,17 +114,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
 
-        }
-
-        private IEnumerable<CampaniaModel> DropDowListCampanias(int paisId)
-        {
-            IList<BECampania> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = sv.SelectCampanias(paisId);
-            }
-
-            return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
         }
 
         public ActionResult ConsultarCronograma(string sidx, string sord, int page, int rows, string CampaniaID, string TipoCronogramaID, string PaisID, string ZonaID, string Consulta)
@@ -678,19 +643,6 @@ namespace Portal.Consultoras.Web.Controllers
                     extra = ""
                 });
             }
-        }
-
-        private IEnumerable<PaisModel> DropDowListPaises()
-        {
-            List<BEPais> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = userData.RolID == 2
-                    ? sv.SelectPaises().ToList()
-                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
-            }
-
-            return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
 
         public JsonResult GetCronogramaByCampaniayZona(int PaisID, int CampaniaID, int ZonaID)

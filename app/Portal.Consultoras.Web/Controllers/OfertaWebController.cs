@@ -3,7 +3,6 @@ using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
-using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,7 +13,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class OfertaWebController : BaseController
+    public class OfertaWebController : BaseAdmController
     {
         static List<BEConfiguracionOferta> lstConfiguracion = new List<BEConfiguracionOferta>();
 
@@ -39,8 +38,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (lista != null && lista.Count > 0)
                 {
                     lista.Update(x => x.DescripcionMarca = GetDescripcionMarca(x.MarcaID));
-                    var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                    lista.Update(x => x.ImagenProducto = ConfigCdn.GetUrlFileCdn(carpetaPais, x.ImagenProducto));
+                    lista.Update(x => x.ImagenProducto = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, x.ImagenProducto));
                 }
                 ViewBag.ListaOfertasWeb = lista;
             }
@@ -117,87 +115,87 @@ namespace Portal.Consultoras.Web.Controllers
             return Mapper.Map<IList<BEOfertaProducto>, List<OfertaProductoModel>>(lst);
         }
 
-        [HttpPost]
-        public JsonResult InsertOfertaWebPortal(PedidoDetalleModel model)
-        {
-            try
-            {
-                object jsoNdata;
-                if (CUVTieneStock(model.CUV))
-                {
-                    BEPedidoWebDetalle entidad = Mapper.Map<PedidoDetalleModel, BEPedidoWebDetalle>(model);
+        //[HttpPost]
+        //public JsonResult InsertOfertaWebPortal(PedidoDetalleModel model)
+        //{
+        //    try
+        //    {
+        //        object jsoNdata;
+        //        if (CUVTieneStock(model.CUV))
+        //        {
+        //            BEPedidoWebDetalle entidad = Mapper.Map<PedidoDetalleModel, BEPedidoWebDetalle>(model);
 
-                    entidad.PaisID = userData.PaisID;
-                    entidad.ConsultoraID = userData.ConsultoraID;
-                    entidad.CampaniaID = userData.CampaniaID;
-                    entidad.TipoOfertaSisID = Constantes.ConfiguracionOferta.Web;
-                    entidad.IPUsuario = userData.IPUsuario;
+        //            entidad.PaisID = userData.PaisID;
+        //            entidad.ConsultoraID = userData.ConsultoraID;
+        //            entidad.CampaniaID = userData.CampaniaID;
+        //            entidad.TipoOfertaSisID = Constantes.ConfiguracionOferta.Web;
+        //            entidad.IPUsuario = userData.IPUsuario;
 
-                    entidad.CodigoUsuarioCreacion = userData.CodigoConsultora;
-                    entidad.CodigoUsuarioModificacion = entidad.CodigoUsuarioCreacion;
-                    entidad.OrigenPedidoWeb = ProcesarOrigenPedido(entidad.OrigenPedidoWeb);
+        //            entidad.CodigoUsuarioCreacion = userData.CodigoConsultora;
+        //            entidad.CodigoUsuarioModificacion = entidad.CodigoUsuarioCreacion;
+        //            entidad.OrigenPedidoWeb = ProcesarOrigenPedido(entidad.OrigenPedidoWeb);
 
-                    using (PedidoServiceClient sv = new PedidoServiceClient())
-                    {
-                        sv.InsPedidoWebDetalleOferta(entidad);
-                    }
+        //            using (PedidoServiceClient sv = new PedidoServiceClient())
+        //            {
+        //                sv.InsPedidoWebDetalleOferta(entidad);
+        //            }
 
-                    UpdPedidoWebMontosPROL();
+        //            UpdPedidoWebMontosPROL();
 
-                    BEIndicadorPedidoAutentico indPedidoAutentico = new BEIndicadorPedidoAutentico
-                    {
-                        PedidoID = entidad.PedidoID,
-                        CampaniaID = entidad.CampaniaID,
-                        PedidoDetalleID = entidad.PedidoDetalleID,
-                        IndicadorIPUsuario = GetIPCliente(),
-                        IndicadorFingerprint = "",
-                        IndicadorToken = (SessionManager.GetTokenPedidoAutentico() != null)
-                            ? SessionManager.GetTokenPedidoAutentico().ToString()
-                            : ""
-                    };
+        //            BEIndicadorPedidoAutentico indPedidoAutentico = new BEIndicadorPedidoAutentico
+        //            {
+        //                PedidoID = entidad.PedidoID,
+        //                CampaniaID = entidad.CampaniaID,
+        //                PedidoDetalleID = entidad.PedidoDetalleID,
+        //                IndicadorIPUsuario = GetIPCliente(),
+        //                IndicadorFingerprint = "",
+        //                IndicadorToken = (SessionManager.GetTokenPedidoAutentico() != null)
+        //                    ? SessionManager.GetTokenPedidoAutentico().ToString()
+        //                    : ""
+        //            };
 
-                    InsIndicadorPedidoAutentico(indPedidoAutentico, entidad.CUV);
+        //            InsIndicadorPedidoAutentico(indPedidoAutentico, entidad.CUV);
 
-                    jsoNdata = new
-                    {
-                        success = true,
-                        message = "Se agregó la Oferta Web satisfactoriamente.",
-                        extra = ""
-                    };
-                }
-                else
-                {
-                    jsoNdata = new
-                    {
-                        success = false,
-                        message = "Producto Agotado.",
-                        extra = ""
-                    };
-                }
+        //            jsoNdata = new
+        //            {
+        //                success = true,
+        //                message = "Se agregó la Oferta Web satisfactoriamente.",
+        //                extra = ""
+        //            };
+        //        }
+        //        else
+        //        {
+        //            jsoNdata = new
+        //            {
+        //                success = false,
+        //                message = "Producto Agotado.",
+        //                extra = ""
+        //            };
+        //        }
 
-                return Json(jsoNdata);
-            }
-            catch (FaultException ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = ex.Message,
-                    extra = ""
-                });
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = ex.Message,
-                    extra = ""
-                });
-            }
-        }
+        //        return Json(jsoNdata);
+        //    }
+        //    catch (FaultException ex)
+        //    {
+        //        LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+        //        return Json(new
+        //        {
+        //            success = false,
+        //            message = ex.Message,
+        //            extra = ""
+        //        });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+        //        return Json(new
+        //        {
+        //            success = false,
+        //            message = ex.Message,
+        //            extra = ""
+        //        });
+        //    }
+        //}
 
         private bool CUVTieneStock(string cuv)
         {
@@ -293,17 +291,6 @@ namespace Portal.Consultoras.Web.Controllers
             return View(cronogramaModel);
         }
 
-        private IEnumerable<PaisModel> DropDowListPaises()
-        {
-            List<BEPais> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = userData.RolID == 2 ? sv.SelectPaises().ToList() : new List<BEPais> { sv.SelectPais(userData.PaisID) };
-            }
-
-            return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
-        }
-
         private IEnumerable<ConfiguracionOfertaModel> DropDowListConfiguracion(int paisId)
         {
             List<BEConfiguracionOferta> lst;
@@ -319,7 +306,6 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult ObtenerImagenesByCodigoSAP(int paisID, string codigoSAP)
         {
             List<BEMatrizComercial> lst;
-            var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
             List<BEMatrizComercial> lstFinal = new List<BEMatrizComercial>();
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -327,6 +313,7 @@ namespace Portal.Consultoras.Web.Controllers
                 lst = sv.GetImagenesByCodigoSAP(paisID, codigoSAP).ToList();
             }
 
+            var isoPais = userData.CodigoISO;
             if (lst != null && lst.Count > 0)
             {
                 lstFinal.Add(new BEMatrizComercial
@@ -338,13 +325,13 @@ namespace Portal.Consultoras.Web.Controllers
                 });
 
                 if (lst[0].FotoProducto != "")
-                    lstFinal[0].FotoProducto01 = ConfigCdn.GetUrlFileCdn(carpetaPais, lst[0].FotoProducto);
+                    lstFinal[0].FotoProducto01 = ConfigCdn.GetUrlFileCdnMatriz(isoPais, lst[0].FotoProducto);
 
                 if (lst[1].FotoProducto != "")
-                    lstFinal[0].FotoProducto02 = ConfigCdn.GetUrlFileCdn(carpetaPais, lst[1].FotoProducto);
+                    lstFinal[0].FotoProducto02 = ConfigCdn.GetUrlFileCdnMatriz(isoPais, lst[1].FotoProducto);
 
                 if (lst[2].FotoProducto != "")
-                    lstFinal[0].FotoProducto03 = ConfigCdn.GetUrlFileCdn(carpetaPais, lst[2].FotoProducto);
+                    lstFinal[0].FotoProducto03 = ConfigCdn.GetUrlFileCdnMatriz(isoPais, lst[2].FotoProducto);
             }
             return Json(new
             {
@@ -352,26 +339,15 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult ObtenterCampaniasPorPais(int PaisID)
+        public JsonResult ObtenerCampaniasYConfiguracionPorPais(int PaisID)
         {
-            IEnumerable<CampaniaModel> lst = DropDowListCampanias(PaisID);
+            IEnumerable<CampaniaModel> lst = _zonificacionProvider.GetCampanias(PaisID);
             IEnumerable<ConfiguracionOfertaModel> lstConfig = DropDowListConfiguracion(PaisID);
             return Json(new
             {
                 lista = lst,
                 lstConfig = lstConfig
             }, JsonRequestBehavior.AllowGet);
-        }
-
-        private IEnumerable<CampaniaModel> DropDowListCampanias(int paisId)
-        {
-            IList<BECampania> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = sv.SelectCampanias(paisId);
-            }
-
-            return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
         }
 
         public ActionResult ConsultarOfertaWeb(string sidx, string sord, int page, int rows, int PaisID, string codigoOferta, int CampaniaID)
@@ -385,7 +361,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 string iso = Util.GetPaisISO(PaisID);
-                var carpetaPais = Globals.UrlMatriz + "/" + iso;
 
                 BEGrid grid = new BEGrid
                 {
@@ -477,7 +452,7 @@ namespace Portal.Consultoras.Web.Controllers
                                    a.PrecioOferta.ToString("#0.00"),
                                    a.Orden.ToString(),
                                    a.Stock.ToString(),
-                                   ConfigCdn.GetUrlFileCdn(carpetaPais, a.ImagenProducto), // 1664
+                                   ConfigCdn.GetUrlFileCdnMatriz(iso, a.ImagenProducto),
                                    a.CampaniaID.ToString() ,
                                    a.Stock.ToString(),
                                    a.UnidadesPermitidas.ToString(),

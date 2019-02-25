@@ -5,6 +5,7 @@
 @{
     ViewBag.Title = "Pago en Línea";
     var metodoPago = Model.MetodoPagoSeleccionado;
+    metodoPago.MontoMinimoPago = metodoPago.MontoMinimoPago ?? (decimal)0.5;
 }
 
 @section styles{
@@ -131,7 +132,7 @@
                                         <span>@Model.Simbolo </span>
                                         <input type="text" class="monto_a_editar" id="txtMontoParcial"
                                                placeholder="@Util.DecimalToStringFormat(0, Model.CodigoIso)"
-                                               value="" onkeypress="return FuncionesGenerales.ValidarSoloDecimalPositivo(event, this, true);"/>
+                                               value=""     onkeypress="return FuncionesGenerales.ValidarSoloDecimalPositivo(event, this, true); "/>
                                     </div>
                                 </div>
                                 <div class="col_der">
@@ -178,7 +179,7 @@
                                         }
                                     </div>
                                 </div>
-                                <button type="button" class="cta_pago_en_linea btn_pago_tarjeta_credito default-background" id="btnPagoParcial">
+                                <button type="button" class="cta_pago_en_linea  default-background disabledButton" disabled id="btnPagoParcial">
                                     Continuar
                                 </button>
                             </div>
@@ -213,8 +214,7 @@
 </div>
 
 @section scripts{
-    <script src="@Url.Content("~/Scripts/PortalConsultoras/PagoEnLinea/Index.js")?v=2"></script>
-
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/PagoEnLinea/Index.js")?v=2"></script>
     <script type="text/javascript">
         var pasarelaActual = '@metodoPago.TipoPasarelaCodigoPlataforma';
         var metodoPagoPasarelaVisa = '@Constantes.PagoEnLineaMetodoPago.PasarelaVisa';
@@ -223,5 +223,6 @@
         var rutaPagoVisa = '@Url.Action("PagoVisa", "PagoEnLinea")';
         var urlPasarelaPago = '@Url.Action("PasarelaPago","PagoEnLinea")';
         var tipoOrigenPantalla = 1;
+        var montoMinimoPago = @metodoPago.MontoMinimoPago;
     </script>
 }

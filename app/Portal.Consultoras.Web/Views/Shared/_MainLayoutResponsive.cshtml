@@ -5,14 +5,21 @@
 <html lang="es" class="no-js">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="description" content="Portal de consultoras" />
     <meta name="author" content="Belcorp" />
+
     <title>Belcorp | Portal Consultoras</title>
 
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManagerHeader.cshtml")
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_GoogleOptimize.cshtml")
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManager.cshtml")
+
+
     <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
-    
+
+    @Styles.Render("~/Bundle/Css/Mixto/Bootstrap")
     @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
     {
         <link href="@Url.Content("~/Content/Images/Esika/favicon.ico")" rel="shortcut icon" type="image/x-icon" />
@@ -46,6 +53,7 @@
         //ODD
         var MostrarODD = '@ViewBag.MostrarODD';
         var tieneOfertaDelDia = '@ViewBag.TieneOfertaDelDia';
+        var mostrarBannerSuperiorOdd = '@ViewBag.MostrarBannerSuperiorOdd';
         // New Chat
         var emt_client_type = '@ViewBag.TipoUsuario';
         var emt_country = '@ViewBag.CodigoISODL';
@@ -63,6 +71,14 @@
         window.urlLogElastic = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogElastic"]';
         window.patternElastic = '@System.Configuration.ConfigurationManager.AppSettings["PatternElastic"]';
 
+        @{
+            var routeValues = HttpContext.Current.Request.RequestContext.RouteData.Values;
+            string ctrl = routeValues.ContainsKey("controller") ? routeValues["controller"].ToString() : "CtrlNoRoute";
+            string acti = routeValues.ContainsKey("action") ? routeValues["action"].ToString() : "ActiNoRoute";
+        }
+        window.controllerName = '@ctrl.ToLower()';
+        window.actionName     = '@acti.ToLower()';
+
         var userData = {
             'aplicacion': '@(Constantes.LogDynamoDB.AplicacionPortalConsultoras)',
             'rol': '@(Constantes.LogDynamoDB.RolConsultora)',
@@ -78,55 +94,72 @@
 
         var revistaDigital = @Html.Raw(Json.Encode(ViewBag.revistaDigital));
 
-        // Seteando Controlador y Accion
-        @{
-            var routeValues = HttpContext.Current.Request.RequestContext.RouteData.Values;
-            var ctrl = routeValues.ContainsKey("controller") ? routeValues["controller"].ToString() : "CtrlNoRoute";
-            var acti = routeValues.ContainsKey("action") ? routeValues["action"].ToString() : "ActiNoRoute";
-        }
-        window.controllerName = '@ctrl.ToLower()';
-        window.actionName     = '@acti.ToLower()';
     </script>
 </head>
 <body>
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManagerBody.cshtml")
+
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTrackingJetlore.cshtml")
+
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpDialogSesionMainLayout.cshtml")
+
+    <script type="text/javascript">
+        if (!String.prototype.startsWith) {
+            String.prototype.startsWith = function (searchString, position) {
+                position = position || 0;
+                return this.indexOf(searchString, position) === position;
+            };
+        }
+    </script>
+
     <div class="layout-somos-belcorp container-fluid pl-0 pr-0">
-        <header class="layout__header layout__header--navidenio row flex-row flex-nowrap justify-content-between justify-content-lg-start justify-content-xl-start align-items-center ml-0 mr-0">
+        <header class="layout__header row flex-row flex-nowrap justify-content-between justify-content-lg-start justify-content-xl-start align-items-center ml-0 mr-0">
             <div class="row flex-row flex-nowrap justify-content-between justify-content-lg-start justify-content-xl-start align-items-center ml-0 mr-0 mx-auto layout__container">
-                <div class="header__icono__menu mostrarEnMobile pl-0 pr-0">
+                <section class="header__icono__menu mostrarEnMobile pl-0 pr-0">
                     <img class="w-100" src="@Url.Content("~/Content/images/mobile/icono-menu-mobile.svg")" alt="Abrir Menú">
-                </div>
-                <div class="header__marca__pais text-right">
+                </section>
+                <section class="header__marca__pais text-left">
                     @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
                     {
                         <picture class="d-block w-100">
-                            @*<source media="(min-width: 992px)" srcset="@Url.Content("~/Content/images/Esika/logo_marca_pais_desktop.svg")">
-                                <source media="(max-width: 991px)" srcset="@Url.Content("~/Content/images/Esika/logo_marca_pais_mobile.svg")">
-                                <img class="logoPaginaResponsive pointer" src="@Url.Content("~/Content/images/Esika/logo_marca_pais_desktop.svg")" alt="Ésika">*@
-                            <source media="(min-width: 992px)" srcset="@Url.Content("~/Content/images/Esika/logo_marca_pais_desktop_blanco.svg")">
-                            <source media="(max-width: 991px)" srcset="@Url.Content("~/Content/images/Esika/logo_marca_pais_desktop_blanco.svg")">
-                            <img class="logoPaginaResponsive pointer" src="@Url.Content("~/Content/images/Esika/logo_marca_pais_desktop_blanco.svg")" alt="Ésika">
+                            <source media="(min-width: 992px)" srcset="@Url.Content("~/Content/images/Esika/logo_marca_pais_desktop.svg")">
+                            <source media="(max-width: 991px)" srcset="@Url.Content("~/Content/images/Esika/logo_marca_pais_mobile.svg")">
+                            <img class="logoPaginaResponsive pointer" src="@Url.Content("~/Content/images/Esika/logo_marca_pais_desktop.svg")" alt="Ésika">
                         </picture>
-
                     }
                     else
                     {
                         <picture class="d-block w-100">
-                            @*<source media="(min-width: 992px)" srcset="@Url.Content("~/Content/images/Lbel/logo_marca_pais.svg")">
-                                <img class="logoPaginaResponsive pointer" src="@Url.Content("~/Content/images/Lbel/logo_marca_pais.svg")">*@
-                            <source media="(min-width: 992px)" srcset="@Url.Content("~/Content/images/Lbel/logo_marca_pais_blanco.svg")">
-                            <img class="logoPaginaResponsive pointer" src="@Url.Content("~/Content/images/Lbel/logo_marca_pais_blanco.svg")">
+                            <source media="(min-width: 992px)" srcset="@Url.Content("~/Content/images/Lbel/logo_marca_pais.svg")">
+                            <img class="logoPaginaResponsive pointer" src="@Url.Content("~/Content/images/Lbel/logo_marca_pais.svg")">
                         </picture>
                     }
-                </div>
+
+
+                </section>
                 @Html.Partial("~/Views/Shared/_MenuPrincipalResponsive.cshtml")
-                @if (ViewBag.MostrarBuscadorYFiltros)
-                {
-                    @Html.Partial("~/Views/Shared/_BuscadorResponsive.cshtml")
-                }
+                <section class="row flex-row justify-content-center align-items-center flex-grow-1 header__buscador__productos">
+                    @if (ViewBag.MostrarBuscadorYFiltros)
+                    {
+                        @Html.Partial("~/Views/Shared/_BuscadorResponsive.cshtml")
+                    }
+                </section>
                 @Html.Partial("~/Views/Shared/_MenuSecundarioResponsive.cshtml")
             </div>
         </header>
+
+        <section class="row flex-row ml-0 mr-0 layout__view__breadcrumbs__wrapper mostrarEnDesktop">
+            <div class="col-12 pl-0 pr-0 mx-auto layout__view__breadcrumbs">
+                <ul class="row flex-row align-items-center ml-0 mr-0 layout__view__lista__breadcrumbs">
+                    <li class="layout__view__breadcrumb">
+                        <a href="@Url.Action("Index", "Bienvenida")" class="d-block" title="Home">Home</a>
+                    </li>
+                    <li class="layout__view__breadcrumb layout__view__breadcrumb--active__view">
+                        <span class="d-block">@ViewBag.Title</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
 
         @RenderBody()
 
@@ -137,7 +170,7 @@
 
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpBuscadorResultado.cshtml")
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpDialogMensajes.cshtml")
-    @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpLoadingMobile.cshtml");
+    @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpLoadingMobile.cshtml")
 
     <input type="hidden" id="hdCampaniaCodigo" value="@ViewBag.CampaniaCodigo" />
     <input type="hidden" id="hdTipoOfertaFinal" value="@ViewBag.OfertaFinal" />
@@ -149,22 +182,6 @@
     <input type="hidden" id="hdEsCatalogoPersonalizadoZonaValida" value="@Convert.ToString(ViewBag.EsCatalogoPersonalizadoZonaValida)" />
     <input type="hidden" id="hdCodigoEstrategia" value="@Util.Trim(ViewBag.CodigoEstrategia)" />
 
-
-    <script type='text/javascript'>
-        (function () {
-            var proto = document.location.protocol || 'http:';
-            var trme = document.createElement('script');
-            trme.type = 'text/javascript';
-            trme.async = true;
-            trme.src = proto + '//trackme-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/trackme/js/tm.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(trme, s);
-        })();
-
-        function Buscador() {
-            location.href = baseUrl + 'Mobile/Buscador';
-        }
-    </script>
     <script type="text/javascript">
         var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
         var viewBagRol = '@ViewBag.Rol';
@@ -209,8 +226,34 @@
 
     @Scripts.Render("~/Bundle/Js/Mixto/PageResponsive")
 
+    <script type='text/javascript'>
+        (function () {
+            var proto = document.location.protocol || 'http:';
+            var trme = document.createElement('script');
+            trme.type = 'text/javascript';
+            trme.async = true;
+            trme.src = proto + '//trackme-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/trackme/js/tm.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(trme, s);
+        })();
+
+        function Buscador() {
+            location.href = baseUrl + 'Mobile/Buscador';
+        }
+    </script>
+
 
     @RenderSection("scripts", required: false)
+
+    @if (TempData.ContainsKey("PixelCodigoIso"))
+    {
+        @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Login-Header")
+        <script>
+            var pixelAnalytics = Analytics();
+            pixelAnalytics.invocarEventoPixelById('@(TempData["PixelMarcacion"])', '@(TempData["PixelId"])');
+        </script>
+        @TempData.Remove("PixelCodigoIso");
+    }
 
 </body>
 </html>

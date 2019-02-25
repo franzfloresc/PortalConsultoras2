@@ -95,7 +95,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.TieneMasVendidos = userData.TieneMasVendidos;
                 model.TieneAsesoraOnline = userData.TieneAsesoraOnline;
                 model.ActivacionAppCatalogoWhastUp = ObtenerActivacionAppCatalogoWhastUp();
-                model.ShowRoomMostrarLista = ValidarPermiso(Constantes.MenuCodigo.CatalogoPersonalizado) ? 0 : 1;
+                model.ShowRoomMostrarLista = (!ValidarPermiso(Constantes.MenuCodigo.CatalogoPersonalizado)).ToInt();
 
                 ViewBag.paisISO = userData.CodigoISO;
                 ViewBag.Ambiente = _configuracionManagerProvider.GetBucketNameFromConfig();
@@ -121,8 +121,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
 
                 ViewBag.VerSeccion = verSeccion;
-
-                //model.TipoPopUpMostrar = ObtenerTipoPopUpMostrar();
+                
                 model.TipoPopUpMostrar = _bienvenidaProvider.ObtenerTipoPopUpMostrar(EsDispositivoMovil());
 
                 model.TienePagoEnLinea = userData.TienePagoEnLinea;
@@ -224,11 +223,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private int ObtenerActivacionAppCatalogoWhastUp()
         {
-            string paisesCatalogoWhatsUp = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesCatalogoWhatsUp);
-
-            var activacionAppCatalogoWhastUp = paisesCatalogoWhatsUp.Contains(userData.CodigoISO) ? 1 : 0;
-
-            return activacionAppCatalogoWhastUp;
+            bool paisesCatalogoWhatsUp = _configuracionManagerProvider.GetConfiguracionManagerContains(Constantes.ConfiguracionManager.PaisesCatalogoWhatsUp, userData.CodigoISO);
+            
+            return paisesCatalogoWhatsUp.ToInt();
         }
 
         private string ObtenerNombreConsultoraFav()
@@ -237,100 +234,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             nombreConsultoraFav = Util.SubStr(nombreConsultoraFav, 0, 1).ToUpper() + Util.SubStr(nombreConsultoraFav.ToLower(), 1);
             return nombreConsultoraFav;
         }
-
-        //private int ObtenerTipoPopUpMostrar()
-        //{
-        //    var tipoPopUpMostrar = 0;
-        //    var resultPopupEmail = ObtenerActualizacionEmail();
-        //    var resultPopupEmailSplited = resultPopupEmail.Split('|')[0];
-
-        //    if (SessionManager.GetTipoPopUpMostrar() != -1)
-        //    {
-        //        tipoPopUpMostrar = Convert.ToInt32(SessionManager.GetTipoPopUpMostrar());
-
-        //        if (tipoPopUpMostrar == Constantes.TipoPopUp.RevistaDigitalSuscripcion && revistaDigital.NoVolverMostrar)
-        //            tipoPopUpMostrar = 0;
-
-        //        if (tipoPopUpMostrar == Constantes.TipoPopUp.ActualizarCorreo) tipoPopUpMostrar = 0;
-        //        if (tipoPopUpMostrar == Constantes.TipoPopUp.AceptacionContrato && userData.IndicadorContrato == 1) tipoPopUpMostrar = 0;
-
-        //        return tipoPopUpMostrar;
-        //    }
-
-        //    if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora && resultPopupEmailSplited == "1")
-        //    {
-        //        tipoPopUpMostrar = Constantes.TipoPopUp.ActualizarCorreo;
-        //        SessionManager.SetTipoPopUpMostrar(tipoPopUpMostrar);
-        //        return tipoPopUpMostrar;
-        //    }
-
-        //    if (userData.TieneCupon == 1 && userData.CodigoISO == Constantes.CodigosISOPais.Peru)
-        //    {
-        //        var cupon = ObtenerCuponDesdeServicio();
-        //        if (cupon != null)
-        //        {
-        //            tipoPopUpMostrar = Constantes.TipoPopUp.CuponForzado;
-        //            SessionManager.SetTipoPopUpMostrar(tipoPopUpMostrar);
-
-        //            return tipoPopUpMostrar;
-        //        }
-        //    }
-        //    else if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora
-        //             && userData.CambioClave == 0 && userData.IndicadorContrato == 0
-        //             && userData.CodigoISO.Equals(Constantes.CodigosISOPais.Colombia)
-        //             && SessionManager.GetIsContrato() == 1)
-        //    {
-        //        tipoPopUpMostrar = Constantes.TipoPopUp.AceptacionContrato;
-        //        SessionManager.SetTipoPopUpMostrar(tipoPopUpMostrar);
-        //        return tipoPopUpMostrar;
-        //    }
-
-        //    // debe tener la misma logica que desktop
-
-        //    #region Revista Digital
-        //    if (!revistaDigital.TieneRDS)
-        //        return tipoPopUpMostrar;
-
-        //    if (revistaDigital.NoVolverMostrar)
-        //        return tipoPopUpMostrar;
-
-        //    if (revistaDigital.EsSuscrita)
-        //        return tipoPopUpMostrar;
-
-        //    tipoPopUpMostrar = Constantes.TipoPopUp.RevistaDigitalSuscripcion;
-        //    #endregion
-
-        //    SessionManager.SetTipoPopUpMostrar(tipoPopUpMostrar);
-
-        //    return tipoPopUpMostrar;
-        //}
-
-        //private BECuponConsultora ObtenerCuponDesdeServicio()
-        //{
-        //    BECuponConsultora cuponResult;
-        //    try
-        //    {
-        //        var cuponBe = new BECuponConsultora
-        //        {
-        //            CodigoConsultora = userData.CodigoConsultora,
-        //            CampaniaId = userData.CampaniaID
-        //        };
-
-        //        using (var svClient = new PedidoServiceClient())
-        //        {
-        //            cuponResult = svClient.GetCuponConsultoraByCodigoConsultoraCampaniaId(userData.PaisID, cuponBe);
-        //        }
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-        //        cuponResult = new BECuponConsultora();
-        //    }
-
-        //    return cuponResult;
-        //}
-
+        
         [HttpPost]
         public JsonResult ValidacionConsultoraDA()
         {
@@ -449,8 +353,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
         }
 
-        
-
         public JsonResult AceptarContrato(bool checkAceptar, string origenAceptacion)
         {
             try
@@ -532,19 +434,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public string ObtenerActualizacionEmail()
         {
-            //try
-            //{
-            //    using (var svClient = new UsuarioServiceClient())
-            //    {
-            //        var result = svClient.GetActualizacionEmail(userData.PaisID, userData.CodigoUsuario);
-            //        return result;
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-            //    return "";
-            //}
             return _bienvenidaProvider.ObtenerActualizacionEmail();
         }
 
@@ -570,24 +459,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
-
-
-        private List<BEPopupPais> ObtenerListaPopupsDesdeServicio()
-        {
-            var listaPopUps = new List<BEPopupPais>();
-            try
-            {
-                using (var sac = new SACServiceClient())
-                {
-                    listaPopUps = sac.ObtenerOrdenPopUpMostrar(userData.PaisID).ToList();
-                }
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-            }
-            return listaPopUps;
-        }
-
+        
     }
 }

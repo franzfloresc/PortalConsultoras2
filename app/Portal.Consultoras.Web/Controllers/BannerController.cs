@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Common.Reader;
+using Portal.Consultoras.Web.Infraestructure.Reader;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceContenido;
 using Portal.Consultoras.Web.ServiceSAC;
@@ -15,12 +17,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using Portal.Consultoras.Common.Reader;
-using Portal.Consultoras.Web.Infraestructure.Reader;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class BannerController : BaseController
+    public class BannerController : BaseAdmController
     {
         #region Action
 
@@ -30,7 +30,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (!UsuarioModel.HasAcces(ViewBag.Permiso, "Banner/Index"))
                     return RedirectToAction("Index", "Bienvenida");
-                model.DropDownListCampania = CargarCampania();
+                model.DropDownListCampania = _zonificacionProvider.GetCampaniasEntidad(Constantes.PaisID.Peru);
                 model.DropDownListCampania.Insert(0, new BECampania() { CampaniaID = 0, Codigo = "-- Seleccionar --" });
                 model.DropDownListTipoContenido = new List<BETipoContenido>() { new BETipoContenido { TipoContenido = 0, TipoContenidoNombre = "URL" },
                                                                                 new BETipoContenido { TipoContenido = 1, TipoContenidoNombre = "Mensaje" }};
@@ -154,11 +154,8 @@ namespace Portal.Consultoras.Web.Controllers
                     lstGrupoConsultora = Util.ReadXmlFile(finalPath, obeGrupoConsultora, false, ref isCorrect);
                 }
 
-                List<BEPais> lstPais;
-                using (ZonificacionServiceClient svc = new ZonificacionServiceClient())
-                {
-                    lstPais = svc.SelectPaises().OrderBy(x => x.PaisID).ToList();
-                }
+                List<BEPais> lstPais = _zonificacionProvider.GetPaisesEntidad().OrderBy(x => x.PaisID).ToList();
+
                 foreach (BEPais itemPais in lstPais)
                 {
                     lstGrupoConsultora.Where(x => x.PaisCodigo == itemPais.CodigoISO).Each(y => y.PaisID = itemPais.PaisID);
@@ -344,13 +341,8 @@ namespace Portal.Consultoras.Web.Controllers
                         lst = svc.SelectBanner(CampaniaId).ToList().FindAll(x => x.GrupoBannerID == GrupoBannerId);
                     }
 
-                    List<BEPais> lstPais;
-                    using (ZonificacionServiceClient svc = new ZonificacionServiceClient())
-                    {
-                        lstPais = svc.SelectPaises().OrderBy(x => x.PaisID).ToList();
-                    }
+                    List<BEPais> lstPais = _zonificacionProvider.GetPaisesEntidad().OrderBy(x => x.PaisID).ToList();
 
-                    
                     if (lst != null && lst.Count > 0)
                     {
                         var carpetaPais = Globals.UrlBanner;
@@ -410,8 +402,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult ObtenerCabeceraYFilaConfiguracionSubGrilla(string GrupoBannerId)
         {
-            List<BEPais> lstPais;
-
             List<string> colNames = new List<string>
             {
                 "BannerID",
@@ -534,10 +524,8 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             };
 
-            using (ZonificacionServiceClient svc = new ZonificacionServiceClient())
-            {
-                lstPais = svc.SelectPaises().OrderBy(x => x.PaisID).ToList();
-            }
+            List<BEPais> lstPais = _zonificacionProvider.GetPaisesEntidad().OrderBy(x => x.PaisID).ToList();
+
             foreach (BEPais item in lstPais)
             {
                 colNames.Add(item.CodigoISO);
@@ -720,7 +708,6 @@ namespace Portal.Consultoras.Web.Controllers
                         if (!System.IO.File.Exists(Globals.RutaTemporales))
                             Directory.CreateDirectory(Globals.RutaTemporales);
                         postedFile.SaveAs(path);
-                        //path = Url.Content(Path.Combine(Globals.RutaTemporales, fileName));
                     }
 
                     return Json(new { success = true, name = qqfile }, "text/html");
@@ -746,16 +733,7 @@ namespace Portal.Consultoras.Web.Controllers
         #endregion
 
         #region Metodos
-
-        public List<BECampania> CargarCampania()
-        {
-            using (ZonificacionServiceClient servicezona = new ZonificacionServiceClient())
-            {
-                BECampania[] becampania = servicezona.SelectCampanias(11);
-                return becampania.ToList();
-            }
-        }
-
+        
         public string[] CrearCellArray(BEBanner obe, List<BEPais> lstPais)
         {
             List<string> lstCell = new List<string>
@@ -890,21 +868,10 @@ namespace Portal.Consultoras.Web.Controllers
                     return "";
             }
         }
-
-        private IEnumerable<PaisModel> DropDowListPaises()
-        {
-            List<BEPais> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = sv.SelectPaises().ToList();
-            }
-
-            return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
-        }
-
+        
         public JsonResult ObtenerPaises()
         {
-            IEnumerable<PaisModel> lst = DropDowListPaises();
+            IEnumerable<PaisModel> lst = DropDowListPaises(Constantes.Rol.Administrador);
             return Json(new
             {
                 listapaises = lst
@@ -1073,7 +1040,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                if (PaisId == 14)
+                if (PaisId == Constantes.PaisID.Venezuela)
                 {
                     lst = sv.GetSegmentoBanner(PaisId);
                 }

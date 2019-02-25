@@ -298,6 +298,8 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string FotoProductoMedium { get; set; }
 
+        [DataMember]
+        public bool TieneStock { get; set; }
 
         public BEEstrategia()
         { }
@@ -337,7 +339,6 @@ namespace Portal.Consultoras.Entities
             MostrarImgOfertaIndependiente = row.ToBoolean("MostrarImgOfertaIndependiente");
             Orden = row.ToInt32("Orden");
             ID = row.ToInt32("ID");
-            //BPT-369
             FlagValidarImagen = row.ToInt32("FlagValidarImagen");
             PesoMaximoImagen = row.ToInt32("PesoMaximoImagen");
         }
@@ -414,6 +415,8 @@ namespace Portal.Consultoras.Entities
             ImgFichaMobile = row.ToString("ImgFichaMobile");
             EstrategiaDetalle = new BEEstrategiaDetalle(row);
             TipoEstrategia = new BETipoEstrategia(row);
+
+            TieneStock = row.ToBoolean("TieneStock");
         }
     }
 
