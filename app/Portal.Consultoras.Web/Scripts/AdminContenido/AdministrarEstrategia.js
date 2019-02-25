@@ -4528,6 +4528,7 @@
     }
 
 
+
     function GuardarEstrategiaGrupo() {
         var mydata = [];
 
@@ -4542,6 +4543,11 @@
 
                 mydata = data;
                 console.log('guardar result: ', data);
+                if (data.estado) {
+                    showDialogMensaje("Información guardada satisfactoriamente.");
+                } else {
+                    showDialogMensaje("La operación cancelada. Ocurró un error interno.");
+                }
 
                 closeWaitingDialog();
 
