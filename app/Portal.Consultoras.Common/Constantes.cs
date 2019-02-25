@@ -2951,6 +2951,16 @@ namespace Portal.Consultoras.Common
             /// api/Evento/editarConsultora/{pais}/{tipo}
             /// </summary>
             public const string UrlEditarEventoConsultora = "api/Evento/editarConsultora/{0}/{1}";
+
+            /// <summary>
+            /// api/Evento/GetEstrategiaGrupoByEstrategiaId/{pais}/{estrategiaId}
+            /// </summary>
+            public const string UrlGetEstrategiaGrupoByEstrategiaId = "api/EstrategiaGrupo/{0}/{1}";
+            //public const string UrlGetEstrategiaGrupoByEstrategiaId = "api/Evento/editarConsultora/{0}/{1}";
+
+            public const string UrlInsertEstrategiaGrupo = "api/EstrategiaGrupo/InsertEstrategiaGrupo";
+
+            
             #endregion
 
             #region Oferta

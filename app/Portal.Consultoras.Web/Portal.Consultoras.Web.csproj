@@ -521,6 +521,7 @@
     <Compile Include="Models\MasGanadorasModel.cs" />
     <Compile Include="Models\ObservacionModel.cs" />
     <Compile Include="Models\ReporteValidacionShowroom.cs" />
+    <Compile Include="Models\Search\ResponseEstrategiaGrupo\OutputEstrategiaGrupo.cs" />
     <Compile Include="Models\Search\ResponseEvento\Estructura\Evento.cs" />
     <Compile Include="Models\Search\ResponseEvento\Estructura\EventoConsultora.cs" />
     <Compile Include="Models\Search\ResponseEvento\Estructura\PersonalizacionNivel.cs" />
@@ -819,6 +820,7 @@
     <Compile Include="Providers\EventoFestivoProvider.cs" />
     <Compile Include="Providers\GuiaNegocioProvider.cs" />
     <Compile Include="Providers\BaseProvider.cs" />
+    <Compile Include="Providers\EstrategiaGrupoProvide.cs" />
     <Compile Include="Providers\ProgramaNuevasProvider.cs" />
     <Compile Include="Providers\IssuuProvider.cs" />
     <Compile Include="Providers\MenuContenedorProvider.cs" />

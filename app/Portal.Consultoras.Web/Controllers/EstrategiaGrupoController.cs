@@ -1,13 +1,17 @@
-﻿using Portal.Consultoras.Web.Models.AdministrarEstrategia;
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Models.AdministrarEstrategia;
+using Portal.Consultoras.Web.Models.Oferta.ResponseOfertaGenerico;
+using Portal.Consultoras.Web.Providers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class EstrategiaGrupoController :   BaseController
+    public class EstrategiaGrupoController : BaseController
     {
         // tomar referencia de AdministrarEstrategiaMasivoController
 
@@ -19,14 +23,19 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult Guardar(List<EstrategiaGrupoModel> datos)
         {
-
+            bool respuesta=false;
             if (ModelState.IsValid)
-            {
-                //código servicio
-                var dd = 123;
+            {                
+                var userData = SessionManager.GetUserData();
+                  
+                string pathMS = Constantes.PersonalizacionOfertasService.UrlInsertEstrategiaGrupo;
+
+                var taskApi = Task.Run(() => EstrategiaGrupoProvide.InsertarGrupoEstrategiaApi(pathMS, datos, userData));
+                Task.WhenAll(taskApi);
+                respuesta = taskApi.Result;
             }
 
-                return Json(new { mensaje="ok", data= datos }, JsonRequestBehavior.AllowGet);
+            return Json(new { mensaje = "ok", estado = respuesta }, JsonRequestBehavior.AllowGet);
         }
 
         //Basado en 'AdministrarShowRoomController/ConsultarOfertaShowRoomDetalleNew'
