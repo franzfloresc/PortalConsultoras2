@@ -105,6 +105,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var clienteNuevo = client.ClienteID == 0;
 
+                client.Origen = EsDispositivoMovil() ? Constantes.ClienteOrigen.Mobile : Constantes.ClienteOrigen.Desktop;
+
                 var response = _clienteProvider.SaveDB(userData.PaisID, userData.ConsultoraID, client);
 
                 if (response.CodigoRespuesta == Constantes.ClienteValidacion.Code.SUCCESS)
