@@ -50,6 +50,9 @@ namespace Portal.Consultoras.ServiceContracts
         void DelPedidoWebDetalle(BEPedidoWebDetalle pedidowebdetalle);
 
         [OperationContract]
+        IList<BEPedidoWebDetalle> SelectByCampaniaWithLabelProgNuevas(BEPedidoWebDetalleParametros bePedidoWebDetalleParametros);
+
+        [OperationContract]
         IList<BEPedidoWebDetalle> SelectByCampania(BEPedidoWebDetalleParametros bePedidoWebDetalleParametros);
 
         [OperationContract]
