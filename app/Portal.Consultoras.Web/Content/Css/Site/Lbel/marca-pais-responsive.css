@@ -29,12 +29,16 @@
     background-color: #FFF;
     background-image:url(/Content/Images/Lbel/pestana_lbel.png);
     top: -3px;
-    left: 15.7%;
+    left: 134px;
     background-size: cover;
 }
 
 .submenu__lista--miNegocio{
     top:51px;
+}
+
+.submenu__lista--miNegocioConEnlaceMisEventos{
+    width:1080px;
 }
 
 .submenu__lista--miAsesorBelleza{

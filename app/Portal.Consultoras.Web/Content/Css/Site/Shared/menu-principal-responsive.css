@@ -152,8 +152,8 @@
 }
 
 .submenu__lista--miNegocio{
-    width: 937px;
     left:-87px;
+    width:852px;
     height: 239px;
     z-index:6;
     align-content:space-evenly;
@@ -207,15 +207,21 @@
 }
 
 .submenu__item--Catalogos,
-.submenu__item--Incentivos
+.submenu__item--ProgramaNuevas,
+.submenu__item--Incentivos,
+.submenu__item--MisEventos
 {
     width:180px;
+    height:132px;
 }
 
 .submenu__item--Catalogos .submenu__link,
-.submenu__item--Incentivos .submenu__link
+.submenu__item--ProgramaNuevas .submenu__link,
+.submenu__item--Incentivos .submenu__link,
+.submenu__item--MisEventos .submenu__link
 {
     padding-left:0;
+    height:100%;
 }
 
 .submenu__lista--miAsesorBelleza

@@ -291,7 +291,7 @@ header {
     position: absolute;
     top: 39px;
     margin-left: -90px;
-    width: 977px;
+    width: 852px;
     height: auto;
     padding-left: 60px;
     padding-right: 32px;
@@ -304,7 +304,7 @@ header {
     z-index:3;
 }
 
-.w1056p {
+.sub_menu_home_con_enlace_misEventos {
     width: 1056px;
 }
 
