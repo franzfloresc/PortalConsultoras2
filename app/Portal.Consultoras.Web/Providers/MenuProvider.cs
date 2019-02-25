@@ -140,7 +140,7 @@ namespace Portal.Consultoras.Web.Providers
                         continue;
                     }
 
-                    var menuClassNegocio = "sub_menu_home1" + (userSession.PaisID == Constantes.PaisID.Peru ? " w1080p" : "");
+                    var menuClassNegocio = "sub_menu_home1" + (userSession.PaisID == Constantes.PaisID.Peru ? " w1056p" : "");
                     permiso.PageTarget = permiso.PaginaNueva ? "_blank" : "_self";
                     permiso.ClaseSubMenu = description == "MI NEGOCIO" ? menuClassNegocio : "sub_menu_home2";
 

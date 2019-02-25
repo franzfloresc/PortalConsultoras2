@@ -292,10 +292,11 @@ header {
     position: absolute;
     top: 39px;
     margin-left: -90px;
-    width: 977px;
+    width: 852px;
     height: auto;
-    padding-left: 65px;
-    padding-right: 60px;
+    padding-left: 60px;
+    padding-right: 32px;
+    padding-bottom: 13px;
     display: none;
     background: rgba(255,255,255,.95) url('/Content/Images/Esika/fondo.png');
     -webkit-box-shadow: -4px 4px 11px -5px rgba(120,120,120,1);
@@ -304,12 +305,13 @@ header {
     z-index:3;
 }
 
-.w1080p {
-    width: 1080px;
+.w1056p {
+    width: 1056px;
 }
 
 .sub_menu_home2 {
     position: absolute;
+    z-index:1;
     left: -150px;
     display: none;
     top: 39px;
@@ -327,6 +329,9 @@ header {
     width: 100%;
     height: 1px;
     background: black;
+    position:absolute;
+    top:0;
+    left:0;
 }
 
 .pestana_esika {
@@ -346,7 +351,7 @@ header {
 .content_left_menu {
     float: left;
     margin-right: 35px;
-    margin-top: 40px;
+    margin-top: 35px;
 }
 
 .menu_titulo {
@@ -370,8 +375,8 @@ header {
 
 .menu_imagen {
     margin-top: 40px;
-    margin-right: 45px;
-    margin-left: 13px;
+    margin-right: 27px;
+    /*margin-left: 13px;*/
     float: left;
     width: 180px;
     height: 143px;
@@ -381,6 +386,10 @@ header {
 
     .menu_imagen img {
         width: 100%;
+    }
+
+    .menu_imagen:last-child{
+        margin-right:0;
     }
 
 .titulo_imagen {
@@ -4420,6 +4429,10 @@ a.subir_carousel, a.bajar_carousel {
 
 .mostrar_perfil {
     display: block;
+}
+
+.new_menu a:hover {
+    text-decoration: underline;
 }
 
 .boton-home a {
