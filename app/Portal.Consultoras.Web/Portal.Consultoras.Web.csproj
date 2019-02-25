@@ -295,6 +295,7 @@
     <Compile Include="Controllers\MasGanadorasController.cs" />
     <Compile Include="Controllers\PedidoRegistroController.cs" />
     <Compile Include="Infraestructure\Excel\ExcelProtectionProcessor.cs" />
+    <Compile Include="Models\BuscadorYFiltrosCategoriaModel.cs" />
     <Compile Include="Models\BuscadorYFiltrosConfiguracionModel.cs" />
     <Compile Include="Controllers\BusquedaProductosController.cs" />
     <Compile Include="Controllers\ComunController.cs" />
@@ -1400,6 +1401,7 @@
     <Content Include="Content\Css\Button\style.css" />
     <Content Include="Content\Css\colorpicker\colorpicker.css" />
     <Content Include="Content\Css\Mobile\Clientes\Asignarcliente.css" />
+    <Content Include="Content\Css\Mobile\Buscador\categorias-productos.css" />
     <Content Include="Content\Css\Mobile\Contenedor\Index.css" />
     <Content Include="Content\Css\Mobile\Contenedor\carrusel.individual.css" />
     <Content Include="Content\Css\Mobile\esika\mi-perfil.css" />
@@ -1652,6 +1654,13 @@
     <Content Include="Content\Images\dateTimePicker\cal_plus.gif" />
     <Content Include="Content\Images\dateTimePicker\cal_reverse.gif" />
     <Content Include="Content\Images\editar_tu_clientes.svg" />
+    <Content Include="Content\Images\Esika\CategoriasProductos\categoria_bijouterie.jpg" />
+    <Content Include="Content\Images\Esika\CategoriasProductos\categoria_fragancias.jpg" />
+    <Content Include="Content\Images\Esika\CategoriasProductos\categoria_herramientas_venta.jpg" />
+    <Content Include="Content\Images\Esika\CategoriasProductos\categoria_maquillaje.jpg" />
+    <Content Include="Content\Images\Esika\CategoriasProductos\categoria_moda.jpg" />
+    <Content Include="Content\Images\Esika\CategoriasProductos\categoria_tratamiento_corporal.jpg" />
+    <Content Include="Content\Images\Esika\CategoriasProductos\categoria_tratamiento_facial.jpg" />
     <Content Include="Content\Images\Esika\icono_input_radio_cdr.svg" />
     <Content Include="Content\Images\Esika\RevistaDigital\gana-mas-navidad-esika.svg" />
     <Content Include="Content\Images\Esika\RevistaDigital\gif-club-ganamas2.gif" />
@@ -1722,6 +1731,14 @@
     <Content Include="Content\Images\imagen_prod_no_disponible.jpg" />
     <Content Include="Content\Images\imagen_prod_no_disponible.png" />
     <Content Include="Content\Images\imagen_prod_no_disponible.svg" />
+    <Content Include="Content\Images\Lbel\CategoriasProductos\categoria_bijouterie.jpg" />
+    <Content Include="Content\Images\Lbel\CategoriasProductos\categoria_cuidado_personal.jpg" />
+    <Content Include="Content\Images\Lbel\CategoriasProductos\categoria_herramientas_venta.jpg" />
+    <Content Include="Content\Images\Lbel\CategoriasProductos\categoria_maquillaje.jpg" />
+    <Content Include="Content\Images\Lbel\CategoriasProductos\categoria_moda.jpg" />
+    <Content Include="Content\Images\Lbel\CategoriasProductos\categoria_mythika.jpg" />
+    <Content Include="Content\Images\Lbel\CategoriasProductos\categoria_tratamiento_corporal.jpg" />
+    <Content Include="Content\Images\Lbel\CategoriasProductos\categoria_tratamiento_facial.jpg" />
     <Content Include="Content\Images\Lbel\copo-nieve.png" />
     <Content Include="Content\Images\Lbel\copos-nieve.png" />
     <Content Include="Content\Images\Lbel\icono_campos_select_mi_perfil.svg" />
