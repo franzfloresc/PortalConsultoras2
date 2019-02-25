@@ -1396,6 +1396,7 @@ function showPopupEscalaSiguiente(dataBarra, prevLogro) {
 
                 var content = escala.PorDescuento + '% Dscto.';
                 showPopupEscala(content);
+                tpElectivos.tempPrevLogro = -1;
 
                 return true;
             }
