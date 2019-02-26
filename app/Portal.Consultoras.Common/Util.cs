@@ -3731,8 +3731,9 @@ namespace Portal.Consultoras.Common
 
         public static string obtenerNuevaDescripcionProductoDetalle(int ofertaId, bool pedidoValidado,
             bool consultoraOnline, int origenPedido, Dictionary<string, string> lista, bool suscripcion, string tipoEstrategiaCodigo,
-            int marcaId, int codigoCatalogo, string descripcion, bool esCuponNuevas, bool EsElecMultipleNuevas)
+            int marcaId, int codigoCatalogo, string descripcion, bool esCuponNuevas, bool EsElecMultipleNuevas, bool esPremioElec)
         {
+            if (esPremioElec) return lista[Constantes.NuevoCatalogoProducto.ESPREMIOELEC];
             if (EsElecMultipleNuevas) return lista[Constantes.NuevoCatalogoProducto.ESELECMULTIPLENUEVAS];
             if (esCuponNuevas) return lista[Constantes.NuevoCatalogoProducto.ESCUPONNUEVAS];
 
@@ -3975,20 +3976,6 @@ namespace Portal.Consultoras.Common
             if (string.IsNullOrEmpty(origenActual)) return origenActual;
             var nuevoOrigen = origenActual.Remove(0, 1).Insert(0, "4");
             return nuevoOrigen;
-        }
-
-        public static T GetOrCalcValue<T>(Func<T> fnGet, Action<T> fnSet, Predicate<T> fnIsNull, Func<T> fnCalc, Action<Exception> fnExcep, T defaultValue)
-        {
-            if (!fnIsNull(fnGet())) return fnGet();
-
-            try { fnSet(fnCalc()); }
-            catch (Exception ex)
-            {
-                fnSet(defaultValue);
-                fnExcep(ex);
-            }
-
-            return fnGet();
         }
 
         public static T GetOrCalcValue<T>(Func<T> fnGet, Action<T> fnSet, Predicate<T> fnIsNull, Func<T> fnCalc)

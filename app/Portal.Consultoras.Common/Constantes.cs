@@ -3276,6 +3276,7 @@ namespace Portal.Consultoras.Common
             public const string HERRAMIENTASDEVENTA = "HERRAMIENTASDEVENTA";
             public const string ESPECIALES = "ESPECIALES";
             public const string OFERTASFLEXIPAGO = "OFERTASFLEXIPAGO";
+            public const string ESPREMIOELEC = "ESPREMIOELEC";
             public const string ESCUPONNUEVAS = "ESCUPONNUEVAS";
             public const string ESELECMULTIPLENUEVAS = "ESELECMULTIPLENUEVAS";
         }

@@ -330,6 +330,9 @@
     <Compile Include="Models\DireccionEntregaModel.cs" />
     <Compile Include="Models\ConsultaProl\ConsultaStockModel.cs" />
     <Compile Include="Models\ConsultaProl\RespuestaStockModel.cs" />
+    <Compile Include="Models\ProgramaNuevas\ConfigPremioProgNuevasModel.cs" />
+    <Compile Include="Models\ProgramaNuevas\PremioProgNuevasOFModel.cs" />
+    <Compile Include="Models\ProgramaNuevas\PremioProgNuevasModel.cs" />
     <Compile Include="Models\Estrategia\EstrategiaMDbAdapterModel.cs" />
     <Compile Include="Controllers\OfertaDelDiaController.cs" />
     <Compile Include="CustomHelpers\Infraestructure\Sms\ISmsConfirm.cs" />
@@ -572,6 +575,7 @@
     <Compile Include="Models\PagoEnLinea\DataToken.cs" />
     <Compile Include="Models\PagoEnLinea\PagoEnLineaModel.cs" />
     <Compile Include="Models\PagoEnLinea\PagoVisaModel.cs" />
+    <Compile Include="Models\PremioElectivoModel.cs" />
     <Compile Include="Models\ProductoComentarioModel.cs" />
     <Compile Include="Models\CompartirRedesSocialesModel.cs" />
     <Compile Include="Models\ComunModel.cs" />
@@ -1381,6 +1385,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Content Include="Areas\Mobile\Views\Pedido\_PopupDescuento.cshtml" />
     <Content Include="ChateaConEBA.html" />
     <Content Include="AppDeCatalogos.html" />
     <Content Include="Content\Banderas\AR.png" />
@@ -1448,6 +1453,7 @@
     <Content Include="Content\Css\Site\Ficha\SeleccionarTipo.css" />
     <Content Include="Content\Css\Site\Images\carrusel_next_blanco_dorado.png" />
     <Content Include="Content\Css\Site\Images\carrusel_prev_blanco_dorado.png" />
+    <Content Include="Content\Images\icono_party_popper.png" />
     <Content Include="Content\Images\flecha_despliegue_opcion_mi_perfil.svg" />
     <Content Include="Content\Images\Esika\icono_campos_select_mi_perfil.svg" />
     <Content Include="Content\Images\icono_cambiar_dato.svg" />
@@ -1522,6 +1528,7 @@
     <Content Include="Content\Images\banco_pichincha.png" />
     <Content Include="Content\Images\banco_scotiabank.png" />
     <Content Include="Content\Images\check_terminos_cdr.svg" />
+    <Content Include="Content\Images\check_regalo_elegido.svg" />
     <Content Include="Content\Images\cincuenta_anios_belcorp_cabecera.png" />
     <Content Include="Content\Images\Buscador\product-iphone.png" />
     <Content Include="Content\Images\carrusel_n_blanco.png" />
@@ -1715,6 +1722,7 @@
     <Content Include="Content\Images\icono_catalogos.svg" />
     <Content Include="Content\Images\icono_cerrar_menu_mobile.png" />
     <Content Include="Content\Images\icono_comunidad_virtual.svg" />
+    <Content Include="Content\Images\icono_editar.svg" />
     <Content Include="Content\Images\icono_esika_responde.png" />
     <Content Include="Content\Images\icono_limpiar_busqueda.svg" />
     <Content Include="Content\Images\icono_lupa_gris.svg" />
@@ -1724,6 +1732,9 @@
     <Content Include="Content\Images\icono_notificaciones.svg" />
     <Content Include="Content\Images\icono_notificaciones_blanco.svg" />
     <Content Include="Content\Images\icono_paso_compartir_catalogo.svg" />
+    <Content Include="Content\Images\icono_popup_limite_credito.svg" />
+    <Content Include="Content\Images\icono_party_popper.png" />
+    <Content Include="Content\Images\icono_regalo.png" />
     <Content Include="Content\Images\icono_salvavidas.svg" />
     <Content Include="Content\Images\icono_sin_resultados_busqueda.svg" />
     <Content Include="Content\Images\icono_tooltip_informativo.svg" />
@@ -1752,6 +1763,12 @@
     <Content Include="Content\Images\Lbel\RevistaDigital\gif-club-ganamas2.gif" />
     <Content Include="Content\Images\Lbel\RevistaDigital\gif-ganamas.gif" />
     <Content Include="Content\Images\Lbel\RevistaDigital\menuOfertas_20181001_1121.jpg" />
+    <Content Include="Content\Images\lluvia\ov-d.svg" />
+    <Content Include="Content\Images\lluvia\ov-r.svg" />
+    <Content Include="Content\Images\lluvia\sq-d.svg" />
+    <Content Include="Content\Images\lluvia\sq-r.svg" />
+    <Content Include="Content\Images\lluvia\trg-d.svg" />
+    <Content Include="Content\Images\lluvia\trg-r.svg" />
     <Content Include="Content\Images\logo-club-ganamas-dorado2.svg" />
     <Content Include="Content\Images\Lbel\logo_marca_pais.svg" />
     <Content Include="Content\Images\Lbel\vineta_indicador.png" />
@@ -1771,6 +1788,7 @@
     <Content Include="Content\Images\mobile\icono_menos_footer_mobile.png" />
     <Content Include="Content\Images\Lbel\logo_marca_pais_blanco.svg" />
     <Content Include="Content\Images\Lbel\RevistaDigital\ofertas-digitales-navidad-lbel.svg" />
+    <Content Include="Content\Images\mobile\icono_regalo.png" />
     <Content Include="Content\Images\mobile\img-icon\icon_bolsita_triste.png" />
     <Content Include="Content\Images\mobile\cincuenta_anios_belcorp_cabecera_mobile.png" />
     <Content Include="Content\Images\mobile\Esika\1f44d.png" />
@@ -3354,7 +3372,6 @@
     <Content Include="Content\Images\mobile\icono-cerrar-popup-inscripcion-mobile.svg" />
     <Content Include="Content\Images\mobile\icono-eliminar-cdr.png" />
     <Content Include="Content\Images\mobile\icono-menu-mobile.svg" />
-    <Content Include="Content\Images\mobile\icono_regalo.png" />
     <Content Include="Content\Images\mobile\icono_regalo_estrella.png" />
     <Content Include="Content\Images\mobile\icon_caja.png" />
     <Content Include="Content\Images\mobile\icon_casita.png" />
@@ -4500,6 +4517,7 @@
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpLoadingMobile.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileMenu\_MobileMenu.cshtml" />
     <Content Include="Areas\Mobile\Views\ProgramaNuevas\Index.cshtml" />
+    <Content Include="Areas\Mobile\Views\Pedido\_PopupEleccionRegalo.cshtml" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Areas\Mobile\Views\MasGanadoras\template-landing.cshtml" />
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-carrusel-individuales-v2.cshtml" />
@@ -4508,6 +4526,9 @@
     <Content Include="package.json" />
     <Content Include="Areas\Mobile\Views\DetalleEstrategia\ProductoTemplate.cshtml" />
     <Content Include="Areas\Mobile\Views\DetalleEstrategia\FichaTemplate.cshtml" />
+    <Content Include="Areas\Mobile\Views\Pedido\_PopupEleccionRegalo.cshtml" />
+    <Content Include="Areas\Mobile\Views\Pedido\_PopupPremio.cshtml" />
+    <Content Include="Areas\Mobile\Views\Pedido\_PopupDescuento.cshtml" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
       <SubType>Designer</SubType>
@@ -4712,6 +4733,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServicePedido\PedidoService116.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServicePedido\PedidoService117.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServicePedido\PedidoService117.xsd">

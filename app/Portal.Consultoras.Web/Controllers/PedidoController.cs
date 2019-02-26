@@ -2,6 +2,7 @@
 using Portal.Consultoras.Common;
 using Portal.Consultoras.PublicService.Cryptography;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.ProgramaNuevas;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceCliente;
 using Portal.Consultoras.Web.ServiceContenido;
@@ -77,7 +78,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 model.EsPais = GetMarcaPorCodigoIso(userData.CodigoISO);
                 model.CodigoIso = userData.CodigoISO;
-
+                model.EsConsultoraOficina = userData.EsConsultoraOficina;
                 SessionManager.SetObservacionesProl(null);
                 SessionManager.SetPedidoWeb(null);
                 SessionManager.SetDetallesPedido(null);
@@ -188,6 +189,20 @@ namespace Portal.Consultoras.Web.Controllers
                     model.MontoDescuento = pedidoWeb.DescuentoProl;
                     model.MontoEscala = pedidoWeb.MontoEscala;
                     model.TotalConDescuento = model.Total - model.MontoDescuento;
+
+                    SessionManager.SetMontosProl(
+                       new List<ObjMontosProl>
+                       {
+                           new ObjMontosProl
+                           {
+                               AhorroCatalogo = model.MontoAhorroCatalogo.ToString(),
+                               AhorroRevista = model.MontoAhorroRevista.ToString(),
+                               MontoTotalDescuento = model.MontoDescuento.ToString(),
+                               MontoEscala = model.MontoEscala.ToString()
+                           }
+                       }
+                   );
+
 
                     model.ListaParametriaOfertaFinal = GetParametriaOfertaFinal(SessionManager.GetOfertaFinalModel().Algoritmo);
                 }
@@ -3539,17 +3554,10 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var listaDetalle = ObtenerPedidoWebSetDetalleAgrupado() ?? new List<BEPedidoWebDetalle>();
+                var listaDetalle = GetPedidoWebDetalle(mobil);
 
                 if (mobil)
                 {
-                    if (listaDetalle.Count == 0)
-                    {
-                        var inserto = AgregarCuvsAutomatico();
-                        if (inserto)
-                            listaDetalle = ObtenerPedidoWebSetDetalleAgrupado() ?? new List<BEPedidoWebDetalle>();
-                    }
-
                     page = 1;
                     rows = listaDetalle.Count;
                 }
@@ -3567,7 +3575,6 @@ namespace Portal.Consultoras.Web.Controllers
                 var totalCliente = listaDetalle.Sum(p => p.ImporteTotal);
 
                 var pedidoWebDetalleModel = MapearListaDetalleModel(listaDetalle);
-
                 model.ListaDetalleModel = pedidoWebDetalleModel;
                 model.Total = total;
                 model.TotalCliente = Util.DecimalToStringFormat(totalCliente, userData.CodigoISO);
@@ -3674,6 +3681,7 @@ namespace Portal.Consultoras.Web.Controllers
                 p.CodigoIso = userData.CodigoISO;
                 p.DescripcionCortadaProd = Util.SubStrCortarNombre(p.DescripcionProd, 73);
                 p.TipoAccion = TipoAccionPedido(p, pedidoEditable);
+                p.LockPremioElectivo = p.EsPremioElectivo && string.IsNullOrEmpty(p.Mensaje);
             });
 
             return pedidoWebDetalleModel;
@@ -3715,6 +3723,17 @@ namespace Portal.Consultoras.Web.Controllers
                 default:
                     return 0;
             }
+        }
+        
+        private List<BEPedidoWebDetalle> GetPedidoWebDetalle(bool isMobile)
+        {
+            var listaDetalle = ObtenerPedidoWebSetDetalleAgrupado() ?? new List<BEPedidoWebDetalle>();
+            if (isMobile && listaDetalle.Count == 0)
+            {
+                var inserto = AgregarCuvsAutomatico();
+                if (inserto) listaDetalle = ObtenerPedidoWebSetDetalleAgrupado() ?? new List<BEPedidoWebDetalle>();
+            }
+            return listaDetalle;
         }
 
         #region Parametria Oferta Final
@@ -4111,14 +4130,23 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var f = false;
+                if (!userData.ConfigPremioProgNuevas.MostrarRegaloOF) return ErrorJson("OK", true);
 
-                var model = userData.ConsultoraRegaloProgramaNuevas;
-                if (model != null) f = true;
+                var listPremioElec = userData.ConfigPremioProgNuevas.ListPremioElec;
+                PremioProgNuevasModel premio;
 
+                if (listPremioElec != null && listPremioElec.Any())
+                {
+                    var listDetalle = ObtenerPedidoWebDetalle();
+                    premio = listPremioElec.FirstOrDefault(pe => listDetalle.Any(d => pe.Cuv == d.CUV));
+                    if (premio == null) premio = listPremioElec.First();
+                }
+                else premio = userData.ConfigPremioProgNuevas.PremioAuto;
+
+                var model = _programaNuevasProvider.GetConsultoraRegaloProgNuevasOF(premio);
                 return Json(new
                 {
-                    success = f,
+                    success = model != null,
                     message = "OK",
                     data = model,
                 }, JsonRequestBehavior.AllowGet);
@@ -4608,6 +4636,21 @@ namespace Portal.Consultoras.Web.Controllers
         //}
 
         #endregion
+
+        public JsonResult CargarPremiosElectivos()
+        {
+            var premios = _programaNuevasProvider.GetListPremioElectivo();
+
+            var details = ObtenerPedidoWebSetDetalleAgrupado(true) ?? new List<BEPedidoWebDetalle>();
+
+            var selected = premios.FirstOrDefault(c => details.Any(d => c.CUV2 == d.CUV));
+
+            return Json(new
+            {
+                lista = premios,
+                selected
+            }, JsonRequestBehavior.AllowGet);
+        }
 
         private Enumeradores.ValidacionProgramaNuevas ValidarProgramaNuevas(string cuv)
         {

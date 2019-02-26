@@ -490,6 +490,27 @@ $(document).ready(function () {
 
     LayoutMenu();
 
+    var myvar = setInterval(myTimer, 1000);
+    var cont = 0;
+    function myTimer()
+    {
+        if (cont <= 5) {
+            cont++;
+            if (document.getElementById('divListaEstrategias').style.display == 'none')
+            {
+                MostrarBarra();
+                clearInterval(myvar);
+            }
+             
+        } 
+        else
+            clearInterval(myvar);
+                 
+    }
+ 
+  
+
+
     $("#observaciones_alerta").dialog({
         modal: true,
         draggable: false,
@@ -873,7 +894,9 @@ function ValidarStockEstrategia() {
 //                    $("#hdErrorInsertarProducto").val(response.errorInsertarProducto);
 
 //                    tieneMicroefecto = true;
+//                    var prevTotal = mtoLogroBarra;
 //                    MostrarBarra(response);
+//					  showPopupNivelSuperado(response.DataBarra, prevTotal);
 //                    if (response.modificoBackOrder) showDialog("divBackOrderModificado");
 //                    CargarDetallePedido();
 //                    $("#pCantidadProductosPedido").html(response.cantidadTotalProductos > 0 ? response.cantidadTotalProductos : 0);
@@ -2542,7 +2565,9 @@ function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion
 
             CalcularTotalPedido(data.Total, data.Total_Minimo);
 
+            var prevTotal = mtoLogroBarra;
             MostrarBarra(data);
+            showPopupNivelSuperado(data.DataBarra, prevTotal);
 
             $("#pCantidadProductosPedido").html(data.cantidadTotalProductos > 0 ? data.cantidadTotalProductos : 0);
             microefectoPedidoGuardado();
@@ -2651,7 +2676,9 @@ function UpdateCliente(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CU
             totalUnidades = totalUnidades - parseInt(CantidadAnti) + parseInt(Cantidad);
             $("#pCantidadProductosPedido").html(totalUnidades);
 
+            var prevTotal = mtoLogroBarra;
             MostrarBarra(data);
+            showPopupNivelSuperado(data.DataBarra, prevTotal);
             if (data.modificoBackOrder) {
                 showDialog("divBackOrderModificado");
             }
@@ -2841,7 +2868,9 @@ function UpdateCliente(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CU
 //                                else if (diferenciaCantidades < 0)
 //                                    TrackingJetloreRemove((diferenciaCantidades * -1).toString(), $("#hdCampaniaCodigo").val(), CUV);
 
+//								  var prevTotal = mtoLogroBarra;
 //                                MostrarBarra(data);
+//                                showPopupNivelSuperado(data.DataBarra, prevTotal);
 //                                CargarResumenCampaniaHeader();
 //                                if (data.modificoBackOrder) {
 //                                    showDialog("divBackOrderModificado");
@@ -3013,7 +3042,9 @@ function UpdateCliente(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CU
 //                                    else if (diferenciaCantidades < 0)
 //                                        TrackingJetloreRemove((diferenciaCantidades * -1).toString(), $("#hdCampaniaCodigo").val(), CUV);
 
+//                                    var prevTotal = mtoLogroBarra;
 //                                    MostrarBarra(data);
+//                                    showPopupNivelSuperado(data.DataBarra, prevTotal);
 //                                    CargarResumenCampaniaHeader();
 //                                    if (data.modificoBackOrder) {
 //                                        showDialog("divBackOrderModificado");
@@ -3263,7 +3294,9 @@ function CambioPagina(obj) {
 //            $("#pCantidadProductosPedido").html(data.cantidadTotalProductos > 0 ? data.cantidadTotalProductos : 0);
 //            microefectoPedidoGuardado();
 //            if (cerrarSplash) CerrarSplash();
+//            var prevTotal = mtoLogroBarra;
 //            MostrarBarra(data);
+//            showPopupNivelSuperado(data.DataBarra, prevTotal);
 //            TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);
 
 //            retorno = data;

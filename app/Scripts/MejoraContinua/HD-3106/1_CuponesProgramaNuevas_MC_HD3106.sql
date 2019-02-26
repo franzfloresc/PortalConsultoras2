@@ -1,0 +1,3 @@
+-- ODS
+IF COL_LENGTH('dbo.CuponesProgramaNuevas', 'IND_CUPO_ELEC') IS NULL
+	ALTER TABLE dbo.CuponesProgramaNuevas ADD IND_CUPO_ELEC BIT NULL, INC_CUPO_ELEC_DEFA BIT NULL;

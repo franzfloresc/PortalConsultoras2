@@ -392,11 +392,32 @@ var EstrategiaAgregarModule = (function () {
                     }
 
                 }
+                var barraJsLoaded = typeof MostrarBarra === 'function';
+
+                if (barraJsLoaded) {
+                    var destino = isPagina('pedido') ? '2': '1';
+                    var prevTotal = mtoLogroBarra || 0;
+                    var issetPopupPremio = $("#popupPremio").length > 0;
+
+                    if ($("#divBarra").length > 0) {
+                        MostrarBarra(data, destino); //OG
+
+                        if (issetPopupPremio) {
+                            showPopupNivelSuperado(data.DataBarra, prevTotal);
+                        } else {
+                            addPremioDefaultSuperado(data.DataBarra, prevTotal);
+                        }
+                    } else {
+                        ActualizarGanancia(data.DataBarra);
+                        calcMtoLogro(data, destino);
+                        addPremioDefaultSuperado(data.DataBarra, prevTotal);
+                    }
+                }
 
                 if (isMobile()) {
-                    ActualizarGanancia(data.DataBarra);
                     CargarCantidadProductosPedidos(true);
                     microefectoPedidoGuardado();
+
                 } else {
                     CargarResumenCampaniaHeader(true);
                 }
@@ -412,8 +433,9 @@ var EstrategiaAgregarModule = (function () {
                 }
 
                 if (tipoOrigenEstrategiaAux == 1) {
-                    if (typeof MostrarBarra != constantes.undefined())
+                    if (typeof MostrarBarra != constantes.undefined()) {
                         MostrarBarra(data, "1");
+                    }
 
                     if (estrategia.CodigoEstrategia == ConstantesModule.ConstantesPalanca.PackNuevas) {
                         if (typeof CargarCarouselEstrategias != constantes.undefined())
@@ -426,7 +448,8 @@ var EstrategiaAgregarModule = (function () {
                                 CargarCarouselMasVendidos("desktop");
                         }
                     }
-                } else if (tipoOrigenEstrategiaAux == 11) {
+                }
+                else if (tipoOrigenEstrategiaAux == 11) {
 
                     $(elementosDiv.hdErrorInsertarProducto).val(data.errorInsertarProducto);
 
@@ -437,8 +460,9 @@ var EstrategiaAgregarModule = (function () {
                     }
                     HideDialog(elementosDiv.divVistaPrevia.substring(1));
                     CargarDetallePedido();
+                    var previousTotal = mtoLogroBarra || 0;
                     MostrarBarra(data);
-
+                    showPopupNivelSuperado(data.DataBarra, previousTotal);
                 } else if (tipoOrigenEstrategiaAux == 2 ||
                     tipoOrigenEstrategiaAux == 21 ||
                     tipoOrigenEstrategiaAux == 22 ||
@@ -532,7 +556,7 @@ var EstrategiaAgregarModule = (function () {
             .fail(function (data, error) {
                 CerrarLoad();
             });
-
+        
         return false;
     };
 
