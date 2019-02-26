@@ -1,11 +1,16 @@
 ﻿<script id="lista-opciones-template" type="text/x-handlebars-template">
     {{#each this.Hermanos as |componente|}}
     {{#IsNullOrEmpty componente.NombreBulk '!='}}
-    <ul class="selecion_item list-inline">
+    <ul {{#if TieneStock}}
+        class="selecion_item list-inline"
+        {{else}}
+        class="selecion_item list-inline tono_agotado_modal"
+        {{/if}}>
         <li class="seleccion_img"><img src="{{componente.ImagenBulk}}" alt=""></li>
         <li class="seleccion_title">{{#Substr 35 componente.NombreBulk}}{{/Substr}}</li>
         {{#iff this.FactorCuadre '==' '1'}}
         {{#iff componente.cantidadSeleccionada '==' '0'}}
+        {{#if TieneStock}}
         <li class="seleccion_btn" id="li-eligelo-{{componente.Cuv}}">
             <button id="btn-eligelo-{{componente.Cuv}}"
                     {{#if ../esCampaniaSiguiente}}
@@ -20,6 +25,15 @@
             </button>
         </li>
         {{else}}
+        <li class="seleccion_btn seleccion_btn_gotado" id="li-eligelo-{{componente.Cuv}}">
+            <button id="btn-eligelo-{{componente.Cuv}}">
+                Agotado
+            </button>
+        </li>
+        {{/if}}
+        {{else}}
+
+        {{#if TieneStock}}
         <li class="seleccion_btn" id="li-eligelo-{{componente.Cuv}}">
             <button id="btn-eligelo-{{componente.Cuv}}"
                     class="active"
@@ -27,8 +41,18 @@
                 Elegido
             </button>
         </li>
+        {{else}}
+        <li class="seleccion_btn seleccion_btn_gotado" id="li-eligelo-{{componente.Cuv}}">
+            <button id="btn-eligelo-{{componente.Cuv}}">
+                Agotado
+            </button>
+        </li>
+        {{/if}}
+
         {{/iff}}
         {{else}}
+
+        {{#if TieneStock}}
         <li class="seleccion_btn"
             id="li-eligelo-{{componente.Cuv}}"
             {{#iff componente.cantidadSeleccionada '!=' '0'}}
@@ -46,6 +70,14 @@
                 Elígelo
             </button>
         </li>
+        {{else}}
+        <li class="seleccion_btn seleccion_btn_gotado" id="li-eligelo-{{componente.Cuv}}">
+            <button id="btn-eligelo-{{componente.Cuv}}">
+                Agotado
+            </button>
+        </li>
+        {{/if}}
+
         <li class="seleccion_btn seleccion_cantidad" id="li-cantidad-opciones-{{componente.Cuv}}"
             {{#iff componente.cantidadSeleccionada '==' '0'}}
             style="display:none"
