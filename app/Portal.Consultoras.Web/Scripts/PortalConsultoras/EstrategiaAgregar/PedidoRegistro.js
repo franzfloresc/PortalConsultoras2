@@ -1003,7 +1003,7 @@ var PedidoRegistroModule = function () {
                 ConfiguracionOfertaID: $("#hdConfiguracionOfertaID").val(),
                 ClienteID: $("#txtClienteId").val(),
                 ClienteDescripcion: $("#txtClienteNombre").val(),
-                EnRangoProgramaNuevas: cuvEsProgNuevas
+                EsCuponNuevas: cuvEsCuponNuevas
             };
 
         } else {
@@ -1018,7 +1018,7 @@ var PedidoRegistroModule = function () {
                 TipoOfertaSisID: $("#hdTipoOfertaSisID").val(),
                 IndicadorMontoMinimo: $("#hdfIndicadorMontoMinimo").val(),
                 TipoEstrategiaImagen: 2,
-                EnRangoProgramaNuevas: cuvEsProgNuevas
+                EsCuponNuevas: cuvEsCuponNuevas
             };
         }
 
@@ -1148,7 +1148,7 @@ var PedidoRegistroModule = function () {
         //    PrecioUnidad: 0,
         //    Cantidad: cantidadSol,
         //    TipoOferta: 0,
-        //    enRangoProgNuevas: cuvEsProgNuevas
+        //    esCuponNuevas: cuvEsCuponNuevas
         //};
 
         //jQuery.ajax({
@@ -1196,7 +1196,7 @@ var PedidoRegistroModule = function () {
             IndicadorMontoMinimo: $("#hdfIndicadorMontoMinimo").val(),
             TipoEstrategiaImagen: tipoEstrategiaImagen || 0,
             EsOfertaIndependiente: $("#hdEsOfertaIndependiente").val(),
-            EnRangoProgramaNuevas: cuvEsProgNuevas
+            EsCuponNuevas: cuvEsCuponNuevas
         };
 
         AbrirSplash();
@@ -1436,7 +1436,7 @@ var PedidoRegistroModule = function () {
 }();
 
 
-function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi, setId, enRangoProgNuevas) {
+function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi, setId, esCuponNuevas) {
     var rowElement = $(event.target).closest(".contenido_ingresoPedido");
     var txtLPCant = $(rowElement).find(".txtLPCant");
     var txtLPTempCant = $(rowElement).find(".txtLPTempCant");
@@ -1507,7 +1507,7 @@ function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfe
         TipoOfertaSisID: TipoOfertaSisID || 0,
         TipoEstrategiaID: TipoOfertaSisID || 0,
         CUV: CUV,
-        enRangoProgNuevas: enRangoProgNuevas
+        EsCuponNuevas: esCuponNuevas
     };
 
     //AbrirSplash();
