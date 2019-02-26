@@ -20,11 +20,11 @@ namespace Portal.Consultoras.Web.Models.AdministrarEstrategia
     public class EstrategiaGrupoModel
     { 
         public string _id { get; set; }
-       
-        public int EstrategiaId { get; set; }
-     
+
         public int EstrategiaGrupoId { get; set; }
-       
+
+        public string _idEstrategia { get; set; }
+      
         public string Grupo { get; set; }
      
         public string DescripcionSingular { get; set; }

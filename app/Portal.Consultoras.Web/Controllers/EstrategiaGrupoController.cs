@@ -30,17 +30,11 @@ namespace Portal.Consultoras.Web.Controllers
                 var userData = SessionManager.GetUserData();
 
                 Task<bool> taskapi = null;
-
-                if (datos.FindAll(x => x.EstrategiaGrupoId != 0).Count == 0)
+                if (datos.Count > 0)
                 {
-                    taskapi = Task.Run(() => EstrategiaGrupoProvide.InsertarGrupoEstrategiaApi(Constantes.PersonalizacionOfertasService.UrlInsertEstrategiaGrupo, datos, userData));                   
+                    taskapi = Task.Run(() => EstrategiaGrupoProvide.InsertarGrupoEstrategiaApi(Constantes.PersonalizacionOfertasService.UrlGuardarEstrategiaGrupo, datos, userData));
+                    Task.WhenAll(taskapi);
                 }
-                else
-                {
-                    taskapi = Task.Run(() => EstrategiaGrupoProvide.ActualizarGrupoEstrategiaApi(Constantes.PersonalizacionOfertasService.UrlUpdateEstrategiaGrupo, datos, userData));                  
-                }
-
-                Task.WhenAll(taskapi);
                 respuesta = taskapi.Result;
             }
 
@@ -48,38 +42,69 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         //Basado en 'AdministrarShowRoomController/ConsultarOfertaShowRoomDetalleNew'
-        public JsonResult ConsultarDetalleEstrategiaGrupo(int estrategiaId)
+        public JsonResult ConsultarDetalleEstrategiaGrupo(string estrategiaId)
         {
-            IEnumerable<Models.AdministrarEstrategia.EstrategiaGrupoModel> res = null;
+            IEnumerable<Models.AdministrarEstrategia.EstrategiaGrupoModel> grupos = null;
             var userData = SessionManager.GetUserData();
-            if (ModelState.IsValid)
+
+
+            //if (ModelState.IsValid)
+            //{
+            //    List<ServicePedido.BEEstrategiaProducto> lst;
+            //    var estrategiaX = new ServicePedido.BEEstrategia() { PaisID = userData.PaisID, EstrategiaID = estrategiaId };
+
+            //    using (var sv = new ServicePedido.PedidoServiceClient())
+            //    {
+            //        lst = sv.GetEstrategiaProducto(estrategiaX).ToList();
+            //    }
+
+            //    var distinct = (from item in lst select new { EstrategiaId = item.EstrategiaID, Grupo = item.Grupo, }).Distinct();
+
+            //    res = (from item in distinct select new Models.AdministrarEstrategia.EstrategiaGrupoModel { _idEstrategia = estrategiaId, EstrategiaGrupoId = 0, Grupo = item.Grupo, DescripcionSingular = string.Empty, DescripcionPlural = string.Empty });
+            //}
+
+
+            //INI AGANA 244
+
+            //Estrategia gruepo
+
+            var taskApi = Task.Run(() => EstrategiaGrupoProvide.ObtenerEstrategiaGrupoApi(string.Format(Constantes.PersonalizacionOfertasService.UrlGetEstrategiaGrupoByEstrategiaId, userData.CodigoISO, estrategiaId), userData));
+            Task.WhenAll(taskApi);
+            var estrategiaGrupoLista = taskApi.Result;
+
+            //Estrategia y sus componentes
+            List<ServicePedido.BEEstrategiaProducto> lst = new List<ServicePedido.BEEstrategiaProducto>();
+
+
+            List<EstrategiaMDbAdapterModel> lstEstrategia = administrarEstrategiaProvider.FiltrarEstrategia(estrategiaId.ToString(), userData.CodigoISO).ToList();
+
+
+            var distinct = (from item in lst select new { EstrategiaId = estrategiaId, Grupo = item.Grupo }).Distinct();
+            grupos = (from item in distinct
+                      select new Models.AdministrarEstrategia.EstrategiaGrupoModel
+                      { _idEstrategia = estrategiaId, EstrategiaGrupoId = 0, Grupo = item.Grupo, DescripcionSingular = string.Empty, DescripcionPlural = string.Empty }).ToList();
+
+            //mapear campos
+            if (estrategiaGrupoLista != null)
             {
-                List<ServicePedido.BEEstrategiaProducto> lst;
-                var estrategiaX = new ServicePedido.BEEstrategia() { PaisID = userData.PaisID, EstrategiaID = estrategiaId };
-
-                using (var sv = new ServicePedido.PedidoServiceClient())
+                foreach (var item in grupos)
                 {
-                    lst = sv.GetEstrategiaProducto(estrategiaX).ToList();
+                    int index = estrategiaGrupoLista.Result.ToList().FindIndex(x => x.Grupo.Equals(item.Grupo));
+                    if (index != -1)
+                    {
+                        item.DescripcionSingular = estrategiaGrupoLista.Result.ToList()[index].DescripcionSingular;
+                        item.DescripcionPlural = estrategiaGrupoLista.Result.ToList()[index].DescripcionPlural;
+                    }
                 }
-
-                var distinct = (from item in lst select new { EstrategiaId = item.EstrategiaID, Grupo = item.Grupo, }).Distinct();
-
-                res = (from item in distinct select new Models.AdministrarEstrategia.EstrategiaGrupoModel { EstrategiaId = item.EstrategiaId, EstrategiaGrupoId = 0, Grupo = item.Grupo, DescripcionSingular = string.Empty, DescripcionPlural = string.Empty });
             }
+             
+            //END AGANA 244
 
-            //Código para setear desde mongo
 
-            //Estrategia
-            List<EstrategiaMDbAdapterModel>  lstEstrategia =administrarEstrategiaProvider.FiltrarEstrategia(estrategiaId.ToString(), userData.CodigoISO).ToList();
 
-            //EstrategiaGrupo
-            //string pathMS = string.Format(Constantes.PersonalizacionOfertasService.UrlGetEstrategiaGrupoByEstrategiaId, userData.CodigoISO, estrategiaId);
 
-            //var taskApi = Task.Run(() => EstrategiaGrupoProvide.ObtenerEstrategiaGrupoApi(pathMS, userData));
-            //Task.WhenAll(taskApi);
-            //var dd = taskApi.Result;
 
-            return Json(res, JsonRequestBehavior.AllowGet);
+            return Json(grupos, JsonRequestBehavior.AllowGet);
         }
     }
 }

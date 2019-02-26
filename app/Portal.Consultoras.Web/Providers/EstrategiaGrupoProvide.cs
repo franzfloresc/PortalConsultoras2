@@ -68,46 +68,7 @@ namespace Portal.Consultoras.Web.Providers
              
             return respuesta.Success;
         }
-
-        public static async Task<bool> ActualizarGrupoEstrategiaApi(string path, List<EstrategiaGrupoModel> datos, UsuarioModel userData)
-        {
-            OutputEstrategiaGrupo respuesta = new OutputEstrategiaGrupo { Success = false };
-
-            EstrategiaGrupoRequest prm = new EstrategiaGrupoRequest();
-            /*prm.pais = userData.PaisID.ToString();
-            prm.estrategiaId = datos[0].EstrategiaId.ToString();*/
-            prm.lstEstrategiaGrupo = datos;
-            string prmfinal = Newtonsoft.Json.JsonConvert.SerializeObject(prm).ToString();
-            HttpResponseMessage httpResponse = await httpClient.PutAsync(
-                path + "/" + userData.CodigoISO + "/" + datos[0].EstrategiaId.ToString(),
-                new StringContent(prmfinal,
-                Encoding.UTF8,
-                "application/json"));
-
-            if (!httpResponse.IsSuccessStatusCode)
-            {
-                return respuesta.Success;
-            }
-
-            string jsonString = await httpResponse.Content.ReadAsStringAsync();
-
-            try
-            {
-                respuesta = JsonConvert.DeserializeObject<OutputEstrategiaGrupo>(jsonString);
-            }
-            catch (Exception ex)
-            {
-                Common.LogManager.SaveLog(ex, string.Empty, userData.CodigoISO);
-            }
-
-            if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
-            {
-                Common.LogManager.SaveLog(new Exception(respuesta.Message), string.Empty, userData.CodigoISO);
-            }
-
-            return respuesta.Success;
-        }
-
+  
         public static async Task<OutputEstrategiaGrupo> ObtenerEstrategiaGrupoApi(string path, UsuarioModel userData)
         {
             OutputEstrategiaGrupo respuesta = new OutputEstrategiaGrupo();

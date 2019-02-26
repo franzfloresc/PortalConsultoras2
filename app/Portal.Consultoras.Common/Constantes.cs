@@ -2958,6 +2958,12 @@ namespace Portal.Consultoras.Common
             /// </summary>        
             public const string UrlInsertEstrategiaGrupo = "api/EstrategiaGrupo";
 
+
+            /// <summary>
+            /// api/EstrategiaGrupo/{pais}/{estrategiaId}
+            /// </summary>        
+            public const string UrlGuardarEstrategiaGrupo = "api/EstrategiaGrupo/Guardar";
+
             /// <summary>
             /// api/EstrategiaGrupo/{pais}/{estrategiaId}
             /// </summary>        
