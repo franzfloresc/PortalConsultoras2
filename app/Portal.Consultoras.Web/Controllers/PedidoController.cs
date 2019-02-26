@@ -690,32 +690,32 @@ namespace Portal.Consultoras.Web.Controllers
         //    pedidoWebDetalleModel.TipoObservacion = pedidoWebDetalle.TipoObservacion;
         //}
 
-        private object InsertarMensajeValidarDatos(string clienteIdStr)
-        {
-            if (string.IsNullOrEmpty(clienteIdStr))
-                return null;
+        //private object InsertarMensajeValidarDatos(string clienteIdStr)
+        //{
+        //    if (string.IsNullOrEmpty(clienteIdStr))
+        //        return null;
 
-            var clienteId = Convert.ToInt32(clienteIdStr);
+        //    var clienteId = Convert.ToInt32(clienteIdStr);
 
-            if (clienteId > 0)
-            {
-                using (var service = new ClienteServiceClient())
-                {
-                    var cliente = service.SelectByConsultoraByCodigo(userData.PaisID, userData.ConsultoraID, clienteId, 0);
-                    if (cliente.TieneTelefono == 0)
-                    {
-                        return new
-                        {
-                            success = false,
-                            message = "Debe actualizar los datos del cliente.",
-                            errorCliente = true
-                        };
-                    }
-                }
-            }
+        //    if (clienteId > 0)
+        //    {
+        //        using (var service = new ClienteServiceClient())
+        //        {
+        //            var cliente = service.SelectByConsultoraByCodigo(userData.PaisID, userData.ConsultoraID, clienteId, 0);
+        //            if (cliente.TieneTelefono == 0)
+        //            {
+        //                return new
+        //                {
+        //                    success = false,
+        //                    message = "Debe actualizar los datos del cliente.",
+        //                    errorCliente = true
+        //                };
+        //            }
+        //        }
+        //    }
 
-            return null;
-        }
+        //    return null;
+        //}
 
         //private object InsertarValidarKitInicio(string cuv)
         //{
