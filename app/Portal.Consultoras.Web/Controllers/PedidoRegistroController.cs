@@ -333,6 +333,7 @@ namespace Portal.Consultoras.Web.Controllers
             await PedidoAgregarProductoTransaction(new PedidoCrudModel
             {
                 CUV = premioDefault.CUV2,
+                TipoEstrategiaID = premioDefault.TipoEstrategiaID,
                 Cantidad = "1",
                 FlagNueva = "1"
             });

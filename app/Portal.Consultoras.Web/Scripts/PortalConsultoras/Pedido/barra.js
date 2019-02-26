@@ -2639,7 +2639,7 @@ function AgregarPremio(premio) {
         //CuvTonos: $.trim(cuvs),
         CUV: $.trim(premio.CUV2),
         Cantidad: 1,
-        //TipoEstrategiaID: premio.TipoEstrategiaID,
+        TipoEstrategiaID: premio.TipoEstrategiaID,
         //EstrategiaID: $.trim(premio.EstrategiaID),
         //OrigenPedidoWeb: $.trim(origenPedidoWebEstrategia),
         //TipoEstrategiaImagen: 0,
