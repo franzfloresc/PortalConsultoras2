@@ -1,0 +1,8 @@
+1.- PortalConsultoras2
+	Actualizar:
+		<add key="PaisesMicroservicioPersonalizacion" value="PE,CL,CR,CO,MX,EC,BO" />
+
+2.- Microservicios
+	Sync
+	Actualizar:
+		"Paises": "PE,CL,CO,CR,MX,EC,BO",
