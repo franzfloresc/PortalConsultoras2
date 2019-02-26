@@ -1,0 +1,4 @@
+1.SB2 WCF
+	Agregar:
+		<add key="ServicioDireccionEntregaSicc" value="http://pelnx2044:7003/ssiccclespdp/services/ProcesoMAEActualizarDireccionEntregaWebService?wsdl"/> (Diferente en PRD)
+		<add key="ServicioActualizarBoletaImp" value="http://pelnx2044:7003/ssiccclespdp/services/ProcesoMAEActualizaFlagImpBoletasWebService?wsdl"/> (Diferente en PRD)
