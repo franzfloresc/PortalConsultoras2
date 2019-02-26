@@ -31,6 +31,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             if (userData != null)
             {
+                _showRoomProvider.CargarEventoPersonalizacion(userData);
+                configEstrategiaSR = SessionManager.GetEstrategiaSR();
                 model.BEShowRoom = configEstrategiaSR.BeShowRoom;
                 zonaHoraria = userData.ZonaHoraria;
                 fechaInicioCampania = userData.FechaInicioCampania;

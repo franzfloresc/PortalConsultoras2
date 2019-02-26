@@ -3401,14 +3401,6 @@ namespace Portal.Consultoras.Common
                     limiteMinimoTelef = 7;
                     limiteMaximoTelef = 9;
                     break;
-                //case Constantes.PaisID.Mexico:
-                //    limiteMinimoTelef = 5;
-                //    limiteMaximoTelef = 10;
-                //    break;
-                //case Constantes.PaisID.Ecuador:
-                //    limiteMinimoTelef = 5;
-                //    limiteMaximoTelef = 10;
-                //    break;
                 case Constantes.PaisID.Chile:
                     limiteMinimoTelef = 5;
                     limiteMaximoTelef = 9;
@@ -3420,22 +3412,6 @@ namespace Portal.Consultoras.Common
                     limiteMinimoTelef = 5;
                     limiteMaximoTelef = 10;
                     break;
-                //case Constantes.PaisID.Bolivia:
-                //    limiteMinimoTelef = 5;
-                //    limiteMaximoTelef = 8;
-                //    break;
-                //case Constantes.PaisID.Guatemala:
-                //    limiteMinimoTelef = 5;
-                //    limiteMaximoTelef = 8;
-                //    break;
-                //case Constantes.PaisID.ElSalvador:
-                //    limiteMinimoTelef = 5;
-                //    limiteMaximoTelef = 8;
-                //    break;
-                //case Constantes.PaisID.Panama:
-                //    limiteMinimoTelef = 5;
-                //    limiteMaximoTelef = 8;
-                //    break;
                 case Constantes.PaisID.Bolivia:
                 case Constantes.PaisID.Guatemala:
                 case Constantes.PaisID.ElSalvador:
@@ -3674,12 +3650,13 @@ namespace Portal.Consultoras.Common
         }
 
         public static string obtenerNuevaDescripcionProductoDetalle(int ofertaId, bool pedidoValidado,
-            bool consultoraOnline, int origenPedido, Dictionary<string, string> lista, bool suscripcion,
-            string tipoEstrategiaCodigo, int marcaId, int codigoCatalogo, string descripcion)
+            bool consultoraOnline, int origenPedido, Dictionary<string, string> lista, bool suscripcion, string tipoEstrategiaCodigo,
+            int marcaId, int codigoCatalogo, string descripcion, bool esCuponNuevas, bool EsElecMultipleNuevas)
         {
+            if (EsElecMultipleNuevas) return lista[Constantes.NuevoCatalogoProducto.ESELECMULTIPLENUEVAS];
+            if (esCuponNuevas) return lista[Constantes.NuevoCatalogoProducto.ESCUPONNUEVAS];
+
             var result = "";
-
-
             if (pedidoValidado)
             {
                 result = obtenerNuevaDescripcionProducto(lista, suscripcion, "", tipoEstrategiaCodigo, marcaId, codigoCatalogo);
@@ -3710,10 +3687,7 @@ namespace Portal.Consultoras.Common
             }
             else
             {
-                if (consultoraOnline)
-                {
-                    result = "CLIENTE ONLINE";
-                }
+                if (consultoraOnline) result = "CLIENTE ONLINE";
                 else
                 {
                     switch (origenPedido)

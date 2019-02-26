@@ -221,7 +221,6 @@
 
         $("#cancelarFile").click(function () {
             HideDialog("popFormImagen");
-            //$('#popFormImagen').dialog("close");
             $('#verImagen').attr('src', '@Url.Content("~/Content/Images/prod_grilla_vacio.png")');
             $("#tipoImagen").val('');
             $('#ImagenActualizar').val("");
@@ -258,7 +257,6 @@
                 var ImagenId = $('#ImagenId').val();
                 var ImagenActualizar = $('#ImagenActualizar').val();
                 HideDialog("popFormImagen");
-                //$('#popFormImagen').dialog("close");
                 GuardarImagen(PaisId, CampaniaID, tipoMantenimiento, ImagenId, ImagenActualizar);
                 $('#ImagenActualizar').val("");
             } else if ($('#verImagen').attr("src") == '@Url.Content("~/Content/Images/prod_grilla_vacio.png")') {
@@ -271,7 +269,6 @@
                 alert("Debe seleccionar país y campaña");
             } else if ($('#ImagenActualizar').val() == "") {
                 HideDialog("popFormImagen");
-                //$('#popFormImagen').dialog("close");
             }
         });
 
