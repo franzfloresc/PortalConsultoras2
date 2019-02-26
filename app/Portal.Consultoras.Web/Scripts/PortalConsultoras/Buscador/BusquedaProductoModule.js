@@ -26,7 +26,7 @@
         scriptHandleBarCriterios: '#js-labelCriteriosFiltros',
         redireccionarFicha: '.redireccionarFicha',
         dataToggle: '[data-toggle]',
-        enlaceLimpiarEtiquetasFiltros: '.enlace__limpiar__filtros, .filtro__btn--limpiar',
+        enlaceLimpiarEtiquetasFiltros: 'a.enlace__limpiar__filtros, button.filtro__btn--limpiar',
         buscadorFiltrosSeleccionar: '.buscadorFiltrosSeleccionar',
         preCargaFiltros: '.layout__precarga--actualizacionFiltros',
         criteriosBuscadorMobile: '.criteriosBuscadorMobile',
@@ -556,8 +556,8 @@
         LimpiarFiltros: function () {
             $(_elementos.filtroCheckbox).removeAttr('checked');
 
-            if (!(typeof AnalyticsPortalModule === 'undefined'))
-                AnalyticsPortalModule.MarcaLimpiarFiltros();
+            //if (!(typeof AnalyticsPortalModule === 'undefined'))
+            //    AnalyticsPortalModule.MarcaLimpiarFiltros();
 
         },
         ScrollCargarProductos: function () {
