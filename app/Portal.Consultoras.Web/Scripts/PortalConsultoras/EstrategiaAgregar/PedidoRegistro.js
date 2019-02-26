@@ -56,7 +56,9 @@ var PedidoRegistroModule = function () {
     };
 
     var _mensajeRespuestaError = function (data) {
-        if (data.success == true) {
+        if (data.success == true) return false;
+        if (!IsNullOrEmpty(data.mensajeAviso)) {
+            AbrirMensaje(data.mensajeAviso, data.tituloMensaje);
             return false;
         }
 
