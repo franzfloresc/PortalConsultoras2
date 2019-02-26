@@ -1,225 +1,313 @@
 ﻿USE BelcorpPeru
 GO
 
-INSERT INTO dbo.TablaLogicaDatos (
-	TablaLogicaDatosID
-	,TablaLogicaID
-	,Codigo
-	,Descripcion
-	,Valor
-	)
-VALUES (
-	16000
-	,180
-	,'01'
-	,'Tiempo máximo de demora sp'
-	,'300'
-	);
+IF NOT EXISTS (
+		SELECT *
+		FROM dbo.TablaLogicaDatos
+		WHERE TablaLogicaID = 180
+		)
+BEGIN
+	INSERT INTO dbo.TablaLogicaDatos (
+		TablaLogicaDatosID
+		,TablaLogicaID
+		,Codigo
+		,Descripcion
+		,Valor
+		)
+	VALUES (
+		16000
+		,180
+		,'01'
+		,'Tiempo máximo de demora sp'
+		,'300'
+		);
+END
 GO
 
 USE BelcorpBolivia
 GO
 
-INSERT INTO dbo.TablaLogicaDatos (
-	TablaLogicaDatosID
-	,TablaLogicaID
-	,Codigo
-	,Descripcion
-	,Valor
-	)
-VALUES (
-	16000
-	,180
-	,'01'
-	,'Tiempo máximo de demora sp'
-	,'300'
-	);
+IF NOT EXISTS (
+		SELECT *
+		FROM dbo.TablaLogicaDatos
+		WHERE TablaLogicaID = 180
+		)
+BEGIN
+	INSERT INTO dbo.TablaLogicaDatos (
+		TablaLogicaDatosID
+		,TablaLogicaID
+		,Codigo
+		,Descripcion
+		,Valor
+		)
+	VALUES (
+		16000
+		,180
+		,'01'
+		,'Tiempo máximo de demora sp'
+		,'300'
+		);
+END
 GO
 
 USE BelcorpChile
 GO
 
-INSERT INTO dbo.TablaLogicaDatos (
-	TablaLogicaDatosID
-	,TablaLogicaID
-	,Codigo
-	,Descripcion
-	,Valor
-	)
-VALUES (
-	16000
-	,180
-	,'01'
-	,'Tiempo máximo de demora sp'
-	,'300'
-	);
+IF NOT EXISTS (
+		SELECT *
+		FROM dbo.TablaLogicaDatos
+		WHERE TablaLogicaID = 180
+		)
+BEGIN
+	INSERT INTO dbo.TablaLogicaDatos (
+		TablaLogicaDatosID
+		,TablaLogicaID
+		,Codigo
+		,Descripcion
+		,Valor
+		)
+	VALUES (
+		16000
+		,180
+		,'01'
+		,'Tiempo máximo de demora sp'
+		,'300'
+		);
+END
 GO
 
 USE BelcorpColombia
 GO
 
-INSERT INTO dbo.TablaLogicaDatos (
-	TablaLogicaDatosID
-	,TablaLogicaID
-	,Codigo
-	,Descripcion
-	,Valor
-	)
-VALUES (
-	16000
-	,180
-	,'01'
-	,'Tiempo máximo de demora sp'
-	,'300'
-	);
+IF NOT EXISTS (
+		SELECT *
+		FROM dbo.TablaLogicaDatos
+		WHERE TablaLogicaID = 180
+		)
+BEGIN
+	INSERT INTO dbo.TablaLogicaDatos (
+		TablaLogicaDatosID
+		,TablaLogicaID
+		,Codigo
+		,Descripcion
+		,Valor
+		)
+	VALUES (
+		16000
+		,180
+		,'01'
+		,'Tiempo máximo de demora sp'
+		,'300'
+		);
+END
 GO
 
 USE BelcorpGuatemala
 GO
 
-INSERT INTO dbo.TablaLogicaDatos (
-	TablaLogicaDatosID
-	,TablaLogicaID
-	,Codigo
-	,Descripcion
-	,Valor
-	)
-VALUES (
-	16000
-	,180
-	,'01'
-	,'Tiempo máximo de demora sp'
-	,'300'
-	);
+IF NOT EXISTS (
+		SELECT *
+		FROM dbo.TablaLogicaDatos
+		WHERE TablaLogicaID = 180
+		)
+BEGIN
+	INSERT INTO dbo.TablaLogicaDatos (
+		TablaLogicaDatosID
+		,TablaLogicaID
+		,Codigo
+		,Descripcion
+		,Valor
+		)
+	VALUES (
+		16000
+		,180
+		,'01'
+		,'Tiempo máximo de demora sp'
+		,'300'
+		);
+END
 GO
 
 USE BelcorpMexico
 GO
 
-INSERT INTO dbo.TablaLogicaDatos (
-	TablaLogicaDatosID
-	,TablaLogicaID
-	,Codigo
-	,Descripcion
-	,Valor
-	)
-VALUES (
-	16000
-	,180
-	,'01'
-	,'Tiempo máximo de demora sp'
-	,'300'
-	);
+IF NOT EXISTS (
+		SELECT *
+		FROM dbo.TablaLogicaDatos
+		WHERE TablaLogicaID = 180
+		)
+BEGIN
+	INSERT INTO dbo.TablaLogicaDatos (
+		TablaLogicaDatosID
+		,TablaLogicaID
+		,Codigo
+		,Descripcion
+		,Valor
+		)
+	VALUES (
+		16000
+		,180
+		,'01'
+		,'Tiempo máximo de demora sp'
+		,'300'
+		);
+END
 GO
 
 USE BelcorpCostaRica
 GO
 
-INSERT INTO dbo.TablaLogicaDatos (
-	TablaLogicaDatosID
-	,TablaLogicaID
-	,Codigo
-	,Descripcion
-	,Valor
-	)
-VALUES (
-	16000
-	,180
-	,'01'
-	,'Tiempo máximo de demora sp'
-	,'300'
-	);
+IF NOT EXISTS (
+		SELECT *
+		FROM dbo.TablaLogicaDatos
+		WHERE TablaLogicaID = 180
+		)
+BEGIN
+	INSERT INTO dbo.TablaLogicaDatos (
+		TablaLogicaDatosID
+		,TablaLogicaID
+		,Codigo
+		,Descripcion
+		,Valor
+		)
+	VALUES (
+		16000
+		,180
+		,'01'
+		,'Tiempo máximo de demora sp'
+		,'300'
+		);
+END
 GO
 
 USE BelcorpEcuador
 GO
 
-INSERT INTO dbo.TablaLogicaDatos (
-	TablaLogicaDatosID
-	,TablaLogicaID
-	,Codigo
-	,Descripcion
-	,Valor
-	)
-VALUES (
-	16000
-	,180
-	,'01'
-	,'Tiempo máximo de demora sp'
-	,'300'
-	);
+IF NOT EXISTS (
+		SELECT *
+		FROM dbo.TablaLogicaDatos
+		WHERE TablaLogicaID = 180
+		)
+BEGIN
+	INSERT INTO dbo.TablaLogicaDatos (
+		TablaLogicaDatosID
+		,TablaLogicaID
+		,Codigo
+		,Descripcion
+		,Valor
+		)
+	VALUES (
+		16000
+		,180
+		,'01'
+		,'Tiempo máximo de demora sp'
+		,'300'
+		);
+END
 GO
 
 USE BelcorpSalvador
 GO
 
-INSERT INTO dbo.TablaLogicaDatos (
-	TablaLogicaDatosID
-	,TablaLogicaID
-	,Codigo
-	,Descripcion
-	,Valor
-	)
-VALUES (
-	16000
-	,180
-	,'01'
-	,'Tiempo máximo de demora sp'
-	,'300'
-	);
+IF NOT EXISTS (
+		SELECT *
+		FROM dbo.TablaLogicaDatos
+		WHERE TablaLogicaID = 180
+		)
+BEGIN
+	INSERT INTO dbo.TablaLogicaDatos (
+		TablaLogicaDatosID
+		,TablaLogicaID
+		,Codigo
+		,Descripcion
+		,Valor
+		)
+	VALUES (
+		16000
+		,180
+		,'01'
+		,'Tiempo máximo de demora sp'
+		,'300'
+		);
+END
 GO
 
 USE BelcorpPanama
 GO
 
-INSERT INTO dbo.TablaLogicaDatos (
-	TablaLogicaDatosID
-	,TablaLogicaID
-	,Codigo
-	,Descripcion
-	,Valor
-	)
-VALUES (
-	16000
-	,180
-	,'01'
-	,'Tiempo máximo de demora sp'
-	,'300'
-	);
+IF NOT EXISTS (
+		SELECT *
+		FROM dbo.TablaLogicaDatos
+		WHERE TablaLogicaID = 180
+		)
+BEGIN
+	INSERT INTO dbo.TablaLogicaDatos (
+		TablaLogicaDatosID
+		,TablaLogicaID
+		,Codigo
+		,Descripcion
+		,Valor
+		)
+	VALUES (
+		16000
+		,180
+		,'01'
+		,'Tiempo máximo de demora sp'
+		,'300'
+		);
+END
+GO
 
 USE BelcorpPuertoRico
 GO
 
-INSERT INTO dbo.TablaLogicaDatos (
-	TablaLogicaDatosID
-	,TablaLogicaID
-	,Codigo
-	,Descripcion
-	,Valor
-	)
-VALUES (
-	16000
-	,180
-	,'01'
-	,'Tiempo máximo de demora sp'
-	,'300'
-	);
+IF NOT EXISTS (
+		SELECT *
+		FROM dbo.TablaLogicaDatos
+		WHERE TablaLogicaID = 180
+		)
+BEGIN
+	INSERT INTO dbo.TablaLogicaDatos (
+		TablaLogicaDatosID
+		,TablaLogicaID
+		,Codigo
+		,Descripcion
+		,Valor
+		)
+	VALUES (
+		16000
+		,180
+		,'01'
+		,'Tiempo máximo de demora sp'
+		,'300'
+		);
+END
 GO
 
 USE BelcorpDominicana
 GO
 
-INSERT INTO dbo.TablaLogicaDatos (
-	TablaLogicaDatosID
-	,TablaLogicaID
-	,Codigo
-	,Descripcion
-	,Valor
-	)
-VALUES (
-	16000
-	,180
-	,'01'
-	,'Tiempo máximo de demora sp'
-	,'300'
-	);
+IF NOT EXISTS (
+		SELECT *
+		FROM dbo.TablaLogicaDatos
+		WHERE TablaLogicaID = 180
+		)
+BEGIN
+	INSERT INTO dbo.TablaLogicaDatos (
+		TablaLogicaDatosID
+		,TablaLogicaID
+		,Codigo
+		,Descripcion
+		,Valor
+		)
+	VALUES (
+		16000
+		,180
+		,'01'
+		,'Tiempo máximo de demora sp'
+		,'300'
+		);
+END
+GO
+
+
