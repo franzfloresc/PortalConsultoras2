@@ -829,7 +829,7 @@
 
         var id = rowObject[0];
         var campaniaId = $("#ddlCampania").val();
-        var cuv = rowObject[5],
+        var cuv = rowObject[5];
         var  _idMongo = rowObject[14];
 
         $("#hdEstrategiaIDMongo").val(_idMongo);
