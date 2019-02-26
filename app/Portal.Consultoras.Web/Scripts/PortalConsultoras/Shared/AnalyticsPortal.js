@@ -2685,7 +2685,7 @@ var AnalyticsPortalModule = (function () {
 
         var jsonData = jQuery.parseJSON(strData);
 
-        var _event = _evento.productClick;
+        var _localEvent = _evento.productClick;
         var _currencyCode = AnalyticsPortalModule.GetCurrencyCodes(_constantes.codigoPais);
         var _productName = jsonData.Descripcion;
         var _id = jsonData.CUV;
@@ -2693,12 +2693,12 @@ var AnalyticsPortalModule = (function () {
         var _brand = _getMarca(jsonData.MarcaId);
         var _category = _texto.notavaliable;
         var _variant = _texto.estandar;
-        var _position = position;
+        var _position = position.toString();
         var _list = "Pedido - Ofertas Relacionadas";
 
         try {
             dataLayer.push({
-                "event": _event,
+                "event": _localEvent,
                 "ecommerce": {
                     "currencyCode": _currencyCode,
                     "click": {
@@ -2715,12 +2715,14 @@ var AnalyticsPortalModule = (function () {
                             "position": _position
                         }]
                     }
+                },
+                'eventCallback': function () {
+                    //console.log('msg');
                 }
             });
         } catch (e) {
             console.log(_texto.exception + e);
         }
-
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////

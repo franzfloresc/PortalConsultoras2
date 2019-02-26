@@ -12,7 +12,7 @@
                     data-tipoestrategia="{{CodigoTipoEstrategia}}"
                     data-OrigenPedidoWeb="{{OrigenPedidoWeb}}">
                     <input type="hidden" class="hdRecomendadoJSON" value="{{JSON2string item}}" />
-                    <div class="producto_recomendado_info_wrapper" onclick="javascript:FichaPartialModule.ConstruirFicha(this, 1, false)">
+                    <div class="producto_recomendado_info_wrapper">
                         <div class="producto_recomendado_imagen">
                             <img src="{{Imagen}}" onerror="this.onerror=null;this.src='@Url.Content("~/Content/Images/imagen_prod_no_disponible.jpg")'" />
                             <a title="Ver detalle" class="btn_ver_detalle btn_ver_detalle--productoRecomendado">
@@ -48,7 +48,7 @@
                     <div class="producto_recomendado_acciones_wrapper">
                         {{#if_eq CodigoEstrategia '2003'}}
                         <!-- BLOQUE DE CÓDIGO A MOSTRAR CUANDO EL PRODUCTO TENGA OPCIÓN PARA ELEGIR TONOS -->
-                        <div class="producto_recomendado_btn_wrapper producto_recomendado_btn_wrapper_full_width" onclick="javascript:FichaPartialModule.ConstruirFicha(this, 1, false)">
+                        <div class="producto_recomendado_btn_wrapper producto_recomendado_btn_wrapper_full_width producto_recomendado_elegir_tonos">
                             <a class="btn_producto_recomendado_elige_tu_opcion text-bold text-center text-uppercase">
                                 <span class="d-inline-block">
                                     <img src="@Url.Content("/Content/Images/icono-elige-tu-opcion.svg")" alt="Elige tu opción" />
