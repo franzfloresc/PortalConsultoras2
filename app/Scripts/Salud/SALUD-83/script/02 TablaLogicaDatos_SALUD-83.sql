@@ -1,16 +1,5 @@
-USE BelcorpPeru
+ï»¿USE BelcorpPeru
 GO
-
-
-
-INSERT INTO dbo.TablaLogica (
-	TablaLogicaID
-	,Descripcion
-	)
-VALUES (
-	180
-	,'Tiempo máximo de demora sp'
-	)
 
 INSERT INTO dbo.TablaLogicaDatos (
 	TablaLogicaDatosID
@@ -23,22 +12,14 @@ VALUES (
 	16000
 	,180
 	,'01'
-	,'Tiempo máximo de demora sp'
-	,'300'	);
+	,'Tiempo mÃ¡ximo de demora sp'
+	,'300'
+	);
 GO
 
 USE BelcorpBolivia
 GO
 
-INSERT INTO dbo.TablaLogica (
-	TablaLogicaID
-	,Descripcion
-	)
-VALUES (
-	180
-	,'Tiempo máximo de demora sp'
-	)
-
 INSERT INTO dbo.TablaLogicaDatos (
 	TablaLogicaDatosID
 	,TablaLogicaID
@@ -50,7 +31,7 @@ VALUES (
 	16000
 	,180
 	,'01'
-	,'Tiempo máximo de demora sp'
+	,'Tiempo mÃ¡ximo de demora sp'
 	,'300'
 	);
 GO
@@ -58,15 +39,6 @@ GO
 USE BelcorpChile
 GO
 
-INSERT INTO dbo.TablaLogica (
-	TablaLogicaID
-	,Descripcion
-	)
-VALUES (
-	180
-	,'Tiempo máximo de demora sp'
-	)
-
 INSERT INTO dbo.TablaLogicaDatos (
 	TablaLogicaDatosID
 	,TablaLogicaID
@@ -78,7 +50,7 @@ VALUES (
 	16000
 	,180
 	,'01'
-	,'Tiempo máximo de demora sp'
+	,'Tiempo mÃ¡ximo de demora sp'
 	,'300'
 	);
 GO
@@ -86,15 +58,6 @@ GO
 USE BelcorpColombia
 GO
 
-INSERT INTO dbo.TablaLogica (
-	TablaLogicaID
-	,Descripcion
-	)
-VALUES (
-	180
-	,'Tiempo máximo de demora sp'
-	)
-
 INSERT INTO dbo.TablaLogicaDatos (
 	TablaLogicaDatosID
 	,TablaLogicaID
@@ -106,7 +69,7 @@ VALUES (
 	16000
 	,180
 	,'01'
-	,'Tiempo máximo de demora sp'
+	,'Tiempo mÃ¡ximo de demora sp'
 	,'300'
 	);
 GO
@@ -114,15 +77,6 @@ GO
 USE BelcorpGuatemala
 GO
 
-INSERT INTO dbo.TablaLogica (
-	TablaLogicaID
-	,Descripcion
-	)
-VALUES (
-	180
-	,'Tiempo máximo de demora sp'
-	)
-
 INSERT INTO dbo.TablaLogicaDatos (
 	TablaLogicaDatosID
 	,TablaLogicaID
@@ -134,7 +88,7 @@ VALUES (
 	16000
 	,180
 	,'01'
-	,'Tiempo máximo de demora sp'
+	,'Tiempo mÃ¡ximo de demora sp'
 	,'300'
 	);
 GO
@@ -142,15 +96,6 @@ GO
 USE BelcorpMexico
 GO
 
-INSERT INTO dbo.TablaLogica (
-	TablaLogicaID
-	,Descripcion
-	)
-VALUES (
-	180
-	,'Tiempo máximo de demora sp'
-	)
-
 INSERT INTO dbo.TablaLogicaDatos (
 	TablaLogicaDatosID
 	,TablaLogicaID
@@ -162,7 +107,7 @@ VALUES (
 	16000
 	,180
 	,'01'
-	,'Tiempo máximo de demora sp'
+	,'Tiempo mÃ¡ximo de demora sp'
 	,'300'
 	);
 GO
@@ -170,15 +115,6 @@ GO
 USE BelcorpCostaRica
 GO
 
-INSERT INTO dbo.TablaLogica (
-	TablaLogicaID
-	,Descripcion
-	)
-VALUES (
-	180
-	,'Tiempo máximo de demora sp'
-	)
-
 INSERT INTO dbo.TablaLogicaDatos (
 	TablaLogicaDatosID
 	,TablaLogicaID
@@ -190,7 +126,7 @@ VALUES (
 	16000
 	,180
 	,'01'
-	,'Tiempo máximo de demora sp'
+	,'Tiempo mÃ¡ximo de demora sp'
 	,'300'
 	);
 GO
@@ -198,15 +134,6 @@ GO
 USE BelcorpEcuador
 GO
 
-INSERT INTO dbo.TablaLogica (
-	TablaLogicaID
-	,Descripcion
-	)
-VALUES (
-	180
-	,'Tiempo máximo de demora sp'
-	)
-
 INSERT INTO dbo.TablaLogicaDatos (
 	TablaLogicaDatosID
 	,TablaLogicaID
@@ -218,7 +145,7 @@ VALUES (
 	16000
 	,180
 	,'01'
-	,'Tiempo máximo de demora sp'
+	,'Tiempo mÃ¡ximo de demora sp'
 	,'300'
 	);
 GO
@@ -226,15 +153,6 @@ GO
 USE BelcorpSalvador
 GO
 
-INSERT INTO dbo.TablaLogica (
-	TablaLogicaID
-	,Descripcion
-	)
-VALUES (
-	180
-	,'Tiempo máximo de demora sp'
-	)
-
 INSERT INTO dbo.TablaLogicaDatos (
 	TablaLogicaDatosID
 	,TablaLogicaID
@@ -246,7 +164,7 @@ VALUES (
 	16000
 	,180
 	,'01'
-	,'Tiempo máximo de demora sp'
+	,'Tiempo mÃ¡ximo de demora sp'
 	,'300'
 	);
 GO
@@ -254,15 +172,6 @@ GO
 USE BelcorpPanama
 GO
 
-INSERT INTO dbo.TablaLogica (
-	TablaLogicaID
-	,Descripcion
-	)
-VALUES (
-	180
-	,'Tiempo máximo de demora sp'
-	)
-
 INSERT INTO dbo.TablaLogicaDatos (
 	TablaLogicaDatosID
 	,TablaLogicaID
@@ -274,22 +183,13 @@ VALUES (
 	16000
 	,180
 	,'01'
-	,'Tiempo máximo de demora sp'
+	,'Tiempo mÃ¡ximo de demora sp'
 	,'300'
 	);
 
 USE BelcorpPuertoRico
 GO
 
-INSERT INTO dbo.TablaLogica (
-	TablaLogicaID
-	,Descripcion
-	)
-VALUES (
-	180
-	,'Tiempo máximo de demora sp'
-	)
-
 INSERT INTO dbo.TablaLogicaDatos (
 	TablaLogicaDatosID
 	,TablaLogicaID
@@ -301,7 +201,7 @@ VALUES (
 	16000
 	,180
 	,'01'
-	,'Tiempo máximo de demora sp'
+	,'Tiempo mÃ¡ximo de demora sp'
 	,'300'
 	);
 GO
@@ -309,15 +209,6 @@ GO
 USE BelcorpDominicana
 GO
 
-INSERT INTO dbo.TablaLogica (
-	TablaLogicaID
-	,Descripcion
-	)
-VALUES (
-	180
-	,'Tiempo máximo de demora sp'
-	)
-
 INSERT INTO dbo.TablaLogicaDatos (
 	TablaLogicaDatosID
 	,TablaLogicaID
@@ -329,8 +220,6 @@ VALUES (
 	16000
 	,180
 	,'01'
-	,'Tiempo máximo de demora sp'
+	,'Tiempo mÃ¡ximo de demora sp'
 	,'300'
 	);
-
-
