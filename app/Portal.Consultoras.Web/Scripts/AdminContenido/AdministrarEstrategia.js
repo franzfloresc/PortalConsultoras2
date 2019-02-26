@@ -830,7 +830,9 @@
         var id = rowObject[0];
         var campaniaId = $("#ddlCampania").val();
         var cuv = rowObject[5],
-            _id = rowObject[14];
+        var  _idMongo = rowObject[14];
+
+        $("#hdEstrategiaIDMongo").val(_idMongo);
 
         var edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').EditarProducto('" + id + "','" + campaniaId + "','" + cuv + "',event);\" >" + "<img src='" + _config.rutaImagenEdit + "' alt='Editar Productos ShowRoom' title='Editar Productos ShowRoom' border='0' /></a>";
 
@@ -4572,6 +4574,9 @@
     }
 
     function AbrirGrupoEstrategia() {
+
+        alert($("#hdEstrategiaIDMongo").val());
+        return;
 
         showDialog('DialogGrupoEstrategia');
         //waitingDialog();
