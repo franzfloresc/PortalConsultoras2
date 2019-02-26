@@ -201,6 +201,7 @@
     /*top:0;*/
     bottom: 27px;
     letter-spacing:0.4px;
+    border-radius:2px;
 }
 
 .producto_recomendado_imagen:hover .btn_ver_detalle--productoRecomendado{

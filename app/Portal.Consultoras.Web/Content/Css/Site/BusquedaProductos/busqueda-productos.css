@@ -346,6 +346,7 @@
 .btn__ver__detalle{
     position:absolute;
     border: 1px solid #000;
+    border-radius:3px;
     color: #000;
     background-color: #FFF;
     height: 40px;
