@@ -4519,7 +4519,7 @@
             url: _config.urlConsultarDetalleEstrategiaGrupo,
             dataType: "json",
             contentType: "application/json; charset=utf-8",
-            data: JSON.stringify({ EstrategiaId: $("#hdEstrategiaID").val() }),
+            data: JSON.stringify({ EstrategiaId: $("#hdEstrategiaIDMongo").val() }),
             async: false,
             success: function (data) {
 
@@ -4574,10 +4574,7 @@
     }
 
     function AbrirGrupoEstrategia() {
-
-        alert($("#hdEstrategiaIDMongo").val());
-        return;
-
+         
         showDialog('DialogGrupoEstrategia');
         //waitingDialog();
 
