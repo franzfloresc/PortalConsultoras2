@@ -314,6 +314,7 @@ header {
 
 .sub_menu_home2 {
     position: absolute;
+    z-index:1;
     left: -150px;
     display: none;
     top: 39px;
