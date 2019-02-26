@@ -1,0 +1,5 @@
+Los cambios solo para los ambientes de QAS y PPR
+*Portal consultoras - web.config*
+>  <add key="PaisesMicroservicioPersonalizacion" value="PE,CL,CR,CO,MX,EC" />
+*Microservicio Sync - appsettings.json*
+> "Paises": "PE,CL,CO,CR,MX,EC",
