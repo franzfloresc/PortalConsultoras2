@@ -1,8 +1,8 @@
 ﻿USE BelcorpBolivia
 GO
 declare @TablaLogicaID smallint = 145;
-declare @CodigoEsCupon varchar(150) = 'PedidoLabelProgNuevas';
-declare @CodigoEsElecMultiple varchar(150) = 'PedidoLabelProgNuevas';
+declare @CodigoEsCupon varchar(150) = 'ESCUPONNUEVAS';
+declare @CodigoEsElecMultiple varchar(150) = 'ESELECMULTIPLENUEVAS';
 
 delete TablaLogicaDatos
 where TablaLogicaID = @TablaLogicaID and Codigo in (@CodigoEsCupon, @CodigoEsElecMultiple);
@@ -12,8 +12,8 @@ GO
 USE BelcorpChile
 GO
 declare @TablaLogicaID smallint = 145;
-declare @CodigoEsCupon varchar(150) = 'PedidoLabelProgNuevas';
-declare @CodigoEsElecMultiple varchar(150) = 'PedidoLabelProgNuevas';
+declare @CodigoEsCupon varchar(150) = 'ESCUPONNUEVAS';
+declare @CodigoEsElecMultiple varchar(150) = 'ESELECMULTIPLENUEVAS';
 
 delete TablaLogicaDatos
 where TablaLogicaID = @TablaLogicaID and Codigo in (@CodigoEsCupon, @CodigoEsElecMultiple);
@@ -23,8 +23,8 @@ GO
 USE BelcorpColombia
 GO
 declare @TablaLogicaID smallint = 145;
-declare @CodigoEsCupon varchar(150) = 'PedidoLabelProgNuevas';
-declare @CodigoEsElecMultiple varchar(150) = 'PedidoLabelProgNuevas';
+declare @CodigoEsCupon varchar(150) = 'ESCUPONNUEVAS';
+declare @CodigoEsElecMultiple varchar(150) = 'ESELECMULTIPLENUEVAS';
 
 delete TablaLogicaDatos
 where TablaLogicaID = @TablaLogicaID and Codigo in (@CodigoEsCupon, @CodigoEsElecMultiple);
@@ -34,8 +34,8 @@ GO
 USE BelcorpCostaRica
 GO
 declare @TablaLogicaID smallint = 145;
-declare @CodigoEsCupon varchar(150) = 'PedidoLabelProgNuevas';
-declare @CodigoEsElecMultiple varchar(150) = 'PedidoLabelProgNuevas';
+declare @CodigoEsCupon varchar(150) = 'ESCUPONNUEVAS';
+declare @CodigoEsElecMultiple varchar(150) = 'ESELECMULTIPLENUEVAS';
 
 delete TablaLogicaDatos
 where TablaLogicaID = @TablaLogicaID and Codigo in (@CodigoEsCupon, @CodigoEsElecMultiple);
@@ -45,8 +45,8 @@ GO
 USE BelcorpDominicana
 GO
 declare @TablaLogicaID smallint = 145;
-declare @CodigoEsCupon varchar(150) = 'PedidoLabelProgNuevas';
-declare @CodigoEsElecMultiple varchar(150) = 'PedidoLabelProgNuevas';
+declare @CodigoEsCupon varchar(150) = 'ESCUPONNUEVAS';
+declare @CodigoEsElecMultiple varchar(150) = 'ESELECMULTIPLENUEVAS';
 
 delete TablaLogicaDatos
 where TablaLogicaID = @TablaLogicaID and Codigo in (@CodigoEsCupon, @CodigoEsElecMultiple);
@@ -56,8 +56,8 @@ GO
 USE BelcorpEcuador
 GO
 declare @TablaLogicaID smallint = 145;
-declare @CodigoEsCupon varchar(150) = 'PedidoLabelProgNuevas';
-declare @CodigoEsElecMultiple varchar(150) = 'PedidoLabelProgNuevas';
+declare @CodigoEsCupon varchar(150) = 'ESCUPONNUEVAS';
+declare @CodigoEsElecMultiple varchar(150) = 'ESELECMULTIPLENUEVAS';
 
 delete TablaLogicaDatos
 where TablaLogicaID = @TablaLogicaID and Codigo in (@CodigoEsCupon, @CodigoEsElecMultiple);
@@ -67,8 +67,8 @@ GO
 USE BelcorpGuatemala
 GO
 declare @TablaLogicaID smallint = 145;
-declare @CodigoEsCupon varchar(150) = 'PedidoLabelProgNuevas';
-declare @CodigoEsElecMultiple varchar(150) = 'PedidoLabelProgNuevas';
+declare @CodigoEsCupon varchar(150) = 'ESCUPONNUEVAS';
+declare @CodigoEsElecMultiple varchar(150) = 'ESELECMULTIPLENUEVAS';
 
 delete TablaLogicaDatos
 where TablaLogicaID = @TablaLogicaID and Codigo in (@CodigoEsCupon, @CodigoEsElecMultiple);
@@ -78,8 +78,8 @@ GO
 USE BelcorpMexico
 GO
 declare @TablaLogicaID smallint = 145;
-declare @CodigoEsCupon varchar(150) = 'PedidoLabelProgNuevas';
-declare @CodigoEsElecMultiple varchar(150) = 'PedidoLabelProgNuevas';
+declare @CodigoEsCupon varchar(150) = 'ESCUPONNUEVAS';
+declare @CodigoEsElecMultiple varchar(150) = 'ESELECMULTIPLENUEVAS';
 
 delete TablaLogicaDatos
 where TablaLogicaID = @TablaLogicaID and Codigo in (@CodigoEsCupon, @CodigoEsElecMultiple);
@@ -89,8 +89,8 @@ GO
 USE BelcorpPanama
 GO
 declare @TablaLogicaID smallint = 145;
-declare @CodigoEsCupon varchar(150) = 'PedidoLabelProgNuevas';
-declare @CodigoEsElecMultiple varchar(150) = 'PedidoLabelProgNuevas';
+declare @CodigoEsCupon varchar(150) = 'ESCUPONNUEVAS';
+declare @CodigoEsElecMultiple varchar(150) = 'ESELECMULTIPLENUEVAS';
 
 delete TablaLogicaDatos
 where TablaLogicaID = @TablaLogicaID and Codigo in (@CodigoEsCupon, @CodigoEsElecMultiple);
@@ -100,8 +100,8 @@ GO
 USE BelcorpPeru
 GO
 declare @TablaLogicaID smallint = 145;
-declare @CodigoEsCupon varchar(150) = 'PedidoLabelProgNuevas';
-declare @CodigoEsElecMultiple varchar(150) = 'PedidoLabelProgNuevas';
+declare @CodigoEsCupon varchar(150) = 'ESCUPONNUEVAS';
+declare @CodigoEsElecMultiple varchar(150) = 'ESELECMULTIPLENUEVAS';
 
 delete TablaLogicaDatos
 where TablaLogicaID = @TablaLogicaID and Codigo in (@CodigoEsCupon, @CodigoEsElecMultiple);
@@ -111,8 +111,8 @@ GO
 USE BelcorpPuertoRico
 GO
 declare @TablaLogicaID smallint = 145;
-declare @CodigoEsCupon varchar(150) = 'PedidoLabelProgNuevas';
-declare @CodigoEsElecMultiple varchar(150) = 'PedidoLabelProgNuevas';
+declare @CodigoEsCupon varchar(150) = 'ESCUPONNUEVAS';
+declare @CodigoEsElecMultiple varchar(150) = 'ESELECMULTIPLENUEVAS';
 
 delete TablaLogicaDatos
 where TablaLogicaID = @TablaLogicaID and Codigo in (@CodigoEsCupon, @CodigoEsElecMultiple);
@@ -122,8 +122,8 @@ GO
 USE BelcorpSalvador
 GO
 declare @TablaLogicaID smallint = 145;
-declare @CodigoEsCupon varchar(150) = 'PedidoLabelProgNuevas';
-declare @CodigoEsElecMultiple varchar(150) = 'PedidoLabelProgNuevas';
+declare @CodigoEsCupon varchar(150) = 'ESCUPONNUEVAS';
+declare @CodigoEsElecMultiple varchar(150) = 'ESELECMULTIPLENUEVAS';
 
 delete TablaLogicaDatos
 where TablaLogicaID = @TablaLogicaID and Codigo in (@CodigoEsCupon, @CodigoEsElecMultiple);
