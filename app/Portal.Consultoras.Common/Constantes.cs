@@ -2152,6 +2152,7 @@ namespace Portal.Consultoras.Common
                 public const short TablaLogicaID = 7;
                 public const string FlagProgNuevas = "ProgramaNuevas";
                 public const string FlagBannerElecMultiple = "BannerElecMultiple";
+                public const string FlagLabelPedidoDet = "PedidoLabelProgNuevas";
             }
 
             public static class Rango
@@ -3210,6 +3211,8 @@ namespace Portal.Consultoras.Common
             public const string HERRAMIENTASDEVENTA = "HERRAMIENTASDEVENTA";
             public const string ESPECIALES = "ESPECIALES";
             public const string OFERTASFLEXIPAGO = "OFERTASFLEXIPAGO";
+            public const string ESCUPONNUEVAS = "ESCUPONNUEVAS";
+            public const string ESELECMULTIPLENUEVAS = "ESELECMULTIPLENUEVAS";
         }
 
         public static class CodigosCatalogos
@@ -3334,9 +3337,9 @@ namespace Portal.Consultoras.Common
             public const string PersonalizacionSearch = "SEARCH";
         }
 
-        public class SolicitudCliente
+        public static class SolicitudCliente
         {
-            public class FlagMedio
+            public static class FlagMedio
             {
                 public const string AppCatalogos = "01";
                 public const string WebMarcas = "02";
@@ -3345,7 +3348,7 @@ namespace Portal.Consultoras.Common
             }
         }
 
-        public class SegmentoDatami
+        public static class SegmentoDatami
         {
             public const string SegmentoA = "Segmento_A";
             public const string SegmentoB = "Segmento_B";
@@ -3355,7 +3358,7 @@ namespace Portal.Consultoras.Common
             public const string SegmentoF = "Segmento_F";
         }
 
-        public class SegmentoInterno
+        public static class SegmentoInterno
         {
             public const int SinSegmento = 0;
             public const int Nuevas = 1;

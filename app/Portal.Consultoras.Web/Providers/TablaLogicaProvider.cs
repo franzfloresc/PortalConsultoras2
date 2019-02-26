@@ -84,7 +84,7 @@ namespace Portal.Consultoras.Web.Providers
         {
             var valor = GetTablaLogicaDatoValor(paisId, tablaLogicaId, tablaLogicaDatosId, saveInSession);
 
-            return valor == "1" ? true : false;
+            return valor == "1";
         }
 
         #region Get Valor Segun Codigo
@@ -107,7 +107,7 @@ namespace Portal.Consultoras.Web.Providers
         public bool GetTablaLogicaDatoValorBool(int paisId, short tablaLogicaId, string codigo, bool saveInSession = false)
         {
             var valor = GetTablaLogicaDatoValor(paisId, tablaLogicaId, codigo, saveInSession);
-            return valor == "1" ? true : false;
+            return valor == "1";
         }
 
         #endregion

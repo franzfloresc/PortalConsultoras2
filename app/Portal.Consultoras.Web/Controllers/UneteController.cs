@@ -1630,8 +1630,15 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                         }
 
-                        if (!string.IsNullOrEmpty(solicitudPostulante.CodigoZona)) { codigoZona = solicitudPostulante.CodigoZona; } else { codigoZona = "9999"; };
-                        
+                        if (!string.IsNullOrEmpty(solicitudPostulante.CodigoZona))
+                        {
+                            codigoZona = solicitudPostulante.CodigoZona;
+                        }
+                        else
+                        {
+                            codigoZona = "9999";
+                        }
+
                         urlClient = string.Format("/api/ValidacionCrediticiaExterna/Get?codigoISO={0}&numeroDocumento={1}&apellido={2}&codZona={3}&apellidoMaterno={4}&nombres={5}&fechaNacimiento={6}&direccion={7}&delegacionMunicipio={8}&ciudad={9}&estado={10}&cp={11}&tarjetaDeCredito={12}&creditoHipotecario={13}&creditoAutomotriz={14}&tipoIdentificacion={15}",
                                          Constantes.CodigosISOPais.Mexico, solicitudPostulante.NumeroDocumento, solicitudPostulante.ApellidoPaterno, codigoZona, solicitudPostulante.ApellidoMaterno, solicitudPostulante.PrimerNombre + ' ' + solicitudPostulante.SegundoNombre, fechaFormato, calleNumero, solicitudPostulante.LugarHijo, ciudad, abreviationZona, Convert.ToInt32(solicitudPostulante.CodigoPostal).ToString("D5"), String.Empty, String.Empty, String.Empty, solicitudPostulante.TipoDocumento);
 
@@ -1755,6 +1762,99 @@ namespace Portal.Consultoras.Web.Controllers
                 pintarMalaZonificacion);
             return PartialView("_ConsultarUbicacion");
         }
+
+
+        public ActionResult ReporteTipoConsultora()
+        {
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("GestionaTipoConsultora", "&rol=" + userData.RolDescripcion);
+            return View();
+        }
+
+        public ActionResult ListarTipoConsultora(string sidx, string sord, int page, int rows, string fechaInicio, string fechaFin, string codigoIso)
+        {
+            DateTime fechaInicioSolicitud = Convert.ToDateTime(fechaInicio);
+
+            DateTime fechaFinSolicitud = Convert.ToDateTime(fechaFin);
+
+            using (var sv = new PortalServiceClient())
+            {
+                List<SolicitudPostulanteBE> lst = sv.ConsultarTipoPostulante(codigoIso, fechaInicioSolicitud.ToString("yyyy/MM/dd"), fechaFinSolicitud.ToString("yyyy/MM/dd")).ToList();
+
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
+
+                IEnumerable<SolicitudPostulanteBE> items = lst;
+
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
+
+                var data = new
+                {
+                    total = pag.PageCount,
+                    page = pag.CurrentPage,
+                    records = pag.RecordCount,
+                    rows = from a in items
+                           select new
+                           {
+                               id = a.SolicitudPostulanteID,
+                               cell = new string[]
+                               {
+                                   a.SolicitudPostulanteID.ToString(),
+                                   a.NombreCompleto,
+                                   a.NumeroDocumento,
+                                   a.TipoDocumento,
+                                   a.CodigoZona,
+                                   a.CodigoSeccion,
+                                   a.CodigoTerritorio,
+                                   a.EstadoPostulante,
+                                   a.TipoConsultora,
+                                   a.FechaCreacion.Value.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture),
+                                   a.FechaAproFVVV.Value.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture)
+                                }
+                           }
+                };
+
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public ActionResult ExportarTipoConsultora(string fechaInicio, string fechaFin, string codigoIso)
+        {
+            DateTime fechaInicioSolicitud = Convert.ToDateTime(fechaInicio);
+
+            DateTime fechaFinSolicitud = Convert.ToDateTime(fechaFin);
+
+            using (var sv = new PortalServiceClient())
+            {
+                List<SolicitudPostulanteBE> lst = sv.ConsultarTipoPostulante(codigoIso, fechaInicioSolicitud.ToString("yyyy/MM/dd"), fechaFinSolicitud.ToString("yyyy/MM/dd")).ToList();
+
+                Dictionary<string, string> dic = new Dictionary<string, string>
+                {
+                    {"Id Postulante", "SolicitudPostulanteID"},
+                    {"Nombre Completo", "NombreCompleto"},
+                    {"Numero Documento", "NumeroDocumento"},
+                    {"Tipo Documento", "TipoDocumento"},
+                    { "Zona", "CodigoZona"},
+                    {"Sección", "CodigoSeccion"},
+                    {"Territorio", "CodigoTerritorio"},
+                    {"Estado Postulante", "EstadoPostulante"},
+                    {"Tipo de Consultora", "TipoConsultora"},
+                    {"Fecha Creación", "FechaCreacion"},
+                    {"Fecha Cambio", "FechaAproFVVV"}
+                };
+
+                Util.ExportToExcel("Reporte Tipo Consultora", lst, dic);
+
+                return View();
+            }
+        }
+
 
         public ActionResult GestionaPostulante()
         {
