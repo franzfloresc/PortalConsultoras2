@@ -10,7 +10,7 @@
         previous: ".previous",
         divImagenProductoPedido: "div.producto_por_agregar_imagen",
         divDescripcionProductoPedido: "div.producto_por_agregar_nombre",
-        botonVerDetalle: "div.producto_recomendado_info_wrapper"
+        botonVerDetalle: "div.producto_recomendado_info_wrapper, div.producto_recomendado_elegir_tonos"
     };
     var _config = {
         isMobile: window.matchMedia("(max-width:991px)").matches,
@@ -246,12 +246,15 @@
 
         VerDetalleProductoRecomendado: function (e) {
 
-            var divPadre = $(this).parents("[data-item='ProductoRecomendadoBuscador']").eq(0);
+            var _this = $(this);
+            var divPadre = _this.parents("[data-item='ProductoRecomendadoBuscador']").eq(0);
             var strData = $(divPadre).find('.hdRecomendadoJSON').val();
             var position = $("[data-item='ProductoRecomendadoBuscador']").index(divPadre) + 1;
 
             if (!(typeof AnalyticsPortalModule === 'undefined'))
                 AnalyticsPortalModule.MarcaFichaDetalleRecomendado(strData, position);
+
+            FichaPartialModule.ConstruirFicha(_this, 1, false);
         }
 
     };
