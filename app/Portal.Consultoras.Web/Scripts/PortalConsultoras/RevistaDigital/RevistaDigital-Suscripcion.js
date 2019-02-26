@@ -140,9 +140,12 @@ function RDDesuscripcion_pregunta() {
 }
 
 function RDDesuscripcion_cerrar(e) {
-
+    debugger;
     if (e)
         rdAnalyticsModule.DesuscripcionPopup(e.innerHTML);
+
+    else
+        rdAnalyticsModule.DesuscripcionPopupCerrar("Cerrar Popup");
 
     $('#pregunta').show();
     $('#opciones').hide();
@@ -164,7 +167,8 @@ function RDDesuscripcion_check() {
         $('#btnDesuscrita').addClass('disable');
 }
 
-function RDDesuscripcion_motivos(e) {    
+function RDDesuscripcion_motivos(e) {   
+    debugger;
     rdAnalyticsModule.DesuscripcionPopup(e.innerHTML);
     RDDesuscripcion(e);
 }

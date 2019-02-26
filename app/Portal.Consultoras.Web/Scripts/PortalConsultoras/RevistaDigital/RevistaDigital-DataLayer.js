@@ -166,6 +166,16 @@ var rdAnalyticsModule = (function () {
             "label": "Click en botón - " +label
         });
     };
+
+    var _popupDesuscripcionCerrar = function (category, action, label) {
+
+        dataLayer.push({
+            "event": _event.virtual,
+            "category": category + ' - ' + action,
+            "action": "Click Botón",
+            "label": label
+        });
+    };
     var _popupDesuscripcionEnviar = function (category, action, label) {
 
         dataLayer.push({
@@ -533,6 +543,10 @@ var rdAnalyticsModule = (function () {
         _popupDesuscripcion(_text.epm, _action.popupDesuscripcion,texto);
     }
 
+    function DesuscripcionPopupCerrar(texto) {
+        _popupDesuscripcionCerrar(_text.epm, _action.popupDesuscripcion, texto);
+    }
+
     function ContendorSection(titulo) {
         _virtualEventPush(_text.contenedor + " - Home", _capitalizeFirstLetter(titulo.toLowerCase()) + " - Click Botón", _action.verMas);
     }
@@ -566,6 +580,7 @@ var rdAnalyticsModule = (function () {
         GuardarDatos: GuardarDatos,
         ClickArrowLan: ClickArrowLan,
         DesuscripcionPopup: DesuscripcionPopup,
+        DesuscripcionPopupCerrar: DesuscripcionPopupCerrar
         
     };
 })();
