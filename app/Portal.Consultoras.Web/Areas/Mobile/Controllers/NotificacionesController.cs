@@ -47,7 +47,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             SessionManager.SetcantidadGetNotificacionesSinLeer(null);
 
             var model = new NotificacionesModel { ListaNotificaciones = ObtenerNotificaciones() };
-            model.origen = IdOrigen;
+
+            model.Origen = IdOrigen;
 
             return View("Index", model);
         }

@@ -33,6 +33,5 @@ namespace Portal.Consultoras.Web.Models
  
         public string simbolo { get; set; }
         public string mGanancia { get; set; }
-        public int origen { get; set; }
     }
 }
