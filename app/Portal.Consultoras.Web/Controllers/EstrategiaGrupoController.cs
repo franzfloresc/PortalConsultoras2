@@ -68,16 +68,16 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             //Código para setear desde mongo
-            
+
             //Estrategia
             List<EstrategiaMDbAdapterModel>  lstEstrategia =administrarEstrategiaProvider.FiltrarEstrategia(estrategiaId.ToString(), userData.CodigoISO).ToList();
 
             //EstrategiaGrupo
-            string pathMS = string.Format(Constantes.PersonalizacionOfertasService.UrlGetEstrategiaGrupoByEstrategiaId, userData.CodigoISO, estrategiaId);
+            //string pathMS = string.Format(Constantes.PersonalizacionOfertasService.UrlGetEstrategiaGrupoByEstrategiaId, userData.CodigoISO, estrategiaId);
 
-            var taskApi = Task.Run(() => EstrategiaGrupoProvide.ObtenerEstrategiaGrupoApi(pathMS, userData));
-            Task.WhenAll(taskApi);
-            var dd = taskApi.Result;
+            //var taskApi = Task.Run(() => EstrategiaGrupoProvide.ObtenerEstrategiaGrupoApi(pathMS, userData));
+            //Task.WhenAll(taskApi);
+            //var dd = taskApi.Result;
 
             return Json(res, JsonRequestBehavior.AllowGet);
         }
