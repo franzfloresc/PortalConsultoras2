@@ -11,6 +11,7 @@
         expValidacionNemotecnico: config.expValidacionNemotecnico,
         actualizarDescripcionComercialAction: config.actualizarDescripcionComercialAction,
         tipoEstrategiaIncentivosProgramaNuevas: config.tipoEstrategiaIncentivosProgramaNuevas,
+        tipoEstrategiaLanzamiento: config.tipoEstrategiaLanzamiento,
         rutaImagenVacia: config.rutaImagenVacia,
         urlActivarDesactivarEstrategias: config.urlActivarDesactivarEstrategias,
         rutaImagenEdit: config.rutaImagenEdit,
@@ -349,7 +350,6 @@
         };
 
         _obtenerFiltrarEstrategia(_editData, id).done(function (data) {
-
             var TipoEstrategiaCodigo = $("#ddlTipoEstrategia").find(":selected").data("codigo");
 
             if (TipoEstrategiaCodigo == _config.tipoEstrategiaIncentivosProgramaNuevas)
@@ -2402,7 +2402,32 @@
             close: function (event, ui) { $(".ui-dialog-titlebar-close", ui.dialog).show(); },
             draggable: false,
             title: "Registro de Estrategias",
-            open: function (event, ui) { $(".ui-dialog-titlebar-close", ui.dialog).hide(); },
+            open: function (event, ui) {
+                $(".ui-dialog-titlebar-close", ui.dialog).hide();
+
+                var TipoEstrategiaCodigo = $("#ddlTipoEstrategia").find(":selected").data("codigo");
+                if (TipoEstrategiaCodigo == _config.tipoEstrategiaLanzamiento && !_variables.isNuevo) {
+                    $("#div-lan-app").show();
+
+                    $("#AppColorTexto").ColorPicker({
+                        onSubmit: function (hsb, hex, rgb, el) {
+                            var newValue = "#" + hex;
+                            $(el).val(newValue);
+                            $(el).ColorPickerHide();
+                        },
+                        onBeforeShow: function () {
+                            $(this).ColorPickerSetColor(this.value);
+                        }
+                    })
+                    .bind("keyup", function () {
+                        $(this).ColorPickerSetColor(this.value);
+                    });
+                    if ($("#AppColorTexto").val() === "") $("#AppColorTexto").val("#ffffff");
+                }
+                else {
+                    $("#div-lan-app").hide();
+                }
+            },
             buttons:
             {
                 "Guardar": function () {
@@ -2505,6 +2530,14 @@
                         _toastHelper.error("Ingrese un valor para el limite de venta mayor a cero.");
                         return false;
                     }
+
+                    var regExpColorHex = /^#+([a-fA-F0-9]{6})/;
+                    var AppColorTexto = $("#AppColorTexto").val();
+                    if (!regExpColorHex.test(AppColorTexto) && AppColorTexto !== "") {
+                        _toastHelper.error("El color de texto para app debe tener un código hexadecimal válido.");
+                        return false;
+                    }
+
                     var imagenEstrategiaProducto = $("#imgSeleccionada").attr("src");
 
                     var EstrategiaID = 0;
@@ -4357,14 +4390,13 @@
         _uploadFileLanzamineto("img-ficha-fondo-mobile");
         _uploadFileLanzamineto("img-home-desktop");
         _uploadFileLanzamineto("img-home-mobile");
+        _uploadFileLanzamineto("img-fondo-app");
 
         if (_config.habilitarNemotecnico) {
             $("#matriz-busqueda-nemotecnico").show();
         } else {
             $("#matriz-busqueda-nemotecnico").hide();
         }
-
-
     }
 
     return {
