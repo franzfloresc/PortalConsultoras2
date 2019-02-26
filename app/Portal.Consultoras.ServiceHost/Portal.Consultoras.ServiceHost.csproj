@@ -129,11 +129,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Log\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <Content Include="App_Data\parametros.json" />
     <None Include="Properties\PublishProfiles\PublishAWS.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

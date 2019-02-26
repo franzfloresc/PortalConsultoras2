@@ -1778,6 +1778,7 @@ namespace Portal.Consultoras.Common
             public const short ArmaTuPack = 14;
             public const short PilotoCatalogoDigital = 155;
             public const short GanaMasNativo = 159;
+            public const short TiempoMaximoSP = 180;
         }
 
         public struct MensajesCDRExpress
