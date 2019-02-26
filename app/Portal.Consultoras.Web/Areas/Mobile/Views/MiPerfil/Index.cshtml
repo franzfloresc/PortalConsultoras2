@@ -68,10 +68,14 @@ else
                     <input type="hidden" id="hdn_PuedeActualizar" value="@Model.ActualizaDatos" />
                     <input type="hidden" id="hdn_enlaceTerminosCondiciones" value="@ViewBag.UrlPdfTerminosyCondiciones" />
                     <input type="hidden" id="hdn_iniciaNumero" value="@Model.IniciaNumeroCelular" />
-                    <div class="datos_codigo w-50 text-left">
+
+                    <div class="datos_codigo">
                         <span>Código : </span>
-                        <span class="text-bold">@Model.CodigoUsuario</span>
+                        @if (Model.DigitoVerificador != null && ViewBag.PaisesDigitoControl.Contains(Model.PaisISO))
+                            {<span class="text-bold">@Model.CodigoUsuario - <span class="text-bold" style="color:red;">@Model.DigitoVerificador</span></span>}
+                         else{ <span class="text-bold">@Model.CodigoUsuario</span>}
                     </div>
+
                     <div class="datos_zona w-50 text-right">
                         <span>Zona : </span>
                         <span class="text-bold">@Model.Zona</span>

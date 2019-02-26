@@ -75,7 +75,8 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
 
-            model.DigitoVerificador = string.Empty;
+           
+            model.DigitoVerificador = beusuario.DigitoVerificador;
             model.CodigoUsuario = userData.CodigoUsuario;
             model.Zona = userData.CodigoZona;
             model.ServiceSMS = userData.PuedeEnviarSMS;
@@ -83,13 +84,9 @@ namespace Portal.Consultoras.Web.Controllers
             model.PaisID = userData.PaisID;
 
             var paisesDigitoControl = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesDigitoControl);
-            if (paisesDigitoControl.Contains(model.PaisISO)
-                && !string.IsNullOrEmpty(beusuario.DigitoVerificador))
-            {
-                model.CodigoUsuario = string.Format("{0} - {1} (Zona:{2})", userData.CodigoUsuario, beusuario.DigitoVerificador, userData.CodigoZona);
-            }
             model.CodigoUsuarioReal = userData.CodigoUsuario;
             ViewBag.UrlPdfTerminosyCondiciones = _revistaDigitalProvider.GetUrlTerminosCondicionesDatosUsuario(userData.CodigoISO);
+            ViewBag.PaisesDigitoControl = paisesDigitoControl;
 
             #region limite Min - Max Telef
             int limiteMinimoTelef, limiteMaximoTelef;
@@ -101,6 +98,7 @@ namespace Portal.Consultoras.Web.Controllers
             bool valida;
             Util.ObtenerIniciaNumeroCelular(userData.PaisID, out valida, out numero);
             model.IniciaNumeroCelular = valida ? numero : -1;
+
             
             return View(model);
         }

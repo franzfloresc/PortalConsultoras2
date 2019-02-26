@@ -37,7 +37,7 @@ else
 <section class="datos_usuario_iniciales w-100">
     <div class="wrapper_content_mi_perfil">
         <div class="foto_consultora">
-            <a href="@Url.Action("CambiarFotoPerfil", "MiPerfil", new {area = ""})" title="Editar imagen" class="icono_camara default-background-color"></a>
+            <a href="@Url.Action("CambiarFotoPerfil", "MiPerfil", new { area = "" })" title="Editar imagen" class="icono_camara default-background-color"></a>
             <div class="contenedor_foto_consultora">
                 @if (ViewBag.FotoPerfilAncha)
                 {
@@ -65,10 +65,14 @@ else
                 <input type="hidden" id="hdn_PuedeActualizar" value="@Model.ActualizaDatos" />
                 <input type="hidden" id="hdn_enlaceTerminosCondiciones" value="@ViewBag.UrlPdfTerminosyCondiciones" />
                 <input type="hidden" id="hdn_iniciaNumero" value="@Model.IniciaNumeroCelular" />
+                
                 <div class="datos_codigo">
                     <span>Código : </span>
-                    <span class="text-bold">@Model.CodigoUsuario</span>
-                </div>
+                    @if (Model.DigitoVerificador != null && ViewBag.PaisesDigitoControl.Contains(Model.PaisISO))
+                        { <span class="text-bold">@Model.CodigoUsuario - <span class="text-bold" style="color:red;">@Model.DigitoVerificador</span></span>}
+                    else{ <span class="text-bold">@Model.CodigoUsuario</span>}
+                 </div>
+                
                 <div class="datos_zona">
                     <span>Zona : </span>
                     <span class="text-bold">@Model.Zona</span>
