@@ -1,6 +1,6 @@
 ﻿<script id="js-ResultadoBuscador" type="text/x-handlebars-template">
     {{#each this as |item|}}
-    <div class="resultado_busqueda_producto ml-0 mr-0" data-item="ProductoBuscador">
+    <div class="resultado_busqueda_producto {{#if Stock}} resultado_busqueda_producto--agotado {{/if}} ml-0 mr-0" data-item="ProductoBuscador">
         <input type="hidden" class="hdBuscadorJSON" value="{{JSON2string item}}" />
         <input type="hidden" class="hdBuscadorCUV" value="{{CUV}}" />
         <input type="hidden" class="hdBuscadorSAP" value="{{SAP}}" />
@@ -31,10 +31,10 @@
                 {{#if_eq TipoPersonalizacion 'LIQ'}}
                 <span class="resultado_busqueda_precio_oferta d-block pl-0 pr-0">{{PrecioString}}</span>
                 {{else}}
-                    {{#iff Valorizado '>' 0}}
-                    <span class="resultado_busqueda_precio_normal d-block pl-0 pr-0">{{ValorizadoString}}</span>
-                    {{/iff}}
-                    <span class="resultado_busqueda_precio_oferta d-block pl-0 pr-0">{{PrecioString}}</span>
+                {{#iff Valorizado '>' 0}}
+                <span class="resultado_busqueda_precio_normal d-block pl-0 pr-0">{{ValorizadoString}}</span>
+                {{/iff}}
+                <span class="resultado_busqueda_precio_oferta d-block pl-0 pr-0">{{PrecioString}}</span>
                 {{/if_eq}}
             </div>
             <div class="resultado_busqueda_tipo_oferta_prod pl-0 pr-0">{{DescripcionEstrategia}}</div>
@@ -42,6 +42,11 @@
         <div class="resultado_wrapper_selector_cantidad_y_btn_agregar ml-0 mr-0 pl-0">
             {{#if_eq CodigoEstrategia '2003'}}
             <div class="resultado_busqueda_btn_elegir_opcion_wrapper pl-0 pr-0 text-center" data-OrigenPedidoWeb="{{OrigenPedidoWeb}}">
+                {{#if Stock}}
+                <a class="btn_inactivo btn_elegir_opcion ml-0 mr-0 text-uppercase redireccionarFicha" href="javascript:;">
+                    Agotado
+                </a>
+                {{else}}
                 <a class="btn_elegir_opcion ml-0 mr-0 text-uppercase redireccionarFicha" href="javascript:;">
                     <span class="icono_elige_tu_opcion d-inline-block">
                         <img src="@Url.Content("~/Content/Images/icono-elige-tu-opcion.svg")" alt="Elige tu opción" />
@@ -50,6 +55,7 @@
                         Elige<br /> tu opción
                     </span>
                 </a>
+                {{/if}}
             </div>
             {{else}}
             <div class="resultado_busqueda_cantidad_prod pl-0 pr-0 {{#if Stock}} selector_cant_desactivado {{/if}}" data-cantidad-contenedor="">

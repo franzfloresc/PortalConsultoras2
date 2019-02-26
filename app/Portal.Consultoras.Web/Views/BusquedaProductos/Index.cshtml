@@ -6,6 +6,8 @@
 }
 
 <link href="@Url.Content("~/Content/Css/Site/BusquedaProductos/busqueda-productos.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/Css/Site/BusquedaProductos/filtros-busqueda.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/Css/Site/FichaProductoResponsive/ficha-producto-responsive.css")" rel="stylesheet" />
 
 <main class="row flex-row ml-0 mr-0 mx-auto layout__content layout__content--vistaResultadosBusqueda">
     @if (ViewBag.FlagFiltrosBuscador)
@@ -230,14 +232,14 @@
 <script id="js-FichaProductoBuscador" type="text/x-handlebars-template">
 
     {{#each this as |item|}}
-    <article class="ficha__producto" data-item="BuscadorFichasProductos">
+    <article class="ficha__producto {{#if Stock}} ficha__producto--agotado {{/if}}" data-item="BuscadorFichasProductos">
 
         <input type="hidden" class="hdBuscadorJSON" value="{{JSON2string item}}" />
 
         <div class="row flex-row justify-content-center ml-0 mr-0">
             <figure class="col-12 pl-0 pr-0 row flex-row ml-0 mr-0 justify-content-center align-items-end ficha__producto__imagen text-center">
                 <img data-src="{{Imagen}}" data-src-error="@Url.Content("~/Content/Images/oferta-sin-imagen.svg")" class="lazy redireccionarFicha" />
-                <a title="Ver detalle" class="row flex-row ml-0 mr-0 justify-content-center align-items-center col pl-0 pr-0 text-bold text-uppercase mostrarEnDesktop btn__ver__detalle">
+                <a title="Ver detalle" class="row flex-row ml-0 mr-0 justify-content-center align-items-center col pl-0 pr-0 text-bold text-uppercase mostrarEnDesktop redireccionarFicha btn__ver__detalle">
                     Ver detalle
                 </a>
             </figure>
@@ -263,19 +265,28 @@
                 {{#if_eq CodigoEstrategia '2003'}}
                 <div class="w-100" data-OrigenPedidoWeb="{{OrigenPedidoWeb}}">
                     <!-- BOTÓN ELIGE TU OPCIÓN -->
-                    <a class="redireccionarFicha row flex-row justify-content-center align-items-center ml-0 mr-0 btn_elegir_opcion btn__elegir__opcion--fichaProducto {{#if Stock}} btn_inactivo btn__inactivo--fichaProducto {{/if}} ml-0 mr-0 text-uppercase text-center" href="javascript:;">
-                        {{#if Stock}}
+                    {{#if Stock}}
+                    <a class="redireccionarFicha row flex-row justify-content-center align-items-center ml-0 mr-0 btn_elegir_opcion btn__elegir__opcion--fichaProducto btn_inactivo btn__inactivo--fichaProducto ml-0 mr-0 text-uppercase text-center" href="javascript:;">
                         Agotado
-                        {{else}}
+                    </a>
+                    {{else}}
+                    <a class="redireccionarFicha row flex-row justify-content-center align-items-center ml-0 mr-0 btn_elegir_opcion btn__elegir__opcion--fichaProducto ml-0 mr-0 text-uppercase text-center" href="javascript:;">
                         <span class="col-12 pl-0 pr-0 text-bold d-inline-block">
                         </span>
-                        {{/if}}
                     </a>
+                    {{/if}}
                     <!-- FIN - BOTÓN ELIGE TU OPCIÓN -->
                 </div>
                 {{else}}
+                {{#if Stock}}
+                <div class="col pl-0 pr-0">
+                    <a class="boton_Agregalo_home boton__agregalo--fichaProducto btn_inactivo btn__inactivo--fichaProducto text-center text-uppercase d-block">
+                        Agotado
+                    </a>
+                </div>
+                {{else}}
                 <div class="col-12 col-md col-lg col-xl pl-0 pr-0">
-                    <div class="row flex-row justify-content-between ml-0 mr-0 ficha__producto__rango__cantidad js-no-popup {{#if Stock}} selector_cant_desactivado selector__cant__desactivado--fichaProducto {{/if}}" data-cantidad-contenedor="">
+                    <div class="row flex-row justify-content-between ml-0 mr-0 ficha__producto__rango__cantidad js-no-popup" data-cantidad-contenedor="">
                         <a class="col-4 col-md-4 col-lg-4 col-xl-4 pl-0 pr-0 menos d-block js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
                             <img class="d-block js-no-popup" src="/Content/Images/menos.svg" alt="">
                         </a>
@@ -286,16 +297,11 @@
                     </div>
                 </div>
                 <div class="col-12 col-md-7 col-lg-7 col-xl-7 pl-0 pr-0 flex-grow-1">
-                    {{#if Stock}}
-                    <a class="boton_Agregalo_home boton__agregalo--fichaProducto btn_inactivo btn__inactivo--fichaProducto text-center text-uppercase d-block">
-                        Agotado
-                    </a>
-                    {{else}}
                     <a class="boton_Agregalo_home boton__agregalo--fichaProducto text-center text-uppercase d-block FichaAgregarProductoBuscador">
                         Agrégalo
                     </a>
-                    {{/if}}
                 </div>
+                {{/if}}
                 {{/if_eq}}
             </div>
             <div class="col-12 pl-0 pr-0 etiqueta_buscador_producto ficha__producto__etiqueta text-center">
