@@ -377,6 +377,15 @@
 
                 $('#tabControl1').hide();
                 $('#divSeccionImagenes').hide();
+
+                 
+                $("#txtCUV2").prop('disabled', true);
+                $("#txtPrecio2").prop('disabled', true);
+                $("#txtGanancia").prop('disabled', true);
+                $("#txtPrecio").prop('disabled', true);
+                $("#spanCampania").prop('disabled', true);
+                $("#spanTipoEstrategia").prop('disabled', true);
+                 
             }
             $('#DialogAdministracionEstrategia').dialog('option', 'title', newTitulo);
 

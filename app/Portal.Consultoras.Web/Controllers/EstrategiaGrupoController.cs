@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models.AdministrarEstrategia;
+using Portal.Consultoras.Web.Models.Estrategia;
 using Portal.Consultoras.Web.Models.Oferta.ResponseOfertaGenerico;
 using Portal.Consultoras.Web.Providers;
 using System;
@@ -67,8 +68,11 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             //Código para setear desde mongo
-            //...
+            
+            //Estrategia
+            List<EstrategiaMDbAdapterModel>  lstEstrategia =administrarEstrategiaProvider.FiltrarEstrategia(estrategiaId.ToString(), userData.CodigoISO).ToList();
 
+            //EstrategiaGrupo
             string pathMS = string.Format(Constantes.PersonalizacionOfertasService.UrlGetEstrategiaGrupoByEstrategiaId, userData.CodigoISO, estrategiaId);
 
             var taskApi = Task.Run(() => EstrategiaGrupoProvide.ObtenerEstrategiaGrupoApi(pathMS, userData));
