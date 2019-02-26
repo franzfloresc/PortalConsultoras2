@@ -49,7 +49,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
 
                         lPreCargarFlagImagenURL.AddRange(estrategiasWA
-                            .Where(c => c.FlagImagenURL == false)
+                            .Where(c => !c.FlagImagenURL)
                             .Select(m => m._id));
                     }
                     else

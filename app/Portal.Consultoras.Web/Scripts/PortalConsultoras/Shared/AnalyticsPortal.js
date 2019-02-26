@@ -253,9 +253,16 @@ var AnalyticsPortalModule = (function () {
 
         origenEstructura.CodigoPalanca = origenEstructura.CodigoPalanca || "";
         var contendor = origenEstructura.Pagina == ConstantesModule.OrigenPedidoWebEstructura.Pagina.Contenedor
-                        || origenEstructura.Seccion == ConstantesModule.OrigenPedidoWebEstructura.Seccion.Ficha
-                        || origenEstructura.Seccion == ConstantesModule.OrigenPedidoWebEstructura.Seccion.CarruselVerMas
-                        || origenEstructura.CodigoPalanca != "";
+            || origenEstructura.Pagina == ConstantesModule.OrigenPedidoWebEstructura.Pagina.LandingBuscador
+            || origenEstructura.Pagina == ConstantesModule.OrigenPedidoWebEstructura.Pagina.LandingGanadoras
+            || origenEstructura.Pagina == ConstantesModule.OrigenPedidoWebEstructura.Pagina.LandingGnd
+            || origenEstructura.Pagina == ConstantesModule.OrigenPedidoWebEstructura.Pagina.LandingHerramientasVenta
+            || origenEstructura.Pagina == ConstantesModule.OrigenPedidoWebEstructura.Pagina.LandingLiquidacion
+            || origenEstructura.Pagina == ConstantesModule.OrigenPedidoWebEstructura.Pagina.LandingOfertasParaTi
+            || origenEstructura.Pagina == ConstantesModule.OrigenPedidoWebEstructura.Pagina.LandingShowroom
+            || origenEstructura.Seccion == ConstantesModule.OrigenPedidoWebEstructura.Seccion.Ficha
+            || origenEstructura.Seccion == ConstantesModule.OrigenPedidoWebEstructura.Seccion.CarruselVerMas
+            || origenEstructura.CodigoPalanca != "";
 
         if (contendor) {
             return _texto.contenedor;
@@ -686,7 +693,7 @@ var AnalyticsPortalModule = (function () {
             var esFicha = typeof seccion !== "undefined" ? seccion.Seccion == "Ficha" : false;
             var esCarrusel = false;
             if (!(event == null)) {
-                if (codigoSeccion == '05')
+                if (codigoSeccion == '05' || codigoSeccion=='01')
                     esCarrusel = true;
             }
 
@@ -1133,7 +1140,6 @@ var AnalyticsPortalModule = (function () {
     }
 
     var marcaGenericaLista = function (seccion, data, pos) {
-
         try {
             //console.log('marcaGenericaLista- ini', seccion, data, pos);
             // mantener la seccion para LAN, luego ponerlo dentro de data como origen
@@ -1177,7 +1183,8 @@ var AnalyticsPortalModule = (function () {
 
     }
 
-    var marcaGenericaClic = function (element, codigoOrigenPedido) {
+    var marcaGenericaClic = function (element, codigoOrigenPedido, url) {
+
         var codigoPagina = codigoOrigenPedido.toString().substring(1, 3);
 
         var pagina = _constantes.paginas.find(function (element) {
@@ -1197,10 +1204,10 @@ var AnalyticsPortalModule = (function () {
         try {
             switch (_pagina) {
 
-                case "Home": AnalyticsPortalModule.MarcaDetalleProductoBienvenida(element, codigoOrigenPedido); break;
-                case "Contenedor": palanca == "Lanzamientos" ? AnalyticsPortalModule.MarcaClicBanner(element) : AnalyticsPortalModule.MarcaDetalleProducto(element); break;
-                case "Pedido": AnalyticsPortalModule.MarcaDetalleProductoCarrito(element); break; //marcacion punto 2.1.7.4. según el documento de correciones Roxana 
-                case "Landing": AnalyticsPortalModule.MarcaDetalleProducto(element); break;
+                case "Home": AnalyticsPortalModule.MarcaDetalleProducto(element,url); break;
+                case "Contenedor": palanca == "Lanzamientos" ? AnalyticsPortalModule.MarcaDetalleProducto(element, url) : AnalyticsPortalModule.MarcaDetalleProducto(element,url); break;
+                case "Pedido": AnalyticsPortalModule.MarcaDetalleProductoCarrito(element,url); break; //marcacion punto 2.1.7.4. según el documento de correciones Roxana 
+                case "Landing": AnalyticsPortalModule.MarcaDetalleProducto(element,url); break;
             }
 
 
@@ -1762,12 +1769,12 @@ var AnalyticsPortalModule = (function () {
     * Nombre Archivo Desktop: Scripts\PortalConsultoras\EstrategiaPersonalizada\EstrategiaUrls.js
     * Linea de Código Desktop: 3
  */
-    var marcaDetalleProducto = function (data) {
+    var marcaDetalleProducto = function (data,url) {
         try {
 
 
             var esLanding = typeof listaSeccion === 'undefined' ? true : false;
-            esLanding ? AnalyticsPortalModule.MarcaDetalleProductoPrincipalLanding(data) : AnalyticsPortalModule.MarcaDetalleProductoPrincipal(data);
+            esLanding ? AnalyticsPortalModule.MarcaDetalleProductoPrincipalLanding(data,url) : AnalyticsPortalModule.MarcaDetalleProductoPrincipal(data,url);
 
 
 
@@ -1777,27 +1784,43 @@ var AnalyticsPortalModule = (function () {
 
     }
 
-    var marcaDetalleProductoPrincipal = function (data) {
+    var marcaDetalleProductoPrincipal = function (data,url) {
         try {
 
             if (_constantes.isTest)
                 alert("Marcación clic detalle producto.");
 
-            var contenedor = fnObtenerContenedor();
-            var codigoSeccion = $(data).closest("div:has(.seccion-content-contenedor)").data("seccion");
-            var codigoorigen = $(data).parents("[data-OrigenPedidoWeb]").data("origenpedidoweb");
-            var palanca = codigoSeccion == "ODD"
-                ? _getPalancaBySeccion(codigoSeccion)
-                : AnalyticsPortalModule.GetPalancaByOrigenPedido(codigoorigen);
-
-            var text = $(data).data("item-tag");
-            var eq = text == _texto.verdetalle ? ":eq(2)" : ":eq(4)";
-            var item = $(data).parents(eq).find("div [data-estrategia]").data("estrategia");
-            var list = "";
-            if (_codigoSeccion.MG === codigoSeccion)
-                list = contenedor + " - " + palanca;
+            //var contenedor = fnObtenerContenedor();
+            //var codigoSeccion = $(data).closest("div:has(.seccion-content-contenedor)").data("seccion");
+            var codigoSeccion = "";
+            var item = "";
+            if ($(data).parents("[data-Origenpedidowebagregar]").data("origenpedidowebagregar") === undefined) {
+                codigoSeccion = $(data).parents("[data-OrigenPedidoWeb]").data("origenpedidoweb");
+            }
             else
-                list = contenedor + " - " + palanca + " - " + _constantes.campania + item.CampaniaID;
+                codigoSeccion = $(data).parents("[data-Origenpedidowebagregar]").data("origenpedidowebagregar");
+ 
+            //var codigoorigen = $(data).parents("[data-OrigenPedidoWeb]").data("origenpedidoweb");
+            //var palanca = codigoSeccion == "ODD"
+            //    ? _getPalancaBySeccion(codigoSeccion)
+            //    : AnalyticsPortalModule.GetPalancaByOrigenPedido(codigoorigen);
+
+            //var text = $(data).data("item-tag");
+            //var eq = text == _texto.verdetalle ? ":eq(2)" : ":eq(4)";
+            //var item = $(data).parents(eq).find("div [data-estrategia]").data("estrategia");
+            if ($(data).parents("[data-item-cuv]").find("div [data-estrategia]").data("estrategia") === undefined) {
+                item = $(data).parents("[data-OrigenPedidoWeb]").find("div [data-estrategia]").data("estrategia");
+            }
+            else
+                item = $(data).parents("[data-item-cuv]").find("div [data-estrategia]").data("estrategia");
+
+            var list = _getParametroListSegunOrigen(codigoSeccion, url);
+
+            //var list = "";
+            //if (_codigoSeccion.MG === codigoSeccion)
+            //    list = contenedor + " - " + palanca;
+            //else
+            //    list = contenedor + " - " + palanca + " - " + _constantes.campania + item.CampaniaID;
 
 
             dataLayer.push({
@@ -1813,7 +1836,7 @@ var AnalyticsPortalModule = (function () {
                             'brand': item.DescripcionMarca,
                             'category': _texto.notavaliable,
                             'variant': _texto.estandar,
-                            'position': 1
+                            'position': item.Posicion
                         }]
                     }
                 }
@@ -1823,24 +1846,76 @@ var AnalyticsPortalModule = (function () {
         }
     }
 
-    var marcaDetalleProductoPrincipalLanding = function (data) {
+    var marcaDetalleProductoPrincipalLanding = function (data,url) {
         try {
             if (_constantes.isTest)
                 alert("Marcación clic detalle producto.");
+            var codigoSeccion = "";
+            var item = "";
+            //var contenedor = fnObtenerContenedor();
+            if ($(data).parents("[data-Origenpedidowebagregar]").data("origenpedidowebagregar") === undefined) {
+                codigoSeccion = $(data).parents("[data-OrigenPedidoWeb]").data("origenpedidoweb");
+            }
+            else
+                codigoSeccion = $(data).parents("[data-Origenpedidowebagregar]").data("origenpedidowebagregar");
+            //var codigoorigenagregar = $(data).parents("[data-Origenpedidowebagregar]").data("origenpedidowebagregar");
+            //var codigoSeccion = $(data).parents("[data-OrigenPedidoWeb]").data("origenpedidoweb");
+            //var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(codigoSeccion);
+            //var text = $(data).data("item-tag");
+            //var eq = text == _texto.verdetalle ? ":eq(2)" : ":eq(4)";
+            //var item = $(data).parents(eq).find("div [data-estrategia]").data("estrategia");
+            if ($(data).parents("[data-item-cuv]").find("div [data-estrategia]").data("estrategia")=== undefined) {       
+                item = $(data).parents("[data-OrigenPedidoWeb]").find("div [data-estrategia]").data("estrategia");
+            }
+            else
+                item = $(data).parents("[data-item-cuv]").find("div [data-estrategia]").data("estrategia");
 
-            var contenedor = fnObtenerContenedor();
+            var list = _getParametroListSegunOrigen(codigoSeccion, url);
+
+            //if (_codigoSeccion.MG === item.CodigoPalanca)
+            //    list = textoCategory;
+            //else
+            //    list = textoCategory + " - " + _constantes.campania + item.CampaniaID;
+
+
+            dataLayer.push({
+                'event': _evento.productClick,
+                'ecommerce': {
+                    'currencyCode': AnalyticsPortalModule.GetCurrencyCodes(_constantes.codigoPais),
+                    'click': {
+                        'actionField': { 'list': list },
+                        'products': [{
+                            'name': item.DescripcionCompleta,
+                            'id': item.CUV2,
+                            'price': item.PrecioVenta,
+                            'brand': item.DescripcionMarca,
+                            'category': _texto.notavaliable,
+                            'variant': _texto.estandar,
+                            'position': item.Posicion
+                        }]
+                    }
+                }
+            });
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+    }
+
+
+    var marcaDetalleProductoCarrito = function (data,url) {
+        try {
+
             var codigoSeccion = $(data).parents("[data-OrigenPedidoWeb]").data("origenpedidoweb");
-            var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(codigoSeccion);
-            var text = $(data).data("item-tag");
-            var eq = text == _texto.verdetalle ? ":eq(2)" : ":eq(4)";
-            var item = $(data).parents(eq).find("div [data-estrategia]").data("estrategia");
             var list = "";
+            list = _getParametroListSegunOrigen(codigoSeccion, url);
 
-            if (_codigoSeccion.MG === item.CodigoPalanca)
-                list = contenedor + " - " + palanca;
-            else
-                list = contenedor + " - " + palanca + " - " + _constantes.campania + item.CampaniaID;
+            //var text = $(data).data("item-tag");
+            //var eq = text == _texto.verdetalle ? ":eq(2)" : ":eq(4)";
+            //var item = $(data).parents(eq).find("div [data-estrategia]").data("estrategia");
 
+            var item = $(data).parents("[data-item-cuv]").find("div [data-estrategia]").data("estrategia");
+
+            //var item = $(data).parents(":eq(2)").find("div [data-estrategia]").data("estrategia");
 
             dataLayer.push({
                 'event': _evento.productClick,
@@ -1855,28 +1930,17 @@ var AnalyticsPortalModule = (function () {
                             'brand': item.DescripcionMarca,
                             'category': _texto.notavaliable,
                             'variant': _texto.estandar,
-                            'position': 1
+                            'position': item.Posicion
                         }]
                     }
                 }
             });
-        } catch (e) {
-            console.log(_texto.excepcion + e);
-        }
-    }
-
-
-    var marcaDetalleProductoCarrito = function (data) {
-        try {
-
-            var item = $(data).parents(":eq(2)").find("div [data-estrategia]").data("estrategia");
-
-            dataLayer.push({
-                'event': _evento.virtualEvent,
-                'category': 'Carrito de compras – Club Gana+',
-                'action': 'Ver detalles de producto',
-                'label': item.DescripcionCompleta + " - " + item.DescripcionMarca
-            });
+            //dataLayer.push({
+            //    'event': _evento.virtualEvent,
+            //    'category': 'Carrito de compras – Club Gana+',
+            //    'action': 'Ver detalles de producto',
+            //    'label': item.DescripcionCompleta + " - " + item.DescripcionMarca
+            //});
         } catch (e) {
             console.log(_texto.excepcion + e);
         }
