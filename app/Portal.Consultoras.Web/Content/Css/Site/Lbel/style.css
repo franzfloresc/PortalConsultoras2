@@ -487,6 +487,28 @@ header {
         margin-bottom: 10px;
     }
 
+    .footer_enlace_belcorp_responde,
+    .footer_enlace_comunidad_virtual
+    {
+        height:41px;
+    }
+
+    .footer_enlace_tu_voz_online img{
+        margin-top: 6px;
+        height: 35px;
+    }
+
+    .footer_enlace_catalogos img{
+        margin-top: 7px;
+        margin-bottom:11px;
+        height: 33px;
+    }
+
+    .footer_enlace_noticias img{
+        margin-top: 4px;
+        height: 37px;
+    }
+
     .footer_responde span {
         font-size: 9pt;
         color: #666666;
