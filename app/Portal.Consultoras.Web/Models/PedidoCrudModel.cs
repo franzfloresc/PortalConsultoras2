@@ -46,7 +46,7 @@
 
         public int LimiteVenta { get; set; }
         
-        public bool EnRangoProgramaNuevas { get; set; }
+        public bool EsCuponNuevas { get; set; }
 
         public bool EsKitNuevaAuto { get; set; }
     }
