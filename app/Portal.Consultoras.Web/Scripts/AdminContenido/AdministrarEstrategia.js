@@ -2518,7 +2518,8 @@
             buttons:
             {
                 "Guardar": function () {
-
+                    console.log(_variables);
+                    console.log(_codigoEstrategia);
                     /*INI ATP*/
                     if ($("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ArmaTuPack) {
                         $('#txtOrden').val(1);//valor por default                         
@@ -2579,21 +2580,23 @@
 
                     if ($("#idEstrella").css("display") == "block") {
                         if (!$("#chkEstrella").attr("checked")) {
-                            _toastHelper.error(
-                                "Debe activar el la opción para mostrar estrella en la zona de producto.  ");
+                            _toastHelper.error("Debe activar el la opción para mostrar estrella en la zona de producto.  ");
                             return false;
                         }
                     }
 
-                    if ($(".chkImagenProducto:checked").length == 0) {
-                        _toastHelper.error("Seleccione una imagen a mostrar.");
-                        return false;
-                    }
+                    if ($('#ddlTipoEstrategia option:selected').data("codigo") != _codigoEstrategia.ArmaTuPack)
+                        if ($(".chkImagenProducto:checked").length == 0) {
+                            _toastHelper.error("Seleccione una imagen a mostrar.");
+                            return false;
+                        }
 
-                    if (_variables.imagen == "") {
-                        _toastHelper.error("Seleccione una imagen a mostrar.");
-                        return false;
-                    }
+                    if ($('#ddlTipoEstrategia option:selected').data("codigo") != _codigoEstrategia.ArmaTuPack)
+                        if (_variables.imagen == "") {
+                            _toastHelper.error("Seleccione una imagen a mostrar.");
+                            return false;
+                        }
+
                     var aux2 = $("#ddlTipoEstrategia").find(":selected").data("id");
                     var aux3 = $("#ddlTipoEstrategia").find(":selected").data("codigo");
                     if (aux2 !== 4 &&
@@ -3479,7 +3482,7 @@
             return false;
         },
         clickChkImagenProducto: function () {
-
+            console.log($(this));
             _variables.imagen = "";
 
             $(".chkImagenProducto").prop("checked", false);
