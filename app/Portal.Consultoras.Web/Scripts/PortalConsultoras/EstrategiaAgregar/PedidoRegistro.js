@@ -807,7 +807,7 @@ var PedidoRegistroModule = function () {
                 return false;
             }
 
-            var dataAgregarOF = _agregarOfertaFinal(model);
+            dataAgregarOF = _agregarOfertaFinal(model);
             if (dataAgregarOF.success) {
                 if (typeof MostrarBarra === 'function') {
                     var prevTotal = mtoLogroBarra;
