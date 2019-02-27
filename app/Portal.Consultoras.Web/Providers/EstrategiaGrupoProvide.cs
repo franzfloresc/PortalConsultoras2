@@ -24,10 +24,12 @@ namespace Portal.Consultoras.Web.Providers
 
         static EstrategiaGrupoProvide()
         {
-            if (string.IsNullOrEmpty(WebConfig.UrlMicroservicioPersonalizacionSearch)) return;
-            httpClient.BaseAddress = new Uri(WebConfig.UrlMicroservicioPersonalizacionConfig);
-            httpClient.DefaultRequestHeaders.Accept.Clear();
-            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            if (!string.IsNullOrEmpty(WebConfig.UrlMicroservicioPersonalizacionConfig))
+            {
+                httpClient.BaseAddress = new Uri(WebConfig.UrlMicroservicioPersonalizacionConfig);
+                httpClient.DefaultRequestHeaders.Accept.Clear();
+                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            }
         }
 
         public static async Task<bool> InsertarGrupoEstrategiaApi(string path, List<EstrategiaGrupoModel> datos, UsuarioModel userData)
@@ -69,7 +71,7 @@ namespace Portal.Consultoras.Web.Providers
             return respuesta.Success;
         }
   
-        public static async Task<OutputEstrategiaGrupo> ObtenerEstrategiaGrupoApi(string path, UsuarioModel userData)
+        public static  async Task<OutputEstrategiaGrupo> ObtenerEstrategiaGrupoApi(string path, UsuarioModel userData)
         {
             OutputEstrategiaGrupo respuesta = new OutputEstrategiaGrupo();
             HttpResponseMessage httpResponse = await httpClient.GetAsync(path);
