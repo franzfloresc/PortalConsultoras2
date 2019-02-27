@@ -832,9 +832,9 @@
         var cuv = rowObject[5];
         var  _idMongo = rowObject[14];
 
-        $("#hdEstrategiaIDMongo").val(_idMongo);
+       
 
-        var edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').EditarProducto('" + _id + "','" + campaniaId + "','" + cuv + "',event);\" >" + "<img src='" + _config.rutaImagenEdit + "' alt='Editar Productos ShowRoom' title='Editar Productos ShowRoom' border='0' /></a>";
+        var edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').EditarProducto('" + _idMongo + "','" + campaniaId + "','" + cuv + "',event);\" >" + "<img src='" + _config.rutaImagenEdit + "' alt='Editar Productos ShowRoom' title='Editar Productos ShowRoom' border='0' /></a>";
 
         return edit;
     }
@@ -4316,6 +4316,9 @@
     function EditarProducto(ID, CampaniaID, CUV, event) {
 
 
+       
+
+
         if (event) {
             event.preventDefault();
             event.stopPropagation();
@@ -4330,6 +4333,8 @@
         $("#txtPrecioValorizadoDetalle").val(jQuery("#list").jqGrid("getCell", ID, "Precio2"));
 
         /*INI ATP*/
+        $("#hdEstrategiaIDMongo").val(ID);
+
         var newTitulo = $("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ArmaTuPack ? "Edición de grupos" : "Edición de Productos"
         $('#DialogRegistroOfertaShowRoomDetalle').dialog('option', 'title', newTitulo);
         /*END ATP*/
@@ -4569,7 +4574,9 @@
     }
 
     function AbrirGrupoEstrategia() {
-         
+
+        
+
         showDialog('DialogGrupoEstrategia');
         //waitingDialog();
 

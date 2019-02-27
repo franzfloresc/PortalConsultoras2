@@ -73,13 +73,10 @@ namespace Portal.Consultoras.Web.Controllers
             var estrategiaGrupoLista = taskApi.Result;
 
             //Estrategia y sus componentes
-            List<ServicePedido.BEEstrategiaProducto> lst = new List<ServicePedido.BEEstrategiaProducto>();
-
-
-            List<EstrategiaMDbAdapterModel> lstEstrategia = administrarEstrategiaProvider.FiltrarEstrategia(estrategiaId.ToString(), userData.CodigoISO).ToList();
-
-
-            var distinct = (from item in lst select new { EstrategiaId = estrategiaId, Grupo = item.Grupo }).Distinct();
+            
+            List<ServicePedido.BEEstrategiaProducto> lstComponentes = administrarEstrategiaProvider.FiltrarEstrategia(estrategiaId.ToString(), userData.CodigoISO).ToList().Select(x => x.Componentes).FirstOrDefault();
+              
+            var distinct = (from item in lstComponentes select new { EstrategiaId = estrategiaId, Grupo = item.Grupo }).Distinct();
             grupos = (from item in distinct
                       select new Models.AdministrarEstrategia.EstrategiaGrupoModel
                       { _idEstrategia = estrategiaId, EstrategiaGrupoId = 0, Grupo = item.Grupo, DescripcionSingular = string.Empty, DescripcionPlural = string.Empty }).ToList();
