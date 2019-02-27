@@ -650,41 +650,13 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult ConsultarOfertaShowRoomDetalleNew(string sidx, string sord, int page, int rows, string estrategiaId,
             string codigoTipoEstrategia = null)
         {
-
-            ////INI AGANA 244:
-            //if (codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.ArmaTuPack)
-            //{
-            //    //consultar mongo ...
-            //    //Temporal: datos de para prueba
-            //    var test = codigoTipoEstrategia;
-
-            //    //Simulando EstrategiaGrupo de MongoDB
-            //    List<EstrategiaGrupoModel> lstEstrategiaGrupo = new List<EstrategiaGrupoModel>();
-            //    lstEstrategiaGrupo.Add(new EstrategiaGrupoModel { EstrategiaGrupoId = 10, DescripcionSingular = "Descripción 1", DescripcionPlural = "Descripción 1 s" });
-            //    lstEstrategiaGrupo.Add(new EstrategiaGrupoModel { EstrategiaGrupoId = 20, DescripcionSingular = "Descripción 2", DescripcionPlural = "Descripción 2 s" });
-            //    lstEstrategiaGrupo.Add(new EstrategiaGrupoModel { EstrategiaGrupoId = 30, DescripcionSingular = "Descripción 3", DescripcionPlural = "Descripción 3 s" });
-
-            //    //Simulando EstrategiaComponente de MongoDB
-            //    List<EstrategiaComponenteModel> lstComponentes = new List<EstrategiaComponenteModel>();
-            //    lstComponentes.Add(new EstrategiaComponenteModel { Id = 41239, Cuv = "11990", Grupo = "1", EstrategiaGrupoId = 10 });
-            //    lstComponentes.Add(new EstrategiaComponenteModel { Id = 41239, Cuv = "33369", Grupo = "2", EstrategiaGrupoId = 20 });
-            //    lstComponentes.Add(new EstrategiaComponenteModel { Id = 41239, Cuv = "33371", Grupo = "1", EstrategiaGrupoId = 10 });
-
-            //    lstComponentes.Add(new EstrategiaComponenteModel { Id = 41241, Cuv = "33366", Grupo = "0", EstrategiaGrupoId = 30 });
-            //    lstComponentes.Add(new EstrategiaComponenteModel { Id = 41241, Cuv = "33374", Grupo = "0", EstrategiaGrupoId = 30 });
-
-            //}
-            ////END AGANA 244 
-
             if (ModelState.IsValid)
             {
                 List<ServicePedido.BEEstrategiaProducto> lst;
 
-                if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, codigoTipoEstrategia, false))
+                if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, codigoTipoEstrategia, false) && 
+                    Constantes.TipoEstrategiaCodigo.ArmaTuPack == codigoTipoEstrategia)
                 {
-                    //List<Models.Estrategia.EstrategiaMDbAdapterModel> lEstrategia = new List<Models.Estrategia.EstrategiaMDbAdapterModel>();
-                    //lEstrategia.AddRange(administrarEstrategiaProvider.FiltrarEstrategia(estrategiaId, userData.CodigoISO).ToList());
-
                     lst = administrarEstrategiaProvider.FiltrarEstrategia(estrategiaId, userData.CodigoISO)
                         .Select(x => x.Componentes)
                         .FirstOrDefault();
