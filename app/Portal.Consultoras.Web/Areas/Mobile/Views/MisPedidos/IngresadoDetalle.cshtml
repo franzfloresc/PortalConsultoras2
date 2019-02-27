@@ -66,10 +66,14 @@
                     <div class="sections-1">Subtotal</div>
                     <div class="sections-2">@ViewBag.SubtotalPedido</div>
                 </div>
-                <div class="app-footer-section">
-                    <div class="sections-1">Descuento por niveles</div>
-                    <div class="sections-2">@ViewBag.descuentoPedido</div>
-                </div>
+                @if (@ViewBag.descuento > 0)
+                {
+                    <div class="app-footer-section">
+                        <div class="sections-1">Descuento oferta por niveles</div>
+                        <div class="sections-2">@ViewBag.descuentoPedido</div>
+                    </div>
+                }
+
                 <div class="app-footer-section">
                     <div class="sections-1 fz-19">Total</div>
                     <div class="sections-2 fz-19">@ViewBag.TotalPedido</div>
