@@ -1492,6 +1492,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ServicePedido.BEEstrategia VerficarArchivos(ServicePedido.BEEstrategia estrategia, ServicePedido.BEEstrategiaDetalle estrategiaDetalle)
         {
+            var resizeImagenApp = false;
+
             if (!string.IsNullOrEmpty(estrategia.ImgFondoDesktop) &&
                 (string.IsNullOrEmpty(estrategiaDetalle.ImgFondoDesktop) ||
                  estrategia.ImgFondoDesktop != estrategiaDetalle.ImgFondoDesktop))
@@ -1532,16 +1534,30 @@ namespace Portal.Consultoras.Web.Controllers
                  estrategia.ImgHomeMobile != estrategiaDetalle.ImgHomeMobile))
                 estrategia.ImgHomeMobile = SaveFileS3(estrategia.ImgHomeMobile);
 
+            if (!string.IsNullOrEmpty(estrategia.ImgFondoApp) &&
+                (string.IsNullOrEmpty(estrategiaDetalle.ImgFondoApp) ||
+                 estrategia.ImgFondoApp != estrategiaDetalle.ImgFondoApp))
+            {
+                resizeImagenApp = true;
+                estrategia.ImgFondoApp = SaveFileS3(estrategia.ImgFondoApp, true);
+            }
+
+            if (resizeImagenApp)
+            {
+                var urlImagen = ConfigS3.GetUrlFileS3Matriz(userData.CodigoISO, estrategia.ImgFondoApp);
+                RenderImgProvider.ImagenesResizeProcesoApp(urlImagen, userData.CodigoISO);
+            }
+
             return estrategia;
         }
 
-        public string SaveFileS3(string imagenEstrategia)
+        public string SaveFileS3(string imagenEstrategia, bool mantenerExtension = false)
         {
             var path = Path.Combine(Globals.RutaTemporales, imagenEstrategia);
-            var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-            var time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() +
-                       DateTime.Now.Millisecond.ToString();
-            var newfilename = userData.CodigoISO + "_" + time + "_" + FileManager.RandomString() + ".png";
+            var carpetaPais = string.Concat(Globals.UrlMatriz, "/", userData.CodigoISO);
+            var time = string.Concat(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Minute, DateTime.Now.Millisecond);
+            var ext = !mantenerExtension ? ".png" : Path.GetExtension(path);
+            var newfilename = string.Concat(userData.CodigoISO, "_", time, "_", FileManager.RandomString(), ext);
             ConfigS3.SetFileS3(path, carpetaPais, newfilename);
             return newfilename;
         }

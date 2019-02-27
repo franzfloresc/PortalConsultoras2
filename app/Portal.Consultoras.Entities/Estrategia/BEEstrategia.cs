@@ -301,6 +301,11 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public bool TieneStock { get; set; }
 
+        [DataMember]
+        public string ImgFondoApp { get; set; }
+        [DataMember]
+        public string ColorTextoApp { get; set; }
+
         public BEEstrategia()
         { }
 

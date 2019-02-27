@@ -3817,6 +3817,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ColorTextoAppField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int EstrategiaIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -3833,6 +3836,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ImgFichaMobileField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ImgFondoAppField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ImgFondoDesktopField;
@@ -3862,6 +3868,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
             }
             set {
                 this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ColorTextoApp {
+            get {
+                return this.ColorTextoAppField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ColorTextoAppField, value) != true)) {
+                    this.ColorTextoAppField = value;
+                    this.RaisePropertyChanged("ColorTextoApp");
+                }
             }
         }
         
@@ -3939,6 +3958,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.ImgFichaMobileField, value) != true)) {
                     this.ImgFichaMobileField = value;
                     this.RaisePropertyChanged("ImgFichaMobile");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ImgFondoApp {
+            get {
+                return this.ImgFondoAppField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ImgFondoAppField, value) != true)) {
+                    this.ImgFondoAppField = value;
+                    this.RaisePropertyChanged("ImgFondoApp");
                 }
             }
         }
@@ -5954,6 +5986,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string GPRTextovinculoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool GanaMasNativoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Portal.Consultoras.Web.ServicePedido.BEGuiaNegocio GuiaNegocioField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -7558,6 +7593,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.GPRTextovinculoField, value) != true)) {
                     this.GPRTextovinculoField = value;
                     this.RaisePropertyChanged("GPRTextovinculo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool GanaMasNativo {
+            get {
+                return this.GanaMasNativoField;
+            }
+            set {
+                if ((this.GanaMasNativoField.Equals(value) != true)) {
+                    this.GanaMasNativoField = value;
+                    this.RaisePropertyChanged("GanaMasNativo");
                 }
             }
         }
@@ -10661,6 +10709,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string ColorFondoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ColorTextoAppField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ConsultoraIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -10791,6 +10842,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ImgFichaMobileField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ImgFondoAppField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ImgFondoDesktopField;
@@ -11154,6 +11208,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.ColorFondoField, value) != true)) {
                     this.ColorFondoField = value;
                     this.RaisePropertyChanged("ColorFondo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ColorTextoApp {
+            get {
+                return this.ColorTextoAppField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ColorTextoAppField, value) != true)) {
+                    this.ColorTextoAppField = value;
+                    this.RaisePropertyChanged("ColorTextoApp");
                 }
             }
         }
@@ -11726,6 +11793,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.ImgFichaMobileField, value) != true)) {
                     this.ImgFichaMobileField = value;
                     this.RaisePropertyChanged("ImgFichaMobile");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ImgFondoApp {
+            get {
+                return this.ImgFondoAppField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ImgFondoAppField, value) != true)) {
+                    this.ImgFondoAppField = value;
+                    this.RaisePropertyChanged("ImgFondoApp");
                 }
             }
         }

@@ -276,12 +276,14 @@
   <xs:element name="BEFichaProducto" nillable="true" type="tns:BEFichaProducto" />
   <xs:complexType name="BEEstrategiaDetalle">
     <xs:sequence>
+      <xs:element minOccurs="0" name="ColorTextoApp" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="EstrategiaID" type="xs:int" />
       <xs:element minOccurs="0" name="FlagIndividual" type="xs:boolean" />
       <xs:element minOccurs="0" name="ImgFichaDesktop" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImgFichaFondoDesktop" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImgFichaFondoMobile" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImgFichaMobile" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImgFondoApp" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImgFondoDesktop" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImgFondoMobile" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImgHomeDesktop" nillable="true" type="xs:string" />
@@ -447,6 +449,7 @@
       <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" minOccurs="0" name="GPRBannerUrl" type="q2:Enumeradores.RechazoBannerUrl" />
       <xs:element minOccurs="0" name="GPRMostrarBannerRechazo" type="xs:boolean" />
       <xs:element minOccurs="0" name="GPRTextovinculo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="GanaMasNativo" type="xs:boolean" />
       <xs:element minOccurs="0" name="GuiaNegocio" nillable="true" type="tns:BEGuiaNegocio" />
       <xs:element minOccurs="0" name="HabilitarRestriccionHoraria" type="xs:boolean" />
       <xs:element minOccurs="0" name="HoraCierreNoFacturable" type="ser:duration" />
@@ -789,6 +792,7 @@
           <xs:element minOccurs="0" name="CodigoSAP" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="CodigoTipoEstrategia" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="ColorFondo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ColorTextoApp" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="ConsultoraID" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="DescripcionCUV2" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="DescripcionCategoria" nillable="true" type="xs:string" />
@@ -833,6 +837,7 @@
           <xs:element minOccurs="0" name="ImgFichaFondoDesktop" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="ImgFichaFondoMobile" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="ImgFichaMobile" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ImgFondoApp" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="ImgFondoDesktop" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="ImgFondoMobile" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="ImgHomeDesktop" nillable="true" type="xs:string" />

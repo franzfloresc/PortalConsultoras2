@@ -371,7 +371,8 @@ namespace Portal.Consultoras.Web.Controllers
             var path = Path.Combine(Globals.RutaTemporales, imagenEstrategia);
             var carpetaPais = string.Concat(Globals.UrlMatriz, "/", userData.CodigoISO);
             var time = string.Concat(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Minute, DateTime.Now.Millisecond);
-            var newfilename = string.Concat(userData.CodigoISO, "_", time, "_", FileManager.RandomString(), (!mantenerExtension ? ".png" : Path.GetExtension(path)));
+            var ext = !mantenerExtension ? ".png" : Path.GetExtension(path);
+            var newfilename = string.Concat(userData.CodigoISO, "_", time, "_", FileManager.RandomString(), ext);
             ConfigS3.SetFileS3(path, carpetaPais, newfilename);
             return newfilename;
         }

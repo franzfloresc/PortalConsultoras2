@@ -567,10 +567,12 @@
             _agregarCamposLanzamiento("img-ficha-fondo-mobile", data.ImgFichaFondoMobile);
             _agregarCamposLanzamiento("img-home-desktop", data.ImgHomeDesktop);
             _agregarCamposLanzamiento("img-home-mobile", data.ImgHomeMobile);
+            _agregarCamposLanzamiento("img-fondo-app", data.ImgFondoApp);
             $("#url-video-desktop").val(data.UrlVideoDesktop);
             $("#url-video-mobile").val(data.UrlVideoMobile);
             $("#txtPrecioPublico").val(data.PrecioPublico);
             $("#txtGanancia").val(data.Ganancia);
+            $("#AppColorTexto").val(data.ColorTextoApp);
             closeWaitingDialog();
             if ($("#ddlTipoEstrategia").find(":selected").data("codigo") == "030") {
                 _vistaNuevoProductoShowroon();
@@ -672,25 +674,63 @@
     };
 
      var _uploadFileLanzamineto = function (divId) {
-        var uploader = new qq.FileUploader({
-            allowedExtensions: ["jpg", "png", "jpeg"],
-            element: document.getElementById(divId),
-            action: _config.urlImageLanzamientoUpload,
-            onComplete: function (id, fileName, responseJSON) {
-                if (checkTimeout(responseJSON)) {
-                    if (responseJSON.success) {
-                        $("#nombre-" + divId).val(responseJSON.name);
-                        $("#src-" + divId).attr("src", _config.rutaTemporal + responseJSON.name);
-                    } else _toastHelper.error(responseJSON.message);
-                }
-                return false;
-            },
-            onSubmit: function (id, fileName) { $(".qq-upload-list").remove(); },
-            onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").remove(); },
-            onCancel: function (id, fileName) { $(".qq-upload-list").remove(); }
-        });
-        return false;
-    }
+         var uploader = new qq.FileUploader({
+             allowedExtensions: ["jpg", "png", "jpeg"],
+             element: document.getElementById(divId),
+             action: _config.urlImageLanzamientoUpload,
+             onComplete: function (id, fileName, responseJSON) {
+                 if (checkTimeout(responseJSON)) {
+                     if (responseJSON.success) {
+                         $("#nombre-" + divId).val(responseJSON.name);
+                         $("#src-" + divId).attr("src", _config.rutaTemporal + responseJSON.name);
+                     } else _toastHelper.error(responseJSON.message);
+                 }
+                 return false;
+             },
+             onSubmit: function (id, fileName) { $(".qq-upload-list").remove(); },
+             onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").remove(); },
+             onCancel: function (id, fileName) { $(".qq-upload-list").remove(); }
+         });
+         return false;
+     };
+
+     function _uploadFileLanzamientoApp(tag) {
+         var tipoFileTag = $("#nombre-" + tag).attr("imageextension");
+         var tipoFile = tipoFileTag.split(",");
+
+         var params = {};
+         params["width"] = $("#nombre-" + tag).attr("imagewidth");
+         params["height"] = $("#nombre-" + tag).attr("imageheight");
+         params["messageSize"] = $("#nombre-" + tag).attr("messageSize");
+
+         new qq.FileUploader({
+             allowedExtensions: tipoFile,
+             element: document.getElementById(tag),
+             action: _config.urlImageLanzamientoUpload,
+             params: params,
+             messages: {
+                 typeError: $("#nombre-" + tag).attr("messageFormat")
+             },
+             onComplete: function (id, fileName, responseJSON) {
+                 closeWaitingDialog();
+                 if (checkTimeout(responseJSON)) {
+                     if (responseJSON.success) {
+                         $("#nombre-" + tag).val(responseJSON.name);
+                         $("#src-" + tag).attr("src", _config.rutaTemporal + responseJSON.name);
+                     }
+                     else {
+                         alert(responseJSON.message);
+                     }
+                 }
+                 return false;
+             },
+             onSubmit: function (id, fileName) { $(".qq-upload-list").remove(); waitingDialog({}); },
+             onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").remove(); },
+             onCancel: function (id, fileName) { $(".qq-upload-list").remove(); }
+         });
+
+         return false;
+     };
 
     var _createGridUpdated = function (list) {
         var gridJson = { page: 1, total: 2, records: 10, rows: list };
@@ -2589,6 +2629,9 @@
                     var imgFichaFondoMobile = $("#nombre-img-ficha-fondo-mobile").val();
                     var imgHomeDesktop = $("#nombre-img-home-desktop").val();
                     var imgHomeMobile = $("#nombre-img-home-mobile").val();
+                    var imgFondoApp = $("#nombre-img-fondo-app").val();
+                    var colorTextoApp = $("#AppColorTexto").val();
+
                     var ganancia = $("#txtGanancia").val();
                     var esOfertaIndependiente = ($("#chkEsOfertaIndependiente").attr("checked")) ? true : false;
                     var ImagenMiniaturaURL = $("#imgMiniSeleccionada").attr("src").substr($("#imgMiniSeleccionada").attr("src").lastIndexOf("/") + 1);
@@ -2645,6 +2688,8 @@
                         ImgFichaFondoMobile: imgFichaFondoMobile,
                         ImgHomeDesktop: imgHomeDesktop,
                         ImgHomeMobile: imgHomeMobile,
+                        ImgFondoApp: imgFondoApp,
+                        ColorTextoApp: colorTextoApp,
                         PrecioAnt: $("#hdEstrategiaPrecioAnt").val(),
                         EsOfertaIndependiente: esOfertaIndependiente,
                         Ganancia: ganancia,
@@ -2667,6 +2712,9 @@
                         _flagRecoProduc: flagRecoProduc,
                         _flagRecoPerfil: flagRecoPerfil
                     };
+
+                    waitingDialog({});
+
                     jQuery.ajax({
                         type: "POST",
                         url: baseUrl + "AdministrarEstrategia/RegistrarEstrategia",
@@ -3159,8 +3207,10 @@
             _limpiarCamposLanzamiento("img-ficha-fondo-mobile");
             _limpiarCamposLanzamiento("img-home-desktop");
             _limpiarCamposLanzamiento("img-home-mobile");
+            _limpiarCamposLanzamiento("img-fondo-app");
             $("#url-video-desktop").val("");
             $("#url-video-mobile").val("");
+            $("#AppColorTexto").val("");
 
             if (aux2 == _config.tipoEstrategiaIncentivosProgramaNuevas)
                 $("#divPrecioValorizado").html("Ganancia");
@@ -4390,7 +4440,7 @@
         _uploadFileLanzamineto("img-ficha-fondo-mobile");
         _uploadFileLanzamineto("img-home-desktop");
         _uploadFileLanzamineto("img-home-mobile");
-        _uploadFileLanzamineto("img-fondo-app");
+        _uploadFileLanzamientoApp("img-fondo-app");
 
         if (_config.habilitarNemotecnico) {
             $("#matriz-busqueda-nemotecnico").show();

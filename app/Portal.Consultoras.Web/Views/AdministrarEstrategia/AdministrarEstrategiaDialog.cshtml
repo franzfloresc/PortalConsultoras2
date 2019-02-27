@@ -288,7 +288,7 @@
                 <div style="display: inline-block; width: 48%; text-align: left; padding: 8px; margin-right: -3px">
                     <h4>Carrusel App</h4>
                     <div style="display: inline-block; width: 100%;">
-                        <input type="hidden" id="nombre-img-fondo-app" />
+                        <input type="hidden" id="nombre-img-fondo-app" imageextension = "jpg" imagewidth = "380" imageheight = "860" messageSize = "Las medidas no son correctas. Vuelve a intentar, por favor." messageFormat = "El formato no es correcto. Vuelve a intentar, por favor." />
                         <label style="width: 130px; display: inline-block;">Imagen de Fondo: </label>
                         <div id="img-fondo-app" style="display: inline-block;vertical-align: middle;"></div>
                         <div class="pdr_modal2 borde_redondeado alignrigth">
@@ -304,7 +304,6 @@
                     </div>
                     <div class="titG selectP2 borde_redondeado" style="width:190px;margin-top:10px">
                         <input type="text" id="AppColorTexto" maxlength="7" />
-                        @*@Html.TextBoxFor(m => m.AppColorTexto, new { @maxlength = "7", @size = 7 })*@
                     </div>
                 </div>
             </div>
