@@ -139,6 +139,8 @@
 
         $("#listShowRoomDetalle").jqGrid("clearGridData");
 
+        var ocultarGrupoEstrategia = $("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ArmaTuPack ? false : true;
+
         var parametros = {
             estrategiaId: estrategiaId,
             codigoTipoEstrategia: $("#ddlTipoEstrategia").find(":selected").data("codigo")
@@ -154,7 +156,7 @@
             postData: (parametros),
             mtype: "GET",
             contentType: "application/json; charset=utf-8",
-            colNames: ["EstrategiaProductoId", "EstrategiaId", "CampaniaID", "CUV", "Nombre", "Descripcion Catalogo", "Foto", "Marca", "", "", "", "Acciones"],
+            colNames: ["EstrategiaProductoId", "EstrategiaId", "CampaniaID", "CUV", "Nombre", "Descripcion Catalogo", "Foto", "Marca","Grupo de estrategia" ,"", "", "", "Acciones"],
             colModel: [
                 { name: "EstrategiaProductoId", index: "EstrategiaProductoId", width: 50, editable: true, resizable: false, hidden: true },
                 { name: "EstrategiaId", index: "Estrategia", width: 50, editable: true, resizable: false, hidden: true },
@@ -165,6 +167,9 @@
                 //{ name: "Descripcion1", index: "Descripcion1", width: 80, editable: true, resizable: false },
                 { name: "ImagenProducto", index: "ImagenProducto", width: 60, editable: true, resizable: false, sortable: false, align: "center", formatter: _showImageDetalle },
                 { name: "IdMarca", index: "IdMarca", width: 50, editable: true, resizable: false, hidden: true },
+
+                { name: "DescripcionGrupo", index: "DescripcionGrupo", width: 50, editable: true, resizable: false, hidden: ocultarGrupoEstrategia },
+
                 { name: "Precio", index: "Precio", width: 50, editable: true, resizable: false, hidden: true },
                 { name: "PrecioValorizado", index: "PrecioValorizado", width: 50, editable: true, resizable: false, hidden: true },
                 { name: "Activo", index: "Activo", width: 50, editable: true, resizable: false, hidden: true },

@@ -492,6 +492,7 @@
       <xs:element minOccurs="0" name="CodigoEstrategia" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Descripcion1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DescripcionGrupo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Digitable" type="xs:int" />
       <xs:element minOccurs="0" name="EstrategiaID" type="xs:int" />
       <xs:element minOccurs="0" name="EstrategiaProductoID" type="xs:int" />

@@ -46,24 +46,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             IEnumerable<Models.AdministrarEstrategia.EstrategiaGrupoModel> grupos = null;
             var userData = SessionManager.GetUserData();
-
-
-            //if (ModelState.IsValid)
-            //{
-            //    List<ServicePedido.BEEstrategiaProducto> lst;
-            //    var estrategiaX = new ServicePedido.BEEstrategia() { PaisID = userData.PaisID, EstrategiaID = estrategiaId };
-
-            //    using (var sv = new ServicePedido.PedidoServiceClient())
-            //    {
-            //        lst = sv.GetEstrategiaProducto(estrategiaX).ToList();
-            //    }
-
-            //    var distinct = (from item in lst select new { EstrategiaId = item.EstrategiaID, Grupo = item.Grupo, }).Distinct();
-
-            //    res = (from item in distinct select new Models.AdministrarEstrategia.EstrategiaGrupoModel { _idEstrategia = estrategiaId, EstrategiaGrupoId = 0, Grupo = item.Grupo, DescripcionSingular = string.Empty, DescripcionPlural = string.Empty });
-            //}
-             
-
+              
             //INI AGANA 244
 
             //Estrategia gruepo
