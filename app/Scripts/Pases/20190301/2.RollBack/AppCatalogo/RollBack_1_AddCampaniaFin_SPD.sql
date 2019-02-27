@@ -1,4 +1,5 @@
-USE AppCatalogo
+﻿USE AppCatalogo
+GO
 IF EXISTS(SELECT 1 FROM sys.columns 
           WHERE Name = 'CampaniaFin'
           AND Object_ID = Object_ID('AppCatalogo.ProductoCampanaTemporalSB'))
