@@ -140,12 +140,16 @@ function RDDesuscripcion_pregunta() {
 }
 
 function RDDesuscripcion_cerrar(e) {
-    debugger;
-    if (e)
+    if (e)      
+        if (revistaDigital.EsSuscrita)
         rdAnalyticsModule.DesuscripcionPopup(e.innerHTML);
-
+        else
+        rdAnalyticsModule.CancelarSuscripcionEncuesta($('#frmMotivoDesuscripcion').find('input:checked').parent()[0].innerText);
     else
-        rdAnalyticsModule.DesuscripcionPopupCerrar("Cerrar Popup");
+        if (revistaDigital.EsSuscrita)
+            rdAnalyticsModule.DesuscripcionPopupCerrar("Cerrar Popup");
+        else
+            rdAnalyticsModule.DesuscripcionPopupCerrar("Cerrar Encuesta");
 
     $('#pregunta').show();
     $('#opciones').hide();
@@ -168,7 +172,6 @@ function RDDesuscripcion_check() {
 }
 
 function RDDesuscripcion_motivos(e) {   
-    debugger;
     rdAnalyticsModule.DesuscripcionPopup(e.innerHTML);
     RDDesuscripcion(e);
 }
@@ -185,8 +188,6 @@ function RDDesuscripcion(e) {
         dataType: "json",
         contentType: "application/json; charset=utf-8",
         success: function (data) {
-           
-            rdAnalyticsModule.CancelarSuscripcionEncuesta(e.innerHTML);
             CerrarLoad();
             if (!checkTimeout(data))
                 return false;
