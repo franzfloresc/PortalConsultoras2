@@ -447,6 +447,11 @@ namespace Portal.Consultoras.Web.Providers
 
         public bool ActivarDesactivarEstrategias(List<string> estrategiasActivas, List<string> estrategiasInactivas, string usuario, string pais, string tipo)
         {
+            if (!estrategiasActivas.Any() && !estrategiasInactivas.Any())
+            {
+                return true;
+            }
+
             UsuarioModel userData = sessionManager.GetUserData();
             string jsonParametersActivas = JsonConvert.SerializeObject(estrategiasActivas);
 

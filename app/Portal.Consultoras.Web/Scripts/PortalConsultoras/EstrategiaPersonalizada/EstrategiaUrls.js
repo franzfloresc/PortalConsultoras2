@@ -17,13 +17,15 @@ function OnClickFichaDetalle(e) {
         OrigenPedidoWeb = "";
 
     UrlDetalle += codigoCampania + "/" + codigoCuv + "/" + OrigenPedidoWeb;
-
-    if (!(typeof AnalyticsPortalModule === 'undefined')) {
-        if (estoyEnLaFicha)
-            AnalyticsPortalModule.MarcarClicSetProductos(infoCuvItem, e, OrigenPedidoWeb, estoyEnLaFicha);
-        else
-            AnalyticsPortalModule.MarcaGenericaClic(e, OrigenPedidoWeb);
-    }
+  ///Comentado por cambios en las funciones que generaban la marcacion del boton Ver detalle  23-01-2019
+    //if (estoyEnLaFicha) {
+    //    AnalyticsPortalModule.MarcaGenericaClic(e, OrigenPedidoWeb, UrlDetalle);
+     
+    //    //AnalyticsPortalModule.MarcarClicSetProductos(infoCuvItem, e, OrigenPedidoWeb, estoyEnLaFicha);
+    //} else
+    ////////////////////////////
+        if (!(typeof AnalyticsPortalModule === 'undefined'))
+            AnalyticsPortalModule.MarcaGenericaClic(e, OrigenPedidoWeb,UrlDetalle);
 
     window.location = UrlDetalle;
 
