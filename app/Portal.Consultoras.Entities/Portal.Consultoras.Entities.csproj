@@ -105,6 +105,7 @@
     <Compile Include="Pedido\BEDireccionEntrega.cs" />
     <Compile Include="Pedido\BEPedidoReservaResult.cs" />
     <Compile Include="Producto\BEBuscadorResponse.cs" />
+    <Compile Include="ProgramaNuevas\BEPremioNuevas.cs" />
     <Compile Include="LimiteVenta\BERespValidarLimiteVenta.cs" />
     <Compile Include="Producto\BEProductoRecomendado.cs" />
     <Compile Include="ProgramaNuevas\BENivelesProgramaNuevas.cs" />

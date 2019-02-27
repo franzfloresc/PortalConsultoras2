@@ -1,4 +1,4 @@
-GO
+﻿GO
 USE BelcorpPeru
 GO
 if exists (select * from filtroBuscador where tablaLogicaDatosId = 14801)
