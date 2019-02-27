@@ -15,7 +15,7 @@ BEGIN
 		,Valor
 		)
 	VALUES (
-		16000
+		18001
 		,180
 		,'01'
 		,'Tiempo máximo de demora sp'
@@ -41,7 +41,7 @@ BEGIN
 		,Valor
 		)
 	VALUES (
-		16000
+		18001
 		,180
 		,'01'
 		,'Tiempo máximo de demora sp'
@@ -67,7 +67,7 @@ BEGIN
 		,Valor
 		)
 	VALUES (
-		16000
+		18001
 		,180
 		,'01'
 		,'Tiempo máximo de demora sp'
@@ -93,7 +93,7 @@ BEGIN
 		,Valor
 		)
 	VALUES (
-		16000
+		18001
 		,180
 		,'01'
 		,'Tiempo máximo de demora sp'
@@ -119,7 +119,7 @@ BEGIN
 		,Valor
 		)
 	VALUES (
-		16000
+		18001
 		,180
 		,'01'
 		,'Tiempo máximo de demora sp'
@@ -145,7 +145,7 @@ BEGIN
 		,Valor
 		)
 	VALUES (
-		16000
+		18001
 		,180
 		,'01'
 		,'Tiempo máximo de demora sp'
@@ -171,7 +171,7 @@ BEGIN
 		,Valor
 		)
 	VALUES (
-		16000
+		18001
 		,180
 		,'01'
 		,'Tiempo máximo de demora sp'
@@ -197,7 +197,7 @@ BEGIN
 		,Valor
 		)
 	VALUES (
-		16000
+		18001
 		,180
 		,'01'
 		,'Tiempo máximo de demora sp'
@@ -223,7 +223,7 @@ BEGIN
 		,Valor
 		)
 	VALUES (
-		16000
+		18001
 		,180
 		,'01'
 		,'Tiempo máximo de demora sp'
@@ -249,7 +249,7 @@ BEGIN
 		,Valor
 		)
 	VALUES (
-		16000
+		18001
 		,180
 		,'01'
 		,'Tiempo máximo de demora sp'
@@ -275,7 +275,7 @@ BEGIN
 		,Valor
 		)
 	VALUES (
-		16000
+		18001
 		,180
 		,'01'
 		,'Tiempo máximo de demora sp'
@@ -301,7 +301,7 @@ BEGIN
 		,Valor
 		)
 	VALUES (
-		16000
+		18001
 		,180
 		,'01'
 		,'Tiempo máximo de demora sp'

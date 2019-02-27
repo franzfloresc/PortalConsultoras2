@@ -1,10 +1,10 @@
-USE BelcorpPeru
+锘縐SE BelcorpPeru
 GO
 
 if not exists(select 1 from ConfiguracionPais where Codigo = 'DIRECCION_ENTREGA')
 begin
 	Insert ConfiguracionPais (Codigo, Excluyente, Descripcion, Estado, TienePerfil, DesdeCampania, Orden, OrdenBpt, MobileOrden, MobileOrdenBPT)
-							values('DIRECCION_ENTREGA', 1, 'Direcci髇 de entrega en perfil', 0, 0, 201903, 0, 0, 0, 0)
+							values('DIRECCION_ENTREGA', 1, 'Direcci贸n de entrega en perfil', 0, 0, 201903, 0, 0, 0, 0)
 end
 GO
 
@@ -14,7 +14,7 @@ GO
 if not exists(select 1 from ConfiguracionPais where Codigo = 'DIRECCION_ENTREGA')
 begin
 	Insert ConfiguracionPais (Codigo, Excluyente, Descripcion, Estado, TienePerfil, DesdeCampania, Orden, OrdenBpt, MobileOrden, MobileOrdenBPT)
-							values('DIRECCION_ENTREGA', 1, 'Direcci髇 de entrega en perfil', 0, 0, 201903, 0, 0, 0, 0)
+							values('DIRECCION_ENTREGA', 1, 'Direcci贸n de entrega en perfil', 0, 0, 201903, 0, 0, 0, 0)
 end
 GO
 
@@ -24,7 +24,7 @@ GO
 if not exists(select 1 from ConfiguracionPais where Codigo = 'DIRECCION_ENTREGA')
 begin
 	Insert ConfiguracionPais (Codigo, Excluyente, Descripcion, Estado, TienePerfil, DesdeCampania, Orden, OrdenBpt, MobileOrden, MobileOrdenBPT)
-							values('DIRECCION_ENTREGA', 1, 'Direcci髇 de entrega en perfil', 0, 0, 201903, 0, 0, 0, 0)
+							values('DIRECCION_ENTREGA', 1, 'Direcci贸n de entrega en perfil', 0, 0, 201903, 0, 0, 0, 0)
 end
 GO
 
@@ -34,7 +34,7 @@ GO
 if not exists(select 1 from ConfiguracionPais where Codigo = 'DIRECCION_ENTREGA')
 begin
 	Insert ConfiguracionPais (Codigo, Excluyente, Descripcion, Estado, TienePerfil, DesdeCampania, Orden, OrdenBpt, MobileOrden, MobileOrdenBPT)
-							values('DIRECCION_ENTREGA', 1, 'Direcci髇 de entrega en perfil', 0, 0, 201903, 0, 0, 0, 0)
+							values('DIRECCION_ENTREGA', 1, 'Direcci贸n de entrega en perfil', 0, 0, 201903, 0, 0, 0, 0)
 end
 GO
 
@@ -44,7 +44,7 @@ GO
 if not exists(select 1 from ConfiguracionPais where Codigo = 'DIRECCION_ENTREGA')
 begin
 	Insert ConfiguracionPais (Codigo, Excluyente, Descripcion, Estado, TienePerfil, DesdeCampania, Orden, OrdenBpt, MobileOrden, MobileOrdenBPT)
-							values('DIRECCION_ENTREGA', 1, 'Direcci髇 de entrega en perfil', 0, 0, 201903, 0, 0, 0, 0)
+							values('DIRECCION_ENTREGA', 1, 'Direcci贸n de entrega en perfil', 0, 0, 201903, 0, 0, 0, 0)
 end
 GO
 
@@ -54,7 +54,7 @@ GO
 if not exists(select 1 from ConfiguracionPais where Codigo = 'DIRECCION_ENTREGA')
 begin
 	Insert ConfiguracionPais (Codigo, Excluyente, Descripcion, Estado, TienePerfil, DesdeCampania, Orden, OrdenBpt, MobileOrden, MobileOrdenBPT)
-							values('DIRECCION_ENTREGA', 1, 'Direcci髇 de entrega en perfil', 0, 0, 201903, 0, 0, 0, 0)
+							values('DIRECCION_ENTREGA', 1, 'Direcci贸n de entrega en perfil', 0, 0, 201903, 0, 0, 0, 0)
 end
 GO
 
@@ -64,7 +64,7 @@ GO
 if not exists(select 1 from ConfiguracionPais where Codigo = 'DIRECCION_ENTREGA')
 begin
 	Insert ConfiguracionPais (Codigo, Excluyente, Descripcion, Estado, TienePerfil, DesdeCampania, Orden, OrdenBpt, MobileOrden, MobileOrdenBPT)
-							values('DIRECCION_ENTREGA', 1, 'Direcci髇 de entrega en perfil', 0, 0, 201903, 0, 0, 0, 0)
+							values('DIRECCION_ENTREGA', 1, 'Direcci贸n de entrega en perfil', 0, 0, 201903, 0, 0, 0, 0)
 end
 GO
 
@@ -74,7 +74,7 @@ GO
 if not exists(select 1 from ConfiguracionPais where Codigo = 'DIRECCION_ENTREGA')
 begin
 	Insert ConfiguracionPais (Codigo, Excluyente, Descripcion, Estado, TienePerfil, DesdeCampania, Orden, OrdenBpt, MobileOrden, MobileOrdenBPT)
-							values('DIRECCION_ENTREGA', 1, 'Direcci髇 de entrega en perfil', 0, 0, 201903, 0, 0, 0, 0)
+							values('DIRECCION_ENTREGA', 1, 'Direcci贸n de entrega en perfil', 0, 0, 201903, 0, 0, 0, 0)
 end
 GO
 
@@ -84,7 +84,7 @@ GO
 if not exists(select 1 from ConfiguracionPais where Codigo = 'DIRECCION_ENTREGA')
 begin
 	Insert ConfiguracionPais (Codigo, Excluyente, Descripcion, Estado, TienePerfil, DesdeCampania, Orden, OrdenBpt, MobileOrden, MobileOrdenBPT)
-							values('DIRECCION_ENTREGA', 1, 'Direcci髇 de entrega en perfil', 0, 0, 201903, 0, 0, 0, 0)
+							values('DIRECCION_ENTREGA', 1, 'Direcci贸n de entrega en perfil', 0, 0, 201903, 0, 0, 0, 0)
 end
 GO
 
@@ -94,7 +94,7 @@ GO
 if not exists(select 1 from ConfiguracionPais where Codigo = 'DIRECCION_ENTREGA')
 begin
 	Insert ConfiguracionPais (Codigo, Excluyente, Descripcion, Estado, TienePerfil, DesdeCampania, Orden, OrdenBpt, MobileOrden, MobileOrdenBPT)
-							values('DIRECCION_ENTREGA', 1, 'Direcci髇 de entrega en perfil', 0, 0, 201903, 0, 0, 0, 0)
+							values('DIRECCION_ENTREGA', 1, 'Direcci贸n de entrega en perfil', 0, 0, 201903, 0, 0, 0, 0)
 end
 GO
 
@@ -104,7 +104,7 @@ GO
 if not exists(select 1 from ConfiguracionPais where Codigo = 'DIRECCION_ENTREGA')
 begin
 	Insert ConfiguracionPais (Codigo, Excluyente, Descripcion, Estado, TienePerfil, DesdeCampania, Orden, OrdenBpt, MobileOrden, MobileOrdenBPT)
-							values('DIRECCION_ENTREGA', 1, 'Direcci髇 de entrega en perfil', 0, 0, 201903, 0, 0, 0, 0)
+							values('DIRECCION_ENTREGA', 1, 'Direcci贸n de entrega en perfil', 0, 0, 201903, 0, 0, 0, 0)
 end
 GO
 
@@ -114,7 +114,7 @@ GO
 if not exists(select 1 from ConfiguracionPais where Codigo = 'DIRECCION_ENTREGA')
 begin
 	Insert ConfiguracionPais (Codigo, Excluyente, Descripcion, Estado, TienePerfil, DesdeCampania, Orden, OrdenBpt, MobileOrden, MobileOrdenBPT)
-							values('DIRECCION_ENTREGA', 1, 'Direcci髇 de entrega en perfil', 0, 0, 201903, 0, 0, 0, 0)
+							values('DIRECCION_ENTREGA', 1, 'Direcci贸n de entrega en perfil', 0, 0, 201903, 0, 0, 0, 0)
 end
 GO
 

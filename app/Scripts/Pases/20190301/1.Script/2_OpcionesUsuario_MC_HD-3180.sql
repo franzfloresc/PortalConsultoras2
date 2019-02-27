@@ -1,84 +1,84 @@
-USE BelcorpPeru
+锘縐SE BelcorpPeru
 GO
 
-insert into OpcionesUsuario(OpcionesUsuarioId, Opcion, Codigo, Marcacion, Orden, Descripcion, Activo) values(1,'Quiero recibir mis boletas impresas', 'chkBoletasImpresas', 1, 1, 'Si desmarcas esta opci髇 podras descargar tus boletas electronicas desde SomosBelcorp', 0),
-																							                (2,'Quiero recibir mi paquete documentario impreso', 'chkComunicacionWhatsApp', 1, 2, 'Si desmarcas esta opci髇 tu paquete documentario podr醩 tenerlo solo desde SomosBelcorp', 0)
+insert into OpcionesUsuario(OpcionesUsuarioId, Opcion, Codigo, Marcacion, Orden, Descripcion, Activo) values(1,'Quiero recibir mis boletas impresas', 'chkBoletasImpresas', 1, 1, 'Si desmarcas esta opci贸n podras descargar tus boletas electronicas desde SomosBelcorp', 0),
+																							                (2,'Quiero recibir mi paquete documentario impreso', 'chkComunicacionWhatsApp', 1, 2, 'Si desmarcas esta opci贸n tu paquete documentario podr谩s tenerlo solo desde SomosBelcorp', 0)
 GO
 
 USE BelcorpMexico
 GO
 
-insert into OpcionesUsuario(OpcionesUsuarioId, Opcion, Codigo, Marcacion, Orden, Descripcion, Activo) values(1,'Quiero recibir mis boletas impresas', 'chkBoletasImpresas', 1, 1, 'Si desmarcas esta opci髇 podras descargar tus boletas electronicas desde SomosBelcorp', 0),
-																							                (2,'Quiero recibir mi paquete documentario impreso', 'chkComunicacionWhatsApp', 1, 2, 'Si desmarcas esta opci髇 tu paquete documentario podr醩 tenerlo solo desde SomosBelcorp', 0)
+insert into OpcionesUsuario(OpcionesUsuarioId, Opcion, Codigo, Marcacion, Orden, Descripcion, Activo) values(1,'Quiero recibir mis boletas impresas', 'chkBoletasImpresas', 1, 1, 'Si desmarcas esta opci贸n podras descargar tus boletas electronicas desde SomosBelcorp', 0),
+																							                (2,'Quiero recibir mi paquete documentario impreso', 'chkComunicacionWhatsApp', 1, 2, 'Si desmarcas esta opci贸n tu paquete documentario podr谩s tenerlo solo desde SomosBelcorp', 0)
 GO
 
 USE BelcorpColombia
 GO
 
-insert into OpcionesUsuario(OpcionesUsuarioId, Opcion, Codigo, Marcacion, Orden, Descripcion, Activo) values(1,'Quiero recibir mis boletas impresas', 'chkBoletasImpresas', 1, 1, 'Si desmarcas esta opci髇 podras descargar tus boletas electronicas desde SomosBelcorp', 0),
-																							                (2,'Quiero recibir mi paquete documentario impreso', 'chkComunicacionWhatsApp', 1, 2, 'Si desmarcas esta opci髇 tu paquete documentario podr醩 tenerlo solo desde SomosBelcorp', 0)
+insert into OpcionesUsuario(OpcionesUsuarioId, Opcion, Codigo, Marcacion, Orden, Descripcion, Activo) values(1,'Quiero recibir mis boletas impresas', 'chkBoletasImpresas', 1, 1, 'Si desmarcas esta opci贸n podras descargar tus boletas electronicas desde SomosBelcorp', 0),
+																							                (2,'Quiero recibir mi paquete documentario impreso', 'chkComunicacionWhatsApp', 1, 2, 'Si desmarcas esta opci贸n tu paquete documentario podr谩s tenerlo solo desde SomosBelcorp', 0)
 GO
 
 USE BelcorpSalvador
 GO
 
-insert into OpcionesUsuario(OpcionesUsuarioId, Opcion, Codigo, Marcacion, Orden, Descripcion, Activo) values(1,'Quiero recibir mis boletas impresas', 'chkBoletasImpresas', 1, 1, 'Si desmarcas esta opci髇 podras descargar tus boletas electronicas desde SomosBelcorp', 0),
-																							                (2,'Quiero recibir mi paquete documentario impreso', 'chkComunicacionWhatsApp', 1, 2, 'Si desmarcas esta opci髇 tu paquete documentario podr醩 tenerlo solo desde SomosBelcorp', 0)
+insert into OpcionesUsuario(OpcionesUsuarioId, Opcion, Codigo, Marcacion, Orden, Descripcion, Activo) values(1,'Quiero recibir mis boletas impresas', 'chkBoletasImpresas', 1, 1, 'Si desmarcas esta opci贸n podras descargar tus boletas electronicas desde SomosBelcorp', 0),
+																							                (2,'Quiero recibir mi paquete documentario impreso', 'chkComunicacionWhatsApp', 1, 2, 'Si desmarcas esta opci贸n tu paquete documentario podr谩s tenerlo solo desde SomosBelcorp', 0)
 GO
 
 USE BelcorpPuertoRico
 GO
 
-insert into OpcionesUsuario(OpcionesUsuarioId, Opcion, Codigo, Marcacion, Orden, Descripcion, Activo) values(1,'Quiero recibir mis boletas impresas', 'chkBoletasImpresas', 1, 1, 'Si desmarcas esta opci髇 podras descargar tus boletas electronicas desde SomosBelcorp', 0),
-																							                (2,'Quiero recibir mi paquete documentario impreso', 'chkComunicacionWhatsApp', 1, 2, 'Si desmarcas esta opci髇 tu paquete documentario podr醩 tenerlo solo desde SomosBelcorp', 0)
+insert into OpcionesUsuario(OpcionesUsuarioId, Opcion, Codigo, Marcacion, Orden, Descripcion, Activo) values(1,'Quiero recibir mis boletas impresas', 'chkBoletasImpresas', 1, 1, 'Si desmarcas esta opci贸n podras descargar tus boletas electronicas desde SomosBelcorp', 0),
+																							                (2,'Quiero recibir mi paquete documentario impreso', 'chkComunicacionWhatsApp', 1, 2, 'Si desmarcas esta opci贸n tu paquete documentario podr谩s tenerlo solo desde SomosBelcorp', 0)
 GO
 
 USE BelcorpPanama
 GO
 
-insert into OpcionesUsuario(OpcionesUsuarioId, Opcion, Codigo, Marcacion, Orden, Descripcion, Activo) values(1,'Quiero recibir mis boletas impresas', 'chkBoletasImpresas', 1, 1, 'Si desmarcas esta opci髇 podras descargar tus boletas electronicas desde SomosBelcorp', 0),
-																							                (2,'Quiero recibir mi paquete documentario impreso', 'chkComunicacionWhatsApp', 1, 2, 'Si desmarcas esta opci髇 tu paquete documentario podr醩 tenerlo solo desde SomosBelcorp', 0)
+insert into OpcionesUsuario(OpcionesUsuarioId, Opcion, Codigo, Marcacion, Orden, Descripcion, Activo) values(1,'Quiero recibir mis boletas impresas', 'chkBoletasImpresas', 1, 1, 'Si desmarcas esta opci贸n podras descargar tus boletas electronicas desde SomosBelcorp', 0),
+																							                (2,'Quiero recibir mi paquete documentario impreso', 'chkComunicacionWhatsApp', 1, 2, 'Si desmarcas esta opci贸n tu paquete documentario podr谩s tenerlo solo desde SomosBelcorp', 0)
 GO
 
 USE BelcorpGuatemala
 GO
 
-insert into OpcionesUsuario(OpcionesUsuarioId, Opcion, Codigo, Marcacion, Orden, Descripcion, Activo) values(1,'Quiero recibir mis boletas impresas', 'chkBoletasImpresas', 1, 1, 'Si desmarcas esta opci髇 podras descargar tus boletas electronicas desde SomosBelcorp', 0),
-																							                (2,'Quiero recibir mi paquete documentario impreso', 'chkComunicacionWhatsApp', 1, 2, 'Si desmarcas esta opci髇 tu paquete documentario podr醩 tenerlo solo desde SomosBelcorp', 0)
+insert into OpcionesUsuario(OpcionesUsuarioId, Opcion, Codigo, Marcacion, Orden, Descripcion, Activo) values(1,'Quiero recibir mis boletas impresas', 'chkBoletasImpresas', 1, 1, 'Si desmarcas esta opci贸n podras descargar tus boletas electronicas desde SomosBelcorp', 0),
+																							                (2,'Quiero recibir mi paquete documentario impreso', 'chkComunicacionWhatsApp', 1, 2, 'Si desmarcas esta opci贸n tu paquete documentario podr谩s tenerlo solo desde SomosBelcorp', 0)
 GO
 
 USE BelcorpEcuador
 GO
 
-insert into OpcionesUsuario(OpcionesUsuarioId, Opcion, Codigo, Marcacion, Orden, Descripcion, Activo) values(1,'Quiero recibir mis boletas impresas', 'chkBoletasImpresas', 1, 1, 'Si desmarcas esta opci髇 podras descargar tus boletas electronicas desde SomosBelcorp', 0),
-																							                (2,'Quiero recibir mi paquete documentario impreso', 'chkComunicacionWhatsApp', 1, 2, 'Si desmarcas esta opci髇 tu paquete documentario podr醩 tenerlo solo desde SomosBelcorp', 0)
+insert into OpcionesUsuario(OpcionesUsuarioId, Opcion, Codigo, Marcacion, Orden, Descripcion, Activo) values(1,'Quiero recibir mis boletas impresas', 'chkBoletasImpresas', 1, 1, 'Si desmarcas esta opci贸n podras descargar tus boletas electronicas desde SomosBelcorp', 0),
+																							                (2,'Quiero recibir mi paquete documentario impreso', 'chkComunicacionWhatsApp', 1, 2, 'Si desmarcas esta opci贸n tu paquete documentario podr谩s tenerlo solo desde SomosBelcorp', 0)
 GO
 
 USE BelcorpDominicana
 GO
 
-insert into OpcionesUsuario(OpcionesUsuarioId, Opcion, Codigo, Marcacion, Orden, Descripcion, Activo) values(1,'Quiero recibir mis boletas impresas', 'chkBoletasImpresas', 1, 1, 'Si desmarcas esta opci髇 podras descargar tus boletas electronicas desde SomosBelcorp', 0),
-																							                (2,'Quiero recibir mi paquete documentario impreso', 'chkComunicacionWhatsApp', 1, 2, 'Si desmarcas esta opci髇 tu paquete documentario podr醩 tenerlo solo desde SomosBelcorp', 0)
+insert into OpcionesUsuario(OpcionesUsuarioId, Opcion, Codigo, Marcacion, Orden, Descripcion, Activo) values(1,'Quiero recibir mis boletas impresas', 'chkBoletasImpresas', 1, 1, 'Si desmarcas esta opci贸n podras descargar tus boletas electronicas desde SomosBelcorp', 0),
+																							                (2,'Quiero recibir mi paquete documentario impreso', 'chkComunicacionWhatsApp', 1, 2, 'Si desmarcas esta opci贸n tu paquete documentario podr谩s tenerlo solo desde SomosBelcorp', 0)
 GO
 
 USE BelcorpCostaRica
 GO
 
-insert into OpcionesUsuario(OpcionesUsuarioId, Opcion, Codigo, Marcacion, Orden, Descripcion, Activo) values(1,'Quiero recibir mis boletas impresas', 'chkBoletasImpresas', 1, 1, 'Si desmarcas esta opci髇 podras descargar tus boletas electronicas desde SomosBelcorp', 0),
-																							                (2,'Quiero recibir mi paquete documentario impreso', 'chkComunicacionWhatsApp', 1, 2, 'Si desmarcas esta opci髇 tu paquete documentario podr醩 tenerlo solo desde SomosBelcorp', 0)
+insert into OpcionesUsuario(OpcionesUsuarioId, Opcion, Codigo, Marcacion, Orden, Descripcion, Activo) values(1,'Quiero recibir mis boletas impresas', 'chkBoletasImpresas', 1, 1, 'Si desmarcas esta opci贸n podras descargar tus boletas electronicas desde SomosBelcorp', 0),
+																							                (2,'Quiero recibir mi paquete documentario impreso', 'chkComunicacionWhatsApp', 1, 2, 'Si desmarcas esta opci贸n tu paquete documentario podr谩s tenerlo solo desde SomosBelcorp', 0)
 GO
 
 USE BelcorpChile
 GO
 
-insert into OpcionesUsuario(OpcionesUsuarioId, Opcion, Codigo, Marcacion, Orden, Descripcion, Activo) values(1,'Quiero recibir mis boletas impresas', 'chkBoletasImpresas', 1, 1, 'Si desmarcas esta opci髇 podras descargar tus boletas electronicas desde SomosBelcorp', 1),
-																							                (2,'Quiero recibir mi paquete documentario impreso', 'chkComunicacionWhatsApp', 1, 2, 'Si desmarcas esta opci髇 tu paquete documentario podr醩 tenerlo solo desde SomosBelcorp', 1)
+insert into OpcionesUsuario(OpcionesUsuarioId, Opcion, Codigo, Marcacion, Orden, Descripcion, Activo) values(1,'Quiero recibir mis boletas impresas', 'chkBoletasImpresas', 1, 1, 'Si desmarcas esta opci贸n podras descargar tus boletas electronicas desde SomosBelcorp', 1),
+																							                (2,'Quiero recibir mi paquete documentario impreso', 'chkComunicacionWhatsApp', 1, 2, 'Si desmarcas esta opci贸n tu paquete documentario podr谩s tenerlo solo desde SomosBelcorp', 1)
 GO
 
 USE BelcorpBolivia
 GO
 
-insert into OpcionesUsuario(OpcionesUsuarioId, Opcion, Codigo, Marcacion, Orden, Descripcion, Activo) values(1,'Quiero recibir mis boletas impresas', 'chkBoletasImpresas', 1, 1, 'Si desmarcas esta opci髇 podras descargar tus boletas electronicas desde SomosBelcorp', 0),
-																							                (2,'Quiero recibir mi paquete documentario impreso', 'chkComunicacionWhatsApp', 1, 2, 'Si desmarcas esta opci髇 tu paquete documentario podr醩 tenerlo solo desde SomosBelcorp', 0)
+insert into OpcionesUsuario(OpcionesUsuarioId, Opcion, Codigo, Marcacion, Orden, Descripcion, Activo) values(1,'Quiero recibir mis boletas impresas', 'chkBoletasImpresas', 1, 1, 'Si desmarcas esta opci贸n podras descargar tus boletas electronicas desde SomosBelcorp', 0),
+																							                (2,'Quiero recibir mi paquete documentario impreso', 'chkComunicacionWhatsApp', 1, 2, 'Si desmarcas esta opci贸n tu paquete documentario podr谩s tenerlo solo desde SomosBelcorp', 0)
 GO
 
