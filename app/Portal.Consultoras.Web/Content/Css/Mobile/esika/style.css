@@ -13280,6 +13280,13 @@ a {
     bottom: 0;
     z-index: 1001;
 }
+    .app-footer-pedidos{
+        height: auto;
+        line-height:16px;
+    }
+    .app-footer-section {
+        margin: 10px 0;
+    }
 
     .app-footer .sections-1 {
         width: 50%;
@@ -13288,8 +13295,8 @@ a {
         margin-right: -2px;
         vertical-align: middle;
         text-align: right;
-        font-size: 17px;
-    }
+        font-size: 14px;
+    }    
 
     .app-footer .sections-2 {
         width: 50%;
@@ -13297,9 +13304,13 @@ a {
         margin-left: -2px;
         margin-right: -2px;
         vertical-align: middle;
-        text-align: center;
-        font-size: 19px;
+        text-align: right;
+        font-size: 14px;
+        padding-right: 16px;
     }
+        .fz-19 {
+            font-size: 19px !important;
+        }
 /*FIN ESTILOS EMBEBER APP (APPCONS-1099)*/
 
 /* APPCONS-1098 */
