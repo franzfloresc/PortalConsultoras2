@@ -670,7 +670,7 @@ function AgregarProductoListado() {
         PrecioUnidad: $("#hdfPrecioUnidad").val(),
         Cantidad: Cantidad,
         TipoOferta: $("#hdTipoEstrategiaID").val(),
-        enRangoProgNuevas: false
+        esCuponNuevas: false
     });
 
     jQuery.ajax({
