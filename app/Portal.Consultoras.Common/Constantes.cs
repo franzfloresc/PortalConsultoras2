@@ -3344,6 +3344,8 @@ namespace Portal.Consultoras.Common
             public const int ImgFichaFondoMobile = 10209;
             public const int UrlVideoDesktop = 10204;
             public const int UrlVideoMobile = 10207;
+            public const int ImgFondoApp = 10214;
+            public const int ColorTextoApp = 10215;
         }
 
         public static class Formatos {

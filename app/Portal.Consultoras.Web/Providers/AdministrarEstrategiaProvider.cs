@@ -185,7 +185,9 @@ namespace Portal.Consultoras.Web.Providers
                         ImgFichaMobile = GetValorEstrategiaDetalle(Constantes.EstrategiaDetalleCamposID.ImgFichaMobile, d.EstrategiaDetalle),
                         ImgFichaFondoMobile = GetValorEstrategiaDetalle(Constantes.EstrategiaDetalleCamposID.ImgFichaFondoMobile, d.EstrategiaDetalle),
                         UrlVideoDesktop = GetValorEstrategiaDetalle(Constantes.EstrategiaDetalleCamposID.UrlVideoDesktop, d.EstrategiaDetalle),
-                        UrlVideoMobile = GetValorEstrategiaDetalle(Constantes.EstrategiaDetalleCamposID.UrlVideoMobile, d.EstrategiaDetalle)
+                        UrlVideoMobile = GetValorEstrategiaDetalle(Constantes.EstrategiaDetalleCamposID.UrlVideoMobile, d.EstrategiaDetalle),
+                        ImgFondoApp = GetValorEstrategiaDetalle(Constantes.EstrategiaDetalleCamposID.ImgFondoApp, d.EstrategiaDetalle),
+                        ColorTextoApp = GetValorEstrategiaDetalle(Constantes.EstrategiaDetalleCamposID.ColorTextoApp, d.EstrategiaDetalle)
                     }
 
                 }).ToList();
@@ -999,7 +1001,9 @@ namespace Portal.Consultoras.Web.Providers
                 ImgFichaMobile = entidad.ImgFichaMobile,
                 ImgFichaFondoMobile = entidad.ImgFichaFondoMobile,
                 UrlVideoDesktop = entidad.UrlVideoDesktop,
-                UrlVideoMobile = entidad.UrlVideoMobile
+                UrlVideoMobile = entidad.UrlVideoMobile,
+                ImgFondoApp = entidad.ImgFondoApp,
+                ColorTextoApp = entidad.ColorTextoApp
             };
 
             return estrategiaDetalle;
@@ -1067,6 +1071,16 @@ namespace Portal.Consultoras.Web.Providers
             {
                 TablaLogicaDatosID = Constantes.EstrategiaDetalleCamposID.UrlVideoMobile,
                 Valor = entidad.UrlVideoMobile
+            });
+            estrategiaDetalle.Add(new WaEstrategiaDetalleModel()
+            {
+                TablaLogicaDatosID = Constantes.EstrategiaDetalleCamposID.ImgFondoApp,
+                Valor = entidad.ImgFondoApp
+            });
+            estrategiaDetalle.Add(new WaEstrategiaDetalleModel()
+            {
+                TablaLogicaDatosID = Constantes.EstrategiaDetalleCamposID.ColorTextoApp,
+                Valor = entidad.ColorTextoApp
             });
             return estrategiaDetalle;
         }

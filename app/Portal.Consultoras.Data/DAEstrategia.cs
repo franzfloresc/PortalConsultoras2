@@ -165,6 +165,8 @@ namespace Portal.Consultoras.Data
                 Context.Database.AddInParameter(command, "@ImgFichaMobile", DbType.String, entidad.ImgFichaMobile);
                 Context.Database.AddInParameter(command, "@ImgFichaFondoMobile", DbType.String, entidad.ImgFichaFondoMobile);
                 Context.Database.AddInParameter(command, "@UrlVideoMobile", DbType.String, entidad.UrlVideoMobile);
+                Context.Database.AddInParameter(command, "@ImgFondoApp", DbType.String, entidad.ImgFondoApp);
+                Context.Database.AddInParameter(command, "@ColorTextoApp", DbType.String, entidad.ColorTextoApp);
                 Context.Database.AddOutParameter(command, "@Retorno", DbType.Int32, 0);
                 Context.ExecuteNonQuery(command);
                 result = Convert.ToInt32(command.Parameters["@Retorno"].Value);
