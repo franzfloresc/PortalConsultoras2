@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-USE BelcorpBolivia
-=======
-﻿USE BelcorpBolivia;
->>>>>>> origin/HD-2849
+USE BelcorpBolivia;
 GO
 ALTER PROC GetProductosProgramaNuevas 
 (
@@ -28,12 +24,7 @@ BEGIN
 	and Campana = cast(@CampaniaID as varchar(6))
 END
 GO
-<<<<<<< HEAD
-
-USE BelcorpChile
-=======
 USE BelcorpChile;
->>>>>>> origin/HD-2849
 GO
 ALTER PROC GetProductosProgramaNuevas 
 (
@@ -59,12 +50,7 @@ BEGIN
 	and Campana = cast(@CampaniaID as varchar(6))
 END
 GO
-<<<<<<< HEAD
-
-USE BelcorpColombia
-=======
 USE BelcorpColombia;
->>>>>>> origin/HD-2849
 GO
 ALTER PROC GetProductosProgramaNuevas 
 (
@@ -90,12 +76,7 @@ BEGIN
 	and Campana = cast(@CampaniaID as varchar(6))
 END
 GO
-<<<<<<< HEAD
-
-USE BelcorpCostaRica
-=======
 USE BelcorpCostaRica;
->>>>>>> origin/HD-2849
 GO
 ALTER PROC GetProductosProgramaNuevas 
 (
@@ -121,12 +102,7 @@ BEGIN
 	and Campana = cast(@CampaniaID as varchar(6))
 END
 GO
-<<<<<<< HEAD
-
-USE BelcorpDominicana
-=======
 USE BelcorpDominicana;
->>>>>>> origin/HD-2849
 GO
 ALTER PROC GetProductosProgramaNuevas 
 (
@@ -152,12 +128,7 @@ BEGIN
 	and Campana = cast(@CampaniaID as varchar(6))
 END
 GO
-<<<<<<< HEAD
-
-USE BelcorpEcuador
-=======
 USE BelcorpEcuador;
->>>>>>> origin/HD-2849
 GO
 ALTER PROC GetProductosProgramaNuevas 
 (
@@ -183,12 +154,7 @@ BEGIN
 	and Campana = cast(@CampaniaID as varchar(6))
 END
 GO
-<<<<<<< HEAD
-
-USE BelcorpGuatemala
-=======
 USE BelcorpGuatemala;
->>>>>>> origin/HD-2849
 GO
 ALTER PROC GetProductosProgramaNuevas 
 (
@@ -214,12 +180,7 @@ BEGIN
 	and Campana = cast(@CampaniaID as varchar(6))
 END
 GO
-<<<<<<< HEAD
-
-USE BelcorpMexico
-=======
 USE BelcorpMexico;
->>>>>>> origin/HD-2849
 GO
 ALTER PROC GetProductosProgramaNuevas 
 (
@@ -245,12 +206,7 @@ BEGIN
 	and Campana = cast(@CampaniaID as varchar(6))
 END
 GO
-<<<<<<< HEAD
-
-USE BelcorpPanama
-=======
 USE BelcorpPanama;
->>>>>>> origin/HD-2849
 GO
 ALTER PROC GetProductosProgramaNuevas 
 (
@@ -276,12 +232,7 @@ BEGIN
 	and Campana = cast(@CampaniaID as varchar(6))
 END
 GO
-<<<<<<< HEAD
-
-USE BelcorpPeru
-=======
 USE BelcorpPeru;
->>>>>>> origin/HD-2849
 GO
 ALTER PROC GetProductosProgramaNuevas 
 (
@@ -307,12 +258,7 @@ BEGIN
 	and Campana = cast(@CampaniaID as varchar(6))
 END
 GO
-<<<<<<< HEAD
-
-USE BelcorpPuertoRico
-=======
 USE BelcorpPuertoRico;
->>>>>>> origin/HD-2849
 GO
 ALTER PROC GetProductosProgramaNuevas 
 (
@@ -338,12 +284,7 @@ BEGIN
 	and Campana = cast(@CampaniaID as varchar(6))
 END
 GO
-<<<<<<< HEAD
-
-USE BelcorpSalvador
-=======
 USE BelcorpSalvador;
->>>>>>> origin/HD-2849
 GO
 ALTER PROC GetProductosProgramaNuevas 
 (
@@ -368,8 +309,4 @@ BEGIN
 	and isnull(CodigoPrograma,'') != ''
 	and Campana = cast(@CampaniaID as varchar(6))
 END
-<<<<<<< HEAD
 GO
-=======
-GO
->>>>>>> origin/HD-2849
