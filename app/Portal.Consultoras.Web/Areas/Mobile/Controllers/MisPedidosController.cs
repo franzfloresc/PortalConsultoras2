@@ -98,7 +98,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                     var detallePedido = ObtenerPedidoWebSetDetalleAgrupado() ?? new List<BEPedidoWebDetalle>();
 
-                    var totalPedido = detallePedido.Sum(x => x.ImporteTotal);
+                    var totalImportePedido = detallePedido.Sum(x => x.ImporteTotal);
+                    var descuentoProl = detallePedido.Sum(x => x.DescuentoProl);
+                    var descuentoTotal = descuentoProl / detallePedido.Count();
+                    var totalPedido = totalImportePedido - descuentoTotal;
+                    ViewBag.SubtotalPedido = Util.DecimalToStringFormat(totalImportePedido, userData.CodigoISO, userData.Simbolo);
+                    ViewBag.descuentoPedido = Util.DecimalToStringFormat(descuentoTotal, userData.CodigoISO, userData.Simbolo);
                     ViewBag.TotalPedido = Util.DecimalToStringFormat(totalPedido, userData.CodigoISO, userData.Simbolo);
 
                     var clientes = detallePedido.GroupBy(x => x.ClienteID).Select(x => x.First()).ToList();
