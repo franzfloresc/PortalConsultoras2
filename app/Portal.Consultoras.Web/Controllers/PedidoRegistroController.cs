@@ -628,7 +628,7 @@ namespace Portal.Consultoras.Web.Controllers
         private bool ValidarEsAgregado(BEPedidoWebDetalle pedidoAgrupado)
         {
             var listaPedidoWebDetalleAgrupado = ObtenerPedidoWebSetDetalleAgrupado();
-            return listaPedidoWebDetalleAgrupado.Count(x => x.EstrategiaId == pedidoAgrupado.EstrategiaId) > 0;
+            return listaPedidoWebDetalleAgrupado.Any(x => x.EstrategiaId == pedidoAgrupado.EstrategiaId);
         }
     }
 }

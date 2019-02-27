@@ -1630,8 +1630,15 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                         }
 
-                        if (!string.IsNullOrEmpty(solicitudPostulante.CodigoZona)) { codigoZona = solicitudPostulante.CodigoZona; } else { codigoZona = "9999"; };
-                        
+                        if (!string.IsNullOrEmpty(solicitudPostulante.CodigoZona))
+                        {
+                            codigoZona = solicitudPostulante.CodigoZona;
+                        }
+                        else
+                        {
+                            codigoZona = "9999";
+                        }
+
                         urlClient = string.Format("/api/ValidacionCrediticiaExterna/Get?codigoISO={0}&numeroDocumento={1}&apellido={2}&codZona={3}&apellidoMaterno={4}&nombres={5}&fechaNacimiento={6}&direccion={7}&delegacionMunicipio={8}&ciudad={9}&estado={10}&cp={11}&tarjetaDeCredito={12}&creditoHipotecario={13}&creditoAutomotriz={14}&tipoIdentificacion={15}",
                                          Constantes.CodigosISOPais.Mexico, solicitudPostulante.NumeroDocumento, solicitudPostulante.ApellidoPaterno, codigoZona, solicitudPostulante.ApellidoMaterno, solicitudPostulante.PrimerNombre + ' ' + solicitudPostulante.SegundoNombre, fechaFormato, calleNumero, solicitudPostulante.LugarHijo, ciudad, abreviationZona, Convert.ToInt32(solicitudPostulante.CodigoPostal).ToString("D5"), String.Empty, String.Empty, String.Empty, solicitudPostulante.TipoDocumento);
 
@@ -1771,7 +1778,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (var sv = new PortalServiceClient())
             {
-               List<SolicitudPostulanteBE> lst = sv.ConsultarTipoPostulante(codigoIso, fechaInicioSolicitud.ToString("yyyy/MM/dd"), fechaFinSolicitud.ToString("yyyy/MM/dd")).ToList();
+                List<SolicitudPostulanteBE> lst = sv.ConsultarTipoPostulante(codigoIso, fechaInicioSolicitud.ToString("yyyy/MM/dd"), fechaFinSolicitud.ToString("yyyy/MM/dd")).ToList();
 
                 BEGrid grid = new BEGrid
                 {
@@ -1826,7 +1833,7 @@ namespace Portal.Consultoras.Web.Controllers
             using (var sv = new PortalServiceClient())
             {
                 List<SolicitudPostulanteBE> lst = sv.ConsultarTipoPostulante(codigoIso, fechaInicioSolicitud.ToString("yyyy/MM/dd"), fechaFinSolicitud.ToString("yyyy/MM/dd")).ToList();
-               
+
                 Dictionary<string, string> dic = new Dictionary<string, string>
                 {
                     {"Id Postulante", "SolicitudPostulanteID"},
