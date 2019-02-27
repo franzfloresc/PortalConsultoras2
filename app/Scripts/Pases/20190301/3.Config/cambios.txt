@@ -1,5 +1,5 @@
 1.SB2 Web
-	Agregar:
+	Actualizar:
 		<add key="PaisesMicroservicioPersonalizacion" value="PE,CL,CR,CO,MX,EC" /> (Excepto PRD)
 
 2.SB2 WCF
