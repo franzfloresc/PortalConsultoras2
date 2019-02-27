@@ -707,6 +707,7 @@ function MostrarBarra(datax, destino) {
     var objMsg = listaMensajeMeta.Find("TipoMensaje", tipoMensaje)[0] || new Object();
     objMsg.Titulo = $.trim(objMsg.Titulo);
     objMsg.Mensaje = $.trim(objMsg.Mensaje);
+    if (!belcorp.barra.settings.isMobile) objMsg.Mensaje += ' (*)';
 
     if ( objMsg.Mensaje != "") {
         // CalculoPosicionMinimoMaximoDestokp();
