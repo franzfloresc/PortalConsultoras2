@@ -19,6 +19,9 @@
 <script src="@Url.Content("~/Scripts/AdminContenido/AdministrarEstrategia.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/AdminContenido/AdministrarEstrategia/NuevoMasivo.js")" type="text/javascript"></script>
 
+<script src="@Url.Content("~/Scripts/AdminContenido/AdministrarEstrategia/AdmEstrategiaConfig.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/AdminContenido/AdministrarEstrategia/AdmComponente.js")" type="text/javascript"></script>
+
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link href="@Url.Content("~/Content/Css/Toast/jquery.toast.min.css")" rel="stylesheet" />
 
@@ -607,10 +610,19 @@
 
 <script type="text/javascript">
     var adminEstrategiaModule;
+    var admConfig;
+    var admComponente;
     var rutaImagenBloqueado  = '@Url.Content("~/Content/Images/rutaImagenBloqueado.jpg")';
     var _toastHelper = ToastHelper();
 
     jQuery(document).ready(function () {
+
+        admConfig = AdmEstrategiaConfig({
+            imagenProductoVacio: '@Url.Content("~/Content/Images/prod_grilla_vacio.png")',
+            rutaImagenEdit: '@Url.Content("~/Content/Images/Edit.png")',
+            rutaImagenDisable: '@Url.Content("~/Content/Images/NotAllowed.png")',
+        });
+
 
         adminEstrategiaModule = AdministrarEstrategia({
             actualizarMatrizComercialAction: '@Url.Action("ActualizarMatrizComercial", "MatrizComercial")',
@@ -625,7 +637,7 @@
             tipoEstrategiaIncentivosProgramaNuevas: '@Constantes.TipoEstrategiaCodigo.IncentivosProgramaNuevas',
             rutaImagenVacia: '@Url.Content("~/Content/Images/" + imagenVacia)',
             urlActivarDesactivarEstrategias: baseUrl + 'AdministrarEstrategia/ActivarDesactivarEstrategias',
-            rutaImagenEdit: '@Url.Content("~/Content/Images/Edit.png")',
+            @*rutaImagenEdit: '@Url.Content("~/Content/Images/Edit.png")',*@
             rutaImagenDelete: '@Url.Content("~/Content/Images/Delete.png")',
             urlGetOfertaByCUV: baseUrl + 'AdministrarEstrategia/GetOfertaByCUV',
             urlS3: "@Model.UrlS3",
@@ -635,7 +647,7 @@
             urlDeshabilitarEstrategia: baseUrl + 'AdministrarEstrategia/DeshabilitarEstrategia',
             urlImageLanzamientoUpload: '@Url.Action("ImageLanzamientoUpload", "FileUpload")',
             urlUploadCvs: '@Url.Action("UploadCvs", "AdministrarEstrategia")',
-            rutaImagenDisable: '@Url.Content("~/Content/Images/NotAllowed.png")',
+            @*rutaImagenDisable: '@Url.Content("~/Content/Images/NotAllowed.png")',*@
             urlEliminarEstrategia: baseUrl + 'AdministrarEstrategia/EliminarEstrategia',
             urlUploadBloqueoCuv: '@Url.Action("UploadBloqueoCuvs","AdministrarEstrategia")',
 
@@ -648,16 +660,16 @@
             urlDeshabilitarShowRoomEvento: baseUrl + 'AdministrarShowRoom/DeshabilitarShowRoomEvento',
             urlEliminarShowRoomEvento: baseUrl + 'AdministrarShowRoom/EliminarShowRoomEvento',
             urlGuardarShowRoom: baseUrl + 'AdministrarShowRoom/GuardarShowRoom',
-            urlConsultarOfertaShowRoomDetalle: baseUrl + "AdministrarShowRoom/ConsultarOfertaShowRoomDetalleNew",
-            urlEliminarOfertaShowRoomDetalleAll: baseUrl + 'AdministrarShowRoom/EliminarOfertaShowRoomDetalleAllNew',
-            urlEliminarOfertaShowRoomDetalle: baseUrl + 'AdministrarShowRoom/EliminarOfertaShowRoomDetalleNew',
-            urlInsertOfertaShowRoomDetalle: baseUrl + 'AdministrarShowRoom/InsertOfertaShowRoomDetalleNew',
-            urlUpdateOfertaShowRoomDetalle: baseUrl + 'AdministrarShowRoom/UpdateOfertaShowRoomDetalleNew',
+            //urlConsultarOfertaShowRoomDetalle: baseUrl + "AdministrarShowRoom/ConsultarOfertaShowRoomDetalleNew",
+            //urlEliminarOfertaShowRoomDetalleAll: baseUrl + 'AdministrarShowRoom/EliminarOfertaShowRoomDetalleAllNew',
+            //urlEliminarOfertaShowRoomDetalle: baseUrl + 'AdministrarShowRoom/EliminarOfertaShowRoomDetalleNew',
+            //urlInsertOfertaShowRoomDetalle: baseUrl + 'AdministrarShowRoom/InsertOfertaShowRoomDetalleNew',
+            //urlUpdateOfertaShowRoomDetalle: baseUrl + 'AdministrarShowRoom/UpdateOfertaShowRoomDetalleNew',
             rutaImagenTemporal: '@Url.Content("~/Content/Temporales/")',
             imagenEdit: '@Url.Content("~/Content/Images/Edit.png")',
             imagenDeshabilitar: '@Url.Content("~/Content/Images/NotAllowed.png")',
             imagenEliminar: '@Url.Content("~/Content/Images/delete.png")',
-            imagenProductoVacio: '@Url.Content("~/Content/Images/prod_grilla_vacio.png")',
+            //imagenProductoVacio: '@Url.Content("~/Content/Images/prod_grilla_vacio.png")',
             urlUploadFileStrategyShowroom: '@Url.Action("UploadFileSetStrategyShowroom", "AdministrarEstrategia")',
             urlUploadFileProductStrategyShowroom: '@Url.Action("UploadFileProductStrategyShowroom", "AdministrarEstrategia")',
             urlCargarArbolRegionesZonas: '@Url.Action("CargarArbolRegionesZonas", "AdministrarEstrategia")',
@@ -671,11 +683,14 @@
 
             //INI AGANA 244
             urlConsultarDetalleEstrategiaGrupo: baseUrl + "EstrategiaGrupo/ConsultarDetalleEstrategiaGrupo",
-            urlEstrategiaGrupoGuardar: baseUrl + "EstrategiaGrupo/Guardar" 
+            urlEstrategiaGrupoGuardar: baseUrl + "EstrategiaGrupo/Guardar"
             //END AGANA 244
         });
 
         adminEstrategiaModule.Inicializar();
+
+        admComponente = AdmComponente();
+        admComponente.Inicializar();
 
         $.jgrid.extend({
             Editar: adminEstrategiaModule.Editar,
@@ -684,10 +699,10 @@
             EditarEvento: adminEstrategiaModule.EditarEvento,
             DeshabilitarEvento: adminEstrategiaModule.DeshabilitarEvento,
             EliminarEvento: adminEstrategiaModule.EliminarEvento,
-            EditarProducto: adminEstrategiaModule.EditarProducto,
-            EliminarProducto: adminEstrategiaModule.EliminarProducto,
-            EditarProductoDetalle: adminEstrategiaModule.EditarProductoDetalle,
-            EliminarProductoDetalle: adminEstrategiaModule.EliminarProductoDetalle
+            EditarProducto: admComponente.EditarProducto,
+            EliminarProducto: admComponente.EliminarProducto,
+            EditarProductoDetalle: admComponente.EditarProductoDetalle,
+            EliminarProductoDetalle: admComponente.EliminarProductoDetalle
         });
 
         admNuevoMasivoModulo = NuevoMasivo({
@@ -702,7 +717,6 @@
         });
 
         admNuevoMasivoModulo.Inicializar();
-
     });
 
     $(document).keydown(function (e) {
