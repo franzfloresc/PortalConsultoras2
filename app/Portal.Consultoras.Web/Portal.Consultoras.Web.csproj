@@ -514,6 +514,7 @@
     <Compile Include="Models\Estrategia\UpSellingAdminModel.cs" />
     <Compile Include="Models\Estrategia\UpSellingModel.cs" />
     <Compile Include="Models\Estrategia\UpSellingRegaloModel.cs" />
+    <Compile Include="Models\Estrategia\WaEstrategiaComponenteModel.cs" />
     <Compile Include="Models\Estrategia\WaEstrategiaDetalleModel.cs" />
     <Compile Include="Models\Estrategia\WaEstrategiaModel.cs" />
     <Compile Include="Models\Estrategia\WaTipoEstrategia.cs" />

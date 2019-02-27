@@ -56,5 +56,7 @@ namespace Portal.Consultoras.Web.Models.Estrategia
 
         //Lan
         public List<WaEstrategiaDetalleModel> EstrategiaDetalle { get; set; }
+
+        public List<WaEstrategiaComponenteModel> Componentes { get; set; }
     }
 }

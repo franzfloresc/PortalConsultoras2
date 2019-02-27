@@ -823,7 +823,7 @@
         var cuv = rowObject[5],
             _id = rowObject[14];
 
-        var edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').EditarProducto('" + id + "','" + campaniaId + "','" + cuv + "',event);\" >" + "<img src='" + _config.rutaImagenEdit + "' alt='Editar Productos ShowRoom' title='Editar Productos ShowRoom' border='0' /></a>";
+        var edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').EditarProducto('" + _id + "','" + campaniaId + "','" + cuv + "',event);\" >" + "<img src='" + _config.rutaImagenEdit + "' alt='Editar Productos ShowRoom' title='Editar Productos ShowRoom' border='0' /></a>";
 
         return edit;
     }
@@ -2198,12 +2198,6 @@
     }
 
     var _fnGrillaOfertaShowRoomDetalle = function (campaniaId, cuv, estrategiaId) {
-
-        /*INI ATP*/
-        var newTituloGridATP = $("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ArmaTuPack ? "Nombre de grupos" : "Descripcion1"
-        /*END ATP*/
-         
-
         $("#listShowRoomDetalle").jqGrid("clearGridData");
 
         var parametros = {
@@ -2221,14 +2215,15 @@
             postData: (parametros),
             mtype: "GET",
             contentType: "application/json; charset=utf-8",
-            colNames: ["EstrategiaProductoId", "EstrategiaId", "CampaniaID", "CUV", "Nombre", newTituloGridATP, "Foto", "Marca", "", "", "", "Acciones"],
+            colNames: ["EstrategiaProductoId", "EstrategiaId", "CampaniaID", "CUV", "Nombre", "Descripcion Catalogo",  "Foto", "Marca", "", "", "", "Acciones"],
             colModel: [
                 { name: "EstrategiaProductoId", index: "EstrategiaProductoId", width: 50, editable: true, resizable: false, hidden: true },
                 { name: "EstrategiaId", index: "Estrategia", width: 50, editable: true, resizable: false, hidden: true },
                 { name: "Campania", index: "Campania", width: 50, editable: true, resizable: false, hidden: true },
                 { name: "CUV", index: "CUV", width: 50, editable: true, resizable: false, hidden: false },
                 { name: "NombreProducto", index: "NombreProducto", width: 80, editable: true, resizable: false },
-                { name: "Descripcion1", index: "Descripcion1", width: 80, editable: true, resizable: false },
+                { name: "NombreComercial", index: "NombreComercial", width: 80, editable: true, resizable: false },
+                //{ name: "Descripcion1", index: "Descripcion1", width: 80, editable: true, resizable: false },
                 { name: "ImagenProducto", index: "ImagenProducto", width: 60, editable: true, resizable: false, sortable: false, align: "center", formatter: _showImageDetalle },
                 { name: "IdMarca", index: "IdMarca", width: 50, editable: true, resizable: false, hidden: true },
                 { name: "Precio", index: "Precio", width: 50, editable: true, resizable: false, hidden: true },
