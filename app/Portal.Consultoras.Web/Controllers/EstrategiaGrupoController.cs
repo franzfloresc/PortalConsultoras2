@@ -32,7 +32,7 @@ namespace Portal.Consultoras.Web.Controllers
                 Task<bool> taskapi = null;
                 if (datos.Count > 0)
                 {
-                    taskapi = Task.Run(() => EstrategiaGrupoProvide.InsertarGrupoEstrategiaApi(Constantes.PersonalizacionOfertasService.UrlGuardarEstrategiaGrupo, datos, userData));
+                    taskapi = Task.Run(() => estrategiaGrupoProvider.InsertarGrupoEstrategiaApi(Constantes.PersonalizacionOfertasService.UrlGuardarEstrategiaGrupo, datos, userData));
                     Task.WhenAll(taskapi);
                 }
                 respuesta = taskapi.Result;
@@ -46,29 +46,12 @@ namespace Portal.Consultoras.Web.Controllers
         {
             IEnumerable<Models.AdministrarEstrategia.EstrategiaGrupoModel> grupos = null;
             var userData = SessionManager.GetUserData();
-
-
-            //if (ModelState.IsValid)
-            //{
-            //    List<ServicePedido.BEEstrategiaProducto> lst;
-            //    var estrategiaX = new ServicePedido.BEEstrategia() { PaisID = userData.PaisID, EstrategiaID = estrategiaId };
-
-            //    using (var sv = new ServicePedido.PedidoServiceClient())
-            //    {
-            //        lst = sv.GetEstrategiaProducto(estrategiaX).ToList();
-            //    }
-
-            //    var distinct = (from item in lst select new { EstrategiaId = item.EstrategiaID, Grupo = item.Grupo, }).Distinct();
-
-            //    res = (from item in distinct select new Models.AdministrarEstrategia.EstrategiaGrupoModel { _idEstrategia = estrategiaId, EstrategiaGrupoId = 0, Grupo = item.Grupo, DescripcionSingular = string.Empty, DescripcionPlural = string.Empty });
-            //}
-             
-
+              
             //INI AGANA 244
 
             //Estrategia gruepo
 
-            var taskApi = Task.Run(() => EstrategiaGrupoProvide.ObtenerEstrategiaGrupoApi(string.Format(Constantes.PersonalizacionOfertasService.UrlGetEstrategiaGrupoByEstrategiaId, userData.CodigoISO, estrategiaId), userData));
+            var taskApi = Task.Run(() => estrategiaGrupoProvider.ObtenerEstrategiaGrupoApi(string.Format(Constantes.PersonalizacionOfertasService.UrlGetEstrategiaGrupoByEstrategiaId, userData.CodigoISO, estrategiaId), userData));
             Task.WhenAll(taskApi);
             var estrategiaGrupoLista = taskApi.Result;
 

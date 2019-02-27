@@ -836,8 +836,11 @@
         var cuv = rowObject[5];
         var  _idMongo = rowObject[14];
 
-       
-        var edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').EditarProducto('" + _idMongo + "','" + campaniaId + "','" + cuv + "',event);\" >"
+        if ($("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ArmaTuPack) {
+            id = _idMongo;                   
+        }
+         
+        var edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').EditarProducto('" + id + "','" + campaniaId + "','" + cuv + "',event);\" >"
             + "<img src='" + admConfig.Config.rutaImagenEdit + "' alt='Editar Productos ShowRoom' title='Editar Productos ShowRoom' border='0' /></a>";
 
         return edit;
