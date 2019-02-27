@@ -88,7 +88,7 @@ $(document).ready(function () {
 //            return false;
 //        }
 
-//        var dataAgregarOF = AgregarOfertaFinal(model);
+//        dataAgregarOF = AgregarOfertaFinal(model);
 //        if (dataAgregarOF.success) {
 //            AgregarOfertaFinalLog(model.CUV, model.Cantidad, tipoOfertaFinal_Log, gap_Log, 1, 'Producto Agregado');
 //            ActualizarValoresPopupOfertaFinal(dataAgregarOF);

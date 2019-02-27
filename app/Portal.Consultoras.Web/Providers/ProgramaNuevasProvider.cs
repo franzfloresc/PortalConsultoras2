@@ -75,7 +75,8 @@ namespace Portal.Consultoras.Web.Providers
             barra.TippingPointStr = "";
             if (!barra.TippingPointBarra.Active) return;
             
-            barra.TippingPointBarra.InMinimo = configProgNuevas.IndExigVent == "0" || configProgNuevas.MontoVentaExigido == 0;
+            barra.TippingPointBarra.InMinimo = configProgNuevas.IndExigVent == "0" ||
+                configProgNuevas.MontoVentaExigido == 0 || configProgNuevas.MontoVentaExigido == barra.MontoMinimo;
 
             if (barra.TippingPointBarra.InMinimo)
             {
