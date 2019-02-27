@@ -24,6 +24,56 @@ function OnClickFichaDetalle(e) {
         if (!(typeof AnalyticsPortalModule === 'undefined'))
             AnalyticsPortalModule.MarcaGenericaClic(e, OrigenPedidoWeb);
 
+
+    if (!isMobile()) {
+        if (isPagina('ProgramaNuevas')) {
+            dataLayer.push({
+                'event': 'productClick',
+                'ecommerce': {
+                    'currencyCode': 'PEN',
+                    'click': {
+                        'actionField': { 'list': 'Contenedor -Dúo Perfecto' },
+                        'products': [{
+                            'name': infoCuvItem.DescripcionCompleta,
+                            'id': infoCuvItem.CUV2,
+                            'price': infoCuvItem.PrecioVenta,
+                            'brand': infoCuvItem.DescripcionMarca,
+                            'category': 'Gana+ > Dúo Perfecto',
+                            'variant': 'Estándar',
+                            'position': infoCuvItem.Posicion
+                        }]
+                    }
+                }
+            });
+        }
+    } else {
+
+        if (isPagina('ProgramaNuevas')) {
+            dataLayer.push({
+                'event': 'productClick',
+                'ecommerce': {
+                    'currencyCode': 'PEN',
+                    'click': {
+                        'actionField': { 'list': 'Contenedor -Mobile Dúo Perfecto' },
+                        'products': [{
+                            'name': infoCuvItem.DescripcionCompleta,
+                            'id': infoCuvItem.CUV2,
+                            'price': infoCuvItem.PrecioVenta,
+                            'brand': infoCuvItem.DescripcionMarca,
+                            'category': 'Gana+ > Dúo Perfecto',
+                            'variant': 'Estándar',
+                            'position': infoCuvItem.Posicion
+                        }]
+                    }
+                }
+            });
+        }
+
+    }
+
+
+
+
     window.location = UrlDetalle;
 
     return true;

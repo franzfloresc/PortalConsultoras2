@@ -773,6 +773,14 @@ function ArmarCarouselEstrategias(data) {
     }
 
     MarcarAnalyticsInicioHomePedido(data.Lista);
+
+
+    if (isMobile()) {
+        ConfiguracionAnaliticDuoPerfectoMobile();  
+    }
+    else
+        ConfiguracionAnaliticDuoPerfecto();
+
 }
 
 function MarcarAnalyticsInicioHomePedido(arrayItems) {
@@ -860,3 +868,226 @@ function ArmarCarouselLiquidaciones(data) {
 //// Fin - Home Liquidacion
 ////////////////////////////////////////////////////////////////////
 
+function ConfiguracionAnaliticDuoPerfectoMobile() {// home y Pedido
+    if (document.querySelectorAll("a[href='/Mobile/ProgramaNuevas']")[0] != null) {
+
+        if (controllerName == 'bienvenida') {
+
+            dataLayer.push({
+                'event': 'promotionView',
+                'ecommerce': {
+                    'promoView': {
+                        'promotions': [
+                            {
+                                'id': '28481',
+                                'name': 'HomeMobilePogramaNuevas_ArmatuDuoPerfecto-ContentCarruselHome',
+                                'position': 'HomeMobile-CarruselHome',
+                                'creative': 'Banner'
+                            }]
+                    }
+                }
+            });
+
+        } else if (controllerName == 'pedido') {
+
+            dataLayer.push({
+                'event': 'promotionView',
+                'ecommerce': {
+                    'promoView': {
+                        'promotions': [
+                            {
+                                'id': '28482',
+                                'name': 'PedidoMobilePogramaNuevas_ArmatuDuoPerfecto-ContentCarruselPedido',
+                                'position': 'PedidoMobile-CarruselPedido',
+                                'creative': 'Banner'
+                            }]
+                    }
+                }
+            });
+        }
+
+
+
+        for (var i = 0; i < document.querySelectorAll("a[href='/Mobile/ProgramaNuevas']").length; i++) {
+
+            document.querySelectorAll("a[href='/Mobile/ProgramaNuevas']")[i].onclick = function () {
+
+
+                if (controllerName == 'bienvenida') {
+
+                    dataLayer.push({
+                        'event': 'virtualEvent',
+                        'category': 'HomeMobile-CarruselHome',
+                        'action': 'Click Botón',
+                        'label': 'Elegir Ahora'
+                    });
+
+
+                    dataLayer.push({
+                        'event': 'promotionClick',
+                        'ecommerce': {
+                            'promoClick': {
+                                'promotions': [
+                                    {
+                                        'id': '28483',
+                                        'name': 'HomeMobilePogramaNuevas_ArmatuDuoPerfecto-ContentCarruselHome',
+                                        'position': 'HomeMobile-CarruselHome',
+                                        'creative': 'Banner'
+                                    }]
+                            }
+                        }
+                    });
+
+
+
+                } else if (controllerName == 'pedido') {
+
+                    dataLayer.push({
+                        'event': 'virtualEvent',
+                        'category': 'PedidoMobile-CarruselPedido',
+                        'action': 'Click Botón',
+                        'label': 'Elegir Ahora'
+                    });
+
+
+                    dataLayer.push({
+                        'event': 'promotionClick',
+                        'ecommerce': {
+                            'promoClick': {
+                                'promotions': [
+                                    {
+                                        'id': '28484',
+                                        'name': 'PedidoMobilePogramaNuevas_ArmatuDuoPerfecto-ContentCarruselPedido',
+                                        'position': 'PedidoMobile-CarruselPedido',
+                                        'creative': 'Banner'
+                                    }]
+                            }
+                        }
+                    });
+
+                }
+
+
+
+
+
+            }
+
+        }
+ 
+
+    }
+ 
+}
+
+function ConfiguracionAnaliticDuoPerfecto() {
+    if (document.querySelectorAll("a[href='/ProgramaNuevas']")[0] != null) {
+
+        if (isPagina('Bienvenida')) {
+
+            dataLayer.push({
+                'event': 'promotionView',
+                'ecommerce': {
+                    'promoView': {
+                        'promotions': [
+                            {
+                                'id': '28485',
+                                'name': 'HomePogramaNuevas_ArmatuDuoPerfecto-ContentCarruselHome',
+                                'position': 'Home-CarruselHome',
+                                'creative': 'Banner'
+                            }]
+                    }
+                }
+            });
+
+        } else if (isPagina('Pedido')) {
+
+            dataLayer.push({
+                'event': 'promotionView',
+                'ecommerce': {
+                    'promoView': {
+                        'promotions': [
+                            {
+                                'id': '28486',
+                                'name': 'PedidoPogramaNuevas_ArmatuDuoPerfecto-ContentCarruselPedido',
+                                'position': 'Pedido-CarruselPedido',
+                                'creative': 'Banner'
+                            }]
+                    }
+                }
+            });
+        }
+
+
+        for (var i = 0; i < document.querySelectorAll("a[href='/ProgramaNuevas']").length; i++) {
+
+
+            document.querySelectorAll("a[href='/ProgramaNuevas']")[i].onclick = function () {
+ 
+                if (isPagina('Bienvenida')) {
+
+                    dataLayer.push({
+                        'event': 'virtualEvent',
+                        'category': 'Home-CarruselHome',
+                        'action': 'Click Botón',
+                        'label': 'Elegir Ahora'
+                    });
+
+
+                    dataLayer.push({
+                        'event': 'promotionClick',
+                        'ecommerce': {
+                            'promoClick': {
+                                'promotions': [
+                                    {
+                                        'id': '28487',
+                                        'name': 'HomePogramaNuevas_ArmatuDuoPerfecto-ContentCarruselHome',
+                                        'position': 'Home-CarruselHome',
+                                        'creative': 'Banner'
+                                    }]
+                            }
+                        }
+                    });
+
+
+
+                } else if (isPagina('Pedido')) {
+
+                    dataLayer.push({
+                        'event': 'virtualEvent',
+                        'category': 'Pedido-CarruselPedido',
+                        'action': 'Click Botón',
+                        'label': 'Elegir Ahora'
+                    });
+
+
+                    dataLayer.push({
+                        'event': 'promotionClick',
+                        'ecommerce': {
+                            'promoClick': {
+                                'promotions': [
+                                    {
+                                        'id': '28488',
+                                        'name': 'PedidoePogramaNuevas_ArmatuDuoPerfecto-ContentCarruselPedido',
+                                        'position': 'Pedido-CarruselOfertas',
+                                        'creative': 'Banner'
+                                    }]
+                            }
+                        }
+                    });
+
+                }
+ 
+            }
+
+        }
+
+
+       
+
+
+    }
+
+
+
+}

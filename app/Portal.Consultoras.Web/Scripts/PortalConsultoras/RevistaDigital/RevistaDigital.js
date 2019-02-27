@@ -174,6 +174,13 @@ $(document).ready(function () {
     $("body").on("click", ".btn-volver-fix-detalle span", function (e) {
         window.location = urlRetorno;
     });
+
+
+    if (isMobile()) {
+        ConfiguracionAnaliticDuoPerfectoOfertasMobile();//ofertas mobile banner
+    } else
+        ConfiguracionAnaliticDuoPerfectoOfertas();
+
 });
 
 function FlechaScrollDown(idCamapania) {
@@ -644,6 +651,84 @@ function RDDetalleVolver(campaniaId) {
     window.location = urlVolver + "#LAN";
 }
 
+function ConfiguracionAnaliticDuoPerfectoOfertasMobile() {
+
+    if (isPagina('Ofertas#RD') || controllerName =='ofertas') {
+        if (document.getElementById('divBannerOfertasMobile') != null) {
+            if (document.getElementById('divBannerOfertasMobile').getAttribute('data-codigobanner') == 'DP') {
+
+                dataLayer.push({
+                    'event': 'promotionView',
+                    'ecommerce': {
+                        'promoView': {
+                            'promotions': [
+                                {
+                                    'id': '28489',
+                                    'name': 'OfertasMobilePogramaNuevas_ArmatuDuoPerfecto-ContentCarruselOfertas',
+                                    'position': 'OfertasMobile-CarruselOfertas',
+                                    'creative': 'Banner'
+                                }]
+                        }
+                    }
+                });
+
+             }
+        }
+
+
+    }
+ 
+}
+
+function ConfiguracionAnaliticDuoPerfectoOfertas() {
+
+    if (isPagina('Ofertas')) {
+        if (document.getElementById('divBannerOfertas') != null) {
+            if (document.getElementById('divBannerOfertas').getAttribute('data-codigobanner') == 'DP') {
+
+                dataLayer.push({
+                    'event': 'promotionView',
+                    'ecommerce': {
+                        'promoView': {
+                            'promotions': [
+                                {
+                                    'id': '28490',
+                                    'name': 'OfertasBienvenidaPogramaNuevas_ArmatuDuoPerfecto-ContentCarruselOfertas',
+                                    'position': 'OfertasBienvenida-CarruselOfertas',
+                                    'creative': 'Banner'
+                                }]
+                        }
+                    }
+                });
+
+
+                //document.getElementById('divBannerOfertas').onclick = function () {
+                //    dataLayer.push({
+                //        'event': 'promotionClick',
+                //        'ecommerce': {
+                //            'promoClick': {
+                //                'promotions':
+                //                    [{
+                //                        'id': '28493',
+                //                        'name': 'OfertasArmatuDúoPerfecto-DúoPerfecto',
+                //                        'position': 'Contenedor-Inicio-Dúo Perfecto',
+                //                        'creative': 'Banner'
+                //                    }]
+                //            }
+                //        }
+                //    });
+
+                //}
+
+
+            }
+        }
+
+
+    }
+
+
+}
 //function CheckClickCarrousel(action, source, seccionName, opcion) {
 
 //    if (action === "next") {

@@ -336,6 +336,62 @@ var menuModule = (function () {
                     + ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel;
             }
 
+            if (isMobile()) {
+            if (isPagina('Ofertas#RD') || controllerName == 'ofertas') {
+                if (document.getElementById('divBannerOfertasMobile') != null) {
+                    if (document.getElementById('divBannerOfertasMobile').getAttribute('data-codigobanner') == 'DP') {
+
+                   dataLayer.push({
+                        'event': 'promotionClick',
+                        'ecommerce': {
+                            'promoClick': {
+                                'promotions':
+                                    [{
+                                        'id': '28489',
+                                        'name': 'OfertasMobileArmatuDúoPerfecto-DúoPerfecto',
+                                        'position': 'OfertasMobileContenedor-Inicio-Dúo Perfecto',
+                                        'creative': 'Banner'
+                                    }]
+                            }
+                        }
+                    });
+
+
+
+
+                    }
+                }
+            }
+
+            }
+            else {
+
+                if (isPagina('Ofertas')) {
+                    if (document.getElementById('divBannerOfertas') != null) {
+                        if (document.getElementById('divBannerOfertas').getAttribute('data-codigobanner') == 'DP') {
+ 
+                            dataLayer.push({
+                                'event': 'promotionClick',
+                                'ecommerce': {
+                                    'promoClick': {
+                                        'promotions':
+                                            [{
+                                                'id': '28490',
+                                                'name': 'OfertasArmatuDúoPerfecto-DúoPerfecto',
+                                                'position': 'ContenedorOfertas-Inicio-Dúo Perfecto',
+                                                'creative': 'Banner'
+                                            }]
+                                    }
+                                }
+                            });
+ 
+                        }
+                        
+                    }
+                 }
+            }
+
+
             OrigenPedidoWeb = OrigenPedidoWeb || "";
             var texto = sectionClickTexto(e);
             AnalyticsPortalModule.MarcaClicVerMasOfertas(url, OrigenPedidoWeb, texto);
