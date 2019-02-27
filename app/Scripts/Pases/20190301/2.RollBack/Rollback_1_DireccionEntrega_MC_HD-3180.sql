@@ -1,11 +1,11 @@
-USE BelcorpPeru
+﻿USE BelcorpPeru
 GO
 
 IF (EXISTS (SELECT * 
                  FROM INFORMATION_SCHEMA.TABLES 
                  WHERE TABLE_SCHEMA = 'dbo' 
                  AND  TABLE_NAME = 'DireccionEntrega'))
-DROP PROCEDURE [dbo].[DireccionEntrega]
+DROP TABLE [dbo].[DireccionEntrega]
 GO
 
 USE BelcorpMexico
@@ -15,7 +15,7 @@ IF (EXISTS (SELECT *
                  FROM INFORMATION_SCHEMA.TABLES 
                  WHERE TABLE_SCHEMA = 'dbo' 
                  AND  TABLE_NAME = 'DireccionEntrega'))
-DROP PROCEDURE [dbo].[DireccionEntrega]
+DROP TABLE [dbo].[DireccionEntrega]
 GO
 
 USE BelcorpColombia
@@ -25,7 +25,7 @@ IF (EXISTS (SELECT *
                  FROM INFORMATION_SCHEMA.TABLES 
                  WHERE TABLE_SCHEMA = 'dbo' 
                  AND  TABLE_NAME = 'DireccionEntrega'))
-DROP PROCEDURE [dbo].[DireccionEntrega]
+DROP TABLE [dbo].[DireccionEntrega]
 GO
 
 USE BelcorpSalvador
@@ -35,7 +35,7 @@ IF (EXISTS (SELECT *
                  FROM INFORMATION_SCHEMA.TABLES 
                  WHERE TABLE_SCHEMA = 'dbo' 
                  AND  TABLE_NAME = 'DireccionEntrega'))
-DROP PROCEDURE [dbo].[DireccionEntrega]
+DROP TABLE [dbo].[DireccionEntrega]
 GO
 
 USE BelcorpPuertoRico
@@ -45,7 +45,7 @@ IF (EXISTS (SELECT *
                  FROM INFORMATION_SCHEMA.TABLES 
                  WHERE TABLE_SCHEMA = 'dbo' 
                  AND  TABLE_NAME = 'DireccionEntrega'))
-DROP PROCEDURE [dbo].[DireccionEntrega]
+DROP TABLE [dbo].[DireccionEntrega]
 GO
 
 USE BelcorpPanama
@@ -55,7 +55,7 @@ IF (EXISTS (SELECT *
                  FROM INFORMATION_SCHEMA.TABLES 
                  WHERE TABLE_SCHEMA = 'dbo' 
                  AND  TABLE_NAME = 'DireccionEntrega'))
-DROP PROCEDURE [dbo].[DireccionEntrega]
+DROP TABLE [dbo].[DireccionEntrega]
 GO
 
 USE BelcorpGuatemala
@@ -65,7 +65,7 @@ IF (EXISTS (SELECT *
                  FROM INFORMATION_SCHEMA.TABLES 
                  WHERE TABLE_SCHEMA = 'dbo' 
                  AND  TABLE_NAME = 'DireccionEntrega'))
-DROP PROCEDURE [dbo].[DireccionEntrega]
+DROP TABLE [dbo].[DireccionEntrega]
 GO
 
 USE BelcorpEcuador
@@ -75,7 +75,7 @@ IF (EXISTS (SELECT *
                  FROM INFORMATION_SCHEMA.TABLES 
                  WHERE TABLE_SCHEMA = 'dbo' 
                  AND  TABLE_NAME = 'DireccionEntrega'))
-DROP PROCEDURE [dbo].[DireccionEntrega]
+DROP TABLE [dbo].[DireccionEntrega]
 GO
 
 USE BelcorpDominicana
@@ -85,7 +85,7 @@ IF (EXISTS (SELECT *
                  FROM INFORMATION_SCHEMA.TABLES 
                  WHERE TABLE_SCHEMA = 'dbo' 
                  AND  TABLE_NAME = 'DireccionEntrega'))
-DROP PROCEDURE [dbo].[DireccionEntrega]
+DROP TABLE [dbo].[DireccionEntrega]
 GO
 
 USE BelcorpCostaRica
@@ -95,7 +95,7 @@ IF (EXISTS (SELECT *
                  FROM INFORMATION_SCHEMA.TABLES 
                  WHERE TABLE_SCHEMA = 'dbo' 
                  AND  TABLE_NAME = 'DireccionEntrega'))
-DROP PROCEDURE [dbo].[DireccionEntrega]
+DROP TABLE [dbo].[DireccionEntrega]
 GO
 
 USE BelcorpChile
@@ -105,7 +105,7 @@ IF (EXISTS (SELECT *
                  FROM INFORMATION_SCHEMA.TABLES 
                  WHERE TABLE_SCHEMA = 'dbo' 
                  AND  TABLE_NAME = 'DireccionEntrega'))
-DROP PROCEDURE [dbo].[DireccionEntrega]
+DROP TABLE [dbo].[DireccionEntrega]
 GO
 
 USE BelcorpBolivia
@@ -115,6 +115,6 @@ IF (EXISTS (SELECT *
                  FROM INFORMATION_SCHEMA.TABLES 
                  WHERE TABLE_SCHEMA = 'dbo' 
                  AND  TABLE_NAME = 'DireccionEntrega'))
-DROP PROCEDURE [dbo].[DireccionEntrega]
+DROP TABLE [dbo].[DireccionEntrega]
 GO
 

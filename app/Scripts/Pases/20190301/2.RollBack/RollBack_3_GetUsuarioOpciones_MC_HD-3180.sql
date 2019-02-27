@@ -1,4 +1,4 @@
-USE BelcorpPeru
+﻿USE BelcorpPeru
 GO
 
 IF EXISTS (SELECT name FROM sysobjects WHERE name = 'GetUsuarioOpciones' AND type = 'P')

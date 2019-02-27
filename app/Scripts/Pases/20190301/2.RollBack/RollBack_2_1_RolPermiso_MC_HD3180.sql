@@ -1,4 +1,4 @@
-USE BelcorpPeru
+﻿USE BelcorpPeru
 GO
 
 delete from RolPermiso where PermisoID = 1091 and RolID = 1

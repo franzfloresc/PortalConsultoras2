@@ -1,4 +1,4 @@
-USE BelcorpPeru
+﻿USE BelcorpPeru
 GO
 
 delete from ConfiguracionPais where Codigo = 'DIRECCION_ENTREGA'
