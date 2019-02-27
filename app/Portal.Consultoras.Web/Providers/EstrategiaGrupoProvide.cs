@@ -40,7 +40,7 @@ namespace Portal.Consultoras.Web.Providers
             prm.lstEstrategiaGrupo = datos;
             string prmfinal = Newtonsoft.Json.JsonConvert.SerializeObject(prm).ToString();
             HttpResponseMessage httpResponse = await httpClient.PostAsync(
-                path + "/" + userData.CodigoISO + "/" + datos[0].EstrategiaId.ToString(), 
+                path + "/" + userData.CodigoISO + "/" + datos[0]._idEstrategia.ToString(), 
                 new StringContent(prmfinal,
                 Encoding.UTF8, 
                 "application/json"));
