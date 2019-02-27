@@ -4558,11 +4558,14 @@
                 console.log('guardar result: ', data);
                  
                 if (data.estado) {
-                    showDialogMensaje("Información guardada satisfactoriamente.");
+                    showDialogMensaje("Información guardada satisfactoriamente.");                   
                 } else {
                     showDialogMensaje("La operación cancelada. Ocurró un error interno.");
+                    
+                    //Obtener componentes
+                    admComponente.FnGrillaOfertaShowRoomDetalle($("#txtCampaniaDetalle").val(), $("#txtCUVDetalle").val(), $("#hdEstrategiaIDMongo").val());
                 }
-
+                HideDialog("DialogGrupoEstrategia");
                 closeWaitingDialog();
 
             },

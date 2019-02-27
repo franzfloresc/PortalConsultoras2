@@ -32,9 +32,9 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
-        public  async Task<bool> InsertarGrupoEstrategiaApi(string path, List<EstrategiaGrupoModel> datos, UsuarioModel userData)
+        public async Task<bool> InsertarGrupoEstrategiaApi(string path, List<EstrategiaGrupoModel> datos, UsuarioModel userData)
         {
-            OutputEstrategiaGrupo respuesta = new OutputEstrategiaGrupo { Success=false };
+            OutputEstrategiaGrupo respuesta = new OutputEstrategiaGrupo { Success = false };
 
             EstrategiaGrupoRequest prm = new EstrategiaGrupoRequest();
             /*prm.pais = userData.PaisID.ToString();
@@ -42,9 +42,9 @@ namespace Portal.Consultoras.Web.Providers
             prm.lstEstrategiaGrupo = datos;
             string prmfinal = Newtonsoft.Json.JsonConvert.SerializeObject(prm.lstEstrategiaGrupo).ToString();
             HttpResponseMessage httpResponse = await httpClient.PostAsync(
-                path + "/" + userData.CodigoISO + "/" + datos[0]._idEstrategia.ToString(), 
+                path + "/" + userData.CodigoISO + "/" + datos[0]._idEstrategia.ToString(),
                 new StringContent(prmfinal,
-                Encoding.UTF8, 
+                Encoding.UTF8,
                 "application/json"));
 
             if (!httpResponse.IsSuccessStatusCode)
@@ -53,25 +53,25 @@ namespace Portal.Consultoras.Web.Providers
             }
 
             string jsonString = await httpResponse.Content.ReadAsStringAsync();
-             
+
             try
             {
                 respuesta = JsonConvert.DeserializeObject<OutputEstrategiaGrupo>(jsonString);
             }
             catch (Exception ex)
             {
-                Common.LogManager.SaveLog(ex, string.Empty, userData.CodigoISO);                 
+                Common.LogManager.SaveLog(ex, string.Empty, userData.CodigoISO);
             }
 
             if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
             {
-                Common.LogManager.SaveLog(new Exception(respuesta.Message), string.Empty, userData.CodigoISO);                
+                Common.LogManager.SaveLog(new Exception(respuesta.Message), string.Empty, userData.CodigoISO);
             }
-             
+
             return respuesta.Success;
         }
-  
-        public   async Task<OutputEstrategiaGrupo> ObtenerEstrategiaGrupoApi(string path, UsuarioModel userData)
+
+        public async Task<OutputEstrategiaGrupo> ObtenerEstrategiaGrupoApi(string path, UsuarioModel userData)
         {
             OutputEstrategiaGrupo respuesta = new OutputEstrategiaGrupo();
             HttpResponseMessage httpResponse = await httpClient.GetAsync(path);
@@ -88,7 +88,7 @@ namespace Portal.Consultoras.Web.Providers
             {
                 return respuesta;
             }
- 
+
             var listaSinPrecio2 = new List<string>();
             try
             {
@@ -105,7 +105,45 @@ namespace Portal.Consultoras.Web.Providers
                 Common.LogManager.SaveLog(new Exception(respuesta.Message), string.Empty, userData.CodigoISO);
                 return respuesta;
             }
-             
+
+            return respuesta;
+        }
+
+        public OutputEstrategiaGrupo ObtenerEstrategiaGrupoApi_op2(string path, UsuarioModel userData)
+        {
+            OutputEstrategiaGrupo respuesta = new OutputEstrategiaGrupo();
+            var response = httpClient.GetAsync(path).Result;
+
+            if (!response.IsSuccessStatusCode)
+            {
+                return respuesta;
+            }
+
+            var jsonString = response.Content.ReadAsStringAsync().Result;
+
+
+            if (Util.Trim(jsonString) == string.Empty)
+            {
+                return respuesta;
+            }
+
+            var listaSinPrecio2 = new List<string>();
+            try
+            {
+                respuesta = JsonConvert.DeserializeObject<OutputEstrategiaGrupo>(jsonString);
+            }
+            catch (Exception ex)
+            {
+                Common.LogManager.SaveLog(ex, string.Empty, userData.CodigoISO);
+                return respuesta;
+            }
+
+            if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
+            {
+                Common.LogManager.SaveLog(new Exception(respuesta.Message), string.Empty, userData.CodigoISO);
+                return respuesta;
+            }
+
             return respuesta;
         }
     }

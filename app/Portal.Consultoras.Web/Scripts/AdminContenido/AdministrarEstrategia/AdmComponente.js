@@ -140,7 +140,7 @@
         $("#listShowRoomDetalle").jqGrid("clearGridData");
 
         var ocultarGrupoEstrategia = $("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ArmaTuPack ? false : true;
-
+        console.log('ocultarGrupoEstrategia', ocultarGrupoEstrategia);
         var parametros = {
             estrategiaId: estrategiaId,
             codigoTipoEstrategia: $("#ddlTipoEstrategia").find(":selected").data("codigo")
