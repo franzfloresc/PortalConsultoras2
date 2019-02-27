@@ -12,7 +12,7 @@ namespace Portal.Consultoras.Web.Providers
             _configuracionManager = new ConfiguracionManagerProvider();
         }
 
-        public string GetCatalogoCodigoIssuu(string campania, int idMarcaCatalogo, string codigoISO, string codigoZona)
+        public string GetCatalogoCodigoIssuu(string campania, int idMarcaCatalogo, string codigoISO, string codigoZona, out bool outPilotoSeg)
         {
             string nombreCatalogoIssuu = null;
             string nombreCatalogoConfig = null;
@@ -25,6 +25,7 @@ namespace Portal.Consultoras.Web.Providers
             string Grupos = null;
             string marcas = _configuracionManager.GetConfiguracionManager(Constantes.ConfiguracionManager.Catalogo_Marca_Piloto + codigoISO + campania) ?? "";
             bool esMarcaEspecial = false;
+            outPilotoSeg = false;
 
             switch (idMarcaCatalogo)
             {
@@ -72,7 +73,10 @@ namespace Portal.Consultoras.Web.Providers
                 anioCampania = campania.Substring(0, 4);
 
             if (esRevistaPiloto && esMarcaEspecial)
+            {
                 requestUrl = string.Format(codigo, nombreCatalogoIssuu, Util.GetPaisNombreByISO(codigoISO), nroCampania, anioCampania, CodeGrup.Replace(Constantes.ConfiguracionManager.Catalogo_Piloto_Escenario, ""));
+                outPilotoSeg = true;
+            }
             else
             {
                 requestUrl = string.Format(codigo, nombreCatalogoIssuu, Util.GetPaisNombreByISO(codigoISO), campania.Substring(4, 2), campania.Substring(0, 4), "");
@@ -105,14 +109,13 @@ namespace Portal.Consultoras.Web.Providers
                     }
                 }
             }
-            else
-                esRevistaPiloto = false;
 
             codigo = _configuracionManager.GetConfiguracionManager(Constantes.ConfiguracionManager.CodigoRevistaIssuu);
             if (campania.Length >= 6)
-                nroCampania = campania.Substring(4, 2);
-            if (campania.Length >= 6)
+            {
                 anioCampania = campania.Substring(0, 4);
+                nroCampania = campania.Substring(4, 2);
+            }
 
             if (esRevistaPiloto)
                 requestUrl = string.Format(codigo, codigoISO.ToLower(), nroCampania, anioCampania, codeGrupo.Replace(Constantes.ConfiguracionManager.RevistaPiloto_Escenario, ""));

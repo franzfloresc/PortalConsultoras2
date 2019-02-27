@@ -73,17 +73,15 @@ namespace Portal.Consultoras.Web.Providers
                 model.MensajeTitulo = Util.Trim(dato.Valor1);
                 return model;
             }
-            else
-            {
-                model.MensajeIconoSuperior = false;
-                model.BtnInscribirse = !revistaDigital.EsSuscrita;
 
-                codigo = model.IsMobile ? Constantes.ConfiguracionPaisDatos.RD.MPopupBloqueadoNoActivaNoSuscrita : Constantes.ConfiguracionPaisDatos.RD.DPopupBloqueadoNoActivaNoSuscrita;
-                dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo) ?? new ConfiguracionPaisDatosModel();
-                model.MensajeTitulo = Util.Trim(dato.Valor1);
-            }
+            model.MensajeIconoSuperior = false;
+            model.BtnInscribirse = !revistaDigital.EsSuscrita;
 
-            if (revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
+            codigo = model.IsMobile ? Constantes.ConfiguracionPaisDatos.RD.MPopupBloqueadoNoActivaNoSuscrita : Constantes.ConfiguracionPaisDatos.RD.DPopupBloqueadoNoActivaNoSuscrita;
+            dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo) ?? new ConfiguracionPaisDatosModel();
+            model.MensajeTitulo = Util.Trim(dato.Valor1);
+
+            if (revistaDigital.EsSuscrita)
             {
                 model.MensajeBtnPopup = "DE ACUERDO";
                 model.IdPopup = !model.IsMobile ? "divSNAPopupBloqueadoDesk" : "divSNAPopupBloqueadoMob";
@@ -91,7 +89,7 @@ namespace Portal.Consultoras.Web.Providers
 
                 codigo = Constantes.ConfiguracionPaisDatos.RD.PopupBloqueadoSNA;
             }
-            else if (!revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
+            else
             {
                 model.MensajeBtnPopup = "SUSCRIBETE GRATIS";
                 model.IdPopup = !model.IsMobile ? "divNSPopupBloqueadoDesk" : "divNSPopupBloqueadoMob";
@@ -106,7 +104,7 @@ namespace Portal.Consultoras.Web.Providers
 
             return model;
         }
-        
+
         public virtual MensajeProductoBloqueadoModel RDMensajeProductoBloqueado(bool esMobile)
         {
             var model = new MensajeProductoBloqueadoModel();

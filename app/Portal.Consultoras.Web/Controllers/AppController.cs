@@ -20,6 +20,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var iso = string.Empty;
 
+
             try
             {
                 if (EsAndroid())

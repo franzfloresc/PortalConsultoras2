@@ -1,91 +1,32 @@
 ﻿using OpenSource.Library.DataAccess;
+
 using Portal.Consultoras.Common;
+
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using System.Runtime.Serialization;
+using System.Collections.Generic;
 
 namespace Portal.Consultoras.Entities
 {
     [DataContract]
     public class BEUsuario
     {
-        private string msCodigoConsultora;
-        private string msCodigoUsuario;
-        private int miPaisID;
-        private string msNombre;
-        private string msClaveSecreta;
-        private string msActualizarClave;
-        private string msConfirmarClave;
-        private string msEMail;
-        private bool mbEMailActivo;
-        private string msTelefono;
-        private string msTelefonoTrabajo;
-        private string msCelular;
+        public BEUsuario()
+        {
+        }
+
         [Column("Sobrenombre")]
         public string msSobrenombre { get; set; }
         [Column("PrimerNombre")]
         public string msPrimerNombre { get; set; }
-        private bool mbCompartirDatos;
-        private bool mbActivo;
-        private Int16 miTipoUsuario;
-        private bool mbCambioClave;
-        //Campos dispuestos para la sesión de Usuario
-        private string msCodigoISO;
-        private int miRegionID;
-        private string msCodigorRegion;
-        private int miZonaID;
-        private string msCodigoZona;
-        private long miConsultoraID;
-        private short miRolID;
-
-        private int miCampaniaID;
-
-        private DateTime mdFechaInicioFacturacion;
-        private DateTime mdFechaFinFacturacion;
-        private DateTime mdFechaFinFIC;
-        private string msCampaniaDescripcion;
-        private TimeSpan tsHoraInicio;
-        private TimeSpan tsHoraFin;
-        private bool mbZonaValida;
-        private string msSimbolo;
-        private int miTerritorioID;
-        private string msCodigoTerritorio;
-        private decimal mmMontoMinimoPedido;
-        private decimal mmMontoMaximoPedido;
-        private TimeSpan tsHoraInicioNoFacturable;
-        private TimeSpan tsHoraCierreNoFacturable;
-        private int miDiasAntes;
-        private string mCodigoFuente;
-        private string mBanderaImagen;
-        private string mNombrePais;
-        private int mConsultoraNueva;
-        private string mSegmento;
-
-        private int miDiasDuracionCronograma;
-        private bool mHabilitarRestriccionHoraria;
-        private string mAnoCampaniaIngreso;
-        private string mPrimerNombre;
-        private string mPrimerApellido;
-        private int mHorasDuracionRestriccion;
-        private bool mostrarAyudaWebTraking;
-        private bool mPROLSinStock;
-        private DateTime mdFechaModificacion;
-        private string mdRol;
-        private string mSegmentoConstancia;
-        private string mSeccionAnalytics;
-        private string mDescripcionNivel;
-
+        
         [Column("ESCONSULTORALIDER")]
         public int mesConsultoraLider { get; set; }
-
-        private bool bEstadoSimplificacionCUV { get; set; }
+ 
         private readonly bool bEsquemaDAConsultora;
-        private string digitoVerificador;
-        private long consultoraAsociadoID;
-
-        private string mSegmentoAbreviatura;
-
+       
         [Column("TIENEHANA")]
         public bool tieneHana { get; set; }
 
@@ -94,37 +35,32 @@ namespace Portal.Consultoras.Entities
 
         [Column("TieneLoginExterno")]
         public int tieneLoginExterno { get; set; }
-
-        public BEUsuario()
-        {
- 
-        }
-
+         
         [Obsolete("Use MapUtil.MapToCollection")]
         public BEUsuario(IDataRecord row)
         {
-            msCodigoConsultora = row.ToString("CodigoConsultora");
-            msCodigoUsuario = row.ToString("CodigoUsuario");
-            miPaisID = row.ToInt32("PaisID");
-            msNombre = row.ToString("Nombre");
-            msClaveSecreta = row.ToString("ClaveSecreta");
-            msEMail = row.ToString("EMail");
-            mbEMailActivo = row.ToBoolean("EMailActivo");
-            msTelefono = row.ToString("Telefono");
-            msCelular = row.ToString("Celular");
+            CodigoConsultora = row.ToString("CodigoConsultora");
+            CodigoUsuario = row.ToString("CodigoUsuario");
+            PaisID = row.ToInt32("PaisID");
+            Nombre = row.ToString("Nombre");
+            ClaveSecreta = row.ToString("ClaveSecreta");
+            EMail = row.ToString("EMail");
+            EMailActivo = row.ToBoolean("EMailActivo");
+            Telefono = row.ToString("Telefono");
+            Celular = row.ToString("Celular");
             msSobrenombre = row.ToString("Sobrenombre");
-            mbCompartirDatos = row.ToBoolean("CompartirDatos");
-            mbActivo = row.ToBoolean("Activo");
-            miTipoUsuario = row.ToInt16("TipoUsuario");
-            mbCambioClave = row.ToBoolean("CambioClave");
-            msTelefonoTrabajo = row.ToString("TelefonoTrabajo");
+            CompartirDatos = row.ToBoolean("CompartirDatos");
+            Activo = row.ToBoolean("Activo");
+            TipoUsuario = row.ToInt16("TipoUsuario");
+            CambioClave = row.ToBoolean("CambioClave");
+            TelefonoTrabajo = row.ToString("TelefonoTrabajo");
             AceptoContrato = row.ToBoolean("AceptoContrato");
             MostrarAyudaWebTraking = row.ToBoolean("MostrarAyudaWebTraking");
             CodigoISO = row.ToString("CodigoISO");
             NombrePais = row.ToString("NombrePais");
             RolID = row.ToByte("RolID");
             BanderaImagen = row.ToString("BanderaImagen");
-            msSimbolo = row.ToString("Simbolo");
+            Simbolo = row.ToString("Simbolo");
             FechaModificacion = row.ToDateTime("FechaModificacion");
             Rol = row.ToString("Rol");
             ZonaID = row.ToInt32("ZonaID");
@@ -132,49 +68,48 @@ namespace Portal.Consultoras.Entities
             SeccionAnalytics = row.ToString("Seccion");
             DescripcionNivel = row.ToString("DescripcionNivel");
             esConsultoraLider = row.ToBoolean("esConsultoraLider");
-            bEstadoSimplificacionCUV = row.ToBoolean("EstadoSimplificacionCUV");
+            EstadoSimplificacionCUV = row.ToBoolean("EstadoSimplificacionCUV");
             bEsquemaDAConsultora = row.ToBoolean("EsquemaDAConsultora");
-            digitoVerificador = row.ToString("DigitoVerificador");
+            DigitoVerificador = row.ToString("DigitoVerificador");
             TieneCDRExpress = row.ToBoolean("TieneCDRExpress");
             EsConsecutivoNueva = row.ToBoolean("EsConsecutivoNueva");
             IndicadorConsultoraDigital = row.ToInt32("IndicadorConsultoraDigital");
-
         }
 
         [Obsolete("Use MapUtil.MapToCollection")]
         public BEUsuario(IDataRecord row, bool Tipo)
         {
-            miPaisID = row.ToInt32("PaisID");
-            msCodigoISO = row.ToString("CodigoISO", "");
-            miRegionID = row.ToInt32("RegionID");
-            msCodigorRegion = row.ToString("CodigorRegion", "");
-            miZonaID = row.ToInt32("ZonaID");
-            msCodigoZona = row.ToString("CodigoZona", "");
-            miConsultoraID = row.ToInt64("ConsultoraID");
-            msCodigoConsultora = row.ToString("CodigoConsultora", "");
-            msCodigoUsuario = row.ToString("CodigoUsuario", "");
-            msNombre = row.ToString("NombreCompleto", "");
-            miRolID = row.ToInt16("RolID");
-            msEMail = row.ToString("EMail", "");
-            msSimbolo = row.ToString("Simbolo", "");
-            miTerritorioID = row.ToInt32("TerritorioID");
-            msCodigoTerritorio = row.ToString("CodigoTerritorio", "");
-            mmMontoMinimoPedido = row.ToDecimal("MontoMinimoPedido");
-            mmMontoMaximoPedido = row.ToDecimal("MontoMaximoPedido");
-            mBanderaImagen = row.ToString("BanderaImagen", "");
-            mCodigoFuente = row.ToString("CodigoFuente", "");
-            mNombrePais = row.ToString("NombrePais", "");
-            mbCambioClave = row.ToBoolean("CambioClave");
-            mConsultoraNueva = row.ToInt32("ConsultoraNueva");
-            msCodigoUsuario = row.ToString("CodigoUsuario", "");
-            msTelefono = row.ToString("Telefono", "");
-            msCelular = row.ToString("Celular", "");
-            mSegmento = row.ToString("Segmento", "");
-            mSegmentoAbreviatura = row.ToString("SegmentoAbreviatura", "");
-            msSobrenombre = row.ToString("Sobrenombre", "");
+            PaisID = row.ToInt32("PaisID");
+            CodigoISO = row.ToString("CodigoISO", "");
+            RegionID = row.ToInt32("RegionID");
+            CodigorRegion = row.ToString("CodigorRegion", "");
+            ZonaID = row.ToInt32("ZonaID");
+            CodigoZona = row.ToString("CodigoZona", "");
+            ConsultoraID = row.ToInt64("ConsultoraID");
+            CodigoConsultora = row.ToString("CodigoConsultora", "");
+            CodigoUsuario = row.ToString("CodigoUsuario", "");
+            Nombre = row.ToString("NombreCompleto", "");
+           RolID = row.ToInt16("RolID");
+            EMail = row.ToString("EMail", "");
+            Simbolo = row.ToString("Simbolo", "");
+            TerritorioID = row.ToInt32("TerritorioID");
+            CodigoTerritorio = row.ToString("CodigoTerritorio", "");
+            MontoMinimoPedido = row.ToDecimal("MontoMinimoPedido");
+            MontoMaximoPedido = row.ToDecimal("MontoMaximoPedido");
+            BanderaImagen = row.ToString("BanderaImagen", "");
+            CodigoFuente = row.ToString("CodigoFuente", "");
+            NombrePais = row.ToString("NombrePais", "");
+            CambioClave = row.ToBoolean("CambioClave");
+            ConsultoraNueva = row.ToInt32("ConsultoraNueva");
+            CodigoUsuario = row.ToString("CodigoUsuario", "");
+            Telefono = row.ToString("Telefono", "");
+            Celular = row.ToString("Celular", "");
+            Segmento = row.ToString("Segmento", "");
+            SegmentoAbreviatura = row.ToString("SegmentoAbreviatura", "");
+            Sobrenombre = row.ToString("Sobrenombre", "");
 
             if (string.IsNullOrEmpty(msSobrenombre) && DataRecord.HasColumn(row, "PrimerNombre"))
-                msSobrenombre = Convert.ToString(row["PrimerNombre"]);
+                Sobrenombre = Convert.ToString(row["PrimerNombre"]);
 
             IndicadorDupla = row.ToInt32("IndicadorDupla");
             UsuarioPrueba = row.ToInt32("UsuarioPrueba");
@@ -194,7 +129,7 @@ namespace Portal.Consultoras.Entities
             VioTutorialDesktop = row.ToInt32("VioTutorialDesktop");
             Nivel = row.ToString("Nivel");
             Direccion = row.ToString("Direccion");
-            msTelefonoTrabajo = row.ToString("TelefonoTrabajo");
+            TelefonoTrabajo = row.ToString("TelefonoTrabajo");
             AnoCampaniaIngreso = row.ToString("AnoCampanaIngreso");
             PrimerNombre = row.ToString("PrimerNombre");
             PrimerApellido = row.ToString("PrimerApellido");
@@ -217,7 +152,7 @@ namespace Portal.Consultoras.Entities
             NombrePais = row.ToString("NombrePais");
             RolID = row.ToByte("RolID");
             BanderaImagen = row.ToString("BanderaImagen");
-            msSimbolo = row.ToString("Simbolo");
+            Simbolo = row.ToString("Simbolo");
             FechaModificacion = row.ToDateTime("FechaModificacion");
             Rol = row.ToString("Rol");
             CampanaInvitada = row.ToString("CampanaInvitada");
@@ -250,9 +185,9 @@ namespace Portal.Consultoras.Entities
             EstadoPedido = row.ToInt32("EstadoPedido");
             ValidacionAbierta = row.ToBoolean("ValidacionAbierta");
             NombreGerenteZona = row.ToString("GerenteZona");
-            digitoVerificador = row.ToString("DigitoVerificador");
+            DigitoVerificador = row.ToString("DigitoVerificador");
             OfertaDelDia = row.ToBoolean("TieneODD");
-            consultoraAsociadoID = row.ToInt64("ConsultoraAsociadoID");
+            ConsultoraAsociadaID = row.ToInt64("ConsultoraAsociadoID");
             DocumentoIdentidad = row.ToString("DocumentoIdentidad");
             TipoUsuario = row.ToInt16("TipoUsuario");
             TieneLoginExterno = row.ToBoolean("TieneLoginExterno");
@@ -297,7 +232,7 @@ namespace Portal.Consultoras.Entities
             ValidacionAbierta = row.ToBoolean("ValidacionAbierta");
             FechaActualPais = row.ToDateTime("FechaActualPais");
             AceptacionConsultoraDA = row.ToInt32("AceptacionConsultoraDA");
-            mbCompartirDatos = row.ToBoolean("CompartirDatos");
+            CompartirDatos = row.ToBoolean("CompartirDatos");
             FotoPerfil = row.ToString("FotoPerfil");
             ConsecutivoNueva = row.ToInt32("ConsecutivoNueva");
             CodigoPrograma = row.ToString("CodigoPrograma");
@@ -314,11 +249,7 @@ namespace Portal.Consultoras.Entities
 
         [Column("ConsultoraAsociadoID")]
         [DataMember]
-        public long ConsultoraAsociadaID
-        {
-            get { return consultoraAsociadoID; }
-            set { consultoraAsociadoID = value; }
-        }
+        public long ConsultoraAsociadaID { get; set; }
 
         [DataMember]
         public string RolDescripcion { get; set; }
@@ -339,6 +270,7 @@ namespace Portal.Consultoras.Entities
 
         [Column("UsuarioPrueba")]
         public bool usuarioPrueba { get; set; }
+
         private int _UsuarioPrueba;
         [DataMember]
         public int UsuarioPrueba
@@ -411,122 +343,58 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         [Column("ConsultoraNueva")]
-        public int ConsultoraNueva
-        {
-            get { return mConsultoraNueva; }
-            set { mConsultoraNueva = value; }
-        }
+        public int ConsultoraNueva { get; set; }
         [DataMember]
         public bool EsConsultoraNueva { get; set; }
 
         [DataMember]
-        public string NombrePais
-        {
-            get { return mNombrePais; }
-            set { mNombrePais = value; }
-        }
+        public string NombrePais { get; set; }
 
         [DataMember]
-        public string BanderaImagen
-        {
-            get { return mBanderaImagen; }
-            set { mBanderaImagen = value; }
-        }
+        public string BanderaImagen { get; set; }
 
         [DataMember]
-        public string CodigoFuente
-        {
-            get { return mCodigoFuente; }
-            set { mCodigoFuente = value; }
-        }
+        public string CodigoFuente { get; set; }
 
         [Column("CodigoUsuario")]
         [DataMember]
-        public string CodigoUsuario
-        {
-            get { return msCodigoUsuario; }
-            set { msCodigoUsuario = value; }
-        }
+        public string CodigoUsuario { get; set; }
 
         [Column("CodigoConsultora")]
         [DataMember]
-        public string CodigoConsultora
-        {
-            get { return msCodigoConsultora; }
-            set { msCodigoConsultora = value; }
-        }
+        public string CodigoConsultora { get; set; }
 
         [Column("PaisID")]
         [DataMember]
-        public int PaisID
-        {
-            get { return miPaisID; }
-            set { miPaisID = value; }
-        }
+        public int PaisID { get; set; }
 
         [Column("NombreCompleto")]
         [DataMember]
-        public string Nombre
-        {
-            get { return msNombre; }
-            set { msNombre = value; }
-        }
+        public string Nombre { get; set; }
         [DataMember]
-        public string ClaveSecreta
-        {
-            get { return msClaveSecreta; }
-            set { msClaveSecreta = value; }
-        }
+        public string ClaveSecreta { get; set; }
         [DataMember]
-        public string ActualizarClave
-        {
-            get { return msActualizarClave; }
-            set { msActualizarClave = value; }
-        }
+        public string ActualizarClave { get; set; }
         [DataMember]
-        public string ConfirmarClave
-        {
-            get { return msConfirmarClave; }
-            set { msConfirmarClave = value; }
-        }
+        public string ConfirmarClave { get; set; }
 
         [Column("EMail")]
         [DataMember]
-        public string EMail
-        {
-            get { return msEMail; }
-            set { msEMail = value; }
-        }
+        public string EMail { get; set; }
         [DataMember]
-        public bool EMailActivo
-        {
-            get { return mbEMailActivo; }
-            set { mbEMailActivo = value; }
-        }
+        public bool EMailActivo { get; set; }
 
         [Column("Telefono")]
         [DataMember]
-        public string Telefono
-        {
-            get { return msTelefono; }
-            set { msTelefono = value; }
-        }
+        public string Telefono { get; set; }
 
         [Column("TelefonoTrabajo")]
         [DataMember]
-        public string TelefonoTrabajo
-        {
-            get { return msTelefonoTrabajo; }
-            set { msTelefonoTrabajo = value; }
-        }
+        public string TelefonoTrabajo { get; set; }
 
         [Column("Celular")]
         [DataMember]
-        public string Celular
-        {
-            get { return msCelular; }
-            set { msCelular = value; }
-        }
+        public string Celular { get; set; }
 
         [DataMember]
         public string Sobrenombre
@@ -539,256 +407,122 @@ namespace Portal.Consultoras.Entities
             set { msSobrenombre = value; }
         }
         [DataMember]
-        public bool CompartirDatos
-        {
-            get { return mbCompartirDatos; }
-            set { mbCompartirDatos = value; }
-        }
+        public bool CompartirDatos { get; set; }
         [DataMember]
         public bool AceptoContrato { get; set; }
         [DataMember]
-        public bool Activo
-        {
-            get { return mbActivo; }
-            set { mbActivo = value; }
-        }
+        public bool Activo { get; set; }
 
         [Column("TipoUsuario")]
         [DataMember]
-        public Int16 TipoUsuario
-        {
-            get { return miTipoUsuario; }
-            set { miTipoUsuario = value; }
-        }
+        public Int16 TipoUsuario { get; set; }
+
         [Column("CambioClave")]
         [DataMember]
-        public bool CambioClave
-        {
-            get { return mbCambioClave; }
-            set { mbCambioClave = value; }
-        }
+        public bool CambioClave { get; set; }
 
         [Column("CodigoISO")]
         [DataMember]
-        public string CodigoISO
-        {
-            get { return msCodigoISO; }
-            set { msCodigoISO = value; }
-        }
+        public string CodigoISO { get; set; }
 
         [Column("RegionID")]
         [DataMember]
-        public int RegionID
-        {
-            get { return miRegionID; }
-            set { miRegionID = value; }
-        }
+        public int RegionID { get; set; }
 
         [Column("CodigorRegion")]
         [DataMember]
-        public string CodigorRegion
-        {
-            get { return msCodigorRegion; }
-            set { msCodigorRegion = value; }
-        }
+        public string CodigorRegion { get; set; }
 
         [Column("ZonaID")]
         [DataMember]
-        public int ZonaID
-        {
-            get { return miZonaID; }
-            set { miZonaID = value; }
-        }
+        public int ZonaID { get; set; }
 
         [Column("CodigoZona")]
         [DataMember]
-        public string CodigoZona
-        {
-            get { return msCodigoZona; }
-            set { msCodigoZona = value; }
-        }
+        public string CodigoZona { get; set; }
 
         [Column("ConsultoraID")]
         [DataMember]
-        public long ConsultoraID
-        {
-            get { return miConsultoraID; }
-            set { miConsultoraID = value; }
-        }
+        public long ConsultoraID { get; set; }
 
         [Column("RolID")]
         [DataMember]
-        public short RolID
-        {
-            get { return miRolID; }
-            set { miRolID = value; }
-        }
+        public short RolID { get; set; }
 
         [DataMember]
-        public int CampaniaID
-        {
-            get { return miCampaniaID; }
-            set { miCampaniaID = value; }
-        }
+        public int CampaniaID { get; set; }
 
         [DataMember]
-        public DateTime FechaInicioFacturacion
-        {
-            get { return mdFechaInicioFacturacion; }
-            set { mdFechaInicioFacturacion = value; }
-        }
+        public DateTime FechaInicioFacturacion { get; set; }
 
         [DataMember]
-        public DateTime FechaFinFacturacion
-        {
-            get { return mdFechaFinFacturacion; }
-            set { mdFechaFinFacturacion = value; }
-        }
+        public DateTime FechaFinFacturacion { get; set; }
 
         [DataMember]
-        public string CampaniaDescripcion
-        {
-            get { return msCampaniaDescripcion; }
-            set { msCampaniaDescripcion = value; }
-        }
+        public string CampaniaDescripcion { get; set; }
 
         [DataMember]
-        public TimeSpan HoraInicio
-        {
-            get { return tsHoraInicio; }
-            set { tsHoraInicio = value; }
-        }
+        public TimeSpan HoraInicio { get; set; }
 
         [DataMember]
-        public TimeSpan HoraFin
-        {
-            get { return tsHoraFin; }
-            set { tsHoraFin = value; }
-        }
+        public TimeSpan HoraFin { get; set; }
 
         [DataMember]
-        public bool ZonaValida
-        {
-            get { return mbZonaValida; }
-            set { mbZonaValida = value; }
-        }
+        public bool ZonaValida { get; set; }
 
         [Column("Simbolo")]
         [DataMember]
-        public string Simbolo
-        {
-            get { return msSimbolo; }
-            set { msSimbolo = value; }
-        }
+        public string Simbolo { get; set; }
 
         [DataMember]
-        public int TerritorioID
-        {
-            get { return miTerritorioID; }
-            set { miTerritorioID = value; }
-        }
+        public int TerritorioID { get; set; }
 
         [DataMember]
-        public string CodigoTerritorio
-        {
-            get { return msCodigoTerritorio; }
-            set { msCodigoTerritorio = value; }
-        }
+        public string CodigoTerritorio { get; set; }
 
         [Column("MontoMinimoPedido")]
         [DataMember]
-        public decimal MontoMinimoPedido
-        {
-            get { return mmMontoMinimoPedido; }
-            set { mmMontoMinimoPedido = value; }
-        }
+        public decimal MontoMinimoPedido { get; set; }
 
         [Column("MontoMaximoPedido")]
         [DataMember]
-        public decimal MontoMaximoPedido
-        {
-            get { return mmMontoMaximoPedido; }
-            set { mmMontoMaximoPedido = value; }
-        }
+        public decimal MontoMaximoPedido { get; set; }
 
         [DataMember]
-        public TimeSpan HoraInicioNoFacturable
-        {
-            get { return tsHoraInicioNoFacturable; }
-            set { tsHoraInicioNoFacturable = value; }
-        }
+        public TimeSpan HoraInicioNoFacturable { get; set; }
 
         [DataMember]
-        public TimeSpan HoraCierreNoFacturable
-        {
-            get { return tsHoraCierreNoFacturable; }
-            set { tsHoraCierreNoFacturable = value; }
-        }
+        public TimeSpan HoraCierreNoFacturable { get; set; }
 
         [DataMember]
-        public int DiasAntes
-        {
-            get { return miDiasAntes; }
-            set { miDiasAntes = value; }
-        }
+        public int DiasAntes { get; set; }
 
         [DataMember]
-        public string Segmento
-        {
-            get { return mSegmento; }
-            set { mSegmento = value; }
-        }
+        public string Segmento { get; set; }
 
         [DataMember]
-        public int DiasDuracionCronograma
-        {
-            get { return miDiasDuracionCronograma; }
-            set { miDiasDuracionCronograma = value; }
-        }
+        public int DiasDuracionCronograma { get; set; }
 
         [DataMember]
-        public bool HabilitarRestriccionHoraria
-        {
-            get { return mHabilitarRestriccionHoraria; }
-            set { mHabilitarRestriccionHoraria = value; }
-        }
+        public bool HabilitarRestriccionHoraria { get; set; }
 
         [DataMember]
-        public int HorasDuracionRestriccion
-        {
-            get { return mHorasDuracionRestriccion; }
-            set { mHorasDuracionRestriccion = value; }
-        }
+        public int HorasDuracionRestriccion { get; set; }
 
         [DataMember]
         [Column("AnoCampanaIngreso")]
-        public string AnoCampaniaIngreso
-        {
-            get { return mAnoCampaniaIngreso; }
-            set { mAnoCampaniaIngreso = value; }
-        }
+        public string AnoCampaniaIngreso { get; set; }
 
         [DataMember]
         [Column("PrimerNombre")]
-        public string PrimerNombre
-        {
-            get { return mPrimerNombre; }
-            set { mPrimerNombre = value; }
-        }
+        public string PrimerNombre { get; set; }
 
         [DataMember]
-        public string PrimerApellido
-        {
-            get { return mPrimerApellido; }
-            set { mPrimerApellido = value; }
-        }
+        public string PrimerApellido { get; set; }
 
         [DataMember]
-        public bool MostrarAyudaWebTraking
-        {
-            get { return mostrarAyudaWebTraking; }
-            set { mostrarAyudaWebTraking = value; }
-        }
+        public bool MostrarAyudaWebTraking { get; set; }
+
         [DataMember]
         public int IndicadorOfertaFIC { get; set; }
         [DataMember]
@@ -822,52 +556,24 @@ namespace Portal.Consultoras.Entities
         public int IndicadorContrato { get; set; }
 
         [DataMember]
-        public DateTime FechaFinFIC
-        {
-            get { return mdFechaFinFIC; }
-            set { mdFechaFinFIC = value; }
-        }
+        public DateTime FechaFinFIC { get; set; }
 
         [DataMember]
-        public bool PROLSinStock
-        {
-            get { return mPROLSinStock; }
-            set { mPROLSinStock = value; }
-        }
+        public bool PROLSinStock { get; set; }
 
         [DataMember]
-        public DateTime FechaModificacion
-        {
-            get { return mdFechaModificacion; }
-            set { mdFechaModificacion = value; }
-        }
+        public DateTime FechaModificacion { get; set; }
 
         [DataMember]
-        public string Rol
-        {
-            get { return mdRol; }
-            set { mdRol = value; }
-        }
+        public string Rol { get; set; }
 
         [Column("SegmentoConstancia")]
         [DataMember]
-        public string SegmentoConstancia
-        {
-            get { return mSegmentoConstancia; }
-            set { mSegmentoConstancia = value; }
-        }
+        public string SegmentoConstancia { get; set; }
         [DataMember]
-        public string SeccionAnalytics
-        {
-            get { return mSeccionAnalytics; }
-            set { mSeccionAnalytics = value; }
-        }
+        public string SeccionAnalytics { get; set; }
         [DataMember]
-        public string DescripcionNivel
-        {
-            get { return mDescripcionNivel; }
-            set { mDescripcionNivel = value; }
-        }
+        public string DescripcionNivel { get; set; }
 
         [DataMember]
         public bool esConsultoraLider
@@ -876,11 +582,7 @@ namespace Portal.Consultoras.Entities
             set { mesConsultoraLider = value ? 1 : 0; }
         }
         [DataMember]
-        public string DigitoVerificador
-        {
-            get { return digitoVerificador; }
-            set { digitoVerificador = value; }
-        }
+        public string DigitoVerificador { get; set; }
 
         [DataMember]
         public bool NuevoPROL { get; set; }
@@ -914,25 +616,13 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         [Column("SegmentoInternoId")]
-        public int? SegmentoInternoID
-        {
-            get;
-            set;
-        }
+        public int? SegmentoInternoID { get; set; }
 
         [DataMember]
-        public string SegmentoAbreviatura
-        {
-            get { return mSegmentoAbreviatura; }
-            set { mSegmentoAbreviatura = value; }
-        }
+        public string SegmentoAbreviatura { get; set; }
 
         [DataMember]
-        public bool EstadoSimplificacionCUV
-        {
-            get { return bEstadoSimplificacionCUV; }
-            set { bEstadoSimplificacionCUV = value; }
-        }
+        public bool EstadoSimplificacionCUV { get; set; }
 
         [DataMember]
         public bool EsquemaDAConsultora { get; set; }
@@ -1038,7 +728,7 @@ namespace Portal.Consultoras.Entities
             esConsultoraLider = row.ToBoolean("esConsultoraLider");
             EstadoSimplificacionCUV = row.ToBoolean("EstadoSimplificacionCUV");
             bEsquemaDAConsultora = row.ToBoolean("EsquemaDAConsultora");
-            digitoVerificador = row.ToString("DigitoVerificador");
+            DigitoVerificador = row.ToString("DigitoVerificador");
             TieneCDRExpress = row.ToBoolean("TieneCDRExpress");
         }
 
@@ -1212,6 +902,7 @@ namespace Portal.Consultoras.Entities
         [Column("IndicadorConsultoraOficina")]
         public bool EsConsultoraOficina { get; set; }
         [DataMember]
+        [Column("IndicadorConsultoraDigital")]
         public int IndicadorConsultoraDigital { get; set; }
         [DataMember]
         public string NivelProyectado { get; set; }
@@ -1239,11 +930,15 @@ namespace Portal.Consultoras.Entities
         public bool TieneMG { get; set; }
         [DataMember]
         public bool TieneChatbot { get; set; }
+        [DataMember]
+        public List<BEConfiguracionPaisDatos> RecomendacionesConfiguracion { get; set; }
+        [DataMember]
+        public string SegmentoDatami { get; set; }
 
         public BEUsuario(IDataRecord row, bool Tipo, bool ValidaHorario)
         {
-            miConsultoraID = row.ToInt64("ConsultoraID");
-            consultoraAsociadoID = row.ToInt64("ConsultoraAsociadoID");
+            ConsultoraID = row.ToInt64("ConsultoraID");
+            ConsultoraAsociadaID = row.ToInt64("ConsultoraAsociadoID");
             ZonaHoraria = row.ToDouble("ZonaHoraria");
             HabilitarRestriccionHoraria = row.ToBoolean("HabilitarRestriccionHoraria");
             FechaInicioFacturacion = row.ToDateTime("FechaInicioFacturacion");

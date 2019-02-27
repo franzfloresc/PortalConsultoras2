@@ -3,16 +3,18 @@ using Portal.Consultoras.Entities.Cupon;
 using Portal.Consultoras.Entities.Estrategia;
 using Portal.Consultoras.Entities.PagoEnLinea;
 using Portal.Consultoras.Entities.Pedido;
+using Producto = Portal.Consultoras.Entities.Producto;
 using Portal.Consultoras.Entities.ProgramaNuevas;
 using Portal.Consultoras.Entities.ReservaProl;
 using Portal.Consultoras.Entities.RevistaDigital;
 using Portal.Consultoras.Entities.ShowRoom;
+using Estrategia = Portal.Consultoras.Entities.Estrategia;
+
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.ServiceModel;
 using System.Threading.Tasks;
-using Estrategia = Portal.Consultoras.Entities.Estrategia;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -46,6 +48,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         void DelPedidoWebDetalle(BEPedidoWebDetalle pedidowebdetalle);
+
+        [OperationContract]
+        IList<BEPedidoWebDetalle> SelectByCampaniaWithLabelProgNuevas(BEPedidoWebDetalleParametros bePedidoWebDetalleParametros);
 
         [OperationContract]
         IList<BEPedidoWebDetalle> SelectByCampania(BEPedidoWebDetalleParametros bePedidoWebDetalleParametros);
@@ -657,8 +662,8 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         int ValidarCUVsRecomendados(BEEstrategia entidad);
 
-        [OperationContract]
-        List<BEEstrategia> FiltrarEstrategiaPedido(BEEstrategia entidad);
+        //[OperationContract]
+        //List<BEEstrategia> FiltrarEstrategiaPedido(BEEstrategia entidad);
 
         [OperationContract]
         string ValidarStockEstrategia(BEEstrategia entidad);
@@ -1014,8 +1019,8 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         BERevistaDigitalSuscripcion RDGetSuscripcionActiva(BERevistaDigitalSuscripcion entidad);
 
-        [OperationContract]
-        int InsertarDesglose(BEInputReservaProl input);
+        //[OperationContract]
+        //int InsertarDesglose(BEInputReservaProl input);
 
         [OperationContract]
         string CargarSesionAndDeshacerPedidoValidado(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, string tipo);
@@ -1206,6 +1211,8 @@ namespace Portal.Consultoras.ServiceContracts
         BEPedidoDetalleResult InsertProductoBuscador(BEPedidoDetalle pedidoDetalle);
         [OperationContract]
         List<BEPedidoDetalleResult> InsertPedidoDetalleMasivo(List<BEPedidoDetalle> lstPedidoDetalle);
+        [OperationContract]
+        List<Producto.BEProductoRecomendado> GetProductoRecomendado(int paisID, bool RDEsSuscrita, bool RDEsActiva, List<Producto.BEProductoRecomendado> lst);
         #endregion
 
         #region Pago en Linea
