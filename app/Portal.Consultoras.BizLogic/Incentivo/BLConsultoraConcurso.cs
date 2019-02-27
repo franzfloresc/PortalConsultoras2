@@ -227,7 +227,8 @@ namespace Portal.Consultoras.BizLogic
                         CodigoNivel = item.NivelAlcanzado,
                         PuntosNivel = item.PuntosNivel,
                         CodigoPremio = string.Join("\n", incentivosPremios.Where(p => p.CodigoConcurso == item.CodigoConcurso).Select(x => x.CodigoPremio)),
-                        DescripcionPremio = string.Join("\n", incentivosPremios.Where(p => p.CodigoConcurso == item.CodigoConcurso).Select(x => x.DescripcionPremio))
+                        DescripcionPremio = string.Join("\n", incentivosPremios.Where(p => p.CodigoConcurso == item.CodigoConcurso).Select(x => x.DescripcionPremio)),
+                        Premios = incentivosPremios.Where(p => p.CodigoConcurso == item.CodigoConcurso).ToList()
                     });
 
                     item.Niveles = incentivosNivel;
