@@ -286,6 +286,13 @@ namespace Portal.Consultoras.Common
 
         }
 
+        public static class TipoAccionNavegar
+        {
+            public const int SinBoton = 0;
+            public const int BreadCrumbs = 1;
+            public const int Volver = 2;
+        }
+
         public static class Inicializacion
         {
             public const int EnteroInicial = -1;
@@ -436,6 +443,7 @@ namespace Portal.Consultoras.Common
 
 
             public const string JwtApiSomosBelcorp = "JwtApiSomosBelcorp";
+            public const string UsuarioPedidos = "UsuarioPedidos";
             public const string RecomendacionesConfig = "RecomendacionesConfiguracion";
             public const string BuscadorYFiltrosConfig = "BuscadorYFiltros";
             public const string MSPersonalizacionConfig = "MSPersonalizacion";
@@ -631,7 +639,7 @@ namespace Portal.Consultoras.Common
             public const string DGuiaNegocio = "1I0";
             public const string MGuiaNegocio = "2I0";
             public const string DHerramientaVenta = "1J0";
-            public const string MHerramientaVenta = "2J0";
+            public const string MHerramientaVenta = "2J0";  
             public const string DMasGanadoras = "1K0";
             public const string MMasGanadoras = "2K0";
             public const string DDuoPerfecto = "1L0";
@@ -916,10 +924,24 @@ namespace Portal.Consultoras.Common
             public const int MobileBuscadorGNDFicha = 2040502;
             public const int MobileBuscadorHerramientasdeVentaFicha = 2040802;
 
+            public const int DesktopPedidoProductoRecomendadoOpm = 1020008;
+            public const int DesktopPedidoProductoRecomendadoShowRoom = 1020108;
+            public const int DesktopPedidoProductoRecomendadoLan = 1020208;
+            public const int DesktopPedidoProductoRecomendadoOdd = 1020308;
+            public const int DesktopPedidoProductoRecomendadoHv = 1020808;
+            public const int DesktopPedidoProductoRecomendadoGanadoras = 1021408;
+            public const int MobilePedidoProductoRecomendadoOpm = 2020008;
+            public const int MobilePedidoProductoRecomendadoShowRoom = 2020108;
+            public const int MobilePedidoProductoRecomendadoLan = 2020208;
+            public const int MobilePedidoProductoRecomendadoOdd = 2020308;
+            public const int MobilePedidoProductoRecomendadoHv = 2020808;
+            public const int MobilePedidoProductoRecomendadoGanadoras = 2021408;
+                                            
             public const int MobileContenedorShowroomCarrusel = 2080101;
             public const int MobileContenedorShowroomFicha = 2080102;
+            public const int AppConsultoraContenedorShowroomFicha = 4080102;
             public const int MobileContenedorLanzamientosCarrusel = 2080201; // Esta en duro en rdAnalyticsModule
-
+            
             #endregion
 
             #region Producto Recomendado
@@ -1233,6 +1255,14 @@ namespace Portal.Consultoras.Common
             public const string PedidoFIC = "PedidoFIC";
             public const string ContenedorOfertas = "ContenedorOfertas";
             public const string LiquidacionWeb = "LiquidacionWeb";
+            public const string MiPerfil = "MiPerfil";
+        }
+
+        public static class MenuPosicion
+        {
+            public const string Header = "header";
+            public const string Body = "body";
+            public const string Footer = "footer";
         }
 
         public static class MenuMobileId
@@ -1275,6 +1305,8 @@ namespace Portal.Consultoras.Common
             public const string Ganancias = "GANANCIAS";
             public const string DuoPerfecto = "DUOPERFECTO";
             public const string PedidosPendientes = "PEDIDOSPENDIENTES";
+            public const string ActualizaDatos = "ACTUALIZADATOS";
+            public const string Notificaciones = "NOTIFICACIONES";
         }
 
         public static class IngresoExternoOrigen
@@ -1437,6 +1469,7 @@ namespace Portal.Consultoras.Common
             public const string Recomendaciones = "RECOMDS";
             public const string MicroserviciosPersonalizacion = "MSPersonalizacion";
             public const string Datami = "DATAMI";
+            public const string DireccionEntrega = "DIRECCION_ENTREGA";
         }
 
 
@@ -1746,6 +1779,8 @@ namespace Portal.Consultoras.Common
             public const short ListaOrdenamientoFiltros = 147;
             public const short ArmaTuPack = 14;
             public const short PilotoCatalogoDigital = 155;
+            public const short GanaMasNativo = 159;
+            public const short TiempoMaximoSP = 180;
         }
 
         public struct MensajesCDRExpress
@@ -2118,6 +2153,57 @@ namespace Portal.Consultoras.Common
             public const string TipoImagenSmall = "SMALL";
             public const string TipoImagenMedium = "MEDIUM";
             public const string ValorTextoDefaultAppCatalogo = "appcatalogo";
+
+            public class App
+            {
+                public static List<AppConfiguracion> Configuracion
+                {
+                    get
+                    {
+                        var lst = new List<AppConfiguracion>();
+
+                        lst.Add(new AppConfiguracion()
+                        {
+                            Tipo = "_mdpi",
+                            Alto = 215,
+                            Ancho = 95
+                        });
+                        lst.Add(new AppConfiguracion()
+                        {
+                            Tipo = "_hdpi",
+                            Alto = 322,
+                            Ancho = 142
+                        });
+                        lst.Add(new AppConfiguracion()
+                        {
+                            Tipo = "_xhdpi",
+                            Alto = 430,
+                            Ancho = 190
+                        });
+                        lst.Add(new AppConfiguracion()
+                        {
+                            Tipo = "_xxhdpi",
+                            Alto = 645,
+                            Ancho = 285
+                        });
+                        lst.Add(new AppConfiguracion()
+                        {
+                            Tipo = "_xxxhdpi",
+                            Alto = 860,
+                            Ancho = 380
+                        });
+
+                        return lst;
+                    }
+                }
+
+                public class AppConfiguracion
+                {
+                    public string Tipo { get; set; }
+                    public int Alto { get; set; }
+                    public int Ancho { get; set; }
+                }
+            }
         }
 
         public static class RecuperacionPedido
@@ -2428,6 +2514,7 @@ namespace Portal.Consultoras.Common
             public const string INSERT = "I";
             public const string UPDATE = "U";
             public const string DELETE = "D";
+            public const string UPDATESET = "US";
         }
 
         public static class FlagRevista
@@ -2689,6 +2776,9 @@ namespace Portal.Consultoras.Common
             public const string MontoMinimoPago = "13";
             public const string UrlAutorizacionPagoApp = "14";
             public const string UrlTerminosUsoApp = "15";
+            public const string MerchantIdApp = "16";
+            public const string AccessKeyIdApp = "17";
+            public const string SecretAccessKeyApp = "18";
 
             public const string Recurrence = "FALSE";
             public const string RecurrenceAmount = "0.00";
@@ -3028,6 +3118,8 @@ namespace Portal.Consultoras.Common
             public const string TotalProductosPaginaResultado = "TotalProductosPaginaResultado";
             public const string TotalCaracteresDescPaginaResultado = "TotalCaracteresDescPaginaResultado";
             public const string FlagFiltrosBuscador = "FlagFiltrosBuscador";
+            public const string FlagBuscarPorCategoria = "BuscarPorCategoria";
+            public const string FlagBuscarPorCategoriaTotalProductos = "BuscarPorCategoriaTotalProductos";
         }
         
         public static class CodigoConfiguracionMSPersonalizacion
@@ -3057,6 +3149,8 @@ namespace Portal.Consultoras.Common
             public const string UrlPersonalizacion = "Personalizacion/{0}/{1}/{2}/{3}";
 
             public const string UrlRecomendaciones = "Recomendaciones/{0}/{1}/{2}";
+
+            public const string UrlCategorias = "Categoria/{0}/{1}";
         }
 
         public static class ActualizacionDatosValidacion
@@ -3184,6 +3278,7 @@ namespace Portal.Consultoras.Common
             public const string HERRAMIENTASDEVENTA = "HERRAMIENTASDEVENTA";
             public const string ESPECIALES = "ESPECIALES";
             public const string OFERTASFLEXIPAGO = "OFERTASFLEXIPAGO";
+            public const string ESPREMIOELEC = "ESPREMIOELEC";
             public const string ESCUPONNUEVAS = "ESCUPONNUEVAS";
             public const string ESELECMULTIPLENUEVAS = "ESELECMULTIPLENUEVAS";
         }
@@ -3295,6 +3390,12 @@ namespace Portal.Consultoras.Common
             public const string Fecha = "dd/MM/yyyy";
             public const string FechaHora = "dd/MM/yyyy HH:mm";
         }
+        public static class OperacionBD
+        {
+            public const int Insertar = 0;
+            public const int Editar = 1;
+            public const int Eliminar = 2;
+        }
 
         public static class MetodosHTTP
         {
@@ -3319,6 +3420,12 @@ namespace Portal.Consultoras.Common
                 public const string CatalogoDigital = "03";
                 public const string MaquilladorVirtual = "04";
             }
+        }
+        
+        public static class OpcionesUsuario
+        {
+            public const int BoletaImpresa = 1;
+            public const int CompartirWhatsApp = 2;
         }
 
         public class SegmentoDatami

@@ -1,14 +1,62 @@
 ﻿using ImageMagick;
+
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text;
+using System.Threading.Tasks;
+using System.Linq;
 
 namespace Portal.Consultoras.Common.MagickNet
 {
     public static class MagickNetLibrary
     {
+        public static string GuardarImagenesResizeParalelo(List<EntidadMagickResize> lista, bool actualizar = false)
+        {
+            var txtBuil = new StringBuilder();
+
+            if (lista.Any())
+            {
+                var primerItem = lista.FirstOrDefault();
+
+                if (primerItem != null)
+                {
+                    var nombreImagenOriginal = Path.GetFileName(primerItem.RutaImagenOriginal);
+                    var rutaImagenTemporal = Path.Combine(Globals.RutaTemporales, nombreImagenOriginal);
+
+                    var esOk = GuardarImagenToTemporal(primerItem.CodigoIso, primerItem.RutaImagenOriginal, rutaImagenTemporal);
+
+                    var lstTask = lista.Select(item => Task.Run(() => GuardarImagenesResizeDetalleParalelo(item, actualizar, false))).ToArray();
+                    Task.WaitAll(lstTask);
+
+                    File.Delete(rutaImagenTemporal);
+
+                    foreach (var item in lstTask)
+                    {
+                        txtBuil.Append(item.Result);
+                    }
+                }
+            }
+
+            return txtBuil.ToString();
+        }
+
+        private static string GuardarImagenesResizeDetalleParalelo(EntidadMagickResize item, bool actualizar = false, bool temporal = true)
+        {
+            var result = string.Empty;
+
+            if (!Util.ExisteUrlRemota(item.RutaImagenResize) || actualizar)
+            {
+                var nombreImagen = Path.GetFileName(item.RutaImagenResize);
+                var resultadoImagenResize = GuardarImagenResize(item.CodigoIso, item.RutaImagenOriginal, nombreImagen, item.Width, item.Height, actualizar, temporal);
+
+                if (!resultadoImagenResize) result = string.Format("No se genero la imagen {0}, favor volver a guardar.", item.TipoImagen);
+            }
+
+            return result;
+        }
+
         /// <summary>
         /// Genera imagenes con el tamaño especificado en cada item de la lista enviada como parámetro
         /// </summary>
@@ -34,7 +82,8 @@ namespace Portal.Consultoras.Common.MagickNet
             return txtBuil.ToString();
         }
 
-        private static bool GuardarImagenResize(string codigoIso, string rutaImagenOriginal, string nombreImagenGuardar, int width, int height, bool actualizar = false)
+        private static bool GuardarImagenResize(string codigoIso, string rutaImagenOriginal, string nombreImagenGuardar, int width, 
+            int height, bool actualizar = false, bool temporal = true)
         {
             var resultado = true;
 
@@ -49,14 +98,20 @@ namespace Portal.Consultoras.Common.MagickNet
 
                 string rutaImagenTemporal = Path.Combine(Globals.RutaTemporales, nombreImagenOriginal);
 
-                var esOk = GuardarImagenToTemporal(codigoIso, rutaImagenOriginal, rutaImagenTemporal);
+                if (temporal)
+                {
+                    var esOk = GuardarImagenToTemporal(codigoIso, rutaImagenOriginal, rutaImagenTemporal);
 
-                if (esOk)
-                    esOk = GuardarImagen(codigoIso, rutaImagenTemporal, width, height, nombreImagenGuardar, actualizar);
+                    if (esOk) esOk = GuardarImagen(codigoIso, rutaImagenTemporal, width, height, nombreImagenGuardar, actualizar);
 
-                File.Delete(rutaImagenTemporal);
+                    File.Delete(rutaImagenTemporal);
 
-                resultado = esOk;
+                    resultado = esOk;
+                }
+                else
+                {
+                    resultado = GuardarImagen(codigoIso, rutaImagenTemporal, width, height, nombreImagenGuardar, actualizar);
+                }
             }
 
             return resultado;

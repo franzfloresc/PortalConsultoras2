@@ -20,25 +20,46 @@
 }
 
 .nombre_campania_pedido {
-    margin: 0 0 21px 0;
+    margin: 7px 0 21px 0;
 }
 
 
 .detalle_pedido_ingresado {
     display: block;
+    margin-bottom: 15px;
 }
 
 .titulo_detalle {
-    border-top: 2px solid #bababa;
-    border-bottom: 2px solid #bababa;
+    border-top: 1px solid #bababa;
+    border-bottom: 1px solid #bababa;
     height: 38px;
-    line-height: 32px;
+    line-height: 33px;
+}
+
+.info_pedidos_por_aprobar{
+    display: block;
+    text-align: right;
+    height: auto;
+    margin-top: 22px;
+}
+
+.btn_pedidos_por_aprobar{
+    display: inline-block;
+    color: #FFF;
+    font-size: 14px;
+    border-radius: 4px;
+    min-width: 170px;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 45px;
+    line-height: 44px;
 }
 
 .contenedor_items_pedido {
     display: block;
     text-align: left;
-    border-bottom: 2px solid #bababa;
+    margin-bottom: 10px;
+    padding: 15px 11px;
 }
 
 .separador {
@@ -53,14 +74,13 @@
 
 .bloque_descripcion_items_ingresados {
     margin-bottom: 8px;
-    margin-top: 20px;
 }
 
-.bloque_cantidades_precios_items_ingresados {
+/*.bloque_cantidades_precios_items_ingresados {
     margin-bottom: 20px;
-}
+}*/
 
-.descripcion_item_pedido, .icono_eliminar_item_pedido, .icono_kitNuevas {
+.descripcion_item_pedido, .icono_eliminar_item_pedido, .icono_kitNuevas, .icono_cambiar_regalo_programaNuevas {
     display: inline-block;
     vertical-align: top;
 }
@@ -389,7 +409,7 @@
     line-height: normal;
 }
 
-.popover {
+.popover_pedido {
     display: block;
     position: relative;
     top: 0;
@@ -401,14 +421,45 @@
     border:none;
     border-radius: 4px;
     max-width: 100%;
-    margin-bottom: 21px !important;
+    margin-top: 21px !important;
     width: 100%;
     margin: 0;
     padding: 15px;
 }
 
-    .popover.bottom > .arrow::after {
+
+    .popover_pedido.bottom > .arrow {
+        left: 50%;
+        margin-left: -11px;
+        border-top-width: 0;
+        border-bottom-color: #999;
+        border-bottom-color: rgba(0,0,0,.25);
+        top: -11px;
+    }
+
+
+    .popover_pedido.bottom > .arrow::after {
         border-bottom-color: #ebebeb;
+    }
+
+    .popover_pedido.bottom > .arrow:after {
+       content: ' ';
+       top: 1px;
+       margin-left: -10px;
+       border-top-width: 0;
+    }
+    .popover_pedido > .arrow:after {
+       border-width: 10px;
+       content: '';
+    }
+
+    .popover_pedido > .arrow, .popover_pedido > .arrow:after {
+       position: absolute;
+       display: block;
+       width: 0;
+       height: 0;
+       border-color: transparent;
+       border-style: solid;
     }
 
     .boton-secundario {
@@ -432,7 +483,7 @@
         font-weight: bold;
     }
 
-    .popover.bottom > .arrow {
+    .popover_pedido.bottom > .arrow {
         border-bottom-color: rgba(0,0,0,0);
     }
 
@@ -551,3 +602,18 @@
     border: none;
     text-decoration: underline;
 }
+
+.pedido_item_editable {
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.25);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background .3s ease;
+    -moz-transition: background .3s ease;
+    -o-transition: background .3s ease;
+    -ms-transition: background .3s ease;
+    -webkit-transition: background .3s ease;
+}
+
+    .pedido_item_editable:hover {
+        background: #f8f8f8;
+    }

@@ -83,7 +83,8 @@ var ConstantesModule = (function () {
         OfertasParaMi: "/Estrategia/RDObtenerProductos",
         Lanzamiento: "/Estrategia/LANObtenerProductos",
         GuiaDeNegocioDigitalizada: "/Estrategia/GNDObtenerProductos",
-        HerrameintasVenta: "/Estrategia/HVObtenerProductos"
+        HerrameintasVenta: "/Estrategia/HVObtenerProductos",
+        MasGanadoras: "/Estrategia/MGObtenerProductos"
     }
 
     var _origenPedidoWeb = {
@@ -163,6 +164,28 @@ var ConstantesModule = (function () {
         }
     }
 
+    var _tipoAccionNavegar = {
+        BreadCrumbs: 1,
+        Volver: 2
+    };
+
+    var _editarItemPedido = {
+        Activo: 1,
+        Inactivo: 2
+    };
+
+    var _urlDetalleEstrategia = {
+        obtenerComponentes: '/DetalleEstrategia/ObtenerComponentes',
+        obtenerModelo: '/DetalleEstrategia/ObtenerModelo',
+        obtenerPedidoWebSetDetalle: '/Pedido/ObtenerPedidoWebSetDetalle'
+    }
+
+    var _urlPedido = {
+        cargarDetallePedido: '/Pedido/CargarDetallePedido',
+        ejecutarServicioProl: '/Pedido/EjecutarServicioPROL',
+        updatePostulanteMensaje:'/Pedido/UpdatePostulanteMensaje'
+    }
+
     return {
         CodigosPalanca: _codigosPalanca,
         KeysLocalStorage: _keysLocalStorage,
@@ -172,7 +195,10 @@ var ConstantesModule = (function () {
         UrlObtenerEstrategia: _urlObtenerEstrategia,
         OrigenPedidoWeb: _origenPedidoWeb,
         OrigenPedidoWebEstructura: _origenPedidoWebEstructura,
-        ConfiguracionOferta: _configuracionOferta
+        ConfiguracionOferta: _configuracionOferta,
+        TipoAccionNavegar: _tipoAccionNavegar,
+        EditarItemPedido: _editarItemPedido,
+        UrlDetalleEstrategia: _urlDetalleEstrategia,
+        UrlPedido: _urlPedido
     }
-
 })();

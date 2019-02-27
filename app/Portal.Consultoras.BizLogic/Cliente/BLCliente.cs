@@ -19,22 +19,26 @@ namespace Portal.Consultoras.BizLogic
         private readonly IMovimientoBusinessLogic _movimientoBusinessLogic;
         private readonly IRecordatorioBusinessLogic _recordatorioBusinessLogic;
         private readonly IClienteDBBusinessLogic _clienteDBBusinessLogic;
-
+        private readonly ITablaLogicaDatosBusinessLogic _tablaLogicaDatosBusinessLogic;
         public BLCliente() : this(new BLNotas(),
             new BLMovimiento(),
             new BLRecordatorio(),
-            new BLClienteDB())
+            new BLClienteDB(),
+            new BLTablaLogicaDatos()
+            )
         { }
 
         public BLCliente(INotasBusinessLogic notasBusinessLogic,
             IMovimientoBusinessLogic movimientoBusinessLogic,
             IRecordatorioBusinessLogic recordatorioBusinessLogic,
-            IClienteDBBusinessLogic clienteDBBusinessLogic)
+            IClienteDBBusinessLogic clienteDBBusinessLogic,
+             ITablaLogicaDatosBusinessLogic tablaLogicaDatosBusinessLogic)
         {
             _notasBusinessLogic = notasBusinessLogic;
             _movimientoBusinessLogic = movimientoBusinessLogic;
             _recordatorioBusinessLogic = recordatorioBusinessLogic;
             _clienteDBBusinessLogic = clienteDBBusinessLogic;
+            _tablaLogicaDatosBusinessLogic = tablaLogicaDatosBusinessLogic;
         }
 
         public int Insert(BECliente cliente)
@@ -378,10 +382,18 @@ namespace Portal.Consultoras.BizLogic
 
             try
             {
+                var inicioEjecucion = DateTime.Now;
+
                 using (var reader = new DACliente(paisID).GetClienteByConsultoraDetalle(consultoraID, campaniaID, clienteID))
                 {
                     clientes = reader.MapToCollection<BECliente>();
                 }
+                var finEjecucion = DateTime.Now;
+                TimeSpan diff = finEjecucion - inicioEjecucion;
+                var tiempoEjecucion = _tablaLogicaDatosBusinessLogic.GetListCache(paisID, Constantes.TablaLogica.TiempoMaximoSP).Where(a => a.Codigo == "01").FirstOrDefault();
+                if (diff.Seconds >= Convert.ToInt32(tiempoEjecucion))
+                    LogManager.SaveLog(new Exception(string.Format("Demora en el sp GetClienteByConsultoraDetalle Consultora: {0} Pais: {1} Campania: {2} ", consultoraID, paisID, campaniaID)), consultoraID, paisID);
+
             }
             catch (Exception ex)
             {

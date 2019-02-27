@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Common;
-using System;
+using Portal.Consultoras.Entities.Oferta;
+
 using System.Data;
 using System.Runtime.Serialization;
 
@@ -93,6 +94,9 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public BEConfiguracionPais ConfiguracionPais { get; set; }
+
+        [DataMember]
+        public BEConfiguracionOfertasHomeApp ConfiguracionOfertasHomeApp { get; set; }
 
         public BEConfiguracionOfertasHome(IDataRecord row)
         {

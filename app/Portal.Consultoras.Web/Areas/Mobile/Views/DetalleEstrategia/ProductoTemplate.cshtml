@@ -1,0 +1,205 @@
+﻿@using Portal.Consultoras.Common
+
+<script id="ficha_producto_template" type="text/x-handlebars-template">
+    <div data-OrigenPedidoWeb="{{OrigenUrl}}" data-OrigenPedidoWebAgregar="{{OrigenAgregar}}">
+
+        {{#if TieneReloj}}
+        <div id="EtiquetaOdd">
+            <div id="clock" class="clock_odd"></div>
+        </div>
+        {{/if}}
+        <div id="ImagenDeFondo" class="bg_imagen_producto" data-estadoregistro=""></div>
+        <div class="container box-container">
+            <div class="row imagen_producto ">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <img src="{{ImgMedium FotoProducto01}}" />
+                </div>
+                {{#iff CodigoVariante 'ContainsArray' '[@Constantes.TipoEstrategiaSet.IndividualConTonos,@Constantes.TipoEstrategiaSet.CompuestaVariable]'}}
+                <hr class="clear">
+                <div id="contenedor_foto_referencial" class="texto_referencial">
+                    <span data-texto_referencial="">* Foto Referencial</span>
+                </div>
+                {{/iff}}
+            </div>
+            <hr class="clear">
+
+            {{#IsNullOrEmpty ImagenURL '!='}}
+            <div id="EtiquetaPackNuevas" class="row label_producto">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <img src="{{ImagenURL}}" alt="" />
+                </div>
+            </div>
+            {{/IsNullOrEmpty}}
+            <div class="row marca_producto">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    {{#if EsMultimarca}}
+                    <h2></h2>
+                    {{else}}
+                    <h2>{{DescripcionMarca}}</h2>
+                    {{/if}}
+
+                </div>
+            </div>
+            <div class="row descripcion_producto">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    {{DescripcionCompleta}}
+                </div>
+            </div>
+            {{#IsNullOrEmpty this.ListaDescripcionDetalle '!='}}
+            <div id="SloganLanzamientos">
+                <span class="nombre_detalle_producto_tono"><strong>{{this.TipoEstrategiaDetalle.Slogan}}</strong></span>
+                <ul class="descripcion_detalle_producto_tono" style="list-style-type: none;">
+                    {{#each this.ListaDescripcionDetalle}}
+                    <li><span class="vineta">-</span><span class="txt-des">{{Trim this}}</span></li>
+                    {{/each}}
+                </ul>
+            </div>
+            {{/IsNullOrEmpty}}
+
+
+            {{#iff Precio '>' 0}}
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12 precio_producto">
+                    <p>Precio catálogo <span>{{SimboloMoneda}} {{PrecioTachado}}</span></p>
+                </div>
+            </div>
+            {{/iff}}
+
+            <ul class="list_style_none precio">
+                <li class="precio_producto">
+                    <p>
+                        Precio para ti
+                        <b style="font-size: 14px;">
+                            {{#IsNullOrEmpty ListaPrecioNiveles '!='}}1x {{/IsNullOrEmpty}}{{SimboloMoneda}} {{PrecioVenta}}
+                        </b>
+                    </p>
+                    {{#each ListaPrecioNiveles as |itemNivel|}}
+                    <span class="subprecio">{{itemNivel}}</span>
+                    {{/each}}
+                </li>
+                {{#iff Ganancia '>' 0}}
+                <li class="gana_precio_producto">
+                    <p class="ganancia">
+                        {{#iff CodigoVariante '!=' '@Constantes.TipoEstrategiaSet.CompuestaVariable'}}
+                        GANA
+                        {{/iff}}
+                        {{#iff CodigoVariante '==' '@Constantes.TipoEstrategiaSet.CompuestaVariable'}}
+                        GANA HASTA
+                        {{/iff}} {{SimboloMoneda}} {{GananciaString}}
+                    </p>
+                </li>
+                {{/iff}}
+            </ul>
+        </div>
+        {{#iff CodigoVariante 'ContainsArray' '[@Constantes.TipoEstrategiaSet.IndividualConTonos,@Constantes.TipoEstrategiaSet.CompuestaFija,@Constantes.TipoEstrategiaSet.CompuestaVariable]'}}
+        <div class="container">
+            <div class="">
+                <div class="seleccion_tonos">
+                    <div id="componentes" data-codigovariante="{{CodigoVariante}}">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{/iff}}
+
+        {{#if MostrarCliente}}
+        <!--Init panel cliente-->
+
+        <input id="hfClienteId" type="hidden" />
+        <input id="hfClienteNombre" type="hidden" />
+
+        @*<div class="AsignarCliente_bloque">
+            <div class="col-xs-12">
+                <ul class="asignarCliente">
+                    <li><h3>ASIGNADO A:</h3></li>
+
+                </ul>
+                <button id="btnShowCliente" class="boton_asignarCliente">
+                    PARA MÍ
+                    <span class="btn_cambiar_opciones cambiar_opcion cambiar_opcion_editarFicha">
+                        Cambiar opción
+                        <img src="/Content/Images/mobile/Esika/right-arrow.svg" alt="">
+                    </span>
+                </button>
+            </div>
+
+        </div>*@
+
+        <div class="AsignarCliente_bloque">
+            <div class="col-xs-12">
+                <ul class="asignarCliente">
+                    <li><h3>ASIGNADO A:</h3></li>
+                    @*<li><span id="spClienteNombre"> Para mí</span></li>*@
+                </ul>
+                <button id="btnShowCliente" class="boton_asignarCliente">
+                    <span id="spClienteNombre">Para Mi</span>
+                    <span class="btn_cambiar_opciones cambiar_opcion cambiar_opcion_editarFicha">
+                        Cambiar Cliente
+                        <img src="/Content/Images/mobile/Esika/right-arrow.svg" alt="">
+                    </span>
+                </button>
+            </div>
+        </div>
+        {{/if}}
+        <!--Init panel cliente-->
+        {{#iff NoEsCampaniaActual}}
+        {{else}}
+        <div id="dvContenedorAgregar" class="content_btn_agregar">
+            <div class="content_320">
+                <div data-selecciontono="tooltip" class="popover top tooltip_agregar_desabilitado" role="tooltip" id="" style="display: none;">
+                    <div class="arrow" style="left: 75%;"></div>
+                    <div class="popover-content">
+                        <ul class="list-inline popover_texto">
+                            <li><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt="" /></li>
+                            <li>Debes elegir tus opciones para poder agregar la oferta.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div data-limitepedido="tooltip" class="popover top tooltip_limite_pedidos" role="tooltip" id="" style="display: none;">
+                    <div class="arrow"></div>
+                    <div class="popover-content">
+                        <ul class="list-inline popover_texto">
+                            <li><img class="ico_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt="" /></li>
+                            <li>Lo sentimos <img class="tooltop-emoji" src="/Content/Images/Mobile/Esika/1f615.png" /> Has llegado al límite de pedidos para esta oferta.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="div-boton-agregar" style="display: none;">
+                    <div class="content_cantidad_ficha_producto" data-cantidad-contenedor="">
+                        <a class="cantidad_menos_home" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
+                            <span>-</span>
+                        </a>
+                        <input type="tel" attern="[0-9]{2}" 
+                               value="{{Cantidad}}" 
+                               size="2" 
+                               maxlength="2" 
+                               id="txtCantidad" 
+                               class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" 
+                               onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" 
+                               onkeyup="EstrategiaAgregarModule.ValidaCantidad(event);"
+                               data-input="cantidad">
+                        <a class="cantidad_mas_home" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
+                            <span>+</span>
+                        </a>
+                    </div>
+
+                    <a class="btn_agregar_ficha_producto {{ClaseBloqueada}}"
+                       id="btnAgregalo"
+                       data-bloqueada=""
+                       onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, false, 0, true,{{esEditable}}); ">AGRÉGALO</a>
+                </div>
+
+                <div class="boton_agotado_ficha" id="div-boton-agotado" style="display: none;">
+                    Agotado
+                </div>
+
+                <hr class="clear">
+            </div>
+        </div>
+
+        {{/iff}}
+    </div>
+</script>

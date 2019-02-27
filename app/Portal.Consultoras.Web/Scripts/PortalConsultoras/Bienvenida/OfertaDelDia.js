@@ -152,6 +152,7 @@ var OfertaDelDiaModule = function () {
     };
 
     var RenderOfertaDelDia = function (data, contenedorOfertas) {
+
         $(contenedorOfertas).hide();
 
         data.ListaOferta = data.ListaOferta || [];
@@ -161,11 +162,12 @@ var OfertaDelDiaModule = function () {
         data.lista = AsignarClaseCssAPalabraGratisDesktop(data.ListaOferta);
         data.prod = {};
         data.SoloUno = false;
+ 
         if (data.lista.length > 0) {
             data.prod = data.lista[0];
             data.SoloUno = data.lista.length === 1;
         }
-
+        $.each(data.lista, function (i, item) { item.Posicion = i + 1; });
         SetHandlebars("#ofertadeldia-template", data, contenedorOfertas);
         if ($(contenedorOfertas).find("#divOddCarrusel").length > 0) {
             SetHandlebars("#producto-landing-template", data, $(contenedorOfertas).find("#divOddCarrusel"));
@@ -320,7 +322,6 @@ var OfertaDelDiaModule = function () {
                     $("#banner-odd .derecha_img img").attr("src", _data.ImagenFondo1);
                     $(contenedorOfertas).css("background-color", _data.ColorFondo1);
                 }
-
                 SetHandlebars("#ofertadeldia-template-style", _data, "#styleRelojOdd");
 
                 $(contenedorOfertas).show();

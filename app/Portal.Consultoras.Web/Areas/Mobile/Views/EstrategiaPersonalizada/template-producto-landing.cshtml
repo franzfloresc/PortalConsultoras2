@@ -61,7 +61,7 @@
                             {{/if}}
                         {{#iff EsSubcampania '==' true}} style="padding-bottom: 30px; height:320px!important;" {{/iff}}>
                         <div style="display:none;"><div data-estrategia="{{JSON2string item}}"></div></div>
-                        <div data-item-tag="verdetalle"
+                        <a href="javascript:;" data-item-tag="verdetalle"
                              {{#iff EsSubcampania '==' false}}
                              {{#iff TipoAccionAgregar 'ContainsArray' '[@Constantes.TipoAccionAgregar.LoQuieres,@Constantes.TipoAccionAgregar.LoQuieresInactivo]'}}
                              onclick="javascript:VerPopupExpGanaMas();"
@@ -113,7 +113,7 @@
 
                                 </div>
                             </div>
-                        </div>
+                        </a>
                         <div class="clear"></div>
                         @if (ViewBag.TieneBotones)
                         {

@@ -1,5 +1,9 @@
 ﻿/* HELPERS */
 
+a{
+    cursor:pointer!important;
+}
+
 .text-uppercase{
     text-transform:uppercase;
 }
@@ -48,6 +52,14 @@
     padding-top:8px;
 }
 
+.pt-31{
+    padding-top:31px;
+}
+
+.w-11{
+    width:11%;
+}
+
 .w-29{
     width:25%;
 }
@@ -59,6 +71,18 @@
 
 .w-71{
     width:74.5%;
+}
+
+.w-82{
+    width:82%;
+}
+
+.w-88{
+    width:88%;
+}
+
+.w-90{
+    width:90%;
 }
 
 .wrapper_content_mi_perfil,
@@ -103,6 +127,8 @@
 .consultora_img,
 .nombre_consultora,
 .datos_codigo_y_zona,
+.datos_codigo,
+.datos_zona,
 .datos_gerente_zona,
 .enlace_cambiar_contrasenia_consultora,
 .form_cambio_datos,
@@ -146,7 +172,11 @@
 .opciones_foto_perfil,
 .opcion_foto_perfil,
 .icono_opcion_foto_perfil img,
-.titulo_correo_pendiente_confirmacion
+.titulo_correo_pendiente_confirmacion,
+.permisos_cuenta_wrapper,
+.permisos_cuenta_titulo,
+.permisos_cuenta_opciones,
+.enlace_abrir_mapa
 {
     display:block;
 }
@@ -160,12 +190,12 @@
 }
 
 .datos_usuario_iniciales{
-    background-color: #F8F8F8;
-    min-height: 295px;
+    background-color: #FFF;
+    min-height: 267px;
     padding-top: 26px;
-    padding-bottom: 19px;
+    padding-bottom: 8px;
     font-weight: 400;
-    margin-top:-26px;
+    margin-top:-9px;
 }
 
 .wrapper_content_mi_perfil,
@@ -181,8 +211,6 @@
 .w-18,
 .w-50,
 .w-82,
-.datos_codigo,
-.datos_zona,
 .datos_gerente_zona span,
 .icono_cambio_password,
 .grupo_form_cambio_datos > div,
@@ -204,7 +232,14 @@
 .campo_ingreso_codigo_sms,
 .icono_cerrar,
 .icono_opcion_foto_perfil,
-.descrip_opcion_foto_perfil
+.descrip_opcion_foto_perfil,
+.icono_mis_datos,
+.opcion_mi_perfil_titulo_texto,
+.permiso_cuenta_opcion_descripcion,
+.permiso_cuenta_opcion_label,
+.permiso_cuenta_opcion_checkbox,
+.grupo_form_permiso_cuenta,
+.grupo_form_checkbox_condiciones
 {
     display:inline-block;
     vertical-align:top;
@@ -223,8 +258,8 @@
 }
 
 .foto_consultora {
-    width: 120px;
-    height: 120px;
+    width: 88px;
+    height: 86px;
     position: relative;
     margin-bottom:20px;
     -moz-box-shadow: 0 5px 12px -1px rgba(0,0,0,0.15);
@@ -247,7 +282,6 @@
     height: auto;
 }
 
-.icono_camara,
 .icono_cambio_password,
 .icono_cambiar_dato,
 .icono_agregar_num_adicional,
@@ -261,35 +295,53 @@
 }
 
 .icono_camara{
-    width: 30px;
-    height: 30px;
+    width: 25.43px;
+    height: 25.43px;
     position: absolute;
     top: 3px;
     right: 0;
     background-image: url(/Content/Images/Esika/icono_camara.svg);
     z-index: 2;
     background-size: 63%;
+    background-position: 5px 5px;
+    background-repeat: no-repeat;
 }
 
-.nombre_consultora{
-    font-size:14px;
-    margin-bottom:21px;
+/*.datos_codigo_y_zona{
+    margin-bottom:18px;
+}*/
+
+.nombre_consultora,
+.datos_codigo,
+.datos_zona,
+.datos_gerente_zona
+{
+    margin-bottom:5px;
+    font-size:13px;
 }
 
-.datos_codigo_y_zona{
-    margin-bottom:10px;
+.datos_consultora,
+.nombre_consultora
+{
+    margin-bottom:18px;
 }
 
 .datos_gerente_zona{
-    margin-bottom:20px;
+    margin-bottom:27px;
+}
+
+.datos_gerente_zona span:last-of-type{
+    width:61%;
 }
 
 .icono_cambio_password{
     width:13px;
-    height:16px;
-    background-image:url("/Content/Images/Lbel/icono_candado.svg");
+    height:19px;
+    background-image:url("/Content/Images/icono_candado.svg");
     background-size:100%;
     margin-right:7px;
+    position: relative;
+    top: -2px;
 }
 
 .enlace_texto:hover{
@@ -302,23 +354,124 @@
     background-color:#FFF;
 }
 
+.opcion_mi_perfil{
+    border: 1px solid #808080;
+    padding-left: 14px;
+    padding-right: 13px;
+    border-radius: 4px;
+    min-height: 60px;
+    margin-bottom:20px;
+}
+
+.opcion_mi_perfil:last-child{
+    margin-bottom:0;
+}
+
+.opcion_mi_perfil_titulo{
+    height: 60px;
+    padding-top: 20px;
+    padding-bottom: 12px;
+    cursor:pointer;
+    position:relative;
+}
+
+.icono_mis_datos{
+    width:16px;
+    height:18px;
+}
+
+.icono_flecha_despliegue_contenido_mi_perfil{
+    width: 20px;
+    height: 18px;
+    position: absolute;
+    margin: auto 0;
+    top: -2px;
+    bottom: 0;
+    right: 0;
+    -moz-transition: all 0.15s ease;
+    -o-transition: all 0.15s ease;
+    -webkit-transition: all 0.15s ease;
+    transition: all 0.15s ease;
+    -moz-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+}
+
+.opcion_mi_perfil.mostrarContenido{
+    border:1px solid #000;
+}
+
+.opcion_mi_perfil.mostrarContenido .icono_flecha_despliegue_contenido_mi_perfil{
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+}
+
+.opcion_mi_perfil_titulo_texto,
+.permiso_cuenta_opcion_descripcion
+{
+    width:92%;
+}
+
+    .permiso_cuenta_opcion_descripcion span {
+        display: block;
+        color: #808080;
+    }
+
+.opcion_mi_perfil_titulo_texto{
+    padding-left:15px;
+}
+
+.opcion_mi_perfil_contenido{
+    padding-top:23px;
+    border-top: 1px solid #B5B5B5;
+}
+
+    .opcion_direccion_entrega .opcion_mi_perfil_contenido{
+        display:none;
+    }
+
 .form_cambio_datos{
-    padding-top:18px;
+    padding-top:9px;
     padding-bottom:18px;
 }
 
 .grupo_form_cambio_datos{
-    margin-bottom:16px;
+    margin-bottom:24px;
     position:relative;
-    min-height:57px;
+    min-height:20px;
 }
+
+    .grupo_form_cambio_datos:last-child{
+        margin-bottom:45px;
+    }
+
+    .opcion_mis_datos .grupo_form_cambio_datos:last-child{
+        margin-top:34px;
+    }
     
     .grupo_form_cambio_datos label{
+        width:90%;
         cursor:default;
         position:absolute;
+        width:90%;
         top:25px;
         left:0;
         font-size:13px;
+        font-weight:400;
+        height:25px;
+        background-color:rgba(255,255,255,1);
+        z-index:2;
+    }
+
+    .grupo_form_cambio_datos_btn_guardar_wrapper{
+        margin-left: -20px;
+        margin-right: -20px;
+        margin-bottom: -18px!important;
     }
 
     @media screen and (max-width:350px){
@@ -331,22 +484,20 @@
             width:71.2%;
         }
 
-        .grupo_form_cambio_datos label{
-            font-size:11px;
-        }
-
     }
 
     .grupo_form_cambio_datos label,
     .campo_con_datos label,
     .correo_electronico_actual span:first-child,
-    .celular_actual span:first-child
+    .celular_actual span:first-child,
+    .grupo_form_cambio_datos select
     {
-        color:rgba(0,0,0,0.4);
+        color:#808080;
     }
 
     .grupo_form_cambio_datos label,
-    .grupo_form_cambio_datos input
+    .grupo_form_cambio_datos input,
+    .grupo_form_cambio_datos select
     {
         padding-left: 5px;
         font-family:'Lato', sans-serif;
@@ -356,41 +507,90 @@
         transition: all 0.2s ease;
     }
 
-    .grupo_form_cambio_datos input[disabled]{
-        background-color:#FFF;
-    }
-
-    .grupo_form_cambio_datos input {
+    .grupo_form_cambio_datos input,
+    .grupo_form_cambio_datos select
+    {
         background-color:transparent;
         margin-top:18px;
-        font-size: 14px;
+        font-size: 13px;
         font-weight: 400;
         border-top: none;
         border-left: none;
         border-right: none;
         color: #000;
-        border-bottom: 1px solid rgba(0,0,0,0.4);
-        padding-top: 8px;
-        padding-bottom: 6px;
-        padding-right:5px;
+        border-bottom: 1px solid #808080;
+        padding-top: 12px;
+        padding-bottom: 9px;
+        padding-right:25px;
         position:relative;
         z-index:2;
     }
 
+    .grupo_form_cambio_datos select,
+    .enlace_abrir_mapa
+    {
+        background-repeat:no-repeat;
+        background-position:97.5% center;
+    }
+
+    .grupo_form_cambio_datos select{
+        -moz-appearance:none;
+        -webkit-appearance:none;
+        background-image:url(/Content/Images/icono_campos_select_mi_perfil.svg);
+    }
+
+    .grupo_form_cambio_datos_campo_diferencia{
+        position:relative;
+    }
+
+    .enlace_abrir_mapa{
+        position: absolute;
+        margin: auto 0;
+        top: 18px;
+        bottom: 0;
+        right: -9px;
+        width: 40px;
+        height: 40px;
+        background-position: center;
+        background-image: url(/Content/Images/icono_localizacion.svg);
+        z-index: 999;
+        cursor:pointer;
+        -moz-transition: all 0.3s ease;
+        -o-transition: all 0.3s ease;
+        -webkit-transition: all 0.3s ease;
+        transition: all 0.3s ease;
+    }
+
+    .enlace_abrir_mapa_disabled{
+        background-image: url(/Content/Images/icono_localizacion_disabled.svg);
+    }
+
     .grupo_form_cambio_datos input:focus + label,
+    .grupo_form_cambio_datos select:focus + label,
     .campo_con_datos + label
     {
         top:0;
-        font-size:11px;
+        font-size:13px;
+        background-color:rgba(255,255,255,0);
+        color:#000;
+        font-weight:bold;
     }
 
-    .grupo_form_cambio_datos input:focus + label{
+    .grupo_form_cambio_datos input:focus + label,
+    .grupo_form_cambio_datos select:focus + label
+    {
         color:rgba(0,0,0,1);
     }
 
-    .grupo_form_cambio_datos input:focus{
+    .grupo_form_cambio_datos input:focus,
+    .grupo_form_cambio_datos select:focus
+    {
         border-bottom:1px solid rgba(0,0,0,1);
     }
+
+/*.terminos_y_condiciones_wrapper{
+    border-top:1px solid #808080;
+}*/
 
 .enlace_cambiar_dato,
 .enlace_eliminar_numero_adicional
@@ -406,7 +606,7 @@
 .icono_cambiar_dato{
     width:16px;
     height:16px;
-    background-image:url("/Content/Images/Lbel/icono_cambiar_dato.svg");
+    background-image:url("/Content/Images/icono_cambiar_dato.svg");
     margin-right:2px;
 }
 
@@ -414,7 +614,7 @@
     position:absolute;
     top:0;
     left:0;
-    font-size:11px;
+    font-size:14px;
 }
 
 .grupo_form_cambio_datos .label_num_adicional{
@@ -424,7 +624,7 @@
 .icono_agregar_num_adicional{
     width:15px;
     height:15px;
-    background-image:url("/Content/Images/Lbel/icono_plus.svg");
+    background-image:url("/Content/Images/icono_plus.svg");
     margin-right:3px;
     position:relative;
     top:2px;
@@ -432,7 +632,7 @@
 
 .icono_eliminar_numero_adicional{
     width:13px;
-    height:15px;
+    height:17px;
     background-image:url("/Content/Images/icono_eliminar.svg");
     margin-right:3px;
     position:relative;
@@ -441,6 +641,72 @@
 
 .linea_separadora{
     height:2px;
+}
+
+.permisos_cuenta_wrapper{
+    margin-top:33px;
+    border-bottom:1px solid #808080;
+}
+
+.permisos_cuenta_titulo,
+.permiso_cuenta_opcion
+{
+    font-size:13px;
+    margin-bottom:33px;
+}
+
+.permisos_cuenta_titulo,
+.checkbox_condiciones_descripcion,
+.checkbox_condiciones_descripcion a,
+.terminos_y_condiciones_wrapper ~ .datos_obligatorios
+{
+    color:#808080;
+}
+
+.terminos_y_condiciones_wrapper ~ .datos_obligatorios{
+    font-size:13px;
+}
+
+.grupo_input_actualizarMisDatos .checkbox_condiciones_wrapper,
+.permiso_cuenta_opcion
+{
+    display:flex;
+    justify-content:space-between;
+}
+
+.checkbox_condiciones_checkbox,
+.permiso_cuenta_opcion_checkbox
+{
+    display:none;
+}
+
+.checkbox_condiciones_label,
+.permiso_cuenta_opcion_label
+{
+    background-color:#FFF;
+    border:1px solid #808080;
+    width:18px;
+    height:18px;
+    border-radius:4px;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    background-image:url(/Content/Images/icono_check_mi_perfil.svg);
+    background-repeat:no-repeat;
+    background-position:center;
+}
+
+.checkbox_condiciones_checkbox:checked + .checkbox_condiciones_label,
+.permiso_cuenta_opcion_checkbox:checked + .permiso_cuenta_opcion_label
+{
+    background-color:#b9007e;
+    border:1px solid #b9007e;
+}
+
+.grupo_input_actualizarMisDatos .checkbox_condiciones_descripcion{
+    width:89%;
+    margin-bottom:4px;
 }
 
 .btn_guardar_datos_nuevos,
@@ -459,6 +725,11 @@
     -webkit-transition: all 0.3s ease;
     transition: all 0.3s ease;
 }
+
+    .btn_guardar_datos_nuevos{
+        font-size:16px;
+        height:60px;
+    }
 
     .btn_guardar_datos_nuevos.default-background-color:hover,
     .btn_cambiar_contrasenia:hover,
@@ -528,6 +799,158 @@
     text-decoration: underline;
     margin-top: 11px;
 }
+
+/* POPUP MAPA UBICACIÓN DIRECCIÓN ENTREGA */
+
+.fondo_popup_ubicacion_direccion_entrega,
+.popup_ubicacion_direccion_entrega_contenido,
+.mapa_wrapper,
+.confirmar_ubicacion_direccion_entrega
+{
+    width:100%;
+}
+
+.fondo_popup_ubicacion_direccion_entrega{
+    display:none;
+    background-color:rgba(0,0,0,0.7);
+    position:fixed;
+    height:100%;
+    overflow:auto;
+    top:0;
+    left:0;
+    z-index:5000;
+}
+
+.popup_ubicacion_direccion_entrega {
+    display:none;
+    background-color: #FFF;
+    margin: 0 auto;
+    height: 100%;
+}
+
+.popup_ubicacion_direccion_entrega_cabecera {
+    height: auto;
+    background-color: #000;
+    padding: 20px;
+    height:166px;
+}
+
+.enlace_cerrar_popup_ubicacion_direccion_entrega{
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    padding: 13px;
+    top: 2px;
+    right: 3px;
+    z-index:3000;
+}
+
+.enlace_cerrar_popup_ubicacion_direccion_entrega img{
+    width:100%;
+    height:auto;
+}
+
+.popup_ubicacion_direccion_entrega_titulo {
+    margin-top: 0;
+    margin-bottom: 6px;
+    font-size:25px;
+}
+
+.popup_ubicacion_direccion_entrega_titulo,
+.popup_ubicacion_direccion_texto,
+.popup_ubicacion_direccion_elegida
+{
+    color:#FFF;
+    letter-spacing:0.1px;
+}
+
+.popup_ubicacion_direccion_texto{
+    line-height: 17px;
+    margin-bottom: 19px;
+    font-weight: 300;
+    font-size: 14px;
+}
+
+.popup_ubicacion_direccion_elegida {
+    font-size: 15px;
+    color: #FFF;
+    margin-bottom: 0;
+    font-weight:600;
+}
+
+    .popup_ubicacion_direccion_elegida span {
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    .icono_ubicacion_direccion_elegida{
+        width: 20px;
+        height: 20px;
+        margin-right: 2px;
+    }
+
+        .icono_ubicacion_direccion_elegida img{
+            width:auto;
+            height:20px;
+        }
+
+    .texto_ubicacion_direccion_elegida{
+        width:91%;
+        line-height:20px;
+    }
+
+.popup_ubicacion_direccion_entrega_cabecera,
+.popup_ubicacion_direccion_entrega_contenido
+{
+    position:relative;
+}
+
+.popup_ubicacion_direccion_entrega_contenido{
+    height: calc(100vh - 166px);
+    overflow: hidden;
+}
+
+.confirmar_ubicacion_direccion_entrega,
+.confirmar_ubicacion_direccion_entrega[disabled],
+.btn_guardar_datos_nuevos[disabled]
+{
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.confirmar_ubicacion_direccion_entrega {
+    position: absolute;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 60px;
+    background-color: #642f80;
+    color: #FFF;
+    font-family:'Lato', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 0.8px;
+    cursor:pointer;
+}
+
+.btn_guardar_datos_nuevos[disabled],
+.confirmar_ubicacion_direccion_entrega[disabled],
+.btn_guardar_datos_nuevos[disabled].default-background-color:hover
+{
+    background-color: #d6d6d6;
+    color: #989898;
+    cursor:not-allowed;
+}
+
+.mapa_wrapper{
+    overflow:initial!important;
+    height: calc(100vh - 208px);
+}
+
+/* FIN - POPUP MAPA UBICACIÓN DIRECCIÓN ENTREGA */
 
 /*  FIN - MI PERFIL */
 
