@@ -62,7 +62,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             //    res = (from item in distinct select new Models.AdministrarEstrategia.EstrategiaGrupoModel { _idEstrategia = estrategiaId, EstrategiaGrupoId = 0, Grupo = item.Grupo, DescripcionSingular = string.Empty, DescripcionPlural = string.Empty });
             //}
-             
+
 
             //INI AGANA 244
 
