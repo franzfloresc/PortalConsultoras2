@@ -1744,7 +1744,6 @@ function CalculoPosicionMinimoMaximo() {
                     }
                     else {
                         if (montoActual < montoMinimo) {
-                            web
                             var PosicionMontoMinimo = montoMinimo * 100 / montoMinimo;
 
                             document.getElementById('lineaPosicionMontoMinimo').style.display = 'block';
