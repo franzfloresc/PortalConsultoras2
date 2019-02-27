@@ -29,10 +29,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                var taskApi = Task.Run(() => estrategiaGrupoProvider.ObtenerEstrategiaGrupoApi(string.Format(Constantes.PersonalizacionOfertasService.UrlGetEstrategiaGrupoByEstrategiaId, userData.CodigoISO, estrategiaId), userData));
-                Task.WhenAll(taskApi);
-                var estrategiaGrupoLista = taskApi.Result;
-
+                 
 
                 List<ServicePedido.BEEstrategiaProducto> lst;
                 var palancaMongoPrueba = Constantes.TipoEstrategiaCodigo.ArmaTuPack == codigoTipoEstrategia;
@@ -51,6 +48,24 @@ namespace Portal.Consultoras.Web.Controllers
                         lst = sv.GetEstrategiaProducto(estrategiaX).ToList();
                     }
                 }
+
+
+                ////INI ATP
+                ////Estrategia gruepo
+                //var taskApi = Task.Run(() => estrategiaGrupoProvider.ObtenerEstrategiaGrupoApi(string.Format(Constantes.PersonalizacionOfertasService.UrlGetEstrategiaGrupoByEstrategiaId, userData.CodigoISO, estrategiaId), userData));
+                //Task.WhenAll(taskApi);
+                //var estrategiaGrupoLista = taskApi.Result.Result;
+
+                //foreach (var item in lst)
+                //{
+                //    int index = estrategiaGrupoLista.ToList().FindIndex(x => x.Grupo.Trim().Equals(item.Grupo.Trim()));
+                //    if (index != -1)
+                //    {
+                //        var find = estrategiaGrupoLista.ToList()[index];
+                //        item.DescripcionGrupo = find.DescripcionSingular + " - " + find.DescripcionPlural;
+                //    }
+                //}
+                ////END ATP
 
                 var grid = new BEGrid
                 {
