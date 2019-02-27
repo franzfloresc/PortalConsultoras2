@@ -229,6 +229,7 @@
     <Compile Include="Areas\Mobile\Controllers\SeguimientoPedidoController.cs" />
     <Compile Include="Areas\Mobile\Controllers\ShowRoomController.cs" />
     <Compile Include="Areas\Mobile\Controllers\TerminosYCondicionesController.cs" />
+    <Compile Include="Controllers\Administrar\AdministrarComponenteController.cs" />
     <Compile Include="Controllers\BonificacionesController.cs" />
     <Compile Include="Controllers\BaseAdmController.cs" />
     <Compile Include="Controllers\EstrategiaGrupoController.cs" />
@@ -3952,6 +3953,8 @@
     <Content Include="LBelConmigo.html" />
     <Content Include="Pdto.aspx" />
     <Content Include="Scripts\accordion.js" />
+    <Content Include="Scripts\AdminContenido\AdministrarEstrategia\AdmComponente.js" />
+    <Content Include="Scripts\AdminContenido\AdministrarEstrategia\AdmEstrategiaConfig.js" />
     <Content Include="Scripts\AdminContenido\AdministrarEstrategia\NuevoMasivo.js" />
     <Content Include="Scripts\AdminContenido\DescripcionComercial.js" />
     <Content Include="Scripts\AdminContenido\General.js" />
