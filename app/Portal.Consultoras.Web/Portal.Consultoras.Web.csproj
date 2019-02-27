@@ -234,6 +234,7 @@
     <Compile Include="Controllers\BaseAdmController.cs" />
     <Compile Include="Controllers\ProductoRecomendadoController.cs" />
     <Compile Include="Controllers\TusClientesController.cs" />
+    <Compile Include="Controllers\PremioNuevasController.cs" />
     <Compile Include="CustomHelpers\StringsHelper.cs" />
     <Compile Include="Areas\Mobile\MobileAreaRegistration.cs" />
     <Compile Include="Areas\Mobile\Models\BienvenidaModel.cs" />
@@ -296,6 +297,7 @@
     <Compile Include="Controllers\PedidoRegistroController.cs" />
     <Compile Include="Infraestructure\Excel\ExcelProtectionProcessor.cs" />
     <Compile Include="Models\BuscadorYFiltrosCategoriaModel.cs" />
+    <Compile Include="Models\PremioNuevaModel.cs" />
     <Compile Include="Models\BuscadorYFiltrosConfiguracionModel.cs" />
     <Compile Include="Controllers\BusquedaProductosController.cs" />
     <Compile Include="Controllers\ComunController.cs" />
@@ -3973,6 +3975,8 @@
     <Content Include="Scripts\AdminContenido\General.js" />
     <Content Include="Scripts\AdminContenido\Palanca\AdminPalancaDatos.js" />
     <Content Include="Scripts\AdminContenido\MatrizComercialFileUpload.js" />
+    <Content Include="Scripts\AdminContenido\PremioNueva\Movimientos.js" />
+    <Content Include="Scripts\AdminContenido\PremioNueva\Index.js" />
     <Content Include="Scripts\AdminContenido\ReporteRevisionIncidencias.js" />
     <Content Include="Scripts\AdminContenido\ReporteValidacion.js" />
     <Content Include="Scripts\AdminContenido\ToastHelper.js" />
@@ -5626,6 +5630,8 @@
     <Content Include="Views\Shared\_BuscadorResponsive.cshtml" />
     <Content Include="Views\Unete\ExcepcionarDocumento.cshtml" />
     <Content Include="Views\AdministrarReporteRevisionIncidencias\Index.cshtml" />
+    <Content Include="Views\PremioNuevas\Index.cshtml" />
+    <Content Include="Views\PremioNuevas\Movimientos.cshtml" />
     <Content Include="Views\Pedido\_vpPedidoGrilla.cshtml" />
     <Content Include="Views\ProductoRecomendado\_template_producto.cshtml" />
     <Content Include="Views\Pedido\_vpPedidoGrilla-Template.cshtml" />
@@ -5965,6 +5971,7 @@
     <Folder Include="Views\Comun\" />
     <Folder Include="Views\Cupon\" />
     <Folder Include="Views\EstrategiaProductoComentario\" />
+    <Folder Include="Views\PremioNuevas\Partial\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
