@@ -121,7 +121,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
 
                 ViewBag.VerSeccion = verSeccion;
-                
+
                 model.TipoPopUpMostrar = _bienvenidaProvider.ObtenerTipoPopUpMostrar(EsDispositivoMovil());
 
                 model.TienePagoEnLinea = userData.TienePagoEnLinea;
@@ -224,7 +224,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         private int ObtenerActivacionAppCatalogoWhastUp()
         {
             bool paisesCatalogoWhatsUp = _configuracionManagerProvider.GetConfiguracionManagerContains(Constantes.ConfiguracionManager.PaisesCatalogoWhatsUp, userData.CodigoISO);
-            
+
             return paisesCatalogoWhatsUp.ToInt();
         }
 
@@ -234,7 +234,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             nombreConsultoraFav = Util.SubStr(nombreConsultoraFav, 0, 1).ToUpper() + Util.SubStr(nombreConsultoraFav.ToLower(), 1);
             return nombreConsultoraFav;
         }
-        
+
         [HttpPost]
         public JsonResult ValidacionConsultoraDA()
         {
@@ -323,7 +323,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             try
             {
                 var lstComunicados = _comunicadoProvider.ObtenerComunicadoPorConsultora(userData, EsDispositivoMovil());
-                lstComunicados = lstComunicados.Where(x => Constantes.Comunicado.Extraordinarios.IndexOf(x.Descripcion) == -1).ToList();
+                //HD-3550 EINCA
+                //lstComunicados = lstComunicados.Where(x => Constantes.Comunicado.Extraordinarios.IndexOf(x.Descripcion) == -1).ToList();
+                lstComunicados = lstComunicados.Where(x => x.TipoComunicado == Constantes.Comunicado.TipoComunicado.PopUp).ToList();
+
                 if (lstComunicados != null) oComunicados = lstComunicados.FirstOrDefault();
 
                 return Json(new
@@ -459,6 +462,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
-        
+
     }
 }
