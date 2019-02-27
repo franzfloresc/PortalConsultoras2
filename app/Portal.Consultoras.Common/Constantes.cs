@@ -939,8 +939,9 @@ namespace Portal.Consultoras.Common
                                             
             public const int MobileContenedorShowroomCarrusel = 2080101;
             public const int MobileContenedorShowroomFicha = 2080102;
+            public const int AppConsultoraContenedorShowroomFicha = 4080102;
             public const int MobileContenedorLanzamientosCarrusel = 2080201; // Esta en duro en rdAnalyticsModule
-
+            
             #endregion
 
             #region Producto Recomendado
