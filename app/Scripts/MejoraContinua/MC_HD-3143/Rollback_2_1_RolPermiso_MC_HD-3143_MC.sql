@@ -1,132 +1,108 @@
-USE BelcorpPeru
+﻿USE BelcorpPeru
 GO
 
 if not exists(select  1 from RolPermiso where [PermisoID] =1090 and RolID =4)
 begin 
-    insert RolPermiso
-	values(4,1090,1,1)
+     delete  from RolPermiso where [PermisoID] =1090 and RolID =4
 end
-
-GO
+go
 
 USE BelcorpMexico
 GO
 
 if not exists(select  1 from RolPermiso where [PermisoID] =1090 and RolID =4)
 begin 
-    insert RolPermiso
-	values(4,1090,1,1)
+     delete  from RolPermiso where [PermisoID] =1090 and RolID =4
 end
-
-GO
+go
 
 USE BelcorpColombia
 GO
 
 if not exists(select  1 from RolPermiso where [PermisoID] =1090 and RolID =4)
 begin 
-    insert RolPermiso
-	values(4,1090,1,1)
+     delete  from RolPermiso where [PermisoID] =1090 and RolID =4
 end
-
-GO
+go
 
 USE BelcorpSalvador
 GO
 
 if not exists(select  1 from RolPermiso where [PermisoID] =1090 and RolID =4)
 begin 
-    insert RolPermiso
-	values(4,1090,1,1)
+     delete  from RolPermiso where [PermisoID] =1090 and RolID =4
 end
-
-GO
+go
 
 USE BelcorpPuertoRico
 GO
 
 if not exists(select  1 from RolPermiso where [PermisoID] =1090 and RolID =4)
 begin 
-    insert RolPermiso
-	values(4,1090,1,1)
+     delete  from RolPermiso where [PermisoID] =1090 and RolID =4
 end
-
-GO
+go
 
 USE BelcorpPanama
 GO
 
 if not exists(select  1 from RolPermiso where [PermisoID] =1090 and RolID =4)
 begin 
-    insert RolPermiso
-	values(4,1090,1,1)
+     delete  from RolPermiso where [PermisoID] =1090 and RolID =4
 end
-
-GO
+go
 
 USE BelcorpGuatemala
 GO
 
 if not exists(select  1 from RolPermiso where [PermisoID] =1090 and RolID =4)
 begin 
-    insert RolPermiso
-	values(4,1090,1,1)
+     delete  from RolPermiso where [PermisoID] =1090 and RolID =4
 end
-
-GO
+go
 
 USE BelcorpEcuador
 GO
 
 if not exists(select  1 from RolPermiso where [PermisoID] =1090 and RolID =4)
 begin 
-    insert RolPermiso
-	values(4,1090,1,1)
+     delete  from RolPermiso where [PermisoID] =1090 and RolID =4
 end
-
-GO
+go
 
 USE BelcorpDominicana
 GO
 
 if not exists(select  1 from RolPermiso where [PermisoID] =1090 and RolID =4)
 begin 
-    insert RolPermiso
-	values(4,1090,1,1)
+     delete  from RolPermiso where [PermisoID] =1090 and RolID =4
 end
-
-GO
+go
 
 USE BelcorpCostaRica
 GO
 
 if not exists(select  1 from RolPermiso where [PermisoID] =1090 and RolID =4)
 begin 
-    insert RolPermiso
-	values(4,1090,1,1)
+     delete  from RolPermiso where [PermisoID] =1090 and RolID =4
 end
-
-GO
+go
 
 USE BelcorpChile
 GO
 
 if not exists(select  1 from RolPermiso where [PermisoID] =1090 and RolID =4)
 begin 
-    insert RolPermiso
-	values(4,1090,1,1)
+     delete  from RolPermiso where [PermisoID] =1090 and RolID =4
 end
-
-GO
+go
 
 USE BelcorpBolivia
 GO
 
 if not exists(select  1 from RolPermiso where [PermisoID] =1090 and RolID =4)
 begin 
-    insert RolPermiso
-	values(4,1090,1,1)
+     delete  from RolPermiso where [PermisoID] =1090 and RolID =4
 end
-
-GO
+go
 

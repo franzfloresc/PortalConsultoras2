@@ -1,4 +1,4 @@
-USE BelcorpPeru
+﻿USE BelcorpPeru
 GO
 
 if not exists(select  1 from Permiso where [PermisoID] =1090 and IdPadre =111)
