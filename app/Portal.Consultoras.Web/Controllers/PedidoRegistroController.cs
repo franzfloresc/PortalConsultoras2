@@ -336,6 +336,7 @@ namespace Portal.Consultoras.Web.Controllers
             await PedidoAgregarProductoTransaction(new PedidoCrudModel
             {
                 CUV = premioDefault.CUV2,
+                TipoEstrategiaID = premioDefault.TipoEstrategiaID,
                 Cantidad = "1",
                 FlagNueva = "1"
             });
@@ -628,7 +629,7 @@ namespace Portal.Consultoras.Web.Controllers
         private bool ValidarEsAgregado(BEPedidoWebDetalle pedidoAgrupado)
         {
             var listaPedidoWebDetalleAgrupado = ObtenerPedidoWebSetDetalleAgrupado();
-            return listaPedidoWebDetalleAgrupado.Count(x => x.EstrategiaId == pedidoAgrupado.EstrategiaId) > 0;
+            return listaPedidoWebDetalleAgrupado.Any(x => x.EstrategiaId == pedidoAgrupado.EstrategiaId);
         }
     }
 }
