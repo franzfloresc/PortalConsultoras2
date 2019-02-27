@@ -32,7 +32,7 @@ namespace Portal.Consultoras.Web.Controllers
                 Task<bool> taskapi = null;
                 if (datos.Count > 0)
                 {
-                    taskapi = Task.Run(() => EstrategiaGrupoProvide.InsertarGrupoEstrategiaApi(Constantes.PersonalizacionOfertasService.UrlGuardarEstrategiaGrupo, datos, userData));
+                    taskapi = Task.Run(() => estrategiaGrupoProvider.InsertarGrupoEstrategiaApi(Constantes.PersonalizacionOfertasService.UrlGuardarEstrategiaGrupo, datos, userData));
                     Task.WhenAll(taskapi);
                 }
                 respuesta = taskapi.Result;
@@ -51,7 +51,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             //Estrategia gruepo
 
-            var taskApi = Task.Run(() => EstrategiaGrupoProvide.ObtenerEstrategiaGrupoApi(string.Format(Constantes.PersonalizacionOfertasService.UrlGetEstrategiaGrupoByEstrategiaId, userData.CodigoISO, estrategiaId), userData));
+            var taskApi = Task.Run(() => estrategiaGrupoProvider.ObtenerEstrategiaGrupoApi(string.Format(Constantes.PersonalizacionOfertasService.UrlGetEstrategiaGrupoByEstrategiaId, userData.CodigoISO, estrategiaId), userData));
             Task.WhenAll(taskApi);
             var estrategiaGrupoLista = taskApi.Result;
 

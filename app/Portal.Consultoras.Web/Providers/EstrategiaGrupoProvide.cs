@@ -16,13 +16,13 @@ using Portal.Consultoras.Web.Models;
 
 namespace Portal.Consultoras.Web.Providers
 {
-    public class EstrategiaGrupoProvide
+    public class EstrategiaGrupoProvider
     {
         private static readonly HttpClient httpClient = new HttpClient();
 
         private readonly ISessionManager _sessionManager = SessionManager.SessionManager.Instance;
 
-        static EstrategiaGrupoProvide()
+        static EstrategiaGrupoProvider()
         {
             if (!string.IsNullOrEmpty(WebConfig.UrlMicroservicioPersonalizacionConfig))
             {
@@ -32,7 +32,7 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
-        public static async Task<bool> InsertarGrupoEstrategiaApi(string path, List<EstrategiaGrupoModel> datos, UsuarioModel userData)
+        public  async Task<bool> InsertarGrupoEstrategiaApi(string path, List<EstrategiaGrupoModel> datos, UsuarioModel userData)
         {
             OutputEstrategiaGrupo respuesta = new OutputEstrategiaGrupo { Success=false };
 
@@ -71,7 +71,7 @@ namespace Portal.Consultoras.Web.Providers
             return respuesta.Success;
         }
   
-        public static  async Task<OutputEstrategiaGrupo> ObtenerEstrategiaGrupoApi(string path, UsuarioModel userData)
+        public   async Task<OutputEstrategiaGrupo> ObtenerEstrategiaGrupoApi(string path, UsuarioModel userData)
         {
             OutputEstrategiaGrupo respuesta = new OutputEstrategiaGrupo();
             HttpResponseMessage httpResponse = await httpClient.GetAsync(path);

@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.ServiceModel;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -28,6 +29,11 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (ModelState.IsValid)
             {
+                var taskApi = Task.Run(() => estrategiaGrupoProvider.ObtenerEstrategiaGrupoApi(string.Format(Constantes.PersonalizacionOfertasService.UrlGetEstrategiaGrupoByEstrategiaId, userData.CodigoISO, estrategiaId), userData));
+                Task.WhenAll(taskApi);
+                var estrategiaGrupoLista = taskApi.Result;
+
+
                 List<ServicePedido.BEEstrategiaProducto> lst;
                 var palancaMongoPrueba = Constantes.TipoEstrategiaCodigo.ArmaTuPack == codigoTipoEstrategia;
                 if (palancaMongoPrueba && _ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, codigoTipoEstrategia, false))
