@@ -390,6 +390,7 @@
       <xs:element minOccurs="0" name="Importe" type="xs:decimal" />
       <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NombreInstitucion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PagodeKitLogId" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="MercadoPagoResult" nillable="true" type="tns:MercadoPagoResult" />
