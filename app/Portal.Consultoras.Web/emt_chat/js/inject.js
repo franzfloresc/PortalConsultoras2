@@ -7,4 +7,8 @@ $(document).ready(function (){
 
         //Inserción del chat en la ágina del cliente
         $("body").after(emt_chat);
+
+        if (typeof OcultarChatEmtelco === 'function') {
+            OcultarChatEmtelco();
+        }
 });
