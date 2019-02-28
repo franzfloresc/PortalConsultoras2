@@ -1,22 +1,22 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models.AdministrarEstrategia;
-using Portal.Consultoras.Web.Models.Estrategia;
-using Portal.Consultoras.Web.Models.Oferta.ResponseOfertaGenerico;
 using Portal.Consultoras.Web.Providers;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
     public class EstrategiaGrupoController : BaseController
     {
-        // tomar referencia de AdministrarEstrategiaMasivoController
+        protected readonly EstrategiaGrupoProvider estrategiaGrupoProvider;
+        
+        public EstrategiaGrupoController()
+        {
+            estrategiaGrupoProvider = new EstrategiaGrupoProvider();
+        }
 
-        // GET: EstrategiaGrupo
         public ActionResult Index()
         {
             return View();
@@ -27,7 +27,7 @@ namespace Portal.Consultoras.Web.Controllers
             bool respuesta = false;
             if (ModelState.IsValid)
             {
-                var userData = SessionManager.GetUserData();
+                //var userData = SessionManager.GetUserData();
 
                 Task<bool> taskapi = null;
                 if (datos.Count > 0)
@@ -44,8 +44,8 @@ namespace Portal.Consultoras.Web.Controllers
         //Basado en 'AdministrarShowRoomController/ConsultarOfertaShowRoomDetalleNew'
         public JsonResult ConsultarDetalleEstrategiaGrupo(string estrategiaId)
         {
-            IEnumerable<Models.AdministrarEstrategia.EstrategiaGrupoModel> grupos = null;
-            var userData = SessionManager.GetUserData();
+            IEnumerable<EstrategiaGrupoModel> grupos = null;
+            //var userData = SessionManager.GetUserData();
               
             //INI AGANA 244
 
@@ -61,7 +61,7 @@ namespace Portal.Consultoras.Web.Controllers
               
             var distinct = (from item in lstComponentes select new { EstrategiaId = estrategiaId, Grupo = item.Grupo }).Distinct();
             grupos = (from item in distinct
-                      select new Models.AdministrarEstrategia.EstrategiaGrupoModel
+                      select new EstrategiaGrupoModel
                       { _idEstrategia = estrategiaId, EstrategiaGrupoId = 0, Grupo = item.Grupo, DescripcionSingular = string.Empty, DescripcionPlural = string.Empty }).ToList();
 
             //mapear campos
@@ -80,10 +80,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
              
             //END AGANA 244
-
-
-
-
 
             return Json(grupos, JsonRequestBehavior.AllowGet);
         }

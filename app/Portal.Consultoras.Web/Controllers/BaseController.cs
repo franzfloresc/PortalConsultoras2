@@ -72,8 +72,6 @@ namespace Portal.Consultoras.Web.Controllers
         protected readonly ConfiguracionPaisProvider _configuracionPaisProvider;
         protected readonly ConfiguracionManagerProvider _configuracionManagerProvider;
         protected readonly AdministrarEstrategiaProvider administrarEstrategiaProvider;
-        protected readonly EstrategiaGrupoProvider estrategiaGrupoProvider;
-
         protected readonly MenuProvider _menuProvider;
         protected readonly ChatEmtelcoProvider _chatEmtelcoProvider;
         protected readonly ComunicadoProvider _comunicadoProvider;
@@ -100,7 +98,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             _tablaLogicaProvider = new TablaLogicaProvider();
             administrarEstrategiaProvider = new AdministrarEstrategiaProvider();
-            estrategiaGrupoProvider = new EstrategiaGrupoProvider();
             _showRoomProvider = new ShowRoomProvider(_tablaLogicaProvider);
             _baseProvider = new BaseProvider();
             _guiaNegocioProvider = new GuiaNegocioProvider();

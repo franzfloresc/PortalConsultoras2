@@ -21,6 +21,7 @@
 
 <script src="@Url.Content("~/Scripts/AdminContenido/AdministrarEstrategia/AdmEstrategiaConfig.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/AdminContenido/AdministrarEstrategia/AdmComponente.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/AdminContenido/AdministrarEstrategia/AdmEstrategiaGrupo.js")" type="text/javascript"></script>
 
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link href="@Url.Content("~/Content/Css/Toast/jquery.toast.min.css")" rel="stylesheet" />
@@ -612,6 +613,7 @@
     var adminEstrategiaModule;
     var admConfig;
     var admComponente;
+    var admEstrategiaGrupo;
     var rutaImagenBloqueado  = '@Url.Content("~/Content/Images/rutaImagenBloqueado.jpg")';
     var _toastHelper = ToastHelper();
 
@@ -680,17 +682,15 @@
             microserviciosEstrategias: '@ViewBag.MsEstrategias',
             microserviciosPaises: '@ViewBag.MsPaises',
             //Configuracion Microservicios-FIN
-
-            //INI AGANA 244
-            urlConsultarDetalleEstrategiaGrupo: baseUrl + "EstrategiaGrupo/ConsultarDetalleEstrategiaGrupo",
-            urlEstrategiaGrupoGuardar: baseUrl + "EstrategiaGrupo/Guardar"
-            //END AGANA 244
         });
 
         adminEstrategiaModule.Inicializar();
 
         admComponente = AdmComponente();
         admComponente.Inicializar();
+
+        admEstrategiaGrupo = AdmEstrategiaGrupo();
+        admEstrategiaGrupo.Inicializar();
 
         $.jgrid.extend({
             Editar: adminEstrategiaModule.Editar,

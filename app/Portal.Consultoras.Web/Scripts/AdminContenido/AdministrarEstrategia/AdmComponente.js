@@ -5,7 +5,7 @@
         urlInsertOfertaShowRoomDetalle: '/AdministrarComponente/InsertOfertaShowRoomDetalleNew',
         urlUpdateOfertaShowRoomDetalle: '/AdministrarComponente/UpdateOfertaShowRoomDetalleNew',
         urlEliminarOfertaShowRoomDetalle: 'AdministrarComponente/EliminarOfertaShowRoomDetalleNew',
-        urlEliminarOfertaShowRoomDetalleAll: '/AdministrarShowRoom/EliminarOfertaShowRoomDetalleAllNew'
+        urlEliminarOfertaShowRoomDetalleAll: '/AdministrarComponente/EliminarOfertaShowRoomDetalleAllNew'
     };
 
     var _codigoEstrategia = ConstantesModule.ConstantesPalanca;

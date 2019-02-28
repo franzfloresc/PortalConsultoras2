@@ -3955,6 +3955,7 @@
     <Content Include="Scripts\accordion.js" />
     <Content Include="Scripts\AdminContenido\AdministrarEstrategia\AdmComponente.js" />
     <Content Include="Scripts\AdminContenido\AdministrarEstrategia\AdmEstrategiaConfig.js" />
+    <Content Include="Scripts\AdminContenido\AdministrarEstrategia\AdmEstrategiaGrupo.js" />
     <Content Include="Scripts\AdminContenido\AdministrarEstrategia\NuevoMasivo.js" />
     <Content Include="Scripts\AdminContenido\DescripcionComercial.js" />
     <Content Include="Scripts\AdminContenido\General.js" />

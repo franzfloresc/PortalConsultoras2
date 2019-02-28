@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.AdministrarEstrategia;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceGestionWebPROL;
 using Portal.Consultoras.Web.ServicePedido;
@@ -9,7 +10,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.ServiceModel;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -17,10 +17,12 @@ namespace Portal.Consultoras.Web.Controllers
     public class AdministrarComponenteController : BaseController
     {
         protected OfertaBaseProvider _ofertaBaseProvider;
+        protected readonly EstrategiaGrupoProvider estrategiaGrupoProvider;
 
         public AdministrarComponenteController()
         {
             _ofertaBaseProvider = new OfertaBaseProvider();
+            estrategiaGrupoProvider = new EstrategiaGrupoProvider();
         }
 
         public ActionResult ConsultarSegunEstrategia(string sidx, string sord, int page, int rows, string estrategiaId,
@@ -29,15 +31,23 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (ModelState.IsValid)
             {
-
-
                 List<ServicePedido.BEEstrategiaProducto> lst;
+                var estrategiaGrupoLista = new List<EstrategiaGrupoModel>();
+
                 var palancaMongoPrueba = Constantes.TipoEstrategiaCodigo.ArmaTuPack == codigoTipoEstrategia;
+
                 if (palancaMongoPrueba && _ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, codigoTipoEstrategia, false))
                 {
                     lst = administrarEstrategiaProvider.FiltrarEstrategia(estrategiaId, userData.CodigoISO)
                         .Select(x => x.Componentes)
                         .FirstOrDefault();
+                    
+                    //Estrategia gruepo
+                    //var taskApi = Task.Run(() => estrategiaGrupoProvider.ObtenerEstrategiaGrupoApi(string.Format(Constantes.PersonalizacionOfertasService.UrlGetEstrategiaGrupoByEstrategiaId, userData.CodigoISO, estrategiaId), userData));
+                    //Task.WhenAll(taskApi);
+                    var taskApi = estrategiaGrupoProvider.ObtenerEstrategiaGrupoApi_op2(string.Format(Constantes.PersonalizacionOfertasService.UrlGetEstrategiaGrupoByEstrategiaId, userData.CodigoISO, estrategiaId), userData);
+
+                    estrategiaGrupoLista = taskApi.Result.ToList();
                 }
                 else
                 {
@@ -49,25 +59,18 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-
-                //INI ATP
-                //Estrategia gruepo
-                //var taskApi = Task.Run(() => estrategiaGrupoProvider.ObtenerEstrategiaGrupoApi(string.Format(Constantes.PersonalizacionOfertasService.UrlGetEstrategiaGrupoByEstrategiaId, userData.CodigoISO, estrategiaId), userData));
-                //Task.WhenAll(taskApi);
-                var taskApi = estrategiaGrupoProvider.ObtenerEstrategiaGrupoApi_op2(string.Format(Constantes.PersonalizacionOfertasService.UrlGetEstrategiaGrupoByEstrategiaId, userData.CodigoISO, estrategiaId), userData);
-
-                var estrategiaGrupoLista = taskApi.Result;
-
-                foreach (var item in lst)
+                if (estrategiaGrupoLista.Any())
                 {
-                    int index = estrategiaGrupoLista.ToList().FindIndex(x => x.Grupo.Trim().Equals(item.Grupo.Trim()));
-                    if (index != -1)
+                    foreach (var item in lst)
                     {
-                        var find = estrategiaGrupoLista.ToList()[index];
-                        item.DescripcionGrupo = find.DescripcionSingular + " - " + find.DescripcionPlural;
+                        int index = estrategiaGrupoLista.ToList().FindIndex(x => x.Grupo.Trim().Equals(item.Grupo.Trim()));
+                        if (index != -1)
+                        {
+                            var find = estrategiaGrupoLista.ToList()[index];
+                            item.DescripcionGrupo = find.DescripcionSingular + " - " + find.DescripcionPlural;
+                        }
                     }
                 }
-                //END ATP
 
                 var grid = new BEGrid
                 {
