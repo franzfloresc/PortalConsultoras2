@@ -5,9 +5,10 @@
     configureTimeoutPopup();
 
     $(document).ajaxComplete(function( event, xhr, settings ) {
-        if (!settings || !settings.url) {
+        if (!settings || !settings.url || settings.crossDomain) {
             return;
         }
+
         var url = settings.url;
         if (url.startsWith('/Login/LogOut') || url.startsWith('/Login/SesionExpirada')) {
             return;
