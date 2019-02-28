@@ -11,7 +11,7 @@ namespace Portal.Consultoras.Web.Controllers
     public class EstrategiaGrupoController : BaseController
     {
         protected readonly EstrategiaGrupoProvider estrategiaGrupoProvider;
-        
+
         public EstrategiaGrupoController()
         {
             estrategiaGrupoProvider = new EstrategiaGrupoProvider();
@@ -46,40 +46,34 @@ namespace Portal.Consultoras.Web.Controllers
         {
             IEnumerable<EstrategiaGrupoModel> grupos = null;
             //var userData = SessionManager.GetUserData();
-              
-            //INI AGANA 244
 
             //Estrategia gruepo
 
-            var taskApi = Task.Run(() => estrategiaGrupoProvider.ObtenerEstrategiaGrupoApi(string.Format(Constantes.PersonalizacionOfertasService.UrlGetEstrategiaGrupoByEstrategiaId, userData.CodigoISO, estrategiaId), userData));
-            Task.WhenAll(taskApi);
-            var estrategiaGrupoLista = taskApi.Result;
+            var estrategiaGrupoLista = estrategiaGrupoProvider.ObtenerEstrategiaGrupo(estrategiaId, userData.CodigoISO);
 
             //Estrategia y sus componentes
-            
-            List<ServicePedido.BEEstrategiaProducto> lstComponentes = administrarEstrategiaProvider.FiltrarEstrategia(estrategiaId.ToString(), userData.CodigoISO).ToList().Select(x => x.Componentes).FirstOrDefault();
-              
-            var distinct = (from item in lstComponentes select new { EstrategiaId = estrategiaId, Grupo = item.Grupo }).Distinct();
-            grupos = (from item in distinct
-                      select new EstrategiaGrupoModel
-                      { _idEstrategia = estrategiaId, EstrategiaGrupoId = 0, Grupo = item.Grupo, DescripcionSingular = string.Empty, DescripcionPlural = string.Empty }).ToList();
 
             //mapear campos
-            if (estrategiaGrupoLista != null)
+            if (estrategiaGrupoLista.Any())
             {
+                List<ServicePedido.BEEstrategiaProducto> lstComponentes = administrarEstrategiaProvider.FiltrarEstrategia(estrategiaId.ToString(), userData.CodigoISO).ToList().Select(x => x.Componentes).FirstOrDefault();
+
+                var distinct = (from item in lstComponentes select new { EstrategiaId = estrategiaId, Grupo = item.Grupo }).Distinct();
+                grupos = (from item in distinct
+                          select new EstrategiaGrupoModel
+                          { _idEstrategia = estrategiaId, EstrategiaGrupoId = 0, Grupo = item.Grupo, DescripcionSingular = string.Empty, DescripcionPlural = string.Empty }).ToList();
+
                 foreach (var item in grupos)
                 {
-                    int index = estrategiaGrupoLista.Result.ToList().FindIndex(x => x.Grupo.Equals(item.Grupo));
+                    int index = estrategiaGrupoLista.FindIndex(x => x.Grupo.Equals(item.Grupo));
                     if (index != -1)
                     {
-                        item._id = estrategiaGrupoLista.Result.ToList()[index]._id;
-                        item.DescripcionSingular = estrategiaGrupoLista.Result.ToList()[index].DescripcionSingular;
-                        item.DescripcionPlural = estrategiaGrupoLista.Result.ToList()[index].DescripcionPlural;
+                        item._id = estrategiaGrupoLista[index]._id;
+                        item.DescripcionSingular = estrategiaGrupoLista[index].DescripcionSingular;
+                        item.DescripcionPlural = estrategiaGrupoLista[index].DescripcionPlural;
                     }
                 }
             }
-             
-            //END AGANA 244
 
             return Json(grupos, JsonRequestBehavior.AllowGet);
         }

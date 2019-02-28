@@ -321,6 +321,7 @@
     <Compile Include="CustomFilters\ValidateAjaxModelAttribute.cs" />
     <Compile Include="Models\CambioTipoNegocioModel.cs" />
     <Compile Include="Controllers\ReporteContratoController.cs" />
+    <Compile Include="Models\Config\ResponseEstrategiaGrupo\OutputEstrategiaGrupo.cs" />
     <Compile Include="Models\Config\ResponseReporte\Estructura\ReporteValidacion.cs" />
     <Compile Include="Models\Config\ResponseReporte\Estructura\ReporteValidacionCampania.cs" />
     <Compile Include="Models\Config\ResponseReporte\Estructura\ReporteValidacionComponente.cs" />
@@ -523,7 +524,6 @@
     <Compile Include="Models\MasGanadorasModel.cs" />
     <Compile Include="Models\ObservacionModel.cs" />
     <Compile Include="Models\ReporteValidacionShowroom.cs" />
-    <Compile Include="Models\Search\ResponseEstrategiaGrupo\OutputEstrategiaGrupo.cs" />
     <Compile Include="Models\Search\ResponseEvento\Estructura\Evento.cs" />
     <Compile Include="Models\Search\ResponseEvento\Estructura\EventoConsultora.cs" />
     <Compile Include="Models\Search\ResponseEvento\Estructura\PersonalizacionNivel.cs" />

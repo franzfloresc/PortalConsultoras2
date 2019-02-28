@@ -1249,10 +1249,8 @@
 
         /*INIT ATP*/
         var hideColATP = true;
-        var colActionsComponente = "Productos";
         if (codigo == _codigoEstrategia.ArmaTuPack) {
             colNameActions = 'Tácticas';
-            colActionsComponente = "Grupos";
             hideColATP = false;
             hideColProducts = false;
         }
@@ -1287,7 +1285,7 @@
             colNames: [
                 "EstrategiaID", "Orden", "#", "Pedido asociado", "Precio", "CUV2", "Descripción", "Límite venta", "Código SAP", "ImagenURL",
                 "Activo", "EsOfertaIndependiente", "FlagValidarImagen", "PesoMaximoImagen", "_id"
-                , "CodigoTipoEstrategia", "Foto", colNameActions, colActionsComponente
+                , "CodigoTipoEstrategia", "Foto", colNameActions, "Componentes"
             ],
             colModel: [
                 {

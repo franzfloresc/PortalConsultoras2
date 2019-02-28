@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.ServiceModel;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -41,13 +42,8 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = administrarEstrategiaProvider.FiltrarEstrategia(estrategiaId, userData.CodigoISO)
                         .Select(x => x.Componentes)
                         .FirstOrDefault();
-                    
-                    //Estrategia gruepo
-                    //var taskApi = Task.Run(() => estrategiaGrupoProvider.ObtenerEstrategiaGrupoApi(string.Format(Constantes.PersonalizacionOfertasService.UrlGetEstrategiaGrupoByEstrategiaId, userData.CodigoISO, estrategiaId), userData));
-                    //Task.WhenAll(taskApi);
-                    var taskApi = estrategiaGrupoProvider.ObtenerEstrategiaGrupoApi_op2(string.Format(Constantes.PersonalizacionOfertasService.UrlGetEstrategiaGrupoByEstrategiaId, userData.CodigoISO, estrategiaId), userData);
 
-                    estrategiaGrupoLista = taskApi.Result.ToList();
+                    estrategiaGrupoLista = estrategiaGrupoProvider.ObtenerEstrategiaGrupo(estrategiaId, userData.CodigoISO);
                 }
                 else
                 {

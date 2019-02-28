@@ -20,8 +20,6 @@ namespace Portal.Consultoras.Web.Providers
     {
         private static readonly HttpClient httpClient = new HttpClient();
 
-        private readonly ISessionManager _sessionManager = SessionManager.SessionManager.Instance;
-
         static EstrategiaGrupoProvider()
         {
             if (!string.IsNullOrEmpty(WebConfig.UrlMicroservicioPersonalizacionConfig))
@@ -71,8 +69,31 @@ namespace Portal.Consultoras.Web.Providers
             return respuesta.Success;
         }
 
-        public async Task<OutputEstrategiaGrupo> ObtenerEstrategiaGrupoApi(string path, UsuarioModel userData)
+        public List<EstrategiaGrupoModel> ObtenerEstrategiaGrupo(string estrategiaId, string codigoISO)
         {
+            var estrategiaGrupoLista = new List<EstrategiaGrupoModel>();
+            try
+            {
+
+                var taskApi = Task.Run(() => ObtenerEstrategiaGrupoApi(estrategiaId, codigoISO));
+                Task.WhenAll(taskApi);
+                var grupoListatask = taskApi.Result;
+                if (grupoListatask != null && grupoListatask.Result != null)
+                {
+                    estrategiaGrupoLista = grupoListatask.Result.ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                Common.LogManager.SaveLog(ex, string.Empty, codigoISO);
+                estrategiaGrupoLista = new List<EstrategiaGrupoModel>();
+            }
+            return estrategiaGrupoLista;
+        }
+
+        private async Task<OutputEstrategiaGrupo> ObtenerEstrategiaGrupoApi(string estrategiaId, string codigoISO)
+        {
+            var path = string.Format(Constantes.PersonalizacionOfertasService.UrlGetEstrategiaGrupoByEstrategiaId, codigoISO, estrategiaId);
             OutputEstrategiaGrupo respuesta = new OutputEstrategiaGrupo();
             HttpResponseMessage httpResponse = await httpClient.GetAsync(path);
 
@@ -96,55 +117,18 @@ namespace Portal.Consultoras.Web.Providers
             }
             catch (Exception ex)
             {
-                Common.LogManager.SaveLog(ex, string.Empty, userData.CodigoISO);
+                Common.LogManager.SaveLog(ex, string.Empty, codigoISO);
                 return respuesta;
             }
 
             if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
             {
-                Common.LogManager.SaveLog(new Exception(respuesta.Message), string.Empty, userData.CodigoISO);
+                Common.LogManager.SaveLog(new Exception(respuesta.Message), string.Empty, codigoISO);
                 return respuesta;
             }
 
             return respuesta;
         }
 
-        public OutputEstrategiaGrupo ObtenerEstrategiaGrupoApi_op2(string path, UsuarioModel userData)
-        {
-            OutputEstrategiaGrupo respuesta = new OutputEstrategiaGrupo();
-            var response = httpClient.GetAsync(path).Result;
-
-            if (!response.IsSuccessStatusCode)
-            {
-                return respuesta;
-            }
-
-            var jsonString = response.Content.ReadAsStringAsync().Result;
-
-
-            if (Util.Trim(jsonString) == string.Empty)
-            {
-                return respuesta;
-            }
-
-            var listaSinPrecio2 = new List<string>();
-            try
-            {
-                respuesta = JsonConvert.DeserializeObject<OutputEstrategiaGrupo>(jsonString);
-            }
-            catch (Exception ex)
-            {
-                Common.LogManager.SaveLog(ex, string.Empty, userData.CodigoISO);
-                return respuesta;
-            }
-
-            if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
-            {
-                Common.LogManager.SaveLog(new Exception(respuesta.Message), string.Empty, userData.CodigoISO);
-                return respuesta;
-            }
-
-            return respuesta;
-        }
     }
 }
