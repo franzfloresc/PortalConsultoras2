@@ -1,4 +1,4 @@
-GO
+﻿GO
 USE BelcorpPeru
 GO
 ALTER PROCEDURE [dbo].[PedidoWebSet_Select]
