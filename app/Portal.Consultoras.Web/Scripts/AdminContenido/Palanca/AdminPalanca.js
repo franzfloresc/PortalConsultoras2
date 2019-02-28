@@ -3,7 +3,9 @@ var _toastHelper = ToastHelper();
 var _listPalanca = ["LAN", "RDR", "RD", "OPT"];
 var _palanca = {
     showroom: "SR",
-    odd: "ODD"
+    odd: "ODD",
+    pn: "PN",
+    dp: "DP"
 }
 
 var _tipopresentacion = {
@@ -123,9 +125,18 @@ function ModificarOfertas(idOfertasHome) {
             closeWaitingDialog();
 
             $("#dialog-content-ofertas-home").empty();
-            $("#dialog-content-ofertas-home").html(result).ready(
-                UploadFilePalanca("fondo-mobile"), UploadFilePalanca("fondo-desktop"), UploadFilePalancaApp("fondo-app")
-            );
+            $("#dialog-content-ofertas-home").html(result).ready(function () {
+                UploadFilePalanca("fondo-mobile");
+                UploadFilePalanca("fondo-desktop");
+                UploadFilePalancaApp("fondo-app");
+
+                var palanca = $("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo");
+                if (palanca == _palanca.pn || palanca == _palanca.dp) {
+                    $("#AdministrarOfertasHomeAppModel_AppColorFondo").parent().parent().hide();
+                    $("#AdministrarOfertasHomeAppModel_AppColorTexto").parent().parent().hide();
+                    $("#AdministrarOfertasHomeAppModel_AppCantidadProductos").parent().parent().hide();
+                }
+            });
 
             showDialog("DialogMantenimientoOfertasHome");
 
@@ -146,7 +157,7 @@ function ModificarOfertas(idOfertasHome) {
                 $(".hide-configuration").hide();
             }
         },
-        error: function (request, status, error) { }
+        error: function (request, status, error) { closeWaitingDialog(); _toastHelper.error("Error al cargar la ventana."); }
     });
 }
 function IniDialogs() {

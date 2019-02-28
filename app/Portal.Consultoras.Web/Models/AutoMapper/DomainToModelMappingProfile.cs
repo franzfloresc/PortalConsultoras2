@@ -235,6 +235,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<ServiceSAC.BEConfiguracionPais, ConfiguracionPaisModel>();
             Mapper.CreateMap<ServiceSAC.BEConfiguracionPais, AdministrarPalancaModel>();
             Mapper.CreateMap<ServiceUsuario.BEConfiguracionPaisDatos, ConfiguracionPaisDatosModel>();
+            Mapper.CreateMap<ServiceSAC.BEConfiguracionPaisDatos, ConfiguracionPaisDatosModel>();
 
             Mapper.CreateMap<ServiceUsuario.BEConfiguracionPaisDatos, ConfiguracionPaisComponenteModel>()
                 .ForMember(t => t.ConfiguracionPaisComponenteID,
