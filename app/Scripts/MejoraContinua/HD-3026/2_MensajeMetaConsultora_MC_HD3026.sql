@@ -1,143 +1,132 @@
-﻿USE BelcorpBolivia
+﻿USE BelcorpBolivia;
 GO
-UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para alcanzar el M. mínimo (*)' WHERE TipoMensaje='MontoMinimo';
-UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para llevarte tu regalo (*)' WHERE TipoMensaje='TippingPoint';
-UPDATE MensajeMetaConsultora SET Mensaje='Sólo puedes agregar #valor más (*)' WHERE TipoMensaje='MontoMaximo';
-UPDATE MensajeMetaConsultora SET Mensaje='¡Alcanzaste tu monto máximo! (*)' WHERE TipoMensaje='MontoMaximoSupero';
-UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para el #porcentaje% DSCTO (*)' WHERE TipoMensaje='EscalaDescuento';
-UPDATE MensajeMetaConsultora SET Mensaje='¡Alcanzaste el descuento máximo de #porcentaje% DSCTO! (*)' WHERE TipoMensaje='EscalaDescuentoSupero';
+UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para alcanzar el M. mínimo' WHERE TipoMensaje='MontoMinimo';
+UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para llevarte tu regalo' WHERE TipoMensaje='TippingPoint';
+UPDATE MensajeMetaConsultora SET Mensaje='Sólo puedes agregar #valor más' WHERE TipoMensaje='MontoMaximo';
+UPDATE MensajeMetaConsultora SET Mensaje='¡Alcanzaste tu monto máximo!' WHERE TipoMensaje='MontoMaximoSupero';
+UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para el #porcentaje% DSCTO' WHERE TipoMensaje='EscalaDescuento';
+UPDATE MensajeMetaConsultora SET Mensaje='¡Alcanzaste el descuento máximo de #porcentaje% DSCTO!' WHERE TipoMensaje='EscalaDescuentoSupero';
 DELETE MensajeMetaConsultora WHERE TipoMensaje='Inicio';
-INSERT INTO MensajeMetaConsultora(TipoMensaje, Titulo, Mensaje) VALUES('Inicio', '', '¡Empieza agregar productos para alcanzar tu regalo! (*)');
+INSERT INTO MensajeMetaConsultora(TipoMensaje, Titulo, Mensaje) VALUES('Inicio', '', '¡Empieza agregar productos para alcanzar tu regalo!');
 GO
-
-USE BelcorpChile
+USE BelcorpChile;
 GO
-UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para alcanzar el M. mínimo (*)' WHERE TipoMensaje='MontoMinimo';
-UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para llevarte tu regalo (*)' WHERE TipoMensaje='TippingPoint';
-UPDATE MensajeMetaConsultora SET Mensaje='Sólo puedes agregar #valor más (*)' WHERE TipoMensaje='MontoMaximo';
-UPDATE MensajeMetaConsultora SET Mensaje='¡Alcanzaste tu monto máximo! (*)' WHERE TipoMensaje='MontoMaximoSupero';
-UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para el #porcentaje% DSCTO (*)' WHERE TipoMensaje='EscalaDescuento';
-UPDATE MensajeMetaConsultora SET Mensaje='¡Alcanzaste el descuento máximo de #porcentaje% DSCTO! (*)' WHERE TipoMensaje='EscalaDescuentoSupero';
+UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para alcanzar el M. mínimo' WHERE TipoMensaje='MontoMinimo';
+UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para llevarte tu regalo' WHERE TipoMensaje='TippingPoint';
+UPDATE MensajeMetaConsultora SET Mensaje='Sólo puedes agregar #valor más' WHERE TipoMensaje='MontoMaximo';
+UPDATE MensajeMetaConsultora SET Mensaje='¡Alcanzaste tu monto máximo!' WHERE TipoMensaje='MontoMaximoSupero';
+UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para el #porcentaje% DSCTO' WHERE TipoMensaje='EscalaDescuento';
+UPDATE MensajeMetaConsultora SET Mensaje='¡Alcanzaste el descuento máximo de #porcentaje% DSCTO!' WHERE TipoMensaje='EscalaDescuentoSupero';
 DELETE MensajeMetaConsultora WHERE TipoMensaje='Inicio';
-INSERT INTO MensajeMetaConsultora(TipoMensaje, Titulo, Mensaje) VALUES('Inicio', '', '¡Empieza agregar productos para alcanzar tu regalo! (*)');
+INSERT INTO MensajeMetaConsultora(TipoMensaje, Titulo, Mensaje) VALUES('Inicio', '', '¡Empieza agregar productos para alcanzar tu regalo!');
 GO
-
-USE BelcorpColombia
+USE BelcorpColombia;
 GO
-UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para alcanzar el M. mínimo (*)' WHERE TipoMensaje='MontoMinimo';
-UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para llevarte tu regalo (*)' WHERE TipoMensaje='TippingPoint';
-UPDATE MensajeMetaConsultora SET Mensaje='Sólo puedes agregar #valor más (*)' WHERE TipoMensaje='MontoMaximo';
-UPDATE MensajeMetaConsultora SET Mensaje='¡Alcanzaste tu monto máximo! (*)' WHERE TipoMensaje='MontoMaximoSupero';
-UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para el #porcentaje% DSCTO (*)' WHERE TipoMensaje='EscalaDescuento';
-UPDATE MensajeMetaConsultora SET Mensaje='¡Alcanzaste el descuento máximo de #porcentaje% DSCTO! (*)' WHERE TipoMensaje='EscalaDescuentoSupero';
+UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para alcanzar el M. mínimo' WHERE TipoMensaje='MontoMinimo';
+UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para llevarte tu regalo' WHERE TipoMensaje='TippingPoint';
+UPDATE MensajeMetaConsultora SET Mensaje='Sólo puedes agregar #valor más' WHERE TipoMensaje='MontoMaximo';
+UPDATE MensajeMetaConsultora SET Mensaje='¡Alcanzaste tu monto máximo!' WHERE TipoMensaje='MontoMaximoSupero';
+UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para el #porcentaje% DSCTO' WHERE TipoMensaje='EscalaDescuento';
+UPDATE MensajeMetaConsultora SET Mensaje='¡Alcanzaste el descuento máximo de #porcentaje% DSCTO!' WHERE TipoMensaje='EscalaDescuentoSupero';
 DELETE MensajeMetaConsultora WHERE TipoMensaje='Inicio';
-INSERT INTO MensajeMetaConsultora(TipoMensaje, Titulo, Mensaje) VALUES('Inicio', '', '¡Empieza agregar productos para alcanzar tu regalo! (*)');
+INSERT INTO MensajeMetaConsultora(TipoMensaje, Titulo, Mensaje) VALUES('Inicio', '', '¡Empieza agregar productos para alcanzar tu regalo!');
 GO
-
-USE BelcorpCostaRica
+USE BelcorpCostaRica;
 GO
-UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para alcanzar el M. mínimo (*)' WHERE TipoMensaje='MontoMinimo';
-UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para llevarte tu regalo (*)' WHERE TipoMensaje='TippingPoint';
-UPDATE MensajeMetaConsultora SET Mensaje='Sólo puedes agregar #valor más (*)' WHERE TipoMensaje='MontoMaximo';
-UPDATE MensajeMetaConsultora SET Mensaje='¡Alcanzaste tu monto máximo! (*)' WHERE TipoMensaje='MontoMaximoSupero';
-UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para el #porcentaje% DSCTO (*)' WHERE TipoMensaje='EscalaDescuento';
-UPDATE MensajeMetaConsultora SET Mensaje='¡Alcanzaste el descuento máximo de #porcentaje% DSCTO! (*)' WHERE TipoMensaje='EscalaDescuentoSupero';
+UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para alcanzar el M. mínimo' WHERE TipoMensaje='MontoMinimo';
+UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para llevarte tu regalo' WHERE TipoMensaje='TippingPoint';
+UPDATE MensajeMetaConsultora SET Mensaje='Sólo puedes agregar #valor más' WHERE TipoMensaje='MontoMaximo';
+UPDATE MensajeMetaConsultora SET Mensaje='¡Alcanzaste tu monto máximo!' WHERE TipoMensaje='MontoMaximoSupero';
+UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para el #porcentaje% DSCTO' WHERE TipoMensaje='EscalaDescuento';
+UPDATE MensajeMetaConsultora SET Mensaje='¡Alcanzaste el descuento máximo de #porcentaje% DSCTO!' WHERE TipoMensaje='EscalaDescuentoSupero';
 DELETE MensajeMetaConsultora WHERE TipoMensaje='Inicio';
-INSERT INTO MensajeMetaConsultora(TipoMensaje, Titulo, Mensaje) VALUES('Inicio', '', '¡Empieza agregar productos para alcanzar tu regalo! (*)');
+INSERT INTO MensajeMetaConsultora(TipoMensaje, Titulo, Mensaje) VALUES('Inicio', '', '¡Empieza agregar productos para alcanzar tu regalo!');
 GO
-
-USE BelcorpDominicana
+USE BelcorpDominicana;
 GO
-UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para alcanzar el M. mínimo (*)' WHERE TipoMensaje='MontoMinimo';
-UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para llevarte tu regalo (*)' WHERE TipoMensaje='TippingPoint';
-UPDATE MensajeMetaConsultora SET Mensaje='Sólo puedes agregar #valor más (*)' WHERE TipoMensaje='MontoMaximo';
-UPDATE MensajeMetaConsultora SET Mensaje='¡Alcanzaste tu monto máximo! (*)' WHERE TipoMensaje='MontoMaximoSupero';
-UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para el #porcentaje% DSCTO (*)' WHERE TipoMensaje='EscalaDescuento';
-UPDATE MensajeMetaConsultora SET Mensaje='¡Alcanzaste el descuento máximo de #porcentaje% DSCTO! (*)' WHERE TipoMensaje='EscalaDescuentoSupero';
+UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para alcanzar el M. mínimo' WHERE TipoMensaje='MontoMinimo';
+UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para llevarte tu regalo' WHERE TipoMensaje='TippingPoint';
+UPDATE MensajeMetaConsultora SET Mensaje='Sólo puedes agregar #valor más' WHERE TipoMensaje='MontoMaximo';
+UPDATE MensajeMetaConsultora SET Mensaje='¡Alcanzaste tu monto máximo!' WHERE TipoMensaje='MontoMaximoSupero';
+UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para el #porcentaje% DSCTO' WHERE TipoMensaje='EscalaDescuento';
+UPDATE MensajeMetaConsultora SET Mensaje='¡Alcanzaste el descuento máximo de #porcentaje% DSCTO!' WHERE TipoMensaje='EscalaDescuentoSupero';
 DELETE MensajeMetaConsultora WHERE TipoMensaje='Inicio';
-INSERT INTO MensajeMetaConsultora(TipoMensaje, Titulo, Mensaje) VALUES('Inicio', '', '¡Empieza agregar productos para alcanzar tu regalo! (*)');
+INSERT INTO MensajeMetaConsultora(TipoMensaje, Titulo, Mensaje) VALUES('Inicio', '', '¡Empieza agregar productos para alcanzar tu regalo!');
 GO
-
-USE BelcorpEcuador
+USE BelcorpEcuador;
 GO
-UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para alcanzar el M. mínimo (*)' WHERE TipoMensaje='MontoMinimo';
-UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para llevarte tu regalo (*)' WHERE TipoMensaje='TippingPoint';
-UPDATE MensajeMetaConsultora SET Mensaje='Sólo puedes agregar #valor más (*)' WHERE TipoMensaje='MontoMaximo';
-UPDATE MensajeMetaConsultora SET Mensaje='¡Alcanzaste tu monto máximo! (*)' WHERE TipoMensaje='MontoMaximoSupero';
-UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para el #porcentaje% DSCTO (*)' WHERE TipoMensaje='EscalaDescuento';
-UPDATE MensajeMetaConsultora SET Mensaje='¡Alcanzaste el descuento máximo de #porcentaje% DSCTO! (*)' WHERE TipoMensaje='EscalaDescuentoSupero';
+UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para alcanzar el M. mínimo' WHERE TipoMensaje='MontoMinimo';
+UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para llevarte tu regalo' WHERE TipoMensaje='TippingPoint';
+UPDATE MensajeMetaConsultora SET Mensaje='Sólo puedes agregar #valor más' WHERE TipoMensaje='MontoMaximo';
+UPDATE MensajeMetaConsultora SET Mensaje='¡Alcanzaste tu monto máximo!' WHERE TipoMensaje='MontoMaximoSupero';
+UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para el #porcentaje% DSCTO' WHERE TipoMensaje='EscalaDescuento';
+UPDATE MensajeMetaConsultora SET Mensaje='¡Alcanzaste el descuento máximo de #porcentaje% DSCTO!' WHERE TipoMensaje='EscalaDescuentoSupero';
 DELETE MensajeMetaConsultora WHERE TipoMensaje='Inicio';
-INSERT INTO MensajeMetaConsultora(TipoMensaje, Titulo, Mensaje) VALUES('Inicio', '', '¡Empieza agregar productos para alcanzar tu regalo! (*)');
+INSERT INTO MensajeMetaConsultora(TipoMensaje, Titulo, Mensaje) VALUES('Inicio', '', '¡Empieza agregar productos para alcanzar tu regalo!');
 GO
-
-USE BelcorpGuatemala
+USE BelcorpGuatemala;
 GO
-UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para alcanzar el M. mínimo (*)' WHERE TipoMensaje='MontoMinimo';
-UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para llevarte tu regalo (*)' WHERE TipoMensaje='TippingPoint';
-UPDATE MensajeMetaConsultora SET Mensaje='Sólo puedes agregar #valor más (*)' WHERE TipoMensaje='MontoMaximo';
-UPDATE MensajeMetaConsultora SET Mensaje='¡Alcanzaste tu monto máximo! (*)' WHERE TipoMensaje='MontoMaximoSupero';
-UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para el #porcentaje% DSCTO (*)' WHERE TipoMensaje='EscalaDescuento';
-UPDATE MensajeMetaConsultora SET Mensaje='¡Alcanzaste el descuento máximo de #porcentaje% DSCTO! (*)' WHERE TipoMensaje='EscalaDescuentoSupero';
+UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para alcanzar el M. mínimo' WHERE TipoMensaje='MontoMinimo';
+UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para llevarte tu regalo' WHERE TipoMensaje='TippingPoint';
+UPDATE MensajeMetaConsultora SET Mensaje='Sólo puedes agregar #valor más' WHERE TipoMensaje='MontoMaximo';
+UPDATE MensajeMetaConsultora SET Mensaje='¡Alcanzaste tu monto máximo!' WHERE TipoMensaje='MontoMaximoSupero';
+UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para el #porcentaje% DSCTO' WHERE TipoMensaje='EscalaDescuento';
+UPDATE MensajeMetaConsultora SET Mensaje='¡Alcanzaste el descuento máximo de #porcentaje% DSCTO!' WHERE TipoMensaje='EscalaDescuentoSupero';
 DELETE MensajeMetaConsultora WHERE TipoMensaje='Inicio';
-INSERT INTO MensajeMetaConsultora(TipoMensaje, Titulo, Mensaje) VALUES('Inicio', '', '¡Empieza agregar productos para alcanzar tu regalo! (*)');
+INSERT INTO MensajeMetaConsultora(TipoMensaje, Titulo, Mensaje) VALUES('Inicio', '', '¡Empieza agregar productos para alcanzar tu regalo!');
 GO
-
-USE BelcorpMexico
+USE BelcorpMexico;
 GO
-UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para alcanzar el M. mínimo (*)' WHERE TipoMensaje='MontoMinimo';
-UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para llevarte tu regalo (*)' WHERE TipoMensaje='TippingPoint';
-UPDATE MensajeMetaConsultora SET Mensaje='Sólo puedes agregar #valor más (*)' WHERE TipoMensaje='MontoMaximo';
-UPDATE MensajeMetaConsultora SET Mensaje='¡Alcanzaste tu monto máximo! (*)' WHERE TipoMensaje='MontoMaximoSupero';
-UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para el #porcentaje% DSCTO (*)' WHERE TipoMensaje='EscalaDescuento';
-UPDATE MensajeMetaConsultora SET Mensaje='¡Alcanzaste el descuento máximo de #porcentaje% DSCTO! (*)' WHERE TipoMensaje='EscalaDescuentoSupero';
+UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para alcanzar el M. mínimo' WHERE TipoMensaje='MontoMinimo';
+UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para llevarte tu regalo' WHERE TipoMensaje='TippingPoint';
+UPDATE MensajeMetaConsultora SET Mensaje='Sólo puedes agregar #valor más' WHERE TipoMensaje='MontoMaximo';
+UPDATE MensajeMetaConsultora SET Mensaje='¡Alcanzaste tu monto máximo!' WHERE TipoMensaje='MontoMaximoSupero';
+UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para el #porcentaje% DSCTO' WHERE TipoMensaje='EscalaDescuento';
+UPDATE MensajeMetaConsultora SET Mensaje='¡Alcanzaste el descuento máximo de #porcentaje% DSCTO!' WHERE TipoMensaje='EscalaDescuentoSupero';
 DELETE MensajeMetaConsultora WHERE TipoMensaje='Inicio';
-INSERT INTO MensajeMetaConsultora(TipoMensaje, Titulo, Mensaje) VALUES('Inicio', '', '¡Empieza agregar productos para alcanzar tu regalo! (*)');
+INSERT INTO MensajeMetaConsultora(TipoMensaje, Titulo, Mensaje) VALUES('Inicio', '', '¡Empieza agregar productos para alcanzar tu regalo!');
 GO
-
-USE BelcorpPanama
+USE BelcorpPanama;
 GO
-UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para alcanzar el M. mínimo (*)' WHERE TipoMensaje='MontoMinimo';
-UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para llevarte tu regalo (*)' WHERE TipoMensaje='TippingPoint';
-UPDATE MensajeMetaConsultora SET Mensaje='Sólo puedes agregar #valor más (*)' WHERE TipoMensaje='MontoMaximo';
-UPDATE MensajeMetaConsultora SET Mensaje='¡Alcanzaste tu monto máximo! (*)' WHERE TipoMensaje='MontoMaximoSupero';
-UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para el #porcentaje% DSCTO (*)' WHERE TipoMensaje='EscalaDescuento';
-UPDATE MensajeMetaConsultora SET Mensaje='¡Alcanzaste el descuento máximo de #porcentaje% DSCTO! (*)' WHERE TipoMensaje='EscalaDescuentoSupero';
+UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para alcanzar el M. mínimo' WHERE TipoMensaje='MontoMinimo';
+UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para llevarte tu regalo' WHERE TipoMensaje='TippingPoint';
+UPDATE MensajeMetaConsultora SET Mensaje='Sólo puedes agregar #valor más' WHERE TipoMensaje='MontoMaximo';
+UPDATE MensajeMetaConsultora SET Mensaje='¡Alcanzaste tu monto máximo!' WHERE TipoMensaje='MontoMaximoSupero';
+UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para el #porcentaje% DSCTO' WHERE TipoMensaje='EscalaDescuento';
+UPDATE MensajeMetaConsultora SET Mensaje='¡Alcanzaste el descuento máximo de #porcentaje% DSCTO!' WHERE TipoMensaje='EscalaDescuentoSupero';
 DELETE MensajeMetaConsultora WHERE TipoMensaje='Inicio';
-INSERT INTO MensajeMetaConsultora(TipoMensaje, Titulo, Mensaje) VALUES('Inicio', '', '¡Empieza agregar productos para alcanzar tu regalo! (*)');
+INSERT INTO MensajeMetaConsultora(TipoMensaje, Titulo, Mensaje) VALUES('Inicio', '', '¡Empieza agregar productos para alcanzar tu regalo!');
 GO
-
-USE BelcorpPeru
+USE BelcorpPeru;
 GO
-UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para alcanzar el M. mínimo (*)' WHERE TipoMensaje='MontoMinimo';
-UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para llevarte tu regalo (*)' WHERE TipoMensaje='TippingPoint';
-UPDATE MensajeMetaConsultora SET Mensaje='Sólo puedes agregar #valor más (*)' WHERE TipoMensaje='MontoMaximo';
-UPDATE MensajeMetaConsultora SET Mensaje='¡Alcanzaste tu monto máximo! (*)' WHERE TipoMensaje='MontoMaximoSupero';
-UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para el #porcentaje% DSCTO (*)' WHERE TipoMensaje='EscalaDescuento';
-UPDATE MensajeMetaConsultora SET Mensaje='¡Alcanzaste el descuento máximo de #porcentaje% DSCTO! (*)' WHERE TipoMensaje='EscalaDescuentoSupero';
+UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para alcanzar el M. mínimo' WHERE TipoMensaje='MontoMinimo';
+UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para llevarte tu regalo' WHERE TipoMensaje='TippingPoint';
+UPDATE MensajeMetaConsultora SET Mensaje='Sólo puedes agregar #valor más' WHERE TipoMensaje='MontoMaximo';
+UPDATE MensajeMetaConsultora SET Mensaje='¡Alcanzaste tu monto máximo!' WHERE TipoMensaje='MontoMaximoSupero';
+UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para el #porcentaje% DSCTO' WHERE TipoMensaje='EscalaDescuento';
+UPDATE MensajeMetaConsultora SET Mensaje='¡Alcanzaste el descuento máximo de #porcentaje% DSCTO!' WHERE TipoMensaje='EscalaDescuentoSupero';
 DELETE MensajeMetaConsultora WHERE TipoMensaje='Inicio';
-INSERT INTO MensajeMetaConsultora(TipoMensaje, Titulo, Mensaje) VALUES('Inicio', '', '¡Empieza agregar productos para alcanzar tu regalo! (*)');
+INSERT INTO MensajeMetaConsultora(TipoMensaje, Titulo, Mensaje) VALUES('Inicio', '', '¡Empieza agregar productos para alcanzar tu regalo!');
 GO
-
-USE BelcorpPuertoRico
+USE BelcorpPuertoRico;
 GO
-UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para alcanzar el M. mínimo (*)' WHERE TipoMensaje='MontoMinimo';
-UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para llevarte tu regalo (*)' WHERE TipoMensaje='TippingPoint';
-UPDATE MensajeMetaConsultora SET Mensaje='Sólo puedes agregar #valor más (*)' WHERE TipoMensaje='MontoMaximo';
-UPDATE MensajeMetaConsultora SET Mensaje='¡Alcanzaste tu monto máximo! (*)' WHERE TipoMensaje='MontoMaximoSupero';
-UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para el #porcentaje% DSCTO (*)' WHERE TipoMensaje='EscalaDescuento';
-UPDATE MensajeMetaConsultora SET Mensaje='¡Alcanzaste el descuento máximo de #porcentaje% DSCTO! (*)' WHERE TipoMensaje='EscalaDescuentoSupero';
+UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para alcanzar el M. mínimo' WHERE TipoMensaje='MontoMinimo';
+UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para llevarte tu regalo' WHERE TipoMensaje='TippingPoint';
+UPDATE MensajeMetaConsultora SET Mensaje='Sólo puedes agregar #valor más' WHERE TipoMensaje='MontoMaximo';
+UPDATE MensajeMetaConsultora SET Mensaje='¡Alcanzaste tu monto máximo!' WHERE TipoMensaje='MontoMaximoSupero';
+UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para el #porcentaje% DSCTO' WHERE TipoMensaje='EscalaDescuento';
+UPDATE MensajeMetaConsultora SET Mensaje='¡Alcanzaste el descuento máximo de #porcentaje% DSCTO!' WHERE TipoMensaje='EscalaDescuentoSupero';
 DELETE MensajeMetaConsultora WHERE TipoMensaje='Inicio';
-INSERT INTO MensajeMetaConsultora(TipoMensaje, Titulo, Mensaje) VALUES('Inicio', '', '¡Empieza agregar productos para alcanzar tu regalo! (*)');
+INSERT INTO MensajeMetaConsultora(TipoMensaje, Titulo, Mensaje) VALUES('Inicio', '', '¡Empieza agregar productos para alcanzar tu regalo!');
 GO
-
-USE BelcorpSalvador
+USE BelcorpSalvador;
 GO
-UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para alcanzar el M. mínimo (*)' WHERE TipoMensaje='MontoMinimo';
-UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para llevarte tu regalo (*)' WHERE TipoMensaje='TippingPoint';
-UPDATE MensajeMetaConsultora SET Mensaje='Sólo puedes agregar #valor más (*)' WHERE TipoMensaje='MontoMaximo';
-UPDATE MensajeMetaConsultora SET Mensaje='¡Alcanzaste tu monto máximo! (*)' WHERE TipoMensaje='MontoMaximoSupero';
-UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para el #porcentaje% DSCTO (*)' WHERE TipoMensaje='EscalaDescuento';
-UPDATE MensajeMetaConsultora SET Mensaje='¡Alcanzaste el descuento máximo de #porcentaje% DSCTO! (*)' WHERE TipoMensaje='EscalaDescuentoSupero';
+UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para alcanzar el M. mínimo' WHERE TipoMensaje='MontoMinimo';
+UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para llevarte tu regalo' WHERE TipoMensaje='TippingPoint';
+UPDATE MensajeMetaConsultora SET Mensaje='Sólo puedes agregar #valor más' WHERE TipoMensaje='MontoMaximo';
+UPDATE MensajeMetaConsultora SET Mensaje='¡Alcanzaste tu monto máximo!' WHERE TipoMensaje='MontoMaximoSupero';
+UPDATE MensajeMetaConsultora SET Mensaje='Te falta #valor para el #porcentaje% DSCTO' WHERE TipoMensaje='EscalaDescuento';
+UPDATE MensajeMetaConsultora SET Mensaje='¡Alcanzaste el descuento máximo de #porcentaje% DSCTO!' WHERE TipoMensaje='EscalaDescuentoSupero';
 DELETE MensajeMetaConsultora WHERE TipoMensaje='Inicio';
-INSERT INTO MensajeMetaConsultora(TipoMensaje, Titulo, Mensaje) VALUES('Inicio', '', '¡Empieza agregar productos para alcanzar tu regalo! (*)');
+INSERT INTO MensajeMetaConsultora(TipoMensaje, Titulo, Mensaje) VALUES('Inicio', '', '¡Empieza agregar productos para alcanzar tu regalo!');
 GO

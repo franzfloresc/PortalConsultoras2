@@ -1,4 +1,4 @@
-﻿USE BelcorpBolivia
+﻿USE BelcorpBolivia;
 GO
 UPDATE MensajeMetaConsultora SET Mensaje='Te faltan #valor para pasar pedido' WHERE TipoMensaje='MontoMinimo';
 UPDATE MensajeMetaConsultora SET Mensaje='Sólo te faltan #valor más.' WHERE TipoMensaje='TippingPoint';
@@ -8,8 +8,7 @@ UPDATE MensajeMetaConsultora SET Mensaje='Solo agrega #valor más.' WHERE TipoMe
 UPDATE MensajeMetaConsultora SET Mensaje='Ya alcanzaste el #porcentaje% de descuento.' WHERE TipoMensaje='EscalaDescuentoSupero';
 DELETE MensajeMetaConsultora WHERE TipoMensaje='Inicio';
 GO
-
-USE BelcorpChile
+USE BelcorpChile;
 GO
 UPDATE MensajeMetaConsultora SET Mensaje='Te faltan #valor para pasar pedido' WHERE TipoMensaje='MontoMinimo';
 UPDATE MensajeMetaConsultora SET Mensaje='Sólo te faltan #valor más.' WHERE TipoMensaje='TippingPoint';
@@ -19,8 +18,7 @@ UPDATE MensajeMetaConsultora SET Mensaje='Solo agrega #valor más.' WHERE TipoMe
 UPDATE MensajeMetaConsultora SET Mensaje='Ya alcanzaste el #porcentaje% de descuento.' WHERE TipoMensaje='EscalaDescuentoSupero';
 DELETE MensajeMetaConsultora WHERE TipoMensaje='Inicio';
 GO
-
-USE BelcorpColombia
+USE BelcorpColombia;
 GO
 UPDATE MensajeMetaConsultora SET Mensaje='Te faltan #valor para pasar pedido' WHERE TipoMensaje='MontoMinimo';
 UPDATE MensajeMetaConsultora SET Mensaje='Sólo te faltan #valor más.' WHERE TipoMensaje='TippingPoint';
@@ -30,8 +28,7 @@ UPDATE MensajeMetaConsultora SET Mensaje='Solo agrega #valor más.' WHERE TipoMe
 UPDATE MensajeMetaConsultora SET Mensaje='Ya alcanzaste el #porcentaje% de descuento.' WHERE TipoMensaje='EscalaDescuentoSupero';
 DELETE MensajeMetaConsultora WHERE TipoMensaje='Inicio';
 GO
-
-USE BelcorpCostaRica
+USE BelcorpCostaRica;
 GO
 UPDATE MensajeMetaConsultora SET Mensaje='Te faltan #valor para pasar pedido' WHERE TipoMensaje='MontoMinimo';
 UPDATE MensajeMetaConsultora SET Mensaje='Sólo te faltan #valor más.' WHERE TipoMensaje='TippingPoint';
@@ -41,8 +38,7 @@ UPDATE MensajeMetaConsultora SET Mensaje='Solo agrega #valor más.' WHERE TipoMe
 UPDATE MensajeMetaConsultora SET Mensaje='Ya alcanzaste el #porcentaje% de descuento.' WHERE TipoMensaje='EscalaDescuentoSupero';
 DELETE MensajeMetaConsultora WHERE TipoMensaje='Inicio';
 GO
-
-USE BelcorpDominicana
+USE BelcorpDominicana;
 GO
 UPDATE MensajeMetaConsultora SET Mensaje='Te faltan #valor para pasar pedido' WHERE TipoMensaje='MontoMinimo';
 UPDATE MensajeMetaConsultora SET Mensaje='Sólo te faltan #valor más.' WHERE TipoMensaje='TippingPoint';
@@ -52,8 +48,7 @@ UPDATE MensajeMetaConsultora SET Mensaje='Solo agrega #valor más.' WHERE TipoMe
 UPDATE MensajeMetaConsultora SET Mensaje='Ya alcanzaste el #porcentaje% de descuento.' WHERE TipoMensaje='EscalaDescuentoSupero';
 DELETE MensajeMetaConsultora WHERE TipoMensaje='Inicio';
 GO
-
-USE BelcorpEcuador
+USE BelcorpEcuador;
 GO
 UPDATE MensajeMetaConsultora SET Mensaje='Te faltan #valor para pasar pedido' WHERE TipoMensaje='MontoMinimo';
 UPDATE MensajeMetaConsultora SET Mensaje='Sólo te faltan #valor más.' WHERE TipoMensaje='TippingPoint';
@@ -63,8 +58,7 @@ UPDATE MensajeMetaConsultora SET Mensaje='Solo agrega #valor más.' WHERE TipoMe
 UPDATE MensajeMetaConsultora SET Mensaje='Ya alcanzaste el #porcentaje% de descuento.' WHERE TipoMensaje='EscalaDescuentoSupero';
 DELETE MensajeMetaConsultora WHERE TipoMensaje='Inicio';
 GO
-
-USE BelcorpGuatemala
+USE BelcorpGuatemala;
 GO
 UPDATE MensajeMetaConsultora SET Mensaje='Te faltan #valor para pasar pedido' WHERE TipoMensaje='MontoMinimo';
 UPDATE MensajeMetaConsultora SET Mensaje='Sólo te faltan #valor más.' WHERE TipoMensaje='TippingPoint';
@@ -74,8 +68,7 @@ UPDATE MensajeMetaConsultora SET Mensaje='Solo agrega #valor más.' WHERE TipoMe
 UPDATE MensajeMetaConsultora SET Mensaje='Ya alcanzaste el #porcentaje% de descuento.' WHERE TipoMensaje='EscalaDescuentoSupero';
 DELETE MensajeMetaConsultora WHERE TipoMensaje='Inicio';
 GO
-
-USE BelcorpMexico
+USE BelcorpMexico;
 GO
 UPDATE MensajeMetaConsultora SET Mensaje='Te faltan #valor para pasar pedido' WHERE TipoMensaje='MontoMinimo';
 UPDATE MensajeMetaConsultora SET Mensaje='Sólo te faltan #valor más.' WHERE TipoMensaje='TippingPoint';
@@ -85,8 +78,7 @@ UPDATE MensajeMetaConsultora SET Mensaje='Solo agrega #valor más.' WHERE TipoMe
 UPDATE MensajeMetaConsultora SET Mensaje='Ya alcanzaste el #porcentaje% de descuento.' WHERE TipoMensaje='EscalaDescuentoSupero';
 DELETE MensajeMetaConsultora WHERE TipoMensaje='Inicio';
 GO
-
-USE BelcorpPanama
+USE BelcorpPanama;
 GO
 UPDATE MensajeMetaConsultora SET Mensaje='Te faltan #valor para pasar pedido' WHERE TipoMensaje='MontoMinimo';
 UPDATE MensajeMetaConsultora SET Mensaje='Sólo te faltan #valor más.' WHERE TipoMensaje='TippingPoint';
@@ -96,8 +88,7 @@ UPDATE MensajeMetaConsultora SET Mensaje='Solo agrega #valor más.' WHERE TipoMe
 UPDATE MensajeMetaConsultora SET Mensaje='Ya alcanzaste el #porcentaje% de descuento.' WHERE TipoMensaje='EscalaDescuentoSupero';
 DELETE MensajeMetaConsultora WHERE TipoMensaje='Inicio';
 GO
-
-USE BelcorpPeru
+USE BelcorpPeru;
 GO
 UPDATE MensajeMetaConsultora SET Mensaje='Te faltan #valor para pasar pedido' WHERE TipoMensaje='MontoMinimo';
 UPDATE MensajeMetaConsultora SET Mensaje='Sólo te faltan #valor más.' WHERE TipoMensaje='TippingPoint';
@@ -107,8 +98,7 @@ UPDATE MensajeMetaConsultora SET Mensaje='Solo agrega #valor más.' WHERE TipoMe
 UPDATE MensajeMetaConsultora SET Mensaje='Ya alcanzaste el #porcentaje% de descuento.' WHERE TipoMensaje='EscalaDescuentoSupero';
 DELETE MensajeMetaConsultora WHERE TipoMensaje='Inicio';
 GO
-
-USE BelcorpPuertoRico
+USE BelcorpPuertoRico;
 GO
 UPDATE MensajeMetaConsultora SET Mensaje='Te faltan #valor para pasar pedido' WHERE TipoMensaje='MontoMinimo';
 UPDATE MensajeMetaConsultora SET Mensaje='Sólo te faltan #valor más.' WHERE TipoMensaje='TippingPoint';
@@ -118,8 +108,7 @@ UPDATE MensajeMetaConsultora SET Mensaje='Solo agrega #valor más.' WHERE TipoMe
 UPDATE MensajeMetaConsultora SET Mensaje='Ya alcanzaste el #porcentaje% de descuento.' WHERE TipoMensaje='EscalaDescuentoSupero';
 DELETE MensajeMetaConsultora WHERE TipoMensaje='Inicio';
 GO
-
-USE BelcorpSalvador
+USE BelcorpSalvador;
 GO
 UPDATE MensajeMetaConsultora SET Mensaje='Te faltan #valor para pasar pedido' WHERE TipoMensaje='MontoMinimo';
 UPDATE MensajeMetaConsultora SET Mensaje='Sólo te faltan #valor más.' WHERE TipoMensaje='TippingPoint';

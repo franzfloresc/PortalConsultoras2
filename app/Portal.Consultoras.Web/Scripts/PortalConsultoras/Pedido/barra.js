@@ -319,12 +319,12 @@ function MostrarBarra(datax, destino) {
             )
             .replace('{barra_monto}',
                 dataTP.ActiveMonto ?
-                '<div class="monto_meta_tippingPoint">' + variablesPortal.SimboloMoneda + dataBarra.TippingPointStr + '</div>' :
+                '<div class="monto_meta_tippingPoint">' + variablesPortal.SimboloMoneda + ' ' + dataBarra.TippingPointStr + '</div>' :
                 ''
             )
             .replace('{barra_tooltip_descripcion}',
                 dataTP.ActiveMonto ?
-                '<div class="tooltip_producto_regalo_descripcion">Llega a <span>' + variablesPortal.SimboloMoneda + dataBarra.TippingPointStr + '</span><br>y llévate de regalo<br><strong>' + dataTP.DescripcionCUV2 + '</strong></div>' :
+                '<div class="tooltip_producto_regalo_descripcion">Llega a <span>' + variablesPortal.SimboloMoneda + ' ' + dataBarra.TippingPointStr + '</span><br>y llévate de regalo<br><strong>' + dataTP.DescripcionCUV2 + '</strong></div>' :
                 '<div class="tooltip_producto_regalo_descripcion"><br> Llévate de regalo<br><strong>' + dataTP.DescripcionCUV2 + '</strong></div>'
             );
     }
@@ -613,11 +613,9 @@ function MostrarBarra(datax, destino) {
     /*hd-2848*/
         if (belcorp.barra.settings.isMobile) {
               wLogro = CalculoLlenadoBarra(); //volver comentar hd-2849
-              CalculoPosicionMinimoMaximo();  //volver comentar hd-2849
-        
+              CalculoPosicionMinimoMaximo();  //volver comentar hd-2849        
         }
-        else
-        {
+        else {
             wLogro = CalculoLlenadoBarraDestokp();
             wLimite = CalculoLlenadoBarraEspacioLimiteDestokp();
         }
@@ -625,58 +623,46 @@ function MostrarBarra(datax, destino) {
 
     $("#divBarra #divBarraEspacioLimite").css("width", wLimite);
     $("#divBarra #divBarraEspacioLogrado").css("width", wLogro);
-
-
-  
-
+    
     if (mn == 0 && vLogro == 0 && !belcorp.barra.settings.isMobile) {
         $("#divBarra #divBarraMensajeLogrado").hide();
-        if (!belcorp.barra.settings.isMobile) {
-            if (TieneMontoMaximo()) { /// se trata como tipinpoing
 
-                if (dataBarra.TippingPointBarra.Active != null && dataBarra.TippingPointBarra.Active != false) {
+        if (TieneMontoMaximo()) { /// se trata como tipinpoing
+            if (dataBarra.TippingPointBarra.Active != null && dataBarra.TippingPointBarra.Active != false) {
+                document.getElementById('punto_0').style = '';
+                document.getElementById('punto_0').className = 'EscalaDescuento';
+                document.getElementById('punto_1').className = 'EscalaDescuento';
+                document.getElementById('punto_2').className = 'EscalaDescuento';
+            }
+            else {
+                if (ConfiguradoRegalo == true) {
                     document.getElementById('punto_0').style = '';
                     document.getElementById('punto_0').className = 'EscalaDescuento';
                     document.getElementById('punto_1').className = 'EscalaDescuento';
                     document.getElementById('punto_2').className = 'EscalaDescuento';
                 }
                 else {
-
-
-                    if (ConfiguradoRegalo == true) {
-                        document.getElementById('punto_0').style = '';
-                        document.getElementById('punto_0').className = 'EscalaDescuento';
-                        document.getElementById('punto_1').className = 'EscalaDescuento';
-                        document.getElementById('punto_2').className = 'EscalaDescuento';
-                    }
-                    else {
-                        document.getElementById('punto_0').style = '';
-                        document.getElementById('punto_0').className = 'EscalaDescuento';
-                        document.getElementById('punto_1').className = 'EscalaDescuento';
-                    }
+                    document.getElementById('punto_0').style = '';
+                    document.getElementById('punto_0').className = 'EscalaDescuento';
+                    document.getElementById('punto_1').className = 'EscalaDescuento';
+                }
+            }
+        }
+        else { 
+            for (var x = 0; x < dataBarra.ListaEscalaDescuento.length; x++) {
+                if (x == 0) {
+                    if (document.getElementById('punto_0')) document.getElementById('punto_0').style = '';
+                    if (document.getElementById('punto_0')) document.getElementById('punto_0').className = 'EscalaDescuento';
+                }
+                else {
+                    if (document.getElementById('punto_' + x.toString())) document.getElementById('punto_' + x.toString()).className = 'EscalaDescuento';
 
                 }
-
             }
-            else {
- 
-                for (var x = 0; x < dataBarra.ListaEscalaDescuento.length; x++) {
-                    if (x == 0) {
-                        if (document.getElementById('punto_0')) document.getElementById('punto_0').style = '';
-                        if (document.getElementById('punto_0')) document.getElementById('punto_0').className = 'EscalaDescuento';
-                    } else {
-                        if (document.getElementById('punto_' + x.toString())) document.getElementById('punto_' + x.toString()).className = 'EscalaDescuento';
-
-                    }
-                }
-
-            }
-
-            CalculoPosicionMinimoMaximoDestokp();
-            CalculoPosicionMensajeDestokp();
         }
 
-
+        CalculoPosicionMinimoMaximoDestokp();
+        CalculoPosicionMensajeDestokp();
         return false;
     }
 
@@ -685,7 +671,8 @@ function MostrarBarra(datax, destino) {
     var muestraTP = destino == '2' && dataBarra.TippingPointBarra.Active && tp > 0;
     var limiteEsPremio = vLogro < tp; //  && tp <= vLimite;
 
-    if (muestraTP && vLogro == 0) tipoMensaje = "Inicio";
+    if (mn == 0 && vLogro == 0) tipoMensaje = "";
+    else if (muestraTP && vLogro == 0) tipoMensaje = "Inicio";
     else if (muestraTP && limiteEsPremio) {
         valorFalta = tp - vLogro;
         tipoMensaje = "TippingPoint";
@@ -707,6 +694,7 @@ function MostrarBarra(datax, destino) {
     var objMsg = listaMensajeMeta.Find("TipoMensaje", tipoMensaje)[0] || new Object();
     objMsg.Titulo = $.trim(objMsg.Titulo);
     objMsg.Mensaje = $.trim(objMsg.Mensaje);
+    if (!belcorp.barra.settings.isMobile) objMsg.Mensaje += ' (*)';
 
     if ( objMsg.Mensaje != "") {
         // CalculoPosicionMinimoMaximoDestokp();
@@ -1744,7 +1732,6 @@ function CalculoPosicionMinimoMaximo() {
                     }
                     else {
                         if (montoActual < montoMinimo) {
-                            web
                             var PosicionMontoMinimo = montoMinimo * 100 / montoMinimo;
 
                             document.getElementById('lineaPosicionMontoMinimo').style.display = 'block';
@@ -2531,7 +2518,7 @@ function CalculoPosicionMinimoMaximoDestokp() {
 
                     } else {
 
-                     htmlTipinpoing = '<div id="punto_' + dataBarra.ListaEscalaDescuento.length + ' data-punto="0" style="float: left;top:-52px; z-index: 200;left:' + AvancePorcentaje + '" class="EscalaDescuento"><div class="monto_minimo_barra"><div style="width:90px;position: relative;" data-texto=""><div class=""><a class="tippingPoint" href="javascript:;" onclick="javascript: cargarPopupEleccionRegalo();" style="position: relative; left: -44px;" ></a><div class="monto_meta_tippingPoint" style="display:' + MostrarMonto + '; position: relative;left: -47px;">' + variablesPortal.SimboloMoneda + '' + dataBarra.TippingPointStr +'</div></div><div class="contenedor_circulos microEfecto_regaloPendienteEleccion" style="left: -8px;" ><div class="circulo-1 iniciarTransicion"></div><div class="circulo-2 iniciarTransicion"></div><div class="circulo-3 iniciarTransicion"></div></div></div></div></div>';
+                     htmlTipinpoing = '<div id="punto_' + dataBarra.ListaEscalaDescuento.length + ' data-punto="0" style="float: left;top:-52px; z-index: 200;left:' + AvancePorcentaje + '" class="EscalaDescuento"><div class="monto_minimo_barra"><div style="width:90px;position: relative;" data-texto=""><div class=""><a class="tippingPoint" href="javascript:;" onclick="javascript: cargarPopupEleccionRegalo();" style="position: relative; left: -44px;" ></a><div class="monto_meta_tippingPoint" style="display:' + MostrarMonto + '; position: relative;left: -47px;">' + variablesPortal.SimboloMoneda + ' ' + dataBarra.TippingPointStr +'</div></div><div class="contenedor_circulos microEfecto_regaloPendienteEleccion" style="left: -8px;" ><div class="circulo-1 iniciarTransicion"></div><div class="circulo-2 iniciarTransicion"></div><div class="circulo-3 iniciarTransicion"></div></div></div></div></div>';
 
                     }
 
@@ -2639,7 +2626,7 @@ function AgregarPremio(premio) {
         //CuvTonos: $.trim(cuvs),
         CUV: $.trim(premio.CUV2),
         Cantidad: 1,
-        //TipoEstrategiaID: premio.TipoEstrategiaID,
+        TipoEstrategiaID: premio.TipoEstrategiaID,
         //EstrategiaID: $.trim(premio.EstrategiaID),
         //OrigenPedidoWeb: $.trim(origenPedidoWebEstrategia),
         //TipoEstrategiaImagen: 0,

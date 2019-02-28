@@ -1,4 +1,4 @@
-﻿USE BelcorpBolivia
+USE BelcorpBolivia;
 GO
 ALTER PROC GetProductosProgramaNuevas 
 (
@@ -26,8 +26,7 @@ BEGIN
 	and Campana = cast(@CampaniaID as varchar(6))
 END
 GO
-
-USE BelcorpChile
+USE BelcorpChile;
 GO
 ALTER PROC GetProductosProgramaNuevas 
 (
@@ -55,8 +54,7 @@ BEGIN
 	and Campana = cast(@CampaniaID as varchar(6))
 END
 GO
-
-USE BelcorpColombia
+USE BelcorpColombia;
 GO
 ALTER PROC GetProductosProgramaNuevas 
 (
@@ -84,8 +82,7 @@ BEGIN
 	and Campana = cast(@CampaniaID as varchar(6))
 END
 GO
-
-USE BelcorpCostaRica
+USE BelcorpCostaRica;
 GO
 ALTER PROC GetProductosProgramaNuevas 
 (
@@ -113,8 +110,7 @@ BEGIN
 	and Campana = cast(@CampaniaID as varchar(6))
 END
 GO
-
-USE BelcorpDominicana
+USE BelcorpDominicana;
 GO
 ALTER PROC GetProductosProgramaNuevas 
 (
@@ -142,8 +138,7 @@ BEGIN
 	and Campana = cast(@CampaniaID as varchar(6))
 END
 GO
-
-USE BelcorpEcuador
+USE BelcorpEcuador;
 GO
 ALTER PROC GetProductosProgramaNuevas 
 (
@@ -171,8 +166,7 @@ BEGIN
 	and Campana = cast(@CampaniaID as varchar(6))
 END
 GO
-
-USE BelcorpGuatemala
+USE BelcorpGuatemala;
 GO
 ALTER PROC GetProductosProgramaNuevas 
 (
@@ -200,8 +194,7 @@ BEGIN
 	and Campana = cast(@CampaniaID as varchar(6))
 END
 GO
-
-USE BelcorpMexico
+USE BelcorpMexico;
 GO
 ALTER PROC GetProductosProgramaNuevas 
 (
@@ -229,8 +222,7 @@ BEGIN
 	and Campana = cast(@CampaniaID as varchar(6))
 END
 GO
-
-USE BelcorpPanama
+USE BelcorpPanama;
 GO
 ALTER PROC GetProductosProgramaNuevas 
 (
@@ -258,8 +250,7 @@ BEGIN
 	and Campana = cast(@CampaniaID as varchar(6))
 END
 GO
-
-USE BelcorpPeru
+USE BelcorpPeru;
 GO
 ALTER PROC GetProductosProgramaNuevas 
 (
@@ -287,8 +278,7 @@ BEGIN
 	and Campana = cast(@CampaniaID as varchar(6))
 END
 GO
-
-USE BelcorpPuertoRico
+USE BelcorpPuertoRico;
 GO
 ALTER PROC GetProductosProgramaNuevas 
 (
@@ -316,8 +306,7 @@ BEGIN
 	and Campana = cast(@CampaniaID as varchar(6))
 END
 GO
-
-USE BelcorpSalvador
+USE BelcorpSalvador;
 GO
 ALTER PROC GetProductosProgramaNuevas 
 (
