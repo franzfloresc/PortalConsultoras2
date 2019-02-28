@@ -140,11 +140,23 @@ function RDDesuscripcion_pregunta() {
 }
 
 function RDDesuscripcion_cerrar(e) {
-    if (e)      
+    if (e)
         if (revistaDigital.EsSuscrita)
-        rdAnalyticsModule.DesuscripcionPopup(e.innerHTML);
-        else
-        rdAnalyticsModule.CancelarSuscripcionEncuesta($('#frmMotivoDesuscripcion').find('input:checked').parent()[0].innerText);
+            rdAnalyticsModule.DesuscripcionPopup(e.innerHTML);
+        else {
+
+            var MensajeEncuesta = "";
+            for (var i = 0; i < $('#frmMotivoDesuscripcion').find('input:checked').parent().length; i++) {
+                if (i === 0) {
+                    MensajeEncuesta = $('#frmMotivoDesuscripcion').find('input:checked').parent()[i].innerText
+                }
+                else
+                    MensajeEncuesta = MensajeEncuesta + ',' + $('#frmMotivoDesuscripcion').find('input:checked').parent()[i].innerText
+            }
+
+            rdAnalyticsModule.CancelarSuscripcionEncuesta(MensajeEncuesta);
+        }
+
     else
         if (revistaDigital.EsSuscrita)
             rdAnalyticsModule.DesuscripcionPopupCerrar("Cerrar Popup");
