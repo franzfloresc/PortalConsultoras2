@@ -7,11 +7,22 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Transactions;
+using System.Threading.Tasks;
 
 namespace Portal.Consultoras.BizLogic
 {
     public class BLConfiguracionOfertasHome
     {
+        private readonly IConfiguracionPaisDatosBusinessLogic _configuracionPaisDatosBusinessLogic;
+
+        public BLConfiguracionOfertasHome() : this(new BLConfiguracionPaisDatos())
+        { }
+
+        public BLConfiguracionOfertasHome(IConfiguracionPaisDatosBusinessLogic configuracionPaisDatosBusinessLogic)
+        {
+            _configuracionPaisDatosBusinessLogic = configuracionPaisDatosBusinessLogic;
+        }
+
         public BEConfiguracionOfertasHome Get(int paisId, int configuracionOfertasHomeId)
         {
             var configuracionOfertasHome = new BEConfiguracionOfertasHome();
@@ -19,14 +30,38 @@ namespace Portal.Consultoras.BizLogic
             try
             {
                 var da = new DAConfiguracionOfertasHome(paisId);
-                using (var reader = da.Get(configuracionOfertasHomeId))
+
+                var task1 = Task.Run(() =>
                 {
-                    if (reader.Read()) configuracionOfertasHome = new BEConfiguracionOfertasHome(reader);
-                }
-                using (var reader = da.GetApp(configuracionOfertasHomeId))
+                    var entidad = new BEConfiguracionOfertasHome();
+                    using (var reader = da.Get(configuracionOfertasHomeId))
+                    {
+                        if (reader.Read()) entidad = new BEConfiguracionOfertasHome(reader);
+                    }
+                    return entidad;
+                });
+
+                var task2 = Task.Run(() =>
                 {
-                    configuracionOfertasHome.ConfiguracionOfertasHomeApp = reader.MapToObject<BEConfiguracionOfertasHomeApp>();
-                }
+                    using (var reader = da.GetApp(configuracionOfertasHomeId))
+                    {
+                        return reader.MapToObject<BEConfiguracionOfertasHomeApp>();
+                    }
+                });
+                
+                Task.WaitAll(task1, task2);
+
+                configuracionOfertasHome = task1.Result;
+                configuracionOfertasHome.ConfiguracionOfertasHomeApp = task2.Result;
+                configuracionOfertasHome.ConfiguracionPaisDatos = _configuracionPaisDatosBusinessLogic.GetList(new BEConfiguracionPaisDatos()
+                {
+                    PaisID = paisId,
+                    ConfiguracionPaisID = configuracionOfertasHome.ConfiguracionPaisID,
+                    ConfiguracionPais = new BEConfiguracionPais()
+                    {
+                        Detalle = new BEConfiguracionPaisDetalle()
+                    }
+                }); ;
             }
             catch (Exception ex)
             {

@@ -80,6 +80,12 @@ namespace Portal.Consultoras.Web.Controllers
             model.ListaTipoPresentacion = ListTipoPresentacion();
             model.ListaConfiguracionPais = ListarConfiguracionPais();
             model.ListaTipoEstrategia = ListTipoEstrategia();
+            ViewBag.AppOfertasHomeActivo = (model.ConfiguracionPaisDatos.Where(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeActivo).FirstOrDefault() ?? new ConfiguracionPaisDatosModel()).Valor1 ?? "0";
+            ViewBag.AppOfertasHomeImgExtension = (model.ConfiguracionPaisDatos.Where(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeImgExtension).FirstOrDefault() ?? new ConfiguracionPaisDatosModel()).Valor1 ?? string.Empty;
+            ViewBag.AppOfertasHomeImgAncho = (model.ConfiguracionPaisDatos.Where(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeImgAncho).FirstOrDefault() ?? new ConfiguracionPaisDatosModel()).Valor1 ?? string.Empty;
+            ViewBag.AppOfertasHomeImgAlto = (model.ConfiguracionPaisDatos.Where(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeImgAlto).FirstOrDefault() ?? new ConfiguracionPaisDatosModel()).Valor1 ?? string.Empty;
+            ViewBag.AppOfertasHomeMsjMedida = (model.ConfiguracionPaisDatos.Where(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeMsjMedida).FirstOrDefault() ?? new ConfiguracionPaisDatosModel()).Valor1 ?? string.Empty;
+            ViewBag.AppOfertasHomeMsjFormato = (model.ConfiguracionPaisDatos.Where(x => x.Codigo == Constantes.ConfiguracionPaisDatos.AppOfertasHomeMsjFormato).FirstOrDefault() ?? new ConfiguracionPaisDatosModel()).Valor1 ?? string.Empty;
             return PartialView("Partials/MantenimientoOfertasHome", model);
         }
 
