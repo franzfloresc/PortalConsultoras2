@@ -47,12 +47,11 @@ begin
 				,@TablaLogicaId
 				,@Codigo
 				,@Descripcion
-				,'1'
+				,'0'
 			)
 		end
 
 end
-
 
 
 GO
@@ -104,12 +103,11 @@ begin
 				,@TablaLogicaId
 				,@Codigo
 				,@Descripcion
-				,'1'
+				,'0'
 			)
 		end
 
 end
-
 
 
 GO
@@ -161,12 +159,11 @@ begin
 				,@TablaLogicaId
 				,@Codigo
 				,@Descripcion
-				,'1'
+				,'0'
 			)
 		end
 
 end
-
 
 
 GO
@@ -218,12 +215,11 @@ begin
 				,@TablaLogicaId
 				,@Codigo
 				,@Descripcion
-				,'1'
+				,'0'
 			)
 		end
 
 end
-
 
 
 GO
@@ -275,12 +271,11 @@ begin
 				,@TablaLogicaId
 				,@Codigo
 				,@Descripcion
-				,'1'
+				,'0'
 			)
 		end
 
 end
-
 
 
 GO
@@ -332,12 +327,11 @@ begin
 				,@TablaLogicaId
 				,@Codigo
 				,@Descripcion
-				,'1'
+				,'0'
 			)
 		end
 
 end
-
 
 
 GO
@@ -389,12 +383,11 @@ begin
 				,@TablaLogicaId
 				,@Codigo
 				,@Descripcion
-				,'1'
+				,'0'
 			)
 		end
 
 end
-
 
 
 GO
@@ -446,12 +439,11 @@ begin
 				,@TablaLogicaId
 				,@Codigo
 				,@Descripcion
-				,'1'
+				,'0'
 			)
 		end
 
 end
-
 
 
 GO
@@ -503,12 +495,11 @@ begin
 				,@TablaLogicaId
 				,@Codigo
 				,@Descripcion
-				,'1'
+				,'0'
 			)
 		end
 
 end
-
 
 
 GO
@@ -560,12 +551,11 @@ begin
 				,@TablaLogicaId
 				,@Codigo
 				,@Descripcion
-				,'1'
+				,'0'
 			)
 		end
 
 end
-
 
 
 GO
@@ -617,12 +607,11 @@ begin
 				,@TablaLogicaId
 				,@Codigo
 				,@Descripcion
-				,'1'
+				,'0'
 			)
 		end
 
 end
-
 
 
 GO
@@ -674,12 +663,11 @@ begin
 				,@TablaLogicaId
 				,@Codigo
 				,@Descripcion
-				,'1'
+				,'0'
 			)
 		end
 
 end
-
 
 
 GO

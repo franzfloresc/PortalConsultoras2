@@ -2535,7 +2535,7 @@ a.subir_carousel, a.bajar_carousel {
 }
 
 .contenedor_popup_error {
-    z-index: 2000;
+    z-index: 99999999;
 }
 
 .fondo_tutorial {

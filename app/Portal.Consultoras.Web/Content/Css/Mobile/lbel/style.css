@@ -1693,7 +1693,7 @@ h4.re3 {
     bottom: 0;
     left: 0;
     background: rgba(210, 208, 208, .6);
-    z-index: 99999;
+    z-index: 99999999;
     display: none;
 }
 
