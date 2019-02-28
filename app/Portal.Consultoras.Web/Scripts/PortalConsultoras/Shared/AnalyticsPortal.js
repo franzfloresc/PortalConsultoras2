@@ -375,29 +375,29 @@ var AnalyticsPortalModule = (function () {
     }
 
 
-    var marcarVerFichaProducto = function (tipoMoneda, producto, cuv, precio, marca, categoria, variante, palanca) {
-        try {
-            dataLayer.push({
-                "event": _evento.productDetails,
-                "ecommerce": {
-                    "currencyCode": tipoMoneda,
-                    "detail": {
-                        "products": [{
-                            "name": producto,
-                            "id": cuv,
-                            "price": precio,
-                            "brand": marca,
-                            "category": categoria || "",
-                            "variant": variante == "" ? _texto.estandar : variante,
-                            "dimension11": palanca
-                        }]
-                    }
-                }
-            });
-        } catch (e) {
-            console.log(_texto.excepcion + e);
-        }
-    }
+    //var marcarVerFichaProducto = function (tipoMoneda, producto, cuv, precio, marca, categoria, variante, palanca) {
+    //    try {
+    //        dataLayer.push({
+    //            "event": _evento.productDetails,
+    //            "ecommerce": {
+    //                "currencyCode": tipoMoneda,
+    //                "detail": {
+    //                    "products": [{
+    //                        "name": producto,
+    //                        "id": cuv,
+    //                        "price": precio,
+    //                        "brand": marca,
+    //                        "category": categoria || "",
+    //                        "variant": variante == "" ? _texto.estandar : variante,
+    //                        "dimension11": palanca
+    //                    }]
+    //                }
+    //            }
+    //        });
+    //    } catch (e) {
+    //        console.log(_texto.excepcion + e);
+    //    }
+    //}
 
     var marcarIniciarPlayVideo = function (producto) {
         try {
@@ -412,104 +412,104 @@ var AnalyticsPortalModule = (function () {
         }
     }
 
-    var marcarCambiaColorCombo = function (producto, tono) {
-        try {
-            dataLayer.push({
-                "event": _evento.virtualEvent,
-                "category": _texto.fichaProducto,
-                "action": _texto.seleccionTonoCombo,
-                "label": producto + " - " + tono
-            });
-        } catch (e) {
-            console.log(_texto.exception + e);
-        }
-    }
+    //var marcarCambiaColorCombo = function (producto, tono) {
+    //    try {
+    //        dataLayer.push({
+    //            "event": _evento.virtualEvent,
+    //            "category": _texto.fichaProducto,
+    //            "action": _texto.seleccionTonoCombo,
+    //            "label": producto + " - " + tono
+    //        });
+    //    } catch (e) {
+    //        console.log(_texto.exception + e);
+    //    }
+    //}
 
-    var marcarCambiaColorCuadro = function (producto, tono) {
-        try {
-            dataLayer.push({
-                "event": _evento.virtualEvent,
-                "category": _texto.fichaProducto,
-                "action": _texto.seleccionTonoCuadro,
-                "label": producto + " - " + tono
-            });
-        } catch (e) {
-            console.log(_texto.excepcion + e);
-        }
-    }
+    //var marcarCambiaColorCuadro = function (producto, tono) {
+    //    try {
+    //        dataLayer.push({
+    //            "event": _evento.virtualEvent,
+    //            "category": _texto.fichaProducto,
+    //            "action": _texto.seleccionTonoCuadro,
+    //            "label": producto + " - " + tono
+    //        });
+    //    } catch (e) {
+    //        console.log(_texto.excepcion + e);
+    //    }
+    //}
 
-    var marcarAgregaProductoCarro = function (tipoMoneda, producto, precio, marca, cuv, categoria, variante, cantidad, palanca) {
-        try {
-            dataLayer.push({
-                "event": _evento.addToCart,
-                "ecommerce": {
-                    "currencyCode": tipoMoneda,
-                    "add": {
-                        "products": [
-                            {
-                                "name": producto,
-                                "price": precio,
-                                "brand": marca,
-                                "id": cuv,
-                                "category": categoria || "",
-                                "variant": variante,
-                                "quantity": cantidad,
-                                "dimension11": palanca,
-                                "dimension12": _texto.fichaProducto
-                            }
-                        ]
-                    }
-                }
-            });
-        } catch (e) {
-            console.log(_texto.exception + e);
-        }
-    }
+    //var marcarAgregaProductoCarro = function (tipoMoneda, producto, precio, marca, cuv, categoria, variante, cantidad, palanca) {
+    //    try {
+    //        dataLayer.push({
+    //            "event": _evento.addToCart,
+    //            "ecommerce": {
+    //                "currencyCode": tipoMoneda,
+    //                "add": {
+    //                    "products": [
+    //                        {
+    //                            "name": producto,
+    //                            "price": precio,
+    //                            "brand": marca,
+    //                            "id": cuv,
+    //                            "category": categoria || "",
+    //                            "variant": variante,
+    //                            "quantity": cantidad,
+    //                            "dimension11": palanca,
+    //                            "dimension12": _texto.fichaProducto
+    //                        }
+    //                    ]
+    //                }
+    //            }
+    //        });
+    //    } catch (e) {
+    //        console.log(_texto.exception + e);
+    //    }
+    //}
 
-    var marcarComparteRedesSociales = function (producto, tono) {
-        try {
-            dataLayer.push({
-                'event': _evento.socialEvent,
-                'socialNetwork': '{red_social}',
-                'socialAction': 'Share',
-                'socialTarget': '{url_producto}'
-            });
-        } catch (e) {
-            console.log(_texto.exception + e);
-        }
-    }
+    //var marcarComparteRedesSociales = function (producto, tono) {
+    //    try {
+    //        dataLayer.push({
+    //            'event': _evento.socialEvent,
+    //            'socialNetwork': '{red_social}',
+    //            'socialAction': 'Share',
+    //            'socialTarget': '{url_producto}'
+    //        });
+    //    } catch (e) {
+    //        console.log(_texto.exception + e);
+    //    }
+    //}
 
-    var marcarClicSetProductos = function (infoItem, event, origenPedidoWebEstrategia, estoyEnLaFicha) {
+    //var marcarClicSetProductos = function (infoItem, event, origenPedidoWebEstrategia, estoyEnLaFicha) {
 
-        var currencyCode = AnalyticsPortalModule.GetCurrencyCodes(_constantes.codigoPais);
-        var contenedor = AnalyticsPortalModule.GetContenedorByOrigenPedido(event, origenPedidoWebEstrategia, estoyEnLaFicha);
+    //    var currencyCode = AnalyticsPortalModule.GetCurrencyCodes(_constantes.codigoPais);
+    //    var contenedor = AnalyticsPortalModule.GetContenedorByOrigenPedido(event, origenPedidoWebEstrategia, estoyEnLaFicha);
 
-        try {
-            dataLayer.push({
-                'event': _evento.productClick,
-                'ecommerce': {
-                    'currencyCode': currencyCode,
-                    'click': {
-                        'actionField': {
-                            'list': contenedor + " - Campaña " + $('#hdCampaniaCodigo').val()
-                        },
-                        'products': [{
-                            'name': infoItem.DescripcionCompleta,
-                            'id': infoItem.CUV2,
-                            'price': infoItem.Precio2,
-                            'brand': infoItem.DescripcionMarca,
-                            'category': infoItem.CodigoCategoria,
-                            'variant': (infoItem.CodigoVariante !== "" || (typeof infoItem.CodigoVariante === "undefined")) ? infoItem.CodigoVariante : 'Estándar',
-                            'position': infoItem.Posicion
-                        }]
-                    }
-                }
-            });
-        } catch (e) {
-            console.log(_texto.exception + e);
-        }
+    //    try {
+    //        dataLayer.push({
+    //            'event': _evento.productClick,
+    //            'ecommerce': {
+    //                'currencyCode': currencyCode,
+    //                'click': {
+    //                    'actionField': {
+    //                        'list': contenedor + " - Campaña " + $('#hdCampaniaCodigo').val()
+    //                    },
+    //                    'products': [{
+    //                        'name': infoItem.DescripcionCompleta,
+    //                        'id': infoItem.CUV2,
+    //                        'price': infoItem.Precio2,
+    //                        'brand': infoItem.DescripcionMarca,
+    //                        'category': infoItem.CodigoCategoria,
+    //                        'variant': (infoItem.CodigoVariante !== "" || (typeof infoItem.CodigoVariante === "undefined")) ? infoItem.CodigoVariante : 'Estándar',
+    //                        'position': infoItem.Posicion
+    //                    }]
+    //                }
+    //            }
+    //        });
+    //    } catch (e) {
+    //        console.log(_texto.exception + e);
+    //    }
 
-    }
+    //}
 
     //Impresiones por productos en el carrusel
     var _marcarImpresionSetProductos = function (arrayItems) {
@@ -584,18 +584,18 @@ var AnalyticsPortalModule = (function () {
 
     }
 
-    var marcarFichaBreadcrumb = function (opcion) {
-        try {
-            dataLayer.push({
-                "event": _evento.virtualEvent,
-                "category": _texto.fichaProducto,
-                "action": _texto.migajaPan,
-                "label": opcion || ""
-            });
-        } catch (e) {
-            console.log(_texto.exception + e);
-        }
-    }
+    //var marcarFichaBreadcrumb = function (opcion) {
+    //    try {
+    //        dataLayer.push({
+    //            "event": _evento.virtualEvent,
+    //            "category": _texto.fichaProducto,
+    //            "action": _texto.migajaPan,
+    //            "label": opcion || ""
+    //        });
+    //    } catch (e) {
+    //        console.log(_texto.exception + e);
+    //    }
+    //}
 
     ////////////////////////////////////////////////////////////////////////////////////////
     // Fin - Metodos Iniciales
@@ -1164,24 +1164,24 @@ var AnalyticsPortalModule = (function () {
 
     }
 
-    var marcaVerOfertasHome = function (url) {
-        try {
-            if (_constantes.isTest)
-                alert("Marcación clic ver ofertas.");
-            dataLayer.push({
-                'event': _evento.virtualEvent,
-                'category': 'Home - Banner Header',
-                'action': 'Ofertas ¡SOLO HOY! - Click Botón',
-                'label': 'Ver más Ofertas',
-                'eventCallback': function () {
-                    document.location = url;
-                }
-            });
-        } catch (e) {
-            document.location = url;
-            console.log(_texto.excepcion + e);
-        }
-    };
+    //var marcaVerOfertasHome = function (url) {
+    //    try {
+    //        if (_constantes.isTest)
+    //            alert("Marcación clic ver ofertas.");
+    //        dataLayer.push({
+    //            'event': _evento.virtualEvent,
+    //            'category': 'Home - Banner Header',
+    //            'action': 'Ofertas ¡SOLO HOY! - Click Botón',
+    //            'label': 'Ver más Ofertas',
+    //            'eventCallback': function () {
+    //                document.location = url;
+    //            }
+    //        });
+    //    } catch (e) {
+    //        document.location = url;
+    //        console.log(_texto.excepcion + e);
+    //    }
+    //};
 
     var marcaSucribete = function (url) {
 
@@ -2235,30 +2235,30 @@ var AnalyticsPortalModule = (function () {
     * Nombre Archivo Desktop: 
     * Linea de Código Desktop: 
     */
-    var marcaVerOfertas = function (origenPedidoWebEstrategia) {
-        try {
-            origenPedidoWebEstrategia = origenPedidoWebEstrategia || "";
-            var codigo = origenPedidoWebEstrategia.toString();
-            var seccion = _constantes.origenpedidoWebEstrategia.find(function (element) {
-                return element.Codigo === codigo;
-            });
+    //var marcaVerOfertas = function (origenPedidoWebEstrategia) {
+    //    try {
+    //        origenPedidoWebEstrategia = origenPedidoWebEstrategia || "";
+    //        var codigo = origenPedidoWebEstrategia.toString();
+    //        var seccion = _constantes.origenpedidoWebEstrategia.find(function (element) {
+    //            return element.Codigo === codigo;
+    //        });
 
-            if (seccion == null) return;
-            if (origenPedidoWebEstrategia.toString() !== seccion.Codigo.toString()) return;
+    //        if (seccion == null) return;
+    //        if (origenPedidoWebEstrategia.toString() !== seccion.Codigo.toString()) return;
 
-            if (_constantes.isTest)
-                alert("Marcación clic ver ofertas.");
+    //        if (_constantes.isTest)
+    //            alert("Marcación clic ver ofertas.");
 
-            dataLayer.push({
-                'event': _evento.virtualEvent,
-                'category': 'Carrito de compras – Gana+',
-                'action': 'Click Botón',
-                'label': 'Ver Ofertas'
-            });
-        } catch (e) {
-            console.log("marcaVerOtrasOfertasHome", _texto.excepcion, e);
-        }
-    };
+    //        dataLayer.push({
+    //            'event': _evento.virtualEvent,
+    //            'category': 'Carrito de compras – Gana+',
+    //            'action': 'Click Botón',
+    //            'label': 'Ver Ofertas'
+    //        });
+    //    } catch (e) {
+    //        console.log("marcaVerOtrasOfertasHome", _texto.excepcion, e);
+    //    }
+    //};
     /*
     * 2.1.7. Ofertas club gana más
     * 2.1.7.5. Ver ofertas
@@ -2752,14 +2752,14 @@ var AnalyticsPortalModule = (function () {
 
     return {
         // Ini - Metodos Iniciales
-        MarcarVerFichaProducto: marcarVerFichaProducto,
+        //MarcarVerFichaProducto: marcarVerFichaProducto,
         MarcarIniciarPlayVideo: marcarIniciarPlayVideo,
-        MarcarCambiaColorCombo: marcarCambiaColorCombo,
-        MarcarCambiaColorCuadro: marcarCambiaColorCuadro,
-        MarcarAgregaProductoCarro: marcarAgregaProductoCarro,
-        MarcarComparteRedesSociales: marcarComparteRedesSociales,
-        MarcarClicSetProductos: marcarClicSetProductos,
-        MarcarFichaBreadcrumb: marcarFichaBreadcrumb,
+        //MarcarCambiaColorCombo: marcarCambiaColorCombo,
+        //MarcarCambiaColorCuadro: marcarCambiaColorCuadro,
+        //MarcarAgregaProductoCarro: marcarAgregaProductoCarro,
+        //MarcarComparteRedesSociales: marcarComparteRedesSociales,
+        //MarcarClicSetProductos: marcarClicSetProductos,
+        //MarcarFichaBreadcrumb: marcarFichaBreadcrumb,
         // Fin - Metodos Iniciales
 
         // Ini - Rama TiposAnalytics
@@ -2799,7 +2799,7 @@ var AnalyticsPortalModule = (function () {
         MarcaRedesSocialesBuscador: marcaRedesSocialesBuscador,
         // Ini - Analytics Home 1 
         MarcaGanaOfertas: marcaGanaOfertas,
-        MarcaVerOfertasHome: marcaVerOfertasHome,
+        //MarcaVerOfertasHome: marcaVerOfertasHome,
         MarcaSucribete: marcaSucribete,
         MarcaGenericaLista: marcaGenericaLista,
         MarcaAnadirCarritoHome: marcaAnadirCarritoHome,
@@ -2840,7 +2840,7 @@ var AnalyticsPortalModule = (function () {
         MarcarGuardaTuPedido: marcarGuardaTuPedido,
         MarcarPedidoGuardoExito: marcarPedidoGuardoExito,
         MarcaGuardarPedidoExito: marcaGuardarPedidoExito,
-        MarcaVerOfertas: marcaVerOfertas,
+        //MarcaVerOfertas: marcaVerOfertas,
         MarcaBannersInferioresDescontinuados: marcaBannersInferioresDescontinuados,
         // Fin - Analytics Ofertas
 
