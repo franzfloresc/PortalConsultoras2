@@ -72,6 +72,7 @@ namespace Portal.Consultoras.Web.Controllers
                     int index = estrategiaGrupoLista.Result.ToList().FindIndex(x => x.Grupo.Equals(item.Grupo));
                     if (index != -1)
                     {
+                        item._id = estrategiaGrupoLista.Result.ToList()[index]._id;
                         item.DescripcionSingular = estrategiaGrupoLista.Result.ToList()[index].DescripcionSingular;
                         item.DescripcionPlural = estrategiaGrupoLista.Result.ToList()[index].DescripcionPlural;
                     }

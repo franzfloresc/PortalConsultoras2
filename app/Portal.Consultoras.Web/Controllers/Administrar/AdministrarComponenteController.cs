@@ -29,7 +29,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                 
+
 
                 List<ServicePedido.BEEstrategiaProducto> lst;
                 var palancaMongoPrueba = Constantes.TipoEstrategiaCodigo.ArmaTuPack == codigoTipoEstrategia;
@@ -50,22 +50,24 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
 
-                ////INI ATP
-                ////Estrategia gruepo
+                //INI ATP
+                //Estrategia gruepo
                 //var taskApi = Task.Run(() => estrategiaGrupoProvider.ObtenerEstrategiaGrupoApi(string.Format(Constantes.PersonalizacionOfertasService.UrlGetEstrategiaGrupoByEstrategiaId, userData.CodigoISO, estrategiaId), userData));
                 //Task.WhenAll(taskApi);
-                //var estrategiaGrupoLista = taskApi.Result.Result;
+                var taskApi = estrategiaGrupoProvider.ObtenerEstrategiaGrupoApi_op2(string.Format(Constantes.PersonalizacionOfertasService.UrlGetEstrategiaGrupoByEstrategiaId, userData.CodigoISO, estrategiaId), userData);
 
-                //foreach (var item in lst)
-                //{
-                //    int index = estrategiaGrupoLista.ToList().FindIndex(x => x.Grupo.Trim().Equals(item.Grupo.Trim()));
-                //    if (index != -1)
-                //    {
-                //        var find = estrategiaGrupoLista.ToList()[index];
-                //        item.DescripcionGrupo = find.DescripcionSingular + " - " + find.DescripcionPlural;
-                //    }
-                //}
-                ////END ATP
+                var estrategiaGrupoLista = taskApi.Result;
+
+                foreach (var item in lst)
+                {
+                    int index = estrategiaGrupoLista.ToList().FindIndex(x => x.Grupo.Trim().Equals(item.Grupo.Trim()));
+                    if (index != -1)
+                    {
+                        var find = estrategiaGrupoLista.ToList()[index];
+                        item.DescripcionGrupo = find.DescripcionSingular + " - " + find.DescripcionPlural;
+                    }
+                }
+                //END ATP
 
                 var grid = new BEGrid
                 {
@@ -130,6 +132,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     a.Descripcion1,
                                     a.ImagenProducto,
                                     a.IdMarca.ToString(),
+                                    a.DescripcionGrupo,
                                     a.Precio.ToString(),
                                     a.PrecioValorizado.ToString(),
                                     a.Activo.ToString()
