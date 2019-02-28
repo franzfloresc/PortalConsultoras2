@@ -613,11 +613,9 @@ function MostrarBarra(datax, destino) {
     /*hd-2848*/
         if (belcorp.barra.settings.isMobile) {
               wLogro = CalculoLlenadoBarra(); //volver comentar hd-2849
-              CalculoPosicionMinimoMaximo();  //volver comentar hd-2849
-        
+              CalculoPosicionMinimoMaximo();  //volver comentar hd-2849        
         }
-        else
-        {
+        else {
             wLogro = CalculoLlenadoBarraDestokp();
             wLimite = CalculoLlenadoBarraEspacioLimiteDestokp();
         }
@@ -625,58 +623,46 @@ function MostrarBarra(datax, destino) {
 
     $("#divBarra #divBarraEspacioLimite").css("width", wLimite);
     $("#divBarra #divBarraEspacioLogrado").css("width", wLogro);
-
-
-  
-
+    
     if (mn == 0 && vLogro == 0 && !belcorp.barra.settings.isMobile) {
         $("#divBarra #divBarraMensajeLogrado").hide();
-        if (!belcorp.barra.settings.isMobile) {
-            if (TieneMontoMaximo()) { /// se trata como tipinpoing
 
-                if (dataBarra.TippingPointBarra.Active != null && dataBarra.TippingPointBarra.Active != false) {
+        if (TieneMontoMaximo()) { /// se trata como tipinpoing
+            if (dataBarra.TippingPointBarra.Active != null && dataBarra.TippingPointBarra.Active != false) {
+                document.getElementById('punto_0').style = '';
+                document.getElementById('punto_0').className = 'EscalaDescuento';
+                document.getElementById('punto_1').className = 'EscalaDescuento';
+                document.getElementById('punto_2').className = 'EscalaDescuento';
+            }
+            else {
+                if (ConfiguradoRegalo == true) {
                     document.getElementById('punto_0').style = '';
                     document.getElementById('punto_0').className = 'EscalaDescuento';
                     document.getElementById('punto_1').className = 'EscalaDescuento';
                     document.getElementById('punto_2').className = 'EscalaDescuento';
                 }
                 else {
-
-
-                    if (ConfiguradoRegalo == true) {
-                        document.getElementById('punto_0').style = '';
-                        document.getElementById('punto_0').className = 'EscalaDescuento';
-                        document.getElementById('punto_1').className = 'EscalaDescuento';
-                        document.getElementById('punto_2').className = 'EscalaDescuento';
-                    }
-                    else {
-                        document.getElementById('punto_0').style = '';
-                        document.getElementById('punto_0').className = 'EscalaDescuento';
-                        document.getElementById('punto_1').className = 'EscalaDescuento';
-                    }
+                    document.getElementById('punto_0').style = '';
+                    document.getElementById('punto_0').className = 'EscalaDescuento';
+                    document.getElementById('punto_1').className = 'EscalaDescuento';
+                }
+            }
+        }
+        else { 
+            for (var x = 0; x < dataBarra.ListaEscalaDescuento.length; x++) {
+                if (x == 0) {
+                    if (document.getElementById('punto_0')) document.getElementById('punto_0').style = '';
+                    if (document.getElementById('punto_0')) document.getElementById('punto_0').className = 'EscalaDescuento';
+                }
+                else {
+                    if (document.getElementById('punto_' + x.toString())) document.getElementById('punto_' + x.toString()).className = 'EscalaDescuento';
 
                 }
-
             }
-            else {
- 
-                for (var x = 0; x < dataBarra.ListaEscalaDescuento.length; x++) {
-                    if (x == 0) {
-                        if (document.getElementById('punto_0')) document.getElementById('punto_0').style = '';
-                        if (document.getElementById('punto_0')) document.getElementById('punto_0').className = 'EscalaDescuento';
-                    } else {
-                        if (document.getElementById('punto_' + x.toString())) document.getElementById('punto_' + x.toString()).className = 'EscalaDescuento';
-
-                    }
-                }
-
-            }
-
-            CalculoPosicionMinimoMaximoDestokp();
-            CalculoPosicionMensajeDestokp();
         }
 
-
+        CalculoPosicionMinimoMaximoDestokp();
+        CalculoPosicionMensajeDestokp();
         return false;
     }
 
@@ -685,7 +671,8 @@ function MostrarBarra(datax, destino) {
     var muestraTP = destino == '2' && dataBarra.TippingPointBarra.Active && tp > 0;
     var limiteEsPremio = vLogro < tp; //  && tp <= vLimite;
 
-    if (muestraTP && vLogro == 0) tipoMensaje = "Inicio";
+    if (mn == 0 && vLogro == 0) tipoMensaje = "";
+    else if (muestraTP && vLogro == 0) tipoMensaje = "Inicio";
     else if (muestraTP && limiteEsPremio) {
         valorFalta = tp - vLogro;
         tipoMensaje = "TippingPoint";
