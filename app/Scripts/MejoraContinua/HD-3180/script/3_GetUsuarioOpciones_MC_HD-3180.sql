@@ -5,7 +5,6 @@ IF EXISTS (SELECT name FROM sysobjects WHERE name = 'GetUsuarioOpciones' AND typ
 	DROP PROCEDURE [dbo].[GetUsuarioOpciones]
 GO
 CREATE PROCEDURE GetUsuarioOpciones
--- exec GetUsuarioOpciones '135645133'  --'135645133' 
 @CodigoUsuario varchar(20)
 as
 begin
@@ -21,6 +20,7 @@ begin
 	from OpcionesUsuario ou
 	left join UsuarioOpciones uo on ou.OpcionesUsuarioId = uo.OpcionesUsuarioId and uo.CodigoUsuario = @CodigoUsuario
 	where ou.Activo = 1	
+	Order By Orden Asc
 end
 GO
 
@@ -31,7 +31,6 @@ IF EXISTS (SELECT name FROM sysobjects WHERE name = 'GetUsuarioOpciones' AND typ
 	DROP PROCEDURE [dbo].[GetUsuarioOpciones]
 GO
 CREATE PROCEDURE GetUsuarioOpciones
--- exec GetUsuarioOpciones '135645133'  --'135645133' 
 @CodigoUsuario varchar(20)
 as
 begin
@@ -47,6 +46,7 @@ begin
 	from OpcionesUsuario ou
 	left join UsuarioOpciones uo on ou.OpcionesUsuarioId = uo.OpcionesUsuarioId and uo.CodigoUsuario = @CodigoUsuario
 	where ou.Activo = 1	
+	Order By Orden Asc
 end
 GO
 
@@ -57,7 +57,6 @@ IF EXISTS (SELECT name FROM sysobjects WHERE name = 'GetUsuarioOpciones' AND typ
 	DROP PROCEDURE [dbo].[GetUsuarioOpciones]
 GO
 CREATE PROCEDURE GetUsuarioOpciones
--- exec GetUsuarioOpciones '135645133'  --'135645133' 
 @CodigoUsuario varchar(20)
 as
 begin
@@ -73,6 +72,7 @@ begin
 	from OpcionesUsuario ou
 	left join UsuarioOpciones uo on ou.OpcionesUsuarioId = uo.OpcionesUsuarioId and uo.CodigoUsuario = @CodigoUsuario
 	where ou.Activo = 1	
+	Order By Orden Asc
 end
 GO
 
@@ -83,7 +83,6 @@ IF EXISTS (SELECT name FROM sysobjects WHERE name = 'GetUsuarioOpciones' AND typ
 	DROP PROCEDURE [dbo].[GetUsuarioOpciones]
 GO
 CREATE PROCEDURE GetUsuarioOpciones
--- exec GetUsuarioOpciones '135645133'  --'135645133' 
 @CodigoUsuario varchar(20)
 as
 begin
@@ -99,6 +98,7 @@ begin
 	from OpcionesUsuario ou
 	left join UsuarioOpciones uo on ou.OpcionesUsuarioId = uo.OpcionesUsuarioId and uo.CodigoUsuario = @CodigoUsuario
 	where ou.Activo = 1	
+	Order By Orden Asc
 end
 GO
 
@@ -109,7 +109,6 @@ IF EXISTS (SELECT name FROM sysobjects WHERE name = 'GetUsuarioOpciones' AND typ
 	DROP PROCEDURE [dbo].[GetUsuarioOpciones]
 GO
 CREATE PROCEDURE GetUsuarioOpciones
--- exec GetUsuarioOpciones '135645133'  --'135645133' 
 @CodigoUsuario varchar(20)
 as
 begin
@@ -125,6 +124,7 @@ begin
 	from OpcionesUsuario ou
 	left join UsuarioOpciones uo on ou.OpcionesUsuarioId = uo.OpcionesUsuarioId and uo.CodigoUsuario = @CodigoUsuario
 	where ou.Activo = 1	
+	Order By Orden Asc
 end
 GO
 
@@ -135,7 +135,6 @@ IF EXISTS (SELECT name FROM sysobjects WHERE name = 'GetUsuarioOpciones' AND typ
 	DROP PROCEDURE [dbo].[GetUsuarioOpciones]
 GO
 CREATE PROCEDURE GetUsuarioOpciones
--- exec GetUsuarioOpciones '135645133'  --'135645133' 
 @CodigoUsuario varchar(20)
 as
 begin
@@ -151,6 +150,7 @@ begin
 	from OpcionesUsuario ou
 	left join UsuarioOpciones uo on ou.OpcionesUsuarioId = uo.OpcionesUsuarioId and uo.CodigoUsuario = @CodigoUsuario
 	where ou.Activo = 1	
+	Order By Orden Asc
 end
 GO
 
@@ -161,7 +161,6 @@ IF EXISTS (SELECT name FROM sysobjects WHERE name = 'GetUsuarioOpciones' AND typ
 	DROP PROCEDURE [dbo].[GetUsuarioOpciones]
 GO
 CREATE PROCEDURE GetUsuarioOpciones
--- exec GetUsuarioOpciones '135645133'  --'135645133' 
 @CodigoUsuario varchar(20)
 as
 begin
@@ -177,6 +176,7 @@ begin
 	from OpcionesUsuario ou
 	left join UsuarioOpciones uo on ou.OpcionesUsuarioId = uo.OpcionesUsuarioId and uo.CodigoUsuario = @CodigoUsuario
 	where ou.Activo = 1	
+	Order By Orden Asc
 end
 GO
 
@@ -187,7 +187,6 @@ IF EXISTS (SELECT name FROM sysobjects WHERE name = 'GetUsuarioOpciones' AND typ
 	DROP PROCEDURE [dbo].[GetUsuarioOpciones]
 GO
 CREATE PROCEDURE GetUsuarioOpciones
--- exec GetUsuarioOpciones '135645133'  --'135645133' 
 @CodigoUsuario varchar(20)
 as
 begin
@@ -203,6 +202,7 @@ begin
 	from OpcionesUsuario ou
 	left join UsuarioOpciones uo on ou.OpcionesUsuarioId = uo.OpcionesUsuarioId and uo.CodigoUsuario = @CodigoUsuario
 	where ou.Activo = 1	
+	Order By Orden Asc
 end
 GO
 
@@ -213,7 +213,6 @@ IF EXISTS (SELECT name FROM sysobjects WHERE name = 'GetUsuarioOpciones' AND typ
 	DROP PROCEDURE [dbo].[GetUsuarioOpciones]
 GO
 CREATE PROCEDURE GetUsuarioOpciones
--- exec GetUsuarioOpciones '135645133'  --'135645133' 
 @CodigoUsuario varchar(20)
 as
 begin
@@ -229,6 +228,7 @@ begin
 	from OpcionesUsuario ou
 	left join UsuarioOpciones uo on ou.OpcionesUsuarioId = uo.OpcionesUsuarioId and uo.CodigoUsuario = @CodigoUsuario
 	where ou.Activo = 1	
+	Order By Orden Asc
 end
 GO
 
@@ -239,7 +239,6 @@ IF EXISTS (SELECT name FROM sysobjects WHERE name = 'GetUsuarioOpciones' AND typ
 	DROP PROCEDURE [dbo].[GetUsuarioOpciones]
 GO
 CREATE PROCEDURE GetUsuarioOpciones
--- exec GetUsuarioOpciones '135645133'  --'135645133' 
 @CodigoUsuario varchar(20)
 as
 begin
@@ -255,6 +254,7 @@ begin
 	from OpcionesUsuario ou
 	left join UsuarioOpciones uo on ou.OpcionesUsuarioId = uo.OpcionesUsuarioId and uo.CodigoUsuario = @CodigoUsuario
 	where ou.Activo = 1	
+	Order By Orden Asc
 end
 GO
 
@@ -265,7 +265,6 @@ IF EXISTS (SELECT name FROM sysobjects WHERE name = 'GetUsuarioOpciones' AND typ
 	DROP PROCEDURE [dbo].[GetUsuarioOpciones]
 GO
 CREATE PROCEDURE GetUsuarioOpciones
--- exec GetUsuarioOpciones '135645133'  --'135645133' 
 @CodigoUsuario varchar(20)
 as
 begin
@@ -281,6 +280,7 @@ begin
 	from OpcionesUsuario ou
 	left join UsuarioOpciones uo on ou.OpcionesUsuarioId = uo.OpcionesUsuarioId and uo.CodigoUsuario = @CodigoUsuario
 	where ou.Activo = 1	
+	Order By Orden Asc
 end
 GO
 
@@ -291,7 +291,6 @@ IF EXISTS (SELECT name FROM sysobjects WHERE name = 'GetUsuarioOpciones' AND typ
 	DROP PROCEDURE [dbo].[GetUsuarioOpciones]
 GO
 CREATE PROCEDURE GetUsuarioOpciones
--- exec GetUsuarioOpciones '135645133'  --'135645133' 
 @CodigoUsuario varchar(20)
 as
 begin
@@ -307,6 +306,7 @@ begin
 	from OpcionesUsuario ou
 	left join UsuarioOpciones uo on ou.OpcionesUsuarioId = uo.OpcionesUsuarioId and uo.CodigoUsuario = @CodigoUsuario
 	where ou.Activo = 1	
+	Order By Orden Asc
 end
 GO
 
