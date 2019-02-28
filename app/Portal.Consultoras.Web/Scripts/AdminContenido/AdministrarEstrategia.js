@@ -370,25 +370,30 @@
             $("#_id").val(_editData.mongoIdVal);
 
             /*INI ATP*/
-
-            var newTitulo = "Registro de Estrategias";
             if ($("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ArmaTuPack) {
-                newTitulo = "Edición de Tácticas";
-
                 $('#tabControl1').hide();
                 $('#divSeccionImagenes').hide();
-
-                 
                 $("#txtCUV2").prop('disabled', true);
                 $("#txtPrecio2").prop('disabled', true);
                 $("#txtGanancia").prop('disabled', true);
                 $("#txtPrecio").prop('disabled', true);
                 $("#spanCampania").prop('disabled', true);
                 $("#spanTipoEstrategia").prop('disabled', true);
-                 
-            }
-            $('#DialogAdministracionEstrategia').dialog('option', 'title', newTitulo);
 
+                $('#DialogAdministracionEstrategia').dialog('option', 'title', 'Edición de Tácticas');
+            }
+            else {
+                $('#tabControl1').show();
+                $('#divSeccionImagenes').show();
+                $("#txtCUV2").prop('disabled', false);
+                $("#txtPrecio2").prop('disabled', false);
+                $("#txtGanancia").prop('disabled', false);
+                $("#txtPrecio").prop('disabled', false);
+                $("#spanCampania").prop('disabled', false);
+                $("#spanTipoEstrategia").prop('disabled', false);
+
+                $('#DialogAdministracionEstrategia').dialog('option', 'title', 'Registro de Estrategias');
+            }
             /*END ATP*/
 
             showDialog("DialogAdministracionEstrategia");
@@ -2521,8 +2526,6 @@
             buttons:
             {
                 "Guardar": function () {
-                    console.log(_variables);
-                    console.log(_codigoEstrategia);
                     /*INI ATP*/
                     if ($("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ArmaTuPack) {
                         $('#txtOrden').val(1);//valor por default                         
