@@ -76,7 +76,7 @@ var EstrategiaAgregarModule = (function () {
 
     var getEstrategia = function ($btnAgregar, origenPedidoWebEstrategia) {
 
-        var estrategia = $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataEstrategia).data("|")
+        var estrategia = $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataEstrategia).data("estrategia")
                 || $btnAgregar.parents("div.content_btn_agregar").siblings("#contenedor-showroom-subcampanias-mobile")
                         .find(".slick-active").find(dataProperties.dataEstrategia).data("estrategia")
                 || {};
@@ -270,11 +270,6 @@ var EstrategiaAgregarModule = (function () {
             $(elementosDiv.OfertaTipoNuevo).val(estrategia.FlagNueva);
         }
 
-       
-       
-
-
-
         AbrirLoad();
 
         var itemClone = estrategiaObtenerObjHtmlLanding($btnAgregar);
@@ -335,11 +330,9 @@ var EstrategiaAgregarModule = (function () {
 
             $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataInputCantidad).val("1");
 
-
             if (isMobile())
             {
                 if (isPagina('ProgramaNuevas') || controllerName == "programanuevas") {
-
                     dataLayer.push({
                         'event': 'addToCart',
                         'ecommerce': {
@@ -358,44 +351,32 @@ var EstrategiaAgregarModule = (function () {
                             }
                         }
                     });
-
                 }
-
             }
             else
             {
                 if (isPagina('ProgramaNuevas') || controllerName == "programanuevas") {
-
-
-                dataLayer.push({
-                    'event': 'addToCart',
-                    'ecommerce': {
-                        'currencyCode': 'PEN',
-                        'add': {
-                            'actionField': { 'list': 'ContenedorProgramaNuevas-Dúo Perfecto' },
-                            'products': [{
-                                'name': estrategia.DescripcionCompleta,
-                                'price': estrategia.PrecioVenta,
-                                'brand': estrategia.DescripcionMarca,
-                                'id': estrategia.CUV2,
-                                'category': 'Gana+ > Dúo Perfecto',
-                                'variant': ' ',
-                                'quantity': cantidad
-                            }]
-                        }
-                    }
-                });
-
+					dataLayer.push({
+						'event': 'addToCart',
+						'ecommerce': {
+							'currencyCode': 'PEN',
+							'add': {
+								'actionField': { 'list': 'ContenedorProgramaNuevas-Dúo Perfecto' },
+								'products': [{
+									'name': estrategia.DescripcionCompleta,
+									'price': estrategia.PrecioVenta,
+									'brand': estrategia.DescripcionMarca,
+									'id': estrategia.CUV2,
+									'category': 'Gana+ > Dúo Perfecto',
+									'variant': ' ',
+									'quantity': cantidad
+								}]
+							}
+						}
+					});
+				}
             }
-            }
-
-
-
-
-
-
-
-
+			
             if (divAgregado != null) {
                 if (typeof divAgregado.length != "undefined" && divAgregado.length > 0) {
                     divAgregado.each(function (index, element) {
@@ -558,11 +539,6 @@ var EstrategiaAgregarModule = (function () {
                 }
             }
             if (!IsNullOrEmpty(data.mensajeAviso)) AbrirMensaje(data.mensajeAviso, data.tituloMensaje);
-
-
-
-   
-
 
             return false;
         })
