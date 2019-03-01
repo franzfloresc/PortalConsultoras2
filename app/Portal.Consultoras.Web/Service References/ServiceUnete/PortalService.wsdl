@@ -332,12 +332,6 @@
   <wsdl:message name="IPortalService_ConsultarTipoPostulante_OutputMessage">
     <wsdl:part name="parameters" element="tns:ConsultarTipoPostulanteResponse" />
   </wsdl:message>
-  <wsdl:message name="IPortalService_ConsultarPagodeKitLog_InputMessage">
-    <wsdl:part name="parameters" element="tns:ConsultarPagodeKitLog" />
-  </wsdl:message>
-  <wsdl:message name="IPortalService_ConsultarPagodeKitLog_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ConsultarPagodeKitLogResponse" />
-  </wsdl:message>
   <wsdl:message name="IPortalService_ConsultarSolicitudesPostulanteV2_InputMessage">
     <wsdl:part name="parameters" element="tns:ConsultarSolicitudesPostulanteV2" />
   </wsdl:message>
@@ -517,18 +511,6 @@
   </wsdl:message>
   <wsdl:message name="IPortalService_ConfirmarTransaccion_OutputMessage">
     <wsdl:part name="parameters" element="tns:ConfirmarTransaccionResponse" />
-  </wsdl:message>
-  <wsdl:message name="IPortalService_GetKitInicioDetalle_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetKitInicioDetalle" />
-  </wsdl:message>
-  <wsdl:message name="IPortalService_GetKitInicioDetalle_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetKitInicioDetalleResponse" />
-  </wsdl:message>
-  <wsdl:message name="IPortalService_GetZonasDigitales_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetZonasDigitales" />
-  </wsdl:message>
-  <wsdl:message name="IPortalService_GetZonasDigitales_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetZonasDigitalesResponse" />
   </wsdl:message>
   <wsdl:portType name="IPortalService">
     <wsdl:operation name="ObtenerParametrosUnete">
@@ -743,10 +725,6 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ConsultarTipoPostulante" message="tns:IPortalService_ConsultarTipoPostulante_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ConsultarTipoPostulanteResponse" message="tns:IPortalService_ConsultarTipoPostulante_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="ConsultarPagodeKitLog">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ConsultarPagodeKitLog" message="tns:IPortalService_ConsultarPagodeKitLog_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ConsultarPagodeKitLogResponse" message="tns:IPortalService_ConsultarPagodeKitLog_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="ConsultarSolicitudesPostulanteV2">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ConsultarSolicitudesPostulanteV2" message="tns:IPortalService_ConsultarSolicitudesPostulanteV2_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ConsultarSolicitudesPostulanteV2Response" message="tns:IPortalService_ConsultarSolicitudesPostulanteV2_OutputMessage" />
@@ -866,14 +844,6 @@
     <wsdl:operation name="ConfirmarTransaccion">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ConfirmarTransaccion" message="tns:IPortalService_ConfirmarTransaccion_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ConfirmarTransaccionResponse" message="tns:IPortalService_ConfirmarTransaccion_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetKitInicioDetalle">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/GetKitInicioDetalle" message="tns:IPortalService_GetKitInicioDetalle_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/GetKitInicioDetalleResponse" message="tns:IPortalService_GetKitInicioDetalle_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetZonasDigitales">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/GetZonasDigitales" message="tns:IPortalService_GetZonasDigitales_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/GetZonasDigitalesResponse" message="tns:IPortalService_GetZonasDigitales_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IPortalService" type="tns:IPortalService">
@@ -1355,15 +1325,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ConsultarPagodeKitLog">
-      <soap:operation soapAction="http://tempuri.org/IPortalService/ConsultarPagodeKitLog" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="ConsultarSolicitudesPostulanteV2">
       <soap:operation soapAction="http://tempuri.org/IPortalService/ConsultarSolicitudesPostulanteV2" style="document" />
       <wsdl:input>
@@ -1627,24 +1588,6 @@
     </wsdl:operation>
     <wsdl:operation name="ConfirmarTransaccion">
       <soap:operation soapAction="http://tempuri.org/IPortalService/ConfirmarTransaccion" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetKitInicioDetalle">
-      <soap:operation soapAction="http://tempuri.org/IPortalService/GetKitInicioDetalle" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetZonasDigitales">
-      <soap:operation soapAction="http://tempuri.org/IPortalService/GetZonasDigitales" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
