@@ -512,7 +512,12 @@
 
     <script>
         $.ajaxSetup({
-            beforeSend: function (xhr) {
+            beforeSend: function (xhr, settings) {
+                var isOtherDomain = settings && settings.crossDomain;
+                if (isOtherDomain) {
+                    return;
+                }
+
                 xhr.setRequestHeader("isMobile", isMobile());
             }
         });

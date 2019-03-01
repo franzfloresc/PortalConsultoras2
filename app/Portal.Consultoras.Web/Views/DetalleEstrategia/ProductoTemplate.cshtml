@@ -117,12 +117,12 @@
 
             </div>
 
-            {{#if MostrarCliente}}
-            <!--Init panel cliente-->
 
+            <!--Init panel cliente-->
             <input id="hfClienteId" type="hidden" />
             <input id="hfClienteNombre" type="hidden" />
 
+            {{#if MostrarCliente}}
             <div class="AsignarCliente_bloque">
                 <div class="col-xs-12">
                     <ul class="asignarCliente">
@@ -168,11 +168,11 @@
                     <input class="txt_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
                            {{#if esCampaniaSiguiente}} {{RangoInputEnabled}} {{/if}}
                            type="text"
-                           value="{{Cantidad}}" 
+                           value="{{Cantidad}}"
                            onkeyup="EstrategiaAgregarModule.ValidaCantidad(event);"
                            size="2"
                            maxlength="2"
-                           id="txtCantidad" 
+                           id="txtCantidad"
                            data-input="cantidad"
                            data-cantidad-input="-">
                     <div>

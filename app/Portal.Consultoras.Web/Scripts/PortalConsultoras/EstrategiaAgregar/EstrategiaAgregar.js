@@ -332,7 +332,7 @@ var EstrategiaAgregarModule = (function () {
             FlagNueva: $.trim(estrategia.FlagNueva),
             EsEditable: estrategia.esEditable,
             SetId: estrategia.setId,
-            ClienteID: estrategia.MostrarCliente ? _getClienteIdSelected() : 0
+            ClienteID: _getClienteIdSelected()
         };
 
         EstrategiaAgregarProvider

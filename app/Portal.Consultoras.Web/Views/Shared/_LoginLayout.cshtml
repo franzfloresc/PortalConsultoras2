@@ -147,7 +147,9 @@
             a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
         }, 1);
     </script>
-
+    <style>
+        #btn_init {display: none !important;}
+    </style>
     @RenderSection("headerScripts", required: false)
 </head>
 <body class="body_login @Model.NombreClase" onload="noback();" onpageshow="if(event.persisted) noback();" onunload="">

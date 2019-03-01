@@ -191,18 +191,17 @@ namespace Portal.Consultoras.Web.Controllers
                     model.TotalConDescuento = model.Total - model.MontoDescuento;
 
                     SessionManager.SetMontosProl(
-                       new List<ObjMontosProl>
-                       {
-                           new ObjMontosProl
-                           {
-                               AhorroCatalogo = model.MontoAhorroCatalogo.ToString(),
-                               AhorroRevista = model.MontoAhorroRevista.ToString(),
-                               MontoTotalDescuento = model.MontoDescuento.ToString(),
-                               MontoEscala = model.MontoEscala.ToString()
-                           }
-                       }
-                   );
-
+                        new List<ObjMontosProl>
+                        {
+                            new ObjMontosProl
+                            {
+                                AhorroCatalogo = model.MontoAhorroCatalogo.ToString(),
+                                AhorroRevista = model.MontoAhorroRevista.ToString(),
+                                MontoTotalDescuento = model.MontoDescuento.ToString(),
+                                MontoEscala = model.MontoEscala.ToString()
+                            }
+                        }
+                    );
 
                     model.ListaParametriaOfertaFinal = GetParametriaOfertaFinal(SessionManager.GetOfertaFinalModel().Algoritmo);
                 }
