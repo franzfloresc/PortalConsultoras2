@@ -5654,6 +5654,7 @@
     <Content Include="Views\Bonificaciones\Index.cshtml" />
     <Content Include="Views\MisCatalogosRevistas\Index.cshtml" />
     <Content Include="Views\MisCatalogosRevistas\template-revista-slide.cshtml" />
+    <Content Include="Views\Unete\ReportePagoKit.cshtml" />
     <Content Include="Views\Unete\ReporteTipoConsultora.cshtml" />
     <Content Include="Views\DetalleEstrategia\ProductoTemplate.cshtml" />
     <Content Include="Views\DetalleEstrategia\FichaTemplate.cshtml" />
