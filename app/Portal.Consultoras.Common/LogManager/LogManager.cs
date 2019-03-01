@@ -247,9 +247,9 @@ namespace Portal.Consultoras.Common
 
                 }
 
-                string className;
-                string methodName;
-                string application;
+                string className = string.Empty;
+                string methodName = string.Empty;
+                string application = string.Empty;
 
                 if (logError.Origen.Equals("Servidor"))
                 {
@@ -257,8 +257,12 @@ namespace Portal.Consultoras.Common
 
                     StackTrace st = new StackTrace(logError.Exception, true);
                     StackFrame frame = st.GetFrame(st.FrameCount - 1);
-                    className = frame.GetMethod().DeclaringType.Name;
-                    methodName = frame.GetMethod().Name;
+                    if (frame != null)
+                    {
+                        className = frame.GetMethod().DeclaringType.Name;
+                        methodName = frame.GetMethod().Name;
+                    }
+                    
                 }
                 else
                 {
@@ -312,8 +316,6 @@ namespace Portal.Consultoras.Common
                 logError.Exception = ex;
                 logError.InformacionAdicional = dataString;
                 logError.Titulo = "Seguimiento de Errores Elastic";
-                string pathFile = ConfigurationManager.AppSettings["LogPath"] ?? string.Empty;
-                RegistrarArchivoTexto(logError, pathFile);
                 RegistrarArchivoTexto(logError);
             }
         }
