@@ -4175,6 +4175,7 @@
     <Content Include="Scripts\PortalConsultoras\TusClientes\PanelMantenerModule.js" />
     <Content Include="Scripts\PortalConsultoras\TusClientes\TusClientesModule.js" />
     <Content Include="Scripts\PortalConsultoras\TusClientes\TusClientesProvider.js" />
+    <Content Include="Scripts\PortalConsultoras\TusClientes\TusClientesView.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\slick.js" />
     <Content Include="Scripts\Tag\jquery.caret.min.js" />
@@ -4208,6 +4209,8 @@
     <Content Include="Scripts\slick-vertical.min.js" />
     <Content Include="Scripts\Spectrum\spectrum.js" />
     <Content Include="Scripts\tests\PortalConsultoras\DetalleEstrategia\FichaModuleSpec.js" />
+    <Content Include="Scripts\tests\PortalConsultoras\TusClientes\TusClientesModuleSpec.js" />
+    <Content Include="Scripts\tests\TestHelpersModule.js" />
     <Content Include="Scripts\trans-banner.js" />
     <Content Include="Content\ArchivoFaltante\PlantillaModelFaltante.xls" />
     <Content Include="Properties\Settings.settings">

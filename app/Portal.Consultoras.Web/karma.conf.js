@@ -23,6 +23,9 @@ module.exports = function (config) {
             'Scripts/jquery-1.11.2.min.js',
             'Scripts/jquery-ui-1.9.2.custom.js',
             'Scripts/handlebars.js',
+            // 'node_modules/Sinon/pkg/sinon.js',
+            'node_modules/core-js/client/core.js',
+            'Scripts/tests/TestHelpersModule.js',
 
             // General
             'Scripts/General.js',
@@ -35,7 +38,14 @@ module.exports = function (config) {
             'Scripts/PortalConsultoras/TusClientes/PanelMantenerModule.js',
             'Scripts/PortalConsultoras/TusClientes/ClientePanelModule.js',
             'Scripts/PortalConsultoras/DetalleEstrategia/FichaModule.js',
-            'Scripts/tests/PortalConsultoras/DetalleEstrategia/FichaModuleSpec.js'
+
+            // TusClientes
+            'Scripts/PortalConsultoras/TusClientes/TusClientesView.js',
+            'Scripts/PortalConsultoras/TusClientes/TusClientesModule.js',
+
+            // Specs
+            'Scripts/tests/PortalConsultoras/DetalleEstrategia/FichaModuleSpec.js',
+            'Scripts/tests/PortalConsultoras/TusClientes/TusClientesModuleSpec.js'
         ],
 
 
@@ -80,21 +90,30 @@ module.exports = function (config) {
         // enable / disable watching file and executing tests whenever any file changes
         autoWatch: true,
 
-
         // start these browsers
         // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
         browsers: [
+            'ChromeDebugging'
             //'Chrome'
-            'PhantomJS'
+            //'PhantomJS'
         ],
 
+        customLaunchers: {
+            ChromeDebugging: {
+                base: 'Chrome',
+                flags: ['--remote-debugging-port=9222'],
+                debug: true
+            }
+        },
 
+        browserNoActivityTimeout: 100000,
+        
         // Continuous Integration mode
         // if true, Karma captures browsers, runs the tests and exits
-        singleRun: true,
+        singleRun: false,
 
         // Concurrency level
         // how many browser should be started simultaneous
         concurrency: Infinity
-    })
-}
+    });
+};
