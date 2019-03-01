@@ -29,15 +29,15 @@ var AnalyticsPortalModule = (function () {
         estandar: "Estándar",
         fichaProducto: "Ficha de Producto",
         iniciarVideo: "Iniciar Video",
-        seleccionTonoCombo: "Selección Tono - ComboBox",
-        seleccionTonoCuadro: "Selección Tono - Cuadrados",
+        //seleccionTonoCombo: "Selección Tono - ComboBox",
+        //seleccionTonoCuadro: "Selección Tono - Cuadrados",
         migajaPan: "Breadcrumb",
         // Ini - Analytics Buscador Miguel
         notavaliable: "(not available)",
         // Fin - Analytics Buscador Miguel
         // Ini - Analytics Ofertas (Miguel)
-        eligetuopcion: "eligetuopcion",
-        verdetalle: "verdetalle",
+        //eligetuopcion: "eligetuopcion",
+        //verdetalle: "verdetalle",
         contenedor: "Contenedor",
         contenedorHome: "Contenedor - Inicio",
         contenedorDetalle: "Contenedor - Detalle de Producto",
@@ -134,7 +134,10 @@ var AnalyticsPortalModule = (function () {
             { "CodigoSeccion": "06", "Seccion": "Banner Superior" },
             { "CodigoSeccion": "07", "Seccion": "Sub Campaña" }
         ],
-        codigoPais: !(typeof userData === 'undefined') ? userData.pais : "",
+        //codigoPais: !(typeof userData === 'undefined') ? userData.pais : "",
+        codigoPais: function () {
+            return !(typeof userData === 'undefined') ? userData.pais : "";
+        },
         // Fin - Analytics Buscador Miguel
         // Ini - Analytics Ofertas
         campania: "Campaña ",
@@ -157,7 +160,7 @@ var AnalyticsPortalModule = (function () {
             { "Codigo": "06", "TextoList": "" },
             { "Codigo": "07", "TextoList": "" },
             { "Codigo": "08", "TextoList": "Inicio" },
-            { "Codigo": "09", "TextoList": "" },
+            { "Codigo": "09", "TextoList": "Otras Paginas" },
             { "Codigo": "10", "TextoList": "" },
             { "Codigo": "11", "TextoList": "" }
         ],
@@ -342,9 +345,13 @@ var AnalyticsPortalModule = (function () {
         return seccion.Codigo || "";
     }
 
-    var _getParametroListSegunOrigen = function (origenEstructura, url) {
+    var _getParametroListSegunOrigen = function (origenEstructura, url, estoyEnLaFicha) {
 
         origenEstructura = _getEstructuraOrigenPedidoWeb(origenEstructura, url);
+
+        if (estoyEnLaFicha === true) {
+            origenEstructura.Seccion = ConstantesModule.OrigenPedidoWebEstructura.Seccion.CarruselVerMas;
+        }
 
         var contendor = _getTextoContenedorSegunOrigen(origenEstructura);
         var pagina = "";
@@ -516,7 +523,7 @@ var AnalyticsPortalModule = (function () {
 
         try {
             //console.log('Analytics - _marcarImpresionSetProductos Inicio', arrayItems);
-            var tipoMoneda = AnalyticsPortalModule.GetCurrencyCodes(_constantes.codigoPais);
+            var tipoMoneda = _getCurrencyCodes();
             dataLayer.push({
                 'event': _evento.productImpression,
                 'ecommerce': {
@@ -626,9 +633,9 @@ var AnalyticsPortalModule = (function () {
         }
     }
 
-    var getCurrencyCodes = function (codigoPais) {
+    var _getCurrencyCodes = function () {
         try {
-
+            var codigoPais = _constantes.codigoPais();
             var currencyInfo = _constantes.currencyCodes.find(function (element) {
                 return element.CountryCode == codigoPais;
             });
@@ -693,7 +700,7 @@ var AnalyticsPortalModule = (function () {
             var esFicha = typeof seccion !== "undefined" ? seccion.Seccion == "Ficha" : false;
             var esCarrusel = false;
             if (!(event == null)) {
-                if (codigoSeccion == '05' || codigoSeccion=='01')
+                if (codigoSeccion == '05' || codigoSeccion == '01')
                     esCarrusel = true;
             }
 
@@ -872,7 +879,7 @@ var AnalyticsPortalModule = (function () {
             dataLayer.push({
                 'event': _evento.addToCart,
                 'ecommerce': {
-                    'currencyCode': AnalyticsPortalModule.GetCurrencyCodes(_constantes.codigoPais),
+                    'currencyCode': _getCurrencyCodes(),
                     'add': {
                         'actionField': { 'list': lista },
                         'products': [{
@@ -903,7 +910,7 @@ var AnalyticsPortalModule = (function () {
             dataLayer.push({
                 'event': _evento.addToCart,
                 'ecommerce': {
-                    'currencyCode': AnalyticsPortalModule.GetCurrencyCodes(_constantes.codigoPais),
+                    'currencyCode': _getCurrencyCodes(),
                     'add': {
                         'actionField': { 'list': lista },
                         'products': [{
@@ -1109,7 +1116,7 @@ var AnalyticsPortalModule = (function () {
             dataLayer.push({
                 'event': _evento.addToCart,
                 'ecommerce': {
-                    'currencyCode': AnalyticsPortalModule.GetCurrencyCodes(_constantes.codigoPais),
+                    'currencyCode': _getCurrencyCodes(),
                     'add': {
                         'actionField': { 'list': list },
                         'products': [{
@@ -1143,7 +1150,7 @@ var AnalyticsPortalModule = (function () {
             dataLayer.push({
                 'event': _evento.addToCart,
                 'ecommerce': {
-                    'currencyCode': AnalyticsPortalModule.GetCurrencyCodes(_constantes.codigoPais),
+                    'currencyCode': _getCurrencyCodes(),
                     'add': {
                         'actionField': { 'list': list },
                         'products': [{
@@ -1249,38 +1256,39 @@ var AnalyticsPortalModule = (function () {
 
     }
 
-    var marcaGenericaClic = function (element, codigoOrigenPedido, url) {
-
-        var codigoPagina = codigoOrigenPedido.toString().substring(1, 3);
-
-        var pagina = _constantes.paginas.find(function (element) {
-            return element.CodigoPagina == codigoPagina;
-        });
-
-        if (pagina == undefined) {
-            return false;
-        }
-
-        var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(codigoOrigenPedido);
-
-        var _pagina = pagina.Pagina;
-        if (pagina.Pagina.includes("Landing"))
-            _pagina = "Landing";
-
+    var marcaVerDetalleProducto = function (element, codigoOrigenPedido, url) {
         try {
-            switch (_pagina) {
+            if (_constantes.isTest)
+                alert("Marcación clic ver detalle producto.");
+            
+            var estoyEnLaFicha = isFicha();
+        
+            var list = _getParametroListSegunOrigen(codigoOrigenPedido, url, estoyEnLaFicha);
 
-                case "Home": AnalyticsPortalModule.MarcaDetalleProducto(element,url); break;
-                case "Contenedor": palanca == "Lanzamientos" ? AnalyticsPortalModule.MarcaDetalleProducto(element, url) : AnalyticsPortalModule.MarcaDetalleProducto(element,url); break;
-                case "Pedido": AnalyticsPortalModule.MarcaDetalleProductoCarrito(element,url); break; //marcacion punto 2.1.7.4. según el documento de correciones Roxana 
-                case "Landing": AnalyticsPortalModule.MarcaDetalleProducto(element,url); break;
-            }
+            var item = $(element).parents("[data-item-cuv]").find("div [data-estrategia]").data("estrategia");
 
+            dataLayer.push({
+                'event': _evento.productClick,
+                'ecommerce': {
+                    'currencyCode': _getCurrencyCodes(),
+                    'click': {
+                        'actionField': { 'list': list },
+                        'products': [{
+                            'name': item.DescripcionCompleta,
+                            'id': item.CUV2,
+                            'price': item.PrecioVenta,
+                            'brand': item.DescripcionMarca,
+                            'category': _texto.notavaliable,
+                            'variant': _texto.estandar,
+                            'position': item.Posicion
+                        }]
+                    }
+                }
+            });
 
         } catch (e) {
-
+            console.log(_texto.excepcion + e);
         }
-
     }
 
     var marcaDetalleProductoBienvenida = function (element, codigoOrigenPedido) {
@@ -1291,7 +1299,7 @@ var AnalyticsPortalModule = (function () {
             dataLayer.push({
                 'event': _evento.productClick,
                 'ecommerce': {
-                    'currencyCode': AnalyticsPortalModule.GetCurrencyCodes(_constantes.codigoPais),
+                    'currencyCode': _getCurrencyCodes(),
                     'click': {
                         'actionField': { 'list': 'Home - GANA+' },
                         'products': [{
@@ -1569,7 +1577,7 @@ var AnalyticsPortalModule = (function () {
             dataLayer.push({
                 'event': _evento.addToCart,
                 'ecommerce': {
-                    'currencyCode': AnalyticsPortalModule.GetCurrencyCodes(_constantes.codigoPais),
+                    'currencyCode': _getCurrencyCodes(),
                     'add': {
                         'actionField': { 'list': list },
                         'products': [{
@@ -1809,7 +1817,7 @@ var AnalyticsPortalModule = (function () {
             dataLayer.push({
                 'event': _evento.addToCart,
                 'ecommerce': {
-                    'currencyCode': AnalyticsPortalModule.GetCurrencyCodes(_constantes.codigoPais),
+                    'currencyCode': _getCurrencyCodes(),
                     'add': {
                         'actionField': { 'list': list },
                         'products': [{
@@ -1829,189 +1837,7 @@ var AnalyticsPortalModule = (function () {
         }
 
     }
-
-    /*
-    *   1.3.4. Detalles de producto
-    * Nombre Archivo Desktop: Scripts\PortalConsultoras\EstrategiaPersonalizada\EstrategiaUrls.js
-    * Linea de Código Desktop: 3
- */
-    var marcaDetalleProducto = function (data,url) {
-        try {
-
-
-            var esLanding = typeof listaSeccion === 'undefined' ? true : false;
-            esLanding ? AnalyticsPortalModule.MarcaDetalleProductoPrincipalLanding(data,url) : AnalyticsPortalModule.MarcaDetalleProductoPrincipal(data,url);
-
-
-
-        } catch (e) {
-            console.log(_texto.excepcion + e);
-        }
-
-    }
-
-    var marcaDetalleProductoPrincipal = function (data,url) {
-        try {
-
-            if (_constantes.isTest)
-                alert("Marcación clic detalle producto.");
-
-            //var contenedor = fnObtenerContenedor();
-            //var codigoSeccion = $(data).closest("div:has(.seccion-content-contenedor)").data("seccion");
-            var codigoSeccion = "";
-            var item = "";
-            if ($(data).parents("[data-Origenpedidowebagregar]").data("origenpedidowebagregar") === undefined) {
-                codigoSeccion = $(data).parents("[data-OrigenPedidoWeb]").data("origenpedidoweb");
-            }
-            else
-                codigoSeccion = $(data).parents("[data-Origenpedidowebagregar]").data("origenpedidowebagregar");
- 
-            //var codigoorigen = $(data).parents("[data-OrigenPedidoWeb]").data("origenpedidoweb");
-            //var palanca = codigoSeccion == "ODD"
-            //    ? _getPalancaBySeccion(codigoSeccion)
-            //    : AnalyticsPortalModule.GetPalancaByOrigenPedido(codigoorigen);
-
-            //var text = $(data).data("item-tag");
-            //var eq = text == _texto.verdetalle ? ":eq(2)" : ":eq(4)";
-            //var item = $(data).parents(eq).find("div [data-estrategia]").data("estrategia");
-            if ($(data).parents("[data-item-cuv]").find("div [data-estrategia]").data("estrategia") === undefined) {
-                item = $(data).parents("[data-OrigenPedidoWeb]").find("div [data-estrategia]").data("estrategia");
-            }
-            else
-                item = $(data).parents("[data-item-cuv]").find("div [data-estrategia]").data("estrategia");
-
-            var list = _getParametroListSegunOrigen(codigoSeccion, url);
-
-            //var list = "";
-            //if (_codigoSeccion.MG === codigoSeccion)
-            //    list = contenedor + " - " + palanca;
-            //else
-            //    list = contenedor + " - " + palanca + " - " + _constantes.campania + item.CampaniaID;
-
-
-            dataLayer.push({
-                'event': _evento.productClick,
-                'ecommerce': {
-                    'currencyCode': AnalyticsPortalModule.GetCurrencyCodes(_constantes.codigoPais),
-                    'click': {
-                        'actionField': { 'list': list },
-                        'products': [{
-                            'name': item.DescripcionCompleta,
-                            'id': item.CUV2,
-                            'price': item.PrecioVenta,
-                            'brand': item.DescripcionMarca,
-                            'category': _texto.notavaliable,
-                            'variant': _texto.estandar,
-                            'position': item.Posicion
-                        }]
-                    }
-                }
-            });
-        } catch (e) {
-            console.log(_texto.excepcion + e);
-        }
-    }
-
-    var marcaDetalleProductoPrincipalLanding = function (data,url) {
-        try {
-            if (_constantes.isTest)
-                alert("Marcación clic detalle producto.");
-            var codigoSeccion = "";
-            var item = "";
-            //var contenedor = fnObtenerContenedor();
-            if ($(data).parents("[data-Origenpedidowebagregar]").data("origenpedidowebagregar") === undefined) {
-                codigoSeccion = $(data).parents("[data-OrigenPedidoWeb]").data("origenpedidoweb");
-            }
-            else
-                codigoSeccion = $(data).parents("[data-Origenpedidowebagregar]").data("origenpedidowebagregar");
-            //var codigoorigenagregar = $(data).parents("[data-Origenpedidowebagregar]").data("origenpedidowebagregar");
-            //var codigoSeccion = $(data).parents("[data-OrigenPedidoWeb]").data("origenpedidoweb");
-            //var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(codigoSeccion);
-            //var text = $(data).data("item-tag");
-            //var eq = text == _texto.verdetalle ? ":eq(2)" : ":eq(4)";
-            //var item = $(data).parents(eq).find("div [data-estrategia]").data("estrategia");
-            if ($(data).parents("[data-item-cuv]").find("div [data-estrategia]").data("estrategia")=== undefined) {       
-                item = $(data).parents("[data-OrigenPedidoWeb]").find("div [data-estrategia]").data("estrategia");
-            }
-            else
-                item = $(data).parents("[data-item-cuv]").find("div [data-estrategia]").data("estrategia");
-
-            var list = _getParametroListSegunOrigen(codigoSeccion, url);
-
-            //if (_codigoSeccion.MG === item.CodigoPalanca)
-            //    list = textoCategory;
-            //else
-            //    list = textoCategory + " - " + _constantes.campania + item.CampaniaID;
-
-
-            dataLayer.push({
-                'event': _evento.productClick,
-                'ecommerce': {
-                    'currencyCode': AnalyticsPortalModule.GetCurrencyCodes(_constantes.codigoPais),
-                    'click': {
-                        'actionField': { 'list': list },
-                        'products': [{
-                            'name': item.DescripcionCompleta,
-                            'id': item.CUV2,
-                            'price': item.PrecioVenta,
-                            'brand': item.DescripcionMarca,
-                            'category': _texto.notavaliable,
-                            'variant': _texto.estandar,
-                            'position': item.Posicion
-                        }]
-                    }
-                }
-            });
-        } catch (e) {
-            console.log(_texto.excepcion + e);
-        }
-    }
-
-
-    var marcaDetalleProductoCarrito = function (data,url) {
-        try {
-
-            var codigoSeccion = $(data).parents("[data-OrigenPedidoWeb]").data("origenpedidoweb");
-            var list = "";
-            list = _getParametroListSegunOrigen(codigoSeccion, url);
-
-            //var text = $(data).data("item-tag");
-            //var eq = text == _texto.verdetalle ? ":eq(2)" : ":eq(4)";
-            //var item = $(data).parents(eq).find("div [data-estrategia]").data("estrategia");
-
-            var item = $(data).parents("[data-item-cuv]").find("div [data-estrategia]").data("estrategia");
-
-            //var item = $(data).parents(":eq(2)").find("div [data-estrategia]").data("estrategia");
-
-            dataLayer.push({
-                'event': _evento.productClick,
-                'ecommerce': {
-                    'currencyCode': AnalyticsPortalModule.GetCurrencyCodes(_constantes.codigoPais),
-                    'click': {
-                        'actionField': { 'list': list },
-                        'products': [{
-                            'name': item.DescripcionCompleta,
-                            'id': item.CUV2,
-                            'price': item.PrecioVenta,
-                            'brand': item.DescripcionMarca,
-                            'category': _texto.notavaliable,
-                            'variant': _texto.estandar,
-                            'position': item.Posicion
-                        }]
-                    }
-                }
-            });
-            //dataLayer.push({
-            //    'event': _evento.virtualEvent,
-            //    'category': 'Carrito de compras – Club Gana+',
-            //    'action': 'Ver detalles de producto',
-            //    'label': item.DescripcionCompleta + " - " + item.DescripcionMarca
-            //});
-        } catch (e) {
-            console.log(_texto.excepcion + e);
-        }
-    }
-
+    
     /*
     * 1.4.4. Filtros
     * Nombre Archivo Desktop:  /Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Landing.js
@@ -2081,7 +1907,7 @@ var AnalyticsPortalModule = (function () {
             dataLayer.push({
                 'event': _evento.productDetails,
                 'ecommerce': {
-                    'currencyCode': AnalyticsPortalModule.GetCurrencyCodes(_constantes.codigoPais),
+                    'currencyCode': _getCurrencyCodes(),
                     'detail': {
                         'products': products
                     }
@@ -2488,7 +2314,7 @@ var AnalyticsPortalModule = (function () {
             console.log(_texto.exception + e);
         }
     }
-    
+
     function marcarClickMasOfertasPromotionClickMG() {
         try {
             dataLayer.push({
@@ -2552,7 +2378,7 @@ var AnalyticsPortalModule = (function () {
             dataLayer.push({
                 'event': _evento.addToCart,
                 'ecommerce': {
-                    'currencyCode': AnalyticsPortalModule.GetCurrencyCodes(_constantes.codigoPais),
+                    'currencyCode': _getCurrencyCodes(),
                     'add': {
                         'actionField': { 'list': 'Ficha de Producto – Las Más Ganadoras' },
                         'products': [{
@@ -2622,7 +2448,7 @@ var AnalyticsPortalModule = (function () {
             dataLayer.push({
                 'event': _evento.productImpression,
                 'ecommerce': {
-                    'currencyCode': AnalyticsPortalModule.GetCurrencyCodes(_constantes.codigoPais),
+                    'currencyCode': _getCurrencyCodes(),
                     'impressions': impressions
                 }
             });
@@ -2659,7 +2485,7 @@ var AnalyticsPortalModule = (function () {
             dataLayer.push({
                 'event': _evento.productImpression,
                 'ecommerce': {
-                    'currencyCode': AnalyticsPortalModule.GetCurrencyCodes(_constantes.codigoPais),
+                    'currencyCode': _getCurrencyCodes(),
                     'impressions': impressions
                 }
             });
@@ -2698,7 +2524,7 @@ var AnalyticsPortalModule = (function () {
             dataLayer.push({
                 'event': _evento.productImpression,
                 'ecommerce': {
-                    'currencyCode': AnalyticsPortalModule.GetCurrencyCodes(_constantes.codigoPais),
+                    'currencyCode': _getCurrencyCodes(),
                     'impressions': impressions
                 }
             });
@@ -2781,7 +2607,7 @@ var AnalyticsPortalModule = (function () {
 
         // Ini - Analytics Buscador Miguel
         MarcaBarraBusqueda: marcaBarraBusqueda,
-        GetCurrencyCodes: getCurrencyCodes,
+        //GetCurrencyCodes: getCurrencyCodes, // no se utiliza como publico, cambio a _getCurrencyCodes
         GetPalancaByOrigenPedido: getPalancaByOrigenPedido,
         GetSeccionHomeByOrigenPedido: getSeccionHomeByOrigenPedido,
         GetContenedorByOrigenPedido: getContenedorByOrigenPedido,
@@ -2803,7 +2629,8 @@ var AnalyticsPortalModule = (function () {
         MarcaSucribete: marcaSucribete,
         MarcaGenericaLista: marcaGenericaLista,
         MarcaAnadirCarritoHome: marcaAnadirCarritoHome,
-        MarcaGenericaClic: marcaGenericaClic,
+        //MarcaGenericaClic: marcaGenericaClic,// se cambio a marcaVerDetalleProducto
+        MarcaVerDetalleProducto: marcaVerDetalleProducto,
         MarcaDetalleProductoBienvenida: marcaDetalleProductoBienvenida,
         MarcaPromotionViewOferta: marcaPromotionViewOferta,
         MarcaNotificaciones: marcaNotificaciones,
@@ -2829,10 +2656,10 @@ var AnalyticsPortalModule = (function () {
         MarcaClicBanner: marcaClicBanner,
         MarcaClicVerMasOfertas: marcaClicVerMasOfertas,
         MarcaAnadirCarrito: marcaAnadirCarrito,
-        MarcaDetalleProducto: marcaDetalleProducto,
-        MarcaDetalleProductoPrincipal: marcaDetalleProductoPrincipal,
-        MarcaDetalleProductoPrincipalLanding: marcaDetalleProductoPrincipalLanding,
-        MarcaDetalleProductoCarrito: marcaDetalleProductoCarrito,
+        //MarcaDetalleProducto: marcaDetalleProducto,// se cambio a _marcaVerDetalleProducto
+        //MarcaDetalleProductoPrincipal: marcaDetalleProductoPrincipal,// se cambio a _marcaVerDetalleProducto
+        //MarcaDetalleProductoPrincipalLanding: marcaDetalleProductoPrincipalLanding, // se cambio a _marcaVerDetalleProducto
+        //MarcaDetalleProductoCarrito: marcaDetalleProductoCarrito,// se cambio a _marcaVerDetalleProducto
         MarcaManagerFiltros: marcaManagerFiltros,
         MarcaCompartirRedesSociales: marcaCompartirRedesSociales,
         MarcaVisualizarDetalleProducto: marcaVisualizarDetalleProducto,
