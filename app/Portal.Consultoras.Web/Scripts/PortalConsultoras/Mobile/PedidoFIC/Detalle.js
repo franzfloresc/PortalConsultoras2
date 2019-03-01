@@ -10,6 +10,7 @@ $(document).ready(function () {
     });
 
     //ValidarKitNuevas();
+    CargarPedido(true);
 
     $("#suma, #resta").click(function (event) {
         if (!ValidarPermiso(this)) {
