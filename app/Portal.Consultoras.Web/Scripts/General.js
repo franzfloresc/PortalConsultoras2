@@ -843,6 +843,18 @@ function isHome() {
     return isUrl;
 }
 
+function isPedido() {
+    var url = ($.trim(location.href) + "/").toLowerCase().replace("/mobile", "");
+    var isUrl = url.indexOf("/pedido/") > 0;
+    return isUrl;
+}
+
+function isOfertas() {
+    var url = ($.trim(location.href) + "/").toLowerCase().replace("/mobile", "");
+    var isUrl = url.indexOf("/ofertas/") > 0;
+    return isUrl;
+}
+
 function isFicha() {
     return location.pathname.replace("/Mobile/", "").indexOf("Detalle/") == 0;
 }
