@@ -103,12 +103,11 @@
         </div>
         {{/iff}}
 
-        {{#if MostrarCliente}}
         <!--Init panel cliente-->
-
         <input id="hfClienteId" type="hidden" />
         <input id="hfClienteNombre" type="hidden" />
 
+        {{#if MostrarCliente}}
         @*<div class="AsignarCliente_bloque">
             <div class="col-xs-12">
                 <ul class="asignarCliente">
@@ -172,13 +171,13 @@
                         <a class="cantidad_menos_home" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
                             <span>-</span>
                         </a>
-                        <input type="tel" attern="[0-9]{2}" 
-                               value="{{Cantidad}}" 
-                               size="2" 
-                               maxlength="2" 
-                               id="txtCantidad" 
-                               class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" 
-                               onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" 
+                        <input type="tel" attern="[0-9]{2}"
+                               value="{{Cantidad}}"
+                               size="2"
+                               maxlength="2"
+                               id="txtCantidad"
+                               class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
+                               onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);"
                                onkeyup="EstrategiaAgregarModule.ValidaCantidad(event);"
                                data-input="cantidad">
                         <a class="cantidad_mas_home" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">

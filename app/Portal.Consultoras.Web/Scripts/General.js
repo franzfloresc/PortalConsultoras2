@@ -863,8 +863,29 @@ function isPagina(pagina) {
 }
 
 function isHome() {
-    var isUrl = ($.trim(location.href) + "/").toLowerCase().indexOf("/bienvenida/") > 0;
+    var url = ($.trim(location.href) + "/").toLowerCase();
+    var isUrl = url.indexOf("/bienvenida/") > 0;
+    if (!isUrl) {
+        url = $.trim(location.pathname).toLowerCase();
+        isUrl = url == "" || url == "/" || url == "/mobile" || url == "/mobile/";
+    }
     return isUrl;
+}
+
+function isPedido() {
+    var url = ($.trim(location.href) + "/").toLowerCase().replace("/mobile", "");
+    var isUrl = url.indexOf("/pedido/") > 0;
+    return isUrl;
+}
+
+function isOfertas() {
+    var url = ($.trim(location.href) + "/").toLowerCase().replace("/mobile", "");
+    var isUrl = url.indexOf("/ofertas/") > 0;
+    return isUrl;
+}
+
+function isFicha() {
+    return location.pathname.replace("/Mobile/", "").indexOf("Detalle/") == 0;
 }
 
 function isInt(n) {
