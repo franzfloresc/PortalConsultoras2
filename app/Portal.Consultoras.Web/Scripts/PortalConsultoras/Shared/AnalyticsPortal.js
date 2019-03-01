@@ -345,9 +345,13 @@ var AnalyticsPortalModule = (function () {
         return seccion.Codigo || "";
     }
 
-    var _getParametroListSegunOrigen = function (origenEstructura, url) {
+    var _getParametroListSegunOrigen = function (origenEstructura, url, estoyEnLaFicha) {
 
         origenEstructura = _getEstructuraOrigenPedidoWeb(origenEstructura, url);
+
+        if (estoyEnLaFicha === true) {
+            origenEstructura.Seccion = ConstantesModule.OrigenPedidoWebEstructura.Seccion.CarruselVerMas;
+        }
 
         var contendor = _getTextoContenedorSegunOrigen(origenEstructura);
         var pagina = "";
@@ -1252,47 +1256,16 @@ var AnalyticsPortalModule = (function () {
 
     }
 
-    var marcaGenericaClic = function (element, codigoOrigenPedido, url) {
-
-        try {
-            var codigoPagina = codigoOrigenPedido.toString().substring(1, 3);
-
-            var pagina = _constantes.paginas.find(function (element) {
-                return element.CodigoPagina == codigoPagina;
-            });
-
-            if (pagina == undefined) {
-                return false;
-            }
-
-            //var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(codigoOrigenPedido);
-
-            var _pagina = pagina.Pagina;
-            if (pagina.Pagina.includes("Landing"))
-                _pagina = "Landing";
-
-            switch (_pagina) {
-                case "Home": _marcaVerDetalleProducto(element, url); break;
-                case "Contenedor": _marcaVerDetalleProducto(element, url); break;
-                case "Landing": _marcaVerDetalleProducto(element, url); break;
-                case "Pedido": _marcaVerDetalleProducto(element, url); break;
-            }
-
-        } catch (e) {
-
-        }
-
-    }
-
-    var _marcaVerDetalleProducto = function (data, url) {
+    var marcaVerDetalleProducto = function (element, codigoOrigenPedido, url) {
         try {
             if (_constantes.isTest)
-                alert("Marcación clic detalle producto.");
+                alert("Marcación clic ver detalle producto.");
+            
+            var estoyEnLaFicha = isFicha();
+        
+            var list = _getParametroListSegunOrigen(codigoOrigenPedido, url, estoyEnLaFicha);
 
-            var codigoSeccion = $(data).parents("[data-OrigenPedidoWeb]").data("origenpedidoweb");
-            var list = _getParametroListSegunOrigen(codigoSeccion, url);
-
-            var item = $(data).parents("[data-item-cuv]").find("div [data-estrategia]").data("estrategia");
+            var item = $(element).parents("[data-item-cuv]").find("div [data-estrategia]").data("estrategia");
 
             dataLayer.push({
                 'event': _evento.productClick,
@@ -1864,7 +1837,7 @@ var AnalyticsPortalModule = (function () {
         }
 
     }
-    3
+    
     /*
     * 1.4.4. Filtros
     * Nombre Archivo Desktop:  /Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Landing.js
@@ -2656,7 +2629,8 @@ var AnalyticsPortalModule = (function () {
         MarcaSucribete: marcaSucribete,
         MarcaGenericaLista: marcaGenericaLista,
         MarcaAnadirCarritoHome: marcaAnadirCarritoHome,
-        MarcaGenericaClic: marcaGenericaClic,
+        //MarcaGenericaClic: marcaGenericaClic,// se cambio a marcaVerDetalleProducto
+        MarcaVerDetalleProducto: marcaVerDetalleProducto,
         MarcaDetalleProductoBienvenida: marcaDetalleProductoBienvenida,
         MarcaPromotionViewOferta: marcaPromotionViewOferta,
         MarcaNotificaciones: marcaNotificaciones,

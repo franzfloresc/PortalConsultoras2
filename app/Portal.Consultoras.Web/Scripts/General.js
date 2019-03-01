@@ -843,6 +843,10 @@ function isHome() {
     return isUrl;
 }
 
+function isFicha() {
+    return location.pathname.replace("/Mobile/", "").indexOf("Detalle/") == 0;
+}
+
 function isInt(n) {
     var patron = /^[0-9]+$/;
     var isn = patron.test(n);
