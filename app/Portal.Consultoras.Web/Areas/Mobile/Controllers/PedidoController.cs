@@ -208,6 +208,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         public ActionResult Detalle(bool autoReservar = false)
         {
             SessionManager.SetObservacionesProl(null);
+            SessionManager.SetPedidoWeb(null);
             SessionManager.SetDetallesPedido(null);
             SessionManager.SetDetallesPedidoSetAgrupado(null);
 
