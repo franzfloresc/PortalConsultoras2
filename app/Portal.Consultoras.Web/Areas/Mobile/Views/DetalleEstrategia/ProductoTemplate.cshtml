@@ -185,7 +185,7 @@
                         </a>
                     </div>
 
-                    <a class="btn_agregar_ficha_producto {{ClaseBloqueada}}"
+                    <a class="btn_agregar_ficha_producto {{#if esCampaniaSiguiente}} {{ClaseBloqueadaRangos}} {{/if}}"
                        id="btnAgregalo"
                        data-bloqueada=""
                        onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, false, 0, true,{{esEditable}}); ">AGRÉGALO</a>
