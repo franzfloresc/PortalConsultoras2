@@ -405,6 +405,8 @@ namespace Portal.Consultoras.Web.Controllers
             pedidoDetalle.IPUsuario = GetIPCliente();
             pedidoDetalle.ClienteID = string.IsNullOrEmpty(ClienteID) ? (short)0 : Convert.ToInt16(ClienteID);
             pedidoDetalle.Identifier = SessionManager.GetTokenPedidoAutentico() != null ? SessionManager.GetTokenPedidoAutentico().ToString() : string.Empty;
+            if (EsBackOrder) pedidoDetalle.ObservacionPROL = Constantes.BackOrder.LogAccionCancelar;
+            else pedidoDetalle.ObservacionPROL = GetObservacionesProlPorCuv(CUV);
 
             var listaPedidoWebDetalle = ObtenerPedidoWebDetalle();
             var listaPedidoWebDetalleAgrupado = ObtenerPedidoWebSetDetalleAgrupado();
@@ -424,10 +426,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ? pedidoEliminado.DescripcionOferta.Replace("[", "").Replace("]", "").Trim() : "";
 
             bool errorServer = false;
-
             string tipo = string.Empty;
-
-
 
             errorServer = result.CodigoRespuesta != Constantes.PedidoValidacion.Code.SUCCESS;
             tipo = result.MensajeRespuesta;
@@ -481,6 +480,20 @@ namespace Portal.Consultoras.Web.Controllers
 
             return lastResult.Item2;
 
+        }
+
+        private string GetObservacionesProlPorCuv(string cuv)
+        {
+            if (SessionManager.GetObservacionesProl() != null)
+            {
+                var observaciones = SessionManager.GetObservacionesProl();
+                var obs = observaciones.Where(p => p.CUV == cuv).ToList();
+                if (obs.Count != 0)
+                {
+                    return Util.Trim(obs[0].Descripcion);
+                }
+            }
+            return "";
         }
 
         [HttpPost]
