@@ -160,7 +160,7 @@ var AnalyticsPortalModule = (function () {
             { "Codigo": "06", "TextoList": "" },
             { "Codigo": "07", "TextoList": "" },
             { "Codigo": "08", "TextoList": "Inicio" },
-            { "Codigo": "09", "TextoList": "" },
+            { "Codigo": "09", "TextoList": "Otras Paginas" },
             { "Codigo": "10", "TextoList": "" },
             { "Codigo": "11", "TextoList": "" }
         ],
