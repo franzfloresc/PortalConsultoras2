@@ -2570,7 +2570,6 @@ function CalculoPosicionMinimoMaximoDestokp() {
 }
 
 function CalculoPosicionMensajeDestokp() {
-    document.getElementById('divBarraMensajeLogrado').firstChild.nextSibling.style.float = 'left';
     var montoActual = mtoLogroBarra;
     var montoMaximo = dataBarra.MontoMaximo;
 
@@ -2584,20 +2583,23 @@ function CalculoPosicionMensajeDestokp() {
         AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMaximo);
 
     }
+
+    var divBarraMensaje = document.getElementById('divBarraMensajeLogrado');
+    var alignRight = AvancePorcentaje.substring(0, AvancePorcentaje.length - 1) * 1 > 75;
  
-    if (AvancePorcentaje.substring(0, AvancePorcentaje.length - 1) * 1 > 75) { 
-        if (document.getElementsByClassName('agrega_barra')[0].innerHTML.length >46) {
-            AvancePorcentaje = '70%';
-
-        } else if (document.getElementsByClassName('agrega_barra')[0].innerHTML.length > 44 ){
-            AvancePorcentaje = '73%';
-
-        }  else {
-            AvancePorcentaje = '77%';
-        }        
+    if (alignRight) {
+        divBarraMensaje.firstChild.nextSibling.style.float = '';
+        divBarraMensaje.style.display = 'flex';
+        divBarraMensaje.style.justifyContent = 'flex-end';
+        divBarraMensaje.style.left = '';
+        
+        return;     
     }
 
-    document.getElementById('divBarraMensajeLogrado').style.left = AvancePorcentaje;
+    divBarraMensaje.firstChild.nextSibling.style.float = 'left';
+    divBarraMensaje.style.display = 'block';
+    divBarraMensaje.style.justifyContent = '';
+    divBarraMensaje.style.left = AvancePorcentaje;
 }
 
 function TieneMontoMaximo() {
