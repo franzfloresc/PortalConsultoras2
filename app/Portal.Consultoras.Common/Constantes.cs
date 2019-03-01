@@ -1826,6 +1826,11 @@ namespace Portal.Consultoras.Common
             }
         }
 
+        public static class Regex
+        {
+            public const string ContrasenaUsuario = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
+        }
+
         public static class ClienteValidacion
         {
             private static Dictionary<string, string> _Message;

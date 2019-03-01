@@ -352,6 +352,7 @@ function CambiarContrasenia() {
     var newPassword01 = $("#txtNuevaContrasenia01").val();
     var newPassword02 = $("#txtNuevaContrasenia02").val();
     var vMessage = "";
+    var patt = new RegExp("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$");
 
     if (oldPassword == "")
         vMessage += "- Debe ingresar la Contraseña Anterior.\n";
@@ -362,12 +363,20 @@ function CambiarContrasenia() {
     if (newPassword02 == "")
         vMessage += "- Debe repetir la Nueva Contraseña.\n";
 
-    if (newPassword01.length <= 6)
-        vMessage += "- La Nueva Contraseña debe de tener más de 6 caracteres.\n";
+    //if (newPassword01.length <= 7)
+    //    vMessage += "- La Nueva Contraseña debe de tener más de 7 caracteres.\n";    
 
     if (newPassword01 != "" && newPassword02 != "") {
         if (newPassword01 != newPassword02)
             vMessage += "- Los campos de la nueva contraseña deben ser iguales, verifique.\n";
+    }
+
+    if (!patt.test(newPassword01)) {
+        vMessage += "- La Nueva Contraseña debe de tener al menos una letra en mayúscula.\n";
+        vMessage += "- La Nueva Contraseña debe de tener al menos una letra en minúscula.\n";
+        vMessage += "- La Nueva Contraseña debe de tener al menos un dígito.\n";
+        vMessage += "- La Nueva Contraseña debe de tener al menos un carácter especial.\n";
+        vMessage += "- La Nueva Contraseña debe de tener mínimo 8 caracteres.\n";
     }
 
     if (oldPassword != "" && newPassword01 != "" && newPassword02 != "") {

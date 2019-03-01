@@ -1785,16 +1785,19 @@ namespace Portal.Consultoras.BizLogic
 
         public bool CambiarClaveUsuario(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo, string codigoUsuarioAutenticado, EAplicacionOrigen origen)
         {
-            bool resultado;
+            bool resultado = false;
 
             try
             {
                 var daUsuario = new DAUsuario(paisId);
-                daUsuario.CambiarClaveUsuario(codigoUsuario, nuevacontrasena, correo);
-                daUsuario.InsLogCambioContrasenia(codigoUsuarioAutenticado, paisIso + codigoUsuario, nuevacontrasena,
-                    correo, Enum.GetName(typeof(EAplicacionOrigen), origen));
-                daUsuario.InsMetaConsultora(codigoUsuario, Constantes.MetaConsultora.VerificacionCambioClave, "0");
-                resultado = true;
+                if (ValidarReglasClave(nuevacontrasena))
+                {
+                    daUsuario.CambiarClaveUsuario(codigoUsuario, nuevacontrasena, correo);
+                    daUsuario.InsLogCambioContrasenia(codigoUsuarioAutenticado, paisIso + codigoUsuario, nuevacontrasena,
+                        correo, Enum.GetName(typeof(EAplicacionOrigen), origen));
+                    daUsuario.InsMetaConsultora(codigoUsuario, Constantes.MetaConsultora.VerificacionCambioClave, "0");
+                    resultado = true;
+                }
             }
             catch (Exception ex)
             {
@@ -1803,6 +1806,14 @@ namespace Portal.Consultoras.BizLogic
             }
 
             return resultado;
+        }
+
+        public bool ValidarReglasClave(string contrasena)
+        {            
+            string pattern = Constantes.Regex.ContrasenaUsuario;
+            Regex rgx = new Regex(pattern);
+
+            return rgx.IsMatch(contrasena);
         }
 
         public int ExisteUsuario(int paisId, string codigoUsuario, string clave)
