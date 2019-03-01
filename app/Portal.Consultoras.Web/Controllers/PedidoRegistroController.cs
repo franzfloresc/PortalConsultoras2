@@ -483,6 +483,8 @@ namespace Portal.Consultoras.Web.Controllers
             pedidoDetalle.Identifier = SessionManager.GetTokenPedidoAutentico() != null
                 ? SessionManager.GetTokenPedidoAutentico().ToString()
                 : string.Empty;
+            if (EsBackOrder) pedidoDetalle.ObservacionPROL = Constantes.BackOrder.LogAccionCancelar;
+            else pedidoDetalle.ObservacionPROL = GetObservacionesProlPorCuv(CUV);
 
             var listaPedidoWebDetalle = ObtenerPedidoWebDetalle();
             var listaPedidoWebDetalleAgrupado = ObtenerPedidoWebSetDetalleAgrupado();
@@ -503,9 +505,7 @@ namespace Portal.Consultoras.Web.Controllers
                 : "";
 
             bool errorServer = false;
-
             string tipo = string.Empty;
-
 
             errorServer = result.CodigoRespuesta != Constantes.PedidoValidacion.Code.SUCCESS;
             tipo = result.MensajeRespuesta;
@@ -558,6 +558,20 @@ namespace Portal.Consultoras.Web.Controllers
             }));
 
             return lastResult;
+        }
+
+        private string GetObservacionesProlPorCuv(string cuv)
+        {
+            if (SessionManager.GetObservacionesProl() != null)
+            {
+                var observaciones = SessionManager.GetObservacionesProl();
+                var obs = observaciones.Where(p => p.CUV == cuv).ToList();
+                if (obs.Count != 0)
+                {
+                    return Util.Trim(obs[0].Descripcion);
+                }
+            }
+            return "";
         }
 
         [HttpPost]
