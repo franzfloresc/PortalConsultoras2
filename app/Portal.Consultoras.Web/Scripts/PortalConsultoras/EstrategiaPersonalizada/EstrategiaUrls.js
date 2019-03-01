@@ -19,8 +19,7 @@ function OnClickFichaDetalle(e) {
     UrlDetalle += codigoCampania + "/" + codigoCuv + "/" + OrigenPedidoWeb;
 
     if (!(typeof AnalyticsPortalModule === 'undefined')) {
-        var estoyEnLaFicha = location.pathname.replace("/Mobile/", "").indexOf("Detalle/") == 0;
-        AnalyticsPortalModule.MarcaGenericaClic(e, OrigenPedidoWeb, UrlDetalle);
+        AnalyticsPortalModule.MarcaVerDetalleProducto(e, OrigenPedidoWeb, UrlDetalle);
     }
 
     window.location = UrlDetalle;
