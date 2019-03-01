@@ -1064,34 +1064,7 @@ var AnalyticsPortalModule = (function () {
         }
 
     }
-
-    var marcaPromotionViewOferta = function (codigoSeccion, data) {
-        try {
-            if (_constantes.isTest)
-                alert("Marcación promotion view.");
-
-            var cuv = data.data.ListaOferta[0].CUV2;
-
-            dataLayer.push({
-                'event': _evento.promotionView,
-                'ecommerce': {
-                    'promoView': {
-                        'promotions': [
-                            {
-                                'id': cuv,
-                                'name': 'Ofertas ¡SOLO HOY!',
-                                'position': 'Home - Banner Header',
-                                'creative': 'Banner'
-                            }]
-                    }
-                }
-            });
-        } catch (e) {
-            console.log(_texto.excepcion + e);
-        }
-
-    }
-
+    
     var marcaVerDetalleProducto = function (element, codigoOrigenPedido, url) {
         try {
             if (_constantes.isTest)
@@ -1483,26 +1456,6 @@ var AnalyticsPortalModule = (function () {
         }
 
     }
-
-    var autoMapper = function (codigoSeccion, data) {
-        var collection = [];
-        if (codigoSeccion == _codigoSeccion.LAN) {
-            var element = $("[data-seccion=" + codigoSeccion + "]");
-            var codigo = element.data("origenpedidoweb");
-            $.each(data.lista, function (index) {
-                var item = data.lista[index];
-                var element = {
-                    'id': item.CUV2,
-                    'name': AnalyticsPortalModule.GetPalancaByOrigenPedido(codigo) + " - " + item.DescripcionCompleta + " - " + "Ver producto",
-                    'position': fnObtenerContenedor(),
-                    'creative': "Banner"
-                };
-                collection.push(element);
-            });
-        }
-
-        return collection;
-    };
 
     var _autoMapperV2 = function (codigoSeccion, data, pos) {
         var collection = [];
@@ -2381,7 +2334,6 @@ var AnalyticsPortalModule = (function () {
         MarcaAnadirCarritoHome: marcaAnadirCarritoHome,
         MarcaVerDetalleProducto: marcaVerDetalleProducto,
         MarcaDetalleProductoBienvenida: marcaDetalleProductoBienvenida,
-        MarcaPromotionViewOferta: marcaPromotionViewOferta,
         MarcaNotificaciones: marcaNotificaciones,
         MarcaClicSeguimientoPedido: marcaClicSeguimientoPedido,
         MarcaClicPagarLinea: marcaClicPagarLinea,
@@ -2401,7 +2353,6 @@ var AnalyticsPortalModule = (function () {
 
         // Ini - Analytics Ofertas  
         MarcaClicFlechaBanner: marcaClicFlechaBanner,
-        AutoMapper: autoMapper,
         MarcaClicBanner: marcaClicBanner,
         MarcaClicVerMasOfertas: marcaClicVerMasOfertas,
         MarcaAnadirCarrito: marcaAnadirCarrito,
