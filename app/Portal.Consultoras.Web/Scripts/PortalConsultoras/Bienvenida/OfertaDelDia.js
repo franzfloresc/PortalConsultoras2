@@ -173,14 +173,31 @@ var OfertaDelDiaModule = function () {
             SetHandlebars("#producto-landing-template", data, $(contenedorOfertas).find("#divOddCarrusel"));
         }
 
+        var origen = {
+            Pagina:
+                isHome() ? ConstantesModule.OrigenPedidoWebEstructura.Pagina.Home
+                : idPedido() ? ConstantesModule.OrigenPedidoWebEstructura.Pagina.Pedido
+                : isOfertas() ? ConstantesModule.OrigenPedidoWebEstructura.Pagina.Contenedor
+                : ConstantesModule.OrigenPedidoWebEstructura.Pagina.Otras,
+            Palanca: ConstantesModule.OrigenPedidoWebEstructura.Palanca.OfertaDelDia,
+            Seccion: ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel
+        };
+        var cantidad = 3;
+        if (!isOfertas()) {
+            cantidad = 1;
+        }
+
         if (typeof CarruselAyuda != "undefined") {
-            // marcacion inicio de mostrar productos
-            var origen = {
-                Pagina: ConstantesModule.OrigenPedidoWebEstructura.Pagina.Contenedor,
-                Palanca: ConstantesModule.OrigenPedidoWebEstructura.Palanca.OfertaDelDia,
-                Seccion: ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel
+            CarruselAyuda.MarcarAnalyticsInicio("#divOddCarrusel", data.ListaOferta, origen, cantidad);// contenedor
+        }
+        else {
+            var obj = {
+                lista: data.ListaOferta,
+                CantidadMostrar: cantidad,
+                Origen: origen
             };
-            CarruselAyuda.MarcarAnalyticsInicio("#divOddCarrusel", data.ListaOferta, origen, 3);// contenedor
+
+            AnalyticsPortalModule.MarcaGenericaLista("", obj);
         }
     };
 
