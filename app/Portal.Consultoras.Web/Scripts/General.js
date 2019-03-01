@@ -834,7 +834,12 @@ function isPagina(pagina) {
 }
 
 function isHome() {
-    var isUrl = ($.trim(location.href) + "/").toLowerCase().indexOf("/bienvenida/") > 0;
+    var url = ($.trim(location.href) + "/").toLowerCase();
+    var isUrl = url.indexOf("/bienvenida/") > 0;
+    if (!isUrl) {
+        url = $.trim(location.pathname).toLowerCase();
+        isUrl = url == "" || url == "/" || url == "/mobile" || url == "/mobile/";
+    }
     return isUrl;
 }
 
