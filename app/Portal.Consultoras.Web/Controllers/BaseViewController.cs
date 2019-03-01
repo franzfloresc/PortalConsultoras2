@@ -659,7 +659,7 @@ namespace Portal.Consultoras.Web.Controllers
             modelo.Cuv = cuv;
             modelo.TieneCarrusel = GetValidationHasCarrusel(modelo.OrigenAgregar, palanca, esEditar);
             modelo.OrigenAgregarCarrusel = modelo.TieneCarrusel ? GetOrigenPedidoWebDetalle(origen, modelo.TieneCarrusel) : 0;
-            modelo.TieneCompartir = GetTieneCompartir(palanca, esEditar);
+            modelo.TieneCompartir = GetTieneCompartir(palanca, esEditar, modelo.OrigenAgregar);
             modelo.Cantidad = 1;
             #endregion
 
@@ -758,18 +758,17 @@ namespace Portal.Consultoras.Web.Controllers
 
         private int GetAccionNavegarSegunOrigen(int origen)
         {
-            var tipo = Constantes.TipoAccionNavegar.BreadCrumbs;
-            var origenString = origen.ToString();
-            if (origen == 0 || origenString.IsNullOrEmptyTrim()) return tipo;
-           
-            var twoLastDigitsOrigen = origenString.Substring(origenString.Length - 2);
-            if (twoLastDigitsOrigen.Equals(Constantes.OrigenPedidoWeb.SufijoProductoRecomendadoCarrusel) ||
-               twoLastDigitsOrigen.Equals(Constantes.OrigenPedidoWeb.SufijoProductoRecomendadoFicha))
-            {
-                return Constantes.TipoAccionNavegar.Volver;
-            }
+            return EsProductoRecomendado(origen) ? Constantes.TipoAccionNavegar.Volver : Constantes.TipoAccionNavegar.BreadCrumbs;
+        }
 
-            return tipo;
+        private bool EsProductoRecomendado(int origen)
+        {
+            var origenString = origen.ToString();
+            if (origen == 0 || origenString.IsNullOrEmptyTrim()) return false;
+
+            var twoLastDigitsOrigen = origenString.Substring(origenString.Length - 2);
+            return twoLastDigitsOrigen.Equals(Constantes.OrigenPedidoWeb.SufijoProductoRecomendadoCarrusel) ||
+                   twoLastDigitsOrigen.Equals(Constantes.OrigenPedidoWeb.SufijoProductoRecomendadoFicha);
         }
 
         private bool GetTieneCarrusel(string palanca, bool esEditar)
@@ -794,8 +793,9 @@ namespace Portal.Consultoras.Web.Controllers
             return GetTieneCarrusel(palanca, esEditar);
         }
 
-        private bool GetTieneCompartir(string palanca, bool esEditar)
+        private bool GetTieneCompartir(string palanca, bool esEditar, int origen)
         {
+            if (EsProductoRecomendado(origen)) return false;
             return !esEditar && !MobileAppConfiguracion.EsAppMobile &&
                 !(Constantes.NombrePalanca.HerramientasVenta == palanca
                 || Constantes.NombrePalanca.PackNuevas == palanca);
