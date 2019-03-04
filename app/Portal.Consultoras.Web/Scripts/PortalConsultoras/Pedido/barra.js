@@ -660,9 +660,7 @@ function MostrarBarra(datax, destino) {
                 }
             }
         }
-
         CalculoPosicionMinimoMaximoDestokp();
-        CalculoPosicionMensajeDestokp();
         return false;
     }
 
@@ -2155,8 +2153,6 @@ function CalculoLlenadoBarraEspacioLimiteDestokp() {
 
 
 function CalculoPosicionMinimoMaximoDestokp() {
-
-
     var TippingPointBarraActive = dataBarra.TippingPointBarra.Active;
     var montoMaximo = dataBarra.MontoMaximo;
     var montoTipipoing = dataBarra.TippingPoint;
@@ -2573,8 +2569,7 @@ function CalculoPosicionMensajeDestokp() {
     document.getElementById('divBarraMensajeLogrado').firstChild.nextSibling.style.float = 'left';
     var montoActual = mtoLogroBarra;
     var montoMaximo = dataBarra.MontoMaximo;
-
-
+    
     var AvancePorcentaje;
     if (TieneMontoMaximo()) {
         AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMaximo);
@@ -2582,7 +2577,6 @@ function CalculoPosicionMensajeDestokp() {
     else {
         montoMaximo = dataBarra.ListaEscalaDescuento[dataBarra.ListaEscalaDescuento.length - 1].MontoDesde ;
         AvancePorcentaje = CalculoPorcentajeAvance(montoActual, montoMaximo);
-
     }
  
     if (AvancePorcentaje.substring(0, AvancePorcentaje.length - 1) * 1 > 75) { 
