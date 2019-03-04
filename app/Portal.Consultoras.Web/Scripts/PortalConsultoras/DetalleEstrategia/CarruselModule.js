@@ -14,6 +14,9 @@ var _slick = null;
 
 var CarruselAyuda = function () {
     "use strict";
+    var _texto = {
+        excepcion: "Excepción en AnalyticsPortal.js ==> "
+    };
 
     var _obtenerSlideMostrar = function (slick, currentSlide, nextSlide) {
         //'slick-current', 'slick-active'
