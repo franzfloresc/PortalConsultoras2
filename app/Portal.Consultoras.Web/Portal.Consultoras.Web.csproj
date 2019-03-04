@@ -231,6 +231,7 @@
     <Compile Include="Areas\Mobile\Controllers\TerminosYCondicionesController.cs" />
     <Compile Include="Controllers\BonificacionesController.cs" />
     <Compile Include="Controllers\BaseAdmController.cs" />
+    <Compile Include="Controllers\CaminoBrillanteController.cs" />
     <Compile Include="Controllers\ProductoRecomendadoController.cs" />
     <Compile Include="CustomHelpers\StringsHelper.cs" />
     <Compile Include="Areas\Mobile\MobileAreaRegistration.cs" />
@@ -5617,6 +5618,7 @@
     <Content Include="Views\MisCatalogosRevistas\Index.cshtml" />
     <Content Include="Views\MisCatalogosRevistas\template-revista-slide.cshtml" />
     <Content Include="Views\Unete\ReporteTipoConsultora.cshtml" />
+    <Content Include="Views\CaminoBrillante\Index.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
