@@ -1,6 +1,8 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
+using Portal.Consultoras.Data.Buscador;
 using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.BuscadorYFiltros;
 using Portal.Consultoras.Entities.Producto;
 
 using System;
@@ -82,6 +84,25 @@ namespace Portal.Consultoras.BizLogic.Producto
                 LogManager.SaveLog(ex, string.Empty, paisID);
                 return new Dictionary<string, string>();
             }
+            return result;
+        }
+
+        public List<BEFiltroBuscador> GetFiltroBuscador(int paisID, int tablaLogicaDatosID)
+        {
+            var result = new List<BEFiltroBuscador>();
+
+            try
+            {
+                using (var reader = new DAFiltroBuscador(paisID).GetFiltroBuscador(tablaLogicaDatosID))
+                {
+                    result = reader.MapToCollection<BEFiltroBuscador>();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, string.Empty, paisID);
+            }
+
             return result;
         }
     }
