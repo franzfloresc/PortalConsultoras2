@@ -2600,7 +2600,7 @@ function TieneMontoMaximo() {
     return dataBarra.MontoMaximo != 0 &&
         dataBarra.MontoMaximo != "" &&
         dataBarra.MontoMaximo != null &&
-        dataBarra.MontoMaximo.toString().substring(0, 4) != "9999";
+        dataBarra.MontoMaximo*1 <= 999999;
 }
  
 function CalculoPorcentajeAvance(montoActual, montoMaximo) {
