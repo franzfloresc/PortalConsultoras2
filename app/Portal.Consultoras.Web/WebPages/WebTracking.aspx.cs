@@ -33,7 +33,7 @@ namespace Portal.Consultoras.Web.WebPages
             else CargarPedidoEspecifico(campania, nroPedido);
 
             lnkPoliticasVenta.NavigateUrl = Globals.RutaCdn + "/SeguimientoPedido/" + Convert.ToString(ViewState["PAISISO"]) + "/Politica.pdf";
-            
+
 
         }
 
@@ -112,7 +112,7 @@ namespace Portal.Consultoras.Web.WebPages
             string strFecha = string.Empty;
 
             if (tracking.Fecha.HasValue)
-                strFecha = tracking.Fecha.Value.TimeOfDay.TotalHours.Equals(0) 
+                strFecha = tracking.Fecha.Value.TimeOfDay.TotalHours.Equals(0)
                     ? tracking.Fecha.Value.ToString("dd/MM/yyyy")
                     : tracking.Fecha.Value.ToString();
 
@@ -383,16 +383,19 @@ namespace Portal.Consultoras.Web.WebPages
 
                 IList<BENovedadTracking> novedades = new List<BENovedadTracking>();
                 BENovedadFacturacion obeNovedadFacturacion;
-                IList<BETracking> tracking;
+                List<BETracking> tracking;
+                List<Models.Pedido.PedidoSeguimientoModel> listaPedidoSeguimientoModel;
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    tracking = sv.GetTrackingByPedido(paisID, codigo, campana, nropedido);
+                    tracking = sv.GetTrackingByPedido(paisID, codigo, campana, nropedido).ToList();
+
+                    listaPedidoSeguimientoModel = AutoMapper.Mapper.Map<List<BETracking>, List<Models.Pedido.PedidoSeguimientoModel>>(tracking);
 
                     if (ConfigurationManager.AppSettings["WebTrackingConfirmacion"].Contains(paisISO))
                     {
                         novedades = sv.GetNovedadesTracking(paisID, nropedido);
                     }
-                    
+
                     pnlStatusGeneral.Visible = false;
                     if (estado == "RECHAZADO")
                     {
@@ -417,20 +420,35 @@ namespace Portal.Consultoras.Web.WebPages
                     }
                 }
 
-                if (tracking.Count == 0)
+                if (listaPedidoSeguimientoModel.Count == 0)
                 {
-                    tracking = AgregarTracking(codigo, fecha);
+                    listaPedidoSeguimientoModel = AgregarTracking(codigo, fecha);
                 }
                 else
                 {
-                    foreach (var item in tracking)
+
+
+                    var horaEstimadaEntregaDesde = string.Empty;
+                    var horaEstimadaEntregaHasta = string.Empty;
+                    var desde = listaPedidoSeguimientoModel.FirstOrDefault(a => a.Etapa == 8);
+                    var hasta = listaPedidoSeguimientoModel.FirstOrDefault(a => a.Etapa == 9);
+
+                    if (desde.Fecha.HasValue) horaEstimadaEntregaDesde = desde.Fecha.Value.TimeOfDay.TotalHours.Equals(0) ? desde.Fecha.Value.ToString() : desde.Fecha.Value.ToString("HH:mm:ss");
+                    if (hasta.Fecha.HasValue) horaEstimadaEntregaHasta = hasta.Fecha.Value.TimeOfDay.TotalHours.Equals(0) ? hasta.Fecha.Value.ToString() : hasta.Fecha.Value.ToString("HH:mm:ss");
+
+                    //Obtener si la zona y region permite los valores configurados
+
+
+                    foreach (var item in listaPedidoSeguimientoModel)
                     {
+                        if (item.Etapa > 7) break;
+
                         string strFecha = string.Empty;
                         string strTexto = string.Empty;
 
                         if (item.Fecha.HasValue)
-                            strFecha = item.Fecha.Value.TimeOfDay.TotalHours.Equals(0) 
-                                ? item.Fecha.Value.ToString("d/MM/yyyy") 
+                            strFecha = item.Fecha.Value.TimeOfDay.TotalHours.Equals(0)
+                                ? item.Fecha.Value.ToString("d/MM/yyyy")
                                 : item.Fecha.Value.ToString();
 
                         if (strFecha == "01/01/2001" || strFecha == "01/01/0001" || strFecha == "1/01/0001")
@@ -458,7 +476,7 @@ namespace Portal.Consultoras.Web.WebPages
 
                         item.CodigoConsultora = strFecha;
                         item.NumeroPedido = strTexto;
-                        
+
                         if (item.Etapa == 6 && !string.IsNullOrEmpty(item.ValorTurno))
                         {
                             if (item.ValorTurno.ToUpper() == "AM")
@@ -474,6 +492,11 @@ namespace Portal.Consultoras.Web.WebPages
                                 item.ValorTurno = string.Empty;
                             }
                         }
+
+                        if (item.Etapa == 6 && true)
+                        {
+                            item.HoraEstimadaDesdeHasta = string.Format("De {0} hasta {1}", horaEstimadaEntregaDesde, horaEstimadaEntregaHasta);
+                        }
                     }
 
                     lblNovCampania.Text = campana;
@@ -482,7 +505,7 @@ namespace Portal.Consultoras.Web.WebPages
                     lblNovNroPedido.Text = nropedido;
                 }
 
-                gridDatos.DataSource = tracking;
+                gridDatos.DataSource = listaPedidoSeguimientoModel.Where(a => a.Etapa != 8 && a.Etapa != 9);
                 gridDatos.DataBind();
 
                 gvNovedades.DataSource = novedades;
@@ -533,47 +556,47 @@ namespace Portal.Consultoras.Web.WebPages
             }
         }
 
-        private IList<BETracking> AgregarTracking(string codigo, DateTime fecha)
+        private List<Models.Pedido.PedidoSeguimientoModel> AgregarTracking(string codigo, DateTime fecha)
         {
-            List<BETracking> lista = new List<BETracking>();
-            BETracking beTracking = new BETracking();
+            List<Models.Pedido.PedidoSeguimientoModel> lista = new List<Models.Pedido.PedidoSeguimientoModel>();
+            Models.Pedido.PedidoSeguimientoModel beTracking = new Models.Pedido.PedidoSeguimientoModel();
             beTracking.CodigoConsultora = codigo;
             beTracking.Etapa = 1;
             beTracking.Situacion = "Pedido Recibido";
             beTracking.Fecha = fecha;
             lista.Add(beTracking);
 
-            beTracking = new BETracking();
+            beTracking = new Models.Pedido.PedidoSeguimientoModel();
             beTracking.Etapa = 2;
             beTracking.Situacion = "Facturado";
             beTracking.Fecha = null;
             lista.Add(beTracking);
 
-            beTracking = new BETracking();
+            beTracking = new Models.Pedido.PedidoSeguimientoModel();
             beTracking.Etapa = 3;
             beTracking.Situacion = "Inicio de Armado";
             beTracking.Fecha = null;
             lista.Add(beTracking);
 
-            beTracking = new BETracking();
+            beTracking = new Models.Pedido.PedidoSeguimientoModel();
             beTracking.Etapa = 4;
             beTracking.Situacion = "Chequeado";
             beTracking.Fecha = null;
             lista.Add(beTracking);
 
-            beTracking = new BETracking();
+            beTracking = new Models.Pedido.PedidoSeguimientoModel();
             beTracking.Etapa = 5;
             beTracking.Situacion = "Puesto en transporte";
             beTracking.Fecha = null;
             lista.Add(beTracking);
 
-            beTracking = new BETracking();
+            beTracking = new Models.Pedido.PedidoSeguimientoModel();
             beTracking.Etapa = 6;
             beTracking.Situacion = "Fecha Estimada de Entrega";
             beTracking.Fecha = null;
             lista.Add(beTracking);
 
-            beTracking = new BETracking();
+            beTracking = new Models.Pedido.PedidoSeguimientoModel();
             beTracking.Etapa = 7;
             beTracking.Situacion = "Entregado";
             beTracking.Fecha = null;
@@ -602,8 +625,8 @@ namespace Portal.Consultoras.Web.WebPages
                 gvNovedades.SelectedIndex = 0;
                 if (gvNovedades.DataKeys[0] != null)
                 {
-                    string lat = (string) gvNovedades.DataKeys[0]["Latitud"];
-                    string longi = (string) gvNovedades.DataKeys[0]["Longitud"];
+                    string lat = (string)gvNovedades.DataKeys[0]["Latitud"];
+                    string longi = (string)gvNovedades.DataKeys[0]["Longitud"];
                     string novedad = "Entrega";
 
                     ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Mapa",
@@ -627,8 +650,8 @@ namespace Portal.Consultoras.Web.WebPages
 
                 if (gvNovedades.DataKeys[index] != null)
                 {
-                    string lat = (string) gvNovedades.DataKeys[index]["Latitud"];
-                    string longi = (string) gvNovedades.DataKeys[index]["Longitud"];
+                    string lat = (string)gvNovedades.DataKeys[index]["Latitud"];
+                    string longi = (string)gvNovedades.DataKeys[index]["Longitud"];
                     string novedad = "Entrega";
 
                     ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Mapa",
@@ -663,7 +686,7 @@ namespace Portal.Consultoras.Web.WebPages
                 int index = Convert.ToInt32(e.CommandArgument.ToString());
                 if (gvNovedades.DataKeys[index] != null)
                 {
-                    string urlImagen = (string) gvNovedades.DataKeys[index]["Boleta"];
+                    string urlImagen = (string)gvNovedades.DataKeys[index]["Boleta"];
                     string novedad = "Entrega";
 
                     int imagenExiste = 0;
@@ -746,8 +769,8 @@ namespace Portal.Consultoras.Web.WebPages
                 gvNovedadesPostVenta.SelectedIndex = 0;
                 if (gvNovedadesPostVenta.DataKeys[0] != null)
                 {
-                    string lat = (string) gvNovedadesPostVenta.DataKeys[0]["Latitud"];
-                    string longi = (string) gvNovedadesPostVenta.DataKeys[0]["Longitud"];
+                    string lat = (string)gvNovedadesPostVenta.DataKeys[0]["Latitud"];
+                    string longi = (string)gvNovedadesPostVenta.DataKeys[0]["Longitud"];
                     string novedad = "Recojo";
 
                     ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Mapa",

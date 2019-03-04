@@ -340,14 +340,14 @@
                                                     </asp:Panel>
 
                                                     <asp:GridView ID="gridDatos" runat="server" AutoGenerateColumns="False" CssClass="tabla2"
-                                                        GridLines="Horizontal" OnRowDataBound="gridDatos_RowDataBound" CellPadding="0" CellSpacing="0" OnRowCommand="gridDatos_RowCommand">
+                                                        GridLines="Horizontal" OnRowDataBound="gridDatos_RowDataBound" CellPadding="0" OnRowCommand="gridDatos_RowCommand">
 
                                                         <Columns>
                                                             <asp:TemplateField HeaderText="Etapa">
                                                                 <ItemTemplate>
                                                                     <asp:Label ID="lblEtapa" runat="server" Text='<%# ((GridViewRow) Container).RowIndex + 1 %>'></asp:Label>
                                                                 </ItemTemplate>
-                                                                <HeaderStyle Width="14%" />
+                                                                <HeaderStyle Width="5%" />
                                                             </asp:TemplateField>
                                                             <asp:TemplateField>
                                                                 <ItemTemplate>
@@ -369,6 +369,12 @@
                                                                     <asp:LinkButton ID="imgSegPed" runat="server" CommandName="NOVEDADES" Text="AQUI" Width="28px" Visible="false" />
                                                                 </ItemTemplate>
                                                                 <HeaderStyle Width="35%" />
+                                                            </asp:TemplateField>
+                                                            <asp:TemplateField HeaderText="" ShowHeader="False">
+                                                                <ItemTemplate>
+                                                                    <asp:Label ID="lblHoraEstimadaDesdeHasta" runat="server" Text='<%# Eval("HoraEstimadaDesdeHasta") %>' Font-Size="10pt" color="black"></asp:Label>
+                                                                </ItemTemplate>
+                                                                
                                                             </asp:TemplateField>
                                                             <asp:TemplateField>
                                                                 <ItemTemplate>

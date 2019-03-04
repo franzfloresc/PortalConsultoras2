@@ -516,6 +516,8 @@
     <Compile Include="Models\GuiaNegocioModel.cs" />
     <Compile Include="Models\MasGanadorasModel.cs" />
     <Compile Include="Models\ObservacionModel.cs" />
+    <Compile Include="Models\Pedido\PedidoSeguimientoDetalleModel.cs" />
+    <Compile Include="Models\Pedido\PedidoSeguimientoModel.cs" />
     <Compile Include="Models\ReporteValidacionShowroom.cs" />
     <Compile Include="Models\Search\ResponseEvento\Estructura\Evento.cs" />
     <Compile Include="Models\Search\ResponseEvento\Estructura\EventoConsultora.cs" />
