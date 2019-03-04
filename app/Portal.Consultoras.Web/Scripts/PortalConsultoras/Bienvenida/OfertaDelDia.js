@@ -176,7 +176,7 @@ var OfertaDelDiaModule = function () {
         var origen = {
             Pagina:
                 isHome() ? ConstantesModule.OrigenPedidoWebEstructura.Pagina.Home
-                : idPedido() ? ConstantesModule.OrigenPedidoWebEstructura.Pagina.Pedido
+                : isPedido() ? ConstantesModule.OrigenPedidoWebEstructura.Pagina.Pedido
                 : isOfertas() ? ConstantesModule.OrigenPedidoWebEstructura.Pagina.Contenedor
                 : ConstantesModule.OrigenPedidoWebEstructura.Pagina.Otras,
             Palanca: ConstantesModule.OrigenPedidoWebEstructura.Palanca.OfertaDelDia,

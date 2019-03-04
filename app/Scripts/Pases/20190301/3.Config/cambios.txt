@@ -1,6 +1,7 @@
 1.SB2 Web
 	Actualizar:
 		<add key="PaisesMicroservicioPersonalizacion" value="PE,CL,CR,CO,MX,EC" /> (Excepto PRD)
+		<add key="PaisesCatalogoWhatsUp" value="PE,MX,CR,CO,EC,CL,BO"/> (Excepto PRD)
 
 2.SB2 WCF
 	Agregar:
