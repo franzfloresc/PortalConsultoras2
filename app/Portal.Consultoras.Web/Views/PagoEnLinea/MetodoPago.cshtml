@@ -4,6 +4,9 @@
 
 @{
     ViewBag.Title = "Pago en Línea";
+    string bancos = Model.Bancos;
+    var rutaIcono = "";
+    string[] result;
 }
 
 @section styles{
@@ -93,18 +96,33 @@
                     </div>
                 </div>
                 <div class="opcion_pago_contenido_visible_al_desplegar w-100" id="ullistaBancos" style="display:none">
+
+                    @if (Model.Bancos != "1")
+                    {                        
+                        result = bancos.Split('¬');                        
+                        <p class="texto_informativo_lista_bancos">Te redireccionaremos al banco que elijas.</p>
+                        <ul class="listado_bancos">
+                            @for (var i = 0; i < result.Length; i++)
+                            {
+                                var fila = result[i].Split('¦');
+                                rutaIcono = fila[3];
+                                <li class="banco_nombre"><a href= '@fila[1]' title='@fila[0]' class="enlace_banco" target="_blank"> <img src='@fila[2]' alt='@fila[0]'> </a> </li>
+                            }
+                        </ul>
+                    }
                 </div>
             </div>
             <!-- FIN - HD-2960 - NUEVO MÉTODO DE PAGO -->
         </div>
     </div>
 </div>
-<input id="hdfUrlRaiz" type="hidden" value='@Url.Content("~")' />
+<input id="hdfRutaIcono" type="hidden" value= '@rutaIcono' />
 @section scripts{
     <script type="text/javascript">
         var tipoOrigenPantalla = 1;
         var urlPagoMonto = '@Url.Action("Index", "PagoEnLinea")';
         var rutaGuardarDatosPago = '@Url.Action("GuardarDatosPago", "PagoEnLinea")';
+        var bancos = '@Html.Raw(Model.Bancos)';
     </script>
 
     <script src="@Url.Content("~/Scripts/PortalConsultoras/PagoEnLinea/MetodoPago.js")?v3"></script>

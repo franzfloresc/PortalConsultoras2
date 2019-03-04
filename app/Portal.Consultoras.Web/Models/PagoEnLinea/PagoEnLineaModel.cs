@@ -127,6 +127,7 @@ namespace Portal.Consultoras.Web.Models.PagoEnLinea
         public string TipoPago { get; set; }
         public string NumeroReferencia { get; set; }
         public bool EsMobile { get; set; }
+        public string Bancos { get; set; }
 
         public PagoEnLineaModel()
         {
