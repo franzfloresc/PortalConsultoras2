@@ -2571,15 +2571,18 @@
                         return false;
                     }
 
-                    var regExpColorHex = /^#+([a-fA-F0-9]{6})/;
-                    var AppColorTexto = $("#AppColorTexto").val();
-                    if (AppColorTexto == "") {
-                        _toastHelper.error("El color de texto es un campo obligatorio. Vuelve a intentar, por favor.");
-                        return false;
-                    }
-                    if (!regExpColorHex.test(AppColorTexto) && AppColorTexto !== "") {
-                        _toastHelper.error("El color de texto para app debe tener un código hexadecimal válido.");
-                        return false;
+                    var TipoEstrategiaCodigo = $("#ddlTipoEstrategia").find(":selected").data("codigo");
+                    if (TipoEstrategiaCodigo == _config.tipoEstrategiaLanzamiento && !_variables.isNuevo) {
+                        var regExpColorHex = /^#+([a-fA-F0-9]{6})/;
+                        var AppColorTexto = $("#AppColorTexto").val();
+                        if (AppColorTexto == "") {
+                            _toastHelper.error("El color de texto es un campo obligatorio. Vuelve a intentar, por favor.");
+                            return false;
+                        }
+                        if (!regExpColorHex.test(AppColorTexto) && AppColorTexto !== "") {
+                            _toastHelper.error("El color de texto para app debe tener un código hexadecimal válido.");
+                            return false;
+                        }
                     }
 
                     var imagenEstrategiaProducto = $("#imgSeleccionada").attr("src");
