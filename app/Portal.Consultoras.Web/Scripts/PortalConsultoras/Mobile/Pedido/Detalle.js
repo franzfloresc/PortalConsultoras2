@@ -1,4 +1,6 @@
-﻿var tipoOfertaFinal_Log = "";
+﻿/// <reference path="../../pedido/pedidoprovider.js" />
+
+var tipoOfertaFinal_Log = "";
 var gap_Log = 0;
 var tipoOrigen = '2';
 var arrayProductosGuardadoExito = [];
@@ -82,8 +84,10 @@ $(document).ready(function () {
     });
 });
 
+var pedidoProvider = PedidoProvider();
+
 function CargarPedido(firstLoad) {
-    var obj = {
+    var pageParams = {
         sidx: "",
         sord: "",
         page: 1,
@@ -92,41 +96,42 @@ function CargarPedido(firstLoad) {
         mobil: true
     };
     ShowLoading();
-
-    jQuery.ajax({
-        type: 'POST',
-        url: urlDetallePedido,
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(obj),
-        success: function (data) {
+    pedidoProvider
+        .cargarDetallePedidoPromise(pageParams)
+        .done(function (data) {
             if (!checkTimeout(data)) {
                 return false;
             }
-
-            SetHandlebars("#template-Detalle", data.data, '#divProductosDetalle');
-            belcorp.mobile.pedido.setDetalles(data.data.ListaDetalleModel);
-
-            if ($('#divContenidoDetalle').find(".icono_advertencia_notificacion").length > 0) {
-                $("#iconoAdvertenciaNotificacion").show();
-            }
-
-            $(".tooltip_noOlvidesGuardarTuPedido").show();
-            $(".btn_guardarPedido").show();
-            $("footer").hide();
-
-            cuponModule.actualizarContenedorCupon();
-
-            if (firstLoad && autoReservar) { EjecutarPROL(); }
-        },
-        error: function (data, error) {
+            CargarPedidoRespuesta(data, firstLoad);
+        })
+        .fail(function (data, error) {
             if (checkTimeout(data)) {
                 messageInfo('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
             }
-        }
-    }).always(function () {
-        CloseLoading();
-    });
+        })
+        .then(function () {
+            CloseLoading();
+        });
+}
+
+function CargarPedidoRespuesta(data, firstLoad) {
+    SetHandlebars("#template-pedidototal-superior", data.data, '#divPedidoTotalSuperior');
+    SetHandlebars("#template-detalle", data.data, '#divProductosDetalle');
+    SetHandlebars("#template-pedidototal-inferior", data.data, '#divPedidoTotalInferior');
+    belcorp.mobile.pedido.setDetalles(data.data.ListaDetalleModel);
+    MostrarBarra(data);
+
+    if ($('#divContenidoDetalle').find(".icono_advertencia_notificacion").length > 0) {
+        $("#iconoAdvertenciaNotificacion").show();
+    }
+
+    $(".tooltip_noOlvidesGuardarTuPedido").show();
+    $(".btn_guardarPedido").show();
+    $("footer").hide();
+
+    cuponModule.actualizarContenedorCupon();
+
+    if (firstLoad && autoReservar) { EjecutarPROL(); }
 }
 
 function GetProductoEntidad(detalleId, setId) {
@@ -485,7 +490,7 @@ function ConfigurarFnEliminarProducto(CampaniaID, PedidoID, PedidoDetalleID, Tip
                     return false;
                 }
 
-                ActualizarGanancia(data.DataBarra);
+                MostrarBarra(data);
                 CargarPedido();
                 TrackingJetloreRemove(Cantidad, $("#hdCampaniaCodigo").val(), CUV);
                 dataLayer.push({
@@ -557,7 +562,7 @@ function AceptarBackOrder(campaniaId, pedidoId, pedidoDetalleId, clienteId) {
 
             ShowLoading();
 
-            ActualizarGanancia(data.DataBarra);
+            MostrarBarra(data);
             CargarPedido();
             CloseLoading();
         },
@@ -638,7 +643,7 @@ function PedidoDetalleEliminarTodo() {
             }
 
 
-            ActualizarGanancia(data.DataBarra);
+            MostrarBarra(data);
             TrackingJetloreRemoveAll(listaDetallePedido);
 
             if (!(typeof AnalyticsPortalModule === 'undefined'))
@@ -743,7 +748,6 @@ function PedidoUpdate(item, PROL, detalleObj, elementRow) {
 
     ShowLoading();
     PROL = PROL || "0";
-
     jQuery.ajax({
         type: 'POST',
         url: baseUrl + "PedidoRegistro/UpdateTransaction",
@@ -761,7 +765,9 @@ function PedidoUpdate(item, PROL, detalleObj, elementRow) {
                 return false;
             }
 
-            ActualizarGanancia(data.DataBarra);
+            var prevTotal = mtoLogroBarra || 0;
+            MostrarBarra(data);
+            showPopupNivelSuperado(data.DataBarra, prevTotal);
 
             if (PROL == "0") {
                 detalleObj.CantidadTemporal = $(cantidadElement).val();
@@ -883,15 +889,10 @@ function EjecutarServicioPROL() {
 
 function EjecutarServicioPROLSinOfertaFinal() {
     ShowLoading();
-    jQuery.ajax({
-        type: 'POST',
-        url: urlEjecutarServicioPROL,
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        async: true,
-        cache: false,
-        success: function (response) {
-            CloseLoading();
+    pedidoProvider
+        .ejecutarServicioProlPromise()
+        .done(function (response) {
+            
             if (!checkTimeout(response)) return;
             if (!response.success) {
                 messageInfoMalo(mensajeErrorReserva);
@@ -899,12 +900,13 @@ function EjecutarServicioPROLSinOfertaFinal() {
             }
 
             RespuestaEjecutarServicioPROL(response, function () { return false; });
-        },
-        error: function (data, error) {
-            CloseLoading();
+        })
+        .fail(function (data, error) {
             messageInfoMalo(mensajeSinConexionReserva);
-        }
-    });
+        })
+        .then(function () {
+            CloseLoading();
+        })
 }
 
 function RespuestaEjecutarServicioPROL(response, fnOfertaFinal) {
@@ -1095,7 +1097,6 @@ function MostrarDetalleGanancia() {
 //            CloseLoading();
 
 //            setTimeout(function () { }, 2000);
-
 //            ActualizarGanancia(data.DataBarra);
 
 //            TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);

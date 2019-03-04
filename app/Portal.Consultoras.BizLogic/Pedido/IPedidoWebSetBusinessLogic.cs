@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Portal.Consultoras.Entities;
+﻿using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Pedido;
+using System;
 
 namespace Portal.Consultoras.BizLogic.Pedido
 {
@@ -17,7 +13,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
         /// <param name="id">Set Id</param>
         /// <returns>PedidoSet object</returns>
         BEPedidoWebSet Obtener(int paisId,  int id);
-
+        
         /// <summary>
         /// Elimina el Set por id, incluido sus detalles
         /// </summary>

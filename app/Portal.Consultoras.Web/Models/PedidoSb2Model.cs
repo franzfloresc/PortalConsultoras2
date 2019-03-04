@@ -287,5 +287,7 @@ namespace Portal.Consultoras.Web.Models
         public bool MostrarPopupPrecargados { get; set; }
 
         public string MensajeKitNuevas { get; set; }
+
+        public bool EsConsultoraOficina { get; set; }
     }
 }

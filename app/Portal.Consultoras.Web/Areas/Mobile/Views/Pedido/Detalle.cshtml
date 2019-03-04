@@ -39,12 +39,17 @@
                     MI PEDIDO
                     <span>@Model.DescripcionCampaniaActual</span>
                 </h2>
-
-                <div id="divProductosDetalle">
+                <input type="hidden" id="hdfSimbolo" value="@Model.Simbolo" />
+                <input type="hidden" id="hdfTotal" value="@Model.Total" />
+                @*@Html.Partial("~/Areas/Mobile/Views/Util/_barra.cshtml")*@
+                
+                <div id="divPedidoTotalSuperior"></div>
+                <div id="divProductosDetalle" class="contenedor_lista_detalle_productos">
                     <div class="text-center">
                         <img alt="Cargando..." src="@Url.Content("~/Content/images/Loading.gif")" />
                     </div>
                 </div>
+                <div id="divPedidoTotalInferior"></div>
             </div>
         </div>
 
@@ -140,19 +145,6 @@
     </div>
 </div>
 
-@*<div id="popup-eliminar-item" class="MensajeAlertaMobile" style="display:none;">
-        <div class="content_mensajeAlerta">
-            <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popup-eliminar-item').hide();">
-                <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
-            </a>
-            <hr class="clear">
-            <div class="icono_alerta exclamacion_icono_mobile"></div>
-            <div class="titulo_compartir"><b>IMPORTANTE</b></div>
-            <div class="mensaje_alerta">¿Estás segura que quieres eliminar el producto?</div>
-            <div id="mensaleAvisoRegalo" class="mensaje_alerta">Si eliminas este producto podrías perder el premio que ganaste ¿Quieres eliminar este producto?</div>
-            <a href="javascript:;" onclick="ConfirmaEliminarPedido();" class="btn_ok_mobile"><b>OK</b></a>
-        </div>
-    </div>*@
 <div id="MensajeLograste" class="MensajeAlertaMobile" style="display:none;">
     <div class="content_mensajeAlerta">
         <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#MensajeLograste').hide();">
@@ -198,66 +190,87 @@
     </div>
 </div>
 
-<script id="template-Detalle" type="text/x-handlebars-template">
+@{
+    string cabezaEscala = null, pieEscala = null;
+    string lbl1Ganancia = null, lbl2Ganancia = null;
+
+    if (Model.CodigoISO == Constantes.CodigosISOPais.Peru ||
+                Model.CodigoISO == Constantes.CodigosISOPais.Colombia ||
+                Model.CodigoISO == Constantes.CodigosISOPais.Ecuador ||
+                Model.CodigoISO == Constantes.CodigosISOPais.Guatemala ||
+                Model.CodigoISO == Constantes.CodigosISOPais.Salvador ||
+                Model.CodigoISO == Constantes.CodigosISOPais.Dominicana ||
+                Model.CodigoISO == Constantes.CodigosISOPais.PuertoRico)
+    {
+        cabezaEscala = "Ganancia estimada total";
+        pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
+        lbl1Ganancia = "Mis descuentos";
+        lbl2Ganancia = "Ganancia estimada *(Guia de negocio y otros)";
+    }
+    else if (Model.CodigoISO == Constantes.CodigosISOPais.Mexico || Model.CodigoISO == Constantes.CodigosISOPais.Panama)
+    {
+        cabezaEscala = "Ganancia estimada total";
+        pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros.";
+        lbl1Ganancia = "Mis descuentos";
+        lbl2Ganancia = "Ganancia estimada *(Revista y otros)";
+    }
+    else if (Model.CodigoISO == Constantes.CodigosISOPais.Chile)
+    {
+        cabezaEscala = "Comisión y ahorro total";
+        pieEscala = "*Comisión = Ganancia estimada proveniente de tus descuentos por compras en catálogo; <br>Ahorro = Ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
+        lbl1Ganancia = "Mis descuentos (-)10% retencion comisión liquida";
+        lbl2Ganancia = "Ahorro estimado *(Guia de negocio y otros)";
+    }
+    else if (Model.CodigoISO == Constantes.CodigosISOPais.Venezuela)
+    {
+        cabezaEscala = "Oportunidad de ahorro total";
+        pieEscala = "Oportunidad de Ahorro Total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
+        lbl1Ganancia = "Por tus compras de productos de catalogo";
+        lbl2Ganancia = "Por tus comprar de productos de revista";
+    }
+    else if (Model.CodigoISO == Constantes.CodigosISOPais.Bolivia)
+    {
+        cabezaEscala = "Ganancia total";
+        pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocio y Otros";
+        lbl1Ganancia = "Mis descuentos";
+        lbl2Ganancia = "Ganancia estimada *(Guia de negocio y otros)";
+    }
+    else if (Model.CodigoISO == Constantes.CodigosISOPais.CostaRica)
+    {
+        cabezaEscala = "Oportunidad de ahorro total";
+        pieEscala = "Oportunidad de Ahorro Total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
+        lbl1Ganancia = "Mis descuentos";
+        lbl2Ganancia = "Oportunidad de ahorro *(Revista y otros)";
+    }
+}
+
+<!--PopUp pedido Observacion-->
+<div class="modal fade" id="observacionPedido" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <button type="button" class="close_observacionPedido" data-dismiss="modal" aria-label="Close">
+                <img src="/Content/Images/mobile/Esika/close-button.svg" alt="">
+            </button>
+
+            <div class="header_observaciones_alerta">
+                <ul>
+                    <li class="alert-observaciones"><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt=""></li>
+                    <li><h3>OBSERVACIONES DEL PRODUCTO</h3></li>
+                </ul>
+                <div class="descripcion_observaciones_alerta" id="desc_obs_alert">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--FinPopUp pedido Observacion-->
+
+<script id="template-pedidototal-superior" type="text/x-handlebars-template">
     <div class="textos_resumen">
         <span id="lblProductosResumen">HAS AGREGADO :</span>
         <span id="lblTotalResumen">
             MONTO TOTAL :
         </span>
-
-        @{
-            string cabezaEscala = null, pieEscala = null;
-            string lbl1Ganancia = null, lbl2Ganancia = null;
-
-            if (Model.CodigoISO == Constantes.CodigosISOPais.Peru ||
-                        Model.CodigoISO == Constantes.CodigosISOPais.Colombia ||
-                        Model.CodigoISO == Constantes.CodigosISOPais.Ecuador ||
-                        Model.CodigoISO == Constantes.CodigosISOPais.Guatemala ||
-                        Model.CodigoISO == Constantes.CodigosISOPais.Salvador ||
-                        Model.CodigoISO == Constantes.CodigosISOPais.Dominicana ||
-                        Model.CodigoISO == Constantes.CodigosISOPais.PuertoRico)
-            {
-                cabezaEscala = "Ganancia estimada total";
-                pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
-                lbl1Ganancia = "Mis descuentos";
-                lbl2Ganancia = "Ganancia estimada *(Guia de negocio y otros)";
-            }
-            else if (Model.CodigoISO == Constantes.CodigosISOPais.Mexico || Model.CodigoISO == Constantes.CodigosISOPais.Panama)
-            {
-                cabezaEscala = "Ganancia estimada total";
-                pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros.";
-                lbl1Ganancia = "Mis descuentos";
-                lbl2Ganancia = "Ganancia estimada *(Revista y otros)";
-            }
-            else if (Model.CodigoISO == Constantes.CodigosISOPais.Chile)
-            {
-                cabezaEscala = "Comisión y ahorro total";
-                pieEscala = "*Comisión = Ganancia estimada proveniente de tus descuentos por compras en catálogo; <br>Ahorro = Ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
-                lbl1Ganancia = "Mis descuentos (-)10% retencion comisión liquida";
-                lbl2Ganancia = "Ahorro estimado *(Guia de negocio y otros)";
-            }
-            else if (Model.CodigoISO == Constantes.CodigosISOPais.Venezuela)
-            {
-                cabezaEscala = "Oportunidad de ahorro total";
-                pieEscala = "Oportunidad de Ahorro Total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
-                lbl1Ganancia = "Por tus compras de productos de catalogo";
-                lbl2Ganancia = "Por tus comprar de productos de revista";
-            }
-            else if (Model.CodigoISO == Constantes.CodigosISOPais.Bolivia)
-            {
-                cabezaEscala = "Ganancia total";
-                pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocio y Otros";
-                lbl1Ganancia = "Mis descuentos";
-                lbl2Ganancia = "Ganancia estimada *(Guia de negocio y otros)";
-            }
-            else if (Model.CodigoISO == Constantes.CodigosISOPais.CostaRica)
-            {
-                cabezaEscala = "Oportunidad de ahorro total";
-                pieEscala = "Oportunidad de Ahorro Total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
-                lbl1Ganancia = "Mis descuentos";
-                lbl2Ganancia = "Oportunidad de ahorro *(Revista y otros)";
-            }
-        }
 
         <input type="hidden" id="hdeCabezaEscala" value="@cabezaEscala" />
         <input type="hidden" id="hdePieEscala" value="@pieEscala" />
@@ -284,19 +297,40 @@
             <div class="texto_cupon_monto">Agrega alguna oferta exclusiva web para hacer válido tu cupón de descuento de 00 % || S/. 00.00</div>
         </div>
     </div>
+
+
+</script>
+<script id="template-detalle" type="text/x-handlebars-template">
     <div class="detalle_pedido_ingresado">
         <span class="titulo_detalle">DETALLE</span>
     </div>
-
+    @if (ViewBag.CantPedidoPendientes > 0)
+    {
+        <div class="info_pedidos_por_aprobar">
+            <a href="@Url.Action("Pendientes", "ConsultoraOnline", new { area = "Mobile" })" class="multimarca-background-color text-center btn_pedidos_por_aprobar" title="Pedidos por aprobar">
+                Pedidos por aprobar (@ViewBag.CantPedidoPendientes)
+            </a>
+        </div>
+    }
     {{#IsNullOrEmpty this.MensajeCierreCampania '!='}}
     <div class="alert-top-icon text-success">
     </div>
     {{/IsNullOrEmpty}}
     <div id="divContenidoDetalle">
         {{#each this.ListaDetalleModel as |detalle|}}
-        <div class="contenedor_items_pedido">
+        <div class="contenedor_items_pedido
+            {{#iff TipoAccion '==' '1'}}
+                pedido_item_editable
+            {{/iff}}"
+             data-detalle-item="{{PedidoDetalleID}}_{{SetID}}"
+             data-cuv="{{CUV}}"
+             data-SetID="{{SetID}}"
+             data-campania="{{CampaniaID}}"
+             data-tipoestrategia="{{TipoEstrategiaCodigo}}"
+             data-OrigenPedidoWeb="{{OrigenPedidoWeb}}">
             <div class="bloque_descripcion_items_ingresados">
-                <div class="descripcion_item_pedido">
+                <div onclick="javascript: FichaPartialModule.ConstruirFicha(this, '{{TipoAccion}}')"
+                     class="descripcion_item_pedido">
                     <span class="cod_prod">
                         {{#if detalle.EstadoSimplificacionCuv}}
                         {{#if detalle.IndicadorOfertaCUV}}
@@ -329,6 +363,9 @@
                     {{#iff detalle.EsKitNueva '==' false}}
                     <span class="nom_cliente">Cliente: {{detalle.Nombre}}</span>
                     {{/iff}}
+                    {{#if detalle.EsPremioElectivo }}
+                    <span class="tooltip_informativo_condicion_regalo_programaNuevas">Sólo si llegas a tu monto</span>
+                    {{/if}}
                 </div>
 
                 {{#if detalle.EsKitNueva}}
@@ -343,18 +380,22 @@
                         </span>
                     </div>
                 </div>
+                {{else iff detalle.LockPremioElectivo}}
+                <div class="icono_cambiar_regalo_programaNuevas">
+                    <a href="javascript:;" title="Cambiar regalo" onclick="javascript: cargarPopupEleccionRegalo();">
+                        <img src="@Url.Content("~/Content/Images/icono_editar.svg")" alt="Cambiar regalo" />
+                    </a>
+                </div>
                 {{else}}
-
                 <div class="icono_eliminar_item_pedido">
                     <a href="javascript:;"
                        title="Eliminar"
-                       onclick="tooltipDelete('{{PedidoDetalleID}}', '{{SetID}}');"
+                       onclick="tooltipDelete(event,'{{PedidoDetalleID}}', '{{SetID}}');"
                        data-pedidodetalleid="{{detalle.PedidoDetalleID}}"
                        data-setid="{{detalle.SetID}}">
                         <img src="@Url.Content("~/Content/Images/Esika/tacho-copy.png")" alt="Eliminar" />
                     </a>
                 </div>
-
                 {{/if}}
             </div>
             <div class="bloque_cantidades_precios_items_ingresados">
@@ -373,6 +414,17 @@
                                    readonly="readonly"
                                    autocomplete="off">
                             {{else iff detalle.TipoEstrategiaID '==' 1}}
+                            <input type="tel"
+                                   class="ValidaNumeral ValidaPasteNumeral Cantidad"
+                                   maxlength="2"
+                                   name="Cantidad_{{detalle.PedidoDetalleID}}"
+                                   value="{{detalle.Cantidad}}"
+                                   data-pedidodetalleid="{{detalle.PedidoDetalleID}}"
+                                   data-setId="{{detalle.SetID}}"
+                                   data-cantidad-input="-"
+                                   readonly="readonly"
+                                   autocomplete="off">
+                            {{else iff detalle.EsPremioElectivo}}
                             <input type="tel"
                                    class="ValidaNumeral ValidaPasteNumeral Cantidad"
                                    maxlength="2"
@@ -415,14 +467,14 @@
                 </div>
             </div>
 
-            <div style="display:none" class="popover bottom" id="tlpDelete_{{PedidoDetalleID}}_{{SetID}}">
+            <div style="display:none" class="popover_pedido bottom" id="tlpDelete_{{PedidoDetalleID}}_{{SetID}}">
                 <div class="arrow"></div>
                 <p data-mensaje-eliminar="directo">¿Quieres eliminar este producto?</p>
                 <p data-mensaje-eliminar="regalo">Si eliminas este producto podrías perder el premio que ganaste ¿Quieres eliminar este producto?</p>
                 <div class="button-popover">
                     <div class="row">
                         <div class="col-xs-6">
-                            <button class="boton-secundario" onclick="btnSalirTlpDelete('{{PedidoDetalleID}}','{{SetID}}');">No Gracias</button>
+                            <button class="boton-secundario" onclick="btnSalirTlpDelete(event, '{{PedidoDetalleID}}','{{SetID}}');">No Gracias</button>
                         </div>
                         <div class="col-xs-6 text-right">
                             <button class="boton-primario default-background"
@@ -446,7 +498,7 @@
                         {{/iff}}
                     </small>
                 </div>*@
-            <div class="popover bottom" id="tlpObservaciones_{{PedidoDetalleID}}_{{SetID}}">
+            <div class="popover_pedido bottom" id="tlpObservaciones_{{PedidoDetalleID}}_{{SetID}}">
                 <div class="arrow"></div>
                 <ul class="list-tooltip">
                     <li class="icon-alert"><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt=""></li>
@@ -472,46 +524,8 @@
         {{/each}}
     </div>
 
-    <!--PopUp pedido Observacion-->
-    @*<button type="button" class="" data-toggle="modal" data-target="#observacionPedido">
-            modal observaciones
-        </button>*@
-    <div class="modal fade" id="observacionPedido" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <button type="button" class="close_observacionPedido" data-dismiss="modal" aria-label="Close">
-                    <img src="/Content/Images/mobile/Esika/close-button.svg" alt="">
-                </button>
-
-                <div class="header_observaciones_alerta">
-                    <ul>
-                        <li class="alert-observaciones"><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt=""></li>
-                        <li><h3>OBSERVACIONES DEL PRODUCTO</h3></li>
-                    </ul>
-                    <div class="text-center">
-                        <p>Debes tener en cuenta que tu pedido ha sido<br /> reservado pero:</p>
-                    </div>
-                    <div class="descripcion_observaciones_alerta" id="desc_obs_alert">
-                        @*<ul>
-                                <li>
-                                    El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
-                                    Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
-                                </li>
-                                <li>
-                                    El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
-                                    Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
-                                </li>
-                                <li>
-                                    El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
-                                    Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
-                                </li>
-                            </ul>*@
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--FinPopUp pedido Observacion-->
+</script>
+<script id="template-pedidototal-inferior" type="text/x-handlebars-template">
 
     <div class="separador"></div>
     <div style="margin-left: -28px;">
@@ -912,6 +926,12 @@
 @Html.Partial("~/Views/Shared/Cupon/popupCuponGanaMobile.cshtml")
 @Html.Partial("~/Views/Shared/Cupon/popupCuponConfirmarMobile.cshtml")
 @Html.Partial("~/Views/Shared/Cupon/popupCuponGanasteMobile.cshtml")
+@{ Html.RenderPartial("_PopupEleccionRegalo");}
+@{ Html.RenderPartial("_PopupPremio");}
+@{ Html.RenderPartial("_PopupDescuento");}
+<div id="DivPopupFichaResumida" class="Modal_Editar_Producto" style="display: none">
+    @Html.Partial("~/Areas/Mobile/Views/DetalleEstrategia/FichaTemplate.cshtml")
+</div>
 
 @section Scripts{
 
@@ -927,22 +947,16 @@
         var urlPedidoValidado = '@Url.Action("Validado", "Pedido", new {area = "Mobile"})';
         var urlHorarioRestringido = '@Url.Action("EnHorarioRestringido", "Pedido", new {area = ""})';
 
-        @*var urlValidarUnidadesPermitidasPedidoProductoShowRoom = '@Url.Action("ValidarUnidadesPermitidasPedidoProducto", "ShowRoom", new {area = ""})';*@
         var urlObtenerStockActualProductoShowRoom = '@Url.Action("ObtenerStockActualProducto", "ShowRoom", new {area = ""})';
-        @*var urlValidarUnidadesPermitidasPedidoProducto = '@Url.Action("ValidarUnidadesPermitidasPedidoProducto", "OfertaLiquidacion", new {area = ""})';*@
         var urlObtenerStockActualProducto = '@Url.Action("ObtenerStockActualProducto", "OfertaLiquidacion", new {area = ""})';
         var urlValidarUnidadesPermitidasPedidoProducto2 = '@Url.Action("ValidarUnidadesPermitidasPedidoProducto", "Accesorizate", new {area = ""})';
         var urlObtenerStockActualProducto2 = '@Url.Action("ObtenerStockActualProducto", "Accesorizate", new {area = ""})';
 
         var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new {area = ""})';
-        @*var urlPedidoUpdate = '@Url.Action("Update", "Pedido", new {area = ""})';
-        var urlPedidoDelete = '@Url.Action("Delete", "Pedido", new {area = ""})';*@
         var urlPedidoDeleteAll = '@Url.Action("DeleteAll", "PedidoRegistro", new { area = "" })';
-        @*var urlInsertarDesglose = '@Url.Action("InsertarDesglose", "Pedido", new {area = ""})';*@
         var urlDeshacerReservaPedidoReservado = '@Url.Action("PedidoValidadoDeshacerReserva", "Pedido", new { area = "" })';
         var urlPedidoAceptarBackOrder = '@Url.Action("AceptarBackOrder", "Pedido", new { area = "" })';
 
-        var urlDetallePedido = '@Url.Action("CargarDetallePedido", "Pedido", new { area = "" })';
         var urlValidarKitNuevas = '@Url.Action("ValidarKitNuevas", "PedidoRegistro", new { area = "" })';
         var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
         var fnEliminarProducto = null;
@@ -953,7 +967,6 @@
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
         var viewBagPaisID = '@Model.PaisID';
         var viewBagNombrePais = '@ViewBag.NombrePais';
-        @*var urlPedidoInsert = '@Url.Action("PedidoInsertar", "Pedido", new {area = ""})';*@
 
         var origenPagina = 2;
         var cuvOfertaProl = '@ViewBag.CUVOfertaProl';
@@ -976,8 +989,29 @@
         var mensajeErrorReserva = '@Constantes.MensajesError.Pedido_Reserva';
         var mensajeSinConexionReserva = '@Constantes.MensajesError.SinConexion_Reserva';
         var mensajeElecMultipleEliminar = '@string.Format(Constantes.ProgNuevas.Mensaje.ElecMultiple_ConfirmaEliminar, Constantes.ProgNuevas.Mensaje.Electivo_PromocionNombre)';
+        var urlObtenerComponentes = '@Url.Action("ObtenerComponentes", "DetalleEstrategia", new { area = "" })';
+
+        var tipoOrigenEstrategia = 22;
+
+        //OG
+        var dataBarra = JSON.parse('@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(@ViewBag.DataBarra))');
+        var listaMensajeMeta = dataBarra == null ? null : dataBarra.ListaMensajeMeta;
+        document.getElementsByClassName('descuento_pedido')[0].style.display = 'None';
+        var listaIconoLluvia = [
+            '@Url.Content("~/Content/Images/lluvia/ov-d.svg")',
+            '@Url.Content("~/Content/Images/lluvia/ov-r.svg")',
+            '@Url.Content("~/Content/Images/lluvia/sq-d.svg")',
+            '@Url.Content("~/Content/Images/lluvia/sq-r.svg")',
+            '@Url.Content("~/Content/Images/lluvia/trg-d.svg")',
+            '@Url.Content("~/Content/Images/lluvia/trg-r.svg")',
+        ];
+        var noIniciarLluvia = true;
     </script>
-    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mobile/PedidoDetalle")
+    @Scripts.Render("~/Bundle/Js/Mobile/PedidoDetalle")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/EstrategiaAgregar")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/TusClientes")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Ficha")
+
 
     @if (Model.MostrarPopupPrecargados)
     {
@@ -988,4 +1022,6 @@
 
         </script>
     }
+    <script type="text/javascript" src="@Url.Content("~/Scripts/nieve.js")?v=2"></script>
+
 }

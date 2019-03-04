@@ -1,8 +1,0 @@
-IF NOT EXISTS(SELECT * FROM SYS.COLUMNS C
-	JOIN SYS.OBJECTS  O ON C.[OBJECT_ID] = O.[OBJECT_ID]
-	WHERE  O.TYPE = 'U'  AND O.NAME = 'Estrategia'
-		AND C.NAME = 'Niveles')
-BEGIN
-	ALTER TABLE Estrategia ADD Niveles varchar(200)
-END
-
