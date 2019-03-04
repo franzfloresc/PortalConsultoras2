@@ -856,7 +856,7 @@ function isOfertas() {
 }
 
 function isFicha() {
-    return location.pathname.replace("/Mobile/", "").indexOf("Detalle/") == 0;
+    return location.pathname.replace("/Mobile", "").indexOf("/Detalle/") == 0;
 }
 
 function isInt(n) {
