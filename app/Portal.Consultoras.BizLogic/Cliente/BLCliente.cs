@@ -407,8 +407,9 @@ namespace Portal.Consultoras.BizLogic
             var valor = tablaLogicaDatos.Valor;
             if (valor.IsNullOrEmptyTrim()) return;
 
-            int.TryParse(valor, out int tiempoconfigurado);
-            if (diff.Seconds >= tiempoconfigurado && tiempoconfigurado != 0)
+            int tiempoConfigurado;
+            int.TryParse(valor, out tiempoConfigurado);
+            if (diff.Seconds >= tiempoConfigurado && tiempoConfigurado != 0)
                 LogManager.SaveLog(new Exception(string.Format("Demora en el sp GetClienteByConsultoraDetalle Consultora: {0} Pais: {1} Campania: {2} ", consultoraID, paisID, campaniaID)), consultoraID, paisID);
         }
 
