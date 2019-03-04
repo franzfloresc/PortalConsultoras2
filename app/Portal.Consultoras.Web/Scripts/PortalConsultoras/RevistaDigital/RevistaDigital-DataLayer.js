@@ -163,7 +163,7 @@ var rdAnalyticsModule = (function () {
             "event": _event.virtual,
             "category": category + ' - ' + action,
             "action": "Click Botón",
-            "label": "Click en botón - " +label
+            "label": label
         });
     };
 

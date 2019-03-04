@@ -148,10 +148,10 @@ function RDDesuscripcion_cerrar(e) {
             var MensajeEncuesta = "";
             for (var i = 0; i < $('#frmMotivoDesuscripcion').find('input:checked').parent().length; i++) {
                 if (i === 0) {
-                    MensajeEncuesta = $('#frmMotivoDesuscripcion').find('input:checked').parent()[i].innerText
+                    MensajeEncuesta = $('#frmMotivoDesuscripcion').find('input:checked').parent()[i].id
                 }
                 else
-                    MensajeEncuesta = MensajeEncuesta + ',' + $('#frmMotivoDesuscripcion').find('input:checked').parent()[i].innerText
+                    MensajeEncuesta = MensajeEncuesta + '|' + $('#frmMotivoDesuscripcion').find('input:checked').parent()[i].id
             }
 
             rdAnalyticsModule.CancelarSuscripcionEncuesta(MensajeEncuesta);
