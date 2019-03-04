@@ -131,7 +131,7 @@ var AnalyticsPortalModule = (function () {
             { "CodigoSeccion": "07", "Seccion": "Sub Campaña" }
         ],
         codigoPais: function () {
-            return !(typeof userData === 'undefined') ? userData.pais : "";
+            return !(typeof variablesPortal === 'undefined') ? variablesPortal.PaisISO : "";
         },
         // Fin - Analytics Buscador Miguel
         // Ini - Analytics Ofertas
