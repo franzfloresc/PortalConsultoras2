@@ -485,11 +485,11 @@ header {
 }
 
     .footer_responde img {
-        margin-bottom: 10px;
+        margin-bottom: 8px;
     }
 
-    .footer_enlace_belcorp_responde,
-    .footer_enlace_comunidad_virtual
+    .footer_enlace_belcorp_responde img,
+    .footer_enlace_comunidad_virtual img
     {
         height:41px;
     }
