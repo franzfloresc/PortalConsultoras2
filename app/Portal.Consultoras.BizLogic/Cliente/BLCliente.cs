@@ -383,24 +383,33 @@ namespace Portal.Consultoras.BizLogic
             try
             {
                 var inicioEjecucion = DateTime.Now;
-
                 using (var reader = new DACliente(paisID).GetClienteByConsultoraDetalle(consultoraID, campaniaID, clienteID))
                 {
                     clientes = reader.MapToCollection<BECliente>();
                 }
+
                 var finEjecucion = DateTime.Now;
                 TimeSpan diff = finEjecucion - inicioEjecucion;
-                var tiempoEjecucion = _tablaLogicaDatosBusinessLogic.GetListCache(paisID, Constantes.TablaLogica.TiempoMaximoSP).Where(a => a.Codigo == "01").FirstOrDefault();
-                if (diff.Seconds >= Convert.ToInt32(tiempoEjecucion))
-                    LogManager.SaveLog(new Exception(string.Format("Demora en el sp GetClienteByConsultoraDetalle Consultora: {0} Pais: {1} Campania: {2} ", consultoraID, paisID, campaniaID)), consultoraID, paisID);
-
+                RegistrarLogDemoraSP(paisID, consultoraID, campaniaID, diff);
             }
             catch (Exception ex)
             {
                 LogManager.SaveLog(ex, consultoraID, paisID);
             }
-
             return clientes ?? new List<BECliente>();
+        }
+
+        private void RegistrarLogDemoraSP(int paisID, long consultoraID, int campaniaID, TimeSpan diff)
+        {
+            var tablaLogicaDatos = _tablaLogicaDatosBusinessLogic.GetListCache(paisID, Constantes.TablaLogica.TiempoMaximoSP).FirstOrDefault(a => a.Codigo == "01");
+            if (tablaLogicaDatos == null) return;
+
+            var valor = tablaLogicaDatos.Valor;
+            if (valor.IsNullOrEmptyTrim()) return;
+
+            int.TryParse(valor, out int tiempoconfigurado);
+            if (diff.Seconds >= tiempoconfigurado && tiempoconfigurado != 0)
+                LogManager.SaveLog(new Exception(string.Format("Demora en el sp GetClienteByConsultoraDetalle Consultora: {0} Pais: {1} Campania: {2} ", consultoraID, paisID, campaniaID)), consultoraID, paisID);
         }
 
         /// <summary>
