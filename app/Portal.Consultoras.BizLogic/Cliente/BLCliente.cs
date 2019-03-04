@@ -390,7 +390,7 @@ namespace Portal.Consultoras.BizLogic
                 }
                 var finEjecucion = DateTime.Now;
                 TimeSpan diff = finEjecucion - inicioEjecucion;
-                var tiempoEjecucion = _tablaLogicaDatosBusinessLogic.GetListCache(paisID, Constantes.TablaLogica.TiempoMaximoSP).Where(a => a.Codigo == "01").FirstOrDefault();
+                var tiempoEjecucion = _tablaLogicaDatosBusinessLogic.GetListCache(paisID, Constantes.TablaLogica.TiempoMaximoSP).Where(a => a.Codigo == "01").FirstOrDefault().Valor;
                 if (diff.Seconds >= Convert.ToInt32(tiempoEjecucion))
                     LogManager.SaveLog(new Exception(string.Format("Demora en el sp GetClienteByConsultoraDetalle Consultora: {0} Pais: {1} Campania: {2} ", consultoraID, paisID, campaniaID)), consultoraID, paisID);
 
