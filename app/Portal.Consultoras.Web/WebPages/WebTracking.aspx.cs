@@ -98,7 +98,7 @@ namespace Portal.Consultoras.Web.WebPages
             if (boton == null)
                 return;
 
-            BETracking tracking = e.Row.DataItem as BETracking;
+            Models.Pedido.PedidoSeguimientoModel tracking = e.Row.DataItem as Models.Pedido.PedidoSeguimientoModel;
 
             if (tracking == null) return;
 
