@@ -2486,10 +2486,10 @@ function CalculoPosicionMinimoMaximoDestokp() {
                     } else {
                         var montoMaximo2 = dataBarra.ListaEscalaDescuento[i].MontoDesde
                         var AvancePorcentaje2 = CalculoPorcentajeAvance(montoMaximo2, montoMaximo);
-                        document.getElementById('barra_'+i.toString()).style.left = AvancePorcentaje2;
+                        if (document.getElementById('barra_'+i.toString())) document.getElementById('barra_'+i.toString()).style.left = AvancePorcentaje2;
 
                         var AvancePorcentajeP2 = (AvancePorcentaje2.substring(0, AvancePorcentaje2.length - 1) * 1 - 5) + '%'
-                        document.getElementById('punto_' +i.toString()).style.left = AvancePorcentajeP2;
+                        if (document.getElementById('punto_' +i.toString())) document.getElementById('punto_' +i.toString()).style.left = AvancePorcentajeP2;
 
                     }
 
@@ -2787,9 +2787,11 @@ function ReordenarMontosBarra()
                     document.getElementById('punto_' + x.toString()).firstChild.firstChild.firstChild.nextSibling.style.fontSize = '9px';
                 }
                 else if (IsoPais != 'CO' && IsoPais != 'CR') {
-
-                    document.getElementById('punto_' + x.toString()).firstChild.firstChild.firstChild.style.fontSize = '10px';
-                    document.getElementById('punto_' + x.toString()).firstChild.firstChild.firstChild.nextSibling.style.fontSize = '10px';
+                    var dvel = document.getElementById('punto_' + x.toString());
+                    if (dvel) {
+                        dvel.firstChild.firstChild.firstChild.style.fontSize = '10px';
+                        dvel.firstChild.firstChild.firstChild.nextSibling.style.fontSize = '10px';
+                    }
                 }
             }
 
