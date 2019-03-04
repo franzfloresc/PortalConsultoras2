@@ -195,11 +195,11 @@
                                 <td>                                                                        
                                     <table style="width: 100%;"> <!--ESTILOS DE LA PRIMERA GRILLA-->
                                         <tr>
-                                            <td id="cellPedidos" runat="server" class="width_50" style="vertical-align: top; text-align: left">                                               
+                                            <td id="cellPedidos" runat="server" class="width_37" style="vertical-align: top; text-align: left">                                               
                                                 <asp:Panel ID="pFiltros" runat="server" Width="100%"
                                                     ForeColor="#666666" GroupingText="Mis <b>pedidos</b>"
                                                     Font-Names="verdana" Font-Size="8pt" HorizontalAlign="Left">
-                                                    <asp:GridView ID="gridPedidos" runat="server" AutoGenerateColumns="False" CssClass="tabla2"
+                                                    <asp:GridView ID="gridPedidos" runat="server" AutoGenerateColumns="False" CssClass="tabla2 width_100"
                                                         GridLines="Horizontal" OnRowCommand="gridPedidos_RowCommand" CellPadding="0" CellSpacing="0">
                                                        
                                                         <Columns>
@@ -347,7 +347,7 @@
                                                                 <ItemTemplate>
                                                                     <asp:Label ID="lblEtapa" runat="server" Text='<%# ((GridViewRow) Container).RowIndex + 1 %>'></asp:Label>
                                                                 </ItemTemplate>
-                                                                <HeaderStyle Width="5%" />
+                                                                <HeaderStyle Width="2%" />
                                                             </asp:TemplateField>
                                                             <asp:TemplateField>
                                                                 <ItemTemplate>
