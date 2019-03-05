@@ -433,8 +433,8 @@ namespace Portal.Consultoras.Web.WebPages
                     var desde = listaPedidoSeguimientoModel.FirstOrDefault(a => a.Etapa == 8);
                     var hasta = listaPedidoSeguimientoModel.FirstOrDefault(a => a.Etapa == 9);
 
-                    if (desde.Fecha.HasValue) horaEstimadaEntregaDesde = desde.Fecha.Value.TimeOfDay.TotalHours.Equals(0) ? desde.Fecha.Value.ToString() : desde.Fecha.Value.ToString("HH:mm:ss");
-                    if (hasta.Fecha.HasValue) horaEstimadaEntregaHasta = hasta.Fecha.Value.TimeOfDay.TotalHours.Equals(0) ? hasta.Fecha.Value.ToString() : hasta.Fecha.Value.ToString("HH:mm:ss");
+                    if (desde.Fecha.HasValue) horaEstimadaEntregaDesde = desde.Fecha.Value.TimeOfDay.TotalHours.Equals(0) ? desde.Fecha.Value.ToString() : desde.Fecha.Value.ToString("HH:mm:ss tt");
+                    if (hasta.Fecha.HasValue) horaEstimadaEntregaHasta = hasta.Fecha.Value.TimeOfDay.TotalHours.Equals(0) ? hasta.Fecha.Value.ToString() : hasta.Fecha.Value.ToString("HH:mm:ss tt");
 
                     //Obtener si la zona y region permite los valores configurados
 
@@ -495,7 +495,7 @@ namespace Portal.Consultoras.Web.WebPages
 
                         if (item.Etapa == 6 && true)
                         {
-                            item.HoraEstimadaDesdeHasta = string.Format("De {0} hasta {1}", horaEstimadaEntregaDesde, horaEstimadaEntregaHasta);
+                            item.HoraEstimadaDesdeHasta = string.Format("{0} {1}", horaEstimadaEntregaDesde, horaEstimadaEntregaHasta);
                         }
                     }
 
