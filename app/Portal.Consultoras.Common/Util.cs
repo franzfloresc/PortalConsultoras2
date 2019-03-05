@@ -2486,7 +2486,61 @@ namespace Portal.Consultoras.Common
             return listaPaises[paisID];
         }
 
-        public static string GetPaisIsoSicc(int paisId)
+        public static string GetSiccPaisISO(string paisISO)
+        {
+            switch (paisISO)
+            {
+                case "CL": return "CLE";
+                case "CO": return "COE";
+                case "EC": return "ECL";
+                case "PE": return "PE"; //REMP
+                case "MX": return "MXL"; //REMP
+                case "CR": return "CRL"; //REMP
+                case "SV": return "SVE"; //REMP
+                case "PA": return "PAL"; //REMP
+                case "GT": return "GTE"; //REMP
+                case "DO": return "DOL"; //REMP
+                case "PR": return "PRL"; //REMP
+                case "BO": return "BOE"; //REMP
+                default: return paisISO;
+            }
+        }
+        public static string GetPaisIsoPorId(int paisId)
+        {
+            switch (paisId)
+            {
+                case 2: //Bolivia
+                    return "BOL";
+                case 3: //Chile
+                    return "CHL";
+                case 4: //Colombia
+                    return "COL";
+                case 5: //Costa Rica
+                    return "CRI";
+                case 6: //Ecuador
+                    return "ECU";
+                case 7: //El Salvador
+                    return "SLV";
+                case 8: //Guatemala
+                    return "GTM";
+                case 9: //México
+                    return "MEX";
+                case 10: //Panamá
+                    return "PAN";
+                case 11: //Perú
+                    return "PER";
+                case 12: //Puerto Rico
+                    return "PRI";
+                case 13: //República Dominicana
+                    return "DOM";
+                case 14: //Venezuela
+                    return "VEN";
+                default:
+                    return "";
+            }
+        }
+
+        public static string GetPaisIsoHanna(int paisId)
         {
             switch (paisId)
             {
@@ -2545,9 +2599,9 @@ namespace Portal.Consultoras.Common
             string iso;
             try
             {
-                iso = (from c in listaPaises
-                       where c.Key == paisID.ToString()
-                       select c.Value).SingleOrDefault();
+                iso =  (from c in listaPaises
+                        where c.Key == paisID.ToString()
+                        select c.Value).SingleOrDefault();
             }
             catch (Exception)
             {
@@ -3534,7 +3588,7 @@ namespace Portal.Consultoras.Common
 
             return result;
         }
-
+     
         public static class Security
         {
             public static string ToMd5(string input)
@@ -3653,12 +3707,14 @@ namespace Portal.Consultoras.Common
         }
 
         public static string obtenerNuevaDescripcionProductoDetalle(int ofertaId, bool pedidoValidado,
-            bool consultoraOnline, int origenPedido, Dictionary<string, string> lista, bool suscripcion,
-            string tipoEstrategiaCodigo, int marcaId, int codigoCatalogo, string descripcion)
+            bool consultoraOnline, int origenPedido, Dictionary<string, string> lista, bool suscripcion, string tipoEstrategiaCodigo,
+            int marcaId, int codigoCatalogo, string descripcion, bool esCuponNuevas, bool EsElecMultipleNuevas, bool esPremioElec)
         {
+            if (esPremioElec) return lista[Constantes.NuevoCatalogoProducto.ESPREMIOELEC];
+            if (EsElecMultipleNuevas) return lista[Constantes.NuevoCatalogoProducto.ESELECMULTIPLENUEVAS];
+            if (esCuponNuevas) return lista[Constantes.NuevoCatalogoProducto.ESCUPONNUEVAS];
+
             var result = "";
-
-
             if (pedidoValidado)
             {
                 result = obtenerNuevaDescripcionProducto(lista, suscripcion, "", tipoEstrategiaCodigo, marcaId, codigoCatalogo);
@@ -3689,10 +3745,7 @@ namespace Portal.Consultoras.Common
             }
             else
             {
-                if (consultoraOnline)
-                {
-                    result = "CLIENTE ONLINE";
-                }
+                if (consultoraOnline) result = "CLIENTE ONLINE";
                 else
                 {
                     switch (origenPedido)
@@ -3765,14 +3818,6 @@ namespace Portal.Consultoras.Common
                                 Constantes.OrigenPedidoWeb.DesktopLandingBuscadorCatalogoEsikaCarrusel.ToString()) :
                         (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorCatalogoCyzoneCarrusel.ToString() : 
                             Constantes.OrigenPedidoWeb.DesktopLandingBuscadorCatalogoCyzoneCarrusel.ToString()))));
-                    break;
-                case "ODD":
-                    result = home ?
-                        (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorOfertaDelDiaDesplegableBuscador.ToString() : 
-                            Constantes.OrigenPedidoWeb.DesktopBuscadorOfertaDelDiaDesplegableBuscador.ToString())
-                        :
-                        (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorOfertaDelDiaCarrusel.ToString() : 
-                            Constantes.OrigenPedidoWeb.DesktopLandingBuscadorOfertaDelDiaCarrusel.ToString());
                     break;
                 default:
                     switch (codigoTipoEstrategia)
@@ -3900,20 +3945,6 @@ namespace Portal.Consultoras.Common
             if (string.IsNullOrEmpty(origenActual)) return origenActual;
             var nuevoOrigen = origenActual.Remove(0, 1).Insert(0, "4");
             return nuevoOrigen;
-        }
-
-        public static T GetOrCalcValue<T>(Func<T> fnGet, Action<T> fnSet, Predicate<T> fnIsNull, Func<T> fnCalc, Action<Exception> fnExcep, T defaultValue)
-        {
-            if (!fnIsNull(fnGet())) return fnGet();
-
-            try { fnSet(fnCalc()); }
-            catch (Exception ex)
-            {
-                fnSet(defaultValue);
-                fnExcep(ex);
-            }
-
-            return fnGet();
         }
 
         public static T GetOrCalcValue<T>(Func<T> fnGet, Action<T> fnSet, Predicate<T> fnIsNull, Func<T> fnCalc)

@@ -450,6 +450,10 @@ namespace Portal.Consultoras.Web.Controllers
                     result = Constantes.OrigenPedidoWeb.MobileLandingShowroomShowroomFicha;
                     break;
 
+                case Constantes.OrigenPedidoWeb.MobileContenedorShowroomCarrusel:
+                    result = Constantes.OrigenPedidoWeb.MobileContenedorShowroomFicha;
+                    break;
+
                 #endregion Mobile
 
                 #region Buscador Desktop

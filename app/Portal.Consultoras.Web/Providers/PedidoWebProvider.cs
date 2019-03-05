@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Portal.Consultoras.Web.ServiceUsuario;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -86,7 +87,7 @@ namespace Portal.Consultoras.Web.Providers
                             NumeroPedido = userData.ConsecutivoNueva
                         };
 
-                        detallesPedidoWeb = pedidoServiceClient.SelectByCampania(bePedidoWebDetalleParametros).ToList();
+                        detallesPedidoWeb = pedidoServiceClient.SelectByCampaniaWithLabelProgNuevas(bePedidoWebDetalleParametros).ToList();
                     }
                 }
 
@@ -147,7 +148,7 @@ namespace Portal.Consultoras.Web.Providers
                             AgruparSet = true
                         };
 
-                        detallesPedidoWeb = pedidoServiceClient.SelectByCampania(bePedidoWebDetalleParametros).ToList();
+                        detallesPedidoWeb = pedidoServiceClient.SelectByCampaniaWithLabelProgNuevas(bePedidoWebDetalleParametros).ToList();
                     }
                 }
 
@@ -269,8 +270,9 @@ namespace Portal.Consultoras.Web.Providers
         {
             var descripcion = "";
 
-            descripcion = Util.obtenerNuevaDescripcionProductoDetalle(item.ConfiguracionOfertaID, pedidoValidado, item.FlagConsultoraOnline,
-                item.OrigenPedidoWeb, lista, suscripcion, item.TipoEstrategiaCodigo, item.MarcaID, item.CodigoCatalago, item.DescripcionOferta);
+            descripcion = Util.obtenerNuevaDescripcionProductoDetalle(item.ConfiguracionOfertaID, pedidoValidado,
+                item.FlagConsultoraOnline, item.OrigenPedidoWeb, lista, suscripcion, item.TipoEstrategiaCodigo, item.MarcaID,
+                item.CodigoCatalago, item.DescripcionOferta, item.EsCuponNuevas, item.EsElecMultipleNuevas, item.EsPremioElectivo);
 
             return descripcion;
         }
@@ -308,6 +310,14 @@ namespace Portal.Consultoras.Web.Providers
             return pedidoDetalleResult;
         }
 
+        public async Task EliminarPedidoWebDetalle(BEPedidoWebDetalle pedidoDetalle)
+        {
+            using (var pedidoServiceClient = new PedidoServiceClient())
+            {
+                await pedidoServiceClient.DelPedidoWebDetalleAsync(pedidoDetalle);
+            }
+        }
+
         public bool EsHoraReserva(UsuarioModel usuario, DateTime fechaHora)
         {
             if (!usuario.DiaPROL)
@@ -325,6 +335,26 @@ namespace Portal.Consultoras.Web.Providers
                 return (BuildFechaNoHabil(usuario) == 0);
 
             return true;
+        }
+
+        public int GetPedidoPendientes(UsuarioModel usuario)
+        {
+            if (_configuracionManager.GetMostrarPedidosPendientesFromConfig())
+            {
+                var paisesConsultoraOnline = _configuracionManager.GetPaisesConConsultoraOnlineFromConfig();
+                if (paisesConsultoraOnline.Contains(usuario.CodigoISO)
+                    && usuario.EsConsultora())
+                {
+                    using (var svc = new UsuarioServiceClient())
+                    {
+                        var cantPedidosPendientes = svc.GetCantidadSolicitudesPedido(usuario.PaisID, usuario.ConsultoraID, usuario.CampaniaID);
+
+                        return cantPedidosPendientes;
+                    }
+                }
+            }
+
+            return 0;
         }
 
         private int BuildFechaNoHabil(UsuarioModel usuario)

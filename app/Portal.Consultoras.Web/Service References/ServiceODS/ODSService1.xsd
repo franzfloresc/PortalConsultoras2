@@ -47,6 +47,7 @@
       <xs:element minOccurs="0" name="TextoBusqueda" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TieneLanzamientoCatalogoPersonalizado" type="xs:boolean" />
       <xs:element minOccurs="0" name="TieneOfertaRevista" type="xs:boolean" />
+      <xs:element minOccurs="0" name="TieneOfertasRelacionadas" type="xs:boolean" />
       <xs:element minOccurs="0" name="TieneStock" type="xs:boolean" />
       <xs:element minOccurs="0" name="TieneSugerido" type="xs:int" />
       <xs:element minOccurs="0" name="TipoEstrategiaCodigo" nillable="true" type="xs:string" />

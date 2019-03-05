@@ -8,8 +8,13 @@
       <xs:enumeration value="ConsultoraNoNueva" />
       <xs:enumeration value="NoParticipaEnProgramaNuevas" />
       <xs:enumeration value="CuvNoPerteneceASuPrograma" />
-      <xs:enumeration value="ExisteUnElectivoEnPedido" />
-      <xs:enumeration value="CuvPerteneceProgramaNuevas" />
+      <xs:enumeration value="CuvPerteneceProgramaNuevas">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">6</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="Enumeradores.ValidacionProgramaNuevas" nillable="true" type="tns:Enumeradores.ValidacionProgramaNuevas" />

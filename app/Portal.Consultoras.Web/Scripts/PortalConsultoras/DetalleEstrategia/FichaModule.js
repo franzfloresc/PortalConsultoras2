@@ -470,7 +470,7 @@ var FichaModule = (function (config) {
             if (filterComponente.length) {
                 ComponentesModule.SeleccionarComponente(filterComponente[0].Cuv, false);
                 var cant = 0;
-                for (cant = 0; cant < o.Cantidad; cant++) {
+                for (cant = 0; cant < o.FactorRepeticion; cant++) {
                     ListaOpcionesModule.SeleccionarOpcion(o.CUV);
                 }
                 ResumenOpcionesModule.AplicarOpciones();
@@ -893,7 +893,10 @@ var FichaModule = (function (config) {
             _redireccionar("_construirSeccionFicha, ValidaOfertaDelDia");
             return false;
         }
-        FichaPartialModule.ShowDivFichaResumida(true);
+
+        if (_validarAbrirFichaResumida()) {
+            FichaPartialModule.ShowDivFichaResumida(true);
+        }
 
         _modeloFicha.BreadCrumbs = _modeloFicha.BreadCrumbs || {};
         _modeloFicha.BreadCrumbs.TipoAccionNavegar = _modeloFicha.TipoAccionNavegar;
@@ -906,6 +909,11 @@ var FichaModule = (function (config) {
         _setHandlebars(_template.compartir, _modeloFicha);
 
     };
+
+    var _validarAbrirFichaResumida = function () {
+        // agregar logica para recomendados
+        return _config.esEditable;
+    }
 
     var _getModelo = function () {
 
@@ -985,7 +993,7 @@ var FichaModule = (function (config) {
     var _selectClient = function (clienteId, clienteNombre) {
         if (typeof clienteId !== "undefined" &&
             typeof clienteNombre !== "undefined" &&
-            clienteId > 0) {
+            clienteId >= 0) {
             $(_seccionesPanelCliente.hfClienteId).val(clienteId);
             $(_seccionesPanelCliente.hfClienteNombre).val(clienteNombre);
             $(_seccionesPanelCliente.spClienteNombre).html(clienteNombre);

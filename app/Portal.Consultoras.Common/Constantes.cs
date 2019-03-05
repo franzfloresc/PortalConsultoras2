@@ -443,6 +443,7 @@ namespace Portal.Consultoras.Common
 
 
             public const string JwtApiSomosBelcorp = "JwtApiSomosBelcorp";
+            public const string UsuarioPedidos = "UsuarioPedidos";
             public const string RecomendacionesConfig = "RecomendacionesConfiguracion";
             public const string BuscadorYFiltrosConfig = "BuscadorYFiltros";
             public const string MSPersonalizacionConfig = "MSPersonalizacion";
@@ -950,7 +951,7 @@ namespace Portal.Consultoras.Common
 
             public const int DesktopPedidoProductoRecomendadoOpmFicha = 1020009;
             public const int DesktopPedidoProductoRecomendadoShowRoomFicha = 1020109;
-            public const int DesktopPedidoProductoRecomendadoLanFicha = 1020209;
+            public const int AppConsultoraContenedorShowroomFicha = 4080102;
             public const int DesktopPedidoProductoRecomendadoOddFicha = 1020309;
             public const int DesktopPedidoProductoRecomendadoHvFicha = 1020809;
             public const int DesktopPedidoProductoRecomendadoGanadorasFicha = 1021409;
@@ -1268,6 +1269,14 @@ namespace Portal.Consultoras.Common
             public const string PedidoFIC = "PedidoFIC";
             public const string ContenedorOfertas = "ContenedorOfertas";
             public const string LiquidacionWeb = "LiquidacionWeb";
+            public const string MiPerfil = "MiPerfil";
+        }
+
+        public static class MenuPosicion
+        {
+            public const string Header = "header";
+            public const string Body = "body";
+            public const string Footer = "footer";
         }
 
         public static class MenuMobileId
@@ -1310,6 +1319,8 @@ namespace Portal.Consultoras.Common
             public const string Ganancias = "GANANCIAS";
             public const string DuoPerfecto = "DUOPERFECTO";
             public const string PedidosPendientes = "PEDIDOSPENDIENTES";
+            public const string ActualizaDatos = "ACTUALIZADATOS";
+            public const string Notificaciones = "NOTIFICACIONES";
         }
 
         public static class IngresoExternoOrigen
@@ -1472,6 +1483,7 @@ namespace Portal.Consultoras.Common
             public const string Recomendaciones = "RECOMDS";
             public const string MicroserviciosPersonalizacion = "MSPersonalizacion";
             public const string Datami = "DATAMI";
+            public const string DireccionEntrega = "DIRECCION_ENTREGA";
         }
 
 
@@ -1781,6 +1793,8 @@ namespace Portal.Consultoras.Common
             public const short ListaOrdenamientoFiltros = 147;
             public const short ArmaTuPack = 14;
             public const short PilotoCatalogoDigital = 155;
+            public const short GanaMasNativo = 159;
+            public const short TiempoMaximoSP = 180;
         }
 
         public struct MensajesCDRExpress
@@ -2153,6 +2167,57 @@ namespace Portal.Consultoras.Common
             public const string TipoImagenSmall = "SMALL";
             public const string TipoImagenMedium = "MEDIUM";
             public const string ValorTextoDefaultAppCatalogo = "appcatalogo";
+
+            public class App
+            {
+                public static List<AppConfiguracion> Configuracion
+                {
+                    get
+                    {
+                        var lst = new List<AppConfiguracion>();
+
+                        lst.Add(new AppConfiguracion()
+                        {
+                            Tipo = "_mdpi",
+                            Alto = 215,
+                            Ancho = 95
+                        });
+                        lst.Add(new AppConfiguracion()
+                        {
+                            Tipo = "_hdpi",
+                            Alto = 322,
+                            Ancho = 142
+                        });
+                        lst.Add(new AppConfiguracion()
+                        {
+                            Tipo = "_xhdpi",
+                            Alto = 430,
+                            Ancho = 190
+                        });
+                        lst.Add(new AppConfiguracion()
+                        {
+                            Tipo = "_xxhdpi",
+                            Alto = 645,
+                            Ancho = 285
+                        });
+                        lst.Add(new AppConfiguracion()
+                        {
+                            Tipo = "_xxxhdpi",
+                            Alto = 860,
+                            Ancho = 380
+                        });
+
+                        return lst;
+                    }
+                }
+
+                public class AppConfiguracion
+                {
+                    public string Tipo { get; set; }
+                    public int Alto { get; set; }
+                    public int Ancho { get; set; }
+                }
+            }
         }
 
         public static class RecuperacionPedido
@@ -2178,6 +2243,7 @@ namespace Portal.Consultoras.Common
                 public const short TablaLogicaID = 7;
                 public const string FlagProgNuevas = "ProgramaNuevas";
                 public const string FlagBannerElecMultiple = "BannerElecMultiple";
+                public const string FlagLabelPedidoDet = "PedidoLabelProgNuevas";
             }
 
             public static class Rango
@@ -2724,6 +2790,9 @@ namespace Portal.Consultoras.Common
             public const string MontoMinimoPago = "13";
             public const string UrlAutorizacionPagoApp = "14";
             public const string UrlTerminosUsoApp = "15";
+            public const string MerchantIdApp = "16";
+            public const string AccessKeyIdApp = "17";
+            public const string SecretAccessKeyApp = "18";
 
             public const string Recurrence = "FALSE";
             public const string RecurrenceAmount = "0.00";
@@ -3223,6 +3292,9 @@ namespace Portal.Consultoras.Common
             public const string HERRAMIENTASDEVENTA = "HERRAMIENTASDEVENTA";
             public const string ESPECIALES = "ESPECIALES";
             public const string OFERTASFLEXIPAGO = "OFERTASFLEXIPAGO";
+            public const string ESPREMIOELEC = "ESPREMIOELEC";
+            public const string ESCUPONNUEVAS = "ESCUPONNUEVAS";
+            public const string ESELECMULTIPLENUEVAS = "ESELECMULTIPLENUEVAS";
         }
 
         public static class CodigosCatalogos
@@ -3332,6 +3404,12 @@ namespace Portal.Consultoras.Common
             public const string Fecha = "dd/MM/yyyy";
             public const string FechaHora = "dd/MM/yyyy HH:mm";
         }
+        public static class OperacionBD
+        {
+            public const int Insertar = 0;
+            public const int Editar = 1;
+            public const int Eliminar = 2;
+        }
 
         public static class MetodosHTTP
         {
@@ -3347,9 +3425,9 @@ namespace Portal.Consultoras.Common
             public const string PersonalizacionSearch = "SEARCH";
         }
 
-        public class SolicitudCliente
+        public static class SolicitudCliente
         {
-            public class FlagMedio
+            public static class FlagMedio
             {
                 public const string AppCatalogos = "01";
                 public const string WebMarcas = "02";
@@ -3357,8 +3435,14 @@ namespace Portal.Consultoras.Common
                 public const string MaquilladorVirtual = "04";
             }
         }
+        
+        public static class OpcionesUsuario
+        {
+            public const int BoletaImpresa = 1;
+            public const int CompartirWhatsApp = 2;
+        }
 
-        public class SegmentoDatami
+        public static class SegmentoDatami
         {
             public const string SegmentoA = "Segmento_A";
             public const string SegmentoB = "Segmento_B";
@@ -3368,7 +3452,7 @@ namespace Portal.Consultoras.Common
             public const string SegmentoF = "Segmento_F";
         }
 
-        public class SegmentoInterno
+        public static class SegmentoInterno
         {
             public const int SinSegmento = 0;
             public const int Nuevas = 1;

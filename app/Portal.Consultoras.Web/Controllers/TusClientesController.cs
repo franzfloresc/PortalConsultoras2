@@ -105,6 +105,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var clienteNuevo = client.ClienteID == 0;
 
+                client.Origen = EsDispositivoMovil() ? Constantes.ClienteOrigen.Mobile : Constantes.ClienteOrigen.Desktop;
+
                 var response = _clienteProvider.SaveDB(userData.PaisID, userData.ConsultoraID, client);
 
                 if (response.CodigoRespuesta == Constantes.ClienteValidacion.Code.SUCCESS)
@@ -123,7 +125,8 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(new
                     {
                         success = false,
-                        message = clienteNuevo ? "Error al registrar cliente." : "Error al actualizar cliente."
+                        message = clienteNuevo ? "Error al registrar cliente." : "Error al actualizar cliente.",
+                        response
                     });
                 }
             }
@@ -145,7 +148,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var mensaje = _clienteProvider.Eliminar(userData.PaisID,userData.ConsultoraID,clienteId) ? 
-                    "Se eliminó satisfactoriamente el registro." : 
+                    "" : 
                     "No es posible eliminar al cliente dado que se encuentra asociado a un pedido.";
 
                 return Json(new

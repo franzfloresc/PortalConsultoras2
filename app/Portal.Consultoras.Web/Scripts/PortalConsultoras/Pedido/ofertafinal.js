@@ -16,6 +16,7 @@ var montoPedidoInicial = 0;
 var montoPedidoFinal = 0;
 var totalProductosOF = 0;
 var tipoMeta = null;
+var dataAgregarOF = null;
 
 $(document).ready(function () {
     $("body").on("click", ".agregarOfertaFinal", function () {
@@ -87,16 +88,24 @@ $(document).ready(function () {
 //            return false;
 //        }
 
-//        var add = AgregarOfertaFinal(model);
-//        if (add.success) {
+//        dataAgregarOF = AgregarOfertaFinal(model);
+//        if (dataAgregarOF.success) {
 //            AgregarOfertaFinalLog(model.CUV, model.Cantidad, tipoOfertaFinal_Log, gap_Log, 1, 'Producto Agregado');
-//            ActualizarValoresPopupOfertaFinal(add, true);
+//            ActualizarValoresPopupOfertaFinal(dataAgregarOF);
 //            objDivPadre.find('.agregado').show();
 //            if ($.isFunction(fnFinal)) fnFinal();
 //        }
 //        CloseLoadingOF();
 //    }, 1);
 //}
+
+function ActValPopupOFByRegaloNuevas() {
+    if (dataAgregarOF != null) {
+        oRegaloPN = GetRegaloProgramaNuevas();
+        ActualizarValoresPopupOfertaFinal(dataAgregarOF);
+    }
+    else oRegaloPN = null;
+}
 
 function OpenLoadingOF() {
     if (tipoOrigen == "1") AbrirSplash();
@@ -607,7 +616,7 @@ function validarGanoRegalo(totalPedido) {
     }
 }
 
-function ActualizarValoresPopupOfertaFinal(data, popup) {
+function ActualizarValoresPopupOfertaFinal(data) {
     var nivel;
     var msg1 = "", msj = "";
     var montolimite = 0;
@@ -891,8 +900,7 @@ function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simboloParam, 
                 if (nivel == '01' || nivel == '02' || nivel == '03') {
                     // CASE 1
                     msg2 = 'ALCÁNZALO CON ESTAS OFERTAS Y <b>GANA UN ' + oRegaloPN.DescripcionPremio + '*</b>';
-                    if (oRegaloPN.Valorizado > 0)
-                        msg2 += ', PUEDES VENDERLO A ' + simboloParam + ' ' + oRegaloPN.PrecioValorizadoFormat;
+                    if (oRegaloPN.PrecioValorizado > 0) msg2 += ', PUEDES VENDERLO A ' + simboloParam + ' ' + oRegaloPN.PrecioValorizadoFormat;
 
                     $('#msg-regalo-pn').html(msg2);
                     $('#msg-regalo-pn2').html(msg2);
