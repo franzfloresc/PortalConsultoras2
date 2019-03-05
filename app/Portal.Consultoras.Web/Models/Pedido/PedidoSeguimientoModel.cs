@@ -19,6 +19,6 @@ namespace Portal.Consultoras.Web.Models.Pedido
         public string HoraMinuto { get; set; }
         public List<PedidoSeguimientoDetalleModel> Detalles { get; set; }
         public string ValorTurno { get; set; }
-        public string HoraEstimadaDesdeHasta { get; set; } = string.Empty;
+        public string HoraEstimadaDesdeHasta { get; set; }
     }
 }

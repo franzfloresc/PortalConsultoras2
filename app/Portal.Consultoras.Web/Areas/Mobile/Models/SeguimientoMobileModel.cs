@@ -17,6 +17,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public string HoraMinuto { get; set; }
         public List<SeguimientoMobileModel> ListaEstadoSeguimiento { get; set; }
         public string ValorTurno { get; set; }
-        public string HoraEstimadaDesdeHasta { get; set; } = string.Empty;
+        public string HoraEstimadaDesdeHasta { get; set; }
     }
 }
