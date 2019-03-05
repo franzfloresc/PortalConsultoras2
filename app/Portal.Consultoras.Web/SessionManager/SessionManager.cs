@@ -4,6 +4,7 @@ using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Layout;
 using Portal.Consultoras.Web.Models.MisCertificados;
 using Portal.Consultoras.Web.Models.PagoEnLinea;
+using Portal.Consultoras.Web.Models.ProgramaNuevas;
 using Portal.Consultoras.Web.ServiceCDR;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
@@ -683,8 +684,16 @@ namespace Portal.Consultoras.Web.SessionManager
         void ISessionManager.SetCuvKitNuevas(string cuvKit) { HttpContext.Current.Session["CuvKitNuevas"] = cuvKit; }
         string ISessionManager.GetMensajeKitNuevas() { return (string)HttpContext.Current.Session["MensajeKitNuevas"]; }
         void ISessionManager.SetMensajeKitNuevas(string mensajeKit) { HttpContext.Current.Session["MensajeKitNuevas"] = mensajeKit; }
-        int ISessionManager.GetLimElectivosProgNuevas() { return (int)(HttpContext.Current.Session["GetLimElectivosProgNuevas"] ?? 0); }
-        void ISessionManager.SetLimElectivosProgNuevas(int limElectivos) { HttpContext.Current.Session["GetLimElectivosProgNuevas"] = limElectivos; }
+        int ISessionManager.GetLimElectivosProgNuevas() { return (int)(HttpContext.Current.Session["LimElectivosProgNuevas"] ?? 0); }
+        void ISessionManager.SetLimElectivosProgNuevas(int limElectivos) { HttpContext.Current.Session["LimElectivosProgNuevas"] = limElectivos; }
+        List<PremioElectivoModel> ISessionManager.GetListPremioElectivo() { return (List<PremioElectivoModel>)HttpContext.Current.Session["ListPremioElectivo"]; }
+        void ISessionManager.SetListPremioElectivo(List<PremioElectivoModel> listPremioElectivo) { HttpContext.Current.Session["ListPremioElectivo"] = listPremioElectivo; }
+        Dictionary<string, PremioProgNuevasOFModel> ISessionManager.GetDictPremioProgNuevasOF() {
+            return (Dictionary<string, PremioProgNuevasOFModel>)HttpContext.Current.Session["DictPremioProgNuevasOF"];
+        }
+        void ISessionManager.SetDictPremioProgNuevasOF(Dictionary<string, PremioProgNuevasOFModel> dictPremioProgNuevasOF) {
+            HttpContext.Current.Session["DictPremioProgNuevasOF"] = dictPremioProgNuevasOF;
+        }
 
         void ISessionManager.SetOcultarBannerApp(dynamic val)
         {
@@ -1353,6 +1362,14 @@ namespace Portal.Consultoras.Web.SessionManager
         string ISessionManager.GetJwtApiSomosBelcorp()
         {
             return (string)HttpContext.Current.Session[Constantes.ConstSession.JwtApiSomosBelcorp];
+        }
+        public void SetUsuarioOpciones(List<UsuarioOpcionesModel> usuarioOpciones)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.UsuarioPedidos] = usuarioOpciones;
+        }
+        public List<UsuarioOpcionesModel> GetUsuarioOpciones()
+        {
+            return (List<UsuarioOpcionesModel>)HttpContext.Current.Session[Constantes.ConstSession.UsuarioPedidos];
         }
     }
 }

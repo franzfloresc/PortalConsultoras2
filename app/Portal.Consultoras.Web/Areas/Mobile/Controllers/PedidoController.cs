@@ -14,6 +14,7 @@ using System.Web.Routing;
 using Portal.Consultoras.Web.Providers;
 using BEPedidoWeb = Portal.Consultoras.Web.ServicePedido.BEPedidoWeb;
 using BEPedidoWebDetalle = Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle;
+using Portal.Consultoras.Web.ServicesCalculosPROL;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
@@ -69,6 +70,19 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 userData.PedidoID = detallesPedidoWeb[0].PedidoID;
                 SessionManager.SetUserData(userData);
             }
+
+            SessionManager.SetMontosProl(
+                new List<ObjMontosProl>
+                {
+                    new ObjMontosProl
+                    {
+                        AhorroCatalogo = pedidoWeb.MontoAhorroCatalogo.ToString(),
+                        AhorroRevista = pedidoWeb.MontoAhorroRevista.ToString(),
+                        MontoTotalDescuento = pedidoWeb.DescuentoProl.ToString(),
+                        MontoEscala = pedidoWeb.MontoEscala.ToString()
+                    }
+                }
+            );
 
             model.PaisId = userData.PaisID;
             model.CodigoIso = userData.CodigoISO;
@@ -194,6 +208,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         public ActionResult Detalle(bool autoReservar = false)
         {
             SessionManager.SetObservacionesProl(null);
+            SessionManager.SetPedidoWeb(null);
             SessionManager.SetDetallesPedido(null);
             SessionManager.SetDetallesPedidoSetAgrupado(null);
 
@@ -270,10 +285,24 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
 
             var pedidoWeb = ObtenerPedidoWeb();
+
             ViewBag.MontoAhorroCatalogo = Util.DecimalToStringFormat(pedidoWeb.MontoAhorroCatalogo, userData.CodigoISO);
             ViewBag.MontoAhorroRevista = Util.DecimalToStringFormat(pedidoWeb.MontoAhorroRevista, userData.CodigoISO);
             ViewBag.MontoDescuento = Util.DecimalToStringFormat(pedidoWeb.DescuentoProl, userData.CodigoISO);
             ViewBag.GananciaEstimada = Util.DecimalToStringFormat(pedidoWeb.MontoAhorroCatalogo + pedidoWeb.MontoAhorroRevista, userData.CodigoISO);
+
+            SessionManager.SetMontosProl(
+                new List<ObjMontosProl>
+                {
+                    new ObjMontosProl
+                    {
+                        AhorroCatalogo = pedidoWeb.MontoAhorroCatalogo.ToString(),
+                        AhorroRevista = pedidoWeb.MontoAhorroRevista.ToString(),
+                        MontoTotalDescuento = pedidoWeb.DescuentoProl.ToString(),
+                        MontoEscala = pedidoWeb.MontoEscala.ToString()
+                    }
+                }
+            );
 
             model.PaisID = userData.PaisID;
 
@@ -320,7 +349,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             model.MostrarPopupPrecargados = (GetMostradoPopupPrecargados() == 0);
             model.MensajeKitNuevas = _programaNuevasProvider.GetMensajeKit();
+            ViewBag.CantPedidoPendientes = _pedidoWebProvider.GetPedidoPendientes(userData);
 
+            ViewBag.DataBarra = GetDataBarra(true, true);//OG
             return View(model);
         }
 

@@ -44,7 +44,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
         private readonly IProgramaNuevasBusinessLogic _programaNuevasBusinessLogic;
         private readonly ILimiteVentaBusinessLogic _limiteVentaBusinessLogic;
         private readonly IArmaTuPackBusinessLogic _BLArmaTuPack;
-
         public BLPedido() : this(new BLProducto(),
                                     new BLPedidoWeb(),
                                     new BLPedidoWebDetalle(),
@@ -1111,7 +1110,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         x.CodigoCatalago,
                         x.DescripcionOferta,
                         x.EsCuponNuevas,
-                        x.EsElecMultipleNuevas));
+                        x.EsElecMultipleNuevas,
+                        x.EsPremioElectivo));
 
                     lstDetalle.Where(x => x.EsKitNueva).Update(x => x.DescripcionEstrategia = Constantes.PedidoDetalleApp.DescripcionKitInicio);
                     lstDetalle.Where(x => x.IndicadorOfertaCUV && x.TipoEstrategiaID == 0).Update
@@ -3543,5 +3543,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
         #endregion
 
+     
     }
-}
+} 

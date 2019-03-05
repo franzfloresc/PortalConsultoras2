@@ -2073,8 +2073,9 @@ function CuponPopupCerrar() {
 }
 
 function microefectoPedidoGuardado() {
-    $(".contenedor_circulos").fadeIn();
+    var divCirculos = $('#vpMenu .contenedor_circulos');
+    divCirculos.fadeIn();
     setTimeout(function () {
-        $(".contenedor_circulos").fadeOut();
+        divCirculos.fadeOut();
     }, 2700);
 }

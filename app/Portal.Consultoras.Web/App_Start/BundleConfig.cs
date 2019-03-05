@@ -383,7 +383,7 @@ namespace Portal.Consultoras.Web
             bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/SB2-Pedido").Include(
                 "~/Scripts/PortalConsultoras/Pedido/PedidoProvider.js",
                 "~/Scripts/PortalConsultoras/Pedido/Index.js",
-                "~/Scripts/PortalConsultoras/Pedido/barra.js",
+                 "~/Scripts/PortalConsultoras/Pedido/barra.js",
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/CarruselModule.js",
                 "~/Scripts/PortalConsultoras/Pedido/ofertafinal.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
@@ -501,7 +501,8 @@ namespace Portal.Consultoras.Web
                 //"~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/PedidoRegistro.js",
                 "~/Scripts/PortalConsultoras/Pedido/tooltip.js",
-                "~/Scripts/PortalConsultoras/Pedido/KitNuevas.js"
+                "~/Scripts/PortalConsultoras/Pedido/KitNuevas.js",
+                "~/Scripts/PortalConsultoras/Pedido/barra.js"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/_LoginLayout-Esika").Include(

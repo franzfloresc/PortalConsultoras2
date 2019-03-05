@@ -14,3 +14,7 @@
 .default-border-hover:hover {
     border-color: #613c87 !important;
 }
+
+.multimarca-background-color {
+    background-color: #b9007e;
+}

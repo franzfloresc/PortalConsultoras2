@@ -9,13 +9,6 @@ namespace Portal.Consultoras.Entities
     [DataContract]
     public class BEConsultoraRegaloProgramaNuevas
     {
-        [DataMember]
-        [Column("CodigoNivel")]
-        public string CodigoNivel { get; set; }
-
-        [DataMember]
-        [Column("TippingPoint")]
-        public decimal TippingPoint { get; set; }
 
         [DataMember]
         [Column("CUVPremio")]
@@ -40,18 +33,5 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         [Column("UrlImagenRegalo")]
         public string UrlImagenRegalo { get; set; }
-
-        public BEConsultoraRegaloProgramaNuevas() { }
-
-        public BEConsultoraRegaloProgramaNuevas(IDataRecord row)
-        {
-            CodigoNivel = row.ToString("CodigoNivel");
-            TippingPoint = row.ToDecimal("TippingPoint");
-            CUVPremio = row.ToString("CUVPremio");
-            DescripcionPremio = row.ToString("DescripcionPremio");
-            CodigoSap = row.ToString("CodigoSap");
-            PrecioCatalogo = row.ToDecimal("PrecioCatalogo");
-            PrecioValorizado = row.ToDecimal("PrecioValorizado");
-        }
     }
 }
