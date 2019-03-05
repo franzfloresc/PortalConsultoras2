@@ -699,7 +699,7 @@
         return msj;
     };
 
-    var _uploadFileLanzamineto = function (divId) {
+     var _uploadFileLanzamineto = function (divId) {
         var uploader = new qq.FileUploader({
             allowedExtensions: ["jpg", "png", "jpeg"],
             element: document.getElementById(divId),

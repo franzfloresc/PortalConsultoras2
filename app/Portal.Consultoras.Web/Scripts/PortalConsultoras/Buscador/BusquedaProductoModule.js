@@ -8,6 +8,7 @@
         opcionOrdenar: "#dpw-ordenar, .opcion__ordenamiento__label",
         opcionFiltrar: "#opcionFiltrar",
         opcionCerrarFiltrosMobile: '#cerrarFiltros, .filtro__btn--aplicar, .background__filtros__mobile',
+        opcionAplicarFiltrosMobile: '.filtro__btn--aplicar',
         opcionLimpiarFiltros: '.filtro__btn--limpiar',
         filtroCheckbox: '.filtro__item__checkbox',
         backgroundAlMostrarFiltrosMobile: '.background__filtros__mobile',
@@ -34,7 +35,8 @@
         etiquetaCriterioElegido: '.icono__eliminar__criterioElegido',
         filtroBtnMobileWrapper: '.filtro__btn__mobile__wrapper',
         valueJSON: ".hdBuscadorJSON",
-        filtroListaHandleBar: ".filtros__lista-handleBar"
+        filtroListaHandleBar: ".filtros__lista-handleBar",
+        textoBusquedaMostar: "#TextoBusqueda"
     };
     var _modificador = {
         itemDropDowndesplegado: "opcion__ordenamiento__dropdown--desplegado",
@@ -43,6 +45,7 @@
     var _config = {
         isMobile: window.matchMedia("(max-width:991px)").matches,
         textoBusqueda: textoBusqueda,
+        categoriaBusqueda: categoriaBusqueda,
         totalProductos: 0,
         totalPaginas: 0,
         productosPorPagina: totalProductosPagina,
@@ -53,7 +56,9 @@
         maxCaracteresDesc: totalCaracteresDescripcion,
         isHome: false,
         filtros: [],
-        filtrosLocalStorage: 'filtrosLocalStorage'
+        filtrosLocalStorage: 'filtrosLocalStorage',
+        nombreGrupo: "Categorías",
+        categoriaLocalStorage: "categoriasBuscadorMobile"
     };
     var _provider = {
         BusquedaProductoPromise: function (params) {
@@ -85,6 +90,7 @@
             $(document).on("click", _elementos.opcionOrdenar, _eventos.DropDownOrdenar);
             $(document).on("click", _elementos.opcionFiltrar, _eventos.MostrarFiltrosMobile);
             $(document).on("click", _elementos.opcionCerrarFiltrosMobile, _eventos.CerrarFiltrosMobile);
+            $(document).on("click", _elementos.opcionAplicarFiltrosMobile, _eventos.AplicarFiltrosMobile);
             $(document).on("click", _elementos.filtroTipoTitulo, _eventos.MostrarOcultarContenidoTipoFiltro);
             $(document).on("click", _elementos.opcionLimpiarFiltros, _eventos.LimpiarFiltros);
             $(document).on("click", _elementos.itemDropDown, _eventos.ClickItemOrdenar);
@@ -116,13 +122,17 @@
 
             _config.cargandoProductos = true;
             var modelo = _funciones.ConstruirModeloBusqueda();
+            
             _provider.BusquedaProductoPromise(modelo)
                 .done(function (data) {
+                    
                     $(_elementos.spanTotalProductos).html(data.total);
                     $(_elementos.divCantidadProductoMobile).html(data.total + ' Resultados');
                     _funciones.ProcesarListaProductos(data.productos);
                     SetHandlebars(_elementos.scriptHandleBarFicha, data.productos, _elementos.divContenedorFicha);
+                    _funciones.validacionDataCategoria(data.filtros);
                     SetHandlebars(_elementos.scriptHandleBarFiltros, data.filtros, _elementos.filtroListaHandleBar);
+
                     _funciones.UpadteFichaProducto();
                     _config.totalProductos = data.total;
                     _config.cargandoProductos = false;
@@ -165,8 +175,6 @@
 
                     var imgProducto = element.attr('src');
                     var fichaProducto = element.closest('article');
-
-                    //console.log(imgProducto);
 
                     _funciones.GetSize(imgProducto, function (width, height) {
 
@@ -273,15 +281,59 @@
             }
 
             _funciones.CargarProductos();
+        },
+        validacionDataCategoria: function (dataFiltro) {
+            var data = dataFiltro;
+            if (_config.categoriaBusqueda.length > 0) {
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].NombreGrupo == _config.nombreGrupo) {
+                        dataFiltro.splice(i, 1);
+                        break;
+                    }
+                }
+            }
+            return dataFiltro;
+        },
+        buscarPorCategoria: function () {
+            if (_config.categoriaBusqueda.length > 0) {
+
+                var categorias = get_local_storage("categoriasBuscadorMobile");
+                var nombreFiltro = "";
+
+                for (var i = 0; i < categorias.length; i++) {
+                    if (categorias[i].Codigo == _config.categoriaBusqueda) {
+                        nombreFiltro = categorias[i].Nombre;
+                        i += categorias.length;
+                    }
+                }
+
+                $(_elementos.textoBusquedaMostar).html(nombreFiltro);
+
+                var filtroDuro = [{
+                    NombreGrupo: _config.nombreGrupo,
+                    Opciones: [
+                        {
+                            IdFiltro: _config.categoriaBusqueda,
+                            NombreFiltro: nombreFiltro,
+                            Min: 0,
+                            Max: 0
+                        }]
+                }];
+
+                set_local_storage(filtroDuro, _config.filtrosLocalStorage);
+
+                _config.numeroPaginaActual = 0;
+                _config.filtros = filtroDuro;
+            }
         }
     };
     var _eventos = {
-
         EliminarEtiquetaCriterioElegido: function (e) {
             e.preventDefault();
 
             var divPadre = $(this).parents("[data-item='buscadorCriterios']").eq(0);
             var idFiltro = $(divPadre).find(".CriteriosFiltrosId").val();
+            var filtroLabel = $(divPadre).find(".CriteriosFiltrosLabel").val();
 
             var filtroCriterio = _funciones.quitarFiltroMarcado(idFiltro)
 
@@ -293,6 +345,9 @@
 
             var etiquetaCriterioPorEliminar = $(this).parents('.etiqueta__criterioElegido');
             etiquetaCriterioPorEliminar.fadeOut(70);
+
+            if (!(typeof AnalyticsPortalModule === 'undefined'))
+                AnalyticsPortalModule.MarcaEliminarEtiqueta(filtroLabel);
 
             if (_config.isMobile) {
                 var capturarAnchoEtiquetaPorEliminarMobile = etiquetaCriterioPorEliminar.outerWidth() + 10;
@@ -324,6 +379,11 @@
                 _elementos.contenedorEtiquetas.find('.etiqueta__criterioElegido').fadeOut(70);
                 $(this).fadeOut(70);
             }
+
+            if (!(typeof AnalyticsPortalModule === 'undefined'))
+                AnalyticsPortalModule.MarcaLimpiarFiltros();
+
+
             setTimeout(function () {
                 _elementos.contenedorEtiquetas.find('.etiqueta__criterioElegido').remove();
                 if (_elementos.contenedorEtiquetas.find('.etiqueta__criterioElegido').length == 0) {
@@ -334,6 +394,9 @@
             }, 100);
 
             set_local_storage([], _config.filtrosLocalStorage);
+
+            if (_config.categoriaBusqueda.length > 0) _funciones.buscarPorCategoria();
+
             _funciones.accionFiltrosCriterio();
         },
         DropDownOrdenar: function (e) {
@@ -420,6 +483,10 @@
                 $(_elementos.filtroBtnMobileWrapper).delay(100);
                 $(_elementos.filtroBtnMobileWrapper).addClass('filtro__btn__mobile__wrapper--fixed');
             }
+
+            if (!(typeof AnalyticsPortalModule === 'undefined'))
+                AnalyticsPortalModule.MarcaBotonFiltro();
+
             setTimeout(function () {
                 _funciones.AnchoContenedorEtiquetasCriteriosElegidosMobile();
             }, 150);
@@ -434,11 +501,40 @@
                 $(_elementos.filtroBtnMobileWrapper).removeClass('filtro__btn__mobile__wrapper--fixed');
                 $(_elementos.preCargaFiltros).css({ 'width': '', 'max-width': '' });
             }
+
+            //if (!(typeof AnalyticsPortalModule === 'undefined'))
+            //    AnalyticsPortalModule.MarcaBotonAplicarFiltro();
+
             $(_elementos.backgroundAlMostrarFiltrosMobile).fadeOut(100);
             setTimeout(function () {
                 $(_elementos.layoutContent).css({ 'z-index': '2' });
             }, 400);
             $(_elementos.seccionFiltros).scrollTop(0);
+        },
+        AplicarFiltrosMobile: function (e) {
+            e.preventDefault();
+
+            var seleccionados = get_local_storage(_config.filtrosLocalStorage);
+            var opcionesFiltros = "";
+
+            if (seleccionados.length > 0) {
+                $.each(seleccionados, function (i, item) {
+
+                    if (item.Opciones.length > 0) {
+
+                        $.each(item.Opciones, function (i, itemChild) {
+                            opcionesFiltros += itemChild.NombreFiltro + " - ";
+                        });
+                    }
+                    opcionesFiltros = opcionesFiltros.substr(0, opcionesFiltros.length - 3);
+                    opcionesFiltros += " | ";                    
+                });
+                opcionesFiltros = opcionesFiltros.substr(0, opcionesFiltros.length - 3);
+
+                AnalyticsPortalModule.MarcaBotonAplicarFiltro(opcionesFiltros);
+            }
+
+
         },
         MostrarOcultarContenidoTipoFiltro: function (e) {
             var filtroTipo = $(this).parent();
@@ -459,6 +555,10 @@
         },
         LimpiarFiltros: function () {
             $(_elementos.filtroCheckbox).removeAttr('checked');
+
+            if (!(typeof AnalyticsPortalModule === 'undefined'))
+                AnalyticsPortalModule.MarcaLimpiarFiltros();
+
         },
         ScrollCargarProductos: function () {
             _config.cargandoProductos = true;
@@ -550,7 +650,7 @@
                     break;
                 }
             }
-            
+
             var element = $('#' + idFiltro);
             var criterio = $('#criterio' + idFiltro);
 
@@ -584,6 +684,11 @@
                 if (_config.isMobile) {
                     _funciones.AnchoContenedorEtiquetasCriteriosElegidosMobile();
                 }
+
+                if (!(typeof AnalyticsPortalModule === 'undefined')) {
+                    AnalyticsPortalModule.MarcaFiltroPorSeccion(nombreSeccion, nombreFiltro);
+                }
+                    
             }
             _funciones.accionFiltrosCriterio();
         }
@@ -591,8 +696,9 @@
     //Public functions
     function Inicializar() {
         _funciones.InicializarEventos();
-        _funciones.CargarProductos();
         set_local_storage([], _config.filtrosLocalStorage);
+        _funciones.buscarPorCategoria();
+        _funciones.CargarProductos();
     }
 
     function ScrollPagina() {
