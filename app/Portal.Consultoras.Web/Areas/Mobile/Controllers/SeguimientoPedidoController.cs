@@ -265,10 +265,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 using (var sv = new ServiceSAC.SACServiceClient())
                 {
-                    int.TryParse(userData.PaisID.ToString(), out int paisid);
+                    int paisid, zonaid, regionid;
 
-                    int.TryParse(userData.ZonaID.ToString(), out int zonaid);
-                    int.TryParse(userData.RegionID.ToString(), out int regionid);
+                    int.TryParse(userData.PaisID.ToString(), out paisid);
+
+                    int.TryParse(userData.ZonaID.ToString(), out zonaid);
+                    int.TryParse(userData.RegionID.ToString(), out regionid);
 
                     var resultado = sv.GetTablaLogicaDatos(paisid, Constantes.TablaLogica.SegPedidoRegionZona).FirstOrDefault();
                     if (resultado == null) return false;

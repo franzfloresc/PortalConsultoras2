@@ -96,7 +96,7 @@ namespace Portal.Consultoras.Web.WebPages
             Label lblTextoValorTurno = (Label)e.Row.FindControl("lblTextoValorTurno");
             Label lblHoraEstimadaDesdeHasta = (Label)e.Row.FindControl("lblHoraEstimadaDesdeHasta");
 
-            if (lblHoraEstimadaDesdeHasta !=null)
+            if (lblHoraEstimadaDesdeHasta != null)
             {
                 lblHoraEstimadaDesdeHasta.ForeColor = System.Drawing.ColorTranslator.FromHtml((ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(paisIso)) ? "#e81c36" : "#b75d9f");
             }
@@ -535,7 +535,7 @@ namespace Portal.Consultoras.Web.WebPages
             }
         }
 
-      
+
         public bool ValidarZonaRegion()
         {
 
@@ -543,10 +543,12 @@ namespace Portal.Consultoras.Web.WebPages
             {
                 using (var sv = new ServiceSAC.SACServiceClient())
                 {
-                    int.TryParse(ViewState["PAIS"].ToString(), out int paisid);
+                    int paisid, zonaid, regionid;
 
-                    int.TryParse(ViewState["ZONAID"].ToString(), out int zonaid);
-                    int.TryParse(ViewState["REGIONID"].ToString(), out int regionid);
+                    int.TryParse(ViewState["PAIS"].ToString(), out paisid);
+
+                    int.TryParse(ViewState["ZONAID"].ToString(), out zonaid);
+                    int.TryParse(ViewState["REGIONID"].ToString(), out regionid);
 
                     var resultado = sv.GetTablaLogicaDatos(paisid, Constantes.TablaLogica.SegPedidoRegionZona).FirstOrDefault();
                     if (resultado == null) return false;
@@ -560,7 +562,7 @@ namespace Portal.Consultoras.Web.WebPages
                         int.TryParse(arrItem[0], out int nregionid);
 
                         if (zonaid == nzonaid && regionid == nregionid) return true;
-                        
+
                     }
 
                 }
