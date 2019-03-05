@@ -1,4 +1,5 @@
-﻿function VisualizarPopup(ProcesoId, Observaciones, Estado, FacturaHoy, DiaFact, MesFact, Visualizado, Asunto, Proceso) {
+﻿function VisualizarPopup(ProcesoId, Observaciones, Estado, FacturaHoy, DiaFact, MesFact, Visualizado, Asunto, Proceso, elemento, Campania) {
+ 
     ShowLoading();
     var TipoOrigen;
     switch (Proceso) {
@@ -21,5 +22,5 @@
     else if (TipoOrigen == 7) location.href = urlListarDetalleCDRCulminado + "?solicitudId=" + ProcesoId + "&Proceso=" + Proceso;
     else if (TipoOrigen == 8) location.href = urlListarDetalleCDRCulminado + "?solicitudId=" + ProcesoId + "&Proceso=" + Proceso;
     else if (TipoOrigen == 9) location.href = urlListarPayOnline + "?solicitudId=" + ProcesoId;
-    else location.href = urlListarObservaciones + "?ProcesoId=" + ProcesoId + "&TipoOrigen=" + TipoOrigen;
+    else location.href = urlListarObservaciones + "?ProcesoId=" + ProcesoId + "&TipoOrigen=" + TipoOrigen  + "&Campania=" + Campania   ;
 }

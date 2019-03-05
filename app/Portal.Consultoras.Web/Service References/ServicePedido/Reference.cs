@@ -15411,6 +15411,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private int SetIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int SetIdentifierNumberField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string SimboloField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -16304,6 +16307,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.SetIDField.Equals(value) != true)) {
                     this.SetIDField = value;
                     this.RaisePropertyChanged("SetID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int SetIdentifierNumber {
+            get {
+                return this.SetIdentifierNumberField;
+            }
+            set {
+                if ((this.SetIdentifierNumberField.Equals(value) != true)) {
+                    this.SetIdentifierNumberField = value;
+                    this.RaisePropertyChanged("SetIdentifierNumber");
                 }
             }
         }
@@ -23486,9 +23502,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string CuvProductoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int DigitableField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int FactorRepeticionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -23508,6 +23521,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int SetIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int SetIdentifierNumberField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int TipoOfertaSisIdField;
@@ -23557,19 +23573,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.CuvProductoField, value) != true)) {
                     this.CuvProductoField = value;
                     this.RaisePropertyChanged("CuvProducto");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Digitable {
-            get {
-                return this.DigitableField;
-            }
-            set {
-                if ((this.DigitableField.Equals(value) != true)) {
-                    this.DigitableField = value;
-                    this.RaisePropertyChanged("Digitable");
                 }
             }
         }
@@ -23661,6 +23664,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.SetIdField.Equals(value) != true)) {
                     this.SetIdField = value;
                     this.RaisePropertyChanged("SetId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int SetIdentifierNumber {
+            get {
+                return this.SetIdentifierNumberField;
+            }
+            set {
+                if ((this.SetIdentifierNumberField.Equals(value) != true)) {
+                    this.SetIdentifierNumberField = value;
+                    this.RaisePropertyChanged("SetIdentifierNumber");
                 }
             }
         }
