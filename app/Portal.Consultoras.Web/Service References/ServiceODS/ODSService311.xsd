@@ -11,4 +11,37 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BERespValidarElectivos" nillable="true" type="tns:BERespValidarElectivos" />
+  <xs:complexType name="BEPremioNuevas">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ActiveDesc" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ActiveMonto" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ActivePremioAuto" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ActivePremioElectivo" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ActiveTooltip" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ActiveTooltipDesc" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ActiveTooltipMontoDesc" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AnoCampanaFin" type="xs:int" />
+      <xs:element minOccurs="0" name="AnoCampanaIni" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="CodigoPrograma" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoUsuario" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FilasPorPagina" type="xs:int" />
+      <xs:element minOccurs="0" name="IdActivarPremioNuevas" type="xs:int" />
+      <xs:element minOccurs="0" name="Ind_Cup_ElecDesc" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Nivel" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Nro" type="xs:int" />
+      <xs:element minOccurs="0" name="NumeroPagina" type="xs:int" />
+      <xs:element minOccurs="0" name="OperacionResultado" type="xs:int" />
+      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+      <xs:element minOccurs="0" name="SortColumna" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SortDirection" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TotalFilas" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEPremioNuevas" nillable="true" type="tns:BEPremioNuevas" />
+  <xs:complexType name="ArrayOfBEPremioNuevas">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEPremioNuevas" nillable="true" type="tns:BEPremioNuevas" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEPremioNuevas" nillable="true" type="tns:ArrayOfBEPremioNuevas" />
 </xs:schema>

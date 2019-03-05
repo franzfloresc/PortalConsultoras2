@@ -18,7 +18,7 @@ namespace Portal.Consultoras.Web.Providers
             _recomendacionesConfiguracion = _sessionManager.GetRecomendacionesConfig();
         }
 
-        public async Task<RecomendacionesModel> ObtenerRecomendaciones(string cuv, string codigoProducto)
+        public async Task<RecomendacionesModel> ObtenerRecomendaciones(string cuv, string codigoProducto, bool esMobile)
         {
             var revistaDigital = _sessionManager.GetRevistaDigital();
             var userData = _sessionManager.GetUserData();
@@ -28,7 +28,7 @@ namespace Portal.Consultoras.Web.Providers
                 ObtenerOrigen()
             );
 
-            var jsonConsultar = GenerarJsonParaConsulta(userData, revistaDigital, cuv, codigoProducto);
+            var jsonConsultar = GenerarJsonParaConsulta(userData, revistaDigital, cuv, codigoProducto, esMobile);
             return await PostAsync<RecomendacionesModel>(pathBuscador, jsonConsultar);
         }
 
@@ -57,7 +57,7 @@ namespace Portal.Consultoras.Web.Providers
             return recomendacionesModel.Productos.Any() && recomendacionesModel.Productos.Count >= ObtenerCantidadMinima();
         }
         
-        private dynamic GenerarJsonParaConsulta(UsuarioModel usuarioModel, RevistaDigitalModel revistaDigital, string cuv, string codigoProducto)
+        private dynamic GenerarJsonParaConsulta(UsuarioModel usuarioModel, RevistaDigitalModel revistaDigital, string cuv, string codigoProducto, bool esMobile)
         {
             var suscripcion = (revistaDigital.EsSuscrita && revistaDigital.EsActiva);
             var personalizaciones = "";
@@ -81,7 +81,8 @@ namespace Portal.Consultoras.Web.Providers
                     rd = revistaDigital.TieneRDC.ToString(),
                     rdi = revistaDigital.TieneRDI.ToString(),
                     rdr = revistaDigital.TieneRDCR.ToString(),
-                    diaFacturacion = usuarioModel.DiaFacturacion
+                    diaFacturacion = usuarioModel.DiaFacturacion,
+                    mostrarProductoConsultado = esMobile.ToString()
                 }
             };
         }

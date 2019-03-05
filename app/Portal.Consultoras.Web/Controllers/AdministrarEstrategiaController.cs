@@ -50,7 +50,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var paisIso = Util.GetPaisISO(userData.PaisID);
                 var urlS3 = ConfigCdn.GetUrlCdnMatriz(paisIso);
 
-                var habilitarNemotecnico = _tablaLogicaProvider.ObtenerValorTablaLogica(userData.PaisID, Constantes.TablaLogica.Plan20,
+                var habilitarNemotecnico = _tablaLogicaProvider.GetTablaLogicaDatoCodigo(userData.PaisID, Constantes.TablaLogica.Plan20,
                     Constantes.TablaLogicaDato.BusquedaNemotecnicoZonaEstrategia);
 
                 estrategiaModel = new EstrategiaModel()
@@ -641,7 +641,7 @@ namespace Portal.Consultoras.Web.Controllers
             var respuestaServiceCdr = new List<RptProductoEstrategia>();
             try
             {
-                var codigo = _tablaLogicaProvider.ObtenerValorTablaLogica(userData.PaisID, Constantes.TablaLogica.Plan20,
+                var codigo = _tablaLogicaProvider.GetTablaLogicaDatoCodigo(userData.PaisID, Constantes.TablaLogica.Plan20,
                     Constantes.TablaLogicaDato.Tonos, true);
 
                 if (Convert.ToInt32(codigo) <= entidad.CampaniaID)
@@ -1348,11 +1348,11 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     List<string> estrategiasActivasList = new List<string>();
                     List<string> estrategiasInactivasList = new List<string>();
-                    if (!string.IsNullOrEmpty(EstrategiasActivas))
+                    if (EstrategiasActivas != "")
                     {
                         estrategiasActivasList.AddRange(EstrategiasActivas.Split(',').ToList());
                     }
-                    if (!string.IsNullOrEmpty(EstrategiasDesactivas))
+                    if (EstrategiasDesactivas != "")
                     {
                         estrategiasInactivasList.AddRange(EstrategiasDesactivas.Split(',').ToList());
                     }
@@ -1370,8 +1370,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                if (tipoEstrategiaCod == Constantes.TipoEstrategiaCodigo.OfertaParaTi &&
-                    !string.IsNullOrEmpty(EstrategiasDesactivas))
+                if (tipoEstrategiaCod == Constantes.TipoEstrategiaCodigo.OfertaParaTi && EstrategiasDesactivas != "")
                     UpdateCacheListaOfertaFinal(campaniaID);
 
                 return Json(new

@@ -24,7 +24,7 @@ namespace Portal.Consultoras.Web.Providers
         {
             var mensajeErrorImagenResize = string.Empty;
 
-            var lstImagenResize = _tablaLogicaProvider.ObtenerParametrosTablaLogica(paisID, Constantes.TablaLogica.ResizeImagenesAppGanaMas, true);
+            var lstImagenResize = _tablaLogicaProvider.GetTablaLogicaDatos(paisID, Constantes.TablaLogica.ResizeImagenesAppGanaMas, true);
 
             lstImagenResize = lstImagenResize.Where(x => x.Codigo.StartsWith(palanca)).ToList();
 
@@ -106,15 +106,13 @@ namespace Portal.Consultoras.Web.Providers
                 rutaImagenMedium = Util.GenerarRutaImagenResize(rutaImagen, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium);
             }
 
-            var listaValoresImagenesResize = _tablaLogicaProvider.ObtenerParametrosTablaLogica(Constantes.PaisID.Peru, Constantes.TablaLogica.ValoresImagenesResize, true);
-
             int ancho = 0;
             int alto = 0;
 
             EntidadMagickResize entidadResize;
             if (!Util.ExisteUrlRemota(rutaImagenSmall) || actualizar)
             {
-                GetDimensionesImagen(rutaImagen, listaValoresImagenesResize, Constantes.ConfiguracionImagenResize.TipoImagenSmall, out alto, out ancho);
+                GetDimensionesImagen(rutaImagen, Constantes.ConfiguracionImagenResize.TipoImagenSmall, out alto, out ancho);
 
                 if (ancho > 0 && alto > 0)
                 {
@@ -133,7 +131,7 @@ namespace Portal.Consultoras.Web.Providers
 
             if (!Util.ExisteUrlRemota(rutaImagenMedium) || actualizar)
             {
-                GetDimensionesImagen(rutaImagen, listaValoresImagenesResize, Constantes.ConfiguracionImagenResize.TipoImagenMedium, out alto, out ancho);
+                GetDimensionesImagen(rutaImagen, Constantes.ConfiguracionImagenResize.TipoImagenMedium, out alto, out ancho);
 
                 if (ancho > 0 && alto > 0)
                 {
@@ -154,26 +152,23 @@ namespace Portal.Consultoras.Web.Providers
             return listaImagenesResize;
         }
 
-        private void GetDimensionesImagen(string urlImagen, List<TablaLogicaDatosModel> datosImg, string tipoImg, out int alto, out int ancho)
+        private void GetDimensionesImagen(string urlImagen, string tipoImg, out int alto, out int ancho)
         {
             ancho = 0;
             alto = 0;
-
-            if (!datosImg.Any())
-                return;
 
             // valores estandar de base de datos
             var hBase = 0;
             var wMax = 0;
             if (tipoImg == Constantes.ConfiguracionImagenResize.TipoImagenSmall)
             {
-                hBase = _tablaLogicaProvider.ObtenerValorTablaLogicaInt(datosImg, Constantes.TablaLogicaDato.ValoresImagenesResizeHeightSmall);
-                wMax = _tablaLogicaProvider.ObtenerValorTablaLogicaInt(datosImg, Constantes.TablaLogicaDato.ValoresImagenesResizeWitdhMaxSmall);
+                hBase = _tablaLogicaProvider.GetTablaLogicaDatoCodigoInt(Constantes.PaisID.Peru, Constantes.TablaLogica.ValoresImagenesResize, Constantes.TablaLogicaDato.ValoresImagenesResizeHeightSmall, true);
+                wMax = _tablaLogicaProvider.GetTablaLogicaDatoCodigoInt(Constantes.PaisID.Peru, Constantes.TablaLogica.ValoresImagenesResize, Constantes.TablaLogicaDato.ValoresImagenesResizeWitdhMaxSmall, true);
             }
             else if (tipoImg == Constantes.ConfiguracionImagenResize.TipoImagenMedium)
             {
-                hBase = _tablaLogicaProvider.ObtenerValorTablaLogicaInt(datosImg, Constantes.TablaLogicaDato.ValoresImagenesResizeHeightMedium);
-                wMax = _tablaLogicaProvider.ObtenerValorTablaLogicaInt(datosImg, Constantes.TablaLogicaDato.ValoresImagenesResizeWitdhMaxMedium);
+                hBase = _tablaLogicaProvider.GetTablaLogicaDatoCodigoInt(Constantes.PaisID.Peru, Constantes.TablaLogica.ValoresImagenesResize, Constantes.TablaLogicaDato.ValoresImagenesResizeHeightMedium, true);
+                wMax = _tablaLogicaProvider.GetTablaLogicaDatoCodigoInt(Constantes.PaisID.Peru, Constantes.TablaLogica.ValoresImagenesResize, Constantes.TablaLogicaDato.ValoresImagenesResizeWitdhMaxMedium, true);
             }
 
             if (hBase == 0 && wMax == 0)

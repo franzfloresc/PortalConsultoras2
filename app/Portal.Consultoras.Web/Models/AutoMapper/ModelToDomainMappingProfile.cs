@@ -7,7 +7,9 @@ using System;
 using Portal.Consultoras.Web.Models.Estrategia;
 using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using Portal.Consultoras.Web.Models.PagoEnLinea;
+using Portal.Consultoras.Web.ServiceZonificacion;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.ServiceODS;
 
 namespace Portal.Consultoras.Web.Models.AutoMapper
 {
@@ -476,6 +478,16 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<PagoEnLineaMedioPagoDetalleModel, BEPagoEnLineaMedioPagoDetalle>();
             Mapper.CreateMap<PagoEnLineaTipoPasarelaModel, BEPagoEnLineaTipoPasarela>();
             Mapper.CreateMap<PagoEnLineaPasarelaCamposModel, BEPagoEnLineaPasarelaCampos>();
+            Mapper.CreateMap<DireccionEntregaModel, Portal.Consultoras.Web.ServiceUsuario.BEDireccionEntrega>();
+            Mapper.CreateMap<Portal.Consultoras.Web.ServiceUsuario.BEDireccionEntrega, DireccionEntregaModel>();
+            Mapper.CreateMap<UsuarioOpcionesModel, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioOpciones>();
+            Mapper.CreateMap<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioOpciones, UsuarioOpcionesModel>();
+
+            Mapper.CreateMap<CampaniaModel, BECampania>();
+            Mapper.CreateMap<BECampania,CampaniaModel> ();
+
+            Mapper.CreateMap<PremioNuevaModel, BEPremioNuevas>();
+            Mapper.CreateMap<BEPremioNuevas, PremioNuevaModel>();
             
             Mapper.CreateMap<EstrategiaComponenteModel, ServicePedido.BEEstrategiaProducto>()
                .ForMember(t => t.CUV, f => f.MapFrom(c => c.Cuv))
