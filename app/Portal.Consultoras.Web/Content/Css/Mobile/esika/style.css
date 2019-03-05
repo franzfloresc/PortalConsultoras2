@@ -340,7 +340,6 @@ h4.re3 {
     font-family: 'Lato';
     position: relative;
     font-size: 14px;
-    text-transform: uppercase;
     margin-bottom: 0;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -1043,7 +1042,6 @@ h4.re3 {
 .sub_titulo_noti span {
     font-weight: 900;
     color: #e81c36;
-    text-transform: uppercase;
 }
 
 .firma_notificaciones {
@@ -7146,7 +7144,6 @@ input[type='checkbox']:checked + span:after {
 
 .color_marca {
     color: #e81c36;
-    text-transform: uppercase;
 }
 
 .btn_borde_black {
