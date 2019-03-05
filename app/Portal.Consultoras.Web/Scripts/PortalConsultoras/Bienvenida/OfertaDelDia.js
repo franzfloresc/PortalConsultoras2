@@ -68,7 +68,7 @@ var OfertaDelDiaModule = function () {
     var props = {
         UrlActual: window.location.href.toLowerCase(),
         UrlValidarStockEstrategia: "Pedido/ValidarStockEstrategia",
-        UrlAgregarProducto: "Pedido/AgregarProductoZE",
+        //UrlAgregarProducto: "Pedido/AgregarProductoZE",
         TipoOrigenPantallaODD: TipoOrigenPantallaODD,
         OrigenDesktopODD: OrigenDesktopODD //para Analytics
     };
@@ -152,6 +152,7 @@ var OfertaDelDiaModule = function () {
     };
 
     var RenderOfertaDelDia = function (data, contenedorOfertas) {
+
         $(contenedorOfertas).hide();
 
         data.ListaOferta = data.ListaOferta || [];
@@ -161,27 +162,42 @@ var OfertaDelDiaModule = function () {
         data.lista = AsignarClaseCssAPalabraGratisDesktop(data.ListaOferta);
         data.prod = {};
         data.SoloUno = false;
+ 
         if (data.lista.length > 0) {
             data.prod = data.lista[0];
             data.SoloUno = data.lista.length === 1;
         }
-
+        $.each(data.lista, function (i, item) { item.Posicion = i + 1; });
         SetHandlebars("#ofertadeldia-template", data, contenedorOfertas);
         if ($(contenedorOfertas).find("#divOddCarrusel").length > 0) {
             SetHandlebars("#producto-landing-template", data, $(contenedorOfertas).find("#divOddCarrusel"));
         }
 
-        //odd_desktop_google_analytics_product_impresion(data, contenedorOfertas);
+        var origen = {
+            Pagina:
+                isHome() ? ConstantesModule.OrigenPedidoWebEstructura.Pagina.Home
+                : isPedido() ? ConstantesModule.OrigenPedidoWebEstructura.Pagina.Pedido
+                : isOfertas() ? ConstantesModule.OrigenPedidoWebEstructura.Pagina.Contenedor
+                : ConstantesModule.OrigenPedidoWebEstructura.Pagina.Otras,
+            Palanca: ConstantesModule.OrigenPedidoWebEstructura.Palanca.OfertaDelDia,
+            Seccion: ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel
+        };
+        var cantidad = 3;
+        if (!isOfertas()) {
+            cantidad = 1;
+        }
 
-        console.log('RenderOfertaDelDia');
         if (typeof CarruselAyuda != "undefined") {
-            // marcacion inicio de mostrar productos
-            var origen = {
-                Pagina: ConstantesModule.OrigenPedidoWebEstructura.Pagina.Contenedor,
-                Palanca: ConstantesModule.OrigenPedidoWebEstructura.Palanca.OfertaDelDia,
-                Seccion: ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel
+            CarruselAyuda.MarcarAnalyticsInicio("#divOddCarrusel", data.ListaOferta, origen, cantidad);// contenedor
+        }
+        else {
+            var obj = {
+                lista: data.ListaOferta,
+                CantidadMostrar: cantidad,
+                Origen: origen
             };
-            CarruselAyuda.MarcarAnalyticsInicio("#divOddCarrusel", data.ListaOferta, origen, 3);// contenedor
+
+            AnalyticsPortalModule.MarcaGenericaLista("", obj);
         }
     };
 
@@ -204,65 +220,6 @@ var OfertaDelDiaModule = function () {
         };
 
         CarruselAyuda.MarcarAnalyticsChange(slick, currentSlide, nextSlide, origen);// Home Pedido
-
-        //if (currentSlide != nextSlide) {
-        //    var accion = "";
-
-        //    if (nextSlide == 0 && currentSlide + 1 == array_odd.CantidadProductos) {
-        //        accion = "next";
-        //    } else if (currentSlide == 0 && nextSlide + 1 == array_odd.CantidadProductos) {
-        //        accion = "prev";
-        //    } else if (nextSlide > currentSlide) {
-        //        accion = "next";
-        //    } else {
-        //        accion = "prev";
-        //    }
-
-        //    var index = nextSlide;
-        //    if (accion == "next") {
-        //        index += 2;
-        //    }
-
-        //    if (index >= array_odd.CantidadProductos) {
-        //        index = index - array_odd.CantidadProductos;
-        //    }
-
-        //    var div = $("#divOddCarrusel").find("[data-item-position=" + index + "]");
-        //    var name = $(div).find("[data-item-campos]").find(".nombre-odd").val();
-        //    var id = $(div).find("[data-item-campos]").find(".cuv2-odd").val();
-        //    var price = $(div).find("[data-item-campos]").find(".precio-odd").val();
-        //    var brand = $(div).find("[data-item-campos]").find(".marca-descripcion-odd").val();
-        //    var variant = $(div).find("[data-item-campos]").find(".tipoestrategia-descripcion-odd").val();
-        //    var position = index + 1;
-        //    var estrategia = {
-        //        DescripcionCompleta: name,
-        //        CUV2: id,
-        //        PrecioVenta: price,
-        //        DescripcionMarca: brand,
-        //        Position: position
-        //    };
-        //    var obj = {
-        //        lista: Array(estrategia)
-        //    };
-        //    AnalyticsPortalModule.MarcaGenericaLista("ODD", obj, obj.lista.length);
-
-        //    //impresions.push({
-        //    //    'name': name,
-        //    //    'id': id,
-        //    //    'price': price,
-        //    //    'brand': brand,
-        //    //    'category': "No disponible",
-        //    //    'variant': variant,
-        //    //    'list': "Oferta del día",
-        //    //    'position': position
-        //    //});
-        //    //dataLayer.push({
-        //    //    'event': "productImpression",
-        //    //    'ecommerce': {
-        //    //        'impressions': impresions
-        //    //    }
-        //    //});
-        //}
     };
 
     var ConfigurarCarruselProductos = function (contenedorOfertas, cantidadProductos) {
@@ -382,7 +339,6 @@ var OfertaDelDiaModule = function () {
                     $("#banner-odd .derecha_img img").attr("src", _data.ImagenFondo1);
                     $(contenedorOfertas).css("background-color", _data.ColorFondo1);
                 }
-
                 SetHandlebars("#ofertadeldia-template-style", _data, "#styleRelojOdd");
 
                 $(contenedorOfertas).show();
@@ -488,37 +444,6 @@ var OfertaDelDiaModule = function () {
 
         return listaOfertasConClases;
     };
-
-    //var odd_mobile_procesar_evento_before_change = function (event, slick, currentSlide, nextSlide, list) {
-    //    if (currentSlide != nextSlide) {
-    //        var accion = "";
-    //        var index = 0;
-
-    //        if (nextSlide == 0 && currentSlide + 1 == list.length) {
-    //            accion = "next";
-    //        } else if (currentSlide == 0 && nextSlide + 1 == list.length) {
-    //            accion = "prev";
-    //        } else if (nextSlide > currentSlide) {
-    //            accion = "next";
-    //        } else {
-    //            accion = "prev";
-    //        }
-
-    //        if (accion == "prev") {
-    //            index = nextSlide;
-    //        }
-    //        if (accion == "next") {
-    //            index = nextSlide;
-    //        }
-    //        if (index >= list.length) {
-    //            index = index - list.length;
-    //        }
-
-    //        return index;
-    //    }
-    //    else
-    //        return -1;
-    //}
 
     var CargarODDMobile = function () {
         MostrarRelojOfertaDelDia($(".clock").data("total-seconds"));

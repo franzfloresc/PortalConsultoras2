@@ -27,7 +27,7 @@
         </div>
     </article>
     {{else}}
-    <article class="item_producto_contenedor caja-borde"
+    <article class="item_producto_contenedor caja-borde" 
              data-item="{{EstrategiaID}}"
              data-item-cuv="{{CUV2}}"
              data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}"
@@ -38,9 +38,10 @@
             <div data-estrategia="{{JSON2string item}}"></div>
         </div>
 
-        <div data-item-tag="verdetalle"
+        <a href="javascript:;" {{#if TieneStock}} {{else}} class="producto-agotado" {{/if}} 
+             data-item-tag="verdetalle"
              onclick="javascript:OnClickFichaDetalle(this);">
-
+            <div class="display:none"></div>
             <div class="producto_img">
                 <img data-src="{{ImgSmall FotoProducto01}}"
                      data-img-lazy="1"
@@ -60,7 +61,7 @@
                 </span>
                 <span class="precio_oferta_item">{{SimboloMoneda}} {{PrecioVenta}}</span>
             </div>
-        </div>
+        </a>
         <div class="clear"></div>
         @if (ViewBag.TieneBotones)
         {
@@ -69,11 +70,26 @@
         {
             <div data-tipoagregar="{{TipoAccionAgregar}}">
                 {{#iff TipoAccionAgregar '==' '@Constantes.TipoAccionAgregar.EligeOpcion'}}
-                <div class="elige_tono_item cursor_pointer"
-                     data-item-tag="verdetalle"
-                     onclick="javascript:OnClickFichaDetalle(this);">
-                    <img src="/Content/Images/mobile/Esika/click-ico.svg"> ELIGE TU OPCIÓN
-                </div>
+                    {{#if TieneStock}}
+                    <a href="javascript:;" class="elige_tono_item cursor_pointer"
+                         data-item-tag="verdetalle"
+                         onclick="javascript:OnClickFichaDetalle(this);">
+                        <img src="/Content/Images/mobile/Esika/click-ico.svg"> ELIGE TU OPCIÓN
+                    </a>
+                    {{else}}
+                    <div class="boton_producto_agotado" style="padding-top: 11px;">
+                        Agotado
+                    </div>
+                    {{/if}}
+                {{else}}
+                    {{#iff TipoAccionAgregar '!=' '@Constantes.TipoAccionAgregar.LoQuieres'}}
+                        {{#if TieneStock}}
+                        {{else}}
+                        <div class="boton_producto_agotado" style="padding-top: 11px;">
+                            Agotado
+                        </div>
+                        {{/if}}
+                    {{/iff}}
                 {{/iff}}
             </div>
         }

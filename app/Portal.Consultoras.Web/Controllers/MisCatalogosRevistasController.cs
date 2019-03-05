@@ -11,6 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 
@@ -18,7 +19,6 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class MisCatalogosRevistasController : BaseController
     {
-        private const string TextoMensajeSaludoCorreo = "Revisa los catálogos de esta campaña y comunícate conmigo si estás interesada en algunos de los productos.";
         private readonly IssuuProvider _issuuProvider;
         private readonly ConfiguracionPaisDatosProvider _configuracionPaisDatosProvider;
 
@@ -28,24 +28,8 @@ namespace Portal.Consultoras.Web.Controllers
             _configuracionPaisDatosProvider = new ConfiguracionPaisDatosProvider();
         }
 
-        public ActionResult Index(string marca = "")
+        public ActionResult Index(string marca = "", string demo = "0")
         {
-
-            if (EsDispositivoMovil())
-            {
-                var url = (Request.Url.Query).Split('?');
-                if (url.Length > 1 && url[1].Contains("sap"))
-                {
-                    string sap = "&" + url[1].Remove(0, 12);
-                    return RedirectToAction("Index", "Catalogo", new { area = "Mobile", marca, sap });
-                }
-                else
-                {
-                    return RedirectToAction("Index", "Catalogo", new { area = "Mobile", marca });
-                }
-
-            }
-
             var clienteModel = new MisCatalogosRevistasModel
             {
                 PaisNombre = Util.GetPaisNombreByISO(userData.CodigoISO),
@@ -54,17 +38,19 @@ namespace Portal.Consultoras.Web.Controllers
                 CampaniaSiguiente = Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias).ToString(),
                 TieneSeccionRD = (revistaDigital.TieneRDC && !userData.TieneGND && !revistaDigital.EsSuscrita) || revistaDigital.TieneRDI,
                 TieneSeccionRevista = !revistaDigital.TieneRDC || !revistaDigital.EsActiva,
-                TieneGND = userData.TieneGND
+                TieneGND = userData.TieneGND,
+                EsDispositivoMovil = EsDispositivoMovil()
             };
             clienteModel.Titulo = clienteModel.TieneSeccionRD || clienteModel.TieneSeccionRevista ? "Catálogos y Revistas" : "Catálogos";
             clienteModel.CodigoRevistaActual = _issuuProvider.GetRevistaCodigoIssuu(clienteModel.CampaniaActual, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
             clienteModel.CodigoRevistaAnterior = _issuuProvider.GetRevistaCodigoIssuu(clienteModel.CampaniaAnterior, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
             clienteModel.CodigoRevistaSiguiente = _issuuProvider.GetRevistaCodigoIssuu(clienteModel.CampaniaSiguiente, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
             clienteModel.PartialSectionBpt = _configuracionPaisDatosProvider.GetPartialSectionBptModel(Constantes.OrigenPedidoWeb.SectionBptDesktopCatalogo);
-
-            ViewBag.CodigoISO = userData.CodigoISO;
+                        
+            ViewBag.Piloto = GetTienePiloto(userData.PaisID);
+            ViewBag.UrlCatalogoPiloto = GetUrlCatalogoPiloto(demo == "1");
             ViewBag.EsConsultoraNueva = userData.EsConsultoraNueva;
-            ViewBag.TextoMensajeSaludoCorreo = TextoMensajeSaludoCorreo;
+
             return View(clienteModel);
         }
 
@@ -108,13 +94,13 @@ namespace Portal.Consultoras.Web.Controllers
             List<Catalogo> catalogos = new List<Catalogo>();
             string urlIssuuSearch = "http:" + Constantes.CatalogoUrlIssu.Buscador;
             string urlIssuuVisor = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlIssuu);
-
+            bool outPilotoSeg;
             try
             {
-                string catalogoLbel = _issuuProvider.GetCatalogoCodigoIssuu(campaniaId, Constantes.Marca.LBel, userData.CodigoISO, userData.CodigoZona);
-                string catalogoEsika = _issuuProvider.GetCatalogoCodigoIssuu(campaniaId, Constantes.Marca.Esika, userData.CodigoISO, userData.CodigoZona);
-                string catalogoCyzone = _issuuProvider.GetCatalogoCodigoIssuu(campaniaId, Constantes.Marca.Cyzone, userData.CodigoISO, userData.CodigoZona);
-                string catalogoFinart = _issuuProvider.GetCatalogoCodigoIssuu(campaniaId, Constantes.Marca.Finart, userData.CodigoISO, userData.CodigoZona);
+                string catalogoLbel = _issuuProvider.GetCatalogoCodigoIssuu(campaniaId, Constantes.Marca.LBel, userData.CodigoISO, userData.CodigoZona, out outPilotoSeg);
+                string catalogoEsika = _issuuProvider.GetCatalogoCodigoIssuu(campaniaId, Constantes.Marca.Esika, userData.CodigoISO, userData.CodigoZona, out outPilotoSeg);
+                string catalogoCyzone = _issuuProvider.GetCatalogoCodigoIssuu(campaniaId, Constantes.Marca.Cyzone, userData.CodigoISO, userData.CodigoZona, out outPilotoSeg);
+                string catalogoFinart = _issuuProvider.GetCatalogoCodigoIssuu(campaniaId, Constantes.Marca.Finart, userData.CodigoISO, userData.CodigoZona, out outPilotoSeg);
 
                 var url = urlIssuuSearch +
                     "docname:" + catalogoLbel + "+OR+" +
@@ -157,6 +143,20 @@ namespace Portal.Consultoras.Web.Controllers
                 catalogos = new List<Catalogo>();
             }
             return catalogos;
+        }
+
+        public JsonResult GetCatalogosPilotoSeg(int campania)
+        {
+            bool data, outPilotoSeg;
+ 
+            _issuuProvider.GetCatalogoCodigoIssuu(campania.ToString(), Constantes.Marca.LBel, userData.CodigoISO, userData.CodigoZona, out outPilotoSeg);
+            data = outPilotoSeg;
+            _issuuProvider.GetCatalogoCodigoIssuu(campania.ToString(), Constantes.Marca.Esika, userData.CodigoISO, userData.CodigoZona, out outPilotoSeg);
+            data = data || outPilotoSeg;
+            _issuuProvider.GetCatalogoCodigoIssuu(campania.ToString(), Constantes.Marca.Cyzone, userData.CodigoISO, userData.CodigoZona, out outPilotoSeg);
+            data = data || outPilotoSeg;
+
+            return Json(new { PilotoSeg = data }, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult AutocompleteCorreo()
@@ -513,6 +513,217 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        [HttpPost]
+        public JsonResult EnviarEmailPiloto(List<CatalogoClienteModel> ListaCatalogosCliente, string Mensaje, string Campania)
+        {
+            try
+            {
+                var url = GetUrlCatalogoPiloto(false);
+                var urlImagenLogo = Globals.RutaCdn + "/ImagenesPortal/Iconos/logo.png";
+                var urlIconEmail = Globals.RutaCdn + "/ImagenesPortal/Iconos/mensaje_mail.png";
+                var urlIconTelefono = Globals.RutaCdn + "/ImagenesPortal/Iconos/celu_mail.png";
+
+                if (!_configuracionManagerProvider.GetPaisesEsikaFromConfig().Contains(userData.CodigoISO))
+                {
+                    urlImagenLogo = Globals.RutaCdn + "/ImagenesPortal/Iconos/logod.png";
+                    urlIconEmail = Globals.RutaCdn + "/ImagenesPortal/Iconos/mensaje_mail_lbel.png";
+                    urlIconTelefono = Globals.RutaCdn + "/ImagenesPortal/Iconos/celu_mail_lbel.png";
+                }
+
+                var txtBuil = new StringBuilder();
+                foreach (var item in ListaCatalogosCliente)
+                {
+                    #region foreach
+                    string mailBody = string.Empty;
+
+                    mailBody += "<html>";
+                    mailBody += "<body style=\"margin:0px; padding:0px; background:#FFF;\">";
+                    mailBody += "<table width=\"100%\" cellspacing=\"0\" align=\"center\" style=\"background:#FFF;\">";
+                    mailBody += "<thead>";
+                    mailBody += "<tr>";
+                    mailBody += "<th colspan=\"3\" style=\"width:100%; height:50px; border-bottom:1px solid #000; padding:12px 0px; text-align:center;\"><img src=\"" + urlImagenLogo + "\" alt=\"Logo Esika\" /></th>";
+                    mailBody += "</tr>";
+                    mailBody += "</thead>";
+                    mailBody += "<tbody>";
+                    mailBody += "<tr>";
+                    mailBody += "<td colspan=\"3\" style=\"height:30px;\"></td>";
+                    mailBody += "</tr>";
+                    mailBody += "<tr>";
+                    mailBody += "<td colspan=\"3\">";
+                    mailBody += "<table align=\"center\" style=\"width:100%; text-align:center; padding-bottom:20px;\">";
+                    mailBody += "<tbody>";
+                    mailBody += "<tr>";
+                    mailBody += "<td style=\"font-family:'Calibri'; font-size:17px; text-align:center; font-weight:500; color:#000; padding:0 0 20px 0;\">¡Hola!</td>";
+                    mailBody += "</tr>";
+                    mailBody += "<tr>";
+                    mailBody += "<td style=\"text-align:center; font-family:'Calibri'; color:#000; font-weight:500; font-size:14px; padding-bottom:30px;\">" + (Mensaje ?? "");
+                    mailBody += "</tr>";
+                    mailBody += "<tr>";
+                    mailBody += "<td>";
+                    mailBody += "<table align=\"center\" style=\"text-align:center; font-size:13px; padding:0 13px; width:100%; max-width:450px;  font-family:'Calibri'; color:#000;\">";
+                    mailBody += "<!--[if gte mso 9]>";
+                    mailBody += "<table id=\"tableForOutlook\"><tr><td>";
+                    mailBody += "<![endif]-->";
+                    mailBody += "<tbody>";
+                    mailBody += "<tr>";
+
+                    mailBody += "<td style=\"text-align:center; width:48%;\">";
+                    if (!string.IsNullOrEmpty(userData.EMail))
+                    {
+                        mailBody += "<img style=\"vertical-align:middle;\" src=\"" + urlIconEmail + "\" alt=\"Icono Mensaje\" /> &nbsp;" + userData.EMail;
+
+                    }
+                    mailBody += "</td>";
+
+                    mailBody += "<td style=\"text-align:center; width:48%;\">";
+                    if (!string.IsNullOrEmpty(userData.Celular))
+                    {
+                        mailBody += "<img style=\"vertical-align:middle;\"  src=\"" + urlIconTelefono + "\" alt=\"Icono Celular\" /> &nbsp;" + userData.Celular;
+                        if (!string.IsNullOrEmpty(userData.Telefono))
+                        {
+                            mailBody += " / " + userData.Telefono;
+                        }
+                    }
+                    mailBody += "</td>";
+
+                    mailBody += "</tr>";
+                    mailBody += "</tbody>";
+                    mailBody += "<!--[if gte mso 9]>";
+                    mailBody += "</td></tr></table>";
+                    mailBody += "<![endif]-->";
+                    mailBody += "</table>";
+                    mailBody += "</td>";
+                    mailBody += "</tr>";
+                    mailBody += "<tr>";
+                    mailBody += "<td>";
+                    mailBody += "<table align=\"center\" style=\"text-align:center; width:100%; max-width:500px; font-family:'Calibri'; color:#000; padding-top:25px;\">";
+                    mailBody += "<!--[if gte mso 9]>";
+                    mailBody += "<table id=\"tableForOutlook\"><tr><td>";
+                    mailBody += "<![endif]-->";
+                    mailBody += "<tbody>";
+                    mailBody += "<tr>";
+                    mailBody += "<td style=\"width:29.3%; display: table-cell; padding-left:2%; padding-right:2%;\">";
+                    mailBody += "<a href=\"" + url + "\" style=\"width:100%; display:block;\">" + url + "</a>";
+                    mailBody += "</td>";
+                    mailBody += "</tr>";
+                    mailBody += "</tbody>";
+                    mailBody += "<!--[if gte mso 9]>";
+                    mailBody += "</td></tr></table>";
+                    mailBody += "<![endif]-->";
+                    mailBody += "</table>";
+                    mailBody += "</td>";
+                    mailBody += "</tr>";
+                    mailBody += "<tr>";
+                    mailBody += "<td colspan=\"3\" style=\"text-align:center; font-family:'Calibri'; color:#000; font-size:12px; font-weight:400;padding-top:45px; padding-bottom:27px;\"></td>";
+                    mailBody += "</tr>";
+                    mailBody += "<tr>";
+                    mailBody += "<td colspan=\"3\" style=\"background:#000; height:62px;\">";
+                    mailBody += "<table align=\"center\" style=\"text-align:center; padding:0 13px; width:100%; max-width:550px; \">";
+                    mailBody += "<!--[if gte mso 9]>";
+                    mailBody += "<table id=\"tableForOutlook\"><tr><td>";
+                    mailBody += "<![endif]-->";
+                    mailBody += "<tbody>";
+                    mailBody += "<tr>";
+                    mailBody += "<td style=\"width:11%; text-align:left; vertical-align:top;\">";
+                    mailBody += "<img src=\"" + Globals.RutaCdn + "/ImagenesPortal/Iconos/logo-belcorp.png\" alt=\"Logo Belcorp\" />";
+                    mailBody += "</td>";
+                    mailBody += "<td style=\"width:8%; text-align:left;\">";
+                    mailBody += "<a href=\"http://www.esika.biz\" style=\"width:100%; display:block;\">";
+                    mailBody += "<img src=\"" + Globals.RutaCdn + "/ImagenesPortal/Iconos/logo-esika.png\" alt=\"Logo Esika\" />";
+                    mailBody += "</a>";
+                    mailBody += "</td>";
+                    mailBody += "<td style=\"width:8%; text-align:left;\">";
+                    mailBody += "<a href=\"http://www.lbel.com\" style=\"width:100%; display:block;\">";
+                    mailBody += "<img src=\"" + Globals.RutaCdn + "/ImagenesPortal/Iconos/logo-lbel.png\" alt=\"Logo L'bel\" />";
+                    mailBody += "</a>";
+                    mailBody += "</td>";
+                    mailBody += "<td style=\"width:15%; text-align:left;border-right:1px solid #FFF;\">";
+                    mailBody += "<a href=\"http://www.cyzone.com\" style=\"width:100%; display:block;\">";
+                    mailBody += "<img src=\"" + Globals.RutaCdn + "/Correo/logo-cyzone.png\" alt=\"Logo Cyzone\" />";
+                    mailBody += "</a>";
+                    mailBody += "</td>";
+                    mailBody += "<td style=\"width:15%; font-family:'Calibri'; font-weight:400; font-size:13px; color:#FFF; vertical-align:middle;\">";
+                    mailBody += "<table align=\"center\" style=\"text-align:center; width:100%;\">";
+                    mailBody += "<tbody>";
+                    mailBody += "<tr>";
+                    mailBody += "<td style=\"text-align: right; font-family:'Calibri'; font-weight:400; font-size:13px; vertical-align: middle; width: 69%; color:white;\">S&Iacute;GUENOS</td>";
+                    mailBody += "<td style=\"text-align: right; position: relative; top: 2px; left: 10px; width: 20%; vertical-align: top;\">";
+                    mailBody += "<a href=\"https://es-la.facebook.com/SomosBelcorpOficial\" style=\"width:100%; display:block;\">";
+                    mailBody += "<img src=\"" + Globals.RutaCdn + "/ImagenesPortal/Iconos/logo-facebook.png\" alt=\"Logo Facebook\" /></td>";
+                    mailBody += "</a>";
+                    mailBody += "</tr>";
+                    mailBody += "</tbody>";
+                    mailBody += "</table>";
+                    mailBody += "</td>";
+                    mailBody += "</tr>";
+                    mailBody += "</tbody>";
+                    mailBody += "<!--[if gte mso 9]>";
+                    mailBody += "</td></tr></table>";
+                    mailBody += "<![endif]-->";
+                    mailBody += "</table>";
+                    mailBody += "</td>";
+                    mailBody += "</tr>";
+                    mailBody += "<tr>";
+                    mailBody += "<td colspan=\"3\">";
+                    mailBody += "<table align=\"center\" style=\"text-align:center; width:200px;\">";
+                    mailBody += "<tbody>";
+                    mailBody += "<tr>";
+                    mailBody += "<td colspan=\"2\" style=\"height:6px;\"></td>";
+                    mailBody += "</tr>";
+                    mailBody += "<tr>";
+                    mailBody += "<td style=\"text-align:center; width:48%; border-right:1px solid #000;\">";
+                    mailBody += "<a href=\"http://comunidad.somosbelcorp.com\" style=\"width:100%; display:block;\">";
+                    mailBody += "<span style=\"font-family:'Calibri'; font-size:12px; color:#000;\">¿Tienes dudas?</span>";
+                    mailBody += "</a>";
+                    mailBody += "</td>";
+                    mailBody += "<td style=\"text-align:center; width:48%;\">";
+                    mailBody += "<a href=\"http://belcorpresponde.somosbelcorp.com\" style=\"width:100%; display:block;\">";
+                    mailBody += "<span style=\"font-family:'Calibri'; font-size:12px; color:#000;\">Cont&aacute;ctanos</span>";
+                    mailBody += "</a>";
+                    mailBody += "</td>";
+                    mailBody += "</tr>";
+                    mailBody += "</tbody>";
+                    mailBody += "</table>";
+                    mailBody += "</td>";
+                    mailBody += "</tr>";
+                    mailBody += "</tbody>";
+                    mailBody += "</table>";
+                    mailBody += "</body>";
+                    mailBody += "</html>";
+
+                    if (!ValidarCorreoFormato(item.Email)) txtBuil.Append(item.Email + "; ");
+                    else Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", item.Email, "Revisa tus catálogos de campaña " + Campania.Substring(4, 2), mailBody, true, userData.NombreConsultora);
+
+                    #endregion
+                }
+
+                using (ClienteServiceClient sv = new ClienteServiceClient())
+                {
+                    sv.InsCatalogoCampania(userData.PaisID, userData.CodigoConsultora, Convert.ToInt32(Campania));
+                }
+
+                string correosInvalidos = txtBuil.ToString();
+                return Json(new
+                {
+                    success = string.IsNullOrEmpty(correosInvalidos),
+                    message = string.IsNullOrEmpty(correosInvalidos)
+                        ? "Se envió satisfactoriamente el correo a los cliente(s) seleccionado(s)."
+                        : ("Los siguientes correos no fueron enviados pues no tienen un formato correcto: " + correosInvalidos),
+                    extra = ""
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    extra = ""
+                });
+            }
+        }
+
         private string CampaniaInicioFin(BECatalogoConfiguracion catalogo, int campania)
         {
             string resultado = catalogo.Estado.ToString();
@@ -595,6 +806,22 @@ namespace Portal.Consultoras.Web.Controllers
             return campania >= campaniaInicio;
         }
 
+        private string GetUrlCatalogoPiloto(bool qa)
+        {
+            var queryString = string.Format(Constantes.CatalogoPiloto.UrlParamEncrip, userData.CodigoISO, userData.CodigoConsultora);
+            byte[] encbuff = Encoding.UTF8.GetBytes(queryString);
+            var encripParams = Convert.ToBase64String(encbuff);
 
+            var urlBase = qa ? Constantes.CatalogoPiloto.UrlBaseQA : Constantes.CatalogoPiloto.UrlBase;
+            return string.Format(Constantes.CatalogoPiloto.UrlCatalogo, urlBase, encripParams);
+        }
+
+        private string GetTienePiloto(int paisId)
+        {
+            var listDato = _tablaLogicaProvider.GetTablaLogicaDatos(paisId, Constantes.TablaLogica.PilotoCatalogoDigital);
+            if (listDato.Count == 0) return "0";
+
+            return listDato[0].Valor;
+        }
     }
 }

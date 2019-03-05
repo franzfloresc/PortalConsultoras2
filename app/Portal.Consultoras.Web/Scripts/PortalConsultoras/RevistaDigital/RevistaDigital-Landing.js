@@ -246,7 +246,7 @@ function OfertaCargarProductos(busquedaModel, clear, objSeccion) {
     $.ajaxSetup({
         cache: false
     });
-    console.log('OfertaCargarProductos - ajax', busquedaModel, busquedaModel.UrlCargarProductos);
+    //console.log('OfertaCargarProductos - ajax', busquedaModel, busquedaModel.UrlCargarProductos);
     busquedaModel.IsMobile = isMobile();
     jQuery.ajax({
         type: 'POST',
@@ -274,11 +274,10 @@ function OfertaCargarProductos(busquedaModel, clear, objSeccion) {
 }
 
 function OfertaCargarProductoRespuesta(response, clear, busquedaModel) {
-
     CerrarLoad();
     if (!(typeof AnalyticsPortalModule === 'undefined') && typeof listaSeccion === 'undefined') {
         var origen = {
-            CodigoPalanca: (busquedaModel.VarListaStorage || "").replace("lista", "")
+            CodigoPalanca: (busquedaModel.VarListaStorage || "").replace("Lista", "")
         };
         var obj = {
             lista: response.lista,
@@ -286,7 +285,7 @@ function OfertaCargarProductoRespuesta(response, clear, busquedaModel) {
             Origen: origen
         };
 
-        console.log('OfertaCargarProductoRespuesta', obj);
+        //console.log('OfertaCargarProductoRespuesta', obj);
         AnalyticsPortalModule.MarcaGenericaLista("", obj);
     }
 

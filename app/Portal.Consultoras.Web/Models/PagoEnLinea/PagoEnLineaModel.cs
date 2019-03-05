@@ -9,7 +9,7 @@ namespace Portal.Consultoras.Web.Models.PagoEnLinea
     {
         public string CodigoIso { get; set; }
         public string Simbolo { get; set; }
-        public decimal MontoDeuda { get; set; }        
+        public decimal MontoDeuda { get; set; }
         public DateTime FechaVencimiento { get; set; }
 
         public decimal PorcentajeGastosAdministrativos { get; set; }
@@ -64,6 +64,8 @@ namespace Portal.Consultoras.Web.Models.PagoEnLinea
         }
 
         #endregion
+
+        public int origen { get; set; }
 
         public string MontoDeudaString
         {
@@ -126,7 +128,8 @@ namespace Portal.Consultoras.Web.Models.PagoEnLinea
         public string NumeroReferencia { get; set; }
         public bool EsMobile { get; set; }
 
-        public PagoEnLineaModel() {
+        public PagoEnLineaModel()
+        {
             EsMobile = false;
         }
 

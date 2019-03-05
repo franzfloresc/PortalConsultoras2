@@ -2,6 +2,7 @@
 using Portal.Consultoras.Entities.Mobile;
 using Portal.Consultoras.Entities.Estrategia;
 using Portal.Consultoras.Entities.Producto;
+using Portal.Consultoras.Entities.Oferta;
 
 using System;
 using System.Collections.Generic;
@@ -326,6 +327,11 @@ namespace Portal.Consultoras.ServiceContracts
         #region Tabla Logica Datos
         [OperationContract]
         List<BETablaLogicaDatos> GetTablaLogicaDatos(int paisID, Int16 TablaLogicaID);
+        #endregion
+
+        #region Buscador
+        [OperationContract]
+        Dictionary<string, string> GetOrdenamientoFiltrosBuscador(int paisID);
         #endregion
 
         #region "Fe de Erratas"
@@ -700,6 +706,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         IList<BEConfiguracionOfertasHome> ListarSeccionConfiguracionOfertasHome(int paisId, int campaniaId);
+
+        [OperationContract]
+        IList<BEConfiguracionOfertasHomeApp> ListarSeccionConfiguracionOfertasApp(int paisId, int campaniaId);
         #endregion
 
         #region Estrategia

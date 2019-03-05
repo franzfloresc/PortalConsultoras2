@@ -16,6 +16,14 @@ body {
     font-family: 'Lato', sans-serif !important;
 }
 
+input, button, ul, li, a {
+    font-family: 'Lato', sans-serif !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Lato', sans-serif !important;
+}
+
 hr {
     border-top: 1px solid #fff;
 }
@@ -234,6 +242,7 @@ h4.re3 {
     #new-header .menu-shop {
         position: relative;
         display: inline-block;
+        top:-2px;
     }
 
         #new-header .menu-shop .icon-menu-shop {
@@ -245,7 +254,7 @@ h4.re3 {
         }
 
         #new-header .menu-shop .num-menu-shop {
-            margin-top: 20px;
+            margin-top: 16px;
             font-size: 12px;
             color: #000;
             text-align: center;
@@ -1684,7 +1693,7 @@ h4.re3 {
     bottom: 0;
     left: 0;
     background: rgba(240, 240, 240, .3);
-    z-index: 99999;
+    z-index: 99999999;
     display: none;
 }
 
@@ -3561,13 +3570,22 @@ table > thead > tr > th {
     }
 
 /*NUEVA VERSION MOBILE*/
+
+.menu_icon_wrapper{
+    max-width:60px;
+}
+
+.logo_marca_pais_wrapper{
+    padding-left:10px!important;
+}
+
 .logo_mobile {
-    background: url('/Content/Images/Mobile/Esika/logo_esika.png') no-repeat;
+    background: url('/Content/Images/Esika/logo_marca_pais_mobile.svg') no-repeat;
     width: 72px;
     height: 28px;
-    margin: 0 auto;
     display: block;
-    margin-top: 12px;
+    margin-top: 9px;
+    background-size: 92%;
 }
 
 .campana_mobile {
@@ -3740,7 +3758,7 @@ table > thead > tr > th {
 
 #divProductoMantenedor {
     width: 100%;
-    margin: 0 auto;
+    margin: 0 auto 60px auto;
 }
 
 .content_foto {
@@ -4086,11 +4104,12 @@ table > thead > tr > th {
     width: 100%;
     max-width: 185px;
     height: 45px;
+    line-height: 30px;
     margin-top: 22px;
     padding: 5.5px 0;
     border: 1px solid black;
     color: black;
-    font-family: 'Lato';
+    font-family: 'Lato', sans-serif;
     font-size: 13px;
     font-weight: bold;
     background: url("/Content/Images/mobile/Esika/tarjeta.png") no-repeat;
@@ -4673,6 +4692,14 @@ body {
     margin-bottom: 20px;
 }
 
+@media screen and (min-width:0) and (max-width:407px) {
+
+    .mi_ganancia {
+        max-width: 126px;
+    }
+
+}
+
 .montos_resumen {
     text-align: right;
 }
@@ -4681,13 +4708,6 @@ body {
     color: #e81c36;
     font-weight: 700;
     text-transform: uppercase;
-}
-
-@media screen and (min-width:0) and (max-width:407px) {
-
-    .mi_ganancia {
-        max-width: 126px;
-    }
 }
 
 .textos_resumen span, .montos_resumen span {
@@ -6604,6 +6624,10 @@ input[type='checkbox']:checked + span:after {
     font-size: 12.5px;
     color: black;
     MARGIN-BOTTOM: 5px;
+}
+
+.barra_title {
+    font-size: 15px;
 }
 
 .flechita_barra {
@@ -9024,8 +9048,40 @@ a {
     float: left;
     text-align-last: center;
     display: inline-block;
-    width: 38%;
+    width: auto;
 }
+
+/*INI EINCA HD-3094 09-01-2019 Boton genérico fondo blanco y rojo b*/
+.btn_bg_write {
+    font-family: 'lato';
+    background: white;
+    color: black;
+    font-weight: 400;
+    height: 45px;
+    border: 1px solid #ccc;
+    float: left;
+    text-align-last: center;
+    display: inline-block;
+    width: auto;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+.btn_bg_primary {
+    font-family: 'lato';
+    background: rgb(232, 28, 54);
+    color: #fff;
+    font-weight: 700;
+    height: 45px;
+    float: left;
+    text-align-last: center;
+    display: inline-block;
+    width: auto;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    margin-left: 4px;
+}
+/*FIN EINCA HD-3094 09-01-2019 Boton genérico fondo blanco*/
+
 
 .select-ffc {
     font-family: 'lato';
@@ -13258,6 +13314,7 @@ a {
 /*FIN ESTILOS EMBEBER APP (APPCONS-1099)*/
 
 /* APPCONS-1098 */
+
 .ajustePosicionFlecha {
     left: 14px;
 }
@@ -13292,14 +13349,13 @@ a {
     background: #fff;
     position: relative;
     z-index: 1;
-    padding: 13px 15px 9px 15px;
     font-family: 'Lato';
 }
 
 .barra_ganancia {
     display: block;
     width: 100%;
-    height: 20px;
+    height: 12px;
     position: relative;
     background: rgba(255,255,255,1);
     background: -moz-linear-gradient(top, rgba(255,255,255,1) 0, rgba(216,216,216,1) 100%);
@@ -13309,9 +13365,10 @@ a {
     background: -ms-linear-gradient(top, rgba(255,255,255,1) 0, rgba(216,216,216,1) 100%);
     background: linear-gradient(to bottom, rgba(255,255,255,1) 0, rgba(216,216,216,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#d8d8d8', GradientType=0 );
-    border-radius: 10px;
+    border:1px solid #DEDEDE;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
+    border-radius: 10px;
     overflow: hidden;
 }
 
@@ -13322,7 +13379,7 @@ a {
 }
 
 .barra_ganancia_espacio_logrado {
-    width: 85%;
+    width: 0%;
     background: rgba(97,60,135,1);
     background: -moz-linear-gradient(left, rgba(97,60,135,1) 0, rgba(232,28,54,1) 100%);
     background: -webkit-gradient(left top, right top, color-stop(0, rgba(97,60,135,1)), color-stop(100%, rgba(232,28,54,1)));
@@ -13345,7 +13402,7 @@ a {
 }
 
 .meta_descuento {
-    width: 61%;
+    width: 100%;
     text-align: left;
 }
 
@@ -13359,6 +13416,7 @@ a {
     color: #e81c36;
     text-transform: uppercase;
 }
+
 /* FIN APPCONS-1098 */
 
 /* MIS CERTIFICADOS MOBILE */
@@ -13395,8 +13453,8 @@ a {
     display: none;
     position: absolute;
     z-index: 500;
-    left: 23px;
-    top: 6px;
+    left: 34px;
+    top: 10px;
 }
 
 .circulo-1, .circulo-2, .circulo-3 {
@@ -13418,7 +13476,7 @@ a {
 .circulo-2.iniciarTransicion {
     animation: circulo;
     animation-duration: 1.5s;
-    animation-delay: .3s;
+    animation-delay: .6s;
     animation-timing-function: ease;
     animation-iteration-count: infinite;
 }
@@ -13426,9 +13484,63 @@ a {
 .circulo-3.iniciarTransicion {
     animation: circulo;
     animation-duration: 1.5s;
-    animation-delay: .3s;
+    animation-delay: .9s;
     animation-timing-function: ease;
     animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes circulo {
+    0% {
+        top: 12px;
+        left: 7px;
+        opacity: .8;
+        width: 0;
+        height: 0;
+    }
+
+    100% {
+        opacity: 0;
+        top: -14px;
+        left: -21px;
+        width: 58px;
+        height: 58px;
+    }
+}
+
+@-moz-keyframes circulo {
+    0% {
+        top: 12px;
+        left: 7px;
+        opacity: .8;
+        width: 0;
+        height: 0;
+    }
+
+    100% {
+        opacity: 0;
+        top: -14px;
+        left: -21px;
+        width: 58px;
+        height: 58px;
+    }
+}
+
+@-o-keyframes circulo {
+    0% {
+        top: 12px;
+        left: 7px;
+        opacity: .8;
+        width: 0;
+        height: 0;
+    }
+
+    100% {
+        opacity: 0;
+        top: -14px;
+        left: -21px;
+        width: 58px;
+        height: 58px;
+    }
 }
 
 @keyframes circulo {
@@ -14069,6 +14181,621 @@ a {
 }
 
 /* FIN - MC-HD-2936 - DÚO PERFECTO AJUSTES POPUP */
+
+/* PROGRAMA NUEVAS - ELIGE TU REGALO */
+
+.quitarPaddingSuperior{
+    padding-top:0;
+}
+
+.tipo_montos_y_regalo_tippingPoint{
+    justify-content:flex-end;
+    position:relative;
+    font-size:12px;
+    color:#808080;
+    text-align:right;
+    min-height:57px;
+}
+
+.tipo_montos_y_regalo_tippingPoint,
+.tipo_montos_y_regalo_tippingPoint > div
+{
+    display:flex;
+    flex-direction:row;
+}
+
+/*.tipo_montos_y_regalo_tippingPoint > div{
+    justify-content:space-between;
+}*/
+
+.monto_minimo,
+.regalo_tippingPoint,
+.monto_maximo
+{
+    display: inline-block;
+}
+
+/*.monto_minimo{
+    margin-left:25px;
+}*/
+
+.monto_minimo,
+.monto_maximo
+{
+    position: absolute;
+    font-size:11px;
+    line-height:14px;
+    margin-top: 3px;
+}
+
+.monto_minimo div,
+.monto_maximo div
+{
+    display:block;
+}
+
+.monto_minimo div:first-child,
+.monto_maximo div:first-child
+{
+    margin-top:6px;
+}
+
+.monto_minimo div:last-child,
+.monto_maximo div:last-child
+{
+    margin-bottom:12px;
+}
+
+.monto_maximo{
+    right:0;
+}
+
+.linea_posicion_monto,
+.linea_posicion_monto_regalo
+{
+    display: block;
+    width: 1px;
+    height: 8px;
+    position: absolute;
+    top: 0;
+}
+
+.linea_posicion_monto {
+    background-color: #808080;
+    /*left: 0; volver comentar hd-2849*/
+    /*right: 0; volver comentar hd-2849*/
+     /*left: 0; 
+     right: 0;*/  
+}
+
+.linea_posicion_monto_regalo {
+    left: auto;
+    right: 12px;
+    background-color: #b9007e;
+}
+
+.icono_regalo,
+.icono_celebracion
+{
+    position: absolute;
+    z-index: 10;
+    font-size:11px;
+    width:25px;
+}
+
+.regalo_tippingPoint {
+    /*margin-left: 66px;*/
+    top: -23px;
+    left:0;
+    /*right: 0;*/
+}
+
+.regalo_tippingPointInicio {
+    top: -23px;
+    /*right: 0; volver comentar hd-2849 **/
+     /*right: 0;*/  
+} 
+
+.regalo_tippingPoint img,
+.regalo_tippingPointInicio img
+{
+    width: 25px;
+    position: relative;
+    z-index: 600;
+    margin-bottom: 6px;
+    top:-8px;
+}
+
+/*.regalo_tippingPoint + .monto_maximo{
+    margin-left:72px;
+}*/
+
+.microEfecto_regaloPendienteEleccion{
+    display:none;
+    top:-10px;
+    left:5px;
+}
+
+.microEfecto_regaloPendienteEleccion .circulo-1,
+.microEfecto_regaloPendienteEleccion .circulo-2,
+.microEfecto_regaloPendienteEleccion .circulo-3
+{
+    border:1px solid #a20015;
+}
+
+.monto_regaloTippingPoint {
+    display: block;
+    color: #b9007e;
+    position: absolute;
+    min-width: 50px;
+    top: 31px;
+    left: -23px;
+}
+
+    .monto_regaloTippingPoint:before {
+        background-color: #b9007e;
+        top: -7px !important;
+    }
+
+.contenedor_barra_mobile{
+    margin-bottom:13px;
+}
+
+.agrega_barra,
+.mensaje_meta
+{
+    font-size:15px;
+    padding-top:13px;
+    padding-left:1px;
+    margin-bottom:18px;
+    text-align:left;
+}
+
+.mensaje_meta{
+    display:none;
+}
+
+.icono_cambiar_regalo_programaNuevas{
+    width: 40px;
+    padding: 10px;
+    position: relative;
+    margin-left: -14px;
+    top: 0;
+    right: -10px;
+}
+
+.icono_cambiar_regalo_programaNuevas a{
+    display:block;
+}
+
+.icono_cambiar_regalo_programaNuevas img{
+    width:100%;
+    height:auto;
+}
+
+.tooltip_informativo_condicion_regalo_programaNuevas{
+    display: block;
+    position: relative;
+    width: 164px;
+    height: 48px;
+    line-height: 48px;
+    font-size: 13px!important;
+    background-color: #f8f8f8;
+    color: #000;
+    text-align: center!important;
+    margin-top: 8px;
+    text-transform: unset!important;
+}
+
+.tooltip_informativo_condicion_regalo_programaNuevas:before{
+    display:block;
+    content:"";
+    bottom: 100%;
+	left: 50%;
+	border: solid transparent;
+    height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+    border-color: rgba(136, 183, 213, 0);
+	border-bottom-color: #f8f8f8;
+	border-width: 7px;
+	margin-left: -64px;
+}
+
+/* POPUP ELIGE TU REGALO DEL PROGRAMA NUEVAS */
+
+.popup_eleccion_regalo_programaNuevas,
+.popup_meta_regalo_programaNuevas,
+.popup_treinta_y_cinco_descuento
+{
+    padding-top:41px;
+    padding-bottom:33px;
+    height: 100%;
+    overflow:auto!important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #FFF;
+    z-index: 2000;
+}
+
+.popup_eleccion_regalo_programaNuevas_header,
+.popup_treinta_y_cinco_descuento_header
+{
+    height:155px;
+}
+
+.icono_regalo_popup_programaNuevas,
+.icono_regalo_popup_meta_regalo,
+.icono_celebracion_popup_descuento,
+.icono_cerrar_popup_treinta_y_cinco_descuento,
+.titulo_popup_eleccion_regalo_programaNuevas,
+.opciones_regalo_carousel_programaNuevas,
+.enlace_elegir_otro_regalo
+{
+    margin:0 auto;
+}
+
+.icono_regalo_popup_programaNuevas,
+.icono_regalo_popup_programaNuevas img,
+.icono_celebracion_popup_descuento,
+.icono_celebracion_popup_descuento img,
+.icono_cerrar_popup_treinta_y_cinco_descuento,
+.icono_cerrar_popup_treinta_y_cinco_descuento img
+{
+    position:relative;
+    width:40px;
+    height:auto;
+}
+
+.titulo_popup_eleccion_regalo_programaNuevas,
+.titulo_popup_meta_regalo_programaNuevas,
+.titulo_popup_treinta_y_cinco_descuento
+{
+    margin-left:auto;
+    margin-right:auto;
+    max-width:285px;
+    line-height:26px;
+    margin-top:14px;
+    margin-bottom:15px;
+}
+
+.titulo_popup_eleccion_regalo_programaNuevas span,
+.titulo_popup_meta_regalo_programaNuevas span,
+.titulo_popup_treinta_y_cinco_descuento span
+{
+    font-family: 'Lato', sans-serif;
+    letter-spacing:0.2px;
+}
+
+.mensaje_titulo_popup_eleccion_regalo{
+    display: block;
+}
+
+.mensaje_titulo_popup_eleccion_regalo,
+.mensaje_titulo_popup_regalo_elegido,
+.titulo_popup_meta_regalo_programaNuevas span:first-child,
+.titulo_popup_treinta_y_cinco_descuento span:first-child
+{
+    font-size:20px;
+    font-weight:bold;
+}
+
+.titulo_popup_eleccion_regalo_programaNuevas span:last-child,
+.titulo_popup_meta_regalo_programaNuevas span:last-child,
+.titulo_popup_treinta_y_cinco_descuento span:last-child
+{
+    display:block;
+    font-size:18px;
+}
+
+.mensaje_titulo_popup_regalo_elegido{
+    display:none;
+}
+
+.opciones_regalo_programaNuevas_wrapper{
+    min-height: 401px;
+    background-color: #F5F5F5;
+    margin-bottom: 41px;
+    padding-top: 35px;
+    padding-bottom: 51px;
+    position: relative;
+}
+
+.btn_seguir_comprando,
+.btn_escoger_o_cambiar_regalo
+{
+    display:block;
+    margin:0 auto;
+    border:1px solid #000;
+    width:220px;
+    height:56px;
+    line-height:56px;
+    font-size:14px;
+    font-weight:bold;
+    background-color:#FFF;
+    border-radius:4px;
+}
+
+    .btn_seguir_comprando,
+    .btn_escoger_o_cambiar_regalo,
+    .btn_seguir_comprando:hover,
+    .btn_escoger_o_cambiar_regalo:hover
+    {
+        text-decoration:none;
+        color:#000;
+    }
+
+.opciones_regalo_carousel_programaNuevas.slick-slider{
+    margin-top:2px;
+}
+
+.opciones_regalo_carousel_programaNuevas.slick-initialized .slick-slide{
+    display:inline-block;
+    vertical-align:top;
+    float:none;
+    min-height:315px;
+    padding-top:0!important;
+    padding-bottom:25px!important;
+}
+
+.opcion_regalo_carousel_programaNuevas {
+    background-color: #FFF;
+    border: 1px solid #D8D8D8;
+    width: 245px;
+    margin-left: 12px;
+    margin-right: 12px;
+    -moz-box-shadow: 0 6px 18px -8px rgba(103,103,103,0.5);
+    -webkit-box-shadow: 0 6px 18px -8px rgba(103,103,103,0.5);
+    box-shadow: 0 6px 18px -8px rgba(103,103,103,0.5);
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.opcion_regalo_carousel_elegido{
+    border:1px solid #000;
+}
+
+.img_regalo_carousel{
+    padding-top:25px;
+    height:145px;
+    margin-bottom:9px;
+}
+
+.img_regalo_carousel img{
+    width:auto;
+    height:100%;
+}
+
+.marca_producto{
+    font-size:13px;
+    font-weight:300;
+    letter-spacing:0.2px;
+    color:#000;
+    margin-bottom:5px;
+}
+
+.descrip_regalo_carousel,
+.btn_elegir_regalo
+{
+    font-size:14.63px;
+    font-weight:bold;
+}
+
+.descrip_regalo_carousel {
+    letter-spacing: 0.24px;
+    height: 42px;
+    margin-bottom: 15px;
+    overflow: hidden;
+}
+
+.btn_elegir_regalo{
+    width:185px;
+    height:45px;
+    background-color:#000;
+    border:1px solid #000;
+    color:#FFF;
+    border-radius:4px;
+}
+
+.icono_cerrar_popup_eleccion_regalo_programaNuevas,
+.icono_cerrar_popup_treinta_y_cinco_descuento
+{
+    position: absolute;
+    top: 15px;
+    right: 11px;
+    width: 16px;
+    text-decoration:none;
+}
+
+.icono_cerrar_popup_eleccion_regalo_programaNuevas img,
+.icono_check_regalo_elegido img,
+.icono_cerrar_popup_treinta_y_cinco_descuento img
+{
+    width:100%;
+    height:auto;
+}
+
+.enlace_elegir_otro_regalo{
+    display:none;
+    max-width: 150px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 5px;
+    font-size: 14px;
+    color: #000;
+    height: 45px;
+    line-height: 45px;
+    text-decoration:underline;
+}
+
+.mensaje_regalo_elegido {
+    display:none;
+    margin-top: 30px;
+}
+
+.icono_check_regalo_elegido,
+.texto_regalo_elegido
+{
+    display:inline-block;
+    vertical-align:middle;
+}
+
+.icono_check_regalo_elegido{
+    width:9px;
+    margin-bottom:3px;
+    margin-right:6px;
+}
+
+.texto_regalo_elegido{
+    font-size:12px;
+    font-weight:800;
+}
+
+/* FIN - POPUP ELIGE TU REGALO DEL PROGRAMA NUEVAS */
+
+/* POPUP FELICITACIONES META REGALO */
+
+.icono_regalo_popup_meta_regalo,
+.icono_regalo_popup_meta_regalo img,
+.icono_celebracion_popup_descuento,
+.icono_celebracion_popup_descuento img
+{
+    position:relative;
+    width:60px;
+    height:auto;
+}
+
+.icono_regalo_popup_meta_regalo,
+.icono_celebracion_popup_descuento
+{
+    margin-bottom: 33px;
+}
+
+.titulo_popup_meta_regalo_programaNuevas span:first-child,
+.titulo_popup_treinta_y_cinco_descuento span:first-child
+{
+    line-height:10px;
+    text-transform:uppercase;
+}
+
+.titulo_popup_meta_regalo_programaNuevas span:last-child,
+.titulo_popup_treinta_y_cinco_descuento span:last-child
+{
+    margin-top:21px;
+    line-height:25px;
+}
+
+.btn_escoger_o_cambiar_regalo{
+    margin-top:70px;
+    width: 90%;
+    max-width: 330px;
+}
+
+.popup_meta_regalo_programaNuevas .popup_meta_regalo_programaNuevas_contenido,
+.popup_treinta_y_cinco_descuento .popup_treinta_y_cinco_descuento_contenido
+{
+    position:absolute;
+    margin:0 auto;
+    top:128px;
+    left:0;
+    right:0;
+    bottom:0;
+    height:346px;
+}
+
+/* FIN - POPUP FELICITACIONES META REGALO */
+
+/* POPUP LÍMITE DE LÍNEA DE CRÉDITO */
+
+.popup_limite_lineaCredito{
+    position:fixed;
+    top:-17px;
+    width:100%;
+    height:100%;
+    background-color:#FFF;
+    z-index:2000;
+}
+
+.popup_limite_lineaCredito_contenido{
+    position:absolute;
+    margin:auto;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    height:230px;
+}
+
+.icono_popup_limite_lineaCredito{
+    margin:0 auto 35px auto;
+    width:70px;
+    height:auto;
+}
+
+.icono_popup_limite_lineaCredito img{
+    width:100%;
+    height:auto;
+}
+
+.mensaje_popup_limite_lineaCredito{
+    margin:0 auto;
+}
+
+.titulo_mensaje_popup{
+    font-size:20px;
+    font-weight:bold;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.descripcion_mensaje_popup{
+    font-size:16px;
+    margin-bottom:0;
+}
+
+@media screen and (max-width:350px){
+
+    .titulo_mensaje_popup{
+        font-size:18px;
+    }
+
+    .descripcion_mensaje_popup{
+        font-size:14px;
+    }
+
+}
+
+/* FIN - POPUP LÍMITE DE LÍNEA DE CRÉDITO */
+
+/* POPUP LLEGASTE AL 30% DE DESCUENTO */
+
+.titulo_popup_treinta_y_cinco_descuento span:first-child{
+    font-size:15px;
+}
+
+.titulo_popup_treinta_y_cinco_descuento span:last-child{
+    margin-top:12px;
+    font-size:30px;
+}
+
+.icono_celebracion_popup_descuento{
+    padding-left:7px;
+    margin-top:31px;
+    margin-bottom:12px;
+}
+
+.icono_celebracion_popup_descuento img{
+    width:65px;
+}
+
+/* FIN - POPUP LLEGASTE AL 30% DE DESCUENTO */
+
+/* FIN - PROGRAMA NUEVAS - ELIGE TU REGALO */
 
 /* POPUP CIERRE DE SESIÓN */
 

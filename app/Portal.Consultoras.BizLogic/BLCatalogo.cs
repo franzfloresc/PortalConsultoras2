@@ -2,6 +2,7 @@
 using Portal.Consultoras.Common.Settings;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
+
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -15,12 +16,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+
 namespace Portal.Consultoras.BizLogic
 {
     public class BLCatalogo : ICatalogoBusinessLogic
     {
-        private readonly int ObjetoIssueTimeOut = 10;
-        private readonly string _urlISSUUSearch = "https://issuu.com/oembed?url=https://issuu.com/somosbelcorp/docs/";
+        private readonly int _timeOutIssuu = 10;
+        private readonly string _apiKeyIssuu = "hvmznfoyahpnv79c0hdl2dryksonbxcp";
+        private readonly string _secretKeyIssuu = "0w9gg5qn6xsn98gazggk9l27hu07gikv";
+        private readonly string _urlIssuuList = "http://api.issuu.com/1_0?action=issuu.documents.list&apiKey={0}&format=json&orgDocName={1}.pdf&signature={2}";
+        private readonly string _signatureIssuu = "{0}actionissuu.documents.listapiKey{1}formatjsonorgDocName{2}.pdf";
+        private static HttpClient httpClient = null;
 
         private readonly List<BECatalogoRevista> _catalogosRevistas = new List<BECatalogoRevista>
             {
@@ -52,8 +60,18 @@ namespace Portal.Consultoras.BizLogic
                     UrlImagen = Constantes.CatalogoImagenDefault.Catalogo,
                     UrlVisor = Constantes.CatalogoUrlDefault.Cyzone
                 }
-
             };
+
+        public BLCatalogo()
+        {
+            if (httpClient == null)
+            {
+                httpClient = new HttpClient();
+                httpClient.DefaultRequestHeaders.Accept.Clear();
+                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                httpClient.Timeout.Add(new TimeSpan(0, 0, _timeOutIssuu));
+            }
+        }
 
         public IList<BECatalogo> GetCatalogosByCampania(int paisID, int campaniaID)
         {
@@ -379,16 +397,30 @@ namespace Portal.Consultoras.BizLogic
         {
             if (string.IsNullOrEmpty(catalogoRevista.CodigoIssuu)) return;
 
-            var url = string.Format("{0}{1}", _urlISSUUSearch, catalogoRevista.CodigoIssuu);
+            var signature = string.Format(_signatureIssuu, _secretKeyIssuu, _apiKeyIssuu, catalogoRevista.CodigoIssuu);
+            signature = Crypto.CreateMD5(signature).ToLower();
+            var url = string.Format(_urlIssuuList, _apiKeyIssuu, catalogoRevista.CodigoIssuu, signature);
 
-            var reponse = ObtenerObjetoIssue(url, catalogoRevista.PaisISO);
-            if (!reponse.Item1) return;
+            var json = ObtenerObjetoIssue(url, catalogoRevista.PaisISO);
 
-            var urlIssuuVisor = ServiceSettings.Instance.UrlIssuu;
-            catalogoRevista.UrlVisor = string.Format(urlIssuuVisor, catalogoRevista.CodigoIssuu);
-            catalogoRevista.UrlImagen = reponse.Item2.thumbnail_url;
-            catalogoRevista.CatalogoTitulo = reponse.Item2.title;
-            catalogoRevista.CatalogoDescripcion = reponse.Item2.description;
+            if (string.IsNullOrEmpty(json)) return;
+
+            var oIssuu = JsonConvert.DeserializeObject<dynamic>(json);
+
+            var docs = (JArray)oIssuu.rsp._content.result._content;
+
+            var doc = docs.FirstOrDefault();
+
+            if (doc == null) return;
+
+            var ndoc = doc["document"];
+            string titutlo = ndoc.Value<string>("title");
+            string Descripcion = ndoc.Value<string>("name");
+
+            catalogoRevista.CatalogoTitulo = titutlo;
+            catalogoRevista.CatalogoDescripcion = Descripcion;
+            catalogoRevista.UrlVisor = string.Format(ServiceSettings.Instance.UrlIssuu, catalogoRevista.CodigoIssuu);
+            catalogoRevista.UrlImagen = string.Format("https://image.issuu.com/{0}/jpg/page_1_thumb_medium.jpg", ndoc["documentId"]);
         }
 
         private void AjusteRevistaTituloDescripcion(BECatalogoRevista catalogoRevista)
@@ -404,30 +436,19 @@ namespace Portal.Consultoras.BizLogic
             }
         }
 
-        private Tuple<bool, dynamic> ObtenerObjetoIssue(string url, string codigoIso)
+        private string ObtenerObjetoIssue(string url, string codigoIso)
         {
             try
             {
-                using (var client = new HttpClient())
-                {
-                    client.DefaultRequestHeaders.Accept.Clear();
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    client.Timeout.Add(new TimeSpan(0, 0, ObjetoIssueTimeOut));
+                var response = httpClient.GetAsync(url).Result;
+                response.EnsureSuccessStatusCode();
 
-                    var response = client.GetAsync(url).Result;
-                    response.EnsureSuccessStatusCode();
-
-                    var content = response.Content.ReadAsStringAsync().Result;
-
-                    if (string.IsNullOrEmpty(content)) return new Tuple<bool, dynamic>(false, null);
-
-                    return new Tuple<bool, dynamic>(true, Newtonsoft.Json.Linq.JObject.Parse(content));
-                }
+                return response.Content.ReadAsStringAsync().Result;
             }
             catch (Exception ex)
             {
                 LogManager.SaveLog(ex, url, codigoIso);
-                return new Tuple<bool, dynamic>(false, null);
+                return string.Empty;
             }
         }
 

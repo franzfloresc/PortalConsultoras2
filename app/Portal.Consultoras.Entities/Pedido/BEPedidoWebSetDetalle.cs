@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Entities.Pedido
 {
@@ -50,5 +45,13 @@ namespace Portal.Consultoras.Entities.Pedido
         [DataMember]
         [Column("TipoOfertaSisID")]
         public int TipoOfertaSisId { get; set; }
+        
+        [DataMember]
+        [Column("Digitable")]
+        public int Digitable { get; set; }
+
+        [DataMember]
+        [Column("Grupo")]
+        public string Grupo { get; set; }
     }
 }

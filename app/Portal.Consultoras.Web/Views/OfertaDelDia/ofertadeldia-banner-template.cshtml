@@ -42,7 +42,8 @@
                 {{/iff}}
 
             </div>
-            <a class="btn_detalle_hoy" data-odd-cantidad="{{CantidadProductos}}" onclick="OfertaDelDiaModule.IrContenedorOfertas();">
+            @*<a class="btn_detalle_hoy" data-odd-cantidad="{{CantidadProductos}}" onclick="OfertaDelDiaModule.IrContenedorOfertas();">*@
+            <a class="btn_detalle_hoy" data-odd-cantidad="{{CantidadProductos}}" onclick="javascript: menuModule.sectionClick('/Ofertas#ODD', 'BotonVerMas', this);">
                 <div class="circulo_hoy"><span id="odd_simbolo_ver_ofertas">+</span></div>
                 <div class="texto_detalle_set">{{TextoVerDetalle}}</div>
             </a>

@@ -1,0 +1,23 @@
+﻿<div id="popupPremio" class="popup_meta_regalo_programaNuevas w-100 text-center" style="display:none;">
+    <div class="popup_meta_regalo_programaNuevas_header w-100">
+        <a class="icono_cerrar_popup_eleccion_regalo_programaNuevas" title="Cerrar" href="javascript:;" onclick="javascript: ocultarLluvia();CerrarPopup('#popupPremio');checkPopupEscala();">
+            <img src="@Url.Content("~/Content/Images/btn_cerrar_popup_color_negro.svg")" alt="Cerrar" />
+        </a>
+    </div>
+    <div class="popup_meta_regalo_programaNuevas_contenido w-100">
+        <div class="icono_regalo icono_regalo_popup_meta_regalo">
+            <img src="@Url.Content("~/Content/Images/icono_regalo.png")" alt="Elige tu regalo" />
+        </div>
+        <h2 class="titulo_popup_meta_regalo_programaNuevas">
+            <span>
+                ¡Felicidades!<br />Llegaste a tu regalo
+            </span>
+            <span class="sub-premio-elect">
+                Puedes elegir ahora o<br />seleccionaremos uno por ti, pero recuerda que puedes cambiarlo cuando quieras
+            </span>
+        </h2>
+        <a class="btn_escoger_o_cambiar_regalo text-uppercase" href="javascript:;" onclick="javascript: ocultarLluvia();CerrarPopup('#popupPremio'); cargarPopupEleccionRegalo(true);">
+            ¡Escoger ahora!
+        </a>
+    </div>
+</div>

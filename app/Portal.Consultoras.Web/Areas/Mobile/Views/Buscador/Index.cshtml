@@ -10,6 +10,8 @@
 
 @section styles{
 
+    <link href="@Url.Content("~/Content/Css/Mobile/Buscador/categorias-productos.css")" rel="stylesheet">
+
     @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
     {
         <link href="@Url.Content("~/Content/Css/Site/Esika/buscador-filtros.css")" rel="stylesheet">
@@ -35,6 +37,15 @@
 </div>
 
 <div class="section-container mt-60">
+    <div class="container-fluid d-block seccion_categorias_productos_busqueda_wrapper">
+        <h3 class="d-block seccion_categorias_productos_busqueda_titulo" id="TituloCategoriaO">
+            Categorías
+        </h3>
+        <div class="d-block listado_categorias_productos_busqueda_wrapper">
+            <ul class="listado_categorias_productos_busqueda" id="CategoriaProductos">                
+            </ul>
+        </div>
+    </div>
     <!-- LISTA DE RESULTADOS DE BÚSQUEDA MOBILE -->
     <div class="container-fluid vistaResultadosBusquedaMobile displayBlock">
         <div class="spinner">
@@ -64,8 +75,33 @@
 @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpBuscadorResultado.cshtml")
 
 @section scripts{
-
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaAgregar/PedidoRegistro.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Buscador/BuscadorProvider.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Buscador/BuscadorModule.js")"></script>
-
 }
+
+    <script id="js-categoriasProductos" type="text/x-handlebars-template">
+        {{#each this as |item|}}
+            {{#if item.ImagenAncha}}
+                <li class="categoria_producto categoria_full_width {{#iff item.Cantidad '==' 0}} categoria_sin_productos_disponibles {{/iff}}">
+            {{else}}
+                <li class="categoria_producto categoria_half_width {{#iff item.Cantidad '==' 0}} categoria_sin_productos_disponibles {{/iff}}">
+            {{/if}}
+                    <div class="categoria_producto_fondo_estado"></div>
+                    <img class="d-block" src="{{item.Imagen}}" alt="{{item.Nombre}}" />
+                    <a href="{{#iff item.Cantidad '>' 0}}/BusquedaProductos?c={{item.Codigo}}{{else}}#!{{/iff}}" title="{{item.Nombre}}" 
+                       class="d-flex categoria_producto_enlace" onclick="AnalyticsPortalModule.MarcaCategoria('{{item.Nombre}}')">
+                        <span class="d-block text-bold titulo_categoria_producto_busqueda">{{item.Nombre}}</span>
+                        @if (@ViewBag.FlagBuscarPorCategoriaTotalProductos == true)
+                        {
+                            <span class="d-block cantidad_productos_por_categoria_busqueda">{{item.Cantidad}} productos</span>
+                        }
+                    </a>
+                </li>
+        {{/each}}
+    </script>
+
+    <script>
+        var boolSuscrita = '@ViewBag.boolSuscrita'.toLowerCase() === 'true';
+        var FlagBuscarPorCategoria = '@ViewBag.FlagBuscarPorCategoria'.toLowerCase() === 'true';
+    </script>

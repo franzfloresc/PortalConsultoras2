@@ -77,8 +77,7 @@ namespace Portal.Consultoras.Common
                     logError.IsoPais = Util.GetPaisISO(int.Parse(logError.IsoPais));
                 }
 
-                RegistrarArchivoTexto(logError, pathFile);
-                RegistrarDynamoDB(logError);
+                
                 RegistrarElastic(logError);
             }
             catch (Exception)
@@ -121,7 +120,8 @@ namespace Portal.Consultoras.Common
             }
             catch (Exception ex)
             {
-                EventLog.WriteEntry("SomosBelcorp - LogManager", string.Format("Mensaje: {0} \nTrace: {1}", ex.Message, ex.StackTrace), EventLogEntryType.Error);
+
+                //EventLog.WriteEntry("SomosBelcorp - LogManager", string.Format("Mensaje: {0} \nTrace: {1}", ex.Message, ex.StackTrace), EventLogEntryType.Error);
             }
         }
 
@@ -239,11 +239,17 @@ namespace Portal.Consultoras.Common
                 if (logError.Exception != null)
                 {
                     exceptionMessage = logError.Exception.Message;
+
+                    if (logError.Exception.StackTrace != null)
+                    {
+                        exceptionMessage += " - " + logError.Exception.StackTrace;
+                    }
+
                 }
 
-                string className;
-                string methodName;
-                string application;
+                string className = string.Empty;
+                string methodName = string.Empty;
+                string application = string.Empty;
 
                 if (logError.Origen.Equals("Servidor"))
                 {
@@ -251,8 +257,12 @@ namespace Portal.Consultoras.Common
 
                     StackTrace st = new StackTrace(logError.Exception, true);
                     StackFrame frame = st.GetFrame(st.FrameCount - 1);
-                    className = frame.GetMethod().DeclaringType.Name;
-                    methodName = frame.GetMethod().Name;
+                    if (frame != null)
+                    {
+                        className = frame.GetMethod().DeclaringType.Name;
+                        methodName = frame.GetMethod().Name;
+                    }
+                    
                 }
                 else
                 {
@@ -306,7 +316,6 @@ namespace Portal.Consultoras.Common
                 logError.Exception = ex;
                 logError.InformacionAdicional = dataString;
                 logError.Titulo = "Seguimiento de Errores Elastic";
-
                 RegistrarArchivoTexto(logError);
             }
         }

@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
+using Portal.Consultoras.Web.ServiceUsuario;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -81,12 +83,11 @@ namespace Portal.Consultoras.Web.Providers
                             CampaniaId = userData.CampaniaID,
                             ConsultoraId = userData.ConsultoraID,
                             Consultora = userData.NombreConsultora,
-                            EsBpt = esOpt == 1, // ya no se utiliza en el sp, confirmar para no enviar el campo
                             CodigoPrograma = userData.CodigoPrograma,
                             NumeroPedido = userData.ConsecutivoNueva
                         };
 
-                        detallesPedidoWeb = pedidoServiceClient.SelectByCampania(bePedidoWebDetalleParametros).ToList();
+                        detallesPedidoWeb = pedidoServiceClient.SelectByCampaniaWithLabelProgNuevas(bePedidoWebDetalleParametros).ToList();
                     }
                 }
 
@@ -142,13 +143,12 @@ namespace Portal.Consultoras.Web.Providers
                             CampaniaId = userData.CampaniaID,
                             ConsultoraId = userData.ConsultoraID,
                             Consultora = userData.NombreConsultora,
-                            EsBpt = esOpt == 1,
                             CodigoPrograma = userData.CodigoPrograma,
                             NumeroPedido = userData.ConsecutivoNueva,
                             AgruparSet = true
                         };
 
-                        detallesPedidoWeb = pedidoServiceClient.SelectByCampania(bePedidoWebDetalleParametros).ToList();
+                        detallesPedidoWeb = pedidoServiceClient.SelectByCampaniaWithLabelProgNuevas(bePedidoWebDetalleParametros).ToList();
                     }
                 }
 
@@ -192,10 +192,7 @@ namespace Portal.Consultoras.Web.Providers
 
         public bool RequiereCierreSessionValidado(TablaLogicaProvider provider, int paisId)
         {
-            var list = provider.ObtenerParametrosTablaLogica(paisId, Constantes.TablaLogica.CierreSessionValidado, true);
-
-            var value = provider.ObtenerValorDesdeLista(list, Constantes.TablaLogicaDato.CierreSessionValidado);
-
+            var value = provider.GetTablaLogicaDatoValor(paisId, Constantes.TablaLogica.CierreSessionValidado, Constantes.TablaLogicaDato.CierreSessionValidado, true);
             return value == "1";
         }
 
@@ -287,11 +284,106 @@ namespace Portal.Consultoras.Web.Providers
         {
             var descripcion = "";
 
-            descripcion = Util.obtenerNuevaDescripcionProductoDetalle(item.ConfiguracionOfertaID, pedidoValidado, item.FlagConsultoraOnline,
-                item.OrigenPedidoWeb, lista, suscripcion, item.TipoEstrategiaCodigo, item.MarcaID, item.CodigoCatalago, item.DescripcionOferta);
+            descripcion = Util.obtenerNuevaDescripcionProductoDetalle(item.ConfiguracionOfertaID, pedidoValidado,
+                item.FlagConsultoraOnline, item.OrigenPedidoWeb, lista, suscripcion, item.TipoEstrategiaCodigo, item.MarcaID,
+                item.CodigoCatalago, item.DescripcionOferta, item.EsCuponNuevas, item.EsElecMultipleNuevas, item.EsPremioElectivo);
 
             return descripcion;
         }
 
+        public BEPedidoDetalleResult InsertPedidoDetalle(BEPedidoDetalle pedidoDetalle)
+        {
+            BEPedidoDetalleResult pedidoDetalleResult;
+            using (var pedidoServiceClient = new PedidoServiceClient())
+            {
+                pedidoDetalleResult = pedidoServiceClient.InsertPedidoDetalle(pedidoDetalle);
+            }
+
+            return pedidoDetalleResult;
+        }
+
+        public BEPedidoDetalleResult UpdatePedidoDetalle(BEPedidoDetalle pedidoDetalle)
+        {
+            BEPedidoDetalleResult pedidoDetalleResult;
+            using (var pedidoServiceClient = new PedidoServiceClient())
+            {
+                pedidoDetalleResult = pedidoServiceClient.UpdatePedidoDetalle(pedidoDetalle);
+            }
+
+            return pedidoDetalleResult;
+        }
+
+        public async Task<BEPedidoDetalleResult> EliminarPedidoDetalle(BEPedidoDetalle pedidoDetalle)
+        {
+            BEPedidoDetalleResult pedidoDetalleResult;
+            using (var pedidoServiceClient = new PedidoServiceClient())
+            {
+                pedidoDetalleResult = await pedidoServiceClient.DeletePedidoAsync(pedidoDetalle);
+            }
+
+            return pedidoDetalleResult;
+        }
+
+        public async Task EliminarPedidoWebDetalle(BEPedidoWebDetalle pedidoDetalle)
+        {
+            using (var pedidoServiceClient = new PedidoServiceClient())
+            {
+                await pedidoServiceClient.DelPedidoWebDetalleAsync(pedidoDetalle);
+            }
+        }
+
+        public bool EsHoraReserva(UsuarioModel usuario, DateTime fechaHora)
+        {
+            if (!usuario.DiaPROL)
+                return false;
+
+            var horaNow = new TimeSpan(fechaHora.Hour, fechaHora.Minute, 0);
+            var esHorarioReserva = (fechaHora < usuario.FechaInicioCampania) ?
+                (horaNow > usuario.HoraInicioPreReserva && horaNow < usuario.HoraFinPreReserva) :
+                (horaNow > usuario.HoraInicioReserva && horaNow < usuario.HoraFinReserva);
+
+            if (!esHorarioReserva)
+                return false;
+
+            if (usuario.CodigoISO != Constantes.CodigosISOPais.Peru)
+                return (BuildFechaNoHabil(usuario) == 0);
+
+            return true;
+        }
+
+        public int GetPedidoPendientes(UsuarioModel usuario)
+        {
+            if (_configuracionManager.GetMostrarPedidosPendientesFromConfig())
+            {
+                var paisesConsultoraOnline = _configuracionManager.GetPaisesConConsultoraOnlineFromConfig();
+                if (paisesConsultoraOnline.Contains(usuario.CodigoISO)
+                    && usuario.EsConsultora())
+                {
+                    using (var svc = new UsuarioServiceClient())
+                    {
+                        var cantPedidosPendientes = svc.GetCantidadSolicitudesPedido(usuario.PaisID, usuario.ConsultoraID, usuario.CampaniaID);
+
+                        return cantPedidosPendientes;
+                    }
+                }
+            }
+
+            return 0;
+        }
+
+        private int BuildFechaNoHabil(UsuarioModel usuario)
+        {
+            var result = 0;
+            if (usuario != null && usuario.RolID != 0)
+            {
+                using (var sv = new PedidoServiceClient())
+                {
+                    result = sv.GetFechaNoHabilFacturacion(usuario.PaisID, usuario.CodigoZona, DateTime.Today);
+                }
+            }
+
+            return result;
+        }
+        
     }
 }

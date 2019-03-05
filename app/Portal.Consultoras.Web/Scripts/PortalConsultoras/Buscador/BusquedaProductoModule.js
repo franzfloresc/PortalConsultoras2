@@ -8,6 +8,7 @@
         opcionOrdenar: "#dpw-ordenar, .opcion__ordenamiento__label",
         opcionFiltrar: "#opcionFiltrar",
         opcionCerrarFiltrosMobile: '#cerrarFiltros, .filtro__btn--aplicar, .background__filtros__mobile',
+        opcionAplicarFiltrosMobile: '.filtro__btn--aplicar',
         opcionLimpiarFiltros: '.filtro__btn--limpiar',
         filtroCheckbox: '.filtro__item__checkbox',
         backgroundAlMostrarFiltrosMobile: '.background__filtros__mobile',
@@ -25,9 +26,6 @@
         scriptHandleBarCriterios: '#js-labelCriteriosFiltros',
         redireccionarFicha: '.redireccionarFicha',
         dataToggle: '[data-toggle]',
-        filtrosCategorias: '#filtrosCategorias',
-        filtrosMarcas: '#filtrosMarcas',
-        filtrosPrecios: '#filtrosPrecios',
         enlaceLimpiarEtiquetasFiltros: '.enlace__limpiar__filtros, .filtro__btn--limpiar',
         buscadorFiltrosSeleccionar: '.buscadorFiltrosSeleccionar',
         preCargaFiltros: '.layout__precarga--actualizacionFiltros',
@@ -36,7 +34,9 @@
         mostrarLayoutCriterios: '.layout__content__etiquetas__criteriosElegidos',
         etiquetaCriterioElegido: '.icono__eliminar__criterioElegido',
         filtroBtnMobileWrapper: '.filtro__btn__mobile__wrapper',
-        valueJSON: ".hdBuscadorJSON"
+        valueJSON: ".hdBuscadorJSON",
+        filtroListaHandleBar: ".filtros__lista-handleBar",
+        textoBusquedaMostar: "#TextoBusqueda"
     };
     var _modificador = {
         itemDropDowndesplegado: "opcion__ordenamiento__dropdown--desplegado",
@@ -45,6 +45,7 @@
     var _config = {
         isMobile: window.matchMedia("(max-width:991px)").matches,
         textoBusqueda: textoBusqueda,
+        categoriaBusqueda: categoriaBusqueda,
         totalProductos: 0,
         totalPaginas: 0,
         productosPorPagina: totalProductosPagina,
@@ -54,13 +55,10 @@
         cargandoProductos: false,
         maxCaracteresDesc: totalCaracteresDescripcion,
         isHome: false,
-        categoria: [],
-        marca: [],
-        precio: [],
-        localStorageCategoria: 'filtrosCategorias',
-        localStorageMarca: 'filtrosMarcas',
-        localStoragePrecio: 'filtrosPrecios',
-        localStorageCriterio: 'filtrosCriterios'
+        filtros: [],
+        filtrosLocalStorage: 'filtrosLocalStorage',
+        nombreGrupo: "Categorías",
+        categoriaLocalStorage: "categoriasBuscadorMobile"
     };
     var _provider = {
         BusquedaProductoPromise: function (params) {
@@ -92,6 +90,7 @@
             $(document).on("click", _elementos.opcionOrdenar, _eventos.DropDownOrdenar);
             $(document).on("click", _elementos.opcionFiltrar, _eventos.MostrarFiltrosMobile);
             $(document).on("click", _elementos.opcionCerrarFiltrosMobile, _eventos.CerrarFiltrosMobile);
+            $(document).on("click", _elementos.opcionAplicarFiltrosMobile, _eventos.AplicarFiltrosMobile);
             $(document).on("click", _elementos.filtroTipoTitulo, _eventos.MostrarOcultarContenidoTipoFiltro);
             $(document).on("click", _elementos.opcionLimpiarFiltros, _eventos.LimpiarFiltros);
             $(document).on("click", _elementos.itemDropDown, _eventos.ClickItemOrdenar);
@@ -112,11 +111,7 @@
                     Campo: _config.ordenCampo,
                     Tipo: _config.ordenTipo
                 },
-                Filtro: {
-                    categoria: _config.categoria,
-                    marca: _config.marca,
-                    precio: _config.precio
-                },
+                Filtro: _config.filtros,
                 IsMobile: _config.isMobile,
                 IsHome: _config.isHome
             }
@@ -127,20 +122,17 @@
 
             _config.cargandoProductos = true;
             var modelo = _funciones.ConstruirModeloBusqueda();
+            
             _provider.BusquedaProductoPromise(modelo)
                 .done(function (data) {
+                    
                     $(_elementos.spanTotalProductos).html(data.total);
                     $(_elementos.divCantidadProductoMobile).html(data.total + ' Resultados');
                     _funciones.ProcesarListaProductos(data.productos);
                     SetHandlebars(_elementos.scriptHandleBarFicha, data.productos, _elementos.divContenedorFicha);
-                    if (data.total > 0) {
-                        set_local_storage(data.filtros.categorias, _config.localStorageCategoria);
-                        set_local_storage(data.filtros.marcas, _config.localStorageMarca);
-                        set_local_storage(data.filtros.precios, _config.localStoragePrecio);
-                        if (data.total > 0) SetHandlebars(_elementos.scriptHandleBarFiltros, _funciones.validarFiltrosCantidad(data.filtros.categorias), _elementos.filtrosCategorias);
-                        if (data.total > 0) SetHandlebars(_elementos.scriptHandleBarFiltros, _funciones.validarFiltrosCantidad(data.filtros.marcas), _elementos.filtrosMarcas);
-                        if (data.total > 0) SetHandlebars(_elementos.scriptHandleBarFiltros, _funciones.validarFiltrosCantidad(data.filtros.precios), _elementos.filtrosPrecios)
-                    }
+                    _funciones.validacionDataCategoria(data.filtros);
+                    SetHandlebars(_elementos.scriptHandleBarFiltros, data.filtros, _elementos.filtroListaHandleBar);
+
                     _funciones.UpadteFichaProducto();
                     _config.totalProductos = data.total;
                     _config.cargandoProductos = false;
@@ -183,8 +175,6 @@
 
                     var imgProducto = element.attr('src');
                     var fichaProducto = element.closest('article');
-
-                    console.log(imgProducto);
 
                     _funciones.GetSize(imgProducto, function (width, height) {
 
@@ -259,120 +249,93 @@
         cerrarCargafiltros: function () {
             $(_elementos.preCargaFiltros).fadeOut(100);
         },
-        validarFiltrosCantidad: function (val) {
-            var array = [];
-            for (var i = 0; i < val.length; i++) {
-                if (val[i].cantidad > 0) array.push(val[i]);
-            }
-            return array;
-        },
-        validarFiltrosMarcados: function (tipo) {
-            var array = [];
-            var criterios = get_local_storage(_config.localStorageCriterio);
-            for (var i = 0; i < criterios.length; i++) {
-                var x = criterios[i].idFiltro;
-                x = x.substring(0, 3).toLowerCase();
-                if (x == tipo) {
-                    array.push(criterios[i]);
+        quitarFiltroMarcado: function (idFiltro) {
+            var filtro = get_local_storage(_config.filtrosLocalStorage);
+            var conteo = 0;
+            filtro = !filtro ? [] : filtro;
+
+            for (var i = 0; i < filtro.length; i++) {
+                var item = filtro[i];
+                for (var j = 0; j < item.Opciones.length; j++) {
+                    var fil = item.Opciones[j];
+                    if (fil.IdFiltro == idFiltro) {
+                        item.Opciones.splice(j, 1);
+                        j += item.Opciones.length;
+                    }
+                }
+                if (item.Opciones.length == 0) {
+                    filtro.splice(i, 1);
+                    i = filtro.length;
                 }
             }
 
-            return array;
-        },
-        marcarFiltro: function (idFiltro, _localStorage, criterio) {
-            var dataCriterios = get_local_storage(_config.localStorageCriterio);
-            dataCriterios.push(criterio);
-
-            var data = get_local_storage(_localStorage);
-            data = !data ? [] : data;
-
-            for (var i = 0; i < data.length; i++) {
-                if (data[i].idFiltro == idFiltro) {
-                    data[i].marcado = true;
-                    i += data.length;
-                }
-            }
-
-            set_local_storage(data, _localStorage);
-            set_local_storage(dataCriterios, _config.localStorageCriterio);
-
-            return dataCriterios;
-        },
-        quitarFiltroMarcado: function (idFiltro, _localStorage) {
-            var array = [];
-            var dataCriterios = get_local_storage(_config.localStorageCriterio);
-
-            var data = get_local_storage(_localStorage);
-            data = !data ? [] : data;
-
-            for (var i = 0; i < dataCriterios.length; i++) {
-                if (idFiltro != dataCriterios[i].idFiltro) array.push(dataCriterios[i]);
-            }
-
-            for (var i = 0; i < data.length; i++) {
-                if (data[i].idFiltro == idFiltro) data[i].marcado = false;
-            }
-
-            set_local_storage(data, _localStorage);
-            set_local_storage(array, _config.localStorageCriterio);
-
-            return array;
-        },
-        devuelveNombreLocalStorage: function (idFiltro) {
-            var filtro = idFiltro.substring(0, 3).toLowerCase();
-            var _localStorage = '';
-            switch (filtro) {
-                case 'cat':
-                    _localStorage = _config.localStorageCategoria
-                    break;
-                case 'mar':
-                    _localStorage = _config.localStorageMarca;
-                    break;
-                case 'pre':
-                    _localStorage = _config.localStoragePrecio;
-                    break;
-            }
-            return _localStorage;
-        },
-        mostrarUOcultarCriterios: function (filtroCriterio) {
-            console.log('filtroCriterio', filtroCriterio);
-            if (filtroCriterio.length > 0) {
-                if (_config.isMobile) {
-                    SetHandlebars(_elementos.scriptHandleBarCriterios, filtroCriterio, _elementos.criteriosBuscadorMobile);
-                } else {
-                    SetHandlebars(_elementos.scriptHandleBarCriterios, filtroCriterio, _elementos.criteriosBuscadorDesktop);
-                }
-                $(_elementos.mostrarLayoutCriterios).fadeIn(100);
-            } else {
-                $(_elementos.mostrarLayoutCriterios).fadeOut(100);
-            }
+            set_local_storage(filtro, _config.filtrosLocalStorage)
         },
         accionFiltrosCriterio: function () {
-            var filtroCategoria = _funciones.validarFiltrosMarcados('cat');
-            var filtroMarca = _funciones.validarFiltrosMarcados('mar');
-            var filtroPrecio = _funciones.validarFiltrosMarcados('pre');
-
+            var filtro = get_local_storage(_config.filtrosLocalStorage);
             _config.numeroPaginaActual = 0;
-            _config.categoria = filtroCategoria;
-            _config.marca = filtroMarca;
-            _config.precio = filtroPrecio;
+            _config.filtros = !filtro ? [] : filtro;
 
             if (_config.isMobile) {
-                $(_elementos.preCargaFiltros).css({'width': 90 + '%', 'max-width': '280px'});
+                $(_elementos.preCargaFiltros).css({ 'width': 90 + '%', 'max-width': '280px' });
             }
 
             _funciones.CargarProductos();
+        },
+        validacionDataCategoria: function (dataFiltro) {
+            var data = dataFiltro;
+            if (_config.categoriaBusqueda.length > 0) {
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].NombreGrupo == _config.nombreGrupo) {
+                        dataFiltro.splice(i, 1);
+                        break;
+                    }
+                }
+            }
+            return dataFiltro;
+        },
+        buscarPorCategoria: function () {
+            if (_config.categoriaBusqueda.length > 0) {
+
+                var categorias = get_local_storage("categoriasBuscadorMobile");
+                var nombreFiltro = "";
+
+                for (var i = 0; i < categorias.length; i++) {
+                    if (categorias[i].Codigo == _config.categoriaBusqueda) {
+                        nombreFiltro = categorias[i].Nombre;
+                        i += categorias.length;
+                    }
+                }
+
+                $(_elementos.textoBusquedaMostar).html(nombreFiltro);
+
+                var filtroDuro = [{
+                    NombreGrupo: _config.nombreGrupo,
+                    Opciones: [
+                        {
+                            IdFiltro: _config.categoriaBusqueda,
+                            NombreFiltro: nombreFiltro,
+                            Min: 0,
+                            Max: 0
+                        }]
+                }];
+
+                set_local_storage(filtroDuro, _config.filtrosLocalStorage);
+
+                _config.numeroPaginaActual = 0;
+                _config.filtros = filtroDuro;
+            }
         }
     };
     var _eventos = {
-
         EliminarEtiquetaCriterioElegido: function (e) {
             e.preventDefault();
 
             var divPadre = $(this).parents("[data-item='buscadorCriterios']").eq(0);
             var idFiltro = $(divPadre).find(".CriteriosFiltrosId").val();
-            var _localStorage = _funciones.devuelveNombreLocalStorage(idFiltro);
-            var filtroCriterio = _funciones.quitarFiltroMarcado(idFiltro, _localStorage)
+            var filtroLabel = $(divPadre).find(".CriteriosFiltrosLabel").val();
+
+            var filtroCriterio = _funciones.quitarFiltroMarcado(idFiltro)
 
             if (_config.isMobile) {
                 _elementos.contenedorEtiquetas = $('.layout__content__etiquetas__criteriosElegidosMobile').find('.lista__etiquetas__criteriosElegidos');
@@ -382,6 +345,9 @@
 
             var etiquetaCriterioPorEliminar = $(this).parents('.etiqueta__criterioElegido');
             etiquetaCriterioPorEliminar.fadeOut(70);
+
+            if (!(typeof AnalyticsPortalModule === 'undefined'))
+                AnalyticsPortalModule.MarcaEliminarEtiqueta(filtroLabel);
 
             if (_config.isMobile) {
                 var capturarAnchoEtiquetaPorEliminarMobile = etiquetaCriterioPorEliminar.outerWidth() + 10;
@@ -413,6 +379,11 @@
                 _elementos.contenedorEtiquetas.find('.etiqueta__criterioElegido').fadeOut(70);
                 $(this).fadeOut(70);
             }
+
+            if (!(typeof AnalyticsPortalModule === 'undefined'))
+                AnalyticsPortalModule.MarcaLimpiarFiltros();
+
+
             setTimeout(function () {
                 _elementos.contenedorEtiquetas.find('.etiqueta__criterioElegido').remove();
                 if (_elementos.contenedorEtiquetas.find('.etiqueta__criterioElegido').length == 0) {
@@ -422,14 +393,11 @@
                 }
             }, 100);
 
-            _config.categoria = null;
-            _config.marca = null;
-            _config.precio = null;
-            _config.numeroPaginaActual = 0;
+            set_local_storage([], _config.filtrosLocalStorage);
 
-            set_local_storage([], _config.localStorageCriterio);
+            if (_config.categoriaBusqueda.length > 0) _funciones.buscarPorCategoria();
 
-            _funciones.CargarProductos();
+            _funciones.accionFiltrosCriterio();
         },
         DropDownOrdenar: function (e) {
             e.preventDefault();
@@ -515,6 +483,10 @@
                 $(_elementos.filtroBtnMobileWrapper).delay(100);
                 $(_elementos.filtroBtnMobileWrapper).addClass('filtro__btn__mobile__wrapper--fixed');
             }
+
+            if (!(typeof AnalyticsPortalModule === 'undefined'))
+                AnalyticsPortalModule.MarcaBotonFiltro();
+
             setTimeout(function () {
                 _funciones.AnchoContenedorEtiquetasCriteriosElegidosMobile();
             }, 150);
@@ -529,11 +501,40 @@
                 $(_elementos.filtroBtnMobileWrapper).removeClass('filtro__btn__mobile__wrapper--fixed');
                 $(_elementos.preCargaFiltros).css({ 'width': '', 'max-width': '' });
             }
+
+            //if (!(typeof AnalyticsPortalModule === 'undefined'))
+            //    AnalyticsPortalModule.MarcaBotonAplicarFiltro();
+
             $(_elementos.backgroundAlMostrarFiltrosMobile).fadeOut(100);
             setTimeout(function () {
                 $(_elementos.layoutContent).css({ 'z-index': '2' });
             }, 400);
             $(_elementos.seccionFiltros).scrollTop(0);
+        },
+        AplicarFiltrosMobile: function (e) {
+            e.preventDefault();
+
+            var seleccionados = get_local_storage(_config.filtrosLocalStorage);
+            var opcionesFiltros = "";
+
+            if (seleccionados.length > 0) {
+                $.each(seleccionados, function (i, item) {
+
+                    if (item.Opciones.length > 0) {
+
+                        $.each(item.Opciones, function (i, itemChild) {
+                            opcionesFiltros += itemChild.NombreFiltro + " - ";
+                        });
+                    }
+                    opcionesFiltros = opcionesFiltros.substr(0, opcionesFiltros.length - 3);
+                    opcionesFiltros += " | ";                    
+                });
+                opcionesFiltros = opcionesFiltros.substr(0, opcionesFiltros.length - 3);
+
+                AnalyticsPortalModule.MarcaBotonAplicarFiltro(opcionesFiltros);
+            }
+
+
         },
         MostrarOcultarContenidoTipoFiltro: function (e) {
             var filtroTipo = $(this).parent();
@@ -554,6 +555,10 @@
         },
         LimpiarFiltros: function () {
             $(_elementos.filtroCheckbox).removeAttr('checked');
+
+            if (!(typeof AnalyticsPortalModule === 'undefined'))
+                AnalyticsPortalModule.MarcaLimpiarFiltros();
+
         },
         ScrollCargarProductos: function () {
             _config.cargandoProductos = true;
@@ -575,7 +580,7 @@
             e.preventDefault();
             AbrirLoad();
             var divPadre = $(this).parents("[data-item='BuscadorFichasProductos']").eq(0);
-            BuscadorProvider.RegistroProductoBuscador(divPadre, _elementos.valueJSON);            
+            PedidoRegistroModule.RegistroProductoBuscador(divPadre, _elementos.valueJSON);            
         },
         RedireccionarAFichaDeFotoYDescripcion: function (e) {
             e.preventDefault();
@@ -594,13 +599,13 @@
             localStorage.setItem('valorBuscador', _config.textoBusqueda);
 
             if (codigo.indexOf(codigoEstrategia) >= 0) {
-                var UrlDetalle = GetPalanca(codigoEstrategia);
+                var UrlDetalle = GetPalanca(codigoEstrategia, origenPedidoWeb);
                 var UrlGeneral = "";
-                
+
                 if (UrlDetalle == "") return false;
 
                 UrlDetalle += codigoCampania + "/" + codigoCuv + "/" + origenPedidoWeb;
-                
+
                 if (_config.isMobile) {
                     UrlGeneral = "/Mobile" + UrlDetalle;
                 } else {
@@ -620,25 +625,37 @@
 
             var divPadre = $(this).parents("[data-item='BuscadorFiltros']").eq(0);
             var idFiltro = $(divPadre).find(".BuscadorFiltroID").val();
-
+            var nombreSeccion = $(divPadre).find(".BuscadorSeccionFiltro").val();
             var nombreFiltro = $(divPadre).find(".BuscadorFiltroLabel").val();
             var splited = idFiltro.split('-');
             var min = splited[1] == undefined ? 0 : splited[1];
             var max = splited[2] == undefined ? 0 : splited[2];
-            var filtroCriterio = [];
             var filtroSeleccionado = {
-                idFiltro: idFiltro,
-                nombreFiltro: nombreFiltro,
-                min: min,
-                max: max
+                IdFiltro: idFiltro,
+                NombreFiltro: nombreFiltro,
+                Min: min,
+                Max: max
             };
 
-            var _localStorage = _funciones.devuelveNombreLocalStorage(idFiltro);
+            var seleccionados = get_local_storage(_config.filtrosLocalStorage);
+            var opcionesFiltros = [];
+
+            seleccionados = !seleccionados ? [] : seleccionados;
+
+            for (var i = 0; i < seleccionados.length; i++) {
+                var item = seleccionados[i];
+                if (item.NombreGrupo == nombreSeccion) {
+                    opcionesFiltros = item.Opciones;
+                    seleccionados.splice(i, 1);
+                    break;
+                }
+            }
+
             var element = $('#' + idFiltro);
             var criterio = $('#criterio' + idFiltro);
 
             if (element.is(':checked')) {
-                filtroCriterio = _funciones.quitarFiltroMarcado(idFiltro, _localStorage);
+                _funciones.quitarFiltroMarcado(idFiltro);
                 criterio.fadeOut(70);
                 if (_config.isMobile) {
                     var capturarAnchoEtiquetaPorEliminarMobile = criterio.outerWidth() + 10;
@@ -656,11 +673,22 @@
                     }
                 }, 100);
             } else {
-                filtroCriterio = _funciones.marcarFiltro(idFiltro, _localStorage, filtroSeleccionado);
+                opcionesFiltros.push(filtroSeleccionado);
+                seleccionados.push({
+                    NombreGrupo: nombreSeccion,
+                    Opciones: opcionesFiltros
+                });
+                set_local_storage(seleccionados, _config.filtrosLocalStorage);
+
                 _funciones.AgregarEtiquetaFiltroSeleccionado(idFiltro, nombreFiltro);
                 if (_config.isMobile) {
                     _funciones.AnchoContenedorEtiquetasCriteriosElegidosMobile();
                 }
+
+                if (!(typeof AnalyticsPortalModule === 'undefined')) {
+                    AnalyticsPortalModule.MarcaFiltroPorSeccion(nombreSeccion, nombreFiltro);
+                }
+                    
             }
             _funciones.accionFiltrosCriterio();
         }
@@ -668,8 +696,9 @@
     //Public functions
     function Inicializar() {
         _funciones.InicializarEventos();
+        set_local_storage([], _config.filtrosLocalStorage);
+        _funciones.buscarPorCategoria();
         _funciones.CargarProductos();
-        set_local_storage([], _config.localStorageCriterio);
     }
 
     function ScrollPagina() {

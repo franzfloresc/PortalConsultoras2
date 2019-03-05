@@ -206,9 +206,10 @@ var menuModule = (function () {
         }
     }
     function updateParentAttribute(codigo) {
-        if (codigo === "ODD") $('ul.subnavegador li a').attr('parent', 'Contenedor - ¡Solo Hoy!');
-        if (codigo === "LAN") $('ul.subnavegador li a').attr('parent', 'Contenedor - Lo Nuevo ¡Nuevo!');
-        if (codigo.indexOf("INICIO") > -1) $('ul.subnavegador li a').attr('parent', 'Contenedor - Inicio');
+        var tituloMenu = 'Contenedor - ' + $(elementos.menu2Ul).find("[data-codigo=" + codigo + "]").find("a").attr("title");
+        if (codigo === "ODD") $('ul.subnavegador li a').attr('parent', tituloMenu);
+        if (codigo === "LAN") $('ul.subnavegador li a').attr('parent', tituloMenu);
+        if (codigo.indexOf("INICIO") > -1) $('ul.subnavegador li a').attr('parent', tituloMenu);
     }
     function menuClick(e, url) {
         var objHtmlEvent = $(e);
@@ -228,8 +229,9 @@ var menuModule = (function () {
                 if ($(elementos.seccionMenuFija).css("position") === "fixed") menuHeight += seccionFixedMenuHeigt;
                 _animateScrollTo(anchorMark + codigo, menuHeight);
                 if (_var.Mobile) _moverSubMenuContenedorOfertasMobile();
-
-                updateParentAttribute(codigo);
+                setTimeout(function () {
+                    updateParentAttribute(codigo);
+                },1000);
             } else {
                 if (currentLocation.indexOf("/revisar") > -1)
                     window.location = originLocation + "/" + (_var.Mobile ? "Mobile/" : "") + "Ofertas/Revisar#" + codigo;
@@ -255,7 +257,9 @@ var menuModule = (function () {
                 $(elementos.claseimgSeleccionado).show();
                 $(elementos.claseimgNoSeleccionado).hide();
                 _animateScrollTo(elementos.html, menuHeight);
-                updateParentAttribute(codigo);
+                setTimeout(function () {
+                    updateParentAttribute(codigo);
+                }, 1000);
             }
 
             if (typeof AnalyticsPortalModule !== "undefined") {
@@ -291,30 +295,67 @@ var menuModule = (function () {
         }
     }
     function sectionClick(url, titulo, e) {
-
-        var OrigenPedidoWeb = EstrategiaAgregarModule.GetOrigenPedidoWeb($(e), false);
-        titulo = titulo || "";
         url = url || "";
-
-        if (_var.Mobile) {
-            if (url.indexOf(ConstantesModule.CodigosPalanca.Ganadoras) > 0)
-                if (url.indexOf("Mobile") < 0)
-                    url = "/Mobile" + url;
+        if (_var.Mobile && url.indexOf("Mobile") < 0) {
+            url = "/Mobile" + url;
         }
 
         if (typeof AnalyticsPortalModule !== "undefined") {
-            OrigenPedidoWeb = OrigenPedidoWeb || "";
+            titulo = titulo || "";
+            var OrigenPedidoWeb = "";
+            OrigenPedidoWeb = EstrategiaAgregarModule.GetOrigenPedidoWeb($(e), false);
+
             if (url.indexOf(ConstantesModule.CodigosPalanca.Ganadoras) > 0) {
-                if (titulo === "BotonVerMas")
-                    AnalyticsPortalModule.MarcarClickMasOfertasMG(url, OrigenPedidoWeb);
                 if (titulo === "BannerMG") {
                     AnalyticsPortalModule.MarcarClickMasOfertasPromotionClickMG();
-                    AnalyticsPortalModule.MarcarClickMasOfertasBannerMG(url);
                 }
-            } else
-                AnalyticsPortalModule.MarcaClicVerMasOfertas(url, OrigenPedidoWeb);
+            }
+
+            if (url.indexOf(ConstantesModule.CodigosPalanca.LiquidacionWeb) > 0) {
+                OrigenPedidoWeb = ConstantesModule.OrigenPedidoWebEstructura.Dispositivo.Desktop
+                    + ConstantesModule.OrigenPedidoWebEstructura.Pagina.Home
+                    + ConstantesModule.OrigenPedidoWebEstructura.Palanca.Liquidacion
+                    + ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel;
+            }
+
+            else if (url.indexOf(ConstantesModule.CodigosPalanca.SR) > 0) {
+                if (titulo === "BotonVerMasEspecialesHome") {
+                    OrigenPedidoWeb = ConstantesModule.OrigenPedidoWebEstructura.Dispositivo.Desktop
+                        + ConstantesModule.OrigenPedidoWebEstructura.Pagina.Home
+                        + ConstantesModule.OrigenPedidoWebEstructura.Palanca.Showroom
+                        + ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel;
+                }
+            }
+
+            else if (url.indexOf(ConstantesModule.CodigosPalanca.GuiaNegocio) > 0) {
+                OrigenPedidoWeb = ConstantesModule.OrigenPedidoWebEstructura.Dispositivo.Desktop
+                    + ConstantesModule.OrigenPedidoWebEstructura.Pagina.Contenedor
+                    + ConstantesModule.OrigenPedidoWebEstructura.Palanca.GND
+                    + ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel;
+            }
+            else if (url.indexOf(ConstantesModule.TipoEstrategia.LAN) > 0) {
+                OrigenPedidoWeb = ConstantesModule.OrigenPedidoWebEstructura.Dispositivo.Desktop
+                    + ConstantesModule.OrigenPedidoWebEstructura.Pagina.Home
+                    + ConstantesModule.OrigenPedidoWebEstructura.Palanca.Lanzamientos
+                    + ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel;
+            }
+
+            OrigenPedidoWeb = OrigenPedidoWeb || "";
+            var texto = sectionClickTexto(e);
+            AnalyticsPortalModule.MarcaClicVerMasOfertas(url, OrigenPedidoWeb, texto);
+      
+        }
+        else {
+            document.location = url;
         }
 
+    }
+    function sectionClickTexto(e) {
+        var texto = ((e || {}).innerText || "").trim();
+        if (texto === "") {
+            texto = $(e).find("[data-seccion-btn-vermas]").html() || "";
+        }
+        return texto.replace('+', '');
     }
     function tabResize() {
 

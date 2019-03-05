@@ -37,8 +37,13 @@ namespace Portal.Consultoras.Common
         public static string GetUrlCdn(string carpetaPais)
         {
             var carpeta = string.IsNullOrEmpty(carpetaPais) ? "" : carpetaPais + "/";
-
             return RutaCdn + "/" + carpeta;
+        }
+
+        public static string GetUrlCdnMatriz(string isoPais)
+        {
+            var carpetaPais = string.Format("{0}/{1}", Globals.UrlMatriz, isoPais);
+            return GetUrlCdn(carpetaPais);
         }
 
         public static string GetUrlFileRDCdn(string carpetaPais, string fileName)
@@ -56,6 +61,23 @@ namespace Portal.Consultoras.Common
             var carpeta = string.IsNullOrEmpty(carpetaPais) ? "" : carpetaPais + "/";
 
             return RutaCdn + "/" + rutaRevistaDigital + "/" + carpeta + fileName;
+        }
+
+        public static string GetUrlFileInSubdirectory(string subdirectory, string pais, string fileName)
+        {
+            fileName = fileName ?? "";
+            if (fileName.StartsWith(URL_S3))
+                return fileName;
+
+            if (fileName.StartsWith("http:/"))
+                return fileName;
+
+            if (fileName.StartsWith("https:/"))
+                return fileName;
+
+            var subdirectoryPais = string.IsNullOrEmpty(pais) ? "" : pais + "/";
+
+            return RutaCdn + "/" + subdirectory + "/" + subdirectoryPais + fileName;
         }
     }
 }

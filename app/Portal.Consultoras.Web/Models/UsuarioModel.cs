@@ -1,7 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
-using Portal.Consultoras.Web.ServicePedido;
-using Portal.Consultoras.Web.ServiceSAC;
+using Portal.Consultoras.Web.Models.ProgramaNuevas;
 using System;
 using System.Collections.Generic;
 
@@ -23,7 +22,7 @@ namespace Portal.Consultoras.Web.Models
             this.EMail = string.Empty;
             this.CodigoTerritorio = string.Empty;
             this.Simbolo = string.Empty;
-            this.PaisID = 11;
+            this.PaisID = Constantes.PaisID.Peru;
             this.BanderaImagen = string.Empty;
             this.CodigoFuente = string.Empty;
             this.NombrePais = string.Empty;
@@ -331,7 +330,7 @@ namespace Portal.Consultoras.Web.Models
         public int MensajePedidoMobile { get; set; }
 
         public ConsultoraOnlineMenuResumenModel ConsultoraOnlineMenuResumen { get; set; }
-        public ConsultoraRegaloProgramaNuevasModel ConsultoraRegaloProgramaNuevas { get; set; }
+        public ConfigPremioProgNuevasModel ConfigPremioProgNuevas { get; set; }
         public List<MenuMobileModel> MenuMobile { get; set; }
 
         public int OfertaFinal { get; set; }
@@ -347,6 +346,7 @@ namespace Portal.Consultoras.Web.Models
         public string CodigosRevistaImpresa { get; set; }
         public string CodigoPrograma { get; set; }
         public int ConsecutivoNueva { get; set; }
+        public bool TieneDireccionEntrega { get; set; }
 
         public DateTime FechaHoy
         {
@@ -397,6 +397,6 @@ namespace Portal.Consultoras.Web.Models
         public Dictionary<string, string> NuevasDescripcionesBuscador { get; set; }
         public int NovedadBuscador { get; set; }
         public int IndicadorConsultoraDummy { get; set; }
-        public Dictionary<string, string> ListaOrdenamientoFiltrosBuscador { get; set; }
+        
     }
 }

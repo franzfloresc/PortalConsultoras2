@@ -56,7 +56,7 @@ var rdAnalyticsModule = (function () {
     _seccionWeb = {
         home: "Home",
         catalogo: "Catálogos y revistas",
-        pedido: "Pedido",
+        pedido: "Carrito de Compras",
         homeMobile: "Mobile Home",
         catalogoMobile: "Mobile Catálogos y revistas",
         pedidoMobile: "Mobile Pedido",
@@ -66,7 +66,7 @@ var rdAnalyticsModule = (function () {
     _text = {
         noDisponible: "NO DISPONIBLE",
         estandar: "Estándar",
-        epm: "Ganá más",
+        epm: "Gana+",
         exception: "Exception on analytics RD",
         comprarCampania: "Comprar campaña ",
         verCampania: "Ver campaña ",
@@ -150,8 +150,8 @@ var rdAnalyticsModule = (function () {
         
         dataLayer.push({
             "event": _event.virtual,
-            "category": category,
-            "action": action,
+            "category": category +' - '+ action,
+            "action": "Click Botón",
             "label": label
         });
     };
@@ -252,28 +252,28 @@ var rdAnalyticsModule = (function () {
             var origenWebString = origenWeb.toString();
             switch (origenWebString) {
                 case _origenWeb.home:
-                    _virtualEventPush(_seccionWeb.home, _text.epm, _action.clickBanner);
+                    _virtualEventPush(_seccionWeb.home, _text.epm, _action.verMas);
                     break;
                 case _origenWeb.catalogo:
                     _virtualEventPush(_seccionWeb.catalogo, _text.epm, _action.clickBanner);
                     break;
                 case _origenWeb.pedido:
-                    _virtualEventPush(_seccionWeb.pedido, _text.epm, _action.clickBanner);
+                    _virtualEventPush(_seccionWeb.pedido, _text.epm, _action.verMas);
                     break;
                 case _origenWeb.homeLan:
                     _virtualEventPush(_seccionWeb.home, _text.epm, _action.verLan);
                     break;
                 case _origenWeb.homeLanMobile:
-                    _virtualEventPush(_seccionWeb.homeMobile, _text.epm, _action.verLan);
+                    _virtualEventPush(_seccionWeb.home, _text.epm, _action.verLan);
                     break;
                 case _origenWeb.homeMobile:
-                    _virtualEventPush(_seccionWeb.homeMobile, _text.epm, _action.clickBanner);
+                    _virtualEventPush(_seccionWeb.home, _text.epm, _action.verMas);
                     break;
                 case _origenWeb.catalogoMobile:
                     _virtualEventPush(_seccionWeb.catalogoMobile, _text.epm, _action.clickBanner);
                     break;
                 case _origenWeb.pedidoMobile:
-                    _virtualEventPush(_seccionWeb.pedidoMobile, _text.epm, _action.clickBanner);
+                    _virtualEventPush(_seccionWeb.pedido, _text.epm, _action.verMas);
                     break;
             }
         } catch (e) {

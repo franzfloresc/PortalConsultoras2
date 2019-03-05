@@ -26,7 +26,8 @@
             default:
                 return null;
         }
-    }
+    };
+
     var _obtenerKeyName = function (codigoPalanaca, campania) {
         switch (codigoPalanaca) {
             case _constantesPalanca.RevistaDigital:
@@ -43,7 +44,7 @@
             default:
                 return null;
         }
-    }
+    };
 
     var _obtenerKeyName2 = function (codigoPalanaca, campania) {
         switch (codigoPalanaca) {
@@ -68,7 +69,7 @@
             default:
                 return null;
         }
-    }
+    };
 
     var _promiseObternerEstrategia = function (urlEstrategia, params) {
         var dfd = $.Deferred();
@@ -94,7 +95,7 @@
 
     var _existeItem = function (nombreKey) {
         return localStorage.getItem(nombreKey) !== null || localStorage.hasOwnProperty(nombreKey);
-    }
+    };
 
     var _buscarEstrategiaPorCuv = function (cuv, palanca, listaLocalStorage) {
         var arrayEstrategia;
@@ -107,7 +108,7 @@
 
         if (arrayEstrategia.length > 0) return arrayEstrategia[0];
         else return null;
-    }
+    };
 
     var _obtenerUrlEstrategia = function (palanca) {
         switch (palanca) {
@@ -122,10 +123,12 @@
                 return _urlObtenerEstrategia.Lanzamiento;
             case _codigoPalanca.HerramientasVenta:
                 return _urlObtenerEstrategia.HerrameintasVenta;
+            case _codigoPalanca.Ganadoras:
+                return _urlObtenerEstrategia.MasGanadoras;
             default:
                 return null;
         }
-    }
+    };
 
     var _crearBaseEstrategiaItem = function (campania) {
         var localStorageItem = {}
@@ -134,7 +137,7 @@
         localStorageItem.UrlCargarProductos = "";
         localStorageItem.VarListaStorage = "";
         return localStorageItem;
-    }
+    };
 
     var _cargarEstrategias = function (campania, palanca, nombreKey) {
         var localStorageItem = _crearBaseEstrategiaItem(campania);
@@ -143,6 +146,9 @@
             IsMobile: isMobile()
         };
         var urlEstrategia = _obtenerUrlEstrategia(palanca);
+        if (urlEstrategia == null || urlEstrategia == "") {
+            return false;
+        }
         var resppuesta = true;
         _promiseObternerEstrategia(urlEstrategia, param).done(function (data) {
 
@@ -161,7 +167,7 @@
         });
 
         return resppuesta;
-    }
+    };
 
     var _actualizarAgregado = function (lista, estrategiaId, valor) {
         var updated = false;
@@ -175,7 +181,7 @@
             });
         }
         return updated;
-    }
+    };
 
     var ObtenerEstrategia = function (cuv, campania, palanca) {
         try {
@@ -198,7 +204,7 @@
             console.error("error al cargar productos de local storage : " + e);
         }
         return null;
-    }
+    };
 
     var ActualizarCheckAgregado = function (estrategiaId, campania, codigoPalanaca, valor) {
         try {
@@ -235,12 +241,12 @@
             console.error("error al cargar productos de local storage : " + e);
             return false;
         }
-    }
+    };
 
     return {
         ObtenerEstrategia: ObtenerEstrategia,
         ActualizarCheckAgregado: ActualizarCheckAgregado
-    }
+    };
 });
 
 var lsListaRD = lsListaRD || "";
@@ -289,7 +295,7 @@ function GetProductoStorage(cuv, campania, nombreKey) {
         return listaProd[0];
     }
 
-    return new Object();
+    return {};
 }
 
 function ActualizarLocalStoragePalancas(cuv, valor) {
@@ -403,7 +409,7 @@ function actualizarIsAgregado(lista, cuv, valor) {
         });
     }
 
-    return ok
+    return ok;
 }
 
 function RDActualizarTipoAccionAgregar(revistaDigital, key) {

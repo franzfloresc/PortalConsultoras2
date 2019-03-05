@@ -3,7 +3,6 @@ using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServicePedido;
-using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -15,7 +14,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class OfertaLiquidacionController : BaseController
+    public class OfertaLiquidacionController : BaseAdmController
     {
         static List<BEConfiguracionOferta> lstConfiguracion = new List<BEConfiguracionOferta>();
         protected RenderImgProvider _renderImgProvider;
@@ -184,95 +183,95 @@ namespace Portal.Consultoras.Web.Controllers
             return Mapper.Map<IList<BEOfertaProducto>, List<OfertaProductoModel>>(lst);
         }
 
-        [HttpPost]
-        public JsonResult InsertOfertaWebPortal(PedidoDetalleModel model)
-        {
-            string mensaje;
-            var noPasa = ReservadoEnHorarioRestringido(out mensaje);
-            if (noPasa)
-            {
-                return Json(new
-                {
-                    success = false,
-                    message = mensaje,
-                    extra = ""
-                });
-            }
+        //[HttpPost]
+        //public JsonResult InsertOfertaWebPortal(PedidoDetalleModel model)
+        //{
+        //    string mensaje;
+        //    var noPasa = ReservadoEnHorarioRestringido(out mensaje);
+        //    if (noPasa)
+        //    {
+        //        return Json(new
+        //        {
+        //            success = false,
+        //            message = mensaje,
+        //            extra = ""
+        //        });
+        //    }
 
-            try
-            {
-                BEPedidoWebDetalle entidad = Mapper.Map<PedidoDetalleModel, BEPedidoWebDetalle>(model);
+        //    try
+        //    {
+        //        BEPedidoWebDetalle entidad = Mapper.Map<PedidoDetalleModel, BEPedidoWebDetalle>(model);
 
-                entidad.PaisID = userData.PaisID;
-                entidad.ConsultoraID = userData.ConsultoraID;
-                entidad.CampaniaID = userData.CampaniaID;
-                entidad.TipoOfertaSisID = Constantes.ConfiguracionOferta.Liquidacion;
-                entidad.IPUsuario = userData.IPUsuario;
+        //        entidad.PaisID = userData.PaisID;
+        //        entidad.ConsultoraID = userData.ConsultoraID;
+        //        entidad.CampaniaID = userData.CampaniaID;
+        //        entidad.TipoOfertaSisID = Constantes.ConfiguracionOferta.Liquidacion;
+        //        entidad.IPUsuario = userData.IPUsuario;
 
-                entidad.CodigoUsuarioCreacion = userData.CodigoConsultora;
-                entidad.CodigoUsuarioModificacion = entidad.CodigoUsuarioCreacion;
-                entidad.OrigenPedidoWeb = ProcesarOrigenPedido(entidad.OrigenPedidoWeb);
+        //        entidad.CodigoUsuarioCreacion = userData.CodigoConsultora;
+        //        entidad.CodigoUsuarioModificacion = entidad.CodigoUsuarioCreacion;
+        //        entidad.OrigenPedidoWeb = ProcesarOrigenPedido(entidad.OrigenPedidoWeb);
 
-                using (PedidoServiceClient sv = new PedidoServiceClient())
-                {
-                    sv.InsPedidoWebDetalleOferta(entidad);
+        //        using (PedidoServiceClient sv = new PedidoServiceClient())
+        //        {
+        //            sv.InsPedidoWebDetalleOferta(entidad);
 
-                    SessionManager.SetPedidoWeb(null);
-                    SessionManager.SetDetallesPedido(null);
-                    SessionManager.SetDetallesPedidoSetAgrupado(null);
-                }
+        //            SessionManager.SetPedidoWeb(null);
+        //            SessionManager.SetDetallesPedido(null);
+        //            SessionManager.SetDetallesPedidoSetAgrupado(null);
+        //        }
 
-                UpdPedidoWebMontosPROL();
+        //        UpdPedidoWebMontosPROL();
 
-                BEIndicadorPedidoAutentico indPedidoAutentico = new BEIndicadorPedidoAutentico
-                {
-                    PedidoID = entidad.PedidoID,
-                    CampaniaID = entidad.CampaniaID,
-                    PedidoDetalleID = entidad.PedidoDetalleID,
-                    IndicadorIPUsuario = GetIPCliente(),
-                    IndicadorFingerprint = "",
-                    IndicadorToken = (SessionManager.GetTokenPedidoAutentico() != null)
-                        ? SessionManager.GetTokenPedidoAutentico().ToString()
-                        : ""
-                };
+        //        BEIndicadorPedidoAutentico indPedidoAutentico = new BEIndicadorPedidoAutentico
+        //        {
+        //            PedidoID = entidad.PedidoID,
+        //            CampaniaID = entidad.CampaniaID,
+        //            PedidoDetalleID = entidad.PedidoDetalleID,
+        //            IndicadorIPUsuario = GetIPCliente(),
+        //            IndicadorFingerprint = "",
+        //            IndicadorToken = (SessionManager.GetTokenPedidoAutentico() != null)
+        //                ? SessionManager.GetTokenPedidoAutentico().ToString()
+        //                : ""
+        //        };
 
-                InsIndicadorPedidoAutentico(indPedidoAutentico, entidad.CUV);
+        //        InsIndicadorPedidoAutentico(indPedidoAutentico, entidad.CUV);
 
-                using (var pedidoServiceClient = new PedidoServiceClient())
-                {
-                    pedidoServiceClient.InsertPedidoWebSet(userData.PaisID, userData.CampaniaID, userData.PedidoID, model.Cantidad.ToInt(), model.CUV
-                        , userData.ConsultoraID, "", string.Format("{0}:1", model.CUV), 0, userData.NombreConsultora, userData.CodigoPrograma, userData.ConsecutivoNueva);
-                }
+        //        using (var pedidoServiceClient = new PedidoServiceClient())
+        //        {
+        //            pedidoServiceClient.InsertPedidoWebSet(userData.PaisID, userData.CampaniaID, userData.PedidoID, model.Cantidad.ToInt(), model.CUV
+        //                , userData.ConsultoraID, "", string.Format("{0}:1", model.CUV), 0, userData.NombreConsultora, userData.CodigoPrograma, userData.ConsecutivoNueva);
+        //        }
 
-                return Json(new
-                {
-                    success = true,
-                    message = "Se agregó la Oferta Web satisfactoriamente.",
-                    extra = "",
-                    DataBarra = GetDataBarra()
-                });
-            }
-            catch (FaultException ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = ex.Message,
-                    extra = ""
-                });
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = ex.Message,
-                    extra = ""
-                });
-            }
-        }
+        //        return Json(new
+        //        {
+        //            success = true,
+        //            message = "Se agregó la Oferta Web satisfactoriamente.",
+        //            extra = "",
+        //            DataBarra = GetDataBarra()
+        //        });
+        //    }
+        //    catch (FaultException ex)
+        //    {
+        //        LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+        //        return Json(new
+        //        {
+        //            success = false,
+        //            message = ex.Message,
+        //            extra = ""
+        //        });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+        //        return Json(new
+        //        {
+        //            success = false,
+        //            message = ex.Message,
+        //            extra = ""
+        //        });
+        //    }
+        //}
 
         [HttpPost]
         public JsonResult UpdateOfertaWebPortal(PedidoDetalleModel model)
@@ -457,19 +456,6 @@ namespace Portal.Consultoras.Web.Controllers
             return View(cronogramaModel);
         }
 
-        private IEnumerable<PaisModel> DropDowListPaises()
-        {
-            List<BEPais> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = userData.RolID == 2
-                    ? sv.SelectPaises().ToList()
-                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
-            }
-
-            return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
-        }
-
         public JsonResult ObtenerDatosAdministracionCorreo(int paisID)
         {
             List<BEAdministracionOfertaProducto> lst = new List<BEAdministracionOfertaProducto>();
@@ -512,11 +498,11 @@ namespace Portal.Consultoras.Web.Controllers
             return Mapper.Map<IList<BEConfiguracionOferta>, IEnumerable<ConfiguracionOfertaModel>>(lst);
         }
 
-        public JsonResult ObtenterCampaniasPorPais(int PaisID)
+        public JsonResult ObtenerCampaniasYConfiguracionPorPais(int PaisID)
         {
-            IEnumerable<CampaniaModel> lst = DropDowListCampanias(PaisID);
+            IEnumerable<CampaniaModel> lst = _zonificacionProvider.GetCampanias(PaisID);
             IEnumerable<ConfiguracionOfertaModel> lstConfig = DropDowListConfiguracion(PaisID);
-            string habilitarNemotecnico = _tablaLogicaProvider.ObtenerValorTablaLogica(PaisID, Constantes.TablaLogica.Plan20, Constantes.TablaLogicaDato.BusquedaNemotecnicoOfertaLiquidacion);
+            string habilitarNemotecnico = _tablaLogicaProvider.GetTablaLogicaDatoCodigo(PaisID, Constantes.TablaLogica.Plan20, Constantes.TablaLogicaDato.BusquedaNemotecnicoOfertaLiquidacion);
 
             return Json(new
             {
@@ -524,17 +510,6 @@ namespace Portal.Consultoras.Web.Controllers
                 lstConfig = lstConfig,
                 habilitarNemotecnico = habilitarNemotecnico == "1"
             }, JsonRequestBehavior.AllowGet);
-        }
-
-        private IEnumerable<CampaniaModel> DropDowListCampanias(int paisId)
-        {
-            IList<BECampania> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = sv.SelectCampanias(paisId);
-            }
-
-            return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
         }
 
         public JsonResult ObtenerOrdenPriorizacion(int paisID, int ConfiguracionOfertaID, int CampaniaID)

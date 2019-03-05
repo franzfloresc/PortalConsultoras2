@@ -1,4 +1,5 @@
 ﻿var BuscadorPortalConsultoras;
+var CategoriaProductosDatos;
 var xhr = null;
 
 var delay = (function () {
@@ -60,13 +61,17 @@ var BuscadorModule = (function () {
         urlBusquedaProducto: "/BusquedaProductos",
         aplicarLogicaCantidadBotonVerTodos: (AplicarLogicaCantidadBotonVerTodos === 'true'),
         contadorBusqueda: 0,
-        isHome: true
+        isHome: true,
+        categorias: 'categoriasBuscadorMobile',
+        isSuscrita: 'suscritaBuscadorMobile'
     };
     var _funciones = { //Funciones privadas
         InicializarEventos: function () {
             if (!_config.isMobile) {
                 $(document).on("click", _elementos.body, _eventos.CerrarResultadosBusqueda);
                 $(document).on("focus", _elementos.campoBuscadorProductos, _eventos.OcultarTooltipInformativo);
+            } else {
+                _funciones.CargarCategorias();
             }
 
             $(document).on("keyup", _elementos.campoBuscadorProductos, _eventos.AccionesCampoBusquedaAlDigitar);
@@ -123,6 +128,7 @@ var BuscadorModule = (function () {
             var enlacesVisiblesMenuLateralDerechoSegunVista = $(".visibilidadEnlaceMenu:visible");
 
             if ($(".new_menu").first().find("a").attr("title") == "SOCIA EMPRESARIA") {
+                $(".wrapper_header").addClass("wrapper_header_se");
                 if (enlacesVisiblesMenuLateralDerechoSegunVista.length > 2) {
                     $(".buscador_productos").addClass("buscador_productos_con_enlace_menu_socia_empresaria_vista_pedido");
                 } else {
@@ -156,6 +162,52 @@ var BuscadorModule = (function () {
         LlamarAnalyticsElijeUnaOpcion: function (urlDetalle, textobusqueda) {
             if (!(typeof AnalyticsPortalModule === "undefined"))
                 AnalyticsPortalModule.MarcaEligeUnaOpcion(urlDetalle, textobusqueda);
+        },
+        CargarCategorias: function () {
+            if (!(typeof FlagBuscarPorCategoria === 'undefined') && FlagBuscarPorCategoria == true) {
+                $(".seccion_categorias_productos_busqueda_wrapper").fadeIn(150);
+
+                CategoriaProductosDatos = get_local_storage(_config.categorias);
+
+                var isSuscritaLocal = get_local_storage(_config.isSuscrita);
+
+                if (isSuscritaLocal == boolSuscrita || isSuscritaLocal == null) {
+                    set_local_storage(boolSuscrita, _config.isSuscrita);
+
+                } else if (isSuscritaLocal != boolSuscrita) {
+                    set_local_storage(boolSuscrita, _config.isSuscrita);
+                    CategoriaProductosDatos = null;
+                }
+
+                if (CategoriaProductosDatos == null) {
+                    var model = {}
+
+                    xhr = $.ajax({
+                        type: "POST",
+                        url: baseUrl + "Buscador/ListarCategorias",
+                        data: JSON.stringify(model),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        async: true,
+                        cache: false,
+                        success: function (msg) {
+                        }
+                    });
+
+                    var successBusqueda = function (datos) {
+                        set_local_storage(datos, _config.categorias);
+                        SetHandlebars("#js-categoriasProductos", datos, "#CategoriaProductos");
+                    };
+
+                    xhr.then(successBusqueda, function (e) {
+                    });
+
+                } else {
+                    SetHandlebars("#js-categoriasProductos", CategoriaProductosDatos, "#CategoriaProductos");
+                }
+            } else {
+                $(".seccion_categorias_productos_busqueda_wrapper").fadeOut(150);
+            } 
         }
     };
     var _eventos = {
@@ -190,6 +242,7 @@ var BuscadorModule = (function () {
                     _config.contadorBusqueda++;
                 }
 
+                $(".seccion_categorias_productos_busqueda_wrapper").fadeOut(150);
                 $(".spinner").fadeIn(150);
 
                 if (xhr && xhr.readyState !== 4) {
@@ -233,7 +286,6 @@ var BuscadorModule = (function () {
 
                             if (!(typeof AnalyticsPortalModule === 'undefined'))
                                 AnalyticsPortalModule.MarcaBusquedaSinResultadosBuscador(valorBusqueda);
-
                         } else {
 
                             $.each(r.productos, function (index, item) {
@@ -280,6 +332,10 @@ var BuscadorModule = (function () {
                 $("#ResultadoBuscador").fadeOut(150);
                 if (_config.isMobile) _funciones.CampoDeBusquedaSinCaracteres($(".opcion_limpiar_campo_busqueda_productos"));
                 else _funciones.CampoDeBusquedaSinCaracteres($("#CampoBuscadorProductos"));
+
+                if (!(typeof FlagBuscarPorCategoria === 'undefined') && FlagBuscarPorCategoria == true) {
+                    $(".seccion_categorias_productos_busqueda_wrapper").fadeIn(150);
+                }                
             }
         },
         LimpiarCampoBusqueda: function (e) {
@@ -289,6 +345,10 @@ var BuscadorModule = (function () {
             $("#CampoBuscadorProductos").val("");
             $("#CampoBuscadorProductos").focus();
             $("#ResultadoBuscador").html("");
+
+            if (!(typeof FlagBuscarPorCategoria === 'undefined') && FlagBuscarPorCategoria == true) { 
+                $(".seccion_categorias_productos_busqueda_wrapper").fadeIn(150);
+            }            
         },
         CerrarResultadosBusqueda: function (e) {
             //e.preventDefault();
@@ -311,7 +371,7 @@ var BuscadorModule = (function () {
             var divPadre = $(this).parents("[data-item='ProductoBuscador']").eq(0);
             var textoBusqueda = $(_elementos.campoBuscadorProductos).val();
             _funciones.LlamarAnalyticsSeleccionarContenido(textoBusqueda);
-            BuscadorProvider.RegistroProductoBuscador(divPadre, _elementos.valueJSON);
+            PedidoRegistroModule.RegistroProductoBuscador(divPadre, _elementos.valueJSON);
         },
         RedireccionarAFichaDeFotoYDescripcion: function (e) {
             e.preventDefault();
@@ -330,7 +390,7 @@ var BuscadorModule = (function () {
                 localStorage.setItem('valorBuscador', textoBusqueda);            
 
             if (codigo.indexOf(codigoEstrategia) >= 0) {
-                var UrlDetalle = GetPalanca(codigoEstrategia);
+                var UrlDetalle = GetPalanca(codigoEstrategia, OrigenPedidoWeb);
                 if (UrlDetalle === "") return false;
                 UrlDetalle += codigoCampania + "/" + codigoCuv + "/" + OrigenPedidoWeb;
                 _funciones.LlamarAnalyticsElijeUnaOpcion(UrlDetalle, textoBusqueda);
@@ -359,7 +419,7 @@ var BuscadorModule = (function () {
                 window.location.href = 'Bienvenida';
             }
             else {
-                window.location.href = 'Mobile/Bienvenida';
+                window.location.href = '/Mobile/Bienvenida';
             }
         }
     };

@@ -1,0 +1,1237 @@
+﻿
+.text-bold{
+    font-weight:bold!important;
+}
+
+hr{
+    border-color:transparent;
+}
+
+.clear{
+    background: none;
+    border: 0;
+    clear: both;
+    display: block;
+    float: none;
+    font-size: 0;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+}
+
+.layout__content{
+    margin-bottom:107px;
+    max-width:1189px;
+}
+
+.descarga__tu__app__catalogos__banner{
+    min-height:80px;
+}
+
+.descarga__tu__app__catalogos__img{
+    max-width:42px;
+}
+
+.descarga__tu__app__catalogos__texto{
+    margin-left:12px;
+    margin-right:5px;
+    max-width:141px;
+}
+
+.descarga__tu__app__catalogos__btn{
+    border:1px solid #000;
+    border-radius:4px;
+    background-color:#FFF;
+    max-width:96px;
+    height:30px;
+    line-height:27px;
+    cursor:pointer;
+}
+
+.descarga__tu__app__catalogos__texto h3,
+.descarga__tu__app__catalogos__texto p
+{
+    font-size:14px;
+}
+
+.descarga__tu__app__catalogos__texto p{
+    margin:0;
+}
+
+.info__catalogos__revistas{
+    margin-bottom:44px;
+}
+
+.info__catalogos__revistas,
+.info__catalogos__revistas span
+{
+    font-size:17px;
+}
+
+.info__pasos__compartir__catalogo__campaniaActual__wrapper{
+    margin-top:32px;
+    margin-bottom:60px;
+    padding-top:70px;
+    padding-bottom:70px;
+    max-width:821px;
+    border:1px solid #000;
+    border-radius:4px;
+}
+
+.info__pasos__compartir__catalogo__campaniaActual{
+    color:#000;
+}
+
+.info__pasos__compartir__catalogo__campaniaActual,
+.info__pasos__compartir__catalogo__campaniaActual__subtitulo
+{
+    max-width:532px;
+}
+
+.info__pasos--parteSuperior span,
+.info__pasos--parteInferior span
+{
+    font-size:22px;
+}
+
+.info__pasos--parteSuperior span{
+    font-weight:400;
+}
+
+.info__pasos--parteInferior span:first-child{
+    margin-bottom:30px;
+}
+
+.info__pasos--parteInferior span:last-child{
+    margin-bottom:44px;
+}
+
+.lista__pasos__compartir__catalogo__campaniaActual{
+    list-style-type:none;
+    margin-top:45px;
+    margin-bottom:57px;
+}
+
+.paso__compartir__catalogo__campaniaActual {
+    margin-bottom:25px;
+}
+
+.paso__compartir__catalogo__campaniaActual span{
+    font-size:16px;
+}
+
+.paso__compartir__catalogo__campaniaActual:last-child{
+    margin-bottom:0;
+}
+
+.icono__paso__compartir__catalogo__campaniaActual{
+    -ms-flex: 0 0 22px;
+    -webkit-flex: 0 0 22px;
+    flex: 0 0 22px;
+    height:19px;
+    background-color:#FFF;
+    margin-right:10px;
+}
+
+.icono__paso__compartir__catalogo__campaniaActual img{
+    width:100%;
+    height:auto;
+}
+
+.icono__paso__compartir__catalogo__campaniaActual__descrip{
+    width:93%;
+}
+
+.compartir__catalogo__area,
+.btn__compartir
+{
+    max-width:208px;
+}
+
+.btn__compartir {
+    font-family: 'Lato', sans-serif;
+    background-color: #b9007e;
+    border-radius: 4px;
+    height: 45px;
+    line-height:44px;
+    letter-spacing: 1px;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.btn__compartir,
+.btn__compartir:hover{
+    color:#FFF!important;
+}
+
+.btn__compartir:hover{
+    opacity:0.8;
+}
+
+.btn__compartir--slider + .opciones__compartir__catalogos{
+    left:-104px;
+    z-index:3;
+}
+
+.catalogos__por__campania__num{
+    margin-bottom:39px;
+}
+
+.revista__por__campania__num,
+.revista__por__campania__num span,
+.catalogos__por__campania__num span
+{
+    font-size:20px;
+    letter-spacing:0.8px;
+}
+
+.catalogos__por__campania__slider__control{
+    margin-top:123px;
+}
+
+.catalogos__por__campania__slider__control,
+.revistas__por__campania__slider__control
+{
+    height:66.81px;
+}
+
+.catalogos__por__campania__slider__control a{
+    display:block;
+    height:100%;
+}
+
+.catalogos__por__campania__slider__control a,
+.revistas__por__campania__slider__control
+{
+    cursor: pointer;
+    opacity: 0.4;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+    .catalogos__por__campania__slider__control a:hover,
+    .revistas__por__campania__slider__control:hover
+    {
+        opacity:1;
+    }
+
+    .catalogos__por__campania__slider__control img,
+    .revistas__por__campania__slider__control img
+    {
+        width:35px;
+    }
+
+.catalogos__por__campania__item__slider{
+    min-height:425px;
+}
+
+.catalogos__campania--anterior,
+.catalogos__campania--siguiente
+{
+    display:none;
+}
+
+.catalogos__por__campania__item__imagenes,
+.content_carrusel_catalogo
+{
+    justify-content:space-evenly;
+}
+
+.catalogos__por__campania__item__imagenes{
+    width:100%;
+}
+
+.catalogos__por__campania__item__imagen {
+    position: relative;
+    max-width: 265px;
+}
+
+    .catalogos__campania--anterior .catalogos__por__campania__item__imagen:hover,
+    .catalogos__campania--siguiente .catalogos__por__campania__item__imagen:hover
+    {
+        z-index:3;
+    }
+
+    .catalogos__por__campania__item__imagen > a {
+        cursor:pointer;
+        height: 100%;
+        -moz-transition: all 0.2s ease;
+        -o-transition: all 0.2s ease;
+        -webkit-transition: all 0.2s ease;
+        transition: all 0.3s ease;
+        -moz-box-shadow: 0 20px 20px -19px rgba(0,0,0,0.5);
+        -webkit-box-shadow: 0 20px 20px -19px rgba(0,0,0,0.5);
+        box-shadow: 0 20px 20px -19px rgba(0,0,0,0.5);
+    }
+
+    .catalogos__campania--anterior .catalogos__por__campania__item__imagen > a:hover,
+    .catalogos__campania--siguiente .catalogos__por__campania__item__imagen > a:hover,
+    .catalogos__campania--actual--disenioAnterior .catalogos__por__campania__item__imagen > a:hover,
+    .catalogos__campania--actual .catalogos__por__campania__item__imagenes:hover a
+    {
+        -moz-transform: scale(1.08);
+        -ms-transform: scale(1.08);
+        -o-transform: scale(1.08);
+        -webkit-transform: scale(1.08);
+        transform: scale(1.08);
+    }
+
+    .catalogos__por__campania__item__imagen img{
+        width:100%;
+        height:310px;
+    }
+
+.catalogos__por__campania__item__imagen--cyzone,
+.catalogos__por__campania__item__imagen--lbel,
+.catalogos__por__campania__item__imagen--esika
+{
+    min-height:310px;
+    z-index:1;
+}
+
+.catalogos__campania--actual .catalogos__por__campania__item__imagen--cyzone {
+    left: 40px;
+}
+
+.catalogos__campania--actual .catalogos__por__campania__item__imagen img{
+    width:auto;
+}
+
+.catalogos__por__campania__item__descrip{
+    margin-top:48px;
+    margin-bottom:26px;
+    max-width:900px;
+}
+
+.catalogos__por__campania__item__descrip div,
+.catalogos__por__campania__item__descrip span
+{
+    font-size:22px;
+}
+
+.catalogos__por__campania__item__modos__compartir{
+    margin-top:28px;
+    margin-bottom:57px;
+}
+
+.opciones__compartir__catalogos,
+.opciones__compartir__catalogos:before
+{
+    margin:0 auto;
+    left:0;
+    right:0;
+}
+
+.opciones__compartir__catalogos {
+    display:none;
+    justify-content: space-evenly;
+    background-color: #FFF;
+    width:420px;
+    position:absolute;
+    left: -100px;
+    bottom: 55px;
+    padding:20px 27px;
+    height: 72px;
+    border-radius:4px;
+    -moz-box-shadow: 0 0 2px rgba(0,0,0,0.37);
+    -webkit-box-shadow: 0 0 2px rgba(0,0,0,0.37);
+    box-shadow: 0 0 2px rgba(0,0,0,0.37);
+}
+    
+    .opciones__compartir__catalogos:before,
+    .opciones__compartir__catalogos:after
+    {
+        top: 100%;
+        left: 50%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+    }
+
+    .opciones__compartir__catalogos:after{
+        border-color: rgba(136, 183, 213, 0);
+        border-top-color: #FFF;
+        border-width: 17px;
+        margin-left: -17px;
+    }
+
+    .opciones__compartir__catalogos:before {
+	    border-color: rgba(194, 225, 245, 0);
+	    border-top-color: rgba(0,0,0,0.37);
+	    border-width: 18px;
+	    margin-left: -18px;
+    }
+
+.opcion__compartir__catalogo{
+    cursor:pointer;
+    max-width:55px;
+}
+
+    .opcion__compartir__catalogo:last-child{
+        max-width:none;
+    }
+
+    .opcion__compartir__catalogo img{
+        width:auto;
+        height:100%;
+    }
+
+.opcion__compartir__catalogo--whatsapp{
+    height:41px;
+    margin-left:-5px;
+}
+
+.opcion__compartir__catalogo--facebook,
+.opcion__compartir__catalogo--email
+{
+    height:32px;
+}
+
+.opcion__compartir__catalogo--facebookMessenger {
+    height: 43px;
+}
+
+.opcion__compartir__catalogo--copiarEnlace {
+    background-color: #EBEBEB;
+    width: 138px;
+    height: 40px;
+    line-height: 39px;
+    border-radius: 4px;
+    font-size:12px;
+    margin-left:27px;
+}
+
+.modo__compartir__catalogo{
+    height:36px;
+    max-width:47%;
+    cursor:pointer;
+    border-radius:4px;
+}
+
+    .modo__compartir__catalogo img{
+        width:auto;
+        height:18px;
+    }
+
+.modo__compartir__catalogo--whatsapp{
+    background-color:#69b667;
+}
+
+.modo__compartir__catalogo--facebook{
+    background-color:#336699;
+}
+
+.modo__compartir__catalogo--mail{
+    background-color:#000;
+}
+
+.mi__revista__wrapper{
+    background-color:#ecebf0;
+    min-height:327px;
+    padding-top:24px;
+    padding-bottom:20px;
+}
+
+.mi__revista__imagen {
+    max-width: 232px;
+    -moz-box-shadow: 6px 7px 5px 0 rgba(212,205,212,1);
+    -webkit-box-shadow: 6px 7px 5px 0 rgba(212,205,212,1);
+    box-shadow: 6px 7px 5px 0 rgba(212,205,212,1);
+}
+
+    .mi__revista__imagen img{
+        width:100%;
+        height:auto;
+    }
+
+.mi__revista__info__texto{
+    margin-bottom:15px;
+}
+
+.mi__revista__info__texto,
+.btn__encuentra__aqui__tu__revista__digital
+{
+    font-size:13px;
+}
+
+.btn__encuentra__aqui__tu__revista__digital {
+    max-width: 173px;
+    height:40px;
+    line-height:38px;
+    background-color: transparent;
+    border:1px solid #000;
+    color: #000;
+    cursor:pointer;
+    letter-spacing:0.8px;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+    .btn__encuentra__aqui__tu__revista__digital:hover{
+        background-color:#000;
+        color:#FFF!important;
+    }
+
+.txtUrlActual{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    background: transparent;
+}
+
+/* AJUSTES REVISTA DIGITAL (DESKTOP) */
+
+.expoferta_revista{
+    margin-top:70px;
+}
+
+.content_belcorp {
+    max-width: 1189px;
+    margin: 0 auto;
+    height: auto;
+    position: relative;
+    font-family: 'Lato';
+}
+
+.hblock_text div{
+    color:#FFF;
+}
+
+.hblock_text div:last-child{
+    font-weight:300!important;
+}
+
+.activar_boton_dorado_a_blanco a{
+    color:#FFF!important;
+    font-weight:700!important;
+}
+
+.activar_boton_dorado_a_blanco a:hover{
+    color:#000!important;
+}
+
+/* FIN - AJUSTES REVISTA DIGITAL (DESKTOP) */
+
+/* POPUP COMPARTIR CATÁLOGO */
+
+.CompartirCorreoPop {
+    display:none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: transparent url('/Content/Images/bg_popups.png') repeat left top;
+    z-index: 3000;
+    top: 0;
+}
+
+#CompartirCorreo {
+    display: none;
+}
+
+.contentCompartir {
+    width: 624px;
+    min-height: 150px;
+    background: white;
+    margin: 0 auto;
+    margin-top: 30px !important;
+    overflow: hidden;
+    padding-left: 70px;
+    padding-right: 70px;
+}
+
+.cerrar_compartir {
+    display: block;
+    direction: rtl;
+    margin-top: 19px;
+    text-align: right;
+}
+
+.titulo_compartir{
+    font-family: 'Lato';
+    font-weight: 300;
+    line-height: .82;
+    text-align: center;
+    color: #000000;
+    margin-top: 30px;
+    margin-bottom: 40px;
+}
+
+.titulo_compartir,
+.titulo_compartir span
+{
+    font-size: 28px;
+}
+
+.Label_compartir {
+    font-family: 'Lato';
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: .3px;
+    color: #000000;
+    float: left;
+    margin-bottom: 15px;
+}
+
+.mostrar_todos {
+    display: block;
+    float: right;
+    font-family: 'Lato';
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1;
+    color: #000000;
+    padding-left: 14px;
+    text-decoration: underline!important;
+    background: url('/Content/Images/Esika/indicador_pedido.png') no-repeat;
+    background-position: 0 2px;
+}
+
+.text_compartir {
+    width: 100%;
+    height: 106px;
+    padding: 20px;
+    font-family: 'Lato';
+    font-size: 13px;
+    line-height: 1.54;
+    color: black;
+    background: white;
+    border: 1px solid #c5c5c5;
+    margin-bottom: 15px;
+}
+
+.btn_enviar_correo {
+    width: 176px;
+    height: 45px;
+    background-color: #e81c36;
+    text-align: center;
+    display: block;
+    float: right;
+    color: white!important;
+    line-height: 45px;
+    font-weight: 700;
+    font-family: 'Lato';
+    font-size: 13px;
+    margin-top: 35px;
+    margin-bottom: 35px;
+}
+
+    .btn_enviar_correo:hover{
+        color:#FFF;
+    }
+
+.inputradio {
+    opacity: 0;
+    width: 0 !important;
+    height: 0 !important;
+    position: absolute;
+    z-index: 2;
+}
+
+.inputfalso {
+    border: 1px solid #d2dae1;
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    width: 16px;
+    height: 16px;
+    margin-left: 0 !important;
+    cursor: pointer;
+}
+
+input[type='checkbox']:checked + span:after {
+    content: '■';
+    content: '■';
+    position: absolute;
+    z-index: 1002;
+    top: 2px;
+    overflow: hidden;
+    width: 10px;
+    height: 10px;
+    left: 2px;
+    background: #e81c36;
+    color: #e81c36;
+    font-size: 10px;
+}
+
+.check_label {
+    float: left;
+    margin-left: 5px;
+    margin-right: 34px;
+    font-family: 'Lato';
+    font-size: 13px;
+    margin-top: 16px;
+    cursor: pointer;
+}
+
+.content_checkbox {
+    float: left;
+    width: 16px;
+    height: 16px;
+    position: relative;
+    margin-top: 16px;
+}
+
+/* FIN - POPUP COMPARTIR CATÁLOGO */
+
+/* POPUP MENSAJES ALERTA */
+
+.mensaje_alerta_belcorp {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent url(/Content/Images/bg_popups.png) repeat left top;
+    z-index: 1020;
+    display: none;
+}
+
+.content_mensaje_alerta {
+    width: 511px;
+    height: 330px;
+    background: #fff;
+    top: 50%;
+    position: relative;
+    margin: -165px auto 0 auto;
+}
+
+.btn_cerrar_alerta {
+    width: 19px;
+    height: 19px;
+    float: right;
+    display: block;
+    margin-right: 19px;
+    margin-top: 19px;
+    margin-bottom: 10px;
+}
+
+.icono_mensaje_alerta,
+.icono_exclamacion_alerta
+{
+    width: 55px;
+    height: 55px;
+    margin: 0 auto;
+}
+
+.icono_check_alerta {
+    background: url(/Content/Images/Esika/icono_check_esika.png) center center no-repeat;
+    background-size: 100%;
+}
+
+.icono_exclamacion_alerta{
+    background: url(/Content/Images/Esika/icono_advertencia.png) center center no-repeat;
+    background-size: 100%;
+}
+
+.texto_mensaje_alerta,
+.texto_mensaje_alerta span
+{
+    font-family: 'Lato';
+    font-weight: 300;
+    font-size: 28px;
+    margin-top: 15px;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.sub_texto_alerta {
+    font-family: 'Lato';
+    font-weight: 400;
+    font-size: 16px;
+    text-align: center;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.btn_ok_alerta {
+    display: block;
+    width: 139px;
+    height: 45px;
+    line-height: 45px;
+    margin: auto;
+    margin-top: 30px;
+    background: #e81c36;
+    font-family: 'Lato';
+    font-weight: 900;
+    text-align: center;
+    font-size: 13px;
+}
+
+.btn_ok_alerta,
+.btn_ok_alerta:hover
+{
+    color: #fff!important;
+}
+
+/* FIN - POPUP MENSAJES ALERTA */
+
+/*  MIS CATÁLOGOS Y REVISTAS MOBILE */
+
+@media screen and (max-width:991px){
+
+    .layout__content,
+    .catalogos__por__campania__item__imagen,
+    .info__pasos__compartir__catalogo__campaniaActual,
+    .info__pasos__compartir__catalogo__campaniaActual__subtitulo
+    {
+        max-width:none;
+    }
+
+    .layout__content{
+        margin:0;
+        padding-left:19px;
+        padding-right:19px;
+        min-height:0;
+    }
+
+    .tab__catalogos__revistas{
+        height:52px;
+        position:relative;
+    }
+
+    .tab__catalogos__revistas a{
+        height:100%;
+        color:#000;
+        line-height:52px;
+        font-size:13px;
+    }
+
+    .indicador__catalogos__revistas {
+        position: absolute;
+        height: 4px;
+        left: 0;
+        bottom: 0;
+        background-color: transparent;
+        -moz-transition: all 0.3s ease;
+        -o-transition: all 0.3s ease;
+        -webkit-transition: all 0.3s ease;
+        transition: all 0.3s ease;
+    }
+
+    .info__catalogos__revistas{
+        max-width:247px;
+        line-height:24px;
+        margin-bottom:32px;
+    }
+
+    .info__catalogos__revistas,
+    .info__catalogos__revistas span
+    {
+        font-size:15px;
+    }
+
+    .catalogos__por__campania__slider__wrapper{
+        max-width:587px;
+    }
+
+    .catalogos__por__campania__num{
+        order:-2;
+    }
+
+    .catalogos__por__campania__num span,
+    .revista__por__campania__num,
+    .revista__por__campania__num span
+    {
+        font-size:16px;
+    }
+
+    .catalogos__por__campania__slider__control{
+        margin-top:0;
+        height:45px;
+    }
+
+    .catalogos__por__campania__slider__control,
+    .catalogos__por__campania__slider__control a
+    {
+        width:45px;
+    }
+
+    .catalogos__por__campania__slider__control a{
+        padding-top:3px;
+        opacity:1;
+    }
+
+    .catalogos__por__campania__slider__control img{
+        width:10px;
+    }
+
+    .catalogos__por__campania__slider__control__izq{
+        order:-3;
+    }
+
+    .catalogos__por__campania__slider__control__der{
+        order:-1;
+    }
+
+    .catalogos__por__campania__item__slider{
+        height:auto;
+    }
+
+    .catalogos__por__campania__item__imagenes{
+        width:auto;
+        justify-content:center;
+    }
+
+    .catalogos__por__campania__item__imagen--cyzone,
+    .catalogos__por__campania__item__imagen--lbel,
+    .catalogos__por__campania__item__imagen--esika
+    {
+        min-width:0;
+        min-height:160px;
+    }
+
+    .catalogos__campania--actual{
+       margin-left:-15px!important;
+       margin-right:-15px!important;
+    }
+
+    .catalogos__campania--actual .catalogos__por__campania__item__imagen--cyzone{
+        left:34px;
+    }
+    
+    .catalogos__campania--anterior .catalogos__por__campania__item__imagen:hover,
+    .catalogos__campania--siguiente .catalogos__por__campania__item__imagen:hover
+    {
+        z-index:1;
+    }
+
+        .catalogos__por__campania__item__imagen > a img{
+            width:100%;
+        }
+
+        .catalogos__campania--actual .catalogos__por__campania__item__imagen > a img{
+            width:auto;
+        }
+
+        .catalogos__por__campania__item__imagen > a {
+            max-width:237.42px;
+            -moz-box-shadow: 0 13px 14px -12px rgba(0,0,0,0.5);
+            -webkit-box-shadow: 0 13px 14px -12px rgba(0,0,0,0.5);
+            box-shadow: 0 13px 14px -12px rgba(0,0,0,0.5);
+        }
+
+        .catalogos__campania--anterior .catalogos__por__campania__item__imagen > a:hover,
+        .catalogos__campania--siguiente .catalogos__por__campania__item__imagen > a:hover,
+        .catalogos__campania--actual .catalogos__por__campania__item__imagenes:hover a
+        {
+            -moz-transform: none;
+            -ms-transform: none;
+            -o-transform: none;
+            -webkit-transform: none;
+            transform: none;
+        }
+
+    .catalogos__por__campania__item__descrip{
+        margin-top:32px;
+        margin-bottom:0;
+    }
+
+    .info__pasos__compartir__catalogo__campaniaActual__wrapper{
+        border:none;
+        margin-bottom:32px;
+        padding-top:0;
+        padding-bottom:0;
+    }
+
+    .info__pasos__compartir__catalogo__campaniaActual{
+        padding:15px 12px;
+        border:1px solid #000;
+        border-radius:4px;
+        margin-bottom:14px;
+        max-width:587px;
+    }
+
+    .info__pasos__compartir__catalogo__campaniaActual__subtitulo{
+        margin-bottom:24px;
+    }
+
+    .info__pasos__compartir__catalogo__campaniaActual__subtitulo span,
+    .info__pasos--parteInferior span
+    {
+        font-size:15px;
+    }
+
+    .info__pasos--parteSuperior span{
+        font-weight:bold;
+    }
+
+    .info__pasos--parteInferior{
+        margin-bottom:19px;
+    }
+
+    .info__pasos--parteInferior span:first-child{
+        margin-bottom:14px;
+    }
+
+    .info__pasos--parteInferior span:last-child{
+        margin-bottom:41px;
+    }
+
+    .lista__pasos__compartir__catalogo__campaniaActual,
+    .paso__compartir__catalogo__campaniaActual span
+    {
+        font-size:13px;
+    }
+
+    .lista__pasos__compartir__catalogo__campaniaActual{
+        margin-top:0;
+        margin-bottom:0;
+    }
+
+    .paso__compartir__catalogo__campaniaActual{
+        margin-bottom:24px;
+    }
+
+    .paso__compartir__catalogo__campaniaActual:last-child{
+        margin-bottom:18px;
+    }
+
+    .compartir__catalogo__area,
+    .btn__compartir
+    {
+        max-width:208px;
+    }
+
+    .btn__compartir{
+        height:45px;
+        font-size:12px;
+        line-height:44px;
+    }
+
+    .catalogos__por__campania__item__modos__compartir{
+        margin-bottom:29px;
+    }
+
+    .modo__compartir__catalogo{
+        max-width:30%;
+        height:40px;
+    }
+
+    .background__opciones__compartir__catalogos,
+    .opciones__compartir__catalogos
+    {
+        position: fixed;
+    }
+
+    .btn__compartir--slider + .opciones__compartir__catalogos,
+    .opciones__compartir__catalogos
+    {
+        width:93%;
+        left:0;
+    }
+
+    .background__opciones__compartir__catalogos{
+        display:none;
+        background-color:rgba(0,0,0,0.66);
+        width:100%;
+        height:100vh;
+        z-index:2;
+        top:0;
+        left:0;
+        cursor:pointer;
+    }
+
+    .opciones__compartir__catalogos{
+        bottom: 17px;
+        z-index: 3;
+        height: auto;
+        padding:15px 51px;
+    }
+
+    .opcion__compartir__catalogo{
+        height:40px;
+    }
+
+    .opciones__compartir__catalogos:before,
+    .opciones__compartir__catalogos:after
+    {
+        display:none;
+    }
+
+    .opcion__compartir__catalogo--whatsapp{
+        margin-right:0;
+    }
+
+    .opcion__compartir__catalogo--whatsapp img{
+        margin-top:2px;
+        height:40px;
+    }
+
+    .opcion__compartir__catalogo--facebook img,
+    .opcion__compartir__catalogo--email img
+    {
+        margin-top:7px;
+        height: 30px;
+    }
+
+    .opcion__compartir__catalogo--facebookMessenger img{
+        margin-top:5px;
+        height:33px;
+    }
+
+    .opcion__compartir__catalogo--copiarEnlace{
+        margin-top:18px;
+        margin-left:0;
+    }
+
+    .mi__revista__y__marquesina__rd__wrapper{
+        display:none;
+    }
+
+    .mi__revista__wrapper{
+        background-color:#FFF;
+        padding-top:20px;
+    }
+
+    .revista__por__campania__num{
+        margin-bottom:20px;
+    }
+
+    .mi__revista__imagen{
+        margin-bottom:25px;
+    }
+
+    .mi__revista__info__texto{
+        max-width:200px;
+    }
+
+    .btn__encuentra__aqui__tu__revista__digital{
+        max-width:232px;
+    }
+
+    .revistas__por__campania__slider__control__izq,
+    .revistas__por__campania__slider__control__der
+    {
+        position:relative;
+    }
+
+    .revistas__por__campania__slider__control__izq{
+        left:-15px;
+    }
+
+    .revistas__por__campania__slider__control__der{
+        left:15px;
+    }
+
+    /* AJUSTES REVISTA DIGITAL (MOBILE) */
+
+    .expoferta_revista{
+        margin-top:2px;
+    }
+
+    .btn_dorado a,
+    .btn_dorado a:hover
+    {
+        color:#FFF!important;
+    }
+
+    /* FIN - AJUSTES REVISTA DIGITAL (MOBILE) */
+
+    /* POPUP COMPARTIR CATÁLOGO MOBILE */
+
+    .CompartirCorreoPop{
+        overflow:auto;
+    }
+
+    .contentCompartir{
+        width:90%;
+        margin-top:15px!important;
+        margin-bottom:15px!important;
+        padding-left:20px;
+        padding-right:20px;
+    }
+
+    .titulo_compartir,
+    .titulo_compartir span
+    {
+        font-size: 19px;
+    }
+
+    .titulo_compartir{
+        line-height: 28px;
+    }
+
+    .cerrar_compartir{
+        width:19px;
+        height:19px;
+        margin-right:0!important;
+    }
+
+    .cerrar_compartir img,
+    .btn_enviar_correo
+    {
+        width:100%;
+    }
+
+    .Label_compartir{
+        width:100%;
+    }
+
+    .mostrar_todos {
+        float: left;
+        width: 100%;
+        margin-top: 5px;
+        margin-bottom: 10px;
+    }
+
+    /* FIN - POPUP COMPARTIR CATÁLOGO MOBILE */
+
+    /* POPUPS MENSAJES DE ALERTA MOBILE */
+
+    .content_mensaje_alerta{
+        width: 90%;
+        max-width: 511px;
+        height: auto;
+        padding-bottom: 40px;
+    }
+
+    .sub_texto_alerta{
+        padding-left:22px;
+        padding-right:22px;
+    }
+
+    /* FIN - POPUPS MENSAJES DE ALERTA MOBILE */
+
+}
+
+@media screen and (min-width:409px) and (max-width:991px){
+
+    .opcion__compartir__catalogo--copiarEnlace{
+        margin-top:0;
+    }
+
+}
+
+@media screen and (min-width:377px) and (max-width:991px){
+
+    .opciones__compartir__catalogos{
+        padding:20px 40px;
+    }
+
+}
+
+/* FIN - MIS CATÁLOGOS Y REVISTAS MOBILE */

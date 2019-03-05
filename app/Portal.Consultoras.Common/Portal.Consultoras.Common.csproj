@@ -162,6 +162,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseUtilities.cs" />
+    <Compile Include="Constante\ConsTablaLogica.cs" />
     <Compile Include="Excel\ExcelProtection.cs" />
     <Compile Include="LogManager\CustomTraceException.cs" />
     <Compile Include="ExcelCellHeader.cs" />
@@ -210,6 +211,7 @@
     <Compile Include="SeguridadApi\JwtContext.cs" />
     <Compile Include="SeguridadApi\JwtModule.cs" />
     <Compile Include="SeguridadApi\JwtToken.cs" />
+    <Compile Include="Serializer\SerializeXml.cs" />
     <Compile Include="Settings\ServiceSettings.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="Validator\IPhoneValidator.cs" />

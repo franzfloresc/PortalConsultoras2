@@ -98,10 +98,17 @@ function RDSuscripcion() {
                 RDActualizarTipoAccionAgregar(data.revistaDigital, key);
             }
 
-            $("#PopRDSuscripcion").css("display", "block"); // Confirmar datos
-            $(".popup_confirmacion_datos .form-datos input").keyup(); //to update button style
+			if (typeof esAppMobile == 'undefined') {
 
-           return false;
+				$("#PopRDSuscripcion").css("display", "block"); // Confirmar datos
+				$(".popup_confirmacion_datos .form-datos input").keyup(); //to update button 
+
+			} else if (esAppMobile){
+				window.location = (isMobile() ? "/Mobile" : "") + "/RevistaDigital/ConfirmacionAPP";
+			}
+            
+			return false;
+           
         },
         function (xhr, status, error) {
             CerrarLoad();
@@ -170,21 +177,20 @@ function MostrarTerminos() {
         win.focus();
     } else {
         //Browser has blocked it
-        console.log("Habilitar mostrar popup");
+        //console.log("Habilitar mostrar popup");
     }
 }
 
 function RedireccionarContenedorComprar(origenWeb, codigo) {
-    
     origenWeb = $.trim(origenWeb);
     if (origenWeb !== "")
         rdAnalyticsModule.Access(origenWeb);
     
-    if (!(typeof AnalyticsPortalModule === 'undefined'))
-        AnalyticsPortalModule.MarcaVerOfertas(origenWeb);
+    //if (!(typeof AnalyticsPortalModule === 'undefined'))
+    //    AnalyticsPortalModule.MarcaVerOfertas(origenWeb);
 
     codigo = $.trim(codigo);
-    window.location = (isMobile() ? "/Mobile" : "") + "/Ofertas" + (codigo !== "" ? "#" + codigo : "");
+    window.location = (isMobileNative.any() ? "/Mobile" : "") + "/Ofertas" + (codigo !== "" ? "#" + codigo : "");
 }
 
 function RedireccionarContenedorInformativa(origenWeb) {
@@ -192,7 +198,7 @@ function RedireccionarContenedorInformativa(origenWeb) {
     if (origenWeb !== "")
         rdAnalyticsModule.Access(origenWeb);
 
-    window.location = (isMobile() ? "/Mobile" : "") + "/RevistaDigital/Informacion";
+    window.location = (isMobileNative.any() ? "/Mobile" : "") + "/RevistaDigital/Informacion";
 }
 function GetItemLocalStorageSurvicate() {
     var surviKeys = {};

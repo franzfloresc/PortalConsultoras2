@@ -565,10 +565,8 @@ function showDialog(dialogId) {
     dialogId = dialogId[0] == "#" ? dialogId : ("#" + dialogId);
     $(dialogId).dialog("open");
     $("#ui-datepicker-div").css("z-index", "9999");
-    console.log(dialogId);
     setTimeout(function () {
         var h = $(document).innerHeight();
-        console.log(h);
         $(".ui-widget-overlay").css("height", "auto");
         $(".ui-widget-overlay").css("height", h);
     }, 1000);
@@ -580,10 +578,8 @@ function HideDialog(dialogId) {
     try {
 
         dialogId = (dialogId || "").trim();
-        console.log('HideDialog - ini - ', dialogId);
         if (dialogId != "") {
             dialogId = dialogId[0] == "#" ? dialogId : ("#" + dialogId);
-            console.log('HideDialog - close - ', dialogId);
             $(dialogId).dialog("close");
         }
     }
@@ -661,9 +657,14 @@ function waitingDialog(waiting) {
     }
 }
 
-function closeWaitingDialog() {
+function closeWaitingDialog(opcion) {
     try {
         HideDialog("loadingScreen");
+
+        if (opcion.overflow === false) {
+            $('body').css('overflow', 'hidden');
+        }
+
     }
     catch (err) {
     }
@@ -689,7 +690,7 @@ function CerrarLoad(opcion) {
             CloseLoading(opcion);
         }
         else {
-            closeWaitingDialog();
+            closeWaitingDialog(opcion);
         }
     } catch (e) {
 
@@ -797,6 +798,27 @@ function isMobile() {
     return isUrlMobile;
 }
 
+var isMobileNative = {
+    Android: function () {
+        return navigator.userAgent.match(/Android/i);
+    },
+    BlackBerry: function () {
+        return navigator.userAgent.match(/BlackBerry/i);
+    },
+    iOS: function () {
+        return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+    },
+    Opera: function () {
+        return navigator.userAgent.match(/Opera Mini/i);
+    },
+    Windows: function () {
+        return navigator.userAgent.match(/IEMobile/i);
+    },
+    any: function () {
+        return (isMobileNative.Android() || isMobileNative.BlackBerry() || isMobileNative.iOS() || isMobileNative.Opera() || isMobileNative.Windows());
+    }
+};
+
 function getMobilePrefixUrl() {
     var uniquePrefix = belcorp.settings.uniquePrefix;
     var currentUrl = $.trim(location.href).toLowerCase();
@@ -812,8 +834,29 @@ function isPagina(pagina) {
 }
 
 function isHome() {
-    var isUrl = ($.trim(location.href) + "/").toLowerCase().indexOf("/bienvenida/") > 0;
+    var url = ($.trim(location.href) + "/").toLowerCase();
+    var isUrl = url.indexOf("/bienvenida/") > 0;
+    if (!isUrl) {
+        url = $.trim(location.pathname).toLowerCase();
+        isUrl = url == "" || url == "/" || url == "/mobile" || url == "/mobile/";
+    }
     return isUrl;
+}
+
+function isPedido() {
+    var url = ($.trim(location.href) + "/").toLowerCase().replace("/mobile", "");
+    var isUrl = url.indexOf("/pedido/") > 0;
+    return isUrl;
+}
+
+function isOfertas() {
+    var url = ($.trim(location.href) + "/").toLowerCase().replace("/mobile", "");
+    var isUrl = url.indexOf("/ofertas/") > 0;
+    return isUrl;
+}
+
+function isFicha() {
+    return location.pathname.replace("/Mobile", "").indexOf("/Detalle/") == 0;
 }
 
 function isInt(n) {
@@ -990,12 +1033,20 @@ FuncionesGenerales = {
         return true;
     },
     ValidarSoloNumerosAndSpecialCharater: function (e) {
+
         var tecla = (document.all) ? e.keyCode : e.which;
         if (tecla == 8) return true;
         var patron = /[0-9-\-]/;
-        var te = String.fromCharCode(tecla);
+        var te = String.fromCharCode(tecla);    
         return patron.test(te);
     },
+    ValidarSpecialCharater: function (e) {
+        var charCode = (e.which) ? e.which : window.event.keyCode;
+        if (charCode <= 13) {
+            return false;
+        }
+    },
+   
     ValidarSoloLetrasYNumeros: function (e) {
         var charCode = (e.which) ? e.which : window.event.keyCode;
         if (charCode <= 13) {
@@ -1008,6 +1059,7 @@ FuncionesGenerales = {
         }
     },
     ValidarSoloLetras: function (e) {
+
         var charCode = (e.which) ? e.which : window.event.keyCode;
         if (charCode === 8) return true;
         if (charCode <= 13) {
@@ -1016,6 +1068,18 @@ FuncionesGenerales = {
         else {
             var keyChar = String.fromCharCode(charCode);
             var re = /[a-zA-ZñÑáéíóúÁÉÍÓÚ ]/;
+            return re.test(keyChar);
+        }
+    },
+    ValidarCorreo: function (e) {
+        var charCode = (e.which) ? e.which : window.event.keyCode;
+        if (charCode === 8) return true;
+        if (charCode <= 13) {
+            return false;
+        }
+        else {
+            var keyChar = String.fromCharCode(charCode);
+            var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ_.-\@]/;
             return re.test(keyChar);
         }
     },
@@ -1622,109 +1686,8 @@ function odd_desktop_google_analytics_promotion_click_verofertas() {
             }
         });
 
-        //odd_desktop_google_analytics_product_impresion();
     }
 }
-
-//function odd_desktop_google_analytics_product_impresion(data, NameContenedor) {
-//    var carrusel = $("[data-odd-tipoventana='carrusel']");
-//    var detalle = $("[data-odd-tipoventana='detalle']");
-//    var listaOferta = data == undefined ? null : data;
-//    var impresions = new Array();
-//    var divs = new Array();
-//    var div1;
-//    if (carrusel.length > 0 && carrusel.is(":visible")) {
-//        div1 = $(carrusel).find("[data-item-position = 0]")[0];
-//        var div2 = $(carrusel).find("[data-item-position = 1]")[0];
-//        var div3 = $(carrusel).find("[data-item-position = 2]")[0];
-
-//        if (div1 != undefined) { divs.push(div1); }
-//        if (div2 != undefined) { divs.push(div2); }
-//        if (div3 != undefined) { divs.push(div3); }
-
-//        $(divs).each(function (index, div) {
-//            impresions.push({
-//                'name': $(div).find("[data-item-campos]").find(".nombre-odd").val(),
-//                'id': $(div).find("[data-item-campos]").find(".cuv2-odd").val(),
-//                'price': $(div).find("[data-item-campos]").find(".precio-odd").val(),
-//                'brand': $(div).find("[data-item-campos]").find(".marca-descripcion-odd").val(),
-//                'category': 'No disponible',
-//                'variant': $(div).find("[data-item-campos]").find(".tipoestrategia-descripcion-odd").val(),
-//                'list': 'Oferta del día',
-//                'position': index + 1
-//            });
-//        });
-//    }
-//    if (detalle.length > 0 && detalle.is(":visible")) {
-//        div1 = $(detalle).find("[data-item-position = 0]");
-//        if (div1 != null) { divs.push(div1); }
-//        $(divs).each(function (index, div) {
-//            impresions.push({
-//                'name': $(div).find("[data-item-campos]").find(".nombre-odd").val(),
-//                'id': $(div).find("[data-item-campos]").find(".cuv2-odd").val(),
-//                'price': $(div).find("[data-item-campos]").find(".precio-odd").val(),
-//                'brand': $(div).find("[data-item-campos]").find(".marca-descripcion-odd").val(),
-//                'category': 'No disponible',
-//                'variant': $(div).find("[data-item-campos]").find(".tipoestrategia-descripcion-odd").val(),
-//                'list': 'Oferta del día',
-//                'position': index + 1
-//            });
-//        });
-//    }
-
-//    if (listaOferta != null || listaOferta != undefined) {
-//        var NameList = NameContenedor == "#OfertaDelDia" ? "Oferta del día - Banner" : NameContenedor == "#OfertasDelDiaOfertas" ? "Oferta del día - Detalle Slider" : "";
-//        if (NameContenedor == "#OfertaDelDia") {
-//            NameList = "Oferta del día - Banner";
-
-//            impresions.push({
-//                'name': listaOferta.NombreOferta,
-//                'id': listaOferta.CUV2,
-//                'price': listaOferta.PrecioOferta,
-//                'brand': listaOferta.DescripcionMarca,
-//                'category': 'No disponible',
-//                'variant': listaOferta.TipoEstrategiaDescripcion,
-//                'list': NameList,
-//                'position': 1
-//            });
-//        }
-//        else if (NameContenedor == "#OfertasDelDiaOfertas") {
-//            NameList = "Oferta del día - Detalle Slider";
-//            listaOferta.ListaOfertas = listaOferta.ListaOfertas || [];
-//            if (listaOferta.ListaOfertas.length > 1) {
-//                NameList = "Oferta del día - Slider Productos";
-//                var lstOferta = data ? data.ListaOfertas : [];
-//                $.each(lstOferta, function (index, item) {
-//                    impresions.push({
-//                        'name': item.NombreOferta,
-//                        'id': item.CUV2,
-//                        'price': item.PrecioOferta,
-//                        'brand': item.DescripcionMarca,
-//                        'category': 'No disponible',
-//                        'variant': item.TipoEstrategiaDescripcion,
-//                        'list': NameList,
-//                        'position': index + 1
-//                    });
-//                });
-//            }
-
-//            impresions.push({
-//                'name': listaOferta.NombreOferta,
-//                'id': listaOferta.CUV2,
-//                'price': listaOferta.PrecioOferta,
-//                'brand': listaOferta.DescripcionMarca,
-//                'category': 'No disponible',
-//                'variant': listaOferta.TipoEstrategiaDescripcion,
-//                'list': NameList,
-//                'position': 1
-//            });
-//        }
-//    }
-
-//    if (impresions.length > 0) {
-//        dataLayer.push({ 'event': 'productImpression', 'ecommerce': { 'impressions': impresions } });
-//    }
-//}
 
 function odd_desktop_google_analytics_addtocart(tipo, element) {
     var id, name, price, marca, variant, quantity, dimension16, listname;
@@ -2115,8 +2078,9 @@ function CuponPopupCerrar() {
 }
 
 function microefectoPedidoGuardado() {
-    $(".contenedor_circulos").fadeIn();
+    var divCirculos = $('#vpMenu .contenedor_circulos');
+    divCirculos.fadeIn();
     setTimeout(function () {
-        $(".contenedor_circulos").fadeOut();
+        divCirculos.fadeOut();
     }, 2700);
 }
