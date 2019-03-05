@@ -1858,7 +1858,7 @@ function CerrarProductoAgregado() {
 }
 
 function ValidDeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cuv, cantidad, clienteId, cuvReco, esBackOrder, setId, esElecMultipleNuevas) {
-    event.stopPropagation();
+    
     ValidDeleteElectivoNuevas(
         cuv,
         esElecMultipleNuevas,
