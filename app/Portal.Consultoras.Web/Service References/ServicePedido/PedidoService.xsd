@@ -776,6 +776,11 @@
         <xs:sequence>
           <xs:element minOccurs="0" name="Activo" type="xs:int" />
           <xs:element minOccurs="0" name="AgregarEnMatriz" type="xs:boolean" />
+          <xs:element minOccurs="0" name="AppOfertasHomeImgAlto" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="AppOfertasHomeImgAncho" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="AppOfertasHomeImgExtension" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="AppOfertasHomeMsjFormato" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="AppOfertasHomeMsjMedida" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="CUV1" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="CUV2" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />

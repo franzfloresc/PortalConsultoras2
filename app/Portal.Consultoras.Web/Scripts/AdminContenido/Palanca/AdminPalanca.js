@@ -391,6 +391,7 @@ function IniDialogs() {
                 var params = {
                     ConfiguracionOfertasHomeID: $("#ConfiguracionOfertasHomeID").val(),
                     ConfiguracionPaisID: $("#ddlConfiguracionIdOfertas").val(),
+                    Codigo: $("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo"),
                     CampaniaID: $("#ddlCampaniaOfertas").val(),
                     DesktopOrden: $("#DesktopOrden").val(),
                     MobileOrden: $("#DialogMantenimientoOfertasHome #MobileOrden").val(),

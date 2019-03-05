@@ -20,27 +20,38 @@ namespace Portal.Consultoras.Web.Providers
             _tablaLogicaProvider = new TablaLogicaProvider();
         }
 
-        public static string ImagenesResizeProcesoApp(string urlImagen, string codigoIso)
+        public string ImagenesResizeProcesoApp(string urlImagen, string codigoIso, int paisID, string palanca)
         {
             var mensajeErrorImagenResize = string.Empty;
-            var lstImagenResize = Constantes.ConfiguracionImagenResize.App.Configuracion;
+
+            var lstImagenResize = _tablaLogicaProvider.ObtenerParametrosTablaLogica(paisID, Constantes.TablaLogica.ResizeImagenesAppGanaMas, true);
+
+            lstImagenResize = lstImagenResize.Where(x => x.Codigo.StartsWith(palanca)).ToList();
 
             if (lstImagenResize.Any())
             {
                 var lstFinal = lstImagenResize.Select(x =>
                 {
+                    var tipo = x.Codigo.Replace(palanca, string.Empty);
+                    var ancho = 0;
+                    var alto = 0;
+                    var medidas = x.Descripcion.Split('x');
+
+                    int.TryParse(medidas[0], out ancho);
+                    int.TryParse(medidas[1], out alto);
+
                     var soloImagen = Path.GetFileNameWithoutExtension(urlImagen);
                     var soloExtension = Path.GetExtension(urlImagen);
-                    var fileName = string.Concat(soloImagen, x.Tipo, soloExtension);
+                    var fileName = string.Concat(soloImagen, tipo, soloExtension);
                     var rutaImagenResize = ConfigS3.GetUrlFileS3Matriz(codigoIso, fileName);
 
                     var entidad = new EntidadMagickResize
                     {
                         RutaImagenOriginal = urlImagen,
                         RutaImagenResize = rutaImagenResize,
-                        Width = x.Ancho,
-                        Height = x.Alto,
-                        TipoImagen = x.Tipo,
+                        Width = ancho,
+                        Height = alto,
+                        TipoImagen = tipo,
                         CodigoIso = codigoIso
                     };
 
@@ -49,6 +60,7 @@ namespace Portal.Consultoras.Web.Providers
 
                 MagickNetLibrary.GuardarImagenesResizeParalelo(lstFinal, true);
             }
+
             return mensajeErrorImagenResize;
         }
 

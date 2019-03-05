@@ -362,7 +362,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (resizeImagenApp)
             {
                 var urlImagen = ConfigS3.GetUrlFileS3Matriz(userData.CodigoISO, model.AdministrarOfertasHomeAppModel.AppBannerInformativo);
-                Providers.RenderImgProvider.ImagenesResizeProcesoApp(urlImagen, userData.CodigoISO);
+                new Providers.RenderImgProvider().ImagenesResizeProcesoApp(urlImagen, userData.CodigoISO, userData.PaisID, model.Codigo);
             }
 
             return model;

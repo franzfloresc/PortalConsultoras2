@@ -306,6 +306,17 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string ColorTextoApp { get; set; }
 
+        [DataMember]
+        public string AppOfertasHomeImgExtension { get; set; }
+        [DataMember]
+        public string AppOfertasHomeImgAncho { get; set; }
+        [DataMember]
+        public string AppOfertasHomeImgAlto { get; set; }
+        [DataMember]
+        public string AppOfertasHomeMsjMedida { get; set; }
+        [DataMember]
+        public string AppOfertasHomeMsjFormato { get; set; }
+
         public BEEstrategia()
         { }
 

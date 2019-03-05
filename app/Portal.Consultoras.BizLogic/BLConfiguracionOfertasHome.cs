@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Transactions;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -53,15 +54,12 @@ namespace Portal.Consultoras.BizLogic
 
                 configuracionOfertasHome = task1.Result;
                 configuracionOfertasHome.ConfiguracionOfertasHomeApp = task2.Result;
-                configuracionOfertasHome.ConfiguracionPaisDatos = _configuracionPaisDatosBusinessLogic.GetList(new BEConfiguracionPaisDatos()
+
+                configuracionOfertasHome.ConfiguracionPaisDatos = _configuracionPaisDatosBusinessLogic.GetListAll(new BEConfiguracionPaisDatos()
                 {
                     PaisID = paisId,
-                    ConfiguracionPaisID = configuracionOfertasHome.ConfiguracionPaisID,
-                    ConfiguracionPais = new BEConfiguracionPais()
-                    {
-                        Detalle = new BEConfiguracionPaisDetalle()
-                    }
-                }); ;
+                    ConfiguracionPaisID = configuracionOfertasHome.ConfiguracionPaisID
+                }).Where(x => x.Estado).ToList();
             }
             catch (Exception ex)
             {
