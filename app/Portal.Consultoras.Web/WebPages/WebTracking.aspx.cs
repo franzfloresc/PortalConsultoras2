@@ -28,6 +28,9 @@ namespace Portal.Consultoras.Web.WebPages
 
             var campania = Request.QueryString["campania"];
             var nroPedido = Request.QueryString["nroPedido"];
+            var regionID = Request.QueryString["regionID"];
+            var zonaID = Request.QueryString["zonaID"];
+
 
             if (campania == null) CargarTablasMaestras();
             else CargarPedidoEspecifico(campania, nroPedido);
@@ -91,6 +94,12 @@ namespace Portal.Consultoras.Web.WebPages
             Label lblFecha = (Label)e.Row.FindControl("lblFecha");
             LinkButton botonSegPed = (LinkButton)e.Row.FindControl("imgSegPed");
             Label lblTextoValorTurno = (Label)e.Row.FindControl("lblTextoValorTurno");
+            Label lblHoraEstimadaDesdeHasta = (Label)e.Row.FindControl("lblHoraEstimadaDesdeHasta");
+
+            if (lblHoraEstimadaDesdeHasta !=null)
+            {
+                lblHoraEstimadaDesdeHasta.ForeColor = System.Drawing.ColorTranslator.FromHtml((ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(paisIso)) ? "#e81c36" : "#b75d9f");
+            }
 
             if (lblTextoValorTurno != null)
                 lblTextoValorTurno.ForeColor = System.Drawing.ColorTranslator.FromHtml((ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(paisIso)) ? "#e81c36" : "#b75d9f");
@@ -236,7 +245,7 @@ namespace Portal.Consultoras.Web.WebPages
                 string cadenaDesencriptada = Util.DesencriptarQueryString(encriptado);
                 string[] query = cadenaDesencriptada.Split(';');
 
-                if (query.Length != 6)
+                if (query.Length != 8)
                 {
                     lblMensaje.Visible = true;
                     lblMensaje.Text = "El medio que envie la informacion en modo seguro, esta enviando de forma incorrecta. Notifique al área de tecnologia correspondiente. Gracias + Error: len de los datos=" + query.Length.ToString();
@@ -248,12 +257,17 @@ namespace Portal.Consultoras.Web.WebPages
                 int mostrarAyuda = Convert.ToInt32(query[2]);
                 string paisIso = query[3];
                 int campanhaId = int.Parse(query[4]);
+                int.TryParse(query[5].ToString(), out int zonaID);
+                int.TryParse(query[6].ToString(), out int regionID);
 
                 ViewState["CODIGO"] = codigoConsultora;
                 ViewState["PAIS"] = paisId;
                 ViewState["PAISISO"] = paisIso;
                 ViewState["CAMPANHAID"] = campanhaId;
                 ViewState["MOSTRARAYUDA"] = mostrarAyuda;
+                ViewState["ZONAID"] = zonaID;
+                ViewState["REGIONID"] = regionID;
+
                 return true;
             }
             catch (Exception ex)
@@ -433,8 +447,8 @@ namespace Portal.Consultoras.Web.WebPages
                     var desde = listaPedidoSeguimientoModel.FirstOrDefault(a => a.Etapa == Constantes.SegPedidoSituacion.HoraEstimadaEntregaDesde);
                     var hasta = listaPedidoSeguimientoModel.FirstOrDefault(a => a.Etapa == Constantes.SegPedidoSituacion.HoraEstimadaEntregaHasta);
 
-                    if (desde.Fecha.HasValue) horaEstimadaEntregaDesde = desde.Fecha.Value.TimeOfDay.TotalHours.Equals(0) ? desde.Fecha.Value.ToString() : desde.Fecha.Value.ToString("HH:mm:ss tt");
-                    if (hasta.Fecha.HasValue) horaEstimadaEntregaHasta = hasta.Fecha.Value.TimeOfDay.TotalHours.Equals(0) ? hasta.Fecha.Value.ToString() : hasta.Fecha.Value.ToString("HH:mm:ss tt");
+                    if (desde.Fecha.HasValue) horaEstimadaEntregaDesde = desde.Fecha.Value.TimeOfDay.TotalHours.Equals(0) ? desde.Fecha.Value.ToString() : desde.Fecha.Value.ToString("HH:mm tt");
+                    if (hasta.Fecha.HasValue) horaEstimadaEntregaHasta = hasta.Fecha.Value.TimeOfDay.TotalHours.Equals(0) ? hasta.Fecha.Value.ToString() : hasta.Fecha.Value.ToString("HH:mm tt");
 
                     //Obtener si la zona y region permite los valores configurados
 
@@ -494,7 +508,7 @@ namespace Portal.Consultoras.Web.WebPages
                             }
                         }
 
-                        if (item.Etapa == Constantes.SegPedidoSituacion.FechaEstimadaEntrega && true)
+                        if (item.Etapa == Constantes.SegPedidoSituacion.FechaEstimadaEntrega && ValidarZonaRegion())
                         {
                             item.HoraEstimadaDesdeHasta = string.Format("{0} {1}", horaEstimadaEntregaDesde, horaEstimadaEntregaHasta);
                         }
@@ -506,7 +520,7 @@ namespace Portal.Consultoras.Web.WebPages
                     lblNovNroPedido.Text = nropedido;
                 }
 
-                gridDatos.DataSource = listaPedidoSeguimientoModel.Where(a => a.Etapa != 8 && a.Etapa != 9);
+                gridDatos.DataSource = listaPedidoSeguimientoModel.Where(a => a.Etapa != Constantes.SegPedidoSituacion.HoraEstimadaEntregaDesde && a.Etapa != Constantes.SegPedidoSituacion.HoraEstimadaEntregaHasta);
                 gridDatos.DataBind();
 
                 gvNovedades.DataSource = novedades;
@@ -518,6 +532,46 @@ namespace Portal.Consultoras.Web.WebPages
             {
                 lblMensaje.Visible = true;
                 lblMensaje.Text = ex.Message;
+            }
+        }
+
+      
+        public bool ValidarZonaRegion()
+        {
+
+            try
+            {
+                using (var sv = new ServiceSAC.SACServiceClient())
+                {
+                    int.TryParse(ViewState["PAIS"].ToString(), out int paisid);
+
+                    int.TryParse(ViewState["ZONAID"].ToString(), out int zonaid);
+                    int.TryParse(ViewState["REGIONID"].ToString(), out int regionid);
+
+                    var resultado = sv.GetTablaLogicaDatos(paisid, Constantes.TablaLogica.SegPedidoRegionZona).FirstOrDefault();
+                    if (resultado == null) return false;
+                    if (resultado.Valor.IsNullOrEmptyTrim()) return false;
+                    string[] arrZonaRegion = resultado.Valor.Split(';');
+                    foreach (var item in arrZonaRegion)
+                    {
+                        //Extraer la zona y la region
+                        string[] arrItem = item.Split(',');
+                        int.TryParse(arrItem[1], out int nzonaid);
+                        int.TryParse(arrItem[0], out int nregionid);
+
+                        if (zonaid == nzonaid && regionid == nregionid) return true;
+                        
+                    }
+
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                lblMensaje.Visible = true;
+                lblMensaje.Text = ex.Message;
+                return false;
             }
         }
 
