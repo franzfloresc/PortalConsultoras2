@@ -1,6 +1,6 @@
 ﻿
 function OnClickFichaDetalle(e) {
-    var estoyEnLaFicha = typeof fichaModule !== "undefined"; //una forma de identificar si estoy en la ficha o no.    
+    //var estoyEnLaFicha = typeof fichaModule !== "undefined"; //una forma de identificar si estoy en la ficha o no.    
     //el objeto e debe ser establecido con target  (e.target)
     var infoCuvItem = EstrategiaAgregarModule.EstrategiaObtenerObj($(e));
     var codigoEstrategia = $.trim(infoCuvItem.CodigoEstrategia);
@@ -19,10 +19,7 @@ function OnClickFichaDetalle(e) {
     UrlDetalle += codigoCampania + "/" + codigoCuv + "/" + OrigenPedidoWeb;
 
     if (!(typeof AnalyticsPortalModule === 'undefined')) {
-        if (estoyEnLaFicha)
-            AnalyticsPortalModule.MarcarClicSetProductos(infoCuvItem, e, OrigenPedidoWeb, estoyEnLaFicha);
-        else
-            AnalyticsPortalModule.MarcaGenericaClic(e, OrigenPedidoWeb);
+        AnalyticsPortalModule.MarcaVerDetalleProducto(e, OrigenPedidoWeb, UrlDetalle);
     }
 
     window.location = UrlDetalle;
@@ -52,7 +49,7 @@ function GetPalanca(codigoEstrategia, origenPedidoWeb, esUrl) {
     if (esUrl) {
         url = isMobile() ? "/Mobile/Detalle/" : "/Detalle/";
     }
-    
+
 
     switch (codigoEstrategia) {
 

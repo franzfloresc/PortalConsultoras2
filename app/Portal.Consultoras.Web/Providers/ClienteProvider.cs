@@ -45,7 +45,6 @@ namespace Portal.Consultoras.Web.Providers
         public virtual BEClienteDB SaveDB(int paisId, long consultoraId, ClienteModel client)
         {
 
-            List<BEClienteDB> clientes = new List<BEClienteDB>();
             List<BEClienteContactoDB> contactos = new List<BEClienteContactoDB>();
 
             if (!string.IsNullOrEmpty(client.Celular))
@@ -81,17 +80,20 @@ namespace Portal.Consultoras.Web.Providers
                 });
             }
 
-            clientes.Add(new BEClienteDB()
+            List<BEClienteDB> clientes = new List<BEClienteDB>
             {
-                CodigoCliente = client.CodigoCliente,
-                ClienteID = client.ClienteID,
-                Nombres = client.NombreCliente,
-                Apellidos = client.ApellidoCliente,
-                ConsultoraID = consultoraId,
-                Origen = Constantes.ClienteOrigen.Desktop,
-                Estado = Constantes.ClienteEstado.Activo,
-                Contactos = contactos.ToArray()
-            });
+                new BEClienteDB()
+                {
+                    CodigoCliente = client.CodigoCliente,
+                    ClienteID = client.ClienteID,
+                    Nombres = client.NombreCliente,
+                    Apellidos = client.ApellidoCliente,
+                    ConsultoraID = consultoraId,
+                    Origen = client.Origen,
+                    Estado = Constantes.ClienteEstado.Activo,
+                    Contactos = contactos.ToArray()
+                }
+            };
 
             List<BEClienteDB> response;
             using (var serviceClient = new ClienteServiceClient())

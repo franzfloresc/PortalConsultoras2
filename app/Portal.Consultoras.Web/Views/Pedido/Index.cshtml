@@ -1,6 +1,5 @@
 ﻿@using Portal.Consultoras.Common
 @using Portal.Consultoras.Web.Models
-@using Portal.Consultoras.Web.SessionManager
 @model PedidoSb2Model
 
 @{
@@ -135,10 +134,11 @@
     <div class="caja_pedidos">
         <div data-barra-width="">
             <div id="divBarra">
-                <div id="divBarraMensaje">
+                <div id="divBarraMensaje" class="barra_mensaje_meta_pedido">
                     <div id="divBarraMensajeLogrado" style="display:none;">
                         <div style="float:right;">
                             <div class="content_BarrMensaje">
+                                <div class="barra_title"></div>
                                 <div class="mensaje_barra" style="display: inline;"></div>
                                 <div class="agrega_barra"></div>
                             </div>
@@ -149,16 +149,15 @@
                     </div>
                 </div>
                 <hr class="clear" />
-                <div id="divBarraLimite">
-
-                </div>
                 <hr class="clear" />
                 <div id="divBarraPosicion" class="BarraPosicion">
                     <span id="divBarraEspacioLimite" class="BarraLimite">
-                        <span id="divBarraEspacioLogrado" class="BarraLogrado"></span>
+                        <span class="bandera_marcador" style="display:none;"></span>
                     </span>
+                    <span id="divBarraEspacioLogrado" class="BarraLogrado" style="position: relative;z-index: 2;"></span>
                 </div>
-                <div class="informacion_barra">*Información referencial. Todo pedido realizado a través de la web está sujeto a stock. Algunos productos no suman a la escala de comisión. Guarda tu pedido para actualizar tu barra.</div>
+                <div id="divBarraLimite">
+                </div>
             </div>
             <div class="clear"></div>
         </div>
@@ -251,7 +250,6 @@
                                         <div class="texto_cupon_monto">Agrega alguna oferta exclusiva web para hacer válido tu cupón de descuento de 00 % || S/. 00.00</div>
                                     </div>
                                 </div>
-
                                 <hr class="clear" />
                                 <hr class="separador_montos" />
                                 <div class="caja_montos_textos">
@@ -436,26 +434,27 @@
                     </div>
                     <div class="descripcion_observaciones_alerta" id="desc_obs_alerta">
                         @*<ul>
-                                <li>
-                                    El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
-                                    Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
-                                </li>
-                                <li>
-                                    El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
-                                    Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
-                                </li>
-                                <li>
-                                    El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
-                                    Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
-                                </li>
+                            <li>
+                                El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
+                                Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
+                            </li>
+                            <li>
+                                El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
+                                Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
+                            </li>
+                            <li>
+                                El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
+                                Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
+                            </li>
 
-                            </ul>*@
+                        </ul>*@
                     </div>
 
                 </div>
             </div>
             <!-- fin Popup observaciones-->
 
+            <div class="informacion_barra text-right">(*) Información referencial. Todo pedido realizado a través de la web está sujeto a stock. Algunos productos no suman a la escala de comisión. Guarda tu pedido para actualizar tu barra.</div>
             <div class="contenedor_eliminacion_pedido">
                 <div class="datos_simplificacionCUV" style="display: none;">
                     <p class="precio_total_sinDescuento">
@@ -733,6 +732,7 @@
 <input type="hidden" id="hdMontoMaximo" value="@Model.MontoMaximo" />
 <input type="hidden" id="hdListaParametriaOfertaFinal" value="@Newtonsoft.Json.JsonConvert.SerializeObject(Model.ListaParametriaOfertaFinal)" />
 <input type="hidden" id="hdEsConsultoraNueva" value="@Model.EsConsultoraNueva.ToString()" />
+<input type="hidden" id="hdEsConsultoraOficina" value="@Model.EsConsultoraOficina.ToString()" />
 
 <div id="divObservacionesPROL" style="display: none;">
     <div style="width: 500px;">
@@ -962,6 +962,8 @@
         </div>
     </div>
 </div>
+
+
 <div class="contenedor_popup_ofertaFinal center_text" id="divOfertaFinal" data-popup-main="" data-popup-function-hide="PopupOfertaFinalCerrar">
 </div>
 <div class="contenedor_popup_ofertaFinal" id="contenedor_popup_ofertaFinalVerDetalle" style="display: none;">
@@ -1019,6 +1021,9 @@
 @Html.Partial("~/Views/Shared/Cupon/popupCuponGana.cshtml")
 @Html.Partial("~/Views/Shared/Cupon/popupCuponConfirmar.cshtml")
 @Html.Partial("~/Views/Shared/Cupon/popupCuponGanaste.cshtml")
+@Html.Partial("~/Areas/Mobile/Views/Pedido/_PopupEleccionRegalo.cshtml")
+@Html.Partial("~/Areas/Mobile/Views/Pedido/_PopupPremio.cshtml")
+@Html.Partial("~/Areas/Mobile/Views/Pedido/_PopupDescuento.cshtml")
 
 @if (Model.MostrarPopupPrecargados)
 {
@@ -1211,6 +1216,10 @@
         </div>
     </div>
     <div class="tapsPedidos"></div>
+
+
+
+
 
     <script id="pedidopend-template" type="text/x-handlebars-template">
         {{#each this}}
@@ -1953,7 +1962,15 @@
         var urlValidarKitNuevas = '@Url.Action("ValidarKitNuevas", "PedidoRegistro", new { area = "" })';
         var maxCaracteresRecomendaciones = '@ViewBag.MaxCaracteresRecomendaciones';
         var urlObtenerComponentes = '@Url.Action("ObtenerComponentes", "DetalleEstrategia")';
-
+        var listaIconoLluvia = [
+            '@Url.Content("~/Content/Images/lluvia/ov-d.svg")',
+            '@Url.Content("~/Content/Images/lluvia/ov-r.svg")',
+            '@Url.Content("~/Content/Images/lluvia/sq-d.svg")',
+            '@Url.Content("~/Content/Images/lluvia/sq-r.svg")',
+            '@Url.Content("~/Content/Images/lluvia/trg-d.svg")',
+            '@Url.Content("~/Content/Images/lluvia/trg-r.svg")',
+        ];
+        var noIniciarLluvia = true;
     </script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/SB2-Pedido")
     @if (HttpContext.Current.Request.Browser.IsMobileDevice)
@@ -1967,14 +1984,8 @@
         <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Pedido/ConsultoraOnline.js")"></script>
     }
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/FichaProducto/Index.js")"></script>
-
+    <script type="text/javascript" src="@Url.Content("~/Scripts/nieve.js")?v=2"></script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/TusClientes")
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Ficha")
 
-}
-
-
-
-
-
-
+} 

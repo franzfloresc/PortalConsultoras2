@@ -29,6 +29,26 @@ namespace Portal.Consultoras.Web.Providers
             return await PostAsync<BuscadorYFiltrosModel>(pathBuscador, parametros);
         }
 
+        public async Task<List<BuscadorYFiltrosCategoriaModel>> GetCategorias(BuscadorModel buscadorModel)
+        {
+            var revistaDigital = _sessionManager.GetRevistaDigital();
+            var userData = _sessionManager.GetUserData();
+            var pathBuscador = string.Format(Constantes.RutaBuscadorService.UrlCategorias,
+                userData.CodigoISO,
+                userData.CampaniaID
+            );
+
+            var parametros = GetJsonPostBuscador(userData, buscadorModel, revistaDigital);
+            List <BuscadorYFiltrosCategoriaModel> buscadorYFiltrosCategoriaModel = new List<BuscadorYFiltrosCategoriaModel>();
+            buscadorYFiltrosCategoriaModel = await PostAsync<List<BuscadorYFiltrosCategoriaModel>>(pathBuscador, parametros);
+
+            foreach (BuscadorYFiltrosCategoriaModel item in buscadorYFiltrosCategoriaModel) {
+                item.Imagen = ConfigCdn.GetUrlFileInSubdirectory("Buscador", userData.CodigoISO, item.Imagen);
+            }
+
+            return buscadorYFiltrosCategoriaModel;
+        }
+
         private dynamic GetJsonPostBuscador(UsuarioModel usuarioModel, BuscadorModel buscadorModel, RevistaDigitalModel revistaDigital)
         {
             var suscripcion = (revistaDigital.EsSuscrita && revistaDigital.EsActiva);
@@ -67,6 +87,5 @@ namespace Portal.Consultoras.Web.Providers
             };
         }
 
-        
     }
 }
