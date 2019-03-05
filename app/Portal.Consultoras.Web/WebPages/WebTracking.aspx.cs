@@ -558,8 +558,10 @@ namespace Portal.Consultoras.Web.WebPages
                     {
                         //Extraer la zona y la region
                         string[] arrItem = item.Split(',');
-                        int.TryParse(arrItem[1], out int nzonaid);
-                        int.TryParse(arrItem[0], out int nregionid);
+                        int nzonaid, nregionid;
+
+                        int.TryParse(arrItem[1], out nzonaid);
+                        int.TryParse(arrItem[0], out nregionid);
 
                         if (zonaid == nzonaid && regionid == nregionid) return true;
 
