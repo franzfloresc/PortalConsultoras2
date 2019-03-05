@@ -14,6 +14,9 @@ var _slick = null;
 
 var CarruselAyuda = function () {
     "use strict";
+    var _texto = {
+        excepcion: "Excepción en AnalyticsPortal.js ==> "
+    };
 
     var _obtenerSlideMostrar = function (slick, currentSlide, nextSlide) {
         //'slick-current', 'slick-active'
@@ -153,7 +156,6 @@ var CarruselAyuda = function () {
     var marcarAnalyticsContenedor = function (tipo, data, seccionName, slick, currentSlide, nextSlide) {
         //tipo : 1= inicio, 2: cambio
         try {
-
             var origen = {
                 Pagina: ConstantesModule.OrigenPedidoWebEstructura.Pagina.Contenedor,
                 Seccion: ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel,
@@ -282,7 +284,7 @@ var CarruselModule = (function (config) {
         palanca: config.palanca || "",
         campania: config.campania || "",
         cuv: config.cuv || "",
-        urlDataCarrusel: config.urlDataCarrusel || "",
+        urlDataCarrusel: config.urlDataCarrusel || "/Estrategia/FichaObtenerProductosCarrusel",
         OrigenPedidoWeb: config.OrigenPedidoWeb || "",
         pantalla: "Ficha"
     };
@@ -477,6 +479,8 @@ var CarruselModule = (function (config) {
 
         if (data.lista.length > 0) {
             _variable.cantidadProdCarrusel = data.lista.length;
+            $.each(data.lista, function (i, item) { item.Posicion = i + 1; });
+
             SetHandlebars(_elementos.idPlantillaProducto, data, _elementos.divCarruselProducto);
             _mostrarTitulo();
             _mostrarSlicks();
@@ -590,9 +594,10 @@ function ArmarCarouselEstrategias(data) {
         }
     }
 
-    $.each(data.Lista, function (i, item) { item.Posicion = i + 1; });
+
     arrayOfertasParaTi = data.Lista;
     data.lista = data.Lista;
+    $.each(data.Lista, function (i, item) { item.Posicion = i + 1; });
     SetHandlebars("#producto-landing-template", data, "#divListadoEstrategia");
 
     if (tipoOrigenEstrategia == 11) {

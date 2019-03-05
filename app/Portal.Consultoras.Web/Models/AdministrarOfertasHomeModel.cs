@@ -43,11 +43,25 @@ namespace Portal.Consultoras.Web.Models
         public IEnumerable<TipoEstrategiaModel> ListaTipoEstrategia { get; set; }
         public IEnumerable<ConfiguracionPaisModel> ListaConfiguracionPais { get; set; }
         public IEnumerable<TablaLogicaDatosModel> ListaTipoPresentacion { get; set; }
+        public AdministrarOfertasHomeAppModel AdministrarOfertasHomeAppModel { get; set; }
 
         public AdministrarOfertasHomeModel()
         {
             DesktopTipoEstrategia = "";
             MobileTipoEstrategia = "";
+            AdministrarOfertasHomeAppModel = new AdministrarOfertasHomeAppModel();
         }
+    }
+
+    public class AdministrarOfertasHomeAppModel
+    {
+        public int ConfiguracionOfertasHomeAppID { get; set; }
+        public bool AppActivo { get; set; }
+        public string AppTitulo { get; set; }
+        public string AppColorFondo { get; set; }
+        public string AppColorTexto { get; set; }
+        public string AppBannerInformativo { get; set; }
+        public int AppOrden { get; set; }
+        public int AppCantidadProductos { get; set; }
     }
 }
