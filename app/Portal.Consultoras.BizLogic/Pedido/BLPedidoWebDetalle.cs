@@ -484,6 +484,7 @@ namespace Portal.Consultoras.BizLogic
                 }
             }
             #endregion
+
             if(WebConfig.SetIdentifierNumberFlag == "1")
             {
                 if (detParametros.AgruparSet)
