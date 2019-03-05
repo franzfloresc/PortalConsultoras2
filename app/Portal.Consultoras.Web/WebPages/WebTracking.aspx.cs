@@ -430,8 +430,8 @@ namespace Portal.Consultoras.Web.WebPages
 
                     var horaEstimadaEntregaDesde = string.Empty;
                     var horaEstimadaEntregaHasta = string.Empty;
-                    var desde = listaPedidoSeguimientoModel.FirstOrDefault(a => a.Etapa == 8);
-                    var hasta = listaPedidoSeguimientoModel.FirstOrDefault(a => a.Etapa == 9);
+                    var desde = listaPedidoSeguimientoModel.FirstOrDefault(a => a.Etapa == Constantes.SegPedidoSituacion.HoraEstimadaEntregaDesde);
+                    var hasta = listaPedidoSeguimientoModel.FirstOrDefault(a => a.Etapa == Constantes.SegPedidoSituacion.HoraEstimadaEntregaHasta);
 
                     if (desde.Fecha.HasValue) horaEstimadaEntregaDesde = desde.Fecha.Value.TimeOfDay.TotalHours.Equals(0) ? desde.Fecha.Value.ToString() : desde.Fecha.Value.ToString("HH:mm:ss tt");
                     if (hasta.Fecha.HasValue) horaEstimadaEntregaHasta = hasta.Fecha.Value.TimeOfDay.TotalHours.Equals(0) ? hasta.Fecha.Value.ToString() : hasta.Fecha.Value.ToString("HH:mm:ss tt");
@@ -441,7 +441,7 @@ namespace Portal.Consultoras.Web.WebPages
 
                     foreach (var item in listaPedidoSeguimientoModel)
                     {
-                        if (item.Etapa > 7) break;
+                        if (item.Etapa > Constantes.SegPedidoSituacion.Entregado) break;
 
                         string strFecha = string.Empty;
                         string strTexto = string.Empty;
@@ -477,8 +477,9 @@ namespace Portal.Consultoras.Web.WebPages
                         item.CodigoConsultora = strFecha;
                         item.NumeroPedido = strTexto;
 
-                        if (item.Etapa == 6 && !string.IsNullOrEmpty(item.ValorTurno))
+                        if ((item.Etapa == Constantes.SegPedidoSituacion.FechaEstimadaEntrega && !string.IsNullOrEmpty(item.ValorTurno)))
                         {
+
                             if (item.ValorTurno.ToUpper() == "AM")
                             {
                                 item.ValorTurno = "<b>En la mañana</b>";
@@ -493,7 +494,7 @@ namespace Portal.Consultoras.Web.WebPages
                             }
                         }
 
-                        if (item.Etapa == 6 && true)
+                        if (item.Etapa == Constantes.SegPedidoSituacion.FechaEstimadaEntrega && true)
                         {
                             item.HoraEstimadaDesdeHasta = string.Format("{0} {1}", horaEstimadaEntregaDesde, horaEstimadaEntregaHasta);
                         }
