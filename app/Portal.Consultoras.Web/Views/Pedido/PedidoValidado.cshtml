@@ -36,13 +36,13 @@
             <div style="margin-top: 20px; overflow: hidden; margin-bottom: -10px;">
                 <div class="titulo_mis_pedidos">
                     @if (ViewBag.ZonaNuevoPROL == true)
-                    {
-                        <h1>MI <b>PEDIDO RESERVADO CON ÉXITO</b></h1>
-                    }
-                    else
-                    {
-                        <h1>MI <b>PEDIDO VALIDADO CON ÉXITO</b></h1>
-                    }
+                {
+                    <h1>MI <b>PEDIDO RESERVADO CON ÉXITO</b></h1>
+            }
+            else
+            {
+                <h1>MI <b>PEDIDO VALIDADO CON ÉXITO</b></h1>
+        }
                 </div>
 
                 <div id="paginadorCab"></div>
@@ -64,98 +64,141 @@
             <div class="linea_separadora"></div>
             <div id="divListado"></div>
         </div>
+
         <div class="montos_pedidoValidado">
-            <div class="contenedor_montos_sinDescuento">
-                <div class="caja_montos_textos_sinDescuento pValidado">
-                    <span>Subtotal:</span>
-                    <span class="dscto_ofertasNiveles">Descuento ofertas por niveles:</span>
+            <div class="bloque_montosPedido">
+                <div class="caja_montos">
+                    <div style="position:relative;">
+                        <div class="contenedorCupon" style="width:100%;">
+                            <div class="contenedorCuponConocelo content_pedido_cupon_monto" style="display: none;">
+                                <div class="icono_cupon_monto"><img src="@Url.Content("~/Content/Images/PL20/cupon_gif_negro.gif")" alt="" /></div>
+                                <div class="texto_cupon_monto">Tienes un dscto exclusivo para ti, <a id="linkConocerDescuento2" class="link_cupon_home" style="color:black;">conócelo aquí</a></div>
+                            </div>
+                            <div class="contenedorCuponInfo content_pedido_cupon_monto" style="display: none;" data-cupon-info-pedido="">
+                                <div class="icono_cupon_monto"><img src="@Url.Content("~/Content/Images/PL20/cupon_gif_negro.gif")" alt="" /></div>
+                                <div class="texto_cupon_monto">Agrega alguna oferta exclusiva web para hacer válido tu cupón de descuento de 00 % || S/. 00.00</div>
+                            </div>
+                        </div>
+
+                        <hr class="clear" />
+                        <hr class="separador_montos" />
+                        <div class="caja_montos_textos">
+                            <div class="caja_montos_textos_sinDescuento">
+                                <span>Subtotal:</span>
+                                <span class="dscto_ofertasNiveles">Descuento ofertas por niveles:</span>
+                            </div>
+                            <br />
+                            <p class="monto_con_descuento pMontoCliente default-color" style="display: none;">
+                                <span id="spnNombreCliente"></span>
+                            </p>
+                            <div class="monto_total">
+                                <span><b>Total:</b></span>
+                            </div>
+                            <br />
+                            <div class="monto_ganancia default-color">
+                                <div class="info_extra_Validado abrir_popupMisGanancias">
+                                    <img src="/Content/Images/Esika/info-copy.png" onclick="MostrarDetalleGanancia();">
+                                </div>
+                                @{
+                            string cabezaEscala = null, pieEscala = null;
+                            string lbl1Ganancia = null, lbl2Ganancia = null;
+
+                            if (Model.PaisID == Constantes.PaisID.Colombia
+                                || Model.PaisID == Constantes.PaisID.Ecuador
+                                || Model.PaisID == Constantes.PaisID.ElSalvador
+                                || Model.PaisID == Constantes.PaisID.Guatemala
+                                || Model.PaisID == Constantes.PaisID.Peru
+                                || Model.PaisID == Constantes.PaisID.PuertoRico
+                                || Model.PaisID == Constantes.PaisID.RepublicaDominicana)
+                            {
+                                cabezaEscala = "Ganancia estimada";
+                                pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocio y Otros";
+                                lbl1Ganancia = "Mis descuentos";
+                                lbl2Ganancia = "Ganancia estimada: <br> (Guía de negocio y otros)";
+                            }
+                            else if (Model.PaisID == Constantes.PaisID.Mexico || Model.PaisID == Constantes.PaisID.Panama)
+                            {
+                                cabezaEscala = "Ganancia estimada";
+                                pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
+                                lbl1Ganancia = "Mis descuentos";
+                                lbl2Ganancia = "Ganancia estimada:  <br> (Guía de negocio y otros)";
+                            }
+                            else if (Model.PaisID == Constantes.PaisID.Chile)
+                            {
+                                cabezaEscala = "Comisión y ahorro total";
+                                pieEscala = "Comisión = ganancia estimada proveniente de tus descuentos por compras en catálogo; Ahorro = ahorro estimado proveniente de compras en Guía de Negocio y Otros";
+                                lbl1Ganancia = "Mis descuentos (-)10% retencion comisión liquida";
+                                lbl2Ganancia = "Ahorro estimado *(Guia de negocio y otros)";
+                            }
+                            else if (Model.PaisID == Constantes.PaisID.Venezuela)
+                            {
+                                cabezaEscala = "Oportunidad de ahorro total";
+                                pieEscala = "Oportunidad de Ahorro Total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
+                                lbl1Ganancia = "Por tus compras de productos de catalogo";
+                                lbl2Ganancia = "Por tus comprar de productos de revista";
+                            }
+                            else if (Model.PaisID == Constantes.PaisID.Bolivia)
+                            {
+                                cabezaEscala = "Ganancia total";
+                                pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocio y Otros";
+                                lbl1Ganancia = "Mis descuentos";
+                                lbl2Ganancia = "Ganancia estimada *(Guia de negocio y otros)";
+                            }
+                            else if (Model.PaisID == Constantes.PaisID.CostaRica)
+                            {
+                                cabezaEscala = "Oportunidad de ahorro total";
+                                pieEscala = "Oportunidad de Ahorro Total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
+                                lbl1Ganancia = "Mis descuentos";
+                                lbl2Ganancia = "Oportunidad de ahorro *(Revista y otros)";
+                            }
+                                }
+                                @(cabezaEscala):
+
+                                <input type="hidden" id="hdeCabezaEscala" value="@cabezaEscala" />
+                                <input type="hidden" id="hdePieEscala" value="@pieEscala" />
+                                <input type="hidden" id="hdeLbl1Ganancia" value="@lbl1Ganancia" />
+                                <input type="hidden" id="hdeLbl2Ganancia" value="@lbl2Ganancia" />
+                            </div>
+                        </div>
+                        <div class="caja_montos_cantidades">
+
+                            <div class="caja_montos_cantidades_sinDescuento">
+                                <span >@Model.Simbolo @Model.TotalSinDsctoFormato</span>
+                                <span >@Model.Simbolo @ViewBag.MontoDescuento</span>
+                            </div>
+
+                            <p class="monto_con_descuento pMontoCliente default-color" style="display: none;">
+                                <span id="spnTotalCliente"></span>
+                            </p>
+                            <p class="monto_total">
+                                <b>
+                                    @Model.Simbolo
+                                    <span id="sTotal" class="num">
+                                        @Model.TotalConDsctoFormato
+                                    </span>
+                                </b>
+                            </p>
+
+                            <p class="monto_ganancia default-color">
+                                <b>
+                                    @Model.Simbolo
+                                    <span id="spnMontoGanancia" >@ViewBag.GananciaEstimada</span>
+                                </b>
+                            </p>
+                        </div>
+                    </div>
                 </div>
-                <div class="caja_montos_cantidades_sinDescuento pValidado">
-                    <span>@Model.Simbolo @Model.TotalSinDsctoFormato</span>
-                    <span>@Model.Simbolo @ViewBag.MontoDescuento</span>
-                </div>
             </div>
-            <hr class="clear">
-
-            <div class="monto_totalValidado"><b>Total:</b><span>@Model.Simbolo @Model.TotalConDsctoFormato</span></div>
-
-            <hr class="clear" />
-            <div class="monto_gananciaValidado">
-                @{
-                    string cabezaEscala = null, pieEscala = null;
-                    string lbl1Ganancia = null, lbl2Ganancia = null;
-
-                    if (Model.PaisID == Constantes.PaisID.Colombia
-                        || Model.PaisID == Constantes.PaisID.Ecuador
-                        || Model.PaisID == Constantes.PaisID.ElSalvador
-                        || Model.PaisID == Constantes.PaisID.Guatemala
-                        || Model.PaisID == Constantes.PaisID.Peru
-                        || Model.PaisID == Constantes.PaisID.PuertoRico
-                        || Model.PaisID == Constantes.PaisID.RepublicaDominicana)
-                    {
-                        cabezaEscala = "Ganancia estimada";
-                        pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocio y Otros";
-                        lbl1Ganancia = "Mis descuentos";
-                        lbl2Ganancia = "Ganancia estimada: <br> (Guía de negocio y otros)";
-                    }
-                    else if (Model.PaisID == Constantes.PaisID.Mexico || Model.PaisID == Constantes.PaisID.Panama)
-                    {
-                        cabezaEscala = "Ganancia estimada";
-                        pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
-                        lbl1Ganancia = "Mis descuentos";
-                        lbl2Ganancia = "Ganancia estimada:  <br> (Guía de negocio y otros)";
-                    }
-                    else if (Model.PaisID == Constantes.PaisID.Chile)
-                    {
-                        cabezaEscala = "Comisión y ahorro total";
-                        pieEscala = "Comisión = ganancia estimada proveniente de tus descuentos por compras en catálogo; Ahorro = ahorro estimado proveniente de compras en Guía de Negocio y Otros";
-                        lbl1Ganancia = "Mis descuentos (-)10% retencion comisión liquida";
-                        lbl2Ganancia = "Ahorro estimado *(Guia de negocio y otros)";
-                    }
-                    else if (Model.PaisID == Constantes.PaisID.Venezuela)
-                    {
-                        cabezaEscala = "Oportunidad de ahorro total";
-                        pieEscala = "Oportunidad de Ahorro Total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
-                        lbl1Ganancia = "Por tus compras de productos de catalogo";
-                        lbl2Ganancia = "Por tus comprar de productos de revista";
-                    }
-                    else if (Model.PaisID == Constantes.PaisID.Bolivia)
-                    {
-                        cabezaEscala = "Ganancia total";
-                        pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocio y Otros";
-                        lbl1Ganancia = "Mis descuentos";
-                        lbl2Ganancia = "Ganancia estimada *(Guia de negocio y otros)";
-                    }
-                    else if (Model.PaisID == Constantes.PaisID.CostaRica)
-                    {
-                        cabezaEscala = "Oportunidad de ahorro total";
-                        pieEscala = "Oportunidad de Ahorro Total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
-                        lbl1Ganancia = "Mis descuentos";
-                        lbl2Ganancia = "Oportunidad de ahorro *(Revista y otros)";
-                    }
-                }
+            
 
 
-                @(cabezaEscala): <span>@Model.Simbolo @ViewBag.GananciaEstimada</span>
-
-                <input type="hidden" id="hdeCabezaEscala" value="@cabezaEscala" />
-                <input type="hidden" id="hdePieEscala" value="@pieEscala" />
-                <input type="hidden" id="hdeLbl1Ganancia" value="@lbl1Ganancia" />
-                <input type="hidden" id="hdeLbl2Ganancia" value="@lbl2Ganancia" />
-            </div>
-
-            <div class="info_extra_Validado abrir_popupMisGanancias">
-                <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")" onclick="MostrarDetalleGanancia();">
-            </div>
-
-            <hr class="clear" />
             <div>
                 <a class="btn_ModificaPedido" onclick="ModificarPedido();">Modifica tu pedido</a>
 
                 @{
-                    string[] tooltips = ViewBag.ProlTooltip.Split('|');
-                    string tooltip1 = tooltips[0];
-                    string tooltip2 = tooltips[1];
+            string[] tooltips = ViewBag.ProlTooltip.Split('|');
+            string tooltip1 = tooltips[0];
+            string tooltip2 = tooltips[1];
                 }
 
                 <div class="info_modificarvalidado">
@@ -171,30 +214,30 @@
 
         <div class="contenedor_eliminacion_pedido">
             @if (ViewBag.EsKitNueva == 1)
-            {
-                <p class="precio_total_sinDescuento">
-                    <span class="icon-advertencia"></span>
-                    <span>
-                        Por ser tu primer pedido estarás recibiendo el Kit de nuevas, el cual será incluido en tu factura.
-                    </span>
-                </p>
-            }
+        {
+            <p class="precio_total_sinDescuento">
+                <span class="icon-advertencia"></span>
+                <span>
+                    Por ser tu primer pedido estarás recibiendo el Kit de nuevas, el cual será incluido en tu factura.
+                </span>
+            </p>
+    }
         </div>
         <div class="clear"></div>
 
         <div class="datos_para_movil">
             @if (ViewBag.Pais_ISO == Constantes.CodigosISOPais.CostaRica)
-            {
-                <p class="productos_ingresados_movil">
-                    <span class="icon-mobile"><img src="@Url.Content("~/Content/Images/mobile-pedido.png")" alt="" /></span><b> Producto ingresado por aplicación "Pedido Belcorp" desde celular.</b>
-                </p>
-            }
-            else if (ViewBag.PedidoProductoMovil == 1)
-            {
-                <p class="productos_ingresados_movil">
-                    <span class="icon-mobile"><img src="@Url.Content("~/Content/Images/mobile-pedido.png")" alt="" /></span><b> Tienes productos pendientes de validación ingresados desde celular, por favor modifique su pedido y valide nuevamente.</b>
-                </p>
-            }
+        {
+            <p class="productos_ingresados_movil">
+                <span class="icon-mobile"><img src="@Url.Content("~/Content/Images/mobile-pedido.png")" alt="" /></span><b> Producto ingresado por aplicación "Pedido Belcorp" desde celular.</b>
+            </p>
+    }
+    else if (ViewBag.PedidoProductoMovil == 1)
+    {
+        <p class="productos_ingresados_movil">
+            <span class="icon-mobile"><img src="@Url.Content("~/Content/Images/mobile-pedido.png")" alt="" /></span><b> Tienes productos pendientes de validación ingresados desde celular, por favor modifique su pedido y valide nuevamente.</b>
+        </p>
+}
         </div>
 
         <div class="contenedor_banners">
@@ -209,27 +252,27 @@
                 </li>
 
                 @if (ViewBag.Pais_ISO == Constantes.CodigosISOPais.Venezuela)
-                {
-                    <li>
-                        <a href="javascript:;" title="Monto Mínimo">
-                            <div class="imagen_banner_inferior">
-                                <img src="@ViewBag.UrlBanner02" alt="Monto Mínimo" />
-                            </div>
-                            <div class="nombre_banner_inferior">MONTO MÍNIMO</div>
-                        </a>
-                    </li>
-                }
-                else
-                {
-                    <li>
-                        <a href="javascript:void(0);" onclick="MostrarMensaje('Para acceder a esta opción primero debes Modificar tu Pedido.');" title="Entérate aquí">
-                            <div class="imagen_banner_inferior">
-                                <img src="@ViewBag.UrlBanner02" alt="Entérate aquí" />
-                            </div>
-                            <div class="nombre_banner_inferior">ENTÉRATE AQUÍ</div>
-                        </a>
-                    </li>
-                }
+            {
+                <li>
+                    <a href="javascript:;" title="Monto Mínimo">
+                        <div class="imagen_banner_inferior">
+                            <img src="@ViewBag.UrlBanner02" alt="Monto Mínimo" />
+                        </div>
+                        <div class="nombre_banner_inferior">MONTO MÍNIMO</div>
+                    </a>
+                </li>
+        }
+        else
+        {
+            <li>
+                <a href="javascript:void(0);" onclick="MostrarMensaje('Para acceder a esta opción primero debes Modificar tu Pedido.');" title="Entérate aquí">
+                    <div class="imagen_banner_inferior">
+                        <img src="@ViewBag.UrlBanner02" alt="Entérate aquí" />
+                    </div>
+                    <div class="nombre_banner_inferior">ENTÉRATE AQUÍ</div>
+                </a>
+            </li>
+    }
 
                 <li>
                     <a href="javascript:;" title="Infórmate aquí" onclick="CargarProductoAgotados(1);">

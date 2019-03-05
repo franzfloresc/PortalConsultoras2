@@ -1802,6 +1802,32 @@ namespace Portal.Consultoras.BizLogic
                         listaPedidosFacturados.Add(new BEPedidoWeb(reader));
                     }
                 }
+
+                BLPedidoWebDetalle blPedidoWebDetalle = new BLPedidoWebDetalle();
+
+                foreach (var item in listaPedidosFacturados)
+                {
+                    if (item.EstadoPedidoDesc.ToUpper() == "INGRESADO")
+                    {
+                        var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
+                        {
+                            PaisId = paisID,
+                            CampaniaId = item.CampaniaID,
+                            ConsultoraId = item.ConsultoraID,
+                            Consultora = "",
+                            CodigoPrograma = "",
+                            NumeroPedido = 0,
+                            AgruparSet = true
+                        };
+
+                        var pedidoIngresadoAgrupado = blPedidoWebDetalle.GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros, true, true).ToList();
+                        if (pedidoIngresadoAgrupado.Any())
+                        {
+                            item.ImporteTotal = pedidoIngresadoAgrupado.Sum(x => x.ImporteTotal);
+                        }
+                        break;
+                    }
+                }
             }
             else
             {

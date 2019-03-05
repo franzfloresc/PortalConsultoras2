@@ -62,7 +62,7 @@
                                                 <div class="posr">
                                                     <div class="table-width">
                                                         <div class="upper">
-                                                        @(item3.SetIdentifierNumber > 0 ? "#" + item3.SetIdentifierNumber : "")
+                                                        @(item3.SetIdentifierNumber > 0 ? "#" + item3.SetIdentifierNumber + "-" : "")
                                                         @Html.DisplayTextFor(modelItem => @item3.DescripcionProd)</div>
                                                         <div class="mb-10">
                                                             <div>@Html.DisplayTextFor(modelItem => item3.CUV)</div>
@@ -137,7 +137,7 @@
             </div>
             <div id="parteDescuento_@i" class="block-info text-center" style="margin-top: -10px;text-transform: capitalize">
                 @*DESCUENTO OFERTAS CON MAS DE UN PRECIO<br />*@
-                Descuentos ofertas por niveles<br />
+                <span style="text-transform: capitalize">Descuentos</span><span style="text-transform: lowercase"> ofertas por niveles</span><br />
                 <div class="text-lg">@Model.Simbolo @Model.ListaPedidoCliente[i].DescuentoString</div>
             </div>
         }

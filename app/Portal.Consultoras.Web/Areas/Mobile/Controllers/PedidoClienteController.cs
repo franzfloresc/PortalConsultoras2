@@ -105,13 +105,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     if (userData.PaisID == Constantes.PaisID.Colombia)
                     {
                         pedidoCliente.SubtotalString = pedidoCliente.Subtotal.ToString("n0", new System.Globalization.CultureInfo("es-CO"));
-                        pedidoCliente.DescuentoString = pedidoCliente.Descuento.ToString("n0", new System.Globalization.CultureInfo("es-CO"));
+                        pedidoCliente.DescuentoString = (-1 * pedidoCliente.Descuento).ToString("n0", new System.Globalization.CultureInfo("es-CO"));
                         pedidoCliente.ImporteTotalString = pedidoCliente.ImporteTotal.ToString("n0", new System.Globalization.CultureInfo("es-CO"));
                     }
                     else
                     {
                         pedidoCliente.SubtotalString = pedidoCliente.Subtotal.ToString("n2", new System.Globalization.CultureInfo("es-PE"));
-                        pedidoCliente.DescuentoString = pedidoCliente.Descuento.ToString("n2", new System.Globalization.CultureInfo("es-PE"));
+                        pedidoCliente.DescuentoString = (-1 * pedidoCliente.Descuento).ToString("n2", new System.Globalization.CultureInfo("es-PE"));
                         pedidoCliente.ImporteTotalString = pedidoCliente.ImporteTotal.ToString("n2", new System.Globalization.CultureInfo("es-PE"));
                     }
                 }

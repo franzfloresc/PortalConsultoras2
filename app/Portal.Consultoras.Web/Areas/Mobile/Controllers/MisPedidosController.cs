@@ -59,6 +59,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return View(listaPedidos);
         }
 
+        decimal descuento = 0;
         [HttpGet]
         public PartialViewResult IngresadoDetalle()
         {
@@ -98,7 +99,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                     var detallePedido = ObtenerPedidoWebSetDetalleAgrupado() ?? new List<BEPedidoWebDetalle>();
 
-                    var totalPedido = detallePedido.Sum(x => x.ImporteTotal);
+                    var totalImportePedido = detallePedido.Sum(x => x.ImporteTotal);
+                    var descuentoProl = detallePedido.Sum(x => x.DescuentoProl);
+                    var descuentoTotal = descuentoProl / detallePedido.Count();
+                    ViewBag.descuento = descuentoTotal;
+                    var totalPedido = totalImportePedido - descuentoTotal;
+                    ViewBag.SubtotalPedido = Util.DecimalToStringFormat(totalImportePedido, userData.CodigoISO, userData.Simbolo);
+                    ViewBag.descuentoPedido = Util.DecimalToStringFormat(descuentoTotal, userData.CodigoISO, userData.Simbolo);
                     ViewBag.TotalPedido = Util.DecimalToStringFormat(totalPedido, userData.CodigoISO, userData.Simbolo);
 
                     var clientes = detallePedido.GroupBy(x => x.ClienteID).Select(x => x.First()).ToList();
@@ -111,7 +118,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         {
                             CampaniaID = cliente.CampaniaID,
                             ClienteID = cliente.ClienteID,
-                            NombreCliente = (cliente.ClienteID != 0) ? cliente.NombreCliente : userData.NombreConsultora,
+                            NombreCliente = (cliente.ClienteID != 0) ? cliente.Nombre : userData.NombreConsultora,
                             CantidadPedido = detalleCliente.Sum(x => x.Cantidad),
                             ImportePedido = Util.DecimalToStringFormat(detalleCliente.Sum(x => x.ImporteTotal), userData.CodigoISO, userData.Simbolo),
                             Detalle = new List<MisPedidosIngresadosDetalleModel>()
