@@ -807,6 +807,7 @@ function calcMtoLogro(data, destino) {
     var barra = data.DataBarra;
     var me = data.MontoEscala;
     var md = data.MontoDescuento;
+    var mn = data.MontoMinimo;
     var mx = data.MontoMaximo;
     var mt = data.TotalPedido;
     var tp = data.TippingPoint;

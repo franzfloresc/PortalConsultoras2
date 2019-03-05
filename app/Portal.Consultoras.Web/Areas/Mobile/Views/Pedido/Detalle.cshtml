@@ -996,7 +996,7 @@
         //OG
         var dataBarra = JSON.parse('@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(@ViewBag.DataBarra))');
         var listaMensajeMeta = dataBarra == null ? null : dataBarra.ListaMensajeMeta;
-        document.getElementsByClassName('descuento_pedido')[0].style.display = 'None';
+
         var listaIconoLluvia = [
             '@Url.Content("~/Content/Images/lluvia/ov-d.svg")',
             '@Url.Content("~/Content/Images/lluvia/ov-r.svg")',
