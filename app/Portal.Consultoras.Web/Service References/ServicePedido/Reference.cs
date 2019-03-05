@@ -38739,6 +38739,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string CuvProductoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int DigitableField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int FactorRepeticionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -38810,6 +38813,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.CuvProductoField, value) != true)) {
                     this.CuvProductoField = value;
                     this.RaisePropertyChanged("CuvProducto");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Digitable {
+            get {
+                return this.DigitableField;
+            }
+            set {
+                if ((this.DigitableField.Equals(value) != true)) {
+                    this.DigitableField = value;
+                    this.RaisePropertyChanged("Digitable");
                 }
             }
         }

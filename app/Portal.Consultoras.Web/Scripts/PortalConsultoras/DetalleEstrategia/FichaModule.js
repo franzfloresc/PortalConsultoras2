@@ -899,12 +899,13 @@ var FichaModule = (function (config) {
                 modeloFicha.Error = true;
             });
 
+        _modeloFicha = modeloFicha;
+
         if (modeloFicha.Error === true) {
             _redireccionar();
             return false;
         }
 
-        _modeloFicha = modeloFicha;
         _modeloFicha.ConfiguracionContenedor = _modeloFicha.ConfiguracionContenedor || {};
         _modeloFicha.BreadCrumbs = _modeloFicha.BreadCrumbs || {};
     };
@@ -924,7 +925,6 @@ var FichaModule = (function (config) {
         else {
             _modeloFicha = {};
             FichaPartialModule.ShowDivFichaResumida(false);
-            //alert('Ha ocurrido una excepción al obtener los datos para este CUV.');
         }
     };
 

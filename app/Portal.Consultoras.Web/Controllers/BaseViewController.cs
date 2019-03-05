@@ -586,24 +586,29 @@ namespace Portal.Consultoras.Web.Controllers
             if (!_ofertaPersonalizadaProvider.TienePermisoPalanca(palanca))
                 return null;
 
+            var esMobile = IsMobile();
             DetalleEstrategiaFichaModel modelo = GetEstrategiaInicial(palanca, campaniaId, cuv);
+
             if (modelo == null)
             {
-                return null;
+                modelo = new DetalleEstrategiaFichaModel
+                {
+                    Error = true
+                };
             }
 
             #region Modelo
-
-            var esMobile = IsMobile();
-
-            modelo.NoEsCampaniaActual = campaniaId != userData.CampaniaID;
-
-
-            modelo.MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(esMobile);
+            
             modelo.OrigenUrl = origen;
             modelo.OrigenAgregar = GetOrigenPedidoWebDetalle(origen);
 
             modelo.TipoAccionNavegar = GetTipoAccionNavegar(modelo.OrigenAgregar, esMobile, esEditar);
+            
+            if (modelo.Error)
+            {
+                return modelo;
+            }
+
             modelo.BreadCrumbs = modelo.TipoAccionNavegar == Constantes.TipoAccionNavegar.BreadCrumbs
                 ? GetDetalleEstrategiaBreadCrumbs(campaniaId, palanca)
                : new DetalleEstrategiaBreadCrumbsModel();
@@ -627,6 +632,9 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             #endregion
+
+            modelo.MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(esMobile);
+            modelo.NoEsCampaniaActual = campaniaId != userData.CampaniaID;
 
             modelo.MostrarCliente = GetMostrarCliente(esEditar);
             modelo.MostrarAdicional = GetInformacionAdicional(esEditar);
