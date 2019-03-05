@@ -1,0 +1,311 @@
+﻿@font-face {
+    font-family: 'icomoon';
+    src: url('fonts/icomoon.eot?-q1bfik');
+    src: url('fonts/icomoon.eot?#iefix-q1bfik') format('embedded-opentype'), url('fonts/icomoon.woff?-q1bfik') format('woff'), url('fonts/icomoon.ttf?-q1bfik') format('truetype'), url('fonts/icomoon.svg?-q1bfik#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'OldStandard-Italic';
+    src: url('fonts/OldStandard-Italic.eot');
+    src: url('fonts/OldStandard-Italic.eot?#iefix') format('embedded-opentype'), url('fonts/OldStandard-Italic.woff') format('woff'), url('fonts/OldStandard-Italic.ttf') format('truetype'), url('fonts/OldStandard-Italic.svg#OldStandardItalic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'Lato', sans-serif !important;
+}
+
+input, button, ul, li, a {
+    font-family: 'Lato', sans-serif !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Lato', sans-serif !important;
+}
+
+
+.tabla_cabecera div {
+    color: #000;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.3px;
+    padding-top: 17px;
+    padding-bottom: 17px;
+    line-height: normal;
+    text-transform: uppercase;
+    border-bottom: 1px solid #000;
+    border-top: 1px solid #000;
+}
+
+.tabla_item div {
+    font-size: 13px;
+    line-height: 60px;
+    border-bottom: 1px solid #d8d8d8;
+    height: 60px;
+}
+
+
+.btn_editar {
+    background: url('/Content/Images/editar_tu_clientes.svg') center center no-repeat;
+    box-shadow: none;
+    border: none;
+    width: 23px;
+    cursor: pointer;
+    background-size: 23px;
+}
+
+.btn_eliminar {
+    background: url('/Content/Images/borrar_tusclientes.svg') center center no-repeat;
+    box-shadow: none;
+    border: none;
+    width: 24px;
+    cursor: pointer;
+}
+
+.layout__view__lista__breadcrumbs {
+    margin-bottom: 0px !important;
+}
+
+/*#divClientes .tabla_item:nth-child(even) {
+    background-size: 16px;
+    background-color: #efefef;
+}*/
+
+
+.Form-AgregarCliente {
+    width: 330px !important;
+    margin-right: -330px;
+}
+
+
+.show_PopupEditarCliente {
+    margin-right: 0px;
+}
+
+.titulo_bloque {
+    border-bottom: 2px solid #000;
+    margin-bottom: 30px;
+    background-color: #f9f9f9;
+}
+
+    .titulo_bloque h3 {
+        color: #fff;
+        font-size: 18px;
+        background-color: #000;
+        text-transform: uppercase;
+        padding: 14px 0px;
+        z-index: 1;
+        position: relative;
+    }
+
+        .titulo_bloque h3 strong {
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+
+    .titulo_bloque .container .row > div {
+        position: relative;
+        width: 150px;
+    }
+
+        .titulo_bloque .container .row > div::after {
+            content: "";
+            display: block;
+            width: 900%;
+            background: #000;
+            height: 49.7px;
+            -webkit-transform: skew(20deg);
+            -moz-transform: skew(20deg);
+            -ms-transform: skew(20deg);
+            -o-transform: skew(20deg);
+            transform: skew(20deg);
+            position: absolute;
+            z-index: 0;
+            top: 0;
+            right: -12px;
+        }
+
+.buscar_cliente {
+    line-height: 40px;
+    border: 1px solid #d8d8d8;
+    font-size: 13px;
+    color: #999;
+    padding: 0px 18px;
+    background: url('/Content/Images/Esika/lupa.png') no-repeat right center;
+    width: 94% !important;
+    height: 45px;
+    border-radius: 4px;
+    display: block;
+}
+
+.boton_agregar {
+    border: none;
+    background: #000;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 13px;
+    font-weight: bold;
+    height: 45px;
+    padding: 0px 30px;
+    text-align: center;
+    line-height: 45px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+    .boton_agregar img {
+        width: 25px;
+        height: auto;
+        margin-right: 5px;
+        line-height: 45px;
+    }
+
+
+.botton_export_xls {
+    border: 1px solid #000;
+    border-radius: 4px;
+    margin-right: 10px;
+    background: none;
+    width: 53px;
+    height: 45px;
+    cursor: pointer;
+}
+
+    .botton_export_xls img {
+        width: 23px;
+        height: 25px;
+    }
+
+.seleccion_header {
+    padding: 15px;
+    padding-top: 15px;
+    border-bottom: 1px solid #d8d8d8;
+    position: relative;
+    background-color: #fff;
+}
+
+.container_clientes{
+    margin-bottom:60px;
+}
+
+
+
+
+@media screen and (max-width:768px) {
+
+    .show_PopupEditarCliente {
+        width: 100% !important;
+    }
+
+    .tabla_cabecera{
+        display:none;
+    }
+    .titulo_bloque {
+        margin-top: 60px;
+        margin-bottom: 15px;
+        background: #000
+    }
+
+        .titulo_bloque .container .row > div {
+            width: 100%;
+            text-align: center;
+        }
+
+        .titulo_bloque h3 {
+            font-size: 15px;
+            padding: 14px 0px 12px 0px;
+            background: url('/Content/Images/arrow-left.png') no-repeat center left 10px;
+        }
+
+        .titulo_bloque h3 strong {
+            font-size: 15px;
+            font-weight: normal;
+        }
+
+        .titulo_bloque .container .row > div::after {
+            display:none;
+
+        }
+
+    le.content_boton_agregar {
+        position: fixed;
+        bottom: 0;
+        z-index: 10;
+        width: 100%;
+        background-color: #f5f5f5;
+        padding: 10px 18px;
+        left:0px;
+    }
+
+    .botton_export_xls{
+        display: none;
+    }
+    .buscar_cliente{
+        width: 100% !important;
+    }
+
+    .boton_agregar {
+        width: 100%;
+    }
+
+    .tabla_item {
+        border-bottom: 1px solid #d8d8d8;
+        align-items: center;
+    }
+
+        .tabla_item div {
+            border: none;
+            font-size: 15px;
+            text-transform: capitalize;
+        }
+
+            .tabla_item div:nth-child(2), .tabla_item div:nth-child(3), .tabla_item div:nth-child(4), .tabla_item div:nth-child(5){
+                display: none;
+            }
+
+    .btn_eliminar, .btn_editar {
+        padding: 0;
+    }
+
+    .editar {
+        border-right: 1px solid #979797 !important;
+        height: 35px !important;
+        text-align: center;
+    }
+
+    .btn_editar {
+        height: 38px;
+    }
+    .d-none{
+        display:none !important;
+    }
+
+    .container_clientes {
+        margin-bottom: 30px;
+    }
+
+    .content_boton_agregar_ancla {
+        position: relative !important;
+        background: #fff !important;
+    }
+
+}
+
+
+@media screen and (min-width:768px) {
+    .fitros_fixed {
+        display:none;
+        position: fixed;
+        width: 100%;
+        background: #f5f5f5;
+        top: 61px;
+        padding-top: 15px;
+        z-index: 999;
+        border-bottom: 1px solid rgba(126,126,126,.2);
+    }
+}
