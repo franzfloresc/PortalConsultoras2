@@ -404,6 +404,13 @@
                 closeWaitingDialog();
                 return false;
             }
+            alert(data.AppOfertasHomeImgAncho)
+            $("#div-lan-app .inforRdText").html(data.AppOfertasHomeImgAncho + " x " + data.AppOfertasHomeImgAlto + " pixeles");
+            $("#nombre-img-fondo-app").attr("imageextension", data.AppOfertasHomeImgAncho);
+            $("#nombre-img-fondo-app").attr("imagewidth", data.AppOfertasHomeImgAncho);
+            $("#nombre-img-fondo-app").attr("imageheight", data.AppOfertasHomeImgAlto);
+            $("#nombre-img-fondo-app").attr("messageSize", data.AppOfertasHomeMsjMedida);
+            $("#nombre-img-fondo-app").attr("messageFormat", data.AppOfertasHomeMsjFormato);
 
             $('#CodigoEstrategia').val(data.CodigoEstrategia);
             $('#flagImagenUrl').val(data.Imagen);

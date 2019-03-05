@@ -1783,6 +1783,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string GPRTextovinculoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool GanaMasNativoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Portal.Consultoras.Web.ServiceUsuario.BEGuiaNegocio GuiaNegocioField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1987,6 +1990,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private bool PuedeEnviarSMSField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos[] RecomendacionesConfiguracionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string RegionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -2027,6 +2033,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string SegmentoConstanciaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SegmentoDatamiField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int SegmentoIDField;
@@ -3386,6 +3395,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool GanaMasNativo {
+            get {
+                return this.GanaMasNativoField;
+            }
+            set {
+                if ((this.GanaMasNativoField.Equals(value) != true)) {
+                    this.GanaMasNativoField = value;
+                    this.RaisePropertyChanged("GanaMasNativo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public Portal.Consultoras.Web.ServiceUsuario.BEGuiaNegocio GuiaNegocio {
             get {
                 return this.GuiaNegocioField;
@@ -4270,6 +4292,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos[] RecomendacionesConfiguracion {
+            get {
+                return this.RecomendacionesConfiguracionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RecomendacionesConfiguracionField, value) != true)) {
+                    this.RecomendacionesConfiguracionField = value;
+                    this.RaisePropertyChanged("RecomendacionesConfiguracion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string Region {
             get {
                 return this.RegionField;
@@ -4447,6 +4482,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.SegmentoConstanciaField, value) != true)) {
                     this.SegmentoConstanciaField = value;
                     this.RaisePropertyChanged("SegmentoConstancia");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SegmentoDatami {
+            get {
+                return this.SegmentoDatamiField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SegmentoDatamiField, value) != true)) {
+                    this.SegmentoDatamiField = value;
+                    this.RaisePropertyChanged("SegmentoDatami");
                 }
             }
         }
