@@ -303,6 +303,44 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfSolicitudPostulanteBE" nillable="true" type="tns:ArrayOfSolicitudPostulanteBE" />
+  <xs:complexType name="ArrayOfReportePagoDeKitLog">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ReportePagoDeKitLog" nillable="true" type="tns:ReportePagoDeKitLog" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfReportePagoDeKitLog" nillable="true" type="tns:ArrayOfReportePagoDeKitLog" />
+  <xs:complexType name="ReportePagoDeKitLog">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ApellidoMaterno" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ApellidoPaterno" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CampaniaId" type="xs:int" />
+      <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoRegion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoZona" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Estatus" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EstatusDetalle" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FechaPago" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaProceso" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FleteMonto" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="HoraPago" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="HoraProceso" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MetodoPagoId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NombresCompletos" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NumeroDocumento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Origen" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PagoDeKitLogId" type="xs:int" />
+      <xs:element minOccurs="0" name="PagoId" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="PrimerNombre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SegundoNombre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SolicitudPostulanteID" type="xs:int" />
+      <xs:element minOccurs="0" name="TarjetaNumero" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoTarjeta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TransaccionMontoPagadoTotal" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TransaccionMontoRecibido" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="iva" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ReportePagoDeKitLog" nillable="true" type="tns:ReportePagoDeKitLog" />
   <xs:complexType name="ArrayOfSolicitudPostulanteXLS">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="SolicitudPostulanteXLS" nillable="true" type="tns:SolicitudPostulanteXLS" />

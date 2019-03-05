@@ -62,5 +62,22 @@ namespace Portal.Consultoras.Common
 
             return RutaCdn + "/" + rutaRevistaDigital + "/" + carpeta + fileName;
         }
+
+        public static string GetUrlFileInSubdirectory(string subdirectory, string pais, string fileName)
+        {
+            fileName = fileName ?? "";
+            if (fileName.StartsWith(URL_S3))
+                return fileName;
+
+            if (fileName.StartsWith("http:/"))
+                return fileName;
+
+            if (fileName.StartsWith("https:/"))
+                return fileName;
+
+            var subdirectoryPais = string.IsNullOrEmpty(pais) ? "" : pais + "/";
+
+            return RutaCdn + "/" + subdirectory + "/" + subdirectoryPais + fileName;
+        }
     }
 }

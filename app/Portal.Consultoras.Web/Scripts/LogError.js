@@ -38,8 +38,6 @@ window.onerror = function (msg, url, line, col, error) {
     };
 
     registrarLogErrorElastic(objError);
-    registrarLogError(objError);
-
     var suppressErrorAlert = true;
     // Si devuelve true, entonces las alertas de error (como en versiones anteriores de
     // Internet Explorer) se suprimirá.
@@ -106,7 +104,6 @@ $(document).ajaxError(function (event, jqxhr, settings, thrownError) {
         TipoTrace: 'AjaxError'
     };
     registrarLogErrorElastic(objError);
-    registrarLogError(objError);
 });
 
 function registrarLogError(objError) {
