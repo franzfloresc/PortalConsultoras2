@@ -249,7 +249,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 if (item.Etapa == Constantes.SegPedidoSituacion.FechaEstimadaEntrega && ValidarZonaRegion())
                 {
-                    item.HoraEstimadaDesdeHasta = string.Format("{0} {1}", horaEstimadaEntregaDesde, horaEstimadaEntregaHasta);
+                    item.HoraEstimadaDesdeHasta = string.Format("{0} - {1}", horaEstimadaEntregaDesde, horaEstimadaEntregaHasta);
                 }
 
                 listaEstadoSeguimiento.Add(item);
