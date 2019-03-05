@@ -448,8 +448,11 @@ namespace Portal.Consultoras.Web
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mixto/Js-Login").Include(
                "~/Scripts/General.js",
                "~/Scripts/PortalConsultoras/Login/Analytics.js",
-               "~/Scripts/PortalConsultoras/Login/FormsSignIn.js"
+               "~/Scripts/PortalConsultoras/Login/FormsSignIn.js",
+               "~/Scripts/CryptoJS/aes.js",
+               "~/Scripts/CryptoJS/pbkdf2.js"
             ));
+
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mixto/Login-Header").Include(
                "~/Scripts/PortalConsultoras/Login/Analytics.js"
             ));

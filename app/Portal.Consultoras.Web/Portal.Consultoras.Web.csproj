@@ -3950,6 +3950,8 @@
     <Content Include="Scripts\Comunidad\fuzescale-1.3.min.js" />
     <Content Include="Scripts\Comunidad\jquery.min.js" />
     <Content Include="Scripts\Comunidad\modernizr.custom.js" />
+    <Content Include="Scripts\CryptoJS\aes.js" />
+    <Content Include="Scripts\CryptoJS\pbkdf2.js" />
     <Content Include="Scripts\cycle-plugin.js" />
     <Content Include="Scripts\DatetimePicker\jquery.datetimepicker.js" />
     <Content Include="Scripts\DD_roundies.js" />
