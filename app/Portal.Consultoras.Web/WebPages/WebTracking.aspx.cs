@@ -257,8 +257,9 @@ namespace Portal.Consultoras.Web.WebPages
                 int mostrarAyuda = Convert.ToInt32(query[2]);
                 string paisIso = query[3];
                 int campanhaId = int.Parse(query[4]);
-                int.TryParse(query[5].ToString(), out int zonaID);
-                int.TryParse(query[6].ToString(), out int regionID);
+                int zonaID, regionID;
+                int.TryParse(query[5].ToString(), out zonaID);
+                int.TryParse(query[6].ToString(), out regionID);
 
                 ViewState["CODIGO"] = codigoConsultora;
                 ViewState["PAIS"] = paisId;
