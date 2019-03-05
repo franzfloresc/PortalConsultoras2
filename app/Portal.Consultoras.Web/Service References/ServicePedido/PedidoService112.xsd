@@ -1,30 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Producto" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Producto" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:complexType name="ArrayOfBEProductoRecomendado">
+<xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/Arrays" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfstring">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEProductoRecomendado" nillable="true" type="tns:BEProductoRecomendado" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="ArrayOfBEProductoRecomendado" nillable="true" type="tns:ArrayOfBEProductoRecomendado" />
-  <xs:complexType name="BEProductoRecomendado">
+  <xs:element name="ArrayOfstring" nillable="true" type="tns:ArrayOfstring" />
+  <xs:complexType name="ArrayOfint">
     <xs:sequence>
-      <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoEstrategia" type="xs:int" />
-      <xs:element minOccurs="0" name="CodigoTipoEstrategia" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DescripcionEstrategia" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DescripcionMarca" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="EstrategiaID" type="xs:int" />
-      <xs:element minOccurs="0" name="FotoProductoSmall" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="LimiteVenta" type="xs:int" />
-      <xs:element minOccurs="0" name="MarcaID" type="xs:int" />
-      <xs:element minOccurs="0" name="OrigenPedidoWeb" type="xs:int" />
-      <xs:element minOccurs="0" name="PrecioCatalogo" type="xs:decimal" />
-      <xs:element minOccurs="0" name="PrecioValorizado" type="xs:decimal" />
-      <xs:element minOccurs="0" name="Stock" type="xs:boolean" />
-      <xs:element minOccurs="0" name="TipoEstrategiaID" type="xs:int" />
-      <xs:element minOccurs="0" name="TipoPersonalizacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="int" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="BEProductoRecomendado" nillable="true" type="tns:BEProductoRecomendado" />
+  <xs:element name="ArrayOfint" nillable="true" type="tns:ArrayOfint" />
+  <xs:complexType name="ArrayOfKeyValueOfstringstring">
+    <xs:annotation>
+      <xs:appinfo>
+        <IsDictionary xmlns="http://schemas.microsoft.com/2003/10/Serialization/">true</IsDictionary>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="KeyValueOfstringstring">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Key" nillable="true" type="xs:string" />
+            <xs:element name="Value" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfKeyValueOfstringstring" nillable="true" type="tns:ArrayOfKeyValueOfstringstring" />
 </xs:schema>

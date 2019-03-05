@@ -265,7 +265,7 @@
                                         <span><b>Total:</b></span>
                                     </div>
                                     <br />
-                                    <div class="monto_ganancia default-color">
+                                    <div class="monto_ganancia default-color" style="text-transform:none">
                                         <div class="info_extra_Validado abrir_popupMisGanancias">
                                             <img src="/Content/Images/Esika/info-copy.png" onclick="MostrarDetalleGanancia();">
                                         </div>
@@ -311,7 +311,7 @@
                                             }
                                             else if (Model.CodigoIso == Constantes.CodigosISOPais.Bolivia) //BO
                                             {
-                                                cabezaEscala = "Ganancia total";
+                                                cabezaEscala = "Ganancia estimada";
                                                 pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocio y Otros";
                                                 lbl1Ganancia = "Mis descuentos";
                                                 lbl2Ganancia = "Ganancia estimada *(Guia de negocio y otros)";
@@ -395,7 +395,8 @@
                             }
                         }
                         <div class="boton_guardarPedido">
-                            <input type="button" id="btnValidarPROL" value="@Model.Prol"  class="info_copy default-background-color" />
+                            
+                            <button id="btnValidarPROL"  class="info_copy default-background-color">@Model.Prol</button>
                         </div>
                     </div>
 
