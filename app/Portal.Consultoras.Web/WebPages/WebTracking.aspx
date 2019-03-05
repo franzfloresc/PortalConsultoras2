@@ -195,7 +195,7 @@
                                 <td>                                                                        
                                     <table style="width: 100%;"> <!--ESTILOS DE LA PRIMERA GRILLA-->
                                         <tr>
-                                            <td id="cellPedidos" runat="server" class="width_37" style="vertical-align: top; text-align: left">                                               
+                                            <td id="cellPedidos" runat="server" class="width_43" style="vertical-align: top; text-align: left">                                               
                                                 <asp:Panel ID="pFiltros" runat="server" Width="100%"
                                                     ForeColor="#666666" GroupingText="Mis <b>pedidos</b>"
                                                     Font-Names="verdana" Font-Size="8pt" HorizontalAlign="Left">
