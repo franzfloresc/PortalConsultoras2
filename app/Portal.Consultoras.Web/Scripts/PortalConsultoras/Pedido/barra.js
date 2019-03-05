@@ -807,6 +807,7 @@ function calcMtoLogro(data, destino) {
     var barra = data.DataBarra;
     var me = data.MontoEscala;
     var md = data.MontoDescuento;
+    var mn = data.MontoMinimo;
     var mx = data.MontoMaximo;
     var mt = data.TotalPedido;
     var tp = data.TippingPoint;
@@ -2600,7 +2601,7 @@ function TieneMontoMaximo() {
     return dataBarra.MontoMaximo != 0 &&
         dataBarra.MontoMaximo != "" &&
         dataBarra.MontoMaximo != null &&
-        dataBarra.MontoMaximo.toString().substring(0, 4) != "9999";
+        dataBarra.MontoMaximo*1 <= 999999;
 }
  
 function CalculoPorcentajeAvance(montoActual, montoMaximo) {
