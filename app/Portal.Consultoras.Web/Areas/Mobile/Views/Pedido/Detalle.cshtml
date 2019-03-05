@@ -39,9 +39,12 @@
                     MI PEDIDO
                     <span>@Model.DescripcionCampaniaActual</span>
                 </h2>
-
+                <input type="hidden" id="hdfSimbolo" value="@Model.Simbolo" />
+                <input type="hidden" id="hdfTotal" value="@Model.Total" />
+                @*@Html.Partial("~/Areas/Mobile/Views/Util/_barra.cshtml")*@
+                
                 <div id="divPedidoTotalSuperior"></div>
-                <div id="divProductosDetalle">
+                <div id="divProductosDetalle" class="contenedor_lista_detalle_productos">
                     <div class="text-center">
                         <img alt="Cargando..." src="@Url.Content("~/Content/images/Loading.gif")" />
                     </div>
@@ -301,7 +304,14 @@
     <div class="detalle_pedido_ingresado">
         <span class="titulo_detalle">DETALLE</span>
     </div>
-
+    @if (ViewBag.CantPedidoPendientes > 0)
+    {
+        <div class="info_pedidos_por_aprobar">
+            <a href="@Url.Action("Pendientes", "ConsultoraOnline", new { area = "Mobile" })" class="multimarca-background-color text-center btn_pedidos_por_aprobar" title="Pedidos por aprobar">
+                Pedidos por aprobar (@ViewBag.CantPedidoPendientes)
+            </a>
+        </div>
+    }
     {{#IsNullOrEmpty this.MensajeCierreCampania '!='}}
     <div class="alert-top-icon text-success">
     </div>
@@ -364,6 +374,9 @@
                         {{/IsNullOrEmpty}}
                     </span>
                     
+                    {{#if detalle.EsPremioElectivo }}
+                    <span class="tooltip_informativo_condicion_regalo_programaNuevas">Sólo si llegas a tu monto</span>
+                    {{/if}}
                 </div>
 
                 {{#if detalle.EsKitNueva}}
@@ -378,8 +391,13 @@
                         </span>
                     </div>
                 </div>
+                {{else iff detalle.LockPremioElectivo}}
+                <div class="icono_cambiar_regalo_programaNuevas">
+                    <a href="javascript:;" title="Cambiar regalo" onclick="javascript: cargarPopupEleccionRegalo();">
+                        <img src="@Url.Content("~/Content/Images/icono_editar.svg")" alt="Cambiar regalo" />
+                    </a>
+                </div>
                 {{else}}
-
                 @* 
                 <div class="icono_eliminar_item_pedido">
                     <a href="javascript:;"
@@ -391,7 +409,6 @@
                     </a>
                 </div>
                 *@
-
                 {{/if}}
             </div>
             <div class="bloque_cantidades_precios_items_ingresados">
@@ -410,6 +427,17 @@
                                    readonly="readonly"
                                    autocomplete="off">
                             {{else iff detalle.TipoEstrategiaID '==' 1}}
+                            <input type="tel"
+                                   class="ValidaNumeral ValidaPasteNumeral Cantidad"
+                                   maxlength="2"
+                                   name="Cantidad_{{detalle.PedidoDetalleID}}"
+                                   value="{{detalle.Cantidad}}"
+                                   data-pedidodetalleid="{{detalle.PedidoDetalleID}}"
+                                   data-setId="{{detalle.SetID}}"
+                                   data-cantidad-input="-"
+                                   readonly="readonly"
+                                   autocomplete="off">
+                            {{else iff detalle.EsPremioElectivo}}
                             <input type="tel"
                                    class="ValidaNumeral ValidaPasteNumeral Cantidad"
                                    maxlength="2"
@@ -904,7 +932,9 @@
 @Html.Partial("~/Views/Shared/Cupon/popupCuponGanaMobile.cshtml")
 @Html.Partial("~/Views/Shared/Cupon/popupCuponConfirmarMobile.cshtml")
 @Html.Partial("~/Views/Shared/Cupon/popupCuponGanasteMobile.cshtml")
-
+@{ Html.RenderPartial("_PopupEleccionRegalo");}
+@{ Html.RenderPartial("_PopupPremio");}
+@{ Html.RenderPartial("_PopupDescuento");}
 <div id="DivPopupFichaResumida" class="Modal_Editar_Producto" style="display: none">
     @Html.Partial("~/Areas/Mobile/Views/DetalleEstrategia/FichaTemplate.cshtml")
 </div>
@@ -964,13 +994,26 @@
         var mensajePedidoVacio = '@Constantes.MensajesError.Reserva_SinDetalle';
         var mensajeErrorReserva = '@Constantes.MensajesError.Pedido_Reserva';
         var mensajeSinConexionReserva = '@Constantes.MensajesError.SinConexion_Reserva';
-        var urlObtenerComponentes = '@Url.Action("ObtenerComponentes", "DetalleEstrategia", new { area = "" })';
         var mensajeElecMultipleEliminar = '@string.Format(Constantes.ProgNuevas.Mensaje.ElecMultiple_ConfirmaEliminar, Constantes.ProgNuevas.Mensaje.Electivo_PromocionNombre)';
-
+        var urlObtenerComponentes = '@Url.Action("ObtenerComponentes", "DetalleEstrategia", new { area = "" })';
+        
         var tipoOrigenEstrategia = 22;
-    </script>
 
-    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mobile/PedidoDetalle")
+        //OG
+        var dataBarra = JSON.parse('@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(@ViewBag.DataBarra))');
+        var listaMensajeMeta = dataBarra == null ? null : dataBarra.ListaMensajeMeta;
+
+        var listaIconoLluvia = [
+            '@Url.Content("~/Content/Images/lluvia/ov-d.svg")',
+            '@Url.Content("~/Content/Images/lluvia/ov-r.svg")',
+            '@Url.Content("~/Content/Images/lluvia/sq-d.svg")',
+            '@Url.Content("~/Content/Images/lluvia/sq-r.svg")',
+            '@Url.Content("~/Content/Images/lluvia/trg-d.svg")',
+            '@Url.Content("~/Content/Images/lluvia/trg-r.svg")',
+        ];
+        var noIniciarLluvia = true;
+    </script>
+    @Scripts.Render("~/Bundle/Js/Mobile/PedidoDetalle")
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/EstrategiaAgregar")
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/TusClientes")
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Ficha")
@@ -985,4 +1028,6 @@
 
         </script>
     }
+    <script type="text/javascript" src="@Url.Content("~/Scripts/nieve.js")?v=2"></script>
+
 }

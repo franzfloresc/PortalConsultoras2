@@ -152,8 +152,10 @@ namespace Portal.Consultoras.Web.Models
         public int SetID { get; set; }
         public string TipoEstrategiaCodigo { get; set; }
         public bool EsCuponNuevas { get; set; }
-        public int TipoAccion { get; set; }
+        
         public bool EsElecMultipleNuevas { get; set; }
-        public int SetIdentifierNumber { get; set; }
+        public int TipoAccion { get; set; }
+        public bool EsPremioElectivo { get; set; }
+        public bool LockPremioElectivo { get; set; }
     }
 }

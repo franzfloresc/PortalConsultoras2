@@ -294,16 +294,16 @@ var rdAnalyticsModule = (function () {
                     _virtualEventPush(_seccionWeb.home, _text.epm, _action.verLan);
                     break;
                 case _origenWeb.homeLanMobile:
-                    _virtualEventPush(_seccionWeb.homeMobile, _text.epm, _action.verLan);
+                    _virtualEventPush(_seccionWeb.home, _text.epm, _action.verLan);
                     break;
                 case _origenWeb.homeMobile:
-                    _virtualEventPush(_seccionWeb.homeMobile, _text.epm, _action.clickBanner);
+                    _virtualEventPush(_seccionWeb.home, _text.epm, _action.verMas);
                     break;
                 case _origenWeb.catalogoMobile:
                     _virtualEventPush(_seccionWeb.catalogoMobile, _text.epm, _action.clickBanner);
                     break;
                 case _origenWeb.pedidoMobile:
-                    _virtualEventPush(_seccionWeb.pedidoMobile, _text.epm, _action.clickBanner);
+                    _virtualEventPush(_seccionWeb.pedido, _text.epm, _action.verMas);
                     break;
             }
         } catch (e) {

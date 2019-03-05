@@ -35,9 +35,9 @@ else
     <div class="pestana_lbel pestana_lbel_mi_perfil"></div>
 </div>
 <section class="datos_usuario_iniciales w-100">
-    <div class="wrapper_content_mi_perfil">
+    <div class="wrapper_content_mi_perfil text-center">
         <div class="foto_consultora">
-            <a href="@Url.Action("CambiarFotoPerfil", "MiPerfil", new {area = ""})" title="Editar imagen" class="icono_camara default-background-color"></a>
+            <a href="@Url.Action("CambiarFotoPerfil", "MiPerfil", new { area = "" })" title="Editar imagen" class="icono_camara multimarca-background-color"></a>
             <div class="contenedor_foto_consultora">
                 @if (ViewBag.FotoPerfilAncha)
                 {
@@ -49,8 +49,8 @@ else
                 }
             </div>
         </div>
-        <div class="datos_consultora_mi_perfil text-left text-uppercase">
-            <div class="nom_consultora text-bold">
+        <div class="datos_consultora_mi_perfil text-left">
+            <div class="nom_consultora text-bold text-uppercase">
                 @Model.NombreCompleto
             </div>
             <div class="datos_codigo_y_zona">
@@ -65,130 +65,295 @@ else
                 <input type="hidden" id="hdn_PuedeActualizar" value="@Model.ActualizaDatos" />
                 <input type="hidden" id="hdn_enlaceTerminosCondiciones" value="@ViewBag.UrlPdfTerminosyCondiciones" />
                 <input type="hidden" id="hdn_iniciaNumero" value="@Model.IniciaNumeroCelular" />
+                <input type="hidden" id="hdn_PaisID" value="@Model.PaisID" />
+                @{
+                    var TieneDireEntrega = Model.TieneDireccionEntrega ? "1" : "0";
+                    var TienePermiCuenta = Model.TienePermisosCuenta ? "1" : "0";
+                }
+                <input type="hidden" id="hdn_TienedireccionEntrega" value="@TieneDireEntrega" />
+                <input type="hidden" id="hdn_TienePermisosCuenta" value="@TienePermiCuenta" />
                 <div class="datos_codigo">
-                    <span>Código : </span>
+                    <span class="text-bold">Código : </span>
                     <span class="text-bold">@Model.CodigoUsuario</span>
                 </div>
                 <div class="datos_zona">
-                    <span>Zona : </span>
+                    <span class="text-bold">Zona : </span>
                     <span class="text-bold">@Model.Zona</span>
                 </div>
             </div>
             @if (Model.NombreGerenteZonal != "" && Model.IndicadorConsultoraDigital == 0)
             {
                 <div class="datos_gerente_zona">
-                    <span>Gerente de zona : </span>
+                    <span class="text-bold">Gerente de zona : </span>
                     <span class="text-bold">@Model.NombreGerenteZonal</span>
                 </div>
             }
             <a href="@Url.Action("CambiarContrasenia", "MiPerfil", new {area = ""})" title="Cambiar contraseña" class="enlace_cambiar_contrasenia_consultora text-bold">
                 <span class="icono_cambio_password"></span>
-                <span class="enlace_texto">Cambiar contraseña</span>
+                <span class="enlace_texto text-uppercase">Cambiar contraseña</span>
             </a>
         </div>
     </div>
 </section>
+
+
+@*INI EINCA HD-3180 Y HD-3304 15-01-2019*@
+@if (Model.PaisID == Constantes.PaisID.Colombia)
+{
+    <section>
+        <div style="display:flex; display:-webkit-flex;display:-ms-flexbox; flex-direction:row; justify-content:center;">
+            <span style="padding-right:.5rem;">
+                <img style="width:30px;margin-top:.5rem;" src="@Url.Content("~/Content/Images/icono_advertencia_consultora_registrada_coach.png")" />
+            </span>
+            <span style="color:#e81c36;font-weight:bold;font-size:16px;">
+                Modifica tus datos comunicándote al 5948060 en Bogotá y <br /> 018000937452 a nivel nacional.
+            </span>
+        </div>
+    </section>
+}
+@*FIN EINCA HD-3180 Y HD-3304 15-01-2019*@
+
 <section class="form_cambio_datos">
     <div class="wrapper_content_mi_perfil">
-        <fieldset class="grupo_form_cambio_datos text-uppercase">
-            <div class="w-82">
-                <input id="txtSobrenombreMD" name="txtSobrenombreMD" class="w-100" type="text" onkeypress="return FuncionesGenerales.ValidarSoloLetrasYNumeros(event)" value="@Model.Sobrenombre" maxlength="80" />
-                <label for="txtSobrenombreMD" class="w-100">¿Cómo quieres que te llamemos?</label>
-            </div>
-        </fieldset>
-        <fieldset class="grupo_form_cambio_datos text-uppercase">
-            <div class="w-82">
-                <input id="txtEMailMD" name="txtEMailMD" class="w-100" type="text" value="@Model.EMail" readonly />
-                <label for="txtEMailMD" class="w-100">Correo Electrónico <span class="asteriscos">*</span></label>
-            </div>
-            <a id="btnCambiarEmail" href="@Url.Action("ActualizarCorreo", "MiPerfil", new {area = ""})" title="Cambiar" class="enlace_cambiar_dato w-18 text-right">
-                <span class="icono_cambiar_dato"></span>
-                <span class="enlace_texto text-bold">Cambiar</span>
-            </a>
-        </fieldset>
-        <div class="tooltip_info_revision_correo toolTipCorreo" style="display:none;">
-            <div class="icono_info_alerta"></div>
-            <div class="tooltip_texto">
-                <p>
-                    Revisa tu correo <span class="text-bold" id="EmailNuevo"></span><br />para cambiar de cuenta.
-                </p>
-                <a id="hrefNocambiarCorreo" class="enlace_no_cambiar_correo" title="Ya no quiero cambiar mi correo">
-                    Ya no quiero cambiar mi correo
-                </a>
-            </div>
-        </div>
-        <fieldset class="grupo_form_cambio_datos text-uppercase">
-            <div class="w-82">
-                <input id="txtCelularMD" name="txtCelularMD" class="w-100" type="text" value="@Model.Celular" maxlength="@Model.limiteMaximoTelef" />
-                <label for="txtCelularMD" class="w-100">Celular <span class="asteriscos">*</span></label>
-            </div>
-            <a id="btnCambiarCelular" href="@Url.Action("ActualizarCelular", "MiPerfil", new {area = ""})" title="Cambiar" class="enlace_cambiar_dato w-18 text-right">
-                <span class="icono_cambiar_dato"></span>
-                <span class="enlace_texto text-bold">Cambiar</span>
-            </a>
-        </fieldset>
-        <div class="tooltip_info_revision_correo toolTipCelular" style="display:none;">
-            <div class="icono_info_alerta"></div>
-            <div class="tooltip_texto">
-                <p>
-                    Te enviamos un mensaje a tu celular <span class="text-bold" id="CelularNuevo"></span><br />para confirmar tu teléfono.
-                </p>
-                <a id="hrefNocambiarCelular" class="enlace_no_cambiar_correo" title="Ya no quiero cambiar mi correo">
-                    Ya no quiero cambiar mi celular
-                </a>
-            </div>
-        </div>
-        <fieldset class="grupo_form_cambio_datos text-uppercase">
-            <div class="w-82">
-                <input id="txtTelefonoMD" name="txtTelefonoMD" class="w-100" type="text" value="@Model.Telefono" maxlength="@Model.limiteMaximoTelef" />
-                <label for="txtTelefonoMD" class="w-100">Número fijo <span class="asteriscos">*</span></label>
-            </div>
-        </fieldset>
-        <fieldset class="grupo_form_cambio_datos text-uppercase mb-61">
-            <a id="btnAgregarOtroNumero" href="" title="Agregar otro número" class="enlace_agregar_num_adicional">
-                <span class="icono_agregar_num_adicional"></span>
-                <span class="enlace_texto text-bold">Agregar otro número</span>
-            </a>
-            <div class="contenedor_campos_num_adicional w-100" style="display:none;">
-                <div class="w-82">
-                    <input id="txtTelefonoTrabajoMD" name="txtTelefonoTrabajoMD" class="w-100" type="text" value="@Model.TelefonoTrabajo" maxlength="@Model.limiteMaximoTelef" />
-                    <label for="txtTelefonoTrabajoMD" class="label_num_adicional w-100">Número adicional</label>
-                </div>
-                <a href="#" title="Cambiar" class="enlace_eliminar_numero_adicional w-18 text-right">
-                    <span class="icono_eliminar_numero_adicional"></span>
-                    <span class="enlace_texto text-bold">Eliminar</span>
-                </a>
-            </div>
-        </fieldset>
-        <div class="linea_separadora"></div>
-        <div class="grupo_input_actualizarMisDatos campos_actualizarDatos mt-20">
-            <div class="checkbox_condiciones">
-                <input type="checkbox" name="chkAceptoContratoMD" id="chkAceptoContratoMD" />
-                <label for="chkAceptoContratoMD" class="texto_terminosCondiciones">
-                    <span class="asterisco_actualizar_datos">(*)&nbsp;</span>
-                    <span>
-                        Estoy de acuerdo con los <span><a href="javascript:;" id="hrefTerminosMD" target="_blank">términos y condiciones</a></span> sobre Protección de datos personales
+        <div class="opciones_mi_perfil">
 
+            @foreach (var subitem in Model.PermisoMenu)
+            {
+                if (subitem == "MIS DATOS")
+                {
+                    <div class="opcion_mi_perfil opcion_mis_datos mostrarContenido">
+                        <div class="opcion_mi_perfil_titulo">
+                            <span class="icono_mis_datos">
+                                <img src="@Url.Content("~/Content/Images/icono_mis_datos.svg")" alt="Mis Datos" />
+                            </span>
+                            <span class="opcion_mi_perfil_titulo_texto text-bold text-uppercase">
+                                Mis datos
+                            </span>
+                            <span class="icono_flecha_despliegue_contenido_mi_perfil">
+                                <img src="@Url.Content("~/Content/Images/flecha_despliegue_opcion_mi_perfil.svg")" alt="" />
+                            </span>
+                        </div>
+                        <div class="opcion_mi_perfil_contenido">
+                            <fieldset class="grupo_form_cambio_datos">
+                                <div class="w-82">
+                                    <input id="txtSobrenombreMD" name="txtSobrenombreMD" class="w-100" type="text" onkeypress="return FuncionesGenerales.ValidarSoloLetrasYNumeros(event)" value="@Model.Sobrenombre" maxlength="80" />
+                                    <label for="txtSobrenombreMD" class="w-100">¿Cómo quieres que te llamemos?</label>
+                                </div>
+                            </fieldset>
+                            <fieldset class="grupo_form_cambio_datos">
+                                <div class="w-82">
+                                    <input id="txtEMailMD" name="txtEMailMD" class="w-100" type="text" value="@Model.EMail" readonly />
+                                    <label for="txtEMailMD" class="w-100">Correo Electrónico 
+                                        @if (Model.PaisID != 3)
+                                        {
+                                            <span class="asteriscos">*</span> 
+                                        }
+                                    </label>
+                                </div>
+                                <a id="btnCambiarEmail" href="@Url.Action("ActualizarCorreo", "MiPerfil", new { area = "" })" title="Cambiar" class="enlace_cambiar_dato text-left">
+                                    <span class="icono_cambiar_dato"></span>
+                                    <span class="enlace_texto text-bold text-uppercase">Cambiar</span>
+                                </a>
+                            </fieldset>
+                            <div class="tooltip_info_revision_correo toolTipCorreo" style="display:none;">
+                                <div class="icono_info_alerta"></div>
+                                <div class="tooltip_texto">
+                                    <p>
+                                        Revisa tu correo <span class="text-bold" id="EmailNuevo"></span><br />para cambiar de cuenta.
+                                    </p>
+                                    <a id="hrefNocambiarCorreo" class="enlace_no_cambiar_correo" title="Ya no quiero cambiar mi correo">
+                                        Ya no quiero cambiar mi correo
+                                    </a>
+                                </div>
+                            </div>
+                            <fieldset class="grupo_form_cambio_datos">
+                                <div class="w-82">
+                                    <input id="txtCelularMD" name="txtCelularMD" class="w-100" type="text" value="@Model.Celular" maxlength="@Model.limiteMaximoTelef" />
+                                    <label for="txtCelularMD" class="w-100">Celular <span class="asteriscos">*</span></label>
+                                </div>
+                                <a id="btnCambiarCelular" href="@Url.Action("ActualizarCelular", "MiPerfil", new { area = "" })" title="Cambiar" class="enlace_cambiar_dato text-left">
+                                    <span class="icono_cambiar_dato"></span>
+                                    <span class="enlace_texto text-bold text-uppercase">Cambiar</span>
+                                </a>
+                            </fieldset>
+                            <div class="tooltip_info_revision_correo toolTipCelular" style="display:none;">
+                                <div class="icono_info_alerta"></div>
+                                <div class="tooltip_texto">
+                                    <p>
+                                        Te enviamos un mensaje a tu celular <span class="text-bold" id="CelularNuevo"></span><br />para confirmar tu teléfono.
+                                    </p>
+                                    <a id="hrefNocambiarCelular" class="enlace_no_cambiar_correo" title="Ya no quiero cambiar mi correo">
+                                        Ya no quiero cambiar mi celular
+                                    </a>
+                                </div>
+                            </div>
+                            <fieldset class="grupo_form_cambio_datos">
+                                <div class="w-82">
+                                    <input id="txtTelefonoMD" name="txtTelefonoMD" class="w-100" type="text" value="@Model.Telefono" maxlength="@Model.limiteMaximoTelef" />
+                                    <label for="txtTelefonoMD" class="w-100">Número fijo 
+                                    @if (Model.PaisID != 3)
+                                    {
+                                        <span class="asteriscos">*</span>
+                                    }                                    
+                                    </label>
+                                </div>
+                            </fieldset>
+                            <fieldset class="grupo_form_cambio_datos">
+                                <a id="btnAgregarOtroNumero" href="" title="Agregar otro número" class="enlace_agregar_num_adicional">
+                                    <span class="icono_agregar_num_adicional"></span>
+                                    <span class="enlace_texto text-bold text-uppercase">Agregar otro número</span>
+                                </a>
+                                <div class="contenedor_campos_num_adicional w-100" style="display:none;">
+                                    <div class="w-82">
+                                        <input id="txtTelefonoTrabajoMD" name="txtTelefonoTrabajoMD" class="w-100" type="text" value="@Model.TelefonoTrabajo" maxlength="@Model.limiteMaximoTelef" />
+                                        <label for="txtTelefonoTrabajoMD" class="label_num_adicional w-100">Número adicional</label>
+                                    </div>
+                                    <a href="#" title="Cambiar" class="enlace_eliminar_numero_adicional text-left">
+                                        <span class="icono_eliminar_numero_adicional"></span>
+                                        <span class="enlace_texto text-bold text-uppercase">Eliminar</span>
+                                    </a>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                }
+            }
+
+            @if (Model.TieneDireccionEntrega)
+            {
+            <div class="opcion_mi_perfil opcion_direccion_entrega" id="SeccionDireccionEntrega">
+                <div class="opcion_mi_perfil_titulo">
+                    <span class="icono_mis_datos">
+                        <img src="@Url.Content("~/Content/Images/icono_ubicacion.svg")" alt="Dirección de entrega" />
                     </span>
-                </label>
+                    <span class="opcion_mi_perfil_titulo_texto text-bold text-uppercase">
+                        Dirección de entrega
+                    </span>
+                    <span class="icono_flecha_despliegue_contenido_mi_perfil">
+                        <img src="@Url.Content("~/Content/Images/flecha_despliegue_opcion_mi_perfil.svg")" alt="" />
+                    </span>
+                </div>
+                <div class="opcion_mi_perfil_contenido">
+                    <fieldset class="grupo_form_cambio_datos grupo_form_cambio_datos_campo_ciudad w-50">
+                        <div class="w-100">
+                            @Html.DropDownListFor(model => model.DireccionEntrega.Ubigeo1, new SelectList(Model.DireccionEntrega.DropDownUbigeo1, "IdParametroUnete", "Nombre"), "--Seleccionar", new { id = "Ubigeo1", Nivel = 6, @class = "w-100", ItemChange = "0" })
+                            <label for="Ubigeo1">Región <span class="asteriscos">*</span></label>
+                        </div>
+                    </fieldset>
+                    <fieldset class="grupo_form_cambio_datos grupo_form_cambio_datos_campo_comuna w-50">
+                        <div class="w-100">
+                            <select id="Ubigeo2" name="Ubigeo2" class="w-100" Nivel="7"></select>
+                            <label for="Ubigeo2">Comuna <span class="asteriscos">*</span></label>
+                        </div>
+                    </fieldset>
+                    <fieldset class="grupo_form_cambio_datos grupo_form_cambio_datos_campo_direccion">
+                        <div class="w-100">
+                                    @Html.TextBoxFor(x => x.DireccionEntrega.Direccion, new { @class = "w-100", id = "Direccion", placeholder = "Ingresa y selecciona tu dirección" })
+                            <label for="Direccion" class="w-100">
+                                Dirección <span class="asteriscos">*</span>
+                            </label>
+                            <a class="enlace_ubicacion_actual" title="Ubicación Actual">
+                            </a>
+                        </div>
+                    </fieldset>
+                    <fieldset class="grupo_form_cambio_datos">
+                        <div class="w-100">
+                                    @Html.TextBoxFor(x => x.DireccionEntrega.Zona, new { @class = "w-100", id = "Zona", placeholder = "Ejm: Edificio San Ramón" })
+                            <label for="Zona" class="w-100">
+                                        Zona / N° de Departamento / Calle / Interior 
+                                        @if (Model.PaisID != 3)
+                                        {
+                                            <span class="asteriscos">*</span>
+                                        }                                        
+                            </label>
+                        </div>
+                    </fieldset>
+                    <fieldset class="grupo_form_cambio_datos">
+                        <div class="w-100">
+                            @Html.TextBoxFor(x => x.DireccionEntrega.Referencia, new { @class = "w-100 campo_referencia", id = "Referencia", maxlength = "400", placeholder = "Información adicional" })
+                            <label for="Referencia" class="w-100">
+                                Referencia                             
+                            </label>
+                        </div>
+                        @Html.HiddenFor(m => m.DireccionEntrega.Latitud, new { id = "Latitud" })
+                        @Html.HiddenFor(m => m.DireccionEntrega.Longitud, new { id = "Longitud" })
+                        @Html.HiddenFor(m => m.DireccionEntrega.Operacion, new { id = "Operacion" })
+                        @Html.HiddenFor(m => m.DireccionEntrega.DireccionEntregaID, new { id = "DireccionEntregaID" })
+                    </fieldset>
+                    <fieldset class="grupo_form_cambio_datos">
+                        <div class="w-100">
+                            <div id="SeccionMapa" class="mapa_wrapper w-100">
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
             </div>
+            }
+        </div>
+        @if (Model.UsuarioOpciones.Count() > 0)
+        {
+            <div class="permisos_cuenta_wrapper">
+                <div class="permisos_cuenta_titulo">
+                    Permisos sobre tu cuenta :
+                </div>
+                <div class="permisos_cuenta_opciones divCheckbox">
+
+                    @foreach (var item in Model.UsuarioOpciones)
+                    {
+                        <div class="permiso_cuenta_opcion">
+                            <div class="permiso_cuenta_opcion_descripcion">@item.Opcion
+                                <span class="d-block">@item.Descripcion</span>
+                            </div>
+                            <fieldset class="grupo_form_permiso_cuenta">
+                                <input class="permiso_cuenta_opcion_checkbox" type="checkbox" data-tipoOpcion="@item.OpcionesUsuarioId" name="@item.Codigo" id="@item.Codigo" checked="@item.CheckBox" />
+                                <label for="@item.Codigo" class="permiso_cuenta_opcion_label"></label>
+                            </fieldset>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+
+        <div class="grupo_input_actualizarMisDatos campos_actualizarDatos terminos_y_condiciones_wrapper pt-31">
+            <div class="checkbox_condiciones_wrapper w-100">
+                <div class="checkbox_condiciones_descripcion">
+                    <span class="asterisco_actualizar_datos">(*)&nbsp;</span>
+                    Estoy de acuerdo con los <span><a href="javascript:;" id="hrefTerminosMD" target="_blank">términos y condiciones</a></span> sobre Protección de datos personales
+                </div>
+                <fieldset class="grupo_form_checkbox_condiciones">
+                    <input class="checkbox_condiciones_checkbox" type="checkbox" name="chkAceptoContratoMD" id="chkAceptoContratoMD" />
+                    <label for="chkAceptoContratoMD" class="checkbox_condiciones_label"></label>
+                </fieldset>
+            </div>
+            @*<div class="checkbox_condiciones">
+                    <input type="checkbox" name="chkAceptoContratoMD" id="chkAceptoContratoMD" />
+                    <label for="chkAceptoContratoMD" class="texto_terminosCondiciones">
+                        <span class="asterisco_actualizar_datos">(*)&nbsp;</span>
+                        <span>
+                            Estoy de acuerdo con los <span><a href="javascript:;" id="hrefTerminosMD" target="_blank">términos y condiciones</a></span> sobre Protección de datos personales
+
+                        </span>
+                    </label>
+                </div>*@
         </div>
 
         <fieldset class="grupo_form_cambio_datos">
-            <div class="w-50 text-left v-alignMiddle">
+            <div class="w-100 text-left v-alignMiddle">
                 <div class="datos_obligatorios">
                     <span class="asterisco_actualizar_datos">(*)&nbsp;</span>Datos obligatorios
                 </div>
-                @if (Model.PaisID == Constantes.PaisID.Colombia)
-                {
-                    <p>&nbsp;</p>
-                    <p>
-                        Modifica tus datos comunicándote al 5948060 en Bogotá y 018000937452 a nivel nacional.
-                    </p>
-                }
+                @*INI EINCA HD-3180 Y HD-3304 15-01-2019*@
+                @*@if (Model.PaisID == Constantes.PaisID.Colombia)
+                    {
+                        <p>&nbsp;</p>
+                        <p>
+                            &nbsp;Modifica tus datos comunicándote al 5948060 en Bogotá y 018000937452 a nivel nacional.
+                        </p>
+                    }*@
+                @*FIN EINCA HD-3180 Y HD-3304 15-01-2019*@
             </div>
-            <div class="w-50 text-right v-alignMiddle text-uppercase">
-                <button id="btnGuardar" type="button" class="btn_guardar_datos_nuevos text-uppercase text-bold default-background-color mt-13">
+            <div class="w-100 text-left v-alignMiddle text-uppercase">
+                <button id="btnGuardar" type="button" class="btn_guardar_datos_nuevos text-uppercase text-bold default-background-color mt-31">
                     Guardar
                 </button>
             </div>
@@ -197,6 +362,14 @@ else
 </section>
 
 @section scripts{
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/MiPerfil/Base.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/MiPerfil/Index.js?v=2")"></script>
+    <script>
+        var ZoonMapa = 17;
+        var LocationCountry = '@ViewBag.LocationCountry';
+        var EsMobile = '@ViewBag.EsMobile';
+        var UrlDrop = '@Url.Action("ObtenerUbigeoDependiente")';
+        var Ubigeos = { Ubigeo1: '@Model.DireccionEntrega.Ubigeo1', Ubigeo2: '@Model.DireccionEntrega.Ubigeo2', Ubigeo3 :'@Model.DireccionEntrega.Ubigeo3'}
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?client=gme-cetcosa&v=weekly&callback=initMapa&libraries=places,directions"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/MiPerfil/Base.js")?v=3"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/MiPerfil/Index.js")?v=3"></script>
 }

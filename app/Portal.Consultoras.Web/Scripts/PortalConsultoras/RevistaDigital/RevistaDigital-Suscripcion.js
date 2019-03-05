@@ -98,10 +98,17 @@ function RDSuscripcion() {
                 RDActualizarTipoAccionAgregar(data.revistaDigital, key);
             }
 
-            $("#PopRDSuscripcion").css("display", "block"); // Confirmar datos
-            $(".popup_confirmacion_datos .form-datos input").keyup(); //to update button style
+			if (typeof esAppMobile == 'undefined') {
 
-           return false;
+				$("#PopRDSuscripcion").css("display", "block"); // Confirmar datos
+				$(".popup_confirmacion_datos .form-datos input").keyup(); //to update button 
+
+			} else if (esAppMobile){
+				window.location = (isMobile() ? "/Mobile" : "") + "/RevistaDigital/ConfirmacionAPP";
+			}
+            
+			return false;
+           
         },
         function (xhr, status, error) {
             CerrarLoad();
@@ -242,8 +249,8 @@ function RedireccionarContenedorComprar(origenWeb, codigo) {
     if (origenWeb !== "")
         rdAnalyticsModule.Access(origenWeb);
     
-    if (!(typeof AnalyticsPortalModule === 'undefined'))
-        AnalyticsPortalModule.MarcaVerOfertas(origenWeb);
+    //if (!(typeof AnalyticsPortalModule === 'undefined'))
+    //    AnalyticsPortalModule.MarcaVerOfertas(origenWeb);
 
     codigo = $.trim(codigo);
     window.location = (isMobileNative.any() ? "/Mobile" : "") + "/Ofertas" + (codigo !== "" ? "#" + codigo : "");
