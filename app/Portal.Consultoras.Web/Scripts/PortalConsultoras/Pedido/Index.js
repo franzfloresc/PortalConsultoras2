@@ -596,6 +596,11 @@ function CargarDetallePedido(page, rows, asyncrono) {
                 var html = ArmarDetallePedido(data.ListaDetalleModel);
                 $("#tbobyDetallePedido").html(html);
 
+                if ($("#divObservacionesPROL").is(":visible")) {
+                    HideDialog("divObservacionesPROL");
+                    ShowPopupObservacionesReserva();
+                }
+
                 data.footer = true;
                 var htmlPaginadorH = ArmarDetallePedidoPaginador(data);
 
