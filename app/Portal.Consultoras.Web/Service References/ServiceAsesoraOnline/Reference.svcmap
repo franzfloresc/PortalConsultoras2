@@ -27,6 +27,8 @@
     <MetadataFile FileName="AsesoraOnlineService.wsdl" MetadataType="Wsdl" ID="a027eac3-0dd1-43a9-aa10-2390af02e56d" SourceId="1" SourceUrl="http://localhost:41615/AsesoraOnlineService.svc?wsdl" />
     <MetadataFile FileName="AsesoraOnlineService.xsd" MetadataType="Schema" ID="9e5c62fb-111b-4cf7-afb0-fa884190e04f" SourceId="1" SourceUrl="http://localhost:41615/AsesoraOnlineService.svc?xsd=xsd2" />
     <MetadataFile FileName="AsesoraOnlineService4.xsd" MetadataType="Schema" ID="c7f6d34c-20f3-4b18-bda4-191059c2a175" SourceId="1" SourceUrl="http://localhost:41615/AsesoraOnlineService.svc?xsd=xsd4" />
+    <MetadataFile FileName="AsesoraOnlineService6.xsd" MetadataType="Schema" ID="dd4d8410-1e3d-4fbf-ae49-54f5c3cc0af7" SourceId="1" SourceUrl="http://localhost:41615/AsesoraOnlineService.svc?xsd=xsd7" />
+    <MetadataFile FileName="AsesoraOnlineService61.xsd" MetadataType="Schema" ID="ce3d01b4-ad82-4621-a598-9943e20d4d0f" SourceId="1" SourceUrl="http://localhost:41615/AsesoraOnlineService.svc?xsd=xsd6" />
     <MetadataFile FileName="AsesoraOnlineService2.xsd" MetadataType="Schema" ID="f5dcfc82-293d-40d8-b656-389200069158" SourceId="1" SourceUrl="http://localhost:41615/AsesoraOnlineService.svc?xsd=xsd1" />
     <MetadataFile FileName="AsesoraOnlineService.disco" MetadataType="Disco" ID="f61e6649-7659-4016-af4e-0280fe9e2f27" SourceId="1" SourceUrl="http://localhost:41615/AsesoraOnlineService.svc?disco" />
     <MetadataFile FileName="AsesoraOnlineService3.xsd" MetadataType="Schema" ID="aa141a57-c65e-4133-a31f-40c0d60d7b94" SourceId="1" SourceUrl="http://localhost:41615/AsesoraOnlineService.svc?xsd=xsd3" />

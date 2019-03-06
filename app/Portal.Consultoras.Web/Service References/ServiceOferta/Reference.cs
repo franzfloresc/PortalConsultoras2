@@ -840,6 +840,9 @@ namespace Portal.Consultoras.Web.ServiceOferta {
         private string ConsultoraIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool CuponElectivoDefaultField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string DescripcionCUV2Field;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1343,6 +1346,19 @@ namespace Portal.Consultoras.Web.ServiceOferta {
                 if ((object.ReferenceEquals(this.ConsultoraIDField, value) != true)) {
                     this.ConsultoraIDField = value;
                     this.RaisePropertyChanged("ConsultoraID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool CuponElectivoDefault {
+            get {
+                return this.CuponElectivoDefaultField;
+            }
+            set {
+                if ((this.CuponElectivoDefaultField.Equals(value) != true)) {
+                    this.CuponElectivoDefaultField = value;
+                    this.RaisePropertyChanged("CuponElectivoDefault");
                 }
             }
         }
@@ -3156,6 +3172,9 @@ namespace Portal.Consultoras.Web.ServiceOferta {
         private string Descripcion1Field;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescripcionGrupoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int DigitableField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -3364,6 +3383,19 @@ namespace Portal.Consultoras.Web.ServiceOferta {
                 if ((object.ReferenceEquals(this.Descripcion1Field, value) != true)) {
                     this.Descripcion1Field = value;
                     this.RaisePropertyChanged("Descripcion1");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DescripcionGrupo {
+            get {
+                return this.DescripcionGrupoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescripcionGrupoField, value) != true)) {
+                    this.DescripcionGrupoField = value;
+                    this.RaisePropertyChanged("DescripcionGrupo");
                 }
             }
         }

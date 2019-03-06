@@ -2995,6 +2995,9 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         private string ConsultoraIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool CuponElectivoDefaultField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string DescripcionCUV2Field;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -3498,6 +3501,19 @@ namespace Portal.Consultoras.Web.ServiceSAC {
                 if ((object.ReferenceEquals(this.ConsultoraIDField, value) != true)) {
                     this.ConsultoraIDField = value;
                     this.RaisePropertyChanged("ConsultoraID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool CuponElectivoDefault {
+            get {
+                return this.CuponElectivoDefaultField;
+            }
+            set {
+                if ((this.CuponElectivoDefaultField.Equals(value) != true)) {
+                    this.CuponElectivoDefaultField = value;
+                    this.RaisePropertyChanged("CuponElectivoDefault");
                 }
             }
         }
@@ -4665,6 +4681,9 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         private string AppTituloField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int ConfiguracionOfertasHomeAppIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -4767,6 +4786,19 @@ namespace Portal.Consultoras.Web.ServiceSAC {
                 if ((object.ReferenceEquals(this.AppTituloField, value) != true)) {
                     this.AppTituloField = value;
                     this.RaisePropertyChanged("AppTitulo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Codigo {
+            get {
+                return this.CodigoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoField, value) != true)) {
+                    this.CodigoField = value;
+                    this.RaisePropertyChanged("Codigo");
                 }
             }
         }
@@ -5484,6 +5516,9 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         private string Descripcion1Field;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescripcionGrupoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int DigitableField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -5692,6 +5727,19 @@ namespace Portal.Consultoras.Web.ServiceSAC {
                 if ((object.ReferenceEquals(this.Descripcion1Field, value) != true)) {
                     this.Descripcion1Field = value;
                     this.RaisePropertyChanged("Descripcion1");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DescripcionGrupo {
+            get {
+                return this.DescripcionGrupoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescripcionGrupoField, value) != true)) {
+                    this.DescripcionGrupoField = value;
+                    this.RaisePropertyChanged("DescripcionGrupo");
                 }
             }
         }
@@ -16675,6 +16723,12 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/ListarSeccionConfiguracionOfertasHome", ReplyAction="http://tempuri.org/ISACService/ListarSeccionConfiguracionOfertasHomeResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEConfiguracionOfertasHome[]> ListarSeccionConfiguracionOfertasHomeAsync(int paisId, int campaniaId);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/ListarSeccionConfiguracionOfertasApp", ReplyAction="http://tempuri.org/ISACService/ListarSeccionConfiguracionOfertasAppResponse")]
+        Portal.Consultoras.Web.ServiceSAC.BEConfiguracionOfertasHomeApp[] ListarSeccionConfiguracionOfertasApp(int paisId, int campaniaId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/ListarSeccionConfiguracionOfertasApp", ReplyAction="http://tempuri.org/ISACService/ListarSeccionConfiguracionOfertasAppResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEConfiguracionOfertasHomeApp[]> ListarSeccionConfiguracionOfertasAppAsync(int paisId, int campaniaId);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/ActualizarDescripcionEstrategia", ReplyAction="http://tempuri.org/ISACService/ActualizarDescripcionEstrategiaResponse")]
         Portal.Consultoras.Web.ServiceSAC.BEDescripcionEstrategia[] ActualizarDescripcionEstrategia(int paisId, int campaniaId, int tipoEstrategiaId, Portal.Consultoras.Web.ServiceSAC.BEDescripcionEstrategia[] listaDescripcionEstrategias);
         
@@ -18135,6 +18189,14 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEConfiguracionOfertasHome[]> ListarSeccionConfiguracionOfertasHomeAsync(int paisId, int campaniaId) {
             return base.Channel.ListarSeccionConfiguracionOfertasHomeAsync(paisId, campaniaId);
+        }
+        
+        public Portal.Consultoras.Web.ServiceSAC.BEConfiguracionOfertasHomeApp[] ListarSeccionConfiguracionOfertasApp(int paisId, int campaniaId) {
+            return base.Channel.ListarSeccionConfiguracionOfertasApp(paisId, campaniaId);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEConfiguracionOfertasHomeApp[]> ListarSeccionConfiguracionOfertasAppAsync(int paisId, int campaniaId) {
+            return base.Channel.ListarSeccionConfiguracionOfertasAppAsync(paisId, campaniaId);
         }
         
         public Portal.Consultoras.Web.ServiceSAC.BEDescripcionEstrategia[] ActualizarDescripcionEstrategia(int paisId, int campaniaId, int tipoEstrategiaId, Portal.Consultoras.Web.ServiceSAC.BEDescripcionEstrategia[] listaDescripcionEstrategias) {

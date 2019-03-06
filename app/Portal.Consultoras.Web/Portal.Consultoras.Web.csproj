@@ -4572,6 +4572,12 @@
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService5.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService6.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService61.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServiceCDR\CDRService.disco" />
     <None Include="Service References\ServiceCDR\configuration91.svcinfo" />
     <None Include="Service References\ServiceCDR\configuration.svcinfo" />
@@ -4742,6 +4748,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServicePedido\PedidoService1110.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServicePedido\PedidoService1112.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServicePedido\PedidoService112.xsd">
@@ -5677,7 +5686,6 @@
     <Content Include="Views\Unete\ReportePagoKit.cshtml" />
     <Content Include="Views\Unete\ReporteTipoConsultora.cshtml" />
     <Content Include="Views\DetalleEstrategia\ProductoTemplate.cshtml" />
-    
     <Content Include="Views\DetalleEstrategia\FichaTemplate.cshtml" />
     <Content Include="Views\TusClientes\Index.cshtml" />
     <Content Include="Views\TusClientes\PanelLista.cshtml" />

@@ -1789,6 +1789,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string GPRTextovinculoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool GanaMasNativoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Portal.Consultoras.Web.ServiceUsuario.BEGuiaNegocio GuiaNegocioField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -3419,6 +3422,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.GPRTextovinculoField, value) != true)) {
                     this.GPRTextovinculoField = value;
                     this.RaisePropertyChanged("GPRTextovinculo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool GanaMasNativo {
+            get {
+                return this.GanaMasNativoField;
+            }
+            set {
+                if ((this.GanaMasNativoField.Equals(value) != true)) {
+                    this.GanaMasNativoField = value;
+                    this.RaisePropertyChanged("GanaMasNativo");
                 }
             }
         }
