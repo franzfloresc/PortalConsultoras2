@@ -1,6 +1,16 @@
 ﻿USE BelcorpPeru
 GO
 
+IF EXISTS (
+		SELECT 1
+		FROM sys.procedures
+		WHERE name = N'ValidarCUVEnProcesoReclamo'
+		)
+BEGIN
+	DROP PROCEDURE ValidarCUVEnProcesoReclamo
+END
+GO
+
 CREATE PROCEDURE ValidarCUVEnProcesoReclamo (
 	@PedidoID INT = 0
 	,@CUV VARCHAR(7) = NULL
@@ -22,6 +32,16 @@ END;
 GO
 
 USE BelcorpBolivia
+GO
+
+IF EXISTS (
+		SELECT 1
+		FROM sys.procedures
+		WHERE name = N'ValidarCUVEnProcesoReclamo'
+		)
+BEGIN
+	DROP PROCEDURE ValidarCUVEnProcesoReclamo
+END
 GO
 
 CREATE PROCEDURE ValidarCUVEnProcesoReclamo (
@@ -47,6 +67,16 @@ GO
 USE BelcorpChile
 GO
 
+IF EXISTS (
+		SELECT 1
+		FROM sys.procedures
+		WHERE name = N'ValidarCUVEnProcesoReclamo'
+		)
+BEGIN
+	DROP PROCEDURE ValidarCUVEnProcesoReclamo
+END
+GO
+
 CREATE PROCEDURE ValidarCUVEnProcesoReclamo (
 	@PedidoID INT = 0
 	,@CUV VARCHAR(7) = NULL
@@ -68,6 +98,16 @@ END;
 GO
 
 USE BelcorpColombia
+GO
+
+IF EXISTS (
+		SELECT 1
+		FROM sys.procedures
+		WHERE name = N'ValidarCUVEnProcesoReclamo'
+		)
+BEGIN
+	DROP PROCEDURE ValidarCUVEnProcesoReclamo
+END
 GO
 
 CREATE PROCEDURE ValidarCUVEnProcesoReclamo (
@@ -93,6 +133,16 @@ GO
 USE BelcorpGuatemala
 GO
 
+IF EXISTS (
+		SELECT 1
+		FROM sys.procedures
+		WHERE name = N'ValidarCUVEnProcesoReclamo'
+		)
+BEGIN
+	DROP PROCEDURE ValidarCUVEnProcesoReclamo
+END
+GO
+
 CREATE PROCEDURE ValidarCUVEnProcesoReclamo (
 	@PedidoID INT = 0
 	,@CUV VARCHAR(7) = NULL
@@ -114,6 +164,16 @@ END;
 GO
 
 USE BelcorpMexico
+GO
+
+IF EXISTS (
+		SELECT 1
+		FROM sys.procedures
+		WHERE name = N'ValidarCUVEnProcesoReclamo'
+		)
+BEGIN
+	DROP PROCEDURE ValidarCUVEnProcesoReclamo
+END
 GO
 
 CREATE PROCEDURE ValidarCUVEnProcesoReclamo (
@@ -139,6 +199,16 @@ GO
 USE BelcorpCostaRica
 GO
 
+IF EXISTS (
+		SELECT 1
+		FROM sys.procedures
+		WHERE name = N'ValidarCUVEnProcesoReclamo'
+		)
+BEGIN
+	DROP PROCEDURE ValidarCUVEnProcesoReclamo
+END
+GO
+
 CREATE PROCEDURE ValidarCUVEnProcesoReclamo (
 	@PedidoID INT = 0
 	,@CUV VARCHAR(7) = NULL
@@ -160,6 +230,16 @@ END;
 GO
 
 USE BelcorpEcuador
+GO
+
+IF EXISTS (
+		SELECT 1
+		FROM sys.procedures
+		WHERE name = N'ValidarCUVEnProcesoReclamo'
+		)
+BEGIN
+	DROP PROCEDURE ValidarCUVEnProcesoReclamo
+END
 GO
 
 CREATE PROCEDURE ValidarCUVEnProcesoReclamo (
@@ -185,6 +265,16 @@ GO
 USE BelcorpSalvador
 GO
 
+IF EXISTS (
+		SELECT 1
+		FROM sys.procedures
+		WHERE name = N'ValidarCUVEnProcesoReclamo'
+		)
+BEGIN
+	DROP PROCEDURE ValidarCUVEnProcesoReclamo
+END
+GO
+
 CREATE PROCEDURE ValidarCUVEnProcesoReclamo (
 	@PedidoID INT = 0
 	,@CUV VARCHAR(7) = NULL
@@ -206,6 +296,16 @@ END;
 GO
 
 USE BelcorpPanama
+GO
+
+IF EXISTS (
+		SELECT 1
+		FROM sys.procedures
+		WHERE name = N'ValidarCUVEnProcesoReclamo'
+		)
+BEGIN
+	DROP PROCEDURE ValidarCUVEnProcesoReclamo
+END
 GO
 
 CREATE PROCEDURE ValidarCUVEnProcesoReclamo (
@@ -231,6 +331,16 @@ GO
 USE BelcorpPuertoRico
 GO
 
+IF EXISTS (
+		SELECT 1
+		FROM sys.procedures
+		WHERE name = N'ValidarCUVEnProcesoReclamo'
+		)
+BEGIN
+	DROP PROCEDURE ValidarCUVEnProcesoReclamo
+END
+GO
+
 CREATE PROCEDURE ValidarCUVEnProcesoReclamo (
 	@PedidoID INT = 0
 	,@CUV VARCHAR(7) = NULL
@@ -252,6 +362,16 @@ END;
 GO
 
 USE BelcorpDominicana
+GO
+
+IF EXISTS (
+		SELECT 1
+		FROM sys.procedures
+		WHERE name = N'ValidarCUVEnProcesoReclamo'
+		)
+BEGIN
+	DROP PROCEDURE ValidarCUVEnProcesoReclamo
+END
 GO
 
 CREATE PROCEDURE ValidarCUVEnProcesoReclamo (
