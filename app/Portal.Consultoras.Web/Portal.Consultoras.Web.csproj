@@ -5692,7 +5692,7 @@
     <Content Include="Views\TusClientes\PanelMantener.cshtml" />
     <Content Include="Views\TusClientes\PanelTest.cshtml" />
     <Content Include="Views\TusClientes\_Mantener.cshtml" />
-    <Content Include="Views\ArmaTuPack\Index.cshtml" />
+    <Content Include="Views\ArmaTuPack\Detalle.cshtml" />
     <Content Include="Views\AdministrarEstrategia\EstrategiaGrupoDialog.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
