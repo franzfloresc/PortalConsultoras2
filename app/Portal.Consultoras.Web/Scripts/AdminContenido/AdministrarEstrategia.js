@@ -777,15 +777,16 @@
         var mongoId = rowObject[14];
         var tipoEstrategiaCodigo = rowObject[15];
         var edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + id + "','" + mongoId + "','" + tipoEstrategiaCodigo + "',event);\" >"
-            + "<img src='" + admConfig.Config.rutaImagenEdit + "' alt='Editar Estrategia' title='Editar Estrategia' border='0' /></a>";
+            + "<img src='" + admConfig.Config.rutaImagenEdit + "' alt='Editar' border='0' /></a>";
         var disable = "";
         if (rowObject[10] == "1") {
             disable += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + id + "','" + mongoId + "','" + tipoEstrategiaCodigo + "',event);\" >"
-                + "<img src='" + admConfig.Config.rutaImagenDisable + "' alt='Deshabilitar Estrategia' title='Deshabilitar Estrategia' border='0' /></a>";
+                + "<img src='" + admConfig.Config.rutaImagenDisable + "' alt='Deshabilitar' border='0' /></a>";
         }
         var remove = "";
         if ($("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ShowRoom) {
-            remove += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Remover('" + id + "','" + rowObject[14] + "',event);\" >" + "<img src='" + _config.rutaImagenDelete + "' alt='Eliminar Estrategia' title='Eliminar Estrategia' border='0' /></a>";
+            remove += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Remover('" + id + "','" + rowObject[14] + "',event);\" >"
+                + "<img src='" + _config.rutaImagenDelete + "' alt='Eliminar' border='0' /></a>";
         }
 
         return edit + disable + remove;
@@ -803,21 +804,23 @@
         }
 
         var edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').EditarProducto('" + id + "','" + campaniaId + "','" + cuv + "',event);\" >"
-            + "<img src='" + admConfig.Config.rutaImagenEdit + "' alt='Editar Productos ShowRoom' title='Editar Productos ShowRoom' border='0' /></a>";
+            + "<img src='" + admConfig.Config.rutaImagenEdit + "' alt='Editar' border='0' /></a>";
 
         var remove = "";
         if ($("#ddlTipoEstrategia").find(":selected").data("codigo") != _codigoEstrategia.ArmaTuPack) {
             remove = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').EliminarProducto('" + id + "',event);\" >"
-            + "<img src='" + admConfig.Config.rutaImagenDisable + "' alt='Deshabilitar Productos ShowRoom' title='Deshabilitar Productos ShowRoom' border='0' /></a>";
+            + "<img src='" + admConfig.Config.rutaImagenDisable + "' alt='Deshabilitar' border='0' /></a>";
         }
 
         return edit + remove;
     }
 
     var _showActionsTC = function (cellvalue, options, rowObject) {
-        var Des = "<a href='javascript:;' onclick=\"return EditarTalla('" + rowObject[0] + "');\" >" + "<img src='" + admConfig.Config.rutaImagenEdit + "' alt='Editar Talla/Color' title='Editar Talla/Color' border='0' /></a>";
+        var Des = "<a href='javascript:;' onclick=\"return EditarTalla('" + rowObject[0] + "');\" >"
+            + "<img src='" + admConfig.Config.rutaImagenEdit + "' alt='Editar Talla/Color' title='Editar Talla/Color' border='0' /></a>";
         if ($.trim(rowObject[1]) != $.trim($("#txtCUV2").val())) {
-            Des += "<a href='javascript:;' onclick=\"return Eliminar('" + rowObject[0] + "');\" >" + "<img src='" + _config.rutaImagenDelete + "' alt='Quitar Talla/Color' title='Quitar Talla/Color' border='0' /></a>";
+            Des += "<a href='javascript:;' onclick=\"return Eliminar('" + rowObject[0] + "');\" >"
+                + "<img src='" + _config.rutaImagenDelete + "' alt='Quitar Talla/Color' title='Quitar Talla/Color' border='0' /></a>";
         }
         return Des;
     }
@@ -1238,14 +1241,13 @@
         var tipo = $("#ddlTipoEstrategia").find(":selected").data("id");
         var codigo = $("#ddlTipoEstrategia").find(":selected").data("codigo");
 
-        var colNameActions = (codigo == _codigoEstrategia.ShowRoom) ? "Set" : "";
-        var hideColProducts = (codigo == _codigoEstrategia.ShowRoom) ? false : true;
+        var colNameActions = "";
+        var hideColProducts = true;
 
         /*INIT ATP*/
-        var hideColATP = true;
-        if (codigo == _codigoEstrategia.ArmaTuPack) {
+        if (codigo == _codigoEstrategia.ArmaTuPack
+            || codigo == _codigoEstrategia.ShowRoom) {
             colNameActions = 'Tácticas';
-            hideColATP = false;
             hideColProducts = false;
         }
         /*INIT ATP*/
@@ -1277,7 +1279,7 @@
                 codigo == _codigoEstrategia.ArmaTuPack),
             multiselectWidth: 35,
             colNames: [
-                "EstrategiaID", "Orden", "#", "Pedido asociado", "Precio", "CUV2", "Descripción", "Límite venta", "Código SAP", "ImagenURL",
+                "EstrategiaID", "Orden", "#", "Pedido asociado", "Precio", "CUV", "Descripción", "Límite venta", "Código SAP", "ImagenURL",
                 "Activo", "EsOfertaIndependiente", "FlagValidarImagen", "PesoMaximoImagen", "_id"
                 , "CodigoTipoEstrategia", "Foto", colNameActions, "Componentes"
             ],
@@ -1431,17 +1433,6 @@
                     hidden: hideColProducts,
                     formatter: _showActionsProductos
                 }
-                //{
-                //    name: "Grupos",
-                //    index: "Grupos",
-                //    width: 60,
-                //    align: "center",
-                //    editable: true,
-                //    resizable: false,
-                //    sortable: false,
-                //    hidden: hideColATP,
-                //    formatter: _showActionsATPGrupo
-                //}
             ],
             jsonReader:
             {
@@ -3730,8 +3721,8 @@
         changeTipoEstrategia: function () {
             var aux2 = $("#ddlTipoEstrategia").find(":selected").data("codigo") || "";
             $("#btnActivarDesactivar").hide();
-            // TODO: descomentar luego
-            //$("#btnNuevoMasivo").hide();
+           
+            $("#btnNuevoMasivo").hide();
             $("#btnDescripcionMasivo").hide();
             $("#btnActualizarTonos").hide();
             $("#btnCargaBloqueoCuv").hide();
@@ -3751,6 +3742,7 @@
                 $("#btnActivarDesactivar").show();
                 $("#btnNuevoMasivo").show();
                 $("#btnDescripcionMasivo").show();
+                $("#btnNuevo").show();
 
                 if (aux2 !== _codigoEstrategia.HerramientasVenta) $("#btnActualizarTonos").show();
                 if (aux2 === _codigoEstrategia.GuiaDeNegocioDigitalizada) $("#btnCargaBloqueoCuv").show();
