@@ -1904,6 +1904,11 @@ namespace Portal.Consultoras.Web.Controllers
                         var configuracionPaisDatos = configuracionPaisDatosAll.Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID).ToList();
                         switch (c.Codigo)
                         {
+
+                            case Constantes.ConfiguracionPais.ArmaTuPack:
+                                armaTuPackModel = ConfiguracionPaisArmaTuPack(usuarioModel);
+                                break;
+
                             case Constantes.ConfiguracionPais.RevistaDigital:
                                 revistaDigitalModel = ConfiguracionPaisDatosRevistaDigital(revistaDigitalModel, configuracionPaisDatos, usuarioModel.CodigoISO);
                                 revistaDigitalModel = ConfiguracionPaisRevistaDigital(revistaDigitalModel, usuarioModel);
@@ -2010,6 +2015,13 @@ namespace Portal.Consultoras.Web.Controllers
                     sessionManager.SetRecomendacionesConfig(recomendacionesConfiguacionModel);
                     sessionManager.MasGanadoras.SetModel(masGanadorasModel);
                     sessionManager.SetEstrategiaSR(showroomConfigModel);
+
+                    if (!(revistaDigitalModel.TieneRDC && revistaDigitalModel.EsActiva) && armaTuPackModel.TieneAtp)
+                    {
+                        armaTuPackModel.TieneAtp = false;
+                    }
+                    sessionManager.SetArmaTuPAck(showroomConfigModel);
+
                 }
 
                 usuarioModel.CodigosRevistaImpresa = await ObtenerCodigoRevistaFisica(usuarioModel.PaisID);
