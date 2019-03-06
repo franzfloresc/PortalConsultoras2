@@ -2355,6 +2355,11 @@ namespace Portal.Consultoras.Service
             return _pedidoBusinessLogic.GetConfiguracionOfertaFinalCarrusel(usuario);
         }
 
+        public BEProducto GetRegaloOfertaFinal(BEUsuario usuario)
+        {
+            return _pedidoBusinessLogic.GetRegaloOfertaFinal(usuario);
+        }
+
         public BEPedidoDetalleResult InsertOfertaFinalCarrusel(BEPedidoDetalle pedidoDetalle)
         {
             return _pedidoBusinessLogic.InsertOfertaFinalCarrusel(pedidoDetalle);

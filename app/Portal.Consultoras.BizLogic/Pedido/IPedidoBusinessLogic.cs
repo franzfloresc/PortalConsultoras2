@@ -30,5 +30,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
         BEPedidoDetalleResult InsertProductoBuscador(BEPedidoDetalle pedidoDetalle);
         List<BEPedidoDetalleResult> InsertMasivo(List<BEPedidoDetalle> lstPedidoDetalle);
         List<BEProductoRecomendado> GetProductoRecomendado(int paisID, bool RDEsSuscrita, bool RDEsActiva, List<BEProductoRecomendado> lst);
+        BEProducto GetRegaloOfertaFinal(BEUsuario usuario);
     }
 }

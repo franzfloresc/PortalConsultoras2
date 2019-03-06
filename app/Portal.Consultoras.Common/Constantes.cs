@@ -2020,6 +2020,7 @@ namespace Portal.Consultoras.Common
             public const string MontoPremiacion = "Pasa pedido de {0} {1} esta campaña para entregarte tu premio.";
             public const string CalculoPuntos = "X;K";
             public const string CalculoProgramaNuevas = "P";
+            public const string OfertaFinalTippingPoint = "AGREGA {Monto} PARA GANAR UN {Producto} Y ACCEDER A PACKS EXCLUSIVOS NUEVAS";
         }
 
         public static class ComunicadoTipoDispositivo

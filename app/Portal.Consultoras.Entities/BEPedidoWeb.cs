@@ -114,6 +114,9 @@ namespace Portal.Consultoras.Entities
         public decimal TippingPoint { get; set; }
 
         [DataMember]
+        public bool MuestraRegalo { get; set; }
+
+        [DataMember]
         public bool ValidacionAbierta { get; set; }
 
         [DataMember]
