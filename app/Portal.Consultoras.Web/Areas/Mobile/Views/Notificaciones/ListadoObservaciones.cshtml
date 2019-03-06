@@ -32,7 +32,7 @@
             <div class="text-noti">
                 <div class="sub_titulo_noti">
                     <span>@Model.Asunto</span>
-                    <span>CAMPAÑA @Model.Campania.ToString().Substring(4) @Model.Campania.ToString().Substring(0, 4)</span>
+                    <span>@("C" + Model.Campania.ToString().Substring(4)) @Model.Campania.ToString().Substring(0, 4)</span>
                 </div>
                 <span>@Model.FechaFacturacion</span>
             </div>
@@ -76,13 +76,13 @@
                 </div>
             </div>
             <div class="right_reservado">
-                <div class="texto_reservado">CANT</div>
+                <div class="texto_reservado">Cant.:</div>
                 <div class="datos_Reservado"><b>@item.Cantidad</b></div>
             </div>
             <hr class="clear" /><br />
             <div class="left_reservado">
                 <div class="texto_reservado">
-                    <span>Precio Unitario</span>
+                    <span>Precio unitario:</span>
                 </div>
                 @if (item.DescuentoProl > 0)
                 {
@@ -92,7 +92,7 @@
                     </div>
                 }
 
-                <div class="importe_reservado">SUBTOTAL</div>
+                    <div class="importe_reservado">Subtotal:</div>
             </div>
             <div class="right_reservado">
                 <div class="texto_reservado">
@@ -113,7 +113,7 @@
     <hr class="clear" />
     <div class="left_reservado">
         <div class="importe_final">
-            <b>MONTO TOTAL</b>
+            <b>Total:</b>
         </div>
         @if (Model.ListaNotificacionesDetallePedido.Sum(p => p.DescuentoProl) > 0)
         {
