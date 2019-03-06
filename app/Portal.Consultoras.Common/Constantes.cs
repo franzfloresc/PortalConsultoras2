@@ -246,20 +246,22 @@ namespace Portal.Consultoras.Common
             public const string OfertaParaTi = "001";
             public const string PackNuevas = "002"; // Oferta Nueva Esika
             public const string OfertaWeb = "003";
+            public const string ArmaTuPack = "004";
             public const string Lanzamiento = "005";
             public const string OfertasParaMi = "007";
             public const string PackAltoDesembolso = "008";
-            public const string RevistaDigital = "101"; // No tiene referecia con BD, es un grupo de estrategias
-            public const string LosMasVendidos = "020";
-            public const string IncentivosProgramaNuevas = "021";
             public const string OfertaDelDia = "009";
             public const string GuiaDeNegocioDigitalizada = "010";
+            public const string HerramientasVenta = "011";
+            public const string LosMasVendidos = "020";
+            public const string IncentivosProgramaNuevas = "021";
             public const string Incentivos = "022";
             public const string ShowRoom = "030";
-            public const string HerramientasVenta = "011";
+
+            public const string RevistaDigital = "101"; // No tiene referecia con BD, es un grupo de estrategias
+            public const string MasGanadoras = "201"; // No tiene referecia con BD, caso particular de OfertasParaMi 007
+
             public const string NotParticipaProgramaNuevas = "0";
-            public const string MasGanadoras = "201"; // No tiene referecia con BD, es un grupo de estrategias
-            public const string ArmaTuPack = "031";
         }
 
         public static class TipoPersonalizacion
