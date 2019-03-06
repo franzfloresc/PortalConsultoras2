@@ -3916,7 +3916,7 @@ namespace Portal.Consultoras.BizLogic
 
                 /*Envío SICC*/
                 var remoteAddress = new EndpointAddress(WebConfig.ServicioDireccionEntregaSicc);
-                var direcConcat = string.Concat(direccionEntrega.Direccion, "|", direccionEntrega.Zona, "|", direccionEntrega.Referencia);
+                var direcConcat = string.Concat(direccionEntrega.Direccion, string.IsNullOrEmpty(direccionEntrega.Zona) ? "" : "|" + direccionEntrega.Zona,  string.IsNullOrEmpty(direccionEntrega.Referencia) ? "" : "|" + direccionEntrega.Referencia);
                 if (direcConcat.Length > 100) direcConcat = direcConcat.Substring(0, 100);
 
                 var Direccionexterna = new DireccionEntregaMAEWebService
