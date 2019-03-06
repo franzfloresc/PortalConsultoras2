@@ -31,8 +31,8 @@ h1, h2, h3, h4, h5, h6 {
 {
     min-height:60px;
     line-height:19px;
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .tabla_cabecera div {
