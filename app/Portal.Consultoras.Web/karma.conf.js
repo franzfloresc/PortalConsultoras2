@@ -37,6 +37,7 @@ module.exports = function (config) {
             'Scripts/PortalConsultoras/TusClientes/PanelListaModule.js',
             'Scripts/PortalConsultoras/TusClientes/PanelMantenerModule.js',
             'Scripts/PortalConsultoras/TusClientes/ClientePanelModule.js',
+            'Scripts/PortalConsultoras/DetalleEstrategia/DetalleEstrategiaProvider.js',
             'Scripts/PortalConsultoras/DetalleEstrategia/FichaModule.js',
 
             // TusClientes
