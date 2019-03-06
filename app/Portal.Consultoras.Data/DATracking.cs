@@ -40,7 +40,7 @@ namespace Portal.Consultoras.Data
 
         public IDataReader GetTrackingByPedido(string codigo, string campana, string nropedido)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetTrackingByConsultoraCampaniaFecha_V2"); //HD-3550 EINCA 
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetTrackingByConsultoraCampaniaFecha"); //HD-3550 EINCA 
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, codigo);
             Context.Database.AddInParameter(command, "@Campana", DbType.String, campana);
             Context.Database.AddInParameter(command, "@NroPedido", DbType.String, nropedido);

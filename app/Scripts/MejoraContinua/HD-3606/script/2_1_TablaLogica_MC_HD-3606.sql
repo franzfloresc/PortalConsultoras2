@@ -1,23 +1,3 @@
-USE BelcorpPeru
-GO
-
-IF NOT EXISTS (
-		SELECT *
-		FROM dbo.TablaLogica
-		WHERE TablaLogicaID = 190
-		)
-BEGIN
-	INSERT INTO dbo.TablaLogica (
-		TablaLogicaID
-		,Descripcion
-		)
-	VALUES (
-		190
-		,'Seg Pedido Región y Zona'
-		)
-END
-GO
-
 USE BelcorpBolivia
 GO
 
@@ -78,6 +58,66 @@ BEGIN
 END
 GO
 
+USE BelcorpCostaRica
+GO
+
+IF NOT EXISTS (
+		SELECT *
+		FROM dbo.TablaLogica
+		WHERE TablaLogicaID = 190
+		)
+BEGIN
+	INSERT INTO dbo.TablaLogica (
+		TablaLogicaID
+		,Descripcion
+		)
+	VALUES (
+		190
+		,'Seg Pedido Región y Zona'
+		)
+END
+GO
+
+USE BelcorpDominicana
+GO
+
+IF NOT EXISTS (
+		SELECT *
+		FROM dbo.TablaLogica
+		WHERE TablaLogicaID = 190
+		)
+BEGIN
+	INSERT INTO dbo.TablaLogica (
+		TablaLogicaID
+		,Descripcion
+		)
+	VALUES (
+		190
+		,'Seg Pedido Región y Zona'
+		)
+END
+GO
+
+USE BelcorpEcuador
+GO
+
+IF NOT EXISTS (
+		SELECT *
+		FROM dbo.TablaLogica
+		WHERE TablaLogicaID = 190
+		)
+BEGIN
+	INSERT INTO dbo.TablaLogica (
+		TablaLogicaID
+		,Descripcion
+		)
+	VALUES (
+		190
+		,'Seg Pedido Región y Zona'
+		)
+END
+GO
+
 USE BelcorpGuatemala
 GO
 
@@ -118,67 +158,27 @@ BEGIN
 END
 GO
 
-USE BelcorpCostaRica
-GO
-
-IF NOT EXISTS (
-		SELECT *
-		FROM dbo.TablaLogica
-		WHERE TablaLogicaID = 190
-		)
-BEGIN
-	INSERT INTO dbo.TablaLogica (
-		TablaLogicaID
-		,Descripcion
-		)
-	VALUES (
-		190
-		,'Seg Pedido Región y Zona'
-		)
-END
-GO
-
-USE BelcorpEcuador
-GO
-
-IF NOT EXISTS (
-		SELECT *
-		FROM dbo.TablaLogica
-		WHERE TablaLogicaID = 190
-		)
-BEGIN
-	INSERT INTO dbo.TablaLogica (
-		TablaLogicaID
-		,Descripcion
-		)
-	VALUES (
-		190
-		,'Seg Pedido Región y Zona'
-		)
-END
-GO
-
-USE BelcorpSalvador
-GO
-
-IF NOT EXISTS (
-		SELECT *
-		FROM dbo.TablaLogica
-		WHERE TablaLogicaID = 190
-		)
-BEGIN
-	INSERT INTO dbo.TablaLogica (
-		TablaLogicaID
-		,Descripcion
-		)
-	VALUES (
-		190
-		,'Seg Pedido Región y Zona'
-		)
-END
-GO
-
 USE BelcorpPanama
+GO
+
+IF NOT EXISTS (
+		SELECT *
+		FROM dbo.TablaLogica
+		WHERE TablaLogicaID = 190
+		)
+BEGIN
+	INSERT INTO dbo.TablaLogica (
+		TablaLogicaID
+		,Descripcion
+		)
+	VALUES (
+		190
+		,'Seg Pedido Región y Zona'
+		)
+END
+GO
+
+USE BelcorpPeru
 GO
 
 IF NOT EXISTS (
@@ -218,7 +218,7 @@ BEGIN
 END
 GO
 
-USE BelcorpDominicana
+USE BelcorpSalvador
 GO
 
 IF NOT EXISTS (
@@ -237,3 +237,5 @@ BEGIN
 		)
 END
 GO
+
+
