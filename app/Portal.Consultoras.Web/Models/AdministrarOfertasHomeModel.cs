@@ -51,6 +51,7 @@ namespace Portal.Consultoras.Web.Models
             DesktopTipoEstrategia = "";
             MobileTipoEstrategia = "";
             AdministrarOfertasHomeAppModel = new AdministrarOfertasHomeAppModel();
+            ConfiguracionPaisDatos = new List<ConfiguracionPaisDatosModel>();
         }
     }
 
