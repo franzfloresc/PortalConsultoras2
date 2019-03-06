@@ -832,7 +832,7 @@
     <Compile Include="Providers\EventoFestivoProvider.cs" />
     <Compile Include="Providers\GuiaNegocioProvider.cs" />
     <Compile Include="Providers\BaseProvider.cs" />
-    <Compile Include="Providers\EstrategiaGrupoProvide.cs" />
+    <Compile Include="Providers\EstrategiaGrupoProvider.cs" />
     <Compile Include="Providers\MiPerfilProvider.cs" />
     <Compile Include="Providers\ProgramaNuevasProvider.cs" />
     <Compile Include="Providers\IssuuProvider.cs" />
