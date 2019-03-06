@@ -116,20 +116,36 @@ describe("FichaModule", function () {
         });
     });
 
-    describe("Inicializar", function () {
-        var fichaModule = null;
+    // describe("Inicializar", function () {
+    //     var fichaModule = null;
 
-        beforeEach(function () {
-            fichaModule = null;
-        });
+    //     beforeEach(function () {
+    //         fichaModule = null;
+    //     });
 
-        it("", function () {
-            //var localStorage = sinon.mock(LocalStorageModule());
-            //fichaModule = FichaModule({
-            //    localStorageModule: localStorage
-            //});
+    //     it("", function () {
+    //         //var localStorage = sinon.mock(LocalStorageModule());
+    //         //fichaModule = FichaModule({
+    //         //    localStorageModule: localStorage
+    //         //});
 
-            //fichaModule.Inicializar();
-        });
-    });
+    //         //fichaModule.Inicializar();
+    //     });
+    // });
+    // describe("Inicializar", function () {
+    //     var fichaModule = null;
+
+    //     beforeEach(function () {
+    //         fichaModule = null;
+    //     });
+
+    //     it("", function () {
+    //         //var localStorage = sinon.mock(LocalStorageModule());
+    //         //fichaModule = FichaModule({
+    //         //    localStorageModule: localStorage
+    //         //});
+
+    //         //fichaModule.Inicializar();
+    //     });
+    // });
 });
