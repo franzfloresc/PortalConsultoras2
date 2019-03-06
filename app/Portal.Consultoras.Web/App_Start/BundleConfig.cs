@@ -773,7 +773,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Shared/AnalyticsPortal.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js",
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/CarruselModule.js",
-            "~/Scripts/PortalConsultoras/DetalleEstrategia/FichaModule.js"
+                "~/Scripts/PortalConsultoras/DetalleEstrategia/DetalleEstrategiaProvider.js",
+                "~/Scripts/PortalConsultoras/DetalleEstrategia/FichaModule.js"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/Ficha").Include(

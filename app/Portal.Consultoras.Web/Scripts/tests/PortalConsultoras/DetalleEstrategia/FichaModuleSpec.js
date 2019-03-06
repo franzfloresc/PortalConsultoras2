@@ -1,4 +1,5 @@
 /// <reference path="../../../PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js" />
+/// <reference path="../../../PortalConsultoras/DetalleEstrategia/DetalleEstrategiaProvider.js" />
 /// <reference path="../../../PortalConsultoras/DetalleEstrategia/FichaModule.js" />
 
 describe("FichaModule", function () {
