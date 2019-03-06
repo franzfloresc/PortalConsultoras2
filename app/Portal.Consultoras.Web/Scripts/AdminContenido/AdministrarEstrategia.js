@@ -404,7 +404,7 @@
                 closeWaitingDialog();
                 return false;
             }
-            alert(data.AppOfertasHomeImgAncho)
+            
             $("#div-lan-app .inforRdText").html(data.AppOfertasHomeImgAncho + " x " + data.AppOfertasHomeImgAlto + " pixeles");
             $("#nombre-img-fondo-app").attr("imageextension", data.AppOfertasHomeImgAncho);
             $("#nombre-img-fondo-app").attr("imagewidth", data.AppOfertasHomeImgAncho);
