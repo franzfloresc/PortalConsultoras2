@@ -26,15 +26,20 @@ h1, h2, h3, h4, h5, h6 {
     font-family: 'Lato', sans-serif !important;
 }
 
+.tabla_cabecera div,
+.tabla_item div
+{
+    min-height:60px;
+    line-height:19px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
 
 .tabla_cabecera div {
     color: #000;
     font-weight: 600;
     font-size: 13px;
     letter-spacing: 0.3px;
-    padding-top: 17px;
-    padding-bottom: 17px;
-    line-height: normal;
     text-transform: uppercase;
     border-bottom: 1px solid #000;
     border-top: 1px solid #000;
@@ -42,11 +47,8 @@ h1, h2, h3, h4, h5, h6 {
 
 .tabla_item div {
     font-size: 13px;
-    line-height: 60px;
     border-bottom: 1px solid #d8d8d8;
-    height: 60px;
 }
-
 
 .btn_editar {
     background: url('/Content/Images/editar_tu_clientes.svg') center center no-repeat;

@@ -47,53 +47,53 @@
 
 <script id="hbsClientes" type="text/x-handlebars-template">
     <div class="row tabla_cabecera">
-        <div class="col-2">
+        <div class="row align-items-center ml-0 mr-0 col-2">
             Nombres
         </div>
-        <div class="col-2">
+        <div class="row align-items-center ml-0 mr-0 col-2">
             Apellidos
         </div>
-        <div class="col-2">
+        <div class="row align-items-center ml-0 mr-0 col-2">
             Teléfono  Fijo
         </div>
-        <div class="col-2">
+        <div class="row align-items-center ml-0 mr-0 col-2">
             Celular
         </div>
-        <div class="col-2">
+        <div class="row align-items-center ml-0 mr-0 col-2">
             Correo
         </div>
-        <div class="col-1">
+        <div class="row align-items-center ml-0 mr-0 col-1">
             Editar
         </div>
-        <div class="col-1">
+        <div class="row align-items-center ml-0 mr-0 col-1">
             Eliminar
         </div>
     </div>
     {{# each this.miData as |cliente|}}
-    <div class="row  tabla_item">
-        <div class="col-md-2 col-8">
+    <div class="row tabla_item">
+        <div class="row ml-0 mr-0 align-items-center col-md-2 col-8">
             {{NombreCliente}}
         </div>
-        <div class="col-md-2 col-8">
+        <div class="row ml-0 mr-0 align-items-center col-md-2 col-8">
             {{ApellidoCliente}}
         </div>
-        <div class="col-md-2 col-8">
+        <div class="row ml-0 mr-0 align-items-center col-md-2 col-8">
             {{Telefono}}
         </div>
-        <div class="col-md-2 col-8">
+        <div class="row ml-0 mr-0 align-items-center col-md-2 col-8">
             {{Celular}}
         </div>
-        <div class="col-md-2 col-8">
+        <div class="row ml-0 mr-0 align-items-center col-md-2 col-8">
             {{eMail}}
         </div>
-        <div class="col-md-1 col-2 editar">
+        <div class="row ml-0 mr-0 justify-content-center align-items-center col-md-1 col-2 editar">
             <input type="button"
                    class="btn_editar"
                    title="Editar Cliente"
                    value=""
                    onclick="tusClientesModule.editarCliente({{JSON2string cliente}})" />
         </div>
-        <div class="col-md-1 col-2">
+        <div class="row ml-0 mr-0 justify-content-center align-items-center col-md-1 col-2">
             <input type="button"
                    class="btn_eliminar"
                    title="Eliminar Cliente"
