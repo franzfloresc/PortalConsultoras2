@@ -329,3 +329,11 @@ h1, h2, h3, h4, h5, h6 {
         border-bottom: 1px solid rgba(126,126,126,.2);
     }
 }
+
+@media screen and (max-width:472px){
+
+    .pregunta_eliminar_cliente{
+        margin-bottom:13px;
+    }
+
+}
