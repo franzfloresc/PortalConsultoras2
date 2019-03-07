@@ -10,9 +10,19 @@ namespace Portal.Consultoras.Web.Controllers
         {
             throw new NotImplementedException();
         }
+
         [HttpGet()]
         [Route("Detalle/{cuv:int}")]
         public ActionResult Detalle(string cuv)
+        {
+            if (string.IsNullOrEmpty(cuv)) throw new ArgumentNullException("cuv", "is null or empty.");
+
+            return View();
+        }
+
+        [HttpGet()]
+        [Route("GetPackComponents/{cuv:int}")]
+        public ActionResult GetPackComponents(string cuv)
         {
             if (string.IsNullOrEmpty(cuv)) throw new ArgumentNullException("cuv", "is null or empty.");
 

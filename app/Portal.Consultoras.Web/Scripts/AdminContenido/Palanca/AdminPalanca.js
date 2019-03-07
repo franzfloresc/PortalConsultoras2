@@ -110,23 +110,54 @@ function Modificar(idConfiguracionPais, event) {
                 UploadFilePalanca("mobile-fondo-banner"), UploadFilePalanca("mobile-logo-banner")
             );
 
-          
+
             showDialog("DialogMantenimientoPalanca");
 
             var esTrueAncla = $.trim($("#UrlMenu").val()) == "#";
-        
+
             if (esTrueAncla) {
                 $("#cbAncla").prop("checked", true);
                 $("#UrlMenu").attr("disabled", "disabled");
             }
-            
+
             /*INIT Agana 159*/
-            
-            var criterioATP = $.trim($("#Codigo").val()) === "ATP" ? 'none' : 'block';
-          
-            $("#divUrlMenu").css("display", criterioATP);
-            $("#divUrlMenuTxt").css("display", criterioATP);
-        
+             
+            var esATP = $.trim($("#Codigo").val()) === ConstantesModule.TipoEstrategia.ATP;
+           
+            if (esATP) {
+                $("#lblDesktop").html('Desktop/Mobile');
+
+                $("#divUrlMenu").hide();
+                $("#divUrlMenuTxt").hide();
+
+                $("#divDesktopFondo").hide();
+                $("#divDesktopLogo").hide();
+
+                $("#divSeccionMobileTitulo").hide();
+                $("#divSeccionMobile").hide();
+
+                $("#divOrdenBPT").hide();
+                $("#divDesktopSubTituloMenu").hide();
+                $("#divDesktopTituloBanner").hide();
+                $("#divDesktopSubTituloBanner").hide();
+                 
+            } else {
+                $("#lblDesktop").html('Desktop');//Default
+                $("#divUrlMenu").show();
+                $("#divUrlMenuTxt").show();
+
+                $("#divDesktopFondo").show();
+                $("#divDesktopLogo").show();
+
+                $("#divSeccionMobileTitulo").show();
+                $("#divSeccionMobile").show();
+
+                $("#divOrdenBPT").show();
+                $("#divDesktopSubTituloMenu").show();
+                $("#divDesktopTituloBanner").show();
+                $("#divDesktopSubTituloBanner").show();
+            }
+
             /*END Agana 159*/
         },
         error: function (request, status, error) { }
@@ -198,6 +229,19 @@ function IniDialogs() {
                     _toastHelper.error("El valor del orden tiene que ser numerico.");
                     return false;
                 }
+
+                /*INIT AGANA 159 */
+                var esATP = $.trim($("#Codigo").val()) === ConstantesModule.TipoEstrategia.ATP;
+
+                if (esATP) {
+                    //valores a replicar
+                    $("#OrdenBpt").val($("#Orden").val());
+                    $("#DialogMantenimientoPalanca #MobileOrden").val($("#Orden").val());
+                    $("#DialogMantenimientoPalanca #MobileOrdenBpt").val($("#Orden").val());
+                    $("#MobileTituloMenu").val($("#DesktopTituloMenu").val());
+                }
+                /*END AGANA 159 */
+
                 var params = {
                     ConfiguracionPaisID: $("#ConfiguracionPaisID").val(),
                     Codigo: $("#ddlConfiguracionPais").val(),
