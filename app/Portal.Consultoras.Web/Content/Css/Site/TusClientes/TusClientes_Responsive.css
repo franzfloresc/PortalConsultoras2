@@ -36,13 +36,6 @@ h1, h2, h3, h4, h5, h6 {
     border-bottom: 1px solid #d8d8d8;
 }
 
-.tabla_cabecera div,
-.tabla_item div
-{
-    padding-top: 5px;
-    padding-bottom: 5px;
-}
-
 .tabla_cabecera div {
     color: #000;
     font-weight: 600;
@@ -51,12 +44,14 @@ h1, h2, h3, h4, h5, h6 {
     text-transform: uppercase;
     border-bottom: 1px solid #000;
     border-top: 1px solid #000;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .tabla_item div {
     font-size: 13px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .btn_editar {
