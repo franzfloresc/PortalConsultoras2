@@ -277,11 +277,7 @@ function IniDialogs() {
                     success: function (data) {
                         if (data.success) {
                             HideDialog("DialogMantenimientoPalanca");
-
-                             _toastHelper.success("Solicitud realizada sin problemas.");
-
-                            //showDialog('Solicitud realizada sin problemas.','');
-
+                            _toastHelper.success("Solicitud realizada sin problemas.");
                             UpdateGrillaPalanca();
                         } else {
                             _toastHelper.error("Error al procesar la Solicitud.");
