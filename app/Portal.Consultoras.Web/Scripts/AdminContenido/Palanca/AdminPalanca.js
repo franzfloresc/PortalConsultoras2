@@ -142,6 +142,15 @@ function Modificar(idConfiguracionPais, event) {
                 $("#divDesktopSubTituloMenu").hide();
                 $("#divDesktopTituloBanner").hide();
                 $("#divDesktopSubTituloBanner").hide();
+
+                /*START AGANA 186 */
+
+                $(".div-disenio-atp-visible").show();
+                $(".div-disenio-atp-oculto").hide();
+                $("#tituloSeccionDesktop").html("Desktop/Mobile");
+                $("#titColorTexto").html("Color de títulos");
+
+                /*END AGANA 186 */
                  
             } else {
                 $("#lblDesktop").html('Desktop');//Default
@@ -316,10 +325,9 @@ function IniDialogs() {
         open: function (event, ui) {
             $(".ui-dialog-titlebar-close", ui.dialog).hide();
             $("#colorpickerHolder").ColorPicker({ flat: true });
-            $("#DesktopColorFondo, #DesktopColorTexto, #MobileColorFondo, #MobileColorTexto, #AdministrarOfertasHomeAppModel_AppColorFondo, #AdministrarOfertasHomeAppModel_AppColorTexto").ColorPicker({
+            $("#DesktopColorFondo, #DesktopColorTexto, #MobileColorFondo, #MobileColorTexto, #AdministrarOfertasHomeAppModel_AppColorFondo, #AdministrarOfertasHomeAppModel_AppColorTexto, #BotonColor, #BotonColorTexto").ColorPicker({
                 onSubmit: function (hsb, hex, rgb, el) {
                     var newValue = "#" + hex;
-                    alert(newValue);
                     $(el).val(newValue);
                     $(el).ColorPickerHide();
                 },
@@ -400,6 +408,8 @@ function IniDialogs() {
                 var mobileColorTexto = $("#MobileColorTexto").val();
                 var desktopUsarImagenFondo = $("#DesktopUsarImagenFondo").prop("checked");
                 var mobileUsarImagenFondo = $("#MobileUsarImagenFondo").prop("checked");
+                var botonColor = $("#BotonColor").val();
+                var botonColorTexto = $("#BotonColorTexto").val();
 
                 var regExpColorHex = /^#+([a-fA-F0-9]{6})/;
                 if (!regExpColorHex.test(desktopColorFondo) && desktopColorFondo !== "") {
@@ -421,6 +431,21 @@ function IniDialogs() {
                     _toastHelper.error("El color de texto para móvil debe tener un código hexadecimal válido.");
                     return false;
                 }
+
+                var esATP = $.trim($("#Codigo").val()) === ConstantesModule.TipoEstrategia.ATP;
+
+                if (esATP) {
+                    if (!regExpColorHex.test(botonColor) && botonColor !== "") {
+                        _toastHelper.error("El color del botón debe tener un código hexadecimal válido.");
+                        return false;
+                    }
+
+                    if (!regExpColorHex.test(botonColorTexto) && botonColorTexto !== "") {
+                        _toastHelper.error("El color del mensaje del botón debe tener un código hexadecimal válido.");
+                        return false;
+                    }
+                }
+
 
                 if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") === _palanca.odd) {
                     desktopTipoPresentacion = _tipopresentacion.odd;
@@ -492,7 +517,11 @@ function IniDialogs() {
                         AppBannerInformativo: $("#nombre-fondo-app").val(),
                         AppOrden: $("#AdministrarOfertasHomeAppModel_AppOrden").val(),
                         AppCantidadProductos: $("#AdministrarOfertasHomeAppModel_AppCantidadProductos").val(),
-                    }
+                    },
+                    BotonTexto1 : $("#BotonTexto1").val(),
+                    BotonTexto2 : $("#BotonTexto2").val(),
+                    BotonColor : $("#BotonColor").val(),
+                    BotonColorTexto : $("#BotonColorTexto").val(),
                 };
 
                 waitingDialog({});
