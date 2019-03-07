@@ -107,8 +107,9 @@ function Modificar(idConfiguracionPais, event) {
             }
             
             /*INIT Agana 159*/
-            
-            var criterioATP = $.trim($("#Codigo").val()) === "ATP" ? 'none' : 'block';
+
+            var esATP = $.trim($("#Codigo").val()) === "ATP";
+            var criterioATP = esATP ? 'none' : 'block';
           
             $("#divUrlMenu").css("display", criterioATP);
             $("#divUrlMenuTxt").css("display", criterioATP);
@@ -184,6 +185,19 @@ function IniDialogs() {
                     _toastHelper.error("El valor del orden tiene que ser numerico.");
                     return false;
                 }
+
+                /*INIT AGANA 159 */
+                var esATP = $.trim($("#Codigo").val()) === "ATP";
+
+                if (esATP) {
+                    //valores a replicar
+                    $("#OrdenBpt").val($("#Orden").val());
+                    $("#DialogMantenimientoPalanca #MobileOrden").val($("#Orden").val());
+                    $("#DialogMantenimientoPalanca #MobileOrdenBpt").val($("#Orden").val());
+                    $("#MobileTituloMenu").val($("#DesktopTituloMenu").val());
+                }
+                /*END AGANA 159 */
+
                 var params = {
                     ConfiguracionPaisID: $("#ConfiguracionPaisID").val(),
                     Codigo: $("#ddlConfiguracionPais").val(),
