@@ -12,7 +12,7 @@ go
 
 
 
-CREATE PROCEDURE [ConfiguracionOfertasHomeUpdate] 
+ALTER PROCEDURE [ConfiguracionOfertasHomeUpdate] 
 @ConfiguracionOfertasHomeID int,
 @ConfiguracionPaisID int,
 @CampaniaID int,
@@ -82,12 +82,7 @@ BEGIN
 			DesktopUsarImagenFondo,
 			MobileUsarImagenFondo, 
 			DesktopColorTexto,
-			MobileColorTexto,
-
-			BotonTexto1,
-			BotonTexto2,
-			BotonColor,
-			BotonColorTexto
+			MobileColorTexto 
 		)
 		VALUES 
 		(
@@ -117,12 +112,7 @@ BEGIN
 			@DesktopUsarImagenFondo,
 			@MobileUsarImagenFondo, 
 			@DesktopColorTexto,
-			@MobileColorTexto,
-
-			@BotonTexto1,
-			@BotonTexto2,
-			@BotonColor,
-			@BotonColorTexto  
+			@MobileColorTexto 
 		)
 
 		SET @insertedId = SCOPE_IDENTITY();
