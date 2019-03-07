@@ -107,8 +107,8 @@ function Modificar(idConfiguracionPais, event) {
             }
             
             /*INIT Agana 159*/
-
-            var esATP = $.trim($("#Codigo").val()) === "ATP";
+            
+            var esATP = $.trim($("#Codigo").val()) === ConstantesModule.TipoEstrategia.ATP;
             var criterioATP = esATP ? 'none' : 'block';
           
             $("#divUrlMenu").css("display", criterioATP);
@@ -187,7 +187,7 @@ function IniDialogs() {
                 }
 
                 /*INIT AGANA 159 */
-                var esATP = $.trim($("#Codigo").val()) === "ATP";
+                var esATP = $.trim($("#Codigo").val()) === ConstantesModule.TipoEstrategia.ATP;
 
                 if (esATP) {
                     //valores a replicar
