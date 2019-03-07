@@ -44,9 +44,26 @@ module.exports = function (config) {
             'Scripts/PortalConsultoras/TusClientes/TusClientesView.js',
             'Scripts/PortalConsultoras/TusClientes/TusClientesModule.js',
 
+            // ArmaTuPack
+            'Scripts/PortalConsultoras/ArmaTuPack/Detalle/Cabecera/CabeceraPresenter.js',
+            'Scripts/PortalConsultoras/ArmaTuPack/Detalle/Cabecera/CabeceraView.js',
+            'Scripts/PortalConsultoras/ArmaTuPack/Detalle/Grupo/GrupoPresenter.js',
+            'Scripts/PortalConsultoras/ArmaTuPack/Detalle/Grupo/GrupoMobileView.js',
+            'Scripts/PortalConsultoras/ArmaTuPack/Detalle/Grupo/GrupoDesktopView.js',
+            'Scripts/PortalConsultoras/ArmaTuPack/Detalle/Seleccionados/SeleccionadosPresenter.js',
+            'Scripts/PortalConsultoras/ArmaTuPack/Detalle/Seleccionados/SeleccionadosView.js',
+            'Scripts/PortalConsultoras/ArmaTuPack/Detalle/DetallePresenter.js',
+            'Scripts/PortalConsultoras/ArmaTuPack/ArmaTuPackProvider.js',
+
             // Specs
             'Scripts/tests/PortalConsultoras/DetalleEstrategia/FichaModuleSpec.js',
-            'Scripts/tests/PortalConsultoras/TusClientes/TusClientesModuleSpec.js'
+            //
+            'Scripts/tests/PortalConsultoras/TusClientes/TusClientesModuleSpec.js',
+            //
+            'Scripts/tests/PortalConsultoras/ArmaTuPack/Detalle/Cabecera/CabeceraPresenterSpec.js',
+            'Scripts/tests/PortalConsultoras/ArmaTuPack/Detalle/Grupo/GrupoPresenterSpec.js',
+            'Scripts/tests/PortalConsultoras/ArmaTuPack/Detalle/Seleccionados/SeleccionadosPresenterSpec.js',
+            'Scripts/tests/PortalConsultoras/ArmaTuPack/Detalle/DetallePresenterSpec.js'
         ],
 
 
