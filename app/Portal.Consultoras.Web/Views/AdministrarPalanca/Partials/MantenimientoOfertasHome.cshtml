@@ -6,7 +6,7 @@
 
 @Html.HiddenFor(model => model.ConfiguracionOfertasHomeID)
 <div class="div-3">
-    <div class="titG">Campaña:</div>
+    <div class="titG">Desde campaña:</div>
     <div class="titG selectP2 borde_redondeado">
         @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.ListaCampanias, "CampaniaID", "NombreCorto"), "-- Seleccionar --", new { id = "ddlCampaniaOfertas" })
     </div>
@@ -24,7 +24,7 @@
         </select>
     </div>
 </div>
-<div class="div-3">
+<div class="div-3 div-disenio-atp-oculto">
     <div class="titG">URL Sección:</div>
     <div class="titG selectP2 borde_redondeado">
         @Html.TextBoxFor(m => m.UrlSeccion)
@@ -38,9 +38,9 @@
     </div>
     <div class="fontColorAdm">
         <div class="sideLeft">
-            <h4>Desktop</h4>
+            <h4 id="tituloSeccionDesktop">Desktop</h4>
         </div>
-        <div class="sideRight">
+        <div class="sideRight div-disenio-atp-oculto">
             <h4>Mobile</h4>
         </div>
     </div>
@@ -54,7 +54,7 @@
                 </div>
             </div>
 
-            <div class="div-3 hide-config-image-odd">
+            <div class="div-3 hide-config-image-odd div-disenio-atp-visible">
                 <div class="titG" style="padding-bottom: 0;">
                     Color Fondo:
                     <h6>(#F421E7)</h6>
@@ -72,7 +72,7 @@
                 </div>
             </div>
 
-            <div class="div-3" style="display: inline-block; text-align: left; margin-bottom: 15px;">
+            <div class="div-3 div-disenio-atp-visible" style="display: inline-block; text-align: left; margin-bottom: 15px;">
                 <div class="titG">
                     Imagen Fondo:
                     <h6 class="hide-config-image-odd">(1920x500 pixeles)</h6>
@@ -105,7 +105,7 @@
                 </div>
             </div>
 
-            <div class="div-3">
+            <div class="div-3 div-disenio-atp-oculto">
                 <div class="titG" style="padding-bottom: 0;">OrdenBPT:</div>
                 <br />
                 <div class="titG selectP2 borde_redondeado" style="width: 312px;">
@@ -120,14 +120,14 @@
                     @Html.TextBoxFor(m => m.DesktopTitulo, new { @style = "width: 312px;" })
                 </div>
             </div>
-            <div class="div-3">
-                <div class="titG" style="padding-bottom: 0;">Sub Título:</div>
+            <div class="div-3 div-disenio-atp-visible">
+                <div class="titG" style="padding-bottom: 0;">Subtítulo</div>
                 <br />
                 <div class="titG selectP2 borde_redondeado" style="width: 312px;">
                     @Html.TextBoxFor(m => m.DesktopSubTitulo, new { @style = "width: 312px;" })
                 </div>
             </div>
-            <div class="div-3">
+            <div class="div-3 div-disenio-atp-visible">
                 <div class="titG">Cantidad:</div>
                 <div class="titG borde_redondeado" style="width: 50px;">
                     @Html.TextBoxFor(m => m.DesktopCantidadProductos, new { @style = "width: 50px;" })
@@ -138,7 +138,7 @@
                 </div>
             </div>
 
-            <div class="div-3">
+            <div class="div-3 div-disenio-atp-visible">
                 <div class="titG">Tipo Presentación:</div>
                 <div class="titG borde_redondeado">
                     @Html.DropDownListFor(model => model.DesktopTipoPresentacion, new SelectList(Model.ListaTipoPresentacion, "Codigo", "Descripcion"), "-- Seleccionar --", new { id = "ddlDesktopTipoPresentacionOfertas" })
@@ -163,7 +163,7 @@
                 </div>
             </div>
         </div>
-        <div class="sideRight">
+        <div class="sideRight div-disenio-atp-oculto">
             <div class="div-3">
                 <div class="titG">¿Activar?</div>
                 <div class="titG borde_redondeado">
@@ -283,7 +283,7 @@
     </div>
 </div>
 @Html.HiddenFor(m => m.AdministrarOfertasHomeAppModel.ConfiguracionOfertasHomeAppID)
-<div class="div-3 Content_modal" style="margin-left: 12px; width: 94%; padding-top: 10px; padding-bottom: 0; margin-bottom: 10px;">
+<div class="div-3 Content_modal div-disenio-atp-oculto" style="margin-left: 12px; width: 94%; padding-top: 10px; padding-bottom: 0; margin-bottom: 10px;">
     <div class="fontColorAdm">
         <h4>App</h4>
     </div>
