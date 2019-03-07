@@ -69,7 +69,7 @@ else
                 <div class="datos_codigo">
                     <span>Código : </span>
                     @if (Model.DigitoVerificador != null && ViewBag.PaisesDigitoControl.Contains(Model.PaisISO))
-                        { <span class="text-bold">@Model.CodigoUsuario - <span class="text-bold" style="color:red;">@Model.DigitoVerificador</span></span>}
+                        { <span class="text-bold">@Model.CodigoUsuario - <span class="text-bold">@Model.DigitoVerificador</span></span>}
                     else{ <span class="text-bold">@Model.CodigoUsuario</span>}
                  </div>
                 
