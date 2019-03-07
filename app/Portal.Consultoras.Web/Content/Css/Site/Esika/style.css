@@ -17594,7 +17594,7 @@ label.checkpop.c_on {
 
 .btn_100_paga {
     width: 100%;
-    background-position: 27.5% 10px;
+    background-position: 20.5% 10px;
     margin-left: auto;
     margin-right: auto;
     float: none;
@@ -17610,7 +17610,7 @@ label.checkpop.c_on {
 
     .btn_100_paga:hover {
         color: #FFF;
-        background: #000 url('/Content/Images/icono-tarjeta-blanco.svg') 27.5% 10px no-repeat;
+        background: #000 url('/Content/Images/icono-tarjeta-blanco.svg') 20.5% 10px no-repeat;
     }
 
 .btn_100_facturacion {

@@ -8,6 +8,8 @@
     @System.Web.Optimization.Styles.Render("~/Bundle/Css/Mixto/CssBienvenida")
     @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/Site-AsesoraOnline")
 
+    <link href="~/Content/CaminoBrillante/Content.css" rel="stylesheet" />
+
     <style type="text/css">
         .contenedorCuponInfo .contenedor-texto-agregar {
             display: inline-block;
@@ -79,7 +81,7 @@
             else if (!string.IsNullOrEmpty(ViewBag.MensajeCumpleanos))
             {
                 <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
-                    ¡Feliz Cumpleaños @nombreConsultora 
+                    ¡Feliz Cumpleaños @nombreConsultora
                 </div>
             }
             else if (!string.IsNullOrEmpty(ViewBag.SaludoFestivo))
@@ -92,9 +94,10 @@
             else if (revistaDigital.TieneRDC && revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
             {
                 <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
-                    ¡Bienvenida a 
+                    ¡Bienvenida a
                     <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
-                     Gana+</a>
+                        Gana+
+                    </a>
                     <br />@nombreConsultora
                 </div>
             }
@@ -106,23 +109,24 @@
                 if (CampaniaEfectiva.Equals(CampaniaActual))
                 {
                     <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
-                        ¡Bienvenida a 
-                        <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')"> 
-                        Gana+</a>
+                        ¡Bienvenida a
+                        <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
+                            Gana+
+                        </a>
                         <br />@nombreConsultora
                     </div>
                 }
                 else
                 {
                     <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
-                        ¡Hola @nombreConsultora 
+                        ¡Hola @nombreConsultora
                     </div>
                 }
             }
             else
             {
                 <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
-                    ¡Hola @nombreConsultora 
+                    ¡Hola @nombreConsultora
                 </div>
             }
             <hr class="clear" />
@@ -169,6 +173,22 @@
         <div class="clear"></div>
     </div>
     <hr class="clear" />
+
+
+    <div class="items_belcorp cam-exito">
+
+
+        <img src="~/Content/CaminoBrillante/medalla.PNG">
+        <p class="toptext">Camino al éxito</p>
+        <p>
+            Conoce todos tus beneficios por ser <br><strong>Consultora Especialista</strong>
+        </p>
+        <a href="">Ver Beneficios</a>
+
+
+    </div>
+    
+
     <div class="items_belcorp">
         @{
             string verUltmPagos = Model.PaisID == Constantes.PaisID.Chile ||
@@ -200,22 +220,22 @@
         </div>
 
         <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Ver mis Últimos Pagos" class="boton_ultimos_movimientos" style="@(ultPg)" href="@Url.Action("Index", "MisPagos")"> VER MIS ÚLTIMOS MOVIMIENTOS</a>
-        @{  
+        @{
             var marginTopFacturaE = "";
             marginTopFacturaE = verUltmPagos == "1" ? "margin-top: 0px" : marginTopFacturaE;
             var marginTopPagoLinea = Model.TieneFacturacionElectronica == true ? "margin-top: 10px;" : "";
             if (Model.TienePagoEnLinea && Model.MostrarPagoEnLinea)
             {
                 <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Paga en línea"
-                    href="@Url.Action("MetodoPago","PagoEnLinea")" class="btn_paga_online btn_100_paga"
-                    style="margin-top: 12px;">PAGA EN L&Iacute;NEA</a><!-- AGREGAR LA CLASES="btn_100_paga"-->
+                   href="@Url.Action("MetodoPago","PagoEnLinea")" class="btn_paga_online btn_100_paga"
+                   style="margin-top: 12px;">PAGA EN L&Iacute;NEA</a><!-- AGREGAR LA CLASES="btn_100_paga"-->
                 marginTopFacturaE = "margin-top: 10px";
             }
             else
             {
                 if (Model.PaisID == Constantes.PaisID.Chile)
                 {
-                    <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Paga en línea" class="btn_paga_online btn_100_paga" href="javascript:;"  style="@marginTopPagoLinea" onclick="RedirectPagaEnLineaAnalytics();"> PAGA EN L&Iacute;NEA</a>
+                    <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Paga en línea" class="btn_paga_online btn_100_paga" href="javascript:;" style="@marginTopPagoLinea" onclick="RedirectPagaEnLineaAnalytics();"> PAGA EN L&Iacute;NEA</a>
                     marginTopFacturaE = "margin-top: 10px";
                 }
                 else if (Model.PaisID == Constantes.PaisID.Colombia)
@@ -406,7 +426,7 @@
         <div class="titulo_carrusel_liquidacion">
             @ViewBag.TituloLiqWeb.ToUpper()
         </div>
-        <a role="link" region="Cuerpo" parent="Liquidaciones web" title="Ver más" class="ver_mas_liquidaciones" 
+        <a role="link" region="Cuerpo" parent="Liquidaciones web" title="Ver más" class="ver_mas_liquidaciones"
            onclick="javascript: menuModule.sectionClick('/OfertaLiquidacion/OfertasLiquidacion', 'BotonVerMasLiquidacion', this);">VER M&Aacute;S +</a>
 
         <hr class="clear" />
@@ -725,7 +745,7 @@
                 <div class="grupo_input_actualizarMisDatos">
                     <div>
                         <label>Celular</label>
-                        <input type="text" name="celular"  value="@Model.Celular" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtCelular')" />
+                        <input type="text" name="celular" value="@Model.Celular" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtCelular')" />
                     </div>
                     <div>
                         <label>Otro teléfono</label>
@@ -817,7 +837,7 @@
     </div>
     <!-- FIN POPUP ACEPTACIÓN DE CONTRATO -->
     <!-- POPUP ACEPTACIÓN DE CONTRATO (COLOMBIA) -->
-    <div id="popupAceptacionContrato"  class="popup_aceptacionTerminosYCondicionesContrato" style="display:none;">
+    <div id="popupAceptacionContrato" class="popup_aceptacionTerminosYCondicionesContrato" style="display:none;">
         <div class="contenido_popUp">
             <div class="icono_contrato"></div>
             <h1 class="titulo_aceptacionTerminosYCondicionesContrato">
@@ -1287,10 +1307,10 @@
                 </a>
                 {{else}}
                 <div class="liquidacion_rango_home" data-cantidad-contenedor="">
-                    <input type="text" value="1" size="2" maxlength="2"  data-input="cantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" />
+                    <input type="text" value="1" size="2" maxlength="2" data-input="cantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" />
                     <div class="liquidacion_rango_right_pedido">
                         <a class="mas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
-                        <a class="menos"  onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
+                        <a class="menos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
                     </div>
                 </div>
                 <a class="boton_Agregalo_home js-agregar-liquidacion">
@@ -1491,7 +1511,7 @@
                 <div class="liquidacion_rango_home" data-cantidad-contenedor="">
                     <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral" data-cantidad-input="revista">
                     <div class="liquidacion_rango_right_pedido">
-                        <a class="mas"  onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                        <a class="mas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="/Content/Images/Esika/mas.png" alt=""></a>
                         <a class="menos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="/Content/Images/Esika/menos.png" alt=""></a>
                     </div>
                 </div>
@@ -2077,9 +2097,9 @@
     </script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/SB2-Bienvenida")
 
-<script src="~/Scripts/PortalConsultoras/Bienvenida/PopusJS.js?v=4.2"></script> 
-<script>
+    <script src="~/Scripts/PortalConsultoras/Bienvenida/PopusJS.js?v=4.2"></script>
+    <script>
         MostrarPopusEnOrden('@Model.TipoPopUpMostrar', '@Model.VioVideoBienvenidaModel', '@Model.VioTutorialDesktop','@Model.CambioClave');
-</script>
+    </script>
 
 }
