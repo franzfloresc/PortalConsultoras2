@@ -1,4 +1,9 @@
-﻿var GrupoPresenter = function (config) {
+﻿var ArmaTuPackDetalleEvents = ArmaTuPackDetalleEvents || {};
+
+registerEvent.call(ArmaTuPackDetalleEvents, "onGruposLoaded");
+registerEvent.call(ArmaTuPackDetalleEvents, "onSelectedProductsChanged");
+
+var GrupoPresenter = function (config) {
     if (typeof config === "undefined" || config === null) throw "config is null or undefined";
     //
     if (typeof config.grupoView === "undefined" || config.grupoView === null) throw "config.grupoView is null or undefined";
@@ -32,3 +37,11 @@
         init : _init
     };
 };
+
+ArmaTuPackDetalleEvents.subscribe("onGruposLoaded", function (grupos) {
+    //TODO :
+});
+
+ArmaTuPackDetalleEvents.subscribe("onSelectedProductsChanged", function (grupos) {
+    //TODO :
+});

@@ -1,4 +1,9 @@
-﻿var DetallePresenter = function (config) {
+﻿var ArmaTuPackDetalleEvents = ArmaTuPackDetalleEvents || {};
+
+registerEvent.call(ArmaTuPackDetalleEvents, "onGruposLoaded");
+registerEvent.call(ArmaTuPackDetalleEvents, "onSelectedProductsChanged");
+
+var DetallePresenter = function (config) {
     if (typeof config === "undefined" || config === null) throw "config is null or undefined";
     
     if (typeof config.armaTuPackProvider === "undefined" || config.armaTuPackProvider === null) throw "config.armaTuPackProvider is null or undefined";
@@ -21,6 +26,7 @@
                     _config.generalModule.redirectTo("/ofertas");
 
                 _PackComponents = data;
+                opcionesEvents.applyChanges("onGruposLoaded", _PackComponents);
             })
             .fail(function (data, error) {
                 _PackComponents = {};
@@ -37,3 +43,11 @@
         packComponents: _packComponents
     };
 };
+
+ArmaTuPackDetalleEvents.subscribe("onGruposLoaded", function (grupos) {
+    //TODO :
+});
+
+ArmaTuPackDetalleEvents.subscribe("onSelectedProductsChanged", function (grupos) {
+    //TODO :
+});
