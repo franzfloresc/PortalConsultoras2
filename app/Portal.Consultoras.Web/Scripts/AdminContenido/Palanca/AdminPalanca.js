@@ -87,11 +87,13 @@ jQuery(document).ready(function () {
                 $(".div-disenio-atp-visible").show();
                 $(".div-disenio-atp-oculto").hide();
                 $("#tituloSeccionDesktop").html("Desktop/Mobile");
+                $("#titColorTexto").html("Color de títulos");
             }
         } else {
             $(".div-disenio-atp-visible").hide();
             $(".div-disenio-atp-oculto").show();
             $("#tituloSeccionDesktop").html("Desktop");
+            $("#titColorTexto").html("Color Texto:");
         }
     });
 });
@@ -314,6 +316,7 @@ function IniDialogs() {
             $("#DesktopColorFondo, #DesktopColorTexto, #MobileColorFondo, #MobileColorTexto, #AdministrarOfertasHomeAppModel_AppColorFondo, #AdministrarOfertasHomeAppModel_AppColorTexto").ColorPicker({
                 onSubmit: function (hsb, hex, rgb, el) {
                     var newValue = "#" + hex;
+                    alert(newValue);
                     $(el).val(newValue);
                     $(el).ColorPickerHide();
                 },

@@ -86,9 +86,9 @@
                 </div>
             </div>
 
-            <div class="div-3 hide-config-image-odd">
+            <div class="div-3 hide-config-image-odd div-disenio-atp-visible">
                 <div class="titG" style="padding-bottom: 0;">
-                    Color Texto:
+                    <span id="titColorTexto">Color Texto:</span>
                     <h6>(#F421E7)</h6>
                 </div>
                 <br />
@@ -127,6 +127,45 @@
                     @Html.TextBoxFor(m => m.DesktopSubTitulo, new { @style = "width: 312px;" })
                 </div>
             </div>
+
+            <div class="div-3 hide-config-image-odd div-disenio-atp-visible">
+                <div class="titG" style="padding-bottom: 0;">Texto botón inicial:</div>
+                <br />
+                <div class="titG selectP2 borde_redondeado" style="width: 312px;">
+                    @Html.TextBoxFor(m => m.BotonTexto1, new { @style = "width: 312px;" })
+                </div>
+            </div>
+
+            <div class="div-3 hide-config-image-odd div-disenio-atp-visible">
+                <div class="titG" style="padding-bottom: 0;">Texto botón final:</div>
+                <br />
+                <div class="titG selectP2 borde_redondeado" style="width: 312px;">
+                    @Html.TextBoxFor(m => m.BotonTexto2, new { @style = "width: 312px;" })
+                </div>
+            </div>
+
+            <div class="div-3 hide-config-image-odd div-disenio-atp-visible">
+                <div class="titG" style="padding-bottom: 0;">
+                    <span id="titColorTexto">Color del botón:</span>
+                    <h6>(#F421E7)</h6>
+                </div>
+                <br />
+                <div class="titG selectP2 borde_redondeado" style="width: 312px;">
+                    @Html.TextBoxFor(m => m.BotonColor, new { @maxlength = "7", @size = 7 })
+                </div>
+            </div>
+
+            <div class="div-3 hide-config-image-odd div-disenio-atp-visible">
+                <div class="titG" style="padding-bottom: 0;">
+                    <span id="titColorTexto">Color mensaje botón:</span>
+                    <h6>(#000000)</h6>
+                </div>
+                <br />
+                <div class="titG selectP2 borde_redondeado" style="width: 312px;">
+                    @Html.TextBoxFor(m => m.BotonColorTexto, new { @maxlength = "7", @size = 7 })
+                </div>
+            </div>
+
             <div class="div-3 div-disenio-atp-visible">
                 <div class="titG">Cantidad:</div>
                 <div class="titG borde_redondeado" style="width: 50px;">
@@ -162,6 +201,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
         <div class="sideRight div-disenio-atp-oculto">
             <div class="div-3">
