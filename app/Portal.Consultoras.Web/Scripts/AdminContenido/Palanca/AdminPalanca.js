@@ -95,13 +95,25 @@ function Modificar(idConfiguracionPais, event) {
                 UploadFilePalanca("icono"), UploadFilePalanca("desktop-fondo-banner"), UploadFilePalanca("desktop-logo-banner"),
                 UploadFilePalanca("mobile-fondo-banner"), UploadFilePalanca("mobile-logo-banner")
             );
+
+          
             showDialog("DialogMantenimientoPalanca");
 
             var esTrueAncla = $.trim($("#UrlMenu").val()) == "#";
+        
             if (esTrueAncla) {
                 $("#cbAncla").prop("checked", true);
                 $("#UrlMenu").attr("disabled", "disabled");
             }
+            
+            /*INIT Agana 159*/
+            
+            var criterioATP = $.trim($("#Codigo").val()) === "ATP" ? 'none' : 'block';
+          
+            $("#divUrlMenu").css("display", criterioATP);
+            $("#divUrlMenuTxt").css("display", criterioATP);
+        
+            /*END Agana 159*/
         },
         error: function (request, status, error) { }
     });
@@ -157,9 +169,9 @@ function IniDialogs() {
         closeOnEscape: true,
         width: 830,
         draggable: false,
-        title: "Configurar Contenedor Menú",
+        title: "Menú",
         open: function (event, ui) {
-            (".ui-dialog-titlebar-close", ui.dialog).hide();
+            //(".ui-dialog-titlebar-close", ui.dialog).hide(); //eaar tiene bug
         },
         close: function () {
             HideDialog("DialogMantenimientoPalanca");
@@ -251,9 +263,9 @@ function IniDialogs() {
                     $(this).ColorPickerSetColor(this.value);
                 }
             })
-            .bind("keyup", function () {
-                $(this).ColorPickerSetColor(this.value);
-            });
+                .bind("keyup", function () {
+                    $(this).ColorPickerSetColor(this.value);
+                });
 
             if ($("#DesktopColorFondo").val() === "") {
                 $("#DesktopColorFondo").val("#000000");

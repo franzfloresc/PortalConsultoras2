@@ -18,7 +18,7 @@ begin
 	INSERT INTO [ConfiguracionPais] 
 	([Codigo],[Excluyente],[Descripcion],[Estado],[TienePerfil],[DesdeCampania],[MobileTituloMenu],[DesktopTituloMenu],[Logo],[Orden],[DesktopTituloBanner],[MobileTituloBanner],[DesktopSubTituloBanner],[MobileSubTituloBanner],[DesktopFondoBanner],[MobileFondoBanner],[DesktopLogoBanner],[MobileLogoBanner],[UrlMenu],[OrdenBpt],[MobileOrden],[MobileOrdenBPT])
 	VALUES
-	('ATP',1,'ATP Descripción',1,1,@campania,'ATP 2019 Mobile','ATP 2019 Desktop',NULL,@orden,'ATP 2019 Desktop Banner','ATP 2019 Mobile Banner',NULL,NULL,'porDefinir.png','porDefinir.png','porDefinir.png','porDefinir.png','#',@orden,@orden,@orden)
+	('ATP',1,'Arma tu pack',1,1,@campania,'Arma tu pack Mobile','Arma tu pack Desktop',NULL,@orden,'Arma tu pack Desktop Banner','Arma tu pack Mobile Banner',NULL,NULL,'porDefinir.png','porDefinir.png','porDefinir.png','porDefinir.png','#',@orden,@orden,@orden)
 
 end
 

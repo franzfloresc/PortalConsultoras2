@@ -5,46 +5,6 @@
         urlExportarExcel: config.urlExportarExcel
     }
 
-    var _codigoEstrategia = {
-        OfertaParaTi: "001",
-        PackNuevas: "002",
-        OfertaWeb: "003",
-        Lanzamiento: "005",
-        OfertasParaMi: "007",
-        PackAltoDesembolso: "008",
-        OfertaDelDia: "009",
-        GuiaDeNegocio: "010",
-        LosMasVendidos: "020",
-        HerramientaVenta: "011",
-        ShowRoom: "030"
-    }
-
-    var _variables = {
-        isNuevo: false,
-        cantidadPrecargar: 0,
-        cantidadPrecargar2: 0,
-        cantidadOp: 0,
-        imagen: "",
-        isVistaPreviaOpened: false,
-        paisNombre: "",
-        cantGuardadaTemporal: 0,
-        NroLote: 0,
-        Pagina: 0
-    }
-
-    var _idEstrategia = {
-        OfertaParaTi: 4,
-        PackNuevas: 6,
-        Lanzamiento: 9,
-        OfertasParaMi: 10,
-        PackAltoDesembolso: 11,
-        OfertaDelDia: 7,
-        GuiaDeNegocio: 12,
-        LosMasVendidos: 20,
-        HerramientaVenta: 13,
-        ShowRoom: 30
-    }
-
     var _obtenerCampanias = function () {
         $("#list").jqGrid("clearGridData", true).trigger("reloadGrid");
         waitingDialog({});
@@ -220,7 +180,7 @@
 
                 $("#ddlTipoEstrategia").attr("disabled", "disabled");
                 $("#txtFechaConsulta").attr("disabled", "disabled");
-                $("#txtConsultora").attr("disabled", "disabled");  
+                $("#txtConsultora").attr("disabled", "disabled");
                 $(".ui-datepicker-trigger").hide();
             }
 
