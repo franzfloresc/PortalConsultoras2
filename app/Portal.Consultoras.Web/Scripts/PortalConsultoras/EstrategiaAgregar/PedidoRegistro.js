@@ -684,6 +684,7 @@ var PedidoRegistroModule = function () {
             var LimiteVenta = model.LimiteVenta;
             var CantidadesAgregadas = model.CantidadesAgregadas;
             var EstrategiaID = model.EstrategiaID;
+            var MaterialGanancia = model.MaterialGanancia;
 
             if (_mensajeCantidad(cantidad, $(".rango_cantidad_pedido"))) {
                 return false;
@@ -707,7 +708,8 @@ var PedidoRegistroModule = function () {
                 DescripcionEstrategia: descripcionEstrategia,
                 Posicion: posicion,
                 EstrategiaID: EstrategiaID,
-                LimiteVenta: LimiteVenta
+                LimiteVenta: LimiteVenta,
+                MaterialGanancia: MaterialGanancia
             };
 
             jQuery.ajax({
@@ -757,7 +759,9 @@ var PedidoRegistroModule = function () {
                         'DescripcionMarca': modelFinal.CUV,
                         'CodigoTipoEstrategia': modelFinal.EstrategiaID,
                         'MarcaId': modelFinal.MarcaID,
-                        'Cantidad': modelFinal.Cantidad
+                        'Cantidad': modelFinal.Cantidad,
+                        'DescripcionEstrategia': modelFinal.DescripcionEstrategia,
+                        'MaterialGanancia': modelFinal.MaterialGanancia
                     };
 
                     var _textoBusqueda = localStorage.getItem('valorBuscador');

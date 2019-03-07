@@ -43,7 +43,8 @@ var AnalyticsPortalModule = (function () {
         contenedorfichaProducto: "Contenedor - Ficha de producto",
         CarritoCompras: "Carrito de compras",
         siguiente: "Ver siguiente",
-        anterior: "Ver anterior"
+        anterior: "Ver anterior",
+        palancaLasMasGandoras: "Las Más Ganadoras"
         // Fin - Analytics Ofertas (Miguel)
     };
 
@@ -730,6 +731,9 @@ var AnalyticsPortalModule = (function () {
             var palanca;
             if (model.CodigoTipoEstrategia === "0") palanca = model.DescripcionEstrategia;
             else palanca = _obtenerNombrePalanca(model.CodigoTipoEstrategia);
+
+            if (model.MaterialGanancia) palanca = _texto.palancaLasMasGandoras;
+
             var lista = "Buscador - " + palanca + " - " + origen + desplegable;
             dataLayer.push({
                 'event': _evento.addToCart,
