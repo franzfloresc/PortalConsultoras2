@@ -1670,6 +1670,7 @@
     <Content Include="Content\Images\Esika\CategoriasProductos\categoria_moda.jpg" />
     <Content Include="Content\Images\Esika\CategoriasProductos\categoria_tratamiento_corporal.jpg" />
     <Content Include="Content\Images\Esika\CategoriasProductos\categoria_tratamiento_facial.jpg" />
+    <Content Include="Content\Images\Esika\CheckAmarillo.svg" />
     <Content Include="Content\Images\Esika\icono_input_radio_cdr.svg" />
     <Content Include="Content\Images\Esika\RevistaDigital\gana-mas-navidad-esika.svg" />
     <Content Include="Content\Images\Esika\RevistaDigital\gif-club-ganamas2.gif" />
@@ -5635,6 +5636,11 @@
     <Content Include="Views\Pedido\_vpPedidoGrilla.cshtml" />
     <Content Include="Views\ProductoRecomendado\_template_producto.cshtml" />
     <Content Include="Views\Pedido\_vpPedidoGrilla-Template.cshtml" />
+    <Content Include="Views\Bonificaciones\Index.cshtml" />
+    <Content Include="Views\MisCatalogosRevistas\MisCatalogosYRevistas.cshtml" />
+    <Content Include="Views\MisCatalogosRevistas\Index.cshtml" />
+    <Content Include="Views\MisCatalogosRevistas\template-revista-slide.cshtml" />
+    <Content Include="Views\Unete\_MensajeRespuestaBuro.cshtml" />
     <None Include="Service References\ValidacionesUnete\ValidacionesUnete.wsdl" />
     <None Include="Service References\ValidacionesUnete\ValidacionesUnete.xsd">
       <SubType>Designer</SubType>
@@ -5651,13 +5657,7 @@
     <None Include="Service References\ValidacionesUnete\ValidacionesUnete4.xsd">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Views\Bonificaciones\Index.cshtml" />
-    <Content Include="Views\MisCatalogosRevistas\Index.cshtml" />
-    <Content Include="Views\MisCatalogosRevistas\template-revista-slide.cshtml" />
     <Content Include="Views\Unete\ReportePagoKit.cshtml" />
-    <Content Include="Views\Unete\ReporteTipoConsultora.cshtml" />
-    <Content Include="Views\DetalleEstrategia\ProductoTemplate.cshtml" />
-    <Content Include="Views\DetalleEstrategia\FichaTemplate.cshtml" />
     <Content Include="Views\TusClientes\Index.cshtml" />
     <Content Include="Views\TusClientes\PanelLista.cshtml" />
     <Content Include="Views\TusClientes\PanelMantener.cshtml" />
