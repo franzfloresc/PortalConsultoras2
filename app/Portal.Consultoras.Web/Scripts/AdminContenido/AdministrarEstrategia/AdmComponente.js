@@ -236,8 +236,10 @@
 
         showDialog("DialogRegistroOfertaShowRoomDetalle");
 
+        var idEstrategia = jQuery("#list").jqGrid("getCell", idFila, "EstrategiaID");
+
         // obtener de AdmComponente
-        admComponente.FnGrillaOfertaShowRoomDetalle(CampaniaID, CUV, ID);
+        fnGrillaOfertaShowRoomDetalle(CampaniaID, CUV, idEstrategia);
         return false;
     }
 

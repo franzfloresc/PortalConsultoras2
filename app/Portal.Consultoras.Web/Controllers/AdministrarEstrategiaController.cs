@@ -176,35 +176,39 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+
+                    return RedirectToAction("Index", "AdministrarEstrategia");
+                }
+
                 bool dbdefault = HttpUtility.ParseQueryString(((System.Web.HttpRequestWrapper)Request).UrlReferrer.Query)[_dbdefault].ToBool();
 
-                if (ModelState.IsValid)
+                var lst = ConsultarObtenerEstrategia(CampaniaID, TipoEstrategiaID, CUV, Consulta, Imagen, Activo, TipoEstrategiaCodigo, dbdefault);
+
+                var grid = new BEGrid
                 {
-                    var lst = ConsultarObtenerEstrategia(CampaniaID, TipoEstrategiaID, CUV, Consulta, Imagen, Activo, TipoEstrategiaCodigo, dbdefault);
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
 
-                    var grid = new BEGrid
-                    {
-                        PageSize = rows,
-                        CurrentPage = page,
-                        SortColumn = sidx,
-                        SortOrder = sord
-                    };
+                IEnumerable<EstrategiaMDbAdapterModel> items = ConsultarOrdenar(lst, sidx, sord);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                var pag = Util.PaginadorGenerico(grid, lst);
 
-                    IEnumerable<EstrategiaMDbAdapterModel> items = ConsultarOrdenar(lst, sidx, sord);
-                    items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-                    var pag = Util.PaginadorGenerico(grid, lst);
-
-                    var data = new
-                    {
-                        total = pag.PageCount,
-                        page = pag.CurrentPage,
-                        records = pag.RecordCount,
-                        rows = from a in items
-                               select new
+                var data = new
+                {
+                    total = pag.PageCount,
+                    page = pag.CurrentPage,
+                    records = pag.RecordCount,
+                    rows = from a in items
+                           select new
+                           {
+                               id = a.BEEstrategia.EstrategiaID,
+                               cell = new string[]
                                {
-                                   id = a.BEEstrategia.EstrategiaID,
-                                   cell = new string[]
-                                   {
                                         a.BEEstrategia.EstrategiaID.ToString(),
                                         a.BEEstrategia.Orden.ToString(),
                                         a.BEEstrategia.ID.ToString(),
@@ -221,12 +225,11 @@ namespace Portal.Consultoras.Web.Controllers
                                         a.BEEstrategia.PesoMaximoImagen.ToString(),
                                         a._id,
                                         a.BEEstrategia.CodigoTipoEstrategia
-                                   }
                                }
-                    };
-                    return Json(data, JsonRequestBehavior.AllowGet);
-                }
-                return RedirectToAction("Index", "AdministrarEstrategia");
+                           }
+                };
+                return Json(data, JsonRequestBehavior.AllowGet);
+
             }
             catch (Exception ex)
             {
@@ -239,33 +242,35 @@ namespace Portal.Consultoras.Web.Controllers
             string cuv, string consulta, int imagen, int activo, string tipoEstrategiaCodigo, bool dbdefault)
         {
             List<EstrategiaMDbAdapterModel> lst = new List<EstrategiaMDbAdapterModel>();
-            if (consulta == "1")
+            if (consulta != "1")
             {
-                var entidad = new ServicePedido.BEEstrategia
-                {
-                    PaisID = userData.PaisID,
-                    TipoEstrategiaID = Convert.ToInt32(tipoEstrategiaId),
-                    CUV2 = cuv != "" ? cuv : "0",
-                    CampaniaID = Convert.ToInt32(campaniaId),
-                    Activo = activo,
-                    Imagen = imagen
-                };
+                return lst;
+            }
 
-                if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, tipoEstrategiaCodigo, dbdefault))
+            var entidad = new ServicePedido.BEEstrategia
+            {
+                PaisID = userData.PaisID,
+                TipoEstrategiaID = Convert.ToInt32(tipoEstrategiaId),
+                CUV2 = cuv != "" ? cuv : "0",
+                CampaniaID = Convert.ToInt32(campaniaId),
+                Activo = activo,
+                Imagen = imagen
+            };
+
+            if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, tipoEstrategiaCodigo, dbdefault))
+            {
+                entidad.CodigoTipoEstrategia = tipoEstrategiaCodigo;
+                lst.AddRange(administrarEstrategiaProvider.Listar(entidad.CampaniaID.ToString(),
+                    entidad.CodigoTipoEstrategia, userData.CodigoISO, entidad.Activo, entidad.CUV2, entidad.Imagen).ToList());
+            }
+            else
+            {
+                using (var sv = new PedidoServiceClient())
                 {
-                    entidad.CodigoTipoEstrategia = tipoEstrategiaCodigo;
-                    lst.AddRange(administrarEstrategiaProvider.Listar(entidad.CampaniaID.ToString(),
-                        entidad.CodigoTipoEstrategia, userData.CodigoISO, entidad.Activo, entidad.CUV2, entidad.Imagen).ToList());
-                }
-                else
-                {
-                    using (var sv = new PedidoServiceClient())
+                    var tmpEstrategiaList = sv.GetEstrategias(entidad).ToList();
+                    foreach (var itemEstrategia in tmpEstrategiaList)
                     {
-                        var tmpEstrategiaList = sv.GetEstrategias(entidad).ToList();
-                        foreach (var itemEstrategia in tmpEstrategiaList)
-                        {
-                            lst.Add(new EstrategiaMDbAdapterModel { BEEstrategia = itemEstrategia });
-                        }
+                        lst.Add(new EstrategiaMDbAdapterModel { BEEstrategia = itemEstrategia });
                     }
                 }
             }
