@@ -1389,6 +1389,9 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         private bool EsCuponNuevasField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EsDuoPerfectoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EsElecMultipleNuevasField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1886,6 +1889,19 @@ namespace Portal.Consultoras.Web.ServiceCliente {
                 if ((this.EsCuponNuevasField.Equals(value) != true)) {
                     this.EsCuponNuevasField = value;
                     this.RaisePropertyChanged("EsCuponNuevas");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EsDuoPerfecto {
+            get {
+                return this.EsDuoPerfectoField;
+            }
+            set {
+                if ((this.EsDuoPerfectoField.Equals(value) != true)) {
+                    this.EsDuoPerfectoField = value;
+                    this.RaisePropertyChanged("EsDuoPerfecto");
                 }
             }
         }

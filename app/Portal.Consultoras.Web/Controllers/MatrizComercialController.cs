@@ -481,7 +481,7 @@ namespace Portal.Consultoras.Web.Controllers
                 iso = Util.Trim(Util.GetPaisISO(paisID));
                 if (iso != "")
                 {
-                    habilitarNemotecnico = _tablaLogicaProvider.ObtenerValorTablaLogica(paisID, Constantes.TablaLogica.Plan20, Constantes.TablaLogicaDato.BusquedaNemotecnicoMatriz);
+                    habilitarNemotecnico = _tablaLogicaProvider.GetTablaLogicaDatoCodigo(paisID, Constantes.TablaLogica.Plan20, Constantes.TablaLogicaDato.BusquedaNemotecnicoMatriz);
                 }
             }
             return Json(new

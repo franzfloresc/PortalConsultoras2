@@ -16,7 +16,7 @@ namespace Portal.Consultoras.Data.Hana
 
             try
             {
-                var codigoIsoHana = Common.Util.GetPaisIsoSicc(paisId);
+                var codigoIsoHana = Common.Util.GetPaisIsoHanna(paisId);
                 string rutaServiceHana = ConfigurationManager.AppSettings.Get("RutaServiceHana");
                 
                 string urlConParametros = rutaServiceHana + "ObtenerConfiguracionProgramaNuevas/" + codigoIsoHana + "/" + entidad.Campania;

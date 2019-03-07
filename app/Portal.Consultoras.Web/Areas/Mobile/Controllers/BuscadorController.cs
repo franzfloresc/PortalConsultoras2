@@ -6,6 +6,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
     {
         public ActionResult Index()
         {
+            var suscripcion = (revistaDigital.EsSuscrita && revistaDigital.EsActiva);
+            ViewBag.boolSuscrita = suscripcion;
+
             return View();
         }
     }

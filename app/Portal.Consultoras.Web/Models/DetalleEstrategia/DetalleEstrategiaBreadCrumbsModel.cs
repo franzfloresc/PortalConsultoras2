@@ -18,6 +18,8 @@
             }
         }
 
+        public int TipoAccionNavegar { get; set; }
+
         public BreadCrumbModel Inicio { get; set; }
         public BreadCrumbModel Ofertas { get; set; }
         public BreadCrumbModel Palanca { get; set; }
