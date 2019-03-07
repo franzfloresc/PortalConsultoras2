@@ -149,11 +149,13 @@
 
         $("#listShowRoomDetalle").jqGrid("clearGridData");
 
-        var ocultarGrupoEstrategia = $("#ddlTipoEstrategia").find(":selected").data("codigo") != _codigoEstrategia.ArmaTuPack;
+        var codigo = $("#ddlTipoEstrategia").find(":selected").data("codigo");
+
+        var ocultarGrupoEstrategia = codigo != _codigoEstrategia.ArmaTuPack;
         console.log('ocultarGrupoEstrategia', ocultarGrupoEstrategia);
         var parametros = {
             estrategiaId: estrategiaId,
-            codigoTipoEstrategia: $("#ddlTipoEstrategia").find(":selected").data("codigo")
+            codigoTipoEstrategia: codigo
         };
 
         $("#listShowRoomDetalle").setGridParam({ postData: parametros });
@@ -186,7 +188,7 @@
                 { name: "Precio", index: "Precio", width: 50, editable: true, resizable: false, hidden: true },
                 { name: "PrecioValorizado", index: "PrecioValorizado", width: 50, editable: true, resizable: false, hidden: true },
                 { name: "Activo", index: "Activo", width: 50, editable: true, resizable: false, hidden: true },
-                { name: "Options", index: "Options", width: 40, editable: true, sortable: false, align: "center", resizable: false, formatter: _showActionsDetalle }
+                { name: "Options", index: "Options", width: 40, editable: true, sortable: false, align: "center", resizable: false, formatter: _showActionsDetalle, hidden: !ocultarGrupoEstrategia }
             ],
             jsonReader:
             {
@@ -221,6 +223,7 @@
         });
         jQuery("#listShowRoomDetalle").jqGrid("navGrid", "#pagerShowRoomDetalle", { edit: false, add: false, refresh: false, del: false, search: false });
         jQuery("#listShowRoomDetalle").setGridParam({ datatype: "json", page: 1 }).trigger("reloadGrid");
+
     }
 
 
