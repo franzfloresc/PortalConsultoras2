@@ -169,7 +169,7 @@
             mtype: "GET",
             contentType: "application/json; charset=utf-8",
             colNames: ["EstrategiaProductoId", "EstrategiaId", "CampaniaID", "CUV", "Nombre", "Descripcion Catalogo", "Foto", "Marca"
-                , "Nro Grupo", "Nombre Singular", "Nombre Plura", "", "", "", "Acciones"],
+                , "Nro Grupo", "Nombre Singular", "Nombre Plural", "", "", "", "Acciones"],
             colModel: [
                 { name: "EstrategiaProductoId", index: "EstrategiaProductoId", width: 50, editable: true, resizable: false, hidden: true },
                 { name: "EstrategiaId", index: "Estrategia", width: 50, editable: true, resizable: false, hidden: true },
