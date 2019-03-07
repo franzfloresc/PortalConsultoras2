@@ -1472,6 +1472,7 @@ namespace Portal.Consultoras.Common
             public const string MicroserviciosPersonalizacion = "MSPersonalizacion";
             public const string Datami = "DATAMI";
             public const string DireccionEntrega = "DIRECCION_ENTREGA";
+            public const string ArmaTuPack = "ATP";
         }
 
 
@@ -1658,6 +1659,7 @@ namespace Portal.Consultoras.Common
                 public const int DescagablesNavidenos = 7;
                 public const int CarruselIndividuales = 8; // Ejm LAN
                 public const int CarruselIndividualesV2 = 9; // Ejm GM
+                public const int ArmaTuPack = 10; 
             }
         }
 
