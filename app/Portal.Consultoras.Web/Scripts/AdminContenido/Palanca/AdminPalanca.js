@@ -278,15 +278,18 @@ function IniDialogs() {
                     async: true,
                     success: function (data) {
                         if (data.success) {
-                            HideDialog("DialogMantenimientoPalanca");
-                            _toastHelper.success("Solicitud realizada sin problemas.");
+                            HideDialog("DialogMantenimientoPalanca"); 
+                             //_toastHelper.error("Solicitud realizada sin problemas.");
+                            showDialogMensaje("Solicitud realizada sin problemas.", '');
                             UpdateGrillaPalanca();
                         } else {
-                            _toastHelper.error("Error al procesar la Solicitud.");
+                            //_toastHelper.error("Error al procesar la Solicitud.");
+                            showDialogMensaje("Error al procesar la Solicitud.", '');
                         }
                     },
                     error: function (data, error) {
-                        _toastHelper.error("Error al procesar la Solicitud.");
+                        //_toastHelper.error("Error al procesar la Solicitud.");
+                        showDialogMensaje("Error al procesar la Solicitud.", '');
                     }
                 });
 
