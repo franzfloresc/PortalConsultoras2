@@ -60,5 +60,7 @@ namespace Portal.Consultoras.Entities.Pedido
         public bool EsKitNuevaAuto { get; set; }
         [DataMember]
         public bool OfertaWeb { get; set; }
+        [DataMember]
+        public bool EsEditable { get; set; }
     }
 }

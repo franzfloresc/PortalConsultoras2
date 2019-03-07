@@ -323,6 +323,7 @@
     padding: 30px 20px 25px 20px;
     background-color: #FFF;
     border: 1px solid #ebebeb;
+    border-radius:4px;
     cursor: pointer;
     position: relative;
 }
@@ -1477,6 +1478,10 @@
         max-width: 50%;
     }
 
+    .ficha__producto__precio{
+        min-height:39px;
+    }
+
     .ficha__producto--delgada .ficha__producto__precio__normal,
     .ficha__producto--delgada .ficha__producto__precio__oferta
     {
@@ -1492,6 +1497,10 @@
 
     .ficha__producto__precio__normal{
         margin-bottom:5px;
+    }
+
+    .ficha__producto--ancha .ficha__producto__precio__normal{
+        margin-bottom:0;
     }
 
     .ficha__producto__precio__oferta{

@@ -94,7 +94,7 @@ Task("SonarBegin")
         Password = sonarPassword,
         Version = hash,
         Exclusions = "**/*.js,**/*.css,**/emt_chat/**,*UnitTest/**"
-        // Branch = branch // Require https://docs.sonarqube.org/display/PLUG/Branch+Plugin
+        // Branch = branch
     });
 });
 
@@ -121,7 +121,7 @@ Task("SonarJS")
     });
 });
 
-// Require: https://github.com/racodond/sonar-css-plugin
+// Require: https://docs.sonarqube.org/display/PLUG/SonarCSS
 Task("SonarCSS")
     .Does(() => 
 {

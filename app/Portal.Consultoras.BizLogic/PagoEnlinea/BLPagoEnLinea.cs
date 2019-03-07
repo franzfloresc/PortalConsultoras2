@@ -289,9 +289,9 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
             if (listaConfiguracionPasarelaVisa != null)
             {
                 result.EndPointURL = ObtenerValoresTipoPasarela(listaConfiguracionPasarelaVisa, pasarela, Constantes.PagoEnLineaPasarelaVisa.UrlAutorizacionPagoApp);
-                result.MerchantId = ObtenerValoresTipoPasarela(listaConfiguracionPasarelaVisa, pasarela, Constantes.PagoEnLineaPasarelaVisa.MerchantId);
-                result.AccessKeyId = ObtenerValoresTipoPasarela(listaConfiguracionPasarelaVisa, pasarela, Constantes.PagoEnLineaPasarelaVisa.AccessKeyId);
-                result.SecretAccessKey = ObtenerValoresTipoPasarela(listaConfiguracionPasarelaVisa, pasarela, Constantes.PagoEnLineaPasarelaVisa.SecretAccessKey);
+                result.MerchantId = ObtenerValoresTipoPasarela(listaConfiguracionPasarelaVisa, pasarela, Constantes.PagoEnLineaPasarelaVisa.MerchantIdApp);
+                result.AccessKeyId = ObtenerValoresTipoPasarela(listaConfiguracionPasarelaVisa, pasarela, Constantes.PagoEnLineaPasarelaVisa.AccessKeyIdApp);
+                result.SecretAccessKey = ObtenerValoresTipoPasarela(listaConfiguracionPasarelaVisa, pasarela, Constantes.PagoEnLineaPasarelaVisa.SecretAccessKeyApp);
                 result.NextCounterURL = ObtenerValoresTipoPasarela(listaConfiguracionPasarelaVisa, pasarela, Constantes.PagoEnLineaPasarelaVisa.UrlGenerarNumeroPedido);
                 result.TerminosUsoURL = ObtenerValoresTipoPasarela(listaConfiguracionPasarelaVisa, pasarela, Constantes.PagoEnLineaPasarelaVisa.UrlTerminosUsoApp);
                 result.Recurrence = Constantes.PagoEnLineaPasarelaVisa.Recurrence;
