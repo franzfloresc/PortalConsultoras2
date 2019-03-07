@@ -32,41 +32,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                List<ServicePedido.BEEstrategiaProducto> lst;
-                var estrategiaGrupoLista = new List<EstrategiaGrupoModel>();
-
-                var palancaMongoPrueba = Constantes.TipoEstrategiaCodigo.ArmaTuPack == codigoTipoEstrategia;
-
-                if (palancaMongoPrueba && _ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, codigoTipoEstrategia, false))
-                {
-                    lst = administrarEstrategiaProvider.FiltrarEstrategia(estrategiaId, userData.CodigoISO)
-                        .Select(x => x.Componentes)
-                        .FirstOrDefault();
-
-                    estrategiaGrupoLista = estrategiaGrupoProvider.ObtenerEstrategiaGrupo(estrategiaId, userData.CodigoISO);
-                }
-                else
-                {
-                    var estrategiaX = new BEEstrategia() { PaisID = userData.PaisID, EstrategiaID = Int32.Parse(estrategiaId) };
-
-                    using (var sv = new PedidoServiceClient())
-                    {
-                        lst = sv.GetEstrategiaProducto(estrategiaX).ToList();
-                    }
-                }
-
-                if (estrategiaGrupoLista.Any())
-                {
-                    foreach (var item in lst)
-                    {
-                        int index = estrategiaGrupoLista.ToList().FindIndex(x => x.Grupo.Trim().Equals(item.Grupo.Trim()));
-                        if (index != -1)
-                        {
-                            var find = estrategiaGrupoLista.ToList()[index];
-                            item.DescripcionGrupo = find.DescripcionSingular + " - " + find.DescripcionPlural;
-                        }
-                    }
-                }
+                List<ServicePedido.BEEstrategiaProducto> lst = administrarEstrategiaProvider.GetEstrategiaProductoService(userData.CodigoISO, estrategiaId, codigoTipoEstrategia);
+                var estrategiaGrupoLista = administrarEstrategiaProvider.GetEstrategiaGrupoService(userData.CodigoISO, estrategiaId, codigoTipoEstrategia);
 
                 var grid = new BEGrid
                 {
