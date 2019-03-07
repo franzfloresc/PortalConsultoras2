@@ -104,8 +104,18 @@
         $("#txtCUVDetalle").val("");
         $("#txtDescripcionDetalle").val("");
         $("#txtPrecioValorizadoDetalle").val("");
-    }
+        $("#divbtnGrupoEstrategia").hide();
 
+        var codigoEstrategia = $("#ddlTipoEstrategia").find(":selected").data("codigo");
+        var newTitulo = "Edición de Productos"
+
+        if (codigoEstrategia == _codigoEstrategia.ArmaTuPack) {
+            newTitulo = "Edición de grupos";
+            $("#divbtnGrupoEstrategia").show();
+        }
+        $('#DialogRegistroOfertaShowRoomDetalle').dialog('option', 'title', newTitulo);
+
+    }
 
     var _showImageDetalle = function (cellvalue, options, rowObject) {
         var image = "";
@@ -225,17 +235,12 @@
 
         _limpiarDatosShowRoomDetalle();
 
+        $("#hdEstrategiaIDMongo").val(ID);
         $("#txtPaisDetalle").val(admConfig.Variable.paisNombre);
         $("#txtCampaniaDetalle").val(CampaniaID);
         $("#txtCUVDetalle").val(CUV);
         $("#txtDescripcionDetalle").val(jQuery("#list").jqGrid("getCell", idFila, "DescripcionCUV2"));
         $("#txtPrecioValorizadoDetalle").val(jQuery("#list").jqGrid("getCell", idFila, "Precio2"));
-
-        /*INI ATP*/
-        $("#hdEstrategiaIDMongo").val(ID);
-        var newTitulo = $("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ArmaTuPack ? "Edición de grupos" : "Edición de Productos"
-        $('#DialogRegistroOfertaShowRoomDetalle').dialog('option', 'title', newTitulo);
-        /*END ATP*/
 
         showDialog("DialogRegistroOfertaShowRoomDetalle");
 
