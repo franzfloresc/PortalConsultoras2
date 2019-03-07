@@ -67,9 +67,9 @@ namespace Portal.Consultoras.BizLogic
 
             var cuv = lstProductos.FirstOrDefault(a => a.CodigoCupon == cuvIngresado);
             if (cuv == null) return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.Agregar);
-            if (cuv.IndicadorCuponIndependiente) return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.Agregar);
+            if (!cuv.EsCuponElectivo) return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.Agregar);
 
-            List<BEProductoProgramaNuevas> lstElectivas = lstProductos.Where(a => !a.IndicadorCuponIndependiente && a.CodigoCupon != cuvIngresado).ToList();
+            List<BEProductoProgramaNuevas> lstElectivas = lstProductos.Where(a => a.EsCuponElectivo && a.CodigoCupon != cuvIngresado).ToList();
             if (lstElectivas.Count == 0) return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.Agregar);
 
             var nivelInput = new BENivelesProgramaNuevas { Campania = campaniaID.ToString(), CodigoPrograma = codigoPrograma, CodigoNivel = "0" + (consecutivoNueva + 1) };
@@ -104,22 +104,16 @@ namespace Portal.Consultoras.BizLogic
             var fnEnRango = GetFnEnRangoCuv(paisID);
             var listDetalleEnRango = listPedidoDetalle.Where(d => fnEnRango(Convert.ToInt32(d.CUV))).ToList();
             if (listDetalleEnRango.Count == 0) return;
-            var listCuvNuevas = GetProductosByCampaniaCache(paisID, campaniaID);
-            var listCuvPerteneceNuevas = FiltrarProductosByNivelyCodigoPrograma(listCuvNuevas, consecutivoNueva, codigoPrograma);
-            if (listCuvPerteneceNuevas.Count == 0) return;
+            var listCuvNuevasCampania = GetProductosByCampaniaCache(paisID, campaniaID);
 
-            var listDetallePerteneceNuevas = listDetalleEnRango.Where(d => listCuvPerteneceNuevas.Any(p => p.CodigoCupon == d.CUV)).ToList();
-            listDetallePerteneceNuevas.ForEach(d => d.EsCuponNuevas = true);
+            var listCuvNuevas = FiltrarProductosByNivelyCodigoPrograma(listCuvNuevasCampania, consecutivoNueva, codigoPrograma);
+            if (listCuvNuevas.Count == 0) return;
+            var listDetNuevas = listDetalleEnRango.Where(d => listCuvNuevas.Any(p => p.CodigoCupon == d.CUV)).ToList();
+            listDetNuevas.ForEach(d => d.EsCuponNuevas = true);
 
-            var listCuvElectivas = listCuvPerteneceNuevas.Where(a => !a.IndicadorCuponIndependiente).ToList();
-            if (listCuvElectivas.Count == 0) return;
-
-            var nivelInput = new BENivelesProgramaNuevas { Campania = campaniaID.ToString(), CodigoPrograma = codigoPrograma, CodigoNivel = "0" + (consecutivoNueva + 1) };
-            var limElectivos = GetLimiteElectivos(paisID, nivelInput);
-            if (limElectivos <= 1) return;
-
-            var listDetalleElectivos = listDetallePerteneceNuevas.Where(d => listCuvElectivas.Any(c =>c.CodigoCupon == d.CUV)).ToList();
-            listDetalleElectivos.ForEach(d => d.EsElecMultipleNuevas = true);
+            ValidFlagEsPremioNueva(listDetNuevas, listCuvNuevas);
+            var listDetNuevasNoPremios = listDetNuevas.Where(d => !d.EsPremioElectivo).ToList();
+            ValidFlagEsElecMultipleNuevas(paisID, campaniaID, codigoPrograma, consecutivoNueva, listDetNuevasNoPremios, listCuvNuevas);
         }
 
         public bool EsCuvElecMultiple(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, string cuv)
@@ -131,7 +125,7 @@ namespace Portal.Consultoras.BizLogic
             lstCuponNuevas = FiltrarProductosByNivelyCodigoPrograma(lstCuponNuevas, consecutivoNueva, codigoPrograma);
             if (lstCuponNuevas.Count == 0) return false;
 
-            var lstElectivas = lstCuponNuevas.Where(c => !c.IndicadorCuponIndependiente).ToList();
+            var lstElectivas = lstCuponNuevas.Where(c => c.EsCuponElectivo).ToList();
             if (lstElectivas.Count <= 1) return false;
             var electivo = lstElectivas.FirstOrDefault(e => e.CodigoCupon == cuv);
             if (electivo == null) return false;
@@ -151,7 +145,7 @@ namespace Portal.Consultoras.BizLogic
             lstCuponNuevas = FiltrarProductosByNivelyCodigoPrograma(lstCuponNuevas, consecutivoNueva, codigoPrograma);
             if (lstCuponNuevas.Count == 0) return false;
 
-            var lstElectivas = lstCuponNuevas.Where(c => !c.IndicadorCuponIndependiente).ToList();
+            var lstElectivas = lstCuponNuevas.Where(c => c.EsCuponElectivo).ToList();
             if (lstElectivas.Count <= 1) return false;
             var countElecLista = lstElectivas.Count(e => lstCuv.Contains(e.CodigoCupon));
             if (countElecLista <= 1) return false;
@@ -243,6 +237,100 @@ namespace Portal.Consultoras.BizLogic
             return iNivelInicial <= nivelConsultora && nivelConsultora <= (iNivelInicial + campaniasVigentes - 1);
         }
 
+        private void ValidFlagEsPremioNueva(List<BEPedidoWebDetalle> listDetNuevas, List<BEProductoProgramaNuevas> listCuvNuevas)
+        {
+            var listCuvPremioElec = listCuvNuevas.Where(c => c.EsPremioElectivo).ToList();
+            if (listCuvPremioElec.Count == 0) return;
+
+            var listDetallePremioElec = listDetNuevas.Where(d => listCuvPremioElec.Any(p => p.CodigoCupon == d.CUV)).ToList();
+            listDetallePremioElec.ForEach(d => d.EsPremioElectivo = true);
+        }
+        private void ValidFlagEsElecMultipleNuevas(int paisID, int campania, string codPrograma, int consecutivoNueva, List<BEPedidoWebDetalle> listDetNuevas, List<BEProductoProgramaNuevas> listCuvNuevas)
+        {
+            var listCuvElectivas = listCuvNuevas.Where(c => !c.EsCuponIndependiente).ToList();
+            if (listCuvElectivas.Count == 0) return;
+            
+            var nivelInput = new BENivelesProgramaNuevas { Campania = campania.ToString(), CodigoPrograma = codPrograma, CodigoNivel = "0" + (consecutivoNueva + 1) };
+            var limElectivos = GetLimiteElectivos(paisID, nivelInput);
+            if (limElectivos <= 1) return;
+
+            var listDetalleElectivos = listDetNuevas.Where(d => listCuvElectivas.Any(c => c.CodigoCupon == d.CUV)).ToList();
+            listDetalleElectivos.ForEach(d => d.EsElecMultipleNuevas = true);
+        }
+
         #endregion
+
+
+        public List<BEPremioNuevas> ListarPremioNuevasPaginado(BEPremioNuevas premio)
+        {
+        
+            List<BEPremioNuevas> listPaginado = null;
+            try
+            {
+                using (var reader = new DAPremioNuevas(premio.PaisID).ListarPremioNuevasPaginado(premio))
+                {
+                    listPaginado = MapUtil.MapToCollection<BEPremioNuevas>(reader, true, true);
+                }
+
+                listPaginado.Update(x =>
+                {
+                    x.ActiveDesc = x.ActivePremioAuto == true ? "Si" : "No";
+                    x.ActiveTooltipDesc = x.ActiveTooltip == true ? "Si" : "No";
+                    x.ActiveTooltipMontoDesc = x.ActiveMonto == true ? "Si" : "No";
+                    x.Ind_Cup_ElecDesc = x.ActivePremioElectivo == true ? "Si" : "No";
+                });
+                return listPaginado;
+            }
+
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, premio.CodigoUsuario, premio.PaisID);
+                throw new BizLogicException("Error en BLProgramaNuevas.ListarPremioNuevasPaginado", ex);
+            }
+        }
+        public BEPremioNuevas Editar(BEPremioNuevas premio)
+        {
+            BEPremioNuevas record;
+            List<BEPremioNuevas> lrecord;
+            try
+            {
+                using (var reader = new DAPremioNuevas(premio.PaisID).Editar(premio))
+                {
+                    lrecord = MapUtil.MapToCollection<BEPremioNuevas>(reader, true, true);
+                }
+                record = lrecord.Any() ? lrecord.FirstOrDefault() : new BEPremioNuevas { OperacionResultado = 3 };
+            }
+
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, premio.CodigoUsuario, premio.PaisID);
+                throw new BizLogicException("Error en BLProgramaNuevas.Editar", ex);
+            }
+
+            return record;
+        }
+        public BEPremioNuevas Insertar(BEPremioNuevas premio)
+        {
+            BEPremioNuevas record;
+            List<BEPremioNuevas> lrecord;
+            try
+            {
+                using (var reader = new DAPremioNuevas(premio.PaisID).Insertar(premio))
+                {
+                    lrecord = MapUtil.MapToCollection<BEPremioNuevas>(reader, true, true);
+                }
+                record = lrecord.Any() ? lrecord.FirstOrDefault() : new BEPremioNuevas { OperacionResultado = 3};
+            }
+
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, premio.CodigoUsuario, premio.PaisID);
+                throw new BizLogicException("Error en BLProgramaNuevas.Insertar", ex);
+            }
+            return record;
+        }
+
+
+
     }
 }

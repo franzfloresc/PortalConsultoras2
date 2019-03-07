@@ -657,9 +657,14 @@ function waitingDialog(waiting) {
     }
 }
 
-function closeWaitingDialog() {
+function closeWaitingDialog(opcion) {
     try {
         HideDialog("loadingScreen");
+
+        if (opcion.overflow === false) {
+            $('body').css('overflow', 'hidden');
+        }
+
     }
     catch (err) {
     }
@@ -685,7 +690,7 @@ function CerrarLoad(opcion) {
             CloseLoading(opcion);
         }
         else {
-            closeWaitingDialog();
+            closeWaitingDialog(opcion);
         }
     } catch (e) {
 
@@ -829,8 +834,29 @@ function isPagina(pagina) {
 }
 
 function isHome() {
-    var isUrl = ($.trim(location.href) + "/").toLowerCase().indexOf("/bienvenida/") > 0;
+    var url = ($.trim(location.href) + "/").toLowerCase();
+    var isUrl = url.indexOf("/bienvenida/") > 0;
+    if (!isUrl) {
+        url = $.trim(location.pathname).toLowerCase();
+        isUrl = url == "" || url == "/" || url == "/mobile" || url == "/mobile/";
+    }
     return isUrl;
+}
+
+function isPedido() {
+    var url = ($.trim(location.href) + "/").toLowerCase().replace("/mobile", "");
+    var isUrl = url.indexOf("/pedido/") > 0;
+    return isUrl;
+}
+
+function isOfertas() {
+    var url = ($.trim(location.href) + "/").toLowerCase().replace("/mobile", "");
+    var isUrl = url.indexOf("/ofertas/") > 0;
+    return isUrl;
+}
+
+function isFicha() {
+    return location.pathname.replace("/Mobile", "").indexOf("/Detalle/") == 0;
 }
 
 function isInt(n) {
@@ -1037,6 +1063,18 @@ FuncionesGenerales = {
         else {
             var keyChar = String.fromCharCode(charCode);
             var re = /[a-zA-ZñÑáéíóúÁÉÍÓÚ ]/;
+            return re.test(keyChar);
+        }
+    },
+    ValidarCorreo: function (e) {
+        var charCode = (e.which) ? e.which : window.event.keyCode;
+        if (charCode === 8) return true;
+        if (charCode <= 13) {
+            return false;
+        }
+        else {
+            var keyChar = String.fromCharCode(charCode);
+            var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ_.-\@]/;
             return re.test(keyChar);
         }
     },
@@ -2035,8 +2073,9 @@ function CuponPopupCerrar() {
 }
 
 function microefectoPedidoGuardado() {
-    $(".contenedor_circulos").fadeIn();
+    var divCirculos = $('#vpMenu .contenedor_circulos');
+    divCirculos.fadeIn();
     setTimeout(function () {
-        $(".contenedor_circulos").fadeOut();
+        divCirculos.fadeOut();
     }, 2700);
 }
