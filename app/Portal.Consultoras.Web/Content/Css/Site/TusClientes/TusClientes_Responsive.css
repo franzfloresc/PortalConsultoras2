@@ -26,13 +26,21 @@ h1, h2, h3, h4, h5, h6 {
     font-family: 'Lato', sans-serif !important;
 }
 
+.tabla_cabecera,
+.tabla_item
+{
+    min-height:60px;
+}
+
+.tabla_item{
+    border-bottom: 1px solid #d8d8d8;
+}
+
 .tabla_cabecera div,
 .tabla_item div
 {
-    min-height:60px;
-    line-height:19px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .tabla_cabecera div {
@@ -47,7 +55,6 @@ h1, h2, h3, h4, h5, h6 {
 
 .tabla_item div {
     font-size: 13px;
-    border-bottom: 1px solid #d8d8d8;
 }
 
 .btn_editar {
@@ -258,6 +265,7 @@ h1, h2, h3, h4, h5, h6 {
     .tabla_item {
         border-bottom: 1px solid #d8d8d8;
         align-items: center;
+        min-height:60px;
     }
 
         .tabla_item div {
