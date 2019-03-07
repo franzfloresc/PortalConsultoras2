@@ -3,10 +3,12 @@
     //
     if (typeof config.grupoView === "undefined" || config.grupoView === null) throw "config.grupoView is null or undefined";
     if (typeof config.armaTuPackProvider === "undefined" || config.armaTuPackProvider === null) throw "config.armaTuPackProvider is null or undefined";
+    if (typeof config.generalModule === "undefined" || config.generalModule === null) throw "config.generalModule is null or undefined";
 
     var _config = {
         grupoView: config.grupoView,
         armaTuPackProvider: config.armaTuPackProvider,
+        generalModule: config.generalModule,
     };
 
     var _init = function () {
@@ -14,8 +16,15 @@
         _config
             .armaTuPackProvider
             .getPackComponentsPromise(cuv)
-            .done(function(){
+            .done(function (data) {
+                if (typeof data === "undefined" || data === null ||
+                    !Array.isArray(data.Grupos) || data.Grupos.length === 0)
+                    _config.generalModule.redirectTo("/ofertas");
 
+                _config.grupoView.renderGrupos(data);
+            })
+            .fail(function(data,error){
+                _config.generalModule.redirectTo("/ofertas");
             });
     };
 
