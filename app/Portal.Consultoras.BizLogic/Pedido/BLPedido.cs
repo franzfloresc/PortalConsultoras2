@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.BizLogic.ArmaTuPack;
 using Portal.Consultoras.BizLogic.LimiteVenta;
+using Portal.Consultoras.BizLogic.ProgramaNuevas;
 using Portal.Consultoras.BizLogic.Reserva;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Common.Serializer;
@@ -44,8 +45,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
         private readonly IProgramaNuevasBusinessLogic _programaNuevasBusinessLogic;
         private readonly ILimiteVentaBusinessLogic _limiteVentaBusinessLogic;
         private readonly IArmaTuPackBusinessLogic _BLArmaTuPack;
-        private readonly BLActivarPremioNuevas _bLActivarPremioNuevas;
-        private readonly BLEstrategia _blEstrategia;
+        private readonly IActivarPremioNuevasBusinessLogic _bLActivarPremioNuevas;
+        private readonly IEstrategiaBusinessLogic _blEstrategia;
 
         public BLPedido() : this(new BLProducto(),
                                     new BLPedidoWeb(),
@@ -89,8 +90,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                             IProgramaNuevasBusinessLogic programaNuevasBusinessLogic,
                             ILimiteVentaBusinessLogic limiteVentaBusinessLogic,
                             IArmaTuPackBusinessLogic BLArmaTuPack,
-                            BLActivarPremioNuevas bLActivarPremioNuevas,
-                            BLEstrategia blEstrategia)
+                            IActivarPremioNuevasBusinessLogic bLActivarPremioNuevas,
+                            IEstrategiaBusinessLogic blEstrategia)
         {
             _productoBusinessLogic = productoBusinessLogic;
             _pedidoWebBusinessLogic = pedidoWebBusinessLogic;
@@ -1145,8 +1146,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     var consultoraNuevas = new BEConsultoraProgramaNuevas { PaisID = usuario.PaisID, CampaniaID = usuario.CampaniaID, CodigoConsultora = usuario.CodigoConsultora };
                     var tippingPoint = _configuracionProgramaNuevasBusinessLogic.Get(consultoraNuevas);
                     var activaPremios = _bLActivarPremioNuevas.GetActivarPremioNuevas(usuario.PaisID, usuario.CodigoPrograma, usuario.CampaniaID, "0" + (usuario.ConsecutivoNueva + 1));
-                    var blUsuario = new BLUsuario();
-                    var config = blUsuario.GetBasicSesionUsuario(usuario.PaisID, usuario.CodigoUsuario);
+                    var config = _usuarioBusinessLogic.GetBasicSesionUsuario(usuario.PaisID, usuario.CodigoUsuario);
 
                     pedido.MuestraRegalo = (activaPremios.ActivePremioAuto || activaPremios.ActivePremioElectivo);
 
@@ -1553,7 +1553,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             return usuario;
         }
 
-        public BEProducto GetRegaloOfertaFinal(BEUsuario usuario)
+        public async Task<BEProducto> GetRegaloOfertaFinal(BEUsuario usuario)
         {
             var ProductoRegalo = new BEProducto();
             try
@@ -2415,7 +2415,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 //{
                 int totalClientes = 0;
                 decimal totalImporte = 0;
-                var lstDetalle = (List<BEPedidoWebDetalle>)null;
+                List<BEPedidoWebDetalle> lstDetalle = null;
                 int pedidoID = 0;
                 var SetIdList = new List<int>();
 
@@ -2631,7 +2631,110 @@ namespace Portal.Consultoras.BizLogic.Pedido
             return respValidar.TieneLimite;
         }
 
-        #endregion  
+        public BEPedidoDetalleResult ValidaRegaloPedido(BEPedidoDetalle pedidoDetalle)
+        {
+            BEPedidoDetalleResult objRerun = null;
+            var LstRealo = _blEstrategia.GetEstrategiaPremiosElectivos(pedidoDetalle.Usuario.PaisID, pedidoDetalle.Usuario.CodigoPrograma, pedidoDetalle.Usuario.CampaniaID, pedidoDetalle.Usuario.Nivel).ToList();
+            var reqPedidoDetalle = Get(pedidoDetalle.Usuario);
+            if (reqPedidoDetalle.olstBEPedidoWebDetalle == null)
+            {
+                objRerun = new BEPedidoDetalleResult();
+                objRerun.CodigoRespuesta = Constantes.PedidoValidacion.Code.SUCCESS;
+                return objRerun;
+            }
+
+            reqPedidoDetalle.olstBEPedidoWebDetalle.ForEach(p =>
+            {
+                p.EsRegalo = LstRealo.Any(c => c.CUV2 == p.CUV);
+            });
+
+            if (reqPedidoDetalle.olstBEPedidoWebDetalle.Any(x => x.EsRegalo))
+            {
+                var regaloElegido = reqPedidoDetalle.olstBEPedidoWebDetalle.FirstOrDefault(x => x.EsRegalo);
+                BEPedidoDetalle ProdEliminar = (BEPedidoDetalle)pedidoDetalle.Clone();
+
+                ProdEliminar.PedidoDetalleID = regaloElegido.PedidoDetalleID;
+                ProdEliminar.Producto = new BEProducto()
+                {
+                    TipoOfertaSisID = regaloElegido.TipoOfertaSisID,
+                    CUV = regaloElegido.CUV
+                };
+
+                objRerun = Delete(ProdEliminar).Result;
+                if (objRerun.CodigoRespuesta != Constantes.PedidoValidacion.Code.SUCCESS) return objRerun;
+
+                //var regaloElegido = objPedido.Detalle.FirstOrDefault(x => x.EsPremioElectivo);
+            }
+            else
+            {
+                objRerun = new BEPedidoDetalleResult();
+                objRerun.CodigoRespuesta = Constantes.PedidoValidacion.Code.SUCCESS;
+            }
+
+            return objRerun;
+        }
+
+        public BEPedidoDetalleResult AgregaRegaloDefault(BEPedidoDetalle pedidoDetalle)
+        {
+            BEPedidoDetalleResult objRerun = null;
+            var lisRegalos = _blEstrategia.GetEstrategiaPremiosElectivos(pedidoDetalle.Usuario.PaisID, pedidoDetalle.Usuario.CodigoPrograma, pedidoDetalle.Usuario.CampaniaID, pedidoDetalle.Usuario.Nivel).ToList();
+            var reqPedidoDetalle = Get(pedidoDetalle.Usuario);
+
+            if (reqPedidoDetalle.olstBEPedidoWebDetalle == null) reqPedidoDetalle.olstBEPedidoWebDetalle = new List<BEPedidoWebDetalle>();
+
+            reqPedidoDetalle.olstBEPedidoWebDetalle.ForEach(p =>
+            {
+                p.EsRegalo = lisRegalos.Any(c => c.CUV2 == p.CUV);
+            });
+
+            if (!reqPedidoDetalle.olstBEPedidoWebDetalle.Any(x => x.EsRegalo))
+            {
+                var productRegalo = lisRegalos.FirstOrDefault(x => x.CuponElectivoDefault == true);
+                pedidoDetalle.Producto = new BEProducto()
+                {
+                    CUV = productRegalo.CUV2,
+                    PrecioCatalogo = productRegalo.Precio,
+                    TipoEstrategiaID = productRegalo.TipoEstrategiaID.ToString(),
+                    FlagNueva = "1",
+                    IndicadorMontoMinimo = productRegalo.IndicadorMontoMinimo,
+                    MarcaID = productRegalo.MarcaID,
+                    EstrategiaID = productRegalo.EstrategiaID
+                };
+
+                objRerun = Insert(pedidoDetalle);
+            }
+            else
+            {
+                objRerun = new BEPedidoDetalleResult();
+                objRerun.CodigoRespuesta = Constantes.PedidoValidacion.Code.SUCCESS;
+            }
+
+
+
+
+            return objRerun;
+        }
+
+        public List<BEEstrategia> ListaRegalosApp(BEUsuario usuario)
+        {
+            List<BEEstrategia> lstReturn = null;
+
+            lstReturn = _blEstrategia.GetEstrategiaPremiosElectivos(usuario.PaisID, usuario.CodigoPrograma, usuario.CampaniaID, usuario.Nivel);
+            var objPedidoDetalle = Get(usuario);
+
+            if (objPedidoDetalle.olstBEPedidoWebDetalle == null) objPedidoDetalle.olstBEPedidoWebDetalle = new List<BEPedidoWebDetalle>();
+            if (lstReturn == null) return new List<BEEstrategia>();
+
+            lstReturn = lstReturn.Where(x => x.ImagenURL != null).ToList();
+
+            lstReturn.ForEach(x =>
+            {
+                x.FlagSeleccionado = objPedidoDetalle.olstBEPedidoWebDetalle.Any(y => y.CUV == x.CUV2) ? 1 : 0;
+            });
+
+            return lstReturn;
+        }
+        #endregion
 
         #region Get
         private List<BEPedidoWebDetalle> ObtenerPedidoWebDetalle(BEPedidoBuscar pedidoDetalle, out int pedidoID)

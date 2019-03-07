@@ -2355,9 +2355,19 @@ namespace Portal.Consultoras.Service
             return _pedidoBusinessLogic.GetConfiguracionOfertaFinalCarrusel(usuario);
         }
 
-        public BEProducto GetRegaloOfertaFinal(BEUsuario usuario)
+        public async Task<BEProducto> GetRegaloOfertaFinal(BEUsuario usuario)
         {
-            return _pedidoBusinessLogic.GetRegaloOfertaFinal(usuario);
+            return await _pedidoBusinessLogic.GetRegaloOfertaFinal(usuario);
+        }
+
+        public BEPedidoDetalleResult ValidaRegaloPedido(BEPedidoDetalle pedidoDetalle)
+        {
+            return _pedidoBusinessLogic.ValidaRegaloPedido(pedidoDetalle);
+        }
+
+        public BEPedidoDetalleResult AgregaRegaloDefault(BEPedidoDetalle pedidoDetalle)
+        {
+            return _pedidoBusinessLogic.AgregaRegaloDefault(pedidoDetalle);
         }
 
         public BEPedidoDetalleResult InsertOfertaFinalCarrusel(BEPedidoDetalle pedidoDetalle)
@@ -2432,6 +2442,10 @@ namespace Portal.Consultoras.Service
         {
             return blEstrategia.LimpiarCacheRedis(paisID, codigoTipoEstrategia, campaniaID);
         }
-        
+
+        public List<BEEstrategia> ListaRegalosApp(BEUsuario pedidoDetalle)
+        {
+            return _pedidoBusinessLogic.ListaRegalosApp(pedidoDetalle);
+        }
     }
 }

@@ -1207,7 +1207,13 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         BEUsuario GetConfiguracionOfertaFinalCarrusel(BEUsuario usuario);
         [OperationContract]
-        BEProducto GetRegaloOfertaFinal(BEUsuario usuario);
+        Task<BEProducto> GetRegaloOfertaFinal(BEUsuario usuario);
+        [OperationContract]
+        BEPedidoDetalleResult ValidaRegaloPedido(BEPedidoDetalle pedidoDetalle);
+        [OperationContract]
+        BEPedidoDetalleResult AgregaRegaloDefault(BEPedidoDetalle pedidoDetalle);
+        [OperationContract]
+        List<BEEstrategia> ListaRegalosApp(BEUsuario pedidoDetalle);
         [OperationContract]
         BEPedidoDetalleResult InsertOfertaFinalCarrusel(BEPedidoDetalle pedidoDetalle);
         [OperationContract]

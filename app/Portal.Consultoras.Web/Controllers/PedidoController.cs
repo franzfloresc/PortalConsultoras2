@@ -4638,7 +4638,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult CargarPremiosElectivos()
         {
-            var premios = _programaNuevasProvider.GetListPremioElectivo();
+           var premios = _programaNuevasProvider.GetListPremioElectivo();
 
             var details = ObtenerPedidoWebSetDetalleAgrupado(true) ?? new List<BEPedidoWebDetalle>();
 
