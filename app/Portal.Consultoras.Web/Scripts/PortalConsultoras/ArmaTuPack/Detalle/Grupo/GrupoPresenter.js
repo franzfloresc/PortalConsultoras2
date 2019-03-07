@@ -16,8 +16,12 @@
         _config
             .armaTuPackProvider
             .getPackComponentsPromise(cuv)
-            .done(function(data){
-                _config.grupoView.grupos(data);
+            .done(function (data) {
+                if (typeof data === "undefined" || data === null ||
+                    !Array.isArray(data.Grupos) || data.Grupos.length === 0)
+                    _config.generalModule.redirectTo("/ofertas");
+
+                _config.grupoView.renderGrupos(data);
             })
             .fail(function(data,error){
                 _config.generalModule.redirectTo("/ofertas");

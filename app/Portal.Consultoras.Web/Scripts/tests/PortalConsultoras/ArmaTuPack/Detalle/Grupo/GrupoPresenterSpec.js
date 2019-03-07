@@ -1668,31 +1668,71 @@ describe("ArmaTuPack - Detalle - Grupo - GrupoPresenter", function () {
             });
         });
 
-        it("should return to /Ofertas when we can't get data", function () {
+        afterEach(function () {
+            sinon.restore();
+        });
+    
+
+        it("should return to /Ofertas when client can't get data", function () {
             armaTuPackProvider
-            .getPackComponentsPromise
-            .returns(
-                TestHelpersModule
-                    .getRejectedPromiseWithData({})
-            );
+                .getPackComponentsPromise
+                .returns(
+                    TestHelpersModule
+                        .getRejectedPromiseWithData({})
+                );
 
             grupoPresenter.init();
 
             expect(generalModule.redirectTo.calledOnce).to.equals(true);
         });
 
-        // it("should get pack components", function () {
-        //     grupoPresenter.init();
+        it("should return to /Ofertas when client get a null data object ", function () {
+            armaTuPackProvider
+                .getPackComponentsPromise
+                .returns(
+                    TestHelpersModule
+                        .getResolvedPromiseWithData(null)
+                );
 
-        //     expect(armaTuPackProvider.getPackComponentsPromise.calledOnce).to.equals(true);
-        // });
+            grupoPresenter.init();
+            
+            expect(generalModule.redirectTo.calledOnce).to.equals(true);
+        });
 
-        // it("should render groups", function () {
-        //     grupoPresenter.init();
+        it("should return to /Ofertas when client get a data object with null groups", function () {
+            armaTuPackProvider
+                .getPackComponentsPromise
+                .returns(
+                    TestHelpersModule
+                        .getResolvedPromiseWithData({
+                            Grupos : null
+                        })
+                );
 
-        //     expect(grupoView.grupos.calledOnce).to.equals(true);
-        // });
+            grupoPresenter.init();
+            
+            expect(generalModule.redirectTo.calledOnce).to.equals(true);
+        });
+
+        it("should return to /Ofertas when client get data object with no groups", function () {
+            armaTuPackProvider
+            .getPackComponentsPromise
+            .returns(
+                TestHelpersModule
+                    .getRejectedPromiseWithData({
+                        Grupos : []
+                    })
+            );
+
+            grupoPresenter.init();
+            
+            expect(generalModule.redirectTo.calledOnce).to.equals(true);
+        });
+
+        it("should render view when client get data from backend", function () {
+            grupoPresenter.init();
+
+            expect(grupoView.renderGrupos.calledOnce).to.equals(true);
+        });
     });
- 
-   
 });
