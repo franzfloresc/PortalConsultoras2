@@ -247,7 +247,7 @@ h1, h2, h3, h4, h5, h6 {
 
         }
 
-    le.content_boton_agregar {
+    .content_boton_agregar {
         position: fixed;
         bottom: 0;
         z-index: 10;
