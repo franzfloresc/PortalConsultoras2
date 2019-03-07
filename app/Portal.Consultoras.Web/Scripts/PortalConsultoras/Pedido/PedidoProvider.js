@@ -11,7 +11,7 @@ var PedidoProvider = function () {
             page: pageParams.page || 1,
             rows: pageParams.rows || -1,
             clienteId: pageParams.clienteId || -1,
-            mobil: pageParams || false
+            mobil: pageParams.mobil || false
         };
 
         var dfd = jQuery.Deferred();

@@ -136,10 +136,71 @@ function RDSuscripcionPromise() {
     return d.promise();
 }
 
-function RDDesuscripcion() {
-    
-    AbrirLoad();
+
+function RDDesuscripcion_pregunta() {
+    //Marca Analitycs
     rdAnalyticsModule.CancelarSuscripcion();
+    $('#alerta_cancelar_suscripcion').show();
+    $('#pregunta').show();
+    $('#frmMotivoDesuscripcion').find('input:checked').click();
+    $('#opciones').hide();
+}
+
+function RDDesuscripcion_cerrar(e) {
+    if (e)
+        if (revistaDigital.EsSuscrita)
+            rdAnalyticsModule.DesuscripcionPopup(e.innerHTML);
+        else {
+
+            var MensajeEncuesta = "";
+            for (var i = 0; i < $('#frmMotivoDesuscripcion').find('input:checked').parent().length; i++) {
+                if (i === 0) {
+                    MensajeEncuesta = $('#frmMotivoDesuscripcion').find('input:checked').parent()[i].id
+                }
+                else
+                    MensajeEncuesta = MensajeEncuesta + '|' + $('#frmMotivoDesuscripcion').find('input:checked').parent()[i].id
+            }
+
+            rdAnalyticsModule.CancelarSuscripcionEncuesta(MensajeEncuesta);
+        }
+
+    else
+        if (revistaDigital.EsSuscrita)
+            rdAnalyticsModule.DesuscripcionPopupCerrar("Cerrar Popup");
+        else
+            rdAnalyticsModule.DesuscripcionPopupCerrar("Cerrar Encuesta");
+
+    $('#pregunta').show();
+    $('#opciones').hide();
+
+    if (!revistaDigital.EsSuscrita) {
+        window.location.href = (isMobile() ? "/Mobile" : "") + "/Ofertas";
+    }
+    $('#alerta_cancelar_suscripcion').hide();   
+}
+
+ 
+
+
+function RDDesuscripcion_check() {   
+
+    if ($('#frmMotivoDesuscripcion').find('input:checked ~ .checkmark_desuscrita')[0])
+         $('#btnDesuscrita').removeClass('disable');
+    else
+        $('#btnDesuscrita').addClass('disable');
+}
+
+function RDDesuscripcion_motivos(e) {   
+    rdAnalyticsModule.DesuscripcionPopup(e.innerHTML);
+    RDDesuscripcion(e);
+}
+
+
+
+function RDDesuscripcion(e) {    
+
+    AbrirLoad();
+    //rdAnalyticsModule.CancelarSuscripcion();
     $.ajax({
         type: "POST",
         url: baseUrl + "RevistaDigital/Desuscripcion",
@@ -161,10 +222,12 @@ function RDDesuscripcion() {
                 var key = lsListaRD + data.CampaniaID;
                 RDActualizarTipoAccionAgregar(data.revistaDigital, key);
             }
+            revistaDigital = data.revistaDigital;
+            $('#pregunta').hide();
+            $('#opciones').show();
 
-            window.location.href = (isMobile() ? "/Mobile" : "") + "/Ofertas";
         },
-        error: function (data, error) {
+        error: function (data, error) {            
             CerrarLoad();
         }
     });
