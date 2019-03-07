@@ -31,6 +31,7 @@ namespace Portal.Consultoras.Data
 
         public int Update(BEConfiguracionOfertasHome entity)
         {
+           
             var command = Context.Database.GetStoredProcCommand("dbo.ConfiguracionOfertasHomeUpdate");
             Context.Database.AddInParameter(command, "ConfiguracionOfertasHomeID", DbType.Int32, entity.ConfiguracionOfertasHomeID);
             Context.Database.AddInParameter(command, "ConfiguracionPaisID", DbType.Int32, entity.ConfiguracionPaisID);
@@ -60,6 +61,11 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "MobileUsarImagenFondo", DbType.Boolean, entity.MobileUsarImagenFondo);
             Context.Database.AddInParameter(command, "DesktopColorTexto", DbType.String, entity.DesktopColorTexto);
             Context.Database.AddInParameter(command, "MobileColorTexto", DbType.String, entity.MobileColorTexto);
+
+            Context.Database.AddInParameter(command, "BotonTexto1", DbType.String, entity.BotonTexto1);
+            Context.Database.AddInParameter(command, "BotonTexto2", DbType.String, entity.BotonTexto2);
+            Context.Database.AddInParameter(command, "BotonColor", DbType.String, entity.BotonColor);
+            Context.Database.AddInParameter(command, "BotonColorTexto", DbType.String, entity.BotonColorTexto);
 
             return Convert.ToInt32(Context.ExecuteScalar(command));
         }
