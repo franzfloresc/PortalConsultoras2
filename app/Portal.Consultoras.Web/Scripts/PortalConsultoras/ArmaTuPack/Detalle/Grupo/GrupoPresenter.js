@@ -12,20 +12,20 @@
     };
 
     var _init = function () {
-        var cuv = '9999';
-        _config
-            .armaTuPackProvider
-            .getPackComponentsPromise(cuv)
-            .done(function (data) {
-                if (typeof data === "undefined" || data === null ||
-                    !Array.isArray(data.Grupos) || data.Grupos.length === 0)
-                    _config.generalModule.redirectTo("/ofertas");
+        // var cuv = '9999';
+        // _config
+        //     .armaTuPackProvider
+        //     .getPackComponentsPromise(cuv)
+        //     .done(function (data) {
+        //         if (typeof data === "undefined" || data === null ||
+        //             !Array.isArray(data.Grupos) || data.Grupos.length === 0)
+        //             _config.generalModule.redirectTo("/ofertas");
 
-                _config.grupoView.renderGrupos(data);
-            })
-            .fail(function(data,error){
-                _config.generalModule.redirectTo("/ofertas");
-            });
+        //         _config.grupoView.renderGrupos(data);
+        //     })
+        //     .fail(function(data,error){
+        //         _config.generalModule.redirectTo("/ofertas");
+        //     });
     };
 
     return {
