@@ -263,8 +263,11 @@
 
         <script type="text/javascript">
 
+            var ArmaTuPackPresenter;
+
             $(document).ready(function () {
-            
+                ArmaTuPackPresenter = ArmaTuPackPresenter({ armaTuPackProvider: ArmaTuPackProvider(),cuv: 1});
+                ArmaTuPackPresenter.init();
             });
         </script>
     }
