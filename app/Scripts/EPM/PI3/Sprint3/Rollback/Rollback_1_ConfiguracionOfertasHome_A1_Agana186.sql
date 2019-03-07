@@ -11,45 +11,36 @@ print 'Inicio de eliminació de columnas'
 
 if exists(
 	select 1 from INFORMATION_SCHEMA.COLUMNS
-	where column_name = 'ColorTitulos' and table_name = 'ConfiguracionOfertasHome'
+	where column_name = 'BotonTexto1' and table_name = 'ConfiguracionOfertasHome'
 )begin
-	alter table [dbo].[ConfiguracionOfertasHome] drop column ColorTitulos
+	alter table [dbo].[ConfiguracionOfertasHome] drop column BotonTexto1
 end
 
 GO
 
 if exists(
 	select 1 from INFORMATION_SCHEMA.COLUMNS
-	where column_name = 'TextoBotonInicial' and table_name = 'ConfiguracionOfertasHome'
+	where column_name = 'BotonTexto2' and table_name = 'ConfiguracionOfertasHome'
 )begin
-	alter table [dbo].[ConfiguracionOfertasHome] drop column TextoBotonInicial
+	alter table [dbo].[ConfiguracionOfertasHome] drop column BotonTexto2
 end
 
 GO
 
 if exists(
 	select 1 from INFORMATION_SCHEMA.COLUMNS
-	where column_name = 'TextoBotonFinal' and table_name = 'ConfiguracionOfertasHome'
+	where column_name = 'BotonColor' and table_name = 'ConfiguracionOfertasHome'
 )begin
-	alter table [dbo].[ConfiguracionOfertasHome] drop column TextoBotonFinal
+	alter table [dbo].[ConfiguracionOfertasHome] drop column BotonColor
 end
 
 GO
 
 if exists(
 	select 1 from INFORMATION_SCHEMA.COLUMNS
-	where column_name = 'ColorBoton' and table_name = 'ConfiguracionOfertasHome'
+	where column_name = 'BotonColorTexto' and table_name = 'ConfiguracionOfertasHome'
 )begin
-	alter table [dbo].[ConfiguracionOfertasHome] drop column ColorBoton
-end
-
-GO
-
-if exists(
-	select 1 from INFORMATION_SCHEMA.COLUMNS
-	where column_name = 'ColorMensajeBoton' and table_name = 'ConfiguracionOfertasHome'
-)begin
-	alter table [dbo].[ConfiguracionOfertasHome] drop column ColorMensajeBoton
+	alter table [dbo].[ConfiguracionOfertasHome] drop column BotonColorTexto
 end
 
 GO

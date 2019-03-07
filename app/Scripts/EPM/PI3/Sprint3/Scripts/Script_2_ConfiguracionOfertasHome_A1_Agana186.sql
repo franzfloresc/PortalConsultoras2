@@ -47,7 +47,7 @@ begin
 	values
 	(
 		@ConfiguracionPaisID, @CampaniaID, @Orden, @Orden, null,
-		null,'Lo nuevo','Lo nuevo',null,null,
+		null,'Arma tu pack','Arma tu pack',null,null,
 		10,10,'004','004',0,
 		0,1,1,'ArmaTuPack',@Orden,
 		@Orden,null,null,0,0,
