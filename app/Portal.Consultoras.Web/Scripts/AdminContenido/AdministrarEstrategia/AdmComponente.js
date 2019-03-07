@@ -139,7 +139,7 @@
 
         $("#listShowRoomDetalle").jqGrid("clearGridData");
 
-        var ocultarGrupoEstrategia = $("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ArmaTuPack ? false : true;
+        var ocultarGrupoEstrategia = $("#ddlTipoEstrategia").find(":selected").data("codigo") != _codigoEstrategia.ArmaTuPack;
         console.log('ocultarGrupoEstrategia', ocultarGrupoEstrategia);
         var parametros = {
             estrategiaId: estrategiaId,
@@ -156,7 +156,8 @@
             postData: (parametros),
             mtype: "GET",
             contentType: "application/json; charset=utf-8",
-            colNames: ["EstrategiaProductoId", "EstrategiaId", "CampaniaID", "CUV", "Nombre", "Descripcion Catalogo", "Foto", "Marca","Grupo de estrategia" ,"", "", "", "Acciones"],
+            colNames: ["EstrategiaProductoId", "EstrategiaId", "CampaniaID", "CUV", "Nombre", "Descripcion Catalogo", "Foto", "Marca"
+                , "Nro Grupo", "Nombre Singular", "Nombre Plura", "", "", "", "Acciones"],
             colModel: [
                 { name: "EstrategiaProductoId", index: "EstrategiaProductoId", width: 50, editable: true, resizable: false, hidden: true },
                 { name: "EstrategiaId", index: "Estrategia", width: 50, editable: true, resizable: false, hidden: true },
@@ -168,7 +169,9 @@
                 { name: "ImagenProducto", index: "ImagenProducto", width: 60, editable: true, resizable: false, sortable: false, align: "center", formatter: _showImageDetalle },
                 { name: "IdMarca", index: "IdMarca", width: 50, editable: true, resizable: false, hidden: true },
 
-                { name: "DescripcionGrupo", index: "DescripcionGrupo", width: 50, editable: true, resizable: false, hidden: ocultarGrupoEstrategia },
+                { name: "Grupo", index: "Grupo", width: 50, editable: false, resizable: false, hidden: ocultarGrupoEstrategia },
+                { name: "DescripcionSingular", index: "DescripcionSingular", width: 50, editable: false, resizable: false, hidden: ocultarGrupoEstrategia },
+                { name: "DescripcionPlural", index: "DescripcionPlural", width: 50, editable: false, resizable: false, hidden: ocultarGrupoEstrategia },
 
                 { name: "Precio", index: "Precio", width: 50, editable: true, resizable: false, hidden: true },
                 { name: "PrecioValorizado", index: "PrecioValorizado", width: 50, editable: true, resizable: false, hidden: true },
@@ -236,10 +239,8 @@
 
         showDialog("DialogRegistroOfertaShowRoomDetalle");
 
-        var idEstrategia = jQuery("#list").jqGrid("getCell", idFila, "EstrategiaID");
-
         // obtener de AdmComponente
-        fnGrillaOfertaShowRoomDetalle(CampaniaID, CUV, idEstrategia);
+        fnGrillaOfertaShowRoomDetalle(CampaniaID, CUV, ID);
         return false;
     }
 

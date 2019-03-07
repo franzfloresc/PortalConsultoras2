@@ -35,6 +35,21 @@ namespace Portal.Consultoras.Web.Controllers
                 List<ServicePedido.BEEstrategiaProducto> lst = administrarEstrategiaProvider.GetEstrategiaProductoService(userData.CodigoISO, estrategiaId, codigoTipoEstrategia);
                 var estrategiaGrupoLista = administrarEstrategiaProvider.GetEstrategiaGrupoService(userData.CodigoISO, estrategiaId, codigoTipoEstrategia);
 
+                foreach (var item in lst)
+                {
+                    item.DescripcionGrupo = "-";
+                    if (!estrategiaGrupoLista.Any()) continue;
+
+                    item.Grupo = Util.Trim(item.Grupo);
+                    if (item.Grupo == "") continue;
+
+                    var find = estrategiaGrupoLista.FirstOrDefault(x => Util.Trim(x.Grupo).Equals(item.Grupo));
+                    if (find != null)
+                    {
+                        item.DescripcionGrupo = Util.Trim(find.DescripcionSingular) + " - " + Util.Trim(find.DescripcionPlural);
+                    }
+                }
+
                 var grid = new BEGrid
                 {
                     PageSize = rows,
@@ -98,7 +113,9 @@ namespace Portal.Consultoras.Web.Controllers
                                     a.Descripcion1,
                                     a.ImagenProducto,
                                     a.IdMarca.ToString(),
-                                    a.DescripcionGrupo,
+                                    a.Grupo,
+                                    a.DescripcionGrupo.Split('-')[0],
+                                    a.DescripcionGrupo.Split('-')[1],
                                     a.Precio.ToString(),
                                     a.PrecioValorizado.ToString(),
                                     a.Activo.ToString()
